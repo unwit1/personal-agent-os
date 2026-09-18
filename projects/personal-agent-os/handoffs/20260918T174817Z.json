@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-18T17:48:17.214374+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 1]\n M README.md\n M src/agent_os/mcp_server.py\n M tests/test_agent_os.py",
+    "error": ""
+  },
+  "completed": [
+    "Added MCP initialization, tool discovery, and tool-call compatibility for the regular-chat surface."
+  ],
+  "decisions": [
+    "Keep the dependency-free stdio transport while retaining raw JSON-RPC compatibility."
+  ],
+  "remaining": [
+    "Register the local STDIO server in Codex and restart the client."
+  ],
+  "validation": [
+    "MCP initialize, tools/list, and agent.context smoke test passed.",
+    "python -m unittest discover -s tests -v (13 passed)"
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

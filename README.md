@@ -98,5 +98,7 @@ pending curation after repository events. Google Docs mirroring is intentionally
 skipped until a Docs connector is configured, so it can never block canonical
 updates.
 
-This is a dependency-free JSON-RPC transport; a future MCP SDK adapter can wrap
-the same Python service without changing canonical storage.
+`agent-os mcp` is also a dependency-free MCP stdio server: it supports MCP
+initialization, tool discovery, and tool calls alongside its lightweight
+JSON-RPC compatibility operations. Configure it as a local STDIO server in
+Codex using `python agent.py mcp` from this repository.

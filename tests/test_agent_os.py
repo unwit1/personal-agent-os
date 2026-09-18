@@ -14,7 +14,7 @@ from agent_os.chat import context as chat_context
 from agent_os.chat import resolve_project
 from agent_os.cli import parser
 from agent_os.index import rebuild, search
-from agent_os.mcp_server import methods
+from agent_os.mcp_server import _handle_mcp, methods
 from agent_os.inventory import scan
 from agent_os.registry import get_project, identify_project, load_state, projects
 from agent_os.review import assess
@@ -112,6 +112,15 @@ class AgentOSTests(unittest.TestCase):
         available = methods()
         for name in ("agent.context", "agent.capture_candidates", "agent.search", "agent.project_status", "agent.skills_match", "agent.latest_handoff"):
             self.assertIn(name, available)
+
+    def test_mcp_initialization_and_tool_discovery(self) -> None:
+        available = methods()
+        initialized = _handle_mcp({"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2025-06-18"}}, available)
+        self.assertEqual(initialized["result"]["serverInfo"]["name"], "personal-agent-os")
+        tools = _handle_mcp({"jsonrpc": "2.0", "id": 2, "method": "tools/list"}, available)
+        names = {tool["name"] for tool in tools["result"]["tools"]}
+        self.assertIn("agent.context", names)
+        self.assertIsNone(_handle_mcp({"jsonrpc": "2.0", "method": "notifications/initialized"}, available))
 
     def test_review_escalates(self) -> None:
         result = assess(["schemas/memory.schema.json"], architecture_change=True)
