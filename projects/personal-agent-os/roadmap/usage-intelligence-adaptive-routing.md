@@ -149,6 +149,65 @@ Examples:
 
 Prefer a deterministic utility over an LLM when it reliably solves the task.
 
+
+## Shared document intelligence and local OCR cache
+
+Add a reusable document-intelligence layer so projects do not independently repeat PDF parsing, OCR routing, page fingerprinting, classification prepasses, and ambiguity detection.
+
+The shared layer should reuse proven scanner primitives from HR-GUI where practical rather than creating a second independent scanner implementation. It should expose a small provider-neutral interface that other projects and agents can call for document structure and classification support while preserving project-specific business rules inside the owning project.
+
+Recommended responsibilities:
+
+- content-addressed file and page hashing;
+- cheap blank-page detection;
+- embedded-text extraction before OCR;
+- OCR only when embedded text is insufficient;
+- page/document structural fingerprints;
+- reusable confidence and ambiguity signals;
+- cache lookup before repeated expensive processing;
+- dependency/version-aware invalidation so a classifier change does not force OCR to rerun;
+- deterministic classification and fingerprint matching before any LLM escalation;
+- sanitized new-form/variant candidate generation for the existing form-intake system;
+- compact document-processing telemetry such as page counts, blank skips, embedded-text hits, OCR pages, cache hits, local classifications, ambiguous pages, and AI escalations.
+
+### Work-document privacy boundary
+
+The persistent OCR cache is strictly workstation-local because it may contain work documents or derived OCR text.
+
+Requirements:
+
+- never commit the OCR cache to Git;
+- never sync the OCR cache through GitHub, Google Drive, Google Docs, consumer cloud storage, or other cross-machine services;
+- never send cached raw OCR text, rendered pages, source documents, employee data, or completed field values to an external AI/model API;
+- store the cache only on the approved work machine in a gitignored/local-runtime location;
+- treat OCR text, page images, document hashes linked to private files, and derived private classifications as local runtime data;
+- allow local cache deletion, size limits, expiry/retention policy, and full rebuild;
+- ensure the application remains correct when the cache is absent, because the cache is an optimization rather than canonical state;
+- permit only sanitized template structure, reviewed form fingerprints, schemas, tests, and privacy-safe aggregate metrics to become canonical Git-backed Agent OS knowledge.
+
+A useful split is:
+
+local private cache -> raw OCR/extracted text, page renders, private page hashes, private classifications, runtime metadata;
+
+Git-backed Agent OS -> sanitized form fingerprints, approved structural anchors, classifier rules, schemas, synthetic tests, architecture decisions, and redacted aggregate performance summaries.
+
+### Escalation behavior
+
+Document processing should scale with novelty and ambiguity rather than raw page count.
+
+Preferred path:
+
+1. cache hit;
+2. deterministic blank/text extraction path;
+3. local OCR when required;
+4. known fingerprint or deterministic classifier;
+5. sanitized local ambiguity analysis;
+6. only genuinely unresolved, safely shareable structural metadata may be offered to an Agent-OS-controlled model path.
+
+For work documents, external model escalation must not include the source document, page image, raw OCR text, employee identity, completed values, or other private content. If a case cannot be safely reduced to sanitized structural metadata, it stays local/manual.
+
+The system should learn from reviewed unknown-form cases by producing candidate fingerprints or deterministic rules, then validating them before promotion. The goal is for repeated documents to require progressively less OCR, less model reasoning, and less human review.
+
 ## Usage optimizer
 
 Provide periodic analysis such as:
@@ -204,6 +263,15 @@ ChatGPT Work on a strong model -> MCP call to Agent OS -> Agent OS chooses deter
 - usage summary/top-cost commands;
 - tests with synthetic traces.
 
+### Phase 1b — shared document intelligence and local cache
+- reusable document-intelligence interface built around existing scanner primitives where practical;
+- persistent content-addressed page/file cache on the approved work machine only;
+- cache versioning and dependency-aware invalidation;
+- embedded-text-first and OCR-only-when-needed routing;
+- document-specific privacy-safe telemetry;
+- sanitized unknown-form/variant handoff into the existing form-intake system;
+- synthetic tests proving cache reuse, invalidation, privacy boundaries, and correct no-cache fallback.
+
 ### Phase 2 — adaptive routing
 - capability classes;
 - provider adapters;
@@ -231,6 +299,11 @@ Development should not consider this complete until:
 
 - telemetry is privacy-safe and deletable;
 - raw telemetry is gitignored/outside canonical Git state;
+- persistent OCR/document caches are workstation-local only, gitignored, deletable, and never treated as canonical state;
+- raw OCR text, rendered work-document pages, employee data, and completed field values never enter Git, Google services, cloud sync, or external model calls;
+- repeated identical pages can reuse cached extraction/OCR results without rerunning OCR;
+- cache invalidation is version/dependency aware so downstream classifier changes do not unnecessarily rerun upstream OCR;
+- document intelligence remains usable when the cache is empty or deleted;
 - routing is provider-neutral;
 - deterministic execution is preferred where reliable;
 - escalation works on validator/test failure;
