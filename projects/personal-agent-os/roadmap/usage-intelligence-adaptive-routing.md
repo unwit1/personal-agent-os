@@ -191,6 +191,35 @@ local private cache -> raw OCR/extracted text, page renders, private page hashes
 
 Git-backed Agent OS -> sanitized form fingerprints, approved structural anchors, classifier rules, schemas, synthetic tests, architecture decisions, and redacted aggregate performance summaries.
 
+
+### HR-GUI scan-time optimization path
+
+For the existing HR-GUI scanner, implement document-intelligence performance work in this order so accuracy remains the primary constraint:
+
+1. persistent exact-page OCR cache keyed by content hash, so an unchanged page never needs OCR twice across GUI restarts or repeated development runs;
+2. dependency/version-aware cache invalidation, so changes to downstream fingerprint, date, naming, or packet logic can reuse valid upstream OCR/extraction results;
+3. template-level reuse for new scans of already-known forms, using structural/fingerprint/perceptual similarity without assuming separately scanned pages will have identical byte hashes;
+4. targeted field-zone OCR for strongly recognized templates, so the scanner can read only the variable fields needed for employee/date/business rules instead of re-OCRing static boilerplate;
+5. only after measuring the above, consider bounded parallel page analysis or other concurrency changes.
+
+The exact-page cache and template-level reuse serve different purposes. Exact hashing accelerates identical files/pages and repeat development runs. Template recognition accelerates newly scanned copies of the same physical form, where scanner noise, skew, compression, or alignment makes the page bytes differ.
+
+Known-template optimization must remain conservative: a template match may skip repeated form-identification work, but must not reuse employee-specific values from another document. Variable zones must be freshly read when required.
+
+Performance telemetry should report, at minimum:
+
+- exact cache-hit pages;
+- template-reuse pages;
+- embedded-text pages;
+- full-page OCR pages;
+- targeted/zone-OCR pages;
+- OCR seconds avoided when measurable;
+- pages requiring full re-analysis;
+- cache invalidations by component/version;
+- classification accuracy/regression results alongside speed metrics.
+
+The intended outcome is that repeated GUI scans and classifier-development passes become progressively faster without allowing speed optimizations to override employee identity, document-boundary, form-type, semantic-date, or privacy safeguards.
+
 ### Escalation behavior
 
 Document processing should scale with novelty and ambiguity rather than raw page count.
@@ -266,6 +295,9 @@ ChatGPT Work on a strong model -> MCP call to Agent OS -> Agent OS chooses deter
 ### Phase 1b — shared document intelligence and local cache
 - reusable document-intelligence interface built around existing scanner primitives where practical;
 - persistent content-addressed page/file cache on the approved work machine only;
+- exact-page cache reuse across GUI restarts and repeated development runs;
+- template-level reuse for separately scanned copies of known forms;
+- targeted field-zone OCR for high-confidence known templates;
 - cache versioning and dependency-aware invalidation;
 - embedded-text-first and OCR-only-when-needed routing;
 - document-specific privacy-safe telemetry;
@@ -302,6 +334,8 @@ Development should not consider this complete until:
 - persistent OCR/document caches are workstation-local only, gitignored, deletable, and never treated as canonical state;
 - raw OCR text, rendered work-document pages, employee data, and completed field values never enter Git, Google services, cloud sync, or external model calls;
 - repeated identical pages can reuse cached extraction/OCR results without rerunning OCR;
+- newly scanned copies of known templates can reuse safe structural/template knowledge while freshly reading variable employee/date fields as required;
+- high-confidence known templates can use targeted field-zone OCR when validated to preserve accuracy;
 - cache invalidation is version/dependency aware so downstream classifier changes do not unnecessarily rerun upstream OCR;
 - document intelligence remains usable when the cache is empty or deleted;
 - routing is provider-neutral;
