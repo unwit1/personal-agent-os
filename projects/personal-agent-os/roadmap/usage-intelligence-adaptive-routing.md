@@ -220,6 +220,64 @@ Performance telemetry should report, at minimum:
 
 The intended outcome is that repeated GUI scans and classifier-development passes become progressively faster without allowing speed optimizations to override employee identity, document-boundary, form-type, semantic-date, or privacy safeguards.
 
+
+### Scanner learning loop
+
+Add a privacy-safe learning system for document classification and scan-time optimization. The scanner should learn from human corrections and repeated local evidence, but no single correction may silently rewrite production behavior.
+
+Core learning capabilities:
+
+- correction capture: when a human changes form type, document boundary, date interpretation, employee association, or review outcome, record a local learning event with the prior prediction, confidence, corrected result, and safe structural evidence;
+- active-learning review queue: prioritize low-confidence, high-ambiguity, novel, or high-disagreement pages instead of asking humans to verify obvious high-confidence cases;
+- automatic regression candidates: verified mistakes should produce local regression candidates so future classifier changes can be tested against the same failure mode;
+- confusion-pair learning: track form families that are repeatedly confused and learn pair-specific discriminators, anchors, exclusions, or thresholds;
+- new-form discovery: cluster repeated unknown or low-confidence pages by sanitized structural/template similarity and propose new form families or variants for explicit review;
+- template-version detection: distinguish a known form family from materially changed yearly/vendor/template revisions and propose a new version/variant rather than forcing a stale fingerprint;
+- field-zone learning: for well-validated templates, learn stable regions for employee name, date, signature, identifier, or other required variables so future runs can use targeted OCR;
+- adaptive thresholds: learn form-specific or confusion-pair-specific confidence thresholds from validated outcomes instead of relying only on one global threshold;
+- cheapest-safe-route learning: use performance and correction telemetry to learn whether a known form can be handled by cache reuse, embedded text, title/anchor probing, zone OCR, or full-page OCR while preserving accuracy;
+- promotion gates: candidate rules, fingerprints, thresholds, zones, and routing optimizations must pass replay/regression evaluation before becoming production defaults.
+
+Preferred lifecycle:
+
+human correction or repeated uncertainty
+-> local learning event
+-> candidate rule/fingerprint/zone/threshold
+-> replay against synthetic/sanitized and approved local regression data
+-> compare accuracy, correction rate, latency, OCR work, and false-positive risk
+-> explicit promotion or rejection.
+
+The system must be able to explain the observable evidence behind a candidate change (for example a recurring title anchor, confusion pair, template layout, or measured threshold) without storing or exposing private chain-of-thought.
+
+### Learning-data privacy boundary
+
+Work-derived learning data is local by default.
+
+Keep workstation-local and gitignored:
+
+- raw corrections tied to identifiable work documents;
+- source page/file hashes that can be linked back to private documents;
+- OCR text and page images;
+- employee names or identifiers;
+- private field-zone samples;
+- local confusion examples containing real work content;
+- local regression fixtures based on real employee documents;
+- detailed correction/event logs.
+
+Only reviewed, sanitized outputs may become Git-backed Agent OS knowledge, such as:
+
+- normalized form-family or template-version identifiers;
+- sanitized anchors and field labels;
+- approved structural fingerprints;
+- generic confusion-pair rules;
+- safe field-zone geometry derived from blank/reference templates or otherwise sanitized evidence;
+- validated thresholds;
+- synthetic regression cases;
+- aggregate accuracy/performance metrics;
+- classifier and routing policies.
+
+If a learning candidate cannot be represented safely without retaining work-derived content, keep it local and require local/manual use rather than promoting it to shared Agent OS state.
+
 ### Escalation behavior
 
 Document processing should scale with novelty and ambiguity rather than raw page count.
@@ -304,6 +362,18 @@ ChatGPT Work on a strong model -> MCP call to Agent OS -> Agent OS chooses deter
 - sanitized unknown-form/variant handoff into the existing form-intake system;
 - synthetic tests proving cache reuse, invalidation, privacy boundaries, and correct no-cache fallback.
 
+### Phase 1c — scanner learning loop
+- local correction-event capture and review queue;
+- active-learning prioritization for uncertain/novel pages;
+- automatic regression-candidate creation from verified mistakes;
+- confusion-pair and template-version tracking;
+- candidate new-form/variant clustering;
+- field-zone learning for validated templates;
+- adaptive per-form/per-pair confidence thresholds;
+- cheapest-safe-route learning from scan-time telemetry;
+- replay/evaluation and explicit promotion/rejection gates;
+- privacy tests proving raw work-derived learning events remain local and only sanitized outputs can become canonical.
+
 ### Phase 2 — adaptive routing
 - capability classes;
 - provider adapters;
@@ -336,6 +406,11 @@ Development should not consider this complete until:
 - repeated identical pages can reuse cached extraction/OCR results without rerunning OCR;
 - newly scanned copies of known templates can reuse safe structural/template knowledge while freshly reading variable employee/date fields as required;
 - high-confidence known templates can use targeted field-zone OCR when validated to preserve accuracy;
+- human corrections create local learning candidates rather than silently mutating production rules;
+- verified scanner mistakes can become regression candidates and are replayed before related rules are promoted;
+- repeated confusion pairs, template revisions, and unknown-form clusters can produce explicit review candidates;
+- form-specific thresholds and cheapest-safe processing routes are learned only from validated outcomes;
+- raw work-derived correction logs, real-document regressions, field samples, OCR text, and private page hashes remain workstation-local and gitignored;
 - cache invalidation is version/dependency aware so downstream classifier changes do not unnecessarily rerun upstream OCR;
 - document intelligence remains usable when the cache is empty or deleted;
 - routing is provider-neutral;
