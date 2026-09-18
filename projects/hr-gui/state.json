@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "project": "hr-gui",
+  "status": "active",
+  "updated_at": "2026-09-18",
+  "summary": "Portable Windows HR document intake, local OCR, tracking, and reporting application.",
+  "repository": "https://github.com/unwit1/HR-GUI.git",
+  "default_branch": "main",
+  "current_priorities": [
+    "Fix the two-digit year normalization regression.",
+    "Fix W-4 classification leaking into criminal-history boundaries.",
+    "Prevent official driving-history records from classifying as driver licenses."
+  ],
+  "important_paths": [
+    "PROJECT_GUIDE.md",
+    "docs/PROJECT_CONTEXT.md",
+    "docs/HANDOFF.md",
+    "HANDOFF.md",
+    "ROADMAP.md",
+    "modules/scanner/engine/",
+    "tests/"
+  ],
+  "context_files": [
+    "PROJECT_GUIDE.md",
+    "docs/PROJECT_CONTEXT.md",
+    "docs/HANDOFF.md",
+    "HANDOFF.md",
+    "ROADMAP.md"
+  ],
+  "skill_roots": [".agents/skills"],
+  "validation_commands": [
+    "python -m unittest discover -s tests -v",
+    "python scripts/check_repository_safety.py"
+  ],
+  "constraints": [
+    "Use synthetic or sanitized fixtures only.",
+    "Never read, stage, upload, or summarize live HR data or PII-bearing artifacts.",
+    "Preserve the existing uncommitted change in modules/scanner/engine/config.py.",
+    "Project-local PROJECT_GUIDE.md is authoritative."
+  ],
+  "provenance": {
+    "source_files": ["README.md", "PROJECT_GUIDE.md", "docs/HANDOFF.md", "HANDOFF.md", "ROADMAP.md"],
+    "observed_commit": "7f845d7",
+    "observed_at": "2026-09-18"
+  }
+}

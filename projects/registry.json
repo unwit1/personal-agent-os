@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "projects": [
+    {
+      "id": "personal-agent-os",
+      "name": "Personal Agent OS",
+      "path": "C:\\Users\\HR.RTEC\\Projects\\Personal Agent",
+      "repository": null,
+      "classification": "supporting",
+      "state_file": "projects/personal-agent-os/state.json",
+      "canonical_owner": "this_repository",
+      "privacy": "Store durable development metadata only; never store credentials or raw private history."
+    },
+    {
+      "id": "hr-gui",
+      "name": "HR GUI",
+      "path": "C:\\Users\\HR.RTEC\\Projects\\HR GUI",
+      "repository": "https://github.com/unwit1/HR-GUI.git",
+      "classification": "active",
+      "state_file": "projects/hr-gui/state.json",
+      "canonical_owner": "project_repository",
+      "privacy": "Never ingest or transmit live HR data, OCR text, local configuration, or employee artifacts."
+    }
+  ]
+}

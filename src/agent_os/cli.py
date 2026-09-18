@@ -1,0 +1,95 @@
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+
+from .adapters import sync_adapters
+from .compiler import compile_context
+from .handoffs import create_handoff
+from .index import rebuild, search
+from .mcp_server import serve
+from .registry import get_project, git_status, identify_project, load_state, projects
+from .review import assess
+from .validation import validate
+
+
+def _print(value: object) -> None:
+    print(json.dumps(value, indent=2, default=str, ensure_ascii=False))
+
+
+def parser() -> argparse.ArgumentParser:
+    root = argparse.ArgumentParser(prog="agent-os")
+    commands = root.add_subparsers(dest="command", required=True)
+    commands.add_parser("projects")
+    commands.add_parser("index")
+    commands.add_parser("init")
+    commands.add_parser("sync-adapters")
+    commands.add_parser("validate")
+    commands.add_parser("mcp")
+    identify = commands.add_parser("identify")
+    identify.add_argument("path", nargs="?", default=".")
+    status = commands.add_parser("status")
+    status.add_argument("project", nargs="?")
+    lookup = commands.add_parser("search")
+    lookup.add_argument("query")
+    lookup.add_argument("--project")
+    lookup.add_argument("--limit", type=int, default=8)
+    context = commands.add_parser("context")
+    context.add_argument("project")
+    context.add_argument("task")
+    context.add_argument("--token-budget", type=int, default=4000)
+    handoff = commands.add_parser("handoff")
+    handoff.add_argument("project")
+    handoff.add_argument("--completed", action="append", default=[])
+    handoff.add_argument("--remaining", action="append", default=[])
+    handoff.add_argument("--validation", action="append", default=[])
+    handoff.add_argument("--decision", action="append", default=[])
+    review = commands.add_parser("review")
+    review.add_argument("--changed-file", action="append", default=[])
+    review.add_argument("--tests-failed", action="store_true")
+    review.add_argument("--architecture-change", action="store_true")
+    return root
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = parser().parse_args(argv)
+    try:
+        if args.command == "projects":
+            _print(projects())
+        elif args.command == "index":
+            _print(rebuild())
+        elif args.command == "init":
+            written = sync_adapters()
+            index_result = rebuild()
+            validation_result = validate()
+            _print({"adapters": written, "index": index_result, "validation": validation_result})
+            return 0 if validation_result["ok"] else 1
+        elif args.command == "sync-adapters":
+            _print({"written": sync_adapters()})
+        elif args.command == "validate":
+            result = validate()
+            _print(result)
+            return 0 if result["ok"] else 1
+        elif args.command == "mcp":
+            return serve()
+        elif args.command == "identify":
+            _print(identify_project(Path(args.path)))
+        elif args.command == "status":
+            project = get_project(args.project) if args.project else identify_project(Path.cwd())
+            if not project:
+                raise KeyError("Current directory is not a registered project; specify a project id")
+            _print({"project": project, "state": load_state(project), "git": git_status(project)})
+        elif args.command == "search":
+            _print(search(args.query, args.project, args.limit))
+        elif args.command == "context":
+            _print(compile_context(args.project, args.task, args.token_budget))
+        elif args.command == "handoff":
+            path = create_handoff(args.project, args.completed, args.remaining, args.validation, args.decision)
+            _print({"created": str(path)})
+        elif args.command == "review":
+            _print(assess(args.changed_file, args.tests_failed, args.architecture_change))
+    except (KeyError, OSError, ValueError) as exc:
+        _print({"error": str(exc)})
+        return 2
+    return 0

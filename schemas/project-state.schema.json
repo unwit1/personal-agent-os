@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Project state",
+  "type": "object",
+  "required": ["schema_version", "project", "status", "summary", "context_files", "validation_commands"],
+  "properties": {
+    "schema_version": {"type": "integer", "minimum": 1},
+    "project": {"type": "string", "minLength": 1},
+    "status": {"enum": ["active", "supporting", "archived"]},
+    "summary": {"type": "string", "minLength": 1},
+    "context_files": {"type": "array", "items": {"type": "string"}},
+    "validation_commands": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

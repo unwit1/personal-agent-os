@@ -1,0 +1,8 @@
+.agent-os/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+.bootstrap_staging_v3/
+.tmp/

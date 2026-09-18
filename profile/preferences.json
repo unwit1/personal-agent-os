@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-18",
+  "preferences": {
+    "canonical_memory": "git",
+    "vendor_neutral": true,
+    "preferred_standard_interface": "mcp_or_json_rpc_stdio",
+    "progressive_disclosure": true,
+    "retrieve_only_relevant_context": true,
+    "avoid_broad_history_injection": true,
+    "deterministic_first": true,
+    "candidate_promotion_requires_validation": true,
+    "compact_handoffs": true,
+    "sync_before_meaningful_work": true
+  },
+  "provenance": [
+    {
+      "source": "bootstrap/context/current_preferences_seed.yaml",
+      "captured_at": "2026-09-18",
+      "status": "seeded"
+    }
+  ]
+}

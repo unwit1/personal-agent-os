@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "project": "hr-gui",
+  "created_at": "2026-09-18T14:01:24.029568+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 1]\n M modules/scanner/engine/config.py",
+    "error": ""
+  },
+  "completed": [
+    "Registered HR GUI as the first Personal Agent OS integration without modifying its checkout.",
+    "Confirmed focused context retrieval preserves the existing dirty Git state and selectively loads the scanner regression skill."
+  ],
+  "decisions": [
+    "Keep HR GUI policy, memory, handoffs, and skills project-local; store only routing metadata centrally."
+  ],
+  "remaining": [
+    "Use a separately authorized HR GUI development task to fix the three documented scanner regressions."
+  ],
+  "validation": [
+    "Personal Agent OS unit tests passed.",
+    "Context compilation retrieved project state, Git status, search matches, and a matched project-local skill."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

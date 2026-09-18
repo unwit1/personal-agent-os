@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "status": "supporting",
+  "updated_at": "2026-09-18",
+  "summary": "Git-backed routing, context compilation, durable memory, skill discovery, and handoff infrastructure for coding agents.",
+  "repository": null,
+  "default_branch": "main",
+  "current_priorities": [
+    "Use the MVP with real development tasks and refine retrieval based on evidence.",
+    "Add a hosted private GitHub remote when explicitly authorized.",
+    "Add an official MCP SDK adapter if a configured client requires protocol-level MCP compatibility."
+  ],
+  "important_paths": [
+    "README.md",
+    "policy/CANONICAL_AGENT_POLICY.md",
+    "src/agent_os/",
+    "projects/registry.json",
+    "tests/"
+  ],
+  "context_files": [
+    "README.md",
+    "policy/CANONICAL_AGENT_POLICY.md",
+    "migrations/2026-09-18-initial-inventory.md"
+  ],
+  "skill_roots": ["skills"],
+  "validation_commands": [
+    "python -m unittest discover -s tests -v",
+    "python agent.py validate"
+  ],
+  "constraints": [
+    "Canonical state must remain reviewable in Git.",
+    "Derived indexes must be rebuildable.",
+    "Do not preload raw history or all project content."
+  ],
+  "provenance": {
+    "source_files": ["personal_agent_os_bootstrap_v3.zip"],
+    "observed_at": "2026-09-18"
+  }
+}
