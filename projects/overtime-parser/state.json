@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "project": "overtime-parser",
+  "status": "active",
+  "updated_at": "2026-09-18",
+  "summary": "Local drag-and-drop parser and reporting application for ADP overtime exports.",
+  "repository": null,
+  "current_priorities": ["Preserve payroll-data privacy and deterministic reporting behavior."],
+  "important_paths": ["app/README.md", "app/main.py", "app/parser.py", "app/database.py", "app/report.py", "app/roster.py", "app/trends.py"],
+  "context_files": [],
+  "skill_roots": [],
+  "validation_commands": ["python -m py_compile app/main.py app/parser.py app/database.py app/report.py app/roster.py app/trends.py"],
+  "constraints": [
+    "Use synthetic payroll and roster fixtures only.",
+    "Never read or index Employee Daily Totals exports, overtime.db, reports, rosters, or employee-level output.",
+    "Do not rebuild or replace the executable unless requested."
+  ],
+  "provenance": {"source_files": ["app/README.md", "app/requirements.txt"], "observed_at": "2026-09-18"}
+}

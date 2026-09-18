@@ -8,6 +8,7 @@ from typing import Any
 from .adapters import ADAPTER
 from .paths import ROOT
 from .registry import load_state, projects
+from .routing import status as routing_status
 from .skills import discover
 from .storage import load_json
 
@@ -125,5 +126,12 @@ def validate() -> dict[str, Any]:
         for label, pattern in SECRET_PATTERNS.items():
             if pattern.search(text):
                 errors.append(f"possible {label}: {path.relative_to(ROOT)}")
+
+    for item in routing_status():
+        checked += 1
+        if not item["exists"]:
+            warnings.append(f"routing adapter is not installed: {item['destination']}")
+        elif not item["matches"]:
+            warnings.append(f"routing adapter differs from canonical source: {item['destination']}")
 
     return {"ok": not errors, "errors": errors, "warnings": warnings, "checked": checked}

@@ -4,11 +4,12 @@
   "status": "supporting",
   "updated_at": "2026-09-18",
   "summary": "Git-backed routing, context compilation, durable memory, skill discovery, and handoff infrastructure for coding agents.",
-  "repository": null,
+  "repository": "https://github.com/unwit1/personal-agent-os.git",
   "default_branch": "main",
   "current_priorities": [
     "Use the MVP with real development tasks and refine retrieval based on evidence.",
-    "Add a hosted private GitHub remote when explicitly authorized.",
+    "Keep the private GitHub repository synchronized after material Agent OS updates.",
+    "Connect the private repository to Codex Cloud from an authenticated ChatGPT session.",
     "Add an official MCP SDK adapter if a configured client requires protocol-level MCP compatibility."
   ],
   "important_paths": [
@@ -23,7 +24,7 @@
     "policy/CANONICAL_AGENT_POLICY.md",
     "migrations/2026-09-18-initial-inventory.md"
   ],
-  "skill_roots": ["skills"],
+  "skill_roots": [".agents/skills", "skills"],
   "validation_commands": [
     "python -m unittest discover -s tests -v",
     "python agent.py validate"

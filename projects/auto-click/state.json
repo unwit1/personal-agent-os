@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "project": "auto-click",
+  "status": "supporting",
+  "updated_at": "2026-09-18",
+  "summary": "Local Playwright utility that runs configured browser actions on a Windows Task Scheduler cadence.",
+  "repository": null,
+  "current_priorities": ["Keep selectors and scheduling reliable without exposing authentication state."],
+  "important_paths": ["README.md", "automator.py", "setup_schedule.py", "remove_schedule.py"],
+  "context_files": ["README.md"],
+  "skill_roots": [],
+  "validation_commands": ["python -m py_compile automator.py setup_schedule.py remove_schedule.py"],
+  "constraints": [
+    "Never read, index, commit, or transmit config.json.",
+    "Never inspect or copy browser_profile or logs.",
+    "Do not modify scheduled tasks unless the active request explicitly asks for it."
+  ],
+  "provenance": {"source_files": ["README.md", "requirements.txt"], "observed_at": "2026-09-18"}
+}

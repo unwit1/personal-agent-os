@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "project": "tes-tagger",
+  "status": "active",
+  "updated_at": "2026-09-18",
+  "summary": "Local Streamlit tool that imports Elder Scrolls books and applies reviewable taxonomy tags.",
+  "repository": null,
+  "current_priorities": [
+    "Validate the binary parser against real-world plugin variants.",
+    "Improve batch import and review ergonomics only when usage justifies it."
+  ],
+  "important_paths": ["README.md", "app.py", "app/core/", "tests/"],
+  "context_files": ["README.md"],
+  "skill_roots": [],
+  "validation_commands": ["pytest"],
+  "constraints": [
+    "Use the mock provider for routine validation when model calls are unnecessary.",
+    "Never read or index API keys, settings.json, uploaded plugins, or generated XLSX databases without explicit scope.",
+    "Tagging suggestions require human review before becoming taxonomy entries."
+  ],
+  "provenance": {"source_files": ["README.md", "requirements.txt"], "observed_at": "2026-09-18"}
+}

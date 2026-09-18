@@ -6,11 +6,12 @@ Inventory date: 2026-09-18
 
 - **HR GUI** — active Git repository with a GitHub remote, canonical project
   guide, compact adapters, handoffs, memory, tests, and repo-local skills.
-- **Job Applicant Dashboard** — local non-Git project; contains business data
-  artifacts and was not ingested.
-- **AutoClick**, **OvertimeParser**, **ScanRenamer**, and **TES Tagger** — local
-  projects without Git metadata detected at inventory time. Registered later
-  only after ownership, privacy, and active status are reviewed.
+- **Job Applicant Dashboard** — active local non-Git project; registered with a
+  strict applicant-data boundary. Only compact central state is indexed by default.
+- **AutoClick**, **OvertimeParser**, and **TES Tagger** — registered local projects
+  with project-specific secret/data exclusions.
+- **ScanRenamer** — registered as a candidate because the directory is empty and
+  its intended scope cannot safely be inferred from its name.
 
 ## Agent infrastructure found
 
@@ -29,7 +30,8 @@ Inventory date: 2026-09-18
 - No legacy file was moved, deleted, or rewritten.
 - No HR data, spreadsheets, runtime configuration, logs, or OCR artifacts were read
   or indexed.
-- GitHub repository creation and push remain pending explicit user authorization.
+- The Personal Agent OS is hosted privately at
+  `https://github.com/unwit1/personal-agent-os` and local routing adapters were installed.
 
 ## Legacy-to-canonical mapping
 

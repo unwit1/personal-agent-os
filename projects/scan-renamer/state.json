@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "project": "scan-renamer",
+  "status": "candidate",
+  "updated_at": "2026-09-18",
+  "summary": "Reserved local project directory with no implementation files observed during inventory.",
+  "repository": null,
+  "current_priorities": ["Clarify scope before implementation or migration."],
+  "important_paths": [],
+  "context_files": [],
+  "skill_roots": [],
+  "validation_commands": [],
+  "constraints": ["Do not infer intended behavior from the directory name alone.", "Treat future scanned documents as private local data."],
+  "provenance": {"source_files": [], "observed_at": "2026-09-18"}
+}

@@ -9,6 +9,10 @@ handoffs, and skills remain in that repository. This repository stores routing
 metadata and retrieves only the files relevant to a task. It does not ingest HR
 documents, OCR output, employee data, or other private runtime artifacts.
 
+The registry also routes AutoClick, Job Applicant Dashboard, OvertimeParser,
+TES Tagger, and the reserved ScanRenamer directory. Each integration has an
+explicit privacy boundary; runtime business data is excluded from indexing.
+
 ## Start development
 
 ```powershell
@@ -23,6 +27,9 @@ environment and globally available command, create a venv and run
 ## Core commands
 
 - `agent-os projects` lists known projects.
+- `agent-os scan-projects` detects new or moved folders without reading data files.
+- `agent-os install-routing` safely installs missing global and project adapters.
+- `agent-os routing-status` verifies installed adapters against canonical sources.
 - `agent-os init` synchronizes adapters, rebuilds the index, and validates setup.
 - `agent-os status [project]` shows compact state and Git status.
 - `agent-os search QUERY` searches the rebuildable lexical index.
@@ -45,11 +52,13 @@ Raw conversation history is deliberately outside the default context path.
 2. Install Python 3.11 or newer.
 3. Install this project with `python -m pip install -e .`.
 4. Update local project paths in `projects/registry.json` if necessary.
-5. Run `agent-os validate`, then `agent-os index`.
-6. Configure a client with the compact adapter in `AGENTS.md` or `CLAUDE.md`.
+5. Run `agent-os install-routing`, then restart Codex so global instructions and skills reload.
+6. Run `agent-os validate`, then `agent-os index`.
 
 No database backup is required. Re-running `agent-os index` restores derived
 search state from Git-backed files.
+
+Private canonical remote: `https://github.com/unwit1/personal-agent-os`.
 
 ## Client integration
 

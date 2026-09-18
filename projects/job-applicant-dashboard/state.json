@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "project": "job-applicant-dashboard",
+  "status": "active",
+  "updated_at": "2026-09-18",
+  "summary": "Offline-first Tkinter application for applicant intake, triage, status tracking, and human-reviewed email drafting.",
+  "repository": null,
+  "current_priorities": [
+    "Preserve the separation between hiring materials and voluntary EEO/Affirmative Action data.",
+    "Add synthetic tests around business logic before substantial changes.",
+    "Keep all outbound emails as human-reviewed drafts."
+  ],
+  "important_paths": ["README.md", "CLAUDE.md", "process_applications.py", "dashboard_core.py", "rtec_dashboard.py", "screening_rules.py"],
+  "context_files": [],
+  "skill_roots": [".claude/skills"],
+  "validation_commands": ["python -m py_compile process_applications.py dashboard_core.py rtec_dashboard.py screening_rules.py"],
+  "constraints": [
+    "Use synthetic data only for development and tests.",
+    "Never read applicant spreadsheets, PDFs, resumes, database rows, caches, drafts, sent email, backups, or credentials.",
+    "Never send applicant communications automatically.",
+    "README.md is current for runtime behavior; historical setup documents are secondary references."
+  ],
+  "provenance": {"source_files": ["README.md", "CLAUDE.md"], "observed_at": "2026-09-18"}
+}

@@ -8,9 +8,12 @@ from .adapters import sync_adapters
 from .compiler import compile_context
 from .handoffs import create_handoff
 from .index import rebuild, search
+from .inventory import scan
 from .mcp_server import serve
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .review import assess
+from .routing import install as install_routing
+from .routing import status as routing_status
 from .validation import validate
 
 
@@ -22,9 +25,13 @@ def parser() -> argparse.ArgumentParser:
     root = argparse.ArgumentParser(prog="agent-os")
     commands = root.add_subparsers(dest="command", required=True)
     commands.add_parser("projects")
+    scan_projects = commands.add_parser("scan-projects")
+    scan_projects.add_argument("--root")
     commands.add_parser("index")
     commands.add_parser("init")
     commands.add_parser("sync-adapters")
+    commands.add_parser("install-routing")
+    commands.add_parser("routing-status")
     commands.add_parser("validate")
     commands.add_parser("mcp")
     identify = commands.add_parser("identify")
@@ -57,6 +64,8 @@ def main(argv: list[str] | None = None) -> int:
     try:
         if args.command == "projects":
             _print(projects())
+        elif args.command == "scan-projects":
+            _print(scan(Path(args.root) if args.root else None))
         elif args.command == "index":
             _print(rebuild())
         elif args.command == "init":
@@ -67,6 +76,12 @@ def main(argv: list[str] | None = None) -> int:
             return 0 if validation_result["ok"] else 1
         elif args.command == "sync-adapters":
             _print({"written": sync_adapters()})
+        elif args.command == "install-routing":
+            result = install_routing()
+            _print(result)
+            return 1 if result["conflicts"] else 0
+        elif args.command == "routing-status":
+            _print(routing_status())
         elif args.command == "validate":
             result = validate()
             _print(result)

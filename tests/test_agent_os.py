@@ -7,9 +7,12 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from agent_os.compiler import compile_context
+from agent_os.cli import parser
 from agent_os.index import rebuild, search
-from agent_os.registry import get_project, identify_project, load_state
+from agent_os.inventory import scan
+from agent_os.registry import get_project, identify_project, load_state, projects
 from agent_os.review import assess
+from agent_os.routing import targets
 from agent_os.skills import discover, match
 from agent_os.validation import validate
 
@@ -21,6 +24,22 @@ class AgentOSTests(unittest.TestCase):
         self.assertEqual(load_state(project)["project"], "hr-gui")
         self.assertEqual(identify_project(Path(project["path"]))["id"], "hr-gui")
         self.assertEqual(identify_project(Path(__file__).resolve())["id"], "personal-agent-os")
+        self.assertEqual(len({item["id"] for item in projects()}), 7)
+
+    def test_project_inventory_is_fully_registered(self) -> None:
+        inventory = scan()
+        self.assertEqual(inventory["unregistered"], [])
+        dashboard = next(item for item in inventory["projects"] if item["registered_as"] == "job-applicant-dashboard")
+        self.assertIn("dashboard.db", dashboard["sensitive_markers"])
+
+    def test_scan_projects_command_parses(self) -> None:
+        args = parser().parse_args(["scan-projects"])
+        self.assertEqual(args.command, "scan-projects")
+
+    def test_routing_targets_cover_global_and_project_adapters(self) -> None:
+        destinations = [str(destination) for _, destination in targets()]
+        self.assertEqual(len(destinations), 7)
+        self.assertTrue(any(destination.endswith(".codex\\AGENTS.md") for destination in destinations))
 
     def test_skill_discovery_and_selective_match(self) -> None:
         skills = discover()

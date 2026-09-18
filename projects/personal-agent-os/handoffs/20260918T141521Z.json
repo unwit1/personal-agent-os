@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-18T14:15:21.910218+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main\n M README.md\n M migrations/2026-09-18-initial-inventory.md\n M projects/personal-agent-os/state.json\n M projects/registry.json\n M schemas/project-state.schema.json\n M src/agent_os/cli.py\n M src/agent_os/validation.py\n M tests/test_agent_os.py\n?? .agents/\n?? adapters/\n?? projects/auto-click/\n?? projects/job-applicant-dashboard/\n?? projects/overtime-parser/\n?? projects/scan-renamer/\n?? projects/tes-tagger/\n?? src/agent_os/inventory.py\n?? src/agent_os/routing.py",
+    "error": ""
+  },
+  "completed": [
+    "Hosted the canonical repository privately at https://github.com/unwit1/personal-agent-os.",
+    "Registered all seven local project directories with project-specific privacy boundaries.",
+    "Installed a global Codex routing policy, a discoverable Personal Agent OS skill, and five thin project adapters.",
+    "Added deterministic project scanning and routing installation/status commands."
+  ],
+  "decisions": [
+    "Keep business data excluded; register only compact state and safe documentation by default."
+  ],
+  "remaining": [
+    "Restart Codex so the newly installed global skill and AGENTS.md are loaded in new sessions.",
+    "Connect the private repository to Codex Cloud from an authenticated ChatGPT browser session if cloud tasks should access it."
+  ],
+  "validation": [
+    "Nine unit tests passed.",
+    "Validation passed across 39 checks with no warnings.",
+    "All seven routing destinations match their canonical source."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}
