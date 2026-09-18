@@ -6,10 +6,13 @@ from pathlib import Path
 
 from .adapters import sync_adapters
 from .candidates import candidate_status, curate_candidates, stage_candidates
+from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, update_change
 from .compiler import compile_context
+from .forms import form_issue_payload, route_form
 from .handoffs import create_handoff
 from .index import rebuild, search
 from .inventory import scan
+from .improvements import capture_improvement, get_improvement, issue_payload, list_improvements, search_improvements, update_improvement
 from .mcp_server import serve
 from .maintenance import run as run_maintenance
 from .registry import get_project, git_status, identify_project, load_state, projects
@@ -21,6 +24,13 @@ from .validation import validate
 
 def _print(value: object) -> None:
     print(json.dumps(value, indent=2, default=str, ensure_ascii=False))
+
+
+def _load_object(path: str) -> dict:
+    value = json.loads(Path(path).read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise ValueError("JSON input must be an object")
+    return value
 
 
 def parser() -> argparse.ArgumentParser:
@@ -49,6 +59,51 @@ def parser() -> argparse.ArgumentParser:
     curate.add_argument("--candidate-id", action="append", default=[])
     candidate_list = commands.add_parser("candidate-status")
     candidate_list.add_argument("project")
+    change_capture = commands.add_parser("change-capture")
+    change_capture.add_argument("project")
+    change_capture.add_argument("--json", required=True)
+    change_list = commands.add_parser("change-list")
+    change_list.add_argument("project")
+    change_list.add_argument("--status")
+    change_show = commands.add_parser("change-show")
+    change_show.add_argument("project")
+    change_show.add_argument("change_id")
+    change_update = commands.add_parser("change-update")
+    change_update.add_argument("project")
+    change_update.add_argument("change_id")
+    change_update.add_argument("--json", required=True)
+    change_export = commands.add_parser("change-export-safe")
+    change_export.add_argument("project")
+    change_export.add_argument("change_id")
+    change_promote = commands.add_parser("change-promote")
+    change_promote.add_argument("project")
+    change_promote.add_argument("change_id")
+    improvement_capture = commands.add_parser("improvement-capture")
+    improvement_capture.add_argument("project")
+    improvement_capture.add_argument("--json", required=True)
+    improvement_list = commands.add_parser("improvement-list")
+    improvement_list.add_argument("project")
+    improvement_list.add_argument("--status")
+    improvement_show = commands.add_parser("improvement-show")
+    improvement_show.add_argument("project")
+    improvement_show.add_argument("improvement_id")
+    improvement_update = commands.add_parser("improvement-update")
+    improvement_update.add_argument("project")
+    improvement_update.add_argument("improvement_id")
+    improvement_update.add_argument("--json", required=True)
+    improvement_search = commands.add_parser("improvement-search")
+    improvement_search.add_argument("project")
+    improvement_search.add_argument("query")
+    improvement_search.add_argument("--limit", type=int, default=8)
+    improvement_issue = commands.add_parser("improvement-issue")
+    improvement_issue.add_argument("project")
+    improvement_issue.add_argument("improvement_id")
+    form_route = commands.add_parser("form-route")
+    form_route.add_argument("candidate")
+    form_route.add_argument("--persist", action="store_true")
+    form_route.add_argument("--queue")
+    form_issue = commands.add_parser("form-issue")
+    form_issue.add_argument("candidate")
     identify = commands.add_parser("identify")
     identify.add_argument("path", nargs="?", default=".")
     status = commands.add_parser("status")
@@ -114,6 +169,34 @@ def main(argv: list[str] | None = None) -> int:
             _print(curate_candidates(args.project, args.candidate_id, args.action))
         elif args.command == "candidate-status":
             _print(candidate_status(args.project))
+        elif args.command == "change-capture":
+            _print(capture_change(args.project, **_load_object(args.json)))
+        elif args.command == "change-list":
+            _print(list_changes(args.project, args.status))
+        elif args.command == "change-show":
+            _print(get_change(args.project, args.change_id))
+        elif args.command == "change-update":
+            _print(update_change(args.project, args.change_id, **_load_object(args.json)))
+        elif args.command == "change-export-safe":
+            _print(google_safe_projection(args.project, args.change_id))
+        elif args.command == "change-promote":
+            _print(promote_change(args.project, args.change_id))
+        elif args.command == "improvement-capture":
+            _print(capture_improvement(args.project, **_load_object(args.json)))
+        elif args.command == "improvement-list":
+            _print(list_improvements(args.project, args.status))
+        elif args.command == "improvement-show":
+            _print(get_improvement(args.project, args.improvement_id))
+        elif args.command == "improvement-update":
+            _print(update_improvement(args.project, args.improvement_id, **_load_object(args.json)))
+        elif args.command == "improvement-search":
+            _print(search_improvements(args.project, args.query, args.limit))
+        elif args.command == "improvement-issue":
+            _print(issue_payload(args.project, args.improvement_id))
+        elif args.command == "form-route":
+            _print(route_form(_load_object(args.candidate), args.persist, args.queue))
+        elif args.command == "form-issue":
+            _print(form_issue_payload(_load_object(args.candidate)))
         elif args.command == "identify":
             _print(identify_project(Path(args.path)))
         elif args.command == "status":

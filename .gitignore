@@ -1,4 +1,5 @@
 .agent-os/
+.agent-local/
 .venv/
 __pycache__/
 *.py[cod]

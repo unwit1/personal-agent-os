@@ -41,12 +41,23 @@ environment and globally available command, create a venv and run
 - `agent-os capture-candidates` stages durable findings for review; it never promotes them.
 - `agent-os curate-candidates` applies deterministic checks and makes explicit review, rejection, or eligible promotion decisions.
 - `agent-os maintenance` rebuilds derived context and reports candidate curation for an event trigger.
+- `agent-os change-*` captures, updates, verifies, safely projects, and reviews compact engineering change records.
+- `agent-os improvement-*` deduplicates project improvement candidates and prepares explicit GitHub issue payloads.
+- `agent-os form-route` matches sanitized form fingerprints; `--persist` writes only to the gitignored local queue.
 
 ## Canonical versus derived data
 
 Canonical, reviewed files live under `profile/`, `projects/`, `memory/`,
 `skills/`, `policy/`, and `schemas/`. `.agent-os/index.sqlite` is a local cache.
 Raw conversation history is deliberately outside the default context path.
+
+Relevant active changes and improvements are scored per task and capped at three
+compact summaries of each kind. Full records and full skill bodies are fetched only
+on demand. Form intake stores template structure only: never source documents,
+completed values, raw OCR, or personal data. Google is not a form-intake fallback;
+change records can only produce an explicitly requested, allowlisted safe projection.
+These repository capabilities do not force every ChatGPT surface to invoke them;
+clients must use the installed skill/MCP bridge or an explicit GitHub issue payload.
 
 ## Fresh-machine recovery
 

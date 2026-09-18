@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Personal Agent sanitized form intake v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "candidate_id", "source_agent", "classification", "form", "fingerprint", "match", "candidate_action", "privacy"],
+  "properties": {
+    "schema": {"const": "personal-agent/form-intake/v1"},
+    "candidate_id": {"type": "string", "pattern": "^fic_[0-9a-f]{16}$"},
+    "source_agent": {"enum": ["chatgpt", "codex", "claude", "other"]},
+    "classification": {"type": "object", "required": ["work_related", "form_document", "confidence"]},
+    "form": {"type": "object", "required": ["family", "type", "variant"]},
+    "fingerprint": {"$ref": "form-fingerprint-v1.schema.json"},
+    "match": {"type": "object", "required": ["known_form_id", "similarity"]},
+    "candidate_action": {"enum": ["new_form", "new_variant", "fingerprint_update"]},
+    "privacy": {"type": "object", "required": ["source_document_stored", "completed_values_stored", "raw_text_stored", "google_used", "sanitizer_version"]}
+  }
+}

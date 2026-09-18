@@ -7,7 +7,10 @@ from typing import Any
 
 from .adapters import ADAPTER
 from .candidates import KINDS, STATUSES
+from .changes import CHANGE_TYPES, STATUSES as CHANGE_STATUSES
+from .improvements import CATEGORIES, PRIORITIES, STATUSES as IMPROVEMENT_STATUSES
 from .paths import ROOT
+from .privacy import privacy_findings
 from .registry import load_state, projects
 from .routing import status as routing_status
 from .skills import discover
@@ -45,6 +48,8 @@ def validate() -> dict[str, Any]:
         if project_id in ids:
             errors.append(f"duplicate project id: {project_id}")
         ids.add(project_id)
+        if project.get("redirect_to") and project["redirect_to"] not in {item.get("id") for item in known_projects}:
+            errors.append(f"{project_id}: unknown redirect target {project['redirect_to']}")
         state_path = ROOT / project.get("state_file", "")
         if not state_path.exists():
             errors.append(f"missing project state: {state_path}")
@@ -108,6 +113,58 @@ def validate() -> dict[str, Any]:
         if candidate.get("status") not in STATUSES:
             errors.append(f"{candidate_path.relative_to(ROOT)}: unsupported candidate status")
 
+    for improvement_path in sorted((ROOT / "projects").glob("*/improvements/IMP-*.json")):
+        checked += 1
+        try:
+            improvement = load_json(improvement_path)
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"invalid improvement {improvement_path}: {exc}")
+            continue
+        _required(improvement, {"schema_version", "id", "project", "title", "category", "status", "priority", "observation", "suggested_direction", "acceptance", "created_at", "updated_at"}, str(improvement_path.relative_to(ROOT)), errors)
+        if improvement.get("category") not in CATEGORIES:
+            errors.append(f"{improvement_path.relative_to(ROOT)}: unsupported improvement category")
+        if improvement.get("status") not in IMPROVEMENT_STATUSES:
+            errors.append(f"{improvement_path.relative_to(ROOT)}: unsupported improvement status")
+        if improvement.get("priority") not in PRIORITIES:
+            errors.append(f"{improvement_path.relative_to(ROOT)}: unsupported improvement priority")
+        findings = privacy_findings(improvement)
+        if findings:
+            errors.append(f"{improvement_path.relative_to(ROOT)}: privacy findings {', '.join(findings)}")
+
+    for change_path in sorted((ROOT / "projects").glob("*/changes/CR-*.json")):
+        checked += 1
+        try:
+            change = load_json(change_path)
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"invalid change {change_path}: {exc}")
+            continue
+        _required(change, {"schema_version", "change_id", "created_at", "updated_at", "change_type", "status", "title", "request_summary", "routing", "privacy"}, str(change_path.relative_to(ROOT)), errors)
+        if change.get("change_type") not in CHANGE_TYPES:
+            errors.append(f"{change_path.relative_to(ROOT)}: unsupported change type")
+        if change.get("status") not in CHANGE_STATUSES:
+            errors.append(f"{change_path.relative_to(ROOT)}: unsupported change status")
+        if change.get("privacy", {}).get("contains_raw_private_source") is not False:
+            errors.append(f"{change_path.relative_to(ROOT)}: raw private source is forbidden")
+        findings = privacy_findings(change)
+        if findings:
+            errors.append(f"{change_path.relative_to(ROOT)}: privacy findings {', '.join(findings)}")
+
+    form_registry = ROOT / "forms" / "registry.json"
+    checked += 1
+    if not form_registry.exists():
+        errors.append("missing compact form registry")
+    else:
+        registry = load_json(form_registry)
+        _required(registry, {"schema", "version", "forms"}, "form registry", errors)
+        if registry.get("schema") != "personal-agent/form-registry/v1":
+            errors.append("form registry: unsupported schema")
+
+    required_schemas = {"change-packet.schema.json", "google-safe-projection.schema.json", "improvement.schema.json", "form-fingerprint-v1.schema.json", "form-intake-v1.schema.json", "form-registry-v1.schema.json"}
+    for schema_name in required_schemas:
+        checked += 1
+        if not (ROOT / "schemas" / schema_name).exists():
+            errors.append(f"missing schema: {schema_name}")
+
     for review_path in sorted((ROOT / "reviews").glob("*.json")):
         checked += 1
         try:
@@ -130,7 +187,7 @@ def validate() -> dict[str, Any]:
         if text != ADAPTER:
             errors.append(f"generated adapter is out of sync: {adapter.name}")
 
-    excluded = {".git", ".agent-os", ".venv", ".bootstrap_staging_v3"}
+    excluded = {".git", ".agent-os", ".agent-local", ".tmp", ".venv", ".bootstrap_staging_v3"}
     for path in ROOT.rglob("*"):
         if not path.is_file() or any(part in excluded for part in path.parts):
             continue

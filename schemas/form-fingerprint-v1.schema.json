@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sanitized form fingerprint v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "page_count", "title_tokens", "section_labels", "field_labels", "features", "signature"],
+  "properties": {
+    "version": {"const": 1},
+    "page_count": {"type": "integer", "minimum": 1, "maximum": 500},
+    "title_tokens": {"type": "array", "maxItems": 12, "items": {"type": "string", "maxLength": 80}},
+    "section_labels": {"type": "array", "maxItems": 80, "items": {"type": "string", "maxLength": 100}},
+    "field_labels": {"type": "array", "maxItems": 250, "items": {"type": "string", "maxLength": 100}},
+    "features": {"type": "object", "required": ["has_checkboxes", "has_signature_area", "has_table_layout"]},
+    "signature": {"type": "object", "required": ["label_sha256"]}
+  }
+}

@@ -4,7 +4,9 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .changes import compact_changes
 from .index import search
+from .improvements import compact_improvements
 from .paths import ROOT
 from .registry import get_project, git_status, load_state
 from .skills import discover, match, metadata
@@ -58,6 +60,7 @@ def _fit(packet: dict[str, Any], token_budget: int) -> tuple[dict[str, Any], int
     limit = max(token_budget, 250) * 4
     prunable = (
         ("search_matches", lambda value: value.pop()),
+        ("development_context", _prune_development_context),
         ("matched_skills", lambda value: value.pop()),
         ("state", lambda value: value.pop(next(iter(value))) if value else None),
         ("latest_agent_os_handoff", lambda value: value.clear()),
@@ -68,6 +71,14 @@ def _fit(packet: dict[str, Any], token_budget: int) -> tuple[dict[str, Any], int
     if len(json.dumps(packet, default=str, ensure_ascii=False)) > limit:
         packet["task"] = packet["task"][: max(80, limit // 8)]
     return packet, limit
+
+
+def _prune_development_context(value: dict[str, list[dict[str, Any]]]) -> None:
+    for key in ("changes", "improvements"):
+        if value.get(key):
+            value[key].pop()
+            return
+    value.clear()
 
 
 def compile_context(
@@ -91,6 +102,14 @@ def compile_context(
     git = git_status(project)
     handoff = _compact_handoff(latest_handoff(project["id"])) if include_handoff else None
 
+    development_context: dict[str, list[dict[str, Any]]] = {}
+    relevant_changes = compact_changes(project["id"], task)
+    relevant_improvements = compact_improvements(project["id"], task)
+    if relevant_changes:
+        development_context["changes"] = relevant_changes
+    if relevant_improvements:
+        development_context["improvements"] = relevant_improvements
+
     packet = {
         "project": project["id"],
         "task": task,
@@ -110,6 +129,8 @@ def compile_context(
             "full_skill_bodies_loaded": include_skill_content,
         },
     }
+    if development_context:
+        packet["development_context"] = development_context
     packet, limit = _fit(packet, token_budget)
     packet_chars = len(json.dumps(packet, default=str, ensure_ascii=False))
     naive_chars = sum(

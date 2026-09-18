@@ -43,12 +43,17 @@ def resolve_project(query: str, project_hint: str | None = None) -> dict[str, An
     query_folded = query.casefold()
     scores: dict[str, float] = {}
     reasons: dict[str, list[str]] = {}
-    for project in projects():
+    routable = [project for project in projects() if not project.get("redirect_to")]
+    for project in routable:
         score = 0.0
         hits: list[str] = []
         if project["id"].casefold() in query_folded or project["name"].casefold() in query_folded:
             score += 100
             hits.append("project name")
+        for alias in project.get("aliases", []):
+            if alias.casefold() in query_folded:
+                score += 80
+                hits.append("project alias")
         for token in re.findall(r"[a-z0-9]+", f"{project['id']} {project['name']}".casefold()):
             if len(token) > 3 and token in query_folded:
                 score += 5
@@ -65,10 +70,14 @@ def resolve_project(query: str, project_hint: str | None = None) -> dict[str, An
             # should not be outweighed by several generic matches elsewhere.
             scores[result["scope"]] += max(1, 6 - position)
             reasons[result["scope"]].append("compact registry search")
-    ranked = sorted(projects(), key=lambda project: (-scores[project["id"]], project["id"]))
+    ranked = sorted(routable, key=lambda project: (-scores[project["id"]], project["id"]))
     if not ranked or scores[ranked[0]["id"]] <= 0:
         return {"project": None, "confidence": "none", "reason": "no compact registry signal", "ambiguous": False}
     top, runner_up = ranked[0], ranked[1] if len(ranked) > 1 else None
+    query_terms = re.findall(r"[a-z0-9]+", query_folded)
+    strong_reasons = {"project name", "project alias"}
+    if len(query_terms) <= 1 and not strong_reasons.intersection(reasons[top["id"]]):
+        return {"project": None, "confidence": "none", "reason": "single weak routing signal", "ambiguous": False}
     ambiguous = bool(runner_up and scores[top["id"]] == scores[runner_up["id"]])
     return {"project": top, "confidence": "inferred", "reason": ", ".join(sorted(set(reasons[top["id"]]))) or "compact registry state", "ambiguous": ambiguous}
 

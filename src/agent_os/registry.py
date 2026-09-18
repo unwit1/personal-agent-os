@@ -15,8 +15,9 @@ def projects() -> list[dict[str, Any]]:
 def get_project(project_id: str) -> dict[str, Any]:
     normalized = project_id.casefold()
     for project in projects():
-        if normalized in {project["id"].casefold(), project["name"].casefold()}:
-            return project
+        names = {project["id"].casefold(), project["name"].casefold(), *(str(alias).casefold() for alias in project.get("aliases", []))}
+        if normalized in names:
+            return get_project(project["redirect_to"]) if project.get("redirect_to") else project
     raise KeyError(f"Unknown project: {project_id}")
 
 
@@ -27,7 +28,8 @@ def identify_project(path: Path) -> dict[str, Any] | None:
         project_path = Path(project["path"]).resolve()
         try:
             resolved.relative_to(project_path)
-            candidates.append((len(project_path.parts), project))
+            canonical = get_project(project["redirect_to"]) if project.get("redirect_to") else project
+            candidates.append((len(project_path.parts), canonical))
         except ValueError:
             continue
     return max(candidates, default=(0, None), key=lambda item: item[0])[1]

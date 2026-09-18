@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Compact form registry v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "version", "forms"],
+  "properties": {
+    "schema": {"const": "personal-agent/form-registry/v1"},
+    "version": {"type": "integer", "minimum": 1},
+    "forms": {"type": "array", "items": {"type": "object", "required": ["id", "family", "type", "skill_path", "page_count_range", "anchors", "signature"]}}
+  }
+}

@@ -24,6 +24,8 @@ def canonical_documents() -> Iterable[tuple[str, str, str, str]]:
         ROOT / "policy" / "CANONICAL_AGENT_POLICY.md",
     ]
     local_files.extend(sorted((ROOT / "memory").rglob("*.json")) if (ROOT / "memory").exists() else [])
+    if (ROOT / "forms" / "registry.json").exists():
+        local_files.append(ROOT / "forms" / "registry.json")
     for path in local_files:
         if path.exists():
             yield (str(path), "agent-os", "canonical", _safe_text(path))
@@ -32,6 +34,10 @@ def canonical_documents() -> Iterable[tuple[str, str, str, str]]:
         state = load_state(project)
         state_path = ROOT / project["state_file"]
         yield (str(state_path), project["id"], "project-state", _safe_text(state_path))
+        for relative, kind in (("changes/index.json", "change-index"), ("improvements/index.json", "improvement-index")):
+            compact_index = ROOT / "projects" / project["id"] / relative
+            if compact_index.exists():
+                yield (str(compact_index), project["id"], kind, _safe_text(compact_index))
         project_path = Path(project["path"])
         for relative in state.get("context_files", []):
             path = (project_path / relative).resolve()
