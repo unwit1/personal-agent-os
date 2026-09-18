@@ -10,21 +10,27 @@
     "Use the MVP with real development tasks and refine retrieval based on evidence.",
     "Keep the private GitHub repository synchronized after material Agent OS updates.",
     "Connect the private repository to Codex Cloud from an authenticated ChatGPT session.",
-    "Add an official MCP SDK adapter if a configured client requires protocol-level MCP compatibility."
+    "Add an official MCP SDK adapter if a configured client requires protocol-level MCP compatibility.",
+    "Implement the deferred Usage Intelligence / Adaptive Routing roadmap: track Agent-OS-controlled usage, prefer deterministic code/cache/skills before LLM calls, route delegated work through provider-neutral OpenAI/Anthropic API adapters with validator-driven escalation, and mine repeated workflows into reviewed skill/automation candidates. MCP must not assume it can hot-swap the model already running in ChatGPT Work or Claude. See projects/personal-agent-os/roadmap/usage-intelligence-adaptive-routing.md."
   ],
   "important_paths": [
     "README.md",
     "policy/CANONICAL_AGENT_POLICY.md",
     "src/agent_os/",
     "projects/registry.json",
+    "projects/personal-agent-os/roadmap/usage-intelligence-adaptive-routing.md",
     "tests/"
   ],
   "context_files": [
     "README.md",
     "policy/CANONICAL_AGENT_POLICY.md",
-    "migrations/2026-09-18-initial-inventory.md"
+    "migrations/2026-09-18-initial-inventory.md",
+    "projects/personal-agent-os/roadmap/usage-intelligence-adaptive-routing.md"
   ],
-  "skill_roots": [".agents/skills", "skills"],
+  "skill_roots": [
+    ".agents/skills",
+    "skills"
+  ],
   "validation_commands": [
     "python -m unittest discover -s tests -v",
     "python agent.py validate"
@@ -32,10 +38,13 @@
   "constraints": [
     "Canonical state must remain reviewable in Git.",
     "Derived indexes must be rebuildable.",
-    "Do not preload raw history or all project content."
+    "Do not preload raw history or all project content.",
+    "A third-party MCP must not claim to hot-swap the host model already running inside ChatGPT Work or Claude; use pre-routing, delegation, and Agent-OS-owned escalation instead."
   ],
   "provenance": {
-    "source_files": ["personal_agent_os_bootstrap_v3.zip"],
+    "source_files": [
+      "personal_agent_os_bootstrap_v3.zip"
+    ],
     "observed_at": "2026-09-18"
   }
 }
