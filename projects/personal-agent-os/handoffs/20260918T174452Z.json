@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-18T17:44:52.967741+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main\n M README.md\n M src/agent_os/cli.py\n M src/agent_os/compiler.py\n M src/agent_os/mcp_server.py\n M src/agent_os/validation.py\n M tests/test_agent_os.py\n?? .github/\n?? schemas/candidate-event.schema.json\n?? skills/regular-chat-router/\n?? src/agent_os/candidates.py\n?? src/agent_os/chat.py\n?? src/agent_os/maintenance.py",
+    "error": ""
+  },
+  "completed": [
+    "Implemented the regular-chat context router and compact JSON-RPC tool surface.",
+    "Added staged candidate events, deterministic deduplication, curator safeguards, and event-driven maintenance.",
+    "Added workflow, schema, router skill, documentation, and acceptance-focused tests."
+  ],
+  "decisions": [
+    "Keep Git canonical; no Docs mirror is attempted without a configured connector."
+  ],
+  "remaining": [
+    "Configure a Google Docs connector only if human-readable mirrors are desired."
+  ],
+  "validation": [
+    "python -m unittest discover -s tests -v (12 passed)",
+    "python agent.py validate (49 checks, no warnings)"
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

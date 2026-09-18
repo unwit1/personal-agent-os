@@ -5,11 +5,13 @@ import json
 from pathlib import Path
 
 from .adapters import sync_adapters
+from .candidates import candidate_status, curate_candidates, stage_candidates
 from .compiler import compile_context
 from .handoffs import create_handoff
 from .index import rebuild, search
 from .inventory import scan
 from .mcp_server import serve
+from .maintenance import run as run_maintenance
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .review import assess
 from .routing import install as install_routing
@@ -34,6 +36,19 @@ def parser() -> argparse.ArgumentParser:
     commands.add_parser("routing-status")
     commands.add_parser("validate")
     commands.add_parser("mcp")
+    maintenance = commands.add_parser("maintenance")
+    maintenance.add_argument("--event", default="scheduled")
+    maintenance.add_argument("--project")
+    capture = commands.add_parser("capture-candidates")
+    capture.add_argument("project")
+    capture.add_argument("--task-summary", required=True)
+    capture.add_argument("--candidates-json", required=True)
+    curate = commands.add_parser("curate-candidates")
+    curate.add_argument("project")
+    curate.add_argument("--action", choices=("review", "reject", "promote"), default="review")
+    curate.add_argument("--candidate-id", action="append", default=[])
+    candidate_list = commands.add_parser("candidate-status")
+    candidate_list.add_argument("project")
     identify = commands.add_parser("identify")
     identify.add_argument("path", nargs="?", default=".")
     status = commands.add_parser("status")
@@ -88,6 +103,17 @@ def main(argv: list[str] | None = None) -> int:
             return 0 if result["ok"] else 1
         elif args.command == "mcp":
             return serve()
+        elif args.command == "maintenance":
+            _print(run_maintenance(args.event, args.project))
+        elif args.command == "capture-candidates":
+            candidates = json.loads(args.candidates_json)
+            if not isinstance(candidates, list):
+                raise ValueError("--candidates-json must be a JSON list")
+            _print(stage_candidates(args.project, args.task_summary, candidates))
+        elif args.command == "curate-candidates":
+            _print(curate_candidates(args.project, args.candidate_id, args.action))
+        elif args.command == "candidate-status":
+            _print(candidate_status(args.project))
         elif args.command == "identify":
             _print(identify_project(Path(args.path)))
         elif args.command == "status":

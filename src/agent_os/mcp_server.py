@@ -5,6 +5,9 @@ import sys
 from pathlib import Path
 from typing import Any, Callable
 
+from .candidates import stage_candidates
+from .chat import context as chat_context
+from .chat import latest_project_handoff, project_status, skills_match
 from .compiler import compile_context
 from .handoffs import create_handoff
 from .index import search
@@ -13,7 +16,7 @@ from .skills import discover, match, metadata
 
 
 def methods() -> dict[str, Callable[..., Any]]:
-    return {
+    available = {
         "project.list": lambda: projects(),
         "project.identify": lambda path: identify_project(Path(path)),
         "project.status": lambda project: {"state": load_state(get_project(project)), "git": git_status(get_project(project))},
@@ -32,6 +35,19 @@ def methods() -> dict[str, Callable[..., Any]]:
         "agent.start_session": compile_context,
         "agent.finish_session": create_handoff,
     }
+    # These aliases are deliberately small: regular-chat clients should normally
+    # need only agent.context and agent.capture_candidates.
+    available.update(
+        {
+            "agent.context": chat_context,
+            "agent.capture_candidates": stage_candidates,
+            "agent.search": search,
+            "agent.project_status": project_status,
+            "agent.skills_match": skills_match,
+            "agent.latest_handoff": latest_project_handoff,
+        }
+    )
+    return available
 
 
 def serve() -> int:

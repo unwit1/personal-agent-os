@@ -38,6 +38,9 @@ environment and globally available command, create a venv and run
 - `agent-os review --changed-file PATH ...` selects a risk-aware review level.
 - `agent-os validate` checks canonical data, references, skills, adapters, and secrets.
 - `agent-os mcp` exposes the same read-oriented operations over JSON-RPC on stdio.
+- `agent-os capture-candidates` stages durable findings for review; it never promotes them.
+- `agent-os curate-candidates` applies deterministic checks and makes explicit review, rejection, or eligible promotion decisions.
+- `agent-os maintenance` rebuilds derived context and reports candidate curation for an event trigger.
 
 ## Canonical versus derived data
 
@@ -72,8 +75,28 @@ For clients with JSON-RPC/MCP-style stdio integration, start:
 agent-os mcp
 ```
 
-The server advertises `project.list`, `project.status`, `project.context`,
+The server retains `project.list`, `project.status`, `project.context`,
 `memory.search`, `skill.search`, `agent.start_session`, and
-`agent.finish_session`. This is a dependency-free JSON-RPC transport; a future
-MCP SDK adapter can wrap the same Python service without changing canonical
-storage.
+`agent.finish_session`. Its regular-chat surface is deliberately smaller:
+
+- `agent.context` recognizes substantial project work, resolves one likely
+  project, and returns a token-budgeted packet with matched skill metadata,
+  relevant handoff, validation hints, and freshness. It does not load raw chat
+  history, every project, or full skill bodies by default.
+- `agent.capture_candidates` stages evidence-backed findings with deterministic
+  deduplication. A chat observation cannot rewrite canonical memory directly.
+- `agent.search`, `agent.project_status`, `agent.skills_match`, and
+  `agent.latest_handoff` are focused fallbacks when the context call is not
+  enough.
+
+Candidates remain Git-tracked review records. The curator runs deterministic
+checks first; material decisions, skills, project-state changes, and rules are
+held for independent review. Routine, evidenced candidates can be explicitly
+promoted into `memory/promoted-candidates.json`, which remains canonical Git
+data. The included GitHub workflow can rebuild the disposable index and report
+pending curation after repository events. Google Docs mirroring is intentionally
+skipped until a Docs connector is configured, so it can never block canonical
+updates.
+
+This is a dependency-free JSON-RPC transport; a future MCP SDK adapter can wrap
+the same Python service without changing canonical storage.

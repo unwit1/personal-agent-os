@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent OS Candidate Event",
+  "type": "object",
+  "required": ["id", "kind", "statement", "status", "created_at"],
+  "properties": {
+    "id": {"type": "string"},
+    "kind": {"type": "string", "pattern": "_candidate$"},
+    "project": {"type": ["string", "null"]},
+    "statement": {"type": "string", "minLength": 1},
+    "evidence": {"type": "array", "items": {"type": "string"}},
+    "confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "status": {"enum": ["candidate", "rejected", "merged", "promoted", "superseded"]},
+    "created_at": {"type": "string"},
+    "resolved_at": {"type": ["string", "null"]}
+  },
+  "additionalProperties": true
+}

@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from .adapters import ADAPTER
+from .candidates import KINDS, STATUSES
 from .paths import ROOT
 from .registry import load_state, projects
 from .routing import status as routing_status
@@ -93,6 +94,19 @@ def validate() -> dict[str, Any]:
             str(handoff_path.relative_to(ROOT)),
             errors,
         )
+
+    for candidate_path in sorted((ROOT / "projects").glob("*/candidates/*.json")):
+        checked += 1
+        try:
+            candidate = load_json(candidate_path)
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"invalid candidate {candidate_path}: {exc}")
+            continue
+        _required(candidate, {"id", "kind", "statement", "status", "created_at"}, str(candidate_path.relative_to(ROOT)), errors)
+        if candidate.get("kind") not in KINDS:
+            errors.append(f"{candidate_path.relative_to(ROOT)}: unsupported candidate kind")
+        if candidate.get("status") not in STATUSES:
+            errors.append(f"{candidate_path.relative_to(ROOT)}: unsupported candidate status")
 
     for review_path in sorted((ROOT / "reviews").glob("*.json")):
         checked += 1
