@@ -11,7 +11,8 @@
     "Keep the private GitHub repository synchronized after material Agent OS updates.",
     "Connect the private repository to Codex Cloud from an authenticated ChatGPT session.",
     "Add an official MCP SDK adapter if a configured client requires protocol-level MCP compatibility.",
-    "Implement the deferred Usage Intelligence / Adaptive Routing roadmap: track Agent-OS-controlled usage, prefer deterministic code/cache/skills before LLM calls, route delegated work through provider-neutral OpenAI/Anthropic API adapters with validator-driven escalation, and mine repeated workflows into reviewed skill/automation candidates. MCP must not assume it can hot-swap the model already running in ChatGPT Work or Claude. See projects/personal-agent-os/roadmap/usage-intelligence-adaptive-routing.md."
+    "Implement the deferred Usage Intelligence / Adaptive Routing roadmap: track Agent-OS-controlled usage, prefer deterministic code/cache/skills before LLM calls, route delegated work through provider-neutral OpenAI/Anthropic API adapters with validator-driven escalation, and mine repeated workflows into reviewed skill/automation candidates. MCP must not assume it can hot-swap the model already running in ChatGPT Work or Claude. See projects/personal-agent-os/roadmap/usage-intelligence-adaptive-routing.md.",
+    "Implement the Personal Executive roadmap: executive event bus, next-action engine, knowledge-gap/interview engine, brain-dump capture, attention-aware prioritization, delegation, rescue mode, outcome learning, calendar/communication intelligence, proactive assistance, voice/Siri gateway, and controlled progressive autonomy. See projects/personal-agent-os/roadmap/personal-executive.md."
   ],
   "important_paths": [
     "README.md",
@@ -19,13 +20,15 @@
     "src/agent_os/",
     "projects/registry.json",
     "projects/personal-agent-os/roadmap/usage-intelligence-adaptive-routing.md",
-    "tests/"
+    "tests/",
+    "projects/personal-agent-os/roadmap/personal-executive.md"
   ],
   "context_files": [
     "README.md",
     "policy/CANONICAL_AGENT_POLICY.md",
     "migrations/2026-09-18-initial-inventory.md",
-    "projects/personal-agent-os/roadmap/usage-intelligence-adaptive-routing.md"
+    "projects/personal-agent-os/roadmap/usage-intelligence-adaptive-routing.md",
+    "projects/personal-agent-os/roadmap/personal-executive.md"
   ],
   "skill_roots": [
     ".agents/skills",
