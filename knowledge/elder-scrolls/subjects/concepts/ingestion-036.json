@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-036-nerevarine-sixth-house-prophecy",
+  "subjects": [
+    {
+      "id": "tes:nerevarine-prophecies",
+      "name": "Nerevarine Prophecies",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/nerevarine-prophecies.json",
+      "source": {
+        "id": "uesp:nerevarine-prophecies",
+        "url": "https://en.uesp.net/wiki/Lore:Nerevarine_Prophecies",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:failed-incarnates",
+      "name": "Failed Incarnates",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/failed-incarnates.json",
+      "source": {
+        "id": "uesp:failed-incarnates",
+        "url": "https://en.uesp.net/wiki/Lore:Failed_Incarnates",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:corprus",
+      "name": "Corprus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/corprus.json",
+      "source": {
+        "id": "uesp:corprus",
+        "url": "https://en.uesp.net/wiki/Lore:Corprus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:divine-disease",
+      "name": "Divine Disease",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/divine-disease.json",
+      "source": {
+        "id": "uesp:divine-disease",
+        "url": "https://en.uesp.net/wiki/Lore:Divine_Disease",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sixth-house-dreams",
+      "name": "Sixth House Dreams",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/sixth-house-dreams.json",
+      "source": {
+        "id": "uesp:sixth-house-dreams",
+        "url": "https://en.uesp.net/wiki/Lore:Sixth_House_Dreams",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:heart-divinity",
+      "name": "Heart-derived Divinity",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/heart-divinity.json",
+      "source": {
+        "id": "uesp:heart-divinity",
+        "url": "https://en.uesp.net/wiki/Lore:Heart-derived_Divinity",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Never force a single answer to whether the Nerevarine is literal reincarnation, prophetic fulfillment, constructed identity, or some combination; preserve evidence for each interpretation",
+    "Player-defined Nerevarine biography, race, gender, faction memberships and optional quest outcomes remain variable",
+    "Dagoth Ur's dreams, theology and historical claims remain attributed even when delivered directly to the player",
+    "Prophecy texts must preserve exact source lineage, translation/context and the distinction between prediction and retrospective interpretation",
+    "Corprus and divine-disease mechanics should distinguish narrative observations from gameplay-stat effects",
+    "Cross-link existing Nerevarine, Dagoth Ur, Tribunal, Sixth House, Ashlander tribes, Red Mountain, Heart of Lorkhan and Kagrenac-tool records"
+  ]
+}
