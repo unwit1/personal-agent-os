@@ -19,9 +19,22 @@
   ],
   "work_context": {
     "role": "HR manager at RTEC",
-    "responsibilities": ["Interview applicants","Record and process paperwork","File records","Answer employee and applicant questions"],
+    "responsibilities": [
+      "Interview applicants",
+      "Record and process paperwork",
+      "File records",
+      "Answer employee and applicant questions"
+    ],
     "automation_goal": "Automate paperwork-heavy workflows as far as practical while leaving consequential or final actions for approval.",
-    "tools": ["Outlook via EarthLink","ADP ATS/recruiting","Microsoft Office","Excel","Google Sheets","desktop files","Google Drive"]
+    "tools": [
+      "Outlook via EarthLink",
+      "ADP ATS/recruiting",
+      "Microsoft Office",
+      "Excel",
+      "Google Sheets",
+      "desktop files",
+      "Google Drive"
+    ]
   },
   "current_projects_and_interests": [
     "Personal Agent OS",
@@ -32,7 +45,14 @@
     "Saving for a PC"
   ],
   "information_sources_to_eventually_integrate": [
-    "Texts","Discord","Outlook","iCloud","Excel","Google Sheets","desktop files","Google Drive"
+    "Texts",
+    "Discord",
+    "Outlook",
+    "iCloud",
+    "Excel",
+    "Google Sheets",
+    "desktop files",
+    "Google Drive"
   ],
   "behavioral_workflow_notes": {
     "commitments": "Statements such as needing to call someone should be treated as unresolved commitments and resurfaced until resolved.",
@@ -41,7 +61,11 @@
   },
   "household_planning": {
     "meal_planning_scope": "Plan groceries and meals for two people: the user and Olivia.",
-    "goals": ["Reduce grocery stress and cost","Find meals both people will eat","Avoid overcooking and spoiled leftovers"],
+    "goals": [
+      "Reduce grocery stress and cost",
+      "Find meals both people will eat",
+      "Avoid overcooking and spoiled leftovers"
+    ],
     "housing_costs": "Treat housing assumptions as variable because the arrangement may change."
   },
   "financial_assistant_goals": [
@@ -52,11 +76,35 @@
     "Support controlled bill-payment automation with approval and safety controls."
   ],
   "leisure_interests": [
-    "Skyrim mods","Stardew Valley mods","Potential custom LEGO business","Third-party and bootleg minifigure releases","Time with Olivia"
+    "Skyrim mods",
+    "Stardew Valley mods",
+    "Potential custom LEGO business",
+    "Third-party and bootleg minifigure releases",
+    "Time with Olivia"
   ],
   "privacy": {
-    "exclude_from_git": ["credentials","raw HR documents","employee/applicant PII","raw OCR caches","other unnecessary sensitive source data"],
+    "exclude_from_git": [
+      "credentials",
+      "raw HR documents",
+      "employee/applicant PII",
+      "raw OCR caches",
+      "other unnecessary sensitive source data"
+    ],
     "principle": "Store sanitized durable context, not sensitive source material."
   },
-  "provenance": [{"source":"direct_user_conversations","captured_at":"2026-09-18","status":"user_stated"}]
+  "provenance": [
+    {
+      "source": "direct_user_conversations",
+      "captured_at": "2026-09-18",
+      "status": "user_stated"
+    },
+    {
+      "source": "google_drive_sanitized_deep_dive",
+      "captured_at": "2026-09-18",
+      "status": "derived_context_indexed"
+    }
+  ],
+  "context_indexes": [
+    "profile/drive-derived-context.json"
+  ]
 }
