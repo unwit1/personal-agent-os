@@ -1,0 +1,195 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "batch_id": "uesp-012-guilds-necromancy-planemeld",
+  "purpose": "Expand institutional, magical, and Second Era crisis coverage while writing category destinations directly into ingestion metadata.",
+  "category_destinations": {
+    "characters": [
+      {
+        "id": "mannimarco",
+        "title": "Mannimarco",
+        "url": "https://en.uesp.net/wiki/Lore:Mannimarco",
+        "entity_type": "person",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      },
+      {
+        "id": "vanus-galerion",
+        "title": "Vanus Galerion",
+        "url": "https://en.uesp.net/wiki/Lore:Vanus_Galerion",
+        "entity_type": "person",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      },
+      {
+        "id": "lamae-bal",
+        "title": "Lamae Bal",
+        "url": "https://en.uesp.net/wiki/Lore:Lamae_Bal",
+        "entity_type": "person",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      },
+      {
+        "id": "molag-bal",
+        "title": "Molag Bal",
+        "url": "https://en.uesp.net/wiki/Lore:Molag_Bal",
+        "entity_type": "deity",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      }
+    ],
+    "organizations": [
+      {
+        "id": "mages-guild",
+        "title": "Mages Guild",
+        "url": "https://en.uesp.net/wiki/Lore:Mages_Guild",
+        "entity_type": "organization",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      },
+      {
+        "id": "fighters-guild",
+        "title": "Fighters Guild",
+        "url": "https://en.uesp.net/wiki/Lore:Fighters_Guild",
+        "entity_type": "organization",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      },
+      {
+        "id": "order-black-worm",
+        "title": "Order of the Black Worm",
+        "url": "https://en.uesp.net/wiki/Lore:Order_of_the_Black_Worm",
+        "entity_type": "organization",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      },
+      {
+        "id": "dark-brotherhood",
+        "title": "Dark Brotherhood",
+        "url": "https://en.uesp.net/wiki/Lore:Dark_Brotherhood",
+        "entity_type": "organization",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      },
+      {
+        "id": "thieves-guild",
+        "title": "Thieves Guild",
+        "url": "https://en.uesp.net/wiki/Lore:Thieves_Guild",
+        "entity_type": "organization",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      }
+    ],
+    "events": [
+      {
+        "id": "planemeld",
+        "title": "Planemeld",
+        "url": "https://en.uesp.net/wiki/Lore:Planemeld",
+        "entity_type": "event",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      },
+      {
+        "id": "soulburst",
+        "title": "Soulburst",
+        "url": "https://en.uesp.net/wiki/Lore:Soulburst",
+        "entity_type": "event",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      },
+      {
+        "id": "three-banners-war",
+        "title": "Three Banners War",
+        "url": "https://en.uesp.net/wiki/Lore:Three_Banners_War",
+        "entity_type": "event",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      }
+    ],
+    "locations": [
+      {
+        "id": "coldharbour",
+        "title": "Coldharbour",
+        "url": "https://en.uesp.net/wiki/Lore:Coldharbour",
+        "entity_type": "plane",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      },
+      {
+        "id": "imperial-city",
+        "title": "Imperial City",
+        "url": "https://en.uesp.net/wiki/Lore:Imperial_City",
+        "entity_type": "place",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      }
+    ],
+    "concepts": [
+      {
+        "id": "soul-shriven",
+        "title": "Soul Shriven",
+        "url": "https://en.uesp.net/wiki/Lore:Soul_Shriven",
+        "entity_type": "concept",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      },
+      {
+        "id": "soul-gem",
+        "title": "Soul Gem",
+        "url": "https://en.uesp.net/wiki/Lore:Soul_Gem",
+        "entity_type": "concept",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      },
+      {
+        "id": "necromancy",
+        "title": "Necromancy",
+        "url": "https://en.uesp.net/wiki/Lore:Necromancy",
+        "entity_type": "concept",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      },
+      {
+        "id": "vampirism",
+        "title": "Vampirism",
+        "url": "https://en.uesp.net/wiki/Lore:Vampirism",
+        "entity_type": "concept",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      }
+    ],
+    "artifacts": [
+      {
+        "id": "amulet-of-kings",
+        "title": "Amulet of Kings",
+        "url": "https://en.uesp.net/wiki/Lore:Amulet_of_Kings",
+        "entity_type": "artifact",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      },
+      {
+        "id": "staff-of-chaos",
+        "title": "Staff of Chaos",
+        "url": "https://en.uesp.net/wiki/Lore:Staff_of_Chaos",
+        "entity_type": "artifact",
+        "continuity_id": "tes-base",
+        "status": "queued"
+      }
+    ]
+  },
+  "review_focus": [
+    "Mannimarco's identities and later manifestations require time/source-specific claims",
+    "vampirism and necromancy descriptions vary by culture/game era and must retain provenance",
+    "Planemeld and Soulburst claims should prefer ESO quest/dialogue evidence",
+    "Molag Bal is categorized as a deity semantically even though this batch groups his seed with characters for relationship expansion"
+  ],
+  "ingestion_rules": {
+    "subject_path_pattern": "knowledge/elder-scrolls/subjects/<category>/<stable-id>.json",
+    "one_canonical_subject_home": true,
+    "cross_category_links": "relationships_not_duplicates",
+    "raw_text": "local_rebuildable",
+    "checkpoint_each_page": true,
+    "preserve_epistemic_language": true,
+    "prefer_underlying_primary_evidence": true
+  }
+}
