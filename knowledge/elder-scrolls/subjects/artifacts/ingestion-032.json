@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-032-alessian-ayleid-pelinal",
+  "subjects": [
+    {
+      "id": "tes:amulet-kings",
+      "name": "Amulet of Kings",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/amulet-kings.json",
+      "source": {
+        "id": "uesp:amulet-kings",
+        "url": "https://en.uesp.net/wiki/Lore:Amulet_of_Kings",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:chim-el-adabal",
+      "name": "Chim-el Adabal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/chim-el-adabal.json",
+      "source": {
+        "id": "uesp:chim-el-adabal",
+        "url": "https://en.uesp.net/wiki/Lore:Chim-el_Adabal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:relics-crusader",
+      "name": "Relics of the Crusader",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/relics-crusader.json",
+      "source": {
+        "id": "uesp:relics-crusader",
+        "url": "https://en.uesp.net/wiki/Lore:Relics_of_the_Crusader",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ada-bal-stone",
+      "name": "Ada Bal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/ada-bal-stone.json",
+      "source": {
+        "id": "uesp:ada-bal-stone",
+        "url": "https://en.uesp.net/wiki/Lore:Ada_Bal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "The Song of Pelinal is an in-universe literary/historical source; preserve narrator, edition and mythic embellishment uncertainty",
+    "Ayleid culture must not be flattened into a single political or religious bloc; preserve city-state and cult differences",
+    "Claims about Pelinal's identity, madness, divinity or time-displacement remain source-specific interpretations unless directly evidenced",
+    "Middle Dawn chronology is inherently disrupted; preserve conflicting durations, memories and accounts rather than forcing a normal timeline",
+    "Alessian Order doctrine must be separated from earlier Alessian rebellion and later interpretations of Alessia",
+    "Cross-link existing Alessia, Pelinal, Morihaus, Umaril, Ayleid, White-Gold Tower, Amulet of Kings, Chim-el Adabal, Middle Dawn and Knights of the Nine records"
+  ]
+}
