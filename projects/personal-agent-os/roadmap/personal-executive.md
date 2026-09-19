@@ -379,6 +379,78 @@ Requirements:
 - kill switch / global pause;
 - no inferred expansion of authorization.
 
+## EXEC-15 — Lorekeeper / Creative Intelligence
+
+Status: deferred / lower priority. Implement after higher-priority Executive, work-automation, memory, and integration milestones unless explicitly promoted by the user.
+
+Build a reusable, project-isolated creative intelligence subsystem that acts as personal writing assistant, lore library, reference guide, continuity critic, interviewer, and writing companion. It must persist across computers, AI providers, models, and coding/writing agents through Agent OS canonical state rather than any model's private memory.
+
+Core architecture:
+- maintain a structured lore/knowledge graph as canonical state; generate human-readable wiki pages as derived views rather than treating wiki prose as the database;
+- catalogue every meaningful story fact the user provides: characters, aliases/titles, relationships, locations, factions, events, chronology, objects, terminology, metaphysics/magic, themes, intentions, inspirations, unresolved questions, discarded concepts, and historical versions;
+- attach provenance, timestamps, confidence, source references, supersession, and authority to claims;
+- preserve old/contradicted ideas instead of deleting them, while clearly distinguishing current canon from historical concepts;
+- support explicit states such as Canon, Likely Canon, Provisional, Idea, Deprecated, Contradicted, and Unknown;
+- strictly separate authorial facts/intentions from model interpretation, critique, predictions/consequences, questions, and suggestions. AI speculation must never silently become canon;
+- only promote candidate knowledge according to configured validation rules, with explicit user statements taking appropriate authority.
+
+Knowledge-Gap / Interview behavior:
+- integrate with EXEC-2 rather than building an unrelated question system;
+- maintain project-specific knowledge-gap queues and ask high-value questions about character motives, relationships, themes, worldbuilding, chronology, intentions, unresolved contradictions, and ambiguous recovered notes;
+- ask opportunistically and respect interruption/question budgets rather than interrogating the user;
+- turn answers into provenance-backed candidate lore and create useful dependent/follow-up questions;
+- proactively identify things the author appears to have forgotten and surface recovered connections when relevant.
+
+Writer Profile:
+- maintain project-independent candidate knowledge about the user's writing preferences, recurring themes, influences, prose preferences, disliked tropes, narrative/character/worldbuilding philosophy, and critique preferences;
+- infer patterns only as observations/candidates and ask the user to validate meaningful interpretations before treating them as durable preferences;
+- keep Writer Profile knowledge distinct from any individual project's canon.
+
+Critic / Writing Buddy:
+- provide selectable/context-routed lenses such as continuity, character motivation, worldbuilding, theme, pacing, reader confusion, foreshadowing/payoff, redundancy, devil's advocate, and lore consistency;
+- compare critique against established authorial intention rather than imposing generic writing preferences;
+- retrieve only relevant lore/context for the scene/task to minimize token/compute cost;
+- expose common context contracts over CLI/MCP/API so ChatGPT, Codex, Claude, local models, and future agents receive consistent creative context.
+
+Project isolation and generated wiki:
+- support multiple writing universes/projects without cross-contaminating canon;
+- generate/update wiki views for characters, locations, factions, concepts, artifacts, events, timelines, themes, and relationships from structured state;
+- allow cross-project Writer Profile learning while requiring explicit relationships before reusing lore across projects;
+- bootstrap Dream Eater as the first project, ingesting recovered Notion/Drive/Scrivener/old-computer material with source provenance and historical-version preservation.
+
+Live Writing Companion (later phase):
+- build a local Writing Observer that watches changed text/diffs instead of repeatedly sending full manuscripts;
+- support Scrivener/Word/editor integrations where technically practical, eventually including a sidebar/companion UI;
+- sidebar should be able to show current-scene entities, relevant lore, possible continuity conflicts, high-value questions, thematic echoes, and concise feedback with actions such as Discuss, Mark Intentional, Update Lore, and Ignore;
+- support Silent, Companion, Active Editor, Workshop, and Review interaction modes;
+- use cheap/local/deterministic extraction and classification first, escalating to stronger models only when interpretation/criticism warrants it;
+- never silently modify manuscript text or canon from observer output.
+
+Suggested implementation sequence:
+1. lore schemas + knowledge graph + provenance/canon-state contracts;
+2. Dream Eater ingestion/bootstrap and historical-version reconciliation;
+3. generated wiki;
+4. EXEC-2 integration and creative knowledge-gap queue;
+5. Writer Profile;
+6. creative context compiler/retrieval APIs;
+7. Critic Engine and writing-partner workflows;
+8. manuscript diff observer;
+9. live sidebar/editor integrations;
+10. mature cross-project creative memory and reusable creative skills.
+
+Acceptance criteria:
+- a fact mentioned in an authorized conversation/source can become a provenance-backed candidate without being silently promoted to canon;
+- contradictory old/new material remains recoverable and the current authoritative claim can be identified;
+- wiki pages regenerate from structured lore state;
+- multiple AI providers can retrieve the same relevant project context through Agent OS;
+- questions are prioritized by knowledge value and interruption cost;
+- critique can cite relevant established intentions/lore and distinguish fact from interpretation;
+- project canon remains isolated;
+- live observation processes incremental changes rather than repeatedly rescanning complete manuscripts;
+- all consequential canon/manuscript changes remain user-controlled and auditable.
+
+Design principle: **recover everything, forget nothing, but never confuse an old idea or AI interpretation with current canon.**
+
 ## Event Bus
 
 Introduce standardized events instead of allowing integrations to write directly to canonical memory.
