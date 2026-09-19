@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-039-aldmer-altmer-psijic-summerset",
+  "subjects": [
+    {
+      "id": "tes:summerset",
+      "name": "Summerset Isles",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/summerset.json",
+      "source": {
+        "id": "uesp:summerset",
+        "url": "https://en.uesp.net/wiki/Lore:Summerset_Isles",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:alinor",
+      "name": "Alinor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/alinor.json",
+      "source": {
+        "id": "uesp:alinor",
+        "url": "https://en.uesp.net/wiki/Lore:Alinor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:auridon",
+      "name": "Auridon",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/auridon.json",
+      "source": {
+        "id": "uesp:auridon",
+        "url": "https://en.uesp.net/wiki/Lore:Auridon",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:arteaum",
+      "name": "Artaeum",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/arteaum.json",
+      "source": {
+        "id": "uesp:arteaum",
+        "url": "https://en.uesp.net/wiki/Lore:Artaeum",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:firsthold",
+      "name": "Firsthold",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/firsthold.json",
+      "source": {
+        "id": "uesp:firsthold",
+        "url": "https://en.uesp.net/wiki/Lore:Firsthold",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:shimmerene",
+      "name": "Shimmerene",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/shimmerene.json",
+      "source": {
+        "id": "uesp:shimmerene",
+        "url": "https://en.uesp.net/wiki/Lore:Shimmerene",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:crystal-tower",
+      "name": "Crystal Tower",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/crystal-tower.json",
+      "source": {
+        "id": "uesp:crystal-tower",
+        "url": "https://en.uesp.net/wiki/Lore:Crystal_Tower",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:torinaan",
+      "name": "Torinaan",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/torinaan.json",
+      "source": {
+        "id": "uesp:torinaan",
+        "url": "https://en.uesp.net/wiki/Lore:Torinaan",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Aldmer and Altmer must remain historically distinct labels; do not project later Altmeri institutions unchanged onto ancient Aldmeri society",
+    "Altmeri social ideals such as Alaxon should distinguish prescriptive doctrine from observed lived practice",
+    "Psijic accounts of the Old Ways, time and metaphysics retain institutional/source provenance rather than becoming universal truth",
+    "Competing accounts of Aldmeris and early elven origins should coexist where evidence conflicts",
+    "Summerset's political isolation/opening must retain era-specific context",
+    "Cross-link existing Altmer, Aldmer, Summerset, Auridon, Alinor, Artaeum, Crystal Tower, Psijic Order, Sapiarchs, Ayrenn, Vanus Galerion and Mannimarco records"
+  ]
+}
