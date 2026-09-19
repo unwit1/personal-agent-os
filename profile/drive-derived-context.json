@@ -26,7 +26,8 @@
       "2026-09-18 deeper Notion traversal mapped the 2024 Divine/Throne taxonomy and Inquisition character hierarchy. Blank descendants are retained as concept-existence provenance only; sibling order is not used to invent Divine↔Throne mappings.",
       "2026-09-18 Notion realm/history pass: 2024 taxonomy explicitly lists Earth, Fade, Void, Neverwhere and Blueharbor as Realms, with Albion nested under Void. History and Groups are blank, and several organization pages are placeholders. War of Glass/Prague Agreement/Makers material appears to live outside this Notion snapshot, reinforcing cross-source retrieval.",
       "2026-09-18 Notion character cross-check found no substantive records for most later Guardian/Deadlight characters. Notion's Manuscript page is only a Drive embed/link, supporting the conclusion that this workspace was chiefly an ontology/index and Drive held substantive manuscript/lore content.",
-      "2026-09-18 completed the substantive connected Notion Dream Eater import. Future Dream Eater source-combing should return to Google Drive, using the Notion-only taxonomy as cross-source search seeds. Scrivener and old-laptop archives remain pending external recovery."
+      "2026-09-18 completed the substantive connected Notion Dream Eater import. Future Dream Eater source-combing should return to Google Drive, using the Notion-only taxonomy as cross-source search seeds. Scrivener and old-laptop archives remain pending external recovery.",
+      "2026-09-18 resumed Google Drive crawl after Notion completion. Direct dreameater folder/subfolders were enumerated; Otherworld History is a tiny legacy stub. Magic System Explained was revisited for previously uncaptured details on genetic/artificial Fade access, Avalon body-mod ban, mixed House expression, sentient Fade, Albion's ONE, and supernatural-tradition distinctions."
     ]
   },
   "project_clusters": [
@@ -653,6 +654,27 @@
             "Guardian generation taxonomy: Nine, Heretics, Eyes, Deadlight Brigade."
           ],
           "next_source": "Return to Google Drive. Use Notion-only names/taxonomy as search seeds to locate later versions, renames, replacements, or abandoned concepts."
+        }
+      },
+      "google_drive_crawl_progress": {
+        "2026-09-18_batch_otherworld_magic": {
+          "touched": [
+            "Loredoc - Otherworld History",
+            "Loredoc - Magic System Explained"
+          ],
+          "otherworld_history": "The document is effectively a one-line stub: time, historical record and carbon dating work sporadically in the Otherworld; historical record exists due to a push for an orderly empire and somehow dates to 5500 BC. Treat as legacy/provisional.",
+          "magic_system_new_details": [
+            "Natural Fade connection is described as genetic/magical ancestry; artificial users can gain biological connection through exposure/abduction by magical entities/Fae, sometimes with bodily changes.",
+            "Avalon banned deliberate body-part exchange/alteration with nonhuman entities to deepen Fade connection.",
+            "Eight-house spectrum is worldview/life-experience based rather than necessarily discrete; mixed-expression exceptions exist.",
+            "Older house ideal labels include Creation/Dominion, Change/Evolution, Story/Dream, Disorder/Entropy.",
+            "Fade is described as sentient and evolving in the direction of human perception.",
+            "Albion tradition posits an original ONE Name describing all Reality, often attributed to an ultimate creator.",
+            "Theurgists rely on faith/uncertainty and are presented as metaphysically incompatible with Fade certainty/knowledge; an Inquisition is described as a breakaway body from Catholic papal theurgists.",
+            "Cultivators are described as an East Asian/China-centered ki tradition in this draft.",
+            "The document explicitly marks several sections for revisit and calls a graphic outdated, so these details are planning provenance unless reinforced later."
+          ],
+          "source_audit": "Direct dreameater folder and lore/draft subfolders have now been enumerated. Loredoc - Otherworld History was the clearest previously untouched direct file. Continue Drive-wide discovery outside the folder because Character Wiki already proved relevant material exists elsewhere."
         }
       }
     },
