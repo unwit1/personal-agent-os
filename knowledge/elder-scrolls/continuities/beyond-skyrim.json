@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "beyond-skyrim",
+  "library_id": "elder-scrolls",
+  "name": "Beyond Skyrim",
+  "kind": "overlay",
+  "relationships": [
+    {
+      "type": "extends",
+      "target": "tes-base",
+      "notes": "Adds material intended to build on the base setting; it is not promoted to base canon."
+    }
+  ],
+  "modules": [],
+  "notes": "Independent overlay. It is not implicitly compatible with or dependent on other fan continuities such as VICN."
+}
