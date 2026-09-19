@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-015-empires-wars-dragonborn",
+  "subjects": [
+    {
+      "id": "tes:miraak",
+      "name": "Miraak",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/miraak.json",
+      "source": {
+        "id": "uesp:miraak",
+        "url": "https://en.uesp.net/wiki/Lore:Miraak",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:vahlok",
+      "name": "Vahlok the Jailor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/vahlok.json",
+      "source": {
+        "id": "uesp:vahlok",
+        "url": "https://en.uesp.net/wiki/Lore:Vahlok_the_Jailor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:konahrik",
+      "name": "Konahrik",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/konahrik.json",
+      "source": {
+        "id": "uesp:konahrik",
+        "url": "https://en.uesp.net/wiki/Lore:Konahrik",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mankar-camoran",
+      "name": "Mankar Camoran",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/mankar-camoran.json",
+      "source": {
+        "id": "uesp:mankar-camoran",
+        "url": "https://en.uesp.net/wiki/Lore:Mankar_Camoran",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:camoran-usurper",
+      "name": "Camoran Usurper",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/camoran-usurper.json",
+      "source": {
+        "id": "uesp:camoran-usurper",
+        "url": "https://en.uesp.net/wiki/Lore:Camoran_Usurper",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ayrenn",
+      "name": "Ayrenn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/ayrenn.json",
+      "source": {
+        "id": "uesp:ayrenn",
+        "url": "https://en.uesp.net/wiki/Lore:Ayrenn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:razum-dar",
+      "name": "Razum-dar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/razum-dar.json",
+      "source": {
+        "id": "uesp:razum-dar",
+        "url": "https://en.uesp.net/wiki/Lore:Razum-dar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:abnur-tharn",
+      "name": "Abnur Tharn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/abnur-tharn.json",
+      "source": {
+        "id": "uesp:abnur-tharn",
+        "url": "https://en.uesp.net/wiki/Lore:Abnur_Tharn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:varen-aquilarios",
+      "name": "Varen Aquilarios",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/varen-aquilarios.json",
+      "source": {
+        "id": "uesp:varen-aquilarios",
+        "url": "https://en.uesp.net/wiki/Lore:Varen_Aquilarios",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mannimarco",
+      "name": "Mannimarco",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/mannimarco.json",
+      "source": {
+        "id": "uesp:mannimarco",
+        "url": "https://en.uesp.net/wiki/Lore:Mannimarco",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Separate organizations from wars/events even when UESP page names overlap",
+    "Preserve era-specific versions of the Aldmeri Dominion rather than conflating them",
+    "Political claims about Great War, Concordat and Skyrim Civil War require speaker/source attribution",
+    "Dragonborn doctrine, bloodline and blessing claims should distinguish religious belief, historical records and observed game mechanics",
+    "Miraak and Dragon Priest material should prefer direct Skyrim/Dragonborn dialogue, inscriptions and quest evidence"
+  ]
+}
