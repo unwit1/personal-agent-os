@@ -15,7 +15,7 @@
     "first_level_files_indexed": 283,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Move beyond LEGO into remaining Personal/Professional/root uncategorized files; inventory project signals while excluding credentials and sanitizing HR/legal-sensitive material."
+    "next_action": "Inspect remaining safe Personal files (budgets/meals only at non-sensitive project-pattern level), Productivity folder, then Professional/root uncategorized project artifacts. Do not fetch password file, lawyer document, or other credential-bearing sources."
   },
   "top_level_folders": [
     {
@@ -3166,6 +3166,31 @@
         "Minifig Variants to Make",
         "Lego Wishlist",
         "BrickFace/BrickMorph graphics work"
+      ]
+    },
+    "terraria-completion-tracker": {
+      "status": "historical_or_personal_planning",
+      "domain": "Terraria/Calamity/Thorium game completion planning",
+      "summary": "Terraria Bosses spreadsheet appears to map bosses and progression against armor/cosmetic sets, including vanilla Terraria plus large mod ecosystems such as Calamity and Thorium. Likely used as a completion/progression checklist rather than a software project.",
+      "source_ids": [
+        "1YnmX1vA8p2Ao6CmxqRJOIT5sMdJUgm_UreyVG5NISDo"
+      ]
+    },
+    "seedbox-media-stack": {
+      "status": "historical_or_planned",
+      "domain": "personal media-server / seedbox automation",
+      "summary": "A personal infrastructure plan for a seedbox/media stack using a Shield/large storage, download clients, indexer management, media organizers and library frontends across movies, TV/anime, subtitles, music, ebooks, comics/manga and related media. The source file contains plaintext credentials, so only architecture-level project context is retained; credentials must never be copied into Agent OS.",
+      "source_ids": [
+        "1784heEEFZmjc7PK5nn2VR2mJL08XqnjHWJh_uwKp-Bg"
+      ],
+      "privacy": "restricted_source_credentials_not_persisted"
+    },
+    "personal-collecting-beyond-lego": {
+      "status": "historical_and_ongoing_interest",
+      "domain": "collectibles planning",
+      "summary": "Personal Drive includes collection planning beyond LEGO-compatible minifigures, including a Marvel Legends acquisition list. Keep separate from the LEGO/custom-minifigure system while allowing a broader collectibles-interest relationship.",
+      "source_ids": [
+        "1jgp8KTb-11U0ZsNLq9QsoR14CxlkjH-B2Yk2KMKHxuA"
       ]
     }
   },
