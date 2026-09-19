@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "batch_id": "dialogue-discovery-007-blades-storyline",
+  "game": "blades",
+  "status": "source-confirmed",
+  "source_evidence": [
+    {
+      "title": "Update Roundup: April 2019",
+      "url": "https://www.imperial-library.info/content/update-roundup-april-2019",
+      "published": "2019-05-03",
+      "author": "Lady Nerevar",
+      "evidence": "The Imperial Library states that the majority of the Elder Scrolls Blades storyline was online and the final chapter was then in progress.",
+      "classification": "site_editorial"
+    }
+  ],
+  "discovery_targets": [
+    "Blades main storyline chapters",
+    "quest dialogue embedded in storyline pages",
+    "named NPC dialogue",
+    "player response options",
+    "scene narration"
+  ],
+  "rules": [
+    "Use the editorial only as evidence that a transcript/storyline corpus exists; it is not itself game dialogue.",
+    "Resolve each storyline chapter to its own canonical TIL page before local body ingestion.",
+    "Preserve chapter/quest order and NPC speaker identity.",
+    "Written notes/books embedded in storyline pages are typed separately from spoken dialogue.",
+    "Mark transcript completeness per chapter rather than assuming the 2019 corpus was complete."
+  ]
+}
