@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-034-snow-elves-falmer-forgotten-vale",
+  "subjects": [
+    {
+      "id": "tes:auriel",
+      "name": "Auri-El",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/auriel.json",
+      "source": {
+        "id": "uesp:auriel",
+        "url": "https://en.uesp.net/wiki/Lore:Auri-El",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:gelebor",
+      "name": "Knight-Paladin Gelebor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/gelebor.json",
+      "source": {
+        "id": "uesp:gelebor",
+        "url": "https://en.uesp.net/wiki/Lore:Knight-Paladin_Gelebor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:vyrthur",
+      "name": "Arch-Curate Vyrthur",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/vyrthur.json",
+      "source": {
+        "id": "uesp:vyrthur",
+        "url": "https://en.uesp.net/wiki/Lore:Arch-Curate_Vyrthur",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:snow-prince",
+      "name": "Snow Prince",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/snow-prince.json",
+      "source": {
+        "id": "uesp:snow-prince",
+        "url": "https://en.uesp.net/wiki/Lore:Snow_Prince",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:calcelmo",
+      "name": "Calcelmo",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/calcelmo.json",
+      "source": {
+        "id": "uesp:calcelmo",
+        "url": "https://en.uesp.net/wiki/Lore:Calcelmo",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:katria",
+      "name": "Katria",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/katria.json",
+      "source": {
+        "id": "uesp:katria",
+        "url": "https://en.uesp.net/wiki/Lore:Katria",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Use Snow Elf and Falmer terminology with historical precision; do not assume every source uses the terms identically",
+    "Gelebor and Vyrthur provide unusually valuable first-person testimony but remain individual witnesses rather than omniscient narrators",
+    "The cause and mechanism of Falmer transformation must preserve Dwemer agreement accounts, later testimony and uncertainty separately",
+    "Do not infer cultural continuity between ancient Snow Elf religion and every later Falmer community without evidence",
+    "Falmer language evidence should distinguish direct inscriptions/translations from scholarly reconstruction",
+    "Cross-link existing Snow Elves, Falmer, Dwemer, Blackreach, Forgotten Vale, Auri-El, Gelebor, Vyrthur, Auriel's Bow and Falmer-Dwemer records"
+  ]
+}
