@@ -15,7 +15,7 @@
     "first_level_files_indexed": 349,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue safe Untitled/native file sweep, especially 2026-2024 docs/sheets not yet indexed. Prioritize identifying user-authored Skyrim/mod, Agent OS, writing/lore and collection projects. For player character sheets, inventory only and isolate user character material; do not propagate external campaign lore/mechanics. Also inspect Blades of Pergrande Loredoc and other authored campaign planning if not already deeply covered."
+    "next_action": "Continue Untitled sweep with 2026/2025 native docs and then untitled spreadsheets. Inspect safely and classify HR/personal-sensitive material metadata-only or sanitized. Prioritize authored Skyrim, LEGO/minifig, writing/lore, Agent OS and automation artifacts; skip empty docs quickly. Reconcile current ledger IDs before adding."
   },
   "top_level_folders": [
     {
@@ -751,8 +751,8 @@
       "path": "/My Drive/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-06-01T15:02:41.782Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "skyrim_modding_tools",
+      "content_status": "processed"
     },
     {
       "id": "1CXH8Z2AA3IGRDXpahSF9emCTL6CmcuUP7OBS5k1dwII",
@@ -787,8 +787,8 @@
       "path": "/My Drive/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-05-29T20:23:18.474Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "unknown",
+      "content_status": "empty/template"
     },
     {
       "id": "1bn2a6jmOQ_2lTvBkQ6RBXLf-a6eBEQXEEPutV9-2Me0",
@@ -823,8 +823,8 @@
       "path": "/My Drive/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-05-29T19:36:55.214Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "vigilant_dialogue_overhaul",
+      "content_status": "processed"
     },
     {
       "id": "1EXiSOFb0ZttX59mOkIgqR94txnM5Vqagu3-jad4SX-M",
@@ -886,8 +886,8 @@
       "path": "/My Drive/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-05-12T15:13:20.299Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "skyrim_quest_writing",
+      "content_status": "processed"
     },
     {
       "id": "1RQFLNdJXlfhJEniezz8EVYCGrWaoGfEPwjjUTT9dl3s",
@@ -1084,8 +1084,9 @@
       "path": "/My Drive/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-04-14T18:03:31.908Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "hr_work",
+      "content_status": "restricted_summary_only",
+      "privacy_classification": "work HR form; sanitized process metadata only; names/contact details not persisted"
     },
     {
       "id": "1eKu3rdd5B0iL6Ij-oQVYKdvcawHZ5o-eVsoG1mG5ZTY",
@@ -1147,8 +1148,8 @@
       "path": "/My Drive/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-03-23T01:09:31.943Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "lego_minifig",
+      "content_status": "processed"
     },
     {
       "id": "1juVPVjN89CTEU5n83tftU57vCYbSxIoXhV4r_NBqMIE",
@@ -1156,8 +1157,8 @@
       "path": "/My Drive/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-03-20T16:04:02.047Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "lego_minifig",
+      "content_status": "processed"
     },
     {
       "id": "159w4iqFvtRYFhHkWQfpLp00aFmTbvnDI7h3cqo-B4wE",
@@ -1264,8 +1265,9 @@
       "path": "/My Drive/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-02-14T18:49:45.912Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "personal_sensitive",
+      "content_status": "sensitive_metadata_only",
+      "privacy_classification": "personal sensitive dates; content intentionally not persisted"
     },
     {
       "id": "1WfYSIj9gGc0l09nIwtzS86a7whdkwrpk4WCic3QQ9GA",
@@ -5067,6 +5069,67 @@
         "Skyrim faction overhaul ideas"
       ],
       "authority_note": "Untitled planning document; features are concepts, not necessarily implemented/current."
+    },
+    "vigilant-dialogue-overhaul": {
+      "additional_encounter_design": {
+        "summary": "A short authored note identifies a planned 'New World Encounters' module for Vigilant Dialogue Overhaul, including a Crime Scene Forensics encounter. Sparse but confirms forensic/investigative world encounters were intended as part of the overhaul.",
+        "source_ids": [
+          "1Jz3AM06IQ6ONjlFmB5rsLpUdVzwr4I3A9cYgmXX74Oo"
+        ]
+      }
+    },
+    "skyrim-quest-writing": {
+      "status": "authored Skyrim quest drafts",
+      "domain": "Skyrim mod writing/design",
+      "summary": "An untitled authored quest-writing document contains multiple quest concepts. 'Scribe's Legacy: Daedric Quest' centers on the Daedric quill Feyfolken, a bard/writer made supernaturally persuasive, Lady Vittoria and Clavicus Vile. The same document contains a substantially developed Solstheim escort quest ('Walk and a Stride') featuring Indara Nerys, a young Dunmer claiming distant kinship to Neloth: the player escorts her across the ash wastes, survives Reaver and Morag Tong attacks, treats Dusty's respiratory problem, and ultimately receives confirmation from Neloth that she is indeed an extremely distant blood relation. The draft includes branching dialogue, persuasion/intimidation checks, objectives, encounter staging, reward and courier epilogue.",
+      "source_ids": [
+        "1NixAxRRUxw8RTdDFuSo5fBaBDdGGCGgeRa0adBNF_lw"
+      ],
+      "relationships": [
+        "Skyrim quest/mod writing",
+        "possible Scribe/Knowledge Framework ecosystem"
+      ],
+      "authority_note": "Authored draft material; project placement beyond the named quest concepts is not yet certain."
+    },
+    "lego-custom-minifigures": {
+      "status": "active/historical collection and custom-design ecosystem",
+      "domain": "LEGO/custom minifigure design",
+      "design_backlog": {
+        "summary": "A Spider-Man villain design backlog lists many obscure/classic characters and variants for potential minifig creation, including the Enforcers, Smythe, civilian Norman Osborn, Looter, Blackie Drago, Man Mountain Marko, Kangaroo, Gibbon, Stegron, Harry Osborn Green Goblin, Lightmaster, Mirage, Rocket Racer, Will-o'-the-Wisp, Big Wheel, Carrion, Hypno-Hustler, Calypso, White Rabbit, Black Fox, Vulturion, Chance, Stunner and Shriek.",
+        "source_ids": [
+          "1q5Ri-_fQJwOvEkXikfFvSUE-CI3KH5AKeZuv-K3WR6E"
+        ]
+      },
+      "image_workflow": {
+        "summary": "A reusable AI-art workflow specifies two outputs for custom minifigure work: a three-panel photorealistic product render (front, back, separated custom components) constrained to modern LEGO-style facial anatomy, and a technical flat-vector pad-print/decal sheet using a fixed blank template. The decal workflow requires preserving stencil geometry, removing labels/scale markers, flat colors only, bold vector linework, and anatomical mapping across head/torso/arms/legs/boots.",
+        "source_ids": [
+          "1juVPVjN89CTEU5n83tftU57vCYbSxIoXhV4r_NBqMIE"
+        ],
+        "relationships": [
+          "Bootlego MASTER",
+          "custom LEGO business exploration"
+        ]
+      }
+    },
+    "skyrim-modding-tooling": {
+      "status": "supporting technical notes",
+      "domain": "Skyrim mod development",
+      "summary": "A minimal MO2 tools note records Papyrus Compiler as a tool to configure/use through Mod Organizer 2.",
+      "source_ids": [
+        "1vFo_O-j_TdSZjjWcScwSbNXS3kV8Maun24ZKPOPUdMQ"
+      ]
+    },
+    "hr-work-processes": {
+      "status": "work process archive",
+      "domain": "HR operations",
+      "privacy_classification": "sanitized only",
+      "benefits_termination": {
+        "summary": "An untitled work form is a benefits-termination checklist covering enrollment/waiver status across medical, dental, vision, group/voluntary life, STD, FSA, address change, comments, preparer/date and a downstream notification step. Only generic workflow structure is retained; personal names/contact details are intentionally excluded.",
+        "source_ids": [
+          "1pzYhmmfb5u_WbJau7-x0GU-DACfywdp4VkfuhGimVoY"
+        ],
+        "privacy_classification": "restricted sanitized process knowledge"
+      }
     }
   },
   "discovered_project_folders": [
