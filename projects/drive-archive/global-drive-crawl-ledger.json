@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 349,
+    "first_level_files_indexed": 354,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue remaining 2024-and-older Untitled native docs, then inspect untitled spreadsheets. Prioritize authored Dream Eater/Guardian lore, Skyrim mod systems, writing, Agent OS/work automation and collection projects. Nexus-only link dumps are reference inventories unless later contextualized. Personal health/goals remain metadata-only. Continue to skip unrelated NSFW."
+    "next_action": "Continue untitled spreadsheet backlog and any remaining queued legacy docs. Treat giant raw reference datasets (webcomic lists, vanilla Skyrim dialogue exports) as reference/inventory rather than authored knowledge. Prioritize spreadsheets whose tabs/headers reveal authored project structure, trackers, automation, lore databases or reusable tooling. Maintain player-campaign provenance separation."
   },
   "top_level_folders": [
     {
@@ -661,8 +661,8 @@
       "path": "/My Drive/Untitled spreadsheet",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-07-29T22:49:23.573Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "media_reference",
+      "content_status": "irrelevant/reference"
     },
     {
       "id": "1uKjo4zz2amOzAaDIdDLlYSK3pboKbOvdAaoXggcGZMs",
@@ -1048,8 +1048,8 @@
       "path": "/My Drive/Untitled spreadsheet",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-04-30T02:48:43.652Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "skyrim_reference",
+      "content_status": "irrelevant/reference"
     },
     {
       "id": "1tTfcoH2Hp8f0aCoXFqQowaQ4cuZLiu-_HOeh5FA3CnM",
@@ -1779,8 +1779,8 @@
       "path": "/My Drive/mods/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2024-08-09T01:57:01.331Z",
-      "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "category": "skyrim_custom_skills",
+      "content_status": "processed"
     },
     {
       "id": "11E579VA8kj1RfIurICft8hhX6xvHafYkTDaGIRTSnEk",
@@ -1788,8 +1788,8 @@
       "path": "/My Drive/mods/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2024-07-10T16:22:11.813Z",
-      "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "category": "skyrim_alchemy_survival",
+      "content_status": "processed"
     },
     {
       "id": "1fMtQfJFxYWR7rMXOESEyhie0MD1Ls-zGuubMa3kRolg",
@@ -2131,8 +2131,8 @@
       "path": "/My Drive/dreameater/draft/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2023-03-13T23:37:42.313Z",
-      "category": "writing_dream_eater",
-      "content_status": "queued"
+      "category": "dream_eater",
+      "content_status": "processed"
     },
     {
       "id": "11LzEJp0FkEYPw6UW2wXZ9-p2dQHqPl5zzGbZS7EoSek",
@@ -3119,6 +3119,51 @@
       "inventory_source": "player-character provenance pass",
       "provenance": "player_campaign_or_external_reference",
       "influence_policy": "Do not use campaign mechanics/lore as evidence for user's authored systems unless separately confirmed."
+    },
+    {
+      "id": "12ul1AXGWFlrBwfdnAF1g3wTy-cflcvbJRhNaRXztOCg",
+      "title": "Untitled document - Dragon Heart recap",
+      "path": "/Accessible Drive/Untitled document - Dragon Heart recap",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "dragon_heart",
+      "content_status": "processed",
+      "inventory_source": "legacy untitled and spreadsheet sweep"
+    },
+    {
+      "id": "1Z4ReTJSynYGURYhTy7t5qlj0oRaCE6T-4LJmJZsUMCI",
+      "title": "Untitled document - Blades of Pergrande session one",
+      "path": "/Accessible Drive/Untitled document - Blades of Pergrande session one",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "blades_of_pergrande",
+      "content_status": "processed",
+      "inventory_source": "legacy untitled and spreadsheet sweep"
+    },
+    {
+      "id": "1GorQ6qtUNtYs5PzYAfIKZ4QHGv3wtbXon7tZx2nTldc",
+      "title": "Untitled document - Fate schools of magecraft",
+      "path": "/Accessible Drive/Untitled document - Fate schools of magecraft",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "fate_nasuverse_rpg",
+      "content_status": "processed",
+      "inventory_source": "legacy untitled and spreadsheet sweep"
+    },
+    {
+      "id": "18dBHTWXFbfIDJRKKS324EBNMaiL93D6AFEmFvyZDpQ4",
+      "title": "Untitled document - Fate Burial Agent miracles",
+      "path": "/Accessible Drive/Untitled document - Fate Burial Agent miracles",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "fate_nasuverse_rpg",
+      "content_status": "processed",
+      "inventory_source": "legacy untitled and spreadsheet sweep"
+    },
+    {
+      "id": "1cLEtRQHEd8RDmsfxPKWnRgOXdsTi1al940oWjcgxzXk",
+      "title": "Untitled spreadsheet - UAS import/reference",
+      "path": "/Accessible Drive/Untitled spreadsheet - UAS import/reference",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "category": "uas_tooling",
+      "content_status": "processed",
+      "inventory_source": "legacy untitled and spreadsheet sweep"
     }
   ],
   "folder_queue": [
@@ -3331,6 +3376,17 @@
           "12PovbbSP_Rzr3PMcUrCh-mcvNVxeC65X2CEGnP3QKNI"
         ],
         "evolution_note": "This establishes a clearer bridge from the older role-name scheme into the later 2e Guardian/Artillery/Tactician/Operative/Bruiser/Support/Diplomat terminology and from simple backgrounds toward a compositional life-history system."
+      },
+      "import_sheet": {
+        "summary": "An untitled DATA spreadsheet is an internal UAS v1.7/Blades of Pergrande character-reference/import sheet for character-sheet v2.1. It exposes progression, class/subclass, stats, saves, HP/SP/MP/AP, proficiency tiers, magic proficiency and links/import slots for system actions/classes/effects/items/levels/skills and GM party/combat/feat/loot/moves/NPC/quest data. Many references are currently broken (#REF!), so it is primarily evidence of the spreadsheet architecture and centralized system-database design.",
+        "source_ids": [
+          "1cLEtRQHEd8RDmsfxPKWnRgOXdsTi1al940oWjcgxzXk"
+        ],
+        "relationships": [
+          "UAS 1.7",
+          "Blades of Pergrande",
+          "reusable character sheet tooling"
+        ]
       }
     },
     "berea-pinochle": {
@@ -3472,6 +3528,12 @@
           "12BgdMu5ccCKz-upBQ3A56VR1Knt-vXVIy4eJ8wP3k44"
         ],
         "provenance_note": "This is campaign planning/worldbuilding rather than a standalone player sheet, so it is retained as authored project lore. Player-specific arcs may include collaborative input and should not automatically be treated as solely authored character canon."
+      },
+      "session_one_2022": {
+        "summary": "A Session One note dated 2022-04-03 opens with Morris meeting Guildmaster Rhea in a bar. Rhea recognizes his shifting Ifrit/Thor/Shiva identities and approaches through a mutual contact. Preparation called for the guildhall, sparring grounds, Dragonheart Forest Grounds and Klobury locations. The party's initial job included an urgent ministry request about a missing child, with Harlin noting that his sister was already investigating.",
+        "source_ids": [
+          "1Z4ReTJSynYGURYhTy7t5qlj0oRaCE6T-4LJmJZsUMCI"
+        ]
       }
     },
     "dragon-heart-campaign": {
@@ -4553,6 +4615,20 @@
         "source_ids": [
           "1LsNxQp5Be8WQDEByO4abNRjOwFxCQ9cwQPAQHHRm9ro"
         ]
+      },
+      "magecraft_schools": {
+        "summary": "A legacy rules fragment organizes Magecraft into schools functioning as proficiencies on casting checks: Restoration, Elementalism, Alteration, Projection, Displacement, Distortion, Runecraft/Actualization, Evocation, Investiture/Item Creation, Alchemy/Transmutation for Alchemists, and Theurgy for Church characters. Examples associate Restoration with biology/healing/necromancy; Alteration with property reinforcement; Displacement with souls/consciousness; Distortion with telepathy/illusion/memory/perception/thought acceleration; Evocation with spirits/summoning/possession; and Investiture with Mystic Code creation.",
+        "source_ids": [
+          "1GorQ6qtUNtYs5PzYAfIKZ4QHGv3wtbXon7tZx2nTldc"
+        ],
+        "status": "legacy rules"
+      },
+      "burial_agent_miracles": {
+        "summary": "A legacy Burial Agent spell sheet gives Church agents a selectable Miracle subsystem. Miracles cover resurrection, enhanced strikes, wound resistance, supernatural tracking with Black Keys, an artificial scripture eye for supernatural assessment, sanctified anti-supernatural zones, holy-blood retaliation, debuffing keys, supernatural sight, voice-based intimidation/stunning, rapid healing, resource recovery and stat-cap increases. This belongs to the user's older Fate/Nasuverse rules project, not to unrelated campaigns.",
+        "source_ids": [
+          "18dBHTWXFbfIDJRKKS324EBNMaiL93D6AFEmFvyZDpQ4"
+        ],
+        "status": "legacy rules"
       }
     },
     "personal-media-software-master-list": {
@@ -4716,7 +4792,13 @@
       "relationships": [
         "Blades of Pergrande",
         "Universal Anime System"
-      ]
+      ],
+      "session_recap": {
+        "summary": "A session-recap fragment records a Dragon Heart adventure involving the Queensmen Logging Company, Eloburgh, a mysterious dark guardian, Titan awakening and a comedic vigilante identity 'The Dark Claw (Pablo).' This is campaign-history evidence, not a rules-design source.",
+        "source_ids": [
+          "12ul1AXGWFlrBwfdnAF1g3wTy-cflcvbJRhNaRXztOCg"
+        ]
+      }
     },
     "lower-worlds": {
       "status": "historical tabletop campaign/project",
@@ -5192,7 +5274,39 @@
         ],
         "status": "Idea/Provisional",
         "canon_reconciliation": "Brainstorming only. Preserve concepts and provenance but do not promote plot beats, identities or metaphysics over explicit user statements, current manuscript or newer dedicated lore. The note includes incomplete alternatives and fragments."
+      },
+      "abigail_gambling_scene": {
+        "summary": "A prose/WIP scene depicts Abigail as a young gambler using limited mental/magical resources to cheat or manipulate card games while playing with men connected to her father. A key emotional stake is recovering her mother's wedding ring, previously lost by her father Lewis in a gambling game. The scene emphasizes Abigail's reckless confidence, humor, resource limits/migraines, family history and willingness to push herself when emotionally provoked.",
+        "source_ids": [
+          "1Qjr1XPb9dAuvo25WrSVqEkSvZ6jgFW19EqMqhQXwtio"
+        ],
+        "status": "Likely Canon / manuscript-adjacent WIP",
+        "authority_note": "Preserve as prose/WIP evidence, but incomplete fragments and exact wording/events should be checked against newer manuscript before being treated as current scene canon."
       }
+    },
+    "skyrim-cooking-skill": {
+      "status": "Skyrim mod concept",
+      "domain": "Skyrim custom skill/gameplay",
+      "summary": "A custom Cooking skill concept would level through discovering/eating new foods and producing food through a cooking minigame, with Gourmet as a dependency. Perk branches were envisioned for food, alcohol and drugs, including food-poisoning immunity, increased food value, random magical food effects and legendary food items.",
+      "source_ids": [
+        "14bnTIbCTv03S20eYLVujlyFN3LHfKUJCji6MlgN7m_I"
+      ],
+      "relationships": [
+        "Personal Skyrim Overhaul / Old Way",
+        "survival/gameplay systems"
+      ]
+    },
+    "skyrim-potion-vice-system": {
+      "status": "Skyrim mod concept / fragment",
+      "domain": "Skyrim alchemy/survival gameplay",
+      "summary": "A short concept note groups Potion Toxicity & Resistance, potion buildup, addiction, drugs, potions and Vice into a planned systemic layer. Details are not developed enough to infer exact mechanics.",
+      "source_ids": [
+        "11E579VA8kj1RfIurICft8hhX6xvHafYkTDaGIRTSnEk"
+      ],
+      "relationships": [
+        "Personal Skyrim Overhaul / Old Way",
+        "alchemy/survival systems"
+      ]
     }
   },
   "discovered_project_folders": [
