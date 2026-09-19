@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 426,
+    "first_level_files_indexed": 454,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue orphan reconciliation with stricter authorship provenance: Drive possession is not authorship. Review ambiguous previously classified authored candidates when evidence is weak. Search remaining generic/project files, prioritize material with explicit internal authorship evidence, and classify guides/checklists/imports/external mod docs as reference. Fura material remains authorship-unverified. Retry Saga later."
+    "next_action": "Continue generic/project orphan reconciliation with conservative authorship. Search older folders and exact legacy project terms, then inspect missing IDs. Revisit earlier 'authored' classifications only when internal evidence supports them; Drive possession alone is insufficient. Retry Saga - Skyrim Religion Overhaul later. Prioritize Dream Eater legacy planning and genuinely user-created Skyrim mod docs, while keeping external/community material isolated."
   },
   "top_level_folders": [
     {
@@ -3753,6 +3753,230 @@
       "category": "media_server_reference",
       "content_status": "irrelevant/reference",
       "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1TYy2xRlLRngC-_JrPhsWy6lsSwfLZlEu",
+      "title": "Character Creation",
+      "path": "/Accessible Drive/Character Creation",
+      "category": "folder",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "11wCFuEFtdK0u3WNbo8asBMtRtXtm3xT0",
+      "title": "Character Sheets",
+      "path": "/Accessible Drive/Character Sheets",
+      "category": "folder",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "11w9x0hOmV0DrZLn6BEOVBZMSKkQM6bka",
+      "title": "Player Characters",
+      "path": "/Accessible Drive/Player Characters",
+      "category": "folder",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1A4cHux9Jijg1InAH7VxPHiQCbWbNE6aMiHt4XwznQJ8",
+      "title": "Character Sheet",
+      "path": "/Accessible Drive/Character Sheet",
+      "category": "player_character",
+      "content_status": "partial",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1CTEJr3hXv_kJiflC_Z86GySUBo_HCTfrr6vQfXAXXdQ",
+      "title": "Fate/Nasuverse Character Creation",
+      "path": "/Accessible Drive/Fate/Nasuverse Character Creation",
+      "category": "legacy_fate_system",
+      "content_status": "empty/template",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1p8EmokwQwsj8xkLefxgN1y3Z8Yow2J3e",
+      "title": "Character Sheets",
+      "path": "/Accessible Drive/Character Sheets",
+      "category": "folder",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1BBjW_tjuIboozs3WEYkAlIm-DdEflKtpHI7HhTNO1uc",
+      "title": "Character Motivations",
+      "path": "/Accessible Drive/Character Motivations",
+      "category": "dream_eater_legacy",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1N5YIcBpK5j6RG3IIx7JYGWtmjhGeIByb",
+      "title": "[character name]",
+      "path": "/Accessible Drive/[character name]",
+      "category": "folder",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1Ep46GREVxzH4bFvaZ7p3oZQQ65v31WsTpYCDlE6R8Ww",
+      "title": "FSN-System.doc",
+      "path": "/Accessible Drive/FSN-System.doc",
+      "category": "legacy_fate_system",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1xehGvOkIj6HAHVpUWA9Z-98PUtsp7AaBm7sAxsLPyxs",
+      "title": "A Walk and a Stride - Small Side Quest",
+      "path": "/Accessible Drive/A Walk and a Stride - Small Side Quest",
+      "category": "skyrim_mod_authored",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1iNCBnnIYMuFC0ZA7uHTlNebBI9xP1w70GxVxJecnS9A",
+      "title": "[AC] Changelogs",
+      "path": "/Accessible Drive/[AC] Changelogs",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1-g8gMx_izbJMk9GJ2l_-Rtyc045GpbpImCR4cLSARb4",
+      "title": "PLAYERS - Timeline 63–124",
+      "path": "/Accessible Drive/PLAYERS - Timeline 63–124",
+      "category": "player_campaign_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1Hk5Xh5OW-C1jCTbvS5gChUZazZ_0YUW-rz2cZqDv3ik",
+      "title": "BS: Roscrea QA Test",
+      "path": "/Accessible Drive/BS: Roscrea QA Test",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "11V9lJRwWavDybF6KAHvVz9s6jYuLmkth1QxzdJ4Vw3w",
+      "title": "Classes (Simplified)",
+      "path": "/Accessible Drive/Classes (Simplified)",
+      "category": "fate_adaptation_unverified_authorship",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1aCejZWUjL3eYcHkNdzLAuZvzmWRFIydIsXl_iXowwtM",
+      "title": "Classes",
+      "path": "/Accessible Drive/Classes",
+      "category": "fate_adaptation_unverified_authorship",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1DSHlntviqwqDZ7JceI8e2NtOP9TjWLgz",
+      "title": "System Base 1.5",
+      "path": "/Accessible Drive/System Base 1.5",
+      "category": "folder",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "116mjVMJu-vUBuroe40uGfUFg1MEqmGxo",
+      "title": "system",
+      "path": "/Accessible Drive/system",
+      "category": "folder",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1CqqKvbn5DzUdqywc57RLulCEqDIzJrXV",
+      "title": "System",
+      "path": "/Accessible Drive/System",
+      "category": "folder",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1CgPZEnOYPimCEhmzApPTGDt0gp0rzVQcxAi0TJCQwa4",
+      "title": "FSN-Youkai.doc",
+      "path": "/Accessible Drive/FSN-Youkai.doc",
+      "category": "legacy_fate_system",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1VYedRPXE4uH4FKYj3-8WiNzWfFNkh-v5AFhMiqICTQI",
+      "title": "MGT 653 FA26 Class Activity Doc",
+      "path": "/Accessible Drive/MGT 653 FA26 Class Activity Doc",
+      "category": "school_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1yBvO6s4QkspJoiZcXRw_QQBp4aHIh54jwX_F0gYGoMw",
+      "title": "On theme",
+      "path": "/Accessible Drive/On theme",
+      "category": "legacy_fate_system",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1eZzuX5JjJ0tuP3HxQzyABBYHkHJBAhsic9439d-tZLA",
+      "title": "Custom Magic",
+      "path": "/Accessible Drive/Custom Magic",
+      "category": "legacy_fate_system",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1oD7r9M_t5mWzAcNmvtcHrV1Dj3K_7CHpy6y8rY3OMWQ",
+      "title": "Magi Organizations",
+      "path": "/Accessible Drive/Magi Organizations",
+      "category": "legacy_fate_system",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1nTsMd8_XKt5nQsIKYHV3o1jOMastaxWD",
+      "title": "Campaign 1 - Anthem",
+      "path": "/Accessible Drive/Campaign 1 - Anthem",
+      "category": "folder",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1l5QJVixSGgeRtLQvZzgL46AR9qV0FNTD",
+      "title": "Campaign 2 - Fate/False Paradise",
+      "path": "/Accessible Drive/Campaign 2 - Fate/False Paradise",
+      "category": "folder",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1SUPeXfrsZRd0pEgJknPLgy07Kd0vR5REAJWOSu_29-4",
+      "title": "Books",
+      "path": "/Accessible Drive/Books",
+      "category": "unknown",
+      "content_status": "empty/template",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1vk23YmYtXv3plTJ_3RBZ8xJyI0R3kBhy",
+      "title": "Stardew Valley Checklist",
+      "path": "/Accessible Drive/Stardew Valley Checklist",
+      "category": "folder",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
+    },
+    {
+      "id": "1Ff-pn9ZcTM0KSxXhW-M3sFYtWd2HC6mM",
+      "title": "(Guides)",
+      "path": "/Accessible Drive/(Guides)",
+      "category": "folder",
+      "content_status": "processed",
+      "inventory_source": "generic/project orphan reconciliation with conservative provenance"
     }
   ],
   "folder_queue": [
@@ -6104,6 +6328,14 @@
         ],
         "status": "legacy manuscript/predecessor",
         "authority_note": "Do not silently map Ellis to a current character or promote early names/details without corroboration."
+      },
+      "legacy_character_motivations": {
+        "summary": "A 2018 Character Motivations/oaths document captures early thematic character arcs: Ellis 'I will not be forgotten'; Abigail questions why she was chosen; Marcus 'I will be worthy' and was at that time being folded into an older Oliver role; Leilla 'I will save everyone'; Harland 'He cannot have me'; Reese moves from protecting the innocent toward violently destroying perceived evil; Lotus 'I will feel again'; Quinn 'I will change this world.' It also references Jack using Shatter;self to banish the Jackal and later PTSD. This is strong historical evolution evidence but is not current canon by itself, and its Oliver-era planning is superseded where later canon differs.",
+        "source_ids": [
+          "1BBjW_tjuIboozs3WEYkAlIm-DdEflKtpHI7HhTNO1uc"
+        ],
+        "status": "legacy character-planning",
+        "authority_note": "Historical themes only. Explicit user canon/newer manuscript outrank this source; Silas-over-Oliver rule remains mandatory."
       }
     },
     "skyrim-cooking-skill": {
@@ -6239,6 +6471,22 @@
           "1fBlV0I57hK6pt1zHhiTBZjl1uv7Hj66hjWphbI8FLtw",
           "1IR9sQIBwmaGuTE6vXTyCx_6ytCBoXz4Efq2Qk4cJZYo"
         ]
+      },
+      "core_resolution": {
+        "summary": "FSN-System documents the early dice-pool engine: skill + related stat determines d6 pool; 5s/6s count as hits; opposed actions compare hits while unopposed checks use GM-set hit thresholds. Combat uses attack versus dodge pools, excess successes add damage, Endurance soaks damage, and initiative derives from Dexterity + Awareness. Turns divide movement/action, with full-round actions and mount/vehicle combat. This is clearly part of the same old FSN rules corpus, though exact authorship of every file remains historical-project evidence rather than inferred solely from Drive possession.",
+        "source_ids": [
+          "1Ep46GREVxzH4bFvaZ7p3oZQQ65v31WsTpYCDlE6R8Ww"
+        ]
+      },
+      "customization_and_theme": {
+        "summary": "Related old FSN documents define class themes (Blooded sacrifice/internal demon; Burial Agent faith/monster hunting; Magi will bending reality; Dead Apostle undeath/urges; Magitek unchecked scientific self-improvement), custom spell creation by combining known spells, family-specific magecraft, secretive council/family-based Magi organizations, and a Youkai archetype draft with Killer/Gunner-style combat packages. These are adaptation/system-development records; they should not be treated as original Nasuverse lore.",
+        "source_ids": [
+          "1yBvO6s4QkspJoiZcXRw_QQBp4aHIh54jwX_F0gYGoMw",
+          "1eZzuX5JjJ0tuP3HxQzyABBYHkHJBAhsic9439d-tZLA",
+          "1oD7r9M_t5mWzAcNmvtcHrV1Dj3K_7CHpy6y8rY3OMWQ",
+          "1CgPZEnOYPimCEhmzApPTGDt0gp0rzVQcxAi0TJCQwa4"
+        ],
+        "provenance_note": "Fate/Nasuverse adaptation; preserve mechanics/project history separately from franchise lore."
       }
     },
     "simonrim-reference": {
