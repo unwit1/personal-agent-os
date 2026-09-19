@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-020-solstheim-dragonborn-apocrypha",
+  "subjects": [
+    {
+      "id": "tes:skaal",
+      "name": "Skaal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/skaal.json",
+      "source": {
+        "id": "uesp:skaal",
+        "url": "https://en.uesp.net/wiki/Lore:Skaal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:house-redoran-solstheim",
+      "name": "House Redoran",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/house-redoran-solstheim.json",
+      "source": {
+        "id": "uesp:house-redoran-solstheim",
+        "url": "https://en.uesp.net/wiki/Lore:House_Redoran",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:miraak-cultists",
+      "name": "Cultists of Miraak",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/miraak-cultists.json",
+      "source": {
+        "id": "uesp:miraak-cultists",
+        "url": "https://en.uesp.net/wiki/Lore:Cultists_of_Miraak",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Distinguish Skaal religious belief from directly observed supernatural events",
+    "Hermaeus Mora dialogue establishes what Mora says/claims, not necessarily omniscient truth",
+    "Player-character titles and actions must remain quest/branch scoped where choices vary",
+    "Black Books should be modeled as individual artifacts linked to a collection/concept, not collapsed into one item",
+    "Cross-link Solstheim history to Morrowind/Red Year records while preserving differing source perspectives",
+    "Do not duplicate existing Miraak, Neloth, Apocrypha, Solstheim, Red Year or Hermaeus Mora subjects; merge by canonical subject ID during materialization"
+  ]
+}
