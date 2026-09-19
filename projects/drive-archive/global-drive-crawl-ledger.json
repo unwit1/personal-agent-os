@@ -1,0 +1,2212 @@
+{
+  "schema_version": 1,
+  "scope": "Entire connected My Drive project/history inventory",
+  "updated_at": "2026-09-18",
+  "objective": "Inventory every accessible Drive file, classify it by project/domain, extract durable project knowledge, and persist sanitized useful context into Personal Agent OS.",
+  "privacy_rules": {
+    "credentials": "Inventory filename/path only; never fetch contents.",
+    "hr_and_personnel": "Inventory and categorize; extract only sanitized workflow/project knowledge, never applicant/employee PII or raw records.",
+    "personal_sensitive": "Store only durable project/category summaries where useful; avoid unnecessary private details."
+  },
+  "crawl_state": {
+    "root_items": 149,
+    "root_files": 139,
+    "root_folders": 10,
+    "first_level_files_indexed": 226,
+    "subfolders_queued": 13,
+    "status": "in_progress",
+    "next_action": "Recursively traverse subfolders, then fetch queued files in resumable batches by category."
+  },
+  "top_level_folders": [
+    {
+      "id": "11z2WknkkA-vQ7dYGNa1J6OwHs3ghvbQZ",
+      "title": "Knowledge Framework ",
+      "url": "https://drive.google.com/drive/folders/11z2WknkkA-vQ7dYGNa1J6OwHs3ghvbQZ"
+    },
+    {
+      "id": "1sxelO9Vz02alYTzkDUwDT5WfPRICn3nm",
+      "title": "RTEC",
+      "url": "https://drive.google.com/drive/folders/1sxelO9Vz02alYTzkDUwDT5WfPRICn3nm"
+    },
+    {
+      "id": "1lXnYM8MIbFXOb1HkrpFtlVVmRABO6cS6",
+      "title": "Opal",
+      "url": "https://drive.google.com/drive/folders/1lXnYM8MIbFXOb1HkrpFtlVVmRABO6cS6"
+    },
+    {
+      "id": "1-6GxR1RgbtJzdywp29XsBqH8nPPbW8pwVIzK8TwVPfCX2JZC1dibOFQSQ_KSmkHZWmOBvaH8",
+      "title": "Copy of Basic Job Application Form (File responses)",
+      "url": "https://drive.google.com/drive/folders/1-6GxR1RgbtJzdywp29XsBqH8nPPbW8pwVIzK8TwVPfCX2JZC1dibOFQSQ_KSmkHZWmOBvaH8"
+    },
+    {
+      "id": "126CdRtNWHoO3lFy68IwMrytnNWxq10GB",
+      "title": "lego",
+      "url": "https://drive.google.com/drive/folders/126CdRtNWHoO3lFy68IwMrytnNWxq10GB"
+    },
+    {
+      "id": "10lbBsKmbrDZWuJLWLwcZn9IDd_Y_r4-w",
+      "title": "Professional",
+      "url": "https://drive.google.com/drive/folders/10lbBsKmbrDZWuJLWLwcZn9IDd_Y_r4-w"
+    },
+    {
+      "id": "1L3tV-aWsCs_oLsaRuwJjTAJ9fzhhS9Su",
+      "title": "mods",
+      "url": "https://drive.google.com/drive/folders/1L3tV-aWsCs_oLsaRuwJjTAJ9fzhhS9Su"
+    },
+    {
+      "id": "1OHQb-ZklR_FQhw-YRK1whLkx7pflbDJB",
+      "title": "dreameater",
+      "url": "https://drive.google.com/drive/folders/1OHQb-ZklR_FQhw-YRK1whLkx7pflbDJB"
+    },
+    {
+      "id": "11eoZK2chZ2hVq1IH4jYnJWY0tK4Btey0",
+      "title": "Universal Anime System (UAS)",
+      "url": "https://drive.google.com/drive/folders/11eoZK2chZ2hVq1IH4jYnJWY0tK4Btey0"
+    },
+    {
+      "id": "1jr15hSXYPHqrr1jEkRK-NN6gTyt9sCha",
+      "title": "Personal",
+      "url": "https://drive.google.com/drive/folders/1jr15hSXYPHqrr1jEkRK-NN6gTyt9sCha"
+    }
+  ],
+  "files": [
+    {
+      "id": "1iydk8XugiOgLNGUfAgCwTPY6IA6l4oD92mhhZ-_OJ-Q",
+      "title": "HR Scanner Iterative Improvement Findings",
+      "path": "/My Drive/HR Scanner Iterative Improvement Findings",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-18T18:15:56.027Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1ien55iA_crkTnQ9BfIQwEoCa6-v9rHmTrvTXpPzt9tg",
+      "title": "New Books List",
+      "path": "/My Drive/New Books List",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-09-18T03:37:59.893Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1o83t0SikSrepQ1GSdMILeJq3DIeqHifq",
+      "title": "Vanilla_tagged_full.csv",
+      "path": "/My Drive/Vanilla_tagged_full.csv",
+      "mime_type": "text/csv",
+      "modified_time": "2026-09-16T01:07:41.000Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1yPR6yTxbKANX921htFw92KIWscIuJt1S4Dn5wPWkvoU",
+      "title": "Lot Addresses",
+      "path": "/My Drive/Lot Addresses",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-09-15T16:11:27.831Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1pRVMPho2Fd4tv6Z3kcosds9Kp-4TJ9ukSBCFCLcyt_o",
+      "title": "Untitled document",
+      "path": "/My Drive/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-14T18:42:40.129Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1v9kB7CAEMLI9okKt_ycSVM59Bjm1zmE-kBNRVpyvTg0",
+      "title": "KF Apocryphal Knowledge Addon",
+      "path": "/My Drive/KF Apocryphal Knowledge Addon",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-14T18:30:09.136Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1_EFL5QQs0cHOzgX-qfnmQbRpH0zt2d26o9AF5xdbsfA",
+      "title": "Silvertongue - Language Learning of Skyrim",
+      "path": "/My Drive/Silvertongue - Language Learning of Skyrim",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-14T18:09:41.918Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1IzHZxHcy3Gi_7XlyIG4sYmiIzRkMbdzjtxmviMzV4qs",
+      "title": "KF JSON Structure",
+      "path": "/My Drive/KF JSON Structure",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-14T17:57:59.976Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1Lha6h5OMy20Orac9bjXZF6W5VmBx4ssnJkwnc8n2Ew4",
+      "title": "KF Patches",
+      "path": "/My Drive/KF Patches",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-14T17:14:54.165Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1jKOnWtt7WaRuuimaQruE6KH5gtO5et8thNUYMGNWaXg",
+      "title": "Knight Mentor - Knowledge Framework Addosn",
+      "path": "/My Drive/Knight Mentor - Knowledge Framework Addosn",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-14T17:14:23.106Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1NXkYRxBdj8PqYOnjgLDBzaUoCeQRPmPhOZFm2X9tpWA",
+      "title": "KF _ Vanilla Item Tagging",
+      "path": "/My Drive/KF _ Vanilla Item Tagging",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-09-14T17:12:48.486Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "18LBn3VSkchCAf0exFa-qgoxjWPqkLHhKmNjAqhU6BcQ",
+      "title": "Modlist",
+      "path": "/My Drive/Modlist",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-09-12T21:34:14.450Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1t3FoStqaJ6U4UeWXwz_TAmAMDAFrQfNim3KTPnw1wb0",
+      "title": "Untitled document",
+      "path": "/My Drive/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-12T00:33:35.306Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1cvI7GXqGZvZ25ml2y9YYjb9WkLegwryw0brBwo5PqWo",
+      "title": "Weapons Rebalance",
+      "path": "/My Drive/Weapons Rebalance",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-09-08T22:38:13.748Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1TppqP6JkxGui5GmiRfn8RiAhZvqeYxw4UbTNJe7j1F0",
+      "title": "Illusion Spells Overhaul - Mysticism Patched",
+      "path": "/My Drive/Illusion Spells Overhaul - Mysticism Patched",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-08T20:22:36.483Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1OHCvUiIDr3DPoHqcVELW8oB0-uRikC_KKvS418Zr4Q8",
+      "title": "Simple Weapon Clash",
+      "path": "/My Drive/Simple Weapon Clash",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-08T20:11:15.792Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1B_CUEz7Nl4UhinnAtze5Ytr8CxMWApVGn2-5fS47owM",
+      "title": "ControlMap",
+      "path": "/My Drive/ControlMap",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-09-08T18:37:26.516Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "11liRjF3Iuq5f_u7uBoJAla3t5ZjSPz4TQaSxzDTTllc",
+      "title": "Controlmap",
+      "path": "/My Drive/Controlmap",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-06T20:14:33.010Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1lYcYD1UaoQWzfLtapls0GFI2foQ4DX7eHOxXXey-Jgo",
+      "title": "Combat Mods Integration with Simonrim",
+      "path": "/My Drive/Combat Mods Integration with Simonrim",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-06T20:03:28.746Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1eo0tgSvce-K7mNpFBYGNSM3bnaz-hSud0Pi0vZixpHk",
+      "title": "Contextual Combat Keys",
+      "path": "/My Drive/Contextual Combat Keys",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-06T16:04:29.817Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1Zf7Sn2MXBCJgSHGSeNGKxM0pcjtIsGPdsbuKl8gWB-k",
+      "title": "Marksman - Archery Addons",
+      "path": "/My Drive/Marksman - Archery Addons",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-06T01:23:43.663Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1NxwWTt6n4Tz8KIAD77S8QoiAySaUH8NUHsd9fpZ-S_w",
+      "title": "Imperial Library",
+      "path": "/My Drive/Imperial Library",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-04T17:10:01.854Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1fHtDeKEphivgAAdey3lasWYe6YSTQwM8XlbzAeyTuEo",
+      "title": "Open Knowledge Framework (OKF) ",
+      "path": "/My Drive/Open Knowledge Framework (OKF) ",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-09-03T20:58:58.768Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "16R8T4NOEzUaEM-gexTJimqWtbIxSlPN7Ua7BgGazOjQ",
+      "title": "Apostate - Religion Expanded for Simonrim",
+      "path": "/My Drive/Apostate - Religion Expanded for Simonrim",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-09-03T20:51:01.580Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1-ThoHEbUIZzmzWu6zNjM1Udq1klP8zkgKceDKVGDeWE",
+      "title": "Combat Overhaul",
+      "path": "/My Drive/Combat Overhaul",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-09-03T19:24:50.412Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1SpoDdp0p8VGhVzFaUjwCMervB6y_IlbFx-XOSzHvmGk",
+      "title": "KF - Scholarship Skilltree",
+      "path": "/My Drive/KF - Scholarship Skilltree",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-03T16:37:06.453Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "18xZmdAhKIHXxpQVaMyHoBMnEUcUoHKR-rqMANJOsHdc",
+      "title": "Machinist - Engineering Skill",
+      "path": "/My Drive/Machinist - Engineering Skill",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-03T15:02:54.916Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "198V9COpLPe4bcvvilVepAdQmZCkmnQ09qyTqVuHRxV8",
+      "title": "UnwitRim Custom Spells",
+      "path": "/My Drive/UnwitRim Custom Spells",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-30T18:18:04.223Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1S65p9259giM4yG4gnfTvV6E0zF3PDdLCHveQqTzSgo0",
+      "title": "Balladeer - A Bard Overhaul",
+      "path": "/My Drive/Balladeer - A Bard Overhaul",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-30T17:45:28.440Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1YzEi_EWgLuw7PE7s1eMf0d-vMaVzVDQYD1lp9TfJSI0",
+      "title": "Crime Overhaul NG",
+      "path": "/My Drive/Crime Overhaul NG",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-29T01:05:46.486Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1w-JOs6Q-Y9QwQrolnpa-eCBwtzm8ZmAAPoqUjO02bbs",
+      "title": "WebAnim",
+      "path": "/My Drive/WebAnim",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-28T21:54:43.116Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1ZDRt5sqNbwYKw40D-zxjP_lqe5v7R9A2G38T6ZV3oQQ",
+      "title": "Skyrim_Quests_and_World_Encounters",
+      "path": "/My Drive/Skyrim_Quests_and_World_Encounters",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-27T16:00:49.628Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1STtlSdgD1KyEy3hygfGTIS8K8X1_3ai4",
+      "title": "Job_Application_Template__DRAFT_v2_for_review.pdf",
+      "path": "/My Drive/Job_Application_Template__DRAFT_v2_for_review.pdf",
+      "mime_type": "application/pdf",
+      "modified_time": "2026-08-25T16:45:55.633Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1wbcm9X9Vi_CrMVZwM2Ab9X5GBEl-To6C7ebqZaxsJlI",
+      "title": "Job_Application_Template__DRAFT_v2_for_review",
+      "path": "/My Drive/Job_Application_Template__DRAFT_v2_for_review",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-25T16:45:50.508Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1NyL9uiikkGiNvIdwhdevjF6exSD__7ur_Rj5kfjjp1A",
+      "title": "Acrobatics - An Adamant Addon",
+      "path": "/My Drive/Acrobatics - An Adamant Addon",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-24T15:56:42.752Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1B5dE4RaiKIMC5apaoKImRTy5jlWao3mZXkTms5Hg2Bo",
+      "title": "Balladeer - Spellsong & Ballads",
+      "path": "/My Drive/Balladeer - Spellsong & Ballads",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-20T20:23:16.759Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1C3GQjHKzmsTZN-ACRFrNHP32Yh_EkyzS7WjQZcLHLaU",
+      "title": "Balladeer - A Bard Overhaul",
+      "path": "/My Drive/Balladeer - A Bard Overhaul",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-20T18:32:10.779Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1Aokv1v36jlifh5uDUY_gJLBRyp0vfVjnrrUILy1KYag",
+      "title": "Mysticism - Lore Friendly Spells addon",
+      "path": "/My Drive/Mysticism - Lore Friendly Spells addon",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-20T18:30:34.353Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "12HhQWd9QQ_Ha9FV-SFLAwDR-xCIFpXwuTW-IrGl9mNY",
+      "title": "Untitled document",
+      "path": "/My Drive/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-20T18:21:23.178Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1VzqP-gAOKcfyYDz7r1hSOeLqIRyrpOAa1pSkJAW6qoc",
+      "title": "Revelry - Dances of Dibella",
+      "path": "/My Drive/Revelry - Dances of Dibella",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-20T18:02:06.721Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1PrZpyxDLsROKtbd4JLL7gCC4KkkcAbJITYbWr69PJpQ",
+      "title": "Skald - Storytellers of Skyrim",
+      "path": "/My Drive/Skald - Storytellers of Skyrim",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-20T17:50:28.127Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1J880yQ226R8EOGsoC0ZBR9Eu8iDM4ws_g1CgD3hPH_k",
+      "title": "Balladeer - Instrument Expansion",
+      "path": "/My Drive/Balladeer - Instrument Expansion",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-20T15:59:00.436Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1MOxw9BEIsF16JFwR9Y8Lc2xv_AhZiwlej_zRLZPIZkQ",
+      "title": "Marksman - Throwable Weapon Addon for Adamant",
+      "path": "/My Drive/Marksman - Throwable Weapon Addon for Adamant",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-19T17:23:09.692Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1jarzYES9pMEizmTPK1gkZCzgp22o1K4GQOk5bJLjbdE",
+      "title": "Drug Overhaul",
+      "path": "/My Drive/Drug Overhaul",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-19T00:29:06.765Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "12ew5It91rp4K3PE0m79GOiObfgbFts_RDK4HGX7pveY",
+      "title": "Spell Rebalances",
+      "path": "/My Drive/Spell Rebalances",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-18T19:21:55.748Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1suPK595RiexhS3hMCVmVTtibMuHT2DVo6YzwuRxyV00",
+      "title": "Thrall - Immersive Daedric Corruption",
+      "path": "/My Drive/Thrall - Immersive Daedric Corruption",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-18T13:10:36.096Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1IgrMyMwdN4nN4OpP5cQ1HKBRMuILZOpUIMbyxWx7lS8",
+      "title": "Shards of Oblivion",
+      "path": "/My Drive/Shards of Oblivion",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-18T00:37:59.152Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1Wkv1ReaFjYscmCxS4N7r1Z0cFcm-5IRlM9Kka34txLo",
+      "title": "Open Reputation Engine (ORE) ",
+      "path": "/My Drive/Open Reputation Engine (ORE) ",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-14T19:44:55.697Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1ZTbiT5Ibn5W3Tlnq4pSHZltWGB460fCdGGRwOKZiRE8",
+      "title": "Open Reputation Engine (ORE) ",
+      "path": "/My Drive/Open Reputation Engine (ORE) ",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-13T01:30:52.866Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1urjNrIbXP0P9S-Cp1_4QG9Z1C_iW80WN_eMBQKqN-pU",
+      "title": "RTEC County Openings",
+      "path": "/My Drive/RTEC County Openings",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-12T14:53:15.509Z",
+      "category": "work_hr_sanitized",
+      "content_status": "queued"
+    },
+    {
+      "id": "1jTvS6syzIxSuHHtumY2yD40z7BZfHw-bcTcpxCxDM3k",
+      "title": "Shards of Oblivion - Daedric Corruption",
+      "path": "/My Drive/Shards of Oblivion - Daedric Corruption",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-10T00:54:28.566Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "17Flb1b_n8eNLrMx46SzLrgt8-CgPgLMkTym2gzvkoDw",
+      "title": "On_the_Road_to_Solitude",
+      "path": "/My Drive/On_the_Road_to_Solitude",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-09T04:44:17.404Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1RbnSbNz_vowv8rHWXci_AuD2fQ6tHIyMyKZevtFpaGc",
+      "title": "Untitled document",
+      "path": "/My Drive/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-09T03:58:07.606Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1eccTyzZghEfHVInIT3T-ivEC2zvlzrLimO_c1oihnGU",
+      "title": "Untitled spreadsheet",
+      "path": "/My Drive/Untitled spreadsheet",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-07T22:38:51.206Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "14WCNnr9ZQic0L6M2XfAWoSuZsHANbz1xlcUGgfYyKhg",
+      "title": "Apostate_Deity_Concepts",
+      "path": "/My Drive/Apostate_Deity_Concepts",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-07T01:45:51.196Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1ig4N5RLP4-qCTj3hpcTNnxHj1TSLinqbquYk-rQoEiI",
+      "title": "Apostate_Deity_Concepts",
+      "path": "/My Drive/Apostate_Deity_Concepts",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-07T01:21:12.129Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1uAljXUyMAd_w8kblpio5d0NGpdXAdaFPqg-5unyLXDA",
+      "title": "Apostate_Deity_Concepts",
+      "path": "/My Drive/Apostate_Deity_Concepts",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-07T01:19:03.696Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1Fg4osWyGvxK5QL-4FV1i4g6Ty87a2v_ctrH8-S8GaB0",
+      "title": "Consecration - Priesthood of Arkay ",
+      "path": "/My Drive/Consecration - Priesthood of Arkay ",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-06T14:02:06.281Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1GLPn-nkWxUANNmzOoKkcRaCccxoa5h94tDiIpEYKiS4",
+      "title": "The_Lesser_Office",
+      "path": "/My Drive/The_Lesser_Office",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-06T02:36:51.108Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1rjVaV9SkK7Qsj_ppfsyaV7XVrwIAXaA_QoUJFL_tZOs",
+      "title": "rites",
+      "path": "/My Drive/rites",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-06T01:50:25.049Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1a57BedsGuczLNZLcBjSrtD-O44Kq3EoWglE4X-p0iwc",
+      "title": "rites",
+      "path": "/My Drive/rites",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-06T00:47:39.728Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1-t3LeDdX4a9LDWcD0bcgWNhhY3U4KiBRXTRJqj8mo5A",
+      "title": "Alchemy Effects",
+      "path": "/My Drive/Alchemy Effects",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-03T18:03:17.887Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1A6hrep37mV98NfgHrQpChuYYAtqCMpvrPuUkQ7jQkvE",
+      "title": "NSFW Games List",
+      "path": "/My Drive/NSFW Games List",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-02T21:04:24.737Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "11DkryUUwhw2D2_xzqhB48jRf8AwQMnLPJSc1c5Upn6A",
+      "title": "Untitled spreadsheet",
+      "path": "/My Drive/Untitled spreadsheet",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-07-30T15:29:31.621Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "17GfkonMkWBysWvyzqDxfEOXbfYupTVnrROD65IG93tY",
+      "title": "Web Fiction",
+      "path": "/My Drive/Web Fiction",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-07-30T02:07:25.298Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1xwKaEbHiredBZvdqJpAyqyzf_j-JBALiD4dZPZBIWqk",
+      "title": "Untitled spreadsheet",
+      "path": "/My Drive/Untitled spreadsheet",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-07-29T22:49:23.573Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1uKjo4zz2amOzAaDIdDLlYSK3pboKbOvdAaoXggcGZMs",
+      "title": "Logins",
+      "path": "/My Drive/Logins",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-07-10T20:56:41.871Z",
+      "category": "restricted_credentials_metadata_only",
+      "content_status": "excluded_sensitive"
+    },
+    {
+      "id": "1oqCUg4zpa_QZMidfp-zg5dTAn2H3WqPrd4tWQUBszzs",
+      "title": "Armor Importer",
+      "path": "/My Drive/Armor Importer",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-06-29T16:15:12.096Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1hi1tdcYyOFR9clxDaCNlE2NfERwo3shf2wTItPz-v0Y",
+      "title": "RTEC Employment Application",
+      "path": "/My Drive/RTEC Employment Application",
+      "mime_type": "application/vnd.google-apps.form",
+      "modified_time": "2026-06-25T14:22:32.410Z",
+      "category": "work_hr_sanitized",
+      "content_status": "queued"
+    },
+    {
+      "id": "1_tuIPOVBfZdk8zCtm46Qhkk84ibm-LbCyxH-DFTklTU",
+      "title": "Character",
+      "path": "/My Drive/Character",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-06-17T18:08:27.355Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1_Ff9VqpfpOBcy_hTExZPeygFApuwbnNXKjMVNV1Y3F4",
+      "title": "Vigilant Dialogue Overhaul",
+      "path": "/My Drive/Vigilant Dialogue Overhaul",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-06-16T17:58:52.056Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "10ykODqhL3hiDSbbYPJ8cZ-_8IbpxhAniud0V0Sdsj5A",
+      "title": "Untitled spreadsheet",
+      "path": "/My Drive/Untitled spreadsheet",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-06-13T17:13:54.516Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1wfnHwWXv0Ld1ZQZgNR3f1w3XIk6F_oU0RWs8ir9LiFo",
+      "title": "Tilde Lines test",
+      "path": "/My Drive/Tilde Lines test",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-06-13T02:10:47.329Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1ssuc4A_A5uyK0TMQFXean-tX08LYqcKPkN-ZKyvSU84",
+      "title": "STENDARR’S BEACON",
+      "path": "/My Drive/STENDARR’S BEACON",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-06-12T20:55:30.517Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1uDW7SSWNEGarSNZURo7qmO5PrtYuNWVvzIp_BDy8qBE",
+      "title": "Vigilant Dialogue Ovehaul",
+      "path": "/My Drive/Vigilant Dialogue Ovehaul",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-06-01T19:18:06.102Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1vFo_O-j_TdSZjjWcScwSbNXS3kV8Maun24ZKPOPUdMQ",
+      "title": "Untitled document",
+      "path": "/My Drive/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-06-01T15:02:41.782Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1CXH8Z2AA3IGRDXpahSF9emCTL6CmcuUP7OBS5k1dwII",
+      "title": "Untitled spreadsheet",
+      "path": "/My Drive/Untitled spreadsheet",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-05-31T23:53:53.794Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1LzXvL7TvQl1D_sx3Ac2S7UdnTGQvIpfNaciOnsP_9Ts",
+      "title": "Vigilants of Stendarr Casefiles",
+      "path": "/My Drive/Vigilants of Stendarr Casefiles",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-05-31T20:03:31.824Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "11I3hFi2Jq9hkiMj6j4uFRo6x0EgroHOmBlU2yEk_1b4",
+      "title": "Untitled spreadsheet",
+      "path": "/My Drive/Untitled spreadsheet",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-05-30T00:08:19.247Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1uaIywh29k0zALOt8a_IIQc1z6JaLaOlgquJUOEAUNxY",
+      "title": "Untitled document",
+      "path": "/My Drive/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-05-29T20:23:18.474Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1bn2a6jmOQ_2lTvBkQ6RBXLf-a6eBEQXEEPutV9-2Me0",
+      "title": "The Scribe's Bargain - Daedric Quest",
+      "path": "/My Drive/The Scribe's Bargain - Daedric Quest",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-05-29T20:08:50.732Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1EI0milMctI3inuR_dgiQXkUzf-fBNuYTA8t5F8YVSRo",
+      "title": "Skyrim Vigilant Narrative and Dialogue Master Instructions - Revised",
+      "path": "/My Drive/Skyrim Vigilant Narrative and Dialogue Master Instructions - Revised",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-05-29T19:56:21.607Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1DvhmG3er1E72lDyCUx8FKjK_bVVorQ2ei8xHNsKWeFQ",
+      "title": "Skyrim Vigilant Narrative and Dialogue Master Instructions",
+      "path": "/My Drive/Skyrim Vigilant Narrative and Dialogue Master Instructions",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-05-29T19:54:13.699Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1Jz3AM06IQ6ONjlFmB5rsLpUdVzwr4I3A9cYgmXX74Oo",
+      "title": "Untitled document",
+      "path": "/My Drive/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-05-29T19:36:55.214Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1EXiSOFb0ZttX59mOkIgqR94txnM5Vqagu3-jad4SX-M",
+      "title": "Untitled spreadsheet",
+      "path": "/My Drive/Untitled spreadsheet",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-05-26T14:37:02.336Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1G-ALvRsPP07wIjyiAU3K3MM5MFk258ps6caBaFyAqTQ",
+      "title": "Character Wiki",
+      "path": "/My Drive/Character Wiki",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-05-23T03:43:54.654Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1ukPtyfRnE6B8zyscJo6oLxDn0uviMuCMrOOFm_7mpns",
+      "title": "RTEC Plan Cost Comparison",
+      "path": "/My Drive/RTEC Plan Cost Comparison",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-05-18T14:59:14.131Z",
+      "category": "work_hr_sanitized",
+      "content_status": "queued"
+    },
+    {
+      "id": "1csimz7PKD2W1OBPPGjyZMuUXT3Dq-DlGNGmHaOkJRoE",
+      "title": "PC Build",
+      "path": "/My Drive/PC Build",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-05-15T22:55:12.347Z",
+      "category": "personal_planning",
+      "content_status": "queued"
+    },
+    {
+      "id": "1vg05LWyFk5vbyDkB9zr_5kK3-08I6vc683olWWox4e8",
+      "title": "FMLA Tracker",
+      "path": "/My Drive/FMLA Tracker",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-05-15T18:18:51.420Z",
+      "category": "work_hr_sanitized",
+      "content_status": "queued"
+    },
+    {
+      "id": "1-sIbB5sfb8NMPszIIdLQQyT92Igg4RGR",
+      "title": "FMLA TRACKER.xls",
+      "path": "/My Drive/FMLA TRACKER.xls",
+      "mime_type": "application/vnd.ms-excel",
+      "modified_time": "2026-05-15T18:17:32.000Z",
+      "category": "work_hr_sanitized",
+      "content_status": "queued"
+    },
+    {
+      "id": "1NixAxRRUxw8RTdDFuSo5fBaBDdGGCGgeRa0adBNF_lw",
+      "title": "Untitled document",
+      "path": "/My Drive/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-05-12T15:13:20.299Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1RQFLNdJXlfhJEniezz8EVYCGrWaoGfEPwjjUTT9dl3s",
+      "title": "Contacts",
+      "path": "/My Drive/Contacts",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-05-08T13:40:21.616Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1BGw_yS2ANc05Zq23IHRGjXLaOm_SVVZMsyrPObtyous",
+      "title": "what do the prices indicate on the different tier...",
+      "path": "/My Drive/what do the prices indicate on the different tier...",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-05-07T19:17:19.504Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "153z9YTPMW1ldEspkcokrXoRtS01y100X8bm6HQA7_Ps",
+      "title": "Medicare Part G vs. Employer Health Plan Comparison Template",
+      "path": "/My Drive/Medicare Part G vs. Employer Health Plan Comparison Template",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-05-05T19:51:56.931Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1SiLHYwQrrmqP5palPVdAHUEJQqs2Gy6jCPtdBRt3UcA",
+      "title": "Medicare Plan G vs Employer Health Plan Comparison",
+      "path": "/My Drive/Medicare Plan G vs Employer Health Plan Comparison",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-05-05T19:49:59.906Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1bp2qvJpha_4xYBxSRhnBfSoClvpfP4F6cJDJaFiDDDo",
+      "title": "Attendance Tracker",
+      "path": "/My Drive/Attendance Tracker",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-05-05T17:41:31.706Z",
+      "category": "work_hr_sanitized",
+      "content_status": "queued"
+    },
+    {
+      "id": "144KJL0w6xzTqn2aqkxAHFK6PCheJt-uRf9YgnkZSuP0",
+      "title": "Job Application",
+      "path": "/My Drive/Job Application",
+      "mime_type": "application/vnd.google-apps.form",
+      "modified_time": "2026-04-30T19:45:30.829Z",
+      "category": "work_hr_sanitized",
+      "content_status": "queued"
+    },
+    {
+      "id": "1NMbfQKCFZ71qBA2DTCXn2B9JNZ4wKQIszmtQwmvNIEM",
+      "title": "RTEC Job Application Template - Digital Version",
+      "path": "/My Drive/RTEC Job Application Template - Digital Version",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-04-30T19:31:49.299Z",
+      "category": "work_hr_sanitized",
+      "content_status": "queued"
+    },
+    {
+      "id": "1ebZF1mRx1q8wqCTWWKWl6Z17y0yTHwPi",
+      "title": "402ec4_36ad01ef9148477aa3fd0261d3bc6354.pdf",
+      "path": "/My Drive/402ec4_36ad01ef9148477aa3fd0261d3bc6354.pdf",
+      "mime_type": "application/pdf",
+      "modified_time": "2026-04-30T19:30:32.000Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1YyVcByvls5godThjeOrazvQF_BrOgWH24ZPeTLDDSns",
+      "title": "Skyrim Voice Types - Volendrung and Mehrunes' Razor Commentary",
+      "path": "/My Drive/Skyrim Voice Types - Volendrung and Mehrunes' Razor Commentary",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-04-30T04:32:31.844Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1r4wpQtXeBWSnBpHeY5vCfjubNhSo2eU6_psjFJY8rHM",
+      "title": "Skyrim Voice Types - Ebony Blade, Dawnbreaker, Molag Bal Commentary",
+      "path": "/My Drive/Skyrim Voice Types - Ebony Blade, Dawnbreaker, Molag Bal Commentary",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-04-30T04:29:12.022Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1d1DKSt9QYbuIK-tk81_xlvVnxcdQpINWLeLF8fX-uis",
+      "title": "Skyrim Voice Types - Hircine Artifacts Commentary",
+      "path": "/My Drive/Skyrim Voice Types - Hircine Artifacts Commentary",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-04-30T04:23:51.348Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1NXkwqQLQGAM9OmEDo3AqNgSfSXWMkIBcUQWKatLIec4",
+      "title": "Skyrim Voice Types - Clavicus Vile Artifacts Commentary",
+      "path": "/My Drive/Skyrim Voice Types - Clavicus Vile Artifacts Commentary",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-04-30T04:19:17.305Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1q9uTTDJo8iVjKHxbsQ2tVEaEskCrNxXIKLSewOek6lc",
+      "title": "Skyrim Voice Types - Artifact Effects Commentary V2",
+      "path": "/My Drive/Skyrim Voice Types - Artifact Effects Commentary V2",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-04-30T04:13:53.958Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1YtAafk16dbPjZ_hnfuarXYGziBd0zbkJhV9d1uW0Z9Q",
+      "title": "Skyrim Voice Types - Azura and Boethiah Commentary",
+      "path": "/My Drive/Skyrim Voice Types - Azura and Boethiah Commentary",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-04-30T04:06:04.692Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1ZqcHIcm_nA_LcC817M1rj4PM5Bq2cEHFhmcsS5eqNwo",
+      "title": "Skyrim Generic Voice Types and Greetings V2",
+      "path": "/My Drive/Skyrim Generic Voice Types and Greetings V2",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-04-30T04:03:53.674Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1pyGWgyG9s-VoWIJEp3Wed_lPl6TOYsxDc-FCY0wxbFw",
+      "title": "Skyrim Generic Voice Types and Greetings",
+      "path": "/My Drive/Skyrim Generic Voice Types and Greetings",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-04-30T03:26:03.514Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "13uhex-HzeukrEQiyFCAU5Q8kJ2zxFrdFs5uDLJ7Q-KU",
+      "title": "Write 5 generic dialogue greeting lines for each...",
+      "path": "/My Drive/Write 5 generic dialogue greeting lines for each...",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-04-30T03:18:40.224Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "15fV8VFCcEozKwC4VV-dxsyJsi0hkciIC5WjWWFUI7NQ",
+      "title": "Untitled spreadsheet",
+      "path": "/My Drive/Untitled spreadsheet",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-04-30T02:48:43.652Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1tTfcoH2Hp8f0aCoXFqQowaQ4cuZLiu-_HOeh5FA3CnM",
+      "title": "Merciful - A Vigilant Overhaul",
+      "path": "/My Drive/Merciful - A Vigilant Overhaul",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-04-27T19:53:09.965Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1qJZU8ZtrYF-4ZbE6y81URAcv5xAEeyR76ZJeucudhWo",
+      "title": "AI Workflow",
+      "path": "/My Drive/AI Workflow",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-04-21T15:01:54.375Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1UW_ezDNRfJvHS-hDTAtr8jZB_siUjKLAoK0XxJJRZsg",
+      "title": "Untitled spreadsheet",
+      "path": "/My Drive/Untitled spreadsheet",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-04-21T14:19:51.807Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1pzYhmmfb5u_WbJau7-x0GU-DACfywdp4VkfuhGimVoY",
+      "title": "Untitled document",
+      "path": "/My Drive/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-04-14T18:03:31.908Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1eKu3rdd5B0iL6Ij-oQVYKdvcawHZ5o-eVsoG1mG5ZTY",
+      "title": "Untitled spreadsheet",
+      "path": "/My Drive/Untitled spreadsheet",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-04-13T22:46:34.629Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1-Vu632bhoWGgXgioD02IiqO0-23PWAzIz5ZrimPf3sE",
+      "title": "Minifig Designs - DC",
+      "path": "/My Drive/Minifig Designs - DC",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-04-07T04:39:07.645Z",
+      "category": "lego_custom_collecting",
+      "content_status": "queued"
+    },
+    {
+      "id": "1HZLRXXEc7A2ma4STuD4B5JHeNsq3npIvubk3clstOMs",
+      "title": "Untitled spreadsheet",
+      "path": "/My Drive/Untitled spreadsheet",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-04-05T19:57:53.672Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1BpIOJXUV_Wzf9JuMSowWff8OLt_HjRun4fivftMcqHU",
+      "title": "Minifig Designs",
+      "path": "/My Drive/Minifig Designs",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-03-28T02:27:08.519Z",
+      "category": "lego_custom_collecting",
+      "content_status": "queued"
+    },
+    {
+      "id": "1Hj82YLwRgOufiRkJX_oGBSO3ZV3U9lgfWTlz2-Xrtqo",
+      "title": "Untitled spreadsheet",
+      "path": "/My Drive/Untitled spreadsheet",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-03-27T13:59:57.999Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1HX_YjXKyb3gAkEuzq_bfo7fSjtjuoKYtllJWHu7LsLc",
+      "title": "Minifig Printing Ideas",
+      "path": "/My Drive/Minifig Printing Ideas",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-03-24T16:35:03.322Z",
+      "category": "lego_custom_collecting",
+      "content_status": "queued"
+    },
+    {
+      "id": "1q5Ri-_fQJwOvEkXikfFvSUE-CI3KH5AKeZuv-K3WR6E",
+      "title": "Untitled document",
+      "path": "/My Drive/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-03-23T01:09:31.943Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1juVPVjN89CTEU5n83tftU57vCYbSxIoXhV4r_NBqMIE",
+      "title": "Untitled document",
+      "path": "/My Drive/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-03-20T16:04:02.047Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "159w4iqFvtRYFhHkWQfpLp00aFmTbvnDI7h3cqo-B4wE",
+      "title": "Resume Template",
+      "path": "/My Drive/Resume Template",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-03-17T00:15:42.464Z",
+      "category": "career_professional",
+      "content_status": "queued"
+    },
+    {
+      "id": "1MSjPRf4hrLe4yFuW3TTdVkKVJoQKfmkHLjnAUAh2-Hw",
+      "title": "Shiver - Mental Afflictions of Skyrim",
+      "path": "/My Drive/Shiver - Mental Afflictions of Skyrim",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-03-15T23:05:47.606Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1gvxvvMGkoVs0l0KfOvgya3qclCmP0prg17uS9OfVg3A",
+      "title": "Gradience - An Attributes and Leveling Overhaul",
+      "path": "/My Drive/Gradience - An Attributes and Leveling Overhaul",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-03-12T19:40:24.516Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1OTFUjj4u-ltz334_AeRhf23ZewWoZEsNLCCDLfIeL6I",
+      "title": "Equipment",
+      "path": "/My Drive/Equipment",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-03-12T19:23:01.479Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1CNLUnglqMQlGMZQ4HMWFPhpJyEUmQsNo-5rE02m1B_4",
+      "title": "Untitled spreadsheet",
+      "path": "/My Drive/Untitled spreadsheet",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-02-26T03:35:26.926Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1rpU4uDOQS_syvRqXm1QmSdXKd5C_yMTP522szUP4LR0",
+      "title": "Paravant",
+      "path": "/My Drive/Paravant",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-02-23T19:56:51.717Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1ZHwTM9t4I04nWXpc15ey1Fj7dbBP5BKWgsMOtciVeYA",
+      "title": "Untitled spreadsheet",
+      "path": "/My Drive/Untitled spreadsheet",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-02-22T04:04:15.967Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "18eC2ObIwY7JVIkQ0XkhG7DB77oC0elTZLlmFTWV-090",
+      "title": "CoW Overhaul",
+      "path": "/My Drive/CoW Overhaul",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-02-20T18:47:31.828Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1PI_g_iye7MACGgAswuRT0qfK61YsGmse8CC8xIztqVc",
+      "title": "Untitled spreadsheet",
+      "path": "/My Drive/Untitled spreadsheet",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-02-20T17:13:01.533Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "10PNoLggE8K3WZ1ws6t6Rc1DArlbacY_KKgKJGxKI9TE",
+      "title": "Covenant - Knightly Orders of Tamriel",
+      "path": "/My Drive/Covenant - Knightly Orders of Tamriel",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-02-20T01:31:07.964Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "10Kvh6300WxHGSpQxFhz2rNJCd-1qWFvfg3BpQt-TwB8",
+      "title": "Journeyman - Radiant Quest Overhaul",
+      "path": "/My Drive/Journeyman - Radiant Quest Overhaul",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-02-16T02:48:09.771Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1lVKMWhd7wYP_1irmQ0RHGTZV4X_3Mwk-O2ca3uTaexM",
+      "title": "Untitled document",
+      "path": "/My Drive/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-02-14T18:49:45.912Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1WfYSIj9gGc0l09nIwtzS86a7whdkwrpk4WCic3QQ9GA",
+      "title": "Apostate - A Religion Expansion & Role Playing Overhaul",
+      "path": "/My Drive/Apostate - A Religion Expansion & Role Playing Overhaul",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-02-13T20:35:29.446Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1eyySQGWKzRAWAtQmUKE0Wv2Z3cQHz4cdYMBxFS9anMI",
+      "title": "Afflicted - A Disease Overhaul",
+      "path": "/My Drive/Afflicted - A Disease Overhaul",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-02-10T05:11:17.001Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "12vZB-nIQQP9MpwXoCd4DNRvy3hbwQ2ZqnrdGW4JdSsc",
+      "title": "Scripting",
+      "path": "/My Drive/Scripting",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-02-08T05:43:59.170Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1jB-AGqvPENC-oiIQAff53Po2UaEiSrbblmYFhR-SMs8",
+      "title": "Untitled document",
+      "path": "/My Drive/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-02-01T05:49:50.561Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1aBuVKpNSXLyQfdd2LYgEEVyjHF5-1dy7ri5v1FyX5a4",
+      "title": "Period tracker",
+      "path": "/My Drive/Period tracker",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-01-28T22:43:34.387Z",
+      "category": "personal_planning",
+      "content_status": "queued"
+    },
+    {
+      "id": "1Tx8pvstRQ0OiUv57VG44Zn7FlFViCtFVOB-RGkg_QXA",
+      "title": "Ideas for dates",
+      "path": "/My Drive/Ideas for dates",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-01-25T23:00:48.597Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "16pc50emLDWk4BYUJnDsF9YnCTJCO0yDKohOyYymEJGA",
+      "title": "Keywords",
+      "path": "/My Drive/Knowledge Framework /Keywords",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-09-15T02:28:17.241Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1JKS8sl_K6kaH4x2R4XbF1gPAtijS9W_epEMbl0fuey0",
+      "title": "Knowledge Framework",
+      "path": "/My Drive/Knowledge Framework /Knowledge Framework",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-14T18:33:48.755Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1NS0-w-Ktj-9fEGTFDA_5aWIHOr7EWoQTJpgi2SMvspk",
+      "title": "Arcaneum - Knowlege Framework & Book Overhaul",
+      "path": "/My Drive/Knowledge Framework /Arcaneum - Knowlege Framework & Book Overhaul",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-09-12T21:43:40.104Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "11-HQ27cHpGjkvqHqfXYF1wADSvzcOytVffKF5Az1mhs",
+      "title": "Unknown Antiquities - Archeology and Appraisal",
+      "path": "/My Drive/Knowledge Framework /Unknown Antiquities - Archeology and Appraisal",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-02T13:27:06.894Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1V-Plr-omMWyFvjWiQchIbtmh-iHTBbBWDPHuv1v7tJk",
+      "title": "Scholars of Skyrim - Knowledge Framework Addon",
+      "path": "/My Drive/Knowledge Framework /Scholars of Skyrim - Knowledge Framework Addon",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-02T13:22:20.840Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1imq6gWvgbNHVotbjsiWZNoE05SoEo0WeLKf8cMLQ46o",
+      "title": "Apocryphal Knowledge - KF Addon",
+      "path": "/My Drive/Knowledge Framework /Apocryphal Knowledge - KF Addon",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-09-02T13:17:09.174Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1IaQXskojDfP8owef7SK-K4EjEfAv6zAJoTx34pfzLJw",
+      "title": "Arcaneum - Scholarship Framework",
+      "path": "/My Drive/Knowledge Framework /Arcaneum - Scholarship Framework",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-31T02:53:51.342Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1hQo9RBzn8WdhZZChAOXY21OkZtTMmHPMU0Rl8cDBKCA",
+      "title": "Knight_Mentor__Book_Library_Tagged",
+      "path": "/My Drive/Knowledge Framework /Knight_Mentor__Book_Library_Tagged",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-30T04:12:23.858Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1tHsCUTe4V1FFKNi-R7qJp9823sIATHHJPC0ZbufscK0",
+      "title": "Knight Mentor ini settings",
+      "path": "/My Drive/Knowledge Framework /Knight Mentor ini settings",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-29T21:22:33.407Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "13YxA3wmXFWCYrWJsbhlLkYlVMUY3aBV0L0Tq14bKAO4",
+      "title": "json example",
+      "path": "/My Drive/Knowledge Framework /json example",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-13T13:00:30.058Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1RZQSkGj4utYtN3f6GjoDakfvhW9lME3xV17z8ulCbIc",
+      "title": "Daedrologist",
+      "path": "/My Drive/Knowledge Framework /Daedrologist",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-09T23:57:00.316Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1Z7STXsJbZm2FXH4nqlG_JuLPBpV9TOiBClncBa9E6tY",
+      "title": "Daedrologist - Immersive Daedra Summoning",
+      "path": "/My Drive/Knowledge Framework /Daedrologist - Immersive Daedra Summoning",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-08-09T20:25:36.820Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "15nJn8LYPgz4ddeY78DrS0yYAfV4AGgSp2I_ZTgqj_lI",
+      "title": "Chef's Overhaul",
+      "path": "/My Drive/Knowledge Framework /Chef's Overhaul",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-04-20T17:52:54.219Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1k5Ia5tswqx9A60kl97Ec0BMDXWjKQ2iq7lALu6R_XXA",
+      "title": "Codex - Mysticism Skill & Spell Learning Overhaul",
+      "path": "/My Drive/Knowledge Framework /Codex - Mysticism Skill & Spell Learning Overhaul",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-03-15T23:55:12.963Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1Wm8TA0nIckmjDPHE9iHovbu4e4ls7ha-wMVHgsmj1lM",
+      "title": "Fillout Applications",
+      "path": "/My Drive/RTEC/Fillout Applications",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-06T15:58:18.373Z",
+      "category": "work_hr_sanitized",
+      "content_status": "queued"
+    },
+    {
+      "id": "1iI9s3plgp9iBckDionPd2fDGB3Z5wr5L",
+      "title": "BrickMorph",
+      "path": "/My Drive/Opal/BrickMorph",
+      "mime_type": "application/vnd.breadboard.graph+json",
+      "modified_time": "2026-06-11T02:41:31.119Z",
+      "category": "lego_custom_collecting",
+      "content_status": "queued"
+    },
+    {
+      "id": "1_gR73F-sR24CQXqiFMVvXViWMoG9lcQZ",
+      "title": "Untitled",
+      "path": "/My Drive/Opal/Untitled",
+      "mime_type": "image/png",
+      "modified_time": "2026-06-10T20:52:01.889Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1Zusqkw79rYuXhz78MmleoSanU3QGPo87",
+      "title": "Untitled",
+      "path": "/My Drive/Opal/Untitled",
+      "mime_type": "image/png",
+      "modified_time": "2026-06-10T20:51:21.306Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1K0fc8F56-UFn03izzGFbx3Rg8V6W-kDB",
+      "title": "BrickFace",
+      "path": "/My Drive/Opal/BrickFace",
+      "mime_type": "application/vnd.breadboard.graph+json",
+      "modified_time": "2026-06-10T20:42:10.816Z",
+      "category": "lego_custom_collecting",
+      "content_status": "queued"
+    },
+    {
+      "id": "10I3ZlZ82CsT6IVneBlye7g7G9fKG-Y6Y",
+      "title": "Untitled",
+      "path": "/My Drive/Opal/Untitled",
+      "mime_type": "image/png",
+      "modified_time": "2026-06-10T20:41:56.292Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1iE-xqnwC-aUtNQjXZci1X_wnpALqUajEMndHid8t6kg",
+      "title": "Minifig Variants to Make",
+      "path": "/My Drive/lego/Minifig Variants to Make",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-09-07T23:12:35.113Z",
+      "category": "lego_custom_collecting",
+      "content_status": "queued"
+    },
+    {
+      "id": "1m5XB5-4XDEi74HtOQGbqO7jMCRU7CrtvEWtQaAg-WjA",
+      "title": "DC",
+      "path": "/My Drive/lego/DC",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2025-01-24T20:53:24.523Z",
+      "category": "lego_custom_collecting",
+      "content_status": "queued"
+    },
+    {
+      "id": "1fmOUhHgkBYIgAeqadzpzl1DLXLSXAWK1Ow8qQLtWYJ4",
+      "title": "Lego Wishlist",
+      "path": "/My Drive/lego/Lego Wishlist",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2025-01-14T19:57:11.080Z",
+      "category": "lego_custom_collecting",
+      "content_status": "queued"
+    },
+    {
+      "id": "1NDsfJ2e_x_qGKvqc9lcPBmTsl-7y-aNT6QeV9kmTV5U",
+      "title": "One Piece Minifgs",
+      "path": "/My Drive/lego/One Piece Minifgs",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2024-07-31T02:52:05.895Z",
+      "category": "lego_custom_collecting",
+      "content_status": "queued"
+    },
+    {
+      "id": "13zHu1JJ-bZsOPViXk8eeIFA9oB8UwJ5dCs6c0wVry4I",
+      "title": "Bootlego MASTER",
+      "path": "/My Drive/lego/Bootlego MASTER",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2024-03-04T17:29:22.815Z",
+      "category": "lego_custom_collecting",
+      "content_status": "queued"
+    },
+    {
+      "id": "1qRc-hhQq0N12erUVea39no-ZyNcn55jaSmwlvispTDA",
+      "title": "DRAGON BALL - Collection Tracker",
+      "path": "/My Drive/lego/DRAGON BALL - Collection Tracker",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2023-12-11T01:16:18.405Z",
+      "category": "lego_custom_collecting",
+      "content_status": "queued"
+    },
+    {
+      "id": "1A350r5WAVZtvPiVLd4TpyeV-t9nC9ADMCyHH23oCkIg",
+      "title": "MARVEL",
+      "path": "/My Drive/lego/MARVEL",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2023-12-11T01:10:29.603Z",
+      "category": "lego_custom_collecting",
+      "content_status": "queued"
+    },
+    {
+      "id": "1eE4iGZwayWs_bG2n1K83-qUohaCWarfteghNxF9nQDU",
+      "title": "IMAGE",
+      "path": "/My Drive/lego/IMAGE",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2023-12-11T01:07:42.923Z",
+      "category": "lego_custom_collecting",
+      "content_status": "queued"
+    },
+    {
+      "id": "1kDRw3GK4sfdwzwzpCo6TvaVVYCYr1lsjDiR2UQYWmdE",
+      "title": "Star Wars",
+      "path": "/My Drive/lego/Star Wars",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2023-12-11T00:56:56.670Z",
+      "category": "lego_custom_collecting",
+      "content_status": "queued"
+    },
+    {
+      "id": "1UAI9VUMJpVBXlzsfUo41x5PddEaztJ_JUNl6yl3fVNo",
+      "title": "MISC - Anime Figs Collection",
+      "path": "/My Drive/lego/MISC - Anime Figs Collection",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2023-11-06T02:01:38.186Z",
+      "category": "lego_custom_collecting",
+      "content_status": "queued"
+    },
+    {
+      "id": "1mtrJnN6BpMyV1eYkH9mb4MWuvXAHGDnmWDogdJan538",
+      "title": "Resume",
+      "path": "/My Drive/Professional/Resume",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2025-07-31T17:15:12.335Z",
+      "category": "career_professional",
+      "content_status": "queued"
+    },
+    {
+      "id": "1rQMZpdatldMwzk6GK-UG_ORvdQntU9JxKA21BH4tqRU",
+      "title": "Resume 3/1/25",
+      "path": "/My Drive/Professional/Resume 3/1/25",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2025-07-23T23:22:13.139Z",
+      "category": "career_professional",
+      "content_status": "queued"
+    },
+    {
+      "id": "1Ni61LgVHOYlbGipwlSddvI72sVKl4Bo0G-8fvMz9OYY",
+      "title": "Copy of ATS Resume by SmashingDocs.com",
+      "path": "/My Drive/Professional/Copy of ATS Resume by SmashingDocs.com",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2025-07-21T16:18:02.869Z",
+      "category": "career_professional",
+      "content_status": "queued"
+    },
+    {
+      "id": "1q3YV1BGsTeG7oLAYAKKc5sJdqenmb2edq-L2NcuG0Pk",
+      "title": "Copy of Monochrome Resume — SmashingDocs.com",
+      "path": "/My Drive/Professional/Copy of Monochrome Resume — SmashingDocs.com",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2025-03-01T04:14:02.859Z",
+      "category": "career_professional",
+      "content_status": "queued"
+    },
+    {
+      "id": "13frbve5Nefc_ugqfiCxhH61jc8-wLvi8Lg518NNcIMc",
+      "title": "Simonrim",
+      "path": "/My Drive/mods/Simonrim",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-18T23:31:26.320Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1aB4EqA2SCl83es-pZj7tbbzbDIUm5cgDHjUT7CU17Is",
+      "title": "Item Balancing",
+      "path": "/My Drive/mods/Item Balancing",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-17T14:47:06.964Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1_FWTHvV5ITuAZ_1AImDz8VTejTzRULoeV_s3ejoUc9Q",
+      "title": "Enemy Overhauls",
+      "path": "/My Drive/mods/Enemy Overhauls",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-08-09T21:01:23.065Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1lWR1B-3YCBIyeJYnGvXOOlGSFdbA5c3Ci1grdSqm1Bw",
+      "title": "Mods to check out",
+      "path": "/My Drive/mods/Mods to check out",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-05-10T14:56:14.353Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1Ce3pM8YFLjV8o5NpdjjmijXRYi-97Pmpk-2tq1z7s7I",
+      "title": "Personal Mods",
+      "path": "/My Drive/mods/Personal Mods",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-04-24T01:23:16.933Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "18SCj_i-t8V0TWUx8J_3RP3Zvj9qkp8xfgl8_NnJ3cQ4",
+      "title": "Insights of Apocrypha - Immersive Academia",
+      "path": "/My Drive/mods/Insights of Apocrypha - Immersive Academia",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-03-13T15:38:43.208Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "18C3APM37nX-vnWlOY-gR9pjRT2tL4lnUzj1YS9djXas",
+      "title": "Untitled document",
+      "path": "/My Drive/mods/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2025-09-05T20:19:33.621Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1JCdW_RN4QEbvjfP73kRMfdTe7Zhyy8vToXlk9jz4VGg",
+      "title": "Untitled document",
+      "path": "/My Drive/mods/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2025-06-27T17:18:00.818Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1snsoP-j31yuOKsIcMqaLcUsOQduzxk5gkB4Jc_I4cTI",
+      "title": "guilds",
+      "path": "/My Drive/mods/guilds",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2025-05-02T16:05:53.575Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1duDVexxc3-K1ogGqjR7RTAVx_foEOd0QWIVycdNGrb4",
+      "title": "quest edits",
+      "path": "/My Drive/mods/quest edits",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2025-05-02T16:05:40.975Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1K-2_w0Dz_c0_ZUPp2oHHFGeLwCN7cSLf0Ko09EU-fCw",
+      "title": "Papyrus Functions",
+      "path": "/My Drive/mods/Papyrus Functions",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2025-05-02T16:04:34.434Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "158JtBeCkhybKYchi9ORuwHjNBK0CM5PHSCD2co8WOGE",
+      "title": "Skills",
+      "path": "/My Drive/mods/Skills",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2025-03-04T16:51:11.588Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1XghIfDzHcUwSezzHo5SYvXhAkhC2W-yp0HaBpojSsPk",
+      "title": "Untitled document",
+      "path": "/My Drive/mods/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2025-02-26T17:44:30.956Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1OCyNtlypTsnoTw3N4VTtpI1kSrpnsSuVJu2MSHbhNyQ",
+      "title": "Untitled spreadsheet",
+      "path": "/My Drive/mods/Untitled spreadsheet",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2025-02-26T17:29:02.422Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1_kHG-_wHcW1TeGaVuBuO-ex4I8vO7i6dOYKywuolFiM",
+      "title": "Insights of Apocrypha - Immersive Scholarship",
+      "path": "/My Drive/mods/Insights of Apocrypha - Immersive Scholarship",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2024-10-15T18:20:43.612Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1bxERHztAVoF-KmLy8cp7i9TCAlpT63-3FDblvBDCHuE",
+      "title": "Armor Sets",
+      "path": "/My Drive/mods/Armor Sets",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2024-09-24T04:00:47.452Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "14bnTIbCTv03S20eYLVujlyFN3LHfKUJCji6MlgN7m_I",
+      "title": "Untitled document",
+      "path": "/My Drive/mods/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2024-08-09T01:57:01.331Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "11E579VA8kj1RfIurICft8hhX6xvHafYkTDaGIRTSnEk",
+      "title": "Untitled document",
+      "path": "/My Drive/mods/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2024-07-10T16:22:11.813Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "queued"
+    },
+    {
+      "id": "1fMtQfJFxYWR7rMXOESEyhie0MD1Ls-zGuubMa3kRolg",
+      "title": "The Silence",
+      "path": "/My Drive/dreameater/The Silence",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2025-08-31T20:58:52.721Z",
+      "category": "writing_dream_eater",
+      "content_status": "queued"
+    },
+    {
+      "id": "1lbHmTWS5vPTKl8eW0T3-89lug8SCBHRnVExavUns31k",
+      "title": "dream eater",
+      "path": "/My Drive/dreameater/dream eater",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2025-08-21T17:07:55.655Z",
+      "category": "writing_dream_eater",
+      "content_status": "queued"
+    },
+    {
+      "id": "1I1-LwhXJwV8R6HHaEIWYE_ujaftXJFuYfGUojgsoIk4",
+      "title": "Untitled document",
+      "path": "/My Drive/dreameater/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2024-11-06T22:00:22.036Z",
+      "category": "writing_dream_eater",
+      "content_status": "queued"
+    },
+    {
+      "id": "11CQSl0FBPFDxq6uY52N6Zt1aPHbGk1ckuuzAByFbZc8",
+      "title": "Loredoc - Avalon & The Avalon Institute",
+      "path": "/My Drive/dreameater/Loredoc - Avalon & The Avalon Institute",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2023-02-13T04:35:50.962Z",
+      "category": "writing_dream_eater",
+      "content_status": "queued"
+    },
+    {
+      "id": "107-PpHnQsZIc3eG2gDu0Ul1X5sECSxSxhOGuyAPNvbo",
+      "title": "Magic System - Guardian Emblem",
+      "path": "/My Drive/dreameater/Magic System - Guardian Emblem",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2023-02-12T16:21:16.249Z",
+      "category": "writing_dream_eater",
+      "content_status": "queued"
+    },
+    {
+      "id": "1YzUu9_ciemP6531GVpTYbVCsReKFjLgCc69MocByDP4",
+      "title": "Loredoc - Otherworld History",
+      "path": "/My Drive/dreameater/Loredoc - Otherworld History",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2023-02-08T03:43:21.337Z",
+      "category": "writing_dream_eater",
+      "content_status": "queued"
+    },
+    {
+      "id": "1XWWTKu6v3aHvf9zJgyTnyWYJmCpp_HUr20c567F1Urg",
+      "title": "Magic System - Contract Magic",
+      "path": "/My Drive/dreameater/Magic System - Contract Magic",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2023-02-08T00:31:55.042Z",
+      "category": "writing_dream_eater",
+      "content_status": "queued"
+    },
+    {
+      "id": "1Zy2eFpPAfA0F9zn2sgDnBrSaiULIHMht0uykmpXwcv8",
+      "title": "Names ",
+      "path": "/My Drive/dreameater/Names ",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2023-02-07T16:29:43.107Z",
+      "category": "writing_dream_eater",
+      "content_status": "queued"
+    },
+    {
+      "id": "1lfxVnnu4VTouwYWmHReQaNJDK6VYMwPQIgP8Is3mA6w",
+      "title": "Magic System Brainstorming - Invocation",
+      "path": "/My Drive/dreameater/Magic System Brainstorming - Invocation",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2022-09-04T16:12:34.420Z",
+      "category": "writing_dream_eater",
+      "content_status": "queued"
+    },
+    {
+      "id": "1bgYlEmS5O8Fs_SrWMZOmtq9zRCp_m94q9BbXPUWs07M",
+      "title": "Fairy Tail Magic",
+      "path": "/My Drive/Universal Anime System (UAS)/Fairy Tail Magic",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2024-10-31T20:40:37.584Z",
+      "category": "ttrpg_game_design",
+      "content_status": "queued"
+    },
+    {
+      "id": "18udxlQkqY1iUJdsbVSPORNrmJYkNr7vUOjzqokJPC10",
+      "title": "UAS - Origins",
+      "path": "/My Drive/Universal Anime System (UAS)/UAS - Origins",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2024-06-19T02:01:52.985Z",
+      "category": "ttrpg_game_design",
+      "content_status": "queued"
+    },
+    {
+      "id": "1wEfVnC2KCxZLSlOJfu0vCEINY4YYDBQ24NESwp6CCpI",
+      "title": "NPC Generator",
+      "path": "/My Drive/Universal Anime System (UAS)/NPC Generator",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2024-01-16T01:19:08.675Z",
+      "category": "ttrpg_game_design",
+      "content_status": "queued"
+    },
+    {
+      "id": "19kjagMENBsUG7AEf8VploAuXJKqnesASGbjLmT7Ejzo",
+      "title": "UAS SYSTEM 2nd Edition",
+      "path": "/My Drive/Universal Anime System (UAS)/UAS SYSTEM 2nd Edition",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2024-01-16T01:01:48.995Z",
+      "category": "ttrpg_game_design",
+      "content_status": "queued"
+    },
+    {
+      "id": "1awZlpRixs8EvyDGikUdXBzRhRHpjeaZQeLLZh-CITZA",
+      "title": "UAS GM TOOLS - BLADES OF PERGRANDE",
+      "path": "/My Drive/Universal Anime System (UAS)/UAS GM TOOLS - BLADES OF PERGRANDE",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2024-01-09T18:03:01.652Z",
+      "category": "ttrpg_game_design",
+      "content_status": "queued"
+    },
+    {
+      "id": "14xKlU1fh_QfaRZs9sTFfnqxO0ZTQQO8h",
+      "title": "UAS Character Sheet Template v2.7 - Blades of Pergrande Campaign.pdf",
+      "path": "/My Drive/Universal Anime System (UAS)/UAS Character Sheet Template v2.7 - Blades of Pergrande Campaign.pdf",
+      "mime_type": "application/pdf",
+      "modified_time": "2023-05-18T01:03:36.472Z",
+      "category": "ttrpg_game_design",
+      "content_status": "queued"
+    },
+    {
+      "id": "1_yROTzGMn1gW8TVUV41haFRkk7LKibMtPoaAHKXwym0",
+      "title": "passwords",
+      "path": "/My Drive/Personal/passwords",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-09-17T13:27:08.373Z",
+      "category": "restricted_credentials_metadata_only",
+      "content_status": "excluded_sensitive"
+    },
+    {
+      "id": "1tV8TRotpOmiYcb2f4hmIlyqKpjk2B0MWpCs97uwnLwg",
+      "title": "Budget",
+      "path": "/My Drive/Personal/Budget",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-03-06T13:37:42.328Z",
+      "category": "personal_planning",
+      "content_status": "queued"
+    },
+    {
+      "id": "1mAU3HCuwfbGTsMpKW1pZ24SIgqEgu0LJ4xMiMUF0XuA",
+      "title": "Meals",
+      "path": "/My Drive/Personal/Meals",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-01-28T22:43:00.213Z",
+      "category": "personal_planning",
+      "content_status": "queued"
+    },
+    {
+      "id": "1YnmX1vA8p2Ao6CmxqRJOIT5sMdJUgm_UreyVG5NISDo",
+      "title": "Terraria Bosses",
+      "path": "/My Drive/Personal/Terraria Bosses",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-01-28T19:19:49.697Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "118SmOEzQqj_vg6cUiBRDS7PrKUngKixm9Bhst6FcYFw",
+      "title": "Meals",
+      "path": "/My Drive/Personal/Meals",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-01-28T19:19:34.294Z",
+      "category": "personal_planning",
+      "content_status": "queued"
+    },
+    {
+      "id": "1LTnj9zXBZuRXoOEL1obtxyw8PwwvM11leKs_gILoDGY",
+      "title": "The Shit list",
+      "path": "/My Drive/Personal/The Shit list",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-01-24T00:02:07.708Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1clT33iyOvu1VugpvlqOa6INjkhXBUoje0XVbZYRbz_s",
+      "title": "Untitled document",
+      "path": "/My Drive/Personal/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2025-10-10T04:35:05.695Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1JUbpfNRHPqWyfPLaoOGeGA0oy9iMPOoI2fr6OuI7Re4",
+      "title": "Meals",
+      "path": "/My Drive/Personal/Meals",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2025-10-10T03:38:41.555Z",
+      "category": "personal_planning",
+      "content_status": "queued"
+    },
+    {
+      "id": "1WrhsPgDixtHZzdvk8iUHSpFS50vpz_DZf6LdHiGJlZc",
+      "title": "Untitled document",
+      "path": "/My Drive/Personal/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2025-08-21T16:50:00.189Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1QiJGgXiEer022JXsGlhVfW0IbC1Xz9sUROGjZSnDVp0",
+      "title": "Budget",
+      "path": "/My Drive/Personal/Budget",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2025-07-14T00:16:05.859Z",
+      "category": "personal_planning",
+      "content_status": "queued"
+    },
+    {
+      "id": "1f5aWudS8lNQjzsh9IscjM-7EHpNRUD3xS6T4RGcN1xk",
+      "title": "phone plan",
+      "path": "/My Drive/Personal/phone plan",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2025-05-02T16:05:20.024Z",
+      "category": "personal_planning",
+      "content_status": "queued"
+    },
+    {
+      "id": "1xg-V77UZAS8ogJu8-86NutiSVWZZsQlBjmVgP_t7YPM",
+      "title": "Untitled document",
+      "path": "/My Drive/Personal/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2025-03-04T00:22:31.294Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1P--Px6FGRG1FTgAkW9Sbb_fTaXUMUh_DDqoEp-OwweA",
+      "title": "bday list",
+      "path": "/My Drive/Personal/bday list",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2025-02-24T15:40:57.823Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1784heEEFZmjc7PK5nn2VR2mJL08XqnjHWJh_uwKp-Bg",
+      "title": "Seedbox Setup",
+      "path": "/My Drive/Personal/Seedbox Setup",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2025-01-04T04:13:14.313Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1e27WGmupT5zmu5YqETfpU7BqyxEZF-_JkLjiJhBDV_A",
+      "title": "Untitled document",
+      "path": "/My Drive/Personal/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2025-01-02T14:50:40.240Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1cTmnIwbDwUKd4rfA4BnUjpsZqkND6L_SK_hNvGZpJPc",
+      "title": "Untitled document",
+      "path": "/My Drive/Personal/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2025-01-02T03:12:37.829Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1V5vDrMb4PzCADNPmjujdDzV-joyD2MXVj9bg7KQqvSA",
+      "title": "Christmas",
+      "path": "/My Drive/Personal/Christmas",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2024-12-09T01:31:39.593Z",
+      "category": "personal_planning",
+      "content_status": "queued"
+    },
+    {
+      "id": "1Q05g-RQhrG84hm_Mws8IFwF3FfPgpOiUsv9ynkBd8-k",
+      "title": "To Send to Lawyer",
+      "path": "/My Drive/Personal/To Send to Lawyer",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2024-10-21T23:11:08.868Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1jgp8KTb-11U0ZsNLq9QsoR14CxlkjH-B2Yk2KMKHxuA",
+      "title": "Marvel Legends to Collect",
+      "path": "/My Drive/Personal/Marvel Legends to Collect",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2024-06-19T01:57:17.991Z",
+      "category": "uncategorized_pending_content_review",
+      "content_status": "queued"
+    },
+    {
+      "id": "1JfMENdNkrFZ2quRzn-75LZNVlDfXCOeNGcrwQMVth7Q",
+      "title": "Date Ideas",
+      "path": "/My Drive/Personal/Date Ideas",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2024-02-11T01:28:10.555Z",
+      "category": "personal_planning",
+      "content_status": "queued"
+    }
+  ],
+  "folder_queue": [
+    {
+      "id": "1ZrfbLOFq30t5MWzd3Ejbpnzz1onjlZCH",
+      "title": "Fillout Application Resumes",
+      "path": "/My Drive/RTEC/Fillout Application Resumes",
+      "url": "https://drive.google.com/drive/folders/1ZrfbLOFq30t5MWzd3Ejbpnzz1onjlZCH",
+      "status": "queued_sanitized"
+    },
+    {
+      "id": "1vBUJhmXBXiVn2tHOieKFl-JIlvVtnqnNPYx--5Au_3eo_meHb1dk0EqWINo_uySl_FGPkDgk",
+      "title": "Upload Resume (File responses)",
+      "path": "/My Drive/Copy of Basic Job Application Form (File responses)/Upload Resume (File responses)",
+      "url": "https://drive.google.com/drive/folders/1vBUJhmXBXiVn2tHOieKFl-JIlvVtnqnNPYx--5Au_3eo_meHb1dk0EqWINo_uySl_FGPkDgk",
+      "status": "queued_sanitized"
+    },
+    {
+      "id": "1rM14l4MfL3VE8pbh4O2zJDI1r_9YpNbnWa80EGJHy72lQfw4oypATT138hoTfVAz_eVf5tq8",
+      "title": "Upload Resume (File responses)",
+      "path": "/My Drive/Copy of Basic Job Application Form (File responses)/Upload Resume (File responses)",
+      "url": "https://drive.google.com/drive/folders/1rM14l4MfL3VE8pbh4O2zJDI1r_9YpNbnWa80EGJHy72lQfw4oypATT138hoTfVAz_eVf5tq8",
+      "status": "queued_sanitized"
+    },
+    {
+      "id": "11V812Q7NAELs4gE6AWv8Cccl5tRfsPJr",
+      "title": "lore",
+      "path": "/My Drive/dreameater/lore",
+      "url": "https://drive.google.com/drive/folders/11V812Q7NAELs4gE6AWv8Cccl5tRfsPJr",
+      "status": "queued"
+    },
+    {
+      "id": "1YqhYNyZXQ9HmuTEanso115kbyX0yUlpf",
+      "title": "draft",
+      "path": "/My Drive/dreameater/draft",
+      "url": "https://drive.google.com/drive/folders/1YqhYNyZXQ9HmuTEanso115kbyX0yUlpf",
+      "status": "queued"
+    },
+    {
+      "id": "1CZ7AJcrR414zcX6RhetLIT2PtBAKjc1P",
+      "title": "GM Tools",
+      "path": "/My Drive/Universal Anime System (UAS)/GM Tools",
+      "url": "https://drive.google.com/drive/folders/1CZ7AJcrR414zcX6RhetLIT2PtBAKjc1P",
+      "status": "queued"
+    },
+    {
+      "id": "1DSHlntviqwqDZ7JceI8e2NtOP9TjWLgz",
+      "title": "System Base 1.5",
+      "path": "/My Drive/Universal Anime System (UAS)/System Base 1.5",
+      "url": "https://drive.google.com/drive/folders/1DSHlntviqwqDZ7JceI8e2NtOP9TjWLgz",
+      "status": "queued"
+    },
+    {
+      "id": "1TYy2xRlLRngC-_JrPhsWy6lsSwfLZlEu",
+      "title": "Character Creation",
+      "path": "/My Drive/Universal Anime System (UAS)/Character Creation",
+      "url": "https://drive.google.com/drive/folders/1TYy2xRlLRngC-_JrPhsWy6lsSwfLZlEu",
+      "status": "queued"
+    },
+    {
+      "id": "1mpXnfTvZsN1MCHihvGIj0uIlHh7UIZ3q",
+      "title": "Graphics",
+      "path": "/My Drive/Personal/Graphics",
+      "url": "https://drive.google.com/drive/folders/1mpXnfTvZsN1MCHihvGIj0uIlHh7UIZ3q",
+      "status": "queued"
+    },
+    {
+      "id": "10umrvIJJ3x2DPqApBpMFVIDnbgLoLX4L",
+      "title": "TTRPG",
+      "path": "/My Drive/Personal/TTRPG",
+      "url": "https://drive.google.com/drive/folders/10umrvIJJ3x2DPqApBpMFVIDnbgLoLX4L",
+      "status": "queued"
+    },
+    {
+      "id": "11ixInvWVEmisSZPwrZJ29OrYKOpBc8Kj",
+      "title": "AI Tools",
+      "path": "/My Drive/Personal/AI Tools",
+      "url": "https://drive.google.com/drive/folders/11ixInvWVEmisSZPwrZJ29OrYKOpBc8Kj",
+      "status": "queued"
+    },
+    {
+      "id": "1TK846nE3fdC7SZanhtq2XijsI1z6Yh3z",
+      "title": "Productivity",
+      "path": "/My Drive/Personal/Productivity",
+      "url": "https://drive.google.com/drive/folders/1TK846nE3fdC7SZanhtq2XijsI1z6Yh3z",
+      "status": "queued"
+    },
+    {
+      "id": "1uLFWq2ipK70lJtfau_ZbWtV5-laBK1sr",
+      "title": "Pinochle",
+      "path": "/My Drive/Personal/Pinochle",
+      "url": "https://drive.google.com/drive/folders/1uLFWq2ipK70lJtfau_ZbWtV5-laBK1sr",
+      "status": "queued"
+    }
+  ],
+  "category_counts": {
+    "uncategorized_pending_content_review": 94,
+    "elder_scrolls_modding": 76,
+    "work_hr_sanitized": 9,
+    "restricted_credentials_metadata_only": 2,
+    "personal_planning": 10,
+    "lego_custom_collecting": 15,
+    "career_professional": 5,
+    "writing_dream_eater": 9,
+    "ttrpg_game_design": 6
+  }
+}
