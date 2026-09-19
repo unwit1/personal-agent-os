@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "deities",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-013-daedric-princes-realms-artifacts",
+  "subjects": [
+    {
+      "id": "tes:hermaeus-mora",
+      "name": "Hermaeus Mora",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/hermaeus-mora.json",
+      "source": {
+        "id": "uesp:hermaeus-mora",
+        "url": "https://en.uesp.net/wiki/Lore:Hermaeus_Mora",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:hircine",
+      "name": "Hircine",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/hircine.json",
+      "source": {
+        "id": "uesp:hircine",
+        "url": "https://en.uesp.net/wiki/Lore:Hircine",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:meridia",
+      "name": "Meridia",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/meridia.json",
+      "source": {
+        "id": "uesp:meridia",
+        "url": "https://en.uesp.net/wiki/Lore:Meridia",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:nocturnal",
+      "name": "Nocturnal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/nocturnal.json",
+      "source": {
+        "id": "uesp:nocturnal",
+        "url": "https://en.uesp.net/wiki/Lore:Nocturnal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sanguine",
+      "name": "Sanguine",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/sanguine.json",
+      "source": {
+        "id": "uesp:sanguine",
+        "url": "https://en.uesp.net/wiki/Lore:Sanguine",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sheogorath",
+      "name": "Sheogorath",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/sheogorath.json",
+      "source": {
+        "id": "uesp:sheogorath",
+        "url": "https://en.uesp.net/wiki/Lore:Sheogorath",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:jyggalag",
+      "name": "Jyggalag",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/jyggalag.json",
+      "source": {
+        "id": "uesp:jyggalag",
+        "url": "https://en.uesp.net/wiki/Lore:Jyggalag",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:clavicus-vile",
+      "name": "Clavicus Vile",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/clavicus-vile.json",
+      "source": {
+        "id": "uesp:clavicus-vile",
+        "url": "https://en.uesp.net/wiki/Lore:Clavicus_Vile",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:vaermina",
+      "name": "Vaermina",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/vaermina.json",
+      "source": {
+        "id": "uesp:vaermina",
+        "url": "https://en.uesp.net/wiki/Lore:Vaermina",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:molag-bal",
+      "name": "Molag Bal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/molag-bal.json",
+      "source": {
+        "id": "uesp:molag-bal",
+        "url": "https://en.uesp.net/wiki/Lore:Molag_Bal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Preserve mortal/cultural interpretations of Daedric motives as attributed claims",
+    "Do not infer that a Prince's realm or artifact has invariant properties across every game/era",
+    "Prefer quest dialogue, artifact descriptions, in-game books and observed quest events over summary prose",
+    "Track alternate names as aliases rather than duplicate subjects"
+  ]
+}
