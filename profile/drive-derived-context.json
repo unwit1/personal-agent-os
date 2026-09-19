@@ -11,7 +11,8 @@
       "Do not assume every accessible/shared file was authored by the user.",
       "2026-09-18 targeted second-pass read covered Knowledge Framework, Scholars of Skyrim, Silvertongue, Apocryphal Knowledge, Arcaneum Scholarship, Codex, and Daedrologist; only durable design relationships were promoted.",
       "User clarified 2026-09-18: KF is the base; Arcaneum evolved into KF but may remain as the book-tagging layer; Imperial Library is book tagging/import; most related projects should be frameworks or integratable addons; newer versions generally win while older versions remain comparison provenance.",
-      "2026-09-18 Dream Eater second pass covered the project folder inventory plus Guardian Emblem, Contract Magic, Avalon/Avalon Institute, Otherworld History, The Silence, and Magic System Explained. Findings are marked version-sensitive because the source docs contain unfinished and explicitly out-of-date notes."
+      "2026-09-18 Dream Eater second pass covered the project folder inventory plus Guardian Emblem, Contract Magic, Avalon/Avalon Institute, Otherworld History, The Silence, and Magic System Explained. Findings are marked version-sensitive because the source docs contain unfinished and explicitly out-of-date notes.",
+      "User clarification 2026-09-18: current Dream Eater manuscript is highest authority; preserve granular canon statuses; future lorekeeper/writing-buddy should actively challenge continuity and logic; The Silence is a newer central cosmic force that makes non-Fade users forget Fade users and thereby sustains the setting's supernatural Masquerade."
     ]
   },
   "project_clusters": [
@@ -179,6 +180,41 @@
           "Some notes explicitly mark concepts as OOD/revisit/unfinished, so document modification date alone should not automatically promote every statement to canon."
         ],
         "recommended_future_consolidation": "Build a Dream Eater canon registry with concepts, aliases, status (canon/provisional/deprecated/question), first/last source, contradictions, unresolved questions and dependency links. Then consolidate world bible documents by domain without deleting historical drafts."
+      },
+      "user_confirmed_canon_policy": {
+        "authority_order": [
+          "Current manuscript is the strongest authority when it explicitly establishes something",
+          "Newer dedicated lore material",
+          "Older lore/worldbuilding documents",
+          "Brainstorming/legacy drafts"
+        ],
+        "critical_review": true,
+        "critical_review_scope": [
+          "continuity contradictions",
+          "plot holes",
+          "worldbuilding consequences",
+          "institutional/character logic",
+          "redundant mechanics",
+          "gaps between versions",
+          "ideas lost during revision"
+        ],
+        "canon_statuses": [
+          "Canon",
+          "Likely Canon",
+          "Provisional",
+          "Idea",
+          "Deprecated",
+          "Contradicted",
+          "Unknown"
+        ],
+        "future_module": "A separate writing-buddy/lorekeeper module should use this canon registry and actively challenge the writing/worldbuilding rather than merely retrieve lore."
+      },
+      "silence_user_confirmed": {
+        "status": "Canon",
+        "recency": "Newer central concept",
+        "definition": "The Silence is a cosmic force that causes non-Fade users to forget Fade users, effectively making them disappear from ordinary historical/social memory.",
+        "narrative_role": "It preserves the setting's Masquerade-like concealment of the supernatural and is intended to be central to the series.",
+        "note": "Older sparse Drive notes describing The Silence should not be treated as the complete current definition."
       }
     },
     {
