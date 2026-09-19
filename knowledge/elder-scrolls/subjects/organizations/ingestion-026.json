@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-026-elsweyr-khajiit-dragons",
+  "subjects": [
+    {
+      "id": "tes:dragonguard",
+      "name": "Dragonguard",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/dragonguard.json",
+      "source": {
+        "id": "uesp:dragonguard",
+        "url": "https://en.uesp.net/wiki/Lore:Dragonguard",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:new-moon-cult",
+      "name": "New Moon Cult",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/new-moon-cult.json",
+      "source": {
+        "id": "uesp:new-moon-cult",
+        "url": "https://en.uesp.net/wiki/Lore:New_Moon_Cult",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:order-new-moon",
+      "name": "Order of the New Moon",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/order-new-moon.json",
+      "source": {
+        "id": "uesp:order-new-moon",
+        "url": "https://en.uesp.net/wiki/Lore:Order_of_the_New_Moon",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:anequina",
+      "name": "Anequina",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/anequina.json",
+      "source": {
+        "id": "uesp:anequina",
+        "url": "https://en.uesp.net/wiki/Lore:Anequina",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:pellitine",
+      "name": "Pellitine",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/pellitine.json",
+      "source": {
+        "id": "uesp:pellitine",
+        "url": "https://en.uesp.net/wiki/Lore:Pellitine",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Khajiiti origin stories and lunar theology remain attributed traditions unless independently evidenced",
+    "Furstock descriptions must retain source/era because terminology and presentation vary across games",
+    "Khunzar-ri legends should separate legendary narrative from observed ESO-era evidence",
+    "Dragon claims should distinguish individual testimony, historical record and directly observed quest events",
+    "Cross-link existing Khajiit, Elsweyr, Alkosh, Azurah, Lunar Lattice, Mane, Dro-m'Athra, Sai Sahan and Abnur Tharn subjects",
+    "Do not collapse Anequina/Pellitine geographic, political and historical meanings into one undifferentiated record"
+  ]
+}
