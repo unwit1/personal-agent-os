@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-031-necrom-gold-road-ithelia",
+  "subjects": [
+    {
+      "id": "tes:fate",
+      "name": "Fate",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/fate.json",
+      "source": {
+        "id": "uesp:fate",
+        "url": "https://en.uesp.net/wiki/Lore:Fate",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:paths-possibility",
+      "name": "Paths of Possibility",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/paths-possibility.json",
+      "source": {
+        "id": "uesp:paths-possibility",
+        "url": "https://en.uesp.net/wiki/Lore:Paths_of_Possibility",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:forgotten-prince",
+      "name": "Forgotten Prince",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/forgotten-prince.json",
+      "source": {
+        "id": "uesp:forgotten-prince",
+        "url": "https://en.uesp.net/wiki/Lore:Forgotten_Prince",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:memory-erasure",
+      "name": "Memory Erasure",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/memory-erasure.json",
+      "source": {
+        "id": "uesp:memory-erasure",
+        "url": "https://en.uesp.net/wiki/Lore:Memory_Erasure",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:reality-alteration",
+      "name": "Reality Alteration",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/reality-alteration.json",
+      "source": {
+        "id": "uesp:reality-alteration",
+        "url": "https://en.uesp.net/wiki/Lore:Reality_Alteration",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:secret-knowledge",
+      "name": "Forbidden Knowledge",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/secret-knowledge.json",
+      "source": {
+        "id": "uesp:secret-knowledge",
+        "url": "https://en.uesp.net/wiki/Lore:Forbidden_Knowledge",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mora-memory",
+      "name": "Hermaeus Mora's Memory",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/mora-memory.json",
+      "source": {
+        "id": "uesp:mora-memory",
+        "url": "https://en.uesp.net/wiki/Lore:Hermaeus_Mora%27s_Memory",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:daedric-prince-identity",
+      "name": "Daedric Prince Identity",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/daedric-prince-identity.json",
+      "source": {
+        "id": "uesp:daedric-prince-identity",
+        "url": "https://en.uesp.net/wiki/Lore:Daedric_Prince_Identity",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Ithelia-related history is unusually vulnerable to erased or altered memory; preserve source date, speaker knowledge state and later revelations",
+    "Do not retroactively rewrite older sources merely because later ESO content introduces forgotten events or entities",
+    "Paths of possibility, fate and reality alteration require explicit evidence provenance and should not become unrestricted explanations for contradictions",
+    "Hermaeus Mora's claims about secrets and history remain attributed where not independently corroborated",
+    "Apocrypha locations, memories, books and manifestations should remain distinguishable despite overlapping names",
+    "Cross-link existing Hermaeus Mora, Apocrypha, Necrom, Telvanni, Fargrave, Black Books and Forbidden Knowledge subjects"
+  ]
+}
