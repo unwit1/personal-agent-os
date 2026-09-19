@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-037-tiber-septim-numidium-underking",
+  "subjects": [
+    {
+      "id": "tes:tiber-septim",
+      "name": "Tiber Septim",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/tiber-septim.json",
+      "source": {
+        "id": "uesp:tiber-septim",
+        "url": "https://en.uesp.net/wiki/Lore:Tiber_Septim",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:zurin-arctus",
+      "name": "Zurin Arctus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/zurin-arctus.json",
+      "source": {
+        "id": "uesp:zurin-arctus",
+        "url": "https://en.uesp.net/wiki/Lore:Zurin_Arctus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:wulfharth",
+      "name": "Wulfharth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/wulfharth.json",
+      "source": {
+        "id": "uesp:wulfharth",
+        "url": "https://en.uesp.net/wiki/Lore:Wulfharth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:underking",
+      "name": "Underking",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/underking.json",
+      "source": {
+        "id": "uesp:underking",
+        "url": "https://en.uesp.net/wiki/Lore:Underking",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:cuhlecain",
+      "name": "Cuhlecain",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/cuhlecain.json",
+      "source": {
+        "id": "uesp:cuhlecain",
+        "url": "https://en.uesp.net/wiki/Lore:Cuhlecain",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:barenziah",
+      "name": "Barenziah",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/barenziah.json",
+      "source": {
+        "id": "uesp:barenziah",
+        "url": "https://en.uesp.net/wiki/Lore:Barenziah",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:vivec",
+      "name": "Vivec",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/vivec.json",
+      "source": {
+        "id": "uesp:vivec",
+        "url": "https://en.uesp.net/wiki/Lore:Vivec",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Tiber Septim's origins, names and identity claims must remain source-specific; do not collapse Hjalti, Talos, Tiber Septim and related theories without evidence",
+    "Underking identity claims involving Zurin Arctus and Wulfharth must coexist with explicit provenance and contradiction links",
+    "The Arcturian Heresy is an in-universe counter-history and must not silently replace Imperial accounts as objective fact",
+    "Numidium effects on time and history require event-specific evidence; do not generalize every activation into an unrestricted Dragon Break mechanism",
+    "Talos apotheosis claims should distinguish historical cult development, theological doctrine and directly observable divine phenomena",
+    "Cross-link existing Tiber Septim, Wulfharth, Numidium, Mantella, Underking, Warp in the West, Dragon Break and Septim records"
+  ]
+}
