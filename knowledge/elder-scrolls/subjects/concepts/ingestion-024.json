@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-024-eso-planemeld-five-companions",
+  "subjects": [
+    {
+      "id": "tes:vestige",
+      "name": "Vestige",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/vestige.json",
+      "source": {
+        "id": "uesp:vestige",
+        "url": "https://en.uesp.net/wiki/Lore:Vestige",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:soul-shriven",
+      "name": "Soul Shriven",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/soul-shriven.json",
+      "source": {
+        "id": "uesp:soul-shriven",
+        "url": "https://en.uesp.net/wiki/Lore:Soul_Shriven",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:skyshards",
+      "name": "Skyshards",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/skyshards.json",
+      "source": {
+        "id": "uesp:skyshards",
+        "url": "https://en.uesp.net/wiki/Lore:Skyshards",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:anuic-principle",
+      "name": "Anuic Principle",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/anuic-principle.json",
+      "source": {
+        "id": "uesp:anuic-principle",
+        "url": "https://en.uesp.net/wiki/Lore:Anuic_Principle",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:planemeld",
+      "name": "Planemeld",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/planemeld.json",
+      "source": {
+        "id": "uesp:planemeld",
+        "url": "https://en.uesp.net/wiki/Lore:Planemeld",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:soul-magic",
+      "name": "Soul Magic",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/soul-magic.json",
+      "source": {
+        "id": "uesp:soul-magic",
+        "url": "https://en.uesp.net/wiki/Lore:Soul_Magic",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:coldharbour-anchors",
+      "name": "Dark Anchors",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/coldharbour-anchors.json",
+      "source": {
+        "id": "uesp:coldharbour-anchors",
+        "url": "https://en.uesp.net/wiki/Lore:Dark_Anchors",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Vestige biography and alliance choice remain player-variable unless a source establishes a common event",
+    "Separate base-game Planemeld chronology from later ESO chapters and retroactive interpretations",
+    "Molag Bal dialogue is attributed testimony, not omniscient narration",
+    "Distinguish observed Coldharbour mechanics from scholarly metaphysical explanation",
+    "Alliance-specific quest variants and mutually exclusive choices remain branch-scoped",
+    "Cross-link existing Planemeld, Soulburst, Mannimarco, Molag Bal, Coldharbour, Amulet of Kings and alliance records rather than duplicate them"
+  ]
+}
