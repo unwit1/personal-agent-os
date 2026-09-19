@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-024-eso-planemeld-five-companions",
+  "subjects": [
+    {
+      "id": "tes:soulburst",
+      "name": "Soulburst",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/soulburst.json",
+      "source": {
+        "id": "uesp:soulburst",
+        "url": "https://en.uesp.net/wiki/Lore:Soulburst",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:planemeld",
+      "name": "Planemeld",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/planemeld.json",
+      "source": {
+        "id": "uesp:planemeld",
+        "url": "https://en.uesp.net/wiki/Lore:Planemeld",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:three-banners-war",
+      "name": "Three Banners War",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/three-banners-war.json",
+      "source": {
+        "id": "uesp:three-banners-war",
+        "url": "https://en.uesp.net/wiki/Lore:Three_Banners_War",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:great-shackle-destruction",
+      "name": "Destruction of the Great Shackle",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/great-shackle-destruction.json",
+      "source": {
+        "id": "uesp:great-shackle-destruction",
+        "url": "https://en.uesp.net/wiki/Lore:Destruction_of_the_Great_Shackle",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:molag-bal-confrontation",
+      "name": "Confrontation with Molag Bal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/molag-bal-confrontation.json",
+      "source": {
+        "id": "uesp:molag-bal-confrontation",
+        "url": "https://en.uesp.net/wiki/Lore:Confrontation_with_Molag_Bal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Vestige biography and alliance choice remain player-variable unless a source establishes a common event",
+    "Separate base-game Planemeld chronology from later ESO chapters and retroactive interpretations",
+    "Molag Bal dialogue is attributed testimony, not omniscient narration",
+    "Distinguish observed Coldharbour mechanics from scholarly metaphysical explanation",
+    "Alliance-specific quest variants and mutually exclusive choices remain branch-scoped",
+    "Cross-link existing Planemeld, Soulburst, Mannimarco, Molag Bal, Coldharbour, Amulet of Kings and alliance records rather than duplicate them"
+  ]
+}
