@@ -19,7 +19,8 @@
       "2026-09-18 continuation pass cross-checked the 2024 Broken Throne brainstorming doc, 2025 Silence note, and legacy Names sheet. Surviving motifs were separated from unconfirmed mechanics and alias/name drift.",
       "2026-09-18 continuation pass found and analyzed the recent Character Wiki (modified 2026-05-23), revealing current Guardian-cycle planning, Dominion/Gallowbird/Mourn material, Deadlight succession, and several event-causality questions to preserve rather than flatten.",
       "User clarification 2026-09-18: Silas Ashland is canonically the child Denial weaponized against the Nameless Throne, and has been intended as that child from the concept's origin. Grant Ashland is his father; his mother's name is currently unrecovered, but she is Abigail Fletcher's mentor in The Delusionist.",
-      "2026-09-18 Drive-wide discovery pass: searched Silas/Grant/Abigail/Delusionist beyond the Dream Eater folder. No reliable mother's name recovered. Found cross-source support for Door→Ellison reconstitution and an older collective-perception metaphysics basis relevant to the recent Vane/Silence note."
+      "2026-09-18 Drive-wide discovery pass: searched Silas/Grant/Abigail/Delusionist beyond the Dream Eater folder. No reliable mother's name recovered. Found cross-source support for Door→Ellison reconstitution and an older collective-perception metaphysics basis relevant to the recent Vane/Silence note.",
+      "2026-09-18 began importing the connected Notion Dream Eater workspace into the Agent OS provenance map. Notion contains a structured Dream Eater→Lore hierarchy with Guardian Cycle, organizations, locations, entities and an Eight Houses database. Many pages are placeholders; substantive content is retained without promoting it over newer/user-confirmed sources."
     ]
   },
   "project_clusters": [
@@ -408,6 +409,69 @@
           "The Magic System Explained document frames reality as narrative-shaped by collective human perception and the Fade as evolving with human perception. This provides an older metaphysical foundation that could support the Character Wiki's Vane manifestation idea, but does not by itself prove Vane/Silence mechanics are current canon."
         ],
         "new_architecture_requirement": "Maintain a source-discovery index containing known folders plus Drive-wide entity searches and freshness signals, because newer authoritative planning files may live outside project folders."
+      },
+      "notion_import": {
+        "imported_at": "2026-09-18",
+        "workspace_scope": "Dream Eater Notion tree discovered under a top-level Dream Eater page. Notion keyword search is limited (AI search unavailable), so hierarchy traversal and targeted fetches are required for completeness.",
+        "source_authority": "Mostly 2024 planning/reference material. Preserve as provenance; newer manuscript, newer dedicated lore, and user-confirmed facts take precedence.",
+        "structure": {
+          "root": [
+            "Manuscript",
+            "Lore"
+          ],
+          "lore": [
+            "Characters",
+            "Locations",
+            "History",
+            "Organizations",
+            "Groups",
+            "Entities"
+          ],
+          "characters": [
+            "Guardian Cycle",
+            "Virtues of the Inquisition",
+            "Blasphemous Choir"
+          ],
+          "guardian_cycle": [
+            "First Cycle - The Nine",
+            "Second Cycle - The Heretics",
+            "Third Cycle - The Eyes",
+            "Fourth Cycle - Deadlight Brigade"
+          ],
+          "organizations": [
+            "Church of Whispers/Inquisition",
+            "Avalon",
+            "Silent Institute",
+            "The Healer’s Guild",
+            "Circle of Three"
+          ],
+          "entities": [
+            "Divines"
+          ],
+          "notable_locations": [
+            "Nameless Throne/The Broken Throne",
+            "The Void",
+            "Albion - The City in the Void",
+            "Yggdrassil",
+            "Traveler’s Inn",
+            "Blueharbor",
+            "Neverwhere",
+            "Earth"
+          ]
+        },
+        "substantive_findings": [
+          "John A. Avalon is described as eccentric billionaire/founder of Avalon Institute, original Heretic Guardian, and Incubus imprisoned in Albion; the note says Albion is a giant prison for him.",
+          "The Avalon Institute contains a Notion database for the Eight Houses/Ideals. Retrieved named entries: Creation/Elementalists, Preservation/Healers, Disorder/Catalysts, Absence/Wardens, Truth/Psychics, Names/Weavers, Change/Alchemists, and an incomplete Order entry.",
+          "Much of the Guardian Cycle, Broken Throne, Guardian, Fate/Weaver and Traveler Notion structure consists of blank placeholder pages. Their existence is useful taxonomy/provenance but contributes no new canon facts."
+        ],
+        "unresolved_search": {
+          "silas_mother": "Not recovered from Notion keyword search or currently fetched Dream Eater hierarchy. Keep unknown; Scrivener/old-laptop sources remain unsearched.",
+          "completeness": "Notion AI search is unavailable on the connected plan. The import should therefore continue by recursively traversing the Dream Eater hierarchy and fetching nonblank descendants/databases rather than relying only on search."
+        },
+        "external_archive_backlog": [
+          "Scrivener project files not currently accessible in connected sources; import when user provides/retrieves them.",
+          "Old laptop Dream Eater files not currently accessible; preserve as an outstanding archive-recovery source and do not mark the corpus complete until searched."
+        ]
       }
     },
     {
