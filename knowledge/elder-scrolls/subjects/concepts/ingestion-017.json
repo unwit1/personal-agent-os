@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-017-dawnguard-falmer-elder-scrolls",
+  "subjects": [
+    {
+      "id": "tes:elder-scrolls",
+      "name": "Elder Scrolls",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/elder-scrolls.json",
+      "source": {
+        "id": "uesp:elder-scrolls",
+        "url": "https://en.uesp.net/wiki/Lore:Elder_Scrolls",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:prophecy",
+      "name": "Prophecy",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/prophecy.json",
+      "source": {
+        "id": "uesp:prophecy",
+        "url": "https://en.uesp.net/wiki/Lore:Prophecy",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:tyranny-sun",
+      "name": "Tyranny of the Sun",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/tyranny-sun.json",
+      "source": {
+        "id": "uesp:tyranny-sun",
+        "url": "https://en.uesp.net/wiki/Lore:Tyranny_of_the_Sun",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:pure-blood-vampire",
+      "name": "Pure-blooded Vampire",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/pure-blood-vampire.json",
+      "source": {
+        "id": "uesp:pure-blood-vampire",
+        "url": "https://en.uesp.net/wiki/Lore:Pure-blooded_Vampire",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:daughter-coldharbour",
+      "name": "Daughter of Coldharbour",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/daughter-coldharbour.json",
+      "source": {
+        "id": "uesp:daughter-coldharbour",
+        "url": "https://en.uesp.net/wiki/Lore:Daughter_of_Coldharbour",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:betrayed",
+      "name": "Betrayed",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/betrayed.json",
+      "source": {
+        "id": "uesp:betrayed",
+        "url": "https://en.uesp.net/wiki/Lore:Betrayed",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:snow-elf-religion",
+      "name": "Snow Elf Religion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/snow-elf-religion.json",
+      "source": {
+        "id": "uesp:snow-elf-religion",
+        "url": "https://en.uesp.net/wiki/Lore:Snow_Elf_Religion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:soul-cairn-concept",
+      "name": "Soul Cairn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/soul-cairn-concept.json",
+      "source": {
+        "id": "uesp:soul-cairn-concept",
+        "url": "https://en.uesp.net/wiki/Lore:Soul_Cairn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Separate ancient Snow Elves from later Falmer/Betrayed terminology and preserve source-era usage",
+    "Treat vampire origin/ritual accounts as attributed unless directly established by primary evidence",
+    "Elder Scroll prophecies must retain the exact source, reading context and interpretation rather than being normalized into deterministic predictions",
+    "Soul Cairn and Ideal Masters claims should distinguish observed game-space facts from character speculation",
+    "Prefer Skyrim/Dawnguard quest dialogue, journals, inscriptions and observed events for this cluster"
+  ]
+}
