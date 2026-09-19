@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "index_version": 1,
+  "local_artifacts": [
+    "dialogue.sqlite",
+    "dialogue_fts",
+    "raw-html-cache/",
+    "normalized-transcripts/"
+  ],
+  "sqlite_tables": [
+    {
+      "name": "transcripts",
+      "fields": [
+        "id",
+        "game",
+        "title",
+        "quest_or_scene",
+        "source_url",
+        "source_kind",
+        "retrieved_at",
+        "content_hash"
+      ]
+    },
+    {
+      "name": "dialogue_turns",
+      "fields": [
+        "transcript_id",
+        "sequence",
+        "speaker",
+        "player_prompt",
+        "text",
+        "stage_direction"
+      ]
+    },
+    {
+      "name": "speaker_aliases",
+      "fields": [
+        "canonical_speaker",
+        "alias",
+        "game"
+      ]
+    },
+    {
+      "name": "dialogue_evidence_chunks",
+      "fields": [
+        "id",
+        "transcript_id",
+        "start_sequence",
+        "end_sequence",
+        "text",
+        "token_count"
+      ]
+    }
+  ],
+  "retrieval_examples": [
+    "all dialogue by a speaker",
+    "speaker statements mentioning a subject",
+    "dialogue for a quest or scene",
+    "exact phrase search",
+    "evidence chunks supporting a lore claim",
+    "compare statements by multiple speakers"
+  ],
+  "chunking_rules": [
+    "Prefer complete prompt-response exchanges.",
+    "Never split a single speaker turn solely to hit an arbitrary token target unless exceptionally long.",
+    "Include enough neighboring context to resolve pronouns and the question being answered.",
+    "Return provenance with every retrieved chunk."
+  ]
+}
