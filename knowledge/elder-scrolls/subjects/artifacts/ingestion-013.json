@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-013-daedric-princes-realms-artifacts",
+  "subjects": [
+    {
+      "id": "tes:oghma-infinium",
+      "name": "Oghma Infinium",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/oghma-infinium.json",
+      "source": {
+        "id": "uesp:oghma-infinium",
+        "url": "https://en.uesp.net/wiki/Lore:Oghma_Infinium",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:saviors-hide",
+      "name": "Savior's Hide",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/saviors-hide.json",
+      "source": {
+        "id": "uesp:saviors-hide",
+        "url": "https://en.uesp.net/wiki/Lore:Savior%27s_Hide",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dawnbreaker",
+      "name": "Dawnbreaker",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/dawnbreaker.json",
+      "source": {
+        "id": "uesp:dawnbreaker",
+        "url": "https://en.uesp.net/wiki/Lore:Dawnbreaker",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:skeleton-key",
+      "name": "Skeleton Key",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/skeleton-key.json",
+      "source": {
+        "id": "uesp:skeleton-key",
+        "url": "https://en.uesp.net/wiki/Lore:Skeleton_Key",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sanguine-rose",
+      "name": "Sanguine Rose",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/sanguine-rose.json",
+      "source": {
+        "id": "uesp:sanguine-rose",
+        "url": "https://en.uesp.net/wiki/Lore:Sanguine_Rose",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:wabbajack",
+      "name": "Wabbajack",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/wabbajack.json",
+      "source": {
+        "id": "uesp:wabbajack",
+        "url": "https://en.uesp.net/wiki/Lore:Wabbajack",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:gray-cowl-nocturnal",
+      "name": "Gray Cowl of Nocturnal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/gray-cowl-nocturnal.json",
+      "source": {
+        "id": "uesp:gray-cowl-nocturnal",
+        "url": "https://en.uesp.net/wiki/Lore:Gray_Cowl_of_Nocturnal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:masque-clavicus-vile",
+      "name": "Masque of Clavicus Vile",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/masque-clavicus-vile.json",
+      "source": {
+        "id": "uesp:masque-clavicus-vile",
+        "url": "https://en.uesp.net/wiki/Lore:Masque_of_Clavicus_Vile",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:skull-corruption",
+      "name": "Skull of Corruption",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/skull-corruption.json",
+      "source": {
+        "id": "uesp:skull-corruption",
+        "url": "https://en.uesp.net/wiki/Lore:Skull_of_Corruption",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mace-molag-bal",
+      "name": "Mace of Molag Bal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/mace-molag-bal.json",
+      "source": {
+        "id": "uesp:mace-molag-bal",
+        "url": "https://en.uesp.net/wiki/Lore:Mace_of_Molag_Bal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Preserve mortal/cultural interpretations of Daedric motives as attributed claims",
+    "Do not infer that a Prince's realm or artifact has invariant properties across every game/era",
+    "Prefer quest dialogue, artifact descriptions, in-game books and observed quest events over summary prose",
+    "Track alternate names as aliases rather than duplicate subjects"
+  ]
+}
