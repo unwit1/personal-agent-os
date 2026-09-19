@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-036-nerevarine-sixth-house-prophecy",
+  "subjects": [
+    {
+      "id": "tes:moon-and-star",
+      "name": "Moon-and-Star",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/moon-and-star.json",
+      "source": {
+        "id": "uesp:moon-and-star",
+        "url": "https://en.uesp.net/wiki/Lore:Moon-and-Star",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:heart-lorkhan",
+      "name": "Heart of Lorkhan",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/heart-lorkhan.json",
+      "source": {
+        "id": "uesp:heart-lorkhan",
+        "url": "https://en.uesp.net/wiki/Lore:Heart_of_Lorkhan",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:keening",
+      "name": "Keening",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/keening.json",
+      "source": {
+        "id": "uesp:keening",
+        "url": "https://en.uesp.net/wiki/Lore:Keening",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sunder",
+      "name": "Sunder",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/sunder.json",
+      "source": {
+        "id": "uesp:sunder",
+        "url": "https://en.uesp.net/wiki/Lore:Sunder",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:wraithguard",
+      "name": "Wraithguard",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/wraithguard.json",
+      "source": {
+        "id": "uesp:wraithguard",
+        "url": "https://en.uesp.net/wiki/Lore:Wraithguard",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Never force a single answer to whether the Nerevarine is literal reincarnation, prophetic fulfillment, constructed identity, or some combination; preserve evidence for each interpretation",
+    "Player-defined Nerevarine biography, race, gender, faction memberships and optional quest outcomes remain variable",
+    "Dagoth Ur's dreams, theology and historical claims remain attributed even when delivered directly to the player",
+    "Prophecy texts must preserve exact source lineage, translation/context and the distinction between prediction and retrospective interpretation",
+    "Corprus and divine-disease mechanics should distinguish narrative observations from gameplay-stat effects",
+    "Cross-link existing Nerevarine, Dagoth Ur, Tribunal, Sixth House, Ashlander tribes, Red Mountain, Heart of Lorkhan and Kagrenac-tool records"
+  ]
+}
