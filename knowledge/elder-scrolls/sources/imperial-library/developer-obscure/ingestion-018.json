@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-018-eso-development",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:eso-dev-history",
+      "title": "ESO development and lore commentary",
+      "author": "multiple",
+      "document_kind": "development_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "ESO",
+        "Second Era",
+        "Three Banners War",
+        "setting expansion"
+      ]
+    },
+    {
+      "id": "til:eso-loremasters",
+      "title": "ESO Loremaster interviews and commentary",
+      "author": "multiple",
+      "document_kind": "developer_interview_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "ESO",
+        "loremasters",
+        "worldbuilding",
+        "continuity"
+      ]
+    },
+    {
+      "id": "til:eso-daedra-dev",
+      "title": "ESO developer commentary on Daedra and Oblivion",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Daedra",
+        "Oblivion",
+        "Daedric Princes",
+        "creatia",
+        "planes"
+      ]
+    },
+    {
+      "id": "til:eso-cultures-dev",
+      "title": "ESO developer commentary on cultures and religions",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Khajiit",
+        "Argonians",
+        "Reachfolk",
+        "Altmer",
+        "Bosmer",
+        "Orsimer",
+        "religion"
+      ]
+    },
+    {
+      "id": "til:eso-metaphysics-dev",
+      "title": "ESO developer commentary on metaphysics",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Towers",
+        "Dragon Breaks",
+        "Aurbis",
+        "Oblivion",
+        "fate",
+        "memory"
+      ]
+    },
+    {
+      "id": "til:eso-retroactive-expansion",
+      "title": "ESO retroactive setting expansion and reinterpretation",
+      "author": "multiple",
+      "document_kind": "development_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "retroactive expansion",
+        "Second Era",
+        "continuity",
+        "older game lore"
+      ]
+    }
+  ],
+  "review_rules": [
+    "ESO developer commentary is dated against the specific chapter/DLC/update being discussed.",
+    "Later ESO elaboration of older lore is linked as expansion or reinterpretation rather than automatically labeled a retcon.",
+    "Loremaster explanations remain commentary evidence unless the same claim appears in released primary material.",
+    "Distinguish ZeniMax Online Studios development commentary from Bethesda Game Studios commentary and from community interpretation.",
+    "Cross-link ESO additions to earlier source lineage so first attestation and later elaboration remain queryable."
+  ]
+}
