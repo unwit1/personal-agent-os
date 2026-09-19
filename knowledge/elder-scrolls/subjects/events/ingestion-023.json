@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-023-arena-daggerfall-warp-west",
+  "subjects": [
+    {
+      "id": "tes:imperial-simulacrum",
+      "name": "Imperial Simulacrum",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/imperial-simulacrum.json",
+      "source": {
+        "id": "uesp:imperial-simulacrum",
+        "url": "https://en.uesp.net/wiki/Lore:Imperial_Simulacrum",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:war-betony",
+      "name": "War of Betony",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/war-betony.json",
+      "source": {
+        "id": "uesp:war-betony",
+        "url": "https://en.uesp.net/wiki/Lore:War_of_Betony",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:daggerfall-crisis",
+      "name": "Daggerfall Crisis",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/daggerfall-crisis.json",
+      "source": {
+        "id": "uesp:daggerfall-crisis",
+        "url": "https://en.uesp.net/wiki/Lore:Daggerfall_Crisis",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:warp-west",
+      "name": "Warp in the West",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/warp-west.json",
+      "source": {
+        "id": "uesp:warp-west",
+        "url": "https://en.uesp.net/wiki/Lore:Warp_in_the_West",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:numidium-activation",
+      "name": "Activation of Numidium",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/numidium-activation.json",
+      "source": {
+        "id": "uesp:numidium-activation",
+        "url": "https://en.uesp.net/wiki/Lore:Activation_of_Numidium",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Arena and Daggerfall player-character identities remain minimally specified unless primary sources establish details",
+    "Daggerfall's mutually exclusive endings must remain separate outcome branches before Warp-in-the-West reconciliation",
+    "Do not use later Dragon Break explanations to erase what individual earlier sources report",
+    "Underking, Zurin Arctus, Wulfharth and Mantella identity/soul claims require source-specific attribution",
+    "The Real Barenziah, Biography of Queen Barenziah and Arcturian Heresy retain genre, authorship and reliability metadata",
+    "Cross-link existing Numidium, Mantella, Mannimarco, Uriel VII, Daggerfall, Wayrest and Orsinium subjects"
+  ]
+}
