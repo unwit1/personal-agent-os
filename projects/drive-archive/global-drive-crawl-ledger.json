@@ -15,7 +15,7 @@
     "first_level_files_indexed": 283,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue remaining UAS sheets, AI Tools spreadsheets, then recursively inventory non-sensitive global branches; HR resume folders metadata-only/sanitized."
+    "next_action": "Continue recursive global inventory outside already-covered TTRPG branches, prioritizing mods/Knowledge Framework/LEGO/professional project files while keeping work/HR PII sanitized."
   },
   "top_level_folders": [
     {
@@ -2422,14 +2422,15 @@
       "title": "Danbooru tags for NAI",
       "path": "/My Drive/Personal/AI Tools/Danbooru tags for NAI",
       "category": "ai_image_generation_reference",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1TqoB8CCfNxz9a2OmFmMFeJ583or5tUANPQW8kLGWqvQ",
       "title": "Untitled spreadsheet",
       "path": "/My Drive/Personal/AI Tools/Untitled spreadsheet",
-      "category": "ai_tools_experiment",
-      "content_status": "queued"
+      "category": "ai_image_generation_reference",
+      "content_status": "processed_summary",
+      "notes": "Tag/reference spreadsheet includes adult/NSFW image-generation terminology. Inventory only at high level; raw explicit tag list is not useful durable Agent OS context."
     },
     {
       "id": "1kfLJMU2o3MCmyDtBbffputLepPv6aMKObBviFKHxqXc",
@@ -2443,14 +2444,14 @@
       "title": "TERMS",
       "path": "/My Drive/Universal Anime System (UAS)/System Base 1.5/TERMS",
       "category": "ttrpg_game_design",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1E-PFU0NKfSZwFFDlBxZCmyo1j9uMUY7YnBQld8aIp9I",
       "title": "Origins",
       "path": "/My Drive/Universal Anime System (UAS)/System Base 1.5/Origins",
       "category": "ttrpg_game_design",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "13Pl4I5nZwCQPvKwjLNV05QOCuzJ-jYZ6",
@@ -2464,7 +2465,7 @@
       "title": "Backgrounds",
       "path": "/My Drive/Universal Anime System (UAS)/System Base 1.5/Backgrounds",
       "category": "ttrpg_game_design",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1W2qe_BkqRsZP4_1jivSdCrzeboqb2DrdGhv8O8GilKs",
@@ -2485,7 +2486,7 @@
       "title": "Character Backgrounds",
       "path": "/My Drive/Universal Anime System (UAS)/Character Creation/Character Backgrounds",
       "category": "ttrpg_game_design",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1EZgBLOeWZwtpPiUiG7B9dhJAiTAEM0pWijdmm-pbnwA",
@@ -2712,7 +2713,63 @@
           "Diplomat (CHA)"
         ],
         "class_design": "Each class has specialized subclasses and class feats; examples include Knight/Warden/Bulwark/Juggernaut, Cannon/Sniper/Elementalist/Demolisher, Commander/Engineer/Chessmaster/Manipulator, and Assassin/Spy/Saboteur/Shadow."
-      }
+      },
+      "system_taxonomy": {
+        "difficulty_ranks": [
+          "D",
+          "C",
+          "B",
+          "A",
+          "S",
+          "SS",
+          "SSS",
+          "EX"
+        ],
+        "primary_stats": [
+          "STR",
+          "CON",
+          "DEX",
+          "INT",
+          "WIS",
+          "CHA",
+          "WILL"
+        ],
+        "derived_stats": [
+          "HP",
+          "MP",
+          "AP",
+          "MPR",
+          "HPR",
+          "AC"
+        ],
+        "progression_resources": [
+          "Proficiency Bonus",
+          "Spell Points",
+          "Feat Points",
+          "Stat Points"
+        ],
+        "background_design": "Large modular origin/background taxonomy spanning supernatural origins, childhood, profession, social status, culture, geography, religion, education and life-changing events.",
+        "origin_examples": [
+          "Clone",
+          "Construct",
+          "Divine Blood",
+          "Immortal",
+          "Experiment",
+          "Hellborn",
+          "Monster",
+          "Revenant",
+          "Awakened",
+          "Otherworlder",
+          "Spirit",
+          "Soulless",
+          "Memory Eater",
+          "Living Concept",
+          "Dream Walker",
+          "Thoughtform",
+          "Reincarnate"
+        ]
+      },
+      "development_notes": "Character Backgrounds appears to be an earlier/parallel structured taxonomy feeding later expanded Backgrounds/Origins sheets. UAS design work explicitly contemplated AI-assisted encounter generation using rank-derived stat and difficulty modifiers."
     },
     "berea-pinochle": {
       "status": "historical_or_dormant",
@@ -2809,7 +2866,7 @@
     "ai-tools-experiments": {
       "status": "historical_or_dormant",
       "domain": "AI tooling / image-generation references",
-      "summary": "Personal AI Tools folder contains at least a Danbooru-tag reference spreadsheet for NAI and an additional untitled spreadsheet, indicating experimentation with AI/image-generation prompting or reference organization.",
+      "summary": "Personal AI Tools material includes a large NovelAI/Danbooru-style prompt-tag taxonomy covering image quality, styles/artists, composition, subjects, poses, anatomy, fantasy/mythic races, clothing and negative prompts, plus a smaller supplemental tag sheet that includes adult/NSFW terminology. Treat these as historical prompt-engineering/reference assets rather than personal preference inference.",
       "source_ids": [
         "1snwpmmElOJID9lPl3EE4MRhgRHjvsdAnhVxz_qgIM5w",
         "1TqoB8CCfNxz9a2OmFmMFeJ583or5tUANPQW8kLGWqvQ"
