@@ -41,5 +41,15 @@
     "vector_optional": true,
     "token_budgeted": true
   },
-  "bulk_ingestion_enabled": false
+  "bulk_ingestion_enabled": false,
+  "continuity": {
+    "default": "tes-base",
+    "directory": "knowledge/elder-scrolls/continuities",
+    "selection": "explicit_composable_overlays",
+    "inheritance_is_not_canonization": true
+  },
+  "consumers": {
+    "supported": true,
+    "policy": "Consumers own their taxonomies; the lore library supplies evidence and provenance."
+  }
 }
