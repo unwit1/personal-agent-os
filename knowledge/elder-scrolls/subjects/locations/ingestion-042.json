@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-042-reman-akaviri-potentate",
+  "subjects": [
+    {
+      "id": "tes:akavir",
+      "name": "Akavir",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/akavir.json",
+      "source": {
+        "id": "uesp:akavir",
+        "url": "https://en.uesp.net/wiki/Lore:Akavir",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:pale-pass",
+      "name": "Pale Pass",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/pale-pass.json",
+      "source": {
+        "id": "uesp:pale-pass",
+        "url": "https://en.uesp.net/wiki/Lore:Pale_Pass",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sancre-tor",
+      "name": "Sancre Tor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/sancre-tor.json",
+      "source": {
+        "id": "uesp:sancre-tor",
+        "url": "https://en.uesp.net/wiki/Lore:Sancre_Tor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:windhelm",
+      "name": "Windhelm",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/windhelm.json",
+      "source": {
+        "id": "uesp:windhelm",
+        "url": "https://en.uesp.net/wiki/Lore:Windhelm",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:morrowind",
+      "name": "Morrowind",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/morrowind.json",
+      "source": {
+        "id": "uesp:morrowind",
+        "url": "https://en.uesp.net/wiki/Lore:Morrowind",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Akaviri peoples must remain distinct; do not treat Tsaesci, Kamal, Ka Po' Tun and Tang Mo as interchangeable descriptions of one culture",
+    "Claims about Tsaesci physical nature are contradictory and often mediated by outsider texts; preserve competing interpretations",
+    "2920 is historical fiction and provides evidence for cultural memory/literary tradition, not automatic verbatim First Era history",
+    "Reman birth and divine-origin narratives in the Remanada retain mythic/propagandistic provenance",
+    "Distinguish the First and Second Akaviri invasions and their different peoples, motives and evidence",
+    "Cross-link existing Reman, Second Empire, Akaviri Potentate, Dragonguard, Jorunn, Almalexia, Wulfharth and Second Akaviri Invasion records"
+  ]
+}
