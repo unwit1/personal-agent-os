@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "subjects": [
+    "tribunal",
+    "sixth-house",
+    "dragon-cult",
+    "greybeards",
+    "alessian-order",
+    "psijic-order",
+    "house-redoran",
+    "house-telvanni",
+    "mythic-dawn"
+  ],
+  "notes": "Seed manifest from existing ingestion queues. Individual subject records are created/populated by ingestion."
+}
