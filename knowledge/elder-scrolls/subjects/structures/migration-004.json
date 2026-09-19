@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "structures",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:ghostfence",
+      "name": "Ghostfence",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/structures/ghostfence.json",
+      "source": {
+        "id": "uesp:ghostfence",
+        "url": "https://en.uesp.net/wiki/Lore:Ghostfence",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ministry-of-truth",
+      "name": "Ministry of Truth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/structures/ministry-of-truth.json",
+      "source": {
+        "id": "uesp:ministry-of-truth",
+        "url": "https://en.uesp.net/wiki/Lore:Ministry_of_Truth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:crystal-tower",
+      "name": "Crystal Tower",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/structures/crystal-tower.json",
+      "source": {
+        "id": "uesp:crystal-tower",
+        "url": "https://en.uesp.net/wiki/Lore:Crystal_Tower",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:xanmeer",
+      "name": "Xanmeer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/structures/xanmeer.json",
+      "source": {
+        "id": "uesp:xanmeer",
+        "url": "https://en.uesp.net/wiki/Lore:Xanmeer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration from earlier queues into canonical subject categories; extraction must retain provenance and temporal/cultural scope."
+}
