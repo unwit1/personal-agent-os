@@ -15,7 +15,8 @@
       "User clarification 2026-09-18: current Dream Eater manuscript is highest authority; preserve granular canon statuses; future lorekeeper/writing-buddy should actively challenge continuity and logic; The Silence is a newer central cosmic force that makes non-Fade users forget Fade users and thereby sustains the setting's supernatural Masquerade.",
       "2026-09-18 Dream Eater continuation pass compared current manuscript material, 2023 Chapter 1/Dreameater drafts, brainstorming, and the Guardian Cycle sheet (modified 2026-05-21). Uncertainty markers in the recent sheet are retained as provisional rather than promoted to canon.",
       "User clarification 2026-09-18: Gravekeeper/Gravetender are titles for Ellison Crane; Door originally summoned Mourn and later watched the Nameless after the Black Guardian shattered; Denial weaponized a child as a conceptual suicide bomb against the Nameless Throne, breaking the child and Gallow, whose remnants formed the Ellison Crane/Gallowed Man gestalt expressed when Ellison wears the mask. Door's name remains provisional.",
-      "2026-09-18 legacy Dream Eater pass read the 2022 old Dream Eater draft, 2023 Abigail continuation fragment, and Invocation brainstorm. Candidate terminology evolution is recorded as uncertain mappings, not canon."
+      "2026-09-18 legacy Dream Eater pass read the 2022 old Dream Eater draft, 2023 Abigail continuation fragment, and Invocation brainstorm. Candidate terminology evolution is recorded as uncertain mappings, not canon.",
+      "2026-09-18 continuation pass cross-checked the 2024 Broken Throne brainstorming doc, 2025 Silence note, and legacy Names sheet. Surviving motifs were separated from unconfirmed mechanics and alias/name drift."
     ]
   },
   "project_clusters": [
@@ -292,6 +293,64 @@
           "Because The Silence is now central, older scenes involving large magical institutions, public-facing Avalon operations and supernatural combat will eventually need a consistent explanation of who can remember/record these events and how cleanup works.",
           "The Name/identity system, Silence-based forgetting, Dream Eater memory consumption and Guardian/Emblem identity inheritance all manipulate memory or identity through different mechanisms. Keeping their boundaries explicit will prevent them from becoming interchangeable plot devices.",
           "Avalon's public nonprofit face plus hidden magical-government role creates a useful pressure point: the setting will eventually need rules for how mundane staff, patients, governments and records interact with an organization containing Fade users."
+        ]
+      },
+      "broken_throne_and_names_pass": {
+        "broken_throne_brainstorm_status": "Mixed legacy/provisional material. It contains concepts that clearly survive into the current manuscript, but individual mechanics should not be promoted wholesale.",
+        "surviving_or_reinforced": [
+          "Gravetender/Gravekeeper title, Broken Throne, forgotten dead/Nameless, identity represented through Names/seeds, Gallowed Man imagery, and Dream Eater consumption all recur in later material.",
+          "The seed/tree/grave imagery provides an older model for preserving a dead person's story/identity; current manuscript still uses a seed, suggesting partial survival.",
+          "Dennis Deacon/Wracken and Lilith's Broken Throne material are older plot-line candidates requiring comparison with the current manuscript."
+        ],
+        "legacy_or_needs_confirmation": [
+          "Nameless explicitly choosing to relinquish their Name to pass on.",
+          "Trees growing from Names before 'the Breaking' and graves replacing them afterward.",
+          "Dream Eaters feeding seeds by consuming living memories and becoming amalgams of what they eat.",
+          "Ellison's seed being the Emblem and the Gallowed Man's seed being the mask.",
+          "Wracken seeking his Emblem to regain his life."
+        ],
+        "silence_crosscheck": {
+          "document": "The 2025 Silence note calls the Silence the overarching villain, says Fate inadvertently caused it, links Silence-touched death to the Broken Throne, and says Guardian Emblem holders are immune to Dream Eater consumption.",
+          "authority": "User clarification supersedes the note where incomplete: The Silence is a newer central cosmic force that makes non-Fade users forget Fade users and preserves the Masquerade.",
+          "unresolved": [
+            "Whether Fate causing the Silence remains canon",
+            "Whether all Silence-touched dead necessarily arrive at the Broken Throne",
+            "Whether Guardian Emblem immunity to Dream Eaters remains canon",
+            "How physical/digital records interact with Silence forgetting"
+          ]
+        },
+        "names_sheet": {
+          "status": "Legacy/reference index, last modified 2023; useful for aliases and concept lineage, not current canon by itself.",
+          "entries": [
+            "Oliver Ashland",
+            "The Gallowed Man",
+            "Ellison Crane → Traveler",
+            "Lilith Deacon",
+            "Reese Morgan → Emptiness",
+            "Q2 → N/A/Architect",
+            "Abigail Fletcher → Delusion",
+            "Harland Fleer → DENIAL/Freedom",
+            "Meredith Ashland → Lock",
+            "Leonard Shroedinger → Contradiction",
+            "Dennis Deacon",
+            "Jericho Deacon",
+            "Dusk Morgan",
+            "Grant Ashland",
+            "Dr. Eric Ashland → SHATTER",
+            "Gallow",
+            "Mourn → Hope/Despair",
+            "Isobel → UNBREAKABLE"
+          ],
+          "normalization_flags": [
+            "Morgan/Morrigan varies across sources",
+            "Q2/Q16N varies across sources",
+            "Several Name/title assignments may have evolved; preserve aliases until resolved"
+          ]
+        },
+        "challenge_notes": [
+          "The setting appears to distinguish being forgotten socially (Silence), surrendering/losing a metaphysical Name, and having memories consumed. The Lorekeeper should explicitly model these as separate state changes with possible causal links.",
+          "If the Broken Throne is specifically a stopover for Fade-touched dead while the Silence affects Fade users, the overlap may be intentional but should not be assumed to be identity: 'Silence-touched', 'Fade-touched', 'Nameless', 'Dream Eater', and 'dead magician' need separate definitions.",
+          "The current Ellison/Gallowed-Man gestalt clarification makes older 'Ellison seed = Emblem / Gallowed Man seed = mask' material especially important to mark as legacy until reconciled."
         ]
       }
     },
