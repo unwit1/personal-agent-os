@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-017-source-lineage",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:source-lineage-pge",
+      "title": "Pocket Guide source lineage and editions",
+      "document_kind": "source_lineage_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Pocket Guide to the Empire",
+        "First Edition",
+        "Third Edition",
+        "Imperial perspective"
+      ]
+    },
+    {
+      "id": "til:source-lineage-forums",
+      "title": "Bethesda forum and archive source lineage",
+      "document_kind": "source_lineage_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Bethesda forums",
+        "developer posts",
+        "archives",
+        "lost links"
+      ]
+    },
+    {
+      "id": "til:source-lineage-web",
+      "title": "Official Elder Scrolls web-lore source lineage",
+      "document_kind": "source_lineage_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "official websites",
+        "web lore",
+        "archived pages",
+        "publication history"
+      ]
+    },
+    {
+      "id": "til:source-lineage-til",
+      "title": "Imperial Library transcription and archival lineage",
+      "document_kind": "source_lineage_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Imperial Library",
+        "transcriptions",
+        "mirrors",
+        "archive provenance"
+      ]
+    },
+    {
+      "id": "til:source-lineage-quotes",
+      "title": "Quotation and excerpt provenance reconciliation",
+      "document_kind": "provenance_reconciliation_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "quotes",
+        "excerpts",
+        "attribution",
+        "original source"
+      ]
+    },
+    {
+      "id": "til:source-lineage-versions",
+      "title": "Text revision and version lineage",
+      "document_kind": "source_lineage_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "revisions",
+        "versions",
+        "edits",
+        "publication history"
+      ]
+    }
+  ],
+  "review_rules": [
+    "An Imperial Library transcription is an archive witness; retain the original publication as the underlying source when known.",
+    "Do not merge differently dated versions of a text before comparing their content fingerprints.",
+    "Quotes reproduced without surrounding context require resolution to the fullest available source before claim extraction.",
+    "Dead original links should retain URL and archive metadata rather than being replaced silently by a mirror.",
+    "Material copied across forums, wikis and archives should deduplicate by source lineage/content fingerprint, not page title alone."
+  ]
+}
