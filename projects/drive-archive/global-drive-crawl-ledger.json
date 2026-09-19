@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 333,
+    "first_level_files_indexed": 341,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue orphan character/project discovery from the large Character Sheet search: inspect Beyond the Sun Kingfisher, Accursed Lilith Deacon, Lost Lambs Seven, Spellcraft Gallagher Goose, Genesis/Concrete Jungle earlier versions, Naruto/Rest in Rot/Dragon Ball artifacts, and safe generic Untitled Docs/Sheets. Record recurring names as reuse/evolution only unless continuity is evidenced. Skip unrelated NSFW details."
+    "next_action": "Continue character/orphan archive: inspect Genesis pre-reboot if discoverable, Concrete Jungle adjacent files, Golden Grove companions, Spellcraft/Lost Lambs campaign-level docs, and remaining character sheets such as DBU, Settle Your Scores, 5e2 Vesper, plus safe native Untitled docs/sheets. Reconcile IDs before adding and keep sparse/empty artifacts appropriately classified."
   },
   "top_level_folders": [
     {
@@ -2956,6 +2956,78 @@
       "category": "champions_cheaters",
       "content_status": "processed",
       "inventory_source": "character-sheet orphan discovery"
+    },
+    {
+      "id": "1PSPHfbH84LyeVnMZkfGMjVj-jzGdJ7CCS1sZXejIHlA",
+      "title": "Character Sheet - Beyond the Sun - Kingfisher",
+      "path": "/Accessible Drive/Character Sheet - Beyond the Sun - Kingfisher",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "category": "beyond_the_sun",
+      "content_status": "processed",
+      "inventory_source": "legacy character archive continuation"
+    },
+    {
+      "id": "1OVFtnNbPS5FXq_pIfa75Tzx8J-mGmon5BOQd0kzQFyU",
+      "title": "Character Sheet - Accursed - Lilith Deacon",
+      "path": "/Accessible Drive/Character Sheet - Accursed - Lilith Deacon",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "accursed",
+      "content_status": "empty/template",
+      "inventory_source": "legacy character archive continuation"
+    },
+    {
+      "id": "14qG8oDhrSXsHQWGRQLKqfhmU7Bj6n4UBLuAYDbHLgPU",
+      "title": "Character Sheet - Lost Lambs - Seven",
+      "path": "/Accessible Drive/Character Sheet - Lost Lambs - Seven",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "lost_lambs",
+      "content_status": "processed",
+      "inventory_source": "legacy character archive continuation"
+    },
+    {
+      "id": "1agfZyVa5isx6gKyo8D6nOabnzM9gWBDKsDr2PQboRZI",
+      "title": "Character Sheet - Spellcraft - Gallagher Goose",
+      "path": "/Accessible Drive/Character Sheet - Spellcraft - Gallagher Goose",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "spellcraft",
+      "content_status": "processed",
+      "inventory_source": "legacy character archive continuation"
+    },
+    {
+      "id": "1eE3fnyjEznRzUZho9tbqrHDZKotsBfTUwLpAKWgZksk",
+      "title": "Character Sheet - Naruto - Sal Kallabah 69",
+      "path": "/Accessible Drive/Character Sheet - Naruto - Sal Kallabah 69",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "naruto_campaign",
+      "content_status": "processed",
+      "inventory_source": "legacy character archive continuation"
+    },
+    {
+      "id": "1HPgjd1r5wKFrio_ZEO2OgLoqEjeSVE9X-8qmzzV7LNI",
+      "title": "Character Sheet - Rest in Rot - Zaaahblin Slayer",
+      "path": "/Accessible Drive/Character Sheet - Rest in Rot - Zaaahblin Slayer",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "rest_in_rot",
+      "content_status": "processed",
+      "inventory_source": "legacy character archive continuation"
+    },
+    {
+      "id": "1jTWee9woMkrAOdi1rn8ADAw6HsWxwZnzQ1CpnyfZDPc",
+      "title": "Character Sheet - Dragon Ball: The Gaiyu Force - Jaw Braeka",
+      "path": "/Accessible Drive/Character Sheet - Dragon Ball: The Gaiyu Force - Jaw Braeka",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "dragon_ball_gaiyu_force",
+      "content_status": "processed",
+      "inventory_source": "legacy character archive continuation"
+    },
+    {
+      "id": "1Xb6QlphzjlUdVYrhnlhb2h6Cpm13J0gouM_7BLuwsAY",
+      "title": "Character Sheet - Concrete Jungle - Shrimp Kallabah Sixnine",
+      "path": "/Accessible Drive/Character Sheet - Concrete Jungle - Shrimp Kallabah Sixnine",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "concrete_jungle",
+      "content_status": "processed",
+      "inventory_source": "legacy character archive continuation"
     }
   ],
   "folder_queue": [
@@ -4702,7 +4774,15 @@
       "source_ids": [
         "1Xwek1xmobN5btgNrMgMFYoyriOmFNYzTFC8yFjjjYyY"
       ],
-      "privacy_classification": "safe project lore; sexually suggestive joke material omitted from durable summary"
+      "privacy_classification": "safe project lore; sexually suggestive joke material omitted from durable summary",
+      "evolution": {
+        "summary": "An earlier Concrete Jungle sheet shows Shrimp Kallabah LXIX as an 18-year-old pistol shrimp rather than the reboot's 24-year-old mantis-shrimp homunculus. Core trait architecture and several named traits persist between versions, while species terminology, stats and biography were revised. This confirms the Reboot as an actual iteration/successor rather than a duplicate.",
+        "source_ids": [
+          "1Xb6QlphzjlUdVYrhnlhb2h6Cpm13J0gouM_7BLuwsAY",
+          "1Xwek1xmobN5btgNrMgMFYoyriOmFNYzTFC8yFjjjYyY"
+        ],
+        "privacy_note": "Sexually suggestive joke details intentionally omitted from durable project summary."
+      }
     },
     "golden-grove": {
       "status": "historical supernatural tabletop campaign/reboot",
@@ -4718,7 +4798,11 @@
       "summary": "Accursed uses a ranked progression system (Stone through Rhodium) with classes, subclasses, Flair and custom stats. Leyris/Rhys Turaco is a bardic Teller and Scout whose history centers on slavery, adoption by master entertainer Ferris the Viola, succession to the title of 18th Viola, cheating a contest against adopted sister Rhys, and a cursed heirloom called the Celia Rose that kills/absorbs Rhys during a reconciliation performance. Leyris then lives under an alias as a fugitive adventurer.",
       "source_ids": [
         "1Ij5UrTESR3uz2bYG3NinWuaaPeFjzYoR7qlLWDhgf0E"
-      ]
+      ],
+      "additional_sources": [
+        "1OVFtnNbPS5FXq_pIfa75Tzx8J-mGmon5BOQd0kzQFyU"
+      ],
+      "note": "Lilith Deacon character document currently extracts as empty; inventory retained but no lore inferred."
     },
     "champions-cheaters": {
       "status": "historical comedic superhero tabletop campaign",
@@ -4726,6 +4810,63 @@
       "summary": "Champions & Cheaters includes Dr. Gary Nefarious, a veterinarian/inventor whose supernatural talent lets him construct improbable machines to solve problems, especially indirect solutions. His design centers on invention backfires, luck, obvious self-destruct mechanisms, petty grudges and nemesis Lorenzo the Lemming. This is primarily a comedic character/system artifact.",
       "source_ids": [
         "1n4raaAOKt_C1MB9aFCtw0DBMveiDZXA3kW1xxcW7gv8"
+      ]
+    },
+    "beyond-the-sun": {
+      "status": "historical tabletop campaign",
+      "domain": "D&D-style/custom RPG",
+      "summary": "Beyond the Sun contains an earlier Kingfisher character sheet built on the reusable v2.1 spreadsheet family. This incarnation is mechanically a Charisma-heavy Sorcerer/Warlock-style character with Favored by the Gods, metamagic, Pact of the Chain and Eldritch Blast invocations. It is distinct from the later 2022 Kingfisher/Erebleak Circle of the Shepherd Druid concept, demonstrating substantial reuse/reworking of the Kingfisher identity.",
+      "source_ids": [
+        "1PSPHfbH84LyeVnMZkfGMjVj-jzGdJ7CCS1sZXejIHlA"
+      ],
+      "relationships": [
+        "Kingfisher/Erebleak Strecht - later reworked character identity",
+        "tabletop-character-sheet-tooling"
+      ],
+      "authority_note": "Do not merge the Beyond the Sun mechanics/backstory into later Kingfisher without evidence."
+    },
+    "lost-lambs": {
+      "status": "historical tabletop campaign",
+      "domain": "supernatural/demon-focused RPG",
+      "summary": "Lost Lambs includes Seven, a custom-stat character whose abilities are explicitly anti-demonic and religiously framed: healing grants allies temporary combat resilience, Baptism removes 'temptation,' and an ability called Having a Wonderful Time makes attacks against demons automatically critical. The surviving sheet is sparse, so broader setting identity remains unresolved.",
+      "source_ids": [
+        "14qG8oDhrSXsHQWGRQLKqfhmU7Bj6n4UBLuAYDbHLgPU"
+      ]
+    },
+    "spellcraft": {
+      "status": "historical custom magic tabletop project",
+      "domain": "magic-system RPG",
+      "summary": "Spellcraft includes Gallagher Goose, an elven Mage specializing in Temporal magic with secondary Universal and Cerebral schools. The system uses Concentration Points, school-specific learning discounts, spell-point costs and level-based learning DCs. Recovered temporal abilities include Slow/Haste, object-time restoration, mass variants, Time Bolt, Reset and Temporal Awareness, indicating a project centered on constructing/learning spells through explicit schools and costs.",
+      "source_ids": [
+        "1agfZyVa5isx6gKyo8D6nOabnzM9gWBDKsDr2PQboRZI"
+      ],
+      "relationships": [
+        "Personal Skyrim spell-research systems - thematic similarity only; no continuity asserted"
+      ]
+    },
+    "naruto-campaign": {
+      "status": "historical fan tabletop campaign",
+      "domain": "Naruto-inspired RPG",
+      "summary": "The Naruto campaign uses custom Chakra/Nature Chakra resources, rank-based jutsu, proficiencies/expertise, transformations and familiar Naruto mechanics. Sal Kallabah 69 is a taijutsu-focused Chunin/Panda Sage with Eight Gates and a goal of becoming Tsuchikage after repeated training defeats by a former Tsuchikage. This also shows the Kallabah name recurring across otherwise unrelated campaigns.",
+      "source_ids": [
+        "1eE3fnyjEznRzUZho9tbqrHDZKotsBfTUwLpAKWgZksk"
+      ],
+      "authority_note": "Fan-campaign character; unrelated Kallabah uses should not be merged."
+    },
+    "rest-in-rot": {
+      "status": "historical tabletop campaign",
+      "domain": "custom RPG",
+      "summary": "Rest in Rot includes Z. Slayer, using a compact custom-stat system with Toughness, Stealth, Athletics, Resilience expertise, specialist weapon tiers and credits. The surviving sheet is too sparse to establish setting lore, so only mechanics/project existence are preserved.",
+      "source_ids": [
+        "1HPgjd1r5wKFrio_ZEO2OgLoqEjeSVE9X-8qmzzV7LNI"
+      ]
+    },
+    "dragon-ball-gaiyu-force": {
+      "status": "historical fan tabletop campaign",
+      "domain": "Dragon Ball-inspired RPG",
+      "summary": "Dragon Ball: The Gaiyu Force uses extremely high power levels, HP/Ki resources, transformations, racial abilities and custom attacks. Jaw Braeka is a Majin-like strike fighter with regeneration, shapeshifting, absorption and multiple transformation multipliers. The sheet demonstrates another specialized fan-campaign adaptation of the user's custom RPG mechanics.",
+      "source_ids": [
+        "1jTWee9woMkrAOdi1rn8ADAw6HsWxwZnzQ1CpnyfZDPc"
       ]
     }
   },
