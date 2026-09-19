@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "continuity_id": "tes-base",
+  "batch_id": "uesp-007-aldmer-altmer-summerset-cluster",
+  "purpose": "Expand TES-base into Aldmer/Altmer origins, Summerset geography, towers, Psijics, Direnni, and major Altmeri religious figures.",
+  "pages": [
+    {
+      "id": "aldmer",
+      "title": "Aldmer",
+      "url": "https://en.uesp.net/wiki/Lore:Aldmer",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "aldmeris",
+      "title": "Aldmeris",
+      "url": "https://en.uesp.net/wiki/Lore:Aldmeris",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "altmer",
+      "title": "Altmer",
+      "url": "https://en.uesp.net/wiki/Lore:Altmer",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "summerset-isles",
+      "title": "Summerset Isles",
+      "url": "https://en.uesp.net/wiki/Lore:Summerset_Isles",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "auridon",
+      "title": "Auridon",
+      "url": "https://en.uesp.net/wiki/Lore:Auridon",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "alinor",
+      "title": "Alinor",
+      "url": "https://en.uesp.net/wiki/Lore:Alinor",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "firsthold",
+      "title": "Firsthold",
+      "url": "https://en.uesp.net/wiki/Lore:Firsthold",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "crystal-tower",
+      "title": "Crystal Tower",
+      "url": "https://en.uesp.net/wiki/Lore:Crystal_Tower",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "psijic-order",
+      "title": "Psijic Order",
+      "url": "https://en.uesp.net/wiki/Lore:Psijic_Order",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "artaeum",
+      "title": "Artaeum",
+      "url": "https://en.uesp.net/wiki/Lore:Artaeum",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "sapiarchs",
+      "title": "Sapiarchs",
+      "url": "https://en.uesp.net/wiki/Lore:Sapiarchs",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "direnni",
+      "title": "Direnni",
+      "url": "https://en.uesp.net/wiki/Lore:Direnni",
+      "page_type": "lore_summary",
+      "entity_type": "family",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "adamantine-tower",
+      "title": "Adamantine Tower",
+      "url": "https://en.uesp.net/wiki/Lore:Adamantine_Tower",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "torinaan",
+      "title": "Torinaan",
+      "url": "https://en.uesp.net/wiki/Lore:Torinaan",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "trinimac",
+      "title": "Trinimac",
+      "url": "https://en.uesp.net/wiki/Lore:Trinimac",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "auriel",
+      "title": "Auri-El",
+      "url": "https://en.uesp.net/wiki/Lore:Auri-El",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "magnus",
+      "title": "Magnus",
+      "url": "https://en.uesp.net/wiki/Lore:Magnus",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "syrabane",
+      "title": "Syrabane",
+      "url": "https://en.uesp.net/wiki/Lore:Syrabane",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "phynaster",
+      "title": "Phynaster",
+      "url": "https://en.uesp.net/wiki/Lore:Phynaster",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    },
+    {
+      "id": "xarxes",
+      "title": "Xarxes",
+      "url": "https://en.uesp.net/wiki/Lore:Xarxes",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve UESP citations and resolve underlying game/books/dialogue where possible"
+    }
+  ],
+  "review_focus": [
+    "Aldmeris accounts are mythic/contested and must retain attribution",
+    "separate religious doctrine from independently evidenced history",
+    "preserve differing accounts of Auri-El/Akatosh relationships rather than flattening them",
+    "mark place pages in UESP Lore Places cleanup category for review"
+  ],
+  "known_quality_flags": [
+    {
+      "page": "Aldmeris",
+      "flag": "lore_places_cleanup_category"
+    },
+    {
+      "page": "Artaeum",
+      "flag": "lore_places_cleanup_category"
+    },
+    {
+      "page": "Auridon",
+      "flag": "lore_places_cleanup_category"
+    },
+    {
+      "page": "Crystal Tower",
+      "flag": "lore_places_cleanup_category"
+    },
+    {
+      "page": "Summerset Isles",
+      "flag": "lore_places_cleanup_category"
+    }
+  ],
+  "ingestion_rules": {
+    "raw_text": "local_rebuildable",
+    "git": "metadata_queue_review_state_only",
+    "checkpoint_each_page": true,
+    "preserve_epistemic_language": true,
+    "prefer_underlying_primary_evidence": true
+  }
+}
