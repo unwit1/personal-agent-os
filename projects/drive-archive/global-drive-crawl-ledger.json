@@ -15,7 +15,7 @@
     "first_level_files_indexed": 426,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue broad orphan reconciliation from generic-title searches. Prioritize remaining partial authored candidates: Skyrim Marriage Mod, Armorer Tiers, Dialogue Importer, Legacy of the Dragonborn Archive, Fura, and unidentified backstory.docx where safely accessible. Retry Saga - Skyrim Religion Overhaul later (current native Sheet fetch 404). Continue metadata-only handling for legal/HR material and batch external guides/reference datasets."
+    "next_action": "Continue orphan reconciliation with stricter authorship provenance: Drive possession is not authorship. Review ambiguous previously classified authored candidates when evidence is weak. Search remaining generic/project files, prioritize material with explicit internal authorship evidence, and classify guides/checklists/imports/external mod docs as reference. Fura material remains authorship-unverified. Retry Saga later."
   },
   "top_level_folders": [
     {
@@ -3568,9 +3568,10 @@
       "id": "1VkFXJATDgeeeGKLJl5W1vFdvw-e8oBDhGOt6I0gFk6U",
       "title": "Skyrim Marriage Mod",
       "path": "/Accessible Drive/Skyrim Marriage Mod",
-      "category": "skyrim_mod_legacy",
-      "content_status": "partial",
-      "inventory_source": "broad generic/orphan reconciliation"
+      "category": "external_skyrim_mod_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation",
+      "provenance": "Appears to be an external 2012 Skyrim Expanded Marriage mod design document. Presence in Drive is not evidence of user authorship."
     },
     {
       "id": "1sdjB-CTvZ--09MKg79A6YfXhWRHZhM9EOy7GjBEbTNw",
@@ -3616,25 +3617,29 @@
       "id": "1EryFwihEm5H0xlg5ea6HyazZUd0WhoJ21qQfIYO6jhw",
       "title": "Armorer Tiers",
       "path": "/Accessible Drive/Armorer Tiers",
-      "category": "skyrim_balance",
-      "content_status": "partial",
-      "inventory_source": "broad generic/orphan reconciliation"
+      "category": "simonrim_reference",
+      "content_status": "processed",
+      "inventory_source": "broad generic/orphan reconciliation",
+      "provenance": "Simonrim reference/balance framework explicitly identified by user; not authored by user.",
+      "notes": "Tier 0-5 weapon/armor stat framework and material/example mapping. Use as Simonrim balancing reference only."
     },
     {
       "id": "1xfpttprT3qr-QBzfBNIPnYhoUEhd7HSFCotXJyfcKp8",
       "title": "Legacy of the Dragonborn Archive",
       "path": "/Accessible Drive/Legacy of the Dragonborn Archive",
-      "category": "skyrim_reference",
-      "content_status": "partial",
-      "inventory_source": "broad generic/orphan reconciliation"
+      "category": "external_skyrim_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation",
+      "provenance": "Legacy of the Dragonborn checklist/reference; no authorship inference."
     },
     {
       "id": "1xqKzKAlv-EOyiGtbAgIvcQK1UaF1eov8MjOiGPdD3Jc",
       "title": "Fura(aaFura, aaFuraQ1)",
       "path": "/Accessible Drive/Fura(aaFura, aaFuraQ1)",
-      "category": "skyrim_reference",
-      "content_status": "partial",
-      "inventory_source": "broad generic/orphan reconciliation"
+      "category": "skyrim_mod_material_unverified_authorship",
+      "content_status": "processed",
+      "inventory_source": "broad generic/orphan reconciliation",
+      "provenance": "Contains implemented/exported Fura dialogue and a mother quest scene. Authorship not established by Drive possession alone; retain as mod material/reference pending independent evidence."
     },
     {
       "id": "1-4mRWyoBSOoJTzOK-EfyCMErkqlhdGdj",
@@ -3704,9 +3709,10 @@
       "id": "11VXcODEJpTnWP67t97haXGnXaNoAfnLlTCG4HWibrlE",
       "title": "Dialogue Importer",
       "path": "/Accessible Drive/Dialogue Importer",
-      "category": "skyrim_tooling",
-      "content_status": "partial",
-      "inventory_source": "broad generic/orphan reconciliation"
+      "category": "external_skyrim_tool_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation",
+      "provenance": "Document explicitly credits Dialogue Importer to Elscrux; external tool documentation, not user-authored tooling."
     },
     {
       "id": "1fBlV0I57hK6pt1zHhiTBZjl1uv7Hj66hjWphbI8FLtw",
@@ -6234,6 +6240,17 @@
           "1IR9sQIBwmaGuTE6vXTyCx_6ytCBoXz4Efq2Qk4cJZYo"
         ]
       }
+    },
+    "simonrim-reference": {
+      "status": "external/reference framework",
+      "domain": "Skyrim balance/modding",
+      "armorer_tiers": {
+        "summary": "Armorer Tiers is a Simonrim balancing reference identified explicitly by the user. It defines Tier 0-5 progression for weapon damage/weight/value and light/heavy armor AR/weight/value, plus material/example mappings and base-type modifications. It may be used to rebalance compatible Skyrim equipment, but the framework itself must not be attributed to the user.",
+        "source_ids": [
+          "1EryFwihEm5H0xlg5ea6HyazZUd0WhoJ21qQfIYO6jhw"
+        ],
+        "provenance": "Simonrim external reference"
+      }
     }
   },
   "discovered_project_folders": [
@@ -6310,6 +6327,15 @@
       "rule": "If an artifact is a character sheet from a campaign/game the user participated in as a player, treat campaign setting lore, rules, mechanics, GM material, and other people's worldbuilding as external/reference context only. Do not use those elements to infer, influence, merge with, or establish lineage for the user's own projects unless the user explicitly confirms they authored/designed that material.",
       "preserve": "Preserve the user's own character concepts, backstory, recurring names, personal creative choices, and clearly user-authored material as historical character work. Mechanics may be noted minimally only to identify the character artifact, not as evidence of the user's system-design lineage.",
       "default_assumption": "A standalone character sheet named for a campaign should default to player-participation/reference provenance unless independent evidence shows the user created or designed that campaign/system."
+    }
+  },
+  "provenance_rules": {
+    "drive_possession_not_authorship": {
+      "rule": "A file existing in the user's Drive, even if editable or project-related, is not sufficient evidence that the user authored it. Default ambiguous third-party-looking guides, mod docs, imported sheets, checklists, curricula, exports and reference databases to external/reference or authorship-unverified. Promote to authored only when user explicitly says so or independent internal evidence strongly establishes authorship.",
+      "reason": "User clarified that some Drive files are merely things they looked at. This applies retroactively to future classification and should trigger cautious review of earlier ambiguous authorship inferences."
+    },
+    "named_external_author": {
+      "rule": "If a document explicitly credits another author/organization, classify it as external/reference unless there is separate evidence that the credited identity is the user or that the user materially co-authored it."
     }
   }
 }
