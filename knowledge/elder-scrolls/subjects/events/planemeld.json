@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "tes:planemeld",
+  "library_id": "elder-scrolls",
+  "name": "Planemeld",
+  "entity_type": "event",
+  "category": "events",
+  "canonical_path": "knowledge/elder-scrolls/subjects/events/planemeld.json",
+  "continuity_model": "claims_and_evidence_scoped",
+  "sources": [
+    {
+      "source_id": "uesp:planemeld",
+      "url": "https://en.uesp.net/wiki/Lore:Planemeld",
+      "source_class": "secondary_reference",
+      "status": "queued"
+    }
+  ],
+  "claims": [],
+  "relationships": [],
+  "notes": "Subject shell created during ingestion; claims/evidence populate only after provenance-backed extraction."
+}
