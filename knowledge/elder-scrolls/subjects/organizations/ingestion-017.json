@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-017-dawnguard-falmer-elder-scrolls",
+  "subjects": [
+    {
+      "id": "tes:volkihar-clan",
+      "name": "Volkihar Clan",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/volkihar-clan.json",
+      "source": {
+        "id": "uesp:volkihar-clan",
+        "url": "https://en.uesp.net/wiki/Lore:Volkihar_Clan",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dawnguard",
+      "name": "Dawnguard",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/dawnguard.json",
+      "source": {
+        "id": "uesp:dawnguard",
+        "url": "https://en.uesp.net/wiki/Lore:Dawnguard",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:falmer",
+      "name": "Falmer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/falmer.json",
+      "source": {
+        "id": "uesp:falmer",
+        "url": "https://en.uesp.net/wiki/Lore:Falmer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:snow-elves",
+      "name": "Snow Elves",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/snow-elves.json",
+      "source": {
+        "id": "uesp:snow-elves",
+        "url": "https://en.uesp.net/wiki/Lore:Snow_Elves",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Separate ancient Snow Elves from later Falmer/Betrayed terminology and preserve source-era usage",
+    "Treat vampire origin/ritual accounts as attributed unless directly established by primary evidence",
+    "Elder Scroll prophecies must retain the exact source, reading context and interpretation rather than being normalized into deterministic predictions",
+    "Soul Cairn and Ideal Masters claims should distinguish observed game-space facts from character speculation",
+    "Prefer Skyrim/Dawnguard quest dialogue, journals, inscriptions and observed events for this cluster"
+  ]
+}
