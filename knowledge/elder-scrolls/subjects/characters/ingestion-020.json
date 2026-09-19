@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-020-solstheim-dragonborn-apocrypha",
+  "subjects": [
+    {
+      "id": "tes:last-dragonborn",
+      "name": "Last Dragonborn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/last-dragonborn.json",
+      "source": {
+        "id": "uesp:last-dragonborn",
+        "url": "https://en.uesp.net/wiki/Lore:Last_Dragonborn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:hermaeus-mora",
+      "name": "Hermaeus Mora",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/hermaeus-mora.json",
+      "source": {
+        "id": "uesp:hermaeus-mora",
+        "url": "https://en.uesp.net/wiki/Lore:Hermaeus_Mora",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:miraak",
+      "name": "Miraak",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/miraak.json",
+      "source": {
+        "id": "uesp:miraak",
+        "url": "https://en.uesp.net/wiki/Lore:Miraak",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:neloth",
+      "name": "Neloth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/neloth.json",
+      "source": {
+        "id": "uesp:neloth",
+        "url": "https://en.uesp.net/wiki/Lore:Neloth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:frea",
+      "name": "Frea",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/frea.json",
+      "source": {
+        "id": "uesp:frea",
+        "url": "https://en.uesp.net/wiki/Lore:Frea",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:storn-crag-strider",
+      "name": "Storn Crag-Strider",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/storn-crag-strider.json",
+      "source": {
+        "id": "uesp:storn-crag-strider",
+        "url": "https://en.uesp.net/wiki/Lore:Storn_Crag-Strider",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:karstaag",
+      "name": "Karstaag",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/karstaag.json",
+      "source": {
+        "id": "uesp:karstaag",
+        "url": "https://en.uesp.net/wiki/Lore:Karstaag",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Distinguish Skaal religious belief from directly observed supernatural events",
+    "Hermaeus Mora dialogue establishes what Mora says/claims, not necessarily omniscient truth",
+    "Player-character titles and actions must remain quest/branch scoped where choices vary",
+    "Black Books should be modeled as individual artifacts linked to a collection/concept, not collapsed into one item",
+    "Cross-link Solstheim history to Morrowind/Red Year records while preserving differing source perspectives",
+    "Do not duplicate existing Miraak, Neloth, Apocrypha, Solstheim, Red Year or Hermaeus Mora subjects; merge by canonical subject ID during materialization"
+  ]
+}
