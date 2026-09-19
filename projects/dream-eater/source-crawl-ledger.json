@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "project": "Dream Eater",
+  "updated_at": "2026-09-18",
+  "source_coverage": {
+    "notion": "substantively_processed",
+    "google_drive": "in_progress",
+    "scrivener": "pending",
+    "old_laptop": "pending"
+  },
+  "authority_order": [
+    "explicit_user_statement",
+    "current_manuscript",
+    "newer_dedicated_lore",
+    "newer_structured_planning",
+    "older_dedicated_lore",
+    "older_structured_planning",
+    "brainstorming_legacy"
+  ],
+  "statuses": [
+    "queued",
+    "processing",
+    "processed",
+    "partially_processed",
+    "failed_retry",
+    "irrelevant",
+    "duplicate",
+    "superseded"
+  ],
+  "sources": [
+    {
+      "source_id": "1I1-LwhXJwV8R6HHaEIWYE_ujaftXJFuYfGUojgsoIk4",
+      "title": "Untitled document",
+      "source_system": "google_drive",
+      "path": "Dream Eater root",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_date": "2024-11-06T22:00:22.036Z",
+      "discovery_method": "direct_folder_inventory + targeted Dennis Deacon/Wracken/Broken Throne search",
+      "processing_status": "processed",
+      "processing_depth": "full_text",
+      "last_processed_date": "2026-09-18",
+      "source_role": "brainstorming/planning",
+      "authority_tier": 7,
+      "useful_concepts_found": [
+        "Gravetender death-visit function",
+        "Name seeds and post-Breaking graves",
+        "Nameless choice to pass on or remain",
+        "Dreameater memory/dream consumption and identity contamination",
+        "Dennis Deacon/Wracken",
+        "Ellison seed=Emblem; Gallowed Man seed=mask",
+        "Lilith Deacon Broken Throne plot fragment"
+      ],
+      "blank": false,
+      "further_processing_needed": false,
+      "notes": "Brainstorming/incomplete text. Preserve as provenance; do not override current canon."
+    }
+  ],
+  "next_search_seeds": [
+    "Gallowed Man",
+    "Dennis Deacon",
+    "Wracken",
+    "Lilith Deacon",
+    "Neverwhere",
+    "Blueharbor",
+    "The Ruler",
+    "The Artificer",
+    "The Traveler"
+  ],
+  "critic_questions": [
+    "Does the Name-seed/tree/grave model still survive current canon, and if so how does it distinguish metaphysical Name loss from ordinary memory loss and the Silence?",
+    "If Ellison's seed is the Emblem and the Gallowed Man's is the mask in this 2024 brainstorm, how should that older split map onto the confirmed current gestalt without implying two biological identities?",
+    "Is Dennis Deacon/Wracken still intended to survive into current continuity, or was his Dream Eater role redistributed to later characters?"
+  ],
+  "checkpoint": {
+    "previous_repo_head": "5d8caac82240adef24738708881f2519f5a6b8ed",
+    "notion_checkpoint": "9bc64b98586ecc19f2e4645be00908c0392be166",
+    "batch": "drive-2026-09-18-01"
+  }
+}
