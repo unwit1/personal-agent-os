@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "continuity_id": "tes-base",
+  "batch_id": "uesp-005-ayleid-alessian-cluster",
+  "purpose": "Expand the base-continuity graph into Ayleid civilization, Alessian rebellion/order, early Cyrodiil, White-Gold Tower, and associated religion/artifacts.",
+  "pages": [
+    {
+      "id": "ayleid",
+      "title": "Ayleid",
+      "url": "https://en.uesp.net/wiki/Lore:Ayleid",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "alessian-empire",
+      "title": "Alessian Empire",
+      "url": "https://en.uesp.net/wiki/Lore:Alessian_Empire",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "alessia",
+      "title": "Alessia",
+      "url": "https://en.uesp.net/wiki/Lore:Alessia",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "pelinal-whitestrake",
+      "title": "Pelinal Whitestrake",
+      "url": "https://en.uesp.net/wiki/Lore:Pelinal_Whitestrake",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "morihaus",
+      "title": "Morihaus",
+      "url": "https://en.uesp.net/wiki/Lore:Morihaus",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "umaril",
+      "title": "Umaril",
+      "url": "https://en.uesp.net/wiki/Lore:Umaril",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "white-gold-tower",
+      "title": "White-Gold Tower",
+      "url": "https://en.uesp.net/wiki/Lore:White-Gold_Tower",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "imperial-city",
+      "title": "Imperial City",
+      "url": "https://en.uesp.net/wiki/Lore:Imperial_City",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "cyrodiil",
+      "title": "Cyrodiil",
+      "url": "https://en.uesp.net/wiki/Lore:Cyrodiil",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "slave-rebellion",
+      "title": "Alessian Slave Rebellion",
+      "url": "https://en.uesp.net/wiki/Lore:Alessian_Slave_Rebellion",
+      "page_type": "lore_summary",
+      "entity_type": "event",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "alessian-order",
+      "title": "Alessian Order",
+      "url": "https://en.uesp.net/wiki/Lore:Alessian_Order",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "marukh",
+      "title": "Marukh",
+      "url": "https://en.uesp.net/wiki/Lore:Marukh",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "middle-dawn",
+      "title": "Middle Dawn",
+      "url": "https://en.uesp.net/wiki/Lore:Middle_Dawn",
+      "page_type": "lore_summary",
+      "entity_type": "event",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "amulet-of-kings",
+      "title": "Amulet of Kings",
+      "url": "https://en.uesp.net/wiki/Lore:Amulet_of_Kings",
+      "page_type": "lore_summary",
+      "entity_type": "artifact",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "chim-el-adabal",
+      "title": "Chim-el Adabal",
+      "url": "https://en.uesp.net/wiki/Lore:Chim-el_Adabal",
+      "page_type": "lore_summary",
+      "entity_type": "artifact",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "eight-divines",
+      "title": "Eight Divines",
+      "url": "https://en.uesp.net/wiki/Lore:Eight_Divines",
+      "page_type": "lore_summary",
+      "entity_type": "religion",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "akatosh",
+      "title": "Akatosh",
+      "url": "https://en.uesp.net/wiki/Lore:Akatosh",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "shezarr",
+      "title": "Shezarr",
+      "url": "https://en.uesp.net/wiki/Lore:Shezarr",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "minotaur",
+      "title": "Minotaur",
+      "url": "https://en.uesp.net/wiki/Lore:Minotaur",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    },
+    {
+      "id": "nenalata",
+      "title": "Nenalata",
+      "url": "https://en.uesp.net/wiki/Lore:Nenalata",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve citations; prefer underlying game text/dialogue/books/quests"
+    }
+  ],
+  "review_focus": [
+    "distinguish later religious interpretation from contemporaneous evidence",
+    "preserve conflicting accounts of Pelinal and Alessian-era figures",
+    "treat Dragon Break/Middle Dawn claims with explicit source attribution",
+    "do not mix Tamriel Data or mod namespaces into tes-base"
+  ],
+  "ingestion_rules": {
+    "raw_text": "local_rebuildable",
+    "checkpoint_each_page": true,
+    "resolve_underlying_references": true,
+    "preserve_epistemic_language": true,
+    "namespace_guard": [
+      "Lore",
+      "Oblivion",
+      "Online",
+      "Skyrim",
+      "Morrowind",
+      "Daggerfall",
+      "Arena",
+      "Battlespire",
+      "Redguard",
+      "Blades"
+    ],
+    "exclude_from_base": [
+      "Tamriel Data",
+      "Tamriel Rebuilt",
+      "Project Tamriel",
+      "Beyond Skyrim",
+      "mod namespaces"
+    ]
+  }
+}
