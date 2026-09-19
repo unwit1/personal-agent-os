@@ -15,7 +15,7 @@
     "first_level_files_indexed": 283,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Deep-inspect Knowledge Framework addons and large mod portfolio sheets, then LEGO/custom-minifigure trackers; continue global project categorization."
+    "next_action": "Inspect large Item Balancing/Enemy Overhauls datasets and LEGO trackers; then continue remaining uncategorized Drive files and historical projects."
   },
   "top_level_folders": [
     {
@@ -1355,7 +1355,7 @@
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-09-02T13:27:06.894Z",
       "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1V-Plr-omMWyFvjWiQchIbtmh-iHTBbBWDPHuv1v7tJk",
@@ -1364,7 +1364,7 @@
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-09-02T13:22:20.840Z",
       "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1imq6gWvgbNHVotbjsiWZNoE05SoEo0WeLKf8cMLQ46o",
@@ -1373,7 +1373,7 @@
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-09-02T13:17:09.174Z",
       "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1IaQXskojDfP8owef7SK-K4EjEfAv6zAJoTx34pfzLJw",
@@ -1418,7 +1418,7 @@
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-08-09T23:57:00.316Z",
       "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1Z7STXsJbZm2FXH4nqlG_JuLPBpV9TOiBClncBa9E6tY",
@@ -1634,7 +1634,7 @@
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-08-18T23:31:26.320Z",
       "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1aB4EqA2SCl83es-pZj7tbbzbDIUm5cgDHjUT7CU17Is",
@@ -1670,7 +1670,7 @@
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-04-24T01:23:16.933Z",
       "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "18SCj_i-t8V0TWUx8J_3RP3Zvj9qkp8xfgl8_NnJ3cQ4",
@@ -2947,6 +2947,97 @@
       "source_ids": [
         "1Z7STXsJbZm2FXH4nqlG_JuLPBpV9TOiBClncBa9E6tY",
         "1RZQSkGj4utYtN3f6GjoDakfvhW9lME3xV17z8ulCbIc"
+      ],
+      "system_details": {
+        "tiers": "Tier I lesser beasts/familiars through Tier VIII Daedric Princes",
+        "database": "Creature catalogue maps species to source/mod model, plane, Prince/allegiance, skeleton/body category, offerings, nymic/binding fields and summoning-day metadata.",
+        "failure_outcomes": [
+          "Oblivion Breach",
+          "Something Else Answers",
+          "Hostile Intrusion",
+          "Backlash",
+          "Silence"
+        ],
+        "dremora_rank_model": [
+          "Varlet",
+          "Churl",
+          "Caitiff",
+          "Kynval",
+          "Kynreeve",
+          "Kynmarcher",
+          "Markynaz",
+          "Valkynaz"
+        ]
+      }
+    },
+    "unknown-antiquities": {
+      "status": "planned_or_early_design",
+      "domain": "Skyrim archaeology/appraisal addon",
+      "summary": "Knowledge Framework addon inspired partly by Daggerfall appraisal: enchanted/unknown items can be field-inspected through inventory checks or taken to knowledgeable appraisers/scholars. Design includes appraisal skill/knowledge and the possibility of misidentification.",
+      "source_ids": [
+        "11-HQ27cHpGjkvqHqfXYF1wADSvzcOytVffKF5Az1mhs"
+      ],
+      "related_projects": [
+        "Knowledge Framework",
+        "Skyrim Scholarship Ecosystem"
+      ]
+    },
+    "scholars-of-skyrim": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim scholar-roleplay addon",
+      "summary": "Knowledge Framework showcase addon expanding scholarship into world interactions: commission vendors to hunt rare books by research topic, write/publish books for royalties, obtain author autographs, give/attend lectures, receive scholar attention, face consequences for heretical research, pursue apprenticeships and potentially use recommendation letters for academic institutions.",
+      "source_ids": [
+        "1V-Plr-omMWyFvjWiQchIbtmh-iHTBbBWDPHuv1v7tJk"
+      ],
+      "related_projects": [
+        "Knowledge Framework",
+        "Skyrim Scholarship Ecosystem"
+      ]
+    },
+    "apocryphal-knowledge": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim forbidden-knowledge addon",
+      "summary": "Knowledge Framework addon centered on dangerous/forbidden knowledge and Hermaeus Mora-style progression. Concepts include sanity/instability, altered states affecting forbidden learning, eldritch spell gates, Black Books/Elder Scrolls and dangerous texts, corruption/mental effects, transformations and integrations with stress/fear or sanity systems.",
+      "source_ids": [
+        "1imq6gWvgbNHVotbjsiWZNoE05SoEo0WeLKf8cMLQ46o"
+      ],
+      "related_projects": [
+        "Knowledge Framework",
+        "Codex",
+        "Skyrim Scholarship Ecosystem"
+      ]
+    },
+    "personal-skyrim-overhaul": {
+      "status": "historical_and_ongoing_design",
+      "domain": "Skyrim gameplay overhaul / personal mod suite",
+      "summary": "The Personal Mods workbook is a broad systems-design laboratory covering attributes, Mysticism and spell learning/research/creation, training, fatigue, spell failure, archetypes, equipment-dependent casting, scroll/staff/tome crafting, custom magic traditions, combat mechanics and progression. Several ideas overlap with later dedicated projects such as Codex, suggesting the workbook functions as an incubator/reference for individual mods.",
+      "source_ids": [
+        "1Ce3pM8YFLjV8o5NpdjjmijXRYi-97Pmpk-2tq1z7s7I"
+      ],
+      "notable_concepts": [
+        "classic-style attributes including Luck",
+        "training and study as progression methods",
+        "spell research/creation/hybridization/upgrading",
+        "mental fatigue",
+        "spell failure and wild magic",
+        "spell tomes required until mastery",
+        "many lore-specific magic archetypes/traditions",
+        "DMMF concept",
+        "linguistics/ancient-text research"
+      ],
+      "relationships": [
+        "Codex/Mysticism appears to develop a subset of ideas represented here; preserve workbook as broader design provenance."
+      ]
+    },
+    "simonrim-balance-lab": {
+      "status": "ongoing_reference_or_design",
+      "domain": "Skyrim balance/combat systems",
+      "summary": "Simonrim workbook is a large quantitative design/reference lab for Skyrim mechanics. It contains skill scaling, stamina/action costs, exhaustion penalties, blocking/parrying, injuries/infections, resistance and armor caps, execution mechanics, rage/ultimate concepts, weapon-type stat baselines, character traits and boss/enemy overhaul notes.",
+      "source_ids": [
+        "13frbve5Nefc_ugqfiCxhH61jc8-wLvi8Lg518NNcIMc"
+      ],
+      "relationships": [
+        "Acts as a balancing/reference source for the user's Skyrim mod ecosystem rather than necessarily one standalone release."
       ]
     }
   },
