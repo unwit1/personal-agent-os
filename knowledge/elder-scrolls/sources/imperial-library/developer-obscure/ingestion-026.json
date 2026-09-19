@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-026-cross-source-contradictions",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:contradiction-battle-red-mountain",
+      "title": "Battle of Red Mountain source contradiction map",
+      "document_kind": "contradiction_casefile",
+      "status": "queued",
+      "subjects": [
+        "Battle of Red Mountain",
+        "Nerevar",
+        "Dwemer",
+        "Tribunal",
+        "Dagoth Ur"
+      ]
+    },
+    {
+      "id": "til:contradiction-talos",
+      "title": "Talos identity and apotheosis contradiction map",
+      "document_kind": "contradiction_casefile",
+      "status": "queued",
+      "subjects": [
+        "Talos",
+        "Tiber Septim",
+        "Wulfharth",
+        "Zurin Arctus",
+        "Underking"
+      ]
+    },
+    {
+      "id": "til:contradiction-dwemer",
+      "title": "Dwemer disappearance contradiction map",
+      "document_kind": "contradiction_casefile",
+      "status": "queued",
+      "subjects": [
+        "Dwemer",
+        "Kagrenac",
+        "Heart of Lorkhan",
+        "Red Mountain"
+      ]
+    },
+    {
+      "id": "til:contradiction-trinimac",
+      "title": "Trinimac and Malacath origin contradiction map",
+      "document_kind": "contradiction_casefile",
+      "status": "queued",
+      "subjects": [
+        "Trinimac",
+        "Malacath",
+        "Boethiah",
+        "Orsimer"
+      ]
+    },
+    {
+      "id": "til:contradiction-cyrodiil",
+      "title": "Cyrodiil climate and landscape source-history map",
+      "document_kind": "contradiction_casefile",
+      "status": "queued",
+      "subjects": [
+        "Cyrodiil",
+        "jungle",
+        "White-Gold Tower",
+        "Talos"
+      ]
+    },
+    {
+      "id": "til:contradiction-alduin",
+      "title": "Alduin and Akatosh identity/source map",
+      "document_kind": "contradiction_casefile",
+      "status": "queued",
+      "subjects": [
+        "Alduin",
+        "Akatosh",
+        "Auri-El",
+        "Alkosh",
+        "Dragon God"
+      ]
+    },
+    {
+      "id": "til:contradiction-pelinal",
+      "title": "Pelinal identity and nature source map",
+      "document_kind": "contradiction_casefile",
+      "status": "queued",
+      "subjects": [
+        "Pelinal",
+        "Shezarr",
+        "Alessia",
+        "Ayleids",
+        "Song of Pelinal"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Casefiles enumerate propositions and evidence rather than selecting a single winner.",
+    "Separate true contradiction from differences in scope, era, terminology, narrator knowledge, or literary genre.",
+    "Include primary-game, official-external, developer, obscure, and community layers as separate evidence classes.",
+    "Track whether later material resolves, reframes, ignores, or compounds an earlier conflict.",
+    "A contradiction casefile can conclude that evidence is underdetermined."
+  ]
+}
