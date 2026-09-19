@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-047-altmer-religion-aldmeri-cosmology",
+  "subjects": [
+    {
+      "id": "tes:bow-auriel",
+      "name": "Auriel's Bow",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/bow-auriel.json",
+      "source": {
+        "id": "uesp:bow-auriel",
+        "url": "https://en.uesp.net/wiki/Lore:Auriel%27s_Bow",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:shield-auriel",
+      "name": "Auriel's Shield",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/shield-auriel.json",
+      "source": {
+        "id": "uesp:shield-auriel",
+        "url": "https://en.uesp.net/wiki/Lore:Auriel%27s_Shield",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:transparent-law",
+      "name": "Transparent Law",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/transparent-law.json",
+      "source": {
+        "id": "uesp:transparent-law",
+        "url": "https://en.uesp.net/wiki/Lore:Transparent_Law",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Altmeri creation narratives and divine-ancestry claims remain theological/cultural claims unless independently evidenced",
+    "Aldmeris must preserve competing interpretations of literal homeland, cultural memory, metaphor and retrospective construction",
+    "Do not automatically merge Auri-El, Akatosh or Alkosh; represent proposed identities and correspondences as sourced relationships",
+    "Alaxon and Apraxic status should distinguish prescriptive social ideals, institutional enforcement and individual lived practice",
+    "Crystal Tower metaphysics must distinguish directly observed events from broader Tower theory",
+    "Cross-link existing Altmer, Aldmer, Summerset, Auri-El, Trinimac, Magnus, Xarxes, Jephre, Crystal Tower, Transparent Law, Sapiarch and Divine Prosecution records"
+  ]
+}
