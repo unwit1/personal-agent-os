@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-025-eso-alliances-regions",
+  "subjects": [
+    {
+      "id": "tes:aldmeri-dominion-first",
+      "name": "First Aldmeri Dominion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/aldmeri-dominion-first.json",
+      "source": {
+        "id": "uesp:aldmeri-dominion-first",
+        "url": "https://en.uesp.net/wiki/Lore:First_Aldmeri_Dominion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:daggerfall-covenant",
+      "name": "Daggerfall Covenant",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/daggerfall-covenant.json",
+      "source": {
+        "id": "uesp:daggerfall-covenant",
+        "url": "https://en.uesp.net/wiki/Lore:Daggerfall_Covenant",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ebonheart-pact",
+      "name": "Ebonheart Pact",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/ebonheart-pact.json",
+      "source": {
+        "id": "uesp:ebonheart-pact",
+        "url": "https://en.uesp.net/wiki/Lore:Ebonheart_Pact",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:veiled-heritance",
+      "name": "Veiled Heritance",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/veiled-heritance.json",
+      "source": {
+        "id": "uesp:veiled-heritance",
+        "url": "https://en.uesp.net/wiki/Lore:Veiled_Heritance",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:eyes-queen",
+      "name": "Eyes of the Queen",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/eyes-queen.json",
+      "source": {
+        "id": "uesp:eyes-queen",
+        "url": "https://en.uesp.net/wiki/Lore:Eyes_of_the_Queen",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ebonheart-great-moot",
+      "name": "Great Moot",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/ebonheart-great-moot.json",
+      "source": {
+        "id": "uesp:ebonheart-great-moot",
+        "url": "https://en.uesp.net/wiki/Lore:Great_Moot",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Keep the First Aldmeri Dominion distinct from later organizations with the same name",
+    "Alliance propaganda and political ideology remain attributed to their speakers/documents",
+    "Regional quest outcomes should be branch-scoped when player choice changes the result",
+    "Do not infer unanimous cultural support for an alliance from rulers or official proclamations",
+    "Cross-link existing alliance, leader and regional subjects rather than duplicate canonical records",
+    "Preserve temporal scope: ESO-era political relationships must not be projected unchanged into later eras"
+  ]
+}
