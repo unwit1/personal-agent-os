@@ -44,6 +44,7 @@ environment and globally available command, create a venv and run
 - `agent-os change-*` captures, updates, verifies, safely projects, and reviews compact engineering change records.
 - `agent-os improvement-*` deduplicates project improvement candidates and prepares explicit GitHub issue payloads.
 - `agent-os form-route` matches sanitized form fingerprints; `--persist` writes only to the gitignored local queue.
+- `agent-os icloud setup` interactively verifies iCloud Mail and stores the app-specific password with Windows DPAPI in gitignored local storage. It authenticates SMTP but never sends a message; sending remains approval-gated.
 
 ## Canonical versus derived data
 

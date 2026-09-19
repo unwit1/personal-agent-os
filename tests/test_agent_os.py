@@ -4,6 +4,7 @@ import sys
 import unittest
 import uuid
 from pathlib import Path
+from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
@@ -16,6 +17,7 @@ from agent_os.cli import parser
 from agent_os.index import rebuild, search
 from agent_os.mcp_server import _handle_mcp, methods
 from agent_os.inventory import scan
+from agent_os.icloud import CONFIG_PATH, _prompt_password
 from agent_os.registry import get_project, identify_project, load_state, projects
 from agent_os.review import assess
 from agent_os.routing import targets
@@ -41,6 +43,19 @@ class AgentOSTests(unittest.TestCase):
     def test_scan_projects_command_parses(self) -> None:
         args = parser().parse_args(["scan-projects"])
         self.assertEqual(args.command, "scan-projects")
+
+    def test_icloud_commands_parse_and_use_gitignored_storage(self) -> None:
+        setup_args = parser().parse_args(["icloud", "setup"])
+        self.assertEqual(setup_args.icloud_command, "setup")
+        status_args = parser().parse_args(["icloud", "status"])
+        self.assertEqual(status_args.icloud_command, "status")
+        self.assertEqual(CONFIG_PATH.parent.name, ".agent-local")
+
+    def test_icloud_password_prompt_has_a_terminal_fallback(self) -> None:
+        with mock.patch("agent_os.icloud.os.name", "posix"), mock.patch(
+            "agent_os.icloud.getpass.getpass", return_value="local-test-password"
+        ):
+            self.assertEqual(_prompt_password(), "local-test-password")
 
     def test_routing_targets_cover_global_and_project_adapters(self) -> None:
         destinations = [str(destination) for _, destination in targets()]

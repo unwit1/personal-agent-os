@@ -13,6 +13,8 @@ from .handoffs import create_handoff
 from .index import rebuild, search
 from .inventory import scan
 from .improvements import capture_improvement, get_improvement, issue_payload, list_improvements, search_improvements, update_improvement
+from .icloud import setup as setup_icloud
+from .icloud import status as icloud_status
 from .mcp_server import serve
 from .maintenance import run as run_maintenance
 from .registry import get_project, git_status, identify_project, load_state, projects
@@ -46,6 +48,10 @@ def parser() -> argparse.ArgumentParser:
     commands.add_parser("routing-status")
     commands.add_parser("validate")
     commands.add_parser("mcp")
+    icloud = commands.add_parser("icloud")
+    icloud_commands = icloud.add_subparsers(dest="icloud_command", required=True)
+    icloud_commands.add_parser("setup")
+    icloud_commands.add_parser("status")
     maintenance = commands.add_parser("maintenance")
     maintenance.add_argument("--event", default="scheduled")
     maintenance.add_argument("--project")
@@ -158,6 +164,11 @@ def main(argv: list[str] | None = None) -> int:
             return 0 if result["ok"] else 1
         elif args.command == "mcp":
             return serve()
+        elif args.command == "icloud":
+            if args.icloud_command == "setup":
+                _print(setup_icloud())
+            else:
+                _print(icloud_status())
         elif args.command == "maintenance":
             _print(run_maintenance(args.event, args.project))
         elif args.command == "capture-candidates":

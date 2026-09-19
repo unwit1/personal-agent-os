@@ -4,7 +4,7 @@
     {
       "id": "personal-agent-os",
       "name": "Personal Agent OS",
-      "path": "C:\\Users\\HR.RTEC\\Projects\\Personal Agent",
+      "path": "C:\\Users\\unwit\\GitHub\\personal-agent-os",
       "repository": "https://github.com/unwit1/personal-agent-os.git",
       "classification": "supporting",
       "state_file": "projects/personal-agent-os/state.json",

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-19T15:51:53.464002+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main\n M .gitignore\n M README.md\n M projects/registry.json\n M src/agent_os/cli.py\n M tests/test_agent_os.py\n?? src/agent_os/icloud.py",
+    "error": ""
+  },
+  "completed": [
+    "Bootstrapped the private repository on Windows with Python 3.13.15 and a repository-local virtual environment.",
+    "Added interactive iCloud Mail setup with hidden prompting, IMAP/SMTP authentication checks, current-user Windows DPAPI storage, and approval-gated SMTP sending.",
+    "Updated this checkout's registered project path and initialized the disposable index."
+  ],
+  "decisions": [
+    "Do not implement SMTP sending as part of setup; authentication is tested but every future send must remain approval-gated."
+  ],
+  "remaining": [
+    "User must complete the open local terminal prompt with their iCloud address and Apple app-specific password.",
+    "Other registered project paths still point to the prior PC and remain unavailable until those repositories are migrated."
+  ],
+  "validation": [
+    "DPAPI encrypt/decrypt round trip passed.",
+    "Focused iCloud CLI test passed.",
+    "agent.py init validation passed with 43 checks and warnings only for absent unrelated project checkouts/routing adapters."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}
