@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-004-morrowind-development",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:mw-concept-lore",
+      "title": "Morrowind-era developer concept and lore material",
+      "author": "multiple",
+      "document_kind": "development_archive",
+      "status": "discovery_queued",
+      "subjects": [
+        "Morrowind",
+        "Dunmer",
+        "Tribunal",
+        "Great Houses",
+        "Ashlanders",
+        "Dwemer"
+      ]
+    },
+    {
+      "id": "til:mk-tribunal-commentary",
+      "title": "Michael Kirkbride commentary on the Tribunal and Vivec",
+      "author": "Michael Kirkbride",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Vivec",
+        "Almalexia",
+        "Sotha Sil",
+        "Nerevar",
+        "Red Mountain",
+        "36 Lessons"
+      ]
+    },
+    {
+      "id": "til:goodall-khajiit",
+      "title": "Douglas Goodall Khajiit material",
+      "author": "Douglas Goodall",
+      "document_kind": "developer_writing_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Khajiit",
+        "furstocks",
+        "Elsweyr",
+        "religion",
+        "culture"
+      ]
+    },
+    {
+      "id": "til:dwemer-dev-commentary",
+      "title": "Developer commentary on the Dwemer and disappearance",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Dwemer",
+        "Kagrenac",
+        "Heart of Lorkhan",
+        "Numidium",
+        "Battle of Red Mountain"
+      ]
+    },
+    {
+      "id": "til:red-mountain-dev",
+      "title": "Developer commentary and obscure texts on Red Mountain",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Red Mountain",
+        "Nerevar",
+        "Dagoth Ur",
+        "Tribunal",
+        "Dwemer",
+        "Kagrenac"
+      ]
+    },
+    {
+      "id": "til:36-lessons-commentary",
+      "title": "Developer commentary surrounding the 36 Lessons",
+      "author": "Michael Kirkbride",
+      "document_kind": "author_commentary",
+      "status": "discovery_queued",
+      "subjects": [
+        "36 Lessons",
+        "Vivec",
+        "CHIM",
+        "Nerevar",
+        "Tribunal",
+        "Velothi religion"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Author commentary about a published in-game text is evidence about authorial intent, not automatically evidence that the interpretation is objectively true in-setting.",
+    "Morrowind development drafts must remain distinct from shipped Morrowind content.",
+    "Competing explanations of the Dwemer disappearance and Battle of Red Mountain remain separate attributed models.",
+    "Khajiit development material must be dated so early concepts are not silently projected onto later ESO-era lore.",
+    "Cross-link to existing Red Mountain, Tribunal, Dwemer, Khajiit and 36 Lessons subject records."
+  ]
+}
