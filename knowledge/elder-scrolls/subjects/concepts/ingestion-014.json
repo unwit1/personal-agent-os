@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-014-religion-afterlife-metaphysics",
+  "subjects": [
+    {
+      "id": "tes:eight-divines",
+      "name": "Eight Divines",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/eight-divines.json",
+      "source": {
+        "id": "uesp:eight-divines",
+        "url": "https://en.uesp.net/wiki/Lore:Eight_Divines",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:nine-divines",
+      "name": "Nine Divines",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/nine-divines.json",
+      "source": {
+        "id": "uesp:nine-divines",
+        "url": "https://en.uesp.net/wiki/Lore:Nine_Divines",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:imperial-cult",
+      "name": "Imperial Cult",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/imperial-cult.json",
+      "source": {
+        "id": "uesp:imperial-cult",
+        "url": "https://en.uesp.net/wiki/Lore:Imperial_Cult",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ancestor-worship",
+      "name": "Ancestor Worship",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/ancestor-worship.json",
+      "source": {
+        "id": "uesp:ancestor-worship",
+        "url": "https://en.uesp.net/wiki/Lore:Ancestor_Worship",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:saints",
+      "name": "Saints",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/saints.json",
+      "source": {
+        "id": "uesp:saints",
+        "url": "https://en.uesp.net/wiki/Lore:Saints",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dreamsleeve",
+      "name": "Dreamsleeve",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dreamsleeve.json",
+      "source": {
+        "id": "uesp:dreamsleeve",
+        "url": "https://en.uesp.net/wiki/Lore:Dreamsleeve",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:soul",
+      "name": "Soul",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/soul.json",
+      "source": {
+        "id": "uesp:soul",
+        "url": "https://en.uesp.net/wiki/Lore:Soul",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:afterlife",
+      "name": "Afterlife",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/afterlife.json",
+      "source": {
+        "id": "uesp:afterlife",
+        "url": "https://en.uesp.net/wiki/Lore:Afterlife",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:kalpa",
+      "name": "Kalpa",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/kalpa.json",
+      "source": {
+        "id": "uesp:kalpa",
+        "url": "https://en.uesp.net/wiki/Lore:Kalpa",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragon-break",
+      "name": "Dragon Break",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dragon-break.json",
+      "source": {
+        "id": "uesp:dragon-break",
+        "url": "https://en.uesp.net/wiki/Lore:Dragon_Break",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:tower",
+      "name": "Tower",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/tower.json",
+      "source": {
+        "id": "uesp:tower",
+        "url": "https://en.uesp.net/wiki/Lore:Tower",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:stone",
+      "name": "Stone",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/stone.json",
+      "source": {
+        "id": "uesp:stone",
+        "url": "https://en.uesp.net/wiki/Lore:Stone",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Religious doctrine and cosmology must remain attributed to source/culture when not directly observable",
+    "Do not collapse culture-specific deities into a single identity solely because sources draw parallels",
+    "Afterlife descriptions should distinguish doctrine, testimony, observed game-space and scholarly interpretation",
+    "Dragon Break, Kalpa, Tower and Stone claims require especially strict source-level provenance",
+    "Track alternate divine names as aliases or proposed equivalences with evidence, not automatic identity merges"
+  ]
+}
