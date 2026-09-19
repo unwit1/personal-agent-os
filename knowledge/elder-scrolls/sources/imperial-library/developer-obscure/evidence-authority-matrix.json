@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "record_kind": "evidence_authority_matrix",
+  "tiers": [
+    {
+      "id": "released-primary",
+      "description": "Released game dialogue, events, books, item descriptions, loading screens, official game data",
+      "default_use": "primary evidence for what the released work depicts or states"
+    },
+    {
+      "id": "official-external",
+      "description": "Officially published external lore, manuals, promotional fiction and licensed/official publications",
+      "default_use": "official external evidence with document-specific context"
+    },
+    {
+      "id": "developer-design",
+      "description": "Design documents, drafts, concept material and internal-style notes reproduced with provenance",
+      "default_use": "development-history evidence; not automatically shipped canon"
+    },
+    {
+      "id": "developer-ooc",
+      "description": "Out-of-character interviews, Q&A and explanatory developer posts",
+      "default_use": "authorial/design commentary"
+    },
+    {
+      "id": "developer-ic",
+      "description": "In-character developer roleplay and fiction outside released works",
+      "default_use": "obscure/developer fiction with speaker provenance"
+    },
+    {
+      "id": "community",
+      "description": "Fan analysis, questions, summaries and community synthesis",
+      "default_use": "discovery and interpretation only unless independently sourced"
+    }
+  ],
+  "precedence_rule": "No global tier mechanically wins a contradiction. Authority class, date, continuity, subject, directness and the question being answered determine relevance; preserve conflicting evidence.",
+  "adoption_rule": "If an idea later appears in released primary material, create a new released-primary evidence record linked to the earlier developmental antecedent."
+}
