@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "knowledge-framework",
+  "knowledge_library": "elder-scrolls",
+  "taxonomy_policy": {
+    "authority": "knowledge-framework",
+    "allow_invention": false,
+    "simple_external_taxonomy": true
+  },
+  "continuity_selection": [
+    "tes-base"
+  ],
+  "mapping_cache": "knowledge/consumers/knowledge-framework-confirmed-mappings.json",
+  "notes": "KF owns a deliberately simple gameplay taxonomy. Lorekeeper supplies compact evidence; it must not expand or replace KF's tags. Consumer adapters may select additional continuities per project/item."
+}
