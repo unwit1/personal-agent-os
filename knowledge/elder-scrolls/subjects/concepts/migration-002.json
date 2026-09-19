@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:green-pact",
+      "name": "Green Pact",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/green-pact.json",
+      "source": {
+        "id": "uesp:green-pact",
+        "url": "https://en.uesp.net/wiki/Lore:Green_Pact",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:lunar-lattice",
+      "name": "Lunar Lattice",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/lunar-lattice.json",
+      "source": {
+        "id": "uesp:lunar-lattice",
+        "url": "https://en.uesp.net/wiki/Lore:Lunar_Lattice",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:necromancy",
+      "name": "Necromancy",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/necromancy.json",
+      "source": {
+        "id": "uesp:necromancy",
+        "url": "https://en.uesp.net/wiki/Lore:Necromancy",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:vampirism",
+      "name": "Vampirism",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/vampirism.json",
+      "source": {
+        "id": "uesp:vampirism",
+        "url": "https://en.uesp.net/wiki/Lore:Vampirism",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragonfires",
+      "name": "Dragonfires",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dragonfires.json",
+      "source": {
+        "id": "uesp:dragonfires",
+        "url": "https://en.uesp.net/wiki/Lore:Dragonfires",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:liminal-barriers",
+      "name": "Liminal Barriers",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/liminal-barriers.json",
+      "source": {
+        "id": "uesp:liminal-barriers",
+        "url": "https://en.uesp.net/wiki/Lore:Liminal_Barriers",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:shehai",
+      "name": "Shehai",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/shehai.json",
+      "source": {
+        "id": "uesp:shehai",
+        "url": "https://en.uesp.net/wiki/Lore:Shehai",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:nerevarine",
+      "name": "Nerevarine",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/nerevarine.json",
+      "source": {
+        "id": "uesp:nerevarine",
+        "url": "https://en.uesp.net/wiki/Lore:Nerevarine",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Categorized migration from prior ingestion queues. Source URLs are discovery pointers; underlying primary references are preferred during extraction."
+}
