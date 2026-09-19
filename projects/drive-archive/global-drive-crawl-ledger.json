@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 269,
+    "first_level_files_indexed": 283,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Finish indexing guild-mark visual assets, then resume remaining global folder queue and safe content extraction."
+    "next_action": "Continue remaining UAS sheets, AI Tools spreadsheets, then recursively inventory non-sensitive global branches; HR resume folders metadata-only/sanitized."
   },
   "top_level_folders": [
     {
@@ -2416,6 +2416,104 @@
       "modified_time": "2021-10-24T04:21:24.225Z",
       "category": "ttrpg_blades_of_pergrande_visual_reference",
       "content_status": "indexed_visual_asset"
+    },
+    {
+      "id": "1snwpmmElOJID9lPl3EE4MRhgRHjvsdAnhVxz_qgIM5w",
+      "title": "Danbooru tags for NAI",
+      "path": "/My Drive/Personal/AI Tools/Danbooru tags for NAI",
+      "category": "ai_image_generation_reference",
+      "content_status": "queued"
+    },
+    {
+      "id": "1TqoB8CCfNxz9a2OmFmMFeJ583or5tUANPQW8kLGWqvQ",
+      "title": "Untitled spreadsheet",
+      "path": "/My Drive/Personal/AI Tools/Untitled spreadsheet",
+      "category": "ai_tools_experiment",
+      "content_status": "queued"
+    },
+    {
+      "id": "1kfLJMU2o3MCmyDtBbffputLepPv6aMKObBviFKHxqXc",
+      "title": "UAS AutoSheet - Blades of Pergrande Party",
+      "path": "/My Drive/Universal Anime System (UAS)/GM Tools/UAS AutoSheet - Blades of Pergrande Party",
+      "category": "ttrpg_uas_pergrande_tooling",
+      "content_status": "queued"
+    },
+    {
+      "id": "1m8ChX_UipgGTSageFlw-PG-VsAwRuDbGC4w8Sq6MWW8",
+      "title": "TERMS",
+      "path": "/My Drive/Universal Anime System (UAS)/System Base 1.5/TERMS",
+      "category": "ttrpg_game_design",
+      "content_status": "queued"
+    },
+    {
+      "id": "1E-PFU0NKfSZwFFDlBxZCmyo1j9uMUY7YnBQld8aIp9I",
+      "title": "Origins",
+      "path": "/My Drive/Universal Anime System (UAS)/System Base 1.5/Origins",
+      "category": "ttrpg_game_design",
+      "content_status": "queued"
+    },
+    {
+      "id": "13Pl4I5nZwCQPvKwjLNV05QOCuzJ-jYZ6",
+      "title": "UAS Origin System - Origin.pdf",
+      "path": "/My Drive/Universal Anime System (UAS)/System Base 1.5/UAS Origin System - Origin.pdf",
+      "category": "ttrpg_game_design",
+      "content_status": "queued_duplicate_export"
+    },
+    {
+      "id": "1qgQlKpAfMRKWJoDzop4F9GvjVd0PnMHTwu2wzjJ_IuQ",
+      "title": "Backgrounds",
+      "path": "/My Drive/Universal Anime System (UAS)/System Base 1.5/Backgrounds",
+      "category": "ttrpg_game_design",
+      "content_status": "queued"
+    },
+    {
+      "id": "1W2qe_BkqRsZP4_1jivSdCrzeboqb2DrdGhv8O8GilKs",
+      "title": "UAS GM GUIDE",
+      "path": "/My Drive/Universal Anime System (UAS)/System Base 1.5/UAS GM GUIDE",
+      "category": "ttrpg_game_design",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1TTRD1SNDjKLsYob3aHDb-ej-FH2jKeiavqPHN6m_tR0",
+      "title": "UAS Character Sheet Template v2.7 - Blades of Pergrande Campaign",
+      "path": "/My Drive/Universal Anime System (UAS)/Character Creation/UAS Character Sheet Template v2.7 - Blades of Pergrande Campaign",
+      "category": "ttrpg_uas_pergrande_tooling",
+      "content_status": "queued"
+    },
+    {
+      "id": "1kPXiqt8Fa6v9j5MaE9gblzbEVWh40l-zGxhSngz0zvc",
+      "title": "Character Backgrounds",
+      "path": "/My Drive/Universal Anime System (UAS)/Character Creation/Character Backgrounds",
+      "category": "ttrpg_game_design",
+      "content_status": "queued"
+    },
+    {
+      "id": "1EZgBLOeWZwtpPiUiG7B9dhJAiTAEM0pWijdmm-pbnwA",
+      "title": "Backstory Template",
+      "path": "/My Drive/Universal Anime System (UAS)/Character Creation/Backstory Template",
+      "category": "ttrpg_game_design",
+      "content_status": "processed_blank"
+    },
+    {
+      "id": "1Wn9p-7-sMBInfGjHEdnp69zJlhQWHDPZdclrsGXSDOI",
+      "title": "Races - Blades of Pergrande",
+      "path": "/My Drive/Universal Anime System (UAS)/Character Creation/Races - Blades of Pergrande",
+      "category": "ttrpg_uas_pergrande_tooling",
+      "content_status": "queued"
+    },
+    {
+      "id": "1rbOuraJKC8xapRfbsip6ApvmLnQvZbEhEohAhGuKCkI",
+      "title": "Dragon Heart Campaign - CharCreation Races",
+      "path": "/My Drive/Universal Anime System (UAS)/Character Creation/Dragon Heart Campaign - CharCreation Races",
+      "category": "ttrpg_dragon_heart",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1Hy8t0-E026Qj5ms4P7GC8i4WQalgeeiJGhnRJz6mpDM",
+      "title": "Dragon Heart Campaign - CharCreation magic",
+      "path": "/My Drive/Universal Anime System (UAS)/Character Creation/Dragon Heart Campaign - CharCreation magic",
+      "category": "ttrpg_dragon_heart",
+      "content_status": "processed_summary"
     }
   ],
   "folder_queue": [
@@ -2593,7 +2691,28 @@
         "ranked difficulty D through EX",
         "skill/equipment proficiency progression",
         "GM scene-planning workflow"
-      ]
+      ],
+      "gm_guide_details": {
+        "design_goal": "modular sandbox system adaptable to anime, fantasy and other settings",
+        "character_creation": [
+          "backstory",
+          "race",
+          "backgrounds",
+          "skill proficiencies",
+          "equipment",
+          "custom spells"
+        ],
+        "combat_classes": [
+          "Guardian (CON)",
+          "Artillery (WILL)",
+          "Tactician (INT)",
+          "Operative (DEX)",
+          "Bruiser (STR)",
+          "Aid (WIS)",
+          "Diplomat (CHA)"
+        ],
+        "class_design": "Each class has specialized subclasses and class feats; examples include Knight/Warden/Bulwark/Juggernaut, Cannon/Sniper/Elementalist/Demolisher, Commander/Engineer/Chessmaster/Manipulator, and Assassin/Spy/Saboteur/Shadow."
+      }
     },
     "berea-pinochle": {
       "status": "historical_or_dormant",
@@ -2674,6 +2793,27 @@
         "multi-arc campaign planning"
       ],
       "visual_asset_notes": "Guild-mark folders contain visual references/emblems for campaign organizations and characters. Assets are indexed as project evidence; generic image content is not promoted into lore unless filenames or associated docs establish meaning."
+    },
+    "dragon-heart-campaign": {
+      "status": "historical_or_dormant",
+      "domain": "Fairy-Tail-inspired TTRPG campaign / predecessor system material",
+      "summary": "Dragon Heart Campaign character-creation documents define playable races and magic categories in a Fairy Tail-derived setting. Races include Earthland human wizards, Edolas humans reliant on magical items/Lacrima, Elentearean humans, demons, Exceeds, Etherious and Celestial Spirits. Magic material distinguishes Caster vs Holder Magic, Takeover and Summoning, WILL-based magic, curses powered by negative emotions, and Spirit Arts.",
+      "source_ids": [
+        "1rbOuraJKC8xapRfbsip6ApvmLnQvZbEhEohAhGuKCkI",
+        "1Hy8t0-E026Qj5ms4P7GC8i4WQalgeeiJGhnRJz6mpDM"
+      ],
+      "relationships": [
+        "Material is stored under later UAS character-creation folders, suggesting reuse/evolution of campaign-system work; do not assume setting continuity with Blades of Pergrande without confirmation."
+      ]
+    },
+    "ai-tools-experiments": {
+      "status": "historical_or_dormant",
+      "domain": "AI tooling / image-generation references",
+      "summary": "Personal AI Tools folder contains at least a Danbooru-tag reference spreadsheet for NAI and an additional untitled spreadsheet, indicating experimentation with AI/image-generation prompting or reference organization.",
+      "source_ids": [
+        "1snwpmmElOJID9lPl3EE4MRhgRHjvsdAnhVxz_qgIM5w",
+        "1TqoB8CCfNxz9a2OmFmMFeJ583or5tUANPQW8kLGWqvQ"
+      ]
     }
   },
   "discovered_project_folders": [
@@ -2733,6 +2873,11 @@
     {
       "id": "11KAasmiYw2o8Iv-gjx_WMMkZ67IZbMt5",
       "title": "Anthem lore",
+      "status": "empty_folder"
+    },
+    {
+      "id": "1mpXnfTvZsN1MCHihvGIj0uIlHh7UIZ3q",
+      "title": "Personal/Graphics",
       "status": "empty_folder"
     }
   ]
