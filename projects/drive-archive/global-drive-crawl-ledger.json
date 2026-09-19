@@ -15,7 +15,7 @@
     "first_level_files_indexed": 354,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue untitled spreadsheet backlog and any remaining queued legacy docs. Treat giant raw reference datasets (webcomic lists, vanilla Skyrim dialogue exports) as reference/inventory rather than authored knowledge. Prioritize spreadsheets whose tabs/headers reveal authored project structure, trackers, automation, lore databases or reusable tooling. Maintain player-campaign provenance separation."
+    "next_action": "Continue remaining queued Untitled spreadsheets after 2026-02, then older sheets. Quickly classify sensitive finance/HR/schedule sheets metadata-only. Deep-inspect authored project matrices, trackers and tooling; treat third-party modlists as personal reference without importing their lore/mechanics into authored projects."
   },
   "top_level_folders": [
     {
@@ -549,12 +549,12 @@
     },
     {
       "id": "1eccTyzZghEfHVInIT3T-ivEC2zvlzrLimO_c1oihnGU",
-      "title": "Untitled spreadsheet",
+      "title": "Skyrim Divine Priesthood Project Matrix",
       "path": "/My Drive/Untitled spreadsheet",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-08-07T22:38:51.206Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "skyrim_religion_ecosystem",
+      "content_status": "processed"
     },
     {
       "id": "14WCNnr9ZQic0L6M2XfAWoSuZsHANbz1xlcUGgfYyKhg",
@@ -639,12 +639,12 @@
     },
     {
       "id": "11DkryUUwhw2D2_xzqhB48jRf8AwQMnLPJSc1c5Upn6A",
-      "title": "Untitled spreadsheet",
+      "title": "Daedric Assets Catalogue",
       "path": "/My Drive/Untitled spreadsheet",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-07-30T15:29:31.621Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "skyrim_daedric_assets",
+      "content_status": "processed"
     },
     {
       "id": "17GfkonMkWBysWvyzqDxfEOXbfYupTVnrROD65IG93tY",
@@ -711,12 +711,12 @@
     },
     {
       "id": "10ykODqhL3hiDSbbYPJ8cZ-_8IbpxhAniud0V0Sdsj5A",
-      "title": "Untitled spreadsheet",
+      "title": "VDO named Vigilants Dawnguard dialogue",
       "path": "/My Drive/Untitled spreadsheet",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-06-13T17:13:54.516Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "vigilant_dialogue_overhaul",
+      "content_status": "processed"
     },
     {
       "id": "1wfnHwWXv0Ld1ZQZgNR3f1w3XIk6F_oU0RWs8ir9LiFo",
@@ -756,12 +756,12 @@
     },
     {
       "id": "1CXH8Z2AA3IGRDXpahSF9emCTL6CmcuUP7OBS5k1dwII",
-      "title": "Untitled spreadsheet",
+      "title": "VDO generic Vigilant dialogue lines",
       "path": "/My Drive/Untitled spreadsheet",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-05-31T23:53:53.794Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "vigilant_dialogue_overhaul",
+      "content_status": "processed"
     },
     {
       "id": "1LzXvL7TvQl1D_sx3Ac2S7UdnTGQvIpfNaciOnsP_9Ts",
@@ -774,12 +774,13 @@
     },
     {
       "id": "11I3hFi2Jq9hkiMj6j4uFRo6x0EgroHOmBlU2yEk_1b4",
-      "title": "Untitled spreadsheet",
+      "title": "Personal shared-cost planning sheet",
       "path": "/My Drive/Untitled spreadsheet",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-05-30T00:08:19.247Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "personal_finance_sensitive",
+      "content_status": "sensitive_metadata_only",
+      "privacy_classification": "sensitive personal/HR data; content intentionally not persisted"
     },
     {
       "id": "1uaIywh29k0zALOt8a_IIQc1z6JaLaOlgquJUOEAUNxY",
@@ -828,12 +829,13 @@
     },
     {
       "id": "1EXiSOFb0ZttX59mOkIgqR94txnM5Vqagu3-jad4SX-M",
-      "title": "Untitled spreadsheet",
+      "title": "FMLA Tracker",
       "path": "/My Drive/Untitled spreadsheet",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-05-26T14:37:02.336Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "hr_sensitive",
+      "content_status": "sensitive_metadata_only",
+      "privacy_classification": "sensitive personal/HR data; content intentionally not persisted"
     },
     {
       "id": "1G-ALvRsPP07wIjyiAU3K3MM5MFk258ps6caBaFyAqTQ",
@@ -1071,12 +1073,12 @@
     },
     {
       "id": "1UW_ezDNRfJvHS-hDTAtr8jZB_siUjKLAoK0XxJJRZsg",
-      "title": "Untitled spreadsheet",
+      "title": "Weapon tier balance template",
       "path": "/My Drive/Untitled spreadsheet",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-04-21T14:19:51.807Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "skyrim_balance",
+      "content_status": "empty/template"
     },
     {
       "id": "1pzYhmmfb5u_WbJau7-x0GU-DACfywdp4VkfuhGimVoY",
@@ -1090,12 +1092,12 @@
     },
     {
       "id": "1eKu3rdd5B0iL6Ij-oQVYKdvcawHZ5o-eVsoG1mG5ZTY",
-      "title": "Untitled spreadsheet",
+      "title": "Stardew Valley modlist and completion planner",
       "path": "/My Drive/Untitled spreadsheet",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-04-13T22:46:34.629Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "stardew_modding",
+      "content_status": "processed"
     },
     {
       "id": "1-Vu632bhoWGgXgioD02IiqO0-23PWAzIz5ZrimPf3sE",
@@ -1108,12 +1110,12 @@
     },
     {
       "id": "1HZLRXXEc7A2ma4STuD4B5JHeNsq3npIvubk3clstOMs",
-      "title": "Untitled spreadsheet",
+      "title": "Household furnishing and hobby equipment planner",
       "path": "/My Drive/Untitled spreadsheet",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-04-05T19:57:53.672Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "household_planning",
+      "content_status": "processed"
     },
     {
       "id": "1BpIOJXUV_Wzf9JuMSowWff8OLt_HjRun4fivftMcqHU",
@@ -1126,12 +1128,13 @@
     },
     {
       "id": "1Hj82YLwRgOufiRkJX_oGBSO3ZV3U9lgfWTlz2-Xrtqo",
-      "title": "Untitled spreadsheet",
+      "title": "Personal schedule fragment",
       "path": "/My Drive/Untitled spreadsheet",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-03-27T13:59:57.999Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "personal_sensitive",
+      "content_status": "sensitive_metadata_only",
+      "privacy_classification": "sensitive personal/HR data; content intentionally not persisted"
     },
     {
       "id": "1HX_YjXKyb3gAkEuzq_bfo7fSjtjuoKYtllJWHu7LsLc",
@@ -1198,12 +1201,13 @@
     },
     {
       "id": "1CNLUnglqMQlGMZQ4HMWFPhpJyEUmQsNo-5rE02m1B_4",
-      "title": "Untitled spreadsheet",
+      "title": "Personal household budget fragment",
       "path": "/My Drive/Untitled spreadsheet",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-02-26T03:35:26.926Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "personal_finance_sensitive",
+      "content_status": "sensitive_metadata_only",
+      "privacy_classification": "sensitive personal/HR data; content intentionally not persisted"
     },
     {
       "id": "1rpU4uDOQS_syvRqXm1QmSdXKd5C_yMTP522szUP4LR0",
@@ -1216,12 +1220,12 @@
     },
     {
       "id": "1ZHwTM9t4I04nWXpc15ey1Fj7dbBP5BKWgsMOtciVeYA",
-      "title": "Untitled spreadsheet",
+      "title": "Skyrim City Overhauls shortlist",
       "path": "/My Drive/Untitled spreadsheet",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-02-22T04:04:15.967Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "skyrim_modlist",
+      "content_status": "processed"
     },
     {
       "id": "18eC2ObIwY7JVIkQ0XkhG7DB77oC0elTZLlmFTWV-090",
@@ -4052,7 +4056,14 @@
         "Enemy Overhauls",
         "Personal Mods"
       ],
-      "note": "Treat as an evolving integration/compatibility workspace; individual listed mods are not necessarily permanently selected."
+      "note": "Treat as an evolving integration/compatibility workspace; individual listed mods are not necessarily permanently selected.",
+      "city_overhauls": {
+        "summary": "A City Overhauls shortlist organizes settlement coverage by Solitude, Windhelm, Riften, Markarth, Winterhold, Morthal, Dawnstar, Whiterun and Falskaar. Concrete candidates include Great City of Winterhold and a layered Riften setup using Guild City of Thieves, Ratway Passages, Southwoods, Northshore, Riften Docks Overhaul, Riften Bathhouse and Little Lanterns - Homes for Orphans.",
+        "source_ids": [
+          "1ZHwTM9t4I04nWXpc15ey1Fj7dbBP5BKWgsMOtciVeYA"
+        ],
+        "provenance_note": "Third-party mod selection/reference; not authored lore."
+      }
     },
     "weapons-rebalance": {
       "status": "active_or_recent",
@@ -4694,7 +4705,17 @@
       "relationships": [
         "meal-planning",
         "garden-master"
-      ]
+      ],
+      "furnishing_plan": {
+        "summary": "A household setup sheet tracks desired quantities/items by room, including bedroom furniture, bookshelves, TV/wall mount, desk chair, living-room gaming table, freezer, bathroom basics, carpet cleaner and cat furniture. A Hobbyist tab separately plans fabrication equipment such as a UV printer, resin printer, curing/washing stations and rotary tools, connecting household planning to the custom-minifigure/maker interest.",
+        "source_ids": [
+          "1HZLRXXEc7A2ma4STuD4B5JHeNsq3npIvubk3clstOMs"
+        ],
+        "relationships": [
+          "Essentials MASTER",
+          "custom LEGO/minifigure fabrication"
+        ]
+      }
     },
     "garden-master": {
       "status": "historical planning project",
@@ -5172,6 +5193,17 @@
           "1XghIfDzHcUwSezzHo5SYvXhAkhC2W-yp0HaBpojSsPk"
         ],
         "status": "concept/provisional"
+      },
+      "dialogue_assets": {
+        "summary": "Two 2026 sheets preserve implemented/drafted dialogue assets. Named survivors Lynoit, Tilde and Vori recognize the player after the Hall's destruction and can appear with the Dawnguard, explicitly supporting continuity from the Vigil into Dawnguard. Generic lines span welcoming Stendarr faith dialogue, suspicion of Daedric corruption, warnings/sanctuary offers and a harsher post-Hall tone centered on grief, vengeance and continuing the Vigil without its home.",
+        "source_ids": [
+          "10ykODqhL3hiDSbbYPJ8cZ-_8IbpxhAniud0V0Sdsj5A",
+          "1CXH8Z2AA3IGRDXpahSF9emCTL6CmcuUP7OBS5k1dwII"
+        ],
+        "relationships": [
+          "Stendarr's Beacon encounter continuity",
+          "Merciful / Vigilant Overhaul"
+        ]
       }
     },
     "skyrim-quest-writing": {
@@ -5307,6 +5339,45 @@
         "Personal Skyrim Overhaul / Old Way",
         "alchemy/survival systems"
       ]
+    },
+    "skyrim-religion-ecosystem": {
+      "status": "authored Skyrim mod ecosystem / planning matrix",
+      "domain": "Skyrim religion/faction mods",
+      "summary": "A 2026 matrix explicitly groups eight priesthood/cult projects: Chantry/Akatosh, Consecration/Arkay, Devotion/Dibella, Knight Mentor/Julianos, Eldergleam/Kynareth, Benevolence/Mara, Merciful/Stendarr and Ysmir/Talos. The Akatosh branch has a thematic/mechanical backlog including time spells, Golden Dragon, dragons/Dragon Authority, invincibility, Alduin, Dragon Breaks, Amulet of Kings, Sublime Brazier, mantling/apotheosis, Martin, Auri-El, Alkosh, Satakal and Highmane. This establishes these projects as a coordinated Divine-priesthood ecosystem rather than isolated ideas.",
+      "source_ids": [
+        "1eccTyzZghEfHVInIT3T-ivEC2zvlzrLimO_c1oihnGU"
+      ],
+      "relationships": [
+        "Chantry of Akatosh",
+        "Consecration",
+        "Knight Mentor",
+        "Merciful",
+        "Apostate/deity systems"
+      ]
+    },
+    "skyrim-daedric-assets": {
+      "status": "active/planned Skyrim asset and relic catalogue",
+      "domain": "Skyrim mod asset research",
+      "summary": "A Daedric Assets spreadsheet inventories artifacts across TESV, Morrowind, Daggerfall, ESO and Creation Club by Prince, source mod/asset provenance, permissions and editor IDs where available. It includes vanilla relics plus candidate imports/recreations such as Moonlight Blade, Fearstruck, Walking Staff, Feyfolken, Fulcrum Obscura, Hunter's Amulets, Ithelia relics, Scourge, Daedric Crescent, Obsidian Husk, Meridia artifacts, Crown of Bones, Peryite relics and more. Some rows also attach conceptual effects such as Betrayal, Eldritch Corruption, Whispers, Radiance, Hunger, Darkness, Infection and Revelry.",
+      "source_ids": [
+        "11DkryUUwhw2D2_xzqhB48jRf8AwQMnLPJSc1c5Upn6A"
+      ],
+      "relationships": [
+        "Apostate",
+        "Knights of Oblivion",
+        "Scribe's Legacy / Feyfolken",
+        "artifact/relic rebalance work"
+      ],
+      "authority_note": "Asset/research backlog; inclusion does not mean every artifact is implemented."
+    },
+    "stardew-modlist": {
+      "status": "active/historical personal modlist planning",
+      "domain": "Stardew Valley modding/completion",
+      "summary": "A 2026 Stardew Valley planning workbook collects a large Nexus mod backlog and organizes expansion/NPC/collection targets. Named expansion ecosystem entries include East Scarp, Stardew Valley Expanded, Castle Village, Ridgeside Village, Visit Mt. Vapius, Sunberry Village, Swords and Sorcery and Alchemistry, with associated NPC additions. Separate tabs track NPCs, fish and collection categories such as fish, insects, birds and books, indicating a completion-oriented modded playthrough plan rather than an authored mod.",
+      "source_ids": [
+        "1eKu3rdd5B0iL6Ij-oQVYKdvcawHZ5o-eVsoG1mG5ZTY"
+      ],
+      "provenance_note": "Personal modlist/reference planning only; third-party mod lore/mechanics must not influence authored projects."
     }
   },
   "discovered_project_folders": [
