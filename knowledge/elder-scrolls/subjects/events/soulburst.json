@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "tes:soulburst",
+  "library_id": "elder-scrolls",
+  "name": "Soulburst",
+  "entity_type": "event",
+  "category": "events",
+  "canonical_path": "knowledge/elder-scrolls/subjects/events/soulburst.json",
+  "continuity_model": "claims_and_evidence_scoped",
+  "sources": [
+    {
+      "source_id": "uesp:soulburst",
+      "url": "https://en.uesp.net/wiki/Lore:Soulburst",
+      "source_class": "secondary_reference",
+      "status": "queued"
+    }
+  ],
+  "claims": [],
+  "relationships": [],
+  "notes": "Subject shell created during ingestion; claims/evidence populate only after provenance-backed extraction."
+}
