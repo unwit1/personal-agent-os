@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-18",
+  "purpose": "Durable, non-secret personal context for selective Agent OS retrieval. Do not preload wholesale.",
+  "goals": {
+    "one_to_three_years": [
+      "Remain at the current job for roughly two years before pursuing a better job.",
+      "Get out of debt.",
+      "Permanently move in with Olivia.",
+      "Save for a PC and resume/enjoy hobbies."
+    ]
+  },
+  "assistance_priorities": [
+    "Remember commitments and information that may otherwise be forgotten.",
+    "Help with basic tasks and chores.",
+    "Stay on top of communications.",
+    "Prioritize the most important current work.",
+    "Maintain continuity across frequent project switching."
+  ],
+  "work_context": {
+    "role": "HR manager at RTEC",
+    "responsibilities": ["Interview applicants","Record and process paperwork","File records","Answer employee and applicant questions"],
+    "automation_goal": "Automate paperwork-heavy workflows as far as practical while leaving consequential or final actions for approval.",
+    "tools": ["Outlook via EarthLink","ADP ATS/recruiting","Microsoft Office","Excel","Google Sheets","desktop files","Google Drive"]
+  },
+  "current_projects_and_interests": [
+    "Personal Agent OS",
+    "HR workflow automation",
+    "Skyrim mod projects",
+    "Dream Eater",
+    "Debt reduction",
+    "Saving for a PC"
+  ],
+  "information_sources_to_eventually_integrate": [
+    "Texts","Discord","Outlook","iCloud","Excel","Google Sheets","desktop files","Google Drive"
+  ],
+  "behavioral_workflow_notes": {
+    "commitments": "Statements such as needing to call someone should be treated as unresolved commitments and resurfaced until resolved.",
+    "project_continuity": "Preserve stopping points, decisions, next actions, and relevant context so projects are easy to resume.",
+    "proactivity": "Investigate available integrations and perform permitted preparation; request approval for consequential actions."
+  },
+  "household_planning": {
+    "meal_planning_scope": "Plan groceries and meals for two people: the user and Olivia.",
+    "goals": ["Reduce grocery stress and cost","Find meals both people will eat","Avoid overcooking and spoiled leftovers"],
+    "housing_costs": "Treat housing assumptions as variable because the arrangement may change."
+  },
+  "financial_assistant_goals": [
+    "Eventually integrate financial accounts and credit-score information.",
+    "Track bills and spending.",
+    "Help prevent late or procrastinated bill payments.",
+    "Warn when discretionary or hobby spending threatens grocery or bill buffers.",
+    "Support controlled bill-payment automation with approval and safety controls."
+  ],
+  "leisure_interests": [
+    "Skyrim mods","Stardew Valley mods","Potential custom LEGO business","Third-party and bootleg minifigure releases","Time with Olivia"
+  ],
+  "privacy": {
+    "exclude_from_git": ["credentials","raw HR documents","employee/applicant PII","raw OCR caches","other unnecessary sensitive source data"],
+    "principle": "Store sanitized durable context, not sensitive source material."
+  },
+  "provenance": [{"source":"direct_user_conversations","captured_at":"2026-09-18","status":"user_stated"}]
+}
