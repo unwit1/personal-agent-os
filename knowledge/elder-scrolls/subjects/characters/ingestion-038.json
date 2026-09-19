@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-038-yokuda-redguard-sword-singers",
+  "subjects": [
+    {
+      "id": "tes:frandar-hunding",
+      "name": "Frandar Hunding",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/frandar-hunding.json",
+      "source": {
+        "id": "uesp:frandar-hunding",
+        "url": "https://en.uesp.net/wiki/Lore:Frandar_Hunding",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:makela-leki",
+      "name": "Makela Leki",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/makela-leki.json",
+      "source": {
+        "id": "uesp:makela-leki",
+        "url": "https://en.uesp.net/wiki/Lore:Makela_Leki",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:divad-hunding",
+      "name": "Divad Hunding",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/divad-hunding.json",
+      "source": {
+        "id": "uesp:divad-hunding",
+        "url": "https://en.uesp.net/wiki/Lore:Divad_Hunding",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:nafaalilargus",
+      "name": "Nafaalilargus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/nafaalilargus.json",
+      "source": {
+        "id": "uesp:nafaalilargus",
+        "url": "https://en.uesp.net/wiki/Lore:Nafaalilargus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:cyrus",
+      "name": "Cyrus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/cyrus.json",
+      "source": {
+        "id": "uesp:cyrus",
+        "url": "https://en.uesp.net/wiki/Lore:Cyrus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:a-tor",
+      "name": "Prince A'tor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/a-tor.json",
+      "source": {
+        "id": "uesp:a-tor",
+        "url": "https://en.uesp.net/wiki/Lore:Prince_A%27tor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:is-zara",
+      "name": "Iszara",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/is-zara.json",
+      "source": {
+        "id": "uesp:is-zara",
+        "url": "https://en.uesp.net/wiki/Lore:Iszara",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Yokuda's destruction has competing explanations; preserve natural, political, magical and sword-related accounts separately",
+    "Pankratosword claims require especially strong provenance and must not be generalized from later fan interpretation",
+    "Sword-singer and Ansei feats should distinguish instructional tradition, heroic literature and directly evidenced capability",
+    "Crowns and Forebears are historical/political traditions whose positions vary by era; do not make them timeless monoliths",
+    "Yokudan theology such as the Walkabout and Far Shores should retain source/cultural framing rather than be flattened into universal cosmology",
+    "Cross-link existing Yokuda, Redguard, Hammerfell, Frandar Hunding, Makela Leki, Sword-singers, Ansei, Shehai, Crowns, Forebears and Stros M'Kai records"
+  ]
+}
