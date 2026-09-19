@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-025-apocrypha-fandom-drift",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:chim-definition-drift",
+      "title": "CHIM definition drift and citation audit",
+      "document_kind": "community_drift_audit",
+      "status": "queued",
+      "subjects": [
+        "CHIM",
+        "Vivec",
+        "Talos",
+        "Godhead",
+        "community synthesis"
+      ]
+    },
+    {
+      "id": "til:tower-definition-drift",
+      "title": "Tower theory definition drift and citation audit",
+      "document_kind": "community_drift_audit",
+      "status": "queued",
+      "subjects": [
+        "Towers",
+        "Stones",
+        "Convention",
+        "community synthesis"
+      ]
+    },
+    {
+      "id": "til:amaranth-definition-drift",
+      "title": "Amaranth definition drift and citation audit",
+      "document_kind": "community_drift_audit",
+      "status": "queued",
+      "subjects": [
+        "Amaranth",
+        "Loveletter",
+        "C0DA",
+        "community synthesis"
+      ]
+    },
+    {
+      "id": "til:kalpa-definition-drift",
+      "title": "Kalpa definition drift and citation audit",
+      "document_kind": "community_drift_audit",
+      "status": "queued",
+      "subjects": [
+        "kalpa",
+        "Alduin",
+        "world cycles",
+        "community synthesis"
+      ]
+    },
+    {
+      "id": "til:mantling-definition-drift",
+      "title": "Mantling definition drift and citation audit",
+      "document_kind": "community_drift_audit",
+      "status": "queued",
+      "subjects": [
+        "mantling",
+        "identity",
+        "apotheosis",
+        "community synthesis"
+      ]
+    },
+    {
+      "id": "til:enantiomorph-definition-drift",
+      "title": "Enantiomorph definition drift and citation audit",
+      "document_kind": "community_drift_audit",
+      "status": "queued",
+      "subjects": [
+        "enantiomorph",
+        "Talos",
+        "Convention",
+        "community synthesis"
+      ]
+    },
+    {
+      "id": "til:zero-sum-definition-drift",
+      "title": "Zero-sum definition drift and citation audit",
+      "document_kind": "community_drift_audit",
+      "status": "queued",
+      "subjects": [
+        "zero-sum",
+        "CHIM",
+        "identity",
+        "community synthesis"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Begin with attributable source passages before recording a community definition.",
+    "Store common fan explanations as community claims only when useful for comparison.",
+    "Flag when a familiar definition combines multiple texts, later commentary, and inference.",
+    "Do not mark a community explanation false merely because it is synthetic; grade which components are directly sourced.",
+    "Expose the shortest provenance chain needed to explain where each component came from."
+  ]
+}
