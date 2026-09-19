@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "peoples",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-032-alessian-ayleid-pelinal",
+  "subjects": [
+    {
+      "id": "tes:ayleid",
+      "name": "Ayleids",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/ayleid.json",
+      "source": {
+        "id": "uesp:ayleid",
+        "url": "https://en.uesp.net/wiki/Lore:Ayleids",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:nedic-peoples",
+      "name": "Nedes",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/nedic-peoples.json",
+      "source": {
+        "id": "uesp:nedic-peoples",
+        "url": "https://en.uesp.net/wiki/Lore:Nedes",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:minotaur",
+      "name": "Minotaurs",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/minotaur.json",
+      "source": {
+        "id": "uesp:minotaur",
+        "url": "https://en.uesp.net/wiki/Lore:Minotaurs",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:alessian-cyro-nords",
+      "name": "Cyro-Nords",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/alessian-cyro-nords.json",
+      "source": {
+        "id": "uesp:alessian-cyro-nords",
+        "url": "https://en.uesp.net/wiki/Lore:Cyro-Nords",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "The Song of Pelinal is an in-universe literary/historical source; preserve narrator, edition and mythic embellishment uncertainty",
+    "Ayleid culture must not be flattened into a single political or religious bloc; preserve city-state and cult differences",
+    "Claims about Pelinal's identity, madness, divinity or time-displacement remain source-specific interpretations unless directly evidenced",
+    "Middle Dawn chronology is inherently disrupted; preserve conflicting durations, memories and accounts rather than forcing a normal timeline",
+    "Alessian Order doctrine must be separated from earlier Alessian rebellion and later interpretations of Alessia",
+    "Cross-link existing Alessia, Pelinal, Morihaus, Umaril, Ayleid, White-Gold Tower, Amulet of Kings, Chim-el Adabal, Middle Dawn and Knights of the Nine records"
+  ]
+}
