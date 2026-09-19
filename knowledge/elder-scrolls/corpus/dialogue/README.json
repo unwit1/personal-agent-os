@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "purpose": "Locally mirror and index game dialogue transcripts sourced from The Imperial Library for evidence-backed lore retrieval.",
+  "storage_policy": {
+    "git": "manifests, schemas, provenance, crawl state, hashes and extracted metadata",
+    "local": "full transcript bodies and derived search indexes"
+  },
+  "source": {
+    "name": "The Imperial Library",
+    "base_url": "https://www.imperial-library.info/"
+  },
+  "record_fields": [
+    "game",
+    "title",
+    "source_url",
+    "speaker",
+    "player_prompt",
+    "quest_or_scene",
+    "sequence",
+    "text",
+    "source_kind",
+    "retrieved_at",
+    "content_hash"
+  ],
+  "retrieval_targets": [
+    "speaker",
+    "game",
+    "quest_or_scene",
+    "subject",
+    "exact phrase",
+    "claim evidence"
+  ],
+  "rules": [
+    "Preserve dialogue wording locally without paraphrasing.",
+    "Keep player prompts paired with responses where present.",
+    "Preserve scene/stage order.",
+    "Do not treat every character statement as objective truth; speaker provenance is mandatory.",
+    "Prefer transcript pages over lore summaries.",
+    "Cross-link later direct game-data extraction as a stronger witness without deleting the TIL transcription witness."
+  ]
+}
