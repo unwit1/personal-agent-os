@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-026-elsweyr-khajiit-dragons",
+  "subjects": [
+    {
+      "id": "tes:wrathstone",
+      "name": "Wrathstone",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/wrathstone.json",
+      "source": {
+        "id": "uesp:wrathstone",
+        "url": "https://en.uesp.net/wiki/Lore:Wrathstone",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragonhorn",
+      "name": "Dragonhorn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/dragonhorn.json",
+      "source": {
+        "id": "uesp:dragonhorn",
+        "url": "https://en.uesp.net/wiki/Lore:Dragonhorn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mask-alkosh",
+      "name": "Mask of Alkosh",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/mask-alkosh.json",
+      "source": {
+        "id": "uesp:mask-alkosh",
+        "url": "https://en.uesp.net/wiki/Lore:Mask_of_Alkosh",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Khajiiti origin stories and lunar theology remain attributed traditions unless independently evidenced",
+    "Furstock descriptions must retain source/era because terminology and presentation vary across games",
+    "Khunzar-ri legends should separate legendary narrative from observed ESO-era evidence",
+    "Dragon claims should distinguish individual testimony, historical record and directly observed quest events",
+    "Cross-link existing Khajiit, Elsweyr, Alkosh, Azurah, Lunar Lattice, Mane, Dro-m'Athra, Sai Sahan and Abnur Tharn subjects",
+    "Do not collapse Anequina/Pellitine geographic, political and historical meanings into one undifferentiated record"
+  ]
+}
