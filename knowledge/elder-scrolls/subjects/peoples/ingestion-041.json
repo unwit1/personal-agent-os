@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "peoples",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-041-orsimer-orsinium-malacath",
+  "subjects": [
+    {
+      "id": "tes:orsimer",
+      "name": "Orsimer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/orsimer.json",
+      "source": {
+        "id": "uesp:orsimer",
+        "url": "https://en.uesp.net/wiki/Lore:Orsimer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:goblins",
+      "name": "Goblins",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/goblins.json",
+      "source": {
+        "id": "uesp:goblins",
+        "url": "https://en.uesp.net/wiki/Lore:Goblins",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ogres",
+      "name": "Ogres",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/ogres.json",
+      "source": {
+        "id": "uesp:ogres",
+        "url": "https://en.uesp.net/wiki/Lore:Ogres",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Orsimer origin accounts involving Trinimac, Boethiah and Malacath remain religious/mythic traditions with source-specific provenance",
+    "Do not treat Orc stronghold customs as universal to every Orsimer community, city or historical period",
+    "Different incarnations of Orsinium must be modeled as historically distinct settlements/polities linked by name and tradition",
+    "The Code of Malacath should distinguish prescriptive religious/legal ideals from observed practice",
+    "Outsider descriptions of Orcs retain authorial bias metadata and must not override Orc self-description",
+    "Cross-link existing Orsimer, Orsinium, Wrothgar, Malacath, Trinimac, Boethiah, First Orsinium, Ranser's War and Gortwog records"
+  ]
+}
