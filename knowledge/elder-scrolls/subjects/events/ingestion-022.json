@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-022-oblivion-crisis-shivering-isles",
+  "subjects": [
+    {
+      "id": "tes:oblivion-crisis",
+      "name": "Oblivion Crisis",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/oblivion-crisis.json",
+      "source": {
+        "id": "uesp:oblivion-crisis",
+        "url": "https://en.uesp.net/wiki/Lore:Oblivion_Crisis",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:kvatch-destruction",
+      "name": "Destruction of Kvatch",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/kvatch-destruction.json",
+      "source": {
+        "id": "uesp:kvatch-destruction",
+        "url": "https://en.uesp.net/wiki/Lore:Destruction_of_Kvatch",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:great-gate",
+      "name": "Great Gate",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/great-gate.json",
+      "source": {
+        "id": "uesp:great-gate",
+        "url": "https://en.uesp.net/wiki/Lore:Great_Gate",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:battle-imperial-city",
+      "name": "Battle of the Imperial City",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/battle-imperial-city.json",
+      "source": {
+        "id": "uesp:battle-imperial-city",
+        "url": "https://en.uesp.net/wiki/Lore:Battle_of_the_Imperial_City",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:greymarch",
+      "name": "Greymarch",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/greymarch.json",
+      "source": {
+        "id": "uesp:greymarch",
+        "url": "https://en.uesp.net/wiki/Lore:Greymarch",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:umaril-return",
+      "name": "Return of Umaril",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/umaril-return.json",
+      "source": {
+        "id": "uesp:umaril-return",
+        "url": "https://en.uesp.net/wiki/Lore:Return_of_Umaril",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Hero of Kvatch identity and optional guild/quest roles remain player-dependent rather than fixed biography",
+    "Martin's sacrifice and the end of the Septim line should prefer direct Oblivion quest/event evidence",
+    "Mythic Dawn cosmology remains attributed to Mankar Camoran/cult texts",
+    "Mantling and the Hero/Sheogorath relationship must preserve explicit evidence versus later interpretation",
+    "Shivering Isles quest outcomes and Greymarch claims should distinguish observed events from metaphysical explanation",
+    "Cross-link existing Mehrunes Dagon, Sheogorath, Jyggalag, Martin, Mankar, Deadlands, Dragonfires and Liminal Barriers records"
+  ]
+}
