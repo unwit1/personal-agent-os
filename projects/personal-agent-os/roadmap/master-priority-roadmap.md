@@ -212,6 +212,65 @@ The staged orchestrator in P0.1 should use this policy when selecting how each s
 Success signal:
 - repeated structured work increasingly bypasses LLM calls.
 
+
+### P0.6 — Skill/Economy Regression Test Suite
+
+Build an automated test/evaluation harness that proves the usage-saving skill layer actually saves context/usage and does not create its own bloat.
+
+Test four dimensions:
+
+1. **Skill-selection accuracy**
+   - maintain a fixed corpus of representative real task types;
+   - assert which skills should match and which should remain dormant;
+   - include SIMPLE, PLANNED, and STAGED cases;
+   - test project-specific tasks such as scanner debugging, Drive crawling, iCloud import, artifact/ZIP generation, focused code fixes, and research-heavy work;
+   - add a minimum relevance threshold so weak lexical overlap can produce "no sufficiently relevant skill" instead of forcing irrelevant matches.
+
+2. **Context-bloat regression**
+   - measure compiled packet characters/estimated tokens before and after skill additions;
+   - assert full skill bodies remain unloaded by default;
+   - assert unrelated skills do not materially increase task context;
+   - stress-test discovery by adding many synthetic unrelated skills and confirming the correct skills still win;
+   - enforce hard packet/token budgets and fail tests when regressions exceed configured thresholds.
+
+3. **Workflow-behavior evaluations**
+   - verify complexity triage chooses SIMPLE, PLANNED, or STAGED appropriately;
+   - verify artifact reuse, targeted repository search, batching, cheap-route selection, validation/escalation, checkpointing, and next-prompt/model handoff occur only when appropriate;
+   - verify successful cheap stages are not rerun with stronger models without a validation reason;
+   - verify failed attempts preserve successful partial work and escalate only unresolved portions.
+
+4. **A/B economy benchmarks**
+   - run representative tasks through a baseline path and the Agent-OS economy/staged path;
+   - compare estimated/actual context tokens when available, model-call count, highest capability class used, repeated file reads/OCR, retries, escalations, wall-clock duration, and validation outcome;
+   - require quality/validation parity or improvement before treating usage reduction as a success;
+   - permit the benchmark to conclude that a stronger/more expensive route was justified.
+
+Initial hard safeguards:
+- normal context compilation loads skill metadata only unless a skill body is explicitly required;
+- no more than the configured small number of skill matches enter a context packet;
+- adding unrelated skills must not materially inflate compiled context;
+- packet size must remain within the requested token budget;
+- a weak match should be omitted when it falls below the configured relevance threshold;
+- regression fixtures must include at least one adversarial "many unrelated skills" case.
+
+Implementation guidance:
+- keep benchmark fixtures synthetic or privacy-safe;
+- record deterministic measurements locally/CI where possible;
+- use existing `context_measurement` output as the starting metric;
+- extend tests around `skills.match`, `compile_context`, routing/triage, and staged handoff behavior rather than creating a disconnected test framework;
+- add a compact economy report suitable for comparing before/after changes to skill and routing logic.
+
+Acceptance criteria:
+- a new skill cannot be considered safely integrated until selection and bloat tests pass;
+- synthetic skill-count growth does not materially increase unrelated task context;
+- representative tasks select expected skills and omit irrelevant ones;
+- A/B benchmarks can demonstrate whether staged/skill routing reduces work while preserving validator/test success;
+- CI/local validation fails on configured economy regressions.
+
+Success signal:
+- Agent OS can prove that adding more skills improves reuse/routing without steadily increasing prompt size or unnecessary model work.
+
+
 ---
 
 ## P1 — Usage telemetry and adaptive routing
@@ -414,17 +473,18 @@ Unless an urgent correctness/privacy bug or explicitly promoted user request int
 6. dependency-aware cache invalidation and no-cache regression tests;
 7. generalized checkpoint/deduplication utilities for imports/crawls, including iCloud backfill;
 8. deterministic/cache/skill-first execution dispatcher used by the staged orchestrator;
-9. local privacy-safe usage telemetry and usage report;
-10. adaptive routing + validator-driven escalation;
-11. automation miner;
-12. skill miner + replay/evaluation;
-13. Executive Event Bus / schemas / Next Action Engine;
-14. capture + Rescue Mode;
-15. communication/calendar intelligence;
-16. proactivity/voice;
-17. controlled autonomy;
-18. reusable Knowledge Library / Elder Scrolls implementation;
-19. mature Lorekeeper/live-writing systems.
+9. skill/economy regression suite: relevance threshold, selection corpus, bloat stress tests, workflow evals, and A/B economy benchmarks;
+10. local privacy-safe usage telemetry and usage report;
+11. adaptive routing + validator-driven escalation;
+12. automation miner;
+13. skill miner + replay/evaluation;
+14. Executive Event Bus / schemas / Next Action Engine;
+15. capture + Rescue Mode;
+16. communication/calendar intelligence;
+17. proactivity/voice;
+18. controlled autonomy;
+19. reusable Knowledge Library / Elder Scrolls implementation;
+20. mature Lorekeeper/live-writing systems.
 
 ## Gate for adding new features
 
