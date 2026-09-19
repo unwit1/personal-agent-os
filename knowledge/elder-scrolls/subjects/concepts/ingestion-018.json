@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-018-dwemer-aetherium-blackreach",
+  "subjects": [
+    {
+      "id": "tes:aetherium",
+      "name": "Aetherium",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/aetherium.json",
+      "source": {
+        "id": "uesp:aetherium",
+        "url": "https://en.uesp.net/wiki/Lore:Aetherium",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dwemer-animunculi",
+      "name": "Dwemer Animunculi",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dwemer-animunculi.json",
+      "source": {
+        "id": "uesp:dwemer-animunculi",
+        "url": "https://en.uesp.net/wiki/Lore:Dwemer_Animunculi",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:tonal-architecture",
+      "name": "Tonal Architecture",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/tonal-architecture.json",
+      "source": {
+        "id": "uesp:tonal-architecture",
+        "url": "https://en.uesp.net/wiki/Lore:Tonal_Architecture",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dwemer-disappearance",
+      "name": "Disappearance of the Dwemer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dwemer-disappearance.json",
+      "source": {
+        "id": "uesp:dwemer-disappearance",
+        "url": "https://en.uesp.net/wiki/Lore:Disappearance_of_the_Dwemer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:falmer-dwemer",
+      "name": "Falmer-Dwemer Relationship",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/falmer-dwemer.json",
+      "source": {
+        "id": "uesp:falmer-dwemer",
+        "url": "https://en.uesp.net/wiki/Lore:Falmer-Dwemer_Relationship",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dwemer-language",
+      "name": "Dwemer Language",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dwemer-language.json",
+      "source": {
+        "id": "uesp:dwemer-language",
+        "url": "https://en.uesp.net/wiki/Lore:Dwemer_Language",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:zero-sum",
+      "name": "Zero-Sum",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/zero-sum.json",
+      "source": {
+        "id": "uesp:zero-sum",
+        "url": "https://en.uesp.net/wiki/Lore:Zero-Sum",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Treat Dwemer disappearance explanations as competing hypotheses unless primary evidence establishes a narrower claim",
+    "Separate observed Dwemer technology from later scholarly theories about its operating principles",
+    "In-universe scholarly texts retain author, date and reliability metadata",
+    "Do not infer a single unified Dwemer political culture across every city-state and era",
+    "Falmer-Dwemer relations must distinguish recorded agreements, later testimony and archaeological inference",
+    "Claims involving Numidium, Heart of Lorkhan and Kagrenac should cross-link existing subjects rather than duplicate them"
+  ]
+}
