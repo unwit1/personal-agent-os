@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-035-chimer-first-council-red-mountain",
+  "subjects": [
+    {
+      "id": "tes:good-daedra",
+      "name": "Good Daedra",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/good-daedra.json",
+      "source": {
+        "id": "uesp:good-daedra",
+        "url": "https://en.uesp.net/wiki/Lore:Good_Daedra",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:anticipations",
+      "name": "Anticipations",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/anticipations.json",
+      "source": {
+        "id": "uesp:anticipations",
+        "url": "https://en.uesp.net/wiki/Lore:Anticipations",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:tribunal-apotheosis",
+      "name": "Tribunal Apotheosis",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/tribunal-apotheosis.json",
+      "source": {
+        "id": "uesp:tribunal-apotheosis",
+        "url": "https://en.uesp.net/wiki/Lore:Tribunal_Apotheosis",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:chimer-dunmer-transition",
+      "name": "Chimer-Dunmer Transition",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/chimer-dunmer-transition.json",
+      "source": {
+        "id": "uesp:chimer-dunmer-transition",
+        "url": "https://en.uesp.net/wiki/Lore:Chimer-Dunmer_Transition",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:first-council",
+      "name": "First Council",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/first-council.json",
+      "source": {
+        "id": "uesp:first-council",
+        "url": "https://en.uesp.net/wiki/Lore:First_Council",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:nerevar-oath",
+      "name": "Nerevar's Oath",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/nerevar-oath.json",
+      "source": {
+        "id": "uesp:nerevar-oath",
+        "url": "https://en.uesp.net/wiki/Lore:Nerevar%27s_Oath",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Battle of Red Mountain accounts are mutually conflicting historical traditions; preserve each account and its provenance rather than synthesizing an unsupported single sequence",
+    "Tribunal, Ashlander, Nordic, Dwemer-related and later scholarly accounts must retain factional/source perspective",
+    "Claims about Nerevar's death, Tribunal oath-breaking, Kagrenac's actions and the Chimer-to-Dunmer transformation remain evidence-linked and contestable",
+    "The 36 Lessons are primary evidence for Vivec's authored religious narrative, not automatic literal history",
+    "Distinguish the historical First Council from later uses of the term and from gameplay/faction abstractions",
+    "Cross-link existing Nerevar, Kagrenac, Tribunal, Red Mountain, Heart of Lorkhan, Tools of Kagrenac, Chimer, Dunmer and Dwemer records"
+  ]
+}
