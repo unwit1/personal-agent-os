@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-032-alessian-ayleid-pelinal",
+  "subjects": [
+    {
+      "id": "tes:song-pelinal",
+      "name": "The Song of Pelinal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/song-pelinal.json",
+      "source": {
+        "id": "uesp:song-pelinal",
+        "url": "https://en.uesp.net/wiki/Lore:The_Song_of_Pelinal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:adabal-a",
+      "name": "The Adabal-a",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/adabal-a.json",
+      "source": {
+        "id": "uesp:adabal-a",
+        "url": "https://en.uesp.net/wiki/Lore:The_Adabal-a",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:shezzar-song",
+      "name": "Shezarr and the Divines",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/shezzar-song.json",
+      "source": {
+        "id": "uesp:shezzar-song",
+        "url": "https://en.uesp.net/wiki/Lore:Shezarr_and_the_Divines",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:where-were-you-dragon-broke",
+      "name": "Where Were You When the Dragon Broke?",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/where-were-you-dragon-broke.json",
+      "source": {
+        "id": "uesp:where-were-you-dragon-broke",
+        "url": "https://en.uesp.net/wiki/Lore:Where_Were_You_When_the_Dragon_Broke%3F",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "The Song of Pelinal is an in-universe literary/historical source; preserve narrator, edition and mythic embellishment uncertainty",
+    "Ayleid culture must not be flattened into a single political or religious bloc; preserve city-state and cult differences",
+    "Claims about Pelinal's identity, madness, divinity or time-displacement remain source-specific interpretations unless directly evidenced",
+    "Middle Dawn chronology is inherently disrupted; preserve conflicting durations, memories and accounts rather than forcing a normal timeline",
+    "Alessian Order doctrine must be separated from earlier Alessian rebellion and later interpretations of Alessia",
+    "Cross-link existing Alessia, Pelinal, Morihaus, Umaril, Ayleid, White-Gold Tower, Amulet of Kings, Chim-el Adabal, Middle Dawn and Knights of the Nine records"
+  ]
+}
