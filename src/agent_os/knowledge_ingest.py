@@ -10,7 +10,7 @@ from typing import Iterable
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
-from .knowledge import upsert_entity, upsert_source
+from .knowledge import upsert_entity, upsert_evidence_chunk, upsert_source
 from .paths import INDEX_DIR, ROOT
 
 UESP_HOSTS = {"en.uesp.net", "www.uesp.net"}
