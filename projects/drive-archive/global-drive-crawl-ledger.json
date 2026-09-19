@@ -15,7 +15,7 @@
     "first_level_files_indexed": 384,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue project/folder orphan reconciliation. Search inside/around Blades of Pergrande and UAS for remaining support docs (NPCs, races, items, magic, classes, GM tools) and inspect only IDs not already covered. Then broaden generic legacy folder/title searches. Preserve conflicting Pergrande planning as evolution, and enforce Silas-over-Oliver Dream Eater canon."
+    "next_action": "Continue UAS/Pergrande folder reconciliation, especially UAS GM Tools, party sheet, UAS 2e support tabs, Fairy Tail Magic, and any project-specific docs not yet depth-processed. Then run broader orphan searches. Treat Fairy Tail-derived races/quests/spells as adaptation/reference, not reusable original lore. Dream Eater Magic System loredoc is a high-value dedicated lore source but still subordinate to explicit user canon/newer manuscript."
   },
   "top_level_folders": [
     {
@@ -1891,8 +1891,8 @@
       "path": "/My Drive/Universal Anime System (UAS)/UAS - Origins",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2024-06-19T02:01:52.985Z",
-      "category": "ttrpg_game_design",
-      "content_status": "queued"
+      "category": "uas_system",
+      "content_status": "processed"
     },
     {
       "id": "1wEfVnC2KCxZLSlOJfu0vCEINY4YYDBQ24NESwp6CCpI",
@@ -1900,7 +1900,7 @@
       "path": "/My Drive/Universal Anime System (UAS)/NPC Generator",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2024-01-16T01:19:08.675Z",
-      "category": "universal_anime_system",
+      "category": "uas_tooling",
       "content_status": "processed"
     },
     {
@@ -2126,7 +2126,7 @@
       "path": "/My Drive/dreameater/lore/Loredoc - Magic System Explained",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2024-06-19T02:10:11.165Z",
-      "category": "guardian_cycle_magic",
+      "category": "dream_eater",
       "content_status": "processed"
     },
     {
@@ -2304,7 +2304,7 @@
     {
       "id": "1Bf-9hWYXXkxSmztix4nwXWMYc3OTfXSw2OWvVnaO7u0",
       "title": "GM - Quest Tracking",
-      "category": "blades_of_pergrande",
+      "category": "uas_tooling",
       "content_status": "processed"
     },
     {
@@ -3685,6 +3685,31 @@
           "1bE0Hv_IZ0dlwtWELqAiky1_IhKaWykKDdm3LurEJ8LY"
         ],
         "status": "historical move library"
+      },
+      "npc_generator": {
+        "summary": "The NPC Generator is a substantial spreadsheet tool rather than a static character sheet. It combines lore import, combat styles, move/feat/weapon generation, Origin data and system scaling. NPC records can be manually or automatically generated from name/alias/title/faction/level/personality, then assigned classes, powers, progression totals, stat distributions and alternate aspects. Embedded prompt fields show an intended AI-assisted pipeline for choosing combat classes and generating abilities/backstory from structured lore/personality data.",
+        "source_ids": [
+          "1wEfVnC2KCxZLSlOJfu0vCEINY4YYDBQ24NESwp6CCpI"
+        ],
+        "relationships": [
+          "UAS GM Tools",
+          "UAS 2e",
+          "Blades of Pergrande",
+          "early agent-assisted procedural content generation"
+        ]
+      },
+      "system_scaling_tool": {
+        "summary": "The NPC Generator's SYS tab codifies D-to-EX scaling for difficulty/save bases, MP, overcast DC, duration, spell-point cost, damage dice and armor; modifiers for action economy, targeting, action type, mastery and resistance; and item/armor categories. This is strong evidence that later UAS design was moving toward data-driven generation where character/NPC mechanics could be calculated rather than hand-authored each time.",
+        "source_ids": [
+          "1wEfVnC2KCxZLSlOJfu0vCEINY4YYDBQ24NESwp6CCpI"
+        ]
+      },
+      "origins_expanded": {
+        "summary": "The newer UAS - Origins workbook expands the modular Origin library with descriptive and mechanical feature text for concepts such as Mortal, Fallen, Construct, Awakened Object, Gestalt, Hivemind, Nature Spirit, Personification, Demigod, Transformed Monster, Beast Blooded, Vampire, Ghoul, Clone, Changeling and Minor Divinity, among many others. Because portions use generic 5e-like wording, preserve the taxonomy and UAS design direction as authored project structure while treating individual feature prose/balance as draft material rather than final original mechanics.",
+        "source_ids": [
+          "18udxlQkqY1iUJdsbVSPORNrmJYkNr7vUOjzqokJPC10"
+        ],
+        "status": "authored/draft system module"
       }
     },
     "berea-pinochle": {
@@ -3863,6 +3888,32 @@
           "1EDXzzI2wClNHEzhZsftm2uTLzsR3WomVtF3EL5G_jjo"
         ],
         "authority_note": "Historical planning; reconcile conflicts in favor of newer dedicated lore or explicit user statements."
+      },
+      "plot_roadmap": {
+        "summary": "The dedicated Plot document reveals a long-form campaign roadmap deliberately remixing Fairy Tail arc structure into Pergrande's original setting. Early arcs include an introductory job arc, Aries Horn corruption, Kakkarow child-slaver arc, Deadlight Brigade, Noximilien the Clockmaker, One Eye Reaper raid and S-Class Games, followed by Royals/Underworld War/Dragon Hunters, a Dragon Heart Zero historical spinoff, timeskip material and an eventual Sin Eater endgame. Major throughlines include Milo as a Loki clone, Soleyr's clone network, Liar's Tongue financing the criminal underworld, Morris's ancient history, Nox's failed attempt to undo the destruction caused by Denial, Deadlight Virus fallout and the Gates/Sins mythology.",
+        "source_ids": [
+          "1-W3T8bNQdogJftk6MIPKgdjqA8OLk6_14R2JY7tbbkY"
+        ],
+        "authority_note": "Authored campaign planning with explicit Fairy Tail structural inspiration. Preserve original Pergrande developments while recognizing borrowed franchise scaffolding and possible collaborative player contributions."
+      },
+      "guild_regulation": {
+        "summary": "Wizard Guilds - Blades of Pergrande explicitly defines legal guilds as regulated mercenary organizations under the Council of Blades: they aggregate wizard jobs, pay state taxes, remain subject to Pergrande military law and can be drafted during war. It gives prose profiles for Horizon Ace, Nine Lives Fox, Yggdrasil, False Guardian, Aries Horn, Star Harbour, Deadlight Brigade, Dragon Heart and Royal Flush, including their specialties, reputations and political/economic roles.",
+        "source_ids": [
+          "1DUMxHAp3W_6E_c_LHun4j59OF9pQHlTlU7NO317oLog"
+        ]
+      },
+      "races": {
+        "summary": "A Pergrande character-options sheet adapts Fairy Tail-derived peoples into the campaign/UAS rules: Human Wizard, Edolas Human, Elentear Human, Exceed, Etherious, Celestial Spirit and Machias, with save/stat/ability hooks. Treat these as campaign adaptation mechanics based on third-party franchise concepts, not original setting species suitable for reuse outside this project.",
+        "source_ids": [
+          "1Wn9p-7-sMBInfGjHEdnp69zJlhQWHDPZdclrsGXSDOI"
+        ],
+        "provenance_note": "Fairy Tail-derived adaptation; do not propagate as original lore."
+      },
+      "quest_database": {
+        "summary": "GM Quest Tracking is a large rank-graded job database used to populate Dragon Heart/Pergrande play, ranging from mundane guild work and escorts to investigations, monster attacks, missing-person cases, cursed ruins, dark guilds and S/SS-rank crises. It demonstrates a reusable mission-board workflow with fields for rank, title, request text, requirements, location, mission type, requester, assignee and reward. Some jobs clearly adapt or import Fairy Tail/community material, so the durable value is the campaign workflow and authored Pergrande-specific hooks rather than assuming every quest text is original.",
+        "source_ids": [
+          "1Bf-9hWYXXkxSmztix4nwXWMYc3OTfXSw2OWvVnaO7u0"
+        ]
       }
     },
     "dragon-heart-campaign": {
@@ -5653,6 +5704,14 @@
           "1Zy2eFpPAfA0F9zn2sgDnBrSaiULIHMht0uykmpXwcv8"
         ],
         "authority_note": "Legacy source. Never promote Oliver over Silas; explicit user canon controls."
+      },
+      "magic_system_loredoc": {
+        "summary": "A dedicated Magic System loredoc explains the Fade as a narrative/unreality plane coalesced from human belief, imagination and stories in contrast to objective Reality. Humans entering the Fade imposed enough perception/form to create the Otherworld as an island/perpendicular reality within it. Magic/Fade channeling imposes conceptual understanding onto reality and weakens as scientific/objective reason narrows humanity's relationship to unreality. Eight Avalon Houses/ideals are sketched: Truth/Psychics, Order/Enchanters, Creation-Dominion/Elementalists, Change-Evolution/Alchemists, Story-Dream/Weavers, Disorder-Entropy/Catalysts, Absence/Wardens and Preservation/Healers. The draft also develops Names, association/narrative causality/subjectivity, and contrasts Fade users with Theurgists, Contractors and Cultivators.",
+        "source_ids": [
+          "1BXBJcySYwKoo_J45CsJ5fLx0HcyWK7HUa3ezg71B8EY"
+        ],
+        "status": "newer dedicated structured lore / likely canon framework",
+        "authority_note": "High-value dedicated lore source, but incomplete/repeated draft passages and later explicit user statements still outrank it. Preserve terminology/evolution without treating unfinished law wording as finalized canon."
       }
     },
     "skyrim-cooking-skill": {
