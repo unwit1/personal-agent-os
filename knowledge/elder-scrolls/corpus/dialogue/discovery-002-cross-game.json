@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "batch_id": "dialogue-discovery-002-cross-game",
+  "status": "active",
+  "discovery_strategy": {
+    "target_games": [
+      "arena",
+      "daggerfall",
+      "battlespire",
+      "redguard",
+      "morrowind",
+      "oblivion",
+      "skyrim",
+      "eso",
+      "blades"
+    ],
+    "preferred_page_classes": [
+      "quest dialogue transcript",
+      "storyline transcript",
+      "NPC dialogue transcript",
+      "scene transcript"
+    ],
+    "excluded_from_dialogue_corpus": [
+      "ordinary lore books",
+      "letters",
+      "journals",
+      "wiki-style summaries"
+    ],
+    "notes": [
+      "The Imperial Library also exposes large game-category collections. Category membership alone is not sufficient to classify a page as dialogue.",
+      "Pages containing dialogue inside an in-world written work belong to the books/text corpus unless they are a transcription of spoken game dialogue."
+    ]
+  },
+  "classification_rules": [
+    "Require evidence of spoken/interactive transcript structure before assigning a dialogue source_kind.",
+    "Keep scripted player prompts separate from player-character narration added by a transcriber.",
+    "For ESO, retain chapter/DLC/quest metadata where discoverable because the corpus is large and evolves by release.",
+    "A page released in multiple games can be cross-linked but should not be duplicated as dialogue unless it actually transcribes dialogue."
+  ]
+}
