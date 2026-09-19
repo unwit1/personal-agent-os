@@ -65,6 +65,32 @@ Acceptance criteria:
 - sensitive domains can be marked local-only;
 - all later EXEC features can communicate through these contracts.
 
+## EXEC-0.5 — Selective Personal Profile Retrieval
+
+Make the durable `profile/` state a first-class, selectively retrieved context source rather than a file agents must remember to read manually.
+
+Initial canonical sources:
+- `profile/preferences.json` for stable Agent OS behavior and workflow preferences;
+- `profile/user-context.json` for durable personal goals, work context, household planning, projects/interests, assistance priorities, and privacy boundaries.
+
+Requirements:
+- index profile facts by domain/topic, sensitivity, provenance, confidence, and last-confirmed date where applicable;
+- retrieve only profile slices relevant to the current task (for example household context for meal planning, work context for HR automation, or project preferences for coding-agent work);
+- never inject the complete personal profile into every prompt;
+- merge profile context with project state, durable memories, skills, commitments, and handoffs through the existing context compiler;
+- deduplicate overlapping facts and prefer canonical/newer/superseding records;
+- preserve provenance so agents can distinguish explicit user statements from inferred/candidate knowledge;
+- respect privacy zones and never promote raw HR/employee PII, credentials, or raw OCR caches into Git-backed profile state;
+- expose profile retrieval through CLI/MCP so ChatGPT, Codex, Claude, Siri/voice clients, and future agents use the same canonical context;
+- support candidate profile updates from conversations/events, but require the configured validation/promotion rules before durable writeback.
+
+Acceptance criteria:
+- a task receives relevant personal context without explicitly requesting a profile file;
+- unrelated profile information is excluded from compiled context packets;
+- retrieval behavior is deterministic/testable where possible and token usage can be measured;
+- profile changes are reviewable in Git with provenance;
+- tests cover relevance filtering, privacy exclusion, deduplication, stale/superseded facts, and cross-provider consistency.
+
 ## EXEC-1 — Next Action Engine
 
 Every active project should expose:
@@ -328,7 +354,7 @@ Cross-zone learning should prefer sanitized derived knowledge over raw source ma
 
 ## Implementation order
 
-**Milestone A — Executive Core:** EXEC-0, Event Bus, EXEC-1, basic Executive Queue.
+**Milestone A — Executive Core:** EXEC-0, EXEC-0.5 selective personal-profile retrieval, Event Bus, EXEC-1, basic Executive Queue.
 
 **Milestone B — Capture & Interaction:** EXEC-2, EXEC-3, EXEC-8.
 
@@ -344,16 +370,16 @@ Cross-zone learning should prefer sanitized derived knowledge over raw source ma
 
 ## Near-term engineering tasks
 
-1. Add executive event and queue schemas.
-2. Implement append-only local/event storage plus deterministic event IDs and deduplication.
-3. Add project next-action/blocker/decision fields without breaking existing project-state files.
-4. Implement `agent-os exec next`, `agent-os exec capture`, and `agent-os exec explain`.
-5. Expose read-oriented Executive methods over MCP.
-6. Add tests for ambiguous capture, duplicate events, attention filtering, privacy zones, and authorization boundaries.
-7. Integrate existing candidate capture/curation so learned observations remain reviewable.
-8. Add compact context-packet support for executive decisions.
-9. Prototype Rescue Mode before external calendar/email writes.
-10. Add Voice Gateway only after the same intents work through CLI/MCP.
+1. Add selective profile retrieval to the context compiler using `profile/preferences.json` and `profile/user-context.json`, with relevance filtering, privacy enforcement, provenance, and tests.\n2. Add executive event and queue schemas.
+3. Implement append-only local/event storage plus deterministic event IDs and deduplication.
+4. Add project next-action/blocker/decision fields without breaking existing project-state files.
+5. Implement `agent-os exec next`, `agent-os exec capture`, and `agent-os exec explain`.
+6. Expose read-oriented Executive methods over MCP.
+7. Add tests for ambiguous capture, duplicate events, attention filtering, privacy zones, and authorization boundaries.
+8. Integrate existing candidate capture/curation so learned observations remain reviewable.
+9. Add compact context-packet support for executive decisions.
+10. Prototype Rescue Mode before external calendar/email writes.
+11. Add Voice Gateway only after the same intents work through CLI/MCP.
 
 ## Success metrics
 
