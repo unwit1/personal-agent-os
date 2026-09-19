@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-019-skyrim-politics-college",
+  "subjects": [
+    {
+      "id": "tes:college-winterhold",
+      "name": "College of Winterhold",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/college-winterhold.json",
+      "source": {
+        "id": "uesp:college-winterhold",
+        "url": "https://en.uesp.net/wiki/Lore:College_of_Winterhold",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:stormcloaks",
+      "name": "Stormcloaks",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/stormcloaks.json",
+      "source": {
+        "id": "uesp:stormcloaks",
+        "url": "https://en.uesp.net/wiki/Lore:Stormcloaks",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:imperial-legion",
+      "name": "Imperial Legion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/imperial-legion.json",
+      "source": {
+        "id": "uesp:imperial-legion",
+        "url": "https://en.uesp.net/wiki/Lore:Imperial_Legion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:thalmor",
+      "name": "Thalmor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/thalmor.json",
+      "source": {
+        "id": "uesp:thalmor",
+        "url": "https://en.uesp.net/wiki/Lore:Thalmor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:greybeards",
+      "name": "Greybeards",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/greybeards.json",
+      "source": {
+        "id": "uesp:greybeards",
+        "url": "https://en.uesp.net/wiki/Lore:Greybeards",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:blades",
+      "name": "Blades",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/blades.json",
+      "source": {
+        "id": "uesp:blades",
+        "url": "https://en.uesp.net/wiki/Lore:Blades",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Civil War claims must preserve speaker faction, quest branch and player-dependent outcomes",
+    "Do not canonize mutually exclusive Skyrim quest outcomes; record them as branch-dependent evidence",
+    "Political accusations about Ulfric, the Empire or Thalmor require attribution rather than narrator voice",
+    "College/Great Collapse explanations should preserve competing theories and uncertainty",
+    "Distinguish institutions from places when College of Winterhold or similar names refer to both",
+    "Talos worship enforcement should retain time, location and source context"
+  ]
+}
