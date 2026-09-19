@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-049-argonian-hist-duskfall",
+  "subjects": [
+    {
+      "id": "tes:hist-connection",
+      "name": "Hist Connection",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/hist-connection.json",
+      "source": {
+        "id": "uesp:hist-connection",
+        "url": "https://en.uesp.net/wiki/Lore:Hist_Connection",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:hist-sap",
+      "name": "Hist Sap",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/hist-sap.json",
+      "source": {
+        "id": "uesp:hist-sap",
+        "url": "https://en.uesp.net/wiki/Lore:Hist_Sap",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:argonian-life-cycle",
+      "name": "Argonian Life Cycle",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/argonian-life-cycle.json",
+      "source": {
+        "id": "uesp:argonian-life-cycle",
+        "url": "https://en.uesp.net/wiki/Lore:Argonian_Life_Cycle",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:naming-day",
+      "name": "Naming Day",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/naming-day.json",
+      "source": {
+        "id": "uesp:naming-day",
+        "url": "https://en.uesp.net/wiki/Lore:Naming_Day",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:shadowscale-tradition",
+      "name": "Shadowscale Tradition",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/shadowscale-tradition.json",
+      "source": {
+        "id": "uesp:shadowscale-tradition",
+        "url": "https://en.uesp.net/wiki/Lore:Shadowscale_Tradition",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sithis-argonian-faith",
+      "name": "Argonian Sithis Traditions",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/sithis-argonian-faith.json",
+      "source": {
+        "id": "uesp:sithis-argonian-faith",
+        "url": "https://en.uesp.net/wiki/Lore:Argonian_Sithis_Traditions",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:xanmeer",
+      "name": "Xanmeer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/xanmeer.json",
+      "source": {
+        "id": "uesp:xanmeer",
+        "url": "https://en.uesp.net/wiki/Lore:Xanmeer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:duskfall-philosophy",
+      "name": "Duskfall Philosophy",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/duskfall-philosophy.json",
+      "source": {
+        "id": "uesp:duskfall-philosophy",
+        "url": "https://en.uesp.net/wiki/Lore:Duskfall_Philosophy",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:tribal-identity-argonian",
+      "name": "Argonian Tribal Identity",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/tribal-identity-argonian.json",
+      "source": {
+        "id": "uesp:tribal-identity-argonian",
+        "url": "https://en.uesp.net/wiki/Lore:Argonian_Tribal_Identity",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "This batch deepens earlier Argonian material; canonicalization should merge duplicate subjects instead of creating parallel identities",
+    "Do not model the Hist as a proven single collective mind; preserve evidence for individual trees, networks and differing interpretations",
+    "Argonian life-cycle and morphology claims must retain tribe, region, era and source context",
+    "Duskfall should distinguish historical change, modern philosophy and retrospective cultural interpretation",
+    "Knahaten Flu origin theories remain contradictory unless a source directly establishes a specific event",
+    "Argonian Sithis traditions must remain distinct from other cultures' Sithis theology while allowing sourced correspondences",
+    "Cross-link existing Argonian, Hist, Black Marsh, Shadowscale, Knahaten Flu, Duskfall, Heita-Meen, Keshu and Xukas records"
+  ]
+}
