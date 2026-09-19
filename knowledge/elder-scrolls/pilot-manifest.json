@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "purpose": "Small representative UESP retrieval pilot; not bulk ingestion.",
+  "pages": [
+    {
+      "id": "lorkhan",
+      "url": "https://en.uesp.net/wiki/Lore:Lorkhan",
+      "entity_type": "deity"
+    },
+    {
+      "id": "vivec",
+      "url": "https://en.uesp.net/wiki/Lore:Vivec",
+      "entity_type": "person"
+    },
+    {
+      "id": "dwemer",
+      "url": "https://en.uesp.net/wiki/Lore:Dwemer",
+      "entity_type": "people"
+    },
+    {
+      "id": "red-mountain",
+      "url": "https://en.uesp.net/wiki/Lore:Red_Mountain",
+      "entity_type": "place"
+    },
+    {
+      "id": "tribunal",
+      "url": "https://en.uesp.net/wiki/Lore:Tribunal",
+      "entity_type": "faction"
+    },
+    {
+      "id": "numidium",
+      "url": "https://en.uesp.net/wiki/Lore:Numidium",
+      "entity_type": "artifact"
+    },
+    {
+      "id": "battle-of-red-mountain",
+      "url": "https://en.uesp.net/wiki/Lore:Battle_of_Red_Mountain",
+      "entity_type": "event"
+    },
+    {
+      "id": "36-lessons",
+      "url": "https://en.uesp.net/wiki/Lore:36_Lessons_of_Vivec",
+      "entity_type": "text"
+    }
+  ],
+  "success_criteria": {
+    "retrieval_relevant": true,
+    "provenance_preserved": true,
+    "context_budget_enforced": true,
+    "resumable": true,
+    "bulk_ingestion_remains_disabled": true
+  }
+}
