@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-046-imperial-divines-cult",
+  "subjects": [
+    {
+      "id": "tes:alessian-reforms",
+      "name": "Alessian Religious Reforms",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/alessian-reforms.json",
+      "source": {
+        "id": "uesp:alessian-reforms",
+        "url": "https://en.uesp.net/wiki/Lore:Alessian_Religious_Reforms",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:talos-cult-rise",
+      "name": "Rise of the Talos Cult",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/talos-cult-rise.json",
+      "source": {
+        "id": "uesp:talos-cult-rise",
+        "url": "https://en.uesp.net/wiki/Lore:Rise_of_the_Talos_Cult",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:white-gold-concordat",
+      "name": "White-Gold Concordat",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/white-gold-concordat.json",
+      "source": {
+        "id": "uesp:white-gold-concordat",
+        "url": "https://en.uesp.net/wiki/Lore:White-Gold_Concordat",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:talos-worship-ban",
+      "name": "Talos Worship Ban",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/talos-worship-ban.json",
+      "source": {
+        "id": "uesp:talos-worship-ban",
+        "url": "https://en.uesp.net/wiki/Lore:Talos_Worship_Ban",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Distinguish Alessian, Reman, Septim and Fourth Era Imperial religious practice rather than treating the Imperial pantheon as static",
+    "Eight Divines and Nine Divines are historically contextual formulations; Talos-related doctrine must retain era and political context",
+    "Do not automatically merge Imperial gods with culturally corresponding deities; preserve syncretic identifications as sourced relationships",
+    "Religious commandments and temple doctrine are prescriptive evidence, not proof of universal practice",
+    "Talos worship after the White-Gold Concordat must distinguish legal status, public practice, private worship and regional enforcement",
+    "Cross-link existing Akatosh, Talos, Shezarr, Alessian Order, Temple of the One, Knights of the Nine, Amulet of Kings and White-Gold Concordat records"
+  ]
+}
