@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:first-council",
+      "name": "First Council",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/first-council.json",
+      "source": {
+        "id": "uesp:first-council",
+        "url": "https://en.uesp.net/wiki/Lore:First_Council",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:great-houses",
+      "name": "Great Houses",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/great-houses.json",
+      "source": {
+        "id": "uesp:great-houses",
+        "url": "https://en.uesp.net/wiki/Lore:Great_Houses",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:house-hlaalu",
+      "name": "House Hlaalu",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/house-hlaalu.json",
+      "source": {
+        "id": "uesp:house-hlaalu",
+        "url": "https://en.uesp.net/wiki/Lore:House_Hlaalu",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:house-indoril",
+      "name": "House Indoril",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/house-indoril.json",
+      "source": {
+        "id": "uesp:house-indoril",
+        "url": "https://en.uesp.net/wiki/Lore:House_Indoril",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:house-dres",
+      "name": "House Dres",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/house-dres.json",
+      "source": {
+        "id": "uesp:house-dres",
+        "url": "https://en.uesp.net/wiki/Lore:House_Dres",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:tribunal-temple",
+      "name": "Tribunal Temple",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/tribunal-temple.json",
+      "source": {
+        "id": "uesp:tribunal-temple",
+        "url": "https://en.uesp.net/wiki/Lore:Tribunal_Temple",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:new-temple",
+      "name": "New Temple",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/new-temple.json",
+      "source": {
+        "id": "uesp:new-temple",
+        "url": "https://en.uesp.net/wiki/Lore:New_Temple",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:buoyant-armigers",
+      "name": "Buoyant Armigers",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/buoyant-armigers.json",
+      "source": {
+        "id": "uesp:buoyant-armigers",
+        "url": "https://en.uesp.net/wiki/Lore:Buoyant_Armigers",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ordinators",
+      "name": "Ordinators",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/ordinators.json",
+      "source": {
+        "id": "uesp:ordinators",
+        "url": "https://en.uesp.net/wiki/Lore:Ordinators",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:direnni-hegemony",
+      "name": "Direnni Hegemony",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/direnni-hegemony.json",
+      "source": {
+        "id": "uesp:direnni-hegemony",
+        "url": "https://en.uesp.net/wiki/Lore:Direnni_Hegemony",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:forsworn",
+      "name": "Forsworn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/forsworn.json",
+      "source": {
+        "id": "uesp:forsworn",
+        "url": "https://en.uesp.net/wiki/Lore:Forsworn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:druids-of-galen",
+      "name": "Druids of Galen",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/druids-of-galen.json",
+      "source": {
+        "id": "uesp:druids-of-galen",
+        "url": "https://en.uesp.net/wiki/Lore:Druids_of_Galen",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:na-totambu",
+      "name": "Na-Totambu",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/na-totambu.json",
+      "source": {
+        "id": "uesp:na-totambu",
+        "url": "https://en.uesp.net/wiki/Lore:Na-Totambu",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:crowns",
+      "name": "Crowns",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/crowns.json",
+      "source": {
+        "id": "uesp:crowns",
+        "url": "https://en.uesp.net/wiki/Lore:Crowns",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:forebears",
+      "name": "Forebears",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/forebears.json",
+      "source": {
+        "id": "uesp:forebears",
+        "url": "https://en.uesp.net/wiki/Lore:Forebears",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration from earlier queues into canonical subject categories; extraction must retain provenance and temporal/cultural scope."
+}
