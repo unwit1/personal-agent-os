@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "game": "skyrim",
+  "status": "verified_from_source",
+  "transcript": {
+    "id": "til:skyrim:horn-jurgen-windcaller",
+    "title": "TES5 Skyrim: The Horn of Jurgen Windcaller",
+    "url": "https://www.imperial-library.info/content/tes5-skyrim-the-horn-of-jurgen-windcaller",
+    "source_kind": "quest_dialogue_transcript"
+  },
+  "observed_structure": {
+    "speakers": [
+      "Player Character",
+      "Arngeir",
+      "Delphine",
+      "Wulfgar",
+      "The Greybeards, together",
+      "Mysterious Note"
+    ],
+    "embedded_written_text": [
+      "Mysterious Note"
+    ],
+    "stage_context": true,
+    "dragon_language_ceremony": true,
+    "translation_by_speaker": "Arngeir",
+    "adjacent_transcript_label": "TES5 Skyrim: The Way of the Voice"
+  },
+  "evidence_index": [
+    {
+      "speaker": "Arngeir",
+      "topics": [
+        "Dragonborn",
+        "return of dragons",
+        "Voice",
+        "dragon language",
+        "Paarthurnax",
+        "Greybeards",
+        "Jurgen Windcaller",
+        "Red Mountain",
+        "Way of the Voice",
+        "Kynareth",
+        "Akatosh",
+        "Talos",
+        "Tiber Septim",
+        "Ysmir"
+      ]
+    },
+    {
+      "speaker": "Delphine",
+      "topics": [
+        "Dragonborn",
+        "Horn of Jurgen Windcaller"
+      ]
+    },
+    {
+      "speaker": "Wulfgar",
+      "topics": [
+        "Dah",
+        "Unrelenting Force",
+        "Greybeard training"
+      ]
+    },
+    {
+      "speaker": "The Greybeards, together",
+      "topics": [
+        "Stormcrown",
+        "Kyne",
+        "Shor",
+        "Atmora",
+        "Ysmir",
+        "Dragonborn ceremony"
+      ]
+    },
+    {
+      "speaker": "Mysterious Note",
+      "topics": [
+        "Dragonborn",
+        "Riverwood",
+        "Sleeping Giant Inn"
+      ]
+    }
+  ],
+  "normalization_rules": [
+    "Preserve source spelling/transcription exactly in raw local witness.",
+    "Normalized search text may correct obvious transcription typos but must retain a pointer to raw text.",
+    "Treat the note as embedded written evidence, not spoken dialogue.",
+    "Keep the Dragon-language ceremony and Arngeir's rough translation linked as separate passages.",
+    "Keep stage narration out of speaker quotation search unless context is explicitly requested."
+  ]
+}
