@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 373,
+    "first_level_files_indexed": 383,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue broad orphan reconciliation. Search character-sheet folders/generic titles and project-specific terms for IDs missing from ledger, but batch player sheets quickly under the provenance rule. Also inspect Blades of Pergrande Loredoc and other clearly authored campaign/system files if still absent/depth-light. Treat Beyond Skyrim/AU/Owlc0da materials as external references."
+    "next_action": "Continue orphan/folder reconciliation. Inspect remaining clearly authored Blades of Pergrande sheets (Ultimate Moves, Locations, Guilds) and UAS supporting docs if not already deep. Batch unresolved uploaded player sheets as partial/reference without importing campaign mechanics. Search folder names and generic legacy titles for remaining missing IDs."
   },
   "top_level_folders": [
     {
@@ -3323,6 +3323,86 @@
       "category": "personal_sensitive",
       "content_status": "sensitive_metadata_only",
       "inventory_source": "broad orphan/generic filename reconciliation"
+    },
+    {
+      "id": "1zY5PHgYl2PH0cwXD7qBHYosUTSmFkHl6",
+      "title": "blades of pergrande",
+      "path": "/Accessible Drive/blades of pergrande",
+      "category": "folder",
+      "content_status": "processed",
+      "inventory_source": "project/folder orphan reconciliation"
+    },
+    {
+      "id": "11eoZK2chZ2hVq1IH4jYnJWY0tK4Btey0",
+      "title": "Universal Anime System (UAS)",
+      "path": "/Accessible Drive/Universal Anime System (UAS)",
+      "category": "folder",
+      "content_status": "processed",
+      "inventory_source": "project/folder orphan reconciliation"
+    },
+    {
+      "id": "1-hAdtLf6ul0QCGhzwodeKnMFa9zBbxuH",
+      "title": "Character Sheet - Wit Fletcher.docx",
+      "path": "/Accessible Drive/Character Sheet - Wit Fletcher.docx",
+      "category": "player_character",
+      "content_status": "partial",
+      "inventory_source": "project/folder orphan reconciliation"
+    },
+    {
+      "id": "1--Zm8eLnPKVsVi6EpIwCTE9H12TH9s8I",
+      "title": "Character Sheet - 5e - Banjo Johnny.pdf",
+      "path": "/Accessible Drive/Character Sheet - 5e - Banjo Johnny.pdf",
+      "category": "player_character",
+      "content_status": "partial",
+      "inventory_source": "project/folder orphan reconciliation"
+    },
+    {
+      "id": "1-Ed_XJUxhXfhvUbH-mw-AmB76A86s2Vu",
+      "title": "TWC-DnD-5E-Character-Sheet-v1.3.pdf",
+      "path": "/Accessible Drive/TWC-DnD-5E-Character-Sheet-v1.3.pdf",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "project/folder orphan reconciliation"
+    },
+    {
+      "id": "1-LkxEJyTkkfyI-wUV7KgHDIuOepu_J9m",
+      "title": "Character Sheet - Stay in Your Lane - Mercury Fred (2).docx",
+      "path": "/Accessible Drive/Character Sheet - Stay in Your Lane - Mercury Fred (2).docx",
+      "category": "player_character",
+      "content_status": "partial",
+      "inventory_source": "project/folder orphan reconciliation"
+    },
+    {
+      "id": "101cIX46-XSFu_5bx9h7UnG_kASm-fjeY",
+      "title": "Character Sheet - Stay in Your Lane - Mercury Fred.docx",
+      "path": "/Accessible Drive/Character Sheet - Stay in Your Lane - Mercury Fred.docx",
+      "category": "player_character",
+      "content_status": "partial",
+      "inventory_source": "project/folder orphan reconciliation"
+    },
+    {
+      "id": "1-TDRRuEtpt7PVVMMkc-FPFNagHtu880roajg0DSunD0",
+      "title": "Nox the Clockmaker - Spellsheet",
+      "path": "/Accessible Drive/Nox the Clockmaker - Spellsheet",
+      "category": "player_character",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "project/folder orphan reconciliation"
+    },
+    {
+      "id": "1-e2yTeqsUAa87GJc2VbSbol6gArNw_1C",
+      "title": "Character Sheet - Rest in Rot - Zaaahblin Slayer.docx",
+      "path": "/Accessible Drive/Character Sheet - Rest in Rot - Zaaahblin Slayer.docx",
+      "category": "player_character",
+      "content_status": "partial",
+      "inventory_source": "project/folder orphan reconciliation"
+    },
+    {
+      "id": "10bTxxz3TFy9_xyMGLxzn95Pnd2Z7ac4rNrrEDoWZ7_I",
+      "title": "Character Sheet - Black Gate - Florican",
+      "path": "/Accessible Drive/Character Sheet - Black Gate - Florican",
+      "category": "player_character",
+      "content_status": "partial",
+      "inventory_source": "project/folder orphan reconciliation"
     }
   ],
   "folder_queue": [
@@ -3554,6 +3634,28 @@
           "1o_MJhS1zYaE9U6Gve7MJcl2bb6LMKQ2m92LaCafMTWU"
         ],
         "status": "legacy system/tooling"
+      },
+      "v1_rulebook": {
+        "summary": "UAS v1 explicitly defines the project as a modular sandbox TTRPG for adapting anime/fantasy settings. Character creation prioritizes backstory, backgrounds, custom magic/powers and stat investment. Core mechanics include D/C/B/A/S/SS/SSS/EX difficulty scaling, an Action Point economy, custom actions/spells classified by the GM, equipment and skill proficiency progression, and modular combat classes. Proficiency tiers are Unlearned, Learned, Proficient, Mastered and Savant, with Savant intentionally imposing opportunity costs elsewhere.",
+        "source_ids": [
+          "16yFk7cnWdL3nmvrAlytJD8u_r0wqgfidYt_bNsTuoIA"
+        ],
+        "status": "authored system v1"
+      },
+      "gm_guide": {
+        "summary": "The GM Guide elaborates seven role-oriented classes: Guardian (CON), Artillery (WILL), Tactician (INT), Operative (DEX), Bruiser (STR), Aid (WIS) and Diplomat (CHA), each with specialized subclasses. Examples include Knight/Warden/Bulwark/Juggernaut; Cannon/Sniper/Elementalist/Demolisher; Commander/Engineer/Chessmaster/Manipulator; and Assassin/Spy/Saboteur/Shadow. This confirms the class architecture as authored UAS design rather than campaign-derived mechanics.",
+        "source_ids": [
+          "1W2qe_BkqRsZP4_1jivSdCrzeboqb2DrdGhv8O8GilKs"
+        ],
+        "status": "authored system guide"
+      },
+      "origin_system": {
+        "summary": "The Origin System is a modular character-history framework with Origin, Upbringing, Turning Point and Profession dimensions. Origin options range from Human and Beastfolk through Construct, Gestalt, Hivemind, Personification, Clone, Psychopomp, Extraplanar Traveler, Living Paradox, AI, Otherworlder, Revenant, Memory Eater and Weapon Spirit. Turning Points include Touched by the Void/Divine/Infernal/Fae, Bearer of the Pact, Chosen, Prophecied, Sole Survivor and Wronged Hero. This shows UAS evolving toward composable narrative-background modules rather than relying solely on conventional race/class.",
+        "source_ids": [
+          "12PovbbSP_Rzr3PMcUrCh-mcvNVxeC65X2CEGnP3QKNI"
+        ],
+        "status": "authored system module",
+        "authority_note": "Some prose/features appear generic or draft-like; preserve as design history rather than assuming final balanced mechanics."
       }
     },
     "berea-pinochle": {
@@ -3701,6 +3803,29 @@
         "source_ids": [
           "1Z4ReTJSynYGURYhTy7t5qlj0oRaCE6T-4LJmJZsUMCI"
         ]
+      },
+      "core_worldbuilding": {
+        "summary": "The dedicated Loredoc and lore document establish Pergrande as a northeastern Ishgar kingdom combining hereditary constitutional monarchy with a magical military stratocracy. The De'Pergrande royal family rules alongside the Four Horsemen, who are simultaneously the strongest Blades and cabinet ministers. The Twelve Blades regulate wizard guilds and adjudicate severe magical crimes; Kingsmen serve as army/police; the Inquisition/Witchblades conduct black-ops suppression of dark guilds. Cities include Valefor, Eloburgh, Waxpool, Klobury, Inecaster, Yrille and Vreles. Currency is Crowns.",
+        "source_ids": [
+          "14sjLqJ8RSd3C-OtrA1ApyE0J-3Ho0w6TPNEK5OuQ7AM",
+          "1FrvnvLpoMNaOhv054EsDrYd59CHiqJxpWfnXney_WXA"
+        ],
+        "status": "authored campaign worldbuilding"
+      },
+      "guild_ecosystem": {
+        "summary": "The Loredoc ranks a broad legal guild ecosystem led by Horizon Ace, Nine Lives Fox, Yggdrasil, False Guardian, Aries Horn, Star Harbour, Deadlight Brigade, Dragon Heart and Royal Flush, followed by many smaller guilds. Dark/criminal organizations include Sin Eater, Babylon Dragon, Blood Leviathan, One Eye Reaper, Kakkarow, Liar's Tongue, Crimson Abyss, Mourning Wood, Traveler's Thorn, Violet Djinn and others. Dragon Heart is framed as an up-and-coming but chaotic/trustworthy guild based in Klobury; Deadlight Brigade is based in Vreles and carries suspicious rumors.",
+        "source_ids": [
+          "14sjLqJ8RSd3C-OtrA1ApyE0J-3Ho0w6TPNEK5OuQ7AM",
+          "1LUWkB-XrcUyVDjyGcmwBKktg0Nj7tLi3PthhtQfWnpU"
+        ]
+      },
+      "culture_and_religion": {
+        "summary": "Pergrande's festival calendar includes S-Class Exams, S-Class Games, Tres Carnavales, Dragon Prayer, Four Horsemen Week, Pergrande Day, Alexandra Day and the Pergrande Jamboree. The Holy Church venerates the founding Horsemen as ascended heroic protectors rather than gods. Older Divines/Old Gods are believed unable to interact directly but may appoint champions; summoning them is treated as Black Magic and the Church is rumored to maintain extensive Godslayer texts. The Loredoc separately sketches Old/New/Outer Gods, zodiacal spirits and named celestial beings such as Draco, Ankaa and Cetus.",
+        "source_ids": [
+          "1FrvnvLpoMNaOhv054EsDrYd59CHiqJxpWfnXney_WXA",
+          "14sjLqJ8RSd3C-OtrA1ApyE0J-3Ho0w6TPNEK5OuQ7AM"
+        ],
+        "authority_note": "Campaign-authored lore, but collaborative/player arcs may still contain contributions from others; do not assume every individual character is solely user-created."
       }
     },
     "dragon-heart-campaign": {
