@@ -22,7 +22,8 @@
       "2026-09-18 Drive-wide discovery pass: searched Silas/Grant/Abigail/Delusionist beyond the Dream Eater folder. No reliable mother's name recovered. Found cross-source support for Door→Ellison reconstitution and an older collective-perception metaphysics basis relevant to the recent Vane/Silence note.",
       "2026-09-18 began importing the connected Notion Dream Eater workspace into the Agent OS provenance map. Notion contains a structured Dream Eater→Lore hierarchy with Guardian Cycle, organizations, locations, entities and an Eight Houses database. Many pages are placeholders; substantive content is retained without promoting it over newer/user-confirmed sources.",
       "User clarification 2026-09-18: Silas Ashland's mother is also the Mind Emblem holder immediately before Abigail Fletcher and Abigail's mentor in The Delusionist. Current 2026 Guardian Cycle evidence makes Melissa Finnegan the leading candidate, but do not promote that identification without explicit confirmation.",
-      "User confirmation 2026-09-18: Melissa Finnegan is Silas Ashland's mother, Grant Ashland is his father, Melissa mentors Abigail Fletcher in The Delusionist, and Melissa is the Mind Emblem holder immediately preceding Abigail."
+      "User confirmation 2026-09-18: Melissa Finnegan is Silas Ashland's mother, Grant Ashland is his father, Melissa mentors Abigail Fletcher in The Delusionist, and Melissa is the Mind Emblem holder immediately preceding Abigail.",
+      "2026-09-18 deeper Notion traversal mapped the 2024 Divine/Throne taxonomy and Inquisition character hierarchy. Blank descendants are retained as concept-existence provenance only; sibling order is not used to invent Divine↔Throne mappings."
     ]
   },
   "project_clusters": [
@@ -492,7 +493,58 @@
           "Albion is nested inside the Void and has sublocations Upside and Silentown; combined with the John Avalon page, it functions in this 2024 planning layer as a city/prison tied to Incubus.",
           "Grand Inquisitor Isobi is noted as finding the shattered mask of the corrupted Lord of Mourning Bell and as Jericho Deacon's former lover who pushed him out of the Inquisition.",
           "Several potentially important organization/location pages remain effectively blank placeholders (e.g. Silent Institute and multiple Guardian-cycle generation pages), so their titles establish planned concepts but not detailed canon."
-        ]
+        ],
+        "deep_traversal_pass": {
+          "status": "continued",
+          "divine_taxonomy": {
+            "notion_2024_divines": [
+              "The Weaver (FATE)",
+              "The Guardian",
+              "The Artificer",
+              "The Traveler",
+              "The Ruler"
+            ],
+            "thrones_definition": "Metaphysical locations that are the seats of power of their respective Divines.",
+            "named_thrones": [
+              "Yggdrassil",
+              "Nameless Throne/The Broken Throne",
+              "Traveler's Inn"
+            ],
+            "mapping_status": "Do not infer one-to-one Divine↔Throne mappings solely from sibling order. Yggdrassil is explicitly associated with the Weaver; other mappings need explicit evidence."
+          },
+          "yggdrassil": {
+            "status": "Older planning / potentially durable",
+            "facts": [
+              "Tree of Time.",
+              "The Weaver sits at the top and manipulates human history.",
+              "DENIAL is trapped behind a Red Door there."
+            ]
+          },
+          "inquisition": {
+            "virtues": [
+              "Grand Inquisitor Isobi",
+              "Jonathan Solace",
+              "Jericho Deacon"
+            ],
+            "isobi_facts": [
+              "Found the shattered mask of the corrupted Lord of Mourning Bell.",
+              "Jericho Deacon's former lover who pushed him out of the organization."
+            ],
+            "other_pages": "Jonathan Solace and Jericho Deacon pages are blank in this Notion snapshot; names/placement establish planned membership only."
+          },
+          "placeholder_taxonomy": [
+            "The Ruler",
+            "The Artificer",
+            "Traveler's Inn",
+            "Black Hands of Fate/Second Sector",
+            "Avalon Council",
+            "Blasphemous Choir",
+            "Upside",
+            "Silentown",
+            "Silent Institute and several Guardian-cycle generation pages"
+          ],
+          "import_rule": "Blank pages are imported as historical taxonomy/concept-existence evidence only, never as detailed canon."
+        }
       }
     },
     {
