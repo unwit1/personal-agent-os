@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-048-bosmer-deep-green-pact",
+  "subjects": [
+    {
+      "id": "tes:spinners",
+      "name": "Spinners",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/spinners.json",
+      "source": {
+        "id": "uesp:spinners",
+        "url": "https://en.uesp.net/wiki/Lore:Spinners",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:wardens",
+      "name": "Wardens",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/wardens.json",
+      "source": {
+        "id": "uesp:wardens",
+        "url": "https://en.uesp.net/wiki/Lore:Wardens",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:green-pact-adherents",
+      "name": "Green Pact Adherents",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/green-pact-adherents.json",
+      "source": {
+        "id": "uesp:green-pact-adherents",
+        "url": "https://en.uesp.net/wiki/Lore:Green_Pact_Adherents",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "This batch deepens batch 040 rather than replacing it; deduplication should merge shared subjects by canonical identity",
+    "Green Pact rules must distinguish theological ideal, local interpretation, historical period and observed practice",
+    "Wild Hunt accounts should separate witnessed transformations, ritual doctrine, historical reports and later retellings",
+    "Spinner narratives preserve storyteller, audience and narrative context; story-shaping claims are not automatically objective history",
+    "Falinesti traditions should distinguish documented appearances, disappearance accounts and metaphysical interpretations",
+    "Y'ffre/Earth Bones claims retain religious and cosmological provenance rather than being flattened into universal fact",
+    "Cross-link batch 040 Bosmer records and merge duplicates during canonicalization"
+  ]
+}
