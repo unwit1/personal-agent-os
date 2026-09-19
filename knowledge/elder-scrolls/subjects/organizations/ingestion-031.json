@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-031-necrom-gold-road-ithelia",
+  "subjects": [
+    {
+      "id": "tes:mora-scribes",
+      "name": "Ciphers of the Eye",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/mora-scribes.json",
+      "source": {
+        "id": "uesp:mora-scribes",
+        "url": "https://en.uesp.net/wiki/Lore:Ciphers_of_the_Eye",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:hidden-kindred",
+      "name": "Hidden Kindred",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/hidden-kindred.json",
+      "source": {
+        "id": "uesp:hidden-kindred",
+        "url": "https://en.uesp.net/wiki/Lore:Hidden_Kindred",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:recollection",
+      "name": "Recollection",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/recollection.json",
+      "source": {
+        "id": "uesp:recollection",
+        "url": "https://en.uesp.net/wiki/Lore:Recollection",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mirrormoor-cult",
+      "name": "Mirrormoor cult",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/mirrormoor-cult.json",
+      "source": {
+        "id": "uesp:mirrormoor-cult",
+        "url": "https://en.uesp.net/wiki/Lore:Mirrormoor_cult",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Ithelia-related history is unusually vulnerable to erased or altered memory; preserve source date, speaker knowledge state and later revelations",
+    "Do not retroactively rewrite older sources merely because later ESO content introduces forgotten events or entities",
+    "Paths of possibility, fate and reality alteration require explicit evidence provenance and should not become unrestricted explanations for contradictions",
+    "Hermaeus Mora's claims about secrets and history remain attributed where not independently corroborated",
+    "Apocrypha locations, memories, books and manifestations should remain distinguishable despite overlapping names",
+    "Cross-link existing Hermaeus Mora, Apocrypha, Necrom, Telvanni, Fargrave, Black Books and Forbidden Knowledge subjects"
+  ]
+}
