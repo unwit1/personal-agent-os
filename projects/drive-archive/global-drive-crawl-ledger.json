@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 314,
+    "first_level_files_indexed": 319,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue historical/orphan discovery. Prioritize identifying actual child files of Lords of Mourning and Wonderland Murders if connector search can expose them, then inspect Lower Worlds, To Kill an Immortal, Remnant Campaign, Dungeon Oratoria and other 2020-2022 tabletop project artifacts. Continue generic/untitled reconciliation. Treat Avalon/Guardian Cycle material as Dream Eater-adjacent and preserve explicit user canon overrides."
+    "next_action": "Continue 2020-2022 tabletop/orphan pass: inspect Horon Wit Fletcher, Avatar Crane, 5e Kingfisher, Virtue Fiddler Green, Gildorym/backstory artifacts, Character Sheet Template, and any campaign-level docs surfaced by those identities. Then return to generic/untitled files and MASTER/reference assets. Dungeon Oratoria remains partial until DOCX content can be read."
   },
   "top_level_folders": [
     {
@@ -2785,6 +2785,51 @@
       "category": "fate_nasuverse_rpg",
       "content_status": "processed",
       "inventory_source": "historical campaign/Avalon pass"
+    },
+    {
+      "id": "191h5ouZ0v435nsPRiQTf_Gmg3P-VwwPsdU_Ot1McTGc",
+      "title": "Character Sheet - Lower Worlds - Wit Fletcher",
+      "path": "/Accessible Drive/Character Sheet - Lower Worlds - Wit Fletcher",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "category": "lower_worlds",
+      "content_status": "processed",
+      "inventory_source": "2020-2022 tabletop artifact pass"
+    },
+    {
+      "id": "1PZyoEZsCaKGX3gA5Gk_wUqdTS2xOzqg0s9phznSHEFo",
+      "title": "Character Sheet - To Kill an Immortal - Rook Vandervelle",
+      "path": "/Accessible Drive/Character Sheet - To Kill an Immortal - Rook Vandervelle",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "category": "to_kill_an_immortal",
+      "content_status": "processed",
+      "inventory_source": "2020-2022 tabletop artifact pass"
+    },
+    {
+      "id": "1eJLjWSXfzB0QAt_VSytNNgHgMN0MlwYgJFC97fhCvgA",
+      "title": "Character Sheet - Remnant Campaign - Sly Copper",
+      "path": "/Accessible Drive/Character Sheet - Remnant Campaign - Sly Copper",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "remnant_campaign",
+      "content_status": "processed",
+      "inventory_source": "2020-2022 tabletop artifact pass"
+    },
+    {
+      "id": "1fhZOttZ843MjCyWlviQ073dvwbvd3zG4NDra2g5ta8I",
+      "title": "Character Sheet - Horon - Rook",
+      "path": "/Accessible Drive/Character Sheet - Horon - Rook",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "horon_campaign",
+      "content_status": "processed",
+      "inventory_source": "2020-2022 tabletop artifact pass"
+    },
+    {
+      "id": "1UGxjfatwXzw5Ipm2d_hB5UggGF66lgBV",
+      "title": "Dungeon Oratoria V0.25.docx",
+      "path": "/Accessible Drive/Dungeon Oratoria V0.25.docx",
+      "mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "category": "dungeon_oratoria",
+      "content_status": "partial",
+      "inventory_source": "2020-2022 tabletop artifact pass"
     }
   ],
   "folder_queue": [
@@ -4345,6 +4390,67 @@
       "relationships": [
         "Blades of Pergrande",
         "Universal Anime System"
+      ]
+    },
+    "lower-worlds": {
+      "status": "historical tabletop campaign/project",
+      "domain": "tabletop RPG",
+      "summary": "Lower Worlds is evidenced by a dedicated character-sheet workbook for Wit Fletcher using a D&D-like six-ability chassis, skill proficiencies, spell sheets and a linked master spell list. The recovered sheet records a high-Charisma/high-Strength version of Wit Fletcher and appears to derive from a reusable character-sheet template rather than a standalone bespoke rules engine.",
+      "source_ids": [
+        "191h5ouZ0v435nsPRiQTf_Gmg3P-VwwPsdU_Ot1McTGc"
+      ],
+      "unresolved": [
+        "Locate campaign lore, GM notes or other Lower Worlds character sheets to determine setting and system identity."
+      ]
+    },
+    "to-kill-an-immortal": {
+      "status": "historical tabletop campaign/project",
+      "domain": "tabletop RPG",
+      "summary": "To Kill an Immortal is evidenced by a dedicated Rook Vandervelle character-sheet workbook. It shares the same Front/Back/Spell Sheet/linked master spell-list structure as Lower Worlds, indicating a reused tabletop sheet framework. Rook's recovered sheet emphasizes Strength and Charisma. A later Horon sheet reuses Rook as an Oath of Vengeance Paladin/Hexblade Warlock, showing the character migrated between campaigns/settings rather than proving those settings are the same.",
+      "source_ids": [
+        "1PZyoEZsCaKGX3gA5Gk_wUqdTS2xOzqg0s9phznSHEFo",
+        "1fhZOttZ843MjCyWlviQ073dvwbvd3zG4NDra2g5ta8I"
+      ],
+      "relationships": [
+        "Horon campaign - character reuse only"
+      ],
+      "unresolved": [
+        "Find To Kill an Immortal campaign-level plot/lore and determine Rook's original class/backstory."
+      ]
+    },
+    "remnant-campaign": {
+      "status": "historical RWBY tabletop campaign",
+      "domain": "tabletop RPG / RWBY fan campaign",
+      "summary": "The Remnant Campaign includes Sly Copper, an 18-year-old raccoon Faunus thief from Mistral/Windpath whose Semblance makes him invisible while holding his breath. His backstory centers on poverty, pickpocketing with his sister Mint, an initially uncontrolled form of imperceptibility that caused others to forget him, training under an unnamed master thief, and eventual recruitment to Beacon after a failed Dust-shop robbery. The character uses Aura, a Semblance and weapons named Arsene & Lupin, establishing the campaign as RWBY-derived.",
+      "source_ids": [
+        "1eJLjWSXfzB0QAt_VSytNNgHgMN0MlwYgJFC97fhCvgA"
+      ],
+      "authority_note": "Historical player-character material; do not infer broader campaign canon from one sheet."
+    },
+    "horon-campaign": {
+      "status": "historical tabletop campaign/project",
+      "domain": "D&D-style tabletop RPG",
+      "summary": "Horon reused Rook Vandervelle as a level-9 multiclass character: Oath of Vengeance Paladin 6 / Hexblade Warlock 3, with a Sunwarden label and greatsword Sunsparrow. The sheet is heavily based on D&D 5e mechanics. Search also surfaced a separate Horon Wit Fletcher sheet, suggesting multiple recurring user characters were ported into this campaign.",
+      "source_ids": [
+        "1fhZOttZ843MjCyWlviQ073dvwbvd3zG4NDra2g5ta8I"
+      ],
+      "relationships": [
+        "To Kill an Immortal - Rook character reuse",
+        "Wit Fletcher - recurring character identity"
+      ],
+      "unresolved": [
+        "Inspect Horon Wit Fletcher sheet and locate campaign-level Horon lore."
+      ]
+    },
+    "dungeon-oratoria": {
+      "status": "historical project discovered / content pending",
+      "domain": "tabletop RPG document",
+      "summary": "Dungeon Oratoria V0.25 is an accessible 2020 DOCX and has been inventoried as a distinct historical tabletop artifact. Native Drive document extraction is not available for this uploaded DOCX in the current pass, so content remains partial rather than guessed from the title.",
+      "source_ids": [
+        "1UGxjfatwXzw5Ipm2d_hB5UggGF66lgBV"
+      ],
+      "unresolved": [
+        "Materialize/read DOCX through file-capable path in a later pass if accessible."
       ]
     }
   },
