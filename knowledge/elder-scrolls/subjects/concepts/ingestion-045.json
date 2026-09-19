@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-045-khajiit-religion-lunar-cosmology",
+  "subjects": [
+    {
+      "id": "tes:ja-kha-jay",
+      "name": "Ja-Kha'jay",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/ja-kha-jay.json",
+      "source": {
+        "id": "uesp:ja-kha-jay",
+        "url": "https://en.uesp.net/wiki/Lore:Ja-Kha%27jay",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:lunar-lattice",
+      "name": "Lunar Lattice",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/lunar-lattice.json",
+      "source": {
+        "id": "uesp:lunar-lattice",
+        "url": "https://en.uesp.net/wiki/Lore:Lunar_Lattice",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:furstocks",
+      "name": "Furstocks",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/furstocks.json",
+      "source": {
+        "id": "uesp:furstocks",
+        "url": "https://en.uesp.net/wiki/Lore:Furstocks",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mane",
+      "name": "Mane",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/mane.json",
+      "source": {
+        "id": "uesp:mane",
+        "url": "https://en.uesp.net/wiki/Lore:Mane",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dro-mathra",
+      "name": "Dro-m'Athra",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dro-mathra.json",
+      "source": {
+        "id": "uesp:dro-mathra",
+        "url": "https://en.uesp.net/wiki/Lore:Dro-m%27Athra",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:bent-dance",
+      "name": "Bent Dance",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/bent-dance.json",
+      "source": {
+        "id": "uesp:bent-dance",
+        "url": "https://en.uesp.net/wiki/Lore:Bent_Dance",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:moon-hallowed",
+      "name": "Moon Hallowed",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/moon-hallowed.json",
+      "source": {
+        "id": "uesp:moon-hallowed",
+        "url": "https://en.uesp.net/wiki/Lore:Moon_Hallowed",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:khajiiti-creation",
+      "name": "Khajiiti Creation Traditions",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/khajiiti-creation.json",
+      "source": {
+        "id": "uesp:khajiiti-creation",
+        "url": "https://en.uesp.net/wiki/Lore:Khajiiti_Creation_Traditions",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:pre-ri-datta-faith",
+      "name": "Pre-ri'Datta Khajiiti Faith",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/pre-ri-datta-faith.json",
+      "source": {
+        "id": "uesp:pre-ri-datta-faith",
+        "url": "https://en.uesp.net/wiki/Lore:Pre-ri%27Datta_Khajiiti_Faith",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:riddle-thar-faith",
+      "name": "Riddle'Thar Faith",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/riddle-thar-faith.json",
+      "source": {
+        "id": "uesp:riddle-thar-faith",
+        "url": "https://en.uesp.net/wiki/Lore:Riddle%27Thar_Faith",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Pre-ri'Datta and Riddle'Thar-era Khajiiti religion must remain historically distinct traditions with documented continuities and changes",
+    "Do not automatically equate Khajiiti deities with similarly named Imperial or Aldmeri gods; model proposed correspondences as relationships with evidence",
+    "Amun-dro, Clan Mother Ahnissi and Moon-Bishop traditions retain authorship, period and doctrinal perspective",
+    "Furstock and lunar-cycle claims should distinguish cultural doctrine, observed births and game simplification",
+    "Dro-m'Athra and Bent Dance descriptions should separate religious interpretation from directly observed phenomena",
+    "Cross-link existing Khajiit, Azurah, Alkosh, Riddle'Thar, Lunar Lattice, Mane, Dro-m'Athra, Lorkhaj, Elsweyr, Anequina and Pellitine records"
+  ]
+}
