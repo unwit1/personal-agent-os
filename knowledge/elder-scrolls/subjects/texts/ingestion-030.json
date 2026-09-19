@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-030-dark-heart-skyrim-reach",
+  "subjects": [
+    {
+      "id": "tes:nighthollow-clan",
+      "name": "Nighthollow Clan",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/nighthollow-clan.json",
+      "source": {
+        "id": "uesp:nighthollow-clan",
+        "url": "https://en.uesp.net/wiki/Lore:Nighthollow_Clan",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:gray-host-history",
+      "name": "The Gray Host",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/gray-host-history.json",
+      "source": {
+        "id": "uesp:gray-host-history",
+        "url": "https://en.uesp.net/wiki/Lore:The_Gray_Host",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:reachfolk-spirits",
+      "name": "Great Spirits of the Reach",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/reachfolk-spirits.json",
+      "source": {
+        "id": "uesp:reachfolk-spirits",
+        "url": "https://en.uesp.net/wiki/Lore:Great_Spirits_of_the_Reach",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dark-heart-text",
+      "name": "The Dark Heart",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/dark-heart-text.json",
+      "source": {
+        "id": "uesp:dark-heart-text",
+        "url": "https://en.uesp.net/wiki/Lore:The_Dark_Heart",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Keep ESO-era Western Skyrim and Reach politics temporally separate from Fourth Era Skyrim",
+    "Reachfolk religion and magic should prioritize internally described traditions while retaining outsider accounts as attributed evidence",
+    "Vampire and werewolf capabilities must distinguish narrative evidence from combat/game mechanics",
+    "Dark Heart and Void metaphysics require source-specific claims rather than a single synthesized cosmology",
+    "Blackreach is a broad subterranean region; preserve named cavern/subregion distinctions across games",
+    "Cross-link existing Reach, Markarth, Solitude, Lyris Titanborn, vampirism, Blackreach and Reachfolk subjects rather than duplicate them"
+  ]
+}
