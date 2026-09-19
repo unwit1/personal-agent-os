@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-035-chimer-first-council-red-mountain",
+  "subjects": [
+    {
+      "id": "tes:heart-lorkhan",
+      "name": "Heart of Lorkhan",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/heart-lorkhan.json",
+      "source": {
+        "id": "uesp:heart-lorkhan",
+        "url": "https://en.uesp.net/wiki/Lore:Heart_of_Lorkhan",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:keening",
+      "name": "Keening",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/keening.json",
+      "source": {
+        "id": "uesp:keening",
+        "url": "https://en.uesp.net/wiki/Lore:Keening",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sunder",
+      "name": "Sunder",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/sunder.json",
+      "source": {
+        "id": "uesp:sunder",
+        "url": "https://en.uesp.net/wiki/Lore:Sunder",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:wraithguard",
+      "name": "Wraithguard",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/wraithguard.json",
+      "source": {
+        "id": "uesp:wraithguard",
+        "url": "https://en.uesp.net/wiki/Lore:Wraithguard",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Battle of Red Mountain accounts are mutually conflicting historical traditions; preserve each account and its provenance rather than synthesizing an unsupported single sequence",
+    "Tribunal, Ashlander, Nordic, Dwemer-related and later scholarly accounts must retain factional/source perspective",
+    "Claims about Nerevar's death, Tribunal oath-breaking, Kagrenac's actions and the Chimer-to-Dunmer transformation remain evidence-linked and contestable",
+    "The 36 Lessons are primary evidence for Vivec's authored religious narrative, not automatic literal history",
+    "Distinguish the historical First Council from later uses of the term and from gameplay/faction abstractions",
+    "Cross-link existing Nerevar, Kagrenac, Tribunal, Red Mountain, Heart of Lorkhan, Tools of Kagrenac, Chimer, Dunmer and Dwemer records"
+  ]
+}
