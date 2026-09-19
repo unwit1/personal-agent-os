@@ -12,7 +12,8 @@
       "2026-09-18 targeted second-pass read covered Knowledge Framework, Scholars of Skyrim, Silvertongue, Apocryphal Knowledge, Arcaneum Scholarship, Codex, and Daedrologist; only durable design relationships were promoted.",
       "User clarified 2026-09-18: KF is the base; Arcaneum evolved into KF but may remain as the book-tagging layer; Imperial Library is book tagging/import; most related projects should be frameworks or integratable addons; newer versions generally win while older versions remain comparison provenance.",
       "2026-09-18 Dream Eater second pass covered the project folder inventory plus Guardian Emblem, Contract Magic, Avalon/Avalon Institute, Otherworld History, The Silence, and Magic System Explained. Findings are marked version-sensitive because the source docs contain unfinished and explicitly out-of-date notes.",
-      "User clarification 2026-09-18: current Dream Eater manuscript is highest authority; preserve granular canon statuses; future lorekeeper/writing-buddy should actively challenge continuity and logic; The Silence is a newer central cosmic force that makes non-Fade users forget Fade users and thereby sustains the setting's supernatural Masquerade."
+      "User clarification 2026-09-18: current Dream Eater manuscript is highest authority; preserve granular canon statuses; future lorekeeper/writing-buddy should actively challenge continuity and logic; The Silence is a newer central cosmic force that makes non-Fade users forget Fade users and thereby sustains the setting's supernatural Masquerade.",
+      "2026-09-18 Dream Eater continuation pass compared current manuscript material, 2023 Chapter 1/Dreameater drafts, brainstorming, and the Guardian Cycle sheet (modified 2026-05-21). Uncertainty markers in the recent sheet are retained as provisional rather than promoted to canon."
     ]
   },
   "project_clusters": [
@@ -215,6 +216,45 @@
         "definition": "The Silence is a cosmic force that causes non-Fade users to forget Fade users, effectively making them disappear from ordinary historical/social memory.",
         "narrative_role": "It preserves the setting's Masquerade-like concealment of the supernatural and is intended to be central to the series.",
         "note": "Older sparse Drive notes describing The Silence should not be treated as the complete current definition."
+      },
+      "manuscript_and_guardian_pass": {
+        "authority_observation": "The current 'dream eater' manuscript (modified 2025) should govern explicit story facts, but it remains visibly WIP with placeholders/author notes; draft prose from 2023 is useful as provenance rather than automatic canon.",
+        "current_manuscript_elements": [
+          "Opening material centers the Gravekeeper/Gravetender and Gallowed Man at the Broken Throne, followed by Lilith Deacon.",
+          "The Gravekeeper visits deaths/contract moments and handles a seed associated with the dead person's remembered identity/story.",
+          "Current notes explicitly connect Lilith's Broken Throne arrival to uncertainty around Deadlight, personhood and having a Name."
+        ],
+        "older_draft_elements": [
+          "Older Chapter 1 material foregrounds Abigail Fletcher as a teenage psychic whose magic manifests through individualized Mindscapes, attention, suggestion and perception.",
+          "Dreameater draft v1 foregrounds Dennis Deacon and a militarized magical conflict involving the Hand/Makers, runic arrays, Alchemists, Wardens, Shackled Ones and Code White threats.",
+          "These drafts establish tone and possible retained character/system material but should not override the current manuscript without confirmation."
+        ],
+        "guardian_cycle_sheet": {
+          "freshness": "Modified 2026-05-21, making it one of the freshest structured Dream Eater lore sources found so far, but unresolved cells and explicit undecided outcomes remain provisional.",
+          "structure": "Maps four Guardian generations, Names/powers, vaults, fates, Emblem disposition and successors.",
+          "notable_links": [
+            "Mourn ↔ Hope/Despair ↔ Vault of Hope.",
+            "Door ↔ Theft ↔ Vault of Change; later associated with the Gallowed Man/identity-death history.",
+            "Gallowbird ↔ Shield ↔ Vault of Absence; later Raven.",
+            "Incubus/John Avalon appears in the second generation and survives with a returned Emblem.",
+            "Third-generation Dennis Deacon is mapped to Ellison Crane as successor.",
+            "Dusk Morrigan maps forward to Reese Morrigan.",
+            "Melissa Finnegan maps forward to Abigail Fletcher.",
+            "Malia's Emblem is usurped by Deadlight and maps to Lilith Deacon/DEADLIGHT Virus.",
+            "Eric Ashland maps forward to Lotus Morrigan."
+          ],
+          "status_rule": "Treat rows containing ???, Maybe, Undecided, probably, blanks, or contradictory fate wording as Provisional/Unknown even though the sheet is recent."
+        },
+        "lorekeeper_requirements_emerging": [
+          "Canon authority cannot be determined by modification date alone: manuscript authority, explicit user confirmation, document role and uncertainty markers all matter.",
+          "Track character identity/name inheritance separately from Guardian Emblem succession; they overlap but are not the same relation.",
+          "Track concept evolution across prose, lore docs and structured sheets, and preserve abandoned variants for comparison."
+        ],
+        "questions_to_resolve_later": [
+          "Is Gravekeeper/Gravetender the same identity/title in current canon, and how does that relate to Ellison Crane?",
+          "What is the canonical relationship among Gallowed Man, Door and Ellison after the Broken Throne changes?",
+          "How exactly does the newer Silence mechanic interact with Names, ordinary memory, written/digital records and institutional Fade-user memory?"
+        ]
       }
     },
     {
