@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-038-yokuda-redguard-sword-singers",
+  "subjects": [
+    {
+      "id": "tes:sword-singers",
+      "name": "Sword-singers",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/sword-singers.json",
+      "source": {
+        "id": "uesp:sword-singers",
+        "url": "https://en.uesp.net/wiki/Lore:Sword-singers",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ansei",
+      "name": "Ansei",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/ansei.json",
+      "source": {
+        "id": "uesp:ansei",
+        "url": "https://en.uesp.net/wiki/Lore:Ansei",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:na-totambu",
+      "name": "Na-Totambu",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/na-totambu.json",
+      "source": {
+        "id": "uesp:na-totambu",
+        "url": "https://en.uesp.net/wiki/Lore:Na-Totambu",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:crowns",
+      "name": "Crowns",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/crowns.json",
+      "source": {
+        "id": "uesp:crowns",
+        "url": "https://en.uesp.net/wiki/Lore:Crowns",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:forebears",
+      "name": "Forebears",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/forebears.json",
+      "source": {
+        "id": "uesp:forebears",
+        "url": "https://en.uesp.net/wiki/Lore:Forebears",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:restless-league",
+      "name": "Restless League",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/restless-league.json",
+      "source": {
+        "id": "uesp:restless-league",
+        "url": "https://en.uesp.net/wiki/Lore:Restless_League",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Yokuda's destruction has competing explanations; preserve natural, political, magical and sword-related accounts separately",
+    "Pankratosword claims require especially strong provenance and must not be generalized from later fan interpretation",
+    "Sword-singer and Ansei feats should distinguish instructional tradition, heroic literature and directly evidenced capability",
+    "Crowns and Forebears are historical/political traditions whose positions vary by era; do not make them timeless monoliths",
+    "Yokudan theology such as the Walkabout and Far Shores should retain source/cultural framing rather than be flattened into universal cosmology",
+    "Cross-link existing Yokuda, Redguard, Hammerfell, Frandar Hunding, Makela Leki, Sword-singers, Ansei, Shehai, Crowns, Forebears and Stros M'Kai records"
+  ]
+}
