@@ -23,7 +23,8 @@
       "2026-09-18 began importing the connected Notion Dream Eater workspace into the Agent OS provenance map. Notion contains a structured Dream Eater→Lore hierarchy with Guardian Cycle, organizations, locations, entities and an Eight Houses database. Many pages are placeholders; substantive content is retained without promoting it over newer/user-confirmed sources.",
       "User clarification 2026-09-18: Silas Ashland's mother is also the Mind Emblem holder immediately before Abigail Fletcher and Abigail's mentor in The Delusionist. Current 2026 Guardian Cycle evidence makes Melissa Finnegan the leading candidate, but do not promote that identification without explicit confirmation.",
       "User confirmation 2026-09-18: Melissa Finnegan is Silas Ashland's mother, Grant Ashland is his father, Melissa mentors Abigail Fletcher in The Delusionist, and Melissa is the Mind Emblem holder immediately preceding Abigail.",
-      "2026-09-18 deeper Notion traversal mapped the 2024 Divine/Throne taxonomy and Inquisition character hierarchy. Blank descendants are retained as concept-existence provenance only; sibling order is not used to invent Divine↔Throne mappings."
+      "2026-09-18 deeper Notion traversal mapped the 2024 Divine/Throne taxonomy and Inquisition character hierarchy. Blank descendants are retained as concept-existence provenance only; sibling order is not used to invent Divine↔Throne mappings.",
+      "2026-09-18 Notion realm/history pass: 2024 taxonomy explicitly lists Earth, Fade, Void, Neverwhere and Blueharbor as Realms, with Albion nested under Void. History and Groups are blank, and several organization pages are placeholders. War of Glass/Prague Agreement/Makers material appears to live outside this Notion snapshot, reinforcing cross-source retrieval."
     ]
   },
   "project_clusters": [
@@ -543,7 +544,43 @@
             "Silentown",
             "Silent Institute and several Guardian-cycle generation pages"
           ],
-          "import_rule": "Blank pages are imported as historical taxonomy/concept-existence evidence only, never as detailed canon."
+          "import_rule": "Blank pages are imported as historical taxonomy/concept-existence evidence only, never as detailed canon.",
+          "realm_taxonomy": {
+            "snapshot": "2024-06-19",
+            "realms": [
+              "Earth",
+              "The Fade",
+              "The Void",
+              "Neverwhere",
+              "Blueharbor"
+            ],
+            "explicit_structure": [
+              "Albion - The City in the Void is a child location of The Void.",
+              "Albion contains planned sublocations Upside and Silentown."
+            ],
+            "status_rule": "Earth, Fade, Neverwhere and Blueharbor pages are blank in this snapshot; their placement establishes realm taxonomy only. Do not import descriptive properties from the names."
+          },
+          "empty_branches": {
+            "history": "Blank top-level lore page in 2024 snapshot; no Notion history details recovered.",
+            "groups": "Blank top-level lore page in 2024 snapshot.",
+            "organizations": [
+              "Church of Whispers/Inquisition",
+              "The Healer's Guild",
+              "Circle of Three",
+              "Silent Institute"
+            ],
+            "note": "These names establish planned organizations, while substantive details should come from other sources such as Drive documents unless later Notion descendants are found."
+          },
+          "search_crosscheck": {
+            "absent_terms": [
+              "War of Glass",
+              "Prague Agreement",
+              "White Index",
+              "Makers"
+            ],
+            "interpretation": "No substantive Notion hits in the connected Dream Eater tree for these terms. This is a source-distribution finding, not evidence that the concepts were absent from the project; Drive contains later/different material for them.",
+            "red_saturday": "No Notion Red Saturday lore recovered; only unrelated match to Yggdrassil's Red Door."
+          }
         }
       }
     },
