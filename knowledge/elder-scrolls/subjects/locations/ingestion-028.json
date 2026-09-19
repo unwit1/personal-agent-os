@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-028-eso-dungeons-trials-deadlands",
+  "subjects": [
+    {
+      "id": "tes:maw-lorkhaj",
+      "name": "Maw of Lorkhaj",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/maw-lorkhaj.json",
+      "source": {
+        "id": "uesp:maw-lorkhaj",
+        "url": "https://en.uesp.net/wiki/Lore:Maw_of_Lorkhaj",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:white-gold-tower",
+      "name": "White-Gold Tower",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/white-gold-tower.json",
+      "source": {
+        "id": "uesp:white-gold-tower",
+        "url": "https://en.uesp.net/wiki/Lore:White-Gold_Tower",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:imperial-city-prison",
+      "name": "Imperial City Prison",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/imperial-city-prison.json",
+      "source": {
+        "id": "uesp:imperial-city-prison",
+        "url": "https://en.uesp.net/wiki/Lore:Imperial_City_Prison",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:cradle-shadows",
+      "name": "Cradle of Shadows",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/cradle-shadows.json",
+      "source": {
+        "id": "uesp:cradle-shadows",
+        "url": "https://en.uesp.net/wiki/Lore:Cradle_of_Shadows",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:clockwork-city-trials",
+      "name": "Clockwork City",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/clockwork-city-trials.json",
+      "source": {
+        "id": "uesp:clockwork-city-trials",
+        "url": "https://en.uesp.net/wiki/Lore:Clockwork_City",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:fargrave",
+      "name": "Fargrave",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/fargrave.json",
+      "source": {
+        "id": "uesp:fargrave",
+        "url": "https://en.uesp.net/wiki/Lore:Fargrave",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:deadlands",
+      "name": "Deadlands",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/deadlands.json",
+      "source": {
+        "id": "uesp:deadlands",
+        "url": "https://en.uesp.net/wiki/Lore:Deadlands",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:high-isle",
+      "name": "High Isle",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/high-isle.json",
+      "source": {
+        "id": "uesp:high-isle",
+        "url": "https://en.uesp.net/wiki/Lore:High_Isle",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:amenos",
+      "name": "Amenos",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/amenos.json",
+      "source": {
+        "id": "uesp:amenos",
+        "url": "https://en.uesp.net/wiki/Lore:Amenos",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Dungeon/trial mechanics are not automatically lore facts; separate repeatable gameplay systems from narrative events",
+    "Group-content outcomes involving the Vestige remain minimally biographical and branch-safe",
+    "Fargrave claims should distinguish observed social/legal conditions from claims about metaphysical neutrality",
+    "Daedric cult doctrine remains attributed to the cult or speaker",
+    "Later ESO chapter/DLC events retain their own chronology and must not be projected backward into base-game history",
+    "Cross-link existing Deadlands, Clockwork City, White-Gold Tower, Elder Scrolls, Undaunted, Fighters Guild and Mages Guild subjects"
+  ]
+}
