@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-047-altmer-religion-aldmeri-cosmology",
+  "subjects": [
+    {
+      "id": "tes:heart-world",
+      "name": "The Heart of the World",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/heart-world.json",
+      "source": {
+        "id": "uesp:heart-world",
+        "url": "https://en.uesp.net/wiki/Lore:The_Heart_of_the_World",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:varieties-faith-high-elves",
+      "name": "Varieties of Faith: The High Elves",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/varieties-faith-high-elves.json",
+      "source": {
+        "id": "uesp:varieties-faith-high-elves",
+        "url": "https://en.uesp.net/wiki/Lore:Varieties_of_Faith:_The_High_Elves",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:before-ages-man",
+      "name": "Before the Ages of Man",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/before-ages-man.json",
+      "source": {
+        "id": "uesp:before-ages-man",
+        "url": "https://en.uesp.net/wiki/Lore:Before_the_Ages_of_Man",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:monomyth",
+      "name": "The Monomyth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/monomyth.json",
+      "source": {
+        "id": "uesp:monomyth",
+        "url": "https://en.uesp.net/wiki/Lore:The_Monomyth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:crimes-aprax",
+      "name": "Crimes of the Aprax",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/crimes-aprax.json",
+      "source": {
+        "id": "uesp:crimes-aprax",
+        "url": "https://en.uesp.net/wiki/Lore:Crimes_of_the_Aprax",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Altmeri creation narratives and divine-ancestry claims remain theological/cultural claims unless independently evidenced",
+    "Aldmeris must preserve competing interpretations of literal homeland, cultural memory, metaphor and retrospective construction",
+    "Do not automatically merge Auri-El, Akatosh or Alkosh; represent proposed identities and correspondences as sourced relationships",
+    "Alaxon and Apraxic status should distinguish prescriptive social ideals, institutional enforcement and individual lived practice",
+    "Crystal Tower metaphysics must distinguish directly observed events from broader Tower theory",
+    "Cross-link existing Altmer, Aldmer, Summerset, Auri-El, Trinimac, Magnus, Xarxes, Jephre, Crystal Tower, Transparent Law, Sapiarch and Divine Prosecution records"
+  ]
+}
