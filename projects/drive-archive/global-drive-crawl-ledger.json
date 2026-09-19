@@ -15,7 +15,7 @@
     "first_level_files_indexed": 289,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Deepen Journeyman and continue safe Skyrim projects: Merciful/Vigilant, Apostate subprojects, Acrobatics, CoW Overhaul, custom quest/dialogue projects, then move into Productivity and older historical root artifacts. Continue skipping NSFW and sensitive sources."
+    "next_action": "Continue safe Skyrim project family: Apprentice, Stendarr's Beacon/IDE Vigilants-Dawnguard, Apostate deity concepts/rites, Spell Rebalances, remaining Personal Mods project entries; then older historical non-Skyrim artifacts. Skyrim mod sources remain in scope even with adult-mod references."
   },
   "top_level_folders": [
     {
@@ -3649,9 +3649,91 @@
     "journeyman": {
       "status": "planned_or_in_development",
       "domain": "Skyrim radiant quest overhaul",
-      "summary": "Dedicated project for expanding/reworking radiant quest gameplay; retained as a distinct project from the surfaced workbook. Deeper feature extraction remains queued.",
+      "summary": "Systematic redesign/catalog of repeatable and radiant content across College, Companions, Dark Brotherhood, Thieves Guild, Dawnguard/Vampires and generic settlement work. It inventories vanilla radiant quests then generalizes them into reusable Courier, Gather, Kill, Retrieve and Hunt patterns, with room for expanded faction/world-state variants.",
       "source_ids": [
         "10Kvh6300WxHGSpQxFhz2rNJCd-1qWFvfg3BpQt-TwB8"
+      ],
+      "relationships": [
+        "Open Reputation Engine",
+        "Crime Overhaul NG",
+        "Knowledge Framework"
+      ]
+    },
+    "merciful-vigilant-overhaul": {
+      "status": "planned_or_in_development",
+      "domain": "Vigilants of Stendarr faction overhaul",
+      "summary": "Broad Vigilant overhaul spanning equipment tiers, named Vigilants, class/archetype diversity, Restoration/sun magic, holy conjured weapons, faction progression and related dialogue/casefile systems. Archetypes include Vigilant, Justiciar, Crusader, Spellshield, Bulwark, Cleric, Sunbreaker, Warden, Suncantor, Holy Archer, Inquisitor, Shadow and Pilgrim concepts.",
+      "source_ids": [
+        "1tTfcoH2Hp8f0aCoXFqQowaQ4cuZLiu-_HOeh5FA3CnM",
+        "1_Ff9VqpfpOBcy_hTExZPeygFApuwbnNXKjMVNV1Y3F4",
+        "1LzXvL7TvQl1D_sx3Ac2S7UdnTGQvIpfNaciOnsP_9Ts"
+      ],
+      "relationships": [
+        "Apostate",
+        "Consecration",
+        "Open Reputation Engine",
+        "UnwitRim Custom Spells"
+      ],
+      "dialogue_system": "Vigilant Dialogue Overhaul tracks heretical/Daedric items and adds rank-aware interactions such as supplies, training, crafting, weapon sanctification, temporary aid, trophy turn-ins, charity and contextual inquisition exceptions."
+    },
+    "consecration": {
+      "status": "planned_or_in_development",
+      "domain": "Arkay priesthood and gravedigging roleplay",
+      "summary": "Arkay-focused priesthood addon combining funerary/gravedigging gameplay, corpse sanctification, holy ground, undead resistance, sun/Restoration magic, holy conjured weapons, saints/relics and integration with death/undead quests. A persistent Register of the Dead is planned to reward consecrated corpses.",
+      "source_ids": [
+        "1Fg4osWyGvxK5QL-4FV1i4g6Ty87a2v_ctrH8-S8GaB0"
+      ],
+      "relationships": [
+        "Apostate",
+        "Merciful",
+        "UnwitRim Custom Spells"
+      ],
+      "key_mechanics": [
+        "sanctify corpses to block necromancy",
+        "temporary holy ground buffs allies and weakens undead",
+        "Arkay favor can react to anti-necromancy choices",
+        "Register of the Dead progression"
+      ]
+    },
+    "covenant": {
+      "status": "planned_or_in_development",
+      "domain": "Tamrielic knightly orders/oath gameplay",
+      "summary": "Models cultural/religious codes and player oaths as mechanically enforced roleplay constraints. Sources include Green Pact, Code of Malacath, Way of the Voice, Two-Moons Dance, Five Tenets, Nightingale Oath, Way of the Sword, Precepts of Stendarr and additional custom oath archetypes with behavior restrictions and consequences.",
+      "source_ids": [
+        "10PNoLggE8K3WZ1ws6t6Rc1DArlbacY_KKgKJGxKI9TE"
+      ],
+      "relationships": [
+        "Apostate",
+        "Open Reputation Engine",
+        "Merciful"
+      ],
+      "design_pattern": "Convert lore doctrines into gameplay vows whose boons depend on behavioral compliance."
+    },
+    "acrobatics-adamant-addon": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim movement/evasion custom skill",
+      "summary": "Adamant-adjacent Acrobatics concept combining dodge progression, jumping/climbing/aerial combat and stamina-based mobility. Ideas include jump-height scaling, double/multi-jump, aerial damage, timed/perfect dodges, invisibility-on-dodge and integration with dodge/counter frameworks.",
+      "source_ids": [
+        "1NyL9uiikkGiNvIdwhdevjF6exSD__7ur_Rj5kfjjp1A"
+      ],
+      "relationships": [
+        "Gradience",
+        "Simonrim balance lab",
+        "Skyrim Modlist Architecture"
+      ]
+    },
+    "college-of-winterhold-overhaul": {
+      "status": "research_and_design",
+      "domain": "College of Winterhold integration overhaul",
+      "summary": "Compatibility/design workspace comparing major College overhauls and many smaller quest, curriculum, entry, tuition, NPC, bridge, library and Arch-Mage changes. Draft spatial concepts include Hall of Elements as lecture hall plus Hall of Acumen, Hall of Diligence and an expanded Arcaneum.",
+      "source_ids": [
+        "18eC2ObIwY7JVIkQ0XkhG7DB77oC0elTZLlmFTWV-090"
+      ],
+      "relationships": [
+        "Knowledge Framework",
+        "Scholars of Skyrim",
+        "Journeyman",
+        "Skyrim Modlist Architecture"
       ]
     }
   },
@@ -3722,6 +3804,6 @@
   ],
   "crawl_preferences": {
     "skip_nsfw": true,
-    "nsfw_handling": "Do not fetch or inspect known/suspected NSFW files. Metadata-only if needed for inventory; do not summarize explicit content."
+    "nsfw_handling": "Skip unrelated NSFW material. Skyrim mod/modding sources remain in scope even if they contain adult-mod references; extract useful technical/project context without unnecessarily preserving explicit material."
   }
 }
