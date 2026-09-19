@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "continuity_id": "tes-base",
+  "batch_id": "uesp-009-high-rock-reach-orsimer-clusters",
+  "purpose": "Expand western Tamriel coverage through Breton/High Rock history, Reachfolk traditions, Orsimer/Orsinium, and Daggerfall Covenant connections.",
+  "pages": [
+    {
+      "id": "breton",
+      "title": "Breton",
+      "url": "https://en.uesp.net/wiki/Lore:Breton",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "high-rock",
+      "title": "High Rock",
+      "url": "https://en.uesp.net/wiki/Lore:High_Rock",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "druid",
+      "title": "Druid",
+      "url": "https://en.uesp.net/wiki/Lore:Druid",
+      "page_type": "lore_summary",
+      "entity_type": "organization_or_tradition",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "druids-of-galen",
+      "title": "Druids of Galen",
+      "url": "https://en.uesp.net/wiki/Lore:Druids_of_Galen",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "glenumbra",
+      "title": "Glenumbra",
+      "url": "https://en.uesp.net/wiki/Lore:Glenumbra",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "stormhaven",
+      "title": "Stormhaven",
+      "url": "https://en.uesp.net/wiki/Lore:Stormhaven",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "rivenspire",
+      "title": "Rivenspire",
+      "url": "https://en.uesp.net/wiki/Lore:Rivenspire",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "wayrest",
+      "title": "Wayrest",
+      "url": "https://en.uesp.net/wiki/Lore:Wayrest",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "daggerfall",
+      "title": "Daggerfall",
+      "url": "https://en.uesp.net/wiki/Lore:Daggerfall",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "evermore",
+      "title": "Evermore",
+      "url": "https://en.uesp.net/wiki/Lore:Evermore",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "direnni-hegemony",
+      "title": "Direnni Hegemony",
+      "url": "https://en.uesp.net/wiki/Lore:Direnni_Hegemony",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "balfiera",
+      "title": "Balfiera",
+      "url": "https://en.uesp.net/wiki/Lore:Balfiera",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "reachfolk",
+      "title": "Reachfolk",
+      "url": "https://en.uesp.net/wiki/Lore:Reachfolk",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "the-reach",
+      "title": "The Reach",
+      "url": "https://en.uesp.net/wiki/Lore:The_Reach",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "forsworn",
+      "title": "Forsworn",
+      "url": "https://en.uesp.net/wiki/Lore:Forsworn",
+      "page_type": "lore_summary",
+      "entity_type": "faction",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "old-gods",
+      "title": "Old Gods",
+      "url": "https://en.uesp.net/wiki/Lore:Old_Gods",
+      "page_type": "lore_summary",
+      "entity_type": "religion",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "briarheart",
+      "title": "Briarheart",
+      "url": "https://en.uesp.net/wiki/Lore:Briarheart",
+      "page_type": "lore_summary",
+      "entity_type": "concept",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "hagraven",
+      "title": "Hagraven",
+      "url": "https://en.uesp.net/wiki/Lore:Hagraven",
+      "page_type": "lore_summary",
+      "entity_type": "creature",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "orsimer",
+      "title": "Orsimer",
+      "url": "https://en.uesp.net/wiki/Lore:Orsimer",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "orsinium",
+      "title": "Orsinium",
+      "url": "https://en.uesp.net/wiki/Lore:Orsinium",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "malacath",
+      "title": "Malacath",
+      "url": "https://en.uesp.net/wiki/Lore:Malacath",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "trininimac-cult",
+      "title": "Trinimac Cult",
+      "url": "https://en.uesp.net/wiki/Lore:Trinimac_Cult",
+      "page_type": "lore_summary",
+      "entity_type": "religion",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "wrothgar",
+      "title": "Wrothgar",
+      "url": "https://en.uesp.net/wiki/Lore:Wrothgar",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "first-orsinium",
+      "title": "First Orsinium",
+      "url": "https://en.uesp.net/wiki/Lore:First_Orsinium",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "ranser-war",
+      "title": "Ranser's War",
+      "url": "https://en.uesp.net/wiki/Lore:Ranser%27s_War",
+      "page_type": "lore_summary",
+      "entity_type": "event",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "daggerfall-covenant",
+      "title": "Daggerfall Covenant",
+      "url": "https://en.uesp.net/wiki/Lore:Daggerfall_Covenant",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "emeric",
+      "title": "Emeric",
+      "url": "https://en.uesp.net/wiki/Lore:Emeric",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "reachmen-religion",
+      "title": "Reachfolk Religion",
+      "url": "https://en.uesp.net/wiki/Lore:Reachfolk_Religion",
+      "page_type": "lore_summary",
+      "entity_type": "religion",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "namira",
+      "title": "Namira",
+      "url": "https://en.uesp.net/wiki/Lore:Namira",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    },
+    {
+      "id": "peryite",
+      "title": "Peryite",
+      "url": "https://en.uesp.net/wiki/Lore:Peryite",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying dialogue/books/quests/loading screens/items; preserve cultural attribution"
+    }
+  ],
+  "direct_evidence_seeds": [
+    {
+      "title": "Map of Clans",
+      "url": "https://en.uesp.net/wiki/Lore:Map_of_Clans",
+      "authority_class": "primary_in_universe",
+      "epistemic_status": "oral_tradition_recorded_by_later_author",
+      "notes": "UESP text says the original manuscript was lost and some clans disputed the account; retain author-belief and oral-tradition qualifiers."
+    },
+    {
+      "title": "Wayrest Sewers: A Short History",
+      "url": "https://en.uesp.net/wiki/Lore:Wayrest_Sewers:_A_Short_History",
+      "authority_class": "primary_in_universe",
+      "epistemic_status": "historical_work_with_embedded_quotation"
+    },
+    {
+      "title": "Crafting Motif 94: Ancestral Reach Chests",
+      "url": "https://en.uesp.net/wiki/Online:Crafting_Motif_94:_Ancestral_Reach_Chests",
+      "authority_class": "primary_in_universe",
+      "epistemic_status": "imperial_observer_account",
+      "notes": "Do not normalize the narrator's value judgments about Reachfolk into neutral facts."
+    }
+  ],
+  "review_focus": [
+    "separate Breton/Imperial descriptions of Reachfolk from Reachfolk self-description",
+    "preserve disputed Orcish oral histories",
+    "distinguish Trinimac/Malacath theological claims by tradition and source",
+    "retain unofficial-source warnings where UESP marks them",
+    "High Rock, Glenumbra, Rivenspire, The Reach and other cleanup-category places require review"
+  ],
+  "ingestion_rules": {
+    "raw_text": "local_rebuildable",
+    "git": "metadata_queue_review_state_only",
+    "checkpoint_each_page": true,
+    "preserve_epistemic_language": true,
+    "prefer_underlying_primary_evidence": true,
+    "exclude_mod_namespaces_from_tes_base": true
+  }
+}
