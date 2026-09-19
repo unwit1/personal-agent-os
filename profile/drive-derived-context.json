@@ -9,7 +9,8 @@
       "Drive discovery included broad browsing plus targeted searches for major work, creative, modding, collecting, and finance themes.",
       "Treat Google Drive as supporting evidence and working material; GitHub remains canonical for Agent OS/project state.",
       "Do not assume every accessible/shared file was authored by the user.",
-      "2026-09-18 targeted second-pass read covered Knowledge Framework, Scholars of Skyrim, Silvertongue, Apocryphal Knowledge, Arcaneum Scholarship, Codex, and Daedrologist; only durable design relationships were promoted."
+      "2026-09-18 targeted second-pass read covered Knowledge Framework, Scholars of Skyrim, Silvertongue, Apocryphal Knowledge, Arcaneum Scholarship, Codex, and Daedrologist; only durable design relationships were promoted.",
+      "User clarified 2026-09-18: KF is the base; Arcaneum evolved into KF but may remain as the book-tagging layer; Imperial Library is book tagging/import; most related projects should be frameworks or integratable addons; newer versions generally win while older versions remain comparison provenance."
     ]
   },
   "project_clusters": [
@@ -120,6 +121,14 @@
           "Daedrologist: systemic Daedra summoning/bargaining with persistent knowledge such as nymics, disposition, allegiance, offerings and binding state."
         ],
         "agent_os_implication": "Model this ecosystem as a project graph with Knowledge Framework as a shared platform/data dependency and addons as related projects. Retrieve the framework contract plus only the relevant addon context for a task."
+      },
+      "user_confirmed_structure": {
+        "status": "user_confirmed_2026-09-18",
+        "knowledge_framework": "Base framework and shared knowledge/study platform.",
+        "arcaneum": "Earlier concept that evolved into Knowledge Framework; may remain specifically as the book-tagging project/layer, but exact boundary is unresolved and should be consolidated later.",
+        "imperial_library": "Primarily concerned with tagging existing lore books and/or adding lore books from prior Elder Scrolls sources.",
+        "addon_strategy": "Most related mods should be frameworks themselves or integratable addons that compose with the shared frameworks.",
+        "version_policy": "When redundant versions conflict, newer material generally takes precedence, but older versions should be preserved as provenance and compared for inconsistencies, gaps, useful abandoned ideas, and consolidation opportunities."
       }
     },
     {
@@ -220,6 +229,7 @@
     "For Dream Eater writing, retrieve the worldbuilding cluster plus the specific scene/character/lore docs relevant to the request.",
     "For LEGO/minifigure tasks, distinguish collection tracking, third-party release monitoring, and custom production/design as separate intents.",
     "For HR tasks, prefer sanitized engineering knowledge and local-only processing; do not pull raw personnel content into durable memory.",
-    "For finance tasks, use current connected financial data when available rather than stale Drive budget snapshots."
+    "For finance tasks, use current connected financial data when available rather than stale Drive budget snapshots.",
+    "For redundant project documents, prefer newer/current material for active context while retaining older versions as provenance; proactively surface contradictions, gaps, duplicated concepts, and potentially valuable ideas that disappeared between versions."
   ]
 }
