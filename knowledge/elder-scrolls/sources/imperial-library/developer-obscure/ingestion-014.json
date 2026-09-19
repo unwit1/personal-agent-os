@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-014-unpublished-cut-drafts",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:unpublished-drafts",
+      "title": "Unpublished and draft developer lore texts",
+      "author": "multiple",
+      "document_kind": "draft_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "draft lore",
+        "unpublished texts",
+        "development history"
+      ]
+    },
+    {
+      "id": "til:cut-books",
+      "title": "Cut and unused in-game books",
+      "author": "multiple",
+      "document_kind": "cut_content_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "cut books",
+        "unused dialogue",
+        "development history"
+      ]
+    },
+    {
+      "id": "til:concept-art-lore",
+      "title": "Lore-bearing developer concept art and annotations",
+      "author": "multiple",
+      "document_kind": "concept_art_context_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "concept art",
+        "annotations",
+        "visual design",
+        "development history"
+      ]
+    },
+    {
+      "id": "til:design-documents",
+      "title": "Elder Scrolls design documents with lore content",
+      "author": "multiple",
+      "document_kind": "design_document_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "design documents",
+        "worldbuilding",
+        "development history"
+      ]
+    },
+    {
+      "id": "til:unused-quests-lore",
+      "title": "Unused and cut quest lore",
+      "author": "multiple",
+      "document_kind": "cut_content_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "cut quests",
+        "unused dialogue",
+        "alternate plots"
+      ]
+    },
+    {
+      "id": "til:pre-release-lore",
+      "title": "Pre-release lore and promotional development material",
+      "author": "multiple",
+      "document_kind": "pre_release_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "pre-release",
+        "promotional lore",
+        "changed concepts",
+        "development history"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Unpublished, cut and draft material is never labeled as shipped canon solely because it was authored during development.",
+    "Record project/game, draft date or build when known, author, and whether any portion survived into release.",
+    "When a draft differs from release, retain a development-delta relation instead of overwriting either version.",
+    "Concept-art annotations are textual evidence for development intent but visual inference should be marked separately.",
+    "Recovered or leaked provenance must be documented before ingestion; uncertain provenance remains quarantined."
+  ]
+}
