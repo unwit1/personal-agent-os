@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 236,
+    "first_level_files_indexed": 246,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Traverse newly discovered TTRPG campaign folders and Dream Eater draft/old; continue safe content extraction in small batches."
+    "next_action": "Traverse Anthem, Fate/False Paradise, and Blades of Pergrande child folders; extract additional historical project knowledge."
   },
   "top_level_folders": [
     {
@@ -2193,6 +2193,76 @@
       "modified_time": "2022-09-09T22:31:12.553Z",
       "category": "writing_satire_pinochle",
       "content_status": "processed_summary"
+    },
+    {
+      "id": "14sjLqJ8RSd3C-OtrA1ApyE0J-3Ho0w6TPNEK5OuQ7AM",
+      "title": "Blades of Pergrande - Loredoc",
+      "path": "/My Drive/Personal/TTRPG/blades of pergrande/Blades of Pergrande - Loredoc",
+      "category": "ttrpg_blades_of_pergrande",
+      "content_status": "processed_elsewhere"
+    },
+    {
+      "id": "1Qk2TlPBW0BosNPrIu1k5tQTtBHVG9LOQ6Kp9l0iEfHk",
+      "title": "Statblocks (PLAYER VIEW)",
+      "path": "/My Drive/Personal/TTRPG/Campaign 2 - Fate/False Paradise/Statblocks (PLAYER VIEW)",
+      "category": "ttrpg_fate_false_paradise",
+      "content_status": "queued"
+    },
+    {
+      "id": "1xilyRA3YB8O1GORiiyre6BR3KeUiYvQdSXf4v8Olu0A",
+      "title": "FFP - Servant Sheet",
+      "path": "/My Drive/Personal/TTRPG/Campaign 2 - Fate/False Paradise/FFP - Servant Sheet",
+      "category": "ttrpg_fate_false_paradise",
+      "content_status": "queued"
+    },
+    {
+      "id": "1AtrMHtnuKVdiDVYIGYpocaO8uE0RMH75lKmmj56dlAM",
+      "title": "FFP - NPC Statblocks",
+      "path": "/My Drive/Personal/TTRPG/Campaign 2 - Fate/False Paradise/FFP - NPC Statblocks",
+      "category": "ttrpg_fate_false_paradise",
+      "content_status": "queued"
+    },
+    {
+      "id": "1W6FK9UKvOOlr0eqXo2jyAxZ5eKR7eq1mcmwK9zbZDXw",
+      "title": "Untitled document",
+      "path": "/My Drive/Personal/TTRPG/Campaign 2 - Fate/False Paradise/Untitled document",
+      "category": "ttrpg_fate_false_paradise",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1Kb_vDbHV-omPfNL0k5Q38P1b_yHLlNkUavtmHyVctyo",
+      "title": "Anthem City - Lore - Unified Lore Doc",
+      "path": "/My Drive/Personal/TTRPG/Campaign 1 - Anthem/Anthem City - Lore - Unified Lore Doc",
+      "category": "ttrpg_anthem_city",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1KKf_TW1UwzktKVpL9PObqyHLB-8AYcqkpyYOZtOP70M",
+      "title": "Anthem City - Campaign Notes",
+      "path": "/My Drive/Personal/TTRPG/Campaign 1 - Anthem/Anthem City - Campaign Notes",
+      "category": "ttrpg_anthem_city",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "13_YIUXY6qj1Wjt7nOncaOEeXUti-3hlPh9l-4jjQGi4",
+      "title": "Anthem City - CHARACTER CREATION",
+      "path": "/My Drive/Personal/TTRPG/Campaign 1 - Anthem/Anthem City - CHARACTER CREATION",
+      "category": "ttrpg_anthem_city",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1njz-xNZSAzfZvI9RNQ0wdEN3dP_m5CEfXmtlRTVSk7c",
+      "title": "Campaign 1 - Anthem City",
+      "path": "/My Drive/Personal/TTRPG/Campaign 1 - Anthem/Campaign 1 - Anthem City",
+      "category": "ttrpg_anthem_city",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1-lF8abUykTA4WKKrAQpUrnzUTUQvR7l_M-IRM5Jra1U",
+      "title": "Dream Eater",
+      "path": "/My Drive/dreameater/draft/old/Dream Eater",
+      "category": "writing_dream_eater",
+      "content_status": "processed_elsewhere"
     }
   ],
   "folder_queue": [
@@ -2286,6 +2356,51 @@
       "path": "/My Drive/Personal/Pinochle",
       "url": "https://drive.google.com/drive/folders/1uLFWq2ipK70lJtfau_ZbWtV5-laBK1sr",
       "status": "queued"
+    },
+    {
+      "id": "1n0uLcPbtXRAdCD4q3IPXZzkfliJeSpO1",
+      "path": "/My Drive/Personal/TTRPG/blades of pergrande/Lore",
+      "status": "queued"
+    },
+    {
+      "id": "11w9x0hOmV0DrZLn6BEOVBZMSKkQM6bka",
+      "path": "/My Drive/Personal/TTRPG/blades of pergrande/Player Characters",
+      "status": "queued"
+    },
+    {
+      "id": "1A-chIPHZp1ixxYnsf8VIPuYEVVtLM82j",
+      "path": "/My Drive/Personal/TTRPG/blades of pergrande/Plotting",
+      "status": "queued"
+    },
+    {
+      "id": "1CqqKvbn5DzUdqywc57RLulCEqDIzJrXV",
+      "path": "/My Drive/Personal/TTRPG/Campaign 2 - Fate/False Paradise/System",
+      "status": "queued"
+    },
+    {
+      "id": "1p8EmokwQwsj8xkLefxgN1y3Z8Yow2J3e",
+      "path": "/My Drive/Personal/TTRPG/Campaign 2 - Fate/False Paradise/Character Sheets",
+      "status": "queued"
+    },
+    {
+      "id": "11_LFhlv_Nk5dQINYhlV_KdXMyytPyoIn",
+      "path": "/My Drive/Personal/TTRPG/Campaign 1 - Anthem/npc",
+      "status": "queued"
+    },
+    {
+      "id": "11YlVhy2MOkaIt6EpAjCovaFsjRAeTvz6",
+      "path": "/My Drive/Personal/TTRPG/Campaign 1 - Anthem/creation",
+      "status": "queued"
+    },
+    {
+      "id": "116mjVMJu-vUBuroe40uGfUFg1MEqmGxo",
+      "path": "/My Drive/Personal/TTRPG/Campaign 1 - Anthem/system",
+      "status": "queued"
+    },
+    {
+      "id": "11KAasmiYw2o8Iv-gjx_WMMkZ67IZbMt5",
+      "path": "/My Drive/Personal/TTRPG/Campaign 1 - Anthem/lore",
+      "status": "queued"
     }
   ],
   "category_counts": {
@@ -2337,6 +2452,57 @@
       "source_ids": [
         "1cz8k-IG2y5UsFmfnA55RmZEqjtcH1mGNpVbfMx74Qlc"
       ]
+    },
+    "anthem-city": {
+      "status": "historical_or_dormant",
+      "domain": "TTRPG campaign / superhero school setting",
+      "summary": "Anthem City is an early superhero/anime-inspired tabletop campaign set around 2035 in an island city off northern California. Players enter the Arcadia Institute for prospective heroes amid gang conflict, political tension over superpowered people, hero/villain factions, school trials, internships, and larger crisis arcs. The campaign uses custom powers with mandatory drawbacks, combat-role classes, progression, and extensive faction/NPC design.",
+      "source_ids": [
+        "1njz-xNZSAzfZvI9RNQ0wdEN3dP_m5CEfXmtlRTVSk7c",
+        "1Kb_vDbHV-omPfNL0k5Q38P1b_yHLlNkUavtmHyVctyo",
+        "1KKf_TW1UwzktKVpL9PObqyHLB-8AYcqkpyYOZtOP70M",
+        "13_YIUXY6qj1Wjt7nOncaOEeXUti-3hlPh9l-4jjQGi4"
+      ],
+      "notable_elements": [
+        "Arcadia Institute",
+        "Anthem City, California",
+        "school/squad structure",
+        "custom Quirks/powers with drawbacks",
+        "hero and criminal factions",
+        "gang-war and school-year campaign arcs"
+      ],
+      "relationships": [
+        "Predecessor/parallel design work to later UAS mechanics; do not automatically transfer setting canon."
+      ]
+    },
+    "fate-false-paradise": {
+      "status": "historical_or_dormant",
+      "domain": "Fate-inspired TTRPG campaign",
+      "summary": "Fate/False Paradise was a tabletop campaign with Servant/Master-style mechanics, class-specific skill sheets and statblocks, Noble Phantasms/attributes, campaign arcs for Archer, Caster, Berserker, Assassin/Lancer, Saber and Rider, and mana/materialization rules. One planning document develops Rider's cultivation/Qi mechanics.",
+      "source_ids": [
+        "1W6FK9UKvOOlr0eqXo2jyAxZ5eKR7eq1mcmwK9zbZDXw",
+        "1Qk2TlPBW0BosNPrIu1k5tQTtBHVG9LOQ6Kp9l0iEfHk",
+        "1xilyRA3YB8O1GORiiyre6BR3KeUiYvQdSXf4v8Olu0A",
+        "1AtrMHtnuKVdiDVYIGYpocaO8uE0RMH75lKmmj56dlAM"
+      ],
+      "notable_elements": [
+        "Servant materialization and mana",
+        "class-specific arcs",
+        "Noble Phantasms",
+        "Qi/cultivation mechanics",
+        "custom statblocks"
+      ]
+    },
+    "blades-of-pergrande": {
+      "status": "historical_or_dormant",
+      "domain": "TTRPG campaign / fantasy setting",
+      "summary": "Blades of Pergrande is a substantial tabletop campaign project with a large loredoc plus separate Lore, Player Characters, Plotting, spell, and system-related material. Earlier Dream Eater discovery showed it contains concepts such as Yggdrassil, DENIAL/Sin Eater material, and SHATTERGATE in a distinct campaign continuity; those similarities must remain provenance-only unless explicitly linked by the user.",
+      "source_ids": [
+        "14sjLqJ8RSd3C-OtrA1ApyE0J-3Ho0w6TPNEK5OuQ7AM"
+      ],
+      "relationships": [
+        "Uses/contains some names or motifs later seen elsewhere; treat as separate continuity unless user confirms reuse lineage."
+      ]
     }
   },
   "discovered_project_folders": [
@@ -2375,6 +2541,18 @@
       "title": "old",
       "path": "/My Drive/dreameater/draft/old",
       "status": "queued"
+    }
+  ],
+  "empty_project_folders": [
+    {
+      "id": "11-GoZ4bAT45TwakZgRzjXJacf3nd7Re-",
+      "title": "Campaign 4 - Lords of Mourning",
+      "status": "empty_folder_historical_project"
+    },
+    {
+      "id": "10q3pzYo2XbMx65bBpdCmDNQV1znkIvZV",
+      "title": "Campaign 4 - The Wonderland Murders",
+      "status": "empty_folder_historical_project"
     }
   ]
 }
