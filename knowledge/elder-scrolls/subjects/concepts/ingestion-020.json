@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-020-solstheim-dragonborn-apocrypha",
+  "subjects": [
+    {
+      "id": "tes:dragonborn-cult",
+      "name": "Dragonborn Cult",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dragonborn-cult.json",
+      "source": {
+        "id": "uesp:dragonborn-cult",
+        "url": "https://en.uesp.net/wiki/Lore:Dragonborn_Cult",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:bend-will",
+      "name": "Bend Will",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/bend-will.json",
+      "source": {
+        "id": "uesp:bend-will",
+        "url": "https://en.uesp.net/wiki/Lore:Bend_Will",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:all-maker",
+      "name": "All-Maker",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/all-maker.json",
+      "source": {
+        "id": "uesp:all-maker",
+        "url": "https://en.uesp.net/wiki/Lore:All-Maker",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:skaal-religion",
+      "name": "Skaal Religion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/skaal-religion.json",
+      "source": {
+        "id": "uesp:skaal-religion",
+        "url": "https://en.uesp.net/wiki/Lore:Skaal_Religion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:knowledge-hermaeus-mora",
+      "name": "Forbidden Knowledge",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/knowledge-hermaeus-mora.json",
+      "source": {
+        "id": "uesp:knowledge-hermaeus-mora",
+        "url": "https://en.uesp.net/wiki/Lore:Forbidden_Knowledge",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragon-souls",
+      "name": "Dragon Souls",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dragon-souls.json",
+      "source": {
+        "id": "uesp:dragon-souls",
+        "url": "https://en.uesp.net/wiki/Lore:Dragon_Souls",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragon-riding",
+      "name": "Dragon Riding",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dragon-riding.json",
+      "source": {
+        "id": "uesp:dragon-riding",
+        "url": "https://en.uesp.net/wiki/Lore:Dragon_Riding",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Distinguish Skaal religious belief from directly observed supernatural events",
+    "Hermaeus Mora dialogue establishes what Mora says/claims, not necessarily omniscient truth",
+    "Player-character titles and actions must remain quest/branch scoped where choices vary",
+    "Black Books should be modeled as individual artifacts linked to a collection/concept, not collapsed into one item",
+    "Cross-link Solstheim history to Morrowind/Red Year records while preserving differing source perspectives",
+    "Do not duplicate existing Miraak, Neloth, Apocrypha, Solstheim, Red Year or Hermaeus Mora subjects; merge by canonical subject ID during materialization"
+  ]
+}
