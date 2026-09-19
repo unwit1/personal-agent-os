@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-029-daedric-war-summerset-clockwork",
+  "subjects": [
+    {
+      "id": "tes:fyr-tribunal",
+      "name": "Divayth Fyr",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/fyr-tribunal.json",
+      "source": {
+        "id": "uesp:fyr-tribunal",
+        "url": "https://en.uesp.net/wiki/Lore:Divayth_Fyr",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:clavicus-vile",
+      "name": "Clavicus Vile",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/clavicus-vile.json",
+      "source": {
+        "id": "uesp:clavicus-vile",
+        "url": "https://en.uesp.net/wiki/Lore:Clavicus_Vile",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:nocturnal",
+      "name": "Nocturnal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/nocturnal.json",
+      "source": {
+        "id": "uesp:nocturnal",
+        "url": "https://en.uesp.net/wiki/Lore:Nocturnal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mephala",
+      "name": "Mephala",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/mephala.json",
+      "source": {
+        "id": "uesp:mephala",
+        "url": "https://en.uesp.net/wiki/Lore:Mephala",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sotha-sil",
+      "name": "Sotha Sil",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/sotha-sil.json",
+      "source": {
+        "id": "uesp:sotha-sil",
+        "url": "https://en.uesp.net/wiki/Lore:Sotha_Sil",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:leythen",
+      "name": "Earl Leythen",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/leythen.json",
+      "source": {
+        "id": "uesp:leythen",
+        "url": "https://en.uesp.net/wiki/Lore:Earl_Leythen",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:darien-gautier",
+      "name": "Darien Gautier",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/darien-gautier.json",
+      "source": {
+        "id": "uesp:darien-gautier",
+        "url": "https://en.uesp.net/wiki/Lore:Darien_Gautier",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:razzum-dar-summerset",
+      "name": "Razum-dar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/razzum-dar-summerset.json",
+      "source": {
+        "id": "uesp:razzum-dar-summerset",
+        "url": "https://en.uesp.net/wiki/Lore:Razum-dar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Treat the Clockwork City, Morrowind and Summerset story arc as linked chronology without flattening each chapter's local evidence",
+    "Nocturnal, Mephala and Clavicus Vile statements remain attributed even when describing metaphysics",
+    "Tower/Stone terminology must distinguish in-universe theory, direct quest observations and later scholarly interpretation",
+    "Psijic claims about time and causality require speaker/text provenance",
+    "Do not infer that gameplay depictions of time manipulation define universal metaphysical rules",
+    "Cross-link existing Sotha Sil, Clockwork City, Summerset, Psijic Order, Crystal Tower, Nocturnal, Mephala, Clavicus Vile, Skeleton Key and related subjects"
+  ]
+}
