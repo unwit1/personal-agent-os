@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-034-snow-elves-falmer-forgotten-vale",
+  "subjects": [
+    {
+      "id": "tes:night-tears",
+      "name": "Night of Tears",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/night-tears.json",
+      "source": {
+        "id": "uesp:night-tears",
+        "url": "https://en.uesp.net/wiki/Lore:Night_of_Tears",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:fall-snow-prince",
+      "name": "Fall of the Snow Prince",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/fall-snow-prince.json",
+      "source": {
+        "id": "uesp:fall-snow-prince",
+        "url": "https://en.uesp.net/wiki/Lore:Fall_of_the_Snow_Prince",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:falmer-dwemer-pact",
+      "name": "Falmer-Dwemer Pact",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/falmer-dwemer-pact.json",
+      "source": {
+        "id": "uesp:falmer-dwemer-pact",
+        "url": "https://en.uesp.net/wiki/Lore:Falmer-Dwemer_Pact",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:betrayal-falmer",
+      "name": "Betrayal of the Falmer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/betrayal-falmer.json",
+      "source": {
+        "id": "uesp:betrayal-falmer",
+        "url": "https://en.uesp.net/wiki/Lore:Betrayal_of_the_Falmer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dwemer-disappearance",
+      "name": "Disappearance of the Dwemer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/dwemer-disappearance.json",
+      "source": {
+        "id": "uesp:dwemer-disappearance",
+        "url": "https://en.uesp.net/wiki/Lore:Disappearance_of_the_Dwemer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Use Snow Elf and Falmer terminology with historical precision; do not assume every source uses the terms identically",
+    "Gelebor and Vyrthur provide unusually valuable first-person testimony but remain individual witnesses rather than omniscient narrators",
+    "The cause and mechanism of Falmer transformation must preserve Dwemer agreement accounts, later testimony and uncertainty separately",
+    "Do not infer cultural continuity between ancient Snow Elf religion and every later Falmer community without evidence",
+    "Falmer language evidence should distinguish direct inscriptions/translations from scholarly reconstruction",
+    "Cross-link existing Snow Elves, Falmer, Dwemer, Blackreach, Forgotten Vale, Auri-El, Gelebor, Vyrthur, Auriel's Bow and Falmer-Dwemer records"
+  ]
+}
