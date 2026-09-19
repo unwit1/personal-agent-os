@@ -16,7 +16,8 @@
       "2026-09-18 Dream Eater continuation pass compared current manuscript material, 2023 Chapter 1/Dreameater drafts, brainstorming, and the Guardian Cycle sheet (modified 2026-05-21). Uncertainty markers in the recent sheet are retained as provisional rather than promoted to canon.",
       "User clarification 2026-09-18: Gravekeeper/Gravetender are titles for Ellison Crane; Door originally summoned Mourn and later watched the Nameless after the Black Guardian shattered; Denial weaponized a child as a conceptual suicide bomb against the Nameless Throne, breaking the child and Gallow, whose remnants formed the Ellison Crane/Gallowed Man gestalt expressed when Ellison wears the mask. Door's name remains provisional.",
       "2026-09-18 legacy Dream Eater pass read the 2022 old Dream Eater draft, 2023 Abigail continuation fragment, and Invocation brainstorm. Candidate terminology evolution is recorded as uncertain mappings, not canon.",
-      "2026-09-18 continuation pass cross-checked the 2024 Broken Throne brainstorming doc, 2025 Silence note, and legacy Names sheet. Surviving motifs were separated from unconfirmed mechanics and alias/name drift."
+      "2026-09-18 continuation pass cross-checked the 2024 Broken Throne brainstorming doc, 2025 Silence note, and legacy Names sheet. Surviving motifs were separated from unconfirmed mechanics and alias/name drift.",
+      "2026-09-18 continuation pass found and analyzed the recent Character Wiki (modified 2026-05-23), revealing current Guardian-cycle planning, Dominion/Gallowbird/Mourn material, Deadlight succession, and several event-causality questions to preserve rather than flatten."
     ]
   },
   "project_clusters": [
@@ -351,6 +352,40 @@
           "The setting appears to distinguish being forgotten socially (Silence), surrendering/losing a metaphysical Name, and having memories consumed. The Lorekeeper should explicitly model these as separate state changes with possible causal links.",
           "If the Broken Throne is specifically a stopover for Fade-touched dead while the Silence affects Fade users, the overlap may be intentional but should not be assumed to be identity: 'Silence-touched', 'Fade-touched', 'Nameless', 'Dream Eater', and 'dead magician' need separate definitions.",
           "The current Ellison/Gallowed-Man gestalt clarification makes older 'Ellison seed = Emblem / Gallowed Man seed = mask' material especially important to mark as legacy until reconciled."
+        ]
+      },
+      "character_wiki_pass": {
+        "source": {
+          "title": "Character Wiki",
+          "modified": "2026-05-23",
+          "authority": "Very recent structured planning source; strong evidence for current direction, but incomplete sentences, future-book notes, and conflicts with direct user clarification remain Provisional unless corroborated."
+        },
+        "major_findings": [
+          "The planned central grouping includes Abigail/Delusionist, Ellison/Dreameater, Lotus, Deadlight Brigade, Shattered Throne and the Guardian generations.",
+          "Mourn is associated with a White Emblem, Hope/Despair, the Guardian mantle/aspect and a corruption/resurrection arc.",
+          "Gallowbird is associated with the Black Emblem and later Raven, an aspect of the GUARDIAN whose operational goal is survival of humanity; the document explicitly connects Gallowbird's personal belief and the Silence to the manifestation of the Sun God Vane.",
+          "Dominion is portrayed as a sentient weapon: originally a nameless broken sword, repaired/enchanted, later carrying one of the shattered Guardian Name fragments/Emblems and suffering identity trauma after Mourn uses it against the other Guardians.",
+          "The sheet/document reinforces fourth-cycle successors including Ellison, Lilith, Reese, Queue, Abigail, Marcus, Lotus and Harland.",
+          "Malia's Life Emblem is described as consumed during the Deadlight incident and reincorporated into Lilith Deacon's identity.",
+          "Eric Ashland/SHATTER, Grant Ashland, Meredith Ashland, Harland Fleer/Denial and Wonderland form a dense family/Denial subplot spanning Red Saturday and later books."
+        ],
+        "version_conflicts_and_flags": [
+          "Character Wiki says Mourn used Dominion to slay the Black Guardian and shatter the mantle, while the user's newer clarification says Door was the original Guardian who summoned Mourn and later assumed responsibility after the Black Guardian was shattered. These can coexist, but the exact participants/causality of the Shattering need a canonical event record.",
+          "The Wiki describes Eric using a Shattergate on Silas Ashland's Name as a domino-effect cause of the Nameless Throne's destruction. User clarification describes Denial turning a child into a conceptual suicide bomb/homing missile against the Nameless Throne. These may describe the same event chain but should remain an unresolved mapping until confirmed.",
+          "Reese and Lotus appear as both Morgan and Morrigan across sources; keep aliases rather than normalizing automatically.",
+          "Fourth-cycle Emblem labels differ between the Guardian Cycle sheet and Character Wiki in places, so successor identity and Emblem concept should be separate fields."
+        ],
+        "high_value_lorekeeper_schema_additions": [
+          "event records with actor, target, mechanism, immediate cause, root cause, consequences, source and confidence",
+          "identity composition records for gestalts, possession, reincorporation, assimilation and inherited memory",
+          "artifact/person distinction because Dominion is simultaneously character, weapon and Guardian-cycle carrier",
+          "belief_manifestation links because Gallowbird's belief plus the Silence is said to create/manifest Vane",
+          "book_or_arc placement fields for planned future events so future-book ideas are not mistaken for already-established backstory"
+        ],
+        "challenge_notes": [
+          "The new Vane note implies the Silence may do more than conceal Fade users: belief distorted by forgetting may have ontological consequences. That is potentially a major rule and should not become canon solely from this planning document.",
+          "The Shattering/Nameless-Throne destruction currently has multiple causal descriptions. A canonical event ledger would prevent character-level summaries from silently rewriting event causality.",
+          "If Emblems contain memories/personality and can be consumed/reincorporated into another identity, Lilith/Malia and Dominion provide good test cases for defining how much continuity of personhood survives transfer."
         ]
       }
     },
