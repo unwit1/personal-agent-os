@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:alessia",
+      "name": "Alessia",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/alessia.json",
+      "source": {
+        "id": "uesp:alessia",
+        "url": "https://en.uesp.net/wiki/Lore:Alessia",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:pelinal-whitestrake",
+      "name": "Pelinal Whitestrake",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/pelinal-whitestrake.json",
+      "source": {
+        "id": "uesp:pelinal-whitestrake",
+        "url": "https://en.uesp.net/wiki/Lore:Pelinal_Whitestrake",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:morihaus",
+      "name": "Morihaus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/morihaus.json",
+      "source": {
+        "id": "uesp:morihaus",
+        "url": "https://en.uesp.net/wiki/Lore:Morihaus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:umaril",
+      "name": "Umaril",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/umaril.json",
+      "source": {
+        "id": "uesp:umaril",
+        "url": "https://en.uesp.net/wiki/Lore:Umaril",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:veloth",
+      "name": "Veloth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/veloth.json",
+      "source": {
+        "id": "uesp:veloth",
+        "url": "https://en.uesp.net/wiki/Lore:Veloth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:frandar-hunding",
+      "name": "Frandar Hunding",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/frandar-hunding.json",
+      "source": {
+        "id": "uesp:frandar-hunding",
+        "url": "https://en.uesp.net/wiki/Lore:Frandar_Hunding",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:makela-leki",
+      "name": "Makela Leki",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/makela-leki.json",
+      "source": {
+        "id": "uesp:makela-leki",
+        "url": "https://en.uesp.net/wiki/Lore:Makela_Leki",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:reman-cyrodiil",
+      "name": "Reman Cyrodiil",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/reman-cyrodiil.json",
+      "source": {
+        "id": "uesp:reman-cyrodiil",
+        "url": "https://en.uesp.net/wiki/Lore:Reman_Cyrodiil",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:uriel-septim-v",
+      "name": "Uriel Septim V",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/uriel-septim-v.json",
+      "source": {
+        "id": "uesp:uriel-septim-v",
+        "url": "https://en.uesp.net/wiki/Lore:Uriel_Septim_V",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:uriel-septim-vii",
+      "name": "Uriel Septim VII",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/uriel-septim-vii.json",
+      "source": {
+        "id": "uesp:uriel-septim-vii",
+        "url": "https://en.uesp.net/wiki/Lore:Uriel_Septim_VII",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:martin-septim",
+      "name": "Martin Septim",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/martin-septim.json",
+      "source": {
+        "id": "uesp:martin-septim",
+        "url": "https://en.uesp.net/wiki/Lore:Martin_Septim",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mankar-camoran",
+      "name": "Mankar Camoran",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/mankar-camoran.json",
+      "source": {
+        "id": "uesp:mankar-camoran",
+        "url": "https://en.uesp.net/wiki/Lore:Mankar_Camoran",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration from earlier queues. Preserve source-era, narrator, cultural and doctrinal qualifiers during evidence extraction."
+}
