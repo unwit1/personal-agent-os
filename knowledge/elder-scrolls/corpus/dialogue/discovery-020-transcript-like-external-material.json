@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "status": "verified_boundary",
+  "examples": [
+    {
+      "title": "Meet the Character: Provost Varuni Arvel",
+      "url": "https://www.imperial-library.info/content/provost-varuni-arvel",
+      "released_in": "Meet the Character",
+      "structure": "in-universe vox transcript",
+      "classification": "official_external_in_character_transcript",
+      "dialogue_corpus": false,
+      "developer_obscure_corpus": false,
+      "route": "official-external",
+      "notes": "Dialogue-shaped text, but not a transcript of player-accessible released-game dialogue."
+    }
+  ],
+  "rule": "Transcript formatting alone does not make a page game dialogue. Publication context remains part of classification."
+}
