@@ -21,10 +21,12 @@ Use when a request is too large or heterogeneous to execute efficiently as one c
    - stop condition;
    - checkpoint location;
    - next stage.
-4. Prefer deterministic code, cache, and approved skills before model calls.
+4. Apply `cheap-route-first` to every stage. Prefer deterministic code, valid cache, and approved skills before model calls.
 5. Do not assign a stronger capability when a cheaper path can satisfy the validator.
-6. Do not preload future-stage context into the current stage.
-7. Make every long-running stage restart-safe and idempotent where practical.
-8. If a stage cannot be safely decomposed further, state why.
+6. Pair every stage with `validate-and-escalate`; escalation is allowed only when observable validation failure, ambiguity, conflict, tool failure, or risk justifies it.
+7. Do not preload future-stage context into the current stage.
+8. Make every long-running stage restart-safe and idempotent where practical.
+9. When only part of a stage needs stronger reasoning, isolate and escalate that unresolved portion instead of rerunning the entire stage.
+10. If a stage cannot be safely decomposed further, state why.
 
 The plan is a routing artifact, not a commitment to run every stage in one session.
