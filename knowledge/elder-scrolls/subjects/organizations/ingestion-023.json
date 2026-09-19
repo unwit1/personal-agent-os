@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-023-arena-daggerfall-warp-west",
+  "subjects": [
+    {
+      "id": "tes:empire-third",
+      "name": "Third Empire",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/empire-third.json",
+      "source": {
+        "id": "uesp:empire-third",
+        "url": "https://en.uesp.net/wiki/Lore:Third_Empire",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:blades",
+      "name": "Blades",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/blades.json",
+      "source": {
+        "id": "uesp:blades",
+        "url": "https://en.uesp.net/wiki/Lore:Blades",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:underking-forces",
+      "name": "Underking's agents",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/underking-forces.json",
+      "source": {
+        "id": "uesp:underking-forces",
+        "url": "https://en.uesp.net/wiki/Lore:Underking%27s_agents",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:king-worms",
+      "name": "Order of the Black Worm",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/king-worms.json",
+      "source": {
+        "id": "uesp:king-worms",
+        "url": "https://en.uesp.net/wiki/Lore:Order_of_the_Black_Worm",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Arena and Daggerfall player-character identities remain minimally specified unless primary sources establish details",
+    "Daggerfall's mutually exclusive endings must remain separate outcome branches before Warp-in-the-West reconciliation",
+    "Do not use later Dragon Break explanations to erase what individual earlier sources report",
+    "Underking, Zurin Arctus, Wulfharth and Mantella identity/soul claims require source-specific attribution",
+    "The Real Barenziah, Biography of Queen Barenziah and Arcturian Heresy retain genre, authorship and reliability metadata",
+    "Cross-link existing Numidium, Mantella, Mannimarco, Uriel VII, Daggerfall, Wayrest and Orsinium subjects"
+  ]
+}
