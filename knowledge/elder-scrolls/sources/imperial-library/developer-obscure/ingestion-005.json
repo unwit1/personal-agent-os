@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-005-nordic-cyrodiilic",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:nordic-religion-dev",
+      "title": "Developer material on Nordic religion",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Nordic pantheon",
+        "Shor",
+        "Kyne",
+        "Alduin",
+        "Tsun",
+        "Sovngarde",
+        "totemic religion"
+      ]
+    },
+    {
+      "id": "til:alduin-akatosh-dev",
+      "title": "Developer commentary on Alduin, Akatosh, and dragon religion",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Alduin",
+        "Akatosh",
+        "dragons",
+        "Dragon Cult",
+        "kalpas"
+      ]
+    },
+    {
+      "id": "til:cyrodiil-concept-dev",
+      "title": "Developer material on Cyrodiil and Imperial cultural development",
+      "author": "multiple",
+      "document_kind": "development_archive",
+      "status": "discovery_queued",
+      "subjects": [
+        "Cyrodiil",
+        "Imperials",
+        "Colovia",
+        "Nibenay",
+        "jungle",
+        "White-Gold Tower"
+      ]
+    },
+    {
+      "id": "til:talos-dev",
+      "title": "Developer and obscure texts on Talos",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Talos",
+        "Tiber Septim",
+        "Wulfharth",
+        "Zurin Arctus",
+        "Underking",
+        "CHIM"
+      ]
+    },
+    {
+      "id": "til:rem an-dev",
+      "title": "Developer and obscure Reman material",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Reman",
+        "Second Empire",
+        "Cyrodiil",
+        "Akaviri"
+      ]
+    },
+    {
+      "id": "til:pelinal-dev",
+      "title": "Developer commentary and obscure material on Pelinal",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Pelinal",
+        "Alessia",
+        "Morihaus",
+        "Ayleids",
+        "Shezarr"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Do not use developer commentary to erase differences among Nordic, Imperial and other cultural identifications of gods.",
+    "Claims about Cyrodiil's environmental presentation must retain source date, game context and whether the statement is in-world or developer commentary.",
+    "Talos identity models involving Tiber Septim, Wulfharth and Zurin Arctus remain separate unless a source explicitly connects them.",
+    "Pelinal metaphysical or futuristic interpretations require explicit provenance and should not be inferred from imagery alone.",
+    "Cross-link to existing Nordic religion, Imperial religion, Talos, Reman, Pelinal and Cyrodiil records."
+  ]
+}
