@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-031-necrom-gold-road-ithelia",
+  "subjects": [
+    {
+      "id": "tes:apocrypha",
+      "name": "Apocrypha",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/apocrypha.json",
+      "source": {
+        "id": "uesp:apocrypha",
+        "url": "https://en.uesp.net/wiki/Lore:Apocrypha",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:necrom",
+      "name": "Necrom",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/necrom.json",
+      "source": {
+        "id": "uesp:necrom",
+        "url": "https://en.uesp.net/wiki/Lore:Necrom",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:telvanni-peninsula",
+      "name": "Telvanni Peninsula",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/telvanni-peninsula.json",
+      "source": {
+        "id": "uesp:telvanni-peninsula",
+        "url": "https://en.uesp.net/wiki/Lore:Telvanni_Peninsula",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:hermaeus-mora-realm",
+      "name": "Apocrypha",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/hermaeus-mora-realm.json",
+      "source": {
+        "id": "uesp:hermaeus-mora-realm",
+        "url": "https://en.uesp.net/wiki/Lore:Apocrypha",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:infinite-archive",
+      "name": "Infinite Archive",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/infinite-archive.json",
+      "source": {
+        "id": "uesp:infinite-archive",
+        "url": "https://en.uesp.net/wiki/Lore:Infinite_Archive",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:west-weald",
+      "name": "West Weald",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/west-weald.json",
+      "source": {
+        "id": "uesp:west-weald",
+        "url": "https://en.uesp.net/wiki/Lore:West_Weald",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:skingrad",
+      "name": "Skingrad",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/skingrad.json",
+      "source": {
+        "id": "uesp:skingrad",
+        "url": "https://en.uesp.net/wiki/Lore:Skingrad",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mirrormoor",
+      "name": "Mirrormoor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/mirrormoor.json",
+      "source": {
+        "id": "uesp:mirrormoor",
+        "url": "https://en.uesp.net/wiki/Lore:Mirrormoor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:fargrave",
+      "name": "Fargrave",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/fargrave.json",
+      "source": {
+        "id": "uesp:fargrave",
+        "url": "https://en.uesp.net/wiki/Lore:Fargrave",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Ithelia-related history is unusually vulnerable to erased or altered memory; preserve source date, speaker knowledge state and later revelations",
+    "Do not retroactively rewrite older sources merely because later ESO content introduces forgotten events or entities",
+    "Paths of possibility, fate and reality alteration require explicit evidence provenance and should not become unrestricted explanations for contradictions",
+    "Hermaeus Mora's claims about secrets and history remain attributed where not independently corroborated",
+    "Apocrypha locations, memories, books and manifestations should remain distinguishable despite overlapping names",
+    "Cross-link existing Hermaeus Mora, Apocrypha, Necrom, Telvanni, Fargrave, Black Books and Forbidden Knowledge subjects"
+  ]
+}
