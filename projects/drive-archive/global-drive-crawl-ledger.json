@@ -15,7 +15,7 @@
     "first_level_files_indexed": 289,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue newly surfaced safe projects: Apostate, Gradience, Afflicted, Journeyman, Crime Overhaul, Balladeer subdocs, Marksman, custom spells, Shards of Oblivion, then older non-Skyrim historical projects. Skip NSFW and sensitive sources."
+    "next_action": "Deepen Journeyman and continue safe Skyrim projects: Merciful/Vigilant, Apostate subprojects, Acrobatics, CoW Overhaul, custom quest/dialogue projects, then move into Productivity and older historical root artifacts. Continue skipping NSFW and sensitive sources."
   },
   "top_level_folders": [
     {
@@ -3551,6 +3551,107 @@
         "Knowledge Framework engineering/science concepts",
         "Weapons Rebalance",
         "Simonrim balance lab"
+      ]
+    },
+    "apostate": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim religion and priesthood roleplay expansion",
+      "summary": "Expands Simonrim religion into deity-specific priesthood/cult gameplay, shrine offerings and prayer outcomes, radiant religious duties, ethical dilemmas and cult missions. Aedric priesthood branches include Arkay/Consecration, Julianos/Knight Mentor, Kynareth/Windrest, Mara/Benevolence, Stendarr/Merciful, Talos/Ysmir and Zenithar/Resolute; Daedric branches are also planned.",
+      "source_ids": [
+        "16R8T4NOEzUaEM-gexTJimqWtbIxSlPN7Ua7BgGazOjQ"
+      ],
+      "relationships": [
+        "Simonrim balance lab",
+        "Knight Mentor",
+        "Merciful",
+        "UnwitRim Custom Spells"
+      ],
+      "safety_note": "A stray adult-site reference appeared in a source sheet; per crawl preference it was not followed or analyzed."
+    },
+    "gradience": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim attributes training and leveling overhaul",
+      "summary": "Reintroduces classic-style attributes and restructures progression around training, skill caps and multiple advancement methods. Attributes include Strength, Endurance, Agility, Speed, Willpower, Intelligence, Personality and Luck, linked to derived stats and skills. Training can pass time, raise caps, grant XP, carry forward, use faction/disposition requirements and interact with hunger/rest.",
+      "source_ids": [
+        "1gvxvvMGkoVs0l0KfOvgya3qclCmP0prg17uS9OfVg3A"
+      ],
+      "relationships": [
+        "Personal Skyrim Overhaul",
+        "Simonrim balance lab",
+        "Balladeer",
+        "Knowledge Framework"
+      ]
+    },
+    "afflicted": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim disease overhaul",
+      "summary": "Large disease-system design drawing from diseases across Elder Scrolls games and disease mods, with staged severity concepts such as Minor, Severe and Crippling and a broader catalogue of lore diseases beyond vanilla Skyrim.",
+      "source_ids": [
+        "1eyySQGWKzRAWAtQmUKE0Wv2Z3cQHz4cdYMBxFS9anMI"
+      ],
+      "relationships": [
+        "Simonrim balance lab",
+        "Apostate"
+      ]
+    },
+    "crime-overhaul-ng": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim crime law and guard behavior overhaul",
+      "summary": "Reworks crime detection, guard interactions, surrender and bounty behavior while making laws configurable by hold/region. Supports a BaseLaws JSON with regional overrides, dynamic bounty values, optional bounty decay and additional offenses such as looting bodies, trespassing and vandalism.",
+      "source_ids": [
+        "1YzEi_EWgLuw7PE7s1eMf0d-vMaVzVDQYD1lp9TfJSI0"
+      ],
+      "relationships": [
+        "Open Reputation Engine"
+      ]
+    },
+    "marksman": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim archery expansion and integration layer",
+      "summary": "Archery addon integrating Adamant and Blade and Blunt with stamina/commitment mechanics, poisoned ammo crafting, contextual bow hotkeys, aiming compatibility, expanded bow/crossbow classes and third-party ammunition. Defines Shortbow/Longbow/Greatbow and Light/Heavy/Siege Crossbow roles.",
+      "source_ids": [
+        "1Zf7Sn2MXBCJgSHGSeNGKxM0pcjtIsGPdsbuKl8gWB-k"
+      ],
+      "relationships": [
+        "Weapons Rebalance",
+        "Simonrim balance lab",
+        "Skyrim Modlist Architecture"
+      ]
+    },
+    "unwitrim-custom-spells": {
+      "status": "active_or_recent_design_reference",
+      "domain": "shared custom spell catalogue across Skyrim projects",
+      "summary": "Central spell/effect registry tying multiple UnwitRim projects together. Contains Knowledge/Knight Mentor Mysticism spells, deity-associated spell progressions, Balladeer Spellsongs and Ballads, Consecration/Arkay Restoration spells and quest-gated effects.",
+      "source_ids": [
+        "198V9COpLPe4bcvvilVepAdQmZCkmnQ09qyTqVuHRxV8"
+      ],
+      "relationships": [
+        "Balladeer",
+        "Knight Mentor",
+        "Apostate",
+        "Knowledge Framework"
+      ],
+      "note": "Treat as cross-project implementation registry rather than a standalone mod unless later evidence says otherwise."
+    },
+    "shards-of-oblivion": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim sentient/reactive Daedric artifact expansion",
+      "summary": "Adds contextual voiced/reactive behavior to Daedric artifacts. Dawnbreaker material demonstrates event-driven Meridia commentary for equip, combat, undead kills/detection, proc effects, idle states, necromancy use, locations, rival artifacts, time and world events; the sheet also references corruption mechanics.",
+      "source_ids": [
+        "1IgrMyMwdN4nN4OpP5cQ1HKBRMuILZOpUIMbyxWx7lS8"
+      ],
+      "relationships": [
+        "Apostate",
+        "Open Reputation Engine",
+        "UnwitRim Custom Spells"
+      ]
+    },
+    "journeyman": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim radiant quest overhaul",
+      "summary": "Dedicated project for expanding/reworking radiant quest gameplay; retained as a distinct project from the surfaced workbook. Deeper feature extraction remains queued.",
+      "source_ids": [
+        "10Kvh6300WxHGSpQxFhz2rNJCd-1qWFvfg3BpQt-TwB8"
       ]
     }
   },
