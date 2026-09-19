@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "status": "active",
+  "completed_discovery": [
+    {
+      "url": "https://www.imperial-library.info/content/tes5-skyrim-the-horn-of-jurgen-windcaller",
+      "classification": "quest_dialogue_transcript",
+      "game": "skyrim",
+      "structured": true
+    }
+  ],
+  "pending_frontier": [
+    {
+      "label": "TES5 Skyrim: The Way of the Voice",
+      "game": "skyrim",
+      "relationship": "adjacent_transcript",
+      "status": "url_resolution_needed"
+    },
+    {
+      "label": "Blades storyline collection",
+      "game": "blades",
+      "relationship": "editorial_reference",
+      "status": "collection_resolution_needed"
+    },
+    {
+      "label": "ESO in-game quest dialogue",
+      "game": "eso",
+      "relationship": "game_corpus",
+      "status": "discovery_needed"
+    },
+    {
+      "label": "Morrowind NPC/topic dialogue",
+      "game": "morrowind",
+      "relationship": "game_corpus",
+      "status": "discovery_needed"
+    }
+  ],
+  "counters": {
+    "verified_transcript_pages": 1,
+    "structured_transcript_pages": 1,
+    "known_embedded_written_items": 1
+  },
+  "rules": [
+    "Counters describe verified discovery state, not total Imperial Library holdings.",
+    "A frontier item is removed only after classification or a recorded terminal failure.",
+    "Never infer a URL from a page label; resolve it from the source site or archive."
+  ]
+}
