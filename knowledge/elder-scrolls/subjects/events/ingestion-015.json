@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-015-empires-wars-dragonborn",
+  "subjects": [
+    {
+      "id": "tes:great-war",
+      "name": "Great War",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/great-war.json",
+      "source": {
+        "id": "uesp:great-war",
+        "url": "https://en.uesp.net/wiki/Lore:Great_War",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:white-gold-concordat",
+      "name": "White-Gold Concordat",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/white-gold-concordat.json",
+      "source": {
+        "id": "uesp:white-gold-concordat",
+        "url": "https://en.uesp.net/wiki/Lore:White-Gold_Concordat",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:markarth-incident",
+      "name": "Markarth Incident",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/markarth-incident.json",
+      "source": {
+        "id": "uesp:markarth-incident",
+        "url": "https://en.uesp.net/wiki/Lore:Markarth_Incident",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:stormcloak-rebellion",
+      "name": "Stormcloak Rebellion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/stormcloak-rebellion.json",
+      "source": {
+        "id": "uesp:stormcloak-rebellion",
+        "url": "https://en.uesp.net/wiki/Lore:Stormcloak_Rebellion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:aldmeri-dominion-invasion",
+      "name": "Aldmeri Dominion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/aldmeri-dominion-invasion.json",
+      "source": {
+        "id": "uesp:aldmeri-dominion-invasion",
+        "url": "https://en.uesp.net/wiki/Lore:Aldmeri_Dominion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:camoran-usurper-war",
+      "name": "Camoran Usurper",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/camoran-usurper-war.json",
+      "source": {
+        "id": "uesp:camoran-usurper-war",
+        "url": "https://en.uesp.net/wiki/Lore:Camoran_Usurper",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:battle-sancre-tor",
+      "name": "Battle of Sancre Tor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/battle-sancre-tor.json",
+      "source": {
+        "id": "uesp:battle-sancre-tor",
+        "url": "https://en.uesp.net/wiki/Lore:Battle_of_Sancre_Tor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:battle-red-ring",
+      "name": "Battle of the Red Ring",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/battle-red-ring.json",
+      "source": {
+        "id": "uesp:battle-red-ring",
+        "url": "https://en.uesp.net/wiki/Lore:Battle_of_the_Red_Ring",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Separate organizations from wars/events even when UESP page names overlap",
+    "Preserve era-specific versions of the Aldmeri Dominion rather than conflating them",
+    "Political claims about Great War, Concordat and Skyrim Civil War require speaker/source attribution",
+    "Dragonborn doctrine, bloodline and blessing claims should distinguish religious belief, historical records and observed game mechanics",
+    "Miraak and Dragon Priest material should prefer direct Skyrim/Dragonborn dialogue, inscriptions and quest evidence"
+  ]
+}
