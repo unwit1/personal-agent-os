@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-032-alessian-ayleid-pelinal",
+  "subjects": [
+    {
+      "id": "tes:white-gold-tower",
+      "name": "White-Gold Tower",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/white-gold-tower.json",
+      "source": {
+        "id": "uesp:white-gold-tower",
+        "url": "https://en.uesp.net/wiki/Lore:White-Gold_Tower",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sancre-tor",
+      "name": "Sancre Tor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/sancre-tor.json",
+      "source": {
+        "id": "uesp:sancre-tor",
+        "url": "https://en.uesp.net/wiki/Lore:Sancre_Tor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:nenalata",
+      "name": "Nenalata",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/nenalata.json",
+      "source": {
+        "id": "uesp:nenalata",
+        "url": "https://en.uesp.net/wiki/Lore:Nenalata",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:cyrodiil",
+      "name": "Cyrodiil",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/cyrodiil.json",
+      "source": {
+        "id": "uesp:cyrodiil",
+        "url": "https://en.uesp.net/wiki/Lore:Cyrodiil",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:garlas-malatar",
+      "name": "Garlas Malatar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/garlas-malatar.json",
+      "source": {
+        "id": "uesp:garlas-malatar",
+        "url": "https://en.uesp.net/wiki/Lore:Garlas_Malatar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:miscarcand",
+      "name": "Miscarcand",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/miscarcand.json",
+      "source": {
+        "id": "uesp:miscarcand",
+        "url": "https://en.uesp.net/wiki/Lore:Miscarcand",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "The Song of Pelinal is an in-universe literary/historical source; preserve narrator, edition and mythic embellishment uncertainty",
+    "Ayleid culture must not be flattened into a single political or religious bloc; preserve city-state and cult differences",
+    "Claims about Pelinal's identity, madness, divinity or time-displacement remain source-specific interpretations unless directly evidenced",
+    "Middle Dawn chronology is inherently disrupted; preserve conflicting durations, memories and accounts rather than forcing a normal timeline",
+    "Alessian Order doctrine must be separated from earlier Alessian rebellion and later interpretations of Alessia",
+    "Cross-link existing Alessia, Pelinal, Morihaus, Umaril, Ayleid, White-Gold Tower, Amulet of Kings, Chim-el Adabal, Middle Dawn and Knights of the Nine records"
+  ]
+}
