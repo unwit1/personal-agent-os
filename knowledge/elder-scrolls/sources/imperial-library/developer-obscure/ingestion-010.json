@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-010-dwemer-numidium",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:kagrenac-dev",
+      "title": "Developer commentary on Kagrenac and the Tools",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Kagrenac",
+        "Keening",
+        "Sunder",
+        "Wraithguard",
+        "Heart of Lorkhan"
+      ]
+    },
+    {
+      "id": "til:dwemer-disappearance-dev-deep",
+      "title": "Dwemer disappearance developer corpus — deep pass",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Dwemer",
+        "disappearance",
+        "Red Mountain",
+        "Kagrenac",
+        "Heart of Lorkhan"
+      ]
+    },
+    {
+      "id": "til:numidium-dev-deep",
+      "title": "Numidium developer and obscure corpus — deep pass",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Numidium",
+        "Brass God",
+        "Dwemer",
+        "Tiber Septim",
+        "Warp in the West",
+        "Landfall"
+      ]
+    },
+    {
+      "id": "til:tonal-architecture-dev",
+      "title": "Developer material on tonal architecture",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "tonal architecture",
+        "Dwemer",
+        "Kagrenac",
+        "Heart of Lorkhan"
+      ]
+    },
+    {
+      "id": "til:brass-god-dev",
+      "title": "Developer and obscure Brass God terminology",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Brass God",
+        "Numidium",
+        "Walk-Brass",
+        "Towers"
+      ]
+    },
+    {
+      "id": "til:dwemer-belief-dev",
+      "title": "Developer commentary on Dwemer belief and philosophy",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Dwemer",
+        "religion",
+        "philosophy",
+        "gods",
+        "reason"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Do not select one Dwemer-disappearance theory as fact merely because it is popular in community interpretation.",
+    "Separate Kagrenac's documented actions from inferred goals and later developer explanations.",
+    "Walk-Brass, Brass God, Numidium and Tower terminology should be linked but not mechanically treated as interchangeable in every source.",
+    "Tonal architecture claims require passage-level provenance because the term is often expanded by community synthesis.",
+    "Landfall material remains future/external developer fiction unless separately evidenced in released material."
+  ]
+}
