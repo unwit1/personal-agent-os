@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-018-dwemer-aetherium-blackreach",
+  "subjects": [
+    {
+      "id": "tes:blackreach",
+      "name": "Blackreach",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/blackreach.json",
+      "source": {
+        "id": "uesp:blackreach",
+        "url": "https://en.uesp.net/wiki/Lore:Blackreach",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:arkngthamz",
+      "name": "Arkngthamz",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/arkngthamz.json",
+      "source": {
+        "id": "uesp:arkngthamz",
+        "url": "https://en.uesp.net/wiki/Lore:Arkngthamz",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:alftand",
+      "name": "Alftand",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/alftand.json",
+      "source": {
+        "id": "uesp:alftand",
+        "url": "https://en.uesp.net/wiki/Lore:Alftand",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mzinchaleft",
+      "name": "Mzinchaleft",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/mzinchaleft.json",
+      "source": {
+        "id": "uesp:mzinchaleft",
+        "url": "https://en.uesp.net/wiki/Lore:Mzinchaleft",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:avanchnzel",
+      "name": "Avanchnzel",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/avanchnzel.json",
+      "source": {
+        "id": "uesp:avanchnzel",
+        "url": "https://en.uesp.net/wiki/Lore:Avanchnzel",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:bthardamz",
+      "name": "Bthardamz",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/bthardamz.json",
+      "source": {
+        "id": "uesp:bthardamz",
+        "url": "https://en.uesp.net/wiki/Lore:Bthardamz",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:nchuand-zel",
+      "name": "Nchuand-Zel",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/nchuand-zel.json",
+      "source": {
+        "id": "uesp:nchuand-zel",
+        "url": "https://en.uesp.net/wiki/Lore:Nchuand-Zel",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:aetherium-forge",
+      "name": "Aetherium Forge",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/aetherium-forge.json",
+      "source": {
+        "id": "uesp:aetherium-forge",
+        "url": "https://en.uesp.net/wiki/Lore:Aetherium_Forge",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Treat Dwemer disappearance explanations as competing hypotheses unless primary evidence establishes a narrower claim",
+    "Separate observed Dwemer technology from later scholarly theories about its operating principles",
+    "In-universe scholarly texts retain author, date and reliability metadata",
+    "Do not infer a single unified Dwemer political culture across every city-state and era",
+    "Falmer-Dwemer relations must distinguish recorded agreements, later testimony and archaeological inference",
+    "Claims involving Numidium, Heart of Lorkhan and Kagrenac should cross-link existing subjects rather than duplicate them"
+  ]
+}
