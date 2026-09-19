@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 289,
+    "first_level_files_indexed": 291,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue safe Skyrim project family: Apprentice, Stendarr's Beacon/IDE Vigilants-Dawnguard, Apostate deity concepts/rites, Spell Rebalances, remaining Personal Mods project entries; then older historical non-Skyrim artifacts. Skyrim mod sources remain in scope even with adult-mod references."
+    "next_action": "Continue remaining Apostate deity/rite variants and Vigilant/Dawnguard docs, then inspect additional safe project names surfaced from Personal Mods and older Drive artifacts. Skyrim adult-mod references remain in scope; unrelated NSFW remains skipped."
   },
   "top_level_folders": [
     {
@@ -2557,6 +2557,20 @@
       "path": "/My Drive/Personal/Productivity/Comics Collection Masterlist",
       "category": "collection_tracking",
       "content_status": "processed_summary"
+    },
+    {
+      "id": "1Deb8j90Pg0O3hiOBLiGb7sA3dJ6NBcfdu56VirXGNgY",
+      "title": "Apprentice - A Class Overhaul",
+      "path": "/My Drive/Apprentice - A Class Overhaul",
+      "category": "elder_scrolls_mod_project",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1JcyiHapA5qW-BCeU60mkCYl8pp99NKkMylNOPHtMR3c",
+      "title": "IDE Vigilants / Dawnguard Feature List",
+      "path": "/My Drive/IDE Vigilants / Dawnguard Feature List",
+      "category": "elder_scrolls_mod_project",
+      "content_status": "processed_summary"
     }
   ],
   "folder_queue": [
@@ -3130,6 +3144,10 @@
       ],
       "relationships": [
         "Codex/Mysticism appears to develop a subset of ideas represented here; preserve workbook as broader design provenance."
+      ],
+      "additional_architecture": [
+        "The Old Way/Mysticism design in Personal Mods combines classic attributes, D100/Luck concepts, spell learning/research/creation/hybridization/upgrades, charge time, failure/interruption, mental fatigue, maintained spells, wild magic, training limits, skill books, training dummies and broad magical archetype taxonomy.",
+        "Training is intended as a systemic alternative/complement to raw skill grinding, with time passage, fatigue, faction/disposition gating, daily/level limits and skill-cap interactions."
       ]
     },
     "simonrim-balance-lab": {
@@ -3566,7 +3584,18 @@
         "Merciful",
         "UnwitRim Custom Spells"
       ],
-      "safety_note": "A stray adult-site reference appeared in a source sheet; per crawl preference it was not followed or analyzed."
+      "safety_note": "A stray adult-site reference appeared in a source sheet; per crawl preference it was not followed or analyzed.",
+      "design_method": {
+        "summary": "Deity systems are designed as repeatable gameplay loops with a canon-derived theological ceiling and a relic that removes a constraint rather than acting as a stat stick. A mechanic claim map is used to detect collisions between deity systems before implementation.",
+        "collision_examples": [
+          "Mara/Dibella/Sanguine all touch named NPC bonds but with different relationship logic",
+          "Zenithar commerce contrasts with Mara poverty/devotion mechanics",
+          "multiple deities interact with crime but demand different witness/bounty/suspicion/fear behavior"
+        ],
+        "source_ids": [
+          "14WCNnr9ZQic0L6M2XfAWoSuZsHANbz1xlcUGgfYyKhg"
+        ]
+      }
     },
     "gradience": {
       "status": "planned_or_in_development",
@@ -3674,7 +3703,33 @@
         "Open Reputation Engine",
         "UnwitRim Custom Spells"
       ],
-      "dialogue_system": "Vigilant Dialogue Overhaul tracks heretical/Daedric items and adds rank-aware interactions such as supplies, training, crafting, weapon sanctification, temporary aid, trophy turn-ins, charity and contextual inquisition exceptions."
+      "dialogue_system": "Vigilant Dialogue Overhaul tracks heretical/Daedric items and adds rank-aware interactions such as supplies, training, crafting, weapon sanctification, temporary aid, trophy turn-ins, charity and contextual inquisition exceptions.",
+      "implementation_status": {
+        "feature_budget_lines": 400,
+        "feature_lines_marked_done": 355,
+        "source": "IDE Vigilants / Dawnguard Feature List",
+        "implemented_or_drafted": [
+          "Hall confrontation",
+          "world encounters",
+          "Carcette dialogue",
+          "Stendarr's Beacon survivor scene",
+          "vampirism refusal logic",
+          "Frostflow and Mara's Eye Pond expansions",
+          "Dawnguard greetings/package changes"
+        ],
+        "future_concepts": [
+          "post-Harkon Orthjolf quest arc",
+          "Dawnguard round-table/off-screen missions",
+          "new radiant Daedric and vampire threats",
+          "more companionable faction NPC side quests"
+        ]
+      },
+      "stendarrs_beacon": {
+        "summary": "Surviving Vigilants regroup at Stendarr's Beacon after destruction of the Hall. Dialogue changes based on whether the player met/saved specific Vigilants earlier and funnels some survivors toward the Dawnguard, preserving consequences across world encounters.",
+        "source_ids": [
+          "1ssuc4A_A5uyK0TMQFXean-tX08LYqcKPkN-ZKyvSU84"
+        ]
+      }
     },
     "consecration": {
       "status": "planned_or_in_development",
@@ -3693,7 +3748,23 @@
         "temporary holy ground buffs allies and weakens undead",
         "Arkay favor can react to anti-necromancy choices",
         "Register of the Dead progression"
-      ]
+      ],
+      "rite_system": {
+        "summary": "Consecration has a structured rite database with IDs, rank/office, category, target, tier, cast time, access/unlock source, prerequisites, ritual materials, special tools and standing rewards.",
+        "examples": [
+          "Arkay's Law prevents reanimation",
+          "Rite of Pardon permits exhumation",
+          "Rite of Interment performs permanent burial",
+          "Rite of Consecration sanctifies ground against reanimation/soul trapping",
+          "Rite of Staying treats early undead disease",
+          "Rite of Passage protects a dying person's soul",
+          "Rite of the Vigil comforts the dying",
+          "Rite of Binding swears vows"
+        ],
+        "source_ids": [
+          "1a57BedsGuczLNZLcBjSrtD-O44Kq3EoWglE4X-p0iwc"
+        ]
+      }
     },
     "covenant": {
       "status": "planned_or_in_development",
@@ -3733,6 +3804,34 @@
         "Knowledge Framework",
         "Scholars of Skyrim",
         "Journeyman",
+        "Skyrim Modlist Architecture"
+      ]
+    },
+    "apprentice-class-overhaul": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim character creation/class overhaul",
+      "summary": "Classic-style character framework with race bonuses, 18 named classes, major/minor starting skills, class starting spells and a large trait system that trades strengths for constraints. Classes span warrior, mage and stealth archetypes and integrate Mysticism when installed.",
+      "source_ids": [
+        "1Deb8j90Pg0O3hiOBLiGb7sA3dJ6NBcfdu56VirXGNgY"
+      ],
+      "relationships": [
+        "Gradience",
+        "Acrobatics",
+        "Simonrim balance lab",
+        "Personal Skyrim Overhaul"
+      ]
+    },
+    "spell-rebalance-library": {
+      "status": "active_or_recent_design_reference",
+      "domain": "Skyrim magic integration and rebalance catalogue",
+      "summary": "Central research workbook for bringing external spell packs and tweaks into a Mysticism/Simonrim-centered balance ecosystem. It distinguishes base mods, Simonrim-adjacent packs, tweaks and larger spell packs, recording compatibility and whether individual content is worth integrating or rebalancing.",
+      "source_ids": [
+        "12ew5It91rp4K3PE0m79GOiObfgbFts_RDK4HGX7pveY"
+      ],
+      "relationships": [
+        "Mysticism/Personal Skyrim Overhaul",
+        "Illusion Spells Overhaul",
+        "UnwitRim Custom Spells",
         "Skyrim Modlist Architecture"
       ]
     }
