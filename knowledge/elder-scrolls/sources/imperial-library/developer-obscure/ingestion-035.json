@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-035-yokuda-sword-singers",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:yokuda-obscure",
+      "title": "Yokuda developer and obscure-text corpus",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Yokuda",
+        "Redguards",
+        "Ra Gada",
+        "Ansei",
+        "Sword-singers"
+      ]
+    },
+    {
+      "id": "til:sword-singing-dev",
+      "title": "Sword-singing developer-source map",
+      "document_kind": "claim_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Sword-singing",
+        "Shehai",
+        "Ansei",
+        "Way of the Spirit Sword"
+      ]
+    },
+    {
+      "id": "til:hoonding-dev",
+      "title": "HoonDing developer and obscure source map",
+      "document_kind": "identity_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "HoonDing",
+        "Make Way God",
+        "Frandar Hunding",
+        "Cyrus",
+        "Redguards"
+      ]
+    },
+    {
+      "id": "til:yokudan-gods-dev",
+      "title": "Yokudan gods developer-source map",
+      "document_kind": "religion_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Ruptga",
+        "Satakal",
+        "Sep",
+        "Tu'whacca",
+        "Tava",
+        "Morwha",
+        "Leki"
+      ]
+    },
+    {
+      "id": "til:satakal-kalpa",
+      "title": "Satakal and world-cycle terminology source map",
+      "document_kind": "claim_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Satakal",
+        "kalpa",
+        "worldskin",
+        "Yokudan cosmology"
+      ]
+    },
+    {
+      "id": "til:yokuda-destruction",
+      "title": "Destruction of Yokuda source and theory map",
+      "document_kind": "contradiction_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Yokuda",
+        "destruction",
+        "Ansei",
+        "catastrophe",
+        "migration"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Yokudan cosmology is preserved on its own terms before comparison to Nordic, Altmeri or Imperial systems.",
+    "Do not equate Yokudan gods one-to-one with Tamrielic gods merely from comparative tables.",
+    "Claims that sword-singing destroyed Yokuda require direct provenance and remain distinct from alternative accounts.",
+    "HoonDing manifestations are recorded as source claims rather than assumed identities.",
+    "Satakal/worldskin material should not automatically inherit fandom definitions of kalpas."
+  ]
+}
