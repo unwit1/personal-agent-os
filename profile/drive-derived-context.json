@@ -8,7 +8,8 @@
     "notes": [
       "Drive discovery included broad browsing plus targeted searches for major work, creative, modding, collecting, and finance themes.",
       "Treat Google Drive as supporting evidence and working material; GitHub remains canonical for Agent OS/project state.",
-      "Do not assume every accessible/shared file was authored by the user."
+      "Do not assume every accessible/shared file was authored by the user.",
+      "2026-09-18 targeted second-pass read covered Knowledge Framework, Scholars of Skyrim, Silvertongue, Apocryphal Knowledge, Arcaneum Scholarship, Codex, and Daedrologist; only durable design relationships were promoted."
     ]
   },
   "project_clusters": [
@@ -89,7 +90,37 @@
         "Simonrim",
         "Skyrim_Quests_and_World_Encounters",
         "Modlist"
-      ]
+      ],
+      "architecture_findings": {
+        "knowledge_framework_role": "Knowledge Framework is intended as a reusable hierarchical lore-topic and immersive-study platform, not merely a content mod. It hand-tags books and many items with topic keywords, tracks topic mastery, exposes Papyrus hooks for new study methods, and is designed for modular JSON-driven extension.",
+        "topic_model": [
+          "Cultures/civilizations",
+          "Languages",
+          "People/entities and deities",
+          "Artifacts/unique historical items",
+          "Events",
+          "Locations",
+          "Creatures",
+          "Factions",
+          "Concepts/genres"
+        ],
+        "interoperability": [
+          "KID/string-based tagging for named lore items and books",
+          "Aliases for differently named custom content",
+          "Topic IDs should converge when multiple addons define the same topic",
+          "Actors, books, items and world objects can share topic/language semantics",
+          "Addons are expected to build gameplay on top of the same knowledge state"
+        ],
+        "gameplay_family": [
+          "Scholars of Skyrim: book hunting, publishing/royalties, autographs, lectures, apprenticeships, recommendations and consequences for dangerous research.",
+          "Silvertongue: language mastery, untranslated texts, scholar translation, speech/combat checks and learning from runes/world objects.",
+          "Apocryphal Knowledge: forbidden-knowledge progression with sanity/corruption-style consequences and integrations.",
+          "Arcaneum/Scholarship: book categorization, study fatigue and Humanities/Sciences/Metaphysics subject organization.",
+          "Codex: study-time-based spell learning/research with mastery thresholds, risk checks, fatigue, archetype knowledge and integrations.",
+          "Daedrologist: systemic Daedra summoning/bargaining with persistent knowledge such as nymics, disposition, allegiance, offerings and binding state."
+        ],
+        "agent_os_implication": "Model this ecosystem as a project graph with Knowledge Framework as a shared platform/data dependency and addons as related projects. Retrieve the framework contract plus only the relevant addon context for a task."
+      }
     },
     {
       "id": "dream-eater",
@@ -150,7 +181,9 @@
       "id": "personal-finance-planning",
       "importance": "high",
       "summary": "Drive contains budget spreadsheets. Agent OS should treat them as optional supporting sources for budgeting/debt planning but should not copy sensitive account details into GitHub.",
-      "key_drive_artifacts": ["Budget"]
+      "key_drive_artifacts": [
+        "Budget"
+      ]
     },
     {
       "id": "tabletop-and-game-design",
