@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-037-tiber-septim-numidium-underking",
+  "subjects": [
+    {
+      "id": "tes:arcturian-heresy",
+      "name": "The Arcturian Heresy",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/arcturian-heresy.json",
+      "source": {
+        "id": "uesp:arcturian-heresy",
+        "url": "https://en.uesp.net/wiki/Lore:The_Arcturian_Heresy",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:real-barenziah",
+      "name": "The Real Barenziah",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/real-barenziah.json",
+      "source": {
+        "id": "uesp:real-barenziah",
+        "url": "https://en.uesp.net/wiki/Lore:The_Real_Barenziah",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:brief-history-empire",
+      "name": "Brief History of the Empire",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/brief-history-empire.json",
+      "source": {
+        "id": "uesp:brief-history-empire",
+        "url": "https://en.uesp.net/wiki/Lore:Brief_History_of_the_Empire",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:pocket-guide-first",
+      "name": "Pocket Guide to the Empire, First Edition",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/pocket-guide-first.json",
+      "source": {
+        "id": "uesp:pocket-guide-first",
+        "url": "https://en.uesp.net/wiki/Lore:Pocket_Guide_to_the_Empire,_First_Edition",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:talos-mistake",
+      "name": "The Talos Mistake",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/talos-mistake.json",
+      "source": {
+        "id": "uesp:talos-mistake",
+        "url": "https://en.uesp.net/wiki/Lore:The_Talos_Mistake",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Tiber Septim's origins, names and identity claims must remain source-specific; do not collapse Hjalti, Talos, Tiber Septim and related theories without evidence",
+    "Underking identity claims involving Zurin Arctus and Wulfharth must coexist with explicit provenance and contradiction links",
+    "The Arcturian Heresy is an in-universe counter-history and must not silently replace Imperial accounts as objective fact",
+    "Numidium effects on time and history require event-specific evidence; do not generalize every activation into an unrestricted Dragon Break mechanism",
+    "Talos apotheosis claims should distinguish historical cult development, theological doctrine and directly observable divine phenomena",
+    "Cross-link existing Tiber Septim, Wulfharth, Numidium, Mantella, Underking, Warp in the West, Dragon Break and Septim records"
+  ]
+}
