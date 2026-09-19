@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "subjects": [
+    "battle-of-red-mountain",
+    "night-of-tears",
+    "dragon-war",
+    "middle-dawn",
+    "red-year",
+    "oblivion-crisis",
+    "imperial-simulacrum",
+    "warp-west"
+  ],
+  "notes": "Seed manifest from existing ingestion queues. Individual subject records are created/populated by ingestion."
+}
