@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-039-aldmer-altmer-psijic-summerset",
+  "subjects": [
+    {
+      "id": "tes:psijic-order",
+      "name": "Psijic Order",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/psijic-order.json",
+      "source": {
+        "id": "uesp:psijic-order",
+        "url": "https://en.uesp.net/wiki/Lore:Psijic_Order",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sapiarchs",
+      "name": "Sapiarchs",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/sapiarchs.json",
+      "source": {
+        "id": "uesp:sapiarchs",
+        "url": "https://en.uesp.net/wiki/Lore:Sapiarchs",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:first-aldmeri-dominion",
+      "name": "First Aldmeri Dominion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/first-aldmeri-dominion.json",
+      "source": {
+        "id": "uesp:first-aldmeri-dominion",
+        "url": "https://en.uesp.net/wiki/Lore:First_Aldmeri_Dominion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mages-guild",
+      "name": "Mages Guild",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/mages-guild.json",
+      "source": {
+        "id": "uesp:mages-guild",
+        "url": "https://en.uesp.net/wiki/Lore:Mages_Guild",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:divine-prosecution",
+      "name": "Divine Prosecution",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/divine-prosecution.json",
+      "source": {
+        "id": "uesp:divine-prosecution",
+        "url": "https://en.uesp.net/wiki/Lore:Divine_Prosecution",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Aldmer and Altmer must remain historically distinct labels; do not project later Altmeri institutions unchanged onto ancient Aldmeri society",
+    "Altmeri social ideals such as Alaxon should distinguish prescriptive doctrine from observed lived practice",
+    "Psijic accounts of the Old Ways, time and metaphysics retain institutional/source provenance rather than becoming universal truth",
+    "Competing accounts of Aldmeris and early elven origins should coexist where evidence conflicts",
+    "Summerset's political isolation/opening must retain era-specific context",
+    "Cross-link existing Altmer, Aldmer, Summerset, Auridon, Alinor, Artaeum, Crystal Tower, Psijic Order, Sapiarchs, Ayrenn, Vanus Galerion and Mannimarco records"
+  ]
+}
