@@ -1,0 +1,338 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "continuity_id": "tes-base",
+  "batch_id": "uesp-008-bosmer-khajiit-argonian-clusters",
+  "purpose": "Broaden cultural coverage across Valenwood, Elsweyr, and Black Marsh while connecting religion, geography, history, and cultural institutions.",
+  "pages": [
+    {
+      "id": "bosmer",
+      "title": "Bosmer",
+      "url": "https://en.uesp.net/wiki/Lore:Bosmer",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "valenwood",
+      "title": "Valenwood",
+      "url": "https://en.uesp.net/wiki/Lore:Valenwood",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "green-pact",
+      "title": "Green Pact",
+      "url": "https://en.uesp.net/wiki/Lore:Green_Pact",
+      "page_type": "lore_summary",
+      "entity_type": "concept",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "yffre",
+      "title": "Y'ffre",
+      "url": "https://en.uesp.net/wiki/Lore:Y%27ffre",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "wild-hunt",
+      "title": "Wild Hunt",
+      "url": "https://en.uesp.net/wiki/Lore:Wild_Hunt",
+      "page_type": "lore_summary",
+      "entity_type": "event_or_ritual",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "camoran-dynasty",
+      "title": "Camoran Dynasty",
+      "url": "https://en.uesp.net/wiki/Lore:Camoran_Dynasty",
+      "page_type": "lore_summary",
+      "entity_type": "family",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "grahtwood",
+      "title": "Grahtwood",
+      "url": "https://en.uesp.net/wiki/Lore:Grahtwood",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "elden-root",
+      "title": "Elden Root",
+      "url": "https://en.uesp.net/wiki/Lore:Elden_Root",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "silvenar",
+      "title": "Silvenar",
+      "url": "https://en.uesp.net/wiki/Lore:Silvenar",
+      "page_type": "lore_summary",
+      "entity_type": "title",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "green-lady",
+      "title": "Green Lady",
+      "url": "https://en.uesp.net/wiki/Lore:Green_Lady",
+      "page_type": "lore_summary",
+      "entity_type": "title",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "khajiit",
+      "title": "Khajiit",
+      "url": "https://en.uesp.net/wiki/Lore:Khajiit",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "elsweyr",
+      "title": "Elsweyr",
+      "url": "https://en.uesp.net/wiki/Lore:Elsweyr",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "azurah",
+      "title": "Azurah",
+      "url": "https://en.uesp.net/wiki/Lore:Azurah",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "alkosh",
+      "title": "Alkosh",
+      "url": "https://en.uesp.net/wiki/Lore:Alkosh",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "jone",
+      "title": "Jone",
+      "url": "https://en.uesp.net/wiki/Lore:Jone",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "jode",
+      "title": "Jode",
+      "url": "https://en.uesp.net/wiki/Lore:Jode",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "lunar-lattice",
+      "title": "Lunar Lattice",
+      "url": "https://en.uesp.net/wiki/Lore:Lunar_Lattice",
+      "page_type": "lore_summary",
+      "entity_type": "concept",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "mane",
+      "title": "Mane",
+      "url": "https://en.uesp.net/wiki/Lore:Mane",
+      "page_type": "lore_summary",
+      "entity_type": "title",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "moon-sugar",
+      "title": "Moon Sugar",
+      "url": "https://en.uesp.net/wiki/Lore:Moon_Sugar",
+      "page_type": "lore_summary",
+      "entity_type": "substance",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "dro-m'athra",
+      "title": "Dro-m'Athra",
+      "url": "https://en.uesp.net/wiki/Lore:Dro-m%27Athra",
+      "page_type": "lore_summary",
+      "entity_type": "people_or_spirit",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "argonian",
+      "title": "Argonian",
+      "url": "https://en.uesp.net/wiki/Lore:Argonian",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "hist",
+      "title": "Hist",
+      "url": "https://en.uesp.net/wiki/Lore:Hist",
+      "page_type": "lore_summary",
+      "entity_type": "species_or_entity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "black-marsh",
+      "title": "Black Marsh",
+      "url": "https://en.uesp.net/wiki/Lore:Black_Marsh",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "sithis",
+      "title": "Sithis",
+      "url": "https://en.uesp.net/wiki/Lore:Sithis",
+      "page_type": "lore_summary",
+      "entity_type": "deity_or_concept",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "xanmeer",
+      "title": "Xanmeer",
+      "url": "https://en.uesp.net/wiki/Lore:Xanmeer",
+      "page_type": "lore_summary",
+      "entity_type": "structure",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "murkmire",
+      "title": "Murkmire",
+      "url": "https://en.uesp.net/wiki/Lore:Murkmire",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "lilmoth",
+      "title": "Lilmoth",
+      "url": "https://en.uesp.net/wiki/Lore:Lilmoth",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "kothringi",
+      "title": "Kothringi",
+      "url": "https://en.uesp.net/wiki/Lore:Kothringi",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "knahaten-flu",
+      "title": "Knahaten Flu",
+      "url": "https://en.uesp.net/wiki/Lore:Knahaten_Flu",
+      "page_type": "lore_summary",
+      "entity_type": "event_or_disease",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    },
+    {
+      "id": "shadowscales",
+      "title": "Shadowscales",
+      "url": "https://en.uesp.net/wiki/Lore:Shadowscales",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying books/dialogue/quests/events; preserve cultural and mythic attribution"
+    }
+  ],
+  "review_focus": [
+    "Green Pact practices and Wild Hunt accounts require source/time attribution",
+    "Khajiiti origin stories and lunar theology must preserve mutually compatible or conflicting traditions rather than choose one",
+    "Hist/Argonian claims should distinguish Argonian belief, outsider interpretation, and directly observed game events",
+    "Knahaten Flu origin claims are contested and must not be promoted from rumor to fact",
+    "place pages in UESP cleanup category receive review flags"
+  ],
+  "known_quality_flags": [
+    {
+      "page": "Elsweyr",
+      "flag": "lore_places_cleanup_category"
+    },
+    {
+      "page": "Grahtwood",
+      "flag": "lore_places_cleanup_category"
+    },
+    {
+      "page": "Black Marsh",
+      "flag": "lore_places_cleanup_category"
+    }
+  ],
+  "ingestion_rules": {
+    "raw_text": "local_rebuildable",
+    "git": "metadata_queue_review_state_only",
+    "checkpoint_each_page": true,
+    "preserve_epistemic_language": true,
+    "prefer_underlying_primary_evidence": true,
+    "exclude_mod_namespaces_from_tes_base": true
+  }
+}
