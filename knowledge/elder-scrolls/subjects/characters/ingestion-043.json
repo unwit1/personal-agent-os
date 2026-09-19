@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-043-breton-high-rock-direnni",
+  "subjects": [
+    {
+      "id": "tes:breton-emeric",
+      "name": "High King Emeric",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/breton-emeric.json",
+      "source": {
+        "id": "uesp:breton-emeric",
+        "url": "https://en.uesp.net/wiki/Lore:High_King_Emeric",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:darien-gautier",
+      "name": "Darien Gautier",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/darien-gautier.json",
+      "source": {
+        "id": "uesp:darien-gautier",
+        "url": "https://en.uesp.net/wiki/Lore:Darien_Gautier",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:verandis-ravenwatch",
+      "name": "Count Verandis Ravenwatch",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/verandis-ravenwatch.json",
+      "source": {
+        "id": "uesp:verandis-ravenwatch",
+        "url": "https://en.uesp.net/wiki/Lore:Count_Verandis_Ravenwatch",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:lyraneth",
+      "name": "Lyranth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/lyraneth.json",
+      "source": {
+        "id": "uesp:lyraneth",
+        "url": "https://en.uesp.net/wiki/Lore:Lyranth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:azura-rivenspire",
+      "name": "Azura",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/azura-rivenspire.json",
+      "source": {
+        "id": "uesp:azura-rivenspire",
+        "url": "https://en.uesp.net/wiki/Lore:Azura",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Breton ancestry claims must distinguish historical evidence, cultural identity, polemical texts and later racial theorizing",
+    "Do not treat High Rock as a single centralized political culture across eras; preserve kingdom, city-state and feudal variation",
+    "Direnni rule and the term Manmer require era/source-specific handling rather than timeless ethnic definitions",
+    "Adamantine Tower cosmology should separate observed location/history from Tower-theory interpretation",
+    "Rivenspire vampire narratives must distinguish individual clans and periods rather than generalize all Breton vampirism",
+    "Cross-link existing Breton, High Rock, Direnni, Daggerfall, Wayrest, Balfiera, Adamantine Tower, Emeric and House Ravenwatch records"
+  ]
+}
