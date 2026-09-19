@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 325,
+    "first_level_files_indexed": 333,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue orphan/generic pass. Inspect remaining generic Untitled documents/spreadsheets and 2020-2024 character/campaign artifacts, prioritizing safe native Docs/Sheets that can reveal missing project families. Search for Virtue/Echo, Vildimar/Kingfisher setting, Avatar/Crane companions, and other reusable character sheets. Keep DOCX-only items partial until a readable path is available."
+    "next_action": "Continue orphan character/project discovery from the large Character Sheet search: inspect Beyond the Sun Kingfisher, Accursed Lilith Deacon, Lost Lambs Seven, Spellcraft Gallagher Goose, Genesis/Concrete Jungle earlier versions, Naruto/Rest in Rot/Dragon Ball artifacts, and safe generic Untitled Docs/Sheets. Record recurring names as reuse/evolution only unless continuity is evidenced. Skip unrelated NSFW details."
   },
   "top_level_folders": [
     {
@@ -2884,6 +2884,78 @@
       "category": "gildorym",
       "content_status": "partial",
       "inventory_source": "legacy character/campaign pass"
+    },
+    {
+      "id": "1lHWPqgWtF3Iz_LDU-2_vlQ8_NtlmW5839DdpXxXRuC4",
+      "title": "Character Sheet - Kaine's Jojo Game - Ellison Crane",
+      "path": "/Accessible Drive/Character Sheet - Kaine's Jojo Game - Ellison Crane",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "jojo_campaign",
+      "content_status": "processed",
+      "inventory_source": "character-sheet orphan discovery"
+    },
+    {
+      "id": "1g2lDr8hKOMuvadNlppVdZHMhi46C0CmI0mbFtdcOVwM",
+      "title": "Character Sheet - Horon - Nox",
+      "path": "/Accessible Drive/Character Sheet - Horon - Nox",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "horon_campaign",
+      "content_status": "processed",
+      "inventory_source": "character-sheet orphan discovery"
+    },
+    {
+      "id": "1qxZZfE5AdWgqrtMfu043c3Fb_ckHV-zI-WmYkmmcVvQ",
+      "title": "Character Sheet - Dead Earth - Licht",
+      "path": "/Accessible Drive/Character Sheet - Dead Earth - Licht",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "dead_earth",
+      "content_status": "processed",
+      "inventory_source": "character-sheet orphan discovery"
+    },
+    {
+      "id": "1n-WyPDN6kcNuqhSTaS_PiXX9txabfDzLbGOy53XcN-0",
+      "title": "Character Sheet - Genesis Reboot - Voltaire",
+      "path": "/Accessible Drive/Character Sheet - Genesis Reboot - Voltaire",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "genesis_reboot",
+      "content_status": "processed",
+      "inventory_source": "character-sheet orphan discovery"
+    },
+    {
+      "id": "1Xwek1xmobN5btgNrMgMFYoyriOmFNYzTFC8yFjjjYyY",
+      "title": "Concrete Jungle Reboot - Character Sheet - Shrimp Kallabah Six Nine",
+      "path": "/Accessible Drive/Concrete Jungle Reboot - Character Sheet - Shrimp Kallabah Six Nine",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "concrete_jungle",
+      "content_status": "processed",
+      "inventory_source": "character-sheet orphan discovery"
+    },
+    {
+      "id": "1P4jL-8kuWG6gM1yq_W7ZoygqRqZCqokUEW-oPbGZj5Q",
+      "title": "Character Sheet - Golden Grove Reboot - Holland Laplace",
+      "path": "/Accessible Drive/Character Sheet - Golden Grove Reboot - Holland Laplace",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "golden_grove",
+      "content_status": "processed",
+      "inventory_source": "character-sheet orphan discovery"
+    },
+    {
+      "id": "1Ij5UrTESR3uz2bYG3NinWuaaPeFjzYoR7qlLWDhgf0E",
+      "title": "Character Sheet - Accursed - Leyris",
+      "path": "/Accessible Drive/Character Sheet - Accursed - Leyris",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "accursed",
+      "content_status": "processed",
+      "inventory_source": "character-sheet orphan discovery"
+    },
+    {
+      "id": "1n4raaAOKt_C1MB9aFCtw0DBMveiDZXA3kW1xxcW7gv8",
+      "title": "Character Sheet - Champions & Cheaters - Dr. Gary Nefarious",
+      "path": "/Accessible Drive/Character Sheet - Champions & Cheaters - Dr. Gary Nefarious",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "champions_cheaters",
+      "content_status": "processed",
+      "inventory_source": "character-sheet orphan discovery"
     }
   ],
   "folder_queue": [
@@ -4508,6 +4580,15 @@
           "1Vp9tw5-EcjPpE2w_ZzpfcnkntDyAgeiL9QHvLfLT3dE"
         ],
         "note": "Recurring character names across campaigns should be tracked as reused/adapted identities, not assumed to be one continuous canon."
+      },
+      "nox": {
+        "summary": "Horon also contains Nox the Clockmaker as a high-elf Chronurgy Wizard, emphasizing time manipulation, clockmaker tools, high initiative and scholarly skills. This provides a likely earlier playable incarnation of the Noximilien/Clockmaker concept later used in Blades of Pergrande, but identity continuity is provisional until additional evidence confirms it.",
+        "source_ids": [
+          "1g2lDr8hKOMuvadNlppVdZHMhi46C0CmI0mbFtdcOVwM"
+        ],
+        "relationships": [
+          "Blades of Pergrande Noximilien the Clockmaker - likely concept reuse/evolution, not yet asserted identical"
+        ]
       }
     },
     "dungeon-oratoria": {
@@ -4581,6 +4662,70 @@
       ],
       "unresolved": [
         "Read/materialize DOCX later."
+      ]
+    },
+    "jojo-campaign": {
+      "status": "historical fan tabletop campaign",
+      "domain": "JoJo-inspired tabletop RPG",
+      "summary": "Kaine's JoJo Game reused the name Ellison Crane for a deliberately comedic unrelated character: a homeless former family man/Hamon monk whose Stand is 'Locomotive of Questionable Sanity.' This is explicitly not Dream Eater's Ellison Crane; it is another example of the user reusing names between unrelated RPG characters/projects.",
+      "source_ids": [
+        "1lHWPqgWtF3Iz_LDU-2_vlQ8_NtlmW5839DdpXxXRuC4"
+      ],
+      "relationships": [
+        "Dream Eater Ellison Crane - name reuse only, unrelated"
+      ],
+      "authority_note": "Do not import this character biography into Dream Eater lore."
+    },
+    "dead-earth": {
+      "status": "historical tabletop campaign",
+      "domain": "science-fantasy D&D-style RPG",
+      "summary": "Dead Earth includes Licht Mabelle, an allegedly 17-year-old Venusian Circle of the Moon Druid and alchemic construct. Licht believes he was resurrected on the Moon by a maternal lunar divinity after being sacrificed by a cult, travels with a half-troll named Kraen, and intends to become a priest of the 'Holy Moon Mother.' The setting is explicitly cosmic, with Venusians, lunar civilization/college, trolls and D&D-derived magic.",
+      "source_ids": [
+        "1qxZZfE5AdWgqrtMfu043c3Fb_ckHV-zI-WmYkmmcVvQ"
+      ]
+    },
+    "genesis-reboot": {
+      "status": "historical superhero tabletop campaign",
+      "domain": "superhero RPG",
+      "summary": "Genesis Reboot includes Jackson Shrike, alias Juice/Voltaire, an electricity-powered would-be superhero. A childhood attempt to defeat supervillain Permafrost ended in severe injury on livestream, contributing to political pressure for restrictions on underage vigilantes. Years later his powers resurface publicly and he returns to heroics. Mechanics use HP/Power, custom stats, ranked skills/attributes, super moves and an ultimate, showing another iteration of the user's custom superhero-system design lineage.",
+      "source_ids": [
+        "1n-WyPDN6kcNuqhSTaS_PiXX9txabfDzLbGOy53XcN-0"
+      ],
+      "relationships": [
+        "Anthem City - possible shared design lineage, not assumed same setting"
+      ]
+    },
+    "concrete-jungle": {
+      "status": "historical tabletop campaign/reboot",
+      "domain": "custom fantasy/supernatural RPG",
+      "summary": "Concrete Jungle Reboot includes Shrimp Kallabah LXIX, a mantis-shrimp homunculus/bodyguard with custom stress, attributes and exaggerated combat mechanics. The character's history includes pit fighting, rescue by jellyfish homunculus Layla, bodyguard work and a revenge motive after her apparent murder. The sheet demonstrates the same major-positive/positive/medium/negative/major-negative trait architecture seen in several custom campaigns.",
+      "source_ids": [
+        "1Xwek1xmobN5btgNrMgMFYoyriOmFNYzTFC8yFjjjYyY"
+      ],
+      "privacy_classification": "safe project lore; sexually suggestive joke material omitted from durable summary"
+    },
+    "golden-grove": {
+      "status": "historical supernatural tabletop campaign/reboot",
+      "domain": "occult investigation RPG",
+      "summary": "Golden Grove Reboot includes Holland Laplace, a changeling occult investigator from a family of supernatural hunters. Holland and twin Rookwood were raised after a faerie incident left their mother unable to know which child was originally human; both later manifested changeling abilities. They operate the Laplace's Demon investigation agency while seeking the truth about a potentially missing original child. The heirloom 'Laplace's Demon' is a sealed box containing an unknown entity tied to a deterministic thought experiment.",
+      "source_ids": [
+        "1P4jL-8kuWG6gM1yq_W7ZoygqRqZCqokUEW-oPbGZj5Q"
+      ]
+    },
+    "accursed": {
+      "status": "historical original-fantasy tabletop campaign",
+      "domain": "custom fantasy RPG",
+      "summary": "Accursed uses a ranked progression system (Stone through Rhodium) with classes, subclasses, Flair and custom stats. Leyris/Rhys Turaco is a bardic Teller and Scout whose history centers on slavery, adoption by master entertainer Ferris the Viola, succession to the title of 18th Viola, cheating a contest against adopted sister Rhys, and a cursed heirloom called the Celia Rose that kills/absorbs Rhys during a reconciliation performance. Leyris then lives under an alias as a fugitive adventurer.",
+      "source_ids": [
+        "1Ij5UrTESR3uz2bYG3NinWuaaPeFjzYoR7qlLWDhgf0E"
+      ]
+    },
+    "champions-cheaters": {
+      "status": "historical comedic superhero tabletop campaign",
+      "domain": "superhero RPG",
+      "summary": "Champions & Cheaters includes Dr. Gary Nefarious, a veterinarian/inventor whose supernatural talent lets him construct improbable machines to solve problems, especially indirect solutions. His design centers on invention backfires, luck, obvious self-destruct mechanisms, petty grudges and nemesis Lorenzo the Lemming. This is primarily a comedic character/system artifact.",
+      "source_ids": [
+        "1n4raaAOKt_C1MB9aFCtw0DBMveiDZXA3kW1xxcW7gv8"
       ]
     }
   },
