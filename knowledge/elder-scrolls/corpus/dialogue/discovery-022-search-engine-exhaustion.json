@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "status": "completed",
+  "query_families": [
+    "TES4 Oblivion dialogue transcript",
+    "TES3 Morrowind dialogue transcript",
+    "Redguard Cyrus dialogue transcript",
+    "Battlespire dialogue transcript"
+  ],
+  "result": "Search results remain dominated by written lore pages rather than transcript indexes.",
+  "verified_false_positive_examples": [
+    {
+      "title": "The Seven Visions",
+      "url": "https://www.imperial-library.info/content/seven-visions",
+      "game": "morrowind",
+      "category": "Songs & Poems",
+      "route": "books"
+    },
+    {
+      "title": "Peke Utchoo's Last Words",
+      "url": "https://www.imperial-library.info/content/peke-utchoos-last-words",
+      "game": "morrowind",
+      "category": "Journals",
+      "route": "books"
+    },
+    {
+      "title": "The Stranger",
+      "url": "https://www.imperial-library.info/content/stranger",
+      "game": "morrowind",
+      "category": "Songs & Poems",
+      "route": "books"
+    },
+    {
+      "title": "Dispel Potion Formula",
+      "url": "https://www.imperial-library.info/content/dispel-potion-formula",
+      "game": "morrowind",
+      "category": "Manuals & Instructions",
+      "route": "books"
+    },
+    {
+      "title": "Spirit of the Daedra",
+      "url": "https://www.imperial-library.info/content/spirit-daedra",
+      "games": [
+        "morrowind",
+        "oblivion",
+        "skyrim",
+        "battlespire",
+        "eso"
+      ],
+      "category": "Religion & Legends",
+      "route": "books"
+    }
+  ],
+  "durable_decision": "Do not spend further ingestion passes repeating generic search-engine transcript queries. Build and run an internal-site enumerator instead."
+}
