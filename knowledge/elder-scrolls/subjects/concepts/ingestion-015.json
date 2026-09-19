@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-015-empires-wars-dragonborn",
+  "subjects": [
+    {
+      "id": "tes:dragonborn",
+      "name": "Dragonborn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dragonborn.json",
+      "source": {
+        "id": "uesp:dragonborn",
+        "url": "https://en.uesp.net/wiki/Lore:Dragonborn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragonborn-emperors",
+      "name": "Dragonborn Emperors",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dragonborn-emperors.json",
+      "source": {
+        "id": "uesp:dragonborn-emperors",
+        "url": "https://en.uesp.net/wiki/Lore:Dragonborn_Emperors",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragon-blood",
+      "name": "Dragon Blood",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dragon-blood.json",
+      "source": {
+        "id": "uesp:dragon-blood",
+        "url": "https://en.uesp.net/wiki/Lore:Dragon_Blood",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragonfires",
+      "name": "Dragonfires",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dragonfires.json",
+      "source": {
+        "id": "uesp:dragonfires",
+        "url": "https://en.uesp.net/wiki/Lore:Dragonfires",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:thu-um",
+      "name": "Thu'um",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/thu-um.json",
+      "source": {
+        "id": "uesp:thu-um",
+        "url": "https://en.uesp.net/wiki/Lore:Thu%27um",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:civil-war",
+      "name": "Civil War",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/civil-war.json",
+      "source": {
+        "id": "uesp:civil-war",
+        "url": "https://en.uesp.net/wiki/Lore:Civil_War",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Separate organizations from wars/events even when UESP page names overlap",
+    "Preserve era-specific versions of the Aldmeri Dominion rather than conflating them",
+    "Political claims about Great War, Concordat and Skyrim Civil War require speaker/source attribution",
+    "Dragonborn doctrine, bloodline and blessing claims should distinguish religious belief, historical records and observed game mechanics",
+    "Miraak and Dragon Priest material should prefer direct Skyrim/Dragonborn dialogue, inscriptions and quest evidence"
+  ]
+}
