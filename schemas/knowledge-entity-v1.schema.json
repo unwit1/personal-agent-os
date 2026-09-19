@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Knowledge Entity v1",
+  "type": "object",
+  "required": [
+    "id",
+    "library_id",
+    "name",
+    "entity_type"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "library_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "entity_type": {
+      "type": "string"
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metadata": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}
