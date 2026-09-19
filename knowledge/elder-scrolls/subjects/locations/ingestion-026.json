@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-026-elsweyr-khajiit-dragons",
+  "subjects": [
+    {
+      "id": "tes:anequina",
+      "name": "Anequina",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/anequina.json",
+      "source": {
+        "id": "uesp:anequina",
+        "url": "https://en.uesp.net/wiki/Lore:Anequina",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:pellitine",
+      "name": "Pellitine",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/pellitine.json",
+      "source": {
+        "id": "uesp:pellitine",
+        "url": "https://en.uesp.net/wiki/Lore:Pellitine",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:rimmen",
+      "name": "Rimmen",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/rimmen.json",
+      "source": {
+        "id": "uesp:rimmen",
+        "url": "https://en.uesp.net/wiki/Lore:Rimmen",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:senchal",
+      "name": "Senchal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/senchal.json",
+      "source": {
+        "id": "uesp:senchal",
+        "url": "https://en.uesp.net/wiki/Lore:Senchal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragonhold",
+      "name": "Dragonhold",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/dragonhold.json",
+      "source": {
+        "id": "uesp:dragonhold",
+        "url": "https://en.uesp.net/wiki/Lore:Dragonhold",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:halls-colossus",
+      "name": "Halls of Colossus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/halls-colossus.json",
+      "source": {
+        "id": "uesp:halls-colossus",
+        "url": "https://en.uesp.net/wiki/Lore:Halls_of_Colossus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:moon-gate-anequina",
+      "name": "Moon Gate of Anequina",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/moon-gate-anequina.json",
+      "source": {
+        "id": "uesp:moon-gate-anequina",
+        "url": "https://en.uesp.net/wiki/Lore:Moon_Gate_of_Anequina",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:plane-jode",
+      "name": "Plane of Jode",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/plane-jode.json",
+      "source": {
+        "id": "uesp:plane-jode",
+        "url": "https://en.uesp.net/wiki/Lore:Plane_of_Jode",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Khajiiti origin stories and lunar theology remain attributed traditions unless independently evidenced",
+    "Furstock descriptions must retain source/era because terminology and presentation vary across games",
+    "Khunzar-ri legends should separate legendary narrative from observed ESO-era evidence",
+    "Dragon claims should distinguish individual testimony, historical record and directly observed quest events",
+    "Cross-link existing Khajiit, Elsweyr, Alkosh, Azurah, Lunar Lattice, Mane, Dro-m'Athra, Sai Sahan and Abnur Tharn subjects",
+    "Do not collapse Anequina/Pellitine geographic, political and historical meanings into one undifferentiated record"
+  ]
+}
