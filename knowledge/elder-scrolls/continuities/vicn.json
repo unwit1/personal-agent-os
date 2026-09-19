@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "vicn",
+  "library_id": "elder-scrolls",
+  "name": "VICN continuity",
+  "kind": "overlay",
+  "relationships": [
+    {
+      "type": "extends",
+      "target": "tes-base",
+      "notes": "Adds its own interpretation/expansion of the base setting without becoming base canon."
+    }
+  ],
+  "modules": [
+    "vigilant",
+    "glenmoril",
+    "unslaad"
+  ],
+  "notes": "Treat VICN claims as authoritative only inside the selected VICN continuity unless separately supported by base sources."
+}
