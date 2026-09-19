@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 319,
+    "first_level_files_indexed": 325,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue 2020-2022 tabletop/orphan pass: inspect Horon Wit Fletcher, Avatar Crane, 5e Kingfisher, Virtue Fiddler Green, Gildorym/backstory artifacts, Character Sheet Template, and any campaign-level docs surfaced by those identities. Then return to generic/untitled files and MASTER/reference assets. Dungeon Oratoria remains partial until DOCX content can be read."
+    "next_action": "Continue orphan/generic pass. Inspect remaining generic Untitled documents/spreadsheets and 2020-2024 character/campaign artifacts, prioritizing safe native Docs/Sheets that can reveal missing project families. Search for Virtue/Echo, Vildimar/Kingfisher setting, Avatar/Crane companions, and other reusable character sheets. Keep DOCX-only items partial until a readable path is available."
   },
   "top_level_folders": [
     {
@@ -1849,8 +1849,8 @@
       "path": "/My Drive/dreameater/Magic System - Contract Magic",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2023-02-08T00:31:55.042Z",
-      "category": "writing_dream_eater",
-      "content_status": "queued"
+      "category": "guardian_cycle_magic",
+      "content_status": "processed"
     },
     {
       "id": "1Zy2eFpPAfA0F9zn2sgDnBrSaiULIHMht0uykmpXwcv8",
@@ -2029,8 +2029,8 @@
       "path": "/My Drive/Personal/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2025-03-04T00:22:31.294Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "gildorym",
+      "content_status": "processed"
     },
     {
       "id": "1P--Px6FGRG1FTgAkW9Sbb_fTaXUMUh_DDqoEp-OwweA",
@@ -2830,6 +2830,60 @@
       "category": "dungeon_oratoria",
       "content_status": "partial",
       "inventory_source": "2020-2022 tabletop artifact pass"
+    },
+    {
+      "id": "1Vp9tw5-EcjPpE2w_ZzpfcnkntDyAgeiL9QHvLfLT3dE",
+      "title": "Character Sheet - Horon - Wit Fletcher",
+      "path": "/Accessible Drive/Character Sheet - Horon - Wit Fletcher",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "category": "horon_campaign",
+      "content_status": "processed",
+      "inventory_source": "legacy character/campaign pass"
+    },
+    {
+      "id": "1t4jWgU3WzaNeDQrg78PWwRYQmh2ASqtqXK3ouyHu7WI",
+      "title": "Character Sheet - 5e Game - Kingfisher",
+      "path": "/Accessible Drive/Character Sheet - 5e Game - Kingfisher",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "historical_character",
+      "content_status": "processed",
+      "inventory_source": "legacy character/campaign pass"
+    },
+    {
+      "id": "18TKP7hCOaZMNFe3X2xClbt1LRF9yCOyJZpeep5SuXPk",
+      "title": "Character Sheet - Virtue - Fiddler Green",
+      "path": "/Accessible Drive/Character Sheet - Virtue - Fiddler Green",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "virtue_campaign",
+      "content_status": "processed",
+      "inventory_source": "legacy character/campaign pass"
+    },
+    {
+      "id": "1NAIKeDDgskMqzceic2cIdSTNrJvpWjyZHXW0iz38-0s",
+      "title": "Character Sheet Template",
+      "path": "/Accessible Drive/Character Sheet Template",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "category": "tabletop_tooling",
+      "content_status": "processed",
+      "inventory_source": "legacy character/campaign pass"
+    },
+    {
+      "id": "10GqUCn5dXBd5ymtYp9Nq_flTux_2Hc4n",
+      "title": "Character Sheet - Avatar - Crane.docx",
+      "path": "/Accessible Drive/Character Sheet - Avatar - Crane.docx",
+      "mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "category": "avatar_campaign",
+      "content_status": "partial",
+      "inventory_source": "legacy character/campaign pass"
+    },
+    {
+      "id": "1-Os5g9RhWmfYUle4_TB3cyOZdcUnVdZN",
+      "title": "Gildorym Whitelist Application - Wit Fletcher.docx",
+      "path": "/Accessible Drive/Gildorym Whitelist Application - Wit Fletcher.docx",
+      "mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "category": "gildorym",
+      "content_status": "partial",
+      "inventory_source": "legacy character/campaign pass"
     }
   ],
   "folder_queue": [
@@ -4353,7 +4407,14 @@
         "Avalon Institute",
         "State of Denial"
       ],
-      "authority_note": "Character Wiki is newer structured lore than the 2023 Avalon document, but explicit user statements remain highest authority for Dream Eater. Do not promote incomplete wiki fragments automatically."
+      "authority_note": "Character Wiki is newer structured lore than the 2023 Avalon document, but explicit user statements remain highest authority for Dream Eater. Do not promote incomplete wiki fragments automatically.",
+      "contract_magic": {
+        "summary": "Contract Magic formalizes supernatural bargains as persistent metaphysical connections exchanging part of a person's Name/soul, agenda or other leverage for power. Contract strength depends on relationship/trust and relative power; unequal contracts permit stronger entities to influence, overwrite or possess weaker partners. Wardens disproportionately encounter contracts because Awakening can strand them in the Void among Shackled Ones. Apprenticeship is also framed as a form of contract through exchange of conceptual knowledge. The document distinguishes Shackled Ones, spirits/wraiths, Dreameaters and Dreamless and connects contract metaphysics directly to the Guardian Cycle.",
+        "source_ids": [
+          "1XWWTKu6v3aHvf9zJgyTnyWYJmCpp_HUr20c567F1Urg"
+        ],
+        "canon_reconciliation": "The document contains the older Oliver Ashland version of the Throne-destruction/Ellison origin. Preserve it as legacy wording; explicit user canon establishes Silas as Grant's child and intended identity. Other Dreamless/Dreameater mechanics are useful lore but remain subordinate to newer Dream Eater sources where conflicts arise."
+      }
     },
     "lords-of-mourning": {
       "status": "historical campaign folder discovered",
@@ -4440,7 +4501,14 @@
       ],
       "unresolved": [
         "Inspect Horon Wit Fletcher sheet and locate campaign-level Horon lore."
-      ]
+      ],
+      "character_reuse": {
+        "summary": "Horon contains both Rook Vandervelle and Wit Fletcher artifacts. Wit's sheet is a customized copy of the same reusable v2.1 character-sheet family and is currently formula-broken (#REF! links), so it preserves historical tooling more reliably than finalized character statistics.",
+        "source_ids": [
+          "1Vp9tw5-EcjPpE2w_ZzpfcnkntDyAgeiL9QHvLfLT3dE"
+        ],
+        "note": "Recurring character names across campaigns should be tracked as reused/adapted identities, not assumed to be one continuous canon."
+      }
     },
     "dungeon-oratoria": {
       "status": "historical project discovered / content pending",
@@ -4451,6 +4519,68 @@
       ],
       "unresolved": [
         "Materialize/read DOCX through file-capable path in a later pass if accessible."
+      ]
+    },
+    "gildorym": {
+      "status": "historical roleplay/campaign setting",
+      "domain": "D&D/Forgotten Realms roleplay",
+      "summary": "Gildorym contains an earlier Wit Fletcher incarnation. Born Fletcher Fletcher Fletcher in Longsaddle to a bard/con-man father, he steals his father's horse/instruments/fortune, travels toward Neverwinter, joins a swindler group called the Ratswill, survives their execution after a con against a noble, adopts the name Wit in memory of them, and heads to Gildorym seeking a fresh identity. The core motif is reinvention through self-believed deception: 'the best bluffs are the ones you believe yourself.'",
+      "source_ids": [
+        "1xg-V77UZAS8ogJu8-86NutiSVWZZsQlBjmVgP_t7YPM",
+        "1-Os5g9RhWmfYUle4_TB3cyOZdcUnVdZN"
+      ],
+      "relationships": [
+        "Wit Fletcher recurring character",
+        "Lower Worlds",
+        "Horon"
+      ],
+      "authority_note": "This is a campaign-specific Wit incarnation; do not merge its biography into other Wit versions without evidence."
+    },
+    "virtue-campaign": {
+      "status": "historical original/supernatural tabletop project",
+      "domain": "tabletop RPG / original supernatural setting",
+      "summary": "Virtue includes Fiddler Green, a 19-year-old supernatural character built around 'Christmas Spirit' as a positive attribute and lung atrophy as a negative one. His backstory follows a Christmas terrorist attack that kills his parents and injures his siblings, adoption/training by extremist supernatural hunter Nataliya Nikos, and eventual rebellion after discovering her assassination work. His abilities literalize Christmas folklore: locating homes by name, producing personalized presents, weather/blizzard effects, counterfactual visions, and a wrathful Christmas-Vengeance state. The sheet references 'Echo' training, suggesting a broader supernatural hunter/power framework not yet recovered.",
+      "source_ids": [
+        "18TKP7hCOaZMNFe3X2xClbt1LRF9yCOyJZpeep5SuXPk"
+      ],
+      "unresolved": [
+        "Find Virtue/Echo system or other character files to establish setting scope."
+      ]
+    },
+    "historical-character-kingfisher": {
+      "status": "historical character concept",
+      "domain": "D&D-style tabletop RPG",
+      "summary": "Kingfisher is a Circle of the Shepherd Druid whose original identity is petty thief/swinder Erebleak Strecht. Five years before the sheet, magic returns to the wilds while he shelters in Vildimar Forest; he becomes trapped in an altered/Feywild-like forest and encounters a talking fish claiming to be the forest's king. He later returns to a world changed during his five-year absence, with deliberately uncertain memories of how much of the experience was supernatural versus hallucinatory.",
+      "source_ids": [
+        "1t4jWgU3WzaNeDQrg78PWwRYQmh2ASqtqXK3ouyHu7WI"
+      ],
+      "unresolved": [
+        "Identify the unnamed 5e campaign/setting and whether 'magic came back' belongs to a larger project."
+      ]
+    },
+    "tabletop-character-sheet-tooling": {
+      "status": "historical reusable tooling",
+      "domain": "tabletop spreadsheet automation",
+      "summary": "A reusable v2.1 spreadsheet character-sheet template underlies at least Horon-era sheets. It includes primary sheet, additional attacks/spells, gear/inventory, race/class data and formula-driven proficiencies. The archived template itself contains Wit Fletcher residue and broken external references, indicating it evolved by copying live character sheets rather than from a clean neutral master.",
+      "source_ids": [
+        "1NAIKeDDgskMqzceic2cIdSTNrJvpWjyZHXW0iz38-0s",
+        "1Vp9tw5-EcjPpE2w_ZzpfcnkntDyAgeiL9QHvLfLT3dE"
+      ],
+      "relationships": [
+        "Horon",
+        "Lower Worlds",
+        "To Kill an Immortal"
+      ]
+    },
+    "avatar-campaign": {
+      "status": "historical campaign artifact / content pending",
+      "domain": "tabletop RPG",
+      "summary": "A 2021 DOCX titled Character Sheet - Avatar - Crane is accessible and inventoried, but native Drive text extraction is unavailable for the uploaded DOCX in this pass. Do not infer its setting or whether 'Avatar' refers to a specific franchise until content is read.",
+      "source_ids": [
+        "10GqUCn5dXBd5ymtYp9Nq_flTux_2Hc4n"
+      ],
+      "unresolved": [
+        "Read/materialize DOCX later."
       ]
     }
   },
