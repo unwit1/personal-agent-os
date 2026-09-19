@@ -13,7 +13,8 @@
       "User clarified 2026-09-18: KF is the base; Arcaneum evolved into KF but may remain as the book-tagging layer; Imperial Library is book tagging/import; most related projects should be frameworks or integratable addons; newer versions generally win while older versions remain comparison provenance.",
       "2026-09-18 Dream Eater second pass covered the project folder inventory plus Guardian Emblem, Contract Magic, Avalon/Avalon Institute, Otherworld History, The Silence, and Magic System Explained. Findings are marked version-sensitive because the source docs contain unfinished and explicitly out-of-date notes.",
       "User clarification 2026-09-18: current Dream Eater manuscript is highest authority; preserve granular canon statuses; future lorekeeper/writing-buddy should actively challenge continuity and logic; The Silence is a newer central cosmic force that makes non-Fade users forget Fade users and thereby sustains the setting's supernatural Masquerade.",
-      "2026-09-18 Dream Eater continuation pass compared current manuscript material, 2023 Chapter 1/Dreameater drafts, brainstorming, and the Guardian Cycle sheet (modified 2026-05-21). Uncertainty markers in the recent sheet are retained as provisional rather than promoted to canon."
+      "2026-09-18 Dream Eater continuation pass compared current manuscript material, 2023 Chapter 1/Dreameater drafts, brainstorming, and the Guardian Cycle sheet (modified 2026-05-21). Uncertainty markers in the recent sheet are retained as provisional rather than promoted to canon.",
+      "User clarification 2026-09-18: Gravekeeper/Gravetender are titles for Ellison Crane; Door originally summoned Mourn and later watched the Nameless after the Black Guardian shattered; Denial weaponized a child as a conceptual suicide bomb against the Nameless Throne, breaking the child and Gallow, whose remnants formed the Ellison Crane/Gallowed Man gestalt expressed when Ellison wears the mask. Door's name remains provisional."
     ]
   },
   "project_clusters": [
@@ -251,10 +252,26 @@
           "Track concept evolution across prose, lore docs and structured sheets, and preserve abandoned variants for comparison."
         ],
         "questions_to_resolve_later": [
-          "Is Gravekeeper/Gravetender the same identity/title in current canon, and how does that relate to Ellison Crane?",
-          "What is the canonical relationship among Gallowed Man, Door and Ellison after the Broken Throne changes?",
           "How exactly does the newer Silence mechanic interact with Names, ordinary memory, written/digital records and institutional Fade-user memory?"
         ]
+      },
+      "user_confirmed_identity_clarifications": {
+        "gravekeeper_gravetender": {
+          "status": "Canon",
+          "definition": "Gravekeeper and Gravetender are titles for Ellison Crane, currently referring to the same being. The wording/title may change later."
+        },
+        "door_gallowed_man_ellison": {
+          "status": "Canon with provisional naming",
+          "sequence": [
+            "Door was the original Guardian who summoned Mourn.",
+            "After the Black Guardian was shattered, Door assumed the Guardian's responsibility for watching over the Nameless in the graveyard.",
+            "A child was transformed by Denial into a conceptual suicide bomb and sent as a homing weapon against the Nameless Throne.",
+            "The impact broke both the child and Gallow; their remnants coalesced into a gestalt.",
+            "Ellison Crane and the Gallowed Man function as two halves/aspects of that gestalt when Ellison puts on the mask."
+          ],
+          "naming_note": "Door's name is provisional and may be changed later.",
+          "continuity_note": "Older documents that describe Door, the Gallowed Man, Ellison, or the destruction of the Nameless Throne differently should be compared against this user-confirmed sequence rather than automatically promoted."
+        }
       }
     },
     {
