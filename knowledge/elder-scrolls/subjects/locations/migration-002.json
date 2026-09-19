@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:yokuda",
+      "name": "Yokuda",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/yokuda.json",
+      "source": {
+        "id": "uesp:yokuda",
+        "url": "https://en.uesp.net/wiki/Lore:Yokuda",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:hammerfell",
+      "name": "Hammerfell",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/hammerfell.json",
+      "source": {
+        "id": "uesp:hammerfell",
+        "url": "https://en.uesp.net/wiki/Lore:Hammerfell",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:summerset-isles",
+      "name": "Summerset Isles",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/summerset-isles.json",
+      "source": {
+        "id": "uesp:summerset-isles",
+        "url": "https://en.uesp.net/wiki/Lore:Summerset_Isles",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:valenwood",
+      "name": "Valenwood",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/valenwood.json",
+      "source": {
+        "id": "uesp:valenwood",
+        "url": "https://en.uesp.net/wiki/Lore:Valenwood",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:elsweyr",
+      "name": "Elsweyr",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/elsweyr.json",
+      "source": {
+        "id": "uesp:elsweyr",
+        "url": "https://en.uesp.net/wiki/Lore:Elsweyr",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:black-marsh",
+      "name": "Black Marsh",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/black-marsh.json",
+      "source": {
+        "id": "uesp:black-marsh",
+        "url": "https://en.uesp.net/wiki/Lore:Black_Marsh",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:morrowind",
+      "name": "Morrowind",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/morrowind.json",
+      "source": {
+        "id": "uesp:morrowind",
+        "url": "https://en.uesp.net/wiki/Lore:Morrowind",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:coldharbour",
+      "name": "Coldharbour",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/coldharbour.json",
+      "source": {
+        "id": "uesp:coldharbour",
+        "url": "https://en.uesp.net/wiki/Lore:Coldharbour",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Categorized migration from prior ingestion queues. Source URLs are discovery pointers; underlying primary references are preferred during extraction."
+}
