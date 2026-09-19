@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-036-nerevarine-sixth-house-prophecy",
+  "subjects": [
+    {
+      "id": "tes:sixth-house",
+      "name": "Sixth House",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/sixth-house.json",
+      "source": {
+        "id": "uesp:sixth-house",
+        "url": "https://en.uesp.net/wiki/Lore:Sixth_House",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:tribunal-temple",
+      "name": "Tribunal Temple",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/tribunal-temple.json",
+      "source": {
+        "id": "uesp:tribunal-temple",
+        "url": "https://en.uesp.net/wiki/Lore:Tribunal_Temple",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dissident-priests",
+      "name": "Dissident Priests",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/dissident-priests.json",
+      "source": {
+        "id": "uesp:dissident-priests",
+        "url": "https://en.uesp.net/wiki/Lore:Dissident_Priests",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:blades",
+      "name": "Blades",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/blades.json",
+      "source": {
+        "id": "uesp:blades",
+        "url": "https://en.uesp.net/wiki/Lore:Blades",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:urshilaku",
+      "name": "Urshilaku Tribe",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/urshilaku.json",
+      "source": {
+        "id": "uesp:urshilaku",
+        "url": "https://en.uesp.net/wiki/Lore:Urshilaku_Tribe",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ahemmusa",
+      "name": "Ahemmusa Tribe",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/ahemmusa.json",
+      "source": {
+        "id": "uesp:ahemmusa",
+        "url": "https://en.uesp.net/wiki/Lore:Ahemmusa_Tribe",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:zainab",
+      "name": "Zainab Tribe",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/zainab.json",
+      "source": {
+        "id": "uesp:zainab",
+        "url": "https://en.uesp.net/wiki/Lore:Zainab_Tribe",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:erabenimsun",
+      "name": "Erabenimsun Tribe",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/erabenimsun.json",
+      "source": {
+        "id": "uesp:erabenimsun",
+        "url": "https://en.uesp.net/wiki/Lore:Erabenimsun_Tribe",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Never force a single answer to whether the Nerevarine is literal reincarnation, prophetic fulfillment, constructed identity, or some combination; preserve evidence for each interpretation",
+    "Player-defined Nerevarine biography, race, gender, faction memberships and optional quest outcomes remain variable",
+    "Dagoth Ur's dreams, theology and historical claims remain attributed even when delivered directly to the player",
+    "Prophecy texts must preserve exact source lineage, translation/context and the distinction between prediction and retrospective interpretation",
+    "Corprus and divine-disease mechanics should distinguish narrative observations from gameplay-stat effects",
+    "Cross-link existing Nerevarine, Dagoth Ur, Tribunal, Sixth House, Ashlander tribes, Red Mountain, Heart of Lorkhan and Kagrenac-tool records"
+  ]
+}
