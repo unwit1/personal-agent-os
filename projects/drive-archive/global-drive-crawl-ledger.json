@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 291,
+    "first_level_files_indexed": 293,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue reconciling surfaced Skyrim reference assets and duplicate/versioned Apostate files, then inspect New Books List / quest masterlist / Iceberg archive relationships and older safe historical project artifacts. Keep Skyrim mod adult references in scope; skip unrelated NSFW and sensitive sources."
+    "next_action": "Continue inventory reconciliation for New Books List and Elder Scrolls reference assets, then broad/root discovery for additional safe historical projects and recursive folder coverage. Inspect remaining Apostate/Vigilant variants only where they add unique state; treat older duplicate snapshots as historical/superseded."
   },
   "top_level_folders": [
     {
@@ -572,7 +572,7 @@
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-08-07T01:21:12.129Z",
       "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "content_status": "superseded"
     },
     {
       "id": "1uAljXUyMAd_w8kblpio5d0NGpdXAdaFPqg-5unyLXDA",
@@ -581,7 +581,7 @@
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-08-07T01:19:03.696Z",
       "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "content_status": "superseded"
     },
     {
       "id": "1Fg4osWyGvxK5QL-4FV1i4g6Ty87a2v_ctrH8-S8GaB0",
@@ -743,7 +743,7 @@
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-06-01T19:18:06.102Z",
       "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "content_status": "processed"
     },
     {
       "id": "1vFo_O-j_TdSZjjWcScwSbNXS3kV8Maun24ZKPOPUdMQ",
@@ -806,7 +806,7 @@
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-05-29T19:56:21.607Z",
       "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "content_status": "processed"
     },
     {
       "id": "1DvhmG3er1E72lDyCUx8FKjK_bVVorQ2ei8xHNsKWeFQ",
@@ -815,7 +815,7 @@
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-05-29T19:54:13.699Z",
       "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "content_status": "superseded"
     },
     {
       "id": "1Jz3AM06IQ6ONjlFmB5rsLpUdVzwr4I3A9cYgmXX74Oo",
@@ -2571,6 +2571,26 @@
       "path": "/My Drive/IDE Vigilants / Dawnguard Feature List",
       "category": "elder_scrolls_mod_project",
       "content_status": "processed_summary"
+    },
+    {
+      "id": "1p9TA3Z5x9LPdnS25de-FkfbK8ruekaXcPKHXWcDJDDk",
+      "title": "Skyrim SE Quest Masterlist - with Scores. WORK IN PROGRESS",
+      "path": "/Accessible Drive/Skyrim SE Quest Masterlist - with Scores. WORK IN PROGRESS",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-07-30T16:21:50.759Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "processed",
+      "inventory_source": "Drive search"
+    },
+    {
+      "id": "1SE3txfpJhsXB2pjj6ShJGpaUeVC6jwUXK4kgkPeaFsU",
+      "title": "Elder Scrolls Iceberg Archive",
+      "path": "/Accessible Drive/Elder Scrolls Iceberg Archive",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-05-17T03:59:09.159Z",
+      "category": "elder_scrolls_modding",
+      "content_status": "processed",
+      "inventory_source": "Drive search"
     }
   ],
   "folder_queue": [
@@ -3763,6 +3783,23 @@
           "15fV8VFCcEozKwC4VV-dxsyJsi0hkciIC5WjWWFUI7NQ",
           "1CXH8Z2AA3IGRDXpahSF9emCTL6CmcuUP7OBS5k1dwII"
         ]
+      },
+      "narrative_constraints": {
+        "summary": "Dedicated narrative-generation instructions frame the project as a pre-Dawnguard Vigilant expansion with grounded, weary high-medieval tone, moral ambiguity, measurable consequences, minimal base-world edits, scripted cleanup at Hall destruction, and strict dialogue implementation constraints.",
+        "pc_line_max_chars": 80,
+        "npc_line_max_chars": 149,
+        "localization": "American English with project-specific TES terminology rules",
+        "source_ids": [
+          "1DvhmG3er1E72lDyCUx8FKjK_bVVorQ2ei8xHNsKWeFQ",
+          "1EI0milMctI3inuR_dgiQXkUzf-fBNuYTA8t5F8YVSRo"
+        ],
+        "evolution": "The Revised instruction file supersedes the earlier version for workflow guidance; the earlier file uniquely included an explicit vampirism safeguard and remains historical evidence."
+      },
+      "dialogue_gameplay_expansion": {
+        "summary": "The dialogue-overhaul design defines a modular stack: named-Vigilant expansion, generic/unnamed Vigilant interaction overhaul, and a possible joinable pre-Dawnguard faction. The intended loop includes radiant investigations, confrontations for witnessed heresy, speech/faction-rank defenses, bounties, Restoration training, monster-hunting trade, confession, rumors, reporting suspects, relic disposal, charity, holy oils/salts, patrols, monster hunters, inquisitors and roadside searches.",
+        "source_ids": [
+          "1uDW7SSWNEGarSNZURo7qmO5PrtYuNWVvzIp_BDy8qBE"
+        ]
       }
     },
     "consecration": {
@@ -3889,6 +3926,46 @@
         "Open Reputation Engine",
         "Apostate",
         "Merciful"
+      ]
+    },
+    "skyrim-quest-mod-evaluation-reference": {
+      "status": "external_reference",
+      "domain": "Skyrim quest-mod evaluation and modlist research",
+      "summary": "A shared community quest-mod masterlist scores and reviews Skyrim quest/follower/new-lands mods across execution, personal preference, premise, positives/negatives, pacing and other categories. Useful as an external reference for modlist architecture and quest-design research, but its ratings/opinions are not the user's own project canon.",
+      "source_ids": [
+        "1p9TA3Z5x9LPdnS25de-FkfbK8ruekaXcPKHXWcDJDDk"
+      ],
+      "relationships": [
+        "Skyrim Modlist Architecture",
+        "Journeyman",
+        "Merciful"
+      ]
+    },
+    "elder-scrolls-iceberg-archive": {
+      "status": "historical_collaborative_reference_project",
+      "domain": "Elder Scrolls obscure lore/fan-theory archive",
+      "summary": "Large collaborative archive begun in 2020 to catalogue 500+ obscure Elder Scrolls lore and fan-theory topics from an iceberg meme, with a Nu-Iceberg prototyping area intended to consolidate related topics, add new entries and reorganize depth. It also records plans for a video series and points to additional project files.",
+      "source_ids": [
+        "1SE3txfpJhsXB2pjj6ShJGpaUeVC6jwUXK4kgkPeaFsU"
+      ],
+      "relationships": [
+        "Knowledge Framework",
+        "Arcaneum",
+        "Elder Scrolls lore research"
+      ],
+      "note": "Treat individual entries as research leads/fan theories, not canon."
+    },
+    "new-books-list": {
+      "status": "active_or_recent_reference",
+      "domain": "Elder Scrolls book/lore catalogue",
+      "summary": "Large multi-tab book catalogue supporting Knowledge Framework/Arcaneum work. Current structure includes Canon, Obscure, Modded, Creation Club, ESO, Lost Arcaneum, Vicn and cleanup/log tabs. Canon cleanup reached 2,582 titled rows with descriptions and sources complete; author verification remained in progress in the latest cleanup log.",
+      "source_ids": [
+        "1ien55iA_crkTnQ9BfIQwEoCa6-v9rHmTrvTXpPzt9tg"
+      ],
+      "relationships": [
+        "Knowledge Framework",
+        "Arcaneum / Scholarship Framework",
+        "Knight Mentor"
       ]
     }
   },
