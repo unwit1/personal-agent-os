@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-044-reachfolk-religion-red-eagle",
+  "subjects": [
+    {
+      "id": "tes:hircine",
+      "name": "Hircine",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/hircine.json",
+      "source": {
+        "id": "uesp:hircine",
+        "url": "https://en.uesp.net/wiki/Lore:Hircine",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:red-eagle",
+      "name": "Red Eagle",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/red-eagle.json",
+      "source": {
+        "id": "uesp:red-eagle",
+        "url": "https://en.uesp.net/wiki/Lore:Red_Eagle",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:arana",
+      "name": "Arana",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/arana.json",
+      "source": {
+        "id": "uesp:arana",
+        "url": "https://en.uesp.net/wiki/Lore:Arana",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ard-caddach",
+      "name": "Ard Caddach",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/ard-caddach.json",
+      "source": {
+        "id": "uesp:ard-caddach",
+        "url": "https://en.uesp.net/wiki/Lore:Ard_Caddach",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:namira",
+      "name": "Namira",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/namira.json",
+      "source": {
+        "id": "uesp:namira",
+        "url": "https://en.uesp.net/wiki/Lore:Namira",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:peryite",
+      "name": "Peryite",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/peryite.json",
+      "source": {
+        "id": "uesp:peryite",
+        "url": "https://en.uesp.net/wiki/Lore:Peryite",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Reachfolk religion must be modeled from clan-specific and Reachfolk sources where possible; outsider labels such as 'Daedra worship' must remain attributed",
+    "Do not treat the Forsworn as synonymous with all Reachfolk or project Fourth Era Forsworn politics onto earlier Reach societies",
+    "Red Eagle traditions should distinguish historical evidence, legend, ritual memory and later retellings",
+    "Briarheart creation and capabilities must separate observed ritual evidence from gameplay mechanics",
+    "Reach clans can differ substantially in patron spirits, customs and politics; preserve local variation",
+    "Cross-link existing Reachfolk, Reach, Forsworn, Markarth, Old Gods, Briarheart, Hagraven, Hircine, Namira, Peryite and Red Eagle-related records"
+  ]
+}
