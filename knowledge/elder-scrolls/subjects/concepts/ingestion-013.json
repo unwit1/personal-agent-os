@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-013-daedric-princes-realms-artifacts",
+  "subjects": [
+    {
+      "id": "tes:daedric-prince",
+      "name": "Daedric Prince",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/daedric-prince.json",
+      "source": {
+        "id": "uesp:daedric-prince",
+        "url": "https://en.uesp.net/wiki/Lore:Daedric_Prince",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:planes-oblivion",
+      "name": "Planes of Oblivion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/planes-oblivion.json",
+      "source": {
+        "id": "uesp:planes-oblivion",
+        "url": "https://en.uesp.net/wiki/Lore:Planes_of_Oblivion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:daedric-artifact",
+      "name": "Daedric Artifact",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/daedric-artifact.json",
+      "source": {
+        "id": "uesp:daedric-artifact",
+        "url": "https://en.uesp.net/wiki/Lore:Daedric_Artifact",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:oblivion",
+      "name": "Oblivion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/oblivion.json",
+      "source": {
+        "id": "uesp:oblivion",
+        "url": "https://en.uesp.net/wiki/Lore:Oblivion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Preserve mortal/cultural interpretations of Daedric motives as attributed claims",
+    "Do not infer that a Prince's realm or artifact has invariant properties across every game/era",
+    "Prefer quest dialogue, artifact descriptions, in-game books and observed quest events over summary prose",
+    "Track alternate names as aliases rather than duplicate subjects"
+  ]
+}
