@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-046-imperial-divines-cult",
+  "subjects": [
+    {
+      "id": "tes:akatosh",
+      "name": "Akatosh",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/akatosh.json",
+      "source": {
+        "id": "uesp:akatosh",
+        "url": "https://en.uesp.net/wiki/Lore:Akatosh",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mara",
+      "name": "Mara",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/mara.json",
+      "source": {
+        "id": "uesp:mara",
+        "url": "https://en.uesp.net/wiki/Lore:Mara",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dibella",
+      "name": "Dibella",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/dibella.json",
+      "source": {
+        "id": "uesp:dibella",
+        "url": "https://en.uesp.net/wiki/Lore:Dibella",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:arkay",
+      "name": "Arkay",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/arkay.json",
+      "source": {
+        "id": "uesp:arkay",
+        "url": "https://en.uesp.net/wiki/Lore:Arkay",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:zenithar",
+      "name": "Zenithar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/zenithar.json",
+      "source": {
+        "id": "uesp:zenithar",
+        "url": "https://en.uesp.net/wiki/Lore:Zenithar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:stendarr",
+      "name": "Stendarr",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/stendarr.json",
+      "source": {
+        "id": "uesp:stendarr",
+        "url": "https://en.uesp.net/wiki/Lore:Stendarr",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:julianos",
+      "name": "Julianos",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/julianos.json",
+      "source": {
+        "id": "uesp:julianos",
+        "url": "https://en.uesp.net/wiki/Lore:Julianos",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:kynareth",
+      "name": "Kynareth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/kynareth.json",
+      "source": {
+        "id": "uesp:kynareth",
+        "url": "https://en.uesp.net/wiki/Lore:Kynareth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:talos",
+      "name": "Talos",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/talos.json",
+      "source": {
+        "id": "uesp:talos",
+        "url": "https://en.uesp.net/wiki/Lore:Talos",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:shezzar",
+      "name": "Shezarr",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/shezzar.json",
+      "source": {
+        "id": "uesp:shezzar",
+        "url": "https://en.uesp.net/wiki/Lore:Shezarr",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Distinguish Alessian, Reman, Septim and Fourth Era Imperial religious practice rather than treating the Imperial pantheon as static",
+    "Eight Divines and Nine Divines are historically contextual formulations; Talos-related doctrine must retain era and political context",
+    "Do not automatically merge Imperial gods with culturally corresponding deities; preserve syncretic identifications as sourced relationships",
+    "Religious commandments and temple doctrine are prescriptive evidence, not proof of universal practice",
+    "Talos worship after the White-Gold Concordat must distinguish legal status, public practice, private worship and regional enforcement",
+    "Cross-link existing Akatosh, Talos, Shezarr, Alessian Order, Temple of the One, Knights of the Nine, Amulet of Kings and White-Gold Concordat records"
+  ]
+}
