@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-035-chimer-first-council-red-mountain",
+  "subjects": [
+    {
+      "id": "tes:veloth",
+      "name": "Saint Veloth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/veloth.json",
+      "source": {
+        "id": "uesp:veloth",
+        "url": "https://en.uesp.net/wiki/Lore:Saint_Veloth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:nerevar",
+      "name": "Indoril Nerevar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/nerevar.json",
+      "source": {
+        "id": "uesp:nerevar",
+        "url": "https://en.uesp.net/wiki/Lore:Indoril_Nerevar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dumac",
+      "name": "Dumac Dwarfking",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/dumac.json",
+      "source": {
+        "id": "uesp:dumac",
+        "url": "https://en.uesp.net/wiki/Lore:Dumac_Dwarfking",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:kagrenac",
+      "name": "Kagrenac",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/kagrenac.json",
+      "source": {
+        "id": "uesp:kagrenac",
+        "url": "https://en.uesp.net/wiki/Lore:Kagrenac",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:vivec",
+      "name": "Vivec",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/vivec.json",
+      "source": {
+        "id": "uesp:vivec",
+        "url": "https://en.uesp.net/wiki/Lore:Vivec",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:almalexia",
+      "name": "Almalexia",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/almalexia.json",
+      "source": {
+        "id": "uesp:almalexia",
+        "url": "https://en.uesp.net/wiki/Lore:Almalexia",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sotha-sil",
+      "name": "Sotha Sil",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/sotha-sil.json",
+      "source": {
+        "id": "uesp:sotha-sil",
+        "url": "https://en.uesp.net/wiki/Lore:Sotha_Sil",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:azura",
+      "name": "Azura",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/azura.json",
+      "source": {
+        "id": "uesp:azura",
+        "url": "https://en.uesp.net/wiki/Lore:Azura",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Battle of Red Mountain accounts are mutually conflicting historical traditions; preserve each account and its provenance rather than synthesizing an unsupported single sequence",
+    "Tribunal, Ashlander, Nordic, Dwemer-related and later scholarly accounts must retain factional/source perspective",
+    "Claims about Nerevar's death, Tribunal oath-breaking, Kagrenac's actions and the Chimer-to-Dunmer transformation remain evidence-linked and contestable",
+    "The 36 Lessons are primary evidence for Vivec's authored religious narrative, not automatic literal history",
+    "Distinguish the historical First Council from later uses of the term and from gameplay/faction abstractions",
+    "Cross-link existing Nerevar, Kagrenac, Tribunal, Red Mountain, Heart of Lorkhan, Tools of Kagrenac, Chimer, Dunmer and Dwemer records"
+  ]
+}
