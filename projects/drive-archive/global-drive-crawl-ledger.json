@@ -15,7 +15,7 @@
     "first_level_files_indexed": 289,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue safe root-level Skyrim/mod files and uncategorized artifacts. Skip all known or suspected NSFW content entirely except optional metadata-only inventory."
+    "next_action": "Continue safe root search beyond recently modified Skyrim files, identify unindexed historical project artifacts, and reconcile all discovered IDs against ledger. Skip NSFW, credentials, and sensitive personnel sources."
   },
   "top_level_folders": [
     {
@@ -2963,6 +2963,47 @@
           "low/medium/high book study-hour caps",
           "rank requirement for writing books"
         ]
+      },
+      "writing_system": {
+        "summary": "Players can author books on learned topics. Manuscripts accumulate hidden 1–100 quality influenced by Speech, primary sources, secondary sources, unidentified flawed sources and fatigue.",
+        "primary_sources": [
+          "sketches",
+          "biological samples",
+          "rubbings",
+          "field notes",
+          "topic-tagged artifacts"
+        ],
+        "risk_model": [
+          "unidentified flawed sources poison manuscript quality",
+          "writing while fatigued can inject flaws"
+        ]
+      },
+      "event_schema": {
+        "summary": "Historical events are intended as structured topics loaded from events.json-like files.",
+        "fields": [
+          "event ID/key",
+          "People with relevance weights",
+          "Cultures with relevance weights",
+          "Aliases",
+          "Sub-events",
+          "NextEvent/chronological linkage"
+        ],
+        "examples": [
+          "War of the Red Diamond",
+          "Camoran Usurpation"
+        ],
+        "implication": "Event knowledge can connect people, cultures and chronology rather than being a flat tag."
+      },
+      "expert_npc_tagging": {
+        "summary": "Vanilla NPCs are being mapped to scholarly expertise so world characters can act as domain-aware knowledge sources.",
+        "examples": [
+          "Farengar Secret-Fire—Dovah",
+          "Esbern—Dragon/Akaviri",
+          "Sorine Jurard—Dawnguard/Machinist",
+          "Arcadia—Botany",
+          "Verner Rock-Chucker—Geology",
+          "Madena—Argonian culture"
+        ]
       }
     },
     "skyrim-scholarship-ecosystem": {
@@ -3354,6 +3395,61 @@
       "related_projects": [
         "Simonrim balance lab",
         "Personal Mods"
+      ]
+    },
+    "skyrim-modlist-architecture": {
+      "status": "active_or_recent",
+      "domain": "Skyrim personal modlist architecture and compatibility research",
+      "summary": "Large current modlist workbook catalogs dependencies, combat frameworks, animation systems, mechanics, authors, descriptions and compatibility notes. The combat stack explores TDM/Precision/TrueHUD, Blade and Blunt, BFCO, For Honor-style mechanics, dodging/parrying, killmoves, unarmed systems and many weapon/moveset extensions.",
+      "source_ids": [
+        "18LBn3VSkchCAf0exFa-qgoxjWPqkLHhKmNjAqhU6BcQ"
+      ],
+      "relationships": [
+        "Simonrim balance lab",
+        "Weapons Rebalance",
+        "Enemy Overhauls",
+        "Personal Mods"
+      ],
+      "note": "Treat as an evolving integration/compatibility workspace; individual listed mods are not necessarily permanently selected."
+    },
+    "weapons-rebalance": {
+      "status": "active_or_recent",
+      "domain": "Skyrim weapon taxonomy and numerical rebalance",
+      "summary": "Detailed weapon rebalance defines base classes, stamina costs, range/speed/stagger, tiered damage/weight/value, expanded melee and ranged weapon types, ammunition tiers, renamed bow families and unique weapon effects. It integrates vanilla, DLC, Creation Club and external weapon-type mods.",
+      "source_ids": [
+        "1cvI7GXqGZvZ25ml2y9YYjb9WkLegwryw0brBwo5PqWo"
+      ],
+      "weapon_extensions": [
+        "Spear/Longspear",
+        "Glaive",
+        "Halberd",
+        "Trident",
+        "Club",
+        "Hatchet",
+        "Long Mace",
+        "Maul",
+        "Quarterstaff",
+        "Shortspear/Shortsword",
+        "Rapier",
+        "Whip",
+        "Pike",
+        "Claw",
+        "Claymore",
+        "War Sickle",
+        "Ultra Greatsword/Greatmace/Greataxe",
+        "Light Greatsword",
+        "Buckler/Greatshield",
+        "Heavy Lance",
+        "Nodachi",
+        "Battle Scythe",
+        "Shortbow/Longbow/Greatbow",
+        "Repeater/Hand Crossbow",
+        "Pistol/Rifle"
+      ],
+      "relationships": [
+        "Skyrim Item Balancing",
+        "Simonrim balance lab",
+        "Skyrim Modlist Architecture"
       ]
     }
   },
