@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-043-breton-high-rock-direnni",
+  "subjects": [
+    {
+      "id": "tes:adamantine-tower-stone",
+      "name": "Zero Stone",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/adamantine-tower-stone.json",
+      "source": {
+        "id": "uesp:adamantine-tower-stone",
+        "url": "https://en.uesp.net/wiki/Lore:Zero_Stone",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:lightless-remnant",
+      "name": "Lightless Remnant",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/lightless-remnant.json",
+      "source": {
+        "id": "uesp:lightless-remnant",
+        "url": "https://en.uesp.net/wiki/Lore:Lightless_Remnant",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Breton ancestry claims must distinguish historical evidence, cultural identity, polemical texts and later racial theorizing",
+    "Do not treat High Rock as a single centralized political culture across eras; preserve kingdom, city-state and feudal variation",
+    "Direnni rule and the term Manmer require era/source-specific handling rather than timeless ethnic definitions",
+    "Adamantine Tower cosmology should separate observed location/history from Tower-theory interpretation",
+    "Rivenspire vampire narratives must distinguish individual clans and periods rather than generalize all Breton vampirism",
+    "Cross-link existing Breton, High Rock, Direnni, Daggerfall, Wayrest, Balfiera, Adamantine Tower, Emeric and House Ravenwatch records"
+  ]
+}
