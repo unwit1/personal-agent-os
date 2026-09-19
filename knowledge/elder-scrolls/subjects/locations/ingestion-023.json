@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-023-arena-daggerfall-warp-west",
+  "subjects": [
+    {
+      "id": "tes:iliac-bay",
+      "name": "Iliac Bay",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/iliac-bay.json",
+      "source": {
+        "id": "uesp:iliac-bay",
+        "url": "https://en.uesp.net/wiki/Lore:Iliac_Bay",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:daggerfall",
+      "name": "Daggerfall",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/daggerfall.json",
+      "source": {
+        "id": "uesp:daggerfall",
+        "url": "https://en.uesp.net/wiki/Lore:Daggerfall",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:wayrest",
+      "name": "Wayrest",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/wayrest.json",
+      "source": {
+        "id": "uesp:wayrest",
+        "url": "https://en.uesp.net/wiki/Lore:Wayrest",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sentinel",
+      "name": "Sentinel",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/sentinel.json",
+      "source": {
+        "id": "uesp:sentinel",
+        "url": "https://en.uesp.net/wiki/Lore:Sentinel",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:orsinium",
+      "name": "Orsinium",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/orsinium.json",
+      "source": {
+        "id": "uesp:orsinium",
+        "url": "https://en.uesp.net/wiki/Lore:Orsinium",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mantellan-crux",
+      "name": "Mantellan Crux",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/mantellan-crux.json",
+      "source": {
+        "id": "uesp:mantellan-crux",
+        "url": "https://en.uesp.net/wiki/Lore:Mantellan_Crux",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Arena and Daggerfall player-character identities remain minimally specified unless primary sources establish details",
+    "Daggerfall's mutually exclusive endings must remain separate outcome branches before Warp-in-the-West reconciliation",
+    "Do not use later Dragon Break explanations to erase what individual earlier sources report",
+    "Underking, Zurin Arctus, Wulfharth and Mantella identity/soul claims require source-specific attribution",
+    "The Real Barenziah, Biography of Queen Barenziah and Arcturian Heresy retain genre, authorship and reliability metadata",
+    "Cross-link existing Numidium, Mantella, Mannimarco, Uriel VII, Daggerfall, Wayrest and Orsinium subjects"
+  ]
+}
