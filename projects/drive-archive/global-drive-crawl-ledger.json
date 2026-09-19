@@ -15,7 +15,7 @@
     "first_level_files_indexed": 289,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue root-level uncategorized files and remaining Personal safe artifacts; then recurse remaining non-sensitive folders and reconcile inventory coverage."
+    "next_action": "Continue safe root-level Skyrim/mod files and uncategorized artifacts. Skip all known or suspected NSFW content entirely except optional metadata-only inventory."
   },
   "top_level_folders": [
     {
@@ -2950,7 +2950,20 @@
         "Dynamic Forms Generator",
         "possibly State Globals Framework/Skypatcher",
         "Know Your Enemy/bestiary-style research"
-      ]
+      ],
+      "implementation_details": {
+        "topic_relationships": [
+          "Parent/Child tags with possible inherited traits/keywords",
+          "Variant tags for near-identical topic variants"
+        ],
+        "configurable_ranks": "Study ranks/hours are intended to be settings-driven; draft uses Novice/Apprentice/Adept/Expert/Master progression.",
+        "content_compatibility": "Patch planning includes tagging third-party book mods and a runtime exclusion/choice-cut mechanism for incompatible lore interpretations.",
+        "study_tuning": [
+          "configurable study hotkey",
+          "low/medium/high book study-hour caps",
+          "rank requirement for writing books"
+        ]
+      }
     },
     "skyrim-scholarship-ecosystem": {
       "status": "active_or_recent",
@@ -3047,6 +3060,13 @@
         "Knowledge Framework",
         "Codex",
         "Skyrim Scholarship Ecosystem"
+      ],
+      "additional_notes": [
+        "Readable Black Books and other forbidden texts",
+        "sanity/stress/fear integration",
+        "Absorb Knowledge spell concepts",
+        "rare Apocrypha spell-tome discovery",
+        "Necromantic Interview concept for questioning the dead"
       ]
     },
     "personal-skyrim-overhaul": {
@@ -3288,6 +3308,53 @@
         "1q3YV1BGsTeG7oLAYAKKc5sJdqenmb2edq-L2NcuG0Pk"
       ],
       "privacy": "personal details guarded"
+    },
+    "silvertongue": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim language-learning addon",
+      "summary": "Knowledge Framework-dependent language system for translating lore texts and learning languages, including creature languages. Scholars can partially translate texts; ruins gain lore-friendly texts in different languages; translation difficulty uses vanilla-style Novice through Master tiers. Planned Speech/perk integration expands language use in dialogue/combat.",
+      "source_ids": [
+        "1_EFL5QQs0cHOzgX-qfnmQbRpH0zt2d26o9AF5xdbsfA"
+      ],
+      "languages": [
+        "Dovah",
+        "Atmoran",
+        "Daedric",
+        "Ayleid",
+        "Giantish",
+        "Spriggan"
+      ],
+      "related_projects": [
+        "Knowledge Framework",
+        "Knight Mentor/ScholarRim",
+        "Skyrim Scholarship Ecosystem"
+      ]
+    },
+    "knight-mentor-scholar-rim": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim scholarship gameplay addon family",
+      "summary": "A Knowledge Framework addon concept broadening academic roleplay through master-scholar apprenticeships, archaeology, biological samples/corpse examination, sketching, linguistic conversations, bard listening and timed text study. A Naturalist branch would learn creature weaknesses and integrate with bestiary systems. ScholarRim categorizes knowledge into Humanities, Sciences and Metaphysics and contemplates recommendation letters and autograph books.",
+      "source_ids": [
+        "1jKOnWtt7WaRuuimaQruE6KH5gtO5et8thNUYMGNWaXg"
+      ],
+      "related_projects": [
+        "Knowledge Framework",
+        "Scholars of Skyrim",
+        "Silvertongue",
+        "Unknown Antiquities"
+      ]
+    },
+    "illusion-spells-overhaul": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim Illusion magic overhaul / Mysticism-Apothecary integration",
+      "summary": "Reworks Illusion effects for player and NPC use, adds NPC Fear/Fury/Turn Undead/Calm/Charm casting, removes redundant dispels in favor of Mysticism behavior, adds Apothecary-balanced resist/weakness effects and introduces Charm progression. Draft effect behavior includes AI/control changes for Calm, Fear and Frenzy.",
+      "source_ids": [
+        "1TppqP6JkxGui5GmiRfn8RiAhZvqeYxw4UbTNJe7j1F0"
+      ],
+      "related_projects": [
+        "Simonrim balance lab",
+        "Personal Mods"
+      ]
     }
   },
   "discovered_project_folders": [
@@ -3354,5 +3421,9 @@
       "title": "Personal/Graphics",
       "status": "empty_folder"
     }
-  ]
+  ],
+  "crawl_preferences": {
+    "skip_nsfw": true,
+    "nsfw_handling": "Do not fetch or inspect known/suspected NSFW files. Metadata-only if needed for inventory; do not summarize explicit content."
+  }
 }
