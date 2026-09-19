@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-18",
+  "purpose": "Sanitized durable context inferred from the user's Google Drive for selective Agent OS retrieval. This file intentionally excludes credentials, raw HR/personnel data, and other unnecessary sensitive source content.",
+  "source": {
+    "type": "google_drive_deep_dive",
+    "date": "2026-09-18",
+    "notes": [
+      "Drive discovery included broad browsing plus targeted searches for major work, creative, modding, collecting, and finance themes.",
+      "Treat Google Drive as supporting evidence and working material; GitHub remains canonical for Agent OS/project state.",
+      "Do not assume every accessible/shared file was authored by the user."
+    ]
+  },
+  "project_clusters": [
+    {
+      "id": "elder-scrolls-modding-ecosystem",
+      "importance": "very_high",
+      "summary": "A large, interconnected Skyrim/Elder Scrolls mod-design ecosystem focused on lore, scholarship, immersion, systemic gameplay, dialogue, balance, and reusable frameworks.",
+      "design_patterns": [
+        "Prefer modular frameworks that other addons can extend.",
+        "Favor lore-grounded mechanics and exhaustive source/tag coverage.",
+        "Use structured spreadsheets as design databases and research indexes.",
+        "Design cross-mod integrations rather than isolated one-off features.",
+        "Use canonical topic IDs, aliases, parent/child relationships, and machine-readable data where possible."
+      ],
+      "subprojects": [
+        {
+          "name": "Knowledge Framework",
+          "summary": "Core hierarchical lore-topic tagging and immersive study framework. Topics span cultures, languages, people/deities, artifacts, events, locations, creatures, factions, concepts, and genres. Intended to tag books/items/actors/locations and support study XP, topic mastery, dialogue/quest hooks, artifact examination, field research, and addon APIs."
+        },
+        {
+          "name": "Arcaneum / Book Overhaul",
+          "summary": "Book and scholarship data layer associated with Knowledge Framework, including extensive canon/book cataloging and metadata."
+        },
+        {
+          "name": "Scholars of Skyrim",
+          "summary": "Knowledge Framework addon ideas include book hunts through vendors, writing/publishing books, royalties, autographs, lectures, apprenticeships, recommendations, attending lectures, and consequences for heretical research."
+        },
+        {
+          "name": "Silvertongue - Language Learning of Skyrim",
+          "summary": "Language-learning gameplay using Knowledge Framework and Speech perks. Intended languages include Dovah, Atmoran, Daedric, Ayleid, Giantish, Spriggan and broader language families; includes translation difficulty tiers, scholar translation dialogue, untranslated texts, and combat/speech applications."
+        },
+        {
+          "name": "Apocryphal Knowledge / Insights of Apocrypha",
+          "summary": "Scholarship/knowledge addons centered on forbidden, metaphysical, or Apocryphal research."
+        },
+        {
+          "name": "Apostate - Religion Expanded for Simonrim",
+          "summary": "Religion/deity expansion designed in the Simonrim ecosystem with extensive deity concepts and lore-driven mechanics."
+        },
+        {
+          "name": "Shards of Oblivion",
+          "summary": "Daedric artifact/corruption and reactive dialogue project. Drive material includes contextual voice lines for artifacts such as Dawnbreaker and Daedric-prince commentary tied to equip/combat/kill/proximity/proc/idle events."
+        },
+        {
+          "name": "Balladeer / Skald",
+          "summary": "Bard and storyteller gameplay concepts, consistent with the user's interest in turning underused roleplay professions into systemic gameplay."
+        },
+        {
+          "name": "Covenant",
+          "summary": "Knightly-orders-of-Tamriel project."
+        },
+        {
+          "name": "Journeyman",
+          "summary": "Radiant quest overhaul project."
+        },
+        {
+          "name": "Apprentice",
+          "summary": "Class overhaul with race passives, class identities, starting skills/spells, and selectable traits; designed around concise mechanical identities and compatibility with Simonrim/Mysticism-style systems."
+        },
+        {
+          "name": "Additional mod design databases",
+          "summary": "Drive contains active/reference work for weapons rebalance, item balancing, spell rebalance, alchemy effects, armor sets, enemy overhauls, quest/world encounter catalogs, generic voice types, artifact commentary, Vigilant dialogue/narrative work, modlists, NPC generation, disease/drug/corruption systems, and other immersive gameplay concepts."
+        }
+      ],
+      "key_drive_artifacts": [
+        "Knowledge Framework",
+        "Open Knowledge Framework (OKF)",
+        "Arcaneum - Knowlege Framework & Book Overhaul",
+        "New Books List",
+        "Keywords",
+        "Scholars of Skyrim - Knowledge Framework Addon",
+        "Silvertongue - Language Learning of Skyrim",
+        "Apostate - Religion Expanded for Simonrim",
+        "Shards of Oblivion",
+        "Weapons Rebalance",
+        "Item Balancing",
+        "Spell Rebalances",
+        "Simonrim",
+        "Skyrim_Quests_and_World_Encounters",
+        "Modlist"
+      ]
+    },
+    {
+      "id": "dream-eater",
+      "importance": "high",
+      "summary": "Original fiction/worldbuilding project with multiple drafts and lore documents. Recurring elements include the Gravekeeper/Gravetender, Gallowed Man, Dennis Deacon, Avalon/Avalon Institute, the Void/Fade, runic/alchemical magic, contracts, Wardens, Makers, and black-humor supernatural action.",
+      "style_and_worldbuilding_notes": [
+        "Mixes dark fantasy/urban fantasy, cosmic or metaphysical horror, tactical supernatural action, and irreverent black humor.",
+        "Worldbuilding is system-heavy: magic has terminology, costs, institutions, tactical applications, and technical logic.",
+        "Drive includes dedicated lore docs and magic-system docs rather than only prose drafts, suggesting a preference for explicit world-bible support."
+      ],
+      "key_drive_artifacts": [
+        "dream eater",
+        "Dream Eater",
+        "Dreameater draft v1",
+        "Loredoc - Avalon & The Avalon Institute",
+        "Loredoc - Otherworld History",
+        "Magic System - Guardian Emblem",
+        "Magic System - Contract Magic",
+        "The Silence"
+      ]
+    },
+    {
+      "id": "lego-minifig-collecting-and-production",
+      "importance": "high",
+      "summary": "Large minifigure collecting/design interest with an emerging custom-production/business angle.",
+      "details": [
+        "Tracks large numbers of character variants across DC, Marvel, Dragon Ball, anime and other properties.",
+        "Maintains wishlists, collection trackers, bootleg/third-party figure catalogs, and lists of variants to make.",
+        "Custom production research includes UV printing, resin printing/curing, Blender, Stable Diffusion/model workflows, and design reference gathering.",
+        "The 'Minifig Variants to Make' sheet uses structured fields such as ownership, preferred source, name, identity, variant, universe, year, first appearance, type, and category."
+      ],
+      "key_drive_artifacts": [
+        "Minifig Variants to Make",
+        "Minifig Printing Ideas",
+        "Minifig Designs",
+        "Minifig Designs - DC",
+        "Lego Wishlist",
+        "Bootlego MASTER",
+        "DC",
+        "MARVEL"
+      ]
+    },
+    {
+      "id": "hr-workflow-automation",
+      "importance": "very_high",
+      "summary": "Work automation centers on reducing repetitive HR paperwork and improving document classification, renaming, applicant tracking, overtime processing, and operational continuity while keeping employee/applicant PII out of GitHub and cloud memory.",
+      "details": [
+        "HR Scanner/Renamer work uses form classification, OCR, fingerprints/reference pages, semantic date extraction, physical-document segmentation, orientation handling, and review states.",
+        "Current scanner engineering priorities include per-page orientation, strong-first-page detection, physical-document identity, minimum-information guards, classification provenance, semantic date rules, multi-page continuation handling, and persistent OCR primitives/cache.",
+        "Google Drive is used as a human-readable continuity/reference layer for scanner findings, while code state belongs in GitHub.",
+        "Other known work projects include Job Applicant Dashboard, OvertimeParser, AutoClick, and broader paperwork automation."
+      ],
+      "key_drive_artifacts": [
+        "HR Scanner Iterative Improvement Findings"
+      ]
+    },
+    {
+      "id": "personal-finance-planning",
+      "importance": "high",
+      "summary": "Drive contains budget spreadsheets. Agent OS should treat them as optional supporting sources for budgeting/debt planning but should not copy sensitive account details into GitHub.",
+      "key_drive_artifacts": ["Budget"]
+    },
+    {
+      "id": "tabletop-and-game-design",
+      "importance": "medium",
+      "summary": "Drive includes tabletop/RPG character sheets, encounter tables, origin systems, NPC generators, and game-design/reference spreadsheets, suggesting an ongoing interest in structured RPG mechanics and worldbuilding tools."
+    }
+  ],
+  "cross_project_preferences_inferred_from_drive": [
+    "The user tends to build large structured reference libraries before or alongside implementation.",
+    "The user values exhaustive coverage and completeness, especially for lore catalogs, character/item lists, and classification systems.",
+    "The user frequently decomposes ideas into reusable frameworks plus optional addons.",
+    "The user likes mechanics that make previously passive information actionable: books become study systems, lore becomes gameplay tags, artifacts trigger dialogue, forms become machine-classifiable templates.",
+    "Spreadsheets are often used as canonical design/research tables even when implementation later moves into code.",
+    "Project naming often uses concise thematic names followed by a descriptive subtitle.",
+    "Compatibility and extensibility with other mods/tools are recurring design concerns.",
+    "The user often revisits older concepts and evolves them over months or years, so preserving provenance, prior versions, and resumable project state is valuable."
+  ],
+  "privacy_and_security_exclusions": {
+    "never_ingest_into_agent_git": [
+      "passwords or login credentials",
+      "authentication tokens",
+      "raw employee/applicant records",
+      "raw HR OCR text",
+      "private financial account numbers",
+      "unnecessary personally identifying information"
+    ],
+    "drive_files_detected_but_intentionally_not_mined": [
+      "credential/login spreadsheets",
+      "files whose primary purpose appears to be storing passwords or authentication information"
+    ]
+  },
+  "retrieval_guidance": [
+    "For Skyrim/Elder Scrolls questions, retrieve only the relevant subproject cluster and its current GitHub/project state; do not inject the entire lore corpus.",
+    "For Dream Eater writing, retrieve the worldbuilding cluster plus the specific scene/character/lore docs relevant to the request.",
+    "For LEGO/minifigure tasks, distinguish collection tracking, third-party release monitoring, and custom production/design as separate intents.",
+    "For HR tasks, prefer sanitized engineering knowledge and local-only processing; do not pull raw personnel content into durable memory.",
+    "For finance tasks, use current connected financial data when available rather than stale Drive budget snapshots."
+  ]
+}
