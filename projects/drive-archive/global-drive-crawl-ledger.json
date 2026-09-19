@@ -15,7 +15,7 @@
     "first_level_files_indexed": 301,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Broaden orphaned historical project discovery now that UAS/Pergrande evolution is substantially reconciled. Search generic/root titles and older campaign/system/reference assets; prioritize safe unprocessed project families and MASTER files. Retry UAS - Origins failed_retry later without blocking."
+    "next_action": "Continue broad orphaned historical discovery, prioritizing older campaign folders and generic/untitled safe files plus collection/reference systems not yet reconciled. Inspect Fate legacy FSN docs and Campaign 2 Fate/False Paradise lineage where useful, then other historical campaign families. Keep HR/personal-sensitive trackers metadata-only and skip unrelated NSFW."
   },
   "top_level_folders": [
     {
@@ -1543,8 +1543,8 @@
       "path": "/My Drive/lego/Bootlego MASTER",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2024-03-04T17:29:22.815Z",
-      "category": "lego_custom_collecting",
-      "content_status": "processed_summary"
+      "category": "lego_minifigure_collection",
+      "content_status": "processed"
     },
     {
       "id": "1qRc-hhQq0N12erUVea39no-ZyNcn55jaSmwlvispTDA",
@@ -2521,7 +2521,7 @@
       "title": "Meal Plan MASTER",
       "path": "/My Drive/Personal/Productivity/Meal Plan MASTER",
       "category": "meal_planning",
-      "content_status": "processed_summary"
+      "content_status": "processed"
     },
     {
       "id": "1-_d9tglP59rAXHunHAl5Usnick7U6rpjvsl1MWlRNoQ",
@@ -2534,22 +2534,22 @@
       "id": "1FhqkSGSpQ4QR8UsCp8L0b705bJk8gUXtpqbkkhfPmt4",
       "title": "Books MASTER",
       "path": "/My Drive/Personal/Productivity/Books MASTER",
-      "category": "collection_tracking",
-      "content_status": "processed_summary"
+      "category": "books_comics_collection",
+      "content_status": "processed"
     },
     {
       "id": "1wpNn8gQVopBUe3cpGw9OAhJ_GRe4ggmrJSWyrQ0FvpE",
       "title": "GARDEN MASTER",
       "path": "/My Drive/Personal/Productivity/GARDEN MASTER",
-      "category": "gardening_planning",
-      "content_status": "processed_summary"
+      "category": "garden_household",
+      "content_status": "processed"
     },
     {
       "id": "18sSjI-4thwfVph5mPZ8-dAvAhBJ2Iz88cJ0V0Kc7lW4",
       "title": "Essentials MASTER",
       "path": "/My Drive/Personal/Productivity/Essentials MASTER",
-      "category": "household_planning",
-      "content_status": "processed_summary"
+      "category": "household_readiness",
+      "content_status": "processed"
     },
     {
       "id": "1MSK2t7Q2gGQPz9JL6oyNpebQL6-bgFF5bYHtAYn25bw",
@@ -3301,9 +3301,9 @@
       ]
     },
     "bootlego-master": {
-      "status": "ongoing_collection_reference",
-      "domain": "third-party/custom minifigure catalog and collection tracking",
-      "summary": "Bootlego MASTER is a large catalog of third-party/custom minifigures organized by manufacturer/product code, character, franchise/category, variant and collection status, with image/reference links. Coverage spans Marvel, DC, anime, games, television, films and other properties. It functions as both a discovery database and owned/wanted collection tracker.",
+      "status": "historical/current collection database",
+      "domain": "third-party/custom minifigure cataloguing",
+      "summary": "Bootlego MASTER is a large cross-franchise minifigure catalogue with thousands of staging rows and dedicated franchise tabs. Records track manufacturer/product codes, character, variant, category/subcategory/group, collection status, images and reference links. The MARVEL section demonstrates character-variant-level collecting across comic and screen designs; the tosort sheet serves as an ingestion queue before normalization into franchise tabs.",
       "source_ids": [
         "13zHu1JJ-bZsOPViXk8eeIFA9oB8UwJ5dCs6c0wVry4I"
       ],
@@ -3317,9 +3317,8 @@
         "picture/reference link"
       ],
       "relationships": [
-        "Minifig Variants to Make",
-        "Lego Wishlist",
-        "custom LEGO/minifigure design interests"
+        "custom LEGO/minifigure collection systems",
+        "franchise minifigure trackers"
       ]
     },
     "minifig-variants-to-make": {
@@ -4097,6 +4096,52 @@
         "Blades of Pergrande",
         "Universal Anime System",
         "Anthem City"
+      ]
+    },
+    "books-comics-database": {
+      "status": "historical/current collection system",
+      "domain": "personal library and reading collection",
+      "summary": "Books MASTER is a collection/acquisition tracker rather than a reading manuscript. It separates graphic novels, manga and publisher/franchise-specific material, records ownership state and often author, collection contents and reference/purchase links. Examples show systematic completeness tracking for series and collected editions, connecting this archive to the user's later broader books/comics database and media-library interests.",
+      "source_ids": [
+        "1FhqkSGSpQ4QR8UsCp8L0b705bJk8gUXtpqbkkhfPmt4"
+      ],
+      "relationships": [
+        "personal-media-software-master-list"
+      ]
+    },
+    "meal-planning": {
+      "status": "historical/current life system",
+      "domain": "meal and grocery planning",
+      "summary": "Meal Plan MASTER uses a repeatable two-week menu and matching grocery quantities. Lunch is deliberately leftovers on most days; dinner rotates reusable meal categories such as chicken, tacos/burritos, grilled sandwiches, curry, stir fry, pizza, pork, fried chicken and burgers, with free nights built in. The design is oriented toward predictable shopping, ingredient reuse and reducing planning overhead rather than one-off recipes.",
+      "source_ids": [
+        "1rRm0s-7FDlJl-BQsGSGbE_-5HXxnSAmSw4VFFBVKJ8E"
+      ],
+      "relationships": [
+        "household-readiness"
+      ]
+    },
+    "household-readiness": {
+      "status": "historical/current life system",
+      "domain": "household setup and preparedness",
+      "summary": "Essentials MASTER is a prioritized household inventory covering kitchen, tools, emergency supplies, cleaning/miscellaneous and electronics. Items are marked by ownership and priority such as NEED/USEFUL/SPECIALIZED, often with purpose and replacement-quality notes. Kitchen planning emphasizes reusable storage, core cookware and appliances; outdoor/grilling purchases are explicitly deferred until longer-term housing. Emergency-kit planning includes first aid, batteries, radio, flashlight, masks, duct tape, cash, blanket and ignition.",
+      "source_ids": [
+        "18sSjI-4thwfVph5mPZ8-dAvAhBJ2Iz88cJ0V0Kc7lW4"
+      ],
+      "relationships": [
+        "meal-planning",
+        "garden-master"
+      ]
+    },
+    "garden-master": {
+      "status": "historical planning project",
+      "domain": "home food/herb gardening",
+      "summary": "GARDEN MASTER sketches a food-and-herb garden with vegetables, roots, culinary/medicinal herbs, pickling/canning interests and vertical-pallet growing. Planned plants include tomatoes, potatoes, onions, garlic, peppers from bell through very hot varieties, root vegetables, basil, cilantro, dill, fennel, mint, oregano, sage, rosemary, thyme, chamomile, lavender and others. This appears more like layout/possibility planning than a completed cultivation log.",
+      "source_ids": [
+        "1wpNn8gQVopBUe3cpGw9OAhJ_GRe4ggmrJSWyrQ0FvpE"
+      ],
+      "relationships": [
+        "household-readiness",
+        "meal-planning"
       ]
     }
   },
