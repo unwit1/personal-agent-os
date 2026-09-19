@@ -26,7 +26,7 @@ def connect(path: Path | None = None) -> sqlite3.Connection:
       entity_type TEXT NOT NULL, aliases TEXT NOT NULL DEFAULT '[]',
       description TEXT, metadata TEXT NOT NULL DEFAULT '{}'
     );
-    CREATE TABLE IF NOT EXISTS claims (
+    CREATE TABLE IF NOT EXISTS evidence_chunks (\n      id TEXT PRIMARY KEY, library_id TEXT NOT NULL, source_id TEXT NOT NULL,\n      ordinal INTEGER NOT NULL, text TEXT NOT NULL, text_hash TEXT NOT NULL, locator TEXT,\n      UNIQUE(source_id, ordinal)\n    );\n    CREATE TABLE IF NOT EXISTS claims (
       id TEXT PRIMARY KEY, library_id TEXT NOT NULL, subject_id TEXT NOT NULL,
       predicate TEXT NOT NULL, object_json TEXT NOT NULL, qualifiers TEXT NOT NULL DEFAULT '{}',
       citations TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'asserted'
@@ -36,7 +36,7 @@ def connect(path: Path | None = None) -> sqlite3.Connection:
       kind TEXT NOT NULL, notes TEXT, resolution TEXT
     );
     CREATE INDEX IF NOT EXISTS idx_entities_library_name ON entities(library_id, name);
-    CREATE INDEX IF NOT EXISTS idx_claims_library_subject ON claims(library_id, subject_id);
+    CREATE INDEX IF NOT EXISTS idx_claims_library_subject ON claims(library_id, subject_id);\n    CREATE INDEX IF NOT EXISTS idx_chunks_library_source ON evidence_chunks(library_id, source_id);
     """)
     return db
 
