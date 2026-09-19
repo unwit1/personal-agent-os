@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 356,
+    "first_level_files_indexed": 373,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Untitled spreadsheet query is now nearly exhausted. Re-run broad Drive inventory searches for generic filenames, older project-specific sheets/docs, and orphaned files not in ledger. Prioritize authored project files and master categorized coverage reconciliation. Keep unrelated NSFW metadata-only/reference and continue provenance separation for player campaigns."
+    "next_action": "Continue broad orphan reconciliation. Search character-sheet folders/generic titles and project-specific terms for IDs missing from ledger, but batch player sheets quickly under the provenance rule. Also inspect Blades of Pergrande Loredoc and other clearly authored campaign/system files if still absent/depth-light. Treat Beyond Skyrim/AU/Owlc0da materials as external references."
   },
   "top_level_folders": [
     {
@@ -3187,6 +3187,142 @@
       "category": "uas_tooling",
       "content_status": "processed",
       "inventory_source": "older untitled spreadsheet sweep"
+    },
+    {
+      "id": "1WzWK7NMgLtWQ8W8kQngt5KogCeHraUocjkwtctgqMTE",
+      "title": "Copy of Character Sheet - Beyond the Sun - Kingfisher",
+      "path": "/Accessible Drive/Copy of Character Sheet - Beyond the Sun - Kingfisher",
+      "category": "player_character",
+      "content_status": "duplicate",
+      "inventory_source": "broad orphan/generic filename reconciliation"
+    },
+    {
+      "id": "1-gUgMwxbcoMTGIPsA2eysbYn-zBb-a0y",
+      "title": "Character Sheet - Wit Fletcher.xlsx",
+      "path": "/Accessible Drive/Character Sheet - Wit Fletcher.xlsx",
+      "category": "player_character",
+      "content_status": "partial",
+      "inventory_source": "broad orphan/generic filename reconciliation"
+    },
+    {
+      "id": "10Z-KXwPdmT39bwJQ6p_HMAJ7mZtmfQCrQg04pJlsEmM",
+      "title": "Character Sheet - Horon Destruction of Saurial - Nox the Clockmaker",
+      "path": "/Accessible Drive/Character Sheet - Horon Destruction of Saurial - Nox the Clockmaker",
+      "category": "player_character",
+      "content_status": "duplicate",
+      "inventory_source": "broad orphan/generic filename reconciliation"
+    },
+    {
+      "id": "1pV1gmyR8Ab3EGwLV5Xi4rpksm0EkZmc-nz5m6qsZM-o",
+      "title": "Character Sheet - Dead Earth - Licht",
+      "path": "/Accessible Drive/Character Sheet - Dead Earth - Licht",
+      "category": "player_character",
+      "content_status": "duplicate",
+      "inventory_source": "broad orphan/generic filename reconciliation"
+    },
+    {
+      "id": "1SoQXFG5o3nKS7nmArjOOFTu_BNPMwsHs0N6BrV7GoXs",
+      "title": "Kingfisher Spell Sheet",
+      "path": "/Accessible Drive/Kingfisher Spell Sheet",
+      "category": "player_character",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad orphan/generic filename reconciliation"
+    },
+    {
+      "id": "1U9_VmEEuKHwaUrc2lJYBJvPu2WuSvaQXARN1lMRas5c",
+      "title": "Character Sheet - Battle of the Spirits - Gallow",
+      "path": "/Accessible Drive/Character Sheet - Battle of the Spirits - Gallow",
+      "category": "player_character",
+      "content_status": "processed",
+      "inventory_source": "broad orphan/generic filename reconciliation"
+    },
+    {
+      "id": "16jZ_QKtGmjKkF8bkF77iJNr2C2F9_Mmkg3COhgHnRrY",
+      "title": "Character Sheet - Jojo Industrial Enigma - Billy Jean",
+      "path": "/Accessible Drive/Character Sheet - Jojo Industrial Enigma - Billy Jean",
+      "category": "player_character",
+      "content_status": "processed",
+      "inventory_source": "broad orphan/generic filename reconciliation"
+    },
+    {
+      "id": "1NAwOTcPZ4oog-7cPTywgGWlrnjeYnSDngi-tUkCphWw",
+      "title": "Character Sheet - Soul Eater - Harland Fleer",
+      "path": "/Accessible Drive/Character Sheet - Soul Eater - Harland Fleer",
+      "category": "player_character",
+      "content_status": "processed",
+      "inventory_source": "broad orphan/generic filename reconciliation"
+    },
+    {
+      "id": "1FUbEGdONu6ztDz5qzvZLDmn-KRWgIw0f9syrlyVKHMs",
+      "title": "Salla Kraut DBU character sheet",
+      "path": "/Accessible Drive/Salla Kraut DBU character sheet",
+      "category": "player_character",
+      "content_status": "processed",
+      "inventory_source": "broad orphan/generic filename reconciliation"
+    },
+    {
+      "id": "1naJwbPyuqtkz6pZnI-p8fkdJjsWMc0crqJZ2Gc4_SxA",
+      "title": "Skyrim Missions",
+      "path": "/Accessible Drive/Skyrim Missions",
+      "category": "skyrim_playthrough_tracker",
+      "content_status": "processed",
+      "inventory_source": "broad orphan/generic filename reconciliation"
+    },
+    {
+      "id": "1qnAFcjH6laqSDktSdSJsTbchEC5VCPW_n5EASqG3mWY",
+      "title": "lancer skills",
+      "path": "/Accessible Drive/lancer skills",
+      "category": "fate_campaign_reference",
+      "content_status": "partial",
+      "inventory_source": "broad orphan/generic filename reconciliation"
+    },
+    {
+      "id": "1_X9dAJvxMYaHcd9sXacRvb-HeXjVrcknrzZTKcJXSmw",
+      "title": "Unified Style Guide - Beyond Skyrim",
+      "path": "/Accessible Drive/Unified Style Guide - Beyond Skyrim",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad orphan/generic filename reconciliation"
+    },
+    {
+      "id": "1NMamKyGzAheA1RIiXbMaP_JySS730XSEeZNg93qdIfg",
+      "title": "Ultimate Skyrim Spell Research",
+      "path": "/Accessible Drive/Ultimate Skyrim Spell Research",
+      "category": "skyrim_reference",
+      "content_status": "processed",
+      "inventory_source": "broad orphan/generic filename reconciliation"
+    },
+    {
+      "id": "1rzyzqh8nsm6upGeQyyYVWwUh_6Ci2db3pUzLwQPqGY8",
+      "title": "Writers Q&A meeting notes",
+      "path": "/Accessible Drive/Writers Q&A meeting notes",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad orphan/generic filename reconciliation"
+    },
+    {
+      "id": "1FTzY3jN1DNfB-IO7FkBr9WijqaVBo8Enw3SksAU36JQ",
+      "title": "Literature in Owlc0da",
+      "path": "/Accessible Drive/Literature in Owlc0da",
+      "category": "elder_scrolls_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad orphan/generic filename reconciliation"
+    },
+    {
+      "id": "17l52Q95Iuyc-M-VSgdwRzcwSj5qx_bqLZblSo7R4ZMw",
+      "title": "Arcane University - Writing Welcome Document",
+      "path": "/Accessible Drive/Arcane University - Writing Welcome Document",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad orphan/generic filename reconciliation"
+    },
+    {
+      "id": "1kpE_SnDIbuUtt7WQexG4NlS_pqz5MIud",
+      "title": "Avery Certificate of Birth_2.pdf",
+      "path": "/Accessible Drive/Avery Certificate of Birth_2.pdf",
+      "category": "personal_sensitive",
+      "content_status": "sensitive_metadata_only",
+      "inventory_source": "broad orphan/generic filename reconciliation"
     }
   ],
   "folder_queue": [
@@ -5425,6 +5561,48 @@
           "Merciful/Vigilant/Dawnguard ecosystem"
         ]
       }
+    },
+    "player-character-archive": {
+      "status": "historical user character archive",
+      "domain": "TTRPG player characters",
+      "provenance_rule": "Preserve user's character concepts/backstories only. External campaign lore and mechanics do not establish authored-project lineage.",
+      "orphan_recovery": {
+        "summary": "Broad orphan reconciliation recovered additional player artifacts. Gallow Glade is a 17-year-old survivor of a destroyed Hidden Dark village, accidentally reverse-summoned to a fox-spirit forest and mentored by a giant fox; preserve the user-authored character premise, not Naruto-derived campaign mechanics. Billy Jean is a Civil War veteran/paranormal investigator concept whose Stand THRILLER manifests through microscopic agents controlling insect/arthropod swarms and assimilating properties from consumed biomass; preserve as a user character concept, not JoJo campaign canon. Harland Fleer appears in a sparse Soul Eater player sheet, establishing reuse of the Harland name/concept outside Dream Eater without implying continuity. Salla Kraut is a half-Saiyan DBU player character; preserve identity as user character history only.",
+        "source_ids": [
+          "1U9_VmEEuKHwaUrc2lJYBJvPu2WuSvaQXARN1lMRas5c",
+          "16jZ_QKtGmjKkF8bkF77iJNr2C2F9_Mmkg3COhgHnRrY",
+          "1NAwOTcPZ4oog-7cPTywgGWlrnjeYnSDngi-tUkCphWw",
+          "1FUbEGdONu6ztDz5qzvZLDmn-KRWgIw0f9syrlyVKHMs"
+        ],
+        "provenance_note": "All four are player-participation artifacts by default. Do not import campaign mechanics/worldbuilding into authored projects."
+      }
+    },
+    "skyrim-playthrough-tracking": {
+      "status": "historical/personal playthrough tooling",
+      "domain": "Skyrim",
+      "summary": "Skyrim Missions is a large checkbox-style quest tracker organized around vanilla and modded PC playthroughs, covering main quest acts and faction questlines such as College, Thieves Guild, Companions and Dark Brotherhood. It is personal playthrough/completion tooling rather than authored quest lore.",
+      "source_ids": [
+        "1naJwbPyuqtkz6pZnI-p8fkdJjsWMc0crqJZ2Gc4_SxA"
+      ]
+    },
+    "skyrim-spell-research-reference": {
+      "status": "historical modded Skyrim research/reference",
+      "domain": "Skyrim magic/modlist",
+      "summary": "Ultimate Skyrim Spell Research is a structured spell catalogue for an Ultimate Skyrim 3.4/4.0-era setup. It classifies spells by school, rank, casting style, conceptual tags and targeting/effect verbs, apparently to support Spell Research/modded-playthrough organization. Treat individual spell content as third-party/mod reference, while the taxonomy and organizational use are part of the user's historical Skyrim workflow.",
+      "source_ids": [
+        "1NMamKyGzAheA1RIiXbMaP_JySS730XSEeZNg93qdIfg"
+      ],
+      "provenance_note": "Reference taxonomy only; third-party spell mechanics are not authored design."
+    },
+    "writing-development-references": {
+      "status": "external/reference material",
+      "domain": "game writing education/collaboration",
+      "summary": "Orphan reconciliation found the Beyond Skyrim Unified Style Guide, Arcane University writing curriculum and Writers Q&A notes. These document external collaborative writing standards/training: dialogue length/format conventions, implementation and VO notes, NPC/quest document structure, progressive quest/NPC writing assignments, revision/peer-review practices and collaborative project expectations. They may explain techniques visible in the user's Skyrim writing, but are not user-authored rules or lore.",
+      "source_ids": [
+        "1_X9dAJvxMYaHcd9sXacRvb-HeXjVrcknrzZTKcJXSmw",
+        "17l52Q95Iuyc-M-VSgdwRzcwSj5qx_bqLZblSo7R4ZMw",
+        "1rzyzqh8nsm6upGeQyyYVWwUh_6Ci2db3pUzLwQPqGY8"
+      ]
     }
   },
   "discovered_project_folders": [
