@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 297,
+    "first_level_files_indexed": 298,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue UAS/Blades of Pergrande reconciliation: inspect UAS SYSTEM 2nd Edition, GM tools, character-sheet/autosheet and remaining Pergrande lore/races/spells/arc docs. Retry UAS - Origins later; do not stall on inaccessible sheets. Then resume orphaned historical project discovery."
+    "next_action": "Continue remaining Blades of Pergrande arc/lore files (Forest Followup, player arcs, loredoc tabs) only where they add unique state, then broaden orphaned historical project discovery. Revisit UAS Origins failed_retry after other safe files; inspect older UAS Origin System if accessible to establish evolution."
   },
   "top_level_folders": [
     {
@@ -1894,8 +1894,8 @@
       "path": "/My Drive/Universal Anime System (UAS)/NPC Generator",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2024-01-16T01:19:08.675Z",
-      "category": "ttrpg_game_design",
-      "content_status": "queued"
+      "category": "universal_anime_system",
+      "content_status": "processed"
     },
     {
       "id": "19kjagMENBsUG7AEf8VploAuXJKqnesASGbjLmT7Ejzo",
@@ -1903,8 +1903,8 @@
       "path": "/My Drive/Universal Anime System (UAS)/UAS SYSTEM 2nd Edition",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2024-01-16T01:01:48.995Z",
-      "category": "ttrpg_game_design",
-      "content_status": "queued"
+      "category": "universal_anime_system",
+      "content_status": "processed"
     },
     {
       "id": "1awZlpRixs8EvyDGikUdXBzRhRHpjeaZQeLLZh-CITZA",
@@ -1912,8 +1912,8 @@
       "path": "/My Drive/Universal Anime System (UAS)/UAS GM TOOLS - BLADES OF PERGRANDE",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2024-01-09T18:03:01.652Z",
-      "category": "ttrpg_game_design",
-      "content_status": "queued"
+      "category": "universal_anime_system",
+      "content_status": "processed"
     },
     {
       "id": "14xKlU1fh_QfaRZs9sTFfnqxO0ZTQQO8h",
@@ -2297,8 +2297,8 @@
     {
       "id": "1Bf-9hWYXXkxSmztix4nwXWMYc3OTfXSw2OWvVnaO7u0",
       "title": "GM - Quest Tracking",
-      "category": "ttrpg_blades_of_pergrande",
-      "content_status": "queued"
+      "category": "blades_of_pergrande",
+      "content_status": "processed"
     },
     {
       "id": "1-W3T8bNQdogJftk6MIPKgdjqA8OLk6_14R2JY7tbbkY",
@@ -2436,8 +2436,8 @@
       "id": "1kfLJMU2o3MCmyDtBbffputLepPv6aMKObBviFKHxqXc",
       "title": "UAS AutoSheet - Blades of Pergrande Party",
       "path": "/My Drive/Universal Anime System (UAS)/GM Tools/UAS AutoSheet - Blades of Pergrande Party",
-      "category": "ttrpg_uas_pergrande_tooling",
-      "content_status": "queued"
+      "category": "universal_anime_system",
+      "content_status": "processed"
     },
     {
       "id": "1m8ChX_UipgGTSageFlw-PG-VsAwRuDbGC4w8Sq6MWW8",
@@ -2478,8 +2478,8 @@
       "id": "1TTRD1SNDjKLsYob3aHDb-ej-FH2jKeiavqPHN6m_tR0",
       "title": "UAS Character Sheet Template v2.7 - Blades of Pergrande Campaign",
       "path": "/My Drive/Universal Anime System (UAS)/Character Creation/UAS Character Sheet Template v2.7 - Blades of Pergrande Campaign",
-      "category": "ttrpg_uas_pergrande_tooling",
-      "content_status": "queued"
+      "category": "universal_anime_system",
+      "content_status": "processed"
     },
     {
       "id": "1kPXiqt8Fa6v9j5MaE9gblzbEVWh40l-zGxhSngz0zvc",
@@ -2499,8 +2499,8 @@
       "id": "1Wn9p-7-sMBInfGjHEdnp69zJlhQWHDPZdclrsGXSDOI",
       "title": "Races - Blades of Pergrande",
       "path": "/My Drive/Universal Anime System (UAS)/Character Creation/Races - Blades of Pergrande",
-      "category": "ttrpg_uas_pergrande_tooling",
-      "content_status": "queued"
+      "category": "blades_of_pergrande",
+      "content_status": "processed"
     },
     {
       "id": "1rbOuraJKC8xapRfbsip6ApvmLnQvZbEhEohAhGuKCkI",
@@ -2632,6 +2632,15 @@
       "content_status": "failed_retry",
       "inventory_source": "targeted historical discovery",
       "inspection_note": "Native Sheets metadata returned NOT_FOUND during this pass; retain for retry and continue crawl."
+    },
+    {
+      "id": "1NM3QipcU7IqCJFjmluTeTdCvhdQNy-vTmJsHOPKcE-w",
+      "title": "Spells - Blades of Pergrande",
+      "path": "/Accessible Drive/Spells - Blades of Pergrande",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "category": "blades_of_pergrande",
+      "content_status": "processed",
+      "inventory_source": "UAS/Pergrande reconciliation"
     }
   ],
   "folder_queue": [
@@ -2814,7 +2823,29 @@
       "unresolved_questions": [
         "How much of first-edition prose/mechanics survived into UAS SYSTEM 2nd Edition?",
         "Retry inaccessible UAS - Origins sheet and reconcile against earlier UAS Origin System."
-      ]
+      ],
+      "second_edition": {
+        "summary": "Second Edition moved UAS from prose-heavy first-edition rules into a spreadsheet-driven rules engine and reusable data model. Core tabs cover rank/modifier math, item/damage classes, skills/proficiencies, level progression, player classes/subclasses, status effects, encounter scaling, exports and a system wiki.",
+        "mechanics": [
+          "D-to-EX master rank table drives DCs, MP, spell-point cost, dice, armor, loot value and encounter difficulty points.",
+          "Actions are decomposed by action economy, target shape, action type, mastery and defensive modifiers.",
+          "Level progression through 20 raises rank, stat budget/caps, proficiency, feats, skill proficiencies, spell-point limits, spell ranks, ultimates and class/subclass feats.",
+          "Seven combat roles remain Guardian, Artillery, Tactician, Operative, Bruiser, Support and Diplomat; class abilities progress in tiers."
+        ],
+        "source_ids": [
+          "19kjagMENBsUG7AEf8VploAuXJKqnesASGbjLmT7Ejzo"
+        ]
+      },
+      "tooling": {
+        "summary": "UAS developed into a spreadsheet application ecosystem rather than only a written rulebook. GM Tools combines party, combat, move, NPC, shop, loot, feat, armor, weapon and NPC-generator modules with shared SYS/export data. The v2.7 character sheet has core, moves, inventory, feats, social, quests, background and GM/system-data tabs. The party autosheet aggregates party stats, techniques/spells, feats, effects and action references. A standalone NPC Generator imports system/lore data and includes combat-style, move, feat, weapon and Origin generators.",
+        "source_ids": [
+          "1awZlpRixs8EvyDGikUdXBzRhRHpjeaZQeLLZh-CITZA",
+          "1TTRD1SNDjKLsYob3aHDb-ej-FH2jKeiavqPHN6m_tR0",
+          "1kfLJMU2o3MCmyDtBbffputLepPv6aMKObBviFKHxqXc",
+          "1wEfVnC2KCxZLSlOJfu0vCEINY4YYDBQ24NESwp6CCpI"
+        ],
+        "architecture_note": "Shared SYS/export/reference tabs indicate an emerging reusable system-data layer across GM and player tools."
+      }
     },
     "berea-pinochle": {
       "status": "historical_or_dormant",
@@ -2925,6 +2956,16 @@
           "Universal Anime System",
           "Dragon Heart"
         ]
+      },
+      "system_recovery": {
+        "summary": "Pergrande served as a major UAS implementation/test campaign. Its race sheet includes Human Wizard, Edolas Human, Elentearean Human, Exceed, Etherious, Celestial Spirit and Machias concepts. The spell workbook also functions as a large effect/status reference, while quest tracking and GM tooling connect campaign state directly to the UAS spreadsheet ecosystem.",
+        "source_ids": [
+          "1Wn9p-7-sMBInfGjHEdnp69zJlhQWHDPZdclrsGXSDOI",
+          "1NM3QipcU7IqCJFjmluTeTdCvhdQNy-vTmJsHOPKcE-w",
+          "1Bf-9hWYXXkxSmztix4nwXWMYc3OTfXSw2OWvVnaO7u0",
+          "1awZlpRixs8EvyDGikUdXBzRhRHpjeaZQeLLZh-CITZA"
+        ],
+        "relationship": "Blades of Pergrande appears to be both a campaign setting and a practical development environment for UAS."
       }
     },
     "dragon-heart-campaign": {
