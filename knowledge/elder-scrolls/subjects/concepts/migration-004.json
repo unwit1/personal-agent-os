@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:anticipations",
+      "name": "Anticipations",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/anticipations.json",
+      "source": {
+        "id": "uesp:anticipations",
+        "url": "https://en.uesp.net/wiki/Lore:Anticipations",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:reclamations",
+      "name": "Reclamations",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/reclamations.json",
+      "source": {
+        "id": "uesp:reclamations",
+        "url": "https://en.uesp.net/wiki/Lore:Reclamations",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:slavery-morrowind",
+      "name": "Slavery in Morrowind",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/slavery-morrowind.json",
+      "source": {
+        "id": "uesp:slavery-morrowind",
+        "url": "https://en.uesp.net/wiki/Lore:Slavery_in_Morrowind",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:old-gods",
+      "name": "Old Gods",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/old-gods.json",
+      "source": {
+        "id": "uesp:old-gods",
+        "url": "https://en.uesp.net/wiki/Lore:Old_Gods",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:briarheart",
+      "name": "Briarheart",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/briarheart.json",
+      "source": {
+        "id": "uesp:briarheart",
+        "url": "https://en.uesp.net/wiki/Lore:Briarheart",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sword-singers",
+      "name": "Sword-singers",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/sword-singers.json",
+      "source": {
+        "id": "uesp:sword-singers",
+        "url": "https://en.uesp.net/wiki/Lore:Sword-singers",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ansei",
+      "name": "Ansei",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/ansei.json",
+      "source": {
+        "id": "uesp:ansei",
+        "url": "https://en.uesp.net/wiki/Lore:Ansei",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ra-gada",
+      "name": "Ra Gada",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/ra-gada.json",
+      "source": {
+        "id": "uesp:ra-gada",
+        "url": "https://en.uesp.net/wiki/Lore:Ra_Gada",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration from earlier queues into canonical subject categories; extraction must retain provenance and temporal/cultural scope."
+}
