@@ -13,6 +13,7 @@ from .compiler import compile_context
 from .forms import form_issue_payload, route_form
 from .handoffs import create_handoff
 from .index import search
+from .mail import get_message as mail_get_message, search as mail_search, status as mail_status, sync as mail_sync
 from .improvements import capture_improvement, get_improvement, issue_payload, list_improvements, search_improvements, update_improvement
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .skills import discover, match, metadata
@@ -89,6 +90,22 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
             "required": ["project", "title", "category", "observation", "suggested_direction", "acceptance"],
         },
     },
+    "mail.search": {
+        "description": "Search the local read-only personal mail index and return compact relevant snippets.",
+        "inputSchema": {"type": "object", "properties": {"query": {"type": "string"}, "limit": {"type": "integer", "default": 10}}, "required": ["query"]},
+    },
+    "mail.get_message": {
+        "description": "Get one message already present in the local mail index. Full body is opt-in.",
+        "inputSchema": {"type": "object", "properties": {"uid": {"type": "string"}, "mailbox": {"type": "string", "default": "INBOX"}, "include_body": {"type": "boolean", "default": False}}, "required": ["uid"]},
+    },
+    "mail.sync_status": {
+        "description": "Return local iCloud Mail configuration/index status without exposing credentials.",
+        "inputSchema": {"type": "object", "properties": {}},
+    },
+    "mail.sync": {
+        "description": "Incrementally synchronize recent iCloud messages into the local read-only index.",
+        "inputSchema": {"type": "object", "properties": {"limit": {"type": "integer", "default": 500}}},
+    },
     "form.route": {
         "description": "Route a sanitized work-form fingerprint; persistence is local-only and explicit.",
         "inputSchema": {"type": "object", "properties": {"candidate": {"type": "object"}, "persist": {"type": "boolean", "default": False}, "queue_dir": {"type": ["string", "null"]}}, "required": ["candidate"]},
@@ -130,6 +147,10 @@ def methods() -> dict[str, Callable[..., Any]]:
         "improvement.update": update_improvement,
         "improvement.search": search_improvements,
         "improvement.issue_payload": issue_payload,
+        "mail.search": mail_search,
+        "mail.get_message": mail_get_message,
+        "mail.sync_status": mail_status,
+        "mail.sync": mail_sync,
         "form.route": route_form,
         "form.issue_payload": form_issue_payload,
     }
