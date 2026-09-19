@@ -15,7 +15,7 @@
     "first_level_files_indexed": 283,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue LEGO sub-trackers (Marvel/DC/Dragon Ball/Star Wars/etc.), then inspect remaining root uncategorized files and professional/personal project artifacts."
+    "next_action": "Move beyond LEGO into remaining Personal/Professional/root uncategorized files; inventory project signals while excluding credentials and sanitizing HR/legal-sensitive material."
   },
   "top_level_folders": [
     {
@@ -1517,7 +1517,7 @@
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2025-01-24T20:53:24.523Z",
       "category": "lego_custom_collecting",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1fmOUhHgkBYIgAeqadzpzl1DLXLSXAWK1Ow8qQLtWYJ4",
@@ -1535,7 +1535,7 @@
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2024-07-31T02:52:05.895Z",
       "category": "lego_custom_collecting",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "13zHu1JJ-bZsOPViXk8eeIFA9oB8UwJ5dCs6c0wVry4I",
@@ -1553,7 +1553,7 @@
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2023-12-11T01:16:18.405Z",
       "category": "lego_custom_collecting",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1A350r5WAVZtvPiVLd4TpyeV-t9nC9ADMCyHH23oCkIg",
@@ -1562,7 +1562,7 @@
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2023-12-11T01:10:29.603Z",
       "category": "lego_custom_collecting",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1eE4iGZwayWs_bG2n1K83-qUohaCWarfteghNxF9nQDU",
@@ -1571,7 +1571,7 @@
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2023-12-11T01:07:42.923Z",
       "category": "lego_custom_collecting",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1kDRw3GK4sfdwzwzpCo6TvaVVYCYr1lsjDiR2UQYWmdE",
@@ -1580,7 +1580,7 @@
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2023-12-11T00:56:56.670Z",
       "category": "lego_custom_collecting",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1UAI9VUMJpVBXlzsfUo41x5PddEaztJ_JUNl6yl3fVNo",
@@ -1589,7 +1589,7 @@
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2023-11-06T02:01:38.186Z",
       "category": "lego_custom_collecting",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1mtrJnN6BpMyV1eYkH9mb4MWuvXAHGDnmWDogdJan538",
@@ -3118,6 +3118,54 @@
       "relationships": [
         "Bootlego MASTER",
         "Minifig Variants to Make"
+      ]
+    },
+    "lego-franchise-collection-trackers": {
+      "status": "historical_and_ongoing_collection_system",
+      "domain": "custom/official minifigure collection planning by fictional universe",
+      "summary": "A family of franchise-specific collection trackers predating or complementing Bootlego MASTER. DC and Marvel sheets organize desired/owned figures by comic era, team and roster; Dragon Ball is organized chronologically by series/saga and tracks ownership/shipping/replacement plus clone/custom/MOC preference; smaller sheets cover One Piece, Star Wars, Image/independent comics and miscellaneous anime.",
+      "source_ids": [
+        "1m5XB5-4XDEi74HtOQGbqO7jMCRU7CrtvEWtQaAg-WjA",
+        "1NDsfJ2e_x_qGKvqc9lcPBmTsl-7y-aNT6QeV9kmTV5U",
+        "1qRc-hhQq0N12erUVea39no-ZyNcn55jaSmwlvispTDA",
+        "1A350r5WAVZtvPiVLd4TpyeV-t9nC9ADMCyHH23oCkIg",
+        "1eE4iGZwayWs_bG2n1K83-qUohaCWarfteghNxF9nQDU",
+        "1kDRw3GK4sfdwzwzpCo6TvaVVYCYr1lsjDiR2UQYWmdE",
+        "1UAI9VUMJpVBXlzsfUo41x5PddEaztJ_JUNl6yl3fVNo"
+      ],
+      "organization_patterns": [
+        "DC: comic eras and team rosters such as Justice League, Freedom Fighters, Doom Patrol",
+        "Marvel: team waves and historical rosters such as Avengers, Defenders, Invaders",
+        "Dragon Ball: series/saga chronology with HAVE/SHIPPED/NO/MAYBE/REPLACE and preferred source",
+        "One Piece: first-appearance vs post-timeskip Straw Hat variants",
+        "Star Wars: character + third-party manufacturer/product code",
+        "Image/independent comics: universe/team groupings"
+      ],
+      "relationships": [
+        "Bootlego MASTER likely consolidates broader manufacturer/product discovery while these sheets encode franchise-specific collection goals and completeness.",
+        "Minifig Variants to Make extends collection gaps into custom-design candidates."
+      ]
+    },
+    "custom-minifigure-system": {
+      "status": "ongoing_interest_and_project_family",
+      "domain": "custom LEGO-compatible minifigure collecting/design",
+      "summary": "Across the LEGO folder, the user developed a structured system for collecting and designing character minifigures: franchise rosters define target completeness, third-party product catalogs identify available clones/customs, status fields track owned/shipped/missing/replacement figures, and custom/MOC/decal options cover characters or variants not commercially represented.",
+      "source_ids": [
+        "13zHu1JJ-bZsOPViXk8eeIFA9oB8UwJ5dCs6c0wVry4I",
+        "1iE-xqnwC-aUtNQjXZci1X_wnpALqUajEMndHid8t6kg",
+        "1m5XB5-4XDEi74HtOQGbqO7jMCRU7CrtvEWtQaAg-WjA",
+        "1NDsfJ2e_x_qGKvqc9lcPBmTsl-7y-aNT6QeV9kmTV5U",
+        "1qRc-hhQq0N12erUVea39no-ZyNcn55jaSmwlvispTDA",
+        "1A350r5WAVZtvPiVLd4TpyeV-t9nC9ADMCyHH23oCkIg",
+        "1eE4iGZwayWs_bG2n1K83-qUohaCWarfteghNxF9nQDU",
+        "1kDRw3GK4sfdwzwzpCo6TvaVVYCYr1lsjDiR2UQYWmdE",
+        "1UAI9VUMJpVBXlzsfUo41x5PddEaztJ_JUNl6yl3fVNo"
+      ],
+      "related_projects": [
+        "Bootlego MASTER",
+        "Minifig Variants to Make",
+        "Lego Wishlist",
+        "BrickFace/BrickMorph graphics work"
       ]
     }
   },
