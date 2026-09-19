@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 354,
+    "first_level_files_indexed": 356,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue remaining queued Untitled spreadsheets after 2026-02, then older sheets. Quickly classify sensitive finance/HR/schedule sheets metadata-only. Deep-inspect authored project matrices, trackers and tooling; treat third-party modlists as personal reference without importing their lore/mechanics into authored projects."
+    "next_action": "Untitled spreadsheet query is now nearly exhausted. Re-run broad Drive inventory searches for generic filenames, older project-specific sheets/docs, and orphaned files not in ledger. Prioritize authored project files and master categorized coverage reconciliation. Keep unrelated NSFW metadata-only/reference and continue provenance separation for player campaigns."
   },
   "top_level_folders": [
     {
@@ -1238,12 +1238,12 @@
     },
     {
       "id": "1PI_g_iye7MACGgAswuRT0qfK61YsGmse8CC8xIztqVc",
-      "title": "Untitled spreadsheet",
+      "title": "Untitled spreadsheet - Dawnguard equipment shortlist",
       "path": "/My Drive/Untitled spreadsheet",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-02-20T17:13:01.533Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "skyrim_dawnguard",
+      "content_status": "processed"
     },
     {
       "id": "10PNoLggE8K3WZ1ws6t6Rc1DArlbacY_KKgKJGxKI9TE",
@@ -1752,12 +1752,12 @@
     },
     {
       "id": "1OCyNtlypTsnoTw3N4VTtpI1kSrpnsSuVJu2MSHbhNyQ",
-      "title": "Untitled spreadsheet",
+      "title": "Untitled spreadsheet - Knights of Oblivion champions",
       "path": "/My Drive/mods/Untitled spreadsheet",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2025-02-26T17:29:02.422Z",
-      "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "category": "skyrim_vigilant",
+      "content_status": "processed"
     },
     {
       "id": "1_kHG-_wHcW1TeGaVuBuO-ex4I8vO7i6dOYKywuolFiM",
@@ -2433,11 +2433,12 @@
     },
     {
       "id": "1TqoB8CCfNxz9a2OmFmMFeJ583or5tUANPQW8kLGWqvQ",
-      "title": "Untitled spreadsheet",
+      "title": "Untitled spreadsheet - NSFW image tag taxonomy",
       "path": "/My Drive/Personal/AI Tools/Untitled spreadsheet",
-      "category": "ai_image_generation_reference",
-      "content_status": "processed_summary",
-      "notes": "Tag/reference spreadsheet includes adult/NSFW image-generation terminology. Inventory only at high level; raw explicit tag list is not useful durable Agent OS context."
+      "category": "irrelevant_nsfw",
+      "content_status": "irrelevant/reference",
+      "notes": "Tag/reference spreadsheet includes adult/NSFW image-generation terminology. Inventory only at high level; raw explicit tag list is not useful durable Agent OS context.",
+      "privacy_classification": "unrelated NSFW; content not ingested into durable knowledge"
     },
     {
       "id": "1kfLJMU2o3MCmyDtBbffputLepPv6aMKObBviFKHxqXc",
@@ -3168,6 +3169,24 @@
       "category": "uas_tooling",
       "content_status": "processed",
       "inventory_source": "legacy untitled and spreadsheet sweep"
+    },
+    {
+      "id": "1JTUVTWUy7EgbDNeGWPTCyXO6syWeKd7IKyi5vGpu3jM",
+      "title": "Untitled spreadsheet - UAS character formula scratchpad",
+      "path": "/Accessible Drive/Untitled spreadsheet - UAS character formula scratchpad",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "category": "uas_tooling",
+      "content_status": "processed",
+      "inventory_source": "older untitled spreadsheet sweep"
+    },
+    {
+      "id": "1o_MJhS1zYaE9U6Gve7MJcl2bb6LMKQ2m92LaCafMTWU",
+      "title": "Untitled spreadsheet - UAS system database base",
+      "path": "/Accessible Drive/Untitled spreadsheet - UAS system database base",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "category": "uas_tooling",
+      "content_status": "processed",
+      "inventory_source": "older untitled spreadsheet sweep"
     }
   ],
   "folder_queue": [
@@ -3391,6 +3410,14 @@
           "Blades of Pergrande",
           "reusable character sheet tooling"
         ]
+      },
+      "legacy_database_architecture": {
+        "summary": "Two 2023 Untitled sheets preserve the UAS system-database/character-calculation architecture. One is a character lookup/calculation scratchpad for stats, advantages/disadvantages, resistances, vulnerability/immunity, armor/weapons/feats and spell allocation; many external references are now broken. The other defines base damage/regen dice, D-to-EX rank scaling, target/action modifiers (single/AOE/self/DOT), action economy, melee/ranged/thrown/improvised/curse/hybrid categories, armor weights and item classes/subclasses such as consumables, accessories, artifacts, potions, scrolls, explosives, buffs, debuffs, summons, weapons and armor. These are genuine UAS design/tooling history, but should not be conflated with mechanics from campaigns where the user was only a player.",
+        "source_ids": [
+          "1JTUVTWUy7EgbDNeGWPTCyXO6syWeKd7IKyi5vGpu3jM",
+          "1o_MJhS1zYaE9U6Gve7MJcl2bb6LMKQ2m92LaCafMTWU"
+        ],
+        "status": "legacy system/tooling"
       }
     },
     "berea-pinochle": {
@@ -5192,7 +5219,14 @@
         "source_ids": [
           "1XghIfDzHcUwSezzHo5SYvXhAkhC2W-yp0HaBpojSsPk"
         ],
-        "status": "concept/provisional"
+        "status": "concept/provisional",
+        "confirmation": {
+          "summary": "A separate 2025 spreadsheet confirms the working project title 'Knights of Oblivion - Daedric Champions' and the Prince-to-champion naming matrix: Knight of Regret/Clavicus Vile, Apocrypha/Hermaeus Mora, Beastblood/Hircine, Spiders/Mephala, Coldharbour/Molag Bal, Evergloam/Nocturnal, Pits/Peryite, Revelry/Sanguine and Madness/Sheogorath, with placeholders for the other Princes including Jyggalag and Ithelia.",
+          "source_ids": [
+            "1OCyNtlypTsnoTw3N4VTtpI1kSrpnsSuVJu2MSHbhNyQ"
+          ],
+          "status": "concept/provisional"
+        }
       },
       "dialogue_assets": {
         "summary": "Two 2026 sheets preserve implemented/drafted dialogue assets. Named survivors Lynoit, Tilde and Vori recognize the player after the Hall's destruction and can appear with the Dawnguard, explicitly supporting continuity from the Vigil into Dawnguard. Generic lines span welcoming Stendarr faith dialogue, suspicion of Daedric corruption, warnings/sanctuary offers and a harsher post-Hall tone centered on grief, vengeance and continuing the Vigil without its home.",
@@ -5378,6 +5412,19 @@
         "1eKu3rdd5B0iL6Ij-oQVYKdvcawHZ5o-eVsoG1mG5ZTY"
       ],
       "provenance_note": "Personal modlist/reference planning only; third-party mod lore/mechanics must not influence authored projects."
+    },
+    "dawnguard-overhaul": {
+      "status": "Skyrim mod planning",
+      "domain": "Skyrim faction/equipment overhaul",
+      "equipment_shortlist": {
+        "summary": "A 2026 equipment sheet begins a Dawnguard visual/equipment tier plan with separate robe, light, medium and heavy armor candidates plus a 'Black Dawn' concept. The armor rows point to third-party Nexus assets and should be treated as implementation/reference choices, not authored asset ownership.",
+        "source_ids": [
+          "1PI_g_iye7MACGgAswuRT0qfK61YsGmse8CC8xIztqVc"
+        ],
+        "relationships": [
+          "Merciful/Vigilant/Dawnguard ecosystem"
+        ]
+      }
     }
   },
   "discovered_project_folders": [
