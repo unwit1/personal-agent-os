@@ -153,27 +153,91 @@
       "blank": false,
       "further_processing_needed": false,
       "notes": "Artificer search was a false-positive/generic-term hit; no Dream Eater material found."
+    },
+    {
+      "source_id": "19_fFEjz2Uf84HlWfEVqe_v5bOQaIL2BKyw6_gDrhqXk",
+      "title": "Locations and Cities",
+      "source_system": "google_drive",
+      "path": "outside Dream Eater folder / Pergrande campaign planning",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_date": "2022-04-07T21:04:58.298Z",
+      "discovery_method": "targeted Yggdrassil search",
+      "processing_status": "processed",
+      "processing_depth": "full workbook relevance screen",
+      "last_processed_date": "2026-09-18",
+      "source_role": "legacy/predecessor setting provenance",
+      "authority_tier": 7,
+      "useful_concepts_found": [
+        "Yggdrassil is a Pergrande guild",
+        "SINEATER led by DENIAL appears as Dark 0/final bosses"
+      ],
+      "blank": false,
+      "further_processing_needed": false,
+      "notes": "Strong evidence that names/concepts Yggdrassil, Sin Eater and DENIAL existed in older Pergrande material. This is provenance, not proof of same in-universe identity with Dream Eater concepts."
+    },
+    {
+      "source_id": "12BgdMu5ccCKz-upBQ3A56VR1Knt-vXVIy4eJ8wP3k44",
+      "title": "Player character arcs brainstorming",
+      "source_system": "google_drive",
+      "path": "outside Dream Eater folder / Pergrande campaign planning",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_date": "2022-09-04T19:55:43.940Z",
+      "discovery_method": "targeted Yggdrassil search",
+      "processing_status": "processed",
+      "processing_depth": "full text relevance screen",
+      "last_processed_date": "2026-09-18",
+      "source_role": "legacy/predecessor setting provenance",
+      "authority_tier": 7,
+      "useful_concepts_found": [
+        "Denial as one of 12 Gates of Sin",
+        "Shattergate exists as Yrys Noelle's ultimate Shatter Magic spell",
+        "Sin Eater cult sought return of Denial",
+        "Yggdrassil guild and Deadlight Virus history",
+        "memory/identity fragmentation themes around Morris/X"
+      ],
+      "blank": false,
+      "further_processing_needed": false,
+      "notes": "Potentially important evolutionary provenance: DENIAL and SHATTERGATE coexist in this 2022 predecessor material, years before current Silas event chain. Do not transfer Pergrande plot facts into Dream Eater canon automatically."
+    },
+    {
+      "source_id": "1_tuIPOVBfZdk8zCtm46Qhkk84ibm-LbCyxH-DFTklTU",
+      "title": "Character",
+      "source_system": "google_drive",
+      "path": "outside Dream Eater folder",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_date": "2026-06-17T18:08:27.355Z",
+      "discovery_method": "targeted Second Sector search false positive",
+      "processing_status": "irrelevant",
+      "processing_depth": "relevance screen",
+      "last_processed_date": "2026-09-18",
+      "source_role": "unrelated personal fiction",
+      "authority_tier": 7,
+      "useful_concepts_found": [],
+      "blank": false,
+      "further_processing_needed": false,
+      "notes": "Unrelated content. Explicitly excluded from Dream Eater ingestion."
     }
   ],
   "next_search_seeds": [
-    "Yggdrassil",
-    "Jonathan Solace",
-    "Grand Inquisitor Isobi",
-    "Inquisition Dream Eater",
-    "Second Sector",
     "Albion Dream Eater",
     "Upside Dream Eater",
-    "Silentown"
+    "Silentown",
+    "Neverwhere Dream Eater",
+    "Blueharbor Dream Eater",
+    "Melissa Finnegan",
+    "Silas Ashland",
+    "Eric Shattergate"
   ],
   "critic_questions": [
     "Does the Name-seed/tree/grave model still survive current canon, and if so how does it distinguish metaphysical Name loss from ordinary memory loss and the Silence?",
     "If Ellison's seed is the Emblem and the Gallowed Man's is the mask in this 2024 brainstorm, how should that older split map onto the confirmed current gestalt without implying two biological identities?",
-    "Is Dennis Deacon/Wracken still intended to survive into current continuity, or was his Dream Eater role redistributed to later characters?"
+    "Is Dennis Deacon/Wracken still intended to survive into current continuity, or was his Dream Eater role redistributed to later characters?",
+    "The 2022 Pergrande material already places DENIAL and a spell named SHATTERGATE in the same creative lineage, but Shattergate belongs there to Yrys Noelle rather than Eric. Was current Eric/Shattergate/Denial/Silas causality intentionally evolved from this older pairing, and are any thematic rules from the older Shatter Magic meant to survive?"
   ],
   "checkpoint": {
     "previous_repo_head": "5d8caac82240adef24738708881f2519f5a6b8ed",
     "notion_checkpoint": "9bc64b98586ecc19f2e4645be00908c0392be166",
-    "batch": "drive-2026-09-18-03"
+    "batch": "drive-2026-09-18-04"
   },
   "search_seed_results": {
     "Neverwhere": {
@@ -215,6 +279,22 @@
     "Black Hands of Fate": {
       "date": "2026-09-18",
       "result": "no clean Dream Eater result; generic/noisy hits"
+    },
+    "Yggdrassil": {
+      "date": "2026-09-18",
+      "result": "legacy Pergrande sources found; evolutionary provenance for Yggdrassil, SINEATER/DENIAL and SHATTERGATE"
+    },
+    "Jonathan Solace": {
+      "date": "2026-09-18",
+      "result": "no_results"
+    },
+    "Grand Inquisitor Isobi": {
+      "date": "2026-09-18",
+      "result": "no_results for Isobi"
+    },
+    "Second Sector": {
+      "date": "2026-09-18",
+      "result": "no clean Dream Eater result; false positives excluded"
     }
   }
 }
