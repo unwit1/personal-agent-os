@@ -219,16 +219,14 @@
     }
   ],
   "next_search_seeds": [
-    "Upside",
-    "Silent Town",
-    "Silentown Dream Eater",
-    "Neverwhere",
-    "Blue Harbor",
-    "Blueharbor",
-    "Circle Three",
-    "Blasphemous",
-    "Whispers Inquisition",
-    "Black Hands Fate"
+    "Gravekeeper",
+    "Gravetender",
+    "Door Mourn",
+    "Black Guardian",
+    "Nameless Throne",
+    "Wracken",
+    "Dennis Deacon",
+    "Lilith Deacon"
   ],
   "critic_questions": [
     "Does the Name-seed/tree/grave model still survive current canon, and if so how does it distinguish metaphysical Name loss from ordinary memory loss and the Silence?",
@@ -239,7 +237,7 @@
   "checkpoint": {
     "previous_repo_head": "5d8caac82240adef24738708881f2519f5a6b8ed",
     "notion_checkpoint": "9bc64b98586ecc19f2e4645be00908c0392be166",
-    "batch": "drive-2026-09-18-05"
+    "batch": "drive-2026-09-18-06"
   },
   "search_seed_results": {
     "Neverwhere": {
@@ -333,6 +331,26 @@
     "Albion": {
       "date": "2026-09-18",
       "result": "known Magic System Explained only; no new source"
+    },
+    "Upside": {
+      "date": "2026-09-18",
+      "result": "no clean Dream Eater result; unrelated HR/Skyrim/legacy RPG hits excluded"
+    },
+    "Silent Town": {
+      "date": "2026-09-18",
+      "result": "known/processed Pergrande sources plus unrelated Skyrim material; no new Dream Eater source"
+    },
+    "Blue Harbor": {
+      "date": "2026-09-18",
+      "result": "known/processed Pergrande sources plus unrelated Skyrim material; no new Dream Eater source"
+    },
+    "Blasphemous": {
+      "date": "2026-09-18",
+      "result": "old Dream Eater draft surfaced; already known/previously examined, skipped"
+    },
+    "Black Hands Fate": {
+      "date": "2026-09-18",
+      "result": "Character Wiki surfaced; already known, no new source"
     }
   }
 }
