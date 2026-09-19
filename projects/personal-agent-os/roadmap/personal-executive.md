@@ -258,6 +258,34 @@ Capabilities:
 
 Sending messages requires the configured authorization level.
 
+## EXEC-11.5 — Personal Communication Gateway (Windows-first)
+
+Build a provider-neutral, privacy-preserving ingestion layer for personal communications, with raw communication archives kept local by default and only sanitized derived knowledge eligible for Git-backed durable state.
+
+Initial adapters:
+- **iCloud Mail:** read-only IMAP ingestion on Windows first; credentials stored in Windows Credential Manager or another local secret store, never Git. Add SMTP/send capabilities only later behind explicit progressive-autonomy approval.
+- **Text messages:** import historical iPhone/iMessage/SMS exports produced by the user's existing Windows export application. Prefer structured CSV/XML/HTML/database exports when available; support PDF as a first-class fallback. Reuse shared document intelligence, text extraction, persistent extraction/OCR cache, fingerprints, and deduplication so subsequent exports process only new/changed messages rather than rescanning the archive.
+- **Discord:** official bot/API ingestion for servers/channels where authorized; provide archive/import ingestion for other legitimately obtained exports. Do not depend on user-account self-bot automation.
+
+Normalize all sources into a common communication schema with source, account, conversation/thread, participants, timestamp, body/content reference, attachments, reply/thread metadata, source provenance, sensitivity, and stable/deduplication identifiers.
+
+Route normalized records through the Event Bus and Communication Intelligence rather than writing raw conversations directly into canonical memory. Support cross-source retrieval for people, projects, commitments, unanswered threads, promises, follow-ups, and other actionable context.
+
+Privacy/storage requirements:
+- raw email, text, Discord content, attachments, full-text indexes, and extraction/OCR caches remain local by default;
+- Git stores schemas, adapter configuration templates, durable sanitized knowledge, project state, and approved derived memories—not raw communication archives or credentials;
+- adapters support include/exclude rules, retention controls, provenance, incremental checkpoints, and revocation;
+- consequential actions such as sending mail remain approval-gated according to Executive Autonomy policy.
+
+Acceptance criteria:
+- iCloud Mail can be incrementally indexed read-only from Windows;
+- a representative text-message PDF export can be parsed, normalized, fingerprinted, and re-imported without duplicating previously indexed messages;
+- structured text exports bypass OCR when available;
+- Discord imports/API events normalize to the same schema;
+- cross-source search can retrieve relevant communications without loading complete archives into model context;
+- commitments detected from communications become provenance-backed candidate executive records rather than silently promoted facts;
+- no raw personal communication or secret is committed to Git in automated tests.
+
 ## EXEC-12 — Proactive Executive
 
 Consume events such as:
@@ -362,7 +390,7 @@ Cross-zone learning should prefer sanitized derived knowledge over raw source ma
 
 **Milestone D — Learning:** EXEC-9 plus integration with existing candidate-memory and skill systems.
 
-**Milestone E — Life Integrations:** EXEC-10 and EXEC-11.
+**Milestone E — Life Integrations:** EXEC-10, EXEC-11, and EXEC-11.5 Personal Communication Gateway. Implement the shared normalization/local-storage foundation first, then iCloud Mail read-only ingestion, text-export ingestion, and Discord ingestion.
 
 **Milestone F — Proactivity & Voice:** EXEC-12 and EXEC-13.
 
@@ -379,7 +407,7 @@ Cross-zone learning should prefer sanitized derived knowledge over raw source ma
 8. Integrate existing candidate capture/curation so learned observations remain reviewable.
 9. Add compact context-packet support for executive decisions.
 10. Prototype Rescue Mode before external calendar/email writes.
-11. Add Voice Gateway only after the same intents work through CLI/MCP.
+11. Prototype the Personal Communication Gateway common schema/local store and iCloud Mail read-only adapter on Windows.\n12. Identify/test the user's existing text-message export application; prefer its structured export format when available and validate PDF ingestion as fallback using the shared extraction/OCR cache.\n13. Add Discord authorized API/import adapter against the same normalized communication schema.\n14. Add Voice Gateway only after the same intents work through CLI/MCP.
 
 ## Success metrics
 
