@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "peoples",
+  "subjects": [
+    "dwemer",
+    "chimer",
+    "dunmer",
+    "nords",
+    "snow-elves",
+    "redguard",
+    "altmer",
+    "bosmer",
+    "khajiit",
+    "argonian",
+    "orsimer",
+    "breton",
+    "reachfolk"
+  ],
+  "notes": "Seed manifest from existing ingestion queues. Individual subject records are created/populated by ingestion."
+}
