@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-046-imperial-divines-cult",
+  "subjects": [
+    {
+      "id": "tes:eight-divines",
+      "name": "Eight Divines",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/eight-divines.json",
+      "source": {
+        "id": "uesp:eight-divines",
+        "url": "https://en.uesp.net/wiki/Lore:Eight_Divines",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:nine-divines",
+      "name": "Nine Divines",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/nine-divines.json",
+      "source": {
+        "id": "uesp:nine-divines",
+        "url": "https://en.uesp.net/wiki/Lore:Nine_Divines",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:imperial-pantheon",
+      "name": "Imperial Pantheon",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/imperial-pantheon.json",
+      "source": {
+        "id": "uesp:imperial-pantheon",
+        "url": "https://en.uesp.net/wiki/Lore:Imperial_Pantheon",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:saints-imperial",
+      "name": "Imperial Saints",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/saints-imperial.json",
+      "source": {
+        "id": "uesp:saints-imperial",
+        "url": "https://en.uesp.net/wiki/Lore:Imperial_Saints",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:divine-blessings",
+      "name": "Divine Blessings",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/divine-blessings.json",
+      "source": {
+        "id": "uesp:divine-blessings",
+        "url": "https://en.uesp.net/wiki/Lore:Divine_Blessings",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:talos-worship",
+      "name": "Talos Worship",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/talos-worship.json",
+      "source": {
+        "id": "uesp:talos-worship",
+        "url": "https://en.uesp.net/wiki/Lore:Talos_Worship",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:shezzar-worship",
+      "name": "Shezarr Worship",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/shezzar-worship.json",
+      "source": {
+        "id": "uesp:shezzar-worship",
+        "url": "https://en.uesp.net/wiki/Lore:Shezarr_Worship",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:imperial-syncretism",
+      "name": "Imperial Religious Syncretism",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/imperial-syncretism.json",
+      "source": {
+        "id": "uesp:imperial-syncretism",
+        "url": "https://en.uesp.net/wiki/Lore:Imperial_Religious_Syncretism",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Distinguish Alessian, Reman, Septim and Fourth Era Imperial religious practice rather than treating the Imperial pantheon as static",
+    "Eight Divines and Nine Divines are historically contextual formulations; Talos-related doctrine must retain era and political context",
+    "Do not automatically merge Imperial gods with culturally corresponding deities; preserve syncretic identifications as sourced relationships",
+    "Religious commandments and temple doctrine are prescriptive evidence, not proof of universal practice",
+    "Talos worship after the White-Gold Concordat must distinguish legal status, public practice, private worship and regional enforcement",
+    "Cross-link existing Akatosh, Talos, Shezarr, Alessian Order, Temple of the One, Knights of the Nine, Amulet of Kings and White-Gold Concordat records"
+  ]
+}
