@@ -25,7 +25,8 @@
       "User confirmation 2026-09-18: Melissa Finnegan is Silas Ashland's mother, Grant Ashland is his father, Melissa mentors Abigail Fletcher in The Delusionist, and Melissa is the Mind Emblem holder immediately preceding Abigail.",
       "2026-09-18 deeper Notion traversal mapped the 2024 Divine/Throne taxonomy and Inquisition character hierarchy. Blank descendants are retained as concept-existence provenance only; sibling order is not used to invent Divine↔Throne mappings.",
       "2026-09-18 Notion realm/history pass: 2024 taxonomy explicitly lists Earth, Fade, Void, Neverwhere and Blueharbor as Realms, with Albion nested under Void. History and Groups are blank, and several organization pages are placeholders. War of Glass/Prague Agreement/Makers material appears to live outside this Notion snapshot, reinforcing cross-source retrieval.",
-      "2026-09-18 Notion character cross-check found no substantive records for most later Guardian/Deadlight characters. Notion's Manuscript page is only a Drive embed/link, supporting the conclusion that this workspace was chiefly an ontology/index and Drive held substantive manuscript/lore content."
+      "2026-09-18 Notion character cross-check found no substantive records for most later Guardian/Deadlight characters. Notion's Manuscript page is only a Drive embed/link, supporting the conclusion that this workspace was chiefly an ontology/index and Drive held substantive manuscript/lore content.",
+      "2026-09-18 completed the substantive connected Notion Dream Eater import. Future Dream Eater source-combing should return to Google Drive, using the Notion-only taxonomy as cross-source search seeds. Scrivener and old-laptop archives remain pending external recovery."
     ]
   },
   "project_clusters": [
@@ -617,6 +618,41 @@
             "content_state": "Generation pages are blank in the connected 2024 Notion snapshot.",
             "later_source_relation": "Detailed Guardian identities, succession and Emblems are supplied by later Drive sheets/docs and user-confirmed canon."
           }
+        },
+        "completion": {
+          "status": "Substantive connected Notion Dream Eater import complete",
+          "completed_at": "2026-09-18",
+          "scope": "Dream Eater root, Lore hierarchy, Guardian Cycle containers, Virtues/Inquisition characters, Organizations/Avalon hierarchy, Eight Houses database, Locations/Realms/Thrones, Entities/Divines, and targeted searches for known current/legacy terms.",
+          "limitations": [
+            "Connected Notion AI search is unavailable; completion is based on hierarchy traversal, database enumeration, and targeted workspace search.",
+            "Blank/untitled pages may exist but contain no retrievable substantive lore in the traversed Dream Eater hierarchy.",
+            "Notion Manuscript page contains a Drive embed/link, not a second retrievable manuscript copy."
+          ],
+          "database_audit": {
+            "eight_houses_rows": 11,
+            "named_rows": [
+              "House of Absence (Wardens)",
+              "House of Truth (Psychics)",
+              "House of Order (",
+              "House of Preservation (Healers)",
+              "House of Creation (Elementalists)",
+              "House of Change (Alchemists)",
+              "House of Disorder (Catalysts)",
+              "House of Names (Weavers)"
+            ],
+            "blank_rows": 3,
+            "note": "All rows were enumerated. House of Order is truncated in Notion and must not be silently completed from later sources when representing this snapshot."
+          },
+          "substantive_unique_material": [
+            "John A. Avalon: eccentric billionaire, Avalon Institute founder, original Heretic Guardian; Incubus imprisoned in Albion, described as a giant prison for him.",
+            "Yggdrassil: Tree of Time; Weaver manipulates human history from its top; DENIAL trapped behind a Red Door.",
+            "Thrones: metaphysical locations serving as seats of power for Divines; listed Yggdrassil, Nameless/Broken Throne, Traveler's Inn.",
+            "Divine taxonomy: Weaver/FATE, Guardian, Artificer, Traveler, Ruler.",
+            "Isobi: found shattered mask of corrupted Lord of Mourning Bell; former lover of Jericho Deacon who pushed him out of the organization.",
+            "Realm taxonomy: Earth, Fade, Void, Neverwhere, Blueharbor; Albion nested under Void with Upside and Silentown.",
+            "Guardian generation taxonomy: Nine, Heretics, Eyes, Deadlight Brigade."
+          ],
+          "next_source": "Return to Google Drive. Use Notion-only names/taxonomy as search seeds to locate later versions, renames, replacements, or abandoned concepts."
         }
       }
     },
