@@ -15,7 +15,7 @@
     "first_level_files_indexed": 289,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue safe root search beyond recently modified Skyrim files, identify unindexed historical project artifacts, and reconcile all discovered IDs against ledger. Skip NSFW, credentials, and sensitive personnel sources."
+    "next_action": "Continue newly surfaced safe projects: Apostate, Gradience, Afflicted, Journeyman, Crime Overhaul, Balladeer subdocs, Marksman, custom spells, Shards of Oblivion, then older non-Skyrim historical projects. Skip NSFW and sensitive sources."
   },
   "top_level_folders": [
     {
@@ -3450,6 +3450,107 @@
         "Skyrim Item Balancing",
         "Simonrim balance lab",
         "Skyrim Modlist Architecture"
+      ]
+    },
+    "open-knowledge-framework": {
+      "status": "active_or_recent",
+      "domain": "generalized/open Elder Scrolls knowledge taxonomy",
+      "summary": "A structured evolution/companion of Knowledge Framework that models Elder Scrolls peoples, languages, eras, regions and descriptions alongside a chronology table of historical events with dates, regions/cultures and lore sources. It appears aimed at a reusable/open data layer rather than only in-game study mechanics.",
+      "source_ids": [
+        "1fHtDeKEphivgAAdey3lasWYe6YSTQwM8XlbzAeyTuEo"
+      ],
+      "relationships": [
+        "Knowledge Framework",
+        "Silvertongue",
+        "Skyrim Scholarship Ecosystem"
+      ],
+      "note": "Preserve as a distinct named project until its exact relationship to Knowledge Framework is confirmed."
+    },
+    "open-reputation-engine": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim systemic reputation and reactive dialogue framework",
+      "summary": "ORE proposes multi-axis reputation driven by observed player actions, titles and accomplishments. It tracks behavior/events through SKSE and game events and maps states such as professions, criminality, scholarship, faction achievements, wealth/charity, combat identity and major quest outcomes into contextual greetings, reactions and gameplay consequences.",
+      "source_ids": [
+        "1ZTbiT5Ibn5W3Tlnq4pSHZltWGB460fCdGGRwOKZiRE8"
+      ],
+      "axes": [
+        "Love/Fear",
+        "Law/Crime",
+        "Aedric/Daedric"
+      ],
+      "examples": [
+        "Scholar from books read",
+        "Grave Robber from barrow activity",
+        "Philanthropist from donations",
+        "Bounty Hunter from completed bounties",
+        "combat identities from skill/equipment",
+        "faction and quest titles"
+      ],
+      "technical_notes": [
+        "SKSE",
+        "JContainers",
+        "SKSE Menu Framework",
+        "event-driven tracking via crime/death/quest/combat/book/inventory/spell/action events"
+      ]
+    },
+    "balladeer": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim bard gameplay overhaul",
+      "summary": "Large bard-roleplay overhaul with a custom Bard skill and Inspiration perk currency, instrument expertise, performances, follower participation, bard training, Spellsongs, Ballads, storytelling, Duel of Wits, cultural bard traditions and a large lore-friendly instrument expansion. Instrument archetypes are reinterpreted as percussion=combat, strings=magic, wind=stealth, with individual instrument bonuses and possible melee instrument forms.",
+      "source_ids": [
+        "1S65p9259giM4yG4gnfTvV6E0zF3PDdLCHveQqTzSgo0",
+        "1C3GQjHKzmsTZN-ACRFrNHP32Yh_EkyzS7WjQZcLHLaU"
+      ],
+      "requirements": [
+        "Address Library",
+        "SKSE",
+        "Actor Value Framework",
+        "Custom Skill Framework",
+        "Adamant"
+      ],
+      "integrations": [
+        "Become a Bard",
+        "Bard's Reborn - Student of Song",
+        "Skyrim's Got Talent"
+      ],
+      "cultural_examples": [
+        "Nord—Skald",
+        "Breton—Troubadour",
+        "Bosmer—Spinner",
+        "Dunmer—Ash-Poet",
+        "Khajiit—Moon Singer",
+        "Argonian—Ghost-Throat",
+        "Orsimer—Warcaller"
+      ],
+      "related_projects": [
+        "Skald - Storytellers of Skyrim",
+        "Knowledge Framework",
+        "Simonrim balance lab"
+      ]
+    },
+    "machinist": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim engineering custom skill",
+      "summary": "Custom engineering skill centered on Dwemer automatons, traps, tonal architecture, ballistics and deployable mechanical infrastructure. Draft branches include Tonal Architecture, Trapmaster, Artificer, Ballistics and Field Logistician/pylon-turret gameplay.",
+      "source_ids": [
+        "18xZmdAhKIHXxpQVaMyHoBMnEUcUoHKR-rqMANJOsHdc"
+      ],
+      "requirements": [
+        "Custom Skill Framework",
+        "CSF Menu or New Skill Menu"
+      ],
+      "mechanics": [
+        "vibration damage vs mechanical/armored foes",
+        "trap detection/redirection",
+        "scrap/component efficiency",
+        "crossbow/repeating mechanism specialization",
+        "mechanical pylons with healing/offense/network effects",
+        "Dwemer/Varla-powered crafting concepts"
+      ],
+      "relationships": [
+        "Knowledge Framework engineering/science concepts",
+        "Weapons Rebalance",
+        "Simonrim balance lab"
       ]
     }
   },
