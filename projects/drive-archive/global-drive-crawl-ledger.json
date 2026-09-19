@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 301,
+    "first_level_files_indexed": 311,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue broad orphaned historical discovery, prioritizing older campaign folders and generic/untitled safe files plus collection/reference systems not yet reconciled. Inspect Fate legacy FSN docs and Campaign 2 Fate/False Paradise lineage where useful, then other historical campaign families. Keep HR/personal-sensitive trackers metadata-only and skip unrelated NSFW."
+    "next_action": "Continue historical campaign discovery beyond Fate: inspect Campaign 3/4 folders (including Lords of Mourning and The Wonderland Murders), Avalon Institute and other older tabletop/writing project clusters. Continue probing generic/untitled files. Keep sensitive HR/personal trackers metadata-only and skip unrelated NSFW."
   },
   "top_level_folders": [
     {
@@ -2226,8 +2226,8 @@
       "id": "1W6FK9UKvOOlr0eqXo2jyAxZ5eKR7eq1mcmwK9zbZDXw",
       "title": "Untitled document",
       "path": "/My Drive/Personal/TTRPG/Campaign 2 - Fate/False Paradise/Untitled document",
-      "category": "ttrpg_fate_false_paradise",
-      "content_status": "processed_summary"
+      "category": "fate_false_paradise",
+      "content_status": "processed"
     },
     {
       "id": "1Kb_vDbHV-omPfNL0k5Q38P1b_yHLlNkUavtmHyVctyo",
@@ -2668,6 +2668,96 @@
       "category": "universal_anime_system",
       "content_status": "processed",
       "inventory_source": "Pergrande/UAS reconciliation"
+    },
+    {
+      "id": "1R0XOkliAdnx5o82S8gNcnzHA1CIsMU-qtZLsWE3PqEo",
+      "title": "FSN-Servants.doc",
+      "path": "/Accessible Drive/FSN-Servants.doc",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "fate_nasuverse_rpg",
+      "content_status": "processed",
+      "inventory_source": "Fate legacy lineage pass"
+    },
+    {
+      "id": "1VOEYQ2rU3c12MpcpmrkXnWNgUwPv4-SkuDgO3n4vn5w",
+      "title": "FSN-ServantClasses.doc",
+      "path": "/Accessible Drive/FSN-ServantClasses.doc",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "fate_nasuverse_rpg",
+      "content_status": "processed",
+      "inventory_source": "Fate legacy lineage pass"
+    },
+    {
+      "id": "1blAL4UD2P5YkSKJOutoRQPM9oV0kP0Uy5heXaRbC9J0",
+      "title": "FSN-Creation.doc",
+      "path": "/Accessible Drive/FSN-Creation.doc",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "fate_nasuverse_rpg",
+      "content_status": "processed",
+      "inventory_source": "Fate legacy lineage pass"
+    },
+    {
+      "id": "1NVGIl73VMU8gX0C9SgmFqrkFee90MVbHculweVnWrFI",
+      "title": "FSN-DA.doc",
+      "path": "/Accessible Drive/FSN-DA.doc",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "fate_nasuverse_rpg",
+      "content_status": "processed",
+      "inventory_source": "Fate legacy lineage pass"
+    },
+    {
+      "id": "1KietyFBsob94rvOryDvUiW_xqNXC9XY6idCMSap7T34",
+      "title": "FSN-MagicSchools.doc",
+      "path": "/Accessible Drive/FSN-MagicSchools.doc",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "fate_nasuverse_rpg",
+      "content_status": "processed",
+      "inventory_source": "Fate legacy lineage pass"
+    },
+    {
+      "id": "1m8GjlpZE5qjWFhTFHk6rBUx7zu_3GthD0pkQ2Rm9to4",
+      "title": "FSN-Blooded.doc",
+      "path": "/Accessible Drive/FSN-Blooded.doc",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "fate_nasuverse_rpg",
+      "content_status": "processed",
+      "inventory_source": "Fate legacy lineage pass"
+    },
+    {
+      "id": "1vZcGJgp4B4COuv5EEt5WWEl3FK1gon9sG_DLXzC3sUQ",
+      "title": "Untitled document - Berserker False Orion",
+      "path": "/Accessible Drive/Untitled document - Berserker False Orion",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "fate_false_paradise",
+      "content_status": "processed",
+      "inventory_source": "Fate legacy lineage pass"
+    },
+    {
+      "id": "1avd4OJCjHAFhguhz7SO5IJs_bhCjfBBt6fkQwWm56KY",
+      "title": "Fate Statblocks",
+      "path": "/Accessible Drive/Fate Statblocks",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "category": "fate_false_paradise",
+      "content_status": "processed",
+      "inventory_source": "Fate legacy lineage pass"
+    },
+    {
+      "id": "1UIhnK56OLEzM_rUQM2jmGnFU-0KSdtYN2vgsd28omzQ",
+      "title": "Fate Spells/Attributes/Noble Phantasms",
+      "path": "/Accessible Drive/Fate Spells/Attributes/Noble Phantasms",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "category": "fate_false_paradise",
+      "content_status": "processed",
+      "inventory_source": "Fate legacy lineage pass"
+    },
+    {
+      "id": "12Q4FF_x3mOHElZZIXLodBZY3xWhedbIix2u2WKF2Be4",
+      "title": "Fate Character Sheet",
+      "path": "/Accessible Drive/Fate Character Sheet",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "category": "fate_nasuverse_rpg",
+      "content_status": "processed",
+      "inventory_source": "Fate legacy lineage pass"
     }
   ],
   "folder_queue": [
@@ -2939,14 +3029,14 @@
       }
     },
     "fate-false-paradise": {
-      "status": "historical_or_dormant",
-      "domain": "Fate-inspired TTRPG campaign",
-      "summary": "Fate/False Paradise was a tabletop campaign with Servant/Master-style mechanics, class-specific skill sheets and statblocks, Noble Phantasms/attributes, campaign arcs for Archer, Caster, Berserker, Assassin/Lancer, Saber and Rider, and mana/materialization rules. One planning document develops Rider's cultivation/Qi mechanics.",
+      "status": "historical campaign",
+      "domain": "Fate/Nasuverse tabletop campaign",
+      "summary": "Fate/False Paradise is a concrete campaign layer built on the later Fate RPG redesign. Recovered campaign prep and statblocks show paired 'False' and 'True' Servant structures and named player/Master/Servant rosters. False Servants include Sun Wukong (Rider), Setna (Caster), Orion (Berserker) and Aife (Lancer); True-side examples include Paganini, Bercilak, Saint Nicholas, the Morrigan, Theseus and Alice/Wonderland, with Hou Yi and other slots in development. Player characters include Lanford Korovin, Ash Lumineer, Risiegen Van Helsing and Artemis Kvothe. The campaign used bespoke spells, runecraft, Noble Phantasms, class/personal Servant skills and encounter statblocks. A Session 5 prep file organizes arcs around individual Servant conflicts and includes Rider teaching a cultivation/Qi progression.",
       "source_ids": [
+        "1vZcGJgp4B4COuv5EEt5WWEl3FK1gon9sG_DLXzC3sUQ",
         "1W6FK9UKvOOlr0eqXo2jyAxZ5eKR7eq1mcmwK9zbZDXw",
-        "1Qk2TlPBW0BosNPrIu1k5tQTtBHVG9LOQ6Kp9l0iEfHk",
-        "1xilyRA3YB8O1GORiiyre6BR3KeUiYvQdSXf4v8Olu0A",
-        "1AtrMHtnuKVdiDVYIGYpocaO8uE0RMH75lKmmj56dlAM"
+        "1avd4OJCjHAFhguhz7SO5IJs_bhCjfBBt6fkQwWm56KY",
+        "1UIhnK56OLEzM_rUQM2jmGnFU-0KSdtYN2vgsd28omzQ"
       ],
       "notable_elements": [
         "Servant materialization and mana",
@@ -2955,7 +3045,11 @@
         "Qi/cultivation mechanics",
         "custom statblocks"
       ],
-      "system_summary": "Custom Nasuverse rules include point-buy/rolled stats, mana pools, races/classes, magecraft schools, ranked E–EX spell output, backlash risk, Mystic Codes, Catalyst vs Compatibility Servant summoning, Command Seals, Servant parameters/classes and Noble Phantasms."
+      "system_summary": "Custom Nasuverse rules include point-buy/rolled stats, mana pools, races/classes, magecraft schools, ranked E–EX spell output, backlash risk, Mystic Codes, Catalyst vs Compatibility Servant summoning, Command Seals, Servant parameters/classes and Noble Phantasms.",
+      "relationships": [
+        "fate-nasuverse-rpg"
+      ],
+      "authority_note": "Campaign prep and incomplete statblock rows are historical planning state, not a claim that every listed Servant/arc was ultimately played or finalized."
     },
     "blades-of-pergrande": {
       "status": "historical_or_dormant",
@@ -4071,7 +4165,25 @@
         "Fate/False Paradise",
         "Universal Anime System"
       ],
-      "authority_note": "Historical tabletop design; do not conflate with Dream Eater or current UAS rules without explicit evidence."
+      "authority_note": "Historical tabletop design; do not conflate with Dream Eater or current UAS rules without explicit evidence.",
+      "legacy_lineage": {
+        "summary": "The Fate/Nasuverse tabletop project has a much older rules lineage than the 2021 d20-era material. Legacy FSN documents from roughly 2011–2014 define a point-buy/dice-pool style system with human stats/skills and special character paths for Magi/Masters, Church Faithful, Demon-Blooded, Dead Apostles and Magiteck. Servants are heroic familiars bound to classes and sustained by a Master's magic; an early distinctive rule has a manifested Servant transform/inhabit the Master's body rather than simply coexist physically. Servant classes already encode Saber/Archer/Lancer/Rider/Caster/Assassin/Berserker identities with class-specific mechanics such as Independent Action, Battle Continuation/Survival, Riding, Presence Concealment, magic specialization and rage. Magic-school, Dead Apostle and Blooded subsystem documents show that the project was intended as a broad Nasuverse rules engine, not merely a single Grail War campaign.",
+        "source_ids": [
+          "1R0XOkliAdnx5o82S8gNcnzHA1CIsMU-qtZLsWE3PqEo",
+          "1VOEYQ2rU3c12MpcpmrkXnWNgUwPv4-SkuDgO3n4vn5w",
+          "1blAL4UD2P5YkSKJOutoRQPM9oV0kP0Uy5heXaRbC9J0",
+          "1NVGIl73VMU8gX0C9SgmFqrkFee90MVbHculweVnWrFI",
+          "1KietyFBsob94rvOryDvUiW_xqNXC9XY6idCMSap7T34",
+          "1m8GjlpZE5qjWFhTFHk6rBUx7zu_3GthD0pkQ2Rm9to4"
+        ],
+        "evolution": "The later 2021 material should be treated as a redesign/successor rather than assumed mechanically continuous: it retains core Nasuverse categories but changes the mechanical chassis, formalizes broader races/classes, and develops spreadsheet-backed sheets/statblocks."
+      },
+      "tooling": {
+        "summary": "The later Fate rules family also used a multi-tab character sheet with dedicated additional/inventory/attack/gear/race/class info and a changelog. The sheet was already under iterative maintenance in 2021, including formula fixes and validation/conditional-formatting improvements.",
+        "source_ids": [
+          "12Q4FF_x3mOHElZZIXLodBZY3xWhedbIix2u2WKF2Be4"
+        ]
+      }
     },
     "personal-media-software-master-list": {
       "status": "historical_personal_reference",
