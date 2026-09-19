@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-045-khajiit-religion-lunar-cosmology",
+  "subjects": [
+    {
+      "id": "tes:mask-alkosh",
+      "name": "Mask of Alkosh",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/mask-alkosh.json",
+      "source": {
+        "id": "uesp:mask-alkosh",
+        "url": "https://en.uesp.net/wiki/Lore:Mask_of_Alkosh",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:moonlight-blade",
+      "name": "Moonlight Blade",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/moonlight-blade.json",
+      "source": {
+        "id": "uesp:moonlight-blade",
+        "url": "https://en.uesp.net/wiki/Lore:Moonlight_Blade",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Pre-ri'Datta and Riddle'Thar-era Khajiiti religion must remain historically distinct traditions with documented continuities and changes",
+    "Do not automatically equate Khajiiti deities with similarly named Imperial or Aldmeri gods; model proposed correspondences as relationships with evidence",
+    "Amun-dro, Clan Mother Ahnissi and Moon-Bishop traditions retain authorship, period and doctrinal perspective",
+    "Furstock and lunar-cycle claims should distinguish cultural doctrine, observed births and game simplification",
+    "Dro-m'Athra and Bent Dance descriptions should separate religious interpretation from directly observed phenomena",
+    "Cross-link existing Khajiit, Azurah, Alkosh, Riddle'Thar, Lunar Lattice, Mane, Dro-m'Athra, Lorkhaj, Elsweyr, Anequina and Pellitine records"
+  ]
+}
