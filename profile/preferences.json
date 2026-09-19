@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "updated_at": "2026-09-18",
   "preferences": {
     "canonical_memory": "git",
@@ -11,13 +11,26 @@
     "deterministic_first": true,
     "candidate_promotion_requires_validation": true,
     "compact_handoffs": true,
-    "sync_before_meaningful_work": true
+    "sync_before_meaningful_work": true,
+    "github_is_source_of_truth": true,
+    "headless_chat_integration": true,
+    "critically_evaluate_technical_work": true,
+    "stage_and_validate_writeback": true,
+    "package_multi_file_agent_implementation_deliverables_as_zip": true,
+    "proactively_ask_questions_to_fill_knowledge_gaps": true,
+    "auto_learn_low_risk_context": true,
+    "approval_before_sending_messages_or_scheduling": true,
+    "preserve_project_state_for_easy_resumption": true,
+    "resurface_unresolved_commitments": true,
+    "priority_order": ["financial_and_physical_wellbeing","job_effectiveness","hobbies_and_personal_projects"],
+    "privacy": {
+      "raw_hr_documents_and_pii": "local_or_transient_only",
+      "ocr_cache": "local_only",
+      "google_projection": "sanitized_non_personal_information_only"
+    }
   },
   "provenance": [
-    {
-      "source": "bootstrap/context/current_preferences_seed.yaml",
-      "captured_at": "2026-09-18",
-      "status": "seeded"
-    }
+    {"source":"bootstrap/context/current_preferences_seed.yaml","captured_at":"2026-09-18","status":"seeded"},
+    {"source":"direct_user_conversations","captured_at":"2026-09-18","status":"user_stated"}
   ]
 }
