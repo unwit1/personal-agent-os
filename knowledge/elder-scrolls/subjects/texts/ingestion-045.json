@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-045-khajiit-religion-lunar-cosmology",
+  "subjects": [
+    {
+      "id": "tes:words-clan-mother-ahnissi",
+      "name": "Words of Clan Mother Ahnissi",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/words-clan-mother-ahnissi.json",
+      "source": {
+        "id": "uesp:words-clan-mother-ahnissi",
+        "url": "https://en.uesp.net/wiki/Lore:Words_of_Clan_Mother_Ahnissi",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:spirits-anequina",
+      "name": "Spirits of Amun-dro",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/spirits-anequina.json",
+      "source": {
+        "id": "uesp:spirits-anequina",
+        "url": "https://en.uesp.net/wiki/Lore:Spirits_of_Amun-dro",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:epistles-deep",
+      "name": "Epistles on the Spirits of Amun-dro",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/epistles-deep.json",
+      "source": {
+        "id": "uesp:epistles-deep",
+        "url": "https://en.uesp.net/wiki/Lore:Epistles_on_the_Spirits_of_Amun-dro",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:varieties-faith-khajiit",
+      "name": "Varieties of Faith: The Khajiit",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/varieties-faith-khajiit.json",
+      "source": {
+        "id": "uesp:varieties-faith-khajiit",
+        "url": "https://en.uesp.net/wiki/Lore:Varieties_of_Faith:_The_Khajiit",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:moon-cats-dance",
+      "name": "Moon Cats and their Dance",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/moon-cats-dance.json",
+      "source": {
+        "id": "uesp:moon-cats-dance",
+        "url": "https://en.uesp.net/wiki/Lore:Moon_Cats_and_their_Dance",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Pre-ri'Datta and Riddle'Thar-era Khajiiti religion must remain historically distinct traditions with documented continuities and changes",
+    "Do not automatically equate Khajiiti deities with similarly named Imperial or Aldmeri gods; model proposed correspondences as relationships with evidence",
+    "Amun-dro, Clan Mother Ahnissi and Moon-Bishop traditions retain authorship, period and doctrinal perspective",
+    "Furstock and lunar-cycle claims should distinguish cultural doctrine, observed births and game simplification",
+    "Dro-m'Athra and Bent Dance descriptions should separate religious interpretation from directly observed phenomena",
+    "Cross-link existing Khajiit, Azurah, Alkosh, Riddle'Thar, Lunar Lattice, Mane, Dro-m'Athra, Lorkhaj, Elsweyr, Anequina and Pellitine records"
+  ]
+}
