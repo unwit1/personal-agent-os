@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 246,
+    "first_level_files_indexed": 264,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Traverse Anthem, Fate/False Paradise, and Blades of Pergrande child folders; extract additional historical project knowledge."
+    "next_action": "Continue unindexed files in Pergrande/Fate/Anthem, traverse guild marks, then return to remaining global folder queue."
   },
   "top_level_folders": [
     {
@@ -2263,6 +2263,114 @@
       "path": "/My Drive/dreameater/draft/old/Dream Eater",
       "category": "writing_dream_eater",
       "content_status": "processed_elsewhere"
+    },
+    {
+      "id": "1LUWkB-XrcUyVDjyGcmwBKktg0Nj7tLi3PthhtQfWnpU",
+      "title": "DARK WIZARDRY & Guilds",
+      "category": "ttrpg_blades_of_pergrande",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1FrvnvLpoMNaOhv054EsDrYd59CHiqJxpWfnXney_WXA",
+      "title": "Lore - Blades of Pergrande",
+      "category": "ttrpg_blades_of_pergrande",
+      "content_status": "queued_large"
+    },
+    {
+      "id": "19_fFEjz2Uf84HlWfEVqe_v5bOQaIL2BKyw6_gDrhqXk",
+      "title": "Locations and Cities",
+      "category": "ttrpg_blades_of_pergrande",
+      "content_status": "processed_elsewhere"
+    },
+    {
+      "id": "1EDXzzI2wClNHEzhZsftm2uTLzsR3WomVtF3EL5G_jjo",
+      "title": "Guilds",
+      "category": "ttrpg_blades_of_pergrande",
+      "content_status": "queued"
+    },
+    {
+      "id": "1DUMxHAp3W_6E_c_LHun4j59OF9pQHlTlU7NO317oLog",
+      "title": "Wizard Guilds - Blades of Pergrande",
+      "category": "ttrpg_blades_of_pergrande",
+      "content_status": "queued_large"
+    },
+    {
+      "id": "1Bf-9hWYXXkxSmztix4nwXWMYc3OTfXSw2OWvVnaO7u0",
+      "title": "GM - Quest Tracking",
+      "category": "ttrpg_blades_of_pergrande",
+      "content_status": "queued"
+    },
+    {
+      "id": "1-W3T8bNQdogJftk6MIPKgdjqA8OLk6_14R2JY7tbbkY",
+      "title": "Plot - Blades of Pergrande",
+      "category": "ttrpg_blades_of_pergrande",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1Fi1NMVcqJ-B1g-MkHkYUaRJe9Z-cLBVJ3oVoe8zYpJw",
+      "title": "Character Creation Simplified",
+      "category": "ttrpg_fate_false_paradise",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1UZc7cmRKgXz6aR-JFIpncxGK24Xt_MXcbde8LuZ5ZLQ",
+      "title": "THE HOLY GRAIL WAR",
+      "category": "ttrpg_fate_false_paradise",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1iWcXrmXNiZ3LYR8AueRDXMGRHklkcrR5rAIS2_a1YlQ",
+      "title": "Fate/False Paradise - Lancer (False)",
+      "category": "ttrpg_fate_false_paradise",
+      "content_status": "queued_large"
+    },
+    {
+      "id": "1bE0Hv_IZ0dlwtWELqAiky1_IhKaWykKDdm3LurEJ8LY",
+      "title": "ULTIMATE MOVES & Attacks",
+      "category": "ttrpg_anthem_city",
+      "content_status": "queued"
+    },
+    {
+      "id": "1EhpGLErYeU5lBjMXtqLXJ6fAtZuJD-xh3IBEYZJNBL8",
+      "title": "statblocks reworked",
+      "category": "ttrpg_anthem_city",
+      "content_status": "queued"
+    },
+    {
+      "id": "1LIR-kWqeKJZe04Xj1h_5GAvRVgPSPvoL4WeEamSMPxI",
+      "title": "Anthem City - Mechanics - Power Ratings",
+      "category": "ttrpg_anthem_city",
+      "content_status": "queued"
+    },
+    {
+      "id": "1jxZE6SDg_XtJxRHnHO2ANm3xwrLF8BD4XNzI7dOn1Gg",
+      "title": "Anthem City - Mechanics - Patrol Random Encounters",
+      "category": "ttrpg_anthem_city",
+      "content_status": "queued"
+    },
+    {
+      "id": "1VjHJxgjvXtpjXKx4lguUQMddKyvZ5Ea3R48QFcTqzmU",
+      "title": "Anthem City - Mechanics - Random Effect Table",
+      "category": "ttrpg_anthem_city",
+      "content_status": "queued"
+    },
+    {
+      "id": "1qIyeN2NcqKAbe7HMFdEaEl4801BCA4bQ5lhGq5ZJMTs",
+      "title": "Anthem City - Mechanics - Social System",
+      "category": "ttrpg_anthem_city",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1w7kJ5dJvERcWgwXUsYVOsDJZ-DcjJUp3pITD4ImxyfY",
+      "title": "Anthem City - Mechanics - Level Up",
+      "category": "ttrpg_anthem_city",
+      "content_status": "queued"
+    },
+    {
+      "id": "1BIQia5OGKx7rPl6ADHRmRdeLnvC5i6nmi7NY-ihErCg",
+      "title": "Anthem City - Mechanics - Effects",
+      "category": "ttrpg_anthem_city",
+      "content_status": "queued"
     }
   ],
   "folder_queue": [
@@ -2401,6 +2509,11 @@
       "id": "11KAasmiYw2o8Iv-gjx_WMMkZ67IZbMt5",
       "path": "/My Drive/Personal/TTRPG/Campaign 1 - Anthem/lore",
       "status": "queued"
+    },
+    {
+      "id": "11tDjBPL9MX9BfBqzeWannH0AhjplTlzl",
+      "path": "/My Drive/Personal/TTRPG/blades of pergrande/Lore/guild marks",
+      "status": "queued"
     }
   ],
   "category_counts": {
@@ -2473,7 +2586,8 @@
       ],
       "relationships": [
         "Predecessor/parallel design work to later UAS mechanics; do not automatically transfer setting canon."
-      ]
+      ],
+      "mechanics_summary": "Beyond the campaign setting, Anthem City had a substantial school-life subsystem: daily time slots, exams, delinquency/expulsion tracking, classes, gadget development, equipment upgrades, physical/special/combat training, skill progression, patrol/random encounters, power ratings, effects and level-up tables."
     },
     "fate-false-paradise": {
       "status": "historical_or_dormant",
@@ -2491,17 +2605,28 @@
         "Noble Phantasms",
         "Qi/cultivation mechanics",
         "custom statblocks"
-      ]
+      ],
+      "system_summary": "Custom Nasuverse rules include point-buy/rolled stats, mana pools, races/classes, magecraft schools, ranked E–EX spell output, backlash risk, Mystic Codes, Catalyst vs Compatibility Servant summoning, Command Seals, Servant parameters/classes and Noble Phantasms."
     },
     "blades-of-pergrande": {
       "status": "historical_or_dormant",
       "domain": "TTRPG campaign / fantasy setting",
-      "summary": "Blades of Pergrande is a substantial tabletop campaign project with a large loredoc plus separate Lore, Player Characters, Plotting, spell, and system-related material. Earlier Dream Eater discovery showed it contains concepts such as Yggdrassil, DENIAL/Sin Eater material, and SHATTERGATE in a distinct campaign continuity; those similarities must remain provenance-only unless explicitly linked by the user.",
+      "summary": "Blades of Pergrande is a substantial Fairy-Tail-inspired fantasy TTRPG campaign with wizard guild politics, dark guilds, a national Blades structure, extensive lore, quests and session plotting. Major planned arcs include Aries Horn corruption, Kakkarow slavers, Deadlight Brigade/Virus, Noximilien the Clockmaker, S-Class games, and an underworld conflict. Older concepts include 12 Gates of Sin, Sin of Denial, Yggdrasil, and Shattertime/Shatter-related ideas; these remain separate-continuity provenance unless explicitly linked.",
       "source_ids": [
         "14sjLqJ8RSd3C-OtrA1ApyE0J-3Ho0w6TPNEK5OuQ7AM"
       ],
       "relationships": [
         "Uses/contains some names or motifs later seen elsewhere; treat as separate continuity unless user confirms reuse lineage."
+      ],
+      "notable_elements": [
+        "wizard guild ecosystem",
+        "12 Blades of Pergrande",
+        "dark guilds including Traveler's Thorn and Sin Eater",
+        "12 Gates of Sin / Denial",
+        "Deadlight Virus",
+        "Noximilien time-reversal arc",
+        "Morris, Milo and clone/identity plotlines",
+        "multi-arc campaign planning"
       ]
     }
   },
@@ -2553,6 +2678,16 @@
       "id": "10q3pzYo2XbMx65bBpdCmDNQV1znkIvZV",
       "title": "Campaign 4 - The Wonderland Murders",
       "status": "empty_folder_historical_project"
+    },
+    {
+      "id": "11YlVhy2MOkaIt6EpAjCovaFsjRAeTvz6",
+      "title": "Anthem creation",
+      "status": "empty_folder"
+    },
+    {
+      "id": "11KAasmiYw2o8Iv-gjx_WMMkZ67IZbMt5",
+      "title": "Anthem lore",
+      "status": "empty_folder"
     }
   ]
 }
