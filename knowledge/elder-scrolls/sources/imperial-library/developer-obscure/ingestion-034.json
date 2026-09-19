@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-034-akavir",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:akavir-dev",
+      "title": "Akavir developer and obscure-text corpus",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Akavir",
+        "Tsaesci",
+        "Ka Po' Tun",
+        "Tang Mo",
+        "Kamal"
+      ]
+    },
+    {
+      "id": "til:tsaesci-dev",
+      "title": "Tsaesci identity and culture source map",
+      "document_kind": "identity_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Tsaesci",
+        "Akaviri",
+        "Dragonguard",
+        "Imperial culture",
+        "vampiric claims"
+      ]
+    },
+    {
+      "id": "til:akaviri-invasions-dev",
+      "title": "Akaviri invasions developer-source map",
+      "document_kind": "historical_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Akaviri invasions",
+        "Reman",
+        "Kamal",
+        "Second Era"
+      ]
+    },
+    {
+      "id": "til:akaviri-physiology",
+      "title": "Akaviri physiology and metaphor claim audit",
+      "document_kind": "claim_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Tsaesci",
+        "snake-men",
+        "vampires",
+        "metaphor",
+        "ethnography"
+      ]
+    },
+    {
+      "id": "til:akaviri-dragons",
+      "title": "Akavir, dragons, and Dragonguard source map",
+      "document_kind": "thematic_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Akavir",
+        "dragons",
+        "Dragonguard",
+        "Blades",
+        "Tsaesci"
+      ]
+    },
+    {
+      "id": "til:mysterious-akavir-context",
+      "title": "Mysterious Akavir provenance and interpretation map",
+      "document_kind": "text_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Mysterious Akavir",
+        "Akavir",
+        "Tsaesci",
+        "Ka Po' Tun",
+        "Tang Mo",
+        "Kamal"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Descriptions from Tamrielic texts about Akavir remain attributed reports rather than direct ethnographic facts.",
+    "Literal, metaphorical and propagandistic readings of Tsaesci descriptions remain separate possibilities.",
+    "Do not use later visual depictions or descendants to settle ancient physiology claims without explicit evidence.",
+    "Mysterious Akavir is evidence for what its text claims, not automatic objective description of the continent.",
+    "Track differences between Akaviri peoples, invasions, migrants and later Tamrielic institutions."
+  ]
+}
