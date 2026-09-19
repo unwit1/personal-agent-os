@@ -14,7 +14,7 @@ from .forms import form_issue_payload, route_form
 from .handoffs import create_handoff
 from .index import search
 from .mail import get_message as mail_get_message, search as mail_search, status as mail_status, sync as mail_sync
-from .knowledge import find_contradictions, get_entity as lore_get_entity, search_lore, verify_claim
+from .knowledge import find_contradictions, get_entity as lore_get_entity, search_evidence, search_lore, verify_claim
 from .improvements import capture_improvement, get_improvement, issue_payload, list_improvements, search_improvements, update_improvement
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .skills import discover, match, metadata
@@ -107,7 +107,7 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "description": "Incrementally synchronize recent iCloud messages into the local read-only index.",
         "inputSchema": {"type": "object", "properties": {"limit": {"type": "integer", "default": 500}}},
     },
-    "lore.search": {"description": "Search a local provenance-backed knowledge library with a compact context budget.", "inputSchema": {"type": "object", "properties": {"query": {"type": "string"}, "library_id": {"type": "string", "default": "elder-scrolls"}, "limit": {"type": "integer", "default": 8}, "char_budget": {"type": "integer", "default": 6000}}, "required": ["query"]}},
+    "lore.search_evidence": {"description": "Search exact source evidence chunks using local full-text retrieval with a strict context budget.", "inputSchema": {"type": "object", "properties": {"query": {"type": "string"}, "library_id": {"type": "string", "default": "elder-scrolls"}, "limit": {"type": "integer", "default": 8}, "char_budget": {"type": "integer", "default": 6000}}, "required": ["query"]}},\n    "lore.search": {"description": "Search a local provenance-backed knowledge library with a compact context budget.", "inputSchema": {"type": "object", "properties": {"query": {"type": "string"}, "library_id": {"type": "string", "default": "elder-scrolls"}, "limit": {"type": "integer", "default": 8}, "char_budget": {"type": "integer", "default": 6000}}, "required": ["query"]}},
     "lore.get_entity": {"description": "Get one lore entity and its evidence-backed claims.", "inputSchema": {"type": "object", "properties": {"entity_id": {"type": "string"}, "library_id": {"type": "string", "default": "elder-scrolls"}, "char_budget": {"type": "integer", "default": 8000}}, "required": ["entity_id"]}},
     "lore.verify_claim": {"description": "Find stored evidence relevant to a lore claim without converting source agreement into absolute truth.", "inputSchema": {"type": "object", "properties": {"claim_text": {"type": "string"}, "library_id": {"type": "string", "default": "elder-scrolls"}, "limit": {"type": "integer", "default": 8}}, "required": ["claim_text"]}},
     "lore.find_contradictions": {"description": "Return recorded contradictions involving an entity or claim.", "inputSchema": {"type": "object", "properties": {"entity_or_claim": {"type": "string"}, "library_id": {"type": "string", "default": "elder-scrolls"}}, "required": ["entity_or_claim"]}},
@@ -156,7 +156,7 @@ def methods() -> dict[str, Callable[..., Any]]:
         "mail.get_message": mail_get_message,
         "mail.sync_status": mail_status,
         "mail.sync": mail_sync,
-        "lore.search": search_lore,
+        "lore.search_evidence": search_evidence,\n        "lore.search": search_lore,
         "lore.get_entity": lore_get_entity,
         "lore.verify_claim": verify_claim,
         "lore.find_contradictions": find_contradictions,
