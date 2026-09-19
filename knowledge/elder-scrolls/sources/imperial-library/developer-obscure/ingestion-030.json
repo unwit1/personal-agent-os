@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-030-numidium-landfall-coda",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:numidium-obscure-deep",
+      "title": "Numidium in developer and obscure texts",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Numidium",
+        "Walk-Brass",
+        "Brass God",
+        "Mantella",
+        "Dwemer"
+      ]
+    },
+    {
+      "id": "til:landfall-source-map",
+      "title": "Landfall source and concept map",
+      "author": "multiple",
+      "document_kind": "external_fiction_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Landfall",
+        "Numidium",
+        "Fifth Era",
+        "C0DA"
+      ]
+    },
+    {
+      "id": "til:c0da-source-map",
+      "title": "C0DA publication and concept map",
+      "author": "Michael Kirkbride",
+      "document_kind": "external_developer_fiction_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "C0DA",
+        "Landfall",
+        "Jubal-lun-Sul",
+        "Vivec",
+        "Numidium",
+        "Amaranth"
+      ]
+    },
+    {
+      "id": "til:loveletter-c0da-lineage",
+      "title": "Loveletter to C0DA concept lineage",
+      "author": "multiple",
+      "document_kind": "source_lineage_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Loveletter From the Fifth Era",
+        "C0DA",
+        "Landfall",
+        "Amaranth"
+      ]
+    },
+    {
+      "id": "til:numidium-time-causality",
+      "title": "Numidium, time, and causality developer-source map",
+      "author": "multiple",
+      "document_kind": "claim_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Numidium",
+        "Dragon Break",
+        "Warp in the West",
+        "time",
+        "causality"
+      ]
+    },
+    {
+      "id": "til:brass-god-terminology",
+      "title": "Walk-Brass and Brass God terminology lineage",
+      "author": "multiple",
+      "document_kind": "terminology_tracker",
+      "status": "discovery_queued",
+      "subjects": [
+        "Walk-Brass",
+        "Brass God",
+        "Numidium",
+        "Tower"
+      ]
+    }
+  ],
+  "review_rules": [
+    "C0DA and Landfall remain external developer fiction unless individual propositions receive independent released-primary support.",
+    "Do not treat the future chronology of external fiction as the default future of released-game continuity.",
+    "Numidium terminology is resolved passage by passage; Walk-Brass, Brass God, Tower and Numidium are linked without assuming every usage is synonymous.",
+    "Separate the Warp in the West's released evidence from later developer explanations of Numidium and time.",
+    "Track concept lineage from earlier obscure texts into C0DA without retroactively changing source authority."
+  ]
+}
