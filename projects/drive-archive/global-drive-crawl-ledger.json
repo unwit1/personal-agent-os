@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 298,
+    "first_level_files_indexed": 301,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue remaining Blades of Pergrande arc/lore files (Forest Followup, player arcs, loredoc tabs) only where they add unique state, then broaden orphaned historical project discovery. Revisit UAS Origins failed_retry after other safe files; inspect older UAS Origin System if accessible to establish evolution."
+    "next_action": "Broaden orphaned historical project discovery now that UAS/Pergrande evolution is substantially reconciled. Search generic/root titles and older campaign/system/reference assets; prioritize safe unprocessed project families and MASTER files. Retry UAS - Origins failed_retry later without blocking."
   },
   "top_level_folders": [
     {
@@ -2164,8 +2164,8 @@
       "path": "/My Drive/Universal Anime System (UAS)/GM Tools/GM Session Planning Template/Checklist",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2023-03-09T17:39:59.934Z",
-      "category": "ttrpg_game_design",
-      "content_status": "processed_summary"
+      "category": "ttrpg_gm_reference",
+      "content_status": "processed"
     },
     {
       "id": "1vbY4MCFHpWyKUUkAOJieAo_lEesIDPmUJzpi4UcD8eQ",
@@ -2173,8 +2173,8 @@
       "path": "/My Drive/Universal Anime System (UAS)/Character Creation/CharCreation v2",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2022-09-22T00:29:53.254Z",
-      "category": "ttrpg_game_design",
-      "content_status": "processed_summary"
+      "category": "universal_anime_system",
+      "content_status": "processed"
     },
     {
       "id": "1cz8k-IG2y5UsFmfnA55RmZEqjtcH1mGNpVbfMx74Qlc",
@@ -2198,8 +2198,8 @@
       "id": "14sjLqJ8RSd3C-OtrA1ApyE0J-3Ho0w6TPNEK5OuQ7AM",
       "title": "Blades of Pergrande - Loredoc",
       "path": "/My Drive/Personal/TTRPG/blades of pergrande/Blades of Pergrande - Loredoc",
-      "category": "ttrpg_blades_of_pergrande",
-      "content_status": "processed_elsewhere"
+      "category": "blades_of_pergrande",
+      "content_status": "processed"
     },
     {
       "id": "1Qk2TlPBW0BosNPrIu1k5tQTtBHVG9LOQ6Kp9l0iEfHk",
@@ -2641,6 +2641,33 @@
       "category": "blades_of_pergrande",
       "content_status": "processed",
       "inventory_source": "UAS/Pergrande reconciliation"
+    },
+    {
+      "id": "1GmXlg_Z2zRBukJ4JjvG-2NzKj-Fce3NvN3wVyGGf0nw",
+      "title": "Arc - Forest Followup",
+      "path": "/Accessible Drive/Arc - Forest Followup",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "blades_of_pergrande",
+      "content_status": "processed",
+      "inventory_source": "Pergrande/UAS reconciliation"
+    },
+    {
+      "id": "12BgdMu5ccCKz-upBQ3A56VR1Knt-vXVIy4eJ8wP3k44",
+      "title": "Player character arcs brainstorming",
+      "path": "/Accessible Drive/Player character arcs brainstorming",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "blades_of_pergrande",
+      "content_status": "processed",
+      "inventory_source": "Pergrande/UAS reconciliation"
+    },
+    {
+      "id": "12PovbbSP_Rzr3PMcUrCh-mcvNVxeC65X2CEGnP3QKNI",
+      "title": "UAS Origin System",
+      "path": "/Accessible Drive/UAS Origin System",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "category": "universal_anime_system",
+      "content_status": "processed",
+      "inventory_source": "Pergrande/UAS reconciliation"
     }
   ],
   "folder_queue": [
@@ -2845,6 +2872,14 @@
           "1wEfVnC2KCxZLSlOJfu0vCEINY4YYDBQ24NESwp6CCpI"
         ],
         "architecture_note": "Shared SYS/export/reference tabs indicate an emerging reusable system-data layer across GM and player tools."
+      },
+      "origin_evolution": {
+        "summary": "An older CharCreation v2 captures the transition-era class vocabulary: Brawler, Tank, Blaster, Strategist, Infiltrator, Support and Negotiator, each tied to a CAST stat. It uses point-buy stats, skill/expertise investment, custom magic, spell-point purchasing/upgrading, rank-based spell power and a personal ability with advantages/drawbacks. The later Origin System separates character history into modular dimensions including Origin, Upbringing, Turning Point and Profession. Origins range from Human/Construct/Gestalt/Hivemind and supernatural species to conceptual/extraplanar types, each intended to grant narrative/mechanical features. Profession includes broad life-history occupations, reinforcing UAS's design goal of deriving capabilities from backstory rather than class alone.",
+        "source_ids": [
+          "1vbY4MCFHpWyKUUkAOJieAo_lEesIDPmUJzpi4UcD8eQ",
+          "12PovbbSP_Rzr3PMcUrCh-mcvNVxeC65X2CEGnP3QKNI"
+        ],
+        "evolution_note": "This establishes a clearer bridge from the older role-name scheme into the later 2e Guardian/Artillery/Tactician/Operative/Bruiser/Support/Diplomat terminology and from simple backgrounds toward a compositional life-history system."
       }
     },
     "berea-pinochle": {
@@ -2966,6 +3001,15 @@
           "1awZlpRixs8EvyDGikUdXBzRhRHpjeaZQeLLZh-CITZA"
         ],
         "relationship": "Blades of Pergrande appears to be both a campaign setting and a practical development environment for UAS."
+      },
+      "deep_archive_recovery": {
+        "summary": "Later/expanded Pergrande material confirms a dense campaign-state model. The unified loredoc contains faction, NPC, deity, power, item, location, race, culture, event and plot tables. Pergrande locations include Valefor, Eloburgh, Waxpool, Klobury, Inecaster, Vreles and many smaller towns. Faction data expands the state beyond wizard guilds to the monarchy, Kingsmen, Inquisition, Four Horsemen and Council of Blades, plus a much larger legal/dark-guild roster. The Forest Followup arc ties Dragon Heart's contract consequences and debt to an Aries Horn labor-conflict arc and introduces the Black Index as an underworld bounty/ranking concept. Player-arc brainstorming connects Milo/Loki to Deceit, Swick to Despair/Sin Eater, Morris to the eight primordial creation gods and Lazarus Taxon, and Lawson to Violet Djinn's artificial Etherious project. These are historical planning notes and may contain abandoned alternatives rather than settled campaign canon.",
+        "source_ids": [
+          "1GmXlg_Z2zRBukJ4JjvG-2NzKj-Fce3NvN3wVyGGf0nw",
+          "12BgdMu5ccCKz-upBQ3A56VR1Knt-vXVIy4eJ8wP3k44",
+          "14sjLqJ8RSd3C-OtrA1ApyE0J-3Ho0w6TPNEK5OuQ7AM"
+        ],
+        "authority_note": "Treat brainstorming alternatives as provisional historical state; use the structured loredoc and later campaign records to resolve conflicts."
       }
     },
     "dragon-heart-campaign": {
@@ -4040,6 +4084,19 @@
       "relationships": [
         "seedbox/media-server project",
         "books/comics collection databases"
+      ]
+    },
+    "ttrpg-gm-workflow": {
+      "status": "historical reusable workflow",
+      "domain": "tabletop GM preparation",
+      "summary": "Reusable session-prep template emphasizing cinematic openings, sensory scene framing, NPC motivation, pressure/stakes, clues, concise essential dialogue, likely skill checks and plot-critical information that should not be gated behind rolls. It recommends roughly 20–30 minute scenes and explicitly treats the script as a guide for improvisation rather than a railroad.",
+      "source_ids": [
+        "1QkfcPXwHfeYPpX2mkyv5Mpy05qwYH0OC1k-c0bCF4YI"
+      ],
+      "relationships": [
+        "Blades of Pergrande",
+        "Universal Anime System",
+        "Anthem City"
       ]
     }
   },
