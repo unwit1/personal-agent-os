@@ -252,28 +252,50 @@
       "blank": false,
       "further_processing_needed": false,
       "notes": "Generic RPG origin/background mechanics; search match does not establish Dream Eater relevance. Excluded."
+    },
+    {
+      "source_id": "1lHWPqgWtF3Iz_LDU-2_vlQ8_NtlmW5839DdpXxXRuC4",
+      "title": "Character Sheet - Kaine's Jojo Game - Ellison Crane",
+      "source_system": "google_drive",
+      "path": "outside Dream Eater folder / legacy character sheets",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_date": "2022-06-06T01:13:27.938Z",
+      "discovery_method": "targeted Ellison Crane search",
+      "processing_status": "processed",
+      "processing_depth": "full_text relevance screen",
+      "last_processed_date": "2026-09-18",
+      "source_role": "legacy character/name provenance",
+      "authority_tier": 7,
+      "useful_concepts_found": [
+        "Ellison Crane name predates Dream Eater usage",
+        "legacy Ellison is a suicidal/depressed character whose supernatural power activates during a train suicide attempt"
+      ],
+      "blank": false,
+      "further_processing_needed": false,
+      "notes": "JoJo tabletop character sheet, not Dream Eater canon. Preserve only as creative/name provenance. Do not transfer Stand/Hamon/RPG biography into current Ellison."
     }
   ],
   "next_search_seeds": [
-    "Ellison Crane",
-    "Gallowed Man",
-    "Mourn Dream Eater",
-    "Door Guardian",
-    "Breaking Nameless",
-    "Silence Fade",
-    "Mind Emblem Abigail",
-    "Grant Ashland"
+    "Ellison suicide",
+    "Ellison mask",
+    "Gallow mask",
+    "Broken Throne Ellison",
+    "Mourn Guardian",
+    "Black Guardian Mourn",
+    "Name seed",
+    "Dream Eater seed"
   ],
   "critic_questions": [
     "Does the Name-seed/tree/grave model still survive current canon, and if so how does it distinguish metaphysical Name loss from ordinary memory loss and the Silence?",
     "If Ellison's seed is the Emblem and the Gallowed Man's is the mask in this 2024 brainstorm, how should that older split map onto the confirmed current gestalt without implying two biological identities?",
     "Is Dennis Deacon/Wracken still intended to survive into current continuity, or was his Dream Eater role redistributed to later characters?",
-    "The 2022 Pergrande material already places DENIAL and a spell named SHATTERGATE in the same creative lineage, but Shattergate belongs there to Yrys Noelle rather than Eric. Was current Eric/Shattergate/Denial/Silas causality intentionally evolved from this older pairing, and are any thematic rules from the older Shatter Magic meant to survive?"
+    "The 2022 Pergrande material already places DENIAL and a spell named SHATTERGATE in the same creative lineage, but Shattergate belongs there to Yrys Noelle rather than Eric. Was current Eric/Shattergate/Denial/Silas causality intentionally evolved from this older pairing, and are any thematic rules from the older Shatter Magic meant to survive?",
+    "A 2022 pre-Dream-Eater JoJo sheet already uses the exact name Ellison Crane and centers him on a failed suicide attempt that triggers supernatural consequences. Is current Ellison intentionally evolved from this character, and if so is the death/self-destruction motif meant to be retained thematically?"
   ],
   "checkpoint": {
     "previous_repo_head": "5d8caac82240adef24738708881f2519f5a6b8ed",
     "notion_checkpoint": "9bc64b98586ecc19f2e4645be00908c0392be166",
-    "batch": "drive-2026-09-18-07"
+    "batch": "drive-2026-09-18-08"
   },
   "search_seed_results": {
     "Neverwhere": {
@@ -419,6 +441,38 @@
     "Lilith Deacon": {
       "date": "2026-09-18",
       "result": "known/processed sources only; no new source"
+    },
+    "Ellison Crane": {
+      "date": "2026-09-18",
+      "result": "new legacy JoJo character sheet found and screened; plus known Dream Eater sources"
+    },
+    "Gallowed Man": {
+      "date": "2026-09-18",
+      "result": "known manuscript/Contract Magic/processed Gallow namesake; unrelated hobby hits excluded"
+    },
+    "Mourn Dream Eater": {
+      "date": "2026-09-18",
+      "result": "Character Wiki + old Dream Eater/Guardian/Contract sources; unrelated Skyrim hits excluded"
+    },
+    "Door Guardian": {
+      "date": "2026-09-18",
+      "result": "known Guardian Cycle/Guardian Emblem/Avalon only; unrelated hobby hits excluded"
+    },
+    "Breaking Nameless": {
+      "date": "2026-09-18",
+      "result": "processed brainstorm + known Avalon/Character Wiki; unrelated project hits excluded"
+    },
+    "Silence Fade": {
+      "date": "2026-09-18",
+      "result": "The Silence + Magic System Explained + known manuscript/drafts; no new Dream Eater source"
+    },
+    "Mind Emblem Abigail": {
+      "date": "2026-09-18",
+      "result": "Guardian Emblem + Character Wiki only; no new source"
+    },
+    "Grant Ashland": {
+      "date": "2026-09-18",
+      "result": "Character Wiki/Guardian Cycle/Names/Avalon only; no new source"
     }
   }
 }
