@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-016-tribunal-clockwork-telvanni",
+  "subjects": [
+    {
+      "id": "tes:tools-kagrenac",
+      "name": "Tools of Kagrenac",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/tools-kagrenac.json",
+      "source": {
+        "id": "uesp:tools-kagrenac",
+        "url": "https://en.uesp.net/wiki/Lore:Tools_of_Kagrenac",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mechanical-heart-artifact",
+      "name": "Mechanical Heart",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/mechanical-heart-artifact.json",
+      "source": {
+        "id": "uesp:mechanical-heart-artifact",
+        "url": "https://en.uesp.net/wiki/Lore:Mechanical_Heart",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:clockwork-city-model",
+      "name": "Clockwork City Model",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/clockwork-city-model.json",
+      "source": {
+        "id": "uesp:clockwork-city-model",
+        "url": "https://en.uesp.net/wiki/Lore:Clockwork_City_Model",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Treat Tribunal theology, dissident accounts, sermons and later Temple doctrine as distinct evidence traditions",
+    "Do not use 2920 as straightforward historical evidence without retaining its in-universe fictional/literary status",
+    "Separate the physical/metaphysical Clockwork City from institutions and representations that share its name",
+    "Corprus and Divine Disease claims should distinguish observed effects, Temple explanations and Dagoth-related interpretations",
+    "Prefer direct Morrowind/ESO dialogue and books for Sotha Sil, Almalexia, Divayth Fyr, Yagrum Bagarn and Telvanni claims"
+  ]
+}
