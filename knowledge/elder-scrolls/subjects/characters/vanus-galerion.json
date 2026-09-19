@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "tes:vanus-galerion",
+  "library_id": "elder-scrolls",
+  "name": "Vanus Galerion",
+  "entity_type": "person",
+  "category": "characters",
+  "canonical_path": "knowledge/elder-scrolls/subjects/characters/vanus-galerion.json",
+  "continuity_model": "claims_and_evidence_scoped",
+  "sources": [
+    {
+      "source_id": "uesp:vanus-galerion",
+      "url": "https://en.uesp.net/wiki/Lore:Vanus_Galerion",
+      "source_class": "secondary_reference",
+      "status": "queued"
+    }
+  ],
+  "claims": [],
+  "relationships": [],
+  "notes": "Subject shell created during ingestion; claims/evidence populate only after provenance-backed extraction."
+}
