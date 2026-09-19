@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-029-source-quality",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:quality-transcription",
+      "title": "Transcription quality audit",
+      "document_kind": "source_quality_queue",
+      "status": "queued",
+      "subjects": [
+        "transcriptions",
+        "OCR",
+        "formatting",
+        "text integrity"
+      ]
+    },
+    {
+      "id": "til:quality-attribution",
+      "title": "Authorship and attribution confidence audit",
+      "document_kind": "source_quality_queue",
+      "status": "queued",
+      "subjects": [
+        "authorship",
+        "attribution",
+        "developer identity"
+      ]
+    },
+    {
+      "id": "til:quality-date",
+      "title": "Publication-date confidence audit",
+      "document_kind": "source_quality_queue",
+      "status": "queued",
+      "subjects": [
+        "dates",
+        "publication history",
+        "archives"
+      ]
+    },
+    {
+      "id": "til:quality-completeness",
+      "title": "Excerpt versus complete-text audit",
+      "document_kind": "source_quality_queue",
+      "status": "queued",
+      "subjects": [
+        "excerpts",
+        "complete texts",
+        "missing context"
+      ]
+    },
+    {
+      "id": "til:quality-edit-history",
+      "title": "Silent edit and revision audit",
+      "document_kind": "source_quality_queue",
+      "status": "queued",
+      "subjects": [
+        "edits",
+        "revisions",
+        "versions",
+        "content fingerprints"
+      ]
+    },
+    {
+      "id": "til:quality-provenance-score",
+      "title": "Evidence provenance confidence components",
+      "document_kind": "source_quality_model",
+      "status": "queued",
+      "subjects": [
+        "provenance",
+        "confidence",
+        "source quality"
+      ]
+    }
+  ],
+  "quality_dimensions": [
+    "author_identity",
+    "developer_role_at_publication",
+    "original_venue",
+    "original_date",
+    "text_completeness",
+    "archive_lineage",
+    "content_integrity",
+    "revision_status"
+  ],
+  "review_rules": [
+    "Quality dimensions are recorded independently; do not collapse them into a single authority score.",
+    "Low-confidence date does not imply low-confidence authorship, and vice versa.",
+    "A clean Imperial Library transcription can be high-quality as a witness while remaining secondary to the original publication.",
+    "Record missing sections, broken formatting and suspected transcription errors explicitly.",
+    "Confidence metadata must explain why it was assigned and remain revisable."
+  ]
+}
