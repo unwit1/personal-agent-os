@@ -1,0 +1,355 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "continuity_id": "tes-base",
+  "batch_id": "uesp-010-morrowind-great-houses-cluster",
+  "purpose": "Deepen Morrowind coverage with Great Houses, Tribunal/New Temple institutions, Vvardenfell geography, Red Year aftermath, and major social institutions.",
+  "pages": [
+    {
+      "id": "morrowind",
+      "title": "Morrowind",
+      "url": "https://en.uesp.net/wiki/Lore:Morrowind",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "vvardenfell",
+      "title": "Vvardenfell",
+      "url": "https://en.uesp.net/wiki/Lore:Vvardenfell",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "mournhold",
+      "title": "Mournhold",
+      "url": "https://en.uesp.net/wiki/Lore:Mournhold",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "necrom",
+      "title": "Necrom",
+      "url": "https://en.uesp.net/wiki/Lore:Necrom",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "blacklight",
+      "title": "Blacklight",
+      "url": "https://en.uesp.net/wiki/Lore:Blacklight",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "vivec-city",
+      "title": "Vivec City",
+      "url": "https://en.uesp.net/wiki/Lore:Vivec_City",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "great-houses",
+      "title": "Great Houses",
+      "url": "https://en.uesp.net/wiki/Lore:Great_Houses",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "house-redoran",
+      "title": "House Redoran",
+      "url": "https://en.uesp.net/wiki/Lore:House_Redoran",
+      "page_type": "lore_summary",
+      "entity_type": "faction",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "house-telvanni",
+      "title": "House Telvanni",
+      "url": "https://en.uesp.net/wiki/Lore:House_Telvanni",
+      "page_type": "lore_summary",
+      "entity_type": "faction",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "house-hlaalu",
+      "title": "House Hlaalu",
+      "url": "https://en.uesp.net/wiki/Lore:House_Hlaalu",
+      "page_type": "lore_summary",
+      "entity_type": "faction",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "house-indoril",
+      "title": "House Indoril",
+      "url": "https://en.uesp.net/wiki/Lore:House_Indoril",
+      "page_type": "lore_summary",
+      "entity_type": "faction",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "house-dres",
+      "title": "House Dres",
+      "url": "https://en.uesp.net/wiki/Lore:House_Dres",
+      "page_type": "lore_summary",
+      "entity_type": "faction",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "tribunal-temple",
+      "title": "Tribunal Temple",
+      "url": "https://en.uesp.net/wiki/Lore:Tribunal_Temple",
+      "page_type": "lore_summary",
+      "entity_type": "religion",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "new-temple",
+      "title": "New Temple",
+      "url": "https://en.uesp.net/wiki/Lore:New_Temple",
+      "page_type": "lore_summary",
+      "entity_type": "religion",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "anticipations",
+      "title": "Anticipations",
+      "url": "https://en.uesp.net/wiki/Lore:Anticipations",
+      "page_type": "lore_summary",
+      "entity_type": "concept",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "reclamations",
+      "title": "Reclamations",
+      "url": "https://en.uesp.net/wiki/Lore:Reclamations",
+      "page_type": "lore_summary",
+      "entity_type": "concept",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "buoyant-armigers",
+      "title": "Buoyant Armigers",
+      "url": "https://en.uesp.net/wiki/Lore:Buoyant_Armigers",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "ordinators",
+      "title": "Ordinators",
+      "url": "https://en.uesp.net/wiki/Lore:Ordinators",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "ashlands",
+      "title": "Ashlands",
+      "url": "https://en.uesp.net/wiki/Lore:Ashlands",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "grazelands",
+      "title": "Grazelands",
+      "url": "https://en.uesp.net/wiki/Lore:Grazelands",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "azuras-coast",
+      "title": "Azura's Coast",
+      "url": "https://en.uesp.net/wiki/Lore:Azura%27s_Coast",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "bitter-coast",
+      "title": "Bitter Coast",
+      "url": "https://en.uesp.net/wiki/Lore:Bitter_Coast",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "molag-amur",
+      "title": "Molag Amur",
+      "url": "https://en.uesp.net/wiki/Lore:Molag_Amur",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "ghostfence",
+      "title": "Ghostfence",
+      "url": "https://en.uesp.net/wiki/Lore:Ghostfence",
+      "page_type": "lore_summary",
+      "entity_type": "structure",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "ministry-of-truth",
+      "title": "Ministry of Truth",
+      "url": "https://en.uesp.net/wiki/Lore:Ministry_of_Truth",
+      "page_type": "lore_summary",
+      "entity_type": "place_or_structure",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "baar-dau",
+      "title": "Baar Dau",
+      "url": "https://en.uesp.net/wiki/Lore:Baar_Dau",
+      "page_type": "lore_summary",
+      "entity_type": "celestial_object",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "red-year",
+      "title": "Red Year",
+      "url": "https://en.uesp.net/wiki/Lore:Red_Year",
+      "page_type": "lore_summary",
+      "entity_type": "event",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "argonian-invasion",
+      "title": "Accession War",
+      "url": "https://en.uesp.net/wiki/Lore:Accession_War",
+      "page_type": "lore_summary",
+      "entity_type": "event",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "slavery-morrowind",
+      "title": "Slavery in Morrowind",
+      "url": "https://en.uesp.net/wiki/Lore:Slavery_in_Morrowind",
+      "page_type": "lore_summary",
+      "entity_type": "concept",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    },
+    {
+      "id": "morag-tong",
+      "title": "Morag Tong",
+      "url": "https://en.uesp.net/wiki/Lore:Morag_Tong",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game books/dialogue/quests/events; preserve factional and religious attribution"
+    }
+  ],
+  "direct_evidence_seeds": [
+    {
+      "title": "A Brief History of House Telvanni",
+      "url": "https://en.uesp.net/wiki/Online:A_Brief_History_of_House_Telvanni",
+      "authority_class": "primary_in_universe",
+      "status": "queued"
+    },
+    {
+      "title": "History of Necrom: The City of the Dead",
+      "url": "https://en.uesp.net/wiki/Online:History_of_Necrom:_The_City_of_the_Dead",
+      "authority_class": "primary_in_universe",
+      "status": "queued"
+    },
+    {
+      "title": "Morrowind shrine corpus",
+      "url": "https://en.uesp.net/wiki/Category:Morrowind-Shrines",
+      "authority_class": "primary_game_objects",
+      "status": "queued_collection",
+      "notes": "UESP category enumerates 28 Morrowind shrine pages, useful for Tribunal saint/cult evidence."
+    }
+  ],
+  "review_focus": [
+    "Great House accounts can be partisan; preserve speaker/author affiliation",
+    "Temple doctrine is evidence of doctrine, not automatic objective cosmology",
+    "post-Red-Year chronology should distinguish direct sources from later summaries",
+    "slavery claims should retain time period and polity context",
+    "Vvardenfell/Ashlands/Azura's Coast and other UESP cleanup-category locations require review"
+  ],
+  "quality_flags": [
+    {
+      "pages": [
+        "Vvardenfell",
+        "Ashlands",
+        "Azura's Coast"
+      ],
+      "flag": "lore_places_cleanup_category"
+    }
+  ],
+  "ingestion_rules": {
+    "raw_text": "local_rebuildable",
+    "git": "metadata_queue_review_state_only",
+    "checkpoint_each_page": true,
+    "preserve_epistemic_language": true,
+    "prefer_underlying_primary_evidence": true,
+    "exclude_mod_namespaces_from_tes_base": true
+  }
+}
