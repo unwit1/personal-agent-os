@@ -20,7 +20,8 @@
       "2026-09-18 continuation pass found and analyzed the recent Character Wiki (modified 2026-05-23), revealing current Guardian-cycle planning, Dominion/Gallowbird/Mourn material, Deadlight succession, and several event-causality questions to preserve rather than flatten.",
       "User clarification 2026-09-18: Silas Ashland is canonically the child Denial weaponized against the Nameless Throne, and has been intended as that child from the concept's origin. Grant Ashland is his father; his mother's name is currently unrecovered, but she is Abigail Fletcher's mentor in The Delusionist.",
       "2026-09-18 Drive-wide discovery pass: searched Silas/Grant/Abigail/Delusionist beyond the Dream Eater folder. No reliable mother's name recovered. Found cross-source support for Door→Ellison reconstitution and an older collective-perception metaphysics basis relevant to the recent Vane/Silence note.",
-      "2026-09-18 began importing the connected Notion Dream Eater workspace into the Agent OS provenance map. Notion contains a structured Dream Eater→Lore hierarchy with Guardian Cycle, organizations, locations, entities and an Eight Houses database. Many pages are placeholders; substantive content is retained without promoting it over newer/user-confirmed sources."
+      "2026-09-18 began importing the connected Notion Dream Eater workspace into the Agent OS provenance map. Notion contains a structured Dream Eater→Lore hierarchy with Guardian Cycle, organizations, locations, entities and an Eight Houses database. Many pages are placeholders; substantive content is retained without promoting it over newer/user-confirmed sources.",
+      "User clarification 2026-09-18: Silas Ashland's mother is also the Mind Emblem holder immediately before Abigail Fletcher and Abigail's mentor in The Delusionist. Current 2026 Guardian Cycle evidence makes Melissa Finnegan the leading candidate, but do not promote that identification without explicit confirmation."
     ]
   },
   "project_clusters": [
@@ -283,9 +284,19 @@
           "definition": "Silas Ashland is the child Denial weaponized as a conceptual suicide bomb/homing weapon against the Nameless Throne. This was the intended identity from the concept's origin; the user had temporarily forgotten the name.",
           "parentage": {
             "father": "Grant Ashland",
-            "mother": "Unknown by name in current retrieved context; she is Abigail Fletcher's mentor in The Delusionist."
+            "mother": "Unknown by confirmed name; user confirms she is Abigail Fletcher's mentor in The Delusionist AND the holder of the Mind Emblem immediately before Abigail."
           },
-          "event_mapping": "The Character Wiki's statement that Denial-possessed Eric used a Shattergate on Silas Ashland's Name and the user's description of Denial weaponizing a child against the Nameless Throne refer to the same event chain. Preserve the exact mechanics/causal steps for later event-ledger consolidation."
+          "event_mapping": "The Character Wiki's statement that Denial-possessed Eric used a Shattergate on Silas Ashland's Name and the user's description of Denial weaponizing a child against the Nameless Throne refer to the same event chain. Preserve the exact mechanics/causal steps for later event-ledger consolidation.",
+          "mother_identity_constraint": {
+            "status": "Canon relationship constraint",
+            "facts": [
+              "Silas's mother is Abigail Fletcher's mentor in The Delusionist.",
+              "Silas's mother held the Mind Emblem immediately before Abigail Fletcher."
+            ],
+            "candidate": "Melissa Finnegan",
+            "candidate_status": "Likely but NOT user-confirmed",
+            "evidence": "The 2026 Guardian Cycle sheet places Psychic Melissa Finnegan in the Third Cycle directly opposite/succeeded by Abigail Fletcher, while the 2026 Character Wiki explicitly labels Abigail as the Mind Emblem holder. This makes Melissa the strongest current candidate, but no retrieved source yet explicitly states Melissa is Silas's mother or Abigail's mentor."
+          }
         }
       },
       "deep_version_comparison": {
@@ -465,7 +476,7 @@
           "Much of the Guardian Cycle, Broken Throne, Guardian, Fate/Weaver and Traveler Notion structure consists of blank placeholder pages. Their existence is useful taxonomy/provenance but contributes no new canon facts."
         ],
         "unresolved_search": {
-          "silas_mother": "Not recovered from Notion keyword search or currently fetched Dream Eater hierarchy. Keep unknown; Scrivener/old-laptop sources remain unsearched.",
+          "silas_mother": "Not named in fetched Notion material. New user-confirmed constraint: she is Abigail Fletcher's mentor and the Mind Emblem holder immediately before Abigail. Drive evidence makes Melissa Finnegan the strongest candidate, but identity remains unconfirmed until explicit source/user confirmation.",
           "completeness": "Notion AI search is unavailable on the connected plan. The import should therefore continue by recursively traversing the Dream Eater hierarchy and fetching nonblank descendants/databases rather than relying only on search."
         },
         "external_archive_backlog": [
