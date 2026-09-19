@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 296,
+    "first_level_files_indexed": 297,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue broad historical discovery with older campaign/system folders and MASTER/reference files, prioritizing safe project documents not yet in the ledger. Reconcile UAS/Fate/Anthem City evolution and orphaned root files; inventory sensitive/personal trackers metadata-only."
+    "next_action": "Continue UAS/Blades of Pergrande reconciliation: inspect UAS SYSTEM 2nd Edition, GM tools, character-sheet/autosheet and remaining Pergrande lore/races/spells/arc docs. Retry UAS - Origins later; do not stall on inaccessible sheets. Then resume orphaned historical project discovery."
   },
   "top_level_folders": [
     {
@@ -2155,8 +2155,8 @@
       "path": "/My Drive/Universal Anime System (UAS)/System Base 1.5/UAS RULEBOOK v1",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2023-05-21T01:44:39.379Z",
-      "category": "ttrpg_game_design",
-      "content_status": "processed_summary"
+      "category": "universal_anime_system",
+      "content_status": "processed"
     },
     {
       "id": "1QkfcPXwHfeYPpX2mkyv5Mpy05qwYH0OC1k-c0bCF4YI",
@@ -2234,7 +2234,7 @@
       "title": "Anthem City - Lore - Unified Lore Doc",
       "path": "/My Drive/Personal/TTRPG/Campaign 1 - Anthem/Anthem City - Lore - Unified Lore Doc",
       "category": "ttrpg_anthem_city",
-      "content_status": "processed_summary"
+      "content_status": "processed"
     },
     {
       "id": "1KKf_TW1UwzktKVpL9PObqyHLB-8AYcqkpyYOZtOP70M",
@@ -2248,7 +2248,7 @@
       "title": "Anthem City - CHARACTER CREATION",
       "path": "/My Drive/Personal/TTRPG/Campaign 1 - Anthem/Anthem City - CHARACTER CREATION",
       "category": "ttrpg_anthem_city",
-      "content_status": "processed_summary"
+      "content_status": "processed"
     },
     {
       "id": "1njz-xNZSAzfZvI9RNQ0wdEN3dP_m5CEfXmtlRTVSk7c",
@@ -2267,14 +2267,14 @@
     {
       "id": "1LUWkB-XrcUyVDjyGcmwBKktg0Nj7tLi3PthhtQfWnpU",
       "title": "DARK WIZARDRY & Guilds",
-      "category": "ttrpg_blades_of_pergrande",
-      "content_status": "processed_summary"
+      "category": "blades_of_pergrande",
+      "content_status": "processed"
     },
     {
       "id": "1FrvnvLpoMNaOhv054EsDrYd59CHiqJxpWfnXney_WXA",
       "title": "Lore - Blades of Pergrande",
-      "category": "ttrpg_blades_of_pergrande",
-      "content_status": "queued_large"
+      "category": "blades_of_pergrande",
+      "content_status": "processed"
     },
     {
       "id": "19_fFEjz2Uf84HlWfEVqe_v5bOQaIL2BKyw6_gDrhqXk",
@@ -2291,8 +2291,8 @@
     {
       "id": "1DUMxHAp3W_6E_c_LHun4j59OF9pQHlTlU7NO317oLog",
       "title": "Wizard Guilds - Blades of Pergrande",
-      "category": "ttrpg_blades_of_pergrande",
-      "content_status": "queued_large"
+      "category": "blades_of_pergrande",
+      "content_status": "processed"
     },
     {
       "id": "1Bf-9hWYXXkxSmztix4nwXWMYc3OTfXSw2OWvVnaO7u0",
@@ -2303,8 +2303,8 @@
     {
       "id": "1-W3T8bNQdogJftk6MIPKgdjqA8OLk6_14R2JY7tbbkY",
       "title": "Plot - Blades of Pergrande",
-      "category": "ttrpg_blades_of_pergrande",
-      "content_status": "processed_summary"
+      "category": "blades_of_pergrande",
+      "content_status": "processed"
     },
     {
       "id": "1Fi1NMVcqJ-B1g-MkHkYUaRJe9Z-cLBVJ3oVoe8zYpJw",
@@ -2358,7 +2358,7 @@
       "id": "1qIyeN2NcqKAbe7HMFdEaEl4801BCA4bQ5lhGq5ZJMTs",
       "title": "Anthem City - Mechanics - Social System",
       "category": "ttrpg_anthem_city",
-      "content_status": "processed_summary"
+      "content_status": "processed"
     },
     {
       "id": "1w7kJ5dJvERcWgwXUsYVOsDJZ-DcjJUp3pITD4ImxyfY",
@@ -2471,8 +2471,8 @@
       "id": "1W2qe_BkqRsZP4_1jivSdCrzeboqb2DrdGhv8O8GilKs",
       "title": "UAS GM GUIDE",
       "path": "/My Drive/Universal Anime System (UAS)/System Base 1.5/UAS GM GUIDE",
-      "category": "ttrpg_game_design",
-      "content_status": "processed_summary"
+      "category": "universal_anime_system",
+      "content_status": "processed"
     },
     {
       "id": "1TTRD1SNDjKLsYob3aHDb-ej-FH2jKeiavqPHN6m_tR0",
@@ -2621,6 +2621,17 @@
       "category": "ttrpg_fate_nasuverse",
       "content_status": "processed",
       "inventory_source": "broad root/search discovery"
+    },
+    {
+      "id": "18udxlQkqY1UJdsbVSPORNrmJYkNr7vUOjzqokJPC10",
+      "title": "UAS - Origins",
+      "path": "/Accessible Drive/UAS - Origins",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2024-06-19T02:01:52.985Z",
+      "category": "universal_anime_system",
+      "content_status": "failed_retry",
+      "inventory_source": "targeted historical discovery",
+      "inspection_note": "Native Sheets metadata returned NOT_FOUND during this pass; retain for retry and continue crawl."
     }
   ],
   "folder_queue": [
@@ -2779,103 +2790,31 @@
   },
   "project_clusters": {
     "universal-anime-system": {
-      "status": "historical_or_dormant",
-      "domain": "tabletop RPG system design",
-      "summary": "Universal Anime System (UAS) is a modular sandbox tabletop RPG intended to adapt anime/fantasy-style settings. It uses custom character powers/magic, combat-role classes, ranked encounters and abilities, proficiency progression, and an Action Point action economy. Earlier character-creation material shows the system evolving toward the later rulebook.",
+      "status": "historical_active_system_family",
+      "domain": "modular tabletop RPG system",
+      "approximate_date_range": "2022-2024+",
+      "summary": "UAS is a sandbox tabletop system designed for modular adaptation across anime, fantasy and other settings. First-edition materials center backstory-driven character creation, stackable backgrounds/proficiencies, custom powers/spells, a rank-scaled difficulty model, Action Point combat, equipment proficiency and highly modular combat classes/subclasses.",
+      "systems": [
+        "Action Point economy with Dexterity scaling",
+        "D/C/B/A/S/SS/SSS/EX difficulty and power ranks",
+        "Unlearned/Learned/Proficient/Mastered/Savant proficiency ladder",
+        "Custom spell/power classification and advancement",
+        "Background-driven starting skills/equipment",
+        "Combat roles including Guardian, Artillery, Tactician, Operative, Bruiser, Aid and Diplomat with subclasses"
+      ],
       "source_ids": [
         "16yFk7cnWdL3nmvrAlytJD8u_r0wqgfidYt_bNsTuoIA",
-        "1vbY4MCFHpWyKUUkAOJieAo_lEesIDPmUJzpi4UcD8eQ",
-        "1QkfcPXwHfeYPpX2mkyv5Mpy05qwYH0OC1k-c0bCF4YI"
+        "1W2qe_BkqRsZP4_1jivSdCrzeboqb2DrdGhv8O8GilKs",
+        "18udxlQkqY1UJdsbVSPORNrmJYkNr7vUOjzqokJPC10"
       ],
-      "related_projects": [
+      "relationships": [
         "Blades of Pergrande",
-        "Dragon Heart Campaign"
+        "Fate/Nasuverse RPG"
       ],
-      "notable_mechanics": [
-        "Action Point economy",
-        "custom magic/powers",
-        "combat-role classes",
-        "ranked difficulty D through EX",
-        "skill/equipment proficiency progression",
-        "GM scene-planning workflow"
-      ],
-      "gm_guide_details": {
-        "design_goal": "modular sandbox system adaptable to anime, fantasy and other settings",
-        "character_creation": [
-          "backstory",
-          "race",
-          "backgrounds",
-          "skill proficiencies",
-          "equipment",
-          "custom spells"
-        ],
-        "combat_classes": [
-          "Guardian (CON)",
-          "Artillery (WILL)",
-          "Tactician (INT)",
-          "Operative (DEX)",
-          "Bruiser (STR)",
-          "Aid (WIS)",
-          "Diplomat (CHA)"
-        ],
-        "class_design": "Each class has specialized subclasses and class feats; examples include Knight/Warden/Bulwark/Juggernaut, Cannon/Sniper/Elementalist/Demolisher, Commander/Engineer/Chessmaster/Manipulator, and Assassin/Spy/Saboteur/Shadow."
-      },
-      "system_taxonomy": {
-        "difficulty_ranks": [
-          "D",
-          "C",
-          "B",
-          "A",
-          "S",
-          "SS",
-          "SSS",
-          "EX"
-        ],
-        "primary_stats": [
-          "STR",
-          "CON",
-          "DEX",
-          "INT",
-          "WIS",
-          "CHA",
-          "WILL"
-        ],
-        "derived_stats": [
-          "HP",
-          "MP",
-          "AP",
-          "MPR",
-          "HPR",
-          "AC"
-        ],
-        "progression_resources": [
-          "Proficiency Bonus",
-          "Spell Points",
-          "Feat Points",
-          "Stat Points"
-        ],
-        "background_design": "Large modular origin/background taxonomy spanning supernatural origins, childhood, profession, social status, culture, geography, religion, education and life-changing events.",
-        "origin_examples": [
-          "Clone",
-          "Construct",
-          "Divine Blood",
-          "Immortal",
-          "Experiment",
-          "Hellborn",
-          "Monster",
-          "Revenant",
-          "Awakened",
-          "Otherworlder",
-          "Spirit",
-          "Soulless",
-          "Memory Eater",
-          "Living Concept",
-          "Dream Walker",
-          "Thoughtform",
-          "Reincarnate"
-        ]
-      },
-      "development_notes": "Character Backgrounds appears to be an earlier/parallel structured taxonomy feeding later expanded Backgrounds/Origins sheets. UAS design work explicitly contemplated AI-assisted encounter generation using rank-derived stat and difficulty modifiers."
+      "unresolved_questions": [
+        "How much of first-edition prose/mechanics survived into UAS SYSTEM 2nd Edition?",
+        "Retry inaccessible UAS - Origins sheet and reconcile against earlier UAS Origin System."
+      ]
     },
     "berea-pinochle": {
       "status": "historical_or_dormant",
@@ -2922,6 +2861,15 @@
           "1KKf_TW1UwzktKVpL9PObqyHLB-8AYcqkpyYOZtOP70M"
         ],
         "historical_state": true
+      },
+      "mechanics_recovery": {
+        "summary": "Anthem City had a bespoke school/superhero RPG rules layer: personality traits for roleplay, milestone leveling, skill proficiencies, combat-role matchups, point-budgeted powers with required drawbacks/limitations, and a school-life social loop. Arcadia school days used three activity periods; study, classes, gadget development, equipment upgrades and physical/special/combat training improved characters. A Delinquency Point meter and weekly exams tied conduct and academics to possible expulsion.",
+        "source_ids": [
+          "13_YIUXY6qj1Wjt7nOncaOEeXUti-3hlPh9l-4jjQGi4",
+          "1qIyeN2NcqKAbe7HMFdEaEl4801BCA4bQ5lhGq5ZJMTs",
+          "1Kb_vDbHV-omPfNL0k5Q38P1b_yHLlNkUavtmHyVctyo"
+        ],
+        "historical_state": true
       }
     },
     "fate-false-paradise": {
@@ -2963,7 +2911,21 @@
         "Morris, Milo and clone/identity plotlines",
         "multi-arc campaign planning"
       ],
-      "visual_asset_notes": "Guild-mark folders contain visual references/emblems for campaign organizations and characters. Assets are indexed as project evidence; generic image content is not promoted into lore unless filenames or associated docs establish meaning."
+      "visual_asset_notes": "Guild-mark folders contain visual references/emblems for campaign organizations and characters. Assets are indexed as project evidence; generic image content is not promoted into lore unless filenames or associated docs establish meaning.",
+      "archive_recovery": {
+        "summary": "Recovered campaign/world sources show Pergrande as a wizard-guild society where legal guilds function as regulated mercenary organizations under the Council of Blades, with taxation, military-law obligations and possible wartime draft. Named legal guilds include Horizon Ace, Nine Lives Fox, Yggdrasil, False Guardian, Aries Horn, Star Harbour, Deadlight Brigade, Dragon Heart and Royal Flush; dark guilds include Traveler's Thorn, Mourning Wood, Liar's Tongue, Violet Djinn, Sin Eater, Kakkarow, Babylon Dragon, Blood Leviathan and One Eye Reaper. Plot planning used explicit arc replacements/inspirations and included major threads around Deadlight Brigade, Noximilien the Clockmaker, ancient Sins/Aspects, S-Class games and One Eye Reaper.",
+        "source_ids": [
+          "1FrvnvLpoMNaOhv054EsDrYd59CHiqJxpWfnXney_WXA",
+          "1-W3T8bNQdogJftk6MIPKgdjqA8OLk6_14R2JY7tbbkY",
+          "1DUMxHAp3W_6E_c_LHun4j59OF9pQHlTlU7NO317oLog",
+          "1LUWkB-XrcUyVDjyGcmwBKktg0Nj7tLi3PthhtQfWnpU"
+        ],
+        "historical_state": true,
+        "relationships": [
+          "Universal Anime System",
+          "Dragon Heart"
+        ]
+      }
     },
     "dragon-heart-campaign": {
       "status": "historical_or_dormant",
