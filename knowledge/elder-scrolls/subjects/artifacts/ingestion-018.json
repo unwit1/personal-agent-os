@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-018-dwemer-aetherium-blackreach",
+  "subjects": [
+    {
+      "id": "tes:aetherial-crown",
+      "name": "Aetherial Crown",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/aetherial-crown.json",
+      "source": {
+        "id": "uesp:aetherial-crown",
+        "url": "https://en.uesp.net/wiki/Lore:Aetherial_Crown",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:aetherial-shield",
+      "name": "Aetherial Shield",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/aetherial-shield.json",
+      "source": {
+        "id": "uesp:aetherial-shield",
+        "url": "https://en.uesp.net/wiki/Lore:Aetherial_Shield",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:aetherial-staff",
+      "name": "Aetherial Staff",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/aetherial-staff.json",
+      "source": {
+        "id": "uesp:aetherial-staff",
+        "url": "https://en.uesp.net/wiki/Lore:Aetherial_Staff",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:lexicon",
+      "name": "Lexicon",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/lexicon.json",
+      "source": {
+        "id": "uesp:lexicon",
+        "url": "https://en.uesp.net/wiki/Lore:Lexicon",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:attunement-sphere",
+      "name": "Attunement Sphere",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/attunement-sphere.json",
+      "source": {
+        "id": "uesp:attunement-sphere",
+        "url": "https://en.uesp.net/wiki/Lore:Attunement_Sphere",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dwemer-cube",
+      "name": "Dwemer Puzzle Cube",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/dwemer-cube.json",
+      "source": {
+        "id": "uesp:dwemer-cube",
+        "url": "https://en.uesp.net/wiki/Lore:Dwemer_Puzzle_Cube",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Treat Dwemer disappearance explanations as competing hypotheses unless primary evidence establishes a narrower claim",
+    "Separate observed Dwemer technology from later scholarly theories about its operating principles",
+    "In-universe scholarly texts retain author, date and reliability metadata",
+    "Do not infer a single unified Dwemer political culture across every city-state and era",
+    "Falmer-Dwemer relations must distinguish recorded agreements, later testimony and archaeological inference",
+    "Claims involving Numidium, Heart of Lorkhan and Kagrenac should cross-link existing subjects rather than duplicate them"
+  ]
+}
