@@ -24,7 +24,8 @@
       "User clarification 2026-09-18: Silas Ashland's mother is also the Mind Emblem holder immediately before Abigail Fletcher and Abigail's mentor in The Delusionist. Current 2026 Guardian Cycle evidence makes Melissa Finnegan the leading candidate, but do not promote that identification without explicit confirmation.",
       "User confirmation 2026-09-18: Melissa Finnegan is Silas Ashland's mother, Grant Ashland is his father, Melissa mentors Abigail Fletcher in The Delusionist, and Melissa is the Mind Emblem holder immediately preceding Abigail.",
       "2026-09-18 deeper Notion traversal mapped the 2024 Divine/Throne taxonomy and Inquisition character hierarchy. Blank descendants are retained as concept-existence provenance only; sibling order is not used to invent Divine↔Throne mappings.",
-      "2026-09-18 Notion realm/history pass: 2024 taxonomy explicitly lists Earth, Fade, Void, Neverwhere and Blueharbor as Realms, with Albion nested under Void. History and Groups are blank, and several organization pages are placeholders. War of Glass/Prague Agreement/Makers material appears to live outside this Notion snapshot, reinforcing cross-source retrieval."
+      "2026-09-18 Notion realm/history pass: 2024 taxonomy explicitly lists Earth, Fade, Void, Neverwhere and Blueharbor as Realms, with Albion nested under Void. History and Groups are blank, and several organization pages are placeholders. War of Glass/Prague Agreement/Makers material appears to live outside this Notion snapshot, reinforcing cross-source retrieval.",
+      "2026-09-18 Notion character cross-check found no substantive records for most later Guardian/Deadlight characters. Notion's Manuscript page is only a Drive embed/link, supporting the conclusion that this workspace was chiefly an ontology/index and Drive held substantive manuscript/lore content."
     ]
   },
   "project_clusters": [
@@ -580,6 +581,41 @@
             ],
             "interpretation": "No substantive Notion hits in the connected Dream Eater tree for these terms. This is a source-distribution finding, not evidence that the concepts were absent from the project; Drive contains later/different material for them.",
             "red_saturday": "No Notion Red Saturday lore recovered; only unrelated match to Yggdrassil's Red Door."
+          },
+          "character_crosscheck": {
+            "searched_entities": [
+              "Mourn",
+              "Gallowbird",
+              "Door",
+              "Dominion",
+              "Dennis Deacon",
+              "Dusk Morgan/Morrigan",
+              "Lilith Deacon",
+              "Harland Fleer",
+              "Lotus Morgan",
+              "Meredith Ashland",
+              "Eric Ashland",
+              "Q16N/Queue",
+              "Guardian Emblem"
+            ],
+            "result": "The 2024 Notion tree does not contain substantive pages/hits for these later/current character names beyond generic or unrelated term matches. The Guardian Cycle is represented primarily as four generation containers rather than individual character records.",
+            "implication": "Do not use Notion silence to downgrade later Drive/current canon. It indicates the 2024 Notion archive was a sparse ontology and that detailed Guardian/character development was maintained elsewhere or added later."
+          },
+          "manuscript_pointer": {
+            "notion_page": "Manuscript",
+            "modified": "2024-10-31",
+            "content": "Contains an embedded/linked Google Drive object rather than manuscript text in the Notion fetch.",
+            "interpretation": "Notion appears to have pointed to Drive for manuscript authority, reinforcing Drive as the substantive manuscript store rather than a duplicate Notion manuscript."
+          },
+          "guardian_cycle_taxonomy": {
+            "generations": [
+              "First Cycle - The Nine",
+              "Second Cycle - The Heretics",
+              "Third Cycle - The Eyes",
+              "Fourth Cycle - Deadlight Brigade"
+            ],
+            "content_state": "Generation pages are blank in the connected 2024 Notion snapshot.",
+            "later_source_relation": "Detailed Guardian identities, succession and Emblems are supplied by later Drive sheets/docs and user-confirmed canon."
           }
         }
       }
