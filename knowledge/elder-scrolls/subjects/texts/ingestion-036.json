@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-036-nerevarine-sixth-house-prophecy",
+  "subjects": [
+    {
+      "id": "tes:lost-prophecy",
+      "name": "The Lost Prophecy",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/lost-prophecy.json",
+      "source": {
+        "id": "uesp:lost-prophecy",
+        "url": "https://en.uesp.net/wiki/Lore:The_Lost_Prophecy",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:seven-visions",
+      "name": "The Seven Visions",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/seven-visions.json",
+      "source": {
+        "id": "uesp:seven-visions",
+        "url": "https://en.uesp.net/wiki/Lore:The_Seven_Visions",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:stranger",
+      "name": "The Stranger",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/stranger.json",
+      "source": {
+        "id": "uesp:stranger",
+        "url": "https://en.uesp.net/wiki/Lore:The_Stranger",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:plan-defeat-dagoth",
+      "name": "Plan to Defeat Dagoth Ur",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/plan-defeat-dagoth.json",
+      "source": {
+        "id": "uesp:plan-defeat-dagoth",
+        "url": "https://en.uesp.net/wiki/Lore:Plan_to_Defeat_Dagoth_Ur",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:progress-truth",
+      "name": "Progress of Truth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/progress-truth.json",
+      "source": {
+        "id": "uesp:progress-truth",
+        "url": "https://en.uesp.net/wiki/Lore:Progress_of_Truth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Never force a single answer to whether the Nerevarine is literal reincarnation, prophetic fulfillment, constructed identity, or some combination; preserve evidence for each interpretation",
+    "Player-defined Nerevarine biography, race, gender, faction memberships and optional quest outcomes remain variable",
+    "Dagoth Ur's dreams, theology and historical claims remain attributed even when delivered directly to the player",
+    "Prophecy texts must preserve exact source lineage, translation/context and the distinction between prediction and retrospective interpretation",
+    "Corprus and divine-disease mechanics should distinguish narrative observations from gameplay-stat effects",
+    "Cross-link existing Nerevarine, Dagoth Ur, Tribunal, Sixth House, Ashlander tribes, Red Mountain, Heart of Lorkhan and Kagrenac-tool records"
+  ]
+}
