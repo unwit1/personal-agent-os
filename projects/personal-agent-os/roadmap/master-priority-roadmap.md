@@ -31,11 +31,107 @@ Use these rules when deciding what to implement next:
 
 ---
 
-## P0 — Immediate usage-reduction foundation
+## P0 — Agent-first execution and immediate usage reduction
 
-This is the highest-priority work.
+This is the highest-priority work. P0.0 and P0.1 must be treated as the first implementation targets unless an urgent correctness/privacy bug intervenes.
 
-### P0.1 — Selective context and profile retrieval
+### P0.0 — Universal Agent OS routing for chats and work projects
+
+Make Agent OS the default execution/context layer for every supported ChatGPT chat, Work project, coding-agent task, and other connected agent surface.
+
+Goal:
+- the user should not have to remember to manually tell an agent to consult Agent OS;
+- every supported request should pass through a lightweight Agent OS preflight before substantial reasoning or implementation begins;
+- Agent OS should resolve the likely project/domain, retrieve only relevant durable context, select applicable skills/policies, identify privacy boundaries, and create/update resumable handoff state;
+- material outcomes should flow back through the candidate-memory/project-update pipeline rather than remaining trapped in a single conversation;
+- GitHub remains canonical for durable reviewed project state while local/private stores retain sensitive or high-volume raw data.
+
+Required execution path:
+
+client/chat/work task
+→ Agent OS preflight
+→ project/domain resolution
+→ selective context + skills + policy retrieval
+→ workflow/stage routing
+→ model/tool execution
+→ validation/checkpoint
+→ candidate durable update/handoff
+
+Client-support requirement:
+- where a client can call Agent OS directly through MCP/plugin/app/API integration, use Agent OS automatically as the default gateway;
+- where a client cannot invoke Agent OS automatically, provide the thinnest available capture/bridge mechanism so the conversation or task can still produce a resumable handoff and durable candidate updates;
+- never claim that an unsupported host can be invisibly intercepted or that Agent OS can hot-swap the model already running in the host.
+
+Acceptance criteria:
+- supported ChatGPT/Work/coding-agent entry points do not require the user to manually restate "check Agent OS";
+- project-relevant context is automatically retrieved selectively;
+- completed work emits a compact handoff/checkpoint and candidate durable updates when appropriate;
+- privacy policies are applied before context leaves local/private zones;
+- an integration-health command/report can show which client surfaces are fully routed, partially bridged, or not yet integrated.
+
+Success signal:
+- project continuity and Agent OS context become the default behavior rather than an opt-in prompt convention.
+
+### P0.1 — Staged Workflow Orchestrator + next-prompt/model handoffs
+
+Immediately after universal routing, implement a first-class staged execution system for complex work.
+
+Purpose:
+- prevent one powerful model/session from carrying an entire multi-step workflow when earlier or later stages can be handled deterministically or by cheaper capability classes;
+- make long jobs resumable across chats, computers, coding agents, and model providers;
+- stop cleanly after bounded stages and tell the user/next agent exactly what should happen next.
+
+Each workflow should be decomposable into machine-readable stages with fields such as:
+- stage_id;
+- goal;
+- inputs/artifacts;
+- required_context;
+- preferred_execution_path;
+- capability_class (deterministic, fast, balanced, reasoning, frontier);
+- optional provider/model recommendation resolved at run time;
+- reasoning/effort recommendation;
+- allowed tools;
+- budget/limits when measurable;
+- validator/test;
+- stop condition;
+- expected outputs;
+- checkpoint location;
+- next_stage;
+- generated next_prompt.
+
+Stage lifecycle:
+
+resolve workflow
+→ run cheapest appropriate stage
+→ validate
+→ persist outputs/checkpoint
+→ stop at the configured boundary
+→ emit completion summary
+→ emit exact next stage
+→ emit recommended capability/model/effort
+→ emit a ready-to-paste next prompt or machine-runnable handoff
+
+Requirements:
+- model recommendations should prefer provider-neutral capability classes; concrete model names are resolved from currently available/configured providers at execution time;
+- stages must be restart-safe and idempotent where practical;
+- context for each stage must be independently compiled rather than carrying the entire previous conversation forward;
+- validators/tests determine whether escalation is required;
+- a failed cheap stage may escalate within policy, but successful stages should not be re-run by a stronger model without reason;
+- workflows packaged for coding agents may include stage manifests, prompts, compact context, artifacts, and checkpoint state;
+- the orchestrator should support both manual "give me the next prompt/model" operation and later automatic execution/delegation;
+- outputs should distinguish completed work, unresolved items, artifacts, validation status, and the exact next action.
+
+Acceptance criteria:
+- a multi-step project can be paused after any stage and resumed in another supported agent without reconstructing conversation history;
+- the next prompt is generated from persisted stage state rather than from memory of the current chat;
+- low-complexity stages can be assigned to lower capability classes while difficult stages are escalated intentionally;
+- a stage completion packet is compact enough to avoid carrying full prior transcripts;
+- the user can request "what do I run next?" and receive a ready-to-use prompt plus current model/capability recommendation.
+
+Success signal:
+- expensive models spend time primarily on the stages that actually require them.
+
+### P0.2 — Selective context and profile retrieval
 
 Implement EXEC-0.5 before broad new Agent OS features.
 
@@ -52,7 +148,7 @@ Success signal:
 Detailed design:
 - `projects/personal-agent-os/roadmap/personal-executive.md` — EXEC-0.5.
 
-### P0.2 — Shared document intelligence + local persistent extraction/OCR cache
+### P0.3 — Shared document intelligence + local persistent extraction/OCR cache
 
 Prioritize the reusable document-intelligence layer and HR-GUI scan optimization work.
 
@@ -76,7 +172,7 @@ Success signal:
 Detailed design:
 - `projects/personal-agent-os/roadmap/usage-intelligence-adaptive-routing.md` — shared document intelligence, HR-GUI optimization, scanner learning loop.
 
-### P0.3 — Resumable/checkpointed ingestion everywhere
+### P0.4 — Resumable/checkpointed ingestion everywhere
 
 Long-running imports and crawls must not lose progress or rescan completed material.
 
@@ -98,7 +194,7 @@ Requirements:
 Success signal:
 - interruption or restart does not cause a full re-run.
 
-### P0.4 — Deterministic/cache/skill-first execution policy
+### P0.5 — Deterministic/cache/skill-first execution policy
 
 Make the default execution preference operational, not just documented:
 
@@ -110,6 +206,8 @@ Make the default execution preference operational, not just documented:
 6. high-reasoning/frontier model when justified.
 
 Add deterministic validators wherever possible so expensive escalation is triggered by evidence rather than habit.
+
+The staged orchestrator in P0.1 should use this policy when selecting how each stage runs.
 
 Success signal:
 - repeated structured work increasingly bypasses LLM calls.
@@ -306,24 +404,27 @@ Dream Eater and other writing projects should reuse the same selective/evidence-
 
 ## Current engineering queue
 
-Unless an urgent bug or explicitly promoted user request intervenes, coding agents should pull work in this order:
+Unless an urgent correctness/privacy bug or explicitly promoted user request intervenes, coding agents should pull work in this order:
 
-1. selective profile/context retrieval with measurable context-size diagnostics;
-2. exact page/file extraction + OCR cache and embedded-text-first document path;
-3. dependency-aware cache invalidation and no-cache regression tests;
-4. generalized checkpoint/deduplication utilities for imports/crawls, including iCloud backfill;
-5. deterministic/cache/skill-first execution dispatcher;
-6. local privacy-safe usage telemetry and usage report;
-7. adaptive routing + validator-driven escalation;
-8. automation miner;
-9. skill miner + replay/evaluation;
-10. Executive Event Bus / schemas / Next Action Engine;
-11. capture + Rescue Mode;
-12. communication/calendar intelligence;
-13. proactivity/voice;
-14. controlled autonomy;
-15. reusable Knowledge Library / Elder Scrolls implementation;
-16. mature Lorekeeper/live-writing systems.
+1. universal Agent OS preflight/routing for supported ChatGPT chats, Work projects, coding agents, and connected agent surfaces;
+2. integration-health/fallback bridge so unsupported or partially supported clients still produce compact handoffs/candidate updates;
+3. staged workflow manifests, checkpoints, validators, stage-completion packets, and generated next-prompt + capability/model/effort recommendations;
+4. selective profile/context retrieval with measurable context-size diagnostics;
+5. exact page/file extraction + OCR cache and embedded-text-first document path;
+6. dependency-aware cache invalidation and no-cache regression tests;
+7. generalized checkpoint/deduplication utilities for imports/crawls, including iCloud backfill;
+8. deterministic/cache/skill-first execution dispatcher used by the staged orchestrator;
+9. local privacy-safe usage telemetry and usage report;
+10. adaptive routing + validator-driven escalation;
+11. automation miner;
+12. skill miner + replay/evaluation;
+13. Executive Event Bus / schemas / Next Action Engine;
+14. capture + Rescue Mode;
+15. communication/calendar intelligence;
+16. proactivity/voice;
+17. controlled autonomy;
+18. reusable Knowledge Library / Elder Scrolls implementation;
+19. mature Lorekeeper/live-writing systems.
 
 ## Gate for adding new features
 
@@ -336,6 +437,8 @@ Before implementing a major new model-driven feature, answer:
 - Can it use an approved skill?
 - How will usage be measured?
 - What validates a cheap route before escalation?
+- Can this be broken into bounded stages with cheaper capability classes for some stages?
+- Does every long stage emit a resumable checkpoint and exact next-step handoff?
 - Will this create recurring model calls that should instead be event/rule driven?
 
 If these questions have no satisfactory answer, improve the economy layer first.
