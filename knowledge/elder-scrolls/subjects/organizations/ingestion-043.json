@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-043-breton-high-rock-direnni",
+  "subjects": [
+    {
+      "id": "tes:daggerfall-covenant",
+      "name": "Daggerfall Covenant",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/daggerfall-covenant.json",
+      "source": {
+        "id": "uesp:daggerfall-covenant",
+        "url": "https://en.uesp.net/wiki/Lore:Daggerfall_Covenant",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:direnni-hegemony",
+      "name": "Direnni Hegemony",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/direnni-hegemony.json",
+      "source": {
+        "id": "uesp:direnni-hegemony",
+        "url": "https://en.uesp.net/wiki/Lore:Direnni_Hegemony",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:house-ravenwatch",
+      "name": "House Ravenwatch",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/house-ravenwatch.json",
+      "source": {
+        "id": "uesp:house-ravenwatch",
+        "url": "https://en.uesp.net/wiki/Lore:House_Ravenwatch",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:knights-flame",
+      "name": "Knights of the Flame",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/knights-flame.json",
+      "source": {
+        "id": "uesp:knights-flame",
+        "url": "https://en.uesp.net/wiki/Lore:Knights_of_the_Flame",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Breton ancestry claims must distinguish historical evidence, cultural identity, polemical texts and later racial theorizing",
+    "Do not treat High Rock as a single centralized political culture across eras; preserve kingdom, city-state and feudal variation",
+    "Direnni rule and the term Manmer require era/source-specific handling rather than timeless ethnic definitions",
+    "Adamantine Tower cosmology should separate observed location/history from Tower-theory interpretation",
+    "Rivenspire vampire narratives must distinguish individual clans and periods rather than generalize all Breton vampirism",
+    "Cross-link existing Breton, High Rock, Direnni, Daggerfall, Wayrest, Balfiera, Adamantine Tower, Emeric and House Ravenwatch records"
+  ]
+}
