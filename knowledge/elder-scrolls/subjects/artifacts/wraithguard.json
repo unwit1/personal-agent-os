@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "tes:wraithguard",
+  "library_id": "elder-scrolls",
+  "name": "Wraithguard",
+  "entity_type": "artifact",
+  "category": "artifacts",
+  "canonical_path": "knowledge/elder-scrolls/subjects/artifacts/wraithguard.json",
+  "continuity_model": "claims_and_evidence_scoped",
+  "sources": [
+    {
+      "source_id": "uesp:wraithguard",
+      "url": "https://en.uesp.net/wiki/Lore:Wraithguard",
+      "source_class": "secondary_reference",
+      "status": "queued"
+    }
+  ],
+  "claims": [],
+  "relationships": [],
+  "notes": "Migrated from an earlier ingestion queue into the categorized subject library. Claims remain empty until evidence-backed extraction."
+}
