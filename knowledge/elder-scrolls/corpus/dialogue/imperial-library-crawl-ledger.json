@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "status": "active",
+  "games": [
+    {
+      "id": "arena",
+      "display_name": "TES1: Arena",
+      "status": "discovery_queued"
+    },
+    {
+      "id": "daggerfall",
+      "display_name": "TES2: Daggerfall",
+      "status": "discovery_queued"
+    },
+    {
+      "id": "battlespire",
+      "display_name": "An Elder Scrolls Legend: Battlespire",
+      "status": "discovery_queued"
+    },
+    {
+      "id": "redguard",
+      "display_name": "The Elder Scrolls Adventures: Redguard",
+      "status": "discovery_queued"
+    },
+    {
+      "id": "morrowind",
+      "display_name": "TES3: Morrowind",
+      "status": "discovery_queued"
+    },
+    {
+      "id": "oblivion",
+      "display_name": "TES4: Oblivion",
+      "status": "discovery_queued"
+    },
+    {
+      "id": "skyrim",
+      "display_name": "TES5: Skyrim",
+      "status": "seeded"
+    },
+    {
+      "id": "eso",
+      "display_name": "The Elder Scrolls Online",
+      "status": "discovery_queued"
+    },
+    {
+      "id": "blades",
+      "display_name": "The Elder Scrolls: Blades",
+      "status": "discovery_queued"
+    }
+  ],
+  "seed_pages": [
+    {
+      "game": "skyrim",
+      "title": "The Horn of Jurgen Windcaller",
+      "url": "https://www.imperial-library.info/content/tes5-skyrim-the-horn-of-jurgen-windcaller",
+      "source_kind": "quest_dialogue_transcript",
+      "status": "verified_discovery"
+    }
+  ],
+  "next_actions": [
+    "Discover transcript/index pages per game on The Imperial Library.",
+    "Classify pages as dialogue transcript, quest transcript, storyline transcript, book/text, or commentary before ingesting.",
+    "Fetch full transcript bodies locally.",
+    "Chunk by speaker turn while retaining scene order and player prompts.",
+    "Hash source bodies and record retrieval timestamps.",
+    "Build FTS/BM25 indexes over speaker turns and full scenes."
+  ]
+}
