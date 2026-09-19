@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-033-atmora-nordic-dragon-cult",
+  "subjects": [
+    {
+      "id": "tes:ysgramor",
+      "name": "Ysgramor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/ysgramor.json",
+      "source": {
+        "id": "uesp:ysgramor",
+        "url": "https://en.uesp.net/wiki/Lore:Ysgramor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:yngol",
+      "name": "Yngol",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/yngol.json",
+      "source": {
+        "id": "uesp:yngol",
+        "url": "https://en.uesp.net/wiki/Lore:Yngol",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ahzidal",
+      "name": "Ahzidal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/ahzidal.json",
+      "source": {
+        "id": "uesp:ahzidal",
+        "url": "https://en.uesp.net/wiki/Lore:Ahzidal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:harald",
+      "name": "King Harald",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/harald.json",
+      "source": {
+        "id": "uesp:harald",
+        "url": "https://en.uesp.net/wiki/Lore:King_Harald",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:jurgen-windcaller",
+      "name": "Jurgen Windcaller",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/jurgen-windcaller.json",
+      "source": {
+        "id": "uesp:jurgen-windcaller",
+        "url": "https://en.uesp.net/wiki/Lore:Jurgen_Windcaller",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:wulfharth",
+      "name": "Wulfharth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/wulfharth.json",
+      "source": {
+        "id": "uesp:wulfharth",
+        "url": "https://en.uesp.net/wiki/Lore:Wulfharth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:miraak",
+      "name": "Miraak",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/miraak.json",
+      "source": {
+        "id": "uesp:miraak",
+        "url": "https://en.uesp.net/wiki/Lore:Miraak",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:paarthurnax",
+      "name": "Paarthurnax",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/paarthurnax.json",
+      "source": {
+        "id": "uesp:paarthurnax",
+        "url": "https://en.uesp.net/wiki/Lore:Paarthurnax",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Songs of the Return and other heroic traditions remain literary/historical testimony, not automatically literal event transcripts",
+    "Do not flatten Atmoran, early Nordic, Dragon Cult and later Nordic religion into one static belief system",
+    "Night of Tears causes and Eye of Magnus-related interpretations remain source-specific where disputed",
+    "Dragon Cult chronology must distinguish Atmoran origins, Skyrim rule, Dragon War and later surviving cult sites",
+    "Thu'um feats should distinguish direct observations, saga claims and gameplay mechanics",
+    "Cross-link existing Ysgramor, Atmora, Saarthal, Snow Elves, Dragon Cult, Dragon War, Greybeards, Jurgen, Paarthurnax, Miraak, Forelhost and Skuldafn records"
+  ]
+}
