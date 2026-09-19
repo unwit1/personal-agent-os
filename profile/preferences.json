@@ -22,15 +22,33 @@
     "approval_before_sending_messages_or_scheduling": true,
     "preserve_project_state_for_easy_resumption": true,
     "resurface_unresolved_commitments": true,
-    "priority_order": ["financial_and_physical_wellbeing","job_effectiveness","hobbies_and_personal_projects"],
+    "priority_order": [
+      "financial_and_physical_wellbeing",
+      "job_effectiveness",
+      "hobbies_and_personal_projects"
+    ],
     "privacy": {
       "raw_hr_documents_and_pii": "local_or_transient_only",
       "ocr_cache": "local_only",
       "google_projection": "sanitized_non_personal_information_only"
+    },
+    "project_versioning": {
+      "newer_material_preferred_for_active_state": true,
+      "retain_older_versions_as_provenance": true,
+      "proactively_identify_redundancy_inconsistencies_and_gaps": true,
+      "support_professional_consolidation_of_ideas": true
     }
   },
   "provenance": [
-    {"source":"bootstrap/context/current_preferences_seed.yaml","captured_at":"2026-09-18","status":"seeded"},
-    {"source":"direct_user_conversations","captured_at":"2026-09-18","status":"user_stated"}
+    {
+      "source": "bootstrap/context/current_preferences_seed.yaml",
+      "captured_at": "2026-09-18",
+      "status": "seeded"
+    },
+    {
+      "source": "direct_user_conversations",
+      "captured_at": "2026-09-18",
+      "status": "user_stated"
+    }
   ]
 }
