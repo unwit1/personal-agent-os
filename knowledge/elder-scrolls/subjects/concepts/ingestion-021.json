@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-021-nerevarine-sixth-house",
+  "subjects": [
+    {
+      "id": "tes:nerevarine",
+      "name": "Nerevarine",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/nerevarine.json",
+      "source": {
+        "id": "uesp:nerevarine",
+        "url": "https://en.uesp.net/wiki/Lore:Nerevarine",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:false-incarnates",
+      "name": "Failed Incarnates",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/false-incarnates.json",
+      "source": {
+        "id": "uesp:false-incarnates",
+        "url": "https://en.uesp.net/wiki/Lore:Failed_Incarnates",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:corprus",
+      "name": "Corprus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/corprus.json",
+      "source": {
+        "id": "uesp:corprus",
+        "url": "https://en.uesp.net/wiki/Lore:Corprus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:divine-disease",
+      "name": "Divine Disease",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/divine-disease.json",
+      "source": {
+        "id": "uesp:divine-disease",
+        "url": "https://en.uesp.net/wiki/Lore:Divine_Disease",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sixth-house-dreams",
+      "name": "Sixth House Dreams",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/sixth-house-dreams.json",
+      "source": {
+        "id": "uesp:sixth-house-dreams",
+        "url": "https://en.uesp.net/wiki/Lore:Sixth_House_Dreams",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:tribunal-divinity",
+      "name": "Tribunal Divinity",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/tribunal-divinity.json",
+      "source": {
+        "id": "uesp:tribunal-divinity",
+        "url": "https://en.uesp.net/wiki/Lore:Tribunal_Divinity",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Prophecy text, Temple interpretation, Ashlander interpretation and fulfilled quest events must remain separate evidence layers",
+    "Do not resolve whether the Nerevarine is reincarnation, chosen fulfillment, constructed identity or another interpretation unless a source explicitly supports that narrower claim",
+    "Dagoth Ur dream/dialogue claims remain attributed to Dagoth Ur",
+    "Player-dependent Morrowind quest sequencing and optional actions should be represented as branch-scoped evidence",
+    "Cross-link existing Vivec, Tribunal, Dagoth Ur, Red Mountain, Heart, Tools and Corprus subjects instead of duplicating canonical records",
+    "Ashlander tribes should remain distinct organizations/cultural groups with their own testimony"
+  ]
+}
