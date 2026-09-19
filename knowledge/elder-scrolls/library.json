@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "elder-scrolls",
+  "name": "Elder Scrolls Lore Library",
+  "storage": {
+    "canonical": "git",
+    "derived_index": "local-sqlite",
+    "raw_corpus": "local-rebuildable"
+  },
+  "source_classes": [
+    "primary_game",
+    "primary_text",
+    "official_external",
+    "developer_statement",
+    "secondary_reference",
+    "project_overlay"
+  ],
+  "initial_sources": [
+    {
+      "id": "uesp",
+      "name": "UESP",
+      "class": "secondary_reference",
+      "status": "pilot_planned"
+    },
+    {
+      "id": "imperial-library",
+      "name": "The Imperial Library",
+      "class": "secondary_reference",
+      "status": "future"
+    },
+    {
+      "id": "game-data",
+      "name": "Direct game data",
+      "class": "primary_game",
+      "status": "future"
+    }
+  ],
+  "retrieval": {
+    "lexical_first": true,
+    "structured_first": true,
+    "vector_optional": true,
+    "token_budgeted": true
+  },
+  "bulk_ingestion_enabled": false
+}
