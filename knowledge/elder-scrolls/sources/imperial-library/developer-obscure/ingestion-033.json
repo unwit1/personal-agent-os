@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-033-reman-tiber-imperial-myth",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:reman-obscure",
+      "title": "Reman developer and obscure-text corpus",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Reman",
+        "Reman Dynasty",
+        "Cyrodiil",
+        "Akaviri",
+        "mythic birth"
+      ]
+    },
+    {
+      "id": "til:tiber-obscure",
+      "title": "Tiber Septim developer and obscure-text corpus",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Tiber Septim",
+        "Talos",
+        "Hjalti Early-Beard",
+        "Wulfharth",
+        "Zurin Arctus"
+      ]
+    },
+    {
+      "id": "til:shonni-etta-deep",
+      "title": "Shonni-etta source and claim map",
+      "document_kind": "external_text_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Shonni-etta",
+        "Reman",
+        "Cyrodiil",
+        "mythic history"
+      ]
+    },
+    {
+      "id": "til:tiber-cyrus-obscure",
+      "title": "Tiber Septim and Cyrus obscure-text source map",
+      "document_kind": "external_text_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Tiber Septim",
+        "Cyrus",
+        "Hammerfell",
+        "Numidium"
+      ]
+    },
+    {
+      "id": "til:imperial-mythmaking",
+      "title": "Imperial mythmaking and ruler-legitimation source map",
+      "document_kind": "thematic_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Alessia",
+        "Reman",
+        "Tiber Septim",
+        "propaganda",
+        "divine legitimacy"
+      ]
+    },
+    {
+      "id": "til:cyrodiil-myth-history",
+      "title": "Cyrodiilic myth-history developer source map",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Cyrodiil",
+        "Alessia",
+        "Reman",
+        "Tiber Septim",
+        "Imperial history"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Separate mythic biography, political legitimation, historical claim and developer literary invention.",
+    "Do not flatten Hjalti, Tiber Septim, Talos, Wulfharth and Zurin Arctus into a single identity without source-specific relations.",
+    "Sexual or grotesque imagery in mythic texts is catalogued as textual content and symbolism, not silently literalized.",
+    "Imperial propaganda and hostile counter-narratives retain narrator and political context.",
+    "Later primary references to obscure Reman or Tiber concepts create adoption links only for the propositions actually reused."
+  ]
+}
