@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-18",
+  "updated_at": "2026-09-19",
   "purpose": "Durable, non-secret personal context for selective Agent OS retrieval. Do not preload wholesale.",
   "goals": {
     "one_to_three_years": [
@@ -49,6 +49,7 @@
     "Discord",
     "Outlook",
     "iCloud",
+    "Gmail",
     "Excel",
     "Google Sheets",
     "desktop files",
@@ -80,14 +81,36 @@
     "Stardew Valley mods",
     "Potential custom LEGO business",
     "Third-party and bootleg minifigure releases",
-    "Time with Olivia"
+    "Time with Olivia",
+    "E-books and Kindle reading",
+    "Brandon Sanderson / Cosmere fiction",
+    "Terry Pratchett / Discworld fiction",
+    "Sporcle quizzes"
   ],
+  "research_and_learning_context": {
+    "observed_academic_topics": [
+      "Negative stereotypes and stigma across Appalachia, Brazil, and Australia",
+      "Aboriginal and Torres Strait Islander attitudes and representation"
+    ],
+    "workflow_observations": [
+      "Uses email to move research sources and PDFs between systems/people.",
+      "Has used Gmail as a transport/archive for e-books and research material."
+    ]
+  },
+  "digital_usage_observations": {
+    "ebook_workflow": "Strong evidence of sending EPUB/AZW3 books to Kindle and other recipients for reading.",
+    "spreadsheet_ai_tools": "Has installed or used GPT-for-Sheets/Excel tooling; treat as supporting evidence for existing spreadsheet-automation interests.",
+    "gmail_signal_quality": "Sent mail, receipts, confirmations, and repeated behavior are stronger profile evidence than promotions, recommendations, or generic notification mail."
+  },
   "privacy": {
     "exclude_from_git": [
       "credentials",
       "raw HR documents",
       "employee/applicant PII",
       "raw OCR caches",
+      "raw email bodies",
+      "security-reset links or codes",
+      "payment identifiers",
       "other unnecessary sensitive source data"
     ],
     "principle": "Store sanitized durable context, not sensitive source material."
@@ -102,6 +125,12 @@
       "source": "google_drive_sanitized_deep_dive",
       "captured_at": "2026-09-18",
       "status": "derived_context_indexed"
+    },
+    {
+      "source": "gmail_sanitized_profile_scan",
+      "captured_at": "2026-09-19",
+      "status": "derived_context_partial_archive_scan",
+      "note": "Only durable low-risk observations were promoted. Promotional suggestions and sensitive message contents were excluded."
     }
   ],
   "context_indexes": [
