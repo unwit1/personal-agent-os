@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-006-creation-cosmology",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:anu-padomay-dev",
+      "title": "Developer and obscure material on Anu and Padomay",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Anu",
+        "Padomay",
+        "Anuiel",
+        "Sithis",
+        "creation myths"
+      ]
+    },
+    {
+      "id": "til:etada-dev",
+      "title": "Developer material on the et'Ada",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "et'Ada",
+        "Aedra",
+        "Daedra",
+        "Magna Ge",
+        "creation"
+      ]
+    },
+    {
+      "id": "til:lorkhan-dev",
+      "title": "Developer and obscure material on Lorkhan",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Lorkhan",
+        "Shezarr",
+        "Shor",
+        "Lorkhaj",
+        "Mundus",
+        "Heart of Lorkhan"
+      ]
+    },
+    {
+      "id": "til:magnus-dev",
+      "title": "Developer and obscure material on Magnus and the Magna Ge",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Magnus",
+        "Magna Ge",
+        "Aetherius",
+        "Magic",
+        "Mundus"
+      ]
+    },
+    {
+      "id": "til:convention-dev",
+      "title": "Developer and obscure material on Convention",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Convention",
+        "Adamantine Tower",
+        "Auri-El",
+        "Lorkhan",
+        "Towers"
+      ]
+    },
+    {
+      "id": "til:mundus-dev",
+      "title": "Developer commentary on Mundus and mortality",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Mundus",
+        "mortality",
+        "creation",
+        "Aedra",
+        "Ehlnofey"
+      ]
+    },
+    {
+      "id": "til:dragon-time-dev",
+      "title": "Developer material on the Dragon God and time",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Akatosh",
+        "Auri-El",
+        "Alkosh",
+        "Alduin",
+        "time",
+        "Dragon Break"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Creation myths are cultural/theological evidence unless the source supplies independently observable events.",
+    "Do not collapse Anu, Anuiel, Padomay and Sithis into universal one-to-one identities without source-specific evidence.",
+    "Lorkhan, Shor, Shezarr and Lorkhaj correspondences must preserve cultural framing and differences.",
+    "Developer metaphysical explanation is tagged separately from in-character cosmology.",
+    "Track whether terminology first appears in released material, developer material or later community synthesis."
+  ]
+}
