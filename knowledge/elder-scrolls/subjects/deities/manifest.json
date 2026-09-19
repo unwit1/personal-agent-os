@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "deities",
+  "subjects": [
+    "lorkhan",
+    "azura",
+    "boethiah",
+    "mephala",
+    "alduin",
+    "kyne",
+    "shor",
+    "akatosh",
+    "auriel",
+    "trinimac",
+    "malacath",
+    "mehrunes-dagon"
+  ],
+  "notes": "Seed manifest from existing ingestion queues. Individual subject records are created/populated by ingestion."
+}
