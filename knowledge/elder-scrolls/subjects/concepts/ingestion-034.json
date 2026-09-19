@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-034-snow-elves-falmer-forgotten-vale",
+  "subjects": [
+    {
+      "id": "tes:betrayed",
+      "name": "Betrayed",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/betrayed.json",
+      "source": {
+        "id": "uesp:betrayed",
+        "url": "https://en.uesp.net/wiki/Lore:Betrayed",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:falmer-transformation",
+      "name": "Falmer Transformation",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/falmer-transformation.json",
+      "source": {
+        "id": "uesp:falmer-transformation",
+        "url": "https://en.uesp.net/wiki/Lore:Falmer_Transformation",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:snow-elf-religion",
+      "name": "Snow Elf Religion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/snow-elf-religion.json",
+      "source": {
+        "id": "uesp:snow-elf-religion",
+        "url": "https://en.uesp.net/wiki/Lore:Snow_Elf_Religion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:auriel-worship",
+      "name": "Auri-El Worship",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/auriel-worship.json",
+      "source": {
+        "id": "uesp:auriel-worship",
+        "url": "https://en.uesp.net/wiki/Lore:Auri-El_Worship",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dwemer-falmer-servitude",
+      "name": "Falmer Servitude",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dwemer-falmer-servitude.json",
+      "source": {
+        "id": "uesp:dwemer-falmer-servitude",
+        "url": "https://en.uesp.net/wiki/Lore:Falmer_Servitude",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:falmer-language",
+      "name": "Falmer Language",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/falmer-language.json",
+      "source": {
+        "id": "uesp:falmer-language",
+        "url": "https://en.uesp.net/wiki/Lore:Falmer_Language",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Use Snow Elf and Falmer terminology with historical precision; do not assume every source uses the terms identically",
+    "Gelebor and Vyrthur provide unusually valuable first-person testimony but remain individual witnesses rather than omniscient narrators",
+    "The cause and mechanism of Falmer transformation must preserve Dwemer agreement accounts, later testimony and uncertainty separately",
+    "Do not infer cultural continuity between ancient Snow Elf religion and every later Falmer community without evidence",
+    "Falmer language evidence should distinguish direct inscriptions/translations from scholarly reconstruction",
+    "Cross-link existing Snow Elves, Falmer, Dwemer, Blackreach, Forgotten Vale, Auri-El, Gelebor, Vyrthur, Auriel's Bow and Falmer-Dwemer records"
+  ]
+}
