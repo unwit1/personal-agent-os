@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 226,
+    "first_level_files_indexed": 236,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Recursively traverse subfolders, then fetch queued files in resumable batches by category."
+    "next_action": "Traverse newly discovered TTRPG campaign folders and Dream Eater draft/old; continue safe content extraction in small batches."
   },
   "top_level_folders": [
     {
@@ -2103,6 +2103,96 @@
       "modified_time": "2024-02-11T01:28:10.555Z",
       "category": "personal_planning",
       "content_status": "queued"
+    },
+    {
+      "id": "1kSRegV0JIdXfGOyy3bwY0h1cNsQvLk9SqUG3SFj-mdk",
+      "title": "Guardian Cycle",
+      "path": "/My Drive/dreameater/lore/Guardian Cycle",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "modified_time": "2026-05-21T03:03:34.249Z",
+      "category": "writing_dream_eater",
+      "content_status": "queued"
+    },
+    {
+      "id": "1BXBJcySYwKoo_J45CsJ5fLx0HcyWK7HUa3ezg71B8EY",
+      "title": "Loredoc - Magic System Explained",
+      "path": "/My Drive/dreameater/lore/Loredoc - Magic System Explained",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2024-06-19T02:10:11.165Z",
+      "category": "writing_dream_eater",
+      "content_status": "queued"
+    },
+    {
+      "id": "1Qjr1XPb9dAuvo25WrSVqEkSvZ6jgFW19EqMqhQXwtio",
+      "title": "Untitled document",
+      "path": "/My Drive/dreameater/draft/Untitled document",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2023-03-13T23:37:42.313Z",
+      "category": "writing_dream_eater",
+      "content_status": "queued"
+    },
+    {
+      "id": "11LzEJp0FkEYPw6UW2wXZ9-p2dQHqPl5zzGbZS7EoSek",
+      "title": "Chapter 1 WIP",
+      "path": "/My Drive/dreameater/draft/Chapter 1 WIP",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2023-03-02T18:02:53.148Z",
+      "category": "writing_dream_eater",
+      "content_status": "queued"
+    },
+    {
+      "id": "1Q0LfVkSBi0BsVx-cQznWj3PraZil7QT1dl-p8hAoYNs",
+      "title": "Dreameater draft v1",
+      "path": "/My Drive/dreameater/draft/Dreameater draft v1",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2023-02-02T14:30:00.455Z",
+      "category": "writing_dream_eater",
+      "content_status": "queued"
+    },
+    {
+      "id": "16yFk7cnWdL3nmvrAlytJD8u_r0wqgfidYt_bNsTuoIA",
+      "title": "UAS RULEBOOK v1",
+      "path": "/My Drive/Universal Anime System (UAS)/System Base 1.5/UAS RULEBOOK v1",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2023-05-21T01:44:39.379Z",
+      "category": "ttrpg_game_design",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1QkfcPXwHfeYPpX2mkyv5Mpy05qwYH0OC1k-c0bCF4YI",
+      "title": "GM Session Planning Template/Checklist",
+      "path": "/My Drive/Universal Anime System (UAS)/GM Tools/GM Session Planning Template/Checklist",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2023-03-09T17:39:59.934Z",
+      "category": "ttrpg_game_design",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1vbY4MCFHpWyKUUkAOJieAo_lEesIDPmUJzpi4UcD8eQ",
+      "title": "CharCreation v2",
+      "path": "/My Drive/Universal Anime System (UAS)/Character Creation/CharCreation v2",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2022-09-22T00:29:53.254Z",
+      "category": "ttrpg_game_design",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1cz8k-IG2y5UsFmfnA55RmZEqjtcH1mGNpVbfMx74Qlc",
+      "title": "Weekly Writing Group",
+      "path": "/My Drive/Personal/Productivity/Weekly Writing Group",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2023-12-11T01:23:33.132Z",
+      "category": "writing_practice_community",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "10vBkZ1YqdnG0u6UPa0CuJL4SAkQinot9wBnD3nSF0j8",
+      "title": "Pinochle Planning & Ideas doc",
+      "path": "/My Drive/Personal/Pinochle/Pinochle Planning & Ideas doc",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2022-09-09T22:31:12.553Z",
+      "category": "writing_satire_pinochle",
+      "content_status": "processed_summary"
     }
   ],
   "folder_queue": [
@@ -2208,5 +2298,83 @@
     "career_professional": 5,
     "writing_dream_eater": 9,
     "ttrpg_game_design": 6
-  }
+  },
+  "project_clusters": {
+    "universal-anime-system": {
+      "status": "historical_or_dormant",
+      "domain": "tabletop RPG system design",
+      "summary": "Universal Anime System (UAS) is a modular sandbox tabletop RPG intended to adapt anime/fantasy-style settings. It uses custom character powers/magic, combat-role classes, ranked encounters and abilities, proficiency progression, and an Action Point action economy. Earlier character-creation material shows the system evolving toward the later rulebook.",
+      "source_ids": [
+        "16yFk7cnWdL3nmvrAlytJD8u_r0wqgfidYt_bNsTuoIA",
+        "1vbY4MCFHpWyKUUkAOJieAo_lEesIDPmUJzpi4UcD8eQ",
+        "1QkfcPXwHfeYPpX2mkyv5Mpy05qwYH0OC1k-c0bCF4YI"
+      ],
+      "related_projects": [
+        "Blades of Pergrande",
+        "Dragon Heart Campaign"
+      ],
+      "notable_mechanics": [
+        "Action Point economy",
+        "custom magic/powers",
+        "combat-role classes",
+        "ranked difficulty D through EX",
+        "skill/equipment proficiency progression",
+        "GM scene-planning workflow"
+      ]
+    },
+    "berea-pinochle": {
+      "status": "historical_or_dormant",
+      "domain": "satirical publication / collaborative writing",
+      "summary": "The Berea Pinochle was planned as a collaborative fake-news/satire publication with an editorial staff, recurring meetings, weekly writing expectations, reader submissions, and sections spanning news, sports, tech, conspiracy, relationships, creative writing, dining, classes, and letters.",
+      "source_ids": [
+        "10vBkZ1YqdnG0u6UPa0CuJL4SAkQinot9wBnD3nSF0j8"
+      ]
+    },
+    "weekly-writing-group": {
+      "status": "historical_or_dormant",
+      "domain": "writing practice / accountability",
+      "summary": "A weekly writing group concept focused on weekly and semester goals, advance sharing of projects, constructive criticism, accountability, habit building, active comments, and allowing lore or tabletop preparation to count as creative work.",
+      "source_ids": [
+        "1cz8k-IG2y5UsFmfnA55RmZEqjtcH1mGNpVbfMx74Qlc"
+      ]
+    }
+  },
+  "discovered_project_folders": [
+    {
+      "id": "1zY5PHgYl2PH0cwXD7qBHYosUTSmFkHl6",
+      "title": "blades of pergrande",
+      "path": "/My Drive/Personal/TTRPG/blades of pergrande",
+      "status": "queued"
+    },
+    {
+      "id": "11-GoZ4bAT45TwakZgRzjXJacf3nd7Re-",
+      "title": "Campaign 4 - Lords of Mourning",
+      "path": "/My Drive/Personal/TTRPG/Campaign 4 - Lords of Mourning",
+      "status": "queued"
+    },
+    {
+      "id": "10q3pzYo2XbMx65bBpdCmDNQV1znkIvZV",
+      "title": "Campaign 4 - The Wonderland Murders",
+      "path": "/My Drive/Personal/TTRPG/Campaign 4 - The Wonderland Murders",
+      "status": "queued"
+    },
+    {
+      "id": "1l5QJVixSGgeRtLQvZzgL46AR9qV0FNTD",
+      "title": "Campaign 2 - Fate/False Paradise",
+      "path": "/My Drive/Personal/TTRPG/Campaign 2 - Fate/False Paradise",
+      "status": "queued"
+    },
+    {
+      "id": "1nTsMd8_XKt5nQsIKYHV3o1jOMastaxWD",
+      "title": "Campaign 1 - Anthem",
+      "path": "/My Drive/Personal/TTRPG/Campaign 1 - Anthem",
+      "status": "queued"
+    },
+    {
+      "id": "1IDHTHqCzjDKoVcHMnUTOmqBcBTCpZEnl",
+      "title": "old",
+      "path": "/My Drive/dreameater/draft/old",
+      "status": "queued"
+    }
+  ]
 }
