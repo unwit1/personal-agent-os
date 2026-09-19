@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "contract_version": 1,
+  "operations": [
+    {
+      "name": "search_dialogue",
+      "inputs": [
+        "query",
+        "game?",
+        "speaker?",
+        "quest?",
+        "limit?"
+      ],
+      "returns": [
+        "evidence_chunk",
+        "speaker",
+        "quest_or_scene",
+        "source_url",
+        "sequence_range",
+        "source_class"
+      ]
+    },
+    {
+      "name": "get_speaker_dialogue",
+      "inputs": [
+        "speaker",
+        "game?",
+        "subject?",
+        "limit?"
+      ],
+      "returns": [
+        "dialogue_turns",
+        "prompt_context",
+        "source_url"
+      ]
+    },
+    {
+      "name": "get_transcript",
+      "inputs": [
+        "transcript_id"
+      ],
+      "returns": [
+        "ordered_turns",
+        "stage_context",
+        "embedded_written_crosslinks",
+        "source_url"
+      ]
+    },
+    {
+      "name": "compare_speakers",
+      "inputs": [
+        "speakers",
+        "subject",
+        "game?"
+      ],
+      "returns": [
+        "attributed_evidence_sets",
+        "contradictions_or_differences"
+      ]
+    },
+    {
+      "name": "find_dialogue_evidence",
+      "inputs": [
+        "claim",
+        "game?",
+        "speaker?"
+      ],
+      "returns": [
+        "supporting_passages",
+        "contradicting_passages",
+        "related_passages"
+      ]
+    }
+  ],
+  "response_rules": [
+    "Every dialogue quotation/evidence chunk carries speaker and source provenance.",
+    "Default retrieval excludes stage narration from quotations but may use it as context.",
+    "Player prompts are returned with answers when needed to understand scope.",
+    "Written crosslinks are clearly labeled as written evidence.",
+    "Retrieval must not convert speaker belief into narrator-independent fact."
+  ]
+}
