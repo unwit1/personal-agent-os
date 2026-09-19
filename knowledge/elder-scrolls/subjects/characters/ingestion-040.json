@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-040-bosmer-green-pact-valenwood",
+  "subjects": [
+    {
+      "id": "tes:yffre",
+      "name": "Y'ffre",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/yffre.json",
+      "source": {
+        "id": "uesp:yffre",
+        "url": "https://en.uesp.net/wiki/Lore:Y%27ffre",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:silvenar",
+      "name": "Silvenar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/silvenar.json",
+      "source": {
+        "id": "uesp:silvenar",
+        "url": "https://en.uesp.net/wiki/Lore:Silvenar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:green-lady",
+      "name": "Green Lady",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/green-lady.json",
+      "source": {
+        "id": "uesp:green-lady",
+        "url": "https://en.uesp.net/wiki/Lore:Green_Lady",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:camoran-aeradan",
+      "name": "King Camoran Aeradan",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/camoran-aeradan.json",
+      "source": {
+        "id": "uesp:camoran-aeradan",
+        "url": "https://en.uesp.net/wiki/Lore:King_Camoran_Aeradan",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:arenthia-camoran",
+      "name": "Camoran Dynasty",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/arenthia-camoran.json",
+      "source": {
+        "id": "uesp:arenthia-camoran",
+        "url": "https://en.uesp.net/wiki/Lore:Camoran_Dynasty",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ind aer",
+      "name": "Indaenir",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/ind aer.json",
+      "source": {
+        "id": "uesp:ind aer",
+        "url": "https://en.uesp.net/wiki/Lore:Indaenir",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Green Pact practice must distinguish theological ideal, regional custom, historical practice and individual interpretation",
+    "Do not treat every Bosmer as observing the Green Pact identically across eras and communities",
+    "Spinner stories may have unusual relationships to history and possibility, but narrative claims still retain speaker and context provenance",
+    "Wild Hunt accounts should distinguish witnessed transformations, historical reports, ritual doctrine and later retellings",
+    "Silvenar and Green Lady are offices/roles as well as individuals in particular periods; model office identity separately from officeholders",
+    "Cross-link existing Bosmer, Valenwood, Green Pact, Y'ffre, Wild Hunt, Camoran, Grahtwood, Elden Root, Silvenar and Green Lady records"
+  ]
+}
