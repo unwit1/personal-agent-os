@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:tribunal",
+      "name": "Tribunal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/tribunal.json",
+      "source": {
+        "id": "uesp:tribunal",
+        "url": "https://en.uesp.net/wiki/Lore:Tribunal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sixth-house",
+      "name": "House Dagoth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/sixth-house.json",
+      "source": {
+        "id": "uesp:sixth-house",
+        "url": "https://en.uesp.net/wiki/Lore:House_Dagoth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration batch from earlier queues. Individual subject records may be materialized incrementally; evidence-backed claims remain local/indexed until reviewed."
+}
