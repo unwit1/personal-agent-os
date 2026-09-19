@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "routes": [
+    {
+      "signal": "spoken NPC/player exchange from a released game",
+      "destination": "dialogue",
+      "authority_class": "released-primary"
+    },
+    {
+      "signal": "storyline transcription reproducing released-game scenes/dialogue",
+      "destination": "dialogue",
+      "authority_class": "released-primary-transcription-witness"
+    },
+    {
+      "signal": "in-game book, journal, note, letter, poem, manual",
+      "destination": "books",
+      "authority_class": "released-primary-written"
+    },
+    {
+      "signal": "official website lore not present in game",
+      "destination": "books",
+      "authority_class": "official-external"
+    },
+    {
+      "signal": "developer interview, ESO Live, Q&A",
+      "destination": "developer-obscure",
+      "authority_class": "developer-ooc"
+    },
+    {
+      "signal": "developer roleplay or external fiction",
+      "destination": "developer-obscure",
+      "authority_class": "developer-ic-or-external-fiction"
+    },
+    {
+      "signal": "site editorial describing additions",
+      "destination": "provenance-only",
+      "authority_class": "archive-editorial"
+    }
+  ],
+  "rules": [
+    "Routing classifies the source witness, not the truth of every claim inside it.",
+    "Every ingested passage retains source URL and source class.",
+    "The same subject may have evidence in multiple routes without merging the source bodies."
+  ]
+}
