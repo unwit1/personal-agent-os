@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 384,
+    "first_level_files_indexed": 386,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue UAS/Pergrande folder reconciliation, especially UAS GM Tools, party sheet, UAS 2e support tabs, Fairy Tail Magic, and any project-specific docs not yet depth-processed. Then run broader orphan searches. Treat Fairy Tail-derived races/quests/spells as adaptation/reference, not reusable original lore. Dream Eater Magic System loredoc is a high-value dedicated lore source but still subordinate to explicit user canon/newer manuscript."
+    "next_action": "Continue broad orphan reconciliation now that core UAS/Pergrande tooling is substantially covered. Search generic folders/titles and legacy project names for missing IDs, prioritizing clearly authored docs and spreadsheets. Batch duplicate/player/reference artifacts quickly. Keep Fairy Tail-derived material isolated as adaptation/reference."
   },
   "top_level_folders": [
     {
@@ -1882,8 +1882,8 @@
       "path": "/My Drive/Universal Anime System (UAS)/Fairy Tail Magic",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2024-10-31T20:40:37.584Z",
-      "category": "ttrpg_game_design",
-      "content_status": "queued"
+      "category": "external_reference",
+      "content_status": "irrelevant/reference"
     },
     {
       "id": "18udxlQkqY1iUJdsbVSPORNrmJYkNr7vUOjzqokJPC10",
@@ -1909,7 +1909,7 @@
       "path": "/My Drive/Universal Anime System (UAS)/UAS SYSTEM 2nd Edition",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2024-01-16T01:01:48.995Z",
-      "category": "universal_anime_system",
+      "category": "uas_system",
       "content_status": "processed"
     },
     {
@@ -1918,7 +1918,7 @@
       "path": "/My Drive/Universal Anime System (UAS)/UAS GM TOOLS - BLADES OF PERGRANDE",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2024-01-09T18:03:01.652Z",
-      "category": "universal_anime_system",
+      "category": "uas_tooling",
       "content_status": "processed"
     },
     {
@@ -2444,7 +2444,7 @@
       "id": "1kfLJMU2o3MCmyDtBbffputLepPv6aMKObBviFKHxqXc",
       "title": "UAS AutoSheet - Blades of Pergrande Party",
       "path": "/My Drive/Universal Anime System (UAS)/GM Tools/UAS AutoSheet - Blades of Pergrande Party",
-      "category": "universal_anime_system",
+      "category": "uas_tooling",
       "content_status": "processed"
     },
     {
@@ -2486,7 +2486,7 @@
       "id": "1TTRD1SNDjKLsYob3aHDb-ej-FH2jKeiavqPHN6m_tR0",
       "title": "UAS Character Sheet Template v2.7 - Blades of Pergrande Campaign",
       "path": "/My Drive/Universal Anime System (UAS)/Character Creation/UAS Character Sheet Template v2.7 - Blades of Pergrande Campaign",
-      "category": "universal_anime_system",
+      "category": "uas_tooling",
       "content_status": "processed"
     },
     {
@@ -3411,6 +3411,22 @@
       "category": "legacy_fate_system",
       "content_status": "processed",
       "inventory_source": "authored project deepening"
+    },
+    {
+      "id": "1SFaiJ8_2bdcglThs0EhyTU8jidFxBzX3iInN6R9DXMc",
+      "title": "Milo Spells",
+      "path": "/Accessible Drive/Milo Spells",
+      "category": "blades_of_pergrande",
+      "content_status": "processed",
+      "inventory_source": "UAS 2e/GM tooling deepening"
+    },
+    {
+      "id": "1bvNR1JuvxEs-2FOYuw3PwahHHZnHeCmNVQkM9v1rRrw",
+      "title": "Morris Spells",
+      "path": "/Accessible Drive/Morris Spells",
+      "category": "blades_of_pergrande",
+      "content_status": "processed",
+      "inventory_source": "UAS 2e/GM tooling deepening"
     }
   ],
   "folder_queue": [
@@ -3595,16 +3611,11 @@
         "Retry inaccessible UAS - Origins sheet and reconcile against earlier UAS Origin System."
       ],
       "second_edition": {
-        "summary": "Second Edition moved UAS from prose-heavy first-edition rules into a spreadsheet-driven rules engine and reusable data model. Core tabs cover rank/modifier math, item/damage classes, skills/proficiencies, level progression, player classes/subclasses, status effects, encounter scaling, exports and a system wiki.",
-        "mechanics": [
-          "D-to-EX master rank table drives DCs, MP, spell-point cost, dice, armor, loot value and encounter difficulty points.",
-          "Actions are decomposed by action economy, target shape, action type, mastery and defensive modifiers.",
-          "Level progression through 20 raises rank, stat budget/caps, proficiency, feats, skill proficiencies, spell-point limits, spell ranks, ultimates and class/subclass feats.",
-          "Seven combat roles remain Guardian, Artillery, Tactician, Operative, Bruiser, Support and Diplomat; class abilities progress in tiers."
-        ],
+        "summary": "UAS SYSTEM 2nd Edition consolidates the data-driven design into rank/modifier, item/damage class, skills/proficiencies, level progression, classes/subclasses, status effects and encounter-scaling tables. D through EX ranks map to increasing save DCs, mana/cost/duration/damage and armor ceilings. Action economy, target shape, effect type, mastery and damage resistance are represented as composable modifiers. Encounter difficulty uses rank-based difficulty points and modifiers rather than only ad-hoc GM judgment.",
         "source_ids": [
           "19kjagMENBsUG7AEf8VploAuXJKqnesASGbjLmT7Ejzo"
-        ]
+        ],
+        "status": "authored system successor"
       },
       "tooling": {
         "summary": "UAS developed into a spreadsheet application ecosystem rather than only a written rulebook. GM Tools combines party, combat, move, NPC, shop, loot, feat, armor, weapon and NPC-generator modules with shared SYS/export data. The v2.7 character sheet has core, moves, inventory, feats, social, quests, background and GM/system-data tabs. The party autosheet aggregates party stats, techniques/spells, feats, effects and action references. A standalone NPC Generator imports system/lore data and includes combat-style, move, feat, weapon and Origin generators.",
@@ -3710,6 +3721,21 @@
           "18udxlQkqY1iUJdsbVSPORNrmJYkNr7vUOjzqokJPC10"
         ],
         "status": "authored/draft system module"
+      },
+      "class_evolution": {
+        "summary": "2e settles on Guardian/CON, Artillery/WILL, Tactician/INT, Operative/DEX, Bruiser/STR, Support/WIS and Diplomat/CHA. The workbook still contains migration clues from older Brawler/Tank/Blaster/Strategist/Infiltrator terminology, confirming an intentional redesign rather than separate systems. Class advancement includes role-specific reaction/action abilities across five class levels, though several entries remain incomplete draft mechanics.",
+        "source_ids": [
+          "19kjagMENBsUG7AEf8VploAuXJKqnesASGbjLmT7Ejzo",
+          "1kfLJMU2o3MCmyDtBbffputLepPv6aMKObBviFKHxqXc"
+        ]
+      },
+      "gm_tools_suite": {
+        "summary": "UAS GM TOOLS is a campaign-control workbook spanning PARTY, COMBAT, MOVES, NPC, SHOP, LOOT, FEATS, ARMOR, WEAPONS, NPC GENERATOR, private GM info, campaign-specific data, exports and shared SYS tables. Together with the AutoSheet and v2.7 character template, it shows an integrated spreadsheet application architecture: player sheets import system/campaign data while GM tools maintain party/NPC/combat/economy/reference state. This is a direct historical precursor to the user's preference for reusable structured tooling rather than isolated documents.",
+        "source_ids": [
+          "1awZlpRixs8EvyDGikUdXBzRhRHpjeaZQeLLZh-CITZA",
+          "1kfLJMU2o3MCmyDtBbffputLepPv6aMKObBviFKHxqXc",
+          "1TTRD1SNDjKLsYob3aHDb-ej-FH2jKeiavqPHN6m_tR0"
+        ]
       }
     },
     "berea-pinochle": {
@@ -3914,6 +3940,31 @@
         "source_ids": [
           "1Bf-9hWYXXkxSmztix4nwXWMYc3OTfXSw2OWvVnaO7u0"
         ]
+      },
+      "npc_roster": {
+        "summary": "The GM tools preserve a structured Pergrande NPC roster by guild, rank, class, race, age, magic and title. Dragon Heart entries include Rhea (dragon/Stone Dragon Slayer), Yeris Noelle (Shatter Magic/Blue Horseman), Noxmillian (Clock Magic), Soleyr (Clone Magic), Jeepers (Psychic Dragon Slayer), Meredith Noelle (Seal Magic), Seith (THRILLER/Doll Magic), and others; Horizon Ace, Nine Lives Fox, Yggdrasil, Star Harbour and Aries Horn also have ranked rosters. Treat this as campaign-authoring evidence but preserve collaborative provenance for individual characters.",
+        "source_ids": [
+          "1awZlpRixs8EvyDGikUdXBzRhRHpjeaZQeLLZh-CITZA"
+        ]
+      },
+      "milo_magic": {
+        "summary": "Milo's spell sheet develops Omen/divination magic around viewing bad ends and emotional/status magic. His abilities include shame/guilt, rage, panic, loyalty, cowardice, truth compulsion, rotten luck and doom/curse effects. A defining risk is that critical failures can trigger involuntary catastrophic visions affecting nearby people. This supports Milo's role as a dark-magic researcher/manipulator within the Pergrande campaign, but exact mechanics are historical campaign rules rather than portable UAS canon.",
+        "source_ids": [
+          "1SFaiJ8_2bdcglThs0EhyTU8jidFxBzX3iInN6R9DXMc"
+        ]
+      },
+      "morris_magic": {
+        "summary": "Morris's spell sheet is sparse but records Pressure Pole and Trauma Dance plus a set of associated elemental entities/techniques: Ifrit uses fire attacks, Gaia earth/crystal defense and healing, Shiva ice abilities, and Thor lightning abilities. Preserve as campaign-character planning; do not infer missing mechanics.",
+        "source_ids": [
+          "1bvNR1JuvxEs-2FOYuw3PwahHHZnHeCmNVQkM9v1rRrw"
+        ]
+      },
+      "fairy_tail_magic_reference": {
+        "summary": "Fairy Tail Magic is a broad franchise/adaptation taxonomy covering caster, maker, transformation/takeover, spatial, summoning, eye, barrier, enchantment, slayer and elemental magic, with many elements and synonyms. It is useful as a historical design/reference vocabulary for Pergrande but is third-party-derived and must not be treated as original user lore.",
+        "source_ids": [
+          "1bgYlEmS5O8Fs_SrWMZOmtq9zRCp_m94q9BbXPUWs07M"
+        ],
+        "provenance_note": "External/franchise adaptation reference."
       }
     },
     "dragon-heart-campaign": {
