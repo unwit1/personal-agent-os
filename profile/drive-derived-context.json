@@ -14,7 +14,8 @@
       "2026-09-18 Dream Eater second pass covered the project folder inventory plus Guardian Emblem, Contract Magic, Avalon/Avalon Institute, Otherworld History, The Silence, and Magic System Explained. Findings are marked version-sensitive because the source docs contain unfinished and explicitly out-of-date notes.",
       "User clarification 2026-09-18: current Dream Eater manuscript is highest authority; preserve granular canon statuses; future lorekeeper/writing-buddy should actively challenge continuity and logic; The Silence is a newer central cosmic force that makes non-Fade users forget Fade users and thereby sustains the setting's supernatural Masquerade.",
       "2026-09-18 Dream Eater continuation pass compared current manuscript material, 2023 Chapter 1/Dreameater drafts, brainstorming, and the Guardian Cycle sheet (modified 2026-05-21). Uncertainty markers in the recent sheet are retained as provisional rather than promoted to canon.",
-      "User clarification 2026-09-18: Gravekeeper/Gravetender are titles for Ellison Crane; Door originally summoned Mourn and later watched the Nameless after the Black Guardian shattered; Denial weaponized a child as a conceptual suicide bomb against the Nameless Throne, breaking the child and Gallow, whose remnants formed the Ellison Crane/Gallowed Man gestalt expressed when Ellison wears the mask. Door's name remains provisional."
+      "User clarification 2026-09-18: Gravekeeper/Gravetender are titles for Ellison Crane; Door originally summoned Mourn and later watched the Nameless after the Black Guardian shattered; Denial weaponized a child as a conceptual suicide bomb against the Nameless Throne, breaking the child and Gallow, whose remnants formed the Ellison Crane/Gallowed Man gestalt expressed when Ellison wears the mask. Door's name remains provisional.",
+      "2026-09-18 legacy Dream Eater pass read the 2022 old Dream Eater draft, 2023 Abigail continuation fragment, and Invocation brainstorm. Candidate terminology evolution is recorded as uncertain mappings, not canon."
     ]
   },
   "project_clusters": [
@@ -272,6 +273,26 @@
           "naming_note": "Door's name is provisional and may be changed later.",
           "continuity_note": "Older documents that describe Door, the Gallowed Man, Ellison, or the destruction of the Nameless Throne differently should be compared against this user-confirmed sequence rather than automatically promoted."
         }
+      },
+      "deep_version_comparison": {
+        "pass": "2026-09-18 legacy-draft comparison",
+        "legacy_material": [
+          "A 2022 Dream Eater draft uses older terminology including Black Sun/Midnight Sun, Wanderhouse, Sidewinder, Maw, Mist and Seladres around Dennis Deacon's opening operation.",
+          "The 2023 Dreameater draft preserves much of the same Dennis operation but updates terminology toward Makers, Wardens, Shackled Ones, Fade/Void and the later institutional vocabulary.",
+          "A 2023 Abigail fragment reinforces the gambling opening, psychic resource limits, family connections and her irreverent/comedic characterization.",
+          "An older Invocation brainstorm proposed spell Degrees as increasing removal from human rationality, with normal upper bounds around degree 6-7 and Harland reaching 11; this is an Idea/legacy mechanic unless supported by newer material."
+        ],
+        "evolution_signals": [
+          "Dennis's opening is a strong example of iterative replacement rather than independent lore: scene architecture and jokes persist while organizations, magic vocabulary and threat taxonomy change.",
+          "Sidewinder appears to have evolved toward Warden; Maw toward Shackled One; Black/Midnight Sun material appears replaced or recontextualized by the Makers conflict. These are candidate mappings, not canon equivalences.",
+          "The repeated preservation of Dennis, Dusk, Avalon, squad structure, runic/alchemical combat and Void traversal suggests those are durable story/system anchors even when terminology changes."
+        ],
+        "lorekeeper_design_implication": "The future Lorekeeper should support lineage links such as renamed_to, evolved_into, replaced_by, retained_from and uncertain_equivalent, not only contradiction flags. It should compare scene-level revisions so retained ideas can be distinguished from terminology churn.",
+        "challenge_notes": [
+          "Because The Silence is now central, older scenes involving large magical institutions, public-facing Avalon operations and supernatural combat will eventually need a consistent explanation of who can remember/record these events and how cleanup works.",
+          "The Name/identity system, Silence-based forgetting, Dream Eater memory consumption and Guardian/Emblem identity inheritance all manipulate memory or identity through different mechanisms. Keeping their boundaries explicit will prevent them from becoming interchangeable plot devices.",
+          "Avalon's public nonprofit face plus hidden magical-government role creates a useful pressure point: the setting will eventually need rules for how mundane staff, patients, governments and records interact with an organization containing Fade users."
+        ]
       }
     },
     {
