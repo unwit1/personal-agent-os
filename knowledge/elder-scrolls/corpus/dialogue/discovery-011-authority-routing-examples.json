@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "status": "verified",
+  "examples": [
+    {
+      "title": "TES5 Skyrim: The Horn of Jurgen Windcaller",
+      "url": "https://www.imperial-library.info/content/tes5-skyrim-the-horn-of-jurgen-windcaller",
+      "route": "dialogue",
+      "authority_class": "released-primary-transcription-witness"
+    },
+    {
+      "title": "Loremaster's Archive: Scribing",
+      "url": "https://www.imperial-library.info/content/loremasters-archive-scribing",
+      "route": "official-external",
+      "authority_class": "official-external-in-character-q-and-a",
+      "notes": "In-character official Q&A; not ordinary in-game NPC dialogue."
+    },
+    {
+      "title": "Update Roundup: April 2019",
+      "url": "https://www.imperial-library.info/content/update-roundup-april-2019",
+      "route": "provenance-only",
+      "authority_class": "archive-editorial",
+      "notes": "Useful for discovering corpus additions, not lore evidence by itself."
+    }
+  ],
+  "rule": "The importer classifies each page from its actual publication form and content rather than assuming every Imperial Library page is an in-game primary source."
+}
