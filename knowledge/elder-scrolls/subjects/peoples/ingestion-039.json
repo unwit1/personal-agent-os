@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "peoples",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-039-aldmer-altmer-psijic-summerset",
+  "subjects": [
+    {
+      "id": "tes:aldmer",
+      "name": "Aldmer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/aldmer.json",
+      "source": {
+        "id": "uesp:aldmer",
+        "url": "https://en.uesp.net/wiki/Lore:Aldmer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:altmer",
+      "name": "Altmer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/altmer.json",
+      "source": {
+        "id": "uesp:altmer",
+        "url": "https://en.uesp.net/wiki/Lore:Altmer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:maormer",
+      "name": "Maormer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/maormer.json",
+      "source": {
+        "id": "uesp:maormer",
+        "url": "https://en.uesp.net/wiki/Lore:Maormer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Aldmer and Altmer must remain historically distinct labels; do not project later Altmeri institutions unchanged onto ancient Aldmeri society",
+    "Altmeri social ideals such as Alaxon should distinguish prescriptive doctrine from observed lived practice",
+    "Psijic accounts of the Old Ways, time and metaphysics retain institutional/source provenance rather than becoming universal truth",
+    "Competing accounts of Aldmeris and early elven origins should coexist where evidence conflicts",
+    "Summerset's political isolation/opening must retain era-specific context",
+    "Cross-link existing Altmer, Aldmer, Summerset, Auridon, Alinor, Artaeum, Crystal Tower, Psijic Order, Sapiarchs, Ayrenn, Vanus Galerion and Mannimarco records"
+  ]
+}
