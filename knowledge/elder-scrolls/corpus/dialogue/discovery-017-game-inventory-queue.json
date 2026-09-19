@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "status": "active",
+  "games": [
+    {
+      "game": "arena",
+      "inventory_status": "needed",
+      "priority": 9,
+      "target_types": [
+        "story dialogue",
+        "NPC dialogue",
+        "main-quest transcript"
+      ]
+    },
+    {
+      "game": "daggerfall",
+      "inventory_status": "needed",
+      "priority": 8,
+      "target_types": [
+        "quest dialogue",
+        "NPC dialogue",
+        "main-quest transcript"
+      ]
+    },
+    {
+      "game": "battlespire",
+      "inventory_status": "needed",
+      "priority": 5,
+      "target_types": [
+        "conversation transcripts",
+        "Daedric dialogue",
+        "story dialogue"
+      ]
+    },
+    {
+      "game": "redguard",
+      "inventory_status": "needed",
+      "priority": 4,
+      "target_types": [
+        "conversation transcripts",
+        "storyline dialogue",
+        "Cyrus dialogue"
+      ]
+    },
+    {
+      "game": "morrowind",
+      "inventory_status": "needed",
+      "priority": 3,
+      "target_types": [
+        "NPC dialogue",
+        "topic dialogue",
+        "main-quest conversations"
+      ]
+    },
+    {
+      "game": "oblivion",
+      "inventory_status": "needed",
+      "priority": 2,
+      "target_types": [
+        "quest dialogue",
+        "NPC dialogue",
+        "main-quest conversations"
+      ]
+    },
+    {
+      "game": "skyrim",
+      "inventory_status": "seeded",
+      "priority": 1,
+      "target_types": [
+        "quest dialogue",
+        "NPC dialogue",
+        "main-quest conversations"
+      ],
+      "known_transcripts": [
+        "TES5 Skyrim: The Horn of Jurgen Windcaller"
+      ],
+      "next_known_label": "TES5 Skyrim: The Way of the Voice"
+    },
+    {
+      "game": "eso",
+      "inventory_status": "needed",
+      "priority": 6,
+      "target_types": [
+        "quest dialogue",
+        "chapter/DLC dialogue",
+        "recurring NPC conversations"
+      ]
+    },
+    {
+      "game": "blades",
+      "inventory_status": "source-confirmed",
+      "priority": 7,
+      "target_types": [
+        "storyline chapters",
+        "quest dialogue",
+        "NPC conversations"
+      ]
+    }
+  ],
+  "completion_rule": "Inventory phase is complete only when each game has either an enumerated transcript collection or a documented finding that TIL lacks a meaningful transcript corpus for it."
+}
