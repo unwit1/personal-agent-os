@@ -15,7 +15,7 @@
     "first_level_files_indexed": 291,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue remaining Apostate deity/rite variants and Vigilant/Dawnguard docs, then inspect additional safe project names surfaced from Personal Mods and older Drive artifacts. Skyrim adult-mod references remain in scope; unrelated NSFW remains skipped."
+    "next_action": "Continue reconciling surfaced Skyrim reference assets and duplicate/versioned Apostate files, then inspect New Books List / quest masterlist / Iceberg archive relationships and older safe historical project artifacts. Keep Skyrim mod adult references in scope; skip unrelated NSFW and sensitive sources."
   },
   "top_level_folders": [
     {
@@ -3595,6 +3595,15 @@
         "source_ids": [
           "14WCNnr9ZQic0L6M2XfAWoSuZsHANbz1xlcUGgfYyKhg"
         ]
+      },
+      "scope_expansion": {
+        "summary": "Earlier Apostate design aimed beyond the Nine Divines at a broad Tamrielic religion framework spanning Nordic, Altmeri/Bosmeri, Redguard and Daedric pantheons. Shared systems included patron saints, vows/oathbreaking, artifact resonance, prayers/invocations, divine guardians, shrine offerings, deity-associated spell learning, radiant divine missions, apostasy/shrine desecration, priesthood, proselytizing, charity, curses/champions and crusading.",
+        "pantheon_examples": [
+          "Nine Divines plus Shezarr/Shor/Tsun",
+          "Auri-El/Jephre/Magnus/Phynaster/Trinimac/Xarxes",
+          "Redguard gods including Ruptga/Satakal/Tu'Whacca/Zeht/Tava/Onsi/Leki/HoonDing",
+          "16 Daedric Princes"
+        ]
       }
     },
     "gradience": {
@@ -3729,6 +3738,31 @@
         "source_ids": [
           "1ssuc4A_A5uyK0TMQFXean-tX08LYqcKPkN-ZKyvSU84"
         ]
+      },
+      "modular_architecture": {
+        "summary": "The Vigilant work was conceived as multiple potentially mergeable modules: named-Vigilant dialogue expansion, generic Vigilant dialogue/gameplay overhaul, and a larger joinable faction project. The faction concept emphasizes roaming/nomadic priests investigating rumors and radiant threats so it remains mechanically distinct from other Vigilant mods.",
+        "features": [
+          "contextual greetings and combat barks",
+          "forcegreet reactions to Daedric/necromantic/vampiric/lycanthropic behavior",
+          "speech/bribe/intimidation/faction-rank defenses",
+          "Vigilant bounties",
+          "Restoration training",
+          "monster-hunting trade",
+          "artifact confiscation/disposal",
+          "confessions",
+          "rumors leading to vanilla quests",
+          "reporting suspected monsters/cultists",
+          "charity and medical aid",
+          "holy oils/salts for anti-monster weapons",
+          "patrols/monster hunters/inquisitors"
+        ]
+      },
+      "dialogue_assets": {
+        "summary": "Separate implementation sheets contain Skyrim dialogue-record exports and generated/written Vigilant line tables with record-style IDs, emotional delivery tags and state-sensitive dialogue. Dialogue differentiates ordinary Vigilants, post-Hall survivors, Dawnguard relations, illness/suspicion and other contextual states.",
+        "source_ids": [
+          "15fV8VFCcEozKwC4VV-dxsyJsi0hkciIC5WjWWFUI7NQ",
+          "1CXH8Z2AA3IGRDXpahSF9emCTL6CmcuUP7OBS5k1dwII"
+        ]
       }
     },
     "consecration": {
@@ -3833,6 +3867,28 @@
         "Illusion Spells Overhaul",
         "UnwitRim Custom Spells",
         "Skyrim Modlist Architecture"
+      ]
+    },
+    "skyrim-quest-world-encounter-reference": {
+      "status": "active_or_recent_reference",
+      "domain": "Skyrim quest/world encounter master reference",
+      "summary": "Compiled reference inventory of vanilla, Dawnguard, Hearthfire, Dragonborn, Creation Club/Anniversary Edition quests and random world encounters, intended as a comprehensive substrate for quest-overhaul, reputation, religion and encounter projects.",
+      "source_ids": [
+        "1ZDRt5sqNbwYKw40D-zxjP_lqe5v7R9A2G38T6ZV3oQQ"
+      ],
+      "counts": {
+        "vanilla_quests": 390,
+        "dawnguard": 41,
+        "hearthfire": 14,
+        "dragonborn": 64,
+        "creation_club": 106,
+        "world_encounters": 143
+      },
+      "relationships": [
+        "Journeyman",
+        "Open Reputation Engine",
+        "Apostate",
+        "Merciful"
       ]
     }
   },
