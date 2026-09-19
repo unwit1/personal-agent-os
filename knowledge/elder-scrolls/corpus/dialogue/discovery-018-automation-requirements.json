@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "status": "planned",
+  "crawler_requirements": [
+    "Start from TIL game/category/search/index pages and transcript seeds.",
+    "Extract internal TIL links and score transcript likelihood from title, headings and page structure.",
+    "Classify before fetching into the dialogue corpus.",
+    "Persist frontier, visited URLs, classification and failure reason.",
+    "Respect rate limits and cache raw HTML locally.",
+    "Deduplicate canonical URLs and content hashes.",
+    "Continue breadth-first across games rather than recursively exhausting one quest chain.",
+    "Emit normalized transcript records compatible with dialogue-record.schema.json."
+  ],
+  "transcript_likelihood_signals": {
+    "positive": [
+      "repeated speaker headings",
+      "Player Character headings",
+      "question/answer structure",
+      "quest/storyline naming",
+      "stage directions between spoken turns"
+    ],
+    "negative": [
+      "book category",
+      "letters and notes category",
+      "songs and poems category",
+      "manuals and instructions category",
+      "site editorial",
+      "developer interview"
+    ]
+  },
+  "validation_plan": [
+    "Use Horn of Jurgen Windcaller only as parser fixture.",
+    "Sample at least one transcript from each game corpus discovered.",
+    "Measure speaker attribution accuracy, prompt-response pairing accuracy and false dialogue classification rate.",
+    "Only then run bulk local ingestion."
+  ]
+}
