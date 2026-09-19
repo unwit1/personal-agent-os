@@ -15,7 +15,7 @@
     "first_level_files_indexed": 349,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue archive crawl under new provenance rule. Prioritize user-authored project/lore/planning files and distinguish them from player character sheets. Inventory remaining player sheets for completeness but extract mainly the user's own character concepts/backstories; do not learn from or propagate external campaign mechanics/lore. Continue safe Untitled/native docs and sheets to discover genuinely user-authored projects."
+    "next_action": "Continue safe Untitled/native file sweep, especially 2026-2024 docs/sheets not yet indexed. Prioritize identifying user-authored Skyrim/mod, Agent OS, writing/lore and collection projects. For player character sheets, inventory only and isolate user character material; do not propagate external campaign lore/mechanics. Also inspect Blades of Pergrande Loredoc and other authored campaign planning if not already deeply covered."
   },
   "top_level_folders": [
     {
@@ -112,8 +112,8 @@
       "path": "/My Drive/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-09-14T18:42:40.129Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "knowledge_framework",
+      "content_status": "processed"
     },
     {
       "id": "1v9kB7CAEMLI9okKt_ycSVM59Bjm1zmE-kBNRVpyvTg0",
@@ -184,8 +184,8 @@
       "path": "/My Drive/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-09-12T00:33:35.306Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "knowledge_framework",
+      "content_status": "processed"
     },
     {
       "id": "1cvI7GXqGZvZ25ml2y9YYjb9WkLegwryw0brBwo5PqWo",
@@ -418,8 +418,8 @@
       "path": "/My Drive/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-08-20T18:21:23.178Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "unknown",
+      "content_status": "empty/template"
     },
     {
       "id": "1VzqP-gAOKcfyYDz7r1hSOeLqIRyrpOAa1pSkJAW6qoc",
@@ -544,8 +544,8 @@
       "path": "/My Drive/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-08-09T03:58:07.606Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "skyrim_chantry_akatosh",
+      "content_status": "processed"
     },
     {
       "id": "1eccTyzZghEfHVInIT3T-ivEC2zvlzrLimO_c1oihnGU",
@@ -1831,8 +1831,8 @@
       "path": "/My Drive/dreameater/Magic System - Guardian Emblem",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2023-02-12T16:21:16.249Z",
-      "category": "writing_dream_eater",
-      "content_status": "queued"
+      "category": "guardian_cycle_magic",
+      "content_status": "processed"
     },
     {
       "id": "1YzUu9_ciemP6531GVpTYbVCsReKFjLgCc69MocByDP4",
@@ -1840,8 +1840,8 @@
       "path": "/My Drive/dreameater/Loredoc - Otherworld History",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2023-02-08T03:43:21.337Z",
-      "category": "writing_dream_eater",
-      "content_status": "queued"
+      "category": "guardian_cycle_otherworld",
+      "content_status": "processed"
     },
     {
       "id": "1XWWTKu6v3aHvf9zJgyTnyWYJmCpp_HUr20c567F1Urg",
@@ -1867,8 +1867,8 @@
       "path": "/My Drive/dreameater/Magic System Brainstorming - Invocation",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2022-09-04T16:12:34.420Z",
-      "category": "writing_dream_eater",
-      "content_status": "queued"
+      "category": "guardian_cycle_magic",
+      "content_status": "processed"
     },
     {
       "id": "1bgYlEmS5O8Fs_SrWMZOmtq9zRCp_m94q9BbXPUWs07M",
@@ -3462,6 +3462,13 @@
           "14sjLqJ8RSd3C-OtrA1ApyE0J-3Ho0w6TPNEK5OuQ7AM"
         ],
         "authority_note": "Treat brainstorming alternatives as provisional historical state; use the structured loredoc and later campaign records to resolve conflicts."
+      },
+      "character_arc_planning": {
+        "summary": "A dedicated arc-planning document ties player arcs into authored Pergrande worldbuilding: ancient Gates/Sins, the Inquisitorius purge of major dark guilds, Sin Eater, Kakkarow, One Eye Reaper, Violet Djinn, Lazarus Taxon, the Old Gods and Horsemen. Planned arcs include Loki becoming the Sin/Gate of Deceit; Lawson as Violet Djinn's Alternate Etherious Creation Project and target of a later E.L.M.; Swick/Artemis as a failed host experiment tied to Despair/Sin Eater; and Morris as a centuries-old survivor of Lazarus Taxon's attempt to implant eight God Lacrima representing primordial creation aspects. One Eye Reaper was planned to weaponize/resurrect this older cosmology.",
+        "source_ids": [
+          "12BgdMu5ccCKz-upBQ3A56VR1Knt-vXVIy4eJ8wP3k44"
+        ],
+        "provenance_note": "This is campaign planning/worldbuilding rather than a standalone player sheet, so it is retained as authored project lore. Player-specific arcs may include collaborative input and should not automatically be treated as solely authored character canon."
       }
     },
     "dragon-heart-campaign": {
@@ -3550,20 +3557,10 @@
         ]
       },
       "event_schema": {
-        "summary": "Historical events are intended as structured topics loaded from events.json-like files.",
-        "fields": [
-          "event ID/key",
-          "People with relevance weights",
-          "Cultures with relevance weights",
-          "Aliases",
-          "Sub-events",
-          "NextEvent/chronological linkage"
-        ],
-        "examples": [
-          "War of the Red Diamond",
-          "Camoran Usurpation"
-        ],
-        "implication": "Event knowledge can connect people, cultures and chronology rather than being a flat tag."
+        "summary": "An implementation/config note defines academic ranks Novice through Master and an event-topic data model. Event definitions can associate historical events with People, Cultures and other subtopics using weighted relationships, aliases, subevents and next-event chronology. Examples include War of the Red Diamond/Potema and the Camoran Usurpation. This supports graph-like historical knowledge rather than flat keyword tagging.",
+        "source_ids": [
+          "1t3FoStqaJ6U4UeWXwz_TAmAMDAFrQfNim3KTPnw1wb0"
+        ]
       },
       "expert_npc_tagging": {
         "summary": "Vanilla NPCs are being mapped to scholarly expertise so world characters can act as domain-aware knowledge sources.",
@@ -3574,6 +3571,12 @@
           "Arcadia—Botany",
           "Verner Rock-Chucker—Geology",
           "Madena—Argonian culture"
+        ]
+      },
+      "writing_books": {
+        "summary": "Planned authoring gameplay lets the player write books on learned topics. Manuscripts accumulate hidden quality (1-100) based on Speech, primary evidence carried by the player (sketches, biological samples, rubbings, field notes, artifacts), secondary-source books, unidentified flawed sources that poison quality, and fatigue that can introduce manuscript flaws. This extends Knowledge Framework from studying existing texts into producing scholarship whose reliability reflects evidence quality and player condition.",
+        "source_ids": [
+          "1pRVMPho2Fd4tv6Z3kcosds9Kp-4TJ9ukSBCFCLcyt_o"
         ]
       }
     },
@@ -4646,6 +4649,27 @@
           "1XWWTKu6v3aHvf9zJgyTnyWYJmCpp_HUr20c567F1Urg"
         ],
         "canon_reconciliation": "The document contains the older Oliver Ashland version of the Throne-destruction/Ellison origin. Preserve it as legacy wording; explicit user canon establishes Silas as Grant's child and intended identity. Other Dreamless/Dreameater mechanics are useful lore but remain subordinate to newer Dream Eater sources where conflicts arise."
+      },
+      "guardian_emblems": {
+        "summary": "The Guardian Emblem document describes the Guardian power splintering into nine Emblems after the Black Guardian's defeat by the Blades. First-generation wielders imprint quasi-sentient personalities onto the Emblems; later wielders form contracts with these intelligences, which can refuse, sabotage or switch contractors. The generational sequence runs Blades/Gen 1 -> randomly passed Heretics/Gen 2 -> Fate-selected Nine Eyes of Avalon/Gen 3 -> Deadlight Brigade/Gen 4. Each Emblem also contains part of the Name/key capable of freeing Mourn from imprisonment in the Void.",
+        "source_ids": [
+          "107-PpHnQsZIc3eG2gDu0Ul1X5sECSxSxhOGuyAPNvbo"
+        ],
+        "important_links": "Door's Emblem eventually passes from Dennis Deacon to Ellison Crane; because Ellison contains material/identity from Door, the Emblem helps him reconstitute identity. The document explicitly links Gallowbird, Dusk Morrigan, Incubus, Mourn, Fate, Nine Eyes, Deadlight Virus, Lilith Deacon, Meredith/Harland Fleer, Reese Morrigan, Ellison, Lotus Morrigan, Abigail Fletcher, Marcus Shrike and Q16N.",
+        "authority_note": "Dedicated 2023 lore source. Treat as strong historical structured lore but reconcile Dream Eater-specific details against explicit user statements and newer manuscript/lore."
+      },
+      "invocation_magic": {
+        "summary": "An early Invocation brainstorming note defines spell 'Degree' as exponentially increasing distance from ordinary human rationality. Typical human upper casting range was envisioned around degree 6-7, while Harland is noted as casting at degree 11, requiring an inhuman mind. Fragmentary brainstorming only.",
+        "source_ids": [
+          "1lfxVnnu4VTouwYWmHReQaNJDK6VYMwPQIgP8Is3mA6w"
+        ],
+        "status": "idea/provisional"
+      },
+      "otherworld_history": {
+        "summary": "Otherworld chronology/history is intentionally unreliable: time, historical records and carbon dating function sporadically. Surviving organized historical records are associated with an orderly empire and nominally extend to about 5500 BC.",
+        "source_ids": [
+          "1YzUu9_ciemP6531GVpTYbVCsReKFjLgCc69MocByDP4"
+        ]
       }
     },
     "lords-of-mourning": {
@@ -5030,6 +5054,19 @@
         "1fsv0lC2nw1tY41VK9xdU7OWBkiuEKGpvCVB8JYUH1Bc"
       ],
       "content_status": "irrelevant/reference"
+    },
+    "chantry-of-akatosh": {
+      "status": "Skyrim mod concept / planning",
+      "domain": "Skyrim faction/religion mod",
+      "summary": "A Chantry of Akatosh concept proposes a structured Akatosh priesthood with ranks such as Primate, Grand Chanter, Chanter and Sermonizer, Five Commands, Eight Rigors, Covenant Scroll/Hourglass collectibles, and a faction questline. The premise sends a small Cyrodiilic clergy delegation and an Order of the Hour Paladin to Skyrim after the dragons return to establish a local chapter. The player can rescue/escort them to Solitude, help overcome Elisif's court's political reluctance, find patronage and a location, and face Thalmor sabotage. A Dragon Break and timed-invincibility concept were also brainstormed.",
+      "source_ids": [
+        "1RbnSbNz_vowv8rHWXci_AuD2fQ6tHIyMyKZevtFpaGc"
+      ],
+      "relationships": [
+        "Apostate / religion-expansion ecosystem",
+        "Skyrim faction overhaul ideas"
+      ],
+      "authority_note": "Untitled planning document; features are concepts, not necessarily implemented/current."
     }
   },
   "discovered_project_folders": [
