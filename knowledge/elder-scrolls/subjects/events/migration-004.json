@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:ranser-war",
+      "name": "Ranser's War",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/ranser-war.json",
+      "source": {
+        "id": "uesp:ranser-war",
+        "url": "https://en.uesp.net/wiki/Lore:Ranser%27s_War",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:first-orsinium",
+      "name": "First Orsinium",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/first-orsinium.json",
+      "source": {
+        "id": "uesp:first-orsinium",
+        "url": "https://en.uesp.net/wiki/Lore:First_Orsinium",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration from earlier queues into canonical subject categories; extraction must retain provenance and temporal/cultural scope."
+}
