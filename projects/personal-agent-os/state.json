@@ -7,15 +7,15 @@
   "repository": "https://github.com/unwit1/personal-agent-os.git",
   "default_branch": "main",
   "current_priorities": [
-    "Follow projects/personal-agent-os/roadmap/master-priority-roadmap.md as the canonical implementation order. Reduce model/Work usage before expanding feature scope.",
-    "Implement selective profile/context retrieval with compact context packets, relevance filtering, deduplication, privacy enforcement, provenance, and measurable context-size diagnostics.",
-    "Implement shared document intelligence: local persistent extraction/OCR cache, embedded-text-first routing, dependency-aware invalidation, template reuse, targeted field-zone OCR, and strict work-data privacy boundaries.",
-    "Generalize restart-safe checkpoints, stable IDs, fingerprinting, deduplication, and incremental processing for long-running imports/crawls including iCloud Mail, Drive archive work, text imports, document batches, and future knowledge ingestion.",
-    "Operationalize deterministic/cache/approved-skill-first execution before model calls.",
-    "Add privacy-safe local usage telemetry and reporting, then provider-neutral adaptive routing with validator-driven escalation. Treat external API delegation as optional separately billed capacity, not the first savings mechanism.",
-    "Mine repeated workflows into deterministic automations first and reviewed reusable skills second, using replay/evaluation before promotion.",
+    "P0.0: Make Agent OS the default preflight/context/routing layer for every supported ChatGPT chat, Work project, coding-agent task, and connected agent surface. Supported clients should automatically consult Agent OS; partially supported clients should use the thinnest possible capture/handoff bridge.",
+    "P0.1: Implement the Staged Workflow Orchestrator. Break complex jobs into bounded stages, use the cheapest appropriate capability per stage, validate/checkpoint each stage, stop cleanly, and emit the exact next prompt plus recommended capability/model/reasoning effort.",
+    "P0.2: Implement selective profile/context retrieval with compact context packets, relevance filtering, deduplication, privacy enforcement, provenance, and measurable context-size diagnostics.",
+    "P0.3: Implement shared document intelligence: local persistent extraction/OCR cache, embedded-text-first routing, dependency-aware invalidation, template reuse, targeted field-zone OCR, and strict work-data privacy boundaries.",
+    "P0.4: Generalize restart-safe checkpoints, stable IDs, fingerprinting, deduplication, and incremental processing for long-running imports/crawls including iCloud Mail, Drive archive work, text imports, document batches, and future knowledge ingestion.",
+    "P0.5: Operationalize deterministic/cache/approved-skill-first execution and make the staged orchestrator use that policy before model calls.",
+    "Then add privacy-safe usage telemetry, adaptive routing with validator-driven escalation, automation mining, skill mining, and prompt/context optimization.",
     "After the usage-economy foundation is working, implement the Personal Executive roadmap: Event Bus, Next Action Engine, capture/rescue, prioritization, delegation, communication/calendar intelligence, proactivity, voice, and controlled autonomy.",
-    "Keep Knowledge Library / Elder Scrolls and Lorekeeper / creative intelligence as later reusable systems that inherit selective retrieval, incremental ingestion, caching, provenance, and routing from the economy foundation."
+    "Keep Knowledge Library / Elder Scrolls and Lorekeeper / creative intelligence as later reusable systems that inherit universal routing, staged execution, selective retrieval, incremental ingestion, caching, provenance, and adaptive routing."
   ],
   "important_paths": [
     "README.md",
