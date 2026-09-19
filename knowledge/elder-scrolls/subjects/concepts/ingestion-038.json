@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-038-yokuda-redguard-sword-singers",
+  "subjects": [
+    {
+      "id": "tes:shehai",
+      "name": "Shehai",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/shehai.json",
+      "source": {
+        "id": "uesp:shehai",
+        "url": "https://en.uesp.net/wiki/Lore:Shehai",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:pankratosword",
+      "name": "Pankratosword",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/pankratosword.json",
+      "source": {
+        "id": "uesp:pankratosword",
+        "url": "https://en.uesp.net/wiki/Lore:Pankratosword",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:way-sword",
+      "name": "Way of the Sword",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/way-sword.json",
+      "source": {
+        "id": "uesp:way-sword",
+        "url": "https://en.uesp.net/wiki/Lore:Way_of_the_Sword",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:far-shores",
+      "name": "Far Shores",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/far-shores.json",
+      "source": {
+        "id": "uesp:far-shores",
+        "url": "https://en.uesp.net/wiki/Lore:Far_Shores",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:walkabout",
+      "name": "Walkabout",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/walkabout.json",
+      "source": {
+        "id": "uesp:walkabout",
+        "url": "https://en.uesp.net/wiki/Lore:Walkabout",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:yokudan-pantheon",
+      "name": "Yokudan Pantheon",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/yokudan-pantheon.json",
+      "source": {
+        "id": "uesp:yokudan-pantheon",
+        "url": "https://en.uesp.net/wiki/Lore:Yokudan_Pantheon",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Yokuda's destruction has competing explanations; preserve natural, political, magical and sword-related accounts separately",
+    "Pankratosword claims require especially strong provenance and must not be generalized from later fan interpretation",
+    "Sword-singer and Ansei feats should distinguish instructional tradition, heroic literature and directly evidenced capability",
+    "Crowns and Forebears are historical/political traditions whose positions vary by era; do not make them timeless monoliths",
+    "Yokudan theology such as the Walkabout and Far Shores should retain source/cultural framing rather than be flattened into universal cosmology",
+    "Cross-link existing Yokuda, Redguard, Hammerfell, Frandar Hunding, Makela Leki, Sword-singers, Ansei, Shehai, Crowns, Forebears and Stros M'Kai records"
+  ]
+}
