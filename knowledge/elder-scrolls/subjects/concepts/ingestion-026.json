@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-026-elsweyr-khajiit-dragons",
+  "subjects": [
+    {
+      "id": "tes:khajiit-furstock",
+      "name": "Furstocks",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/khajiit-furstock.json",
+      "source": {
+        "id": "uesp:khajiit-furstock",
+        "url": "https://en.uesp.net/wiki/Lore:Furstocks",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:lunar-lattice",
+      "name": "Lunar Lattice",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/lunar-lattice.json",
+      "source": {
+        "id": "uesp:lunar-lattice",
+        "url": "https://en.uesp.net/wiki/Lore:Lunar_Lattice",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ja-kha-jay",
+      "name": "Ja-Kha'jay",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/ja-kha-jay.json",
+      "source": {
+        "id": "uesp:ja-kha-jay",
+        "url": "https://en.uesp.net/wiki/Lore:Ja-Kha%27jay",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mane",
+      "name": "Mane",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/mane.json",
+      "source": {
+        "id": "uesp:mane",
+        "url": "https://en.uesp.net/wiki/Lore:Mane",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dro-mathra",
+      "name": "Dro-m'Athra",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dro-mathra.json",
+      "source": {
+        "id": "uesp:dro-mathra",
+        "url": "https://en.uesp.net/wiki/Lore:Dro-m%27Athra",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dark-mane",
+      "name": "Dark Mane",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dark-mane.json",
+      "source": {
+        "id": "uesp:dark-mane",
+        "url": "https://en.uesp.net/wiki/Lore:Dark_Mane",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:moon-beast",
+      "name": "Moon-Beast",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/moon-beast.json",
+      "source": {
+        "id": "uesp:moon-beast",
+        "url": "https://en.uesp.net/wiki/Lore:Moon-Beast",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragonhorn",
+      "name": "Dragonhorn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dragonhorn.json",
+      "source": {
+        "id": "uesp:dragonhorn",
+        "url": "https://en.uesp.net/wiki/Lore:Dragonhorn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Khajiiti origin stories and lunar theology remain attributed traditions unless independently evidenced",
+    "Furstock descriptions must retain source/era because terminology and presentation vary across games",
+    "Khunzar-ri legends should separate legendary narrative from observed ESO-era evidence",
+    "Dragon claims should distinguish individual testimony, historical record and directly observed quest events",
+    "Cross-link existing Khajiit, Elsweyr, Alkosh, Azurah, Lunar Lattice, Mane, Dro-m'Athra, Sai Sahan and Abnur Tharn subjects",
+    "Do not collapse Anequina/Pellitine geographic, political and historical meanings into one undifferentiated record"
+  ]
+}
