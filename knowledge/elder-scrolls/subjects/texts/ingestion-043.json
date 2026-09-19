@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-043-breton-high-rock-direnni",
+  "subjects": [
+    {
+      "id": "tes:once-high-rock",
+      "name": "Once",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/once-high-rock.json",
+      "source": {
+        "id": "uesp:once-high-rock",
+        "url": "https://en.uesp.net/wiki/Lore:Once",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:bretons-mongrels",
+      "name": "Bretons: Mongrels or Paragons?",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/bretons-mongrels.json",
+      "source": {
+        "id": "uesp:bretons-mongrels",
+        "url": "https://en.uesp.net/wiki/Lore:Bretons:_Mongrels_or_Paragons%3F",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:direnni-acropolis",
+      "name": "The Direnni Acropolis",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/direnni-acropolis.json",
+      "source": {
+        "id": "uesp:direnni-acropolis",
+        "url": "https://en.uesp.net/wiki/Lore:The_Direnni_Acropolis",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:pocket-guide-high-rock",
+      "name": "Pocket Guide to the Empire: High Rock",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/pocket-guide-high-rock.json",
+      "source": {
+        "id": "uesp:pocket-guide-high-rock",
+        "url": "https://en.uesp.net/wiki/Lore:Pocket_Guide_to_the_Empire:_High_Rock",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Breton ancestry claims must distinguish historical evidence, cultural identity, polemical texts and later racial theorizing",
+    "Do not treat High Rock as a single centralized political culture across eras; preserve kingdom, city-state and feudal variation",
+    "Direnni rule and the term Manmer require era/source-specific handling rather than timeless ethnic definitions",
+    "Adamantine Tower cosmology should separate observed location/history from Tower-theory interpretation",
+    "Rivenspire vampire narratives must distinguish individual clans and periods rather than generalize all Breton vampirism",
+    "Cross-link existing Breton, High Rock, Direnni, Daggerfall, Wayrest, Balfiera, Adamantine Tower, Emeric and House Ravenwatch records"
+  ]
+}
