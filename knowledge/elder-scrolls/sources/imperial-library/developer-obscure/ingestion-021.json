@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-021-out-of-game-fiction",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:obscure-fiction-index",
+      "title": "Developer-authored out-of-game fiction index",
+      "author": "multiple",
+      "document_kind": "external_developer_fiction_index",
+      "status": "discovery_queued",
+      "subjects": [
+        "obscure texts",
+        "developer fiction",
+        "future eras",
+        "alternate literary frames"
+      ]
+    },
+    {
+      "id": "til:mk-fiction-index",
+      "title": "Michael Kirkbride external fiction corpus",
+      "author": "Michael Kirkbride",
+      "document_kind": "external_developer_fiction_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "C0DA",
+        "Loveletter",
+        "Aldudagga",
+        "KINMUNE",
+        "Shonni-etta",
+        "Vehk"
+      ]
+    },
+    {
+      "id": "til:roleplay-fiction-index",
+      "title": "Developer roleplay and collaborative fiction index",
+      "author": "multiple",
+      "document_kind": "developer_roleplay_index",
+      "status": "discovery_queued",
+      "subjects": [
+        "roleplay",
+        "Trial of Vivec",
+        "forum fiction",
+        "collaborative lore"
+      ]
+    },
+    {
+      "id": "til:future-era-index",
+      "title": "Future-era developer fiction index",
+      "author": "multiple",
+      "document_kind": "future_fiction_index",
+      "status": "discovery_queued",
+      "subjects": [
+        "Fifth Era",
+        "Landfall",
+        "Amaranth",
+        "future Tamriel"
+      ]
+    },
+    {
+      "id": "til:alternate-frame-index",
+      "title": "Alternate-frame and experimental lore writing",
+      "author": "multiple",
+      "document_kind": "experimental_fiction_index",
+      "status": "discovery_queued",
+      "subjects": [
+        "alternate frames",
+        "metafiction",
+        "experimental lore",
+        "unreliable narration"
+      ]
+    }
+  ],
+  "review_rules": [
+    "External fiction is indexed by literary frame and publication context rather than forced into the main historical chronology.",
+    "Characters or concepts reused in released games receive cross-source identity links without importing every external-fiction event.",
+    "Collaborative roleplay preserves participant-by-participant authorship where recoverable.",
+    "Metafictional statements are not converted into setting facts without explicit textual support.",
+    "Future-era dates and events remain claims internal to their source frame unless independently adopted."
+  ]
+}
