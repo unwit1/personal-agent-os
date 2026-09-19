@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "tes:dragon-war",
+  "library_id": "elder-scrolls",
+  "name": "Dragon War",
+  "entity_type": "event",
+  "category": "events",
+  "canonical_path": "knowledge/elder-scrolls/subjects/events/dragon-war.json",
+  "continuity_model": "claims_and_evidence_scoped",
+  "sources": [
+    {
+      "source_id": "uesp:dragon-war",
+      "url": "https://en.uesp.net/wiki/Lore:Dragon_War",
+      "source_class": "secondary_reference",
+      "status": "queued"
+    }
+  ],
+  "claims": [],
+  "relationships": [],
+  "notes": "Migrated from an earlier ingestion queue into the categorized subject library. Claims remain empty until evidence-backed extraction."
+}
