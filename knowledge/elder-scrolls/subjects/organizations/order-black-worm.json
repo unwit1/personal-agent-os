@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "tes:order-black-worm",
+  "library_id": "elder-scrolls",
+  "name": "Order of the Black Worm",
+  "entity_type": "organization",
+  "category": "organizations",
+  "canonical_path": "knowledge/elder-scrolls/subjects/organizations/order-black-worm.json",
+  "continuity_model": "claims_and_evidence_scoped",
+  "sources": [
+    {
+      "source_id": "uesp:order-black-worm",
+      "url": "https://en.uesp.net/wiki/Lore:Order_of_the_Black_Worm",
+      "source_class": "secondary_reference",
+      "status": "queued"
+    }
+  ],
+  "claims": [],
+  "relationships": [],
+  "notes": "Subject shell created during ingestion; claims/evidence populate only after provenance-backed extraction."
+}
