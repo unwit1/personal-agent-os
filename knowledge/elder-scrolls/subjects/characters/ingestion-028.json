@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-028-eso-dungeons-trials-deadlands",
+  "subjects": [
+    {
+      "id": "tes:fa-nuit-hen",
+      "name": "Fa-Nuit-Hen",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/fa-nuit-hen.json",
+      "source": {
+        "id": "uesp:fa-nuit-hen",
+        "url": "https://en.uesp.net/wiki/Lore:Fa-Nuit-Hen",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:titus-valerius",
+      "name": "Titus Valerius",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/titus-valerius.json",
+      "source": {
+        "id": "uesp:titus-valerius",
+        "url": "https://en.uesp.net/wiki/Lore:Titus_Valerius",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:aranea-drethan",
+      "name": "Aranea Drethan",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/aranea-drethan.json",
+      "source": {
+        "id": "uesp:aranea-drethan",
+        "url": "https://en.uesp.net/wiki/Lore:Aranea_Drethan",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:silken-ring-leader",
+      "name": "Velidreth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/silken-ring-leader.json",
+      "source": {
+        "id": "uesp:silken-ring-leader",
+        "url": "https://en.uesp.net/wiki/Lore:Velidreth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:saint-olms",
+      "name": "Saint Olms",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/saint-olms.json",
+      "source": {
+        "id": "uesp:saint-olms",
+        "url": "https://en.uesp.net/wiki/Lore:Saint_Olms",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:saint-llothis",
+      "name": "Saint Llothis",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/saint-llothis.json",
+      "source": {
+        "id": "uesp:saint-llothis",
+        "url": "https://en.uesp.net/wiki/Lore:Saint_Llothis",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:saint-felms",
+      "name": "Saint Felms",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/saint-felms.json",
+      "source": {
+        "id": "uesp:saint-felms",
+        "url": "https://en.uesp.net/wiki/Lore:Saint_Felms",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Dungeon/trial mechanics are not automatically lore facts; separate repeatable gameplay systems from narrative events",
+    "Group-content outcomes involving the Vestige remain minimally biographical and branch-safe",
+    "Fargrave claims should distinguish observed social/legal conditions from claims about metaphysical neutrality",
+    "Daedric cult doctrine remains attributed to the cult or speaker",
+    "Later ESO chapter/DLC events retain their own chronology and must not be projected backward into base-game history",
+    "Cross-link existing Deadlands, Clockwork City, White-Gold Tower, Elder Scrolls, Undaunted, Fighters Guild and Mages Guild subjects"
+  ]
+}
