@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-021-nerevarine-sixth-house",
+  "subjects": [
+    {
+      "id": "tes:nerevarine-prophecy",
+      "name": "Nerevarine Prophecies",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/nerevarine-prophecy.json",
+      "source": {
+        "id": "uesp:nerevarine-prophecy",
+        "url": "https://en.uesp.net/wiki/Lore:Nerevarine_Prophecies",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:fall-sixth-house",
+      "name": "Fall of the Sixth House",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/fall-sixth-house.json",
+      "source": {
+        "id": "uesp:fall-sixth-house",
+        "url": "https://en.uesp.net/wiki/Lore:Fall_of_the_Sixth_House",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:tribunal-end",
+      "name": "Fall of the Tribunal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/tribunal-end.json",
+      "source": {
+        "id": "uesp:tribunal-end",
+        "url": "https://en.uesp.net/wiki/Lore:Fall_of_the_Tribunal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:morrowind-main-quest",
+      "name": "Events of Morrowind",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/morrowind-main-quest.json",
+      "source": {
+        "id": "uesp:morrowind-main-quest",
+        "url": "https://en.uesp.net/wiki/Lore:Events_of_Morrowind",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Prophecy text, Temple interpretation, Ashlander interpretation and fulfilled quest events must remain separate evidence layers",
+    "Do not resolve whether the Nerevarine is reincarnation, chosen fulfillment, constructed identity or another interpretation unless a source explicitly supports that narrower claim",
+    "Dagoth Ur dream/dialogue claims remain attributed to Dagoth Ur",
+    "Player-dependent Morrowind quest sequencing and optional actions should be represented as branch-scoped evidence",
+    "Cross-link existing Vivec, Tribunal, Dagoth Ur, Red Mountain, Heart, Tools and Corprus subjects instead of duplicating canonical records",
+    "Ashlander tribes should remain distinct organizations/cultural groups with their own testimony"
+  ]
+}
