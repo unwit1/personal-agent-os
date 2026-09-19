@@ -21,7 +21,8 @@
       "User clarification 2026-09-18: Silas Ashland is canonically the child Denial weaponized against the Nameless Throne, and has been intended as that child from the concept's origin. Grant Ashland is his father; his mother's name is currently unrecovered, but she is Abigail Fletcher's mentor in The Delusionist.",
       "2026-09-18 Drive-wide discovery pass: searched Silas/Grant/Abigail/Delusionist beyond the Dream Eater folder. No reliable mother's name recovered. Found cross-source support for Door→Ellison reconstitution and an older collective-perception metaphysics basis relevant to the recent Vane/Silence note.",
       "2026-09-18 began importing the connected Notion Dream Eater workspace into the Agent OS provenance map. Notion contains a structured Dream Eater→Lore hierarchy with Guardian Cycle, organizations, locations, entities and an Eight Houses database. Many pages are placeholders; substantive content is retained without promoting it over newer/user-confirmed sources.",
-      "User clarification 2026-09-18: Silas Ashland's mother is also the Mind Emblem holder immediately before Abigail Fletcher and Abigail's mentor in The Delusionist. Current 2026 Guardian Cycle evidence makes Melissa Finnegan the leading candidate, but do not promote that identification without explicit confirmation."
+      "User clarification 2026-09-18: Silas Ashland's mother is also the Mind Emblem holder immediately before Abigail Fletcher and Abigail's mentor in The Delusionist. Current 2026 Guardian Cycle evidence makes Melissa Finnegan the leading candidate, but do not promote that identification without explicit confirmation.",
+      "User confirmation 2026-09-18: Melissa Finnegan is Silas Ashland's mother, Grant Ashland is his father, Melissa mentors Abigail Fletcher in The Delusionist, and Melissa is the Mind Emblem holder immediately preceding Abigail."
     ]
   },
   "project_clusters": [
@@ -284,17 +285,19 @@
           "definition": "Silas Ashland is the child Denial weaponized as a conceptual suicide bomb/homing weapon against the Nameless Throne. This was the intended identity from the concept's origin; the user had temporarily forgotten the name.",
           "parentage": {
             "father": "Grant Ashland",
-            "mother": "Unknown by confirmed name; user confirms she is Abigail Fletcher's mentor in The Delusionist AND the holder of the Mind Emblem immediately before Abigail."
+            "mother": "Melissa Finnegan"
           },
           "event_mapping": "The Character Wiki's statement that Denial-possessed Eric used a Shattergate on Silas Ashland's Name and the user's description of Denial weaponizing a child against the Nameless Throne refer to the same event chain. Preserve the exact mechanics/causal steps for later event-ledger consolidation.",
           "mother_identity_constraint": {
-            "status": "Canon relationship constraint",
+            "status": "Canon",
             "facts": [
-              "Silas's mother is Abigail Fletcher's mentor in The Delusionist.",
-              "Silas's mother held the Mind Emblem immediately before Abigail Fletcher."
+              "Melissa Finnegan is Silas Ashland's mother.",
+              "Grant Ashland is Silas's father.",
+              "Melissa is Abigail Fletcher's mentor in The Delusionist.",
+              "Melissa held the Mind Emblem immediately before Abigail Fletcher."
             ],
             "candidate": "Melissa Finnegan",
-            "candidate_status": "Likely but NOT user-confirmed",
+            "candidate_status": "User-confirmed identity",
             "evidence": "The 2026 Guardian Cycle sheet places Psychic Melissa Finnegan in the Third Cycle directly opposite/succeeded by Abigail Fletcher, while the 2026 Character Wiki explicitly labels Abigail as the Mind Emblem holder. This makes Melissa the strongest current candidate, but no retrieved source yet explicitly states Melissa is Silas's mother or Abigail's mentor."
           }
         }
@@ -476,12 +479,19 @@
           "Much of the Guardian Cycle, Broken Throne, Guardian, Fate/Weaver and Traveler Notion structure consists of blank placeholder pages. Their existence is useful taxonomy/provenance but contributes no new canon facts."
         ],
         "unresolved_search": {
-          "silas_mother": "Not named in fetched Notion material. New user-confirmed constraint: she is Abigail Fletcher's mentor and the Mind Emblem holder immediately before Abigail. Drive evidence makes Melissa Finnegan the strongest candidate, but identity remains unconfirmed until explicit source/user confirmation.",
+          "silas_mother": "RESOLVED by user confirmation: Melissa Finnegan.",
           "completeness": "Notion AI search is unavailable on the connected plan. The import should therefore continue by recursively traversing the Dream Eater hierarchy and fetching nonblank descendants/databases rather than relying only on search."
         },
         "external_archive_backlog": [
           "Scrivener project files not currently accessible in connected sources; import when user provides/retrieves them.",
           "Old laptop Dream Eater files not currently accessible; preserve as an outstanding archive-recovery source and do not mark the corpus complete until searched."
+        ],
+        "additional_findings_2026_09_18": [
+          "Yggdrassil is explicitly described as the Tree of Time; the Weaver sits at its top and manipulates human history. DENIAL is trapped behind a Red Door there.",
+          "Notion categorizes Yggdrassil and Traveler's Inn under 'Thrones', defined as metaphysical locations that are seats of power of their respective divines.",
+          "Albion is nested inside the Void and has sublocations Upside and Silentown; combined with the John Avalon page, it functions in this 2024 planning layer as a city/prison tied to Incubus.",
+          "Grand Inquisitor Isobi is noted as finding the shattered mask of the corrupted Lord of Mourning Bell and as Jericho Deacon's former lover who pushed him out of the Inquisition.",
+          "Several potentially important organization/location pages remain effectively blank placeholders (e.g. Silent Institute and multiple Guardian-cycle generation pages), so their titles establish planned concepts but not detailed canon."
         ]
       }
     },
