@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "subjects": [
+    "tonal-architecture",
+    "nerevarine",
+    "thu'um",
+    "green-pact",
+    "lunar-lattice",
+    "dragonfires",
+    "liminal-barriers"
+  ],
+  "notes": "Seed manifest from existing ingestion queues. Individual subject records are created/populated by ingestion."
+}
