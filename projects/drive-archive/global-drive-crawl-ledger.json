@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 283,
+    "first_level_files_indexed": 289,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Inspect remaining safe Personal files (budgets/meals only at non-sensitive project-pattern level), Productivity folder, then Professional/root uncategorized project artifacts. Do not fetch password file, lawyer document, or other credential-bearing sources."
+    "next_action": "Continue root-level uncategorized files and remaining Personal safe artifacts; then recurse remaining non-sensitive folders and reconcile inventory coverage."
   },
   "top_level_folders": [
     {
@@ -2515,6 +2515,48 @@
       "path": "/My Drive/Universal Anime System (UAS)/Character Creation/Dragon Heart Campaign - CharCreation magic",
       "category": "ttrpg_dragon_heart",
       "content_status": "processed_summary"
+    },
+    {
+      "id": "1rRm0s-7FDlJl-BQsGSGbE_-5HXxnSAmSw4VFFBVKJ8E",
+      "title": "Meal Plan MASTER",
+      "path": "/My Drive/Personal/Productivity/Meal Plan MASTER",
+      "category": "meal_planning",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1-_d9tglP59rAXHunHAl5Usnick7U6rpjvsl1MWlRNoQ",
+      "title": "Meal Lists & Planning Sheet",
+      "path": "/My Drive/Personal/Productivity/Meal Lists & Planning Sheet",
+      "category": "meal_planning",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1FhqkSGSpQ4QR8UsCp8L0b705bJk8gUXtpqbkkhfPmt4",
+      "title": "Books MASTER",
+      "path": "/My Drive/Personal/Productivity/Books MASTER",
+      "category": "collection_tracking",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1wpNn8gQVopBUe3cpGw9OAhJ_GRe4ggmrJSWyrQ0FvpE",
+      "title": "GARDEN MASTER",
+      "path": "/My Drive/Personal/Productivity/GARDEN MASTER",
+      "category": "gardening_planning",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "18sSjI-4thwfVph5mPZ8-dAvAhBJ2Iz88cJ0V0Kc7lW4",
+      "title": "Essentials MASTER",
+      "path": "/My Drive/Personal/Productivity/Essentials MASTER",
+      "category": "household_planning",
+      "content_status": "processed_summary"
+    },
+    {
+      "id": "1MSK2t7Q2gGQPz9JL6oyNpebQL6-bgFF5bYHtAYn25bw",
+      "title": "Comics Collection Masterlist",
+      "path": "/My Drive/Personal/Productivity/Comics Collection Masterlist",
+      "category": "collection_tracking",
+      "content_status": "processed_summary"
     }
   ],
   "folder_queue": [
@@ -3192,6 +3234,60 @@
       "source_ids": [
         "1jgp8KTb-11U0ZsNLq9QsoR14CxlkjH-B2Yk2KMKHxuA"
       ]
+    },
+    "meal-planning-system": {
+      "status": "historical_and_ongoing_personal_system",
+      "domain": "meal/grocery planning",
+      "summary": "A multi-year meal-planning system built around reusable meal catalogs, appliance/cuisine/protein metadata, recipes, requested-by fields, cost-per-serving, grocery staples and a repeating two-week menu. Later sheets emphasize leftovers for lunch, recurring protein quantities, free nights and pantry/spice inventories.",
+      "source_ids": [
+        "1rRm0s-7FDlJl-BQsGSGbE_-5HXxnSAmSw4VFFBVKJ8E",
+        "1-_d9tglP59rAXHunHAl5Usnick7U6rpjvsl1MWlRNoQ"
+      ],
+      "design_patterns": [
+        "two-week repeating dinner cycle",
+        "leftovers intentionally become lunches",
+        "recipe catalog tracks cuisine/protein/appliance/cost/requester",
+        "grocery staples and pantry inventories separated from meal catalog",
+        "meal requests can be associated with household member"
+      ],
+      "privacy": "Useful system/design context only; do not treat historical menu entries as current dietary requirements without confirmation."
+    },
+    "household-readiness-system": {
+      "status": "historical_personal_planning",
+      "domain": "household inventory / preparedness / self-sufficiency",
+      "summary": "Essentials MASTER is a prioritized household-readiness inventory covering kitchen equipment, tools, vehicle emergency gear, replaceable household supplies and emergency-kit items. GARDEN MASTER separately sketches food/herb gardening, preservation and a broad pepper/root-vegetable/herb plan.",
+      "source_ids": [
+        "18sSjI-4thwfVph5mPZ8-dAvAhBJ2Iz88cJ0V0Kc7lW4",
+        "1wpNn8gQVopBUe3cpGw9OAhJ_GRe4ggmrJSWyrQ0FvpE"
+      ],
+      "design_patterns": [
+        "HAVE vs NEED/USEFUL/SPECIALIZED prioritization",
+        "monthly reevaluation for consumables",
+        "delay outdoor/grilling equipment until longer-term residence",
+        "gardening includes herbs, vegetables, roots, peppers, canning/pickling"
+      ]
+    },
+    "books-and-comics-collection": {
+      "status": "historical_and_ongoing_interest",
+      "domain": "physical/digital book and comics collection tracking",
+      "summary": "Books MASTER expands an earlier Comics Collection Masterlist into a publisher/title/author/ownership/collected-issues acquisition database. It tracks omnibus/compendium completeness across Image, Dark Horse, DC/Vertigo, Marvel and other publishers, including Invincible, Massive-Verse titles, Hellboy/B.P.R.D., Black Hammer, Alan Moore works, Spider-Man and others.",
+      "source_ids": [
+        "1FhqkSGSpQ4QR8UsCp8L0b705bJk8gUXtpqbkkhfPmt4",
+        "1MSK2t7Q2gGQPz9JL6oyNpebQL6-bgFF5bYHtAYn25bw"
+      ],
+      "relationship": "Part of broader collecting/library organization interests; separate from minifigure catalog."
+    },
+    "professional-career-materials": {
+      "status": "personal_sensitive_archive",
+      "domain": "resume/career materials",
+      "summary": "Professional folder contains multiple resume generations/templates from 2025. Inventory retained for project/history recovery, but detailed personal contact/employment information is not imported into the general Drive project ledger unless specifically needed for a career workflow.",
+      "source_ids": [
+        "1mtrJnN6BpMyV1eYkH9mb4MWuvXAHGDnmWDogdJan538",
+        "1rQMZpdatldMwzk6GK-UG_ORvdQntU9JxKA21BH4tqRU",
+        "1Ni61LgVHOYlbGipwlSddvI72sVKl4Bo0G-8fvMz9OYY",
+        "1q3YV1BGsTeG7oLAYAKKc5sJdqenmb2edq-L2NcuG0Pk"
+      ],
+      "privacy": "personal details guarded"
     }
   },
   "discovered_project_folders": [
