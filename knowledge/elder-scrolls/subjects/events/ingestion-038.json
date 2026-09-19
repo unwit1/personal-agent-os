@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-038-yokuda-redguard-sword-singers",
+  "subjects": [
+    {
+      "id": "tes:yokuda-destruction",
+      "name": "Destruction of Yokuda",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/yokuda-destruction.json",
+      "source": {
+        "id": "uesp:yokuda-destruction",
+        "url": "https://en.uesp.net/wiki/Lore:Destruction_of_Yokuda",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ra-gada",
+      "name": "Ra Gada",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/ra-gada.json",
+      "source": {
+        "id": "uesp:ra-gada",
+        "url": "https://en.uesp.net/wiki/Lore:Ra_Gada",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:war-singers",
+      "name": "War of the Singers",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/war-singers.json",
+      "source": {
+        "id": "uesp:war-singers",
+        "url": "https://en.uesp.net/wiki/Lore:War_of_the_Singers",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:tiber-conquest-hammerfell",
+      "name": "Tiber Septim's Conquest of Hammerfell",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/tiber-conquest-hammerfell.json",
+      "source": {
+        "id": "uesp:tiber-conquest-hammerfell",
+        "url": "https://en.uesp.net/wiki/Lore:Tiber_Septim%27s_Conquest_of_Hammerfell",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:stros-mkai-rebellion",
+      "name": "Stros M'Kai Rebellion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/stros-mkai-rebellion.json",
+      "source": {
+        "id": "uesp:stros-mkai-rebellion",
+        "url": "https://en.uesp.net/wiki/Lore:Stros_M%27Kai_Rebellion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Yokuda's destruction has competing explanations; preserve natural, political, magical and sword-related accounts separately",
+    "Pankratosword claims require especially strong provenance and must not be generalized from later fan interpretation",
+    "Sword-singer and Ansei feats should distinguish instructional tradition, heroic literature and directly evidenced capability",
+    "Crowns and Forebears are historical/political traditions whose positions vary by era; do not make them timeless monoliths",
+    "Yokudan theology such as the Walkabout and Far Shores should retain source/cultural framing rather than be flattened into universal cosmology",
+    "Cross-link existing Yokuda, Redguard, Hammerfell, Frandar Hunding, Makela Leki, Sword-singers, Ansei, Shehai, Crowns, Forebears and Stros M'Kai records"
+  ]
+}
