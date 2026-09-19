@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "peoples",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-040-bosmer-green-pact-valenwood",
+  "subjects": [
+    {
+      "id": "tes:bosmer",
+      "name": "Bosmer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/bosmer.json",
+      "source": {
+        "id": "uesp:bosmer",
+        "url": "https://en.uesp.net/wiki/Lore:Bosmer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:wood-orcs",
+      "name": "Wood Orcs",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/wood-orcs.json",
+      "source": {
+        "id": "uesp:wood-orcs",
+        "url": "https://en.uesp.net/wiki/Lore:Wood_Orcs",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:imga",
+      "name": "Imga",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/imga.json",
+      "source": {
+        "id": "uesp:imga",
+        "url": "https://en.uesp.net/wiki/Lore:Imga",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Green Pact practice must distinguish theological ideal, regional custom, historical practice and individual interpretation",
+    "Do not treat every Bosmer as observing the Green Pact identically across eras and communities",
+    "Spinner stories may have unusual relationships to history and possibility, but narrative claims still retain speaker and context provenance",
+    "Wild Hunt accounts should distinguish witnessed transformations, historical reports, ritual doctrine and later retellings",
+    "Silvenar and Green Lady are offices/roles as well as individuals in particular periods; model office identity separately from officeholders",
+    "Cross-link existing Bosmer, Valenwood, Green Pact, Y'ffre, Wild Hunt, Camoran, Grahtwood, Elden Root, Silvenar and Green Lady records"
+  ]
+}
