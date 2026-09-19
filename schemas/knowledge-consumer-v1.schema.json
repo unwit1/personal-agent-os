@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Knowledge Consumer v1",
+  "type": "object",
+  "required": [
+    "id",
+    "knowledge_library",
+    "taxonomy_policy"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "knowledge_library": {
+      "type": "string"
+    },
+    "taxonomy_policy": {
+      "type": "object",
+      "required": [
+        "authority",
+        "allow_invention"
+      ],
+      "properties": {
+        "authority": {
+          "type": "string"
+        },
+        "allow_invention": {
+          "type": "boolean"
+        },
+        "simple_external_taxonomy": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "continuity_selection": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mapping_cache": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
