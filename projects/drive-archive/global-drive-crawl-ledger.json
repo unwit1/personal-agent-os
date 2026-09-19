@@ -15,7 +15,7 @@
     "first_level_files_indexed": 283,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue recursive global inventory outside already-covered TTRPG branches, prioritizing mods/Knowledge Framework/LEGO/professional project files while keeping work/HR PII sanitized."
+    "next_action": "Deep-inspect Knowledge Framework addons and large mod portfolio sheets, then LEGO/custom-minifigure trackers; continue global project categorization."
   },
   "top_level_folders": [
     {
@@ -2870,6 +2870,83 @@
       "source_ids": [
         "1snwpmmElOJID9lPl3EE4MRhgRHjvsdAnhVxz_qgIM5w",
         "1TqoB8CCfNxz9a2OmFmMFeJ583or5tUANPQW8kLGWqvQ"
+      ]
+    },
+    "knowledge-framework": {
+      "status": "active_or_recent",
+      "domain": "Skyrim modding / lore scholarship framework",
+      "summary": "Knowledge Framework (KF) is a modular Skyrim framework that hand-tags books, artifacts and unique items with hierarchical Elder Scrolls lore topics and turns those tags into an immersive study/knowledge progression system. It is designed for addon development and third-party compatibility through JSON/topic IDs, KID/string tagging and Papyrus-accessible study functions.",
+      "source_ids": [
+        "1JKS8sl_K6kaH4x2R4XbF1gPAtijS9W_epEMbl0fuey0",
+        "16pc50emLDWk4BYUJnDsF9YnCTJCO0yDKohOyYymEJGA",
+        "1NS0-w-Ktj-9fEGTFDA_5aWIHOr7EWoQTJpgi2SMvspk"
+      ],
+      "topic_types": [
+        "Culture",
+        "Language",
+        "Person/Entity",
+        "Deity",
+        "Artifact",
+        "Event",
+        "Location",
+        "Creature",
+        "Faction",
+        "Concept",
+        "Genre"
+      ],
+      "design_goals": [
+        "tag essentially all canon lore topics from Arena through ESO/current releases",
+        "study books/artifacts/items to gain topic knowledge",
+        "modular custom topics and aliases",
+        "parent/child topic relationships",
+        "cross-topic associations",
+        "Papyrus hooks for addon study mechanics"
+      ],
+      "planned_integrations": [
+        "KID",
+        "SKSE",
+        "Dynamic Forms Generator",
+        "possibly State Globals Framework/Skypatcher",
+        "Know Your Enemy/bestiary-style research"
+      ]
+    },
+    "skyrim-scholarship-ecosystem": {
+      "status": "active_or_recent",
+      "domain": "Skyrim mod suite / immersive learning and scholarship",
+      "summary": "A broader family of related Skyrim concepts evolved from Insights of Apocrypha/Arcaneum into Knowledge Framework and specialized addons. Shared design themes include studying books and artifacts over time, mental fatigue/burnout, hierarchical fields of scholarship, research journals, trainers/mentors, archaeology/appraisal, language learning, Daedrology, Mysticism and spell research.",
+      "source_ids": [
+        "18SCj_i-t8V0TWUx8J_3RP3Zvj9qkp8xfgl8_NnJ3cQ4",
+        "1IaQXskojDfP8owef7SK-K4EjEfAv6zAJoTx34pfzLJw",
+        "1JKS8sl_K6kaH4x2R4XbF1gPAtijS9W_epEMbl0fuey0"
+      ],
+      "related_projects": [
+        "Knowledge Framework",
+        "Codex",
+        "Daedrologist",
+        "Unknown Antiquities",
+        "Scholars of Skyrim",
+        "Apocryphal Knowledge"
+      ],
+      "evolution_note": "Treat older Insights of Apocrypha/Arcaneum material as predecessor design unless current project docs explicitly retain a mechanic."
+    },
+    "codex-mysticism": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim magic-learning overhaul",
+      "summary": "Codex reworks spell learning into time-based study and skill checks, with mental exhaustion, Mysticism-driven study speed, spell archetype research currency, reverse engineering of scrolls/staves, spell composition/modification, mastery and integrations with religion, academic study and spell-failure systems.",
+      "source_ids": [
+        "1k5Ia5tswqx9A60kl97Ec0BMDXWjKQ2iq7lALu6R_XXA"
+      ],
+      "relationships": [
+        "Designed as part of/alongside the scholarship ecosystem and Knowledge Framework concepts."
+      ]
+    },
+    "daedrologist": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim Daedra summoning/relationship overhaul",
+      "summary": "Daedrologist explores persistent named Daedra and immersive summoning: a Summoner's Journal tracks entity identity, rank/allegiance, disposition, partial knowledge of nymics, preferred offerings, last manifestation and binding strength. Daedra can bargain for release and reveal rival names, creating relationship and radiant-quest choices.",
+      "source_ids": [
+        "1Z7STXsJbZm2FXH4nqlG_JuLPBpV9TOiBClncBa9E6tY",
+        "1RZQSkGj4utYtN3f6GjoDakfvhW9lME3xV17z8ulCbIc"
       ]
     }
   },
