@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-028-eso-dungeons-trials-deadlands",
+  "subjects": [
+    {
+      "id": "tes:elder-scrolls-imperial-city",
+      "name": "Elder Scrolls",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/elder-scrolls-imperial-city.json",
+      "source": {
+        "id": "uesp:elder-scrolls-imperial-city",
+        "url": "https://en.uesp.net/wiki/Lore:Elder_Scrolls",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:daedric-embers",
+      "name": "Daedric Embers",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/daedric-embers.json",
+      "source": {
+        "id": "uesp:daedric-embers",
+        "url": "https://en.uesp.net/wiki/Lore:Daedric_Embers",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:encratis-behemoth",
+      "name": "Encratis's Behemoth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/encratis-behemoth.json",
+      "source": {
+        "id": "uesp:encratis-behemoth",
+        "url": "https://en.uesp.net/wiki/Lore:Encratis%27s_Behemoth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Dungeon/trial mechanics are not automatically lore facts; separate repeatable gameplay systems from narrative events",
+    "Group-content outcomes involving the Vestige remain minimally biographical and branch-safe",
+    "Fargrave claims should distinguish observed social/legal conditions from claims about metaphysical neutrality",
+    "Daedric cult doctrine remains attributed to the cult or speaker",
+    "Later ESO chapter/DLC events retain their own chronology and must not be projected backward into base-game history",
+    "Cross-link existing Deadlands, Clockwork City, White-Gold Tower, Elder Scrolls, Undaunted, Fighters Guild and Mages Guild subjects"
+  ]
+}
