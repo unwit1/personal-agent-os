@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "peoples",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-033-atmora-nordic-dragon-cult",
+  "subjects": [
+    {
+      "id": "tes:atmorans",
+      "name": "Atmorans",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/atmorans.json",
+      "source": {
+        "id": "uesp:atmorans",
+        "url": "https://en.uesp.net/wiki/Lore:Atmorans",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:nords",
+      "name": "Nords",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/nords.json",
+      "source": {
+        "id": "uesp:nords",
+        "url": "https://en.uesp.net/wiki/Lore:Nords",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:snow-elves",
+      "name": "Snow Elves",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/snow-elves.json",
+      "source": {
+        "id": "uesp:snow-elves",
+        "url": "https://en.uesp.net/wiki/Lore:Snow_Elves",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragons",
+      "name": "Dragons",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/dragons.json",
+      "source": {
+        "id": "uesp:dragons",
+        "url": "https://en.uesp.net/wiki/Lore:Dragons",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Songs of the Return and other heroic traditions remain literary/historical testimony, not automatically literal event transcripts",
+    "Do not flatten Atmoran, early Nordic, Dragon Cult and later Nordic religion into one static belief system",
+    "Night of Tears causes and Eye of Magnus-related interpretations remain source-specific where disputed",
+    "Dragon Cult chronology must distinguish Atmoran origins, Skyrim rule, Dragon War and later surviving cult sites",
+    "Thu'um feats should distinguish direct observations, saga claims and gameplay mechanics",
+    "Cross-link existing Ysgramor, Atmora, Saarthal, Snow Elves, Dragon Cult, Dragon War, Greybeards, Jurgen, Paarthurnax, Miraak, Forelhost and Skuldafn records"
+  ]
+}
