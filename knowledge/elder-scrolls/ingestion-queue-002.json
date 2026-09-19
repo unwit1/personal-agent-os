@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "continuity_id": "tes-base",
+  "batch_id": "uesp-002-red-mountain-dwemer-cluster",
+  "purpose": "Expand from the pilot's Red Mountain/Dwemer/Tribunal/Numidium cluster using graph-adjacent lore pages.",
+  "pages": [
+    {
+      "id": "kagrenac",
+      "title": "Kagrenac",
+      "url": "https://en.uesp.net/wiki/Lore:Kagrenac",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "heart-of-lorkhan",
+      "title": "Heart of Lorkhan",
+      "url": "https://en.uesp.net/wiki/Lore:Heart_of_Lorkhan",
+      "page_type": "lore_summary",
+      "entity_type": "artifact",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "nerevar",
+      "title": "Nerevar",
+      "url": "https://en.uesp.net/wiki/Lore:Nerevar",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "dagoth-ur",
+      "title": "Dagoth Ur",
+      "url": "https://en.uesp.net/wiki/Lore:Dagoth_Ur",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "almalexia",
+      "title": "Almalexia",
+      "url": "https://en.uesp.net/wiki/Lore:Almalexia",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "sotha-sil",
+      "title": "Sotha Sil",
+      "url": "https://en.uesp.net/wiki/Lore:Sotha_Sil",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "keening",
+      "title": "Keening",
+      "url": "https://en.uesp.net/wiki/Lore:Keening",
+      "page_type": "lore_summary",
+      "entity_type": "artifact",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "sunder",
+      "title": "Sunder",
+      "url": "https://en.uesp.net/wiki/Lore:Sunder",
+      "page_type": "lore_summary",
+      "entity_type": "artifact",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "wraithguard",
+      "title": "Wraithguard",
+      "url": "https://en.uesp.net/wiki/Lore:Wraithguard",
+      "page_type": "lore_summary",
+      "entity_type": "artifact",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "tonal-architecture",
+      "title": "Tonal Architecture",
+      "url": "https://en.uesp.net/wiki/Lore:Tonal_Architecture",
+      "page_type": "lore_summary",
+      "entity_type": "concept",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "mantella",
+      "title": "Mantella",
+      "url": "https://en.uesp.net/wiki/Lore:Mantella",
+      "page_type": "lore_summary",
+      "entity_type": "artifact",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "tiber-septim",
+      "title": "Tiber Septim",
+      "url": "https://en.uesp.net/wiki/Lore:Tiber_Septim",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "underking",
+      "title": "Underking",
+      "url": "https://en.uesp.net/wiki/Lore:Underking",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "sixth-house",
+      "title": "Sixth House",
+      "url": "https://en.uesp.net/wiki/Lore:House_Dagoth",
+      "page_type": "lore_summary",
+      "entity_type": "faction",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "nerevarine",
+      "title": "Nerevarine",
+      "url": "https://en.uesp.net/wiki/Lore:Nerevarine",
+      "page_type": "lore_summary",
+      "entity_type": "concept",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    }
+  ],
+  "ingestion_rules": {
+    "store_raw_corpus": "local_rebuildable",
+    "git_stores": [
+      "queue",
+      "source_metadata",
+      "review_state"
+    ],
+    "claim_policy": "no_context_free_truth",
+    "in_universe_accounts": "preserve_epistemic_status",
+    "references": "resolve_to_underlying_source_when_possible",
+    "checkpoint_each_page": true
+  }
+}
