@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-017-dawnguard-falmer-elder-scrolls",
+  "subjects": [
+    {
+      "id": "tes:night-tears",
+      "name": "Night of Tears",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/night-tears.json",
+      "source": {
+        "id": "uesp:night-tears",
+        "url": "https://en.uesp.net/wiki/Lore:Night_of_Tears",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:fall-snow-prince",
+      "name": "Fall of the Snow Prince",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/fall-snow-prince.json",
+      "source": {
+        "id": "uesp:fall-snow-prince",
+        "url": "https://en.uesp.net/wiki/Lore:Fall_of_the_Snow_Prince",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:falmer-dwemer-pact",
+      "name": "Falmer-Dwemer pact",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/falmer-dwemer-pact.json",
+      "source": {
+        "id": "uesp:falmer-dwemer-pact",
+        "url": "https://en.uesp.net/wiki/Lore:Falmer-Dwemer_pact",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:betrayed-transformation",
+      "name": "Transformation of the Betrayed",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/betrayed-transformation.json",
+      "source": {
+        "id": "uesp:betrayed-transformation",
+        "url": "https://en.uesp.net/wiki/Lore:Transformation_of_the_Betrayed",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Separate ancient Snow Elves from later Falmer/Betrayed terminology and preserve source-era usage",
+    "Treat vampire origin/ritual accounts as attributed unless directly established by primary evidence",
+    "Elder Scroll prophecies must retain the exact source, reading context and interpretation rather than being normalized into deterministic predictions",
+    "Soul Cairn and Ideal Masters claims should distinguish observed game-space facts from character speculation",
+    "Prefer Skyrim/Dawnguard quest dialogue, journals, inscriptions and observed events for this cluster"
+  ]
+}
