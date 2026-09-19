@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 264,
+    "first_level_files_indexed": 269,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue unindexed files in Pergrande/Fate/Anthem, traverse guild marks, then return to remaining global folder queue."
+    "next_action": "Finish indexing guild-mark visual assets, then resume remaining global folder queue and safe content extraction."
   },
   "top_level_folders": [
     {
@@ -2371,6 +2371,51 @@
       "title": "Anthem City - Mechanics - Effects",
       "category": "ttrpg_anthem_city",
       "content_status": "queued"
+    },
+    {
+      "id": "14pGoya20F5l_y559VxB0uYuMgTNAU9bk",
+      "title": "latest.webp",
+      "path": "/My Drive/Personal/TTRPG/blades of pergrande/Lore/guild marks/dark guilds/latest.webp",
+      "mime_type": "image/webp",
+      "modified_time": "2021-10-24T04:43:11.838Z",
+      "category": "ttrpg_blades_of_pergrande_visual_reference",
+      "content_status": "indexed_visual_asset"
+    },
+    {
+      "id": "14RLhaUTlBuLmXbMStOQzQpkVbmadJQh1",
+      "title": "Traveler's Thorn.jpg",
+      "path": "/My Drive/Personal/TTRPG/blades of pergrande/Lore/guild marks/dark guilds/Traveler's Thorn.jpg",
+      "mime_type": "image/jpeg",
+      "modified_time": "2021-10-24T04:23:01.944Z",
+      "category": "ttrpg_blades_of_pergrande_visual_reference",
+      "content_status": "indexed_visual_asset"
+    },
+    {
+      "id": "14Z6aQNFNziVB_FRkGzK_mIAhyBHKkz0d",
+      "title": "Serpent's Head.png",
+      "path": "/My Drive/Personal/TTRPG/blades of pergrande/Lore/guild marks/dark guilds/Serpent's Head.png",
+      "mime_type": "image/png",
+      "modified_time": "2021-10-24T04:22:38.192Z",
+      "category": "ttrpg_blades_of_pergrande_visual_reference",
+      "content_status": "indexed_visual_asset"
+    },
+    {
+      "id": "14xb9TMiveEZ6SgXTaoyTfeG0lVF45rBN",
+      "title": "BABYLON DRAGON.jpg",
+      "path": "/My Drive/Personal/TTRPG/blades of pergrande/Lore/guild marks/dark guilds/BABYLON DRAGON.jpg",
+      "mime_type": "image/jpeg",
+      "modified_time": "2021-10-24T04:21:41.874Z",
+      "category": "ttrpg_blades_of_pergrande_visual_reference",
+      "content_status": "indexed_visual_asset"
+    },
+    {
+      "id": "14fgbsQX8seMRb8uPIDOEyzrSWmU27G07",
+      "title": "One Eye Reaper.png",
+      "path": "/My Drive/Personal/TTRPG/blades of pergrande/Lore/guild marks/dark guilds/One Eye Reaper.png",
+      "mime_type": "image/png",
+      "modified_time": "2021-10-24T04:21:24.225Z",
+      "category": "ttrpg_blades_of_pergrande_visual_reference",
+      "content_status": "indexed_visual_asset"
     }
   ],
   "folder_queue": [
@@ -2627,7 +2672,8 @@
         "Noximilien time-reversal arc",
         "Morris, Milo and clone/identity plotlines",
         "multi-arc campaign planning"
-      ]
+      ],
+      "visual_asset_notes": "Guild-mark folders contain visual references/emblems for campaign organizations and characters. Assets are indexed as project evidence; generic image content is not promoted into lore unless filenames or associated docs establish meaning."
     }
   },
   "discovered_project_folders": [
