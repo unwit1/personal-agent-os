@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-030-dark-heart-skyrim-reach",
+  "subjects": [
+    {
+      "id": "tes:harrowstorm",
+      "name": "Harrowstorm",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/harrowstorm.json",
+      "source": {
+        "id": "uesp:harrowstorm",
+        "url": "https://en.uesp.net/wiki/Lore:Harrowstorm",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dark-heart",
+      "name": "Dark Heart",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dark-heart.json",
+      "source": {
+        "id": "uesp:dark-heart",
+        "url": "https://en.uesp.net/wiki/Lore:Dark_Heart",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:void",
+      "name": "Void",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/void.json",
+      "source": {
+        "id": "uesp:void",
+        "url": "https://en.uesp.net/wiki/Lore:Void",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:reach-magic",
+      "name": "Reach Magic",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/reach-magic.json",
+      "source": {
+        "id": "uesp:reach-magic",
+        "url": "https://en.uesp.net/wiki/Lore:Reach_Magic",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:vampire-clans",
+      "name": "Vampire Clans",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/vampire-clans.json",
+      "source": {
+        "id": "uesp:vampire-clans",
+        "url": "https://en.uesp.net/wiki/Lore:Vampire_Clans",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:werewolf-bloodlines",
+      "name": "Werewolf Bloodlines",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/werewolf-bloodlines.json",
+      "source": {
+        "id": "uesp:werewolf-bloodlines",
+        "url": "https://en.uesp.net/wiki/Lore:Werewolf_Bloodlines",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:gray-host",
+      "name": "Gray Host",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/gray-host.json",
+      "source": {
+        "id": "uesp:gray-host",
+        "url": "https://en.uesp.net/wiki/Lore:Gray_Host",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:night-hollow",
+      "name": "Nighthollow",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/night-hollow.json",
+      "source": {
+        "id": "uesp:night-hollow",
+        "url": "https://en.uesp.net/wiki/Lore:Nighthollow",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Keep ESO-era Western Skyrim and Reach politics temporally separate from Fourth Era Skyrim",
+    "Reachfolk religion and magic should prioritize internally described traditions while retaining outsider accounts as attributed evidence",
+    "Vampire and werewolf capabilities must distinguish narrative evidence from combat/game mechanics",
+    "Dark Heart and Void metaphysics require source-specific claims rather than a single synthesized cosmology",
+    "Blackreach is a broad subterranean region; preserve named cavern/subregion distinctions across games",
+    "Cross-link existing Reach, Markarth, Solitude, Lyris Titanborn, vampirism, Blackreach and Reachfolk subjects rather than duplicate them"
+  ]
+}
