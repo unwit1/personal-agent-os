@@ -18,7 +18,8 @@
       "2026-09-18 legacy Dream Eater pass read the 2022 old Dream Eater draft, 2023 Abigail continuation fragment, and Invocation brainstorm. Candidate terminology evolution is recorded as uncertain mappings, not canon.",
       "2026-09-18 continuation pass cross-checked the 2024 Broken Throne brainstorming doc, 2025 Silence note, and legacy Names sheet. Surviving motifs were separated from unconfirmed mechanics and alias/name drift.",
       "2026-09-18 continuation pass found and analyzed the recent Character Wiki (modified 2026-05-23), revealing current Guardian-cycle planning, Dominion/Gallowbird/Mourn material, Deadlight succession, and several event-causality questions to preserve rather than flatten.",
-      "User clarification 2026-09-18: Silas Ashland is canonically the child Denial weaponized against the Nameless Throne, and has been intended as that child from the concept's origin. Grant Ashland is his father; his mother's name is currently unrecovered, but she is Abigail Fletcher's mentor in The Delusionist."
+      "User clarification 2026-09-18: Silas Ashland is canonically the child Denial weaponized against the Nameless Throne, and has been intended as that child from the concept's origin. Grant Ashland is his father; his mother's name is currently unrecovered, but she is Abigail Fletcher's mentor in The Delusionist.",
+      "2026-09-18 Drive-wide discovery pass: searched Silas/Grant/Abigail/Delusionist beyond the Dream Eater folder. No reliable mother's name recovered. Found cross-source support for Door→Ellison reconstitution and an older collective-perception metaphysics basis relevant to the recent Vane/Silence note."
     ]
   },
   "project_clusters": [
@@ -397,6 +398,16 @@
           "The Shattering/Nameless-Throne destruction currently has multiple causal descriptions. A canonical event ledger would prevent character-level summaries from silently rewriting event causality.",
           "If Emblems contain memories/personality and can be consumed/reincorporated into another identity, Lilith/Malia and Dominion provide good test cases for defining how much continuity of personhood survives transfer."
         ]
+      },
+      "discovery_pass_2026_09_18": {
+        "drive_scope_observation": "Targeted Drive search shows the Dream Eater concepts are not confined to the dreameater folder. A recent Character Wiki lives at Drive root and may be the freshest structured source; future crawls must search Drive-wide by distinctive entities as well as traverse known folders.",
+        "silas_search_result": "No retrieved source currently names Silas Ashland's mother. Preserve user-confirmed role: Grant Ashland's partner/co-parent and Abigail Fletcher's mentor in The Delusionist; name remains Unknown.",
+        "cross_source_reinforcement": [
+          "Guardian Emblem lore explicitly says Door's Emblem passed from Dennis Deacon to Ellison Crane and helped Ellison reconstitute because Ellison was partially made from the gestalt corpse of Door. This independently reinforces the user's newer Door→Ellison/Gallowed-Man clarification, though wording should defer to the user's canonical explanation.",
+          "Guardian Emblem lore establishes Emblems as contracts with quasi-sentient identities derived from first-generation wielders, able to refuse, sabotage, or change contractors.",
+          "The Magic System Explained document frames reality as narrative-shaped by collective human perception and the Fade as evolving with human perception. This provides an older metaphysical foundation that could support the Character Wiki's Vane manifestation idea, but does not by itself prove Vane/Silence mechanics are current canon."
+        ],
+        "new_architecture_requirement": "Maintain a source-discovery index containing known folders plus Drive-wide entity searches and freshness signals, because newer authoritative planning files may live outside project folders."
       }
     },
     {
