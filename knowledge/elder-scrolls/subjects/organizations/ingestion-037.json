@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-037-tiber-septim-numidium-underking",
+  "subjects": [
+    {
+      "id": "tes:third-empire",
+      "name": "Third Empire",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/third-empire.json",
+      "source": {
+        "id": "uesp:third-empire",
+        "url": "https://en.uesp.net/wiki/Lore:Third_Empire",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:septim-dynasty",
+      "name": "Septim Dynasty",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/septim-dynasty.json",
+      "source": {
+        "id": "uesp:septim-dynasty",
+        "url": "https://en.uesp.net/wiki/Lore:Septim_Dynasty",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:blades",
+      "name": "Blades",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/blades.json",
+      "source": {
+        "id": "uesp:blades",
+        "url": "https://en.uesp.net/wiki/Lore:Blades",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:imperial-legion",
+      "name": "Imperial Legion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/imperial-legion.json",
+      "source": {
+        "id": "uesp:imperial-legion",
+        "url": "https://en.uesp.net/wiki/Lore:Imperial_Legion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Tiber Septim's origins, names and identity claims must remain source-specific; do not collapse Hjalti, Talos, Tiber Septim and related theories without evidence",
+    "Underking identity claims involving Zurin Arctus and Wulfharth must coexist with explicit provenance and contradiction links",
+    "The Arcturian Heresy is an in-universe counter-history and must not silently replace Imperial accounts as objective fact",
+    "Numidium effects on time and history require event-specific evidence; do not generalize every activation into an unrestricted Dragon Break mechanism",
+    "Talos apotheosis claims should distinguish historical cult development, theological doctrine and directly observable divine phenomena",
+    "Cross-link existing Tiber Septim, Wulfharth, Numidium, Mantella, Underking, Warp in the West, Dragon Break and Septim records"
+  ]
+}
