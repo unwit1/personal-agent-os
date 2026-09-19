@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "name": "The Imperial Library — Developer and Obscure Texts",
+  "source_class": "external_developer_and_obscure",
+  "base_url": "https://www.imperial-library.info/",
+  "ingestion_status": "started",
+  "provenance_policy": {
+    "default_authority": "non_primary_contextual",
+    "rules": [
+      "Preserve exact author/speaker, original venue, date when known, archive/republication location, and whether the author was a developer at the time.",
+      "Developer statements are not automatically in-game canon and never silently override contradictory primary game evidence.",
+      "Obscure texts authored by developers are stored as their own evidence class, distinct from in-game books, dialogue, quest events, manuals, and official marketing/lore publications.",
+      "Posts, interviews, roleplay statements, forum answers, design documents, drafts, and fiction are separate document kinds.",
+      "Later incorporation of an idea into a released game creates a new primary-source evidence link; it does not retroactively turn the earlier text into primary evidence.",
+      "Preserve contradictions and revisions across authors and dates instead of synthesizing a single hidden canon.",
+      "Fan questions and surrounding discussion must be separable from developer-authored answers.",
+      "Claims derived from archived copies retain original-source provenance plus archive provenance."
+    ]
+  },
+  "extraction_fields": [
+    "title",
+    "author",
+    "developer_role",
+    "document_kind",
+    "original_date",
+    "original_venue",
+    "archive_url",
+    "original_url",
+    "continuity_scope",
+    "subjects",
+    "claim_candidates",
+    "quoted_primary_refs",
+    "quality_flags"
+  ],
+  "notes": [
+    "This collection begins a dedicated Imperial Library ingestion stream.",
+    "Article bodies remain local derived corpus data; Git stores manifests, provenance, durable extracted records and crawl state."
+  ]
+}
