@@ -17,6 +17,8 @@ from .improvements import capture_improvement, get_improvement, issue_payload, l
 from .mcp_server import serve
 from .maintenance import run as run_maintenance
 from .mail import health as mail_health, setup_icloud, status as mail_status, sync as mail_sync, search as mail_search
+from .knowledge_benchmark import evaluate as lore_benchmark, gate as lore_gate
+from .knowledge_ingest import run_pilot as lore_run_pilot
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .review import assess
 from .routing import install as install_routing
@@ -47,7 +49,7 @@ def parser() -> argparse.ArgumentParser:
     commands.add_parser("install-routing")
     commands.add_parser("routing-status")
     commands.add_parser("validate")
-    commands.add_parser("mcp")
+    commands.add_parser("mcp")\n    lore_cmd = commands.add_parser("lore")\n    lore_sub = lore_cmd.add_subparsers(dest="lore_command", required=True)\n    lore_sub.add_parser("pilot")\n    lore_bench = lore_sub.add_parser("benchmark")\n    lore_bench.add_argument("--char-budget", type=int, default=2400)
     mail_cmd = commands.add_parser("mail")
     mail_sub = mail_cmd.add_subparsers(dest="mail_command", required=True)
     mail_setup = mail_sub.add_parser("setup")
