@@ -15,7 +15,7 @@
     "first_level_files_indexed": 283,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Inspect large Item Balancing/Enemy Overhauls datasets and LEGO trackers; then continue remaining uncategorized Drive files and historical projects."
+    "next_action": "Continue LEGO sub-trackers (Marvel/DC/Dragon Ball/Star Wars/etc.), then inspect remaining root uncategorized files and professional/personal project artifacts."
   },
   "top_level_folders": [
     {
@@ -1508,7 +1508,7 @@
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-09-07T23:12:35.113Z",
       "category": "lego_custom_collecting",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1m5XB5-4XDEi74HtOQGbqO7jMCRU7CrtvEWtQaAg-WjA",
@@ -1526,7 +1526,7 @@
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2025-01-14T19:57:11.080Z",
       "category": "lego_custom_collecting",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1NDsfJ2e_x_qGKvqc9lcPBmTsl-7y-aNT6QeV9kmTV5U",
@@ -1544,7 +1544,7 @@
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2024-03-04T17:29:22.815Z",
       "category": "lego_custom_collecting",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1qRc-hhQq0N12erUVea39no-ZyNcn55jaSmwlvispTDA",
@@ -1643,7 +1643,7 @@
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-08-17T14:47:06.964Z",
       "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1_FWTHvV5ITuAZ_1AImDz8VTejTzRULoeV_s3ejoUc9Q",
@@ -1652,7 +1652,7 @@
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2026-08-09T21:01:23.065Z",
       "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "content_status": "processed_summary"
     },
     {
       "id": "1lWR1B-3YCBIyeJYnGvXOOlGSFdbA5c3Ci1grdSqm1Bw",
@@ -3038,6 +3038,86 @@
       ],
       "relationships": [
         "Acts as a balancing/reference source for the user's Skyrim mod ecosystem rather than necessarily one standalone release."
+      ]
+    },
+    "skyrim-item-balancing": {
+      "status": "ongoing_reference_or_design",
+      "domain": "Skyrim item/weapon/armor balancing",
+      "summary": "Large item-balancing workbook establishes material/damage tiers, expanded weapon classes, faction-specific equipment families, Creation Club and mod-added gear, unique artifacts and armor sets. It appears intended as a canonical balancing/reference matrix for a broad personal Skyrim overhaul rather than a simple inventory list.",
+      "source_ids": [
+        "1aB4EqA2SCl83es-pZj7tbbzbDIUm5cgDHjUT7CU17Is"
+      ],
+      "notable_dimensions": [
+        "material/damage tier progression",
+        "vanilla + Creation Club + Beyond Skyrim gear",
+        "expanded weapon taxonomy including polearms and alternate ranged weapons",
+        "faction equipment identities",
+        "unique/artifact tracking",
+        "armor/set normalization"
+      ],
+      "relationships": [
+        "Simonrim balance lab",
+        "Personal Mods",
+        "Weapons Rebalance ecosystem"
+      ]
+    },
+    "skyrim-enemy-overhauls": {
+      "status": "planned_or_in_development",
+      "domain": "Skyrim enemy/faction encounter overhaul",
+      "summary": "Enemy Overhauls workbook contains structured encounter templates with custom EditorIDs, tiered classes, levels, weapons, armor, shields and spell loadouts. A prominent section designs Vigilant of Stendarr archetypes such as Sentinel, Crusader, Justiciar, Spellshield, Pilgrim, Archer, Inquisitor and Cleric across multiple progression tiers. The workbook also includes implementation/reference material such as Creation Kit condition functions.",
+      "source_ids": [
+        "1_FWTHvV5ITuAZ_1AImDz8VTejTzRULoeV_s3ejoUc9Q"
+      ],
+      "relationships": [
+        "Personal Mods",
+        "Simonrim balance lab",
+        "broader Skyrim combat/enemy overhaul work"
+      ]
+    },
+    "bootlego-master": {
+      "status": "ongoing_collection_reference",
+      "domain": "third-party/custom minifigure catalog and collection tracking",
+      "summary": "Bootlego MASTER is a large catalog of third-party/custom minifigures organized by manufacturer/product code, character, franchise/category, variant and collection status, with image/reference links. Coverage spans Marvel, DC, anime, games, television, films and other properties. It functions as both a discovery database and owned/wanted collection tracker.",
+      "source_ids": [
+        "13zHu1JJ-bZsOPViXk8eeIFA9oB8UwJ5dCs6c0wVry4I"
+      ],
+      "notable_fields": [
+        "collected status",
+        "brand/manufacturer",
+        "product number",
+        "character",
+        "variant",
+        "category/subcategory/group",
+        "picture/reference link"
+      ],
+      "relationships": [
+        "Minifig Variants to Make",
+        "Lego Wishlist",
+        "custom LEGO/minifigure design interests"
+      ]
+    },
+    "minifig-variants-to-make": {
+      "status": "ongoing_design_reference",
+      "domain": "custom LEGO/minifigure design planning",
+      "summary": "Minifig Variants to Make tracks characters and variants that could be recreated or commissioned as custom minifigures, serving as a design backlog/reference alongside the larger collection catalog.",
+      "source_ids": [
+        "1iE-xqnwC-aUtNQjXZci1X_wnpALqUajEMndHid8t6kg"
+      ],
+      "relationships": [
+        "Bootlego MASTER",
+        "custom minifigure design/printing work"
+      ]
+    },
+    "lego-wishlist": {
+      "status": "ongoing_collection_planning",
+      "domain": "LEGO and compatible-brick wishlist",
+      "summary": "Wishlist combining desired sets/builds with official-minifigure references. Entries include product/store links and BrickLink minifigure IDs, suggesting it is used for acquisition planning across sets and individual figures.",
+      "source_ids": [
+        "1fmOUhHgkBYIgAeqadzpzl1DLXLSXAWK1Ow8qQLtWYJ4"
+      ],
+      "relationships": [
+        "Bootlego MASTER",
+        "Minifig Variants to Make"
       ]
     }
   },
