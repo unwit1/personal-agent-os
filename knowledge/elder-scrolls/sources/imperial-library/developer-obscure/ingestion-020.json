@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-020-canon-adoption-tracker",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:adoption-obscure-to-game",
+      "title": "Obscure-text concepts later appearing in released games",
+      "document_kind": "adoption_tracker",
+      "status": "discovery_queued",
+      "subjects": [
+        "concept adoption",
+        "obscure texts",
+        "released games",
+        "provenance"
+      ]
+    },
+    {
+      "id": "til:adoption-forum-to-game",
+      "title": "Developer forum concepts later appearing in released games",
+      "document_kind": "adoption_tracker",
+      "status": "discovery_queued",
+      "subjects": [
+        "developer posts",
+        "concept adoption",
+        "released games"
+      ]
+    },
+    {
+      "id": "til:adoption-draft-to-game",
+      "title": "Draft/design concepts later appearing in released games",
+      "document_kind": "adoption_tracker",
+      "status": "discovery_queued",
+      "subjects": [
+        "design documents",
+        "drafts",
+        "concept adoption",
+        "released games"
+      ]
+    },
+    {
+      "id": "til:adoption-game-to-obscure",
+      "title": "Released concepts expanded by later obscure/developer texts",
+      "document_kind": "adoption_tracker",
+      "status": "discovery_queued",
+      "subjects": [
+        "released lore",
+        "developer expansion",
+        "obscure texts"
+      ]
+    },
+    {
+      "id": "til:terminology-lineage",
+      "title": "Lore terminology first-attestation and adoption lineage",
+      "document_kind": "terminology_tracker",
+      "status": "discovery_queued",
+      "subjects": [
+        "terminology",
+        "first attestation",
+        "CHIM",
+        "Towers",
+        "Amaranth",
+        "Dragon Break",
+        "kalpa"
+      ]
+    },
+    {
+      "id": "til:concept-status-history",
+      "title": "Concept authority/status history over time",
+      "document_kind": "provenance_tracker",
+      "status": "discovery_queued",
+      "subjects": [
+        "canon status",
+        "publication history",
+        "source classes",
+        "concept evolution"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Adoption is recorded per proposition or concept, not merely because two sources share a keyword.",
+    "Later primary adoption validates only what the later primary source actually establishes.",
+    "Earlier developer provenance remains visible after adoption.",
+    "Track first attestation separately from first primary-game attestation.",
+    "Do not label an obscure text canon wholesale because one of its ideas was later reused."
+  ]
+}
