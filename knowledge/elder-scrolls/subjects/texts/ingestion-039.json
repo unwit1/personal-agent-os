@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-039-aldmer-altmer-psijic-summerset",
+  "subjects": [
+    {
+      "id": "tes:monomyth-heart-world",
+      "name": "The Monomyth: The Heart of the World",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/monomyth-heart-world.json",
+      "source": {
+        "id": "uesp:monomyth-heart-world",
+        "url": "https://en.uesp.net/wiki/Lore:The_Monomyth:_The_Heart_of_the_World",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:varieties-faith-high-elves",
+      "name": "Varieties of Faith: The High Elves",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/varieties-faith-high-elves.json",
+      "source": {
+        "id": "uesp:varieties-faith-high-elves",
+        "url": "https://en.uesp.net/wiki/Lore:Varieties_of_Faith:_The_High_Elves",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:on-arteaum",
+      "name": "On Artaeum",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/on-arteaum.json",
+      "source": {
+        "id": "uesp:on-arteaum",
+        "url": "https://en.uesp.net/wiki/Lore:On_Artaeum",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:old-ways-text",
+      "name": "The Old Ways",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/old-ways-text.json",
+      "source": {
+        "id": "uesp:old-ways-text",
+        "url": "https://en.uesp.net/wiki/Lore:The_Old_Ways",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Aldmer and Altmer must remain historically distinct labels; do not project later Altmeri institutions unchanged onto ancient Aldmeri society",
+    "Altmeri social ideals such as Alaxon should distinguish prescriptive doctrine from observed lived practice",
+    "Psijic accounts of the Old Ways, time and metaphysics retain institutional/source provenance rather than becoming universal truth",
+    "Competing accounts of Aldmeris and early elven origins should coexist where evidence conflicts",
+    "Summerset's political isolation/opening must retain era-specific context",
+    "Cross-link existing Altmer, Aldmer, Summerset, Auridon, Alinor, Artaeum, Crystal Tower, Psijic Order, Sapiarchs, Ayrenn, Vanus Galerion and Mannimarco records"
+  ]
+}
