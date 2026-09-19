@@ -15,7 +15,7 @@
     "first_level_files_indexed": 349,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue Untitled sweep with 2026/2025 native docs and then untitled spreadsheets. Inspect safely and classify HR/personal-sensitive material metadata-only or sanitized. Prioritize authored Skyrim, LEGO/minifig, writing/lore, Agent OS and automation artifacts; skip empty docs quickly. Reconcile current ledger IDs before adding."
+    "next_action": "Continue remaining 2024-and-older Untitled native docs, then inspect untitled spreadsheets. Prioritize authored Dream Eater/Guardian lore, Skyrim mod systems, writing, Agent OS/work automation and collection projects. Nexus-only link dumps are reference inventories unless later contextualized. Personal health/goals remain metadata-only. Continue to skip unrelated NSFW."
   },
   "top_level_folders": [
     {
@@ -76,8 +76,8 @@
       "path": "/My Drive/HR Scanner Iterative Improvement Findings",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-09-18T18:15:56.027Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "hr_scanner",
+      "content_status": "processed"
     },
     {
       "id": "1ien55iA_crkTnQ9BfIQwEoCa6-v9rHmTrvTXpPzt9tg",
@@ -1302,8 +1302,8 @@
       "path": "/My Drive/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-02-01T05:49:50.561Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "skyrim_training",
+      "content_status": "processed"
     },
     {
       "id": "1aBuVKpNSXLyQfdd2LYgEEVyjHF5-1dy7ri5v1FyX5a4",
@@ -1689,8 +1689,8 @@
       "path": "/My Drive/mods/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2025-09-05T20:19:33.621Z",
-      "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "category": "skyrim_reference",
+      "content_status": "irrelevant/reference"
     },
     {
       "id": "1JCdW_RN4QEbvjfP73kRMfdTe7Zhyy8vToXlk9jz4VGg",
@@ -1698,8 +1698,8 @@
       "path": "/My Drive/mods/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2025-06-27T17:18:00.818Z",
-      "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "category": "skyrim_reference",
+      "content_status": "irrelevant/reference"
     },
     {
       "id": "1snsoP-j31yuOKsIcMqaLcUsOQduzxk5gkB4Jc_I4cTI",
@@ -1743,8 +1743,8 @@
       "path": "/My Drive/mods/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2025-02-26T17:44:30.956Z",
-      "category": "elder_scrolls_modding",
-      "content_status": "queued"
+      "category": "skyrim_vigilant",
+      "content_status": "processed"
     },
     {
       "id": "1OCyNtlypTsnoTw3N4VTtpI1kSrpnsSuVJu2MSHbhNyQ",
@@ -1815,8 +1815,8 @@
       "path": "/My Drive/dreameater/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2024-11-06T22:00:22.036Z",
-      "category": "writing_dream_eater",
-      "content_status": "queued"
+      "category": "dream_eater",
+      "content_status": "processed"
     },
     {
       "id": "11CQSl0FBPFDxq6uY52N6Zt1aPHbGk1ckuuzAByFbZc8",
@@ -1986,8 +1986,8 @@
       "path": "/My Drive/Personal/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2025-10-10T04:35:05.695Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "meal_planning",
+      "content_status": "processed"
     },
     {
       "id": "1JUbpfNRHPqWyfPLaoOGeGA0oy9iMPOoI2fr6OuI7Re4",
@@ -2004,8 +2004,8 @@
       "path": "/My Drive/Personal/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2025-08-21T16:50:00.189Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "writing_fragment",
+      "content_status": "processed"
     },
     {
       "id": "1QiJGgXiEer022JXsGlhVfW0IbC1Xz9sUROGjZSnDVp0",
@@ -2058,8 +2058,9 @@
       "path": "/My Drive/Personal/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2025-01-02T14:50:40.240Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "personal_planning",
+      "content_status": "sensitive_metadata_only",
+      "privacy_classification": "personal goals/health-adjacent; metadata only in durable archive"
     },
     {
       "id": "1cTmnIwbDwUKd4rfA4BnUjpsZqkND6L_SK_hNvGZpJPc",
@@ -2067,8 +2068,8 @@
       "path": "/My Drive/Personal/Untitled document",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2025-01-02T03:12:37.829Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "media_server",
+      "content_status": "processed"
     },
     {
       "id": "1V5vDrMb4PzCADNPmjujdDzV-joyD2MXVj9bg7KQqvSA",
@@ -4599,7 +4600,13 @@
       ],
       "relationships": [
         "household-readiness"
-      ]
+      ],
+      "asian_pantry": {
+        "summary": "A compact pantry list identifies recurring Asian-style cooking staples: soy sauce, Shaoxing wine/dry sherry, stock, rice/black/white vinegars, sesame oil, hoisin, cornstarch, sugars, pineapple juice, honey and sriracha. Useful as ingredient-overlap context for future grocery planning.",
+        "source_ids": [
+          "1clT33iyOvu1VugpvlqOa6INjkhXBUoje0XVbZYRbz_s"
+        ]
+      }
     },
     "household-readiness": {
       "status": "historical/current life system",
@@ -5076,6 +5083,13 @@
         "source_ids": [
           "1Jz3AM06IQ6ONjlFmB5rsLpUdVzwr4I3A9cYgmXX74Oo"
         ]
+      },
+      "knights_of_oblivion": {
+        "summary": "A 'Knights of Oblivion - Daedric Challengers' concept proposes Daedra-themed rival/ambush encounters associated with individual Princes and relics, with working titles such as Knight of Regret (Clavicus Vile), Apocrypha (Hermaeus Mora), Beastblood (Hircine), Spiders (Mephala), Coldharbour (Molag Bal), Evergloam (Nocturnal), Pits (Peryite), Revelry (Sanguine), Madness (Sheogorath), Order (Jyggalag), plus Ithelia. Some encounters may require possession of the relevant Daedric artifact. 'Stendarr Team Six' appears as an additional brainstormed label.",
+        "source_ids": [
+          "1XghIfDzHcUwSezzHo5SYvXhAkhC2W-yp0HaBpojSsPk"
+        ],
+        "status": "concept/provisional"
       }
     },
     "skyrim-quest-writing": {
@@ -5129,6 +5143,55 @@
           "1pzYhmmfb5u_WbJau7-x0GU-DACfywdp4VkfuhGimVoY"
         ],
         "privacy_classification": "restricted sanitized process knowledge"
+      }
+    },
+    "hr-scanner-renamer": {
+      "status": "active work automation project",
+      "domain": "HR document scanning/classification/renaming",
+      "iterative_findings": {
+        "summary": "A 2026-09-18 engineering continuity document records measured scanner/renamer failures and proposed fixes. Core requirements include per-page orientation detection with cache invalidation; explicit physical-document identity rather than employee+form merge keys; strong-first-page boundaries for repeated forms; semantic date selection per form; contextual blank-page handling; review isolation for low-information pages; multi-page continuation evidence; safe two-digit-year normalization; boundary state resets; all-page reference training; and provenance-preserving fingerprint aggregation. It also advocates structural batching, low-cost page metrics/title OCR, persistent OCR primitives/cache, and structured diagnostics to reduce model/OCR cost. GitHub is explicitly canonical; the Google Doc is a secondary continuity/backlog mirror.",
+        "source_ids": [
+          "1iydk8XugiOgLNGUfAgCwTPY6IA6l4oD92mhhZ-_OJ-Q"
+        ],
+        "privacy_classification": "sanitized engineering knowledge only; no employee/applicant PII persisted"
+      }
+    },
+    "skyrim-training-system": {
+      "status": "Skyrim mod/system planning",
+      "domain": "Skyrim gameplay overhaul",
+      "summary": "A training exclusivity note maps advanced skills to institutional factions. College of Winterhold is associated with core magic and Mysticism; Thieves Guild with Security; Bards College with Speech and Academia. The full list also includes One/Two Handed, Hand to Hand, armor, Smithing, Alchemy, Sneak, Archery and Machinist, suggesting faction access was intended to matter for specialized skill training rather than trainers being universally interchangeable.",
+      "source_ids": [
+        "1jB-AGqvPENC-oiIQAff53Po2UaEiSrbblmYFhR-SMs8"
+      ],
+      "relationships": [
+        "Personal Skyrim Overhaul / Old Way",
+        "Apprentice",
+        "Knowledge Framework",
+        "Machinist"
+      ]
+    },
+    "media-server-stack": {
+      "status": "historical/planned self-hosted media stack",
+      "domain": "media automation/self-hosting",
+      "summary": "A media-stack note groups acquisition and library services around Sonarr/Radarr/Lidarr/Kapowarr/Readarr, LazyLibrarian/Pulsarr/Tdarr, Jellyfin, Calibre and Ubooquity. One adult-media tool was present but intentionally omitted from durable project detail under the archive's NSFW-skip rule.",
+      "source_ids": [
+        "1cTmnIwbDwUKd4rfA4BnUjpsZqkND6L_SK_hNvGZpJPc"
+      ],
+      "relationships": [
+        "Things to get Master List",
+        "seedbox/media-server project"
+      ]
+    },
+    "dream-eater": {
+      "status": "active writing/lore project",
+      "domain": "fiction",
+      "gravetender_brainstorming": {
+        "summary": "A brainstorming document develops the Nameless Gravetender and Broken/Nameless Throne metaphysics. The Gravetender exists among graves of forgotten heroes and can appear at a Nameless person's death to remember their name and offer a choice: relinquish the Name as a seed and pass on, or remain as a Nameless with unfinished business. Planted Name-seeds grow into trees embodying the person's life/story; after the Breaking those trees die and are replaced by nameless graves. Dreameaters can sustain fading identity by consuming memories/dreams, but absorbed identities warp the eater, creating a starvation-versus-feral-assimilation dilemma. Dennis Deacon/Wracken, Ellison, Abigail, Lilith and the Gravetender are sketched into this framework.",
+        "source_ids": [
+          "1I1-LwhXJwV8R6HHaEIWYE_ujaftXJFuYfGUojgsoIk4"
+        ],
+        "status": "Idea/Provisional",
+        "canon_reconciliation": "Brainstorming only. Preserve concepts and provenance but do not promote plot beats, identities or metaphysics over explicit user statements, current manuscript or newer dedicated lore. The note includes incomplete alternatives and fragments."
       }
     }
   },
