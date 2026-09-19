@@ -17,7 +17,8 @@
       "User clarification 2026-09-18: Gravekeeper/Gravetender are titles for Ellison Crane; Door originally summoned Mourn and later watched the Nameless after the Black Guardian shattered; Denial weaponized a child as a conceptual suicide bomb against the Nameless Throne, breaking the child and Gallow, whose remnants formed the Ellison Crane/Gallowed Man gestalt expressed when Ellison wears the mask. Door's name remains provisional.",
       "2026-09-18 legacy Dream Eater pass read the 2022 old Dream Eater draft, 2023 Abigail continuation fragment, and Invocation brainstorm. Candidate terminology evolution is recorded as uncertain mappings, not canon.",
       "2026-09-18 continuation pass cross-checked the 2024 Broken Throne brainstorming doc, 2025 Silence note, and legacy Names sheet. Surviving motifs were separated from unconfirmed mechanics and alias/name drift.",
-      "2026-09-18 continuation pass found and analyzed the recent Character Wiki (modified 2026-05-23), revealing current Guardian-cycle planning, Dominion/Gallowbird/Mourn material, Deadlight succession, and several event-causality questions to preserve rather than flatten."
+      "2026-09-18 continuation pass found and analyzed the recent Character Wiki (modified 2026-05-23), revealing current Guardian-cycle planning, Dominion/Gallowbird/Mourn material, Deadlight succession, and several event-causality questions to preserve rather than flatten.",
+      "User clarification 2026-09-18: Silas Ashland is canonically the child Denial weaponized against the Nameless Throne, and has been intended as that child from the concept's origin. Grant Ashland is his father; his mother's name is currently unrecovered, but she is Abigail Fletcher's mentor in The Delusionist."
     ]
   },
   "project_clusters": [
@@ -274,6 +275,15 @@
           ],
           "naming_note": "Door's name is provisional and may be changed later.",
           "continuity_note": "Older documents that describe Door, the Gallowed Man, Ellison, or the destruction of the Nameless Throne differently should be compared against this user-confirmed sequence rather than automatically promoted."
+        },
+        "silas_ashland": {
+          "status": "Canon",
+          "definition": "Silas Ashland is the child Denial weaponized as a conceptual suicide bomb/homing weapon against the Nameless Throne. This was the intended identity from the concept's origin; the user had temporarily forgotten the name.",
+          "parentage": {
+            "father": "Grant Ashland",
+            "mother": "Unknown by name in current retrieved context; she is Abigail Fletcher's mentor in The Delusionist."
+          },
+          "event_mapping": "The Character Wiki's statement that Denial-possessed Eric used a Shattergate on Silas Ashland's Name and the user's description of Denial weaponizing a child against the Nameless Throne refer to the same event chain. Preserve the exact mechanics/causal steps for later event-ledger consolidation."
         }
       },
       "deep_version_comparison": {
@@ -371,7 +381,7 @@
         ],
         "version_conflicts_and_flags": [
           "Character Wiki says Mourn used Dominion to slay the Black Guardian and shatter the mantle, while the user's newer clarification says Door was the original Guardian who summoned Mourn and later assumed responsibility after the Black Guardian was shattered. These can coexist, but the exact participants/causality of the Shattering need a canonical event record.",
-          "The Wiki describes Eric using a Shattergate on Silas Ashland's Name as a domino-effect cause of the Nameless Throne's destruction. User clarification describes Denial turning a child into a conceptual suicide bomb/homing missile against the Nameless Throne. These may describe the same event chain but should remain an unresolved mapping until confirmed.",
+          "RESOLVED: Silas Ashland is the child Denial weaponized against the Nameless Throne; the Shattergate-on-Silas description and conceptual-suicide-bomb description are the same intended event chain. Exact causal/mechanical sequencing can still be formalized later.",
           "Reese and Lotus appear as both Morgan and Morrigan across sources; keep aliases rather than normalizing automatically.",
           "Fourth-cycle Emblem labels differ between the Guardian Cycle sheet and Character Wiki in places, so successor identity and Emblem concept should be separate fields."
         ],
