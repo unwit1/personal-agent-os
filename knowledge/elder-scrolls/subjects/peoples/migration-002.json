@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "peoples",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:redguard",
+      "name": "Redguard",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/redguard.json",
+      "source": {
+        "id": "uesp:redguard",
+        "url": "https://en.uesp.net/wiki/Lore:Redguard",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:altmer",
+      "name": "Altmer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/altmer.json",
+      "source": {
+        "id": "uesp:altmer",
+        "url": "https://en.uesp.net/wiki/Lore:Altmer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:bosmer",
+      "name": "Bosmer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/bosmer.json",
+      "source": {
+        "id": "uesp:bosmer",
+        "url": "https://en.uesp.net/wiki/Lore:Bosmer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:khajiit",
+      "name": "Khajiit",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/khajiit.json",
+      "source": {
+        "id": "uesp:khajiit",
+        "url": "https://en.uesp.net/wiki/Lore:Khajiit",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:argonian",
+      "name": "Argonian",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/argonian.json",
+      "source": {
+        "id": "uesp:argonian",
+        "url": "https://en.uesp.net/wiki/Lore:Argonian",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:orsimer",
+      "name": "Orsimer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/orsimer.json",
+      "source": {
+        "id": "uesp:orsimer",
+        "url": "https://en.uesp.net/wiki/Lore:Orsimer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:breton",
+      "name": "Breton",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/breton.json",
+      "source": {
+        "id": "uesp:breton",
+        "url": "https://en.uesp.net/wiki/Lore:Breton",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:reachfolk",
+      "name": "Reachfolk",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/reachfolk.json",
+      "source": {
+        "id": "uesp:reachfolk",
+        "url": "https://en.uesp.net/wiki/Lore:Reachfolk",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Categorized migration from prior ingestion queues. Source URLs are discovery pointers; underlying primary references are preferred during extraction."
+}
