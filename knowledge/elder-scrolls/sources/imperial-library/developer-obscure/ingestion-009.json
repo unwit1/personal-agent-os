@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-009-daedra-oblivion",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:daedra-nature-dev",
+      "title": "Developer material on the nature of Daedra",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Daedra",
+        "Daedric Princes",
+        "lesser Daedra",
+        "Oblivion",
+        "et'Ada"
+      ]
+    },
+    {
+      "id": "til:oblivion-realms-dev",
+      "title": "Developer commentary on Oblivion realms",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Oblivion",
+        "Planes of Oblivion",
+        "Daedric realms",
+        "creatia"
+      ]
+    },
+    {
+      "id": "til:dagon-dev",
+      "title": "Developer and obscure material on Mehrunes Dagon",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Mehrunes Dagon",
+        "Deadlands",
+        "destruction",
+        "change",
+        "Aldudagga"
+      ]
+    },
+    {
+      "id": "til:molag-bal-dev",
+      "title": "Developer material on Molag Bal",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Molag Bal",
+        "Coldharbour",
+        "vampirism",
+        "Planemeld"
+      ]
+    },
+    {
+      "id": "til:hermaeus-mora-dev",
+      "title": "Developer material on Hermaeus Mora",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Hermaeus Mora",
+        "Apocrypha",
+        "knowledge",
+        "fate"
+      ]
+    },
+    {
+      "id": "til:sheogorath-jyggalag-dev",
+      "title": "Developer material on Sheogorath and Jyggalag",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Sheogorath",
+        "Jyggalag",
+        "Shivering Isles",
+        "Greymarch"
+      ]
+    },
+    {
+      "id": "til:boethiah-trinimac-dev",
+      "title": "Developer and obscure material on Boethiah, Trinimac, and Malacath",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Boethiah",
+        "Trinimac",
+        "Malacath",
+        "Orsimer",
+        "Veloth"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Do not assume a Prince's realm, sphere, personality and metaphysical nature are interchangeable concepts.",
+    "Creation stories involving Daedric Princes remain attributed religious or developer narratives unless independently evidenced.",
+    "Aldudagga material remains external/obscure even where later games echo related ideas.",
+    "Separate directly depicted realm behavior from developer explanations of Oblivion metaphysics.",
+    "Cross-link later ESO evidence without retroactively upgrading older developer texts."
+  ]
+}
