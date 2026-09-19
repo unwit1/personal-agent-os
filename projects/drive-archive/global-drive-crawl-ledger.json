@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 293,
+    "first_level_files_indexed": 296,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue inventory reconciliation for New Books List and Elder Scrolls reference assets, then broad/root discovery for additional safe historical projects and recursive folder coverage. Inspect remaining Apostate/Vigilant variants only where they add unique state; treat older duplicate snapshots as historical/superseded."
+    "next_action": "Continue broad historical discovery with older campaign/system folders and MASTER/reference files, prioritizing safe project documents not yet in the ledger. Reconcile UAS/Fate/Anthem City evolution and orphaned root files; inventory sensitive/personal trackers metadata-only."
   },
   "top_level_folders": [
     {
@@ -2182,8 +2182,8 @@
       "path": "/My Drive/Personal/Productivity/Weekly Writing Group",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2023-12-11T01:23:33.132Z",
-      "category": "writing_practice_community",
-      "content_status": "processed_summary"
+      "category": "writing_group",
+      "content_status": "processed"
     },
     {
       "id": "10vBkZ1YqdnG0u6UPa0CuJL4SAkQinot9wBnD3nSF0j8",
@@ -2241,7 +2241,7 @@
       "title": "Anthem City - Campaign Notes",
       "path": "/My Drive/Personal/TTRPG/Campaign 1 - Anthem/Anthem City - Campaign Notes",
       "category": "ttrpg_anthem_city",
-      "content_status": "processed_summary"
+      "content_status": "processed"
     },
     {
       "id": "13_YIUXY6qj1Wjt7nOncaOEeXUti-3hlPh9l-4jjQGi4",
@@ -2255,7 +2255,7 @@
       "title": "Campaign 1 - Anthem City",
       "path": "/My Drive/Personal/TTRPG/Campaign 1 - Anthem/Campaign 1 - Anthem City",
       "category": "ttrpg_anthem_city",
-      "content_status": "processed_summary"
+      "content_status": "processed"
     },
     {
       "id": "1-lF8abUykTA4WKKrAQpUrnzUTUQvR7l_M-IRM5Jra1U",
@@ -2315,8 +2315,8 @@
     {
       "id": "1UZc7cmRKgXz6aR-JFIpncxGK24Xt_MXcbde8LuZ5ZLQ",
       "title": "THE HOLY GRAIL WAR",
-      "category": "ttrpg_fate_false_paradise",
-      "content_status": "processed_summary"
+      "category": "ttrpg_fate_nasuverse",
+      "content_status": "processed"
     },
     {
       "id": "1iWcXrmXNiZ3LYR8AueRDXMGRHklkcrR5rAIS2_a1YlQ",
@@ -2591,6 +2591,36 @@
       "category": "elder_scrolls_modding",
       "content_status": "processed",
       "inventory_source": "Drive search"
+    },
+    {
+      "id": "1RB81K2lqsa4rdtU9gbR45RleAOw7JHw6rfHr5vzqVpk",
+      "title": "Youkai - Master",
+      "path": "/Accessible Drive/Youkai - Master",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2011-08-16T06:30:23.702Z",
+      "category": "ttrpg_fate_nasuverse",
+      "content_status": "processed",
+      "inventory_source": "broad root/search discovery"
+    },
+    {
+      "id": "1wvuBBkOq0GNNV8IFpC4zba06y_dSdZAvlUuFI5zgVDc",
+      "title": "Things to get Master List",
+      "path": "/Accessible Drive/Things to get Master List",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2019-02-02T15:19:57.592Z",
+      "category": "personal_media_software_archive",
+      "content_status": "processed",
+      "inventory_source": "broad root/search discovery"
+    },
+    {
+      "id": "1lJpY2CQAXIWrNMdVu9OtDNUtcY0fy8_x63EQKNApVn4",
+      "title": "Fate/Nasuverse Character Creation",
+      "path": "/Accessible Drive/Fate/Nasuverse Character Creation",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2021-07-05T16:09:50.030Z",
+      "category": "ttrpg_fate_nasuverse",
+      "content_status": "processed",
+      "inventory_source": "broad root/search discovery"
     }
   ],
   "folder_queue": [
@@ -2856,9 +2886,9 @@
       ]
     },
     "weekly-writing-group": {
-      "status": "historical_or_dormant",
-      "domain": "writing practice / accountability",
-      "summary": "A weekly writing group concept focused on weekly and semester goals, advance sharing of projects, constructive criticism, accountability, habit building, active comments, and allowing lore or tabletop preparation to count as creative work.",
+      "status": "historical_community_project",
+      "domain": "writing/accountability group",
+      "summary": "A weekly writing group organized around concrete weekly and semester goals, advance project sharing and feedback, constructive criticism, accountability, habit-building and incentives. D&D preparation, lore and other creative work could count toward goals; Thursday meetings were preferred.",
       "source_ids": [
         "1cz8k-IG2y5UsFmfnA55RmZEqjtcH1mGNpVbfMx74Qlc"
       ]
@@ -2884,7 +2914,15 @@
       "relationships": [
         "Predecessor/parallel design work to later UAS mechanics; do not automatically transfer setting canon."
       ],
-      "mechanics_summary": "Beyond the campaign setting, Anthem City had a substantial school-life subsystem: daily time slots, exams, delinquency/expulsion tracking, classes, gadget development, equipment upgrades, physical/special/combat training, skill progression, patrol/random encounters, power ratings, effects and level-up tables."
+      "mechanics_summary": "Beyond the campaign setting, Anthem City had a substantial school-life subsystem: daily time slots, exams, delinquency/expulsion tracking, classes, gadget development, equipment upgrades, physical/special/combat training, skill progression, patrol/random encounters, power ratings, effects and level-up tables.",
+      "archive_recovery": {
+        "summary": "Recovered older campaign architecture establishes Anthem City as a superhero-school tabletop campaign centered on Arcadia Institute in a near-future U.S. adapting to widespread superpowers. The campaign was structured around school-year events—initiation, mock battles, midterms, rallies, internships, hostage situations, kidnappings, finals and city attacks—with a later Slaughterhouse Nine/Croatoan arc. Campaign notes preserve locations, faculty/hero rosters, gang conflict and an intended first-year cliffhanger.",
+        "source_ids": [
+          "1njz-xNZSAzfZvI9RNQ0wdEN3dP_m5CEfXmtlRTVSk7c",
+          "1KKf_TW1UwzktKVpL9PObqyHLB-8AYcqkpyYOZtOP70M"
+        ],
+        "historical_state": true
+      }
     },
     "fate-false-paradise": {
       "status": "historical_or_dormant",
@@ -3966,6 +4004,39 @@
         "Knowledge Framework",
         "Arcaneum / Scholarship Framework",
         "Knight Mentor"
+      ]
+    },
+    "fate-nasuverse-rpg": {
+      "status": "historical_project_family",
+      "domain": "tabletop RPG / Fate-Nasuverse adaptation",
+      "approximate_date_range": "2011-2021+",
+      "summary": "A long-running unofficial d20-style Fate/Nasuverse tabletop design family. Sources span an early Youkai/Master progression system and later consolidated character creation and Holy Grail War rules. The system models Magi/Masters, Servants, catalysts versus compatibility summons, Command Seals, Noble Phantasms, standard and non-standard Servant classes, mana/magical attacks, races/classes/subclasses, and progressive Master-Servant bond mechanics.",
+      "evolution": [
+        "Early Youkai/Master design explored Reliquary, Legend and Separation progression circles.",
+        "Later character-creation work broadened the project into a combined Fate/Tsukihime/Kara no Kyoukai d20 system.",
+        "Holy Grail War material formalized ritual structure, Servant summoning, parameters, Command Seals, Noble Phantasms and class identities."
+      ],
+      "source_ids": [
+        "1RB81K2lqsa4rdtU9gbR45RleAOw7JHw6rfHr5vzqVpk",
+        "1lJpY2CQAXIWrNMdVu9OtDNUtcY0fy8_x63EQKNApVn4",
+        "1UZc7cmRKgXz6aR-JFIpncxGK24Xt_MXcbde8LuZ5ZLQ"
+      ],
+      "relationships": [
+        "Fate/False Paradise",
+        "Universal Anime System"
+      ],
+      "authority_note": "Historical tabletop design; do not conflate with Dream Eater or current UAS rules without explicit evidence."
+    },
+    "personal-media-software-master-list": {
+      "status": "historical_personal_reference",
+      "domain": "media/software acquisition and home-library planning",
+      "summary": "An older master checklist for software, media, games, soundtracks and home-media tooling. It includes categories for security/messaging, Kodi/Plex/Calibre/iTunes/LaunchBox/ComicRack/Subsonic, media tagging, download automation, writing software such as Scrivener, and extensive media/game acquisition lists. It is useful as historical evidence for later seedbox/media-server and collection-management interests, not as a current installation plan.",
+      "source_ids": [
+        "1wvuBBkOq0GNNV8IFpC4zba06y_dSdZAvlUuFI5zgVDc"
+      ],
+      "relationships": [
+        "seedbox/media-server project",
+        "books/comics collection databases"
       ]
     }
   },
