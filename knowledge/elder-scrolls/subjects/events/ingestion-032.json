@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-032-alessian-ayleid-pelinal",
+  "subjects": [
+    {
+      "id": "tes:alessian-slave-rebellion",
+      "name": "Alessian Slave Rebellion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/alessian-slave-rebellion.json",
+      "source": {
+        "id": "uesp:alessian-slave-rebellion",
+        "url": "https://en.uesp.net/wiki/Lore:Alessian_Slave_Rebellion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:battle-white-gold",
+      "name": "Battle of White-Gold Tower",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/battle-white-gold.json",
+      "source": {
+        "id": "uesp:battle-white-gold",
+        "url": "https://en.uesp.net/wiki/Lore:Battle_of_White-Gold_Tower",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:battle-glenumbria-moors",
+      "name": "Battle of Glenumbra Moors",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/battle-glenumbria-moors.json",
+      "source": {
+        "id": "uesp:battle-glenumbria-moors",
+        "url": "https://en.uesp.net/wiki/Lore:Battle_of_Glenumbra_Moors",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:middle-dawn",
+      "name": "Middle Dawn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/middle-dawn.json",
+      "source": {
+        "id": "uesp:middle-dawn",
+        "url": "https://en.uesp.net/wiki/Lore:Middle_Dawn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:war-righteousness",
+      "name": "War of Righteousness",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/war-righteousness.json",
+      "source": {
+        "id": "uesp:war-righteousness",
+        "url": "https://en.uesp.net/wiki/Lore:War_of_Righteousness",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "The Song of Pelinal is an in-universe literary/historical source; preserve narrator, edition and mythic embellishment uncertainty",
+    "Ayleid culture must not be flattened into a single political or religious bloc; preserve city-state and cult differences",
+    "Claims about Pelinal's identity, madness, divinity or time-displacement remain source-specific interpretations unless directly evidenced",
+    "Middle Dawn chronology is inherently disrupted; preserve conflicting durations, memories and accounts rather than forcing a normal timeline",
+    "Alessian Order doctrine must be separated from earlier Alessian rebellion and later interpretations of Alessia",
+    "Cross-link existing Alessia, Pelinal, Morihaus, Umaril, Ayleid, White-Gold Tower, Amulet of Kings, Chim-el Adabal, Middle Dawn and Knights of the Nine records"
+  ]
+}
