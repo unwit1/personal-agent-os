@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 386,
+    "first_level_files_indexed": 426,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue broad orphan reconciliation now that core UAS/Pergrande tooling is substantially covered. Search generic folders/titles and legacy project names for missing IDs, prioritizing clearly authored docs and spreadsheets. Batch duplicate/player/reference artifacts quickly. Keep Fairy Tail-derived material isolated as adaptation/reference."
+    "next_action": "Continue broad orphan reconciliation from generic-title searches. Prioritize remaining partial authored candidates: Skyrim Marriage Mod, Armorer Tiers, Dialogue Importer, Legacy of the Dragonborn Archive, Fura, and unidentified backstory.docx where safely accessible. Retry Saga - Skyrim Religion Overhaul later (current native Sheet fetch 404). Continue metadata-only handling for legal/HR material and batch external guides/reference datasets."
   },
   "top_level_folders": [
     {
@@ -3427,6 +3427,326 @@
       "category": "blades_of_pergrande",
       "content_status": "processed",
       "inventory_source": "UAS 2e/GM tooling deepening"
+    },
+    {
+      "id": "1PGmJbiHpHZ0trxnBcgfuf_aAlxwXBgk6xtUe2ZzScuk",
+      "title": "List of Celestial Fictions",
+      "path": "/Accessible Drive/List of Celestial Fictions",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1IBpjyg_T-zo1dOkTgFLxjsPH9xhYNAtJmVGx1BdvYgo",
+      "title": "Copy of Champions- Character creation",
+      "path": "/Accessible Drive/Copy of Champions- Character creation",
+      "category": "player_campaign_reference",
+      "content_status": "partial",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1s3zdT1g61rlKsmcEon4VxqCogWRFCaTnAdr9TyFhP7w",
+      "title": "Skyrim Anniversary Edition Quests (Base Game, DLC, Anniversary Edition CC)",
+      "path": "/Accessible Drive/Skyrim Anniversary Edition Quests (Base Game, DLC, Anniversary Edition CC)",
+      "category": "skyrim_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1aROTCF52mo3U1gVzkAEESBQn0inlIWk_",
+      "title": "Decree of Dissolution.pdf",
+      "path": "/Accessible Drive/Decree of Dissolution.pdf",
+      "category": "personal_sensitive",
+      "content_status": "sensitive_metadata_only",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1y5Zp2FEHz5OqHRASlHjHh1i-f1DJdU4KEnIrPqYE0y",
+      "title": "Saga - Skyrim Religion Overhaul",
+      "path": "/Accessible Drive/Saga - Skyrim Religion Overhaul",
+      "category": "skyrim_religion_ecosystem",
+      "content_status": "failed_retry",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1YN0s1rIvpDtxJ9JTpXyrXgmIrHySeRWySSJNtCk97PE",
+      "title": "Copy of Scribe-Level NPC: Gwynara Moorwing ",
+      "path": "/Accessible Drive/Copy of Scribe-Level NPC: Gwynara Moorwing ",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "18nDoQaEcOK715jETPnD6JwN_5_7gIlfz",
+      "title": "The Elder Scrolls V Skyrim - Wyrmstooth Official Guide.pdf",
+      "path": "/Accessible Drive/The Elder Scrolls V Skyrim - Wyrmstooth Official Guide.pdf",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1eDM0KnSpApShX7gNLRx0TQaROIsUsV0H2T4fUm2GmT8",
+      "title": "Stardew Valley List of Recommended Mods",
+      "path": "/Accessible Drive/Stardew Valley List of Recommended Mods",
+      "category": "stardew_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1MYv2ejDu0HOvLyIWNwicaVWpg42sv8ezlDD8svzFfuI",
+      "title": "The Little Treats Update",
+      "path": "/Accessible Drive/The Little Treats Update",
+      "category": "skyrim_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1qCeJ7Tsl2RPIRCWKbgnANIwnqL2yaoTrgknYGPzpPMk",
+      "title": "Blade & Blunt 4",
+      "path": "/Accessible Drive/Blade & Blunt 4",
+      "category": "skyrim_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1sXbJMJwNuyvxSbybTQe_R4hg-4v3CkBw",
+      "title": "fashions.pdf",
+      "path": "/Accessible Drive/fashions.pdf",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1-6GxR1RgbtJzdywp29XsBqH8nPPbW8pwVIzK8TwVPfCX2JZC1dibOFQSQ_KSmkHZWmOBvaH8",
+      "title": "Copy of Basic Job Application Form (File responses)",
+      "path": "/Accessible Drive/Copy of Basic Job Application Form (File responses)",
+      "category": "hr_sensitive",
+      "content_status": "sensitive_metadata_only",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1IR9sQIBwmaGuTE6vXTyCx_6ytCBoXz4Efq2Qk4cJZYo",
+      "title": "FSN-Phantasm.doc",
+      "path": "/Accessible Drive/FSN-Phantasm.doc",
+      "category": "legacy_fate_system",
+      "content_status": "processed",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1MGf6_1BwozdrBm7VVf9Kq-AYr6RwWI_P",
+      "title": "Mod List (Installed Bottom to Top).txt",
+      "path": "/Accessible Drive/Mod List (Installed Bottom to Top).txt",
+      "category": "skyrim_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1aF4oKY0omf0ihGCW1iVXO0OvrlDTiCArAt3MFPGdDTA",
+      "title": "Introduction to Quest Design, 3rd Edition",
+      "path": "/Accessible Drive/Introduction to Quest Design, 3rd Edition",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1SgeD07JxvlUPugfaghReLAhu2A4uL52ZtOUikHbU78w",
+      "title": "E.S.L.A. Informations",
+      "path": "/Accessible Drive/E.S.L.A. Informations",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1AWlxYsx8BCiwa1gFzTtcWoecTUg9ZNQSwSfsyurSRYY",
+      "title": "Stardew Valley Completionist Checklist (Modded)",
+      "path": "/Accessible Drive/Stardew Valley Completionist Checklist (Modded)",
+      "category": "stardew_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1VkFXJATDgeeeGKLJl5W1vFdvw-e8oBDhGOt6I0gFk6U",
+      "title": "Skyrim Marriage Mod",
+      "path": "/Accessible Drive/Skyrim Marriage Mod",
+      "category": "skyrim_mod_legacy",
+      "content_status": "partial",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1sdjB-CTvZ--09MKg79A6YfXhWRHZhM9EOy7GjBEbTNw",
+      "title": "GATE TO SOVNGARDE Patreon Changelogs",
+      "path": "/Accessible Drive/GATE TO SOVNGARDE Patreon Changelogs",
+      "category": "skyrim_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "12pG3Pr4yYEmX5m_5ew2Tnm8I7YMY5pY_Q-_eO4G42aI",
+      "title": "Starfrost 2 Changelogs",
+      "path": "/Accessible Drive/Starfrost 2 Changelogs",
+      "category": "skyrim_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "13uQgtUACFgGIGvmgkskZy4nvz9c-tO4lxn8GBGa5ttQ",
+      "title": "Session by Session Plot",
+      "path": "/Accessible Drive/Session by Session Plot",
+      "category": "blades_of_pergrande",
+      "content_status": "processed",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1IDHTHqCzjDKoVcHMnUTOmqBcBTCpZEnl",
+      "title": "old",
+      "path": "/Accessible Drive/old",
+      "category": "folder",
+      "content_status": "processed",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1-6PomwjDitDiElN2fHOl4cS5p5xN4LmPSt45I4mkbpo",
+      "title": "Draft",
+      "path": "/Accessible Drive/Draft",
+      "category": "dream_eater_legacy",
+      "content_status": "processed",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1EryFwihEm5H0xlg5ea6HyazZUd0WhoJ21qQfIYO6jhw",
+      "title": "Armorer Tiers",
+      "path": "/Accessible Drive/Armorer Tiers",
+      "category": "skyrim_balance",
+      "content_status": "partial",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1xfpttprT3qr-QBzfBNIPnYhoUEhd7HSFCotXJyfcKp8",
+      "title": "Legacy of the Dragonborn Archive",
+      "path": "/Accessible Drive/Legacy of the Dragonborn Archive",
+      "category": "skyrim_reference",
+      "content_status": "partial",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1xqKzKAlv-EOyiGtbAgIvcQK1UaF1eov8MjOiGPdD3Jc",
+      "title": "Fura(aaFura, aaFuraQ1)",
+      "path": "/Accessible Drive/Fura(aaFura, aaFuraQ1)",
+      "category": "skyrim_reference",
+      "content_status": "partial",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1-4mRWyoBSOoJTzOK-EfyCMErkqlhdGdj",
+      "title": "backstory.docx",
+      "path": "/Accessible Drive/backstory.docx",
+      "category": "player_character",
+      "content_status": "partial",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1fODWQSS85fy29gqibiBqhgUR_n5ObG6B0FbGxsVPyL8",
+      "title": "Youkai-Standard",
+      "path": "/Accessible Drive/Youkai-Standard",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "16lN8HTu-FXkid2eTaYKKgtt11PphzfEULMTZgLzBzm4",
+      "title": "Anime",
+      "path": "/Accessible Drive/Anime",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1q4Ap5bwDcOUCegtjsRH6APr0KRT03H5vxiY9iDvZZxE",
+      "title": "Session Notes",
+      "path": "/Accessible Drive/Session Notes",
+      "category": "blades_of_pergrande",
+      "content_status": "processed",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "11ubIM8yp622feZo-EPaINKyslNmYMPM_",
+      "title": "Meeting Notes",
+      "path": "/Accessible Drive/Meeting Notes",
+      "category": "folder",
+      "content_status": "processed",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "165FiG84zmD5r3iyp63ojR_4fFv2kNeNo",
+      "title": "Notes for new fans .txt",
+      "path": "/Accessible Drive/Notes for new fans .txt",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1WuV2VK5boVpx1A0VjIhY-NRCmMoZl8ekngfFfnmuknw",
+      "title": "AU Writer's Guide",
+      "path": "/Accessible Drive/AU Writer's Guide",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1mgMoC2x17ggTNUluGw3vsDmDw8ryY9mSCFTpi4826Dk",
+      "title": "SkyrimAlchemyRecipesAll",
+      "path": "/Accessible Drive/SkyrimAlchemyRecipesAll",
+      "category": "skyrim_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "11VXcODEJpTnWP67t97haXGnXaNoAfnLlTCG4HWibrlE",
+      "title": "Dialogue Importer",
+      "path": "/Accessible Drive/Dialogue Importer",
+      "category": "skyrim_tooling",
+      "content_status": "partial",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1fBlV0I57hK6pt1zHhiTBZjl1uv7Hj66hjWphbI8FLtw",
+      "title": "FSN-Magic.doc",
+      "path": "/Accessible Drive/FSN-Magic.doc",
+      "category": "legacy_fate_system",
+      "content_status": "processed",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "153jDKd4kGPeLTyFou_PKnabeF6lAiAmq_AEXc4ijqo8",
+      "title": "Toshinori Mod Spoilers",
+      "path": "/Accessible Drive/Toshinori Mod Spoilers",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1cZ1ya1UyyJsULVEcuBSrAU1Tx67B90ExU0EbLpqho8U",
+      "title": "Media Collection",
+      "path": "/Accessible Drive/Media Collection",
+      "category": "personal_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "13onuHokXyd99NAZIPOEn3j6xGBtgbXkvzhT6-22IiOU",
+      "title": "SDV Checklists Moved - Read for New Link",
+      "path": "/Accessible Drive/SDV Checklists Moved - Read for New Link",
+      "category": "stardew_reference",
+      "content_status": "superseded",
+      "inventory_source": "broad generic/orphan reconciliation"
+    },
+    {
+      "id": "1ppbxG9EbLzqKB-lJiJ0EHygtpAGjZ0SP",
+      "title": "Readarr_Calibre.pdf",
+      "path": "/Accessible Drive/Readarr_Calibre.pdf",
+      "category": "media_server_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "broad generic/orphan reconciliation"
     }
   ],
   "folder_queue": [
@@ -3965,6 +4285,13 @@
           "1bgYlEmS5O8Fs_SrWMZOmtq9zRCp_m94q9BbXPUWs07M"
         ],
         "provenance_note": "External/franchise adaptation reference."
+      },
+      "session_zero_detail": {
+        "summary": "Session-by-Session Plot and Session Notes preserve the opening Dragon Heart campaign sequence: Milo awakens wounded and amnesiac outside Klobury, is taken into Dragon Heart and receives an Omen vision of Rhea; Swick is conscripted under a dark-wizard amnesty arrangement; Lawson crashes through the guild roof after a magical accident; the new party is given disastrous temporary lodging and earns a riverside shack by landing a hit on cloning wizard Soleyr. The notes continue into Morris's introduction and later campaign sessions. These are authored GM/session records, but player actions and contributed character details remain collaborative rather than solely user-authored.",
+        "source_ids": [
+          "13uQgtUACFgGIGvmgkskZy4nvz9c-tO4lxn8GBGa5ttQ",
+          "1q4Ap5bwDcOUCegtjsRH6APr0KRT03H5vxiY9iDvZZxE"
+        ]
       }
     },
     "dragon-heart-campaign": {
@@ -5763,6 +6090,14 @@
         ],
         "status": "newer dedicated structured lore / likely canon framework",
         "authority_note": "High-value dedicated lore source, but incomplete/repeated draft passages and later explicit user statements still outrank it. Preserve terminology/evolution without treating unfinished law wording as finalized canon."
+      },
+      "early_ellis_abigail_draft": {
+        "summary": "A 2017 prose Draft is an early Dream Eater predecessor/manuscript state. Ellis appears as a teenage psychopomp trapped between witnessing deaths and returning to a ruined timeless realm with a silent grey-robed man on a battered throne. The draft then introduces Abigail under an earlier presentation/name context ('Gail' appears in narration before Abigail is addressed), establishing very early versions of death/afterlife helplessness, the ruined throne realm and Abigail material. Preserve as historical evolution only; later dedicated lore/manuscript and explicit user canon outrank it.",
+        "source_ids": [
+          "1-6PomwjDitDiElN2fHOl4cS5p5xN4LmPSt45I4mkbpo"
+        ],
+        "status": "legacy manuscript/predecessor",
+        "authority_note": "Do not silently map Ellis to a current character or promote early names/details without corroboration."
       }
     },
     "skyrim-cooking-skill": {
@@ -5890,6 +6225,13 @@
         "summary": "The Advantages document deepens the older authored Fate/Nasuverse ruleset with point-buy advantages and a substantial Faithful/Burial Agent subsystem. It includes Scripture and Keymaster options, Outcast as a disadvantage, and named Miracles such as Holy Resurrection, Divine Sword, St. Agathios, St. Eustace, St. Denis, Sanctification, Holy Water, Lucifer and Uriel. Preserve as historical system design, not current UAS mechanics.",
         "source_ids": [
           "1dEVdwtSdHydE6Sn1xzWm1PrLUalKTGJrLpHmZMXiUJo"
+        ]
+      },
+      "magic_and_phantasms": {
+        "summary": "Two 2011-2012 rules documents substantially flesh out the legacy Fate/Nasuverse system. FSN-Magic defines MP from the Magic stat, dangerous casting/backlash, learnable magical schools, inherited circuits, gem-storage rituals and boundary fields including alarms, resistance/improvement zones and energy siphons. FSN-Phantasm defines point-built Noble Phantasms, Servant-class restrictions, always-on abilities, weapon enhancements, custom attack construction, Saber armor and Rider bridle/mount upgrades. These are historical authored adaptation rules and should remain separate from later UAS mechanics.",
+        "source_ids": [
+          "1fBlV0I57hK6pt1zHhiTBZjl1uv7Hj66hjWphbI8FLtw",
+          "1IR9sQIBwmaGuTE6vXTyCx_6ytCBoXz4Efq2Qk4cJZYo"
         ]
       }
     }
