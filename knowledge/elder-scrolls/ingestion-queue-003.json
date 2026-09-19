@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "continuity_id": "tes-base",
+  "batch_id": "uesp-003-chimer-cosmology-cluster",
+  "purpose": "Expand outward from Red Mountain into Chimer/Dunmer origins, the Good Daedra, and core cosmology.",
+  "pages": [
+    {
+      "id": "chimer",
+      "title": "Chimer",
+      "url": "https://en.uesp.net/wiki/Lore:Chimer",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "veloth",
+      "title": "Veloth",
+      "url": "https://en.uesp.net/wiki/Lore:Veloth",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "resdayn",
+      "title": "Resdayn",
+      "url": "https://en.uesp.net/wiki/Lore:Resdayn",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "first-council",
+      "title": "First Council",
+      "url": "https://en.uesp.net/wiki/Lore:First_Council",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "azura",
+      "title": "Azura",
+      "url": "https://en.uesp.net/wiki/Lore:Azura",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "boethiah",
+      "title": "Boethiah",
+      "url": "https://en.uesp.net/wiki/Lore:Boethiah",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "mephala",
+      "title": "Mephala",
+      "url": "https://en.uesp.net/wiki/Lore:Mephala",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "daedra",
+      "title": "Daedra",
+      "url": "https://en.uesp.net/wiki/Lore:Daedra",
+      "page_type": "lore_summary",
+      "entity_type": "concept",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "aedra",
+      "title": "Aedra",
+      "url": "https://en.uesp.net/wiki/Lore:Aedra",
+      "page_type": "lore_summary",
+      "entity_type": "concept",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "mundus",
+      "title": "Mundus",
+      "url": "https://en.uesp.net/wiki/Lore:Mundus",
+      "page_type": "lore_summary",
+      "entity_type": "plane",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "aetherius",
+      "title": "Aetherius",
+      "url": "https://en.uesp.net/wiki/Lore:Aetherius",
+      "page_type": "lore_summary",
+      "entity_type": "plane",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "oblivion",
+      "title": "Oblivion",
+      "url": "https://en.uesp.net/wiki/Lore:Oblivion",
+      "page_type": "lore_summary",
+      "entity_type": "plane",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "nerevarine-prophecies",
+      "title": "Nerevarine Prophecies",
+      "url": "https://en.uesp.net/wiki/Lore:Nerevarine_Prophecies",
+      "page_type": "lore_summary",
+      "entity_type": "concept",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "ashlanders",
+      "title": "Ashlanders",
+      "url": "https://en.uesp.net/wiki/Lore:Ashlanders",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    },
+    {
+      "id": "dunmer",
+      "title": "Dunmer",
+      "url": "https://en.uesp.net/wiki/Lore:Dunmer",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "preserve_inline_references_and_underlying_sources"
+    }
+  ],
+  "ingestion_rules": {
+    "store_raw_corpus": "local_rebuildable",
+    "resolve_references": true,
+    "preserve_epistemic_language": true,
+    "checkpoint_each_page": true,
+    "quality_category_membership": "review_signal_not_rejection"
+  }
+}
