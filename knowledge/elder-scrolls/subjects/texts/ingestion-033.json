@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-033-atmora-nordic-dragon-cult",
+  "subjects": [
+    {
+      "id": "tes:songs-return",
+      "name": "Songs of the Return",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/songs-return.json",
+      "source": {
+        "id": "uesp:songs-return",
+        "url": "https://en.uesp.net/wiki/Lore:Songs_of_the_Return",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragon-war-text",
+      "name": "The Dragon War",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/dragon-war-text.json",
+      "source": {
+        "id": "uesp:dragon-war-text",
+        "url": "https://en.uesp.net/wiki/Lore:The_Dragon_War",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:before-ages-man",
+      "name": "Before the Ages of Man",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/before-ages-man.json",
+      "source": {
+        "id": "uesp:before-ages-man",
+        "url": "https://en.uesp.net/wiki/Lore:Before_the_Ages_of_Man",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:pocket-guide-skyrim",
+      "name": "Pocket Guide to the Empire: Skyrim",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/pocket-guide-skyrim.json",
+      "source": {
+        "id": "uesp:pocket-guide-skyrim",
+        "url": "https://en.uesp.net/wiki/Lore:Pocket_Guide_to_the_Empire:_Skyrim",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Songs of the Return and other heroic traditions remain literary/historical testimony, not automatically literal event transcripts",
+    "Do not flatten Atmoran, early Nordic, Dragon Cult and later Nordic religion into one static belief system",
+    "Night of Tears causes and Eye of Magnus-related interpretations remain source-specific where disputed",
+    "Dragon Cult chronology must distinguish Atmoran origins, Skyrim rule, Dragon War and later surviving cult sites",
+    "Thu'um feats should distinguish direct observations, saga claims and gameplay mechanics",
+    "Cross-link existing Ysgramor, Atmora, Saarthal, Snow Elves, Dragon Cult, Dragon War, Greybeards, Jurgen, Paarthurnax, Miraak, Forelhost and Skuldafn records"
+  ]
+}
