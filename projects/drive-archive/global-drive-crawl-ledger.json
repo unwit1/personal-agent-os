@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 341,
+    "first_level_files_indexed": 349,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue character/orphan archive: inspect Genesis pre-reboot if discoverable, Concrete Jungle adjacent files, Golden Grove companions, Spellcraft/Lost Lambs campaign-level docs, and remaining character sheets such as DBU, Settle Your Scores, 5e2 Vesper, plus safe native Untitled docs/sheets. Reconcile IDs before adding and keep sparse/empty artifacts appropriately classified."
+    "next_action": "Continue archive crawl under new provenance rule. Prioritize user-authored project/lore/planning files and distinguish them from player character sheets. Inventory remaining player sheets for completeness but extract mainly the user's own character concepts/backstories; do not learn from or propagate external campaign mechanics/lore. Continue safe Untitled/native docs and sheets to discover genuinely user-authored projects."
   },
   "top_level_folders": [
     {
@@ -3028,6 +3028,94 @@
       "category": "concrete_jungle",
       "content_status": "processed",
       "inventory_source": "legacy character archive continuation"
+    },
+    {
+      "id": "16Xl7nLYmGpNNvvJSbvlQTaw8UZNYgWflsDIM8b6IJ_o",
+      "title": "Character Sheet - Genesis V3 - Backtalk",
+      "path": "/Accessible Drive/Character Sheet - Genesis V3 - Backtalk",
+      "mime_type": "application/vnd.google-apps.spreadsheet",
+      "category": "player_character",
+      "content_status": "processed",
+      "inventory_source": "player-character provenance pass",
+      "provenance": "player_campaign_or_external_reference",
+      "influence_policy": "Do not use campaign mechanics/lore as evidence for user's authored systems unless separately confirmed."
+    },
+    {
+      "id": "106SXmpWSVDQwYigX3GC52EeMioer49R-",
+      "title": "Character Sheet - Genesis - Voltaire.docx",
+      "path": "/Accessible Drive/Character Sheet - Genesis - Voltaire.docx",
+      "mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "category": "player_character",
+      "content_status": "partial",
+      "inventory_source": "player-character provenance pass",
+      "provenance": "player_campaign_or_external_reference",
+      "influence_policy": "Do not use campaign mechanics/lore as evidence for user's authored systems unless separately confirmed."
+    },
+    {
+      "id": "1-9CpLBYZ4zovmUN-laiAmJE7_CLZS123",
+      "title": "Character Sheet - Settle Your Scores - Vance Gamble.docx",
+      "path": "/Accessible Drive/Character Sheet - Settle Your Scores - Vance Gamble.docx",
+      "mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "category": "player_character",
+      "content_status": "partial",
+      "inventory_source": "player-character provenance pass",
+      "provenance": "player_campaign_or_external_reference",
+      "influence_policy": "Do not use campaign mechanics/lore as evidence for user's authored systems unless separately confirmed."
+    },
+    {
+      "id": "1-quQIFqy1gsDSdCtbgX4rHMIBbloVUxj",
+      "title": "Character Sheet - Settle Your Scores - Mercury Fred .docx",
+      "path": "/Accessible Drive/Character Sheet - Settle Your Scores - Mercury Fred .docx",
+      "mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "category": "player_character",
+      "content_status": "partial",
+      "inventory_source": "player-character provenance pass",
+      "provenance": "player_campaign_or_external_reference",
+      "influence_policy": "Do not use campaign mechanics/lore as evidence for user's authored systems unless separately confirmed."
+    },
+    {
+      "id": "1-ituMYZ-i4aeB5P9UZ3wKsGzsFbn-Eri",
+      "title": "Character Sheet - Settle Your Scores - Mercury Fred SCRUBBED.docx",
+      "path": "/Accessible Drive/Character Sheet - Settle Your Scores - Mercury Fred SCRUBBED.docx",
+      "mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "category": "player_character",
+      "content_status": "partial",
+      "inventory_source": "player-character provenance pass",
+      "provenance": "player_campaign_or_external_reference",
+      "influence_policy": "Do not use campaign mechanics/lore as evidence for user's authored systems unless separately confirmed."
+    },
+    {
+      "id": "1-5BsfbmIMMA9NHBJmtk7GbgZIgmZlKvd",
+      "title": "Character Sheet - 5e2 - Vesper.pdf",
+      "path": "/Accessible Drive/Character Sheet - 5e2 - Vesper.pdf",
+      "mime_type": "application/pdf",
+      "category": "player_character",
+      "content_status": "partial",
+      "inventory_source": "player-character provenance pass",
+      "provenance": "player_campaign_or_external_reference",
+      "influence_policy": "Do not use campaign mechanics/lore as evidence for user's authored systems unless separately confirmed."
+    },
+    {
+      "id": "1fsv0lC2nw1tY41VK9xdU7OWBkiuEKGpvCVB8JYUH1Bc",
+      "title": "DBU_Character_Sheet_Fillable",
+      "path": "/Accessible Drive/DBU_Character_Sheet_Fillable",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "external_reference",
+      "content_status": "irrelevant/reference",
+      "inventory_source": "player-character provenance pass",
+      "provenance": "player_campaign_or_external_reference",
+      "influence_policy": "Do not use campaign mechanics/lore as evidence for user's authored systems unless separately confirmed."
+    },
+    {
+      "id": "1-8TDekHXni8GZIYUQefOYTzKb7G6-qBh",
+      "title": "Vance_Gamble_-_Character_Sheet.docx",
+      "path": "/Accessible Drive/Vance_Gamble_-_Character_Sheet.docx",
+      "mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "category": "player_character",
+      "content_status": "partial",
+      "inventory_source": "player-character provenance pass",
+      "provenance": "player_campaign_or_external_reference",
+      "influence_policy": "Do not use campaign mechanics/lore as evidence for user's authored systems unless separately confirmed."
     }
   ],
   "folder_queue": [
@@ -4606,7 +4694,9 @@
       ],
       "unresolved": [
         "Locate campaign lore, GM notes or other Lower Worlds character sheets to determine setting and system identity."
-      ]
+      ],
+      "provenance_note": "Default classification updated: artifacts based only on the user's character sheets represent player participation. Campaign lore/rules/mechanics are external/reference unless independent evidence establishes user authorship.",
+      "influence_policy": "Do not use external campaign mechanics/worldbuilding to influence or establish lineage for user's authored projects. Preserve user's character concepts/backstories separately."
     },
     "to-kill-an-immortal": {
       "status": "historical tabletop campaign/project",
@@ -4621,7 +4711,9 @@
       ],
       "unresolved": [
         "Find To Kill an Immortal campaign-level plot/lore and determine Rook's original class/backstory."
-      ]
+      ],
+      "provenance_note": "Default classification updated: artifacts based only on the user's character sheets represent player participation. Campaign lore/rules/mechanics are external/reference unless independent evidence establishes user authorship.",
+      "influence_policy": "Do not use external campaign mechanics/worldbuilding to influence or establish lineage for user's authored projects. Preserve user's character concepts/backstories separately."
     },
     "remnant-campaign": {
       "status": "historical RWBY tabletop campaign",
@@ -4630,7 +4722,9 @@
       "source_ids": [
         "1eJLjWSXfzB0QAt_VSytNNgHgMN0MlwYgJFC97fhCvgA"
       ],
-      "authority_note": "Historical player-character material; do not infer broader campaign canon from one sheet."
+      "authority_note": "Historical player-character material; do not infer broader campaign canon from one sheet.",
+      "provenance_note": "Default classification updated: artifacts based only on the user's character sheets represent player participation. Campaign lore/rules/mechanics are external/reference unless independent evidence establishes user authorship.",
+      "influence_policy": "Do not use external campaign mechanics/worldbuilding to influence or establish lineage for user's authored projects. Preserve user's character concepts/backstories separately."
     },
     "horon-campaign": {
       "status": "historical tabletop campaign/project",
@@ -4661,7 +4755,9 @@
         "relationships": [
           "Blades of Pergrande Noximilien the Clockmaker - likely concept reuse/evolution, not yet asserted identical"
         ]
-      }
+      },
+      "provenance_note": "Default classification updated: artifacts based only on the user's character sheets represent player participation. Campaign lore/rules/mechanics are external/reference unless independent evidence establishes user authorship.",
+      "influence_policy": "Do not use external campaign mechanics/worldbuilding to influence or establish lineage for user's authored projects. Preserve user's character concepts/backstories separately."
     },
     "dungeon-oratoria": {
       "status": "historical project discovered / content pending",
@@ -4687,7 +4783,9 @@
         "Lower Worlds",
         "Horon"
       ],
-      "authority_note": "This is a campaign-specific Wit incarnation; do not merge its biography into other Wit versions without evidence."
+      "authority_note": "This is a campaign-specific Wit incarnation; do not merge its biography into other Wit versions without evidence.",
+      "provenance_note": "Default classification updated: artifacts based only on the user's character sheets represent player participation. Campaign lore/rules/mechanics are external/reference unless independent evidence establishes user authorship.",
+      "influence_policy": "Do not use external campaign mechanics/worldbuilding to influence or establish lineage for user's authored projects. Preserve user's character concepts/backstories separately."
     },
     "virtue-campaign": {
       "status": "historical original/supernatural tabletop project",
@@ -4698,7 +4796,9 @@
       ],
       "unresolved": [
         "Find Virtue/Echo system or other character files to establish setting scope."
-      ]
+      ],
+      "provenance_note": "Default classification updated: artifacts based only on the user's character sheets represent player participation. Campaign lore/rules/mechanics are external/reference unless independent evidence establishes user authorship.",
+      "influence_policy": "Do not use external campaign mechanics/worldbuilding to influence or establish lineage for user's authored projects. Preserve user's character concepts/backstories separately."
     },
     "historical-character-kingfisher": {
       "status": "historical character concept",
@@ -4754,10 +4854,12 @@
       "summary": "Dead Earth includes Licht Mabelle, an allegedly 17-year-old Venusian Circle of the Moon Druid and alchemic construct. Licht believes he was resurrected on the Moon by a maternal lunar divinity after being sacrificed by a cult, travels with a half-troll named Kraen, and intends to become a priest of the 'Holy Moon Mother.' The setting is explicitly cosmic, with Venusians, lunar civilization/college, trolls and D&D-derived magic.",
       "source_ids": [
         "1qxZZfE5AdWgqrtMfu043c3Fb_ckHV-zI-WmYkmmcVvQ"
-      ]
+      ],
+      "provenance_note": "Default classification updated: artifacts based only on the user's character sheets represent player participation. Campaign lore/rules/mechanics are external/reference unless independent evidence establishes user authorship.",
+      "influence_policy": "Do not use external campaign mechanics/worldbuilding to influence or establish lineage for user's authored projects. Preserve user's character concepts/backstories separately."
     },
     "genesis-reboot": {
-      "status": "historical superhero tabletop campaign",
+      "status": "historical player-character evidence; campaign authorship unconfirmed",
       "domain": "superhero RPG",
       "summary": "Genesis Reboot includes Jackson Shrike, alias Juice/Voltaire, an electricity-powered would-be superhero. A childhood attempt to defeat supervillain Permafrost ended in severe injury on livestream, contributing to political pressure for restrictions on underage vigilantes. Years later his powers resurface publicly and he returns to heroics. Mechanics use HP/Power, custom stats, ranked skills/attributes, super moves and an ultimate, showing another iteration of the user's custom superhero-system design lineage.",
       "source_ids": [
@@ -4765,7 +4867,8 @@
       ],
       "relationships": [
         "Anthem City - possible shared design lineage, not assumed same setting"
-      ]
+      ],
+      "influence_policy": "Prior system-design-lineage inference withdrawn. Preserve Voltaire as user's character; Genesis mechanics/worldbuilding are external/reference absent authorship evidence."
     },
     "concrete-jungle": {
       "status": "historical tabletop campaign/reboot",
@@ -4782,7 +4885,9 @@
           "1Xwek1xmobN5btgNrMgMFYoyriOmFNYzTFC8yFjjjYyY"
         ],
         "privacy_note": "Sexually suggestive joke details intentionally omitted from durable project summary."
-      }
+      },
+      "provenance_note": "Default classification updated: artifacts based only on the user's character sheets represent player participation. Campaign lore/rules/mechanics are external/reference unless independent evidence establishes user authorship.",
+      "influence_policy": "Do not use external campaign mechanics/worldbuilding to influence or establish lineage for user's authored projects. Preserve user's character concepts/backstories separately."
     },
     "golden-grove": {
       "status": "historical supernatural tabletop campaign/reboot",
@@ -4790,7 +4895,9 @@
       "summary": "Golden Grove Reboot includes Holland Laplace, a changeling occult investigator from a family of supernatural hunters. Holland and twin Rookwood were raised after a faerie incident left their mother unable to know which child was originally human; both later manifested changeling abilities. They operate the Laplace's Demon investigation agency while seeking the truth about a potentially missing original child. The heirloom 'Laplace's Demon' is a sealed box containing an unknown entity tied to a deterministic thought experiment.",
       "source_ids": [
         "1P4jL-8kuWG6gM1yq_W7ZoygqRqZCqokUEW-oPbGZj5Q"
-      ]
+      ],
+      "provenance_note": "Default classification updated: artifacts based only on the user's character sheets represent player participation. Campaign lore/rules/mechanics are external/reference unless independent evidence establishes user authorship.",
+      "influence_policy": "Do not use external campaign mechanics/worldbuilding to influence or establish lineage for user's authored projects. Preserve user's character concepts/backstories separately."
     },
     "accursed": {
       "status": "historical original-fantasy tabletop campaign",
@@ -4810,7 +4917,9 @@
       "summary": "Champions & Cheaters includes Dr. Gary Nefarious, a veterinarian/inventor whose supernatural talent lets him construct improbable machines to solve problems, especially indirect solutions. His design centers on invention backfires, luck, obvious self-destruct mechanisms, petty grudges and nemesis Lorenzo the Lemming. This is primarily a comedic character/system artifact.",
       "source_ids": [
         "1n4raaAOKt_C1MB9aFCtw0DBMveiDZXA3kW1xxcW7gv8"
-      ]
+      ],
+      "provenance_note": "Default classification updated: artifacts based only on the user's character sheets represent player participation. Campaign lore/rules/mechanics are external/reference unless independent evidence establishes user authorship.",
+      "influence_policy": "Do not use external campaign mechanics/worldbuilding to influence or establish lineage for user's authored projects. Preserve user's character concepts/backstories separately."
     },
     "beyond-the-sun": {
       "status": "historical tabletop campaign",
@@ -4823,7 +4932,9 @@
         "Kingfisher/Erebleak Strecht - later reworked character identity",
         "tabletop-character-sheet-tooling"
       ],
-      "authority_note": "Do not merge the Beyond the Sun mechanics/backstory into later Kingfisher without evidence."
+      "authority_note": "Do not merge the Beyond the Sun mechanics/backstory into later Kingfisher without evidence.",
+      "provenance_note": "Default classification updated: artifacts based only on the user's character sheets represent player participation. Campaign lore/rules/mechanics are external/reference unless independent evidence establishes user authorship.",
+      "influence_policy": "Do not use external campaign mechanics/worldbuilding to influence or establish lineage for user's authored projects. Preserve user's character concepts/backstories separately."
     },
     "lost-lambs": {
       "status": "historical tabletop campaign",
@@ -4831,7 +4942,9 @@
       "summary": "Lost Lambs includes Seven, a custom-stat character whose abilities are explicitly anti-demonic and religiously framed: healing grants allies temporary combat resilience, Baptism removes 'temptation,' and an ability called Having a Wonderful Time makes attacks against demons automatically critical. The surviving sheet is sparse, so broader setting identity remains unresolved.",
       "source_ids": [
         "14qG8oDhrSXsHQWGRQLKqfhmU7Bj6n4UBLuAYDbHLgPU"
-      ]
+      ],
+      "provenance_note": "Default classification updated: artifacts based only on the user's character sheets represent player participation. Campaign lore/rules/mechanics are external/reference unless independent evidence establishes user authorship.",
+      "influence_policy": "Do not use external campaign mechanics/worldbuilding to influence or establish lineage for user's authored projects. Preserve user's character concepts/backstories separately."
     },
     "spellcraft": {
       "status": "historical custom magic tabletop project",
@@ -4842,7 +4955,9 @@
       ],
       "relationships": [
         "Personal Skyrim spell-research systems - thematic similarity only; no continuity asserted"
-      ]
+      ],
+      "provenance_note": "Default classification updated: artifacts based only on the user's character sheets represent player participation. Campaign lore/rules/mechanics are external/reference unless independent evidence establishes user authorship.",
+      "influence_policy": "Do not use external campaign mechanics/worldbuilding to influence or establish lineage for user's authored projects. Preserve user's character concepts/backstories separately."
     },
     "naruto-campaign": {
       "status": "historical fan tabletop campaign",
@@ -4851,7 +4966,9 @@
       "source_ids": [
         "1eE3fnyjEznRzUZho9tbqrHDZKotsBfTUwLpAKWgZksk"
       ],
-      "authority_note": "Fan-campaign character; unrelated Kallabah uses should not be merged."
+      "authority_note": "Fan-campaign character; unrelated Kallabah uses should not be merged.",
+      "provenance_note": "Default classification updated: artifacts based only on the user's character sheets represent player participation. Campaign lore/rules/mechanics are external/reference unless independent evidence establishes user authorship.",
+      "influence_policy": "Do not use external campaign mechanics/worldbuilding to influence or establish lineage for user's authored projects. Preserve user's character concepts/backstories separately."
     },
     "rest-in-rot": {
       "status": "historical tabletop campaign",
@@ -4859,7 +4976,9 @@
       "summary": "Rest in Rot includes Z. Slayer, using a compact custom-stat system with Toughness, Stealth, Athletics, Resilience expertise, specialist weapon tiers and credits. The surviving sheet is too sparse to establish setting lore, so only mechanics/project existence are preserved.",
       "source_ids": [
         "1HPgjd1r5wKFrio_ZEO2OgLoqEjeSVE9X-8qmzzV7LNI"
-      ]
+      ],
+      "provenance_note": "Default classification updated: artifacts based only on the user's character sheets represent player participation. Campaign lore/rules/mechanics are external/reference unless independent evidence establishes user authorship.",
+      "influence_policy": "Do not use external campaign mechanics/worldbuilding to influence or establish lineage for user's authored projects. Preserve user's character concepts/backstories separately."
     },
     "dragon-ball-gaiyu-force": {
       "status": "historical fan tabletop campaign",
@@ -4867,7 +4986,50 @@
       "summary": "Dragon Ball: The Gaiyu Force uses extremely high power levels, HP/Ki resources, transformations, racial abilities and custom attacks. Jaw Braeka is a Majin-like strike fighter with regeneration, shapeshifting, absorption and multiple transformation multipliers. The sheet demonstrates another specialized fan-campaign adaptation of the user's custom RPG mechanics.",
       "source_ids": [
         "1jTWee9woMkrAOdi1rn8ADAw6HsWxwZnzQ1CpnyfZDPc"
-      ]
+      ],
+      "provenance_note": "Default classification updated: artifacts based only on the user's character sheets represent player participation. Campaign lore/rules/mechanics are external/reference unless independent evidence establishes user authorship.",
+      "influence_policy": "Do not use external campaign mechanics/worldbuilding to influence or establish lineage for user's authored projects. Preserve user's character concepts/backstories separately."
+    },
+    "genesis-player-characters": {
+      "status": "historical player-character archive",
+      "domain": "external campaign participation",
+      "summary": "Genesis artifacts are now treated primarily as records of the user's player characters rather than evidence that the user authored the campaign's superhero system. Voltaire/Jackson Shrike remains a user character concept. Genesis V3 contains Robert 'Bobby' Valiant/Backtalk, a synesthetic music prodigy with sonic/vibrational powers who initially pursued celebrity as Sonic Stardust, caused a mass-casualty incident after his powers were externally destabilized, and later adopted the Backtalk identity in honor of injured mentor Radiohead. Campaign-specific Variant lore, organizations, mechanics and setting events are external/reference unless independently shown to be user-authored.",
+      "source_ids": [
+        "1n-WyPDN6kcNuqhSTaS_PiXX9txabfDzLbGOy53XcN-0",
+        "106SXmpWSVDQwYigX3GC52EeMioer49R-",
+        "16Xl7nLYmGpNNvvJSbvlQTaw8UZNYgWflsDIM8b6IJ_o"
+      ],
+      "influence_policy": "Character concepts/backstories may inform the user's creative history; campaign mechanics/worldbuilding must not influence authored-project lineage."
+    },
+    "settle-your-scores-player-characters": {
+      "status": "historical player-character archive / content pending",
+      "domain": "external campaign participation",
+      "summary": "Multiple Settle Your Scores character-sheet files were discovered for Vance Gamble and Mercury Fred, including a scrubbed Mercury Fred copy. Uploaded DOCX content is not readable through the current native Drive path, so only player-character provenance and file inventory are retained.",
+      "source_ids": [
+        "1-9CpLBYZ4zovmUN-laiAmJE7_CLZS123",
+        "1-quQIFqy1gsDSdCtbgX4rHMIBbloVUxj",
+        "1-ituMYZ-i4aeB5P9UZ3wKsGzsFbn-Eri",
+        "1-8TDekHXni8GZIYUQefOYTzKb7G6-qBh"
+      ],
+      "influence_policy": "Do not ingest Settle Your Scores mechanics or setting lore into user's authored projects without explicit authorship evidence."
+    },
+    "vesper-player-character": {
+      "status": "historical player-character artifact / content pending",
+      "domain": "external campaign participation",
+      "summary": "A 2021 PDF Character Sheet - 5e2 - Vesper is inventoried as a player-character artifact. Content remains partial pending a readable PDF path.",
+      "source_ids": [
+        "1-5BsfbmIMMA9NHBJmtk7GbgZIgmZlKvd"
+      ],
+      "influence_policy": "External campaign mechanics/lore are reference-only."
+    },
+    "dragon-ball-universe-reference": {
+      "status": "external rules/reference artifact",
+      "domain": "external tabletop system",
+      "summary": "DBU_Character_Sheet_Fillable is a blank Dragon Ball Universe character-sheet/rules form rather than evidence of a user-authored system. It is retained for archive completeness only and explicitly excluded from creative/system lineage inference.",
+      "source_ids": [
+        "1fsv0lC2nw1tY41VK9xdU7OWBkiuEKGpvCVB8JYUH1Bc"
+      ],
+      "content_status": "irrelevant/reference"
     }
   },
   "discovered_project_folders": [
@@ -4938,5 +5100,12 @@
   "crawl_preferences": {
     "skip_nsfw": true,
     "nsfw_handling": "Skip unrelated NSFW material. Skyrim mod/modding sources remain in scope even if they contain adult-mod references; extract useful technical/project context without unnecessarily preserving explicit material."
+  },
+  "ingestion_policy": {
+    "external_campaign_character_sheets": {
+      "rule": "If an artifact is a character sheet from a campaign/game the user participated in as a player, treat campaign setting lore, rules, mechanics, GM material, and other people's worldbuilding as external/reference context only. Do not use those elements to infer, influence, merge with, or establish lineage for the user's own projects unless the user explicitly confirms they authored/designed that material.",
+      "preserve": "Preserve the user's own character concepts, backstory, recurring names, personal creative choices, and clearly user-authored material as historical character work. Mechanics may be noted minimally only to identify the character artifact, not as evidence of the user's system-design lineage.",
+      "default_assumption": "A standalone character sheet named for a campaign should default to player-participation/reference provenance unless independent evidence shows the user created or designed that campaign/system."
+    }
   }
 }
