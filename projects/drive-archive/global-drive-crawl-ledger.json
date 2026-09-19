@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 383,
+    "first_level_files_indexed": 384,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue orphan/folder reconciliation. Inspect remaining clearly authored Blades of Pergrande sheets (Ultimate Moves, Locations, Guilds) and UAS supporting docs if not already deep. Batch unresolved uploaded player sheets as partial/reference without importing campaign mechanics. Search folder names and generic legacy titles for remaining missing IDs."
+    "next_action": "Continue project/folder orphan reconciliation. Search inside/around Blades of Pergrande and UAS for remaining support docs (NPCs, races, items, magic, classes, GM tools) and inspect only IDs not already covered. Then broaden generic legacy folder/title searches. Preserve conflicting Pergrande planning as evolution, and enforce Silas-over-Oliver Dream Eater canon."
   },
   "top_level_folders": [
     {
@@ -1864,8 +1864,8 @@
       "path": "/My Drive/dreameater/Names ",
       "mime_type": "application/vnd.google-apps.spreadsheet",
       "modified_time": "2023-02-07T16:29:43.107Z",
-      "category": "writing_dream_eater",
-      "content_status": "queued"
+      "category": "dream_eater_legacy",
+      "content_status": "processed"
     },
     {
       "id": "1lfxVnnu4VTouwYWmHReQaNJDK6VYMwPQIgP8Is3mA6w",
@@ -2180,7 +2180,7 @@
       "path": "/My Drive/Universal Anime System (UAS)/Character Creation/CharCreation v2",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2022-09-22T00:29:53.254Z",
-      "category": "universal_anime_system",
+      "category": "uas_system",
       "content_status": "processed"
     },
     {
@@ -2286,14 +2286,14 @@
     {
       "id": "19_fFEjz2Uf84HlWfEVqe_v5bOQaIL2BKyw6_gDrhqXk",
       "title": "Locations and Cities",
-      "category": "ttrpg_blades_of_pergrande",
-      "content_status": "processed_elsewhere"
+      "category": "blades_of_pergrande",
+      "content_status": "processed"
     },
     {
       "id": "1EDXzzI2wClNHEzhZsftm2uTLzsR3WomVtF3EL5G_jjo",
       "title": "Guilds",
-      "category": "ttrpg_blades_of_pergrande",
-      "content_status": "queued"
+      "category": "blades_of_pergrande",
+      "content_status": "processed"
     },
     {
       "id": "1DUMxHAp3W_6E_c_LHun4j59OF9pQHlTlU7NO317oLog",
@@ -2334,8 +2334,8 @@
     {
       "id": "1bE0Hv_IZ0dlwtWELqAiky1_IhKaWykKDdm3LurEJ8LY",
       "title": "ULTIMATE MOVES & Attacks",
-      "category": "ttrpg_anthem_city",
-      "content_status": "queued"
+      "category": "uas_campaign_tooling",
+      "content_status": "processed"
     },
     {
       "id": "1EhpGLErYeU5lBjMXtqLXJ6fAtZuJD-xh3IBEYZJNBL8",
@@ -2451,8 +2451,8 @@
       "id": "1m8ChX_UipgGTSageFlw-PG-VsAwRuDbGC4w8Sq6MWW8",
       "title": "TERMS",
       "path": "/My Drive/Universal Anime System (UAS)/System Base 1.5/TERMS",
-      "category": "ttrpg_game_design",
-      "content_status": "processed_summary"
+      "category": "uas_system",
+      "content_status": "processed"
     },
     {
       "id": "1E-PFU0NKfSZwFFDlBxZCmyo1j9uMUY7YnBQld8aIp9I",
@@ -3403,6 +3403,14 @@
       "category": "player_character",
       "content_status": "partial",
       "inventory_source": "project/folder orphan reconciliation"
+    },
+    {
+      "id": "1dEVdwtSdHydE6Sn1xzWm1PrLUalKTGJrLpHmZMXiUJo",
+      "title": "Advantages",
+      "path": "/Accessible Drive/Advantages",
+      "category": "legacy_fate_system",
+      "content_status": "processed",
+      "inventory_source": "authored project deepening"
     }
   ],
   "folder_queue": [
@@ -3656,6 +3664,27 @@
         ],
         "status": "authored system module",
         "authority_note": "Some prose/features appear generic or draft-like; preserve as design history rather than assuming final balanced mechanics."
+      },
+      "character_creation_v2": {
+        "summary": "CharCreation v2 captures an intermediate UAS/Pergrande character-creation design: portrait/backstory first, then magic type and combat role, point-buy stats, saves, proficiency allocation, a personal ability with advantages/drawbacks, move/spell spending, feat points, special item/pet/weapon, armor/AC, HP and MP. Earlier class labels were Brawler, Tank, Blaster, Strategist, Infiltrator, Support and Negotiator, mapping to STR/CON/WILL/INT/DEX/WIS/CHA. This predates/feeds the later Guardian/Artillery/Tactician/Operative/Bruiser/Aid-or-Support/Diplomat terminology and is preserved as system evolution.",
+        "source_ids": [
+          "1vbY4MCFHpWyKUUkAOJieAo_lEesIDPmUJzpi4UcD8eQ"
+        ],
+        "status": "legacy/intermediate authored system"
+      },
+      "terms_reference": {
+        "summary": "The TERMS workbook formalizes UAS vocabulary and data schema: primary stats, derived HP/MP/AP, progression currencies, rank/class fields, action costs, targeting modes, proficiency levels, armor categories, resistance levels and item types. It confirms a database-oriented design intended to make actions, equipment and character calculations machine-readable/reusable.",
+        "source_ids": [
+          "1m8ChX_UipgGTSageFlw-PG-VsAwRuDbGC4w8Sq6MWW8"
+        ],
+        "status": "authored system schema"
+      },
+      "move_library": {
+        "summary": "ULTIMATE MOVES & Attacks is a large historical move/ability library with fields for character, move tier/type, action, duration, cooldown, cost and description. It contains reusable examples across many characters, including Backtalk, Gearshift, Checkmate, Chronos/Alex, Wheels/Montez and others, showing the system being exercised with specials, ultimates, buffs/debuffs, AOE, resource costs and multi-round effects. Treat individual characters/settings according to their own provenance; the sheet is evidence of UAS-style mechanical tooling, not proof that every character/world was authored by the user.",
+        "source_ids": [
+          "1bE0Hv_IZ0dlwtWELqAiky1_IhKaWykKDdm3LurEJ8LY"
+        ],
+        "status": "historical move library"
       }
     },
     "berea-pinochle": {
@@ -3826,6 +3855,14 @@
           "14sjLqJ8RSd3C-OtrA1ApyE0J-3Ho0w6TPNEK5OuQ7AM"
         ],
         "authority_note": "Campaign-authored lore, but collaborative/player arcs may still contain contributions from others; do not assume every individual character is solely user-created."
+      },
+      "locations_and_guilds": {
+        "summary": "Dedicated location/guild sheets deepen the Pergrande map and organization hierarchy. Core settlements include Klobury (Dragon Heart), Valefor (capital/Horizon Ace), Eloburgh, Waxpool, Inecaster, Yrille and Vrelles, plus a large village/quest-location backlog. The guild ranking sheet places Horizon Ace, Nine Lives Fox, Yggdrasil, Deadlight Brigade, Royal Flush, Star Harbour, Aries Horn and Dragon Heart as leading legal guilds, while False Guardian is mobile/unranked. Dark-guild planning includes Lazarus Taxon (genetics; destroyed by Witchblade), Babylon Dragon, Blood Leviathan, Kakkarow (terrorism), Mourning Wood (smuggling/drugs), Liar's Tongue, One Eye Reaper (genetics/weaponry) and Sin Eater as a final-boss-level faction. Some entries differ from the later Loredoc rankings, so these sheets are preserved as planning/evolution rather than silently overriding newer structured lore.",
+        "source_ids": [
+          "19_fFEjz2Uf84HlWfEVqe_v5bOQaIL2BKyw6_gDrhqXk",
+          "1EDXzzI2wClNHEzhZsftm2uTLzsR3WomVtF3EL5G_jjo"
+        ],
+        "authority_note": "Historical planning; reconcile conflicts in favor of newer dedicated lore or explicit user statements."
       }
     },
     "dragon-heart-campaign": {
@@ -5609,6 +5646,13 @@
         ],
         "status": "Likely Canon / manuscript-adjacent WIP",
         "authority_note": "Preserve as prose/WIP evidence, but incomplete fragments and exact wording/events should be checked against newer manuscript before being treated as current scene canon."
+      },
+      "legacy_names_sheet": {
+        "summary": "An older Names sheet lists Oliver Ashland alongside Ellison Crane, Lilith Deacon, Abigail Fletcher, Marcus Shrike, Harland Fleer, Lotus/ Reese/Dusk Morgan, Meredith/Grant/Eric Ashland, Dennis/Jericho Deacon, Gallow, Mourn and others, often paired with conceptual titles such as Traveler, Delusion, DENIAL/Freedom, Lock, Contradiction, SHATTER and Hope/Despair. This is useful historical naming/title evidence only. Oliver Ashland is explicitly superseded by the user's confirmed canon: Silas Ashland is the child of Grant and Abigail's mentor/previous Mind Emblem holder.",
+        "source_ids": [
+          "1Zy2eFpPAfA0F9zn2sgDnBrSaiULIHMht0uykmpXwcv8"
+        ],
+        "authority_note": "Legacy source. Never promote Oliver over Silas; explicit user canon controls."
       }
     },
     "skyrim-cooking-skill": {
@@ -5728,6 +5772,16 @@
         "17l52Q95Iuyc-M-VSgdwRzcwSj5qx_bqLZblSo7R4ZMw",
         "1rzyzqh8nsm6upGeQyyYVWwUh_6Ci2db3pUzLwQPqGY8"
       ]
+    },
+    "legacy-fate-system": {
+      "status": "historical authored Fate/Nasuverse rules project",
+      "domain": "TTRPG system design",
+      "advantages_and_miracles": {
+        "summary": "The Advantages document deepens the older authored Fate/Nasuverse ruleset with point-buy advantages and a substantial Faithful/Burial Agent subsystem. It includes Scripture and Keymaster options, Outcast as a disadvantage, and named Miracles such as Holy Resurrection, Divine Sword, St. Agathios, St. Eustace, St. Denis, Sanctification, Holy Water, Lucifer and Uriel. Preserve as historical system design, not current UAS mechanics.",
+        "source_ids": [
+          "1dEVdwtSdHydE6Sn1xzWm1PrLUalKTGJrLpHmZMXiUJo"
+        ]
+      }
     }
   },
   "discovered_project_folders": [
