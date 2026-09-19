@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-022-oblivion-crisis-shivering-isles",
+  "subjects": [
+    {
+      "id": "tes:kvatch",
+      "name": "Kvatch",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/kvatch.json",
+      "source": {
+        "id": "uesp:kvatch",
+        "url": "https://en.uesp.net/wiki/Lore:Kvatch",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:cloud-ruler-temple",
+      "name": "Cloud Ruler Temple",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/cloud-ruler-temple.json",
+      "source": {
+        "id": "uesp:cloud-ruler-temple",
+        "url": "https://en.uesp.net/wiki/Lore:Cloud_Ruler_Temple",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:paradise",
+      "name": "Paradise",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/paradise.json",
+      "source": {
+        "id": "uesp:paradise",
+        "url": "https://en.uesp.net/wiki/Lore:Paradise",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:deadlands",
+      "name": "Deadlands",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/deadlands.json",
+      "source": {
+        "id": "uesp:deadlands",
+        "url": "https://en.uesp.net/wiki/Lore:Deadlands",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:shivering-isles",
+      "name": "Shivering Isles",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/shivering-isles.json",
+      "source": {
+        "id": "uesp:shivering-isles",
+        "url": "https://en.uesp.net/wiki/Lore:Shivering_Isles",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:new-sheoth",
+      "name": "New Sheoth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/new-sheoth.json",
+      "source": {
+        "id": "uesp:new-sheoth",
+        "url": "https://en.uesp.net/wiki/Lore:New_Sheoth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:priory-nine",
+      "name": "Priory of the Nine",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/priory-nine.json",
+      "source": {
+        "id": "uesp:priory-nine",
+        "url": "https://en.uesp.net/wiki/Lore:Priory_of_the_Nine",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Hero of Kvatch identity and optional guild/quest roles remain player-dependent rather than fixed biography",
+    "Martin's sacrifice and the end of the Septim line should prefer direct Oblivion quest/event evidence",
+    "Mythic Dawn cosmology remains attributed to Mankar Camoran/cult texts",
+    "Mantling and the Hero/Sheogorath relationship must preserve explicit evidence versus later interpretation",
+    "Shivering Isles quest outcomes and Greymarch claims should distinguish observed events from metaphysical explanation",
+    "Cross-link existing Mehrunes Dagon, Sheogorath, Jyggalag, Martin, Mankar, Deadlands, Dragonfires and Liminal Barriers records"
+  ]
+}
