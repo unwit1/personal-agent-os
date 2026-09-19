@@ -12,10 +12,10 @@
     "root_items": 149,
     "root_files": 139,
     "root_folders": 10,
-    "first_level_files_indexed": 311,
+    "first_level_files_indexed": 314,
     "subfolders_queued": 13,
     "status": "in_progress",
-    "next_action": "Continue historical campaign discovery beyond Fate: inspect Campaign 3/4 folders (including Lords of Mourning and The Wonderland Murders), Avalon Institute and other older tabletop/writing project clusters. Continue probing generic/untitled files. Keep sensitive HR/personal trackers metadata-only and skip unrelated NSFW."
+    "next_action": "Continue historical/orphan discovery. Prioritize identifying actual child files of Lords of Mourning and Wonderland Murders if connector search can expose them, then inspect Lower Worlds, To Kill an Immortal, Remnant Campaign, Dungeon Oratoria and other 2020-2022 tabletop project artifacts. Continue generic/untitled reconciliation. Treat Avalon/Guardian Cycle material as Dream Eater-adjacent and preserve explicit user canon overrides."
   },
   "top_level_folders": [
     {
@@ -841,8 +841,8 @@
       "path": "/My Drive/Character Wiki",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2026-05-23T03:43:54.654Z",
-      "category": "uncategorized_pending_content_review",
-      "content_status": "queued"
+      "category": "guardian_cycle_character_wiki",
+      "content_status": "processed"
     },
     {
       "id": "1ukPtyfRnE6B8zyscJo6oLxDn0uviMuCMrOOFm_7mpns",
@@ -1822,8 +1822,8 @@
       "path": "/My Drive/dreameater/Loredoc - Avalon & The Avalon Institute",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2023-02-13T04:35:50.962Z",
-      "category": "writing_dream_eater",
-      "content_status": "queued"
+      "category": "guardian_cycle_avalon",
+      "content_status": "processed"
     },
     {
       "id": "107-PpHnQsZIc3eG2gDu0Ul1X5sECSxSxhOGuyAPNvbo",
@@ -2119,8 +2119,8 @@
       "path": "/My Drive/dreameater/lore/Loredoc - Magic System Explained",
       "mime_type": "application/vnd.google-apps.document",
       "modified_time": "2024-06-19T02:10:11.165Z",
-      "category": "writing_dream_eater",
-      "content_status": "queued"
+      "category": "guardian_cycle_magic",
+      "content_status": "processed"
     },
     {
       "id": "1Qjr1XPb9dAuvo25WrSVqEkSvZ6jgFW19EqMqhQXwtio",
@@ -2506,8 +2506,8 @@
       "id": "1rbOuraJKC8xapRfbsip6ApvmLnQvZbEhEohAhGuKCkI",
       "title": "Dragon Heart Campaign - CharCreation Races",
       "path": "/My Drive/Universal Anime System (UAS)/Character Creation/Dragon Heart Campaign - CharCreation Races",
-      "category": "ttrpg_dragon_heart",
-      "content_status": "processed_summary"
+      "category": "dragon_heart",
+      "content_status": "processed"
     },
     {
       "id": "1Hy8t0-E026Qj5ms4P7GC8i4WQalgeeiJGhnRJz6mpDM",
@@ -2758,6 +2758,33 @@
       "category": "fate_nasuverse_rpg",
       "content_status": "processed",
       "inventory_source": "Fate legacy lineage pass"
+    },
+    {
+      "id": "11-GoZ4bAT45TwakZgRzjXJacf3nd7Re-",
+      "title": "Campaign 4 - Lords of Mourning",
+      "path": "/Accessible Drive/Campaign 4 - Lords of Mourning",
+      "mime_type": "application/vnd.google-apps.folder",
+      "category": "lords_of_mourning",
+      "content_status": "partial",
+      "inventory_source": "historical campaign/Avalon pass"
+    },
+    {
+      "id": "10q3pzYo2XbMx65bBpdCmDNQV1znkIvZV",
+      "title": "Campaign 4 - The Wonderland Murders",
+      "path": "/Accessible Drive/Campaign 4 - The Wonderland Murders",
+      "mime_type": "application/vnd.google-apps.folder",
+      "category": "wonderland_murders",
+      "content_status": "partial",
+      "inventory_source": "historical campaign/Avalon pass"
+    },
+    {
+      "id": "1LsNxQp5Be8WQDEByO4abNRjOwFxCQ9cwQPAQHHRm9ro",
+      "title": "Races Simplified",
+      "path": "/Accessible Drive/Races Simplified",
+      "mime_type": "application/vnd.google-apps.document",
+      "category": "fate_nasuverse_rpg",
+      "content_status": "processed",
+      "inventory_source": "historical campaign/Avalon pass"
     }
   ],
   "folder_queue": [
@@ -4183,6 +4210,12 @@
         "source_ids": [
           "12Q4FF_x3mOHElZZIXLodBZY3xWhedbIix2u2WKF2Be4"
         ]
+      },
+      "race_design_evolution": {
+        "summary": "Races Simplified documents the later Fate redesign's selectable Human, Homunculus, Dead Apostle and Blooded races/subraces, replacing the older point-buy special-path treatment with d20-style racial packages. This strengthens the redesign lineage already identified.",
+        "source_ids": [
+          "1LsNxQp5Be8WQDEByO4abNRjOwFxCQ9cwQPAQHHRm9ro"
+        ]
       }
     },
     "personal-media-software-master-list": {
@@ -4254,6 +4287,64 @@
       "relationships": [
         "household-readiness",
         "meal-planning"
+      ]
+    },
+    "avalon-guardian-cycle": {
+      "status": "major shared-world lore project / Dream Eater-adjacent",
+      "domain": "original fiction/shared universe",
+      "summary": "Avalon is both an extradimensional city and the organization headquartered there. The public Avalon Institute operates internationally as a nonprofit/medical-charity front while recruiting newly awakened Fade users and selectively uplifting mundane society. Avalon originated roughly 600 years ago as a neutral research refuge founded by the Houses of Man, then centralized into a global magical authority after the late-19th-century War of Glass devastated organized magic. Modern Avalon is governed by the Council of Eight and operational sectors, with Sector Seven/Black Hand serving as an autonomous intelligence/black-operations arm. Its Prague Agreement, Black Index and White Index formalize dangerous research, existential threats and protected strategic assets.",
+      "magic_system": "Magic channels the Fade: an unreality/narrative-energy plane formed from human belief, imagination and stories in opposition to objective reality. Casting depends on conceptual understanding and subjective frameworks. Human perception changes the supernatural system itself; Avalon’s dominant Eight-House theory can become self-reinforcing through the Law of Subjectivity. Fade magic, Theurgy, contracting and cultivation represent different/partly incompatible supernatural epistemologies rather than interchangeable spell lists.",
+      "history": "Recovered historical events include the War of Glass, Avalon’s postwar centralization, the Nine Eyes/Third Guardian Cycle, the Blinding of Avalon, the Deadlight Virus incident, and Red Sunday. Red Sunday records Eric Ashland possessed by Denial using future/timeline knowledge to assassinate strategic future defenders, attack the Council and erase a child from history, with the attack cascading into destruction of the Dreamless/Nameless Throne.",
+      "dream_eater_links": "These documents strongly overlap Dream Eater/Guardian Cycle material. The Avalon loredoc names the erased child as Oliver Ashland, while the newer Character Wiki calls Eric's nephew Silas Ashland. Per the user's explicit clarification, Silas is the intended child and was always planned as Grant's child; therefore Oliver in the older Avalon document is superseded/legacy naming rather than current canon. The destruction of the Throne and resulting Dreameater/Ellison identity are preserved as important historical lore, but conflicts must defer to the Dream Eater authority hierarchy.",
+      "source_ids": [
+        "11CQSl0FBPFDxq6uY52N6Zt1aPHbGk1ckuuzAByFbZc8",
+        "1BXBJcySYwKoo_J45CsJ5fLx0HcyWK7HUa3ezg71B8EY",
+        "1G-ALvRsPP07wIjyiAU3K3MM5MFk258ps6caBaFyAqTQ"
+      ],
+      "relationships": [
+        "Dream Eater",
+        "Guardian Cycle",
+        "Deadlight Brigade",
+        "Avalon Institute",
+        "State of Denial"
+      ],
+      "authority_note": "Character Wiki is newer structured lore than the 2023 Avalon document, but explicit user statements remain highest authority for Dream Eater. Do not promote incomplete wiki fragments automatically."
+    },
+    "lords-of-mourning": {
+      "status": "historical campaign folder discovered",
+      "domain": "tabletop/original setting",
+      "summary": "A Drive folder titled Campaign 4 - Lords of Mourning exists and is now explicitly inventoried. Search results alone did not expose a reliable set of unique child documents, so its content relationship remains partial and should not be conflated with later files merely because search terms overlap.",
+      "source_ids": [
+        "11-GoZ4bAT45TwakZgRzjXJacf3nd7Re-"
+      ],
+      "unresolved": [
+        "Enumerate folder children through Drive traversal/listing if available; identify campaign-specific rules, characters and plot files."
+      ]
+    },
+    "wonderland-murders": {
+      "status": "historical campaign folder discovered",
+      "domain": "tabletop/original setting",
+      "summary": "A Drive folder titled Campaign 4 - The Wonderland Murders exists and is now explicitly inventoried. Search results overlap heavily with later Avalon/Guardian material, but the folder's own child-file membership is not yet proven, so no automatic equivalence is asserted.",
+      "source_ids": [
+        "10q3pzYo2XbMx65bBpdCmDNQV1znkIvZV"
+      ],
+      "relationships": [
+        "Avalon/Guardian Cycle - possible thematic or developmental relationship, unconfirmed"
+      ],
+      "unresolved": [
+        "Enumerate folder children and determine whether Wonderland Murders is an earlier campaign incarnation of concepts later used in Avalon/Dream Eater."
+      ]
+    },
+    "dragon-heart": {
+      "status": "historical campaign/project family",
+      "domain": "tabletop fantasy campaign",
+      "summary": "Dragon Heart campaign character creation used Earthland/Edolas/Elentear/Fairy Tail-inspired race categories including Human Wizard, Edolas Human, Elentearean Human, Exceed, Etherious and Celestial Spirit, with magic, curses and spirit arts distinguished. This is additional evidence that Dragon Heart predates or overlaps the later Blades of Pergrande/UAS campaign tooling rather than being merely a guild name inside Pergrande.",
+      "source_ids": [
+        "1rbOuraJKC8xapRfbsip6ApvmLnQvZbEhEohAhGuKCkI"
+      ],
+      "relationships": [
+        "Blades of Pergrande",
+        "Universal Anime System"
       ]
     }
   },
