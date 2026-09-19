@@ -286,6 +286,50 @@ Acceptance criteria:
 - commitments detected from communications become provenance-backed candidate executive records rather than silently promoted facts;
 - no raw personal communication or secret is committed to Git in automated tests.
 
+## EXEC-11.6 — Content Intelligence / Universal Following Feed
+
+Build a provider-neutral aggregation system that collects newly published content from explicitly followed sources across multiple services and presents it as one deduplicated, personalized feed.
+
+Initial source classes:
+- YouTube channels/subscriptions and new videos;
+- Instagram accounts followed for specific interests such as third-party/bootleg minifigure reveals, using supported/authorized access methods where available;
+- followed fiction/story threads and chapter updates from sites such as SpaceBattles and Questionable Questing, using authenticated/user-authorized access where required;
+- RSS/Atom feeds and ordinary websites with lightweight change detection;
+- later adapters for Nexus Mods authors/mods, GitHub releases/projects, Reddit/community sources, and other explicitly configured sources.
+
+Architecture:
+source adapters → incremental polling/webhooks where available → normalized content-item schema → stable IDs/deduplication → topic/project/entity classification → relevance/priority layer → unified feed + digest + optional Executive events.
+
+Requirements:
+- maintain explicit subscriptions/follows independently of any provider;
+- ingest only new/changed items after initial synchronization using per-source checkpoints;
+- normalize title, author/creator, source, canonical link/reference, publication time, content type, media/thumbnail references where permitted, summary/excerpt, topics, related projects/interests, and provenance;
+- support chronological “everything” view plus relevance-filtered views and compact digests;
+- distinguish new video, image/reveal/post, story/chapter update, mod/release, repository release, article, and generic update types;
+- associate sources/items with durable interests and Agent OS projects without forcing raw feed content into Git;
+- use open/save/dismiss/ignore behavior as preference evidence, not as unquestioned permanent preference changes;
+- permit user-defined high-priority sources/topics that relevance learning cannot silently suppress;
+- support “why was this shown?” with concrete relevance factors;
+- expose retrieval through CLI/MCP/API so mobile/voice/ChatGPT/Codex/future clients share one feed state;
+- keep provider credentials/tokens in local secret storage and obey source terms, authentication boundaries, rate limits, and access controls;
+- prefer official APIs, RSS/Atom, webhooks, and authorized exports; do not make fragile or prohibited account automation a core dependency;
+- keep raw/full feed archives local by default while allowing sanitized durable subscriptions, interests, routing rules, and project associations in canonical Agent OS state.
+
+Digest/attention behavior:
+- batch routine updates instead of generating a notification for every item;
+- surface unusually relevant/time-sensitive items through the Executive Event Bus only when configured thresholds are met;
+- allow daily/on-demand summaries such as “new minifigure reveals,” “new Skyrim/modding content,” and “new fanfic chapters”;
+- preserve an underlying complete chronological feed so relevance filtering never becomes the only way to discover content.
+
+Acceptance criteria:
+- two or more heterogeneous adapters can feed the same normalized store;
+- repeated polling/imports do not duplicate existing content;
+- the user can query all unseen content or filter by source, creator, interest, project, or content type;
+- new chapters/posts/videos can be represented consistently while retaining their original source provenance;
+- a digest can summarize a large batch into a small set of relevant highlights without deleting/suppressing access to the remainder;
+- priority subscriptions remain visible regardless of learned relevance;
+- raw feed content and credentials are excluded from Git by automated tests.
+
 ## EXEC-12 — Proactive Executive
 
 Consume events such as:
@@ -390,7 +434,7 @@ Cross-zone learning should prefer sanitized derived knowledge over raw source ma
 
 **Milestone D — Learning:** EXEC-9 plus integration with existing candidate-memory and skill systems.
 
-**Milestone E — Life Integrations:** EXEC-10, EXEC-11, and EXEC-11.5 Personal Communication Gateway. Implement the shared normalization/local-storage foundation first, then iCloud Mail read-only ingestion, text-export ingestion, and Discord ingestion.
+**Milestone E — Life Integrations:** EXEC-10, EXEC-11, EXEC-11.5 Personal Communication Gateway, and EXEC-11.6 Content Intelligence / Universal Following Feed. Implement shared normalization/local-storage foundations first; build the universal feed core before adding service-specific content adapters.
 
 **Milestone F — Proactivity & Voice:** EXEC-12 and EXEC-13.
 
@@ -407,7 +451,7 @@ Cross-zone learning should prefer sanitized derived knowledge over raw source ma
 8. Integrate existing candidate capture/curation so learned observations remain reviewable.
 9. Add compact context-packet support for executive decisions.
 10. Prototype Rescue Mode before external calendar/email writes.
-11. Prototype the Personal Communication Gateway common schema/local store and iCloud Mail read-only adapter on Windows.\n12. Identify/test the user's existing text-message export application; prefer its structured export format when available and validate PDF ingestion as fallback using the shared extraction/OCR cache.\n13. Add Discord authorized API/import adapter against the same normalized communication schema.\n14. Add Voice Gateway only after the same intents work through CLI/MCP.
+11. Prototype the Personal Communication Gateway common schema/local store and iCloud Mail read-only adapter on Windows.\n12. Identify/test the user's existing text-message export application; prefer its structured export format when available and validate PDF ingestion as fallback using the shared extraction/OCR cache.\n13. Add Discord authorized API/import adapter against the same normalized communication schema.\n14. Define the Universal Following Feed content-item/subscription schemas, local feed store, checkpoints, deduplication, unseen/read state, and CLI/MCP retrieval.\n15. Add low-friction initial content adapters (RSS/Atom and YouTube), then prototype authenticated forum chapter tracking and evaluate supported Instagram ingestion options.\n16. Add relevance classification, project/interest association, priority-source overrides, digest generation, and Executive Event Bus integration.\n17. Add Voice Gateway only after the same intents work through CLI/MCP.
 
 ## Success metrics
 
