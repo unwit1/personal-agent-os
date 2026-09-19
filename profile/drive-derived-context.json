@@ -10,7 +10,8 @@
       "Treat Google Drive as supporting evidence and working material; GitHub remains canonical for Agent OS/project state.",
       "Do not assume every accessible/shared file was authored by the user.",
       "2026-09-18 targeted second-pass read covered Knowledge Framework, Scholars of Skyrim, Silvertongue, Apocryphal Knowledge, Arcaneum Scholarship, Codex, and Daedrologist; only durable design relationships were promoted.",
-      "User clarified 2026-09-18: KF is the base; Arcaneum evolved into KF but may remain as the book-tagging layer; Imperial Library is book tagging/import; most related projects should be frameworks or integratable addons; newer versions generally win while older versions remain comparison provenance."
+      "User clarified 2026-09-18: KF is the base; Arcaneum evolved into KF but may remain as the book-tagging layer; Imperial Library is book tagging/import; most related projects should be frameworks or integratable addons; newer versions generally win while older versions remain comparison provenance.",
+      "2026-09-18 Dream Eater second pass covered the project folder inventory plus Guardian Emblem, Contract Magic, Avalon/Avalon Institute, Otherworld History, The Silence, and Magic System Explained. Findings are marked version-sensitive because the source docs contain unfinished and explicitly out-of-date notes."
     ]
   },
   "project_clusters": [
@@ -149,7 +150,36 @@
         "Magic System - Guardian Emblem",
         "Magic System - Contract Magic",
         "The Silence"
-      ]
+      ],
+      "second_pass_findings": {
+        "source_state": "Dream Eater Drive material spans multiple years and contains explicit notes that some terminology/graphics/definitions are out of date. Treat it as versioned worldbuilding, not a single internally consistent canon.",
+        "metaphysics": [
+          "The Fade is framed as narrative/imaginative potential or unreality shaped by human perception; Earth is objective reality; the Otherworld is a reality-like formation within/from the Fade created through human perception.",
+          "Names are conceptual/contextual identity rather than simple labels and are central to magical control, identity, memory, contracts and spiritual decay.",
+          "Magic/Fade practice is strongly tied to understanding, worldview and subjective conceptual models; Avalon organizes practitioners into Houses/perspectives."
+        ],
+        "guardian_cycle": [
+          "Guardian power was splintered into nine Emblems associated with the original Blades; later Emblems developed quasi-sentient identities influenced by their original wielders.",
+          "Emblems can accept, reject, sabotage or change wielders, so they function as relationships/characters as well as power sources.",
+          "The Guardian cycle spans multiple generations, with Mourn, Gallowbird, Incubus, the Nine Eyes of Avalon and later Deadlight Brigade material linked across generations."
+        ],
+        "contracts_and_spirits": [
+          "Contracts are persistent metaphysical connections exchanging power/Name/agenda between humans and nonhuman entities; power imbalance and relationship affect influence and possession risk.",
+          "Wardens commonly encounter Shackled Ones in the Void, but contracts are not intrinsically Warden-exclusive.",
+          "Dream Eaters/Dreamless material connects identity decay, Names, memory consumption, death and the Nameless/Broken Throne system."
+        ],
+        "avalon": [
+          "Avalon refers both to an extradimensional city and an organization; the public Avalon Institute is a nonprofit-facing arm while the larger organization regulates/researches magic.",
+          "The Eight Houses, Council, sectors, Prague Agreement, Black/White Index and Sector Seven establish a bureaucratic institutional layer around the magic system.",
+          "Avalon's history includes the War of Glass, centralization under Incubus/John Avalon, conflict with the Inquisition, Guild and Makers, and the Guardian cycles."
+        ],
+        "continuity_risks": [
+          "Terminology is visibly in flux: Fade/Otherworld/Elsewhere, Nameless Throne/Broken Throne, Dream Eater/Dreamless, House labels and some laws of magic need canonicalization.",
+          "Several documents repeat or partially contradict explanations of Names, contracts, Guardian history and metaphysical geography.",
+          "Some notes explicitly mark concepts as OOD/revisit/unfinished, so document modification date alone should not automatically promote every statement to canon."
+        ],
+        "recommended_future_consolidation": "Build a Dream Eater canon registry with concepts, aliases, status (canon/provisional/deprecated/question), first/last source, contradictions, unresolved questions and dependency links. Then consolidate world bible documents by domain without deleting historical drafts."
+      }
     },
     {
       "id": "lego-minifig-collecting-and-production",
