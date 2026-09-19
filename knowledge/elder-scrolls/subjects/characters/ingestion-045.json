@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-045-khajiit-religion-lunar-cosmology",
+  "subjects": [
+    {
+      "id": "tes:azurah",
+      "name": "Azurah",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/azurah.json",
+      "source": {
+        "id": "uesp:azurah",
+        "url": "https://en.uesp.net/wiki/Lore:Azurah",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:alkosh",
+      "name": "Alkosh",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/alkosh.json",
+      "source": {
+        "id": "uesp:alkosh",
+        "url": "https://en.uesp.net/wiki/Lore:Alkosh",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:riddle-thar",
+      "name": "Riddle'Thar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/riddle-thar.json",
+      "source": {
+        "id": "uesp:riddle-thar",
+        "url": "https://en.uesp.net/wiki/Lore:Riddle%27Thar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:rajhin",
+      "name": "Rajhin",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/rajhin.json",
+      "source": {
+        "id": "uesp:rajhin",
+        "url": "https://en.uesp.net/wiki/Lore:Rajhin",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:baan-dar",
+      "name": "Baan Dar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/baan-dar.json",
+      "source": {
+        "id": "uesp:baan-dar",
+        "url": "https://en.uesp.net/wiki/Lore:Baan_Dar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mara-khajiit",
+      "name": "Mara",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/mara-khajiit.json",
+      "source": {
+        "id": "uesp:mara-khajiit",
+        "url": "https://en.uesp.net/wiki/Lore:Mara",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:khenarthi",
+      "name": "Khenarthi",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/khenarthi.json",
+      "source": {
+        "id": "uesp:khenarthi",
+        "url": "https://en.uesp.net/wiki/Lore:Khenarthi",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:lorkhaj",
+      "name": "Lorkhaj",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/lorkhaj.json",
+      "source": {
+        "id": "uesp:lorkhaj",
+        "url": "https://en.uesp.net/wiki/Lore:Lorkhaj",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Pre-ri'Datta and Riddle'Thar-era Khajiiti religion must remain historically distinct traditions with documented continuities and changes",
+    "Do not automatically equate Khajiiti deities with similarly named Imperial or Aldmeri gods; model proposed correspondences as relationships with evidence",
+    "Amun-dro, Clan Mother Ahnissi and Moon-Bishop traditions retain authorship, period and doctrinal perspective",
+    "Furstock and lunar-cycle claims should distinguish cultural doctrine, observed births and game simplification",
+    "Dro-m'Athra and Bent Dance descriptions should separate religious interpretation from directly observed phenomena",
+    "Cross-link existing Khajiit, Azurah, Alkosh, Riddle'Thar, Lunar Lattice, Mane, Dro-m'Athra, Lorkhaj, Elsweyr, Anequina and Pellitine records"
+  ]
+}
