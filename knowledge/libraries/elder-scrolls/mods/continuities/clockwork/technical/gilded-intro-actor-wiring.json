@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "scene": {
+    "form_id": "05384489",
+    "editor_id": "CLWSQ02GildedIntroScene01",
+    "quest_id": "052908C1",
+    "cell_id": "0537A08F",
+    "cell_name": "Nurndural - Hall of Elements"
+  },
+  "actors": [
+    {
+      "role": "Gilded01",
+      "alias_id": 3,
+      "placed_actor_ref": "053895B2",
+      "base_form_id": "0524471A",
+      "base_editor_id": "CLWLvlGildedMagic"
+    },
+    {
+      "role": "Gilded02",
+      "alias_id": 4,
+      "placed_actor_ref": "053895B4",
+      "base_form_id": "0522B12E",
+      "base_editor_id": "CLWLvlGildedMelee1H"
+    },
+    {
+      "role": "Gilded03",
+      "alias_id": 5,
+      "placed_actor_ref": "053895B3",
+      "base_form_id": "0522B12E",
+      "base_editor_id": "CLWLvlGildedMelee1H"
+    }
+  ],
+  "source_basis": [
+    "SCEN actor aliases",
+    "SCEN VMAD object properties",
+    "ACHR NAME base forms",
+    "GRUP cell-parent context",
+    "PACK target markers"
+  ],
+  "caveat": "The placed ACHR is specific to the scene, but its base is a leveled archetype. Do not convert these roles into persistent personal names."
+}

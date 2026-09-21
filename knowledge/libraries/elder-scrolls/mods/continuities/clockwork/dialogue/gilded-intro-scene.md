@@ -1,22 +1,28 @@
-# Gilded introduction scene — quest-alias attribution
+# Gilded introduction scene — placed-actor resolution
 
 Continuity: `tes.mod.clockwork`  
 Scene: `05384489` / `CLWSQ02GildedIntroScene01`  
 Quest: `052908C1` / *Steam-Powered*  
 Location: `CELL 0537A08F` / **Nurndural - Hall of Elements**
 
-These seven INFO records are broad-Gilded matches in the strict voice/faction resolver, but the SCEN record assigns each dialogue action to a specific quest actor alias. The scene's three choreography packages target placed markers inside the Hall of Elements.
+The INFO-condition resolver sees these lines as broad Gilded candidates. The SCEN record narrows them to quest roles, and the scene's VMAD then identifies the **actual placed ACHR references** used for those roles:
 
-| INFO | Scene role | Alias | Text |
-|---|---|---:|---|
-| `0538448D` | Gilded01 | 3 | You know, sometimes. |
-| `05384490` | Gilded02 | 4 | Sometimes I get to thinking. |
-| `05384493` | Gilded03 | 5 | You know me. |
-| `05384495` | Gilded01 | 3 | Why don't you come away. |
-| `053895A6` | Gilded02 | 4 | No... I won't bite. |
-| `053895A8` | Gilded03 | 5 | I won't bite your face. |
-| `053895AA` | Gilded01 | 3 | Come away with me. |
+- **Gilded01** — alias 3 → `ACHR 053895B2` → base `0524471A CLWLvlGildedMagic`
+- **Gilded02** — alias 4 → `ACHR 053895B4` → base `0522B12E CLWLvlGildedMelee1H`
+- **Gilded03** — alias 5 → `ACHR 053895B3` → base `0522B12E CLWLvlGildedMelee1H`
 
-Each remains non-unique at physical NPC-form level. The result is high-confidence **quest-role + location attribution**, not a unique base-NPC identification.
+All three references and their scene markers are placed in the Hall of Elements.
 
-The strict broad-Gilded pool remains 519 records; seven now have this richer SCEN/PACK context, leaving 512 undifferentiated records.
+| INFO | Placed scene actor | Text |
+|---|---|---|
+| `0538448D` | Gilded01 / `053895B2` | You know, sometimes. |
+| `05384490` | Gilded02 / `053895B4` | Sometimes I get to thinking. |
+| `05384493` | Gilded03 / `053895B3` | You know me. |
+| `05384495` | Gilded01 / `053895B2` | Why don't you come away. |
+| `053895A6` | Gilded02 / `053895B4` | No... I won't bite. |
+| `053895A8` | Gilded03 / `053895B3` | I won't bite your face. |
+| `053895AA` | Gilded01 / `053895B2` | Come away with me. |
+
+This is now high-confidence **scene-actor-reference attribution**. The base records are leveled Gilded archetypes rather than unique persistent named individuals, so Lorekeeper still does not invent personal names.
+
+The strict multi-candidate accounting remains unchanged for reproducibility: 519 broad-Gilded INFO records, of which these seven now have richer scene/actor/location context; 512 remain undifferentiated.

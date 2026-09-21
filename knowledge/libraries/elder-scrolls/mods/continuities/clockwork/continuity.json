@@ -48,7 +48,12 @@
     },
     "scene_alias_role_refinement": {
       "broad_Gilded_scene_bound": 7,
-      "broad_Gilded_still_undifferentiated": 512
+      "broad_Gilded_still_undifferentiated": 512,
+      "placed_actor_refs": {
+        "Gilded01": "053895B2 -> 0524471A CLWLvlGildedMagic",
+        "Gilded02": "053895B4 -> 0522B12E CLWLvlGildedMelee1H",
+        "Gilded03": "053895B3 -> 0522B12E CLWLvlGildedMelee1H"
+      }
     }
   },
   "structured_layers": {
@@ -61,7 +66,7 @@
     "scene_catalog": "complete_22_scen_records",
     "vmad_story_wiring": "core_story_relevant_subset_persisted",
     "technical_record_inventory": "complete_counts_plus_core_named_records",
-    "multi_candidate_scene_alias_refinement": "7_broad_gilded_records_resolved_to_quest_alias_roles",
+    "multi_candidate_scene_alias_refinement": "7 broad-Gilded records tied to concrete placed ACHR refs and leveled archetype bases",
     "character_pages": "core_complete",
     "relationship_index": "initial_complete",
     "dated_ludwig_timeline": "complete_from_four_journals",
@@ -70,13 +75,14 @@
     "location_index": "initial_complete",
     "artifact_index": "initial_complete",
     "lore_topics": "initial_complete",
-    "interpretive_analysis": "initial_complete"
+    "interpretive_analysis": "initial_complete",
+    "package_state_choreography": "initial_story_relevant_pass_complete",
+    "cell_reference_mapping": "clockwork_named_cells_and_story_markers_mapped"
   },
   "next_ingestion_steps": [
-    "parse PACK conditions/targets and REFR choreography to narrow more of the 512 still-undifferentiated broad-Gilded INFO records without guessing",
-    "retain group-parent context while parsing CELL/REFR/ACHR so references can be mapped to exact cells and locations",
-    "catalog all named CELL records and connect castle/Nurndural subareas to quest and scene nodes",
     "inspect remaining VMAD-bearing records for story-state changes not represented in dialogue or journals",
+    "parse remaining story-relevant PACK conditions/targets and placed references beyond the first curated choreography pass",
+    "catalog named ACTI/DOOR/CONT/FURN/MSTT records that materially describe castle and Nurndural systems",
     "build explicit base-TES comparison/contradiction links for Dwemer, Kagrenac, Numidium, soul gems, and Red Mountain",
     "add retrieval tests for spoiler gating, provenance boundaries, revised claims, and implementation-vs-lore separation"
   ]

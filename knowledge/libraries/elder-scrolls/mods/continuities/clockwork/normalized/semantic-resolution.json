@@ -70,8 +70,13 @@
       "alias_name": "Gilded01",
       "scene_id": "05384489",
       "scene_editor_id": "CLWSQ02GildedIntroScene01",
-      "confidence": "high_at_quest_alias_role_level",
-      "strict_physical_form_status": "still_multi_candidate"
+      "confidence": "high_at_scene_actor_reference_level",
+      "strict_physical_form_status": "strict INFO-condition resolver remains multi-candidate; SCEN VMAD identifies the concrete placed actor reference, whose base is still a leveled Gilded archetype",
+      "placed_actor_ref": "053895B2",
+      "placed_actor_base_form_id": "0524471A",
+      "placed_actor_base_editor_id": "CLWLvlGildedMagic",
+      "location_cell_form_id": "0537A08F",
+      "location_cell_name": "Nurndural - Hall of Elements"
     },
     {
       "info_id": "05384490",
@@ -79,8 +84,13 @@
       "alias_name": "Gilded02",
       "scene_id": "05384489",
       "scene_editor_id": "CLWSQ02GildedIntroScene01",
-      "confidence": "high_at_quest_alias_role_level",
-      "strict_physical_form_status": "still_multi_candidate"
+      "confidence": "high_at_scene_actor_reference_level",
+      "strict_physical_form_status": "strict INFO-condition resolver remains multi-candidate; SCEN VMAD identifies the concrete placed actor reference, whose base is still a leveled Gilded archetype",
+      "placed_actor_ref": "053895B4",
+      "placed_actor_base_form_id": "0522B12E",
+      "placed_actor_base_editor_id": "CLWLvlGildedMelee1H",
+      "location_cell_form_id": "0537A08F",
+      "location_cell_name": "Nurndural - Hall of Elements"
     },
     {
       "info_id": "05384493",
@@ -88,8 +98,13 @@
       "alias_name": "Gilded03",
       "scene_id": "05384489",
       "scene_editor_id": "CLWSQ02GildedIntroScene01",
-      "confidence": "high_at_quest_alias_role_level",
-      "strict_physical_form_status": "still_multi_candidate"
+      "confidence": "high_at_scene_actor_reference_level",
+      "strict_physical_form_status": "strict INFO-condition resolver remains multi-candidate; SCEN VMAD identifies the concrete placed actor reference, whose base is still a leveled Gilded archetype",
+      "placed_actor_ref": "053895B3",
+      "placed_actor_base_form_id": "0522B12E",
+      "placed_actor_base_editor_id": "CLWLvlGildedMelee1H",
+      "location_cell_form_id": "0537A08F",
+      "location_cell_name": "Nurndural - Hall of Elements"
     },
     {
       "info_id": "05384495",
@@ -97,8 +112,13 @@
       "alias_name": "Gilded01",
       "scene_id": "05384489",
       "scene_editor_id": "CLWSQ02GildedIntroScene01",
-      "confidence": "high_at_quest_alias_role_level",
-      "strict_physical_form_status": "still_multi_candidate"
+      "confidence": "high_at_scene_actor_reference_level",
+      "strict_physical_form_status": "strict INFO-condition resolver remains multi-candidate; SCEN VMAD identifies the concrete placed actor reference, whose base is still a leveled Gilded archetype",
+      "placed_actor_ref": "053895B2",
+      "placed_actor_base_form_id": "0524471A",
+      "placed_actor_base_editor_id": "CLWLvlGildedMagic",
+      "location_cell_form_id": "0537A08F",
+      "location_cell_name": "Nurndural - Hall of Elements"
     },
     {
       "info_id": "053895A6",
@@ -106,8 +126,13 @@
       "alias_name": "Gilded02",
       "scene_id": "05384489",
       "scene_editor_id": "CLWSQ02GildedIntroScene01",
-      "confidence": "high_at_quest_alias_role_level",
-      "strict_physical_form_status": "still_multi_candidate"
+      "confidence": "high_at_scene_actor_reference_level",
+      "strict_physical_form_status": "strict INFO-condition resolver remains multi-candidate; SCEN VMAD identifies the concrete placed actor reference, whose base is still a leveled Gilded archetype",
+      "placed_actor_ref": "053895B4",
+      "placed_actor_base_form_id": "0522B12E",
+      "placed_actor_base_editor_id": "CLWLvlGildedMelee1H",
+      "location_cell_form_id": "0537A08F",
+      "location_cell_name": "Nurndural - Hall of Elements"
     },
     {
       "info_id": "053895A8",
@@ -115,8 +140,13 @@
       "alias_name": "Gilded03",
       "scene_id": "05384489",
       "scene_editor_id": "CLWSQ02GildedIntroScene01",
-      "confidence": "high_at_quest_alias_role_level",
-      "strict_physical_form_status": "still_multi_candidate"
+      "confidence": "high_at_scene_actor_reference_level",
+      "strict_physical_form_status": "strict INFO-condition resolver remains multi-candidate; SCEN VMAD identifies the concrete placed actor reference, whose base is still a leveled Gilded archetype",
+      "placed_actor_ref": "053895B3",
+      "placed_actor_base_form_id": "0522B12E",
+      "placed_actor_base_editor_id": "CLWLvlGildedMelee1H",
+      "location_cell_form_id": "0537A08F",
+      "location_cell_name": "Nurndural - Hall of Elements"
     },
     {
       "info_id": "053895AA",
@@ -124,12 +154,18 @@
       "alias_name": "Gilded01",
       "scene_id": "05384489",
       "scene_editor_id": "CLWSQ02GildedIntroScene01",
-      "confidence": "high_at_quest_alias_role_level",
-      "strict_physical_form_status": "still_multi_candidate"
+      "confidence": "high_at_scene_actor_reference_level",
+      "strict_physical_form_status": "strict INFO-condition resolver remains multi-candidate; SCEN VMAD identifies the concrete placed actor reference, whose base is still a leveled Gilded archetype",
+      "placed_actor_ref": "053895B2",
+      "placed_actor_base_form_id": "0524471A",
+      "placed_actor_base_editor_id": "CLWLvlGildedMagic",
+      "location_cell_form_id": "0537A08F",
+      "location_cell_name": "Nurndural - Hall of Elements"
     }
   ],
   "broad_gilded_strict_pool_count": 519,
   "broad_gilded_scene_bound_alias_role_count": 7,
   "broad_gilded_still_undifferentiated_count": 512,
-  "caveat": "resolution-stats.json remains unchanged because it reports the stricter lower-level NPC-form resolver. Supplemental attributions rely on SCEN ownership, quest aliases, and diegetic context."
+  "caveat": "resolution-stats.json remains unchanged because it reports the stricter lower-level NPC-form resolver. Supplemental attributions rely on SCEN ownership, quest aliases, and diegetic context.",
+  "alias_level_resolution_note": "SCEN VMAD directly maps Gilded01/02/03 to placed ACHR references. This is stronger than alias-name inference but still does not convert leveled archetypes into unique persistent named individuals."
 }
