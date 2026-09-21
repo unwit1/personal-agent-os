@@ -18,22 +18,17 @@ Unique closed total before Revenant:
 Raw expected:
 **1,328 responses across 44 text-bearing quests**
 
-Backbone batch normalized:
-- Generic Revenant — 146
-- Departure — 21
-- Feast of Love — 19
-- Strange Fruit — 35
-- Desiccated Embryo — 19
-- Baby of Nightmares — 18
+Normalized:
+**577 / 1,328**
 
-**Revenant normalized: 258 / 1,328**
-**Revenant remaining: 1,070**
+Remaining:
+**751**
 
 ## Current unique normalized total
 
-3,464 + 258 =
+3,464 + 577 =
 
-# **3,722 unique exact response texts**
+# **4,041 unique exact response texts**
 
 ## No-QNAM audit
 
@@ -41,7 +36,7 @@ Raw audit found **zero text-bearing DIAL records without QNAM**.
 
 ## Remaining dialogue
 
-Only the remaining `zzzRev*` quests:
-**1,070 responses**.
+Only remaining `zzzRev*` quests:
+**751 responses**.
 
 Non-dialogue work still remains for BOOK/MESG and SCEN/package/script chronology.
