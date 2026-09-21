@@ -20,7 +20,23 @@ Lizz identifies Ulliss as her mother even before meeting her directly, based on 
 
 Jhunal the Gray says Lizz is Ulliss's successor and contains part of the player's dragon soul. He therefore calls her, "in a way," also the player's child.
 
-This statement is consistent with the preceding quest layer in which the player can pour Dragon Souls into Ulliss to restore her, but the exact reproductive/metaphysical mechanism remains Jhunal's interpretation unless later records explain it more directly.
+This statement is consistent with the preceding quest layer in which the player can spend a Dragon Soul through the Twinkling Star / Ancient Dragon Ring system to revive Ulliss.
+
+## Explicit parental framing
+
+The side quest **Snow Guardian** adds stronger narrative corroboration.
+
+A player dialogue option to Jokul states:
+
+"Ulliss is doing well. We have a daughter now."
+
+Jokul congratulates the player.
+
+This means UNSLAAD itself permits the player to identify Lizz straightforwardly as **the player and Ulliss's daughter**, even though the underlying reproductive/metaphysical mechanism remains unusual.
+
+Current classification:
+- Ulliss as mother: direct and high confidence.
+- Player as parent: direct narrative framing plus dragon-soul mechanism; high confidence as relationship, mechanism still metaphysically unresolved.
 
 ## Jhunal's interest
 
