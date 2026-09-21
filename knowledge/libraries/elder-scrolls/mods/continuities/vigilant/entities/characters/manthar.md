@@ -30,6 +30,52 @@ The ESM gives Manthar a concrete post-historical identity:
 
 The Funeral Temple is directly linked by the Coldharbour door graph to **Nenyond's Underground Priory**, making Manthar's boss placement spatially consistent with the disappearance story preserved in *The Eight Saints of Cyrod*.
 
+## Bone Lord transformation pass
+
+A focused raw-record pass is preserved at:
+
+`analysis/manthar-bone-lord.md`
+
+The key result is that the ESM contains **no Manthar-specific transformation event**.
+
+A whole-plugin FormID scan found the boss base `021146D9` referenced only by its placed actor `021146DA`; neither the boss base nor the placed actor is owned by a dedicated transformation quest or scene.
+
+The boss VMAD uses only generic encounter scripts:
+
+- `masterambushscript`
+- `defaultActivateLinkedRefOnceOnDeath`
+- `CHModKarmaOnDeath`
+
+The boss is already configured as **Sorcerer Manthar** using the **Alessian Lawmage Race** and **Bone Lord** skin when encountered.
+
+### Death-to-summon chain
+
+Manthar's death list `LVLI 021280D4` includes:
+
+- `BOOK 0213B506` / **Necromancy Tome: Sorcerer Manthar**
+
+The tome teaches `SPEL 0213B505` / **Conjure Sorcerer Manthar**, which summons `NPC_ 0213B503` / `zzzCHSummonBoneLord`.
+
+Thus the ESM explicitly supports:
+
+**Bone Lord Manthar defeated → Manthar necromancy tome acquired → summonable Bone Lord Manthar**
+
+That explains the later summon form, but not the original transformation of historical Manthar.
+
+### Sithis ring caution
+
+The boss death list also contains **Sithis' Eye Ring**. Its enchantment is **Twin Souls**, and the ring participates in a broader Black Hand/Sithis dialogue and crafting system.
+
+It is therefore not evidence that Sithis transformed Manthar.
+
+### Current conclusion
+
+The identity continuity is strong; the mechanism is not.
+
+The ESM proves the historical Manthar and Bone Lord Manthar are intended as one identity cluster, but does not tell us whether the historical body was reanimated, reconstructed by Coldharbour, altered by the buried ruins, affected by the Stone, or transformed by some other agent.
+
+Until the external script/BSA layer is available, that gap should remain explicit.
+
 ## Evidence limits
 
 No INFO records currently resolve uniquely to Manthar. His surviving role is therefore reconstructed from:
