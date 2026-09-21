@@ -1,0 +1,83 @@
+{
+  "continuity_id": "tes.mod.vigilant",
+  "policy": "Compare VIGILANT claims against licensed TES source traditions without converting disputed in-universe books into omniscient fact.",
+  "comparisons": [
+    {
+      "topic": "Alessia-Morihaus relationship",
+      "classification": "established-tradition",
+      "official_sources": [
+        "The Adabal-a",
+        "The Song of Pelinal, Volume 5"
+      ]
+    },
+    {
+      "topic": "Belharza child of Alessia and Morihaus / minotaur descent",
+      "classification": "compatible-contested",
+      "official_sources_supporting": [
+        "On Minotaurs"
+      ],
+      "official_sources_disputing": [
+        "The Truth of Minotaurs"
+      ]
+    },
+    {
+      "topic": "Alessian persecution of minotaurs",
+      "classification": "compatible-contested",
+      "official_sources_supporting": [
+        "On Minotaurs"
+      ],
+      "vigilant_extension": "specific mutilation, loss of power, horn-puppet account"
+    },
+    {
+      "topic": "Morihaus as accumulated anecdotes/spirits in unstable vessel",
+      "classification": "vigilant-extension",
+      "official_baseline": [
+        "son of Kyne",
+        "winged bull/man-bull",
+        "Alessia's lover"
+      ]
+    },
+    {
+      "topic": "Pelinal extreme violence and Madness",
+      "classification": "established-tradition",
+      "official_sources": [
+        "The Song of Pelinal, Volume 4",
+        "The Song of Pelinal, Volume 6"
+      ]
+    },
+    {
+      "topic": "Pelinal exact remorse/pregnant-captive/Final Night scenes",
+      "classification": "vigilant-extension-reframing"
+    },
+    {
+      "topic": "Marukh vision of Alessia and Seventy-Seven doctrines",
+      "classification": "established-tradition",
+      "official_sources": [
+        "The Illusion of Death",
+        "The Exclusionary Mandates"
+      ]
+    },
+    {
+      "topic": "Malada Alessian campaign / Abbot Cosmas",
+      "classification": "established-tradition",
+      "official_sources": [
+        "The Cleansing of the Fane"
+      ]
+    },
+    {
+      "topic": "soul-filled restored/fake Adabal and Dulsa sacrifice plot",
+      "classification": "vigilant-extension-reframing"
+    },
+    {
+      "topic": "Lamae as Blood-Matron created through Molag Bal",
+      "classification": "established-tradition",
+      "official_sources": [
+        "Opusculus Lamae Bal ta Mezzamortie"
+      ]
+    },
+    {
+      "topic": "player fights/frees Lamae from Molag Bal curse",
+      "classification": "vigilant-extension"
+    }
+  ]
+}
