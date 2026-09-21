@@ -6,22 +6,23 @@ Continuity: `tes.mod.vicn.dac0da`
 
 - `DAc0da.esm`
 - SHA-256: `455f07f3bba5de5b1b5a84c882be3309a66fd3d503866e05658b99896dfdb00e`
-- Stable provenance format established as `DAc0da.esm:<local FormID>`.
+- Stable provenance format: `DAc0da.esm:<load-order-independent local FormID>`
 
-Do not restart structural inventory unless the source hash changes.
+Do not restart the structural inventory unless the source hash changes.
 
 ## Completed
 
 ### Structural
 
-- Parsed first-pass ESM inventory.
-- Indexed all 43 QUST records.
-- Established DIAL -> INFO extraction with direct NAM1 dialogue.
-- Resolved selected quest aliases to unique NPC forms.
+- First-pass ESM inventory: 51,137 resolved records.
+- All 43 QUST records indexed.
+- DIAL -> INFO/NAM1 dialogue extraction established.
+- Selected quest aliases resolved to concrete NPC forms.
+- All 90 BOOK records inventoried and split into narrative/provenance versus spell/item material.
 
 ### Numbered main quest
 
-Reconstructed:
+Reconstructed at first lore depth:
 
 - `zDcdMq00` — **The Call of Landfall**
 - `zDcdMq01` — **The Sea of Causality**
@@ -30,82 +31,127 @@ Reconstructed:
 - `zDcdMq04` — **Numidium Tertius**
 - `zDcdMq05` — **Censored Fate**
 
-The numbered main chain is now complete at first lore-reconstruction depth.
-
-### Major dossiers / concepts
-
-- Akashiya-Samon
-- Rolls-On-Roads
-- Yngol
-- Ghost Choir 9
-- Prisoner / Many Paths
-- time breaches / mirror logic / zero-sum
-- Hist / Jills / Akulakhan / Fifth-Era anomaly
-- DAc0da cross-Vicn relationship seeds
-
-### Side / epilogue passes
+### Major side quests / endings
 
 Processed:
 
 - `zDcdSqYngol` — **Drowned Nighthawk**
+- `zDcdSqHalfElf` — **The End of All Wishes**
 - `zDcdSqAbnur` — **Abnur Tharn**
-- `zDcdEpiQAbnur` — Abnur Tharn epilogue
-- `zDcdEpiQSamon` / `zDcdEpiQSamonAfter` — Samon epilogue/follow-up
+- `zDcdSqWorm` — **Echoes of Mnemolichite**
+- `zDcdSqWormSub01` — Option: Dreugh
+- `zDcdSqWormSub02` — Group Battle: The Sload City
+- `zDcdSqWormSub03` — Group Battle: The Revenant
+- `zDcdSqWormSub04` — **The Sea of Radiance**
+- `zDcdSqAugur` / `zDcdGenAugur` — Augur of the Obscure material
+- `zDcdSqSheogorath` — **Cheese Party**
+- `zDcdSqSloadRadio` — **Sload Radio**
+- `zDcdMqCheeseEnd` — **Rella Mozzarella**
+- `zDcdMqArgoEnd` — **Pan-Argonia**
+- Abnur Tharn epilogue/will
+- Akashiya-Samon epilogue/follow-up
 
-## Strong nodes already extracted
+### Structural seed awaiting non-dialogue analysis
 
-- Numidium temporal collapse and repeated fate lines.
-- Multiple versions of the player across time/space.
-- "beyond fate" stabilization.
-- Jills as time-correction actors and Jillian censorship.
-- Dragon Break memory/injury effects.
-- Rolls-On-Roads as the named Psijic Monk.
-- Direct Rolls-On-Roads -> Romion relationship; GLENMORIL Romion is a strong named continuity bridge.
-- Underking / Zurin Arctus / Mantella.
-- Ghost Choir 9 / Agent / Prisoner / nymic processing.
-- Apocrypha inside Numidium.
-- canceled Dwemer projects and the "dreaming" Numidium.
-- Hist versus Jill conflict.
-- alternate Fifth-Era Numidium / Nerevarine-piloted Akulakhan reconstruction.
-- Yngol / Tsuunalinfaxtir duality.
-- Ahzidal in Yngol's account.
-- contested Atmoran / Snow-Elf history around Jylkurfyk and Mereth.
-- Samon's Ka Po' Tun / Tosh Raka / dragon-hunting cosmology.
-- Abnur Tharn's time-breach displacement and later will.
+- `zDcdSqPrisoner` — **In Grabbers' Hands**
+  - direct objective: retrieve Kye and **restore your name**
+  - aliases: Player, Boss, Kye
+  - no directly owned DIAL topics, so scene/script/form analysis is required
+
+### Major dossiers/concepts
+
+- Rolls-On-Roads
+- Akashiya-Samon
+- Yngol
+- Beynhaal
+- Vanus Galerion
+- Templar of Hahd Yu'qbar
+- Vigilant Athanasius
+- Augur of the Obscure
+- Ghost Choir 9
+- Republic of Hahd
+- Prisoner / Many Paths
+- mnemolichite
+- Adjacent Places / Grabbers
+- time breaches / mirror logic / zero-sum
+- Hist / Jills / Akulakhan / Fifth-Era anomaly
+
+## Strong cross-Vicn bridges now indexed
+
+### GLENMORIL
+
+**Rolls-On-Roads -> Romion** is a direct named relationship. DAc0da describes Romion as Rolls-On-Roads' Altmer Dwemer-scholar friend/former colleague; GLENMORIL independently defines Romion as a major Dwemer-study/Yelem-School character.
+
+### VIGILANT
+
+BOOK `DAc0da.esm:006133`, **Letter to a Friend**, sends a seeker of Radiance to nightmare-plagued Dawnstar to find a Vigilant named **Altano**, learn compassion, and undergo suffering. VIGILANT independently has Altano as a central character.
+
+### UNSLAAD
+
+DAc0da and UNSLAAD independently use the rare exact vocabulary **Adjacent Place** and **Grabbers**. UNSLAAD connects an adjacent place to Lyg and fate-changing mirrors; DAc0da's Augur says he comes from an Adjacent Place and warns about Grabbers.
+
+### Mnemo-Li
+
+DAc0da, GLENMORIL, and UNSLAAD independently cluster **Mnemo-Li** with memory, possibility/multiple states, dream/reality instability, and unusual identity transformations. Source-specific mechanics remain separate.
+
+## Written-lore pass 01
+
+The BOOK inventory is:
+
+- 66 spell/summon/item books;
+- 13 letters/notes;
+- 11 Nahd-fiction/apocryphal texts.
+
+High-value written findings include:
+
+- Snow-Elf orders to attack Jylkurfyk under a claimed contract with Lord Dagon;
+- a separate letter explicitly describing an anti-elven/mixed-blood purge at Jylkurfyk;
+- direct Radiance -> Altano/VIGILANT link;
+- Abnur's time-displacement note;
+- Sload orders to N'Danda;
+- Abnur will variants;
+- three alternate-reality Temporal Tomes.
+
+Known/reused source material is being provenance-separated:
+
+- six Daggerfall/Totem correspondence records are source-reuse candidates;
+- `ANON/ANU/ANUI-EL` already matches the apocryphal library;
+- `A Type of Zero Still to Be Discovered` already has verified developer-obscure-text provenance in the library;
+- remaining `NahdFiction_*_MK` texts still need exact source reconciliation.
 
 ## Resume here
 
-### Next priority: Echoes of Mnemolichite
+### P1 — non-dialogue identity/name pass
 
-**`DAc0da.esm:0052C2` — `zDcdSqWorm` — Echoes of Mnemolichite**
+Start with:
 
-The quest aliases directly include:
+**`DAc0da.esm:00CEFE` — `zDcdSqPrisoner` — In Grabbers' Hands**
 
-- `Vanus` -> `DAc0da.esm:005183`, **Vanus Galerion**
-- `Dreugh` -> `DAc0da.esm:000D74`, **Templar of Hahd Yu'qbar**
-- `Abnur` -> `DAc0da.esm:00525B`
-- `Worm` -> `DAc0da.esm:003075`, **Mannimarco the God of Worms**
+Resolve:
 
-High-value dialogue already identified but not yet normalized into repo files:
+1. Kye's form and identity.
+2. Boss form/identity.
+3. target location.
+4. attached scripts, scenes, activators, messages, items, effects, and conditions.
+5. what the game mechanically means by **"restore your name."**
+6. whether the mechanic directly links Grabbers to stolen name/identity data.
 
-- Vanus says mnemolichite is a hypothetical deep-sea mineral becoming real under the Numidian Effect.
-- It crystallizes memory and can turn remembered/perceived material into existence.
-- Vanus mentions a theory connecting memory crystallization to Mnemo-Li.
-- Yu'qbar describes the underwater Republic of Hahd and the Mnemolichite Maid.
-- The Sload/necromancer plot attempts to bring down/incarnate the God of Worms.
-- A Vanus turtle-form explicitly contains copied memories/personality.
+Do not infer mechanism from the title/objective alone.
 
-### Next steps
+### P2 — remaining support/epilogue records
 
-1. Normalize all `zDcdSqWorm` DIAL -> INFO dialogue into a quest reconstruction.
-2. Split character dossiers for Vanus Galerion and Yu'qbar.
-3. Create a mnemolichite concept page with source-attributed theory layers.
-4. Join Abnur's second form and Mannimarco boss material.
-5. Process subquests:
-   - `zDcdSqWormSub01` — Option: Dreugh
-   - `zDcdSqWormSub02` — Group Battle: The Sload City
-   - `zDcdSqWormSub03` — Group Battle: The Revenant
-   - `zDcdSqWormSub04` — The Sea of Radiance
-6. After Worm/Mnemolichite, move to Augur, Sheogorath, Sload Radio, and remaining epilogue/BOOK material.
+Then process:
 
-Keep branching dialogue and speaker testimony separate from objective chronology. Do not silently promote DAc0da/Vicn claims into Bethesda canon.
+- `zDcdEpiQYngol` — Yngol epilogue via scenes/scripts;
+- `zDcdMqDragon` — Golden Dragon Flight;
+- `zDcdMqAgent` — Agent Event;
+- Numidium shortcut/manager material where it adds lore.
+
+### P3 — provenance / indexing
+
+- exact text comparison for six Daggerfall/Totem letters;
+- exact source resolution for unresolved `NahdFiction_*_MK` texts;
+- scene-speaker coverage;
+- remaining NPC/location/artifact/creature indexing.
+
+Preserve conditional branches, speaker reliability, alternate realities, and source provenance. Do not silently promote DAc0da/Vicn claims into official Elder Scrolls canon.
