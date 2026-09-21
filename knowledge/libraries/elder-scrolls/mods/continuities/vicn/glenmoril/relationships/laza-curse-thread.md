@@ -1,16 +1,40 @@
 # Laza curse thread
 
-Source: **Lucid Dream**, scene 04.
+## Lucid Dream
 
 Ja'zel identifies **Laza, the shepherd trapped in the past**, with the curse affecting Ja'zel and his associates.
 
-He describes the curse's essence as **longing for something that can no longer truly be there**.
+He describes the curse's essence as:
+**longing for something that can no longer truly be there**.
 
-Ja'zel also says Laza should not have survived because the nomads attacked by **Lamae** died. In the later Lucid Dream monologue he treats Lamae's death as a **fixed point** and asks:
+Ja'zel says Laza should not have survived because the nomads attacked by **Lamae** died.
+
+He treats Lamae's death as a fixed point and asks:
 - how Laza survived alone;
 - who was watching;
 - who passed on the knowledge.
 
+## Replay Gen — Felix
+
+Felix later says:
+> “I remember now. I am Laza... and so are you.”
+
+He tells the player:
+- a girl is still crying and must be helped;
+- he suffers a **blood curse of fading memories**;
+- he has failed;
+- the player must **inherit the curse**.
+
+This creates a direct character-level identification/continuity claim:
+**Felix → Laza**
+and
+**player → Laza**
+within Felix's memory/curse state.
+
 ## Interpretation boundary
 
-These lines make Laza a major temporal/causal anomaly in Ja'zel's model. They do not independently establish that Ja'zel's explanation of history or the curse is correct.
+Do not normalize Felix, the player and historical Laza into one ordinary physical person.
+
+The source strongly supports a repeated/inherited Laza identity or curse-state, but its exact mechanism remains unresolved.
+
+Ja'zel's historical model and Felix's self-identification are separate provenance channels.
