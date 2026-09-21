@@ -1,0 +1,21 @@
+{
+  "source_plugin": "Glenmoril.esm",
+  "source_sha256": "5669018c81acf13147ff489f486963ecc3c57515a73ed9afd210c7ede85e1cc8",
+  "total_messages": 144,
+  "nonempty_desc": 127,
+  "records_with_choices": 65,
+  "readable_desc_and_choice_characters": 18667,
+  "exact_preserved": 144,
+  "shards": 6,
+  "records_per_shard": 24,
+  "dataset_pattern": "data/messages/messages-01.jsonl ... messages-06.jsonl",
+  "working_categories": {
+    "lore-data-candidate": 67,
+    "plain-message": 38,
+    "menu-story-or-gameplay": 29,
+    "system-debug": 10
+  },
+  "classification_note": "Working categories are retrieval aids, not canon-strength labels.",
+  "exact_inventory_complete": true,
+  "status": "closed_exact_text_semantic_promotion_remaining"
+}
