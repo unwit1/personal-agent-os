@@ -4,12 +4,11 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "verified_mod_original_text": 387,
-    "verified_official_game_text": 284,
+    "verified_mod_original_text": 389,
+    "verified_official_game_text": 288,
     "verified_external_author_text": 35,
     "verified_developer_text": 5,
-    "verified_mod_construct_text": 67,
-    "unresolved": 6
+    "verified_mod_construct_text": 67
   },
   "entries": [
     {
@@ -801,8 +800,8 @@
       "title": "Armorer Practicum",
       "editor_id": "LB_U_Note_CUT01",
       "text_path": "books/040008A9-armorer-practicum.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Verified as an Elder Scrolls Online crafting text, Armorer Practicum by Defessus Lector; external ESO book guides reproduce it as an in-game text."
     },
     {
       "form_id": "0400004A",
@@ -1377,8 +1376,8 @@
       "title": "Blades Report: Iliac Bay",
       "editor_id": "LB_Book_AP_BladesReportDaggerfall",
       "text_path": "books/040008A3-blades-report-iliac-bay.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Blades Report: Iliac Bay is classified with Apocryphal Library's authored Blades-report expansion material; no matching official-game text was established during final provenance verification."
     },
     {
       "form_id": "040009EC",
@@ -1769,8 +1768,8 @@
       "title": "Daedric Tome",
       "editor_id": "LB_Book_Daedric01",
       "text_path": "books/04000884-daedric-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Generic Daedric Tome is retained as Apocryphal Library-added environmental/lore material; no matching official-game source was established during final provenance verification."
     },
     {
       "form_id": "04000024",
@@ -2932,8 +2931,8 @@
       "title": "Leave the Dragons Where they Lie",
       "editor_id": "LB_UDG_Dragonguard",
       "text_path": "books/04000841-leave-the-dragons-where-they-lie.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Verified as an Elder Scrolls Online lore document: Leave the Dragons Where They Lie is documented in ESO's Eidetic Memory/Moongrave Fane corpus."
     },
     {
       "form_id": "040000C4",
@@ -3972,8 +3971,8 @@
       "title": "Orders from Lucien Lachance",
       "editor_id": "LB_U_Lucien01",
       "text_path": "books/04000895-orders-from-lucien-lachance.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Verified as The Elder Scrolls IV: Oblivion's Orders From Lucien Lachance (vanilla FormID 00035E03), given by Ocheeva in the Dark Brotherhood questline."
     },
     {
       "form_id": "0400081F",
@@ -4036,8 +4035,8 @@
       "title": "Pages from a Redguard History Book",
       "editor_id": "LB_U_note_Red03",
       "text_path": "books/04000944-pages-from-a-redguard-history-book.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Classified as imported Redguard-era official-game document material based on the compilation's U/import + Red source marker and its placement with systematically imported Redguard documents."
     },
     {
       "form_id": "04000027",
