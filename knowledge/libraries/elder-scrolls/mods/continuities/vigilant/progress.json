@@ -86,7 +86,8 @@
     "Joshua direct corpse placement and exact Final Note recovery",
     "Joel direct NPC/quest alias and Bloodsucker scene/dialogue resolution",
     "unnamed fiery-eyed Slave Trader direct identity dossier: Malada stanza 9, Pepe sarcophagus testimony, eight-note trail, and cross-Vicn source separation",
-    "Slave Trader Notes 6-8 exact-text verification plus negative persisted placement/ownership search"
+    "Slave Trader Notes 6-8 exact-text verification plus negative persisted placement/ownership search",
+    "nine previously incomplete Act 4 side quests resolved from direct 1.8.2 ESM dialogue/alias source: More Skooma, Archer of Kyne, Black Worm, Funeral, Knights of Julianos/Zenithar/Arkay/Kynareth, and Kyne's Dragon"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -104,8 +105,6 @@
     "recover any non-persisted/scripted acquisition paths for Slave Trader Notes 6-8 and a direct Slave Trader NPC_/ACHR/alias if later source layers expose one",
     "persist the full named Feral Soul-Shriven variant inventory from the restored direct source",
     "inspect remaining secondary Coldharbour groups only when at least two independent evidence layers support a distinct node",
-    "recover exact source bodies for the remaining structurally incomplete Act 4 quests from the restored ESM extraction",
-    "deepen Black Worm, Kyne's Dragon/Kahkaankrein, Knight of Arkay/Sir Torolf, and Funeral quest-body reconstruction where exact direct records add material beyond the existing structural dossiers",
     "expand remaining high-relevance character dossiers",
     "continue exact BOOK/note persistence from the 179-record corpus",
     "ingest VIGILANT PEX/scripts or BSA when available for exact Papyrus transition bodies",
@@ -136,9 +135,10 @@
       "obsolete recovery tasks removed from the active queue",
       "unnamed fiery-eyed Slave Trader normalized from direct Malada stanza 9 plus Pepe's independent sarcophagus testimony",
       "Slave Trader note trail tightened: Notes 6-8 exact text confirmed; no additional persisted REFR/container/quest ownership found",
-      "GLENMORIL Slave Trader memory registered as cross-Vicn identity lead without silent body/soul merge"
+      "GLENMORIL Slave Trader memory registered as cross-Vicn identity lead without silent body/soul merge",
+      "nine-item Act 4 direct-source recovery recognized as complete; obsolete quest-body blockers removed"
     ],
     "source_state": "canonical translated VIGILANT 1.8.2 ESM source bytes were restored and match the pre-existing source SHA-256 7d3ca2d72297fbc5afda8f1b8bb217fa1fd6d9d7414360acdf1a922d848949ba; direct VIGILANT evidence remains primary and cross-Vicn evidence remains corroborative unless explicitly sourced to another mod.",
-    "open_followup": "true remaining gaps include Sir Amiel Lannus direct implementation, a direct Slave Trader actor/acquisition path for Notes 6-8, named Feral Soul-Shriven persistence, incomplete Act 4 quest-body expansion, remaining BOOK persistence, and external PEX/BSA transition logic."
+    "open_followup": "true remaining gaps include Sir Amiel Lannus direct implementation, a direct Slave Trader actor/acquisition path for Notes 6-8, the unpersisted 30+ Feral Soul-Shriven variant table, remaining high-relevance character dossiers, remaining BOOK persistence, and external PEX/BSA transition logic."
   }
 }
