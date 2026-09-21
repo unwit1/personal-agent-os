@@ -83,3 +83,16 @@ The Elder-Wood family is split across several progression gates:
 - **Elder Wood Wolf armor** — craftable after **Hgmieil the Wolf Warrior** is dead.
 
 This confirms Elder Wood as a broad recurring material/artifact tradition rather than one uniform reward set.
+
+## Parent continuity retrieval
+
+For questions about **Elder Wood** as a recurring VICN place/origin concept rather than only an equipment family, retrieve parent:
+
+- `../../relationships/elder-wood-thread.md`
+
+The parent thread separates:
+- UNSLAAD's direct Orlando/Hermit testimony and relic tradition;
+- VIGILANT's related far-north Owl/Orlando origin material;
+- adjacent GLENMORIL Owl/Jhunal material that does **not** currently supply the same exact phrase.
+
+This local page remains the canonical source for UNSLAAD's item, ownership, reward-placement, and crafting evidence.
