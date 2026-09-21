@@ -62,3 +62,32 @@ The ESM independently implements:
 No Nenyond NPC form or first-person dialogue has been found in the current VIGILANT inventory.
 
 Current classification: **VIGILANT-specific saint biography with strong location corroboration but weak personal/first-person evidence**.
+
+
+## Manthar
+
+The saint text describes Manthar as a sorcerer/architect of the Alessian Order who built priories with Nenyond and disappeared beside him while exploring Dawn Era ruins beneath Nenyond's foundation.
+
+The ESM independently implements:
+- **Sorcerer Manthar** (`NPC_ 021146D9`) as the Bone Lord boss form;
+- a summon version (`0213B503`);
+- **Conjure Sorcerer Manthar** (`MGEF 0213B504`);
+- a placed boss reference in **Funeral Temple** (`CELL 021114AF`).
+
+Because Funeral Temple directly connects to Nenyond's Underground Priory, Manthar's encounter placement strongly reinforces the saint-text geography.
+
+Current classification: **high-confidence historical→boss identity cluster; transformation mechanism unresolved**.
+
+## Silorn
+
+The saint text says Silorn helped found the Marukhati Selectives, entered the Nenyond ruins searching for Nenyond and Manthar, and that only his skin returned.
+
+The ESM literalizes that detail:
+- **Abbot Silorn** (`NPC_ 02114115`);
+- **Silorn's Priory** (`CELL 02239B51`);
+- Priory and Prison keys;
+- **Hide of Abbot Silorn** as both relic/item and activator;
+- an **Abbot Silorn** corpse/container containing the Hide;
+- a placed Abbot Silorn reference in Funeral Temple.
+
+Current classification: **high-confidence saint→environmental-relic identity cluster**. The returned-skin motif is directly implemented in game records, while Silorn's exact postmortem ontology remains unresolved.
