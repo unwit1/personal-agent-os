@@ -3,7 +3,7 @@
 Continuity: `tes.mod.vigilant`  
 Primary source: `BOOK 020CB0DF` / **The Eight Saints of Cyrod**
 
-This page is being built in small passes. This first pass covers only **Sard** and **Moura/Mary**.
+This page was built in small passes and now covers all eight saints named in the source.
 
 ## Sard
 
@@ -91,3 +91,31 @@ The ESM literalizes that detail:
 - a placed Abbot Silorn reference in Funeral Temple.
 
 Current classification: **high-confidence saint→environmental-relic identity cluster**. The returned-skin motif is directly implemented in game records, while Silorn's exact postmortem ontology remains unresolved.
+
+
+## Caliburn
+
+The saint text describes Caliburn as a founder of the Marukhati Selectives and one of its most fanatical members. It says he brought Marukh's holy body to **Malada**, attempted to open a gate to **Aetherius**, failed, and vanished with hundreds of followers.
+
+The ESM independently implements:
+- **Arch-Selective Caliburn** (`NPC_ 0211C369`) as a boss;
+- a summon version (`0211E0A2`);
+- a placed boss reference (`ACHR 0211C36A`) in **Malada Ageasel** (`CELL 0211BC4B`);
+- *Fragment of the Stone: Arch-Selective Caliburn* (`BOOK 0211E0A5`).
+
+Current classification: **high-confidence saint→Malada boss/Stone-fragment identity cluster**. The exact failed-Aetherius mechanism remains unresolved.
+
+## Pelan
+
+The saint text says Pelan found Marukh in the Colovian jungles, became his most trusted servant and relic-keeper, and survived for thousands of years under Alessia's blessing while becoming progressively less human.
+
+VIGILANT gives a strong explicit identity link: Giant Knight Ritho calls Pepe **"bishop Pelan."**
+
+That identification is independently reinforced because:
+- Pepe says he met Marukh in the Colovian jungle;
+- Pepe speaks of waiting for thousands of years;
+- Arasil says Pepe changed after returning from the Colovian jungle;
+- the plugin contains **Pelan's Mask** and **Staff of St. Pelan**;
+- four *Petition to House Tharn* volumes preserve Pelan arguing against the Alessian Order's increasingly exclusionary, revisionist, and violent program.
+
+Current classification: **high-confidence Pelan = Inquisitor Pepe identity cluster**, while individual historical claims remain source- and memory-dependent.
