@@ -4,8 +4,8 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "unresolved": 642,
-    "verified_official_game_text": 138,
+    "unresolved": 622,
+    "verified_official_game_text": 158,
     "verified_developer_text": 4
   },
   "entries": [
@@ -934,8 +934,8 @@
       "title": "Benirus Manor Deed",
       "editor_id": "LB_U_note_obl02",
       "text_path": "books/04000939-benirus-manor-deed.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as the Deed to Benirus Manor from The Elder Scrolls IV: Oblivion (MS02BenirusDeed / FormID 0000A1BC), received during Where Spirits Have Lease; compilation provenance retained separately."
     },
     {
       "form_id": "0400087B",
@@ -1054,152 +1054,152 @@
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC01",
       "text_path": "books/040008BA-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040008BB",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC02",
       "text_path": "books/040008BB-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040008BC",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC03",
       "text_path": "books/040008BC-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040008BD",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC04",
       "text_path": "books/040008BD-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040008BE",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC05",
       "text_path": "books/040008BE-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040008BF",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC06",
       "text_path": "books/040008BF-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040008C0",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC07",
       "text_path": "books/040008C0-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040008C1",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC08",
       "text_path": "books/040008C1-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040008C2",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC09",
       "text_path": "books/040008C2-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040008C3",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC10",
       "text_path": "books/040008C3-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040008C4",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC11",
       "text_path": "books/040008C4-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040008C5",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC12",
       "text_path": "books/040008C5-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040008C6",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC13",
       "text_path": "books/040008C6-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040008C7",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC14",
       "text_path": "books/040008C7-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040008C8",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC15",
       "text_path": "books/040008C8-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040008C9",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC16",
       "text_path": "books/040008C9-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040008CA",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC17",
       "text_path": "books/040008CA-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040008CB",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC18",
       "text_path": "books/040008CB-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "0400096E",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_BHC19",
       "text_path": "books/0400096E-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper record from The Elder Scrolls IV: Oblivion. Bethesda's vanilla game contains the Black Horse Courier and quest-related newspaper articles; compilation provenance retained separately."
     },
     {
       "form_id": "040009F5",
