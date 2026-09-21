@@ -50,7 +50,10 @@
     "secondary institution dossiers: Alessian Inquisition and Brothers of Marukh",
     "Slave Trader note-trail reconstruction",
     "Feral Soul-Shriven encounter-system analysis",
-    "Molag Bal Coldharbour regime analysis"
+    "Molag Bal Coldharbour regime analysis",
+    "Jacob dossier: Windhelm survivor, Altano rescuer, Old Regrets bargain",
+    "Rahel dossier: journal chronology and Molag Bal discord mission",
+    "Windhelm Maiden Statue incident reconstruction"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -63,6 +66,7 @@
     "quest_aliases": 550
   },
   "next": [
+    "expand remaining evidence-rich pre-Coldharbour characters (e.g. Facis, Reyda, Joel, Joshua) only where preserved dialogue/documents support stable dossiers",
     "recover placements/acquisition paths for Slave Trader Notes 6-8 and resolve the fiery-eyed slave-trader identity",
     "persist the full named Feral Soul-Shriven variant inventory when richer source extraction is available",
     "inspect remaining secondary Coldharbour groups only when at least two independent evidence layers support a distinct node",
@@ -85,16 +89,19 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "expanded secondary Coldharbour institutions and system-level lore without promoting weak labels into factions",
+    "focus": "expanded secondary institutions, Coldharbour systems, and the Jacob/Rahel Windhelm-Blood Matron bridge",
     "added": [
       "Alessian Inquisition dossier",
       "Brothers of Marukh dossier",
       "Slave Trader note trail",
       "Feral Soul-Shriven encounter-system analysis",
       "Molag Bal Coldharbour regime analysis",
-      "updated faction map/index and Vision in Malada cross-link"
+      "Jacob dossier",
+      "Rahel dossier",
+      "Windhelm Maiden Statue incident reconstruction",
+      "updated faction map/index, Vision in Malada, and Vigilants of Stendarr cross-links"
     ],
-    "source_state": "continued from repository-extracted VIGILANT corpus; exact Laza/Owl book texts remain absent from the current repository and no new raw ESM/PEX bytes were introduced",
-    "open_followup": "resolve weaker secondary groups only when evidence supports them; recover Slave Trader Notes 6-8 placement/ownership, full Soul-Shriven named roster, nine incomplete Act 4 quest bodies, and exact Laza/Owl texts when source bytes become available"
+    "source_state": "continued from repository-extracted VIGILANT corpus; no new raw ESM or PEX bytes introduced; exact Laza/Owl book texts remain absent",
+    "open_followup": "continue evidence-rich pre-Coldharbour character dossiers; source-dependent gaps remain for Slave Trader Notes 6-8, full named Soul-Shriven roster, nine incomplete Act 4 quest bodies, and exact Laza/Owl texts"
   }
 }
