@@ -1,0 +1,26 @@
+{
+  "source_file": "Clockwork.esp",
+  "sha256": "6850eb707a5b47f60fcec7bfb3494a4d7e909549c6c199cca81fc18780f73406",
+  "extraction": "Direct Bethesda plugin record parsing. BOOK DESC text is retained in individual UTF-8 text files. Dialogue response text and quest objective/stage text are preserved as gzip-compressed UTF-8 raw transcripts before later normalization.",
+  "books": [
+    {"form_id":"05065F4A","editor_id":"CLWCamillaTrail01","title":"Camilla's Trail - Part One","path":"books/camillas-trail-part-1.txt","text_sha256":"45e77d538814629bc547015ab3c2f3216e22630cc3a2e2d8c3f02a69aed70110","characters":435},
+    {"form_id":"05332EA7","editor_id":"CLWLudwigJournal02","title":"Ludwig's Journal - 2 of 4","path":"books/ludwigs-journal-2-of-4.txt","text_sha256":"6819df7c4fa1ee66eea4444cd351b50e6fc96d5625203db4fe1f58194e12c2a9","characters":5938},
+    {"form_id":"05332EAA","editor_id":"CLWLudwigJournal03","title":"Ludwig's Journal - 3 of 4","path":"books/ludwigs-journal-3-of-4.txt","text_sha256":"380e8adeacb7ddb80a3de0079a68df09c53bb0c0ca37a4f7a57b167fd08011e5","characters":10915},
+    {"form_id":"05332EAF","editor_id":"CLWLudwigJournal04","title":"Ludwig's Journal - 4 of 4","path":"books/ludwigs-journal-4-of-4.txt","text_sha256":"534b07062aa8e07b382451cadaf8d3e80e9401185c43d2d37e43c2afd1333ddd","characters":3236},
+    {"form_id":"05332EA2","editor_id":"CLWLudwigJournal01","title":"Ludwig's Journal - 1 of 4","path":"books/ludwigs-journal-1-of-4.txt","text_sha256":"798df3fbe24dcafbd4a565e1f6aca6b0f19136dacdafb32cadd4c31e35f1d6f9","characters":4797},
+    {"form_id":"0505F158","editor_id":"CLWCamillaNote","title":"Camilla's Note","path":"books/camillas-note.txt","text_sha256":"5654a48ffee9e89c80da604d860c155f5db59fc8f21c6f8181a70f2b3860d583","characters":574},
+    {"form_id":"05070266","editor_id":"CLWCamillaTrail04","title":"Camilla's Trail - Part Four","path":"books/camillas-trail-part-4.txt","text_sha256":"37bdf39d855d1b18b207ce28b8eb676c49ad6e4ef5a0daa50df701758de1c6a8","characters":450},
+    {"form_id":"05070265","editor_id":"CLWCamillaTrail03","title":"Camilla's Trail - Part Three","path":"books/camillas-trail-part-3.txt","text_sha256":"b9f2cee5a555d9635e017ba1137274f9d7f43e2304acb64db38ac6dda2c6fffa","characters":150},
+    {"form_id":"0506B9A7","editor_id":"CLWCaravaneerJournal","title":"Caravaneer Journal","path":"books/caravaneer-journal.txt","text_sha256":"9f9de05d2b2070bead5d9302b84b07225020277821471dd13adbd14e4eb485dc","characters":1229},
+    {"form_id":"0579C79C","editor_id":"CLWDressNote01","title":"Note from Lahar","path":"books/note-from-lahar.txt","text_sha256":"429e41ce47e8d71c2c2a5f822c4a4cee6371cc86abd27d6832a756e48d5c91f8","characters":526},
+    {"form_id":"0559F638","editor_id":"CLWLeverMissing01Note","title":"Unfinished Note","path":"books/unfinished-note.txt","text_sha256":"60a77318ec64bb99c1493997590e50f4c120074152e620e830526cb264eedbc6","characters":515},
+    {"form_id":"05066A37","editor_id":"CLWCamillaTrail02","title":"Camilla's Trail - Part Two","path":"books/camillas-trail-part-2.txt","text_sha256":"1ced002b9491dae5f2feb3ed62c627bedf9411b37d8f27f56dac6c7185785fe2","characters":431},
+    {"form_id":"05314732","editor_id":"CLWWorkRoomClosedNote","title":"Corrosive Vapour Warning","path":"books/corrosive-vapour-warning.txt","text_sha256":"27a865d31cc6c32f5404232de68255df6f2a172462a1751aa1e566aed618fdb8","characters":259}
+  ],
+  "raw_corpus": [
+    {"path":"raw/dialogue-transcript.txt.gz","compression":"gzip","expanded_format":"UTF-8 text","description":"All 520 extracted NAM1 dialogue response strings grouped under their DIAL topic/FormID; speaker/condition resolution is pending."},
+    {"path":"raw/quest-records.txt.gz","compression":"gzip","expanded_format":"UTF-8 text","description":"All 12 QUST records with extracted objective and journal-stage text."},
+    {"path":"raw/record_counts.json","description":"Record-type inventory for the source ESP."}
+  ],
+  "pending_structured_exports": ["dialogue_info.json","dialogue_topics.json","quests.json","messages.json","named_records.json"]
+}

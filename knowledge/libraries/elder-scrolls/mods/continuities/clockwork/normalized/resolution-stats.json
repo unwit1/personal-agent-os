@@ -1,0 +1,35 @@
+{
+  "records_total": 36260,
+  "info_records": 888,
+  "info_records_with_effective_response": 888,
+  "direct_response_info_records": 305,
+  "direct_response_strings": 520,
+  "effective_response_strings": 1103,
+  "responses_resolved_to_one_or_more_speakers": 867,
+  "responses_resolved_to_unique_speaker": 322,
+  "speaker_method_counts": {
+    "conditions+GetIsVoiceType": 67,
+    "conditions+GetIsID+GetIsVoiceType": 265,
+    "conditions+GetInFaction+GetIsVoiceType": 452,
+    "scene_alias": 52,
+    "conditions+GetIsID": 5,
+    "unresolved": 21,
+    "conditions+GetInFaction": 26
+  },
+  "major_character_unique_counts": {
+    "lahar": 192,
+    "lamashtu": 125,
+    "amalgam": 5,
+    "shadow": 0,
+    "camilla": 0,
+    "isidor": 0
+  },
+  "major_character_possible_multi_counts": {
+    "lahar": 514,
+    "lamashtu": 519,
+    "amalgam": 26,
+    "shadow": 0,
+    "camilla": 0,
+    "isidor": 0
+  }
+}

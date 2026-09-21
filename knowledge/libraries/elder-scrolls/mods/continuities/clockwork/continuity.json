@@ -1,0 +1,33 @@
+{
+  "continuity_id": "tes.mod.clockwork",
+  "name": "Clockwork",
+  "universe": "The Elder Scrolls",
+  "kind": "mod_continuity_overlay",
+  "status": "active_ingestion",
+  "canon_policy": {
+    "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
+    "default_claim_scope": "tes.mod.clockwork",
+    "may_reference_base_tes_lore": true,
+    "conflicts_with_base": "retain_both_with_provenance"
+  },
+  "primary_source": {
+    "filename": "Clockwork.esp",
+    "sha256": "6850eb707a5b47f60fcec7bfb3494a4d7e909549c6c199cca81fc18780f73406",
+    "source_type": "user_provided_skyrim_plugin",
+    "ingested_at": "2026-09-20"
+  },
+  "extracted_counts": {
+    "books": 13,
+    "dialogue_topics": 242,
+    "dialogue_info_records": 888,
+    "dialogue_response_strings": 520,
+    "quests": 12
+  },
+  "next_ingestion_steps": [
+    "resolve INFO speaker/conditions and scene ownership",
+    "normalize named entities and aliases",
+    "convert dialogue into speaker-attributed evidence units",
+    "build quest-stage graph",
+    "add contradiction/base-canon comparison links"
+  ]
+}
