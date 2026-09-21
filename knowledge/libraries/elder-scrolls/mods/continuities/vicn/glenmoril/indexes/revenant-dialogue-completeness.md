@@ -11,13 +11,13 @@ Namespace: `zzzRev*`
 | zzzRevSub04 | Sacrament of Cat | **90** | normalized |
 | zzzRevCqLeaper | Words of Worlding | **86** | normalized |
 | zzzRevCqPedlar | Stray Cat | **83** | normalized |
-| zzzRevSqCheese | Pale Cheese | 71 | pending |
-| zzzRevCqMothMan | Song of Fjyron | 70 | pending |
+| zzzRevSqCheese | Pale Cheese | **71** | normalized |
+| zzzRevCqMothMan | Song of Fjyron | **70** | normalized |
 | zzzRevSub04Jazel | Jazel Phantom | **60** | normalized |
-| zzzRevCqRuddyman | Memory of the Deep Sea | 57 | pending |
-| zzzRevCqRobin | Bad Company | 55 | pending |
-| zzzRevSub05Intro | The Lost Storyteller | 51 | pending |
-| zzzRevCqAisha | Snow Cat | 50 | pending |
+| zzzRevCqRuddyman | Memory of the Deep Sea | **57** | normalized |
+| zzzRevCqRobin | Bad Company | **55** | normalized |
+| zzzRevSub05Intro | The Lost Storyteller | **51** | normalized |
+| zzzRevCqAisha | Snow Cat | **50** | normalized |
 | zzzRevCqScab | Stigmata Necrosis | 45 | pending |
 | zzzRevGenHamah | Generic Dialogue Hamah | 42 | pending |
 | zzzRevDA01 | Clavicus Vile | 38 | pending |
@@ -55,9 +55,9 @@ Namespace: `zzzRev*`
 **Raw expected text-bearing total: 1,328 responses.**
 
 Current normalized:
-**577 / 1,328**
+**931 / 1,328**
 
 Remaining:
-**751**
+**397**
 
 There are also 35 `zzzRev*` quests with zero directly linked response texts; these remain structural/manager/hunt records.
