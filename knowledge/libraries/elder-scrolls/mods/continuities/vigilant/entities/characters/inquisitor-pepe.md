@@ -20,6 +20,35 @@ He later condemns the Alessian Order and says its rulers became enslavers. He de
 
 These lines are invaluable for VIGILANT's internal cosmology but remain Pepe's testimony.
 
+## Pelan identity and bodily transformation
+
+VIGILANT explicitly connects Pepe to **Pelan**:
+
+- `INFO 02234DC6` — Giant Knight Ritho refers to Pepe as **bishop Pelan**.
+- `INFO 02244BD6` — Arasil says Pepe had been a kind-hearted priest of the Eight Divines until he returned from the jungles of Colovia.
+- Pepe himself says he met Marukh in the Colovian jungle and had still served the Eight Divines when he went there.
+
+The memory sequence provides a physical chronology:
+
+- *The Grand Inquisitor* — `NPC_ 0212BF48`, ordinary humanoid form.
+- *Adabal* — `NPC_ 0205ADFD`, still ordinary humanoid.
+- *Remains of the Miracle* — `NPC_ 0206A230`, now the custom **Alessian Sleeper Race**/Pepe body.
+
+In `INFO 0206B54F`, the transformed Pepe confirms his identity and says he has changed considerably.
+
+The same Memory 6 conversation says he held the Stone too long, is now an empty shell without a soul, and describes himself as a monster.
+
+This is strong testimony that prolonged possession of the Stone is connected to his degraded state, although the ESM does not prove that it is the sole cause.
+
+Present-day Pepe's race/body implementation is explicitly nonstandard:
+- `RACE 020818A6` / **Alessian Sleeper Race**
+- Hagraven skeleton/animation project
+- bespoke `Pepe.nif` body through `zzzCHSkinPepe`
+
+Detailed reconstruction:
+
+`analysis/pelan-pepe-transformation.md`
+
 ## Change in Aetherius
 
 Pepe's ghost forms become less sarcastic and more explicitly cautionary. They urge the player to stop, describe the Stone as a key to the soul that awakens the Oblivion inside, express remorse connected with Alessia, and warn about Molag Bal using powerful corpses as vessels.
