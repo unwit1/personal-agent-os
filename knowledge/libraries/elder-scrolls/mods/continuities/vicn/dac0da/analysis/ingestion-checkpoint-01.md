@@ -12,7 +12,10 @@ Continuity: `tes.mod.vicn.dac0da`
 - Reconstructed DIAL -> INFO dialogue for:
   - `zDcdMq00` — **The Call of Landfall**
   - `zDcdMq01` — **The Sea of Causality**
-- Created first evidence-backed character dossier for **Akashiya-Samon**.
+  - `zDcdMq02` — **Negative Legacy**
+  - `zDcdMq03` — **Patchwork**
+- Created an evidence-backed character dossier for **Akashiya-Samon**.
+- Created a concept seed for **time breaches / mirror logic / zero-sum**.
 - Preserved conditional repeated-attempt dialogue as state/fate-line variants instead of flattening it into one chronology.
 
 ## Strong nodes already extracted
@@ -26,27 +29,35 @@ Continuity: `tes.mod.vicn.dac0da`
 - Akashiya-Samon / Reman-era Dragonguard thread.
 - Sload mind magic and the "Doom-Driven" label.
 - Golden dragon pursuit.
+- Augur non-linear time perception and memospore messaging.
+- Underking / Hjalti / Zurin / Mantella encounter thread.
+- Time breaches shrinking when temporal contradictions are removed.
+- Yngol and attempted Mannimarco incarnation as breach contents.
+- Mirror logic as a DAc0da defense against Numidium's zero-sum attacks.
 
 ## Resume here
 
 Next main-story target:
 
-**`DAc0da.esm:004931` — `zDcdMq02` — Negative Legacy**
+**`DAc0da.esm:00B21B` — `zDcdMq04` — Numidium Tertius**
 
 Direct objectives already known:
 
-1. Go to the meeting place.
-2. Optionally talk to the Augur.
-3. Eliminate time breaches.
-4. Defeat the first boss.
+1. Reach the upper parts of the Numidium.
+2. Talk to the Monk.
+3. Avoid or activate defense mechanisms.
+4. Avoid or fight Ghost Choir 9.
+5. Avoid or fight the Arcanist.
+6. Avoid or activate Mantella defenses.
+7. Talk to the Monk.
+8. Close the time breach.
 
 For the next batch:
 
-1. Join every DIAL with QNAM -> `zDcdMq02` to child INFO records.
-2. Extract all INFO/NAM1 response text with local FormID provenance.
-3. Separate player prompts from NPC responses.
-4. Resolve speakers through topic editor IDs, aliases, scene ownership, and conditions where structurally supported.
-5. Promote only direct/attributed claims; mark speculation and unreliable testimony.
-6. Then continue into `zDcdMq03` **Patchwork**.
+1. Join every DIAL with QNAM -> `zDcdMq04` to child INFO records.
+2. Join boss quests `zDcdMqBoss01` through `zDcdMqBoss05` where they intersect MQ04.
+3. Resolve scene speakers before assigning unnamed dialogue.
+4. Extract Numidium interior architecture, defenses, Ghost Choir, Arcanist, Mantella, Dumac, and Zurin claims.
+5. Continue to `zDcdMq05` **Censored Fate** only after MQ04 provenance is stable.
 
 Do not restart the structural inventory unless the source hash changes.
