@@ -1,0 +1,34 @@
+{
+  "source_plugin": "Glenmoril.esm",
+  "source_sha256": "5669018c81acf13147ff489f486963ecc3c57515a73ed9afd210c7ede85e1cc8",
+  "total_books": 264,
+  "text_bearing": 264,
+  "empty": 0,
+  "classes": {
+    "yelem_notes": {
+      "count": 54,
+      "exact_transcribed": 54,
+      "status": "closed_exact_text"
+    },
+    "glenmoril_original_candidates": {
+      "count": 43,
+      "status": "exact_transcription_in_progress"
+    },
+    "reused_official_reference": {
+      "count": 30,
+      "status": "classified_reference"
+    },
+    "mechanical_book_records": {
+      "count": 136,
+      "status": "classified_pending_compact_exact_dataset"
+    },
+    "debug_structural": {
+      "count": 1,
+      "status": "normalized"
+    }
+  },
+  "current_exact_raw_layer": {
+    "yelem": 54
+  },
+  "status": "book_audit_in_progress"
+}
