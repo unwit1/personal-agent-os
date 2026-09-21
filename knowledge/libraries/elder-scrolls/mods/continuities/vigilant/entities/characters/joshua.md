@@ -136,3 +136,15 @@ Joshua now has:
 - independent Aredhel testimony.
 
 The later Old Regrets apparition role remains supplementary unless separately mapped.
+
+
+## A Vision in the City of Stone — candidate linkage
+
+`BOOK 02054ED1` describes “a cowardly Vigilant” sinking into darkness.
+
+Joshua is currently the strongest named candidate because his exact final note says he could not stand his ground and fled, abandoning his companions.
+
+This is **not a resolved identity**. The vision does not name Joshua, and its following hollow-soul/red-Stone clause is not directly bound to him.
+
+See:
+- `analysis/vision-in-city-of-stone-map.md`
