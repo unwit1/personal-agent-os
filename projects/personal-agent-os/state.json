@@ -8,8 +8,8 @@
   "default_branch": "main",
   "current_priorities": [
     "P0.0a completed 2026-09-21: the controlled gateway enforces preflight, provider execution, structured postflight or abort, privacy-minimal local task journals, and recoverable handoff/candidate capture across Python, CLI, Codex/Claude wrappers, and MCP lifecycle tools.",
-    "P0.0b next: implement integration-health reporting and the thinnest fallback/capture bridge for partially supported or unsupported ChatGPT, Work, and agent surfaces; report honest fully routed, partially bridged, and unavailable states.",
-    "P0.1: Implement the Staged Workflow Orchestrator. Break complex jobs into bounded stages, use the cheapest appropriate capability per stage, validate/checkpoint each stage, stop cleanly, and emit the exact next prompt plus recommended capability/model/reasoning effort.",
+    "P0.0b completed 2026-09-21: integration health classifies gateway, worker, MCP, instruction-adapter, hosted, and unknown surfaces with deterministic evidence and honest limitations; cooperative clients can explicitly create a compact lifecycle bridge without direct memory promotion.",
+    "P0.1 next: Implement the Staged Workflow Orchestrator. Break complex jobs into bounded stages, use the cheapest appropriate capability per stage, validate/checkpoint each stage, stop cleanly, and emit the exact next prompt plus recommended capability/model/reasoning effort.",
     "P0.2: Implement selective profile/context retrieval with compact context packets, relevance filtering, deduplication, privacy enforcement, provenance, and measurable context-size diagnostics.",
     "P0.3: Implement shared document intelligence: local persistent extraction/OCR cache, embedded-text-first routing, dependency-aware invalidation, template reuse, targeted field-zone OCR, and strict work-data privacy boundaries.",
     "P0.4: Generalize restart-safe checkpoints, stable IDs, fingerprinting, deduplication, and incremental processing for long-running imports/crawls including iCloud Mail, Drive archive work, text imports, document batches, and future knowledge ingestion.",
@@ -51,19 +51,19 @@
     "A third-party MCP must not claim to hot-swap the host model already running inside ChatGPT Work or Claude; use pre-routing, delegation, and Agent-OS-owned escalation instead."
   ],
   "last_completed_stage": {
-    "id": "P0.0a",
-    "name": "Controlled universal lifecycle gateway",
+    "id": "P0.0b",
+    "name": "Integration health and cooperative fallback bridge",
     "completed_at": "2026-09-21",
     "validation": [
-      "python -m unittest discover -s tests -v: 51 passed",
-      "python agent.py validate: ok, 223 checks"
+      "python -m unittest discover -s tests -v: 54 passed",
+      "python agent.py validate: ok, 225 checks"
     ]
   },
   "next_stage": {
-    "id": "P0.0b",
-    "name": "Integration health and fallback bridge",
-    "recommended_capability": "standard",
-    "reason": "The gateway contracts and tests now exist; the next bounded stage is ordinary integration and reporting work with deterministic tests, not deep architectural discovery."
+    "id": "P0.1",
+    "name": "Staged Workflow Orchestrator and next-prompt/model handoffs",
+    "recommended_capability": "reasoning",
+    "reason": "P0.1 introduces durable stage manifests, provider-neutral capability selection, validator-driven escalation, checkpoints, and cross-client resume semantics; it benefits from deliberate architecture work before implementation is divided into cheaper stages."
   },
   "provenance": {
     "source_files": [

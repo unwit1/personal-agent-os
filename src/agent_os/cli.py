@@ -14,6 +14,7 @@ from .forms import form_issue_payload, route_form
 from .handoffs import create_handoff
 from .index import rebuild, search
 from .inventory import scan
+from .integrations import bridge_start, health as integration_health
 from .improvements import capture_improvement, get_improvement, issue_payload, list_improvements, search_improvements, update_improvement
 from .mcp_server import serve
 from .maintenance import run as run_maintenance
@@ -50,6 +51,13 @@ def parser() -> argparse.ArgumentParser:
     commands.add_parser("sync-adapters")
     commands.add_parser("install-routing")
     commands.add_parser("routing-status")
+    integration_health_cmd = commands.add_parser("integration-health")
+    integration_health_cmd.add_argument("--surface", action="append", default=[])
+    integration_bridge = commands.add_parser("integration-bridge")
+    integration_bridge.add_argument("--source-client", required=True)
+    integration_bridge.add_argument("--project")
+    integration_bridge.add_argument("--prompt-file", default="-", help="UTF-8 request file, or - for stdin")
+    integration_bridge.add_argument("--token-budget", type=int, default=1200)
     commands.add_parser("validate")
     commands.add_parser("mcp")
     for name in ("begin-task", "continue-task", "run", "codex", "claude"):
@@ -196,6 +204,11 @@ def main(argv: list[str] | None = None) -> int:
             return 1 if result["conflicts"] else 0
         elif args.command == "routing-status":
             _print(routing_status())
+        elif args.command == "integration-health":
+            _print(integration_health(args.surface or None))
+        elif args.command == "integration-bridge":
+            query = sys.stdin.read() if args.prompt_file == "-" else Path(args.prompt_file).read_text(encoding="utf-8")
+            _print(bridge_start(query, args.source_client, args.project, args.token_budget))
         elif args.command == "validate":
             result = validate()
             _print(result)

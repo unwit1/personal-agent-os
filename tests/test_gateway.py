@@ -16,7 +16,7 @@ from unittest.mock import Mock, patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from agent_os import candidates, changes, clients, gateway, handoffs, improvements, lifecycle, locking
+from agent_os import candidates, changes, clients, gateway, handoffs, improvements, integrations, lifecycle, locking
 from agent_os.cli import main
 from agent_os.contracts import ENVELOPE, POSTFLIGHT, TRACE, validate_contract
 from agent_os.mcp_server import _handle_mcp, methods
@@ -300,6 +300,41 @@ class GatewayTests(unittest.TestCase):
         call("agent.finish_task", {"task_id": task["task_id"], "postflight": postflight()})
         another = call("agent.begin_task", {"query": "Suggest dinner", "source_client": "mcp-test"})
         self.assertEqual(call("agent.abort_task", {"task_id": another["task_id"]})["status"], "aborted")
+
+    def test_integration_health_reports_all_states_and_stale_adapters(self):
+        target = (Path("adapters/global/AGENTS.md"), Path("installed/AGENTS.md"))
+        with patch.object(integrations.shutil, "which", side_effect=lambda name: "codex.exe" if name == "codex" else None), \
+             patch.object(integrations, "targets", return_value=[target]), \
+             patch.object(integrations, "adapter_status", return_value=[{"exists": True, "matches": True}]):
+            report = integrations.health(["gateway.command", "worker.codex", "worker.claude", "mcp.lifecycle", "hosted.chatgpt", "custom.surface"])
+        statuses = {item["id"]: item["status"] for item in report["surfaces"]}
+        self.assertEqual(statuses, {"gateway.command": "fully_routed", "worker.codex": "fully_routed", "worker.claude": "unavailable", "mcp.lifecycle": "partially_bridged", "hosted.chatgpt": "unavailable", "custom.surface": "unknown"})
+        with patch.object(integrations, "targets", return_value=[target]), patch.object(integrations, "adapter_status", return_value=[{"exists": True, "matches": False}]):
+            self.assertEqual(integrations._adapter_surfaces()[0]["status"], "unavailable")
+
+    def test_cooperative_bridge_is_resumable_and_does_not_capture_memory(self):
+        before = self.canonical()
+        bridge = integrations.bridge_start("Summarize project state", "hosted.chatgpt", "personal-agent-os")
+        task = bridge["task"]
+        self.assertEqual(bridge["bridge"], "cooperative")
+        self.assertEqual(bridge["surface"]["status"], "unavailable")
+        self.assertEqual(lifecycle.task_status(task["task_id"])["status"], "active")
+        self.assertEqual(before, self.canonical())
+        self.assertNotIn("Summarize project state", json.dumps(lifecycle.task_status(task["task_id"])))
+
+    def test_cli_and_mcp_expose_integration_health_and_bridge(self):
+        output = io.StringIO()
+        with redirect_stdout(output):
+            self.assertEqual(main(["integration-health", "--surface", "gateway.command"]), 0)
+        self.assertEqual(json.loads(output.getvalue())["surfaces"][0]["status"], "fully_routed")
+        output = io.StringIO()
+        with patch("sys.stdin", io.StringIO("Continue safely")), redirect_stdout(output):
+            self.assertEqual(main(["integration-bridge", "--source-client", "hosted.chatgpt", "--project", "personal-agent-os"]), 0)
+        self.assertEqual(lifecycle.task_status(json.loads(output.getvalue())["task"]["task_id"])["status"], "active")
+        available = methods()
+        response = _handle_mcp({"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "integration.health", "arguments": {"surface_ids": ["unknown.host"]}}}, available)
+        report = json.loads(response["result"]["content"][0]["text"])
+        self.assertEqual(report["surfaces"][0]["status"], "unknown")
 
     def test_cli_lifecycle_smoke(self):
         output = io.StringIO()

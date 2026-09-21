@@ -39,6 +39,8 @@ postflight JSON, programmatic providers, review hooks, privacy, and limitations.
 - `agent-os scan-projects` detects new or moved folders without reading data files.
 - `agent-os install-routing` safely installs missing global and project adapters.
 - `agent-os routing-status` verifies installed adapters against canonical sources.
+- `agent-os integration-health` reports which gateway, worker, MCP, adapter, and hosted surfaces are fully routed, partially bridged, unavailable, or unknown.
+- `agent-os integration-bridge --source-client <surface>` starts an explicit, compact lifecycle bridge for a cooperative surface that cannot be intercepted automatically.
 - `agent-os init` synchronizes adapters, rebuilds the index, and validates setup.
 - `agent-os status [project]` shows compact state and Git status.
 - `agent-os search QUERY` searches the rebuildable lexical index.
@@ -135,3 +137,10 @@ updates.
 initialization, tool discovery, and tool calls alongside its lightweight
 JSON-RPC compatibility operations. Configure it as a local STDIO server in
 Codex using `python agent.py mcp` from this repository.
+
+Run `agent-os integration-health` before relying on a client surface. A matching
+instruction adapter or configured MCP server is a **partial bridge**, not proof
+that the host is automatically intercepted. For an unavailable hosted surface,
+`integration.bridge_start` or `agent-os integration-bridge` explicitly starts a
+resumable task and returns compact context; the host must still send structured
+postflight or abort it. The bridge does not promote observations to memory.

@@ -13,6 +13,7 @@ from .compiler import compile_context
 from .forms import form_issue_payload, route_form
 from .handoffs import create_handoff
 from .index import search
+from .integrations import bridge_start, health as integration_health
 from .mail import get_message as mail_get_message, search as mail_search, status as mail_status, sync as mail_sync
 from .improvements import capture_improvement, get_improvement, issue_payload, list_improvements, search_improvements, update_improvement
 from .registry import get_project, git_status, identify_project, load_state, projects
@@ -22,6 +23,14 @@ from .lifecycle import begin_task, continue_task, finish_task, abort_task, task_
 
 
 TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
+    "integration.health": {
+        "description": "Report deterministic fully routed, partially bridged, unavailable, or unknown status for known integration surfaces.",
+        "inputSchema": {"type": "object", "properties": {"surface_ids": {"type": ["array", "null"], "items": {"type": "string"}}}, "additionalProperties": False},
+    },
+    "integration.bridge_start": {
+        "description": "Explicitly start a cooperative lifecycle bridge for a host that cannot be automatically intercepted. It creates no canonical memory directly.",
+        "inputSchema": {"type": "object", "properties": {"query": {"type": "string"}, "source_client": {"type": "string"}, "project_hint": {"type": ["string", "null"]}, "token_budget": {"type": "integer", "minimum": 800, "maximum": 32000}}, "required": ["query", "source_client"], "additionalProperties": False},
+    },
     "agent.begin_task": {"description": "Required preflight for each controlled task, including ordinary prompts. Returns a task ID and selective context.", "inputSchema": BEGIN_INPUT},
     "agent.continue_task": {"description": "Continue an active task with context deltas; reset_context reloads context after compaction; resume reopens an aborted task.", "inputSchema": CONTINUE_INPUT},
     "agent.finish_task": {"description": "Required structured postflight. Stages evidenced sanitized findings, handoff and review status without promoting memory.", "inputSchema": FINISH_INPUT},
@@ -122,6 +131,8 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
 
 def methods() -> dict[str, Callable[..., Any]]:
     available = {
+        "integration.health": integration_health,
+        "integration.bridge_start": bridge_start,
         "agent.begin_task": begin_task,
         "agent.continue_task": continue_task,
         "agent.finish_task": lambda task_id, postflight: finish_task(task_id, postflight),
@@ -212,11 +223,11 @@ def _handle_mcp(request: dict[str, Any], available: dict[str, Callable[..., Any]
             arguments = params.get("arguments", {})
             if not isinstance(arguments, dict):
                 raise ValueError("tool arguments must be an object")
-            if name in {"agent.begin_task", "agent.continue_task", "agent.finish_task", "agent.abort_task", "agent.task_status"}:
+            if name in {"integration.health", "integration.bridge_start", "agent.begin_task", "agent.continue_task", "agent.finish_task", "agent.abort_task", "agent.task_status"}:
                 validate_contract(arguments, TOOL_SCHEMAS[name]["inputSchema"], "arguments")
             return {"jsonrpc": "2.0", "id": request_id, "result": _mcp_result(available[name](**arguments))}
         except Exception as exc:
-            message = "Lifecycle request failed; check arguments and task status" if name in {"agent.begin_task", "agent.continue_task", "agent.finish_task", "agent.abort_task", "agent.task_status"} else str(exc)
+            message = "Integration request failed; check arguments and task status" if name in {"integration.health", "integration.bridge_start", "agent.begin_task", "agent.continue_task", "agent.finish_task", "agent.abort_task", "agent.task_status"} else str(exc)
             return {"jsonrpc": "2.0", "id": request_id, "result": _mcp_result({"error": message}, error=True)}
     return None
 

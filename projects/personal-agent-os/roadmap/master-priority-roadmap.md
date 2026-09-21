@@ -39,7 +39,8 @@ This is the highest-priority work. P0.0 and P0.1 must be treated as the first im
 
 Implementation status (2026-09-21):
 - **P0.0a complete:** the provider-neutral controlled lifecycle gateway now enforces preflight before worker execution and valid postflight or abort handling afterward. It is exposed through Python, CLI, Codex/Claude wrappers, and MCP lifecycle tools; local task journals support continuation and recovery without storing prompts or transcripts.
-- **P0.0b next:** add the integration-health report and thin fallback/capture bridge that classifies each supported client surface as fully routed, partially bridged, or unavailable. Do not mark all of P0.0 complete until this report and bridge behavior satisfy the acceptance criteria below.
+- **P0.0b complete:** deterministic integration health now reports fully routed, partially bridged, unavailable, and unknown surfaces through CLI and MCP. Cooperative clients can explicitly start a compact lifecycle bridge; unsupported hosted surfaces remain honestly unavailable rather than being claimed as intercepted.
+- **P0.0 core complete for supported/configured surfaces:** proceed to P0.1. The health report remains the source of truth for host-specific limitations and required corrective actions.
 
 Make Agent OS the default execution/context layer for every supported ChatGPT chat, Work project, coding-agent task, and other connected agent surface.
 
@@ -470,8 +471,8 @@ Dream Eater and other writing projects should reuse the same selective/evidence-
 Unless an urgent correctness/privacy bug or explicitly promoted user request intervenes, coding agents should pull work in this order:
 
 1. universal Agent OS preflight/routing core for supported coding-agent and MCP entry points — completed as P0.0a on 2026-09-21;
-2. integration-health/fallback bridge so unsupported or partially supported clients still produce compact handoffs/candidate updates — next as P0.0b;
-3. staged workflow manifests, checkpoints, validators, stage-completion packets, and generated next-prompt + capability/model/effort recommendations;
+2. integration-health/fallback bridge so unsupported or partially supported clients still produce compact handoffs/candidate updates — completed as P0.0b on 2026-09-21;
+3. staged workflow manifests, checkpoints, validators, stage-completion packets, and generated next-prompt + capability/model/effort recommendations — next as P0.1;
 4. selective profile/context retrieval with measurable context-size diagnostics;
 5. exact page/file extraction + OCR cache and embedded-text-first document path;
 6. dependency-aware cache invalidation and no-cache regression tests;

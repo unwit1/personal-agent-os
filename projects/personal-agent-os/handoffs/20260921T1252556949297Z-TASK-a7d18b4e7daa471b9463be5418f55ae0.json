@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-21T12:52:55.6919501Z",
+  "git": {
+    "available": true,
+    "branch": "codex/p0-universal-routing"
+  },
+  "completed": [
+    "Completed P0.0b: added provider-neutral integration health with deterministic fully routed, partially bridged, unavailable, and unknown states.",
+    "Exposed integration health and explicit cooperative bridge start through CLI and MCP.",
+    "Reused P0.0a lifecycle journals for bridge tasks so raw prompts stay out of durable records and observations are not promoted directly to memory.",
+    "Documented host limitations: MCP and instruction adapters require cooperation, while hosted ChatGPT and Work are unavailable unless a supported integration is added."
+  ],
+  "decisions": [
+    "A matching adapter is classified as partially bridged, never fully routed, because instructions cannot enforce lifecycle execution.",
+    "The bridge is explicit and returns compact selective context plus a task ID; it does not claim conversation interception or model hot swapping.",
+    "P0.0 is complete for supported/configured surfaces. P0.1 is now the next bounded roadmap stage."
+  ],
+  "remaining": [
+    "Implement P0.1 staged workflow manifests, checkpoint state, validators, capability recommendations, and generated next prompts.",
+    "Retain integration health as the authoritative report for host-specific availability."
+  ],
+  "validation": [
+    "python -m unittest discover -s tests -v (54 passed)",
+    "python agent.py validate (ok, 225 checks; two expected host-adapter drift warnings outside the isolated worktree)"
+  ],
+  "candidate_memories": [],
+  "candidate_skills": [],
+  "recommended_model": {
+    "capability": "reasoning",
+    "current_mapping": "gpt-5.6-sol",
+    "reasoning_effort": "high",
+    "reason": "P0.1 is a cross-client, provider-neutral orchestration design with persistence and validation semantics; use strong reasoning for the bounded architecture stage before delegating simpler implementation stages."
+  },
+  "next_prompt": "Continue development of unwit1/personal-agent-os from branch codex/p0-universal-routing. GitHub is canonical: fetch first, inspect the latest branch, roadmap, project state, handoffs, tests, existing lifecycle contracts, and any upstream changes before editing. Use the Personal Agent OS lifecycle and preserve unrelated work. Implement exactly one bounded stage: P0.1a — Staged Workflow Manifest and Checkpoint Foundations. Define provider-neutral, machine-readable stage and checkpoint contracts with stable IDs, inputs/artifacts, required context, allowed tools, validator, stop condition, expected outputs, next-stage pointer, generated next prompt, capability class, and optional provider/model recommendation resolved separately. Use capability classes local, fast, standard, reasoning, and deep_reasoning; do not hard-code vendor model names into workflow definitions. Add deterministic manifest validation and restart-safe checkpoint persistence, plus tests for valid manifests, invalid/unsafe manifests, provider mapping separation, compact next-prompt generation, and resume without raw transcript loading. Reuse P0.0 lifecycle journals and integration-health truthfulness; do not implement broad automatic execution or start P0.2. Run the full unit suite and python agent.py validate, update roadmap/state/handoff documentation, commit and push the coherent stage, then stop with a compact handoff and next prompt.",
+  "task_id": "TASK-a7d18b4e7daa471b9463be5418f55ae0"
+}

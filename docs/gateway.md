@@ -33,6 +33,29 @@ MCP exposes `agent.begin_task`, `agent.continue_task`, `agent.finish_task`,
 The older context, search, capture, and session operations remain available.
 They are advanced operations and do not prove lifecycle completion.
 
+## Integration health and cooperative bridges
+
+`agent-os integration-health` and MCP `integration.health` report known surfaces
+as `fully_routed`, `partially_bridged`, `unavailable`, or `unknown`. Each result
+has deterministic evidence, limitations, and a recommended action. A controlled
+gateway is fully routed; MCP and matching instruction adapters are partial because
+their clients must cooperate. Hosted ChatGPT and Work remain unavailable until a
+supported host integration exists—the report never claims that they are silently
+intercepted or that their active model can be replaced.
+
+For a cooperative client on a partial or unavailable surface, start a bridge:
+
+```powershell
+agent-os integration-bridge --source-client hosted.chatgpt --project personal-agent-os --prompt-file request.txt
+```
+
+MCP clients call `integration.bridge_start` with `query`, `source_client`, and an
+optional `project_hint`. The bridge creates the same local task journal as
+`agent.begin_task` and returns only selective context plus the task ID. It never
+stores the raw prompt in the journal, creates canonical memory, or pretends the
+host was automatically routed. Complete the bounded work with `agent.finish_task`
+or record failure with `agent.abort_task`.
+
 A minimal postflight file:
 
 ```json
