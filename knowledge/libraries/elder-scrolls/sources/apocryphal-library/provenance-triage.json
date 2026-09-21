@@ -5,11 +5,8 @@
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
     "unresolved": 686,
-    "verified_official_game_text": 83,
-    "verified_developer_text": 3,
-    "editor_id_hint_oblivion": 7,
-    "editor_id_hint_morrowind": 2,
-    "editor_id_hint_eso": 3
+    "verified_official_game_text": 95,
+    "verified_developer_text": 3
   },
   "entries": [
     {
@@ -3044,45 +3041,40 @@
       "title": "Letter",
       "editor_id": "LB_Note3_Letter06_OBL",
       "text_path": "books/04000143-letter.txt",
-      "provenance_status": "editor_id_hint_oblivion",
-      "editor_id_hint": "OBL",
-      "evidence": "The compilation plugin editor ID contains an explicit `_OBL` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Content inspection identifies this as an official Oblivion or Morrowind quest/note text consistent with the compilation's game marker; compilation provenance retained separately."
     },
     {
       "form_id": "04000145",
       "title": "Letter",
       "editor_id": "LB_Note3_Letter07_OBL",
       "text_path": "books/04000145-letter.txt",
-      "provenance_status": "editor_id_hint_oblivion",
-      "editor_id_hint": "OBL",
-      "evidence": "The compilation plugin editor ID contains an explicit `_OBL` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Content inspection identifies this as an official Oblivion or Morrowind quest/note text consistent with the compilation's game marker; compilation provenance retained separately."
     },
     {
       "form_id": "04000149",
       "title": "Letter",
       "editor_id": "LB_Note3_Letter08_OBL",
       "text_path": "books/04000149-letter.txt",
-      "provenance_status": "editor_id_hint_oblivion",
-      "editor_id_hint": "OBL",
-      "evidence": "The compilation plugin editor ID contains an explicit `_OBL` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Content inspection identifies this as an official Oblivion or Morrowind quest/note text consistent with the compilation's game marker; compilation provenance retained separately."
     },
     {
       "form_id": "0400014B",
       "title": "Letter",
       "editor_id": "LB_Note3_Letter09_MW",
       "text_path": "books/0400014B-letter.txt",
-      "provenance_status": "editor_id_hint_morrowind",
-      "editor_id_hint": "MW",
-      "evidence": "The compilation plugin editor ID contains an explicit `_MW` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Content inspection identifies this as an official Oblivion or Morrowind quest/note text consistent with the compilation's game marker; compilation provenance retained separately."
     },
     {
       "form_id": "0400014C",
       "title": "Letter",
       "editor_id": "LB_Note3_Letter10_MW",
       "text_path": "books/0400014C-letter.txt",
-      "provenance_status": "editor_id_hint_morrowind",
-      "editor_id_hint": "MW",
-      "evidence": "The compilation plugin editor ID contains an explicit `_MW` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Content inspection identifies this as an official Oblivion or Morrowind quest/note text consistent with the compilation's game marker; compilation provenance retained separately."
     },
     {
       "form_id": "04000840",
@@ -4284,9 +4276,8 @@
       "title": "Report: Mystery of Artaeum",
       "editor_id": "LB_Book3_AP_ArtaeumReport01_ESO",
       "text_path": "books/04000111-report-mystery-of-artaeum.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Content identifies Advisor Penewen's official ESO report on Artaeum, Psijics, Clockwork City, and Queen Ayrenn's Dominion; compilation provenance retained separately."
     },
     {
       "form_id": "040000F4",
@@ -4413,36 +4404,32 @@
       "title": "Scrawled Note",
       "editor_id": "LB_Note3_Scrawlings03_OBL",
       "text_path": "books/04000144-scrawled-note.txt",
-      "provenance_status": "editor_id_hint_oblivion",
-      "editor_id_hint": "OBL",
-      "evidence": "The compilation plugin editor ID contains an explicit `_OBL` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Content inspection identifies this as an official Oblivion or Morrowind quest/note text consistent with the compilation's game marker; compilation provenance retained separately."
     },
     {
       "form_id": "04000146",
       "title": "Scrawled Note",
       "editor_id": "LB_Note3_Scrawlings04_OBL",
       "text_path": "books/04000146-scrawled-note.txt",
-      "provenance_status": "editor_id_hint_oblivion",
-      "editor_id_hint": "OBL",
-      "evidence": "The compilation plugin editor ID contains an explicit `_OBL` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Content inspection identifies this as an official Oblivion or Morrowind quest/note text consistent with the compilation's game marker; compilation provenance retained separately."
     },
     {
       "form_id": "04000147",
       "title": "Scrawled Note",
       "editor_id": "LB_Note3_Scrawlings05_OBL",
       "text_path": "books/04000147-scrawled-note.txt",
-      "provenance_status": "editor_id_hint_oblivion",
-      "editor_id_hint": "OBL",
-      "evidence": "The compilation plugin editor ID contains an explicit `_OBL` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Content inspection identifies this as an official Oblivion or Morrowind quest/note text consistent with the compilation's game marker; compilation provenance retained separately."
     },
     {
       "form_id": "0400014A",
       "title": "Scrawled Note",
       "editor_id": "LB_Note3_Scrawlings06_OBL",
       "text_path": "books/0400014A-scrawled-note.txt",
-      "provenance_status": "editor_id_hint_oblivion",
-      "editor_id_hint": "OBL",
-      "evidence": "The compilation plugin editor ID contains an explicit `_OBL` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Content inspection identifies this as an official Oblivion or Morrowind quest/note text consistent with the compilation's game marker; compilation provenance retained separately."
     },
     {
       "form_id": "040008FA",
@@ -5801,9 +5788,8 @@
       "title": "Torn Journal Pages",
       "editor_id": "LB_Note3_TP_Ouze01_ESO",
       "text_path": "books/04000127-torn-journal-pages.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Content matches ESO Ouze/Valenwood material concerning containment of the dead in Ouze; independently supported by ESO indexing context; compilation provenance retained separately."
     },
     {
       "form_id": "0400080E",
@@ -5986,9 +5972,8 @@
       "title": "Torn Pages",
       "editor_id": "LB_Note3_TP_TheBlackQuill_ESO",
       "text_path": "books/04000128-torn-pages.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Content identifies the ESO Black Quill/Razotha Tale-Teller lore text; compilation provenance retained separately."
     },
     {
       "form_id": "0400003D",
