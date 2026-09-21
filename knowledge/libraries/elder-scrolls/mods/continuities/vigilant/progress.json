@@ -1,6 +1,6 @@
 {
   "source_sha256": "7d3ca2d72297fbc5afda8f1b8bb217fa1fd6d9d7414360acdf1a922d848949ba",
-  "phase": "raw-structural-ingestion",
+  "phase": "normalized-story-ingestion",
   "completed": [
     "header/source manifest",
     "record inventory",
@@ -8,15 +8,32 @@
     "dialogue topic+response extraction",
     "book text extraction",
     "NPC/faction/cell/worldspace/item inventories",
-    "first-pass story skeleton"
+    "first-pass story skeleton",
+    "quest alias parsing",
+    "SCEN actor/action parsing",
+    "deterministic INFO speaker resolution",
+    "act/story structure pass",
+    "first high-relevance character dossiers"
   ],
+  "normalization": {
+    "infos_total": 1225,
+    "infos_resolved_unique": 1136,
+    "infos_resolved_unique_percent": 92.7,
+    "infos_ambiguous": 10,
+    "infos_unresolved": 79,
+    "scenes": 78,
+    "scene_dialogue_actions": 225,
+    "quest_aliases": 550
+  },
   "next": [
-    "INFO speaker/alias resolution",
-    "SCEN extraction and ordering",
-    "high-relevance character dossiers",
-    "narrative quest graph",
-    "document-to-quest/location linking",
-    "Coldharbour location graph"
+    "persist compact scene/alias index",
+    "resolve or classify remaining 89 INFO records",
+    "Bruiant Mansion/Julius document reconstruction",
+    "Coldharbour main-quest and memory transition graph",
+    "book/note-to-quest/location linking",
+    "Coldharbour location graph",
+    "additional character dossiers by narrative relevance",
+    "base-canon comparison layer for historical/mythic claims"
   ],
   "counts": {
     "quests": 120,
