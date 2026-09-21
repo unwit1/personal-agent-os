@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "categories": {
+    "travel_machine_controls": [
+      [
+        "0503DC66",
+        "Set Destination To Dawnstar"
+      ],
+      [
+        "0503E1CF",
+        "Set Destination To Falkreath"
+      ],
+      [
+        "0503E1D0",
+        "Set Destination To Markarth"
+      ],
+      [
+        "0503E1D1",
+        "Set Destination To Morthal"
+      ],
+      [
+        "0503E1D4",
+        "Set Destination To Riften"
+      ],
+      [
+        "0503E1D5",
+        "Set Destination To Solitude"
+      ],
+      [
+        "0503E1D6",
+        "Set Destination To Whiterun"
+      ],
+      [
+        "0503E1D7",
+        "Set Destination To Windhelm"
+      ],
+      [
+        "0503E1D8",
+        "Set Destination To Winterhold"
+      ],
+      [
+        "0503E1D2",
+        "Set Destination To Raven Rock"
+      ],
+      [
+        "0503E1D3",
+        "Set Destination To Recall Point"
+      ]
+    ],
+    "sorting_controls": [
+      [
+        "0503E9F5",
+        "Sort Items From Inventory To Mage's Study"
+      ],
+      [
+        "0503E9FA",
+        "Sort Items From Inventory To Work Room"
+      ],
+      [
+        "0503E9FB",
+        "Sort Items From Inventory To Kitchen"
+      ],
+      [
+        "0502C6A9",
+        "Sort Alchemy Ingredients Into Cabinet"
+      ],
+      [
+        "0502C6AB",
+        "Sort Soul Gems Into Cabinets"
+      ],
+      [
+        "0502CC23",
+        "Sort Food Into Barrels"
+      ],
+      [
+        "05038DDC",
+        "Sort Smithing Materials Into Containers"
+      ],
+      [
+        "0502DC83",
+        "Sort Books Into Bookcases"
+      ]
+    ],
+    "bathing": [
+      [
+        "0501A0C2",
+        "Shower"
+      ],
+      [
+        "0501AB9F",
+        "Cold Water"
+      ],
+      [
+        "0501ABA0",
+        "Hot Water"
+      ],
+      [
+        "050195E4",
+        "Bathtub"
+      ]
+    ],
+    "crafting": [
+      [
+        "053B74EE",
+        "Dwemer Forge"
+      ],
+      [
+        "053B7530",
+        "Dwemer Smelter"
+      ],
+      [
+        "05319855",
+        "Arcane Enchanter"
+      ],
+      [
+        "05319851",
+        "Alchemy Lab"
+      ]
+    ],
+    "notable_props": [
+      [
+        "05740F27",
+        "Gilded Sarcophagus"
+      ],
+      [
+        "05843AF7",
+        "Music Box"
+      ],
+      [
+        "0501497C",
+        "False Back Panel"
+      ],
+      [
+        "0501497A",
+        "Wardrobe"
+      ],
+      [
+        "055AE981",
+        "Chest Plate"
+      ],
+      [
+        "0564C551",
+        "Chest Plate"
+      ],
+      [
+        "0565167A",
+        "Chest Plate"
+      ]
+    ]
+  }
+}

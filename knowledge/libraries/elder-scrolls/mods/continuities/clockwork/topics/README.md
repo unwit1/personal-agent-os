@@ -16,4 +16,4 @@ Continuity-local pages derived from `Clockwork.esp`.
 - [Pneumatic tube system](pneumatic-tubes.md)
 - [Lamashtu's voice and speech mechanism](lamashtu-voice.md)
 
-These pages point back to INFO, BOOK, and QUST records. They are indexes over evidence, not replacements for the source corpus.
+- [Castle automation and domestic systems](castle-automation.md)\n- [Bathing and hygiene](bathing.md)\n\nThese pages point back to INFO, BOOK, and QUST records. They are indexes over evidence, not replacements for the source corpus.

@@ -10,6 +10,6 @@ This directory tracks portable objects, constructed devices, keys, quest tools, 
 - [Keys](keys.md)
 - [Staff Enchanter](staff-enchanter.md)
 - [Music boxes](music-boxes.md)
-- [Lamashtu's dresses](lamashtu-dresses.md)
+- [Lamashtu's dresses](lamashtu-dresses.md)\n- [Gilded body/material records](gilded-body-materials.md)
 
 Written documents are indexed separately in `../books/`.
