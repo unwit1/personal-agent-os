@@ -28,6 +28,7 @@ A statement established in one plugin is not automatically attributed to another
 - **Jhunal / Saarthal / Magnus:** UNSLAAD and VIGILANT independently state that a Jhunal/Owl figure stole Magnus-associated fire/arcana from Saarthal, while GLENMORIL independently extends the Owl/Jhunal network.
 - **Orlando the Knowledgeable:** the exact named identity recurs in VIGILANT, GLENMORIL, and UNSLAAD; each work ties him to dream-transition and Owl/Jhunal material while preserving different body/state roles.
 - **Laza / Owls / dragon experiments:** VIGILANT directly ties Laza to Jhunal's dragon harvesting, GLENMORIL preserves the White→Gray→Black Owl sequence, and UNSLAAD's Gray Owl names Laza among failed experiments.
+- **Hjalti / Alcaire / changing names:** UNSLAAD and GLENMORIL independently pair Hjalti with Alcaire; DAc0da independently continues the Hjalti/Zurin/Mantella conflict.
 
 These are retrieval/continuity relationships, not permission to flatten source-specific claims into one narrative.
 
