@@ -104,9 +104,9 @@ Only line-by-line comparison for scene dialogue that may add minor details to ex
 
 ### Remaining BOOK gap
 
-Primary unresolved provenance item:
+No major first-pass provenance gap remains.
 
-- exact original standalone publication/authorship trail for DAc0da's long **Ghost Choir 9** BOOK.
+The long **Ghost Choir 9** BOOK is now verified as Michael Kirkbride unofficial/developer text originally posted to **The Elder Scrolls Forums** on **2012-02-18**.
 
 Lower-priority future work:
 
@@ -158,18 +158,18 @@ Dedicated dossiers/indexes now cover:
 - ordinary/boss/ghost/summon/memospore/alternate form families
 - creature/encounter families.
 
-### Remaining NPC gap
+### Named-NPC completeness — complete
 
-This is now the largest broad record class left.
+A deterministic named-NPC ledger now classifies all **146 unique display names** found among the 554 NPC_ records:
 
-Next NPC work should prioritize:
+- 36 major/story identities;
+- 32 named forms/subbosses/summons/special encounters;
+- 78 generic encounter/cultural/leveled roles;
+- **0 unclassified high-value names**.
 
-1. **named unique/subboss actors** not yet given dossiers;
-2. actors with names that recur across Vicn works;
-3. actors carrying unique inventory/scripts/faction membership;
-4. transformations with separate RACE records.
+See `indexes/named-npc-coverage.md`.
 
-Low-priority leveled/corpse/treasure duplicates should remain indexed rather than receive individual dossiers.
+Low-priority leveled/corpse/treasure/summon duplicates intentionally remain represented by family indexes rather than individual biographies.
 
 ## RACE — custom races
 
@@ -272,45 +272,26 @@ Strong direct or rare-vocabulary bridges currently include:
 - GC9 / LYG
 - Atmora/Saarthal comparison network
 
-## Highest-value next work
+## First-pass closure
 
-### P1 — named NPC gap pass
+The previously identified P1/P2/P3 gaps are now closed:
 
-Generate a deterministic list of **named unique/subboss NPCs** and classify each as:
-
-- dedicated dossier exists;
-- covered by creature/index only;
-- unprocessed and potentially lore-bearing.
-
-Process only the third category.
-
-### P2 — named-NPC coverage ledger
-
-Produce a deterministic ledger for the **146 unique NPC display names** found among the 554 NPC_ records and classify them as:
-
-- dedicated dossier;
-- quest/organization/index coverage;
-- generic encounter/form family;
-- low-lore summon/treasure/leveled variant;
-- remaining high-value candidate.
-
-### P3 — exact Ghost Choir 9 source provenance
-
-Recover the original standalone source if possible.
-
-### P4 — final completeness report
-
-After the named-NPC ledger, produce a concise completeness matrix for every major record class and mark DAc0da first-pass ingestion **complete** if no significant lore-bearing gaps remain.
+- named-NPC coverage ledger: complete;
+- orphan INFO/DIAL audit: complete;
+- Ghost Choir 9 original-source provenance: resolved.
 
 ## Current assessment
 
-DAc0da is now **substantially ingested at first-pass lore depth**.
+> **DAc0da first-pass ESM lore ingestion is COMPLETE for the source hash above.**
 
-The remaining work is no longer “continue reading the story.” It is primarily:
+No significant lore-bearing record class remains broadly unprocessed.
 
-- named-actor completeness;
-- orphan-dialogue detection;
-- one major provenance gap;
-- optional navigation/door/location enrichment.
+Remaining work is optional refinement or second-pass synthesis:
 
-Future continuation should therefore avoid reprocessing the already-complete main/side quest corpus.
+- Papyrus-only runtime internals if loose scripts/PEX become available;
+- exhaustive door/navigation graphing;
+- item-by-item treatment of low-prose spell/summon BOOK records;
+- external precursor checks for DAc0da-specific letters if a concrete source candidate appears;
+- cross-Vicn reconciliation and promotion into shared Lorekeeper claim/entity structures.
+
+Future continuation should **not** restart broad DAc0da ingestion unless the source hash/version changes.
