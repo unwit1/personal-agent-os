@@ -90,7 +90,10 @@
     "nine previously incomplete Act 4 side quests resolved from direct 1.8.2 ESM dialogue/alias source: More Skooma, Archer of Kyne, Black Worm, Funeral, Knights of Julianos/Zenithar/Arkay/Kynareth, and Kyne's Dragon",
     "Lilian direct-document dossier: family letters, No Mercy role, and Art of Mercy scene anchor",
     "Taranis direct-document dossier: sword curse, unnamed summoner bargain, Carene/Lilian family links, and Art of Mercy consequence",
-    "Carene family-document crosslinks for Lilian/Taranis curse storyline"
+    "Carene family-document crosslinks for Lilian/Taranis curse storyline",
+    "priest Ainam documentary dossier from Lamae's Kin",
+    "Lamae's Kin curse/outbreak analysis: 2E 582 Lake Ilinalta case, Mages Guild incineration, lost ashes, and Facis corroboration",
+    "Lamae Bal dossier deepened with exact Lamae's Kin outbreak chronology"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -126,27 +129,16 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "reconciled the restored canonical VIGILANT 1.8.2 direct-source extraction against stale recovery blockers and promoted already-recovered exact ESM evidence into the live progress state",
+    "focus": "small-batch completion of the Lamae's Kin / Ainam documentary cluster",
     "added": [
-      "source-state correction: canonical 1.8.2 ESM bytes restored with exact historical hash match",
-      "Sacred Anatomancer exact report and direct quest/trial/manifestation evidence recognized as complete",
-      "VIGILANT White/Gray/Black Owl exact books recognized as recovered",
-      "Black Hand direct actors/dialogue/Sithis' Eye reaction recognized as recovered",
-      "Juncan and Ralvas direct quest implementations recognized as recovered",
-      "Facis and Reyda direct-source dossier replacements recognized as recovered",
-      "Joshua direct corpse placement and exact Final Note recognized as recovered",
-      "Joel direct Bloodsucker NPC/alias/dialogue recognized as recovered",
-      "obsolete recovery tasks removed from the active queue",
-      "unnamed fiery-eyed Slave Trader normalized from direct Malada stanza 9 plus Pepe's independent sarcophagus testimony",
-      "Slave Trader note trail tightened: Notes 6-8 exact text confirmed; no additional persisted REFR/container/quest ownership found",
-      "GLENMORIL Slave Trader memory registered as cross-Vicn identity lead without silent body/soul merge",
-      "nine-item Act 4 direct-source recovery recognized as complete; obsolete quest-body blockers removed",
-      "Lilian normalized from her exact letter plus direct Art of Mercy scene role",
-      "Taranis normalized as a documentary/off-screen character from the exact family letters and Carene's direct consequence dialogue",
-      "Carene dossier cross-linked to the three family letters",
-      "Feral Soul-Shriven queue narrowed: Judo and three Tharns are already resolved; the wider 30+ mapping table is not persisted in the current repo"
+      "Ainam normalized as a documentary priest/source cited by Lamae's Kin",
+      "Lamae's Kin curse model separated from ordinary vampirism claims",
+      "2E 582 Lake Ilinalta outbreak chronology persisted",
+      "Mages Guild incineration / Arcane University ashes / winged-Daedroth loss thread persisted with attribution cautions",
+      "Lamae Bal dossier cross-linked to the outbreak analysis",
+      "Facis heart-and-mind testimony linked as corroborative, source-separated evidence"
     ],
-    "source_state": "canonical translated VIGILANT 1.8.2 ESM source bytes were restored and match the pre-existing source SHA-256 7d3ca2d72297fbc5afda8f1b8bb217fa1fd6d9d7414360acdf1a922d848949ba; direct VIGILANT evidence remains primary and cross-Vicn evidence remains corroborative unless explicitly sourced to another mod.",
-    "open_followup": "true remaining gaps include Sir Amiel Lannus direct implementation, a direct Slave Trader actor/acquisition path for Notes 6-8, the unpersisted 30+ Feral Soul-Shriven trigger roster, further evidence-rich character dossiers, remaining BOOK persistence, and external PEX/BSA transition logic."
+    "source_state": "direct text from BOOK 020DB22D plus already-persisted direct Facis/Lamae material; in-universe medical/history claims remain attributed rather than treated as objective fact",
+    "open_followup": "next small batch should begin a new lore unit only; remaining priorities still include Sir Amiel Lannus direct implementation, direct Slave Trader actor/acquisition evidence, missing full Feral Soul-Shriven roster, further evidence-rich character/book clusters, and PEX/BSA transition logic."
   }
 }
