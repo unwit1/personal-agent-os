@@ -1,20 +1,22 @@
 # Or the Gospel
 
-**Form ID:** `04017733`  
-**Editor ID:** `zzzGHMq06`  
-**Act:** 2 — Witch Hunt  
-**Primary evidence:** supplied `Glenmoril.esm`
+Source quest: `Glenmoril.esm:017733` — `zzzGHMq06`
+Continuity: `tes.mod.vicn.glenmoril`
 
-## Direct dialogue evidence
+This is the next major scene family after Oneiromancer / Broken Egg.
 
-The quest follows the Oneiromancer/Broken Egg material and contains explicit retrospective topics about what happened in **Quagmire**, being trapped in a strange place, seeing a woman named **Hela**, and what was learned from the Oneiromancer's memory. This confirms that the Quagmire/Oneiromancer events carry information forward into **Or the Gospel**.
+## Structurally identified participants
 
-Other topics establish a new mission involving Hela, the **Goji clan**, opposing forces, and a battle. Cedric can be asked where the **avatar of Hircine** is and what should be done. Ja'zel can be questioned about Hela, the Goji clan, the opponent's forces, and the mission.
+The quest alias structure includes named roles for **Lalanoah, Brandt, Ozwald, Romion, Cedric, Ja'zel, Witch, Hircine,** and **ChaplainTA**, among additional aliases.
 
-## Witch Hunt fracture
+## Established narrative anchors
 
-Ozwald dialogue explicitly discusses betraying the Chick Trader, says there is no need to hunt witches anymore, asks whether Romion was told, and later proposes getting rid of the Chick Trader. These topics establish a breakdown/reassessment of the earlier witch-hunt arrangement by this point in Act 2.
+Existing quest/dialogue evidence connects this family to Quagmire and Oneiromancer memory material, Hela, the Goji clan, a battle involving an avatar of Hircine, and Ozwald discussing betrayal/removal of the Chick Trader and the end of the need to hunt witches.
 
-## Lalanoah
+These remain GLENMORIL/Vicn continuity claims rather than official Bethesda-canon claims.
 
-The quest contains several Lalanoah branches. Ozwald can be asked what he thought of Lalanoah, and a player topic states that she comes from a family of healers. That statement remains attributed player dialogue until corroborated.
+## Active extraction method
+
+SCEN action Actor ID → QUST alias → filled reference/NPC → DIAL → child INFO.
+
+Preserve scene/action order, alias identity, DIAL/INFO source IDs, response text, attributed claims and uncertainty.
