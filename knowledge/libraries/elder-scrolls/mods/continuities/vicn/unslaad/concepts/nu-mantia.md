@@ -8,7 +8,7 @@ The ESM embeds **Loveletter From the Fifth Era**, whose text calls Nu-Mantia **L
 
 Because the Loveletter is reused apocryphal/developer material, that wording retains its external provenance even when UNSLAAD uses the book narratively.
 
-## Khev layer
+## Khev sermon layer
 
 The original UNSLAAD quest **Sermon of Khev** repeatedly calls **Nu-Mantia** the "magic word."
 
@@ -20,12 +20,21 @@ Khev associates it with:
 - world-transcending syllables;
 - eternity.
 
+## Khev ending layer
+
+During **VS Dreugh King**, Khev directly calls Nu-Mantia:
+
+**"the slavery at the end of freedom."**
+
+He immediately identifies himself with love and later says he shelters a cold flame whose warmth will be known as Molag.
+
 ## Interpretation boundary
 
-The recurrence is deliberate enough to cross-index.
+The recurrence is deliberate enough to make Nu-Mantia a central UNSLAAD retrieval node.
 
-Do not flatten the two sources into one definition:
-- Loveletter: Nu-Mantia as Liberty / road to Liberty.
-- Khev: Nu-Mantia embedded in a paradoxical theology of loving chains, struggle, and transcendence.
+Do not flatten the sources into a single definition:
+- Loveletter: Liberty / road to Liberty.
+- Khev sermon: loving chains, struggle, transcendence.
+- Khev ending: slavery at the end of freedom.
 
-A later synthesis may interpret Khev's sermon as a response, inversion, or local elaboration of the Loveletter, but that remains analysis rather than direct text.
+The contradiction/paradox is evidence worth preserving, not an error to normalize away.
