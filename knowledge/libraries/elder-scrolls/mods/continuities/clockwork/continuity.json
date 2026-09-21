@@ -3,7 +3,7 @@
   "name": "Clockwork",
   "universe": "The Elder Scrolls",
   "kind": "mod_continuity_overlay",
-  "status": "structured_ingestion_complete_core",
+  "status": "structured_ingestion_complete_core_technical_expansion_active",
   "canon_policy": {
     "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
     "default_claim_scope": "tes.mod.clockwork",
@@ -17,6 +17,7 @@
     "ingested_at": "2026-09-20"
   },
   "extracted_counts": {
+    "total_plugin_records": 36260,
     "books": 13,
     "dialogue_topics": 242,
     "dialogue_info_records": 888,
@@ -24,7 +25,12 @@
     "dialogue_response_strings_effective_after_dnam_reuse": 1103,
     "quests": 12,
     "quests_player_facing": 7,
-    "quests_internal_technical": 5
+    "quests_internal_technical": 5,
+    "scenes": 22,
+    "packages": 73,
+    "cells": 115,
+    "references": 32621,
+    "actors": 202
   },
   "dialogue_resolution": {
     "strict_single_npc": 322,
@@ -39,6 +45,10 @@
     "multi_candidate_catalogs": {
       "broad_Gilded_pool": 519,
       "Amalgam_form_pool": 26
+    },
+    "scene_alias_role_refinement": {
+      "broad_Gilded_scene_bound": 7,
+      "broad_Gilded_still_undifferentiated": 512
     }
   },
   "structured_layers": {
@@ -48,6 +58,10 @@
     "strict_unique_dialogue_transcripts": "complete",
     "ambiguity_catalog": "complete",
     "supplemental_scene_dialogue_resolution": "complete_for_strict_unresolved_set",
+    "scene_catalog": "complete_22_scen_records",
+    "vmad_story_wiring": "core_story_relevant_subset_persisted",
+    "technical_record_inventory": "complete_counts_plus_core_named_records",
+    "multi_candidate_scene_alias_refinement": "7_broad_gilded_records_resolved_to_quest_alias_roles",
     "character_pages": "core_complete",
     "relationship_index": "initial_complete",
     "dated_ludwig_timeline": "complete_from_four_journals",
@@ -59,11 +73,11 @@
     "interpretive_analysis": "initial_complete"
   },
   "next_ingestion_steps": [
-    "attempt to narrow the 545 multi-candidate INFO records using SCEN, PACK, REFR, quest-state, location, and condition context without guessing",
-    "catalog SCEN records and map scene phases/actions to story-graph nodes",
-    "catalog relevant scripts and VMAD properties that encode narrative state or speaker ownership",
-    "promote additional object, spell, cell, location, and reference FormIDs into structured indexes",
-    "build explicit base-TES comparison/contradiction links for Clockwork claims touching Dwemer, Kagrenac, Numidium, soul gems, and Red Mountain",
-    "add retrieval tests for spoiler gating, provenance boundaries, and revised claims"
+    "parse PACK conditions/targets and REFR choreography to narrow more of the 512 still-undifferentiated broad-Gilded INFO records without guessing",
+    "retain group-parent context while parsing CELL/REFR/ACHR so references can be mapped to exact cells and locations",
+    "catalog all named CELL records and connect castle/Nurndural subareas to quest and scene nodes",
+    "inspect remaining VMAD-bearing records for story-state changes not represented in dialogue or journals",
+    "build explicit base-TES comparison/contradiction links for Dwemer, Kagrenac, Numidium, soul gems, and Red Mountain",
+    "add retrieval tests for spoiler gating, provenance boundaries, revised claims, and implementation-vs-lore separation"
   ]
 }

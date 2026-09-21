@@ -1,0 +1,371 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "scene_count": 22,
+  "scenes": [
+    {
+      "form_id": "052A9E26",
+      "editor_id": "CLWSQ02Stage10LaharScene01",
+      "owner_quest": {
+        "form_id": "052908C1",
+        "name": "Steam-Powered"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "Lahar"
+        }
+      ],
+      "dialogue_action_count": 1,
+      "package_action_count": 0
+    },
+    {
+      "form_id": "052A9E29",
+      "editor_id": "CLWSQ02Stage10LaharScene02",
+      "owner_quest": {
+        "form_id": "052908C1",
+        "name": "Steam-Powered"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "Lahar"
+        }
+      ],
+      "dialogue_action_count": 1,
+      "package_action_count": 0
+    },
+    {
+      "form_id": "052C853B",
+      "editor_id": "CLWSQ02Stage40LaharScene01",
+      "owner_quest": {
+        "form_id": "052908C1",
+        "name": "Steam-Powered"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "Lahar"
+        }
+      ],
+      "dialogue_action_count": 1,
+      "package_action_count": 0
+    },
+    {
+      "form_id": "052FB0D0",
+      "editor_id": "CLWDGTourBedroomScene01",
+      "owner_quest": {
+        "form_id": "0524471E",
+        "name": "Gilded Dialogue"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "Lahar"
+        }
+      ],
+      "dialogue_action_count": 3,
+      "package_action_count": 4
+    },
+    {
+      "form_id": "05300255",
+      "editor_id": "CLWDGTourKitchenScene01",
+      "owner_quest": {
+        "form_id": "0524471E",
+        "name": "Gilded Dialogue"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "Lahar"
+        }
+      ],
+      "dialogue_action_count": 3,
+      "package_action_count": 4
+    },
+    {
+      "form_id": "05300264",
+      "editor_id": "CLWDGTourTravelRoomScene01",
+      "owner_quest": {
+        "form_id": "0524471E",
+        "name": "Gilded Dialogue"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "Lahar"
+        }
+      ],
+      "dialogue_action_count": 2,
+      "package_action_count": 2
+    },
+    {
+      "form_id": "0530537F",
+      "editor_id": "CLWDGTourArmouryScene01",
+      "owner_quest": {
+        "form_id": "0524471E",
+        "name": "Gilded Dialogue"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "Lahar"
+        }
+      ],
+      "dialogue_action_count": 3,
+      "package_action_count": 4
+    },
+    {
+      "form_id": "0530538E",
+      "editor_id": "CLWDGTourWorkRoomScene01",
+      "owner_quest": {
+        "form_id": "0524471E",
+        "name": "Gilded Dialogue"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "Lahar"
+        }
+      ],
+      "dialogue_action_count": 2,
+      "package_action_count": 2
+    },
+    {
+      "form_id": "053053A3",
+      "editor_id": "CLWDGTourMagesStudyScene01",
+      "owner_quest": {
+        "form_id": "0524471E",
+        "name": "Gilded Dialogue"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "Lahar"
+        }
+      ],
+      "dialogue_action_count": 5,
+      "package_action_count": 4
+    },
+    {
+      "form_id": "0530F5D8",
+      "editor_id": "CLWDGTourGlassGardenScene01",
+      "owner_quest": {
+        "form_id": "0524471E",
+        "name": "Gilded Dialogue"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "Lahar"
+        }
+      ],
+      "dialogue_action_count": 3,
+      "package_action_count": 2
+    },
+    {
+      "form_id": "05314703",
+      "editor_id": "CLWDGTourLivingQuartersScene01",
+      "owner_quest": {
+        "form_id": "0524471E",
+        "name": "Gilded Dialogue"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "Lahar"
+        }
+      ],
+      "dialogue_action_count": 6,
+      "package_action_count": 6
+    },
+    {
+      "form_id": "0531471C",
+      "editor_id": "CLWDGTourPneumoTerminalScene01",
+      "owner_quest": {
+        "form_id": "0524471E",
+        "name": "Gilded Dialogue"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "Lahar"
+        }
+      ],
+      "dialogue_action_count": 2,
+      "package_action_count": 2
+    },
+    {
+      "form_id": "05384489",
+      "editor_id": "CLWSQ02GildedIntroScene01",
+      "owner_quest": {
+        "form_id": "052908C1",
+        "name": "Steam-Powered"
+      },
+      "actors": [
+        {
+          "alias_id": 3,
+          "name": "Gilded01"
+        },
+        {
+          "alias_id": 4,
+          "name": "Gilded02"
+        },
+        {
+          "alias_id": 5,
+          "name": "Gilded03"
+        }
+      ],
+      "dialogue_action_count": 7,
+      "package_action_count": 6
+    },
+    {
+      "form_id": "05515F0D",
+      "editor_id": "CLWSQ03Stage20LaharAndLamScene01",
+      "owner_quest": {
+        "form_id": "05506BB5",
+        "name": "Crystalline Heart"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "Lahar"
+        },
+        {
+          "alias_id": 1,
+          "name": "Lamashtu"
+        }
+      ],
+      "dialogue_action_count": 2,
+      "package_action_count": 4
+    },
+    {
+      "form_id": "0553972F",
+      "editor_id": "CLWDASQ03S40SpeakerGreetScene",
+      "owner_quest": {
+        "form_id": "0552F492",
+        "name": "Amalgam Dialogue"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "SpeakerHorn01"
+        }
+      ],
+      "dialogue_action_count": 1,
+      "package_action_count": 0
+    },
+    {
+      "form_id": "0556C7BD",
+      "editor_id": "CLWDASQ03S50Speakers01Scene",
+      "owner_quest": {
+        "form_id": "0552F492",
+        "name": "Amalgam Dialogue"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "SpeakerHorn01"
+        }
+      ],
+      "dialogue_action_count": 1,
+      "package_action_count": 0
+    },
+    {
+      "form_id": "0559A4B3",
+      "editor_id": "CLWSQ03Stage70Scene01",
+      "owner_quest": {
+        "form_id": "05506BB5",
+        "name": "Crystalline Heart"
+      },
+      "actors": [
+        {
+          "alias_id": 3,
+          "name": "EncAmalgam"
+        }
+      ],
+      "dialogue_action_count": 1,
+      "package_action_count": 1
+    },
+    {
+      "form_id": "0565B8B8",
+      "editor_id": "CLWSQ03Stage140Scene01",
+      "owner_quest": {
+        "form_id": "05506BB5",
+        "name": "Crystalline Heart"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "Lahar"
+        }
+      ],
+      "dialogue_action_count": 7,
+      "package_action_count": 3
+    },
+    {
+      "form_id": "056A7918",
+      "editor_id": "CLWDGCantLeaveScene01",
+      "owner_quest": {
+        "form_id": "0524471E",
+        "name": "Gilded Dialogue"
+      },
+      "actors": [
+        {
+          "alias_id": 2,
+          "name": "Player"
+        }
+      ],
+      "dialogue_action_count": 0,
+      "package_action_count": 0
+    },
+    {
+      "form_id": "05764B55",
+      "editor_id": "CLWSQ04S20ShadowMausScene01",
+      "owner_quest": {
+        "form_id": "0508DA63",
+        "name": "I Against I"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "Lamashtu"
+        }
+      ],
+      "dialogue_action_count": 1,
+      "package_action_count": 0
+    },
+    {
+      "form_id": "05769C6D",
+      "editor_id": "CLWSQ04S20DoorOpenScene01",
+      "owner_quest": {
+        "form_id": "0508DA63",
+        "name": "I Against I"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "Lamashtu"
+        }
+      ],
+      "dialogue_action_count": 1,
+      "package_action_count": 1
+    },
+    {
+      "form_id": "0576EDA3",
+      "editor_id": "CLWSQ04LamRemarksScene01",
+      "owner_quest": {
+        "form_id": "0508DA63",
+        "name": "I Against I"
+      },
+      "actors": [
+        {
+          "alias_id": 0,
+          "name": "Lamashtu"
+        }
+      ],
+      "dialogue_action_count": 1,
+      "package_action_count": 0
+    }
+  ]
+}

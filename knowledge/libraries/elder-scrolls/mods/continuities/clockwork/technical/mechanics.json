@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "mechanics": [
+    {
+      "id": "shadow_slow_time",
+      "records": [
+        "SPEL 0507FD84 CLWShadowSlowTimeSpell",
+        "MGEF 0507FD83 CLWShadowSlowTimeEffect",
+        "QUST 0506FCE4 CLWShadowManage01Quest"
+      ],
+      "description": "Shadow management VMAD points to the Shadow Under The Mountain slow-time spell/effect; its description mirrors Camilla's trail text."
+    },
+    {
+      "id": "gilded_reanimation",
+      "records": [
+        "SPEL 0553E847 CLWGildedReanimateSelf",
+        "GLOB 0554395D CLWMCM01GildedDownedSliderGLOB"
+      ],
+      "script": "CLWGildedRes01Script",
+      "description": "Principal and ambush Gilded archetypes use a self-reanimation/downed script controlled by an MCM global."
+    },
+    {
+      "id": "amalgam_retreat",
+      "records": [
+        "NPC_ 0559026E CLWLvlAmalgamCenturionAmbush",
+        "SCEN 0559A4B3 CLWSQ03Stage70Scene01",
+        "EXPL 0559F5C7 CLWAmalgamParalyseExplosion01"
+      ],
+      "script": "CLWAmalgamBleedoutScript",
+      "description": "Stage-70 Amalgam VMAD ties bleedout to paralysis/teleport effects, retreat destination, scene start, portcullis controls, and Crystalline Heart."
+    },
+    {
+      "id": "shadow_boss_phases",
+      "records": [
+        "GLOB 05773EBB CLWSQ04ShadFightPhaseGLOB",
+        "NPC_ 05769C7E CLWLvlShadowAmbush01",
+        "NPC_ 05778FE2 CLWLvlShadowAmbush02"
+      ],
+      "scripts": [
+        "CLWShadowBleedoutScript",
+        "CLWShadowDyingScript"
+      ],
+      "description": "Final Shadow encounter uses multiple scripted forms and a fight-phase global; the dying script advances phase state and references Lamashtu."
+    },
+    {
+      "id": "recall_spell",
+      "records": [
+        "SPEL 0504BB6A CLWRecallToCastleSpell",
+        "MGEF 0504BB69 CLWRecallToCastleEffect",
+        "REFR 0579C7A7 CLWRecallPointMarker02REF"
+      ],
+      "script": "CLWRecallToCastleSpellEffectScript",
+      "description": "Recall VMAD links fast-travel eligibility, recall marker, Travel Room destination, teleport effect, and failure handling."
+    },
+    {
+      "id": "pipeline_repairs",
+      "records": [
+        "GLOB 05440B59 CLWSQ02PipeTotal",
+        "GLOB 05440B58 CLWSQ02PipeCount",
+        "ACTI 05440B5C CLWSQ02PipeRepairDummyACTI",
+        "MISC 05431799 CLWDwemerPipeItem"
+      ],
+      "values": {
+        "pipe_total": 10,
+        "pipe_count_initial": 0
+      },
+      "description": "Concrete quest state corroborates exactly ten pipeline repairs."
+    },
+    {
+      "id": "crystalline_heart_states",
+      "records": [
+        "MISC 0550BCDB CLWCrystalHeart01 — Crystal Heart (Lamashtu)",
+        "MISC 0550BCDD CLWCrystalHeart02 — Crystal Heart (Empty)",
+        "ACTI 055BDD00 CLWAmalgamInternals01ACTI — Crystal Heart (Empty)",
+        "ACTI 056609E7 CLWSQ03BoxHearts01ACTI — Soul Transference Machine"
+      ],
+      "description": "Plugin distinguishes Lamashtu's heart, an empty heart, Amalgam's internal empty heart, and the transfer machine."
+    }
+  ]
+}

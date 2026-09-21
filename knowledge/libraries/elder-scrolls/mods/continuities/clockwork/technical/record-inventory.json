@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "source_sha256": "6850eb707a5b47f60fcec7bfb3494a4d7e909549c6c199cca81fc18780f73406",
+  "total_records": 36260,
+  "record_counts": {
+    "ACHR": 202,
+    "ACTI": 69,
+    "ARMA": 24,
+    "ARMO": 21,
+    "BOOK": 13,
+    "CELL": 115,
+    "CLAS": 2,
+    "COBJ": 1,
+    "CONT": 87,
+    "DIAL": 242,
+    "DLBR": 34,
+    "DLVW": 8,
+    "DOOR": 26,
+    "ECZN": 3,
+    "ENCH": 2,
+    "EXPL": 9,
+    "FACT": 4,
+    "FLOR": 3,
+    "FLST": 50,
+    "FURN": 48,
+    "GLOB": 43,
+    "HAZD": 1,
+    "HDPT": 4,
+    "IDLM": 1,
+    "IMAD": 6,
+    "IMGS": 4,
+    "INFO": 888,
+    "KEYM": 4,
+    "KYWD": 1,
+    "LAND": 16,
+    "LCTN": 5,
+    "LGTM": 8,
+    "LIGH": 8,
+    "LSCR": 8,
+    "LVLI": 35,
+    "LVLN": 44,
+    "LVSP": 1,
+    "MESG": 169,
+    "MGEF": 8,
+    "MISC": 5,
+    "MSTT": 41,
+    "MUSC": 1,
+    "NAVI": 1,
+    "NAVM": 154,
+    "NPC_": 239,
+    "OTFT": 18,
+    "PACK": 73,
+    "PHZD": 1,
+    "QUST": 12,
+    "RACE": 2,
+    "REFR": 32621,
+    "REGN": 1,
+    "SCEN": 22,
+    "SHOU": 2,
+    "SMBN": 1,
+    "SMQN": 1,
+    "SNDR": 13,
+    "SOUN": 20,
+    "SPEL": 15,
+    "STAT": 704,
+    "TACT": 1,
+    "TES4": 1,
+    "TXST": 84,
+    "VTYP": 4,
+    "WATR": 2,
+    "WEAP": 1,
+    "WRLD": 3
+  },
+  "core_named": {
+    "locations": [
+      [
+        "0537A210",
+        "CLWNurnduralInt01Location",
+        "Nurndural"
+      ],
+      [
+        "050509B3",
+        "CLWClockworkCastleExtLocation",
+        "Clockwork Castle Exterior"
+      ],
+      [
+        "05013ECE",
+        "CLWClockworkCastleIntLocation",
+        "Clockwork Castle"
+      ],
+      [
+        "05063E39",
+        "CLWVelothiTunnelsIntLocation",
+        "Velothi Mountain Tunnels"
+      ],
+      [
+        "05046F70",
+        "CLWClockworkTerminusLocation",
+        "Clockwork Terminus"
+      ]
+    ],
+    "keys": [
+      [
+        "05337FC5",
+        "CLWFakeWardrobeKey01",
+        "Clockwork Castle Master Bedroom Wardrobe Key"
+      ],
+      [
+        "052EBD6A",
+        "CLWMausoleumKey01",
+        "Clockwork Castle Mausoleum Key"
+      ],
+      [
+        "052A9E37",
+        "CLWCastleKey01",
+        "Clockwork Castle Key"
+      ],
+      [
+        "054F275D",
+        "CLWTerminusGateKey01",
+        "Clockwork Terminus Key"
+      ]
+    ],
+    "spells": [
+      [
+        "0502181E",
+        "CLWBathingSpell",
+        "Clean from Bathing"
+      ],
+      [
+        "0504BB6A",
+        "CLWRecallToCastleSpell",
+        "Recall To Clockwork Castle"
+      ],
+      [
+        "0507FD84",
+        "CLWShadowSlowTimeSpell",
+        "Shadow Under The Mountain"
+      ],
+      [
+        "051414BB",
+        "CLWHazardShadowDrainSpell",
+        "Shadow Drain"
+      ],
+      [
+        "0553E847",
+        "CLWGildedReanimateSelf",
+        "Reanimate (Self)"
+      ]
+    ],
+    "quest_items": [
+      [
+        "0550BCDB",
+        "CLWCrystalHeart01",
+        "Crystal Heart (Lamashtu)"
+      ],
+      [
+        "0550BCDD",
+        "CLWCrystalHeart02",
+        "Crystal Heart (Empty)"
+      ],
+      [
+        "05431799",
+        "CLWDwemerPipeItem",
+        "Disassembled Dwemer Pipe"
+      ],
+      [
+        "0558B137",
+        "CLWDweLeverHandle01",
+        "Dwemer Lever Handle"
+      ]
+    ]
+  }
+}

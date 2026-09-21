@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "resolution_kind": "scene_actor_alias_role",
+  "note": "These records remain non-unique at physical NPC-form level. SCEN actions narrow them to named quest alias roles Gilded01/Gilded02/Gilded03.",
+  "scene": {
+    "form_id": "05384489",
+    "editor_id": "CLWSQ02GildedIntroScene01",
+    "quest_id": "052908C1"
+  },
+  "resolutions": [
+    {
+      "info_id": "0538448D",
+      "alias_id": 3,
+      "alias_name": "Gilded01"
+    },
+    {
+      "info_id": "05384490",
+      "alias_id": 4,
+      "alias_name": "Gilded02"
+    },
+    {
+      "info_id": "05384493",
+      "alias_id": 5,
+      "alias_name": "Gilded03"
+    },
+    {
+      "info_id": "05384495",
+      "alias_id": 3,
+      "alias_name": "Gilded01"
+    },
+    {
+      "info_id": "053895A6",
+      "alias_id": 4,
+      "alias_name": "Gilded02"
+    },
+    {
+      "info_id": "053895A8",
+      "alias_id": 5,
+      "alias_name": "Gilded03"
+    },
+    {
+      "info_id": "053895AA",
+      "alias_id": 3,
+      "alias_name": "Gilded01"
+    }
+  ]
+}

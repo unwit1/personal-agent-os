@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "continuity_id": "tes.mod.clockwork",
-  "purpose": "Supplement structural speaker resolution with scene/quest-level diegetic attribution without altering the reproducible lower-level resolver output.",
+  "purpose": "Supplement structural speaker resolution with scene/quest-level diegetic and alias-role attribution without altering the reproducible lower-level resolver output.",
   "lower_level_unresolved_info_count": 21,
   "supplemental_resolutions": [
     {
@@ -43,13 +43,7 @@
         "id": 0,
         "name": "SpeakerHorn01",
         "reference_form_id": "0553972D"
-      },
-      "basis": [
-        "Both scenes use alias 0 from CLWDialogueAmalgam.",
-        "Alias 0 is a speaker-horn reference rather than an NPC form.",
-        "Crystalline Heart stages 50–60 describe the remote speaker-horn voice leading the player to the unusual Gilded/Amalgam in the Sickness Ward.",
-        "Multiple response strings are independently duplicated in Amalgam-conditioned dialogue."
-      ]
+      }
     },
     {
       "semantic_speaker": "Amalgam encounter",
@@ -64,12 +58,78 @@
         "form_id": "0559026E",
         "editor_id": "CLWLvlAmalgamCenturionAmbush",
         "name": "Amalgam"
-      },
-      "basis": [
-        "Scene actor alias 3 resolves directly to the Amalgam encounter base used by the Crystalline Heart stage-70 encounter."
-      ]
+      }
     }
   ],
   "semantic_unresolved_info_count": 0,
-  "caveat": "resolution-stats.json remains unchanged because it reports the stricter lower-level NPC-form resolver. These supplemental attributions rely on scene ownership, quest aliases, and diegetic quest context."
+  "alias_level_supplemental_resolution_count": 7,
+  "alias_level_supplemental_resolutions": [
+    {
+      "info_id": "0538448D",
+      "alias_id": 3,
+      "alias_name": "Gilded01",
+      "scene_id": "05384489",
+      "scene_editor_id": "CLWSQ02GildedIntroScene01",
+      "confidence": "high_at_quest_alias_role_level",
+      "strict_physical_form_status": "still_multi_candidate"
+    },
+    {
+      "info_id": "05384490",
+      "alias_id": 4,
+      "alias_name": "Gilded02",
+      "scene_id": "05384489",
+      "scene_editor_id": "CLWSQ02GildedIntroScene01",
+      "confidence": "high_at_quest_alias_role_level",
+      "strict_physical_form_status": "still_multi_candidate"
+    },
+    {
+      "info_id": "05384493",
+      "alias_id": 5,
+      "alias_name": "Gilded03",
+      "scene_id": "05384489",
+      "scene_editor_id": "CLWSQ02GildedIntroScene01",
+      "confidence": "high_at_quest_alias_role_level",
+      "strict_physical_form_status": "still_multi_candidate"
+    },
+    {
+      "info_id": "05384495",
+      "alias_id": 3,
+      "alias_name": "Gilded01",
+      "scene_id": "05384489",
+      "scene_editor_id": "CLWSQ02GildedIntroScene01",
+      "confidence": "high_at_quest_alias_role_level",
+      "strict_physical_form_status": "still_multi_candidate"
+    },
+    {
+      "info_id": "053895A6",
+      "alias_id": 4,
+      "alias_name": "Gilded02",
+      "scene_id": "05384489",
+      "scene_editor_id": "CLWSQ02GildedIntroScene01",
+      "confidence": "high_at_quest_alias_role_level",
+      "strict_physical_form_status": "still_multi_candidate"
+    },
+    {
+      "info_id": "053895A8",
+      "alias_id": 5,
+      "alias_name": "Gilded03",
+      "scene_id": "05384489",
+      "scene_editor_id": "CLWSQ02GildedIntroScene01",
+      "confidence": "high_at_quest_alias_role_level",
+      "strict_physical_form_status": "still_multi_candidate"
+    },
+    {
+      "info_id": "053895AA",
+      "alias_id": 3,
+      "alias_name": "Gilded01",
+      "scene_id": "05384489",
+      "scene_editor_id": "CLWSQ02GildedIntroScene01",
+      "confidence": "high_at_quest_alias_role_level",
+      "strict_physical_form_status": "still_multi_candidate"
+    }
+  ],
+  "broad_gilded_strict_pool_count": 519,
+  "broad_gilded_scene_bound_alias_role_count": 7,
+  "broad_gilded_still_undifferentiated_count": 512,
+  "caveat": "resolution-stats.json remains unchanged because it reports the stricter lower-level NPC-form resolver. Supplemental attributions rely on SCEN ownership, quest aliases, and diegetic context."
 }
