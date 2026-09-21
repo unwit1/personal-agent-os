@@ -135,3 +135,21 @@ Unresolved:
 Akatosh is established Elder Scrolls lore.
 
 The ??????? memory/avatar presentation, memory-loss claim, and Lizard relationship belong to `tes.mod.vigilant`.
+
+
+## Cross-Vicn Lizard search result
+
+GLENMORIL contains a real **Lizard** motif in Yelem's notes:
+- lizard hidden in a shell;
+- unhatched egg as a graveyard of possibilities;
+- “the lizard failed”;
+- the lizard described as unmistakably mortal.
+
+However, the recovered GLENMORIL records do **not** directly connect that Lizard to:
+- Akatosh;
+- the `???????` Final Night form;
+- the a123999 statement that “the Lizard” remembers the forgotten avatar.
+
+Therefore the identity of **the Lizard** remains unresolved.
+
+This is negative evidence against prematurely identifying every later Lizard reference with the Akatosh-memory figure.
