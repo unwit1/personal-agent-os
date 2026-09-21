@@ -67,3 +67,17 @@ Do not state:
 The correct classification is:
 
 **reused/adapted external mythic substrate + Vicn-authored staging and extension.**
+
+## Parent continuity retrieval
+
+For a cross-work question, retrieve parent:
+
+- `../../relationships/yngol-tsunaltir-tstunal-thread.md`
+
+That parent page keeps three layers separate:
+
+1. **external apocryphal substrate** — the rare Yngol/Ylgar/Tsunaltir/Stuhnalmir/Tstunal tradition;
+2. **UNSLAAD adaptation** — Tstunal framing plus Yngol artifact/trial staging;
+3. **DAc0da adaptation** — Yngol the Tsunaltir, Tsuunalinfaxtir, old-kalpa dragon-form and Adjacent-Place material.
+
+Evidence classification for this local page is therefore primarily **shared external substrate + Vicn-authored UNSLAAD staging**, not proof that DAc0da and UNSLAAD depict one identical transformation event.
