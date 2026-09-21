@@ -43,6 +43,10 @@ These are **Augur claims**, not objective cosmology.
 
 ## Cross-Vicn note
 
-DAc0da contains a quest titled **Augur of the Obscure**.
+DAc0da independently contains a unique **Augur of the Obscure** with the same non-linear temporal/Numidium/possibility domain and an established Rolls-On-Roads connection.
 
-The exact-name recurrence is retrieval-significant, but do not merge every instance until DAc0da's actor/identity evidence is normalized.
+DAc0da's actor/identity evidence is now normalized. The parent VICN synthesis therefore classifies the GLENMORIL and DAc0da Augurs as a **high-confidence recurring character/entity identity**.
+
+Specific claims remain source-local; see:
+
+`../../relationships/augur-of-the-obscure-thread.md`
