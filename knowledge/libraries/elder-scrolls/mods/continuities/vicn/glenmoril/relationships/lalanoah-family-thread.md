@@ -7,15 +7,25 @@
 - Lalanoah knows by St. Bazura that Gerhard is gone.
 - Laelnoah remains missing.
 
+## Earliest Act-1 recollections
+
+In **The Chick Trader**, Lalanoah says:
+- her mother was taken away by “a group of people called **Sten or something**”;
+- her mother told her it would be all right and that she would return if Lalanoah was a good child;
+- her father **went to war**;
+- Brandt told Lalanoah that Gerhard had been the **strongest warrior in Falkreath before she was born**.
+
+This is Lalanoah's child-level recollection at the start of the story.
+
+Do **not** automatically normalize “Sten or something” into Stendarr, Holy Pipers, or another later faction name without a direct textual bridge.
+
 ## Shared Falkreath childhood network
 
 A Thousand Daggers adds a direct Brandt memory:
 > the cave used by the dagger operation was a place where Brandt played as a child with **Gerhard and Laelnoah**.
 
-This establishes a shared childhood/friend group:
-**Brandt ↔ Gerhard ↔ Laelnoah**.
-
-That helps explain Brandt's later guardian/uncle role with Lalanoah without requiring Brandt to be a biological relative.
+This establishes:
+**Brandt ↔ Gerhard ↔ Laelnoah** as a childhood/friend group.
 
 ## Direct Laelnoah identification
 
@@ -36,7 +46,7 @@ Brandt says:
 - Laelnoah was among those kidnapped;
 - a search party was organized.
 
-By St. Bazura, contact with the search party has been lost.
+By St. Bazura, contact with that search party has been lost.
 
 ## Cerebline / grandmother generation
 
@@ -55,18 +65,19 @@ Her Charm memory describes the maternal grandmother as:
 
 - Brandt says he loves Lalanoah as though she were his own child.
 - Goroll says Lalanoah reminds her of a daughter she lost and loves Lalanoah as her own.
-- Brandt invests bounty hunting effort into Lalanoah's future education and wants her to have opportunities beyond Falkreath.
+- Brandt invests bounty hunting effort into Lalanoah's future education.
 
 ## Future / succession
 
-Brandt believes Lalanoah has talent for healing and considers formal magical education.
+Brandt believes Lalanoah has talent for healing.
 
-Lalanoah herself mentions the **Temple of Kynareth** as a future path.
+Lalanoah later mentions the **Temple of Kynareth** as a future path.
 
-Kalka later says Lalanoah will become a **suitable vessel for succession**, connecting her to the unresolved Hamah role.
+Kalka later calls Lalanoah **Ms. Hamah** and says she will become a suitable vessel for succession.
 
 ## Still unresolved
 
+- whether Lalanoah's “Sten or something” recollection refers to the same kidnappers later called Holy Pipers;
 - Laelnoah's current condition/location;
 - what happened to the Piper's Hill search party;
 - what caused the maternal grandmother's longevity and rapid post-birth aging;
