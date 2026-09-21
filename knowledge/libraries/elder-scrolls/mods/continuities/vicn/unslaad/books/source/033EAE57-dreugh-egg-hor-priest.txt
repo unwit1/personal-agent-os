@@ -1,0 +1,8 @@
+Title: Dreugh Egg: Hor Priest
+FormID: 033EAE57
+EditorID: zzzCrbSpellTomeConjureDreughDruid
+Continuity: tes.mod.vicn.unslaad
+Source: translated Unslaad.esm 3.0.6
+
+<font face'$HandwrittenFont'><font size='40'><p align='center'>
+Conjure Hor Priest

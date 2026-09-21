@@ -3,85 +3,80 @@
 ## Parents
 
 - **Gerhard** is Lalanoah's father.
-- **Laelnoah** is directly established as Lalanoah's mother.
-- Lalanoah knows by St. Bazura that Gerhard is gone.
-- Laelnoah remains missing.
+- **Laelnoah** is Lalanoah's mother.
 
-## Earliest Act-1 recollections
+## Act-1 disappearance evidence
 
-In **The Chick Trader**, Lalanoah says:
-- her mother was taken away by “a group of people called **Sten or something**”;
-- her mother told her it would be all right and that she would return if Lalanoah was a good child;
-- her father **went to war**;
-- Brandt told Lalanoah that Gerhard had been the **strongest warrior in Falkreath before she was born**.
+Lalanoah initially remembers her mother being taken by people she calls **“Sten or something.”**
 
-In **A Curious Animal**, Lalanoah adds that:
-- **her mother taught her restoration magic**;
-- she can already cast a simple healing spell;
-- she intends to study at the **Temple of Kynareth** and become a healer when she grows up.
+By **The Cat and the Chick**, Brandt gives the adult account:
+- Laelnoah was a skilled healer;
+- after Gerhard's alleged desertion, people accused her of witchcraft and “seducing Nords”;
+- **Vigilants of Stendarr took her away**;
+- those Vigilants belonged to a faction called the **Holy Pipers**;
+- the Holy Pipers had been **excommunicated** from the Temple of Stendarr.
 
-This establishes Laelnoah as the source of Lalanoah's earliest healing training, not merely a later family association.
+This directly resolves Lalanoah's child-memory “Sten” to the Stendarr/Holy-Piper kidnapping context.
 
-Do **not** automatically normalize “Sten or something” into Stendarr, Holy Pipers, or another later faction name without a direct textual bridge.
-
-## Shared Falkreath childhood network
-
-A Thousand Daggers adds a direct Brandt memory:
-> the cave used by the dagger operation was a place where Brandt played as a child with **Gerhard and Laelnoah**.
-
-This establishes:
-**Brandt ↔ Gerhard ↔ Laelnoah** as a childhood/friend group.
-
-## Direct Laelnoah identification
-
-In Shop of Curiosities:
-- Lalanoah recognizes a recovered staff as the one her mother had;
-- Brandt identifies it as **Laelnoah's staff**;
-- Brandt explicitly says it belonged to **Lalanoah's mother**.
-
-Therefore:
-**Laelnoah = Lalanoah's mother**.
-
-## Laelnoah disappearance / Holy Pipers
-
-Orlando says he bought Laelnoah's staff from men in strange helmets near Helgen and directs Brandt toward **Piper's Hill**.
+## Gerhard
 
 Brandt says:
-- Holy Pipers kidnapped women during the civil war after accusing them of witchcraft;
-- Laelnoah was among those kidnapped;
-- a search party was organized.
+- Gerhard joined the Imperial Legion during the civil war;
+- he held the rank/title **Quaestor**;
+- Imperial records considered him missing and suspected desertion;
+- Brandt rejects the desertion interpretation.
 
-By St. Bazura, contact with the search party has been lost.
+The Blue Bird later resolves Gerhard's actual fate.
 
-## Cerebline / grandmother generation
+## Laelnoah / healing lineage
+
+Lalanoah says Laelnoah taught her restoration magic.
+
+Lalanoah plans from early Act 1 to become a healer and study at the Temple of Kynareth.
+
+## Brandt's relationship to the parents
+
+A Thousand Daggers says Brandt, Gerhard, and Laelnoah played together as children.
+
+This supports Brandt's later guardian role without making him biological kin.
+
+## Brandt becomes Lalanoah's guardian
+
+At the end of **The Cat and the Chick**, Brandt decides:
+> he will quit the guard job and stay with Lalanoah until her parents return.
+
+He says:
+- he has enough savings to support one child for years;
+- if necessary he will hunt bandits for bounties;
+- the player is welcome to keep visiting.
+
+Lalanoah says:
+> “Uncle Brandt said he'll stay with me until mommy and daddy come back.”
+
+This is the direct transition from Brandt's reluctant/hidden protection into explicit guardianship.
+
+## Maternal extended family
 
 Cerebline is Lalanoah's grandmother's sister.
 
-Her Charm memory describes the maternal grandmother as:
+Her Charm memory describes Lalanoah's maternal grandmother as:
 - human-born;
 - raised by Cerebline's elven family;
 - developing pointed ears;
 - living roughly two centuries without normal aging;
-- marrying a Nord;
-- rapidly aging after childbirth;
-- leaving a daughter named **Laelnoah**.
+- rapidly aging after giving birth to Laelnoah.
 
-## Other parental / guardian figures
+## Later search
 
-- Brandt says he loves Lalanoah as though she were his own child.
-- Goroll says Lalanoah reminds her of a daughter she lost and loves Lalanoah as her own.
-- Brandt invests bounty hunting effort into Lalanoah's future education.
+Shop of Curiosities and St. Bazura later connect Laelnoah's disappearance to Piper's Hill and a lost search party.
 
-## Future / succession
+## Hamah
 
-Lalanoah's desire to become a healer and study at the Temple of Kynareth is present from Act 1.
-
-Kalka later calls Lalanoah **Ms. Hamah** and says she will become a suitable vessel for succession.
+Kalka repeatedly identifies Lalanoah as **Ms. Hamah** and ties her to a succession/vessel pattern. See the dedicated Hamah thread for that ontology.
 
 ## Still unresolved
 
-- whether Lalanoah's “Sten or something” recollection refers to the same kidnappers later called Holy Pipers;
 - Laelnoah's current condition/location;
 - what happened to the Piper's Hill search party;
-- what caused the maternal grandmother's longevity and rapid post-birth aging;
-- the exact meaning of Lalanoah's succession/Hamah role.
+- the exact supernatural significance of the maternal grandmother's longevity;
+- the exact ontology of Hamah succession.

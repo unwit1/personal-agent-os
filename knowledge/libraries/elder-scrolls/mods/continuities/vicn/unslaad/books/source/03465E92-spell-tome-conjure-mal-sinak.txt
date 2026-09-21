@@ -1,0 +1,8 @@
+Title: Spell Tome: Conjure Mal-Sinak
+FormID: 03465E92
+EditorID: zzzCrbSpellTomeConjureHMRat
+Continuity: tes.mod.vicn.unslaad
+Source: translated Unslaad.esm 3.0.6
+
+<font face'$HandwrittenFont'><font size='40'><p align='center'>
+Conjure Mal-Sinak

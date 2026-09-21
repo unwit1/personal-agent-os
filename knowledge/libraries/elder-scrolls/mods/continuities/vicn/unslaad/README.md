@@ -16,7 +16,7 @@ The deterministic parser pass found **44,103 records**, including:
 - 661 DIAL records
 - 52 QUST records
 - 517 NPC_ records
-- 50 BOOK records with embedded DESC text
+- 50 BOOK records
 - 98 MESG records
 - 59 SCEN records
 - 1,740 CELL records
@@ -24,55 +24,129 @@ The deterministic parser pass found **44,103 records**, including:
 
 The translated ESM is not localized, so its English dialogue and book text can be extracted directly without external string tables.
 
-## Main-quest ingestion status
+## Current coverage
 
-The lore-bearing dialogue/scene pass is complete for the numbered main chain:
+### Numbered main quest
 
-1. Falling Cat
-2. Hoarfrost
-3. When You Wish Upon a Star
-4. Long Winter
-5. Lingering Snow
-6. Stairway to Llesw'er
-7. The Owl Flies at Dusk
-8. The Final Journey
-9. Loveletter to the Fifth Era
-10. Under the Elder Tree
+The lore-bearing dialogue/scene pass is complete for all ten numbered main quests, from **Falling Cat** through **Under the Elder Tree**.
 
-Dedicated pages now cover the major main-chain nodes including Aisha, Ulliss, Austella, Ja'cobee, Lizz, Jhunal/Gray Owl, the Owls, the Twinkling Star, the Ancient Dragon Ring, Herkel, Oohoo'Laf, Ysmaalithax, and the dream-without-a-dreamer concept.
+### Side quests and shared dialogue
 
-## Side-quest ingestion started
+High-value side/generic material is now ingested, including:
+- Fluffy's Secret
+- Dragon Souls
+- Arkved
+- Snow Guardian
+- Liturgy of I
+- Watcher from the Third Era
+- Boss Rush
+- Sermon of Khev
+- VS Dreugh King
+- radiant/repeatable dialogue families
 
-High-value side/generic dialogue now includes:
+The shared **zzzCrbGeneric** audit resolved:
+- **217 INFO rows**
+- **120 DIAL topics**
+- **28 named speaker labels**
 
-- Fluffy's Secret — Twinkling Star as memory trigger; Fluffy remembers the Egg, a child/promise, guilt/forgiveness.
-- Arkved — generic-dialogue resolution; direct Oneiromancer deal and Prisoner/dream-memory material.
-- Liturgy of I — seven Loveletter fragments, Hermit interpretation, freedom/player-choice dialogue, Black Owl continuation.
-- Watcher from the Third Era — Mankar Camoran's Eye / Mysterium Xarxes observer.
-- Orlando the Knowledgeable — direct Ja'cobee/EGG statement and Black Owl/Elder Wood origin link.
-- Hermit — Austella/Jhunal caution plus Blue Star, chicks, Egg, Black Owl, golden-dragon prophetic imagery.
+using GetIsID speaker conditions.
 
-## Strongest cross-VICN links currently established
+### Epilogue
 
-- **Ja'cobee / Ulliss / Aisha / EGG:** direct named and conceptual overlap with GLENMORIL.
+The Epilogue quest's **106 INFO responses** have been analyzed for Ulliss/Lizz, Lizz/Fluffy-Ja'cobee, and Lizz/Aisha relationship evidence.
+
+### Scene reconciliation
+
+All **59 SCEN records** are accounted for:
+- **53** contain DIAL-backed dialogue actions, all mapped to already-ingested dialogue families;
+- **6** contain no DIAL actions and are retained as technical/orchestration scenes.
+
+There is therefore no hidden SCEN dialogue backlog in this ESM version.
+
+### Books
+
+The source corpus preserves **50 / 50 BOOK records** as individual FormID-keyed files under books/source/.
+
+This includes:
+- all seven Loveletter fragments;
+- the full Loveletter From the Fifth Era;
+- Sermon 37;
+- Sermon 0;
+- Vivec and Molag Bal;
+- Ysmir the Forefather, Volume IV;
+- Harakk Warrior's Final Note;
+- Note from Fluffy;
+- all gameplay/spell/summon books.
+
+Reused/apocryphal texts remain provenance-distinct from UNSLAAD-authored material.
+
+### Messages, item text, and structural lore
+
+All **98 MESG records** are now classified:
+- 33 dedicated Insight messages;
+- 65 non-Insight messages, with lore-bearing research/inspection clusters promoted separately.
+
+Embedded item-description coverage is also audited:
+- 5 ARMO DESC records;
+- 55 WEAP DESC records.
+
+The strongest new item lore is the post-Mq07 Gray-Owl craft trio:
+- **Gray OWL** — "second CHICK," Atmoran mage, sought the "dragon";
+- **Gray EGG** — crushed by a Chick Trader of Anequina, "future" lost;
+- **Shadow of the Gray OWL** — Saarthal secret / higher planes.
+
+### Placed-reference and VMAD coverage
+
+A first placed-reference pass now maps major lore objects into cells/worldspaces, including Dragon's Cradle, Dragon's Peak, Old City of Chains, Frozen Tomb, Ysgrim's Seal, World-Eater's-Waking, End of Radiance, and Oracle Iridescent's Workshop.
+
+A first VMAD metadata pass confirms direct implementation links including:
+- Lyg door + ice-mirror markers in The Final Journey;
+- Mural/Cradle/Owl/soul-fire wiring in The Owl Flies at Dusk;
+- Loveletter quest state wired to the frozen-time access gate;
+- GC9 object wired to its LYG memory-erasure message.
+
+### Artifact ownership / death-loot / factions
+
+A first deterministic ownership graph now covers named NPC/container inventories, custom death-item lists, reward-container provenance, craftable forms, enchantment links, and custom race/faction membership.
+
+Promoted dossiers include Austella's Hoarfrost equipment, Jhunal/Gray-Owl equipment, Khev/Molag/Muatra/Coldfire, Atmoran trial relics, Dov-Ah-Kiin relics, KINMUNE/Ayrenn/Oracle-Iridescent staging, Owl/Lyg-Crab/World-Eater/Blades/Companion/core factions, Sinak/Woodland-Man/Owl relationships, and Jill trial/cross-VICN material.
+
+### No-dialogue boss/trial quests
+
+Named boss/trial families have a structural index even when they contain no ordinary INFO dialogue, including Trial of the Gods, Idol of Magnar, Last Giant of Jhunal, Jill trials, Ysgramor trial, Priest of Jhunal, and Woodland Man hunt.
+
+## Major established VICN links
+
+- **Ja'cobee / Ulliss / Aisha / EGG:** direct named and conceptual overlap with GLENMORIL; UNSLAAD now independently contains Ja'cobee/EGG statements.
 - **Jhunal / Owls / Saarthal / Night of Tears / Magnus-fire:** independently recurring in UNSLAAD, VIGILANT, and GLENMORIL.
+- **Jhunal / Laza / dragon experimentation:** UNSLAAD Gray Owl names Laza among failed experiments; VIGILANT Jhunal independently links Laza to dragon harvesting.
 - **Arkved / Oneiromancer:** direct explicit link in both UNSLAAD and GLENMORIL.
-- **Orlando / Blue Star / Owl identities:** direct Orlando recurrence plus Owl/Atmora/Elder-Wood material.
+- **Orlando / Blue Star / Owl / Elder Wood:** direct Orlando recurrence plus Owl/Atmora material.
 - **Mnemo-Li / Blue Orphan / dream without a dreamer:** distinctive vocabulary shared with GLENMORIL.
-- **Loveletter / Fifth Era:** reused apocryphal text employed as active UNSLAAD narrative substrate.
+- **Loveletter / Nu-Mantia:** reused apocryphal substrate actively interpreted by UNSLAAD through Liturgy of I and Khev.
+- **Hjalti / Alcaire:** multiple internally consistent UNSLAAD references, retained as a comparison thread rather than a forced Talos identity.
+- **Chick Trader / Anequina / Gray Owl:** UNSLAAD Gray EGG directly names a Chick Trader of Anequina; GLENMORIL independently traces original Chick Traders to the prince of Anequina and royal guards. "Second CHICK" identity remains unresolved.
+- **GC9 / LYG:** UNSLAAD's implementation-tagged GC9 message describes LYG-sector memory evaporation/timeline disposal; DAc0da independently has Ghost Choir 9, LYG mass-erasure, and a memory project.
+- **Radiance / Mnemo-Li:** UNSLAAD and DAc0da independently connect Radiance/Mnemo-Li to unstable memory, identity, paths, or world reconstruction, while preserving conflicting definitions.
 
 ## Provenance policy
 
-- Quest/objective structure, aliases, GetIsID/GetIsAliasRef conditions, scene bindings, record placements, and exact actor forms are implementation evidence.
+- Quest structure, aliases, GetIsID/GetIsAliasRef conditions, scene bindings, record placements, and exact actor forms are implementation evidence.
 - Character explanations remain attributed testimony unless separately corroborated.
 - Reused official/apocryphal texts are not attributed to Vicn merely because copies exist in Unslaad.esm.
-- Colored Owl/Jhunal/Orlando forms remain linked but are not globally merged into one body/person.
+- Colored Owl/Jhunal/Orlando forms remain densely linked but are not globally merged into one body/person.
 - Translation wording is preserved when terminology is uncertain.
+- Contradictory or unstable identity evidence is retained rather than normalized away.
 
-## Next ingestion frontier
+## Remaining ingestion frontier
 
-1. Finish remaining story-bearing side quests, especially Snow Guardian, Road to Atmora, Revive, and boss/optional quest families.
-2. Resolve remaining zzzCrbGeneric dialogue by GetIsID speaker conditions.
-3. Extract and provenance-classify all 50 BOOK texts and seven Loveletter fragments.
-4. Build remaining character/location/artifact dossiers.
-5. Align direct DAc0da evidence against the now-established VICN cross-work graph.
+The basic text-bearing layers and the first structural ownership/faction layers are now substantially reconciled.
+
+The next high-value UNSLAAD work is:
+
+1. enchantment/spell/magic-effect relationship indexing for lore-bearing artifacts and creatures;
+2. summon-tome / summon-form / corpse-drop relationships, especially Woodland/Sinak, Draco-Nord, Watcher, and Hoarfrost families;
+3. deeper quest-condition analysis for when major artifact recipes/reward sets unlock;
+4. selected placed-reference analysis for named historical weapons, masks, and transformed boss phases;
+5. provenance matching for remaining externally sourced/adapted written or mythic material;
+6. further parent-VICN reconciliation against VIGILANT, GLENMORIL, and DAc0da where exact names, artifacts, or mechanics recur.

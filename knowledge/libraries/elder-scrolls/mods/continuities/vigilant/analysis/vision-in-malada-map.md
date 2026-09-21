@@ -89,6 +89,8 @@ Current mapping: unnamed slave-trader figure — medium confidence.
 
 INFO 0212F271 is the strongest anchor: Pepe remembers another living person emerging from the sarcophagus before the player, believes he was a slave trader, and says the man's eyes burned like fire. The eight Slave Trader notes form a deliberately cryptic trail through Act 4 locations/events. The prophecy's exact statement that the slave trader killed the stanza-8 brother has not yet been independently recovered.
 
+The documentary sequence and known placements are reconstructed separately in `analysis/slave-trader-note-trail.md`.
+
 ## 10 — Vigilant trades love for a false heartbeat
 
 Current mapping: Jacob and Rahel — high confidence for the bargain.

@@ -1,40 +1,57 @@
 # Act-1 six-Chick thread
 
-Primary source: **The Chick Trader**.
+## Mq02 — five present, six required
 
-## Count
-
-Ja'zel counts:
-> “1, 2, 3, 4, 5.”
-
-He says the letter specified **six Chicks**.
-
-The five quest aliases are:
+Ja'zel counts five named Chick aliases:
 1. Cilla
 2. Asmo
 3. Sanna
 4. Heikki
 5. Urmas
 
-Brandt says the sixth went missing in a werewolf incident.
+He says the letter requires **six**.
 
-Ja'zel says he can balance the missing account and promises to collect all six.
+Brandt says one went missing during a werewolf incident.
 
-## Later resonance
+## Mq07 — sixth must be special
 
-Later GLENMORIL material repeatedly returns to:
-- six Chicks;
+Ja'zel says:
+> he is looking for the chicks and wants to make **the sixth one a special one**.
+
+## Mq10 — Lalanoah as paid sixth Chick
+
+Ja'zel leaves Brandt a payment:
+> “It is a payment for the sixth chick. Ja'zel found an interesting chick.”
+
+Later, while holding **Lalanoah**, Ja'zel says:
+> “This chick belongs to Ja'zel now. He has already paid for her.”
+
+Brandt separately reveals that:
+- the jarl ordered Falkreath's orphans sold to the Chick Trader;
+- **Lalanoah was counted among them**;
+- Brandt previously cheated Ja'zel out of taking her.
+
+This resolves Lalanoah as the **Act-1 sixth-Chick transaction target**.
+
+## Special replacement
+
+Ja'zel decides Lalanoah is not sufficiently special and offers an exchange:
+- Lalanoah goes free;
+- the player finds a **special tainted baby** in Markarth.
+
+That baby is Maria's cursed, non-growing child.
+
+## Later six-EGG resonance
+
+Later material returns to:
 - six EGGs;
-- a “real Chick” replacing another;
-- Lalanoah being called a Chick;
-- Ghostly Chicks identifying the listener as the sixth EGG/CHICK.
+- a real/replacement Chick;
+- the listener as sixth EGG/CHICK;
+- Blue Star / Wheel / Rolly-Polly imagery.
 
 ## Guardrail
 
-Do **not** equate the early six-Chick roster with the later six-EGG formulation automatically.
-
-The repeated number and terminology are retrieval-significant, but the source has not yet directly proven:
-- the missing sixth's identity;
-- whether the six are the same set across eras/scenes;
-- whether Lalanoah is the missing sixth;
-- whether Chick aliases correspond literally to children/orphans in every context.
+The Act-1 sixth Chick is now structurally resolved to Lalanoah's transaction, but this still does **not** prove that:
+- Lalanoah literally equals the later sixth EGG;
+- the five named Falkreath Chicks are identical to the later six-EGG set;
+- “Chick” has one fixed ontology across all contexts.

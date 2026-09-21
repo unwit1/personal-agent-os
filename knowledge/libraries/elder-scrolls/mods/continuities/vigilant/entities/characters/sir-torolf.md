@@ -1,0 +1,59 @@
+# Sir Torolf
+
+- Continuity: `tes.mod.vigilant`
+- Role: dialogue-bearing figure in **Knight of Arkay**
+- Scene anchor: `SCEN 021C31F3`
+- Quest editor ID: `zzzCHSubQuest10` — **Knight of Arkay**
+- Exact NPC FormID: not yet persisted in the current browsable repository corpus
+
+## Structural evidence
+
+The scene index resolves `SCEN 021C31F3` to **Sir Torolf** as the speaking actor in *Knight of Arkay*.
+
+The quest is included in the Act 4 starter list, establishing it as part of the active Coldharbour side-quest layer.
+
+At present, this is enough to create a stable character node but not enough to reconstruct Torolf's biography.
+
+## What should not be inferred
+
+The title *Knight of Arkay* does not, by itself, establish:
+- Torolf's institutional rank outside the quest;
+- whether he serves Arkay faithfully or ironically;
+- whether he is living, undead, memory-derived, or reconstructed;
+- any connection to Lamae, Mary, the Funeral Temple, or other Arkay-related material.
+
+Those relationships may eventually prove real, but the current persisted source layer does not support them.
+
+## Current classification
+
+**Named Act 4 scene character with a secure quest association; detailed narrative role unresolved.**
+
+This is intentionally a lightweight dossier until exact dialogue and alias data are recovered.
+
+## Reliability
+
+High-confidence:
+- Sir Torolf is the dialogue-bearing actor in `SCEN 021C31F3`;
+- the scene belongs to *Knight of Arkay*;
+- the quest is part of Act 4's starter list.
+
+Unresolved:
+- NPC FormID;
+- location;
+- dialogue content;
+- historical identity;
+- Arkay-related theology;
+- quest outcome.
+
+## Required future extraction
+
+Recover:
+- `zzzCHSubQuest10` aliases;
+- Torolf's NPC base and placement;
+- all quest-conditioned INFO records;
+- quest stages and objectives;
+- VMAD/PEX behavior.
+
+## Canon boundary
+
+Sir Torolf and the specific *Knight of Arkay* storyline are VIGILANT-continuity material.

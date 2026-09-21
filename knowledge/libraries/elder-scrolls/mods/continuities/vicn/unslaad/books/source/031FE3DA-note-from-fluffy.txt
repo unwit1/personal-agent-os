@@ -1,0 +1,9 @@
+Title: Note from Fluffy
+FormID: 031FE3DA
+EditorID: zzzCrbKedamaNote01
+Continuity: tes.mod.vicn.unslaad
+Source: translated Unslaad.esm 3.0.6
+
+<font face='$HandwrittenFont'><font size='18'>
+Feel free to use the guest room as you see fit. The walls are crumbling in a few spots but there is no need to worry.
+</font>

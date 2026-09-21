@@ -27,3 +27,15 @@ The Loveletter is not merely an incidental book title:
 - late main-quest dialogue invokes future inheritance, world endings, creation, memory/forgetting, and post-mortal or post-world continuance in ways that make the Loveletter an active interpretive substrate for the mod.
 
 Future passes should map which Loveletter passages are directly echoed by quest dialogue rather than assuming every passage is adopted literally.
+
+## Timeless-key function
+
+A late Dragon's Peak gate says the player needs **something timeless** to enter dreams of sleeping Atmorans in **the land where time no longer flows**.
+
+In the quest sequence this gate is tied to the Loveletter requirement. UNSLAAD therefore uses the externally sourced Loveletter as a Vicn-authored narrative/mechanical **timeless key** for frozen-time Atmoran dream-space.
+
+## VMAD corroboration
+
+The end-act teleport trigger exposes VMAD properties **MsgReqLoveletter** and **qLoveLetter**.
+
+This is direct implementation evidence that the "something timeless" frozen-time gate is specifically wired to the Loveletter state/quest.

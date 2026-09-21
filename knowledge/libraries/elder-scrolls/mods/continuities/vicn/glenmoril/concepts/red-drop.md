@@ -2,32 +2,49 @@
 
 The **Red Drop** is a recurring GLENMORIL curse/witch-hunt object or substance whose exact ontology remains unresolved.
 
-## Earliest normalized Witch Hunt explanation — The Blue Bird
+## The Blue Bird
 
 Ozwald says:
-- the elder witches of Glenmoril created the curse affecting him and the player;
-- an elder witch can be identified by possession of a **Red Drop**;
-- the **wet nurses of Hinnom** say Red Drops are a necessary catalyst for breaking the curse.
+- elder witches can be identified by a **Red Drop**;
+- Hinnom's wet nurses say Red Drops are a necessary catalyst for breaking the curse.
 
-Ozwald admits he does not know the underlying alchemy.
+## Ebonwall
 
-## Later evidence
-
-### Ebonwall
 The hunters' mission is framed as killing the elder witch and taking her Red Drop.
 
-### Bronze Key / Oneiromancer
+## Bronze Key / Oneiromancer
+
 Ja'zel says Zuzu's warning dreams help elder witches avoid detection and protect their Red Drop activity.
 
-### Or the Gospel
-Ozwald expects a Red Drop at the attacked temple. Ja'zel reveals it was removed long ago.
+## Or the Gospel
 
-Ja'zel says the temple instead contains an inscription identifying the thief and the thief's family. He says Hela guarded the secret and the Oneiromancer hid the path to it.
+Ozwald expects a Red Drop at the attacked temple, but Ja'zel reveals it was removed long ago.
 
-Ja'zel further describes the treasure as **walking around in a different form**.
+Ja'zel says:
+- an inscription identifies the thief and the thief's family;
+- Hela guarded the secret;
+- the Oneiromancer hid the route;
+- the treasure now **walks around in a different form**.
 
-### Medical assistance
-Romion later says outside assistance in High Rock is willing to help, but requires a **Red Drop**.
+## Brain-Billy's Sting
+
+Rolls-On-Roads says the Psijic Order later locates the Red Drop at **Piper's Hill**, in the hands of the **Holy Pipers**.
+
+He says:
+- a space-time distortion in the Jerall Mountains clears after the Blood Moon;
+- this reveals Piper's Hill;
+- Psijics themselves cannot approach it;
+- the player must recover the Red Drop;
+- Psijic protection for the player and associates is conditional on handing the Red Drop over to the Order.
+
+The proposed extraction route is:
+**Piper's Hill → airship → Alcaire → Psijic portal → Artaeum**.
+
+This is Rolls-On-Roads's operational intelligence/planning.
+
+## Medical assistance
+
+Romion says outside assistance in High Rock is willing to help but requires a Red Drop.
 
 ## Unresolved ontology
 
@@ -35,8 +52,8 @@ Do not yet equate the Red Drop with:
 - a particular person;
 - a bloodline;
 - the EGG;
-- the Baby/curse entity;
+- the Baby;
 - Lalanoah;
-- any other transformed object/entity.
+- another transformed object/entity.
 
-Current direct evidence supports a connection to elder witches, curse-breaking, theft, protected family information, and a claimed alternate/mobile form without establishing what the Red Drop fundamentally is.
+The source supports a connection to elder witches, curse-breaking, theft, protected family information, Piper's Hill, and a claimed alternate/mobile form without establishing what the Red Drop fundamentally is.

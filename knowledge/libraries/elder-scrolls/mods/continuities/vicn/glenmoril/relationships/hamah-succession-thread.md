@@ -1,22 +1,77 @@
 # Hamah succession thread
 
-St. Bazura dialogue adds a new layer to the earlier Hanged Man / Hamah evidence.
+## Hanged Man / historical Hamah
 
-## Earlier evidence
+The Hanged Man describes **Hamah** as a Daughter of Kyne whom he loved.
 
-The Hanged Man describes **Hamah** as a Daughter of Kyne whom he loved, and says she later returned injured, bloody, and pregnant.
+He says:
+- she returned to him injured, bloody, and pregnant;
+- he chose to believe the child was his;
+- the child was a girl who grew to resemble Hamah;
+- he loved Hamah and her daughters.
 
-## St. Bazura evidence
+## Ta Ta! / Kalka
+
+Kalka directly calls Lalanoah **Ms. Hamah**.
+
+She says:
+- a rune stone protects Ms. Hamah;
+- nearby graves all belong to **Ms. Hamah**;
+- the women buried there were splendid ladies;
+- Lalanoah will become like them.
+
+## St. Bazura
 
 Kalka says:
-- the player should protect **Hamah** after Jhunal's blessing disappears;
 - Lalanoah will soon be a **suitable vessel for succession**;
 - after Lalanoah, “we” will wait **until the next Hamah, a much later Hamah**.
 
+## Lice and Maggots — Jhunal the Black
+
+Asked what the Hanged Man wanted, Jhunal the Black says:
+- he wanted his **beloved daughters** to be happy;
+- the girls are free now;
+- **“she does not have to imitate anyone anymore”**;
+- “the curse of being her is finally over.”
+
+## Desiccated Embryo — Hamah's own testimony
+
+A Revenant-layer Hamah directly describes the prior women/daughters as **her creations**.
+
+She says:
+- she made them to behave in ways that attracted love/attention;
+- they were **soulless imitations**;
+- their hearts merely mirrored their surroundings;
+- she regrets creating them;
+- she herself never felt love and used apparent affection to attract lovers.
+
+When asked to restore Lalanoah using the Red Drop, Hamah says:
+- the **body** could be rebuilt;
+- it would **not be the Lalanoah the player knew**.
+
+This directly strengthens the imitation/succession distinction.
+
+## Curse statement
+
+Hamah says the curse:
+- dissolves in blood;
+- seeps into flesh;
+- invades the soul;
+- disappears only when the body rots and the soul dissipates.
+
+She says neither she nor another priestess can simply break it.
+
 ## Interpretation boundary
 
-The dialogue strongly suggests that **Hamah can function as a recurring title, role, state, lineage, or succession identity**, not merely the personal name of one historical woman.
+The combined evidence supports a recurring/successive **Hamah pattern involving imitation, created bodies, vessels, daughters and identity discontinuity**.
 
-It does **not yet establish** which of those models is correct, nor does it prove Lalanoah has already become Hamah.
+It still does not settle whether Hamah is fundamentally:
+- a title;
+- lineage;
+- reincarnation;
+- copied personality;
+- vessel-state;
+- ritual office;
+- or another ontology.
 
-Track historical Hamah and succession-Hamah as linked but not yet collapsed concepts.
+Keep historical Hamah, the created daughters, prior buried Hamahs, Lalanoah, and later Hamah manifestations distinct unless a source directly merges them.

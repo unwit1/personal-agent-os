@@ -26,7 +26,7 @@ His implementation reinforces the historical Redguard/Diagna identity:
 - explicit knowledge of **Diagna**;
 - speech invoking **Tu'whacca** and **Tava**;
 - a personal search tied to ancient Yokuda;
-- later involvement with Aredhel through Knight of Diagna equipment.
+- later involvement with Aredhel through **Blade of Diagna** equipment.
 
 Current classification:
 
@@ -137,8 +137,8 @@ The later Coldharbour Aredhel:
 
 - is an elf;
 - carries **Aredhel's Sword**;
-- wears armor whose player-facing names identify it with the **Knight of Diagna** tradition;
-- is internally implemented using the old `Renald` development-name family.
+- wears the **Blade of Diagna** armor set;
+- retains other legacy `Renald` identifiers in the encounter implementation.
 
 Gaiden's dialogue independently says he supplied Aredhel with a sword and armor for revenge.
 
@@ -195,11 +195,11 @@ rather than linked to an arbitrary katana.
 
 The ESM does contain other Diagna-related records:
 
-- **Knight of Diagna** armor used by Aredhel;
-- **Blade of Diagna** armor set;
-- `NPC_ 0251653B` / **Judo of the Order of Diagna**.
+- **Blade of Diagna** armor used by Aredhel;
+- **Knight of Diagna** armor worn by `NPC_ 0251653B` / **Judo of the Order of Diagna**;
+- Judo's two **Akaviri Black Katanas** and the related crafting-unlock system.
 
-These establish a broader Order-of-Diagna presence in VIGILANT.
+These establish a broader Order-of-Diagna presence in VIGILANT. The record-level comparison is preserved at `analysis/diagna-coldharbour-cluster.md`.
 
 They do not identify Gaiden's missing sword.
 

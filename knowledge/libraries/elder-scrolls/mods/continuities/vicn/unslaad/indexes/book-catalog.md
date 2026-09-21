@@ -20,10 +20,12 @@ The ESM contains **50 BOOK records**. This catalog distinguishes obviously gamep
 
 The remaining records are predominantly spell tomes, dragon bones, beast bones, and Dreugh eggs that teach or represent summons and frost abilities, including Hoarfrost Guardians, Pot Boys, Draco-Nords, Dagonic Watchers, Sinak creatures, Dragon Pus forms, and Freezing Enbarr.
 
-## Provenance rule
+## Provenance status
 
-Presence inside Unslaad.esm does not mean the prose originated with UNSLAAD. Sermon 37, Sermon 0, Loveletter material, and other texts with prior Elder Scrolls/developer-text histories must be compared against the existing source library and tagged as reused, adapted, fragmented, or UNSLAAD-original rather than silently attributed to Vicn.
+- **Sermon 37:** reused official ESO: Morrowind in-game text.
+- **Sermon 0:** reused unofficial developer text by Douglas Goodall, originally circulated in 2002 outside the games.
+- **Loveletter From the Fifth Era / fragments:** reused apocryphal/developer-text material already tracked elsewhere in the library.
+- **Vivec and Molag Bal:** exact external provenance remains unresolved.
+- **Ysmir the Forefather, Volume IV; Harakk Warrior's Final Note; Note from Fluffy:** currently treated as UNSLAAD-source texts pending contrary evidence.
 
-## Next pass
-
-Extract all 50 DESC payloads into source-text files, hash the normalized text, and compare likely reused texts against the existing Elder Scrolls/apocryphal corpus before making lore claims from them.
+Presence inside Unslaad.esm never by itself establishes authorship.

@@ -1,0 +1,23 @@
+{
+  "source_plugin": "Glenmoril.esm",
+  "continuity": "tes.mod.vicn.glenmoril",
+  "scope": "Act 1 zzzLrhMq01-zzzLrhMq10 direct QUST/SCEN dialogue",
+  "responses": 585,
+  "speaker_resolution_status": "complete",
+  "combined_with_core_act2": {
+    "act1": 585,
+    "act2": 1743,
+    "total": 2328
+  },
+  "final_batch": {
+    "batch": 24,
+    "responses": 304,
+    "quests": {
+      "zzzLrhMq06": 48,
+      "zzzLrhMq07": 44,
+      "zzzLrhMq08": 36,
+      "zzzLrhMq09": 60,
+      "zzzLrhMq10": 116
+    }
+  }
+}

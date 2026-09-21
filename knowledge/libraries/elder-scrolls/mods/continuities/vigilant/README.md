@@ -21,3 +21,16 @@ VIGILANT is stored as an explicit mod-continuity overlay. Its additions may refe
 ## Next pass
 
 Resolve dialogue speakers/aliases and SCEN ordering first, then build high-relevance character pages and a quest/narrative graph. Coldharbour memories and historical figures should remain source-scoped until their VIGILANT testimony is compared against base-canon evidence.
+
+## Supplementary source layer
+
+Lorekeeper may ingest translator/contributor background commentary when it materially resolves source gaps, but it remains provenance-separated from direct plugin evidence.
+
+Current supplementary source:
+- `sources/supplementary/a123999-vigilant-backgrounds.md`
+
+Rules:
+- direct ESM dialogue/structure remains primary implementation evidence;
+- supplementary commentary may resolve intended identity or background;
+- conflicts are retained rather than overwritten;
+- commentary-derived claims must remain labeled as such.

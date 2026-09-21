@@ -1,0 +1,22 @@
+{
+  "source_plugin": "Glenmoril.esm",
+  "continuity": "tes.mod.vicn.glenmoril",
+  "scope": "auxiliary zzzLrh/zzzLRH QUST records outside zzzLrhMq01-10",
+  "raw_expected_responses": 692,
+  "normalized_responses": 692,
+  "remaining_responses": 0,
+  "status": "closed_direct_linkage",
+  "overlap_with_core_act2": 5,
+  "net_new_beyond_main_act_scopes": 687,
+  "largest_quest": {
+    "editor_id": "zzzLrhSqRoadRoller",
+    "title": "Brain-Billy's Sting",
+    "scene_responses": 8,
+    "topic_responses": 569,
+    "total_responses": 577,
+    "speakers": {
+      "Rolls-On-Roads": 490,
+      "Augur of the Obscure": 87
+    }
+  }
+}

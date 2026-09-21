@@ -5,7 +5,10 @@
   "size_bytes": 21936314,
   "author": "Vicn",
   "header_version": "182",
-  "masters": ["Skyrim.esm", "Update.esm"],
+  "masters": [
+    "Skyrim.esm",
+    "Update.esm"
+  ],
   "record_count": 129107,
   "core_counts": {
     "QUST": 120,
@@ -19,5 +22,22 @@
     "SCEN": 78
   },
   "ingestion_status": "first-pass raw structural extraction complete locally; normalized repo ingestion in progress",
-  "continuity_policy": "VIGILANT mod continuity; do not silently promote mod-added claims into base Elder Scrolls canon."
+  "continuity_policy": "VIGILANT mod continuity; do not silently promote mod-added claims into base Elder Scrolls canon.",
+  "supplementary_sources": [
+    {
+      "id": "a123999-vigilant-backgrounds",
+      "type": "translator-contributor-background-commentary",
+      "title": "Vigilant Characters and Backgrounds (WIP)",
+      "author": "a123999",
+      "host": "Nexus Mods",
+      "url": "https://www.nexusmods.com/skyrim/articles/52354",
+      "provenance_policy": "supplementary only; never silently override direct ESM records"
+    },
+    {
+      "id": "community-transcript-sources",
+      "type": "community-transcript-and-walkthrough",
+      "file": "sources/supplementary/community-transcript-sources.md",
+      "provenance_policy": "secondary only; verify against direct ESM when available"
+    }
+  ]
 }

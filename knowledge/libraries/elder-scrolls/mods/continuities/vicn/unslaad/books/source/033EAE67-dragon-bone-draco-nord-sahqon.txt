@@ -1,0 +1,8 @@
+Title: Dragon Bone: Draco-Nord Sahqon
+FormID: 033EAE67
+EditorID: zzzCrbSpellTomeConjureDragoGargo02
+Continuity: tes.mod.vicn.unslaad
+Source: translated Unslaad.esm 3.0.6
+
+<font face'$HandwrittenFont'><font size='40'><p align='center'>
+Conjure Draco-Nord Sahqon

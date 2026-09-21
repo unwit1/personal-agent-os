@@ -14,29 +14,29 @@ Scope: the ten main `zzzLrhMq01–zzzLrhMq10` **Little Red** quests.
 
 ## Raw expected responses
 
-| Quest | Title | SCEN | topics | total |
-|---|---|---:|---:|---:|
-| zzzLrhMq01 | The Way is Blocked | 25 | 72 | **97** |
-| zzzLrhMq02 | The Chick Trader | 15 | 61 | **76** |
-| zzzLrhMq03 | A Curious Animal | 8 | 18 | **26** |
-| zzzLrhMq04 | Weary of Waiting | 9 | 20 | **29** |
-| zzzLrhMq05 | Ah, Apple Pie! | 20 | 33 | **53** |
-| zzzLrhMq06 | Cleaning Up Falkreath | 8 | 40 | **48** |
-| zzzLrhMq07 | The Blessing | 10 | 34 | **44** |
-| zzzLrhMq08 | My Precious | 7 | 29 | **36** |
-| zzzLrhMq09 | Ta Ta! | 27 | 33 | **60** |
-| zzzLrhMq10 | The Cat and the Chick | 32 | 84 | **116** |
+| Quest | Title | SCEN | topics | total | status |
+|---|---|---:|---:|---:|---|
+| zzzLrhMq01 | The Way is Blocked | 25 | 72 | **97** | closed |
+| zzzLrhMq02 | The Chick Trader | 15 | 61 | **76** | closed |
+| zzzLrhMq03 | A Curious Animal | 8 | 18 | **26** | closed |
+| zzzLrhMq04 | Weary of Waiting | 9 | 20 | **29** | closed |
+| zzzLrhMq05 | Ah, Apple Pie! | 20 | 33 | **53** | closed |
+| zzzLrhMq06 | Cleaning Up Falkreath | 8 | 40 | **48** | closed |
+| zzzLrhMq07 | The Blessing | 10 | 34 | **44** | closed |
+| zzzLrhMq08 | My Precious | 7 | 29 | **36** | closed |
+| zzzLrhMq09 | Ta Ta! | 27 | 33 | **60** | closed |
+| zzzLrhMq10 | The Cat and the Chick | 32 | 84 | **116** | closed |
 
 **Act-1 raw expected total: 585 exact response texts.**
+**Normalized: 585 / 585.**
+**Status: closed for direct QUST/SCEN linkage.**
 
-## Processing status
+## Closure boundary
 
-- Mq01 — The Way is Blocked: **97 / 97 normalized**
-- Mq02 — The Chick Trader: **76 / 76 normalized**
-- Mq03 — A Curious Animal: **26 / 26 normalized**
-- Mq04 — Weary of Waiting: **29 / 29 normalized**
-- Mq05 — Ah, Apple Pie!: **53 / 53 normalized**
-- Mq06–Mq10: inventoried, pending sequential normalization
+This closes the ten main Little Red quest families for direct QUST-linked topic dialogue and SCEN-linked dialogue.
 
-Normalized so far: **281 / 585**
-Remaining: **304**
+It does not claim every Act-1-adjacent string in the entire plugin is finished. Separate future audits can still cover:
+- auxiliary `zzzLrh*` side quests outside Mq01–Mq10;
+- shared/general DIAL records with no QNAM;
+- scripts/packages/books/activators;
+- indirect dialogue reached through non-main quest containers.

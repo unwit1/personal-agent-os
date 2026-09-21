@@ -1,28 +1,42 @@
-# Felix — sister memory anomaly
+# Felix — sister / girl memory anomaly
 
-Primary source: **The Blue Bird**.
+## The Blue Bird
 
-During the Felix encounter, Felix tells Ozwald he has finally remembered a sister:
+Felix tells Ozwald he has remembered a sister:
 - a child who smiles like the sun;
-- a child who loves white flowers.
+- someone who loves white flowers.
 
-Felix immediately questions whether the memory is correct.
+Felix immediately doubts the memory.
 
-Later, Ozwald states unequivocally:
+Ozwald later states unequivocally:
 > Felix had **no sister**.
 
-Ozwald refuses to discuss Felix's remembered description further.
+## Replay Gen
 
-## Interpretation boundary
+Felix later repeats:
+> “That girl... that smile... that flower...”
 
-Direct evidence supports a **memory contradiction**, not a literal family member.
+He says:
+- she is still crying;
+- he must find/help her;
+- he remembers himself as **Laza**;
+- the player is also Laza;
+- his memories are disappearing under a **blood curse of fading memories**;
+- the player must inherit the curse because Felix failed.
 
-Possible explanations such as:
-- inherited memory;
-- curse-transmitted memory;
-- implanted memory;
-- mistaken identity;
-- dream contamination;
-- suppressed history
+## Consequence
 
-remain hypotheses until another record links the remembered child to a named person.
+The replay material strengthens the idea that the sister/girl memory is part of a larger **curse-transmitted / inherited identity-memory structure** rather than a straightforward forgotten biological sibling.
+
+## Guardrail
+
+The girl's exact identity remains unresolved.
+
+Do not automatically identify her with:
+- Lalanoah;
+- Hamah;
+- Laza's historical family;
+- the Blue Star;
+- another named girl
+
+without a direct bridge.
