@@ -24,16 +24,25 @@ Use those parent threads instead of duplicating synthesis locally.
 - Radiance / Mnemo-Li / memory → `radiance-mnemo-li-memory-thread.md`
 - Hjalti / Alcaire → `hjalti-alcaire-thread.md`
 
-## Unresolved seed — Lizz / dragon-soul lineage
+## Confirmed UNSLAAD-local — Lizz / dragon-soul lineage
 
-UNSLAAD directly says:
-- Ulliss was built from dragon souls sealed in ice, according to Jhunal;
-- Lizz contains some of the player's dragon soul;
-- the player can describe Lizz as "our daughter" with Ulliss.
+A repository-wide comparison found no independent Lizz identity or matching inherited Dragon-Soul daughter mechanism in VIGILANT, GLENMORIL, or DAc0da.
 
-No equivalent GLENMORIL, VIGILANT, or DAc0da claim should be inferred without direct evidence.
+UNSLAAD alone directly establishes:
+- Ulliss as Lizz's mother;
+- Jhunal's claim that Lizz contains part of the player's dragon soul;
+- the player's line that Ulliss and the player "have a daughter now";
+- stable mother/daughter family scenes in the epilogue.
 
-Keep this UNSLAAD-scoped until another work independently names Lizz or the same lineage mechanism.
+Therefore this should **not** remain queued as a cross-VICN seed.
+
+Routing:
+- `entities/characters/lizz.md`
+- `entities/characters/ulliss.md`
+- `relationships/ulliss-lizz-shared-ability.md`
+- `dialogue/snow-guardian.md`
+
+Keep all Lizz lineage claims source-scoped to UNSLAAD unless future source ingestion produces a new direct match.
 
 ## Resolved comparison — memory-dependent persistence
 
