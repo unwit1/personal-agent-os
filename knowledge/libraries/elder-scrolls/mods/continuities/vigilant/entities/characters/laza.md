@@ -87,3 +87,44 @@ Accordingly, this dossier records only claims supported by the currently preserv
 ## Canon boundary
 
 Laza's relationship to Jhunal, the color-coded Owl cycle, and the dragon-harvesting narrative are VIGILANT continuity material. They should not be promoted into base Elder Scrolls canon without independent licensed-source corroboration.
+
+
+## Cross-Vicn Laza/Owl continuation
+
+Later Vicn works provide direct continuation evidence for the color-coded Owl sequence.
+
+### GLENMORIL exact texts
+
+GLENMORIL preserves:
+- `The Three Owls`
+- `Laza and the Owls`
+
+The latter directly sequences Laza through:
+1. White Owl;
+2. Gray Owl;
+3. Black Owl.
+
+The Gray Owl directs Laza toward **Kyne's Spring**, while the Black Owl instructs him to plunge his dagger into the Spring and frames the resulting corruption/transformation as bringing him closer to those he lost.
+
+These are **GLENMORIL texts**, not recovered copies of the missing VIGILANT books.
+
+### UNSLAAD corroboration
+
+UNSLAAD's **Jhunal the Gray / Gray Owl** directly lists **Laza** among failed experiments.
+
+This independently supports:
+- VIGILANT Jhunal's claim that he used Laza;
+- the dragon-experiment thread;
+- the continuity of Laza as an Owl/Jhunal experimental subject.
+
+### Revised color identity map
+
+Cross-Vicn direct evidence later gives:
+- White Owl → **Jhunal the White**
+- Gray Owl → **Jhunal the Gray**, with Orlando-family entanglement
+- Black Owl → **Jhunal the Black**
+
+These should be treated as strong continuity evidence, not silently substituted for the missing VIGILANT book texts.
+
+Detailed bridge:
+- `analysis/vicn-owl-continuity-bridge.md`
