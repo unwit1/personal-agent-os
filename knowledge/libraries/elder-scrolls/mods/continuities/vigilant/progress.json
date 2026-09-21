@@ -100,7 +100,12 @@
     "Art of the Ayleids source map linking Jhunal authorship to flesh-art testimony without conflating the sources",
     "Ilinalta Report 4E 200 source map separating Julia corpse observations from investigator inference",
     "Altano's Journal direct chronology and reliability map",
-    "Petition to House Tharn four-volume ideology sequence with speaker and metaphysical reliability boundaries"
+    "Petition to House Tharn four-volume ideology sequence with speaker and metaphysical reliability boundaries",
+    "Rahel's Journal direct chronology and reliability map",
+    "Marcus Bruiant 4E 199-201 journal chronology and red-Stone dream evidence map",
+    "Bartholo investigation evidence map separating observed curse/totem evidence from expert inference",
+    "Judgement source map: Alessian authorization-over-outcome doctrine and Mary/Moura parallel",
+    "The Illusion of Death official-ESO provenance and VIGILANT placement/context map"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -136,15 +141,15 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "five-unit VIGILANT source-analysis batch",
+    "focus": "five-unit VIGILANT documentary-source batch",
     "added": [
-      "The Remnant of Light — official ESO reprint provenance separated from VIGILANT's Bruiant Mansion placement",
-      "The Art of the Ayleids — Jhunal authorship, flesh-art linkage, distribution, and provenance caution",
-      "Ilinalta Report 4E 200 — Julia Bruiant corpse-state observations separated from the report writer's theory about the caster",
-      "Altano's Journal — dated 4E 197-198 early-life chronology, Jacob naming/rescue, and unnamed witch/werewolf/Silver Hand boundaries",
-      "Petition to House Tharn — Vols. 11/23/68/77 normalized as a progression from manufactured history through Prisoner rejection to doctrine/memory collapse and Stone-Fire"
+      "Rahel's Journal — 4E 180/182/191/200 chronology, Molag Bal follower and mace, discord mission, Vernaccus, and unresolved two-year gap",
+      "Marcus Bruiant journals — 4E 199 affair/slaver episode, 4E 200 family disappearance and red-Stone dream, 4E 201 Bartholo escalation, and final Child of Oblivion conclusion",
+      "Bartholo's Journal — direct Magicka/totem/curse observations separated from Molag Bal, Ayleid, caster-cost, and remaining-totem inferences",
+      "Judgement — authorization-over-outcome doctrine, popular-participation argument, and strong-but-not-name-confirming Mary/Moura parallel",
+      "The Illusion of Death — official ESO provenance separated from VIGILANT placement and Marukh-memory thematic use"
     ],
-    "source_state": "all five units use exact BOOK texts already persisted from the canonical VIGILANT 1.8.2 source; no missing-source identities were inferred",
-    "open_followup": "continue with another bounded set of evidence-rich persisted sources, or resume unresolved direct-source targets such as Sir Amiel Lannus only if new source layers become available."
+    "source_state": "all five units use exact BOOK texts already persisted from canonical VIGILANT 1.8.2; official reprint provenance is retained where applicable and no unresolved identities were promoted",
+    "open_followup": "continue with another bounded five-unit documentary/character batch; unresolved raw-source targets such as Sir Amiel Lannus and the full Feral Soul-Shriven roster remain blocked unless additional direct extraction becomes available."
   }
 }
