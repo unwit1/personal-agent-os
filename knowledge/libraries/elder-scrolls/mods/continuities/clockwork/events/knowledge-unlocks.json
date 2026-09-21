@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "purpose": "Spoiler-aware knowledge gates: earliest point at which a player-facing retrieval may safely treat a fact as known.",
+  "unlocks": [
+    {
+      "fact_id": "shadow.exists_as_tunnel_presence",
+      "earliest": [
+        "BOOK 05065F4A",
+        "BOOK 05066A37"
+      ],
+      "player_state": "Foot Of The Mountain / Shadow Under The Mountain",
+      "note": "Presence is observable but not yet named Shadow."
+    },
+    {
+      "fact_id": "clockwork_castle.name",
+      "earliest": [
+        "QUST 052908C1 stage 10"
+      ]
+    },
+    {
+      "fact_id": "travel_machine.escape_route",
+      "earliest": [
+        "QUST 052908C1 stage 30"
+      ]
+    },
+    {
+      "fact_id": "travel_machine.requires_steam",
+      "earliest": [
+        "QUST 052908C1 stage 60"
+      ]
+    },
+    {
+      "fact_id": "nurndural.beneath_castle",
+      "earliest": [
+        "QUST 052908C1 stage 70"
+      ]
+    },
+    {
+      "fact_id": "travel_machine.mechanically_restored",
+      "earliest": [
+        "QUST 052908C1 stage 120"
+      ]
+    },
+    {
+      "fact_id": "player.supernaturally_blocked_from_leaving",
+      "earliest": [
+        "QUST 052908C1 stage 130"
+      ]
+    },
+    {
+      "fact_id": "gilded.once_living_dwemer",
+      "earliest": [
+        "QUST 052908C1 stage 140"
+      ],
+      "note": "Reveal begins but explanation is interrupted."
+    },
+    {
+      "fact_id": "lamashtu.heart_is_failing",
+      "earliest": [
+        "QUST 05506BB5 stage 30"
+      ]
+    },
+    {
+      "fact_id": "amalgam.remote_voice",
+      "earliest": [
+        "QUST 05506BB5 stage 50"
+      ]
+    },
+    {
+      "fact_id": "amalgam.hostile_body",
+      "earliest": [
+        "QUST 05506BB5 stage 70"
+      ]
+    },
+    {
+      "fact_id": "crystalline_heart.replaceable",
+      "earliest": [
+        "QUST 05506BB5 stages 130-150"
+      ]
+    },
+    {
+      "fact_id": "gilded.origin_process_full",
+      "earliest": [
+        "INFO 0566AC27"
+      ],
+      "player_state": "after Lamashtu restoration"
+    },
+    {
+      "fact_id": "shadow.initial_split_explanation",
+      "earliest": [
+        "QUST 05506BB5 stage 160",
+        "INFO 05679F5A"
+      ],
+      "status": "provisional_character_testimony"
+    },
+    {
+      "fact_id": "shadow.blocks_travel_machine",
+      "earliest": [
+        "QUST 05506BB5 stage 160",
+        "INFO 05679F5E"
+      ]
+    },
+    {
+      "fact_id": "shadow.lamashtu_are_copies",
+      "earliest": [
+        "INFO 05788344"
+      ],
+      "player_state": "after Shadow reunion",
+      "status": "later_reinterpretation"
+    },
+    {
+      "fact_id": "shadow.motive_loneliness",
+      "earliest": [
+        "INFO 0578D460"
+      ],
+      "player_state": "after Shadow reunion",
+      "status": "later_reinterpretation"
+    },
+    {
+      "fact_id": "player.free_to_leave",
+      "earliest": [
+        "QUST 0508DA63 stage 200"
+      ]
+    },
+    {
+      "fact_id": "recall_to_clockwork_castle",
+      "earliest": [
+        "QUST 0508DA63 stage 200"
+      ]
+    },
+    {
+      "fact_id": "ludwig.full_history",
+      "earliest": [
+        "QUST 05337FC1 stages 20-40",
+        "BOOK 05332EA2",
+        "BOOK 05332EA7",
+        "BOOK 05332EAA",
+        "BOOK 05332EAF"
+      ],
+      "note": "Knowledge accumulates journal by journal rather than all at once."
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "locations": [
+    {
+      "id": "cragwallow-slope-ruins",
+      "name": "Cragwallow Slope ruins",
+      "region": "Eastmarch",
+      "roles": [
+        "story_entry"
+      ],
+      "evidence": [
+        "BOOK 0505F158",
+        "QUST 0505F6C9"
+      ]
+    },
+    {
+      "id": "velothi-mountain-tunnels",
+      "name": "Velothi Mountain Tunnels",
+      "roles": [
+        "story_entry",
+        "shadow-haunting",
+        "former-trade-route"
+      ],
+      "evidence": [
+        "QUST 050632CC",
+        "BOOK 05065F4A",
+        "BOOK 05066A37",
+        "BOOK 05070265",
+        "BOOK 05070266",
+        "BOOK caravaneer-journal"
+      ]
+    },
+    {
+      "id": "clockwork-valley",
+      "name": "Clockwork Valley",
+      "roles": [
+        "isolated-valley",
+        "castle-setting"
+      ],
+      "evidence": [
+        "QUST 050632CC stage 30",
+        "QUST 050632CC stage 200"
+      ]
+    },
+    {
+      "id": "clockwork-castle",
+      "name": "Clockwork Castle",
+      "roles": [
+        "home",
+        "hub"
+      ],
+      "page": "../topics/clockwork-castle.md"
+    },
+    {
+      "id": "mausoleum",
+      "name": "Castle Mausoleum",
+      "roles": [
+        "family-burial-site",
+        "nurndural-access"
+      ],
+      "evidence": [
+        "QUST 052908C1 stages 70-90"
+      ]
+    },
+    {
+      "id": "master-bedroom",
+      "name": "Master Bedroom",
+      "roles": [
+        "castle-room",
+        "ludwig-final-hiding-place"
+      ],
+      "evidence": [
+        "QUST 05337FC1 stages 20-40"
+      ]
+    },
+    {
+      "id": "mages-study",
+      "name": "Mage's Study",
+      "roles": [
+        "castle-room",
+        "crafting"
+      ],
+      "evidence": [
+        "QUST 05337FC1 stage 20",
+        "QUST 057A69D2"
+      ]
+    },
+    {
+      "id": "travel-room",
+      "name": "Travel Room",
+      "roles": [
+        "castle-room",
+        "travel-machine"
+      ],
+      "page": "../topics/travel-machine.md"
+    },
+    {
+      "id": "glass-garden",
+      "name": "Glass Garden",
+      "roles": [
+        "castle-room",
+        "alchemical-garden"
+      ],
+      "evidence": [
+        "INFO 0530F5E8",
+        "INFO 0530F5E9",
+        "INFO 056985DB"
+      ]
+    },
+    {
+      "id": "nurndural",
+      "name": "Nurndural",
+      "roles": [
+        "dwemer-freehold",
+        "subterranean-complex"
+      ],
+      "page": "../topics/nurndural.md"
+    },
+    {
+      "id": "sickness-ward",
+      "name": "Sickness Ward",
+      "roles": [
+        "hospital",
+        "gilded-origin",
+        "amalgam-encounter"
+      ],
+      "page": "../topics/sickness-ward.md"
+    },
+    {
+      "id": "mortal-layer",
+      "name": "Mortal Layer",
+      "roles": [
+        "nurndural-area",
+        "ballista-repair-objective"
+      ],
+      "evidence": [
+        "QUST 05506BB5 stages 90-100",
+        "BOOK unfinished-note"
+      ]
+    },
+    {
+      "id": "hall-of-elements",
+      "name": "Hall of Elements",
+      "roles": [
+        "nurndural-area",
+        "amalgam-search"
+      ],
+      "evidence": [
+        "QUST 05506BB5 stage 40"
+      ]
+    },
+    {
+      "id": "direction-of-flow",
+      "name": "Direction of Flow",
+      "roles": [
+        "nurndural-area",
+        "route-to-animoculotory"
+      ],
+      "evidence": [
+        "QUST 0508DA63 stage 20",
+        "INFO 0569D6F7"
+      ]
+    },
+    {
+      "id": "animoculotory",
+      "name": "Animoculotory",
+      "roles": [
+        "gilded-facility",
+        "shadow-confrontation"
+      ],
+      "page": "../topics/animoculotory.md"
+    }
+  ]
+}

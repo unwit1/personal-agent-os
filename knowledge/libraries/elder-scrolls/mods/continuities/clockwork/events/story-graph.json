@@ -1,0 +1,436 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "graph_type": "narrative_event_graph",
+  "nodes": [
+    {
+      "id": "prelude.camilla.recruits_isidor",
+      "type": "pre_player_event",
+      "evidence": [
+        "BOOK 0505F158"
+      ],
+      "location": "Cragwallow Slope / Velothi Tunnels approach"
+    },
+    {
+      "id": "prelude.camilla.enters_tunnels",
+      "type": "pre_player_event",
+      "evidence": [
+        "BOOK 05065F4A"
+      ],
+      "location": "Velothi Mountain Tunnels"
+    },
+    {
+      "id": "prelude.camilla.encounters_presence",
+      "type": "pre_player_event",
+      "evidence": [
+        "BOOK 05066A37",
+        "BOOK 05070265",
+        "BOOK 05070266"
+      ],
+      "location": "Velothi Mountain Tunnels",
+      "later_identification": "Shadow"
+    },
+    {
+      "id": "q1.assailant",
+      "type": "quest_stage",
+      "quest": "0505F6C9",
+      "stage": 10
+    },
+    {
+      "id": "q1.camilla_note",
+      "type": "quest_stage",
+      "quest": "0505F6C9",
+      "stage": 20
+    },
+    {
+      "id": "q1.ruins_target",
+      "type": "quest_stage",
+      "quest": "0505F6C9",
+      "stage": 30
+    },
+    {
+      "id": "q2.entry_collapse",
+      "type": "quest_stage",
+      "quest": "050632CC",
+      "stage": 20,
+      "location": "Velothi Mountain Tunnels"
+    },
+    {
+      "id": "q2.valley_escape",
+      "type": "quest_stage",
+      "quest": "050632CC",
+      "stage": 30,
+      "location": "Clockwork Valley"
+    },
+    {
+      "id": "q2.castle_found",
+      "type": "quest_stage",
+      "quest": "050632CC",
+      "stage": 200,
+      "location": "Clockwork Castle"
+    },
+    {
+      "id": "q3.meet_lahar",
+      "type": "quest_stage",
+      "quest": "052908C1",
+      "stage": 10,
+      "characters": [
+        "Lahar"
+      ]
+    },
+    {
+      "id": "q3.meet_lamashtu",
+      "type": "quest_stage",
+      "quest": "052908C1",
+      "stage": 20,
+      "characters": [
+        "Lamashtu"
+      ]
+    },
+    {
+      "id": "q3.travel_machine_known",
+      "type": "quest_stage",
+      "quest": "052908C1",
+      "stage": 30,
+      "location": "Travel Machine"
+    },
+    {
+      "id": "q3.travel_machine_mechanical_failure",
+      "type": "quest_stage",
+      "quest": "052908C1",
+      "stage": 60
+    },
+    {
+      "id": "q3.pipeline_task",
+      "type": "quest_stage",
+      "quest": "052908C1",
+      "stage": 70,
+      "location": "Nurndural"
+    },
+    {
+      "id": "q3.pipeline_repaired",
+      "type": "quest_stage",
+      "quest": "052908C1",
+      "stage": 100,
+      "location": "Nurndural"
+    },
+    {
+      "id": "q3.travel_machine_restored",
+      "type": "quest_stage",
+      "quest": "052908C1",
+      "stage": 120
+    },
+    {
+      "id": "q3.escape_compulsion",
+      "type": "quest_stage",
+      "quest": "052908C1",
+      "stage": 130,
+      "characters": [
+        "Shadow"
+      ]
+    },
+    {
+      "id": "q3.gilded_reveal_begins",
+      "type": "quest_stage",
+      "quest": "052908C1",
+      "stage": 140,
+      "characters": [
+        "Lamashtu"
+      ]
+    },
+    {
+      "id": "q4.lamashtu_heart_failure",
+      "type": "quest_stage",
+      "quest": "05506BB5",
+      "stage": 30,
+      "characters": [
+        "Lamashtu",
+        "Lahar"
+      ]
+    },
+    {
+      "id": "q4.amalgam_speaker_horn",
+      "type": "quest_stage",
+      "quest": "05506BB5",
+      "stage": 50,
+      "characters": [
+        "Amalgam"
+      ],
+      "location": "Sickness Ward"
+    },
+    {
+      "id": "q4.amalgam_encounter",
+      "type": "quest_stage",
+      "quest": "05506BB5",
+      "stage": 70,
+      "characters": [
+        "Amalgam"
+      ],
+      "location": "Sickness Ward"
+    },
+    {
+      "id": "q4.ballista_gate_breach",
+      "type": "quest_stage",
+      "quest": "05506BB5",
+      "stage": 120,
+      "location": "Sickness Ward"
+    },
+    {
+      "id": "q4.replacement_heart_recovered",
+      "type": "quest_stage",
+      "quest": "05506BB5",
+      "stage": 130,
+      "characters": [
+        "Amalgam",
+        "Lamashtu"
+      ]
+    },
+    {
+      "id": "q4.lamashtu_restored",
+      "type": "quest_stage",
+      "quest": "05506BB5",
+      "stage": 150,
+      "characters": [
+        "Lamashtu",
+        "Lahar"
+      ]
+    },
+    {
+      "id": "q4.shadow_split_claim",
+      "type": "quest_stage",
+      "quest": "05506BB5",
+      "stage": 160,
+      "characters": [
+        "Lamashtu",
+        "Shadow"
+      ],
+      "status": "character_testimony"
+    },
+    {
+      "id": "q5.hunt_shadow",
+      "type": "quest_stage",
+      "quest": "0508DA63",
+      "stage": 20,
+      "characters": [
+        "Lamashtu",
+        "Shadow"
+      ],
+      "location": "Direction of Flow"
+    },
+    {
+      "id": "q5.animoculotory",
+      "type": "quest_stage",
+      "quest": "0508DA63",
+      "stage": 30,
+      "location": "Animoculotory"
+    },
+    {
+      "id": "q5.shadow_fight",
+      "type": "quest_stage",
+      "quest": "0508DA63",
+      "stage": 40,
+      "characters": [
+        "Lamashtu",
+        "Shadow"
+      ],
+      "location": "Animoculotory"
+    },
+    {
+      "id": "q5.reunion",
+      "type": "quest_stage",
+      "quest": "0508DA63",
+      "stage": 50,
+      "characters": [
+        "Lamashtu",
+        "Shadow"
+      ]
+    },
+    {
+      "id": "q5.copy_reinterpretation",
+      "type": "dialogue_reveal",
+      "evidence": [
+        "INFO 05788344"
+      ],
+      "characters": [
+        "Lamashtu",
+        "Shadow"
+      ]
+    },
+    {
+      "id": "q5.loneliness_reinterpretation",
+      "type": "dialogue_reveal",
+      "evidence": [
+        "INFO 0578D460"
+      ],
+      "characters": [
+        "Lamashtu",
+        "Shadow",
+        "Ludwig Chlodovech"
+      ]
+    },
+    {
+      "id": "q5.escape_restored",
+      "type": "quest_stage",
+      "quest": "0508DA63",
+      "stage": 200,
+      "location": "Clockwork Castle"
+    }
+  ],
+  "edges": [
+    {
+      "from": "prelude.camilla.recruits_isidor",
+      "to": "prelude.camilla.enters_tunnels",
+      "relation": "precedes"
+    },
+    {
+      "from": "prelude.camilla.enters_tunnels",
+      "to": "prelude.camilla.encounters_presence",
+      "relation": "precedes"
+    },
+    {
+      "from": "prelude.camilla.encounters_presence",
+      "to": "q1.assailant",
+      "relation": "precedes_player_story"
+    },
+    {
+      "from": "q1.assailant",
+      "to": "q1.camilla_note",
+      "relation": "unlocks"
+    },
+    {
+      "from": "q1.camilla_note",
+      "to": "q1.ruins_target",
+      "relation": "directs_to"
+    },
+    {
+      "from": "q1.ruins_target",
+      "to": "q2.entry_collapse",
+      "relation": "leads_to"
+    },
+    {
+      "from": "q2.entry_collapse",
+      "to": "q2.valley_escape",
+      "relation": "forces_forward"
+    },
+    {
+      "from": "q2.valley_escape",
+      "to": "q2.castle_found",
+      "relation": "reveals"
+    },
+    {
+      "from": "q2.castle_found",
+      "to": "q3.meet_lahar",
+      "relation": "leads_to"
+    },
+    {
+      "from": "q3.meet_lahar",
+      "to": "q3.meet_lamashtu",
+      "relation": "escort"
+    },
+    {
+      "from": "q3.meet_lamashtu",
+      "to": "q3.travel_machine_known",
+      "relation": "reveals_escape_route"
+    },
+    {
+      "from": "q3.travel_machine_known",
+      "to": "q3.travel_machine_mechanical_failure",
+      "relation": "attempt_reveals"
+    },
+    {
+      "from": "q3.travel_machine_mechanical_failure",
+      "to": "q3.pipeline_task",
+      "relation": "causes_task"
+    },
+    {
+      "from": "q3.pipeline_task",
+      "to": "q3.pipeline_repaired",
+      "relation": "resolved_by"
+    },
+    {
+      "from": "q3.pipeline_repaired",
+      "to": "q3.travel_machine_restored",
+      "relation": "restores"
+    },
+    {
+      "from": "q3.travel_machine_restored",
+      "to": "q3.escape_compulsion",
+      "relation": "attempt_reveals"
+    },
+    {
+      "from": "q3.escape_compulsion",
+      "to": "q3.gilded_reveal_begins",
+      "relation": "prompts_explanation"
+    },
+    {
+      "from": "q3.gilded_reveal_begins",
+      "to": "q4.lamashtu_heart_failure",
+      "relation": "interrupted_by"
+    },
+    {
+      "from": "q4.lamashtu_heart_failure",
+      "to": "q4.amalgam_speaker_horn",
+      "relation": "requires_replacement_heart_search"
+    },
+    {
+      "from": "q4.amalgam_speaker_horn",
+      "to": "q4.amalgam_encounter",
+      "relation": "directs_to"
+    },
+    {
+      "from": "q4.amalgam_encounter",
+      "to": "q4.ballista_gate_breach",
+      "relation": "retreat_forces"
+    },
+    {
+      "from": "q4.ballista_gate_breach",
+      "to": "q4.replacement_heart_recovered",
+      "relation": "enables"
+    },
+    {
+      "from": "q4.replacement_heart_recovered",
+      "to": "q4.lamashtu_restored",
+      "relation": "enables"
+    },
+    {
+      "from": "q4.lamashtu_restored",
+      "to": "q4.shadow_split_claim",
+      "relation": "enables_explanation"
+    },
+    {
+      "from": "q4.shadow_split_claim",
+      "to": "q5.hunt_shadow",
+      "relation": "motivates"
+    },
+    {
+      "from": "q5.hunt_shadow",
+      "to": "q5.animoculotory",
+      "relation": "leads_to"
+    },
+    {
+      "from": "q5.animoculotory",
+      "to": "q5.shadow_fight",
+      "relation": "leads_to"
+    },
+    {
+      "from": "q5.shadow_fight",
+      "to": "q5.reunion",
+      "relation": "enables"
+    },
+    {
+      "from": "q5.reunion",
+      "to": "q5.copy_reinterpretation",
+      "relation": "causes_reassessment"
+    },
+    {
+      "from": "q5.reunion",
+      "to": "q5.loneliness_reinterpretation",
+      "relation": "restores_memory_perspective"
+    },
+    {
+      "from": "q5.reunion",
+      "to": "q5.escape_restored",
+      "relation": "removes_block"
+    }
+  ]
+}

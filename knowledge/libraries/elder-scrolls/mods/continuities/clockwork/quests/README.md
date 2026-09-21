@@ -15,4 +15,11 @@ These pages are generated from `QUST` records in the supplied ESP and preserve j
 - [A Bed of Dust](clwside01quest.md)
 - [Staff Enchanting](clwside02quest.md)
 
+## Narrative reconstruction
+
+- [Full narrative timeline](../events/player-story-timeline.md)
+- `../events/story-graph.json` — machine-readable event/dependency graph
+- `../events/knowledge-unlocks.json` — spoiler-aware fact availability
+- `../locations/` — story location index
+
 The plugin also contains internal dialogue/MCM/tracking quest records; those remain in `../raw/quest-records.txt.gz` pending a separate technical-record catalog.
