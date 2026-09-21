@@ -241,6 +241,9 @@ Detailed design:
 - `projects/personal-agent-os/roadmap/usage-intelligence-adaptive-routing.md` — shared document intelligence, HR-GUI optimization, scanner learning loop.
 
 ### P0.4 — Resumable/checkpointed ingestion everywhere
+Status: implemented in the P0.4 recovery foundation (`agent_os.recovery`), with
+local compact checkpoints, Git fingerprints, cross-agent continuation, and a
+generic incremental ledger. See `docs/restart-recovery.md`.
 
 Long-running imports and crawls must not lose progress or rescan completed material.
 
@@ -263,6 +266,9 @@ Success signal:
 - interruption or restart does not cause a full re-run.
 
 ### P0.5 — Deterministic/cache/skill-first execution policy
+Status: implemented in `agent_os.execution`, with workflow packets persisting
+the selected deterministic/cache/approved-skill/model route and reason. See
+`docs/execution-routing.md`.
 
 Make the default execution preference operational, not just documented:
 

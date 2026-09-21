@@ -16,6 +16,7 @@ from .index import search
 from .mail import get_message as mail_get_message, search as mail_search, status as mail_status, sync as mail_sync
 from .improvements import capture_improvement, get_improvement, issue_payload, list_improvements, search_improvements, update_improvement
 from .profile import compact_profile as profile_retrieve, profile_status
+from .recovery import get_checkpoint, inspect_recovery, latest_checkpoint, list_checkpoints, resume_recovery
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .skills import discover, match, metadata
 from .workflows import (
@@ -124,6 +125,21 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "description": "Describe what profile context is indexed, by domain, without returning the profile itself.",
         "inputSchema": {"type": "object", "properties": {}},
     },
+    "recovery.status": {
+        "description": "Inspect local Git/checkpoint evidence and return a compact provider-neutral recovery status.",
+        "inputSchema": {"type": "object", "properties": {"project_id": {"type": ["string", "null"]}, "run_id": {"type": ["string", "null"]}}},
+    },
+    "recovery.inspect": {
+        "description": "Return the compact continuation packet for an interrupted local run; no diff contents or transcript.",
+        "inputSchema": {"type": "object", "properties": {"project_id": {"type": ["string", "null"]}, "run_id": {"type": ["string", "null"]}}},
+    },
+    "recovery.resume": {
+        "description": "Return a resume packet only when deterministic fingerprint checks say continuation is safe.",
+        "inputSchema": {"type": "object", "properties": {"project_id": {"type": ["string", "null"]}, "run_id": {"type": ["string", "null"]}}},
+    },
+    "checkpoint.list": {"description": "List local compact checkpoints.", "inputSchema": {"type": "object", "properties": {"project_id": {"type": ["string", "null"]}}}},
+    "checkpoint.get": {"description": "Get one local compact checkpoint.", "inputSchema": {"type": "object", "properties": {"project_id": {"type": "string"}, "run_id": {"type": "string"}}, "required": ["project_id", "run_id"]}},
+    "checkpoint.latest": {"description": "Get the newest local compact checkpoint.", "inputSchema": {"type": "object", "properties": {"project_id": {"type": ["string", "null"]}}}},
     "workflow.list": {
         "description": "List available staged workflow manifests.",
         "inputSchema": {"type": "object", "properties": {}},
@@ -212,6 +228,12 @@ def methods() -> dict[str, Callable[..., Any]]:
         "profile.retrieve": profile_retrieve,
         "profile.status": profile_status,
         "workflow.list": list_workflows,
+        "recovery.status": lambda project_id=None, run_id=None: inspect_recovery(project_id, run_id),
+        "recovery.inspect": lambda project_id=None, run_id=None: inspect_recovery(project_id, run_id),
+        "recovery.resume": lambda project_id=None, run_id=None: resume_recovery(project_id, run_id),
+        "checkpoint.list": lambda project_id=None: list_checkpoints(project_id),
+        "checkpoint.get": lambda project_id, run_id: get_checkpoint(project_id, run_id),
+        "checkpoint.latest": lambda project_id=None: latest_checkpoint(project_id),
         "workflow.start": lambda workflow_id, run_id=None: workflow_start(workflow_id, run_id),
         "workflow.next": workflow_status,
         "workflow.stage": workflow_prepare_stage,

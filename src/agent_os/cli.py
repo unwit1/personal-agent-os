@@ -21,6 +21,7 @@ from .machine import describe as describe_machine
 from .machine import write_override
 from .mcp_server import serve
 from .maintenance import run as run_maintenance
+from .recovery import get_checkpoint, inspect_recovery, list_checkpoints, resume_recovery
 from .mail import health as mail_health, setup_icloud, status as mail_status, sync as mail_sync, search as mail_search
 from .profile import compact_profile, profile_status
 from .registry import get_project, git_status, identify_project, load_state, projects
@@ -67,6 +68,20 @@ def parser() -> argparse.ArgumentParser:
     integration.add_argument("--strict", action="store_true")
     commands.add_parser("validate")
     commands.add_parser("profile-status")
+    recovery_status = commands.add_parser("recovery-status")
+    recovery_status.add_argument("--project")
+    recovery_status.add_argument("--run-id")
+    recovery_inspect = commands.add_parser("recovery-inspect")
+    recovery_inspect.add_argument("--project")
+    recovery_inspect.add_argument("--run-id")
+    recovery_resume = commands.add_parser("recovery-resume")
+    recovery_resume.add_argument("--project")
+    recovery_resume.add_argument("--run-id")
+    checkpoint_list = commands.add_parser("checkpoint-list")
+    checkpoint_list.add_argument("--project")
+    checkpoint_get = commands.add_parser("checkpoint-get")
+    checkpoint_get.add_argument("project")
+    checkpoint_get.add_argument("run_id")
     profile_retrieve = commands.add_parser("profile-retrieve")
     profile_retrieve.add_argument("task")
     profile_retrieve.add_argument("--limit", type=int, default=5)
@@ -234,6 +249,15 @@ def main(argv: list[str] | None = None) -> int:
             return 0 if result["ok"] else 1
         elif args.command == "profile-status":
             _print(profile_status())
+        elif args.command in {"recovery-status", "recovery-inspect"}:
+            _print(inspect_recovery(args.project, args.run_id))
+        elif args.command == "recovery-resume":
+            _print(resume_recovery(args.project, args.run_id))
+        elif args.command == "checkpoint-list":
+            _print(list_checkpoints(args.project))
+        elif args.command == "checkpoint-get":
+            _print(get_checkpoint(args.project, args.run_id))
+
         elif args.command == "profile-retrieve":
             _print(compact_profile(args.task, limit=args.limit, minimum_score=args.minimum_score))
         elif args.command == "workflows":

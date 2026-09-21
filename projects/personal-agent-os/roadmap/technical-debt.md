@@ -116,3 +116,19 @@ Candidate profile updates flow through the generic candidate pipeline. There is
 no rule yet for when a conversational observation may become a durable profile
 fact, which EXEC-0.5 asks for.
 
+
+## From P0.4 ? Restart-safe recovery
+
+### Checkpoints remain intentionally workstation-local
+
+Recovery records can contain private relative paths and source/item fingerprints,
+so they are gitignored instead of synced. A future secure transfer or sanitized
+handoff exporter could make intentional cross-machine continuation smoother.
+
+## From P0.5 ? Execution routing
+
+### Cache validity remains subsystem-owned
+
+The generic dispatcher confirms only that a declared cache artifact exists and
+is safely located. Content hashes, schema/version compatibility, and semantic
+validation remain the responsibility of the cache-owning subsystem.

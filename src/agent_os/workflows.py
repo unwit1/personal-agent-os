@@ -36,6 +36,8 @@ from .capabilities import (
 )
 from .compiler import compile_context
 from .paths import ROOT
+from .execution import select_route
+from .recovery import checkpoint_workflow_record
 from .registry import get_project
 from .storage import load_json, write_json
 
@@ -200,12 +202,20 @@ def ordered_stage_ids(manifest: dict[str, Any]) -> list[str]:
 
 
 def runs_dir(project_id: str) -> Path:
+    # Active runs carry branch and local-artifact details, so real checkouts
+    # keep them with P0.4's gitignored recovery state. Non-Git fixtures retain
+    # the original path for backward-compatible deterministic tests.
+    if (ROOT / ".git").exists():
+        return ROOT / ".agent-local" / "workflows" / project_id
     return ROOT / "projects" / project_id / "workflows"
 
 
 def run_path(project_id: str, run_id: str) -> Path:
     return runs_dir(project_id) / f"{run_id}.json"
 
+
+def _legacy_run_path(project_id: str, run_id: str) -> Path:
+    return ROOT / "projects" / project_id / "workflows" / f"{run_id}.json"
 
 def _new_run(manifest: dict[str, Any], run_id: str) -> dict[str, Any]:
     return {
@@ -229,6 +239,7 @@ def _new_run(manifest: dict[str, Any], run_id: str) -> dict[str, Any]:
                 "validation": None,
                 "escalation_reason": None,
                 "completed_at": None,
+                "execution": None,
             }
             for stage_id in ordered_stage_ids(manifest)
         },
@@ -246,14 +257,16 @@ def start(workflow_id: str, run_id: str | None = None, resume: bool = True) -> d
             raise ValueError(f"run already exists: {identifier}")
         return load_json(path)
     record = _new_run(manifest, identifier)
-    write_json(path, record)
-    return record
+    return _save(record)
 
 
 def load_run(project_id: str, run_id: str) -> dict[str, Any]:
     path = run_path(get_project(project_id)["id"], run_id)
     if not path.exists():
-        raise KeyError(f"unknown run: {run_id}")
+        legacy = _legacy_run_path(get_project(project_id)["id"], run_id)
+        if not legacy.exists():
+            raise KeyError(f"unknown run: {run_id}")
+        return load_json(legacy)
     return load_json(path)
 
 
@@ -263,6 +276,14 @@ def _save(record: dict[str, Any]) -> dict[str, Any]:
     if unexpected:
         raise ValueError("run state must not carry conversation context: " + ", ".join(sorted(unexpected)))
     write_json(run_path(record["project"], record["run_id"]), record)
+    # Mirror compact stage state into gitignored P0.4 recovery metadata at
+    # every safe workflow boundary. The canonical P0.1 state is already saved;
+    # a local checkpoint failure must not fail a workflow.
+    try:
+        checkpoint_workflow_record(record, ROOT)
+    except (OSError, ValueError, KeyError):
+        pass
+
     return record
 
 
@@ -411,6 +432,7 @@ def prepare_stage(workflow_id: str, run_id: str, stage_id: str | None = None) ->
         }
     stage = stage_of(manifest, target)
     state = record["stages"][target]
+    execution = select_route(stage, ROOT)
     required = stage.get("required_context", {})
     packet = compile_context(
         manifest["project"],
@@ -438,12 +460,14 @@ def prepare_stage(workflow_id: str, run_id: str, stage_id: str | None = None) ->
             "expected_outputs": stage.get("expected_outputs", []),
             "checkpoint": stage.get("checkpoint"),
             "next_stage": stage.get("next_stage"),
+            "execution": execution,
         },
         "state": {
             "status": state["status"],
             "attempts": state["attempts"],
             "escalations": state["escalations"],
             "escalation_reason": state.get("escalation_reason"),
+            "execution": state.get("execution"),
         },
         "recommended_capability": resolve_capability(capability),
         "context": packet,
@@ -567,11 +591,13 @@ def run_stage(workflow_id: str, run_id: str, stage_id: str | None = None) -> dic
             "run_status": record["status"],
         }
 
-    if stage["preferred_execution_path"] != "deterministic":
+    execution = select_route(stage, ROOT)
+    state["execution"] = execution
+    if execution["route"] != "deterministic":
         state["status"] = "awaiting_agent"
         _save(record)
         packet = prepare_stage(workflow_id, run_id, target)
-        packet["message"] = "stage prepared; run it with the recommended capability, then report completion"
+        packet["message"] = f"stage prepared via {execution['route']} route; validate its result before any model escalation"
         return packet
 
     state["attempts"] += 1
