@@ -3,11 +3,18 @@
 Scene: `Glenmoril.esm:0177CA` — `zzzGHMq06ScPlan`
 Quest: `Glenmoril.esm:017733` — **Or the Gospel**
 
-Eight dialogue rows resolve exactly between **Ozwald** and **Ja'zel the Chick Trader**.
+**Nine** dialogue response rows resolve exactly between **Ozwald** and **Ja'zel the Chick Trader**.
 
-Ja'zel reports that the airship has dealt with the cockatrice and that the remaining obstacle is the temple entrance barrier. He says renewing a barrier of that scale would take months. When it breaks, the first assault group is to enter with Dwemer automatons from **Eton Nir Tech**.
-
-Ja'zel also reports that the witch's forces include Hircine worshippers and a squad of old Orc soldiers. Ozwald warns about the Reachmen; Ja'zel says he wants every precaution taken because the attackers could become the hunted.
+Sequence:
+1. Ozwald asks how the battle is going.
+2. Ja'zel says the airship has dealt with the cockatrice and only the temple barrier remains.
+3. Ja'zel says the barrier is strong but will soon crack.
+4. Ozwald asks whether the barrier could be renewed and split their troops.
+5. Ja'zel says renewal would take months and the defenders are merely stalling.
+6. Ja'zel says the first group will rush in with **Dwemer automatons from Eton Nir Tech**.
+7. Ozwald warns that the Reachmen remain dangerous.
+8. Ja'zel adds that the witch's forces include Hircine worshippers and old Orc soldiers.
+9. Ja'zel says he wants every precaution because the attackers could become the hunted.
 
 ## Directly supported
 
@@ -17,3 +24,7 @@ Ja'zel also reports that the witch's forces include Hircine worshippers and a sq
 - A cockatrice and a renewable temple barrier are operational elements.
 
 Confidence: **exact scene-action speaker attribution**.
+
+## Audit correction
+
+The first ingestion pass counted eight rows. Raw DIAL→INFO reconciliation gives **nine**.
