@@ -4,8 +4,8 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "verified_official_game_text": 78,
-    "editor_id_hint_eso": 4,
+    "verified_official_game_text": 79,
+    "editor_id_hint_eso": 3,
     "editor_id_hint_oblivion": 10,
     "editor_id_hint_morrowind": 3,
     "editor_id_hint_developer_mk": 3,
@@ -6226,9 +6226,8 @@
       "title": "Worm Saga",
       "editor_id": "LB_Book3_NC_WormSaga_ESO",
       "text_path": "books/040000E7-worm-saga.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as The Elder Scrolls Online base-game book Worm Saga, attributed to Mannimarco and catalogued in the Words of the Poets collection; compilation provenance retained separately."
     },
     {
       "form_id": "0400006D",
