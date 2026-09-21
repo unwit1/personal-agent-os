@@ -54,20 +54,6 @@ Do not merge:
 
 into one system without direct source alignment.
 
-## Unresolved seed — Loveletter / later-era use
-
-UNSLAAD:
-- embeds **Loveletter From the Fifth Era**;
-- uses it in Liturgy of I;
-- wires it mechanically as the "something timeless" key for entry into frozen-time Atmoran dream-space.
-
-The underlying prose is reused apocryphal/developer material.
-
-Cross-work questions should distinguish:
-1. the external Loveletter's own claims;
-2. UNSLAAD's interpretation/use of the Loveletter;
-3. any separate Vicn work that quotes or reacts to the same source.
-
 ## Routing rule
 
 If a cross-work relationship already has a parent thread, retrieve that first.
