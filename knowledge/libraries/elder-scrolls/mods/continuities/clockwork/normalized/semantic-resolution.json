@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "purpose": "Supplement structural speaker resolution with scene/quest-level diegetic attribution without altering the reproducible lower-level resolver output.",
+  "lower_level_unresolved_info_count": 21,
+  "supplemental_resolutions": [
+    {
+      "semantic_speaker": "Amalgam",
+      "delivery_form": "SpeakerHorn01",
+      "confidence": "high",
+      "info_ids": [
+        "05539733",
+        "055718D8",
+        "055718DA",
+        "055718DB",
+        "055718DC",
+        "055718DD",
+        "055718E4",
+        "055718E5",
+        "055718E6",
+        "055718E7",
+        "055718E8",
+        "055718E9",
+        "055718EA",
+        "055718EB",
+        "055718EC",
+        "055718ED",
+        "05571906",
+        "05571907",
+        "05571908",
+        "05571909"
+      ],
+      "scene_ids": [
+        "0553972F",
+        "0556C7BD"
+      ],
+      "scene_quest": {
+        "form_id": "0552F492",
+        "editor_id": "CLWDialogueAmalgam",
+        "name": "Amalgam Dialogue"
+      },
+      "scene_actor_alias": {
+        "id": 0,
+        "name": "SpeakerHorn01",
+        "reference_form_id": "0553972D"
+      },
+      "basis": [
+        "Both scenes use alias 0 from CLWDialogueAmalgam.",
+        "Alias 0 is a speaker-horn reference rather than an NPC form.",
+        "Crystalline Heart stages 50–60 describe the remote speaker-horn voice leading the player to the unusual Gilded/Amalgam in the Sickness Ward.",
+        "Multiple response strings are independently duplicated in Amalgam-conditioned dialogue."
+      ]
+    },
+    {
+      "semantic_speaker": "Amalgam encounter",
+      "confidence": "high",
+      "info_ids": [
+        "0559A4B6"
+      ],
+      "scene_id": "0559A4B3",
+      "scene_editor_id": "CLWSQ03Stage70Scene01",
+      "scene_actor_alias_id": 3,
+      "resolved_actor_base": {
+        "form_id": "0559026E",
+        "editor_id": "CLWLvlAmalgamCenturionAmbush",
+        "name": "Amalgam"
+      },
+      "basis": [
+        "Scene actor alias 3 resolves directly to the Amalgam encounter base used by the Crystalline Heart stage-70 encounter."
+      ]
+    }
+  ],
+  "semantic_unresolved_info_count": 0,
+  "caveat": "resolution-stats.json remains unchanged because it reports the stricter lower-level NPC-form resolver. These supplemental attributions rely on scene ownership, quest aliases, and diegetic quest context."
+}

@@ -16,27 +16,23 @@ Sub-continuity for the Skyrim mod **Clockwork**.
 - Player-facing quest pages are browsable in `quests/`.
 - Core characters, relationships, and Ludwig's chronology are browsable in `entities/` and `events/`.
 - Continuity-local concept/location/technology pages are browsable in `topics/`.
-- All **322 single-NPC-resolved INFO records** now have browseable named-character transcripts: Lahar 192, Lamashtu 125, and primary Amalgam 5.
-- The **545 multi-candidate INFO records** are cataloged separately: 519 broad Gilded-pool records and 26 Amalgam-form-pool records.
-- **21 INFO records** remain unresolved.
+- All **322 single-NPC-resolved INFO records** have browseable named-character transcripts: Lahar 192, Lamashtu 125, primary Amalgam 5.
+- All **545 multi-candidate INFO records** are explicitly cataloged: 519 broad Gilded-pool and 26 Amalgam-form-pool records.
+- The strict resolver's **21 no-NPC-candidate records** are all accounted for by a supplemental scene/quest pass: 20 Amalgam speaker-horn lines and one Amalgam encounter-scene line.
 
 ## Dialogue normalization
 
-The resolver uses scene actor aliases and speaker-producing conditions such as `GetIsID`, `GetInFaction`, and `GetIsVoiceType`.
+The strict resolver uses scene actor aliases and speaker-producing conditions such as `GetIsID`, `GetInFaction`, and `GetIsVoiceType`. It preserves ambiguity instead of assigning lines from wording.
 
-- 867 / 888 INFO records resolve to one or more plausible speaker candidates.
-- 322 INFO records resolve to a single NPC form.
-- 545 resolve to multiple candidate NPC forms and are kept explicitly ambiguous.
-- 21 remain unresolved.
-- Named-character transcripts promote only unique attribution; faction/voice-pool matches are never silently assigned to a named character.
+A supplemental semantic layer then uses scene ownership, quest aliases, and quest-state evidence for non-NPC delivery forms. The lower-level statistics remain unchanged for reproducibility.
 
-See `normalized/resolution-stats.json`.
+See `normalized/resolution-stats.json` and `normalized/semantic-resolution.json`.
 
 ## Browse
 
 - `books/` — exact decoded in-game book/note text
 - `raw/` — archival dialogue and quest record text extracted from the ESP
-- `dialogue/` — speaker-resolved and ambiguity-preserving dialogue material
+- `dialogue/` — strict speaker transcripts, ambiguity pools, and supplemental diegetic attributions
 - `quests/` — journal stages, objectives, and resolved aliases
 - `topics/` — evidence-backed Clockwork lore topics
 - `entities/characters/` — character pages
