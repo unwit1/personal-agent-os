@@ -4,8 +4,8 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "verified_official_game_text": 37,
-    "editor_id_hint_eso": 45,
+    "verified_official_game_text": 66,
+    "editor_id_hint_eso": 16,
     "editor_id_hint_oblivion": 10,
     "editor_id_hint_morrowind": 3,
     "editor_id_hint_developer_mk": 3,
@@ -2598,18 +2598,16 @@
       "title": "Herma Mora and the Moth",
       "editor_id": "LB_Book3_SK_HermaMoth_ESO",
       "text_path": "books/040000AA-herma-mora-and-the-moth.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "040000BD",
       "title": "Hierarchical Structure of Dremora",
       "editor_id": "LB_Book3_AP_HierarchDremora_ESO",
       "text_path": "books/040000BD-hierarchical-structure-of-dremora.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "040009C2",
@@ -2801,9 +2799,8 @@
       "title": "Jorunn the Skald King",
       "editor_id": "LB_Book3_SK_Jorunn01_ESO",
       "text_path": "books/040000E0-jorunn-the-skald-king.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "0400087C",
@@ -2890,9 +2887,8 @@
       "title": "Kasura's Notes",
       "editor_id": "LB_Book3_DG_KasuraNotes_ESO",
       "text_path": "books/040000F6-kasuras-notes.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "04000943",
@@ -2948,9 +2944,8 @@
       "title": "Legacy of the Dragonguard",
       "editor_id": "LB_Book3_AP_DragonguardLegacy_ESO",
       "text_path": "books/040000C4-legacy-of-the-dragonguard.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "040009EE",
@@ -3522,18 +3517,16 @@
       "title": "Mysteries of the Eltheric Ammonite",
       "editor_id": "LB_Book3_CL_Ammonites_ESO",
       "text_path": "books/040000DB-mysteries-of-the-eltheric-ammonite.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "040000F8",
       "title": "Mysteries of the Mundus Stones",
       "editor_id": "LB_Book3_CL_MundusStones_ESO",
       "text_path": "books/040000F8-mysteries-of-the-mundus-stones.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "04000107",
@@ -3764,9 +3757,8 @@
       "title": "On Akaviri Burial Rites",
       "editor_id": "LB_Book3_CL_AkavirBurial_ESO",
       "text_path": "books/040000A1-on-akaviri-burial-rites.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "04000A0A",
@@ -3845,9 +3837,8 @@
       "title": "On Rotmeth",
       "editor_id": "LB_Book3_CL_Rotmeth_ESO",
       "text_path": "books/04000096-on-rotmeth.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "04000108",
@@ -3974,18 +3965,16 @@
       "title": "On Voriplasms",
       "editor_id": "LB_Book3_AP_Voriplasms01_ESO",
       "text_path": "books/040000FF-on-voriplasms.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "040000A0",
       "title": "Once",
       "editor_id": "LB_Book3_CL_Once_ESO",
       "text_path": "books/040000A0-once.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "04000895",
@@ -4091,9 +4080,8 @@
       "title": "Persistence of Daedric Veneration",
       "editor_id": "LB_Book2_AP_DaedricVeneration_ESO",
       "text_path": "books/04000068-persistence-of-daedric-veneration.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "04000120",
@@ -4181,9 +4169,8 @@
       "title": "Prayer of the Resolute",
       "editor_id": "LB_Book2_VG_Resolute_ESO",
       "text_path": "books/04000028-prayer-of-the-resolute.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "040008E6",
@@ -4206,9 +4193,8 @@
       "title": "Precepts of Stendarr",
       "editor_id": "LB_Book2_VG_Stendarr01_ESO",
       "text_path": "books/04000026-precepts-of-stendarr.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "040009F1",
@@ -4320,9 +4306,8 @@
       "title": "Report: The Nycotic Cult",
       "editor_id": "LB_Book2_DT_Nycotic_ESO",
       "text_path": "books/0400002A-report-the-nycotic-cult.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "040000B6",
@@ -4409,9 +4394,8 @@
       "title": "Scared Little Snow Moth",
       "editor_id": "LB_Book3_CH_SnowMoth_ESO",
       "text_path": "books/040000B2-scared-little-snow-moth.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "0400012A",
@@ -4486,9 +4470,8 @@
       "title": "Sermons of Root-Whisper",
       "editor_id": "LB_Book3_AP_RootWhisper01_ESO",
       "text_path": "books/040000BC-sermons-of-root-whisper.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "04000924",
@@ -4719,45 +4702,40 @@
       "title": "Songs of the Return, Vol 27",
       "editor_id": "LB_Book3_ERA0_SongReturn27_ESO",
       "text_path": "books/040000EB-songs-of-the-return-vol-27.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "040000EC",
       "title": "Songs of the Return, Vol 49",
       "editor_id": "LB_Book3_ERA0_SongReturn49_ESO",
       "text_path": "books/040000EC-songs-of-the-return-vol-49.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "040000EA",
       "title": "Songs of the Return, Vol 5",
       "editor_id": "LB_Book3_ERA0_SongReturn05_ESO",
       "text_path": "books/040000EA-songs-of-the-return-vol-5.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "040000A9",
       "title": "Sorrow, Death and Song",
       "editor_id": "LB_Book3_AP_SorrowDeathSong_ESO",
       "text_path": "books/040000A9-sorrow-death-and-song.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "04000115",
       "title": "Soul Trapping I: An Introduction",
       "editor_id": "LB_Book3_NC_SoulTrap01_ESO",
       "text_path": "books/04000115-soul-trapping-i-an-introduction.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "04000867",
@@ -4948,27 +4926,24 @@
       "title": "The Bladesongs of Boethra, vol. 2",
       "editor_id": "LB_Book3_AP_Bladesongs02_ESO",
       "text_path": "books/040000CE-the-bladesongs-of-boethra-vol-2.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "040000CF",
       "title": "The Bladesongs of Boethra, vol. 3",
       "editor_id": "LB_Book3_AP_Bladesongs03_ESO",
       "text_path": "books/040000CF-the-bladesongs-of-boethra-vol-3.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "040000D0",
       "title": "The Bladesongs of Boethra, vol. 5",
       "editor_id": "LB_Book3_AP_Bladesongs05_ESO",
       "text_path": "books/040000D0-the-bladesongs-of-boethra-vol-5.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "04000054",
@@ -5015,9 +4990,8 @@
       "title": "The Crown of Freydis",
       "editor_id": "LB_Book3_SK_Freydis_ESO",
       "text_path": "books/040000DF-the-crown-of-freydis.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "040009BA",
@@ -5048,9 +5022,8 @@
       "title": "The Distributed Soul",
       "editor_id": "LB_Book3_AP_Fjyrons_ESO",
       "text_path": "books/040000A8-the-distributed-soul.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "04000053",
@@ -5105,9 +5078,8 @@
       "title": "The False Revanchism of the Maormer",
       "editor_id": "LB_Book3_CL_Revanchism_ESO",
       "text_path": "books/040000AF-the-false-revanchism-of-the-maormer.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "040009A0",
@@ -5138,9 +5110,8 @@
       "title": "The Footsteps of Shezarr",
       "editor_id": "LB_Book2_AP_Shezarr01_ESO",
       "text_path": "books/0400006A-the-footsteps-of-shezarr.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by external ESO book/library indexes; compilation provenance retained separately."
     },
     {
       "form_id": "040009C8",
