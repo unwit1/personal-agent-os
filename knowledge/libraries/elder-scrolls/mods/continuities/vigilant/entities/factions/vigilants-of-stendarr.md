@@ -44,7 +44,21 @@ Altano's later corruption does not automatically erase his earlier agency. His d
 
 Jacob is an older Vigilant who rescues the amnesiac Altano and gives him his name.
 
-His later history in **Old Regrets** becomes one of the mod's clearest examples of a Vigilant compromising his principles under desperation: he accepts Molag Bal's bargain to save himself at the cost of his wife's soul.
+His earlier history now has a fuller documentary reconstruction:
+- the 4E 180 Windhelm Maiden Statue investigation;
+- Rahel's contemporaneous journal;
+- Jacob's warning about the statue;
+- Aredhel's statement that Jacob was killed;
+- Jacob's later first-person account that Molag Bal revived him for the price of his wife's soul.
+
+This makes Jacob one of the clearest examples of VIGILANT placing a Vigilant directly inside the conflict between duty, vampiric/Daedric threat, death, survival, and compromise.
+
+Detailed files:
+- `entities/characters/jacob.md`
+- `entities/characters/rahel.md`
+- `analysis/windhelm-maiden-statue-incident.md`
+
+His later history in **Old Regrets** becomes one of the mod's clearest examples of a Vigilant compromising his principles under desperation.
 
 This makes Jacob an institutional counterexample to a simple heroic-Vigilant model.
 
