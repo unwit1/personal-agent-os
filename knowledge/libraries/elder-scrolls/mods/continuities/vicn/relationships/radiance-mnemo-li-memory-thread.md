@@ -104,6 +104,57 @@ This creates a direct DAc0da connection between **Blue Star**, **Radiance**, and
 
 A separate Dumac record asks about a **hidden Blue Star**. Whether the two records refer to the same star is not stated.
 
+## Memory-to-existence comparison
+
+The three mature Vicn works now contain a strong **memory ↔ persistence / existence** comparison, but they do not describe one identical mechanism.
+
+### UNSLAAD — remembrance sustains echoes
+
+Arkved says:
+- forgotten places dissolve like morning fog;
+- remembered places leave echoes;
+- a child can laugh/sing a place into continued existence;
+- the Dragonborn should sing their own self into the world rather than eventually fade into dreams.
+
+Anaku independently says an unresolved "THAT" will disappear if nobody remembers it anymore.
+
+This is the clearest VICN statement of **continued persistence depending on remembrance**.
+
+### GLENMORIL — Blue Star preserves memory
+
+A Mnemo-Li / Blue-Star revision record asks the Star Orphan / Blue Star to:
+- commit all things to memory;
+- awaken everyone to sanity;
+- restore memory of solemn rites;
+- prevent forgetting.
+
+Other GLENMORIL records make memory capable of changing body/form and nymic assignment.
+
+This is direct memory-preservation/transformation language, but it does not explicitly say the Blue Star sustains every remembered object's existence.
+
+### DAc0da — memory reconstructs existence
+
+DAc0da's mnemolichite material repeatedly states that:
+- perception defines existence;
+- unstable memory can become existence;
+- a materialized idea can reconstruct existence from uncertain memory;
+- perceived/reconstructed forms can disappear when they leave perception.
+
+Its sources disagree on whether mnemolichite is mineral, process, idea, or mind/time phenomenon, and those contradictions are intentional.
+
+### Current synthesis
+
+High confidence:
+- VICN repeatedly connects **memory, perception, and continued/reconstructed existence**.
+
+Not established:
+- Arkved's song/remembrance mechanism = mnemolichite;
+- Blue Star memory preservation = Arkved's echoes;
+- either mechanism = Radiance;
+- Mnemo-Li directly causes all three.
+
+Treat them as **parallel source-specific mechanisms inside a shared VICN conceptual family**.
+
 ## Direct cross-work significance
 
 High confidence:
