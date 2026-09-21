@@ -23,6 +23,9 @@ The direct scene pairing establishes a strong Facis ↔ Lamae relationship.
 
 Supplementary community guides describe Facis as Lamae's old steward/servant, someone who knew her from mortal life and continued serving her for an extremely long period.
 
+Supplementary source index:
+- `sources/supplementary/community-transcript-sources.md`
+
 Because that material is not currently recovered from the ESM dialogue corpus itself, Lorekeeper should preserve it as **supplementary walkthrough/background testimony**, not as structural fact.
 
 ## Post-Blood-Matron role
