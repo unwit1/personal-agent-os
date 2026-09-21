@@ -5,10 +5,9 @@
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
     "unresolved": 686,
-    "verified_official_game_text": 82,
-    "verified_developer_text": 1,
-    "editor_id_hint_oblivion": 8,
-    "editor_id_hint_developer_mk": 2,
+    "verified_official_game_text": 83,
+    "verified_developer_text": 3,
+    "editor_id_hint_oblivion": 7,
     "editor_id_hint_morrowind": 2,
     "editor_id_hint_eso": 3
   },
@@ -2733,9 +2732,8 @@
       "title": "Invitation from Dagoth Ur",
       "editor_id": "LB_Note3_Greywyn_OBL",
       "text_path": "books/04000148-invitation-from-dagoth-ur.txt",
-      "provenance_status": "editor_id_hint_oblivion",
-      "editor_id_hint": "OBL",
-      "evidence": "The compilation plugin editor ID contains an explicit `_OBL` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Content identifies this as Greywyn's Deepscorn Hollow inheritance note from The Elder Scrolls IV: Oblivion official Vile Lair DLC. The compilation title 'Invitation from Dagoth Ur' is incorrect/misleading; preserve it as compilation metadata."
     },
     {
       "form_id": "04000811",
@@ -2910,9 +2908,8 @@
       "title": "Kothri Song",
       "editor_id": "LB_Note3_Kothri01_MK",
       "text_path": "books/04000129-kothri-song.txt",
-      "provenance_status": "editor_id_hint_developer_mk",
-      "editor_id_hint": "MK",
-      "evidence": "The compilation plugin editor ID contains an explicit `_MK` marker. Treat as a possible developer-text attribution hint only until independently verified."
+      "provenance_status": "verified_developer_text",
+      "evidence": "Content is the Kothri-language song associated with Michael Kirkbride's Water-getting Girl / Inverse Tiger material. Classified as out-of-game developer text, distinct from in-game official texts."
     },
     {
       "form_id": "04000A09",
@@ -5981,9 +5978,8 @@
       "title": "Torn Pages",
       "editor_id": "LB_Note3_TP_SourceofChaos_MK",
       "text_path": "books/04000101-torn-pages.txt",
-      "provenance_status": "editor_id_hint_developer_mk",
-      "editor_id_hint": "MK",
-      "evidence": "The compilation plugin editor ID contains an explicit `_MK` marker. Treat as a possible developer-text attribution hint only until independently verified."
+      "provenance_status": "verified_developer_text",
+      "evidence": "Content discusses PSJJJJ, Padomay, Sithis, the Psijic Order, Morag Tong, and Dark Brotherhood in the wording of Michael Kirkbride's out-of-game lore commentary/source material. Classified as developer text, distinct from in-game official texts."
     },
     {
       "form_id": "04000128",
