@@ -105,6 +105,27 @@ This gives VIGILANT a direct bargain structure:
 
 This account can potentially reconcile Aredhel's statement that Jacob died with later Jacob appearances, but the exact timing and metaphysical mechanics remain unstated.
 
+## Supplementary intended-background resolution
+
+The supplementary VIGILANT background article by **a123999** gives a more definite interpretation of the Windhelm contradiction.
+
+It says:
+- Jacob and his fellows **lost their lives** when they encountered the half-sleeping Lamae;
+- Jacob later sacrificed his wife's soul to Molag Bal;
+- Jacob received a **new body** and continued acting as a Vigilant.
+
+Source:
+- `sources/supplementary/a123999-vigilant-backgrounds.md`
+
+This strongly supports the literal-death-and-revival model at the supplementary-commentary layer.
+
+Lorekeeper should still preserve the in-plugin documents separately:
+- official Windhelm report says Jacob was found alive;
+- Aredhel says Jacob was killed;
+- Jacob says Molag Bal revived him in exchange for Rahel's soul.
+
+The commentary helps explain authorial intent but does not make the report cease to exist.
+
 ## A Vision in Malada — stanza 10
 
 The current prophecy map assigns stanza 10 to **Jacob and Rahel** with high confidence for the bargain.
