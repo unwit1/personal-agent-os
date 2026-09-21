@@ -13,6 +13,9 @@ The following records match published *The Elder Scrolls Online* books and shoul
 - `0212905D` — **The Forty-Third Praise-Song of Alessia** — third chant within ESO's *Proper-Life: Three Chants*.
 - `0212905E` — **The Exclusionary Mandates** — ESO lorebook on Marukhite/Alessian doctrine.
 - `0212905F` — **The Illusion of Death** — ESO fragment concerning Marukh's penance and the shade of Al-Esh.
+- `02054ED3` — **On the Detachment of the Sheath from the Integument** by Arch-Prelate Fervidius Tharn — official ESO Marukhati/Middle Dawn text; exact VIGILANT transcription preserved separately.
+- `024A8AF7` — **Vindication for the Dragon Break** by Fervidius Tharn — official ESO Marukhati Dragon Break text; exact VIGILANT transcription preserved separately.
+- `024A8AFD` — **Aurbic Enigma 4: The Elden Tree** by Beredalmo the Signifier — official ESO Tower/Staff-of-Towers text; VIGILANT references it through general book leveled lists rather than a fixed narrative placement.
 - `024A8B07` — **On the Nature of Coldharbour** by Phrastus of Elinhir — ESO lorebook on Molag Bal's realm and soul-shriven.
 
 ## Ingestion rule
@@ -26,4 +29,4 @@ VIGILANT-specific placement, context, editing, omissions, additions, or juxtapos
 
 ## Pending classification
 
-The remaining 173 BOOK records need title/text comparison against the official corpus. Priority should go to Coldharbour/Alessian/Ayleid/history books before spell tomes and `Fragment of the Stone` conjuration objects.
+The remaining 170 BOOK records need title/text comparison against the official corpus. Priority should go to Coldharbour/Alessian/Ayleid/history books before spell tomes and `Fragment of the Stone` conjuration objects.
