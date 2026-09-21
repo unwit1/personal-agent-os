@@ -1,19 +1,32 @@
 # Nurndural
 
 Continuity: `tes.mod.clockwork`  
-Topic type: location / Dwemer freehold
+Topic type: location / Dwemer freehold  
+LCTN: `0537A210` / `CLWNurnduralInt01Location`
 
 ## Summary
 
-Nurndural is the Dwemer complex beneath Clockwork Castle. Lahar describes it as a **freehold colony of the Dwemer** and his old home. By the mod's events it is a ruin occupied by degraded Gilded hostile to Lahar, Lamashtu, and the player.
+Nurndural is the Dwemer complex beneath Clockwork Castle. Lahar describes it as a **freehold colony of the Dwemer** and his old home. By the mod's events it is occupied by degraded Gilded hostile to Lahar, Lamashtu, and the player.
 
-It contains or connects to the Sickness Ward, Hall of Elements, Mortal Layer, Direction of Flow, Animoculotory, forges, and the steam infrastructure feeding the castle. The Chlodovech family discovered it accidentally during mausoleum expansion in 4E 18.
+The ESP partitions it into named cells:
+
+- `0537A08F` — Hall of Elements
+- `054C4AEE` — Backbone Hollow
+- `054C4B81` — Minor Berth
+- `0552F496` — Sickness Ward
+- `0559F5CA` — Mortal Layer
+- `056EA2D8` — Mortal Layer Berth
+- `056EA36B` — Ruined Berth
+- `05727584` — Direction of Flow
+
+The Animoculotory is a named narrative subarea reached through Direction of Flow, but is not promoted here as a separate CELL without a matching CELL record.
 
 ## Core evidence
 
-- `INFO 052E6C42` — Dwemer freehold colony / Lahar's old home.
-- `INFO 052D27A2` — remaining Gilded have grown wild.
-- `INFO 052D27A4` — steam pipeline, forges, replacement pipes, mausoleum access.
-- `INFO 0566AC27` — Sickness Ward origin of future Gilded.
-- `BOOK 05332EA7` — Ludwig's account of first breach/contact.
-- `QUST 052908C1`, `05506BB5`, `0508DA63` — major quest traversal of Nurndural.
+- `LCTN 0537A210` and CELL records above
+- `INFO 052E6C42`
+- `INFO 052D27A2`
+- `INFO 052D27A4`
+- `INFO 0566AC27`
+- `BOOK 05332EA7`
+- `QUST 052908C1`, `05506BB5`, `0508DA63`

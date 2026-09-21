@@ -2,34 +2,46 @@
 
 Continuity: `tes.mod.clockwork`
 
-This directory indexes narrative locations and links to richer topic pages where they already exist.
+Narrative location pages are backed by quest/dialogue/book evidence and, where available, exact ESP `CELL` / `LCTN` records.
 
 ## Surface / approach
 
-- **Cragwallow Slope ruins** — newly exposed ruins in Eastmarch that lead toward the Velothi Mountains. Evidence: `BOOK 0505F158`, `QUST 0505F6C9`.
-- [Velothi Mountain Tunnels](velothi-mountain-tunnels.md) — Camilla's trail, Shadow encounters, collapsed route into the valley.
-- [Clockwork Valley](clockwork-valley.md) — isolated high-mountain valley containing the castle.
+- **Cragwallow Slope ruins** — entry point in Eastmarch.
+- [Velothi Mountain Tunnels](velothi-mountain-tunnels.md) — three named tunnel cells, Camilla's trail, Shadow encounters, collapsed route.
+- [Clockwork Valley](clockwork-valley.md) — isolated valley containing the castle exterior.
 
-## Castle
+## Clockwork Castle cells
 
-- [Clockwork Castle](../topics/clockwork-castle.md)
-- [Castle Mausoleum](castle-mausoleum.md) — access route from the castle into Nurndural.
-- [Master Bedroom / hidden chamber](master-bedroom.md) — Ludwig's final hiding place.
-- [Mage's Study](mages-study.md) — study/workstation area; later location of staff-enchanting facilities.
-- [Travel Room / Travel Machine](../topics/travel-machine.md)
-- [Glass Garden](glass-garden.md)
-- **Work Room** — castle workshop made usable again after steam restoration; referenced by Lahar and Ludwig.
-- **Laundry / servants' areas / living quarters** — documented by Lahar's castle-tour dialogue.
+- Hall — `CELL 0500196F`
+- [Master Bedroom](master-bedroom.md) — `CELL 05013ECF`
+- Living Quarters — `CELL 0501E819`
+- [Mage's Study](mages-study.md) — `CELL 050261BA`
+- [Glass Garden](glass-garden.md) — `CELL 0502F9B9`
+- Armoury — `CELL 050345A1`
+- Work Room — `CELL 05037757`
+- [Travel Room / Travel Machine](../topics/travel-machine.md) — `CELL 0503C62F`
+- [Mausoleum](castle-mausoleum.md) — `CELL 053566B7`
 
-## Nurndural
+## Nurndural cells
 
-- [Nurndural](../topics/nurndural.md)
-- [Sickness Ward](../topics/sickness-ward.md)
-- [Mortal Layer](mortal-layer.md)
-- [Hall of Elements](hall-of-elements.md)
-- [Direction of Flow](direction-of-flow.md)
-- [Animoculotory](../topics/animoculotory.md)
+- [Hall of Elements](hall-of-elements.md) — `CELL 0537A08F`
+- Backbone Hollow — `CELL 054C4AEE`
+- Minor Berth — `CELL 054C4B81`
+- [Sickness Ward](../topics/sickness-ward.md) — `CELL 0552F496`
+- [Mortal Layer](mortal-layer.md) — `CELL 0559F5CA`
+- Mortal Layer Berth — `CELL 056EA2D8`
+- Ruined Berth — `CELL 056EA36B`
+- [Direction of Flow](direction-of-flow.md) — `CELL 05727584`
+- [Animoculotory](../topics/animoculotory.md) — named subarea reached from Direction of Flow; not promoted as a distinct CELL without matching record evidence.
 
-## Retrieval rule
+## Travel network
 
-Location pages record only what the mod supports. Names such as *Direction of Flow* and *Mortal Layer* are not expanded into speculative functions unless dialogue, books, quest text, or records provide evidence.
+- [Clockwork Terminus cells](clockwork-termini.md) — nine Skyrim destinations plus Raven Rock.
+- Recall Point dummy cell — `CELL 050A842C`
+
+## Machine-readable
+
+- `cell-index.json` — Clockwork-defined CELL records and LCTN ownership.
+- `../technical/record-inventory.json` — broader record inventory.
+
+Location names are kept literal; CELL structure proves placement, not speculative ancient function.

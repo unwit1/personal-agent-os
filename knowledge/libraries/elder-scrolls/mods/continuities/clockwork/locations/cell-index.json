@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "source": "Clockwork.esp CELL/XLCN and group-parent structure",
+  "clockwork_cell_count": 32,
+  "cells": [
+    {
+      "form_id": "050B78E0",
+      "editor_id": "CLWVelothiTunnels03",
+      "name": "Velothi Tunnels - Glass Lake",
+      "location_form_id": "05063E39",
+      "location_editor_id": "CLWVelothiTunnelsIntLocation"
+    },
+    {
+      "form_id": "050491CE",
+      "editor_id": "CLWTerminusWhiterun",
+      "name": "Whiterun Clockwork Terminus",
+      "location_form_id": "05046F70",
+      "location_editor_id": "CLWClockworkTerminusLocation"
+    },
+    {
+      "form_id": "050261BA",
+      "editor_id": "CLWCastleMagesStudy",
+      "name": "Clockwork Castle Mage's Study",
+      "location_form_id": "05013ECE",
+      "location_editor_id": "CLWClockworkCastleIntLocation"
+    },
+    {
+      "form_id": "0502F9B9",
+      "editor_id": "CLWCastleGlassGarden",
+      "name": "Clockwork Castle Glass Garden",
+      "location_form_id": "05013ECE",
+      "location_editor_id": "CLWClockworkCastleIntLocation"
+    },
+    {
+      "form_id": "0500196F",
+      "editor_id": "CLWCastleMainHall",
+      "name": "Clockwork Castle Hall",
+      "location_form_id": "05013ECE",
+      "location_editor_id": "CLWClockworkCastleIntLocation"
+    },
+    {
+      "form_id": "053566B7",
+      "editor_id": "CLWCastleMausoleum",
+      "name": "Clockwork Castle Mausoleum",
+      "location_form_id": "05013ECE",
+      "location_editor_id": "CLWClockworkCastleIntLocation"
+    },
+    {
+      "form_id": "050345A1",
+      "editor_id": "CLWCastleArmoury",
+      "name": "Clockwork Castle Armoury",
+      "location_form_id": "05013ECE",
+      "location_editor_id": "CLWClockworkCastleIntLocation"
+    },
+    {
+      "form_id": "0503C62F",
+      "editor_id": "CLWCastleTravelRoom",
+      "name": "Clockwork Castle Travel Room",
+      "location_form_id": "05013ECE",
+      "location_editor_id": "CLWClockworkCastleIntLocation"
+    },
+    {
+      "form_id": "050456B7",
+      "editor_id": "CLWTerminusMarkarth",
+      "name": "Markarth Clockwork Terminus",
+      "location_form_id": "05046F70",
+      "location_editor_id": "CLWClockworkTerminusLocation"
+    },
+    {
+      "form_id": "0501E819",
+      "editor_id": "CLWCastleLivingQuarters",
+      "name": "Clockwork Castle Living Quarters",
+      "location_form_id": "05013ECE",
+      "location_editor_id": "CLWClockworkCastleIntLocation"
+    },
+    {
+      "form_id": "0504A9AF",
+      "editor_id": "CLWTerminusWinterhold",
+      "name": "Winterhold Clockwork Terminus",
+      "location_form_id": "05046F70",
+      "location_editor_id": "CLWClockworkTerminusLocation"
+    },
+    {
+      "form_id": "0537A08F",
+      "editor_id": "CLWNurndural01",
+      "name": "Nurndural - Hall of Elements",
+      "location_form_id": "0537A210",
+      "location_editor_id": "CLWNurnduralInt01Location"
+    },
+    {
+      "form_id": "050450B4",
+      "editor_id": "CLWTerminusFalkreath",
+      "name": "Falkreath Clockwork Terminus",
+      "location_form_id": "05046F70",
+      "location_editor_id": "CLWClockworkTerminusLocation"
+    },
+    {
+      "form_id": "050468EC",
+      "editor_id": "CLWTerminusRiften",
+      "name": "Riften Clockwork Terminus",
+      "location_form_id": "05046F70",
+      "location_editor_id": "CLWClockworkTerminusLocation"
+    },
+    {
+      "form_id": "05013ECF",
+      "editor_id": "CLWCastleMasterBedroom",
+      "name": "Clockwork Castle Master Bedroom",
+      "location_form_id": "05013ECE",
+      "location_editor_id": "CLWClockworkCastleIntLocation"
+    },
+    {
+      "form_id": "054C4B81",
+      "editor_id": "CLWNurndural01Sub02",
+      "name": "Nurndural - Minor Berth",
+      "location_form_id": "0537A210",
+      "location_editor_id": "CLWNurnduralInt01Location"
+    },
+    {
+      "form_id": "056EA36B",
+      "editor_id": "CLWNurndural03Sub02",
+      "name": "Nurndural - Ruined Berth",
+      "location_form_id": "0537A210",
+      "location_editor_id": "CLWNurnduralInt01Location"
+    },
+    {
+      "form_id": "050462AE",
+      "editor_id": "CLWTerminusMorthal",
+      "name": "Morthal Clockwork Terminus",
+      "location_form_id": "05046F70",
+      "location_editor_id": "CLWClockworkTerminusLocation"
+    },
+    {
+      "form_id": "0559F5CA",
+      "editor_id": "CLWNurndural03",
+      "name": "Nurndural - Mortal Layer",
+      "location_form_id": "0537A210",
+      "location_editor_id": "CLWNurnduralInt01Location"
+    },
+    {
+      "form_id": "0552F496",
+      "editor_id": "CLWNurndural02",
+      "name": "Nurndural - Sickness Ward",
+      "location_form_id": "0537A210",
+      "location_editor_id": "CLWNurnduralInt01Location"
+    },
+    {
+      "form_id": "050A842C",
+      "editor_id": "CLWRecallPointDummyCell",
+      "name": "Recall Point",
+      "location_form_id": "05013ECE",
+      "location_editor_id": "CLWClockworkCastleIntLocation"
+    },
+    {
+      "form_id": "05063DB9",
+      "editor_id": "CLWVelothiTunnels01",
+      "name": "Velothi Mountain Tunnels",
+      "location_form_id": "05063E39",
+      "location_editor_id": "CLWVelothiTunnelsIntLocation"
+    },
+    {
+      "form_id": "05079DDF",
+      "editor_id": "CLWVelothiTunnels02",
+      "name": "Velothi Tunnels - Bone Hollow",
+      "location_form_id": "05063E39",
+      "location_editor_id": "CLWVelothiTunnelsIntLocation"
+    },
+    {
+      "form_id": "05049DA1",
+      "editor_id": "CLWTerminusWindhelm",
+      "name": "Windhelm Clockwork Terminus",
+      "location_form_id": "05046F70",
+      "location_editor_id": "CLWClockworkTerminusLocation"
+    },
+    {
+      "form_id": "054C4AEE",
+      "editor_id": "CLWNurndural01Sub01",
+      "name": "Nurndural - Backbone Hollow",
+      "location_form_id": "0537A210",
+      "location_editor_id": "CLWNurnduralInt01Location"
+    },
+    {
+      "form_id": "056EA2D8",
+      "editor_id": "CLWNurndural03Sub01",
+      "name": "Nurndural - Mortal Layer Berth",
+      "location_form_id": "0537A210",
+      "location_editor_id": "CLWNurnduralInt01Location"
+    },
+    {
+      "form_id": "050065D4",
+      "editor_id": "CLWDBTerminusRavenRock",
+      "name": "Raven Rock Clockwork Terminus",
+      "location_form_id": "05046F70",
+      "location_editor_id": "CLWClockworkTerminusLocation"
+    },
+    {
+      "form_id": "05727584",
+      "editor_id": "CLWNurndural04",
+      "name": "Nurndural - Direction of Flow",
+      "location_form_id": "0537A210",
+      "location_editor_id": "CLWNurnduralInt01Location"
+    },
+    {
+      "form_id": "0503E755",
+      "editor_id": "CLWTerminusDawnstar",
+      "name": "Dawnstar Clockwork Terminus",
+      "location_form_id": "05046F70",
+      "location_editor_id": "CLWClockworkTerminusLocation"
+    },
+    {
+      "form_id": "050485ED",
+      "editor_id": "CLWTerminusSolitude",
+      "name": "Solitude Clockwork Terminus",
+      "location_form_id": "05046F70",
+      "location_editor_id": "CLWClockworkTerminusLocation"
+    },
+    {
+      "form_id": "05037757",
+      "editor_id": "CLWCastleWorkRoom",
+      "name": "Clockwork Castle Work Room",
+      "location_form_id": "05013ECE",
+      "location_editor_id": "CLWClockworkCastleIntLocation"
+    },
+    {
+      "form_id": "050509B5",
+      "editor_id": "CLWCastleExt01",
+      "name": null,
+      "location_form_id": null,
+      "location_editor_id": null
+    }
+  ]
+}

@@ -1,12 +1,15 @@
 # Direction of Flow
 
-Continuity: `tes.mod.clockwork`
+Continuity: `tes.mod.clockwork`  
+CELL: `05727584` / `CLWNurndural04` / **Nurndural - Direction of Flow**  
+LCTN: `0537A210` / `CLWNurnduralInt01Location`
 
-Direction of Flow is a deep Nurndural area on the route to the Animoculotory. During *I Against I*, Lamashtu says the Animoculotory lies in Direction of Flow and leads the player through it while searching for Shadow.
+Direction of Flow is a distinct deep-Nurndural cell on the route to the Animoculotory. During *I Against I*, Lamashtu leads the player through it while searching for Shadow.
 
-The name is retained literally; no unsupported hydraulic or metaphysical function is inferred from it.
+The CELL record confirms the name as a real world partition; Lorekeeper does not infer a hydraulic or metaphysical function from the title alone.
 
 ## Evidence
 
+- `CELL 05727584`
 - `QUST 0508DA63 stage 20`
 - `INFO 0569D6F7`
