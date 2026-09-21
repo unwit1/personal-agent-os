@@ -86,7 +86,8 @@
     "runtime_causality_overlay": "direct_stage_setters_and_major_story_state_chains_initial_complete",
     "opening_assailant_identity": "isidor_structurally_resolved",
     "heart_transfer_state_machine": "stage140_scene_phase_interactions_mapped",
-    "optional_quest_runtime_wiring": "bed_of_dust_and_staff_enchanting_mapped"
+    "optional_quest_runtime_wiring": "bed_of_dust_and_staff_enchanting_mapped",
+    "castle_service_state": "steam_trade_workroom_garden_mage_study_armoury_staff_upgrade_mapped"
   },
   "next_ingestion_steps": [
     "parse remaining story-relevant PACK conditions/targets and placed references beyond the first curated choreography pass",
@@ -96,6 +97,6 @@
     "map remaining castle/Nurndural interactive environmental records to exact placed cells where they add lore or navigation value",
     "add retrieval tests for spoiler gating, provenance boundaries, revised claims, implementation-vs-lore separation, and technical-network routing",
     "inspect residual technical outliers such as the Morthal follower-door quest threshold and distinguish harmless implementation quirks from meaningful state differences",
-    "map post-quest castle services/trade/restoration dialogue to their globals, enable parents, and interactive refs where durable retrieval value justifies it"
+    "catalog Lahar merchant inventories, blank-staff supply behavior, and Armoury memento enable refs only where record-level evidence adds durable lore/navigation value"
   ]
 }

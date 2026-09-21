@@ -21,7 +21,7 @@ This directory preserves record-structural evidence useful to Lorekeeper without
 - `travel-machine-network.md` / `.json.gz` — exact Travel Room selector → enabled portal → Terminus/Recall cell graph, including Raven Rock gating.
 - `pneumatic-network.md` / `.json.gz` — exact Pneumatic Tube Receptacle endpoints, room-to-room transfer/sort edges, and local sorting stations.
 
-- `../events/runtime-causality.md` / `.json` — direct stage setters, object-driven quest transitions, scene-phase machinery, and runtime causality mapped onto the narrative graph.\n\n## Interpretation boundary
+- `../events/runtime-causality.md` / `.json` — direct stage setters, object-driven quest transitions, scene-phase machinery, and runtime causality mapped onto the narrative graph.\n\n- `castle-service-state.md` / `.json` — staged restoration of supplies, trading, Work Room, Glass Garden, Mage's Study stations, Armoury mementos, and Staff Enchanter services.\n\n## Interpretation boundary
 
 Implementation evidence can establish what the mod actually makes happen—for example, which scene alias speaks, which spell Shadow's management quest invokes, or which script starts Amalgam's retreat. It does **not** automatically establish an in-universe metaphysical law.
 
