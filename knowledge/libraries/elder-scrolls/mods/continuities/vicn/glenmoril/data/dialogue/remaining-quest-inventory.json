@@ -1,15 +1,10 @@
 {
   "source_plugin": "Glenmoril.esm",
-  "remaining_direct_responses": 165,
-  "remaining_text_bearing_quests": 21,
-  "namespace_totals": {
-    "zzzRev_remaining": {
-      "quests": 21,
-      "responses": 165
-    }
-  },
+  "remaining_direct_responses": 0,
+  "remaining_text_bearing_quests": 0,
+  "namespace_totals": {},
   "revenant_total": 1328,
-  "revenant_normalized": 1163,
-  "closed_scopes_unique_responses": 4627,
-  "status": "revenant_cluster_4_complete"
+  "revenant_normalized": 1328,
+  "closed_scopes_unique_responses": 4792,
+  "status": "all_direct_quest_scene_dialogue_closed"
 }
