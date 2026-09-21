@@ -1,30 +1,28 @@
 # St. Bazura
 
-**Form ID:** `0402C265`  
-**Editor ID:** `zzzGHmq06Sub01`  
-**Act:** 2 — Witch Hunt  
-**Primary evidence:** supplied `Glenmoril.esm`
+Quest family: `zzzGHMq06Sub01` — **St. Bazura**
+Continuity: `tes.mod.vicn.glenmoril`
 
-## Direct dialogue topics
+This subquest follows **Or the Gospel** and reconnects several earlier threads.
 
-The quest reconnects multiple earlier threads. Dialogue asks about:
+## Established anchors
 
-- Orlando and the **Shop of Curiosities**;
-- the location of the **White Owl**;
-- the location of the **Black Owl**;
-- **Jhunal**, including the observation that others do not seem to remember him;
-- **Bazura** and the **Feast of St. Bazura**;
-- an “ignition ceremony”;
-- the ongoing search for **Lalanoah's mother**;
-- Lalanoah's current wellbeing and future independence;
-- an inscription being deciphered.
+- Orlando / Shop of Curiosities
+- White Owl
+- Black Owl
+- Jhunal
+- Lalanoah
+- Lalanoah's missing mother
+- St. Bazura celebration / resurrection / ignition material
 
-A player line explicitly asks whether “Bazura” is merely a corruption of “By Azura”; this is a hypothesis voiced in dialogue, not an established etymology.
+A related BOOK record, `zzzGHmq06Letter` — **Letter from Lalanoah**, invites the player to a St. Bazura resurrection celebration.
 
-## Lalanoah continuity
+## Evidence discipline
 
-Lalanoah-related topics include discussion of her father and the statement that there is still hope for her mother. The quest therefore preserves her family storyline into the end of the Act 2 quest list rather than leaving it behind at The Blue Bird.
+A proposed “Bazura” ↔ “By Azura” wordplay remains an interpretive hypothesis rather than established etymology.
 
-## Letter
+The subquest is parsed separately from its parent while retaining cross-links to Or the Gospel and earlier Owl/Jhunal/Lalanoah evidence.
 
-The plugin contains `zzzGHmq06Letter`, **Letter from Lalanoah**, whose opening invites the player around the approaching celebration of St. Bazura's resurrection. The full source text should be preserved in the source-text layer during the BOOK extraction pass.
+## Active extraction
+
+Next: QUST aliases → SCEN actions → DIAL → INFO, prioritizing Lalanoah, Jhunal, Orlando, White/Black Owl, mother, resurrection and ignition evidence.
