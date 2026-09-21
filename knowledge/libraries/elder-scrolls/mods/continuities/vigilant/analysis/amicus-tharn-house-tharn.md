@@ -76,6 +76,29 @@ Therefore:
 - **Amicus Tharn as a specific First Era family member:** VIGILANT-specific.
 - **exact kinship between Amicus and Fervidius/later Tharns:** unresolved.
 
+## Additional VIGILANT Tharns
+
+The raw ESM also contains three named Tharns in the **Feral Soul-Shriven** system:
+
+- **Radokhan Tharn** — Holy Brothers of Marukh Priory
+- **Ortutay Tharn** — Marukh's Underground Priory
+- **Marosi Tharn** — Malada Aldmerisel
+
+All three are implemented as generic Soul-Shriven variants with Alessian/Marukhati gear and no unique dialogue or genealogy.
+
+Detailed analysis:
+
+`analysis/feral-soul-shriven-tharns.md`
+
+Their presence strengthens the interpretation that VIGILANT deliberately populates its Alessian/Marukhati historical layer with members or representatives of the **Tharn** tradition.
+
+It does **not** establish direct kinship between:
+- the trio and Amicus;
+- the trio and Fervidius;
+- any of them and later named Tharns.
+
+Amicus should remain a separate high-depth character dossier rather than being flattened into this radiant trio.
+
 ## Petition title: addressed to House Tharn, not proof of authorship
 
 The books are titled **Petition to House Tharn**, and each lists the author as **Unknown**.
