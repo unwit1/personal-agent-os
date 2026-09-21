@@ -4,8 +4,8 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "verified_official_game_text": 2,
-    "editor_id_hint_eso": 80,
+    "verified_official_game_text": 9,
+    "editor_id_hint_eso": 73,
     "editor_id_hint_oblivion": 10,
     "editor_id_hint_morrowind": 3,
     "editor_id_hint_developer_mk": 3,
@@ -25,27 +25,24 @@
       "title": "A Daedric Proposal",
       "editor_id": "LB_Book3_NC_DaedricProposal_ESO",
       "text_path": "books/040000E3-a-daedric-proposal.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an in-game book in The Elder Scrolls Online: Stonethorn (Castle Thorn)."
     },
     {
       "form_id": "0400003C",
       "title": "A Dance Along the Webs",
       "editor_id": "LB_Book2_DT_DanceWebs_ESO",
       "text_path": "books/0400003C-a-dance-along-the-webs.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an in-game book in The Elder Scrolls Online; associated with the Gold Road prologue/Prisoner of Fate material."
     },
     {
       "form_id": "040000B0",
       "title": "A Dance in Moonlight",
       "editor_id": "LB_Book3_CL_DanceMoonlight_ESO",
       "text_path": "books/040000B0-a-dance-in-moonlight.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an in-game book in The Elder Scrolls Online (Grahtwood)."
     },
     {
       "form_id": "04000819",
@@ -117,9 +114,8 @@
       "title": "Achieving Harmony with Death",
       "editor_id": "LB_Book2_NC_AchievingHarmony_ESO",
       "text_path": "books/04000048-achieving-harmony-with-death.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as text from The Elder Scrolls Online."
     },
     {
       "form_id": "04000051",
@@ -134,9 +130,8 @@
       "title": "Aetherial Fragments",
       "editor_id": "LB_Book2_AP_AetherFrags_ESO",
       "text_path": "books/04000067-aetherial-fragments.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an in-game book in The Elder Scrolls Online; attributed to Lady Cinnabar of Taneth."
     },
     {
       "form_id": "040000B3",
@@ -199,9 +194,8 @@
       "title": "An Affair With Death",
       "editor_id": "LB_Book3_NC_AffairWithDeath_ESO",
       "text_path": "books/040000E6-an-affair-with-death.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an in-game book in The Elder Scrolls Online; attributed to Moon Bishop Hunal."
     },
     {
       "form_id": "04000013",
@@ -257,9 +251,8 @@
       "title": "Apocrypha, Apocrypha",
       "editor_id": "LB_Book2_AAP_ApoApo_ESO",
       "text_path": "books/04000023-apocrypha-apocrypha.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an in-game book in The Elder Scrolls Online; Daedric Cults collection."
     },
     {
       "form_id": "040008A5",
