@@ -48,3 +48,9 @@ Therefore:
 - it does not mean all members are the same entity, incarnation, or metaphysical species.
 
 Use this faction as a high-value retrieval edge, then require dialogue/scene evidence before promoting a stronger narrative relationship.
+
+## Sinak / Woodland-Man material
+
+The faction includes ordinary and Toor forms of the **Sinak** creature family. Those hostile forms drop **Woodland Man Roots**, while the stronger Toor forms additionally yield summon tomes and Anga-Mora/Herma-Mora named weapons.
+
+This strengthens the Owl ↔ Woodland-Man ↔ Sinak retrieval graph, but does not by itself prove that every Sinak is literally a Woodland-Man offshoot.
