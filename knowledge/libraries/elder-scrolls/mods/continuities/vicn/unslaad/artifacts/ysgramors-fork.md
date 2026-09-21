@@ -30,3 +30,11 @@ However, the ESM does not establish that:
 - the Fork belongs to the same physical artifact chain as Saarthal's Sorrow.
 
 Treat it as an UNSLAAD trial/reward relic bearing the Ysgramor name.
+
+## Recipe gate
+
+The playable reconstruction recipe unlocks after **VS Leopard** / zzzCrbBqYsLeopard is completed.
+
+The weapon's direct description says it is **especially deadly to elves**.
+
+This gives Ysgramor's Fork a clear post-Leopard-trial progression relationship inside the broader Ysgrim/Atmoran complex, without proving that Bjorga-mawr historically owned or created it.
