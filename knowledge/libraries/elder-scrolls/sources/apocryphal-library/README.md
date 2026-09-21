@@ -19,6 +19,7 @@ Individual origins should be resolved separately and linked to official game, de
 
 ## Browse
 
+- [`INDEX.md`](./INDEX.md) — alphabetical human-friendly index of all 784 extracted books
 - `books/` — extracted text files, named with FormID + title slug for stable uniqueness
 - `source-manifest.json` — title/editor-ID/FormID/path/text-hash crosswalk and source metadata
 - `technical/record-counts.json` — plugin record inventory from this extraction pass
