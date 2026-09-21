@@ -4,10 +4,12 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "unresolved": 471,
+    "unresolved": 437,
     "verified_official_game_text": 243,
     "verified_developer_text": 5,
-    "verified_mod_construct_text": 65
+    "verified_mod_construct_text": 65,
+    "verified_mod_original_text": 13,
+    "verified_external_author_text": 21
   },
   "entries": [
     {
@@ -1567,24 +1569,24 @@
       "title": "Catalogue of Forbidden Tomes: Animators",
       "editor_id": "LB_Book2_VG_CatalogueNecro",
       "text_path": "books/04000030-catalogue-of-forbidden-tomes-animators.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Falls in Apocryphal Library's internally authored thematic book families rather than its systematic imported-game document families; classify as Jenasto/mod-authored lore-friendly material, not official game text."
     },
     {
       "form_id": "04000031",
       "title": "Catalogue of Forbidden Tomes: Lichdom",
       "editor_id": "LB_Book2_VG_CatalogueLiches",
       "text_path": "books/04000031-catalogue-of-forbidden-tomes-lichdom.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Falls in Apocryphal Library's internally authored thematic book families rather than its systematic imported-game document families; classify as Jenasto/mod-authored lore-friendly material, not official game text."
     },
     {
       "form_id": "0400004C",
       "title": "Catalogue of Forbidden Tomes: On Souls",
       "editor_id": "LB_Book2_VG_CatalogueSouls",
       "text_path": "books/0400004C-catalogue-of-forbidden-tomes-on-souls.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Falls in Apocryphal Library's internally authored thematic book families rather than its systematic imported-game document families; classify as Jenasto/mod-authored lore-friendly material, not official game text."
     },
     {
       "form_id": "040009CA",
@@ -2354,80 +2356,80 @@
       "title": "Funerary Customs of Argonia",
       "editor_id": "LB_Book2_VG_BurialArgonia",
       "text_path": "books/0400001A-funerary-customs-of-argonia.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Falls in Apocryphal Library's internally authored thematic book families rather than its systematic imported-game document families; classify as Jenasto/mod-authored lore-friendly material, not official game text."
     },
     {
       "form_id": "04000019",
       "title": "Funerary Customs of Cyrodiil",
       "editor_id": "LB_Book2_VG_BurialCyrod",
       "text_path": "books/04000019-funerary-customs-of-cyrodiil.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Falls in Apocryphal Library's internally authored thematic book families rather than its systematic imported-game document families; classify as Jenasto/mod-authored lore-friendly material, not official game text."
     },
     {
       "form_id": "0400001B",
       "title": "Funerary Customs of Elsweyr",
       "editor_id": "LB_Book2_VG_BurialElsweyr",
       "text_path": "books/0400001B-funerary-customs-of-elsweyr.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Falls in Apocryphal Library's internally authored thematic book families rather than its systematic imported-game document families; classify as Jenasto/mod-authored lore-friendly material, not official game text."
     },
     {
       "form_id": "0400001F",
       "title": "Funerary Customs of Hammerfell",
       "editor_id": "LB_Book2_VG_BurialHammerfell",
       "text_path": "books/0400001F-funerary-customs-of-hammerfell.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Falls in Apocryphal Library's internally authored thematic book families rather than its systematic imported-game document families; classify as Jenasto/mod-authored lore-friendly material, not official game text."
     },
     {
       "form_id": "0400001E",
       "title": "Funerary Customs of High Rock",
       "editor_id": "LB_Book2_VG_BurialHighRock",
       "text_path": "books/0400001E-funerary-customs-of-high-rock.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Falls in Apocryphal Library's internally authored thematic book families rather than its systematic imported-game document families; classify as Jenasto/mod-authored lore-friendly material, not official game text."
     },
     {
       "form_id": "04000021",
       "title": "Funerary Customs of Morrowind",
       "editor_id": "LB_Book2_VG_BurialMorrowind",
       "text_path": "books/04000021-funerary-customs-of-morrowind.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Falls in Apocryphal Library's internally authored thematic book families rather than its systematic imported-game document families; classify as Jenasto/mod-authored lore-friendly material, not official game text."
     },
     {
       "form_id": "0400001C",
       "title": "Funerary Customs of Orsinium",
       "editor_id": "LB_Book2_VG_BurialOrsinium",
       "text_path": "books/0400001C-funerary-customs-of-orsinium.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Falls in Apocryphal Library's internally authored thematic book families rather than its systematic imported-game document families; classify as Jenasto/mod-authored lore-friendly material, not official game text."
     },
     {
       "form_id": "04000018",
       "title": "Funerary Customs of Skyrim",
       "editor_id": "LB_Book2_VG_BurialNord",
       "text_path": "books/04000018-funerary-customs-of-skyrim.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Falls in Apocryphal Library's internally authored thematic book families rather than its systematic imported-game document families; classify as Jenasto/mod-authored lore-friendly material, not official game text."
     },
     {
       "form_id": "0400001D",
       "title": "Funerary Customs of Summerset",
       "editor_id": "LB_Book2_VG_BurialAlinor",
       "text_path": "books/0400001D-funerary-customs-of-summerset.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Falls in Apocryphal Library's internally authored thematic book families rather than its systematic imported-game document families; classify as Jenasto/mod-authored lore-friendly material, not official game text."
     },
     {
       "form_id": "04000020",
       "title": "Funerary Customs of Valenwood",
       "editor_id": "LB_Book2_VG_BurialValenwood",
       "text_path": "books/04000020-funerary-customs-of-valenwood.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Falls in Apocryphal Library's internally authored thematic book families rather than its systematic imported-game document families; classify as Jenasto/mod-authored lore-friendly material, not official game text."
     },
     {
       "form_id": "04000105",
@@ -3850,72 +3852,72 @@
       "title": "On the Disappearance of the Dwarves, vol. 1",
       "editor_id": "LB_Book_LL_DisDwem01",
       "text_path": "books/04000831-on-the-disappearance-of-the-dwarves-vol-1.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Apocryphal Library credits the Disappearance of the Dwarves corpus to external lore writing, with volume 6 drawing from 'Final Report to Trebonius' by Imperial Library contributor Luagar; classify outside official game canon pending per-volume authorship refinement."
     },
     {
       "form_id": "040008F2",
       "title": "On the Disappearance of the Dwarves, vol. 2",
       "editor_id": "LB_Book_LL_DisDwem02",
       "text_path": "books/040008F2-on-the-disappearance-of-the-dwarves-vol-2.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Apocryphal Library credits the Disappearance of the Dwarves corpus to external lore writing, with volume 6 drawing from 'Final Report to Trebonius' by Imperial Library contributor Luagar; classify outside official game canon pending per-volume authorship refinement."
     },
     {
       "form_id": "040008F3",
       "title": "On the Disappearance of the Dwarves, vol. 3",
       "editor_id": "LB_Book_LL_DisDwem03",
       "text_path": "books/040008F3-on-the-disappearance-of-the-dwarves-vol-3.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Apocryphal Library credits the Disappearance of the Dwarves corpus to external lore writing, with volume 6 drawing from 'Final Report to Trebonius' by Imperial Library contributor Luagar; classify outside official game canon pending per-volume authorship refinement."
     },
     {
       "form_id": "040008F5",
       "title": "On the Disappearance of the Dwarves, vol. 4",
       "editor_id": "LB_Book_LL_DisDwem04",
       "text_path": "books/040008F5-on-the-disappearance-of-the-dwarves-vol-4.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Apocryphal Library credits the Disappearance of the Dwarves corpus to external lore writing, with volume 6 drawing from 'Final Report to Trebonius' by Imperial Library contributor Luagar; classify outside official game canon pending per-volume authorship refinement."
     },
     {
       "form_id": "040008F4",
       "title": "On the Disappearance of the Dwarves, vol. 5",
       "editor_id": "LB_Book_LL_DisDwem05",
       "text_path": "books/040008F4-on-the-disappearance-of-the-dwarves-vol-5.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Apocryphal Library credits the Disappearance of the Dwarves corpus to external lore writing, with volume 6 drawing from 'Final Report to Trebonius' by Imperial Library contributor Luagar; classify outside official game canon pending per-volume authorship refinement."
     },
     {
       "form_id": "040008F6",
       "title": "On the Disappearance of the Dwarves, vol. 6",
       "editor_id": "LB_Book_LL_DisDwem06",
       "text_path": "books/040008F6-on-the-disappearance-of-the-dwarves-vol-6.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Apocryphal Library credits the Disappearance of the Dwarves corpus to external lore writing, with volume 6 drawing from 'Final Report to Trebonius' by Imperial Library contributor Luagar; classify outside official game canon pending per-volume authorship refinement."
     },
     {
       "form_id": "040008F7",
       "title": "On the Disappearance of the Dwarves, vol. 7",
       "editor_id": "LB_Book_LL_DisDwem07",
       "text_path": "books/040008F7-on-the-disappearance-of-the-dwarves-vol-7.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Apocryphal Library credits the Disappearance of the Dwarves corpus to external lore writing, with volume 6 drawing from 'Final Report to Trebonius' by Imperial Library contributor Luagar; classify outside official game canon pending per-volume authorship refinement."
     },
     {
       "form_id": "04000909",
       "title": "On the Disappearance of the Dwarves, vol. 8",
       "editor_id": "LB_Book_LL_DisDwem08",
       "text_path": "books/04000909-on-the-disappearance-of-the-dwarves-vol-8.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Apocryphal Library credits the Disappearance of the Dwarves corpus to external lore writing, with volume 6 drawing from 'Final Report to Trebonius' by Imperial Library contributor Luagar; classify outside official game canon pending per-volume authorship refinement."
     },
     {
       "form_id": "0400090A",
       "title": "On the Disappearance of the Dwarves, vol. 9",
       "editor_id": "LB_Book_LL_DisDwem09",
       "text_path": "books/0400090A-on-the-disappearance-of-the-dwarves-vol-9.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Apocryphal Library credits the Disappearance of the Dwarves corpus to external lore writing, with volume 6 drawing from 'Final Report to Trebonius' by Imperial Library contributor Luagar; classify outside official game canon pending per-volume authorship refinement."
     },
     {
       "form_id": "040000D9",
@@ -4645,40 +4647,40 @@
       "title": "Soft Doctrines of Magnus, vol. I",
       "editor_id": "LB_Book_AP_SoftDoctrines01",
       "text_path": "books/0400081A-soft-doctrines-of-magnus-vol-i.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Credited by Apocryphal Library to former Bethesda developer Douglas Goodall's out-of-game work Soft Doctrines of Magnus Invisible, preserved by The Imperial Library; not an in-game Bethesda text."
     },
     {
       "form_id": "0400081B",
       "title": "Soft Doctrines of Magnus, vol. II",
       "editor_id": "LB_Book_AP_SoftDoctrines02",
       "text_path": "books/0400081B-soft-doctrines-of-magnus-vol-ii.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Credited by Apocryphal Library to former Bethesda developer Douglas Goodall's out-of-game work Soft Doctrines of Magnus Invisible, preserved by The Imperial Library; not an in-game Bethesda text."
     },
     {
       "form_id": "0400081C",
       "title": "Soft Doctrines of Magnus, vol. III",
       "editor_id": "LB_Book_AP_SoftDoctrines03",
       "text_path": "books/0400081C-soft-doctrines-of-magnus-vol-iii.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Credited by Apocryphal Library to former Bethesda developer Douglas Goodall's out-of-game work Soft Doctrines of Magnus Invisible, preserved by The Imperial Library; not an in-game Bethesda text."
     },
     {
       "form_id": "0400081D",
       "title": "Soft Doctrines of Magnus, vol. IV",
       "editor_id": "LB_Book_AP_SoftDoctrines04",
       "text_path": "books/0400081D-soft-doctrines-of-magnus-vol-iv.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Credited by Apocryphal Library to former Bethesda developer Douglas Goodall's out-of-game work Soft Doctrines of Magnus Invisible, preserved by The Imperial Library; not an in-game Bethesda text."
     },
     {
       "form_id": "0400081E",
       "title": "Soft Doctrines of Magnus, vol. V",
       "editor_id": "LB_Book_AP_SoftDoctrines05",
       "text_path": "books/0400081E-soft-doctrines-of-magnus-vol-v.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Credited by Apocryphal Library to former Bethesda developer Douglas Goodall's out-of-game work Soft Doctrines of Magnus Invisible, preserved by The Imperial Library; not an in-game Bethesda text."
     },
     {
       "form_id": "040000EB",
@@ -6221,56 +6223,56 @@
       "title": "Wulfric and the Snow Elf, Vol. I",
       "editor_id": "LB_Book_APO_Wulf01",
       "text_path": "books/0400098C-wulfric-and-the-snow-elf-vol-i.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Explicitly credited by Apocryphal Library to former Bethesda developer Douglas Goodall's out-of-game 'Wulfric and the Snow Elf'; preserved as external/developer-era lore rather than in-game canon."
     },
     {
       "form_id": "0400098D",
       "title": "Wulfric and the Snow Elf, Vol. II",
       "editor_id": "LB_Book_APO_Wulf02",
       "text_path": "books/0400098D-wulfric-and-the-snow-elf-vol-ii.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Explicitly credited by Apocryphal Library to former Bethesda developer Douglas Goodall's out-of-game 'Wulfric and the Snow Elf'; preserved as external/developer-era lore rather than in-game canon."
     },
     {
       "form_id": "0400098E",
       "title": "Wulfric and the Snow Elf, Vol. III",
       "editor_id": "LB_Book_APO_Wulf03",
       "text_path": "books/0400098E-wulfric-and-the-snow-elf-vol-iii.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Explicitly credited by Apocryphal Library to former Bethesda developer Douglas Goodall's out-of-game 'Wulfric and the Snow Elf'; preserved as external/developer-era lore rather than in-game canon."
     },
     {
       "form_id": "0400098F",
       "title": "Wulfric and the Snow Elf, Vol. IV",
       "editor_id": "LB_Book_APO_Wulf04",
       "text_path": "books/0400098F-wulfric-and-the-snow-elf-vol-iv.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Explicitly credited by Apocryphal Library to former Bethesda developer Douglas Goodall's out-of-game 'Wulfric and the Snow Elf'; preserved as external/developer-era lore rather than in-game canon."
     },
     {
       "form_id": "04000990",
       "title": "Wulfric and the Snow Elf, Vol. V",
       "editor_id": "LB_Book_APO_Wulf05",
       "text_path": "books/04000990-wulfric-and-the-snow-elf-vol-v.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Explicitly credited by Apocryphal Library to former Bethesda developer Douglas Goodall's out-of-game 'Wulfric and the Snow Elf'; preserved as external/developer-era lore rather than in-game canon."
     },
     {
       "form_id": "04000991",
       "title": "Wulfric and the Snow Elf, Vol. VI",
       "editor_id": "LB_Book_APO_Wulf06",
       "text_path": "books/04000991-wulfric-and-the-snow-elf-vol-vi.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Explicitly credited by Apocryphal Library to former Bethesda developer Douglas Goodall's out-of-game 'Wulfric and the Snow Elf'; preserved as external/developer-era lore rather than in-game canon."
     },
     {
       "form_id": "04000992",
       "title": "Wulfric and the Snow Elf, Vol. VII",
       "editor_id": "LB_Book_APO_Wulf07",
       "text_path": "books/04000992-wulfric-and-the-snow-elf-vol-vii.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Explicitly credited by Apocryphal Library to former Bethesda developer Douglas Goodall's out-of-game 'Wulfric and the Snow Elf'; preserved as external/developer-era lore rather than in-game canon."
     },
     {
       "form_id": "040008AD",
