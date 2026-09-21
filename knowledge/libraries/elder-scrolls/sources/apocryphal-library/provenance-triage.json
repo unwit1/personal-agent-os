@@ -4,12 +4,12 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "unresolved": 47,
-    "verified_official_game_text": 270,
-    "verified_mod_original_text": 376,
+    "verified_mod_original_text": 387,
+    "verified_official_game_text": 284,
+    "verified_external_author_text": 35,
     "verified_developer_text": 5,
-    "verified_mod_construct_text": 65,
-    "verified_external_author_text": 21
+    "verified_mod_construct_text": 67,
+    "unresolved": 6
   },
   "entries": [
     {
@@ -17,8 +17,8 @@
       "title": "33rd Alessian Doctrine",
       "editor_id": "LB_Note_AleshDoct33",
       "text_path": "books/0400082F-33rd-alessian-doctrine.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library-authored fragment/environmental text based on its placement among the mod's constructed note families rather than a source-marked imported-game family."
     },
     {
       "form_id": "040000E3",
@@ -73,8 +73,8 @@
       "title": "A Vision of the Spiral",
       "editor_id": "LB_Book_LL_Dae03",
       "text_path": "books/040008FB-a-vision-of-the-spiral.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Classified as external Elder Scrolls lore-writing from the compilation's LL source family rather than an in-game Bethesda/ZeniMax record. This family includes community/Imperial-Library-style lore texts; preserve compilation provenance and exclude from official-game canon claims."
     },
     {
       "form_id": "040009E7",
@@ -185,8 +185,8 @@
       "title": "Almalexia and Boethiah",
       "editor_id": "LB_Book_LL_Dae05",
       "text_path": "books/04000904-almalexia-and-boethiah.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Classified as external Elder Scrolls lore-writing from the compilation's LL source family rather than an in-game Bethesda/ZeniMax record. This family includes community/Imperial-Library-style lore texts; preserve compilation provenance and exclude from official-game canon claims."
     },
     {
       "form_id": "040000E6",
@@ -841,8 +841,8 @@
       "title": "Ashes in the Wind",
       "editor_id": "LB_Book_LL_Dae06",
       "text_path": "books/04000908-ashes-in-the-wind.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Classified as external Elder Scrolls lore-writing from the compilation's LL source family rather than an in-game Bethesda/ZeniMax record. This family includes community/Imperial-Library-style lore texts; preserve compilation provenance and exclude from official-game canon claims."
     },
     {
       "form_id": "04000012",
@@ -913,8 +913,8 @@
       "title": "Barilzar's Hirelings",
       "editor_id": "LB_U_Barilzar",
       "text_path": "books/0400082C-barilzars-hirelings.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an imported document from an official Elder Scrolls game by title/context and the compilation's U/import marker; compilation provenance retained separately."
     },
     {
       "form_id": "0400088F",
@@ -1689,8 +1689,8 @@
       "title": "Cosmology",
       "editor_id": "LB_Book_LL_Cosmology",
       "text_path": "books/0400086F-cosmology.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Classified as external Elder Scrolls lore-writing from the compilation's LL source family rather than an in-game Bethesda/ZeniMax record. This family includes community/Imperial-Library-style lore texts; preserve compilation provenance and exclude from official-game canon claims."
     },
     {
       "form_id": "0400009E",
@@ -1820,8 +1820,8 @@
       "title": "Decoded Document",
       "editor_id": "LB_U_CaiusDecode",
       "text_path": "books/04000812-decoded-document.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an imported document from an official Elder Scrolls game by title/context and the compilation's U/import marker; compilation provenance retained separately."
     },
     {
       "form_id": "040009EB",
@@ -1900,8 +1900,8 @@
       "title": "Dragon Breaks",
       "editor_id": "LB_Book_LL_DragonBreaks",
       "text_path": "books/04000898-dragon-breaks.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Classified as external Elder Scrolls lore-writing from the compilation's LL source family rather than an in-game Bethesda/ZeniMax record. This family includes community/Imperial-Library-style lore texts; preserve compilation provenance and exclude from official-game canon claims."
     },
     {
       "form_id": "040009C1",
@@ -2076,16 +2076,16 @@
       "title": "Empty Book",
       "editor_id": "LB_Book_Empty2",
       "text_path": "books/04000900-empty-book.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Empty BOOK record preserved for source completeness; contains no lore text and should not contribute canon claims."
     },
     {
       "form_id": "04000901",
       "title": "Empty Book",
       "editor_id": "LB_Book_Empty",
       "text_path": "books/04000901-empty-book.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Empty BOOK record preserved for source completeness; contains no lore text and should not contribute canon claims."
     },
     {
       "form_id": "04000017",
@@ -2140,32 +2140,32 @@
       "title": "Evaluation of St Felms",
       "editor_id": "LB_U_StFelms",
       "text_path": "books/0400082B-evaluation-of-st-felms.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an imported document from an official Elder Scrolls game by title/context and the compilation's U/import marker; compilation provenance retained separately."
     },
     {
       "form_id": "0400082A",
       "title": "Evaluation of St Llothis",
       "editor_id": "LB_U_StLlothis",
       "text_path": "books/0400082A-evaluation-of-st-llothis.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an imported document from an official Elder Scrolls game by title/context and the compilation's U/import marker; compilation provenance retained separately."
     },
     {
       "form_id": "04000829",
       "title": "Evaluation of St Olms",
       "editor_id": "LB_U_StOlms",
       "text_path": "books/04000829-evaluation-of-st-olms.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an imported document from an official Elder Scrolls game by title/context and the compilation's U/import marker; compilation provenance retained separately."
     },
     {
       "form_id": "0400000E",
       "title": "Exculpation of the Tribe Unmourned",
       "editor_id": "LB_Book2_DT_Unmourned",
       "text_path": "books/0400000E-exculpation-of-the-tribe-unmourned.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified with Apocryphal Library/Jenasto's authored lore-friendly book families rather than the systematic imported-game or externally credited families; exclude from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040008CD",
@@ -2660,8 +2660,8 @@
       "title": "In the Hall of the Hunter",
       "editor_id": "LB_Book_LL_Dae11",
       "text_path": "books/04000950-in-the-hall-of-the-hunter.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Classified as external Elder Scrolls lore-writing from the compilation's LL source family rather than an in-game Bethesda/ZeniMax record. This family includes community/Imperial-Library-style lore texts; preserve compilation provenance and exclude from official-game canon claims."
     },
     {
       "form_id": "0400093F",
@@ -2692,8 +2692,8 @@
       "title": "Instructions: The Gray Cowl",
       "editor_id": "LB_Note_AP_GrayCowl",
       "text_path": "books/040008B8-instructions-the-gray-cowl.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library-authored fragment/environmental text based on its placement among the mod's constructed note families rather than a source-marked imported-game family."
     },
     {
       "form_id": "040008B5",
@@ -2740,16 +2740,16 @@
       "title": "Invitation from Dagoth Ur",
       "editor_id": "LB_U_DagothInvite",
       "text_path": "books/04000811-invitation-from-dagoth-ur.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an imported document from an official Elder Scrolls game by title/context and the compilation's U/import marker; compilation provenance retained separately."
     },
     {
       "form_id": "0400080A",
       "title": "Invitation to a Wedding",
       "editor_id": "LB_Note_MorgiahWedding",
       "text_path": "books/0400080A-invitation-to-a-wedding.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an imported document from an official Elder Scrolls game by title/context and the compilation's U/import marker; compilation provenance retained separately."
     },
     {
       "form_id": "0400004B",
@@ -2828,8 +2828,8 @@
       "title": "Journal of Jyrik Gauldursson",
       "editor_id": "LB_Book3_AA_JyrikJournal",
       "text_path": "books/0400008D-journal-of-jyrik-gauldursson.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified with Apocryphal Library/Jenasto's authored lore-friendly book families rather than the systematic imported-game or externally credited families; exclude from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000873",
@@ -2924,8 +2924,8 @@
       "title": "Kynazarkhonymicon",
       "editor_id": "LB_Book_LL_Dae04",
       "text_path": "books/04000903-kynazarkhonymicon.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Classified as external Elder Scrolls lore-writing from the compilation's LL source family rather than an in-game Bethesda/ZeniMax record. This family includes community/Imperial-Library-style lore texts; preserve compilation provenance and exclude from official-game canon claims."
     },
     {
       "form_id": "04000841",
@@ -3084,8 +3084,8 @@
       "title": "Letter from a Moth Priest",
       "editor_id": "LB_U_Letter_MothPriest01",
       "text_path": "books/04000840-letter-from-a-moth-priest.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an imported document from an official Elder Scrolls game by title/context and the compilation's U/import marker; compilation provenance retained separately."
     },
     {
       "form_id": "04000941",
@@ -3124,16 +3124,16 @@
       "title": "Letter to Cyrus",
       "editor_id": "LB_U_Letter_Cyrus",
       "text_path": "books/04000875-letter-to-cyrus.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an imported document from an official Elder Scrolls game by title/context and the compilation's U/import marker; compilation provenance retained separately."
     },
     {
       "form_id": "040008A8",
       "title": "Letter to Divayth Fyr",
       "editor_id": "LB_U_Letter_Divayth01",
       "text_path": "books/040008A8-letter-to-divayth-fyr.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an imported document from an official Elder Scrolls game by title/context and the compilation's U/import marker; compilation provenance retained separately."
     },
     {
       "form_id": "0400091C",
@@ -3148,24 +3148,24 @@
       "title": "Letter to King Folbert",
       "editor_id": "LB_U_Letter_Folbert",
       "text_path": "books/040008AA-letter-to-king-folbert.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an imported document from an official Elder Scrolls game by title/context and the compilation's U/import marker; compilation provenance retained separately."
     },
     {
       "form_id": "0400080C",
       "title": "Letter to King Gortwog",
       "editor_id": "LB_U_Letter_Gortwog",
       "text_path": "books/0400080C-letter-to-king-gortwog.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an imported document from an official Elder Scrolls game by title/context and the compilation's U/import marker; compilation provenance retained separately."
     },
     {
       "form_id": "04000806",
       "title": "Letter to King of Worms",
       "editor_id": "LB_U_Morgiah01",
       "text_path": "books/04000806-letter-to-king-of-worms.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an imported document from an official Elder Scrolls game by title/context and the compilation's U/import marker; compilation provenance retained separately."
     },
     {
       "form_id": "04000870",
@@ -3204,8 +3204,8 @@
       "title": "Letter to the Arcane University",
       "editor_id": "LB_U_GrayFox01",
       "text_path": "books/04000896-letter-to-the-arcane-university.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an imported document from an official Elder Scrolls game by title/context and the compilation's U/import marker; compilation provenance retained separately."
     },
     {
       "form_id": "0400086C",
@@ -3452,8 +3452,8 @@
       "title": "Mirrored Fates",
       "editor_id": "LB_Book_LL_Nerevar01",
       "text_path": "books/04000897-mirrored-fates.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Classified as external Elder Scrolls lore-writing from the compilation's LL source family rather than an in-game Bethesda/ZeniMax record. This family includes community/Imperial-Library-style lore texts; preserve compilation provenance and exclude from official-game canon claims."
     },
     {
       "form_id": "04000114",
@@ -4055,8 +4055,8 @@
       "title": "Parchment with Scrawlings",
       "editor_id": "LB_Note_ParchmentWithScrawlings",
       "text_path": "books/0400080D-parchment-with-scrawlings.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library-authored fragment/environmental text based on its placement among the mod's constructed note families rather than a source-marked imported-game family."
     },
     {
       "form_id": "04000124",
@@ -4175,8 +4175,8 @@
       "title": "Prayers to Kyne",
       "editor_id": "LB_Book3_ERA0_KynePrayers",
       "text_path": "books/0400008E-prayers-to-kyne.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified with Apocryphal Library/Jenasto's authored lore-friendly book families rather than the systematic imported-game or externally credited families; exclude from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000026",
@@ -4439,8 +4439,8 @@
       "title": "Sealed Contracts",
       "editor_id": "LB_Book_LL_Dae02",
       "text_path": "books/040008FA-sealed-contracts.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Classified as external Elder Scrolls lore-writing from the compilation's LL source family rather than an in-game Bethesda/ZeniMax record. This family includes community/Imperial-Library-style lore texts; preserve compilation provenance and exclude from official-game canon claims."
     },
     {
       "form_id": "040000EF",
@@ -4479,8 +4479,8 @@
       "title": "Shadow of the Moons",
       "editor_id": "LB_Book_LL_Dae01",
       "text_path": "books/040008F9-shadow-of-the-moons.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Classified as external Elder Scrolls lore-writing from the compilation's LL source family rather than an in-game Bethesda/ZeniMax record. This family includes community/Imperial-Library-style lore texts; preserve compilation provenance and exclude from official-game canon claims."
     },
     {
       "form_id": "040009F3",
@@ -4943,8 +4943,8 @@
       "title": "The Common Tongue",
       "editor_id": "LB_Note_CommonTongue01",
       "text_path": "books/040008CC-the-common-tongue.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library-authored fragment/environmental text based on its placement among the mod's constructed note families rather than a source-marked imported-game family."
     },
     {
       "form_id": "040009C0",
@@ -5055,8 +5055,8 @@
       "title": "The Eternal Library",
       "editor_id": "LB_Book_LL_Dae09",
       "text_path": "books/04000902-the-eternal-library.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Classified as external Elder Scrolls lore-writing from the compilation's LL source family rather than an in-game Bethesda/ZeniMax record. This family includes community/Imperial-Library-style lore texts; preserve compilation provenance and exclude from official-game canon claims."
     },
     {
       "form_id": "040000AF",
@@ -5303,8 +5303,8 @@
       "title": "The New Talos",
       "editor_id": "LB_Book2_TH_NewTalos",
       "text_path": "books/04000011-the-new-talos.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified with Apocryphal Library/Jenasto's authored lore-friendly book families rather than the systematic imported-game or externally credited families; exclude from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000A0E",
@@ -5367,8 +5367,8 @@
       "title": "The Rules of Influence",
       "editor_id": "LB_Book_LL_Nazeem",
       "text_path": "books/0400090B-the-rules-of-influence.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Classified as external Elder Scrolls lore-writing from the compilation's LL source family rather than an in-game Bethesda/ZeniMax record. This family includes community/Imperial-Library-style lore texts; preserve compilation provenance and exclude from official-game canon claims."
     },
     {
       "form_id": "0400000B",
@@ -5471,8 +5471,8 @@
       "title": "The Skull of Corruption",
       "editor_id": "LB_Book_LL_Dae10",
       "text_path": "books/0400090C-the-skull-of-corruption.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Classified as external Elder Scrolls lore-writing from the compilation's LL source family rather than an in-game Bethesda/ZeniMax record. This family includes community/Imperial-Library-style lore texts; preserve compilation provenance and exclude from official-game canon claims."
     },
     {
       "form_id": "040008EB",
@@ -5767,8 +5767,8 @@
       "title": "Through the Gate of the Ebon Key",
       "editor_id": "LB_Book_LL_Dae07",
       "text_path": "books/04000905-through-the-gate-of-the-ebon-key.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_external_author_text",
+      "evidence": "Classified as external Elder Scrolls lore-writing from the compilation's LL source family rather than an in-game Bethesda/ZeniMax record. This family includes community/Imperial-Library-style lore texts; preserve compilation provenance and exclude from official-game canon claims."
     },
     {
       "form_id": "0400012C",
@@ -5799,8 +5799,8 @@
       "title": "Torn Journal Pages",
       "editor_id": "LB_U_TornPages",
       "text_path": "books/0400080E-torn-journal-pages.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library-authored fragment/environmental text based on its placement among the mod's constructed note families rather than a source-marked imported-game family."
     },
     {
       "form_id": "04000132",
@@ -5863,16 +5863,16 @@
       "title": "Torn Page",
       "editor_id": "LB_U_TornPages_Commission",
       "text_path": "books/04000863-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library-authored fragment/environmental text based on its placement among the mod's constructed note families rather than a source-marked imported-game family."
     },
     {
       "form_id": "04000864",
       "title": "Torn Page",
       "editor_id": "LB_U_TornPages_Janisiere",
       "text_path": "books/04000864-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library-authored fragment/environmental text based on its placement among the mod's constructed note families rather than a source-marked imported-game family."
     },
     {
       "form_id": "04000876",
