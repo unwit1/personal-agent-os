@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "policy": "Runtime scripts corroborate implemented behavior. They are not promoted into metaphysical lore unless dialogue/books/quests independently support that interpretation.",
+  "behaviors": [
+    {
+      "id": "bathing_feedback",
+      "record": "MGEF 05050445 CLWBathingMsgFFSelf",
+      "script": "CLWDummyMsgSpellEffectScript",
+      "properties": [
+        [
+          "PlayerRef",
+          "00000014"
+        ],
+        [
+          "pCLWMessage",
+          "05050444 CLWBathingMsg"
+        ]
+      ],
+      "interpretation": "Bathing explicitly fires a Clockwork bathing message; combined with the separate Clean from Bathing spell/effects this supports the domestic-hygiene implementation."
+    },
+    {
+      "id": "shadow_slow_time_visuals",
+      "record": "MGEF 0507FD83 CLWShadowSlowTimeEffect",
+      "script": "magicImodScript",
+      "properties": [
+        [
+          "StaticFX",
+          "050802FC CLWShadowScene01Imod"
+        ],
+        [
+          "OutroFX",
+          "05080871 CLWFadeFromBlack01Imod"
+        ],
+        [
+          "fStaticDelay",
+          0
+        ]
+      ],
+      "interpretation": "Shadow slow-time includes dedicated image-space effects, corroborating the staged perceptual/time-distortion sequence."
+    },
+    {
+      "id": "recall_to_castle",
+      "record": "MGEF 0504BB69 CLWRecallToCastleEffect",
+      "script": "CLWRecallToCastleSpellEffectScript",
+      "properties": [
+        [
+          "CLWMCM01FastTravelCheck01GLOB",
+          "0554395A"
+        ],
+        [
+          "pCLWDoor",
+          "0504BB64 CLWNPCDoorWhiterunExtToCastleTravelRoom01REF"
+        ],
+        [
+          "pCLWExplosion",
+          "0504BB66 CLWTeleportExplosion01"
+        ],
+        [
+          "pCLWRecallMarker",
+          "0579C7A7 CLWRecallPointMarker02REF"
+        ],
+        [
+          "pCLWFailureMSG",
+          "0504BB67 CLWTeleportSpellFail01Msg"
+        ]
+      ],
+      "interpretation": "Recall is a scripted two-endpoint transport system with eligibility/failure handling, a persistent recall marker, Travel Room endpoint, and teleport effect."
+    },
+    {
+      "id": "gilded_downed_recovery",
+      "records": [
+        "NPC_ 0522B12E CLWLvlGildedMelee1H",
+        "NPC_ 0523A48C CLWLvlGildedMelee2H",
+        "NPC_ 0523A4BC CLWLvlGildedMissile",
+        "NPC_ 0524471A CLWLvlGildedMagic",
+        "NPC_ 054BF998 CLWLvlGildedAmbushMelee1H",
+        "NPC_ 05773EC4 CLWLvlGildedAmbushMissile",
+        "NPC_ 05773EC5 CLWLvlGildedAmbushMagic",
+        "NPC_ 05773ECC CLWLvlGildedAmbushMelee2H"
+      ],
+      "script": "CLWGildedRes01Script",
+      "properties": [
+        [
+          "CLWMCM01GildedDownedSliderGLOB",
+          "0554395D"
+        ],
+        [
+          "CLWGildedReanimateSelf",
+          "0553E847 Reanimate (Self)"
+        ],
+        [
+          "CLWNPCDwarvenSphereStaggerHeavySM",
+          "0553E848"
+        ]
+      ],
+      "interpretation": "Generic hostile Gilded archetypes share a configurable downed/self-reanimation mechanic. This corroborates unusual survivability but is not proof of unlimited lore-level immortality."
+    },
+    {
+      "id": "amalgam_bleedout_retreat",
+      "record": "NPC_ 0559026E CLWLvlAmalgamCenturionAmbush",
+      "scripts": [
+        "masterambushscript",
+        "CLWAmalgamBleedoutScript"
+      ],
+      "properties": [
+        [
+          "pSceneToStart",
+          "0559A4B3 CLWSQ03Stage70Scene01"
+        ],
+        [
+          "pDestination01",
+          "0559A4B2 CLWSQ03Stage70Scene01AmalgamMark01REF"
+        ],
+        [
+          "myQuest",
+          "05506BB5 Crystalline Heart"
+        ],
+        [
+          "CLWAmalgamParalyseExplosion01",
+          "0559F5C7"
+        ],
+        [
+          "CLWTeleportExplosion01",
+          "0504BB66"
+        ],
+        [
+          "pCommGratesLever02",
+          "0559538C"
+        ],
+        [
+          "pCommGratesCol02",
+          "05562499"
+        ],
+        [
+          "fWaitFailsafe01",
+          30
+        ]
+      ],
+      "interpretation": "Amalgam's apparent defeat at stage 70 is a scripted bleedout/retreat sequence involving paralysis, teleportation, barrier state, and scene progression."
+    },
+    {
+      "id": "shadow_phase_transition",
+      "record": "NPC_ 05769C7E CLWLvlShadowAmbush01",
+      "scripts": [
+        "masterambushscript",
+        "CLWShadowBleedoutScript"
+      ],
+      "properties": [
+        [
+          "CLWSQ04ShadFightPhaseGLOB",
+          "05773EBB"
+        ],
+        [
+          "CLWShadowVanish01Exp",
+          "0575FA42"
+        ],
+        [
+          "pSceneToStart",
+          "0576EDA3 CLWSQ04LamRemarksScene01"
+        ]
+      ],
+      "interpretation": "One Shadow combat form transitions via bleedout/vanish state and directly points to Lamashtu's remarks scene."
+    },
+    {
+      "id": "shadow_final_resolution",
+      "record": "NPC_ 05778FE2 CLWLvlShadowAmbush02",
+      "scripts": [
+        "masterambushscript",
+        "CLWShadowDyingScript"
+      ],
+      "properties": [
+        [
+          "CLWSQ04ShadFightPhaseGLOB",
+          "05773EBB"
+        ],
+        [
+          "pNewGLOBValue",
+          3
+        ],
+        [
+          "pSceneToStart",
+          "0576EDA3 CLWSQ04LamRemarksScene01"
+        ],
+        [
+          "pLamREF",
+          "052BE2D6 Lamashtu placed ACHR"
+        ]
+      ],
+      "interpretation": "The final Shadow form sets fight-phase state to 3, directly references Lamashtu's placed actor, and starts the post-fight remarks scene. This mechanically ties fight resolution to the reunion/reinterpretation conversation."
+    },
+    {
+      "id": "lahar_torch_behavior",
+      "record": "NPC_ 052908BF CLWLahar",
+      "script": "CLWEquipItemOnLoadScript",
+      "properties": [
+        [
+          "TorchToEquip",
+          "0001D4EC"
+        ],
+        [
+          "GameHour",
+          "00000038"
+        ],
+        [
+          "doOnce",
+          true
+        ],
+        [
+          "preventRemoval",
+          false
+        ],
+        [
+          "silent",
+          false
+        ]
+      ],
+      "interpretation": "Lahar has a generic equip-on-load torch behavior. This is implementation flavor, not significant lore unless a later source makes it narratively relevant."
+    }
+  ]
+}
