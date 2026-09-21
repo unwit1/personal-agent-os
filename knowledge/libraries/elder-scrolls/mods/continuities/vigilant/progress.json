@@ -1,6 +1,6 @@
 {
   "source_sha256": "7d3ca2d72297fbc5afda8f1b8bb217fa1fd6d9d7414360acdf1a922d848949ba",
-  "phase": "memory-quest-ingestion",
+  "phase": "source-linking-and-transition-analysis",
   "completed": [
     "header/source manifest",
     "record inventory",
@@ -17,7 +17,10 @@
     "first high-relevance character dossiers",
     "Bruiant Mansion/Julius document reconstruction",
     "Coldharbour main-quest structural reconstruction",
-    "story-critical source-book corpus seed"
+    "story-critical source-book corpus seed",
+    "Coldharbour 13-memory reliability reconstruction",
+    "remaining 89 INFO structural classification",
+    "book provenance seed for embedded official TES texts"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -30,8 +33,6 @@
     "quest_aliases": 550
   },
   "next": [
-    "reconstruct the 13 numbered Coldharbour memory quests in order",
-    "resolve or classify remaining 89 INFO records",
     "expand remaining high-relevance character dossiers",
     "continue exact BOOK/note persistence from the 179-record local corpus",
     "book/note-to-quest/location linking",
