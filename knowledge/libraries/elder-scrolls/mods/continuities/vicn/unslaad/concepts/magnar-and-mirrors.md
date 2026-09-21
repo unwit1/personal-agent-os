@@ -44,3 +44,22 @@ UNSLAAD deliberately connects:
 - warmth/thaw versus frozen Atmora.
 
 Do not yet conclude that every mirror is a literal fragment/replacement of Magnar or that Herkel's Lyg mirror is the exact object described in Harakk's note.
+
+## Evidence and promotion boundary
+
+This dossier currently combines three different evidence classes that should remain distinguishable:
+
+- **Insight testimony:** the Headless Idol myth about Magnar, sunrise, decapitation, and replacement by mirrors.
+- **Textual/prayer evidence:** Harakk Warrior's Final Note independently repeats Magnar + decapitation + mirrors + sunset/frozen-body imagery.
+- **Quest-object testimony:** Herkel identifies the under-ice Lyg mirror as an imitation of Magnar made from polished Merid-Nunda essence.
+
+The convergence is strong **inside UNSLAAD**, but the current indexed VICN corpus does not yet contain an independent non-UNSLAAD Magnar occurrence strong enough to justify a dedicated parent Magnar identity thread.
+
+### Retrieval links
+
+For related questions, also retrieve:
+- `artifacts/merid-magnar-lyg-mirror.md` for the physical mirror implementation;
+- `concepts/harakk.md` and parent VICN `../../relationships/harakk-thread.md` when Harakk context matters;
+- parent VICN `../../relationships/lyg-thread.md` for cross-work Lyg comparison.
+
+Do not use the cross-VICN Harakk recurrence to imply that DAc0da independently attests UNSLAAD's Magnar-mirror myth.
