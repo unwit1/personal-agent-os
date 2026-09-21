@@ -67,3 +67,9 @@ Use it as:
 - retrieval context for Atmoran mythic actors.
 
 Require independent text before asserting historical Companion membership.
+
+## Apocryphal source-substrate note
+
+The combination of this faction's **500 Companion** naming with UNSLAAD's direct use of **Hans/Pelinaalilargus** and **Yngol/Ylgar/Tstunal** strongly links the late trial layer to the apocryphal *Five Hundred, or Thereabouts, Companions of Ysgramor* tradition discussed in *The Shezarrine*.
+
+This strengthens the interpretation of the faction as a **mythic trial/reconstruction layer**, not a literal historical roster. See `relationships/five-hundred-apocryphal-substrate.md`.
