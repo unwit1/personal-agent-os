@@ -88,3 +88,10 @@ When the reusable Knowledge Library subsystem is implemented, these Markdown bun
 - provenance records.
 
 The Markdown should remain a browsable report/export rather than becoming the only source of structure.
+
+## Generated structured indexes
+
+- `vicn-claim-index.jsonl` — deterministic claim rows generated from the reviewed VICN Markdown bundles.
+- `vicn-claim-edges.jsonl` — deterministic `supports`, `contradicts`, and `qualifies` edges between stable claim IDs.
+
+The Markdown bundles remain the reviewable source. The JSONL files are compact machine-retrieval/migration surfaces and should be regenerated when claim bundles change.
