@@ -33,6 +33,7 @@ A statement established in one plugin is not automatically attributed to another
 - **Laza / Owls / dragon experiments:** VIGILANT directly ties Laza to Jhunal's dragon harvesting, GLENMORIL preserves the White→Gray→Black Owl sequence, and UNSLAAD's Gray Owl names Laza among failed experiments.
 - **Hjalti / Alcaire / changing names:** UNSLAAD and GLENMORIL independently pair Hjalti with Alcaire; DAc0da independently continues the Hjalti/Zurin/Mantella conflict.
 - **Loveletter From the Fifth Era:** GLENMORIL directly references the Loveletter in its Nerevarine/memory data layer; UNSLAAD reconstructs the text from seven fragments and wires it as a timeless gate into frozen-time Atmoran dream-space.
+- **Dream Without a Dreamer:** VIGILANT, GLENMORIL, and UNSLAAD independently use the exact dreamerless-dream concept in route, perception/reality, blood-rage, and Gray-Owl repetition contexts.
 
 These are retrieval/continuity relationships, not permission to flatten source-specific claims into one narrative.
 
