@@ -1,55 +1,50 @@
 # Joel
 
 - Continuity: `tes.mod.vigilant`
-- Role: pre-Coldharbour dialogue character in **Bloodsucker**
-- Scene anchor: `SCEN 0200933E` / `zzAoMMq01Scene01`
+- Primary form: `NPC_ 024B2C8B` / `zzzAomM01Priest` — **Joel**
+- Quest: `QUST 02005CE3` / **Bloodsucker**
+- Quest alias: **Priest** (alias 7)
+- Scene: `SCEN 0200933E` / `zzAoMMq01Scene01`
 - Scene participants: Altano ↔ Joel
-- Exact NPC FormID: not yet persisted in the current browsable repository corpus
-- Narrative depth: low pending direct dialogue recovery
+- Direct source: translated VIGILANT 1.8.2 ESM
 
-## Structural evidence
+## Direct Bloodsucker role
 
-The VIGILANT scene index resolves Joel as a dialogue participant with Altano in:
+The quest alias table directly binds:
+- alias 0 → **Altano**
+- alias 7 → **Joel**
 
-- `SCEN 0200933E`
-- EditorID: `zzAoMMq01Scene01`
-- owning quest: **Bloodsucker**
+The scene action table alternates those aliases over four dialogue actions.
 
-This is enough to establish Joel as an implemented named character in the early Vigilant quest chain.
+### Altano
+> We heard about the vampire. How bad is it? I'd like a list of victims, too.
 
-## Current evidence limit
+### Joel
+> Here. We found the fifth victim yesterday already. Please, can you help us? The guards are terrified and we can't rely on them.
 
-The repository currently does **not** preserve:
-- Joel's exact NPC base FormID;
-- a dedicated Joel INFO/dialogue corpus;
-- a document authored by Joel;
-- a later Coldharbour identity;
-- a stable faction/biographical link beyond the Bloodsucker scene.
+### Altano
+> Don't worry. We, the Vigilants of Stendarr, will deal with this vampire.
 
-Accordingly, Lorekeeper should not infer:
-- that Joel is a Vigilant;
-- that Joel is a vampire;
-- that Joel dies in the quest;
-- that Joel recurs later under another name;
+### Joel
+> Thank you very much. May the Eight Divines bless you.
 
-unless exact source records are recovered.
+This resolves Joel as the priest/requester side of the Whiterun vampire investigation.
 
-## Retrieval purpose
+## Context
 
-This lightweight dossier exists so future ingestion can attach:
-- Bloodsucker dialogue;
-- aliases;
-- actor placements;
-- quest conditions;
-- any later references
+Other Bloodsucker dialogue says:
+- victims were completely drained of blood;
+- the killer is believed to be newly turned;
+- all known victims were male;
+- Vigilant activity is tolerated partly because Civil War conditions reduced guard capacity.
 
-to a stable entity instead of recreating Joel from scratch.
+Those lines belong to Altano's investigative branch, not Joel.
 
-## Relationship map
+## Current classification
 
-- **Joel ↔ dialogue with ↔ Altano**
-- **Joel → appears in → Bloodsucker**
-- **biography → unresolved pending → INFO/NPC/alias recovery**
+**Directly resolved priest/requester in Bloodsucker.**
+
+No larger biography should be inferred until later records support one.
 
 ## Canon boundary
 
