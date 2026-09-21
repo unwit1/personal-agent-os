@@ -142,6 +142,28 @@ VIGILANT's identification of Lamae as the Blood Matron cursed through Molag Bal 
 
 The VIGILANT quest sequence *Empty Cells → Remnants → The Blood Matron* and the objective to free Lamae from Molag Bal's curse are a mod-specific storyline. They should not be retroactively treated as an event in official TES chronology.
 
+
+## Coldharbour as a realm of recurrence
+
+### Realm shaped by Molag Bal
+
+**Classification: established-tradition as substrate.**
+
+ESO's *On the Nature of Coldharbour* describes the plane as a cold, largely lifeless realm of fear where lost souls are tormented, and presents its form as reflecting Molag Bal's nature and purposes. VIGILANT's use of Coldharbour as a landscape organized around domination, suffering, captured souls, and Molag Bal's authorship therefore has strong licensed substrate.
+
+### Re-forming bodies and repeated existence
+
+**Classification: compatible substrate + vigilant-reframing.**
+
+ESO's *Chaotic Creatia: The Azure Plasm* explains that Daedric vestiges rebuild bodies from Coldharbour's creatia and that Soul Shriven can repeatedly reform counterfeit bodies. This provides a licensed mechanism for recurring embodiments in Coldharbour.
+
+VIGILANT's much broader system of repeated historical roles, replayed memories, dream recursion, modified recollection, and the player entering Alessian-era scenes is **not** established by that source. Lorekeeper should distinguish the official reconstitution mechanism from VIGILANT's mod-specific memory/dream architecture.
+
+Licensed sources:
+- *On the Nature of Coldharbour* — ESO.
+- *Chaotic Creatia: The Azure Plasm* — ESO.
+- *On Soul Shriven* and related ESO material are useful follow-up sources for the soul/vestige layer.
+
 ## How VIGILANT uses official lore
 
 The emerging pattern is not simple contradiction. VIGILANT frequently:
