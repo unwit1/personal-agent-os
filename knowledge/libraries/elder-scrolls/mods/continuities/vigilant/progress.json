@@ -31,7 +31,9 @@
     "Coldharbour dossiers: Menta-Na, Abbot Cosmas, Varla, Dro'Zel",
     "Jhunal deep-pass: Owl/fragments/relic network and Eight Saints integration",
     "Laza structural dossier and Owl-cycle book placement mapping",
-    "Saklas dossier: Jhunal Library investigation, Order mining, and Owl-form evidence"
+    "Saklas dossier: Jhunal Library investigation, Order mining, and Owl-form evidence",
+    "Mary witness-network dossiers: Pope Megus, Sir Caius, Ja'zhan",
+    "Jhunal fire-rune supporting dossiers: Sir Berich and Casimir"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -61,8 +63,15 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "Jhunal writeback followed by Laza/Owl and Saklas/Jhunal-Order dossiers",
-    "source_state": "continued from repository-extracted VIGILANT corpus; original Vigilant.esm not currently accessible in connected Drive/library sources",
-    "open_followup": "persist exact texts for Laza, Laza and the White Owl, Laza and the Gray Owl, and Laza and the Black Owl"
+    "focus": "expanded supporting witness dossiers around Mary/Moura and Jhunal fire-rune traditions",
+    "added": [
+      "Pope Megus",
+      "Sir Caius",
+      "Ja'zhan",
+      "Sir Berich",
+      "Casimir"
+    ],
+    "source_state": "continued from repository-extracted VIGILANT corpus; no new raw ESM text introduced",
+    "open_followup": "continue remaining high-relevance Coldharbour witnesses and persist exact Laza/Owl book texts when source bytes become available"
   }
 }
