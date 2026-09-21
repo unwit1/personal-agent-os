@@ -47,16 +47,55 @@ The plugin stores English dialogue directly in INFO/NAM1 fields, so dialogue can
 
 ## Current ingestion state
 
-- Structural inventory and all-quest catalog: complete first pass.
-- Numbered main quest reconstruction: **MQ00 through MQ05 complete**.
-- Major main-story dossiers/concepts: Rolls-On-Roads, Akashiya-Samon, Yngol, Ghost Choir 9, Prisoner/Many Paths, time breaches/mirror logic/zero-sum, Hist/Jill/Akulakhan Fifth-Era anomaly.
-- Side quests processed:
-  - **Drowned Nighthawk** (`zDcdSqYngol`)
-  - **Abnur Tharn** (`zDcdSqAbnur`)
-  - Abnur Tharn epilogue/will
-  - Akashiya-Samon epilogue
-- Cross-Vicn seed created for DAc0da, including the direct **Rolls-On-Roads ↔ Romion** bridge into GLENMORIL.
-- Next high-priority side arc: **Echoes of Mnemolichite** (`zDcdSqWorm`), including Vanus Galerion, Yu'qbar, Mnemolichite, Sload/Necromancer activity, and Mannimarco.
-- BOOK-wide provenance, remaining side quests, broad NPC identity resolution, scene-speaker resolution, locations, and full cross-Vicn reconciliation remain pending.
+### Complete at first reconstruction depth
+
+- Structural inventory and all-quest catalog.
+- Numbered main quest MQ00–MQ05.
+- Numidium interior / Ghost Choir / Mantella / Jill / Prisoner / Many-Paths material.
+- **Drowned Nighthawk** / Yngol / Tsuunalinfaxtir.
+- **The End of All Wishes** / Beynhaal / Atmoran sacrifice material.
+- **Abnur Tharn** plus Abnur epilogue/will.
+- Akashiya-Samon main appearances and ghost epilogue.
+- **Echoes of Mnemolichite** and linked subquests:
+  - Option: Dreugh
+  - Group Battle: The Sload City
+  - Group Battle: The Revenant
+  - The Sea of Radiance
+- Vanus Galerion, Yu'qbar, Republic of Hahd, Vigilant Athanasius, mnemolichite.
+- Augur of the Obscure / Adjacent Places / Grabbers.
+- **Cheese Party** and **Sload Radio**.
+- Alternate ending analyses:
+  - **Rella Mozzarella**
+  - **Pan-Argonia**
+- First BOOK inventory/provenance pass over all 90 BOOK records.
+
+### Strong cross-Vicn links indexed
+
+- **Rolls-On-Roads ↔ Romion** -> GLENMORIL.
+- **Radiance / Letter to a Friend ↔ Altano** -> VIGILANT.
+- **Adjacent Places / Grabbers ↔ Lyg** -> UNSLAAD.
+- **Mnemo-Li / memory / many paths** -> GLENMORIL and UNSLAAD.
+- Atmora/Saarthal/Night-of-Tears comparison targets across the Vicn corpus.
+
+### Written-lore status
+
+The 90 BOOK records currently classify as:
+
+- 66 spell/summon/item books;
+- 13 letters/notes;
+- 11 Nahd-fiction / apocryphal texts.
+
+High-value DAc0da letters and temporal tomes are indexed. Reused Daggerfall and developer/apocryphal texts are being provenance-separated rather than silently attributed to Vicn.
+
+## Next priority
+
+Move from dialogue-heavy reconstruction into **scene/script/non-dialogue resolution**, beginning with:
+
+1. `zDcdSqPrisoner` — **In Grabbers' Hands**: resolve Kye, Boss, target location, and the mechanic behind **"restore your name."**
+2. `zDcdEpiQYngol` — resolve the Yngol epilogue from scenes/scripts.
+3. `zDcdMqDragon` — Golden Dragon Flight.
+4. `zDcdMqAgent` — Agent Event.
+5. Exact source comparison for the six Daggerfall/Totem letters and unresolved `NahdFiction_*_MK` records.
+6. Remaining NPC, location, scene-speaker, artifact, and creature indexing.
 
 See `analysis/ingestion-checkpoint-01.md` before resuming.
