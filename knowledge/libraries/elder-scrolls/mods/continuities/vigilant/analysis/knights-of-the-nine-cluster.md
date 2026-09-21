@@ -31,12 +31,12 @@ Several knights have strong VIGILANT evidence:
 - **Sir Henrik** — direct testimony about Varla preserved in Varla's dossier.
 - **Sir Gregory** — at least one preserved note describing Mary/healer cult imagery.
 
-Other names currently lack enough persisted ESM material for independent character dossiers:
-- Sir Amiel Lannus
-- Sir Juncan
-- Sir Ralvas
+Direct source recovery now resolves **Sir Juncan** and **Sir Ralvas** as full VIGILANT quest actors.
 
-Accordingly, the roster is best modeled as a **supplementary organizing cluster with partial ESM corroboration**.
+The remaining roster member without comparable direct VIGILANT implementation in the current pass is:
+- Sir Amiel Lannus
+
+The cluster is therefore now **mostly direct ESM-corroborated**, while the shared Molag Bal soul-fragment mechanism remains supplementary.
 
 ## Sir Berich
 
@@ -148,7 +148,9 @@ Do not assume every official event in a knight's original biography is reenacted
 - **Torolf → VIGILANT scene actor → Knight of Arkay**
 - **Henrik → VIGILANT witness → Varla**
 - **Gregory → VIGILANT document author → Mary shrine/cult evidence**
-- **Amiel/Juncan/Ralvas → direct VIGILANT evidence → pending**
+- **Juncan → VIGILANT quest actor → Knight of Kynareth**
+- **Ralvas → VIGILANT quest actor → Knight of Zenithar**
+- **Amiel → direct VIGILANT implementation → pending**
 
 ## Canon boundary
 
