@@ -1,10 +1,11 @@
 # GLENMORIL BOOK / MESG completeness inventory
 
 Source: raw `Glenmoril.esm`.
+SHA-256: `5669018c81acf13147ff489f486963ecc3c57515a73ed9afd210c7ede85e1cc8`
 
 ## BOOK records
 
-Total BOOK records: **264**
+Total BOOK records: **264**  
 All 264 contain non-empty `DESC` text.
 
 Raw BOOK text size: **161,476 characters**.
@@ -36,34 +37,47 @@ The mechanical BOOK backlog is therefore **closed**.
 
 ## MESG records
 
-Total MESG records: **144**
+Total MESG records: **144**.
 
 - non-empty `DESC`: **127**
 - records with `ITXT` choices: **65**
-- combined readable DESC + ITXT text: **18,667 characters**
+- combined readable `DESC` + `ITXT` text: **18,667 characters**
+- exact source-addressable rows preserved: **144 / 144**
 
-### Existing MESG high-value pass
+Exact dataset:
+`data/messages/messages-01.jsonl`
+through
+`data/messages/messages-06.jsonl`.
 
-The earlier high-value pass identified **27 lore-bearing MESG records**, including:
-- Egg parameter/status display;
-- Jhunal/Hamah sealing tablets;
-- Maiden invocations/dossiers;
-- revision data records;
-- Laza-corpse data.
+Each shard contains **24** records, so **6 × 24 = 144 / 144**.
 
-## Current priority
-
-Build a deterministic **144 / 144 exact MESG ledger** preserving:
-- source ID;
+Every row preserves:
+- source plugin;
+- stable local source ID;
+- observed FormID;
+- record type;
 - EditorID;
 - title when present;
+- continuity;
 - exact `DESC`;
-- ordered `ITXT` choice text.
+- ordered `ITXT` choices;
+- a working retrieval category.
 
-Then classify:
-1. lore-bearing/data;
-2. story-state menu;
-3. gameplay/system;
-4. debug/error/UI-only.
+### Working MESG categories
 
-This replaces sampling with full MESG completeness.
+| working category | count |
+|---|---:|
+| lore-data-candidate | **67** |
+| plain-message | **38** |
+| menu-story-or-gameplay | **29** |
+| system-debug | **10** |
+
+These categories are retrieval aids, not canon-strength labels. A menu or debug-classified record may still contain lore-bearing wording, and lore-data candidates still require contextual interpretation before promotion into entity/relationship claims.
+
+## MESG-layer status
+
+**Raw MESG inventory: 144 / 144.**
+
+**Exact MESG preservation: 144 / 144.**
+
+The prior sampling backlog is closed. Remaining work is semantic promotion: connect high-value messages to characters, locations, concepts, quests, contradictions, and provenance-aware claims without treating UI text or in-world claims as automatically objective fact.
