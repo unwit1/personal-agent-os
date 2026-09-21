@@ -5,8 +5,6 @@ Scope: the ten main `zzzLrhMq01–zzzLrhMq10` **Little Red** quests.
 
 ## Counting method
 
-The same deterministic method used to close Act 2 is applied from the beginning:
-
 1. SCEN `PNAM` → associated QUST.
 2. Dialogue actions: `ANAM type 0` → `DATA` DIAL.
 3. DIAL → child INFO records.
@@ -34,7 +32,11 @@ The same deterministic method used to close Act 2 is applied from the beginning:
 ## Processing status
 
 - Mq01 — The Way is Blocked: **97 / 97 normalized**
-- Mq02–Mq10: inventoried, pending sequential normalization
+- Mq02 — The Chick Trader: **76 / 76 normalized**
+- Mq03–Mq10: inventoried, pending sequential normalization
+
+Normalized so far: **173 / 585**
+Remaining: **412**
 
 ## Why this ledger exists
 
