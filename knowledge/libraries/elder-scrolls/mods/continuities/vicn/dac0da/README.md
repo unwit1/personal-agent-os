@@ -51,9 +51,10 @@ Other quest records include major side arcs for Yngol, the Augur, Abnur Tharn, t
 
 - Structural inventory: complete first pass.
 - Quest catalog: created.
-- Main quest lore reconstruction: processed through **The Sea of Causality**.
-- First character dossier: **Akashiya-Samon**.
-- Next main-story target: **Negative Legacy** (`zDcdMq02`).
-- BOOK, NPC identity, scene-speaker, location, and full cross-Vicn reconciliation passes remain pending.
+- Main quest lore reconstruction: processed through **Patchwork** (`zDcdMq03`).
+- Character dossier: **Akashiya-Samon**.
+- Concept seed: time breaches / mirror logic / zero-sum.
+- Next main-story target: **Numidium Tertius** (`zDcdMq04`).
+- BOOK, broad NPC identity, scene-speaker, location, and full cross-Vicn reconciliation passes remain pending.
 
 See `analysis/ingestion-checkpoint-01.md` before resuming so this work is not restarted.
