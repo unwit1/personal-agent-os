@@ -2,62 +2,110 @@
 
 Continuity: `tes.mod.vicn.dac0da`
 
+## Source
+
+- `DAc0da.esm`
+- SHA-256: `455f07f3bba5de5b1b5a84c882be3309a66fd3d503866e05658b99896dfdb00e`
+- Stable provenance format established as `DAc0da.esm:<local FormID>`.
+
+Do not restart structural inventory unless the source hash changes.
+
 ## Completed
 
-- Verified source: `DAc0da.esm`
-- SHA-256: `455f07f3bba5de5b1b5a84c882be3309a66fd3d503866e05658b99896dfdb00e`
-- Established stable local FormID provenance.
-- Parsed first-pass record inventory.
+### Structural
+
+- Parsed first-pass ESM inventory.
 - Indexed all 43 QUST records.
-- Reconstructed DIAL -> INFO dialogue for:
-  - `zDcdMq00` — **The Call of Landfall**
-  - `zDcdMq01` — **The Sea of Causality**
-  - `zDcdMq02` — **Negative Legacy**
-  - `zDcdMq03` — **Patchwork**
-- Created an evidence-backed character dossier for **Akashiya-Samon**.
-- Created a concept seed for **time breaches / mirror logic / zero-sum**.
-- Preserved conditional repeated-attempt dialogue as state/fate-line variants instead of flattening it into one chronology.
+- Established DIAL -> INFO extraction with direct NAM1 dialogue.
+- Resolved selected quest aliases to unique NPC forms.
+
+### Numbered main quest
+
+Reconstructed:
+
+- `zDcdMq00` — **The Call of Landfall**
+- `zDcdMq01` — **The Sea of Causality**
+- `zDcdMq02` — **Negative Legacy**
+- `zDcdMq03` — **Patchwork**
+- `zDcdMq04` — **Numidium Tertius**
+- `zDcdMq05` — **Censored Fate**
+
+The numbered main chain is now complete at first lore-reconstruction depth.
+
+### Major dossiers / concepts
+
+- Akashiya-Samon
+- Rolls-On-Roads
+- Yngol
+- Ghost Choir 9
+- Prisoner / Many Paths
+- time breaches / mirror logic / zero-sum
+- Hist / Jills / Akulakhan / Fifth-Era anomaly
+- DAc0da cross-Vicn relationship seeds
+
+### Side / epilogue passes
+
+Processed:
+
+- `zDcdSqYngol` — **Drowned Nighthawk**
+- `zDcdSqAbnur` — **Abnur Tharn**
+- `zDcdEpiQAbnur` — Abnur Tharn epilogue
+- `zDcdEpiQSamon` / `zDcdEpiQSamonAfter` — Samon epilogue/follow-up
 
 ## Strong nodes already extracted
 
-- Numidium as a source of large-scale temporal collapse in DAc0da.
-- Repeated fate-line attempts and eventual "beyond fate" stabilization.
+- Numidium temporal collapse and repeated fate lines.
 - Multiple versions of the player across time/space.
-- Hero / Event / Prophecy attribution to Zurin Arctus.
-- Jills as time-repairing female dragons.
-- Psijic/Artaeum crisis response.
-- Akashiya-Samon / Reman-era Dragonguard thread.
-- Sload mind magic and the "Doom-Driven" label.
-- Golden dragon pursuit.
-- Augur non-linear time perception and memospore messaging.
-- Underking / Hjalti / Zurin / Mantella encounter thread.
-- Time breaches shrinking when temporal contradictions are removed.
-- Yngol and attempted Mannimarco incarnation as breach contents.
-- Mirror logic as a DAc0da defense against Numidium's zero-sum attacks.
+- "beyond fate" stabilization.
+- Jills as time-correction actors and Jillian censorship.
+- Dragon Break memory/injury effects.
+- Rolls-On-Roads as the named Psijic Monk.
+- Direct Rolls-On-Roads -> Romion relationship; GLENMORIL Romion is a strong named continuity bridge.
+- Underking / Zurin Arctus / Mantella.
+- Ghost Choir 9 / Agent / Prisoner / nymic processing.
+- Apocrypha inside Numidium.
+- canceled Dwemer projects and the "dreaming" Numidium.
+- Hist versus Jill conflict.
+- alternate Fifth-Era Numidium / Nerevarine-piloted Akulakhan reconstruction.
+- Yngol / Tsuunalinfaxtir duality.
+- Ahzidal in Yngol's account.
+- contested Atmoran / Snow-Elf history around Jylkurfyk and Mereth.
+- Samon's Ka Po' Tun / Tosh Raka / dragon-hunting cosmology.
+- Abnur Tharn's time-breach displacement and later will.
 
 ## Resume here
 
-Next main-story target:
+### Next priority: Echoes of Mnemolichite
 
-**`DAc0da.esm:00B21B` — `zDcdMq04` — Numidium Tertius**
+**`DAc0da.esm:0052C2` — `zDcdSqWorm` — Echoes of Mnemolichite**
 
-Direct objectives already known:
+The quest aliases directly include:
 
-1. Reach the upper parts of the Numidium.
-2. Talk to the Monk.
-3. Avoid or activate defense mechanisms.
-4. Avoid or fight Ghost Choir 9.
-5. Avoid or fight the Arcanist.
-6. Avoid or activate Mantella defenses.
-7. Talk to the Monk.
-8. Close the time breach.
+- `Vanus` -> `DAc0da.esm:005183`, **Vanus Galerion**
+- `Dreugh` -> `DAc0da.esm:000D74`, **Templar of Hahd Yu'qbar**
+- `Abnur` -> `DAc0da.esm:00525B`
+- `Worm` -> `DAc0da.esm:003075`, **Mannimarco the God of Worms**
 
-For the next batch:
+High-value dialogue already identified but not yet normalized into repo files:
 
-1. Join every DIAL with QNAM -> `zDcdMq04` to child INFO records.
-2. Join boss quests `zDcdMqBoss01` through `zDcdMqBoss05` where they intersect MQ04.
-3. Resolve scene speakers before assigning unnamed dialogue.
-4. Extract Numidium interior architecture, defenses, Ghost Choir, Arcanist, Mantella, Dumac, and Zurin claims.
-5. Continue to `zDcdMq05` **Censored Fate** only after MQ04 provenance is stable.
+- Vanus says mnemolichite is a hypothetical deep-sea mineral becoming real under the Numidian Effect.
+- It crystallizes memory and can turn remembered/perceived material into existence.
+- Vanus mentions a theory connecting memory crystallization to Mnemo-Li.
+- Yu'qbar describes the underwater Republic of Hahd and the Mnemolichite Maid.
+- The Sload/necromancer plot attempts to bring down/incarnate the God of Worms.
+- A Vanus turtle-form explicitly contains copied memories/personality.
 
-Do not restart the structural inventory unless the source hash changes.
+### Next steps
+
+1. Normalize all `zDcdSqWorm` DIAL -> INFO dialogue into a quest reconstruction.
+2. Split character dossiers for Vanus Galerion and Yu'qbar.
+3. Create a mnemolichite concept page with source-attributed theory layers.
+4. Join Abnur's second form and Mannimarco boss material.
+5. Process subquests:
+   - `zDcdSqWormSub01` — Option: Dreugh
+   - `zDcdSqWormSub02` — Group Battle: The Sload City
+   - `zDcdSqWormSub03` — Group Battle: The Revenant
+   - `zDcdSqWormSub04` — The Sea of Radiance
+6. After Worm/Mnemolichite, move to Augur, Sheogorath, Sload Radio, and remaining epilogue/BOOK material.
+
+Keep branching dialogue and speaker testimony separate from objective chronology. Do not silently promote DAc0da/Vicn claims into Bethesda canon.
