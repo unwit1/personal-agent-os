@@ -11,6 +11,6 @@ A statement established in one plugin is not automatically attributed to another
 ## Current ingestion state
 
 - VIGILANT: existing ESM-backed continuity ingestion; retained at the established VIGILANT continuity path and linked through this parent overlay.
-- GLENMORIL: ESM-backed ingestion in vicn/glenmoril.
-- UNSLAAD: ESM-backed ingestion started in vicn/unslaad from user-provided translated Unslaad.esm 3.0.6; initial inventory, quest structure, first-pass analysis, and cross-Vicn seeds committed.
-- DAc0da: ESM-backed ingestion in vicn/dac0da; structural inventory and quest catalog committed, with the numbered main story reconstructed through **Patchwork** (MQ03).
+- GLENMORIL: ESM-backed ingestion in `vicn/glenmoril`.
+- UNSLAAD: ESM-backed ingestion in `vicn/unslaad`; initial inventory, quest structure, dialogue/lore passes, and cross-Vicn seeds are present.
+- DAc0da: ESM-backed ingestion in `vicn/dac0da`; the six numbered main quests are reconstructed through **Censored Fate**, with Yngol, Abnur Tharn, Samon epilogues, major Numidium concepts, and a direct Romion continuity bridge now indexed. The next priority is **Echoes of Mnemolichite**.
