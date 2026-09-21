@@ -1,50 +1,64 @@
 # Lalanoah family thread
 
-## Directly established
+## Parents
 
-- Gerhard is Lalanoah's father.
-- Lalanoah knows by St. Bazura that her father is gone; she says Uncle Brandt became drunk and tearfully told her about him.
-- Lalanoah's mother remains missing by St. Bazura.
-- Brandt says contact with the mother's search party has also been lost and that the route to **Piper's Hill** is blocked until the snow melts.
-- Lalanoah fears she probably will not see her mother again because the search party is gone/out of contact.
+- **Gerhard** is Lalanoah's father.
+- **Laelnoah** is now directly established as Lalanoah's mother by the Shop of Curiosities dialogue.
+- Lalanoah knows by St. Bazura that Gerhard is gone.
+- Laelnoah remains missing.
 
-## Cerebline / extended family
+## Direct Laelnoah identification
 
-Brandt identifies **Cerebline**, an Altmer from the Temple of Kynareth, as **Lalanoah's grandmother's sister**.
+In the Shop of Curiosities:
+- Lalanoah recognizes a recovered staff as the one **her mother had**.
+- Brandt immediately identifies it as **Laelnoah's staff**.
+- Brandt later tells Orlando that the staff belonged to **Lalanoah's mother**.
 
-Cerebline's Charm memory then describes her beloved sister:
+This closes the earlier inference gap: **Laelnoah = Lalanoah's mother** is direct dialogue evidence.
+
+## Laelnoah disappearance / Holy Pipers
+
+Orlando says he bought Laelnoah's staff from men in strange helmets near Helgen and gives their destination as **Piper's Hill**.
+
+Brandt later says:
+- Piper's Hill is in Bruma territory;
+- a search party is being organized after entry formalities;
+- **Holy Pipers kidnapped many women during the civil war because they believed them to be witches, including Laelnoah**;
+- many volunteers have relatives who were also kidnapped.
+
+By St. Bazura, contact with that search party has itself been lost and the road to Piper's Hill is blocked until the snow melts.
+
+## Cerebline / grandmother generation
+
+Brandt identifies **Cerebline**, an Altmer from the Temple of Kynareth, as Lalanoah's grandmother's sister.
+
+Cerebline's Charm memory describes her beloved sister:
 - born to human parents but orphaned young;
 - adopted and raised by Cerebline's family as an elf;
-- developed pointed ears while growing;
-- lived for roughly two centuries without normal aging;
-- married a Nord man;
+- developed pointed ears;
+- remained youthful for roughly two centuries;
+- married a Nord;
 - rapidly aged after childbirth and died;
-- left a daughter named **Laelnoah**, whom Cerebline calls her niece.
+- left a daughter named **Laelnoah**.
 
-Cross-scene reconstruction:
-- Cerebline → sister of Lalanoah's grandmother;
-- Cerebline's beloved sister → strongly indicated Lalanoah's grandmother;
-- **Laelnoah → strongly indicated Lalanoah's mother**.
-
-This is a high-confidence relationship synthesis, but the individual Charm lines do not themselves use the label “Lalanoah's grandmother.”
+With Laelnoah now directly established as Lalanoah's mother, this strongly identifies Cerebline's beloved sister as **Lalanoah's maternal grandmother**.
 
 ## Other parental / guardian figures
 
-Charm memory scenes show:
-- Brandt saying he loves Lalanoah as though she were his own child;
-- Goroll saying Lalanoah reminds her of a daughter she lost and that she loves Lalanoah as her own;
-- a Slave Trader remembering another orphan girl he loved as his own child, a memory that belongs to the Charm sequence and should not be merged into Lalanoah's literal family without stronger identity evidence.
+- Brandt says he loves Lalanoah as though she were his own child.
+- Goroll says Lalanoah reminds her of a daughter she lost and loves Lalanoah as her own.
+- A Slave Trader's orphan-girl memory remains separate unless later evidence identifies that child.
 
-## Future / guardianship
+## Future / succession
 
 Brandt expects Lalanoah eventually to apprentice at the Temple of Kynareth.
 
-Kalka adds a separate claim that Lalanoah will soon be a **suitable vessel for succession**, linking her to the recurring **Hamah** problem.
+Kalka says Lalanoah will soon be a **suitable vessel for succession**, linking her to the recurring **Hamah** problem.
 
 ## Still unresolved
 
-- Laelnoah's current fate/location beyond the missing-mother/search-party evidence.
-- what caused the grandmother's longevity, pointed ears, and rapid post-birth aging;
-- what happened to the search party;
+- Laelnoah's current condition and exact location;
+- what happened to the Piper's Hill search party;
+- what caused the maternal grandmother's longevity and rapid post-birth aging;
 - Cerebline's exact Temple role;
 - what “vessel for succession” means.
