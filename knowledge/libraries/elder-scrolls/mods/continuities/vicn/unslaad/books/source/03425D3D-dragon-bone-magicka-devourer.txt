@@ -1,0 +1,8 @@
+Title: Dragon Bone: Magicka Devourer
+FormID: 03425D3D
+EditorID: zzzCrbSpellTomeConjureEel02
+Continuity: tes.mod.vicn.unslaad
+Source: translated Unslaad.esm 3.0.6
+
+<font face'$HandwrittenFont'><font size='40'><p align='center'>
+Conjure Magicka Devourer

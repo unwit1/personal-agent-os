@@ -1,0 +1,8 @@
+Title: Spell Tome: Conjure Silver Pot Boy
+FormID: 033719F7
+EditorID: zzzCrbSpellTomeConjurePotBoySilver
+Continuity: tes.mod.vicn.unslaad
+Source: translated Unslaad.esm 3.0.6
+
+<font face'$HandwrittenFont'><font size='40'><p align='center'>
+Conjure Silver Pot Boy

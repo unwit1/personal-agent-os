@@ -1,0 +1,8 @@
+Title: Spell Tome: Conjure Giant Hoarfrost Guardian
+FormID: 03388723
+EditorID: zzzCrbSpellTomeHoarfrostGuardGiant
+Continuity: tes.mod.vicn.unslaad
+Source: translated Unslaad.esm 3.0.6
+
+<font face'$HandwrittenFont'><font size='40'><p align='center'>
+Conjure Giant Hoarfrost Guardian

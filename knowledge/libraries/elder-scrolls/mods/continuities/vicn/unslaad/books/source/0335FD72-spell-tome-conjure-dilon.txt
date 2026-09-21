@@ -1,0 +1,8 @@
+Title: Spell Tome: Conjure Dilon
+FormID: 0335FD72
+EditorID: zzzCrbSpellTomeConjurePusman
+Continuity: tes.mod.vicn.unslaad
+Source: translated Unslaad.esm 3.0.6
+
+<font face'$HandwrittenFont'><font size='40'><p align='center'>
+Conjure Dilon

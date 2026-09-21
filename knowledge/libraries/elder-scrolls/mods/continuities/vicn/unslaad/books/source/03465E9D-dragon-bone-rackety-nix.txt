@@ -1,0 +1,8 @@
+Title: Dragon Bone: Rackety-Nix
+FormID: 03465E9D
+EditorID: zzzCrbSpellTomeConjureDragonNix
+Continuity: tes.mod.vicn.unslaad
+Source: translated Unslaad.esm 3.0.6
+
+<font face'$HandwrittenFont'><font size='40'><p align='center'>
+Conjure Rackety-Nix

@@ -1,0 +1,8 @@
+Title: Dragon Bone: Stamina Devourer
+FormID: 03425D3B
+EditorID: zzzCrbSpellTomeConjureEel01
+Continuity: tes.mod.vicn.unslaad
+Source: translated Unslaad.esm 3.0.6
+
+<font face'$HandwrittenFont'><font size='40'><p align='center'>
+Conjure Stamina Devourer

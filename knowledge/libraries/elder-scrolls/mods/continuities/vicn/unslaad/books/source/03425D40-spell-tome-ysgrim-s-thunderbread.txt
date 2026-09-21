@@ -1,0 +1,8 @@
+Title: Spell Tome: Ysgrim's Thunderbread
+FormID: 03425D40
+EditorID: zzzCrbSpellTomeYsgrimThunderbread
+Continuity: tes.mod.vicn.unslaad
+Source: translated Unslaad.esm 3.0.6
+
+<font face'$HandwrittenFont'><font size='40'><p align='center'>
+Ysgrim's Thunderbread
