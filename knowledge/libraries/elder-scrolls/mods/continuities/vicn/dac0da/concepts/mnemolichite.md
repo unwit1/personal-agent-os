@@ -38,6 +38,38 @@ Evidence: `DAc0da.esm:005554`.
 
 Yu'qbar elsewhere says memories dissolve into the sea, imagination has power there, and mnemolichite functions as a template in which reproductions exist without a recoverable original. Evidence: `DAc0da.esm:00547D`.
 
+## Model 5 — system-level mind/time phenomenon
+
+A late DAc0da system/UI message gives the plugin's most compact direct definition.
+
+MESG `DAc0da.esm:00D140` says:
+
+- ideas take on substance through perception;
+- mnemolichite is **not a physical entity existing in space**;
+- it is a **phenomenon of the mind within the flow of time**;
+- Aldmeris once "evaporated" under accelerating time;
+- it became rain and then sea;
+- it has now "returned here."
+
+The same interface tracks absorbed mnemolichite, **Mnemolic Sign**, and a **Blueshift Rate**. MESG `DAc0da.esm:00D4C2` reports blueshifting progress, while `00D4C3` awards one Mnemolic Sign.
+
+Because this explanation comes from a gameplay-system message rather than a character, it is useful as DAc0da design-ontology evidence. It still belongs only to the DAc0da continuity and should not be promoted into official Elder Scrolls canon.
+
+See `concepts/mnemolic-sign-and-blueshift.md`.
+
+## Aldmeris / sea-of-memory connection
+
+The system message's **Aldmeris -> evaporation -> rain -> sea -> return** image creates a strong internal bridge to earlier testimony:
+
+- Yu'qbar says memories dissolve into the sea;
+- the Mnemolichite Maid is said to remember old Aldmeris;
+- Vanus describes mnemolichite as a perceptual-memory process;
+- the Maid's ending is repeatedly described as a return to the sea or sea of memories.
+
+Evidence: `DAc0da.esm:005320`, `00547D`, `005546`, `006021`, `0060F6`, `00D140`.
+
+This does **not** prove Aldmeris is literally Mnemo-Li, Radiance, the Blue Star, or the Sea of Radiance.
+
 ## Relation to Mnemo-Li
 
 Vanus reports an early theory that Mnemo-Li protects memories and thereby causes memory crystallization. He explicitly calls this an unpublished research-stage hypothesis. Evidence: `DAc0da.esm:0052F2`.
@@ -73,7 +105,9 @@ By the ending, three mutually incompatible statements coexist:
 
 Evidence: `DAc0da.esm:006021`, `006034`, `00603B`.
 
-All three should be preserved.
+A separate system observation says crystallized memories are crumbling and the Maid appears to have returned to the **sea of memories**. Evidence: `DAc0da.esm:0060F6`.
+
+All of these should be preserved without forcing one ordinary-material explanation.
 
 ## Practical effects seen in the quest
 
@@ -85,6 +119,7 @@ Mnemolichite or its perceptual field can:
 - reconstruct matter imperfectly;
 - produce apparently historical institutions and relics;
 - interact with time breaches;
-- support an attempt to rewrite the laws of Nirn retroactively.
+- support an attempt to rewrite the laws of Nirn retroactively;
+- be absorbed and converted through a "blueshifting" system into Mnemolic Sign.
 
-This makes mnemolichite a central DAc0da bridge between **memory, perception, causality, Many Paths, Mnemo-Li, and Numidium**.
+This makes mnemolichite a central DAc0da bridge between **memory, perception, causality, Many Paths, Mnemo-Li, Aldmeris, Radiance, and Numidium**.
