@@ -6,9 +6,9 @@
 
 ## Evidence type
 
-DAc0da does not define a custom FACT record for this organization.
+DAc0da defines custom FACT `DAc0da.esm:000D64` / `zDcdFactionBlackworm`, displayed as **Blackworm Faction**.
 
-Instead, the organized Worm force is visible through repeated actor roles, equipment nomenclature, quest structure, and named subordinates.
+The organized Worm force is also visible through repeated actor roles, equipment nomenclature, quest structure, and named subordinates.
 
 ## Repeated combat roles
 
@@ -61,4 +61,4 @@ It does not automatically prove permanent political unity between every Sload gr
 
 ## Naming boundary
 
-Because DAc0da itself most visibly exposes “Worm,” “Black Worm,” and “Worm Anchorite” through actor/item labels rather than a formal custom faction record, this page deliberately uses **Worm / Black-Worm forces** rather than asserting a new DAc0da-specific official organization name.
+The custom **Blackworm Faction** record establishes a real mechanical affiliation. This page still uses **Worm / Black-Worm forces** as the readable organization label because the plugin's dialogue and actor/item names vary among Worm, Black Worm, Anchorite, and Mannimarco-specific terminology.
