@@ -1,0 +1,18 @@
+{
+  "id": "candidate-1323866d2982414d",
+  "kind": "decision_candidate",
+  "project": "personal-agent-os",
+  "statement": "Context-budget pruning should shed generic bulk such as the previous handoff and broad state lists before task-selected material, keeping the top development-context entry until last.",
+  "evidence": [
+    "src/agent_os/compiler.py _fit ordering",
+    "tests/test_portability.py::ContextBudgetTests"
+  ],
+  "confidence": 0.88,
+  "source_agent": "claude-code",
+  "source_session": null,
+  "task_summary": "Repaired Agent OS bootstrap portability and MCP integration defects",
+  "status": "candidate",
+  "created_at": "2026-09-21T15:38:11.366011+00:00",
+  "resolved_at": null,
+  "fingerprint": "1323866d2982414d1e44a1cb020c7a0c205ae1548b472cfe97c5b01c0a1f1ce1"
+}

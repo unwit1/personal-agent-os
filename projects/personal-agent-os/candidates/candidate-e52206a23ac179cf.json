@@ -1,0 +1,18 @@
+{
+  "id": "candidate-e52206a23ac179cf",
+  "kind": "decision_candidate",
+  "project": "personal-agent-os",
+  "statement": "Canonical registry stores portable project identity (id, directory, repository) while machine-local checkout paths resolve at read time via local override, repository self-identification, or bounded search-root discovery.",
+  "evidence": [
+    "projects/registry.json contains no absolute paths",
+    "tests/test_portability.py::PortablePathTests"
+  ],
+  "confidence": 0.92,
+  "source_agent": "claude-code",
+  "source_session": null,
+  "task_summary": "Repaired Agent OS bootstrap portability and MCP integration defects",
+  "status": "candidate",
+  "created_at": "2026-09-21T15:38:11.366011+00:00",
+  "resolved_at": null,
+  "fingerprint": "e52206a23ac179cfb4525c4733940d5ca64c615c9dc3a75417e980b0106b741f"
+}

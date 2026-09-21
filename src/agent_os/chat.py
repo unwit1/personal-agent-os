@@ -16,9 +16,30 @@ PROJECT_TERMS = {
 }
 
 
+def _normalize(value: str) -> str:
+    """Fold punctuation so `JSON RPC`, `json-rpc` and `JSON_RPC` compare equal."""
+    return f" {re.sub(r'[^a-z0-9]+', ' ', value.casefold()).strip()} "
+
+
+def routing_terms(project: dict[str, Any]) -> list[str]:
+    return [str(term) for term in project.get("routing_terms", []) if str(term).strip()]
+
+
+def _term_hits(normalized_query: str, terms: list[str]) -> list[str]:
+    return sorted({term for term in terms if _normalize(term).strip() and _normalize(term) in normalized_query})
+
+
 def is_project_request(query: str) -> bool:
     tokens = set(re.findall(r"[a-z0-9]+", query.casefold()))
-    return bool(tokens & PROJECT_TERMS) or any(item["id"].casefold() in query.casefold() or item["name"].casefold() in query.casefold() for item in projects())
+    if tokens & PROJECT_TERMS:
+        return True
+    normalized = _normalize(query)
+    for item in projects():
+        if _normalize(item["id"]) in normalized or _normalize(item["name"]) in normalized:
+            return True
+        if _term_hits(normalized, routing_terms(item)):
+            return True
+    return False
 
 
 def _from_path_hint(value: str | None) -> dict[str, Any] | None:
@@ -41,8 +62,10 @@ def resolve_project(query: str, project_hint: str | None = None) -> dict[str, An
             if project:
                 return {"project": project, "confidence": "explicit", "reason": "project path hint", "ambiguous": False}
     query_folded = query.casefold()
+    normalized_query = _normalize(query)
     scores: dict[str, float] = {}
     reasons: dict[str, list[str]] = {}
+    domain_hits: dict[str, int] = {}
     routable = [project for project in projects() if not project.get("redirect_to")]
     for project in routable:
         score = 0.0
@@ -54,6 +77,11 @@ def resolve_project(query: str, project_hint: str | None = None) -> dict[str, An
             if alias.casefold() in query_folded:
                 score += 80
                 hits.append("project alias")
+        matched_terms = _term_hits(normalized_query, routing_terms(project))
+        domain_hits[project["id"]] = len(matched_terms)
+        if matched_terms:
+            score += 20 * len(matched_terms)
+            hits.append("domain term")
         for token in re.findall(r"[a-z0-9]+", f"{project['id']} {project['name']}".casefold()):
             if len(token) > 3 and token in query_folded:
                 score += 5
@@ -76,8 +104,16 @@ def resolve_project(query: str, project_hint: str | None = None) -> dict[str, An
     top, runner_up = ranked[0], ranked[1] if len(ranked) > 1 else None
     query_terms = re.findall(r"[a-z0-9]+", query_folded)
     strong_reasons = {"project name", "project alias"}
-    if len(query_terms) <= 1 and not strong_reasons.intersection(reasons[top["id"]]):
+    top_reasons = set(reasons[top["id"]])
+    if len(query_terms) <= 1 and not strong_reasons.intersection(top_reasons):
         return {"project": None, "confidence": "none", "reason": "single weak routing signal", "ambiguous": False}
+    # Lexical index overlap alone routes generic coding questions into whichever
+    # project happens to mention the same common words, so a distinctive signal
+    # is required: an explicit name/alias, or registered domain vocabulary.
+    hits = domain_hits.get(top["id"], 0)
+    distinctive = bool(strong_reasons.intersection(top_reasons)) or hits >= 2 or (hits == 1 and len(top_reasons) > 1)
+    if not distinctive:
+        return {"project": None, "confidence": "none", "reason": "no distinctive project signal", "ambiguous": False}
     ambiguous = bool(runner_up and scores[top["id"]] == scores[runner_up["id"]])
     return {"project": top, "confidence": "inferred", "reason": ", ".join(sorted(set(reasons[top["id"]]))) or "compact registry state", "ambiguous": ambiguous}
 

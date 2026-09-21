@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-21T15:38:22.589348+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main\n M .gitignore\n M projects/registry.json\n M src/agent_os/chat.py\n M src/agent_os/cli.py\n M src/agent_os/compiler.py\n M src/agent_os/inventory.py\n M src/agent_os/mcp_server.py\n M src/agent_os/registry.py\n M src/agent_os/skills.py\n?? projects/personal-agent-os/candidates/\n?? src/agent_os/launcher.py\n?? src/agent_os/machine.py\n?? tests/test_portability.py",
+    "error": ""
+  },
+  "completed": [
+    "Replaced machine-specific registry paths with portable identity plus a machine-local resolution layer (src/agent_os/machine.py).",
+    "Fixed duplicate skill discovery structurally via name-level dedupe with project precedence and canonical-root containment checks.",
+    "Made project inventory span every registered parent directory and attribute alternate clones by repository identity.",
+    "Added registered domain vocabulary (routing_terms) so technical requests resolve without naming the project.",
+    "Reordered context-budget pruning so task-relevant development context outlives generic bulk.",
+    "Implemented MCP lifecycle correctly: version negotiation, ping, notification handling, JSON-RPC error ids and codes.",
+    "Made the stable launcher survive a repository move and verified it independently of the live Claude registration."
+  ],
+  "decisions": [
+    "Canonical Git state stores portable project identity only; absolute checkout paths live in gitignored machine-local config or are discovered.",
+    "Left the working Claude MCP registration untouched; the launcher replacement is proven but not yet adopted."
+  ],
+  "remaining": [
+    "Complete P0.0: an integration-health report covering client surfaces (fully routed / partially bridged / not integrated).",
+    "Decide whether to switch the Claude MCP registration to the stable launcher.",
+    "Remove bootstrap backup artifacts once the repair is reviewed."
+  ],
+  "validation": [
+    "python -m unittest discover -s tests -v (57 passed)",
+    "python agent.py validate (ok, 219 checks, 0 errors, 1 pre-existing adapter warning)",
+    "python agent.py launcher-verify (ok, 13 tools, handshake through the stable launcher)",
+    "Direct MCP handshake through the registered command routed the JSON-RPC query to personal-agent-os in 576 tokens."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

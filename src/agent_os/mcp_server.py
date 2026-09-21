@@ -169,55 +169,104 @@ def methods() -> dict[str, Callable[..., Any]]:
     return available
 
 
+SERVER_INFO = {"name": "personal-agent-os", "version": "0.1.0"}
+SERVER_CAPABILITIES = {"tools": {"listChanged": False}}
+# Newest first. `initialize` echoes the client's version when it is supported and
+# otherwise offers the newest one, which is what the MCP lifecycle requires.
+SUPPORTED_PROTOCOL_VERSIONS = ("2025-06-18", "2025-03-26", "2024-11-05")
+INSTRUCTIONS = (
+    "Use agent.context first for substantial project work. It retrieves compact context only. "
+    "Use agent.capture_candidates to stage evidence-backed findings; it never promotes canonical memory."
+)
+
+
+def negotiate_protocol_version(requested: Any) -> str:
+    return requested if requested in SUPPORTED_PROTOCOL_VERSIONS else SUPPORTED_PROTOCOL_VERSIONS[0]
+
+
 def _mcp_result(value: Any, error: bool = False) -> dict[str, Any]:
     return {"content": [{"type": "text", "text": json.dumps(value, default=str, ensure_ascii=False)}], "isError": error}
+
+
+def _ok(request_id: Any, result: Any) -> dict[str, Any]:
+    return {"jsonrpc": "2.0", "id": request_id, "result": result}
 
 
 def _handle_mcp(request: dict[str, Any], available: dict[str, Callable[..., Any]]) -> dict[str, Any] | None:
     method = request.get("method")
     request_id = request.get("id")
-    if method == "notifications/initialized":
+    # Notifications carry no id and must never get a response.
+    if isinstance(method, str) and method.startswith("notifications/"):
         return None
     if method == "initialize":
         params = request.get("params", {})
+        requested = params.get("protocolVersion") if isinstance(params, dict) else None
+        return _ok(
+            request_id,
+            {
+                "protocolVersion": negotiate_protocol_version(requested),
+                "capabilities": SERVER_CAPABILITIES,
+                "serverInfo": SERVER_INFO,
+                "instructions": INSTRUCTIONS,
+            },
+        )
+    if method == "server/discover":
+        # Additive discovery alias. It reports the same identity and capabilities
+        # as `initialize` so no client needs a provider-specific code path.
+        return _ok(
+            request_id,
+            {
+                "protocolVersion": SUPPORTED_PROTOCOL_VERSIONS[0],
+                "supportedVersions": list(SUPPORTED_PROTOCOL_VERSIONS),
+                "capabilities": SERVER_CAPABILITIES,
+                "serverInfo": SERVER_INFO,
+                "instructions": INSTRUCTIONS,
+            },
+        )
+    if method == "ping":
+        return _ok(request_id, {})
+    if method == "tools/list":
+        return _ok(request_id, {"tools": [{"name": name, **schema} for name, schema in TOOL_SCHEMAS.items()]})
+    if method == "tools/call":
+        params = request.get("params", {})
+        name = params.get("name") if isinstance(params, dict) else None
+        if name not in TOOL_SCHEMAS or name not in available:
+            return _ok(request_id, _mcp_result({"error": f"Unknown tool: {name}"}, error=True))
+        try:
+            arguments = params.get("arguments", {})
+            if arguments is None:
+                arguments = {}
+            if not isinstance(arguments, dict):
+                raise ValueError("tool arguments must be an object")
+            return _ok(request_id, _mcp_result(available[name](**arguments)))
+        except Exception as exc:
+            return _ok(request_id, _mcp_result({"error": str(exc)}, error=True))
+    if isinstance(method, str) and (method.startswith(("resources/", "prompts/", "completion/", "logging/")) or method == "tools/listChanged"):
         return {
             "jsonrpc": "2.0",
             "id": request_id,
-            "result": {
-                "protocolVersion": params.get("protocolVersion", "2025-06-18"),
-                "capabilities": {"tools": {"listChanged": False}},
-                "serverInfo": {"name": "personal-agent-os", "version": "0.1.0"},
-                "instructions": "Use agent.context first for substantial project work. It retrieves compact context only. Use agent.capture_candidates to stage evidence-backed findings; it never promotes canonical memory.",
-            },
+            "error": {"code": -32601, "message": f"Method not supported: {method}"},
         }
-    if method == "tools/list":
-        return {"jsonrpc": "2.0", "id": request_id, "result": {"tools": [{"name": name, **schema} for name, schema in TOOL_SCHEMAS.items()]}}
-    if method == "tools/call":
-        params = request.get("params", {})
-        name = params.get("name")
-        if name not in TOOL_SCHEMAS or name not in available:
-            return {"jsonrpc": "2.0", "id": request_id, "result": _mcp_result({"error": f"Unknown tool: {name}"}, error=True)}
-        try:
-            arguments = params.get("arguments", {})
-            if not isinstance(arguments, dict):
-                raise ValueError("tool arguments must be an object")
-            return {"jsonrpc": "2.0", "id": request_id, "result": _mcp_result(available[name](**arguments))}
-        except Exception as exc:
-            return {"jsonrpc": "2.0", "id": request_id, "result": _mcp_result({"error": str(exc)}, error=True)}
     return None
 
 
 def serve() -> int:
     available = methods()
     for line in sys.stdin:
+        if not line.strip():
+            continue
+        request_id = None
         try:
             request = json.loads(line)
+            if not isinstance(request, dict):
+                raise ValueError("request must be a JSON-RPC object")
+            request_id = request.get("id")
             method = request.get("method")
             mcp_response = _handle_mcp(request, available)
             if mcp_response is not None:
                 print(json.dumps(mcp_response, default=str), flush=True)
                 continue
-            if method == "notifications/initialized":
+            if isinstance(method, str) and method.startswith("notifications/"):
                 continue
             if method == "rpc.discover":
                 result = sorted(available)
@@ -226,8 +275,14 @@ def serve() -> int:
             else:
                 params = request.get("params", {})
                 result = available[method](**params) if isinstance(params, dict) else available[method](*params)
-            response = {"jsonrpc": "2.0", "id": request.get("id"), "result": result}
+            response = {"jsonrpc": "2.0", "id": request_id, "result": result}
+        except json.JSONDecodeError as exc:
+            response = {"jsonrpc": "2.0", "id": None, "error": {"code": -32700, "message": str(exc)}}
+        except KeyError as exc:
+            response = {"jsonrpc": "2.0", "id": request_id, "error": {"code": -32601, "message": str(exc)}}
         except Exception as exc:
-            response = {"jsonrpc": "2.0", "id": None, "error": {"code": -32000, "message": str(exc)}}
+            response = {"jsonrpc": "2.0", "id": request_id, "error": {"code": -32000, "message": str(exc)}}
+        if request_id is None and "error" not in response:
+            continue
         print(json.dumps(response, default=str), flush=True)
     return 0

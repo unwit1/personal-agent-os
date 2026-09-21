@@ -7,3 +7,6 @@ __pycache__/
 .coverage
 .bootstrap_staging_v3/
 .tmp/
+*.egg-info/
+*.bootstrap-backup
+*.pre-*-backup

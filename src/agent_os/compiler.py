@@ -55,15 +55,45 @@ def _compact_git(git: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+STATE_PRUNE_ORDER = ("validation_commands", "important_paths", "constraints", "updated_at", "current_priorities", "summary")
+
+
+def _prune_state(value: dict[str, Any]) -> None:
+    for key in STATE_PRUNE_ORDER:
+        if key in value:
+            del value[key]
+            return
+    if value:
+        del value[next(iter(value))]
+
+
+def _prune_development_context(value: dict[str, list[dict[str, Any]]]) -> None:
+    """Shed extra entries before the single most relevant one in each stream."""
+    for key in ("changes", "improvements"):
+        if len(value.get(key) or []) > 1:
+            value[key].pop()
+            return
+    for key in ("changes", "improvements"):
+        if value.get(key):
+            del value[key]
+            return
+    value.clear()
+
+
 def _fit(packet: dict[str, Any], token_budget: int) -> tuple[dict[str, Any], int]:
-    """Prune lower-value fields until the response stays inside the requested budget."""
+    """Prune lowest-value context first so task-relevant material survives longest.
+
+    Generic project bulk (the previous handoff, broad state lists) is shed before
+    anything selected specifically for this task, and the top-ranked development
+    context entry is the last thing to go.
+    """
     limit = max(token_budget, 250) * 4
     prunable = (
-        ("search_matches", lambda value: value.pop()),
-        ("development_context", _prune_development_context),
-        ("matched_skills", lambda value: value.pop()),
-        ("state", lambda value: value.pop(next(iter(value))) if value else None),
         ("latest_agent_os_handoff", lambda value: value.clear()),
+        ("state", _prune_state),
+        ("search_matches", lambda value: value.pop()),
+        ("matched_skills", lambda value: value.pop()),
+        ("development_context", _prune_development_context),
     )
     for key, reduce in prunable:
         while len(json.dumps(packet, default=str, ensure_ascii=False)) > limit and packet.get(key):
@@ -71,14 +101,6 @@ def _fit(packet: dict[str, Any], token_budget: int) -> tuple[dict[str, Any], int
     if len(json.dumps(packet, default=str, ensure_ascii=False)) > limit:
         packet["task"] = packet["task"][: max(80, limit // 8)]
     return packet, limit
-
-
-def _prune_development_context(value: dict[str, list[dict[str, Any]]]) -> None:
-    for key in ("changes", "improvements"):
-        if value.get(key):
-            value[key].pop()
-            return
-    value.clear()
 
 
 def compile_context(

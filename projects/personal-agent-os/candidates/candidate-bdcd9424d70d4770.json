@@ -1,0 +1,18 @@
+{
+  "id": "candidate-bdcd9424d70d4770",
+  "kind": "decision_candidate",
+  "project": "personal-agent-os",
+  "statement": "Skill discovery must deduplicate by skill name with project precedence rather than by resolved path, because a second clone of the same repository reaches identical skill names by a different path.",
+  "evidence": [
+    "an alternate clone of personal-agent-os exists on this machine",
+    "tests/test_portability.py::SkillDiscoveryTests"
+  ],
+  "confidence": 0.9,
+  "source_agent": "claude-code",
+  "source_session": null,
+  "task_summary": "Repaired Agent OS bootstrap portability and MCP integration defects",
+  "status": "candidate",
+  "created_at": "2026-09-21T15:38:11.366011+00:00",
+  "resolved_at": null,
+  "fingerprint": "bdcd9424d70d4770a60b9fa8dc8cdfe22cbfbd085b3791a88c5a11820e2bf40d"
+}

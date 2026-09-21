@@ -1,20 +1,39 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "projects": [
     {
       "id": "personal-agent-os",
       "name": "Personal Agent OS",
-      "path": "C:\\Users\\HR.RTEC\\Projects\\Personal Agent",
+      "directory": "personal-agent-os",
       "repository": "https://github.com/unwit1/personal-agent-os.git",
       "classification": "supporting",
       "state_file": "projects/personal-agent-os/state.json",
       "canonical_owner": "this_repository",
-      "privacy": "Store durable development metadata only; never store credentials or raw private history."
+      "privacy": "Store durable development metadata only; never store credentials or raw private history.",
+      "routing_terms": [
+        "agent os",
+        "mcp",
+        "mcp server",
+        "json rpc",
+        "jsonrpc",
+        "stdio",
+        "stdio server",
+        "context packet",
+        "context budget",
+        "token budget",
+        "project registry",
+        "routing layer",
+        "skill discovery",
+        "handoff",
+        "capture candidate",
+        "staged workflow",
+        "project resolution"
+      ]
     },
     {
       "id": "hr-gui",
       "name": "HR GUI",
-      "path": "C:\\Users\\HR.RTEC\\Projects\\HR GUI",
+      "directory": "HR GUI",
       "repository": "https://github.com/unwit1/HR-GUI.git",
       "classification": "active",
       "state_file": "projects/hr-gui/state.json",
@@ -25,52 +44,79 @@
         "renamer",
         "HR scanner",
         "document renamer"
+      ],
+      "routing_terms": [
+        "scanner",
+        "scan renamer",
+        "ocr",
+        "personnel form",
+        "employee file naming"
       ]
     },
     {
       "id": "auto-click",
       "name": "AutoClick",
-      "path": "C:\\Users\\HR.RTEC\\Projects\\AutoClick",
+      "directory": "AutoClick",
       "repository": null,
       "classification": "supporting",
       "state_file": "projects/auto-click/state.json",
       "canonical_owner": "project_directory",
-      "privacy": "Never read or index config.json, browser profiles, logs, credentials, or authenticated session data."
+      "privacy": "Never read or index config.json, browser profiles, logs, credentials, or authenticated session data.",
+      "routing_terms": [
+        "auto click",
+        "click automation",
+        "browser automation script"
+      ]
     },
     {
       "id": "job-applicant-dashboard",
       "name": "Job Applicant Dashboard",
-      "path": "C:\\Users\\HR.RTEC\\Projects\\Job Applicant Dashboard",
+      "directory": "Job Applicant Dashboard",
       "repository": null,
       "classification": "active",
       "state_file": "projects/job-applicant-dashboard/state.json",
       "canonical_owner": "project_directory",
-      "privacy": "Never read or index applicant records, spreadsheets, databases, resumes, drafts, email archives, backups, caches, credentials, or local configuration."
+      "privacy": "Never read or index applicant records, spreadsheets, databases, resumes, drafts, email archives, backups, caches, credentials, or local configuration.",
+      "routing_terms": [
+        "applicant",
+        "applicant dashboard",
+        "hiring pipeline"
+      ]
     },
     {
       "id": "overtime-parser",
       "name": "OvertimeParser",
-      "path": "C:\\Users\\HR.RTEC\\Projects\\OvertimeParser",
+      "directory": "OvertimeParser",
       "repository": null,
       "classification": "active",
       "state_file": "projects/overtime-parser/state.json",
       "canonical_owner": "project_directory",
-      "privacy": "Never read or index payroll exports, employee rosters, overtime databases, generated reports, or employee-level output."
+      "privacy": "Never read or index payroll exports, employee rosters, overtime databases, generated reports, or employee-level output.",
+      "routing_terms": [
+        "overtime",
+        "overtime report",
+        "timesheet parsing"
+      ]
     },
     {
       "id": "tes-tagger",
       "name": "TES Tagger",
-      "path": "C:\\Users\\HR.RTEC\\Projects\\TES Tagger",
+      "directory": "TES Tagger",
       "repository": null,
       "classification": "active",
       "state_file": "projects/tes-tagger/state.json",
       "canonical_owner": "project_directory",
-      "privacy": "Never read or index API keys, local settings, uploaded game files, or generated book databases unless the user explicitly scopes them in."
+      "privacy": "Never read or index API keys, local settings, uploaded game files, or generated book databases unless the user explicitly scopes them in.",
+      "routing_terms": [
+        "tes tagger",
+        "elder scrolls tagging",
+        "lore tagging"
+      ]
     },
     {
       "id": "scan-renamer",
       "name": "ScanRenamer",
-      "path": "C:\\Users\\HR.RTEC\\Projects\\ScanRenamer",
+      "directory": "ScanRenamer",
       "repository": null,
       "classification": "candidate",
       "state_file": "projects/scan-renamer/state.json",
@@ -78,5 +124,6 @@
       "privacy": "Treat future scanned documents and extracted text as private local data unless the user explicitly defines a safe boundary.",
       "redirect_to": "hr-gui"
     }
-  ]
+  ],
+  "path_resolution": "Canonical entries are machine independent. Effective checkout locations are resolved locally from .agent-local/machine.json, ~/.agent-os/config.json, repository identity, or discovery across registered search roots."
 }

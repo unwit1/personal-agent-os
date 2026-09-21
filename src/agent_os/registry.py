@@ -4,12 +4,25 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+from .machine import resolve_path, search_roots
 from .paths import REGISTRY_PATH, ROOT
 from .storage import load_json
 
 
-def projects() -> list[dict[str, Any]]:
+def canonical_projects() -> list[dict[str, Any]]:
+    """Registry entries exactly as stored in Git, without local path resolution."""
     return load_json(REGISTRY_PATH)["projects"]
+
+
+def projects() -> list[dict[str, Any]]:
+    """Registry entries with `path` resolved to this machine's checkout location."""
+    entries = canonical_projects()
+    roots = search_roots([str(entry.get("path") or "") for entry in entries])
+    resolved = []
+    for entry in entries:
+        local_path, source = resolve_path(entry, roots)
+        resolved.append({**entry, "path": str(local_path), "path_source": source})
+    return resolved
 
 
 def get_project(project_id: str) -> dict[str, Any]:
