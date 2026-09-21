@@ -34,3 +34,18 @@ This is a strong comparison hook but not sufficient by itself to assert **Old Ci
 DAc0da independently contains Ghost Choir 9 / VS GC9, LYG mass-erasure, memory-project, and nymic/existence-instability material.
 
 This makes Old City of Chains a priority cross-work location node.
+
+## Placement/identity closure
+
+The location's implementation context is now sufficiently resolved:
+
+- CELL 033D8526 is explicitly named **Old City of Chains**;
+- GC9: John Satisfaction is placed there;
+- Words of Maztiak or Arkayn activators and a Maztiak/Arkayn corpse are placed there;
+- the GC9 object is directly paired by VMAD with its LYG-sector memory-erasure message.
+
+Khev separately names **Malbioge, the old city of chains** in dialogue. The shared epithet is a strong comparison signal, but the current source corpus does not contain a direct FormID/alias/script statement equating CELL 033D8526 with Malbioge.
+
+Classification:
+- Old City of Chains implementation cluster: resolved.
+- Old City of Chains = Malbioge: plausible but intentionally unpromoted pending direct evidence.

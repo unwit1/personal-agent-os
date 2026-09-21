@@ -51,3 +51,22 @@ What remains unresolved is whether:
 - the Grabbers are responsible for any of these effects.
 
 Those are hypotheses, not established facts.
+
+## Route/mechanism closure
+
+UNSLAAD's Lyg **access mechanism** is resolved more strongly than its history.
+
+Resolved inside UNSLAAD:
+- Herkel identifies the under-ice mirror as a route to Lyg;
+- The Final Journey objectives require using that mirror to bypass the ice seal;
+- VMAD directly wires `DoorLyg`, `Alias_IceMirrorMarker`, `Alias_LygMidMarker`, and `Alias_LygEndMarker`.
+
+Therefore **mirror-mediated Lyg transit** is a hard quest-level relationship.
+
+Still intentionally unresolved:
+- whether Khev's Lyg refers to the same episode/location-state Herkel accesses;
+- whether DAc0da's LYG erasure event explains UNSLAAD's local testimony;
+- whether Grabbers caused the memory effects;
+- whether Lyg memory loss is the same mechanism as Mnemo-Li/Radiance persistence phenomena.
+
+Those remain cross-source hypotheses, not unfinished ingestion.

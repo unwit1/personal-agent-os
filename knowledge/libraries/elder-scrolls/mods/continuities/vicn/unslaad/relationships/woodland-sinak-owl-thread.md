@@ -49,3 +49,18 @@ Current confidence:
 - Sinak ↔ Woodland Man Roots: direct loot evidence.
 - Sinak ↔ Herma/Anga-Mora naming: direct item evidence.
 - Sinak = Oohoo'Laf biological/metaphysical offspring: unresolved.
+
+## Relationship closure
+
+The direct graph is complete enough for retrieval:
+
+- Sinak forms ↔ Owl Faction: implementation fact;
+- Sinak forms ↔ Woodland Man Roots: loot fact;
+- Sinak equipment/tomes ↔ Anga-Mora/Herma-Mora naming: item fact;
+- Oohoo'Laf ↔ Woodland-Man/Herma-Mora testimony: dialogue fact.
+
+These edges justify a strong **Woodland-Man / Sinak / Owl network**.
+
+They do not justify a biological or metaphysical identity equation between Sinak and Oohoo'Laf's offshoots.
+
+Treat "Sinak are Woodland-Men" as unproven unless a direct text statement appears. The relationship network itself is no longer an open ingestion item.

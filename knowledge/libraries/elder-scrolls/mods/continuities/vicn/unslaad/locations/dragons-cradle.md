@@ -58,3 +58,21 @@ Dragon's Cradle therefore concentrates dragon souls, ice-body persistence, time 
 Mq07 VMAD directly includes **Alias_Cradle**, **CradleKey**, **BrazierFire**, **FireLitTRG**, **Alias_DollMarker**, **DoorFuture**, **OwlShadow**, and Gray/Black Owl aliases.
 
 This confirms the Cradle tablets, soul-fire, future-doll path, and Owl sequence belong to one implementation graph rather than merely sharing a location.
+
+## Authorship and experiment closure
+
+The experimental sequence is sufficiently resolved without assigning a signature that the ESM does not provide.
+
+Hard evidence:
+- all eight Owl Study tablets are placed in Dragon's Cradle;
+- the sequence progresses from unstable dragon-soul ice dolls to a stable doll intended for Austella;
+- Mq07 structurally ties the Cradle, ice doll, future transfer, brazier/soul fire, and Owl aliases into one quest graph;
+- later Jhunal testimony independently describes shaping dragon-soul-bearing ice for Austella into Ulliss.
+
+Safe conclusion:
+**the Owl Study sequence documents the research pathway strongly associated with Ulliss's creation.**
+
+Unsafe conclusion:
+**Jhunal personally authored every tablet**.
+
+Unsigned authorship is now an intentional evidence boundary, not an incomplete ingestion item.
