@@ -14,7 +14,7 @@ This directory preserves record-structural evidence useful to Lorekeeper without
 - `mechanics.md` / `mechanics.json` — narrative-relevant mechanics supported by plugin records, with interpretation cautions.
 - `scene-role-resolution.json` — supplemental alias-level speaker resolution for the scripted Gilded introduction.
 
-- `quest-vmad-story-state.md` / `.json` — quest-fragment state ownership, triggers, globals, enable parents, and cross-quest handoffs.\n\n## Interpretation boundary
+- `quest-vmad-story-state.md` / `.json` — quest-fragment state ownership, triggers, globals, enable parents, and cross-quest handoffs.\n\n- `runtime-behavior.md` / `.json` — non-quest VMAD mechanics and state transitions for Shadow, Gilded, Amalgam, Recall, and bathing.\n\n## Interpretation boundary
 
 Implementation evidence can establish what the mod actually makes happen—for example, which scene alias speaks, which spell Shadow's management quest invokes, or which script starts Amalgam's retreat. It does **not** automatically establish an in-universe metaphysical law.
 
