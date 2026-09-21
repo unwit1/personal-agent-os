@@ -95,7 +95,12 @@
     "Lamae's Kin curse/outbreak analysis: 2E 582 Lake Ilinalta case, Mages Guild incineration, lost ashes, and Facis corroboration",
     "Lamae Bal dossier deepened with exact Lamae's Kin outbreak chronology",
     "Great Gate / Caliburn / Marukh posthumous ritual reconciliation",
-    "A Vision in the City of Stone distribution, negative phrase check, and Red Stone terminology reconciliation"
+    "A Vision in the City of Stone distribution, negative phrase check, and Red Stone terminology reconciliation",
+    "Remnant of Light source-context pass with official-ESO provenance and VIGILANT placement separation",
+    "Art of the Ayleids source map linking Jhunal authorship to flesh-art testimony without conflating the sources",
+    "Ilinalta Report 4E 200 source map separating Julia corpse observations from investigator inference",
+    "Altano's Journal direct chronology and reliability map",
+    "Petition to House Tharn four-volume ideology sequence with speaker and metaphysical reliability boundaries"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -131,14 +136,15 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "small-batch deepening of A Vision in the City of Stone",
+    "focus": "five-unit VIGILANT source-analysis batch",
     "added": [
-      "recorded its three physical placements as circulation evidence rather than independent witnesses",
-      "recorded negative persisted-source checks for red woman, tainted child, hollow soul, and city of Dwemer",
-      "linked the prophecy's red Stone terminology to Marukh's direct Red Stone item 0205AE01 without promoting that overlap to an identity",
-      "kept Joshua, the red woman, the tainted child, the hollow soul, and the northern Dwemer city unresolved where direct evidence is absent"
+      "The Remnant of Light — official ESO reprint provenance separated from VIGILANT's Bruiant Mansion placement",
+      "The Art of the Ayleids — Jhunal authorship, flesh-art linkage, distribution, and provenance caution",
+      "Ilinalta Report 4E 200 — Julia Bruiant corpse-state observations separated from the report writer's theory about the caster",
+      "Altano's Journal — dated 4E 197-198 early-life chronology, Jacob naming/rescue, and unnamed witch/werewolf/Silver Hand boundaries",
+      "Petition to House Tharn — Vols. 11/23/68/77 normalized as a progression from manufactured history through Prisoner rejection to doctrine/memory collapse and Stone-Fire"
     ],
-    "source_state": "direct BOOK 02054ED1, persisted placement index, Marukh/Adabal structural reconstruction, and repository-wide exact-phrase checks",
-    "open_followup": "next continuation should move to a different single lore unit; do not reprocess City of Stone unless new direct source layers become available."
+    "source_state": "all five units use exact BOOK texts already persisted from the canonical VIGILANT 1.8.2 source; no missing-source identities were inferred",
+    "open_followup": "continue with another bounded set of evidence-rich persisted sources, or resume unresolved direct-source targets such as Sir Amiel Lannus only if new source layers become available."
   }
 }
