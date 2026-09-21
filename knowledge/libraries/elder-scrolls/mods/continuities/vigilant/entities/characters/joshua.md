@@ -4,7 +4,8 @@
 - Role: Vigilant involved in the Windhelm Maiden Statue / Blood Matron disaster
 - Primary document: `BOOK 02031119` — **Joshua's Final Note**
 - Secondary witness: `BOOK 02038AAD` — **Aredhel's Note**
-- Exact NPC FormID: not yet persisted in the current browsable repository corpus
+- Corpse form: `NPC_ 02031117` / `zzzBMVgilantsCorpse01` — **Joshua**
+- Placement: `ACHR 02425700` in **Hidden Passage** (`CELL 020302D8`)
 
 ## Aredhel's account
 
@@ -110,3 +111,28 @@ Supplementary:
 ## Canon boundary
 
 Joshua and his role in the Windhelm/Blood Matron catastrophe are VIGILANT-continuity material.
+
+
+## Direct corpse placement
+
+The supplied VIGILANT 1.8.2 ESM directly implements Joshua as:
+- `NPC_ 02031117` / **Joshua**
+- placed as `ACHR 02425700`
+- in **Hidden Passage**
+
+This strongly confirms that Joshua's Final Note is a literal corpse/final-note trail rather than only retrospective narration.
+
+The corpse placement should be read together with:
+- Joshua's admission that he fled;
+- his belief that the woman was approaching;
+- Aredhel's claim that Joshua fled the Blood Matron disaster.
+
+## Source status
+
+Joshua now has:
+- direct ESM corpse form;
+- direct placement;
+- exact final note;
+- independent Aredhel testimony.
+
+The later Old Regrets apparition role remains supplementary unless separately mapped.
