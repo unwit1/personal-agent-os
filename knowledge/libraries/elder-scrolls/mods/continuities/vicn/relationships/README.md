@@ -16,6 +16,7 @@ Work-specific facts remain in their source continuity. Parent pages should link 
 - **Orlando the Knowledgeable** — `orlando-the-knowledgeable-thread.md`
 - **Elder Wood** — `elder-wood-thread.md`
 - **Oracle Iridescent** — `oracle-iridescent-thread.md`
+- **Khemkel / Wooden Idol** — `khemkel-wooden-idol-thread.md`
 - **Maria / Marcus / Bruiant** — `maria-marcus-bruiant.md`
 
 ## Owl / Jhunal / Chick-Trader threads
