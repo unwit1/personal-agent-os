@@ -1,6 +1,6 @@
 {
   "source_sha256": "7d3ca2d72297fbc5afda8f1b8bb217fa1fd6d9d7414360acdf1a922d848949ba",
-  "phase": "source-linking-and-transition-analysis",
+  "phase": "canon-comparison-and-source-corpus-expansion",
   "completed": [
     "header/source manifest",
     "record inventory",
@@ -20,7 +20,12 @@
     "story-critical source-book corpus seed",
     "Coldharbour 13-memory reliability reconstruction",
     "remaining 89 INFO structural classification",
-    "book provenance seed for embedded official TES texts"
+    "book provenance seed for embedded official TES texts",
+    "book/note physical placement linking",
+    "Coldharbour XTEL door/location topology",
+    "quest VMAD/stage transition analysis (ESM structural layer)",
+    "Act 4 Quest Manager and dream-list orchestration map",
+    "Aetherius branch-marker placement analysis"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -35,10 +40,9 @@
   "next": [
     "expand remaining high-relevance character dossiers",
     "continue exact BOOK/note persistence from the 179-record local corpus",
-    "book/note-to-quest/location linking",
-    "Coldharbour location graph",
-    "quest stage/script transition analysis",
-    "base-canon comparison layer for historical/mythic claims"
+    "base-canon comparison layer for historical/mythic claims",
+    "ingest VIGILANT PEX/scripts or BSA when available for exact Papyrus transition bodies",
+    "persist remaining exact BOOK texts as browsable individual files"
   ],
   "counts": {
     "quests": 120,
