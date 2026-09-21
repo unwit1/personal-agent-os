@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "tes:dwemer",
+  "library_id": "elder-scrolls",
+  "name": "Dwemer",
+  "entity_type": "people",
+  "category": "peoples",
+  "canonical_path": "knowledge/elder-scrolls/subjects/peoples/dwemer.json",
+  "continuity_model": "claims_and_evidence_scoped",
+  "sources": [
+    {
+      "source_id": "uesp:dwemer",
+      "url": "https://en.uesp.net/wiki/Lore:Dwemer",
+      "source_class": "secondary_reference",
+      "status": "queued"
+    }
+  ],
+  "claims": [],
+  "relationships": [],
+  "notes": "Migrated from an earlier ingestion queue into the categorized subject library. Claims remain empty until evidence-backed extraction."
+}

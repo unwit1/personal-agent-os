@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-019-skyrim-politics-college",
+  "subjects": [
+    {
+      "id": "tes:high-king",
+      "name": "High King of Skyrim",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/high-king.json",
+      "source": {
+        "id": "uesp:high-king",
+        "url": "https://en.uesp.net/wiki/Lore:High_King_of_Skyrim",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:moot",
+      "name": "Moot",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/moot.json",
+      "source": {
+        "id": "uesp:moot",
+        "url": "https://en.uesp.net/wiki/Lore:Moot",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:thane",
+      "name": "Thane",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/thane.json",
+      "source": {
+        "id": "uesp:thane",
+        "url": "https://en.uesp.net/wiki/Lore:Thane",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:jarls",
+      "name": "Jarl",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/jarls.json",
+      "source": {
+        "id": "uesp:jarls",
+        "url": "https://en.uesp.net/wiki/Lore:Jarl",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:way-voice",
+      "name": "Way of the Voice",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/way-voice.json",
+      "source": {
+        "id": "uesp:way-voice",
+        "url": "https://en.uesp.net/wiki/Lore:Way_of_the_Voice",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragonborn",
+      "name": "Dragonborn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dragonborn.json",
+      "source": {
+        "id": "uesp:dragonborn",
+        "url": "https://en.uesp.net/wiki/Lore:Dragonborn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:thalmor-ban-talos",
+      "name": "Talos Worship Ban",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/thalmor-ban-talos.json",
+      "source": {
+        "id": "uesp:thalmor-ban-talos",
+        "url": "https://en.uesp.net/wiki/Lore:Talos_Worship_Ban",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Civil War claims must preserve speaker faction, quest branch and player-dependent outcomes",
+    "Do not canonize mutually exclusive Skyrim quest outcomes; record them as branch-dependent evidence",
+    "Political accusations about Ulfric, the Empire or Thalmor require attribution rather than narrator voice",
+    "College/Great Collapse explanations should preserve competing theories and uncertainty",
+    "Distinguish institutions from places when College of Winterhold or similar names refer to both",
+    "Talos worship enforcement should retain time, location and source context"
+  ]
+}

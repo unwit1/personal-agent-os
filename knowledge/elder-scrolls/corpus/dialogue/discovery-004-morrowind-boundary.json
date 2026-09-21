@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "batch_id": "dialogue-discovery-004-morrowind-boundary",
+  "game": "morrowind",
+  "status": "active",
+  "verified_non_dialogue_examples": [
+    {
+      "title": "Peke Utchoo's Last Words",
+      "url": "https://www.imperial-library.info/content/peke-utchoos-last-words",
+      "released_in": "TES3: Morrowind",
+      "classification": "written_text",
+      "category": "Journals",
+      "dialogue_corpus": false
+    },
+    {
+      "title": "The Seven Visions",
+      "url": "https://www.imperial-library.info/content/seven-visions",
+      "released_in": "TES3: Morrowind",
+      "classification": "written_text",
+      "category": "Songs & Poems",
+      "dialogue_corpus": false
+    },
+    {
+      "title": "The Stranger",
+      "url": "https://www.imperial-library.info/content/stranger",
+      "released_in": "TES3: Morrowind",
+      "classification": "written_text",
+      "category": "Songs & Poems",
+      "dialogue_corpus": false
+    },
+    {
+      "title": "Dispel Potion Formula",
+      "url": "https://www.imperial-library.info/content/dispel-potion-formula",
+      "released_in": "TES3: Morrowind",
+      "classification": "written_text",
+      "category": "Manuals & Instructions",
+      "dialogue_corpus": false
+    }
+  ],
+  "rules": [
+    "Released In: TES3: Morrowind is not sufficient to classify a page as dialogue.",
+    "Category metadata is a strong negative signal when it identifies journals, songs/poems, manuals/instructions, letters/notes, or ordinary books.",
+    "Morrowind topic dialogue should be discovered from actual dialogue/transcript pages, not inferred from prose texts.",
+    "Written works remain eligible for the separate lore-books corpus."
+  ]
+}

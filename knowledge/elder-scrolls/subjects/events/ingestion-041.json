@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-041-orsimer-orsinium-malacath",
+  "subjects": [
+    {
+      "id": "tes:transformation-orsimer",
+      "name": "Transformation of the Orsimer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/transformation-orsimer.json",
+      "source": {
+        "id": "uesp:transformation-orsimer",
+        "url": "https://en.uesp.net/wiki/Lore:Transformation_of_the_Orsimer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:founding-first-orsinium",
+      "name": "Founding of First Orsinium",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/founding-first-orsinium.json",
+      "source": {
+        "id": "uesp:founding-first-orsinium",
+        "url": "https://en.uesp.net/wiki/Lore:Founding_of_First_Orsinium",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:siege-orsinium",
+      "name": "Siege of Orsinium",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/siege-orsinium.json",
+      "source": {
+        "id": "uesp:siege-orsinium",
+        "url": "https://en.uesp.net/wiki/Lore:Siege_of_Orsinium",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ranser-war",
+      "name": "Ranser's War",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/ranser-war.json",
+      "source": {
+        "id": "uesp:ranser-war",
+        "url": "https://en.uesp.net/wiki/Lore:Ranser%27s_War",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:orsinium-crisis",
+      "name": "Orsinium Crisis",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/orsinium-crisis.json",
+      "source": {
+        "id": "uesp:orsinium-crisis",
+        "url": "https://en.uesp.net/wiki/Lore:Orsinium_Crisis",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Orsimer origin accounts involving Trinimac, Boethiah and Malacath remain religious/mythic traditions with source-specific provenance",
+    "Do not treat Orc stronghold customs as universal to every Orsimer community, city or historical period",
+    "Different incarnations of Orsinium must be modeled as historically distinct settlements/polities linked by name and tradition",
+    "The Code of Malacath should distinguish prescriptive religious/legal ideals from observed practice",
+    "Outsider descriptions of Orcs retain authorial bias metadata and must not override Orc self-description",
+    "Cross-link existing Orsimer, Orsinium, Wrothgar, Malacath, Trinimac, Boethiah, First Orsinium, Ranser's War and Gortwog records"
+  ]
+}

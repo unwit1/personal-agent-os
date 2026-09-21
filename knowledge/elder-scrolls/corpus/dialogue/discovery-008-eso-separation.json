@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "batch_id": "dialogue-discovery-008-eso-separation",
+  "game": "eso",
+  "status": "source-confirmed",
+  "source_evidence": [
+    {
+      "title": "Update Roundup: April 2019",
+      "url": "https://www.imperial-library.info/content/update-roundup-april-2019",
+      "published": "2019-05-03",
+      "author": "Lady Nerevar",
+      "signals": [
+        {
+          "item": "ESO Live episode featuring Loremaster Leamon Tuttle",
+          "classification": "developer_interview_transcript",
+          "route": "knowledge/elder-scrolls/sources/imperial-library/developer-obscure/"
+        },
+        {
+          "item": "ESO Interactive Map texts from old official site",
+          "classification": "official_external_written_text",
+          "route": "knowledge/elder-scrolls/corpus/books/"
+        },
+        {
+          "item": "Faction introductions from old elderscrollsonline.com",
+          "classification": "official_external_written_text",
+          "route": "knowledge/elder-scrolls/corpus/books/"
+        }
+      ]
+    }
+  ],
+  "dialogue_discovery_targets": [
+    "base-game quest dialogue",
+    "chapter quest dialogue",
+    "DLC quest dialogue",
+    "prologue quest dialogue",
+    "recurring NPC dialogue"
+  ],
+  "rules": [
+    "Do not ingest ESO Live as in-game dialogue.",
+    "Do not ingest old official-site prose as spoken game dialogue.",
+    "Attach release/chapter/DLC/prologue metadata to every ESO transcript when discoverable.",
+    "Recurring NPCs retain a canonical speaker identity with appearance-specific dialogue records."
+  ]
+}

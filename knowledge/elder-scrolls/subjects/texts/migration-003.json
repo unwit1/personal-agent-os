@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:36-lessons-of-vivec",
+      "name": "36 Lessons of Vivec",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/36-lessons-of-vivec.json",
+      "source": {
+        "id": "uesp:36-lessons-of-vivec",
+        "url": "https://en.uesp.net/wiki/Lore:36_Lessons_of_Vivec",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:map-of-clans",
+      "name": "Map of Clans",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/map-of-clans.json",
+      "source": {
+        "id": "uesp:map-of-clans",
+        "url": "https://en.uesp.net/wiki/Lore:Map_of_Clans",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:wayshrines-of-tamriel",
+      "name": "Wayshrines of Tamriel",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/wayshrines-of-tamriel.json",
+      "source": {
+        "id": "uesp:wayshrines-of-tamriel",
+        "url": "https://en.uesp.net/wiki/Lore:Wayshrines_of_Tamriel",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration from earlier queues. Preserve source-era, narrator, cultural and doctrinal qualifiers during evidence extraction."
+}

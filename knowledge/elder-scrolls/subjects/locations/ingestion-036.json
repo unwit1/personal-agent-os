@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-036-nerevarine-sixth-house-prophecy",
+  "subjects": [
+    {
+      "id": "tes:red-mountain",
+      "name": "Red Mountain",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/red-mountain.json",
+      "source": {
+        "id": "uesp:red-mountain",
+        "url": "https://en.uesp.net/wiki/Lore:Red_Mountain",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ghostgate",
+      "name": "Ghostgate",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/ghostgate.json",
+      "source": {
+        "id": "uesp:ghostgate",
+        "url": "https://en.uesp.net/wiki/Lore:Ghostgate",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dagoth-ur-citadel",
+      "name": "Dagoth Ur",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/dagoth-ur-citadel.json",
+      "source": {
+        "id": "uesp:dagoth-ur-citadel",
+        "url": "https://en.uesp.net/wiki/Lore:Dagoth_Ur",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:cavern-incarnate",
+      "name": "Cavern of the Incarnate",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/cavern-incarnate.json",
+      "source": {
+        "id": "uesp:cavern-incarnate",
+        "url": "https://en.uesp.net/wiki/Lore:Cavern_of_the_Incarnate",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:tel-fyr",
+      "name": "Tel Fyr",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/tel-fyr.json",
+      "source": {
+        "id": "uesp:tel-fyr",
+        "url": "https://en.uesp.net/wiki/Lore:Tel_Fyr",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Never force a single answer to whether the Nerevarine is literal reincarnation, prophetic fulfillment, constructed identity, or some combination; preserve evidence for each interpretation",
+    "Player-defined Nerevarine biography, race, gender, faction memberships and optional quest outcomes remain variable",
+    "Dagoth Ur's dreams, theology and historical claims remain attributed even when delivered directly to the player",
+    "Prophecy texts must preserve exact source lineage, translation/context and the distinction between prediction and retrospective interpretation",
+    "Corprus and divine-disease mechanics should distinguish narrative observations from gameplay-stat effects",
+    "Cross-link existing Nerevarine, Dagoth Ur, Tribunal, Sixth House, Ashlander tribes, Red Mountain, Heart of Lorkhan and Kagrenac-tool records"
+  ]
+}

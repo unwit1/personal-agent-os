@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "deities",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-017-dawnguard-falmer-elder-scrolls",
+  "subjects": [
+    {
+      "id": "tes:ideal-masters",
+      "name": "Ideal Masters",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/ideal-masters.json",
+      "source": {
+        "id": "uesp:ideal-masters",
+        "url": "https://en.uesp.net/wiki/Lore:Ideal_Masters",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:molag-bal",
+      "name": "Molag Bal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/molag-bal.json",
+      "source": {
+        "id": "uesp:molag-bal",
+        "url": "https://en.uesp.net/wiki/Lore:Molag_Bal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Separate ancient Snow Elves from later Falmer/Betrayed terminology and preserve source-era usage",
+    "Treat vampire origin/ritual accounts as attributed unless directly established by primary evidence",
+    "Elder Scroll prophecies must retain the exact source, reading context and interpretation rather than being normalized into deterministic predictions",
+    "Soul Cairn and Ideal Masters claims should distinguish observed game-space facts from character speculation",
+    "Prefer Skyrim/Dawnguard quest dialogue, journals, inscriptions and observed events for this cluster"
+  ]
+}

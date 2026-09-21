@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-048-bosmer-deep-green-pact",
+  "subjects": [
+    {
+      "id": "tes:yffre",
+      "name": "Y'ffre",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/yffre.json",
+      "source": {
+        "id": "uesp:yffre",
+        "url": "https://en.uesp.net/wiki/Lore:Y%27ffre",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:herma-mora-bosmer",
+      "name": "Herma-Mora",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/herma-mora-bosmer.json",
+      "source": {
+        "id": "uesp:herma-mora-bosmer",
+        "url": "https://en.uesp.net/wiki/Lore:Herma-Mora",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:a-uri-el-bosmer",
+      "name": "Auri-El",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/a-uri-el-bosmer.json",
+      "source": {
+        "id": "uesp:a-uri-el-bosmer",
+        "url": "https://en.uesp.net/wiki/Lore:Auri-El",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:b-pact-spinner",
+      "name": "Spinner",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/b-pact-spinner.json",
+      "source": {
+        "id": "uesp:b-pact-spinner",
+        "url": "https://en.uesp.net/wiki/Lore:Spinner",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:silvenar-office",
+      "name": "Silvenar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/silvenar-office.json",
+      "source": {
+        "id": "uesp:silvenar-office",
+        "url": "https://en.uesp.net/wiki/Lore:Silvenar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:green-lady-office",
+      "name": "Green Lady",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/green-lady-office.json",
+      "source": {
+        "id": "uesp:green-lady-office",
+        "url": "https://en.uesp.net/wiki/Lore:Green_Lady",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "This batch deepens batch 040 rather than replacing it; deduplication should merge shared subjects by canonical identity",
+    "Green Pact rules must distinguish theological ideal, local interpretation, historical period and observed practice",
+    "Wild Hunt accounts should separate witnessed transformations, ritual doctrine, historical reports and later retellings",
+    "Spinner narratives preserve storyteller, audience and narrative context; story-shaping claims are not automatically objective history",
+    "Falinesti traditions should distinguish documented appearances, disappearance accounts and metaphysical interpretations",
+    "Y'ffre/Earth Bones claims retain religious and cosmological provenance rather than being flattened into universal fact",
+    "Cross-link batch 040 Bosmer records and merge duplicates during canonicalization"
+  ]
+}

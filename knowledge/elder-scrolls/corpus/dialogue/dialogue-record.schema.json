@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Elder Scrolls Dialogue Corpus Record",
+  "type": "object",
+  "required": [
+    "id",
+    "game",
+    "source_url",
+    "source_kind",
+    "turns"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "game": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "source_url": {
+      "type": "string"
+    },
+    "source_kind": {
+      "enum": [
+        "quest_dialogue_transcript",
+        "storyline_transcript",
+        "npc_dialogue",
+        "scene_transcript",
+        "other_dialogue"
+      ]
+    },
+    "quest_or_scene": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_witness": {
+      "type": "string",
+      "default": "imperial-library"
+    },
+    "content_hash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "turns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "sequence",
+          "speaker",
+          "text"
+        ],
+        "properties": {
+          "sequence": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "speaker": {
+            "type": "string"
+          },
+          "player_prompt": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "text": {
+            "type": "string"
+          },
+          "stage_direction": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

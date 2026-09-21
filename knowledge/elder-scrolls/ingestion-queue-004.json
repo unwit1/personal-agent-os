@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "continuity_id": "tes-base",
+  "batch_id": "uesp-004-nordic-dragon-cult-cluster",
+  "purpose": "Expand into Nordic origins, Atmoran migration, Dragon Cult, dragons, and Skyrim religious/history graph.",
+  "pages": [
+    {
+      "id": "atmora",
+      "title": "Atmora",
+      "url": "https://en.uesp.net/wiki/Lore:Atmora",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "ysgramor",
+      "title": "Ysgramor",
+      "url": "https://en.uesp.net/wiki/Lore:Ysgramor",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "companions",
+      "title": "Five Hundred Companions",
+      "url": "https://en.uesp.net/wiki/Lore:Five_Hundred_Companions",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "saarthal",
+      "title": "Saarthal",
+      "url": "https://en.uesp.net/wiki/Lore:Saarthal",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "night-of-tears",
+      "title": "Night of Tears",
+      "url": "https://en.uesp.net/wiki/Lore:Night_of_Tears",
+      "page_type": "lore_summary",
+      "entity_type": "event",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "snow-elves",
+      "title": "Snow Elves",
+      "url": "https://en.uesp.net/wiki/Lore:Snow_Elves",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "nords",
+      "title": "Nord",
+      "url": "https://en.uesp.net/wiki/Lore:Nord",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "dragon-cult",
+      "title": "Dragon Cult",
+      "url": "https://en.uesp.net/wiki/Lore:Dragon_Cult",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "dragon-priest",
+      "title": "Dragon Priest",
+      "url": "https://en.uesp.net/wiki/Lore:Dragon_Priest",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "alduin",
+      "title": "Alduin",
+      "url": "https://en.uesp.net/wiki/Lore:Alduin",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "paarthurnax",
+      "title": "Paarthurnax",
+      "url": "https://en.uesp.net/wiki/Lore:Paarthurnax",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "dragon-war",
+      "title": "Dragon War",
+      "url": "https://en.uesp.net/wiki/Lore:Dragon_War",
+      "page_type": "lore_summary",
+      "entity_type": "event",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "greybeards",
+      "title": "Greybeards",
+      "url": "https://en.uesp.net/wiki/Lore:Greybeards",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "jurgen-windcaller",
+      "title": "Jurgen Windcaller",
+      "url": "https://en.uesp.net/wiki/Lore:Jurgen_Windcaller",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "thu'um",
+      "title": "Thu'um",
+      "url": "https://en.uesp.net/wiki/Lore:Thu%27um",
+      "page_type": "lore_summary",
+      "entity_type": "concept",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "kyne",
+      "title": "Kyne",
+      "url": "https://en.uesp.net/wiki/Lore:Kyne",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "shor",
+      "title": "Shor",
+      "url": "https://en.uesp.net/wiki/Lore:Shor",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "sovngarde",
+      "title": "Sovngarde",
+      "url": "https://en.uesp.net/wiki/Lore:Sovngarde",
+      "page_type": "lore_summary",
+      "entity_type": "plane",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "forelhost",
+      "title": "Forelhost",
+      "url": "https://en.uesp.net/wiki/Lore:Forelhost",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    },
+    {
+      "id": "skuldafn",
+      "title": "Skuldafn",
+      "url": "https://en.uesp.net/wiki/Lore:Skuldafn",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "status": "queued",
+      "provenance_policy": "resolve_inline_references_to_game_dialogue_books_quests_and_events"
+    }
+  ],
+  "direct_evidence_seeds": [
+    {
+      "id": "skyrim-forelhost-note",
+      "title": "Note (Forelhost Crypt)",
+      "url": "https://en.uesp.net/wiki/Skyrim:Note_(Forelhost_Crypt)",
+      "page_type": "game_note",
+      "game": "Skyrim",
+      "entity_links": [
+        "dragon-cult",
+        "forelhost"
+      ],
+      "authority_class": "primary_game_text",
+      "status": "queued",
+      "reason": "Direct cult-authored note tied to Siege on the Dragon Cult; useful primary evidence alongside UESP summaries."
+    }
+  ],
+  "quality_policy": {
+    "lore_places_cleanup_category": "mark review_required; do not discard",
+    "note": "UESP cleanup category explicitly says many place articles need in-game information removed or other cleanup."
+  },
+  "ingestion_rules": {
+    "raw_text": "local_rebuildable",
+    "git": "metadata_queue_review_state_only",
+    "checkpoint_each_page": true,
+    "preserve_epistemic_language": true,
+    "prefer_underlying_primary_evidence": true
+  }
+}

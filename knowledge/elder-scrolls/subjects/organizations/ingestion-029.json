@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-029-daedric-war-summerset-clockwork",
+  "subjects": [
+    {
+      "id": "tes:psijic-order",
+      "name": "Psijic Order",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/psijic-order.json",
+      "source": {
+        "id": "uesp:psijic-order",
+        "url": "https://en.uesp.net/wiki/Lore:Psijic_Order",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:court-bedlam",
+      "name": "Court of Bedlam",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/court-bedlam.json",
+      "source": {
+        "id": "uesp:court-bedlam",
+        "url": "https://en.uesp.net/wiki/Lore:Court_of_Bedlam",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sapiarchs",
+      "name": "Sapiarchs",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/sapiarchs.json",
+      "source": {
+        "id": "uesp:sapiarchs",
+        "url": "https://en.uesp.net/wiki/Lore:Sapiarchs",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:divine-prosecution",
+      "name": "Divine Prosecution",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/divine-prosecution.json",
+      "source": {
+        "id": "uesp:divine-prosecution",
+        "url": "https://en.uesp.net/wiki/Lore:Divine_Prosecution",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Treat the Clockwork City, Morrowind and Summerset story arc as linked chronology without flattening each chapter's local evidence",
+    "Nocturnal, Mephala and Clavicus Vile statements remain attributed even when describing metaphysics",
+    "Tower/Stone terminology must distinguish in-universe theory, direct quest observations and later scholarly interpretation",
+    "Psijic claims about time and causality require speaker/text provenance",
+    "Do not infer that gameplay depictions of time manipulation define universal metaphysical rules",
+    "Cross-link existing Sotha Sil, Clockwork City, Summerset, Psijic Order, Crystal Tower, Nocturnal, Mephala, Clavicus Vile, Skeleton Key and related subjects"
+  ]
+}

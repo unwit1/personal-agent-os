@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-043-breton-high-rock-direnni",
+  "subjects": [
+    {
+      "id": "tes:breton-ancestry",
+      "name": "Breton Ancestry",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/breton-ancestry.json",
+      "source": {
+        "id": "uesp:breton-ancestry",
+        "url": "https://en.uesp.net/wiki/Lore:Breton_Ancestry",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:manmer",
+      "name": "Manmer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/manmer.json",
+      "source": {
+        "id": "uesp:manmer",
+        "url": "https://en.uesp.net/wiki/Lore:Manmer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:feudal-high-rock",
+      "name": "High Rock Feudalism",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/feudal-high-rock.json",
+      "source": {
+        "id": "uesp:feudal-high-rock",
+        "url": "https://en.uesp.net/wiki/Lore:High_Rock_Feudalism",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:knightly-orders",
+      "name": "Breton Knightly Orders",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/knightly-orders.json",
+      "source": {
+        "id": "uesp:knightly-orders",
+        "url": "https://en.uesp.net/wiki/Lore:Breton_Knightly_Orders",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:direnni-rule",
+      "name": "Direnni Rule",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/direnni-rule.json",
+      "source": {
+        "id": "uesp:direnni-rule",
+        "url": "https://en.uesp.net/wiki/Lore:Direnni_Rule",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:adamantine-tower",
+      "name": "Adamantine Tower",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/adamantine-tower.json",
+      "source": {
+        "id": "uesp:adamantine-tower",
+        "url": "https://en.uesp.net/wiki/Lore:Adamantine_Tower",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Breton ancestry claims must distinguish historical evidence, cultural identity, polemical texts and later racial theorizing",
+    "Do not treat High Rock as a single centralized political culture across eras; preserve kingdom, city-state and feudal variation",
+    "Direnni rule and the term Manmer require era/source-specific handling rather than timeless ethnic definitions",
+    "Adamantine Tower cosmology should separate observed location/history from Tower-theory interpretation",
+    "Rivenspire vampire narratives must distinguish individual clans and periods rather than generalize all Breton vampirism",
+    "Cross-link existing Breton, High Rock, Direnni, Daggerfall, Wayrest, Balfiera, Adamantine Tower, Emeric and House Ravenwatch records"
+  ]
+}

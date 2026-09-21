@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-031-vivec-tribunal-obscure",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:vivec-obscure",
+      "title": "Vivec developer and obscure-text corpus",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Vivec",
+        "Vehk",
+        "CHIM",
+        "36 Lessons",
+        "Trial of Vivec"
+      ]
+    },
+    {
+      "id": "til:trial-vivec-deep",
+      "title": "Trial of Vivec authorship and roleplay map",
+      "author": "multiple",
+      "document_kind": "developer_roleplay_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Trial of Vivec",
+        "Vivec",
+        "Azura",
+        "Tribunal",
+        "roleplay"
+      ]
+    },
+    {
+      "id": "til:sermons-commentary",
+      "title": "36 Lessons developer commentary and interpretation history",
+      "author": "multiple",
+      "document_kind": "author_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "36 Lessons",
+        "Vivec",
+        "CHIM",
+        "Muatra",
+        "Nerevar",
+        "Molag Bal"
+      ]
+    },
+    {
+      "id": "til:tribunal-obscure",
+      "title": "Tribunal developer and obscure material",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Tribunal",
+        "Almalexia",
+        "Sotha Sil",
+        "Vivec",
+        "Nerevar"
+      ]
+    },
+    {
+      "id": "til:vehk-teachings-deep",
+      "title": "Vehk's Teaching source and claim map",
+      "author": "multiple",
+      "document_kind": "external_text_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Vehk's Teaching",
+        "Vivec",
+        "Towers",
+        "CHIM",
+        "mythic structure"
+      ]
+    },
+    {
+      "id": "til:muatra-obscure",
+      "title": "Muatra and related symbolic terminology source map",
+      "author": "multiple",
+      "document_kind": "terminology_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Muatra",
+        "Vivec",
+        "36 Lessons",
+        "symbolism"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Vivec's in-character statements, developer commentary about Vivec, and community interpretations are separate evidence layers.",
+    "The Trial of Vivec preserves participant and role attribution rather than treating the whole roleplay as one authorial voice.",
+    "Interpretations of the 36 Lessons must cite the textual passages they depend on.",
+    "Symbolic readings are stored as interpretations unless the source explicitly states the proposed meaning.",
+    "Later ESO material about Vivec or the Tribunal is linked as independent primary evidence."
+  ]
+}

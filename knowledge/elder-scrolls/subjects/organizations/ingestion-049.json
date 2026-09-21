@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-049-argonian-hist-duskfall",
+  "subjects": [
+    {
+      "id": "tes:an-xileel",
+      "name": "An-Xileel",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/an-xileel.json",
+      "source": {
+        "id": "uesp:an-xileel",
+        "url": "https://en.uesp.net/wiki/Lore:An-Xileel",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:shadowscales",
+      "name": "Shadowscales",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/shadowscales.json",
+      "source": {
+        "id": "uesp:shadowscales",
+        "url": "https://en.uesp.net/wiki/Lore:Shadowscales",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:bright-throats",
+      "name": "Bright-Throats",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/bright-throats.json",
+      "source": {
+        "id": "uesp:bright-throats",
+        "url": "https://en.uesp.net/wiki/Lore:Bright-Throats",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dead-water",
+      "name": "Dead-Water Tribe",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/dead-water.json",
+      "source": {
+        "id": "uesp:dead-water",
+        "url": "https://en.uesp.net/wiki/Lore:Dead-Water_Tribe",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ghost-people",
+      "name": "Ghost People Tribe",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/ghost-people.json",
+      "source": {
+        "id": "uesp:ghost-people",
+        "url": "https://en.uesp.net/wiki/Lore:Ghost_People_Tribe",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "This batch deepens earlier Argonian material; canonicalization should merge duplicate subjects instead of creating parallel identities",
+    "Do not model the Hist as a proven single collective mind; preserve evidence for individual trees, networks and differing interpretations",
+    "Argonian life-cycle and morphology claims must retain tribe, region, era and source context",
+    "Duskfall should distinguish historical change, modern philosophy and retrospective cultural interpretation",
+    "Knahaten Flu origin theories remain contradictory unless a source directly establishes a specific event",
+    "Argonian Sithis traditions must remain distinct from other cultures' Sithis theology while allowing sourced correspondences",
+    "Cross-link existing Argonian, Hist, Black Marsh, Shadowscale, Knahaten Flu, Duskfall, Heita-Meen, Keshu and Xukas records"
+  ]
+}

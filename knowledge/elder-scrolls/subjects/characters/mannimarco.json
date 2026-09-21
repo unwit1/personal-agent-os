@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "tes:mannimarco",
+  "library_id": "elder-scrolls",
+  "name": "Mannimarco",
+  "entity_type": "person",
+  "category": "characters",
+  "canonical_path": "knowledge/elder-scrolls/subjects/characters/mannimarco.json",
+  "continuity_model": "claims_and_evidence_scoped",
+  "sources": [
+    {
+      "source_id": "uesp:mannimarco",
+      "url": "https://en.uesp.net/wiki/Lore:Mannimarco",
+      "source_class": "secondary_reference",
+      "status": "queued"
+    }
+  ],
+  "claims": [],
+  "relationships": [],
+  "notes": "Subject shell created during ingestion; claims/evidence populate only after provenance-backed extraction."
+}

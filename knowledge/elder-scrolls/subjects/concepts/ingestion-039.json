@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-039-aldmer-altmer-psijic-summerset",
+  "subjects": [
+    {
+      "id": "tes:old-ways",
+      "name": "Old Ways",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/old-ways.json",
+      "source": {
+        "id": "uesp:old-ways",
+        "url": "https://en.uesp.net/wiki/Lore:Old_Ways",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:altmer-ancestor-worship",
+      "name": "Altmeri Ancestor Worship",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/altmer-ancestor-worship.json",
+      "source": {
+        "id": "uesp:altmer-ancestor-worship",
+        "url": "https://en.uesp.net/wiki/Lore:Altmeri_Ancestor_Worship",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:path-alaxon",
+      "name": "Path to Alaxon",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/path-alaxon.json",
+      "source": {
+        "id": "uesp:path-alaxon",
+        "url": "https://en.uesp.net/wiki/Lore:Path_to_Alaxon",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:apraxic",
+      "name": "Apraxic",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/apraxic.json",
+      "source": {
+        "id": "uesp:apraxic",
+        "url": "https://en.uesp.net/wiki/Lore:Apraxic",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:altmer-canonreeve",
+      "name": "Canonreeve",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/altmer-canonreeve.json",
+      "source": {
+        "id": "uesp:altmer-canonreeve",
+        "url": "https://en.uesp.net/wiki/Lore:Canonreeve",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sapiarchy",
+      "name": "Sapiarchy",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/sapiarchy.json",
+      "source": {
+        "id": "uesp:sapiarchy",
+        "url": "https://en.uesp.net/wiki/Lore:Sapiarchy",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Aldmer and Altmer must remain historically distinct labels; do not project later Altmeri institutions unchanged onto ancient Aldmeri society",
+    "Altmeri social ideals such as Alaxon should distinguish prescriptive doctrine from observed lived practice",
+    "Psijic accounts of the Old Ways, time and metaphysics retain institutional/source provenance rather than becoming universal truth",
+    "Competing accounts of Aldmeris and early elven origins should coexist where evidence conflicts",
+    "Summerset's political isolation/opening must retain era-specific context",
+    "Cross-link existing Altmer, Aldmer, Summerset, Auridon, Alinor, Artaeum, Crystal Tower, Psijic Order, Sapiarchs, Ayrenn, Vanus Galerion and Mannimarco records"
+  ]
+}

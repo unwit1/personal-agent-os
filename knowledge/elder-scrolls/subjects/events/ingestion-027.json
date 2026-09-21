@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-027-argonian-hist-black-marsh",
+  "subjects": [
+    {
+      "id": "tes:knahaten-flu",
+      "name": "Knahaten Flu",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/knahaten-flu.json",
+      "source": {
+        "id": "uesp:knahaten-flu",
+        "url": "https://en.uesp.net/wiki/Lore:Knahaten_Flu",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:argonian-invasion-morrowind",
+      "name": "Argonian Invasion of Morrowind",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/argonian-invasion-morrowind.json",
+      "source": {
+        "id": "uesp:argonian-invasion-morrowind",
+        "url": "https://en.uesp.net/wiki/Lore:Argonian_Invasion_of_Morrowind",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:duskfall",
+      "name": "Duskfall",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/duskfall.json",
+      "source": {
+        "id": "uesp:duskfall",
+        "url": "https://en.uesp.net/wiki/Lore:Duskfall",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:second-akaviri-invasion",
+      "name": "Second Akaviri Invasion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/second-akaviri-invasion.json",
+      "source": {
+        "id": "uesp:second-akaviri-invasion",
+        "url": "https://en.uesp.net/wiki/Lore:Second_Akaviri_Invasion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Prefer Argonian self-description over outsider generalizations when documenting Argonian culture, while retaining both as attributed evidence",
+    "Hist motives, communication and memory claims require source-specific attribution; do not assume all Hist act as one mind",
+    "Knahaten Flu origin remains contested unless a source only establishes a narrower observation",
+    "Argonian life-cycle and Hist-sap claims must preserve regional/tribal variation and game-era context",
+    "The Argonian Account retains its in-universe authorial perspective rather than serving as neutral ethnography",
+    "Cross-link existing Argonian, Hist, Black Marsh, Murkmire, Shadowfen, Lilmoth, Xanmeer, Knahaten Flu and Shadowscales records"
+  ]
+}

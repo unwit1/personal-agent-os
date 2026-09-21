@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-041-orsimer-orsinium-malacath",
+  "subjects": [
+    {
+      "id": "tes:topal-pilot",
+      "name": "Topal the Pilot",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/topal-pilot.json",
+      "source": {
+        "id": "uesp:topal-pilot",
+        "url": "https://en.uesp.net/wiki/Lore:Topal_the_Pilot",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:torug-gro-ih",
+      "name": "Torug gro-Igron",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/torug-gro-ih.json",
+      "source": {
+        "id": "uesp:torug-gro-ih",
+        "url": "https://en.uesp.net/wiki/Lore:Torug_gro-Igron",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:kurog-gro-bagrakh",
+      "name": "Kurog gro-Bagrakh",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/kurog-gro-bagrakh.json",
+      "source": {
+        "id": "uesp:kurog-gro-bagrakh",
+        "url": "https://en.uesp.net/wiki/Lore:Kurog_gro-Bagrakh",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:bazrag-gro-fharun",
+      "name": "Bazrag gro-Fharun",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/bazrag-gro-fharun.json",
+      "source": {
+        "id": "uesp:bazrag-gro-fharun",
+        "url": "https://en.uesp.net/wiki/Lore:Bazrag_gro-Fharun",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:gortwog-gro-nagorm",
+      "name": "Gortwog gro-Nagorm",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/gortwog-gro-nagorm.json",
+      "source": {
+        "id": "uesp:gortwog-gro-nagorm",
+        "url": "https://en.uesp.net/wiki/Lore:Gortwog_gro-Nagorm",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:baloth-bloodtusk",
+      "name": "Baloth Bloodtusk",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/baloth-bloodtusk.json",
+      "source": {
+        "id": "uesp:baloth-bloodtusk",
+        "url": "https://en.uesp.net/wiki/Lore:Baloth_Bloodtusk",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Orsimer origin accounts involving Trinimac, Boethiah and Malacath remain religious/mythic traditions with source-specific provenance",
+    "Do not treat Orc stronghold customs as universal to every Orsimer community, city or historical period",
+    "Different incarnations of Orsinium must be modeled as historically distinct settlements/polities linked by name and tradition",
+    "The Code of Malacath should distinguish prescriptive religious/legal ideals from observed practice",
+    "Outsider descriptions of Orcs retain authorial bias metadata and must not override Orc self-description",
+    "Cross-link existing Orsimer, Orsinium, Wrothgar, Malacath, Trinimac, Boethiah, First Orsinium, Ranser's War and Gortwog records"
+  ]
+}

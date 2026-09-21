@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-032-alessian-ayleid-pelinal",
+  "subjects": [
+    {
+      "id": "tes:alessian-order",
+      "name": "Alessian Order",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/alessian-order.json",
+      "source": {
+        "id": "uesp:alessian-order",
+        "url": "https://en.uesp.net/wiki/Lore:Alessian_Order",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:alessian-empire",
+      "name": "Alessian Empire",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/alessian-empire.json",
+      "source": {
+        "id": "uesp:alessian-empire",
+        "url": "https://en.uesp.net/wiki/Lore:Alessian_Empire",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:knights-nine",
+      "name": "Knights of the Nine",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/knights-nine.json",
+      "source": {
+        "id": "uesp:knights-nine",
+        "url": "https://en.uesp.net/wiki/Lore:Knights_of_the_Nine",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "The Song of Pelinal is an in-universe literary/historical source; preserve narrator, edition and mythic embellishment uncertainty",
+    "Ayleid culture must not be flattened into a single political or religious bloc; preserve city-state and cult differences",
+    "Claims about Pelinal's identity, madness, divinity or time-displacement remain source-specific interpretations unless directly evidenced",
+    "Middle Dawn chronology is inherently disrupted; preserve conflicting durations, memories and accounts rather than forcing a normal timeline",
+    "Alessian Order doctrine must be separated from earlier Alessian rebellion and later interpretations of Alessia",
+    "Cross-link existing Alessia, Pelinal, Morihaus, Umaril, Ayleid, White-Gold Tower, Amulet of Kings, Chim-el Adabal, Middle Dawn and Knights of the Nine records"
+  ]
+}

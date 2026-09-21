@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-026-elsweyr-khajiit-dragons",
+  "subjects": [
+    {
+      "id": "tes:khunzar-ri",
+      "name": "Khunzar-ri",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/khunzar-ri.json",
+      "source": {
+        "id": "uesp:khunzar-ri",
+        "url": "https://en.uesp.net/wiki/Lore:Khunzar-ri",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:khamira",
+      "name": "Khamira",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/khamira.json",
+      "source": {
+        "id": "uesp:khamira",
+        "url": "https://en.uesp.net/wiki/Lore:Khamira",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:abnur-tharn",
+      "name": "Abnur Tharn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/abnur-tharn.json",
+      "source": {
+        "id": "uesp:abnur-tharn",
+        "url": "https://en.uesp.net/wiki/Lore:Abnur_Tharn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:zumog-phoom",
+      "name": "Zumog Phoom",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/zumog-phoom.json",
+      "source": {
+        "id": "uesp:zumog-phoom",
+        "url": "https://en.uesp.net/wiki/Lore:Zumog_Phoom",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sai-sahan",
+      "name": "Sai Sahan",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/sai-sahan.json",
+      "source": {
+        "id": "uesp:sai-sahan",
+        "url": "https://en.uesp.net/wiki/Lore:Sai_Sahan",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:nahfahlaar",
+      "name": "Nahfahlaar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/nahfahlaar.json",
+      "source": {
+        "id": "uesp:nahfahlaar",
+        "url": "https://en.uesp.net/wiki/Lore:Nahfahlaar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:laatvulon",
+      "name": "Laatvulon",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/laatvulon.json",
+      "source": {
+        "id": "uesp:laatvulon",
+        "url": "https://en.uesp.net/wiki/Lore:Laatvulon",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:kaalgrontiid",
+      "name": "Kaalgrontiid",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/kaalgrontiid.json",
+      "source": {
+        "id": "uesp:kaalgrontiid",
+        "url": "https://en.uesp.net/wiki/Lore:Kaalgrontiid",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Khajiiti origin stories and lunar theology remain attributed traditions unless independently evidenced",
+    "Furstock descriptions must retain source/era because terminology and presentation vary across games",
+    "Khunzar-ri legends should separate legendary narrative from observed ESO-era evidence",
+    "Dragon claims should distinguish individual testimony, historical record and directly observed quest events",
+    "Cross-link existing Khajiit, Elsweyr, Alkosh, Azurah, Lunar Lattice, Mane, Dro-m'Athra, Sai Sahan and Abnur Tharn subjects",
+    "Do not collapse Anequina/Pellitine geographic, political and historical meanings into one undifferentiated record"
+  ]
+}

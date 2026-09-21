@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "continuity_id": "tes-base",
+  "batch_id": "uesp-006-yokuda-redguard-cluster",
+  "purpose": "Expand TES-base into Yokudan history, Redguard migration, Sword-Singers, deities, Hammerfell, and Crown/Forebear political history.",
+  "pages": [
+    {
+      "id": "yokuda",
+      "title": "Yokuda",
+      "url": "https://en.uesp.net/wiki/Lore:Yokuda",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "redguard",
+      "title": "Redguard",
+      "url": "https://en.uesp.net/wiki/Lore:Redguard",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "ra-gada",
+      "title": "Ra Gada",
+      "url": "https://en.uesp.net/wiki/Lore:Ra_Gada",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "hammerfell",
+      "title": "Hammerfell",
+      "url": "https://en.uesp.net/wiki/Lore:Hammerfell",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "hoonding",
+      "title": "HoonDing",
+      "url": "https://en.uesp.net/wiki/Lore:HoonDing",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "diagna",
+      "title": "Diagna",
+      "url": "https://en.uesp.net/wiki/Lore:Diagna",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "sep",
+      "title": "Sep",
+      "url": "https://en.uesp.net/wiki/Lore:Sep",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "satakal",
+      "title": "Satakal",
+      "url": "https://en.uesp.net/wiki/Lore:Satakal",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "tava",
+      "title": "Tava",
+      "url": "https://en.uesp.net/wiki/Lore:Tava",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "ruw",
+      "title": "Ruptga",
+      "url": "https://en.uesp.net/wiki/Lore:Ruptga",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "leki",
+      "title": "Leki",
+      "url": "https://en.uesp.net/wiki/Lore:Leki",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "ansei",
+      "title": "Ansei",
+      "url": "https://en.uesp.net/wiki/Lore:Ansei",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "shehai",
+      "title": "Shehai",
+      "url": "https://en.uesp.net/wiki/Lore:Shehai",
+      "page_type": "lore_summary",
+      "entity_type": "concept",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "sword-singers",
+      "title": "Sword-singers",
+      "url": "https://en.uesp.net/wiki/Lore:Sword-singers",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "frandar-hunding",
+      "title": "Frandar Hunding",
+      "url": "https://en.uesp.net/wiki/Lore:Frandar_Hunding",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "makela-leki",
+      "title": "Makela Leki",
+      "url": "https://en.uesp.net/wiki/Lore:Makela_Leki",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "na-totambu",
+      "title": "Na-Totambu",
+      "url": "https://en.uesp.net/wiki/Lore:Na-Totambu",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "crowns",
+      "title": "Crowns",
+      "url": "https://en.uesp.net/wiki/Lore:Crowns",
+      "page_type": "lore_summary",
+      "entity_type": "faction",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "forebears",
+      "title": "Forebears",
+      "url": "https://en.uesp.net/wiki/Lore:Forebears",
+      "page_type": "lore_summary",
+      "entity_type": "faction",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    },
+    {
+      "id": "stros-mkai",
+      "title": "Stros M'Kai",
+      "url": "https://en.uesp.net/wiki/Lore:Stros_M%27Kai",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, books, quests, loading screens, and item descriptions"
+    }
+  ],
+  "primary_evidence_priority": [
+    "Redguard game dialogue and events",
+    "ESO dialogue and quest events",
+    "in-game Yokudan/Redguard books",
+    "loading screens and item descriptions"
+  ],
+  "review_focus": [
+    "keep mythic Yokudan cosmology attributed to its source tradition",
+    "distinguish historical claims from legendary Sword-Singer accounts",
+    "preserve conflicting accounts of Yokuda's destruction",
+    "do not infer modern Redguard consensus from individual in-universe authors"
+  ],
+  "quality_policy": {
+    "cleanup_category": "mark review_required rather than reject; UESP currently lists 115 Lore Places pages needing cleanup",
+    "unofficial_sources": "retain only with explicit unofficial/lower-authority flag"
+  },
+  "ingestion_rules": {
+    "raw_text": "local_rebuildable",
+    "git": "metadata_queue_review_state_only",
+    "checkpoint_each_page": true,
+    "preserve_epistemic_language": true,
+    "prefer_underlying_primary_evidence": true
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-024-eso-planemeld-five-companions",
+  "subjects": [
+    {
+      "id": "tes:vestige",
+      "name": "Vestige",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/vestige.json",
+      "source": {
+        "id": "uesp:vestige",
+        "url": "https://en.uesp.net/wiki/Lore:Vestige",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:varen-aquilarios",
+      "name": "Varen Aquilarios",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/varen-aquilarios.json",
+      "source": {
+        "id": "uesp:varen-aquilarios",
+        "url": "https://en.uesp.net/wiki/Lore:Varen_Aquilarios",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:lyris-titanborn",
+      "name": "Lyris Titanborn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/lyris-titanborn.json",
+      "source": {
+        "id": "uesp:lyris-titanborn",
+        "url": "https://en.uesp.net/wiki/Lore:Lyris_Titanborn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sai-sahan",
+      "name": "Sai Sahan",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/sai-sahan.json",
+      "source": {
+        "id": "uesp:sai-sahan",
+        "url": "https://en.uesp.net/wiki/Lore:Sai_Sahan",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:abnur-tharn",
+      "name": "Abnur Tharn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/abnur-tharn.json",
+      "source": {
+        "id": "uesp:abnur-tharn",
+        "url": "https://en.uesp.net/wiki/Lore:Abnur_Tharn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mannimarco",
+      "name": "Mannimarco",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/mannimarco.json",
+      "source": {
+        "id": "uesp:mannimarco",
+        "url": "https://en.uesp.net/wiki/Lore:Mannimarco",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:molag-bal",
+      "name": "Molag Bal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/molag-bal.json",
+      "source": {
+        "id": "uesp:molag-bal",
+        "url": "https://en.uesp.net/wiki/Lore:Molag_Bal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:cadwell",
+      "name": "Cadwell",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/cadwell.json",
+      "source": {
+        "id": "uesp:cadwell",
+        "url": "https://en.uesp.net/wiki/Lore:Cadwell",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Vestige biography and alliance choice remain player-variable unless a source establishes a common event",
+    "Separate base-game Planemeld chronology from later ESO chapters and retroactive interpretations",
+    "Molag Bal dialogue is attributed testimony, not omniscient narration",
+    "Distinguish observed Coldharbour mechanics from scholarly metaphysical explanation",
+    "Alliance-specific quest variants and mutually exclusive choices remain branch-scoped",
+    "Cross-link existing Planemeld, Soulburst, Mannimarco, Molag Bal, Coldharbour, Amulet of Kings and alliance records rather than duplicate them"
+  ]
+}

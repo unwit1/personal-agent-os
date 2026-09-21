@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-044-reachfolk-religion-red-eagle",
+  "subjects": [
+    {
+      "id": "tes:reach",
+      "name": "The Reach",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/reach.json",
+      "source": {
+        "id": "uesp:reach",
+        "url": "https://en.uesp.net/wiki/Lore:The_Reach",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:markarth",
+      "name": "Markarth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/markarth.json",
+      "source": {
+        "id": "uesp:markarth",
+        "url": "https://en.uesp.net/wiki/Lore:Markarth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:karthwasten",
+      "name": "Karthwasten",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/karthwasten.json",
+      "source": {
+        "id": "uesp:karthwasten",
+        "url": "https://en.uesp.net/wiki/Lore:Karthwasten",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:arkthzand",
+      "name": "Arkthzand Cavern",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/arkthzand.json",
+      "source": {
+        "id": "uesp:arkthzand",
+        "url": "https://en.uesp.net/wiki/Lore:Arkthzand_Cavern",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:bardens",
+      "name": "Bthardamz",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/bardens.json",
+      "source": {
+        "id": "uesp:bardens",
+        "url": "https://en.uesp.net/wiki/Lore:Bthardamz",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:old-hroldan",
+      "name": "Old Hroldan",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/old-hroldan.json",
+      "source": {
+        "id": "uesp:old-hroldan",
+        "url": "https://en.uesp.net/wiki/Lore:Old_Hroldan",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Reachfolk religion must be modeled from clan-specific and Reachfolk sources where possible; outsider labels such as 'Daedra worship' must remain attributed",
+    "Do not treat the Forsworn as synonymous with all Reachfolk or project Fourth Era Forsworn politics onto earlier Reach societies",
+    "Red Eagle traditions should distinguish historical evidence, legend, ritual memory and later retellings",
+    "Briarheart creation and capabilities must separate observed ritual evidence from gameplay mechanics",
+    "Reach clans can differ substantially in patron spirits, customs and politics; preserve local variation",
+    "Cross-link existing Reachfolk, Reach, Forsworn, Markarth, Old Gods, Briarheart, Hagraven, Hircine, Namira, Peryite and Red Eagle-related records"
+  ]
+}

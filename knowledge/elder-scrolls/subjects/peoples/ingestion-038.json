@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "peoples",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-038-yokuda-redguard-sword-singers",
+  "subjects": [
+    {
+      "id": "tes:yokudans",
+      "name": "Yokudans",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/yokudans.json",
+      "source": {
+        "id": "uesp:yokudans",
+        "url": "https://en.uesp.net/wiki/Lore:Yokudans",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:redguards",
+      "name": "Redguards",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/redguards.json",
+      "source": {
+        "id": "uesp:redguards",
+        "url": "https://en.uesp.net/wiki/Lore:Redguards",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:left-handed-elves",
+      "name": "Left-Handed Elves",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/left-handed-elves.json",
+      "source": {
+        "id": "uesp:left-handed-elves",
+        "url": "https://en.uesp.net/wiki/Lore:Left-Handed_Elves",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Yokuda's destruction has competing explanations; preserve natural, political, magical and sword-related accounts separately",
+    "Pankratosword claims require especially strong provenance and must not be generalized from later fan interpretation",
+    "Sword-singer and Ansei feats should distinguish instructional tradition, heroic literature and directly evidenced capability",
+    "Crowns and Forebears are historical/political traditions whose positions vary by era; do not make them timeless monoliths",
+    "Yokudan theology such as the Walkabout and Far Shores should retain source/cultural framing rather than be flattened into universal cosmology",
+    "Cross-link existing Yokuda, Redguard, Hammerfell, Frandar Hunding, Makela Leki, Sword-singers, Ansei, Shehai, Crowns, Forebears and Stros M'Kai records"
+  ]
+}

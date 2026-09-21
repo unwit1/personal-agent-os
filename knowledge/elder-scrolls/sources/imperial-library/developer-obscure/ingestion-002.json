@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-002-authors-interviews",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:mk-forum-archive",
+      "title": "Michael Kirkbride forum posts and Q&A",
+      "author": "Michael Kirkbride",
+      "document_kind": "developer_forum_archive",
+      "status": "discovery_queued",
+      "subjects": [
+        "metaphysics",
+        "Vivec",
+        "Talos",
+        "Numidium",
+        "Towers",
+        "CHIM",
+        "Amaranth"
+      ]
+    },
+    {
+      "id": "til:goodall-archive",
+      "title": "Douglas Goodall developer writings and forum material",
+      "author": "Douglas Goodall",
+      "document_kind": "developer_archive",
+      "status": "discovery_queued",
+      "subjects": [
+        "Morrowind",
+        "Khajiit",
+        "religion",
+        "culture",
+        "game design"
+      ]
+    },
+    {
+      "id": "til:peterson-interviews",
+      "title": "Ted Peterson interviews and developer commentary",
+      "author": "Ted Peterson",
+      "document_kind": "developer_interview_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Daggerfall",
+        "Imperial history",
+        "religion",
+        "books",
+        "early-series lore"
+      ]
+    },
+    {
+      "id": "til:kuhlmann-interviews",
+      "title": "Kurt Kuhlmann interviews and developer commentary",
+      "author": "Kurt Kuhlmann",
+      "document_kind": "developer_interview_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Morrowind",
+        "Oblivion",
+        "Skyrim",
+        "Nordic religion",
+        "design history"
+      ]
+    },
+    {
+      "id": "til:hasphat-roleplay",
+      "title": "Hasphat Antabolis developer roleplay/forum material",
+      "author": "developer_roleplay",
+      "document_kind": "developer_roleplay_archive",
+      "status": "discovery_queued",
+      "subjects": [
+        "Morrowind",
+        "Dwemer",
+        "Imperial scholarship"
+      ]
+    },
+    {
+      "id": "til:temple-zero",
+      "title": "Temple Zero Society material",
+      "author": "multiple",
+      "document_kind": "developer_community_boundary_archive",
+      "status": "discovery_queued",
+      "subjects": [
+        "metaphysics",
+        "religion",
+        "interpretation",
+        "early lore community"
+      ]
+    },
+    {
+      "id": "til:interviews-general",
+      "title": "Imperial Library developer interview corpus",
+      "author": "multiple",
+      "document_kind": "interview_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "development history",
+        "authorial intent",
+        "lore interpretation",
+        "retcons",
+        "cut content"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Search-result absence is not evidence that a document is absent from The Imperial Library; canonical URLs must be resolved during crawler discovery.",
+    "Record interviewer and question text separately from developer answers.",
+    "Developer recollection years after release is commentary evidence and must not overwrite contemporaneous primary sources.",
+    "Where multiple developers disagree, store separate attributed claims and a contradiction record.",
+    "Roleplayed developer characters remain in-character evidence unless the surrounding source clearly marks an out-of-character statement.",
+    "Community material adjacent to developer posts must never inherit developer-source authority automatically."
+  ]
+}

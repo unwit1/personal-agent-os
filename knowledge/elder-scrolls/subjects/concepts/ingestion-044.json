@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-044-reachfolk-religion-red-eagle",
+  "subjects": [
+    {
+      "id": "tes:old-gods",
+      "name": "Old Gods",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/old-gods.json",
+      "source": {
+        "id": "uesp:old-gods",
+        "url": "https://en.uesp.net/wiki/Lore:Old_Gods",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:reachfolk-religion",
+      "name": "Reachfolk Religion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/reachfolk-religion.json",
+      "source": {
+        "id": "uesp:reachfolk-religion",
+        "url": "https://en.uesp.net/wiki/Lore:Reachfolk_Religion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:briarheart",
+      "name": "Briarheart",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/briarheart.json",
+      "source": {
+        "id": "uesp:briarheart",
+        "url": "https://en.uesp.net/wiki/Lore:Briarheart",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:hagraven",
+      "name": "Hagraven",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/hagraven.json",
+      "source": {
+        "id": "uesp:hagraven",
+        "url": "https://en.uesp.net/wiki/Lore:Hagraven",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:reach-magic",
+      "name": "Reach Magic",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/reach-magic.json",
+      "source": {
+        "id": "uesp:reach-magic",
+        "url": "https://en.uesp.net/wiki/Lore:Reach_Magic",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:spirit-world-reach",
+      "name": "Reach Spirit World",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/spirit-world-reach.json",
+      "source": {
+        "id": "uesp:spirit-world-reach",
+        "url": "https://en.uesp.net/wiki/Lore:Reach_Spirit_World",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:clan-identity-reach",
+      "name": "Reach Clan Identity",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/clan-identity-reach.json",
+      "source": {
+        "id": "uesp:clan-identity-reach",
+        "url": "https://en.uesp.net/wiki/Lore:Reach_Clan_Identity",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:witchcraft-reach",
+      "name": "Reach Witchcraft",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/witchcraft-reach.json",
+      "source": {
+        "id": "uesp:witchcraft-reach",
+        "url": "https://en.uesp.net/wiki/Lore:Reach_Witchcraft",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Reachfolk religion must be modeled from clan-specific and Reachfolk sources where possible; outsider labels such as 'Daedra worship' must remain attributed",
+    "Do not treat the Forsworn as synonymous with all Reachfolk or project Fourth Era Forsworn politics onto earlier Reach societies",
+    "Red Eagle traditions should distinguish historical evidence, legend, ritual memory and later retellings",
+    "Briarheart creation and capabilities must separate observed ritual evidence from gameplay mechanics",
+    "Reach clans can differ substantially in patron spirits, customs and politics; preserve local variation",
+    "Cross-link existing Reachfolk, Reach, Forsworn, Markarth, Old Gods, Briarheart, Hagraven, Hircine, Namira, Peryite and Red Eagle-related records"
+  ]
+}

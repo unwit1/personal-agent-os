@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "tes:kagrenac",
+  "library_id": "elder-scrolls",
+  "name": "Kagrenac",
+  "entity_type": "person",
+  "category": "characters",
+  "canonical_path": "knowledge/elder-scrolls/subjects/characters/kagrenac.json",
+  "continuity_model": "claims_and_evidence_scoped",
+  "sources": [
+    {
+      "source_id": "uesp:kagrenac",
+      "url": "https://en.uesp.net/wiki/Lore:Kagrenac",
+      "source_class": "secondary_reference",
+      "status": "queued"
+    }
+  ],
+  "claims": [],
+  "relationships": [],
+  "notes": "Migrated from an earlier ingestion queue into the categorized subject library. Claims remain empty until evidence-backed extraction."
+}

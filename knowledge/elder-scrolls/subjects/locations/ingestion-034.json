@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-034-snow-elves-falmer-forgotten-vale",
+  "subjects": [
+    {
+      "id": "tes:forgotten-vale",
+      "name": "Forgotten Vale",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/forgotten-vale.json",
+      "source": {
+        "id": "uesp:forgotten-vale",
+        "url": "https://en.uesp.net/wiki/Lore:Forgotten_Vale",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:chantry-auriel",
+      "name": "Chantry of Auri-El",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/chantry-auriel.json",
+      "source": {
+        "id": "uesp:chantry-auriel",
+        "url": "https://en.uesp.net/wiki/Lore:Chantry_of_Auri-El",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:darkfall-cave",
+      "name": "Darkfall Cave",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/darkfall-cave.json",
+      "source": {
+        "id": "uesp:darkfall-cave",
+        "url": "https://en.uesp.net/wiki/Lore:Darkfall_Cave",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:blackreach",
+      "name": "Blackreach",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/blackreach.json",
+      "source": {
+        "id": "uesp:blackreach",
+        "url": "https://en.uesp.net/wiki/Lore:Blackreach",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:irkingthand",
+      "name": "Irkngthand",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/irkingthand.json",
+      "source": {
+        "id": "uesp:irkingthand",
+        "url": "https://en.uesp.net/wiki/Lore:Irkngthand",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:raldbthar",
+      "name": "Raldbthar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/raldbthar.json",
+      "source": {
+        "id": "uesp:raldbthar",
+        "url": "https://en.uesp.net/wiki/Lore:Raldbthar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mzinchaleft",
+      "name": "Mzinchaleft",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/mzinchaleft.json",
+      "source": {
+        "id": "uesp:mzinchaleft",
+        "url": "https://en.uesp.net/wiki/Lore:Mzinchaleft",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Use Snow Elf and Falmer terminology with historical precision; do not assume every source uses the terms identically",
+    "Gelebor and Vyrthur provide unusually valuable first-person testimony but remain individual witnesses rather than omniscient narrators",
+    "The cause and mechanism of Falmer transformation must preserve Dwemer agreement accounts, later testimony and uncertainty separately",
+    "Do not infer cultural continuity between ancient Snow Elf religion and every later Falmer community without evidence",
+    "Falmer language evidence should distinguish direct inscriptions/translations from scholarly reconstruction",
+    "Cross-link existing Snow Elves, Falmer, Dwemer, Blackreach, Forgotten Vale, Auri-El, Gelebor, Vyrthur, Auriel's Bow and Falmer-Dwemer records"
+  ]
+}

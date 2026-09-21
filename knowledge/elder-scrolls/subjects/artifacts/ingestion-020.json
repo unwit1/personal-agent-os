@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-020-solstheim-dragonborn-apocrypha",
+  "subjects": [
+    {
+      "id": "tes:black-books",
+      "name": "Black Books",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/black-books.json",
+      "source": {
+        "id": "uesp:black-books",
+        "url": "https://en.uesp.net/wiki/Lore:Black_Books",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:black-book-waking-dreams",
+      "name": "Waking Dreams",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/black-book-waking-dreams.json",
+      "source": {
+        "id": "uesp:black-book-waking-dreams",
+        "url": "https://en.uesp.net/wiki/Lore:Waking_Dreams",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:black-book-epistolary-acumen",
+      "name": "Epistolary Acumen",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/black-book-epistolary-acumen.json",
+      "source": {
+        "id": "uesp:black-book-epistolary-acumen",
+        "url": "https://en.uesp.net/wiki/Lore:Epistolary_Acumen",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:black-book-untold-legends",
+      "name": "Untold Legends",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/black-book-untold-legends.json",
+      "source": {
+        "id": "uesp:black-book-untold-legends",
+        "url": "https://en.uesp.net/wiki/Lore:Untold_Legends",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:black-book-filament-filigree",
+      "name": "Filament and Filigree",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/black-book-filament-filigree.json",
+      "source": {
+        "id": "uesp:black-book-filament-filigree",
+        "url": "https://en.uesp.net/wiki/Lore:Filament_and_Filigree",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:black-book-hidden-twilight",
+      "name": "The Hidden Twilight",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/black-book-hidden-twilight.json",
+      "source": {
+        "id": "uesp:black-book-hidden-twilight",
+        "url": "https://en.uesp.net/wiki/Lore:The_Hidden_Twilight",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:black-book-sallow-regent",
+      "name": "The Sallow Regent",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/black-book-sallow-regent.json",
+      "source": {
+        "id": "uesp:black-book-sallow-regent",
+        "url": "https://en.uesp.net/wiki/Lore:The_Sallow_Regent",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:black-book-winds-change",
+      "name": "The Winds of Change",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/black-book-winds-change.json",
+      "source": {
+        "id": "uesp:black-book-winds-change",
+        "url": "https://en.uesp.net/wiki/Lore:The_Winds_of_Change",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:bloodskal-blade",
+      "name": "Bloodskal Blade",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/bloodskal-blade.json",
+      "source": {
+        "id": "uesp:bloodskal-blade",
+        "url": "https://en.uesp.net/wiki/Lore:Bloodskal_Blade",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:miraaks-mask",
+      "name": "Miraak's Mask",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/miraaks-mask.json",
+      "source": {
+        "id": "uesp:miraaks-mask",
+        "url": "https://en.uesp.net/wiki/Lore:Miraak%27s_Mask",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Distinguish Skaal religious belief from directly observed supernatural events",
+    "Hermaeus Mora dialogue establishes what Mora says/claims, not necessarily omniscient truth",
+    "Player-character titles and actions must remain quest/branch scoped where choices vary",
+    "Black Books should be modeled as individual artifacts linked to a collection/concept, not collapsed into one item",
+    "Cross-link Solstheim history to Morrowind/Red Year records while preserving differing source perspectives",
+    "Do not duplicate existing Miraak, Neloth, Apocrypha, Solstheim, Red Year or Hermaeus Mora subjects; merge by canonical subject ID during materialization"
+  ]
+}

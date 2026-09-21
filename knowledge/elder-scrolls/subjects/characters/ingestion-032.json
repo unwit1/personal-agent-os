@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-032-alessian-ayleid-pelinal",
+  "subjects": [
+    {
+      "id": "tes:pelinal-whitestrake",
+      "name": "Pelinal Whitestrake",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/pelinal-whitestrake.json",
+      "source": {
+        "id": "uesp:pelinal-whitestrake",
+        "url": "https://en.uesp.net/wiki/Lore:Pelinal_Whitestrake",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:saint-alessia",
+      "name": "Saint Alessia",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/saint-alessia.json",
+      "source": {
+        "id": "uesp:saint-alessia",
+        "url": "https://en.uesp.net/wiki/Lore:Saint_Alessia",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:morihaus",
+      "name": "Morihaus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/morihaus.json",
+      "source": {
+        "id": "uesp:morihaus",
+        "url": "https://en.uesp.net/wiki/Lore:Morihaus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:umaril-unfeathered",
+      "name": "Umaril the Unfeathered",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/umaril-unfeathered.json",
+      "source": {
+        "id": "uesp:umaril-unfeathered",
+        "url": "https://en.uesp.net/wiki/Lore:Umaril_the_Unfeathered",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:marukh",
+      "name": "Marukh",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/marukh.json",
+      "source": {
+        "id": "uesp:marukh",
+        "url": "https://en.uesp.net/wiki/Lore:Marukh",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:belharza",
+      "name": "Belharza",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/belharza.json",
+      "source": {
+        "id": "uesp:belharza",
+        "url": "https://en.uesp.net/wiki/Lore:Belharza",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ada-bal",
+      "name": "Ada Bal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/ada-bal.json",
+      "source": {
+        "id": "uesp:ada-bal",
+        "url": "https://en.uesp.net/wiki/Lore:Ada_Bal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "The Song of Pelinal is an in-universe literary/historical source; preserve narrator, edition and mythic embellishment uncertainty",
+    "Ayleid culture must not be flattened into a single political or religious bloc; preserve city-state and cult differences",
+    "Claims about Pelinal's identity, madness, divinity or time-displacement remain source-specific interpretations unless directly evidenced",
+    "Middle Dawn chronology is inherently disrupted; preserve conflicting durations, memories and accounts rather than forcing a normal timeline",
+    "Alessian Order doctrine must be separated from earlier Alessian rebellion and later interpretations of Alessia",
+    "Cross-link existing Alessia, Pelinal, Morihaus, Umaril, Ayleid, White-Gold Tower, Amulet of Kings, Chim-el Adabal, Middle Dawn and Knights of the Nine records"
+  ]
+}

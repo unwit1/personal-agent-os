@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-023-arena-daggerfall-warp-west",
+  "subjects": [
+    {
+      "id": "tes:eternal-champion",
+      "name": "Eternal Champion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/eternal-champion.json",
+      "source": {
+        "id": "uesp:eternal-champion",
+        "url": "https://en.uesp.net/wiki/Lore:Eternal_Champion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:jagar-tharn",
+      "name": "Jagar Tharn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/jagar-tharn.json",
+      "source": {
+        "id": "uesp:jagar-tharn",
+        "url": "https://en.uesp.net/wiki/Lore:Jagar_Tharn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:uriel-septim-vii",
+      "name": "Uriel Septim VII",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/uriel-septim-vii.json",
+      "source": {
+        "id": "uesp:uriel-septim-vii",
+        "url": "https://en.uesp.net/wiki/Lore:Uriel_Septim_VII",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:baren-ziah",
+      "name": "Barenziah",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/baren-ziah.json",
+      "source": {
+        "id": "uesp:baren-ziah",
+        "url": "https://en.uesp.net/wiki/Lore:Barenziah",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:helseth",
+      "name": "Hlaalu Helseth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/helseth.json",
+      "source": {
+        "id": "uesp:helseth",
+        "url": "https://en.uesp.net/wiki/Lore:Hlaalu_Helseth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:symmachus",
+      "name": "Symmachus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/symmachus.json",
+      "source": {
+        "id": "uesp:symmachus",
+        "url": "https://en.uesp.net/wiki/Lore:Symmachus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:adwy?",
+      "name": "King Eadwyre",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/adwy?.json",
+      "source": {
+        "id": "uesp:adwy?",
+        "url": "https://en.uesp.net/wiki/Lore:King_Eadwyre",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:lysandus",
+      "name": "Lysandus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/lysandus.json",
+      "source": {
+        "id": "uesp:lysandus",
+        "url": "https://en.uesp.net/wiki/Lore:Lysandus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:gortwog",
+      "name": "Gortwog gro-Nagorm",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/gortwog.json",
+      "source": {
+        "id": "uesp:gortwog",
+        "url": "https://en.uesp.net/wiki/Lore:Gortwog_gro-Nagorm",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mannimarco",
+      "name": "Mannimarco",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/mannimarco.json",
+      "source": {
+        "id": "uesp:mannimarco",
+        "url": "https://en.uesp.net/wiki/Lore:Mannimarco",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Arena and Daggerfall player-character identities remain minimally specified unless primary sources establish details",
+    "Daggerfall's mutually exclusive endings must remain separate outcome branches before Warp-in-the-West reconciliation",
+    "Do not use later Dragon Break explanations to erase what individual earlier sources report",
+    "Underking, Zurin Arctus, Wulfharth and Mantella identity/soul claims require source-specific attribution",
+    "The Real Barenziah, Biography of Queen Barenziah and Arcturian Heresy retain genre, authorship and reliability metadata",
+    "Cross-link existing Numidium, Mantella, Mannimarco, Uriel VII, Daggerfall, Wayrest and Orsinium subjects"
+  ]
+}

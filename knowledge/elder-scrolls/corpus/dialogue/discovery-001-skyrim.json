@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "batch_id": "dialogue-discovery-001-skyrim",
+  "game": "skyrim",
+  "status": "active",
+  "verified_pages": [
+    {
+      "id": "til:skyrim:horn-jurgen-windcaller",
+      "title": "TES5 Skyrim: The Horn of Jurgen Windcaller",
+      "url": "https://www.imperial-library.info/content/tes5-skyrim-the-horn-of-jurgen-windcaller",
+      "source_kind": "quest_dialogue_transcript",
+      "speakers_observed": [
+        "Player Character",
+        "Arngeir",
+        "Delphine",
+        "Wulfgar",
+        "The Greybeards, together",
+        "Mysterious Note"
+      ],
+      "structure_observed": [
+        "player prompts",
+        "NPC responses",
+        "stage directions",
+        "quest progression",
+        "translated dialogue"
+      ],
+      "ingestion_status": "ready_for_local_fetch"
+    }
+  ],
+  "extraction_notes": [
+    "Split headings into speaker turns while retaining intervening stage directions.",
+    "Pair Player Character prompts with the following NPC response when structurally appropriate.",
+    "Retain untranslated and translated Greybeard ceremony as distinct evidence passages.",
+    "Quest narration supplied by the transcript compiler is context, not in-game NPC dialogue.",
+    "Preserve exact source URL and hash the fetched body locally."
+  ]
+}

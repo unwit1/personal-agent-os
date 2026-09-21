@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-014-religion-afterlife-metaphysics",
+  "subjects": [
+    {
+      "id": "tes:eye-magnus",
+      "name": "Eye of Magnus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/eye-magnus.json",
+      "source": {
+        "id": "uesp:eye-magnus",
+        "url": "https://en.uesp.net/wiki/Lore:Eye_of_Magnus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:staff-magnus",
+      "name": "Staff of Magnus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/staff-magnus.json",
+      "source": {
+        "id": "uesp:staff-magnus",
+        "url": "https://en.uesp.net/wiki/Lore:Staff_of_Magnus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:brush-truepaint",
+      "name": "Brush of Truepaint",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/brush-truepaint.json",
+      "source": {
+        "id": "uesp:brush-truepaint",
+        "url": "https://en.uesp.net/wiki/Lore:Brush_of_Truepaint",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Religious doctrine and cosmology must remain attributed to source/culture when not directly observable",
+    "Do not collapse culture-specific deities into a single identity solely because sources draw parallels",
+    "Afterlife descriptions should distinguish doctrine, testimony, observed game-space and scholarly interpretation",
+    "Dragon Break, Kalpa, Tower and Stone claims require especially strict source-level provenance",
+    "Track alternate divine names as aliases or proposed equivalences with evidence, not automatic identity merges"
+  ]
+}

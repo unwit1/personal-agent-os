@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-023-arena-daggerfall-warp-west",
+  "subjects": [
+    {
+      "id": "tes:staff-chaos",
+      "name": "Staff of Chaos",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/staff-chaos.json",
+      "source": {
+        "id": "uesp:staff-chaos",
+        "url": "https://en.uesp.net/wiki/Lore:Staff_of_Chaos",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mantella",
+      "name": "Mantella",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/mantella.json",
+      "source": {
+        "id": "uesp:mantella",
+        "url": "https://en.uesp.net/wiki/Lore:Mantella",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:totem-tiber-septim",
+      "name": "Totem of Tiber Septim",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/totem-tiber-septim.json",
+      "source": {
+        "id": "uesp:totem-tiber-septim",
+        "url": "https://en.uesp.net/wiki/Lore:Totem_of_Tiber_Septim",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:numidium",
+      "name": "Numidium",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/numidium.json",
+      "source": {
+        "id": "uesp:numidium",
+        "url": "https://en.uesp.net/wiki/Lore:Numidium",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Arena and Daggerfall player-character identities remain minimally specified unless primary sources establish details",
+    "Daggerfall's mutually exclusive endings must remain separate outcome branches before Warp-in-the-West reconciliation",
+    "Do not use later Dragon Break explanations to erase what individual earlier sources report",
+    "Underking, Zurin Arctus, Wulfharth and Mantella identity/soul claims require source-specific attribution",
+    "The Real Barenziah, Biography of Queen Barenziah and Arcturian Heresy retain genre, authorship and reliability metadata",
+    "Cross-link existing Numidium, Mantella, Mannimarco, Uriel VII, Daggerfall, Wayrest and Orsinium subjects"
+  ]
+}

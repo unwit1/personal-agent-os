@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "game": "skyrim",
+  "status": "active",
+  "seed": {
+    "title": "TES5 Skyrim: The Horn of Jurgen Windcaller",
+    "url": "https://www.imperial-library.info/content/tes5-skyrim-the-horn-of-jurgen-windcaller"
+  },
+  "linked_transcript_targets": [
+    {
+      "title": "TES5 Skyrim: The Way of the Voice",
+      "relationship": "adjacent_quest_transcript",
+      "status": "discovery_queued"
+    }
+  ],
+  "parser_findings": [
+    "The transcript contains a trailing link/title to the adjacent quest transcript The Way of the Voice.",
+    "Use transcript-to-transcript navigation as a discovery frontier for quest-chain crawling.",
+    "Do not assume every linked page is dialogue; classify the destination after fetch."
+  ],
+  "next_actions": [
+    "Resolve the canonical TIL URL for The Way of the Voice.",
+    "Walk previous/next or related transcript links from verified Skyrim pages.",
+    "Record quest-chain ordering separately from page crawl order."
+  ]
+}

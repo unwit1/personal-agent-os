@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-023-claim-resolution",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:claim-first-attestation",
+      "title": "First-attestation claim resolution",
+      "document_kind": "claim_resolution_queue",
+      "status": "queued",
+      "subjects": [
+        "first attestation",
+        "terminology",
+        "concept lineage"
+      ]
+    },
+    {
+      "id": "til:claim-speaker-resolution",
+      "title": "Speaker and author resolution",
+      "document_kind": "claim_resolution_queue",
+      "status": "queued",
+      "subjects": [
+        "speaker",
+        "author",
+        "roleplay",
+        "interview"
+      ]
+    },
+    {
+      "id": "til:claim-context-resolution",
+      "title": "Passage-context resolution",
+      "document_kind": "claim_resolution_queue",
+      "status": "queued",
+      "subjects": [
+        "context",
+        "quotation",
+        "surrounding passage"
+      ]
+    },
+    {
+      "id": "til:claim-contradiction-resolution",
+      "title": "Developer-source contradiction mapping",
+      "document_kind": "claim_resolution_queue",
+      "status": "queued",
+      "subjects": [
+        "contradictions",
+        "revisions",
+        "developer disagreement"
+      ]
+    },
+    {
+      "id": "til:claim-primary-adoption",
+      "title": "Primary-source adoption verification",
+      "document_kind": "claim_resolution_queue",
+      "status": "queued",
+      "subjects": [
+        "adoption",
+        "released games",
+        "official publications"
+      ]
+    },
+    {
+      "id": "til:claim-community-drift",
+      "title": "Community-definition drift detection",
+      "document_kind": "claim_resolution_queue",
+      "status": "queued",
+      "subjects": [
+        "community synthesis",
+        "definition drift",
+        "misquotation",
+        "lore memes"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Claim resolution operates at passage/proposition granularity, not whole-document canon labels.",
+    "Detect popular paraphrases that materially exceed what the cited source says.",
+    "A developer disagreement is represented as attributed competing claims, not averaged into consensus.",
+    "Verify primary adoption using the released source passage itself.",
+    "Flag terminology whose common community definition is substantially more specific than its earliest attributable usage."
+  ]
+}

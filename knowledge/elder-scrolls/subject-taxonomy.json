@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "purpose": "Human-browsable canonical subject organization. These files are lightweight manifests/records; bulk corpus and indexes remain local/rebuildable.",
+  "directories": {
+    "characters": {
+      "entity_types": [
+        "person"
+      ],
+      "description": "Named people and individual sapient beings."
+    },
+    "deities": {
+      "entity_types": [
+        "deity"
+      ],
+      "description": "Gods, Daedra, culture-specific divinities and explicitly divine identities."
+    },
+    "peoples": {
+      "entity_types": [
+        "people",
+        "species_or_entity",
+        "creature"
+      ],
+      "description": "Races, cultures, peoples, species and collective beings."
+    },
+    "locations": {
+      "entity_types": [
+        "place",
+        "plane"
+      ],
+      "description": "Continents, provinces, cities, ruins, realms and planes."
+    },
+    "events": {
+      "entity_types": [
+        "event",
+        "event_or_period",
+        "event_or_disease",
+        "event_or_ritual"
+      ],
+      "description": "Wars, crises, migrations, disasters and other historical events."
+    },
+    "organizations": {
+      "entity_types": [
+        "organization",
+        "faction",
+        "family"
+      ],
+      "description": "Factions, dynasties, cults, orders, houses and political organizations."
+    },
+    "religions": {
+      "entity_types": [
+        "religion"
+      ],
+      "description": "Religious systems, cult traditions and institutional doctrines."
+    },
+    "artifacts": {
+      "entity_types": [
+        "artifact"
+      ],
+      "description": "Named artifacts and important unique objects."
+    },
+    "texts": {
+      "entity_types": [
+        "text",
+        "text_appearance"
+      ],
+      "description": "In-universe works and their game-specific appearances."
+    },
+    "concepts": {
+      "entity_types": [
+        "concept",
+        "title",
+        "substance"
+      ],
+      "description": "Ideas, metaphysical concepts, titles, practices and notable substances."
+    },
+    "structures": {
+      "entity_types": [
+        "structure",
+        "place_or_structure",
+        "event_or_structure"
+      ],
+      "description": "Important constructed structures when structure identity is more useful than geographic identity."
+    },
+    "other": {
+      "entity_types": [
+        "*"
+      ],
+      "description": "Temporary holding category for types awaiting normalization."
+    }
+  },
+  "rules": [
+    "Every subject has one primary directory for human browsing.",
+    "Cross-category identity is represented by relationships/aliases rather than duplicate canonical subject records.",
+    "Continuity and provenance are properties of claims/evidence, not directory names.",
+    "Game-specific appearances of a work may live under texts/appearances while the abstract work remains under texts.",
+    "Do not store fetched article bodies in Git; subject records point to local/rebuildable evidence.",
+    "New entity types must be mapped here before bulk ingestion."
+  ],
+  "path_pattern": "knowledge/<setting>/subjects/<category>/<stable-id>.json"
+}

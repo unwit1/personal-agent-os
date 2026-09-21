@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-040-bosmer-green-pact-valenwood",
+  "subjects": [
+    {
+      "id": "tes:founding-camoran-dynasty",
+      "name": "Founding of the Camoran Dynasty",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/founding-camoran-dynasty.json",
+      "source": {
+        "id": "uesp:founding-camoran-dynasty",
+        "url": "https://en.uesp.net/wiki/Lore:Founding_of_the_Camoran_Dynasty",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:wild-hunt",
+      "name": "Wild Hunt",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/wild-hunt.json",
+      "source": {
+        "id": "uesp:wild-hunt",
+        "url": "https://en.uesp.net/wiki/Lore:Wild_Hunt",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:five-year-war",
+      "name": "Five Year War",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/five-year-war.json",
+      "source": {
+        "id": "uesp:five-year-war",
+        "url": "https://en.uesp.net/wiki/Lore:Five_Year_War",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:camoran-usurper-war",
+      "name": "Camoran Usurper's War",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/camoran-usurper-war.json",
+      "source": {
+        "id": "uesp:camoran-usurper-war",
+        "url": "https://en.uesp.net/wiki/Lore:Camoran_Usurper%27s_War",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Green Pact practice must distinguish theological ideal, regional custom, historical practice and individual interpretation",
+    "Do not treat every Bosmer as observing the Green Pact identically across eras and communities",
+    "Spinner stories may have unusual relationships to history and possibility, but narrative claims still retain speaker and context provenance",
+    "Wild Hunt accounts should distinguish witnessed transformations, historical reports, ritual doctrine and later retellings",
+    "Silvenar and Green Lady are offices/roles as well as individuals in particular periods; model office identity separately from officeholders",
+    "Cross-link existing Bosmer, Valenwood, Green Pact, Y'ffre, Wild Hunt, Camoran, Grahtwood, Elden Root, Silvenar and Green Lady records"
+  ]
+}

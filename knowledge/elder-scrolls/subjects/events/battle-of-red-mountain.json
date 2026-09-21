@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "tes:battle-of-red-mountain",
+  "library_id": "elder-scrolls",
+  "name": "Battle of Red Mountain",
+  "entity_type": "event",
+  "category": "events",
+  "canonical_path": "knowledge/elder-scrolls/subjects/events/battle-of-red-mountain.json",
+  "continuity_model": "claims_and_evidence_scoped",
+  "sources": [
+    {
+      "source_id": "uesp:battle-of-red-mountain",
+      "url": "https://en.uesp.net/wiki/Lore:Battle_of_Red_Mountain",
+      "source_class": "secondary_reference",
+      "status": "queued"
+    }
+  ],
+  "claims": [],
+  "relationships": [],
+  "notes": "Migrated from an earlier ingestion queue into the categorized subject library. Claims remain empty until evidence-backed extraction."
+}

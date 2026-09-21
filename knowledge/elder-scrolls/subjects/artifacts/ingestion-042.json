@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-042-reman-akaviri-potentate",
+  "subjects": [
+    {
+      "id": "tes:blood-seal",
+      "name": "Blood Seal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/blood-seal.json",
+      "source": {
+        "id": "uesp:blood-seal",
+        "url": "https://en.uesp.net/wiki/Lore:Blood_Seal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:akaviri-katana",
+      "name": "Akaviri Katana",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/akaviri-katana.json",
+      "source": {
+        "id": "uesp:akaviri-katana",
+        "url": "https://en.uesp.net/wiki/Lore:Akaviri_Katana",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragonhorn",
+      "name": "Dragonhorn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/dragonhorn.json",
+      "source": {
+        "id": "uesp:dragonhorn",
+        "url": "https://en.uesp.net/wiki/Lore:Dragonhorn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Akaviri peoples must remain distinct; do not treat Tsaesci, Kamal, Ka Po' Tun and Tang Mo as interchangeable descriptions of one culture",
+    "Claims about Tsaesci physical nature are contradictory and often mediated by outsider texts; preserve competing interpretations",
+    "2920 is historical fiction and provides evidence for cultural memory/literary tradition, not automatic verbatim First Era history",
+    "Reman birth and divine-origin narratives in the Remanada retain mythic/propagandistic provenance",
+    "Distinguish the First and Second Akaviri invasions and their different peoples, motives and evidence",
+    "Cross-link existing Reman, Second Empire, Akaviri Potentate, Dragonguard, Jorunn, Almalexia, Wulfharth and Second Akaviri Invasion records"
+  ]
+}

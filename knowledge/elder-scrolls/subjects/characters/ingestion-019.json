@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-019-skyrim-politics-college",
+  "subjects": [
+    {
+      "id": "tes:ulfric-stormcloak",
+      "name": "Ulfric Stormcloak",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/ulfric-stormcloak.json",
+      "source": {
+        "id": "uesp:ulfric-stormcloak",
+        "url": "https://en.uesp.net/wiki/Lore:Ulfric_Stormcloak",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:tullius",
+      "name": "General Tullius",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/tullius.json",
+      "source": {
+        "id": "uesp:tullius",
+        "url": "https://en.uesp.net/wiki/Lore:General_Tullius",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:elisif",
+      "name": "Elisif the Fair",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/elisif.json",
+      "source": {
+        "id": "uesp:elisif",
+        "url": "https://en.uesp.net/wiki/Lore:Elisif_the_Fair",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:torygg",
+      "name": "Torygg",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/torygg.json",
+      "source": {
+        "id": "uesp:torygg",
+        "url": "https://en.uesp.net/wiki/Lore:Torygg",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:balgruuf",
+      "name": "Balgruuf the Greater",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/balgruuf.json",
+      "source": {
+        "id": "uesp:balgruuf",
+        "url": "https://en.uesp.net/wiki/Lore:Balgruuf_the_Greater",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:maven-black-briar",
+      "name": "Maven Black-Briar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/maven-black-briar.json",
+      "source": {
+        "id": "uesp:maven-black-briar",
+        "url": "https://en.uesp.net/wiki/Lore:Maven_Black-Briar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:madena",
+      "name": "Madena",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/madena.json",
+      "source": {
+        "id": "uesp:madena",
+        "url": "https://en.uesp.net/wiki/Lore:Madena",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:thalmor-ancano",
+      "name": "Ancano",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/thalmor-ancano.json",
+      "source": {
+        "id": "uesp:thalmor-ancano",
+        "url": "https://en.uesp.net/wiki/Lore:Ancano",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Civil War claims must preserve speaker faction, quest branch and player-dependent outcomes",
+    "Do not canonize mutually exclusive Skyrim quest outcomes; record them as branch-dependent evidence",
+    "Political accusations about Ulfric, the Empire or Thalmor require attribution rather than narrator voice",
+    "College/Great Collapse explanations should preserve competing theories and uncertainty",
+    "Distinguish institutions from places when College of Winterhold or similar names refer to both",
+    "Talos worship enforcement should retain time, location and source context"
+  ]
+}

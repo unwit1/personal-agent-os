@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-041-orsimer-orsinium-malacath",
+  "subjects": [
+    {
+      "id": "tes:code-malacath",
+      "name": "Code of Malacath",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/code-malacath.json",
+      "source": {
+        "id": "uesp:code-malacath",
+        "url": "https://en.uesp.net/wiki/Lore:Code_of_Malacath",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:stronghold-system",
+      "name": "Orc Strongholds",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/stronghold-system.json",
+      "source": {
+        "id": "uesp:stronghold-system",
+        "url": "https://en.uesp.net/wiki/Lore:Orc_Strongholds",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:orc-clan-law",
+      "name": "Orc Clan Law",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/orc-clan-law.json",
+      "source": {
+        "id": "uesp:orc-clan-law",
+        "url": "https://en.uesp.net/wiki/Lore:Orc_Clan_Law",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:trinimac-malacath",
+      "name": "Trinimac-Malacath Transformation",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/trinimac-malacath.json",
+      "source": {
+        "id": "uesp:trinimac-malacath",
+        "url": "https://en.uesp.net/wiki/Lore:Trinimac-Malacath_Transformation",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:pariah-folk",
+      "name": "Pariah Folk",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/pariah-folk.json",
+      "source": {
+        "id": "uesp:pariah-folk",
+        "url": "https://en.uesp.net/wiki/Lore:Pariah_Folk",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:forge-wife",
+      "name": "Forge-Wife",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/forge-wife.json",
+      "source": {
+        "id": "uesp:forge-wife",
+        "url": "https://en.uesp.net/wiki/Lore:Forge-Wife",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:wise-woman",
+      "name": "Wise Woman",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/wise-woman.json",
+      "source": {
+        "id": "uesp:wise-woman",
+        "url": "https://en.uesp.net/wiki/Lore:Wise_Woman",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Orsimer origin accounts involving Trinimac, Boethiah and Malacath remain religious/mythic traditions with source-specific provenance",
+    "Do not treat Orc stronghold customs as universal to every Orsimer community, city or historical period",
+    "Different incarnations of Orsinium must be modeled as historically distinct settlements/polities linked by name and tradition",
+    "The Code of Malacath should distinguish prescriptive religious/legal ideals from observed practice",
+    "Outsider descriptions of Orcs retain authorial bias metadata and must not override Orc self-description",
+    "Cross-link existing Orsimer, Orsinium, Wrothgar, Malacath, Trinimac, Boethiah, First Orsinium, Ranser's War and Gortwog records"
+  ]
+}

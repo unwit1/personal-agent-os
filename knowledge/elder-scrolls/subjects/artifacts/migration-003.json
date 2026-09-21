@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:chim-el-adabal",
+      "name": "Chim-el Adabal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/chim-el-adabal.json",
+      "source": {
+        "id": "uesp:chim-el-adabal",
+        "url": "https://en.uesp.net/wiki/Lore:Chim-el_Adabal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:staff-of-chaos",
+      "name": "Staff of Chaos",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/staff-of-chaos.json",
+      "source": {
+        "id": "uesp:staff-of-chaos",
+        "url": "https://en.uesp.net/wiki/Lore:Staff_of_Chaos",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:amulet-of-kings",
+      "name": "Amulet of Kings",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/amulet-of-kings.json",
+      "source": {
+        "id": "uesp:amulet-of-kings",
+        "url": "https://en.uesp.net/wiki/Lore:Amulet_of_Kings",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration from earlier queues. Preserve source-era, narrator, cultural and doctrinal qualifiers during evidence extraction."
+}

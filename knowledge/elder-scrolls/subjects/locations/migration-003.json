@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:white-gold-tower",
+      "name": "White-Gold Tower",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/white-gold-tower.json",
+      "source": {
+        "id": "uesp:white-gold-tower",
+        "url": "https://en.uesp.net/wiki/Lore:White-Gold_Tower",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:imperial-city",
+      "name": "Imperial City",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/imperial-city.json",
+      "source": {
+        "id": "uesp:imperial-city",
+        "url": "https://en.uesp.net/wiki/Lore:Imperial_City",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:orsinium",
+      "name": "Orsinium",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/orsinium.json",
+      "source": {
+        "id": "uesp:orsinium",
+        "url": "https://en.uesp.net/wiki/Lore:Orsinium",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:wrothgar",
+      "name": "Wrothgar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/wrothgar.json",
+      "source": {
+        "id": "uesp:wrothgar",
+        "url": "https://en.uesp.net/wiki/Lore:Wrothgar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:the-reach",
+      "name": "The Reach",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/the-reach.json",
+      "source": {
+        "id": "uesp:the-reach",
+        "url": "https://en.uesp.net/wiki/Lore:The_Reach",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:alinor",
+      "name": "Alinor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/alinor.json",
+      "source": {
+        "id": "uesp:alinor",
+        "url": "https://en.uesp.net/wiki/Lore:Alinor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:auridon",
+      "name": "Auridon",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/auridon.json",
+      "source": {
+        "id": "uesp:auridon",
+        "url": "https://en.uesp.net/wiki/Lore:Auridon",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:arteaum",
+      "name": "Artaeum",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/arteaum.json",
+      "source": {
+        "id": "uesp:arteaum",
+        "url": "https://en.uesp.net/wiki/Lore:Artaeum",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:adamantine-tower",
+      "name": "Adamantine Tower",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/adamantine-tower.json",
+      "source": {
+        "id": "uesp:adamantine-tower",
+        "url": "https://en.uesp.net/wiki/Lore:Adamantine_Tower",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:grahtwood",
+      "name": "Grahtwood",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/grahtwood.json",
+      "source": {
+        "id": "uesp:grahtwood",
+        "url": "https://en.uesp.net/wiki/Lore:Grahtwood",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:elden-root",
+      "name": "Elden Root",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/elden-root.json",
+      "source": {
+        "id": "uesp:elden-root",
+        "url": "https://en.uesp.net/wiki/Lore:Elden_Root",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:murkmire",
+      "name": "Murkmire",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/murkmire.json",
+      "source": {
+        "id": "uesp:murkmire",
+        "url": "https://en.uesp.net/wiki/Lore:Murkmire",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration from earlier queues. Preserve source-era, narrator, cultural and doctrinal qualifiers during evidence extraction."
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "status": "active",
+  "strategy": [
+    {
+      "order": 1,
+      "method": "TIL internal game/category/index traversal",
+      "purpose": "Enumerate candidate pages without search-engine bias."
+    },
+    {
+      "order": 2,
+      "method": "Internal-link breadth-first crawl",
+      "purpose": "Expand from verified transcript and storyline pages while avoiding single-quest recursion."
+    },
+    {
+      "order": 3,
+      "method": "Page-structure classifier",
+      "purpose": "Detect repeated speaker headings, player prompts, scene directions and storyline transcript structure."
+    },
+    {
+      "order": 4,
+      "method": "Search engine fallback",
+      "purpose": "Find orphaned or poorly linked transcript pages only after internal traversal."
+    },
+    {
+      "order": 5,
+      "method": "Archive resolution",
+      "purpose": "Recover dead/renamed pages and preserve provenance."
+    }
+  ],
+  "breadth_scheduler": {
+    "unit": "game",
+    "rotation": [
+      "skyrim",
+      "oblivion",
+      "morrowind",
+      "redguard",
+      "battlespire",
+      "eso",
+      "blades",
+      "daggerfall",
+      "arena"
+    ],
+    "max_consecutive_pages_per_game": 25,
+    "reason": "Prevent one game or quest chain from monopolizing ingestion."
+  },
+  "outputs": [
+    "candidate URL ledger",
+    "classification",
+    "game",
+    "source kind",
+    "crawl status",
+    "local content hash",
+    "speaker/quest metadata after fetch"
+  ],
+  "completion_metrics": [
+    "candidate pages discovered per game",
+    "classified pages per game",
+    "locally fetched pages per game",
+    "parsed transcript pages per game",
+    "classification false-positive sample rate"
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-030-dark-heart-skyrim-reach",
+  "subjects": [
+    {
+      "id": "tes:gray-host-invasion",
+      "name": "Gray Host Invasion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/gray-host-invasion.json",
+      "source": {
+        "id": "uesp:gray-host-invasion",
+        "url": "https://en.uesp.net/wiki/Lore:Gray_Host_Invasion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dark-heart-skyrim",
+      "name": "Dark Heart of Skyrim",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/dark-heart-skyrim.json",
+      "source": {
+        "id": "uesp:dark-heart-skyrim",
+        "url": "https://en.uesp.net/wiki/Lore:Dark_Heart_of_Skyrim",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:harrowstorms",
+      "name": "Harrowstorms",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/harrowstorms.json",
+      "source": {
+        "id": "uesp:harrowstorms",
+        "url": "https://en.uesp.net/wiki/Lore:Harrowstorms",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:markarth-crisis",
+      "name": "Markarth Crisis",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/markarth-crisis.json",
+      "source": {
+        "id": "uesp:markarth-crisis",
+        "url": "https://en.uesp.net/wiki/Lore:Markarth_Crisis",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:battle-castle-thorn",
+      "name": "Battle of Castle Thorn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/battle-castle-thorn.json",
+      "source": {
+        "id": "uesp:battle-castle-thorn",
+        "url": "https://en.uesp.net/wiki/Lore:Battle_of_Castle_Thorn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Keep ESO-era Western Skyrim and Reach politics temporally separate from Fourth Era Skyrim",
+    "Reachfolk religion and magic should prioritize internally described traditions while retaining outsider accounts as attributed evidence",
+    "Vampire and werewolf capabilities must distinguish narrative evidence from combat/game mechanics",
+    "Dark Heart and Void metaphysics require source-specific claims rather than a single synthesized cosmology",
+    "Blackreach is a broad subterranean region; preserve named cavern/subregion distinctions across games",
+    "Cross-link existing Reach, Markarth, Solitude, Lyris Titanborn, vampirism, Blackreach and Reachfolk subjects rather than duplicate them"
+  ]
+}

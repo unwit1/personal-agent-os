@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-036-nerevarine-sixth-house-prophecy",
+  "subjects": [
+    {
+      "id": "tes:awakening-dagoth-ur",
+      "name": "Awakening of Dagoth Ur",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/awakening-dagoth-ur.json",
+      "source": {
+        "id": "uesp:awakening-dagoth-ur",
+        "url": "https://en.uesp.net/wiki/Lore:Awakening_of_Dagoth_Ur",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:nerevarine-crisis",
+      "name": "Nerevarine Crisis",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/nerevarine-crisis.json",
+      "source": {
+        "id": "uesp:nerevarine-crisis",
+        "url": "https://en.uesp.net/wiki/Lore:Nerevarine_Crisis",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:fall-sixth-house",
+      "name": "Fall of the Sixth House",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/fall-sixth-house.json",
+      "source": {
+        "id": "uesp:fall-sixth-house",
+        "url": "https://en.uesp.net/wiki/Lore:Fall_of_the_Sixth_House",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:end-tribunal-era",
+      "name": "End of the Tribunal Era",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/end-tribunal-era.json",
+      "source": {
+        "id": "uesp:end-tribunal-era",
+        "url": "https://en.uesp.net/wiki/Lore:End_of_the_Tribunal_Era",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Never force a single answer to whether the Nerevarine is literal reincarnation, prophetic fulfillment, constructed identity, or some combination; preserve evidence for each interpretation",
+    "Player-defined Nerevarine biography, race, gender, faction memberships and optional quest outcomes remain variable",
+    "Dagoth Ur's dreams, theology and historical claims remain attributed even when delivered directly to the player",
+    "Prophecy texts must preserve exact source lineage, translation/context and the distinction between prediction and retrospective interpretation",
+    "Corprus and divine-disease mechanics should distinguish narrative observations from gameplay-stat effects",
+    "Cross-link existing Nerevarine, Dagoth Ur, Tribunal, Sixth House, Ashlander tribes, Red Mountain, Heart of Lorkhan and Kagrenac-tool records"
+  ]
+}

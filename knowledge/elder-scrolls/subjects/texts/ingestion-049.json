@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-049-argonian-hist-duskfall",
+  "subjects": [
+    {
+      "id": "tes:children-root",
+      "name": "Children of the Root",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/children-root.json",
+      "source": {
+        "id": "uesp:children-root",
+        "url": "https://en.uesp.net/wiki/Lore:Children_of_the_Root",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:lost-tales-famed-explorer",
+      "name": "Lost Tales of the Famed Explorer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/lost-tales-famed-explorer.json",
+      "source": {
+        "id": "uesp:lost-tales-famed-explorer",
+        "url": "https://en.uesp.net/wiki/Lore:Lost_Tales_of_the_Famed_Explorer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:argonian-account",
+      "name": "An Argonian Account",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/argonian-account.json",
+      "source": {
+        "id": "uesp:argonian-account",
+        "url": "https://en.uesp.net/wiki/Lore:An_Argonian_Account",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mysteries-hist",
+      "name": "Mysteries of the Hist",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/mysteries-hist.json",
+      "source": {
+        "id": "uesp:mysteries-hist",
+        "url": "https://en.uesp.net/wiki/Lore:Mysteries_of_the_Hist",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "This batch deepens earlier Argonian material; canonicalization should merge duplicate subjects instead of creating parallel identities",
+    "Do not model the Hist as a proven single collective mind; preserve evidence for individual trees, networks and differing interpretations",
+    "Argonian life-cycle and morphology claims must retain tribe, region, era and source context",
+    "Duskfall should distinguish historical change, modern philosophy and retrospective cultural interpretation",
+    "Knahaten Flu origin theories remain contradictory unless a source directly establishes a specific event",
+    "Argonian Sithis traditions must remain distinct from other cultures' Sithis theology while allowing sourced correspondences",
+    "Cross-link existing Argonian, Hist, Black Marsh, Shadowscale, Knahaten Flu, Duskfall, Heita-Meen, Keshu and Xukas records"
+  ]
+}

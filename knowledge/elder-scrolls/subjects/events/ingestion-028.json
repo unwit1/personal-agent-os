@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-028-eso-dungeons-trials-deadlands",
+  "subjects": [
+    {
+      "id": "tes:longhouse-emperors",
+      "name": "Longhouse Emperors",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/longhouse-emperors.json",
+      "source": {
+        "id": "uesp:longhouse-emperors",
+        "url": "https://en.uesp.net/wiki/Lore:Longhouse_Emperors",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:black-drake-villa-crisis",
+      "name": "Black Drake Villa Crisis",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/black-drake-villa-crisis.json",
+      "source": {
+        "id": "uesp:black-drake-villa-crisis",
+        "url": "https://en.uesp.net/wiki/Lore:Black_Drake_Villa_Crisis",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:deadlands-crisis",
+      "name": "Deadlands Crisis",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/deadlands-crisis.json",
+      "source": {
+        "id": "uesp:deadlands-crisis",
+        "url": "https://en.uesp.net/wiki/Lore:Deadlands_Crisis",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ascendant-order-crisis",
+      "name": "Ascendant Order Crisis",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/ascendant-order-crisis.json",
+      "source": {
+        "id": "uesp:ascendant-order-crisis",
+        "url": "https://en.uesp.net/wiki/Lore:Ascendant_Order_Crisis",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Dungeon/trial mechanics are not automatically lore facts; separate repeatable gameplay systems from narrative events",
+    "Group-content outcomes involving the Vestige remain minimally biographical and branch-safe",
+    "Fargrave claims should distinguish observed social/legal conditions from claims about metaphysical neutrality",
+    "Daedric cult doctrine remains attributed to the cult or speaker",
+    "Later ESO chapter/DLC events retain their own chronology and must not be projected backward into base-game history",
+    "Cross-link existing Deadlands, Clockwork City, White-Gold Tower, Elder Scrolls, Undaunted, Fighters Guild and Mages Guild subjects"
+  ]
+}

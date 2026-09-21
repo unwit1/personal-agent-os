@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:emeric",
+      "name": "Emeric",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/emeric.json",
+      "source": {
+        "id": "uesp:emeric",
+        "url": "https://en.uesp.net/wiki/Lore:Emeric",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sai-sahan",
+      "name": "Sai Sahan",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/sai-sahan.json",
+      "source": {
+        "id": "uesp:sai-sahan",
+        "url": "https://en.uesp.net/wiki/Lore:Sai_Sahan",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration from earlier queues into canonical subject categories; extraction must retain provenance and temporal/cultural scope."
+}

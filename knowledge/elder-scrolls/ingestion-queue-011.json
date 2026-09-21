@@ -1,0 +1,345 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "continuity_id": "tes-base",
+  "batch_id": "uesp-011-imperial-dynasties-oblivion-crisis",
+  "purpose": "Connect Cyrodiilic history to the Reman/Septim empires, Imperial Simulacrum, Warp in the West, Mythic Dawn, and Oblivion Crisis.",
+  "pages": [
+    {
+      "id": "third-empire",
+      "title": "Third Empire",
+      "url": "https://en.uesp.net/wiki/Lore:Third_Empire",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "septim-dynasty",
+      "title": "Septim Dynasty",
+      "url": "https://en.uesp.net/wiki/Lore:Septim_Dynasty",
+      "page_type": "lore_summary",
+      "entity_type": "family",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "tiber-septim-empire",
+      "title": "Tiber Septim",
+      "url": "https://en.uesp.net/wiki/Lore:Tiber_Septim",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "talos",
+      "title": "Talos",
+      "url": "https://en.uesp.net/wiki/Lore:Talos",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "pelagius-i",
+      "title": "Pelagius Septim I",
+      "url": "https://en.uesp.net/wiki/Lore:Pelagius_Septim_I",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "potema",
+      "title": "Potema Septim",
+      "url": "https://en.uesp.net/wiki/Lore:Potema_Septim",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "war-red-diamond",
+      "title": "War of the Red Diamond",
+      "url": "https://en.uesp.net/wiki/Lore:War_of_the_Red_Diamond",
+      "page_type": "lore_summary",
+      "entity_type": "event",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "uriel-v",
+      "title": "Uriel Septim V",
+      "url": "https://en.uesp.net/wiki/Lore:Uriel_Septim_V",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "uriel-vii",
+      "title": "Uriel Septim VII",
+      "url": "https://en.uesp.net/wiki/Lore:Uriel_Septim_VII",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "martin-septim",
+      "title": "Martin Septim",
+      "url": "https://en.uesp.net/wiki/Lore:Martin_Septim",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "jagar-tharn",
+      "title": "Jagar Tharn",
+      "url": "https://en.uesp.net/wiki/Lore:Jagar_Tharn",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "imperial-simulacrum",
+      "title": "Imperial Simulacrum",
+      "url": "https://en.uesp.net/wiki/Lore:Imperial_Simulacrum",
+      "page_type": "lore_summary",
+      "entity_type": "event",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "warp-west",
+      "title": "Warp in the West",
+      "url": "https://en.uesp.net/wiki/Lore:Warp_in_the_West",
+      "page_type": "lore_summary",
+      "entity_type": "event",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "daggerfall-wars",
+      "title": "Wars of the Iliac Bay",
+      "url": "https://en.uesp.net/wiki/Lore:Wars_of_the_Iliac_Bay",
+      "page_type": "lore_summary",
+      "entity_type": "event",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "mythic-dawn",
+      "title": "Mythic Dawn",
+      "url": "https://en.uesp.net/wiki/Lore:Mythic_Dawn",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "mankar-camoran",
+      "title": "Mankar Camoran",
+      "url": "https://en.uesp.net/wiki/Lore:Mankar_Camoran",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "mehrunes-dagon",
+      "title": "Mehrunes Dagon",
+      "url": "https://en.uesp.net/wiki/Lore:Mehrunes_Dagon",
+      "page_type": "lore_summary",
+      "entity_type": "deity",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "deadlands",
+      "title": "Deadlands",
+      "url": "https://en.uesp.net/wiki/Lore:Deadlands",
+      "page_type": "lore_summary",
+      "entity_type": "plane",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "oblivion-crisis",
+      "title": "Oblivion Crisis",
+      "url": "https://en.uesp.net/wiki/Lore:Oblivion_Crisis",
+      "page_type": "lore_summary",
+      "entity_type": "event",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "great-gate",
+      "title": "Great Gate",
+      "url": "https://en.uesp.net/wiki/Lore:Great_Gate",
+      "page_type": "lore_summary",
+      "entity_type": "event_or_structure",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "dragonfires",
+      "title": "Dragonfires",
+      "url": "https://en.uesp.net/wiki/Lore:Dragonfires",
+      "page_type": "lore_summary",
+      "entity_type": "concept",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "liminal-barriers",
+      "title": "Liminal Barriers",
+      "url": "https://en.uesp.net/wiki/Lore:Liminal_Barriers",
+      "page_type": "lore_summary",
+      "entity_type": "concept",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "akaviri",
+      "title": "Akaviri",
+      "url": "https://en.uesp.net/wiki/Lore:Akaviri",
+      "page_type": "lore_summary",
+      "entity_type": "people",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "akaviri-potentate",
+      "title": "Akaviri Potentate",
+      "url": "https://en.uesp.net/wiki/Lore:Akaviri_Potentate",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "remans",
+      "title": "Reman Dynasty",
+      "url": "https://en.uesp.net/wiki/Lore:Reman_Dynasty",
+      "page_type": "lore_summary",
+      "entity_type": "family",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "reman-cyrodiil",
+      "title": "Reman Cyrodiil",
+      "url": "https://en.uesp.net/wiki/Lore:Reman_Cyrodiil",
+      "page_type": "lore_summary",
+      "entity_type": "person",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "second-empire",
+      "title": "Second Empire",
+      "url": "https://en.uesp.net/wiki/Lore:Second_Empire",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "interregnum",
+      "title": "Interregnum",
+      "url": "https://en.uesp.net/wiki/Lore:Interregnum",
+      "page_type": "lore_summary",
+      "entity_type": "event_or_period",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "empire",
+      "title": "Empire",
+      "url": "https://en.uesp.net/wiki/Lore:Empire",
+      "page_type": "lore_summary",
+      "entity_type": "concept",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    },
+    {
+      "id": "imperial-legion",
+      "title": "Imperial Legion",
+      "url": "https://en.uesp.net/wiki/Lore:Imperial_Legion",
+      "page_type": "lore_summary",
+      "entity_type": "organization",
+      "continuity_id": "tes-base",
+      "status": "queued",
+      "provenance_policy": "resolve underlying game dialogue, quest events, books, loading screens and official texts"
+    }
+  ],
+  "direct_evidence_seeds": [
+    {
+      "title": "Oblivion Crisis linked game evidence",
+      "url": "https://en.uesp.net/wiki/Lore:Oblivion_Crisis",
+      "status": "queued_reference_expansion",
+      "notes": "Follow references into Oblivion quests, dialogue, books, gates and related game pages rather than relying on summary alone."
+    },
+    {
+      "title": "Liminal Barriers",
+      "url": "https://en.uesp.net/wiki/Lore:Liminal_Barriers",
+      "status": "queued",
+      "authority_class": "mixed_lore_summary_with_primary_references"
+    },
+    {
+      "title": "Oblivion Lore book collection",
+      "url": "https://en.uesp.net/wiki/Online:On_the_Nature_of_Coldharbour_(furnishing)",
+      "status": "queued_collection",
+      "authority_class": "primary_in_universe",
+      "notes": "UESP identifies a reprint collection containing On Oblivion, On the Nature of Coldharbour, Spirit of the Daedra, Book of Daedra, Doors of Oblivion, Slave Pits of Coldharbour and Varieties of Daedra."
+    }
+  ],
+  "review_focus": [
+    "Dragon Break/Warp in the West material must preserve source-specific accounts",
+    "Talos/Tiber Septim identity and apotheosis claims require source attribution",
+    "Mythic Dawn doctrine is evidence of the cult's doctrine, not automatic objective cosmology",
+    "separate direct Oblivion Crisis quest/event evidence from later historical summaries",
+    "do not merge Akaviri cultural groups merely because summaries use the broad Akaviri label"
+  ],
+  "ingestion_rules": {
+    "raw_text": "local_rebuildable",
+    "git": "metadata_queue_review_state_only",
+    "checkpoint_each_page": true,
+    "preserve_epistemic_language": true,
+    "prefer_underlying_primary_evidence": true,
+    "exclude_mod_namespaces_from_tes_base": true
+  }
+}

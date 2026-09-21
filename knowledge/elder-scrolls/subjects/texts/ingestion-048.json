@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-048-bosmer-deep-green-pact",
+  "subjects": [
+    {
+      "id": "tes:green-pact-text",
+      "name": "The Green Pact",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/green-pact-text.json",
+      "source": {
+        "id": "uesp:green-pact-text",
+        "url": "https://en.uesp.net/wiki/Lore:The_Green_Pact",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ooze-fable",
+      "name": "The Ooze: A Fable",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/ooze-fable.json",
+      "source": {
+        "id": "uesp:ooze-fable",
+        "url": "https://en.uesp.net/wiki/Lore:The_Ooze:_A_Fable",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:greensinging",
+      "name": "Greensinging",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/greensinging.json",
+      "source": {
+        "id": "uesp:greensinging",
+        "url": "https://en.uesp.net/wiki/Lore:Greensinging",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:spinners-valenwood",
+      "name": "Spinners of Y'ffre",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/spinners-valenwood.json",
+      "source": {
+        "id": "uesp:spinners-valenwood",
+        "url": "https://en.uesp.net/wiki/Lore:Spinners_of_Y%27ffre",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "This batch deepens batch 040 rather than replacing it; deduplication should merge shared subjects by canonical identity",
+    "Green Pact rules must distinguish theological ideal, local interpretation, historical period and observed practice",
+    "Wild Hunt accounts should separate witnessed transformations, ritual doctrine, historical reports and later retellings",
+    "Spinner narratives preserve storyteller, audience and narrative context; story-shaping claims are not automatically objective history",
+    "Falinesti traditions should distinguish documented appearances, disappearance accounts and metaphysical interpretations",
+    "Y'ffre/Earth Bones claims retain religious and cosmological provenance rather than being flattened into universal fact",
+    "Cross-link batch 040 Bosmer records and merge duplicates during canonicalization"
+  ]
+}

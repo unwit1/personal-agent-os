@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-027-mythic-identities",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:identity-lorkhan",
+      "title": "Lorkhan, Shor, Shezarr, and Lorkhaj identity/source map",
+      "document_kind": "identity_casefile",
+      "status": "queued",
+      "subjects": [
+        "Lorkhan",
+        "Shor",
+        "Shezarr",
+        "Lorkhaj"
+      ]
+    },
+    {
+      "id": "til:identity-dragon-god",
+      "title": "Akatosh, Auri-El, Alkosh, and Dragon God identity/source map",
+      "document_kind": "identity_casefile",
+      "status": "queued",
+      "subjects": [
+        "Akatosh",
+        "Auri-El",
+        "Alkosh",
+        "Dragon God of Time"
+      ]
+    },
+    {
+      "id": "til:identity-kyne",
+      "title": "Kyne and Kynareth identity/source map",
+      "document_kind": "identity_casefile",
+      "status": "queued",
+      "subjects": [
+        "Kyne",
+        "Kynareth",
+        "Nordic religion",
+        "Imperial religion"
+      ]
+    },
+    {
+      "id": "til:identity-orkey",
+      "title": "Orkey, Arkay, and related traditions source map",
+      "document_kind": "identity_casefile",
+      "status": "queued",
+      "subjects": [
+        "Orkey",
+        "Arkay",
+        "Nordic religion",
+        "death gods"
+      ]
+    },
+    {
+      "id": "til:identity-herma-mora",
+      "title": "Herma-Mora and Hermaeus Mora source map",
+      "document_kind": "identity_casefile",
+      "status": "queued",
+      "subjects": [
+        "Herma-Mora",
+        "Hermaeus Mora",
+        "Nordic religion",
+        "Daedra"
+      ]
+    },
+    {
+      "id": "til:identity-magnus",
+      "title": "Magnus and culturally related solar traditions source map",
+      "document_kind": "identity_casefile",
+      "status": "queued",
+      "subjects": [
+        "Magnus",
+        "Magna Ge",
+        "sun",
+        "creation myths"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Similarity, translation, syncretism, theological identification and literal metaphysical identity are separate relation types.",
+    "Do not collapse culturally related gods into one entity solely because a comparative religion source pairs them.",
+    "Preserve each culture's own claims before adding cross-cultural mappings.",
+    "Developer commentary can document intended relationships without erasing contradictory in-world theology.",
+    "Identity casefiles should support answers at multiple levels: linguistic, religious, historical and metaphysical."
+  ]
+}

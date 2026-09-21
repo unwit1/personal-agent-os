@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "continuity_id": "tes-base",
+  "purpose": "Seed ingestion queue discovered during chat/web reconnaissance. URLs and metadata are durable; article bodies remain local/rebuildable.",
+  "pages": [
+    {
+      "id": "wayshrines-of-tamriel",
+      "title": "Wayshrines of Tamriel",
+      "url": "https://en.uesp.net/wiki/Lore:Wayshrines_of_Tamriel",
+      "page_type": "in_game_book",
+      "entity_type": "text",
+      "seen_in": [
+        "Elder Scrolls Online"
+      ],
+      "epistemic_flags": [
+        "in_universe_account",
+        "belief_or_theory_language"
+      ],
+      "status": "queued"
+    },
+    {
+      "id": "windsorrow",
+      "title": "Windsorrow",
+      "url": "https://en.uesp.net/wiki/Lore:Windsorrow",
+      "page_type": "lore_summary",
+      "entity_type": "person_or_spirit",
+      "reference_kinds": [
+        "in_game_book",
+        "game_dialogue",
+        "quest_event"
+      ],
+      "epistemic_flags": [
+        "legend",
+        "later_event_evidence"
+      ],
+      "status": "queued"
+    },
+    {
+      "id": "map-of-clans",
+      "title": "Map of Clans",
+      "url": "https://en.uesp.net/wiki/Lore:Map_of_Clans",
+      "page_type": "in_game_book",
+      "entity_type": "text",
+      "seen_in": [
+        "Elder Scrolls Online: Orsinium"
+      ],
+      "epistemic_flags": [
+        "in_universe_account",
+        "oral_tradition",
+        "author_belief"
+      ],
+      "status": "queued"
+    },
+    {
+      "id": "water-cycle-clockwork-city",
+      "title": "The Water Cycle of Clockwork City",
+      "url": "https://en.uesp.net/wiki/Lore:The_Water_Cycle_of_Clockwork_City",
+      "page_type": "in_game_book",
+      "entity_type": "text",
+      "seen_in": [
+        "Elder Scrolls Online: Clockwork City"
+      ],
+      "epistemic_flags": [
+        "in_universe_account"
+      ],
+      "status": "queued"
+    },
+    {
+      "id": "mead-mead-mead-online",
+      "title": "Mead, Mead, Mead!",
+      "url": "https://en.uesp.net/wiki/Online:Mead,_Mead,_Mead!",
+      "page_type": "game_book_appearance",
+      "entity_type": "text_appearance",
+      "game": "Elder Scrolls Online",
+      "work_relationship": "resolve_lore_version",
+      "revision_hint": "oldid=2929962",
+      "status": "queued"
+    },
+    {
+      "id": "red-mountain-cleanup-signal",
+      "title": "Red Mountain",
+      "url": "https://en.uesp.net/wiki/Lore:Red_Mountain",
+      "page_type": "lore_summary",
+      "entity_type": "place",
+      "quality_flags": [
+        "lore_places_cleanup_category"
+      ],
+      "status": "queued_review"
+    }
+  ],
+  "quality_sources": [
+    {
+      "url": "https://en.uesp.net/wiki/Category:Lore_Places_Pages_Needing_Cleanup",
+      "signal": "review_required",
+      "observed_member_count": 115,
+      "notes": "Category states many member articles need in-game information removed and assorted cleanup."
+    }
+  ]
+}

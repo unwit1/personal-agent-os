@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-019-skyrim-politics-college",
+  "subjects": [
+    {
+      "id": "tes:whiterun",
+      "name": "Whiterun",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/whiterun.json",
+      "source": {
+        "id": "uesp:whiterun",
+        "url": "https://en.uesp.net/wiki/Lore:Whiterun",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:riften",
+      "name": "Riften",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/riften.json",
+      "source": {
+        "id": "uesp:riften",
+        "url": "https://en.uesp.net/wiki/Lore:Riften",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:winterhold",
+      "name": "Winterhold",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/winterhold.json",
+      "source": {
+        "id": "uesp:winterhold",
+        "url": "https://en.uesp.net/wiki/Lore:Winterhold",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:college-winterhold",
+      "name": "College of Winterhold",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/college-winterhold.json",
+      "source": {
+        "id": "uesp:college-winterhold",
+        "url": "https://en.uesp.net/wiki/Lore:College_of_Winterhold",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:high-hrothgar",
+      "name": "High Hrothgar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/high-hrothgar.json",
+      "source": {
+        "id": "uesp:high-hrothgar",
+        "url": "https://en.uesp.net/wiki/Lore:High_Hrothgar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:labyrinthian",
+      "name": "Labyrinthian",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/labyrinthian.json",
+      "source": {
+        "id": "uesp:labyrinthian",
+        "url": "https://en.uesp.net/wiki/Lore:Labyrinthian",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:saarthal",
+      "name": "Saarthal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/saarthal.json",
+      "source": {
+        "id": "uesp:saarthal",
+        "url": "https://en.uesp.net/wiki/Lore:Saarthal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:thalmor-embassy",
+      "name": "Thalmor Embassy",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/thalmor-embassy.json",
+      "source": {
+        "id": "uesp:thalmor-embassy",
+        "url": "https://en.uesp.net/wiki/Lore:Thalmor_Embassy",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Civil War claims must preserve speaker faction, quest branch and player-dependent outcomes",
+    "Do not canonize mutually exclusive Skyrim quest outcomes; record them as branch-dependent evidence",
+    "Political accusations about Ulfric, the Empire or Thalmor require attribution rather than narrator voice",
+    "College/Great Collapse explanations should preserve competing theories and uncertainty",
+    "Distinguish institutions from places when College of Winterhold or similar names refer to both",
+    "Talos worship enforcement should retain time, location and source context"
+  ]
+}

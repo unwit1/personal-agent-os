@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Knowledge Claim Candidate v1",
+  "description": "Untrusted extraction output. It must be bound to an existing evidence chunk before promotion.",
+  "type": "object",
+  "required": [
+    "subject_id",
+    "predicate",
+    "object",
+    "evidence_chunk_id"
+  ],
+  "properties": {
+    "subject_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "predicate": {
+      "type": "string",
+      "minLength": 1
+    },
+    "object": {},
+    "evidence_chunk_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "asserted",
+        "disputed",
+        "superseded",
+        "overlay"
+      ]
+    },
+    "qualifiers": {
+      "type": "object"
+    },
+    "extractor": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "confidence": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    }
+  },
+  "additionalProperties": false
+}

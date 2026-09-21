@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-035-chimer-first-council-red-mountain",
+  "subjects": [
+    {
+      "id": "tes:battle-red-mountain-text",
+      "name": "The Battle of Red Mountain",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/battle-red-mountain-text.json",
+      "source": {
+        "id": "uesp:battle-red-mountain-text",
+        "url": "https://en.uesp.net/wiki/Lore:The_Battle_of_Red_Mountain",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:nerevar-red-mountain",
+      "name": "Nerevar at Red Mountain",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/nerevar-red-mountain.json",
+      "source": {
+        "id": "uesp:nerevar-red-mountain",
+        "url": "https://en.uesp.net/wiki/Lore:Nerevar_at_Red_Mountain",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:five-songs-king-wulfharth",
+      "name": "Five Songs of King Wulfharth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/five-songs-king-wulfharth.json",
+      "source": {
+        "id": "uesp:five-songs-king-wulfharth",
+        "url": "https://en.uesp.net/wiki/Lore:Five_Songs_of_King_Wulfharth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:36-lessons",
+      "name": "36 Lessons of Vivec",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/36-lessons.json",
+      "source": {
+        "id": "uesp:36-lessons",
+        "url": "https://en.uesp.net/wiki/Lore:36_Lessons_of_Vivec",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:progress-truth",
+      "name": "Progress of Truth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/progress-truth.json",
+      "source": {
+        "id": "uesp:progress-truth",
+        "url": "https://en.uesp.net/wiki/Lore:Progress_of_Truth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Battle of Red Mountain accounts are mutually conflicting historical traditions; preserve each account and its provenance rather than synthesizing an unsupported single sequence",
+    "Tribunal, Ashlander, Nordic, Dwemer-related and later scholarly accounts must retain factional/source perspective",
+    "Claims about Nerevar's death, Tribunal oath-breaking, Kagrenac's actions and the Chimer-to-Dunmer transformation remain evidence-linked and contestable",
+    "The 36 Lessons are primary evidence for Vivec's authored religious narrative, not automatic literal history",
+    "Distinguish the historical First Council from later uses of the term and from gameplay/faction abstractions",
+    "Cross-link existing Nerevar, Kagrenac, Tribunal, Red Mountain, Heart of Lorkhan, Tools of Kagrenac, Chimer, Dunmer and Dwemer records"
+  ]
+}

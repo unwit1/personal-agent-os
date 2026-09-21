@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-012-early-series-arena-daggerfall",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:arena-dev-history",
+      "title": "Arena development and early setting commentary",
+      "author": "multiple",
+      "document_kind": "development_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Arena",
+        "Tamriel",
+        "Imperial Simulacrum",
+        "early setting design"
+      ]
+    },
+    {
+      "id": "til:daggerfall-dev-history",
+      "title": "Daggerfall development and lore commentary",
+      "author": "multiple",
+      "document_kind": "development_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Daggerfall",
+        "Iliac Bay",
+        "Warp in the West",
+        "Numidium",
+        "Underking"
+      ]
+    },
+    {
+      "id": "til:early-religion-dev",
+      "title": "Early-series developer material on religion and cosmology",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Divines",
+        "Daedra",
+        "Aedra",
+        "religion",
+        "cosmology"
+      ]
+    },
+    {
+      "id": "til:early-provinces-dev",
+      "title": "Early-series descriptions of Tamriel's provinces and peoples",
+      "author": "multiple",
+      "document_kind": "development_archive",
+      "status": "discovery_queued",
+      "subjects": [
+        "Tamriel",
+        "provinces",
+        "races",
+        "cultures",
+        "geography"
+      ]
+    },
+    {
+      "id": "til:daggerfall-books-dev",
+      "title": "Developer commentary on Daggerfall-era books and authorship",
+      "author": "multiple",
+      "document_kind": "author_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Daggerfall books",
+        "Barenziah",
+        "history",
+        "fiction",
+        "unreliable narration"
+      ]
+    },
+    {
+      "id": "til:early-underking",
+      "title": "Early developer material on the Underking",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Underking",
+        "Zurin Arctus",
+        "Wulfharth",
+        "Mantella",
+        "Numidium"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Early-series terminology must be dated and must not be silently normalized to later definitions.",
+    "Where Arena or Daggerfall presents a concept differently from later games, preserve both historical representations.",
+    "Developer recollections about early production remain development-history evidence rather than replacements for shipped material.",
+    "Track later reuse and reinterpretation of early concepts as separate adoption links.",
+    "Do not infer modern province or racial lore backward into early texts without explicit evidence."
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-028-eso-dungeons-trials-deadlands",
+  "subjects": [
+    {
+      "id": "tes:trials",
+      "name": "Trials",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/trials.json",
+      "source": {
+        "id": "uesp:trials",
+        "url": "https://en.uesp.net/wiki/Lore:Trials",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:undaunted-pledges",
+      "name": "Undaunted Pledges",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/undaunted-pledges.json",
+      "source": {
+        "id": "uesp:undaunted-pledges",
+        "url": "https://en.uesp.net/wiki/Lore:Undaunted_Pledges",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:chaotic-creatia",
+      "name": "Chaotic Creatia",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/chaotic-creatia.json",
+      "source": {
+        "id": "uesp:chaotic-creatia",
+        "url": "https://en.uesp.net/wiki/Lore:Chaotic_Creatia",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:fargrave-neutrality",
+      "name": "Fargrave",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/fargrave-neutrality.json",
+      "source": {
+        "id": "uesp:fargrave-neutrality",
+        "url": "https://en.uesp.net/wiki/Lore:Fargrave",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:daedric-cults",
+      "name": "Daedric Cults",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/daedric-cults.json",
+      "source": {
+        "id": "uesp:daedric-cults",
+        "url": "https://en.uesp.net/wiki/Lore:Daedric_Cults",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:oblivion-realms",
+      "name": "Realms of Oblivion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/oblivion-realms.json",
+      "source": {
+        "id": "uesp:oblivion-realms",
+        "url": "https://en.uesp.net/wiki/Lore:Realms_of_Oblivion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:vestige-resurrection",
+      "name": "Vestige Resurrection",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/vestige-resurrection.json",
+      "source": {
+        "id": "uesp:vestige-resurrection",
+        "url": "https://en.uesp.net/wiki/Lore:Vestige_Resurrection",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Dungeon/trial mechanics are not automatically lore facts; separate repeatable gameplay systems from narrative events",
+    "Group-content outcomes involving the Vestige remain minimally biographical and branch-safe",
+    "Fargrave claims should distinguish observed social/legal conditions from claims about metaphysical neutrality",
+    "Daedric cult doctrine remains attributed to the cult or speaker",
+    "Later ESO chapter/DLC events retain their own chronology and must not be projected backward into base-game history",
+    "Cross-link existing Deadlands, Clockwork City, White-Gold Tower, Elder Scrolls, Undaunted, Fighters Guild and Mages Guild subjects"
+  ]
+}

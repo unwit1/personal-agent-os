@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:battle-of-red-mountain",
+      "name": "Battle of Red Mountain",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/battle-of-red-mountain.json",
+      "source": {
+        "id": "uesp:battle-of-red-mountain",
+        "url": "https://en.uesp.net/wiki/Lore:Battle_of_Red_Mountain",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:red-year",
+      "name": "Red Year",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/red-year.json",
+      "source": {
+        "id": "uesp:red-year",
+        "url": "https://en.uesp.net/wiki/Lore:Red_Year",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:oblivion-crisis",
+      "name": "Oblivion Crisis",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/oblivion-crisis.json",
+      "source": {
+        "id": "uesp:oblivion-crisis",
+        "url": "https://en.uesp.net/wiki/Lore:Oblivion_Crisis",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragon-war",
+      "name": "Dragon War",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/dragon-war.json",
+      "source": {
+        "id": "uesp:dragon-war",
+        "url": "https://en.uesp.net/wiki/Lore:Dragon_War",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:night-of-tears",
+      "name": "Night of Tears",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/night-of-tears.json",
+      "source": {
+        "id": "uesp:night-of-tears",
+        "url": "https://en.uesp.net/wiki/Lore:Night_of_Tears",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration batch from earlier queues. Individual subject records may be materialized incrementally; evidence-backed claims remain local/indexed until reviewed."
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "policy_id": "breadth-first-transcript-ingestion",
+  "status": "active",
+  "objective": "Prevent over-investment in a single transcript. Discover and queue broad game coverage before deep per-quest evidence annotation.",
+  "phases": [
+    {
+      "order": 1,
+      "name": "inventory",
+      "action": "Discover transcript/storyline index and quest pages across every supported game."
+    },
+    {
+      "order": 2,
+      "name": "classify",
+      "action": "Route each page to dialogue, books, developer material, or provenance-only."
+    },
+    {
+      "order": 3,
+      "name": "local_fetch",
+      "action": "Fetch full dialogue bodies locally and hash/cache them."
+    },
+    {
+      "order": 4,
+      "name": "structure",
+      "action": "Parse speakers, prompts, scenes, quests and sequence."
+    },
+    {
+      "order": 5,
+      "name": "enrich",
+      "action": "Add subjects, claims, contradictions and cross-source links only after broad ingestion coverage exists."
+    }
+  ],
+  "guardrails": [
+    "Do not spend more than one enrichment pass on a transcript while another game's transcript inventory remains undiscovered.",
+    "Prefer adding 20 newly discovered transcript pages over adding more topic tags to one already-structured quest.",
+    "Per-quest hand annotation is fallback/validation data, not the primary scaling strategy.",
+    "Crawl state reports inventory coverage separately from enrichment depth."
+  ]
+}

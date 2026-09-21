@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-049-argonian-hist-duskfall",
+  "subjects": [
+    {
+      "id": "tes:remnant-argonian",
+      "name": "Remnant of Argon",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/remnant-argonian.json",
+      "source": {
+        "id": "uesp:remnant-argonian",
+        "url": "https://en.uesp.net/wiki/Lore:Remnant_of_Argon",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:keystone-xanmeer",
+      "name": "Xanmeer Keystone",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/keystone-xanmeer.json",
+      "source": {
+        "id": "uesp:keystone-xanmeer",
+        "url": "https://en.uesp.net/wiki/Lore:Xanmeer_Keystone",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "This batch deepens earlier Argonian material; canonicalization should merge duplicate subjects instead of creating parallel identities",
+    "Do not model the Hist as a proven single collective mind; preserve evidence for individual trees, networks and differing interpretations",
+    "Argonian life-cycle and morphology claims must retain tribe, region, era and source context",
+    "Duskfall should distinguish historical change, modern philosophy and retrospective cultural interpretation",
+    "Knahaten Flu origin theories remain contradictory unless a source directly establishes a specific event",
+    "Argonian Sithis traditions must remain distinct from other cultures' Sithis theology while allowing sourced correspondences",
+    "Cross-link existing Argonian, Hist, Black Marsh, Shadowscale, Knahaten Flu, Duskfall, Heita-Meen, Keshu and Xukas records"
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-042-reman-akaviri-potentate",
+  "subjects": [
+    {
+      "id": "tes:akaviri-invasion-first",
+      "name": "First Akaviri Invasion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/akaviri-invasion-first.json",
+      "source": {
+        "id": "uesp:akaviri-invasion-first",
+        "url": "https://en.uesp.net/wiki/Lore:First_Akaviri_Invasion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:founding-second-empire",
+      "name": "Founding of the Second Empire",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/founding-second-empire.json",
+      "source": {
+        "id": "uesp:founding-second-empire",
+        "url": "https://en.uesp.net/wiki/Lore:Founding_of_the_Second_Empire",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:assassination-reman-iii",
+      "name": "Assassination of Reman III",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/assassination-reman-iii.json",
+      "source": {
+        "id": "uesp:assassination-reman-iii",
+        "url": "https://en.uesp.net/wiki/Lore:Assassination_of_Reman_III",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:second-akaviri-invasion",
+      "name": "Second Akaviri Invasion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/second-akaviri-invasion.json",
+      "source": {
+        "id": "uesp:second-akaviri-invasion",
+        "url": "https://en.uesp.net/wiki/Lore:Second_Akaviri_Invasion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:fall-potentate",
+      "name": "Fall of the Akaviri Potentate",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/fall-potentate.json",
+      "source": {
+        "id": "uesp:fall-potentate",
+        "url": "https://en.uesp.net/wiki/Lore:Fall_of_the_Akaviri_Potentate",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Akaviri peoples must remain distinct; do not treat Tsaesci, Kamal, Ka Po' Tun and Tang Mo as interchangeable descriptions of one culture",
+    "Claims about Tsaesci physical nature are contradictory and often mediated by outsider texts; preserve competing interpretations",
+    "2920 is historical fiction and provides evidence for cultural memory/literary tradition, not automatic verbatim First Era history",
+    "Reman birth and divine-origin narratives in the Remanada retain mythic/propagandistic provenance",
+    "Distinguish the First and Second Akaviri invasions and their different peoples, motives and evidence",
+    "Cross-link existing Reman, Second Empire, Akaviri Potentate, Dragonguard, Jorunn, Almalexia, Wulfharth and Second Akaviri Invasion records"
+  ]
+}

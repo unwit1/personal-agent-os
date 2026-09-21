@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "batch_id": "dialogue-discovery-003-skyrim-structure",
+  "game": "skyrim",
+  "status": "verified",
+  "pages": [
+    {
+      "id": "til:skyrim:horn-jurgen-windcaller",
+      "title": "TES5 Skyrim: The Horn of Jurgen Windcaller",
+      "url": "https://www.imperial-library.info/content/tes5-skyrim-the-horn-of-jurgen-windcaller",
+      "released_in": "TES5: Skyrim",
+      "source_kind": "quest_dialogue_transcript",
+      "verified_features": {
+        "speaker_headings": true,
+        "player_prompts": true,
+        "npc_responses": true,
+        "stage_directions": true,
+        "quest_narration": true,
+        "multispeaker_lines": true,
+        "translated_dialogue": true
+      },
+      "observed_speakers": [
+        "Player Character",
+        "Arngeir",
+        "Delphine",
+        "Wulfgar",
+        "The Greybeards, together",
+        "Mysterious Note"
+      ],
+      "high_value_subjects": [
+        "Dragonborn",
+        "dragons",
+        "Voice",
+        "Greybeards",
+        "Jurgen Windcaller",
+        "Kynareth",
+        "Akatosh",
+        "Paarthurnax",
+        "Talos",
+        "Tiber Septim",
+        "Ysmir",
+        "Shor",
+        "Atmora"
+      ]
+    }
+  ],
+  "parser_requirements": [
+    "Heading text identifying a speaker starts a new dialogue turn.",
+    "Parenthetical narration is retained as transcript context and tagged separately from spoken dialogue.",
+    "A player prompt should be attached to the NPC answer it elicits while remaining independently searchable.",
+    "Group speakers remain group speakers unless the source explicitly attributes individual lines.",
+    "Translations supplied in dialogue remain linked to the original-language passage.",
+    "Notes and written messages encountered during a quest are typed as embedded_written_text rather than NPC speech."
+  ]
+}

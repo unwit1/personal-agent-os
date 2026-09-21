@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-045-khajiit-religion-lunar-cosmology",
+  "subjects": [
+    {
+      "id": "tes:twilight-cantors",
+      "name": "Twilight Cantors",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/twilight-cantors.json",
+      "source": {
+        "id": "uesp:twilight-cantors",
+        "url": "https://en.uesp.net/wiki/Lore:Twilight_Cantors",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:moon-bishops",
+      "name": "Moon-Bishops",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/moon-bishops.json",
+      "source": {
+        "id": "uesp:moon-bishops",
+        "url": "https://en.uesp.net/wiki/Lore:Moon-Bishops",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:temple-seven-riddles",
+      "name": "Temple of Seven Riddles",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/temple-seven-riddles.json",
+      "source": {
+        "id": "uesp:temple-seven-riddles",
+        "url": "https://en.uesp.net/wiki/Lore:Temple_of_Seven_Riddles",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Pre-ri'Datta and Riddle'Thar-era Khajiiti religion must remain historically distinct traditions with documented continuities and changes",
+    "Do not automatically equate Khajiiti deities with similarly named Imperial or Aldmeri gods; model proposed correspondences as relationships with evidence",
+    "Amun-dro, Clan Mother Ahnissi and Moon-Bishop traditions retain authorship, period and doctrinal perspective",
+    "Furstock and lunar-cycle claims should distinguish cultural doctrine, observed births and game simplification",
+    "Dro-m'Athra and Bent Dance descriptions should separate religious interpretation from directly observed phenomena",
+    "Cross-link existing Khajiit, Azurah, Alkosh, Riddle'Thar, Lunar Lattice, Mane, Dro-m'Athra, Lorkhaj, Elsweyr, Anequina and Pellitine records"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "status": "pilot_not_started",
+  "entries": [],
+  "notes": [
+    "Bulk ingestion remains disabled until representative pilot retrieval is validated."
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:red-mountain",
+      "name": "Red Mountain",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/red-mountain.json",
+      "source": {
+        "id": "uesp:red-mountain",
+        "url": "https://en.uesp.net/wiki/Lore:Red_Mountain",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:vvardenfell",
+      "name": "Vvardenfell",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/vvardenfell.json",
+      "source": {
+        "id": "uesp:vvardenfell",
+        "url": "https://en.uesp.net/wiki/Lore:Vvardenfell",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:atmora",
+      "name": "Atmora",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/atmora.json",
+      "source": {
+        "id": "uesp:atmora",
+        "url": "https://en.uesp.net/wiki/Lore:Atmora",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:saarthal",
+      "name": "Saarthal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/saarthal.json",
+      "source": {
+        "id": "uesp:saarthal",
+        "url": "https://en.uesp.net/wiki/Lore:Saarthal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration batch from earlier queues. Individual subject records may be materialized incrementally; evidence-backed claims remain local/indexed until reviewed."
+}

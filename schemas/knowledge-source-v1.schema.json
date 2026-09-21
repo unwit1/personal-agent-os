@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Knowledge Source v1",
+  "type": "object",
+  "required": [
+    "id",
+    "library_id",
+    "title",
+    "source_class"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "library_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "source_class": {
+      "type": "string"
+    },
+    "uri": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "work": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "retrieved_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metadata": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

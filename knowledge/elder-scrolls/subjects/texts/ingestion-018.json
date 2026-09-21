@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-018-dwemer-aetherium-blackreach",
+  "subjects": [
+    {
+      "id": "tes:aetherium-wars",
+      "name": "The Aetherium Wars",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/aetherium-wars.json",
+      "source": {
+        "id": "uesp:aetherium-wars",
+        "url": "https://en.uesp.net/wiki/Lore:The_Aetherium_Wars",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ancient-tales-dwemer",
+      "name": "Ancient Tales of the Dwemer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/ancient-tales-dwemer.json",
+      "source": {
+        "id": "uesp:ancient-tales-dwemer",
+        "url": "https://en.uesp.net/wiki/Lore:Ancient_Tales_of_the_Dwemer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:hanging-gardens",
+      "name": "Hanging Gardens",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/hanging-gardens.json",
+      "source": {
+        "id": "uesp:hanging-gardens",
+        "url": "https://en.uesp.net/wiki/Lore:Hanging_Gardens",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:divine-metaphysics",
+      "name": "Divine Metaphysics",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/divine-metaphysics.json",
+      "source": {
+        "id": "uesp:divine-metaphysics",
+        "url": "https://en.uesp.net/wiki/Lore:Divine_Metaphysics",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:egg-of-time",
+      "name": "The Egg of Time",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/egg-of-time.json",
+      "source": {
+        "id": "uesp:egg-of-time",
+        "url": "https://en.uesp.net/wiki/Lore:The_Egg_of_Time",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:kagrenacs-tools-text",
+      "name": "Kagrenac's Tools",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/kagrenacs-tools-text.json",
+      "source": {
+        "id": "uesp:kagrenacs-tools-text",
+        "url": "https://en.uesp.net/wiki/Lore:Kagrenac%27s_Tools",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Treat Dwemer disappearance explanations as competing hypotheses unless primary evidence establishes a narrower claim",
+    "Separate observed Dwemer technology from later scholarly theories about its operating principles",
+    "In-universe scholarly texts retain author, date and reliability metadata",
+    "Do not infer a single unified Dwemer political culture across every city-state and era",
+    "Falmer-Dwemer relations must distinguish recorded agreements, later testimony and archaeological inference",
+    "Claims involving Numidium, Heart of Lorkhan and Kagrenac should cross-link existing subjects rather than duplicate them"
+  ]
+}

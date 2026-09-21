@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "principle": "Treat UESP as a provenance-bearing container. Preserve the UESP passage and, when available, normalize its cited underlying Elder Scrolls evidence separately.",
+  "reference_kinds": [
+    {
+      "id": "game_dialogue",
+      "authority": "primary",
+      "examples": [
+        "NPC dialogue"
+      ],
+      "notes": "Preserve game/expansion, speaker, quest/context when available."
+    },
+    {
+      "id": "quest_event",
+      "authority": "primary",
+      "examples": [
+        "Events of a quest"
+      ],
+      "notes": "Event evidence is distinct from dialogue and from wiki interpretation."
+    },
+    {
+      "id": "in_game_book",
+      "authority": "primary_in_universe",
+      "examples": [
+        "Books, notes, journals"
+      ],
+      "notes": "Primary artifact but narrator may be mistaken, biased, legendary, or fictional in-universe."
+    },
+    {
+      "id": "loading_screen",
+      "authority": "primary_game_text",
+      "examples": [
+        "Loading screens"
+      ],
+      "notes": "Preserve game and DLC/zone context."
+    },
+    {
+      "id": "item_description",
+      "authority": "primary_game_text",
+      "examples": [
+        "Item descriptions"
+      ],
+      "notes": "Preserve item and game context."
+    },
+    {
+      "id": "official_external",
+      "authority": "official_external",
+      "examples": [
+        "Loremaster's Archive",
+        "Meet the Character"
+      ],
+      "notes": "Record author/persona and whether text is in-universe or editorial."
+    },
+    {
+      "id": "developer_statement",
+      "authority": "developer_statement",
+      "examples": [
+        "Developer posts/interviews"
+      ],
+      "notes": "Do not silently equate with shipped-game evidence."
+    },
+    {
+      "id": "unofficial_external",
+      "authority": "unofficial",
+      "examples": [
+        "Unofficial developer posts when UESP labels them unofficial"
+      ],
+      "notes": "Store but flag non-authoritative/conclusive."
+    },
+    {
+      "id": "uesp_summary",
+      "authority": "secondary",
+      "examples": [
+        "Uncited or synthesized UESP prose"
+      ],
+      "notes": "Useful for discovery; lower evidentiary weight than traceable underlying sources."
+    }
+  ],
+  "quality_signals": [
+    {
+      "id": "cleanup_category",
+      "effect": "review_required",
+      "notes": "UESP cleanup categories can explicitly identify lore pages needing game-specific material removed or other cleanup."
+    },
+    {
+      "id": "unofficial_reference_note",
+      "effect": "lower_authority",
+      "notes": "Preserve UESP's explicit warning that references are unofficial."
+    },
+    {
+      "id": "legend_or_account_language",
+      "effect": "epistemic_qualifier",
+      "notes": "Do not collapse legend, belief, theory, or conflicting account into objective fact."
+    },
+    {
+      "id": "multiple_conflicting_accounts",
+      "effect": "contradiction_candidate",
+      "notes": "Store accounts independently; do not force a resolution."
+    }
+  ],
+  "page_classes": [
+    {
+      "id": "lore_summary",
+      "namespace": "Lore:",
+      "handling": "chunk prose and references; map inline citations to normalized references when possible"
+    },
+    {
+      "id": "lore_book",
+      "namespace": "Lore:",
+      "handling": "store book metadata and text as an in-universe primary artifact; distinguish author claims from world facts"
+    },
+    {
+      "id": "game_book",
+      "namespace": "game namespace",
+      "handling": "link to lore-book work when available; preserve game-specific ID/location metadata separately"
+    },
+    {
+      "id": "game_page",
+      "namespace": "game namespace",
+      "handling": "use as direct game evidence where appropriate; do not mix gameplay mechanics into lore claims without typing them"
+    }
+  ]
+}

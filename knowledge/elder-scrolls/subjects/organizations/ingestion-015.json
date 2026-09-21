@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-015-empires-wars-dragonborn",
+  "subjects": [
+    {
+      "id": "tes:aldmeri-dominion",
+      "name": "Aldmeri Dominion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/aldmeri-dominion.json",
+      "source": {
+        "id": "uesp:aldmeri-dominion",
+        "url": "https://en.uesp.net/wiki/Lore:Aldmeri_Dominion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:thalmor",
+      "name": "Thalmor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/thalmor.json",
+      "source": {
+        "id": "uesp:thalmor",
+        "url": "https://en.uesp.net/wiki/Lore:Thalmor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:empire-third-era",
+      "name": "Third Empire",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/empire-third-era.json",
+      "source": {
+        "id": "uesp:empire-third-era",
+        "url": "https://en.uesp.net/wiki/Lore:Third_Empire",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:blades",
+      "name": "Blades",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/blades.json",
+      "source": {
+        "id": "uesp:blades",
+        "url": "https://en.uesp.net/wiki/Lore:Blades",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:penitus-oculatus",
+      "name": "Penitus Oculatus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/penitus-oculatus.json",
+      "source": {
+        "id": "uesp:penitus-oculatus",
+        "url": "https://en.uesp.net/wiki/Lore:Penitus_Oculatus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:stormcloaks",
+      "name": "Stormcloaks",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/stormcloaks.json",
+      "source": {
+        "id": "uesp:stormcloaks",
+        "url": "https://en.uesp.net/wiki/Lore:Stormcloaks",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ealdorman?",
+      "name": "Ebonheart Pact",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/ealdorman?.json",
+      "source": {
+        "id": "uesp:ealdorman?",
+        "url": "https://en.uesp.net/wiki/Lore:Ebonheart_Pact",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:daggerfall-covenant",
+      "name": "Daggerfall Covenant",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/daggerfall-covenant.json",
+      "source": {
+        "id": "uesp:daggerfall-covenant",
+        "url": "https://en.uesp.net/wiki/Lore:Daggerfall_Covenant",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Separate organizations from wars/events even when UESP page names overlap",
+    "Preserve era-specific versions of the Aldmeri Dominion rather than conflating them",
+    "Political claims about Great War, Concordat and Skyrim Civil War require speaker/source attribution",
+    "Dragonborn doctrine, bloodline and blessing claims should distinguish religious belief, historical records and observed game mechanics",
+    "Miraak and Dragon Priest material should prefer direct Skyrim/Dragonborn dialogue, inscriptions and quest evidence"
+  ]
+}

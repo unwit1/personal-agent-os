@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-030-dark-heart-skyrim-reach",
+  "subjects": [
+    {
+      "id": "tes:western-skyrim",
+      "name": "Western Skyrim",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/western-skyrim.json",
+      "source": {
+        "id": "uesp:western-skyrim",
+        "url": "https://en.uesp.net/wiki/Lore:Western_Skyrim",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:haafingar",
+      "name": "Haafingar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/haafingar.json",
+      "source": {
+        "id": "uesp:haafingar",
+        "url": "https://en.uesp.net/wiki/Lore:Haafingar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:solitude",
+      "name": "Solitude",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/solitude.json",
+      "source": {
+        "id": "uesp:solitude",
+        "url": "https://en.uesp.net/wiki/Lore:Solitude",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:blackreach-greymoor",
+      "name": "Blackreach",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/blackreach-greymoor.json",
+      "source": {
+        "id": "uesp:blackreach-greymoor",
+        "url": "https://en.uesp.net/wiki/Lore:Blackreach",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:reach",
+      "name": "The Reach",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/reach.json",
+      "source": {
+        "id": "uesp:reach",
+        "url": "https://en.uesp.net/wiki/Lore:The_Reach",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:markarth",
+      "name": "Markarth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/markarth.json",
+      "source": {
+        "id": "uesp:markarth",
+        "url": "https://en.uesp.net/wiki/Lore:Markarth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:arkthzand-cavern",
+      "name": "Arkthzand Cavern",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/arkthzand-cavern.json",
+      "source": {
+        "id": "uesp:arkthzand-cavern",
+        "url": "https://en.uesp.net/wiki/Lore:Arkthzand_Cavern",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:blackreach-greymoor-caverns",
+      "name": "Greymoor Caverns",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/blackreach-greymoor-caverns.json",
+      "source": {
+        "id": "uesp:blackreach-greymoor-caverns",
+        "url": "https://en.uesp.net/wiki/Lore:Greymoor_Caverns",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Keep ESO-era Western Skyrim and Reach politics temporally separate from Fourth Era Skyrim",
+    "Reachfolk religion and magic should prioritize internally described traditions while retaining outsider accounts as attributed evidence",
+    "Vampire and werewolf capabilities must distinguish narrative evidence from combat/game mechanics",
+    "Dark Heart and Void metaphysics require source-specific claims rather than a single synthesized cosmology",
+    "Blackreach is a broad subterranean region; preserve named cavern/subregion distinctions across games",
+    "Cross-link existing Reach, Markarth, Solitude, Lyris Titanborn, vampirism, Blackreach and Reachfolk subjects rather than duplicate them"
+  ]
+}

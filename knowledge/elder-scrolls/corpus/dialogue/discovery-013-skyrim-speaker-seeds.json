@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "game": "skyrim",
+  "status": "verified",
+  "speakers": [
+    {
+      "canonical_id": "skyrim:arngeir",
+      "display_name": "Arngeir",
+      "verified_transcripts": [
+        "TES5 Skyrim: The Horn of Jurgen Windcaller"
+      ],
+      "subjects": [
+        "Dragonborn",
+        "Voice",
+        "Greybeards",
+        "Jurgen Windcaller",
+        "Kynareth",
+        "Akatosh",
+        "Paarthurnax",
+        "Talos",
+        "Ysmir"
+      ]
+    },
+    {
+      "canonical_id": "skyrim:delphine",
+      "display_name": "Delphine",
+      "verified_transcripts": [
+        "TES5 Skyrim: The Horn of Jurgen Windcaller"
+      ],
+      "subjects": [
+        "Dragonborn",
+        "Horn of Jurgen Windcaller",
+        "Blades"
+      ]
+    },
+    {
+      "canonical_id": "skyrim:wulfgar",
+      "display_name": "Wulfgar",
+      "verified_transcripts": [
+        "TES5 Skyrim: The Horn of Jurgen Windcaller"
+      ],
+      "subjects": [
+        "Greybeards",
+        "Unrelenting Force",
+        "Dragonborn"
+      ]
+    },
+    {
+      "canonical_id": "skyrim:greybeards-group",
+      "display_name": "The Greybeards, together",
+      "verified_transcripts": [
+        "TES5 Skyrim: The Horn of Jurgen Windcaller"
+      ],
+      "subjects": [
+        "Ysmir",
+        "Kyne",
+        "Shor",
+        "Atmora",
+        "Dragonborn ceremony"
+      ]
+    }
+  ],
+  "rules": [
+    "Canonical speaker IDs are game-scoped until cross-game identity is explicitly established.",
+    "Group speech is not attributed to individual members without source evidence.",
+    "Subject tags are retrieval aids, not extracted truth claims."
+  ]
+}

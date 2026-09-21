@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "peoples",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-034-snow-elves-falmer-forgotten-vale",
+  "subjects": [
+    {
+      "id": "tes:snow-elves",
+      "name": "Snow Elves",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/snow-elves.json",
+      "source": {
+        "id": "uesp:snow-elves",
+        "url": "https://en.uesp.net/wiki/Lore:Snow_Elves",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:falmer",
+      "name": "Falmer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/falmer.json",
+      "source": {
+        "id": "uesp:falmer",
+        "url": "https://en.uesp.net/wiki/Lore:Falmer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dwemer",
+      "name": "Dwemer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/dwemer.json",
+      "source": {
+        "id": "uesp:dwemer",
+        "url": "https://en.uesp.net/wiki/Lore:Dwemer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:chantry-snow-elves",
+      "name": "Chantry Snow Elves",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/chantry-snow-elves.json",
+      "source": {
+        "id": "uesp:chantry-snow-elves",
+        "url": "https://en.uesp.net/wiki/Lore:Chantry_Snow_Elves",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Use Snow Elf and Falmer terminology with historical precision; do not assume every source uses the terms identically",
+    "Gelebor and Vyrthur provide unusually valuable first-person testimony but remain individual witnesses rather than omniscient narrators",
+    "The cause and mechanism of Falmer transformation must preserve Dwemer agreement accounts, later testimony and uncertainty separately",
+    "Do not infer cultural continuity between ancient Snow Elf religion and every later Falmer community without evidence",
+    "Falmer language evidence should distinguish direct inscriptions/translations from scholarly reconstruction",
+    "Cross-link existing Snow Elves, Falmer, Dwemer, Blackreach, Forgotten Vale, Auri-El, Gelebor, Vyrthur, Auriel's Bow and Falmer-Dwemer records"
+  ]
+}

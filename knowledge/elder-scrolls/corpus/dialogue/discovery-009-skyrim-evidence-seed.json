@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "game": "skyrim",
+  "status": "verified",
+  "transcript": {
+    "title": "TES5 Skyrim: The Horn of Jurgen Windcaller",
+    "url": "https://www.imperial-library.info/content/tes5-skyrim-the-horn-of-jurgen-windcaller",
+    "source_kind": "quest_dialogue_transcript"
+  },
+  "evidence_topics": [
+    {
+      "speaker": "Arngeir",
+      "subjects": [
+        "Dragonborn",
+        "dragons",
+        "Voice"
+      ],
+      "signals": [
+        "Dragonborn abilities",
+        "dragon speech",
+        "return of dragons"
+      ]
+    },
+    {
+      "speaker": "Arngeir",
+      "subjects": [
+        "Jurgen Windcaller",
+        "Red Mountain",
+        "Way of the Voice"
+      ],
+      "signals": [
+        "Jurgen's defeat at Red Mountain",
+        "religious interpretation of the Voice"
+      ]
+    },
+    {
+      "speaker": "Arngeir",
+      "subjects": [
+        "Kynareth",
+        "Akatosh",
+        "Dragonborn"
+      ],
+      "signals": [
+        "culturally framed divine origins of Voice and Dragonborn"
+      ]
+    },
+    {
+      "speaker": "Arngeir",
+      "subjects": [
+        "Talos",
+        "Tiber Septim",
+        "Ysmir",
+        "Kyne",
+        "Shor",
+        "Atmora"
+      ],
+      "signals": [
+        "Greybeard greeting tradition",
+        "young Talos claim",
+        "ceremonial translation"
+      ]
+    },
+    {
+      "speaker": "The Greybeards, together",
+      "subjects": [
+        "Ysmir",
+        "Kyne",
+        "Shor",
+        "Atmora"
+      ],
+      "signals": [
+        "dragon-language ceremony"
+      ]
+    }
+  ],
+  "epistemic_rules": [
+    "Arngeir's historical and theological statements remain attributed to Arngeir.",
+    "Ceremonial language is primary evidence for the ceremony, not automatic proof of every historical implication.",
+    "The transcript compiler's first-person stage narration is context metadata, not player-character spoken dialogue.",
+    "The Mysterious Note is embedded written evidence and should cross-link to the books/notes corpus."
+  ]
+}

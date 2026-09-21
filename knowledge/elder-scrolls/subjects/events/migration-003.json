@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:alessian-slave-rebellion",
+      "name": "Alessian Slave Rebellion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/alessian-slave-rebellion.json",
+      "source": {
+        "id": "uesp:alessian-slave-rebellion",
+        "url": "https://en.uesp.net/wiki/Lore:Alessian_Slave_Rebellion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:middle-dawn",
+      "name": "Middle Dawn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/middle-dawn.json",
+      "source": {
+        "id": "uesp:middle-dawn",
+        "url": "https://en.uesp.net/wiki/Lore:Middle_Dawn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:war-red-diamond",
+      "name": "War of the Red Diamond",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/war-red-diamond.json",
+      "source": {
+        "id": "uesp:war-red-diamond",
+        "url": "https://en.uesp.net/wiki/Lore:War_of_the_Red_Diamond",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:imperial-simulacrum",
+      "name": "Imperial Simulacrum",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/imperial-simulacrum.json",
+      "source": {
+        "id": "uesp:imperial-simulacrum",
+        "url": "https://en.uesp.net/wiki/Lore:Imperial_Simulacrum",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:warp-west",
+      "name": "Warp in the West",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/warp-west.json",
+      "source": {
+        "id": "uesp:warp-west",
+        "url": "https://en.uesp.net/wiki/Lore:Warp_in_the_West",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:planemeld",
+      "name": "Planemeld",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/planemeld.json",
+      "source": {
+        "id": "uesp:planemeld",
+        "url": "https://en.uesp.net/wiki/Lore:Planemeld",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:soulburst",
+      "name": "Soulburst",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/soulburst.json",
+      "source": {
+        "id": "uesp:soulburst",
+        "url": "https://en.uesp.net/wiki/Lore:Soulburst",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:three-banners-war",
+      "name": "Three Banners War",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/three-banners-war.json",
+      "source": {
+        "id": "uesp:three-banners-war",
+        "url": "https://en.uesp.net/wiki/Lore:Three_Banners_War",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:knahaten-flu",
+      "name": "Knahaten Flu",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/knahaten-flu.json",
+      "source": {
+        "id": "uesp:knahaten-flu",
+        "url": "https://en.uesp.net/wiki/Lore:Knahaten_Flu",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration from earlier queues. Preserve source-era, narrator, cultural and doctrinal qualifiers during evidence extraction."
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-018-dwemer-aetherium-blackreach",
+  "subjects": [
+    {
+      "id": "tes:katria",
+      "name": "Katria",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/katria.json",
+      "source": {
+        "id": "uesp:katria",
+        "url": "https://en.uesp.net/wiki/Lore:Katria",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:arniel-gane",
+      "name": "Arniel Gane",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/arniel-gane.json",
+      "source": {
+        "id": "uesp:arniel-gane",
+        "url": "https://en.uesp.net/wiki/Lore:Arniel_Gane",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:calcelmo",
+      "name": "Calcelmo",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/calcelmo.json",
+      "source": {
+        "id": "uesp:calcelmo",
+        "url": "https://en.uesp.net/wiki/Lore:Calcelmo",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:septimus-signus",
+      "name": "Septimus Signus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/septimus-signus.json",
+      "source": {
+        "id": "uesp:septimus-signus",
+        "url": "https://en.uesp.net/wiki/Lore:Septimus_Signus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:yagrum-bagarn",
+      "name": "Yagrum Bagarn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/yagrum-bagarn.json",
+      "source": {
+        "id": "uesp:yagrum-bagarn",
+        "url": "https://en.uesp.net/wiki/Lore:Yagrum_Bagarn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Treat Dwemer disappearance explanations as competing hypotheses unless primary evidence establishes a narrower claim",
+    "Separate observed Dwemer technology from later scholarly theories about its operating principles",
+    "In-universe scholarly texts retain author, date and reliability metadata",
+    "Do not infer a single unified Dwemer political culture across every city-state and era",
+    "Falmer-Dwemer relations must distinguish recorded agreements, later testimony and archaeological inference",
+    "Claims involving Numidium, Heart of Lorkhan and Kagrenac should cross-link existing subjects rather than duplicate them"
+  ]
+}

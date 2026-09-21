@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "status": "active",
+  "frontiers": [
+    {
+      "game": "skyrim",
+      "seed_url": "https://www.imperial-library.info/content/tes5-skyrim-the-horn-of-jurgen-windcaller",
+      "strategy": "follow transcript adjacency and quest-chain links",
+      "priority": 1
+    },
+    {
+      "game": "blades",
+      "seed_url": "https://www.imperial-library.info/content/update-roundup-april-2019",
+      "strategy": "resolve referenced storyline collection, then enumerate chapters",
+      "priority": 2
+    },
+    {
+      "game": "eso",
+      "seed_url": "https://www.imperial-library.info/content/update-roundup-april-2019",
+      "strategy": "separate in-game quest transcripts from ESO Live/developer and official-web prose",
+      "priority": 3
+    },
+    {
+      "game": "morrowind",
+      "strategy": "discover actual topic/NPC dialogue transcript pages while excluding book-category pages",
+      "priority": 4
+    },
+    {
+      "game": "oblivion",
+      "strategy": "discover quest/NPC transcript pages and classify before ingestion",
+      "priority": 5
+    },
+    {
+      "game": "redguard",
+      "strategy": "prioritize storyline/conversation transcripts because dialogue is unusually lore-dense",
+      "priority": 6
+    },
+    {
+      "game": "battlespire",
+      "strategy": "prioritize conversation transcripts and Daedric dialogue",
+      "priority": 7
+    },
+    {
+      "game": "daggerfall",
+      "strategy": "discover quest/NPC transcript material separately from books and holiday/system pages",
+      "priority": 8
+    },
+    {
+      "game": "arena",
+      "strategy": "discover available dialogue/story transcript material; expect sparse corpus",
+      "priority": 9
+    }
+  ],
+  "stop_conditions": [
+    "No unseen transcript-like links remain in a game's frontier.",
+    "All discovered pages have a classification and crawl status.",
+    "Failures and dead links are retained for archive resolution rather than silently dropped."
+  ]
+}

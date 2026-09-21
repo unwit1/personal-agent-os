@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-039-aldmer-altmer-psijic-summerset",
+  "subjects": [
+    {
+      "id": "tes:ayrenn",
+      "name": "Queen Ayrenn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/ayrenn.json",
+      "source": {
+        "id": "uesp:ayrenn",
+        "url": "https://en.uesp.net/wiki/Lore:Queen_Ayrenn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:naemon",
+      "name": "Prince Naemon",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/naemon.json",
+      "source": {
+        "id": "uesp:naemon",
+        "url": "https://en.uesp.net/wiki/Lore:Prince_Naemon",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:razum-dar",
+      "name": "Razum-dar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/razum-dar.json",
+      "source": {
+        "id": "uesp:razum-dar",
+        "url": "https://en.uesp.net/wiki/Lore:Razum-dar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:vanus-galerion",
+      "name": "Vanus Galerion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/vanus-galerion.json",
+      "source": {
+        "id": "uesp:vanus-galerion",
+        "url": "https://en.uesp.net/wiki/Lore:Vanus_Galerion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mannimarco",
+      "name": "Mannimarco",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/mannimarco.json",
+      "source": {
+        "id": "uesp:mannimarco",
+        "url": "https://en.uesp.net/wiki/Lore:Mannimarco",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:rite-master-iach-esis",
+      "name": "Ritemaster Iachesis",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/rite-master-iach-esis.json",
+      "source": {
+        "id": "uesp:rite-master-iach-esis",
+        "url": "https://en.uesp.net/wiki/Lore:Ritemaster_Iachesis",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:celarus",
+      "name": "Loremaster Celarus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/celarus.json",
+      "source": {
+        "id": "uesp:celarus",
+        "url": "https://en.uesp.net/wiki/Lore:Loremaster_Celarus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Aldmer and Altmer must remain historically distinct labels; do not project later Altmeri institutions unchanged onto ancient Aldmeri society",
+    "Altmeri social ideals such as Alaxon should distinguish prescriptive doctrine from observed lived practice",
+    "Psijic accounts of the Old Ways, time and metaphysics retain institutional/source provenance rather than becoming universal truth",
+    "Competing accounts of Aldmeris and early elven origins should coexist where evidence conflicts",
+    "Summerset's political isolation/opening must retain era-specific context",
+    "Cross-link existing Altmer, Aldmer, Summerset, Auridon, Alinor, Artaeum, Crystal Tower, Psijic Order, Sapiarchs, Ayrenn, Vanus Galerion and Mannimarco records"
+  ]
+}

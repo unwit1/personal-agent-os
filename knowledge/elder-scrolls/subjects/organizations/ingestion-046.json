@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-046-imperial-divines-cult",
+  "subjects": [
+    {
+      "id": "tes:imperial-cult",
+      "name": "Imperial Cult",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/imperial-cult.json",
+      "source": {
+        "id": "uesp:imperial-cult",
+        "url": "https://en.uesp.net/wiki/Lore:Imperial_Cult",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:temple-one",
+      "name": "Temple of the One",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/temple-one.json",
+      "source": {
+        "id": "uesp:temple-one",
+        "url": "https://en.uesp.net/wiki/Lore:Temple_of_the_One",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:vigilants-stendarr",
+      "name": "Vigilants of Stendarr",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/vigilants-stendarr.json",
+      "source": {
+        "id": "uesp:vigilants-stendarr",
+        "url": "https://en.uesp.net/wiki/Lore:Vigilants_of_Stendarr",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:knights-nine",
+      "name": "Knights of the Nine",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/knights-nine.json",
+      "source": {
+        "id": "uesp:knights-nine",
+        "url": "https://en.uesp.net/wiki/Lore:Knights_of_the_Nine",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Distinguish Alessian, Reman, Septim and Fourth Era Imperial religious practice rather than treating the Imperial pantheon as static",
+    "Eight Divines and Nine Divines are historically contextual formulations; Talos-related doctrine must retain era and political context",
+    "Do not automatically merge Imperial gods with culturally corresponding deities; preserve syncretic identifications as sourced relationships",
+    "Religious commandments and temple doctrine are prescriptive evidence, not proof of universal practice",
+    "Talos worship after the White-Gold Concordat must distinguish legal status, public practice, private worship and regional enforcement",
+    "Cross-link existing Akatosh, Talos, Shezarr, Alessian Order, Temple of the One, Knights of the Nine, Amulet of Kings and White-Gold Concordat records"
+  ]
+}

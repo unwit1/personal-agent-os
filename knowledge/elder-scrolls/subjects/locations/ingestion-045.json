@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-045-khajiit-religion-lunar-cosmology",
+  "subjects": [
+    {
+      "id": "tes:elsweyr",
+      "name": "Elsweyr",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/elsweyr.json",
+      "source": {
+        "id": "uesp:elsweyr",
+        "url": "https://en.uesp.net/wiki/Lore:Elsweyr",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:anequina",
+      "name": "Anequina",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/anequina.json",
+      "source": {
+        "id": "uesp:anequina",
+        "url": "https://en.uesp.net/wiki/Lore:Anequina",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:pellitine",
+      "name": "Pellitine",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/pellitine.json",
+      "source": {
+        "id": "uesp:pellitine",
+        "url": "https://en.uesp.net/wiki/Lore:Pellitine",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:moon-bishop-temples",
+      "name": "Khajiiti Temples",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/moon-bishop-temples.json",
+      "source": {
+        "id": "uesp:moon-bishop-temples",
+        "url": "https://en.uesp.net/wiki/Lore:Khajiiti_Temples",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sands-behind-stars",
+      "name": "Sands Behind the Stars",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/sands-behind-stars.json",
+      "source": {
+        "id": "uesp:sands-behind-stars",
+        "url": "https://en.uesp.net/wiki/Lore:Sands_Behind_the_Stars",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dark-behind-world",
+      "name": "Dark Behind the World",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/dark-behind-world.json",
+      "source": {
+        "id": "uesp:dark-behind-world",
+        "url": "https://en.uesp.net/wiki/Lore:Dark_Behind_the_World",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:maw-lorkhaj",
+      "name": "Maw of Lorkhaj",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/maw-lorkhaj.json",
+      "source": {
+        "id": "uesp:maw-lorkhaj",
+        "url": "https://en.uesp.net/wiki/Lore:Maw_of_Lorkhaj",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Pre-ri'Datta and Riddle'Thar-era Khajiiti religion must remain historically distinct traditions with documented continuities and changes",
+    "Do not automatically equate Khajiiti deities with similarly named Imperial or Aldmeri gods; model proposed correspondences as relationships with evidence",
+    "Amun-dro, Clan Mother Ahnissi and Moon-Bishop traditions retain authorship, period and doctrinal perspective",
+    "Furstock and lunar-cycle claims should distinguish cultural doctrine, observed births and game simplification",
+    "Dro-m'Athra and Bent Dance descriptions should separate religious interpretation from directly observed phenomena",
+    "Cross-link existing Khajiit, Azurah, Alkosh, Riddle'Thar, Lunar Lattice, Mane, Dro-m'Athra, Lorkhaj, Elsweyr, Anequina and Pellitine records"
+  ]
+}

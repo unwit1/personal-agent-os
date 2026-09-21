@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-024-eso-planemeld-five-companions",
+  "subjects": [
+    {
+      "id": "tes:five-companions",
+      "name": "Five Companions",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/five-companions.json",
+      "source": {
+        "id": "uesp:five-companions",
+        "url": "https://en.uesp.net/wiki/Lore:Five_Companions",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:fighters-guild",
+      "name": "Fighters Guild",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/fighters-guild.json",
+      "source": {
+        "id": "uesp:fighters-guild",
+        "url": "https://en.uesp.net/wiki/Lore:Fighters_Guild",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mages-guild",
+      "name": "Mages Guild",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/mages-guild.json",
+      "source": {
+        "id": "uesp:mages-guild",
+        "url": "https://en.uesp.net/wiki/Lore:Mages_Guild",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:undaunted",
+      "name": "Undaunted",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/undaunted.json",
+      "source": {
+        "id": "uesp:undaunted",
+        "url": "https://en.uesp.net/wiki/Lore:Undaunted",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:aldmeri-dominion-first",
+      "name": "First Aldmeri Dominion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/aldmeri-dominion-first.json",
+      "source": {
+        "id": "uesp:aldmeri-dominion-first",
+        "url": "https://en.uesp.net/wiki/Lore:First_Aldmeri_Dominion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:daggerfall-covenant",
+      "name": "Daggerfall Covenant",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/daggerfall-covenant.json",
+      "source": {
+        "id": "uesp:daggerfall-covenant",
+        "url": "https://en.uesp.net/wiki/Lore:Daggerfall_Covenant",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ebonheart-pact",
+      "name": "Ebonheart Pact",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/ebonheart-pact.json",
+      "source": {
+        "id": "uesp:ebonheart-pact",
+        "url": "https://en.uesp.net/wiki/Lore:Ebonheart_Pact",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Vestige biography and alliance choice remain player-variable unless a source establishes a common event",
+    "Separate base-game Planemeld chronology from later ESO chapters and retroactive interpretations",
+    "Molag Bal dialogue is attributed testimony, not omniscient narration",
+    "Distinguish observed Coldharbour mechanics from scholarly metaphysical explanation",
+    "Alliance-specific quest variants and mutually exclusive choices remain branch-scoped",
+    "Cross-link existing Planemeld, Soulburst, Mannimarco, Molag Bal, Coldharbour, Amulet of Kings and alliance records rather than duplicate them"
+  ]
+}

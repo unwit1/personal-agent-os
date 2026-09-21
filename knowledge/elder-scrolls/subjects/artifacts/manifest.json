@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "subjects": [
+    "numidium",
+    "heart-of-lorkhan",
+    "keening",
+    "sunder",
+    "wraithguard",
+    "mantella",
+    "amulet-of-kings"
+  ],
+  "notes": "Seed manifest from existing ingestion queues. Individual subject records are created/populated by ingestion."
+}

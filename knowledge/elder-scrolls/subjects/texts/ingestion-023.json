@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-023-arena-daggerfall-warp-west",
+  "subjects": [
+    {
+      "id": "tes:real-barenziah",
+      "name": "The Real Barenziah",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/real-barenziah.json",
+      "source": {
+        "id": "uesp:real-barenziah",
+        "url": "https://en.uesp.net/wiki/Lore:The_Real_Barenziah",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:biography-barenziah",
+      "name": "Biography of Queen Barenziah",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/biography-barenziah.json",
+      "source": {
+        "id": "uesp:biography-barenziah",
+        "url": "https://en.uesp.net/wiki/Lore:Biography_of_Queen_Barenziah",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:warp-west-book",
+      "name": "The Warp in the West",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/warp-west-book.json",
+      "source": {
+        "id": "uesp:warp-west-book",
+        "url": "https://en.uesp.net/wiki/Lore:The_Warp_in_the_West",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:arcturian-heresy",
+      "name": "The Arcturian Heresy",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/arcturian-heresy.json",
+      "source": {
+        "id": "uesp:arcturian-heresy",
+        "url": "https://en.uesp.net/wiki/Lore:The_Arcturian_Heresy",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Arena and Daggerfall player-character identities remain minimally specified unless primary sources establish details",
+    "Daggerfall's mutually exclusive endings must remain separate outcome branches before Warp-in-the-West reconciliation",
+    "Do not use later Dragon Break explanations to erase what individual earlier sources report",
+    "Underking, Zurin Arctus, Wulfharth and Mantella identity/soul claims require source-specific attribution",
+    "The Real Barenziah, Biography of Queen Barenziah and Arcturian Heresy retain genre, authorship and reliability metadata",
+    "Cross-link existing Numidium, Mantella, Mannimarco, Uriel VII, Daggerfall, Wayrest and Orsinium subjects"
+  ]
+}

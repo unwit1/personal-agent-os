@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-030-dark-heart-skyrim-reach",
+  "subjects": [
+    {
+      "id": "tes:dark-heart-skyrim-artifact",
+      "name": "Dark Heart",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/dark-heart-skyrim-artifact.json",
+      "source": {
+        "id": "uesp:dark-heart-skyrim-artifact",
+        "url": "https://en.uesp.net/wiki/Lore:Dark_Heart",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:void-portal-stone",
+      "name": "Void Portals",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/void-portal-stone.json",
+      "source": {
+        "id": "uesp:void-portal-stone",
+        "url": "https://en.uesp.net/wiki/Lore:Void_Portals",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:arkthzand-tonal-instrument",
+      "name": "Arkthzand Tonal Instrument",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/arkthzand-tonal-instrument.json",
+      "source": {
+        "id": "uesp:arkthzand-tonal-instrument",
+        "url": "https://en.uesp.net/wiki/Lore:Arkthzand_Tonal_Instrument",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Keep ESO-era Western Skyrim and Reach politics temporally separate from Fourth Era Skyrim",
+    "Reachfolk religion and magic should prioritize internally described traditions while retaining outsider accounts as attributed evidence",
+    "Vampire and werewolf capabilities must distinguish narrative evidence from combat/game mechanics",
+    "Dark Heart and Void metaphysics require source-specific claims rather than a single synthesized cosmology",
+    "Blackreach is a broad subterranean region; preserve named cavern/subregion distinctions across games",
+    "Cross-link existing Reach, Markarth, Solitude, Lyris Titanborn, vampirism, Blackreach and Reachfolk subjects rather than duplicate them"
+  ]
+}

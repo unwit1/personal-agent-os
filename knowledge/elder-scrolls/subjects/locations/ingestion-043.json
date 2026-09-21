@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-043-breton-high-rock-direnni",
+  "subjects": [
+    {
+      "id": "tes:high-rock",
+      "name": "High Rock",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/high-rock.json",
+      "source": {
+        "id": "uesp:high-rock",
+        "url": "https://en.uesp.net/wiki/Lore:High_Rock",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:glenumbra",
+      "name": "Glenumbra",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/glenumbra.json",
+      "source": {
+        "id": "uesp:glenumbra",
+        "url": "https://en.uesp.net/wiki/Lore:Glenumbra",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:stormhaven",
+      "name": "Stormhaven",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/stormhaven.json",
+      "source": {
+        "id": "uesp:stormhaven",
+        "url": "https://en.uesp.net/wiki/Lore:Stormhaven",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:rivenspire",
+      "name": "Rivenspire",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/rivenspire.json",
+      "source": {
+        "id": "uesp:rivenspire",
+        "url": "https://en.uesp.net/wiki/Lore:Rivenspire",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:daggerfall",
+      "name": "Daggerfall",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/daggerfall.json",
+      "source": {
+        "id": "uesp:daggerfall",
+        "url": "https://en.uesp.net/wiki/Lore:Daggerfall",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:wayrest",
+      "name": "Wayrest",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/wayrest.json",
+      "source": {
+        "id": "uesp:wayrest",
+        "url": "https://en.uesp.net/wiki/Lore:Wayrest",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:evermore",
+      "name": "Evermore",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/evermore.json",
+      "source": {
+        "id": "uesp:evermore",
+        "url": "https://en.uesp.net/wiki/Lore:Evermore",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:balfiera",
+      "name": "Balfiera",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/balfiera.json",
+      "source": {
+        "id": "uesp:balfiera",
+        "url": "https://en.uesp.net/wiki/Lore:Balfiera",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:adamantine-tower",
+      "name": "Adamantine Tower",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/adamantine-tower.json",
+      "source": {
+        "id": "uesp:adamantine-tower",
+        "url": "https://en.uesp.net/wiki/Lore:Adamantine_Tower",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Breton ancestry claims must distinguish historical evidence, cultural identity, polemical texts and later racial theorizing",
+    "Do not treat High Rock as a single centralized political culture across eras; preserve kingdom, city-state and feudal variation",
+    "Direnni rule and the term Manmer require era/source-specific handling rather than timeless ethnic definitions",
+    "Adamantine Tower cosmology should separate observed location/history from Tower-theory interpretation",
+    "Rivenspire vampire narratives must distinguish individual clans and periods rather than generalize all Breton vampirism",
+    "Cross-link existing Breton, High Rock, Direnni, Daggerfall, Wayrest, Balfiera, Adamantine Tower, Emeric and House Ravenwatch records"
+  ]
+}

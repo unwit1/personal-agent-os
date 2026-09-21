@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-042-reman-akaviri-potentate",
+  "subjects": [
+    {
+      "id": "tes:reman-empire",
+      "name": "Second Empire",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/reman-empire.json",
+      "source": {
+        "id": "uesp:reman-empire",
+        "url": "https://en.uesp.net/wiki/Lore:Second_Empire",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:akaviri-potentate",
+      "name": "Akaviri Potentate",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/akaviri-potentate.json",
+      "source": {
+        "id": "uesp:akaviri-potentate",
+        "url": "https://en.uesp.net/wiki/Lore:Akaviri_Potentate",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragonguard",
+      "name": "Dragonguard",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/dragonguard.json",
+      "source": {
+        "id": "uesp:dragonguard",
+        "url": "https://en.uesp.net/wiki/Lore:Dragonguard",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:morag-tong",
+      "name": "Morag Tong",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/morag-tong.json",
+      "source": {
+        "id": "uesp:morag-tong",
+        "url": "https://en.uesp.net/wiki/Lore:Morag_Tong",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Akaviri peoples must remain distinct; do not treat Tsaesci, Kamal, Ka Po' Tun and Tang Mo as interchangeable descriptions of one culture",
+    "Claims about Tsaesci physical nature are contradictory and often mediated by outsider texts; preserve competing interpretations",
+    "2920 is historical fiction and provides evidence for cultural memory/literary tradition, not automatic verbatim First Era history",
+    "Reman birth and divine-origin narratives in the Remanada retain mythic/propagandistic provenance",
+    "Distinguish the First and Second Akaviri invasions and their different peoples, motives and evidence",
+    "Cross-link existing Reman, Second Empire, Akaviri Potentate, Dragonguard, Jorunn, Almalexia, Wulfharth and Second Akaviri Invasion records"
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-016-tribunal-clockwork-telvanni",
+  "subjects": [
+    {
+      "id": "tes:clockwork-city-concept",
+      "name": "Clockwork City",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/clockwork-city-concept.json",
+      "source": {
+        "id": "uesp:clockwork-city-concept",
+        "url": "https://en.uesp.net/wiki/Lore:Clockwork_City",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mechanical-heart",
+      "name": "Mechanical Heart",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/mechanical-heart.json",
+      "source": {
+        "id": "uesp:mechanical-heart",
+        "url": "https://en.uesp.net/wiki/Lore:Mechanical_Heart",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:divine-disease",
+      "name": "Divine Disease",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/divine-disease.json",
+      "source": {
+        "id": "uesp:divine-disease",
+        "url": "https://en.uesp.net/wiki/Lore:Divine_Disease",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:corprus",
+      "name": "Corprus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/corprus.json",
+      "source": {
+        "id": "uesp:corprus",
+        "url": "https://en.uesp.net/wiki/Lore:Corprus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:godhood",
+      "name": "Godhood",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/godhood.json",
+      "source": {
+        "id": "uesp:godhood",
+        "url": "https://en.uesp.net/wiki/Lore:Godhood",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:living-gods",
+      "name": "Living Gods",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/living-gods.json",
+      "source": {
+        "id": "uesp:living-gods",
+        "url": "https://en.uesp.net/wiki/Lore:Living_Gods",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:saints-dunmer",
+      "name": "Dunmer Saints",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/saints-dunmer.json",
+      "source": {
+        "id": "uesp:saints-dunmer",
+        "url": "https://en.uesp.net/wiki/Lore:Dunmer_Saints",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:anticipations",
+      "name": "Anticipations",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/anticipations.json",
+      "source": {
+        "id": "uesp:anticipations",
+        "url": "https://en.uesp.net/wiki/Lore:Anticipations",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:reclamations",
+      "name": "Reclamations",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/reclamations.json",
+      "source": {
+        "id": "uesp:reclamations",
+        "url": "https://en.uesp.net/wiki/Lore:Reclamations",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Treat Tribunal theology, dissident accounts, sermons and later Temple doctrine as distinct evidence traditions",
+    "Do not use 2920 as straightforward historical evidence without retaining its in-universe fictional/literary status",
+    "Separate the physical/metaphysical Clockwork City from institutions and representations that share its name",
+    "Corprus and Divine Disease claims should distinguish observed effects, Temple explanations and Dagoth-related interpretations",
+    "Prefer direct Morrowind/ESO dialogue and books for Sotha Sil, Almalexia, Divayth Fyr, Yagrum Bagarn and Telvanni claims"
+  ]
+}

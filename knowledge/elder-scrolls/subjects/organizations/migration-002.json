@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:psijic-order",
+      "name": "Psijic Order",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/psijic-order.json",
+      "source": {
+        "id": "uesp:psijic-order",
+        "url": "https://en.uesp.net/wiki/Lore:Psijic_Order",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mages-guild",
+      "name": "Mages Guild",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/mages-guild.json",
+      "source": {
+        "id": "uesp:mages-guild",
+        "url": "https://en.uesp.net/wiki/Lore:Mages_Guild",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dark-brotherhood",
+      "name": "Dark Brotherhood",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/dark-brotherhood.json",
+      "source": {
+        "id": "uesp:dark-brotherhood",
+        "url": "https://en.uesp.net/wiki/Lore:Dark_Brotherhood",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:morag-tong",
+      "name": "Morag Tong",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/morag-tong.json",
+      "source": {
+        "id": "uesp:morag-tong",
+        "url": "https://en.uesp.net/wiki/Lore:Morag_Tong",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:house-redoran",
+      "name": "House Redoran",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/house-redoran.json",
+      "source": {
+        "id": "uesp:house-redoran",
+        "url": "https://en.uesp.net/wiki/Lore:House_Redoran",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:house-telvanni",
+      "name": "House Telvanni",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/house-telvanni.json",
+      "source": {
+        "id": "uesp:house-telvanni",
+        "url": "https://en.uesp.net/wiki/Lore:House_Telvanni",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:alessian-order",
+      "name": "Alessian Order",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/alessian-order.json",
+      "source": {
+        "id": "uesp:alessian-order",
+        "url": "https://en.uesp.net/wiki/Lore:Alessian_Order",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragon-cult",
+      "name": "Dragon Cult",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/dragon-cult.json",
+      "source": {
+        "id": "uesp:dragon-cult",
+        "url": "https://en.uesp.net/wiki/Lore:Dragon_Cult",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Categorized migration from prior ingestion queues. Source URLs are discovery pointers; underlying primary references are preferred during extraction."
+}

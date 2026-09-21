@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-037-tiber-septim-numidium-underking",
+  "subjects": [
+    {
+      "id": "tes:sancre-tor",
+      "name": "Sancre Tor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/sancre-tor.json",
+      "source": {
+        "id": "uesp:sancre-tor",
+        "url": "https://en.uesp.net/wiki/Lore:Sancre_Tor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:old-hroldan",
+      "name": "Old Hroldan",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/old-hroldan.json",
+      "source": {
+        "id": "uesp:old-hroldan",
+        "url": "https://en.uesp.net/wiki/Lore:Old_Hroldan",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:cyrodiil",
+      "name": "Cyrodiil",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/cyrodiil.json",
+      "source": {
+        "id": "uesp:cyrodiil",
+        "url": "https://en.uesp.net/wiki/Lore:Cyrodiil",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:summerset",
+      "name": "Summerset Isles",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/summerset.json",
+      "source": {
+        "id": "uesp:summerset",
+        "url": "https://en.uesp.net/wiki/Lore:Summerset_Isles",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:hammerfell",
+      "name": "Hammerfell",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/hammerfell.json",
+      "source": {
+        "id": "uesp:hammerfell",
+        "url": "https://en.uesp.net/wiki/Lore:Hammerfell",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Tiber Septim's origins, names and identity claims must remain source-specific; do not collapse Hjalti, Talos, Tiber Septim and related theories without evidence",
+    "Underking identity claims involving Zurin Arctus and Wulfharth must coexist with explicit provenance and contradiction links",
+    "The Arcturian Heresy is an in-universe counter-history and must not silently replace Imperial accounts as objective fact",
+    "Numidium effects on time and history require event-specific evidence; do not generalize every activation into an unrestricted Dragon Break mechanism",
+    "Talos apotheosis claims should distinguish historical cult development, theological doctrine and directly observable divine phenomena",
+    "Cross-link existing Tiber Septim, Wulfharth, Numidium, Mantella, Underking, Warp in the West, Dragon Break and Septim records"
+  ]
+}

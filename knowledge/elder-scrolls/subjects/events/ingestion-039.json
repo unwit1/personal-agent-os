@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-039-aldmer-altmer-psijic-summerset",
+  "subjects": [
+    {
+      "id": "tes:founding-psijic-order",
+      "name": "Founding of the Psijic Order",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/founding-psijic-order.json",
+      "source": {
+        "id": "uesp:founding-psijic-order",
+        "url": "https://en.uesp.net/wiki/Lore:Founding_of_the_Psijic_Order",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:vanus-mannimarco-schism",
+      "name": "Vanus-Mannimarco Schism",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/vanus-mannimarco-schism.json",
+      "source": {
+        "id": "uesp:vanus-mannimarco-schism",
+        "url": "https://en.uesp.net/wiki/Lore:Vanus-Mannimarco_Schism",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:summerset-opening",
+      "name": "Opening of Summerset",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/summerset-opening.json",
+      "source": {
+        "id": "uesp:summerset-opening",
+        "url": "https://en.uesp.net/wiki/Lore:Opening_of_Summerset",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:daedric-war",
+      "name": "Daedric War",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/daedric-war.json",
+      "source": {
+        "id": "uesp:daedric-war",
+        "url": "https://en.uesp.net/wiki/Lore:Daedric_War",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Aldmer and Altmer must remain historically distinct labels; do not project later Altmeri institutions unchanged onto ancient Aldmeri society",
+    "Altmeri social ideals such as Alaxon should distinguish prescriptive doctrine from observed lived practice",
+    "Psijic accounts of the Old Ways, time and metaphysics retain institutional/source provenance rather than becoming universal truth",
+    "Competing accounts of Aldmeris and early elven origins should coexist where evidence conflicts",
+    "Summerset's political isolation/opening must retain era-specific context",
+    "Cross-link existing Altmer, Aldmer, Summerset, Auridon, Alinor, Artaeum, Crystal Tower, Psijic Order, Sapiarchs, Ayrenn, Vanus Galerion and Mannimarco records"
+  ]
+}

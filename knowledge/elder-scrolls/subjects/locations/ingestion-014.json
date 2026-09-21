@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-014-religion-afterlife-metaphysics",
+  "subjects": [
+    {
+      "id": "tes:aetherius",
+      "name": "Aetherius",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/aetherius.json",
+      "source": {
+        "id": "uesp:aetherius",
+        "url": "https://en.uesp.net/wiki/Lore:Aetherius",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sovngarde",
+      "name": "Sovngarde",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/sovngarde.json",
+      "source": {
+        "id": "uesp:sovngarde",
+        "url": "https://en.uesp.net/wiki/Lore:Sovngarde",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:far-shores",
+      "name": "Far Shores",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/far-shores.json",
+      "source": {
+        "id": "uesp:far-shores",
+        "url": "https://en.uesp.net/wiki/Lore:Far_Shores",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sands-behind-stars",
+      "name": "Sands Behind the Stars",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/sands-behind-stars.json",
+      "source": {
+        "id": "uesp:sands-behind-stars",
+        "url": "https://en.uesp.net/wiki/Lore:Sands_Behind_the_Stars",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ashpit",
+      "name": "Ashpit",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/ashpit.json",
+      "source": {
+        "id": "uesp:ashpit",
+        "url": "https://en.uesp.net/wiki/Lore:Ashpit",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Religious doctrine and cosmology must remain attributed to source/culture when not directly observable",
+    "Do not collapse culture-specific deities into a single identity solely because sources draw parallels",
+    "Afterlife descriptions should distinguish doctrine, testimony, observed game-space and scholarly interpretation",
+    "Dragon Break, Kalpa, Tower and Stone claims require especially strict source-level provenance",
+    "Track alternate divine names as aliases or proposed equivalences with evidence, not automatic identity merges"
+  ]
+}

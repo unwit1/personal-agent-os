@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "status": "verified",
+  "written_examples": [
+    {
+      "title": "Spirit of the Daedra",
+      "url": "https://www.imperial-library.info/content/spirit-daedra",
+      "released_in": [
+        "Elder Scrolls Online",
+        "TES3: Morrowind",
+        "TES4: Oblivion",
+        "TES5: Skyrim",
+        "TESL: Battlespire"
+      ],
+      "category": "Religion & Legends",
+      "route": "books",
+      "crosslink_subjects": [
+        "Daedra",
+        "animus",
+        "Darkness",
+        "clans",
+        "oath bonds"
+      ]
+    },
+    {
+      "title": "Valmir's Orders",
+      "url": "https://www.imperial-library.info/content/valmirs-orders",
+      "released_in": [
+        "TES5: Skyrim"
+      ],
+      "category": "Letters & Notes",
+      "route": "books",
+      "crosslink_subjects": [
+        "Forelhost",
+        "Dragon Cult",
+        "Labyrinthian"
+      ]
+    },
+    {
+      "title": "The Seven Visions",
+      "url": "https://www.imperial-library.info/content/seven-visions",
+      "released_in": [
+        "TES3: Morrowind"
+      ],
+      "category": "Songs & Poems",
+      "route": "books",
+      "crosslink_subjects": [
+        "Nerevarine",
+        "prophecy",
+        "Hortator",
+        "Velothi",
+        "Tribunal"
+      ]
+    }
+  ],
+  "rule": "Dialogue retrieval may return cross-links to relevant written primary evidence, but written bodies are stored in the books corpus and never relabeled as speech."
+}

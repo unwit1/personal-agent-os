@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-047-altmer-religion-aldmeri-cosmology",
+  "subjects": [
+    {
+      "id": "tes:aldmeris",
+      "name": "Aldmeris",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/aldmeris.json",
+      "source": {
+        "id": "uesp:aldmeris",
+        "url": "https://en.uesp.net/wiki/Lore:Aldmeris",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:summerset",
+      "name": "Summerset Isles",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/summerset.json",
+      "source": {
+        "id": "uesp:summerset",
+        "url": "https://en.uesp.net/wiki/Lore:Summerset_Isles",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:alinor",
+      "name": "Alinor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/alinor.json",
+      "source": {
+        "id": "uesp:alinor",
+        "url": "https://en.uesp.net/wiki/Lore:Alinor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:crystal-tower",
+      "name": "Crystal Tower",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/crystal-tower.json",
+      "source": {
+        "id": "uesp:crystal-tower",
+        "url": "https://en.uesp.net/wiki/Lore:Crystal_Tower",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:torinaan",
+      "name": "Torinaan",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/torinaan.json",
+      "source": {
+        "id": "uesp:torinaan",
+        "url": "https://en.uesp.net/wiki/Lore:Torinaan",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:auridon",
+      "name": "Auridon",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/auridon.json",
+      "source": {
+        "id": "uesp:auridon",
+        "url": "https://en.uesp.net/wiki/Lore:Auridon",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Altmeri creation narratives and divine-ancestry claims remain theological/cultural claims unless independently evidenced",
+    "Aldmeris must preserve competing interpretations of literal homeland, cultural memory, metaphor and retrospective construction",
+    "Do not automatically merge Auri-El, Akatosh or Alkosh; represent proposed identities and correspondences as sourced relationships",
+    "Alaxon and Apraxic status should distinguish prescriptive social ideals, institutional enforcement and individual lived practice",
+    "Crystal Tower metaphysics must distinguish directly observed events from broader Tower theory",
+    "Cross-link existing Altmer, Aldmer, Summerset, Auri-El, Trinimac, Magnus, Xarxes, Jephre, Crystal Tower, Transparent Law, Sapiarch and Divine Prosecution records"
+  ]
+}

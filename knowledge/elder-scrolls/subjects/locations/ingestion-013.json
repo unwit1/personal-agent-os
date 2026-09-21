@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-013-daedric-princes-realms-artifacts",
+  "subjects": [
+    {
+      "id": "tes:apocrypha",
+      "name": "Apocrypha",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/apocrypha.json",
+      "source": {
+        "id": "uesp:apocrypha",
+        "url": "https://en.uesp.net/wiki/Lore:Apocrypha",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:hunting-grounds",
+      "name": "Hunting Grounds",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/hunting-grounds.json",
+      "source": {
+        "id": "uesp:hunting-grounds",
+        "url": "https://en.uesp.net/wiki/Lore:Hunting_Grounds",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:colored-rooms",
+      "name": "Colored Rooms",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/colored-rooms.json",
+      "source": {
+        "id": "uesp:colored-rooms",
+        "url": "https://en.uesp.net/wiki/Lore:Colored_Rooms",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:evergloam",
+      "name": "Evergloam",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/evergloam.json",
+      "source": {
+        "id": "uesp:evergloam",
+        "url": "https://en.uesp.net/wiki/Lore:Evergloam",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:myriad-realms-revelry",
+      "name": "Myriad Realms of Revelry",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/myriad-realms-revelry.json",
+      "source": {
+        "id": "uesp:myriad-realms-revelry",
+        "url": "https://en.uesp.net/wiki/Lore:Myriad_Realms_of_Revelry",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:shivering-isles",
+      "name": "Shivering Isles",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/shivering-isles.json",
+      "source": {
+        "id": "uesp:shivering-isles",
+        "url": "https://en.uesp.net/wiki/Lore:Shivering_Isles",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:fields-regret",
+      "name": "Fields of Regret",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/fields-regret.json",
+      "source": {
+        "id": "uesp:fields-regret",
+        "url": "https://en.uesp.net/wiki/Lore:Fields_of_Regret",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:quagmire",
+      "name": "Quagmire",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/quagmire.json",
+      "source": {
+        "id": "uesp:quagmire",
+        "url": "https://en.uesp.net/wiki/Lore:Quagmire",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:coldharbour",
+      "name": "Coldharbour",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/coldharbour.json",
+      "source": {
+        "id": "uesp:coldharbour",
+        "url": "https://en.uesp.net/wiki/Lore:Coldharbour",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:deadlands",
+      "name": "Deadlands",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/deadlands.json",
+      "source": {
+        "id": "uesp:deadlands",
+        "url": "https://en.uesp.net/wiki/Lore:Deadlands",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Preserve mortal/cultural interpretations of Daedric motives as attributed claims",
+    "Do not infer that a Prince's realm or artifact has invariant properties across every game/era",
+    "Prefer quest dialogue, artifact descriptions, in-game books and observed quest events over summary prose",
+    "Track alternate names as aliases rather than duplicate subjects"
+  ]
+}

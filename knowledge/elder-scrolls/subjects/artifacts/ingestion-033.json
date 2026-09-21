@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-033-atmora-nordic-dragon-cult",
+  "subjects": [
+    {
+      "id": "tes:wuuthrad",
+      "name": "Wuuthrad",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/wuuthrad.json",
+      "source": {
+        "id": "uesp:wuuthrad",
+        "url": "https://en.uesp.net/wiki/Lore:Wuuthrad",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:jagged-crown",
+      "name": "Jagged Crown",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/jagged-crown.json",
+      "source": {
+        "id": "uesp:jagged-crown",
+        "url": "https://en.uesp.net/wiki/Lore:Jagged_Crown",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragon-priest-masks",
+      "name": "Dragon Priest Masks",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/dragon-priest-masks.json",
+      "source": {
+        "id": "uesp:dragon-priest-masks",
+        "url": "https://en.uesp.net/wiki/Lore:Dragon_Priest_Masks",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Songs of the Return and other heroic traditions remain literary/historical testimony, not automatically literal event transcripts",
+    "Do not flatten Atmoran, early Nordic, Dragon Cult and later Nordic religion into one static belief system",
+    "Night of Tears causes and Eye of Magnus-related interpretations remain source-specific where disputed",
+    "Dragon Cult chronology must distinguish Atmoran origins, Skyrim rule, Dragon War and later surviving cult sites",
+    "Thu'um feats should distinguish direct observations, saga claims and gameplay mechanics",
+    "Cross-link existing Ysgramor, Atmora, Saarthal, Snow Elves, Dragon Cult, Dragon War, Greybeards, Jurgen, Paarthurnax, Miraak, Forelhost and Skuldafn records"
+  ]
+}

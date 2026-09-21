@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "consumer_id": "knowledge-framework",
+  "mappings": [],
+  "notes": "Cache only confirmed/reviewed mappings from works/items to KF-owned tags. Suggested mappings belong in derived/local state until confirmed."
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "source_id": "imperial-library",
+  "base_url": "https://www.imperial-library.info/",
+  "scope": [
+    "developer texts",
+    "obscure texts",
+    "interviews",
+    "forum archives",
+    "design documents",
+    "roleplay events"
+  ],
+  "status": "active",
+  "batches": [
+    "til-dev-obscure-001-foundation"
+  ],
+  "next_actions": [
+    "Resolve canonical Imperial Library URLs and metadata for discovery_queued items",
+    "Inventory additional developer authors beyond Michael Kirkbride",
+    "Separate interviews/forum posts/design docs/fiction into document kinds",
+    "Extract evidence-backed claims with author/date/venue provenance",
+    "Cross-link claims to existing Elder Scrolls subject records"
+  ]
+}

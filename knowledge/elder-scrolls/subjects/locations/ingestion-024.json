@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-024-eso-planemeld-five-companions",
+  "subjects": [
+    {
+      "id": "tes:coldharbour",
+      "name": "Coldharbour",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/coldharbour.json",
+      "source": {
+        "id": "uesp:coldharbour",
+        "url": "https://en.uesp.net/wiki/Lore:Coldharbour",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:harborage",
+      "name": "Harborage",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/harborage.json",
+      "source": {
+        "id": "uesp:harborage",
+        "url": "https://en.uesp.net/wiki/Lore:Harborage",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:hollow-city",
+      "name": "Hollow City",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/hollow-city.json",
+      "source": {
+        "id": "uesp:hollow-city",
+        "url": "https://en.uesp.net/wiki/Lore:Hollow_City",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:wailing-prison",
+      "name": "Wailing Prison",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/wailing-prison.json",
+      "source": {
+        "id": "uesp:wailing-prison",
+        "url": "https://en.uesp.net/wiki/Lore:Wailing_Prison",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:heart-grief",
+      "name": "Heart's Grief",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/heart-grief.json",
+      "source": {
+        "id": "uesp:heart-grief",
+        "url": "https://en.uesp.net/wiki/Lore:Heart%27s_Grief",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:imperial-city",
+      "name": "Imperial City",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/imperial-city.json",
+      "source": {
+        "id": "uesp:imperial-city",
+        "url": "https://en.uesp.net/wiki/Lore:Imperial_City",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Vestige biography and alliance choice remain player-variable unless a source establishes a common event",
+    "Separate base-game Planemeld chronology from later ESO chapters and retroactive interpretations",
+    "Molag Bal dialogue is attributed testimony, not omniscient narration",
+    "Distinguish observed Coldharbour mechanics from scholarly metaphysical explanation",
+    "Alliance-specific quest variants and mutually exclusive choices remain branch-scoped",
+    "Cross-link existing Planemeld, Soulburst, Mannimarco, Molag Bal, Coldharbour, Amulet of Kings and alliance records rather than duplicate them"
+  ]
+}

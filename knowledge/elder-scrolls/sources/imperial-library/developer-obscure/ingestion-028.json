@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-028-metaphysical-mechanics",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:soul-metaphysics-dev",
+      "title": "Developer material on souls and soul metaphysics",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "souls",
+        "soul gems",
+        "afterlife",
+        "identity",
+        "necromancy"
+      ]
+    },
+    {
+      "id": "til:memory-metaphysics-dev",
+      "title": "Developer material on memory and metaphysical identity",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "memory",
+        "identity",
+        "history",
+        "myth",
+        "metaphysics"
+      ]
+    },
+    {
+      "id": "til:prolix-towers-dev",
+      "title": "Developer material on Towers, Stones, and stabilization",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Towers",
+        "Stones",
+        "Mundus",
+        "stability",
+        "Convention"
+      ]
+    },
+    {
+      "id": "til:mantling-dev",
+      "title": "Developer material on mantling and identity substitution",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "mantling",
+        "identity",
+        "apotheosis",
+        "Sheogorath"
+      ]
+    },
+    {
+      "id": "til:mythopoeia-dev",
+      "title": "Developer material on mythopoeia and mythic reenactment",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "mythopoeia",
+        "mythic reenactment",
+        "belief",
+        "reality"
+      ]
+    },
+    {
+      "id": "til:prolix-enantiomorph-dev",
+      "title": "Developer material on the enantiomorph",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "enantiomorph",
+        "King",
+        "Rebel",
+        "Observer",
+        "Convention",
+        "Talos"
+      ]
+    },
+    {
+      "id": "til:oversoul-dev",
+      "title": "Developer material on oversouls and composite identity",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "oversoul",
+        "Talos",
+        "Underking",
+        "identity",
+        "souls"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Do not promote fandom-standard mechanics into hard rules unless a source actually states them.",
+    "Metaphorical, poetic and technical-looking passages remain distinguishable evidence modes.",
+    "A recurring narrative pattern is not automatically a metaphysical law.",
+    "Separate gameplay soul mechanics from lore claims about soul ontology.",
+    "Record competing definitions of specialized terms instead of forcing one normalized definition."
+  ]
+}

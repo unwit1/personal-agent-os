@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-022-lost-web-forum-recovery",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:lost-bethesda-forums",
+      "title": "Lost Bethesda forum developer posts",
+      "document_kind": "archive_recovery_queue",
+      "status": "discovery_queued",
+      "subjects": [
+        "Bethesda forums",
+        "developer posts",
+        "lost sources"
+      ]
+    },
+    {
+      "id": "til:lost-official-web",
+      "title": "Removed official Elder Scrolls web lore",
+      "document_kind": "archive_recovery_queue",
+      "status": "discovery_queued",
+      "subjects": [
+        "official web lore",
+        "removed pages",
+        "archives"
+      ]
+    },
+    {
+      "id": "til:lost-dev-sites",
+      "title": "Developer personal-site lore and commentary",
+      "document_kind": "archive_recovery_queue",
+      "status": "discovery_queued",
+      "subjects": [
+        "developer websites",
+        "personal sites",
+        "lore essays",
+        "fiction"
+      ]
+    },
+    {
+      "id": "til:forum-quote-recovery",
+      "title": "Developer quotations surviving only in secondary archives",
+      "document_kind": "archive_recovery_queue",
+      "status": "discovery_queued",
+      "subjects": [
+        "quotes",
+        "forum archives",
+        "provenance recovery"
+      ]
+    },
+    {
+      "id": "til:dead-link-recovery",
+      "title": "Dead-link and historical URL recovery",
+      "document_kind": "archive_recovery_queue",
+      "status": "discovery_queued",
+      "subjects": [
+        "dead links",
+        "Wayback",
+        "mirrors",
+        "source lineage"
+      ]
+    },
+    {
+      "id": "til:duplicate-archive-reconcile",
+      "title": "Duplicate archive reconciliation",
+      "document_kind": "provenance_reconciliation_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "duplicates",
+        "mirrors",
+        "content fingerprints",
+        "source lineage"
+      ]
+    }
+  ],
+  "review_rules": [
+    "A secondary quotation is not promoted to a verified developer statement until attribution and surrounding context are sufficiently recovered.",
+    "Store dead original URLs even when an archive snapshot becomes the readable witness.",
+    "Use content fingerprints to identify mirrors while preserving distinct revisions.",
+    "Record archive capture date separately from original publication date.",
+    "If provenance remains uncertain, retain the item in quarantine rather than discarding it or treating it as authoritative."
+  ]
+}

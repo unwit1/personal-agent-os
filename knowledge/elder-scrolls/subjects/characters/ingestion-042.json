@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-042-reman-akaviri-potentate",
+  "subjects": [
+    {
+      "id": "tes:reman-cyrodiil",
+      "name": "Reman Cyrodiil",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/reman-cyrodiil.json",
+      "source": {
+        "id": "uesp:reman-cyrodiil",
+        "url": "https://en.uesp.net/wiki/Lore:Reman_Cyrodiil",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:reman-ii",
+      "name": "Reman II",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/reman-ii.json",
+      "source": {
+        "id": "uesp:reman-ii",
+        "url": "https://en.uesp.net/wiki/Lore:Reman_II",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:versidue-shaie",
+      "name": "Versidue-Shaie",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/versidue-shaie.json",
+      "source": {
+        "id": "uesp:versidue-shaie",
+        "url": "https://en.uesp.net/wiki/Lore:Versidue-Shaie",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:savirien-chorak",
+      "name": "Savirien-Chorak",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/savirien-chorak.json",
+      "source": {
+        "id": "uesp:savirien-chorak",
+        "url": "https://en.uesp.net/wiki/Lore:Savirien-Chorak",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ada-soom-dir-kamal",
+      "name": "Ada'Soom Dir-Kamal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/ada-soom-dir-kamal.json",
+      "source": {
+        "id": "uesp:ada-soom-dir-kamal",
+        "url": "https://en.uesp.net/wiki/Lore:Ada%27Soom_Dir-Kamal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:jorunn-skald-king",
+      "name": "Jorunn the Skald-King",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/jorunn-skald-king.json",
+      "source": {
+        "id": "uesp:jorunn-skald-king",
+        "url": "https://en.uesp.net/wiki/Lore:Jorunn_the_Skald-King",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:almalexia",
+      "name": "Almalexia",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/almalexia.json",
+      "source": {
+        "id": "uesp:almalexia",
+        "url": "https://en.uesp.net/wiki/Lore:Almalexia",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:wulfharth",
+      "name": "Wulfharth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/wulfharth.json",
+      "source": {
+        "id": "uesp:wulfharth",
+        "url": "https://en.uesp.net/wiki/Lore:Wulfharth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Akaviri peoples must remain distinct; do not treat Tsaesci, Kamal, Ka Po' Tun and Tang Mo as interchangeable descriptions of one culture",
+    "Claims about Tsaesci physical nature are contradictory and often mediated by outsider texts; preserve competing interpretations",
+    "2920 is historical fiction and provides evidence for cultural memory/literary tradition, not automatic verbatim First Era history",
+    "Reman birth and divine-origin narratives in the Remanada retain mythic/propagandistic provenance",
+    "Distinguish the First and Second Akaviri invasions and their different peoples, motives and evidence",
+    "Cross-link existing Reman, Second Empire, Akaviri Potentate, Dragonguard, Jorunn, Almalexia, Wulfharth and Second Akaviri Invasion records"
+  ]
+}

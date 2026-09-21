@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:alessian-empire",
+      "name": "Alessian Empire",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/alessian-empire.json",
+      "source": {
+        "id": "uesp:alessian-empire",
+        "url": "https://en.uesp.net/wiki/Lore:Alessian_Empire",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:septim-dynasty",
+      "name": "Septim Dynasty",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/septim-dynasty.json",
+      "source": {
+        "id": "uesp:septim-dynasty",
+        "url": "https://en.uesp.net/wiki/Lore:Septim_Dynasty",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:akaviri-potentate",
+      "name": "Akaviri Potentate",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/akaviri-potentate.json",
+      "source": {
+        "id": "uesp:akaviri-potentate",
+        "url": "https://en.uesp.net/wiki/Lore:Akaviri_Potentate",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:second-empire",
+      "name": "Second Empire",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/second-empire.json",
+      "source": {
+        "id": "uesp:second-empire",
+        "url": "https://en.uesp.net/wiki/Lore:Second_Empire",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:imperial-legion",
+      "name": "Imperial Legion",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/imperial-legion.json",
+      "source": {
+        "id": "uesp:imperial-legion",
+        "url": "https://en.uesp.net/wiki/Lore:Imperial_Legion",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:fighters-guild",
+      "name": "Fighters Guild",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/fighters-guild.json",
+      "source": {
+        "id": "uesp:fighters-guild",
+        "url": "https://en.uesp.net/wiki/Lore:Fighters_Guild",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:order-black-worm",
+      "name": "Order of the Black Worm",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/order-black-worm.json",
+      "source": {
+        "id": "uesp:order-black-worm",
+        "url": "https://en.uesp.net/wiki/Lore:Order_of_the_Black_Worm",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:thieves-guild",
+      "name": "Thieves Guild",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/thieves-guild.json",
+      "source": {
+        "id": "uesp:thieves-guild",
+        "url": "https://en.uesp.net/wiki/Lore:Thieves_Guild",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration from earlier queues. Preserve source-era, narrator, cultural and doctrinal qualifiers during evidence extraction."
+}

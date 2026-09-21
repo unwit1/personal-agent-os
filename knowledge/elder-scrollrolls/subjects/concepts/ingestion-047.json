@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-047-altmer-religion-aldmeri-cosmology",
+  "subjects": [
+    {
+      "id": "tes:altmeri-ancestor-worship",
+      "name": "Altmeri Ancestor Worship",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/altmeri-ancestor-worship.json",
+      "source": {
+        "id": "uesp:altmeri-ancestor-worship",
+        "url": "https://en.uesp.net/wiki/Lore:Altmeri_Ancestor_Worship",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:alaxon",
+      "name": "Alaxon",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/alaxon.json",
+      "source": {
+        "id": "uesp:alaxon",
+        "url": "https://en.uesp.net/wiki/Lore:Alaxon",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:apraxic",
+      "name": "Apraxic",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/apraxic.json",
+      "source": {
+        "id": "uesp:apraxic",
+        "url": "https://en.uesp.net/wiki/Lore:Apraxic",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:aldmeri-creation",
+      "name": "Aldmeri Creation Traditions",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/aldmeri-creation.json",
+      "source": {
+        "id": "uesp:aldmeri-creation",
+        "url": "https://en.uesp.net/wiki/Lore:Aldmeri_Creation_Traditions",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:divine-ancestry-altmer",
+      "name": "Altmeri Divine Ancestry",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/divine-ancestry-altmer.json",
+      "source": {
+        "id": "uesp:divine-ancestry-altmer",
+        "url": "https://en.uesp.net/wiki/Lore:Altmeri_Divine_Ancestry",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ascension-auriel",
+      "name": "Auri-El's Ascension",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/ascension-auriel.json",
+      "source": {
+        "id": "uesp:ascension-auriel",
+        "url": "https://en.uesp.net/wiki/Lore:Auri-El%27s_Ascension",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sapiarchy",
+      "name": "Sapiarchy",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/sapiarchy.json",
+      "source": {
+        "id": "uesp:sapiarchy",
+        "url": "https://en.uesp.net/wiki/Lore:Sapiarchy",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:canonreeve",
+      "name": "Canonreeve",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/canonreeve.json",
+      "source": {
+        "id": "uesp:canonreeve",
+        "url": "https://en.uesp.net/wiki/Lore:Canonreeve",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Altmeri creation narratives and divine-ancestry claims remain theological/cultural claims unless independently evidenced",
+    "Aldmeris must preserve competing interpretations of literal homeland, cultural memory, metaphor and retrospective construction",
+    "Do not automatically merge Auri-El, Akatosh or Alkosh; represent proposed identities and correspondences as sourced relationships",
+    "Alaxon and Apraxic status should distinguish prescriptive social ideals, institutional enforcement and individual lived practice",
+    "Crystal Tower metaphysics must distinguish directly observed events from broader Tower theory",
+    "Cross-link existing Altmer, Aldmer, Summerset, Auri-El, Trinimac, Magnus, Xarxes, Jephre, Crystal Tower, Transparent Law, Sapiarch and Divine Prosecution records"
+  ]
+}

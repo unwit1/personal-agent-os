@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-031-necrom-gold-road-ithelia",
+  "subjects": [
+    {
+      "id": "tes:hermaeus-mora",
+      "name": "Hermaeus Mora",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/hermaeus-mora.json",
+      "source": {
+        "id": "uesp:hermaeus-mora",
+        "url": "https://en.uesp.net/wiki/Lore:Hermaeus_Mora",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:leramil-wise",
+      "name": "Leramil the Wise",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/leramil-wise.json",
+      "source": {
+        "id": "uesp:leramil-wise",
+        "url": "https://en.uesp.net/wiki/Lore:Leramil_the_Wise",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:meln-mouthed",
+      "name": "Meln the Mouthless",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/meln-mouthed.json",
+      "source": {
+        "id": "uesp:meln-mouthed",
+        "url": "https://en.uesp.net/wiki/Lore:Meln_the_Mouthless",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:torvesard",
+      "name": "Torvesard",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/torvesard.json",
+      "source": {
+        "id": "uesp:torvesard",
+        "url": "https://en.uesp.net/wiki/Lore:Torvesard",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ithelia",
+      "name": "Ithelia",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/ithelia.json",
+      "source": {
+        "id": "uesp:ithelia",
+        "url": "https://en.uesp.net/wiki/Lore:Ithelia",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:azandar-al-cybiades",
+      "name": "Azandar al-Cybiades",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/azandar-al-cybiades.json",
+      "source": {
+        "id": "uesp:azandar-al-cybiades",
+        "url": "https://en.uesp.net/wiki/Lore:Azandar_al-Cybiades",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sharp-as-night",
+      "name": "Sharp-as-Night",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/sharp-as-night.json",
+      "source": {
+        "id": "uesp:sharp-as-night",
+        "url": "https://en.uesp.net/wiki/Lore:Sharp-as-Night",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Ithelia-related history is unusually vulnerable to erased or altered memory; preserve source date, speaker knowledge state and later revelations",
+    "Do not retroactively rewrite older sources merely because later ESO content introduces forgotten events or entities",
+    "Paths of possibility, fate and reality alteration require explicit evidence provenance and should not become unrestricted explanations for contradictions",
+    "Hermaeus Mora's claims about secrets and history remain attributed where not independently corroborated",
+    "Apocrypha locations, memories, books and manifestations should remain distinguishable despite overlapping names",
+    "Cross-link existing Hermaeus Mora, Apocrypha, Necrom, Telvanni, Fargrave, Black Books and Forbidden Knowledge subjects"
+  ]
+}

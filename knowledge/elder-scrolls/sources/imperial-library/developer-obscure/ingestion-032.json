@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-032-towers-stones",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:tower-white-gold",
+      "title": "White-Gold Tower developer/obscure source map",
+      "document_kind": "tower_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "White-Gold Tower",
+        "Cyrodiil",
+        "Amulet of Kings",
+        "Convention"
+      ]
+    },
+    {
+      "id": "til:tower-red",
+      "title": "Red Tower developer/obscure source map",
+      "document_kind": "tower_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Red Mountain",
+        "Red Tower",
+        "Heart of Lorkhan",
+        "Morrowind"
+      ]
+    },
+    {
+      "id": "til:tower-adamantine",
+      "title": "Adamantine Tower developer/obscure source map",
+      "document_kind": "tower_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Adamantine Tower",
+        "Direnni Tower",
+        "Convention",
+        "Balfiera"
+      ]
+    },
+    {
+      "id": "til:tower-crystal",
+      "title": "Crystal Tower developer/obscure source map",
+      "document_kind": "tower_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Crystal Tower",
+        "Summerset",
+        "Altmer",
+        "multiversal claims"
+      ]
+    },
+    {
+      "id": "til:tower-green-sap",
+      "title": "Green-Sap developer/obscure source map",
+      "document_kind": "tower_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Green-Sap",
+        "Valenwood",
+        "Bosmer",
+        "Perchance Acorn"
+      ]
+    },
+    {
+      "id": "til:tower-orichalc",
+      "title": "Orichalc developer/obscure source map",
+      "document_kind": "tower_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Orichalc",
+        "Yokuda",
+        "Tower"
+      ]
+    },
+    {
+      "id": "til:tower-snow-throat",
+      "title": "Snow-Throat developer/obscure source map",
+      "document_kind": "tower_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Snow-Throat",
+        "Skyrim",
+        "Throat of the World",
+        "Tower"
+      ]
+    },
+    {
+      "id": "til:tower-walk-brass",
+      "title": "Walk-Brass developer/obscure source map",
+      "document_kind": "tower_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Walk-Brass",
+        "Numidium",
+        "Dwemer",
+        "Tower"
+      ]
+    },
+    {
+      "id": "til:tower-stones-system",
+      "title": "Tower and Stone system claim map",
+      "document_kind": "claim_casefile",
+      "status": "discovery_queued",
+      "subjects": [
+        "Towers",
+        "Stones",
+        "Mundus",
+        "stability",
+        "Nu-Mantia Intercept"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Tower membership is recorded per source rather than assumed from a fandom-standard list.",
+    "Each proposed Stone requires its own provenance; uncertain identifications remain uncertain.",
+    "Claims that Towers stabilize Mundus are decomposed into the exact propositions made by each source.",
+    "Later released-game appearances of a Tower are independent evidence and do not automatically validate every obscure-text property assigned to it.",
+    "Distinguish physical structure, metaphysical Tower role, associated Stone, and symbolic interpretation."
+  ]
+}

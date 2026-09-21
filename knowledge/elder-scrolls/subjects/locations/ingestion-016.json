@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-016-tribunal-clockwork-telvanni",
+  "subjects": [
+    {
+      "id": "tes:clockwork-city",
+      "name": "Clockwork City",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/clockwork-city.json",
+      "source": {
+        "id": "uesp:clockwork-city",
+        "url": "https://en.uesp.net/wiki/Lore:Clockwork_City",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:brass-fortress",
+      "name": "Brass Fortress",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/brass-fortress.json",
+      "source": {
+        "id": "uesp:brass-fortress",
+        "url": "https://en.uesp.net/wiki/Lore:Brass_Fortress",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sehts-vault",
+      "name": "Seht's Vault",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/sehts-vault.json",
+      "source": {
+        "id": "uesp:sehts-vault",
+        "url": "https://en.uesp.net/wiki/Lore:Seht%27s_Vault",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:tel-fyr",
+      "name": "Tel Fyr",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/tel-fyr.json",
+      "source": {
+        "id": "uesp:tel-fyr",
+        "url": "https://en.uesp.net/wiki/Lore:Tel_Fyr",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:tel-mithryn",
+      "name": "Tel Mithryn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/tel-mithryn.json",
+      "source": {
+        "id": "uesp:tel-mithryn",
+        "url": "https://en.uesp.net/wiki/Lore:Tel_Mithryn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:necrom",
+      "name": "Necrom",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/necrom.json",
+      "source": {
+        "id": "uesp:necrom",
+        "url": "https://en.uesp.net/wiki/Lore:Necrom",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mournhold",
+      "name": "Mournhold",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/mournhold.json",
+      "source": {
+        "id": "uesp:mournhold",
+        "url": "https://en.uesp.net/wiki/Lore:Mournhold",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:almalexia-city",
+      "name": "Almalexia",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/almalexia-city.json",
+      "source": {
+        "id": "uesp:almalexia-city",
+        "url": "https://en.uesp.net/wiki/Lore:Almalexia",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Treat Tribunal theology, dissident accounts, sermons and later Temple doctrine as distinct evidence traditions",
+    "Do not use 2920 as straightforward historical evidence without retaining its in-universe fictional/literary status",
+    "Separate the physical/metaphysical Clockwork City from institutions and representations that share its name",
+    "Corprus and Divine Disease claims should distinguish observed effects, Temple explanations and Dagoth-related interpretations",
+    "Prefer direct Morrowind/ESO dialogue and books for Sotha Sil, Almalexia, Divayth Fyr, Yagrum Bagarn and Telvanni claims"
+  ]
+}

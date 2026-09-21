@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-008-dream-amaranth",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:godhead-dev",
+      "title": "Developer and obscure Godhead material",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Godhead",
+        "Dream",
+        "reality",
+        "CHIM",
+        "Amaranth"
+      ]
+    },
+    {
+      "id": "til:amaranth-dev",
+      "title": "Developer and obscure Amaranth material",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Amaranth",
+        "Loveletter",
+        "Dream",
+        "new world"
+      ]
+    },
+    {
+      "id": "til:zero-sum-dev",
+      "title": "Developer and obscure zero-sum material",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "zero-sum",
+        "CHIM",
+        "identity",
+        "Godhead"
+      ]
+    },
+    {
+      "id": "til:chim-dev-deep",
+      "title": "Developer and obscure CHIM corpus — deep pass",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "CHIM",
+        "Vivec",
+        "Talos",
+        "Psijic Endeavor",
+        "Godhead"
+      ]
+    },
+    {
+      "id": "til:loveletter-context",
+      "title": "Loveletter context and related developer commentary",
+      "author": "multiple",
+      "document_kind": "context_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Loveletter From the Fifth Era",
+        "Landfall",
+        "Amaranth",
+        "Numidium"
+      ]
+    },
+    {
+      "id": "til:c0da-context",
+      "title": "C0DA and related developer commentary",
+      "author": "Michael Kirkbride and others",
+      "document_kind": "external_developer_fiction_context",
+      "status": "discovery_queued",
+      "subjects": [
+        "C0DA",
+        "Landfall",
+        "Numidium",
+        "Masser",
+        "Jubal",
+        "Vivec",
+        "Amaranth"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Godhead, CHIM, zero-sum and Amaranth terminology must be traced to actual passages; community definitions are not substituted for source text.",
+    "C0DA is external developer fiction/context and must not be mislabeled as a released Bethesda game source.",
+    "Future-era narratives remain within their stated literary frame unless later primary material independently adopts an element.",
+    "Distinguish direct textual claims from metaphorical readings and community explanatory models.",
+    "Cross-link later in-game uses of related terminology as separate evidence rather than retroactive canonization."
+  ]
+}

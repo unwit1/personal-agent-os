@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "status": "ready_for_implementation",
+  "components": [
+    {
+      "name": "site_frontier",
+      "responsibility": "Maintain breadth-first TIL URLs with game affinity, depth, referrer and discovery reason."
+    },
+    {
+      "name": "page_classifier",
+      "responsibility": "Classify dialogue transcript, storyline transcript, written lore, developer/external, editorial/index or unknown."
+    },
+    {
+      "name": "link_extractor",
+      "responsibility": "Extract same-site candidate links and normalize canonical URLs."
+    },
+    {
+      "name": "transcript_parser",
+      "responsibility": "Parse repeated speaker headings, player prompts, responses, stage directions and embedded written items."
+    },
+    {
+      "name": "local_store",
+      "responsibility": "Cache raw HTML and normalized transcript JSON outside Git; persist hashes and metadata."
+    },
+    {
+      "name": "ledger_writer",
+      "responsibility": "Persist visited/classification/failure/crawl counters for resumability."
+    }
+  ],
+  "scheduler": {
+    "algorithm": "round-robin breadth-first by game",
+    "max_consecutive_pages_per_game": 25,
+    "seed_games": [
+      "skyrim",
+      "oblivion",
+      "morrowind",
+      "redguard",
+      "battlespire",
+      "eso",
+      "blades",
+      "daggerfall",
+      "arena"
+    ]
+  },
+  "safety": [
+    "Honor robots/site access rules and rate limits.",
+    "Use a descriptive user agent.",
+    "Retry transient failures with bounded backoff.",
+    "Never invent canonical URLs.",
+    "Keep full copyrighted source bodies local; Git stores code, metadata, hashes and provenance."
+  ],
+  "acceptance_tests": [
+    "Can resume after interruption without revisiting completed URLs.",
+    "A written Morrowind book is not classified as dialogue.",
+    "Horn of Jurgen Windcaller is classified as dialogue and speaker turns can be extracted.",
+    "Round-robin scheduling moves to another game before recursively exhausting Skyrim.",
+    "Duplicate URLs/content hashes do not create duplicate transcript records."
+  ]
+}

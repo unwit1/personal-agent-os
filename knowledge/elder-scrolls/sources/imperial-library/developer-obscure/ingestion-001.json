@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-001-foundation",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:pantheon-notes",
+      "title": "Pantheon / Notes on the Et'Ada",
+      "author": "Michael Kirkbride",
+      "document_kind": "developer_design_document",
+      "url": "https://www.imperial-library.info/wp-content/uploads/PANTHE1.pdf",
+      "status": "queued",
+      "subjects": [
+        "comparative religion",
+        "et'Ada",
+        "Akatosh",
+        "Alduin",
+        "Alkosh",
+        "Auri-El",
+        "regional pantheons"
+      ]
+    },
+    {
+      "id": "til:loveletter-fifth-era",
+      "title": "Loveletter From the Fifth Era",
+      "author": "Michael Kirkbride",
+      "document_kind": "obscure_text",
+      "status": "discovery_queued",
+      "subjects": [
+        "Fifth Era",
+        "Landfall",
+        "Amaranth",
+        "CHIM",
+        "Numidium"
+      ]
+    },
+    {
+      "id": "til:vehk-teaching",
+      "title": "Vehk's Teaching",
+      "author": "Michael Kirkbride",
+      "document_kind": "developer_roleplay_or_obscure_text",
+      "status": "discovery_queued",
+      "subjects": [
+        "Vivec",
+        "CHIM",
+        "Psijic Endeavor",
+        "Velothi theology"
+      ]
+    },
+    {
+      "id": "til:nu-mantia-intercept",
+      "title": "Nu-Mantia Intercept",
+      "author": "Michael Kirkbride",
+      "document_kind": "obscure_text",
+      "status": "discovery_queued",
+      "subjects": [
+        "Towers",
+        "White-Gold Tower",
+        "Ayleids",
+        "Dragonfires",
+        "Convention"
+      ]
+    },
+    {
+      "id": "til:shonni-etta",
+      "title": "Shonni-etta",
+      "author": "Michael Kirkbride",
+      "document_kind": "obscure_text",
+      "status": "discovery_queued",
+      "subjects": [
+        "Reman",
+        "Cyrodiil",
+        "Second Empire"
+      ]
+    },
+    {
+      "id": "til:kinmune",
+      "title": "KINMUNE",
+      "author": "Michael Kirkbride",
+      "document_kind": "obscure_text",
+      "status": "discovery_queued",
+      "subjects": [
+        "KINMUNE",
+        "Atmora",
+        "Queen Ayrenn",
+        "future technology"
+      ]
+    },
+    {
+      "id": "til:seven-fights-aldudagga",
+      "title": "The Seven Fights of The Aldudagga",
+      "author": "Michael Kirkbride",
+      "document_kind": "obscure_text",
+      "status": "discovery_queued",
+      "subjects": [
+        "Alduin",
+        "Dagon",
+        "Nordic myth",
+        "kalpas"
+      ]
+    },
+    {
+      "id": "til:trial-vivec",
+      "title": "The Trial of Vivec",
+      "author": "multiple_developer_and_community_participants",
+      "document_kind": "developer_roleplay_event",
+      "status": "discovery_queued",
+      "subjects": [
+        "Vivec",
+        "Azura",
+        "Nerevar",
+        "Red Mountain",
+        "Tribunal"
+      ]
+    },
+    {
+      "id": "til:forum-interviews-dev",
+      "title": "Developer Interviews and Forum Statements",
+      "author": "multiple",
+      "document_kind": "collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "developer commentary",
+        "lore interpretation",
+        "design history"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Never assign primary-game authority merely because a text was written by a Bethesda or contracted developer.",
+    "Separate statements made in-character from out-of-character developer explanation.",
+    "Record employment/role and date where discoverable because authority/context can change over time.",
+    "Treat future-era and deliberately speculative texts as their stated literary frame, not automatic history.",
+    "Cross-link concepts to existing UESP-backed entities without allowing this evidence class to overwrite primary-source claims."
+  ]
+}

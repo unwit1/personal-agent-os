@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-024-interview-question-context",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:interview-question-answer-pairs",
+      "title": "Developer interview question/answer pair preservation",
+      "document_kind": "interview_structure_queue",
+      "status": "queued",
+      "subjects": [
+        "interviews",
+        "questions",
+        "answers",
+        "context"
+      ]
+    },
+    {
+      "id": "til:interview-followups",
+      "title": "Interview follow-up and clarification chains",
+      "document_kind": "interview_structure_queue",
+      "status": "queued",
+      "subjects": [
+        "follow-ups",
+        "clarifications",
+        "developer commentary"
+      ]
+    },
+    {
+      "id": "til:interview-multi-speaker",
+      "title": "Multi-developer interview speaker attribution",
+      "document_kind": "speaker_resolution_queue",
+      "status": "queued",
+      "subjects": [
+        "speaker attribution",
+        "roundtables",
+        "interviews"
+      ]
+    },
+    {
+      "id": "til:interview-editorial",
+      "title": "Editorial framing in archived interviews",
+      "document_kind": "context_resolution_queue",
+      "status": "queued",
+      "subjects": [
+        "editorial framing",
+        "introductions",
+        "summaries",
+        "interviews"
+      ]
+    },
+    {
+      "id": "til:interview-transcript-variants",
+      "title": "Transcript and repost variant reconciliation",
+      "document_kind": "source_lineage_collection",
+      "status": "queued",
+      "subjects": [
+        "transcripts",
+        "reposts",
+        "edits",
+        "source lineage"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Never extract a developer answer without retaining the question that scoped it when available.",
+    "Distinguish interviewer assertions from developer assertions.",
+    "Roundtables require statement-level speaker attribution.",
+    "Editorial summaries are secondary framing and do not inherit the interviewee's authority.",
+    "Reposted interviews are compared against the earliest/fullest available transcript before claim extraction."
+  ]
+}

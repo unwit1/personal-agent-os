@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-019-oral-history-interviews",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:oral-history-authors",
+      "title": "Interviews with Elder Scrolls writers and lore authors",
+      "author": "multiple",
+      "document_kind": "oral_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "writing process",
+        "worldbuilding",
+        "authorship",
+        "lore development"
+      ]
+    },
+    {
+      "id": "til:oral-history-designers",
+      "title": "Interviews with Elder Scrolls designers",
+      "author": "multiple",
+      "document_kind": "oral_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "game design",
+        "quest design",
+        "world design",
+        "development history"
+      ]
+    },
+    {
+      "id": "til:oral-history-artists",
+      "title": "Interviews with concept artists and visual designers",
+      "author": "multiple",
+      "document_kind": "oral_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "visual design",
+        "concept art",
+        "architecture",
+        "creatures",
+        "cultures"
+      ]
+    },
+    {
+      "id": "til:oral-history-retrospectives",
+      "title": "Developer retrospectives on shipped Elder Scrolls games",
+      "author": "multiple",
+      "document_kind": "oral_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "retrospectives",
+        "development history",
+        "changed plans",
+        "production constraints"
+      ]
+    },
+    {
+      "id": "til:oral-history-lore-process",
+      "title": "Developer discussion of Elder Scrolls lore-writing process",
+      "author": "multiple",
+      "document_kind": "oral_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "unreliable narration",
+        "collaborative authorship",
+        "canon",
+        "contradiction",
+        "worldbuilding process"
+      ]
+    },
+    {
+      "id": "til:oral-history-influences",
+      "title": "Developer commentary on creative influences",
+      "author": "multiple",
+      "document_kind": "oral_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "creative influences",
+        "literature",
+        "history",
+        "religion",
+        "art",
+        "design"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Retrospective memory is attributed and dated; recollection decades later is not treated as contemporaneous documentation.",
+    "Statements about personal creative influence apply to the speaker's contribution unless evidence supports a broader team claim.",
+    "Separate factual production history from interpretive recollection.",
+    "Interview summaries should resolve to the original transcript/audio/video when available before extracting detailed claims.",
+    "Do not infer authorship of an in-game text solely because a developer discusses it."
+  ]
+}

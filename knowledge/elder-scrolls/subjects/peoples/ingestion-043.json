@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "peoples",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-043-breton-high-rock-direnni",
+  "subjects": [
+    {
+      "id": "tes:bretons",
+      "name": "Bretons",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/bretons.json",
+      "source": {
+        "id": "uesp:bretons",
+        "url": "https://en.uesp.net/wiki/Lore:Bretons",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:nedic-high-rock",
+      "name": "Nedes of High Rock",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/nedic-high-rock.json",
+      "source": {
+        "id": "uesp:nedic-high-rock",
+        "url": "https://en.uesp.net/wiki/Lore:Nedes_of_High_Rock",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:direnni",
+      "name": "Direnni",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/direnni.json",
+      "source": {
+        "id": "uesp:direnni",
+        "url": "https://en.uesp.net/wiki/Lore:Direnni",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Breton ancestry claims must distinguish historical evidence, cultural identity, polemical texts and later racial theorizing",
+    "Do not treat High Rock as a single centralized political culture across eras; preserve kingdom, city-state and feudal variation",
+    "Direnni rule and the term Manmer require era/source-specific handling rather than timeless ethnic definitions",
+    "Adamantine Tower cosmology should separate observed location/history from Tower-theory interpretation",
+    "Rivenspire vampire narratives must distinguish individual clans and periods rather than generalize all Breton vampirism",
+    "Cross-link existing Breton, High Rock, Direnni, Daggerfall, Wayrest, Balfiera, Adamantine Tower, Emeric and House Ravenwatch records"
+  ]
+}

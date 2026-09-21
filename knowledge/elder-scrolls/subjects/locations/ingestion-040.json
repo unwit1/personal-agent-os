@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-040-bosmer-green-pact-valenwood",
+  "subjects": [
+    {
+      "id": "tes:valenwood",
+      "name": "Valenwood",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/valenwood.json",
+      "source": {
+        "id": "uesp:valenwood",
+        "url": "https://en.uesp.net/wiki/Lore:Valenwood",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:grahtwood",
+      "name": "Grahtwood",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/grahtwood.json",
+      "source": {
+        "id": "uesp:grahtwood",
+        "url": "https://en.uesp.net/wiki/Lore:Grahtwood",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:elden-root",
+      "name": "Elden Root",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/elden-root.json",
+      "source": {
+        "id": "uesp:elden-root",
+        "url": "https://en.uesp.net/wiki/Lore:Elden_Root",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:greenshade",
+      "name": "Greenshade",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/greenshade.json",
+      "source": {
+        "id": "uesp:greenshade",
+        "url": "https://en.uesp.net/wiki/Lore:Greenshade",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:malabal-tor",
+      "name": "Malabal Tor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/malabal-tor.json",
+      "source": {
+        "id": "uesp:malabal-tor",
+        "url": "https://en.uesp.net/wiki/Lore:Malabal_Tor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:reapers-march",
+      "name": "Reaper's March",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/reapers-march.json",
+      "source": {
+        "id": "uesp:reapers-march",
+        "url": "https://en.uesp.net/wiki/Lore:Reaper%27s_March",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:falinesti",
+      "name": "Falinesti",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/falinesti.json",
+      "source": {
+        "id": "uesp:falinesti",
+        "url": "https://en.uesp.net/wiki/Lore:Falinesti",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:hircines-realm",
+      "name": "Hunting Grounds",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/hircines-realm.json",
+      "source": {
+        "id": "uesp:hircines-realm",
+        "url": "https://en.uesp.net/wiki/Lore:Hunting_Grounds",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Green Pact practice must distinguish theological ideal, regional custom, historical practice and individual interpretation",
+    "Do not treat every Bosmer as observing the Green Pact identically across eras and communities",
+    "Spinner stories may have unusual relationships to history and possibility, but narrative claims still retain speaker and context provenance",
+    "Wild Hunt accounts should distinguish witnessed transformations, historical reports, ritual doctrine and later retellings",
+    "Silvenar and Green Lady are offices/roles as well as individuals in particular periods; model office identity separately from officeholders",
+    "Cross-link existing Bosmer, Valenwood, Green Pact, Y'ffre, Wild Hunt, Camoran, Grahtwood, Elden Root, Silvenar and Green Lady records"
+  ]
+}

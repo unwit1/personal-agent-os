@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-015-empires-wars-dragonborn",
+  "subjects": [
+    {
+      "id": "tes:skyrim",
+      "name": "Skyrim",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/skyrim.json",
+      "source": {
+        "id": "uesp:skyrim",
+        "url": "https://en.uesp.net/wiki/Lore:Skyrim",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:solstheim",
+      "name": "Solstheim",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/solstheim.json",
+      "source": {
+        "id": "uesp:solstheim",
+        "url": "https://en.uesp.net/wiki/Lore:Solstheim",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:cyrodiil",
+      "name": "Cyrodiil",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/cyrodiil.json",
+      "source": {
+        "id": "uesp:cyrodiil",
+        "url": "https://en.uesp.net/wiki/Lore:Cyrodiil",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sancre-tor",
+      "name": "Sancre Tor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/sancre-tor.json",
+      "source": {
+        "id": "uesp:sancre-tor",
+        "url": "https://en.uesp.net/wiki/Lore:Sancre_Tor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:cloud-ruler-temple",
+      "name": "Cloud Ruler Temple",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/cloud-ruler-temple.json",
+      "source": {
+        "id": "uesp:cloud-ruler-temple",
+        "url": "https://en.uesp.net/wiki/Lore:Cloud_Ruler_Temple",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:markarth",
+      "name": "Markarth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/markarth.json",
+      "source": {
+        "id": "uesp:markarth",
+        "url": "https://en.uesp.net/wiki/Lore:Markarth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:windhelm",
+      "name": "Windhelm",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/windhelm.json",
+      "source": {
+        "id": "uesp:windhelm",
+        "url": "https://en.uesp.net/wiki/Lore:Windhelm",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:solitude",
+      "name": "Solitude",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/solitude.json",
+      "source": {
+        "id": "uesp:solitude",
+        "url": "https://en.uesp.net/wiki/Lore:Solitude",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Separate organizations from wars/events even when UESP page names overlap",
+    "Preserve era-specific versions of the Aldmeri Dominion rather than conflating them",
+    "Political claims about Great War, Concordat and Skyrim Civil War require speaker/source attribution",
+    "Dragonborn doctrine, bloodline and blessing claims should distinguish religious belief, historical records and observed game mechanics",
+    "Miraak and Dragon Priest material should prefer direct Skyrim/Dragonborn dialogue, inscriptions and quest evidence"
+  ]
+}

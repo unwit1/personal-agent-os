@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-021-nerevarine-sixth-house",
+  "subjects": [
+    {
+      "id": "tes:lost-prophecy",
+      "name": "The Lost Prophecy",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/lost-prophecy.json",
+      "source": {
+        "id": "uesp:lost-prophecy",
+        "url": "https://en.uesp.net/wiki/Lore:The_Lost_Prophecy",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:seven-visions",
+      "name": "The Seven Visions",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/seven-visions.json",
+      "source": {
+        "id": "uesp:seven-visions",
+        "url": "https://en.uesp.net/wiki/Lore:The_Seven_Visions",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:stranger",
+      "name": "The Stranger",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/stranger.json",
+      "source": {
+        "id": "uesp:stranger",
+        "url": "https://en.uesp.net/wiki/Lore:The_Stranger",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:progress-truth",
+      "name": "Progress of Truth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/progress-truth.json",
+      "source": {
+        "id": "uesp:progress-truth",
+        "url": "https://en.uesp.net/wiki/Lore:Progress_of_Truth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:plan-defeat-dagoth-ur",
+      "name": "Plan to Defeat Dagoth Ur",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/plan-defeat-dagoth-ur.json",
+      "source": {
+        "id": "uesp:plan-defeat-dagoth-ur",
+        "url": "https://en.uesp.net/wiki/Lore:Plan_to_Defeat_Dagoth_Ur",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Prophecy text, Temple interpretation, Ashlander interpretation and fulfilled quest events must remain separate evidence layers",
+    "Do not resolve whether the Nerevarine is reincarnation, chosen fulfillment, constructed identity or another interpretation unless a source explicitly supports that narrower claim",
+    "Dagoth Ur dream/dialogue claims remain attributed to Dagoth Ur",
+    "Player-dependent Morrowind quest sequencing and optional actions should be represented as branch-scoped evidence",
+    "Cross-link existing Vivec, Tribunal, Dagoth Ur, Red Mountain, Heart, Tools and Corprus subjects instead of duplicating canonical records",
+    "Ashlander tribes should remain distinct organizations/cultural groups with their own testimony"
+  ]
+}

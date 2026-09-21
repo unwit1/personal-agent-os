@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-016-oblivion-skyrim-development",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:oblivion-dev-history",
+      "title": "Oblivion development and lore commentary",
+      "author": "multiple",
+      "document_kind": "development_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Oblivion",
+        "Cyrodiil",
+        "Mythic Dawn",
+        "Mehrunes Dagon",
+        "Imperial culture"
+      ]
+    },
+    {
+      "id": "til:knights-nine-dev",
+      "title": "Knights of the Nine development commentary",
+      "author": "multiple",
+      "document_kind": "development_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Pelinal",
+        "Umaril",
+        "Alessia",
+        "Divines",
+        "Knights of the Nine"
+      ]
+    },
+    {
+      "id": "til:shivering-isles-dev",
+      "title": "Shivering Isles development commentary",
+      "author": "multiple",
+      "document_kind": "development_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Sheogorath",
+        "Jyggalag",
+        "Greymarch",
+        "Shivering Isles"
+      ]
+    },
+    {
+      "id": "til:skyrim-dev-history",
+      "title": "Skyrim development and lore commentary",
+      "author": "multiple",
+      "document_kind": "development_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Skyrim",
+        "Dragons",
+        "Dragonborn",
+        "Nordic religion",
+        "Civil War"
+      ]
+    },
+    {
+      "id": "til:dragon-lore-dev",
+      "title": "Skyrim-era developer commentary on dragons and Dragonborn",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Dragons",
+        "Dragonborn",
+        "Alduin",
+        "Paarthurnax",
+        "Dragon Cult",
+        "Thu'um"
+      ]
+    },
+    {
+      "id": "til:nordic-retcon-dev",
+      "title": "Developer commentary on changes to Nordic religion and culture",
+      "author": "multiple",
+      "document_kind": "development_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Nordic pantheon",
+        "Divines",
+        "Skyrim",
+        "religious change",
+        "design evolution"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Distinguish intentional in-world religious change from out-of-world design simplification or revision when sources allow.",
+    "Developer explanations for Skyrim's presentation of Nordic religion are development evidence, not substitutes for in-world sources.",
+    "Pelinal and Umaril interpretations retain source class and should not be back-projected into older Alessian evidence.",
+    "Sheogorath/Jyggalag developer commentary remains separate from what the Shivering Isles narrative directly establishes.",
+    "Record cut or changed quest/lore concepts as development deltas."
+  ]
+}

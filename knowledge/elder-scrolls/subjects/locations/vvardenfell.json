@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "tes:vvardenfell",
+  "library_id": "elder-scrolls",
+  "name": "Vvardenfell",
+  "entity_type": "place",
+  "category": "locations",
+  "canonical_path": "knowledge/elder-scrolls/subjects/locations/vvardenfell.json",
+  "continuity_model": "claims_and_evidence_scoped",
+  "sources": [
+    {
+      "source_id": "uesp:vvardenfell",
+      "url": "https://en.uesp.net/wiki/Lore:Vvardenfell",
+      "source_class": "secondary_reference",
+      "status": "queued"
+    }
+  ],
+  "claims": [],
+  "relationships": [],
+  "notes": "Migrated from an earlier ingestion queue into the categorized subject library. Claims remain empty until evidence-backed extraction."
+}

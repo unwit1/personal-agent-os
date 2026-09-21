@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-003-metaphysics",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:towers-corpus",
+      "title": "Developer and obscure Tower texts",
+      "document_kind": "thematic_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Towers",
+        "Stones",
+        "Convention",
+        "Adamantine Tower",
+        "White-Gold Tower",
+        "Crystal Tower",
+        "Red Mountain",
+        "Green-Sap"
+      ]
+    },
+    {
+      "id": "til:chim-corpus",
+      "title": "Developer and obscure CHIM texts",
+      "document_kind": "thematic_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "CHIM",
+        "Vivec",
+        "Talos",
+        "Psijic Endeavor"
+      ]
+    },
+    {
+      "id": "til:amaranth-corpus",
+      "title": "Developer and obscure Amaranth texts",
+      "document_kind": "thematic_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Amaranth",
+        "Dream",
+        "Loveletter",
+        "Fifth Era"
+      ]
+    },
+    {
+      "id": "til:kalpa-corpus",
+      "title": "Developer and obscure kalpa texts",
+      "document_kind": "thematic_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "kalpas",
+        "Alduin",
+        "world-eating",
+        "Dagon",
+        "Nordic mythology"
+      ]
+    },
+    {
+      "id": "til:numidium-corpus",
+      "title": "Developer and obscure Numidium texts",
+      "document_kind": "thematic_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Numidium",
+        "Brass God",
+        "Dragon Break",
+        "Landfall",
+        "Dwemer"
+      ]
+    },
+    {
+      "id": "til:enantiomorph-corpus",
+      "title": "Developer and obscure enantiomorph texts",
+      "document_kind": "thematic_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "enantiomorph",
+        "Talos",
+        "Convention",
+        "mythic patterns"
+      ]
+    },
+    {
+      "id": "til:godhead-corpus",
+      "title": "Developer and obscure Godhead/Dream texts",
+      "document_kind": "thematic_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Godhead",
+        "Dream",
+        "reality",
+        "metaphysics"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Do not promote fan terminology or synthesis into a developer claim without an attributable source passage.",
+    "Track first attestation and later in-game adoption separately for each metaphysical term.",
+    "A thematic corpus is an index over documents, not a source itself; claims must cite the underlying document.",
+    "Distinguish explicit statements, metaphor, in-character theology and reader inference.",
+    "Contradictory metaphysical models may coexist without forced reconciliation."
+  ]
+}

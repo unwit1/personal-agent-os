@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-007-dragon-break-time",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:dragon-break-dev",
+      "title": "Developer commentary on Dragon Breaks",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Dragon Break",
+        "time",
+        "Warp in the West",
+        "Middle Dawn"
+      ]
+    },
+    {
+      "id": "til:middle-dawn-dev",
+      "title": "Developer and obscure material on the Middle Dawn",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Middle Dawn",
+        "Alessian Order",
+        "Marukhati Selectives",
+        "Akatosh",
+        "time"
+      ]
+    },
+    {
+      "id": "til:warp-west-dev",
+      "title": "Developer commentary on the Warp in the West",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Warp in the West",
+        "Daggerfall",
+        "Numidium",
+        "Dragon Break"
+      ]
+    },
+    {
+      "id": "til:linear-time-dev",
+      "title": "Developer commentary on linear and non-linear time",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "time",
+        "Akatosh",
+        "Dragon Break",
+        "Dawn Era"
+      ]
+    },
+    {
+      "id": "til:dawn-era-dev",
+      "title": "Developer and obscure material on the Dawn Era",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Dawn Era",
+        "Convention",
+        "creation",
+        "time",
+        "mythic patterns"
+      ]
+    },
+    {
+      "id": "til:monkey-truth-dev",
+      "title": "Developer material surrounding Marukhati theology",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Marukh",
+        "Marukhati Selectives",
+        "Alessian Order",
+        "Akatosh",
+        "Middle Dawn"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Dragon Break is not a generic explanation for every contradiction in Elder Scrolls sources.",
+    "Record exactly which source links an event to a Dragon Break rather than inferring one from inconsistency.",
+    "Daggerfall endings remain individually documented before later Warp reconciliation.",
+    "Statements about non-linear time retain speaker, context and evidence class.",
+    "Do not use Dawn Era metaphysics to erase ordinary chronological evidence from later eras."
+  ]
+}

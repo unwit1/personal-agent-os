@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "batch_id": "dialogue-discovery-005-cross-release-boundary",
+  "status": "verified",
+  "examples": [
+    {
+      "title": "Spirit of the Daedra",
+      "url": "https://www.imperial-library.info/content/spirit-daedra",
+      "released_in": [
+        "Elder Scrolls Online",
+        "TES3: Morrowind",
+        "TES4: Oblivion",
+        "TES5: Skyrim",
+        "TESL: Battlespire"
+      ],
+      "classification": "written_text",
+      "category": "Religion & Legends",
+      "dialogue_corpus": false,
+      "books_corpus": true
+    },
+    {
+      "title": "Valmir's Orders",
+      "url": "https://www.imperial-library.info/content/valmirs-orders",
+      "released_in": [
+        "TES5: Skyrim"
+      ],
+      "classification": "written_text",
+      "category": "Letters & Notes",
+      "dialogue_corpus": false,
+      "books_corpus": true
+    }
+  ],
+  "rules": [
+    "A text appearing in many games is still not dialogue merely because it has multiple Released In values.",
+    "Cross-release written works should have one work identity plus appearance records rather than duplicate canonical text identities.",
+    "Dialogue and books corpora may cross-reference the same quest, NPC, faction, or concept without duplicating source bodies."
+  ]
+}

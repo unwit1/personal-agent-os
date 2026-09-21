@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-016-tribunal-clockwork-telvanni",
+  "subjects": [
+    {
+      "id": "tes:truth-in-sequence",
+      "name": "The Truth in Sequence",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/truth-in-sequence.json",
+      "source": {
+        "id": "uesp:truth-in-sequence",
+        "url": "https://en.uesp.net/wiki/Lore:The_Truth_in_Sequence",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:2920-last-year-first-era",
+      "name": "2920, The Last Year of the First Era",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/2920-last-year-first-era.json",
+      "source": {
+        "id": "uesp:2920-last-year-first-era",
+        "url": "https://en.uesp.net/wiki/Lore:2920,_The_Last_Year_of_the_First_Era",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:progress-truth",
+      "name": "Progress of Truth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/progress-truth.json",
+      "source": {
+        "id": "uesp:progress-truth",
+        "url": "https://en.uesp.net/wiki/Lore:Progress_of_Truth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:vivec-sermons",
+      "name": "The 36 Lessons of Vivec",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/vivec-sermons.json",
+      "source": {
+        "id": "uesp:vivec-sermons",
+        "url": "https://en.uesp.net/wiki/Lore:The_36_Lessons_of_Vivec",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Treat Tribunal theology, dissident accounts, sermons and later Temple doctrine as distinct evidence traditions",
+    "Do not use 2920 as straightforward historical evidence without retaining its in-universe fictional/literary status",
+    "Separate the physical/metaphysical Clockwork City from institutions and representations that share its name",
+    "Corprus and Divine Disease claims should distinguish observed effects, Temple explanations and Dagoth-related interpretations",
+    "Prefer direct Morrowind/ESO dialogue and books for Sotha Sil, Almalexia, Divayth Fyr, Yagrum Bagarn and Telvanni claims"
+  ]
+}

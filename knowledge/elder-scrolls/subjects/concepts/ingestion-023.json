@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-023-arena-daggerfall-warp-west",
+  "subjects": [
+    {
+      "id": "tes:dragon-break",
+      "name": "Dragon Break",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dragon-break.json",
+      "source": {
+        "id": "uesp:dragon-break",
+        "url": "https://en.uesp.net/wiki/Lore:Dragon_Break",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:warp-west-concept",
+      "name": "Warp in the West",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/warp-west-concept.json",
+      "source": {
+        "id": "uesp:warp-west-concept",
+        "url": "https://en.uesp.net/wiki/Lore:Warp_in_the_West",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:multiple-endings",
+      "name": "Mutually Exclusive Outcomes",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/multiple-endings.json",
+      "source": {
+        "id": "uesp:multiple-endings",
+        "url": "https://en.uesp.net/wiki/Lore:Mutually_Exclusive_Outcomes",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:underking",
+      "name": "Underking",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/underking.json",
+      "source": {
+        "id": "uesp:underking",
+        "url": "https://en.uesp.net/wiki/Lore:Underking",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:numidium",
+      "name": "Numidium",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/numidium.json",
+      "source": {
+        "id": "uesp:numidium",
+        "url": "https://en.uesp.net/wiki/Lore:Numidium",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mantella-soul",
+      "name": "Mantella Soul",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/mantella-soul.json",
+      "source": {
+        "id": "uesp:mantella-soul",
+        "url": "https://en.uesp.net/wiki/Lore:Mantella_Soul",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Arena and Daggerfall player-character identities remain minimally specified unless primary sources establish details",
+    "Daggerfall's mutually exclusive endings must remain separate outcome branches before Warp-in-the-West reconciliation",
+    "Do not use later Dragon Break explanations to erase what individual earlier sources report",
+    "Underking, Zurin Arctus, Wulfharth and Mantella identity/soul claims require source-specific attribution",
+    "The Real Barenziah, Biography of Queen Barenziah and Arcturian Heresy retain genre, authorship and reliability metadata",
+    "Cross-link existing Numidium, Mantella, Mannimarco, Uriel VII, Daggerfall, Wayrest and Orsinium subjects"
+  ]
+}

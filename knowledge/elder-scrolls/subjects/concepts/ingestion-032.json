@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-032-alessian-ayleid-pelinal",
+  "subjects": [
+    {
+      "id": "tes:one",
+      "name": "The One",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/one.json",
+      "source": {
+        "id": "uesp:one",
+        "url": "https://en.uesp.net/wiki/Lore:The_One",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:alessian-doctrines",
+      "name": "Alessian Doctrines",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/alessian-doctrines.json",
+      "source": {
+        "id": "uesp:alessian-doctrines",
+        "url": "https://en.uesp.net/wiki/Lore:Alessian_Doctrines",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:selective",
+      "name": "Selectives",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/selective.json",
+      "source": {
+        "id": "uesp:selective",
+        "url": "https://en.uesp.net/wiki/Lore:Selectives",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dragon-break",
+      "name": "Dragon Break",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/dragon-break.json",
+      "source": {
+        "id": "uesp:dragon-break",
+        "url": "https://en.uesp.net/wiki/Lore:Dragon_Break",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:pelinal-madness",
+      "name": "Pelinal's Madness",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/pelinal-madness.json",
+      "source": {
+        "id": "uesp:pelinal-madness",
+        "url": "https://en.uesp.net/wiki/Lore:Pelinal%27s_Madness",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:divine-covenant",
+      "name": "Divine Covenant",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/divine-covenant.json",
+      "source": {
+        "id": "uesp:divine-covenant",
+        "url": "https://en.uesp.net/wiki/Lore:Divine_Covenant",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "The Song of Pelinal is an in-universe literary/historical source; preserve narrator, edition and mythic embellishment uncertainty",
+    "Ayleid culture must not be flattened into a single political or religious bloc; preserve city-state and cult differences",
+    "Claims about Pelinal's identity, madness, divinity or time-displacement remain source-specific interpretations unless directly evidenced",
+    "Middle Dawn chronology is inherently disrupted; preserve conflicting durations, memories and accounts rather than forcing a normal timeline",
+    "Alessian Order doctrine must be separated from earlier Alessian rebellion and later interpretations of Alessia",
+    "Cross-link existing Alessia, Pelinal, Morihaus, Umaril, Ayleid, White-Gold Tower, Amulet of Kings, Chim-el Adabal, Middle Dawn and Knights of the Nine records"
+  ]
+}

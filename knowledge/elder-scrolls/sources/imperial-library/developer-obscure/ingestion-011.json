@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-011-author-intent-retcons",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:retcon-commentary",
+      "title": "Developer commentary on lore changes and retcons",
+      "author": "multiple",
+      "document_kind": "development_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "retcons",
+        "continuity",
+        "development history",
+        "game-to-game changes"
+      ]
+    },
+    {
+      "id": "til:cut-content-commentary",
+      "title": "Developer commentary on cut and changed lore content",
+      "author": "multiple",
+      "document_kind": "development_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "cut content",
+        "drafts",
+        "development history",
+        "unused concepts"
+      ]
+    },
+    {
+      "id": "til:author-intent",
+      "title": "Authorial-intent statements about Elder Scrolls texts",
+      "author": "multiple",
+      "document_kind": "author_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "authorial intent",
+        "in-game books",
+        "unreliable narrator",
+        "interpretation"
+      ]
+    },
+    {
+      "id": "til:unreliable-narrator-dev",
+      "title": "Developer commentary on unreliable narration",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "unreliable narrator",
+        "contradictions",
+        "historical texts",
+        "perspective"
+      ]
+    },
+    {
+      "id": "til:canon-commentary",
+      "title": "Developer commentary on canon and lore authority",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "canon",
+        "lore authority",
+        "interpretation",
+        "developer texts"
+      ]
+    },
+    {
+      "id": "til:design-evolution",
+      "title": "Developer interviews on setting and design evolution",
+      "author": "multiple",
+      "document_kind": "development_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Arena",
+        "Daggerfall",
+        "Morrowind",
+        "Oblivion",
+        "Skyrim",
+        "ESO",
+        "setting evolution"
+      ]
+    }
+  ],
+  "review_rules": [
+    "A developer describing an earlier design intention does not rewrite the released artifact; store intention and shipped evidence separately.",
+    "Retcon is an analytical label requiring explicit before/after evidence rather than any apparent contradiction.",
+    "Cut content is evidence for development history, not automatically for the released continuity.",
+    "Statements about canon are attributed to their speaker and date rather than promoted into a universal repository rule.",
+    "Use these sources to explain provenance changes and design evolution, not to erase contradictory historical evidence."
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-049-argonian-hist-duskfall",
+  "subjects": [
+    {
+      "id": "tes:black-marsh",
+      "name": "Black Marsh",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/black-marsh.json",
+      "source": {
+        "id": "uesp:black-marsh",
+        "url": "https://en.uesp.net/wiki/Lore:Black_Marsh",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:argonia",
+      "name": "Argonia",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/argonia.json",
+      "source": {
+        "id": "uesp:argonia",
+        "url": "https://en.uesp.net/wiki/Lore:Argonia",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:murkmire",
+      "name": "Murkmire",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/murkmire.json",
+      "source": {
+        "id": "uesp:murkmire",
+        "url": "https://en.uesp.net/wiki/Lore:Murkmire",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:shadowfen",
+      "name": "Shadowfen",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/shadowfen.json",
+      "source": {
+        "id": "uesp:shadowfen",
+        "url": "https://en.uesp.net/wiki/Lore:Shadowfen",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:lilmoth",
+      "name": "Lilmoth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/lilmoth.json",
+      "source": {
+        "id": "uesp:lilmoth",
+        "url": "https://en.uesp.net/wiki/Lore:Lilmoth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:gideon",
+      "name": "Gideon",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/gideon.json",
+      "source": {
+        "id": "uesp:gideon",
+        "url": "https://en.uesp.net/wiki/Lore:Gideon",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:helstrom",
+      "name": "Helstrom",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/helstrom.json",
+      "source": {
+        "id": "uesp:helstrom",
+        "url": "https://en.uesp.net/wiki/Lore:Helstrom",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "This batch deepens earlier Argonian material; canonicalization should merge duplicate subjects instead of creating parallel identities",
+    "Do not model the Hist as a proven single collective mind; preserve evidence for individual trees, networks and differing interpretations",
+    "Argonian life-cycle and morphology claims must retain tribe, region, era and source context",
+    "Duskfall should distinguish historical change, modern philosophy and retrospective cultural interpretation",
+    "Knahaten Flu origin theories remain contradictory unless a source directly establishes a specific event",
+    "Argonian Sithis traditions must remain distinct from other cultures' Sithis theology while allowing sourced correspondences",
+    "Cross-link existing Argonian, Hist, Black Marsh, Shadowscale, Knahaten Flu, Duskfall, Heita-Meen, Keshu and Xukas records"
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-021-nerevarine-sixth-house",
+  "subjects": [
+    {
+      "id": "tes:nerevarine",
+      "name": "Nerevarine",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/nerevarine.json",
+      "source": {
+        "id": "uesp:nerevarine",
+        "url": "https://en.uesp.net/wiki/Lore:Nerevarine",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:caius-cosades",
+      "name": "Caius Cosades",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/caius-cosades.json",
+      "source": {
+        "id": "uesp:caius-cosades",
+        "url": "https://en.uesp.net/wiki/Lore:Caius_Cosades",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:divayth-fyr",
+      "name": "Divayth Fyr",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/divayth-fyr.json",
+      "source": {
+        "id": "uesp:divayth-fyr",
+        "url": "https://en.uesp.net/wiki/Lore:Divayth_Fyr",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:yagrum-bagarn",
+      "name": "Yagrum Bagarn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/yagrum-bagarn.json",
+      "source": {
+        "id": "uesp:yagrum-bagarn",
+        "url": "https://en.uesp.net/wiki/Lore:Yagrum_Bagarn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:vivec",
+      "name": "Vivec",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/vivec.json",
+      "source": {
+        "id": "uesp:vivec",
+        "url": "https://en.uesp.net/wiki/Lore:Vivec",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:almalexia",
+      "name": "Almalexia",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/almalexia.json",
+      "source": {
+        "id": "uesp:almalexia",
+        "url": "https://en.uesp.net/wiki/Lore:Almalexia",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sotha-sil",
+      "name": "Sotha Sil",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/sotha-sil.json",
+      "source": {
+        "id": "uesp:sotha-sil",
+        "url": "https://en.uesp.net/wiki/Lore:Sotha_Sil",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dagoth-ur",
+      "name": "Dagoth Ur",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/dagoth-ur.json",
+      "source": {
+        "id": "uesp:dagoth-ur",
+        "url": "https://en.uesp.net/wiki/Lore:Dagoth_Ur",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Prophecy text, Temple interpretation, Ashlander interpretation and fulfilled quest events must remain separate evidence layers",
+    "Do not resolve whether the Nerevarine is reincarnation, chosen fulfillment, constructed identity or another interpretation unless a source explicitly supports that narrower claim",
+    "Dagoth Ur dream/dialogue claims remain attributed to Dagoth Ur",
+    "Player-dependent Morrowind quest sequencing and optional actions should be represented as branch-scoped evidence",
+    "Cross-link existing Vivec, Tribunal, Dagoth Ur, Red Mountain, Heart, Tools and Corprus subjects instead of duplicating canonical records",
+    "Ashlander tribes should remain distinct organizations/cultural groups with their own testimony"
+  ]
+}

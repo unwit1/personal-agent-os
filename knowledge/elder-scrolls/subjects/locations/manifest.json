@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "subjects": [
+    "red-mountain",
+    "atmora",
+    "saarthal",
+    "cyrodiil",
+    "white-gold-tower",
+    "yokuda",
+    "hammerfell",
+    "summerset-isles",
+    "valenwood",
+    "elsweyr",
+    "black-marsh",
+    "morrowind",
+    "vvardenfell"
+  ],
+  "notes": "Seed manifest from existing ingestion queues. Individual subject records are created/populated by ingestion."
+}

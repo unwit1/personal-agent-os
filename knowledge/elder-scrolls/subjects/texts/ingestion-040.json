@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-040-bosmer-green-pact-valenwood",
+  "subjects": [
+    {
+      "id": "tes:green-pact-text",
+      "name": "The Green Pact",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/green-pact-text.json",
+      "source": {
+        "id": "uesp:green-pact-text",
+        "url": "https://en.uesp.net/wiki/Lore:The_Green_Pact",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ooze-forest",
+      "name": "The Ooze: A Fable",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/ooze-forest.json",
+      "source": {
+        "id": "uesp:ooze-forest",
+        "url": "https://en.uesp.net/wiki/Lore:The_Ooze:_A_Fable",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:varieties-faith-wood-elves",
+      "name": "Varieties of Faith: The Wood Elves",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/varieties-faith-wood-elves.json",
+      "source": {
+        "id": "uesp:varieties-faith-wood-elves",
+        "url": "https://en.uesp.net/wiki/Lore:Varieties_of_Faith:_The_Wood_Elves",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:falinesti-faithful",
+      "name": "Falinesti Faithful",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/falinesti-faithful.json",
+      "source": {
+        "id": "uesp:falinesti-faithful",
+        "url": "https://en.uesp.net/wiki/Lore:Falinesti_Faithful",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Green Pact practice must distinguish theological ideal, regional custom, historical practice and individual interpretation",
+    "Do not treat every Bosmer as observing the Green Pact identically across eras and communities",
+    "Spinner stories may have unusual relationships to history and possibility, but narrative claims still retain speaker and context provenance",
+    "Wild Hunt accounts should distinguish witnessed transformations, historical reports, ritual doctrine and later retellings",
+    "Silvenar and Green Lady are offices/roles as well as individuals in particular periods; model office identity separately from officeholders",
+    "Cross-link existing Bosmer, Valenwood, Green Pact, Y'ffre, Wild Hunt, Camoran, Grahtwood, Elden Root, Silvenar and Green Lady records"
+  ]
+}

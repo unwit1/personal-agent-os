@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-029-daedric-war-summerset-clockwork",
+  "subjects": [
+    {
+      "id": "tes:transparent-law",
+      "name": "Transparent Law",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/transparent-law.json",
+      "source": {
+        "id": "uesp:transparent-law",
+        "url": "https://en.uesp.net/wiki/Lore:Transparent_Law",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:crystal-like-law",
+      "name": "Crystal-Like-Law",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/crystal-like-law.json",
+      "source": {
+        "id": "uesp:crystal-like-law",
+        "url": "https://en.uesp.net/wiki/Lore:Crystal-Like-Law",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:tower-stone",
+      "name": "Tower and Stone",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/tower-stone.json",
+      "source": {
+        "id": "uesp:tower-stone",
+        "url": "https://en.uesp.net/wiki/Lore:Tower_and_Stone",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:daedric-triad",
+      "name": "Daedric Triad",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/daedric-triad.json",
+      "source": {
+        "id": "uesp:daedric-triad",
+        "url": "https://en.uesp.net/wiki/Lore:Daedric_Triad",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:shadow-magic",
+      "name": "Shadow Magic",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/shadow-magic.json",
+      "source": {
+        "id": "uesp:shadow-magic",
+        "url": "https://en.uesp.net/wiki/Lore:Shadow_Magic",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:psijic-time",
+      "name": "Psijic Time Manipulation",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/psijic-time.json",
+      "source": {
+        "id": "uesp:psijic-time",
+        "url": "https://en.uesp.net/wiki/Lore:Psijic_Time_Manipulation",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sequential-reality",
+      "name": "Sequential Reality",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/sequential-reality.json",
+      "source": {
+        "id": "uesp:sequential-reality",
+        "url": "https://en.uesp.net/wiki/Lore:Sequential_Reality",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Treat the Clockwork City, Morrowind and Summerset story arc as linked chronology without flattening each chapter's local evidence",
+    "Nocturnal, Mephala and Clavicus Vile statements remain attributed even when describing metaphysics",
+    "Tower/Stone terminology must distinguish in-universe theory, direct quest observations and later scholarly interpretation",
+    "Psijic claims about time and causality require speaker/text provenance",
+    "Do not infer that gameplay depictions of time manipulation define universal metaphysical rules",
+    "Cross-link existing Sotha Sil, Clockwork City, Summerset, Psijic Order, Crystal Tower, Nocturnal, Mephala, Clavicus Vile, Skeleton Key and related subjects"
+  ]
+}

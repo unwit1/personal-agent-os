@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-029-daedric-war-summerset-clockwork",
+  "subjects": [
+    {
+      "id": "tes:truth-sequence",
+      "name": "The Truth in Sequence",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/truth-sequence.json",
+      "source": {
+        "id": "uesp:truth-sequence",
+        "url": "https://en.uesp.net/wiki/Lore:The_Truth_in_Sequence",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sotha-sil-last-words",
+      "name": "Sotha Sil's Last Words",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/sotha-sil-last-words.json",
+      "source": {
+        "id": "uesp:sotha-sil-last-words",
+        "url": "https://en.uesp.net/wiki/Lore:Sotha_Sil%27s_Last_Words",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:psijic-codex",
+      "name": "Psijic Codex",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/psijic-codex.json",
+      "source": {
+        "id": "uesp:psijic-codex",
+        "url": "https://en.uesp.net/wiki/Lore:Psijic_Codex",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:crystal-tower-lore",
+      "name": "The Crystal Tower",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/crystal-tower-lore.json",
+      "source": {
+        "id": "uesp:crystal-tower-lore",
+        "url": "https://en.uesp.net/wiki/Lore:The_Crystal_Tower",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Treat the Clockwork City, Morrowind and Summerset story arc as linked chronology without flattening each chapter's local evidence",
+    "Nocturnal, Mephala and Clavicus Vile statements remain attributed even when describing metaphysics",
+    "Tower/Stone terminology must distinguish in-universe theory, direct quest observations and later scholarly interpretation",
+    "Psijic claims about time and causality require speaker/text provenance",
+    "Do not infer that gameplay depictions of time manipulation define universal metaphysical rules",
+    "Cross-link existing Sotha Sil, Clockwork City, Summerset, Psijic Order, Crystal Tower, Nocturnal, Mephala, Clavicus Vile, Skeleton Key and related subjects"
+  ]
+}

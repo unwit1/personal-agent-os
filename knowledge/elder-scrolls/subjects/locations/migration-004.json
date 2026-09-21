@@ -1,0 +1,225 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:resdayn",
+      "name": "Resdayn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/resdayn.json",
+      "source": {
+        "id": "uesp:resdayn",
+        "url": "https://en.uesp.net/wiki/Lore:Resdayn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ashlands",
+      "name": "Ashlands",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/ashlands.json",
+      "source": {
+        "id": "uesp:ashlands",
+        "url": "https://en.uesp.net/wiki/Lore:Ashlands",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:grazelands",
+      "name": "Grazelands",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/grazelands.json",
+      "source": {
+        "id": "uesp:grazelands",
+        "url": "https://en.uesp.net/wiki/Lore:Grazelands",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:azuras-coast",
+      "name": "Azura's Coast",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/azuras-coast.json",
+      "source": {
+        "id": "uesp:azuras-coast",
+        "url": "https://en.uesp.net/wiki/Lore:Azura%27s_Coast",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:bitter-coast",
+      "name": "Bitter Coast",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/bitter-coast.json",
+      "source": {
+        "id": "uesp:bitter-coast",
+        "url": "https://en.uesp.net/wiki/Lore:Bitter_Coast",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:molag-amur",
+      "name": "Molag Amur",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/molag-amur.json",
+      "source": {
+        "id": "uesp:molag-amur",
+        "url": "https://en.uesp.net/wiki/Lore:Molag_Amur",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mournhold",
+      "name": "Mournhold",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/mournhold.json",
+      "source": {
+        "id": "uesp:mournhold",
+        "url": "https://en.uesp.net/wiki/Lore:Mournhold",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:necrom",
+      "name": "Necrom",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/necrom.json",
+      "source": {
+        "id": "uesp:necrom",
+        "url": "https://en.uesp.net/wiki/Lore:Necrom",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:blacklight",
+      "name": "Blacklight",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/blacklight.json",
+      "source": {
+        "id": "uesp:blacklight",
+        "url": "https://en.uesp.net/wiki/Lore:Blacklight",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:vivec-city",
+      "name": "Vivec City",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/vivec-city.json",
+      "source": {
+        "id": "uesp:vivec-city",
+        "url": "https://en.uesp.net/wiki/Lore:Vivec_City",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:glenumbra",
+      "name": "Glenumbra",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/glenumbra.json",
+      "source": {
+        "id": "uesp:glenumbra",
+        "url": "https://en.uesp.net/wiki/Lore:Glenumbra",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:stormhaven",
+      "name": "Stormhaven",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/stormhaven.json",
+      "source": {
+        "id": "uesp:stormhaven",
+        "url": "https://en.uesp.net/wiki/Lore:Stormhaven",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:rivenspire",
+      "name": "Rivenspire",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/rivenspire.json",
+      "source": {
+        "id": "uesp:rivenspire",
+        "url": "https://en.uesp.net/wiki/Lore:Rivenspire",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:wayrest",
+      "name": "Wayrest",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/wayrest.json",
+      "source": {
+        "id": "uesp:wayrest",
+        "url": "https://en.uesp.net/wiki/Lore:Wayrest",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:daggerfall",
+      "name": "Daggerfall",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/daggerfall.json",
+      "source": {
+        "id": "uesp:daggerfall",
+        "url": "https://en.uesp.net/wiki/Lore:Daggerfall",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:evermore",
+      "name": "Evermore",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/evermore.json",
+      "source": {
+        "id": "uesp:evermore",
+        "url": "https://en.uesp.net/wiki/Lore:Evermore",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:balfiera",
+      "name": "Balfiera",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/balfiera.json",
+      "source": {
+        "id": "uesp:balfiera",
+        "url": "https://en.uesp.net/wiki/Lore:Balfiera",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:stros-mkai",
+      "name": "Stros M'Kai",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/stros-mkai.json",
+      "source": {
+        "id": "uesp:stros-mkai",
+        "url": "https://en.uesp.net/wiki/Lore:Stros_M%27Kai",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration from earlier queues into canonical subject categories; extraction must retain provenance and temporal/cultural scope."
+}

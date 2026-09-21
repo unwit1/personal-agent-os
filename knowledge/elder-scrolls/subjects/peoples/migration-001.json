@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "peoples",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:dwemer",
+      "name": "Dwemer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/dwemer.json",
+      "source": {
+        "id": "uesp:dwemer",
+        "url": "https://en.uesp.net/wiki/Lore:Dwemer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:chimer",
+      "name": "Chimer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/chimer.json",
+      "source": {
+        "id": "uesp:chimer",
+        "url": "https://en.uesp.net/wiki/Lore:Chimer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dunmer",
+      "name": "Dunmer",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/peoples/dunmer.json",
+      "source": {
+        "id": "uesp:dunmer",
+        "url": "https://en.uesp.net/wiki/Lore:Dunmer",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration batch from earlier queues. Individual subject records may be materialized incrementally; evidence-backed claims remain local/indexed until reviewed."
+}

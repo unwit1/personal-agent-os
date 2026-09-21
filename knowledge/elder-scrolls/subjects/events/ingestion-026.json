@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-026-elsweyr-khajiit-dragons",
+  "subjects": [
+    {
+      "id": "tes:dragonrise",
+      "name": "Dragon Rise",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/dragonrise.json",
+      "source": {
+        "id": "uesp:dragonrise",
+        "url": "https://en.uesp.net/wiki/Lore:Dragon_Rise",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:season-dragon",
+      "name": "Season of the Dragon",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/season-dragon.json",
+      "source": {
+        "id": "uesp:season-dragon",
+        "url": "https://en.uesp.net/wiki/Lore:Season_of_the_Dragon",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:battle-red-mountain",
+      "name": "Battle at the Halls of Colossus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/battle-red-mountain.json",
+      "source": {
+        "id": "uesp:battle-red-mountain",
+        "url": "https://en.uesp.net/wiki/Lore:Battle_at_the_Halls_of_Colossus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:release-dragons-elsweyr",
+      "name": "Release of the Dragons",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/release-dragons-elsweyr.json",
+      "source": {
+        "id": "uesp:release-dragons-elsweyr",
+        "url": "https://en.uesp.net/wiki/Lore:Release_of_the_Dragons",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:battle-dragonhold",
+      "name": "Battle for Dragonhold",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/battle-dragonhold.json",
+      "source": {
+        "id": "uesp:battle-dragonhold",
+        "url": "https://en.uesp.net/wiki/Lore:Battle_for_Dragonhold",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Khajiiti origin stories and lunar theology remain attributed traditions unless independently evidenced",
+    "Furstock descriptions must retain source/era because terminology and presentation vary across games",
+    "Khunzar-ri legends should separate legendary narrative from observed ESO-era evidence",
+    "Dragon claims should distinguish individual testimony, historical record and directly observed quest events",
+    "Cross-link existing Khajiit, Elsweyr, Alkosh, Azurah, Lunar Lattice, Mane, Dro-m'Athra, Sai Sahan and Abnur Tharn subjects",
+    "Do not collapse Anequina/Pellitine geographic, political and historical meanings into one undifferentiated record"
+  ]
+}

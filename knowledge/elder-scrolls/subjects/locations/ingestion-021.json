@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-021-nerevarine-sixth-house",
+  "subjects": [
+    {
+      "id": "tes:ghostgate",
+      "name": "Ghostgate",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/ghostgate.json",
+      "source": {
+        "id": "uesp:ghostgate",
+        "url": "https://en.uesp.net/wiki/Lore:Ghostgate",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:red-mountain",
+      "name": "Red Mountain",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/red-mountain.json",
+      "source": {
+        "id": "uesp:red-mountain",
+        "url": "https://en.uesp.net/wiki/Lore:Red_Mountain",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dagoth-ur-citadel",
+      "name": "Dagoth Ur",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/dagoth-ur-citadel.json",
+      "source": {
+        "id": "uesp:dagoth-ur-citadel",
+        "url": "https://en.uesp.net/wiki/Lore:Dagoth_Ur",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:cavern-incarnate",
+      "name": "Cavern of the Incarnate",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/cavern-incarnate.json",
+      "source": {
+        "id": "uesp:cavern-incarnate",
+        "url": "https://en.uesp.net/wiki/Lore:Cavern_of_the_Incarnate",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ministry-truth",
+      "name": "Ministry of Truth",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/ministry-truth.json",
+      "source": {
+        "id": "uesp:ministry-truth",
+        "url": "https://en.uesp.net/wiki/Lore:Ministry_of_Truth",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Prophecy text, Temple interpretation, Ashlander interpretation and fulfilled quest events must remain separate evidence layers",
+    "Do not resolve whether the Nerevarine is reincarnation, chosen fulfillment, constructed identity or another interpretation unless a source explicitly supports that narrower claim",
+    "Dagoth Ur dream/dialogue claims remain attributed to Dagoth Ur",
+    "Player-dependent Morrowind quest sequencing and optional actions should be represented as branch-scoped evidence",
+    "Cross-link existing Vivec, Tribunal, Dagoth Ur, Red Mountain, Heart, Tools and Corprus subjects instead of duplicating canonical records",
+    "Ashlander tribes should remain distinct organizations/cultural groups with their own testimony"
+  ]
+}

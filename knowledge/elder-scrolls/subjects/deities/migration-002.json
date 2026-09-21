@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "deities",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:azura",
+      "name": "Azura",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/azura.json",
+      "source": {
+        "id": "uesp:azura",
+        "url": "https://en.uesp.net/wiki/Lore:Azura",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:boethiah",
+      "name": "Boethiah",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/boethiah.json",
+      "source": {
+        "id": "uesp:boethiah",
+        "url": "https://en.uesp.net/wiki/Lore:Boethiah",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mephala",
+      "name": "Mephala",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/mephala.json",
+      "source": {
+        "id": "uesp:mephala",
+        "url": "https://en.uesp.net/wiki/Lore:Mephala",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:alduin",
+      "name": "Alduin",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/alduin.json",
+      "source": {
+        "id": "uesp:alduin",
+        "url": "https://en.uesp.net/wiki/Lore:Alduin",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:kyne",
+      "name": "Kyne",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/kyne.json",
+      "source": {
+        "id": "uesp:kyne",
+        "url": "https://en.uesp.net/wiki/Lore:Kyne",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:shor",
+      "name": "Shor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/shor.json",
+      "source": {
+        "id": "uesp:shor",
+        "url": "https://en.uesp.net/wiki/Lore:Shor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:akatosh",
+      "name": "Akatosh",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/akatosh.json",
+      "source": {
+        "id": "uesp:akatosh",
+        "url": "https://en.uesp.net/wiki/Lore:Akatosh",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:auriel",
+      "name": "Auri-El",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/auriel.json",
+      "source": {
+        "id": "uesp:auriel",
+        "url": "https://en.uesp.net/wiki/Lore:Auri-El",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:trinimac",
+      "name": "Trinimac",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/trinimac.json",
+      "source": {
+        "id": "uesp:trinimac",
+        "url": "https://en.uesp.net/wiki/Lore:Trinimac",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:malacath",
+      "name": "Malacath",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/malacath.json",
+      "source": {
+        "id": "uesp:malacath",
+        "url": "https://en.uesp.net/wiki/Lore:Malacath",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mehrunes-dagon",
+      "name": "Mehrunes Dagon",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/mehrunes-dagon.json",
+      "source": {
+        "id": "uesp:mehrunes-dagon",
+        "url": "https://en.uesp.net/wiki/Lore:Mehrunes_Dagon",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:yffre",
+      "name": "Y'ffre",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/yffre.json",
+      "source": {
+        "id": "uesp:yffre",
+        "url": "https://en.uesp.net/wiki/Lore:Y%27ffre",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:azurah",
+      "name": "Azurah",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/azurah.json",
+      "source": {
+        "id": "uesp:azurah",
+        "url": "https://en.uesp.net/wiki/Lore:Azurah",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:alkosh",
+      "name": "Alkosh",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/alkosh.json",
+      "source": {
+        "id": "uesp:alkosh",
+        "url": "https://en.uesp.net/wiki/Lore:Alkosh",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:namira",
+      "name": "Namira",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/namira.json",
+      "source": {
+        "id": "uesp:namira",
+        "url": "https://en.uesp.net/wiki/Lore:Namira",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:peryite",
+      "name": "Peryite",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/peryite.json",
+      "source": {
+        "id": "uesp:peryite",
+        "url": "https://en.uesp.net/wiki/Lore:Peryite",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Categorized migration from prior ingestion queues. Source URLs are discovery pointers; underlying primary references are preferred during extraction."
+}

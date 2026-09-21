@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "locations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-033-atmora-nordic-dragon-cult",
+  "subjects": [
+    {
+      "id": "tes:atmora",
+      "name": "Atmora",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/atmora.json",
+      "source": {
+        "id": "uesp:atmora",
+        "url": "https://en.uesp.net/wiki/Lore:Atmora",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:saarthal",
+      "name": "Saarthal",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/saarthal.json",
+      "source": {
+        "id": "uesp:saarthal",
+        "url": "https://en.uesp.net/wiki/Lore:Saarthal",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:windhelm",
+      "name": "Windhelm",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/windhelm.json",
+      "source": {
+        "id": "uesp:windhelm",
+        "url": "https://en.uesp.net/wiki/Lore:Windhelm",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:yngol-barrow",
+      "name": "Yngol Barrow",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/yngol-barrow.json",
+      "source": {
+        "id": "uesp:yngol-barrow",
+        "url": "https://en.uesp.net/wiki/Lore:Yngol_Barrow",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:forelhost",
+      "name": "Forelhost",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/forelhost.json",
+      "source": {
+        "id": "uesp:forelhost",
+        "url": "https://en.uesp.net/wiki/Lore:Forelhost",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:skuldafn",
+      "name": "Skuldafn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/skuldafn.json",
+      "source": {
+        "id": "uesp:skuldafn",
+        "url": "https://en.uesp.net/wiki/Lore:Skuldafn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:high-hrothgar",
+      "name": "High Hrothgar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/locations/high-hrothgar.json",
+      "source": {
+        "id": "uesp:high-hrothgar",
+        "url": "https://en.uesp.net/wiki/Lore:High_Hrothgar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Songs of the Return and other heroic traditions remain literary/historical testimony, not automatically literal event transcripts",
+    "Do not flatten Atmoran, early Nordic, Dragon Cult and later Nordic religion into one static belief system",
+    "Night of Tears causes and Eye of Magnus-related interpretations remain source-specific where disputed",
+    "Dragon Cult chronology must distinguish Atmoran origins, Skyrim rule, Dragon War and later surviving cult sites",
+    "Thu'um feats should distinguish direct observations, saga claims and gameplay mechanics",
+    "Cross-link existing Ysgramor, Atmora, Saarthal, Snow Elves, Dragon Cult, Dragon War, Greybeards, Jurgen, Paarthurnax, Miraak, Forelhost and Skuldafn records"
+  ]
+}

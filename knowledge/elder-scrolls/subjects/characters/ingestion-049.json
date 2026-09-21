@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-049-argonian-hist-duskfall",
+  "subjects": [
+    {
+      "id": "tes:hist",
+      "name": "Hist",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/hist.json",
+      "source": {
+        "id": "uesp:hist",
+        "url": "https://en.uesp.net/wiki/Lore:Hist",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:sithis-argonian",
+      "name": "Sithis",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/sithis-argonian.json",
+      "source": {
+        "id": "uesp:sithis-argonian",
+        "url": "https://en.uesp.net/wiki/Lore:Sithis",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:heita-meen",
+      "name": "Heita-Meen",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/heita-meen.json",
+      "source": {
+        "id": "uesp:heita-meen",
+        "url": "https://en.uesp.net/wiki/Lore:Heita-Meen",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:keshu-black-fin",
+      "name": "Keshu the Black Fin",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/keshu-black-fin.json",
+      "source": {
+        "id": "uesp:keshu-black-fin",
+        "url": "https://en.uesp.net/wiki/Lore:Keshu_the_Black_Fin",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:xukas",
+      "name": "Xukas",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/xukas.json",
+      "source": {
+        "id": "uesp:xukas",
+        "url": "https://en.uesp.net/wiki/Lore:Xukas",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:jaxsik-orrn",
+      "name": "Jaxsik-Orrn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/jaxsik-orrn.json",
+      "source": {
+        "id": "uesp:jaxsik-orrn",
+        "url": "https://en.uesp.net/wiki/Lore:Jaxsik-Orrn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "This batch deepens earlier Argonian material; canonicalization should merge duplicate subjects instead of creating parallel identities",
+    "Do not model the Hist as a proven single collective mind; preserve evidence for individual trees, networks and differing interpretations",
+    "Argonian life-cycle and morphology claims must retain tribe, region, era and source context",
+    "Duskfall should distinguish historical change, modern philosophy and retrospective cultural interpretation",
+    "Knahaten Flu origin theories remain contradictory unless a source directly establishes a specific event",
+    "Argonian Sithis traditions must remain distinct from other cultures' Sithis theology while allowing sourced correspondences",
+    "Cross-link existing Argonian, Hist, Black Marsh, Shadowscale, Knahaten Flu, Duskfall, Heita-Meen, Keshu and Xukas records"
+  ]
+}

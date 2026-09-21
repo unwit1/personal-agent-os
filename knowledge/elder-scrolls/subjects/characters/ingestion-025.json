@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-025-eso-alliances-regions",
+  "subjects": [
+    {
+      "id": "tes:ayrenn",
+      "name": "Queen Ayrenn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/ayrenn.json",
+      "source": {
+        "id": "uesp:ayrenn",
+        "url": "https://en.uesp.net/wiki/Lore:Queen_Ayrenn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:razum-dar",
+      "name": "Razum-dar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/razum-dar.json",
+      "source": {
+        "id": "uesp:razum-dar",
+        "url": "https://en.uesp.net/wiki/Lore:Razum-dar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:naemon",
+      "name": "Prince Naemon",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/naemon.json",
+      "source": {
+        "id": "uesp:naemon",
+        "url": "https://en.uesp.net/wiki/Lore:Prince_Naemon",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:est re",
+      "name": "Estre",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/est re.json",
+      "source": {
+        "id": "uesp:est re",
+        "url": "https://en.uesp.net/wiki/Lore:Estre",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:emeric",
+      "name": "High King Emeric",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/emeric.json",
+      "source": {
+        "id": "uesp:emeric",
+        "url": "https://en.uesp.net/wiki/Lore:High_King_Emeric",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:cumberland",
+      "name": "King Fahara'jad",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/cumberland.json",
+      "source": {
+        "id": "uesp:cumberland",
+        "url": "https://en.uesp.net/wiki/Lore:King_Fahara%27jad",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:jorunn",
+      "name": "Jorunn the Skald-King",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/jorunn.json",
+      "source": {
+        "id": "uesp:jorunn",
+        "url": "https://en.uesp.net/wiki/Lore:Jorunn_the_Skald-King",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:naryu",
+      "name": "Naryu Virian",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/naryu.json",
+      "source": {
+        "id": "uesp:naryu",
+        "url": "https://en.uesp.net/wiki/Lore:Naryu_Virian",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:almalexia",
+      "name": "Almalexia",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/almalexia.json",
+      "source": {
+        "id": "uesp:almalexia",
+        "url": "https://en.uesp.net/wiki/Lore:Almalexia",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Keep the First Aldmeri Dominion distinct from later organizations with the same name",
+    "Alliance propaganda and political ideology remain attributed to their speakers/documents",
+    "Regional quest outcomes should be branch-scoped when player choice changes the result",
+    "Do not infer unanimous cultural support for an alliance from rulers or official proclamations",
+    "Cross-link existing alliance, leader and regional subjects rather than duplicate canonical records",
+    "Preserve temporal scope: ESO-era political relationships must not be projected unchanged into later eras"
+  ]
+}

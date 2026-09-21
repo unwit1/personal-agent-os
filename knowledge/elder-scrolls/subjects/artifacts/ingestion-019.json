@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "artifacts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-019-skyrim-politics-college",
+  "subjects": [
+    {
+      "id": "tes:eye-magnus",
+      "name": "Eye of Magnus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/eye-magnus.json",
+      "source": {
+        "id": "uesp:eye-magnus",
+        "url": "https://en.uesp.net/wiki/Lore:Eye_of_Magnus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:staff-magnus",
+      "name": "Staff of Magnus",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/staff-magnus.json",
+      "source": {
+        "id": "uesp:staff-magnus",
+        "url": "https://en.uesp.net/wiki/Lore:Staff_of_Magnus",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:jagged-crown",
+      "name": "Jagged Crown",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/artifacts/jagged-crown.json",
+      "source": {
+        "id": "uesp:jagged-crown",
+        "url": "https://en.uesp.net/wiki/Lore:Jagged_Crown",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Civil War claims must preserve speaker faction, quest branch and player-dependent outcomes",
+    "Do not canonize mutually exclusive Skyrim quest outcomes; record them as branch-dependent evidence",
+    "Political accusations about Ulfric, the Empire or Thalmor require attribution rather than narrator voice",
+    "College/Great Collapse explanations should preserve competing theories and uncertainty",
+    "Distinguish institutions from places when College of Winterhold or similar names refer to both",
+    "Talos worship enforcement should retain time, location and source context"
+  ]
+}

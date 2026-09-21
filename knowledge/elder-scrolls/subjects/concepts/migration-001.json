@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:tonal-architecture",
+      "name": "Tonal Architecture",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/tonal-architecture.json",
+      "source": {
+        "id": "uesp:tonal-architecture",
+        "url": "https://en.uesp.net/wiki/Lore:Tonal_Architecture",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration batch from earlier queues. Individual subject records may be materialized incrementally; evidence-backed claims remain local/indexed until reviewed."
+}

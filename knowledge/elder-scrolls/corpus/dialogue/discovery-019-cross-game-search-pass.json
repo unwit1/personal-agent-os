@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "corpus_id": "elder-scrolls-dialogue",
+  "source": "The Imperial Library",
+  "status": "completed_search_pass",
+  "searches": [
+    "TES4 Oblivion dialogue transcript",
+    "TES3 Morrowind dialogue transcript",
+    "Redguard Cyrus dialogue transcript",
+    "Battlespire dialogue transcript"
+  ],
+  "findings": {
+    "verified_dialogue_pages": [],
+    "false_positives": [
+      {
+        "title": "The Seven Visions",
+        "url": "https://www.imperial-library.info/content/seven-visions",
+        "game": "morrowind",
+        "classification": "written_text",
+        "category": "Songs & Poems"
+      },
+      {
+        "title": "Peke Utchoo's Last Words",
+        "url": "https://www.imperial-library.info/content/peke-utchoos-last-words",
+        "game": "morrowind",
+        "classification": "written_text",
+        "category": "Journals"
+      },
+      {
+        "title": "The Stranger",
+        "url": "https://www.imperial-library.info/content/stranger",
+        "game": "morrowind",
+        "classification": "written_text",
+        "category": "Songs & Poems"
+      },
+      {
+        "title": "Spirit of the Daedra",
+        "url": "https://www.imperial-library.info/content/spirit-daedra",
+        "classification": "written_text",
+        "category": "Religion & Legends",
+        "games": [
+          "morrowind",
+          "oblivion",
+          "skyrim",
+          "battlespire",
+          "eso"
+        ]
+      }
+    ]
+  },
+  "conclusion": "Generic web search is a poor enumeration method for TIL game dialogue. Stop repeatedly issuing title-keyword searches; prioritize TIL internal category/index traversal and a local breadth-first link crawler.",
+  "rules": [
+    "A zero-result search pass is not evidence that TIL lacks dialogue for a game.",
+    "Do not promote written-text search hits into dialogue merely because a game name matches.",
+    "Record failed discovery methods so future agents do not repeat them."
+  ]
+}

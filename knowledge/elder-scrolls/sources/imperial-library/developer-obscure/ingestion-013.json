@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-013-language-names-etymology",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:language-dev",
+      "title": "Developer material on Elder Scrolls languages",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "languages",
+        "Aldmeris",
+        "Ehlnofex",
+        "Daedric",
+        "Dragon Language",
+        "Dwemeris",
+        "Jel"
+      ]
+    },
+    {
+      "id": "til:naming-dev",
+      "title": "Developer commentary on names and naming systems",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "names",
+        "etymology",
+        "naming conventions",
+        "constructed languages"
+      ]
+    },
+    {
+      "id": "til:ehlnofex-dev",
+      "title": "Developer and obscure Ehlnofex material",
+      "author": "multiple",
+      "document_kind": "developer_obscure_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Ehlnofex",
+        "Ehlnofey",
+        "Aldmeris",
+        "mythic language"
+      ]
+    },
+    {
+      "id": "til:daedric-script-dev",
+      "title": "Developer material on Daedric script and language",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Daedric alphabet",
+        "Daedric language",
+        "writing systems"
+      ]
+    },
+    {
+      "id": "til:dragon-language-dev",
+      "title": "Developer commentary on the Dragon Language",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Dragon Language",
+        "Thu'um",
+        "dragons",
+        "Skyrim"
+      ]
+    },
+    {
+      "id": "til:dwemer-language-dev",
+      "title": "Developer commentary on Dwemer language",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Dwemeris",
+        "Dwemer",
+        "Calcelmo Stone",
+        "translation"
+      ]
+    },
+    {
+      "id": "til:jel-dev",
+      "title": "Developer commentary on Jel and Argonian language",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Jel",
+        "Argonians",
+        "Hist",
+        "language"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Do not treat fan-constructed vocabulary as developer-authored language material.",
+    "Separate writing system, spoken language, reconstructed vocabulary and speculative etymology.",
+    "Translations retain translator/source provenance and uncertainty.",
+    "Names that resemble words in real-world languages are not assigned an etymology without attributable evidence.",
+    "Later game language systems should be linked to, not projected onto, earlier undeveloped terminology."
+  ]
+}

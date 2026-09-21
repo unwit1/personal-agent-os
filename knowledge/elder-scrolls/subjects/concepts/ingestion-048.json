@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "concepts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-048-bosmer-deep-green-pact",
+  "subjects": [
+    {
+      "id": "tes:green-pact",
+      "name": "Green Pact",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/green-pact.json",
+      "source": {
+        "id": "uesp:green-pact",
+        "url": "https://en.uesp.net/wiki/Lore:Green_Pact",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:meat-mandate",
+      "name": "Meat Mandate",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/meat-mandate.json",
+      "source": {
+        "id": "uesp:meat-mandate",
+        "url": "https://en.uesp.net/wiki/Lore:Meat_Mandate",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:wild-hunt",
+      "name": "Wild Hunt",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/wild-hunt.json",
+      "source": {
+        "id": "uesp:wild-hunt",
+        "url": "https://en.uesp.net/wiki/Lore:Wild_Hunt",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ooze",
+      "name": "Ooze",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/ooze.json",
+      "source": {
+        "id": "uesp:ooze",
+        "url": "https://en.uesp.net/wiki/Lore:Ooze",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:bosmeri-shapeshifting",
+      "name": "Bosmeri Shapeshifting",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/bosmeri-shapeshifting.json",
+      "source": {
+        "id": "uesp:bosmeri-shapeshifting",
+        "url": "https://en.uesp.net/wiki/Lore:Bosmeri_Shapeshifting",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:spinner-storytelling",
+      "name": "Spinner Storytelling",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/spinner-storytelling.json",
+      "source": {
+        "id": "uesp:spinner-storytelling",
+        "url": "https://en.uesp.net/wiki/Lore:Spinner_Storytelling",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:green-sap",
+      "name": "Green-Sap",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/green-sap.json",
+      "source": {
+        "id": "uesp:green-sap",
+        "url": "https://en.uesp.net/wiki/Lore:Green-Sap",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:walking-city",
+      "name": "Walking City",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/walking-city.json",
+      "source": {
+        "id": "uesp:walking-city",
+        "url": "https://en.uesp.net/wiki/Lore:Walking_City",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:yffre-earthbones",
+      "name": "Y'ffre and the Earth Bones",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/concepts/yffre-earthbones.json",
+      "source": {
+        "id": "uesp:yffre-earthbones",
+        "url": "https://en.uesp.net/wiki/Lore:Y%27ffre_and_the_Earth_Bones",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "This batch deepens batch 040 rather than replacing it; deduplication should merge shared subjects by canonical identity",
+    "Green Pact rules must distinguish theological ideal, local interpretation, historical period and observed practice",
+    "Wild Hunt accounts should separate witnessed transformations, ritual doctrine, historical reports and later retellings",
+    "Spinner narratives preserve storyteller, audience and narrative context; story-shaping claims are not automatically objective history",
+    "Falinesti traditions should distinguish documented appearances, disappearance accounts and metaphysical interpretations",
+    "Y'ffre/Earth Bones claims retain religious and cosmological provenance rather than being flattened into universal fact",
+    "Cross-link batch 040 Bosmer records and merge duplicates during canonicalization"
+  ]
+}

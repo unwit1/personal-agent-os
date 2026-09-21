@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "subjects": [
+    {
+      "id": "tes:vivec",
+      "name": "Vivec",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/vivec.json",
+      "source": {
+        "id": "uesp:vivec",
+        "url": "https://en.uesp.net/wiki/Lore:Vivec",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:nerevar",
+      "name": "Nerevar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/nerevar.json",
+      "source": {
+        "id": "uesp:nerevar",
+        "url": "https://en.uesp.net/wiki/Lore:Nerevar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dagoth-ur",
+      "name": "Dagoth Ur",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/dagoth-ur.json",
+      "source": {
+        "id": "uesp:dagoth-ur",
+        "url": "https://en.uesp.net/wiki/Lore:Dagoth_Ur",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:kagrenac",
+      "name": "Kagrenac",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/kagrenac.json",
+      "source": {
+        "id": "uesp:kagrenac",
+        "url": "https://en.uesp.net/wiki/Lore:Kagrenac",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ysgramor",
+      "name": "Ysgramor",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/ysgramor.json",
+      "source": {
+        "id": "uesp:ysgramor",
+        "url": "https://en.uesp.net/wiki/Lore:Ysgramor",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "notes": "Migration batch from earlier queues. Individual subject records may be materialized incrementally; evidence-backed claims remain local/indexed until reviewed."
+}

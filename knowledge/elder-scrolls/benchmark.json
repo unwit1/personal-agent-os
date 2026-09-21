@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "status": "not_run",
+  "purpose": "Gate bulk ingestion on retrieval usefulness and bounded context.",
+  "metrics": {
+    "mean_expected_entity_recall": {
+      "minimum": 0.8
+    },
+    "budget_pass_rate": {
+      "minimum": 1
+    },
+    "char_budget": {
+      "maximum": 2400
+    }
+  },
+  "rules": [
+    "Do not enable bulk ingestion solely because pages were fetched successfully.",
+    "All benchmark queries must respect the configured character budget.",
+    "A failed gate requires retrieval/index changes or a documented benchmark revision; it must not be bypassed silently.",
+    "Benchmark results are derived artifacts and should not contain the full source corpus."
+  ],
+  "next_gate": "Run after the bounded pilot corpus is populated locally."
+}

@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "collection_id": "til-developer-obscure",
+  "batch_id": "til-dev-obscure-015-battlespire-redguard-era",
+  "record_kind": "source_ingestion_batch",
+  "items": [
+    {
+      "id": "til:battlespire-dev",
+      "title": "Battlespire development and lore commentary",
+      "author": "multiple",
+      "document_kind": "development_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Battlespire",
+        "Imperial Battlemages",
+        "Oblivion",
+        "Mehrunes Dagon",
+        "Daedra"
+      ]
+    },
+    {
+      "id": "til:redguard-dev",
+      "title": "Redguard development and lore commentary",
+      "author": "multiple",
+      "document_kind": "development_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Redguard",
+        "Cyrus",
+        "Stros M'Kai",
+        "Tiber Septim",
+        "Hammerfell"
+      ]
+    },
+    {
+      "id": "til:pge1-dev",
+      "title": "Pocket Guide to the Empire, First Edition development context",
+      "author": "multiple",
+      "document_kind": "author_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Pocket Guide to the Empire",
+        "Imperial propaganda",
+        "provinces",
+        "Tiber Septim"
+      ]
+    },
+    {
+      "id": "til:redguard-forum-lore",
+      "title": "Redguard-era developer forum and web lore",
+      "author": "multiple",
+      "document_kind": "developer_archive",
+      "status": "discovery_queued",
+      "subjects": [
+        "Yokuda",
+        "Redguards",
+        "Tiber Wars",
+        "Dwemer",
+        "Numidium"
+      ]
+    },
+    {
+      "id": "til:adventures-cyrus-dev",
+      "title": "Adventures of Cyrus development context",
+      "author": "multiple",
+      "document_kind": "development_history_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Cyrus",
+        "Redguard",
+        "Stros M'Kai",
+        "comics",
+        "early lore expansion"
+      ]
+    },
+    {
+      "id": "til:battlespire-daedra",
+      "title": "Battlespire-era Daedric terminology and concepts",
+      "author": "multiple",
+      "document_kind": "developer_commentary_collection",
+      "status": "discovery_queued",
+      "subjects": [
+        "Daedra",
+        "Daedric clans",
+        "Oblivion realms",
+        "Battlespire"
+      ]
+    }
+  ],
+  "review_rules": [
+    "Pocket Guide claims preserve narrator, Imperial political framing, marginalia, edition, and later contradictions.",
+    "Redguard-era web/forum lore must retain original publication context and date.",
+    "Battlespire terminology should not be silently normalized to later Oblivion/ESO classifications.",
+    "Development commentary about Cyrus and Hammerfell remains distinct from released Redguard narrative evidence.",
+    "Cross-link early-series concepts to later evidence using adoption/evolution relations."
+  ]
+}

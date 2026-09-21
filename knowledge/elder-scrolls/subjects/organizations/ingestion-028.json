@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "organizations",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-028-eso-dungeons-trials-deadlands",
+  "subjects": [
+    {
+      "id": "tes:undaunted",
+      "name": "Undaunted",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/undaunted.json",
+      "source": {
+        "id": "uesp:undaunted",
+        "url": "https://en.uesp.net/wiki/Lore:Undaunted",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:fighters-guild",
+      "name": "Fighters Guild",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/fighters-guild.json",
+      "source": {
+        "id": "uesp:fighters-guild",
+        "url": "https://en.uesp.net/wiki/Lore:Fighters_Guild",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mages-guild",
+      "name": "Mages Guild",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/mages-guild.json",
+      "source": {
+        "id": "uesp:mages-guild",
+        "url": "https://en.uesp.net/wiki/Lore:Mages_Guild",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:silken-ring",
+      "name": "Silken Ring",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/silken-ring.json",
+      "source": {
+        "id": "uesp:silken-ring",
+        "url": "https://en.uesp.net/wiki/Lore:Silken_Ring",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:waking-flame",
+      "name": "Waking Flame",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/waking-flame.json",
+      "source": {
+        "id": "uesp:waking-flame",
+        "url": "https://en.uesp.net/wiki/Lore:Waking_Flame",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ascendant-order",
+      "name": "Ascendant Order",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/organizations/ascendant-order.json",
+      "source": {
+        "id": "uesp:ascendant-order",
+        "url": "https://en.uesp.net/wiki/Lore:Ascendant_Order",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Dungeon/trial mechanics are not automatically lore facts; separate repeatable gameplay systems from narrative events",
+    "Group-content outcomes involving the Vestige remain minimally biographical and branch-safe",
+    "Fargrave claims should distinguish observed social/legal conditions from claims about metaphysical neutrality",
+    "Daedric cult doctrine remains attributed to the cult or speaker",
+    "Later ESO chapter/DLC events retain their own chronology and must not be projected backward into base-game history",
+    "Cross-link existing Deadlands, Clockwork City, White-Gold Tower, Elder Scrolls, Undaunted, Fighters Guild and Mages Guild subjects"
+  ]
+}

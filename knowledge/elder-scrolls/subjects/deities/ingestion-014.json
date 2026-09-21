@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "deities",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-014-religion-afterlife-metaphysics",
+  "subjects": [
+    {
+      "id": "tes:mara",
+      "name": "Mara",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/mara.json",
+      "source": {
+        "id": "uesp:mara",
+        "url": "https://en.uesp.net/wiki/Lore:Mara",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:dibella",
+      "name": "Dibella",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/dibella.json",
+      "source": {
+        "id": "uesp:dibella",
+        "url": "https://en.uesp.net/wiki/Lore:Dibella",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:zenithar",
+      "name": "Zenithar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/zenithar.json",
+      "source": {
+        "id": "uesp:zenithar",
+        "url": "https://en.uesp.net/wiki/Lore:Zenithar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:stendarr",
+      "name": "Stendarr",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/stendarr.json",
+      "source": {
+        "id": "uesp:stendarr",
+        "url": "https://en.uesp.net/wiki/Lore:Stendarr",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:julianos",
+      "name": "Julianos",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/julianos.json",
+      "source": {
+        "id": "uesp:julianos",
+        "url": "https://en.uesp.net/wiki/Lore:Julianos",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:arkay",
+      "name": "Arkay",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/arkay.json",
+      "source": {
+        "id": "uesp:arkay",
+        "url": "https://en.uesp.net/wiki/Lore:Arkay",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:khenarthi",
+      "name": "Khenarthi",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/khenarthi.json",
+      "source": {
+        "id": "uesp:khenarthi",
+        "url": "https://en.uesp.net/wiki/Lore:Khenarthi",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:riddle-thar",
+      "name": "Riddle'Thar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/riddle-thar.json",
+      "source": {
+        "id": "uesp:riddle-thar",
+        "url": "https://en.uesp.net/wiki/Lore:Riddle%27Thar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:rajhin",
+      "name": "Rajhin",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/rajhin.json",
+      "source": {
+        "id": "uesp:rajhin",
+        "url": "https://en.uesp.net/wiki/Lore:Rajhin",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:baan-dar",
+      "name": "Baan Dar",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/deities/baan-dar.json",
+      "source": {
+        "id": "uesp:baan-dar",
+        "url": "https://en.uesp.net/wiki/Lore:Baan_Dar",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Religious doctrine and cosmology must remain attributed to source/culture when not directly observable",
+    "Do not collapse culture-specific deities into a single identity solely because sources draw parallels",
+    "Afterlife descriptions should distinguish doctrine, testimony, observed game-space and scholarly interpretation",
+    "Dragon Break, Kalpa, Tower and Stone claims require especially strict source-level provenance",
+    "Track alternate divine names as aliases or proposed equivalences with evidence, not automatic identity merges"
+  ]
+}

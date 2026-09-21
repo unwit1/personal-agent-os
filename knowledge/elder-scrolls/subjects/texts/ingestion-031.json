@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "texts",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-031-necrom-gold-road-ithelia",
+  "subjects": [
+    {
+      "id": "tes:secrets-apocrypha",
+      "name": "Secrets of Apocrypha",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/secrets-apocrypha.json",
+      "source": {
+        "id": "uesp:secrets-apocrypha",
+        "url": "https://en.uesp.net/wiki/Lore:Secrets_of_Apocrypha",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:fate-and-probability",
+      "name": "Fate and Probability",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/fate-and-probability.json",
+      "source": {
+        "id": "uesp:fate-and-probability",
+        "url": "https://en.uesp.net/wiki/Lore:Fate_and_Probability",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:ithelia-records",
+      "name": "Records of Ithelia",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/ithelia-records.json",
+      "source": {
+        "id": "uesp:ithelia-records",
+        "url": "https://en.uesp.net/wiki/Lore:Records_of_Ithelia",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:mora-forbidden-memory",
+      "name": "Forbidden Memories",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/texts/mora-forbidden-memory.json",
+      "source": {
+        "id": "uesp:mora-forbidden-memory",
+        "url": "https://en.uesp.net/wiki/Lore:Forbidden_Memories",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Ithelia-related history is unusually vulnerable to erased or altered memory; preserve source date, speaker knowledge state and later revelations",
+    "Do not retroactively rewrite older sources merely because later ESO content introduces forgotten events or entities",
+    "Paths of possibility, fate and reality alteration require explicit evidence provenance and should not become unrestricted explanations for contradictions",
+    "Hermaeus Mora's claims about secrets and history remain attributed where not independently corroborated",
+    "Apocrypha locations, memories, books and manifestations should remain distinguishable despite overlapping names",
+    "Cross-link existing Hermaeus Mora, Apocrypha, Necrom, Telvanni, Fargrave, Black Books and Forbidden Knowledge subjects"
+  ]
+}

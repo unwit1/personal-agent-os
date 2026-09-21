@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "events",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-029-daedric-war-summerset-clockwork",
+  "subjects": [
+    {
+      "id": "tes:clockwork-city-crisis",
+      "name": "Clockwork City Crisis",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/clockwork-city-crisis.json",
+      "source": {
+        "id": "uesp:clockwork-city-crisis",
+        "url": "https://en.uesp.net/wiki/Lore:Clockwork_City_Crisis",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:daedric-war",
+      "name": "Daedric War",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/daedric-war.json",
+      "source": {
+        "id": "uesp:daedric-war",
+        "url": "https://en.uesp.net/wiki/Lore:Daedric_War",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:summerset-crisis",
+      "name": "Summerset Crisis",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/summerset-crisis.json",
+      "source": {
+        "id": "uesp:summerset-crisis",
+        "url": "https://en.uesp.net/wiki/Lore:Summerset_Crisis",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:crystal-tower-battle",
+      "name": "Battle for the Crystal Tower",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/events/crystal-tower-battle.json",
+      "source": {
+        "id": "uesp:crystal-tower-battle",
+        "url": "https://en.uesp.net/wiki/Lore:Battle_for_the_Crystal_Tower",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Treat the Clockwork City, Morrowind and Summerset story arc as linked chronology without flattening each chapter's local evidence",
+    "Nocturnal, Mephala and Clavicus Vile statements remain attributed even when describing metaphysics",
+    "Tower/Stone terminology must distinguish in-universe theory, direct quest observations and later scholarly interpretation",
+    "Psijic claims about time and causality require speaker/text provenance",
+    "Do not infer that gameplay depictions of time manipulation define universal metaphysical rules",
+    "Cross-link existing Sotha Sil, Clockwork City, Summerset, Psijic Order, Crystal Tower, Nocturnal, Mephala, Clavicus Vile, Skeleton Key and related subjects"
+  ]
+}

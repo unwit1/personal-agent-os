@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "library_id": "elder-scrolls",
+  "category": "characters",
+  "record_kind": "categorized_subject_batch",
+  "batch_id": "uesp-030-dark-heart-skyrim-reach",
+  "subjects": [
+    {
+      "id": "tes:verandis-ravenwatch",
+      "name": "Count Verandis Ravenwatch",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/verandis-ravenwatch.json",
+      "source": {
+        "id": "uesp:verandis-ravenwatch",
+        "url": "https://en.uesp.net/wiki/Lore:Count_Verandis_Ravenwatch",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:rada-al-saran",
+      "name": "Rada al-Saran",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/rada-al-saran.json",
+      "source": {
+        "id": "uesp:rada-al-saran",
+        "url": "https://en.uesp.net/wiki/Lore:Rada_al-Saran",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:lady-belain",
+      "name": "Lady Belain",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/lady-belain.json",
+      "source": {
+        "id": "uesp:lady-belain",
+        "url": "https://en.uesp.net/wiki/Lore:Lady_Belain",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:svana",
+      "name": "Princess Svana",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/svana.json",
+      "source": {
+        "id": "uesp:svana",
+        "url": "https://en.uesp.net/wiki/Lore:Princess_Svana",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:fennorian",
+      "name": "Fennorian",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/fennorian.json",
+      "source": {
+        "id": "uesp:fennorian",
+        "url": "https://en.uesp.net/wiki/Lore:Fennorian",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:lyris-titanborn",
+      "name": "Lyris Titanborn",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/lyris-titanborn.json",
+      "source": {
+        "id": "uesp:lyris-titanborn",
+        "url": "https://en.uesp.net/wiki/Lore:Lyris_Titanborn",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:house-ravenwatch-gwendis",
+      "name": "Gwendis",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/house-ravenwatch-gwendis.json",
+      "source": {
+        "id": "uesp:house-ravenwatch-gwendis",
+        "url": "https://en.uesp.net/wiki/Lore:Gwendis",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    },
+    {
+      "id": "tes:maharaja",
+      "name": "Arana",
+      "canonical_subject_path": "knowledge/elder-scrolls/subjects/characters/maharaja.json",
+      "source": {
+        "id": "uesp:maharaja",
+        "url": "https://en.uesp.net/wiki/Lore:Arana",
+        "class": "secondary_reference"
+      },
+      "continuity_model": "claims_and_evidence_scoped",
+      "extraction_status": "queued"
+    }
+  ],
+  "review_rules": [
+    "Keep ESO-era Western Skyrim and Reach politics temporally separate from Fourth Era Skyrim",
+    "Reachfolk religion and magic should prioritize internally described traditions while retaining outsider accounts as attributed evidence",
+    "Vampire and werewolf capabilities must distinguish narrative evidence from combat/game mechanics",
+    "Dark Heart and Void metaphysics require source-specific claims rather than a single synthesized cosmology",
+    "Blackreach is a broad subterranean region; preserve named cavern/subregion distinctions across games",
+    "Cross-link existing Reach, Markarth, Solitude, Lyris Titanborn, vampirism, Blackreach and Reachfolk subjects rather than duplicate them"
+  ]
+}
