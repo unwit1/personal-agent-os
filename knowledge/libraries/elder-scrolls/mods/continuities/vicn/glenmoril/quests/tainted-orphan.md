@@ -5,35 +5,55 @@
 **Act:** 2 — Witch Hunt  
 **Primary evidence:** supplied `Glenmoril.esm`
 
-## Quest objectives
+## Quest objective chain
 
-The QUST record directly orders objectives to:
+The QUST record directly orders:
+1. FL-4N / Ja'zel setup in Markarth;
+2. killing the Slacker;
+3. mission briefing with Ozwald and Romion;
+4. travel to the Cradle Woods;
+5. investigation of the missing Na clan, ghosts, ghouls, and Baby;
+6. Botvid / Artur / Anem encounters;
+7. recovery of the Tainted Orphan/Baby by Ja'zel;
+8. post-mission medical testing.
 
-1. talk to FL-4N;
-2. meet Ja'zel;
-3. kill the **Slacker**;
-4. talk to Ja'zel;
-5. report to Ozwald;
-6. board the airship;
-7. listen to and receive the mission briefing;
-8. optionally read the documents on the table;
-9. leave the airship to begin the mission;
-10. talk to Ozwald;
-11. head to the village;
-12. enter the **Cradle Woods**;
-13. find Ozwald;
-14. defeat **Botvid**;
-15. enter the cave;
-16. find the **Tainted Orphan**;
-17. defeat Botvid again;
-18. defeat **Artur**;
-19. defeat the witch;
-20. talk to Ozwald to complete the mission;
-21. talk to Romion and Ozwald afterward.
+## Direct dialogue findings
+
+The complete directly associated dialogue corpus is now speaker-resolved.
+
+### Baby / ghoul curse
+
+Romion says the Baby appears to be the source of the Cradle-Woods ghouls.
+
+Dissection of a ghoul reveals a **string-like worm** attached to internal organs. When Romion transplants one to a Skeever, signs of ghouling appear within hours.
+
+Romion therefore hypothesizes that the worms are a **medium carrying the Baby's curse and reshaping host bodies**.
+
+### Anem / Na clan
+
+Romion identifies **Anem** as the Glenmoril witch associated with the Na clan.
+
+He says:
+- the Na clan sacrifices a baby periodically to calm forest ghosts;
+- Anem leads that ritual;
+- Anem previously traveled the Reach conducting fertility/childbirth rites.
+
+Anem herself tells the player, **“You who are cursed by blood, leave this place.”**
+
+### Blood curse
+
+After the mission, Romion tests Ozwald and the player for:
+- parasites;
+- mutation;
+- memory damage associated with the **blood curse**.
+
+At that moment, neither shows mutation and their memories remain clear.
+
+### Baby recovery
+
+Ja'zel directly identifies the recovered creature as **the Baby**, remarks that it cries for its mother, refuses to explain what he intends to do with it, and takes custody after the mission.
 
 ## Encounter identities
-
-The ESM contains named NPC records supporting the quest's boss identities:
 
 - `04011255` — **Botvid the Rebel**
 - `04011431` — **Botvid the Avenger**
@@ -41,8 +61,10 @@ The ESM contains named NPC records supporting the quest's boss identities:
 - `0401125C` — **Anem, Witch of the Cradle**
 - `040122A4` — **Anem of the Uterine Sea**
 
-The repeated Botvid and Anem forms should be treated as quest-state/encounter variants until their transformation sequence is resolved from stages and scenes.
+Botvid and Anem variants remain distinct record forms unless a specific transformation/identity transition is structurally established.
 
-## Target records
+## Corpus status
 
-The same namespace contains explicit target activators named **Witch of the Cradle**, **Baby**, **Ghoul**, and **Ghost**. These are evidence-bearing quest objects, but their symbolic/narrative relationship to the Tainted Orphan should not be inferred from names alone.
+Tainted Orphan contributes **155 exact speaker-resolved responses**:
+- 74 SCEN responses
+- 81 non-SCEN topic responses
