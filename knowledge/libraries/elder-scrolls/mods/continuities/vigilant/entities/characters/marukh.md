@@ -55,3 +55,35 @@ Lorekeeper should therefore preserve the contradiction as evidence of manipulate
 ## Canon boundary
 
 VIGILANT's Marukh/Adabal narrative remains mod continuity unless independently corroborated.
+
+
+## Posthumous Great Gate ritual
+
+A separate direct-source cluster shows Marukh's body continuing to function as a sacred/ritual object after his death.
+
+`BOOK 020CB0DF` / *The Eight Saints of Cyrod* says **Caliburn**:
+- took Marukh's holy body to **Malada**;
+- attempted to open a gate to **Aetherius**;
+- disappeared with hundreds of followers.
+
+`BOOK 020D429E` / *The Great Gate* gives a first-person account associated with Caliburn's unique death loot. It describes:
+- **Marukh's holy corpse rising**;
+- the corpse carving the **Seventy-Seven signs** into the air;
+- a luminous breach opening in reality;
+- the assembled faithful being reduced to ash;
+- the perceived destination proving to be a barren, godless wasteland rather than the expected paradise.
+
+This materially extends Marukh's dossier: VIGILANT does not treat his corpse as inert remains. In the Caliburn/Malada tradition it becomes the central ritual medium for an attempted trans-realm gate.
+
+The exact mechanism remains unresolved. The ESM does not establish whether:
+- Marukh himself consciously acts through the corpse;
+- Caliburn animates or invokes it;
+- the Seventy-Seven signs are the same operation as Marukh's earlier seventy-seven rituals;
+- the opened wasteland is a specific named realm.
+
+Keep those possibilities separate from the direct event description.
+
+See:
+- `analysis/caliburn-great-gate.md`
+- `entities/characters/caliburn.md`
+- `books/020D429E-the-great-gate.txt`
