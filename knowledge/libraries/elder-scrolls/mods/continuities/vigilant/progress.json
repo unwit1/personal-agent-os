@@ -70,7 +70,12 @@
     "Umaril VIGILANT source-separated dossier",
     "Akatosh-memory / ??????? structural resolution",
     "Holy Pipers and Chick Traders supplementary organization stubs",
-    "Sacred Anatomancer report/trial source-gap reconstruction"
+    "Sacred Anatomancer report/trial source-gap reconstruction",
+    "cross-Vicn organization corroboration: Holy Pipers, Chick Traders, Sacred Anatomancer",
+    "cross-Vicn Owl continuity bridge with direct GLENMORIL/UNSLAAD evidence",
+    "Jhunal/Laza Owl identity correction using later direct Vicn ESMs",
+    "registered GLENMORIL and UNSLAAD as cross-continuity evidence sources",
+    "cross-Vicn negative checks: Akatosh Lizard unresolved and Black Worm Mannimarco uncorroborated"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -83,10 +88,13 @@
     "quest_aliases": 550
   },
   "next": [
+    "recover exact VIGILANT Report: Sacred Anatomancer text and trial dialogue when original source bytes become accessible",
+    "recover exact VIGILANT Laza / White Owl / Gray Owl / Black Owl book texts; do not substitute GLENMORIL continuations",
+    "recover direct VIGILANT Black Hand/Sithis reaction dialogue; Mannimarco identity remains supplementary",
+    "investigate additional cross-Vicn continuations only when they clarify an existing VIGILANT source gap",
     "recover exact Report: Sacred Anatomancer text and gatekeeper/trial INFO aliases",
     "recover direct Black Hand dialogue/reaction records and identify any Black Hand NPC/member forms",
     "recover direct VIGILANT implementation for Sir Amiel Lannus, Sir Juncan, and Sir Ralvas",
-    "test Holy Pipers and Chick Traders against future raw ESM/PEX or epilogue source extraction",
     "recover direct INFO/NPC/alias records for Facis, Reyda, Joshua, and Joel when richer VIGILANT source bytes become available",
     "continue evidence-rich pre-Coldharbour characters after source-separated Facis/Reyda/Joshua/Joel batch",
     "recover placements/acquisition paths for Slave Trader Notes 6-8 and resolve the fiery-eyed slave-trader identity",
@@ -111,19 +119,21 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "tested supplementary Black Hand, Knights of the Nine, Varla/Mary/Umaril, Akatosh-memory, and epilogue-organization claims against the persisted ESM corpus",
+    "focus": "used directly ingested GLENMORIL and UNSLAAD material to resolve wider Vicn continuity gaps while preserving VIGILANT-specific source boundaries",
     "added": [
-      "Black Hand dossier with Sithis system versus supplementary five-child identity separation",
-      "Knights of the Nine cluster with per-knight ESM coverage matrix",
-      "Sir Henrik and Sir Gregory dossiers",
-      "source-gap stubs for Sir Amiel Lannus, Sir Juncan, and Sir Ralvas",
-      "Varla-Mary-Umaril parentage analysis and Umaril dossier",
-      "Akatosh-memory / ??????? dossier and Final Night cross-link",
-      "canon-comparison extension for these identities",
-      "Holy Pipers and Chick Traders supplementary organization nodes",
-      "Sacred Anatomancer source-gap analysis and unresolved-dialogue cross-link"
+      "GLENMORIL corroboration for Holy Pipers and Chick Traders",
+      "GLENMORIL and UNSLAAD direct evidence expansion for Sacred Anatomancer",
+      "cross-Vicn organization bridge",
+      "cross-Vicn Owl continuity bridge",
+      "White Owl = Jhunal the White at GLENMORIL layer",
+      "Gray Owl = Jhunal the Gray at UNSLAAD layer with Orlando-family entanglement",
+      "Black Owl = Jhunal the Black at GLENMORIL layer",
+      "Laza and the Owls later direct continuation evidence",
+      "correction of older Black Owl = Orlando comment-thread shorthand",
+      "cross-continuity source registration in source-manifest",
+      "negative cross-Vicn searches for the Akatosh 'Lizard' and Black Worm/Mannimarco"
     ],
-    "source_state": "direct ESM evidence remains primary; a123999 and community commentary remain separately labeled. Several new claims have strong structural compatibility but are not rewritten as direct plugin statements.",
-    "open_followup": "highest-value exact-source targets are Report: Sacred Anatomancer, Black Hand/Sithis reaction dialogue, missing Knights implementation, Holy Pipers/Chick Traders direct records, plus the existing incomplete Act 4 and Laza/Owl exact-text gaps"
+    "source_state": "original VIGILANT ESM remains unavailable in current file library. Direct VIGILANT evidence remains primary; later GLENMORIL/UNSLAAD ESM-derived evidence is now explicitly modeled as cross-continuity corroboration rather than substituted source text.",
+    "open_followup": "exact VIGILANT source recovery remains the main blocker for Report: Sacred Anatomancer, the Laza/Owl book prose, Black Hand reaction dialogue, and the nine incomplete Act 4 quest bodies"
   }
 }
