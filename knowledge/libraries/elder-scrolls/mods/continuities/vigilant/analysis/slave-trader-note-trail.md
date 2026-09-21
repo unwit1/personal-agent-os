@@ -52,7 +52,13 @@ The current placement index resolves the first five:
 
 The current persisted placement index does not resolve fixed placements for Notes 6–8.
 
-That absence should not be treated as proof that they are unused. They may be distributed through containers, scripts, leveled systems, or source paths not yet persisted.
+A repository-wide FormID search for `020B0827`, `020B0828`, and `020C8FCE` currently returns the books/analysis references but no additional REFR, container, quest, or alias ownership record. That absence should not be treated as proof that they are unused; it is a negative result for the **persisted extraction**, and they may still be distributed through scripts, leveled systems, or source paths not yet retained.
+
+## Direct identity anchor — Malada stanza 9
+
+`BOOK 02054ED0` / *A Vision in Malada* directly says the stanza-8 Stone bearer is killed by an **unnamed slave trader**. A gate then opens, the burning Stone looks into the trader's eyes, and he steps through the gate.
+
+This is the strongest direct VIGILANT statement that the Slave Trader is a participant in the Stone itinerary rather than merely the implied author of the note series.
 
 ## Note 1 and the sarcophagus
 
@@ -148,24 +154,21 @@ The current source layer does not uniquely resolve the note's shepherd or wolf.
 
 Keep both identities open.
 
-## Note 8
+## Note 8 — explicit literary ending
 
-The final note shifts into elegiac evening/darkness imagery.
+The final note reproduces the opening quatrain of Thomas Gray's *Elegy Written in a Country Churchyard*.
 
-Its function may be:
-- endpoint;
-- death marker;
-- mood transition;
-- literary quotation;
-- signal of the trail entering darkness/Coldharbour.
+This makes the literary/poetic function direct rather than merely a mood inference.
 
-The ESM evidence currently available does not establish which.
+It is especially notable beside a123999's supplementary statement that the VIGILANT Slave Trader is the soul of the protagonist from Vicn's earlier *LST Bravil Underground* and that his life ended with writing a poem.
+
+That cross-work identity remains supplementary, but the poem-ending correspondence is strong authorial-context evidence.
 
 ## Current model
 
 The best supported reconstruction is:
 
-**an unnamed slave-trader-associated observer/survivor leaves a sequence of cryptic notes distributed across Coldharbour locations, recording or alluding to recurring disasters, bard stories, burning, and a sarcophagus route.**
+**an unnamed slave trader directly participates in the Stone itinerary, kills the stanza-8 bearer, passes through a gate after the burning Stone looks into his eyes, is independently remembered by Pepe as a fiery-eyed sarcophagus survivor, and is strongly associated with a sequence of eight cryptic notes distributed across Coldharbour.**
 
 The notes participate in VIGILANT's wider pattern of:
 - prophetic itineraries;
@@ -191,7 +194,7 @@ Medium/interpretive:
 ## Open extraction work
 
 Future exact-source work should recover:
-- placements or acquisition paths for Notes 6–8;
+- placements or acquisition paths for Notes 6–8 beyond the current negative persisted-record search;
 - any container/NPC ownership of the notes;
 - slave-trader NPC base or alias if one exists;
 - quest conditions around Slave Trader's House;
@@ -200,3 +203,11 @@ Future exact-source work should recover:
 ## Canon boundary
 
 The Slave Trader note sequence and fiery-eyed slave-trader thread are VIGILANT-continuity narrative material.
+
+
+## Character dossier
+
+The direct identity thread is now normalized at:
+- `entities/characters/slave-trader.md`
+
+The dossier preserves the VIGILANT direct layer, a123999's earlier-work identity claim as supplementary, and the later GLENMORIL Slave Trader memory as cross-Vicn corroboration without merging them.
