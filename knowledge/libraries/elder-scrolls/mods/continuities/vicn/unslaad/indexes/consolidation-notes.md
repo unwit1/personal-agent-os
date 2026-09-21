@@ -58,3 +58,25 @@ The mature continuity should optimize for:
 - preserved raw evidence underneath.
 
 No additional obvious duplicate artifact dossiers are currently flagged by this pass.
+
+## Targeted synthesis batch — Magnar through Yngol
+
+Completed in-place consolidation for five saved candidate clusters without creating duplicate dossiers:
+
+- **Magnar / mirrors** — separated Insight, prayer/text, and quest-object evidence; retained as UNSLAAD-local pending independent cross-work Magnar evidence.
+- **Mnegmegh / Priest of Jhunal** — added explicit implementation graph, retrieval path, and non-equivalence guardrail.
+- **Gral / Mindok / Owl Forest** — linked to the parent Hare/word-rewriting thread while keeping Gral/Mindok identity UNSLAAD-local.
+- **Elder Wood** — wired the local relic dossier to the existing parent Elder-Wood continuity thread.
+- **Yngol / Tstunal** — wired local provenance to the parent thread and explicitly separated shared external substrate from UNSLAAD/DAc0da adaptations.
+
+The retrieval map now directly exposes Mnegmegh / Priest of Jhunal.
+
+### Next synthesis frontier
+
+Prefer unresolved high-value work that adds new evidence rather than repeating these nodes:
+
+1. remaining external-provenance checks for adapted mythic fragments;
+2. source-reliability/contradiction indexing for Khev, Herkel, Hermit, Jhunal/Gray Owl, and Insight narrators;
+3. selected alias/script-property resolution where identity transitions are still uncertain;
+4. deeper placement analysis only when it can resolve a live ambiguity.
+
