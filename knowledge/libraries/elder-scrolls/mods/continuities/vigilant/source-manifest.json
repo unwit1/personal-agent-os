@@ -32,6 +32,12 @@
       "host": "Nexus Mods",
       "url": "https://www.nexusmods.com/skyrim/articles/52354",
       "provenance_policy": "supplementary only; never silently override direct ESM records"
+    },
+    {
+      "id": "community-transcript-sources",
+      "type": "community-transcript-and-walkthrough",
+      "file": "sources/supplementary/community-transcript-sources.md",
+      "provenance_policy": "secondary only; verify against direct ESM when available"
     }
   ]
 }
