@@ -7,6 +7,8 @@ This directory contains reusable institution/faction nodes for VIGILANT.
 Current dossiers:
 
 - [Alessian Order](alessian-order.md)
+- [Alessian Inquisition](alessian-inquisition.md)
+- [Brothers of Marukh](brothers-of-marukh.md)
 - [Marukhati Selective](marukhati-selective.md)
 - [Forces of Order](forces-of-order.md)
 - [Order of Diagna](order-of-diagna.md)
@@ -14,6 +16,8 @@ Current dossiers:
 
 Cross-faction chronology and ontology:
 - `analysis/coldharbour-faction-map.md`
+- `analysis/coldharbour-regime.md`
+- `analysis/feral-soul-shriven-system.md`
 
 ## Modeling rule
 
