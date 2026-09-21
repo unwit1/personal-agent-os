@@ -14,6 +14,39 @@ Marukh later calls Adabal both miracle/emperor and "bread for the starving," the
 
 A Molag Bal memory-tail form appears in *Temptation of Marukh*, narrating thirst, memory loss, the Stone swallowing souls, and a confrontation in which submission and filling the Stone with souls are presented as escape. Memory alteration is explicitly mentioned, so the sequence carries strong reliability flags.
 
+## Adabal state sequence
+
+A focused record-level reconstruction is preserved at:
+
+`analysis/marukh-adabal-ritual-sequence.md`
+
+The ESM gives three same-model item states:
+
+- `0205AE01` / **Red Stone** — alias `Adabal` in *Adabal*;
+- `0206F543` / **Red Soul Gem** — alias `Stone` in *Temptation of Marukh*;
+- `021353DF` / **Adabal** — late-game item physically carried by Molag Bal.
+
+All three use `Clutter\AoM\Adabal.nif`.
+
+The late-game transition is particularly strong structurally:
+
+- Molag Bal carries `021353DF` / **Adabal**;
+- his Aetherius actor is placed in Sancremor Angasel;
+- `zzzCHAdabalSetTrigger` is placed in the same cell;
+- that trigger references the exact Adabal item, sets the **Aetherius** quest to stage 40, and links to the Aetherius portal effect.
+
+This makes the Molag Bal → Adabal → Aetherius-gate relationship structural rather than purely testimonial.
+
+### Memory contradiction
+
+The memory sequence is not a clean chronology.
+
+*Remains of the Miracle* says the Stone had already been filled with millions of souls and stolen by Molag Bal.
+
+The following *Temptation of Marukh* memory shows the **Red Soul Gem** still unfilled, while its `MolagBal` alias speaks in a Marukh-like personal voice and later offers to modify memory.
+
+Lorekeeper should therefore preserve the contradiction as evidence of manipulated memory rather than “fixing” it into a single timeline.
+
 ## Evidence anchors
 
 - `INFO 0205AE0A`–`0205AE15` — Marukh in *Adabal*
