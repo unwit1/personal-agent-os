@@ -76,3 +76,7 @@ The safe statement is that **UNSLAAD deliberately reuses and dramatizes that apo
 Oracle Iridescent Mask includes a custom **Spell Absorption** effect that absorbs a percentage of Magicka from hostile spells, in addition to its Fortify-Magicka package.
 
 This is a direct item mechanic; it should not be overinterpreted as a complete KINMUNE ability profile.
+
+## Craft unlock
+
+Oracle Iridescent Mask's reconstruction recipe uses **GetDeadCount** on **Clone of Ayrenn**. The mask is therefore deliberately gated behind defeating the clone in addition to appearing in the clone's death-item set.

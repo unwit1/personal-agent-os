@@ -43,3 +43,9 @@ What is not yet established:
 - that all Thunder-Scale/Void-Jill gear is temporal technology.
 
 Cross-retrieve; do not flatten.
+
+## Staff of the Jills
+
+UNSLAAD also contains a named **Staff of the Jills**. Its description reduces time between Shouts by 20%. It is found in a Dragon's Peak reward chest and becomes craftable after **Arkved** is completed.
+
+This strengthens Jill terminology as an intentional UNSLAAD node, but the item does not explain Jill temporal-censorship mechanics and should not inherit DAc0da's definition automatically.

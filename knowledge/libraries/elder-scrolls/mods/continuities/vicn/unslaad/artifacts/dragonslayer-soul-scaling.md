@@ -79,3 +79,9 @@ This makes Dragon Souls a recurring material/resource substrate for body, power,
 The equipment effects are direct mechanics.
 
 They do not prove a universal metaphysical rule that every resistance/skill improvement in the setting is literally caused by soul assimilation.
+
+## Recipe progression
+
+The core Dragonslayer armor, boots, gauntlets, helmet, ring, and greatsword recipes are gated behind completion of **Lingering Snow**. The Dragonslayer Shield/Greatshield instead unlock after **Long Winter**.
+
+This confirms that the craftable set is a staged reconstruction reward across the future/Dov-Ah-Kiin arc rather than one undifferentiated loot drop.
