@@ -1,0 +1,8 @@
+<font face='$HandwrittenFont'>
+<u>Corrosive Vapour Warning</u>
+
+<font size='16'>
+The Work Room is closed until the corrosive vapours within can be purged.
+
+The exhaust fans are currently non-functional due to the breaches in the steam pipeline.
+</font>
