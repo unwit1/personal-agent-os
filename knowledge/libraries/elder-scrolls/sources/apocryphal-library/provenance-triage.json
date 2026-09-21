@@ -4,9 +4,9 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "unresolved": 183,
+    "unresolved": 105,
     "verified_official_game_text": 243,
-    "verified_mod_original_text": 267,
+    "verified_mod_original_text": 345,
     "verified_developer_text": 5,
     "verified_mod_construct_text": 65,
     "verified_external_author_text": 21
@@ -1441,56 +1441,56 @@
       "title": "Book List",
       "editor_id": "LB_note_Shoplist09",
       "text_path": "books/04000854-book-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000855",
       "title": "Book List",
       "editor_id": "LB_note_Shoplist10",
       "text_path": "books/04000855-book-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000856",
       "title": "Book List",
       "editor_id": "LB_note_Shoplist11",
       "text_path": "books/04000856-book-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000857",
       "title": "Book List",
       "editor_id": "LB_note_Shoplist12",
       "text_path": "books/04000857-book-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000858",
       "title": "Book List",
       "editor_id": "LB_note_Shoplist13",
       "text_path": "books/04000858-book-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000859",
       "title": "Book List",
       "editor_id": "LB_note_Shoplist14",
       "text_path": "books/04000859-book-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000866",
       "title": "Book List",
       "editor_id": "LB_note_Shoplist23",
       "text_path": "books/04000866-book-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400085D",
@@ -1924,72 +1924,72 @@
       "title": "Dream of Satakal, Fragment 1",
       "editor_id": "LB_note_poempage01",
       "text_path": "books/04000837-dream-of-satakal-fragment-1.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000838",
       "title": "Dream of Satakal, Fragment 2",
       "editor_id": "LB_note_poempage02",
       "text_path": "books/04000838-dream-of-satakal-fragment-2.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000839",
       "title": "Dream of Satakal, Fragment 3",
       "editor_id": "LB_note_poempage03",
       "text_path": "books/04000839-dream-of-satakal-fragment-3.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400083A",
       "title": "Dream of Satakal, Fragment 4",
       "editor_id": "LB_note_poempage04",
       "text_path": "books/0400083A-dream-of-satakal-fragment-4.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400083B",
       "title": "Dream of Satakal, Fragment 5",
       "editor_id": "LB_note_poempage05",
       "text_path": "books/0400083B-dream-of-satakal-fragment-5.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400083C",
       "title": "Dream of Satakal, Fragment 6",
       "editor_id": "LB_note_poempage06",
       "text_path": "books/0400083C-dream-of-satakal-fragment-6.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400083D",
       "title": "Dream of Satakal, Fragment 7",
       "editor_id": "LB_note_poempage07",
       "text_path": "books/0400083D-dream-of-satakal-fragment-7.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400083E",
       "title": "Dream of Satakal, Fragment 8",
       "editor_id": "LB_note_poempage08",
       "text_path": "books/0400083E-dream-of-satakal-fragment-8.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400083F",
       "title": "Dream of Satakal, Fragment 9",
       "editor_id": "LB_note_poempage09",
       "text_path": "books/0400083F-dream-of-satakal-fragment-9.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000A19",
@@ -2212,8 +2212,8 @@
       "title": "Faded Notes",
       "editor_id": "LB_ResearchNotes03",
       "text_path": "books/04000810-faded-notes.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400006C",
@@ -2676,16 +2676,16 @@
       "title": "Ingredient List",
       "editor_id": "LB_note_Shoplist03",
       "text_path": "books/04000835-ingredient-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000836",
       "title": "Ingredient List",
       "editor_id": "LB_note_Shoplist04",
       "text_path": "books/04000836-ingredient-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040008B8",
@@ -2700,32 +2700,32 @@
       "title": "Intercepted Memospore",
       "editor_id": "LB_note_memospore01",
       "text_path": "books/040008B5-intercepted-memospore.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040008B6",
       "title": "Intercepted Memospore",
       "editor_id": "LB_note_memospore02",
       "text_path": "books/040008B6-intercepted-memospore.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040008B7",
       "title": "Intercepted Memospore",
       "editor_id": "LB_note_memospore03",
       "text_path": "books/040008B7-intercepted-memospore.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040008E5",
       "title": "Intercepted Memospore",
       "editor_id": "LB_note_memospore04",
       "text_path": "books/040008E5-intercepted-memospore.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000148",
@@ -2972,32 +2972,32 @@
       "title": "Letter",
       "editor_id": "LB_Note2_Letter01",
       "text_path": "books/0400006E-letter.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400006F",
       "title": "Letter",
       "editor_id": "LB_Note2_Letter02",
       "text_path": "books/0400006F-letter.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000070",
       "title": "Letter",
       "editor_id": "LB_Note2_Letter03",
       "text_path": "books/04000070-letter.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000071",
       "title": "Letter",
       "editor_id": "LB_Note2_Letter04",
       "text_path": "books/04000071-letter.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000104",
@@ -3284,40 +3284,40 @@
       "title": "Lusty Argonian Maid, Apocryphal",
       "editor_id": "LB_Book_LAM_mag",
       "text_path": "books/04000985-lusty-argonian-maid-apocryphal.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000987",
       "title": "Lusty Argonian Maid, Daedric Transliteration",
       "editor_id": "LB_Book_LAM_dae",
       "text_path": "books/04000987-lusty-argonian-maid-daedric-transliteration.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000988",
       "title": "Lusty Argonian Maid, Dovahzul Transglyphication",
       "editor_id": "LB_Book_LAM_drg",
       "text_path": "books/04000988-lusty-argonian-maid-dovahzul-transglyphication.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000986",
       "title": "Lusty Argonian Maid, Dwemeris Translation",
       "editor_id": "LB_Book_LAM_dwe",
       "text_path": "books/04000986-lusty-argonian-maid-dwemeris-translation.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000989",
       "title": "Lusty Argonian Maid, Falmeris Translation",
       "editor_id": "LB_Book_LAM_fal",
       "text_path": "books/04000989-lusty-argonian-maid-falmeris-translation.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400094B",
@@ -3332,16 +3332,16 @@
       "title": "Macabre List",
       "editor_id": "LB_note_Shoplist07",
       "text_path": "books/04000852-macabre-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400085C",
       "title": "Macabre List",
       "editor_id": "LB_note_Shoplist17",
       "text_path": "books/0400085C-macabre-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000A24",
@@ -3724,8 +3724,8 @@
       "title": "Ode to Warm Waters",
       "editor_id": "LB_note_poempage11",
       "text_path": "books/040008AF-ode-to-warm-waters.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000059",
@@ -3980,56 +3980,56 @@
       "title": "Page with Arcane Diagrams",
       "editor_id": "LB_Note_Apo_ritpage00",
       "text_path": "books/0400081F-page-with-arcane-diagrams.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000820",
       "title": "Page with Arcane Diagrams",
       "editor_id": "LB_Note_Apo_ritpage03",
       "text_path": "books/04000820-page-with-arcane-diagrams.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000821",
       "title": "Page with Arcane Diagrams",
       "editor_id": "LB_Note_Apo_ritpage01",
       "text_path": "books/04000821-page-with-arcane-diagrams.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000822",
       "title": "Page with Arcane Diagrams",
       "editor_id": "LB_Note_Apo_ritpage02",
       "text_path": "books/04000822-page-with-arcane-diagrams.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000823",
       "title": "Page with Arcane Diagrams",
       "editor_id": "LB_Note_Apo_ritpage04",
       "text_path": "books/04000823-page-with-arcane-diagrams.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000824",
       "title": "Page with Arcane Diagrams",
       "editor_id": "LB_Note_Apo_ritpage05",
       "text_path": "books/04000824-page-with-arcane-diagrams.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000825",
       "title": "Page with Arcane Diagrams",
       "editor_id": "LB_Note_Apo_ritpage06",
       "text_path": "books/04000825-page-with-arcane-diagrams.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000944",
@@ -4319,24 +4319,24 @@
       "title": "Research Notes",
       "editor_id": "LB_ResearchNotes01",
       "text_path": "books/04000807-research-notes.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000808",
       "title": "Research Notes",
       "editor_id": "LB_ResearchNotes02",
       "text_path": "books/04000808-research-notes.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040008AC",
       "title": "Research Notes",
       "editor_id": "LB_ResearchNotes04",
       "text_path": "books/040008AC-research-notes.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400011D",
@@ -4495,136 +4495,136 @@
       "title": "Shipping Forecast",
       "editor_id": "LB_note_Forecast01",
       "text_path": "books/04000860-shipping-forecast.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000861",
       "title": "Shipping Forecast",
       "editor_id": "LB_note_Forecast02",
       "text_path": "books/04000861-shipping-forecast.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000832",
       "title": "Shopping List",
       "editor_id": "LB_note_Shoplist00",
       "text_path": "books/04000832-shopping-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000833",
       "title": "Shopping List",
       "editor_id": "LB_note_Shoplist01",
       "text_path": "books/04000833-shopping-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000834",
       "title": "Shopping List",
       "editor_id": "LB_note_Shoplist02",
       "text_path": "books/04000834-shopping-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000850",
       "title": "Shopping List",
       "editor_id": "LB_note_Shoplist05",
       "text_path": "books/04000850-shopping-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000851",
       "title": "Shopping List",
       "editor_id": "LB_note_Shoplist06",
       "text_path": "books/04000851-shopping-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000853",
       "title": "Shopping List",
       "editor_id": "LB_note_Shoplist08",
       "text_path": "books/04000853-shopping-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400085A",
       "title": "Shopping List",
       "editor_id": "LB_note_Shoplist15",
       "text_path": "books/0400085A-shopping-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400085B",
       "title": "Shopping List",
       "editor_id": "LB_note_Shoplist16",
       "text_path": "books/0400085B-shopping-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000868",
       "title": "Shopping List",
       "editor_id": "LB_note_Shoplist25",
       "text_path": "books/04000868-shopping-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000869",
       "title": "Shopping List",
       "editor_id": "LB_note_Shoplist22",
       "text_path": "books/04000869-shopping-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000888",
       "title": "Shopping List",
       "editor_id": "LB_note_Shoplist18",
       "text_path": "books/04000888-shopping-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000889",
       "title": "Shopping List",
       "editor_id": "LB_note_Shoplist19",
       "text_path": "books/04000889-shopping-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400088A",
       "title": "Shopping List",
       "editor_id": "LB_note_Shoplist20",
       "text_path": "books/0400088A-shopping-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400088B",
       "title": "Shopping List",
       "editor_id": "LB_note_Shoplist21",
       "text_path": "books/0400088B-shopping-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040008FD",
       "title": "Shopping List",
       "editor_id": "LB_Note_Shoplist24",
       "text_path": "books/040008FD-shopping-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000095",
@@ -5503,8 +5503,8 @@
       "title": "The Song of Uncle Sweetshare",
       "editor_id": "LB_note_poempage10",
       "text_path": "books/04000881-the-song-of-uncle-sweetshare.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040008FF",
@@ -5831,32 +5831,32 @@
       "title": "Torn Page",
       "editor_id": "LB_TornPages",
       "text_path": "books/04000809-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400080F",
       "title": "Torn Page",
       "editor_id": "LB_TornPages00",
       "text_path": "books/0400080F-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400082D",
       "title": "Torn Page",
       "editor_id": "LB_TornPages01",
       "text_path": "books/0400082D-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400082E",
       "title": "Torn Page",
       "editor_id": "LB_TornPages02",
       "text_path": "books/0400082E-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000863",
@@ -5879,88 +5879,88 @@
       "title": "Torn Page",
       "editor_id": "LB_TornPages03",
       "text_path": "books/04000876-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000877",
       "title": "Torn Page",
       "editor_id": "LB_TornPages04",
       "text_path": "books/04000877-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000878",
       "title": "Torn Page",
       "editor_id": "LB_TornPages05",
       "text_path": "books/04000878-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000879",
       "title": "Torn Page",
       "editor_id": "LB_TornPages06",
       "text_path": "books/04000879-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400087A",
       "title": "Torn Page",
       "editor_id": "LB_TornPages07",
       "text_path": "books/0400087A-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000880",
       "title": "Torn Page",
       "editor_id": "LB_TornPages08",
       "text_path": "books/04000880-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040008A7",
       "title": "Torn Page",
       "editor_id": "LB_TornPages09",
       "text_path": "books/040008A7-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040008AB",
       "title": "Torn Page",
       "editor_id": "LB_TornPages10",
       "text_path": "books/040008AB-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040008EF",
       "title": "Torn Page",
       "editor_id": "LB_TornPages11",
       "text_path": "books/040008EF-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000911",
       "title": "Torn Page",
       "editor_id": "LB_TornPages12",
       "text_path": "books/04000911-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000912",
       "title": "Torn Page",
       "editor_id": "LB_TornPages13",
       "text_path": "books/04000912-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored note, fragment, translation/transliteration, research, or environmental-text family. The mod author explicitly distinguishes newly written books and notes from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000101",
