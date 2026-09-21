@@ -55,3 +55,11 @@ The ESM does not explain whether "Earthbones" here refers literally to:
 - a symbolic weapon tradition.
 
 Cross-index with official/apocryphal Earthbones material, but do not import an external cosmology into the weapon name without direct UNSLAAD evidence.
+
+## Recipe progression
+
+Both playable Earthbones weapon recipes are gated by the Hgmieil encounter family:
+- **Earthbones Sword** — GetDeadCount on NPC 033BE44B / Hgmieil.
+- **Earthbones Greatsword** — same Hgmieil death-count gate.
+
+This is a progression relationship, not proof that Hgmieil historically forged or owned both weapons.
