@@ -180,6 +180,23 @@ transcript, so an interrupted job resumes from disk. Escalation happens only
 after a declared validator actually fails, and a stage that already passed is
 never silently redone by a stronger model. See `docs/staged-workflows.md`.
 
+### Selective profile retrieval
+
+Durable personal context in `profile/` is never injected whole. It is flattened
+into addressable facts carrying domain, provenance, confidence, sensitivity and
+recency, and only the slice a task touches is compiled in.
+
+```powershell
+agent-os profile-status
+agent-os profile-retrieve "plan meals and groceries for next week"
+```
+
+Relevance needs a distinctive signal, so a task with no personal dimension
+retrieves nothing. The privacy section is never retrievable, and any fact
+tripping the privacy gate is dropped at retrieval regardless of what is on
+disk. Over MCP: `profile.retrieve`, `profile.status`. See
+`docs/selective-profile-retrieval.md`.
+
 ### Context budgeting
 
 `agent.context` prunes by usefulness, not by source order. Verbose history goes

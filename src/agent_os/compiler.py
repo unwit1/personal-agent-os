@@ -7,6 +7,7 @@ from typing import Any
 from .changes import compact_changes
 from .index import search
 from .improvements import compact_improvements
+from .profile import compact_profile
 from .paths import ROOT
 from .registry import get_project, git_status, load_state
 from .skills import discover, match, metadata
@@ -111,6 +112,16 @@ def _prune_handoff_actionable(value: dict[str, Any]) -> bool:
     return False
 
 
+def _reduce_profile(value: dict[str, Any]) -> bool:
+    """Shed the least relevant profile fact first; selection order is by score."""
+    facts = value.get("facts") or []
+    if not facts:
+        return False
+    facts.pop()
+    value.setdefault("diagnostics", {})["selected"] = len(facts)
+    return True
+
+
 def _reduce_list(value: list[Any]) -> bool:
     if not value:
         return False
@@ -146,6 +157,7 @@ def _fit(packet: dict[str, Any], token_budget: int) -> tuple[dict[str, Any], int
         ("latest_agent_os_handoff", _prune_handoff_bulk),
         ("state", _reduce_state),
         ("search_matches", _reduce_list),
+        ("profile_context", _reduce_profile),
         ("matched_skills", _reduce_list),
         ("development_context", _reduce_development_context),
         ("latest_agent_os_handoff", _prune_handoff_actionable),
@@ -155,6 +167,10 @@ def _fit(packet: dict[str, Any], token_budget: int) -> tuple[dict[str, Any], int
             section = packet.get(key)
             if section is None or not reduce(section):
                 break
+    # A profile slice pruned down to no facts is pure overhead: the diagnostics
+    # shell costs bytes and says nothing. Drop the section, not just its facts.
+    if isinstance(packet.get("profile_context"), dict) and not packet["profile_context"].get("facts"):
+        packet.pop("profile_context", None)
     # Under extreme pressure the remaining core is still not all equal value.
     # A static description of the selection strategy and the project's generic
     # summary rank below the task itself, so they go before the task is cut.
@@ -219,6 +235,9 @@ def compile_context(
     }
     if development_context:
         packet["development_context"] = development_context
+    profile_slice = compact_profile(task)
+    if profile_slice["facts"]:
+        packet["profile_context"] = profile_slice
     packet, limit = _fit(packet, token_budget)
     packet_chars = len(json.dumps(packet, default=str, ensure_ascii=False))
     naive_chars = sum(

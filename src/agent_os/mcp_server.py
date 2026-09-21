@@ -15,6 +15,7 @@ from .handoffs import create_handoff
 from .index import search
 from .mail import get_message as mail_get_message, search as mail_search, status as mail_status, sync as mail_sync
 from .improvements import capture_improvement, get_improvement, issue_payload, list_improvements, search_improvements, update_improvement
+from .profile import compact_profile as profile_retrieve, profile_status
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .skills import discover, match, metadata
 from .workflows import (
@@ -115,6 +116,14 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "description": "Incrementally synchronize recent iCloud messages into the local read-only index.",
         "inputSchema": {"type": "object", "properties": {"limit": {"type": "integer", "default": 500}}},
     },
+    "profile.retrieve": {
+        "description": "Retrieve only the durable personal-profile slice a task touches, with diagnostics. Never returns the whole profile.",
+        "inputSchema": {"type": "object", "properties": {"task": {"type": "string"}, "limit": {"type": "integer", "default": 5}, "minimum_score": {"type": "integer", "default": 3}}, "required": ["task"]},
+    },
+    "profile.status": {
+        "description": "Describe what profile context is indexed, by domain, without returning the profile itself.",
+        "inputSchema": {"type": "object", "properties": {}},
+    },
     "workflow.list": {
         "description": "List available staged workflow manifests.",
         "inputSchema": {"type": "object", "properties": {}},
@@ -200,6 +209,8 @@ def methods() -> dict[str, Callable[..., Any]]:
         "mail.get_message": mail_get_message,
         "mail.sync_status": mail_status,
         "mail.sync": mail_sync,
+        "profile.retrieve": profile_retrieve,
+        "profile.status": profile_status,
         "workflow.list": list_workflows,
         "workflow.start": lambda workflow_id, run_id=None: workflow_start(workflow_id, run_id),
         "workflow.next": workflow_status,

@@ -181,6 +181,26 @@ Success signal:
 
 ### P0.2 — Selective context and profile retrieval
 
+Status: **complete** (2026-09-21). EXEC-0.5 is implemented in
+`src/agent_os/profile.py`, merged into the context compiler, exposed through
+CLI and MCP, enforced by `agent.py validate`, and covered by 31 regression
+tests.
+
+Acceptance criteria met:
+- a task receives relevant personal context without naming a profile file;
+- unrelated profile information is excluded, and a task with no personal
+  dimension retrieves nothing at all;
+- retrieval is deterministic and testable, with measured token usage;
+- profile facts carry provenance, confidence, sensitivity and recency, and
+  remain reviewable in Git;
+- tests cover relevance filtering, privacy exclusion, deduplication,
+  superseded/stale facts, budgets, and diagnostics.
+
+Measured: 105 facts indexed (93 retrievable, 12 restricted). Injecting the
+profile whole would cost ~16,878 tokens; selective retrieval delivers ~293
+tokens for an HR scanner task, ~332 for meal planning, ~158 for a finance
+question, and 0 for an impersonal coding task.
+
 Implement EXEC-0.5 before broad new Agent OS features.
 
 Goals:

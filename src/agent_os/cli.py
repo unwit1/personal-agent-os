@@ -22,6 +22,7 @@ from .machine import write_override
 from .mcp_server import serve
 from .maintenance import run as run_maintenance
 from .mail import health as mail_health, setup_icloud, status as mail_status, sync as mail_sync, search as mail_search
+from .profile import compact_profile, profile_status
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .review import assess
 from .surfaces import health as integration_health
@@ -65,6 +66,11 @@ def parser() -> argparse.ArgumentParser:
     integration.add_argument("--surface")
     integration.add_argument("--strict", action="store_true")
     commands.add_parser("validate")
+    commands.add_parser("profile-status")
+    profile_retrieve = commands.add_parser("profile-retrieve")
+    profile_retrieve.add_argument("task")
+    profile_retrieve.add_argument("--limit", type=int, default=5)
+    profile_retrieve.add_argument("--minimum-score", type=int, default=3)
     commands.add_parser("workflows")
     workflow_start = commands.add_parser("workflow-start")
     workflow_start.add_argument("workflow")
@@ -226,6 +232,10 @@ def main(argv: list[str] | None = None) -> int:
             result = validate()
             _print(result)
             return 0 if result["ok"] else 1
+        elif args.command == "profile-status":
+            _print(profile_status())
+        elif args.command == "profile-retrieve":
+            _print(compact_profile(args.task, limit=args.limit, minimum_score=args.minimum_score))
         elif args.command == "workflows":
             _print(list_workflows())
         elif args.command == "workflow-start":

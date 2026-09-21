@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-21T16:35:51.183129+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main\n M README.md\n M projects/personal-agent-os/roadmap/master-priority-roadmap.md\n M projects/personal-agent-os/roadmap/technical-debt.md\n M src/agent_os/cli.py\n M src/agent_os/compiler.py\n M src/agent_os/mcp_server.py\n M src/agent_os/validation.py\n?? docs/selective-profile-retrieval.md\n?? src/agent_os/profile.py\n?? tests/test_profile.py",
+    "error": ""
+  },
+  "completed": [
+    "Committed and pushed P0.0 and P0.1 to origin/main (the push raced twice against another process actively committing knowledge-library ingestion; merged cleanly each time).",
+    "Implemented P0.2 / EXEC-0.5 selective profile retrieval in src/agent_os/profile.py: profile/ is flattened into 105 addressable facts carrying domain, provenance, confidence, sensitivity and recency.",
+    "Merged profile retrieval into the context compiler as an automatic profile_context section, pruned below task-selected project material, with the empty diagnostics shell dropped entirely under budget pressure.",
+    "Exposed retrieval through CLI (profile-status, profile-retrieve) and MCP (profile.retrieve, profile.status); validate now indexes the profile and fails on any retrievable fact carrying a privacy finding.",
+    "Added tests/test_profile.py: 31 regression tests covering relevance filtering, privacy exclusion, deduplication, superseded and stale facts, budgets, diagnostics, and compiler integration.",
+    "Documented the design in docs/selective-profile-retrieval.md and recorded four new debt items in the technical-debt register."
+  ],
+  "decisions": [
+    "drive-derived-context.json is excluded from retrieval: it is a 60KB derived index, not curated durable context, and loading it would reintroduce the bulk injection this work exists to prevent.",
+    "Relevance requires a distinctive signal - domain vocabulary or more than one matched term - so a single shared generic word cannot route a coding task into personal context. This mirrors the project router's existing rule.",
+    "Privacy is enforced at retrieval rather than trusted to the author, so no caller can reach restricted material by forgetting to filter."
+  ],
+  "remaining": [
+    "Relevance is lexical; DOMAIN_TERMS needs curation as the profile grows, and an unnamed personal dimension is missed silently.",
+    "drive-derived-context.json remains inert; its value is neither distilled into durable facts nor indexed.",
+    "Confidence and recency are file-level, not fact-level, so the supersede rule is coarser than it could be.",
+    "No profile-specific promotion rule yet for turning conversational observations into durable profile facts.",
+    "Next roadmap item is P0.3 shared document intelligence and the local persistent extraction/OCR cache."
+  ],
+  "validation": [
+    "python -m unittest discover -s tests (180 passed, was 149)",
+    "python agent.py validate (335 checks, 0 errors, 0 warnings)",
+    "python agent.py integration-health (ok) and launcher-verify (ok, 22 tools)",
+    "live MCP handshake: profile.retrieve returns 5 household facts for a meal task and 0 for a coding task",
+    "measured: whole-profile injection ~16878 tokens vs 0-332 tokens selective"
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

@@ -85,3 +85,34 @@ Run state lives under `projects/<project>/workflows/`. That makes runs portable
 and reviewable, but a long-lived or high-frequency workflow would add churn to
 canonical Git. A local-only run store with promoted summaries may be needed if
 run volume grows.
+
+## From P0.2 — Selective profile retrieval
+
+### Relevance is lexical and vocabulary-driven
+
+A task phrased entirely in synonyms that `DOMAIN_TERMS` does not know retrieves
+nothing. It fails closed, which is the safe direction, but the vocabulary needs
+curation as the profile grows. A task whose personal dimension is real but
+unnamed will be missed silently.
+
+### `drive-derived-context.json` remains unusable
+
+The 60 KB derived Drive index is excluded from retrieval because it is bulk
+rather than curated context. Nothing currently distils it into durable facts,
+so whatever value it holds is inert. Either promote selected findings into
+`user-context.json` with provenance, or index it under the same fact model with
+a `derived` confidence and a stricter threshold.
+
+### Confidence and recency are file-level, not fact-level
+
+Every fact inherits its source file's `updated_at` and provenance statuses, so
+"last confirmed" cannot distinguish a preference stated yesterday from one
+seeded months ago in the same file. Per-fact capture dates would make the
+supersede rule meaningfully sharper.
+
+### No profile-specific promotion rule
+
+Candidate profile updates flow through the generic candidate pipeline. There is
+no rule yet for when a conversational observation may become a durable profile
+fact, which EXEC-0.5 asks for.
+

@@ -11,6 +11,7 @@ from .changes import CHANGE_TYPES, STATUSES as CHANGE_STATUSES
 from .improvements import CATEGORIES, PRIORITIES, STATUSES as IMPROVEMENT_STATUSES
 from .paths import ROOT
 from .privacy import privacy_findings
+from .profile import CANONICAL_SOURCES, index_facts, retrievable_facts
 from .registry import load_state, projects
 from .routing import status as routing_status
 from .skills import discover
@@ -150,6 +151,23 @@ def validate() -> dict[str, Any]:
         findings = privacy_findings(change)
         if findings:
             errors.append(f"{change_path.relative_to(ROOT)}: privacy findings {', '.join(findings)}")
+
+    for source in CANONICAL_SOURCES:
+        checked += 1
+        if not source.exists():
+            warnings.append(f"profile source is missing: {source.name}")
+    try:
+        profile_facts = index_facts()
+    except (OSError, ValueError) as exc:
+        errors.append(f"profile index: {exc}")
+        profile_facts = []
+    checked += 1
+    if CANONICAL_SOURCES[0].exists() and not profile_facts:
+        errors.append("profile sources exist but index no facts")
+    for fact in retrievable_facts():
+        checked += 1
+        if fact["privacy_findings"]:
+            errors.append(f"retrievable profile fact {fact['id']} carries {', '.join(fact['privacy_findings'])}")
 
     form_registry = ROOT / "forms" / "registry.json"
     checked += 1
