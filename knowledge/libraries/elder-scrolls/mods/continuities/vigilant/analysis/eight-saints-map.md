@@ -46,22 +46,22 @@ Rumors that Mary literally consorted with Molag Bal or biologically birthed the 
 
 ## Jhunal
 
-The saint text presents Jhunal as an Atmoran mage who joined Marukh, created **Marukh's Torch**, refused to surrender it to the Order, and was exiled.
+The saint text presents Jhunal as an Atmoran mage who joined Marukh, spread rune knowledge through eastern Cyrodiil, created **Marukh's Torch**, refused to surrender it to the Order, and was exiled. It says he later died and his secret passed to Cosmas.
 
-The ESM now supports a much larger distributed identity/relic network:
+The ESM deliberately complicates that endpoint:
 
-- **Jhunal the Owl** and **three separate Piece of Jhunal actors** are physically placed inside **Jhunal's Library**.
-- a separate container named **Jhunal** is placed in **Marukh's Underground Priory** and contains **Bone of Jhunal**, the **Library Key**, **Jhunal's Silver Ring**, and a **Beacon of Magnus**.
-- **Jhunal's Golden Ring** is stored in **Jhunal's Egg** in the Golden Sanctuary.
-- **Arcana of Jhunal** is carried by **Burnt Casimir** in the Prayer Hall.
-- Sir Berich explicitly links Casimir's fate to a fire rune/Wisdom of Magnus that he says Jhunal stole from Saarthal.
-- Saklas asks the player to locate Jhunal's Library and says Jhunal's name repeatedly appears in the souls/memories of Alessian priests.
-- Jhunal's own dialogue says the Black Worm tore him into pieces and that he spent centuries recovering, directly matching the three fragment actors.
-- `BOOK 0218B1BA` / **The Art of the Ayleids** is explicitly credited to Jhunal and is physically distributed across Bruiant Mansion South Wing, the Slave Trader's House, Prison Tower, and Fort Welkynd, preserving an authored documentary voice distinct from his saint biography and Owl dialogue.
+- **Jhunal the Owl** (`NPC_ 0225B23C`) is a surviving speaker.
+- Three **Piece of Jhunal** actors (`0225B23F`) are placed alongside him inside **Jhunal's Library**.
+- Jhunal says the Black Worm tore him to pieces and that recovering took hundreds of years.
+- a separate **Jhunal** corpse/container in **Marukh's Underground Priory** carries **Bone of Jhunal**, **Jhunal's Library Key**, and **Jhunal's Silver Ring**.
+- **Jhunal's Golden Ring** is inside **Jhunal's Egg** in the Golden Sanctuary; Pope Megus says the Owl gave him that egg as a vessel intended for blood, flesh, bones, and new life.
+- **Arcana of Jhunal** is carried by **Burnt Casimir** in the Prayer Hall, in the same storyline where Sir Berich blames Jhunal's stolen eternal fire-rune knowledge for destructive consequences.
+- `BOOK 0218B1BA` / *The Art of the Ayleids* is explicitly authored by Jhunal and discusses flesh art.
+- Saklas's *Bald Man-Ape* quest has a dedicated Jhunal's Library map-marker alias and later places an “owled” Saklas form inside the Library.
 
-The named relic effects preserve different aspects of his magical identity: **Silver Knowledge** extends spell duration, **Golden Knowledge** strengthens Illusion targeting, **Arcane Fire** is described as a concealed rune of Jhunal, and the Bone relic calls him **the sorcerer of the Elder Wood**.
+Current classification: **high-confidence Jhunal identity cluster with deliberate bodily fragmentation and unresolved ontology**. The saint's “death,” corpse/relic cache, surviving Owl, and literal Pieces should remain layered evidence rather than being forced into a single resurrection chronology.
 
-Current classification: **high-confidence saint → body/relic cache → Owl/fragments → distributed magical-knowledge identity network**. The ESM strongly connects these representations but does not establish a simple uninterrupted physical biography.
+The ESM does not yet prove that **Marukh's Torch**, the Prayer Hall fire rune, and **Arcana of Jhunal** are exactly the same magical object or technique.
 
 ## Nenyond
 
