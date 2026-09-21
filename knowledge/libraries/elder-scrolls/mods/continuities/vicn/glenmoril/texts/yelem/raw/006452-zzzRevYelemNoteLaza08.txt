@@ -1,0 +1,3 @@
+<font face="$HandwrittenBold" size="19">
+Not a moon. A cocoon or an Egg.
+</font>
