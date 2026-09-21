@@ -13,7 +13,7 @@ A statement established in one plugin is not automatically attributed to another
 - VIGILANT: existing ESM-backed continuity ingestion; retained at the established VIGILANT continuity path and linked through this parent overlay.
 - GLENMORIL: ESM-backed ingestion in `vicn/glenmoril`.
 - UNSLAAD: ESM-backed ingestion in `vicn/unslaad`; substantial quest/dialogue/entity/concept passes and cross-Vicn seeds are present.
-- DAc0da: ESM-backed ingestion in `vicn/dac0da`; the six numbered main quests are reconstructed through **Censored Fate**, with major side arcs, alternate endings, and a first written-lore/provenance pass now indexed.
+- DAc0da: ESM-backed ingestion in `vicn/dac0da`; **first-pass ESM lore ingestion is complete** for source SHA-256 `455f07f3bba5de5b1b5a84c882be3309a66fd3d503866e05658b99896dfdb00e`. Second-pass cross-VICN synthesis is underway.
 
 ## High-confidence cross-work DAc0da bridges
 
@@ -22,6 +22,9 @@ A statement established in one plugin is not automatically attributed to another
 - **DAc0da -> UNSLAAD:** both works independently use the rare exact terms **Adjacent Place** and **Grabbers**; UNSLAAD explicitly connects an adjacent place to Lyg.
 - **GC9 / LYG:** UNSLAAD `zzzCrbMsgInsightGC9` describes LYG-sector memory evaporation/timeline disposal, while DAc0da explicitly contains **Ghost Choir 9 / VS GC9**, LYG mass-erasure, and memory-project material. The UNSLAAD group-name link is implementation-level via EditorID.
 - **DAc0da / GLENMORIL / UNSLAAD:** all independently contain **Mnemo-Li** material connected to memory, possibility, unstable reality/identity, or dream states.
+- **DAc0da / GLENMORIL — Augur of the Obscure:** exact title, non-linear-time role, Numidium/Jill/possibility domain, and Rolls-On-Roads network support a high-confidence recurring character identity.
+- **DAc0da / GLENMORIL — Brain-Billies:** exact rare term recurs; DAc0da explicitly defines memory-stinging/recovery behavior, while GLENMORIL's mechanism remains unresolved.
+- **DAc0da / GLENMORIL — Xero-Lyg:** both independently use the named entity; GLENMORIL ties Xero-Lyg to Black Star/dark Radiance/Flesh, while DAc0da gives a Lyg/slave-revolt/kalpic account.
 - **Radiance / Mnemo-Li / memory:** UNSLAAD and DAc0da both explicitly use **Radiance** alongside unstable memory/identity vocabulary; DAc0da's Sea of Radiance additionally ties it to Mnemo-Li and many paths. Definitions remain source-specific.
 - **Chick Trader / Anequina:** UNSLAAD's Gray EGG says it was crushed by a **Chick Trader of Anequina**; GLENMORIL independently says original Chick Traders came from the **prince of Anequina and royal guards**. This is a direct institutional bridge; "second CHICK" identities remain unmerged.
 - **Ja'cobee / Aisha / Ulliss:** GLENMORIL directly stages all three inside the Last Chick Trader / EGG dialogue network; UNSLAAD independently gives their extended history, death/passage, and Lizz-family chronology.
@@ -35,6 +38,8 @@ These are retrieval/continuity relationships, not permission to flatten source-s
 
 ## DAc0da next frontier
 
-DAc0da's **In Grabbers' Hands**, Yngol epilogue, Golden Dragon Flight, Agent Event, Daggerfall-letter provenance, and first Nahd-fiction provenance pass are now resolved at structural/source depth.
+Broad DAc0da ESM ingestion is complete. Do not restart it unless the source hash/version changes.
 
-The next DAc0da priority is a full **79-record SCEN index**, followed by unresolved NPC-form families, important location/worldspace layers, and narrative artifacts/creatures. The main remaining written-source gap is the exact standalone publication trail for the long **Ghost Choir 9** text.
+Current work is **second-pass VICN synthesis**: promote only independently supported cross-work identities/relationships while preserving source-specific claims. Dedicated parent threads now include Lyg, Radiance/Mnemo-Li/memory, Rolls-On-Roads/Romion, Altano/Radiance, Augur of the Obscure, Brain-Billies, and Xero-Lyg.
+
+Residual DAc0da-only gaps are refinement issues: unreadable compiled Papyrus internals for a few runtime mechanics, exhaustive navigation graphs, and the original standalone publication metadata for the long Ghost Choir 9 transcript.
