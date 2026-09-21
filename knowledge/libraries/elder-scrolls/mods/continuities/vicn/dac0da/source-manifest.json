@@ -1,0 +1,31 @@
+{
+  "continuity_id": "tes.mod.vicn.dac0da",
+  "parent_continuity": "tes.mod.vicn",
+  "source": "DAc0da.esm",
+  "sha256": "455f07f3bba5de5b1b5a84c882be3309a66fd3d503866e05658b99896dfdb00e",
+  "size_bytes": 12626380,
+  "plugin_author": "Vicn",
+  "tes4_header_version": 1.7000000476837158,
+  "tes4_declared_record_count": 57550,
+  "masters": [
+    "Skyrim.esm",
+    "Update.esm",
+    "Dawnguard.esm",
+    "Dragonborn.esm"
+  ],
+  "parsed_record_count": 51137,
+  "record_counts": {
+    "QUST": 43,
+    "DIAL": 737,
+    "INFO": 1027,
+    "NPC_": 554,
+    "BOOK": 90,
+    "MESG": 66,
+    "SCEN": 79,
+    "CELL": 12699,
+    "WRLD": 5
+  },
+  "provenance_format": "DAc0da.esm:<load-order-independent 6-hex local FormID>",
+  "ingestion_status": "structural inventory and quest catalog complete; main-story dialogue/lore reconstructed through zDcdMq01",
+  "continuity_policy": "DAc0da is a source-scoped Vicn continuity layer; do not silently promote its claims into official Elder Scrolls canon."
+}
