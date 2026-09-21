@@ -185,3 +185,19 @@ GLENMORIL independently names **Xero-Lyg** in major Jazel/Aradia and related sta
 This is a direct named cross-work bridge rather than a thematic resemblance.
 
 DAc0da's Crabbimarco account remains its own Lyg testimony and should not be used to import GLENMORIL's full Xero-Lyg model into DAc0da without matching evidence.
+
+
+## Holy Pipers
+
+DAc0da's **Vigilant Athanasius** directly identifies himself as a **Keeper of Stendarr of the Holy Pipers branch**. Evidence: `DAc0da.esm:00554C`.
+
+He says the Holy Pipers travel the land, spread Stendarr's teachings, and aid the less fortunate; his group entered the Sea of Causality with the Solitude navy to rescue survivors. Evidence: `DAc0da.esm:00555E`.
+
+The same named organization is independently established in:
+
+- VIGILANT: `entities/factions/holy-pipers.md`
+- GLENMORIL: `quests/the-pipers.md` and related Holy-Pipers relationship files
+
+This is a direct institutional bridge across **DAc0da, VIGILANT, and GLENMORIL**.
+
+The source-specific states differ sharply: DAc0da's Athanasius presents a charitable rescue/teaching branch, while GLENMORIL contains excommunicated/inquisitorial/extremist Holy-Piper material. Preserve those differences rather than merging them into one timeless organization state.
