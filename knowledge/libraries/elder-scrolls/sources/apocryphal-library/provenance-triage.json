@@ -4,9 +4,9 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "unresolved": 686,
-    "verified_official_game_text": 95,
-    "verified_developer_text": 3
+    "unresolved": 684,
+    "verified_official_game_text": 96,
+    "verified_developer_text": 4
   },
   "entries": [
     {
@@ -150,8 +150,8 @@
       "title": "Akulakhan Plans",
       "editor_id": "LB_Book2_AAP_Akulakhan01",
       "text_path": "books/0400002C-akulakhan-plans.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as official The Elder Scrolls III: Morrowind source material concerning Dagoth Ur's Akulakhan project; compilation provenance retained separately."
     },
     {
       "form_id": "04000061",
@@ -238,8 +238,8 @@
       "title": "ANON, ANU, ANUI-EL",
       "editor_id": "LB_Book_AP_KINMUNE",
       "text_path": "books/040008F1-anon-anu-anui-el.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_developer_text",
+      "evidence": "Identified as material derived from Michael Kirkbride's out-of-game KINMUNE/ANON ANU ANUI-EL material; classified separately from in-game official texts."
     },
     {
       "form_id": "04000023",
