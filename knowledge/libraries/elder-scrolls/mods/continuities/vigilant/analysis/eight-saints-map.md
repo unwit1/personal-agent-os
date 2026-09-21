@@ -27,21 +27,22 @@ Other red-eye imagery in VIGILANT remains unlinked unless structural evidence co
 
 ## Moura / Mary
 
-The book explicitly says Moura's true name was **Mary** and describes her as a healer from High Rock who purified Lake Ilinalta of vampiric contamination. It says she was later executed after conflict with the Alessian Order during the Thrassian plague and that her name was erased from later Imperial records.
+The saint text explicitly states that Moura's true name was **Mary** and describes her as a High Rock healer who cured plague/vampiric corruption before the Alessian Order executed her during the Thrassian plague.
 
-This maps strongly onto already extracted VIGILANT dialogue:
+The ESM now gives this identity cluster much stronger structural support:
 
-- Inquisitor Pepe remembers **burning Mary** and later questions whether that was where everything went wrong.
-- *A Vision in Malada* stanza 5 describes a Mara-associated woman, an inquisitor, gathered firewood, and execution by flames.
-- *Judgement* describes the Alessian execution of a Mara follower whose healing miracle lacked Order approval.
+- `NPC_ 020F9649` / **Mary the Dark Maiden** is assigned to alias **Mara** in `QUST 0212C4F4` / *The Grand Inquisitor*.
+- The same NPC base is the **Shoggoth Mother** boss in `QUST 024F69C0`.
+- `ACHR 020F964C` places Mary the Dark Maiden in **Bed of Corruption**.
+- `BOOK 0212A7B4` is *Fragment of the Stone: Mary the Dark Maiden*.
+- a separate `NPC_ 022A0679` / **Mary** is used in *Pelinal the Bloody* and placed in **Burosel**.
+- Sir Caius, Ja'zhan, Pope Megus, Pepe, and Atima preserve different pieces of Mary's healing, burning, recurrence, and “children” tradition.
 
-Current classification: **high-confidence VIGILANT identity cluster: Moura = Mary**, with the saint text, Pepe testimony, prophecy, and Judgement all referring to the same core persecution episode unless later scene evidence contradicts it.
+*The Grand Inquisitor* is especially important because Pepe addresses the Mary-the-Dark-Maiden actor as **Mara** while condemning her to the stake. That makes the Moura/Mary/Mara linkage structural, not merely thematic.
 
-Reliability remains layered:
-- Mary/Moura's identity is textually explicit in *The Eight Saints of Cyrod*.
-- Pepe's role in her burning is his own testimony.
-- the theological meaning of the event is contested within VIGILANT's own narrative.
+Current classification: **high-confidence Moura = Mary = the Mara-role identity cluster**, with multiple later memory/Coldharbour manifestations. The exact mechanism connecting saint, memory victim, Shoggoth Mother, and later Mary forms remains unresolved and should not be flattened into a simple resurrection chronology.
 
+Rumors that Mary literally consorted with Molag Bal or biologically birthed the monsters remain attributed claims, not established fact.
 
 ## Jhunal
 
