@@ -64,3 +64,13 @@ It does **not** by itself prove that:
 - their summon tomes imply the same ontology as natural/hostile forms.
 
 Keep creature lineage, faction membership, and metaphysical origin as separate evidence layers.
+
+## Summon-chain resolution
+
+Each branch has a deterministic BOOK -> SPEL -> MGEF -> summoned-NPC chain:
+- Conjure Mal-Sinak -> summoned Mal-Sinak
+- Conjure Rein-Sinak -> summoned Rein-Sinak
+- Conjure Ru-Sinak -> summoned Ru-Sinak
+- Conjure Pogaan-Sinak -> summoned Pogaan-Sinak
+
+The summoned forms use the same custom branch races as hostile forms but omit Owl Faction and the Woodland-Man-Roots death list. This strongly supports **summoned proxy of the same creature archetype**, not the same hostile individual.
