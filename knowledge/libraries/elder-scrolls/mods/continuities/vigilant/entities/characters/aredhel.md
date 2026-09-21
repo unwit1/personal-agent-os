@@ -109,7 +109,7 @@ The later Aredhel's implementation contains many internal `Renald` identifiers:
 - `zzzCHAbRenald`
 - `zzzCHRenaldInvisibility`
 - `zzzCHRenaldWindCutter*`
-- `zzzCHArmorRenald*`
+- `zzzCHArmorRenald*` — neighboring legacy asset family later used by Judo rather than Aredhel's actual boss outfit
 - `zzzCHRenaldSword`
 - `zzzCHDeathItemRenald`
 - `CHBossRenaldRef`
@@ -140,20 +140,20 @@ and uses the outfit:
 
 - `OTFT 024FC4B1` / `zzzCHOutfitAredhel`.
 
-The associated armor pieces still use `Renald` EditorIDs but display as:
+The outfit actually contains the separate **Blade of Diagna** set:
 
-- **Knight of Diagna Boots**
-- **Knight of Diagna Armor**
-- **Knight of Diagna Gauntlets**
-- **Knight of Diagna Helmet**
+- `ARMO 024FC4A5` — **Blade of Diagna Boots**
+- `ARMO 024FC4A6` — **Blade of Diagna Armor**
+- `ARMO 024FC4A7` — **Blade of Diagna Gauntlets**
+- `ARMO 024FC4A8` — **Blade of Diagna Helmet**
 
 This matches Gaiden's statement that he supplied Aredhel with a sword and armor.
 
-The playable alternate sword record:
+A separate legacy-Renald equipment family contains the **Knight of Diagna** set and the playable:
 
 - `WEAP 02052F59` / **Akaviri Black Katana**
 
-shares the same internal Renald weapon family.
+Those are used by **Judo of the Order of Diagna**, not by Aredhel's later boss outfit. See `analysis/diagna-coldharbour-cluster.md`.
 
 ## St. Dulsa's Key
 
