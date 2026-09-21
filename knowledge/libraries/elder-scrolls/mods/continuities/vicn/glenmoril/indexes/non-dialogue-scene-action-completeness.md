@@ -3,7 +3,7 @@
 Source: raw `Glenmoril.esm`  
 SHA-256: `5669018c81acf13147ff489f486963ecc3c57515a73ed9afd210c7ede85e1cc8`
 
-This ledger opens the next ingestion frontier after closure of direct dialogue, BOOK, and MESG exact-text layers.
+This ledger tracks the non-dialogue SCEN frontier after closure of direct dialogue, BOOK, and MESG exact-text layers.
 
 ## Deterministic SCEN inventory
 
@@ -12,7 +12,19 @@ This ledger opens the next ingestion frontier after closure of direct dialogue, 
 - dialogue actions (type 0): **1,578**
 - package actions (type 1): **461**
 - timer actions (type 2): **172**
-- non-dialogue actions requiring exact normalization: **633**
+- non-dialogue actions: **633**
+
+## Exact-normalization status
+
+- package actions normalized: **461 / 461**
+- timer actions normalized: **172 / 172**
+- total non-dialogue actions normalized: **633 / 633**
+- owning quest links resolved: **633 / 633**
+- actor alias names resolved: **633 / 633**
+- package references preserved: **461 / 461**
+- timer values decoded: **172 / 172**
+- GLENMORIL package EditorIDs joined: **428**
+- Skyrim master-package references retained by exact source ID: **33**
 
 ## Scene coverage shape
 
@@ -24,26 +36,18 @@ This ledger opens the next ingestion frontier after closure of direct dialogue, 
 - scenes containing only non-dialogue actions: **31**
 - scenes with zero parsed actions: **1**
 
-## Structural interpretation
+## Preserved fields
 
-The parser currently resolves:
-- type 0 as dialogue actions, with actor alias and DIAL linkage;
-- type 1 as package actions, with actor alias and PACK linkage;
-- type 2 as timer actions, with actor alias and timing payload.
-
-The direct-dialogue corpus already accounts for type-0 text. The new exact backlog is therefore **461 package actions + 172 timer actions = 633 non-dialogue actions**.
-
-## Next normalization pass
-
-For every non-dialogue action preserve:
+Every normalized non-dialogue action retains:
 - scene source ID / EditorID;
 - owning quest source ID / EditorID;
-- action index;
-- action type;
-- actor alias ID and resolved alias name where available;
-- package FormID/source ID/EditorID for type 1;
-- timer value for type 2;
-- start/end phase fields;
-- raw structural fields needed for later chronology reconstruction.
+- action index and type;
+- actor alias ID and resolved alias name;
+- start/end phase fields and action flags;
+- exact package source reference and local EditorID where available, or exact timer duration.
 
-After exact preservation, promote only chronology/relationship claims supported by package targets, scene ordering, scripts, or corroborating text.
+See `schema/non-dialogue-scene-action.md` and `indexes/non-dialogue-scene-action-normalization.md`.
+
+## Next pass
+
+Structural normalization is closed. The next pass should reconstruct scene choreography/chronology from package targets, phase ordering, timers, scripts, and corroborating text. Narrative claims should not be inferred from EditorIDs or package names alone.
