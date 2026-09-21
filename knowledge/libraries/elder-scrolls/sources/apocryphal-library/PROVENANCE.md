@@ -29,3 +29,18 @@ Total: **784** records.
 5. Preserve the compilation path and FormID even after the original source is identified, so provenance remains traceable.
 
 Machine-readable per-record statuses are in [`provenance-triage.json`](./provenance-triage.json).
+
+
+## Incremental verified batches
+
+Provenance refinement now proceeds through small additive overlays in [`provenance/`](./provenance/) rather than repeatedly rewriting the large baseline ledger.
+
+### Batch 001 — first 10 alphabetical titles
+
+- Records reviewed: **10**
+- Verified official game text: **5**
+- Verified developer/obscure text: **1**
+- Verified Apocryphal Library mod original: **2**
+- Left unresolved: **2**
+
+See [`provenance/batch-001.json`](./provenance/batch-001.json) for the per-record evidence and classification.
