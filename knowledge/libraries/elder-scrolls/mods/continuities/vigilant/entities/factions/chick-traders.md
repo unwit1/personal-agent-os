@@ -44,7 +44,9 @@ separate until an ESM record explicitly links the organization.
 
 ## Current classification
 
-**Supplementary organization node / direct-source gap.**
+**VIGILANT-only:** supplementary organization / direct-source gap.
+
+**Cross-Vicn:** heavily corroborated in GLENMORIL.
 
 ## Recovery targets
 
@@ -59,3 +61,53 @@ Search future source layers for:
 ## Canon boundary
 
 Chick Traders are VIGILANT supplementary material, not base Elder Scrolls canon.
+
+
+## Cross-Vicn direct corroboration — GLENMORIL
+
+GLENMORIL contains extensive direct ESM-derived material for the **Chick Traders**.
+
+Relevant files:
+- `../vicn/glenmoril/concepts/chick-traders.md`
+- `../vicn/glenmoril/relationships/chick-trader-core-graph.md`
+- `../vicn/glenmoril/quests/the-chick-trader.md`
+- `../vicn/glenmoril/entities/characters/jazel.md`
+
+Direct GLENMORIL evidence includes:
+- `Ja'zel the Chick Trader` as a named NPC identity;
+- Ja'zel counting and purchasing “chicks”;
+- Brandt explicitly saying the jarl ordered **orphans sold to the Chick Trader**;
+- Lalanoah being counted among those children;
+- Ja'zel saying Civil War conditions make the business profitable;
+- Brandt describing Chick Trader activity as worse than Morrowind slavery;
+- later institutional lore tying the organization to Anequina, royal guards, succession, imposture, and deliberately substituted vocabulary.
+
+This strongly corroborates the a123999 supplementary claim that Chick Traders are an Elsweyr/Anequina slave-trading institution exploiting instability.
+
+## Vocabulary warning
+
+Later GLENMORIL material explicitly shows that **Chick**, **Egg**, **Chicken**, and related terms are deliberately metaphorical/substituted.
+
+Therefore Lorekeeper must not globally decode:
+- Chick = child;
+- Egg = soul;
+- Chicken = adult;
+- every chick-related VIGILANT book = Chick Trader record.
+
+The safest model is:
+- Act 1 GLENMORIL proves the institution literally traffics/claims children under Chick terminology;
+- later material broadens the terminology into a more complex symbolic/metaphysical system.
+
+## Relationship to VIGILANT Slave Trader
+
+The VIGILANT fiery-eyed Slave Trader and his eight notes remain a **separate identity thread**.
+
+Cross-Vicn existence of the Chick Traders makes organizational linkage more plausible, but the current VIGILANT ESM still does not prove that the unnamed Slave Trader belongs to this institution.
+
+Do not merge them yet.
+
+## Revised classification
+
+**VIGILANT-only:** supplementary organization / no direct named faction record currently persisted.
+
+**Cross-Vicn:** heavily ESM-corroborated GLENMORIL institution with named members, quests, transactions, and origin traditions.
