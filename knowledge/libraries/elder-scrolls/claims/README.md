@@ -1,3 +1,90 @@
 # Claims
 
 Evidence-backed claims, citations/provenance, competing interpretations, contradictions, and unreliable-source handling.
+
+## Claim-bundle convention
+
+Claim bundles are currently stored as human-readable Markdown so they remain Git-browsable before the reusable Knowledge Library database layer is implemented.
+
+Each promoted claim should have:
+
+- a stable claim ID;
+- a concise proposition;
+- continuity scope;
+- status such as supported, attributed, disputed, qualified, or unresolved;
+- epistemic mode;
+- confidence;
+- evidence pointers;
+- optional `Supports`, `Contradicts`, and `Qualifies` edges;
+- relationships that can later be materialized into structured entity/relationship tables.
+
+### Stable ID guidance
+
+Use lowercase dot-separated IDs that encode continuity/domain/entity/relation where practical.
+
+Examples:
+
+- `vicn.jhunal.gray-owl.direct-identity`
+- `vicn.saarthal.anti-ysgramor-testimony`
+- `unslaad.ulliss.revival-costs-dragon-soul`
+
+Claim IDs should remain stable even if the explanatory Markdown moves.
+
+## Evidence rule
+
+A claim may point to:
+
+1. raw game/plugin record IDs;
+2. normalized source records;
+3. source-specific dialogue/book/message pages;
+4. parent synthesis pages, only when the synthesis itself is the claim being represented.
+
+Prefer raw/normalized source evidence over synthesis pages when available.
+
+## Epistemic rule
+
+Distinguish:
+
+- deterministic implementation fact;
+- direct participant testimony;
+- reported historical testimony;
+- myth/dream/prophecy;
+- system/UI statement;
+- reused external text;
+- cross-work synthesis;
+- unresolved interpretation.
+
+A character saying something happened is not automatically the same as the library asserting it objectively happened.
+
+## Contradiction rule
+
+Do not delete or silently merge incompatible claims.
+
+Represent both claims and connect them using:
+
+- `Contradicts`
+- `Qualifies`
+- `Supports`
+
+The future SQLite/structured claim graph should preserve these same stable IDs and edges.
+
+## Current VICN claim bundles
+
+- `vicn-jhunal-identity-claims.md`
+- `vicn-oracle-iridescent-claims.md`
+- `vicn-atmora-saarthal-night-of-tears-claims.md`
+- `vicn-radiance-mnemo-li-memory-claims.md`
+- `vicn-unslaad-dragon-soul-claims.md`
+
+## Migration target
+
+When the reusable Knowledge Library subsystem is implemented, these Markdown bundles should be machine-migrated into:
+
+- entities;
+- relationships;
+- claims;
+- evidence;
+- contradiction/support edges;
+- provenance records.
+
+The Markdown should remain a browsable report/export rather than becoming the only source of structure.
