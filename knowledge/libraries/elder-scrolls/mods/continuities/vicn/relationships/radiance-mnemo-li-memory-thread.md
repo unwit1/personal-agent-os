@@ -48,6 +48,40 @@ It is Ja'zel's source-local cosmology, not an objective parent-continuity defini
 
 DAc0da independently names Xero-Lyg in Crabbimarco's Lyg history, but **does not** identify Xero-Lyg with its Blue Star or Sea of Radiance.
 
+## Holy-Piper Radiance bridge
+
+The combined VIGILANT + DAc0da evidence makes **Radiance** more than a coincidental repeated word.
+
+### VIGILANT
+
+Direct Holy-Piper/Sacred-Anatomancer dialogue invokes **Radiance** as part of Piper doctrine. The Piper mission language includes removing enemies because they obstruct **our Radiance**.
+
+### DAc0da
+
+DAc0da's **Vigilant Athanasius** directly identifies himself as a **Keeper of Stendarr of the Holy Pipers branch**.
+
+The same Athanasius later says he has **attained Radiance** in **The Sea of Radiance**.
+
+The associated **Letter to a Friend** sends a seeker of Radiance to VIGILANT character **Altano** to learn compassion through suffering.
+
+### Synthesis
+
+This produces a three-part direct bridge:
+
+`VIGILANT Holy Pipers -> explicit Radiance doctrine`
+
+`DAc0da Holy Piper Athanasius -> attains Radiance`
+
+`DAc0da Radiance letter -> points back to VIGILANT Altano`
+
+This substantially raises confidence that **Radiance is a deliberately recurring Holy-Piper/Vigilant-adjacent VICN concept**, not merely an accidental reuse of a generic noun.
+
+It still does **not** establish that:
+- VIGILANT Piper Radiance and Athanasius's attained Radiance have identical mechanics;
+- Altano was himself a Holy Piper;
+- Altano knew the term Radiance;
+- the Sacred Anatomancer and Athanasius represent the same Holy-Piper branch/state.
+
 ## DAc0da — Sea of Radiance
 
 DAc0da's **The Sea of Radiance** makes Radiance more operational.
