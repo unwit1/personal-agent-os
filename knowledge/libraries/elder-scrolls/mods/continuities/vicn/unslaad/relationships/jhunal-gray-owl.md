@@ -90,3 +90,14 @@ Unresolved:
 - what the original/deific Jhunal's exact relationship to these actors is.
 
 Lorekeeper should link these identities densely while refusing a premature global merge.
+
+## Post-quest craft-form evidence
+
+After **The Owl Flies at Dusk** is completed, three Gray-Owl craft forms become available.
+
+Their descriptions add direct identity/history statements:
+- **Gray OWL** calls him the **second CHICK**, once an Atmoran mage seeking the "dragon";
+- **Gray EGG** says an EGG was crushed by a **Chick Trader of Anequina** and lost its "future";
+- **Shadow of the Gray OWL** says the secret of Saarthal granted him insight into higher planes.
+
+These post-quest descriptions strongly reinforce the existing Atmora / dragon-dream / Saarthal / Chick-Trader network, while leaving the exact meaning of "second CHICK" unresolved.
