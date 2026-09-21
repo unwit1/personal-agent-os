@@ -1,0 +1,109 @@
+[pagebreak]
+<p align="center">
+
+Dragon Breaks
+
+A Scholarly Overview
+
+by Xenoclastus of Skingrad
+
+</p>
+
+
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/D_letter.png'>ragon Breaks, or 'Un-time Events', are those periods of history in which sequences of events flow in such a way as would normally mutually exclude them from one another. The 'Warp in the West' is such an example, where it is now understood that several conflicting factions managed to use the power of an ancient artefact at the same time, with multiple time-flows being reported that contradicted each other, until they were eventually 'resolved' sometime after each event had concluded with the modern political map that is the Iliac Bay.
+
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/S_letter.png'>tructure of a Dragon Break
+
+The various 'time flows' of a dragon break do not have to last the same length of time, for example the Middle Dawn where one timeline lasted a good thousand years longer than the other. Eventually, these timelines may be resolved, and time flows in one consistent direction again. But it remains the case that those who survive the Un-time Event may still  have differering memories on what happened during. Exactly how these conflicting strands become resolved is a matter which we will attempt to answer after we discuss how they come to pass in the first place.
+
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he God of Time, great Father Akatosh, First of all Dragons. If something has caused an upset in the flow of time, surely it must be something to do with Akatosh. And we believe that this is correct. Most ancient history puts the founding of linear time at ME 2500, at the beginning of the Merethic Era. But if Linear Time 'begins' then, then what was there 'before', if we can even perceive of a 'before'?
+
+Convention. The defeat of Lorkhan by Trinimac leads to his heart being torn out and hurled away by the Chief of the Elven gods, Auri-El. With the heart landing in the lands that would become Morrowind, reality is stabilised and time begins to flow consistently. Before this, the Aurbis must have been in a state of temporal flux, which would account for varying accounts of exactly what happened at the Zero Tower.
+
+Often it is Akatosh who is mentioned as being the one who defeated Lorkhan, but given that we often understand that Akatosh essentially underpins the existence of linear time, he can't have existed before that point. 
+
+Therefore we believe now that Akatosh is comprised of two beings; Auri-El and Lorkhan. We believe that Akatosh has existed as a concept in previous kalpas, in which linear time flowed, but this was the birth of OUR Akatosh. If it seems puzzling that two enemy forces would merge together into one, then ask yourself: What great event took place in more recent history, where two or perhaps three enemies came together and became a god? An event often said by our order's illustrious founder - who was indeed present - to have been a 'Mirror of Convention'?
+
+Why, you have already answered it - the Apotheosis of Talos. Talos is not simply the man Tiber Septim, and the man Tiber Septim was not simply the man Hjalti Early-Beard.
+
+In slaying Lorkhan, Auri-El must have taken some of his rival's power for himself - perhaps unwittingly, perhaps deliberately. In hurling away his rival's heart, he sent a little piece of himself away too - might this not explain the Chim-el Adabal? If it is Lorkan's blood, why is it the seat of the Dragon?
+
+Consider the ancient depictions of Auri-El. He is viewed as an eagle. Ancient depictions of Lorkhan, especially among the Redguards, show him as a snake. If a snake were granted two wings and two clawed arms, would it not resemble a dragon? Other depictions of Auri-El show him holding the sun; we may return to this matter later, as it is possibly of great import.
+
+The result remains true: Linear Time Begins.
+
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/W_letter.png'>hat, then, actually is a Dragon Break, and how might one be caused?
+
+If an event occurred that caused Lorkhan to split into Lorkhan and Auri-El once again, then that would, by simple mathematics, cause time to become unbound as it was in the Dawn Era.
+
+We shall begin with the Middle Dawn: This one is easily explained. The followers of Marukh were attempting to exorcise Auri-El from Akatosh. They were the most fervent adherents of Alessianity, and believed that the Elven pantheon was a blight on the Alessian pantheon.
+How they attempted this is a matter of debate; convoluted rituals, the aid of the gods themselves, a staff of enormous power. What is a matter of record is that the Middle Dawn began, and lasted for one-thousand and eight years. 
+
+The able scholar will have worked out how this happened; they succeeded. By subtracting Auri-El from Akatosh, the end result was Lorkhan. The gods of old were separate once more.
+
+In the case of the Red Moment, when the Dark Elves were created, and the Dwarves were destroyed, the narrative is less clear, but the accounts of Vivec and Alandro Sul both mention that the Dwarves vanished when the Tools of Kagrenac were used on the Heart of Lorkhan. Alandro's version states that Azura showed Nerevar how to cut Lorkhan's power away from the Dwemer, and Vivec's account states that Kagrenac, the Dwarven high sorceror-priest, attempted to use the tools on the heart, which we now know was housed in the unfinished Numidium, himself. Only in the Nordic version, the Song of King Wulfharth, is the ghost of Lorkhan present himself.
+
+The Profane Tools are extremely powerful, or were. The blade, Keening, was so sharp it could allegedly cut through sound, being itself made of compacted tones. The hammer, Sunder, was so dense that anything it touched became solid. By making Lorkhan's heart 'real' for a second, rather than mythic, it was separated from Akatosh. And the bizarre events that describe the Red Moment followed, with the change of one race, the vanishment of another, and multiple accounts that cannot all be true at once. The other possibility is that, if the Nordic version is true, Shor's ghost caused the untime event by reuniting with the heart, and it was the subsequent use of the tools that, in fact, 'banished' him.
+
+The Song of Pelinal has been analysed by hundreds of scholars over the years, and many agree that it fulfils some of the qualities of a dragon break. Entire areas are erased from existence, he bellows the name of Reman, 'a name none knew yet' (although some scholars point out that the 'yet' must have meant that the account was written after Reman's time - and thus possibly by that Emperor's apologists and propagandists). How Pelinal came into being is uncertain, though he seems to have come from out of a red diamond conjured by Alessia. The significance of Pelinal himself to this Dragon Break will be discussed in the next chapter.
+
+The Warp in the West was the final use of the Numidium. Even our founder admitted that the first use of the Brass Titan has few of the historical signs of a Dragon Break, though he claimed it was one. But when Uriel VII used the Construct, so did many others. Wayrest, Sentinel, Orsinium, Daggerfall, the Worm-King and our great founder himself, the Underking, all used the device at the same time, for different reasons.
+The outcome is the Iliac Bay today - Imperial rule across High Rock, those powerful city states, the ascended Maggot-King lurking in the sky, and our founder Ysmir Arctus, the last key in the puzzle that is Talos. 
+
+Now we must discuss what our two gods are doing in these moments.
+
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>uri-El, having ascended to Aetherius after his victory at Convention, remains in the heavens, or so we believe. When he is unbound from Akatosh, he is no longer both part of the World and part of the Skies, he is merely the latter. We believe, as many don't, that the strange star Mnemo-Li, which only appears in the Un-times, may be Auri-El's eye, watching what transpires below. Others believe that the star is nothing to do with Auri-El, and that it is the work of another being entirely. The Blue Star has not been studied to the satisfaction of any.
+
+Down on Nirn, however, another story plays out. No longer bound by the Dragon, Lorkhan is separate. So where is he? If not in Aetherius, he must be here on Nirn.
+
+Mannimarco, the Revenant and the God-King of Necromancers, was once interviewed on the matter of the Middle Dawn, long before his apotheosis. He said this:
+
+"The Three Thieves of Morrowind could tell you where they were. So could the High King of Alinor, who was the one who broke it in the first place. There are others on this earth that could, too: Ysmir, Pelinal, Arnand the Fox or should I say Arctus?"
+
+That the Tribunal of Morrowind might endure a Dragon Break and know their place in the chaos is interesting, since they had taken the power of Lorkhan for themselves. 
+
+The High King of Alinor was called Auriel, which is confounding in the highest - did he become Auri-El in reverse? Were the efforts of the Marukhati selectives a distant mirror of the Thalmor of today, seeking to cast down a mortal who became a god? Outside the scope of our discussion. We look now at the names that he provides. Ysmir, Pelinal, Arnand the Fox, and Arctus.
+
+Ysmir was King Wulfharth, the hero known as Shor's Tongue, the Champion of Lorkhan who is resurrected by his god on many occasions.
+
+Pelinal is the Divine Crusader who saves humanity from the Elves.
+
+Arnand the Fox, and Hans the Fox before him, are figures we know little about, but both are assigned the title of The Shezzarine, which is to say: Lorkhan Incarnate. The Fox is the totem of Shor in ancient Nord practice.
+
+Zurin Arctus is the founder of our Order, who is now Talos Ascended.
+
+All of these people, we believe, including our founder, were the Shezarrine. They were the mortal aspect of Lorkhan that roams the world, just as Sep slithers between his old shed skins in Yokudan lore. What we don't know is which one of these identities was the Shezarrine during the Middle Dawn. Pelinal was before, Zurin was after, Wulfharth was before. This suggests that Arnand may have been present during the Middle Dawn, all One-Thousand and Eight years of it, and vanished after. If so, he was wandering a long time. 
+
+At Red Mountain, King Wulfharth takes the ghost of Shor to his actual Heart. This completes him, and splits him from the Time God. Only when the tools are used on the Heart does the flow of time begin to restore.
+We also believe that if Kagrenac had successfully bound the Heart to the Numidium, the brass god would have taken upon itself the mantle of Lorkhan, and lived fully once more. It is possible that this could cause time to end permanently.
+
+Pelinal was, we believe, the Shezarrine. He seems to have been conjured from out of a red diamond - possibly the Chim-El Adabal. He venerates his 'Shared Madness' with Akatosh, hinting that he is part of that binary, and that he knows his place within it. His ability to destroy such swathes of land (if indeed the tales are true) suggests that perhaps he was restored with his divine centre somehow.
+
+Of the Warp in the West, we know this. The Mantella was a soul gem that held the soul of our founder, Ysmir Kingmaker, anon Zurin Arctus. Note how our founder seems to have taken on some of the aspect of his old foe, Wulfharth. 
+This Mantella was used in the place of the Heart of Lorkhan in order to allow the Numidium to work. Being the soul of the Shezarrine, it was not quite as strong as the literal Heart of the World, but it was enough for the Titan to function. It was probably the safer option than the Heart, too - perhaps less prone to ending the world.
+When he is reconnected to his own soul, it is a grand moment for our founder. He ascends, and those parts of him that are within the spirits of Tiber Septim and the Ash King join him, and Talos changes considerably. The god Tiber Septim had held the Empire together for generations, and after the Warp in the West, things break apart.
+
+We have now pinpointed the location of Lorkhan's soul in all known Dragon Breaks. Now, we turn our attention to the aftermath.
+
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/W_letter.png'>hen a Dragon Break comes to an end, as we discussed, the disunited strands of history are woven together into one, with various persons remembering one course of history or another. How does this come to pass?
+
+Chronologians speak of 'Jills of Aka-tosh'. The term 'Jill' is a somewhat archaic concept used to denote a female dragon, though it is sometimes used in the same way that the word 'wife' would be used. They are those who 'mend the minutes', 'without volunteer'. In doing so, somehow these creatures are able to weave creation back into common order. 
+
+We believe, however, that the Jills are not part of Akatosh at all. But we derive this belief from interpolation of Khajiit beliefs. Their version of Kynareth, whom they call Khenarthi, is given the following role:
+
+"The pre-ri'Datta beliefs state that after the Many Paths of Time were created by Akha, Alkosh inherited the role, and is aided by Khenarthi who ensures that the tapestry of time is mended. It was her who put Alkosh back together, and now they both "safeguard the Many Paths from the Dragons, the "wayward children of Akha" from his unions with the Winged Serpent of the East, the Dune Queen of the West, and the Mother Mammoth of the North."
+
+If this symbolism translates into our own theology, then it is Kynareth who repairs the Dragon. It should be noted here that Kyne, in the Nordic version, is the wife of Shor. Perhaps Lorkhan is brought back into his role of preserver by the love of his wife, out of her love for the mortal endeavour. Mara and Dibella, similarly, are described as the wife of Akatosh and the Bed-wife of Shor in various works, and thus the 'Jills of Akatosh' are most likely these three deities - the female divines. With love, beauty and the power of nature, they are able to reconcile Akatosh and Lorkhan into a state of non-conflict, so that the dream of existence my continue. 
+
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/I_letter.png'>n our closing notes, we reflect on the terrifying nature of time. We cannot truly know if it starts, or if he simply revolves, or beats in and out like the eternal thumping of the Doom Drum's heart. 
+
+Our Founder bade us learn a great many mysteries in order to reunite him with his own divine centre, and in doing so taught us that this is a pattern that may have been repeated more often than can be counted. We wake up and wish we were asleep, and only in the evening do we return to the bliss of the Dream, where nothing means anything and everything means nothing. But only in our waking moments are we truly alive, and able to improve ourselves. One day, perhaps we will fulfill our last improvement, as Lorkhan once taught his Subgradient, who was so good to teach us.

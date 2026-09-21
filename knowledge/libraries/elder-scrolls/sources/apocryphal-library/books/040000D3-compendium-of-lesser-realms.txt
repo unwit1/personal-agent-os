@@ -1,0 +1,26 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/C_letter.png'>ompendium of the Lesser Realms of Oblivion
+
+by Lux-Jeel
+[pagebreak]
+</p>
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/H_letter.png'>ere within are so indexed and accounted the many known, recorded and suspected pocket-realms and sub-strata of the voids of Oblivion. 
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/F_letter.png'>argrave, which is an itinerant realm that accords itself to the drift-looms of the Sea of Open Hands. Fargrave has no ruling Prince nor Lord. It is maintained by the Stricture who afford a measure of free passage provided that its remits are observed exactly.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/D_letter.png'>etritus, which is a carven subform of the Hunting Grounds adrift in the Aponemic Gulf. Detritus is ruled by Hha-Lugh-Zhek. It is populated with a plethora of immortal horrors and unknowns which the realm's lord uses to sow seasonal discord on Tamriel.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/P_letter.png'>ergamaea, which is a conglomeration realm between Moonshadow and Attribution's Share. It is ruled by Queen Chirsaedo. It is a place of pilgrimage for devotees of Almalexia.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/G_letter.png'>aiar Alata is a tomebound realm in the centrifugal orbit of the Deadlands. It is ruled by a mortal Altmer whose name has not been decoded. It has the appearance of ancient Elven ruins in a wide blue sea.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Soul Cairn, which is a flat-ended realm in the Clavican Traverse. The Soul Cairn has no ruling Prince nor Lord. It is maintained by the Ideal Masters, who communicate only with necromancers. It is inhabited entirely by trapped souls.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/M_letter.png'>aelstrom, which is a vortical nexus at the centre of the Sithic Abyss. It is ruled by Fa-Nuit-Hen. It is a place of great education and learning.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/G_letter.png'>rayhaven, which is a remnant fissure in the Padomaic Expanse. It has no governor or ruling Prince. It is a broken landscape of shattered time and undead crows.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Porphyric Throne, named speculatively by Mananauts, which is a fragment of Dementia in transit toward the Balian Nexus. It is ruled, and apparently solely populated, by Vogash-Xothul. No exploration has ever been conducted.

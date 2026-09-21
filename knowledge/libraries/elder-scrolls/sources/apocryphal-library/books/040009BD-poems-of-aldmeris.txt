@@ -1,0 +1,59 @@
+[pagebreak]
+<p align="center">
+
+Poems of Aldmeris
+
+
+Edited by Varigilamo of Firsthold
+
+
+</p>
+[pagebreak]
+<p align="left">
+The following poems have been collated from across all the Elven nations. They all represent the memory of distant Aldmeris, through the many varying forms of flower-script that form the birthright of Mer.
+
+May these poems bring you the joy of the half-memory of Old Forgotten Ehlnofey, whose gilded arches and monuments inspire our dreams for eternity.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>fter I had walked the circuit
+For the third, fifth, and seventh times
+I laid a crystal flower down
+For every star that passed me by.
+
+And when I walked the circuit
+For the ninth and final time
+I wished those flowers into heaven
+To fall as tomorrow's rain.
+
+- The Sequence Immutable
+Altmer traditional, author unknown
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/I_letter.png'> will not lie; there is pain here.
+We do not go to a place of marble towers.
+We do not march to a valley of crystal springs.
+There are no tears of joy,
+Only tears shed in ash and sorrow.
+
+Our brothers still mourn for you,
+We must march on from you.
+The memory will bring no kindness
+Only promises and regrets
+Of a land half-spoken.
+
+- Farewell to Aldmeris, By Veloth the Prophet
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/I_letter.png'> lay to rest in Skingrad Town
+Expecting there to wake
+But when I woke I looked upon
+A shining crystal lake.
+And when I drank its waters pure
+I felt it call to me;
+A hundred thousand years or more
+Of timelost memory.
+I walked among the glorious hills 
+Among the gleaming towers
+And when I woke, in truth this time,
+I could still smell the flowers.
+
+- The Dream, By Nalynwe
+
+</p>

@@ -1,0 +1,22 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/G_letter.png'>oldbrand
+
+
+by Nels Randram
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he origins of the golden sword, Goldbrand, are none too precise - as befits the reward of Boethiah. The blade was, according to histories of the Prince of Plots and more general works on famed artefacts, forged by 'Dragons of the North' as a gift for a knight who was sworn to protect them. Though the Chantry of Akatosh did indeed claim to protect dragons in High Rock, there are no reports from the modern age of real dragons having existed rather than mere reptilian beasts of similar stripe.
+
+A clue, perhaps, to the true origins of the blade may lie in its form. It is fashioned like the katanas of distant Akavir, and there was indeed an order of knights who originated from there who were known as the 'Dragon Guard', who famously surrendered to Reman I at Pale Pass in the First Era. The notion of a knight who protected dragons, then, is likely a misunderstanding of the meaning of 'Dragon Guard' - they were not protectors of dragons at all, rather they credited themselves with hunting the beasts to extinction.
+
+Who, then, created the blade? Dragons may have come from Atmora, if the legends are true, but it seems unlikely that they would make a blade for the purpose of giving to their enemies. However, 'Dragon of the North' is sometimes associated with the title 'Ysmir', both names given to ancient Nordic kings from before the time of Harald. The name Ysmir was granted much later in Tamriel's history to Tiber Septim by the Greybeards of High Hrothgar. But both Harald and Tiber existed far in history from the arrival of the Akaviri, who arrived in Skyrim after the one but long before the other. So who made the blade?
+
+The Dragonguard took Reman as their commander, as they believed him to be the fabled Dragonborn. Historically, it would make most sense for Reman I to have been either the creator of, or first intended recipient of Goldbrand - with one of the Akaviri being the creator in the case of the latter. However, there are no historical records that demonstrate conclusively that the blade was made in this time, or that Reman I owned the blade.
+
+There is only the barest hint of one individual who was the first who was intended to receive the blade - an ancient warrior of Skyrim, name now forgotten, from the time when dragons did indeed supposedly dwell in that land, and long before the time of the Dragonguard. Akavir is said to be a land of dragons, so it is not inconceivable that its form may have taken that of an Akaviri blade if this legend is indeed true. But as with many facts of Boethiah, the truth is somewhat obscure. How the prince came to be associated with the blade is completely unknown.
+
+The blade is reportedly very strong, and so if it is truly made of gold then it must be hardened magically. That which is struck by the blade is consumed with the fire of the dragons who supposedly crafted it. It is your humble author's shame that he cannot provide more definitive facts on the sword other than those concerning its shape and effect - even the list of warriors who have wielded it is historically questionable, bearing such names as Archmage Shalidor, Saint Alessia, Cyrus the Restless, Mannimarco and many other names presumably included only for their novelty. That the blade even exists at all is only provable by the accounts of less-famous wielders.

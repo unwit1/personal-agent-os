@@ -1,0 +1,36 @@
+[pagebreak]
+<p align="center">
+
+
+Mortal Taxonomies
+
+by Seeker T'uuhgi Hlaeer
+
+
+
+
+Volume II: Evolutions of Mer
+
+</p>
+<p align="left">
+
+The Ehlnofey that coagulated into the Aldmer showed a particular adeptitude in the practice of magicka harnessing, able to accrete early deposits of Dawn Magic into inert ampoules as a primitive form of Dracochrysalis. Centuries of predation by the Mannish species diminished the Aldmer population to the point where it has no known extant members.
+
+The least-changed species of Aldmer descendant is that of the Altmer, whose specimens still sport a diminished variant of the former's golden patina. They dwell on secluded islands away from the main landmasses of Nirn to avoid predation by hunters. They are fiercely territorial, but have been known to incorporate other landmasses into their territory when necessary.
+
+The Maormer have undergone fewer changes to the Altmer than their pre-Dawn morphology, such that they still have various Dreugh attributes. However, they do not resemble the Aldmer quite so much as their specimens claim. They live in even greater seclusion than the Aldmer and are usually hostile to all other mortal species.
+
+The Falmer are a now-diminished species that formed in the early collapse of the Aldmer race. They were highly well-adapted to the cold, and very capable at building large structures. Predation by Atmorans led to the almost complete eradication of this species, with only a small number of specimens still surviving in their original form. Many formed underground colonies with the Dwemer, but were ill-adapted to the underground and have devolved considerably since.
+
+The Dwemer were an subterranean species that adapted very well to caves and caverns, constructing large edifices with large underground chambers and smaller above-ground apertures. They were able to produce a metal that cannot be produced by any other known means, and they used it in all forms of construction. They were able to produce facsimiles of armoured mer that functioned as drones in their cities. After a clash with Chimer colonies, their parasitic dependence on the Lorkholith resulted in them inadvertently attaining sentience, and all specimens of the species became impossipoint-collapsed with no confirmed physical survivors.
+
+The Chimer were a sub-species of Altmer who abandoned the colonies of the latter and became semi-adapted to the volcanic climes of Resdayn. These colonies came into contact with the Dwemer, and both species attempted to eradicate the other until the Dwemer - as previously noted - eradicated themselves. As a result of this, they were caught in the Lorkholith entanglement scenario and became an entirely new species, the Dunmer.
+
+The Dunmer, following this incident, are a highly adapted species that thrive in the volcanic conditions of Resdayn. Their social structure is mostly identical to that of their Chimer predecessors. Though somewhat distrusting of other species, they have demonstrated a tendency to integrate among them with more long-lasting results than other mer.
+
+Orsimer are a heavily divergent strain of mer whose morphology has become greatly exaggerated into more mannish form. This evolution seems to have been a reaction to the decolonisation of the Altmer lands by the Chimer subspecies, though the exact cause has yet to be determined. While somewhat reclusive - tending to occupy small colonies, with only one recorded extant larger colony at any given time - they are somewhat more trusting than other species, and are often seen far from their colonies among other species.
+
+Bosmer are a species of mer who have a symbiotic relationship with the primordial matter beneath the root structures of Valenwood. This relationship allows them to change their form at will, though such behaviour is rarely engaged in as it has a tendency to cause the specimen to be absorbed by the primordial matter permanently.  They very rarely consume vegetable matter, since this has a tendency to cause the same thing. As such the species are considered obligate carnivores. Sexual dimorphism is more pronounced in Bosmer, with the female usually standing noticeably taller than the male.
+
+Ayleids were a sub-species of Altmer that colonised the central continent of Nirn. They were skilled in the construction of the arch, and utilised colonies of Nedes to build them. They evolved several forms of flesh-coccooning that was used for a variety of physical and magical needs. Eventually, they were overrun by swarms of Nedes, and the survivors interbred with other species.
+

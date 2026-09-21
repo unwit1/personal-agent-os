@@ -1,0 +1,26 @@
+[pagebreak]
+<p align="center">
+
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/C_letter.png'>orpuscular Materium Theory: A Beginner's Primer
+
+
+
+by Serjanus Verbosius
+</p>
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he process of dividing matter into useful taxa has led to the identification of four major subdivisions of indivisible particle, which are themselves made of their own substance which cannot be further subgradiated.
+
+These four particle types are: The Chronocule, the Terrestron, the Fjyron and the Daedron.
+
+Chronocules are the particles which control the flow of time. They can, in theory, travel to any other moment in time or space, but are controlled largely by each other and, at a greater extent, by other kinds of particle. The effect can be Aurbic or it can be localised. 
+The most common chronocule is called Marukh's Tiidon, which flows in the direction we associate with 'Forwards'. Named somewhat in reaction to this was Auriel's Volvon, which flows in the opposite direction. There are other types of chronocule too, such as the Ysgramon which slows time down, and the Archaeon which hastens its passage.
+
+Terrestrons are the physickal components of matter. The 'elements' are all, themselves, made of these indivisible parts - though the terrestrons that make up the base elements differ from one another not in substance but in shape. Different combinations of these primal elemental particles go to make up the substance of any liquid, solid, gas or flame known to science.
+
+Chronocules and Terrestrons have an unusual relation to one another - if a container of chronocules is left next to a container of terrestrons, the particles will attempt to displace one another until the chronocule container is now full of terrestrons, and the terrestron container is now full of chronocules. This observation appears to scale up indefinitely, and may be responsible for grand mythic events such as the 'swapping' of the Time God (Akatosh) and the Space God (Shezarr) at various points across mythologu.
+
+Daedrons are the substance of creatia, and are similar to terrestrons superficially, but are capable of recording a certain amount of sentience. Pools of these particles will maintain the personality of a slain Daedra and will, after some time in the oceans of oblivion, find each other and re-form the Daedra. They are sometimes considered a 'Will to Hunger' by mythographers.
+
+Fjyrons are the 'Will to Peace', and are the anti-particles to Daedrons. They have some similarities, such as the ability to store a limited amount of sentience, but rather than storing identity, they store memory. They actively repel away from Daedrons, meaning that they do not have the same relation to them that chronocules and terrestrons have with each other. 

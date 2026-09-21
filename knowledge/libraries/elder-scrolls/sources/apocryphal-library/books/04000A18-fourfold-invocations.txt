@@ -1,0 +1,25 @@
+<font face='$DaedricFont'>Know them by their names</font>
+
+Under the ashen skies stand the warped and ancient pillars that hold up the blackened clouds. Carefree comes the shunning of the most noble House of Troubles whose four corners form the arena in which the righteous Dunmer attain their understanding of the unstricken tower. 
+
+First-Cursed Molag Bal, who drags us into the ash to become as He. We pray for the strength to resist his malady, for he is the most dread of moments.
+
+Twice-Cursed Dagon, who shatters the land on which we walk. When we stand again we do so twice-strong. We honour him in war against him.
+
+Thrice-Cursed Sheogorath, against whom the Dunmer must guard their minds at all times. Our wits are beyond folly if they can withstand the onslaught of the Mad Ashkhan.
+
+Ever-Cursed Malacath, swallower of all sins and pride, doom of his own people. We come to know the weakness of our being through your hatred and in turn we come to accept what we are.
+
+<font face='$DaedricFont'> Know them by their kin</font>
+
+We invoke the Dremora, the Scamp and the Clannfear to do battle against us.
+
+We invoke the Golden Saint to mock our progress and smite our best warriors.
+
+We invoke the Ogrim to crush those who consider themselves blessed.
+
+<font face='$DaedricFont'> Know them by their temples </font>
+
+We stand in the ruins of ancient black stone, turned dark by the passage of ash since antiquity. 
+
+We come and ask to be fought. Strike us down if you can. We honour you in this way, as you honour us.

@@ -1,0 +1,32 @@
+[pagebreak]
+<p align="center">
+
+
+Great Plagues of Tamriel
+
+Vol. III: The Blight, and Corprus
+
+
+
+by Keezharava
+
+</p>
+
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Blight is a catch-all term for a series of distinct diseases created by the Sixth House leader, Dagoth Ur, at some point in the First Era, until the end of the Third.
+
+The reason for the Blight is still not certain - the Sharmat, as Dagoth Ur was known, was part of some great plan of his to assert world domination, but the specifics are still hazy. There are some reports that a divine reagent of sorts was used. It could spread from person to person, but mostly through bites - blight-infected creatures such as Nix-Hounds and Cliff Racers were the main way in which the disease spread from beyond the Ghostfence, which was built to contain it.
+
+According to the former members of the Tribunal Temple, the blight could not simply be repelled by the Living Gods as it used the same source of power that had granted them theirs - though they have been tight-lipped on what this source was. Nevertheless, the admission from the former clergy reveals a culture of secrect among the Dunmer temple that had apparently been in effect since its conception.
+
+The diseases of the blight varied somewhat - the Ash-Chancre altered behaviour, making people behave in an erratic fashion - though having no obvious effect on the body or the person's faculties. The 'Black-Heart' and the Chanthrax variants could both debilitate the body, and the Ash Woe could render its victims incapable of higher reason. The disease was capable of affecting Argonians, a habit of diseases with a divine conception, such as lycanthropy and vampirism.
+
+Special methods did exist to cure and prevent blight diseases, though they did not work on common diseases, nor vice-versa.
+
+The worst variant of the disease was Corprus, which had no cure - and it would turn the victims into mis-shapen husks, incapable of thought or logic, as if they were zombies. Stranger still, the disease had a different effect on a select few Dunmer - these Dunmer began to rave of strange prophecies, before eventually losing their eyes to the disease, and then their entire eye-sockets, from which a tongue-like appendage would eventually slither. The most advanced cases were things of nightmares, and their faces had been replaced with a series of tentacle-like appendages which, if the sources can be relied upon, the 'victim' could play tunes or melodies of a haunting nature.
+
+These Dunmer seem to have been disciples of the Sharmat, and the disease was intended to have this specific effect on them alone. 
+
+The Blight, and the Corprus with it, ended at the time of the Nerevarine, who is reported to have slain Dagoth Ur within Red Mountain. The Ghostfence was deactivated after this, and no new cases of the Blight were reported thereafter.

@@ -1,0 +1,47 @@
+[pagebreak]
+<p align="center">
+
+Being a compilation of the oral wisdom of the Orcs 
+
+Collected here and recorded by Roald Kenway, who did live among the Orcs for six-and-thirty years at the start of the second era.
+</p>
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/W_letter.png'>hen you smash your enemy's shield, beware the splinters.
+
+Better a smashed shield than smashed ribs.
+
+Nothing beats a shield for beating mages�except a cudgel.
+
+A shield full of arrows is better than a face full of arrows.
+
+As immovable as a stone fortress, a wall of shields.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>n axe is for cutting. A shield is for blocking.
+
+A warrior's sword takes many lives, but his shield saves one.
+
+A broken shield provides poor protection.
+
+Paint your shield with the blood of your enemies.
+
+ A strong shield makes an attacker's heart despair.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'> shield makes a bad plate and a plate makes a bad shield.
+
+ One shield is priceless, but two shields makes you look stupid.
+
+ They will fear us when they see our shields.
+
+ The shield that is whole in springtime is broken by summer's end.
+
+ An Orc warrior has two loves: his sword and his shield.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/Y_letter.png'>ou are the only shield your clan has.
+
+ Many are the cairn stones of those that went into battle without shields.
+
+ A wooden shield is better than no shield at all.
+
+ If an enemy ducks behind his shield, cut off his leg. If he lowers his shield, cut off his head.
+
+ Keep your shield in front of you and Malacath will always be at your side. 

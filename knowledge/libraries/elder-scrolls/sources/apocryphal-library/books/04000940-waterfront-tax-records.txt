@@ -1,0 +1,23 @@
+<font face="$HandwrittenFont">
+Adanrel, 3 coins
+Amusei, 1 coin
+Armand Christophe, 4 coins
+Astay Haymon, 2 coins
+Bronsila Kvinchal, 3 coins
+Carwen, 2 coins
+Damian Magius, 3 coins
+Dranas Llethro, 1 coin
+Graman gro-Marad, 2 coins
+Hillod the Outlaw, empty handed - thrashed
+Isleif the Open Handed, 2 coins
+Jair, 3 coins
+Kastay Kvinchal, 3 coins
+Methredhel, 2 coins
+Ormil, 7 coins
+Raven Camoran, 2 coins
+Skarla Wirich, 2 coins
+Myvryna Arano, exempted
+Uzul gro-Grulam, 3 coins
+Velan Andus, 3 coins
+Vlanarus Kvinchal, 4 coins
+</font>

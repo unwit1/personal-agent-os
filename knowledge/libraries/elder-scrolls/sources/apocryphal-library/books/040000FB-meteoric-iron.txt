@@ -1,0 +1,72 @@
+[pagebreak]
+<p align="center">
+
+
+On the Variance of Meteoric and Mundic Iron
+
+
+by Lithnilian of Cloudrest
+
+
+
+Gwilym University Press
+</p>
+[pagebreak]
+<p align="left">
+Meteoric iron and mundic iron - the latter of which is iron found occurring in natural ore-seams across Nirn, as opposed to that which has fallen from the firmament - have similar and diverse metallurgical properties both.
+
+Melting Temperature:
+
+In an underground location such as a cave or mine, meteoric iron melts at the same rate as mundic iron.
+
+In open air, especially under a clear night sky, mundic iron melts faster than meteoric iron.
+
+In a controlled indoor environment with no other sources of emanation, meteoric iron melts slightly faster than mundic iron.
+
+Brittleness:
+
+Meteoric iron was originally thought to be more brittle than mundic iron, but an analysis showed that in fact they have exactly the same shearing strenght in all situations. The misinterpretation of the data was based on a comparison between mundic iron weaponry, which had been folded for strength, and meteoric iron that had been designed for Ayleid ornamentation, which had been fairly simply cast.
+
+Patination:
+
+Meteoric iron reduces to rust at a much slower rate than mundic iron, in every recorded environment except laboratorium conditions, when it was equal.
+
+Resistance: 
+
+Meteoric iron shows vastly increased elemental resistance to mundic iron, making it highly valuable as a substance for armour and armaments. It is able to absorb cold, fire and shock damage from spells with much greater effect the mundic iron, and will support enchantments of the same better as well.
+
+Edge:
+
+Mundic iron is slightly better at maintaining a sharp edge than meteoric iron, making it marginally preferable in standard weaponry and vastly preferable from a price perspective, due to the latter's scarcity, in the creation of tools.
+
+Magnetism:
+
+Mundic and meteoric iron both have the exact same magnetic properties, which no two other magnetic substances have.
+
+Smelting:
+
+Mundic iron can be smelted from various ores including haematite and pyrite. Meteoric iron is only ever found natively - there are no reports of celestially borne ores.
+
+Sonorousness:
+
+Meteoric iron produces a slightly higher note than mundic iron when struck. This note is higher still under starlight.
+
+Ductility:
+
+Both meteoric and mundic iron can be drawn and moulded in the exact same manner.
+
+Tensility:
+
+Both meteoric and mundic iron can support the exact same amount of tension.
+
+Colour:
+
+Both meteoric and mundic iron appear as a dark metallic grey when scratched and a dark reddish-brown when rusted. Only the variance in patination modifies this.
+
+On provenance:
+
+The provenance of iron remains in question. Mythophilosophers have occasionally attempted to compare it to Ebony as a form of 'god blood' or Ehlnofic residue, with the more poetic amongst their number going so far as to state that it is the 'Blood of Stendarr' or any other equally unprovable conjectures. 
+
+Due to the fact that many of the properties align, we can state outright that both substances are of the same primal nature. As for how iron comes to exist in both the earth and the sky, we might afford a slight nod towards the mythophilosophers in suggesting that it may have played a role in the formation of the early mundus, perhaps as a stabilising agent. Iron is notoriously difficult to change into another substance, hence why it remains the prize of alchemists the world over to attempt to transform it into higher or more volatile grades of matter.
+
+The exposure of meteoric iron to unusual currents of arcane energy in the heavens is our only guess at why it has properties so diverse to mundic iron. Beyond that, the more mythical explanations will remain just so.

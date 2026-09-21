@@ -1,0 +1,8 @@
+<p align="center">
+<img src='img://Textures/Interface/Books/ApocLib/BlackHorseCourier.png' height='60' width='250'>
+WAYREST SACKED
+</p>
+
+The news from fair Wayrest, jewel of the Iliac Bay, is dire. Corsairs have attacked the city, causing tremendous damage. The traitorous King Barynia, worried about internal threats, is alleged to have let them into the city himself to escape political rivals.
+
+Though they were eventually defeated and driven off, much damage has been caused. Aid has come in from Daggerfall and Skyrim to repair the worst of it, but much is still to be done.

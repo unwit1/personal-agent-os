@@ -1,0 +1,59 @@
+[pagebreak]
+<p align="center">
+The Royal Imperial Mananauts Guide to the Daedric Realm of Apocrypha
+
+<img src='img://Textures/Interface/Books/ApocLib/mananaut.png' height='200' width='200'>
+By Captain Lindia Sevor
+3E 109
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>pocrypha is a popular destination for those who walk between the realms. It is a source of considerable knowledge, being that the realm itself is largely made of books. They exist in great columns and arches, packed tight so as to form an architecture of their own. The rest of the realm is constructed of other material, some of which is filigree-flooring of some kind that, while solid, can unravel as if it were paper. These stand like islands in a sea of ever-writhing ink, beneath a greek sky form which blink the many eyes of Hermaeus Mora, the Gardener of Men.
+
+Chapter One - Reaching Apocrypha
+
+There are no sturdy portals known to the Order that will afford simple ingress and egress to and from the realm. Therefore, the Mananaut will have to find a way in from a separate realm of Oblivion, or they will have to employ scrying methods.
+
+Given that scrying is by far the simplest and safest method, we shall describe it forthwith. The more complex method is to employ the scrying methods of the Mananauts ourselves, which you will be by now familiar with. But, if one lacks the sigil stones, hist-sap, moon sugar, wraith bone, moth-paste or any of the other traditional liminal mysticants, then there is a more tricky but effective method of scrying, which is to use the Black Books of Hermaeus Mora.
+
+These books do NOT include the Oghma Infinium. That book appears to be a bound Daedra, we think, and while the power it grants is immense, it does not directly allow one to pass into Apocrypha. There are some books that will, however. These 'black books' were once tomes written by mortals whose insight was so keen, or possibly so inspired by Mora, that the book becomes a direct conduit into his realm. Such tomes include the Codex Mythifractae, The Sallow Regent, Dreams in the Brass Dome, Legends Untold and Facts Concerning the Late Baron Ilichast.
+
+When one reads from one of these books, they will experience something of great discomfort - tentacles will emerge from the pages and latch themselves onto the reader. They will then find themselves in Apocrypha. It should be noted that physically the reader will still be in Mundus - and should they be mortally wounded in Apocrypha they will normally awaken without serious injury. Unusually, taking things from Apocrypha is still possible - witnesses have seen many books and items emerge from the pages as the reader rummages around.
+
+Chapter Two - Navigating Apocrypha
+
+As stated earlier, the realm consists of an inky sea which reflects the green sky. Pillars of stone and books rise from the tenebrous depths, with many filament-mesh causeways and gantries affording access between levels. The corridors are known to shift around, which can be quite disorientating. 
+
+Some doors, gantries and so on are activated not with levers but with 'scries', which are eye-stalks which, when yanked just so, can effect the desired result. One should be careful not to fall into the inky sea, for while they should be safe from death it is a very unpleasant experience and there's a lot of tentacles down there.
+
+The inhabitants of Apocrypha are varied. The most common are Seekers, a kind of Daedra made mostly of tentacles and short stubby arms with which they latch onto the books they read so hungrily. When encountered, they will attack with green bolts of tonal magic, which can cause very real headaches in the waking world when the targeted mortal is thus banished.
+
+Lurkers are creatures that hide in the inky pools. They are very dangerous combatants, but the skilled mananaut should make short work of them.
+
+Watchers are bundles of tentacles with a single eye at the centre. They are intelligent and capable of speech, seemingly used by Mora for various adminstrative purposes.
+
+Ciphers are mortals who have been allowed by Mora to remain in his realm. They have formed a strange society in which none have authority over the other.
+
+The Hushed are those mortals who have sought knowledge for so long that they have become empty vessels of Mora's will. If the Mananaut believed that since their body could not die when scrying then there was no threat from Apocrypha, they were very wrong indeed. This CAN happen while scrying. Do not become so thirsty for knowledge that you become like this! We recommend setting book goals when entering, so that one does not become so enthralled.
+
+Lastly, watch out for the old 'Woodland Man' himself. Hermaeus Mora enjoys mortals entering his realm, but he might not always take too kindly to his books being taken.
+
+Chapter Three - The Wealth of Apocrypha
+
+Now that we know how to get there and how to get around, what shall we do with all the books we find?
+
+Firstly, know this - a lot of the books are incomprehensible. They contain glyphs and sigils that have yet to be translated. It may be tempting to take these since they may contain all sorts of knowledge, but it's better to focus on things that exist in scripts we can at least translate. There will be plenty of it.
+
+The heaps of books lying around offer plenty to grab. There's usually some that will be legible, so aim for those. Texts in the Dwemer language have been noted, as have Daedric tomes and stranger things still. Books from all across known and unknown history. There have even been books found that seem to come from the distant future, or from other realities or alternate time-flows. These are rare, however, and none can be certain of their veracity.
+
+If one uses a Black Book, then a fully readable version of that book can often be found among the 'chapters' one walks. A version you can read without getting tentacles on you. These should be considered high priorities.
+
+Don't take books from the tall pillars or arches. They might be structural and you don't want to get crushed. Aim for small heaps, or those found on stone tables or plinths. Seekers will often have books on them.
+
+There will also be heaps of pages and papers strewn around too. These can contain all sorts of things - they might be shopping lists, articles, handbills, diary pages, strange spell scrolls, all sorts. As diverse and inconceivable as the heaps of books.
+
+Chapter Four - Leaving Apocrypha
+
+Eventually you may have found all you need - to leave is simplicity itself. Check your belongings - even though you're in the Black Book, and the Black Book is back in Mundus, you will have a copy of it on your person that you cannot drop. Read it again and you will find yourself in command of your senses once more.
+
+Be sure to transcribe your findings to the Mananaut high command as soon as possible, as the jarring liminal experience can be akin to waking from a dream, and one may forget details the longer one waits. All books should go to the Imperial Library for sorting.

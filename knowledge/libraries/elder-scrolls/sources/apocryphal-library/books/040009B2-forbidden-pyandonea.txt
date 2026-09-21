@@ -1,0 +1,34 @@
+<p align="center">
+<img src='img://Textures/Interface/Books/ApocLib/PyandoneaMap2.png' height='377' width='296'>
+The now discredited 3E 405 projection of Pyandonea
+[pagebreak]
+
+Forbidden Pyandonea 
+
+By Tavendus Gallean
+Imperial Geographic Society
+4E 120
+
+<img src='img://Textures/Interface/Books/ApocLib/impgeo.png' height='200' width='196'>
+</p>
+[pagebreak]
+<p align="left">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/P_letter.png'>yandonea, to which the sailors of Tamriel will rarely venture, and scarcely ever return. A land cloaked in mystery and half-truths, guarded by the Maormer of whom few have ever set eyes upon.
+
+Most of Tamriel's contact with the nation comes from wars between these sea-elves and the Altmer of Alinor. The many naval defeats that their supposedly immortal king, Orgnum, has suffered are well-documented by the historians of the Crystal Tower. Every attempt by King Orgnum to defeat Alinor has ended in failure, as has the one Altmer attack that gave us our unique description of the land itself.
+
+In 2R486, King Hidellith's forces attempted to spring a trap on some Maormer vessels, only to be lured into the nation's waters. The details of the battle itself are mostly lost, but a single fast three-master was able to escape with the description of the land that is, to date, the only confirmed one we have.
+
+The first phrase used to describe the land is a 'Sea Jungle'. Then there are described great vegetation-covered bluffs, isles and cliffs rising from the ocean, forming a maze of navigable waterways in which King Orgnum's forces were able to launch their counter-attacks. 
+The reefs of coral were able to shatter the hulls of deep-hulled ships, and the mats of seaweed and wrack were said to part for the Maormer ships, but not their Altmer pursuers. Their ships thus stuck, they became the targets for Orgnum himself, who would ride out to battle atop a great sea-serpent capable of shattering masts and bows with its great scaled body.
+
+Even those ships that the Altmer were able to hole did not always sink - the very seaweed beds that could ensnare the navy of Alinor could also hold their own ships together, or form walkways allowing the Maormer to run to land. Not that they apparently need to, for they appear to be excellent swimmers and would use this ability to strike holes below the waterline.
+
+The final defence against the invaders seems to have been strange mists that were invoked by the Maormer sea-mages, which could obscure the view of any ship, and which prevented the unfortunate invaders from getting any closer looks at the land.
+
+Of the land above the cliffs, we have far less to go on. Yew-trees are believed to grow there, as the Maormer have a great many longbows made of this wood. There was one mention of 'Breeding Pits' made by a supposed Maormer mariner who was overheard talking in Senchal, and other sailors from that land have commented on the huge number of insects and the long, white-sand beaches.
+
+Based partly on these reports from the Altmer navigators and also on flotsam-divination and whalebone-reading, the Imperial Geographic Society attempted its first cartographic survey of the land in 3E 405. Though some Pyandonean mariners have claimed it does bear a superficial resemblance to the land, it is widely considered unfit for navigation purposes.
+
+The one other matter that is considered true knowledge regarding the land itself is the 'Veil of Mist'. Orgnum, said to have lived in the time of Aldmeris itself, was supposedly banished from that land for an attempted coup, and so set himself and his kin on Pyandonea instead. The veil supposedly protects Aldmeris from Pyandonea, though of course Aldmeris is, itself, a land of which many half-truths are spoken.

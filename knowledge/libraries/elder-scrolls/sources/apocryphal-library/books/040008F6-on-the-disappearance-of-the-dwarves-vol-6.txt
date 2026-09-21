@@ -1,0 +1,113 @@
+[pagebreak]
+<p align="center">
+
+
+On the Disappearance of the Dwarves
+
+Volume Six
+The Final Report to Trebonius
+
+by Luagar Anulam
+
+
+Edited by Maura Calvaine
+
+</p>
+
+
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/F_letter.png'>oreword by the Editor
+
+This report has been dated to the time of the Nerevarine prophecy. There's been some speculation that the Author may have been that figure, but nothing has been proven.
+
+Rather, Luagar Anuam's exact identity is something of a mystery, as is the nature of some of their sources. One such source claims to be a love letter from a future era, which throws the authenticity into considerable doubt. However, some of the sources they list are genuine persons: Baladas Demnevanni was a confirmed Dunmer logician of the late Third Era, and the 'Skeleton Man' has been identified as the wandering scholar Manka Naram. The book 'Vehk's Teachings' has been confirmed to exist though it is not certain if Vivec is the actual author. The referencing of Yagrum Bagarn as someone the author met personally is also regarded as far-fetched by some critics.
+
+With these cautions in mind, enjoy what is the most carefully referenced of our essays, and the one with arguably the most intriguing conclusion.
+
+- Maura Calvaine
+
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>o the esteemed Archmage and Guildmaster of Vvardenfell, Trebonius Artorius
+
+This will be my final contact with you on the issue of the Disappearance of the Dwarves, a mission that you sent me on some time ago. I have spent all the energy I care to on the issue, you can give me the promotion I asked for or not, it really doesn't matter to me anymore as I've found employment elsewhere. However, I do not start assignments and then not finish, so here is my final report.
+
+The Disappearance of the Dwarves, the Dwemer's Folly
+It is common knowledge to most that care to know that between the years of 1E 688 and 1E 700, during the War of the First Council, the Dwemer race collectively disappeared from known existence. During my travels I have sought long to learn the fate and/or the whereabouts of this race, but rather than state my conclusion outright at the beginning, I shall first tell how I came to my conclusion (plus I believe the added reading will do your crazed mind some good if you can actually managed to finish reading it).
+
+During my travels, it was not long before I came into the knowledge that there was indeed one dwarf left. I believed that visitation to this being was to be essential to my understanding, and while it was informative, the state of Yagrum Bagarn left much to be desired (not only corprus but a great loss of memory). I do however wish to note some words which he spoke to me, and I in turned noted in my journal, as there is much information in them;
+
+"Lord Kagrenac, the foremost arcane philosopher and magecrafter of my era, devised tools to shape mythopoeic forces, intending to transcend the limits of Dwemer mortality. However, in reviewing his formulae, some logicians argued that side effects were unpredictable, and errors might be catastrophic. I think Kagrenac might have succeeded in granting our race eternal life, with unforeseen consequences -- such as wholesale displacement to an Outer Realm. Or he may have erred, and utterly destroyed our race."
+- Yagrum Bagarn
+
+
+It was in these words that I came to learn of these 'mythopoeic forces' and of the goal of the Dwemer, to transcend mortality or achieve enlightenment. But I had heard stories of this before, it was these 'tools' that Yagrum spoke of that truly grasped my attention. So I set out to learn more, and soon learned from records that a group formerly known as the Dissident Priests had collected much information on these tools. So I went to Holamayan, and here found just the document I wished, Kagrenac's Tools. It was only the first paragraph of this document that interested me however, and I thus copied it;
+
+"Beneath Red Mountain, Dwemer miners discovered a great magical stone. By diverse methods, Lord Kagrenac, High Priest and Magecrafter of the ancient Dwemer, determined that this magical stone was the heart of the god Lorkhan, cast here in the Dawn Era as a punishment for his mischief in creating the mortal world. Determined to use its divine powers to create a new god for the exclusive benefit of the Dwemer, Kagrenac forged three great enchanted artifacts, which are called "Kagrenac's Tools." Wraithguard is an enchanted gauntlet to protect its wearer from destruction when tapping the heart's power. Sunder is a enchanted hammer to strike the heart and produce the exact volume and quality of power desired. Keening is an enchanted blade that is used to flay and focus the power that rises from the heart."
+- Kagrenac's Tools
+
+
+It was in this I learned of the Heart of Lorkhan, how the Dwemer magecrafts had come to tap its power, and the true goals of the Dwemer, the creation of a new god from the substance of a dead one. With this new knowledge, I traveled to the city of Vivec, where I hoped to find more knowledge on this subject. Upon 'convincing' a guard to let me in, I made my way into the 'Secret Library' of Vivec. Here found another of my sources, the words of Vivec (the now departed god of the Dunmer), The Battle of Red Mountain. This document not only confirmed the Dissident Priests words that the Dwemer were creating a new god, but that at the time of the War of the First Council, they had already began work on it. It also provided me with a key bit of text;
+
+"Nerevar the Chimer King met Dumac the Dwarf King and they both collapsed from grievous wounds and draining magics. With Dumac fallen, and threatened by Dagoth Ur and others, Kagrenac turned his tools upon the Heart, and Nerevar said he saw Kagrenac and all his Dwemer companions at once disappear from the world. In that instant, Dwemer everywhere disappeared without a trace. But Kagrenac's tools remained, and Dagoth Ur seized them, and he carried them to Nerever, saying, "That fool Kagrenac has destroyed his own people with these things. We should destroy them, right away, lest they fall into the wrong hands."."
+- The Battle of Red Mountain
+
+So, the Dwemer had disappeared when they had struck the Heart of Lorkhan with these tools that Kagrenac had devised. So I now knew the plans of the Dwemer as well as a small bit about how they came to disappear. But this alone left too much open for debate, so I had to search further. Upon inquiry of Dwemer Scholars in the area, I was directed to the small town of Gnisis, to a Telvanni Dunmer known as Baladas Demnevanni. This man was hard to convince, but he eventually gave me much priceless information, which I in turn noted;
+
+"It was unfashionable among the Dwemer to view their spirits as synthetic constructs three, four, or forty creational gradients below the divine. During the Dawn Era they researched the death of the Earth Bones, what we call now the laws of nature, dissecting the process of the sacred willing itself into the profane. I believe their mechanists and tonal architects discovered systematic regression techniques to perform the reverse -- that is, to create the sacred from the deaths of the profane...
+
+...As the Dwemer left no corpses or traces of conflict behind, I believe that generations of ritualistic 'anti-creations' resulted in their immediate, but foreseen removal from the Mundus. They retreated behind math, behind color, behind the active principle itself. That the Dwemer vanished during a conflict with Nerevar and the Tribunal is merely coincidence."
+- Baladas Demnevanni
+
+
+This was quite intriguing, and I was thus brought into the idea of 'creational gradients' and 'Earth Bones'. Upon further inquiry into the nature of these 'Earthbones', Demnevanni told me that; "As the books and other artifacts in Dwemer ruins rarely show signs of wear or age, I believe that the Dwemer knew of a preservative effect, perhaps a device still active which denies or controls the Earth Bones governing time and decay." Upon even further inquiry on 'Earth Bones' and 'creational gradients' he only said that he hadn't the time, but instead directed me to Altmeri Priests or the teachings of Vivec, which he vaguely remembered as having some mention of them.
+
+So with this I went on faith and left the man alone in search of some Altmeri Priest, however, I soon came to find that there were no Altmeri Priests on Vvardenfell, but there were some records of their beliefs. Thus I came across The Monomyth, which towards the end gave a summary of the Altmeri beliefs. Indeed, it did note the Earth Bones, saying that some of the beings which created our world had to sacrifice themselves to the world and become these Ehlnofey, Earthbones, or laws of nature as Demnevanni had called them. So Demnevanni believed that the Dwemer could manipulate these parts of the creators, these Earthbones. On top of this I new that they had access to the Heart of Lorkhan and had worked on making a new god, but how did it all tie into together. But as the Monomyth mentioned no 'creational gradients', I now began searching for information on these as well as the 'anti-creations' which Demnevanni had mentioned, following his advise in looking for Vivec's teachings. Oddly enough, my searching took me to one Hasphat Antabolis, who had come across Vivec years earlier. After buttering him up abit, he wrote his knowledge from this encounter down for me in a journal he entitled Vehk's Teachings. I now note some of the most relevant parts of this journal;
+
+"What is the rim of the Wheel?
+As the process of subcreation continued, both Anu and Padhome awakened. For to see your antithesis is to finally awaken. Each gave birth to their souls, Auriel and Sithis, and these souls regarded the Aurbis each in their own part, and from this came the etada, the original patterns. These etada eventually congealed.
+
+Anu's firstborn, for he mostly desired order, was time, anon Akatosh. Padhome's firstborn went wandering from the start, changing as he went, and wanted no name but was branded with Lorkhan. As time allowed more and more patterns to individualize, Lorkhan watched the Aurbis shape itself and grew equally delighted and tired with each new shaping. As the gods and demons of the Aurbis erupted, the get of Padhome tried to leave it all behind for he wanted all of it and none of it all at once. It was then that he came to the border of the Aurbis.
+
+He saw the Tower, for a circle turned sideways is an "I". This was the first word of Lorkhan and he would never, ever forget it."
+- Vehk's Teachings
+
+This gave me some knowledge on creation and subcreation, which I also believed to be vital in knowing before understanding 'creational gradients' or 'anti-creations'. There was of course more information provided by this document, but I will not quote it all directly here, but rather simply reference it as I have provided a copy of the document (and all my used documents actually) attached to this letter.  Anyway, to sum it up, Lorkhan continued this act of subcreation, convincing other spirits (similarly to the Altmeri beliefs) to create the Mundus (or the hub of Vehk's 'wheel'). It also mentions the Earth Bones, but not by name, simply saying that "The spokes of the Wheel are the eight gifts of the Aedra, sons and daughters of Aetherius... The center of the Wheel was another circle, the hub, which held everything together. The etada called this Mundus." In this I learned that the subcreations and related them to the 'creational gradients' of Demnevanni. I also managed to draw a connection between these 'subcreations' of Vehk's teachings and the 'souls' of the Altmeri "Heart of the World".
+
+So, the original Altmeri force, Anu, created its soul, Anuiel. This soul then was combined with Sithis to form the Aurbis, where its various forms could ponder the whole. But then one of these various forms, these Aspects of Aurbis, after the addition of time to stabilize them, then wanted to create a place for its own aspect to reflect on him, this was Lorkhan. He wanted to create a soul of the Aurbis, which was in the Auriel, who was in turn the soul of Anuiel, who was in turn the soul of Anu. I believe that this has something to do with the "I" that the Teachings refer to Lorkhan seeing.
+
+It is this that I related to the subcreations of Vehk's Teachings and how Lorkhan made the Mundus. You see, he designed it in a way to copy the Aurbis, but instead of creating it only within himself as Anuiel had, he instead contracted the help of various others which resulted in the Mundus. This related back to the Earth Bones in that of these 'various others', the Aedra, some would be forced to sacrifice parts of themselves to stabilize the Mundus, and Lorkhan would have to sacrifice his entirety to it (though perhaps unwillingly).
+
+So now I knew what these 'creational gradients' where, I believe a creational gradient to be formed each time one of these 'souls within a soul' was created. And I knew what the Earthbones where. Now I just had to tie all of this into the plans of the Dwemer, but how to do it. Baladas had said that the Dwemer disliked being so any number of creational gradients below the divine, so they sought reverse these creational gradients through this 'anti-creation', "to create the sacred from the deaths of the profane." Now, all of this was quite compelling, what more was there to be said, the Dwemer tried to go 'anti-create' their way back to the divine. But I knew that the words of one Dunmer scholar alone would not convince, and I still didn't know how the Dwemer planned on going about this or what it had to do with their new god, which I later learned to be called Numidium. I only knew that they used the Earthbones and Heart of Lorkhan, but that was it. So I traveled again, to the largest housing of knowledge I could think of that might help me learn of this, the Imperial Library of Cyrodiil.
+
+In the Imperial Library I found just the documents I would need. The first was an obscure document which the Library came across randomly and kept around as it was interesting to passing scholars. This document they called the "Loveletter from the Fifth Era" and indeed the date marked in the headings did date the Fifth Era, 5E911 to be exact. This source stated that "all creation is subgradient", and gave numerous examples of this. Another thing of note to this particular topic was the following quote;
+
+"You in the Fourth Era have already witnessed many of the attempts at reaching the final subgradient of all AE, that state that exists beyond mortal death. The Numidium. The Endeavor. The Prolix Tower. CHIM. The Enantiomorph. The Scarab that Transforms into the New Man... Those who do not fail become the New Men: an individual beyond all AE, unerased and all-being. Jumping beyond the last bridge of all existence is the Last Existence, The Eternal I."
+- Loveletter from the Fifth Era
+
+This was interesting for its stating that this "final subgradient" was this reaching of "The Eternal I". It had also said that the Numidium was an attempt at reaching this. This "Eternal I" I could not help but relate back to "Vehk's Teachings" in which he had said that the "I" is the Tower, and states farther that;
+
+"At its simplest, the state of chim provides an escape from all known laws of the divine worlds and the corruptions of the black sea of Oblivion. It is a return to the first brush of Anu-Padomay, where stasis and change created possibility. Moreso, it the essence needed to hold that 'dawning' together without disaster. One that knows CHIM observes the Tower without fear. Moreso: he resides within."
+- Vehk's Teachings
+
+
+So the Dwemer where trying to reach this "Eternal I" through the use of the Numidium, or so this Loveletter stated. But what did this "Eternal I" have to do with Demnevanni's 'anti-creations'. Well, the answer to that I found also in the Loveletter, where it stated that "All creation is subgradient. First was Void, which became split by AE. Anu and Padomay came next and with their first brush came the Aurbis." So the first brush of Anu-Padomay that Vehk had referenced was the Aurbis. So the Dwemer where trying to return to the first state of the gods, the god where first the aspects of Anuiel in the Aurbis before Lorkhan had convinced them to create the Mundus, or so said the Altmeri creation myth. This now made sense, as 'anti-creation' would take them back to the Aurbis, reversing what Lorkhan had done.
+
+But now, how where they planning on going about this, that is where my second document that I found at the Imperial Library comes in. The second was a compendium of various interviews placed into journal format by one who called himself "Skeleton Man". There was one particular interview of this "Skeleton Man" that interested my knowledge, and I noted it in my own journal;
+
+Xal, a Human Maruhkati, Port Telvanis:
+"Ah. I will tell you the truth, because you will believe none of it. The Brass God is Anumidum, the Prime Gestalt. He is also called the divine skin. He was meant to be used many times by our kind to transcend the Gray Maybe.
+
+The first to see him was the Shop Foremer, Kagrenac of Vvardenfell, the wisest of the tonal architects [Mechanists - MN] Do not think as others do that Kagrenac created the Anumidum for petty motivations, such as a refutation of the gods. Kagrenac was devoted to his people, and the Dwarves, despite what you may have read, were a pious lot-he would not have sacrificed so many of their golden souls to create Anumidum's metal body if it were all in the name of grand theater. Kagrenac had even built the tools needed to construct a Mantella, the Crux of Transcendence. But, by then, and for a long time coming, the Doom of the Dwarves marched upon the Mountain and they were removed from this world."
+- Skeleton Man's Interview
+
+
+So the Brass God would be used as a divine skin and the souls of the Dwemer would be used to create it. So that is why they disappeared, because they sacrificed their souls to make their Brass God which they would use to return to the "first brush of Anu-Padomay," and basically be, 'anti-created'. But why would they think that they had to all become one with this Brass God in order to do this, well the answer was right there in front of me. As the Altmeri creation myth states, the Mundus was created as a place where the aspects of the Aspects could reflect on themselves. So to return to the state of the original Aspects of Aurbis, the aspects of Mundus would need to be forced back together into their former shape, or something close to this. So the Dwemer with this in mind, began the creation of the body of their god, the would be Aspect of Aurbis, with the Heart of the World, the Heart of Lorkhan, as its heart and main power supply. They then planned on combining their entire race with this god in order to anti-create their way back to the Aurbis, their many aspects as Dwemer would be reverted back into godly form as one singular Aspect.
+
+Now Xal states that the souls became Anumidum's metal body, but you ask, why would they do this. Well, this is where the Earthbones that Demnevanni spoke of come into play. Dwemeri metal was no ordinary metal, as Baladas stated, it could defeat time and decay. The Dwemeri souls would become immortal in this state, and at the same time become one to form their god. Kagrenac hit the Heart with the tools during the Battle of Red Mountain and caused this to happen, and the Dwemer disappeared, just as he had intended for them to. But why did the Brass God stay, why wasn't it activated as a god once the Dwemer became one with it. That I do not yet know. Perhaps it was the Tribunal there that stopped this from occurring, disconnecting the god before it could leave. Perhaps Kagrenac simply didn't see far enough ahead and just binding all the Dwemeri souls together to form a god wasn't enough, perhaps reaching this "Eternal I" is more of a personal venture than a collective one as the Dwemer believed. Perhaps it even failed because all of the Dwemeri souls where not sacrificed, there is still one left after all.
+
+But that is different question than the one you sent me to answer, you told me to find out why they disappeared, and I have. Perhaps I'll return to the question later, but as for now as my exhausting research is over.
+
+Signed and sealed,
+Luagar Anulam, Herald of the Triune Way

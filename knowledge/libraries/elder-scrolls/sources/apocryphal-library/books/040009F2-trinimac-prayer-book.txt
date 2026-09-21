@@ -1,0 +1,44 @@
+[pagebreak]
+<p align="center">
+
+The Trinimac Prayer Book
+
+
+From the Temple of Paragon's Remembrance
+
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/W_letter.png'>ar is not a pasttime 
+It is a forge.
+It is a crucible and a testing-ground.
+The World is a War.
+O Golden Trinimac, let us never forget
+What is taught by the spear
+And remembered by the shield.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/O_letter.png'> Golden Knight of the Gods
+Bring me a foe who is my equal
+Whose blade-pattern I must study,
+Who witnesses my every feint.
+
+Bring me a rival
+Who stirs in me a glow
+Greater than any lover.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>mong the ruins of Orsinium
+A single golden flower grew.
+I gathered my fellows
+And we sat around it in peace.
+
+Only in that moment of calm
+Did we remember what we fight for.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/W_letter.png'>hen the stars shine on Orsinium
+Among them one so bright
+The spirit of our strength
+The remnant of our courage
+The last bastion of our pride.
+
+Let us never forget whom we are.

@@ -1,0 +1,42 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Many-Headed Talos
+
+
+
+by Stratocanthus of Bruma
+</p>
+[pagebreak]
+<p align="left">
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/L_letter.png'>ook upon his statues, quarrelsome youth-warriors and soldiers of aeon-wrought battle! See him with one head, see him with two. But mighty Talos has heads innumerable, and sees in all directions, along and against the Wheel, for he has seen what has died and what will come.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he first head of Talos was Queen Alessia, though none had come to know her thus until aeons had passed. She was the first to unfathom the divine logic of the Chim-El Adabal, and from it she called forth the Burning Stranger, Pellan-El. The Dragon of Time agreed to her contract, that for so long as the legions of Ald Cyrod made peace with Dragon-in-War, so would the time-drake bestow the symbol of majesty on their appointed ruler. And when Alessia reached the end of her life, she gave her last command to her chosen council, saying:
+
+"I am El-Estia, Paravant of Dragon-Tamriel, and I commend my soul and my faith through the mirror of the Red Diamond. I do this so that all who come to rule shall do so with my eternal strength."
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he issue of Queen Alessia were the next heads of Talos, though none would come to know them thus until aeons had passed. Many were their names, they were Belharza and Gorieus and Hestra and Shor-El, and all would come to rest their heads alongside Alessia across the ineffable gate of the Red Diamond.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he next head of Talos was Reman (though none would come to know them thus until aeons had passed), whom the priestess Sed-Yenna bore from the seed of the cold earth. When the snake-men of the Fanged East came to face him, they exclaimed that he was Reman Born of the Dragon, and pledged their swords to him, saying:
+
+"We have come from the East to bear witness to the Son of the Dragon, and swear our swords forevermore to the promise of Diamond-ruled West."
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he issue of Reman would also come, in time, to be heads of Talos, but the name as yet meant naught. All the while, the Red Diamond glowed brighter as more sons and daughters of the Dragon came to pass through its myriad angles.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he next head of Talos was Tiber Septim, and he would come to bear that name in his own time. Though he was but a general in the army of Cuhlecain, he came to command greater respect than the regent of Falkreath. Indeed, he came to be known as Ysmir, the wind of Atmora, for he was of the lineage of ancient Wulfharth himself, though born among the Bretics. All who looked upon him saw a great dragon, who blew down the walls of Hroldan. And so it was that Tiber Septim came to be known as General Talos, but he was still a man, not a god; and he had but one head.
+
+Unto him anon came Zurin Arctus, a savant of many paths walked and a scion of Magnus. The Battlemage declared Tiber Septim the Emperor of Cyrodiil, and bestowed upon him the Chim-El Adabal, the wellspring of rightful rule and the seat of sundered kings. Thus was his claim to rule immutable. 
+
+When the Dark Elves of Morrowind had made armistice, and thus came the time to conquer the lands of the southern Elves, Zurin came to Tiber and said:
+
+"Within the depths of Red Mountain there is the heart of great Shezarr, my Emperor. We shall bind our power to it so that the rule of the Septims shall endure for all time, and with the Amulet of Kings, which so seeded the very foundations of White-Gold Tower, you shall be god not just of the earth but of the heavens also." And thus Zurin gave his own life to bind Tiber Septim to the Heart forevermore.
+
+And after the throne of Alinor did finally break at the feet of Men, and news of it came to the Dragon Emperor in Cyrodiil, he gathered his captains and spoke to them, saying:
+
+"You have suffered for me to win this throne, and I see how you hate jungle. Let me show you the power of Talos Stormcrown, born of the North, where my breath is long winter. I breathe now, in royalty, and reshape this land which is mine. I do this for you, Red Legions, for I love you."
+
+For crowned as he was by the White-Gold Tower and the Amulet, he was now a Talos of Many Heads, acting not as one Emperor but as all Dragon-Born Emperors who had ever lived. And even when he had passed at his great age, he continued to join earth and heaven through the amulet, which affords the will of Akatosh to any true-born Emperor who wears it.
+
+It shall be so from this day to eternity, for so long as beats beneath Red Mountain the Heart of Shezarr, and the Amulet of Kings should remain unsundered, stoking the Dragonfires that thwart the enemies of Man.

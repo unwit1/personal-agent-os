@@ -1,0 +1,43 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Seven Choices of Trinimac
+
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>rinimac arrived at the Zero-summit with the Heart still swathed in evanescent twelve-mesh. Of all the Ada that had been witness to the summon, all had fled except for the barest minority, and they were the ones who wanted it. All had come to meet Trinimac, and to see which of them he would favour.
+
+First was SHEZARR, who was the lost twin-self of Lorkhan.
+"It is my heart, it was taken from me last time. It is mine by right, and I will use it to die properly this time - but I promise I will give knowledge to the people of the new Aurbis first."
+
+Second was SRENDITHARR, who was the twin lost-self of Trinimac.
+"I have always been ignored despite my great labours, my brother. It is time for me to use and wield the power that is rightfully mine. I will smite down all other ADA and create a paradise for me and all my spurned children."
+
+Third was AURI-EL, who was chewing on Lorkhan's feet. He was the most powerful of the gathered, and all hushed when he spoke.
+"I am the reason any of you are here at all. I will create a great land with myself as its king. There is no force nor logic that can subjugate me in this endeavour."
+
+Fourth, Fifth and Sixth were the TIDE QUEENS, whose names were MARA, KYNARADA and DIBELLA. Each of them, pointing a hooked claw at the other two, said:
+"I am the rightful Queen of Time, and Widow of Lorkhan. By right of succession, and what I bestow upon the land which is life itself, I claim the Heart. I will bury the other two in the earth."
+
+Seventh was ARKAY, who was the maker of death and made the others rightfully wary.
+"I seek a great power, and I am not ashamed to use it to my own ends. I will control life and death, and I would use Lorkhan's remains to make two great moons by which the land will know the passage of circle-birth."
+
+Trinimac laid the Heart on the floor of the Zero-summit, and made his choice.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/S_letter.png'>ome time later, when the agonising music-material had turned back into solid air, the Ada looked down at the tower and tried to determine which of them had been chosen by Trinimac.
+
+JULIANOS, the teacher and the logician, exclaimed that he had won - but none had ever lain eyes on him before.
+
+ZENITHAR and STENDARR, having stopped spurning each other, had no need of refuge from the other.
+
+AKATOSH, suddenly finding himself looking in one direction all the time, had no idea what the thing in front of him was, so he bit into it. He was definitely the ruler of the gods though, so he wasn't too concerned.
+
+KYNARETH, DIBELLA and MARA found themselves married to Akatosh, and spent a lot of time fixing things that he broke - usually Him.
+
+ARKAY had sought a power over life and death, and he had it. And yet as long as his moons shone, he had little command over his own compulsions. Only when they were dim was he able to formulate his own adversary, the manifestation of his true desire.
+
+Nobody was quite sure where Trinimac had gone. Stendarr claimed he had wandered East, and Zenithar said nothing at all.
+
+Lorkhan, being dead, resolved not to exist until someone said he did.

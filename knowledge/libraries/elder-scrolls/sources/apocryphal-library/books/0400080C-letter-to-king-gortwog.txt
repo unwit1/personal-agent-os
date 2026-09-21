@@ -1,0 +1,24 @@
+<font face="$HandwrittenFont" size="18">
+
+Lord Gortwog,
+King of Orcs,
+
+Warlord of the Subterranean Realms
+Hail and long life King Gortwog. Long
+have you and the Orcish people sought
+formal recognition by the empire. My dead
+husband King Lysandus supported your claim
+to sovereign rule. I would now help you in
+your cause. Sadly, a minor missive from
+the emperor has been misplaced. For me to
+truly hold the trust and ear of Emperor
+Uriel Septim, I need to reclaim this note.
+Should you be able to place in my servant's
+hand this trifling letter, I would be far
+better able to forward your claim to the
+emperor and his court.
+
+The Dowager Mynisera,
+Queen Mother to King Gothryd of Daggerfall
+
+</font>

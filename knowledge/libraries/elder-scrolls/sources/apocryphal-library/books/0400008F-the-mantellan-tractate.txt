@@ -1,0 +1,20 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Mantellan Tractate
+
+</p>
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>fter the time-shattering tumult that left whole expanses of the Iliac Bay scorched and scathed under the hateful eye of Walk-Brass, the divergent narratives began to accrete around the victorious enemies along with their newfound gains. These versions of events could scarcely differ from one another more, but there remain a few common strands that, once woven back into the great tapestry of Auri-El's unrelenting wave, paint a strange portrait. That of a blind god sat alone in the burning wastes of Aetherius.
+
+Enraged and alone, an eyeless skull unable to form thought or word, taunted by the constant visitations of Sheogorath, but unerring in his devout custodianship of the Mantella - the Heart-Echo itself.
+
+This god once saw a terrible truth, and was unable to tell it - his eyes wrenched from his head by the Queen of Twilight. O, what he had meant to tell! O, the betrayal he had witnessed!
+
+And he was not the only witness! Thrice-blessed Trinimac was lain low by Boet-hi-Ah when he proclaimed the truth of the Dawn - that creation was a grotesque, wrought by the scheming of the Doom Drum. That he was wrought low by the true Ada whom he fought against, and not by his own altruistic self-sacrifice. 
+
+And the allies of the Scarab-king, the three Daedra who would sire the Chimer and the Dunmer, slew these witnesses - and why? So that the truth of Convention would be forgotten forever. So that they could wreak the falsehoods of the 'Psijiic Endeavour' and drag mortality to new depths from which it is somehow expected to rise greater than before.
+
+But Azura, in rending Magnus' eye from his socket, hurled it onto Nirn all heedless of future thought. The kindred of Ysgramor, the first Atmorans to land in Mereth, stole it from the Falmer of old some time after their longboats made icefall. They sought to use it to hide the truth of Convention from the world, and to make the True Ehlnofey into weakened husks. And so the ancient Snow Elves rebelled against Ysgramor's kin, and breached Sarthaal where they had sequestered this knowledge. The rest is established in the annals of time.
+
+The wise are tasked with the burden of finding that which ancient deceit has buried. When truth shines once more onto the ere-now unmelting ice, memories will flow into the ocean and valleys of long-forgotten hyacinths will bloom anew.

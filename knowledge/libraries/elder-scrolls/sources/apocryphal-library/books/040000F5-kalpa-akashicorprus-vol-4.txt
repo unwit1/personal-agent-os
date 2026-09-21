@@ -1,0 +1,31 @@
+[pagebreak]
+<p align="center">
+
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/K_letter.png'>alpa Akashicorprus
+
+Volume IV: On the Previous Kalpa
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he previous kalpa is a matter of heated debate among scholars. What was it like? Who were the winners and losers? What was inherited in this era? Let us talk to the Redguards first, whose trans-kalpic outlook on faith shall be spoken on by Azzar of Satakalaam:
+
+"The last kalpa was Yokuda. We remember it well - we still go there.
+
+"You already know what happened - our land fell to terrible war. That's one version of it, anyway. We were at war with Left-Handed Elves, or the Shehai sung terrible beings into the world, or some crime was committed that caused Satakal to rise from the sea. Whatever the case, Yokuda was consumed by the ocean and so we fled.
+
+"We had done this many times - if we sailed just right, we could probably get to any world-skin--any kalpa--from here. Every kalpa is a single day in the life of Satak the First Serpent. This time, we came to Tamriel, which was infected by the Hunger of Sep, and so we do not live how we used to. This makes Nirn different.
+
+"We are the legacy of the last world-skin, we the Redguards. We do not understand what the 'Ehlnofey' are - but they are not like us."
+
+This version contrasts with that of Xul-Ghaleel of Lilmoth, who paints a very different picture of the last kalpa.
+
+"The last kalpa was Lyg. We remember only what fragments we still find. It was an ocean, perhaps with no land at all. And there were no Redguards there, of that we can be sure. No, it was ruled by the Dreugh, the ever-foes of those who swim in the deeps.
+
+"Once in a while, those who rest their ear to the membrane between this world-egg and the shell of the last will hear or learn something. Here is what we believe happened.
+
+"There was a battle - we think that the Dreugh revolted against their god-king, who is now the Daedra Prince Molag Bal. We think that they did this by building a towering monster, like a world-tower but made of flesh and bone. This, we think, was Mehrunes Dagon. We don't know why the war happened, or exactly who won, but we know that the Dreugh we encounter in the depths now are not like the ones of that time."
+
+Neither party seems to admit the usefulness of the Elven creation myths which hint at an 'Ehlnofey War', nor do those myths talk about the cyclical nature of kalpas. The nature of either remains, as ever, a mystery.

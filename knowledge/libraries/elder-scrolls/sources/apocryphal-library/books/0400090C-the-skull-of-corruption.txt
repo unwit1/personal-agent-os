@@ -1,0 +1,72 @@
+[pagebreak]
+<p align="center">
+
+
+Legends of the Skull of Corruption and the truth behind them
+
+by
+
+Morghaine Vasterley
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/V_letter.png'>aermina, the Nightmare Countess; the Dream Weaver, the Mistress of Portents, the Prince of Quagmire - many be here soubriquets. Many be her devotees and her temples. Greatly is she reviled by the masses and worshipped by the few. 
+
+Of all the artefacts that she bestows unto mortals, the Skull of Corruption is the most widely storied. Described variously as a black human skull with glowing coals where the eyes would have been, and a horned skull atop a staff. Of its power, it has been reported of having two functions, though it seems to grant the wielder one or the other of its choosing;
+
+The first, reported in fewer legends, is the power to take the dreams of mortals and corrupt them into a dark power that can be used to inflict harm on the wielder's foes. Thus the wielder becomes adept in the art of stealth, sneaking into the nightly chambers of unsuspecting victims, removing their dreams with the staff, and then using said staff in combat as one might use any other such weapon.
+
+The older and more widely reported use of the staff is the summoning of a simulacrum of its target. This simulacrum then attacks the 'real' victim, on behalf of the wielder. This use has been reported in various conflicts across history, from the Reman Conquests to the Oblivion Crisis.
+
+A minority of scholars believe that the Skull was used in the late Third Era crisis known as the 'Imperial Simulacrum', and that the Battlemage Jagar Tharn created a copy of Emperor Uriel Septim VII using this staff, which he then controlled. A greater number of scholars believe that Jagar mimicked the Emperor personally.
+
+One of the oldest stories about the Skull's use refers to its ownership by a Thieves' Guild boss. She used the staff to vanquish a rival - but the mirror of the foe was able to take the staff from her, and he used it on the boss, creating a clone of her, which killed her. With there now being two clones, both connected to the Skull, they ruled the guild for the many years following.
+
+This tale is usually dismissed as a myth, but like any good myth there is usually a heart of truth to the matter. And so it was that I began my research.
+
+I had hoped to find Lady Vaermina's staff myself so that I could study it; however, it has not seen the light of day since the Oblivion Crisis. It is believed that a cult of the Dreamweaver has managed to lay their hands on it in the far north of Skyrim, but they have somehow managed to seal away their entire temple for over a year now.
+
+Unperturbed, I looked into the reports of various scholars on the matter. They general consensus among those of the University of Gwilym, the vestiges of House Telvanni and the College of Whispers is that the Skull's 'copies', when it is allowing itself to be used thus, are not simple dark, corrupted mimics of their target, but versions of that person from another pocket of existence. The nature of these pockets is a source of immense debate; perhaps they are citizens of the Quagmire who exist as a dark copy of ourselves at all times in that realm, or those from an un-time event which has not been fully reconciled with our own timestream. Regardless, the notion that they are just 'copies' seems to have little traction in the scholarly circles, despite the fact that it is the simplest, and therefore usually the most likely explanation.
+
+The next piece of information was that normally, the Skull's clones or copies disappear after a short while. This almost caused me draw my research to a conclusion there and then, but I decided to persevere - perhaps with the 'Owner' of the staff being slain, the simulacra would not necessarily be revoked to their original place. I have heard that the length of the summoning is anywhere from half a minute to a full minute depending on Vaermina's whim - perhaps long enough for the 'Clones' in the story to defeat their summoner.
+
+I then turned my attention to the legends of Thieves. The Thieves' Guild rarely leaves grand chronicles of their adventures and heists, and when they do it's to misdirect, so simply turning up to any of Tamriel's many dens or cornerclubs as a visiting scholar was unlikely to give me any answers, no matter how quickly I were able to charm the brigands within. Thus it made more sense to consult law enforcement records and local legends.
+
+I cast a wide net; the legend simply stated 'Thieves' Guild', which is a very widespread organisation - or series of organisations bearing the same name, perhaps. Every city from Shornhelm to Senchal has a Thieves' Guild. 
+
+I eventually tracked down the following information from the city of Daggerfall, dating back to 3E 92. 
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/D_letter.png'>
+aggerfall Militia Report
+Year 92 of the Third Era of Tamriel
+21st Sun's Height
+Item XIV: 
+Militia should brace for an uptick in Thievery - the rival guild-heads 'Black-Sack' Lornie and Azwald 'The Jeweller' appear to have formed an alliance. We are investigating what may have caused these enemies to unite, as their enmity towards each other is well-recorded. Nor are the wounds they have caused each other in the past likely to have been healed by a simple need to work together. We are wondering if one of them has somehow been replaced by a twin.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/D_letter.png'>aggerfall Militia Report
+Year 92 of the Third Era of Tamriel
+28th Sun's Height
+Item III: 
+The bodies of 'Black Sack' Lornie and Azwald 'The Jeweller' were found in shallow graves outside town today. Lividity suggests that they have been dead for about a week. The wounds on Lornie suggest that she was slashed with a scimitar - the very weapon she normally uses herself. Similarly, Azwald's injuries were clearly done using a fledged mace of the sort he counts as his own signature weapon.
+We now believe that both the new allied thief bosses are illusions, twins or disguised persons who overpowered the original pair and used their own weapons against them. 
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/D_letter.png'>aggerfall Militia Report
+Year 98 of the Third Era of Tamriel
+5th Last Seed
+Item IV:
+Reports from the Thieves' Guild indicate that Lornie and Azwald have both left town. None know where they have gone, but they seem to have left simultaneously and with no warning. A power vacuum will no doubt arise in the guild, which we can probably use to our advantage.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/L_letter.png'>ocal Anecdote: Lourva of Glenmoril and the Thief
+
+This old tale goes back to around the same time as the first militia reports. It comes from a small village in High Rock, location unknown:
+
+A bandit from Daggerfall arrived in the commune today, and asked to see Lourva the Raven. We were reluctant to offer her succour, but she brought with her a bag of gold and so we decided to ask Lourva if she would see the brigand. The Hag agreed, and so she came out of her cave to meet her.
+
+We did not hear about what they spoke but the bandit was directed to leave an offering at the Altar of the Nightspeaker. She sat in prayer with the Hag for some time before leaving. 
+
+She came back the next day with a sack, which Lourva told her to place on the altar. We all got an eerie feeling at that moment, in our heads. Then the bandit took from the altar a human skull, all black with amber eyes, that we had not seen there before. Lourva instructed her to fix the skull to a wooden shaft, and so she did. The woman then left with the skull and never came back.
+
+Based on these reports, I can say that there definitely exists the strong possibility that the old legend is true. The militia reports of the appearance of the allied heads comes exactly six years before their disappearance. The date comes but a few days after the supposed 'Summoning Day' of Vaermina in High Rock, the tenth of Sun's Height. If we take the view that the story is genuine, then all the evidence I have found supports it. 
+
+In the interest of robust scholarship I continue to look for sources that might refute the story; I have found nothing convincing yet.

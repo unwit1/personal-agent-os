@@ -1,0 +1,53 @@
+[pagebreak]
+<p align="center">
+
+
+On the Disappearance of the Dwarves
+
+Volume Three
+Essay: The Null Hypothesis
+
+by Varendelion of Shimmerene
+
+
+Edited by Maura Calvaine
+
+</p>
+
+
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/F_letter.png'>oreword by the Editor
+
+Our first contribution on the Disappearance itself comes from the Altmer sage Varendelion, who lives and works in Shimmerene. He proposed this theory many years ago, in the late Second Era, and was kind enough to forward me this version of it. Though many had debated the matter in the years before, his was and attempt to formalise debate - and to do so, he proposed the Null Hypothesis, a supposition whose very existence was intended to be debated against. He never claimed to believe this theory, merely to offer the basis for the overall argument which was: If all the other theories on the Disappearance of the Dwemer are false, then the Null Hypothesis must stand as true. This Anti-thesis has formed the backbone of many rational debates on the matter since. 
+
+
+- Maura Calvaine
+
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>o my esteemed scholars and colleagues, in the divine light of Auri-El and Magnus, let us consider the disappearance of our forgotten cousins of ancient Dwemereth.
+
+So that my blessed learners may better debate the matter, I propose to you this; the null hypothesis, so that if we never come to a conclusion on what truly happened to the Dwemer, we shall always have this as our answer, until a more realistic solution is presented.
+
+In abstract form, I give you the answer which I intend to prove with what is simple and parsimonious, rather than what is erudite and arcane. That answer is this: The Dwemer were defeated by the Chimer at the Battle of Red Mountain, and any who survived either the event or the following purges were incorporated into Chimer culture.
+
+The Chimer and the Dwemer were already at war before the unifying presence of Nerevar. Against a common enemy, the Dwemer and Chimer stood valiant. But once their foe was no more, the old rivalries set in. In the times previous, the Dwemer had made their fortress at Red Mountain, then known as Mount Vvardenfell, for which the whole isle would eventually take its name.
+
+As a result of the war, the Dwemer forces had formed up in Red Mountain, using it as a redoubt of sorts. Now that their alliance was victorious, Nerevar's forces found themselves in the tactically advantageous position of surrounding the mountain, with the Great House armies and the Velothi herd-nomads. Sensing their weak position, the Dwemer called upon mercenaries from Skyrim and Wrothgaria.
+
+When war was finally declared, the Chimer simply leveraged their superior numbers. When the battle was over, and Nerevar and Dumac lay dead, there were simply not enough Dwemer left to continue their race. And so, those who survived were simply adopted into Chimer culture, and bred among them - not being so physically distinct from each other that their offspring would appear so different. 
+
+It may even have been that they were wiped out entirely. I think perhaps this is less likely, given the undertaking required, but let us not rule it out.
+
+As for the change of the Chimer into the Dunmer, I do not know. I will leave it as a possibility that they may have changed over time as a result of mixing their lineage with surviving Dwemer. I will abide for now by the notion that they were cursed by Azura for turning their back on the Ancestor Daedra in favour of the Tribunal.
+
+Now you may ask, that may all be well and good for the Dwemer of Vvardenfell, but did not the Dwemer of Resdayn's mainland not also disappear? Verily, they did. And what of Clan Rourken, whose exodus left empty ruins from Eastmarch to Stros M'kai? Just so.
+
+I propose that with their central government slain, the Vvardenfell dwarves abandoned their homes and either were slain by the Chimer or were, as before, assimilated.
+
+As for Clan Rourken, they were migratory. Though they built great cities that lasted a long time, they were on the move towards modern Hammerfell. Perhaps they simply kept moving West, leaving the ruins of Skyrim and High Rock empty. In Hammerfell, there exist old tales that the Dwemer were forced out by a great dragon, or by a goblin army. Stranger tales also tell that they were wiped out by their own slaves.
+
+I have no doubt that this explanation will satisfy almost nobody - and it is not intended to. I pray that with Syrabane's wisdom, the brightest of apprentices will debate it with such rigour that they will find the truth of the matter eventually.
+
+And under the Light of Auri-El I thank you for indulging me with your patience and silence. 

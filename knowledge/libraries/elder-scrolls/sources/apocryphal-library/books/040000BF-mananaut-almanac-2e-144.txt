@@ -1,0 +1,72 @@
+[pagebreak]
+<p align="center">
+Royal Imperial Mananauts
+<img src='img://Textures/Interface/Books/ApocLib/mananaut.png' height='200' width='200'>
+Almanac 2E 144
+</p>
+<p align="left"><font size="17">
+[pagebreak]
+MASSER
+-------------
+M.Star   30.2, 40.3, NUL
+S.Dawn  30.5, 00.3, 90
+F.Seed   NUL, NUL, NUL
+R.Hand  00.3, 20.31, 56
+S.Seed   55.3, 1.2, 90.44
+Midyear  00.01, NUL, 48.3
+S.Height  66.51, NUL, 00.2
+L.Seed    88.8, 88.8, 88.8
+H.Fire     9.73, 20, NUL
+F.Fall      NUL, 90.42, NUL
+S.Dusk   00.3, 83.2, 29.01
+E.Star    NUL, 99.3, 62.03
+-------------
+[pagebreak]
+SECUNDA
+-------------
+M.Star    NUL, 99.3, 62.03
+S.Dawn  10.2, 00.33, 129.0
+F.Seed   55.3, 1.2, 90.44
+R.Hand  40.4, 212.83, 50
+S.Seed   95.9, 1.7, 90.12
+Midyear  03.73, 20, 00.02
+S.Height  NUL, 00.1, 00.5
+L.Seed   20.3, 75.8, 89.9
+H.Fire     3.73, 10.1, NUL
+F.Fall      NUL, 90.42, NUL
+S.Dusk   0.7, 18.2, 29.04
+E.Star    12.12, 99.5, 6
+-------------
+[pagebreak]
+AKHAT
+-------------
+M.Star   00.01, 44.3, NUL
+S.Dawn  12, 10.6, 90
+F.Seed   100, NUL, 33
+R.Hand  00.3, 20.31, 56
+S.Seed   15.2, 13.21, 50.31
+Midyear  3, 30.12, 48.3
+S.Height  66.51, NUL, 00.2
+L.Seed    NUL, 30.12, NUL
+H.Fire     9.73, 20, NUL
+F.Fall      NUL, 90.42, 99
+S.Dusk   00.3, NUL, 29.01
+E.Star    NUL, 99.3, 62.03
+-------------
+[pagebreak]
+JHUNAL
+-------------
+M.Star  NUL, NUL, 30.62
+S.Dawn  66.2, 73.6, 3
+F.Seed   17.3, NUL, 93
+R.Hand  12, 4.33, 33
+S.Seed   NUL, 30.12, NUL
+Midyear  3, 30.12, 48.3
+S.Height  00.3, 20.31, 56
+L.Seed    NUL, 30.12, NUL
+H.Fire     9.73, 20, NUL
+F.Fall      NUL,42.3, 9
+S.Dusk   55, 37, 48.3
+E.Star    100, 100, 100
+-------------
+</font>

@@ -1,0 +1,56 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/P_letter.png'>oems of Ald Mereth
+
+
+Edited by Unselcidon of Alinor
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he following poems are a collection of those few poems that survived the Atmoran onslaught of the Snow Elves. Many more such poems must have been lost to the fires of Ysgramor, and so the few that remain are considered rare treasures indeed. May that enlighten the reader as they illuminated the poets of ancient Mereth.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/V_letter.png'>alley of the Hyacinths
+
+O Auri-El innumerable,
+How is it that your eyes so blue
+glisten from a hundred thousand
+Hyacinths, as there they grew
+In valleys north and south of
+ancient Calmavelde
+Do you see our beauty through them?
+Do you see our children dance?
+
+We left the beautiful flowers
+In the valleys where they bloomed
+And rode across the sun to where
+Our ancestors, who once dined forever
+Lay still and calm under the sound of calling birds.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Queen of War
+
+I am the blemished ore
+Yet of steel my heart is made
+I am borne of strife and fire
+And hatched in halls of flame
+The hammer I abide
+The cooling sword grows sharp
+The Queen of War is born.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/L_letter.png'>ament for Mereth
+
+Smoke rises over broken shields
+Above Abalavar and Falimendil
+The Falmer are fleeing from the Atmorans
+They are fleeing like lost birds.
+
+In Saradith and Ungalmilde
+The farmers and soldiers gather
+They greet one another with tears
+And hold their children close.
+
+Is this what you have ordained for us,
+O Auri-El, bringer of light?
+As the lilies of summer wither and fade,
+Will nothing last in our name?

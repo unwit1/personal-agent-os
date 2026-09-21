@@ -1,0 +1,51 @@
+[pagebreak]
+<p align="center">
+
+
+Vampire Clans of Skyrim
+
+
+by
+Vigilant Adalvald
+</p>
+<p align="left">
+[pagebreak]
+
+
+These notes contain the sum of our knowledge to date on the vampire clans believed to operate in Skyrim. We have no means of knowing if this list is exhaustive, indeed several of the entries listed here are likely no longer relevant as their last records date to the second era. Nevertheless, it is presented here.
+
+The largest and most powerful group of vampires in Skyrim is Clan Volkihar. Their lair is not currently known - reports indicate it may lie along one of Skyrim's borders, but the province has four. Readers of the book 'Immortal Blood' will recognise the clan name. They are supposed, in that book, to dwell under frozen lakes, and have the ability to reach their hands through the ice as if they were mist. This ability has not yet been noted by any of the members of the Pale's Vigil - at least none that may have lived to tell about it. We are cautious about crossing frozen water nonetheless, especially at night time. If their lair is indeed under a frozen lake, we may have some trouble reaching it - however, we do not believe that 'Immortal Blood' is a factual account. But we still remember to be cautious.
+
+Members of the clan are able to drain life by means of a spell - it appears as a red beam from a distance, but to experience it is to reveal that it one's blood being pulled straight from the pores of their skin. Victims describe this as a particularly agonising sensation. Worse still, this spell is able to transmit the vampiric infection directly to the target. This spell seems to have been taught, one way or another, to other minor vampire clans in the province. Alchemical blood analysis of several nightspawn has indicated that the spell originated among the Volkihar, but that many who use it do not share that lineage. This has given rise to the notion that the smaller clans act as subjects to Volkihar - although given that the clans seems to do battle with each other, it's hard to say if there's any real loyalty or fealty there.
+
+Another trapping that has been shared from the Volkihar to the smaller clans is their state of dress. They favour lavish and ornate clothing and armour styled in a macabre fashion, often black and deep red. A brooch bearing an eight-pointed star against a circle is common - it is not certain if this is a clan symbol, or perhaps a religious symbol of Molag Bal.
+
+Volkihar are a dangerous clan - they operate mostly at night, and while they are capable at magic and in combat, they also seek to inveigle themselves in the affairs of mortals, offering their services as advisors to Jarls or even attempting to subvert entire groups of bandits.
+
+There are scattered reports as far back as the late first era of winged vampires - hideously deformed faces, with wings that should be too small to carry them. These reports are taken seriously as they have cropped up multiple times.
+
+Their strain of vampirism is known to scholars as Sanguinare Vampiris. It seems to cause less sun aversion than other strains, though the creatures still avoid the daylight. Most other vampires in Skyrim use a similar strain, treatable by the same methods.
+
+The most recently recorded Clan ruler was Lord Harkon, though no reports on him have been found dating since the late Third Era. As such, the current head of Clan Volkihar is unknown. They are a top priority target.
+
+Clan Quarra are renowned foes from Morrowind, though there have been reports from Vigilants of activity that matches their modus operandi in Skyrim. It is possible that some fled the aftermath of the Red Year and have hidden themselves here. 
+
+The clan is well-known for their violence and ferocity - they are remembered as terrible warriors, attacking villages in Morrowind with the fervour of berserkers. They were reported to have been largely of Nordic stock, so they might logically have chosen Skyrim as a better place to lie low once their numbers were too depleted for them to rely on their old methods. 
+
+The last known leader of Clan Quarra was Lady Volrina. She was brought to her end by Buoyant Armigers - or possibly the Nerevarine - sometime between 3E 427-429.
+
+The Ordo Cyrodiil Vampyrum mostly keeps the the Imperial Province, but they are believed to have made a den at Haemar's Shame. That presumption is based on the fact that the site is a known sanctum of Clavicus Vile, patron of the Order. No cases of Porphyric Haemophilia have been reported in the region between Ivarstead and Helgen, so either this is a separate, smaller clan with no affiliation to the Order, or they have allowed themselves to become infected with Sanguinare Vampiris since making footfall in Skyrim.
+There is one rumour that links the Order to Skyrim, and that is the last words of a Vampire who was given Arkay's Rites in Hjaalmarch. He claimed to have been sired by Movarth, the character from Immortal Blood. If that were true, and indeed also if the narrative of the book were true, that might mean that the Cyrodiilics had implanted their bloodline into the province. Though that would depend on a book widely held as fiction to be true, there have been cases of Vampirism in Hjaalmarch that do not correspond directly to that of the more regionally common Volkihar lineage, but to a separate single bloodline. Be on the lookout.
+
+Clan Tarbonnis are almost completely unknown. One reference we have is from a ciphered note retrieved from a vampire courier near Ivarstead. It was supposed to be delivered to one 'Imradi Tarbonnis', which was the first time the name was seen. We weren't certain that we had even deciphered the name correctly until Vigilant Torvald delivered a report in which a vampire of a clan unknown had reportedly agreed to reveal information on 'Houses Quarra and Tarbonnis' in return for release. However, it seems that another vampire had somehow managed to kill it before it could be questioned.
+
+The current clan (or House) leader is unknown - possibly Imradi, the only name we have.
+
+Clan Lothid have not been reported since the mid second era. They operated out of the Dwemer complex known now as Reachwind Eyrie. It is believed that they were wiped out around that time, though such an occurrence has not been found in any Hold archives. An exploration of Reachwind Eyrie by the Vigil revealed no signs of Bal's tainted progeny.
+
+Clan Aydril have been mentioned only once, and by an escaped slave. He claimed he had been one of several 'Cattle', which was located in what he described as an 'Underground city' with a great many other vampires. The vigil gave him lodgings and questioned him carefully. He had managed to escape thanks to drinking a discarded potion which he had believed was a poison that might end his misery, only to find himself invisible. He took the opportunity to flee. He says he does not know where he breached the surface as it was night time, but he was found unconscious by a Stormcloak patrol around the sulphur pools of Eastmarch. He was delivered to us, and gave his full testimony before asking us to end his life. Given his trauma, he was allowed to receive Stendarr's mercy and Arkay's last rites. 
+He had definitely been fed upon by the parasites, but had shown no signs to being turned. He claimed that he and other 'cattle' were fed upon by members of this Clan or House, Aydril, who were frail of physique but possessed powerful magical abilities, able to soothe or strike fear with a word or a touch. Of the city, we have found no trace - given where he was found, it could be the other side of the border with Morrowind. 
+
+The leader of the clan was given as 'Telasal', 'Telosar' or similar.
+
+The Snowbrood were a clan recorded as having been annihilated in the First Era by a member of House Direnni. Their lair was supposedly a great fortress called Castle Thorn. No other records of this castle have ever been discovered, and so the report is supposed by the Vigil to have been a fabrication by Direnni propagandists of the era, or an exaggeration of the destruction of a much smaller clan operating among the Reachfolk.

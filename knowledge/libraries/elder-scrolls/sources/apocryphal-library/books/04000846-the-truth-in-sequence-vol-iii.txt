@@ -1,0 +1,22 @@
+[pagebreak]
+<p align="center">
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Truth in Sequence 
+
+Volume III
+
+Taken from the sermons of Deldrise Morvayn, Fourth Tourbillon to the Mainspring Ever-Wound.
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/B_letter.png'>y the word, I wind the gears.
+
+The Third Truth of the Mainspring Ever-Wound is the truth of the Daedra. In the days before the First Ignition, the Chimer people bent their knees to the False Princes: The Webspinner, the Prince of Plots, and the Queen of Dawn and Dusk. I do not use their names, as Name cleaves one from another. You know them well, child of the Tribunal, for every time you bear false witness, or make foolish boasts, you do so in their name. Their words corrode and weaken the heart. Their threats loosen the fasteners and break the seals. They are the Anti-Gears that turn counter to the Nameless Will. Servants of the Padomaic untruth whose nature is void. Of the Daedra, only the Gray Prince of Order knew his nature, and he went mad in the knowing.
+
+The Daedra fear wisdom and order, you see? And thus do they fear the Clockwork God above all others. Where others see dark crowns numbered ten and six, Sotha Sil sees shadows and nothing more. For the Daedra are the lie that creation tells itself. Like their father, Padomay, they are Nothing. And in the Tamriel Final, Nothing shall hold no sway. Anuvanna'si. Their black mountain called "Oblivion" shall sink into the Furnace of Forgotten Numbers, where all lies burn and brittle multitudes turn to slag.
+
+I hear you ask: If the Daedra are of the Nothing, how do they lurk on our threshold? How do they lurk at all? Hear the words in sequence, child of the Tribunal! In the clumsily built Nirn-Prior, the et'Ada Gears left gaps and crevices where Nothing could take root. Imperfections born from Lorkhan's Great Lie and the selfishness of fractured creation. In the glorious Anuic convergence of the Nirn-Ensuing, all gaps will be sealed. All crevices will be welded. The creaking and rattling of the machine shall retreat to a whisper, and the reckless chaos born from the et'Ada Gears' folly shall shrivel and starve.
+
+By the word, I wind the gears.

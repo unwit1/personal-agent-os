@@ -1,0 +1,56 @@
+<p align="center">
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Murkmire Almanac
+
+Being a complete guide to the locations and habitat of the Murkmire
+
+by Beejeem of Lilmoth
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Murkmire is the southenmost region of Argonia, and is formed of the marshlands that surround the Keel-Sakka river. The largest settlement is Lilmoth, which sits on the Oliis Bay.
+[pagebreak]
+Part I: Settlements
+
+Alten-Meerhleel - A minor trading post on the southern coast, east of Lilmoth. Acts as a trade hub for many Argonian tribes.
+
+Bright Throat Village -  a settlement found in the eastern shore of Murkmire. In Jel it is known as Seekhat-Yol. It is the tribestead of the Bright-Throat tribe, or Wasseek-haleel, who are known across the province as skilled diplomats and mediators. They are also well-known for their woodwork, and the instruments and 'seed-dolls' they make are likewise famous across the Black Marsh.
+
+Dead-Water Village - a settlement in western Murkmire, north-west of Lilmoth. It is inhabited by the Dead-Water tribe or the Naga-Kur, a particularly fierce and bellicose lineage of Naga feared by those in the rest of the region.
+
+Lilmoth - a town at the south-eastern tip of Murkmire overlooking Oliis Bay. The town is well-connected to the rest of Tamriel and serves as a transport hub. It has various facilities and services common to other Tamrielic towns and cities, such as a Mage's Guild and a Fighter's Guild. It is ruled by a council of merchants, and as such is a reliable location for traders seeking to do business from across the continent.
+
+Root-Whisper Village - A village in north-west Murkmire, abandoned after assaults by the Barsaebic Ayleids but now being rebuilt.
+[pagebreak]
+Part II: Ruins
+
+Blackrose Prison - A former Imperial prison in west Murkmire, now inhabited by brigands and marauders.
+
+The Dominus Fatum - A shipwreck on the Deepmire, known to have been a Dres vessel in the First Era. 
+
+The Ixtaxh Xanmeer - The Ixtaxh-Thitithil-Meht, or 'Exact Egg-Cracker', is a partially-sunken Xanmeer pyramid on the south coast of Murkmire. Believed to have been used in ancient pre-Duskfall rites, the exact purpose of the structure is unknown. It appears to have been a temple, though it is uncertain to which gods.
+
+Lakemire Xanmeer - A Xanmeer located north of the Teeth of Sithis, on the Deepmire. It is in relatively good repair and has been known to serve as a dwelling for Argonian shamans in the past.
+
+Teeth of Sithis - A temple to the god of death situated in central Murkmire. It has been claimed that the temple is home to vampires and undead, and is largely avoided.
+
+The Tomb of Many Spears - A cave found in the far northwest of Murkmire, located northeast of Dead-Water Village. Burial place of the Naga warlord Etra of the Many Spears.
+
+Vakka-Bok Xanmeer - A pre-Duskfall temple within Root-Whisper Village.
+
+Xinchei-Konu Monument - An ancient calendar used by the pre-Duskfall Argonians for astromantic purposes. It is to the north of Lilmoth.
+
+Xul-Thukis - An ancient temple to the death-god Sithis just outside Root-Whisper Village. Inhabited by rogues and brigands.
+[pagebreak]
+Part III: Natural Landmarks and Locations
+
+Blight Bog Sump - A complex of swampy caves east of Blackrose Prison. It is filled by the Keel-Sakka river and is home to a tribe of Argonians known as the Veeskhleel or Ghost-People.
+
+Deepmire - A large swamp that coverd much of northern Murkmire. Home to dangerous fauna including behemoths, bog blights, voriplasms, and wamasu.
+
+Path of the Lily - A winding canyon that leads west of Dead-Water Village, used by the tribe as a place of training and ritual.
+
+Singing Grotto - A small cave southeast of Dead-Water Village.
+
+Swallowed Grove - A great underground jungle believed to have been buried when a sinkhole's aperture collapsed. It is speculated that there may be old ruins buried in the depths. It lies to the north-east of Blackrose Prison.

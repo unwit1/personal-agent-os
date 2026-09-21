@@ -1,0 +1,106 @@
+[pagebreak]
+<p align="center">
+
+The Firebrand Prayerbook
+
+Compiled by the Knights of the Flame
+
+For the Honour and Glory of Anticlere
+<font face="$SkyrimBooks">
+<font size="17">
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'> Prayer to Mara
+
+Mara Mother, Blessed be
+To whom no hearts hold secrets
+Grant us purity of purpose
+And righteousness of thought
+So that our deeds may be done
+In love for that to which we have sworn
+And that our desires may never be tainted
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'> Prayer to Stendarr
+
+Father Stendarr
+Grant us the wisdom of the blade
+So that our sword never strikes in hate
+Our spear never pierces in malice
+Our mace never smites in spite
+And that we know thy blessed mercy
+And only strike to protect that which we love.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'> Prayer to Ebonarm
+
+Wise Ebonarm
+Knower of the final tactic
+Make a shield of our faith
+And give us faith in our shields
+Grant us courage to protect the land
+Let us never waver in battle
+May we remember the wisdom of our enemies
+As we ensure they remember ours.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'> Prayer to Akatosh
+
+O Akatosh, King of Heaven
+Remind us never to forsake our duty
+And to act with honour in all things
+As we ensure our realm lasts for all time
+For you we protect our king
+For our king we serve you
+Forever and for all eternity.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'> Prayer to Dibella
+
+O Dibella, Queen of the Opal Mists
+Show to us the beauty of dawn
+Draw us to the majesty of dance
+Grant us the steady hand of art
+Let our words flow like poems
+And remind us that for all our toil
+All our battles and all our strife
+What it is for which we fight.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'> Prayer to Kynareth
+
+O Kynareth, Mother of the Wind
+Bring us fortune in our labours
+Let our acts honour nature
+And our deeds honour creation
+Teach us to heal one another
+And to know the wealth of the land.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'> Prayer to Julianos
+
+Julianos, Father of Logic
+Grant us wisdom in our deeds
+Let us learn from our errors
+And grant us keen sight
+May our memory serve us
+And may we teach others 
+As you have taught us.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'> Prayer to Zenithar
+
+Zenithar, Patron of Patrons
+May we never shirk our duty
+May we always strive 
+May we never leave our work unfinished
+May we always endeavour
+To honour you and ourselves..
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'> Prayer to Arkay
+
+Grandfather Arkay
+Beginning and End
+Remind us each day
+To live our lives well
+So that when our time comes
+We may enter your embrace
+With no regrets in life.
+</font>
+
+
+
+
+

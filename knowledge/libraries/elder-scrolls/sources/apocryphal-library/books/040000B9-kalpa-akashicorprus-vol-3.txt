@@ -1,0 +1,34 @@
+[pagebreak]
+<p align="center">
+
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/K_letter.png'>alpa Akashicorprus
+
+Volume III: On the Current Kalpa
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he current kalpa begins where the last ended - at Convention, where the Heart of Lorkhan was launched into the east by Auri-El, forming Red Mountain and allowing space-time (Akatosh) to flow in a linear manner. Stable existence springs up between these two towers and gradually spreads as more are built.
+
+One thing stands out about the current kalpa, according to theosophists, marks it as the first of its kind. Dantius Melvo, a priest of Temple Zero from Cyrodiil, renders it thus.
+
+"The Kalpa has always begun and ended with the clash of the king and the rebel, yes. And we always remember them thus. The witness is blinded at the beginning, and his knowledge leads to the creation of the next world. And so on. But this time, Shezarr did something unusual - he deliberately failed in his attempt to claim the Heart of the World for himself. He did not consummate with the heart, in fact he seems to allow Trinimac to slay him at the moment of his inevitable victory.
+
+"The outcome is the same as it always is, but this time there's more than just Magnus to witness this. All the other Aedra and Divines are there too, and they all stand at Convention and witness the Heart being flung into the East. And there are those who think he was right, and those who think that he was wrong - and by and large, those two cultures form the basis of men and of mer respectively.
+
+"It is this unusual sacrifice that might allow this kalpa to end differently. Perhaps it is one thing to willingly fail at the moment of victory, but perhaps there is something to be learned for next time - will the rebel and the king find some new way to begin a world?"
+
+Melvo's account offers a certain amount of optimism for the end times. Contrary to this is this offering from Serjo Arvanda Ramoran, canon of the Tribunal Temple in Morrowind.
+
+"This kalpa is different for the reasons that Melvo describes, yes. But it won't be remembered that way next time. Unfortunately, you are dealing with a mad god. Did you ever ask yourself why the Dunmer do not venerate the Dragon? It is because he is mad. Auri-El was very close to power when the Scarab snatched it from him. Since then he has taken many forms in an attempt to swallow the Heart of the World, and each time he is in different form.
+
+"He was the Saliache Prince who found the Amulet. He was Pelinalessia the open-chested, who drank what she could from a sole drop of heart-blood. He was the hungry King Hrol who died at the hand of the Sheperdess. He was every Reman and every Potentate, slaying himself time and time again as Boethiah tricked his hand. He was Tiber Septim and his heirs, and he is the Sharmat, Dagoth Ur. 
+
+"Every time he thinks he has what he wants, he is seen and he has to change. He is immortal, never-dying in his many masks as he yearns to be with what he thinks he owns. He cannot die no matter how hard he chooses, he only loses one mask and dons another. He is your Underking and our Sharmat. He cannot choose death. In Morrowind, we call this affliction Corprus, and it is a warping of flesh and mind that strips reason from good minds. Dagoth Ur cannot make pure beings because he is a diseased mind, and he is the mind of Akatosh. Lord Vivec assures us that he will bring this kalpa to a different close, but he has the flailing wheel of the tail-eating dragon to deal with."
+
+Perhaps this kalpa, then, will end differently because it began differently. But the schism between Men and Mer, solved for now by the formation of the Mantella, could begin again - and with it the war that pre-dates the world.
+
+
+

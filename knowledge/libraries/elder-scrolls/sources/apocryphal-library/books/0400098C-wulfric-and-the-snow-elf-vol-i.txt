@@ -1,0 +1,113 @@
+[pagebreak]
+<p align="center">
+
+Wulfric and the Snow Elf, Vol. I
+
+
+Translated by Cassolar Draebo
+
+
+
+University of Gwilym Press
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>his is the poetic epic of Ysgramor's youngest son, Wulfric. While the authenticity of the story is uncertain, fragments have been found in contexts that leave no doubt of a late First Era origin for the earliest written versions. The grammar and word use in the early version also leave no doubt of its Old Atmoran origins, with many passages essentially the same in Old Atmoran and Proto-Nedic. Of course, those who favor a more modern origin of the epic also reject the University of Gwylim's centuries-long efforts to reconstruct these languages.
+
+This translation draws heavily on more recent versions where the oldest are incomplete. I attempted to render this great epic into the modern Imperial dialect while maintaining the rhythm and power of the original.
+
+I am unworthy of such a task. There are far too many verses where I could not match to the original's brilliant and near-perfect meter, alliteration, and rhyme. I fear this is but a pale shadow.
+
+Your Humble Translator,
+
+Cassolar Draebo
+[pagebreak]
+<p align="center">
+I. In the King's Court
+(In which the Stranger arrives and dares Ysgramor to slay an ice wraith.)
+</p>
+<img src='img://Textures/Interface/Books/Illuminated_Letters/S_letter.png'>trong Ysgramor, scalp-snow shining
+Wisest father, brawny manner
+Raised before him hands in greeting
+Stood before his sturdy banner
+
+Ysgramor:
+"In my hall, all men are welcome
+Safe in Saarthal, shall men slumber
+Let us sit and strum the war-drums
+Share we breaths as sworn sword-brothers
+
+Blessed are we with Saarthal's bounty
+Here give glory for these green-gifts
+Dirt-rows, ore-beats, notch-nocks, bronze-trees,
+Freely pass your fat palm's snow-drift
+
+Here in my hall, all men equal
+Live by drake-words, live by wisdom
+Here the star-eye melts the crystals
+New laws free of ancient dictum*
+
+Here hold fast in hearty feasting
+Here hear calls of hammer-clanking,
+Triumph-talking, bare-breast-beating
+Men of war like gore-moons' waxing
+
+Here grow strong and growl in anger
+Shor's old birthright now fae-stolen
+Eat and drink and sing with laughter
+Life-law chains that shall be broken"*
+
+Wise Ysgramor in his chamber
+Sat before his sturdy banner
+All men sat except the Stranger
+Stood in challenge from his corner
+
+Man-shaped thing yet still familiar
+Man-shaped thing all bald and bare-skinned
+Man-shaped but with skin of silver
+Snow-skin untouched by the north-wind
+
+The Stranger:
+"King, oh man, oh bearded wonder
+Came you here to cry or conquer?
+Shall we fear your shout of thunder?
+Dare you hunt, oh dragon hunter?"
+
+Ysgramor:
+"Feel your heat, a forge's fire
+Hear your words, like wolves of winter
+But my Shor-spark burns still brighter
+Elf I name you, snow-skinned Falmer!"
+
+The Stranger:
+"Come I now to call out challenge
+North-men are you great or gelded?
+This I ask - to slay an ice-wraith
+This I dare - or are you timid?"
+
+Ysgramor:
+"Ask you, dare you, hear my answer
+Ice-wraith's doom now lies upon it
+See my hands hand-down my saucer
+See my hands now holding Ysgrit**
+
+I, by frost-fall, brave the ice-wraith
+By my shout the wraith lies stricken
+Soon it lies in Shor's deep embrace
+Before sun-dusk, foes lie beaten"
+[pagebreak]
+
+Translator's Notes: This is a standard introduction for Nord poetry, both of this era and later ones, but there are some interesting differences. For one, the emphasis is always on odd syllables instead of even ones, as in later works. Secondly, while Shor is mentioned here and many times through the entire work, other gods are only rarely mentioned. This general trend in the few surviving First Era works has led some to speculate that the settlers from Atmora were religious zealots or from a cult of Shor.
+
+*These two verses are especially difficult and uncertain.
+
+**Much like Wuuthrad and Khaalthe, scholars argue over whether Ysgrit is a weapon (and whether a bow, spear, axe, or something else), a favored servant, or a technique.
+
+
+
+
+
+
+
+</p>

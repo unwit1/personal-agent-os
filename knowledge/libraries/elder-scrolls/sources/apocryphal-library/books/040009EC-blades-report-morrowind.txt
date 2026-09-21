@@ -1,0 +1,68 @@
+[pagebreak]
+<p align="center">
+
+
+Blades Report
+
+Morrowind: The Recent Crisis
+3E 427
+
+<img src='img://Textures/Interface/Books/ApocLib/BladesSymbol.png' height='200' width='200'>
+
+Caius Cosades
+
+</p>
+
+[pagebreak]
+<p align="left">
+
+For the attention of Grandmaster Jauffre of Weynon Priory, and His Imperial Majesty Uriel Septim VII
+
+Sirs,
+
+This communique comes with the usual caveats, but I implore you to take it seriously. Something has changed on Vvardenfell in the last year and I don't believe it's just the locals getting tired of us. 
+
+Recent Political History
+
+Previously a Temple Reserve, Vvardenfell was granted colonisation rights by King Lethan in 414, and the move made him unpopular with the Tribunal Temple but gained him much support from the Great Houses. House Redoran had the most control of the region before this, but soon Balmora ('Stonewood') became the rallying point for a good many more Hlaalu settlers, who expanded along the Bitter Coast.
+
+House Redoran have fortified Ald Rhun ('Old Steading') more over the last few decades, and it is now the Redoran Capitol for the entire province. They have also expanded into West Gash.
+
+Port Telvannis remains the provincial capitol for the reclusive Telvanni, but they have turned Sadrith Mora ('Mushroom Forest') into their regional base of operations, and more mushroom towers have appeared up and down Azura's Coast. 
+
+House Indoril has not deigned to settle the isle, citing dissatisfaction with the colonisation writ. They remain the religious weight behind the Temple, however.
+
+House Dres has not shown any interest in Vvardenfell.
+
+The Tribunal Temple has not built any more settlements, but remains the seat of de facto authority within the region. In Vivec City, the eponymous Warrior-Poet god of the tribunal dwells within High Fane. He is the ultimate religious authority of the whole island.
+
+The Empire has only just begun to put down roots here. By the terms of the Armistice, we are required to have forts to oversee the burgeoning population. Prior to this, the only foothold that the Empire had on the island was the trading settlement of Seyda Neen, built by the Gold Coast company in the second era. It was granted to House Hlaalu to administrate, presumably to get around the terms of the Temple isolation policy.
+
+The Velothi, usually called 'Ashlanders', have lost much over the last thirteen years - the expansion of colonists has pushed them further into the wilds and has threatened their way of life. 
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/R_letter.png'>ecent Concerns
+
+Over the last few months, the sickness known as the 'Blight' has begun to infect more wildlife and, in some cases, people. The effects are quite diverse, but often fatal if left unchecked. Normal treatment does not work, and indeed those treatments that do work do not work on normal diseases at all. But the Temple has worked on various cures and potions that cure it or allow one to resist it.
+
+The blight has been at work for a long time now but was previously contained by the Ghostfence surrounding Red Mountain. It is unknown what the effect of Red Mountain is that causes this disease, but it has been determined that there are several Dwemer forts on its slopes. Actually getting past the Ghostfence requires permission from the Temple Ordinators, and is generally considered much too dangerous. There are a great many blighted creatures and persons within.
+
+A variant of the disease called 'Corprus' has proven too difficult to cure so far. Temple Priests believe it may be incurable. It causes inflammation of the flesh and hideous protrusions and lesions, making walking a difficulty and often leaving the victims functionally braindead.
+Some of the early reports I've received indicate that there are some cases where the victims retain their faculties but experience very unusual changes in appearance. The stories are rather fanciful however.
+
+Among this tumult there have been concerns growing about two factions: The Sixth House, and the Nerevarine Cult.
+
+I know next to nothing about either of these at the moment, other than that in the time of the First Council, there was indeed a Sixth House of the Dunmer people, House Dagoth. They were wiped out at the Battle of Red Mountain. It is suspected therefore that they are either responsible for the Blight, or are using the Blight to claim some kind of political coup.
+
+The Nerevarine Cult is a forbidden sect of the Temple that believes that an ancient warrior-captain of the Dunmer, Nerevar, will one day return to rid Morrowind of the Empire and either the Temple or the Great Houses, depending on what version you hear. His death occurred at Red Mountain, at the climax of the same battle that destroyed House Dagoth.
+
+I have yet to get a solid lead on either group - the region has proven VERY difficult to spread my tendrils into. With only thirteen years to become established, the locals have a very strong sense of identity. Most of my contacts therefore are members of the expanding population, though I have been able to convince some of the Temple and Great House people to spread word in my direction in return for various things.
+
+I have yet to make any contact whatsoever with the Ashlanders, though I am beginning to suspect that they may know something more than the rest of us.
+
+All of this put together sounds a bit like a conspiracy so far, but the one thing that absolutely has me convinced that something bad is going down is the reaction of the Tribunal Temple. There has been an enormous crackdown on any mention of either group, that you wouldn't know about unless you had a spy's intuition. The rise in cases of Blight is being 'dealt with' by Temple priests. This at least does seem to be true, although the relief has yet to cut to the question of what causes it.
+
+Also of concern is the recent rise in anti-Imperial sentiment. I'm not sure this is related - it's been thirteen trying years, and the locals have had plenty of time to get to dislike us. But there's something out there, maybe these two groups, that seems to be fanning the flames recently. A soldier was murdered in Gnisis recently, and another who was returning to Fort Moonmoth from Balmora. The Camonna Tong, usually a problem but normally focused on their own schemes, have changed behaviour.
+
+The overall mood of the population, be it the locals, the Morrowind expansionists and the Imperial colonists, is one of mild concern. Something is bubbling up, but it's not at the surface yet. I am beginning to focus more on the folk traditions of the region in the hopes that something becomes obvious. 
+
+I have no particular advisements for how to proceed - I trust that His Majesty always knows what to do when something of this nature raises its head.

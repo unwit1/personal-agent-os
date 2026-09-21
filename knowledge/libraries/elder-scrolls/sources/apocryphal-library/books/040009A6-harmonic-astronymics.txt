@@ -1,0 +1,73 @@
+<font face='$DwemerFont'>
+[pagebreak]
+<p align="center">
+
+Harmonic Astronymics
+
+by Anzek 
+
+<img src='img://Textures/Interface/Books/ApocLib/DwStarInt.png' height='240' width='240'>
+
+</p>
+
+[pagebreak]
+The Orrery Pattern
+<p align="left">
+<img src='img://Textures/Interface/Books/ApocLib/DwemerStars01.png' height='296' width='296'>
+
+The inexact diagram by which the apprentice can correctly misinterpret the Net of the Heavens
+[pagebreak]
+The true names of the stars are calculated from their constellation cluster
+Doing so in sequence provides the root from the vanchningth equation 
+The equation can be transcribed by the radiant method and then committed to the correct tones by reference-quasit
+DO NOT ATTEMPT THIS ON THE SERPENT
+[pagebreak]
+<img src='img://Textures/Interface/Books/ApocLib/DwemerStars02.png' height='400' width='296'>
+The Witnessing Constellations
+[pagebreak]
+The Radiant Engineer
+Blindness results from boundary rupture
+
+The Sigil
+The middle stars should not be calculated
+
+The Bond Hammer
+The ingress and egress of all tones is increased
+
+The Animunculus
+The ingress and egress of all tones is  decreased
+[pagebreak]
+<img src='img://Textures/Interface/Books/ApocLib/DwemerStars03.png' height='400' width='296'>
+The Defending Constellations
+[pagebreak]
+The Guardian
+Safe for anyone to calculate
+
+The Oathlord
+Ingress calculations far harder than Egress
+
+The Oathlady
+Egress calculations dar harder than Ingress
+
+The Vamidium
+Calculations double in complexity every iteration
+[pagebreak]
+<img src='img://Textures/Interface/Books/ApocLib/DwemerStars04.png' height='400' width='296'>
+The Renegade Constellations
+[pagebreak]
+The Hidden Mer
+Nymics may come out in correct syntax 
+If so regurgitate all equations
+
+The Shadow
+Nymics may reflect bad user input
+Keep stored records
+
+The Tower
+May create hypernymic output
+If so record all details
+
+The Lover
+May create Enantionymic of user
+</p>
+</font>

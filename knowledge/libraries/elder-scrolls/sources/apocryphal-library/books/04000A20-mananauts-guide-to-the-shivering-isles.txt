@@ -1,0 +1,45 @@
+[pagebreak]
+<p align="center">
+The Royal Imperial Mananauts Guide to the Daedric Realm of the Shivering Isles
+
+<img src='img://Textures/Interface/Books/ApocLib/mananaut.png' height='200' width='200'>
+By Captain Lindia Sevor
+3E 112
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Shivering Isles should not be entered lightly. They are quite capable of driving a mananaut insane. The material wealth may be worth it if cautious and well-warded.
+
+Chapter One - Reaching the Shivering Isles
+
+Similarly to the Deadlands, it is possible to get there through a slipstream realm. It is also possible to scry, though this affords only limited protection against insanity and there's a risk that the scrier may end up 'falling' into the realm physically.
+
+Sometimes the strange root stocks of the Shivering Isles push through into Mundus, and one can enter in this manner. This is a rare occurrence. But in any case, physically entering and exiting in such a manner is not the hard work.
+
+Chapter Two - Navigating the Shivering Isles
+
+The realm seems, at first glance, not so unlike Mundus. Those who are familar with Eastern Morrowind will often think that they gave simply arrived in the lands of House Telvanni, for great mushrooms grow everywhere.
+
+The realm itself is not especially hostile, but the inhabitants can be. Guarded by the Golden Saints and the Dark Seducers, interlopers may find themselves questioned heavily by these humanoid Daedra. 
+
+Grummites are strange frog-like beings who are generally hostile and wield primitive weaponry. They are usually simple enough to defeat, however.
+
+Then there's Sheogorath, a dapper-dressed fellow who just so happens to be the Daedric Prince who rules the realm. He can look rather out of place, a distinguished gentleman in exquisite finery in the midst of the bizarre incomprehensible twist of the mushroom-spires, but that's how he appears. It's not his true form, of course. That's deeper down.
+
+Deep down in the rootballs of the realm. Twisting passages that shift while the explorer is not watching. The unwary can get lost quite easily, and the constant shifting can drive the wanderer mad. This is the real Sheogorath - though it is the same that can be said of any realm of Oblivion, which is that the realm is inseperable from the prince.
+
+Most puzzling of all, the realm exists in two halves, Mania and Dementia. The inhabitants of Mania are mostly the Seducers, the Mazken. The Aureals or Golden Saints dwell in Dementia. Human occupants are found in both. Literally. A single human may often exist in both halves of the realm.
+
+Chapter Three - The Wealth of the Shivering Isles
+
+There are many strange creatures and plants here that have alchemical properties we are only just beginning to fathom. Take what you can, especially if it is not on the identified reagent list.
+
+There are rare minerals here too. 'Madness' is a metal that comes from a material known prosaically as Madness Ore. It is a tough metal that must be beaten firmly, a process which may turn the smith mad. It is mostly used by the soldiers of Dementia.
+
+Amber is used more by the forces of Mania. Like its mundane namesake, it is a kind of hardened tree sap, but bright orange and can itself be used for making weapons and armour. Madness and Amber should be carefully retrieved.
+
+Chapter Four - Returning from the Shivering Isles
+
+This can be tricky. If a mananaut can succesfully retrace their steps, they run little risk. But retracing steps from shifting caverns can be difficult. Teleportation magic is not guaranteed to function as normal.
+
+Try to avoid making a bargain with Sheogorath in return for your release. It may end up being the only option, but it is better to make a deal with the Aureals or Mazken instead. They may be able to act as suitable guides, but will require recompense of some kind. 

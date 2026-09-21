@@ -1,0 +1,32 @@
+[pagebreak]
+<p align="center">
+
+Treatise on The Altmer Antecedent
+
+by Vingalmo 
+
+</p>
+
+
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Altmer have enjoyed the unrivalled position of rulers of Tamriel's only true island nation for generations. Ever since our first eagle-prowed ships kissed the northern shores of Auridon, we have sculpted that land with the memories of long-lost Old Ehlnofey.
+
+Our mages are unrivalled throughout the known world. Artistry, poetry and mathematics among our kind has yet to find its equal among any of the extant races of Tamriel, even though they may drive themselves forward with many other avenues of exploration, they cannot hope to match us in precision or aesthetic. Many of the great achievements of the Reman dynasty were due, in no small part, to Altmeri logicians and spellwrights. Of course, they also borrowed heavily from Akaviri culture, and plundered the intellects of a culture we are only just beginning to understand. Such is the way of the races of Man.
+
+Furthermore, our vanished cousins, the Dwemer, have likewise seen their ruins emptied by enterprising human 'explorers' seeking to further their understanding by thieving the intellect of a race a thousand-thousand times their better. Which raises the question among many of our kind; why do we not do the same? We have a greater claim to the logic-property of the Deep Folk than the Cyrodiilics and the Nords, why do we not simply learn their secrets for ourselves?
+
+Because we should not have to. Because before the Dwemer were the same great minds that preceded us, and though we do not know how the Dwemer reached their exact mathematical formulae, we know it was built on the same logical principles that founded our own nations.
+
+The Falmer ruins of Skyrim are hard to find now. The children of Ysgramor saw to the most violent purge of art and learning in existence, All in revenge for a single incident. But I have seen those abandoned halls, and I have seen the temples of Phynaster and Trinimac, and witnessed for myself the divine precepts of architectural superiority that rival ours today.
+
+And all of this, of course, was built before the heavy-footed Atmorans even planted their boots on Mereth's fresh-fallen snow. Most of the elves from that time are dead now, probably all, so I was unable to answer the question definitively on why it was that the ancestral Falmer turned their blades on Saarthal, but it was most certainly not simple hatred of the brutish men, nor jealousy at their building of such a squat and ungainly edifice. Rather, it would be more likely that something of the Falmer had been taken by the Atmorans - something the primal Nord-fathers did not realise for the importance it had. The Falmer were collectors of great art and works, and things of which the races of Man would have misunderstood the importance.
+
+Quite what this theft involved, I cannot say - but having inspected the simple mechanisms of the Falmer temples, it became clear where the Dwemer first gained their love of mathemechanics. Though nothing existed there quite as complex as the machine-men or the living crossbows or the grand orreries, it all came down to those first principles of logic. And those must have been passed down to the Falmer - and thus the Altmer and our Heartland cousins - from before that.
+
+Our ancestors the Aldmeri must, therefore, have been a race of sublime logic as well as supreme artistry. They must have understood poetry as motion, art as fractal-understanding, and known a simple truth about sound which surpasses all in this day and age. 
+
+Much of the blood of Aldmeris has been weakened, of course. If our enemy in Pyandonea still clutches any of the wondrous nature of our lost birthright, he does so close to his chest. The Bosmer's taking of short-lived spouses, as well as their simplsitic reverence of those ada who partook too much of the Doom Drum's poisoned chalice has rendered them a nation of tribals only a few steps beyond the Cyrods themselves. And the followers of Veloth, in forsaking the one divine memory dear to us all, now look upon each other with red eyes and faces of ash. Even the great minds of the Direnni have been watered down into transient obscurity. 
+
+The Altmer are now the guardians of what remains of Aldmeris. Through our continued work we shall retrieve the memory that was lost to us, and regain our sacred place in blissful eternity.

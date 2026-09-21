@@ -1,0 +1,119 @@
+<img src='img://Textures/Interface/Books/ApocLib/vvardmap.png' height='451' width='296'>
+[pagebreak]
+<p align="center">
+
+Vvardenfell 3E 412
+An Imperial Geographic Survey
+
+By Okan-Shei
+Imperial Geographic Society
+
+<img src='img://Textures/Interface/Books/ApocLib/impgeo.png' height='200' width='196'>
+with thanks to Dram Bero
+</p>
+
+[pagebreak]
+
+<p align="left">
+In the minutes of the Grand Council meeting in Mournhold on 5th Rain's Hand, 3E 412, the prospect of the territory of Vvardenfell being opened up for settlement was mooted by House Hlaalu councillors. No decisions were made by the council but what was surprising was that the other two of the three Great Houses that have holdings on Morrowind - which is to say, Houses Redoran and Telvanni, made no objections other than the usual caveats. 
+Houses Indoril and Dres were more in disagreement, and the presence of Temple holdings on Vvardenfell will likely swing the votes of the former if it ever does come to the table. King Llethan himself seemed in favour of the idea, and decreed that two years of robust debate should follow.
+
+With gracious assistance from Serjo Dram Bero of House Hlaalu, This report will outline the current map of the island, its settlements, its resources and its risks.
+
+Three Great Houses currently have holdings on the island, these being Hlaalu, Redoran and Telvanni. 
+
+CURRENT SETTLEMENTS
+
+House Hlaalu's seat of power is Balmora, and with the proposed lifting of the embargo it is likely to increase in size. The House is relatively pious, but tend to think pragmatically about any matters that come their way. As such their temples are lavishly furnished and modestly attended. They are renowned for their shrewdness and business acumen, and are generally the first point of call for the Empire when it needs to deal with business relating to Morrowind.
+
+Balmora is a prosperous town despite the territory's paucity of contact with the outside world. It sits just south of an extremely rich seam of ebony, and the House likely to use its influence to leverage considerable concessions as and when the time comes for the Empire to open mines there.
+
+Seyda Neen is a small harbour town on the south coast, ruled by the Hlaalu. It was constructed in the Second Era with Imperial shipping in mind, so it has a rather familiar look to the foreign sailor. 
+
+Suran is a small town in the Ascadian Isles, the archipelago that clings to the southern coast of Vvardenfell. It is known for its slave markets.
+
+Great House Redoran are deeply pious, and known for their staunch defence of Morrowind throughout the ages. They are generally compliant with the terms of the Armistice, though they are slow to warm to the Imperial presence.
+
+Their seat of power is Ald Ruhn, a relatively recent city compared to much of the territory. Their council chambers are famous, however - they are hollowed into the shell of an enormous crab, supposedly the last of its kind. It sits in a region known as the Ashlands, which marks the whole North of the island.
+
+Maar Gan is a smaller Redoran settlement further into the Ashlands. It is a well-known pilgrimage site for members of the Tribunal temple, and sits in the shadow of the Red Mountain.
+
+Gnisis is another Redoran settlement on the Northwest coast, in a region called 'West Gash'. It boasts one of the largest Kwama colonies (or 'egg mines') in Vvardenfell.
+
+Ald Velothi is a much smaller fishing village, with little to comment on. It is the smallest settlement in this list.
+
+House Telvanni, famed for its wizards, has its holdings on the East coast, known as 'Azura's Coast', for the great statue of that Daedra on the south-east corner of the island. Its seat of power is the council chamber in Sadrith Mora, where the 'Mouths', the councillors who represent the Wizard Lords, convene daily. Sadrith Mora is a city made of giant mushrooms, like all Telvanni towns. How the Telvanni turn the local Emperor Parasols into these edifices is a feat unknown to those outside the House.
+
+Tel Aruhn is a slave-market town just northeast of Sadrith Mora. Its ruler is the current Archmagister of House Telvanni.
+
+Tel Branora is a single tower on the Southeast corner of the island. It is home to an unknown number of Telvanni.
+
+Tel Mora is an ancient mushroom tower, one of the very first, at the Northeast corner of the island. It sits just across the water from an old Velothi town, supposedly the very last of its kind, called Vos, which has no Telvanni tower (though that may change if the embargo on settlement is lifted), but has a Telvanni councillor.
+
+The other major settlements are controlled by the Tribunal Temple. The major one is Vivec, named after the immortal god who still lives within its palace. It is the largest city on the whole isle, and possibly even the province, consisting of several large pyramid structures called Cantons, each a small town in its own right.
+
+Molag Mar is another pyramid stucture like those in Vivec, but sits alone as a separate outpost between Vivec and Tel Branora, overseeing the Molag Amur region.
+
+Ghostgate is a Temple fort that marks the only ingress to the slopes of Red Mountain. It is part of the Ghostfence, a supernatural barrier created by the Temple to prevent the Blight Disease from infecting people outside of it. It is also a major destination for pilgrims.
+
+RESOURCES - MINERAL
+
+Vvardenfell is reportedly very rich in ebony and volcanic glass. House Hlaalu have pointed out several locations which they believe would be excellent for mining. The local Dunmer do mine for these, as evidenced by the exotic armour worn by the elite House Warriors - much of it far finer than any known in the rest of the Empire.
+
+Most of the ebony is believed to be around Red Mountain, though there is a rich seam just north of Balmora which could likely be exploited.
+
+Many of the projected locations of rich glass seams are also around Red Mountain, though there are reports of it from the Grazelands too.
+
+There are many Dwemer ruins around the island, all of which are subject - like the Ebony - to the East Empire Company's monopoly. They are believed to contain great wealth in undiscovered weaponry.
+
+RESOURCES - LUXURIES
+
+The province also boasts the unusual Egg Mining trade, which consists of those caves which harbour the unusual creatures called Kwama. The eggs of these arthropods are extremely nutritious and something of a delicacy even within the province.
+
+The Telvanni are extremely adept at distilling frost, fire and void salts, and they are likely to do very well as a House by selling it to the East Empire Company.
+
+Flin is a very potent local brandy, made from a plant called the Comberry. It is highly prized, and very rare to find anywhere else than Vvardenfell.
+
+RISKS
+
+Risk management is crucial in any new venture. The main dangers associated with the island are thus:
+
+The Red Mountain, a huge volcano that seems to produce a regionally-contained disease called the Blight. Exactly how the disease came to be is unknown, but Dwemer structures have been spotted on the slopes. The Temple controls access in and out of the Ghostfence. Victims of the Blight have reported terrible symptoms including insanity, blindness and weakness of the limbs, and sometimes hideously distorted features.
+
+Volcanic activity around the island is very high, greater than anywhere else in known Tamriel. Ash storms and lava pits are extreme hazards.
+
+The Tribunal Temple is compliant with the terms of the Armistice but they are generally regarded as hostile in negotiations. They are likely to be difficult to work with if the proposals go through, and they boast some of the most skilled warriors in all the known world.
+
+Daedric ruins, devoted to the 'House of Troubles', dot the landscape of Vvardenfell. They are strange edifices, hewn of a reddish rock that never matches the surrounding environment. They are home to Daedric beasts, and should be avoided.
+
+Local Fauna: The worst animal inhabitants of Vvardenfell are Cliff Racers, which are winged reptiles with hooked beaks and claws that can cause great injury to wanderers in the low foothills and beyond. Most of the other native species of hostile wildlife are manageable, but the Cliff Racers are likely to pose a real risk.
+
+The Camonna Tong are an organisation that works against the Empire. They dislike the terms of the armistice as favouring the Empire too much, and are true traditionalists of the Dunmer way of life. They are known to employ murder and terrorism as ways of achieving their goals.
+
+The Morag Tong are a guild of assassins dedicated to the Daedric Prince Mephala. Their activities are controlled by the terms of the Armistice, and they may not target non-Dunmer, nor may non-Dunmer make use of their services. Nevertheless they are a very dangerous organisation with deeply traditional ties to Dunmeri culture.
+
+Ashland tribes are inhospitable to each other as well as the great houses. It should be assumed that they will be hostile to settlers as well. The Northern Ashlands, Grazelands and Molag Amur should be avoided without armed escort.
+
+PROPOSALS
+
+If the ban on settlement is lifted by the Grand Council, we recommend the following:
+
+Imperial forts should be built across the island. One near Vivec City, and one close to each of the Great House seats of power, though not too close. In order to monitor expansion of the Great Houses, additional ones should be built in West Gash and the Ascadian Isles.
+
+Imperial Settlements should be places in areas that are comfortable to live in. The Ascadian Isles is such an area, therefore creation of a fortified settlement in that region is a recommendation.
+
+A mining colony should be built near to Balmora to exploit the Ebony reserves nearby. This should be governed by House Hlaalu to avoid conflict with the local interests.
+
+Full mineralogical surveys for ebony and glass mines should be undertaken by the East Empire Company.
+
+An Imperial Commission should be opened in the fort to be built near to Vivec City, along with an East Empire Company headquarters.
+
+The Mages Guild and Fighters Guild should receive charters to open headquarters in the major settlements of Sadrith Mora, Balmora, Ald Ruhn and Vivec, in addition to any new settlements built under the auspices of the Empire.
+
+The East Empire Company should negotiate for export rights of as many of the local resources as possible, where those rights are not already granted by the Armistice.
+
+FINAL NOTES
+
+The Armistice forbids the Empire from interfering with most Dunmeri traditions. Though some practices have been outlawed, many have not. Slavery, Temple doctrine, the absolute proscription of Necromancy and others may seem to be at odds with the Empire's way of dealing, but they are rigidly enforced by our own lettering of the treaty. It should be imperative that any settlement plans made do not attempt to subvert or undermine these provisions, since that would give weight to the opposition from the many hostile factions within the province. 
+
+If the motion passes, we will have a limited windown of opportunity to cement Imperial profits within the territory for generations to come. 

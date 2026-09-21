@@ -1,0 +1,16 @@
+<font face="$HandwrittenFont" size="18">
+Current Orders
+
+Fendryn Drelvi - Grand Soul Gem, Daedra (any)
+
+Garas Seloth - Ring, Mysticism
+
+Fevyn Ralen - Steel Sparksword
+
+Landa - Arrows of Wasting Spark (40)
+
+Salver Lleran - Ring of Wildfire (exquisite)
+
+Tolmera Relenim - Greater Soul Gems (10, empty)
+</font>
+

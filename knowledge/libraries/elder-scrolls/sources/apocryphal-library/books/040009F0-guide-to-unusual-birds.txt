@@ -1,0 +1,41 @@
+[pagebreak]
+<p align="center">
+
+
+Guide to Unusual Birds
+
+
+by Varid 
+
+
+</p>
+
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/B_letter.png'>irds are a constant source of wonder; they bring Kynareth's joy on the wind and delight us with their song. This work features some of the peculiarities among there diverse number.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/B_letter.png'>onehawks are curious indeed, and with a savage appearance. They are originally ordinary birds, but they are raised with dread necromantic powers by vampires and liches to do their dark bidding. They are not dangerous, but serve as scout and messengers.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/C_letter.png'>anah Birds are beautiful green and yellow birds native to Stros M'kai and other islands of Hammerfell. Their blue head-plumage is unmistakeable. It was said that to place a feather of one on the altars of Kynareth, would be to transform into this bird for a short time, allowing fast transport.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/C_letter.png'>row Daedra, or Nightjacks, are daedric servants of Prince Nocturnal, the patron of thieves and spies. They are similiar in appearance to ordinary crows, but they have purple eyes, and stranger still they can speak in any language.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/D_letter.png'>ire Penguins have been reported only by travellers to the frozen land of Atmora, who say these white, shambling creatures live in ruins where men used to call home. They are believed to be servants of Hermaeus Mora, though none can say if these creatures exist.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/F_letter.png'>ellrunners are flightless birds found in desert regions across Tamriel. They are inelegant runners, but will run gladly at the first sign of trouble. They have a tendency to trip over.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/G_letter.png'>low Ravens are larger and more sinister Crow Daedra. In addition to Nocturnal, these birds have been known to serve Hermaeus Mora.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/G_letter.png'>ristewings are undead birds, like Bonehawks, except they appear more like skeletal vultures. They appear in places of great death, and are drawn to those whose doom is imminent. Their feathers make superior fletching.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/G_letter.png'>uzzards are flightless scavengers birds native to northwest Tamriel. They have no feathers or fur of any kind, and are adorned only with a thin row of spikes down their back. Despite their grim appearance, they are usually harmless, and make good pets.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/P_letter.png'>arrots are the most blessed of Kynareth's birds, for out of all her feathered creations these are the only ones to which she has bequeathed the gift of speech. Vibrant of feather and often foul of mouth, they are a favourite pet of mariners.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/P_letter.png'>hoenixes were once considered myth, though such birds do exist. When one dies, it burns up as cinder and a new chick is hatched from the ash. They are associated with the Restoration school of magic, and sometimes the god Satakal.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>error-Birds are rightly named, for these flightless hunters are easily capable of besting and devouring an unseasoned warrior, and even a veteran would think twice before engaging one. The legends of their native Elsweyr state that they can slay a Senche-Tiger.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/W_letter.png'>raxu are an extinct form of the Terror-Bird. They were wiped out by Reman in the first era, but were reported to stand as high as mammoths, with tails as long as wagon-hitches. If alive today that would be one of the most dangerous predators in Tamriel.
+

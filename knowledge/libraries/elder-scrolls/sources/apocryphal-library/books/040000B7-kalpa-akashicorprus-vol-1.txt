@@ -1,0 +1,39 @@
+[pagebreak]
+<p align="center">
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/K_letter.png'>alpa Akashicorprus
+
+
+
+Volume I: On the Present Kalpa
+
+</p>
+[pagebreak]
+<p align="left">
+Foreword:
+
+The first draft of the great chronosophical mysteriography was intended to be published in the indeterminised Second Pocket Guide to the Empire, which many insist was indeed released to the general public - though no copies are believed to exist. This version was expanded upon in subsequent years, to afford the scholarly societies of Tamriel a better understanding of the matters as could be gleaned from a smaller volume, at the behest of her Imperial Majesty Morihatha.
+
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/K_letter.png'>alpas are periods of linear time between periods of true un-time, or Dawn Eras. The Dawn Era we know of is the end of the previous kalpa, and the beginning of ours. 
+
+Linear time is generally personified as the being we know as Akatosh. Without linear time there can be no kalpa, and so any gods of non-linear time can traditionally only truly act in the Dawn periods. One such god is Auri-El, who in his fight against the bringer of limitations, Lorkhan, found himself limited into linear time and thus began yet another kalpa. 
+
+This is not the first time that this has happened, and it may well likely not be the last. It is unknown how many kalpas there have been to this point, though some believe we are in the thirteenth, with the previous twelve being the 'Twelve Worlds of Creation' referred to in diverse myths.
+
+Kalpas begin and end with a battle between two opposed forces who seek some great source of power or similar. They are observed in the act of this by another. The two forces are sometimes known as the 'Thief' and the 'Warrior', or as the 'King' and the 'Rebel'. These gods fight over the 'Lover', which may be another god, or a source of great power, or something of similar need. The 'Observer' or sometimes 'Mage' is the one who witnesses what actually occurs and records it.
+
+The exact understanding of this process is still a matter of great debate, but perhaps the most simple way of imagining it is told by the great Bosmer spinner, Helvadir:
+
+"The Kalpa is a story- or at least, that's how we'll remember it. It's a common phrase, "all the world's a stage", and yet it's true. Y'ffre grants us the sacred safety of the Now, in between the ever-rampant forces of Past and Future, and from here the tale can be told. 
+
+"You've heard the tale a hundred and eight times before. It begins with a murder, or at least that's the bit where it gets going. Before that there was a noble king, who had a beautiful bride. But there was a rival brigand who desired this queen, who attacked the king and kidnapped her - or maybe. The story doesn't actually say that. The rival claims that the queen never loved the king, and she parted with him willingly. Whatever the case, he's trying to wed the queen and gain the crown for himself. It's just the word of the king versus the word of the rival. But there's a catch - a dead body. The servant of the king watched the whole thing play out, but he was murdered! Now, was he killed by the king to hide some crime, or by the rival to mask his own intent?
+
+"That's where we are - we're the story of the person trying to work out who killed the servant. Perhaps he left a clue somewhere, or some hint as to his suspicions about either party. The story keeps going as long as there's clues, as long as there's uncertainty. As soon as the grand reveal comes, that's it. The tale's over, and everyone applauds. Forever. That's the kalpa, my beloved friends, and it could not be truer to say that it's a tale as old as Time."
+
+In other words, the conflicting gods who began this kalpa were fighting over something. These gods were Lorkhan and Auri-El, who created the races of men and of mer. These races, like their creators, have variously been in conflict since the days of Atmora and Aldmeris. The 'lover' in this case may refer to Lorkhan's heart, his source of power, the thing he was going to use to make the world. The observer was Magnus, who was blinded by the conflict, perhaps by the allies of Lorkhan - Azura, Mephala and Boethiah.
+
+The blinding of Magnus means that there is uncertainty as to whether it was Lorkhan or Auri-El who was the betrayer, the thief, the rebel, and which was the righteous king or loyal warrior. As such, most philosophies boil down to determining which is which, with the races of Men believing Lorkhan to be a betrayed creator, and the races of Mer believing him to be a conniving thief who robbed them of immortality to fuel the project that would be Mundus. 
+
+If it were ever determined which was which, that might collapse reality and bring about a new Dawn Era. After all, once the mystery is solved, there is only the epilogue to tell. 

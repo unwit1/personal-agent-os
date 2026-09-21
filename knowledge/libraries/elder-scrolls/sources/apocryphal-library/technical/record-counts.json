@@ -1,0 +1,13 @@
+{
+  "source_file": "LB_ApocryphaBooks.esp",
+  "source_sha256": "dd4a9f5b523e4aae5b257c2528bd17bfd6545ed0a29a097d5a047d9cd6a79324",
+  "records": {
+    "TES4": 1,
+    "BOOK": 784,
+    "CONT": 31,
+    "LVLI": 40,
+    "CELL": 28,
+    "REFR": 53,
+    "WRLD": 2
+  }
+}

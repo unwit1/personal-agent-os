@@ -1,0 +1,28 @@
+[pagebreak]
+<p align="center">
+
+Poisonous Plants of Skyrim
+
+by
+
+Valthus the Skeever
+</p>
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/F_letter.png'>or the honour of Sithis and the Night Mother, attend well to your studies. And learn well the alchmyickal properties of the plants of fair Skyrim, whose highest peak pierces the heavens like a dagger.
+
+Mixing any two of these ingredients in one's mortarium will produce a mixture of poisonous capability. This can be served as a dish, or applies as a venom to a blade or arrow.
+
+The DEATHBELL is common among the marshes of Hjaalmarch, where it grows among the reed beds. Its solemn, languid blue blossoms are sag with melancholy from their stems - they are quite a beautiful sight. 
+It is this very blossom that you will wish to remove from the stem. Be careful - a wrong slip of the knife could send some of this toxin into your blood.
+
+IMP-STOOLS are a sumptuous mushroom that will produce a heart-stopping brew for any Jarl or King. It is a small, white mushroom that grows in the many dank, dark caves of Skyrim. The fruiting bodies of the Imp-stool should be plucked, and used one by one.
+
+NIGHTSHADE, or BELLA-DONNA is a purple plant that grows in hedgerows and thickets across Skyrim. It especially enjoys graveyards, and who can blame it. The upper stems including the purple blossom should be cut and dried before preparation.
+
+NIRNROOT grows across Skyrim and indeed all of Tamriel. It makes a strange noise, an unearthly chime, that will draw your attention to this plant, as will its soft glow. How it thrives is unknown, since it never seems to flower. The roots of this plant make for the best reagent in a poison.
+
+There exist several colours of the blandly-named MOUNTAIN FLOWER, but it will be the RED variety that will afford you a poison. This bushy plant has many medicinal uses too, and is safe to harvest.
+
+

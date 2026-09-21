@@ -1,0 +1,34 @@
+[pagebreak]
+<p align="center">
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Old Ways Forgotten
+
+By Samandaril
+
+
+</p>
+
+[pagebreak]
+<p align="left">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/W_letter.png'>as it when Artaeum last vanished that we forgot the meaning of Mysticism?
+
+Ask yourself, mages who excelled under the simple system of extreme complexity - do you remember the School of Mysticism at all?
+
+You all know how to trap a soul, this is a given. And now you call yourselves conjurors, and perhaps you are right. Yet what is it that is conjured? 
+
+Those who took the might of others with a whisper, showing them the cosmic balance can be changed with the removal of a feather from the scales. Are you truly Destruction mages now? Was it that you were always so?
+
+Those who close their eyes and see with the second sight; are you now illusionists? Were you always so? Many of you were. But what you see is real, even if the means are not.
+
+Those who raise the veil and see with the Seventh Sight - are you now Alterationists? I dare say you were. Many mages are. But what have you changed? Not your eyes.
+
+But do you remember when all these spells were of one discipline, the school unspoken, the house untutored, where wisdom is learned in the mirror of final misunderstanding?
+
+Mystics were once those who hunted the ash-wastes under the guidance of the Ghost Snake. They were the Clever-folk of Jhunal who could read the tides on the shells of ancient crabs. They were the painted witches of Bjoulsae whose drum-beat could steal the thirst-wisdom of angry men. They were the Moth-singers of Nibenay with a thousand gods unspoken. They were the shamans who left the Xanmeers of Argonia to sink, and the Moon-seers of the dunes whose wisdom is sweeter than wine. They were the crystal-tenders of divine logic among the gardens innumerable, the story-spinners who knew the real reason that flesh becomes literature, and the Forgemaidens who wrought truth from the broken armour long-tarnished. They were the shapers of the first sung sword, the guardians of the Three Sacred Lies of Resdayn, the dream-chafers of the black passage, and more things than can be named even by the word-thirsty.
+
+What will it take for this to be remembered? Do mages weigh their worth by the heft of their spell-tome now? 
+
+Perhaps when Artaeum returns, the Old Ways will be remembered.
+

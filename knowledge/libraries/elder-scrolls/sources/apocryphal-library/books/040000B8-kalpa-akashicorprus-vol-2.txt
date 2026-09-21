@@ -1,0 +1,29 @@
+[pagebreak]
+<p align="center">
+
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/K_letter.png'>alpa Akashicorprus
+
+Volume II: Holographicon
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/O_letter.png'>ne of the earliest recorded incidents in this kalpa, after the Dawn Era, is the destruction of Saarthal. The explorers of Atmora, seeking warmer climes and conquest, sailed south to the land of Mereth, now Skyrim. Here, they encountered the Snow Elves. Contact between these two peoples seems to have been peaceful to begin with, but not long later the Elves mount an attack on the Atmoran settlement of Saarthal with such a ferocity that the races of Men vow to make their whole race extinct. 
+
+Exactly what led the Elves to lead this attack is unknown, but it seems to be a recurring event throughout the kalpas. Some ancient memory of the previous kalpa is hurled across the Dawn and discovered in the subsequent aeons. Thus it seems likely that the Elves discovered something under Saarthal that told them about the ancient conflict and their place within it. This phenomenon we call 'Fool-Talk', the damned reminder of forgotten hatred. Without this reminder, the Elves and Men might have remained cordial allies indefinitely. But it is never to be.
+
+How does Fool-Talk come to be told? The Nords believe that when Alduin devours the world at the end of each kalpa in order to make room in the void for the new, a race of daedra called Leaper-Demons 'save' some of the kalpa in order to survive the world's destruction. According to Eltra Mist-Widow, Clever-woman of Kynesgrove:
+
+"The world-eater comes at the end of every kalpa - this is a truth known to all Nords, and even the Greybeards I have spoken to agree. Shor does battle with Alduin time and time again, with different names and faces. Always another will take Shor's mantle in order to fight Alduin at the end of days - this time he will be called Ysmir, and perhaps you have met him already.
+
+When Shor is born in the new age though, Alduin does not recognise him. But the Leaper King, who has leapt over from the before-kalpa, reveals him by mistake. This begins the old fighting again. This always happens at Saarthal, though that too has gone by many names and forms before. The Leaper-King himself is now called Dagon, and has now been cursed by Alduin to remain in this kalpa forever."
+
+Whatever the case of what is brought from one kalpa to the next, it invariably consists partly of the Witness to the previous destruction. This has led some theorists to postulate that there may be a part of Magnus underneath Saarthal, though the exact location of the ruins has remained unconfirmed since the First Era, when a rogue mage was imprisoned there by King Harald and all records of it burnt.
+
+The shattering power of the kalpic eschaton is, as we can see, powerful enough to cause the witness to shatter into smaller pieces. The pieces that might be found do not contain the whole of the witness, because that is a very ancient being indeed. But it remains enough to remind the waking world of the conflict that ended the last.
+
+Wenduil of Shimmerene puts it thus:
+
+"Each Kalpa is the re-enactment of Anu and Padomay, and that is how we remember them. We remember this one with Auri-El and Lorkhan, because that is who was fighting at the time. But this fight has replicated itself time and time again. Anui-El and Sithis were the beginning of the last one, and the one before that had names now forgotten. Each clash leaves a victor and a vanquished, but the vanquished is the one that acts as the banner for the new victor. Witness the rise of Talos among the Cyrods, and the Tribunal in distant Ald Resdayn. What do they have in common? They find their power in the remnants of the defeated, because the victor isn't going to share anything with anyone. And perhaps that is why this keeps on repeating itself - 'Woe to the Vanquished!' Why should the winner share anything with anyone? Especially when some are calling the fairness of the tourney into question. Perhaps in some future cycle that will change."

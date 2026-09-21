@@ -1,0 +1,11 @@
+<p align="center">
+<img src='img://Textures/Interface/Books/ApocLib/BlackHorseCourier.png' height='60' width='250'>
+SENTINEL SACKED BY THALMOR</p>
+
+The word coming from Hammerfell is dire: Sentinel was attacked in the night by concealed Thalmor operatives. Their target was the refugee quarter where many Altmer dissidents had fled following the Dominion's political purges.
+
+The Legions were slow to react, and by the time they arrived, the Thalmor had fled leaving the quarter in ruins. Only a handful of dissidents managed to survive the attack, and they reported horrible use of destruction magic. Already the cityfolk of Hammerfell are calling it the 'Night of Green Fire'.
+
+"This occurrence will not be tolerated," his Royal Majesty King Thassad IV of Sentinel declared. "Those responsible will be hunted down to the ends of Nirn."
+
+The local Redguard population has set to work trying to rebuild, and the last survivors of the purge are being re-settled.

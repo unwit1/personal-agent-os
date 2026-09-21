@@ -1,0 +1,38 @@
+[pagebreak]
+<p align="center">
+The Imperial Mananauts Report on the Moon of Secunda
+<img src='img://Textures/Interface/Books/ApocLib/MananautReman.png' height='200' width='200'>
+By Moth-Captain Alethiat Wealde
+(Transmitted by Memospore 2E 2825) </p>
+[pagebreak]
+<p align="left">
+By secret glyph: dreamsleeve transmission
+Dreamsleeve: Trans-liminal, security protocols enforced
+Security protocols: Gypsy-moth ancestor diamond-chime wards
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>hanks to the careful guidance of Captain Grieves we have made landfall on Secunda. The NVN Accrual touched legs to Moonsand on 17th Last Seed (assuming solar-dissonance ratio properly accounted for). 
+
+The Cathedral was detached from the Void Moth quickly and has formed the basis for the colony. It seems that there are other structures here as well, but they are long abandoned.
+
+The sky is quite beautiful. It is similar to the night sky of Skyrim, when the auroras play across the firmament, but thicker and it is harder to see the stars.
+
+Attempts to map the geography of the landscape have proven difficult, as it stretches upwards. There are floating realms and places we cannot reach. The Moon-Priests of Anequina who joined us have managed to commune with the moon somehow, and have begun work on a transcript that takes up all their waking hours.
+
+The Void Moth has taken flights around the new palace we have constructed, and seems delighted with the place. It does not get too far before the Choirs of Dibella sing it back to harbour.
+
+Dreams have become vivid here. Every night we wander realms and cities and places that never were. They do not seem to match the ruins we find here. Not usually.
+
+The gardens are especially beautiful. They are long overgrown, but there are plants and things like fungi, some of which glow brighter than lighthouses. 
+
+We are perfoming alchemical experiments to determine which plants have properties  worth taking extensive samples for.
+
+The mages from the Harmonics Institute have built a listening post and research station. They are trying to listen to the moon itself. They claim that their orders came from Reman directly. It took us a while to realise they meant Reman the First. They said something about diamonds in the sky. 
+
+There are deposits of many exotic minerals here. The Imperial Geographicals are determining what seams are best to mine, but we don't really know what a lot of these things are yet. There are crystals that change colour and metals that change shape (once smelted). 
+
+We are expecting to remain for one year and then sing the Megalomoth back to Cyrodiil.
+
+Over and out.
+
+[RELINQUIT]
+

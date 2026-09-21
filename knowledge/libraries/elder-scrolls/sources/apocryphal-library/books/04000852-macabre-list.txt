@@ -1,0 +1,16 @@
+<font face="$HandwrittenFont" size="18">
+
+1 bottle Nord blood
+
+1 bottle Argonian blood
+
+1 bottle Reachman blood
+
+1 bottle Nibenayan blood
+
+1 bottle Senche-raht blood
+
+1 bottle Riekling blood 
+
+</font>
+

@@ -1,0 +1,55 @@
+[pagebreak]
+<p align="center">
+The Royal Imperial Mananauts Guide to the Daedric Realm of the Deadlands
+
+<img src='img://Textures/Interface/Books/ApocLib/mananaut.png' height='200' width='200'>
+By Captain Lindia Sevor
+3E 107
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Deadlands are a terrifying realm, and all caution should be taken while journeying there. It is the realm of Mehrunes Dagon, and thoroughly inhospitable.
+
+Chapter One: Reaching the Deadlands
+
+Getting to the Deadlands is difficult, and rightly so. Mehrunes Dagon would like nothing more than to open great portals into our world, but by the Grace of Saint Alessia and His Imperial Majesty Reman, the covenant of Akatosh prevents him from doing so. 
+
+Scrying is the easiest method, but unlike being in Apocrypha, a scrier cannot affect the Deadlands directly by this method unless using very sophisticated Dreamsleeve protocols - and even then, only for short periods of time. To get the useful matter of the Deadlands one has to go there directly.
+
+It is possible to reach the Deadlands from the Slipstream realms. The currents of these places afford limited access, and only a few scholars survive the journey. Once within, one should be careful about trying to get to the Deadlands too soon - the impact of the realms on the psyche can be harsh, so it is best to acclimatise first. The amount of mana it takes to puncture a way into the Slipstream realms is considerable, so do not waste the chance.
+
+Before such a journey, be well armed. Take a lot of potions, as many weapons as you can, and the best mana-tight armour you can afford. 
+
+Once ready, navigate the Slipstream Realms by practical geomancy. Using boulders inscribed with the right sigils will usually do the trick, but if all else fails, levitation magic will allow transport - just be aware of the buffeting winds.
+
+Portals from the Slipstream realm to the Deadlands are firey and red. They appear like a daedric O-sigil. Simply go through it - they can usually be regressed through if necessary.
+
+Chapter Two - Navigating the Deadlands
+
+The Deadlands consist of barren islands in a never-ending sea of lava. There are reported to be larger regions too, valleys carved into ash-choked rock. From these isles and valleys rise great spiked towers, rising below a sky of red roiling stormcloud.
+
+There are many hazards in the Deadlands. The ground is often littered with explosive devices that combust when approached, or strange pylons topped with mechanism that shoot fire at interlopers such as Royal Imperial Mananauts. Thus having protection against fire damage is essential. 
+
+Even the flora of the realm is hostile - some will produce clouds of toxin, some will whip great tendrils. And then there's the wildlife - Clannfears are a kind of Daedric creature, reptilian with a beaked face and a scaled crest. Daedroths, a well-built anthropomorphic crocodilian with a powerful bite. The lower orders of sentient Daedra might be experienced too - Scamps.
+
+Once these are dealt with, there's the legions of the Deadlands to contend with. For a full understanding of Dremora society and hierarchy there are many books on the subject, but know this for now - they range from humble, conniving wretches who are little better than a common bandit, to arch-dukes second in command only to Dagon himself.
+
+There are also stronger creatures yet, Havocrels and Xivilai, but it is unusual to encounter either. Things that are larger than a Dremora should simply be avoided.
+
+The towers that rise from the wastes are unusual - they often contain strange mechanisms similar to those of the Dwemer, but hideously spiked. Elevators exist that allow one to reach the upper limits of these towers, but some are spike traps. Be warned.
+
+Chapter Three - The Wealth of the Deadlands
+
+It's harrowing work getting here, and unlike with Apocrypha, if you die in the Deadlands you're dead. So one had best have a good reason for coming here.
+
+One reason is Daedra Hearts. Dremora all have beating hearts that are, alchemically, extremely valuable. If a group of mananauts can take down enough Dremora, then the harvest of these hearts would be worth it alone. But they also wield weapons and armour of supernatural quality - among the higher ranks, there exist weapons which it is scarcely possible to match with mortal techniques.
+
+Fountains of mana distil creatia from the very substance of the Deadlands and turn it into healing springs. Bottling this substance should always be a priority for Mananauts.
+
+There is also the possibilty to find morpholiths. These stones can only be found in the Daedric realms, and they are sometimes used by Daedric lords to create sigil stones. These are of immense use to conjurers and enchanters, though finding an inscribed one is very rare indeed.
+
+Chapter Four - Leaving the Deadlands
+
+It is possible to leave the way that one came, but for simplicity it may be simplest to cast a recall spell. 
+
+All returning mananauts should immediately undergo quarantine, after which they are granted two weeks' mandatory leave to decompress from the hazardous environment of The Deadlands.

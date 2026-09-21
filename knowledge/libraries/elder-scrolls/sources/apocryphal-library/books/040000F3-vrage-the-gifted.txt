@@ -1,0 +1,17 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/V_letter.png'>rage the Gifted
+
+
+by Ulgeir Red-Hearth
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/H_letter.png'>igh King Vrage was the fifteenth king of Ysgramor's lineage, and the grandson of High King Harald. He was the son of the short-reigned King Hjalmer, who died in 1E222. The Moot was called, and Vrage was duly appointed the third High King of unified Skyrim.
+
+He was the first Nordic king to expand beyond Skyrim's boundaries, forming as he did the First Nordic Empire. He made conquest in western Morrowind, founding the town of Dunkreath. He also pushed into High Rock, and made war on the Direnni. He also incorporated into his empire parts of the Niben Valley, while he was fighting alongside the rebels of Slave-Queen Alessia. After the Alessian Empire was founded, he continied to hunt down bands of Ayleids who fled to Skyrim to escape the Nedes.
+
+He was a skilled tactician, leading to his moniker 'Vrage the Gifted'. Fanciful legends attribute this skill to the god Sai, who allegedly had dwelt in Skyrim in those days.
+
+Vrage's legacy of Empire has little remnant in this day and age, though it formed the first basis for the expansion of the Alessian Empire that followed, which in turn formed the basis for the Reman and Septim Empires.

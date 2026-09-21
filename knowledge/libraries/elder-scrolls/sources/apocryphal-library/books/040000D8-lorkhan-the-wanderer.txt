@@ -1,0 +1,20 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/L_letter.png'>orkhan the Wanderer
+
+
+by Abraxia Corryngton
+</p>
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/W_letter.png'>ith Lorkhan's death at Zero-Tower, time stabilises and linear time begins. The metaphysicks of this are left for other volumes by other sages, leaving us with only the simple truth of Lorkhan's apparent death.
+
+As other Et'Ada were granted the ability to live on through their progeny, so too does Lorkhan exist in the world. He wanders from place to place, and this renowned figure is often called the Shezarrine. I would like to begin this study by correctingt he over-eager use of this term.
+
+The Shezarrine is the wandering version of Shezarr, who in turn is the Cyro-Nedic interpretation of Lorkhan. Shezarr was a culture hero of the Nedes in the times before the Ayleid Empire truly began, and many of his traits resemble those of Julianos, the father of logic. He is depicted as a bearded man who teaches the Nedes the skills to survive and to fight.
+
+It is inaccurate, therefore, to refer to a returning or wandering culture hero of the Nords as the Shezarrine. That would be the Shor-ine, or something more appropriately Nordic. In the very Songs of Pelinal, the eponymous knight spits upon the Nords who suggest he might be Shor reborn, but instead smothers with moths the god-logickers who suggest he might be the Shezarrine. Whether or not he truly was that mythic figure remains open to a certain amount of interpretation, but is often accepted as fact among members of the Imperial Cult.
+
+The real truth of the matter is that, of all the mythic characters witnessed in history, it is impossible to truly ascertain whether any one of them is Lorkhan. Many of the Nordic kings of old have been hinted at; Ysgramor, Harald, Wulfharth and more. Among the Cyrods, Pelinal, Reman and a mysterious wandering figure known as Arnand the Fox. I daresay that the Redguards have similar myths about iterations of Sep as he slinks in his shed skins.
+
+A thorny question is whether or not Lorkhan has ever wandered as an elf. Lorkhan is a devil in most Elven faiths, save the Dwemer who had none and the Chimer-Dunmer who recognise his sacrifice for creation. Certainly if he has appeared in elf-form, he has never been lauded as such. And that is probably with good reason.

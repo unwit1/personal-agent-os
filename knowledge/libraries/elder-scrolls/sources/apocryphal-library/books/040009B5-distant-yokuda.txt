@@ -1,0 +1,31 @@
+[pagebreak]
+<p align="center">
+
+Distant Yokuda
+
+By Jannace of Skaven
+Imperial Geographic Society
+3E 177
+
+<img src='img://Textures/Interface/Books/ApocLib/impgeo.png' height='200' width='196'>
+</p>
+
+[pagebreak]
+
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>ll the myterious continents that surround Tamriel are associated with great migrations, except for Akavir which is remembered for its invasions. Aldmeris and Atmora, for their migrations of Elves and Nords; and Yokuda for its own people, known today as Reguards, but once we were simply Yokudans.
+
+Yokuda, like Akavir, can still be reached today, though in the latter case few try. Only a Redguard pilot can reach Yokuda, however - navigation is impossible otherwise, since it requires special knowledge of the stars and of the heavens, and Ruptga's blessing to guide the way.
+
+Once it was a much larger land, but a great disaster befell it. The details are not certain; it is the case that natural earthquakes can cause whole islands to slope into the sea. But those who fled to Tamriel, our Forebears and our Crowns, claim a different story; one of the forbidden sword-techniques of Leki, misused by a band of sword-singers with such power that the land was felled with a single blow of the blade.
+
+Long before that, the land had been home to elves, just as it is here. The sinistral elves, for so they were called, were our enemies in those days. I will not recount their crimes, but their annihilation was deserved. Nowadays, none exist in Yokuda. Not even many Yokudans live in Yokuda.
+
+Of the land itself, it was dry and arid like Hammerfell is now. There was the great Hattu Mountain, famed for its onyx as black as Sep's stomach, where Frandar do Hunding Hel Ansei No Shira wrote the Book of Circles. Sat amid the High Desert, that mountain was the holiest of places. 
+
+The great city of Arch, from which the fleets of Yokudans set sail to Tamriel. The towers and minarets stretch to the heavens. You can still see them if you should go there, and witness how the gold still gleams.
+
+Akos Kasaz, the largest isle on the archipelago, home to the capital city, Totambu. That is gone now. It cannot be returned to, no matter how far west you should sail.
+
+Much the same can be said for the rest of Yokuda. Trade remains, and the paths are still open through the gates of the moon and the stars, where gilded light falls on gentle waves.
+

@@ -1,0 +1,42 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/N_letter.png'>ibenese Insect Cults
+Past and Present
+
+by Tassita Kvita 
+</p>
+<p align="left">
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he many religious practices of the Nibenay Valley are the product of the region's varied Ayleid, Nedic, Cyro-Nordic and later Imperial history. This work examines those cults throughout the area that have been devoted to, or related to, insects.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Cult of the Ancestor Moth
+
+The Ancestor Moth is a strange creature; it is believed to be able to house and communicate the wisdom of dead ancestors. The practices that allow the Moth Priest to commune with the moths is closely guarded, but is known to involve the crushed and prepared bark of the rare Canticle Tree. 
+The power that these moths can then bestow on the priest is powerful - it allows communication through dreams, and even to read the Elder Scrolls without instantly being struck blind. Thus has the cult been strongly tied to the Imperial Library.
+The cult is believed to stretch back to Ayleid times, when it may have been an offshoot cult of Xarxes. These days the Moth Priests tend to woship Arkay and Julianos.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Dragonfly Cult of Blackwood
+
+A fringe belief system even at its height, this cult worships Arkay through the observations of the life cycle of the dragonflies that make their nests in the reed-beds of the Niben. The dragonflies go through many life stages, from egg to nymph to full-fledged insect, leaving behind their husks as they moult. These moults are collected by the cult and woven into long streamers with which they decorate their chapels. It is rare to find followers of this cult now, but some Arkay priests do still tend to the reed beds near Bravil.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Dibelinthal
+
+This was another moth-based cult, but focused on the worship of Dibella. In Merethic Skyrim, the Moth was the symbol of that goddess. The Dibelinthal, or Hall of Dibella, was a Cyro-Nordic practice in the southern Jeralls that wove silk into all manner of garments, supposedly armour too and even weapons (though this may be a mistranslation). The practice mostly died out among the early Reman conquests when it was superseded by the Diblashuut, but kept going in some regions into the Potentate period.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he New Disciples of Nilichi
+
+Nilichi was an ancient Ayleid king, who was slain by Pelinal Whitestrake according to the Adabal-a. This was a reconstuctionist religion based around Ayleid ruins by Altmer religious supremacists, who sought to reconstruct the worship of the 'Insect God' that Nilichi supposedly worshipped. The cult was destroyed by the mandate of the Imperial Cult in the mid Third Era when it transpired that they had been attempting to replicate the sacrifices that Nilichi allegedly performed. No evidence that they ever re-created any of the religion successfully was discovered.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Thousand-Eyes Church of Namira
+
+A Daedric cult that originated in North-East Cyrodiil but is now only extant near Bruma, the Thousand-Eyes church venerates Namira. It had been considered a relatively benign expression of the prince's worship in the second era, with many worshippers being those who felt vilified by the rest of society. They built small communes around the Niben and worshipped insect-idols in honour of Namira. Eventually they became associated with the formation of plagues and the sacrifice of priests, and one by one their cult centres was eliminated.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Scions of the Father of Flies
+
+A minor cult of Peryite that existed near in Nibenay in the early Second Era. Peryite is a Daedric Prince associated with plagues, and this cult worshipped him in the form of a column of flies. Eventually the worship of Peryite became more traditional, and his imagery in the region became replaced with the more well-known six-limbed dragon, with the followers retreating to his Shrine near the Silverfish River. Occasionally the cult had come to blows with followers of the Divines, but mostly they kept to themselves. In the present-day form, it is still practice to refer to him as the 'Bringer of Flies'.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Order of the Black Worm
+
+This is a necromancer cult of the Lich Mannimarco, that seeks to gather souls for their undead lord. The insect connection is not universal, but it is still practice for many parts of the order to bathe bodies in fly-eggs, and allow them to be 'cleansed' as the maggots devour the flesh of carcasses before transforming into clouds of hideous flies, sometimes used in combat against the cult's enemies. The cult has always been illegal in Cyrodiiil, and even the necromancers of the Mages Guild decry their foul practices. Some have cited this use of corpse desecration as a call to end the practice of necromancy in Cyrodiil.
+

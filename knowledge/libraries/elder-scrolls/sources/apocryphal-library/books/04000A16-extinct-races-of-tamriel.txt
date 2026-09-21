@@ -1,0 +1,26 @@
+[pagebreak]
+<p align="center">
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/E_letter.png'>xtinct Races of Tamriel 
+
+
+
+by Ondali Berandyl
+
+</p>
+[pagebreak]
+<p align="left">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>here were once many more races of Man, Mer and Beast within the continent of Tamriel. Through bloodshed, war, natural disaster and bizarre application of forbidden science, some of these races have disappeared for good.
+
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Dwemer are the most famously disappeared race. At the height of their power and at the climax of the Battle of Red Mountain, they vanished without a trace. It has never been decisively concluded what forced them to vanish, but it is often believed to have been a divine act of punishment for their hubris.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Falmer, or Snow Elves, were the inhabitants of ancient Mereth, now Skyrim. As revenge for their acts on the infamous Night of Tears, the Atmorans began a brutal campaign of destruction that led to their last stand on Solstheim. They left behind very few ruins, unlike the Dwemer.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Ayleids, or Heartland High Elves, were overthrown by the Nedes during Alessia's revolt. Known for their worship of the Daedra, they were eventually destroyed as a culture by the Alessian Order in the First Era. Though some remained, they eventually bred into the other Elven races.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Lilmothiit were a strange race of Fox-Betmer from Black Marsh. They were hunters and nomads around the cities they formed, Lilmoth and Blackrose. None have been seen since the Second Era, and it is believed that they died out in the Knahaten Flu.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Kothringi were silve-skinned Men from Black Marsh. They were mostly wiped out by the Knahaten Flu, and the rest escaped on a ship that was never afforded harbour. The eventual fate of this ship is unknown, but it is assumed that they died.

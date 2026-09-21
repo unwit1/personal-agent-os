@@ -1,0 +1,20 @@
+<font face="$HandwrittenFont" size="18">
+
+Queen Mynisera,
+
+I have grave news. The Totem of Tiber
+Septim has been found. You know what this
+means. The power behind Tiber Septim could
+be unleashed upon Tamriel again. Rumor has it
+that Lord Woodborne, a minor lord of Wayrest,
+has possession of it. He will doubtless
+"lose" it soon. You must persuade him to turn
+it over to you or Lady Brisienna. The court of
+Wayrest has no love of King Lysandus, but you
+still have influence there. I am asking you to
+use it on my behalf.
+
+Uriel Septim
+Emperor of Tamriel
+
+</font>

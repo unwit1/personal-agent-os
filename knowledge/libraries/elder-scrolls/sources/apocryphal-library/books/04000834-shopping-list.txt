@@ -1,0 +1,11 @@
+<font face="$HandwrittenFont" size="18">
+Five pounds good mutton
+
+Half pound of salt
+
+Two pints of milk
+
+One hogshead of ale
+
+Two loaves of bread
+</font>

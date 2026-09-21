@@ -1,0 +1,10 @@
+<font face="$HandwrittenFont" size="18">
+
+GD,
+
+Be cautious in those catacombs - there are worse things among the dead than those that should rise from their resting places. The treasure they guard might be worse than the wights themselves, so mark my words lest ye lose your good eye.
+
+Under the Watchful Eye
+
+FP
+</font>

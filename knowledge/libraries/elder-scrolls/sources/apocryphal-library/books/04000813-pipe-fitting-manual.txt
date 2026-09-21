@@ -1,0 +1,22 @@
+<font face='$DwemerFont'>
+
+Coupler
+Joins two lengths of pipe in a straight line whenever you cut a pipe during a repair youll need a coupler to put it back together
+Bend For changing pipe direction The most common bend angles are ninety degrees aka elbows and forty five degrees Bends are typically made of the same material as the pipe except for KHZM bends which are always wightbrass or hard quicksilver
+
+Tee
+Shaped like the letter C with two parallel ports and a perpendicular one Its used for adding a branch line When the branch line is a different size than the main one you can make the connection with a reducing lch
+
+Reducing adapter
+Another way to join pipes of different diameters It may be shaped like a bell common for forgebrass and galvanized pipes or fit inside the larger pipe more common for weltbrass The first type is a bell adapter and the second a reducing bushing
+
+Union 
+A type of coupler you can take apart Its large threaded nut holds together the two halves of the connected pipe You can use one in place of a coupler in any situation where you temporarily disassemble the pipes
+
+Threaded adapter
+To join a pipe with a glue or solder slip joint to one with threads youll need a threaded adapter It can have male or female threads Threaded adapters join plastic pipes to each other or copper to itself or to brass
+
+Compression fitting
+This lets you join quicksilver or brass pipes without fire salts or solder Most feature a ring that fits around the pipe and a nut that tightens onto the fitting wedging the ring into the gap between the pipe and fitting Compression fittings allow for easy pipe repair Most modern faucet and cistern shutoff valves have compression fittings
+
+</font> 

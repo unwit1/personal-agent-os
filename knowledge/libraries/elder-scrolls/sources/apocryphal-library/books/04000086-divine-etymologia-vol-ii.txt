@@ -1,0 +1,20 @@
+[pagebreak]
+<p align="center">
+
+Divine Etymologia
+
+Volume II
+
+The Origins of Hermaeus Mora
+
+by
+Asmald Niveras </p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he earliest recorded legends of the Daedric Prince of Knowledge, Hermaeus Mora, date to Atmora of Ysgramor's time. In those hazily-remembered epochs, he was known to the hoary ancestors of the modern Nord as the 'Woodland Man', with the 'woodland' in his name referring diversely to the concept of forests and the location of Atmora, the 'Elder Wood'. The frequent word and suffix-term 'Mora' in Aldmeris and other Ehlnofex derivatives translates variously to wood, woodland, forest and other well-associated terms. 'Herma-' and derived 'Hermaeus' are sometimes translated as 'Man', 'Men' or 'Male', though the term may have other applications.
+
+The word 'Mora' does not always correspond so comfortably to notions of forestry, though. Old Saliache tracts concering the nature and orbits of those heavenly bodies, those that they studied through the ages with such religious perseverence, on occasion refer to a 'Mora Obscura', which finds itself rendered into the modern tongue quite peculiarly as 'Indeterminate Sea'. This might go some way tp explain the later use of 'Old Man of the Sea' as a soubriquet of Hermaeus Mora, especially among those who consider him a maritime patron deity - though such fringe cults are rare.
+
+'Mora' is furthermore used, for want of other terminology to hand, to refer to more vague agricultural and horticultural terms, and sometimes to plant matter in general. This is, one can justly and adroitly surmise, how the Prince came to be known as the 'Gardener of Men' among some devotees and scholars of the grotesque. To be selected as a champion by Hermaeus Mora, these scholars say, is to be grown and tended to as by a keen gardener, fed with knowledge until fit to perform the Prince's grisly deeds on Nirn.
+
+The word 'Hermaeus', and thus 'Herma' are comparatively poorly understood- they do not tend to get used to refer to the races of Men in most Ehlnofex tongues. However, in the ancient Nordic runestones, the word appears to have a cognate - 'Hermetic'. Hermetic orders were groups of monks in early Nordic society whose patron was the rune-god Jhunal, usually associated in these times with the Imperial Divine Julianos. Worship of Jhunal has largely faded from Nordic society now, with only a few cults and chapels even uttering the older name. The reason for his gradual departure from the pantheon is unknown - even Shor and Tsun are honoured in death. A lingering sense that the old Jhunal was somehow rebuked by the more warlike and less contemplative gods has led some to believe that Jhunal was incorporated into the Nords' ancient foe, Hermaeus Mora. Certainly the art of the 'Clever Craft' has diminished over time, and the Hermetic orders that he once claimed have given way to shunned cults of magicians, many of whom are devotees of the Gardener of Men.

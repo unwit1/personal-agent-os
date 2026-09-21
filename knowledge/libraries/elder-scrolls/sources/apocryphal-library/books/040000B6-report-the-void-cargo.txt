@@ -1,0 +1,48 @@
+[pagebreak]
+<p align="center">
+Royal Imperial Mananauts
+
+<img src='img://Textures/Interface/Books/ApocLib/mananaut.png' height='200' width='200'>
+
+Report: The Void Cargo
+2E 159
+</p>
+[pagebreak]
+<p align="left">
+The following account is considered highest clearance.
+
+On the 3rd of First Seed, 2E 156, the NVN Belharza returned from the East Lateral Slipstream three days behind scheduled arrival. One wing had damaged filigree and so it came in at a dangerous angle, but the mothship was able to right itself and land at the temporary setodrome at Twyll.
+
+The craft responded to no hails once it had had docked, and it became immediately apparent that it had used emergency protocols to land. A team of physickers and void marines boarded the mothship at the order of Facilitator Hantili. No crew members were found on board, and so they were ordered to remove all logs and journals for immediate inspection.
+
+A synopsis of the findings follows:
+
+The Belharza had been performing a maintenance run on the Spire of Stendarr's Watch in the Haelian Gulf. Supplies and repairs had been delivered and affected, before the mothship began its return. Nothing of note had occurred during this early part of the voyage.
+
+A few sync-dates later, the logs all begin to mention the sound of distant music. Even the engineers and the marines make a note of this - and it is of special note because in this part of the gulf, noise cannot travel outside the ship.
+
+Analysis of the navigation logs indicate that the ship was steered to what was deemed to be the source of the sound. The helmsmer's diary describes a vast crystalline structure in the void, large enough to dwarf the mothship and afford a landing party.
+
+A launch was sent from the mothship which was small enough to bypass the crystalline barbs surrounding the structure. Three marines and one engineer were on board. 
+
+During this time on board the mothship, the remaining crew continued to document the music they heard. No two records of the sound were identical - some heard singing, others flutes or harps, others just an insistent drum. 
+
+One journal was found belonging to a marine that returned from the crystal structure. No others returned, but the marine did not name them, only that they (or she, as it was) returned with a void-sealed box containing an item that the party had retrieved. Of the nature of the crystal structure, very little remained, just scattered references to "Wind Altar", "Prism-Eye" and "The Dreamchafer".
+
+The nature of the item in the box was never mentioned in the journals, but the return from the site was plagued with further reports of ever-increasing music for the rest of the recorded voyage. 
+
+During this time, the journals begin to end one by one. The remaining marine from the launch stops recording first of all, followed by the mages who had been studying the item. The other journals do not express concern over this, though mentions of crew disappearances are recorded. This is not done with alarm, but almost as if the gradual disappearance of each crew member was inevitable.
+
+Eventually, the last remaining crew member - a simple filamenter called Sertius - made the final written record of the journey. It was written as thus:
+
+"We have arrived at Masser and Secunda, and restored them to their ancient glory. The gardens of Ametharan-Sind have been regrown from the missing tones. The time has already passed and so I must listen to it again."
+
+None of the logs indicate that their path would have taken them anywhere near the moons, nor has there been any indication that anything has changed on Masser or Secunda since the Belharza's departure several months ago.
+
+The void-sealed box was retrieved, and contents examined by the priests at Twyll. 
+The reports indicate that the item was like a music-box that was designed to play some kind of cylinder, though no such cylinders were located. A crystal gemstone was found within the workings of it, however. 
+The machine was constructed largely from brass, very similar to Dwemer machines, with none of the same construction techniqes but very similar precepts. It was speculated that the item was built by someone familiar with the Dwemer but not by one of the dwarves themselves.
+
+The most common hypothesis among the priests was that it was used to record 'music' from a sheet-source or cylinder, and store it in the gemstone. By the time the item arrived in Twyll it had stopped producing music, and based on the reports of the crew it was deemed inadvisable to attempt to get it to do so.
+
+A series of diagrams were made of the item which were stored in the highest secrecy memospores, and the item itself was declared Mnemohazard. It was placed back aboard the Belharza, which was remote-piloted to the Kartharus Abyss and detonated. All parties concerned with the operation were fully quarantined for six weeks, and the facility at Twyll was dismantled as a precaution.

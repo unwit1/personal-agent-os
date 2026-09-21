@@ -1,0 +1,66 @@
+[pagebreak]
+<p align="center">
+
+The Comprehensive Guide to Theft
+
+by Rowatt 'The Riverman' Haulte
+
+</p>
+
+
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>hievery! We all love to do it, but we run afoul of the law, the common man, and sometimes the gods themselves. Arm yourself with the knowledge and practicalities of crime before you commit to it!
+
+Chapter 1: The Law
+
+The current definition of theft in the kingdoms of Daggerfall, Wayrest and Northpoint, as of the time of writing, is:
+
+"Any act of stealing, taking, or, without explicit written or verbal permission (or what a reasonable person would infer as implied permission) an item or items from a person, group of persons, or entity a reasonable person might assume to be sentient's place of residence, business, person, or other location a reasonable person would assume is secured from looting. The punishment for this crime may include a fine or incarceration, or a fine and incarceration."
+
+The astute reader will already notice the many ways that this wording can be twisted to suit their own needs. What counts as 'reasonable'? What if the item belonged to the 'thief' to begin with? As you can see, it completely neglects to determine what the definition of 'Property' is. It doesn't even mention the word. If a person is to lose their sword, with their name on it, on a public byway, this wording absolutely does not prohibit the itinerant scoundrel from picking it up and declaring it their own. Nor should it!
+
+In Cyrodiil, the definition of property is:
+
+"Any land or object of which an individual, that is to say the owner, can claim legal ownership."
+
+The legal methods of owning a thing, when one squints harder at this set of laws, usually comes down to:
+
+- Making it,
+- Paying for it,
+- Receiving it as a gift,
+- Inheriting it,
+- Finding it in a place other than the owner's property, or
+- Having a court declare you the legal owner.
+
+Of course, being able to demonstrate that something belonged to you is another matter. Some people write their names on things, or rely on the word of its craftsman to declare you the rightful buyer. Others rely on dated receipts. Some rely on witnesses to determine that such an object had always been in their possession. The more folds in the law, the more loopholes become available. Naturally, some heirlooms are simply too risky to take - it's no use claiming that you're the rightful owner of the Crown of Anticlere if you're a common guttersnipe like the author of this scholarly work.
+
+In Morrowind, the definition of theft is more labyrinthine yet, as it differs between the Great Houses. In the lands of House Redoran - a devout and martial household - theft is a crime and it can result in death. Among the more mercantile Hlaalu, the crime is the same but there's the expectation that it's a fair method of dealing with rivals. Among all the Houses but especially Dres, property can include people - freeing a slave can be sentenced exactly the same as theft.
+The Mage house of the Telvanni are an oddity - anyone is permitted to protect their property as they see fit. If a wizard steals a crystal from a nightblade for instance, the nightblade may retaliate. But if they fail to do so, then it is determined that the wizard has the right to the crystal.
+
+Chapter 2: Theft and Society
+
+This leads into how people consider stealing among themselves. Everybody knows deep down what they feel entitled to own and what they don't. But things get muddier when a grudge needs to be settled. There's almost no legal system I've ever been subject to where, if a man assaults me, I am legally entitled to his boots.
+However, if a man assaults me, I'm taking his boots. If I assault a man and he takes my boots, then I'll try and get them back but it's not the sort of thing I'd take to the courts (not that I go near the courts is I can help it).
+
+So if you want something and you can't have it, and there's no legal loophole you can inveigle to get it, then I recommend using proportionality to get it, as per the 'boots' example above. Goad your target into committing an act against your person, and then it will be much less legal hassle further down the line when you take what is rightfully yours.
+
+Returning to the Telvanni and the Hlaalu for a moment, this is an interesting case of how tradition has shaped not just the law but how people consider property. It remains against the law to steal as a member of House Hlaalu, but having someone on hand who is prepared to perform that role is considered good sense and practicality.
+
+To a great many, the simplest way of considering what is property is:
+"Ownership is nine-tenths of the law, and ownership is defines as possession."
+
+Bandits steal from each other all the time. There's no real legal system that determines who owns what, but they take it out on each other all the same. Remember that! It's not just the law that protects people's shiny stuff. People know what they own and what other people own. It's what they have to hand, what they keep in their house or their palace or their cave, and what they put their name on.
+
+Now, if the waters weren't murky enough already, remember that it's not just you, your fellows and the long arm of the law that will dictate the terms of ownership: Sometimes the gods themselves will have their say, or more realisitically; their priests.
+
+Chapter 3: Religious Customs
+
+Of all the gods, Zenithar is the one whose hatred of thieves burns the strongest. He is the god of labours and mercantilism and honest work, and in the midst of that is a strong moral argument for who owns what.
+
+It boils down to this: What you've made, or been gifted, or have bought or earned is rightfully yours. There may be times where this is not the case, but any of the tricks or lies or deceits we've discussed go out of the window now, because if a god actually chooses to get involved, they can know whether or not we earned something, whether we chose to trick someone into parting with it, and whether we have a right to it. Of course, the Divines, bless their names, don't generally involve themselves with the fates of mortals at all, and so they leave that business to their priests, monks and martial orders.
+
+The house militant of the Resolution of Zenithar, The Knights of Iron, are a real problem for thieves, because they don't let the legal loopholes cloud their judgement. If I trick someone out of their boots legally, then they will use their own moral compass to determine whether or not I go home barefoot. If, to use the earlier example, I was attacked out of nowhere - then they might just determine that I had a right to the boots. But if they determine that I goaded the man into attacking me, I'm making footwraps before I slope off home.
+
+And so, dear reader and you who is about to become rich at the expense of others, remember these factors. Always weigh up the legal system of the nation you're in, and how people might react to your crime, and what religious systems might keep you in check. With this knowledge so learned, you will only have to worry about your actual skills as a thief.

@@ -1,0 +1,33 @@
+[pagebreak]
+<p align="center">
+The Battle of the Moesring
+by Ingrid Fire-Eye
+with thanks to Athellor of Sunhold
+
+<img src='img://Textures/Interface/Books/ApocLib/FightersGuild.png' height='200' width='196'>
+Fighters Guild Military Histories </p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/I_letter.png'>t was the last battle of the once-great race known as the Falmer. In Ysgramor's time, most of the Snow Elves had already been driven from Skyrim by blade and fire, leading to only a single pocket of resistance in Solstheim. All the remaining Falmer in Skyrim had been taken into the watchful care of the Dwarves - and when that mysterious race disappeared, their wards did not reappear. Thus it is assumed that the Falmer and Dwemer interbreeded, or that the latter simply eradicated the former through some means.
+
+Whatever the case, by the time of the Battle of the Moesring, the Falmer of Solstheim were the only known remaining group of that oft-mourned race. They had bolstered themselves around the mountains in the middle of Solstheim, hoping that their elevation would afford them a victory against the encroaching Nords. They were mistaken, and retreated to the slopes overlooking Lake Fjalding.
+
+The records of the battle begin with the two forces arrayed against one another. The numbers on either side are unknown, though by this time it is a sad likelihood that the majority of the elven forces were not soldiers by trade so much as grim necessity. All clashes before this moment would end with Nordic triumph, and the mood of their warriors was appropriately sanguine.
+
+But to that candour there came a shuddering crack. The Nordic chronicler Lokheim reports that there suddenly came a hue and cry from the elves, as if they had all of a sudden summoned their courage. They were heard to shout:
+
+"Ae Araundemaphre sinol! Loura ae ce gaurtoche!" 
+
+Or, "The Snow Prince is come! Doom is at hand!"
+
+And no more than a moment had passed since this hue were raised, that the fell Snow Prince, last of his line and the summation of all the last hopes of the Falmer, rode down on the Nordic host as a mythic avalanche; upon a white horse and with a razor-keen spear, his sole sally into the Nord lines was sufficient to make a great sea-change of the mood of the Falmer, who rallied together to aid their Prince.
+
+Several named Nords are said to have fallen to the Snow Prince's spear."Our mightiest died that day. Ulfgi Anvil-Hand, Strom the White, Freida Oaken-Wand, Heimdall the Frenzied. All lay dead at the foot of the Moesring Mountains." The chronicles of these individual chieftains are not available on record, but the reverence with which Lokheim treats them in this passage solemnifies the power that the Snow Prince wielded in his final hour.
+
+The Nords could not land a single wounding blow on the Snow Prince. Spears, axes and swords were glanced aside by his luminous panoply. All  until - according to Lokheim - Finna, the grieving daughter of one of the slain Nords, picked up her mothers sword and hurled it into the Prince's breast from afar, slaying the Prince in one blow. The daughter was said to be but twelve years old.
+
+The sudden and most unimaginable fall of the Prince caused the battle to swing immediately back in the favour of the Nords, who took the chance to rout the remaining Falmer. Those who fled were mercilessly butchered, until none remained that could be hounded. If any did survive, one imagines they retreated so far underground as to never return.
+
+In the aftermath of the battle, the Snow Prince was treated with a solemn reverence normally only regarded for their own fallen. The Nords buried him within one of their tombs, but not in the ancient Stahlrim ('steel ice') of their ancestors, so as not to preserve their most feared rival, lest he rise again.
+
+The greater aftermath of the battle was that Solstheim came to be bereft of the Snow Elves, and that all known members of that race were hereby eradicated. This extermination was a long affair and widely regarded as the first genocide of Tamrielic history.

@@ -1,0 +1,32 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/O_letter.png'>n Dark Wisdom
+
+Being a list of the dangerous but acceptable sources of knowledge as decreed by Julianos of the eternal golden triangle
+
+
+</p>
+
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>hese are the decreed founts of black wisdom who may be called upon for tutelage in the matters of war, subtlety, magick, natural philosophy, art and the ways of the gods. It is been agreed by Julianos that so long as the seeker keeps covenant, they may gather this knowledge without hindrance.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Ideal Masters may only be called upon to deal with the trade and forfeiture of mortal souls; to offer them aught else is forbidden. Always offer them twice the amount you seek or they will seek recompense beyond what you wilt.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/H_letter.png'>ermayus Mora is a wretched daemon of the inked abyss who hungers for knowledge and knows none of it. It is pemissible to exchange knowledge for knowledge with Hermayus Mora, but not to do his whim or will for he seeks to render the real into the written.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/F_letter.png'>a-Nuit-Hen and the Barons that Move Like This are the wise instructors of practices martial, and can be counted on to serve as diligent masters of their respective schools of study and discourse. 
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Sallow Regent is a font of knowledge for all the matters relating to the contract between mortal and divine, and the most sacred contract of mirrors. She must not be prevailed upon for material wisdom.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/X_letter.png'>arxes the Elf-Scribe is a good and kindly tutor of all things but must not be risen to anger, as can happen when any kind of knowledge-refusal or biblioclasm takes place. Write down everything he might speak on.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/M_letter.png'>nemolii the Azure Star is the guardian of knowledge yet-to-come, and she should only be offered promises and favours, never things that are extant for she shows no love for such things. 
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/M_letter.png'>alakat the Curse-Bearer has knowledge of all broken oaths and all promises unkept, and may be called upon to grant this knowledge by any who do not refuse to uphold his price, which must be agreed beforehand.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/C_letter.png'>lavicus Vile is a daemon of the fractured heavens and his trades may be for anything, but only those capable of solving his riddle-deals may take his tribute. It is a sin for the unwise to deal with Clavicus Vile.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/S_letter.png'>ethiete may be called upon to deliver knowledge of all things of the night and the darkness, and may receive anything in return for that knowledge except for what he asks for.

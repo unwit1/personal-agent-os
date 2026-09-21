@@ -1,0 +1,12 @@
+<p align="center">
+<img src='img://Textures/Interface/Books/ApocLib/BlackHorseCourier.png' height='60' width='250'>
+WAR BEGINS
+Aldmeri Dominion march from Valenwood and Elsweyr</p>
+
+The inevitable moment has happened, though faster than the legions expected. The Aldmeri Dominion has marched two armies straight into Cyrodiil. 
+
+War scouts report that the generals in charge of these armies are Lady Arranelya and Lord Naarifin, both distinguished Thalmor warriors.
+
+The Legions are scrambling to come to the defence of our cities. Already Leyawiin is under siege, and Bravil is likely to succumb soon without support from our armies.
+
+"The situation is dire but the Empire has always pulled through", said Legate Cavia Ganessia. "Already our troops are rallying against the invader. By the year's end, Cyrodiil will be free of the invader, and we will be ready to return the whole of Tamriel to Imperial hands."

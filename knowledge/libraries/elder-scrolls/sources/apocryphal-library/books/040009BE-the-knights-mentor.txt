@@ -1,0 +1,45 @@
+[pagebreak]
+<p align="center">
+
+The Knights Mentor
+
+<img src='img://Textures/Interface/Books/ApocLib/greentriangle.png' height='200' width='200'>
+
+by Sir Sagramald of Daenia
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Knights Mentor have been the chantry-militant of the School of Julianos since its founding in the Second Era. Our history is a long and proud one, and our duty to the protection of scholars and knowledge has been our devoted mission for longer than living memory.
+
+Our Mission can be described best by these words from our past brethren:
+
+"The Knights Mentor are brothers and sisters to the School of Julianos. While they do research and expand the libraries of the School, we protect them. And, in turn, they share their expanded knowledge with us. It is a perfect relationship and benefits us each equally. Naturally, only those of exceptional military skill and demonstrated loyalty to the School and God Julianos are considered for membership into the Knights Mentor." - Knight Invigilator Dame Laria Vermaene
+
+"The School of Julianos is no mere temple, dedicated to mindless obeisance to a distant and hazy God figure. Julianos is a god, to be sure, but foremost he is a symbol of learning, logic, philosophy, and wisdom. We espouse no moral philosophy other than the goodness of knowledge. Scholarship is a long and difficult journey, and Julianos does not tolerate those who wish to shorten it. While we advocate literacy and education for all Tamrielans, our policy for those who wish to join the School itself is very stringent. We have little time to waste training the slow and the lazy." - Knight Mentor Sir Castell of Glenpoint
+
+The specific manner in which a Knight Mentor serves often falls into these categories.
+
+Protection of Scholars
+
+Ensuring that scholars are defended as they perform research in dangerous locations is critical to ensuring the continuation of knowledge's weary pursuit. Though many scholars are capable mages perfectly capable of defending themselves, there comes a time when magicka reserves run dry, or when simple spells will not work against a foe, or many other setbacks. Sturdy warriors capable of using the arts of war are a necessity. Naturally, such warriors have often used the vast resources of knowledge available to school themselves better in the arts of war. The Book of Circles and the Art of War Magic are common reading material for new Knights Mentor. It is also common for Knights to learn some magic themselves, with a few notable battle mages coming from our order. 
+
+Acquisition of Knowledge
+
+Sometimes a scholar will determine the location of a priceless tome or other piece of important lore, and it will fall to the Knights Mentor to see to its retrieval. In the mid third era, it became known to the School that the Grimoire of Corvus Direnni had been sold to rogue Telvanni wizards on Vvardenfell. This being before the Temple allowed the reserve to be opened to Imperial settlement, it required a most delicate touch.
+A Dunmer knight was selected for the role, Sir Balchus Imdayn, and he was able to successfully infiltrate the island by learning their customs beforehand and then determining the location of the stolen book and retrieving it with deft violence.
+Dame Hyldebrandt's retrieval of the Runestone of Winterhold from Thoraff, Bandit-King of the Rift was a similar tale with rather less finesse, but both were able to retrieve their charges safely - careful handling, packaging and transport of fragile tomes and scrolls a very important skill, and it is taught to all knights before they are allowed on field missions.
+
+Guard Duty
+
+Universities, Colleges, Libraries, Schools and other places of learning all need guards. This is for the protection not only of the scholars but also of the valuable works contained therein. Tomes and scrolls of power are a tempting target for mages, and often artefacts of great power are kept there for study or simply to prevent their use by troublesome persons. Thus a Knight Mentor must be prepared to use special methods. Detection magics, such as alteration and illusion spells and enchanted helmets, allow knights to better detect when a thief is attempting to enter a library. Often the knights will inscribe special rune-traps onto the ground if they suspect that a particular work might prove to be a target.
+
+Scholarship
+
+Though not all scholars are knights, all Knights Mentor are scholars. They are expected to perform many of the same duties as the clergy and the students, including calligraphy, debate, conservation of tomes and much more besides. Obviously the martial aspect will take up much of the knight's time, but all are expected to be as sharp as mind as they are strong of arm.
+
+Wardenship
+
+It becomes necessary, on occasion, for the Knights Mentor to take a role in the admonishment of wayward students. Breaking up fights between rival scholars, Retrieving overdue library books - sometimes by force, and ensuring the castigation of students whose pranks go too far are all part of the duties of the Knight Mentor. 
+
+The adventures of the Knights Mentor are often just as glamorous as those of other orders - the heroic rescue of ancient tomes, and the protection of scholars investigating the ruins of our forgotten past are all tales to inspire the imagination. But the aspiring knight should be aware of the mundane duties also, and be prepared to take pride in their fulfilment.

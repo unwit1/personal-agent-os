@@ -1,0 +1,28 @@
+[pagebreak]
+<p align="center">
+
+
+Goblins
+
+by Professor Haurym Stryde
+
+
+
+
+
+University of Gwilym Press
+
+</p>
+
+[pagebreak]
+<p align="left">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/G_letter.png'>oblins are rarely more than a local danger, of the sort posed by bandits and marauders. On rare occasion they will unite behind a single warleader, at which point they can become a very real threat indeed. The first Redguards to land in Hammerfell spoke of huge hordes of goblins, some of them very large - enough to require the HoonDing's armies to engage with them directly. When not fighting under the banner of one of their own, they will generally serve as mercenaries or shock troops in the armies of any who will see fit to use them. From Alinor to Morrowind, all manner of despots, tyrants, necromancers and bandits have used their ferocious numbers beside their own.
+
+Goblins have a very primitive culture, but there are observable rituals and religious practices that can be described and observed. Many seem to worship Muluk or Malooc, also known as the Blue God, an aspect of Malacath distinct to their kind. His shamans traditionally wear skulls and other bones, and wield staves tipped with the heads of another goblin. 
+
+Death rites among goblins usually involve cannibalism and the construction of bone-cairns from the remains. Some of the bones seem to be worn by their surviving kin, perhaps as a manner of keeping the spirits of the dead as close allies in times of battle.
+
+Though they have generally represented a threat to the people of Tamriel since time immemorial, some have deigned to learn their ways and to communicate with them. This has met with some success - some have learned how to speak their tongue, and others still have taught them how to speak modern Tamrielic. Others have been less enthusiastic - the Alessian Order portrayed them as 'miscreated', and ordered them to be put to the sword.
+
+There have been rare occasions of them using unusually sophisticated levels of technology. They were able to harness the vents of steam from Dwemer pipes on Stros M'kai, and use them to power their tools. Other instances of them developing metalworking technology, including the re-use of Dwemer metal, have also been reported in High Rock.

@@ -1,0 +1,30 @@
+[pagebreak]
+<p align="center">
+
+
+Great Plagues of Tamriel
+
+Vol. I: The Knahaten Flu
+
+
+
+by Keezharava
+
+</p>
+
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Knahaten Flu ravaged Tamriel across the Second Era, from 560 to 603. Thousands died to its onslaught, and it altered the course of history through its passing.
+
+Though the exact nature of how it came about is still unconfirmed, it definitely began in Black Marsh. The first cases were noted in Stormhold in 560, and it spread throughout the whole region within the year. Almost everyone it infected died, except for the native Argonian population. This has led scholars to believe that an Argonian created the contagion, perhaps in response to outside threats. Another possibility is that the Hist created it in response to some outward concern, and deployed it as a means of protecting the Argonians.
+
+Whatever the case, it ravaged southern Morrowind, Elsweyr and Valenwood. The city of Senchal had to be put to the torch, and the ruined area of the city was rebuilt as a tawdry slum known as Black Kiergo. The Kothringi of Argonia, the human population, were almost completely wiped out - only a handful survived the disease itself, and the rest fled on a boat which was never granted harbour, the famous 'Crimson Ship'. The crew presumably died, but none has ever confirmed this.
+
+The symptoms were described by the second-era archivist Neleminduure thus:
+
+"General malaise, loss of appetite, and fatigue begins several hours before an afflicted victim develops other symptoms. The afflicted person's eyes water constantly. Skin develops a bright red granular rash that does not itch.
+
+Within twenty-four to thirty-six hours, victims suffer nosebleeds, their tears contain blood, and a granular rash spreads over their bodies. At this point, victims develop a deep, raspy cough. Within thirty-six to forty-eight hours, the victims' coughs produce bloody phlegm."
+
+Following the collapse of the Imperial Potentate, the flu's rampage made it much easier for Argonia to declare independence. Though much of the rest of Tamriel had suffered, it granted considerable fortune to the possible architects of the contagion.

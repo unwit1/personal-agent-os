@@ -1,0 +1,24 @@
+[pagebreak]
+<p align="center">
+History of the Imperial Mananauts
+And the Royal Imperial Mananauts
+<img src='img://Textures/Interface/Books/ApocLib/mananaut.png' height='200' width='200'>
+by Enteley Breale 4E 10
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/F_letter.png'>ounded in 2754 by Reman I, the Imperial Mananauts were intended to reclaim those parts of the cosmos deemed part of the original lands of humanity. Reman, whose birth-legend claims him to have been born with the Amulet of Kings in his forehead, was a controversy among his own Elder Council, having risen to power among the auspices of a hitherto ill-regarded Nibenese Dibella-cult. His claim that the moons were part of humanity's reach seem to be related to modern concerns about the Lunar Lorkhan theory. 
+
+Eventually, the Elder Council agreed to found the Imperial Mananauts, whose first attempt to transgress the liminal borders was to reach the moon of Secunda. By all accounts this was successful, but the Elder Council refused to budge until the Daedric Princes themselves allowed permit through the intervening void.
+
+Reaching the moon of Secunda involved intensive consumption of magicka, which was used in the creation of the first of the star-navy's Megalomoths. The rituals and alchemy used in the creation of this behemoth, and the architectural principles used in the building of the cathedral it carried are all now lost. Nevertheless, the New Void Navy 'Accrual' (formely NVN Manywives with Interest) took flight in 2820, after both Reman I and Kastav had passed away.
+
+The reports from Secunda were scattered, and the last one reached Mundus in 2862. In 2864 the NVN Accrual returned to Cyrodiil, with only a fraction of its former crew. Their ultimate findings were heavily classified.
+
+The Mananauts continued in that form into the early Second Era. They also performed some of the first explorations of the Realms of Oblivion and developed some of the scrying practices still used by their progeniture organisation today. Ultimately however, the cost of reaching Magicka by Magicka became too costly, and the Imperial Mananauts were disbanded by the Potentate in 2E 24.
+
+In their wake, the Royal Imperial Mananauts survived. They continued as a research organisation well into the current period, and are a frequent point of contact for the Mages Guild, the Imperial Geographic Society and the Elder Council when there are matters that involve directly intervening with the realms of Oblivion. Building upon the knowledge that was offered by their antecedents, they assisted the Imperial Battlemages in the creation of the Weir Gate and the Imperial Battlespire. During the incident that led to the sealing of the Weir Gate, many of the Mananauts perished.
+
+This loss of life contributed to the organisation's quick decline. The Oblivion Crisis that ended the era saw some of the last few great minds die in an effort to protect the Imperial City during the appearance of Mehrunes Dagon himself. It is not known how much they delayed the Daedric Prince, but with Saint Martin's sacrifice it is fondly believed by those remnants that, in their last hour, they defended Tamriel when it needed them the most.
+
+Today, the Royal Imperial Mananauts are restricted to a single office in the Imperial Palace. Their list of honours is lengthy indeed, and stretches all the way back to the First Era. We hope that the wisdom that they have provided will prove aid those who seek to venture across Oblivion, and indeed among the very stars themselves, for years to come.

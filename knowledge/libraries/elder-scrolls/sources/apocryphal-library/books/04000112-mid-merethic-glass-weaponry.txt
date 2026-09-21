@@ -1,0 +1,22 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/M_letter.png'>id-Merethic Glass Weaponry: A Comparative Study
+
+
+
+by Professor Dares Gilvyn
+
+Gwilym University Press
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Early Merethic period saw the first instances of glasswork in conventional armaments for both war and hunting. Literary evidence for the discovery of the first volcanic and meteoric glass deposits is distinctly lacking, but based on the glass scatters found in those early hunter-gatherer sites across Skyrim, Morrowind and Cyrodiil it seems that the rareness of the substance was not apparent until after the initial discoveries had been exhausted. After this, the material seems to have been more carefully conserved except for use in prestige goods.
+
+The very earliest centres of production across the area seem to have focused initially on arrow and spear tips, leading to the common belief that they were primarily used for hunting until later on. This explanation conveniently overlooks the similar pattern of use found in flint and other lithic materials whose martial use is well attested.
+
+The earliest types of arrowhead use a simple pair of barbs, the one usually slightly elongated compared to the other. With the rise of the Middle Merethic, the barbed-and-tanged arrowhead becomes more popular both as a hunting tool and weapon of war. It is also in this period that the more rigorous production of glass blades begins.
+
+The first of these blades used in Skyrim was found during excavations close to Saarthal, and are believed to date to the sacking of that city by the Snow Elves. It was some time before consensus could be reached on whether the blade had been made by the Elves or the Atmorans, given the morphology's contrast with the context in which it was discovered. It is now generally agreed that the blade was of Snow Elf manufacture, but was buried alongside an Atmoran warrior - either it had been a battle trophy, or it had been a gift from the Elves in more peaceful times.
+
+The earliest use of the blade in Morrowind seems to have been by the Ashlander Chimer, for a long and slightly curved broken blade-tip was found in a deactivated Dwemer Sphere on an excavation near Nchuleft. The blade showed the pressure-flaking techniques for which the later blades would come to be renowned, but in a deeper stratigraphy than others of its make. The robust yet thin blade had proven itself against the joints of the animunculus in what must have been one of the earliest clashes between the Chimer and the Dwemer.
