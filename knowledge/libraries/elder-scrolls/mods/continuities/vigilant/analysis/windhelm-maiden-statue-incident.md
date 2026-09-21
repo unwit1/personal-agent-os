@@ -143,6 +143,19 @@ However, the source does **not** explicitly say:
 
 Therefore the link is **strongly suggestive but not fully explicit**.
 
+## Supplementary intended-background resolution
+
+The a123999 VIGILANT background article explicitly describes the intended sequence as:
+
+**Jacob and his fellows die encountering half-sleeping Lamae → Jacob sacrifices Rahel's soul to Molag Bal → Jacob receives a new body → Jacob continues as a Vigilant.**
+
+Source:
+- `sources/supplementary/a123999-vigilant-backgrounds.md`
+
+This is not a direct ESM record, so the contradictory in-plugin source layers remain preserved.
+
+It does, however, raise **Model A — literal death and revival** from a mere reconstruction to a strongly supported supplementary interpretation.
+
 ## Rahel as the price
 
 Rahel's journal resumes much later.
@@ -279,7 +292,7 @@ The Windhelm incident supplies the likely historical context for the bargain, bu
 | Jacob died in battle | Aredhel's Note | high as testimony, conflicts with report |
 | survivors surrendered to Blood Matron | Aredhel's Note | high as testimony |
 | Jacob accepted Molag Bal revival for wife's soul | Jacob dialogue | high testimony |
-| revival happened during Maiden Statue incident | reconstruction | medium |
+| revival happened during Maiden Statue incident | ESM reconstruction + a123999 supplementary commentary | medium-high overall; not direct ESM |
 | Maiden Statue “her” is exactly Lamae | reconstruction | medium / unresolved |
 
 ## Canon boundary
