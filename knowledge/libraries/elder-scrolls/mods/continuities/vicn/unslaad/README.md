@@ -111,6 +111,18 @@ A first deterministic ownership graph now covers named NPC/container inventories
 
 Promoted dossiers include Austella's Hoarfrost equipment, Jhunal/Gray-Owl equipment, Khev/Molag/Muatra/Coldfire, Atmoran trial relics, Dov-Ah-Kiin relics, KINMUNE/Ayrenn/Oracle-Iridescent staging, Owl/Lyg-Crab/World-Eater/Blades/Companion/core factions, Sinak/Woodland-Man/Owl relationships, and Jill trial/cross-VICN material.
 
+### Named forms / race taxonomy
+
+The lore-facing actor layer is now indexed structurally:
+- **243 named NPC forms** out of 517 NPC_ records;
+- **174 unique display names**;
+- **41 duplicate-name/form families**;
+- **57 custom races used by named actors**.
+
+Named forms are split across four alphabetic indexes, with a separate duplicate-family summary and custom-race catalog. Unnamed/template/leveled NPC records are retained as implementation forms rather than promoted as characters.
+
+This provides canonical form-state lookup for cases such as Ulliss, Aisha, Jhunal the Gray, Khev, Sinak summons, Jills, Dragon Pus forms, and training proxies.
+
 ### No-dialogue boss/trial quests
 
 Named boss/trial families have a structural index even when they contain no ordinary INFO dialogue, including Trial of the Gods, Idol of Magnar, Last Giant of Jhunal, Jill trials, Ysgramor trial, Priest of Jhunal, and Woodland Man hunt.
@@ -140,13 +152,13 @@ Named boss/trial families have a structural index even when they contain no ordi
 
 ## Remaining ingestion frontier
 
-The basic text-bearing layers and the first structural ownership/faction layers are now substantially reconciled.
+Dialogue, scenes, books, messages, item descriptions, named NPC forms, custom races, ownership/death loot, summon chains, Shouts, intrinsic abilities, artifact magic, recipe unlocks, core faction topology, and the first placed-reference/VMAD passes are now substantially reconciled.
 
 The next high-value UNSLAAD work is:
 
-1. enchantment/spell/magic-effect relationship indexing for lore-bearing artifacts and creatures;
-2. summon-tome / summon-form / corpse-drop relationships, especially Woodland/Sinak, Draco-Nord, Watcher, and Hoarfrost families;
-3. deeper quest-condition analysis for when major artifact recipes/reward sets unlock;
-4. selected placed-reference analysis for named historical weapons, masks, and transformed boss phases;
-5. provenance matching for remaining externally sourced/adapted written or mythic material;
-6. further parent-VICN reconciliation against VIGILANT, GLENMORIL, and DAc0da where exact names, artifacts, or mechanics recur.
+1. named ACTI/CONT/MISC object taxonomy and complete lore-object placement indexing;
+2. custom race/body-model relationships for unnamed encounter templates only where they affect lore-facing forms;
+3. quest alias/property-value resolution for remaining high-value transitions and boss phases;
+4. visual/model/texture inspection for unresolved objects such as the Mural of Jhunal and mirror/Arcana representations;
+5. remaining external provenance checks for unresolved/adapted texts and mythic terminology;
+6. further parent-VICN synthesis where exact source-backed nodes now recur across VIGILANT, GLENMORIL, UNSLAAD, and DAc0da.
