@@ -23,12 +23,17 @@ Work-specific facts remain in their source continuity. Parent pages should link 
 - **Laza / Owls / dragon experiments** — `laza-owls-dragon-experiments.md`
 - **Gray Owl / Chick Trader / Anequina** — `gray-owl-chick-trader-anequina.md`
 
+## Institution threads
+
+- **Holy Pipers** — `holy-pipers-thread.md`
+
 ## Memory / dream / timeline threads
 
 - **Altano / Radiance** — `altano-radiance-thread.md`
 - **Brain-Billies / memory recovery** — `brain-billies-memory-thread.md`
 - **Dream Without a Dreamer** — `dream-without-a-dreamer-thread.md`
 - **Radiance / Mnemo-Li / memory** — `radiance-mnemo-li-memory-thread.md`
+- **Blue Star** — `blue-star-thread.md`
 - **Loveletter From the Fifth Era** — `loveletter-fifth-era-thread.md`
 - **Jills** — `jills-across-vicn.md`
 
@@ -79,3 +84,12 @@ Especially strong current examples:
 - Radiance / Mnemo-Li / memory.
 
 This index should be kept compact. Detailed evidence belongs in the linked pages.
+
+
+## Synthesis audit
+
+Evidence-classification matrix:
+
+- `../analysis/cross-vicn-reconciliation-01.md`
+
+Use it to distinguish direct identities/institutions, exact rare vocabulary, direct cross-work pointers, shared external substrate, and thematic-only comparisons.
