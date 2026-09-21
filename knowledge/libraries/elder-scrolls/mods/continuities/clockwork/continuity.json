@@ -3,7 +3,7 @@
   "name": "Clockwork",
   "universe": "The Elder Scrolls",
   "kind": "mod_continuity_overlay",
-  "status": "active_ingestion",
+  "status": "structured_ingestion_complete_core",
   "canon_policy": {
     "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
     "default_claim_scope": "tes.mod.clockwork",
@@ -20,14 +20,50 @@
     "books": 13,
     "dialogue_topics": 242,
     "dialogue_info_records": 888,
-    "dialogue_response_strings": 520,
-    "quests": 12
+    "dialogue_response_strings_direct": 520,
+    "dialogue_response_strings_effective_after_dnam_reuse": 1103,
+    "quests": 12,
+    "quests_player_facing": 7,
+    "quests_internal_technical": 5
+  },
+  "dialogue_resolution": {
+    "strict_single_npc": 322,
+    "multi_candidate": 545,
+    "strict_no_npc_candidate": 21,
+    "supplemental_semantic_resolution_of_strict_no_candidate": 21,
+    "unique_named_transcripts": {
+      "Lahar": 192,
+      "Lamashtu": 125,
+      "primary_Amalgam": 5
+    },
+    "multi_candidate_catalogs": {
+      "broad_Gilded_pool": 519,
+      "Amalgam_form_pool": 26
+    }
+  },
+  "structured_layers": {
+    "books": "complete",
+    "player_quests": "complete",
+    "internal_quest_catalog": "complete",
+    "strict_unique_dialogue_transcripts": "complete",
+    "ambiguity_catalog": "complete",
+    "supplemental_scene_dialogue_resolution": "complete_for_strict_unresolved_set",
+    "character_pages": "core_complete",
+    "relationship_index": "initial_complete",
+    "dated_ludwig_timeline": "complete_from_four_journals",
+    "player_story_graph": "initial_complete",
+    "spoiler_knowledge_unlocks": "initial_complete",
+    "location_index": "initial_complete",
+    "artifact_index": "initial_complete",
+    "lore_topics": "initial_complete",
+    "interpretive_analysis": "initial_complete"
   },
   "next_ingestion_steps": [
-    "resolve INFO speaker/conditions and scene ownership",
-    "normalize named entities and aliases",
-    "convert dialogue into speaker-attributed evidence units",
-    "build quest-stage graph",
-    "add contradiction/base-canon comparison links"
+    "attempt to narrow the 545 multi-candidate INFO records using SCEN, PACK, REFR, quest-state, location, and condition context without guessing",
+    "catalog SCEN records and map scene phases/actions to story-graph nodes",
+    "catalog relevant scripts and VMAD properties that encode narrative state or speaker ownership",
+    "promote additional object, spell, cell, location, and reference FormIDs into structured indexes",
+    "build explicit base-TES comparison/contradiction links for Clockwork claims touching Dwemer, Kagrenac, Numidium, soul gems, and Red Mountain",
+    "add retrieval tests for spoiler gating, provenance boundaries, and revised claims"
   ]
 }
