@@ -34,7 +34,11 @@
     "Saklas dossier: Jhunal Library investigation, Order mining, and Owl-form evidence",
     "Mary witness-network dossiers: Pope Megus, Sir Caius, Ja'zhan",
     "Jhunal fire-rune supporting dossiers: Sir Berich and Casimir",
-    "Pelan/Pepe identity witnesses: Giant Knight Ritho and Arasil"
+    "Pelan/Pepe identity witnesses: Giant Knight Ritho and Arasil",
+    "Paladin Melus dossier and Vision in Malada stanza 6 linkage",
+    "Gravekeeper / The Saint's Corpse structural dossier",
+    "Broken Horns final-memory handoff reconstruction",
+    "Act 4 side-quest coverage/gap map"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -47,6 +51,7 @@
     "quest_aliases": 550
   },
   "next": [
+    "recover unresolved Act 4 side-quest bodies: The Black Worm, Kyne's Dragon, Knight of Arkay, and Funeral",
     "expand remaining high-relevance character dossiers",
     "continue exact BOOK/note persistence from the 179-record local corpus",
     "ingest VIGILANT PEX/scripts or BSA when available for exact Papyrus transition bodies",
@@ -64,17 +69,14 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "expanded supporting witnesses around Mary/Moura, Jhunal fire-rune lore, and Pelan/Pepe identity",
+    "focus": "Paladin Melus recurrence, Gravekeeper separation, Broken Horns final-memory orchestration, and Act 4 gap normalization",
     "added": [
-      "Pope Megus",
-      "Sir Caius",
-      "Ja'zhan",
-      "Sir Berich",
-      "Casimir",
-      "Giant Knight Ritho",
-      "Arasil"
+      "Melus Petilius",
+      "Gravekeeper",
+      "Broken Horns final-memory handoff analysis",
+      "Act 4 side-quest coverage/gap map"
     ],
-    "source_state": "continued from repository-extracted VIGILANT corpus; no new raw ESM text introduced",
-    "open_followup": "continue remaining high-relevance Coldharbour witnesses and persist exact Laza/Owl book texts when source bytes become available"
+    "source_state": "continued from repository-extracted VIGILANT corpus; no new raw ESM or PEX bytes introduced",
+    "open_followup": "recover quest-specific source bodies for The Black Worm, Kyne's Dragon/Kahkaankrein, Knight of Arkay/Sir Torolf, and Funeral; persist exact Laza/Owl book texts when source bytes become available"
   }
 }
