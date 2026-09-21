@@ -1,4 +1,4 @@
-# The Black Worm — identity and source gap
+# The Black Worm — identity gap and supplementary resolution
 
 Continuity: `tes.mod.vigilant`
 
@@ -38,16 +38,21 @@ The physical implementation of Jhunal strongly corroborates the **fragmentation*
 
 This does not independently identify the attacker, but it makes the mutilation claim materially represented in the plugin.
 
-## Mannimarco caution
+## Mannimarco identity — source-separated
 
-The epithet **Black Worm** naturally resembles Elder Scrolls naming associated with worm/necromancer imagery, but the currently persisted VIGILANT corpus contains **no direct Mannimarco identification** for this figure.
+The **currently persisted ESM extraction** still contains no direct line stating that the Black Worm is Mannimarco.
 
-Therefore do not encode:
-- Black Worm = Mannimarco;
-- Black Worm = King of Worms;
-- The Black Worm quest = Mannimarco encounter;
+However, the supplementary Nexus background article by **a123999** explicitly identifies the Black Worm as a **scattered portion of Mannimarco's spirit**, adding that sufficient parts can form the King of Worms.
 
-unless a future exact-source pass recovers explicit evidence.
+Source record:
+- `sources/supplementary/a123999-vigilant-backgrounds.md`
+
+Lorekeeper should therefore preserve two layers:
+
+- **ESM-only:** identity unresolved beyond Jhunal's testimony and the quest title.
+- **supplementary commentary:** Black Worm = fragment/scattered part of Mannimarco's spirit.
+
+Do not rewrite the ESM layer as though the plugin itself contains a direct Mannimarco-name line.
 
 ## Relationship to Jhunal's flesh art
 
@@ -63,7 +68,9 @@ However, the retained source layer does not establish exactly which techniques t
 
 **High-confidence structure:** Act 4 includes a quest titled *The Black Worm*.
 
-**Unresolved:** whether these two anchors refer to the exact same actor/episode.
+**Supplementary identity:** a123999 identifies the Black Worm as a scattered part of Mannimarco's spirit.
+
+**Still unresolved at ESM level:** whether Jhunal's attacker, the Act 4 side-quest title, and every Black Worm manifestation are represented by one exact actor record/episode.
 
 ## Required future extraction
 
