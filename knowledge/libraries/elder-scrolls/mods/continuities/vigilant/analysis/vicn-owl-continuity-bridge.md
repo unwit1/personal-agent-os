@@ -66,7 +66,7 @@ This later Vicn text directly sequences Laza through all three Owls:
 
 This is very strong cross-continuity evidence for the Laza/Owl sequence.
 
-It must not be presented as the exact prose of the missing VIGILANT Owl books.
+The exact VIGILANT Owl books are now separately persisted above. GLENMORIL should therefore be treated as later continuation/corroboration: it preserves the same three-stage narrative with some translation/version wording differences, rather than serving as a substitute for missing VIGILANT prose.
 
 ## GLENMORIL — White Owl identity
 
@@ -234,9 +234,10 @@ This ordering specifically prevents older informal Owl shorthand from overriding
 
 If asked “Who are the Owls in VIGILANT?”:
 
-- Direct VIGILANT evidence ties Jhunal the Owl to Laza and dragon harvesting but does not currently preserve the exact color-book prose.
+- Direct VIGILANT evidence preserves the exact White/Gray/Black Owl book prose, ties Jhunal the Owl to Laza and dragon harvesting, and establishes the White → Gray → Black narrative sequence.
+- The VIGILANT color books identify their speakers by Owl title rather than explicitly naming them as Jhunal the White/Gray/Black.
 - Cross-Vicn direct evidence later resolves White Owl as **Jhunal the White**, Gray Owl as **Jhunal the Gray** with an Orlando-related identity network, and Black Owl as **Jhunal the Black**.
-- These later identities are strong continuity evidence but should not be silently back-projected as exact VIGILANT body identity without the missing VIGILANT texts.
+- These later identities are strong continuity evidence but should not be silently back-projected as exact VIGILANT body identity without a direct VIGILANT personal-name identification for the color roles.
 
 
 ## Direct VIGILANT / GLENMORIL textual continuity
