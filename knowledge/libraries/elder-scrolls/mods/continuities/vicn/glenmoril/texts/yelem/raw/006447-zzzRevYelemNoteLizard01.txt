@@ -1,0 +1,3 @@
+<font face="$HandwrittenBold" size="19"> 
+The lizard hides in its shell. An unhatched egg is but a graveyard of possibilities. 
+</font>
