@@ -1,0 +1,28 @@
+<img src='img://Textures/Interface/Books/ApocLib/atmora.png' height='451' width='296'>
+[pagebreak]
+<p align="center">
+
+Frozen Atmora
+
+By Shali Bitter-Spear
+Imperial Geographic Society
+3E 50
+
+<img src='img://Textures/Interface/Books/ApocLib/impgeo.png' height='200' width='196'>
+</p>
+[pagebreak]
+<p align="left">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>tmora! The High Wood, the home of the ancient Nords. In Ysgramor's time, the inhabitants came to Skyrim, only to be attacked by the Elves. And so they went back to Atmora, only to return in strength, this time to conquer. Or so the story goes.
+
+The isle is frozen solid now, but there are some scant maps that show the land that Ysgramor knew, mostly the southern coastline - journeying inland is all but impossible, and has been possibly as far back as the First Era.
+
+The city-port of Jylkurfyk is the only named settlement that survives into the modern day. It was where the Five Hundred Companions of Ysgramor set sail from during the Return. It was said to house great shipyards, capable of building the great war-arks that roared across the Sea of Ghosts. Only one of these boats is still preserved, and it survives as the Hall of the Companions to this day, the Jorrvaskr in Whiterun. 
+
+There was the Frostwood, a cold forest even in Ysgramor's time, where many of the tales of his hunts took place. The waters of the Forelgrim ran there, where his legendary encounter with the Woodland Man took place.
+
+There was no farming in those times, for the ground was hard and the Atmorans lacked the patience to till it. Besides, there was fishing and hunting plentiful enough to feed them, and the woods were ripe with berries and healthy roots. The North of Skyrim is much like that to this day, so one can imagine for a moment how Atmora must have been.
+
+There was a civil war that led to Ysgramor arriving in Skyrim in the first place, and that seems to have been the beginning of Atmora's troubles. The Kings of Skyrim had holdings in Atmora for generations later, up until King Harald who relinquished his in the First Era. However, this seems to have occurred some time after the last ships of survivors made it to Tamriel.
+
+The last ships arrived in 1E 68, and were mostly corpse-laden. Those few survivors claimed that the land had become completely encased in ice. In 143, Harald formally forsook his holdings and no human has been recorded as living in Atmora since then. 

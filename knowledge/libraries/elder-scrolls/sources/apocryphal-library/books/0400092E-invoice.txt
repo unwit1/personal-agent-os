@@ -1,0 +1,20 @@
+<p align="center">
+Imperial Bedding Supplies
+Invoice
+</p>
+For immediate delivery to:
+<font face="$HandwrittenFont" size="18">
+Drarayne Thelas
+of Balmora in Vvardenfell
+
+40 pillows
+</font>
+Shipped:
+<font face="$HandwrittenFont" size="18">
+ 8th day of Morning Star, 3E426
+</font>
+
+
+
+
+

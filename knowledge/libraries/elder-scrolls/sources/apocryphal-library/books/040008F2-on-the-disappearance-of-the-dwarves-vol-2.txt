@@ -1,0 +1,85 @@
+[pagebreak]
+<p align="center">
+
+
+On the Disappearance of the Dwarves
+
+Volume Two
+Empirical Observations in the Fourth Era
+
+
+by Maura Calvaine
+
+</p>
+
+
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/F_letter.png'>oreword by the Editor and Author
+
+This second essay is provided as a means of bringing scholars to the same page on some of the facts that we have been provided with since the Disappearance of the Dwemer. Armed with this knowledge, the scholar may then be better equipped to face the complex arguments put forward by our learned contributors. 
+
+
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Numidium
+
+One piece of information that is almost completely absent from the accounts of the Red Moment is the existence of the Numidium. Sul's account, passed down into oral tradition, makes vague reference of a 'New God' being built by the Dwemer, but goes on later to redefine it as an attempt to raise the Dwarves to immortality. 
+
+We now know, from the reports gathered by the Empire in the intervening years, that the Dwarves had been creating the Numidium. This device was the 'New God' that the Velothi account refers to; an enormous, ambulatory representation of a mer, in brass. If you have seen the brass animunculus warriors of the Dwemer before, you will have a concept of the Numidium, but this device was large enough to fill the central lava chamber of the Red Mountain, where it was being constructed in secret by Kagrenac and his Tonal Architects.
+
+Central to the function of the Numidium was the Heart of Lorkhan, which was to provide its means of power, or possibly life. Once completed and powered, the Brass Tower (as it is sometimes known, also 'Walk-Brass') would have been able to conquer Tamriel with simplicity. We know this, because even without the Heart, it was able to do this, not once but twice in the following eras.
+
+The idea of Numidium being a 'Tower' is prevalent - All towers, which is to say the pillars of creation that hold up the Mundus, are based - at least in the most basic sense - on the Adamantine Tower. White-Gold Tower in Cyrodiil was a very literal copy, with the wheel and eight smaller towers creating a microcosm of the Aurbis that allowed it to function as the epicentre of an Empire. Even the Throat of the World and Red Mountain, which are both simply geological features, follow the same principle in that they are very tall, and they don't move.
+
+Numidium was fully mobile, which meant that its user could unleash full territorial change on an area without having to operate that area's tower personally. 
+
+The Dwemer never managed to use the Numidium. It may have been that Kagrenac was attempting to finish it when the First Council forces arrived. Regardless of that, he and the rest of his race vanished around that moment.
+
+The Numidium is used twice; once during the conquest of Tamriel by Tiber Septim, and a second time - or possibly multiple times, but simultaneously - during the Warp in the West. Both these occasions allowed its operator to conquer vast areas. Of course, it was not operating with the Heart at this point, but rather the Mantella. The Mantella isn't particularly important to our understanding of the Dwemer's disappearance, so it will be described briefly - it was a soul gem, harbouring the soul of the Numidium's once-supposed creator, Zurin Arctus. Zurin was the mage who reconstructed the Brass Tower at a secret location in Pellitine for use in Tiber's conquests. The gem may have also housed the soul of the Ash King, Wulfharth - souls are poorly understood and possibly not germane to this topic, but suffice to say that harbouring the soul of Wulfharth, Shor's Tongue (Lorkhan's champion) and Zurin, who may have been The Shezzarine (Lorkhan's mortal wandering avatar, always separated from his Heart) was enough for the Mantella to act as the source of power in place of the true Heart.
+
+Why Vivec surrendered the pieces of Numidium to Tiber Septim is unknown - The Tribunal could likely have rebuilt it themselves, using Sotha Sil's understandings. Perhaps they were keen not to have to use the Heart for anything other than fuelling their own divinity. Or perhaps Dagoth Ur was keeping them from doing so by this point.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>kulakhan, the Second Numidium, is much less widely known about. It was being built in the same place as the first, under many of the same auspices, but with several differences. It was being made by Dagoth Ur and his minions of the Sixth House, House Dagoth. Our knowledge on this matter is provided by a small number of reports from the time of the Second Battle of Red Mountain, from Buoyant Armiger scouts, vague comments from Vivec, and possibly the Nerevarine.
+
+The Sharmat, Dagoth Ur, had been intending to use Akulakhan for much the same purpose - conquest. There are other theories that he may have been intending to use it to, in essence, become 'The Dreamer' - a theosophical premise that the Aurbis is the dream of a powerful being that Dagoth Ur may have hoped to usurp.
+
+Regardless of his intentions, the design of Akulakhan followed the same design -  that of a huge man or mer. The material used for its construction is less certain. Inspection of the Heart Chamber before the eruption of the mountain showed that there were indeed plates of Brass (which is to say, Dwemer Metal) hanging from suspension chains and ropes, ready to be moved into place like armour. But there the similarities seem to end.
+The main 'flesh' of the construct was described as 'Grey', and was built around an actual skeleton of sorts, with noticeable ribs, ulna, radii and carpals. The grey substance was built around this like muscle tissue. The eyes were said to glow like coals, behind a brass mask. Other than the Heart of Lorkhan, no organs of any other kind were described.
+What was the grey substance? Some say it must have been local stone. Others believe it was Corprus Flesh, the diseased flesh of the Sixth House cultists who are described as cutting it off their bodies in huge quantities, only to have it regrow. Large amounts of this substance were found and destroyed by Temple Ordinators in the years surrounding the Nerevarine's appearance.
+
+The notion that the material was actually flesh are important to some of our essayist's interpretation of the Disappearance of the Dwemer, hence Akulakhan's mention. As for the bones, it is unknown - large bones have been found in underground caves in other parts of Vvardenfell, around the West Gash region. 
+
+Whether the original Numidium contained bone or any kind of 'flesh' is unknown - only the exterior, that of shining Brass, has ever been reported.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Tonal Architects, and their Tools
+
+The Tonal Architects were a caste of sorcerors and/or priests who were able to use sound to manipulate the Earth Bones. Dwemer are sometimes recorded as swearing on the 'Fifteen-and-one Golden Tones', a number that numerologists enjoy comparing to the sixteen Princes of Oblivion, as a mockery of the Eight-and-One that pre-War Imperial religion recognised as the number of gods - eight points and a centre, that centre supposedly being Talos. 
+The Dwemer, however, are believed to have forsaken the notion of gods entirely, and sought to refute their endeavours from all their own works, perhaps in pursuit of their own divinity. Sound seems to be one of the ways they sought to do this. Other forms of sound-based 'magic'  have been reported over the years, including the Thu'um of the Nords and the Shehai of the Redguards. Exactly how the Dwemer used sound is still being researched.
+
+One of the Tools of Kagrenac, Keening, was reported (by the enigmatic author of The Five Songs of Wulfharth) as being 'Made of the sound of the shadow of the Moons'. Scholars have bickered over the interpretation of this almost as long as we've known about it, but the fact of the matter is this: The blade of the tool, sometimes called a dagger, is crystalline in appearance, with a blue tinge. It was not described as looking exactly like any material currently known about.
+
+Sunder, the 'Hammer of Divine Mass' (Songs of Wulfharth), was a simple hammer in appearance, one flat peen and one rounded. 
+
+Both of these required the wielder to wear the Wraithguard, a gauntlet that protected the wielder from the effects of the tools. Exactly what process went into making the tools that they required such a defence is unknown, and some believe divine itself. Its existence casts doubt on the Five Songs of Wulfharth, which claims that both Nerevar and Dumac each wielded one of the tools - they could not both have used the Wraithguard.
+
+According to Vivec, the method by which he used the tools to gain the power of Lorkhan was that first, the Heart must be struck with sunder. This produced a certain 'tone', perhaps a heartbeat at a certain pitch. Next, this tone was cut with Keening. The third step was kept secret by the Tribunal, and that secret accompanied them into obscurity. But the Nerevarine was instructed to use a different third step - to keep cutting the Heart Tones with Keening until the enchantments binding the heart to Mundus were destroyed completely. This is how Dagoth Ur was defeated, how the Tribunal most likely lost their power, and how the Heart of Lorkhan ceased to be visible to this world. The Heart was probably not destroyed - to do so may have ended the world - but it seems to have become part of the underlying 'Myth' rather than remaining 'Real'.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Heart of Lorkhan
+
+The Heart itself was removed from Lorkhan around the time of the Convention at the start of linear time as we understand it. The specifics of the event are contested by various cultures, but all agree that Lorkhan's heart was taken from him - or in some cases, personally sacrificed - in a way that led to the foundation of the Mortal Plane.
+
+The fact that the Heart was used for the purpose of creating Numidium and making men and mer into gods proves that the Heart was real. But was it always real? The Dwemer referred to the binding enchantments as 'Mythopoeic' - Myth-Making. Did they find a source of great power under Red Mountain, and bring it into existence with their cleverness? Or did they simply realise that Red Mountain is a place in an old story, and used their enchantments to make that story real?
+
+The question seems absurd - and many would agree. But theosophists are torn on the idea of whether or not myths are real, or if reality is real. The question is too broad to approach here, but if we keep in our mind the idea that the Dwemer were simply using the tools to interpret a creation myth as True, then some of the interpretations of our essayists may make more sense.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>elepathy
+
+The Dwemer are described in many places as having the ability to transmit thoughts to each other. This is referenced in the ancient tale that formed the basis of Marobar Sul's 'Chimarvamidium', where it is referred to as 'Calling' or 'The Calling'. 
+
+How this method was achieved is not directly known, but those who study Dwemer machines believe it was actually a piece of headgear, referred to in the modern day as a 'Mitre', after certain kinds of priestly headwear. These mitres are very rare, but examples have been found in various places by different researchers. They believe that the 'spikes' on these helmets could have projected thoughts telepathically between wearers. 
+
+Telepathy does not always require such a link - the author of 'Doors of Oblivion' claims that he was able to form such a link with his mentor. He also mentions the same fact about the Dwemer, that they had such an ability, one shared by the Psijiic order.
+
+The use of telepathy by the Dwemer is relevant to certain interpretations of their Disappearance.

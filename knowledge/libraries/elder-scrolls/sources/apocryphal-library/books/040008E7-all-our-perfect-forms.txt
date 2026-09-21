@@ -1,0 +1,226 @@
+[pagebreak]
+<p align="center">
+
+
+All Our Perfect Forms
+
+by Amun-dro, the Silent Priest
+
+
+</p>
+
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Many Forms of the Khajiit
+As brought down by our Mother Azurah
+So that we might one day find our place among ja-Kha'jay
+
+The United Spirit of All Khajiit
+The Unified Form That Will Defend Nirni at the End of Time
+
+Know that the form you may inhabit upon Nirni
+is to achieve a purpose in a fleeting life
+
+Lives which you may live over and over again
+Not in one form, but many
+
+As your soul is eternal and shall fill many vessels
+Until we meet again at the end
+Hearing Khenarthi's Call
+
+When unto the Moons we will climb
+And defy the fate of what Mother wills
+Should be Forevermore.
+
+When born all Khajiit are little echoes
+ja'Khajiit like baby Jone and Jode
+But we grow faster than Others think
+And soon our form is made clear.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/S_letter.png'>UTHAY
+
+When Jode is New and Jone is New
+Then shall be born the Suthay
+Their time is yet to come
+Though they find purchase where need is most
+Before the end and clarion call
+It is the Suthay who will have prepared the way.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/S_letter.png'>UTHAY-RAHT
+
+When Jode is New and Jone is Waning
+Then shall be born the Suthay-Raht
+Born to be tested
+Among Mother's Others
+Fit to endure harsh punishment
+Burden bearers, they stand alone
+And in the end we will see their triumph.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/C_letter.png'>ATHAY
+
+When Jode is waxing and Jone is full
+Then shall be born the Cathay
+Whose stride will lay forth the Khajiiti kingdoms
+And hold fast our faiths and traditions
+Let them say
+We are all one in ja-Kha'jay.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/C_letter.png'>ATHAY-RAHT
+
+When Jode is waxing and Jone is waxing
+Then shall be born the Cathay-Raht
+Great spotted warriors feared by Others
+With fur like armor and claws like knives
+Fearless, independent, and bold
+Weapons of war but never tools
+Defenders to inspire us all.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/S_letter.png'>ENCHE
+
+When Jode is Full and Jone is Full
+Then shall be born the Senche
+Great Chiefs of Lesser Cats
+Lords of the Wilder Lands
+They embrace the Way of the Hunt
+Such that some may call them beasts
+But their souls are thus the purest
+And most incorruptible of all Khajiit.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/S_letter.png'>ENCHE-RAHT
+
+When Jode is Full and Jone is Waxing
+Then shall be born the Senche-Raht
+War-Callers and Blood-Hunters
+The strongest and most dangerous of all Khajiit
+With minds as sharp as their claws
+The most long lived of all Khajiit
+And most feared by Others who oppose us.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/O_letter.png'>HMES
+
+When Jode is New and Jone is Full
+Then shall be born the Ohmes
+Hairless infiltrators that most cannot even see are Khajiit
+Beautiful, yes, but more akin to Elves in visage
+Still, their unique beauty offers advantage
+The Ohmes are among our greatest spies.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/O_letter.png'>HMES-RAHT
+
+When Jode is New and Jone is Waxing
+Then shall be born the Ohmes-Raht
+For Lorkhaj favored those he called Men
+And told Azurah they would need guidance
+Ohmes-Raht you cannot tell are Khajiit at all
+Save that they have more hair than most
+So long as they hide their tail
+You may find them among Kings of Men.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>LFIQ
+
+When Jode is waning and Jone is full
+Then shall be born the Alfiq
+Cunning and wise
+Teeming with magical might
+And all the knowledge of our ancestors
+Many lead us as Clan Mothers
+While many more pull strings from the shadows
+Beneath the Moons.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>LFIQ-RAHT
+
+When Jode is waning and Jone is waxing
+Then shall be born the Alfiq-Raht
+Secret-Keepers and War-Weavers
+These masterminds mold the shape of our kingdoms
+Strengthening us at times, tempering us in others
+To ensure we remain hardy and strong For what is to come.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/D_letter.png'>AGI
+
+When Jode is waning and Jone is new
+Then shall be born the Dagi
+Tree-dwellers of Tenmar
+Trickery and deception is their forte
+Masters of Illusory Rites
+To hide what Others must never know.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/D_letter.png'>AGI-RAHT
+
+When Jode is waning and Jone is waning
+Then shall be born the Dagi-Raht
+Hidden Mystics of the Jungle Weave
+They carry down the magic of old
+And divine the knowledge we will need
+To protect the secrets of Torval.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/P_letter.png'>AHMAR
+
+When Jode is Full and Jone is New
+Then shall be born the Pahmar
+Striped warriors who live for battle
+Their bloodlust unmatched
+You will find them at the forefront of every war
+Striking fear in the hearts of those who threaten our kingdoms.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/P_letter.png'>AHMAR-RAHT
+
+When Jode is Full and Jone is Waning
+Then shall be born the Pahmar-Raht
+Greatest of generals and strategists
+They lead our soldiers to war
+With a roar that can shatter mountains
+And a cry that can embolden armies
+Even one can turn the tide of battle.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>OJAY
+
+When Jode is waxing and Jone is new
+Then shall be born the Tojay
+Dancers in the Dark
+And Masters of Forbidden Arts
+They tell us the will of the Moons
+And wield the magicks beyond
+So pure are their souls
+Only Moonlight echoes forth.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>OJAY-RAHT
+
+When Jode is waxing and Jone is waning
+Then shall be born the Tojay-Raht
+Masters of Fang and Claw
+And the Dance of the Duel
+They perfect Mind, Body, and Spirit
+To become paragons of Soul
+ja-Kha'jay given form
+They train for the War at the End.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/M_letter.png'>ANE
+
+Under the Hidden Moon
+Then shall be born the Mane
+Lion Lords and natural leaders
+They carry the burden of all
+Only one will be chosen
+To wear the Crown of Braids
+But though forgotten or remembered
+Each Mane will forever alter
+The Fate of All Khajiit.

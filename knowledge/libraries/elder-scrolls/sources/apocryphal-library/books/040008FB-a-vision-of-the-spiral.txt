@@ -1,0 +1,59 @@
+[pagebreak]
+<p align="center">
+
+A Vision of the Spiral
+
+[pagebreak]
+<img src='img://Textures/Interface/Books/Arcane Scribblings/arcane04.png' height='451' width='296'>
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/E_letter.png'>verything starts from a point unattainable. Trace a spiral all the way to the centre and you just run out of room to draw a spiral, but the shape keeps going, inward and inward, to a point you can never draw, but technically it's there. If you draw a ring around it, it's definitely in the ring.
+
+Likewise, I couldn't visit Mephala in her realm in order to petition her for the Ebony Blade, of which I had great need. Fortunately, the simple truth of the matter was provided to me in my reading of numerologies. Reaching the Spiral Skein was to be as simple a matter as drawing a ring around the entry point, which was too small to exist.
+
+To this end I drew a spiral on the ground in the blood of a Dunmer I had slain dishonourably. He deserved it, but he had wanted a fair fight. And, I daresay, a fist fight at that.
+
+I wove his entrails into a tight spiral and dropped them in the middle of the blood spiral. And I sat somewhere over the top so that the centre would have to be beneath me, and then I chanted, having written the letters:
+<font face='$DaedricFont'>
+PALE SPIDER KING MEPHALA 
+WHOSE LAWS ARE BOUND ONLY TO YOUR WILL
+SHOW ME THE SKEIN SO I MAY SPEAK DIRECTLY
+</font>
+I burned the offering of Nightshade as was custom, and the heavy fumes of the plant lulled me into a stupour.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Skein I would now see in the vision. There it was, the cavern with the false pillars of an untrue sky. Spiders with the heads of women wove the walls into ever-shimmering gossameres, and I wished I was truly there so I could explore the intricacies of the realm for myself. But I was bound by the vision, and before long I was pulled by strands of fate and fame to the throne of the Spider Queen, Lord Mephala, his hair flowing silver, her legs arched and black.
+
+Lady Mephala, King of Spiders, I began. I have come to trade a favour for a boon. You know what I seek.
+<font face='$DaedricFont'>
+YOU SEEK MY EBONY BLADE MORTAL
+</font>
+It is so, Lord Mephala, Queen of Spiders. What might I do to receive this boon?
+<font face='$DaedricFont'>
+YOU HAVE ALREADY KILLED THE ELF I ASKED YOU TO KILL
+THAT WAS THE FIRST STEP
+YOU WERE DRAWN TO THIS BY MY INIQUITY
+THE NEXT STEP IS TO FRAME TWO FOR THE MURDER
+RICH ONES
+STRONG ONES
+MAKE THEM BELIEVE THE OTHER IS THE MURDERER
+</font>
+And so my vision returned to me.
+
+I spent the next few days weaving a belief in the mind of a local nobleman that the Dunmer slain had been one of his subjects, executed by the Dark Brotherhood as part of a ploy to terrorise the locals.
+I told the Dark Brotherhood that the dead mer was a Black Sacrament, and that they should attend to the scene to learn their new contract.
+
+When they showed up, the guards attacked them. The resulting feud resulted in much bloodshed.
+
+When next I slept, Mephala came to me in person and said
+<font face='$DaedricFont'>
+YOU NEVER NEEDED TO PAINT THE SPIRAL
+I WAS ALREADY COMING TO YOU
+YOU WERE MY INSTRUMENT
+AND SUCH A TUNE I PLAYED
+HERE TAKE YOUR REWARD
+</font>
+And I awoke beside the sword.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/I_letter.png'> could go on at length about the crimes I committed with the Ebony Blade of Mephala, but mostly it was just murder. They were people I wanted dead for my own reasons, but the longer I held onto the blade the more I wondered: Are my reasons ever my own?
+
+

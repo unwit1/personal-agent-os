@@ -1,0 +1,51 @@
+[pagebreak]
+<p align="center">
+
+
+On the Disappearance of the Dwarves
+
+Volume Nine
+Essay: The Wheel Behind the Tower
+
+by Thjorvald of Bruma
+
+
+Edited by Maura Calvaine
+
+</p>
+
+
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/F_letter.png'>oreword by the Editor
+
+Thjorvald of Bruma's essay offers a rather disturbing view of time in general, and has been offered more as a thought experiment than a genuine theory. But it is the only paper asks a different question to 'Where did the Dwemer go?'; it asks as well, 'Where did the come from?'. We thank Thjorvald of Bruma, who has recently finished his studies at the Synod conclave in that city, for his elegant literary submission.
+
+- Maura Calvaine
+
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/N_letter.png'>one can answer the simple question: Where did the Dwemer come from' to any level of scholarly satisfaction. Nords know that time is a circle, so it falls to us to answer.
+It is supposed by most that they were one of the clans of the Ehlnofey who established themselves in modern-day Morrowind, and offer little else of interest on the matter. It is not an unrealistic explanation, since we cannot separate the fact of the matter from the other Meric nations. The Altmer, Bosmer, Maormer and so on all divided from the Aldmer at some point, and in different manners. But something marks the Dwemer as decidedly different; they do not worship the gods, nor offer them much attention at all. And furthermore, they developed machines and devices of such complexity that they astound and outsmart even the most learned scholars of the modern era.
+
+How did they come to be experts at machines? Falmer and Ayleid ruins both show moderate use of contraptions in their traps, but neither is capable of reproducing an animate warrior in brass gears.
+
+To learn how to make such a device must have taken aeons, more than our simple Eras. That technology must have been based on lifetimes upon lifetimes of understanding. Advancing technology or magic is not something that happens fast; how different are the sword of today to the swords of a thousand years ago?
+
+We already believe that they devoted most of their lives to this research. That may have been enough, of course - we cannot prove it since there are none left to ask. But I propose a model of the Disappearance that may seem absurd, and I invite any to attack its precepts in the fair and reasonable manner of arcane discourse.
+
+We know that the Chimer encountered the Dwemer in Resdayn, when Veloth finally brought them to that land. Still we do not know how the Dwemer came to be so advanced. So let me provide the model on which I base my thought experiment - involving the circular nature of time.
+
+Let us suppose that in fact, the Chimer did not discover the Dwemer. They found Resdayn empty, save for the Red Mountain spitting fire at its centre.
+
+They explored the mountain and found the Heart of Shor, and wondered how they might use it for themselves.
+
+Lacking the tools to do so safely, the Heart, being that of all space and therefore time, blasts the Chimer back into the past - just before their own arrival.
+
+The Chimer arrive in Resdayn to discover the Chimer - who, let us say for the sake of ease, now call themselves the Dwemer. The Chimer and Dwemer don't get on, and the Dwemer retreat to Red Mountain, and this time try to develop technology to help the harness the Heart's power against the Chimer.
+
+They fail, and go back in time, displacing their last chronoshift. The pattern repeats, with the Dwemer getting better at technology in each turn of the Wheel. Every time, they seek to use the Heart. They abandon the Daedra that helped Veloth to Redayn, and they become completely different to their old Chimeri selves. They become obsessed with the power of the Heart.
+
+On one turn of the wheel, they have almost finished building the Numidium. Nerevar sacks Red Mountain once again, and Kagrenac turns the tools on the Heart - not as a last attempt to get the Numidium to work, but because he needs to send his race back to the beginning again, or risk losing all the prosperity of their labours.
+
+And so the rest of history unfolds. But in another turn of the wheel, behind the tower of our own reality, the Dwemer are rebuilding. In one turn of the wheel, they will finish Numidium, which will have in its chest the ever-beating Heart of Shor.

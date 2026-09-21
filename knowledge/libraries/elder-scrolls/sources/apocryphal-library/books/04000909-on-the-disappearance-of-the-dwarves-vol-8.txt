@@ -1,0 +1,80 @@
+[pagebreak]
+<p align="center">
+
+
+On the Disappearance of the Dwarves
+
+Volume Eight
+Essay: The Eternal Diaspora
+and
+Essay: The Pillar of Immortality
+
+by Ko'vashita of Corinthe
+and
+Aluthien of Eldenroot
+
+
+Edited by Maura Calvaine
+
+</p>
+
+
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/F_letter.png'>oreword by the Editor
+
+Our next two essays are shorter, and thus will be combined into a single volume. The first, 'The Eternal Diaspora', uses the presence of Yagrum Bagarn as the basis of the author's premise. The second, the Pillar of Immortality, focuses on the mechanics of the Heart of Lorkhan in the enchantments wrought by the Dwemer.
+
+Both essays were submitted by the authors when the requests were sent out, and I thank both our scholars for their contribution to the endeavour.
+
+- Maura Calvaine
+
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Eternal Diaspora
+
+Ko'vashita welcomes the reader to her writings on the matter of the Dwemer. She will be writing today on what is known of our 'Last Living Dwemer', Yagrum Bagarn, whose name is now known among the inner circles of Tamriel's elucidati.
+
+The name Yagrum Bagarn is known to a few outside our circles, of course; any who has read 'Tamrielic Lore', sometimes published as 'Famed Artefacts of Tamriel', will know the name as the author. Ko'vashita has not spoken to the author, but she uses what sources she has. And so, what know we of this mysterious writer?
+
+Yagrum Bagarn was a Dwemer scholar and Tonal Architect. He studied the manner in which sound could be used as a tool, a weapon, and a fundamental shaping aspect, able to control or manipulate the Earth Bones. 
+At the moment in which the Dwemer disappeared, he claimed to be in an 'Outer Realm', as a result of which he was not subject to the same vanishment as his fellows. 
+
+On his return to Mundus, he comes to realise that he is the last of his kind, and becomes infected with the Corprus disease. He seeks the company of the Telvanni wizard, Jo'divayth, also called Divayth-Fyr. Here he is treated, and comes to work as an artificer for the wizard.
+
+He writes the book Tamrielic Lore, where he describes in some detail the unusual artefacts that come into the hands of mortals in times of danger. Those tools of the great spirits, and others elevated to legend by their use and deeds.
+
+He claims, if the reports are true, that he does not know where he was when the Dwemer disappeared. As said by Ko'vashita, he states that he was in an Outer Realm. This is taken by many to mean a plane of Oblivion, or perhaps Aetherius.
+
+He makes no reports of other Dwemer that he saw when he was there, and so believes that he is the last. Of the conclusions he could come to, this is not an unrealistic conclusion to adopt.
+
+Ko'vashita proposes this: Jo'yagrum, Master Bagarn, was not the only Dwemer to share his fate. Nowhere does he tell us how he came to be in this 'Outer Realm', only that he was there. He has not named the hour of his transportation, only the reality of it. Thus, it cannot be concluded that Yagrum Bagarn was the only Dwemer to suffer this fate, and that his movement to the Outer Plane was the result of the Red Moment. A fate shared by his fellows.
+
+Ko'vashita goes on to propose: The rest of Yagrum's kin are still in various Outer Realms. They have been scattered to the corners of existence by the effects of the Heart, in a manner that Ko'vashita does not understand. Yagrum is the only one to have returned; so far.
+
+Other scholars sometimes make seemingly dubious claims about meeting Dwemer in Oblivion. I have met supposedly learned men and mer from Orcrest, Kragenmoor, Leyawiin, Morthal and Cloudrest who have all stated this as truth. It is a small number of scholars, but Oblivion is large.
+
+Yagrum is, or was not the only Dwarf. The rest are out there, lost, detached from one another, and many are probably dead from the breadth of the ages since the Red Moment. But somewhere out there, a few remain, whose existence continues at the whim of the Spirits, or by their own machinations.
+
+She thanks you for your indulgence.
+
+- Ko'vashita
+
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Pillar of Immortality
+
+The Disappearance of the Dwemer is not really a mystery. Nerevar used the tools of Kagrenac on the Heart of Lorkhan, and they all disappeared. And how? It is simple. One need only turn their attention to the account 'Nerevar at Red Mountain'. We learn a simple, often overlooked truth here - the Tribunal were not the first to attempt to use the Heart for their own benefit, to the matter of their immortality. The Dwemer had used the heart for the same thing. We don't know when they did, but at some point the Dwemer simply became immortal as a race.
+
+Having done so, they no longer needed to procreate. They no longer required future generations, as their continued existence negated that need. Thus, after a certain point in the timeline, all the Dwemer that existed already did so beyond the natural limit of their lives, in defiance of Y'ffre and all the Et'Ada.
+
+They were not like the Tribunal - they did not use the Heart individually to better themselves, merely to preserve their own lives so that their own researches would not be lost due to the simple matter of time. They did not, in other words, grant themselves the sort of life that would allow them to exist beyond the Heart's alteration, for they had not foreseen such a cataclysm.
+
+Nerevar was taught by Azura how to use the tools on the Heart. He cut away the Heart from the Dwemer, and with that, their immortality was gone, and the march of the aeons caught up with them in an instant. The last-born of them should have died hundreds of years hence, meaning that there was naught for them to return to but dust. And that is what became of them.
+
+As for the last survivor, I can only postulate that his existence in another plane simply preserved his life in another fashion. When he returned to Nirn, he caught the Corprus disease at such a time that he became functionally immortal, and proceeded to never die.
+
+It is not the most mysterious explanation, as it offers few additional questions and ties up all loose ends, and does not bow to the whimsy of what would make a more interesting account.
+
+In the wisdom of Xarxes,
+
+Aluthien

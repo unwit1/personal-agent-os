@@ -1,0 +1,79 @@
+<font size="17">
+[pagebreak]
+<p align="center">
+
+The Eternal Library
+
+by Uleema
+
+</p>
+<p align="left">
+[pagebreak]
+<img src='img://Textures/Interface/Books/Daedric Artifact book/Daedric Artifac00.png' height='471' width='296'>
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/I_letter.png'>t was during the summer of Two-Hundred of Third-Era I that first heard dread whisper of the Black Book of Tel Branora. We of the Root rarely travel unguarded into the lairs and dens of the Telvanni chain-lords, but the macabre tale told to me by the dust-adept left within me a yearning to visit the southern city's twisting mushroom spire. 
+The Mer I spoke of; he had visited Gnaar Mok on some business I did not ask about, and after sharing what remained of my diminishing Sujamma supplies he let slip that his mistress, the mind-addled Therana of Tel Branora, was reading a new book. Such a detail could be dismissed by anyone with even a passing interest in Telvanni politics; Wizards love to read books, and Therana was long since touched by Sheogorath's gentle caress such that she would read anything presented to her. Or so the story goes. But the Dust Adept said this; she will not put this book down, and anyone who interrupts her is found devoid of all the fluid in their body, dry as a husk.
+
+And with that I headed to Vivec City, whose Cantons are a peculiar representation of the Xanmeers in my home marshes. Here I purchased the necessary tools for my task. I decided that I would definitely need one potion of levitation and probably two, so I bought a third. 
+A potion of the chameleon, so that my form would blend in with the mushroom tower. 
+A scroll, penned with the words of the elf-demon ALMSIVI, that would spirit me to nearby Molag Mar if my iniquity should be revealed.
+Lastly, a simple pair of iron bracers - they would look enough like slave shackles that, were I to be discovered when close to my quarry, I could simply claim to be a lost slave.
+Lastly, some lockpicks and trap-probes that would get me in or out of trouble as needed.
+
+Arriving at the docks of Tel Branora, I applied my plan. I ambled around lower town looking purposeful, before stealthily consuming a potion to lift me to the higher reaches. There, I slipped through a round door into the mushroom tower, and drank the potion of the chameleon. 
+My obliging hosts undisturbed, I stealthed through the round corridors, before finding a door. Hearing footfall, I hid - out of the door came the Telvanni Mistress herself, in her robes encarmine and yellow, her eyes tired and bleak. She locked the door behind her.
+Creeping up to the door as if the floor were eggshells (the floor actually was eggshells since the woman kept a lot of Kwama eggs lying around), I picked the lock and slipped inside.
+
+There, atop a lecturn, was a book, closed. The cover was dark and shadowed, the motif of tentacles embossed. Licking my eyeball, I opened the cover and turned the pages. 
+Words I cannot express and words I cannot see.
+<font face='$MageScriptFont'> 
+TO EXPRESS THE WORDS I SAW NOW WOULD BE TO RENDER THEM TRANSLUCENT
+</font>
+I read a while longer, but the words swam and spun like spiders and worms.
+<font face='$MageScriptFont'> 
+TO RELATE THE MEANING WOULD BE TO RENDER IT MERE KNOWLEDGE
+</font>
+And when I looked away I was in the library
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>pocrypha, where all knowledge is kept. No shelves to bear the weight of the limitless books and pages, but for their want was an eternity of arcana. 
+
+I picked up pages from the floor, whispering and whistling in cosmic winds. Some, I could read, others I could not, their meaning having been long-since translated into a script unknown to mortals. Of those I could read, their content ranged from trivial notes to pages from weighty tomes of lore. They had been snatched from the mortal realm and left, unreferenced and uncatalogued, in the endless library of Apocrypha, whose only true curator is the Gardener of Men, Hermaeus Mora. 
+
+This was when I chanced upon The Erudite, who said:
+<font face='$MageScriptFont'> 
+HELLO I AM THE ERUDITE WHO ARE YOU
+</font>
+To which I replied: I am Uleem. I was not expecting to find myself here. 
+The Erudite, who was mostly tentacles but also had some arms, nodded its head and said
+<font face='$MageScriptFont'> 
+YES WELL HERMAEUS MORA WANTS TO MEET YOU SO OFF YOU GO HES OVER THERE
+</font>
+And so I followed the direction of its outstretched tentacle and found myself at an altar on which sat a mountain of writhing green mass with a huge yellow eye.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/H_letter.png'>ermaeus Mora sat before me, undulating moistly. The conversation we had lasted a long time: Not just because of the many topics we covered, but also because the Demon of Knowledge takes quite a long time to say things. When he asked
+<font face='$DaedricFont'>
+SO WHAT DO YOU WANT THEN MORTAL
+</font>
+I simply replied that I wanted knowledge.
+<font face='$DaedricFont'> 
+ AH YES KNOWLEDGE APOCRYPHA HAS MUCH KNOWLEDGE
+ANYTHING THAT CAN BE KNOWN IS HERE
+OH YES WHAT DO  YOU OFFER IN RETURN FOR THIS KNOWLEDGE
+</font>
+Rather than wait another three minutes for him to say 'Knowledge' again I offered him a soul gem. I had intended it for enchanting, and so it contained the trapped soul of a creature called Dagoth Berandil, who was a deformed cultist with almost as many face-tentacles as The Erudite.
+<font face='$DaedricFont'> 
+AH YES DAGOTH BERANDIL I HAVE BEEN WANTING TO CLAIM HER KNOWLEDGE FOR SOME TIME NOW ALSO SHE IS IN A SOUL GEM HOW EXCELLENT HERE HAVE THE OGHMA INFINIUM YOU HAVE EARNED IT ALRIGHT OFF YOU GO
+</font>
+At which point The Erudite approached and handed me a book made of stitched-together skin, and shepherded me into the waking world once again.
+
+When I awoke, I was still in the Book Chamber. Realising I now had a new tome with me (Therana's was still on the lecturn), I stuffed my new acquisition into my bag and used the Scroll of Intervention. I landed on the cobbles of Molag Mar with a thump, causing the local Dunmer priests to look at me with open disgust. Never mind them; I had something new to read. Three days later, back in Gnaar Mok, I sat down to read it.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Oghma Infinium told me a great deal. Of the mysteries of One, Three, Eight, Nine and Zero. And Sixteen. But of the Three, I picked One. 
+
+In all interactions that can change a balance or form a universe or betray a friend, there's the three.
+If you defeat your foe to take what is rightfully yours, you are the Warrior.
+If you are struck down and what is rightfully yours taken from you, they are the Thief.
+If you watch this happen and you determine for yourself whether or not one was the Thief or the Warrior, you are the Mage.
+Having visited two of the Sixteen Voids now, I decided I would observe them all. I learned from the Mage, and now I know that if there is meaning in numbers, it is within walls made of sound and colour.
+</font>

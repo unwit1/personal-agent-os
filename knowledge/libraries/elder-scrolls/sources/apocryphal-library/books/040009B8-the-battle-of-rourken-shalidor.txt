@@ -1,0 +1,41 @@
+[pagebreak]
+<p align="center">
+
+The Battle of Rourken-Shalidor
+
+by
+Hasphat Antabolis
+
+<img src='img://Textures/Interface/Books/ApocLib/FightersGuild.png' height='200' width='196'>
+
+Fighters Guild Military Histories
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Dwemer of Clan Rourken were an exile movement of their kin in Morrowind, and they are believed to be the founders of the movement that saw their kind spread from Vvardenfell to modern day Hammefell.
+
+Of particular note is their war with the Archmage Shalidor, agreed to be one of the finest wizards of all time. Exactly how this battle, known simply as the Battle of Rourken-Shalidor went is a subject of some confusion for many scholars.
+
+It has been recorded, for example, that the Archmage 'Fended off an entire clan of Dwarves'; This may be a reference to the name of the battle, with the writers assuming that the wizard was capable of defeating the entire army himself. Certainly based on some of his other achievements this may not have been as unlikely as it sounds, but is it the truth?
+
+The fact is that the ruler of the clan was called King Rourken. It may have been a battle between just two people - the great Wizard with his supposed knowledge of life eternal, and the Dwarf-King with his legendary shield Spellbreaker, designed specifically for the purpose of this conflict. It would be unusual for a duel to be named a 'battle', so it is possible that it was named such by scholars who mistook Rourken the mer for Rourken the clan.
+
+There is some evidence that certain gauntlets fashioned with tonal magic may have been used by Rourken's honour guard, though it isn't certain that they were used in this conflict. 
+
+The actual result of the conflict is also uncertain - The Spellbreaker shield is believed to have gone missing afterwards, but it is also clear that Rourken himself did make it as far as the legendary city of Volenfell eventually. Shalidor is recorded as having lived long past the incident, so whatever the case it seems both belligerents survived. Given that we still don't know the cause of the battle, why these two forces actuall came into conflict, the mists of time thicken all the further.
+
+Based on what we have, however, a map of the battle slowly emerges.
+
+Shalidor was probably not fighting the entire clan. Most likely he fought against King Rourken and his personal guard.
+
+Shalidor was a great conjuror, and though he may have been the only person the Dwemer were facing, he may have called forth an army of Daedra or similar.
+
+Shalidor's initial attacks against Rourken would have been deflected by the Spellbreaker, allowing the Dwemer to close the ground between them.
+
+Once close, Shalidor would have unleashed his magic against the honour guard, probably wiping them out.
+
+Once up close against Rourken himself, he would have employed magickal means that could not be deflected with a shield - such as flames sprayed on the ground, runic traps, a dremora summoned behind the king, and so on.
+
+Rourken would have been beaten by this, and would have lost the shield - since drained of its tonal capacitors - in order to make his escape, with any of his guard who might possibly have survived. 
+
+This is, of course, all postulation, but given the patterns in which myths can swell and grow, the fighting prowess of Dwemer warriors and the arcane power of Shalidor himself, it is a clear and reasonable account of how the battle probably unfolded.

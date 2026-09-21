@@ -1,0 +1,36 @@
+<p align="center">
+<img src='img://Textures/Interface/Books/ApocLib/AldmerisTriptych.png' height='376' width='273'>
+Centre of triptych showing Aldmeris
+Skywatch, date unknown
+[pagebreak]
+Forgotten Aldmeris
+
+By Camreliel of Falinesti
+Imperial Geographic Society
+3E 393
+
+<img src='img://Textures/Interface/Books/ApocLib/impgeo.png' height='200' width='196'>
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/F_letter.png'>orgotten Aldmeris, ancestral home of all the races of Mer. From this land, our ancestors sailed under the watchful command of High Lord Torinaan as they escaped the Doom Oblivious. 
+
+Quite what this disaster was, we do not know; a threat from Oblivion is often stated as the obvious answer, as is the notion of forgetfulness. 
+
+But where is Aldmeris? How did the Mer of ancient times come to Alinor, and from what direction?
+
+Torinaan landed on the Northern tip of Auridon, which has led many to suppose he came from the North. This has led to one of the biggest schisms in philosophical thought on the matter; Was Aldmeris simply Tamriel?
+
+The Dawn-myths of the wars between Man and Mer, Lorkhan and Auri-El are well established but very confusing. The earliest myths of Men state that they arrived from Atmora, but others claim that they were breathed onto the Throat of the World by Kynareth herself. Atmora was said to be a holding of the Aldmer, who lost it in a great war against Lorkhan.
+
+There has even been an attempt to conflate Atmora and Aldmeris, given that the words sound similar even if they are made of separate meanings. The occasional spelling of 'Altmora' has done nothing to amend this. 
+
+Chronologians have suggested that Aldmeris may have been Tamriel in a physical sense, but not in an actual - which is to say, may have been the land of our ancestors before the Dawn Era itself, but with the sundering, all was lost and forgotten - and that this is the 'Doom Oblivious' of which the early travellers to Alinor wrote.
+
+Given that it is the dream of many Mer to return to Aldmeris, it should come as no surprise that this theory is very unpopular. Given that time is linear (usually), it would become impossible to arrive at Aldmeris if it is in the past.
+
+As such, many Altmer scholars have turned their attention to finding a very real continent, with little success. Of course, there is no particular evidence to suggest it isn't, either - Kalpas and the Dawn Era are a little-understood subject.
+
+Some point to the veil of Pyandonea - a veil of mist that separates it from Aldmeris, supposedly created in ancient times by the Aldmer to exile the renegades who would become the Maormer. The mist surrounds the isle, but supposedly prevents them from arriving in Aldmeris but not on Tamriel. It becomes very difficult to prove anything with such a negative, but it illustrates the idea. Pyandoneans believe that they are the true scions of the Aldmer, which has even led some to believe that this land itself may be Aldmeris.
+
+Ultimately, it is not currently possible to tell. Too much has been lost by our philosopher-ancestors, and it becomes necessary to determine how best we might create Aldmeris rather than simply revisit it.

@@ -1,0 +1,51 @@
+[pagebreak]
+<p align="center">
+
+Sigahklitaj Kontraktauw
+
+or
+
+Sealed Contracts
+
+by Ustakh N'vek
+</p>
+<p align="left">
+[pagebreak]
+<img src='img://Textures/Interface/Books/Arcane Scribblings/arcane03.png' height='451' width='296'>
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>ttend, dutiful disciple, to the Wisdom of Ustakh. Fulfil your duties with care and you shall be favoured among all necromancers, and shall enter into the grace and domains of Clavicus Vile.
+
+Auskultu kaj audu! Atentu so rahkgulauwn, abide by the rules:
+
+The First Rule is, only the wise may make bargain with the Prince of Contracts. He is more cunning than all mortals, for he knows his bounty is all the Heavens and all the precincts of Oblivion.
+
+The Second Rule is, you must accept the results of your bargain. Those stricken low by their folly may not call grievance against the Prince of the Fields of Regret.
+
+The Third Rule is, you must keep your bargain with the Prince a secret. To use the wording of previous contracts is to steal the wisdom of greater wizards.
+
+The Fourth Rule is, you must honour your tutor. If you prosper from your deal with Prince Vile, you must share that prosperity with your tutor. If you are destituted by your deal, you must not blame your tutor for your failings.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/F_letter.png'>rom your dealings, fame and fortune may be your sought reward. For those who please or amuse the Prince, the prize may instead be the Masque.
+
+So Masko dahk so Dukino, also called the Masque of Clavicus Vile:
+
+The Masque will appear in your hands like a helmet with horns, embossed in that strange metal with the face of a mortal man you will not recognise. His aspect is familiar, but it is not Prince Vile. 
+
+Should you look in the mirror while wearing this, you will see the same thing.
+
+But others will look upon you and see only your face. And they will be charmed by your countenance, bathe in your charisma. 
+
+Atahkntu: The masque is seldom worn by the Sload, for rarely does Prince Vile see fit to shape it to our heads. For you, the Men and Mer who follow in the wisdom and prophecy of the innumerable articles of Divine Necromantia, as gifted to us by Mannimarco, we offer this gift of knowledge. You may wear the Masque, and you may use it to beguile the wretched godspeakers who confound your efforts.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/L_letter.png'>oyal Barbas, the Hound, the Scamp, the Scrib, the Skeever. The Loyal Servant, ever faithful to his master's face, will offer you plentiful opportunities to cheat the Prince. Lord Vile will see through most of these. We will not tell you not to take these opportunities, for Prince Vile may respect you for cheating him well. But do not insult him with obvious tricks. Remember the First Rule.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/S_letter.png'>ub blua ciahklo striita dahk fulgo. The Fields of Regret. Here dance the mirthful Skaafin, horned they be. Here stand the guardians of Vile, enforcers of the contract. 
+
+The lands of Not What You Wanted. Tread through the pastures and look with wonder. The perfumed air mostly masks the stench of rot. The distant clouds almost hide the streaks of soot. The spiral bridges reaching to that sky are mostly pleasant,  not quite an eyesore.
+
+Make note of what you see: rarely does Prince Vile give you exactly what you wanted.
+
+Ahkl so kampauw dahk bahkdauro, foriru prospera.

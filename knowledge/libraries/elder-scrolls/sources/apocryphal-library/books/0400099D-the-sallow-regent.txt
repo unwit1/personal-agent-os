@@ -1,0 +1,271 @@
+[pagebreak]
+<p align="center">
+<b>The Sallow Regent</b>
+<img src='img://Textures/Interface/Books/ApocLib/sallow.png' height='410' width='260'>
+by Hawfip the Crafter
+
+
+</p>
+[pagebreak]
+<p align="left">
+
+Act I, Scene i
+(Enter Filemina, with broken sceptre)
+Filemina -
+Woe betide my fate-wrecked heart
+Which gives no tender shine to he
+Who gave his favors up to gods
+And brought his blood-struck mind to me.
+
+O why, Nocturnal, did thy birds
+Reveal to me these tidings fell
+Must I be hand-bound to this churl
+And lose my mother dear as well?
+
+So cast me down, O Lord of Time
+And spill my blood upon the floor
+And bid the Queen of Love to send
+For one who'd ask for nothing more.
+
+(The sound of thunder rages from outside)
+
+(Enter Fyllippa, with unlit lantern)
+Fylippa - Sister, my love. For whom do you sing in such mourn?
+
+Filemina - Ill prophets and meagre memories, sister mine. What strays thee from thy room this night?
+
+Fylippa - The tempest without - It will not bid me rest, nor can I abide its howls. 
+
+Filemina - Come to me, love, light thy lantern.
+
+(Fylippa lights her lantern with a touch - the throne behind Filemina is revealed. Thunder rolls.)
+
+Fylippa - But, sister, what haunts thee to come to mother's throne this stormy night?
+
+Filemina - Ah, as it must be then, I will tell. Crows calling in the night, my Fylippa. On the morning we will hear news of her passing.
+
+Fylippa - O, woe! Not so soon! Tell me thou art wrong!
+
+Filemina - I fear naught but the truth. We will mourn her for a month, but tomorrow you must rule, and I must marry the Prince.
+
+Fylippa - O, the gods have shown us no pity my sister - let us rest together, and let the pillows dry our tears.
+
+(exeunt)
+[pagebreak]
+Act I, scene ii
+
+(The throne room again, in day time. Filemina and Fylippa stand beside the empty throne. Enter the Messenger.)
+
+Messenger - 
+Your highnesses, the word from Alcaire has come. 
+
+Filemina -
+Recite it, good man.
+
+Messenger -
+It is with sadness, your highnesses, that I must inform you of the death of thy mother. Sickness overcame her after the months, and she did not last the night. Princess Fylippa, you are named her due successor.
+
+Fylippa - O, woe the mere minutes that brought me to this world first!
+
+Messenger - Princess Filemina, his Majesty accepts your betrothal to his son, Prince Braugnet.
+
+Filemina - Divines have mercy.
+
+Messenger - Your highnesses. (He bows and exits)
+
+Fylippa - I can not rule alone! Take from me this burden! O, alack!
+
+Filemina - I could scarce rule in thy stead, my love - I could be no wiser a Queen than thee. Worse, I am hampered with a brute of a betrothed.
+
+Fylippa - If only we could bear each others' ill news.
+
+Filemina - Hold now, recall mother's veil, made sickly with its ostentatious gilding?
+
+Fylippa - Oho! And each of us that would wear it would appear as one to our subjects loyal! And I could halve the weight of suffering your ill-favoured man!
+
+Filemina - Just so! Let us find this shared crown, and may we rule as fair as we ought!
+
+(exeunt)
+[pagebreak]
+Act I, scene iii
+
+(The throne room, this time busy with courtiers - Lord Barien and Lady Grinvald stand before the throne, upon which sits the yellow-veiled Fylippa, the Sallow Regent, carrying the unlit lantern)
+
+Sallow Regent - What truce do you seek, Lord Barien?
+
+Lord Barien - Lower your spears in Ykalon, and grant us the weir forest.
+
+Sallow Regent - What is granted by blood is not offered in haste, my lord. 
+
+Lord Barien - We have the banners of Sentinel ready to lend us their courage, my Queen. Surely you will see wisdom.
+
+Sallow Regent - Ah, to turn my mind to things of war. Behold, o'er the door, the shield of my father?
+
+(all turn to look away from the throne - as they do so, Filemina appears from behind the throne - the Sallow Regent removes her veil and places it on Filemina, and Fylippa hides behind the throne. She now carries the broken sceptre.)
+
+Lord Barien - Indeed, your majesty - quite the piece. He did say it was from the time that the Dwarves fought with Shalidor the maze-maker.
+
+Sallow Regent - Just so, milord. Look on it and remember my family's prowess. Think on this - Sentinel has just won a war, it is true - but at some expense. Civil conflict now waxes between their Crowns and Forbears, and they would not be the same force of arms for you that they recently showed for King Ausimere.
+
+Lord Barien - Perhaps so, your majesty, but can your own nation boast such a recent victory?
+
+Sallow Regent - It cannot, milord, but nor can it be shamed by recent defeat - and our soldiers have trained all the while. Lower your shields in Ykalon, and begone from my forests.
+
+Lord Barien - You are too shrewd, your majesty. I shall withdraw my forces at once.
+
+(he makes a curt bow and exits)
+
+Sallow Regent - Lady Grinvald, what news from your estates?
+
+Lady Grinvald - Your majesty, our crops have failed due to a blight, and the people are becoming restless with hunger. How might I abate famine?
+
+Sallow Regent - Ah, to have been born with such a mind for things as I! Behold, the statue of Zenithar o'er by the door!
+
+(all turn to look - Filemina and Fylippa swap the veil again, so Fylippa is once again the Sallow Regent, carrying the unlit lantern)
+
+Lady Grinvald - Of course, your majesty. A token of your lineage's wise and able rule during times of hardship.
+
+Sallow Regent - Just so. Consider this - the blight has been reported in Camlorn, and the river that flows down from those hills flows near to your farms. Do not water your crops nor your cattle from those fields, and within the year you shall have healthy land once again. We will lend you our excess for the rest of the year, for we have plenty - but remember well our kindness, Lady Grinvald.
+
+Lady Grinvald - You are wise, fair and generous, Your Majesty.
+(she exits with a bow)
+
+Sallow Regent - There shall be no further audiences today. Avaunt. 
+
+(she claps her hands twice, and the courtiers disperse. Filemina appears from behind the throne. Fylippa removes the veil) 
+
+Filemina - It is a ruse well played! With the sum of our wisdom, we indeed rule well as one queen!
+
+Fylippa - May the Sallow Regent's rule be long and fair!
+
+(exeunt)
+[pagebreak]
+Act I scene iv
+
+(The Sallow Regent sits on the throne, holding neither lantern nor sceptre.)
+
+Sallow Regent -
+O endless river of the night
+Sing back to me the dying light
+And never let me fall into
+The wide, white ocean.
+
+If water be our memory
+My tears! What would that make them be?
+I would weep forgetfulness into
+The wide, white ocean.
+
+If water be our memory
+What is that bright blue star I see?
+Reflected from the night above
+The wide, white ocean.
+
+(Enter Filemina, carrying the sceptre. Thunder rolls outside)
+
+Sallow Regent - Sister.
+
+Filemina - Your majesty. 
+
+Sallow Regent - Thou findest sleep comes to you naught?
+
+Filemina - It has been eight months that we have ruled together, sister. Tomorrow, my betrothed will come and we must be wed for the peace of the realms. 
+
+Sallow Regent - Perhaps he will find another to love.
+
+Filemina - O, that I should be granted such a mercy, by Stendarr. 
+
+Sallow Regent - His pact with Vile secured him a throne and a betrothal, but the wording is always of final importance.
+
+Filemina - I trust thy wisdom in this matter, sister mine.
+
+Sallow Regent - Thou art everything to me. Come, lend me thy sceptre. I have need.
+
+Filemina - Of course. I must retire now. Be mindful to sleep also.
+(Filemina places the broken sceptre in the hand of the regent, and exits)
+
+Sallow Regent - 
+No ship shall ever bear me home
+Across the roaring, briny foam
+That heaves itself upon the tides of
+The wide, white ocean.
+
+(enter Fylippa, carrying the unlit lantern)
+
+Sallow Regent - Sister.
+
+Fylippa - My dear love. It troubles me that thy betrothed arrives tomorrow.
+
+Sallow Regent - Prince Braugnet signed his fate away already.
+
+Fylippa - But thou ought not suffer for that, my beloved Filemina! And what if you must leave? How could we rule as one then?
+
+Sallow Regent - We were born to rule, sister. All have witnessed it, and none have known it. But tonight, you will know.
+
+Fylippa - I do not understand.
+
+Sallow Regent - Here, lend me thy lantern.
+
+(Fylippa hands her the lantern. The Sallow Regent lights it with a hushed word)
+
+Sallow Regent - There. The light is dim, and the sceptre broken, but I have all I need. Come, sisters.
+
+(Enter Filemina)
+
+Filemina - Ho! Sister? My Queen? Then-
+
+Fylippa - My Filemina! Then who art though, veiled fiend, who sits upon my throne?
+
+Sallow Regent - We were born to rule.
+
+Filemina - Answer the Queen! Who art thou? Remove thou that veil at once!
+
+Sallow Regent - I wear no veil.
+
+Fylippa (Terrified, aside to Filemina) - No veil? No veil!
+
+Sallow Regent (floating above the throne) - Two sisters am I, witnessed by many. The last comes on the morrow - he must be the one to choose.
+
+(exeunt Fylippa and Filemina, fleeing)
+[pagebreak]
+
+Act I scene v
+
+(The throne room - the Sallow Regent sits on the throne with lantern and sceptre. Enter Prince Braugnet)
+
+Prince Braugnet - I am come, your majesty. I await, with eagerness, your sister's hand.
+
+Sallow Regent - Come closer, my Prince.
+
+Prince Braugnet - Such wealth will I bring to your household, fair Queen Fylippa. I trust arrangements for the wedding have now been made?
+
+Sallow Regent - They have, my prince. Tell me, which is more important - a sceptre or a lantern?
+
+Prince Braugnet - For a queen, surely her sceptre - but for a ruler, surely the lantern. 
+
+Sallow Regent - Well put. Didst thou know that this veil has been shared by me and my sister both o'er these last eight months?
+
+Prince Braugnet - Ho, is that so? Two sisters, one queen?
+
+Sallow Regent - Just so. Tell me, which am I?
+
+Prince Braugnet - I need not tell you. Might I just look instead?
+
+(he lifts the veil, and screams in terror, and disappears from stage)
+
+[pagebreak]
+Act I, scene vi
+
+(the Throne Room)
+
+(enter Filemina in dark velvet robes, carrying a torch, and Fylippa in bright armour carrying a sword)
+
+Filemina and Fylippa - 
+We have sloughed our fell disguise
+Before the throne, two sisters we
+And here now in the shadow lies
+A hollow where a queen should be.
+
+(exeunt)
+
+END
+

@@ -1,0 +1,37 @@
+[pagebreak]
+<p align="center">
+THE KYNAZARKHONYMICON
+being the manifest of the offices and hieronymics of the Dremora
+
+As dictated and commanded by the Lawmaster of Ruin
+MEHRUNES DAGON
+<font face='$DaedricFont'>
+ENDURE DREAD AND CALAMITY
+</font></p>
+[pagebreak]
+<img src='img://Textures/Interface/Books/ApocLib/Kynaz.png' height='451' width='296'>
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/B_letter.png'>eneath skies of fire and from below dunes of ash rise the thorned towers of the Prince of Enlightenment, Mehrunes Dagon, whose finger is the Razor, whose edge is the balance between zeroes.
+
+Under the LAWS OF RUIN does Lord Dagon so divide the Hierarchies of the Kyn.
+<font face='$DaedricFont'> OBEY THE LAWS OF RUIN </font>
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Churls of Dagon are his least, the most wretched of all his legions, worthy only to be hurled into battle in the great onslaught. No clanstead have they, nor any Tribunymic to guard. They are the servants of servants, the equals of Scamps, of Clannfears, of Mortals.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Caitiff and Harstryl are those dremora who, lacking in clan and Tribunymic, have committed themselves to the act of warfare so that they may be selected for their skill at arms. They do not garner the ear of Lord Dagon nor his attention, and must instead seek favour with the clanholden Kyn. Those who establish themselves as worthy fighters may be granted the honours of their Nymic.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Kynval are the first of the True Ranks of the Kyn, whose skill at arms and valour has been tested. They are subject to their clan's Tribunymic. They are permitted the livery, sigils and honours of their office, and may call themselves soldiers of Dagon.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Kynreeves command the Kynvals and the clanless ranks below. They enforce the will of Dagon among all offices of the Dead Lands, and bear the honours and sigils of their elevated rank. They are obeyed by all of lower rank.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Kynmarchers are the commanders of the battallions of Lord Dagon. The forsaken ramparts and battle-towers of the Dead Lands are commanded by this caste, and they are worthy of the attention of Mehrunes Dagon for their efforts in war and conquest. They are among the most fearsome sword-wielders in all the voids of Oblivion.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Markynaz are the masters of the grim council of Dremora society, the Markyn. They are the masters of clans, regents of swathes of steadings and forts. They may speak freely in the presence of Mehrunes Dagon. They determine the livery and ranks of their clan.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Valkynaz are the arch-dukes and vice-princes of the Dead Lands, and form the personal council of Lord Mehrunes Dagon. None in the realm save Lord Dagon or another Valkynaz may refuse the order of one. They are of their own clan, which is the clan of Mehrunes Dagon. Their Tribunymic is His. 
+
+
+

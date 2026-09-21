@@ -1,0 +1,68 @@
+[pagebreak]
+<p align="center">
+
+Ashes in the Wind
+
+By
+Gordregh gro-Zogh
+
+</p>
+[pagebreak]
+<p align="left">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/I_letter.png'> rest my head upon a bed of stone.
+I set my eyes upon the wind-wrecked skies.
+I fill my lungs with air of ash and bone.
+I breathe out dust and close my weeping eyes.
+
+And in my dreams I see a palace grand
+With towers white, all reaching for the clouds
+And elven maidens dancing on the sand
+Gossamered in silver-laden shrouds.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>nd when the clarion battle-horns then sound,
+I arm myself with silver helm and sword
+And ride to fate, to ruin, to pride, to war
+Against the wretched Doom-Drum's mortal horde.
+
+The memory grows softer every night,
+Of pale-green elven banners all around
+Of how I thrust my sword with all my might
+And wrought the Man-god's heart unto the ground.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>nd took it, held it high for all to see
+And fixed it to my pennant, green and grey
+Look on me, swathes of Men, my mastery!
+Look on me, and be driven far away!
+
+And as I hold my standard in the air
+My cheering cohort all in gold arranged
+And when I wake, I pray they'll still be there
+But when I do, I see that nothing changed.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/I_letter.png'> walk alone through valleys heaped with dust
+I walk alone across the trail of years
+Heaped with swords all given low to rust
+And naught to drink but wretched salt-wracked tears.
+
+O you who have been scorned and spurned as I
+Take you my mantle, and my mighty Scourge
+Take you Dwarf-Hammer, hold it, raise it high
+As I command, you feel my ancient urge
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/S_letter.png'>trike down the foes of those who have been spurned!
+Of those reviled, mistreated and maligned!
+Remember when the mortal legions burned!
+That it was I who pierced the Doom-Drum's hide!
+
+Today, I wake in fields of dreary ash,
+The patron of those broken, yet thick-skinned
+The story of that youth is shattered glass;
+Scattered far like ashes in the wind.
+</p>
+
+
+
