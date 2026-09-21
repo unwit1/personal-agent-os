@@ -147,6 +147,13 @@ Parent VICN:
 ## Gral / Mindok / Owl Forest
 - `concepts/gral-mindok-owl-forest.md`
 
+## Mnegmegh / Priest of Jhunal
+- `relationships/jhunal-priest-mnegmegh-ability.md`
+- `indexes/actor-ability-audit-01.md`
+- `organizations/500-companion-faction.md`
+- `locations/ysgrims-seal.md`
+- parent context only: `../../relationships/jhunal-identity-matrix.md`
+
 ## Nu-Mantia
 - `concepts/nu-mantia.md`
 - `dialogue/sermon-of-khev.md`
