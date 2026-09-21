@@ -4,8 +4,8 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "unresolved": 557,
-    "verified_official_game_text": 158,
+    "unresolved": 506,
+    "verified_official_game_text": 209,
     "verified_developer_text": 4,
     "verified_mod_construct_text": 65
   },
@@ -55,8 +55,8 @@
       "title": "A Hastily Scrawled Note",
       "editor_id": "LB_Note_MW16",
       "text_path": "books/0400092B-a-hastily-scrawled-note.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "040009CC",
@@ -823,8 +823,8 @@
       "title": "Ascadian Isles Land Deed",
       "editor_id": "LB_Note_MW11",
       "text_path": "books/04000926-ascadian-isles-land-deed.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "04000045",
@@ -1207,160 +1207,160 @@
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC01",
       "text_path": "books/040009F5-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "040009F6",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC02",
       "text_path": "books/040009F6-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "040009F7",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC05",
       "text_path": "books/040009F7-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "040009F8",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC00",
       "text_path": "books/040009F8-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "040009F9",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC03",
       "text_path": "books/040009F9-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "040009FA",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC04",
       "text_path": "books/040009FA-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "040009FB",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC06",
       "text_path": "books/040009FB-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "040009FC",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC07",
       "text_path": "books/040009FC-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "040009FD",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC08",
       "text_path": "books/040009FD-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "040009FE",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC09",
       "text_path": "books/040009FE-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "040009FF",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC10",
       "text_path": "books/040009FF-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "04000A00",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC11",
       "text_path": "books/04000A00-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "04000A01",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC12",
       "text_path": "books/04000A01-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "04000A02",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC13",
       "text_path": "books/04000A02-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "04000A03",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC14",
       "text_path": "books/04000A03-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "04000A04",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC15",
       "text_path": "books/04000A04-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "04000A05",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC16",
       "text_path": "books/04000A05-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "04000A06",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC17",
       "text_path": "books/04000A06-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "04000A07",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC18",
       "text_path": "books/04000A07-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "04000A08",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note_2BHC19",
       "text_path": "books/04000A08-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official Black Horse Courier record from The Elder Scrolls IV: Oblivion; compilation provenance retained separately."
     },
     {
       "form_id": "040009CE",
@@ -1639,8 +1639,8 @@
       "title": "Client List",
       "editor_id": "LB_Note_MW12",
       "text_path": "books/04000927-client-list.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "04000050",
@@ -1743,8 +1743,8 @@
       "title": "Cure Blight Potion Notice",
       "editor_id": "LB_Note_MW03",
       "text_path": "books/0400091E-cure-blight-potion-notice.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "04000066",
@@ -1786,8 +1786,8 @@
       "title": "Dagoth Ur's Plans",
       "editor_id": "LB_U_Note_MW02",
       "text_path": "books/0400091A-dagoth-urs-plans.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "04000065",
@@ -1850,8 +1850,8 @@
       "title": "Directions to Balmora",
       "editor_id": "LB_Note_MW06",
       "text_path": "books/04000921-directions-to-balmora.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "040009B5",
@@ -2026,8 +2026,8 @@
       "title": "Dwemer Museum Welcome",
       "editor_id": "LB_Note_MW08",
       "text_path": "books/04000923-dwemer-museum-welcome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "040008AE",
@@ -2058,8 +2058,8 @@
       "title": "Elante's Notes",
       "editor_id": "LB_Note_MW07",
       "text_path": "books/04000922-elantes-notes.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "0400003E",
@@ -2442,8 +2442,8 @@
       "title": "Galtis Guvron's Note",
       "editor_id": "LB_Note_MW10",
       "text_path": "books/04000925-galtis-guvrons-note.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "0400014D",
@@ -2466,8 +2466,8 @@
       "title": "Gnisis Eggmine Pass",
       "editor_id": "LB_Note_MW14",
       "text_path": "books/04000929-gnisis-eggmine-pass.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "040009A1",
@@ -2570,8 +2570,8 @@
       "title": "Hasphat's Notes",
       "editor_id": "LB_U_Note_MW01",
       "text_path": "books/040008F0-hasphats-notes.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "0400093D",
@@ -2762,8 +2762,8 @@
       "title": "Invoice",
       "editor_id": "LB_Note_MW19",
       "text_path": "books/0400092E-invoice.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "04000035",
@@ -3098,8 +3098,8 @@
       "title": "Letter From Llaalam Dredil",
       "editor_id": "LB_Note_MW05",
       "text_path": "books/04000920-letter-from-llaalam-dredil.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "04000945",
@@ -3138,8 +3138,8 @@
       "title": "Letter to Falanaamo",
       "editor_id": "LB_Note_MW02",
       "text_path": "books/0400091C-letter-to-falanaamo.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "040008AA",
@@ -3194,8 +3194,8 @@
       "title": "Letter to Serjo Sarethi",
       "editor_id": "LB_Note_MW01",
       "text_path": "books/0400091D-letter-to-serjo-sarethi.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "04000896",
@@ -3498,8 +3498,8 @@
       "title": "Mushroom Report",
       "editor_id": "LB_Note_MW13",
       "text_path": "books/04000928-mushroom-report.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "040000DB",
@@ -3538,8 +3538,8 @@
       "title": "Nerevarine Cult Notes",
       "editor_id": "LB_U_Note_MW06",
       "text_path": "books/04000937-nerevarine-cult-notes.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "04000A11",
@@ -3570,24 +3570,24 @@
       "title": "Note from Bakarak",
       "editor_id": "LB_Note_MW04",
       "text_path": "books/0400091F-note-from-bakarak.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "0400092C",
       "title": "Note from Berwen",
       "editor_id": "LB_Note_MW17",
       "text_path": "books/0400092C-note-from-berwen.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "0400092D",
       "title": "Note from Bugrol",
       "editor_id": "LB_Note_MW18",
       "text_path": "books/0400092D-note-from-bugrol.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "0400086B",
@@ -3602,16 +3602,16 @@
       "title": "Note from Oritius",
       "editor_id": "LB_Note_MW20",
       "text_path": "books/0400092F-note-from-oritius.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "0400092A",
       "title": "Note from Orvas Dren",
       "editor_id": "LB_Note_MW15",
       "text_path": "books/0400092A-note-from-orvas-dren.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "0400093E",
@@ -3626,40 +3626,40 @@
       "title": "Note to Giden",
       "editor_id": "LB_Note_MW22",
       "text_path": "books/04000931-note-to-giden.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "04000930",
       "title": "Note to Hlevala",
       "editor_id": "LB_Note_MW21",
       "text_path": "books/04000930-note-to-hlevala.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "04000935",
       "title": "Note to Hrisskar",
       "editor_id": "LB_Note_MW23",
       "text_path": "books/04000935-note-to-hrisskar.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "04000932",
       "title": "Note Written in Blood",
       "editor_id": "LB_U_MW23",
       "text_path": "books/04000932-note-written-in-blood.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "04000934",
       "title": "Notes from Huleeya",
       "editor_id": "LB_U_Note_MW04",
       "text_path": "books/04000934-notes-from-huleeya.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "04000814",
@@ -4117,8 +4117,8 @@
       "title": "Plan to Defeat Dagoth Ur",
       "editor_id": "LB_U_Note_MW03",
       "text_path": "books/04000933-plan-to-defeat-dagoth-ur.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "040000A7",
@@ -4373,8 +4373,8 @@
       "title": "Saint Nerevar",
       "editor_id": "LB_Note_MW00",
       "text_path": "books/0400091B-saint-nerevar.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "040000B2",
@@ -4461,8 +4461,8 @@
       "title": "Seyda Neen Land Deed",
       "editor_id": "LB_Note_MW09",
       "text_path": "books/04000924-seyda-neen-land-deed.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     },
     {
       "form_id": "040009F4",
@@ -6285,8 +6285,8 @@
       "title": "Zainsubani's Notes",
       "editor_id": "LB_U_Note_MW05",
       "text_path": "books/04000936-zainsubanis-notes.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified by the compilation's systematic Morrowind note import family and title as an official The Elder Scrolls III: Morrowind document; compilation provenance retained separately."
     }
   ]
 }
