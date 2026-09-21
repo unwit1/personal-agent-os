@@ -150,7 +150,19 @@
     "Tlass memory/funeral identity-cluster dossier",
     "Priest of Arkay Johan-memory role node",
     "Madness KingShadow unresolved-role cluster",
-    "Beyond the Shores of Madness unresolved-role cluster"
+    "Beyond the Shores of Madness unresolved-role cluster",
+    "Polydor narrated-figure node",
+    "Eloisa narrated-figure node",
+    "Priest of Stuhn After-the-Storm memory role node",
+    "Stendarr Aetherius role node",
+    "Johan traveling Bard/Bal role analysis",
+    "Beyond the Shores Bard role analysis",
+    "Beyond the Shores Sheogorath-associated role analysis",
+    "Pelinal the Bloody Bard/narration role analysis",
+    "Temptation of Marukh talking-activator role cluster",
+    "The Nameless Bard talking-activator role cluster",
+    "Slave Trader Notes 6-8 direct acquisition/carrier paths resolved",
+    "targeted canon-comparison queue for Amulet of Kings, Middle Dawn, Jyggalag/Greymarch, and Ayleid/Tower figures audited as mature"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -166,14 +178,12 @@
     "recover/persist exact text for Bruiant servant documents 02054EC5, 02054ECB, 02054ECC, 02054EC4, 0204C5AE, and 02054ECA before source-level analysis",
     "recover direct VIGILANT implementation for Sir Amiel Lannus; do not infer it from his base-game Knights of the Nine history",
     "continue evidence-rich pre-Coldharbour character dossiers now that Facis, Reyda, Joshua, and Joel are direct-source resolved",
-    "recover any non-persisted/scripted acquisition paths for Slave Trader Notes 6-8 and a direct Slave Trader NPC_/ACHR/alias if later source layers expose one",
     "recover and persist the full 30+ named Feral Soul-Shriven trigger→SvBase roster when the missing raw variant table/source extraction becomes accessible; Judo and Radokhan/Ortutay/Marosi Tharn are already normalized",
     "inspect remaining secondary Coldharbour groups only when at least two independent evidence layers support a distinct node",
     "expand remaining high-relevance character dossiers",
     "continue exact BOOK/note persistence from the 179-record corpus",
     "ingest VIGILANT PEX/scripts or BSA when available for exact Papyrus transition bodies",
     "persist remaining exact BOOK texts as browsable individual files",
-    "deeper claim-by-claim canon comparison for Amulet of Kings, Middle Dawn, Jyggalag/Greymarch, and Ayleid figures",
     "expand additional Coldharbour characters and faction dossiers"
   ],
   "counts": {
@@ -187,20 +197,20 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "ten-unit VIGILANT structural-role batch 2",
+    "focus": "ten-unit VIGILANT memory-role batch 3",
     "added": [
-      "Aina the Wench lightweight scene-role dossier",
-      "Kathutet lightweight scene-role dossier",
-      "Amkaos lightweight scene-role dossier",
-      "Volar the Deathbringer Aetherius structural dossier",
-      "Johan memory/family identity-cluster dossier",
-      "Simon memory/funeral identity-cluster dossier",
-      "Tlass memory/funeral identity-cluster dossier",
-      "Priest of Arkay Johan-memory role node",
-      "Madness KingShadow unresolved-role cluster",
-      "Beyond the Shores of Madness unresolved-role cluster"
+      "Polydor narrated-figure node",
+      "Eloisa narrated-figure node",
+      "Priest of Stuhn After-the-Storm memory role node",
+      "Stendarr Aetherius role node",
+      "Johan traveling Bard/Bal role analysis",
+      "Beyond the Shores Bard role analysis",
+      "Beyond the Shores Sheogorath-associated role analysis",
+      "Pelinal the Bloody Bard/narration role analysis",
+      "Temptation of Marukh talking-activator role cluster",
+      "The Nameless Bard talking-activator role cluster"
     ],
-    "source_state": "These ten units are intentionally lightweight where the ESM only resolves scene roles or dynamic aliases. No personal biography was invented from a title, role label, grave name, or unresolved alias.",
-    "open_followup": "Continue in ten-unit commits. Next priority: source-localize remaining exact documents still represented only by broad cluster analyses, then deepen recoverable named Coldharbour actors/factions. Sir Amiel, full Soul-Shriven roster, PEX bodies, and unpersisted BOOK text remain separate recovery targets."
+    "source_state": "Ten memory-role/narrated-figure gaps were normalized without forcing unstable aliases into fixed biographies. Two stale next-queue items were closed: Slave Trader 6-8 acquisition is already directly resolved, and the named canon-comparison targets are mature.",
+    "open_followup": "Continue in ten-unit commits. Remaining actionable work is primarily additional lightweight direct actors/topics; hard blockers remain unpersisted 129 BOOK texts, PEX/BSA, Sir Amiel direct implementation, and the missing full Soul-Shriven variant table."
   }
 }
