@@ -70,14 +70,14 @@ This distinction is important for the DAc0da Agent -> Daggerfall Agent / Warp in
 
 | Source | Editor ID | Title | Current provenance |
 |---|---|---|---|
-| `DAc0da.esm:0085FC` | `zDcdNahdFiction_001_Mojonation1487` | Djaf: Arena of Lyg | external/apocryphal source comparison pending |
-| `DAc0da.esm:0085FD` | `zDcdNahdFiction_002_MK` | Ghost Choir 9 | editor ID flags MK-associated source; exact origin comparison pending |
-| `DAc0da.esm:0085FE` | `zDcdNahdFiction_003_MK` | ANON/ANU/ANUI-EL | matching text/title already present in apocryphal library; reused source |
-| `DAc0da.esm:0085FF` | `zDcdNahdFiction_004_MK` | The Tsaesci Creation Myth | MK-associated/source comparison pending |
-| `DAc0da.esm:008600` | `zDcdNahdFiction_005_MK` | Dominion Prism Textract (Partial) | MK-associated/source comparison pending |
-| `DAc0da.esm:008601` | `zDcdNahdFiction_006_MK` | et'Ada, Eight Aedra, Eat the Dreamer | MK-associated/source comparison pending |
-| `DAc0da.esm:008602` | `zDcdNahdFiction_007_MK` | Lament for Pelinal | MK-associated/source comparison pending |
-| `DAc0da.esm:00CE63` | `zDcdNahdFiction_008_MK` | A Type of Zero Still to Be Discovered | exact title/source already present in apocryphal library; verified developer-obscure-text reuse there |
+| `DAc0da.esm:0085FC` | `zDcdNahdFiction_001_Mojonation1487` | Djaf: Arena of Lyg | **verified community-apocrypha reuse by mojonation1487** |
+| `DAc0da.esm:0085FD` | `zDcdNahdFiction_002_MK` | Ghost Choir 9 | **MK-associated; exact standalone long-text provenance still unresolved** |
+| `DAc0da.esm:0085FE` | `zDcdNahdFiction_003_MK` | ANON/ANU/ANUI-EL | **verified Michael Kirkbride KINMUNE-material reuse**; matching source already in apocryphal library |
+| `DAc0da.esm:0085FF` | `zDcdNahdFiction_004_MK` | The Tsaesci Creation Myth | **verified Michael Kirkbride developer/obscure-text reuse** |
+| `DAc0da.esm:008600` | `zDcdNahdFiction_005_MK` | Dominion Prism Textract (Partial) | **verified Michael Kirkbride developer/obscure-text reuse; partial excerpt** |
+| `DAc0da.esm:008601` | `zDcdNahdFiction_006_MK` | et'Ada, Eight Aedra, Eat the Dreamer | **verified Michael Kirkbride developer/obscure-text reuse** |
+| `DAc0da.esm:008602` | `zDcdNahdFiction_007_MK` | Lament for Pelinal | **verified Michael Kirkbride obscure-text reuse** |
+| `DAc0da.esm:00CE63` | `zDcdNahdFiction_008_MK` | A Type of Zero Still to Be Discovered | **verified Michael Kirkbride developer/obscure-text reuse**; source already represented in apocryphal library |
 | `DAc0da.esm:00CE64` | `zDcdNahdFiction_ESO001` | Karnwasten Temporal Tome | DAc0da alternate-reality temporal tome |
 | `DAc0da.esm:00CE65` | `zDcdNahdFiction_ESO002` | Traitor's Vault Temporal Tome | DAc0da alternate-reality temporal tome |
 | `DAc0da.esm:00CE66` | `zDcdNahdFiction_ESO003` | Garden of Sacred Numbers Temporal Tome | DAc0da alternate-reality temporal tome |
@@ -96,9 +96,20 @@ The remaining **66 BOOK records** are primarily summon items/spell tomes such as
 
 Their short DESC fields generally name the summon/spell rather than provide prose lore. They remain useful as **entity/item evidence** and should be indexed during creature/artifact passes, but they are lower priority than the 24 narrative texts above.
 
+## Provenance status after pass 01
+
+The major reused BOOK blocks are now separated into:
+
+- **official game-text reuse:** six Daggerfall Totem correspondence letters;
+- **community apocrypha:** Djaf: Arena of Lyg by mojonation1487;
+- **verified Michael Kirkbride obscure/developer-text reuse:** ANON/ANU/ANUI-EL / KINMUNE, The Tsaesci Creation Myth, Dominion Prism Textract, et'Ada, Lament for Pelinal, and A Type of Zero Still to Be Discovered;
+- **still source-incomplete:** the exact standalone long-text publication/authorship trail for Ghost Choir 9.
+
+See `analysis/apocryphal-provenance-pass-01.md`.
+
 ## Next provenance work
 
-1. exact source resolution for unresolved `NahdFiction_*_MK` records;
+1. recover the exact original publication for the long standalone **Ghost Choir 9** text;
 2. preserve DAc0da temporal-tome prose as alternate-reality evidence;
 3. link DAc0da-specific letters to their quests/characters;
 4. do not duplicate full apocryphal texts when the canonical library already stores them—link to the existing source instead.
