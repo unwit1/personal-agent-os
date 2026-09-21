@@ -6,6 +6,12 @@
 
 This page records what DAc0da specifically claims or implements about the Psijic Order. It is not a replacement for the official Elder Scrolls Psijic dossier.
 
+## Plugin faction record
+
+DAc0da defines custom FACT `DAc0da.esm:000D63` / `zDcdFactionPsijic`, displayed as **Psijic Faction**.
+
+This gives direct implementation support for Psijic actor affiliation in addition to the dialogue evidence below.
+
 ## Rolls-On-Roads' assignment
 
 Rolls-On-Roads says the Psijic Order sent him to the **here and now** to recruit the player and prevent a catastrophe analogous to the Warp in the West. Evidence: `DAc0da.esm:00AA17`–related MQ00 dialogue.
