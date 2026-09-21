@@ -57,3 +57,16 @@ Recover:
 ## Canon boundary
 
 Sir Torolf and the specific *Knight of Arkay* storyline are VIGILANT-continuity material.
+
+
+## Knights of the Nine supplementary layer
+
+The a123999 VIGILANT background article includes Sir Torolf in its **Knights of the Nine** roster and says Molag Bal retained/stole part of each Knight's soul.
+
+This shared-fate explanation is supplementary commentary rather than a common ESM quest/script relation currently persisted for all nine.
+
+See:
+- `analysis/knights-of-the-nine-cluster.md`
+- `sources/supplementary/a123999-vigilant-backgrounds.md`
+
+Torolf's direct ESM evidence remains his scene role in **Knight of Arkay**.
