@@ -91,12 +91,35 @@ This places her corruption work into the same broader Fourth Era world where the
 
 The scene index preserves the combined/alternate role label but not enough detail to define the exact ontology.
 
-Lorekeeper should not automatically conclude:
-- Rahel = Molag Bal;
+Lorekeeper should not conclude:
+- Rahel = Molag Bal himself;
 - Rahel is only an illusion;
 - BalGhost permanently possesses Rahel.
 
-The safe statement is that *Old Regrets* structurally places Jacob in dialogue with a Rahel/BalGhost role as part of confronting the consequences of his bargain.
+The ESM structurally places Jacob in dialogue with a Rahel/BalGhost role, while supplementary translation/background sources support **Bal = corrupted/transformed Rahel** as an identity cluster. The exact body/ghost/possession mechanism remains unresolved.
+
+## Bal / Rahel identity — supplementary resolution
+
+The current ESM scene index already contains a combined **Rahel/BalGhost** role in `SCEN 0200EA62`.
+
+Two supplementary sources sharpen that connection:
+
+- a123999's VIGILANT background article says Rahel became a servant of Molag Bal after Jacob bartered her soul;
+- the official English voice-addon credits label the voiced role **Bal-Rahel**.
+
+A community dialogue transcript of *Old Regrets* additionally presents Jacob recognizing Bal as Rahel during the confrontation and a later Rahel spirit exchange.
+
+Current Lorekeeper classification:
+
+**Rahel ↔ Bal is high-confidence as a VIGILANT identity cluster at the supplementary/transcript layer.**
+
+What remains unresolved is the exact metaphysical implementation:
+- whether “Bal” is Rahel's transformed body;
+- a Molag-Bal-controlled manifestation;
+- a role/name adopted after corruption;
+- whether the later Rahel/BalGhost form is the same body or a post-death spirit.
+
+Do not collapse **Bal/Rahel** into **Molag Bal** himself.
 
 ## A Vision in Malada — stanza 10
 
