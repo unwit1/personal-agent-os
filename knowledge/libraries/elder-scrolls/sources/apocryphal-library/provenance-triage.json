@@ -4,9 +4,9 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "unresolved": 497,
+    "unresolved": 496,
     "verified_official_game_text": 218,
-    "verified_developer_text": 4,
+    "verified_developer_text": 5,
     "verified_mod_construct_text": 65
   },
   "entries": [
@@ -3690,16 +3690,16 @@
       "title": "Nu-Mantia Intercept",
       "editor_id": "LB_U_Note_OBL01",
       "text_path": "books/04000938-nu-mantia-intercept.txt",
-      "provenance_status": "verified_official_game_text",
-      "evidence": "Identified as an official The Elder Scrolls IV: Oblivion document imported into the compilation's systematic OBL note family; compilation provenance retained separately."
+      "provenance_status": "verified_developer_text",
+      "evidence": "Michael Kirkbride out-of-game text series, originally sourced from the Elder Scrolls Forum; not an in-game Oblivion document. Reclassified from the compilation's OBL import family to developer/obscure text."
     },
     {
       "form_id": "040008A4",
       "title": "Nulfaga's Ramblings",
       "editor_id": "LB_U_Note_DAG01",
       "text_path": "books/040008A4-nulfagas-ramblings.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as Nulfaga's randomized dialogue/ramblings from The Elder Scrolls II: Daggerfall; compilation provenance retained separately."
     },
     {
       "form_id": "04000002",
