@@ -55,7 +55,7 @@ Primary:
 
 Supporting:
 - `dialogue/boss-rush-jhunal-confession.md`
-- `relationships/jhunal-saarthal-owls-vicn.md`
+- parent VICN `relationships/jhunal-saarthal-owls-thread.md`
 - `technical/owl-interference-reveal.md`
 
 ## Austella
@@ -330,7 +330,7 @@ Prefer parent VICN relationship pages when the question spans works:
 - Jills
 - Jhunal / Saarthal / Owls
 - Chick Trader / Anequina
-- Arkved / Oneiromancer
+- Arkved / Oneiromancer — parent `relationships/arkved-oneiromancer-thread.md`
 - Ja'cobee / Aisha / Ulliss
 - KINMUNE provenance
 
