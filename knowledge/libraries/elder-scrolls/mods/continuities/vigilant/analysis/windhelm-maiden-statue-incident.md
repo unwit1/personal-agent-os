@@ -123,6 +123,28 @@ Jacob dies in battle and the survivors fall into the Blood Matron's power.
 
 Both accounts are preserved by VIGILANT.
 
+## Joshua's own account
+
+Joshua's final note provides a fourth in-plugin perspective on the failed expedition.
+
+`BOOK 02031119` / **Joshua's Final Note** says:
+- a door sealed behind him;
+- he abandoned his friends and tried to escape;
+- despite believing he could face any vampire, he could not stand before “her” and ran;
+- he turns his anger toward Stendarr;
+- he hears a lullaby and believes the woman is approaching.
+
+This directly corroborates Aredhel's claim that **Joshua fled**.
+
+It also sharpens the disaster topology:
+
+- **Jacob** — death/near-death → Molag Bal bargain;
+- **Aredhel** — surrender → willingly accepts Blood Matron blood;
+- **Joshua** — flight → isolation → apparent final pursuit;
+- **other Vigilants** — surrender but resist bloodthirst, according to Aredhel.
+
+The note itself never names “her,” so the Blood Matron/Lamae identification remains contextual rather than literal text.
+
 ## Jacob's Old Regrets testimony
 
 Jacob later says:
@@ -291,6 +313,7 @@ The Windhelm incident supplies the likely historical context for the bargain, bu
 | Jacob was found alive outside Windhelm | Windhelm Report | high documentary |
 | Jacob died in battle | Aredhel's Note | high as testimony, conflicts with report |
 | survivors surrendered to Blood Matron | Aredhel's Note | high as testimony |
+| Joshua fled/abandoned the others | Joshua's Final Note + Aredhel's Note | high |
 | Jacob accepted Molag Bal revival for wife's soul | Jacob dialogue | high testimony |
 | revival happened during Maiden Statue incident | ESM reconstruction + a123999 supplementary commentary | medium-high overall; not direct ESM |
 | Maiden Statue “her” is exactly Lamae | reconstruction | medium / unresolved |
