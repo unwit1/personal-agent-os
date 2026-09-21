@@ -1,0 +1,27 @@
+Vol. 1: The Cat in the Box 
+
+Assistant: "What in Oblivion is this box, Professor?"
+
+Professor Y: "This is an airtight box made of brass. Inside is a Khajiit, a small amount of Aetherium, a Magicka measuring device, and a generator of poisonous gas refined from Chaurus venom. The poisonous gas generator will activate when the measuring device detects Magicka overflowing from the Aetherium. There, I'll close the lid now. Do you know what happens next?"
+
+Assistant: "The poor Khajiit in there will breathe in the poisonous gas and die."
+
+Professor Y: "Khajiit's life or death depends on whether Magicka leaks from the Aetherium. If we assume that the probability of this happening within an hour is 50%, will the Khajiit live or die after a certain amount of time?"
+
+Assistant: "The chances of the Khajiit living or dying are equal until the box is opened. If we don't open the box, we cannot know whether the Khajiit is alive or dead. In other words... what does that mean?"
+
+Professor Y: "When the box is closed, the system remains in a superposition of two states; alive Khajiit and dead Khajiit both. Only when the box is opened, the superposition collapses and the world diverges according to the state of the Khajiit."
+
+Assistant: "That's a tremendous theory... It's giving me a headache." 
+
+An hour later... 
+
+Assistant: "It's time, Professor. Shall we open the box?"
+
+Professor Y: "Unnecessary. The ghost of the Khajiit standing next to you tells us everything."
+
+Assistant: "This is all ruined. Why did you carry out this experiment instead of keeping it purely as a thought experiment?"
+
+Professor Y: "I will send this box to the Kagrenac School. It's nothing but revenge for their jeering at the last conference."
+
+Assistant: "As you say, Professor!"
