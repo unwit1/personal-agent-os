@@ -1,22 +1,55 @@
 # Hamah succession thread
 
-St. Bazura dialogue adds a new layer to the earlier Hanged Man / Hamah evidence.
+## Hanged Man / historical Hamah
 
-## Earlier evidence
+The Hanged Man describes **Hamah** as a Daughter of Kyne whom he loved.
 
-The Hanged Man describes **Hamah** as a Daughter of Kyne whom he loved, and says she later returned injured, bloody, and pregnant.
+He says:
+- she returned to him injured, bloody, and pregnant;
+- he chose to believe the child was his;
+- the child was a girl who grew to resemble Hamah;
+- he loved Hamah and her daughters.
 
-## St. Bazura evidence
+## Ta Ta! / Kalka
+
+Kalka directly calls Lalanoah **Ms. Hamah**.
+
+She says:
+- a rune stone protects Ms. Hamah;
+- nearby graves all belong to **Ms. Hamah**;
+- the women buried there were splendid ladies;
+- Lalanoah will become like them.
+
+## St. Bazura
 
 Kalka says:
-- the player should protect **Hamah** after Jhunal's blessing disappears;
 - Lalanoah will soon be a **suitable vessel for succession**;
 - after Lalanoah, “we” will wait **until the next Hamah, a much later Hamah**.
 
+## Lice and Maggots — Jhunal the Black
+
+Asked what the Hanged Man wanted, Jhunal the Black says:
+- he wanted his **beloved daughters** to be happy;
+- the girls are free now;
+- **“she does not have to imitate anyone anymore”**;
+- “the curse of being her is finally over.”
+
+This adds a direct final-state statement connecting:
+**Hanged Man → daughters → imitation identity → curse ending**.
+
+The exact woman meant by “she” is not named in the line.
+
 ## Interpretation boundary
 
-The dialogue strongly suggests that **Hamah can function as a recurring title, role, state, lineage, or succession identity**, not merely the personal name of one historical woman.
+The combined evidence strongly suggests that **Hamah can function as a recurring/successive identity, role, vessel-state, lineage, or imitation pattern**, not merely the personal name of one historical woman.
 
-It does **not yet establish** which of those models is correct, nor does it prove Lalanoah has already become Hamah.
+It still does not establish which ontology is correct.
 
-Track historical Hamah and succession-Hamah as linked but not yet collapsed concepts.
+Keep:
+- historical Hamah;
+- Hanged Man's daughters;
+- prior buried Hamahs;
+- Lalanoah;
+- later succession-Hamah
+
+as linked but distinct entities unless a direct source merges them.
