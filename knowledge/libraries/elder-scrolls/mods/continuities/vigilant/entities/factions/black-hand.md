@@ -1,102 +1,112 @@
 # Black Hand — VIGILANT continuity
 
 - Continuity: `tes.mod.vigilant`
-- Type: Sithis-linked guide/servitor concept
-- Evidence status: partial ESM implementation + supplementary identity/background
-- Related systems: Sithis' Eye Ring, Black Hand dialogue conditions, crafting/reaction system
-- Supplementary source: `sources/supplementary/a123999-vigilant-backgrounds.md`
+- Type: Sithis/Void-linked metaphysical encounter class
+- Primary boss: `NPC_ 021E3F62` / **Black Hand**
+- Secondary actor: `NPC_ 023288E7` / **Black Hand**
+- Race: `RACE 021E5405` / **Black Hand Race**
+- Ring: `ARMO 020D957B` / **Sithis' Eye Ring**
+- Reaction trigger: `ACTI 022313C8`
+- Reaction message: `MESG 022313C2`
+- Direct dialogue: `dialogue/black-hand/resolved.md`
 
-## Direct ESM-level evidence
+## Direct ESM implementation
 
-The currently persisted ESM analysis does not yet contain a full Black Hand quest or named-member dossier.
+The supplied VIGILANT 1.8.2 ESM resolves the Black Hand as a fully implemented encounter identity.
 
-It does, however, preserve a broader **Black Hand / Sithis gameplay-dialogue system**.
+Dedicated records include:
+- Black Hand Race;
+- Black Hand fx;
+- Black Hand abilities;
+- Black Hand Health;
+- Black Hand Stamina;
+- Black Hand Magicka;
+- Black Hand Perk Point;
+- at least two Black Hand NPC forms.
 
-The clearest structural anchor appears through **Sithis' Eye Ring**:
-- the ring uses the **Eye of Sithis** enchantment;
-- its effect is **Twin Souls**;
-- the ring participates in dedicated crafting;
-- a `zzzCHSithisEyeReactionTrigger` exists;
-- multiple dialogue conditions are tied to the wider Black Hand/Sithis system.
+See:
+- `entities/characters/black-hand.md`
 
-This is enough to establish that “Black Hand” is not merely a phrase from commentary. VIGILANT contains an implemented Sithis-linked interaction layer around it.
+## Direct locations
 
-The currently persisted extraction does **not** yet preserve:
-- the full Black Hand member roster;
-- exact Black Hand NPC FormIDs;
-- a dedicated Black Hand faction record;
-- all dialogue responses governed by the ring/trigger;
-- the runtime reason Twin Souls matters to Black Hand encounters.
+Main boss:
+- `NPC_ 021E3F62`
+- `ACHR 021E40BE`
+- **Ossuary** (`CELL 021E3F63`)
 
-## Supplementary identity/background
+Secondary manifestation:
+- `NPC_ 023288E7`
+- `ACHR 023288E8`
+- **Bruiant Mansion South Wing** (`CELL 023239B1`)
 
-The a123999 VIGILANT background article describes the **Black Hand** as:
-- the five young children of the **Night Mother**;
-- guides for dead or cursed mortals;
-- entities who lead those souls toward **Sithis**.
+## Direct Sithis/Void identity
 
-Source:
-- `sources/supplementary/a123999-vigilant-backgrounds.md`
+The Black Hand directly says:
 
-This gives the system a coherent narrative role that the current ESM-only extraction has not yet reconstructed.
+> I am the Black Hand, the unwanted child of the endless Void...
 
-Lorekeeper should keep the source layers separate:
+Another ring-gated hello says:
 
-- **ESM:** Black Hand/Sithis reaction, ring, crafting, and dialogue-condition system exists.
-- **supplementary commentary:** Black Hand are the Night Mother's five children acting as guides toward Sithis.
+> Father Sithis is with us.
 
-## Night Mother boundary
+Therefore the ESM directly supports:
+- child-of-Void identity language;
+- Sithis-as-Father language.
 
-The term **Night Mother** appears throughout Elder Scrolls lore with multiple traditions and interpretations.
+## Sithis' Eye Ring system
 
-The supplementary VIGILANT claim should therefore not be generalized into a base-canon statement that the Dark Brotherhood's Night Mother literally has these five VIGILANT Black Hand children.
+The Black Hand dialogue conditions directly reference:
+- the Black Hand boss;
+- Sithis' Eye Ring.
 
-Store it under the VIGILANT continuity overlay.
+The ESM message explicitly says:
 
-## Relationship to Manthar
+> Sithis' Eye Ring is reacting to the Black Hand...
 
-Sorcerer Manthar can drop **Sithis' Eye Ring**.
+This is a direct detection/reaction relationship, not a thematic inference.
 
-That places Manthar inside the Black Hand/Sithis item system.
+## Night Mother / five-child layer
 
-It does **not** prove:
-- Manthar belongs to the Black Hand;
-- Sithis transformed Manthar into the Bone Lord;
-- the Black Hand caused his historical disappearance.
+a123999's supplementary article says:
+- there are five young Black Hand children;
+- they are children of the Night Mother;
+- they guide dead/cursed mortals toward Sithis.
 
-The existing Manthar analysis correctly treats the ring as a broader system item rather than transformation evidence.
+The newly recovered ESM dialogue strongly supports the **child / Void / Sithis** part of that model.
 
-## Ontology
+However, the currently recovered direct lines do not state:
+- exactly five;
+- Night Mother maternity.
 
-Current safe model:
+Those elements remain supplementary.
 
-**Black Hand → Sithis-linked guidance/encounter concept with an implemented reaction/item system.**
+## Multiple manifestations
 
-Do not yet model it as:
-- a conventional mortal guild;
-- the Dark Brotherhood's Black Hand leadership rank;
-- a faction with known five ESM NPC records.
+Two directly placed Black Hand NPCs share the dedicated race.
 
-The supplementary article's “five children” language may refer to a metaphysical group rather than the standard Dark Brotherhood organizational term.
+The ESM does not yet settle whether they are:
+- separate siblings;
+- repeated bodies;
+- one distributed identity;
+- generic members of the same metaphysical class.
+
+Keep plurality/body ontology open.
+
+## Dark Brotherhood boundary
+
+Do not equate VIGILANT's metaphysical Black Hand automatically with the ordinary Dark Brotherhood leadership title.
+
+The shared Sithis/Night Mother vocabulary makes the parallel deliberate, but VIGILANT implements these as supernatural entities.
 
 ## Relationship map
 
-- **Black Hand → associated with → Sithis**
-- **Black Hand → supplementary role → guide dead/cursed mortals**
-- **Night Mother → supplementary parent/source → five Black Hand children**
-- **Sithis' Eye Ring → participates in → Black Hand interaction system**
-- **Manthar → can carry/drop → Sithis' Eye Ring**
-- **Manthar → not thereby proven member of → Black Hand**
-
-## Recovery work
-
-Future ESM/script extraction should target:
-- all dialogue conditions involving the Black Hand;
-- `zzzCHSithisEyeReactionTrigger`;
-- NPC/reference records linked to those dialogues;
-- any Black Hand-specific faction/keyword/editor IDs;
-- exact behavior triggered by Sithis' Eye Ring.
+- **Black Hand → calls itself → child of endless Void**
+- **Black Hand → calls Sithis → Father**
+- **Sithis' Eye Ring → reacts to → Black Hand**
+- **Black Hand → uses → dedicated race/abilities**
+- **Night Mother → supplementary parent → five Black Hand children**
+- **Black Hand → supplementary role → guide cursed/dead souls toward Sithis**
 
 ## Canon boundary
 
-The VIGILANT Black Hand identity and five-child guidance role belong to `tes.mod.vigilant`. Any relationship to established Night Mother/Sithis/Dark Brotherhood lore must retain source separation.
+VIGILANT's Black Hand bodies, race, dialogue, ring interaction, and supernatural identity are mod-continuity material.
