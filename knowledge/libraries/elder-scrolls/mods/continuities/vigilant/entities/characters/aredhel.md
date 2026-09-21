@@ -99,7 +99,7 @@ Gaiden Shinji answers that:
 - Gaiden gave Aredhel a sword and armor;
 - he wonders what became of Aredhel.
 
-This independently explains the later boss equipment.
+This independently explains the later boss equipment. Gaiden's own VIGILANT dossier is preserved at `entities/characters/gaiden-shinji.md`.
 
 ## Renald-named development remnants
 
