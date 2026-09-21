@@ -1,0 +1,109 @@
+{
+  "batch_id": "001",
+  "generated_on": "2026-09-20",
+  "source_file": "LB_ApocryphaBooks.esp",
+  "purpose": "Incremental provenance verification overlay. Entries here supersede baseline provenance-triage.json statuses for the listed FormIDs.",
+  "evidence_sources": [
+    {
+      "url": "https://www.nexusmods.com/skyrimspecialedition/articles/7247",
+      "description": "Apocryphal Library author Jenasto's Book Credits article. It explicitly separates official TES game texts, Imperial Library/developer texts, works based on existing fragments, and the author's own works."
+    }
+  ],
+  "entries": [
+    {
+      "form_id": "0400082F",
+      "title": "33rd Alessian Doctrine",
+      "editor_id": "LB_Note_AleshDoct33",
+      "status": "unresolved",
+      "origin_class": null,
+      "evidence": "Not found in the mod author's explicit credit groupings during this pass; title is not safe to classify from name alone."
+    },
+    {
+      "form_id": "040000E3",
+      "title": "A Daedric Proposal",
+      "editor_id": "LB_Book3_NC_DaedricProposal_ESO",
+      "status": "verified",
+      "origin_class": "official_game_text",
+      "likely_game": "The Elder Scrolls Online",
+      "evidence": "Listed by the mod author in the section for books taken from Elder Scrolls Online or earlier TES games; the plugin editor ID also carries an _ESO discovery marker."
+    },
+    {
+      "form_id": "0400003C",
+      "title": "A Dance Along the Webs",
+      "editor_id": "LB_Book2_DT_DanceWebs_ESO",
+      "status": "verified",
+      "origin_class": "official_game_text",
+      "likely_game": "The Elder Scrolls Online",
+      "evidence": "Listed by the mod author in the section for books taken from Elder Scrolls Online or earlier TES games; independent web results also identify it as an ESO book."
+    },
+    {
+      "form_id": "040000B0",
+      "title": "A Dance in Moonlight",
+      "editor_id": "LB_Book3_CL_DanceMoonlight_ESO",
+      "status": "verified",
+      "origin_class": "official_game_text",
+      "likely_game": "The Elder Scrolls Online",
+      "evidence": "Listed by the mod author in the section for books taken from Elder Scrolls Online or earlier TES games; the plugin editor ID also carries an _ESO discovery marker."
+    },
+    {
+      "form_id": "04000819",
+      "title": "A Dwemer Poem",
+      "editor_id": "LB_Book_DW_TypeZero",
+      "status": "verified",
+      "origin_class": "developer_obscure_text",
+      "author": "Michael Kirkbride",
+      "original_title": "A Type of Zero Still to be Discovered",
+      "evidence": "The mod author's credits state that this version was taken from The Imperial Library, changed into a Dwemer text font, and originates from Michael Kirkbride's 'A Type of Zero Still to be Discovered'."
+    },
+    {
+      "form_id": "0400092B",
+      "title": "A Hastily Scrawled Note",
+      "editor_id": "LB_Note_MW16",
+      "status": "unresolved",
+      "origin_class": null,
+      "evidence": "The credits note that various letters/notes/journals come from several TES games and some are mod-author originals, but do not identify this generic title specifically."
+    },
+    {
+      "form_id": "040009CC",
+      "title": "A Summoner's Guide to Nymics",
+      "editor_id": "LB_Book_CLO_Nymics",
+      "status": "verified",
+      "origin_class": "official_game_text",
+      "evidence": "Listed by the mod author in the section for books taken from Elder Scrolls Online or earlier TES games."
+    },
+    {
+      "form_id": "040008FB",
+      "title": "A Vision of the Spiral",
+      "editor_id": "LB_Book_LL_Dae03",
+      "status": "verified",
+      "origin_class": "apocryphal_library_mod_original",
+      "author": "Jenasto",
+      "evidence": "Listed under the mod author's explicit 'The following works are my own' section."
+    },
+    {
+      "form_id": "040009E7",
+      "title": "A Wager with the Madgod",
+      "editor_id": "LB_Book_CL_Dae_Sheo",
+      "status": "verified",
+      "origin_class": "apocryphal_library_mod_original",
+      "author": "Jenasto",
+      "evidence": "Listed under the mod author's explicit 'The following works are my own' section."
+    },
+    {
+      "form_id": "0400004E",
+      "title": "A World of Corpses",
+      "editor_id": "LB_Book2_NC_WorldOfCorpse_ESO",
+      "status": "verified",
+      "origin_class": "official_game_text",
+      "likely_game": "The Elder Scrolls Online",
+      "evidence": "Listed by the mod author in the section for books taken from Elder Scrolls Online or earlier TES games; the plugin editor ID also carries an _ESO discovery marker."
+    }
+  ],
+  "summary": {
+    "records_reviewed": 10,
+    "verified_official_game_text": 5,
+    "verified_developer_obscure_text": 1,
+    "verified_apocryphal_library_mod_original": 2,
+    "unresolved": 2
+  }
+}
