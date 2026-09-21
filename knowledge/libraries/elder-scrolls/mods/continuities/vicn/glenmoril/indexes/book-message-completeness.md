@@ -4,11 +4,10 @@ Source: raw `Glenmoril.esm`.
 
 ## BOOK records
 
-Total BOOK records: **264**
+Total BOOK records: **264**  
 All 264 contain non-empty `DESC` text.
 
-Raw BOOK text size:
-**161,476 characters**
+Raw BOOK text size: **161,476 characters**.
 
 ### Working provenance / function classes
 
@@ -26,38 +25,60 @@ These classes are operational and may be refined as provenance is verified.
 ## Exact text import progress
 
 ### Original-book batch 01 — 11 records
-Imported exact source text:
-- `007A46` — The Yelem School
-- `007A47` — A City Sunken in the Desert
-- `007A48` — The Three Owls
-- `007A49` — Laza and the Owls
-- `007A4C` — Rolly-Polly, Ja'bal the Cat
-- `007A4D` — Ja'bal and the Chickens
-- `007A4E` — Ja'bal and the Chicks
-- `007A4F` — Ja'bal and the Eggs
-- `27C7A3` — The Book of Atatami
-- `5583A6` — Words of Jhunal
-- `016223` — The Blue Star
+Imported:
+- The Yelem School
+- A City Sunken in the Desert
+- The Three Owls
+- Laza and the Owls
+- Rolly-Polly, Ja'bal the Cat
+- Ja'bal and the Chickens
+- Ja'bal and the Chicks
+- Ja'bal and the Eggs
+- The Book of Atatami
+- Words of Jhunal
+- The Blue Star
 
 ### Original-book batch 02 — 9 records
-Imported exact source text:
-- `12D779` — Romion's Last Note
-- `0D562D` — Book of Radiance, Vol. 1
-- `0D562E` — Book of Radiance, Vol. 2
-- `0D562F` — Book of Radiance, Vol. 3
-- `0D5630` — Book of Radiance, Vol. 4
-- `007A4B` — Laza
-- `007A4A` — The People of Grasslands
-- `016274` — To Slumber
-- `11E049` — Black Book: The Gardener
+Imported:
+- Romion's Last Note
+- Book of Radiance, Vols. 1–4
+- Laza
+- The People of Grasslands
+- To Slumber
+- Black Book: The Gardener
 
-**New exact BOOK texts imported in this audit: 20.**
+### Professor Y / Secret Tale batch — 13 records
+Imported:
+- Professor Y, Vols. 1–5
+- The Secret Tale of Professor Y, Vols. 1–7
+- An Overview of the C0DA Document
+
+**New exact BOOK texts imported during this audit: 33.**
 
 Previously normalized families such as the Yelem Notes, Black Book: Debug, Threatening Letter from Ja'zel and Letter from Lalanoah remain separate existing source material and should not be double-counted merely because they also occur in the 264-record raw inventory.
 
+## Professor Y evidence discipline
+
+The Professor Y family mixes:
+- direct observations of physical remains/locations;
+- experimental interpretations;
+- deliberately speculative metaphysics;
+- future/past time-displacement reasoning;
+- jokes and unreliable extrapolation.
+
+Promote direct observations separately from Professor Y's hypotheses.
+
+Examples:
+- direct: a living ship with Argonian-compatible anatomy is examined;
+- attributed inference: the Hist built it;
+- direct: Hamah is physically present as Professor Y's captive specimen;
+- attributed inference/testimony: her soul belonged to a prior Snow-Elf experiment and Anem rebirthed her;
+- direct: C0DA text is said to be stored in Apocrypha with an author name obscured from perception;
+- attributed inference: the author is a renowned mystic hiding research inside fiction.
+
 ## Reused official material
 
-The `zzzRevBookESO*` family is retained in the raw inventory but should use provenance class **reused-official** unless a record comparison shows modified text.
+The `zzzRevBookESO*` family remains in the raw inventory but should use provenance class **reused-official** unless record comparison shows modified text.
 
 Do not promote reused ESO text as GLENMORIL-original authorship.
 
@@ -83,14 +104,11 @@ The MESG layer includes:
 - revision/revenant data displays;
 - quest interfaces.
 
-It needs a dedicated provenance/function inventory before lore promotion.
-
 ## Next BOOK priorities
 
-1. Professor Y / Secret Tale family — 13
-2. remaining original/revision books and letters
-3. mechanical spell/heart/ash descriptions
-4. reused-official verification by text comparison rather than blind duplication
+1. remaining GLENMORIL-original/revision books and letters
+2. mechanical spell/heart/ash descriptions
+3. reused-official verification by text comparison rather than blind duplication
 
 ## Next MESG priorities
 
