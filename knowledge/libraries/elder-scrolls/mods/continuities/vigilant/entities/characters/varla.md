@@ -17,7 +17,7 @@ Because this is a VIGILANT memory quest, Belharza's account remains memory testi
 
 Coldharbour dialogue presents a later Varla who rules eastern territory from Fort Welkynd/Varla's Hall and threatens trespassers with his hounds.
 
-Sir Henrik says Varla once ruled an eastern part of the Alessian Empire and was killed after his subjects revolted against his brutality. Giant Knight Ritho remembers Varla as a courageous and honorable friend who later changed under fear, began hunting his own people, and acquired the title **Man-Hunter**. After Varla's defeat, Ritho says Varla is finally free.
+Sir Henrik says Varla once ruled an eastern part of the Alessian Empire and was killed after his subjects revolted against his brutality. See `entities/characters/sir-henrik.md`. Giant Knight Ritho remembers Varla as a courageous and honorable friend who later changed under fear, began hunting his own people, and acquired the title **Man-Hunter**. After Varla's defeat, Ritho says Varla is finally free.
 
 These are independent character testimonies inside VIGILANT and should remain attributed rather than synthesized into an omniscient biography where they disagree.
 
@@ -39,3 +39,24 @@ The boss quest also owns a Varla-specific music type and a door reference.
 - `INFO 02167055`, `0216705B` — Ritho's account and reaction to Varla's release.
 - `QUST 024F69C2` — boss-state link to Memory Quest 03.
 - `ACHR 020E6A49` — Varla's Hall placement.
+
+
+## Supplementary parentage layer
+
+The a123999 VIGILANT background article identifies **Mary** as Varla's biological mother and **Umaril** as his biological father.
+
+This fits two separate ESM-backed structures:
+- *Knight of Hounds* presents Varla as an **Ayleid orphan** raised by Belharza with no blood relationship;
+- *Pelinal the Bloody* separately places Mary in an Umaril/pregnant-captive memory context.
+
+The currently persisted ESM corpus does **not** contain a direct line stating the parentage.
+
+Therefore Lorekeeper should preserve:
+
+- **ESM:** Varla is an Ayleid orphan/foster son of Belharza.
+- **supplementary:** Mary + Umaril are Varla's biological parents.
+
+Detailed reconstruction:
+- `analysis/varla-mary-umaril-parentage.md`
+
+The same supplementary source says learning his true birth contributed to Varla's later collapse into the Man-Hunter identity. Ritho and Henrik independently confirm the later moral/political collapse, but not its parentage cause.
