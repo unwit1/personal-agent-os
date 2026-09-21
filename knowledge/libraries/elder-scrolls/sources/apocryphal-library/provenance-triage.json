@@ -4,8 +4,8 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "verified_official_game_text": 9,
-    "editor_id_hint_eso": 73,
+    "verified_official_game_text": 17,
+    "editor_id_hint_eso": 65,
     "editor_id_hint_oblivion": 10,
     "editor_id_hint_morrowind": 3,
     "editor_id_hint_developer_mk": 3,
@@ -89,9 +89,8 @@
       "title": "A World of Corpses",
       "editor_id": "LB_Book2_NC_WorldOfCorpse_ESO",
       "text_path": "books/0400004E-a-world-of-corpses.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by an external ESO book corpus; compilation provenance retained separately."
     },
     {
       "form_id": "040000E5",
@@ -835,9 +834,8 @@
       "title": "Ascendancy: Pathway to Lichdom",
       "editor_id": "LB_Book2_NC_Ascendancy_ESO",
       "text_path": "books/04000045-ascendancy-pathway-to-lichdom.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by an external ESO book corpus; compilation provenance retained separately."
     },
     {
       "form_id": "04000908",
@@ -860,9 +858,8 @@
       "title": "Atmoran Cult Writings",
       "editor_id": "LB_Book3_AP_AtmoraCult_ESO",
       "text_path": "books/0400009D-atmoran-cult-writings.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by an external ESO book corpus; compilation provenance retained separately."
     },
     {
       "form_id": "04000113",
@@ -877,18 +874,16 @@
       "title": "Audiences with the Longhouse Emperors",
       "editor_id": "LB_Book3_CL_Longhouse01_ESO",
       "text_path": "books/040000CB-audiences-with-the-longhouse-emperors.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by an external ESO book corpus; compilation provenance retained separately."
     },
     {
       "form_id": "040000BA",
       "title": "Aurbic Enigma IV: The Elden Tree",
       "editor_id": "LB_Book3_AP_AurbicEnigma_ESO",
       "text_path": "books/040000BA-aurbic-enigma-iv-the-elden-tree.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by an external ESO book corpus; compilation provenance retained separately."
     },
     {
       "form_id": "040000D4",
@@ -935,9 +930,8 @@
       "title": "Benevolent Necromancy",
       "editor_id": "LB_Book2_NC_BenevolentNec_ESO",
       "text_path": "books/0400004D-benevolent-necromancy.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by an external ESO book corpus; compilation provenance retained separately."
     },
     {
       "form_id": "04000939",
@@ -960,9 +954,8 @@
       "title": "Biography of Narilmor",
       "editor_id": "LB_Book3_CL_Narilmor_ESO",
       "text_path": "books/040000FC-biography-of-narilmor.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by an external ESO book corpus; compilation provenance retained separately."
     },
     {
       "form_id": "04000136",
@@ -1561,9 +1554,8 @@
       "title": "Care and Feeding of Briarhearts",
       "editor_id": "LB_Book2_NC_Briarheart01_ESO",
       "text_path": "books/04000044-care-and-feeding-of-briarhearts.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an Elder Scrolls Online text by an external ESO book corpus; compilation provenance retained separately."
     },
     {
       "form_id": "040000A5",
