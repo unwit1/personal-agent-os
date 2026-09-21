@@ -75,6 +75,27 @@ That creates several plausible but unresolved models:
 
 No processed source yet selects one model conclusively.
 
+## Radiance continuity
+
+The Holy-Piper recurrence also carries a direct cross-work **Radiance** bridge.
+
+### VIGILANT
+
+Holy-Piper/Sacred-Anatomancer liturgy explicitly invokes **Radiance** as something obstructed by designated enemies and tied to the group's Song-of-Life doctrine.
+
+### DAc0da
+
+Athanasius is both:
+- explicitly a **Holy Piper**;
+- the central character of **The Sea of Radiance**;
+- a speaker who says he has **attained Radiance**.
+
+The same DAc0da arc includes **Letter to a Friend**, which directs a seeker of Radiance toward VIGILANT's **Altano** to learn compassion through suffering.
+
+This triangulation makes Radiance a high-confidence **institution-adjacent recurring concept** across VIGILANT and DAc0da.
+
+It does not prove that the Anatomancer's Radiance doctrine and Athanasius's attained state are technically identical.
+
 ## Chronology caution
 
 A simple “DAc0da shows the Holy Pipers before they became corrupt” chronology is **not currently supported**.
