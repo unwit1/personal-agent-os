@@ -45,16 +45,18 @@ The plugin stores English dialogue directly in INFO/NAM1 fields, so dialogue can
 5. `DAc0da.esm:00B21B` — **Numidium Tertius** (`zDcdMq04`)
 6. `DAc0da.esm:00CA1E` — **Censored Fate** (`zDcdMq05`)
 
-Other quest records include major side arcs for Yngol, the Augur, Abnur Tharn, the Worm/Mnemolichite material, Sheogorath, Sload Radio, epilogues, and multiple Numidium boss/event managers.
-
 ## Current ingestion state
 
-- Structural inventory: complete first pass.
-- Quest catalog: created.
-- Main quest lore reconstruction: processed through **Patchwork** (`zDcdMq03`).
-- Character dossier: **Akashiya-Samon**.
-- Concept seed: time breaches / mirror logic / zero-sum.
-- Next main-story target: **Numidium Tertius** (`zDcdMq04`).
-- BOOK, broad NPC identity, scene-speaker, location, and full cross-Vicn reconciliation passes remain pending.
+- Structural inventory and all-quest catalog: complete first pass.
+- Numbered main quest reconstruction: **MQ00 through MQ05 complete**.
+- Major main-story dossiers/concepts: Rolls-On-Roads, Akashiya-Samon, Yngol, Ghost Choir 9, Prisoner/Many Paths, time breaches/mirror logic/zero-sum, Hist/Jill/Akulakhan Fifth-Era anomaly.
+- Side quests processed:
+  - **Drowned Nighthawk** (`zDcdSqYngol`)
+  - **Abnur Tharn** (`zDcdSqAbnur`)
+  - Abnur Tharn epilogue/will
+  - Akashiya-Samon epilogue
+- Cross-Vicn seed created for DAc0da, including the direct **Rolls-On-Roads ↔ Romion** bridge into GLENMORIL.
+- Next high-priority side arc: **Echoes of Mnemolichite** (`zDcdSqWorm`), including Vanus Galerion, Yu'qbar, Mnemolichite, Sload/Necromancer activity, and Mannimarco.
+- BOOK-wide provenance, remaining side quests, broad NPC identity resolution, scene-speaker resolution, locations, and full cross-Vicn reconciliation remain pending.
 
-See `analysis/ingestion-checkpoint-01.md` before resuming so this work is not restarted.
+See `analysis/ingestion-checkpoint-01.md` before resuming.
