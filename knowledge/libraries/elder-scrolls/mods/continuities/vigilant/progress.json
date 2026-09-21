@@ -28,7 +28,9 @@
     "Aetherius branch-marker placement analysis",
     "base-canon comparison seed for Alessia/Morihaus/Belharza/Pelinal/Marukh/Lamae",
     "Coldharbour official-lore substrate comparison",
-    "Coldharbour dossiers: Menta-Na, Abbot Cosmas, Varla, Dro'Zel"
+    "Coldharbour dossiers: Menta-Na, Abbot Cosmas, Varla, Dro'Zel",
+    "Jhunal deep-pass: Owl/fragments/relic network and Eight Saints integration",
+    "Laza structural dossier and Owl-cycle book placement mapping"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -55,5 +57,11 @@
     "responses": 1698,
     "books": 179,
     "npcs": 1233
+  },
+  "last_continuation": {
+    "date": "2026-09-21",
+    "focus": "Jhunal writeback followed by Laza/Owl structural dossier",
+    "source_state": "continued from repository-extracted VIGILANT corpus; original Vigilant.esm not currently accessible in connected Drive/library sources",
+    "open_followup": "persist exact texts for Laza, Laza and the White Owl, Laza and the Gray Owl, and Laza and the Black Owl"
   }
 }
