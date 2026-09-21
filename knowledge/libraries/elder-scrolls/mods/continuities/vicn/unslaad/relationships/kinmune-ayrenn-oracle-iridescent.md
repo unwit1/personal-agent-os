@@ -70,3 +70,9 @@ Do not turn this into:
 - proof that the Clone of Ayrenn is literally the original KINMUNE entity.
 
 The safe statement is that **UNSLAAD deliberately reuses and dramatizes that apocryphal identity tradition**.
+
+## Mask effect
+
+Oracle Iridescent Mask includes a custom **Spell Absorption** effect that absorbs a percentage of Magicka from hostile spells, in addition to its Fortify-Magicka package.
+
+This is a direct item mechanic; it should not be overinterpreted as a complete KINMUNE ability profile.

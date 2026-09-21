@@ -50,3 +50,9 @@ Do not automatically equate:
 - Eye-of-Magnus assets.
 
 They are linked retrieval nodes, not proven identical objects.
+
+## Darkspeaker effect
+
+The Darkspeaker Ring's custom MGEF states that Destruction spells become **50% stronger** while the wearer is **50% weaker to Destruction spells**.
+
+This direct high-risk/high-output effect is part of the Gray-Owl/Jhunal reward set.

@@ -48,3 +48,14 @@ The equipment layer strengthens Dov-Ah-Kiin's direct dragon-slayer/Dragonborn co
 The Paarthurnax effect name is implementation evidence for the weapon's intended Voice association.
 
 It does not prove that Paarthurnax created, owned, or personally gave the Fang unless another source states that relationship.
+
+## Dragon-Soul-scaled armor set
+
+The craftable Dragonslayer armor family uses custom effects that scale directly with the player's Dragon Soul count:
+- Armor / Dragon Bones: +1% physical resistance per soul, max 50%.
+- Helmet / Dragon Horn: +1% magic resistance per soul, max 50%.
+- Boots / Dragon Feet: +1% stagger resistance per soul, max 50%.
+- Ring / Dragon Eye: +1% critical chance per soul, max 50%.
+- Gauntlets / Reflective Ward: ward while blocking.
+
+This gives Dov-Ah-Kiin's artifact family a direct mechanical continuation of UNSLAAD's broader Dragon-Soul economy.
