@@ -11,7 +11,7 @@
 The exact unusual term **Brain-Billies** occurs independently in GLENMORIL and DAc0da.
 
 Parent synthesis:
-- `../../mods/continuities/vicn/relationships/brain-billies-thread.md`
+- `../../mods/continuities/vicn/relationships/brain-billies-memory-thread.md`
 
 ## DAc0da mechanism
 
