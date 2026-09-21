@@ -4,8 +4,8 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "unresolved": 654,
-    "verified_official_game_text": 126,
+    "unresolved": 642,
+    "verified_official_game_text": 138,
     "verified_developer_text": 4
   },
   "entries": [
@@ -958,96 +958,96 @@
       "title": "Black Horse Courier",
       "editor_id": "LB_Note3_BHC00",
       "text_path": "books/04000136-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper issue from The Elder Scrolls IV: Oblivion. The Black Horse Courier is an official in-game Cyrodiil newspaper series; compilation provenance retained separately."
     },
     {
       "form_id": "04000137",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note3_BHC01",
       "text_path": "books/04000137-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper issue from The Elder Scrolls IV: Oblivion. The Black Horse Courier is an official in-game Cyrodiil newspaper series; compilation provenance retained separately."
     },
     {
       "form_id": "04000138",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note3_BHC02",
       "text_path": "books/04000138-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper issue from The Elder Scrolls IV: Oblivion. The Black Horse Courier is an official in-game Cyrodiil newspaper series; compilation provenance retained separately."
     },
     {
       "form_id": "04000139",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note3_BHC03",
       "text_path": "books/04000139-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper issue from The Elder Scrolls IV: Oblivion. The Black Horse Courier is an official in-game Cyrodiil newspaper series; compilation provenance retained separately."
     },
     {
       "form_id": "0400013A",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note3_BHC04",
       "text_path": "books/0400013A-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper issue from The Elder Scrolls IV: Oblivion. The Black Horse Courier is an official in-game Cyrodiil newspaper series; compilation provenance retained separately."
     },
     {
       "form_id": "0400013B",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note3_BHC05",
       "text_path": "books/0400013B-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper issue from The Elder Scrolls IV: Oblivion. The Black Horse Courier is an official in-game Cyrodiil newspaper series; compilation provenance retained separately."
     },
     {
       "form_id": "0400013C",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note3_BHC06",
       "text_path": "books/0400013C-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper issue from The Elder Scrolls IV: Oblivion. The Black Horse Courier is an official in-game Cyrodiil newspaper series; compilation provenance retained separately."
     },
     {
       "form_id": "0400013D",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note3_BHC07",
       "text_path": "books/0400013D-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper issue from The Elder Scrolls IV: Oblivion. The Black Horse Courier is an official in-game Cyrodiil newspaper series; compilation provenance retained separately."
     },
     {
       "form_id": "0400013E",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note3_BHC08",
       "text_path": "books/0400013E-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper issue from The Elder Scrolls IV: Oblivion. The Black Horse Courier is an official in-game Cyrodiil newspaper series; compilation provenance retained separately."
     },
     {
       "form_id": "0400013F",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note3_BHC09",
       "text_path": "books/0400013F-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper issue from The Elder Scrolls IV: Oblivion. The Black Horse Courier is an official in-game Cyrodiil newspaper series; compilation provenance retained separately."
     },
     {
       "form_id": "04000140",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note3_BHC10",
       "text_path": "books/04000140-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper issue from The Elder Scrolls IV: Oblivion. The Black Horse Courier is an official in-game Cyrodiil newspaper series; compilation provenance retained separately."
     },
     {
       "form_id": "04000141",
       "title": "Black Horse Courier",
       "editor_id": "LB_Note3_BHC11",
       "text_path": "books/04000141-black-horse-courier.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a Black Horse Courier newspaper issue from The Elder Scrolls IV: Oblivion. The Black Horse Courier is an official in-game Cyrodiil newspaper series; compilation provenance retained separately."
     },
     {
       "form_id": "040008BA",
