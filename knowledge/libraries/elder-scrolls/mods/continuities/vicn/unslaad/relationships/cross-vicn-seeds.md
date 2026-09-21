@@ -35,24 +35,15 @@ No equivalent GLENMORIL, VIGILANT, or DAc0da claim should be inferred without di
 
 Keep this UNSLAAD-scoped until another work independently names Lizz or the same lineage mechanism.
 
-## Unresolved seed — dream / memory persistence
+## Resolved comparison — memory-dependent persistence
 
-UNSLAAD Arkved says:
-- forgotten places dissolve;
-- remembered echoes persist;
-- a child can sing a place into continued existence.
+The cross-work comparison is now captured in parent:
+`relationships/radiance-mnemo-li-memory-thread.md`
 
-This belongs beside GLENMORIL's dream/forgetting/Blue-Star/Jhunal material and DAc0da's memory/Radiance material, but the exact mechanism is not yet proven identical.
+UNSLAAD's Arkved/Anaku mechanism remains locally documented in:
+`concepts/memory-dependent-persistence.md`
 
-Do not merge:
-- dream persistence;
-- memetic persistence;
-- frozen memory;
-- Radiance;
-- Mnemo-Li;
-- timeline erasure
-
-into one system without direct source alignment.
+The parent synthesis deliberately keeps UNSLAAD remembrance/song, GLENMORIL Blue-Star preservation, and DAc0da mnemolichite reconstruction as **parallel but not identical** mechanisms.
 
 ## Routing rule
 
