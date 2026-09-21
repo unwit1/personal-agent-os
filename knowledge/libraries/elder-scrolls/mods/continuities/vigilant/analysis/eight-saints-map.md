@@ -96,16 +96,17 @@ Current classification: **high-confidence historical→boss identity cluster; tr
 
 The saint text says Silorn helped found the Marukhati Selectives, entered the Nenyond ruins searching for Nenyond and Manthar, and that only his skin returned.
 
-The ESM literalizes that detail:
-- **Abbot Silorn** (`NPC_ 02114115`);
-- **Silorn's Priory** (`CELL 02239B51`);
-- Priory and Prison keys;
-- **Hide of Abbot Silorn** as both relic/item and activator;
-- an **Abbot Silorn** corpse/container containing the Hide;
-- a placed Abbot Silorn reference in Funeral Temple.
+A raw-record pass sharpens the environmental implementation:
 
-Current classification: **high-confidence saint→environmental-relic identity cluster**. The returned-skin motif is directly implemented in game records, while Silorn's exact postmortem ontology remains unresolved.
+- `CONT 020D1A66` / **Abbot Silorn** uses the model `Hangedman01.nif`, is placed in **Funeral Temple**, and contains **Hide of Abbot Silorn**.
+- `ACTI 02113B04` / **Abbot Silorn** uses `Hangedman01Movable.nif`; two of these hanging-body activators are placed in Funeral Temple.
+- `ALCH 020E2593` / **Hide of Abbot Silorn** is the collectible relic.
+- the previously noted `NPC_ 02114115` / **Abbot Silorn** is internally `zzzCHInvisibleSpotter` and links into a SightJacker setup, so it is better classified as technical scene machinery than as a resurrected Silorn.
+- **Silorn's Priory** and its two keys remain a separate institutional location on the Underground Lake/Wellspring route.
 
+The Hide relic also has reusable pickup placements in several unrelated Coldharbour interiors, so those copies are gameplay relic placements rather than multiple literal pieces of Silorn.
+
+Current classification: **high-confidence saint → returned-skin tradition → Funeral Temple hanging-remains/relic implementation**. The exact mutilation/return mechanism remains unresolved.
 
 ## Caliburn
 
