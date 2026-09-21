@@ -2,25 +2,106 @@
 
 **Form ID:** `04007733`  
 **Editor ID:** `zzzLrhMq01`  
+**Act:** 1 — Little Red  
 **Source:** `Glenmoril.esm`
 
-## ESM-backed evidence
+## Corpus status
 
-The quest's dialogue records establish an early Falkreath situation involving Lalanoah, Brandt, local orphans, and restrictions on Lalanoah entering town.
+Raw-ESM direct dialogue:
+- SCEN responses: **25**
+- non-SCEN topic responses: **72**
+- **97 exact responses total**
 
-Player dialogue topics include:
+All 97 responses have exact speaker resolution.
 
-- `0400776A` / `zzzLrhMq01LalaB01T01` — asking Lalanoah what she is doing there.
-- `04007772` / `zzzLrhMq01BrandtB01T01` — asking Brandt about Lalanoah.
-- `04007775` / `zzzLrhMq01BrandtB02T01` — asking Brandt about the orphans.
-- `04007778` / `zzzLrhMq01BrandtB03T01` — asking Brandt for bread for two gold.
-- `0400777C` / `zzzLrhMq01LalaB02T01` — giving Lalanoah the bread.
-- `04007784` / `zzzLrhMq01Lalab03T01` — asking why she does not enter town.
+Speaker totals:
+- Lalanoah: 52
+- Brandt: 25
+- Groll: 20
 
-Associated INFO response text states that Falkreath's orphans lost their parents in the civil war and that temples and orphanages are already full. Lalanoah says she cannot return home. Another exchange says she has repeatedly been told not to enter town.
+## Opening Falkreath situation
 
-## What this establishes
+Brandt refuses Lalanoah bread because she has no gold and says the jarl forbids him from simply giving it to her.
 
-The plugin directly supports that the opening Falkreath material presents Lalanoah as a vulnerable child kept outside town and gives the player an opportunity to intervene by speaking with her and Brandt and obtaining bread.
+Lalanoah says she cannot return home because a frightening creature blocks the way. She is also repeatedly told not to enter Falkreath.
 
-Further stage/objective extraction is still required before assigning exact chronology beyond this local dialogue cluster.
+Brandt says Falkreath's orphans lost their parents in the civil war and that temples/orphanages are already full.
+
+## Lalanoah's family state
+
+Lalanoah says:
+- when her father was still present, he was kind and played with her;
+- her mother taught her that if danger is too great, it is better to run away;
+- Brandt is “Uncle Brandt.”
+
+When asked where Lalanoah's parents are, Brandt says he does not know, or at least will not tell an outsider.
+
+This is early evidence of her parents' absence before the later Gerhard/Laelnoah investigations.
+
+## The blocked road
+
+Lalanoah guides the player toward her home with Skoll.
+
+Along the way she comments on:
+- a giant snail;
+- a beehive;
+- mushrooms;
+- a bird's nest and eggs.
+
+At the door she realizes she has lost the key.
+
+After the key is recovered, the threatening creature still blocks the route.
+
+## Groll
+
+The “monster” resolves into **Groll**.
+
+Groll says:
+- someone ordered him to guard the area;
+- the thing he is guarding is a “small green thing called Lala,” strongly identifying Lalanoah as the protected target;
+- he receives **glowing stones** as a reward;
+- he cannot or will not clearly identify who gave the order.
+
+Lalanoah and Groll introduce themselves and explicitly become friends.
+
+Afterward Lalanoah tells the player:
+> “I have a new friend now! Her name is Groll.”
+
+Groll later corrects the player's sex/gender assumption with:
+> “Not female. Maiden.”
+
+## Early Chick Trader warning
+
+Brandt says he cannot simply take Lalanoah into his care because of his position.
+
+When asked what is wrong in town, he warns:
+> “The Chick Traders are coming soon...”
+
+He describes the Chick Traders as disgusting people and wants Lalanoah kept away from town.
+
+This is the first direct Act-1 setup for the Chick Trader threat before `zzzLrhMq02 The Chick Trader`.
+
+## Quest alias map
+
+- Lalanoah → `04006F14`
+- Brandt → `04006F0A`
+- Skoll → `04006ED8`
+- Troll → `04006EE2` → Groll
+- Chick01 → `04007744` → Cilla
+- Chick02 → `04007745` → Asmo
+- Chick03 → `04007746` → Sanna
+- Chick04 → `04007747` → Heikki
+- Chick05 → `04007748` → Urmas
+
+The five Chick aliases exist in the quest structure but do not speak in this quest's resolved dialogue.
+
+## Scene disposition
+
+Dialogue-bearing:
+- `0400774F zzzLrhMq01Sc01` — 11 responses
+- `04007791 zzzLrhMq01Sc02` — 7 responses
+- `040077BC zzzLrhMq01Sc03` — 7 responses
+
+Zero-dialogue:
+- `04497A02 zzzLrhMq01ScDeathCheck`
+- `0400785C zzzLrhMq01Sc04`
