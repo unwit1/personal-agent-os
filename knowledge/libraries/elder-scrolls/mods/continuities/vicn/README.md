@@ -30,4 +30,6 @@ These are retrieval/continuity relationships, not permission to flatten source-s
 
 ## DAc0da next frontier
 
-The next DAc0da priority is non-dialogue resolution for **In Grabbers' Hands** — especially its objective to "restore your name" — followed by Yngol epilogue/support quests and exact provenance matching for reused written sources.
+DAc0da's **In Grabbers' Hands**, Yngol epilogue, Golden Dragon Flight, Agent Event, Daggerfall-letter provenance, and first Nahd-fiction provenance pass are now resolved at structural/source depth.
+
+The next DAc0da priority is a full **79-record SCEN index**, followed by unresolved NPC-form families, important location/worldspace layers, and narrative artifacts/creatures. The main remaining written-source gap is the exact standalone publication trail for the long **Ghost Choir 9** text.
