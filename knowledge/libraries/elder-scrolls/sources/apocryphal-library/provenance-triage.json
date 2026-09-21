@@ -4,9 +4,10 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "unresolved": 622,
+    "unresolved": 557,
     "verified_official_game_text": 158,
-    "verified_developer_text": 4
+    "verified_developer_text": 4,
+    "verified_mod_construct_text": 65
   },
   "entries": [
     {
@@ -254,520 +255,520 @@
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT01",
       "text_path": "books/040008A5-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008A6",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT02",
       "text_path": "books/040008A6-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "0400095F",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT03",
       "text_path": "books/0400095F-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000960",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT04",
       "text_path": "books/04000960-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000961",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT05",
       "text_path": "books/04000961-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000962",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT06",
       "text_path": "books/04000962-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000963",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT07",
       "text_path": "books/04000963-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000964",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT08",
       "text_path": "books/04000964-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000965",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT09",
       "text_path": "books/04000965-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000966",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT10",
       "text_path": "books/04000966-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000967",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT11",
       "text_path": "books/04000967-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000968",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT12",
       "text_path": "books/04000968-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000969",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT13",
       "text_path": "books/04000969-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "0400096A",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT14",
       "text_path": "books/0400096A-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "0400096B",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT15",
       "text_path": "books/0400096B-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "0400096C",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT16",
       "text_path": "books/0400096C-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "0400096D",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT17",
       "text_path": "books/0400096D-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "0400096F",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT18",
       "text_path": "books/0400096F-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000970",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT19",
       "text_path": "books/04000970-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000971",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT20",
       "text_path": "books/04000971-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000972",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT21",
       "text_path": "books/04000972-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000973",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT22",
       "text_path": "books/04000973-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000974",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT23",
       "text_path": "books/04000974-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000975",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT24",
       "text_path": "books/04000975-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000976",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT25",
       "text_path": "books/04000976-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000977",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT26",
       "text_path": "books/04000977-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000978",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT27",
       "text_path": "books/04000978-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000979",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT28",
       "text_path": "books/04000979-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "0400097A",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT29",
       "text_path": "books/0400097A-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "0400097B",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT30",
       "text_path": "books/0400097B-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "0400097C",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT31",
       "text_path": "books/0400097C-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "0400097D",
       "title": "Apocryphal Page",
       "editor_id": "LB_Note_APUT32",
       "text_path": "books/0400097D-apocryphal-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000826",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT01",
       "text_path": "books/04000826-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000827",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT02",
       "text_path": "books/04000827-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000828",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT03",
       "text_path": "books/04000828-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000842",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT04",
       "text_path": "books/04000842-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000843",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT05",
       "text_path": "books/04000843-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000899",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT06",
       "text_path": "books/04000899-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "0400089A",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT07",
       "text_path": "books/0400089A-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "0400089B",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT08",
       "text_path": "books/0400089B-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "0400089C",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT09",
       "text_path": "books/0400089C-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "0400089D",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT10",
       "text_path": "books/0400089D-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "0400089E",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT11",
       "text_path": "books/0400089E-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "0400089F",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT12",
       "text_path": "books/0400089F-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008A0",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT13",
       "text_path": "books/040008A0-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008A1",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT14",
       "text_path": "books/040008A1-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008A2",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT15",
       "text_path": "books/040008A2-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008CF",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT16",
       "text_path": "books/040008CF-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008D0",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT17",
       "text_path": "books/040008D0-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008D1",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT18",
       "text_path": "books/040008D1-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008D2",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT19",
       "text_path": "books/040008D2-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008D3",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT20",
       "text_path": "books/040008D3-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008D4",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT21",
       "text_path": "books/040008D4-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008D5",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT22",
       "text_path": "books/040008D5-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008D6",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT23",
       "text_path": "books/040008D6-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008D7",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT24",
       "text_path": "books/040008D7-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008D8",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT25",
       "text_path": "books/040008D8-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008D9",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT26",
       "text_path": "books/040008D9-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008DA",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT27",
       "text_path": "books/040008DA-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008DB",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT28",
       "text_path": "books/040008DB-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008DC",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT29",
       "text_path": "books/040008DC-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008DD",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT30",
       "text_path": "books/040008DD-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008DE",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT31",
       "text_path": "books/040008DE-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008DF",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT32",
       "text_path": "books/040008DF-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "040008E0",
       "title": "Apocryphal Tome",
       "editor_id": "LB_Book_APUT33",
       "text_path": "books/040008E0-apocryphal-tome.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_construct_text",
+      "evidence": "Apocryphal Library's author explicitly describes the untranslated Apocryphal notes and tomes as mod-added 'Mage Script' objects representing books translated into strange glyphs in Apocrypha; the underlying filler text is usually adapted ancient Greek/Hippocratic material and is not TES source lore. Preserve extracted text for source completeness, but exclude it from canon/lore claims."
     },
     {
       "form_id": "04000906",
