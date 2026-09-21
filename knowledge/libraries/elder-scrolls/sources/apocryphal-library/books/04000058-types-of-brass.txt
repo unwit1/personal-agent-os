@@ -1,0 +1,24 @@
+[pagebreak]
+<p align="center">
+
+Types of Brass
+
+by Wythriel of Falinesti
+</p>
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/B_letter.png'>rass is a name commonly given to metal of Dwemer origin. It is commonly taken to be all of the same exact consistency, but this is not strictly true. 
+
+A smith may use Dwemer metal of any source to recreate their ancient weapons and armour, and even their own animunculi should they know the correct methods. They will probably remain in good shape and function for over a hundred years. But the Dwemer built things that lasted far longer, abiding the march of the aeons without even the slightest blemish or tarnish. To recreate this longevity, the wise smith will attempt to match like for like - although few smiths will have need for such. Nevertheless, for the sake of knowledge let us continue.
+
+Weltbrass is used in the construction of pipes and other constructions which may need to house hot chemicals or transmit steam. It has a greater capacity to expand than other types of brass, though it is rather the softer for it. Weapons made of it will degrade slightly faster, though it would take decades to notice. 
+
+Wightbrass has a high shearing strength and does not expand or contract beyond the very slightest amounts, making it useful for the construction of cogs, especially the enormous gears that make up massive machines. It is slightly more brittle than other types, and this too might be reflected in weaponry.
+
+Shieldbrass, true to its name, is used in the creation of armaments, though not just shields and armour but weaponry too. It holds a keen edge when sharpened and is very hard to break or bend, and would make fine cogs were it not presumably harder for the Dwemer to source or forge the material. It does not function well for making pipes, and after a few decades it will warp noticeably. The weapons and very outer shells of animunculi are made from shieldbrass.
+
+Drawbrass is used for making very small parts, such as much smaller gears and cogs as well as hinges and some of the more complicated components of unidentified machines. It is very ductile and has few uses in larger pieces.
+
+Heartbrass is used in the inner workings of animunculi and the gyroscopic mechanisms and dynamos that allow these ancient machines to function. It has the unusual property of being able to store magicka better than other forms.
+
+Lichbrass is used for the bulk of animunculi, for those parts that do not constitute the very inner workings nor the armaments. It can be thought of as the 'flesh' of the construct, forming the pistons and levers that give function to the other parts. It is a reliable metal and can be used for most other purposes without much deterioration, but is generally less efficient to do so. Parts of the Numidium that have been studied by scholars indicate that much lichbrass was used in its making.
+

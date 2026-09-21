@@ -1,0 +1,23 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/O_letter.png'>n Durnehviir, The Ever-Living
+
+by Invigilator Lasharien-Chuvik
+
+2E 45
+</p>
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/D_letter.png'>urnehviir is among the few dragons who managed to endure the length of the Dragon War and remains at large today. While some dragons have managed to conceal themselves from our vigil completely, Durnehviir is more brazen in his approach, since every attempt to slay the wyrm has failed. Even Reman's issue were unable to draw his life from him, and he has escaped his punishment every time.
+
+The first recorded instance of this wyrm comes from the reign of Jarl Inge, who ruled in Hjaalmarch. The chronicler Dhaerig of Bromjunaar wrote:
+
+"On the firste eve of Mid-yaer, the greate master Durnehviir did mayke the commande to the folke of Bromjunaar, that a single one of us must be made a gyft to him, and his reign would be one of mercye."
+
+Exactly what Durnehviir intended with these gifts of mortal souls was unclear, though it likely has something to do with what transpired later. At the time of the Dragon War, we get a further insight, this time from one Felldir of Olmstead.
+
+"But Durnehviir had spent his time in the study of great sorceries, and had used his wiles to trace back the circle of Orkey to its mouth. Thus when he was slain, we were unable to retrieve his bones, for they became as purple fire and we could not find them thereafter."
+
+The methods by which Durnehviir gathered his knowledge are poorly understood, but it is known that he was one of the few, possibly the only dragons, who could perform a soul-trap as a kiai. It is assumed therefore that he had the means to use soul gems, and must have kept them about his person somehow.
+
+His name means 'Curse Never Dying'. Given the nature of dragon names and how they appear to be shapes of their destiny, it seems he might be doomed to never die, and may be a blight on Tamriel for eras to come unless somehow a way is found to restrain him or banish him for good. Fortunately, his malice is somewhat more tempered than others of his kind, and he mostly seeks to increase his knowledge rather than dominate others. But his crimes are known, and the Dragonguard must be ready to bring him low when the knowledge of how to do so becomes available.

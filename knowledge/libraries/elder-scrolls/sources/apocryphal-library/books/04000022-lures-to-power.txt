@@ -1,0 +1,24 @@
+[pagebreak]
+<p align="center">
+
+Lures to Power
+
+by Vigilant Draker
+
+</p>
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/W_letter.png'>hy do some wizards, seemingly able and of good talent, instead fall to the dark practices of necromancy and goetia? 
+
+For some, the answer is simple: Power at an apparently lower cost. The folly of this is obvious; any mage studying in a guild or college has far more accessible to them than an exiled mage living in a forsaken ruin or mouldy cave. Nevertheless, these practices persist. Why?
+
+The fundaments of necromancy are not extraordinary. The ability to call forth a weak spirit or to animate the remains of the recently dead are achievable by a relatively unaccomplished wizard. However, the impact on the caster is indelible. To see a body rise before them gives them a sensation of far greater power; that over life and death.
+
+And so it goes for the necromancer. They seek to create more powerful forms of undead until they feel certain in themselves that they truly are the master of life and death. Of course, this certainty never comes. The most pure expression of the art would be true resurrection in stark defiance of Arkay's law. Some necromancers claim to have achieved this ability, or to have found scolls or tomes that would allow them. And so they pursue the art doggedly until they are either slain, devoured or simply can continue no longer. The process of rending Arkay's law thus corrupts their souls until they are unable to maintain reason.
+
+For others, it is defiance. Hatred at Arkay for taking a loved one, or foolish rebellion against the just teachings of the divines. The same pattern develops, and they fall to the corrupt nature of their own machinations.
+
+For the worshippers of the most foul of the Daedra the answer is clearer still; the Daedra has promised them great power, or has threatened a very real doom against them. And so generations of skilled wizards give away their free will in order to gain a power freely given where they could have bettered themselves through learning.
+
+For the wise, the best way to answer these problems is to console the bereaved in all moments, and to let them remember the goodness of Arkay and the dangers of accepting power at too cheap a cost.

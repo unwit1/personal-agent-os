@@ -1,0 +1,22 @@
+[pagebreak]
+<p align="center">
+
+Funerary Customs of Skyrim
+
+by Thomas Holvin 
+
+</p>
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/I_letter.png'>n Skyrim, it is held that the most honoured dead, those who have won in battle or have shown great courage in other ways, will be taken to Sovngarde upon death. This is a mystic afterlife where the dead feast in the company of Shor, the dead king of the Nordic gods. Those who do not reach Sovngarde end up in other reaches of Aetherius. This belief extends back to the time of Atmora.
+
+The custom of burial in Skyrim, however, has changed dramatically since the Atmoran occupation. The practice of burial in the Merethic that dwindled out in the First Era involved preserving and entombing the dead in great temples and edifices that dot the landscape of Skyrim today, though most of the cities built around these old temples have fallen into disuse. The ancient city of Bromnhar, now known as the ruins of Labyrinthian, is a rare example where the remains of the ancient city are still visible. Windhelm is the only presently occupied city whose majority of original architecture dates back to that time, though the catacombs below Whiterun and Solitude also appear to be Merethic.
+
+In those times, the dead were not usually buried in graves, but were placed on shelves within the tombs. Some were buried upright, and warriors were always buried with their arms and armour. Their bodies were preserved using strange rituals that permeate the tombs to this day, and the careful removal of internal organs using special tools including spikes, skewers, scalpels and similar. These organs were placed in ritual urns marked with the head of Alduin.
+
+Rituals performed on the tombs not only slowed the decay of the corpses but also granted the dead warriors necromantic unlife. Thus trespassing into such tombs is considered not only a crime against Arkay, but is also very dangerous - these animated remains, known as Draugr, guard the tombs with the dregs of their life and have even been reported to maintain the ruins in the absence of the living. They do not seem to leave the tombs, and are not usually considered a threat to any but interlopers and treasure hunters.
+
+With the waning of the ancient totemic religion of the old Nords came the slow integration with the Imperial faith. The dark god Orkey, thief of life, came to be replaced over time with the merciful Arkay who cherishes the dying and the newly born. Nowadays, burial within halls of the dead is still a frequent practice, but the halls have become full over time and many prefer simple burials. 
+
+Since antiquity, those not buried in the old tombs have been buried in small mounds, piles of rocks and earth lain over a shallow grave, forming a small cairn with a simple runed headstone. This practice has assimilated with the more common gravestone burials seen in the graveyards of Falkreath to this day. In Morthal, the places to bury dead are few, and so those dead who cannot be carted to Solitude are usually entombed in the marshlands. A few places to bury the dead to exist by Morthal, however. There is an unusual custom among the Nords of Hjaalmarch which states that the Deathbell flower grows where people have died, and that by picking these flowers you may on occasion see their ghost.

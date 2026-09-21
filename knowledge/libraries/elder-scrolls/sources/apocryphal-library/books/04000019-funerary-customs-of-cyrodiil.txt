@@ -1,0 +1,25 @@
+[pagebreak]
+<p align="center">
+
+Funerary Customs of Cyrodiil
+
+by Thomas Holvin 
+
+</p>
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/W_letter.png'>orship of Arkay is prevalent across the whole of Cyrodiil, and has been a strong unifying factor between the Colovian West and the Nibenean East. Today the most common form of burial is a grave or sarcophagus with a prominent headstone, though wealthier or older landed families may have expansive crypts. 
+
+The undercrofts of Cyrodiil's Great Chapels also feature great catacombs, usually reserved for royalty, nobility and the priesthood. The most ancient and sacred burial site in all of Cyrodiil is Sancre Tor, where the great Dragonborn emperors have been entombed from the time of Reman I until Tiber Septim, and if the legends are true then Alessia herself formed the ancient mound upon which the site was built.
+
+From the humblest of these graves to the tomb of Tiber Septim himself, all are united by the practice of Three Consecrations. The thrice-blessed body is usually impervious to the acts of necromancers, and thus even executed criminals are often afforded this honour. Necromancy is still widespread and legal throughout Cyrodiil despite the efforts of the Arkayn clergy, though it is hoped that the new Archmage of the Mages Guild will work to overturn this.
+
+In Nibenay, of course, the practice of burial is more varied. The old joke runs that "Two Nibenese are a church, and three Nibenese are a schism". The majority of the cults have no distinct funereal practices, though one thing that distinguished Colovia from Nibenay is the timbre of the celebration. Colovian funerals are more staid and sombre, whereas in Nibenay there are often colourful and vibrant celebrations. In the Niben basin, villagers and even the townsfolk of Bravil and Leyawiin will place the dead in paper skiffs along with their treasured good and send them down the river into Topal Bay.
+
+During such festivities, whole communities can gather, even those who did not know the deceased. The priesthood of Arkay often don ceremonial attire in the style of Nedic ancestor cults rather than the simpler green and blue robes worn by the Colovian priesthood.
+
+Cairn burials are mostly an outdated practice, but burial caves do exist across the whole of Cyrodiil. Memorial Cave near Lake Rumare is a resting place of old war heroes, and other such caves can be found in Colovia too. These places are considered highly dangerous, as the Three Consecrations are rarely performed here. Cairn Bolete is a fungus that grows, according to custom, where people have died or have been buried.
+
+In ancient times, Cyrodiil was occupied by the Ayleids, who have long since faded into obscurity leaving their old ruins behind and full of traps and undead. The precise burial customs of the Ayleids are poorly understood, but it is observed that adventurers and tomb-robbers who die in these ruins will often be reanimated to guard against further intruders.
+

@@ -1,0 +1,18 @@
+[pagebreak]
+<p align="center">
+
+Funerary Customs of Summerset
+
+by Thomas Holvin 
+
+</p>
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/F_letter.png'>or the Altmer, the mortal world is considered a prison crafted by the trickery of Lorkhan. They believe that the dead are able to escape this trap, perhaps only for a short time, and ascent to Aetherius which they believe is the birthright of all elvenkind.
+
+The elves serve their ancestors by ensuring that their stories are told and remembered, as this ensures that they will continue to thrive in Aetherius. The elven god of the dead is the Xarxes the Scribe, whose worship ensures the importance of telling a proper story with ones life. Lineages and ancestry are meticulously traced and recorded so that none may enter Aetherius clueless as to their place there. Memory is considered life to the Altmer, as surely as old Aldmeris is remembered rather than returned to.
+
+Given Lorkhan's association with the earth itself, Altmer almost never bury their dead. They are cremated and placed in urns within wall-shrines. These may take the form of private shrines in family homes, or huge mausoleums containing many lineages of Altmer nobles or royalty. Temples of the Ancestors are usually thus also tombs like these.
+
+Funerals are solemn affairs, and generally take place at daytime under the sight of Magnus. Poems and songs are recited that are said to have the power to lift the spirit through to the arms of Auri-El himself. Witnesses from outside Altmer society say that these funerals are among the most poignant experiences imaginable, rich in sensations of sadness, nostalgia and hope for the future.

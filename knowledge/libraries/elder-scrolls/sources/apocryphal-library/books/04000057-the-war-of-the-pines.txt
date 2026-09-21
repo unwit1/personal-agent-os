@@ -1,0 +1,17 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he War of the Pines
+
+As chronicled by Forelheim the Wise
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/I_letter.png'>t was in Ingvar's time that the great drake Feyzolgraan, angered by lack of tribute, devoured the family of Ysgalm Sharp-Sight. The wyrm had meant to frighten the people of the Rift but instead they rose up in arms.
+
+Many villages were destroyed, and the faithful of the scaled masters came from the West to aid their lord against the rebels. They made their stronghold at Mulaagol and assaulted the Rift from there.
+
+Svolo son of Svodri summoned his torc-thanes and spear-wives and laid siege to Mulaagol, and he fought beside Thorgrima Flame-Whisper, the Keeper of Crimson Fire, who was a cleverman from a vale now forgotten, and was knowledgeable in the ways of the wyms. Thorgrima showed Svolo how to fight them and what words and weapons to use.
+
+The rebels destroyed much of Mulaagol, which in these days is now called Arcwind Point. Arnvid the Unbound, who had freed himself from the wyrms and had raised a fyrd of his own to help the rebels, was wounded badly here. Feyzolgraan joined the siege, but was slain by Svolo with his great blade Ulfenbrand. This brought the anger of other dragons, who came to punish him. Qothtiznus the Scarlet, Relovnir the Black-Winged, Paarthurnax the Cruel and Prodaahsul the Vanquisher descended upon lost Mulaagol. Svolo died well, but he could not wound the other four dragons. Thorgrima died but not before banishing Prodaahsul to dust, and Arnvid survived but not for long after.
+
+The war was lost by the rebels, but it was one of many clashes that would become the Dragon War, and the death of Feyzolgraan spirited many brave Nords. Three stones commemorate it - one at Arcwind Point where the siege happened, one at the a crypt in what is now a dim hollow where it is said that Arnvid raised his fyrd, and one in the forgotten vale where Thorgrima was from. 

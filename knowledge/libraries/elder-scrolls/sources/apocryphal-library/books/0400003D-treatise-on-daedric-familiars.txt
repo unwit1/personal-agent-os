@@ -1,0 +1,23 @@
+[pagebreak]
+<p align="center">
+
+A Treatise on Daedric Familiars
+
+by Hadwen of Sentinel
+
+
+</p>
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/B_letter.png'>anekins are small and troublesome creatures that occur in the lower reaches of Coldharbour, where they seem to perform a variety of menial tasks for their masters. These small mottled humanoids rank among the lowest in Molag Bal's hierarchies, serving as whip-fodder for the Kyn and indeed sustenance for the crocodile-headed Daedroth.
+They have a wicked streak that is common to all the denizens of Bal's domain, and that coupled with their chaotic nature makes them rather unreliable as servitors. Nevertheless a few wizards of strong constitution persist in maintaining them as familiars given their reasonable intellect and ability to speak standard Tamrielic as well as a number of other languages. They have the ability to use simple shock spells, though rarely present a major threat on their own.
+
+Crow Daedra are servants of Nocturnal, that act and appear just as their namesake though with purple glowing eyes. They are intelligent and capable of speech, though it is somewhat unusual for them to act as familiars for mages. 
+
+Daedrats are verminous creatures of Oblivion, and might scuttle forth from any of the sixteen planes. They are not intelligent but they are somewhat acquisitive and will pilfer shiny objects, a feat that makes them of some interest to the more tricksy mage seeking a familiar.
+
+Scamps are more commonly found in the service of Mehrunes Dagon, though every Prince of the Sixteen will make use of them. They are obedient to their masters and intelligent enough to communicate with and perform simple tasks, and can lob simple firebolts from their hands. They are not considered particularly dangerous on their own, though their use as footsoldiers in the Oblivion Crisis demonstrated how concerning they can be in larger numbers. When not relegated to the Deadlands they might find themselves in the employ of Tamrielic wizards in need of a reliable familiar. They appear similar to a banekin, though with digitigrade legs and smooth, unmottled skin.
+
+Watchlings, or sometimes Pocket Watchers, are the least of the daedric creatures in the employ of Hermaeus Mora. They do eventually go on to become larger variants, though even in this smaller form they are unusually intelligent by the standards of anyone. They appear as a splayed array of tentacles forming around a single eye, which they can use to direct penetrating beams of magicka that can have varying unpleasant effects. Their intellect and ability to determine lies easily make them invaluable to Mora, but also to Mephala and Sheogorath, as well as the more learned of warlocks and summoners. These smaller watchlings might have a central body no larger than an apple.
+

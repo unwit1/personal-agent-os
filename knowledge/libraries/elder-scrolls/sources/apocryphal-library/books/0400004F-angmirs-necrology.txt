@@ -1,0 +1,30 @@
+[pagebreak]
+<p align="center">
+
+NECROLOGY
+Or, a treatise on the knowledge of the powers of necromancy and the apparitions and subtances so invoked
+
+By Angmir of Solitude
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/N_letter.png'>ecromancy is a rather vague name for a series of inter-related practices that manipulate souls, flesh and the dead. The majority of necromantic rituals, spells and incantations derive from what is formally considered the 'School of Conjuration', which means that a great many necromancers also have some modicum of talent in calling forth Daedra should the need arise. 
+
+The most common form of necromancy is the creation of undead minions. Any mortal remains can in theory be infused with the necromancer's magicka, causing certain essences of the mortal's soul to return to the body, be it not warded and proofed against such matters by the rites of Arkay. However, remains that are badly damaged will not ensnare the soul of the departed for long; any necromantic minion that is sufficiently damaged may have the vestiges of its soul quickly returned to the wheel of creation, and attempting to cast such spells on a damaged body will produce only a flicker of unlife at best. Thus the studious necromancer should produce cadavers that are mostly intact, or be prepared to fuse or stitch together the remains of more than one individual. This latter process comes with its own risks, since it may have the soul-essence of more than one being, which may have unpredictable consequences. 
+
+Bodies raised from the dead by simple magic lack higher reasoning capabilities. They form useful test subjects, guards, minions or even foot-soldiers, being able to perform many of the tasks they could in life with some degree of sufficiency depending on how recent or well-preserved the remains are. Skeletons are usually only capable of fighting and simple tasks, whereas the recently dead may be capable of limited speech. Often spells that a necromancer uses in combat to raise the dead quickly last only a short time, and the body may deteriorate to its base salts and essentia rapidly afterwards, even if it had only been deceased for mere moments. The stress that this magic can place on the body is intense, but the results very useful. Some mages are able to manipulate bodies so that they do not deteriorate thus, but they possess arcane knowledge greater than most.
+
+Longer-lasting undead normally require rituals, and a certain amount of preparation. Certain embalming methods are used, up to and including the process of mummification, which involves the removal of several organs and often the wrapping of the corpse in linens. The rare Ash-Mummies of Morrowind, the Draugr of Skyrim, the Drowned Dead of Nibenay and the Tomb Guardians of Hammerfell are all variations on these methods.
+
+Flesh magic produces similar results, but is far more complicated and very poorly understood. It is not known for certain if it is indeed a type of necromancy, though some of its practices certainly appear to be. It focuses more on the manipulation of preserved flesh without the need to invoke the soul of the deceased, though some soul magic will generally be involved to allow things like Flesh Golems to function. These beings are almost never seen in Tamriel, though such things are known to be brought forth from Oblivion on occasion. The Ayleids performed rites of flesh, but these tended towards the sculpting of live victims rather than the preservation of their flesh. As such it forms a kind of magic that is largely lost.
+
+Soul Magic is studied by various magicians, including those necromancers who feel no qualms about the using of mortal souls in enchantments, those who wish to commune with the dead, and those who wish to invoke wraith guardians. Other mages have used souls for a variety of creative means.
+
+The using of black soul gems to trap mortal souls is a practice that supposedly dates back to Mannimarco. The very least of mortals can be used by an enchanter as easily as the greatest of daedra, meaning that the practice of necromancy becomes popular with enchanters eager to perform judiciously.
+Some mages have managed to consume the power of a trapped mortal soul directly, and have become very powerful as a result. 
+
+For some mages, the summoning of the spirits of the dead is the truest form of necromancy. Sometimes this is done to create a guardian of a tomb, such as those performed by the Dunmer according to their religious practices, or to invoke a warrior-spirit against a hated foe. Sometimes it is done in order to speak with the dead, either according to or against their wishes. 
+
+Both power over the corpse and power over the soul are necessary studies for the necromancer who wishes to become a Lich. Lichdom is seen by many necromancers as the pinnacle of the art - the ability to become a true immortal with vast magical power. Liches must understand how to keep a body in functional state for up to an eternity, while also manipulating their own souls into a solid item that can house it. Liches may endure the aeons with no loss of their intellect nor magical prowess, indeed these things may improve as their existence continues. 
+
+There are of course many other aspects of necromancy - these are merely the most notorious or widely practiced. Much has been lost by years of persecution by the faithful of the divines, and much lost knowledge is waiting to come to light. And who knows, indeed, what mysteries have yet to be discovered.

@@ -1,0 +1,20 @@
+[pagebreak]
+<p align="center">
+
+Funerary Customs of Orsinium
+
+by Thomas Holvin 
+
+</p>
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/O_letter.png'>rc religion has been divided over the eras between those who venerate the Daedric prince Malacath, and those who worship the supposedly missing Aedra Trinimac.
+
+Followers of Malacath teach that in death they will enter the Ashpit, where they will live an eternity of feasting and battle in a region known as the Ashen Forge. This forge is said to be kept alight by the valour of orcs and their devotion to the Bloody Oath. In this place they are forged anew in preparation for their next life.
+
+Followers of Trinimac believe that they ascend to Aetherius, and they too expect to indulge in constant battle and feasting, though primarily they seek to spend time with those who they lost in life.
+
+Followers of both gods cremate the deceased. Orcs are almost never buried, certainly not when in their own tradition. It is the purest form of cremation among any known races, with the body being rendered to the finest ash possible. The dead may be buried one by one, or as whole groups. These ashes are sometimes used as the ash for the forging of steel, with weaponry and armour forged from kings being the most valued of all.
+
+The ashes are placed in urns and then cairns are built over them. These cairns are then heaped with the arms and accoutrements of the deceased.

@@ -1,0 +1,35 @@
+<img src='img://Textures/Interface/Books/ApocLib/AL_Skeleton.png' height='451' width='296'>
+[pagebreak]
+<p align="center">
+
+Skeletal Anatomy
+
+by
+Elwindel of Aicantar
+
+</p>
+
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he body of any man or mer, or indeed the sapient races of the Argonians and the Khajiit, is held proudly aloft by an inner effigy of bone called the Skeleton. The shape of the skeleton of man closely resembles that of mer, and indeed the denizens of Black Marsh and Elsweyr usually possess similar structure with some obvious deviations in the form of tails, lower leg structure and skull. Certain forms of these proud races might also exhibit skeletal structure quite unlike the individuals with whom we are familiar, calling to mind for example the Alfiq whose very morphology closely matches the domestic feline.
+
+Regardless, when considering the skeletons of most mortal inhabitants of Tamriel, the morphology of this manual will satisfy. 
+
+Bones represent the inner structure of a being, and protect our vital organs with solemn and thankless duty, all the while giving posture and rigidity to our forms, allowing us to stand proudly upright rather than squirming on the ground like the worms of the earth. When we perish, the very ground may devour our flesh until our bones remain the only poignant reminder that we ever lay in cold earth at all. 
+
+Bones are made of a subtance that most scholars simply call Ossian, which strongly resembles chitin - the substance from which crab-shell and even our own hair is made. It is tougher though, and when ground down by an able alchemist, may provide them with a useful ingredient called Bonemeal which can be used for a variety of helpful remedies.
+
+The bones within our head need little introduction, though the skull with which we are familiar is not one simple bone but several. Even once the mandible - the lower jawbone - is taken into account, the upper skull itself consists of several parts which fuse together in the nascency of our existence. These are the Nasal, Temporal, Frontal and Zygomatic bones, as well as the Maxilla, which is the upper part of our jaw.
+
+Descending from the skull with pomp and grandeur steps the backbone, which is made of a column of thirty three bones called vertebrae. These are the seven cervical, twelve thoracic, five lumbar, five sacral, and four coccygeal bones that connect our skulls to our pelvis. In the case of Argonians and Khajiit, the spine goes on rather further, forming the tail.
+
+From our Pelvis, that being our hips, sprout our legs, featuring the mightiest bones in the body - the femurs, or upper leg bones. From here downwards we encounter the Patella, or knee-cap. Our lower legs have a sturdy frontal bone called the Tibia, supported by a smaller parallel bone called the Fibula. Below that comes the foot, to which we shall return in due course.
+
+Back at the neck is our collarbone, or Clavicle, not to be confused with the wicked Daedric prince of similar apellation. Our shoulderblades are behind this, protecting our back, though the scholar knows them as Scapulae.
+
+Our upper arm is called the Humerus, a fact that has never failed to amuse those wise in the arts of anatomancy. Further down is our lower arm, formed of the Ulna and the Radius, which are more-or-less parallel though the one tends to cross the other slightly. Beneath that is the hand, which we shall discuss alongside its cousin the foot.
+
+From the vertebrae curl our ribs, which are tasked with the never-ending vigil or protecting some of our most important organs, the lungs and the heart. These meet in front of our chests at the Sternum, or chest bone, which protects our very core.
+
+Of the hands and the feet: both start with a series of interlocking bones that are quite hard to distinguish from one another. In the foot these are called Tarsals, and in the hand Carpals. From here the foot forms metatarsals of which there are five, and then the phalanges at the end, which are recognisable as our toes. 
+In the hand, these are instead the metacarpals, though it too has phalanges like the foot.
+

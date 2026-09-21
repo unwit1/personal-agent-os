@@ -1,0 +1,18 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/R_letter.png'>ordeekus' Remedies
+
+A guide to making Argonian-quality remedial potions from Cyrodiilic ingredients
+</p>
+<p align="left">
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>amriel is a dangerous place, and many maladies can afflict the incautious. Old Rordeekus will teach you how to make potions as good as the ones made in Black Marsh, out of ingredients you can find right here in Cyrodiil.
+
+There are two ingredients that one can find here in Cyrodiil that, when mixed together, will produce the required potion. This potion will serve to banish any common maladies, though more stubborn sicknesses of a supernatural form may prove too much. 
+
+The two ingredients one can find are Mandrake and Elf Cup. These aren't usually found close together, so one must travel a bit to get both.
+
+Elf Cup is a small mushroom that grows on rocks and rotting logs. It is most common in the region of southern Colovia, the West Weald, around Kvatch and Skingrad. It appears as a small scarlet cup, and these can be harvested quite easily and safely. It has no adverse reactions with Mandrake, so it can be made quite easily. Simply dry out the cups, grind them into a paste, and filter.
+
+Mandrake is a strange plant with purple flowers that grows in the North of Colovia, but it is the roots that we are interested in. The roots appear almost like a small homonculus, with arms and legs. But it is quite vegetable, and very easily consumed. One needs very little preparation for this - it can be mashed up with the Elf Cup and simpy left to marinade. In fact, it is so easily consumed that many state that it will relieve the effects of an illness without being mixed. This is in fact true! But it is recommended to mix it with elf cup anyway, as this mixture will last longer than a picked root. But in the field, a washed mandrake root is almost as good as a potion.

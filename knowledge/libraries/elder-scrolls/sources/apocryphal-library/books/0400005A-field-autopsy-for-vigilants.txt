@@ -1,0 +1,36 @@
+[pagebreak]
+<p align="center">
+
+
+Field Necropsy for Vigilants of Stendarr
+
+by Keeper Berandyl
+
+[pagebreak]
+
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>ny Vigilant may be called upon to investigate murders where the local authorities believe that ruinous forces are responsible. Every Hall of the Vigil is required to have at least one scholar who will devote their time to researching and understanding the methods by which cultists, daedra and the undead harm their victims, but in some instances such a person might be unavailable or indisposed. Thus every Vigilant should have the capacity to perform a field necropsy should the eventuality arise.
+
+A necropsy is an examination of a body that attempts to determine time and cause of death, and the identity of the perpetrator. In the field, certain tools will be lacking that will be present in the Hall of the Dead where the full necropsy can begin, but be able to examine remains in situ will provide very valuable information.
+
+A body may lie in the place where the deceased was slain, or it may have been moved. Check to see if long grass has been disturbed, snowy footprints don't line up, not enough blood around the body. Check for wounds, contusions, bruises and signs of strangulation - most victims will have fallen prey to rivals, bandits or wild animals. Vigilants should ensure that they offer help in these cases where they can, but such things are a lower priority than those of a more sinister nature.
+
+I. Vampires
+
+Vampires feed on the blood of mortals. Their favoured method of doing so is to drink it from a major artery, usually the neck, for which their pointed canine teeth allow access. If the body reveals a pair of puncture marks around the neck, the inside of the thigh or the wrists, it is a good sign that a vampire was responsible. Check the bite mark carefully. There will usually be a faint indentation of the normal teeth as well. It is possible to fake a wound to make it look like a vampire attack, so check this. Also, determine the level of exsanguination. If it seems a person died in a pool of their own blood, that would be unusually wasteful. If a person was drained completely, that would indicate a vampire that had not fed for some time, or might be a particularly large specimen. A half-drained person might indicate a smaller or more recently sated monster.
+Some vampires will recharge themselves magically, drawing the very life-force from people's veins in a panful manner. This will not leave marks in the flesh, but may cause a large circular bruise. The consistency of the blood changes somewhat as well, making it darker and decreasing its inherent vitality.
+
+II. Daedra
+
+There are many kinds of daedra, some of which look or attack much like mortal warriors or wild animals. This can make it hard to determine if such a creature was involved, so additional context is needed.
+If a body is found torn as if by great claws or talons, check the context. If this happens in a city, that is far more unusual than finding such in the countryside, or finding a simple urban murder victim. A horror summoned in a person's cellar could have escaped. Make notes of the depth and spacing of all cut wounds, and how much blood has been lost. Also take note of whether or not the body has been eaten - animals may eat mortals for sustenance, but daedra do not have that necessity, and so may chew on a corpse out of habit for their diabolical nature but are less inclined to dine.
+Humanoid daedra, such as dremoras and mazken, may fight with weapons very like those used by man or mer. They also appear as such in dim light, meaning that most of the time, unless a reliable witness report gives useful information, the true nature of the crime may go unsolved. One thing to look for, and this goes for the more animal-shaped daedra also, is the smell. Certain interlopers from the realms of Oblivion give off unusual scents which may remain at a crime scene. Brimstone has been noted around creatures belonging to Dagon, a smell like sour milk around those of Clavicus Vile, an old and dry papery smell around those of Hermaeus Mora, a bitter smokey smell around those of Molag Bal, and heady aromas from those of Sanguine and Sheogorath. Such a list is inexhaustive, and work continues to identify more.
+
+III. Necromancers
+
+Necromancers may want to kill their fellow mortals for two reasons - to take their soul, or to take their body. Often they may attempt both.
+It is very hard to tell if a body has had its soul removed forcibly. Priests of Arkay often have such abilities, though this will normally done in the full necropsy at the Hall of the Dead. One can check for a strong, not unpleasant but very hard to define smell around the corpse - this has been reported around soul-trapping victims before, but it does not appear to last long.
+If a necromancer seeks a full body, they are likely intending to raise it. In fact, in some cases they may have already done so - listen out for reports of people acting with no sense of recognition or aimlessly. Cantrips to detect life are useful - if they don't shop up, they may be re-animated undead.
+A body in a cellar found with arcane markings and various other paraphernalia surrounding it is a very easy way of telling that they have fallen to a necromancer. Sometimes however the fiend is only after a few parts of the body. The brain, eyes, the heart, sinew, muscle and more can be of use to specific rituals. Bodies will often be harvested for such things and then destroyed or disposed of. Look for small pieces of burnt bone or human ash in places it shouldn't be - bone blackens on a fire, but a full cremation turns it a bright white with blue tinges. 
+Shallow burials may contain such bones, but often necromancers keep bones in order to make skeletal minions.
+

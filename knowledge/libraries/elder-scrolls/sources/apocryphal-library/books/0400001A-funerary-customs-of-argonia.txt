@@ -1,0 +1,21 @@
+[pagebreak]
+<p align="center">
+
+Funerary Customs of Argonia
+
+by Thomas Holvin 
+
+</p>
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>rgonian tradition does not recognise Arkay, though many Argonians have joined the Imperial Cult through the years. In Black Marsh, Argonians believe that once they die, they return to the Hist-trees from which they received the gift of life. With the Lord of Circles' worship thus ignored, the Argonians turn to other means to ensure that their deceased do not rise up against them.
+
+When an Argonian dies, their body is taken into the marshes where the Hist-trees have their roots, and lain into the marsh. Their heads are adorned with wooden death-masks, and their bodies impaled with ornate wooden spikes that double as grave markers. These spikes, called Xul-vaat, pin their bodies to the bed of the marsh, thus stopping them from floating away and also from rising as a 'Bog Blight', a type of undead that occurs in the marshes where these customs have been ill-observed.
+
+These rites are performed by a caste of funereal priests known as Grave-Singers. They ensure that the Xul-vaat spike is correctly engraved with the life-story of the deceased, prepare the body for inundation, and drive the spike home while singing the final song of the dead.
+
+Those who disturb these sites risk allowing the corpses to become unpinned, thus making it possible for them to rise as Bog Blights. Thus such places are well-guarded where possible. Some attempt to disturb these sites deliberately - this is a grave offence in Black Marsh, and Argonian perpetrators will instead find themselves inurned so that they cannot return to the Hist, and thus cannot re-incarnate as a new Argonian. Necromancers who attempt to raise the dead in Black Marsh usually discover that the bodies rot away too fast, and thus the lack of Arkay's oversight provides little incentive for them.
+
+The fate of Argonians who die outside Black Marsh is not clear. Those who follow other traditions may find that they ascend to Aetherius, but for the Hist-loyal it is generally preferred to die within the Marsh, or to have their bodies returned there. The slew of Argonian slaves who die in southern Morrowind has made retrieving thousands of bodies very difficult, and abolitionists continue to use this as further reason to end the practice of slavery in Morrowind for good.
+

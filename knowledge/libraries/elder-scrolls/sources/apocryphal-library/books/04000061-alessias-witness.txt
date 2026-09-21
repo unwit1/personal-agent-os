@@ -1,0 +1,27 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>lessia's Witness
+
+</p>
+[pagebreak]
+<p align="left">
+"When first I gazed upon the Dragon Queen, I knew peace in war. For all the wheels in heaven, I now only cared for one, the one that spun around all that we did and undid. I could stand alone in the presence of my forebears and see reflected in my blade a dozen mirrors looking back."
+
+- Attributed to Pelinal Whitestrake, supposedly written by his severed left arm
+
+"Such magicks as hers I had never seen before. The Hummingbird Queen of Twyll died clutching her throat when she dared challenge her. We found a row of suits of Saliache armour in perfect marching formation on the road, completely empty, and then saw her horned crown silhoutted on the hill. I swear she could turn the moons red."
+
+- Hanne-Ott, a literate slave freed in the early rebellion
+
+"Oh yes, I very much died by her hand. I think it was hers, anyway. Perhaps it was that knight who was with her, whose helm masked nightmares. It is strange, I saw them as two people in life, but in death's memory they are harder to distinguish."
+
+- Abagravia the Unrelinquished, Ayleid Lich, before his second death
+
+"Alestia seemed most worthy of my respect from the moment I met her - I cannot say why. But she was able to respond to my thu'um when I greeted. How she did that, I cannot say."
+
+- Osreid Hammer-Tongue, Nord warrior
+
+"She was different after the war. I suppose that should not surprise me. Where once there had been a liberator, there was now a woman of pure ambition. She always wore that red diamond afterwards. It made her look different."
+
+- Golat, Nedic warrior

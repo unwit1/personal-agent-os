@@ -1,0 +1,43 @@
+<img src='img://Textures/Interface/Books/ApocLib/AL_Crossbow.png' height='451' width='296'>
+[pagebreak]
+<p align="center">
+CROSSBOW MANUAL
+
+by Tellia Honoria
+<p align="left">
+A method has yet to be developed to make the crossbow as quick to shoot as the hunting bow, but the sheer punch that they provide makes them invaluable against certain foes. 
+
+I: Parts of the Crossbow
+
+The haft of the crossbow is called the tiller, or sometimes the stock. This forms the body of the weapon, and the mechanisms for the trigger are housed within. A groove is cut down the length of the tiller to house the ammunition (the quarrel, or bolt) of the crossbow. The material for the tiller should be sturdy wood or metal, with oak being ideal.
+
+The limbs of the bow to which the string is attached is called the lath. This can be made of pliant wood, but oftentimes it is made of steel or other strong but tensile metals. 
+
+The string is usually catgut or steel wire wound around itself. It must be a strong tensile material also, and should be able to stretch more than the lath. 
+
+The bolt-clip is the piece of metal the keeps the bolt in place while the archer aims the weapon. 
+
+The trigger is a complicated piece of machinery by the standards of most Tamrielic weapons. It consists of several parts: The lever, which is the part that the archer pulls to loose the quarrel. This rotates around a pivot, which separates it from a groove in the rotating spool called the sear. This causes the bowstring to push the spool in the other direction, loosing the bolt. The spring then pushes the lever back into position.
+
+The crannequin is the lever that the archer uses to pull the bowstring back. In the third era it was more common to place one's foot in the stirrup and draw the bow back manually, but this made them unpopular in tense situations. The crannequin allows one to re-arm the crossbow without changing position. They are still slow to load however, and require one to break concentration from combat in order to do so.
+
+Despite the addition of the crannequin, most crossbows still have the foot stirrup. This allows it to be hung from belts, but it also allows it to be loaded if the crannequin should become faulty.
+
+II: Maintaining a crossbow
+
+A wooden-tillered crossbow should have the wood treated with ironwood oil or troll fat. This reduces the wear and tear as well as protecting it from most weather conditions. 
+A crossbow with a metal tiller, for example the ancient versions occasionally found in Dwemer ruins or ones made by certain Orc clans, need minimal treatment for the tiller themselves as they are usually made of metals that do not corrode even in inclement conditions.
+
+The metal parts of a crossbow, especially the crannequin and the trigger mechanisms, should be regularly treated with small amounts of Dwemer oil if it can be sourced, or ironwood oil if not. This prevents them seizing up in poor conditions. One should be cautious not to add too much, as this may reduce the necessary friction between the working parts.
+
+When testing a crossbow's shooting mechanism, always have a bolt in the groove. Loosing a crossbow without something for it to shoot puts additional strain on the lath and the mechanism itself, as the force that would be transferred to the bolt is instead distributed through the weapon.
+
+III: Using a crossbow
+
+Place a bolt in the groove, with its rear on the string. Then pull back the crannequin, which will load it into position, with the clip keeping the bolt from falling out. 
+
+Then, aim the crossbow. The tiller's butt should be braced between the shoulderblade and the clavicle. The clip can be used as an aiming iron of sorts. Aiming directly is usually a bad idea, the archer will need to compensate for the recoil of the weapon.
+
+Pull the lever up to trigger the weapon. The force will usually draw the weapon slightly upwards and sometimes slightly to the left or right, so practicing to determine by how much one must compensate is crucial. If the weapon draws up and slightly to the left, then aim slightly down and to the right to compensate. 
+
+

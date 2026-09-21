@@ -1,0 +1,38 @@
+<p align="center">
+
+
+This work has been approved for use by the Tribunal Temple for all healers, alchemists and Buoyant Armigers
+
+[pagebreak]
+
+Drelath's Complete Curatives
+
+A guide to remedies for all ailments
+by Beresi Drelath
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/M_letter.png'>orrowind is a dangerous land full of dangerous beasts, and many of these can cause terrible sickness in close contact. Though there are many individual miasmas, all can generally be cured by the same mixtures of herbs. On this note, a potion may cure any commonly-occuring disease, or it may cure the terrible blight that comes from Red Mountain. Rarer are potions that may cure both.
+
+The various common sicknesses are too many to list here, but a traveller of the Bitter Coast has likely been familiar with Swamp Fever at some point in their life, as much as a buyer of badly-prepared houndmeat has probably had a bad case of rockjoint. It should be noted that these preparations will not only cure any of these, but have even been reported to prevent an infected victim from succumbing to vampirism or even lycanthropy, provided they are treated quickly enough.
+
+The extracts of any two of the following ingredients may produce a potion capable of relieving a sufferer of all such effects.
+
+CHOKEWEED is a perennial evergreen plant, one of the few coniferous plants native to Morrowind. It is most common across the West Gash region of Vvardenfell. It has tough, white-barked stems and waxy pinnate leaves.
+These leaves can be crushed in a mortar, and the resulting gum should be siphoned through an alembic into clean water at moderate heat to remove some of the toxins. These toxins can cause terrible depression if not removed.
+The distillate should then be reduced and filtered through a good retort until the extact is a perfect bright green. This extract may then be bottled and used for mixing.
+
+DAEDRA SKIN is very difficult to acquire, for all the reasons one might expect. It can be removed from the more powerful lesser Daedra, such as Dremora and Golden Saints, but even once they are defeated removing a sample before it returns into azure plasm can be a delicate process. As such, one may have to visit a professional alchemist to obtain a sample. 
+The skin must be completely dry in order to grind in a mortar. It almost never needs to be put through an alembic since its toxic properties, while dangerous (total paralysis, short-lasting) are only made manifest when mixed with a few other herbs.
+The ground skin should take the form of a grey powder, which should be boiled in clean water and filtered with an alembic. The resulting extract should rubificate from a murky grey to a dark red.
+
+GRAVEDUST must ONLY be acquired from a source that has been vetted by the Tribunal Temple, since it is the very ashen remains of our ancestors. Occasionally a devout mer will pledge the use of their own ashes in such a manner, and in these rare occasions it is permitted for use in potions.
+Preparing it mostly involves the use of an alembic - it should be mixed with purified water (ideally from a temple), and filtered through the tubes at low heat. The resulting preparation will be grey with streaks of red. This extract is suitable for mixing.
+
+GREEN LICHEN grows on rocks across the West Gash region, and around Silgrad Tower and Necrom. It is a dry substance, and grinding it in a mortar is simple. It should be treated at low heat in an alembic to remove toxins that would cause diziness or severe abdominal cramps. 
+
+MUCK is the thick, nutritious spore-material of the Mucksponge, a hardy fungus that grows around the coasts of the Inner Sea. It dries out quickly and the resulting material can be ground up with ease. Avoid mixing with gravedust or willow anther, as a side effect of such a mixture can be headaches and short tempers.
+
+RED LICHEN is similar to green lichen in most ways, especially for making potions. It mixes very well with its green cousin, and can be prepared in much the same way.
+
+WILLOW FLOWER is a large five-petalled pink flower that grows in the more fertile parts of Morrowind. The anthers of this plant can be prepared and mixed with any of the other ingredients, though best to avoid Muck. 

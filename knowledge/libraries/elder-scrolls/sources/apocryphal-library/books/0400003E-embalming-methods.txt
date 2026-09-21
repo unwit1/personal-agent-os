@@ -1,0 +1,49 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/E_letter.png'>mbalming Methods
+
+by
+Herennie Mathel
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>o prepare a corpse for display, especially if the deceased must be viewed some time after their departure to the great hereafter, requires the process of embalming, sometimes called balsaming. This preserves the outward appearance of the cadaver for a period.
+
+First: Preserved cadavers make tempting subjects for necromancers. For the body to have due proof against the depredations of such magicians, the three consecrations of Arkay should be rigorously performed.
+
+Old forms of embalming often involve the process of mummification, although this is intended normally to preserve the dead for a long period, and usually involves treated bandages which wrap the corpse and prevent it from being viewed. The processes involved in mummification have long since been improved upon, although they form the precepts by which the modern processes have evolved.
+
+Certain internal organs decay at an accelerated rate. The stomach is best removed from a cadaver as it contains acids and other chemicals that may cause the body to spoil faster. Other organs may be removed although this is not usually necessary for a short-term preservation.
+
+The blood should be pumped from all vessels, and replaced with an alchymical preparation. In general, any preparation that might act as a poison on a mortal, such that it would make a person weaker to fire, will work as embalming fluid. However, the best preparations will be listed here.
+
+Superior Embalming Fluid, also called Mafrelune, not only preserves the body against normal decay but also prevents frost-based damage. It is popular among richer families since the ingredients do not come cheaply - or in some cases legally.
+
+Ingredients:
+1x dram of Frost Salts
+1x dram Moon Sugar
+
+Process: Dissolve the Frost Salts in standard alchemist's aether in a bronze vessel. Stir with a pewter rod until the admixture turns bright blue. Heat over an retort until the vapours drop into a silver dish of completely dry Moon Sugar. This should be stirred with a (cleaned) pewter rod until the mixture appears sickly yellow and transparent. It should then be sealed in a glass jar. One preparation should be enough for one adult cadaver.
+
+Mafrecalxine, a lesser preparation, can be made with the following:
+
+1x dram of Frost Salts
+1x dram of Imp Gall OR Powdered Mammoth Tusk
+
+The process of Frost Salt dissolution should be followed as above. In place of the Moon Sugar, a pewter dish of powdered mammoth tusk (no additional preparation needed) or imp gall (thoroughly dried) should be used. 
+
+Impwick, also called Bethine, is also popular as it removes toxins from the blood of the corpse, making it safer to handle, although it is less effective over long periods.
+
+1x Hunger Tongue
+1x dram of Imp Gall
+
+The tongue should be placed in aether and then heated over a calcinator until the essential liquids drain from it. After twenty minutes, the tongue should be removed and disposed of. The remaining fluid is then filtered through an alembic to remove the impurities. It should then be mixed with the imp gall in a bronze mortar until a red syrupy paste is formed. This should be diluted with one pint of purified water, thus completing the preparation.
+
+Once such a preparation has been made, it should be injected into the body of a blood-drained cadaver. A normal human will have about eight to nine pints of blood and your preparation will usually only account for about one pint. A further two pints of physician's aether can be pumped in to make up the mass. This will make the corpse appear incredibly pale.
+
+Eyes are best glued shut for a viewing, although it is common practice to remove the eyeballs and replace them with glass replicas.
+
+The outside of the carcass should be treated with embalming oil. Any preparation that would allow a person to resist frost damage will do here, although it is important to use physician's oil instead of aether, as it will need to coat the pores in the deceased's skin. The oil should then be rubbed into every remaining part of the person's skin, once as soon as possible after death, and again every month if possible.
+
+A word of warning: Such preparations are quite flammable. It is best to avoid the embalming process near a naked flame, and the bodies should similarly be kept away.

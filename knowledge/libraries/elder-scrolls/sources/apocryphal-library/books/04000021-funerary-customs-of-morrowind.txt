@@ -1,0 +1,24 @@
+[pagebreak]
+<p align="center">
+
+Funerary Customs of Morrowind
+
+by Thomas Holvin 
+
+</p>
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/D_letter.png'>unmer culture does not recognise a true god of the dead. There is no equivalent of Arkay among the Tribunal, the Anticipations or even the House of Troubles. They see life as a continuation of, and a precursor to existence in Aetherius and Oblivion and beyond. Gateways between worlds, between houses. Thus the Dunmer venerate their own ancestors who have made their way through these trials already. This is partially an expression of their own obscure philosophy of the Psijiic Endeavour, and also a holdover from their Chimer and Altmer ancestors.
+
+There are two kinds of Necromancy practiced in Morrowind. Illegal necromancy does exist, and is punished ruthlessly by the Tribunal Temple. But the Temple itself also performs very specific forms of necromancy that involve the selection of certain ancestors to guard their family tombs in death. Esteemed House warriors may allow their remains to be used thus in death, and be prepared as Bonewalkers, which are much like zombies but able to inflict terrible weakness upon trespassers. If several Dunmer have left incomplete skeletons, they may be combined into a composite being known as a Bonelord, which is ritually robed and able to wield magick even in death.
+
+The tombs are also guarded by the spirits of the dead. Ancestral ghosts are an important part of the Dunmer faith, as they preserve the wisdom of their own lives to pass on to their descendants. Dunmer families often commune with their ancestors in times of need, though these spirits do so out of obligation as they find the mortal world unpleasant. Similarly, the ancestral ghosts that guard tombs are bound to do so against their will, usually through failure to uphold their obligations in life.
+
+Most Dunmer are cremated, and this has been the case since they were the Chimer. Since the transformation of the Chimer to the Dunmer, the rite of cremation has taken on a new sense of religious importance, as they become like the very ash of Red Mountain itself.
+
+Ghostfences used to be common in all homes, where the ashes and bones of the dead could manifest a mystical barrier to protect the house. Since the blight began to manifest in Red Mountain, the Tribunal have insisted that mortal remains instead be used to form The Ghostfence, which encircles Red Mountain and is maintained by great stone pylons that contains multitudes of remains. This ensures that the blight does not extend any further from the old mountain or its crater fortresses.
+
+The most sacred city of the dead is Necrom in the far East of Morrowind. It is considered a great honour to have ones remains interred within the great halls there, and it is a site of huge importance to pilgrims of the Temple.
+
+Among the Ashlanders, the practice of ancestral burials exists in a simpler form. There are no cremations, and bodies are mummified. They are placed on stone plinths in great natural caverns, alongside their grave goods. Here too the Ashlanders will come to pay homage to their ancestral spirits, and sometimes these tombs may form part of a trial for young warriors coming of age.

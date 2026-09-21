@@ -1,0 +1,79 @@
+[pagebreak]
+<p align="center">
+
+Blades Report: Top Secrecy
+
+The Underking
+
+<img src='img://Textures/Interface/Books/ApocLib/BladesSymbol.png' height='200' width='200'>
+</p>
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Underking is a name that has been used to scare children since the start of the Third Era. A horrifying undead creature, an ancient king of rotten guise most hideous, commanding an army of agents both living and dead. But the Underking is no mere fancy - he is very real, and so is the threat he poses to the Empire and Tamriel.
+
+I: The Underking's Capabilities
+He seems to be a lich, and has immense magickal potential. He is able to sustain himself even in a great slumber - though he seems able to command his servants while in this state. His location is unknown, as is whether or not he travels around. He may have been responsible for the destruction of the Numidium following the Siege of Alinor, though this is unconfirmed.
+He has an enormous network of spies and agents, many of them undead themselves, and many living. They are able to move quite capably in the shadows. Interestingly, there are not many reports of well-known forms of undead among his ranks, such as vampires. Many seem to be missing hearts or other vital organs however.
+
+II: The Underking's Motives
+He is motivated by a desire to reclaim the lost part of his soul. The exact nature of this is what sets him apart from most liches. He also harbours a terrible resentment toward the Dunmer, the Elves in general and the Septim Empire. Whether he seeks conquest for his own satisfaction is unknown.
+
+III: The Underking's Identity
+The identity of the Underking is one of the biggest enigmas of the entire affair. Conventional wisdom tells us that he is the former battlemage of Tiber Septim, Zurin Arctus. However, here the waters become muddier still, because Zurin himself is an unknown quantity, and there exists a book written supposedly in his hand - the Arcturian Heresy - which speaks of knowledge that Zurin alone could not possibly have had.
+
+To understand who the Underking is, we must look to the end of the second era. At this time, Hjalti Early-Beard, a young man in the service of Cuhlecain, ends up leading the latter's armies and, alongside a powerful wizard he meets called Zurin Arctus, ends up conquering Tamriel.
+But According to the Heresy, a third figure was present - the Ash King, none other than Ysmir Wulfharth himself, an undead, wind-borne cloud of his own ash. An ancient tongue, he was capable of calling a Thu'um, and it is implied that he lent this power to the young Hjalti at the siege of Hroldan.
+
+The stories around this time are especially vague. It does not do well to rely on the Heresy as the sole source of information, yet there is little else to go on. The book implies that much of Tiber's history was rewritten after the fact. But one unusual thing is that it refers to Ysmir Wulfharth as The Underking. It never refers to Zurin by that title. The author of the book is listed as 'Ysmir Kingmaker, The Underking', and never writes in the first person.
+
+Those who have met the Underking all report that he claims to be Zurin Arctus, and any missives received by him use that name as well. There seems no obvious way to determine which is right, but there are scattered reports that state both Zurin and Ysmir died at the same time, which is at the moment that a soul-trapping spell was used in the process of creating a powerful weapon for Tiber Septim to use in his conquest of Alinor.
+
+It seems that, if the sources align correctly, both died and ended up partly inside this soul gem, known as the Mantella, and each as a mingling pile of ash that slowly accumulated together. Thus both these individuals may simultaneously be the Underking and are trapped The Mantella.
+
+The Mantella is the power source for a weapon, and though it shall not be described here, it must be pointed out that this power source was intended to replace an item of immense cosmic importance. This shall be returned to later.
+
+IIIa: Who Is Ysmir Wulfharth?
+A Nordic king crowned in the sixth century of the First Era, he was known for his fiercely pro-Nordic stance and ejected all trace of the Alessian Empire from Skyrim. It seems he was trained in the Thu'um, and for his patriotism he was known as Shor's Tongue. Fanciful tales claim that he died saving Skyrim from the god Orkey, and that he later died and was summoned by Shor as the 'Ash King' in order to deliver victory to the Nords at the Battle of Red Mountain. This story comes from the Nordic eddas, and tends to differ somewhat from the Dunmeri myths regarding that battle. However, a Khajiit myth from the same period does indeed place Wulfharth at the battle, after his death a century before. After the battle he turns back to ash, and is not seen again until the narrative of the Heresy, which almost seems to follow on from the eddas.
+
+IIIb: Who Is Zurin Arctus?
+This is the more perplexing question. There is indeed an Arctus family in Colovia, but no records of geneology show a 'Zurin'. It is considered likely that he adopted a pseudonym in order to get close to Cuhlecain, or possibly to Hjalti himself. In this endeavour he succeeds. But why was he trying?
+
+A very fragmented source, untitled, claims that Zurin appeared after a series of duels which Cuhlecain was hosting to determine a viable general. At these duels, Hjalti bests a warrior called the Chevalier Renald. Shortly afterwards, Zurin Arctus appears.
+'Chevalier Renald' is a very strange character, because there are already two sources that name him. One is a damaged book kept in Sancre Tor, called 'Remanada' ("Reman the god"), and the other is a letter sent to Clivia Tharn, Empress Regent around 2E 570 - some 300 years before the Tiber Wars. If it weren't for the unusual implications of both texts, it would obvious that it were two different people. 
+
+The Letter to Clivia claims that the writer, presumably her father Abnur, was accompanying Abnur Tharn and Emperor Varen near Pale Pass. There, they were intercepted by Akaviri horsemen of apparently pure lineage, who seemed to know a great deal about whatever quest the Emperor was on. The leader was called Chevalier Renald, and Abnur notes that they were certain this must be a pseudonym.
+
+(The actual quest they were on, for the record, was to find the Amulet of Kings, perform a ritual to Akatosh in order to persuade him that Varen should become a true Dragonborn ruler, and then rekindle the dragonfires, thus ending some manner of cataclysm.)
+
+Renald proceeded to question Varen and Abnur intently, fixing them with what the latter claims was an almost hypnotic or piercing stare. Abnur was able to provide a semi-truth, claiming they were seeking a worthy heir to the Ruby Throne, which seemed to please Renald who agreed to assist. Abnur goes on to claim that Renald must have had very close knowledge of the mission in order to apprehend them thus and turn the questioning the way it did.
+
+The fragment 'Remanada' begins with a fanciful chapter about the mythical birth of Reman the First at Sancre Tor. The second chapter is about the Chevalier Renald, but is incomplete due to torn out pages. This chapter, unlike the first which takes place in the First Era, makes explicit mention of Tiber Septim. The first question we must thus ask is, "What does this have to do with Reman?"
+
+Renald is described as a member of a group of knights who protected the realm after the Akaviri Potentate fell in the second era. It is clear from context that this group was the Dragonguard, the precursors to our very own order. The first Dragonguard were from Akavir, and became the bodyguards of Reman I.
+
+The wording here is vague, but seems to imply that Renald and his fellow knights were vampires, and had lived since Reman's time, being his bodyguards, and those of the Tsaesci potentates, becoming a wandering group following the death of Savirian Chorak. More interesting still is the line, "The snake-captain Vershu became Renald became the protector of the northern west..."
+This indicates that he had a previous name. Vershu. It is a name in the Tsaesci style, those of the very first members of the Dragonguard. Though we have no direct evidence, it is implied that they were able to change their shape over time, possibly by 'shedding' their existing skins, a theme common in their mythology.
+
+For Vershu or 'Renald' to have existed for a thousand years only to die at some tourney under Cuhlecain seems very unusual, regardless of the young Tiber's prowess. Therefore, with the information thus collated, we believe that Zurin Arctus may have been a Tsaesci from the first era. Who he was before that, we cannot know. Records of 'Sword Captain Vershu' do appear in the annals of our order, but none have been found - so far - that indicate who he was exactly or whether he may have had a previous identity.
+
+The only other source that grants an insight into Zurin Arctus is this line from "Where Were You When the Dragon Broke":
+
+"The Three Thieves of Morrowind could tell you where they were. So could the High King of Alinor, who was the one who broke it in the first place. There are others on this earth that could, too: Ysmir, Pelinal, Arnand the Fox or should I say Arctus?
+
+Ysmir we have covered already. Pelinal was a knight in the service of Queen Alessia who had some rather fanciful tales about him. Arnand the Fox is an unknown name, but it is associated with Arctus here. 'The Fox' is an apellation given to clever persons.
+
+IV: The Implications
+If the Underking is a two-part being comprised of an immortal snake-warrior and an immortal ash wizard, the implications are very hard to define. Therefore we must turn to the matter of the Mantella, the device that Zurin Arctus supposedly made from his own heart to power the weapon.
+
+Given the secrecy level of this document, it is necessary to name the weapon. The Numidium, a giant brass golem built by the Dwemer as a god, which may have been the cause of their undoing. The golem was powered by the Heart of Lorkhan, which very much exists within Red Mountain, even to this day. The Numidium was used by Tiber to conquer Alinor.
+
+Tiber was unable to get access to the Heart, so in order to power the golem, Zurin Arctus designed the Mantella - again, from his own heart. Why his own, is the question. Why not somebody else's?
+
+Whatever the case, the mantella ended up trapping the partial souls of two people, and from that moment it was a functional replacement for the Heart of Lorkhan. It actually worked. Why?
+
+The Ash King had a strong connection to Lorkhan, and may even have been an avatar of his power. We cannot be more specific than that because the stories are semi-apocryphal. There would be no modern-day connections to him without the Arcturian Heresy.
+
+The connection between Zurin and Lorkhan is even less clear. His supposed nickname of 'Arnand the Fox' is a small clue, since the fox is an animal sacred to the Nords where it represents Shor, their totem-form of Lorkhan. It seems like a very spurious reference, but remember that the passage also states that both Ysmir and Arnand were people who 'knew where they were' in the dragon break of the Middle Dawn. Alongside Pelinal, who is rather unusually associated with Shezarr.
+
+Ultimately, the information becomes more than obtuse after this point. Wild and grand theories about the nature of Lorkhan and how he wanders the earth in many guises are tempting to consider along with the presented evidence, but cannot be acted upon or tested at the moment. We still cannot affirm what the Underking is precisely. We are certain however that he is looking for the Mantella, which was lost following the Siege of Alinor. Efforts are underway to make sure not only that he does not succeed, but that the Mantella goes into the care of the Empire.

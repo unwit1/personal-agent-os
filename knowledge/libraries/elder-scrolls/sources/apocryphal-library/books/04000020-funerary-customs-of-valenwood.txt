@@ -1,0 +1,26 @@
+[pagebreak]
+<p align="center">
+
+Funerary Customs of Valenwood
+
+by Thomas Holvin 
+
+</p>
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>mong the Bosmer, it is considered important to live in the moment. Arkay and Xarxes are worshipped both, but given their status as gods of birth and death, the Bosmer living in the Sacred Now pays them less attention the Jephre the Storyteller.
+Consequently, funerals focus on the immediate experience of loss, and such things as lineage are generally considered unimportant to all except the most stringent royalists and noble bloodlines.
+
+The Bosmer of Valenwood in particular are bound by the Green Pact, which forbids the consumption of plants that have grown within the province. Some more zealous of the Sap-Folk may forego all vegetables in their diet completely, while most will allow food grown outside the province to be consumed.
+
+This pact forms the basis for Bosmeri beliefs in the afterlife and also shapes their funereal rites. Dedication to the Green Pact allows the Bosmer to ascend to Aetherius upon death, while transgression of the pact will cause them instead to become part of a space-time construct known as the 'Ooze', a place of formlessness often compared to the Void. Their names are struck from all records and are told no more in the tales of Jephre.
+
+Meat cannot be left to rot under the Green Pact, and so Bosmer practice funereal cannibalism. Within three days of the death of an individual, their remains must be eaten by either their relatives, or their enemies if they died in war with other Bosmer. Their bones are interred in ossuaries or otherwise buried.
+
+Necromancy is uncommon in Valenwood, because the bones of the dead are usually picked clean of even connective tissue. This means that only skeletal remains can be raised, which are usually beneath the interest of necromancers seeking to make a name for themselves.
+
+
+
+
+
