@@ -19,16 +19,16 @@ Raw expected:
 **1,328 responses across 44 text-bearing quests**
 
 Normalized:
-**931 / 1,328**
+**1,163 / 1,328**
 
 Remaining:
-**397**
+**165**
 
 ## Current unique normalized total
 
-3,464 + 931 =
+3,464 + 1,163 =
 
-# **4,395 unique exact response texts**
+# **4,627 unique exact response texts**
 
 ## No-QNAM audit
 
@@ -37,6 +37,6 @@ Raw audit found **zero text-bearing DIAL records without QNAM**.
 ## Remaining dialogue
 
 Only remaining `zzzRev*` quests:
-**397 responses**.
+**165 responses**.
 
 Non-dialogue work still remains for BOOK/MESG and SCEN/package/script chronology.
