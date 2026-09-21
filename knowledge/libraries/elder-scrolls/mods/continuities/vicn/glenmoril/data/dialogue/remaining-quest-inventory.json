@@ -1,10 +1,12 @@
 {
   "source_plugin": "Glenmoril.esm",
-  "remaining_direct_responses": 1328,
-  "remaining_quests": 44,
+  "remaining_direct_responses": 1070,
+  "remaining_text_bearing_quests": 38,
   "namespace_totals": {
-    "zzzRev": {"quests": 44, "responses": 1328}
+    "zzzRev_remaining": {"quests": 38, "responses": 1070}
   },
-  "closed_scopes_unique_responses": 3464,
-  "status": "only_zzzRev_direct_dialogue_remaining"
+  "revenant_total": 1328,
+  "revenant_normalized": 258,
+  "closed_scopes_unique_responses": 3722,
+  "status": "revenant_backbone_started"
 }
