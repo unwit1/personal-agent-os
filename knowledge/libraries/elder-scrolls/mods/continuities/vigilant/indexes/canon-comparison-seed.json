@@ -78,6 +78,21 @@
     {
       "topic": "player fights/frees Lamae from Molag Bal curse",
       "classification": "vigilant-extension"
+    },
+    {
+      "topic": "Coldharbour shaped by Molag Bal and lost-soul torment",
+      "classification": "established-tradition",
+      "official_sources": [
+        "On the Nature of Coldharbour"
+      ]
+    },
+    {
+      "topic": "re-forming bodies / vestige recurrence in Coldharbour",
+      "classification": "compatible-substrate",
+      "official_sources": [
+        "Chaotic Creatia: The Azure Plasm"
+      ],
+      "vigilant_extension": "historical-memory recursion, role repetition, altered memory"
     }
   ]
 }
