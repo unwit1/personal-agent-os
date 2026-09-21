@@ -8,6 +8,8 @@ Work-specific facts remain in their source continuity. Parent pages should link 
 
 ## Identity / character threads
 
+- **Augur of the Obscure** — `augur-of-the-obscure-thread.md`
+- **Rolls-On-Roads / Romion** — `rolls-romion-thread.md`
 - **Arkved / Oneiromancer** — `arkved-oneiromancer-thread.md`
 - **Hjalti / Alcaire / changing names** — `hjalti-alcaire-thread.md`
 - **Ja'cobee / Aisha / Ulliss** — `jacobee-aisha-ulliss-thread.md`
@@ -23,6 +25,8 @@ Work-specific facts remain in their source continuity. Parent pages should link 
 
 ## Memory / dream / timeline threads
 
+- **Altano / Radiance** — `altano-radiance-thread.md`
+- **Brain-Billies / memory recovery** — `brain-billies-memory-thread.md`
 - **Dream Without a Dreamer** — `dream-without-a-dreamer-thread.md`
 - **Radiance / Mnemo-Li / memory** — `radiance-mnemo-li-memory-thread.md`
 - **Loveletter From the Fifth Era** — `loveletter-fifth-era-thread.md`
@@ -30,6 +34,7 @@ Work-specific facts remain in their source continuity. Parent pages should link 
 
 ## Lyg / GC9 threads
 
+- **Xero-Lyg** — `xero-lyg-thread.md`
 - **Lyg** — `lyg-thread.md`
 - **Ghost Choir 9 / GC9 / LYG** — `ghost-choir-9-lyg-bridge.md`
 
