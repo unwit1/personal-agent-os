@@ -1,0 +1,23 @@
+{
+  "continuity_id": "tes.mod.vigilant",
+  "source_file": "Vigilant.esm",
+  "sha256": "7d3ca2d72297fbc5afda8f1b8bb217fa1fd6d9d7414360acdf1a922d848949ba",
+  "size_bytes": 21936314,
+  "author": "Vicn",
+  "header_version": "182",
+  "masters": ["Skyrim.esm", "Update.esm"],
+  "record_count": 129107,
+  "core_counts": {
+    "QUST": 120,
+    "DIAL": 1012,
+    "INFO": 1225,
+    "BOOK": 179,
+    "NPC_": 1233,
+    "FACT": 49,
+    "CELL": 5511,
+    "WRLD": 13,
+    "SCEN": 78
+  },
+  "ingestion_status": "first-pass raw structural extraction complete locally; normalized repo ingestion in progress",
+  "continuity_policy": "VIGILANT mod continuity; do not silently promote mod-added claims into base Elder Scrolls canon."
+}
