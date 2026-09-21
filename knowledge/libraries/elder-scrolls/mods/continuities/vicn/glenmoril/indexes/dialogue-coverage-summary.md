@@ -19,16 +19,16 @@ Raw expected:
 **1,328 responses across 44 text-bearing quests**
 
 Normalized:
-**1,163 / 1,328**
+**1,328 / 1,328**
 
 Remaining:
-**165**
+**0**
 
 ## Current unique normalized total
 
-3,464 + 1,163 =
+3,464 + 1,328 =
 
-# **4,627 unique exact response texts**
+# **4,792 unique exact response texts**
 
 ## No-QNAM audit
 
@@ -36,7 +36,14 @@ Raw audit found **zero text-bearing DIAL records without QNAM**.
 
 ## Remaining dialogue
 
-Only remaining `zzzRev*` quests:
-**165 responses**.
+No directly QUST/SCEN-linked response backlog remains.
 
 Non-dialogue work still remains for BOOK/MESG and SCEN/package/script chronology.
+
+## Full direct-dialogue closure
+
+All directly QUST-linked topic responses and SCEN-linked dialogue actions discovered by the raw ESM audit are now reconciled.
+
+**Unique exact response texts: 4,792.**
+
+This does not yet close BOOK/MESG text or non-dialogue script/package chronology.
