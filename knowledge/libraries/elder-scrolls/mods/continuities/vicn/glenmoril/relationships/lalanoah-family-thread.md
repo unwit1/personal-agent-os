@@ -1,41 +1,73 @@
 # Lalanoah family thread
 
-## Directly established
+## Parents
 
-- Gerhard is Lalanoah's father.
-- Lalanoah knows by St. Bazura that her father is gone; she says Uncle Brandt became drunk and tearfully told her about him.
-- Lalanoah's mother remains missing.
-- Brandt says contact with the mother's search party has also been lost and that the route to **Piper's Hill** is blocked until the snow melts.
-- Lalanoah fears she probably will not see her mother again because the search party is gone/out of contact.
+- **Gerhard** is Lalanoah's father.
+- **Laelnoah** is directly established as Lalanoah's mother.
+- Lalanoah knows by St. Bazura that Gerhard is gone.
+- Laelnoah remains missing.
 
-## Cerebline / extended family
+## Shared Falkreath childhood network
 
-Brandt says a woman named **Cerebline** visited from the Temple of Kynareth.
+A Thousand Daggers adds a direct Brandt memory:
+> the cave used by the dagger operation was a place where Brandt played as a child with **Gerhard and Laelnoah**.
 
-He identifies her as:
-- an Altmer;
-- claiming to be **Lalanoah's grandmother's sister**;
-- therefore evidence of elven ancestry in Lalanoah's family that Brandt says he did not previously know about.
+This establishes a shared childhood/friend group:
+**Brandt ↔ Gerhard ↔ Laelnoah**.
 
-Raw NPC anchor: `040172ED zzzLamM04LalanoahAunt` — **Cerebline**.
+That helps explain Brandt's later guardian/uncle role with Lalanoah without requiring Brandt to be a biological relative.
 
-The EDID's “Aunt” shorthand should not override Brandt's more specific dialogue relationship.
+## Direct Laelnoah identification
 
-## Future / guardianship
+In Shop of Curiosities:
+- Lalanoah recognizes a recovered staff as the one her mother had;
+- Brandt identifies it as **Laelnoah's staff**;
+- Brandt explicitly says it belonged to **Lalanoah's mother**.
 
-Brandt expects Lalanoah eventually to apprentice at the Temple of Kynareth.
+Therefore:
+**Laelnoah = Lalanoah's mother**.
 
-Kalka adds a separate, more cryptic claim that Lalanoah will soon be a **suitable vessel for succession**, linking her to the recurring **Hamah** problem.
+## Laelnoah disappearance / Holy Pipers
 
-## Important narrative objects
+Orlando says he bought Laelnoah's staff from men in strange helmets near Helgen and directs Brandt toward **Piper's Hill**.
 
-- Gerhard's sword / death-related reporting.
-- Hair ornament that can be given to Lalanoah.
-- Lalanoah's St. Bazura invitation letter.
+Brandt says:
+- Holy Pipers kidnapped women during the civil war after accusing them of witchcraft;
+- Laelnoah was among those kidnapped;
+- a search party was organized.
+
+By St. Bazura, contact with the search party has been lost.
+
+## Cerebline / grandmother generation
+
+Cerebline is Lalanoah's grandmother's sister.
+
+Her Charm memory describes the maternal grandmother as:
+- human-born;
+- raised by Cerebline's elven family;
+- developing pointed ears;
+- living roughly two centuries without normal aging;
+- marrying a Nord;
+- rapidly aging after childbirth;
+- leaving a daughter named **Laelnoah**.
+
+## Other parental / guardian figures
+
+- Brandt says he loves Lalanoah as though she were his own child.
+- Goroll says Lalanoah reminds her of a daughter she lost and loves Lalanoah as her own.
+- Brandt invests bounty hunting effort into Lalanoah's future education and wants her to have opportunities beyond Falkreath.
+
+## Future / succession
+
+Brandt believes Lalanoah has talent for healing and considers formal magical education.
+
+Lalanoah herself mentions the **Temple of Kynareth** as a future path.
+
+Kalka later says Lalanoah will become a **suitable vessel for succession**, connecting her to the unresolved Hamah role.
 
 ## Still unresolved
 
-- Lalanoah's mother's identity and current condition.
-- What happened to the search party.
-- Cerebline's exact role in the family/Temple.
-- What “vessel for succession” means.
+- Laelnoah's current condition/location;
+- what happened to the Piper's Hill search party;
+- what caused the maternal grandmother's longevity and rapid post-birth aging;
+- the exact meaning of Lalanoah's succession/Hamah role.
