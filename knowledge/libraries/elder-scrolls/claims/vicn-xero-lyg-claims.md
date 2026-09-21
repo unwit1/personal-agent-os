@@ -59,9 +59,7 @@
 - Status: unsupported by current evidence / do not merge
 - Epistemic mode: star-identity conflation
 - Confidence: very low
-- Contradicts:
-  - vicn.blue-star.equals-xero-lyg
-- Notes: GLENMORIL explicitly calls Xero-Lyg a Black Star; DAc0da separately uses Blue-Star material.
+- Notes: This is the same unsupported identity hypothesis represented inversely by `vicn.blue-star.equals-xero-lyg`; GLENMORIL explicitly calls Xero-Lyg a Black Star while DAc0da separately uses Blue-Star material.
 
 ### vicn.xero-lyg.equals-mnemo-li
 - Proposition: Xero-Lyg is Mnemo-Li.
