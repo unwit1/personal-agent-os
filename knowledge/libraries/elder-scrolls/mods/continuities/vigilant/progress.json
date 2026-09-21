@@ -115,7 +115,12 @@
     "Vindication for the Dragon Break official-ESO provenance and VIGILANT ritual-context map",
     "Aurbic Enigma 4 official-ESO provenance and VIGILANT Tower/Stone context map",
     "Letter from Lilian source map",
-    "Letter from Taranis source map"
+    "Letter from Taranis source map",
+    "Letter from Carene source map",
+    "Joshua's Final Note source map",
+    "Windhelm Report 4E 180 source map",
+    "Marcus' Final Note source map",
+    "Laza mantle/hunter source map"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -152,15 +157,15 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "five-unit VIGILANT exact-text context batch after Bruiant servant-source gap",
+    "focus": "five-unit VIGILANT exact-text source-map batch",
     "added": [
-      "On the Detachment of the Sheath from the Integument — official ESO provenance, Mnemoli/Middle Dawn/untime context, and VIGILANT placement separation",
-      "Vindication for the Dragon Break — official ESO provenance, Staff of Towers/Proper-Life/Dance ritual context, and VIGILANT placement separation",
-      "Aurbic Enigma 4 — official ESO Tower/Stone/Chim-el-Adabal/Anumaril substrate separated from VIGILANT-specific Stone identities",
-      "Letter from Lilian — daughter/father, illness, homecoming, and flower-crown evidence",
-      "Letter from Taranis — sword curse, unnamed female summoner bargain, one-job condition, and family-reunion motive"
+      "Letter from Carene — caution toward the unnamed curse-removal offer, Lilian flower-crown corroboration, and family-return perspective",
+      "Joshua's Final Note — direct confirmation of flight, unnamed female threat, lullaby motif, and crisis-of-faith testimony",
+      "Windhelm Report 4E 180 — official public chronology, Maiden Statue blood-opening mechanism, expedition composition, sealing event, and Jacob recovery account",
+      "Marcus' Final Note — Julius identified by Marcus as no longer human / Child of Oblivion, with blame and responsibility kept source-local",
+      "Laza — explicit transferable-name/mantle language, immortal-hunter mission, Stone pursuit, and Old Forest/captive-soul linkage"
     ],
-    "source_state": "all five completed units use exact persisted VIGILANT BOOK text. The intended Bruiant servant-note batch was deferred because only titles/placements are accessible for 02054EC5/ECB/ECC/EC4/0204C5AE/02054ECA; no prose was invented.",
-    "open_followup": "prefer exact-text units next; return to the six Bruiant servant documents once their raw BOOK DESC text is recoverable from the canonical 1.8.2 extraction."
+    "source_state": "all five units use exact persisted VIGILANT BOOK text. Placement-only titles such as The People of Grasslands, The Falling Khajiit, and The Stray Khajiit of Chorrol were not analyzed because their exact prose is not currently persisted.",
+    "open_followup": "continue with exact-text source maps/dossiers only; prioritize remaining persisted documents that lack dedicated analysis, and separately recover missing exact BOOK prose for placement-indexed titles before deeper analysis."
   }
 }
