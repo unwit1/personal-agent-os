@@ -153,3 +153,34 @@ Current classification: **high-confidence Moura/Mary/Mara identity cluster with 
 ## Canon boundary
 
 Mary/Moura's detailed biography, persecution, connection to Pepe, Shoggoth Mother manifestation, “Mary's children,” and recurring memory forms belong to `tes.mod.vigilant` unless independently supported by licensed Elder Scrolls sources.
+
+
+## Varla / Umaril supplementary family layer
+
+The a123999 VIGILANT background article identifies:
+- **Mary → mother of Varla**
+- **Umaril → father of Varla**
+- Mary as an enslaved/vulnerable figure tied to Umaril before Varla's birth.
+
+This aligns with the ESM-backed *Pelinal the Bloody* memory, which:
+- contains a distinct Mary NPC in Burosel;
+- occurs in the aftermath of Umaril;
+- includes a pregnant-captive narrative context.
+
+The currently persisted ESM extraction does not yet preserve a direct “Mary is pregnant with Umaril's child” or “Varla is their son” line.
+
+Detailed source-separated reconstruction:
+- `analysis/varla-mary-umaril-parentage.md`
+
+## Korn / wolf supplementary layer
+
+Sir Gregory's surviving note describes a statue of healer Mary accompanied by a **wolf statue** and associates the site with an offshoot of Mara worship.
+
+The a123999 background article identifies that wolf as **Korn**, an avatar of Mara who accompanies Mary.
+
+Source separation:
+- **ESM/document:** Mary shrine + wolf statue + Mara connection.
+- **supplementary:** wolf = Korn = Mara avatar.
+
+See:
+- `entities/characters/sir-gregory.md`
