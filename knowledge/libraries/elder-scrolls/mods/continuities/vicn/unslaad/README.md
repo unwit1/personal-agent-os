@@ -123,6 +123,36 @@ Named forms are split across four alphabetic indexes, with a separate duplicate-
 
 This provides canonical form-state lookup for cases such as Ulliss, Aisha, Jhunal the Gray, Khev, Sinak summons, Jills, Dragon Pus forms, and training proxies.
 
+### Summons, magic, recipes, and identity-state coverage
+
+The structural combat/magic layer now includes:
+
+- complete deterministic **32-book summon-chain** mapping: BOOK -> SPEL -> MGEF -> summoned NPC;
+- hostile/natural versus summoned-form differentiation for Sinak, Draco-Nord, Hor/Dreugh, Watcher, Hoarfrost, Atmoran beasts, and Rackety-Nix;
+- selected artifact ENCH/MGEF mapping, including Dragon-Soul-scaled Dragonslayer gear;
+- custom weapon-art mapping for Bormahu/Jill/World-Eater staves, Woodland-Man weapons, and Yngol;
+- custom SHOU/Voice ownership for Ulliss dragons, Ysgrim/Ysgramor, Dregs of Alduin, Manque, Rackety-Nix, Eamal, and Pelinaalilargus;
+- recipe-condition mapping for major post-encounter artifact reconstructions;
+- mask/outfit identity mapping, including Gray Owl's Mask on multiple Jhunal-the-Gray forms and the Void-Jill set on Elja;
+- a reusable multi-form identity graph for Ulliss, Aisha, Jhunal/Gray Owl, Elja/Jills, Ysgrim/Ysgramor, Khev, and Ja'cobee/Fluffy.
+
+### Relic and placement coverage
+
+Additional named-relic dossiers now cover:
+- GHARTOK weapons;
+- Wolf King / Earthbones;
+- Hor Ritual;
+- Khemkel's Carving Knife;
+- Spear of the Fox;
+- Saarthal's Sorrow;
+- Elder Wood equipment;
+- Princess Ayrenn equipment;
+- Dragon Fangs;
+- Dragonbone Smashers;
+- Ysgramor's Fork;
+- Jill equipment;
+- Hermit's Tower Vivec/Muatra source cluster.
+
 ### No-dialogue boss/trial quests
 
 Named boss/trial families have a structural index even when they contain no ordinary INFO dialogue, including Trial of the Gods, Idol of Magnar, Last Giant of Jhunal, Jill trials, Ysgramor trial, Priest of Jhunal, and Woodland Man hunt.
@@ -152,13 +182,13 @@ Named boss/trial families have a structural index even when they contain no ordi
 
 ## Remaining ingestion frontier
 
-Dialogue, scenes, books, messages, item descriptions, named NPC forms, custom races, ownership/death loot, summon chains, Shouts, intrinsic abilities, artifact magic, recipe unlocks, core faction topology, and the first placed-reference/VMAD passes are now substantially reconciled.
+The broad ESM ingestion is now mature across text, dialogue, scenes, books, messages, placements, VMAD metadata, ownership, factions, summon chains, enchantments, custom magic, Shouts, recipe gates, outfits, and multi-form identity states.
 
-The next high-value UNSLAAD work is:
+The next high-value work is narrower and more synthetic:
 
-1. named ACTI/CONT/MISC object taxonomy and complete lore-object placement indexing;
-2. custom race/body-model relationships for unnamed encounter templates only where they affect lore-facing forms;
-3. quest alias/property-value resolution for remaining high-value transitions and boss phases;
-4. visual/model/texture inspection for unresolved objects such as the Mural of Jhunal and mirror/Arcana representations;
-5. remaining external provenance checks for unresolved/adapted texts and mythic terminology;
-6. further parent-VICN synthesis where exact source-backed nodes now recur across VIGILANT, GLENMORIL, UNSLAAD, and DAc0da.
+1. external provenance verification for the remaining unresolved/adapted source texts and mythic fragments;
+2. selective cross-VICN synthesis where UNSLAAD now has exact implementation matches to VIGILANT, GLENMORIL, or DAc0da;
+3. deeper placed-reference analysis only where a visual/model or exact spatial relationship could resolve an existing ambiguity;
+4. selected quest-alias/script-property value resolution for still-uncertain identity transitions;
+5. contradiction/reliability indexing across Khev, Jhunal/Gray Owl, Hermit, Herkel, Insights, and reused texts;
+6. optional polish/index generation so Lorekeeper can retrieve UNSLAAD by person, artifact, location, concept, faction, spell, or cross-VICN thread without scanning the raw corpus.
