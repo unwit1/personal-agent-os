@@ -127,30 +127,44 @@ Known/reused source material is now substantially provenance-separated:
 
 ## Resume here
 
-### P1 — SCEN coverage
+### Completed since this checkpoint
 
-Build a deterministic index over all **79 SCEN records**.
+- all **79 SCEN records** indexed with owning-quest resolution;
+- 73 dialogue-bearing scenes resolved to quest aliases/speakers;
+- 6 choreography-only scenes separated from lore dialogue;
+- new scene-driven dossiers for N'Danda, Hgelhelm, Haalj, and Sindwen;
+- full worldspace/location index for Sea of Causality, Dwemereth, Mozarella Spacetime, and major named interiors;
+- character form-family index;
+- narrative artifact index expanded.
 
-For each scene:
+### P1 — creature / faction encounter coverage
 
-1. capture local FormID and EditorID;
-2. resolve the owning quest where possible;
-3. decode scene actor/alias references;
-4. map aliases back to QUST alias names and concrete NPCs;
-5. identify dialogue/actions that are only recoverable through scene structure;
-6. flag scenes that materially change an existing character, quest, or chronology dossier.
+Build deterministic families for:
 
-Prioritize scene-only lore over pure choreography.
+- Yaghra / Yaghra Bioborg / Agent forms;
+- Sload / Sea Sload / Sload psychomancers / Sload zombies;
+- Worm cult / sacrifices / Goldborn;
+- Dwemer warriors/workers/specters/Architons;
+- Apocryphal hounds/hunters and Arcanist-linked forms;
+- Atmoran / Wintercaller / Snow-Drake encounter forms;
+- Jill forms.
 
-### P2 — entity/location coverage
+For each family, separate:
+- unique named character forms;
+- generic encounter actors;
+- summon forms;
+- boss/subboss forms;
+- corpse/treasure templates.
 
-After the first scene pass:
+### P2 — organizations / factions
 
-- expand unresolved NPC/form families;
-- index important CELL/WRLD/location layers;
-- index artifacts/items/creatures where placement, inventory, or scripts carry lore.
+Promote encounter families to organization pages only where dialogue, BOOK, faction records, or quest structure supports an actual organization.
 
-### P3 — remaining provenance
+### P3 — gap audit
+
+After creature/faction coverage, audit all 43 QUST / 554 NPC_ / 90 BOOK / 66 MESG / 79 SCEN records for remaining high-value uncatalogued lore.
+
+### P4 — remaining provenance
 
 Recover the exact standalone source for the long **Ghost Choir 9** text if possible.
 
