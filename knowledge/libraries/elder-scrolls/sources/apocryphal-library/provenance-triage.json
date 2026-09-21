@@ -4,8 +4,8 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "unresolved": 496,
-    "verified_official_game_text": 218,
+    "unresolved": 471,
+    "verified_official_game_text": 243,
     "verified_developer_text": 5,
     "verified_mod_construct_text": 65
   },
@@ -1631,8 +1631,8 @@
       "title": "Chimere's Notes",
       "editor_id": "LB_U_Note_BSP07",
       "text_path": "books/04000865-chimeres-notes.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls: Battlespire note/document by the compilation's systematic BSP import marker and matching title; compilation provenance retained separately."
     },
     {
       "form_id": "04000927",
@@ -2642,8 +2642,8 @@
       "title": "Imago's Notes on Neonymics",
       "editor_id": "LB_U_Note_BSP08",
       "text_path": "books/0400086D-imagos-notes-on-neonymics.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls: Battlespire note/document by the compilation's systematic BSP import marker and matching title; compilation provenance retained separately."
     },
     {
       "form_id": "040008B9",
@@ -2890,8 +2890,8 @@
       "title": "Keep Out!",
       "editor_id": "LB_U_Note_RED02",
       "text_path": "books/04000943-keep-out.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls Adventures: Redguard note/document by the compilation's systematic RED import marker and matching title; compilation provenance retained separately."
     },
     {
       "form_id": "04000885",
@@ -3170,8 +3170,8 @@
       "title": "Letter to Lakvan",
       "editor_id": "LB_U_Note_SHD01",
       "text_path": "books/04000870-letter-to-lakvan.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls Travels: Shadowkey note/document by the compilation's systematic SHD import marker and matching title; compilation provenance retained separately."
     },
     {
       "form_id": "04000948",
@@ -3210,8 +3210,8 @@
       "title": "Letter to the Imperial Marshall",
       "editor_id": "LB_U_Note_BSP06",
       "text_path": "books/0400086C-letter-to-the-imperial-marshall.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls: Battlespire note/document by the compilation's systematic BSP import marker and matching title; compilation provenance retained separately."
     },
     {
       "form_id": "04000883",
@@ -3594,8 +3594,8 @@
       "title": "Note from Herne",
       "editor_id": "LB_U_Note_BSP05",
       "text_path": "books/0400086B-note-from-herne.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls: Battlespire note/document by the compilation's systematic BSP import marker and matching title; compilation provenance retained separately."
     },
     {
       "form_id": "0400092F",
@@ -4213,8 +4213,8 @@
       "title": "Quarantine Warning",
       "editor_id": "LB_U_Note_BSP01",
       "text_path": "books/040008FE-quarantine-warning.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls: Battlespire note/document by the compilation's systematic BSP import marker and matching title; compilation provenance retained separately."
     },
     {
       "form_id": "04000949",
@@ -4725,8 +4725,8 @@
       "title": "Star Galley Crib Note",
       "editor_id": "LB_U_Note_BSP02",
       "text_path": "books/04000867-star-galley-crib-note.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls: Battlespire note/document by the compilation's systematic BSP import marker and matching title; compilation provenance retained separately."
     },
     {
       "form_id": "0400086E",
@@ -5509,8 +5509,8 @@
       "title": "The Soul Cairn",
       "editor_id": "LB_U_Note_BSP03",
       "text_path": "books/040008FF-the-soul-cairn.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls: Battlespire note/document by the compilation's systematic BSP import marker and matching title; compilation provenance retained separately."
     },
     {
       "form_id": "0400011A",
@@ -5581,96 +5581,96 @@
       "title": "The Truth in Sequence, vol I",
       "editor_id": "LB_Book_Apo_TruthSeq01",
       "text_path": "books/04000844-the-truth-in-sequence-vol-i.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a volume of The Truth in Sequence, the official The Elder Scrolls Online Clockwork City scripture attributed to Deldrise Morvayn; compilation provenance retained separately."
     },
     {
       "form_id": "04000845",
       "title": "The Truth in Sequence, vol II",
       "editor_id": "LB_Book_Apo_TruthSeq02",
       "text_path": "books/04000845-the-truth-in-sequence-vol-ii.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a volume of The Truth in Sequence, the official The Elder Scrolls Online Clockwork City scripture attributed to Deldrise Morvayn; compilation provenance retained separately."
     },
     {
       "form_id": "04000846",
       "title": "The Truth in Sequence, vol III",
       "editor_id": "LB_Book_Apo_TruthSeq03",
       "text_path": "books/04000846-the-truth-in-sequence-vol-iii.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a volume of The Truth in Sequence, the official The Elder Scrolls Online Clockwork City scripture attributed to Deldrise Morvayn; compilation provenance retained separately."
     },
     {
       "form_id": "04000847",
       "title": "The Truth in Sequence, vol IV",
       "editor_id": "LB_Book_Apo_TruthSeq04",
       "text_path": "books/04000847-the-truth-in-sequence-vol-iv.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a volume of The Truth in Sequence, the official The Elder Scrolls Online Clockwork City scripture attributed to Deldrise Morvayn; compilation provenance retained separately."
     },
     {
       "form_id": "0400084C",
       "title": "The Truth in Sequence, vol IX",
       "editor_id": "LB_Book_Apo_TruthSeq09",
       "text_path": "books/0400084C-the-truth-in-sequence-vol-ix.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a volume of The Truth in Sequence, the official The Elder Scrolls Online Clockwork City scripture attributed to Deldrise Morvayn; compilation provenance retained separately."
     },
     {
       "form_id": "04000848",
       "title": "The Truth in Sequence, vol V",
       "editor_id": "LB_Book_Apo_TruthSeq05",
       "text_path": "books/04000848-the-truth-in-sequence-vol-v.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a volume of The Truth in Sequence, the official The Elder Scrolls Online Clockwork City scripture attributed to Deldrise Morvayn; compilation provenance retained separately."
     },
     {
       "form_id": "04000849",
       "title": "The Truth in Sequence, vol VI",
       "editor_id": "LB_Book_Apo_TruthSeq06",
       "text_path": "books/04000849-the-truth-in-sequence-vol-vi.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a volume of The Truth in Sequence, the official The Elder Scrolls Online Clockwork City scripture attributed to Deldrise Morvayn; compilation provenance retained separately."
     },
     {
       "form_id": "0400084A",
       "title": "The Truth in Sequence, vol VII",
       "editor_id": "LB_Book_Apo_TruthSeq07",
       "text_path": "books/0400084A-the-truth-in-sequence-vol-vii.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a volume of The Truth in Sequence, the official The Elder Scrolls Online Clockwork City scripture attributed to Deldrise Morvayn; compilation provenance retained separately."
     },
     {
       "form_id": "0400084B",
       "title": "The Truth in Sequence, vol VIII",
       "editor_id": "LB_Book_Apo_TruthSeq08",
       "text_path": "books/0400084B-the-truth-in-sequence-vol-viii.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a volume of The Truth in Sequence, the official The Elder Scrolls Online Clockwork City scripture attributed to Deldrise Morvayn; compilation provenance retained separately."
     },
     {
       "form_id": "0400084D",
       "title": "The Truth in Sequence, vol X",
       "editor_id": "LB_Book_Apo_TruthSeq10",
       "text_path": "books/0400084D-the-truth-in-sequence-vol-x.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a volume of The Truth in Sequence, the official The Elder Scrolls Online Clockwork City scripture attributed to Deldrise Morvayn; compilation provenance retained separately."
     },
     {
       "form_id": "0400084E",
       "title": "The Truth in Sequence, vol XI",
       "editor_id": "LB_Book_Apo_TruthSeq11",
       "text_path": "books/0400084E-the-truth-in-sequence-vol-xi.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a volume of The Truth in Sequence, the official The Elder Scrolls Online Clockwork City scripture attributed to Deldrise Morvayn; compilation provenance retained separately."
     },
     {
       "form_id": "0400084F",
       "title": "The Truth in Sequence, vol XII",
       "editor_id": "LB_Book_Apo_TruthSeq12",
       "text_path": "books/0400084F-the-truth-in-sequence-vol-xii.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a volume of The Truth in Sequence, the official The Elder Scrolls Online Clockwork City scripture attributed to Deldrise Morvayn; compilation provenance retained separately."
     },
     {
       "form_id": "040000F2",
@@ -6013,16 +6013,16 @@
       "title": "Twilight Temple Scrolls, Loose Page",
       "editor_id": "LB_U_Note_SHD02",
       "text_path": "books/04000871-twilight-temple-scrolls-loose-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls Travels: Shadowkey note/document by the compilation's systematic SHD import marker and matching title; compilation provenance retained separately."
     },
     {
       "form_id": "04000872",
       "title": "Twilight Temple Scrolls, Loose Page",
       "editor_id": "LB_U_Note_SHD03",
       "text_path": "books/04000872-twilight-temple-scrolls-loose-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls Travels: Shadowkey note/document by the compilation's systematic SHD import marker and matching title; compilation provenance retained separately."
     },
     {
       "form_id": "04000058",
@@ -6117,8 +6117,8 @@
       "title": "Verse of Hircine",
       "editor_id": "LB_U_Note_BSP04",
       "text_path": "books/040008FC-verse-of-hircine.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls: Battlespire note/document by the compilation's systematic BSP import marker and matching title; compilation provenance retained separately."
     },
     {
       "form_id": "04000A0C",
@@ -6165,8 +6165,8 @@
       "title": "Wanted Poster: Cyrus",
       "editor_id": "LB_U_Note_RED01",
       "text_path": "books/04000942-wanted-poster-cyrus.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls Adventures: Redguard note/document by the compilation's systematic RED import marker and matching title; compilation provenance retained separately."
     },
     {
       "form_id": "040008B4",
