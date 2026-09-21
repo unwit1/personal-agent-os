@@ -1,6 +1,6 @@
 # Vicn continuity
 
-**Continuity ID:** `tes.mod.vicn`
+**Continuity ID:** tes.mod.vicn
 
 This overlay groups the interconnected Vicn works **VIGILANT**, **GLENMORIL**, **UNSLAAD**, and **DAc0da**. Each work keeps source-level provenance while shared entities and claims can be linked at this parent layer.
 
@@ -10,7 +10,7 @@ A statement established in one plugin is not automatically attributed to another
 
 ## Current ingestion state
 
-- VIGILANT: existing ESM-backed continuity ingestion.
-- GLENMORIL: ESM-backed ingestion started.
-- UNSLAAD: continuity slot reserved pending source-plugin ingestion.
-- DAc0da: source ESM is present in the connected Drive `esm` folder and should be ingested separately under this continuity.
+- VIGILANT: existing ESM-backed continuity ingestion; retained at the established VIGILANT continuity path and linked through this parent overlay.
+- GLENMORIL: ESM-backed ingestion in vicn/glenmoril.
+- UNSLAAD: ESM-backed ingestion started in vicn/unslaad from user-provided translated Unslaad.esm 3.0.6; initial inventory, quest structure, first-pass analysis, and cross-Vicn seeds committed.
+- DAc0da: source material belongs under this continuity and remains independently attributable during ingestion.
