@@ -120,7 +120,12 @@
     "Joshua's Final Note source map",
     "Windhelm Report 4E 180 source map",
     "Marcus' Final Note source map",
-    "Laza mantle/hunter source map"
+    "Laza mantle/hunter source map",
+    "Laza and the White Owl individual source map",
+    "Laza and the Gray Owl individual source map",
+    "Laza and the Black Owl individual source map",
+    "Slave Trader's Note 6 individual source map",
+    "Slave Trader's Note 7 individual source map"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -157,15 +162,15 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "five-unit VIGILANT exact-text source-map batch",
+    "focus": "five-unit VIGILANT fine-grained source-node batch",
     "added": [
-      "Letter from Carene — caution toward the unnamed curse-removal offer, Lilian flower-crown corroboration, and family-return perspective",
-      "Joshua's Final Note — direct confirmation of flight, unnamed female threat, lullaby motif, and crisis-of-faith testimony",
-      "Windhelm Report 4E 180 — official public chronology, Maiden Statue blood-opening mechanism, expedition composition, sealing event, and Jacob recovery account",
-      "Marcus' Final Note — Julius identified by Marcus as no longer human / Child of Oblivion, with blame and responsibility kept source-local",
-      "Laza — explicit transferable-name/mantle language, immortal-hunter mission, Stone pursuit, and Old Forest/captive-soul linkage"
+      "White Owl — shepherd/wolf/wind transformation sequence, grief motive, and Order-fangs recursion",
+      "Gray Owl — self-blinding instructions, sky/forest eye symbolism, blood avoidance, and route to Kyne's fountain",
+      "Black Owl — dagger/fountain ritual, Nedic maiden blood, shepherd-to-wolf transition, tainted water, and Kyne's removal",
+      "Slave Trader Note 6 — Sir Ralvas carrier context and firewood/burning motif separated from Mary/Moura identity claims",
+      "Slave Trader Note 7 — Marukh death-item context and strong Laza shepherd/wolf motif without forcing the referent"
     ],
-    "source_state": "all five units use exact persisted VIGILANT BOOK text. Placement-only titles such as The People of Grasslands, The Falling Khajiit, and The Stray Khajiit of Chorrol were not analyzed because their exact prose is not currently persisted.",
-    "open_followup": "continue with exact-text source maps/dossiers only; prioritize remaining persisted documents that lack dedicated analysis, and separately recover missing exact BOOK prose for placement-indexed titles before deeper analysis."
+    "source_state": "all five units use exact persisted VIGILANT BOOK text and existing structural acquisition evidence. Later White/Gray/Black Owl = Jhunal identities remain cross-Vicn resolution layers rather than being back-projected into the original VIGILANT prose.",
+    "open_followup": "continue with another five fine-grained exact-source nodes, likely Slave Trader Notes 1-5 or remaining exact documents whose current coverage exists only inside broad cluster analyses."
   }
 }
