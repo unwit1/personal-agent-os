@@ -55,6 +55,7 @@ Primary:
 
 Supporting:
 - `dialogue/boss-rush-jhunal-confession.md`
+- parent VICN `relationships/jhunal-identity-matrix.md`
 - parent VICN `relationships/jhunal-saarthal-owls-thread.md`
 - `technical/owl-interference-reveal.md`
 
@@ -353,6 +354,9 @@ Indexes:
 ---
 
 # Cross-VICN priority threads
+
+- **Atmora / Saarthal / Night of Tears** — parent `relationships/atmora-saarthal-night-of-tears-thread.md`
+- **Jhunal identity matrix** — parent `relationships/jhunal-identity-matrix.md`
 
 Prefer parent VICN relationship pages when the question spans works:
 
