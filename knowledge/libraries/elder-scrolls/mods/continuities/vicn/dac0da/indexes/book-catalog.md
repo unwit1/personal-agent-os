@@ -71,7 +71,7 @@ This distinction is important for the DAc0da Agent -> Daggerfall Agent / Warp in
 | Source | Editor ID | Title | Current provenance |
 |---|---|---|---|
 | `DAc0da.esm:0085FC` | `zDcdNahdFiction_001_Mojonation1487` | Djaf: Arena of Lyg | **verified community-apocrypha reuse by mojonation1487** |
-| `DAc0da.esm:0085FD` | `zDcdNahdFiction_002_MK` | Ghost Choir 9 | **strongly Michael-Kirkbride-attributed; original standalone publication location/date unresolved** |
+| `DAc0da.esm:0085FD` | `zDcdNahdFiction_002_MK` | Ghost Choir 9 | **verified Michael Kirkbride unofficial/developer-text reuse; The Elder Scrolls Forums, 2012-02-18** |
 | `DAc0da.esm:0085FE` | `zDcdNahdFiction_003_MK` | ANON/ANU/ANUI-EL | **verified Michael Kirkbride KINMUNE-material reuse**; matching source already in apocryphal library |
 | `DAc0da.esm:0085FF` | `zDcdNahdFiction_004_MK` | The Tsaesci Creation Myth | **verified Michael Kirkbride developer/obscure-text reuse** |
 | `DAc0da.esm:008600` | `zDcdNahdFiction_005_MK` | Dominion Prism Textract (Partial) | **verified Michael Kirkbride developer/obscure-text reuse; partial excerpt** |
@@ -103,13 +103,17 @@ The major reused BOOK blocks are now separated into:
 - **official game-text reuse:** six Daggerfall Totem correspondence letters;
 - **community apocrypha:** Djaf: Arena of Lyg by mojonation1487;
 - **verified Michael Kirkbride obscure/developer-text reuse:** ANON/ANU/ANUI-EL / KINMUNE, The Tsaesci Creation Myth, Dominion Prism Textract, et'Ada, Lament for Pelinal, and A Type of Zero Still to Be Discovered;
-- **residual provenance gap:** Ghost Choir 9 authorship is now strongly Michael-Kirkbride-attributed; only the exact original standalone publication location/date remains unresolved.
+- **verified Michael Kirkbride reuse:** Ghost Choir 9, originally posted to The Elder Scrolls Forums and archived with date **2012-02-18**.
 
 See `analysis/apocryphal-provenance-pass-01.md`.
 
 ## Next provenance work
 
-1. recover the exact original publication location/date for the long standalone **Ghost Choir 9** text, if possible;
+No major Nahd-fiction authorship/source-class gap remains at first-pass depth.
+
+Future provenance work is maintenance-oriented:
+
+1. preserve archived source URLs/snapshots when useful;
 2. preserve DAc0da temporal-tome prose as alternate-reality evidence;
 3. link DAc0da-specific letters to their quests/characters;
-4. do not duplicate full apocryphal texts when the canonical library already stores them—link to the existing source instead.
+4. do not duplicate full apocryphal texts when the canonical source library already stores them—link to the existing source instead.
