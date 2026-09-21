@@ -288,6 +288,9 @@ Success signal:
 
 
 ### P0.6 — Skill/Economy Regression Test Suite
+Status: initial deterministic regression safeguards implemented: minimum skill
+relevance threshold, adversarial discovery case, and compact context-economy
+baseline. See `docs/economy-regressions.md`.
 
 Build an automated test/evaluation harness that proves the usage-saving skill layer actually saves context/usage and does not create its own bloat.
 

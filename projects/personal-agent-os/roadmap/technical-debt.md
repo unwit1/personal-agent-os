@@ -132,3 +132,10 @@ handoff exporter could make intentional cross-machine continuation smoother.
 The generic dispatcher confirms only that a declared cache artifact exists and
 is safely located. Content hashes, schema/version compatibility, and semantic
 validation remain the responsibility of the cache-owning subsystem.
+
+## From P0.6 ? Economy regression suite
+
+### Economy baseline does not measure provider spend
+
+The initial report is intentionally deterministic and reports no provider calls.
+Privacy-safe actual usage and latency telemetry remain future work.

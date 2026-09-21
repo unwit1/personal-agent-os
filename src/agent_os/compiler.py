@@ -196,7 +196,7 @@ def compile_context(
     state = load_state(project)
     project_path = Path(project["path"])
     available = discover(project_path, state.get("skill_roots", []))
-    selected = match(task, available)
+    selected = match(task, available, minimum_score=2)
     selected_skills = []
     for skill in selected:
         item = metadata(skill)
