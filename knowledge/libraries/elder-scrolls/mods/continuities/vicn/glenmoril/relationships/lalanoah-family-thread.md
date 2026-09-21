@@ -15,7 +15,12 @@ In **The Chick Trader**, Lalanoah says:
 - her father **went to war**;
 - Brandt told Lalanoah that Gerhard had been the **strongest warrior in Falkreath before she was born**.
 
-This is Lalanoah's child-level recollection at the start of the story.
+In **A Curious Animal**, Lalanoah adds that:
+- **her mother taught her restoration magic**;
+- she can already cast a simple healing spell;
+- she intends to study at the **Temple of Kynareth** and become a healer when she grows up.
+
+This establishes Laelnoah as the source of Lalanoah's earliest healing training, not merely a later family association.
 
 Do **not** automatically normalize “Sten or something” into Stendarr, Holy Pipers, or another later faction name without a direct textual bridge.
 
@@ -46,7 +51,7 @@ Brandt says:
 - Laelnoah was among those kidnapped;
 - a search party was organized.
 
-By St. Bazura, contact with that search party has been lost.
+By St. Bazura, contact with the search party has been lost.
 
 ## Cerebline / grandmother generation
 
@@ -69,9 +74,7 @@ Her Charm memory describes the maternal grandmother as:
 
 ## Future / succession
 
-Brandt believes Lalanoah has talent for healing.
-
-Lalanoah later mentions the **Temple of Kynareth** as a future path.
+Lalanoah's desire to become a healer and study at the Temple of Kynareth is present from Act 1.
 
 Kalka later calls Lalanoah **Ms. Hamah** and says she will become a suitable vessel for succession.
 
