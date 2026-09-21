@@ -198,3 +198,89 @@ Licensed texts used in this seed comparison:
 - *Opusculus Lamae Bal ta Mezzamortie* — Oblivion / Skyrim / ESO
 
 Source pages are treated as reproductions/indexes of licensed in-game texts; claims inherit the reliability limits of the in-universe author/editor.
+
+
+## Supplementary identity extensions — Knights, Black Hand, Varla, Akatosh
+
+This section records VIGILANT-specific identities that are now supported by a mix of ESM structure and supplementary a123999 commentary.
+
+### Varla as son of Mary and Umaril
+
+**Classification: vigilant-extension / supplementary resolution.**
+
+Established/licensed substrate:
+- Umaril and Pelinal are established Elder Scrolls figures.
+- VIGILANT's *Pelinal the Bloody* reuses Umaril/Pelinal history.
+- Varla is a VIGILANT Ayleid-orphan figure raised by Belharza.
+
+VIGILANT-specific supplementary claim:
+- Mary is Varla's biological mother.
+- Umaril is Varla's biological father.
+- learning this birth contributed to Varla's later collapse.
+
+The current persisted ESM does not contain a direct biological-parentage line.
+
+See:
+- `analysis/varla-mary-umaril-parentage.md`
+- `entities/characters/umaril.md`
+
+### ??????? as Akatosh-memory/avatar
+
+**Classification: structural VIGILANT reframing + supplementary avatar explanation.**
+
+Direct VIGILANT structure:
+- `SCEN 022BD6F2` resolves the obscured `???????` figure as an **Akatosh-memory form** in *The Final Night*.
+
+Supplementary a123999 claim:
+- the figure is an **avatar of Akatosh**;
+- people lost the memory of the figure;
+- “the Lizard” retained that memory.
+
+Akatosh's role as a time deity is established TES substrate. The specific hidden avatar/memory-loss narrative is a VIGILANT extension.
+
+See:
+- `entities/characters/akatosh-memory.md`
+
+### VIGILANT Black Hand
+
+**Classification: vigilant-extension using established Sithis/Night Mother substrate.**
+
+Direct VIGILANT structure:
+- a Black Hand/Sithis-linked reaction, dialogue-condition, crafting, and **Sithis' Eye Ring** system exists.
+
+Supplementary a123999 claim:
+- the Black Hand are five young children of the Night Mother;
+- they guide dead/cursed mortals toward Sithis.
+
+This should not be conflated with every official use of **Black Hand** as a Dark Brotherhood leadership term.
+
+See:
+- `entities/factions/black-hand.md`
+
+### Knights of the Nine soul-fragment afterlife
+
+**Classification: vigilant-extension / supplementary shared mechanism.**
+
+The Knights themselves are established TES figures.
+
+VIGILANT directly preserves several Knights or Knight-linked figures through:
+- dialogue;
+- notes;
+- scenes;
+- remains;
+- Coldharbour side quests.
+
+The a123999 background article says Molag Bal retained/stole part of each Knight's soul, explaining their VIGILANT afterlives.
+
+The current ESM-derived repository does not yet preserve one common direct quest/script relation proving the shared mechanism across the full roster.
+
+See:
+- `analysis/knights-of-the-nine-cluster.md`
+
+### Retrieval policy
+
+For all four topics:
+1. state established TES substrate separately;
+2. state direct VIGILANT ESM structure separately;
+3. identify a123999 claims as supplementary commentary;
+4. do not silently promote mod-only relationships into base canon.
