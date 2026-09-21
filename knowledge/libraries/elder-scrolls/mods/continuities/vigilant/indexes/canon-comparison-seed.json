@@ -93,6 +93,29 @@
         "Chaotic Creatia: The Azure Plasm"
       ],
       "vigilant_extension": "historical-memory recursion, role repetition, altered memory"
+    },
+    {
+      "topic": "Belharza inherits/is recognized by the Amulet of Kings",
+      "classification": "established-tradition-compatible",
+      "official_sources": [
+        "Amulet of Kings tradition",
+        "Belharza succession tradition"
+      ]
+    },
+    {
+      "topic": "Amulet of Kings prevents Alessian Order from killing Belharza",
+      "classification": "vigilant-extension"
+    },
+    {
+      "topic": "Jyggalag freed after Shivering Isles Greymarch cycle",
+      "classification": "established-continuation-point",
+      "official_sources": [
+        "Shivering Isles ending / Jyggalag dialogue"
+      ]
+    },
+    {
+      "topic": "released Jyggalag invades Coldharbour with a new Greymarch",
+      "classification": "vigilant-extension"
     }
   ]
 }
