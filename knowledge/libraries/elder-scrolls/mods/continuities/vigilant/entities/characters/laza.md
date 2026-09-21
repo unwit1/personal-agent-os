@@ -55,7 +55,28 @@ However, Lorekeeper should not automatically identify the **White Owl**, **Gray 
 
 Current classification:
 
-**high-confidence Laza ↔ Owl manipulation/dragon-hunting cluster; exact identity of each color-coded Owl remains unresolved.**
+**ESM layer:** high-confidence Laza ↔ Owl manipulation/dragon-hunting cluster; color-coded identities are not directly resolved by the currently persisted plugin extraction.
+
+**Supplementary layer:** a123999 identifies Jhunal the Owl with the Gray Owl and provides lower-provenance comment-thread identifications for the White and Black Owls.
+
+## Supplementary background layer
+
+The supplementary VIGILANT background article by **a123999** adds two important claims:
+
+- **Laza is the sole survivor of the incident in which the nomads were slain by Lamae.**
+- **Jhunal the Owl is the Gray Owl** and deceived Laza into attacking Kyne's Garden and catching dragons.
+
+Source:
+- `sources/supplementary/a123999-vigilant-backgrounds.md`
+
+This upgrades the Gray Owl identity at the supplementary-commentary layer while preserving the ESM-only uncertainty.
+
+The same article's later comment thread gives lower-provenance Owl identifications:
+- Black Owl = Orlando the Knowledgeable / a tentacle of Hermaeus Mora;
+- White Owl = a familiar of Julianos;
+- Gray Egg = the Gray Owl.
+
+Because those statements occur in comments rather than the article body, Lorekeeper should store them as **supplementary commentary**, not as direct plugin fact, until exact Laza/Owl book texts or stronger records are recovered.
 
 ## Source-state warning
 
