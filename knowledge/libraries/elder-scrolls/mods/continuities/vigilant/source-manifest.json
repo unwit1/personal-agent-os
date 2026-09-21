@@ -21,7 +21,7 @@
     "WRLD": 13,
     "SCEN": 78
   },
-  "ingestion_status": "first-pass raw structural extraction complete locally; normalized repo ingestion in progress",
+  "ingestion_status": "direct source bytes restored; structural extraction plus targeted exact-text/dialogue recovery in progress",
   "continuity_policy": "VIGILANT mod continuity; do not silently promote mod-added claims into base Elder Scrolls canon.",
   "supplementary_sources": [
     {
@@ -66,5 +66,15 @@
       ],
       "provenance_policy": "may corroborate wider Vicn continuity but must not be silently back-projected into VIGILANT-specific records"
     }
-  ]
+  ],
+  "source_access": {
+    "status": "direct-bytes-restored",
+    "restored_from": "VIGILANT - English Translation (Silent) 11894 1.8.2 2026-06-16T21-03Z uhRBKste0.zip",
+    "archive_sha256": "52b1d5dc77285f5cd4aa958b937c7a472b536af8cd601ae1f97abe5f15ec06ea",
+    "esm_sha256": "7d3ca2d72297fbc5afda8f1b8bb217fa1fd6d9d7414360acdf1a922d848949ba",
+    "esm_size_bytes": 21936314,
+    "translation_version": "1.8.2",
+    "restored_date": "2026-09-21",
+    "provenance_note": "ESM hash exactly matches the pre-existing canonical VIGILANT source hash; direct text recovery does not introduce version drift."
+  }
 }
