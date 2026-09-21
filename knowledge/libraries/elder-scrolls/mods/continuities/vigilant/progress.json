@@ -38,7 +38,11 @@
     "Paladin Melus dossier and Vision in Malada stanza 6 linkage",
     "Gravekeeper / The Saint's Corpse structural dossier",
     "Broken Horns final-memory handoff reconstruction",
-    "Act 4 side-quest coverage/gap map"
+    "Act 4 side-quest coverage/gap map",
+    "Black Worm identity/source-gap analysis",
+    "Kahkaankrein / Kyne's Dragon structural dossier",
+    "Sir Torolf / Knight of Arkay structural dossier",
+    "Funeral side-quest structural separation"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -51,7 +55,8 @@
     "quest_aliases": 550
   },
   "next": [
-    "recover unresolved Act 4 side-quest bodies: The Black Worm, Kyne's Dragon, Knight of Arkay, and Funeral",
+    "recover full quest bodies for Black Worm, Kyne's Dragon/Kahkaankrein, Knight of Arkay/Sir Torolf, and Funeral when exact source bytes or transcripts are available",
+    "recover remaining near-empty Act 4 side quests: More Skooma, Archer of Kyne, Knight of Julianos, Knight of Zenithar, Knight of Kynareth",
     "expand remaining high-relevance character dossiers",
     "continue exact BOOK/note persistence from the 179-record local corpus",
     "ingest VIGILANT PEX/scripts or BSA when available for exact Papyrus transition bodies",
@@ -69,14 +74,14 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "Paladin Melus recurrence, Gravekeeper separation, Broken Horns final-memory orchestration, and Act 4 gap normalization",
+    "focus": "resolved the highest-priority Act 4 structural gaps without over-identifying missing quest lore",
     "added": [
-      "Melus Petilius",
-      "Gravekeeper",
-      "Broken Horns final-memory handoff analysis",
-      "Act 4 side-quest coverage/gap map"
+      "Black Worm identity/source-gap analysis",
+      "Kahkaankrein structural dossier",
+      "Sir Torolf structural dossier",
+      "Funeral side-quest structural separation"
     ],
-    "source_state": "continued from repository-extracted VIGILANT corpus; no new raw ESM or PEX bytes introduced",
-    "open_followup": "recover quest-specific source bodies for The Black Worm, Kyne's Dragon/Kahkaankrein, Knight of Arkay/Sir Torolf, and Funeral; persist exact Laza/Owl book texts when source bytes become available"
+    "source_state": "continued from repository-extracted VIGILANT corpus plus prior Jhunal extraction artifact; no new raw ESM or PEX bytes available",
+    "open_followup": "remaining near-empty Act 4 quests are More Skooma, Archer of Kyne, Knight of Julianos, Knight of Zenithar, and Knight of Kynareth; exact dialogue/alias recovery remains open for Black Worm, Kyne's Dragon, Knight of Arkay, and Funeral"
   }
 }
