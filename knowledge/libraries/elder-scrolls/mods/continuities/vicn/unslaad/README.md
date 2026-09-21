@@ -180,6 +180,14 @@ Named boss/trial families have a structural index even when they contain no ordi
 - Translation wording is preserved when terminology is uncertain.
 - Contradictory or unstable identity evidence is retained rather than normalized away.
 
+## Second-pass synthesis additions
+
+New parent-level synthesis now includes:
+- **Jhunal identity matrix** — separates original/deific Jhunal, Gray/Black/White Owl mappings, VIGILANT Jhunal the Owl, Orlando incarnation claims, and body/state uncertainty.
+- **Atmora / Saarthal / Night of Tears** — reconciles repeated named history across all four VICN works while preserving DAc0da's contradictory Atmoran testimony and the distinct Magnus/Owl layers.
+
+These should be used before attempting new local identity merges.
+
 ## Remaining ingestion frontier
 
 The broad ESM ingestion is now mature across text, dialogue, scenes, books, messages, placements, VMAD metadata, ownership, factions, summon chains, enchantments, custom magic, Shouts, recipe gates, outfits, and multi-form identity states.
