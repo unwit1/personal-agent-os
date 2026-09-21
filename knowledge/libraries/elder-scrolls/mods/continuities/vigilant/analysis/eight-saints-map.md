@@ -46,16 +46,21 @@ Rumors that Mary literally consorted with Molag Bal or biologically birthed the 
 
 ## Jhunal
 
-The saint text presents Jhunal as an Atmoran mage who joined Marukh, spread rune knowledge through eastern Cyrodiil, created **Marukh's Torch**, refused to surrender it to the Order, and was exiled. It further claims his disciple Cosmas later used the art at Malada and Pailune and that later records credited Cosmas rather than Jhunal.
+The saint text presents Jhunal as an Atmoran mage who joined Marukh, created **Marukh's Torch**, refused to surrender it to the Order, and was exiled.
 
-The ESM independently gives Jhunal a much larger footprint:
-- a speaking NPC, **Jhunal the Owl** (`0225B23C`);
-- a **Piece of Jhunal** form (`0225B23F`);
-- **Jhunal's Library** (`CELL 02259C5B`);
-- a library key, rings, Arcana of Jhunal, and Bone of Jhunal;
-- Saklas dialogue explicitly treating "Jhunal" as both an old Nord divine name and a First Era historical person's name.
+The ESM now supports a much larger distributed identity/relic network:
 
-Current classification: **high-confidence VIGILANT identity cluster, ontologically unresolved**. The plugin strongly links the historical saint, the Owl, the Library, and the fragmented forms, but does not require Lorekeeper to assume they are a single simple physical continuity.
+- **Jhunal the Owl** and **three separate Piece of Jhunal actors** are physically placed inside **Jhunal's Library**.
+- a separate container named **Jhunal** is placed in **Marukh's Underground Priory** and contains **Bone of Jhunal**, the **Library Key**, **Jhunal's Silver Ring**, and a **Beacon of Magnus**.
+- **Jhunal's Golden Ring** is stored in **Jhunal's Egg** in the Golden Sanctuary.
+- **Arcana of Jhunal** is carried by **Burnt Casimir** in the Prayer Hall.
+- Sir Berich explicitly links Casimir's fate to a fire rune/Wisdom of Magnus that he says Jhunal stole from Saarthal.
+- Saklas asks the player to locate Jhunal's Library and says Jhunal's name repeatedly appears in the souls/memories of Alessian priests.
+- Jhunal's own dialogue says the Black Worm tore him into pieces and that he spent centuries recovering, directly matching the three fragment actors.
+
+The named relic effects preserve different aspects of his magical identity: **Silver Knowledge** extends spell duration, **Golden Knowledge** strengthens Illusion targeting, **Arcane Fire** is described as a concealed rune of Jhunal, and the Bone relic calls him **the sorcerer of the Elder Wood**.
+
+Current classification: **high-confidence saint → body/relic cache → Owl/fragments → distributed magical-knowledge identity network**. The ESM strongly connects these representations but does not establish a simple uninterrupted physical biography.
 
 ## Nenyond
 
