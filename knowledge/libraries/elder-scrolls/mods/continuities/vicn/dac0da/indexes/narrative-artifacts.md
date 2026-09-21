@@ -167,3 +167,58 @@ Artifact evidence is strongest for:
 - tracing repeated identity symbols such as the Totems.
 
 Do not use combat enchantments or editor IDs alone to construct historical lore without supporting dialogue, quest, or written evidence.
+
+
+## Tsaesci / dragon-hunting weapons
+
+### Brah-Sagari
+
+- `DAc0da.esm:00315A`
+- Editor ID: `zDcdIchKatana1H`
+- FULL: **Brah-Sagari**
+- description: **Especially effective against dragons.**
+
+### Tino-Ri
+
+- `DAc0da.esm:00315B`
+- Editor ID: `zDcdIchKatana2H`
+- FULL: **Tino-Ri**
+- description: **Especially effective against dragons. Power attacking creates an air blade.**
+
+These weapons provide mechanical support for Akashiya-Samon's Dragonguard/dragon-hunter role.
+
+## Snow-Drake / Auri-El halberds
+
+### Snow Drake Halberd
+
+- `DAc0da.esm:004359`
+- FULL: **Snow Drake Halberd**
+- description: **Bashing creates an ice storm.**
+
+### Auriel's Halberd
+
+- `DAc0da.esm:00435A`
+- FULL: **Auriel's Halberd**
+- description: **Bashing creates a thunderbolt.**
+
+These belong to the Snow-Drake/Snow-Elf/Atmoran encounter layer and should be co-retrieved with **Drowned Nighthawk** and the Wintercaller material.
+
+## Tsa the Dozing Rat idols
+
+DAc0da defines three recurring MISC objects:
+
+- `004730` — **Idol of Tsa the Dozing Rat**
+- `004732` — **Silver Idol of Tsa the Dozing Rat**
+- `004731` — **Golden Idol of Tsa the Dozing Rat**
+
+These appear in Atmoran/random totem reward pools, including the Yngol epilogue chest through `zDcdLitemTotem`.
+
+No processed dialogue has yet established a full identity or cult explanation for **Tsa the Dozing Rat**, so the objects should remain an indexed cultural/reward motif rather than a completed theological claim.
+
+## Additional Underking equipment
+
+- `DAc0da.esm:00B40B`
+- Editor ID: `zDcdArmorZurinBodyPlayable`
+- FULL: **The Underking's Hatred**
+
+The item name belongs to DAc0da's Zurin/Underking combat symbolism and should not be treated as an independent historical title without supporting dialogue.
