@@ -21,6 +21,7 @@ Work-specific facts remain in their source continuity. Parent pages should link 
 - **Hare / word-rewriting** — `hare-word-rewriting-thread.md`
 - **Harakk / Snow Whales / twin star** — `harakk-thread.md`
 - **Yelem / Y.E.L.E.M. / dream machine** — `yelem-dream-machine-thread.md`
+- **Snow Whales / Atmoran sky ecology** — `snow-whales-thread.md`
 - **Maria / Marcus / Bruiant** — `maria-marcus-bruiant.md`
 
 ## Owl / Jhunal / Chick-Trader threads
@@ -87,7 +88,12 @@ Especially strong current examples:
 - Dream Without a Dreamer;
 - Hjalti / Alcaire;
 - Loveletter reuse;
-- Radiance / Mnemo-Li / memory.
+- Radiance / Mnemo-Li / memory;
+- Yelem / Y.E.L.E.M. dream-machine recurrence;
+- Yngol / Tsunaltir / Tstunal;
+- Khemkel / Wooden Idol;
+- Hare / word-rewriting;
+- Harakk / Snow Whales.
 
 This index should be kept compact. Detailed evidence belongs in the linked pages.
 
