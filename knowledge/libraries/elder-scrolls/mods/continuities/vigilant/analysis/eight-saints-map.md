@@ -7,16 +7,23 @@ This page was built in small passes and now covers all eight saints named in the
 
 ## Sard
 
-The book describes Sard as a woman of eternal youth with one red and one blue eye, formerly a handmaiden of Alessia. It says she later served Belharza and then Marukh, remained young because of Alessia's blessing, and rapidly aged to ash after Marukh's death, leaving only jewel-like eyes.
+The saint text describes Sard as Alessia's former handmaiden, later servant of Belharza and Marukh, with one red and one blue eye and supernatural youth attributed to Alessia's blessing. It says that after Marukh died Sard rapidly aged to ash, leaving only jewel-like eyes.
 
-Current classification: **VIGILANT-specific saint biography**.
+The ESM independently implements:
+- **Sard's Charnel** (`02109458`);
+- **Sard's Ossuary** (`0210CDFD`);
+- **Sard's Red Eye Ring** (`020EB827`);
+- **Sard's Blue Eye Ring** (`020EB828`);
+- **Ashes of St. Sard** (`020E2592`);
+- **Sard's Charnel Key** (`0210A8E5`).
 
-The names Alessia, Belharza, and Marukh are licensed Elder Scrolls figures, but this exact Sard biography is not being promoted into base canon. It should be treated as an internal VIGILANT historical tradition unless separately corroborated.
+The door graph directly connects the Charnel and Ossuary. More significantly, both eye rings are stored in the **Vena Petilius** treasure container, and that container is physically placed inside **Sard's Ossuary**. The same container also carries **Ashes of St. Sard**.
 
-Follow-up targets:
-- identify every Sard NPC/BOOK/quest form in the ESM;
-- locate Sard's Charnel and connect placed artifacts/notes;
-- determine whether the red/blue eye imagery recurs in dialogue or items.
+No Sard NPC form or direct dialogue has been found in the current ESM inventory.
+
+Current classification: **high-confidence saint → charnel/ossuary/relic identity cluster**. The red/blue jewel-eye ending of the saint biography is directly environmentalized by the two named eye rings in Sard's own ossuary.
+
+Other red-eye imagery in VIGILANT remains unlinked unless structural evidence connects it to Sard.
 
 ## Moura / Mary
 
