@@ -1,0 +1,10 @@
+<font face="$HandwrittenFont" size="18">
+2 drams gravedust
+2 measures bonemeal
+1 ebony ingot
+1 nord skull
+1 dunmer skull
+2 measures ectoplasm
+1 dram ash salts
+
+</font>

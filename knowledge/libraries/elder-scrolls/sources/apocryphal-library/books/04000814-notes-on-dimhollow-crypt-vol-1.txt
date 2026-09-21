@@ -1,0 +1,29 @@
+<font face="$HandwrittenFont" size="16">
+
+In the name of Stendarr and the Divines, may this knowledge prove fruitful to our endeavours. It is here that I pen my findings on the mysteries of Dimhollow Crypt, which I have fair reason to believe contains long forgotten secrets linking the site to the vampire clans of Skyrim. 
+
+Dimhollow Crypt is an ancient Nordic burial complex, likely dating back to the Merethic or the early First Era. It is situated roughly on the hold border between Hjaalmarch and The Pale, sitting just on the Pale side according to the last boundary survey. The Skyrim Geological Survey map produced by one of the Imperial civil service deparments gives the location a reference of 17.5 East, 11.5 South. It is situated on the mountain trail that leads from the sacred Hall of the Vigil, from where I write this report, and the forsaken shrine of the Lord of Misrule. Thus does this crypt represent a second local peril against which we may be called upon to protect.
+
+Access to the crypt is gained through an aperture in the rock, of easy enough size for a troll to bypass. Outside the cave there is very little architecture, merely some low walls, pillars and a small crossing point. The vast majority of the complex lies below the mountain. Beyond the cave's entrance, there is a cavern with one other egress - a gated door. Within the cavern is an old tower - and it is this tower that allows the key to open the gate. Once I have garnered sufficient support from the rest of the Vigil, it is to this solemn duty that I will attend.
+
+The crypt's name is of unknown provenance - it doesn't appear in any ancient annals. The first reference to the crypt by that name comes from a late second era court record from Snowhawk (then the capital of Hjaalmarch) which mentions it as one of the boundary landmarks with The Pale.
+
+The crypt's significance was originally suggested by a record from the second era, which our researchers discovered about fifteen years ago. A mention in the hold chronicles of Dawnstar from 2E 33 reads:
+
+"Frysska, Shield-Thane of Skalvic, drove back the vampire and its beast-kin from Dunstad Grove, whereupon the foulspawn retreated West, to the cave just East of Skyborn Altar, where it and its wretched progeny had been noted making lair. She gave chase to the beast, but did not cross the threshold."
+
+This was of interest to us when we found the reference. 'Dunstad Grove' is no longer a settlement, and only just still remains as a fort in this era - but a line drawn between the old fort and Skyborn Altar goes straight past the mouth of our cave. Considering the age of the document we did not think, at the time, that it was necessary to investigate.
+
+About ten years ago, we captured a vampire 'Mystic' who had been practicing necromancy in the Reach along with a group of Forsworn. Vigilant Isran managed to squeeze some information out of the creature, with his rather distasteful talent for such things, and we learned enough to put an end to a few of the creature's spawn. But in its slurred, maddened final rants, the monster did offer one last piece of other information: 
+
+"I've seen things, things in the grey mist. There's nothing to be learned in Shriek-Wind or Blood-Let. The blood flows thin there. Below your feet, if only you knew! What's in Dimhollow and where the four bears rested, that's old, REAL kind of old blood." 
+
+Shriekwind Bastion and Bloodlet Throne are both places that have, in the past, been flagged as possible vampire hideouts, but we've never had enough Vigilants active at once to risk an assault. As for the four bears, presumably a bear cave in the region. Isran suggested it may have been 'Forbears', a faction in his native Hammerfell, but we've no records of them settling or resting nearby.
+
+The third piece of information came from a dead man. A monk, from Cyrodiil by the look of him, had been found dead on the lower slopes of Mount Anthor by Vigilant Helvi. We originally suspected that Azura cultists may have been involved, but the Jarl's men forbade us from questioning them - he didn't want to give the Dunmer any reason to pay attention to Winterhold. Besides, we reasoned, sacrifices to Azura are relatively uncommon compared to the other Daedra. When we inspected his trappings, however, we found something far more interesting. A note, on which were written a few words, but the only legible ones were: VOLKIHAR, BLACKREACH, DIMHOLLOW.
+
+Dimhollow was familiar. Blackreach is uncertain - some legends do make mention of a 'Lost City' by that name, but we've never proven a link to any existing locations. Volkihar, of course, is the name of the most powerful vampire clan in Skyrim. A second link between our cave and the vampires. We still don't know who the grey-robed monk was - a moth motif stitched onto his hood suggested to Vigilant Jarveld that he might have been a priest of Dibella (who, he claims, was represented by a moth in ancient times), but beyond that there was nothing. He appeared to have been injured by wolves rather than anything more sinister, and had simply died in the cold.
+
+With three pieces of evidence, I was given leave by Keeper Carcette to investigate.
+
+</font>

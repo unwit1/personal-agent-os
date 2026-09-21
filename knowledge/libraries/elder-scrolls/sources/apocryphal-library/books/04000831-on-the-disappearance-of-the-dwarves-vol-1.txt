@@ -1,0 +1,129 @@
+[pagebreak]
+<p align="center">
+
+
+On the Disappearance of the Dwarves
+
+Volume One
+Accounts of the Red Moment
+
+
+by Maura Calvaine
+
+</p>
+
+
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/F_letter.png'>oreword by the Editor and Author
+
+Scholars across Tamriel will be familiar by now with the broad strokes of the Disappearance of the Dwemer story, and the one thing that is agreed on by all is this: At some point towards the climax of the Battle of Red Mountain, in which the Citadel of King Dumac was besieged by the First Council of Chimeri Resdayn, the Dwemer - to an individual - vanished. Their towers and their machines still operated, but no further trace of a Dwarf has been seen since - barring a few sensational claims.
+
+The question has lingered since - why? Some of the most learned persons of the last four eras have attempted to answer this question; we owe much of our understanding to those who came before us with their principles. Hasphat Anatabolis, Calcelmo of Markarth, Marobar Sul and many others deserve more credit than we can ever hope to offer.
+Thus to educate scholars best on this matter, I - who have edited the other essays for this series - have lain out the accounts of the Red Moment as a reference for the attempts to answer that daunting question, with the eternal gratitude of the scholars upon whose broad shoulders I now stand.
+[pagebreak]
+
+All accounts agree when the Dwemer vanished - during the Battle for Red Mountain. The battle was drawn along two lines, being those of the Dwemer and those of the allied houses of the First Council. The First Council were led by their war-leader, or Hortator, called Lord Indoril Nerevar. The Dwemer were commanded by their King, Dumac. But it is here that similarities in accounts start to diverge.
+
+We will be dealing with five sources of the incident, the 'Red Moment' as it has been popularised. These are:
+
+Nerevar at Red Mountain, from the Apographa of the old Tribunal Temple, itself adapted from the oral history of the Velothi Dunmer.
+The Battle of Red Mountain, and the Rise and Fall of the Tribunal, by Vivec, as presented to a Dissident Priest.
+The War of the First Council, by Agrippa Fundilius.
+The Real Nerevar, a short account by a retainer of Great House Telvanni.
+Five Songs of King Wulfharth, author(s) unknown, Nordic.
+The Account of Yagrum Bagarn, by himself, allegedly
+The Falmer, A Study, by Ursa Urthrax.
+
+There is also a 'Tale of Dro'Zira', by Sonia Vette, featuring a Khajiit version of events, but the Dwemer are not even mentioned, so it is not included here.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he War of the First Council
+
+Agrippa's account was written for readers in the other provinces, and contains a simplified version of events. The reason for the war is cited as 'disputes about sorceries and enchantments practiced by the Dwemer', with House Dagoth allying themselves with the Dwemer. These 'Secular' houses, as opposed to the Orthodox First Council, are allied with Nordic and Orcish mercenaries. The Houses are referred to as being 'Dunmer'.
+
+Lord Nerevar was made general 'of all House troops and levies' which is to say, Hortator. He also garnered the support of the Ashlanders. In pushing the Secularists back to their fortress at Red Mountain, he began a brief siege in which 'treason permitted Nevevar and his troops to ender the stronghold'. No mention is made of who betrayed the Dwarves. The enemy leaders were killed and there was a subsequent slaughter which led to the 'extermination' of Houses Dagoth and Dwemer. Nerevar dies of his wounds, and three of his associated live on to become the Tribunal.
+
+In this account, the Dwarves - or rather, House Dwemer - are simply 'exterminated'. A reader who did not corroborate such a reading would come to the conclusion that the Dwemer were wiped out by force of arms, with any remaining civilians dying out over the intervening years. No explanation is offered either for the apotheosis of Vivec, Almalexia and Sotha Sil - they simple 'Went on to become the god-kings... of Morrowind'.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Real Nerevar
+
+The Telvanni Retainer's version of events begins with referring to Nerevar as a 'Dunmer warlord... (who) had the ambition to rule all the Dunmer'. It introduces the tale of Moon-and-Star, his legendary enchanted artefact, that would allow him to charm and persuade the other Great Houses into following him. This ring is made by the 'a Dwemer smith' in secret.
+Only after this does war break out along the same lines as mentioned in The War of the First Council. There are no inconsistencies between the two accounts here, regarding the allegiances: House Dagoth, Dwemer and the mercenaries versus The Great Houses and the Velothi.
+
+The resulting battle leads to the Dwemer being '...defeated, with great slaighter, and terrible sorceries were used, resulting in the utter extermination of House Dwemer, House Dagoth, and their allies'. It goes on to state this Nerever was killed in battle and his ring lost.
+
+This is the first mention we come to of the 'terribe sorceries' that may have killed the Dwemer, offering some explanation as to why none at all survived, soldier or civilian. Also like Agrippa's work, it cites the First Council as being 'Dunmer'. 
+[pagebreak]
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/F_letter.png'>ive Songs of King Wulfharth
+
+The author of this is unknown. It appears to be derived from oral histories from the Nord mercenaries who were present, but offers a very different motive for their presence than merely pay. Wulfharth was a king in the First Era, a Tongue of the ancient Thu'um tradition. He is the first Nord to be granted the title 'Ysmir', supposedly a title given to Nordic kings, though in practice it appears very rarely. Ysmir is, of course, another name for Talos. 
+Records state that he was crowned around 1E 500. The year of 'Sun's Death', as the author of the Songs puts it, is corroborated by the alchemist Sinderion as occurring in 1E 668.
+
+Wulfharth is known as the Ash King at this moment in history, and the tales state that he had perished fighting the gods Orkey and Alduin. His rebirth and his presence at Red Mountain are not easily explained to a scholar's satisfaction.
+
+Prior to his supposed rebirth, the fourth song, that of 'The Ash King', tells that war was brewing between the 'Dwarves and Devils of the eastern kingdoms'. Devils are the elves of Morrowind here, and they are always referred to as thus. The Devil of Dagoth, who would be Lord Voryn Dagoth - Dagoth Ur, approached the Nords and told them that he knew where the Heart of Shor was. Shor is, of course, the Nordic name for Shezarr, or Lorkhan. Here, the story matches that of most creation myths: it states that 'Elven Giants' had torn out Shor's heart and hid it in Resdayn so that Men could never again have their god. And here is our first account where the Heart of Lorkhan becomes relevant: the Dwarves, we are told, had found the heart. This discovery is what prompts the war of the first council, though we are not told why. Are the First Council jealous of its power, fearful of the Dwemer, or simply worried that Shor might return?
+Regardless, the Nords ask why Dagoth will betray his kinsmen by revealing this information. Again we are presented, as with Agrippa's work, with the notion of a betrayal.
+
+The Tongues, practitioners of the ancient Nordic tradition of 'The Voice', sing Shor's ghost into the world. Shor then gathers a Nord army and reforms Wulfharth from his ashes, and makes him - and Dagoth Ur - his generals. At this point, the tale divides into the Fifth Song and the Secret Song, which offer different accounts themselves.
+
+The Fifth Song states that Dagoth Ur has tricked the Nords, and that the promise of Shor's Heart was a simple trap for his ghost. The Dwemer and 'Devil' sorcerors (who are not described as being at war with each other at all) lift the Red Mountain and throw it onto Shor, trapping him forver, before slaughtering the Nords - but not before Wulfharth killed 'King Dumalacath the Dwarf-Orc' and 'doomed' the Dwarves. He then falls to Vivec in combat, and his ashes are saved by Kyne.
+
+The Secret Song states that in fact, Shor's Heart was indeed in Resdayn. Having reached Red Mountain alongside his generals, Shor (now written as Lorkhan) 'Had his heart again, but he had long been from it, and he needed time'. At this point the principal characters do battle; Nerevar stands ready with Keening, with his champions Dumac and Alandro Sul. Dumac has Sunder ('a hammer of divine mass'). This is the only time that Dumac and Nerevar are described as allies - this may be the treason mentioned by Agrippa. Wulfharth renders Sul blind with his Thu'um, Dagoth Ur slays Dumac, who strikes Lorkhan' heart with Sunder. Nerevar is distracted from his battle with Lorkhan by the death of Dumac, who slays Dagoth Ur, but receives a mortal wound from Lorkhan. With his dying breath he cuts into the Heart, which Sunder had made solid, and 'cut it out', defeating Lorkhan.
+
+This narrative is rather convoluted, and the end battle between the champions seems rather contrived. But of special note is the description of Keening, one of the three devices designed by Kagrenac, the Tonal Architect, to work on the Heart. It is described as 'a dagger made from the sound of the shadow of the moons'. Given the Dwemer focus on tonal magic, this seems relevant. The 'shadow of the moons' is unclear - some scholars believe that there is a void-moon beyond Masser and Secunda, associated with Shezarr, but that would seem to confuse the narrative of Lorkhan's apparent presence. The Secret Story makes no mention of the disappearance of the Dwarves, saying simply "And (the Heart) was cut out and Lorkhan was defeated and the whole ordeal was thought over', ending the last Song of Wulfharth. Despite this omission, the presence of the Heart here is important for understanding the other narratives about the sudden vanishment of the Dwarves.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/N_letter.png'>erevar at Red Mountain
+
+This secondary source has been rendered into Tribunal Temple via the Velothi Dunmer. The Velothi, known as Ashlanders and often dismissed as savages, were the inheritors of the ancestral Chimer traditions that arrived with their eponymous prophet. The narrative itself is held to be that of Alandro Sul, who was a champion in Nerevar's army. 
+
+This is the first of our sources that claims that the Chimer were those in the First Council, rather than the 'Dunmer' or simply 'Devils'. The Chimer and Dwemer peoples are beset by Nord raiders from Skyrim, and so a champion from each - Indoril Nerevar and 'Dumac Dwarf-Orc' made a truce so the Nords could be defeated. With this victory won, his generals - Vivec, Almalexia and Sotha Sil - encourage him to betray Dumac and take the whole of Resdayn for themselves. 
+But then Dagoth Ur informs Nerevar that the Dwemer are using the Heart of Lorkhan. They have used it to make themselves immortal and 'beyond the measure of the gods'. But in fact, the high Tonal Architect of the Dwemer was building a New God to conquer Resdayn for themselves. Nerevar asked Dumac about this, but the King was supposedly ignorant of Kagrenac's plans to make a New God, thus he spoke the truth to his best knowledge when he replied that the Dwemer had no such designs. And so Nerevar spoke with Azura, who confirmed that indeed the Dwemer were building a god that would threaten not just Resdayn, but all the world. And so Nerevar, after one last confrontation with his old friend, led the Chimer - including House Dagoth - against the Dwemer.
+
+Inside Red Mountain, Nerevar and Dumac meet and 'both fell from grievous wounds', presumably dealt by one another. Kagrenac was slain by Dagoth Ur, who took the Profane Tools - Sunder, Keening and the Wraithguard - to the badly wounded Nerevar, who summoned Azura. The Daedra showed him how to 'Separate the power of the Heart from the Dwemer people', for the Heart of Lorkhan was indeed present, as Dagoth Ur had said.
+
+The Chimer forces then look on in astonishment as the 'Dwemer turned into dust all around them as their stolen immortality was taken away'.
+
+After this, Nerevar - still wounded, but alive - leaves Dagoth Ur in possession of the tools while he confers with Vivec, Sotha and Almalexia - here written already as 'The Tribunal' - on what to do with the Tools. They favour using them for power, which he disagrees with, and so they betray him and murder him. Azura curses the Tribunal - and all the Chimer people - for this treachery. Dagoth Ur attempts to stop them taking the tools but is 'driven off and thought dead'. 
+
+This is the first account that directly links the Disappearance of the Dwemer with the use of the Tools on the Heart of Lorkhan. It is the only report which mentions the Dwemer turning into dust. The differences between the other versions is also substantial, not least the betrayal of Nerevar by his own allies. Dumac and Kagrenac are not open with each other here, but rather the latter plots the use of the Heart in secret. But interestingly, the Tools are what the Tribunal now use themselves to make themselves immortal in the same manner as the Dwemer - providing the first explanation we see of how the Tribunal gained their powers - from the Missing God's heart itself.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Battle of Red Mountain
+
+
+This account comes directly from the former God-King of Vvardenfell, Vivec, now believed to be dead. It was delivered to the dissident priest Malur Omayn, as a frank explanation of events, but also as a warning against standing against the Temple.
+
+The broad strokes of the story match the Velothi narrative up until Nerevar reaches the chamber where Lorkhan's heart beats. With Dumac slain by Nerevar, Kagrenac - attempting to avoid death at the hands of Dagoth Ur - now attempts to use the Tools on the heart himself. In doing so, the Dwemer all vanish in an instant.
+
+The story does not explain exactly how Nerevar died, but implies that it was either from his wounds or due to Dagoth Ur. The rest of the account is mostly the same, but paints the Tribunal as wanting power to aid the Chimer, rather than rule them out of power-lust. It also claims that the Curse of Azura, changing them to the Dunmer, happened the first time that they returned to Red Mountain to use the tools some years later, and not instantly, which puts it in contrast with the Velothi and Nordic accounts. 
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Account of Yagrum Bagarn
+
+A final set of sources comes from a tower on Azura's Coast, where once lived - and perhaps still does - the ancient Telvanni wizard Divayth Fyr. A master of all kinds of wizardry, Fyr was fascinated by the Corprus disease, a particularly ferocious version of the Vvardenfell Blight, which turned people into pustulating, mindless, shambling husks but rarely killed them - in fact, he noted that they became abnormally strong and would live long past their normal lifespan. He believed that the source of the disease may have been divine in origin, and worked to determine the cause.
+
+The most unusual patient in his Corprusarium was, according to scattered accounts, a Dwemer. The very last of his kind, supposedly. These reports came in shortly after the Nerevarine Incident - it may have been the Nerevarine who made these records private, or the scholar Luagar Anulam, or one of the four strange women who lived alongside Fyr, or the master himself. This interview that supposedly took place has not been verified. Regardless, the words of the 'Last Living Dwemer' are recorded here.
+
+On being asked about the Disappearance of the Dwarves:
+"I cannot say what happened. I was not there to observe. I was in an Outer Realm at the time, and when I came back, my people were gone. I left Red Mountain, wandering Tamriel for years, searching our deserted colonies, looking for a survivor or an explanation. Then, a long, long time ago, I returned to Red Mountain, still looking for answers. Instead, I found corprus disease, and I have been here ever since. I have theories, if you are interested."
+
+On being pressed on the matter of those theories:
+"Lord Kagrenac, the foremost arcane philosopher and magecrafter of my era, devised tools to shape mythopoeic forces, intending to transcend the limits of Dwemer mortality. However, in reviewing his formulae, some logicians argued that side effects were unpredictable, and errors might be catastrophic. I think Kagrenac might have succeeded in granting our race eternal life, with unforeseen consequences - such as wholesale displacement to an Outer Realm. Or he may have erred, and utterly destroyed our race."
+
+When asked about a certain book, called 'The Egg of Time':
+"The Dwemer were not unified in their thinking. Kagrenac and his tonal architects, among them Bthuand Mzahnch, believed they could improve the Dwemer race. Others argued that the attempt would be too great a risk. The war with Nerevar and the Dunmer may have led Kagrenac to carry out his experiments prematurely. Although this book argues that nothing disastrous could result, the disappearance of my race argues otherwise."
+
+It is not certain what the 'Outer Realm' visited by Bagarn was, or where. Perhaps a realm of Oblivion, or Aetherius, or some other fold of reality. The interview remains a suspect source anyway, since the existence of 'Yagrum Bagarn' has yet to be definitively confirmed.
+[pagebreak]
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Falmer - a Study
+
+Ursa Uthrax's history is the only one we have that does not occur at Red Mountain. Rather it explains how the ancient Falmer, the Snow Elves of legend, became the twisted specimens we encounter in the depths of Skyrim today. The Dwemer poisoned them with a fungus that would render them blind over time, in order to use them as servants, but keeping them safe from the Nords who were hunting them to extinction. Eventually, they developed senses capable of rendering their loss of sight a minor drawback only, and rebelled. 
+
+At one point during this 'War of the Crag', the Falmer rose to fight one day to discover that their enemy had disappeared. This is, one imagines, a very dramatic telling of the event - there is simply no way that Uthrax could have communicated with a Falmer at all, unless she somehow found one who had survived sane from before the culling. But the point of the study remains: The Dwemer disappeared everywhere, not just at Red Mountain, not just Vvardenfell, and not just Resdayn.

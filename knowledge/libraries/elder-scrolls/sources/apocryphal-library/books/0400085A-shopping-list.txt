@@ -1,0 +1,11 @@
+<font face="$HandwrittenFont" size="18">
+
+2 jugs of cider
+10 apples
+3 loaves of bread
+1 urn of milk
+2 bales of hay
+
+
+</font>
+

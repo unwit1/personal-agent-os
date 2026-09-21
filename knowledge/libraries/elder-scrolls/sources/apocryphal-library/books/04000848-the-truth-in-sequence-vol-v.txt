@@ -1,0 +1,22 @@
+[pagebreak]
+<p align="center">
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Truth in Sequence 
+
+Volume V
+
+Taken from the sermons of Deldrise Morvayn, Fourth Tourbillon to the Mainspring Ever-Wound.
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/B_letter.png'>y the word, I wind the gears.
+
+Speak not of Dwarves, child of the Tribunal. The simple clockworks of the Dwemer pale before the sublime machinery of Sotha Sil. Let Dumac's lament be a silent one. Let his hissing tombs stay buried. Let his automata rust and crumble. For his was the greatest failure-driven by Lorkhan's Great Lie and churlish pride. His is a tale of woe and terror, and those that pursue his ugly maths shall pay a great price in blood.
+
+"But, was Dumac not a creator?" you ask? "Were the brass-child's hands not covered in oil? Did they not speak the words of Making, and set wheel to axle?" Hear the words in sequence, followers of Seht. Intention dictates the worth of a machine. Where the Mainspring Ever-Wound seeks the convergence of the Nirn-Ensuing, the ghosts of the Dwemer cry out: "Multitudes! Multitudes!" Mer and machine, parted. Wisdom and ambition, parted. Made and Unmade, parted. And from those sunderings, a thousand thousand skittering machines are made-left to wander forgotten halls, aimless and profligate. One may twist a knob left in preparation for another to twist the same knob right. One may loosen a pipe so that another may tighten it. They exist only to maintain the brass-childrens' folly, and so they are redundant and profane in the Eye of Sotha Sil.
+
+But most profane is this: the walking horror that bears the Name, NM. The Brass Tower of Vanity. The mindless guardian of the Nirn-Prior. The Antipodal-God-Thing that reigns on the darkest pole of the sacred Nirn-Sphere. Of all the threats to Tamriel Final, NM is the greatest. Anuvanna'si. The Daedra can be banished in thought, but NM must be sundered on Nirn. It is the welded knot at the center of Anu that must be untied. The God-Puzzle. The Mainspring Ever-Wound remains silent on this point. And where there is silence, there is great wisdom.
+
+By the word, I wind the gears.

@@ -1,0 +1,7 @@
+<font face="$HandwrittenFont" size="18">
+One dozen eggs
+One haunch of beef
+Two bundles frost miriram
+Two bottles mead
+Four potatoes
+</font>

@@ -1,0 +1,24 @@
+[pagebreak]
+<p align="center">
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Truth in Sequence 
+
+Volume X
+
+Taken from the sermons of Deldrise Morvayn, Fourth Tourbillon to the Mainspring Ever-Wound.
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/B_letter.png'>y the word, I wind the gears.
+
+Beware blind reverence for The Old, child of Seht. The oil of antiquity often fuels the future. Those who ignore the counsel of our blessed ancestors do so at their peril. But not all ruins hide wisdom within their shattered halls. Some ruins are dark and barren places - unsteady graves for lies and curses. Resting places for bent axles, stripped bolts, and the bitter silence of inertia.
+
+In the time before our Father's rise, old and feeble knowledge ruled the hearts of Mer. The children of ash entered their ancestral tombs not in search of truth, but in search of truth's corpse. They saw their forebears not as proud and vigorous guides, but as wheezing, toothless ghosts - guardians of the musty and derelict engines that fools call deep wisdom. You must smash these old machines, child of Seht! The past does not rust upon the scrap pile. It hurtles toward the Mainspring Ever-Wound's glorious and multi-angled future, whipped by the scorching tongues of our honored forebears! Ever do their words and deeds grease the wheels of the Nirn-Ensuing! Ever do they weld the seams of Tamriel Final! Anuvanna'si.
+
+But alas! Even now, stewards of The Old feed aged truth to those who would listen. They are the daughters and sons of PSJJJJ who crouch like gargoyles over musty tomes, faces hidden beneath frayed and graying robes. They counsel caution, temperance, and equanimity - ancient virtues of the fading Nirn-prior. Even so, the Father of Curiosity calls them friends. With a god's patience, He teaches them. With a father's love, He guides them; all in the hopes that one day they may see the deepest truth of The Old: that we must banish our feeble ghosts and give their memory new life through the thrice-folded mind. Toothless gears cannot be repaired - they must be melted and reforged. So it is with our people's truth.
+
+None will deny that the daughters and sons of PSJJJJ wield great power. Like our Clockwork City, their isle of Artaeum glides between what is and what may be. Like our Clockwork Apostles, they study, strive, and create. But power without an infinite future's courage is like an empty boiler - infused with fierce heat but producing no steam. Woe upon those who recoil from Tamriel Final! Anuvanna'si. The will of the Clockwork God turns such cowardice to slag. But rejoice! The Father of Mysteries' affection proves the PSJJJ's worth. One day these lost spellweavers will heed the words of the Divine Metronome and seek the true and noble change - the aratagnithir. On that day we shall embrace them not as friends, but as brothers and sisters.
+
+By the word, I wind the gears.

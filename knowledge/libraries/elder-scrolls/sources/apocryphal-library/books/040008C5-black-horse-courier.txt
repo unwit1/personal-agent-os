@@ -1,0 +1,9 @@
+<p align="center">
+<img src='img://Textures/Interface/Books/ApocLib/BlackHorseCourier.png' height='60' width='250'>
+New Watch Captain Named </p>
+
+Servatius Quintilius was recently promoted to Watch Captain to replace Hieronymus Lex. Captain Lex's career was marked by frequent tirades against the mythical thief and master criminal, the so-called "Gray Fox." At the same time, Hieronymus Lex announced that he has been retained by Countess Millona Umbranox of Anvil to be her new Captain of the Guard.
+
+Captain Quintilius is a practical man who does not believe in the Thieves Guild or its imaginary grandmaster, the Gray Fox. He has promised peace and order in the districts under his protection. Guard patrol routes will be posted so that all citizens will know where to find a Watchman when they need one.
+
+When asked if this would also make things easier for thieves, Captain Quintilius responded, "Never. Criminals are dumb. Wouldn't be criminals otherwise, right? Stands to reason. You smart Courier boys should just leave the crime-fighting in this city to professionals like me."
