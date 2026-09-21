@@ -1,0 +1,16 @@
+{
+  "info_records": 1225,
+  "resolved_unique": 1136,
+  "resolved_unique_percent": 92.7,
+  "ambiguous_structural": 10,
+  "unresolved": 79,
+  "has_explicit_ANAM": 26,
+  "has_subject_GetIsID": 308,
+  "has_subject_GetIsAliasRef": 702,
+  "has_subject_GetIsVoiceType": 12,
+  "topic_used_in_scene": 202,
+  "scene_count": 78,
+  "scene_dialogue_actions": 225,
+  "quest_alias_count": 550,
+  "policy": "Do not infer a unique speaker from wording alone when structural evidence leaves multiple or zero candidates."
+}
