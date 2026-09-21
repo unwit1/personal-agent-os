@@ -1,88 +1,78 @@
-# UNSLAAD cross-Vicn links
+# UNSLAAD cross-VICN routing / unresolved seeds
 
 Continuity: tes.mod.vicn.unslaad
 Parent: tes.mod.vicn
 
-This file records retrieval links and comparison targets, not automatic identity merges. Each relation retains evidence from the work that actually states it.
+Most mature cross-work relationships have been promoted to canonical pages under:
 
-## Ja'cobee / Ulliss / Aisha / EGG
+`knowledge/libraries/elder-scrolls/mods/continuities/vicn/relationships/`
 
-UNSLAAD directly groups Ja'cobee, Ulliss, and Aisha across Lingering Snow and Stairway to Llesw'er.
+Use those parent threads instead of duplicating synthesis locally.
 
-The later generic dialogue clarifies a deliberately unstable identity:
-- Lizz calls Fluffy **Ja'cobee**;
-- Fluffy does not understand why;
-- Aisha finds the naming strange.
+## Promoted parent threads
 
-UNSLAAD also now contains direct EGG evidence:
-- Fluffy remembers and fears an Egg in Fluffy's Secret;
-- Orlando says **Ja'cobee broke the Egg shell and the player crushed its contents**.
+- Ja'cobee / Aisha / Ulliss → `jacobee-aisha-ulliss-thread.md`
+- Chick Trader / Anequina / Gray Owl → `gray-owl-chick-trader-anequina.md`
+- Jhunal / Saarthal / Owls → `jhunal-saarthal-owls-thread.md`
+- Laza / Owls / dragon experiments → `laza-owls-dragon-experiments.md`
+- Arkved / Oneiromancer → `arkved-oneiromancer-thread.md`
+- Orlando the Knowledgeable → `orlando-the-knowledgeable-thread.md`
+- Oracle Iridescent → `oracle-iridescent-thread.md`
+- Jills → `jills-across-vicn.md`
+- Lyg → `lyg-thread.md`
+- GC9 / Ghost Choir 9 / LYG → `ghost-choir-9-lyg-bridge.md`
+- Radiance / Mnemo-Li / memory → `radiance-mnemo-li-memory-thread.md`
+- Hjalti / Alcaire → `hjalti-alcaire-thread.md`
 
-GLENMORIL independently contains Ja'cobee as the Last Chick Trader, groups him with Ulliss/Aisha, and has Ja'cobee say that he broke the EGG.
+## Unresolved seed — Lizz / dragon-soul lineage
 
-This is a high-confidence named and conceptual continuity bridge, while the exact identity mechanics and EGG ontology remain unresolved.
+UNSLAAD directly says:
+- Ulliss was built from dragon souls sealed in ice, according to Jhunal;
+- Lizz contains some of the player's dragon soul;
+- the player can describe Lizz as "our daughter" with Ulliss.
 
-## Jhunal / Owl / Saarthal
+No equivalent GLENMORIL, VIGILANT, or DAc0da claim should be inferred without direct evidence.
 
-UNSLAAD directly establishes:
-- Jhunal the Gray = Gray Owl in the Bell Tower scene;
-- a plural Owl association;
-- the other Owls last seen at Saarthal during the Night of Tears;
-- Owl Arcana left to Kyne priestesses;
-- an Arcana of Magnus Jhunal says he stole from Saarthal.
+Keep this UNSLAAD-scoped until another work independently names Lizz or the same lineage mechanism.
 
-VIGILANT independently contains Jhunal the Owl and a Saarthal/Magnus-fire theft tradition.
+## Unresolved seed — dream / memory persistence
 
-GLENMORIL independently contains The Night of Tears, The Owls, Jhunal the Black, Jhunal the White, and Gray Owl/Orlando material.
+UNSLAAD Arkved says:
+- forgotten places dissolve;
+- remembered echoes persist;
+- a child can sing a place into continued existence.
 
-This is one of the strongest multi-work VICN continuity nodes currently indexed.
+This belongs beside GLENMORIL's dream/forgetting/Blue-Star/Jhunal material and DAc0da's memory/Radiance material, but the exact mechanism is not yet proven identical.
 
-## Arkved / Oneiromancer
+Do not merge:
+- dream persistence;
+- memetic persistence;
+- frozen memory;
+- Radiance;
+- Mnemo-Li;
+- timeline erasure
 
-UNSLAAD's generic dialogue resolves directly to Arkved the Dreamer. Arkved explicitly says he made a deal with **the Oneiromancer**, who asked him to guide the player and collect payment.
+into one system without direct source alignment.
 
-GLENMORIL independently makes Arkved a direct Oneiromancer/Quagmire participant and uses him as a connection/key in that sequence.
+## Unresolved seed — Loveletter / later-era use
 
-This is now a direct high-confidence cross-work relationship rather than a queued name match.
+UNSLAAD:
+- embeds **Loveletter From the Fifth Era**;
+- uses it in Liturgy of I;
+- wires it mechanically as the "something timeless" key for entry into frozen-time Atmoran dream-space.
 
-## Orlando / Blue Star / Elder Wood
+The underlying prose is reused apocryphal/developer material.
 
-UNSLAAD's Orlando the Knowledgeable says:
-- he met the player in the Warrens and at the Blue Star;
-- he and the Black Owl come from the same far-northern forgotten Elder Wood;
-- Ja'cobee broke the Egg shell.
+Cross-work questions should distinguish:
+1. the external Loveletter's own claims;
+2. UNSLAAD's interpretation/use of the Loveletter;
+3. any separate Vicn work that quotes or reacts to the same source.
 
-GLENMORIL independently has Orlando as an Owl-linked Atmoran mage/incarnation figure and contains major Blue Star material.
+## Routing rule
 
-Exact manifestation identity remains distributed/uncertain, but the continuity link is high confidence.
+If a cross-work relationship already has a parent thread, retrieve that first.
 
-## Lizz / dragon-soul lineage
-
-UNSLAAD's Jhunal says Ulliss was built from dragon souls sealed in ice and that Lizz contains some of the player's dragon soul.
-
-Snow Guardian additionally gives the player the direct line that Ulliss and the player "have a daughter now."
-
-No equivalent GLENMORIL or VIGILANT claim should be inferred without direct evidence.
-
-## Dream / memory persistence
-
-UNSLAAD Arkved explicitly says forgotten places dissolve while remembered echoes persist and a child can sing a place into continued existence.
-
-This should be compared with GLENMORIL's repeated dream/forgetting/Blue-Star/Jhunal material, but no single shared mechanism should be asserted until direct wording aligns.
-
-## Loveletter / later-era material
-
-UNSLAAD embeds Loveletter From the Fifth Era and uses it directly in Liturgy of I and the late main chain. The underlying Loveletter is reused apocryphal/developer material; UNSLAAD's placement and interpretation are Vicn-continuity evidence.
-
-## Hjalti
-
-UNSLAAD contains multiple internally consistent Hjalti references:
-- prior visitor from Alcaire;
-- Ulliss says he was first called Hjalti and used changing names;
-- Mifa says a little boy Hjalti commissioned armor centuries earlier.
-
-Cross-index with external Hjalti/Tiber/Talos material without automatically merging the identity.
-
-## DAc0da
-
-DAc0da remains part of the parent VICN continuity. Add matches only after direct DAc0da evidence is retrieved.
+Only add a new section here when:
+- the match is suggestive;
+- direct evidence is incomplete;
+- it is not yet strong enough for a dedicated parent relationship page.
