@@ -43,3 +43,25 @@ The shared ability directly links Mnegmegh to the Priest-of-Jhunal combat archet
 Combined with the Insight title/history, this supports Mnegmegh as a high-ranking Jhunal-associated priest/giant figure.
 
 It does not prove every Priest-of-Jhunal actor is literally Mnegmegh.
+
+## Retrieval and identity boundary
+
+Treat **Mnegmegh the Banner-Lamp** as an UNSLAAD-local named Jhunal node unless another VICN work independently supplies the exact name.
+
+The safest current graph is:
+
+`Mnegmegh -> giants of Jhunal`  
+`Mnegmegh -> Jhunal Priest abilities`  
+`Mnegmegh -> 500 Companion Faction`  
+`Mnegmegh -> Frost Power Excursion Faction`  
+`Mnegmegh -> Ysgrim's Seal`
+
+The shared spell provides a direct implementation bridge to the generic Priest-of-Jhunal archetype, but it is not an identity equivalence.
+
+For retrieval, combine this page with:
+- `indexes/actor-ability-audit-01.md`;
+- `organizations/500-companion-faction.md`;
+- `locations/ysgrims-seal.md`;
+- parent VICN `../../relationships/jhunal-identity-matrix.md` only for the wider Jhunal/Owl network.
+
+Do not promote Mnegmegh into the parent relationship index until a second work provides direct named evidence.
