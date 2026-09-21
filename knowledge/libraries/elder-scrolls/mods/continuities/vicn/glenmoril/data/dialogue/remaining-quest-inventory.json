@@ -1,12 +1,12 @@
 {
   "source_plugin": "Glenmoril.esm",
-  "remaining_direct_responses": 1070,
-  "remaining_text_bearing_quests": 38,
+  "remaining_direct_responses": 751,
+  "remaining_text_bearing_quests": 34,
   "namespace_totals": {
-    "zzzRev_remaining": {"quests": 38, "responses": 1070}
+    "zzzRev_remaining": {"quests": 34, "responses": 751}
   },
   "revenant_total": 1328,
-  "revenant_normalized": 258,
-  "closed_scopes_unique_responses": 3722,
-  "status": "revenant_backbone_started"
+  "revenant_normalized": 577,
+  "closed_scopes_unique_responses": 4041,
+  "status": "revenant_cluster_2_complete"
 }
