@@ -75,7 +75,16 @@
     "cross-Vicn Owl continuity bridge with direct GLENMORIL/UNSLAAD evidence",
     "Jhunal/Laza Owl identity correction using later direct Vicn ESMs",
     "registered GLENMORIL and UNSLAAD as cross-continuity evidence sources",
-    "cross-Vicn negative checks: Akatosh Lizard unresolved and Black Worm Mannimarco uncorroborated"
+    "cross-Vicn negative checks: Akatosh Lizard unresolved and Black Worm Mannimarco uncorroborated",
+    "restored canonical VIGILANT 1.8.2 direct ESM source bytes with hash match/no version drift",
+    "exact Sacred Anatomancer report, quest aliases/forms, trial dialogue, Blue Star/Radiance, and Holy Piper mission recovery",
+    "exact VIGILANT Laza and the White/Gray/Black Owl book-text recovery",
+    "direct Black Hand actor forms, dialogue, Sithis' Eye Ring reaction, and Void/Sithis identity recovery",
+    "Sir Juncan and Sir Ralvas direct quest-actor promotion",
+    "Facis direct NPC forms, quest aliases, placement, and Lamae-release dialogue recovery",
+    "Reyda direct NPC/quest alias, Stone/Molag Bal/Laza testimony, and branch dialogue recovery",
+    "Joshua direct corpse placement and exact Final Note recovery",
+    "Joel direct NPC/quest alias and Bloodsucker scene/dialogue resolution"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -88,22 +97,15 @@
     "quest_aliases": 550
   },
   "next": [
-    "recover exact VIGILANT Report: Sacred Anatomancer text and trial dialogue when original source bytes become accessible",
-    "recover exact VIGILANT Laza / White Owl / Gray Owl / Black Owl book texts; do not substitute GLENMORIL continuations",
-    "recover direct VIGILANT Black Hand/Sithis reaction dialogue; Mannimarco identity remains supplementary",
-    "investigate additional cross-Vicn continuations only when they clarify an existing VIGILANT source gap",
-    "recover exact Report: Sacred Anatomancer text and gatekeeper/trial INFO aliases",
-    "recover direct Black Hand dialogue/reaction records and identify any Black Hand NPC/member forms",
-    "recover direct VIGILANT implementation for Sir Amiel Lannus, Sir Juncan, and Sir Ralvas",
-    "recover direct INFO/NPC/alias records for Facis, Reyda, Joshua, and Joel when richer VIGILANT source bytes become available",
-    "continue evidence-rich pre-Coldharbour characters after source-separated Facis/Reyda/Joshua/Joel batch",
-    "recover placements/acquisition paths for Slave Trader Notes 6-8 and resolve the fiery-eyed slave-trader identity",
-    "persist the full named Feral Soul-Shriven variant inventory when richer source extraction is available",
+    "recover direct VIGILANT implementation for Sir Amiel Lannus; do not infer it from his base-game Knights of the Nine history",
+    "continue evidence-rich pre-Coldharbour character dossiers now that Facis, Reyda, Joshua, and Joel are direct-source resolved",
+    "recover placements/acquisition paths for Slave Trader Notes 6-8 and resolve the fiery-eyed slave-trader identity if direct evidence permits",
+    "persist the full named Feral Soul-Shriven variant inventory from the restored direct source",
     "inspect remaining secondary Coldharbour groups only when at least two independent evidence layers support a distinct node",
-    "recover exact source bodies for all nine structurally incomplete Act 4 quests when richer VIGILANT source bytes/transcripts become available",
-    "recover full quest bodies for Black Worm, Kyne's Dragon/Kahkaankrein, Knight of Arkay/Sir Torolf, and Funeral when exact source bytes or transcripts are available",
+    "recover exact source bodies for the remaining structurally incomplete Act 4 quests from the restored ESM extraction",
+    "deepen Black Worm, Kyne's Dragon/Kahkaankrein, Knight of Arkay/Sir Torolf, and Funeral quest-body reconstruction where exact direct records add material beyond the existing structural dossiers",
     "expand remaining high-relevance character dossiers",
-    "continue exact BOOK/note persistence from the 179-record local corpus",
+    "continue exact BOOK/note persistence from the 179-record corpus",
     "ingest VIGILANT PEX/scripts or BSA when available for exact Papyrus transition bodies",
     "persist remaining exact BOOK texts as browsable individual files",
     "deeper claim-by-claim canon comparison for Amulet of Kings, Middle Dawn, Jyggalag/Greymarch, and Ayleid figures",
@@ -119,21 +121,19 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "used directly ingested GLENMORIL and UNSLAAD material to resolve wider Vicn continuity gaps while preserving VIGILANT-specific source boundaries",
+    "focus": "reconciled the restored canonical VIGILANT 1.8.2 direct-source extraction against stale recovery blockers and promoted already-recovered exact ESM evidence into the live progress state",
     "added": [
-      "GLENMORIL corroboration for Holy Pipers and Chick Traders",
-      "GLENMORIL and UNSLAAD direct evidence expansion for Sacred Anatomancer",
-      "cross-Vicn organization bridge",
-      "cross-Vicn Owl continuity bridge",
-      "White Owl = Jhunal the White at GLENMORIL layer",
-      "Gray Owl = Jhunal the Gray at UNSLAAD layer with Orlando-family entanglement",
-      "Black Owl = Jhunal the Black at GLENMORIL layer",
-      "Laza and the Owls later direct continuation evidence",
-      "correction of older Black Owl = Orlando comment-thread shorthand",
-      "cross-continuity source registration in source-manifest",
-      "negative cross-Vicn searches for the Akatosh 'Lizard' and Black Worm/Mannimarco"
+      "source-state correction: canonical 1.8.2 ESM bytes restored with exact historical hash match",
+      "Sacred Anatomancer exact report and direct quest/trial/manifestation evidence recognized as complete",
+      "VIGILANT White/Gray/Black Owl exact books recognized as recovered",
+      "Black Hand direct actors/dialogue/Sithis' Eye reaction recognized as recovered",
+      "Juncan and Ralvas direct quest implementations recognized as recovered",
+      "Facis and Reyda direct-source dossier replacements recognized as recovered",
+      "Joshua direct corpse placement and exact Final Note recognized as recovered",
+      "Joel direct Bloodsucker NPC/alias/dialogue recognized as recovered",
+      "obsolete recovery tasks removed from the active queue"
     ],
-    "source_state": "original VIGILANT ESM remains unavailable in current file library. Direct VIGILANT evidence remains primary; later GLENMORIL/UNSLAAD ESM-derived evidence is now explicitly modeled as cross-continuity corroboration rather than substituted source text.",
-    "open_followup": "exact VIGILANT source recovery remains the main blocker for Report: Sacred Anatomancer, the Laza/Owl book prose, Black Hand reaction dialogue, and the nine incomplete Act 4 quest bodies"
+    "source_state": "canonical translated VIGILANT 1.8.2 ESM source bytes were restored and match the pre-existing source SHA-256 7d3ca2d72297fbc5afda8f1b8bb217fa1fd6d9d7414360acdf1a922d848949ba; direct VIGILANT evidence remains primary and cross-Vicn evidence remains corroborative unless explicitly sourced to another mod.",
+    "open_followup": "true remaining gaps include Sir Amiel Lannus direct implementation, Slave Trader Notes 6-8 placement/identity work, named Feral Soul-Shriven persistence, incomplete Act 4 quest-body expansion, remaining BOOK persistence, and external PEX/BSA transition logic."
   }
 }
