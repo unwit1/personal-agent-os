@@ -335,6 +335,7 @@ Prefer parent VICN relationship pages when the question spans works:
 - Orlando the Knowledgeable — parent `relationships/orlando-the-knowledgeable-thread.md`
 - Laza / Owls / dragon experiments — parent `relationships/laza-owls-dragon-experiments.md`
 - Loveletter From the Fifth Era — parent `relationships/loveletter-fifth-era-thread.md`
+- Dream Without a Dreamer — parent `relationships/dream-without-a-dreamer-thread.md`
 - KINMUNE provenance
 
 ---
