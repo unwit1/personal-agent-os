@@ -1,36 +1,52 @@
-# UNSLAAD cross-Vicn seed links
+# UNSLAAD cross-Vicn links
 
-Continuity: tes.mod.vicn.unslaad  
+Continuity: tes.mod.vicn.unslaad
 Parent: tes.mod.vicn
 
-This file records **retrieval links and comparison targets**, not automatic identity merges. Each relation must retain evidence from the work that actually states it.
+This file records retrieval links and comparison targets, not automatic identity merges. Each relation retains evidence from the work that actually states it.
 
-## Ja'cobee
+## Ja'cobee / Ulliss / Aisha
 
-UNSLAAD contains NPC_ 0313878F / zzzCrbKedamaSenpai_Mq05 — **Ja'cobee**. Main-quest objectives in **Lingering Snow** explicitly instruct the player to talk to Ja'cobee; **Stairway to Llesw'er** instructs the player to return to him and retrieve his remains.
+UNSLAAD directly groups Ja'cobee, Ulliss, and Aisha across Lingering Snow and Stairway to Llesw'er:
+- Ja'cobee raises Ulliss's child Lizz;
+- he repeatedly remembers Aisha;
+- he says another Ja'cobee is already "on the other side" with Ulliss;
+- before death he says Aisha is waiting for him;
+- a later inspection message identifies the bodies of Ja'cobee and Aisha together.
 
-The existing GLENMORIL corpus independently contains substantial **Ja'cobee / Last Chick Trader** material tied to CHICK/EGG/Owl terminology. This exact-name recurrence is a high-priority cross-work comparison. It does not yet prove that every statement about the GLENMORIL character applies unchanged to the UNSLAAD manifestation.
+GLENMORIL independently has a Last Chick Trader dialogue cluster in which Ulliss discusses Aisha and Ja'cobee and the broader branch connects Ja'cobee, Aisha, Ulliss, EGG, and Chick Traders.
 
-## Ulliss and Aisha
+This is now a strong named-character continuity bridge. Cross-work identity is strongly indicated, but source-specific claims remain separately attributable.
 
-UNSLAAD directly contains multiple forms for **Ulliss** and **Aisha**, and the first five main quests repeatedly name them in objectives. The existing GLENMORIL Oneiromancer/Last Chick Trader material also explicitly discusses Ulliss, Aisha, Ja'cobee, the EGG, and Chick Traders.
+## Jhunal / Owl / Saarthal
 
-This creates a strong record-level continuity bridge suitable for later scene/dialogue alignment.
+UNSLAAD directly establishes:
+- Jhunal the Gray = Gray Owl in the Bell Tower scene;
+- a plural Owl association;
+- the other Owls last seen at Saarthal during the Night of Tears;
+- Owl Arcana left to Kyne priestesses;
+- an Arcana of Magnus Jhunal says he stole from Saarthal.
 
-## Jhunal / Owl thread
+VIGILANT independently contains Jhunal the Owl and a Saarthal/Magnus-fire theft tradition.
 
-UNSLAAD directly contains several **Jhunal the Gray** forms, a **Black Owl** NPC, **The Owl Flies at Dusk**, and objectives to examine the **Mural of Jhunal** and talk to the Black Owl.
+GLENMORIL independently contains The Night of Tears, The Owls, Jhunal the Black, Jhunal the White, and Gray Owl/Orlando material.
 
-The existing VICN corpus already has:
-- VIGILANT Jhunal/Owl records, including **Jhunal the Owl** and **Piece of Jhunal**;
-- GLENMORIL White Owl / Black Owl topics and Jhunal-linked scenes/relationships.
-
-These should be compared at the evidence level. Color/title variants must not be merged simply because they share Jhunal or Owl language.
+This is one of the strongest multi-work VICN continuity nodes currently indexed.
 
 ## Arkved
 
-UNSLAAD contains **Arkved the Dreamer** and a quest titled **Arkved**. GLENMORIL also uses Arkved in Oneiromancer/dream-world material. This is another direct-name bridge queued for later comparison.
+UNSLAAD contains Arkved the Dreamer and a quest titled Arkved. GLENMORIL also uses Arkved in Oneiromancer/dream-world material. This remains queued for direct scene comparison.
+
+## Lizz / dragon-soul lineage
+
+UNSLAAD's Jhunal says Ulliss was built from dragon souls sealed in ice and that Lizz, Ulliss's successor/child, contains some of the player's dragon soul.
+
+No equivalent GLENMORIL or VIGILANT claim should be inferred without direct evidence, but this lineage should be cross-indexed against VICN's broader vessel, dragon-soul, Egg, and artificial-body themes.
 
 ## Loveletter / later-era material
 
-UNSLAAD includes the main quest **Loveletter to the Fifth Era** and the side quest **Liturgy of I**, whose objectives include reading the Loveletter. These names justify linkage to the Elder Scrolls apocryphal/developer-text corpus for source comparison, but no doctrinal equivalence should be assumed until the actual UNSLAAD text and dialogue are extracted.
+UNSLAAD includes Loveletter to the Fifth Era and Liturgy of I. These remain linked to the Elder Scrolls apocryphal/developer-text corpus for source comparison, with exact textual ingestion still pending.
+
+## DAc0da
+
+DAc0da remains part of the parent VICN continuity. Any future matches should be added only after direct DAc0da source evidence is retrieved.
