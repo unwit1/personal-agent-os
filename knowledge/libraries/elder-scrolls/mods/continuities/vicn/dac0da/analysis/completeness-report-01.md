@@ -162,7 +162,7 @@ Important examples:
 - six Agent/Totem letters -> official Daggerfall text reuse;
 - Djaf: Arena of Lyg -> mojonation1487 community apocrypha;
 - KINMUNE, Tsaesci Creation Myth, Dominion Prism, Eat the Dreamer, Lament for Pelinal, Type of Zero -> Michael Kirkbride source reuse;
-- Ghost Choir 9 long transcript -> strongly Michael-Kirkbride-attributed, but original standalone posting location/date remains unresolved.
+- Ghost Choir 9 long transcript -> verified Michael Kirkbride unofficial/developer text, originally posted to **The Elder Scrolls Forums** on **2012-02-18**.
 
 ## Cross-Vicn coverage
 
@@ -183,13 +183,7 @@ These are retrieval relationships, not automatic claim merges.
 
 ## Known residual gaps
 
-### 1. Ghost Choir 9 original publication metadata
-
-The exact original standalone posting location/date for the long GC9 transcript has not been recovered.
-
-This is now a provenance refinement gap, **not an authorship or DAc0da-ingestion blocker**.
-
-### 2. Compiled Papyrus bodies
+### 1. Compiled Papyrus bodies
 
 The ESM exposes script names/properties but not readable PEX source bodies for several mechanics.
 
@@ -200,13 +194,13 @@ Examples:
 
 The structural mechanic is indexed; implementation internals remain unavailable without script files.
 
-### 3. Exhaustive navigation graph
+### 2. Exhaustive navigation graph
 
 Major world/cell clusters are indexed, but a complete door-by-door traversal graph has not been produced.
 
 This is useful for level/navigation research, not necessary for first-pass lore completeness.
 
-### 4. Every generic NPC/item variant
+### 3. Every generic NPC/item variant
 
 Hundreds of leveled, corpse, summon, auto-delete, equipment, and encounter duplicates remain represented by family indexes rather than individual pages.
 
