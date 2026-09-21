@@ -4,8 +4,8 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "verified_official_game_text": 66,
-    "editor_id_hint_eso": 16,
+    "verified_official_game_text": 78,
+    "editor_id_hint_eso": 4,
     "editor_id_hint_oblivion": 10,
     "editor_id_hint_morrowind": 3,
     "editor_id_hint_developer_mk": 3,
@@ -5190,18 +5190,16 @@
       "title": "The Horse-Folk of Silverhoof",
       "editor_id": "LB_Book3_CL_Silverhoof_ESO",
       "text_path": "books/04000103-the-horse-folk-of-silverhoof.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated as official TES/ESO text by external game/lorebook evidence and the Apocryphal Library published book-credit manifest; compilation provenance retained separately."
     },
     {
       "form_id": "040000E1",
       "title": "The Interment of Feremuzh",
       "editor_id": "LB_Book3_VG_Interment_ESO",
       "text_path": "books/040000E1-the-interment-of-feremuzh.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated as official TES/ESO text by external game/lorebook evidence and the Apocryphal Library published book-credit manifest; compilation provenance retained separately."
     },
     {
       "form_id": "040009C4",
@@ -5240,9 +5238,8 @@
       "title": "The Lay of Firsthold",
       "editor_id": "LB_Book3_AP_LayFirsthold_ESO",
       "text_path": "books/040000CC-the-lay-of-firsthold.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated as official TES/ESO text by external game/lorebook evidence and the Apocryphal Library published book-credit manifest; compilation provenance retained separately."
     },
     {
       "form_id": "040009B7",
@@ -5273,9 +5270,8 @@
       "title": "The Legend of Dame Marcelle",
       "editor_id": "LB_Book3_CL_DameMarcelle_ESO",
       "text_path": "books/04000116-the-legend-of-dame-marcelle.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated as official TES/ESO text by external game/lorebook evidence and the Apocryphal Library published book-credit manifest; compilation provenance retained separately."
     },
     {
       "form_id": "0400005E",
@@ -5475,9 +5471,8 @@
       "title": "The Ship of Ice",
       "editor_id": "LB_Book3_SK_ShipOfIce_ESO",
       "text_path": "books/040000B5-the-ship-of-ice.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated as official TES/ESO text by external game/lorebook evidence and the Apocryphal Library published book-credit manifest; compilation provenance retained separately."
     },
     {
       "form_id": "04000010",
@@ -5564,9 +5559,8 @@
       "title": "The Thief God's Treasures",
       "editor_id": "LB_Book3_CL_ThiefGodTreasure_ESO",
       "text_path": "books/040000C9-the-thief-gods-treasures.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated as official TES/ESO text by external game/lorebook evidence and the Apocryphal Library published book-credit manifest; compilation provenance retained separately."
     },
     {
       "form_id": "040000BE",
@@ -5581,9 +5575,8 @@
       "title": "The Thirsty Dead",
       "editor_id": "LB_Book2_NC_ThirstyDead_ESO",
       "text_path": "books/0400006B-the-thirsty-dead.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated as official TES/ESO text by external game/lorebook evidence and the Apocryphal Library published book-credit manifest; compilation provenance retained separately."
     },
     {
       "form_id": "040009C5",
@@ -5702,9 +5695,8 @@
       "title": "The Twilight Cantors",
       "editor_id": "LB_Book3_VG_TwilightCantors_ESO",
       "text_path": "books/040000F2-the-twilight-cantors.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated as official TES/ESO text by external game/lorebook evidence and the Apocryphal Library published book-credit manifest; compilation provenance retained separately."
     },
     {
       "form_id": "0400000C",
@@ -5751,9 +5743,8 @@
       "title": "The Wilderking Legend",
       "editor_id": "LB_Book3_AP_Wilderking_ESO",
       "text_path": "books/040000F7-the-wilderking-legend.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated as official TES/ESO text by external game/lorebook evidence and the Apocryphal Library published book-credit manifest; compilation provenance retained separately."
     },
     {
       "form_id": "0400099E",
@@ -6123,9 +6114,8 @@
       "title": "Varieties of Dragons",
       "editor_id": "LB_Book2_DG_VarietyDragons_ESO",
       "text_path": "books/04000029-varieties-of-dragons.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated as official TES/ESO text by external game/lorebook evidence and the Apocryphal Library published book-credit manifest; compilation provenance retained separately."
     },
     {
       "form_id": "040009BC",
@@ -6228,9 +6218,8 @@
       "title": "Wisdom of the Flying Gods",
       "editor_id": "LB_Book3_DG_FlyingGods_ESO",
       "text_path": "books/040000D6-wisdom-of-the-flying-gods.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated as official TES/ESO text by external game/lorebook evidence and the Apocryphal Library published book-credit manifest; compilation provenance retained separately."
     },
     {
       "form_id": "040000E7",
@@ -6246,9 +6235,8 @@
       "title": "Worshiping the Illogical",
       "editor_id": "LB_Book2_DT_Illogical_ESO",
       "text_path": "books/0400006D-worshiping-the-illogical.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated as official TES/ESO text by external game/lorebook evidence and the Apocryphal Library published book-credit manifest; compilation provenance retained separately."
     },
     {
       "form_id": "0400098C",
