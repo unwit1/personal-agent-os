@@ -70,21 +70,65 @@ UNSLAAD independently uses **Mnemo-Li / Blue Orphan / Magna-Ge** vocabulary in G
 
 This is a strong rare-vocabulary Vicn bridge. DAc0da does **not** in the processed records call Mnemo-Li "Blue Orphan," so the shared terms should be compared without silently copying epithets or mechanics between works.
 
-## Blue Star / Dumac / Red Moment
+## Blue Star / Kagrenac / future radiance
 
-DAc0da's late Numidium section adds a second, independent **Blue Star** node.
+DAc0da now has **two independent Blue-Star nodes** in its Dwemer material.
 
-Nine readable activators titled **Dumac's Record: Z/E/R/O/S/U/M/N/0** preserve a Dumac–Nerevar–Kagrenac dispute. In the sixth record, Dumac accuses his friend of treachery and asks about a **hidden Blue Star**.
+### Dumac record
 
-DAc0da evidence: `DAc0da.esm:00B6A1` -> message reached through **Dumac's Record: S** and `DAc0da.esm:00B6A2` / **Dumac's Record: U** for the Blue-Star line; see `analysis/dumac-records-zero-sum.md` for the complete ACTI->MESG mapping.
+In the **ZERO SUM N0** record sequence, Dumac asks his unnamed friend/Nerevar figure about a **hidden Blue Star**. Evidence: `DAc0da.esm:00B6A2`.
 
-The final three records have Kagrenac repeatedly answer **NO**, while the titles together visually spell **ZERO SUM N0**.
+### Kagrenac insight
 
-This directly places Blue-Star vocabulary in DAc0da's Dwemer/Nerevar/Kagrenac/Red-Moment-adjacent material.
+MESG `DAc0da.esm:0093D3`, prefaced **“Thus spoke Kagrenac,”** says of a Blue Star:
 
-GLENMORIL independently treats **Blue Star** as a central term, while GLENMORIL and UNSLAAD also use **Mnemo-Li / Blue Orphan** vocabulary.
+- it appears ancient but is not;
+- it proves the Chimer betrayed the Dwemer;
+- its **radiance spilled from the future into the past**;
+- it dominates **non-temporal space**;
+- it watches them until the day of extinction.
 
-The cross-retrieval relationship is therefore strong, but DAc0da does not explicitly equate Dumac's hidden Blue Star with Mnemo-Li in these records. Keep that identity unresolved.
+This is a stronger direct DAc0da **Blue Star <-> Radiance <-> non-linear time** link than the Dumac question alone.
+
+GLENMORIL independently treats **Blue Star** as a central term, while UNSLAAD and GLENMORIL both contain Mnemo-Li / Blue-Orphan material.
+
+The cross-retrieval relationship is therefore strong, but DAc0da still does not explicitly say:
+
+- Blue Star = Mnemo-Li;
+- Blue Star = Radiance;
+- Kagrenac's Blue Star = Dumac's hidden Blue Star.
+
+Keep those identities unresolved.
+
+## Hist-Jillian / Wheelian-rip vocabulary
+
+DAc0da MESG `DAc0da.esm:004B7D` identifies the roots fighting a Jill as:
+
+- **Hist isomer: Milk Tree**
+- invading through a **Wheelian rip**
+- advancing on planet **KYNRT**
+
+The rare phrase **Wheelian rip** and Hist-Jillian warfare vocabulary also appear in the Michael Kirkbride **KINMUNE** material already stored in the apocryphal source library.
+
+This should be modeled as a provenance-aware source integration:
+
+- KINMUNE vocabulary/prose origin -> external developer/obscure text;
+- DAc0da's **Milk Tree / KYNRT / Numidium placement** -> Vicn adaptation and continuity use.
+
+Do not silently transplant all KINMUNE events into the Vicn chronology.
+
+## Jhunal / Owl / smiling-mask lineage
+
+DAc0da MESG `DAc0da.esm:005122`, encountered in the Beynhaal/Atmoran material, says people who had lost everything donned **smiling masks** to mock themselves.
+
+It then says that masked smile was passed to:
+
+- the **giants of Jhunal**, who use it to mock their own ignorance;
+- the **Owl sorcerers**, who use it to mock the ignorance of god.
+
+This is an unusually direct DAc0da link to VICN's recurring **Jhunal / Owl** network.
+
+VIGILANT, GLENMORIL, and UNSLAAD independently contain major Jhunal/Owl material. The shared proper vocabulary makes cross-retrieval high-confidence, while the exact transmission chronology of the mask motif remains DAc0da-specific until matched elsewhere.
 
 ## Adjacent Places / Lyg / Grabbers
 
