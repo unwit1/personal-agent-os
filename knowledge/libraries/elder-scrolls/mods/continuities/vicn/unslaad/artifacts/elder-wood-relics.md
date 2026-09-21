@@ -72,3 +72,14 @@ The equipment family physically bridges:
 The shared "Elder Wood" name is meaningful retrieval evidence.
 
 It does not prove that every item was literally made from one named tree or that every Elder-Wood reference describes the same exact location unless another record states so.
+
+## Recipe progression
+
+The Elder-Wood family is split across several progression gates:
+
+- **Elder Wood Axe / Greataxe** — craftable after **Lingering Snow**.
+- **Elder Wood Shield / Greatshield** — craftable after **Lingering Snow**.
+- **Elder Wood Knight armor** — craftable after **Snow Guardian**.
+- **Elder Wood Wolf armor** — craftable after **Hgmieil the Wolf Warrior** is dead.
+
+This confirms Elder Wood as a broad recurring material/artifact tradition rather than one uniform reward set.
