@@ -75,3 +75,16 @@ Unresolved:
 ## Canon boundary
 
 Caius's testimony about Mary, plague-mutated creatures, and recurrence belongs to `tes.mod.vigilant`. The Thrassian Plague and Mara are established Elder Scrolls elements; the specific Mary narrative and transformation model are VIGILANT's extension.
+
+
+## Knights of the Nine supplementary layer
+
+The a123999 VIGILANT background article includes this figure in its **Knights of the Nine** roster and says Molag Bal retained/stole part of each Knight's soul.
+
+This shared-fate explanation is supplementary commentary rather than a common ESM quest/script relation currently persisted for all nine.
+
+See:
+- `analysis/knights-of-the-nine-cluster.md`
+- `sources/supplementary/a123999-vigilant-backgrounds.md`
+
+The direct VIGILANT evidence in this dossier remains the primary basis for the character's individual role.
