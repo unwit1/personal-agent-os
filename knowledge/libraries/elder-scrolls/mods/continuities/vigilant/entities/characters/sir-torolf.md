@@ -4,7 +4,7 @@
 - Role: dialogue-bearing figure in **Knight of Arkay**
 - Scene anchor: `SCEN 021C31F3`
 - Quest editor ID: `zzzCHSubQuest10` — **Knight of Arkay**
-- Exact NPC FormID: not yet persisted in the current browsable repository corpus
+- Primary form: `NPC_ 020B081A` / `zzzCHKnightOfNine03` — **Sir Torolf**
 
 ## Structural evidence
 
@@ -70,3 +70,21 @@ See:
 - `sources/supplementary/a123999-vigilant-backgrounds.md`
 
 Torolf's direct ESM evidence remains his scene role in **Knight of Arkay**.
+
+
+## Direct Knight of Arkay doctrine
+
+The supplied VIGILANT 1.8.2 ESM resolves all four quest responses.
+
+Torolf teaches:
+- God is the pain of death and fear;
+- one who overcomes pain and fear becomes a god;
+- Arkay himself supposedly followed this path;
+- Torolf has sacrificed blood, flesh, and his own body;
+- his lord still says this is “not enough”;
+- the player should also offer flesh and blood to walk toward divinity.
+
+This converts Torolf from a scene-only identity into a clearly characterized religious extremist.
+
+See:
+- `dialogue/act4/recovered-sidequests.md`
