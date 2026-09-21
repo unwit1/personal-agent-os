@@ -16,6 +16,14 @@ UNSLAAD contains two independent Lyg traditions.
 
 These two UNSLAAD witnesses are related by the shared place-name but should remain separately attributable.
 
+### UNSLAAD GC9 Insight
+
+UNSLAAD also contains MESG 034C6340 / **zzzCrbMsgInsightGC9**.
+
+Its visible communication log reports MEHRUNES activation by the Magne-Ge, **memory evaporation in the LYG sector**, disposal of the current timeline, and purging of contaminated memories.
+
+The visible prose does not name Ghost Choir 9; the **GC9 association comes from the record EditorID**.
+
 ## DAc0da
 
 DAc0da's Ghost Choir material independently contains the exact terms:
@@ -28,7 +36,7 @@ DAc0da also independently uses **Adjacent Place** and **Grabbers** terminology e
 
 ## High-confidence continuity claim
 
-The recurrence of the rare exact place-name **Lyg**, together with Adjacent-Place/Grabber vocabulary across UNSLAAD and DAc0da, is strong evidence that the two works intentionally participate in the same VICN cosmological vocabulary.
+The recurrence of the rare exact place-name **Lyg**, Adjacent-Place/Grabber vocabulary, and now an UNSLAAD implementation-tagged **GC9** memory-erasure record makes the UNSLAAD ↔ DAc0da relationship substantially stronger than a thematic resemblance.
 
 ## What is not yet established
 

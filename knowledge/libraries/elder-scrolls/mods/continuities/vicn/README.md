@@ -20,7 +20,9 @@ A statement established in one plugin is not automatically attributed to another
 - **DAc0da -> GLENMORIL:** Rolls-On-Roads explicitly names **Romion** as an Altmer Dwemer-scholar friend and former colleague.
 - **DAc0da -> VIGILANT:** DAc0da's **Letter to a Friend** sends a seeker of Radiance to Dawnstar to find Vigilant **Altano** and learn compassion through suffering.
 - **DAc0da -> UNSLAAD:** both works independently use the rare exact terms **Adjacent Place** and **Grabbers**; UNSLAAD explicitly connects an adjacent place to Lyg.
+- **GC9 / LYG:** UNSLAAD `zzzCrbMsgInsightGC9` describes LYG-sector memory evaporation/timeline disposal, while DAc0da explicitly contains **Ghost Choir 9 / VS GC9**, LYG mass-erasure, and memory-project material. The UNSLAAD group-name link is implementation-level via EditorID.
 - **DAc0da / GLENMORIL / UNSLAAD:** all independently contain **Mnemo-Li** material connected to memory, possibility, unstable reality/identity, or dream states.
+- **Radiance / Mnemo-Li / memory:** UNSLAAD and DAc0da both explicitly use **Radiance** alongside unstable memory/identity vocabulary; DAc0da's Sea of Radiance additionally ties it to Mnemo-Li and many paths. Definitions remain source-specific.
 
 These are retrieval/continuity relationships, not permission to flatten source-specific claims into one narrative.
 
