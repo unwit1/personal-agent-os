@@ -8,12 +8,12 @@ Namespace: `zzzRev*`
 | Quest | Title | responses | status |
 |---|---|---:|---|
 | zzzRevGen | Generic Revenant | **146** | normalized |
-| zzzRevSub04 | Sacrament of Cat | 90 | pending |
-| zzzRevCqLeaper | Words of Worlding | 86 | pending |
-| zzzRevCqPedlar | Stray Cat | 83 | pending |
+| zzzRevSub04 | Sacrament of Cat | **90** | normalized |
+| zzzRevCqLeaper | Words of Worlding | **86** | normalized |
+| zzzRevCqPedlar | Stray Cat | **83** | normalized |
 | zzzRevSqCheese | Pale Cheese | 71 | pending |
 | zzzRevCqMothMan | Song of Fjyron | 70 | pending |
-| zzzRevSub04Jazel | Jazel Phantom | 60 | pending |
+| zzzRevSub04Jazel | Jazel Phantom | **60** | normalized |
 | zzzRevCqRuddyman | Memory of the Deep Sea | 57 | pending |
 | zzzRevCqRobin | Bad Company | 55 | pending |
 | zzzRevSub05Intro | The Lost Storyteller | 51 | pending |
@@ -55,9 +55,9 @@ Namespace: `zzzRev*`
 **Raw expected text-bearing total: 1,328 responses.**
 
 Current normalized:
-**258 / 1,328**
+**577 / 1,328**
 
 Remaining:
-**1,070**
+**751**
 
-There are also 35 `zzzRev*` quests with zero directly linked response texts; these are retained as structural/manager/hunt records rather than omitted from the raw quest inventory.
+There are also 35 `zzzRev*` quests with zero directly linked response texts; these remain structural/manager/hunt records.
