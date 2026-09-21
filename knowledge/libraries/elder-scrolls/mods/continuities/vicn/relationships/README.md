@@ -26,6 +26,7 @@ Work-specific facts remain in their source continuity. Parent pages should link 
 
 ## Owl / Jhunal / Chick-Trader threads
 
+- **Jhunal identity matrix** — `jhunal-identity-matrix.md`
 - **Jhunal / Saarthal / Owls** — `jhunal-saarthal-owls-thread.md`
 - **Laza / Owls / dragon experiments** — `laza-owls-dragon-experiments.md`
 - **Gray Owl / Chick Trader / Anequina** — `gray-owl-chick-trader-anequina.md`
