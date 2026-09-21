@@ -90,6 +90,43 @@ Both Marukh visions use compressed Stone/calamity language, but they should not 
 
 *City of Stone* is less resolved and should remain a separate prophecy/evidence map until more direct scene or script evidence appears.
 
+## Distribution and source behavior
+
+The placement index shows `BOOK 02054ED1` in three distinct interiors:
+
+- **Pond House** (`CELL 0216E303`)
+- **Bruiant Mansion North Wing** (`CELL 0204DC3F`)
+- **Temple of Stendarr** (`CELL 02025091`)
+
+That makes *A Vision in the City of Stone* a circulated prophecy rather than a unique corpse note or single-encounter document. The three placements are copies of the same source text and should **not** be treated as three independent witnesses.
+
+## Exact-phrase recovery check
+
+A repository-wide search of the currently persisted VIGILANT extraction found no independent direct-source occurrence resolving the book's distinctive phrases:
+
+- **“red woman”**
+- **“tainted child”**
+- **“hollow soul”**
+- **“city of Dwemer”**
+
+Outside the exact book text, those phrases currently appear only in this analytical evidence map.
+
+This is negative evidence about the **persisted extraction**, not proof that later PEX/BSA or presently unavailable raw source layers cannot resolve them.
+
+## Red Stone terminology
+
+The phrase **red Stone** has one important structural parallel elsewhere in the direct ESM reconstruction:
+
+- `0205AE01` / **Red Stone** is the `Adabal` alias item in Marukh's *Adabal* memory sequence.
+
+That lexical overlap is significant enough to retain as a retrieval edge, especially because *City of Stone* is itself attributed to Marukh.
+
+However, the prophecy does not supply a FormID, alias, scene, or quest link equating its red Stone with `0205AE01`. The correct current status is therefore:
+
+**prophetic red Stone ↔ strong terminology overlap with Marukh's direct Red Stone item; exact identity unresolved.**
+
+Likewise, “city of Dwemer in the north” remains geographically unresolved. Do not silently identify it with a particular Dwemer ruin without direct evidence.
+
 ## Retrieval edges
 
 - **City of Stone stanza 1 → names → Kyne**
