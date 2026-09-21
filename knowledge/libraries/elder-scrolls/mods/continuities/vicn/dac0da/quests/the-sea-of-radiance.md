@@ -51,3 +51,16 @@ This quest strongly clusters:
 - a blood/tower image.
 
 GLENMORIL and UNSLAAD independently contain **Mnemo-Li / Blue Orphan / Blue Star / dream-without-a-dreamer** material. These should be cross-retrieved as a Vicn continuity node without automatically asserting one-to-one identity between each work's imagery.
+
+## Direct VIGILANT / Altano bridge
+
+The associated BOOK `DAc0da.esm:006133`, **Letter to a Friend**, gives a concrete route toward Radiance:
+
+- travel to nightmare-plagued **Dawnstar**;
+- find a Vigilant named **Altano**;
+- learn compassion there;
+- suffer, because the letter says there is no Radiance without suffering.
+
+The existing VIGILANT corpus independently identifies **Altano** as a central Vigilant of Stendarr character with a dedicated main-quest chain and journal.
+
+This is therefore direct named cross-work continuity evidence, not merely thematic overlap. DAc0da's Radiance interpretation remains attributable to DAc0da, while Altano's biography/actions remain attributable to VIGILANT.
