@@ -25,8 +25,6 @@
 - Evidence:
   - UNSLAAD Orlando dossier
   - `mods/continuities/vicn/relationships/elder-wood-thread.md`
-- Supports:
-  - vicn.unslaad.orlando.elder-wood-origin
 
 ### vicn.unslaad.hermit.elder-wood-dream
 - Proposition: UNSLAAD's Hermit independently dreams of an elder wood beyond frozen mountains, priests seeking an end to endless winter, and a pilgrim whose Shout reveals sunlight and a reflected golden dragon.
