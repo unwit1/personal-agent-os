@@ -59,3 +59,12 @@ The ESM does not directly state:
 - whether the wolf-form and Wolf-Warrior form are chronological transformations, memories, symbolic incarnations, or trial representations.
 
 Current model: **linked Hgmieil representations with distinct body/loadout states.**
+
+## Reconstruction relationships
+
+Hgmieil's two implementation states gate two separate artifact traditions:
+
+- wolf-form Hgmieil is tied to **Earthbones** reconstruction and drops the Earthbones Greatsword;
+- Hgmieil the Wolf Warrior directly carries **Wolf King's Sword**, gates the Wolf King weapon recipes, and yields the Elder Wood Wolf armor family.
+
+This makes Hgmieil a shared progression node across Earthbones, Wolf King, and Elder-Wood-Wolf equipment without proving those traditions share one historical origin.
