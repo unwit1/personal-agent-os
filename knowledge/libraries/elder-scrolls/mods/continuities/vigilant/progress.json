@@ -162,7 +162,17 @@
     "Temptation of Marukh talking-activator role cluster",
     "The Nameless Bard talking-activator role cluster",
     "Slave Trader Notes 6-8 direct acquisition/carrier paths resolved",
-    "targeted canon-comparison queue for Amulet of Kings, Middle Dawn, Jyggalag/Greymarch, and Ayleid/Tower figures audited as mature"
+    "targeted canon-comparison queue for Amulet of Kings, Middle Dawn, Jyggalag/Greymarch, and Ayleid/Tower figures audited as mature",
+    "Vernaccus direct Archer-of-Kyne / Rahel identity-cluster dossier",
+    "Thorondir Temple-authority and Sacred Anatomancer report-author dossier",
+    "Hasaama Dro'Zel memory/witness dossier",
+    "Lamthor Bruiant warning/death dossier",
+    "Summil Bruiant cook/breakdown dossier",
+    "Patricia Bruiant victim dossier",
+    "Clifford Bruiant servant dossier",
+    "Heather Bruiant servant dossier",
+    "M'zaq Bruiant gardener/document dossier",
+    "Vena Petilius relic/prophecy identity node"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -197,20 +207,20 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "ten-unit VIGILANT memory-role batch 3",
+    "focus": "ten-unit VIGILANT named-character batch 4",
     "added": [
-      "Polydor narrated-figure node",
-      "Eloisa narrated-figure node",
-      "Priest of Stuhn After-the-Storm memory role node",
-      "Stendarr Aetherius role node",
-      "Johan traveling Bard/Bal role analysis",
-      "Beyond the Shores Bard role analysis",
-      "Beyond the Shores Sheogorath-associated role analysis",
-      "Pelinal the Bloody Bard/narration role analysis",
-      "Temptation of Marukh talking-activator role cluster",
-      "The Nameless Bard talking-activator role cluster"
+      "Vernaccus direct Archer-of-Kyne / Rahel identity-cluster dossier",
+      "Thorondir Temple-authority and Sacred Anatomancer report-author dossier",
+      "Hasaama Dro'Zel memory/witness dossier",
+      "Lamthor Bruiant warning/death dossier",
+      "Summil Bruiant cook/breakdown dossier",
+      "Patricia Bruiant victim dossier",
+      "Clifford Bruiant servant dossier",
+      "Heather Bruiant servant dossier",
+      "M'zaq Bruiant gardener/document dossier",
+      "Vena Petilius relic/prophecy identity node"
     ],
-    "source_state": "Ten memory-role/narrated-figure gaps were normalized without forcing unstable aliases into fixed biographies. Two stale next-queue items were closed: Slave Trader 6-8 acquisition is already directly resolved, and the named canon-comparison targets are mature.",
-    "open_followup": "Continue in ten-unit commits. Remaining actionable work is primarily additional lightweight direct actors/topics; hard blockers remain unpersisted 129 BOOK texts, PEX/BSA, Sir Amiel direct implementation, and the missing full Soul-Shriven variant table."
+    "source_state": "Ten previously dossier-less named figures were added from direct dialogue, journals, placed records, or two-layer implementation evidence. Bruiant victim nodes preserve suspicious context without converting it into proven supernatural causation.",
+    "open_followup": "Continue in ten-unit commits. Audit remaining named actors with at least two evidence anchors; once exhausted, mark character/faction expansion complete and leave only raw-source/PEX/Sir-Amiel/Feral-roster blockers."
   }
 }
