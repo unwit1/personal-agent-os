@@ -1,18 +1,16 @@
-# Tuning Box — resolved structural scene
+# Tuning Box — resolved dialogue
 
 Source: `Glenmoril.esm:0171EA` — `zzzGHMq05ScBrBox`
 Quest: `Glenmoril.esm:01719C` — **Oneiromancer**
 
-The scene is part of the same machinery sequence that culminates in the physical Quagmire gate opening.
+Five dialogue rows resolve exactly between **Ozwald** and **Ja'zel**.
 
-## Evidence integration
+Ozwald asks what is inside the tuning boxes and doubts machines can dream. Ja'zel answers that there are **exactly five chicks in the box**. Ozwald asks whether chicks can dream; Ja'zel says they have happy dreams and nightmares and are not very different from “us.” Ozwald decides he would rather not pry further.
 
-The Tuning Box is not treated as generic Dwemer scenery. It is a quest-scene object/action associated with the Oneiromancer expedition and sits alongside:
-- Romion's gate research;
-- the machine-opened route into Quagmire;
-- the later Gate Open scene;
-- the terminal-based memory recovery sequence.
+## Lore consequence
 
-The exact mechanism remains intentionally narrower than the narrative association: the scene proves operational involvement, not a complete technical explanation of the box.
+The Tuning Box is therefore not merely machinery in the quest structure: Ja'zel explicitly claims it contains five chicks, and the scene connects those chicks to dreaming.
 
-Confidence: **direct structural scene evidence**.
+This strengthens the Chick ↔ dream/machine retrieval link while leaving the literal nature of the “chicks” unresolved.
+
+Confidence: **exact structural speaker attribution**.
