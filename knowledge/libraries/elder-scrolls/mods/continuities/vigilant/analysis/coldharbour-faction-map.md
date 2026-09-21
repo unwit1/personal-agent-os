@@ -45,6 +45,33 @@ Distinctive markers:
 
 Do not label every Alessian as a Selective.
 
+### Alessian Inquisition
+
+Best modeled as the judicial/doctrinal-enforcement apparatus within the wider Alessian tradition.
+
+Key anchors:
+- Inquisitor Pepe / Pelan;
+- *The Grand Inquisitor*;
+- Narfin's Inquisition Court;
+- First and Second Inquisition Courts;
+- *Judgement*;
+- Mary/Moura persecution.
+
+This is distinct from the Selective: **Inquisition = enforcement machinery; Selective = radical theological current.**
+
+### Brothers of Marukh
+
+Best modeled as a Marukhite religious-military community within the wider Alessian tradition.
+
+Key anchors:
+- Abbot Cosmas;
+- licensed *Cleansing of the Fane* substrate;
+- Malada;
+- Holy Brothers of Marukh Priory;
+- Marukh's Underground Priory.
+
+This group should not be collapsed with the Inquisition or Marukhati Selective merely because all are Alessian/Marukhite.
+
 ## Parallel historical martial tradition
 
 ### Order of Diagna
@@ -75,6 +102,8 @@ VIGILANT's Coldharbour contains:
 This should not be modeled as a normal political faction with uniform membership.
 
 It is better treated as a **domination regime / realm structure**.
+
+Detailed reconstruction: `analysis/coldharbour-regime.md`.
 
 ## Invading Order
 
@@ -116,6 +145,8 @@ from:
 
 A character can belong to both layers without the Soul-Shriven system becoming that historical faction.
 
+Detailed encounter-system reconstruction: `analysis/feral-soul-shriven-system.md`.
+
 ## Alessian Sleeper is also a form-class
 
 Pelan/Pepe and other forms use **Alessian Sleeper Race**.
@@ -131,6 +162,8 @@ Model it primarily as:
 ### Historical/institutional
 
 - **Marukh → source/founder tradition → Alessian Order**
+- **Alessian Order → contains enforcement arm → Alessian Inquisition**
+- **Alessian Order → contains Marukhite community → Brothers of Marukh**
 - **Alessian Order → later radical development → Marukhati Selective**
 - **Fervidius Tharn → Arch-Prelate → Marukhati Selective**
 - **Amicus Tharn → VIGILANT ideologue aligned with → Selective**
