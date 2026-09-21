@@ -1,66 +1,34 @@
 # Cleaning Up Falkreath
 
-**Form ID:** `040082EE`
-**Editor ID:** `zzzLrhMq06`
+**Form ID:** `040082EE`  
+**Editor ID:** `zzzLrhMq06`  
 **Act:** 1 — Little Red
-**Source:** `Glenmoril.esm`
 
 ## Corpus
 
-- SCEN responses: **8**
-- topic responses: **40**
-- **48 exact responses total**
+- SCEN: **8**
+- topics: **40**
+- **48 exact responses**
 
-Speaker totals:
-- Brandt: 45
-- Falkreath Guard: 2
-- Lalanoah: 1
+Speaker totals: Brandt 45; Falkreath Guard 2; Lalanoah 1.
 
-## Ghoul cleanup
+## Direct evidence
 
-Brandt recruits the player to clear another ghoul nest because Falkreath lacks manpower.
+Brandt recruits the player to clear another ghoul nest. He later realizes the nest is a feeding ground for a **beast-possessed soul**.
 
-He says the nest turns out to be a **feeding ground for a beast-possessed soul**.
-
-## Beast-possessed soul
-
-Brandt calls the creature:
-- a beast of **Hircine**;
+He calls the creature:
+- a beast of Hircine;
 - permanently transformed;
 - worse than an ordinary werewolf because it cannot become human again.
 
-After it is killed, a Falkreath guard finds a broken **Imperial Legion amulet** on the corpse.
+A guard finds a broken Imperial Legion amulet on the corpse. Brandt guesses the victim had been a prisoner of Reachmen and was transformed by them.
 
-Brandt guesses the victim had been a prisoner of Reachmen and that they transformed him into the monster.
+Brandt also offers a year's worth of bad-quality iron daggers as payment, continuing the early dagger-glut thread.
 
-This remains Brandt's interpretation, not a structurally proven captor history.
+Lalanoah asks the player to give Brandt the apple pie made in the previous quest.
 
-## Dagger glut
+At the end, Brandt cannot identify a stone owl statue and jokes that Shor and Talos are enough gods for him.
 
-Brandt jokingly offers a year's worth of bad-quality iron daggers as payment.
+## Evidence boundary
 
-This continues the Act-1 low-quality-dagger buildup before A Thousand Daggers.
-
-## Lalanoah / apple pie
-
-During preparations, Lalanoah asks the player to deliver the apple pie made in the previous quest to Uncle Brandt.
-
-Brandt accepts it despite claiming not to like sweets.
-
-## Owl statue
-
-After the hunt, the player can ask Brandt about a stone statue with an owl.
-
-Brandt cannot identify it and jokes that Shor and Talos are enough gods for a Nord.
-
-## Scene disposition
-
-Dialogue-bearing:
-- Sc02: 1
-- Sc03: 1
-- Sc04: 1
-- Sc06: 5
-
-Zero-dialogue:
-- Sc01
-- Sc05
+Brandt's prisoner/Reachmen reconstruction is an attributed field interpretation. The amulet and transformed corpse are direct encounter evidence; the captor history is not independently proven by this quest.
