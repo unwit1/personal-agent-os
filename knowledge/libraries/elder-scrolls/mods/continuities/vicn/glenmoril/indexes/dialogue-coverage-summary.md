@@ -4,45 +4,44 @@ Source: raw `Glenmoril.esm`
 
 ## Closed direct-linkage scopes
 
-### Main Act 1 — Little Red
-`zzzLrhMq01–zzzLrhMq10`
-**585 / 585 responses**
+- Main Act 1 — **585 / 585**
+- Core Act 2 — **1,743 / 1,743**
+- Auxiliary LRH — **692 / 692** with 5-response overlap already in Act 2
+- Piper's Hill / LaM — **372 / 372**
+- Non-core GH — **77 / 77**
 
-### Core Act 2 — Witch Hunt
-Core `zzzGHMq01–zzzGHMq06` families plus associated direct buckets and The Black Owl.
-**1,743 / 1,743 responses**
+Unique closed total before Revenant:
+**3,464 exact response texts**
 
-### Auxiliary LRH
-All other `zzzLrh*` / `zzzLRH*` QUST records.
-**692 / 692 responses**
+## Revenant / revision namespace
 
-Five auxiliary responses from `zzzLrhSubQuest01 The Black Owl` overlap with the core Act-2 scope.
+Raw expected:
+**1,328 responses across 44 text-bearing quests**
 
-### Piper's Hill / LaM
-`zzzLaMMq01–zzzLaMMq05` plus `zzzLaMMqAlt`
-**372 / 372 responses**
+Backbone batch normalized:
+- Generic Revenant — 146
+- Departure — 21
+- Feast of Love — 19
+- Strange Fruit — 35
+- Desiccated Embryo — 19
+- Baby of Nightmares — 18
 
-### Non-core GH
-Replay/skit/ending `zzzGH*` quests outside the core Mq01–Mq06 families.
-**77 / 77 responses**
+**Revenant normalized: 258 / 1,328**
+**Revenant remaining: 1,070**
 
-## Unique total across closed scopes
+## Current unique normalized total
 
-585 + 1,743 + (692 − 5 overlap) + 372 + 77 =
+3,464 + 258 =
 
-# **3,464 unique exact response texts**
+# **3,722 unique exact response texts**
 
 ## No-QNAM audit
 
-A raw audit found **zero text-bearing DIAL records without QNAM**.
+Raw audit found **zero text-bearing DIAL records without QNAM**.
 
-## Remaining direct dialogue
+## Remaining dialogue
 
-Only the `zzzRev*` namespace remains:
+Only the remaining `zzzRev*` quests:
+**1,070 responses**.
 
-**1,328 direct response texts across 44 quests.**
-
-Additional non-dialogue work remains for:
-- BOOK/MESG text;
-- non-dialogue SCEN/package/script chronology;
-- indirect/script-only evidence.
+Non-dialogue work still remains for BOOK/MESG and SCEN/package/script chronology.
