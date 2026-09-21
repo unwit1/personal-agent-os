@@ -99,3 +99,91 @@ Future ingestion should recover:
 ## Canon boundary
 
 Sacred Anatomancer and its Holy Pipers/player relationship are VIGILANT-continuity material.
+
+
+## Cross-Vicn direct evidence
+
+Later Vicn works greatly expand the Sacred Anatomancer.
+
+### GLENMORIL
+
+Direct ESM-derived GLENMORIL material in **The Pipers** says:
+- Romion's documents about the Sacred Anatomancer **rewrite themselves while he reads them**;
+- the Anatomancer's race/identity changes across Nord, Breton, Imperial, Khajiit, Dunmer, Bosmer, Redguard, and other versions;
+- some records say he founded the Holy Pipers;
+- others say the Holy Pipers summoned him;
+- biographies become increasingly contradictory;
+- Romion explicitly feels he is losing his mind.
+
+This establishes as direct cross-Vicn fact:
+
+**the Sacred Anatomancer's biography is unstable / rewrite-prone.**
+
+Relevant files:
+- `../vicn/glenmoril/quests/the-pipers.md`
+- `../vicn/glenmoril/relationships/sacred-anatomancer-rewriting-thread.md`
+
+GLENMORIL also preserves Anatomancer-associated utterances involving:
+- “Love, I and We”;
+- repeated selves;
+- radiance;
+- fake/remnant language;
+- birth/womb/return imagery.
+
+These should not be collapsed into one literal biography.
+
+### UNSLAAD
+
+UNSLAAD contains a concrete NPC:
+- `NPC 0331B06B` — **Sacred Anatomancer**
+
+Its dialogue repeatedly asks the player to give it their **name**.
+
+When asked why, it answers:
+
+**“I want to see its Radiance.”**
+
+This directly establishes:
+
+**name → Radiance**
+
+in the Sacred Anatomancer's own conceptual framework.
+
+Relevant files:
+- `../vicn/unslaad/entities/characters/sacred-anatomancer.md`
+- `../vicn/unslaad/concepts/name-and-radiance.md`
+
+The exact meaning of Radiance remains unresolved.
+
+## Cross-Vicn ontology update
+
+The best current model is no longer simply “unknown individual with a report.”
+
+Instead:
+
+**Sacred Anatomancer = recurring Vicn identity/concept whose biography is deliberately unstable, whose manifestations can be concrete NPCs, and whose later dialogue links Name to Radiance.**
+
+That still does **not** prove the exact VIGILANT Sacred Anatomancer report describes the same body or chronology as the GLENMORIL/UNSLAAD forms.
+
+Use continuity layers:
+- `tes.mod.vigilant` — report/trial cluster;
+- `tes.mod.vicn.glenmoril` — rewriting biographies, Holy Piper leadership variants;
+- `tes.mod.vicn.unslaad` — named NPC asking for Name/Radiance.
+
+## Revised evidence model
+
+High-confidence VIGILANT implementation:
+- report exists;
+- Dungeon placement;
+- gatekeeper/trial dialogue cluster.
+
+High-confidence cross-Vicn implementation:
+- biography rewrites itself in GLENMORIL;
+- Sacred Anatomancer is a concrete UNSLAAD NPC;
+- UNSLAAD Anatomancer links Name and Radiance.
+
+Still unresolved:
+- exact VIGILANT report text;
+- whether one continuous personal entity spans all three works;
+- whether Sacred Anatomancer is a title, simulacrum class, recurring identity, or something else;
+- whether “Radiance” has one universal meaning across Vicn.
