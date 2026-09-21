@@ -34,3 +34,31 @@ Reliability remains layered:
 - Mary/Moura's identity is textually explicit in *The Eight Saints of Cyrod*.
 - Pepe's role in her burning is his own testimony.
 - the theological meaning of the event is contested within VIGILANT's own narrative.
+
+
+## Jhunal
+
+The saint text presents Jhunal as an Atmoran mage who joined Marukh, spread rune knowledge through eastern Cyrodiil, created **Marukh's Torch**, refused to surrender it to the Order, and was exiled. It further claims his disciple Cosmas later used the art at Malada and Pailune and that later records credited Cosmas rather than Jhunal.
+
+The ESM independently gives Jhunal a much larger footprint:
+- a speaking NPC, **Jhunal the Owl** (`0225B23C`);
+- a **Piece of Jhunal** form (`0225B23F`);
+- **Jhunal's Library** (`CELL 02259C5B`);
+- a library key, rings, Arcana of Jhunal, and Bone of Jhunal;
+- Saklas dialogue explicitly treating "Jhunal" as both an old Nord divine name and a First Era historical person's name.
+
+Current classification: **high-confidence VIGILANT identity cluster, ontologically unresolved**. The plugin strongly links the historical saint, the Owl, the Library, and the fragmented forms, but does not require Lorekeeper to assume they are a single simple physical continuity.
+
+## Nenyond
+
+The saint text describes Nenyond as an eastern Cyrodiilic lord and comparatively moderate Marukhati Selective who spent his fortune constructing an underground priory. He and Manthar disappeared after Dawn Era ruins were discovered beneath it; Silorn later vanished while searching for them, after which the ruins were sealed.
+
+The ESM independently implements:
+- **Nenyond's Underground Priory** (`0210EBFD`);
+- **Funeral Temple** (`021114AF`);
+- **Nenyond's Key** (`0212D026`);
+- a direct door relationship between the priory and Funeral Temple.
+
+No Nenyond NPC form or first-person dialogue has been found in the current VIGILANT inventory.
+
+Current classification: **VIGILANT-specific saint biography with strong location corroboration but weak personal/first-person evidence**.
