@@ -74,3 +74,20 @@ Unresolved:
 ## Canon boundary
 
 Sir Gregory is an established Knights of the Nine name. His Mary-shrine investigation, Korn interpretation, and VIGILANT afterlife are `tes.mod.vigilant` material.
+
+
+## Sir Juncan testimony
+
+The supplied VIGILANT 1.8.2 ESM adds direct testimony from **Sir Juncan** in **Knight of Kynareth**.
+
+Juncan says he is:
+- guarding Sir Gregory on an **artistic pilgrimage**;
+- aware Gregory is stubborn;
+- impressed by Gregory's swordsmanship;
+- envious/respectful of Gregory's sense of art and taste.
+
+This upgrades Gregory from a document-only presence into a knight directly described by another named Knight of the Nine.
+
+See:
+- `entities/characters/sir-juncan.md`
+- `dialogue/act4/recovered-sidequests.md`
