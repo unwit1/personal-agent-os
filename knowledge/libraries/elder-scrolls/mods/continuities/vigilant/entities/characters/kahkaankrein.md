@@ -4,7 +4,8 @@
 - Role: dialogue-bearing figure in **Kyne's Dragon**
 - Scene anchor: `SCEN 022C374B`
 - Quest editor ID: `zzzCHSubQuest11` — **Kyne's Dragon**
-- Exact NPC FormID: not yet persisted in the current browsable repository corpus
+- Primary form: `NPC_ 0221AF9D` / `zzzCHKahKaanKrein` — **Kahkaankrein**
+- Memory form: `NPC_ 0251D69A` / `zzzCHMemKahKaanKrein`
 
 ## Structural evidence
 
@@ -66,3 +67,30 @@ Recover:
 ## Canon boundary
 
 Kahkaankrein and the specific *Kyne's Dragon* narrative are VIGILANT-continuity material.
+
+
+## Direct Kyne's Dragon dialogue recovery
+
+The supplied VIGILANT 1.8.2 ESM resolves the full **Kyne's Dragon** dialogue body:
+- 14 DIAL topics;
+- 28 INFO responses.
+
+Kahkaankrein directly says:
+- a **blood curse** took his wings;
+- he fell into the **black sea**;
+- the last thing he remembers was the horrible grin of **the Owl**;
+- Alessians tried to take his blood;
+- other dragons served Kyne but were deceived by the Owl and turned to stone;
+- those dragons had abandoned Alduin and chosen Kyne and mortals;
+- their mission was protecting Kyne's garden;
+- **Laza** were mortal children/shepherds serving outside the garden but forbidden to enter or meet Kyne;
+- Molag Bal stole Kyne's animals and corrupted their forms;
+- Molag Bal returned repeatedly even after being killed.
+
+A pure **Feather of Kyne** gives Kahkaankrein a route back toward Kyne.
+
+This is now one of the strongest direct VIGILANT witnesses for the Laza/Owl/Kyne history.
+
+See:
+- `analysis/act4-direct-source-recovery.md`
+- `dialogue/act4/recovered-sidequests.md`
