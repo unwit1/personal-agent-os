@@ -4,8 +4,8 @@
   "text_bearing_quests": 44,
   "zero_response_quests": 35,
   "expected_responses": 1328,
-  "normalized_responses": 577,
-  "remaining_responses": 751,
+  "normalized_responses": 931,
+  "remaining_responses": 397,
   "normalized_quests": {
     "zzzRevGen": 146,
     "zzzRevMq00": 21,
@@ -16,6 +16,12 @@
     "zzzRevSub04": 90,
     "zzzRevSub04Jazel": 60,
     "zzzRevCqLeaper": 86,
-    "zzzRevCqPedlar": 83
+    "zzzRevCqPedlar": 83,
+    "zzzRevSqCheese": 71,
+    "zzzRevCqMothMan": 70,
+    "zzzRevCqRuddyman": 57,
+    "zzzRevCqRobin": 55,
+    "zzzRevSub05Intro": 51,
+    "zzzRevCqAisha": 50
   }
 }
