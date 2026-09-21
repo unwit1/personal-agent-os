@@ -18,6 +18,9 @@ This directory preserves record-structural evidence useful to Lorekeeper without
 
 - `runtime-behavior.md` / `.json` — non-quest VMAD mechanics and state transitions for Shadow, Gilded, Amalgam, Recall, and bathing.
 
+- `travel-machine-network.md` / `.json.gz` — exact Travel Room selector → enabled portal → Terminus/Recall cell graph, including Raven Rock gating.
+- `pneumatic-network.md` / `.json.gz` — exact Pneumatic Tube Receptacle endpoints, room-to-room transfer/sort edges, and local sorting stations.
+
 ## Interpretation boundary
 
 Implementation evidence can establish what the mod actually makes happen—for example, which scene alias speaks, which spell Shadow's management quest invokes, or which script starts Amalgam's retreat. It does **not** automatically establish an in-universe metaphysical law.

@@ -17,3 +17,13 @@ During the main quest, lost steam power first makes the machine mechanically non
 - `INFO 05679F5E` — Shadow blocks departure.
 - `INFO 0578D466` — Mark/Recall-like spell.
 - `INFO 057A18BD` — Raven Rock Terminus is temperamental.
+
+## Exact implemented network
+
+Record wiring shows the Travel Room as an eleven-selector hub. The nine Skyrim city destinations are Dawnstar, Falkreath, Markarth, Morthal, Riften, Solitude, Whiterun, Windhelm, and Winterhold; Raven Rock is a tenth remote Terminus, and Recall Point is the eleventh selector.
+
+Each placed selector runs `CLWTravelMachineButton01Script` and enables one portal/door while disabling the others. The city/Raven Rock transitions are paired `XTEL` door references between the Travel Room and dedicated Terminus cells. Recall instead enables a hidden portal into `CELL 050A842C` / **Recall Point**, while the spell separately tracks the player's marked return position.
+
+The Raven Rock selector alone carries the `pRRButton` flag and Dragonborn/Solstheim availability checks.
+
+See `../technical/travel-machine-network.md` for the exact button, portal, return-door, cell, and plate-angle mapping.

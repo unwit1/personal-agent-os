@@ -62,3 +62,12 @@ Evidence: Armoury tour dialogue; `ACTI 0508B961`, `0508E5A9`, weapon-rack activa
 ## Interpretive significance
 
 The house's systems repeatedly remove the need for repetitive physical labor. That is convenient for the player, but it also reinforces Ludwig's story: the same infrastructure can make extreme isolation materially sustainable.
+
+## Record-level network maps
+
+The implementation layer now preserves the exact routing graphs rather than only named controls:
+
+- `../technical/pneumatic-network.md` — Pneumatic Tube Receptacle endpoints and transfer/sort edges.
+- `../technical/travel-machine-network.md` — Travel Room destination selector and portal graph.
+
+Both systems depend on castle machinery state, reinforcing that the restored steam network is a shared infrastructure layer rather than a set of unrelated conveniences.

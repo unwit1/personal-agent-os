@@ -21,3 +21,11 @@ The ESP defines individual Terminus cells:
 Raven Rock therefore has a dedicated Dragonborn-aware Terminus cell rather than being only a dialogue reference. Dialogue separately notes that this Terminus is temperamental.
 
 See `../topics/travel-machine.md`.
+
+## Door-pair wiring
+
+The Travel Room destination controls enable paired teleport doors. Each city/Raven Rock Travel Room door has an `XTEL` link to a return door inside the corresponding Terminus cell, and the return door links back to the Travel Room.
+
+Recall Point is structurally different: the selector enables a portal-parent in the Travel Room, whose child door leads to a hidden `Recall Point` dummy cell. The Recall spell manages the actual marked return position separately.
+
+See `../technical/travel-machine-network.md` for the full record graph.

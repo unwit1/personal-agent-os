@@ -79,15 +79,19 @@
     "package_state_choreography": "initial_story_relevant_pass_complete",
     "cell_reference_mapping": "clockwork_named_cells_and_story_markers_mapped",
     "base_tes_crosslinks": "initial_boundary_map_complete; base reference dossiers currently mostly stubs",
-    "quest_vmad_story_state": "initial_core_quest_pass_complete"
+    "quest_vmad_story_state": "initial_core_quest_pass_complete",
+    "travel_machine_network": "exact_selector_portal_terminus_graph_complete",
+    "pneumatic_automation_network": "exact_receptacle_and_routing_graph_complete",
+    "environmental_system_catalog": "named_interactive_systems_initial_pass_complete"
   },
   "next_ingestion_steps": [
     "parse remaining story-relevant PACK conditions/targets and placed references beyond the first curated choreography pass",
-    "catalog named ACTI/DOOR/CONT/FURN/MSTT records that materially describe castle and Nurndural systems",
     "add retrieval tests for spoiler gating, provenance boundaries, revised claims, and implementation-vs-lore separation",
     "expand base-TES Kagrenac/Heart/Numidium/Red Mountain dossiers from source-backed library ingestion before deeper canonical comparison",
     "add retrieval tests for continuity-boundary routing and stub-aware base-canon comparisons",
-    "inspect non-quest VMAD-bearing activators, references, magic effects, and actors for additional environmental/state lore",
-    "map scene/package/VMAD transitions into story-graph edges where they add deterministic runtime causality"
+    "map scene/package/VMAD transitions into story-graph edges where they add deterministic runtime causality",
+    "map remaining castle/Nurndural interactive environmental records to exact placed cells where they add lore or navigation value",
+    "add deterministic story-graph edges for Travel Machine, pneumatic machinery-state, Shadow slow-time, Amalgam retreat, and final-fight runtime transitions",
+    "add retrieval tests for spoiler gating, provenance boundaries, revised claims, implementation-vs-lore separation, and technical-network routing"
   ]
 }
