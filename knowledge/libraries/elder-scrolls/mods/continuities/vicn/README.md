@@ -13,4 +13,4 @@ A statement established in one plugin is not automatically attributed to another
 - VIGILANT: existing ESM-backed continuity ingestion; retained at the established VIGILANT continuity path and linked through this parent overlay.
 - GLENMORIL: ESM-backed ingestion in vicn/glenmoril.
 - UNSLAAD: ESM-backed ingestion started in vicn/unslaad from user-provided translated Unslaad.esm 3.0.6; initial inventory, quest structure, first-pass analysis, and cross-Vicn seeds committed.
-- DAc0da: source material belongs under this continuity and remains independently attributable during ingestion.
+- DAc0da: ESM-backed ingestion in vicn/dac0da; structural inventory and quest catalog committed, with the numbered main story reconstructed through **Patchwork** (MQ03).
