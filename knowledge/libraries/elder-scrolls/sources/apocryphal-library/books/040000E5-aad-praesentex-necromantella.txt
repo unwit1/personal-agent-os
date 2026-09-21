@@ -1,0 +1,19 @@
+[pagebreak]
+<p align="center">
+
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>ad Praesentex Necromantella
+
+[pagebreak]
+</p>
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/I_letter.png'>n nymic Sithisit, in nymic Padhome, aab ghara-le Arkaea, in saghe Namira:
+
+Ous faabrika aex mutalithi necromantella aad semblio mantella, kham Axikhan infex. Aad ravelei scarabex, aad ourha semblex ehlnofae reminit. AE! AE! SITHISIT!
+
+Hastex ce welle infex, aex welle Varlakhan Axikhan'ce encaet. AE! AE! SITHISIT!
+
+Aab Ada-Mantia, AE AE SITHISIT!
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>ad sangella aab carpex aven, aad corprus carpex inven. Sicce moltes carnex, emaio animex mette. Talit, qoum moltena della carnex, mutalithi aet Speculamorphex Memorianu, necromantia Imperafex.

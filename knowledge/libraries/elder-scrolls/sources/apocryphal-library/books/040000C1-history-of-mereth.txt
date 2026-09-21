@@ -1,0 +1,24 @@
+[pagebreak]
+<p align="center">
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/H_letter.png'>istory of Mereth
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/W_letter.png'>ith the punishment of Lorkhan, sacred peace resumed in the lands of Dawn's Beauty. The banner-blooded races of Men retreated to hidden valleys within the Heartlands, though many still occupied shield-broken Altmora.
+
+The North of Dawn's Beauty was the last of the realms to hold to the name of Mereth, the lands of the Mer. To the south, the lands became Cyrod, Auridon and Silvenar. Far to the east in the Padomaic, it would come to pass that the lands would be named Dwemereth. Hegathe was scorched and uninhabited, and in the furthest reaches, the great black grove gave birth to snake-men unlike our own kind.
+
+The cities of Mereth, by this time, were Abalavar, Ungalmilde, Ayabathar, Huelemacar, Saradith, Belthemyr, Calmavelde and Ceyarindel. All were peopled by those of us schooled by the Ehlnofey in the ways of poetry, song, war and craft. In all of these save the last, we had no equal among all the races of Mer.
+
+The finest craftsmer were the most diligent students of the Ehlnofey, the deep-counselled ones who founded the mountain kingdoms of Mzark, Raldbthar, Irkngthand, Nchuand-Zel, Alftand and many as yet unknown or still being built. They did not spurn poetry and art, but preferred instead to turn their minds to mathematics and the logics of sound and heat.
+
+For much of the time there was peace, though there was sometimes war. The Dwemer did not make war but when we encroached on their lands, they unleashed soulless men of new metal against us, who could only be felled by the mightiest of warriors. 
+
+As centuries passed, a change took place in the world. We knew even then that something new had taken hold in the land, for there fell a strange cold ice-rain that drifted to the ground as softly as Autumn leaves. Soon, it carpeted the whole of Mereth in white, and it chilled us to our very hearts. But we were the scions of Mereth and we were wise in the ways of the Ehlnofey, and so we learned how to master this new weather, which we called snow.
+
+It was in later years when the tidings of a terrible calamity came to us from the South. Trinimac had fallen in battle with Boethiah while seeking to prevent an exodus of Auridonians to the lands of Dwemereth. Our god of war had been lain low and tainted so that he became a wretched, warped and vengeful god called Malach. He sent his twisted and tainted followers to all corners of Dawn's Beauty, and that is how we came to fight the first Orsimer. 
+
+The most recent event in our record is the arrival of Men from Altmora. They are the dread issue of Lorkhan, and they have built a new city called Sarthael to the far north. So far, they have been calm and peaceful, and so perhaps our fears of them are unwarranted.

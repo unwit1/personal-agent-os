@@ -1,0 +1,22 @@
+[pagebreak]
+<p align="center">
+The Hierarchical Structure of the Greater Dremora
+
+<img src='img://Textures/Interface/Books/ApocLib/mananaut.png' height='200' width='200'>
+
+Admiral Secundius
+2E 159
+</p>
+[pagebreak]
+<p align="left">
+From the scrying chambers beneath the Imperial Palace have come the most complete works on the Dremora domains yet transcribed. Peering into their realm of murmuring shadows has revealed a caste society that observes a perverse loyalty to its hierarchical structure. There is no end to the varieties of relationships between Daedra Lords and their dominions, and the structure is both complex and contradictory: Their realm is filled with obfuscations and enigmas. But numerous rules have been observed.
+
+To wit: the Daedra's chief servants, the Dremora, have been ordered into clans and castes, and these clans were well regimented. To claw up from a specific rank, a complicated (and often damning) oath is sworn, and only then shall the will of the Daedra Lord allow it. Dremora believe themselves to be of greater importance than other, more base and unthinking Daedra. They have taken to calling themselves "the Kyn"; a member of their race is a "Kynaz," or "he of the Kyn."
+
+Through means of further divination, the segregation of the castes becomes a little less clouded. Among the warrior caste are the following clans. mentioned from least to most esteemed: First are the Varlets, the spume under the feet of the downtrodden. Next are the Churls, a pathetic brood of baying ne'er-do-wells, quick to torment humans and other Daedra but positively sycophantic to their betters. Above them are the Caitiffs, zealous but unreliable. The highest caste of warriors are the Kynvals. These may be Caitiffs who have proven themselves in battle. They are self-sufficient, need no cajoling, and are steadfast in their violence and pursuit of leadership.
+
+Standing on the necks of the warrior castes are the officer clans. At the foot of them all are the Kynreeves, who administer rewards and violent penalties to the clan of warriors they are charged with maintaining. They are as much a cattle-herder as a leader. Next are the Kynmarchers, the first Dremora to be given the honorific "lord." Whether commanding from an outpost, gate, or citadel, this fiend has the additional responsibility of overseeing a (usually larger) fighting force and the fief he is in charge of.
+
+Ranking above is the Markynaz, roughly translated as "grand duke." A fearsome and intelligent soulless force, he forms a grand council with other Dremora of his standing, known as the Markyn. Watching over all are the warrior princes, or Valkyinaz. They care not for the well-being of their underlings and are never seen in Tamriel, as they remain by the side of the Daedric ruler - such as Mehrunes Dagon of the Deadlands plane of Oblivion - serving to command grand forces that have caught the ruler's attention.
+
+[Meeting a Dremora Caitiff was quite sufficient, thank you very much. I have no desire to meet any of these "Kynaz," or whatever they call themselves.]

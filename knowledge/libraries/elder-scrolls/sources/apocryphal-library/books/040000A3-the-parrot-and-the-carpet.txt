@@ -1,0 +1,35 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Parrot and the Carpet
+
+"A Humorous Tale of Hammerfell"
+
+By
+Regulus 'Uncle Regrezio' Rezia</p>
+[pagebreak]
+<p align="left">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>here was once a man who travelled through Hammerfell. However, in order to get around better, he sought out the pilot of a flying carpet so that he would not have to walk through the hot deserts on his own. 
+
+He was not the only passenger; there was also a loud and obnoxious parrot who also paid the carpeteer his two drake fee. The carpet ascended into the blue vaults above, and began to zoom over the land.
+
+After some time the parror bellowed, quite suddenly, "STROS M'KAI! TAKE ME TO STROS M'KAI!"
+
+To the traveller's surprise and despite the parrot's rude rejoinder, the carpeteer changed course and soon they flew over the isle off Hammerfell's southern coast. The traveller marvelled at the desert isle's unusual domes and minarets.
+
+After a while, the parrot became restless again and shouted "TANETH! TAKE ME TO TANETH! I WANT TO SEE TANETH!"
+
+And so, once again with a gruff sigh, the carpeteer flew out over Taneth on the coast. The traveller admired the city's bustling docks and nearby ancient tombs. 
+
+Once again, the parrot rudely yelled, "SKAVEN! TAKE US TO SKAVEN! DO IT NOW!"
+
+His temper clearly being moderated with some effort, the carpeteer flew across the mightly Alik'r to the desert city of Skaven, majestic at the foot of the nearby Dragontails.
+
+Fancying that he had the hang of how travel worked now, the traveller yelled rudely to the carpeteer, "SENTINEL! TAKE ME TO SENTINEL, DO IT AT ONCE!"
+
+At which point the carpeteer's temper overcame him, and he yelled "Right, that's it! That's enough!" and hurled both the traveller and the parrot from the carpet.
+
+As they plummeted to the ground, the parrot said to the traveller:
+
+"You know, you've got a lot of lip for someone who can't fly."

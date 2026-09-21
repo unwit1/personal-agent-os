@@ -1,0 +1,24 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/R_letter.png'>ituals of the Fenlords
+
+
+
+
+by Sel-Xeexzu
+</p>
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/W_letter.png'>ith the defeat of the Barsaebic Ayleids, the matter arose among us of what had become of their rulers. Day by day it emerged that they had made themselves into unliving hosts, hoping perhaps to re-emerge as the undead masters of old empires.
+
+But we, the watchful red eyes of the Unwoken Root, have stolen this wisdom from them. No more will the sarcophagi of the Barsaebics act as thrones for their century-swallowed queens.
+
+These mummified kings and queens, whom we now call Fenlords, used the magic of the stars to seal away their souls while their bodies died. For this, they took the brightest stones of them all - the Varla Stones - and blackened them by invoking the soul-snare rituals accompanied by the deaths of many slaves.
+
+By ensuring that this bound item was in their possession at the moment of death, and that the correct methods of embalming had been performed, they were able to evade the escape of the soul. This effect sundered the varla stone - it is not a soul-anchor like those used by liches.
+
+Using magickally dominated servants, the Fenlords had constant rituals of preservation placed upon them, involving the painting of runes in blood, and the daubing of void salts into the apertures of the skull.
+
+These rituals are now the property of the watchful red eyes - we shall take from the Fenlords their ancient souls and make them our own, and become immortal from their swallowed wisdom.

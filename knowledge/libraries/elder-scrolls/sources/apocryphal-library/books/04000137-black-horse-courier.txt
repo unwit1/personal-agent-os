@@ -1,0 +1,7 @@
+<p align="center">
+<img src='img://Textures/Interface/Books/ApocLib/BlackHorseCourier.png' height='60' width='250'>
+WAR IN VALENWOOD</p>
+
+We advise travellers to the south to be advised; war has broken out between rivalling Imperial provinces. Border disputes between Elsweyr and Valenwood have been increasing over the last couple of years, and now open hostility between the nations has broken out.
+
+We cannot be certain what series of events led to the conflict, but it seems that old tribal rivalries, coupled with bandit raids, has probably been the cause. Imperial Authority will be considerably weakened if the legions are not able to quell the violence soon.

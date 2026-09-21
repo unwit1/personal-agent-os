@@ -1,0 +1,9 @@
+<p align="center">
+<img src='img://Textures/Interface/Books/ApocLib/BlackHorseCourier.png' height='60' width='250'>
+FALL OF THE BATTLESPIRE</p>
+
+We bring terrible news from the cosmos, now. The Imperial Battlespire, one of the last Imperial holdings in non-Mundic space, has fallen to the hordes of the dread Daedric Prince, Mehrunes Dagon.
+
+Though it seems, thanks to the efforts of two brave battlemages, that the onslaught has been stopped, the destruction has been immense and the old training ground of the Imperial army has been damaged beyond immediate repair. 
+
+Though the details of the Battlespire are little known to most citizens, it is widely known to have been the training ground for Imperial Battlemages and the highest-ranking members of the Imperial Guard.

@@ -1,0 +1,32 @@
+[pagebreak]
+<p align="center">
+
+The Alessian Order
+A Brief History
+
+By
+Stronach k'Thojj III
+Imperial Historian
+
+</p>
+[pagebreak]
+<p align="left">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he roots of the Alessian Order begin in fourth century Nibenay, in the first era. The famous Imga prophet Marukh claimed he had a vision of the ancient Slave Queen Alessia, and laid down the foundations of Cyrodiilic religious law in his infamous Seventy-Seven Inflexible Doctrines.
+
+The Doctrines espoused the singular divinity of Akatosh; there were no other entities who were considered gods, though Shezarr was considered to be 'doubly venerated' as Akatosh's missing twin. Akatosh came to be known as 'The One', an apellation that adorns his temple in the Imperial City to this day.
+
+The Doctrines also condemned Elves, and the early acts of the order were to sack the remaining Ayleid fiefdoms within Cyrodiil. Nenalata, Malada and Miscarcand all fell to the Alessians, and the last King of the Ayleids, Laloriaran Dynar, led his remaining people to High Rock.
+
+The Alessians High Rock and gained political influence in Skyrim, the latter of which declined with the death of King Borgas. King Wulfharth, his successor, would ultimately expel the Alessians from Skyrim in 480. But it was in Skingrad, two years before, where the Alessians would mark their first defeat - at the hands of Rislav the Righteous, who successfully broke away from the empire. This led to the Alessians being pressed in High Rock, where the Direnni had rallied their forces to bear. With the Ayleid King Dynar at their side, they defeated the Alessians at the Battle of Glenumbra Moors.
+
+Following this, at some point - it is quite unclear - a sect of Alessians known as the Marukhati Selectives perform the infamous 'Dance on the Tower', which would lead - according to popular academic thought - to a period of historic uncertainty known as the Middle Dawn, in which they sought to exorcise the Elven god Auri-El from the Dragon god Akatosh.
+
+Colovia eventually consolidated to form the Colovian Estates, which caused tension among the Nibenese government. Following the destruction of Thras by the All Flags Navy, Colovia began to expand in influence. An attempt to marry into the royal families of High Rock (which had rejoined the Alessian Empire in the eleventh century, only to leave again 1300 years later) was banned by the Order, which led ultimately to the War of Righteousness in 2321.
+
+The war was a decade long and bloody, and led to the destruction of the Order's temple complex at Lake Canulus. Since then, Colovia and Nibenay were divided, and would remain so until the time of Reman I.
+
+With the other Divines relegated to mere saints or spirits, the Nibenese had developed a plethora of cults. The collapse of the Order did little unite these disparate faiths - indeed, a great many strange sects to various figures still exist in the modern age.
+The order survives today only as a relic, the remnants of the second-era 'Temple Zero Society' that continues to proclaim the 'Monkey Truth' at the exclusion of logic and reason.
+
+

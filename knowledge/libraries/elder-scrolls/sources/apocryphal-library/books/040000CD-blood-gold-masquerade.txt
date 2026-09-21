@@ -1,0 +1,26 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/B_letter.png'>lood-Gold Masquerade
+
+
+Or, a defence of reckless indulgence
+
+by The Vermillion Courtier
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/C_letter.png'>rimson fall the blood-hued petals of Sanguine's Rose, a silken welcoming for the table at which all are welcome to revel and forget.
+
+The truest wine is as red as the sound of the filled goblet, as scarlet as the laughter that drowns out the bitter-blue tyranny of starry memory. It tastes as red and gold at once, and with but one drop may the supplicant bathe in the silks and velvet of nostalgia-come-now.
+
+Sanguine said:
+
+"Naught but scant drops of the most sacred and heady of all wines remain from the grand indulgence at the beginning, but more is to come, O most blessed of idiot-revellers, my children, my dancers, my worshippers. You who serve by the ruining of servitude, and dash aside the sword and the crown for the bloodstained goblet. You will be the most cherished of guests, and will drink so deep of the sacred wine when again it flows that the very stars above will be blotted out, and gold will become red and blood will become wine."
+
+Scores of sages and philosophers have sought to end agony through wisdom and mysticism. They blind themselves to Sanguine's most generous gifts in abject displays of stoic asceticism.
+
+Memory is a weapon against mortals wielded by dragon-toothed star gods, but within these gods lies the key to release. Drink ye deep, O mortal supplicant, of the blood of gods! Soon there will be plenty, and we shall dream ourselves into amnesia once more.
+
+

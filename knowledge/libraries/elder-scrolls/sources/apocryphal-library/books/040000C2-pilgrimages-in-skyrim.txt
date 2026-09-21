@@ -1,0 +1,103 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/P_letter.png'>ilgrimages in Skyrim
+
+by
+
+Halkan Broad-Arrow
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>o the Honour of the Divines, we offer our praise and our worship. For the sanctity of our souls, we embark on pilgrimage that we may learn faith through our deeds.
+
+Faith has changed greatly in Skyrim over the eras.  In long-gone times, Arkay was feared by the Nords as the dread Orkey, and Akatosh was believed to be a world-devouring monster called Alduin. As such, some pilgrimage routes are more recent than others.May this book hold a torch to the pathways that will guide you in the light of the Nine.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/K_letter.png'>ynareth's Pilgrimages
+
+Even to this day, Kynareth is known as Kyne by many Nords, and in this tradition she is the queen of the gods, rather than Akatosh being their king. She is revered as the widow of Shor, the dead god, and is a patron to hunters and warriors alike.
+
+For those seeking the wisdom of Kyne the Mother of Storms, the most well-known pilgrimage is the Seven Thousand Steps that lead up and around the Throat of the World, her sacred mountain, where it is believed that she first breathed the races of Men into Tamriel. This is also one of the most difficult pilgrimages, since it is a steep climb and reaches very cold areas. It leads from the base of the mountain to the monastery of High Hrothgar, where the ancient order of Greybeards dwells. These are the masters of the Voice, a mythic tradition that uses Kyne's power of breath to shape reality.
+
+This pilgrimage begins in the small village of Ivarstead in The Rift. The village is situated in the eastern foothills of the mountain, and there is a good tavern in town, currently called the Vilemyr Inn, that serves as a hostelry for pilgrims also. 
+
+A bridge from town takes one over the Darkwater River. Here, one shall find the first of ten emblem-shrines telling of the history of the mountain and the order of the Greybeards. The story found on those shrines shall not be told here, as it important for the pilgrim to meditate on these histories and learn them for oneself.
+
+The climb is steep and takes one above the snowline, so warm clothing and torches are essential. Despite being a famous pilgrimage route, it is also the realm of the nature goddess, and should be treated as a dangerous wilderness - if you would not risk the wilds where bears, wolves and trolls roam, one should not progress past the second emblem-shrine.
+
+The tenth shrine is outside the doors of High Hrothgar itself. The doors to the monastery will remain locked - it is rare for the Greybeards to meet with outsiders, since they are able to cause great damage with a single uttered word.
+
+Those who complete this pilgrimage enjoy a lasting sense of oneness with nature. The mother of the winds rewards those brave and resourceful enough to complete her challenge with protection from the elements and even from her own beasts.
+
+Those who seek the wisdom of Kynareth in her role as mother of the sky and bride of the earth may be drawn to the pilgrimage of the Eldergleam. This is a very ancient and holy tree, as old as the world itself - when the first Atmorans arrived in Skyrim, they found that they could not hack through the sapling with their axes, thus they learned it was even older than metal, the craft of which was taught to men by Stendarr. In this era, the tree is much larger than the sapling our ancestors found - it is the largest tree in northern Tamriel, and rivals the graaht-oaks of Valenwood in its enormity. It is one of the most sacred symbols of Kynareth in the world.
+
+This pilgrimage begins in Whiterun. There are several taverns and hostelries here, chiefly the Bannered Mare which usually has plentiful beds for pilgrims. From here it is a short walk to the Temple of Kynareth, outside of which stands the Gildergreen. This tree, also very ancient and from a shoot of the Eldergleam, is itself a destination for pilgrims of Kynareth, and many who travel to Whiterun hope to be able to sample some of the tree's fruit, which grants great vigour and long life to the eater. 
+
+Those pilgrims who wish to go further will travel to Darkwater Crossing in Eastmarch.  From here, one should travel directly north over the bridge out of town, past the natural springs to a copse of trees. Here, one may find a cave entrance which leads into the Eldergleam Sanctuary.
+
+Here, the pilgrim may revel in the beauty of the Eldergleam. The whole cavern is a serene landscape, bathed in the radiant light of Kynareth's peace. Here, pilgrims meditate, sometimes for days on end, and return refreshed and renewed of body and soul.
+
+There are certain other places in Skyrim sacred to Kynareth, but they are to be avoided. These are ancient glades and groves where her mortal servants, the Spriggans, tend to her needs. Spriggans are fiercely protective of Kynareth's holy sites, and do not heed one's pilgrimage as a reason to stay their wrath. 
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>alos' Pilgrimages
+
+Though born a man, Talos is now the second-most venerated of all the Divines in Skyrim. Pilgrims who seek to honour his deeds often walk the Seven Thousand Steps as the pilgrims of Kyne do, as it was at High Hrothgar that Tiber Septim withstood the challenge of the Greybeards and was named Dragonborn.
+
+Since the early Third Era, the Pilgrimage of the Stormcrown has been walked from Falkreath to Markarth. On this journey, the pilgrim follows in the footsteps of General Talos as he marches alongside Cuhlecain.
+
+The pilgrimage begins in Falkreath, where lodgings can be had at Dead Man's Drink. Nearby is the town's famous graveyard, the largest post-merethic burial site in all of Skyrim, where pilgrims sometimes like to pay respects to those they have lost, especially those who have perished in war. Falkreath was, in the second era, ruled by King Cuhlecain, whom the young Tiber Septim served as a military commander. Because of this, Cuhlecain is honoured to this day as 'Emperor Zero', and it is common for pilgrims to honour him before the journey begins.
+
+From here, the journey heads north, past lake Ilinalta, and then west along the road past Sungard. Eventually, one arrives at the small settlement of Old Hroldan. It was at this township, in the late second era, when Talos first used the power of the Voice against his enemies in The Reach, and in doing so gained his reputation not only as a great leader but also one favoured by the Divines. Little of the settlement remains today, but the Old Hroldan inn has maintained the bed in which Talos slept before his march continued. It is indeed possible for pilgrims to rent this bed for the night, and on large pilgrimages it can be something of a competition to determine who has that honour. 
+
+There are legends about a ghost that haunts the tavern, who seems to wear armour from the period of the Tiber Wars, but none have ever been able to question this unquiet spirit to find out which of the soldiers in that army he may have been.
+
+From Hroldan, the road continues west to Markarth. With the taking of this city, Cuchlecain and Talos claimed the whole of the Eastern Reach for their nascent empire - the first territory taken in a campaign that would one day unite all of Tamriel. Markarth is a great stone city carved into the mountainside, and pilgrims will likely marvel at the strange brass doors and other mechanical wonders they find. For Markarth was in fact a great Dwarven stronghold in ancient times, abandoned when that race was cast down by the gods for their profane ways.
+
+In Markarth, one can find the shrine of Talos towards the centre of the city. Here, prayers are made to Talos and Emperor Zero, and pilgrims are invited by the priesthood to feast in the local Reach Tavern before their return journey.
+
+One of the most difficult pilgrimages in Skyrim is known as Ysmir's March. It is not as long as the Pilgrimage of the Stormcrown, but it takes the pilgrim from Eastmarch into the coldest regions of Winterhold. It should be noted that this is a journey for armed pilgrims - one should be attired for battle and ready to fight.
+
+Ysmir is the name given to the oldest Nordic kings from before Harald's time, though King Wulfharth was also granted this honorific. It is the name that many Nords give to Talos still, and they claim - though in Cyrodiil and High Rock the claim is disputed - that he arrived in Skyrim from his birthplace in Atmora. 
+
+This pilgrimage begins in Windhelm, the city founded by Ysgramor in the Merethic era. Candlehearth Hall, the city's largest public drinking establishment, hosts travellers from across Skyrim, and those who seek to walk Ysmir's March are always well-received by the locals, for whom Talos is the favoured Divine.
+
+The pilgrimage begins at the Temple of Talos, not far south of the Palace of Kings. At this church, it is customary to swear an oath to complete the journey to Talos' shrine on the frozen coast and return within three days.
+
+This oath having been struck, one leaves the city through the south gate and crosses the bridge out of town. Here, one may see another statue of Talos looking down on the city. This is the next destination - at this shrine, the pilgrim swears to brave any hardships that they will face on their path.
+
+From here, the path leads west as far as Lake Yorgrim. Here, the pilgrim must decide their path, for they will be separated from their goal by Mount Anthor. The safest route, though the longest, is to go around the eastern slopes towards Winterhold. The western route through Wayward Pass is generally considered fastest, but there are also more risks of dangerous creatures such as bears or trolls. Finally, the pilgrim may decide to climb over Mount Anthor. All of these routes have their own setbacks, and the decision of which to take is considered an important step of this pilgrimage.
+
+The shrine of Ysmir is just south of the great tomb of Ysgramor, just west of Hsaarik Head where Winterhold stands. Winterhold is often considered a good place to rest for the night, though it does not form part of the pilgrimage itself.
+
+When one finds the shrine, it is the custom to meditate there for an hour in the cold. It is a time when a pilgrim swears oaths of great ambition - any grand deeds a pilgrim may be wishing to embark upon are best sworn upon at the culmination of this pilgrimage. 
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/J_letter.png'>ulianos' Pilgrimages
+
+In ancient Skyrim, Julianos was called Jhunal, and was the patron of runes and mathematics. Sadly, long before the worship of Imperial Julianos came to Skyrim, this great father of wisdom ceased to be venerated by the Nords, who turned instead to their gods of war. Thus there are no known pilgrimages of Jhunal.
+
+There is one well-trodden pilgrimage route of Julianos, which is the Road to Winterhold. It may be started in any other city in Skyrim, though those furthest away are considered better since it is in the journey itself that the pilgrim is expected to gain wisdom. 
+
+To begin, the pilgrim is set, or sets themselves, a difficult question, puzzle or moral quandary. The pilgrim is to spend a week attempting to solve this problem, until the matter has suffused their mind completely.
+
+The pilgrim then sets off to the Temple of Julianos in Winterhold, by the route of their choosing (or set by a priest). Generally, the further the route, the better the result for the pilgrim. 
+
+It is part of the process of walking the road that allows the difficult matter to resolve itself in the pilgrim's mind. Through the peaceful tread of the road, Julianos grants the wanderer the serenity to untangle the matter almost unconsciously, so that by the time they reach the Altar of Julianos in Winterhold, the solution to the matter is clear. Praying at the altar then grants the pilgrim even deeper insights into their own solution.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>rkay's Pilgrimages
+
+The Nords of old did not venerate Orkey as their descendants now venerate Arkay, and thus there are no known pilgrim routes from that time. The ancient Nords buried their dead in the towering cairns and deep catacombs that dot Skyrim's landscape, but these are not sanctified places - rather, they are plagued by the unquiet dead. There is in fact just one known pilgrimage of Arkay, which is called the Path of the Dead. 
+
+Every city in Skyrim has a Hall of the Dead - a place where the dead are buried. These consist of buried tombs and open graveyards alike, but all host a shrine to Arkay, the Lord of Death and Rebirth. A pilgrim is to visit all the nine Halls of the Dead, and meditate at each shrine. This is a popular pilgrimage with those who have lost a loved one, or are reaching the end of their natural life. 
+
+The pilgrimage always begins and ends in Falkreath, at the old graveyard. From there, the pilgrim may take whichever path they choose to reach the other eight before returning.
+[pagebreak]
+<img src='img://Textures/Interface/Books/Illuminated_Letters/P_letter.png'>ilgrimages of the Other Divines
+
+The Temple of the Divines in Solitude is a popular destination for all pilgrims of the faithful. Situated within Castle Dour's walls, it has long stood as a beacon of the Imperial faith within Skyrim's harsh land. Whichever of the Nine a pilgrim cleaves to, one always finds the peaceful atmosphere, calming incense and helpful clergy to be of great aid in any meditation.
+
+For those seeking the wisdom of Mara, her temple in Riften is the largest centre of worship in the province. It is also the most popular place in Skyrim to get married, even moreso than the Temple of the Divines. As such, wedding guests often take the time to make their visit a pilgrimage also. 
+
+For those seeking the wisdom of Dibella, her temple in Markarth is one of the most important buildings in the city. Within, the temple sybills tend to the faithful and maintain the sacred baths and ceremonies. It is a popular destination for the students of the Bards' College in Solitude, as Dibella is frequently worshipped by lovers of the arts.
+
+Stendarr, Zenithar and Akatosh have no temples to their sole honour in Skyrim in the modern day, but this does not mean that they are not revered by Nords all the same. Indeed, the Nords exemplify the virtues of forbearance, industriousness and lawfulness most admirably, and in this way they carry all the Divines in their hearts as they live their daily lives. The Temple of the Divines in Solitude is the only formal pilgrimage location for them, and the beaten path to Castle Dour is as well-trodden as the Seven Thousand Steps themselves.

@@ -1,0 +1,25 @@
+[pagebreak]
+<p align="center">
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Sanguine Maw
+
+
+by Keeper Aroldan
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/S_letter.png'>anguine is, it is popular to remark, one of the less terrible Daedric Princes. This statement has become so universally accepted that it has even made its way into the doctrine of certain groups of Vigilants. "The Followers of Sanguine are our least priority", they might say.
+
+It is easy to see why - everyone likes to revel. Everyone enjoys the simple pleasures of the flesh, and almost everyone likes wine. The mischief and pranks of Sanguine's cults are far from the dread portents of Vaermina or the cannibalistic sacrifices to Namira. No Nirn-shattering prophecies like those of Dagon or Bal, no great hunts and far fewer soul-ensnaring ploys than Clavicus Vile. So why, then, does it become necessary to warn people of this Prince?
+
+Like Namira, he bestows a slow-acting rot on Nirn. But instead of a visible degradation of the body, this is an invisible degradation of the spirit. Bit by bit, the revelers of Sanguinalia deteriorate into a rhythmic idiocy and imbecility from which it becomes ever harder to recover. This goes beyond mere addiction - it is a purposeful steering of the mortal's soul away from the gods until they are a mindless puppet, a blind echo of who they used to be. 
+
+The world is a harsh and uncaring place at times - a life of heady ecstasy can seem like a welcome escape from the everyday miseries of mortal existence. But the price is enormous, though the debt comes to be paid far later on.
+
+Even those who avoid the crueller aspects of Sanguine - his callous though less frequent disembowelments and murders - come to be in the thrall of Oblivion. And that is a doom from which it is harder to escape, because the soul cannot decide if it wants to escape. It becomes locked in a cycle of repetitive hedonism that, after aeons, loses its shine. 
+
+Sanguine is an echo of the Dawn Era, so the Altmer claim, who was the spirit of everything that was right and good with existence. But he was hollowed out by his refusal to take part in creation. When the Altmer think back to the heady days of Aldmeris, they are - in a sense - reminding themselves of a time when the Prince of Revels truly was a part of creation. 
+
+Now, that which is beautiful and awesome must be sought not in the lies of a Daedric Prince but in the mysteries of Dibella and Mara, and indeed all of the Divines. Keep watch against the Sanguine Maw, for it seeks to drink all blood like wine.

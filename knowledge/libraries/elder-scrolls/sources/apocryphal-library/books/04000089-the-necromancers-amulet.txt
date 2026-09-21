@@ -1,0 +1,20 @@
+[pagebreak]
+<p align="center">
+
+
+The Necromancer's Amulet
+
+
+
+by Natha Wimworth
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Necromancer's Amulet was constructed by the ancient Altmer lich Mannimarco, though it is uncertain when in his history he made it. The exact description of the amulet varies somewhat by account, with the setting sometimes described as a brass ankh, a silver hexagon or a pewter disc. One thing that all descriptions agree on is that the central gemstone is a jade skull.
+
+Given Mannimarco's proficiency, his actual goals in creating the amulet are rather unclear. He is believed to have made it to empower himself, though his abilities when he is confirmed not to have had it in his possession are nevertheless most formidable. Some scholars believe it does not bear an ordinary enchantment, for it seems to have slightly varying effects throughout the ages in which it has been recorded. However, it always greatly empowers the abilities of a necromancer. This has led to some believing that it is the heart of his semi-divine power, the inert object into which a lich must supposedly embed their essence to ensure their immortality. If this is the case, then his recent death at the hands of the Arcane University may not be as final as hoped. Indeed, around that time, which was during or close to the Oblivion Crisis, a member of the council betrayed the university and came close to returning the amulet to Mannimarco, an act which, the new Archmage later claimed, would have made the returned lich almost unstoppable.
+
+Whether or not the amulet truly contains part of the essence or soul of the King of Worms, those who have worn it usually claim they have gained greater powers of conjuration or undeath-imbuement, or if not then great resistance against physickal damage and even the power to absorb magicka into themselves. Some necromancers who had only been able to maintain one revenant corpse were now able to maintain two. Some who wore the amulet became impervious to dagger-blows, and others were able to drain hostile spells of their magicka to fuel their own incantations.
+
+After the amulet was retrieved by the University, it remained in their care for ten years before disappearing from the vault. It has not been seen since, though the newly formed Vigil of Stendarr has made retrieving it once more a top priority.

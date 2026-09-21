@@ -1,0 +1,23 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/O_letter.png'>n Stealing from Apocrypha
+
+By Vigilant Salacher
+
+[pagebreak]
+
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/I_letter.png'>t is a sin to steal from mortals and Divines, and so should it remain always thus. But is it a sin to steal back that which was already stolen? And furthermore, it is never a sin to steal from a Daedra.
+
+Hermaeus Mora is the guardian of a library of stolen knowledge. Nothing new has ever been written here, save perhaps for histories and chronicles of Apocrypha itself. It is not, therefore, merely permissible to steal from Mora. It is a duty in the eyes of Julianos, the Divines, and the Vigil of Stendarr.
+
+Ingress to Apocrypha may be afforded through the Black Books. Direct portals may exist but they are not recommended. Using a Black Book will cause the reader to remain in a semi-physickal state in the Aurbic world, but in a full state of existence within Apocrypha. The advantage to this is that you cannot die while here, whereas there are some other risks - Hermaeus Mora will be more aware of your presence when using this method. On balance, it is usually regarded as better practice for a book thief to use the Books than it is to fashion a portal, but one must be quick with ones work. Locating a Black Book is the most challenging part - cults of Mora sometimes have access to one, so it becomes necessary to extract that information from cultists.
+
+The realm is made of books, so one must take two things into consideration when taking them. One; is this book actually supporting a structure or arch that could collapse on you? Secondly, is the book readable?
+
+Many of the tomes one finds are a series of gibberish runes and glyphs that defy understanding. These should not be taken - very few have ever been translated. It is better to locate works that are still written in commonly-understood languages. 
+
+Of these there are many - determine which ones are of the most useful nature, and bag them quickly. Books on unusual monsters, weapon techniques, the Daedra, magic - things that can be used to further the Vigil's cause. 
+
+Be hasty, for the servants of Mora lurk within. Seekers and Watchers and other malignant entities are ever watchful for book thieves. Once sated with books, read the Black Book again, as it will afford immediate egress.

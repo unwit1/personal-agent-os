@@ -1,0 +1,23 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Gods of Fear
+
+</p>
+[pagebreak]
+<p align="left">
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/C_letter.png'>enedenil has conquered in Abagarlas. 
+
+Anumaril's banners lay trodden in the ground, and the pennants of Delodiil now drift in the breeze above the alabaster ramparts. Down in the temples below, the icons of Gbal lay shattered and sundered, and many slaves cry out in joy to know that they are no longer to fear the whips and scourges of Fire and Stone.
+
+But their misery returns on swift wings, for Meridia is as cruel a mistress as Gbal. Already the slaves are deprived of their thoughts and their individualities, becoming faceless mirrors of their former selves. 
+
+Miles away in Sardavar Leed, the first legions of the Bull Queen amass. They invoke the names of Aka-Tosh, who swallows the world at the end of days, and Kynar-Et the Hurricane, who leaves only ruins in her wake. They invoke Ar'Kay the Reaper, who brings death to all with no heed to the passage of time. And they call forth Shezarr, the diamond-hearted lord of butchery who has known no compassion since the birth of the world.
+
+Both the Saliache and the Hoplites know this not, but they worship the same gods; they are the gods of Fear, who swarm from the sky with bat-wings and vultures' mouths.
+
+
+
+

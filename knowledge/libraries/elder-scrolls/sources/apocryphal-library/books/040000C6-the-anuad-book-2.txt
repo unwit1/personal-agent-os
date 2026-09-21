@@ -1,0 +1,86 @@
+[pagebreak]
+<p align="center">
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>HE ANUAD
+
+Being the recollection of the Dawn Era
+
+Book Two
+
+Translated from the Aldmeris by Pallancio of Dusk
+
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>ttend, humble student of history, to the grief of Anu - he is the first being in all of creation to witness the terrible change that is death. His lover, Nir, has died in his arms, after a terrible blow at the hands of Padomay. But she has given birth to creation, and Anu has given of himself his soul - called Anui-El - to populate the world they have created.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/A_letter.png'>nui-El and Sithis
+
+Anui-El was the spirit of all things, and so he longed to know the sort of experiences that Anu and Nir had known. But there were no others than he, and so in this new world - which contained nothing but him - he sought to know another.
+
+There was nothing other than him of course, so he came to know nothing. And nothing looked back at him with black-socketed eyes. 
+
+"Who are you?", asked Anui-El to the nothing.
+
+"I am Sithis. I am what you aren't."
+
+"I am all things, how can you be anything else?"
+
+"Because I am nothing."
+
+"How can there be any place for nothing in this world?"
+
+"Because that is what will make everything into something."
+
+They spoke like this at some length, until Anui-El realised that Sithis might be able to create pathways of nothing through his own substance. When he understood this, he asked Sithis to make him into twelve separate parts.
+
+And so Sithis wound himself around Anui-El, and cracked him into exactly twelve pieces. Thus Anui-El, the soul of all, became twelve souls, all able to look upon each other. Some changed shape, some stayed the same, but all were linked to one another by ribbons of light across the great inner void that was Sithis.
+
+The twelve pieces became twelve worlds. All were lit by the great sun of Anu, and new forms of being came into existence in each new world. For eternities, these new beings lived and died. They formed the first societies and the first laws, each appropriate to their world. But after many, many cycles had passed, there came a most ancient and terrible happening.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he devastation of Padomay
+
+While creation had sprung from the carcass of Nir, Padomay had been outside the conduits of Time. He had dwelled in its absence, and so when he was finally moved to return to it, he did not know what to expect.
+
+What he saw was the Twelve Worlds of Creation, not built to any design of Anu or Nir, but given enough momentum to create itself. He saw the writhing cosmos, and he hated it. He was compelled to destroy it, and he readied his sword, but then paused. He knew he had slain Nir, and so he felt a terrible guilt. He allowed himself to feel, just for a moment, a sense of wonder at the Twelve Worlds.
+
+But then he saw Sithis. He saw between the fragments the great void within a void, and he knew it well. Padomay had been about to turn away, but Sithis whispered something. None know what Sithis said, but Padomay turned around again, looked upon the Twelve Worlds, and laid his sword into them with a terrible blow.
+
+The devastating blow awoke Anu, who leapt from the sun, drawing from it a burning sword of his own. The two clashed in a battle that lasted aeons to the sundered worlds below, whose survivors looked on in terror. Eventually, Anu laid a wounding blow to Padomay, and cast him aside. Realising that the worlds were ruined, he reached his hands out to heal them. 
+
+In the end, all that could be saved were two worlds, and the merest fragments of several others. These he made into a new whole, a single world which he called Nirn. It was not populated yet; the survivors of the devastation still clung on to remnant shards.
+
+And he had only just managed to join these worlds when Padomay, wounded but not defeated, struck Anu in the back with his sword. Anu roared in pain, and grabbed Padomay. He ran with all his might, dragging Padomay with him, away from Nirn, away from Time.
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he New Spirits
+
+But the blood of both brothers, shed in battle, poured down over creation, and with it there were new kinds of being. The drops and pools of blood became their own lives, great and powerful compared to the survivors of the Twelve Worlds.
+
+The blood of Anu became beings of pure light, among whom the greatest was called Magnus. He was powerful and wise, able to form new things from himself and the substance around him. There were countless others, too. Sheza-Rana, Prophec, Imildi-Asket, Merid-Nunda to name but a few. 
+
+The blood of Padomay formed beings of terrible hunger and darkness, though they were filled with relentless curiosity and unquenchable creativity. Among these were Namira, Nocturnal and Hermaeus Mora.
+
+But the blood of Anu and Padomay mingled together to make a third kind of spirit - these were beings of light and dark, much like Nir herself. They were Auri-El, Trinimac, Mara and others. 
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he Ehlnofey
+
+Nirn was, for now, uninhabited - but the survivors of one of the worlds landed on Nirn later on. These were the Ehlnofey, and those who arrived on this piece of land were the ancestors of modern Mer. They formed many new lineages of being, who grew in number and spread the writ of heaven to all reaches of Nirn. They were the Flower Tenders of the Heartland, who created as keenly and as diligently as their ancestor-makers. They were the Protectors of the North, who secured the limits of Nirn against the tumult from without. They were the Brilliant Students, who made their own likeness in a metal they invented.
+
+They built around themselves a shield to protect themselves from the chaos, and thus they survived the cataclysmic chaos around them. There had been others though, those Ehlnofey who survived not on the landmass that landed, but had been scattered further afar. These would be the ancestors of Men.
+
+The troubles between Man and Mer began then, and they end far to the future from now. 
+
+Anui-El exists now only through those mortals who have been born through his actions, though that is everyone. He remains the soul of all things, and his will to permeate and perpetrate life ebbs and flows through war and peace.
+
+Sithis remains in the corners of the night sky, ever visible by the blind. All things that Anui-El makes, Sithis seeks to take. All things that die and end become part of the fabric of the void.
+
+The Ada of Padomay built themselves steadfasts in the Void, and they are the Daedra. They revel in the cruelty that their father wrought on creation, and though they cannot repeat this act, they ever encourage mortals to do this for them. As time passed, their number increased to sixteen.
+
+The Ada of Anu did not approach creation, but viewed it from afar - they are visible in the night sky, for they are the very stars. They are innumerable guardians against the Void.
+
+The Ada of their mingled blood are the Aedra. Their blood mixed with the first Ehlnofey so that they would become ancestors to those who landed on Tamri-El, the fallen continent. Within their godly veins flows both the capacity for good and evil, and thus do they test mortals every day that they might exceed themselves.
+
+Deep outside of time, Anu and Padomay still tear at the being of one another. At the moment that one wins, our world will have ceased to be three times over.
+
+Unbeknown to either, a spark of Nir still remained within the world. She remains to this day, taking many forms as she explores creation. A mer, a man, a diamond, a heart, and many beasts of frightening shapes, and the moons and the reflection of the sun.

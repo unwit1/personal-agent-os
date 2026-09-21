@@ -1,0 +1,7 @@
+<p align="center">
+<img src='img://Textures/Interface/Books/ApocLib/BlackHorseCourier.png' height='60' width='250'>
+Levitation Act Passed</p>
+
+Due to the "over-use of flight-related magics", the Elder Council today approved the Arcane University's motion to restrict the use of Levitation Magic until a full ban can be imposed. As of next month, it will be illegal to teach or train the spell to others, though it will not be immediately illegal to cast it or use it.
+
+As a stipulation of the Armistice with Morrowind, it will remain legal for House Telvanni to teach it among themselves, which - due to a legal entanglement involving the Mages' Guild Monopoly - means that levitation magic and the training thereof remains fully legal in Morrowind until further notice. This has not quite been universal, however - Almalexia, the warrior-goddess of the Dark Elves, has stated that she may invoke the full extent of the new law within her own city (which bears her name) by next month.

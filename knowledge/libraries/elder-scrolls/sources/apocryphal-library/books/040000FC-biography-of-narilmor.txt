@@ -1,0 +1,21 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/B_letter.png'>iography of King Narilmor
+
+
+by Tjurhane Fyrre
+
+
+University of Gwilym Press
+</p>
+
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/G_letter.png'>arlas Malatar and its ruler, King Narilmor, had long been regarded within the Ayleid Empire as the beacons of the west, both figuratively and literally. Narilmor was a devout follower of Meridia who dedicated his life and his city to her veneration. At the height of his reign, he was regarded as a favorite of the Daedric Prince, second only to Umaril the Unfeathered. There is considerable evidence supporting this claim, but the proof positive was the great beacon that shone above Garlas Malatar fueled by the unquenchable light of Meridia. It was known as the Guiding Light, and while it may have paled in comparison to the magnitude of the White-Gold Tower, it was an unmistakable landmark visible from great distances. The account of one Ayleid captain claimed he could sail from Yokuda to Garlas Malatar by its light alone.
+
+Under King Narilmor's reign, Garlas Malatar prospered as a cosmopolitan port city and trade hub for the Ayleid Empire. Unlike many kingdoms of the era, the "Cavern of the High Wood" welcomed its neighbors within its formidable walls, so long as Meridian law was obeyed. To deviate from Narilmor's code of conduct was a high crime and punished harshly, but the king was thought of as a fair ruler who maintained order without favoritism or exception. The most notorious example of Narilmor's strict judgment was the execution of a neighboring ruler who did not show Meridia adequate deference during a diplomatic visit to the city. Despite his hardline approach, Narilmor was beloved by his subjects, who enjoyed wealth and abundance across all strata of their society, and respected by his peers for his honorable agreements and the equitable terms of his treaties. Both would sour on him in the final years of his rule.
+
+After the fall of the White-Gold Tower, which marked the end of the Ayleid Empire, King Narilmor withdrew from the world outside his kingdom and Garlas Malatar closed its gates to all outsiders. While the remaining Ayleid kingdoms brokered alliances and waged wars in the vain hope that the Alessian rebellion could be held back, Narilmor only paid lip-service to his former allies and lent neither aid nor asylum in their hour of need. Many an Ayleid army perished cursing his name.
+
+What happened within Garlas Malatar during those troubled times remains a mystery, as the site has remained sealed since the Alessians sacked the city. What little correspondence escaped the walls spoke of growing unrest, and the ruthless quashing of dissent. Some accounts of the siege that lead to the city's downfall claim that Men never set foot inside Garlas Malatar before it collapsed into ruin. If true, it would mean that the city was buried by conflict from within, or a final act of sabotage. Whatever the truth may be, on that day the Guiding Light and the rule of King Narilmor were extinguished, never to be seen again.

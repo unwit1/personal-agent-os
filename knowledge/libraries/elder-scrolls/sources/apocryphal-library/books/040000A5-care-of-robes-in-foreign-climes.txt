@@ -1,0 +1,25 @@
+[pagebreak]
+<p align="center">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/C_letter.png'>are of Robes in Exotic Climates
+
+By
+
+Hanaloria of Shimmerene
+
+</p>
+[pagebreak]
+<p align="left">
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/F_letter.png'>or the seasoned Altmer scholar, care of ones garments is crucial; this remains true for the most practical of adventuring robes as it does for the most delicate of ceremonial attire. Lack of attention to ones garments can lead to the degradation of the fabric and the gradual disenchantment of the magickal potence imbued within.
+
+For the sturdier cloth and cotton robes favoured by adventuring mages, the major consideration will always be the enchantments. Such robes can generally withstand most inclement weather without the skillfully-made clothweave unravelling. For more delicate robes, the enchantments are often contained within the dyes, thus making careful storage more of an issue.
+
+In desert regions such as central Elsweyr and the lower altitudes of Hammerfell, sunlight is the first and most immediate concern. Strong sunlight can fade fabric rapidly, so wearing robes of white or otherwise pale fabric is the most foresighted solution. Storing robes inside-out is usually the best course of action, as the enchantments in the dyes will be protected, and the enchantments on the inside will be slowly replenished by Magnus' rays.
+Sandstorms, and sand in general, can get into seams and folds within any garment. This is usually not a consideration since sand is chymically inert, but it is also coarse and abrasive which may lead to damaged fibres. When not in use, robes should be stored away from sunlight and sand - preferably in a dark place - but for want of such things then keeping the robes elevated above the sand is advisable.
+
+In the more humid zones of Tamriel, such as Black Marsh and the various boggy reaches of Valenwood and Morrowind, one must contend not only with the moisture within the air but also the swamps themselves. Adventuring robes should be treated with hyacinth soap before AND after any outings, and ideally placed in wooden boxes when not in use. 
+Ceremonial robes should not be worn around swamps at all, and in the regions themselves should only be worn indoors. 
+Alchemical gel preparations made from void salts and finely ground quartz will do wonders to remove moisture from the air, so batches of this may be made and placed in storing rooms or cupboards when in humid regions. Sack-cloth hanging from the ceiling will serve as a less costly but less effective replacement.
+
+In the ashlands of Morrowind, it is unfortunately wise to forego the use of Altmer-made robes altogether in favour of those made by the Dunmer. The ash present around Red Mountain and Molag Amur is anathemic to the enchantments used in our robing. Fortunately, our distant Moriache cousins have managed to retain some elegant design techniques despite our eras of estrangement, and suitable garments for both the wanderer and the diplomat may be sourced from dyers in Vivec City, Sadrith Mora and Balmora. 

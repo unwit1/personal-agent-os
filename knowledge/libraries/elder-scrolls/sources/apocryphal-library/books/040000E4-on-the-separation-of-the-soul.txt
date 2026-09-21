@@ -1,0 +1,19 @@
+[pagebreak]
+<p align="center">
+
+
+<img src='img://Textures/Interface/Books/Illuminated_Letters/O_letter.png'>n the Separation of the Soul
+
+
+
+By N'gasta, translated from Sloadic by Bhorre Daynal
+</p>
+[pagebreak]
+<p align="left">
+<img src='img://Textures/Interface/Books/Illuminated_Letters/T_letter.png'>he parts of the body, thus separated, preserved and adequately charged with static magicka can, in the eventuality that such is desired, be employed to perform their dimly-remembered routine tasks as the necromancer so commands. From this simple observation, many have hypothesised and explored the logical notion that the soul may also be sub-divided into servile parts.
+
+The hypothesis was born from the observation that a single former soul may find itself revenant not just as the simple animate cadaver, but also in the transparent form of the ghost or wraith. It was further noted that both these degradations of the mortal spirit could be soul-trapped and housed in separate morpholiths, each giving its harnessed potence to a wholly different enchantment.
+
+The scholarly necromancer may attribute this degradation and schism of the soul to a process not unlike the divine process of sub-gradience that, in the times of Myth, reduced the Ehlnofey from their divine status to that of the weakened but more greatly numerous sum of their own progeny.
+
+To separate the mortal spirit into more than two parts has proven a troublesome branch of academic pursuit to this moment. It is believed by those who subscribe to the Cult of the Worm's philosophies that the soul cannot be rendered down into any more than three parts at any one moment in time, and to subgradiate the soul further would require a new living host for each part - something that has been demonstrably hard work for any necromancer.
