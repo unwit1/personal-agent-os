@@ -93,7 +93,8 @@
     "Carene family-document crosslinks for Lilian/Taranis curse storyline",
     "priest Ainam documentary dossier from Lamae's Kin",
     "Lamae's Kin curse/outbreak analysis: 2E 582 Lake Ilinalta case, Mages Guild incineration, lost ashes, and Facis corroboration",
-    "Lamae Bal dossier deepened with exact Lamae's Kin outbreak chronology"
+    "Lamae Bal dossier deepened with exact Lamae's Kin outbreak chronology",
+    "Great Gate / Caliburn / Marukh posthumous ritual reconciliation"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -129,16 +130,14 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "small-batch completion of the Lamae's Kin / Ainam documentary cluster",
+    "focus": "small-batch reconciliation of The Great Gate with Caliburn and Marukh",
     "added": [
-      "Ainam normalized as a documentary priest/source cited by Lamae's Kin",
-      "Lamae's Kin curse model separated from ordinary vampirism claims",
-      "2E 582 Lake Ilinalta outbreak chronology persisted",
-      "Mages Guild incineration / Arcane University ashes / winged-Daedroth loss thread persisted with attribution cautions",
-      "Lamae Bal dossier cross-linked to the outbreak analysis",
-      "Facis heart-and-mind testimony linked as corroborative, source-separated evidence"
+      "verified existing Caliburn/Great Gate reconstruction already covers the dedicated boss quest, unique death-loot book, Stone fragment, and summon chain",
+      "linked Marukh's dossier to the posthumous Malada gate ritual",
+      "recorded Marukh's holy corpse as the ritual medium that traces the Seventy-Seven signs and opens the luminous breach",
+      "preserved uncertainty over whether the corpse acts consciously, is invoked by Caliburn, or reaches a specific named realm"
     ],
-    "source_state": "direct text from BOOK 020DB22D plus already-persisted direct Facis/Lamae material; in-universe medical/history claims remain attributed rather than treated as objective fact",
-    "open_followup": "next small batch should begin a new lore unit only; remaining priorities still include Sir Amiel Lannus direct implementation, direct Slave Trader actor/acquisition evidence, missing full Feral Soul-Shriven roster, further evidence-rich character/book clusters, and PEX/BSA transition logic."
+    "source_state": "direct BOOK 020D429E plus BOOK 020CB0DF and existing structural Caliburn boss/death-list evidence",
+    "open_followup": "next small batch should begin a separate evidence-rich lore unit; do not repeat the completed Great Gate/Caliburn pass."
   }
 }
