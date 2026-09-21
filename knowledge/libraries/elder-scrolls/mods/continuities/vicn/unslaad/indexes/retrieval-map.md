@@ -331,7 +331,9 @@ Prefer parent VICN relationship pages when the question spans works:
 - Jhunal / Saarthal / Owls
 - Chick Trader / Anequina
 - Arkved / Oneiromancer — parent `relationships/arkved-oneiromancer-thread.md`
-- Ja'cobee / Aisha / Ulliss
+- Ja'cobee / Aisha / Ulliss — parent `relationships/jacobee-aisha-ulliss-thread.md`
+- Orlando the Knowledgeable — parent `relationships/orlando-the-knowledgeable-thread.md`
+- Laza / Owls / dragon experiments — parent `relationships/laza-owls-dragon-experiments.md`
 - KINMUNE provenance
 
 ---
