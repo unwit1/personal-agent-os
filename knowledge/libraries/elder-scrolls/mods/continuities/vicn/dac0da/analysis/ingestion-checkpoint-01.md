@@ -123,7 +123,7 @@ Known/reused source material is now substantially provenance-separated:
 - six Daggerfall/Totem correspondence records are **verified official Daggerfall text reuse**, with DAc0da-specific static placeholder substitutions;
 - `Djaf: Arena of Lyg` is verified community apocrypha by **mojonation1487**;
 - `ANON/ANU/ANUI-EL / KINMUNE`, `The Tsaesci Creation Myth`, `Dominion Prism Textract`, `et'Ada, Eight Aedra, Eat the Dreamer`, `Lament for Pelinal`, and `A Type of Zero Still to Be Discovered` are verified reused Michael Kirkbride developer/obscure material;
-- the exact original standalone publication/authorship trail for the long `Ghost Choir 9` BOOK remains unresolved.
+- the long `Ghost Choir 9` BOOK is verified Michael Kirkbride unofficial/developer-text reuse, originally posted to **The Elder Scrolls Forums** on **2012-02-18**.
 
 ## Completion marker
 
@@ -146,7 +146,7 @@ Additional completion work after the earlier checkpoint:
 - all 1,027 INFO records deterministically mapped to exactly one owning quest;
 - no orphan, unresolved-parent, ownerless-QNAM, or multi-owner INFO records remain;
 - Daggerfall and Nahd/apocryphal provenance separated;
-- Ghost Choir 9 exact text now strongly attributed to Michael Kirkbride; only original standalone publication metadata remains unresolved;
+- Ghost Choir 9 exact text and original publication metadata resolved;
 - comprehensive gap audit and completeness report committed.
 
 ## Resume here — second-pass synthesis
@@ -181,8 +181,8 @@ Promote only evidence-backed shared claims into the parent Vicn/Lorekeeper layer
 
 Examples:
 
-- exact original publication metadata for Ghost Choir 9;
 - Papyrus-only runtime details if scripts are later supplied;
-- exact identity relationships that remain merely suggested.
+- exact identity relationships that remain merely suggested;
+- deeper cross-work reconciliation where the same rare term has different mechanics.
 
 Do not flatten branch states, unreliable testimony, reused external sources, or one work's mechanics into another work's canon.
