@@ -1,0 +1,10 @@
+<font face='$HandwrittenFont'><font size='18'> 
+To <Alias=Player> 
+
+First, Khajiit wishes you to thank him for saving your life. Following that, Khajiit needs you to repay your debt to Ja'zel and his friends. Therefore, Ja'zel would like you to take part in the witch hunt he and his friends are organizing. It is up to you to accept or refuse this one's request, yes? But if you refuse, Ozwald (he is standing right before you, no?) will surely try to kill you, and you will not stand for such a threat, no? And so, Khajiit shall now give you three names. If you refuse this one's request, then Ja'zel will collect your debt from them. 
+
+<Alias=Captive01> 
+<Alias=Captive02> 
+<Alias=Captive03> 
+
+</font>
