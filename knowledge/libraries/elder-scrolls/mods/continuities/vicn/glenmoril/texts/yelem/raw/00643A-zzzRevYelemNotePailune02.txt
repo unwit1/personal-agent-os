@@ -1,0 +1,3 @@
+<font face="$HandwrittenBold" size="19"> 
+Sload corpses are overflowing from the well. Where have the old days gone?
+</font>
