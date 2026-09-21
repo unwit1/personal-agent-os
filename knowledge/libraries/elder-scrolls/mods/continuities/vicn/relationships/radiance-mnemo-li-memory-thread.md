@@ -32,6 +32,22 @@ UNSLAAD also contains multiple memory-persistence mechanisms:
 - Oohoo'Laf calls water memory and ice a library;
 - Herkel describes concealed and impossible histories.
 
+## GLENMORIL — Xero-Lyg / dark Radiance
+
+In **Jazel Phantom**, Ja'zel says the previous Hinnom witch **Aradia** hid:
+
+> the **dark Radiance that dwells in Flesh**
+
+He attributes that Radiance to **Xero-Lyg, the Black Star beside the Serpent constellation**, and says her myth strangely coincides with Namira.
+
+This is a direct GLENMORIL relation:
+
+`Xero-Lyg -> Black Star -> dark Radiance -> Flesh`
+
+It is Ja'zel's source-local cosmology, not an objective parent-continuity definition.
+
+DAc0da independently names Xero-Lyg in Crabbimarco's Lyg history, but **does not** identify Xero-Lyg with its Blue Star or Sea of Radiance.
+
 ## DAc0da — Sea of Radiance
 
 DAc0da's **The Sea of Radiance** makes Radiance more operational.
@@ -46,6 +62,14 @@ Vigilant Athanasius says:
 Athanasius identifies Malmanius as both his son and another form of himself.
 
 This ties DAc0da Radiance to multiple paths, replicated identity, memory/perception, and Mnemo-Li.
+
+### Altano as a DAc0da path marker
+
+The associated DAc0da **Letter to a Friend** tells a seeker of Radiance to find VIGILANT character **Altano**, learn compassion, and undergo suffering.
+
+This is a direct cross-work interpretive bridge: DAc0da treats the Altano/VIGILANT experience as relevant to a path toward Radiance.
+
+It does not prove Altano himself knew about Radiance or that VIGILANT implemented Radiance as an explicit mechanic.
 
 ## DAc0da — mnemolichite system layer
 
@@ -84,7 +108,7 @@ A separate Dumac record asks about a **hidden Blue Star**. Whether the two recor
 
 High confidence:
 - **Mnemo-Li** is a recurring named VICN node across UNSLAAD, GLENMORIL, and DAc0da.
-- **Radiance** is explicit in both UNSLAAD and DAc0da.
+- **Radiance** is explicit in UNSLAAD and DAc0da, while GLENMORIL independently uses **dark Radiance** in its Xero-Lyg/Black-Star material.
 - Both works connect the surrounding vocabulary to unstable memory/identity and nonordinary possibilities or histories.
 - DAc0da directly connects **Blue Star** with future-to-past **radiance**.
 - Blue-Star/Mnemo-Li imagery therefore provides an increasingly strong VICN-wide retrieval route.
