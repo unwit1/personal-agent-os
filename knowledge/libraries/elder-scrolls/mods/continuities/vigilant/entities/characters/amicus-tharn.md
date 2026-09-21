@@ -30,6 +30,31 @@ Current classification: **high-confidence documentary Amicus = later Amicus Thar
 
 The petitions themselves list their author as **Unknown**, so they are best treated as transcripts/records of conversations rather than texts authored by Amicus.
 
+## House Tharn connection
+
+A focused continuity comparison is preserved at:
+
+`analysis/amicus-tharn-house-tharn.md`
+
+The ESM gives Amicus a strong House Tharn association:
+- his boss is explicitly named **Amicus Tharn**;
+- all boss/corpse/death EditorIDs use the Tharn name;
+- his documentary sequence is titled *Petition to House Tharn*.
+
+VIGILANT also embeds writings by **Fervidius Tharn**, the historically established Marukhati Arch-Prelate, including:
+- *On the Detachment of the Sheath from the Integument*;
+- *Vindication for the Dragon Break*.
+
+This makes the Amicus surname a deliberate fit with the setting's older Tharn/Marukhati tradition rather than an isolated reuse of the name.
+
+However, no ESM record gives a parent/child/ancestor relationship between Amicus and Fervidius or any later Tharn.
+
+Current classification:
+
+**Amicus Tharn → House Tharn association: high confidence.**  
+**Amicus ↔ Fervidius exact kinship: unresolved.**  
+**Amicus as ancestor of Abnur/Jagar/Clivia: unsupported.**
+
 ## Petition ideology
 
 Across the four surviving petitions, Amicus articulates a progressively more explicit Alessian program.
@@ -172,8 +197,8 @@ Current classification: **high-confidence documentary → corpse-image trail →
 ## Evidence limits
 
 The ESM does not yet establish:
-- why Amicus is associated with House Tharn;
-- whether he is an ancestor/member of the later famous Tharn family in any literal genealogical sense;
+- the exact genealogical relationship between Amicus and other Tharns;
+- whether he belongs to a recoverable branch of the later famous Tharn family;
 - whether the three corpse containers represent actual deaths, symbolic denouncements, or Coldharbour memory echoes;
 - how Amicus survives/reappears as the later boss after the documentary periods;
 - whether external Papyrus gives the boss additional narrative logic.
