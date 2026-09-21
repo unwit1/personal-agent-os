@@ -33,11 +33,10 @@ Scope: the ten main `zzzLrhMq01–zzzLrhMq10` **Little Red** quests.
 
 - Mq01 — The Way is Blocked: **97 / 97 normalized**
 - Mq02 — The Chick Trader: **76 / 76 normalized**
-- Mq03–Mq10: inventoried, pending sequential normalization
+- Mq03 — A Curious Animal: **26 / 26 normalized**
+- Mq04 — Weary of Waiting: **29 / 29 normalized**
+- Mq05 — Ah, Apple Pie!: **53 / 53 normalized**
+- Mq06–Mq10: inventoried, pending sequential normalization
 
-Normalized so far: **173 / 585**
-Remaining: **412**
-
-## Why this ledger exists
-
-Act 2 required a late recovery audit because sequential quest ingestion missed several generic/radio/topic buckets. Act 1 begins with a fixed raw total so each quest can be marked complete only when its expected count reconciles.
+Normalized so far: **281 / 585**
+Remaining: **304**
