@@ -119,6 +119,7 @@ Parent VICN:
 - `concepts/name-and-radiance.md`
 - `concepts/mnemo-li-grabbers-books.md`
 - `concepts/memory-dependent-persistence.md`
+- parent `../relationships/radiance-mnemo-li-memory-thread.md` for parallel memory/existence mechanisms
 - `locations/end-of-radiance.md`
 
 Parent VICN:
