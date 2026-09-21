@@ -125,7 +125,12 @@
     "Laza and the Gray Owl individual source map",
     "Laza and the Black Owl individual source map",
     "Slave Trader's Note 6 individual source map",
-    "Slave Trader's Note 7 individual source map"
+    "Slave Trader's Note 7 individual source map",
+    "Slave Trader's Note 1 individual source map",
+    "Slave Trader's Note 2 individual source map",
+    "Slave Trader's Note 3 individual source map",
+    "Slave Trader's Note 4 individual source map",
+    "Slave Trader's Note 5 individual source map"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -162,15 +167,15 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "five-unit VIGILANT fine-grained source-node batch",
+    "focus": "five-unit VIGILANT Slave Trader Notes 1-5 source-map batch",
     "added": [
-      "White Owl — shepherd/wolf/wind transformation sequence, grief motive, and Order-fangs recursion",
-      "Gray Owl — self-blinding instructions, sky/forest eye symbolism, blood avoidance, and route to Kyne's fountain",
-      "Black Owl — dagger/fountain ritual, Nedic maiden blood, shepherd-to-wolf transition, tainted water, and Kyne's removal",
-      "Slave Trader Note 6 — Sir Ralvas carrier context and firewood/burning motif separated from Mary/Moura identity claims",
-      "Slave Trader Note 7 — Marukh death-item context and strong Laza shepherd/wolf motif without forcing the referent"
+      "Note 1 — Mathmalatu Priory placement, sarcophagus/body motif, and strong-but-not-identical link to Pepe's fiery-eyed slave-trader sarcophagus testimony",
+      "Note 2 — Slave Trader's House placement, unnamed miserable-bard judgment, and bard identity kept unresolved",
+      "Note 3 — Temple of Mara placement, Gideon/morning allusion, and explicit negative resolution check",
+      "Note 4 — Imperial Prison Sewers placement, Bravil-burning allusion, and source-separated LST Bravil Underground supplementary cross-work clue",
+      "Note 5 — Malatar Mansion placement, Gilverdale-sank-twice recurrence wording, and exact event kept unresolved"
     ],
-    "source_state": "all five units use exact persisted VIGILANT BOOK text and existing structural acquisition evidence. Later White/Gray/Black Owl = Jhunal identities remain cross-Vicn resolution layers rather than being back-projected into the original VIGILANT prose.",
-    "open_followup": "continue with another five fine-grained exact-source nodes, likely Slave Trader Notes 1-5 or remaining exact documents whose current coverage exists only inside broad cluster analyses."
+    "source_state": "all five units use exact persisted VIGILANT BOOK texts plus direct REFR/cell placements. Repository-wide phrase/term checks found no independent direct VIGILANT resolution for the bard, Gideon, Bravil-burning event, or Gilverdale double-sinking.",
+    "open_followup": "continue with another five exact-text source nodes; Note 8 can receive an individual endpoint/literary-placement map, and remaining work should prioritize exact documents currently covered only inside broader cluster analyses."
   }
 }
