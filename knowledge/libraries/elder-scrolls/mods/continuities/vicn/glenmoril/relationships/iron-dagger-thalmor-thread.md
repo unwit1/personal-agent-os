@@ -1,20 +1,33 @@
 # Iron-dagger / Thalmor smuggling thread
 
-Primary source: **A Thousand Daggers**.
+Primary sources:
+- **A Thousand Daggers**
+- **Thalmor Radio** during The Bronze Key
 
-A Mysterious Voice inside the dagger operation reports to a superior that:
-- a hidden substance/object is mixed in with **iron daggers**;
-- shipments pass through guards because inspection is lax;
-- blacksmiths have put a bounty on him;
-- he wants pressure applied to remove the bounty;
-- he serves the Thalmor.
+## A Thousand Daggers
 
-The bounty target later resolves as **Kodaavkiin**.
+A Mysterious Voice inside the dagger operation reports that:
+- a hidden substance/object is mixed into **iron-dagger shipments**;
+- tired guards fail to inspect the shipments closely;
+- blacksmiths have put a bounty on the operator;
+- the speaker serves the Thalmor.
 
-When defeated, Kodaavkiin destroys the forge/cave rather than allow the operation to be cleanly recovered.
+The bounty target later resolves as **Kodaavkiin**, who destroys the forge/cave rather than permit clean recovery of the operation.
 
-## Unresolved
+## Direct Bronze-Key network confirmation
 
-The dialogue does not name what **“it”** is that is being mixed into the iron-dagger shipments.
+The **Thalmor Radio** in the Ysmir's Howl research complex later broadcasts:
 
-Do not identify the smuggled material from quest title, later Thalmor experiments, or thematic similarity without a direct source bridge.
+> contact has been lost with the person in charge of **Operation Iron Dagger**;
+
+and orders:
+- contact with **the agent in Falkreath**;
+- personnel sent to the scene.
+
+This is direct structural evidence that the A-Thousand-Daggers operation belongs to the same broader Thalmor/Eton-Nir operational network encountered during The Bronze Key.
+
+## Still unresolved
+
+The source still does not name what **“it”** is that Kodaavkiin mixed into the iron-dagger shipments.
+
+Do not identify the smuggled material from later experiments or thematic similarity without a direct source bridge.
