@@ -44,3 +44,32 @@ Broad DAc0da ESM ingestion is complete. Do not restart it unless the source hash
 Current work is **second-pass VICN synthesis**: promote only independently supported cross-work identities/relationships while preserving source-specific claims. Dedicated parent threads now include Lyg, Radiance/Mnemo-Li/memory, Rolls-On-Roads/Romion, Altano/Radiance, Augur of the Obscure, Brain-Billies, and Xero-Lyg.
 
 Residual DAc0da-only gaps are refinement issues: unreadable compiled Papyrus internals for a few runtime mechanics, exhaustive navigation graphs, and optional low-prose item expansion. Ghost Choir 9 source provenance is resolved.
+
+
+## Cross-VICN synthesis control
+
+The first formal evidence-classification pass is stored at:
+
+- `analysis/cross-vicn-reconciliation-01.md`
+
+It distinguishes:
+
+- direct recurring identities/relationships;
+- recurring institutions;
+- exact rare vocabulary;
+- direct cross-work interpretive pointers;
+- shared external-source substrate;
+- thematic/conceptual comparisons.
+
+Dedicated parent threads now include:
+
+- `relationships/rolls-romion-thread.md`
+- `relationships/augur-of-the-obscure-thread.md`
+- `relationships/holy-pipers-thread.md`
+- `relationships/brain-billies-thread.md`
+- `relationships/xero-lyg-thread.md`
+- `relationships/altano-radiance-thread.md`
+- `relationships/lyg-thread.md`
+- `relationships/radiance-mnemo-li-memory-thread.md`
+
+Use these parent threads for synthesis; retain plugin-specific files as the evidentiary sources.
