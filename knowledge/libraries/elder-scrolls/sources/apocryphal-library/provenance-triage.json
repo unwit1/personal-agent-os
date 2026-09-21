@@ -4,9 +4,9 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "unresolved": 279,
+    "unresolved": 183,
     "verified_official_game_text": 243,
-    "verified_mod_original_text": 171,
+    "verified_mod_original_text": 267,
     "verified_developer_text": 5,
     "verified_mod_construct_text": 65,
     "verified_external_author_text": 21
@@ -49,8 +49,8 @@
       "title": "A Dwemer Poem",
       "editor_id": "LB_Book_DW_TypeZero",
       "text_path": "books/04000819-a-dwemer-poem.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400092B",
@@ -225,8 +225,8 @@
       "title": "Anise's Book Research",
       "editor_id": "LB_Book_AA_ResearchJournal",
       "text_path": "books/040009E3-anises-book-research.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400002F",
@@ -777,8 +777,8 @@
       "title": "Appeal to Mercy",
       "editor_id": "LB_Book_FL_02",
       "text_path": "books/04000906-appeal-to-mercy.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000A0D",
@@ -817,8 +817,8 @@
       "title": "As My Vision Fades",
       "editor_id": "LB_Book_FL_03",
       "text_path": "books/04000907-as-my-vision-fades.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000926",
@@ -865,8 +865,8 @@
       "title": "Atmoran Religious Iconography",
       "editor_id": "LB_Book3_CL_OT_AtmoranIcon01",
       "text_path": "books/04000113-atmoran-religious-iconography.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040000CB",
@@ -905,8 +905,8 @@
       "title": "Balance",
       "editor_id": "LB_Book3_CL_Balance",
       "text_path": "books/04000093-balance.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400082C",
@@ -1393,8 +1393,8 @@
       "title": "Blades Report: The Underking",
       "editor_id": "LB_Book2_DG_BladesReportUnderking",
       "text_path": "books/0400005C-blades-report-the-underking.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040009C6",
@@ -1561,8 +1561,8 @@
       "title": "Care of Robes in Foreign Climes",
       "editor_id": "LB_Book3_CL_Robes",
       "text_path": "books/040000A5-care-of-robes-in-foreign-climes.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000030",
@@ -1681,8 +1681,8 @@
       "title": "Corpuscular Materium Theory",
       "editor_id": "LB_Book3_CL_OT_Corpuscle01",
       "text_path": "books/04000122-corpuscular-materium-theory.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400086F",
@@ -1705,8 +1705,8 @@
       "title": "Crossbow Manual",
       "editor_id": "LB_Book2_VG_Crossbows01",
       "text_path": "books/0400002B-crossbow-manual.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040000C0",
@@ -1761,8 +1761,8 @@
       "title": "Daedric Cults in Skyrim",
       "editor_id": "LB_Book_VG_DaedraCults",
       "text_path": "books/04000818-daedric-cults-in-skyrim.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000884",
@@ -1812,8 +1812,8 @@
       "title": "Death Cults",
       "editor_id": "LB_Book_VG_DeathCults",
       "text_path": "books/04000816-death-cults.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000812",
@@ -1860,8 +1860,8 @@
       "title": "Distant Yokuda",
       "editor_id": "LB_Book_CLG_Yokuda",
       "text_path": "books/040009B5-distant-yokuda.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400005F",
@@ -1884,8 +1884,8 @@
       "title": "Divine Etymologia, vol. II",
       "editor_id": "LB_Book3_CL_HermaName",
       "text_path": "books/04000086-divine-etymologia-vol-ii.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000891",
@@ -2012,8 +2012,8 @@
       "title": "Drelath's Complete Curatives",
       "editor_id": "LB_Book2_VG_Drelath",
       "text_path": "books/04000009-drelaths-complete-curatives.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000894",
@@ -2252,8 +2252,8 @@
       "title": "Father of Dragons",
       "editor_id": "LB_Book2_DG_FatherOfDragons",
       "text_path": "books/0400000D-father-of-dragons.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000036",
@@ -2276,8 +2276,8 @@
       "title": "Field Autopsy for Vigilants",
       "editor_id": "LB_Book2_VG_Autopsies01",
       "text_path": "books/0400005A-field-autopsy-for-vigilants.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400099F",
@@ -2292,16 +2292,16 @@
       "title": "Forbidden Pyandonea",
       "editor_id": "LB_Book_CLG_Pyandonea",
       "text_path": "books/040009B2-forbidden-pyandonea.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040009B3",
       "title": "Forgotten Aldmeris",
       "editor_id": "LB_Book_CLG_Aldmeris",
       "text_path": "books/040009B3-forgotten-aldmeris.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000A18",
@@ -2324,16 +2324,16 @@
       "title": "From Exile to Exodus, Part I",
       "editor_id": "LB_Book_CLO_Exile01",
       "text_path": "books/04000997-from-exile-to-exodus-part-i.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000998",
       "title": "From Exile to Exodus, Part II",
       "editor_id": "LB_Book_CLO_Exile02",
       "text_path": "books/04000998-from-exile-to-exodus-part-ii.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040000D1",
@@ -2348,8 +2348,8 @@
       "title": "Frozen Atmora",
       "editor_id": "LB_Book_CLG_Atmora",
       "text_path": "books/040009B6-frozen-atmora.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400001A",
@@ -2484,8 +2484,8 @@
       "title": "Goldbrand",
       "editor_id": "LB_Book3_CL_Goldbrand",
       "text_path": "books/0400008A-goldbrand.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000063",
@@ -2564,8 +2564,8 @@
       "title": "Harmonic Astronymics",
       "editor_id": "LB_Book_CLU_Harmonics",
       "text_path": "books/040009A6-harmonic-astronymics.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040008F0",
@@ -2628,8 +2628,8 @@
       "title": "History of Mereth",
       "editor_id": "LB_Book3_FL_MerethHistory",
       "text_path": "books/040000C1-history-of-mereth.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000A22",
@@ -2652,8 +2652,8 @@
       "title": "Imbel Genealogy",
       "editor_id": "LB_Book_AP_Imbel",
       "text_path": "books/040008B9-imbel-genealogy.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000950",
@@ -2964,8 +2964,8 @@
       "title": "Lesser-Encountered Iconography",
       "editor_id": "LB_Book3_CL_OT_AtmoranIcon02",
       "text_path": "books/0400011F-lesser-encountered-iconography.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400006E",
@@ -3260,8 +3260,8 @@
       "title": "Lorkhan the Wanderer",
       "editor_id": "LB_Book3_CL_Shezarr01",
       "text_path": "books/040000D8-lorkhan-the-wanderer.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000015",
@@ -3276,8 +3276,8 @@
       "title": "Lures to Power",
       "editor_id": "LB_Book2_VG_Lures",
       "text_path": "books/04000022-lures-to-power.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000985",
@@ -3348,8 +3348,8 @@
       "title": "Malkoran's Journal",
       "editor_id": "LB_Book_AA_MalkJournal",
       "text_path": "books/04000A24-malkorans-journal.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040000BF",
@@ -3420,32 +3420,32 @@
       "title": "Meh Ayleidion",
       "editor_id": "LB_Book3_CL_MehAyleidion",
       "text_path": "books/0400010C-meh-ayleidion.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040000EE",
       "title": "Memory of Chains",
       "editor_id": "LB_Book3_CL_Accession01",
       "text_path": "books/040000EE-memory-of-chains.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040000FB",
       "title": "Meteoric Iron",
       "editor_id": "LB_Book3_CL_OT_MetIron01",
       "text_path": "books/040000FB-meteoric-iron.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000112",
       "title": "Mid-Merethic Glass Weaponry",
       "editor_id": "LB_Book3_CL_OT_Glasswork01",
       "text_path": "books/04000112-mid-merethic-glass-weaponry.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000897",
@@ -3460,40 +3460,40 @@
       "title": "Mortal Taxonomies, vol. I",
       "editor_id": "LB_Book3_DAE_MortalTax01",
       "text_path": "books/04000114-mortal-taxonomies-vol-i.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400011B",
       "title": "Mortal Taxonomies, vol. II",
       "editor_id": "LB_Book3_DAE_MortalTax02",
       "text_path": "books/0400011B-mortal-taxonomies-vol-ii.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400011C",
       "title": "Mortal Taxonomies, vol. III",
       "editor_id": "LB_Book3_DAE_MortalTax03",
       "text_path": "books/0400011C-mortal-taxonomies-vol-iii.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000125",
       "title": "Mortal Taxonomies, vol. IV",
       "editor_id": "LB_Book3_DAE_MortalTax04",
       "text_path": "books/04000125-mortal-taxonomies-vol-iv.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040000BB",
       "title": "Murkmire Almanac",
       "editor_id": "LB_Book3_CL_Murkmire",
       "text_path": "books/040000BB-murkmire-almanac.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000928",
@@ -3668,16 +3668,16 @@
       "title": "Notes on Dimhollow Crypt, Vol. 1",
       "editor_id": "LB_Book_VG_Adalvald01",
       "text_path": "books/04000814-notes-on-dimhollow-crypt-vol-1.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000815",
       "title": "Notes on Dimhollow Crypt, Vol. 2",
       "editor_id": "LB_Book_VG_Adalvald02",
       "text_path": "books/04000815-notes-on-dimhollow-crypt-vol-2.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400094C",
@@ -3764,8 +3764,8 @@
       "title": "On Durnehviir, the Ever-Living",
       "editor_id": "LB_Book2_DG_Durnehviir",
       "text_path": "books/04000006-on-durnehviir-the-ever-living.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040009CD",
@@ -3780,16 +3780,16 @@
       "title": "On Fighting Dremora, vol. I",
       "editor_id": "LB_Book2_VG_Dremora",
       "text_path": "books/04000007-on-fighting-dremora-vol-i.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000008",
       "title": "On Fighting Dremora, vol. II",
       "editor_id": "LB_Book2_VG_Dremora2",
       "text_path": "books/04000008-on-fighting-dremora-vol-ii.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000A17",
@@ -3804,24 +3804,24 @@
       "title": "On Meridia",
       "editor_id": "LB_Book2_VG_Meridia01",
       "text_path": "books/04000052-on-meridia.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000064",
       "title": "On Nahfahlaar the Red",
       "editor_id": "LB_Book2_DG_Nahfahlar",
       "text_path": "books/04000064-on-nahfahlaar-the-red.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000A0F",
       "title": "On Re-animating Skeletons",
       "editor_id": "LB_Book_CLO_Skeletons",
       "text_path": "books/04000A0F-on-re-animating-skeletons.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000096",
@@ -3836,8 +3836,8 @@
       "title": "On Saarthal and Sard",
       "editor_id": "LB_Book3_CL_SaarthalSard",
       "text_path": "books/04000108-on-saarthal-and-sard.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040000DE",
@@ -3924,8 +3924,8 @@
       "title": "On the Linearity of Time",
       "editor_id": "LB_Book3_CL_Linearity",
       "text_path": "books/040000D9-on-the-linearity-of-time.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000041",
@@ -3940,8 +3940,8 @@
       "title": "On the Night of Tears",
       "editor_id": "LB_Book3_FL_NightTears",
       "text_path": "books/040000C7-on-the-night-of-tears.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040000E4",
@@ -4087,24 +4087,24 @@
       "title": "Pilgrimages in Skyrim",
       "editor_id": "LB_Book3_CH_SkyrimPilgrims",
       "text_path": "books/040000C2-pilgrimages-in-skyrim.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040000C3",
       "title": "Pilgrimages in Skyrim (Revised)",
       "editor_id": "LB_Book3_CH_SkyrimPilgrimsRedact",
       "text_path": "books/040000C3-pilgrimages-in-skyrim-revised.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000813",
       "title": "Pipe Fitting Manual",
       "editor_id": "LB_Book_DW_PipeFittings",
       "text_path": "books/04000813-pipe-fitting-manual.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000142",
@@ -4127,8 +4127,8 @@
       "title": "Poems of Ald Mereth",
       "editor_id": "LB_Book3_FL_MerethPoems",
       "text_path": "books/040000A7-poems-of-ald-mereth.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040009BD",
@@ -4167,8 +4167,8 @@
       "title": "Prayer to Trinimac",
       "editor_id": "LB_Book_FL_01",
       "text_path": "books/040008E6-prayer-to-trinimac.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400008E",
@@ -4231,8 +4231,8 @@
       "title": "Reachfolk in Combat",
       "editor_id": "LB_Book2_VG_Forsworn",
       "text_path": "books/0400000F-reachfolk-in-combat.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000A0B",
@@ -4271,8 +4271,8 @@
       "title": "Redguard Mythology",
       "editor_id": "LB_Book3_CL_RedguardMyths01",
       "text_path": "books/040000D5-redguard-mythology.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000111",
@@ -4351,16 +4351,16 @@
       "title": "Rordeekus' Remedies",
       "editor_id": "LB_Book2_VG_ImperialHerbal",
       "text_path": "books/04000060-rordeekus-remedies.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400008B",
       "title": "Sacred Pathways",
       "editor_id": "LB_Book3_CH_pathways",
       "text_path": "books/0400008B-sacred-pathways.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000882",
@@ -4447,8 +4447,8 @@
       "title": "Secrets of the Riddle'Thar",
       "editor_id": "LB_Book3_CL_RiddleThar01",
       "text_path": "books/040000EF-secrets-of-the-riddlethar.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040000BC",
@@ -4767,16 +4767,16 @@
       "title": "Subtropical Cyrodiil",
       "editor_id": "LB_Book_CLO_Subtropical",
       "text_path": "books/040009C7-subtropical-cyrodiil.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040009B4",
       "title": "Sunken Thras",
       "editor_id": "LB_Book_CLG_Thras",
       "text_path": "books/040009B4-sunken-thras.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000A1B",
@@ -4807,8 +4807,8 @@
       "title": "The Alessian Order",
       "editor_id": "LB_Book3_CL_Alessian",
       "text_path": "books/04000087-the-alessian-order.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040009C3",
@@ -4831,16 +4831,16 @@
       "title": "The Anuad, Book 1",
       "editor_id": "LB_Book3_ALD_Anuad01",
       "text_path": "books/040000C5-the-anuad-book-1.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040000C6",
       "title": "The Anuad, Book 2",
       "editor_id": "LB_Book3_ALD_Anuad02",
       "text_path": "books/040000C6-the-anuad-book-2.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040009E4",
@@ -4863,24 +4863,24 @@
       "title": "The Ayematra, Book 1",
       "editor_id": "LB_Book3_DT_Almatra1",
       "text_path": "books/04000092-the-ayematra-book-1.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000094",
       "title": "The Ayematra, Book 2",
       "editor_id": "LB_Book3_DT_Almatra2",
       "text_path": "books/04000094-the-ayematra-book-2.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040000C8",
       "title": "The Ayematra, Book 3",
       "editor_id": "LB_Book3_DT_Almatra3",
       "text_path": "books/040000C8-the-ayematra-book-3.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040009CB",
@@ -4983,8 +4983,8 @@
       "title": "The Damned Equation",
       "editor_id": "LB_Book_CLU_DamnedEquation",
       "text_path": "books/040009BA-the-damned-equation.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040008EA",
@@ -5031,8 +5031,8 @@
       "title": "The Eagle Rock",
       "editor_id": "LB_Book3_FL_Hawk",
       "text_path": "books/04000091-the-eagle-rock.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000072",
@@ -5143,8 +5143,8 @@
       "title": "The Greenheart Codex",
       "editor_id": "LB_Book3_AAP_Codex02",
       "text_path": "books/0400010A-the-greenheart-codex.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000038",
@@ -5159,8 +5159,8 @@
       "title": "The Heirs of Ysgramor",
       "editor_id": "LB_Book3_SK_YsgramorHeirs",
       "text_path": "books/04000118-the-heirs-of-ysgramor.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400099A",
@@ -5207,8 +5207,8 @@
       "title": "The Kynesgrove Codex",
       "editor_id": "LB_Book3_AAP_Codex03",
       "text_path": "books/0400010D-the-kynesgrove-codex.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040000AB",
@@ -5335,8 +5335,8 @@
       "title": "The Parrot and the Carpet",
       "editor_id": "LB_Book3_CL_ParrotCarpet",
       "text_path": "books/040000A3-the-parrot-and-the-carpet.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000047",
@@ -5351,16 +5351,16 @@
       "title": "The Rimmen Codex",
       "editor_id": "LB_Book3_AAP_Codex04",
       "text_path": "books/04000117-the-rimmen-codex.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040000AE",
       "title": "The Rough Sleeper's Guide to Skyrim",
       "editor_id": "LB_Book3_CH_tavernguide",
       "text_path": "books/040000AE-the-rough-sleepers-guide-to-skyrim.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400090B",
@@ -5423,24 +5423,24 @@
       "title": "The Seventy-Seven Doctrines",
       "editor_id": "LB_Book3_DL_AlessianDoctrines",
       "text_path": "books/04000090-the-seventy-seven-doctrines.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000121",
       "title": "The Sharmat",
       "editor_id": "LB_Book3_CL_Sharmat01",
       "text_path": "books/04000121-the-sharmat.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000109",
       "title": "The Sheogorad Codex",
       "editor_id": "LB_Book3_AAP_Codex01",
       "text_path": "books/04000109-the-sheogorad-codex.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040009A7",
@@ -5463,8 +5463,8 @@
       "title": "The Siege of Kvatch",
       "editor_id": "LB_Book2_VG_Kvatch",
       "text_path": "books/04000010-the-siege-of-kvatch.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400090C",
@@ -5551,8 +5551,8 @@
       "title": "The Third Scroll of Baan Dar",
       "editor_id": "LB_Book3_DL_BaanDar3",
       "text_path": "books/040000BE-the-third-scroll-of-baan-dar.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400006B",
@@ -5743,8 +5743,8 @@
       "title": "The Witch of Old Ebonheart",
       "editor_id": "LB_Book3_CL_EbonGhost01",
       "text_path": "books/040000FE-the-witch-of-old-ebonheart.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040008ED",
@@ -5775,16 +5775,16 @@
       "title": "Torn Catalogue Page",
       "editor_id": "LB_Note3_TP_Catalogue01",
       "text_path": "books/0400012C-torn-catalogue-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400012D",
       "title": "Torn Catalogue Page",
       "editor_id": "LB_Note3_TP_Catalogue02",
       "text_path": "books/0400012D-torn-catalogue-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000127",
@@ -5807,24 +5807,24 @@
       "title": "Torn Page",
       "editor_id": "LB_Note3_TP_Manual01",
       "text_path": "books/04000132-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000134",
       "title": "Torn Page",
       "editor_id": "LB_Note3_TP_Manual02",
       "text_path": "books/04000134-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000135",
       "title": "Torn Page",
       "editor_id": "LB_Note3_TP_Manual03",
       "text_path": "books/04000135-torn-page.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000809",
@@ -5983,16 +5983,16 @@
       "title": "Treatise on Daedric Familiars",
       "editor_id": "LB_Book2_VG_LesserDaedra",
       "text_path": "books/0400003D-treatise-on-daedric-familiars.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000862",
       "title": "Trebuchet Ritual",
       "editor_id": "LB_Book_AP_Trebuchet",
       "text_path": "books/04000862-trebuchet-ritual.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040009F2",
@@ -6055,8 +6055,8 @@
       "title": "Uncle Regrezio's Yellow Joke Book",
       "editor_id": "LB_Book3_CH_YellowJokes",
       "text_path": "books/040000A4-uncle-regrezios-yellow-joke-book.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400099B",
@@ -6079,16 +6079,16 @@
       "title": "Uthrag at the Red Mountain",
       "editor_id": "LB_Book_AP_RedMount01",
       "text_path": "books/0400090D-uthrag-at-the-red-mountain.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000817",
       "title": "Vampire Clans of Skyrim",
       "editor_id": "LB_Book_VG_SkyrimVampires",
       "text_path": "books/04000817-vampire-clans-of-skyrim.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000029",
@@ -6111,8 +6111,8 @@
       "title": "Varlatropism in Meteoric Glass",
       "editor_id": "LB_Book3_CL_OT_Welkynd01",
       "text_path": "books/040000FA-varlatropism-in-meteoric-glass.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "040008FC",
@@ -6135,8 +6135,8 @@
       "title": "Vrage the Gifted",
       "editor_id": "LB_Book3_SK_Vrage01",
       "text_path": "books/040000F3-vrage-the-gifted.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "0400002E",
@@ -6151,8 +6151,8 @@
       "title": "Vvardenfell Survey, 3E 412",
       "editor_id": "LB_Book_CLG_Vvardenfell",
       "text_path": "books/040009EF-vvardenfell-survey-3e-412.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000999",
@@ -6175,8 +6175,8 @@
       "title": "Water Cycle of Clockwork City",
       "editor_id": "LB_Book_AP_WaterCycle",
       "text_path": "books/040008B4-water-cycle-of-clockwork-city.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_mod_original_text",
+      "evidence": "Classified as Apocryphal Library/Jenasto-authored lore-friendly material from the compilation's authored-book families. The author distinguishes their newly written books from imported TES-game texts and externally credited works; compilation provenance retained and this record is excluded from Bethesda/ZeniMax canon claims."
     },
     {
       "form_id": "04000940",
