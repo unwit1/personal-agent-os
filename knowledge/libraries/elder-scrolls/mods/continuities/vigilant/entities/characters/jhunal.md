@@ -110,6 +110,24 @@ Other VIGILANT sources repeatedly connect **Laza** with an Owl, including the *L
 
 The structural evidence makes Jhunal a strong candidate for at least part of the Owl tradition surrounding Laza, but the color-coded Owl texts should not all be collapsed into Jhunal without direct identity evidence.
 
+## Supplementary Owl identity commentary
+
+The supplementary VIGILANT background article by **a123999** explicitly identifies **Jhunal the Owl as the Gray Owl** and describes him as one of multiple “Jhunals” associated with Atmora.
+
+The same source says Jhunal deceived Laza into attacking **Kyne's Garden** and catching dragons.
+
+This lines up strongly with the ESM-level testimony in which Jhunal admits using Laza to harvest dragons, but it adds identity/intent information not directly present in the currently persisted ESM dialogue.
+
+Source:
+- `sources/supplementary/a123999-vigilant-backgrounds.md`
+
+Lorekeeper classification:
+
+- **ESM:** Jhunal manipulates Laza for dragon harvesting.
+- **supplementary commentary:** Jhunal the Owl = Gray Owl; Laza was deceived into the Kyne's Garden/dragon-hunting role.
+
+The exact White Owl and Black Owl identities remain outside the direct ESM evidence currently persisted.
+
 ## Ontology / reliability
 
 VIGILANT presents several apparently incompatible Jhunal states at once:
