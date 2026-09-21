@@ -1,9 +1,13 @@
 {"source":"vicn.arkved.single-body-chronology","type":"qualifies","target":"vicn.arkved.exact-recurrence"}
 {"source":"vicn.arkved.single-body-chronology","type":"qualifies","target":"vicn.arkved.oneiromancer-cross-work-bridge"}
 {"source":"vicn.dreamerless-dream.single-mechanism","type":"qualifies","target":"vicn.dreamerless-dream.exact-recurrence"}
+{"source":"vicn.elder-wood.single-place","type":"qualifies","target":"vicn.elder-wood.exact-recurrence"}
 {"source":"vicn.gc9.memory-procedure-equivalence","type":"qualifies","target":"vicn.dac0da.gc9-lyg.mass-erasure"}
 {"source":"vicn.gc9.memory-procedure-equivalence","type":"qualifies","target":"vicn.unslaad.gc9-lyg.memory-evaporation"}
 {"source":"vicn.glenmoril.orlando.owl-jhunal-node","type":"supports","target":"vicn.jhunal.orlando.incarnation-claim"}
+{"source":"vicn.hare.single-entity","type":"qualifies","target":"vicn.hare.word-rewriting-shared-motif"}
+{"source":"vicn.hjalti.single-stable-body","type":"qualifies","target":"vicn.hjalti.recurring-historical-node"}
+{"source":"vicn.hjalti.single-stable-body","type":"qualifies","target":"vicn.unslaad.hjalti.changing-names"}
 {"source":"vicn.jhunal.black-owl.direct-identity","type":"supports","target":"vicn.jhunal.owl-complex.intentional"}
 {"source":"vicn.jhunal.gray-owl.direct-identity","type":"qualifies","target":"vicn.jhunal.gray-original-god.identity"}
 {"source":"vicn.jhunal.gray-owl.direct-identity","type":"supports","target":"vicn.jhunal.owl-complex.intentional"}
