@@ -1,6 +1,6 @@
 {
   "source_sha256": "7d3ca2d72297fbc5afda8f1b8bb217fa1fd6d9d7414360acdf1a922d848949ba",
-  "phase": "canon-comparison-and-source-corpus-expansion",
+  "phase": "recoverable-ingestion-complete-awaiting-source-expansion",
   "completed": [
     "header/source manifest",
     "record inventory",
@@ -172,7 +172,20 @@
     "Clifford Bruiant servant dossier",
     "Heather Bruiant servant dossier",
     "M'zaq Bruiant gardener/document dossier",
-    "Vena Petilius relic/prophecy identity node"
+    "Vena Petilius relic/prophecy identity node",
+    "Stone/Adabal retrieval topic",
+    "Alessian memory-politics retrieval topic",
+    "Mary/Moura persecution retrieval topic",
+    "Blood Matron/Windhelm retrieval topic",
+    "Bruiant/Child of Oblivion retrieval topic",
+    "Laza/Owl cycle retrieval topic",
+    "Slave Trader itinerary retrieval topic",
+    "Sacred Anatomancer/Holy Pipers retrieval topic",
+    "Knights of the Nine retrieval topic",
+    "Coldharbour memory-reliability retrieval topic",
+    "recoverable pre-Coldharbour character expansion audited complete",
+    "secondary Coldharbour group audit complete at current two-evidence-layer threshold",
+    "recoverable high-relevance character/faction expansion audited complete"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -187,14 +200,10 @@
   "next": [
     "recover/persist exact text for Bruiant servant documents 02054EC5, 02054ECB, 02054ECC, 02054EC4, 0204C5AE, and 02054ECA before source-level analysis",
     "recover direct VIGILANT implementation for Sir Amiel Lannus; do not infer it from his base-game Knights of the Nine history",
-    "continue evidence-rich pre-Coldharbour character dossiers now that Facis, Reyda, Joshua, and Joel are direct-source resolved",
     "recover and persist the full 30+ named Feral Soul-Shriven trigger→SvBase roster when the missing raw variant table/source extraction becomes accessible; Judo and Radokhan/Ortutay/Marosi Tharn are already normalized",
-    "inspect remaining secondary Coldharbour groups only when at least two independent evidence layers support a distinct node",
-    "expand remaining high-relevance character dossiers",
     "continue exact BOOK/note persistence from the 179-record corpus",
     "ingest VIGILANT PEX/scripts or BSA when available for exact Papyrus transition bodies",
-    "persist remaining exact BOOK texts as browsable individual files",
-    "expand additional Coldharbour characters and faction dossiers"
+    "persist remaining exact BOOK texts as browsable individual files"
   ],
   "counts": {
     "quests": 120,
@@ -207,20 +216,27 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "ten-unit VIGILANT named-character batch 4",
+    "focus": "ten-unit VIGILANT retrieval-topic batch 5 and recoverable-completion audit",
     "added": [
-      "Vernaccus direct Archer-of-Kyne / Rahel identity-cluster dossier",
-      "Thorondir Temple-authority and Sacred Anatomancer report-author dossier",
-      "Hasaama Dro'Zel memory/witness dossier",
-      "Lamthor Bruiant warning/death dossier",
-      "Summil Bruiant cook/breakdown dossier",
-      "Patricia Bruiant victim dossier",
-      "Clifford Bruiant servant dossier",
-      "Heather Bruiant servant dossier",
-      "M'zaq Bruiant gardener/document dossier",
-      "Vena Petilius relic/prophecy identity node"
+      "Stone/Adabal retrieval topic",
+      "Alessian memory-politics retrieval topic",
+      "Mary/Moura persecution retrieval topic",
+      "Blood Matron/Windhelm retrieval topic",
+      "Bruiant/Child of Oblivion retrieval topic",
+      "Laza/Owl cycle retrieval topic",
+      "Slave Trader itinerary retrieval topic",
+      "Sacred Anatomancer/Holy Pipers retrieval topic",
+      "Knights of the Nine retrieval topic",
+      "Coldharbour memory-reliability retrieval topic"
     ],
-    "source_state": "Ten previously dossier-less named figures were added from direct dialogue, journals, placed records, or two-layer implementation evidence. Bruiant victim nodes preserve suspicious context without converting it into proven supernatural causation.",
-    "open_followup": "Continue in ten-unit commits. Audit remaining named actors with at least two evidence anchors; once exhausted, mark character/faction expansion complete and leave only raw-source/PEX/Sir-Amiel/Feral-roster blockers."
-  }
+    "source_state": "The named scene-actor layer, recoverable high-value character/faction layer, and major topic-front-door layer are now covered. Remaining work is source-access blocked rather than an unprocessed narrative queue.",
+    "open_followup": "Recoverable VIGILANT ingestion is complete for the current repository/source-access layer. Resume only when the missing raw BOOK extraction/source bytes, PEX/BSA, Sir Amiel direct records, or full Soul-Shriven variant table become available."
+  },
+  "blocked": [
+    "Bruiant servant BOOK prose for 02054EC5, 02054ECB, 02054ECC, 02054EC4, 0204C5AE, 02054ECA is not present in the current repository/book persistence layer",
+    "Sir Amiel Lannus has supplementary VIGILANT attribution but no direct VIGILANT NPC/INFO/SCEN/alias/document implementation recovered",
+    "full 30+ Feral Soul-Shriven trigger→SvBase roster requires the missing raw variant table/source extraction",
+    "129 of 179 BOOK records are not yet persisted as individual browsable text files even though the earlier extraction decoded all 179",
+    "VIGILANT PEX/scripts/BSA are unavailable in the current source-access layer, preventing exact external Papyrus transition-body recovery"
+  ]
 }
