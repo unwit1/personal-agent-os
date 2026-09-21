@@ -35,3 +35,17 @@ A later provenance pass can compare:
 - older UNSLAAD plugin versions.
 
 Until such evidence appears, **unknown provenance** is safer than either Vicn attribution or external-text attribution.
+
+## 2026-09-21 verification pass
+
+A repeat external search checked the exact title, distinctive chapter titles, and combinations of **Vivec**, **Molag Bal**, **CHIM**, **AMARANTH**, and **Muatra**.
+
+The search surfaced the well-known official Vivec/Molag-Bal material in the 36 Lessons, especially Sermons 12 and 14, but did **not** surface a reliable pre-UNSLAAD copy of this four-chapter parody.
+
+The parody's plot summaries are materially different from the official Sermon 12/14 prose. Similar characters and vocabulary therefore do not establish that this BOOK is copied from those sermons.
+
+Current classification remains intentionally final-for-now:
+
+**external provenance unresolved**
+
+This is no longer an open ingestion blocker. Reclassify only if a concrete earlier source is later found.

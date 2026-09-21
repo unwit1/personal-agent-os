@@ -200,3 +200,21 @@ The next high-value work is narrower and more synthetic:
 4. selected quest-alias/script-property value resolution for still-uncertain identity transitions;
 5. contradiction/reliability indexing across Khev, Jhunal/Gray Owl, Hermit, Herkel, Insights, and reused texts;
 6. optional polish/index generation so Lorekeeper can retrieve UNSLAAD by person, artifact, location, concept, faction, spell, or cross-VICN thread without scanning the raw corpus.
+
+## Provenance frontier status
+
+The external-text provenance frontier is now closed for the currently indexed lore-bearing material.
+
+Final classifications include:
+- official released-game reuse;
+- unofficial developer/apocryphal reuse;
+- identified shared apocryphal substrate;
+- UNSLAAD-local text;
+- deliberately **unresolved external provenance** where no reliable earlier source could be established.
+
+The remaining unknown origin of **Vivec and Molag Bal** is documented as an accepted uncertainty rather than an ingestion blocker.
+
+The active frontier is therefore reduced to:
+1. selected quest-alias/script-property resolution for identity transitions that remain materially ambiguous;
+2. deeper placement analysis only where it can resolve a live ambiguity;
+3. final retrieval/index polish and completion accounting.

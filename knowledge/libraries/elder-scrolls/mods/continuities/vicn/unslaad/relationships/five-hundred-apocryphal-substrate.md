@@ -116,3 +116,14 @@ For questions about the late Atmoran trial roster:
 2. retrieve the specific actor/artifact page;
 3. retrieve the external *The Shezarrine* source only if wording or origin matters;
 4. preserve official TES history separately from both.
+
+## Provenance closure
+
+The late Atmoran trial layer has enough distinctive matches to classify the external source relationship without further broad searching.
+
+Resolved distinction:
+- **external substrate:** Five Hundred / Shezarrine-associated names and mythic identity patterns;
+- **UNSLAAD implementation:** 500 Companion Faction, trial roster, bosses, transformations, equipment, Shouts, and encounter ordering;
+- **historical claim boundary:** the implementation faction is not a literal historical membership list.
+
+Future work should examine individual actors only when a new identity ambiguity appears. The basic source-substrate classification is closed.

@@ -39,3 +39,13 @@ In the quest sequence this gate is tied to the Loveletter requirement. UNSLAAD t
 The end-act teleport trigger exposes VMAD properties **MsgReqLoveletter** and **qLoveLetter**.
 
 This is direct implementation evidence that the "something timeless" frozen-time gate is specifically wired to the Loveletter state/quest.
+
+## Provenance closure
+
+For the current UNSLAAD corpus, provenance work on this text is complete:
+
+- source class: reused external developer/apocryphal Elder Scrolls text;
+- UNSLAAD contribution: fragmenting, placement, quest integration, interpretation, and timeless-key mechanics;
+- official-canon status: not promoted by inclusion in the mod.
+
+Future work should focus on interpretation or passage-level echoes, not re-opening basic authorship classification unless new documentary evidence appears.
