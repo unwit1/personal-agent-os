@@ -30,6 +30,12 @@ Acquisition:
 Crafting:
 - becomes craftable after **VS Dreugh King** is completed.
 
+## Direct magic-layer note
+
+Neither GHARTOK record carries an ordinary EITM enchantment in the direct weapon layer. The anti-elf/anti-dragon behavior is expressed through the item's description/mechanics rather than a named enchantment FormID.
+
+The Greatsword's GC9 container is the same implementation object tied to the LYG-sector memory-erasure Insight, strengthening the physical staging relationship without proving authorship or causality.
+
 ## Significance
 
 The GHARTOK family therefore sits at the intersection of:
