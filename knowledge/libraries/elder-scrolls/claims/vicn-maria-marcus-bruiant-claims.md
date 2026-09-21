@@ -44,6 +44,17 @@
   - vicn.glenmoril.maria.abandoned-pregnancy
   - vicn.vigilant.marcus.markarth-affair
 
+### vicn.maria.child-not-julius
+- Proposition: Maria's child is **not Julius Bruiant**.
+- Status: synthesis supported
+- Epistemic mode: cross-work chronology reconstruction
+- Confidence: very high
+- Evidence:
+  - VIGILANT establishes Julius already existed during Marcus's 4E 199 Markarth affair.
+  - vicn.maria.equals-vigilant-unnamed-markarth-woman
+- Supports:
+  - vicn.maria.equals-vigilant-unnamed-markarth-woman
+
 ### vicn.maria.child-is-julius
 - Proposition: Maria's child is Julius Bruiant.
 - Status: contradicted / do not promote
@@ -52,7 +63,7 @@
 - Evidence:
   - VIGILANT independently establishes Julius already existed during the period of Marcus's Markarth affair.
 - Contradicts:
-  - vicn.maria.equals-vigilant-unnamed-markarth-woman
+  - vicn.maria.child-not-julius
 - Notes: The parent reconstruction explicitly concludes Maria's child is not Julius.
 
 ### vicn.maria-marcus.parent-layer-provenance
