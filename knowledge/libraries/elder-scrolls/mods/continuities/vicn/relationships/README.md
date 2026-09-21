@@ -19,6 +19,7 @@ Work-specific facts remain in their source continuity. Parent pages should link 
 - **Khemkel / Wooden Idol** — `khemkel-wooden-idol-thread.md`
 - **Yngol / Tsunaltir / Tstunal** — `yngol-tsunaltir-tstunal-thread.md`
 - **Hare / word-rewriting** — `hare-word-rewriting-thread.md`
+- **Harakk / Snow Whales / twin star** — `harakk-thread.md`
 - **Maria / Marcus / Bruiant** — `maria-marcus-bruiant.md`
 
 ## Owl / Jhunal / Chick-Trader threads
