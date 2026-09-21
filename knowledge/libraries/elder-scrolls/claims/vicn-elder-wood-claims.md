@@ -17,14 +17,6 @@
   - VIGILANT Owl-continuity material
   - UNSLAAD Orlando/Hermit material
 
-### vicn.unslaad.orlando.elder-wood-origin
-- Proposition: UNSLAAD Orlando says he and the Black Owl originate in the far icy north, from a forgotten **Elder Wood**.
-- Status: supported as direct dialogue
-- Epistemic mode: participant testimony
-- Confidence: very high
-- Evidence:
-  - UNSLAAD Orlando dossier
-  - `mods/continuities/vicn/relationships/elder-wood-thread.md`
 
 ### vicn.unslaad.hermit.elder-wood-dream
 - Proposition: UNSLAAD's Hermit independently dreams of an elder wood beyond frozen mountains, priests seeking an end to endless winter, and a pilgrim whose Shout reveals sunlight and a reflected golden dragon.
