@@ -1,0 +1,3 @@
+<font face="$HandwrittenBold" size="19"> 
+Thoughts exist no more, only sensations remain.
+</font>
