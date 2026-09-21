@@ -32,6 +32,8 @@
 {"source":"vicn.lyg.cross-work-continuity","type":"supports","target":"vicn.gc9.rare-code-cross-work"}
 {"source":"vicn.lyg.memory-erasure-intrinsic","type":"qualifies","target":"vicn.dac0da.gc9-lyg.mass-erasure"}
 {"source":"vicn.lyg.memory-erasure-intrinsic","type":"qualifies","target":"vicn.unslaad.gc9-lyg.memory-evaporation"}
+{"source":"vicn.maria.child-is-julius","type":"contradicts","target":"vicn.maria.child-not-julius"}
+{"source":"vicn.maria.child-not-julius","type":"supports","target":"vicn.maria.equals-vigilant-unnamed-markarth-woman"}
 {"source":"vicn.numantia.khev-chains","type":"contradicts","target":"vicn.numantia.loveletter-liberty"}
 {"source":"vicn.oracle-iridescent.glenmoril-kinmune-identity","type":"qualifies","target":"vicn.oracle-iridescent.cross-work-recurrence"}
 {"source":"vicn.oracle-iridescent.glenmoril-kinmune-identity","type":"qualifies","target":"vicn.oracle-iridescent.unslaad-kinmune-staging"}
