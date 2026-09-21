@@ -68,13 +68,14 @@ Represent both claims and connect them using:
 
 The future SQLite/structured claim graph should preserve these same stable IDs and edges.
 
-## Current VICN claim bundles
+## Current VICN coverage
 
-- `vicn-jhunal-identity-claims.md`
-- `vicn-oracle-iridescent-claims.md`
-- `vicn-atmora-saarthal-night-of-tears-claims.md`
-- `vicn-radiance-mnemo-li-memory-claims.md`
-- `vicn-unslaad-dragon-soul-claims.md`
+See:
+- `vicn-claim-coverage.md` for generated bundle/claim/edge coverage and remaining review targets;
+- `vicn-claim-index.jsonl` for compact machine-readable claims;
+- `vicn-claim-edges.jsonl` for stable support/contradiction/qualification edges.
+
+Do not maintain a hand-written exhaustive bundle list here; the generated coverage report is canonical for current claim-bundle inventory.
 
 ## Migration target
 
