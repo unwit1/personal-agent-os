@@ -1,19 +1,9 @@
-{"source":"vicn.saarthal.jhunal-magnus-theft","type":"qualifies","target":"claims equating Arcana of Magnus, Saarthal's Sorrow, Ember of Atmora, and every Magnus-fire reference."}
-{"source":"vicn.atmora.frozen-time-unslaad","type":"qualifies","target":"any claim equating frozen Atmora with DAc0da mnemolichite, Dragon Breaks, or Lyg erasure."}
 {"source":"vicn.gc9.memory-procedure-equivalence","type":"qualifies","target":"vicn.unslaad.gc9-lyg.memory-evaporation"}
 {"source":"vicn.gc9.memory-procedure-equivalence","type":"qualifies","target":"vicn.dac0da.gc9-lyg.mass-erasure"}
 {"source":"vicn.jhunal.gray-owl.direct-identity","type":"supports","target":"vicn.jhunal.owl-complex.intentional"}
 {"source":"vicn.jhunal.gray-owl.direct-identity","type":"qualifies","target":"vicn.jhunal.gray-original-god.identity"}
-{"source":"vicn.jhunal.gray-original-god.identity","type":"contradicts","target":"any unconditional claim of \"Gray Owl = original god Jhunal\""}
 {"source":"vicn.jhunal.black-owl.direct-identity","type":"supports","target":"vicn.jhunal.owl-complex.intentional"}
 {"source":"vicn.jhunal.white-owl.direct-identity","type":"supports","target":"vicn.jhunal.owl-complex.intentional"}
-{"source":"vicn.jhunal.orlando.incarnation-claim","type":"qualifies","target":"any unconditional claim of Orlando = original Jhunal"}
-{"source":"vicn.jhunal.orlando.incarnation-claim","type":"qualifies","target":"any unconditional claim of Orlando = Black Owl"}
 {"source":"vicn.khemkel.same-idol","type":"qualifies","target":"vicn.khemkel.idol-tradition-recurrence"}
 {"source":"vicn.oracle-iridescent.glenmoril-kinmune-identity","type":"qualifies","target":"vicn.oracle-iridescent.cross-work-recurrence"}
 {"source":"vicn.oracle-iridescent.glenmoril-kinmune-identity","type":"qualifies","target":"vicn.oracle-iridescent.unslaad-kinmune-staging"}
-{"source":"vicn.memory.persistence-family","type":"qualifies","target":"claims that Arkved's echoes = mnemolichite"}
-{"source":"vicn.memory.persistence-family","type":"qualifies","target":"claims that Blue Star = Mnemo-Li"}
-{"source":"vicn.memory.persistence-family","type":"qualifies","target":"claims that Radiance = mnemolichite"}
-{"source":"unslaad.lizz.contains-player-dragon-soul","type":"supports","target":"the authored family relation among player, Ulliss, and Lizz"}
-{"source":"unslaad.dragon-souls.recurring-substrate","type":"qualifies","target":"any universal TES claim that all power/identity operates through Dragon-Soul assimilation."}
