@@ -41,6 +41,15 @@ Licensed sources:
 - *The Truth of Minotaurs* — ESO: Summerset.
 - *The Song of Pelinal, Volume 5* — identifies Morihaus as a man-bull and records his love for Alessia.
 
+
+### Belharza and the Amulet of Kings
+
+**Classification: established-tradition for succession/wearing; vigilant-extension for protective mechanism.**
+
+Licensed tradition has Belharza succeeding Alessia as the second Emperor and wearing/inheriting the Amulet of Kings after her death. That makes VIGILANT-Belharza's statement that his doubts vanished when the Amulet "recognized" him broadly compatible with established imperial/Dragon-blood tradition.
+
+VIGILANT goes further when Belharza says the Alessian Order **could not kill him because of the Amulet**. The compared licensed material establishes dynastic/covenant significance and eligibility to wear the Amulet; it does not establish an automatic personal anti-assassination effect. That protection claim therefore remains VIGILANT-specific testimony.
+
 ### Alessian persecution / dispossession of Belharza and minotaurs
 
 **Classification: compatible-contested + vigilant-extension.**
