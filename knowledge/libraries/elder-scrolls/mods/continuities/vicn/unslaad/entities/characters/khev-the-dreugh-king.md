@@ -73,3 +73,20 @@ Use his statements as direct evidence for:
 - the existence of named concepts such as Nu-Mantia, Lyg, Merid-Nunda, and the Grabbers in his discourse.
 
 Do not automatically promote his theology into objective cosmology.
+
+## Retrieval boundary
+
+For answers about Khev, separate three layers:
+
+1. **identity/implementation** — the Khev hologram and boss forms are one narrative Khev identity family;
+2. **Khev's doctrine** — Nu-Mantia, Lyg, chains, love, Merid-Nunda, Molag, and Vehk-mirror language are his attributed teachings;
+3. **external substrate** — related Vivec/Molag/Lyg terminology may have pre-existing Elder Scrolls or apocryphal sources.
+
+Use:
+- `dialogue/sermon-of-khev.md`;
+- `dialogue/vs-dreugh-king.md`;
+- `relationships/khev-molag-ability-phases.md`;
+- `relationships/muatra-vivec-khev-thread.md`;
+- `concepts/nu-mantia.md`.
+
+Do not answer "what is Nu-Mantia?" with Khev's formulation alone. Phrase it as Khev's interpretation and contrast the Loveletter when relevant.

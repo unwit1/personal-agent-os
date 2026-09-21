@@ -66,3 +66,21 @@ Current high-confidence model:
 Lorekeeper should therefore avoid the two extremes:
 - **do not** treat Gray Owl as merely unrelated to Jhunal;
 - **do not** treat every statement about original/deific Jhunal as automatically biography of this impersonating/appropriating figure.
+
+## Source classification
+
+This dialogue is unusually important because it is a **participant confession** tied to a Jhunal-the-Gray source actor, but it remains self-report from a manipulative, identity-appropriating speaker.
+
+Use it as high-value evidence for:
+- what the Gray Owl says he did;
+- his admitted long-term use of the Jhunal name;
+- his own experimental history and failures;
+- his memory/isolation account;
+- his dragon dream.
+
+Do not use it alone to establish:
+- objective biography of the original god Jhunal;
+- exact truth of every historical claim;
+- one-body continuity across all Owl/Jhunal forms.
+
+Pair with `relationships/jhunal-gray-owl.md`, `technical/multi-form-identity-graph.md`, and the parent Jhunal identity matrix.

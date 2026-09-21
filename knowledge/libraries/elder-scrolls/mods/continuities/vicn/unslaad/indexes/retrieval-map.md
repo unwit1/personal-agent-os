@@ -405,3 +405,18 @@ Only retrieve raw source text when:
 - the user asks for exact evidence.
 
 This map exists specifically to reduce token/context bloat.
+
+## Reliability-first routing
+
+When a topic is identity-sensitive, contradictory, dream-based, or externally sourced, load `analysis/source-reliability-matrix.md` before expanding.
+
+High-risk topics include:
+- Jhunal / Gray Owl identity;
+- Khev / Nu-Mantia;
+- Hermit dreams / Radiance;
+- Herkel cosmology;
+- KINMUNE / Oracle Iridescent;
+- reused apocryphal texts;
+- frozen-Atmora causal explanations.
+
+For these, retrieve one direct source page plus one structural or provenance page before synthesizing.

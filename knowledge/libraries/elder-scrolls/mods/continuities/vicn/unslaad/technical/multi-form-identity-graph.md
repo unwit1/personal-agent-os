@@ -141,3 +141,30 @@ Do not merge solely from:
 - same model.
 
 This is especially important in VICN's repeated-body, mask, memory, dream, and timeline material.
+
+## Merge confidence classes
+
+Use three merge states:
+
+### Confirmed narrative identity
+Direct dialogue/quest transition supports one actor across forms.
+Examples:
+- Ulliss;
+- ordinary Aisha state forms;
+- Khev hologram/boss;
+- Ja'cobee/Fluffy relationship as explicitly described by the epilogue.
+
+### Linked manifestation
+The source strongly links forms but preserves a meaningful body/state distinction.
+Examples:
+- Jhunal the Gray / separate Gray Owl body;
+- Dilon Aisha;
+- Elja / Hate-Fire transformation;
+- Ysgrim / Ysgramor trial family.
+
+### Implementation similarity only
+Same race, faction, outfit, spell, display name, or model without direct continuity evidence.
+
+Lorekeeper must not promote this third class into identity.
+
+This classification is especially important for VICN, where deliberate repetition of bodies, masks, names, and roles is part of the narrative design.

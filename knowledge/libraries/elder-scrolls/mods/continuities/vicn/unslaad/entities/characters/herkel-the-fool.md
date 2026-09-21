@@ -28,3 +28,29 @@ Herkel says:
 Herkel is useful but not omniscient. The quest itself shows his memories becoming unstable and potentially influenced by Apocrypha/Herma-Mora. Some of his recollections are framed as songs, fairy tales, rumors, or things he suddenly remembers.
 
 Store his statements as informed but fallible testimony.
+
+## Evidence tiers
+
+Herkel's material should be split into explicit confidence layers.
+
+### Mechanically corroborated
+High confidence for route/interaction structure when his instructions are backed by quest implementation:
+- Lyg-door handling;
+- ice-mirror markers;
+- Lyg transition markers;
+- quest-state routing in The Final Journey.
+
+### Participant/historical recollection
+Moderate, source-attributed confidence for:
+- names he remembers;
+- Atmoran seals;
+- Woodland-Man and Jhunal associations;
+- ancient routes and stories.
+
+### Mythic/cosmological interpretation
+Always attribute:
+- fate and hero deviation;
+- Dragonborn hunger/devouring as destiny;
+- metaphysical implications of Lyg or Apocrypha.
+
+This prevents a VMAD-confirmed doorway from being used as blanket validation of every cosmological explanation Herkel gives in the same scene.

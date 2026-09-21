@@ -62,3 +62,14 @@ Only add a new section here when:
 - the match is suggestive;
 - direct evidence is incomplete;
 - it is not yet strong enough for a dedicated parent relationship page.
+
+## Current unresolved-seed status
+
+At this stage, the previously high-value UNSLAAD cross-work seeds have either:
+- been promoted to parent VICN relationship pages;
+- been resolved as UNSLAAD-local;
+- or been classified as shared external substrate rather than direct continuity.
+
+There is **no current high-confidence unpromoted cross-VICN seed** in this file.
+
+Future additions should require genuinely new evidence from later ingestion. Do not manufacture a new parent thread merely because two works share broad themes such as dragons, dreams, memory, stars, or Atmora.

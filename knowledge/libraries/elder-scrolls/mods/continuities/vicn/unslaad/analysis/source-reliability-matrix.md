@@ -424,3 +424,28 @@ For contested claims, answer with:
 - current confidence boundary.
 
 This matrix is intended to prevent confident-sounding flattening of VICN's deliberately unstable lore.
+
+## Confidence shorthand
+
+Lorekeeper may use the following retrieval shorthand internally:
+
+- **structural-direct** — explicit implementation relation (alias, placed ref, VMAD property, inventory, recipe condition, faction/race assignment);
+- **participant-direct** — a named participant describes their own actions, motives, identity, or witnessed event;
+- **independent-corroboration** — two source-local witnesses or one witness plus implementation evidence converge;
+- **mythic-attributed** — dream, Insight, sermon, legend, prayer, damaged memory, or symbolic testimony;
+- **external-reuse** — embedded source whose original authorship/provenance lies outside UNSLAAD;
+- **synthesis-only** — an analytical relationship inferred by comparing sources and not directly stated by one record.
+
+These are evidence classes, not numerical truth scores. A mechanically direct fact can still have limited cosmological meaning, while a mythic claim can be narratively important without being literal.
+
+## Speaker-scoped contradiction rule
+
+When two sources conflict, preserve both with attribution before attempting synthesis. In particular:
+
+- Khev versus the Loveletter on Nu-Mantia;
+- Hermit versus later Radiance framings;
+- Hermit versus Gray Owl/Jhunal self-identification;
+- competing frozen-Atmora causal explanations;
+- external KINMUNE identity tradition versus source-local staging.
+
+Do not let a later or more mechanically elaborate source silently overwrite an earlier contradictory testimony.
