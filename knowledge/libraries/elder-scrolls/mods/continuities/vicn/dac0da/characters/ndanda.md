@@ -47,3 +47,19 @@ N'Danda is therefore directly associated with:
 - later alliance propaganda and surrender broadcasts.
 
 The exact experiments planned for the player in MQ01 are not stated in that scene alone and should be joined with Echoes of Mnemolichite's later Sload/Yaghra experimentation rather than assumed to be identical.
+
+
+## Zombified form in Neo-Thras
+
+DAc0da also contains a separate actor:
+
+- `DAc0da.esm:005161`
+- Editor ID: `zDcdSubBossSloadZombie`
+- FULL: **Zombified N'Danda**
+- race: `zDcdSloadZombieRace` — **Sload Zombie**
+
+The form is placed in `DcdNeoThrasCapital`, inside **Neo-Thras**.
+
+This is direct structural evidence that N'Danda can reappear in a zombified/undead Sload state during the later Sload-city material.
+
+The record establishes the transformed form and placement; it does not by itself establish exactly who zombified him or the full causal sequence between his MQ01 defeat and Neo-Thras appearance.
