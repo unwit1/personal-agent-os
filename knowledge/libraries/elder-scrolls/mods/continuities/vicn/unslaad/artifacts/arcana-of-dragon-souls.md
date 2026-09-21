@@ -42,3 +42,9 @@ It does not by itself establish:
 - whether Dragon Souls are being stored, transformed, or merely transferred.
 
 Keep those as separate questions.
+
+## Placed-reference context
+
+REFR 0311CC26 places the Arcana of Dragon Souls in exterior CELL 03074401 of **Lost Unslaad** (WRLD 03064266).
+
+This confirms that the soul-pouring mechanism is physically present in the future/Lost-Unslaad world layer used by Long Winter.

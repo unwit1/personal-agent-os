@@ -40,3 +40,9 @@ Do not automatically merge the Arcana of Magnus with:
 - every Jhunal-associated fire.
 
 The recurring Saarthal/Magnus theft claim is high confidence; exact object identity across plugins remains unresolved.
+
+## Placed-reference context
+
+REFR 031969F9 places ACTI 031969F8 / zzzCrbFXMagnusFire in exterior CELL 030B49A7 of **Northern Sanctuary**.
+
+The **Mural of Jhunal** is also placed in the same exterior cell. This co-location is direct implementation evidence and makes Northern Sanctuary a priority site for visual/script analysis of the late Jhunal arc.

@@ -38,3 +38,9 @@ Placed-reference analysis should resolve:
 - model/texture;
 - linked script or key behavior;
 - whether the Mural visually distinguishes original Jhunal, Gray Owl, Black Owl, or another figure.
+
+## Placed-reference context
+
+REFR 031DFE1D places the Mural in exterior CELL 030B49A7 of **Northern Sanctuary** (WRLD 030A750C).
+
+The Magnus-fire effect representation is also placed in this same exterior cell, making the shared location hard implementation evidence even though the exact spatial relationship still requires visual inspection.
