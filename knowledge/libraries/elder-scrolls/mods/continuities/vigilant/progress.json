@@ -110,7 +110,12 @@
     "Aredhel's Note source map: Blood Matron surrender, Jacob/Joshua testimony conflict, and Bal-steward role",
     "Julius' Note source map preserving the unresolved referent of his plea to Marcus",
     "Lamthor warning-note source map separating dog/incantation observations from accusations against Bal",
-    "Julia's Letter source map establishing voluntary departure with Julius and preserving the unresolved transition to her death"
+    "Julia's Letter source map establishing voluntary departure with Julius and preserving the unresolved transition to her death",
+    "On the Detachment of the Sheath from the Integument official-ESO provenance and VIGILANT context map",
+    "Vindication for the Dragon Break official-ESO provenance and VIGILANT ritual-context map",
+    "Aurbic Enigma 4 official-ESO provenance and VIGILANT Tower/Stone context map",
+    "Letter from Lilian source map",
+    "Letter from Taranis source map"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -123,6 +128,7 @@
     "quest_aliases": 550
   },
   "next": [
+    "recover/persist exact text for Bruiant servant documents 02054EC5, 02054ECB, 02054ECC, 02054EC4, 0204C5AE, and 02054ECA before source-level analysis",
     "recover direct VIGILANT implementation for Sir Amiel Lannus; do not infer it from his base-game Knights of the Nine history",
     "continue evidence-rich pre-Coldharbour character dossiers now that Facis, Reyda, Joshua, and Joel are direct-source resolved",
     "recover any non-persisted/scripted acquisition paths for Slave Trader Notes 6-8 and a direct Slave Trader NPC_/ACHR/alias if later source layers expose one",
@@ -146,15 +152,15 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "five-unit VIGILANT short-document source batch",
+    "focus": "five-unit VIGILANT exact-text context batch after Bruiant servant-source gap",
     "added": [
-      "Jacob's Note — awakening warning, sensory danger, Blood Mist Castle, Lord of Corruption title, and unresolved identity of 'her'",
-      "Aredhel's Note — Jacob killed/Joshua fled testimony, Blood Matron blood, resisting Vigilants, Bal as steward, and awakening-cycle link",
-      "Julius' Note — preserved rare first-person plea to Marcus without guessing the referent of 'this'",
-      "Lamthor's Note to Master Marcus — Julius/dog/incantation observation separated from Lamthor's inference that Bal taught him",
-      "Julia's Letter to Marcus — voluntary departure with Julius, Hidden Room placement, and source-bounded gap before Julius's recovery and Julia's death"
+      "On the Detachment of the Sheath from the Integument — official ESO provenance, Mnemoli/Middle Dawn/untime context, and VIGILANT placement separation",
+      "Vindication for the Dragon Break — official ESO provenance, Staff of Towers/Proper-Life/Dance ritual context, and VIGILANT placement separation",
+      "Aurbic Enigma 4 — official ESO Tower/Stone/Chim-el-Adabal/Anumaril substrate separated from VIGILANT-specific Stone identities",
+      "Letter from Lilian — daughter/father, illness, homecoming, and flower-crown evidence",
+      "Letter from Taranis — sword curse, unnamed female summoner bargain, one-job condition, and family-reunion motive"
     ],
-    "source_state": "all five units use exact persisted VIGILANT 1.8.2 BOOK texts plus existing structural/placement evidence; no source-local unresolved identity or causal link was promoted to fact",
-    "open_followup": "continue with another five-unit batch from persisted books/notes, prioritizing still-unmapped Bruiant servant documents or other exact source texts before blocked raw-source gaps."
+    "source_state": "all five completed units use exact persisted VIGILANT BOOK text. The intended Bruiant servant-note batch was deferred because only titles/placements are accessible for 02054EC5/ECB/ECC/EC4/0204C5AE/02054ECA; no prose was invented.",
+    "open_followup": "prefer exact-text units next; return to the six Bruiant servant documents once their raw BOOK DESC text is recoverable from the canonical 1.8.2 extraction."
   }
 }
