@@ -33,7 +33,7 @@ Evidence: `BOOK 0505F158`, `05065F4A`, `05066A37`, `05070265`, `05070266`.
 
 ### 1. Foot Of The Mountain — `QUST 0505F6C9`
 
-- **Stage 10:** an assailant attacks the player.
+- **Stage 10:** Isidor attacks the player and is killed/defeated. His death script directly sets this stage; the objective targets `IsidorAlias`.
 - **Stage 20:** the player finds Camilla's note.
 - **Stage 30:** the note points to newly exposed ruins near Cragwallow Slope.
 - **Objective 40:** the player enters the Velothi Mountain Tunnels.
@@ -88,13 +88,13 @@ Narrative function: replaces a mundane mechanical obstacle with a supernatural/p
 - **Stage 60:** the voice directs the player to the southern commissary.
 - **Stage 70:** the player finds the hostile Amalgam encounter.
 - **Stage 80:** Amalgam paralyzes the player and retreats behind a portcullis.
-- **Stages 90–110:** the player retrieves a replacement lever handle from the Mortal Layer, repairs the ballista control, and prepares the gate breach.
+- **Stages 90–110:** the Unfinished Note, lever-handle pickup, and repaired lever are each script-wired to advance the quest through stages 90, 100, and 110.
 - **Stage 120:** the ballista breaches the barrier.
 - **Stage 130:** the player obtains an empty/darkened crystalline heart from Amalgam.
 
 #### Heart replacement
 
-- **Stages 140–150:** Lahar guides the player through moving Lamashtu's soul into the replacement heart and reinstalling it.
+- **Stages 140–150:** Lahar guides a scripted multi-step transfer. A dedicated scene-phase global tracks opening Lamashtu's chest, removing her old heart, placing the replacement, activating the Soul Transference Machine, retrieving the filled heart, and reinstalling it.
 
 #### First Shadow explanation
 
@@ -151,3 +151,7 @@ The core Lamashtu/Shadow interpretation also changes:
 3. **Independent copy/reflection of the same dead original** after *I Against I*.
 
 Those transitions should be preserved in spoiler-aware retrieval rather than flattening later knowledge backward into earlier scenes.
+
+## Runtime-causality companion
+
+For record-level triggers and state transitions beneath this narrative ordering, see [runtime-causality.md](runtime-causality.md). The runtime layer is intentionally separate so implementation evidence does not get mistaken for character knowledge or metaphysical lore.

@@ -34,19 +34,32 @@
       "id": "q1.assailant",
       "type": "quest_stage",
       "quest": "0505F6C9",
-      "stage": 10
+      "stage": 10,
+      "characters": [
+        "Isidor"
+      ],
+      "runtime_evidence": [
+        "NPC_ 0505F157 defaultSetStageOnDeath -> QUST 0505F6C9 stage 10",
+        "QUST 0505F6C9 objective 10 targets IsidorAlias"
+      ]
     },
     {
       "id": "q1.camilla_note",
       "type": "quest_stage",
       "quest": "0505F6C9",
-      "stage": 20
+      "stage": 20,
+      "runtime_evidence": [
+        "BOOK 0505F158 acquire -> stage 20"
+      ]
     },
     {
       "id": "q1.ruins_target",
       "type": "quest_stage",
       "quest": "0505F6C9",
-      "stage": 30
+      "stage": 30,
+      "runtime_evidence": [
+        "BOOK 0505F158 close/read -> stage 30"
+      ]
     },
     {
       "id": "q2.entry_collapse",
@@ -112,7 +125,12 @@
       "type": "quest_stage",
       "quest": "052908C1",
       "stage": 100,
-      "location": "Nurndural"
+      "location": "Nurndural",
+      "runtime_evidence": [
+        "ACTI 05440B5C CLWPipeRepairScript",
+        "GLOB 05440B59 CLWSQ02PipeTotal=10",
+        "GLOB 05440B58 CLWSQ02PipeCount"
+      ]
     },
     {
       "id": "q3.travel_machine_restored",
@@ -127,6 +145,11 @@
       "stage": 130,
       "characters": [
         "Shadow"
+      ],
+      "runtime_evidence": [
+        "REFR 054F7875 defaultSetStageOnEnter -> stage 130",
+        "PACK 054F7876 target in CELL 0503C62F Travel Room",
+        "REFR 054F7872/054F7874 collision+trigger"
       ]
     },
     {
@@ -166,14 +189,23 @@
       "characters": [
         "Amalgam"
       ],
-      "location": "Sickness Ward"
+      "location": "Sickness Ward",
+      "runtime_evidence": [
+        "REFR 0559027A -> stage 70",
+        "NPC_ 0559026E CLWAmalgamBleedoutScript -> paralysis/teleport/retreat"
+      ]
     },
     {
       "id": "q4.ballista_gate_breach",
       "type": "quest_stage",
       "quest": "05506BB5",
       "stage": 120,
-      "location": "Sickness Ward"
+      "location": "Sickness Ward",
+      "runtime_evidence": [
+        "MISC 0558B137 -> stage 100",
+        "ACTI 0558B134 -> stage 110",
+        "REFR 05562478 CLWBallistaScene01ACTIScript -> stage 120"
+      ]
     },
     {
       "id": "q4.replacement_heart_recovered",
@@ -183,6 +215,9 @@
       "characters": [
         "Amalgam",
         "Lamashtu"
+      ],
+      "runtime_evidence": [
+        "ACTI 055BDD00 CLWAmalgamInternals01ACTIScript -> stage 130"
       ]
     },
     {
@@ -193,6 +228,11 @@
       "characters": [
         "Lamashtu",
         "Lahar"
+      ],
+      "runtime_evidence": [
+        "SCEN 0565B8B8",
+        "GLOB 056567A5 CLWSQ03S140ScenePhaseGLOB",
+        "multi-step phase-state machine; stage-150 setter not independently decoded"
       ]
     },
     {
@@ -233,7 +273,12 @@
         "Lamashtu",
         "Shadow"
       ],
-      "location": "Animoculotory"
+      "location": "Animoculotory",
+      "runtime_evidence": [
+        "REFR 0573BCD3 -> stage 40",
+        "NPC_ 05769C7E CLWShadowBleedoutScript",
+        "NPC_ 05778FE2 CLWShadowDyingScript"
+      ]
     },
     {
       "id": "q5.reunion",
@@ -243,6 +288,10 @@
       "characters": [
         "Lamashtu",
         "Shadow"
+      ],
+      "runtime_evidence": [
+        "SCEN 0576EDA3 CLWSQ04LamRemarksScene01",
+        "Shadow final script sets fight phase 3 and starts Lamashtu remarks scene"
       ]
     },
     {
@@ -273,7 +322,11 @@
       "type": "quest_stage",
       "quest": "0508DA63",
       "stage": 200,
-      "location": "Clockwork Castle"
+      "location": "Clockwork Castle",
+      "runtime_evidence": [
+        "QUST 0508DA63 owns prior can't-leave trigger/collision and Travel Room portal infrastructure",
+        "player-facing release is stage 200; exact setter not decoded in this pass"
+      ]
     }
   ],
   "edges": [
@@ -295,7 +348,8 @@
     {
       "from": "q1.assailant",
       "to": "q1.camilla_note",
-      "relation": "unlocks"
+      "relation": "unlocks",
+      "runtime_relation": "Isidor death exposes body; acquiring Camilla's Note sets stage 20"
     },
     {
       "from": "q1.camilla_note",
@@ -380,7 +434,8 @@
     {
       "from": "q4.amalgam_encounter",
       "to": "q4.ballista_gate_breach",
-      "relation": "retreat_forces"
+      "relation": "retreat_forces",
+      "runtime_relation": "Amalgam bleedout script retreats behind barrier; note/handle/lever/ballista scripts advance 90->100->110->120"
     },
     {
       "from": "q4.ballista_gate_breach",
@@ -415,7 +470,8 @@
     {
       "from": "q5.shadow_fight",
       "to": "q5.reunion",
-      "relation": "enables"
+      "relation": "enables",
+      "runtime_relation": "Shadow bleedout/dying scripts start Lamashtu remarks scene; final form sets fight-phase global to 3"
     },
     {
       "from": "q5.reunion",
@@ -432,5 +488,6 @@
       "to": "q5.escape_restored",
       "relation": "removes_block"
     }
-  ]
+  ],
+  "runtime_overlay": "runtime-causality.json"
 }

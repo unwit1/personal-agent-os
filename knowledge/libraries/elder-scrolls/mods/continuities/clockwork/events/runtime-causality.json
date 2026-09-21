@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "graph_type": "runtime_causality_overlay",
+  "policy": "Records here establish implemented triggers/state transitions. They do not independently establish metaphysical lore.",
+  "chains": [
+    {
+      "id": "foot_of_the_mountain",
+      "quest": "0505F6C9",
+      "transitions": [
+        {
+          "cause": "NPC_ 0505F157 CLWIsidor death",
+          "mechanism": "defaultSetStageOnDeath",
+          "effect": "stage 10",
+          "confidence": "direct"
+        },
+        {
+          "cause": "BOOK 0505F158 Camilla's Note acquired",
+          "mechanism": "defaultsetstageonplayeracquireitem",
+          "effect": "stage 20",
+          "confidence": "direct"
+        },
+        {
+          "cause": "BOOK 0505F158 closed/read",
+          "mechanism": "defaultSetStageOnCloseBookNotAlias",
+          "effect": "stage 30",
+          "confidence": "direct"
+        },
+        {
+          "cause": "REFR 050632CB player entry",
+          "mechanism": "defaultSetStageOnEnter",
+          "effect": "stage 40",
+          "confidence": "direct"
+        }
+      ],
+      "identity_resolution": {
+        "journal_role": "strange assailant",
+        "resolved_entity": "Isidor",
+        "basis": [
+          "NPC death script sets stage 10",
+          "objective 10 targets IsidorAlias",
+          "Camilla note is quest alias/objective chain"
+        ]
+      }
+    },
+    {
+      "id": "shadow_under_the_mountain",
+      "quest": "050632CC",
+      "transitions": [
+        {
+          "cause": "REFR 050632CD",
+          "effect": "stage 10",
+          "confidence": "direct"
+        },
+        {
+          "cause": "REFR 0520CA3E",
+          "effect": "stage 20",
+          "confidence": "direct"
+        },
+        {
+          "cause": "REFR 0520CA43",
+          "effect": "stage 30",
+          "confidence": "direct"
+        }
+      ],
+      "supporting_state": [
+        "QUST 0506FCE4 CLWShadowManage01Quest",
+        "SPEL 0507FD84 CLWShadowSlowTimeSpell",
+        "PACK 0506FCE5/0506FCE7/05073A4C/0507F7B9/0507F7BD"
+      ]
+    },
+    {
+      "id": "steam_powered",
+      "quest": "052908C1",
+      "transitions": [
+        {
+          "cause": "REFR 05440B5F",
+          "effect": "stage 90",
+          "confidence": "direct"
+        },
+        {
+          "cause": "10 successful ACTI 05440B5C pipeline repairs",
+          "mechanism": "CLWPipeRepairScript; CLWSQ02PipeTotal=10",
+          "effect": "stage 100",
+          "confidence": "direct"
+        },
+        {
+          "cause": "REFR 054D919B",
+          "effect": "stage 105",
+          "confidence": "direct"
+        },
+        {
+          "cause": "REFR 054F7875",
+          "effect": "stage 130",
+          "confidence": "direct"
+        }
+      ],
+      "system_state": [
+        "REFR 052CD64F CLWSQ02Machines01EnableParentREF",
+        "REFR 0503E1DD CLWTMRecallPortal01EnableParentREF",
+        "REFR 054F7872 can't-leave collision",
+        "REFR 054F7874 can't-leave trigger",
+        "PACK 054F7876 Travel Room player marker"
+      ]
+    },
+    {
+      "id": "crystalline_heart",
+      "quest": "05506BB5",
+      "transitions": [
+        {
+          "cause": "REFR 0552A362",
+          "effect": "stage 40",
+          "confidence": "direct"
+        },
+        {
+          "cause": "REFR 0559027A",
+          "effect": "stage 70",
+          "confidence": "direct"
+        },
+        {
+          "cause": "BOOK 0559F638 Unfinished Note at stage 80",
+          "mechanism": "CLWLeverMissing01NoteScript",
+          "effect": "stage 90; stage-100 branch supported if handle state already satisfies script",
+          "confidence": "direct_configuration"
+        },
+        {
+          "cause": "MISC 0558B137 Dwemer Lever Handle acquired at prerequisite 90",
+          "effect": "stage 100",
+          "confidence": "direct"
+        },
+        {
+          "cause": "ACTI 0558B134 Lever Base used with handle",
+          "effect": "stage 110",
+          "confidence": "direct"
+        },
+        {
+          "cause": "REFR 05562478 ballista activation",
+          "effect": "stage 120",
+          "confidence": "direct"
+        },
+        {
+          "cause": "ACTI 055BDD00 Crystal Heart (Empty) recovered",
+          "effect": "stage 130",
+          "confidence": "direct"
+        }
+      ],
+      "transfer_state_machine": {
+        "scene": "SCEN 0565B8B8 CLWSQ03Stage140Scene01",
+        "phase_global": "GLOB 056567A5 CLWSQ03S140ScenePhaseGLOB",
+        "confirmed_player_interactions": [
+          {
+            "record": "REFR 0565167B Lamashtu chest plate",
+            "phase_changes": [
+              "1->2",
+              "13->14"
+            ]
+          },
+          {
+            "record": "REFR 0565B8D2 / 0565B8D6 Lamashtu-heart internals",
+            "phase_changes": [
+              "3->4",
+              "11->12"
+            ]
+          },
+          {
+            "record": "REFR 056609E8 heart/transference box",
+            "phase_changes": [
+              "5->6"
+            ]
+          },
+          {
+            "record": "REFR 0550BCCD soul-transfer control",
+            "phase_changes": [
+              "7->8"
+            ]
+          },
+          {
+            "record": "REFR 056609EA filled-heart box",
+            "phase_changes": [
+              "9->10"
+            ]
+          }
+        ],
+        "caveat": "Intervening phases are scene-fragment choreography; no single activator is promoted as the stage-150 setter."
+      }
+    },
+    {
+      "id": "i_against_i",
+      "quest": "0508DA63",
+      "transitions": [
+        {
+          "cause": "REFR 0573BCD3 activation",
+          "effect": "stage 40",
+          "confidence": "direct"
+        },
+        {
+          "cause": "NPC_ 05769C7E Shadow bleedout",
+          "mechanism": "CLWShadowBleedoutScript",
+          "effect": "vanish/fight-phase transition and starts SCEN 0576EDA3",
+          "confidence": "direct"
+        },
+        {
+          "cause": "NPC_ 05778FE2 Shadow dying",
+          "mechanism": "CLWShadowDyingScript",
+          "effect": "fight phase -> 3; starts SCEN 0576EDA3 with Lamashtu reference",
+          "confidence": "direct"
+        },
+        {
+          "cause": "REFR 0578D464 player entry",
+          "effect": "stage 70",
+          "confidence": "direct"
+        }
+      ],
+      "final_release_state": {
+        "journal_stage": 200,
+        "runtime_owned_infrastructure": [
+          "REFR 054F7872 can't-leave collision",
+          "REFR 054F7874 can't-leave trigger",
+          "REFR 0504BB64 Travel Room portal/door"
+        ],
+        "caveat": "The precise stage-200 quest-fragment setter is not reconstructed in this pass."
+      }
+    }
+  ],
+  "implementation_outliers": [
+    {
+      "id": "morthal_return_follower_threshold",
+      "record": "REFR 050462B0 CLWDoorMorthalToCastleTravelRoom01REF",
+      "script": "DefaultNoFollowDoorScript",
+      "observed": "myQuest=0505F6C9 Foot Of The Mountain; myQuestStage=200",
+      "comparison": "Other inspected Terminus return doors use QUST 0508DA63 I Against I stage 200.",
+      "note": "Foot Of The Mountain parsed stages are 0,10,20,30,40,255. Treat as technical outlier; do not promote to lore or core player-travel semantics."
+    }
+  ]
+}

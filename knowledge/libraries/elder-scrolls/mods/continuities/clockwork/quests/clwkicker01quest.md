@@ -37,3 +37,14 @@ The note on the assailant's body mentioned some ruins near Cragwallow Slope in E
 - `8` **IsidorAlias** (reference) → Isidor
 - `9` **Note** (reference) → unresolved/non-actor
 - `11` **MapMarker** (reference) → unresolved/non-actor
+
+## Runtime progression
+
+The opening quest chain is directly scripted:
+
+- `NPC_ 0505F157` / **Isidor**: `defaultSetStageOnDeath` → stage **10**.
+- `BOOK 0505F158` / **Camilla's Note**: player acquisition → stage **20**.
+- The same note: close/read → stage **30**.
+- `REFR 050632CB`: player entry trigger → stage **40**.
+
+Because objective 10 targets `IsidorAlias`, this structurally identifies Isidor as the journal's “strange assailant.”

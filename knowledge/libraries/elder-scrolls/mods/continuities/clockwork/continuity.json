@@ -82,16 +82,19 @@
     "quest_vmad_story_state": "initial_core_quest_pass_complete",
     "travel_machine_network": "exact_selector_portal_terminus_graph_complete",
     "pneumatic_automation_network": "exact_receptacle_and_routing_graph_complete",
-    "environmental_system_catalog": "named_interactive_systems_initial_pass_complete"
+    "environmental_system_catalog": "named_interactive_systems_initial_pass_complete",
+    "runtime_causality_overlay": "direct_stage_setters_and_major_story_state_chains_initial_complete",
+    "opening_assailant_identity": "isidor_structurally_resolved",
+    "heart_transfer_state_machine": "stage140_scene_phase_interactions_mapped"
   },
   "next_ingestion_steps": [
     "parse remaining story-relevant PACK conditions/targets and placed references beyond the first curated choreography pass",
     "add retrieval tests for spoiler gating, provenance boundaries, revised claims, and implementation-vs-lore separation",
     "expand base-TES Kagrenac/Heart/Numidium/Red Mountain dossiers from source-backed library ingestion before deeper canonical comparison",
     "add retrieval tests for continuity-boundary routing and stub-aware base-canon comparisons",
-    "map scene/package/VMAD transitions into story-graph edges where they add deterministic runtime causality",
     "map remaining castle/Nurndural interactive environmental records to exact placed cells where they add lore or navigation value",
-    "add deterministic story-graph edges for Travel Machine, pneumatic machinery-state, Shadow slow-time, Amalgam retreat, and final-fight runtime transitions",
-    "add retrieval tests for spoiler gating, provenance boundaries, revised claims, implementation-vs-lore separation, and technical-network routing"
+    "add retrieval tests for spoiler gating, provenance boundaries, revised claims, implementation-vs-lore separation, and technical-network routing",
+    "extend runtime causality into remaining side quests and optional castle-service interactions where scripts advance state",
+    "inspect residual technical outliers such as the Morthal follower-door quest threshold and distinguish harmless implementation quirks from meaningful state differences"
   ]
 }
