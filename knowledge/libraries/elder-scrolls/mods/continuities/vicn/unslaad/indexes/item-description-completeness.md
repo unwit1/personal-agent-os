@@ -5,6 +5,13 @@ Primary source: translated Unslaad.esm 3.0.6
 
 The ESM's direct ARMO/WEAP description layer is now classified at the lore-discovery level.
 
+## Coverage counts
+
+- ARMO records with DESC: **5**
+- WEAP records with DESC: **55**
+
+The earlier exploratory item-description audit has been consolidated into this completion index. Dedicated dossiers preserve all high-lore descriptions and their acquisition/context evidence.
+
 ## High-lore descriptions — promoted
 
 Dedicated dossiers now cover:
