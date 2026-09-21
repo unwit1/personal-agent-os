@@ -43,4 +43,4 @@ Broad DAc0da ESM ingestion is complete. Do not restart it unless the source hash
 
 Current work is **second-pass VICN synthesis**: promote only independently supported cross-work identities/relationships while preserving source-specific claims. Dedicated parent threads now include Lyg, Radiance/Mnemo-Li/memory, Rolls-On-Roads/Romion, Altano/Radiance, Augur of the Obscure, Brain-Billies, and Xero-Lyg.
 
-Residual DAc0da-only gaps are refinement issues: unreadable compiled Papyrus internals for a few runtime mechanics, exhaustive navigation graphs, and the original standalone publication metadata for the long Ghost Choir 9 transcript.
+Residual DAc0da-only gaps are refinement issues: unreadable compiled Papyrus internals for a few runtime mechanics, exhaustive navigation graphs, and optional low-prose item expansion. Ghost Choir 9 source provenance is resolved.
