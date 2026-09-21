@@ -62,9 +62,19 @@ No major unprocessed narrative quest is currently apparent.
 
 Voice-type-only barks are now treated as culture/faction evidence rather than unique-speaker biography.
 
-### Remaining dialogue gap
+### Deterministic orphan-dialogue audit — complete
 
-A future deterministic audit can compare all **1,027 INFO** records against indexed quest/scene/generic ownership to find truly orphaned INFO, but no obvious high-value unowned dialogue block remains.
+A raw-group linkage audit now establishes:
+
+- **737 / 737 DIAL** records contain a direct `QNAM` quest owner;
+- **1,027 / 1,027 INFO** records are contained under a valid DIAL group;
+- **0** DIAL records lack QNAM ownership;
+- **0** INFO records are orphaned from the DIAL group structure;
+- **0** text-bearing no-QNAM DIAL blocks exist.
+
+Therefore there is no hidden unowned dialogue corpus remaining in the ESM.
+
+Any future dialogue work is refinement of already-owned quest/generic/scene material rather than discovery of an orphan conversation block.
 
 ## SCEN — 79 records
 
@@ -274,17 +284,15 @@ Generate a deterministic list of **named unique/subboss NPCs** and classify each
 
 Process only the third category.
 
-### P2 — orphan INFO audit
+### P2 — named-NPC coverage ledger
 
-Build a machine-readable map:
+Produce a deterministic ledger for the **146 unique NPC display names** found among the 554 NPC_ records and classify them as:
 
-`INFO -> DIAL -> QNAM quest -> SCEN/owner -> speaker condition`
-
-Flag INFO records that are not already captured by:
-
-- quest reconstructions;
-- scene-speaker index;
-- generic-dialogue pass.
+- dedicated dossier;
+- quest/organization/index coverage;
+- generic encounter/form family;
+- low-lore summon/treasure/leveled variant;
+- remaining high-value candidate.
 
 ### P3 — exact Ghost Choir 9 source provenance
 
@@ -292,7 +300,7 @@ Recover the original standalone source if possible.
 
 ### P4 — final completeness report
 
-After P1/P2, produce a concise completeness matrix for every major record class and mark DAc0da first-pass ingestion **complete** if no significant lore-bearing gaps remain.
+After the named-NPC ledger, produce a concise completeness matrix for every major record class and mark DAc0da first-pass ingestion **complete** if no significant lore-bearing gaps remain.
 
 ## Current assessment
 
