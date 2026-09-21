@@ -125,47 +125,64 @@ Known/reused source material is now substantially provenance-separated:
 - `ANON/ANU/ANUI-EL / KINMUNE`, `The Tsaesci Creation Myth`, `Dominion Prism Textract`, `et'Ada, Eight Aedra, Eat the Dreamer`, `Lament for Pelinal`, and `A Type of Zero Still to Be Discovered` are verified reused Michael Kirkbride developer/obscure material;
 - the exact original standalone publication/authorship trail for the long `Ghost Choir 9` BOOK remains unresolved.
 
-## Resume here
+## Completion marker
 
-### Completed since this checkpoint
+For source hash:
 
-- all **79 SCEN records** indexed with owning-quest resolution;
-- 73 dialogue-bearing scenes resolved to quest aliases/speakers;
-- 6 choreography-only scenes separated from lore dialogue;
-- new scene-driven dossiers for N'Danda, Hgelhelm, Haalj, and Sindwen;
-- full worldspace/location index for Sea of Causality, Dwemereth, Mozarella Spacetime, and major named interiors;
-- character form-family index;
-- narrative artifact index expanded.
+`455f07f3bba5de5b1b5a84c882be3309a66fd3d503866e05658b99896dfdb00e`
 
-### P1 — creature / faction encounter coverage
+> **First-pass DAc0da ESM lore ingestion: COMPLETE**
 
-Build deterministic families for:
+Additional completion work after the earlier checkpoint:
 
-- Yaghra / Yaghra Bioborg / Agent forms;
-- Sload / Sea Sload / Sload psychomancers / Sload zombies;
-- Worm cult / sacrifices / Goldborn;
-- Dwemer warriors/workers/specters/Architons;
-- Apocryphal hounds/hunters and Arcanist-linked forms;
-- Atmoran / Wintercaller / Snow-Drake encounter forms;
-- Jill forms.
+- all 79 SCEN records indexed;
+- worldspace/location layers indexed;
+- character-form families indexed;
+- creature/faction and custom-race morphology passes completed;
+- narrative artifacts indexed;
+- 66 MESG records covered by insight/system passes;
+- Generic Dialogue and Citizen Dialogue normalized;
+- named NPC gap pass completed;
+- all 1,027 INFO records deterministically mapped to exactly one owning quest;
+- no orphan, unresolved-parent, ownerless-QNAM, or multi-owner INFO records remain;
+- Daggerfall and Nahd/apocryphal provenance separated;
+- Ghost Choir 9 exact text now strongly attributed to Michael Kirkbride; only original standalone publication metadata remains unresolved;
+- comprehensive gap audit and completeness report committed.
 
-For each family, separate:
-- unique named character forms;
-- generic encounter actors;
-- summon forms;
-- boss/subboss forms;
-- corpse/treasure templates.
+## Resume here — second-pass synthesis
 
-### P2 — organizations / factions
+Do not re-run broad ingestion unless the source hash changes.
 
-Promote encounter families to organization pages only where dialogue, BOOK, faction records, or quest structure supports an actual organization.
+### P1 — cross-Vicn direct-link reconciliation
 
-### P3 — gap audit
+Prioritize:
 
-After creature/faction coverage, audit all 43 QUST / 554 NPC_ / 90 BOOK / 66 MESG / 79 SCEN records for remaining high-value uncatalogued lore.
+- Brain-Billies;
+- Xero-Lyg;
+- Radiance / Mnemo-Li / Blue Star;
+- Adjacent Places / Lyg / Grabbers;
+- Jhunal / Owl;
+- GC9 / LYG;
+- Romion / Rolls-On-Roads;
+- Altano / Radiance.
 
-### P4 — remaining provenance
+For each node, distinguish:
 
-Recover the exact standalone source for the long **Ghost Choir 9** text if possible.
+1. same proper noun / rare vocabulary used independently by multiple Vicn plugins;
+2. direct named relationship between characters/works;
+3. external obscure-text vocabulary reused by multiple works;
+4. thematic resemblance only.
 
-Preserve conditional branches, speaker reliability, alternate realities, source provenance, and mechanical-vs-narrative evidence boundaries. Do not silently promote DAc0da/Vicn claims into official Elder Scrolls canon.
+### P2 — topic/claim promotion
+
+Promote only evidence-backed shared claims into the parent Vicn/Lorekeeper layer. Preserve plugin-specific evidence pointers.
+
+### P3 — targeted unresolved questions
+
+Examples:
+
+- exact original publication metadata for Ghost Choir 9;
+- Papyrus-only runtime details if scripts are later supplied;
+- exact identity relationships that remain merely suggested.
+
+Do not flatten branch states, unreliable testimony, reused external sources, or one work's mechanics into another work's canon.
