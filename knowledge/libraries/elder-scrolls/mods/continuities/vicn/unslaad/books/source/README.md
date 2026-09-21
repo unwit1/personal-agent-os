@@ -23,13 +23,17 @@ Gameplay-oriented spell/summon books are retained even when their text is only a
 
 UNSLAAD's narrative use of the Loveletter is Vicn-continuity evidence; the underlying prose is not attributed to Vicn.
 
-### Reuse/provenance candidates — external verification still needed
+### Reused official game text
 
-- The 36 Lessons of Vivec: Sermon 37
-- The 36&9 Lessons of Vivec: Sermon 0
-- Vivec and Molag Bal
+- **The 36 Lessons of Vivec: Sermon 37** — confirmed match to the official in-game book **The 36 Lessons: Sermon 37** from *The Elder Scrolls Online: Morrowind*. The prose is official ESO source material, not Vicn-authored.
 
-These are retained exactly as ESM source records. Lorekeeper should not infer Vicn authorship merely from plugin inclusion.
+### Reused unofficial developer / apocryphal text
+
+- **The 36&9 Lessons of Vivec: Sermon 0** — confirmed match to Douglas Goodall's unofficial March-2002 forum/developer text *Sermon Zero of the Thirty-and-Six-and-Nine Sermons of Vivec*. It is not an in-game Morrowind book and is not Vicn-authored.
+
+### External provenance unresolved
+
+- **Vivec and Molag Bal** — no reliable pre-UNSLAAD source match has yet been found. Preserve the ESM text without assigning authorship.
 
 ### Currently treated as UNSLAAD-source texts pending contrary provenance
 
