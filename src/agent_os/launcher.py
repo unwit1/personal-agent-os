@@ -3,7 +3,7 @@
 An MCP client registration should not embed a repository checkout path, because
 moving or recloning the repository then silently breaks the integration. Clients
 point at a launcher in the user's home directory; the launcher resolves the
-current checkout and execs the repository's own entry point.
+current checkout and serves the repository's own entry point in-process.
 """
 
 from __future__ import annotations
@@ -12,6 +12,8 @@ import json
 import os
 import subprocess
 import sys
+import threading
+import time
 from pathlib import Path
 from typing import Any
 
@@ -79,6 +81,14 @@ def _discover() -> Path | None:
 
 
 def main() -> None:
+    """Serve in this process, never in a replacement one.
+
+    os.execv does not replace the process image on Windows: it starts a second
+    process and exits the first. An MCP client watching the process it spawned
+    then sees it terminate during the handshake while the inherited pipes stay
+    open, and waits on a server it believes is already dead until its timeout.
+    Importing the CLI keeps one process on the client's stdio for the session.
+    """
     repo = _configured() or _discover()
     if repo is None:
         raise SystemExit(
@@ -86,7 +96,10 @@ def main() -> None:
             f"from the repository to refresh {CONFIG_PATH}."
         )
     os.chdir(repo)
-    os.execv(sys.executable, [sys.executable, str(repo / "agent.py"), "mcp"])
+    sys.path.insert(0, str(repo / "src"))
+    from agent_os.cli import main as cli_main
+
+    raise SystemExit(cli_main(["mcp"]))
 
 
 if __name__ == "__main__":
@@ -143,7 +156,15 @@ def status() -> dict[str, Any]:
 
 
 def verify(timeout: int = 60) -> dict[str, Any]:
-    """Drive a real MCP handshake through the launcher in a separate process."""
+    """Drive a real MCP handshake through the launcher in a separate process.
+
+    The client's own process is the unit under test, not just the bytes on the
+    pipe. A launcher that hands the session to a second process and exits looks
+    healthy to a reader that only drains stdout to EOF, but an MCP client
+    watching the child it spawned sees that exit as the server dying. So the
+    process is held open across the whole handshake and its liveness checked
+    while responses are still expected.
+    """
     if not LAUNCHER_PATH.exists():
         return {"ok": False, "reason": f"launcher is not installed at {LAUNCHER_PATH}"}
     requests = [
@@ -152,22 +173,75 @@ def verify(timeout: int = 60) -> dict[str, Any]:
         {"jsonrpc": "2.0", "id": 2, "method": "tools/list"},
         {"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {"name": "agent.project_status", "arguments": {"project_hint": "personal-agent-os"}}},
     ]
-    payload = "".join(json.dumps(item) + "\n" for item in requests)
+    process = subprocess.Popen(
+        [sys.executable, str(LAUNCHER_PATH)],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        env={**os.environ, "PYTHONIOENCODING": "utf-8"},
+    )
+    responses: list[dict[str, Any]] = []
+    stayed_alive = True
+    reason: str | None = None
+    deadline = time.monotonic() + timeout
+    reader: list[str] = []
+
+    def _pump() -> None:
+        assert process.stdout is not None
+        for line in process.stdout:
+            reader.append(line)
+
+    pump = threading.Thread(target=_pump, daemon=True)
+    pump.start()
     try:
-        completed = subprocess.run(
-            [sys.executable, str(LAUNCHER_PATH)],
-            input=payload,
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-            timeout=timeout,
-            env={**os.environ, "PYTHONIOENCODING": "utf-8"},
-        )
-    except subprocess.TimeoutExpired:
-        return {"ok": False, "reason": "launcher did not complete the handshake in time"}
-    responses = []
-    for line in completed.stdout.splitlines():
+        assert process.stdin is not None
+        for request in requests:
+            process.stdin.write(json.dumps(request) + "\n")
+            process.stdin.flush()
+        # Every response must arrive while the spawned process is still the
+        # one serving them, exactly as a long-lived client requires.
+        while time.monotonic() < deadline:
+            if len(reader) >= 3:
+                break
+            if process.poll() is not None:
+                stayed_alive = False
+                reason = (
+                    "the spawned launcher process exited with code "
+                    f"{process.returncode} before the handshake completed; an MCP "
+                    "client watching that process treats this as server death"
+                )
+                break
+            time.sleep(0.05)
+        else:
+            reason = "launcher did not complete the handshake in time"
+        if stayed_alive and process.poll() is not None:
+            stayed_alive = False
+            reason = reason or "the spawned launcher process exited during the handshake"
+    except OSError as error:  # pragma: no cover - platform dependent
+        reason = f"could not drive the launcher: {error}"
+    finally:
+        still_running = process.poll() is None
+        try:
+            if process.stdin is not None:
+                process.stdin.close()
+        except OSError:
+            pass
+        pump.join(timeout=5)
+        try:
+            process.wait(timeout=10)
+        except subprocess.TimeoutExpired:  # pragma: no cover - defensive
+            process.kill()
+            process.wait(timeout=10)
+        stderr = (process.stderr.read() if process.stderr else "") or ""
+        if process.stderr is not None:
+            process.stderr.close()
+        if process.stdout is not None:
+            process.stdout.close()
+
+    for line in reader:
         try:
             responses.append(json.loads(line))
         except json.JSONDecodeError:
@@ -177,7 +251,8 @@ def verify(timeout: int = 60) -> dict[str, Any]:
     tools = {tool["name"] for tool in by_id.get(2, {}).get("result", {}).get("tools", [])}
     called = by_id.get(3, {}).get("result", {})
     ok = (
-        completed.returncode == 0
+        stayed_alive
+        and still_running
         and server_name == "personal-agent-os"
         and "agent.context" in tools
         and called.get("isError") is False
@@ -185,10 +260,11 @@ def verify(timeout: int = 60) -> dict[str, Any]:
     )
     return {
         "ok": ok,
-        "returncode": completed.returncode,
+        "served_in_spawned_process": stayed_alive and still_running,
+        "reason": None if ok else (reason or "handshake did not produce the expected responses"),
         "server_name": server_name,
         "tool_count": len(tools),
         "notification_produced_response": None in by_id and by_id[None].get("error") is None,
         "tool_call_ok": called.get("isError") is False,
-        "stderr": completed.stderr.strip()[:500] or None,
+        "stderr": stderr.strip()[:500] or None,
     }

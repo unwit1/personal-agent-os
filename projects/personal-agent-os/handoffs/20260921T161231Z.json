@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-21T16:12:31.784926+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## p0-0-universal-routing\n M .agents/skills/personal-agent-os/SKILL.md\n M README.md\n M adapters/global/AGENTS.md\n M projects/personal-agent-os/roadmap/master-priority-roadmap.md\n M src/agent_os/compiler.py\n M src/agent_os/launcher.py\n M src/agent_os/routing.py\n M tests/test_portability.py\n?? projects/personal-agent-os/improvements/",
+    "error": ""
+  },
+  "completed": [
+    "Fixed the live P0.0 blocker: the MCP launcher used os.execv, which on Windows starts a second process and exits the first, so Claude Code saw its child die mid-handshake and timed out after 30s. The launcher now resolves the checkout and serves in-process.",
+    "Hardened launcher-verify to hold the spawned process open across a real handshake and fail if it exits; the old subprocess.run/EOF check could not see this class of bug.",
+    "Removed machine-specific checkout paths from canonical adapter text (adapters/global/AGENTS.md, .agents/skills/personal-agent-os/SKILL.md) via an AGENT_OS_REPOSITORY placeholder rendered at install time; refreshed the drifted codex installs.",
+    "Regraded context pruning by usefulness: the previous handoff is graded rather than dropped whole, so its decisions and remaining work (the next action) outlive broad state, lexical matches and skill metadata.",
+    "Added a final squeeze that sheds the static selection description and generic summary before truncating the task, making the documented 250-token floor real.",
+    "Registered Agent OS with Claude Desktop, taking integration-health to ok=true with every surface at or above its expected tier."
+  ],
+  "decisions": [
+    "The launcher must never hand the session to a replacement process; regression tests assert both the source shape and live process survival.",
+    "Canonical Git adapter text stays machine-independent; the concrete checkout belongs only in the rendered local install.",
+    "A handoff's completed/validation narrative is generic bulk, but its decisions/remaining are the next action and rank with task-selected context."
+  ],
+  "remaining": [
+    "P0.1 Staged Workflow Orchestrator is not started and is now safe to begin.",
+    "ChatGPT chat/Work surfaces stay partially bridged by design; no automatic preflight exists for those hosts.",
+    "Nothing is committed or pushed; the branch p0-0-universal-routing holds two earlier commits plus these uncommitted changes, and main has advanced on origin.",
+    "claude_desktop_config.json stores an IMAP password in plaintext (pre-existing, unrelated to Agent OS)."
+  ],
+  "validation": [
+    "python -m unittest discover -s tests (103 passed, was 94)",
+    "python agent.py validate (235 checks, 0 errors, 0 warnings)",
+    "python agent.py launcher-verify (ok, served_in_spawned_process true, 13 tools)",
+    "python agent.py integration-health (ok true; 3 routed, 3 bridged as expected)",
+    "claude mcp list (agent-os Connected, was a 30s timeout)"
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

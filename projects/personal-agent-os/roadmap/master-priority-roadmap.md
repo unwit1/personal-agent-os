@@ -37,6 +37,30 @@ This is the highest-priority work. P0.0 and P0.1 must be treated as the first im
 
 ### P0.0 — Universal Agent OS routing for chats and work projects
 
+Status: **complete** (2026-09-21). All acceptance criteria met and covered by
+regression tests; `validate` reports 0 errors and 0 warnings, and
+`integration-health` reports every registered surface at or above its expected
+tier. Remaining technical debt is recorded below rather than left implicit.
+
+Verified on completion:
+- machine-local path resolution, with canonical Git content free of machine
+  paths (adapters render a `{{AGENT_OS_REPOSITORY}}` placeholder at install);
+- multi-parent project inventory, including `job-applicant-dashboard`;
+- deterministic skill deduplication (22 skills, 0 duplicates);
+- generic router project resolution that still leaves genuinely ambiguous
+  requests unresolved rather than inventing certainty;
+- MCP lifecycle over stdio, served in the process the client spawned;
+- token-budget pruning ordered by usefulness, preserving improvements and the
+  handoff's next action at constrained budgets.
+
+Known technical debt carried forward:
+- ChatGPT chat/Work surfaces remain "partially bridged" by design; no
+  automatic preflight mechanism exists for those hosts, and none is claimed;
+- `mcp-compatible-client` is a server-side readiness entry, so it stays
+  bridged until an individual client registers and carries a preflight;
+- improvements/changes streams are empty for this project, so their pruning
+  behavior is proven by fixtures rather than by production data.
+
 Make Agent OS the default execution/context layer for every supported ChatGPT chat, Work project, coding-agent task, and other connected agent surface.
 
 Goal:

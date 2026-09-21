@@ -7,6 +7,19 @@ from .paths import ROOT
 from .registry import projects
 
 
+REPOSITORY_TOKEN = "{{AGENT_OS_REPOSITORY}}"
+
+
+def render(text: str) -> str:
+    """Resolve the checkout placeholder for this machine.
+
+    Canonical adapter text in Git must stay machine-independent, or a clone on
+    another computer instructs the agent to run a path that does not exist here.
+    The concrete checkout belongs only in the copy written to the local client.
+    """
+    return text.replace(REPOSITORY_TOKEN, str(ROOT))
+
+
 PROJECT_ADAPTERS = {
     "auto-click": "auto-click-AGENTS.md",
     "job-applicant-dashboard": "job-applicant-dashboard-AGENTS.md",
@@ -38,7 +51,7 @@ def targets() -> list[tuple[Path, Path]]:
 def status() -> list[dict[str, Any]]:
     result = []
     for source, destination in targets():
-        source_text = source.read_text(encoding="utf-8")
+        source_text = render(source.read_text(encoding="utf-8"))
         exists = destination.exists()
         matches = exists and destination.read_text(encoding="utf-8") == source_text
         result.append(
@@ -57,7 +70,7 @@ def install() -> dict[str, list[str]]:
     unchanged: list[str] = []
     conflicts: list[str] = []
     for source, destination in targets():
-        source_text = source.read_text(encoding="utf-8")
+        source_text = render(source.read_text(encoding="utf-8"))
         if destination.exists():
             if destination.read_text(encoding="utf-8") == source_text:
                 unchanged.append(str(destination))

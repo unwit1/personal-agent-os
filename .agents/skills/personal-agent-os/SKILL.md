@@ -5,14 +5,14 @@ description: Route meaningful development work through the user's Personal Agent
 
 # Personal Agent OS
 
-The canonical repository is `C:\Users\HR.RTEC\Projects\Personal Agent` with
+The canonical repository is `{{AGENT_OS_REPOSITORY}}` with
 private remote `https://github.com/unwit1/personal-agent-os`.
 
 Before meaningful project work, identify the project and compile focused context:
 
 ```powershell
-python "C:\Users\HR.RTEC\Projects\Personal Agent\agent.py" identify "<project-path>"
-python "C:\Users\HR.RTEC\Projects\Personal Agent\agent.py" context <project-id> "<task>"
+python "{{AGENT_OS_REPOSITORY}}\agent.py" identify "<project-path>"
+python "{{AGENT_OS_REPOSITORY}}\agent.py" context <project-id> "<task>"
 ```
 
 Follow returned privacy constraints and project-local policy. Never broaden access

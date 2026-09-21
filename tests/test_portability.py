@@ -17,6 +17,7 @@ from agent_os.launcher import LAUNCHER_SOURCE, status as launcher_status
 from agent_os.mcp_server import SUPPORTED_PROTOCOL_VERSIONS, _handle_mcp, methods, negotiate_protocol_version
 from agent_os.paths import ROOT
 from agent_os.registry import canonical_projects, get_project, load_state, projects
+from agent_os.routing import REPOSITORY_TOKEN, render, status as routing_status
 from agent_os.skills import discover
 from agent_os.storage import load_json
 
@@ -154,7 +155,26 @@ class ContextBudgetTests(unittest.TestCase):
     def test_generic_bulk_is_pruned_before_task_relevant_development_context(self) -> None:
         packet, _ = _fit(self._packet(), 400)
         self.assertEqual(packet["development_context"]["improvements"][0]["id"], "IMP-1")
-        self.assertFalse(packet["latest_agent_os_handoff"], "the previous handoff should be shed first")
+        handoff = packet["latest_agent_os_handoff"]
+        self.assertNotIn("completed", handoff, "the previous handoff's finished narrative is generic bulk")
+        self.assertNotIn("validation", handoff, "recorded validation output is generic bulk")
+
+    def test_handoff_next_action_outlives_generic_project_state(self) -> None:
+        """A handoff's open work is the next action, not verbose history.
+
+        Shedding the whole handoff first also discards what to do next, which
+        is among the most actionable context a fresh session can be given.
+        """
+        packet, _ = _fit(self._packet(), 400)
+        self.assertIn("remaining", packet["latest_agent_os_handoff"])
+        self.assertFalse(packet["search_matches"], "lexical matches rank below the next action")
+        self.assertFalse(packet["matched_skills"], "skill metadata ranks below the next action")
+
+    def test_remaining_work_is_the_last_handoff_field_to_go(self) -> None:
+        packet, _ = _fit(self._packet(), 250)
+        handoff = packet["latest_agent_os_handoff"]
+        if handoff:
+            self.assertEqual(set(handoff), {"remaining"})
 
     def test_state_pruning_keeps_the_summary_longest(self) -> None:
         packet, _ = _fit(self._packet(), 300)
@@ -197,6 +217,33 @@ class ContextBudgetTests(unittest.TestCase):
                 packet = compile_context("personal-agent-os", "json rpc stdio server error", token_budget=budget)
                 self.assertTrue(packet["context_measurement"]["within_budget"])
                 self.assertLessEqual(packet["context_measurement"]["estimated_packet_tokens"], max(budget, 250))
+
+    def test_tightest_budget_sheds_generic_core_before_the_task(self) -> None:
+        """The last things standing must be the task, not boilerplate.
+
+        A static description of the selection strategy and the project's generic
+        summary are the lowest-value fields in the residual core, so a budget
+        that cannot fit everything gives those up before truncating the task.
+        """
+        task = "launcher process exits during the MCP handshake"
+        packet = compile_context("personal-agent-os", task, token_budget=250)
+        self.assertTrue(packet["context_measurement"]["within_budget"])
+        self.assertEqual(packet["task"], task, "the task was cut before generic boilerplate")
+        self.assertNotIn("selection", packet["context_policy"])
+        self.assertFalse(
+            packet["context_policy"]["raw_history_loaded"],
+            "the privacy flags must survive every squeeze",
+        )
+
+    def test_improvements_survive_the_reported_constrained_budget(self) -> None:
+        """The reported failure: a ~1200-token packet dropped improvements."""
+        task = "launcher process exits during the MCP handshake"
+        if not improvements.compact_improvements("personal-agent-os", task):
+            self.skipTest("no improvement matches this task; the fixture test covers the ordering")
+        packet = compile_context("personal-agent-os", task, token_budget=1200)
+        kept = (packet.get("development_context") or {}).get("improvements") or []
+        self.assertTrue(kept, "improvements were pruned entirely at a 1200-token budget")
+        self.assertTrue(packet["context_measurement"]["within_budget"])
 
     def test_raw_history_is_never_loaded(self) -> None:
         packet = compile_context("personal-agent-os", "routing", token_budget=1200)
@@ -286,6 +333,109 @@ class LauncherTests(unittest.TestCase):
         self.assertTrue(namespace["_is_checkout"](ROOT))
         self.assertFalse(namespace["_is_checkout"](ROOT / "tests"))
         self.assertFalse(namespace["_is_checkout"](Path.home()))
+
+    def test_launcher_serves_in_the_process_the_client_spawned(self) -> None:
+        """An MCP client watches the process it spawned; that process must serve.
+
+        os.execv does not replace the process image on Windows. It starts a
+        second process and exits the first, so the client sees its child die
+        mid-handshake while the inherited pipes stay open, and blocks until its
+        own timeout. Draining stdout to EOF hides this, so assert the source
+        never hands the session to a replacement process.
+        """
+        self.assertNotIn("os.execv(", LAUNCHER_SOURCE, "the launcher must not exec a replacement process")
+        self.assertNotIn("subprocess.", LAUNCHER_SOURCE, "the launcher must not serve from a child process")
+        self.assertIn("from agent_os.cli import main", LAUNCHER_SOURCE)
+
+    def test_installed_launcher_stays_alive_across_a_handshake(self) -> None:
+        """The end-to-end guard: drive the real launcher and watch it live."""
+        import subprocess
+        import threading
+        import time
+
+        launcher = Path(launcher_status()["launcher"])
+        if not launcher.exists():
+            self.skipTest("launcher is not installed on this machine")
+        process = subprocess.Popen(
+            [sys.executable, str(launcher)],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+        lines: list[str] = []
+        threading.Thread(target=lambda: lines.extend(process.stdout), daemon=True).start()
+        try:
+            request = {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "initialize",
+                "params": {
+                    "protocolVersion": "2025-06-18",
+                    "capabilities": {},
+                    "clientInfo": {"name": "regression", "version": "0"},
+                },
+            }
+            process.stdin.write(json.dumps(request) + chr(10))
+            process.stdin.flush()
+            deadline = time.monotonic() + 30
+            while time.monotonic() < deadline and not lines:
+                self.assertIsNone(
+                    process.poll(),
+                    "the spawned launcher exited before answering initialize; "
+                    "an MCP client reads that as the server dying",
+                )
+                time.sleep(0.05)
+            self.assertTrue(lines, "the launcher never answered initialize")
+            self.assertIsNone(process.poll(), "the launcher exited instead of holding the session open")
+            self.assertEqual(json.loads(lines[0])["result"]["serverInfo"]["name"], "personal-agent-os")
+        finally:
+            process.stdin.close()
+            try:
+                process.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                process.wait(timeout=10)
+            process.stdout.close()
+            process.stderr.close()
+
+
+class AdapterPortabilityTests(unittest.TestCase):
+    """Canonical adapter text is cloned to other machines; paths must not be."""
+
+    CANONICAL = (
+        Path("adapters") / "global" / "AGENTS.md",
+        Path(".agents") / "skills" / "personal-agent-os" / "SKILL.md",
+    )
+
+    def test_canonical_adapters_carry_no_machine_specific_path(self) -> None:
+        for relative in self.CANONICAL:
+            with self.subTest(adapter=str(relative)):
+                text = (ROOT / relative).read_text(encoding="utf-8")
+                self.assertNotIn(str(Path.home()), text, "a home directory leaked into Git")
+                self.assertNotRegex(
+                    text,
+                    r"[A-Za-z]:\\Users",
+                    "an absolute Windows user path leaked into canonical adapter text",
+                )
+
+    def test_placeholder_resolves_to_this_checkout_on_install(self) -> None:
+        for relative in self.CANONICAL:
+            with self.subTest(adapter=str(relative)):
+                text = (ROOT / relative).read_text(encoding="utf-8")
+                self.assertIn(REPOSITORY_TOKEN, text, "the adapter names no checkout at all")
+                rendered = render(text)
+                self.assertNotIn(REPOSITORY_TOKEN, rendered)
+                self.assertIn(str(ROOT), rendered)
+
+    def test_rendering_is_the_comparison_basis_for_installed_copies(self) -> None:
+        """A rendered install must not read as drift against canonical source."""
+        for item in routing_status():
+            with self.subTest(destination=item["destination"]):
+                if item["exists"]:
+                    self.assertTrue(item["matches"], f"{item['destination']} drifted from canonical source")
 
 
 class RegistrySchemaTests(unittest.TestCase):

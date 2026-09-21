@@ -140,5 +140,30 @@ updates.
 
 `agent-os mcp` is also a dependency-free MCP stdio server: it supports MCP
 initialization, tool discovery, and tool calls alongside its lightweight
-JSON-RPC compatibility operations. Configure it as a local STDIO server in
-Codex using `python agent.py mcp` from this repository.
+JSON-RPC compatibility operations.
+
+Register clients against the stable launcher rather than this checkout, so a
+repository move does not break the integration:
+
+```powershell
+agent-os launcher-install
+agent-os launcher-verify
+```
+
+`launcher-install` writes `~/.agent-os/agent_os_mcp_launcher.py`; point the
+client's MCP registration at that file. The launcher resolves the current
+checkout and then serves **in its own process**. It must never hand the session
+to a replacement process: `os.execv` does not replace the process image on
+Windows, so the client sees the process it spawned exit during the handshake
+while the inherited pipes stay open, and waits on a server it believes is dead
+until its own timeout. `launcher-verify` holds the process open across a real
+handshake and fails if it exits, which draining stdout to EOF would not catch.
+
+### Context budgeting
+
+`agent.context` prunes by usefulness, not by source order. Verbose history goes
+first and the task's own next action goes last. The previous handoff is graded
+rather than dropped whole: its finished narrative (`completed`, `validation`) is
+generic bulk, while its `decisions` and `remaining` are the next action and are
+shed only after broad state, lexical matches, and skill metadata. Improvements
+and changes selected for the current task survive to the tightest budgets.

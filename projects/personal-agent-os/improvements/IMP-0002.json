@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0002",
+  "project": "personal-agent-os",
+  "title": "Canonical adapter text must not carry a machine-specific checkout path",
+  "category": "architecture",
+  "subsystem": null,
+  "status": "candidate",
+  "priority": "medium",
+  "observation": "adapters/global/AGENTS.md and .agents/skills/personal-agent-os/SKILL.md hard-coded an absolute user path under Projects/Personal Agent, which is both machine-specific and stale: the real checkout is under GitHub/personal-agent-os. A clone on another computer would instruct the agent to run a path that does not exist.",
+  "evidence": [
+    "grep found 5 hard-coded occurrences across the two canonical adapters",
+    "validate warned that the installed codex SKILL.md differed from canonical source"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "Keep an AGENT_OS_REPOSITORY placeholder in canonical Git text and render it to the resolved checkout at install time, so installed copies stay concrete while Git stays portable.",
+  "acceptance": [
+    "No canonical adapter contains an absolute user path.",
+    "Rendering resolves the placeholder to the current checkout.",
+    "routing-status reports no drift for a rendered install."
+  ],
+  "risks": [],
+  "dedupe_key": "04a2775ea51ab49c99d7fa8ed39f0c375bbac3a76ea6ca8f3a4626cee30a1140",
+  "source": {
+    "type": "manual",
+    "reference": null
+  },
+  "github": null,
+  "created_at": "2026-09-21T16:10:42.383586+00:00",
+  "updated_at": "2026-09-21T16:10:42.383586+00:00",
+  "notes": null
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "improvements": [
+    {
+      "id": "IMP-0001",
+      "title": "Launcher must serve in the process the MCP client spawned",
+      "category": "bug",
+      "subsystem": null,
+      "status": "candidate",
+      "priority": "medium",
+      "dedupe_key": "9836375aa5a7b8efc2f6193275de234bf28e10e48608a7798ed05be4152492b7",
+      "updated_at": "2026-09-21T16:10:04.292269+00:00",
+      "github_issue_number": null
+    },
+    {
+      "id": "IMP-0002",
+      "title": "Canonical adapter text must not carry a machine-specific checkout path",
+      "category": "architecture",
+      "subsystem": null,
+      "status": "candidate",
+      "priority": "medium",
+      "dedupe_key": "04a2775ea51ab49c99d7fa8ed39f0c375bbac3a76ea6ca8f3a4626cee30a1140",
+      "updated_at": "2026-09-21T16:10:42.383586+00:00",
+      "github_issue_number": null
+    }
+  ]
+}

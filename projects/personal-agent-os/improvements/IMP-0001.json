@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "IMP-0001",
+  "project": "personal-agent-os",
+  "title": "Launcher must serve in the process the MCP client spawned",
+  "category": "bug",
+  "subsystem": null,
+  "status": "candidate",
+  "priority": "medium",
+  "observation": "os.execv does not replace the process image on Windows. The launcher exited with code 0 during the handshake while a detached grandchild kept the inherited pipes open, so Claude Code timed out after 30s even though the server answered correctly on the pipe.",
+  "evidence": [
+    "before: claude mcp list reported connection timed out after 30000ms",
+    "before: probe showed spawned process exit code 0 after 4s while stdout still served",
+    "after: claude mcp list reports agent-os Connected"
+  ],
+  "suspected_root_cause": null,
+  "suggested_direction": "Resolve the checkout, then import and call the CLI in-process. Keep launcher-verify holding the process open across the handshake so a replacement-process regression fails loudly.",
+  "acceptance": [
+    "The spawned launcher process is still alive when initialize is answered.",
+    "launcher-verify reports served_in_spawned_process true.",
+    "claude mcp list reports agent-os connected."
+  ],
+  "risks": [],
+  "dedupe_key": "9836375aa5a7b8efc2f6193275de234bf28e10e48608a7798ed05be4152492b7",
+  "source": {
+    "type": "manual",
+    "reference": null
+  },
+  "github": null,
+  "created_at": "2026-09-21T16:10:04.292269+00:00",
+  "updated_at": "2026-09-21T16:10:04.292269+00:00",
+  "notes": null
+}

@@ -80,24 +80,90 @@ def _prune_development_context(value: dict[str, list[dict[str, Any]]]) -> None:
     value.clear()
 
 
-def _fit(packet: dict[str, Any], token_budget: int) -> tuple[dict[str, Any], int]:
-    """Prune lowest-value context first so task-relevant material survives longest.
+HANDOFF_BULK_PRUNE_ORDER = ("completed", "validation", "created_at")
+HANDOFF_ACTIONABLE_PRUNE_ORDER = ("decisions", "remaining")
 
-    Generic project bulk (the previous handoff, broad state lists) is shed before
-    anything selected specifically for this task, and the top-ranked development
-    context entry is the last thing to go.
+
+def _prune_handoff_bulk(value: dict[str, Any]) -> bool:
+    """Shed the previous handoff's narrative, never its next action.
+
+    A handoff records what was finished as well as what is still open. The
+    finished narrative is the verbose history a fresh task rarely needs, while
+    the open decisions and remaining work are the next action itself. Only the
+    narrative is generic bulk, so only the narrative is shed at this stage.
+    """
+    for key in HANDOFF_BULK_PRUNE_ORDER:
+        if key in value:
+            del value[key]
+            return True
+    return False
+
+
+def _prune_handoff_actionable(value: dict[str, Any]) -> bool:
+    """Last resort: give up recent decisions before the remaining work."""
+    for key in HANDOFF_ACTIONABLE_PRUNE_ORDER:
+        if key in value:
+            del value[key]
+            return True
+    if value:
+        value.clear()
+        return True
+    return False
+
+
+def _reduce_list(value: list[Any]) -> bool:
+    if not value:
+        return False
+    value.pop()
+    return True
+
+
+def _reduce_state(value: dict[str, Any]) -> bool:
+    if not value:
+        return False
+    _prune_state(value)
+    return True
+
+
+def _reduce_development_context(value: dict[str, Any]) -> bool:
+    if not value:
+        return False
+    _prune_development_context(value)
+    return True
+
+
+def _fit(packet: dict[str, Any], token_budget: int) -> tuple[dict[str, Any], int]:
+    """Prune by usefulness, not by source order, so actionable context survives.
+
+    Verbose history goes first and the task's own next action goes last. The
+    previous handoff is graded rather than dropped whole: its finished narrative
+    is generic bulk, but its open decisions and remaining work rank alongside the
+    development context selected for this task, so they are shed only after
+    broad state, lexical matches, and skill metadata have already gone.
     """
     limit = max(token_budget, 250) * 4
     prunable = (
-        ("latest_agent_os_handoff", lambda value: value.clear()),
-        ("state", _prune_state),
-        ("search_matches", lambda value: value.pop()),
-        ("matched_skills", lambda value: value.pop()),
-        ("development_context", _prune_development_context),
+        ("latest_agent_os_handoff", _prune_handoff_bulk),
+        ("state", _reduce_state),
+        ("search_matches", _reduce_list),
+        ("matched_skills", _reduce_list),
+        ("development_context", _reduce_development_context),
+        ("latest_agent_os_handoff", _prune_handoff_actionable),
     )
     for key, reduce in prunable:
-        while len(json.dumps(packet, default=str, ensure_ascii=False)) > limit and packet.get(key):
-            reduce(packet[key])
+        while len(json.dumps(packet, default=str, ensure_ascii=False)) > limit:
+            section = packet.get(key)
+            if section is None or not reduce(section):
+                break
+    # Under extreme pressure the remaining core is still not all equal value.
+    # A static description of the selection strategy and the project's generic
+    # summary rank below the task itself, so they go before the task is cut.
+    if len(json.dumps(packet, default=str, ensure_ascii=False)) > limit:
+        policy = packet.get("context_policy")
+        if isinstance(policy, dict):
+            policy.pop("selection", None)
+    if len(json.dumps(packet, default=str, ensure_ascii=False)) > limit:
+        packet["summary"] = ""
     if len(json.dumps(packet, default=str, ensure_ascii=False)) > limit:
         packet["task"] = packet["task"][: max(80, limit // 8)]
     return packet, limit
