@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-21T15:48:59.083603+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main\n M .gitignore\n M README.md\n M projects/registry.json\n M src/agent_os/chat.py\n M src/agent_os/cli.py\n M src/agent_os/compiler.py\n M src/agent_os/inventory.py\n M src/agent_os/mcp_server.py\n M src/agent_os/registry.py\n M src/agent_os/skills.py\n M src/agent_os/validation.py\n?? projects/personal-agent-os/candidates/\n?? projects/personal-agent-os/handoffs/20260921T153822Z.json\n?? schemas/surface-registry-v1.schema.json\n?? src/agent_os/launcher.py\n?? src/agent_os/machine.py\n?? src/agent_os/surfaces.py\n?? surfaces/\n?? tests/test_portability.py\n?? tests/test_surfaces.py",
+    "error": ""
+  },
+  "completed": [
+    "Added a provider-neutral client-surface registry (surfaces/registry.json, schema personal-agent/surface-registry/v1) describing invocation, preflight instruction, and capture mechanism per client.",
+    "Implemented agent-os integration-health: per-surface registered/reachable/tier/handoff-capable/missing report with fully-routed, partially-bridged, not-yet-integrated tiers and a --strict exit code.",
+    "Registered Claude Code as a first-class surface and made the report detect whether a registration uses the stable launcher or an embedded checkout path.",
+    "Added machine.resolve_user_path so surfaces reuse the machine-local resolution layer instead of adding path handling.",
+    "Extended validate to cover the surface registry and added 37 tests for every tier and the degraded/unreachable cases."
+  ],
+  "decisions": [
+    "Fully routed requires both a reachable canonical checkout and an automatic preflight instruction; either alone is only partially bridged.",
+    "integration-health exits 0 by default and only fails under --strict, so an honest degraded report does not break acceptance runs."
+  ],
+  "remaining": [
+    "Decide whether to repoint the Claude Code and Codex MCP registrations at the stable launcher (both currently embed a checkout path).",
+    "Codex CLI is bridged, not routed: its MCP registration points at the stale C:/Users/HR.RTEC/Projects/Personal Agent checkout.",
+    "Claude Desktop is not integrated: no Agent OS server in claude_desktop_config.json.",
+    "Commit the portability repair plus this P0.0 work; remove bootstrap backup artifacts (mcp_server.py.pre-modern-mcp-backup, ~/.agent-os/*.pre-fix-backup).",
+    "Start P0.1 Staged Workflow Orchestrator."
+  ],
+  "validation": [
+    "python -m unittest discover -s tests -v (94 passed, was 57)",
+    "python agent.py validate (ok, 232 checks, 0 errors, 1 pre-existing adapter warning)",
+    "python agent.py routing-status (unchanged; same pre-existing codex SKILL.md drift)",
+    "python agent.py integration-health (1 routed, 4 bridged, 1 unintegrated; degraded: codex-cli, claude-desktop)"
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

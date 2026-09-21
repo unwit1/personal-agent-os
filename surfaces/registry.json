@@ -1,0 +1,115 @@
+{
+  "schema": "personal-agent/surface-registry/v1",
+  "version": 1,
+  "notes": [
+    "A surface is a client through which a person reaches Agent OS.",
+    "Entries are provider-neutral descriptions only. Probing logic lives in src/agent_os/surfaces.py and path resolution in src/agent_os/machine.py.",
+    "Locations are machine-independent: '~' for the user home, '${VAR}' for an environment variable, 'repo/' for a path inside this repository."
+  ],
+  "surfaces": [
+    {
+      "id": "claude-code",
+      "name": "Claude Code",
+      "vendor": "Anthropic",
+      "mechanism": "mcp_stdio",
+      "expected_tier": "routed",
+      "summary": "Terminal coding agent that calls Agent OS directly over MCP and is preflighted by the user-scoped instruction file.",
+      "invocation": {
+        "kind": "mcp_stdio",
+        "server_keys": ["agent-os", "personal-agent-os"],
+        "registrations": ["~/.claude.json", "~/.claude/settings.json", "~/.claude/mcp.json"],
+        "prefers_stable_launcher": true
+      },
+      "instruction": {
+        "kind": "instruction_file",
+        "locations": ["~/.claude/CLAUDE.md"],
+        "marker": "Agent OS"
+      },
+      "capture": {"kind": "mcp_tools", "tools": ["agent.capture_candidates", "agent.latest_handoff"], "automatic": true}
+    },
+    {
+      "id": "claude-desktop",
+      "name": "Claude Desktop",
+      "vendor": "Anthropic",
+      "mechanism": "mcp_stdio",
+      "expected_tier": "routed",
+      "summary": "Desktop client that can register the same MCP server; it has no user-scoped instruction file, so preflight must be carried by the server instructions.",
+      "invocation": {
+        "kind": "mcp_stdio",
+        "server_keys": ["agent-os", "personal-agent-os"],
+        "registrations": [
+          "${APPDATA}/Claude/claude_desktop_config.json",
+          "~/Library/Application Support/Claude/claude_desktop_config.json",
+          "~/.config/Claude/claude_desktop_config.json"
+        ],
+        "prefers_stable_launcher": true
+      },
+      "instruction": {
+        "kind": "server_instructions",
+        "marker": "agent.context"
+      },
+      "capture": {"kind": "mcp_tools", "tools": ["agent.capture_candidates", "agent.latest_handoff"], "automatic": true}
+    },
+    {
+      "id": "codex-cli",
+      "name": "Codex CLI",
+      "vendor": "OpenAI",
+      "mechanism": "mcp_stdio",
+      "expected_tier": "routed",
+      "summary": "Coding agent preflighted by the installed AGENTS.md adapter and able to call Agent OS over its MCP server registration.",
+      "invocation": {
+        "kind": "mcp_stdio",
+        "server_keys": ["agent-os", "personal-agent-os"],
+        "registrations": ["~/.codex/config.toml"],
+        "prefers_stable_launcher": true
+      },
+      "instruction": {
+        "kind": "instruction_file",
+        "locations": ["~/.codex/AGENTS.md"],
+        "marker": "Agent OS"
+      },
+      "capture": {"kind": "cli_bridge", "commands": ["capture-candidates", "handoff"], "automatic": true}
+    },
+    {
+      "id": "chatgpt-chat",
+      "name": "ChatGPT (regular chat)",
+      "vendor": "OpenAI",
+      "mechanism": "manual_bridge",
+      "expected_tier": "bridged",
+      "summary": "No automatic invocation path. The routing skill is the thinnest bridge: the chat states its findings and they are captured locally through the CLI.",
+      "invocation": {"kind": "none", "reason": "the host cannot start a local stdio server"},
+      "instruction": {
+        "kind": "bridge_document",
+        "locations": ["repo/skills/regular-chat-router/SKILL.md"],
+        "marker": "Agent OS"
+      },
+      "capture": {"kind": "cli_bridge", "commands": ["capture-candidates", "handoff"], "automatic": false}
+    },
+    {
+      "id": "chatgpt-work",
+      "name": "ChatGPT Work project",
+      "vendor": "OpenAI",
+      "mechanism": "manual_bridge",
+      "expected_tier": "bridged",
+      "summary": "Work projects can carry the routing instructions as project text, but still cannot invoke Agent OS; captures return through the CLI.",
+      "invocation": {"kind": "none", "reason": "the host cannot start a local stdio server"},
+      "instruction": {
+        "kind": "bridge_document",
+        "locations": ["repo/skills/regular-chat-router/SKILL.md", "repo/policy/CANONICAL_AGENT_POLICY.md"],
+        "marker": "Agent OS"
+      },
+      "capture": {"kind": "cli_bridge", "commands": ["capture-candidates", "handoff"], "automatic": false}
+    },
+    {
+      "id": "mcp-compatible-client",
+      "name": "Any other MCP-compatible client",
+      "vendor": "any",
+      "mechanism": "mcp_stdio",
+      "expected_tier": "bridged",
+      "summary": "Server-side readiness for clients that are not registered individually. Reaching 'routed' requires that client to also carry a preflight instruction.",
+      "invocation": {"kind": "server_entrypoint", "prefers_stable_launcher": true},
+      "instruction": {"kind": "none", "reason": "no user-scoped instruction file is known for an unidentified client"},
+      "capture": {"kind": "mcp_tools", "tools": ["agent.capture_candidates", "agent.latest_handoff"], "automatic": true}
+    }
+  ]
+}

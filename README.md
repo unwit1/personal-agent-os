@@ -76,6 +76,35 @@ Private canonical remote: `https://github.com/unwit1/personal-agent-os`.
 
 ## Client integration
 
+Client surfaces are registered in `surfaces/registry.json`. A *surface* is a
+client a person reaches Agent OS through; each entry describes, in
+provider-neutral terms, how that client invokes Agent OS, how it is
+automatically preflighted, and how it returns handoffs and durable candidates.
+Locations are machine-independent (`~`, `${VAR}`, `repo/`) and are resolved by
+`src/agent_os/machine.py`.
+
+```powershell
+agent-os integration-health
+agent-os integration-health --surface claude-code
+agent-os integration-health --strict
+```
+
+The report places every surface in one of three tiers:
+
+- **fully routed** — the client reaches the canonical checkout and is
+  automatically preflighted (Claude Code, through the MCP registration and the
+  user-scoped instruction file);
+- **partially bridged** — one half is in place, or the registration resolves to
+  a stale checkout, or capture needs a manual step (ChatGPT chat and Work
+  projects, which cannot start a local stdio server);
+- **not yet integrated** — no registration and no preflight instruction.
+
+Each surface also reports whether it is registered, reachable, able to emit
+handoffs and candidates, and what is missing, including a registration that
+embeds a checkout path instead of the stable launcher. `--strict` exits non-zero
+when a surface falls below its expected tier.
+
+
 Codex-compatible clients can read `AGENTS.md`. Claude-compatible clients can
 read `CLAUDE.md`. Both are intentionally thin and point to
 `policy/CANONICAL_AGENT_POLICY.md`.

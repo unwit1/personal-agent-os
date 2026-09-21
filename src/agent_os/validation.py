@@ -14,6 +14,7 @@ from .privacy import privacy_findings
 from .registry import load_state, projects
 from .routing import status as routing_status
 from .skills import discover
+from .surfaces import SURFACE_REGISTRY_PATH, SURFACE_REGISTRY_SCHEMA, TIERS, surfaces
 from .storage import load_json
 
 
@@ -159,7 +160,38 @@ def validate() -> dict[str, Any]:
         if registry.get("schema") != "personal-agent/form-registry/v1":
             errors.append("form registry: unsupported schema")
 
-    required_schemas = {"change-packet.schema.json", "google-safe-projection.schema.json", "improvement.schema.json", "form-fingerprint-v1.schema.json", "form-intake-v1.schema.json", "form-registry-v1.schema.json"}
+    surface_ids: set[str] = set()
+    checked += 1
+    if not SURFACE_REGISTRY_PATH.exists():
+        errors.append("missing client surface registry")
+    else:
+        registry = load_json(SURFACE_REGISTRY_PATH)
+        _required(registry, {"schema", "version", "surfaces"}, "surface registry", errors)
+        if registry.get("schema") != SURFACE_REGISTRY_SCHEMA:
+            errors.append("surface registry: unsupported schema")
+        else:
+            for surface in surfaces():
+                checked += 1
+                label = f"surface {surface.get('id', '?')}"
+                _required(surface, {"id", "name", "vendor", "mechanism", "expected_tier", "summary", "invocation", "instruction", "capture"}, label, errors)
+                if surface.get("id") in surface_ids:
+                    errors.append(f"duplicate surface id: {surface.get('id')}")
+                surface_ids.add(surface.get("id"))
+                if surface.get("expected_tier") not in TIERS:
+                    errors.append(f"{label}: unsupported expected tier")
+                if surface.get("invocation", {}).get("kind") not in {"mcp_stdio", "server_entrypoint", "none"}:
+                    errors.append(f"{label}: unsupported invocation kind")
+                if surface.get("instruction", {}).get("kind") not in {"instruction_file", "bridge_document", "server_instructions", "none"}:
+                    errors.append(f"{label}: unsupported instruction kind")
+                if surface.get("capture", {}).get("kind") not in {"mcp_tools", "cli_bridge", "none"}:
+                    errors.append(f"{label}: unsupported capture kind")
+                for location in surface.get("instruction", {}).get("locations", []):
+                    if str(location).casefold().startswith("repo/") and not (ROOT / str(location)[5:]).exists():
+                        errors.append(f"{label}: missing bridge document {location}")
+            if "claude-code" not in surface_ids:
+                errors.append("surface registry: Claude Code is not a registered client surface")
+
+    required_schemas = {"change-packet.schema.json", "google-safe-projection.schema.json", "improvement.schema.json", "form-fingerprint-v1.schema.json", "form-intake-v1.schema.json", "form-registry-v1.schema.json", "surface-registry-v1.schema.json"}
     for schema_name in required_schemas:
         checked += 1
         if not (ROOT / "schemas" / schema_name).exists():

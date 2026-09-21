@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Client surface registry v1",
+  "type": "object",
+  "required": ["schema", "version", "surfaces"],
+  "properties": {
+    "schema": {"const": "personal-agent/surface-registry/v1"},
+    "version": {"type": "integer", "minimum": 1},
+    "notes": {"type": "array", "items": {"type": "string"}},
+    "surfaces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "vendor", "mechanism", "expected_tier", "summary", "invocation", "instruction", "capture"],
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"},
+          "vendor": {"type": "string"},
+          "mechanism": {"enum": ["mcp_stdio", "adapter_file", "manual_bridge", "none"]},
+          "expected_tier": {"enum": ["routed", "bridged", "unintegrated"]},
+          "summary": {"type": "string"},
+          "invocation": {
+            "type": "object",
+            "required": ["kind"],
+            "properties": {"kind": {"enum": ["mcp_stdio", "server_entrypoint", "none"]}}
+          },
+          "instruction": {
+            "type": "object",
+            "required": ["kind"],
+            "properties": {"kind": {"enum": ["instruction_file", "bridge_document", "server_instructions", "none"]}}
+          },
+          "capture": {
+            "type": "object",
+            "required": ["kind", "automatic"],
+            "properties": {"kind": {"enum": ["mcp_tools", "cli_bridge", "none"]}, "automatic": {"type": "boolean"}}
+          }
+        }
+      }
+    }
+  }
+}

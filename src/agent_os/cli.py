@@ -14,11 +14,17 @@ from .handoffs import create_handoff
 from .index import rebuild, search
 from .inventory import scan
 from .improvements import capture_improvement, get_improvement, issue_payload, list_improvements, search_improvements, update_improvement
+from .launcher import install as install_launcher
+from .launcher import status as launcher_status
+from .launcher import verify as verify_launcher
+from .machine import describe as describe_machine
+from .machine import write_override
 from .mcp_server import serve
 from .maintenance import run as run_maintenance
 from .mail import health as mail_health, setup_icloud, status as mail_status, sync as mail_sync, search as mail_search
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .review import assess
+from .surfaces import health as integration_health
 from .routing import install as install_routing
 from .routing import status as routing_status
 from .validation import validate
@@ -46,8 +52,20 @@ def parser() -> argparse.ArgumentParser:
     commands.add_parser("sync-adapters")
     commands.add_parser("install-routing")
     commands.add_parser("routing-status")
+    integration = commands.add_parser("integration-health")
+    integration.add_argument("--surface")
+    integration.add_argument("--strict", action="store_true")
     commands.add_parser("validate")
     commands.add_parser("mcp")
+    commands.add_parser("machine-status")
+    local_path = commands.add_parser("set-local-path")
+    local_path.add_argument("project")
+    local_path.add_argument("--path")
+    local_path.add_argument("--search-root")
+    launcher_install = commands.add_parser("launcher-install")
+    launcher_install.add_argument("--repository-path")
+    commands.add_parser("launcher-status")
+    commands.add_parser("launcher-verify")
     mail_cmd = commands.add_parser("mail")
     mail_sub = mail_cmd.add_subparsers(dest="mail_command", required=True)
     mail_setup = mail_sub.add_parser("setup")
@@ -166,12 +184,28 @@ def main(argv: list[str] | None = None) -> int:
             return 1 if result["conflicts"] else 0
         elif args.command == "routing-status":
             _print(routing_status())
+        elif args.command == "integration-health":
+            report = integration_health(args.surface)
+            _print(report)
+            return 1 if args.strict and not report["ok"] else 0
         elif args.command == "validate":
             result = validate()
             _print(result)
             return 0 if result["ok"] else 1
         elif args.command == "mcp":
             return serve()
+        elif args.command == "machine-status":
+            _print({"machine": describe_machine(), "projects": [{"id": item["id"], "path": item["path"], "path_source": item["path_source"]} for item in projects()]})
+        elif args.command == "set-local-path":
+            _print(write_override(args.project, args.path, args.search_root))
+        elif args.command == "launcher-install":
+            _print(install_launcher(Path(args.repository_path) if args.repository_path else None))
+        elif args.command == "launcher-status":
+            _print(launcher_status())
+        elif args.command == "launcher-verify":
+            result = verify_launcher()
+            _print(result)
+            return 0 if result["ok"] else 1
         elif args.command == "mail":
             if args.mail_command == "setup":
                 address = args.email or input("iCloud email: ").strip()
