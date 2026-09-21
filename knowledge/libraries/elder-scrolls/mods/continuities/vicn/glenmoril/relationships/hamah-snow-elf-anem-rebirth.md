@@ -29,17 +29,42 @@ Professor Y says:
 - Hamah later traveled Skyrim and was welcomed into **Vahdin Holt**;
 - Hamah stole a stone there and used it in a ritual.
 
-The assistant independently remembers the Snow-Elf experiment and the disposal order, which gives partial internal corroboration to Professor Y's account.
+The assistant independently remembers the Snow-Elf experiment and disposal order.
+
+## Sealing tablets
+
+Two Little Red/Piper's-Hill MESG tablets add an external historical layer:
+
+- one seals people who “committed abominations” **in the name of Jhunal**;
+- the second says **“Sinful Hamah and her abominations are hereby hidden away”** until people forget their names and forms.
+
+This directly connects:
+**Hamah → concealment/sealing → enforced forgetting → Jhunal invocation**.
+
+## Revision Maiden dossier
+
+`zzzrevMsgMaidenHamah` says:
+- the body Anem created for Hamah resists rot;
+- her blood is unusually heavy and difficult to dissolve;
+- her soul is described as corrupted while her blood/flesh remain **untainted**;
+- those remains are destined as “perfumed oil for the godly.”
+
+This is a revision-layer data/dossier statement, not Hamah's own testimony.
 
 ## Evidence hierarchy
 
 Strongest:
-- Hamah's own Revenant-layer first-person statement that Anem rebirthed her from a Snow Elf girl.
+- Hamah's own first-person statement that Anem rebirthed her from a Snow Elf girl.
 
-Supporting historical source:
-- Professor Y's Secret Tale account.
+Corroborating:
+- Professor Y's historical account.
+
+External ritual/dossier layers:
+- sealing tablets;
+- Maiden data record.
 
 Still unresolved:
 - whether all later Hamah manifestations descend from this same individual;
-- how continuity of soul/memory works through rebirth;
-- the identity and later fate of the stolen Vahdin Holt stone.
+- how soul/memory continuity works through rebirth;
+- exact function of her blood/flesh in succession rituals;
+- whether the sealing/forgetting was protective, punitive, or both.
