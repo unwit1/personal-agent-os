@@ -1,0 +1,373 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "source": "Clockwork.esp VMAD quest-fragment properties",
+  "interpretation_policy": "Quest VMAD properties prove implementation/state ownership and object wiring. They do not by themselves prove character beliefs or metaphysical lore.",
+  "quests": [
+    {
+      "form_id": "0505F6C9",
+      "editor_id": "CLWKicker01Quest",
+      "name": "Foot Of The Mountain",
+      "state_links": [
+        {
+          "property": "pMapMarker",
+          "form_id": "0505FC3A",
+          "record_type": "REFR",
+          "name": "Velothi Mountain Tunnels",
+          "meaning": "quest directly controls/references the tunnel map marker"
+        },
+        {
+          "property": "pStage40Trigger",
+          "form_id": "050632CB",
+          "record_type": "REFR",
+          "meaning": "entry progression has a dedicated stage trigger"
+        },
+        {
+          "property": "Alias_IsidorAlias",
+          "quest_alias": 8,
+          "meaning": "Isidor is a runtime alias of the quest rather than only a note-name"
+        }
+      ]
+    },
+    {
+      "form_id": "050632CC",
+      "editor_id": "CLWStory01Quest",
+      "name": "Shadow Under The Mountain",
+      "state_links": [
+        {
+          "property": "CLWRandomQuakeActive01GLOB",
+          "form_id": "0582F69F",
+          "record_type": "GLOB",
+          "meaning": "quest directly controls/references random-quake state"
+        },
+        {
+          "property": "Alias_DoorSkyrimToVTunnels01",
+          "quest_alias": 2,
+          "meaning": "the Skyrim/tunnel door is a quest alias, consistent with scripted collapse/lock progression"
+        },
+        {
+          "property": "Alias_EscapeQuestMarker01",
+          "quest_alias": 1,
+          "meaning": "escape-route objective target is runtime-managed"
+        }
+      ]
+    },
+    {
+      "form_id": "052908C1",
+      "editor_id": "CLWStory02Quest",
+      "name": "Steam-Powered",
+      "state_links": [
+        {
+          "property": "Alias_Pipe01..Pipe10",
+          "quest_aliases": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18
+          ],
+          "meaning": "all ten pipeline repair points are quest-owned aliases"
+        },
+        {
+          "property": "pMachinesEnableParent01",
+          "form_id": "052CD64F",
+          "record_type": "REFR",
+          "editor_id": "CLWSQ02Machines01EnableParentREF",
+          "meaning": "castle machine activation is controlled by a dedicated enable parent"
+        },
+        {
+          "property": "pLights",
+          "form_id": "052B917E",
+          "record_type": "REFR",
+          "editor_id": "CLWSQ02Stage20LightsEnableParentREF",
+          "meaning": "lighting state is quest-controlled"
+        },
+        {
+          "property": "pSoundSiren01",
+          "form_id": "054D917F",
+          "record_type": "REFR",
+          "meaning": "quest controls a siren reference"
+        },
+        {
+          "property": "pAutoLoad01",
+          "form_id": "0503E1DD",
+          "record_type": "REFR",
+          "editor_id": "CLWTMRecallPortal01EnableParentREF",
+          "meaning": "Travel Machine recall-portal/autoload state is explicitly wired"
+        },
+        {
+          "property": "pS120Collision01",
+          "form_id": "054F7872",
+          "record_type": "REFR",
+          "meaning": "can't-leave collision is owned by the quest"
+        },
+        {
+          "property": "pS120Trigger02",
+          "form_id": "054F7874",
+          "record_type": "REFR",
+          "meaning": "can't-leave scene trigger is owned by the quest"
+        },
+        {
+          "property": "Alias_Shadow",
+          "quest_alias": 19,
+          "meaning": "Shadow is an explicit Steam-Powered quest alias before the full explanation"
+        },
+        {
+          "property": "Alias_LamMarkStage100",
+          "quest_alias": 20,
+          "meaning": "Lamashtu stage-100 marker is quest-managed"
+        },
+        {
+          "property": "Alias_ShadowMarkStage100",
+          "quest_alias": 21,
+          "meaning": "Shadow stage-100 marker is quest-managed"
+        },
+        {
+          "property": "Alias_ShadowManageStage20Mark",
+          "quest_alias": 22,
+          "meaning": "Steam-Powered links directly into Shadow-management choreography"
+        },
+        {
+          "property": "castle_doors",
+          "form_ids": [
+            "0500AB0F",
+            "0500C620",
+            "05006EF0",
+            "050068F7",
+            "050068DB",
+            "0500689B",
+            "050019A0",
+            "05053234"
+          ],
+          "meaning": "quest fragment directly references doors connecting major castle rooms"
+        }
+      ]
+    },
+    {
+      "form_id": "05506BB5",
+      "editor_id": "CLWStory03Quest",
+      "name": "Crystalline Heart",
+      "state_links": [
+        {
+          "property": "pLamCrazed01GV",
+          "form_id": "05506BB6",
+          "record_type": "GLOB",
+          "editor_id": "CLWSQ03LamCrazed01GLOB",
+          "meaning": "Lamashtu's impaired/crazed state is represented by a dedicated global"
+        },
+        {
+          "property": "pS50SpeakerTrigs01",
+          "form_id": "055718D9",
+          "record_type": "REFR",
+          "editor_id": "CLWSQ03SpeakerHornTrigsEnableParentREF",
+          "meaning": "Amalgam speaker-horn trigger network is quest-controlled"
+        },
+        {
+          "property": "pS60EncAmalgamAmbush",
+          "form_id": "05590247",
+          "record_type": "REFR",
+          "meaning": "Amalgam encounter/ambush enablement is quest-owned"
+        },
+        {
+          "property": "Alias_EncAmalgam",
+          "quest_alias": 3,
+          "meaning": "physical Amalgam encounter is a quest alias"
+        },
+        {
+          "property": "Alias_LeverHandle",
+          "quest_alias": 4,
+          "meaning": "replacement lever handle is a quest alias"
+        },
+        {
+          "property": "Alias_Lever",
+          "quest_alias": 5,
+          "meaning": "ballista control lever is a quest alias"
+        },
+        {
+          "property": "Alias_LeverBase",
+          "quest_alias": 6,
+          "meaning": "ballista lever base is a quest alias"
+        },
+        {
+          "property": "Alias_Heart",
+          "quest_alias": 11,
+          "meaning": "replacement heart is a quest alias"
+        },
+        {
+          "property": "Alias_HeartLam01",
+          "quest_alias": 12,
+          "meaning": "one Lamashtu-heart state is quest-managed"
+        },
+        {
+          "property": "Alias_HeartLam02",
+          "quest_alias": 13,
+          "meaning": "second Lamashtu-heart state is quest-managed"
+        },
+        {
+          "property": "pS130LamInactive01",
+          "form_id": "056567A4",
+          "record_type": "REFR",
+          "editor_id": "CLWSQ03S130LamInactive01EnableParentREF",
+          "meaning": "inactive Lamashtu body/state has an enable parent"
+        },
+        {
+          "property": "CLWSQ03Stage140Scene01",
+          "form_id": "0565B8B8",
+          "record_type": "SCEN",
+          "meaning": "the heart-transfer instruction sequence is explicitly owned by the quest fragment"
+        },
+        {
+          "property": "music_box_refs",
+          "form_ids": [
+            "0552A360",
+            "055624E8"
+          ],
+          "meaning": "quest fragment references music-box sound/placed states during the Amalgam search"
+        },
+        {
+          "property": "tour_scene_refs",
+          "form_ids": [
+            "053053A3",
+            "0530F5D8",
+            "0530537F",
+            "05314703",
+            "0531471C",
+            "052FB0D0",
+            "05300255"
+          ],
+          "meaning": "Crystalline Heart fragment can coordinate castle-tour scenes/state around the quest"
+        }
+      ]
+    },
+    {
+      "form_id": "0508DA63",
+      "editor_id": "CLWStory04Quest",
+      "name": "I Against I",
+      "state_links": [
+        {
+          "property": "pShadAmbEP01",
+          "form_id": "05773EB7",
+          "record_type": "ACHR",
+          "editor_id": "CLWShadowAmb01REF",
+          "meaning": "final quest owns/references a concrete Shadow ambush actor"
+        },
+        {
+          "property": "Alias_Shadow01",
+          "quest_alias": 1,
+          "meaning": "Shadow is a quest alias"
+        },
+        {
+          "property": "Alias_ShadowMarkStage20",
+          "quest_alias": 3,
+          "meaning": "Shadow stage-20 marker is quest-managed"
+        },
+        {
+          "property": "pSoundSirenMaus01",
+          "form_id": "05764B54",
+          "record_type": "REFR",
+          "meaning": "mausoleum siren is controlled by the final quest"
+        },
+        {
+          "property": "pSoundSirenAnimo01",
+          "form_id": "05773EB9",
+          "record_type": "REFR",
+          "meaning": "Animoculotory siren is controlled by the final quest"
+        },
+        {
+          "property": "pAnimoPortcullisTrapLinker01",
+          "form_id": "05769C8F",
+          "record_type": "REFR",
+          "meaning": "Animoculotory portcullis/trap state is quest-controlled"
+        },
+        {
+          "property": "pAnimoPortcullisTrapLinker02",
+          "form_id": "05778FE8",
+          "record_type": "REFR",
+          "meaning": "second Animoculotory portcullis/trap state is quest-controlled"
+        },
+        {
+          "property": "SQ04S40PortcullisCol01REF",
+          "form_id": "0585D062",
+          "record_type": "REFR",
+          "meaning": "stage-40 portcullis collision is quest-owned"
+        },
+        {
+          "property": "pCantLeaveSceneTrig",
+          "form_id": "054F7874",
+          "record_type": "REFR",
+          "meaning": "final quest directly references the prior can't-leave trigger"
+        },
+        {
+          "property": "pCantLeaveCol01",
+          "form_id": "054F7872",
+          "record_type": "REFR",
+          "meaning": "final quest directly references the prior can't-leave collision"
+        },
+        {
+          "property": "pNPCDoor01",
+          "form_id": "0504BB64",
+          "record_type": "REFR",
+          "editor_id": "CLWNPCDoorWhiterunExtToCastleTravelRoom01REF",
+          "meaning": "final quest directly references the Travel Room external/portal door"
+        },
+        {
+          "property": "pPostQuestDressesEP01",
+          "form_id": "0579C7A0",
+          "record_type": "REFR",
+          "editor_id": "CLWPostQuestDressesEP01REF",
+          "meaning": "post-quest Lamashtu dress content has a dedicated enable parent"
+        },
+        {
+          "property": "SQ03S140HeartEmptyFrameREF",
+          "form_id": "0565167E",
+          "record_type": "REFR",
+          "editor_id": "CLWSQ03S140HeartEmptyFrameREF",
+          "meaning": "final quest retains a reference to the prior heart-transfer apparatus/state"
+        },
+        {
+          "property": "SQ03S130Box01EPREF",
+          "form_id": "056567A3",
+          "record_type": "REFR",
+          "editor_id": "CLWSQ03S130Box01EnableParentREF",
+          "meaning": "final quest can coordinate prior Crystalline Heart scene objects"
+        }
+      ]
+    },
+    {
+      "form_id": "05543959",
+      "editor_id": "CLWMCM01Quest",
+      "name": "CLW MCM01 Quest",
+      "state_links": [
+        {
+          "property": "CLWMCM01FastTravelCheck01GLOB",
+          "form_id": "0554395A",
+          "record_type": "GLOB",
+          "meaning": "MCM/configuration tracks a fast-travel check"
+        },
+        {
+          "property": "CLWMCM01GardenRespawnSliderGLOB",
+          "form_id": "0554395B",
+          "record_type": "GLOB",
+          "meaning": "garden respawn behavior is configurable"
+        },
+        {
+          "property": "CLWMCM01GardenRespawnTimeGLOB",
+          "form_id": "0554395C",
+          "record_type": "GLOB",
+          "meaning": "garden respawn timing has a backing global"
+        },
+        {
+          "property": "CLWMCM01GildedDownedSliderGLOB",
+          "form_id": "0554395D",
+          "record_type": "GLOB",
+          "meaning": "Gilded downed/reanimation behavior is configurable"
+        }
+      ]
+    }
+  ]
+}
