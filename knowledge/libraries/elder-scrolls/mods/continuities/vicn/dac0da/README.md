@@ -68,6 +68,12 @@ The plugin stores English dialogue directly in INFO/NAM1 fields, so dialogue can
   - **Rella Mozzarella**
   - **Pan-Argonia**
 - First BOOK inventory/provenance pass over all 90 BOOK records.
+- **In Grabbers' Hands** name/nymic mechanics resolved structurally.
+- **Epilogue Yngol** resolved as a branch-dependent physical aftermath state.
+- **Golden Dragon Flight** and **Agent Event** support/state-machine records resolved.
+- DAc0da's Yaghra **Agent** is materially linked to the Daggerfall Agent/Warp-in-the-West cluster through its dedicated Totem-letter loot.
+- Six Daggerfall Totem letters verified as reused official game text.
+- Major Nahd-fiction provenance resolved: Djaf as mojonation1487 community apocrypha; KINMUNE, Tsaesci Creation Myth, Dominion Prism, Eat the Dreamer, Lament for Pelinal, and Type of Zero as reused Michael Kirkbride material.
 
 ### Strong cross-Vicn links indexed
 
@@ -89,13 +95,13 @@ High-value DAc0da letters and temporal tomes are indexed. Reused Daggerfall and 
 
 ## Next priority
 
-Move from dialogue-heavy reconstruction into **scene/script/non-dialogue resolution**, beginning with:
+The dialogue-heavy, support-quest, and first provenance layers are now largely normalized. Continue with **broad structural coverage**:
 
-1. `zDcdSqPrisoner` — **In Grabbers' Hands**: resolve Kye, Boss, target location, and the mechanic behind **"restore your name."**
-2. `zDcdEpiQYngol` — resolve the Yngol epilogue from scenes/scripts.
-3. `zDcdMqDragon` — Golden Dragon Flight.
-4. `zDcdMqAgent` — Agent Event.
-5. Exact source comparison for the six Daggerfall/Totem letters and unresolved `NahdFiction_*_MK` records.
-6. Remaining NPC, location, scene-speaker, artifact, and creature indexing.
+1. Build a full **SCEN index** for all 79 scene records and resolve scene actors back through their owning quest aliases.
+2. Identify scene-only interactions that add lore not already present in owned DIAL/INFO records.
+3. Expand **NPC identity/form indexing**, especially alternate/ghost/summon/boss forms that still lack dossiers.
+4. Build **location/worldspace** indexes for the Ship Graveyard, Numidium interiors, Hahd/Sload layers, Atmoran layers, and alternate ending spaces.
+5. Index distinctive **artifacts/items/creatures** where record placement or inventory carries narrative meaning.
+6. Continue source provenance only where gaps remain, chiefly the exact standalone publication trail for the long **Ghost Choir 9** text.
 
 See `analysis/ingestion-checkpoint-01.md` before resuming.
