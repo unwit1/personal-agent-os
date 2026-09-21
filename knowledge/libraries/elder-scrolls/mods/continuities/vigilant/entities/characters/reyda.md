@@ -95,6 +95,9 @@ The Stone statement is already preserved in the VIGILANT repository analysis.
 
 The more detailed Hilda/Reyda biography and branching dialogue currently come from community dialogue transcripts and should remain labeled supplementary until direct INFO records are recovered from the source plugin.
 
+Supplementary source index:
+- `sources/supplementary/community-transcript-sources.md`
+
 ## Canon boundary
 
 Reyda's biography, transformation, Ivarstead role, and Stone testimony belong to `tes.mod.vigilant`.
