@@ -24,6 +24,10 @@ Work-specific facts remain in their source continuity. Parent pages should link 
 - **Snow Whales / Atmoran sky ecology** — `snow-whales-thread.md`
 - **Maria / Marcus / Bruiant** — `maria-marcus-bruiant.md`
 
+## Atmora / shared-history threads
+
+- **Atmora / Saarthal / Night of Tears** — `atmora-saarthal-night-of-tears-thread.md`
+
 ## Owl / Jhunal / Chick-Trader threads
 
 - **Jhunal identity matrix** — `jhunal-identity-matrix.md`
