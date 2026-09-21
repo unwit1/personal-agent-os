@@ -18,14 +18,14 @@ Namespace: `zzzRev*`
 | zzzRevCqRobin | Bad Company | **55** | normalized |
 | zzzRevSub05Intro | The Lost Storyteller | **51** | normalized |
 | zzzRevCqAisha | Snow Cat | **50** | normalized |
-| zzzRevCqScab | Stigmata Necrosis | 45 | pending |
-| zzzRevGenHamah | Generic Dialogue Hamah | 42 | pending |
-| zzzRevDA01 | Clavicus Vile | 38 | pending |
-| zzzRevCqDragon01 | Farewell Gift | 37 | pending |
+| zzzRevCqScab | Stigmata Necrosis | **45** | normalized |
+| zzzRevGenHamah | Generic Dialogue Hamah | **42** | normalized |
+| zzzRevDA01 | Clavicus Vile | **38** | normalized |
+| zzzRevCqDragon01 | Farewell Gift | **37** | normalized |
 | zzzRevSub01 | Strange Fruit | **35** | normalized |
-| zzzRevGenSkoomaCat | Gen Skooma Cat | 28 | pending |
-| zzzRevGenHircine | Gen Hungry Cat | 21 | pending |
-| zzzRevMisc03 | Legless Friends | 21 | pending |
+| zzzRevGenSkoomaCat | Gen Skooma Cat | **28** | normalized |
+| zzzRevGenHircine | Gen Hungry Cat | **21** | normalized |
+| zzzRevMisc03 | Legless Friends | **21** | normalized |
 | zzzRevMq00 | Departure | **21** | normalized |
 | zzzRevMq01 | Feast of Love | **19** | normalized |
 | zzzRevSub02 | Desiccated Embryo | **19** | normalized |
@@ -55,9 +55,9 @@ Namespace: `zzzRev*`
 **Raw expected text-bearing total: 1,328 responses.**
 
 Current normalized:
-**931 / 1,328**
+**1,163 / 1,328**
 
 Remaining:
-**397**
+**165**
 
 There are also 35 `zzzRev*` quests with zero directly linked response texts; these remain structural/manager/hunt records.
