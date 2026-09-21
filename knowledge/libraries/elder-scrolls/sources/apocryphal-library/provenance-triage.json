@@ -4,8 +4,8 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "unresolved": 506,
-    "verified_official_game_text": 209,
+    "unresolved": 497,
+    "verified_official_game_text": 218,
     "verified_developer_text": 4,
     "verified_mod_construct_text": 65
   },
@@ -2586,8 +2586,8 @@
       "title": "Heist Plan",
       "editor_id": "LB_U_Note_OBL04",
       "text_path": "books/0400093B-heist-plan.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls IV: Oblivion document imported into the compilation's systematic OBL note family; compilation provenance retained separately."
     },
     {
       "form_id": "040000AA",
@@ -2666,8 +2666,8 @@
       "title": "Incriminating Letter",
       "editor_id": "LB_U_Note_obl07",
       "text_path": "books/0400093F-incriminating-letter.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls IV: Oblivion document imported into the compilation's systematic OBL note family; compilation provenance retained separately."
     },
     {
       "form_id": "04000835",
@@ -2778,8 +2778,8 @@
       "title": "Jearl's Orders",
       "editor_id": "LB_U_note_obl05",
       "text_path": "books/0400093C-jearls-orders.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls IV: Oblivion document imported into the compilation's systematic OBL note family; compilation provenance retained separately."
     },
     {
       "form_id": "040008CE",
@@ -3090,8 +3090,8 @@
       "title": "Letter from Daravyn the Grey",
       "editor_id": "LB_U_Note_obl09",
       "text_path": "books/04000941-letter-from-daravyn-the-grey.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls IV: Oblivion document imported into the compilation's systematic OBL note family; compilation provenance retained separately."
     },
     {
       "form_id": "04000920",
@@ -3186,8 +3186,8 @@
       "title": "Letter to Queen Mynisera",
       "editor_id": "LB_U_Letter_MyniseraDF",
       "text_path": "books/0400080B-letter-to-queen-mynisera.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as a document from The Elder Scrolls II: Daggerfall by title and the compilation's explicit DF source marker; compilation provenance retained separately."
     },
     {
       "form_id": "0400091D",
@@ -3562,8 +3562,8 @@
       "title": "Note from a Pirate",
       "editor_id": "LB_U_note_obl03",
       "text_path": "books/0400093A-note-from-a-pirate.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls IV: Oblivion document imported into the compilation's systematic OBL note family; compilation provenance retained separately."
     },
     {
       "form_id": "0400091F",
@@ -3618,8 +3618,8 @@
       "title": "Note from Raminus Polus",
       "editor_id": "LB_U_note_obl06",
       "text_path": "books/0400093E-note-from-raminus-polus.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls IV: Oblivion document imported into the compilation's systematic OBL note family; compilation provenance retained separately."
     },
     {
       "form_id": "04000931",
@@ -3690,8 +3690,8 @@
       "title": "Nu-Mantia Intercept",
       "editor_id": "LB_U_Note_OBL01",
       "text_path": "books/04000938-nu-mantia-intercept.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls IV: Oblivion document imported into the compilation's systematic OBL note family; compilation provenance retained separately."
     },
     {
       "form_id": "040008A4",
@@ -6181,8 +6181,8 @@
       "title": "Waterfront Tax Records",
       "editor_id": "LB_U_Note_OBL08",
       "text_path": "books/04000940-waterfront-tax-records.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Identified as an official The Elder Scrolls IV: Oblivion document imported into the compilation's systematic OBL note family; compilation provenance retained separately."
     },
     {
       "form_id": "040009BB",
