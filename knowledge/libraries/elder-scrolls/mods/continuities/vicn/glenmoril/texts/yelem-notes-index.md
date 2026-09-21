@@ -2,28 +2,38 @@
 
 **Primary source:** supplied `Glenmoril.esm`
 
-The ESM contains a substantial series of short handwritten BOOK records explicitly titled **Yelem's Note**. These are primary in-world texts and should be cited as Yelem's perspective rather than neutral narration.
+The ESM contains **54** BOOK records explicitly titled **Yelem's Note**.
 
-## Identified series
+## Exact-source status
 
-### Pailune
-Records `zzzRevYelemNotePailune01+` discuss a bell from the sea, Sloads, Magnus, the Alessian Order, the Great Cat, and restoring “the old days.”
+All **54 / 54** now have verbatim `DESC` transcriptions under:
+`texts/yelem/raw/`
 
-### Sithis
-Records `zzzRevYelemNoteSithis01+` discuss cosmic orphanhood, the Void, black and white souls, the Spring, identity, sensation, and the relationship between harmony and gods.
+The pre-existing per-note `records/` files are summary/retrieval records and should not be mistaken for exact transcriptions.
 
-### Laza
-Records `zzzRevYelemNoteLaza01+` repeatedly discuss **Laza**, the Spring, Kyne, the Owl, blindness/black tears, cursed or tainted beings, a moon/cocoon/Egg, and Shezarr.
+## Families
 
-### Shezarr
-Records `zzzRevYelemNoteShezarr*` include explicit speculation about Shezarr, Pelinal, Nirn, Kyne, and the **Great Cat**.
+### Pailune — 6
+Bell from the sea, Sloads, Magnus, Alessian Order, Great Cat, restoration of old days.
 
-### Lizard
-Records `zzzRevYelemNoteLizard*` use the recurring imagery of a lizard, shell, unhatched egg, mortality, and failed possibility.
+### Sithis — 8
+Cosmic orphanhood, Void, white/black souls, Spring, identity, sensation, harmony and gods.
 
-### CsO
-Records `zzzRevYelemNoteCsO*` discuss machines, bodies, an **egg**, a “body without organs,” death, larvae/worms, and imposed organization.
+### Lizard — 4
+Shell, unhatched Egg, Great Cat/Rolly-Polly, Nedic maiden, failed mortal possibility.
+
+### Laza — 8
+Laza, Spring, Kyne, Owl, blindness/black tears, curse/taint, cocoon/Egg, Shezarr.
+
+### Kyne — 9
+Hollow/tainted Spring, Daughters of Kyne, death/decay, divinity, Stone, pain/fear, Dwemer god-making.
+
+### Shezarr — 13
+Physical transformation, mortality, paradise, endless fall, Great Cat, Pelinal, Nirn/Kyne, stillborn baby, million lives.
+
+### CsO — 6
+Body without organs, Egg, machines, death instinct, image, larvae/worms, imposed organization.
 
 ## Interpretation boundary
 
-The notes clearly establish recurring vocabulary—**Spring, Egg, Great Cat, Owl, Laza, Shezarr, shell, curse/taint, nightmare**—but the library should not collapse these terms into one metaphysical model until their relationships are established by additional text/dialogue.
+The notes establish recurring vocabulary but do not make Yelem an omniscient narrator. Preserve every claim as Yelem's testimony unless independently corroborated.
