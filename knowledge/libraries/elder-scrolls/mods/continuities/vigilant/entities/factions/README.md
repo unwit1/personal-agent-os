@@ -13,6 +13,7 @@ Current dossiers:
 - [Forces of Order](forces-of-order.md)
 - [Order of Diagna](order-of-diagna.md)
 - [Vigilants of Stendarr](vigilants-of-stendarr.md)
+- [Black Hand](black-hand.md) — partial ESM system + supplementary identity/background
 
 Cross-faction chronology and ontology:
 - `analysis/coldharbour-faction-map.md`
