@@ -85,3 +85,19 @@ Priority source recovery should target:
 ## Canon boundary
 
 The Black Worm/Jhunal relationship is VIGILANT-continuity material. No official-canon identity should be assigned without independent evidence.
+
+
+## Cross-Vicn corroboration search
+
+A repository-wide search across the currently ingested GLENMORIL, UNSLAAD, and DAc0da corpora found no direct later record naming:
+- **Black Worm**;
+- **Mannimarco**;
+- **King of Worms**
+
+in a way that corroborates the VIGILANT identity claim.
+
+Therefore the Mannimarco-fragment identification remains:
+
+**supplementary a123999 commentary, not direct cross-Vicn ESM corroboration.**
+
+This search result strengthens the need to preserve the source boundary rather than treating the identity as universally confirmed across Vicn works.
