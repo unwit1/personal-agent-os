@@ -98,6 +98,10 @@ Lorekeeper should not conclude:
 
 The ESM structurally places Jacob in dialogue with a Rahel/BalGhost role, while supplementary translation/background sources support **Bal = corrupted/transformed Rahel** as an identity cluster. The exact body/ghost/possession mechanism remains unresolved.
 
+Supplementary source indexes:
+- `sources/supplementary/a123999-vigilant-backgrounds.md`
+- `sources/supplementary/community-transcript-sources.md`
+
 ## Bal / Rahel identity — supplementary resolution
 
 The current ESM scene index already contains a combined **Rahel/BalGhost** role in `SCEN 0200EA62`.
