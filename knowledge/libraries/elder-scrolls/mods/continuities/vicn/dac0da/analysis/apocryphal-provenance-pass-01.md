@@ -37,7 +37,9 @@ DAc0da's BOOK text follows the same Aechneil / Bleed / Djaf / Ghost Choir 9 narr
 ## `DAc0da.esm:0085FD` — Ghost Choir 9
 
 **Editor ID:** `zDcdNahdFiction_002_MK`  
-**Origin status:** **strongly attributed to Michael Kirkbride; original standalone publication location not yet recovered**
+**Origin:** Michael Kirkbride  
+**Original publication:** The Elder Scrolls Forums, archived/indexed as **General:Ghost Choir 9**, February 18, 2012  
+**Status:** verified developer/obscure-text reuse
 
 The DAc0da text is titled:
 
@@ -51,27 +53,27 @@ External material confirms:
 - Kirkbride's **Landfall: Day One** uses Ghost Choir 9 directly;
 - mojonation1487 separately describes Ghost Choir 9 as an RPG idea by MK while saying they themselves wrote about the concept in their own works.
 
-A later external provenance search compared the **actual full DAc0da BOOK body** against public material.
+A later exact-source search resolved the remaining provenance gap.
 
-Findings:
+UESP's **General:Ghost Choir 9** archive entry reproduces distinctive wording from this same text, including the “Martin's Knees” section, and its book metadata identifies:
 
-- the DAc0da text is **not** the mojonation1487 `Djaf: Arena of Lyg` story; it is a separate first-person/in-character GC9 transcript that partially recalls the Djaf arena state;
-- Michael Kirkbride's **Landfall: Day One** independently uses Ghost Choir 9, confirming the concept in Kirkbride's own published C0DA material;
-- a later Italian Elder Scrolls lore translation reproduces the exact distinctive DAc0da transcript and labels it **“Ghost Choir 9 (Michael Kirkbride)”**;
-- exact-phrase searches for unique strings such as the `ODDSEMBLIO` sequence, “CHOIR 9 SLEEVESHELL,” and the nym-pause/mem-web passage did **not** recover an older primary publication page.
+- archived source: **The Elder Scrolls Forums**;
+- writer: **Michael Kirkbride**;
+- date: **February 18, 2012**.
+
+This confirms that DAc0da's `0085FD` is a formatted reuse of an existing Michael Kirkbride unofficial/developer text.
+
+The DAc0da text is **not** mojonation1487's separate `Djaf: Arena of Lyg` prose, even though both use Captain Starkweather and Ghost Choir 9.
+
+Michael Kirkbride's later **Landfall: Day One** independently reuses Ghost Choir 9 as well, supporting continuity of the concept across his C0DA-related material.
 
 ### Library treatment
 
-Current provenance confidence:
-
-- `_MK` editor attribution: direct DAc0da metadata;
-- exact text: independently reproduced in a later translation explicitly attributed to Michael Kirkbride;
-- Ghost Choir 9 concept: independently present in Kirkbride's `Landfall: Day One`;
-- original standalone publication URL/date for this exact transcript: **unresolved**.
-
-Therefore classify the text as **strongly Michael-Kirkbride-attributed obscure material**, while preserving the narrower unresolved field: **original publication provenance**.
-
-Do not confuse it with mojonation1487's separate `Djaf` prose simply because both contain Captain Starkweather and the Ghost Choir 9 identity.
+- prose/content origin: **Michael Kirkbride**
+- original venue: **The Elder Scrolls Forums**
+- archived date: **2012-02-18**
+- DAc0da role: **Vicn curation, formatting, placement, and integration**
+- source class: **unofficial/developer/obscure text**, not Bethesda game canon
 
 ## `DAc0da.esm:0085FE` — ANON/ANU/ANUI-EL
 
@@ -179,9 +181,9 @@ DAc0da uses a lightly adapted/normalized presentation, including bracketed subst
 - **Lament for Pelinal** — Michael Kirkbride
 - **A Type of Zero Still to Be Discovered** — Michael Kirkbride
 
-### Still not fully source-resolved
+### Provenance block complete at first-pass depth
 
-- **Ghost Choir 9** long standalone text — strongly attributed to Michael Kirkbride by DAc0da metadata, independent Kirkbride GC9 usage, and later exact-text attribution; the remaining gap is the **original standalone publication location/date**, not the broader authorship attribution.
+The major Nahd-fiction source identities in this pass are now resolved sufficiently for first-pass provenance. Future work may preserve archived URLs/snapshots, but no major authorship/source-class ambiguity remains.
 
 ## DAc0da narrative significance
 
