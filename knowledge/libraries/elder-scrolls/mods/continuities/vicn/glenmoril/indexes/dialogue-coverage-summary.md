@@ -21,11 +21,16 @@ All other `zzzLrh*` / `zzzLRH*` QUST records.
 
 Five auxiliary responses from `zzzLrhSubQuest01 The Black Owl` overlap with the core Act-2 scope.
 
+### Piper's Hill / LaM
+`zzzLaMMq01–zzzLaMMq05` plus `zzzLaMMqAlt`
+
+**372 / 372 responses**
+
 ## Unique total across closed scopes
 
-585 + 1,743 + (692 − 5 overlap) =
+585 + 1,743 + (692 − 5 overlap) + 372 =
 
-# **3,015 unique exact response texts**
+# **3,387 unique exact response texts**
 
 ## What “closed” means
 
@@ -35,13 +40,22 @@ Within each scope:
 - zero-dialogue quests/scenes are explicitly accounted for;
 - speaker identities are structurally resolved where evidence permits.
 
-## What remains outside this number
+## No-QNAM audit
 
-This is not yet a claim that every dialogue record in the entire plugin has been normalized.
+A raw audit found **zero text-bearing DIAL records without QNAM**.
 
-Remaining audit classes:
-- DIAL records with no QNAM / shared or generic dialogue outside closed scopes;
-- quest namespaces outside the current Act/LRH sets;
-- script-triggered or indirectly associated dialogue;
-- BOOK and MESG text;
-- non-dialogue SCEN/package/script event chronology.
+Therefore there is no hidden text-bearing shared/no-QNAM backlog in this ESM.
+
+## Remaining direct dialogue
+
+Outside the closed scopes, the remaining directly linked corpus is:
+
+- `zzzRev*`: **1,328 responses**
+- other non-core `zzzGH*`: **77 responses**
+
+**Remaining: 1,405 responses**
+
+Additional non-dialogue work remains for:
+- BOOK/MESG text;
+- non-dialogue SCEN/package/script chronology;
+- indirect/script-only evidence.
