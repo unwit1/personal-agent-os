@@ -23,6 +23,8 @@ A statement established in one plugin is not automatically attributed to another
 - **GC9 / LYG:** UNSLAAD `zzzCrbMsgInsightGC9` describes LYG-sector memory evaporation/timeline disposal, while DAc0da explicitly contains **Ghost Choir 9 / VS GC9**, LYG mass-erasure, and memory-project material. The UNSLAAD group-name link is implementation-level via EditorID.
 - **DAc0da / GLENMORIL / UNSLAAD:** all independently contain **Mnemo-Li** material connected to memory, possibility, unstable reality/identity, or dream states.
 - **Radiance / Mnemo-Li / memory:** UNSLAAD and DAc0da both explicitly use **Radiance** alongside unstable memory/identity vocabulary; DAc0da's Sea of Radiance additionally ties it to Mnemo-Li and many paths. Definitions remain source-specific.
+- **Chick Trader / Anequina:** UNSLAAD's Gray EGG says it was crushed by a **Chick Trader of Anequina**; GLENMORIL independently says original Chick Traders came from the **prince of Anequina and royal guards**. This is a direct institutional bridge; "second CHICK" identities remain unmerged.
+- **Jhunal / Saarthal / Magnus:** UNSLAAD and VIGILANT independently state that a Jhunal/Owl figure stole Magnus-associated fire/arcana from Saarthal, while GLENMORIL independently extends the Owl/Jhunal network.
 
 These are retrieval/continuity relationships, not permission to flatten source-specific claims into one narrative.
 

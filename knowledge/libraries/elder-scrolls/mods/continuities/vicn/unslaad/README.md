@@ -80,16 +80,34 @@ This includes:
 
 Reused/apocryphal texts remain provenance-distinct from UNSLAAD-authored material.
 
+### Messages, item text, and structural lore
+
+All **98 MESG records** are now classified:
+- 33 dedicated Insight messages;
+- 65 non-Insight messages, with lore-bearing research/inspection clusters promoted separately.
+
+Embedded item-description coverage is also audited:
+- 5 ARMO DESC records;
+- 55 WEAP DESC records.
+
+The strongest new item lore is the post-Mq07 Gray-Owl craft trio:
+- **Gray OWL** — "second CHICK," Atmoran mage, sought the "dragon";
+- **Gray EGG** — crushed by a Chick Trader of Anequina, "future" lost;
+- **Shadow of the Gray OWL** — Saarthal secret / higher planes.
+
+### Placed-reference and VMAD coverage
+
+A first placed-reference pass now maps major lore objects into cells/worldspaces, including Dragon's Cradle, Dragon's Peak, Old City of Chains, Frozen Tomb, Ysgrim's Seal, World-Eater's-Waking, End of Radiance, and Oracle Iridescent's Workshop.
+
+A first VMAD metadata pass confirms direct implementation links including:
+- Lyg door + ice-mirror markers in The Final Journey;
+- Mural/Cradle/Owl/soul-fire wiring in The Owl Flies at Dusk;
+- Loveletter quest state wired to the frozen-time access gate;
+- GC9 object wired to its LYG memory-erasure message.
+
 ### No-dialogue boss/trial quests
 
-Named boss/trial families have a structural index even when they contain no ordinary INFO dialogue, including:
-- Trial of the Gods;
-- Idol of Magnar;
-- Last Giant of Jhunal;
-- Jill trials;
-- Ysgramor trial;
-- Priest of Jhunal;
-- Woodland Man hunt.
+Named boss/trial families have a structural index even when they contain no ordinary INFO dialogue, including Trial of the Gods, Idol of Magnar, Last Giant of Jhunal, Jill trials, Ysgramor trial, Priest of Jhunal, and Woodland Man hunt.
 
 ## Major established VICN links
 
@@ -101,6 +119,9 @@ Named boss/trial families have a structural index even when they contain no ordi
 - **Mnemo-Li / Blue Orphan / dream without a dreamer:** distinctive vocabulary shared with GLENMORIL.
 - **Loveletter / Nu-Mantia:** reused apocryphal substrate actively interpreted by UNSLAAD through Liturgy of I and Khev.
 - **Hjalti / Alcaire:** multiple internally consistent UNSLAAD references, retained as a comparison thread rather than a forced Talos identity.
+- **Chick Trader / Anequina / Gray Owl:** UNSLAAD Gray EGG directly names a Chick Trader of Anequina; GLENMORIL independently traces original Chick Traders to the prince of Anequina and royal guards. "Second CHICK" identity remains unresolved.
+- **GC9 / LYG:** UNSLAAD's implementation-tagged GC9 message describes LYG-sector memory evaporation/timeline disposal; DAc0da independently has Ghost Choir 9, LYG mass-erasure, and a memory project.
+- **Radiance / Mnemo-Li:** UNSLAAD and DAc0da independently connect Radiance/Mnemo-Li to unstable memory, identity, paths, or world reconstruction, while preserving conflicting definitions.
 
 ## Provenance policy
 
@@ -113,11 +134,13 @@ Named boss/trial families have a structural index even when they contain no ordi
 
 ## Remaining ingestion frontier
 
-Basic text/dialogue discovery is now substantially complete. The next high-value work is deeper structural lore analysis:
+Basic text discovery across dialogue, books, scenes, MESG, and item descriptions is now substantially reconciled.
 
-1. placed-reference and cell-context analysis for major entities, relics, books, and bosses;
-2. VMAD/Papyrus-property and quest-fragment orchestration where it can establish narrative mechanics without inventing hidden script bodies;
-3. artifact, spell, death-item, faction, and creature relationship indexing;
-4. deeper concept synthesis for Lyg, Khev, Radiance/Name, Atmoran ice, and Woodland-Man memory/story mechanics;
-5. direct cross-comparison against the increasingly complete DAc0da corpus;
-6. external provenance verification for the few reused BOOK texts whose authorship/source class is still uncertain.
+The next high-value UNSLAAD work is:
+
+1. acquisition/ownership/enchantment mapping for named weapons, armor, boss drops, and relics;
+2. faction, race, creature, death-item, and summon relationship indexing;
+3. deeper placed-reference analysis for high-value bosses and historical figures;
+4. selective VMAD property-value resolution where it can establish exact object/ref relationships without inventing script bodies;
+5. external provenance matching for remaining reused or adapted source texts;
+6. further parent-VICN reconciliation against GLENMORIL, VIGILANT, and the increasingly complete DAc0da corpus.
