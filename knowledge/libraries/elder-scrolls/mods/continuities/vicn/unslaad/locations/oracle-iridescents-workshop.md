@@ -25,3 +25,14 @@ Future placed-object/model/script analysis should determine:
 - why the fragments are in this workshop;
 - whether the duplicated placements represent separate fragments, copies, or staging;
 - whether any nearby records explicitly interpret KINMUNE.
+
+## Clone of Ayrenn staging
+
+Placed-reference/inventory analysis adds a major contextual layer:
+- NPC 033A47AA — **Clone of Ayrenn** is placed in this workshop;
+- the clone directly carries Princess Ayrenn's Greatsword;
+- its death list yields the full Princess Ayrenn set plus **Oracle Iridescent Mask**.
+
+The external KINMUNE text already ingested in the apocryphal library explicitly links Queen Ayrenn, KINMUNE, and the title Oracle Iridescent.
+
+UNSLAAD is therefore deliberately staging that apocryphal identity complex here. The underlying text remains external provenance and should not be promoted into official canon.
