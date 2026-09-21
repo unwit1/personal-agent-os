@@ -10,10 +10,14 @@
 {"source":"vicn.elder-wood.single-place","type":"qualifies","target":"vicn.elder-wood.exact-recurrence"}
 {"source":"vicn.gc9.memory-procedure-equivalence","type":"qualifies","target":"vicn.dac0da.gc9-lyg.mass-erasure"}
 {"source":"vicn.gc9.memory-procedure-equivalence","type":"qualifies","target":"vicn.unslaad.gc9-lyg.memory-evaporation"}
+{"source":"vicn.glenmoril.brain-billies.same-mechanism","type":"qualifies","target":"vicn.brain-billies.exact-term-recurrence"}
+{"source":"vicn.glenmoril.brain-billies.same-mechanism","type":"qualifies","target":"vicn.dac0da.brain-billies.memory-recovery"}
 {"source":"vicn.glenmoril.jacobee.last-chick-trader","type":"supports","target":"vicn.jacobee.last-chick-trader"}
 {"source":"vicn.glenmoril.orlando.owl-jhunal-node","type":"supports","target":"vicn.jhunal.orlando.incarnation-claim"}
+{"source":"vicn.glenmoril.xero-lyg.dark-radiance","type":"supports","target":"vicn.radiance.recurring-concept"}
 {"source":"vicn.gray-owl.equals-glenmoril-second-figure","type":"qualifies","target":"vicn.chick-trader.anequina-cross-work"}
 {"source":"vicn.gray-owl.equals-glenmoril-second-figure","type":"qualifies","target":"vicn.unslaad.gray-owl.second-chick"}
+{"source":"vicn.harakk.single-literal-object","type":"qualifies","target":"vicn.harakk.shared-atmoran-node"}
 {"source":"vicn.hare.single-entity","type":"qualifies","target":"vicn.hare.word-rewriting-shared-motif"}
 {"source":"vicn.hjalti.single-stable-body","type":"qualifies","target":"vicn.hjalti.recurring-historical-node"}
 {"source":"vicn.hjalti.single-stable-body","type":"qualifies","target":"vicn.unslaad.hjalti.changing-names"}
@@ -32,5 +36,8 @@
 {"source":"vicn.oracle-iridescent.glenmoril-kinmune-identity","type":"qualifies","target":"vicn.oracle-iridescent.cross-work-recurrence"}
 {"source":"vicn.oracle-iridescent.glenmoril-kinmune-identity","type":"qualifies","target":"vicn.oracle-iridescent.unslaad-kinmune-staging"}
 {"source":"vicn.orlando.one-body-across-mods","type":"qualifies","target":"vicn.orlando.exact-identity-recurrence"}
+{"source":"vicn.snow-whales.same-individuals-across-mods","type":"qualifies","target":"vicn.snow-whales.shared-atmoran-ecology"}
 {"source":"vicn.unslaad.gray-owl.laza-failed-experiment","type":"supports","target":"vicn.jhunal.owl-complex.intentional"}
+{"source":"vicn.unslaad.harakk.snow-whales","type":"supports","target":"vicn.snow-whales.recurring-node"}
 {"source":"vicn.vigilant.jhunal-laza.dragon-harvest","type":"supports","target":"vicn.jhunal.owl-complex.intentional"}
+{"source":"vicn.yelem.same-person-as-circuit","type":"qualifies","target":"vicn.yelem.rare-name-machine-dream-recurrence"}
