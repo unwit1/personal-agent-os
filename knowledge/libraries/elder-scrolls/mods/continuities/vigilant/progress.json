@@ -87,7 +87,10 @@
     "Joel direct NPC/quest alias and Bloodsucker scene/dialogue resolution",
     "unnamed fiery-eyed Slave Trader direct identity dossier: Malada stanza 9, Pepe sarcophagus testimony, eight-note trail, and cross-Vicn source separation",
     "Slave Trader Notes 6-8 exact-text verification plus negative persisted placement/ownership search",
-    "nine previously incomplete Act 4 side quests resolved from direct 1.8.2 ESM dialogue/alias source: More Skooma, Archer of Kyne, Black Worm, Funeral, Knights of Julianos/Zenithar/Arkay/Kynareth, and Kyne's Dragon"
+    "nine previously incomplete Act 4 side quests resolved from direct 1.8.2 ESM dialogue/alias source: More Skooma, Archer of Kyne, Black Worm, Funeral, Knights of Julianos/Zenithar/Arkay/Kynareth, and Kyne's Dragon",
+    "Lilian direct-document dossier: family letters, No Mercy role, and Art of Mercy scene anchor",
+    "Taranis direct-document dossier: sword curse, unnamed summoner bargain, Carene/Lilian family links, and Art of Mercy consequence",
+    "Carene family-document crosslinks for Lilian/Taranis curse storyline"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -103,7 +106,7 @@
     "recover direct VIGILANT implementation for Sir Amiel Lannus; do not infer it from his base-game Knights of the Nine history",
     "continue evidence-rich pre-Coldharbour character dossiers now that Facis, Reyda, Joshua, and Joel are direct-source resolved",
     "recover any non-persisted/scripted acquisition paths for Slave Trader Notes 6-8 and a direct Slave Trader NPC_/ACHR/alias if later source layers expose one",
-    "persist the full named Feral Soul-Shriven variant inventory from the restored direct source",
+    "recover and persist the full 30+ named Feral Soul-Shriven trigger→SvBase roster when the missing raw variant table/source extraction becomes accessible; Judo and Radokhan/Ortutay/Marosi Tharn are already normalized",
     "inspect remaining secondary Coldharbour groups only when at least two independent evidence layers support a distinct node",
     "expand remaining high-relevance character dossiers",
     "continue exact BOOK/note persistence from the 179-record corpus",
@@ -118,7 +121,8 @@
     "infos": 1225,
     "responses": 1698,
     "books": 179,
-    "npcs": 1233
+    "npcs": 1233,
+    "persisted_individual_book_text_files": 50
   },
   "last_continuation": {
     "date": "2026-09-21",
@@ -136,9 +140,13 @@
       "unnamed fiery-eyed Slave Trader normalized from direct Malada stanza 9 plus Pepe's independent sarcophagus testimony",
       "Slave Trader note trail tightened: Notes 6-8 exact text confirmed; no additional persisted REFR/container/quest ownership found",
       "GLENMORIL Slave Trader memory registered as cross-Vicn identity lead without silent body/soul merge",
-      "nine-item Act 4 direct-source recovery recognized as complete; obsolete quest-body blockers removed"
+      "nine-item Act 4 direct-source recovery recognized as complete; obsolete quest-body blockers removed",
+      "Lilian normalized from her exact letter plus direct Art of Mercy scene role",
+      "Taranis normalized as a documentary/off-screen character from the exact family letters and Carene's direct consequence dialogue",
+      "Carene dossier cross-linked to the three family letters",
+      "Feral Soul-Shriven queue narrowed: Judo and three Tharns are already resolved; the wider 30+ mapping table is not persisted in the current repo"
     ],
     "source_state": "canonical translated VIGILANT 1.8.2 ESM source bytes were restored and match the pre-existing source SHA-256 7d3ca2d72297fbc5afda8f1b8bb217fa1fd6d9d7414360acdf1a922d848949ba; direct VIGILANT evidence remains primary and cross-Vicn evidence remains corroborative unless explicitly sourced to another mod.",
-    "open_followup": "true remaining gaps include Sir Amiel Lannus direct implementation, a direct Slave Trader actor/acquisition path for Notes 6-8, the unpersisted 30+ Feral Soul-Shriven variant table, remaining high-relevance character dossiers, remaining BOOK persistence, and external PEX/BSA transition logic."
+    "open_followup": "true remaining gaps include Sir Amiel Lannus direct implementation, a direct Slave Trader actor/acquisition path for Notes 6-8, the unpersisted 30+ Feral Soul-Shriven trigger roster, further evidence-rich character dossiers, remaining BOOK persistence, and external PEX/BSA transition logic."
   }
 }
