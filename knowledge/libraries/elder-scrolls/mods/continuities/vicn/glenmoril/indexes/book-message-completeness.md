@@ -11,108 +11,97 @@ Raw BOOK text size: **161,476 characters**.
 
 ### Working provenance / function classes
 
-- mechanical spell/heart/ash/tome records: **122**
-- Yelem Note family: **54**
-- reused ESO book records: **29**
+- Yelem notes: **54**
+- GLENMORIL narrative/original candidates: **43**
+- reused official/reference: **30**
+- mechanical BOOK records: **136**
+- debug-structural: **1**
+
+This matches the older BOOK completeness ledger and supersedes the provisional overlapping classification.
+
+## Exact text progress
+
+Already exact before this audit:
+- all **54 / 54 Yelem notes**
+- Black Book: Debug normalized structurally
+- several high-priority letters/texts already summarized or partially transcribed
+
+New exact source files imported during this audit:
+- original/revision batch 01: **11**
+- original/revision batch 02: **9**
 - Professor Y / Secret Tale family: **13**
-- Ja'bal cycle: **5**
-- Book of Radiance cycle: **4**
-- other GLENMORIL-original/revision books, notes, letters and black books: **35**
-- other/reused edge records: **2**
+- remaining narrative/reference/debug source-file gap: **11**
 
-These classes are operational and may be refined as provenance is verified.
+**44 exact BOOK source files were added during this audit.**
 
-## Exact text import progress
+The final 11 include:
+- The Stray Khajiit of Chorrol
+- Note from Lalanoah
+- Black Book: Manners of Communion
+- Black Book: KRMT
+- Black Book: Debug
+- Letter from Lalanoah
+- Threatening Letter from Ja'zel
+- Ancient Note
+- Letter from Ja'zel
+- Chronicles of the Hero of Kvatch, Volume III
+- Snowmelt
 
-### Original-book batch 01 — 11 records
-Imported:
-- The Yelem School
-- A City Sunken in the Desert
-- The Three Owls
-- Laza and the Owls
-- Rolly-Polly, Ja'bal the Cat
-- Ja'bal and the Chickens
-- Ja'bal and the Chicks
-- Ja'bal and the Eggs
-- The Book of Atatami
-- Words of Jhunal
-- The Blue Star
+This means the GLENMORIL-specific narrative/reference candidate layer now has exact ESM text preserved in the repository rather than relying on summaries alone.
 
-### Original-book batch 02 — 9 records
-Imported:
-- Romion's Last Note
-- Book of Radiance, Vols. 1–4
-- Laza
-- The People of Grasslands
-- To Slumber
-- Black Book: The Gardener
+## Reused official/reference material
 
-### Professor Y / Secret Tale batch — 13 records
-Imported:
-- Professor Y, Vols. 1–5
-- The Secret Tale of Professor Y, Vols. 1–7
-- An Overview of the C0DA Document
+The `zzzRevBookESO*` family plus `The Elusive Traveler` remains source-addressable but should resolve to canonical official/reference texts unless comparison proves Vicn-specific changes.
 
-**New exact BOOK texts imported during this audit: 33.**
-
-Previously normalized families such as the Yelem Notes, Black Book: Debug, Threatening Letter from Ja'zel and Letter from Lalanoah remain separate existing source material and should not be double-counted merely because they also occur in the 264-record raw inventory.
-
-## Professor Y evidence discipline
-
-The Professor Y family mixes:
-- direct observations of physical remains/locations;
-- experimental interpretations;
-- deliberately speculative metaphysics;
-- future/past time-displacement reasoning;
-- jokes and unreliable extrapolation.
-
-Promote direct observations separately from Professor Y's hypotheses.
-
-Examples:
-- direct: a living ship with Argonian-compatible anatomy is examined;
-- attributed inference: the Hist built it;
-- direct: Hamah is physically present as Professor Y's captive specimen;
-- attributed inference/testimony: her soul belonged to a prior Snow-Elf experiment and Anem rebirthed her;
-- direct: C0DA text is said to be stored in Apocrypha with an author name obscured from perception;
-- attributed inference: the author is a renowned mystic hiding research inside fiction.
-
-## Reused official material
-
-The `zzzRevBookESO*` family remains in the raw inventory but should use provenance class **reused-official** unless record comparison shows modified text.
-
-Do not promote reused ESO text as GLENMORIL-original authorship.
+Do not attribute those texts to Vicn as original authorship.
 
 ## Mechanical BOOK records
 
-The 122 spell/heart/ash/lexicon/dreamstride-style BOOK records require a separate pass.
+The **136 mechanical BOOK records** remain the major BOOK-completeness backlog.
 
-Many are gameplay containers with short descriptive lore rather than conventional readable books. Preserve their `DESC` text, but index them separately from narrative books.
+They include:
+- spell tomes;
+- hearts;
+- ashes;
+- persona coins;
+- Dreamstride records;
+- Lexicons;
+- Heart Stones;
+- guts/taproots;
+- summon-token and related gameplay records.
+
+Many have short but potentially lore-bearing descriptions.
+
+They should be preserved in a compact machine-readable dataset rather than expanded into hundreds of prose pages.
 
 ## MESG records
 
 Total MESG records: **144**
 
-- with non-empty `DESC`: **127**
-- with one or more `ITXT` menu-choice strings: **65**
+- non-empty `DESC`: **127**
+- records with `ITXT` choices: **65**
 - combined readable DESC + ITXT text: **18,667 characters**
 
-The MESG layer includes:
-- menu choices;
-- debug/error prompts;
-- item/character data summaries;
-- tablets and warnings;
-- revision/revenant data displays;
-- quest interfaces.
+### MESG batch 01
 
-## Next BOOK priorities
+A high-value exact JSONL dataset now preserves **27 lore-bearing MESG records**:
+- Egg parameter/status display;
+- two Jhunal/Hamah sealing tablets;
+- five early Maiden invocations;
+- five later Maiden dossiers;
+- thirteen revision data records;
+- Laza-corpse data.
 
-1. remaining GLENMORIL-original/revision books and letters
-2. mechanical spell/heart/ash descriptions
-3. reused-official verification by text comparison rather than blind duplication
+Path:
+`data/messages/high-value-messages.jsonl`
+
+## Next BOOK priority
+
+Create a compact exact dataset for the **136 mechanical BOOK records**.
 
 ## Next MESG priorities
 
-1. non-debug narrative tablets/data records
-2. named maiden / character-data messages
-3. quest lore interfaces
-4. mechanical/debug/menu-only records
+1. remaining lore-bearing quest/data messages
+2. menu records whose choices encode story state
+3. debug/error/UI-only records
+4. final machine-readable 144-record completeness ledger
