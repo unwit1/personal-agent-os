@@ -52,3 +52,9 @@ ACTI 031E4F02 — **Brazier** can consume a Grand Dragon Soul to sear out what i
 A nearby trigger reports that the Gray Owl worms into the player's mind.
 
 Dragon's Cradle therefore concentrates dragon souls, ice-body persistence, time transfer, mind intrusion, and Owl experimentation.
+
+## VMAD corroboration
+
+Mq07 VMAD directly includes **Alias_Cradle**, **CradleKey**, **BrazierFire**, **FireLitTRG**, **Alias_DollMarker**, **DoorFuture**, **OwlShadow**, and Gray/Black Owl aliases.
+
+This confirms the Cradle tablets, soul-fire, future-doll path, and Owl sequence belong to one implementation graph rather than merely sharing a location.

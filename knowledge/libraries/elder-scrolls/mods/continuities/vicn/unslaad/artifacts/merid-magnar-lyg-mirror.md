@@ -49,3 +49,9 @@ Unresolved:
 - how many such mirrors exist;
 - whether mirrors are fragments, replacements, portals, memories, or several different categories;
 - how the mirror mechanism relates to Radiance or Mnemo-Li.
+
+## VMAD corroboration
+
+The Final Journey's quest VMAD includes properties named **DoorLyg**, **Alias_IceMirrorMarker**, **Alias_LygMidMarker**, and **Alias_LygEndMarker**, alongside the ice-seal properties.
+
+This is direct implementation evidence that the Lyg door and ice-mirror route are one deliberate quest mechanism.

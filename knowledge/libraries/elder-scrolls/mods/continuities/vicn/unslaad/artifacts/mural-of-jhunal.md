@@ -44,3 +44,9 @@ Placed-reference analysis should resolve:
 REFR 031DFE1D places the Mural in exterior CELL 030B49A7 of **Northern Sanctuary** (WRLD 030A750C).
 
 The Magnus-fire effect representation is also placed in this same exterior cell, making the shared location hard implementation evidence even though the exact spatial relationship still requires visual inspection.
+
+## VMAD corroboration
+
+The Mural activator carries a generic quest-stage script with StageTo and myQuest properties. The Mq07 quest VMAD independently contains **MuralTrg**, **Alias_MuralMarker**, **CradleKey**, and the Gray/Black Owl properties.
+
+This confirms the Mural is an explicit stage transition into the late Owl/Cradle graph, while still leaving its visual content unresolved.
