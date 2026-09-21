@@ -1,42 +1,43 @@
 # Iron-dagger / Thalmor smuggling thread
 
 Primary sources:
-- **Weary of Waiting**
-- **A Thousand Daggers**
-- **Thalmor Radio** during The Bronze Key
+- Weary of Waiting
+- Cleaning Up Falkreath
+- My Precious
+- A Thousand Daggers
+- Thalmor Radio
 
-## Early Act-1 precursor
+## Act-1 buildup
 
-In **Weary of Waiting**, Brandt inspects the dead peddler Radcliffe's cargo and finds:
-- a crate **full of iron daggers**;
-- none of them are good quality;
-- Brandt dismisses them as another haul of trash.
+### Weary of Waiting
+Radcliffe's dead caravan contains a crate full of low-quality iron daggers.
 
-This is not yet proof of the later Thalmor operation, but it establishes that **poor-quality iron daggers are already circulating around Falkreath in Act 1**.
+### Cleaning Up Falkreath
+Brandt offers the player **a year's worth of bad-quality daggers** as a reward.
+
+### My Precious
+Brandt pays another reward in **two years' worth of iron daggers**.
+
+Asked why there are so many, he says:
+> rumors claim some moron is making them.
+
+This turns the Act-1 presence from a single odd shipment into an acknowledged **Falkreath-wide glut of low-quality iron daggers**.
 
 ## A Thousand Daggers
 
-A Mysterious Voice inside the later dagger operation reports that:
-- a hidden substance/object is mixed into **iron-dagger shipments**;
-- tired guards fail to inspect the shipments closely;
-- blacksmiths have put a bounty on the operator;
-- the speaker serves the Thalmor.
+The later operation reveals:
+- Kodaavkiin is mass-producing poor iron daggers;
+- a hidden “it” is mixed into shipments;
+- the operation is Thalmor-linked.
 
-The bounty target later resolves as **Kodaavkiin**, who destroys the forge/cave rather than permit clean recovery of the operation.
+## Thalmor Radio
 
-## Direct Bronze-Key network confirmation
+Ysmir's Howl broadcasts explicitly refer to:
+**Operation Iron Dagger**
+and an **agent in Falkreath**.
 
-The **Thalmor Radio** in the Ysmir's Howl research complex later broadcasts:
-> contact has been lost with the person in charge of **Operation Iron Dagger**
+## Conclusion
 
-and orders:
-- contact with **the agent in Falkreath**;
-- personnel sent to the scene.
+The Act-1 dagger glut is now a strong chronological precursor to Operation Iron Dagger.
 
-This directly links A Thousand Daggers to the wider Thalmor/Eton-Nir network.
-
-## Evidence boundary
-
-The Act-1 Radcliffe shipment is a **chronological precursor / possible early distribution clue**, not yet a proven Operation-Iron-Dagger shipment.
-
-The source still does not name what **“it”** is that Kodaavkiin later mixed into the daggers.
+The exact hidden material mixed into the later shipments remains unresolved.
