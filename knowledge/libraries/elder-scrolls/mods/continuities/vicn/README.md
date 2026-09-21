@@ -26,6 +26,7 @@ A statement established in one plugin is not automatically attributed to another
 - **Chick Trader / Anequina:** UNSLAAD's Gray EGG says it was crushed by a **Chick Trader of Anequina**; GLENMORIL independently says original Chick Traders came from the **prince of Anequina and royal guards**. This is a direct institutional bridge; "second CHICK" identities remain unmerged.
 - **Ja'cobee / Aisha / Ulliss:** GLENMORIL directly stages all three inside the Last Chick Trader / EGG dialogue network; UNSLAAD independently gives their extended history, death/passage, and Lizz-family chronology.
 - **Jhunal / Saarthal / Magnus:** UNSLAAD and VIGILANT independently state that a Jhunal/Owl figure stole Magnus-associated fire/arcana from Saarthal, while GLENMORIL independently extends the Owl/Jhunal network.
+- **Orlando the Knowledgeable:** the exact named identity recurs in VIGILANT, GLENMORIL, and UNSLAAD; each work ties him to dream-transition and Owl/Jhunal material while preserving different body/state roles.
 
 These are retrieval/continuity relationships, not permission to flatten source-specific claims into one narrative.
 
