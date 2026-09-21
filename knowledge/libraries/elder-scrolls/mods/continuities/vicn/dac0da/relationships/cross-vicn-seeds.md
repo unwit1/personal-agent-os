@@ -70,6 +70,22 @@ UNSLAAD independently uses **Mnemo-Li / Blue Orphan / Magna-Ge** vocabulary in G
 
 This is a strong rare-vocabulary Vicn bridge. DAc0da does **not** in the processed records call Mnemo-Li "Blue Orphan," so the shared terms should be compared without silently copying epithets or mechanics between works.
 
+## Blue Star / Dumac / Red Moment
+
+DAc0da's late Numidium section adds a second, independent **Blue Star** node.
+
+Nine readable activators titled **Dumac's Record: Z/E/R/O/S/U/M/N/0** preserve a Dumac–Nerevar–Kagrenac dispute. In the sixth record, Dumac accuses his friend of treachery and asks about a **hidden Blue Star**.
+
+DAc0da evidence: `DAc0da.esm:00B6A1` -> message reached through **Dumac's Record: S** and `DAc0da.esm:00B6A2` / **Dumac's Record: U** for the Blue-Star line; see `analysis/dumac-records-zero-sum.md` for the complete ACTI->MESG mapping.
+
+The final three records have Kagrenac repeatedly answer **NO**, while the titles together visually spell **ZERO SUM N0**.
+
+This directly places Blue-Star vocabulary in DAc0da's Dwemer/Nerevar/Kagrenac/Red-Moment-adjacent material.
+
+GLENMORIL independently treats **Blue Star** as a central term, while GLENMORIL and UNSLAAD also use **Mnemo-Li / Blue Orphan** vocabulary.
+
+The cross-retrieval relationship is therefore strong, but DAc0da does not explicitly equate Dumac's hidden Blue Star with Mnemo-Li in these records. Keep that identity unresolved.
+
 ## Adjacent Places / Lyg / Grabbers
 
 DAc0da's Augur of the Obscure directly calls himself a traveler from an **Adjacent Place** and explicitly warns about **Grabbers**. Evidence: `DAc0da.esm:00490A`, `00490C`, `00490E`.
@@ -79,7 +95,14 @@ DAc0da also uses Adjacent Place terminology for:
 - the Numidium isolating Apocryphal contamination (`DAc0da.esm:00B50F`);
 - the golden dragon / old-kalpa intrusion in Drowned Nighthawk (`DAc0da.esm:004DF9`).
 
-The quest **In Grabbers' Hands** further has a direct objective to retrieve Kye and **restore your name**, though its detailed mechanism still requires non-dialogue analysis.
+The quest **In Grabbers' Hands** has now been structurally resolved far enough to establish a dedicated nymic/name mechanic:
+
+- its Boss alias carries `DcdNymicStealerAliasScript`;
+- its quest script has a `NymicObj` property;
+- the nymic object is `zdcdItemNamePrisoner`;
+- acquiring the **Book of the Prisoner** completes the retrieval objective to **restore your name**.
+
+The compiled Papyrus body remains unavailable, so the exact runtime rename operation is still unresolved.
 
 UNSLAAD independently says mirrors can lead through **Lyg**, an adjacent place where fate can change, and warns that staying too long risks attention from **Grabbers**.
 
