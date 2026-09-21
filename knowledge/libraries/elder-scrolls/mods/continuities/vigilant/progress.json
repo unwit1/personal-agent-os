@@ -25,7 +25,10 @@
     "Coldharbour XTEL door/location topology",
     "quest VMAD/stage transition analysis (ESM structural layer)",
     "Act 4 Quest Manager and dream-list orchestration map",
-    "Aetherius branch-marker placement analysis"
+    "Aetherius branch-marker placement analysis",
+    "base-canon comparison seed for Alessia/Morihaus/Belharza/Pelinal/Marukh/Lamae",
+    "Coldharbour official-lore substrate comparison",
+    "Coldharbour dossiers: Menta-Na, Abbot Cosmas, Varla, Dro'Zel"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -40,9 +43,10 @@
   "next": [
     "expand remaining high-relevance character dossiers",
     "continue exact BOOK/note persistence from the 179-record local corpus",
-    "base-canon comparison layer for historical/mythic claims",
     "ingest VIGILANT PEX/scripts or BSA when available for exact Papyrus transition bodies",
-    "persist remaining exact BOOK texts as browsable individual files"
+    "persist remaining exact BOOK texts as browsable individual files",
+    "deeper claim-by-claim canon comparison for Amulet of Kings, Middle Dawn, Jyggalag/Greymarch, and Ayleid figures",
+    "expand additional Coldharbour characters and faction dossiers"
   ],
   "counts": {
     "quests": 120,
