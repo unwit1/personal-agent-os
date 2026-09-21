@@ -14,6 +14,7 @@ Work-specific facts remain in their source continuity. Parent pages should link 
 - **Hjalti / Alcaire / changing names** — `hjalti-alcaire-thread.md`
 - **Ja'cobee / Aisha / Ulliss** — `jacobee-aisha-ulliss-thread.md`
 - **Orlando the Knowledgeable** — `orlando-the-knowledgeable-thread.md`
+- **Elder Wood** — `elder-wood-thread.md`
 - **Oracle Iridescent** — `oracle-iridescent-thread.md`
 - **Maria / Marcus / Bruiant** — `maria-marcus-bruiant.md`
 
@@ -93,3 +94,7 @@ Evidence-classification matrix:
 - `../analysis/cross-vicn-reconciliation-01.md`
 
 Use it to distinguish direct identities/institutions, exact rare vocabulary, direct cross-work pointers, shared external substrate, and thematic-only comparisons.
+
+## Provenance / shared-source audit
+
+- `../analysis/external-source-reuse-map.md` — separates official-game reuse, identified developer/obscure-text reuse, community apocrypha, unresolved provenance, and genuine direct cross-work continuity.
