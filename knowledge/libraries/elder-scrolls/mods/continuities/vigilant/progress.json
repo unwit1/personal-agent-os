@@ -1,0 +1,29 @@
+{
+  "source_sha256": "7d3ca2d72297fbc5afda8f1b8bb217fa1fd6d9d7414360acdf1a922d848949ba",
+  "phase": "raw-structural-ingestion",
+  "completed": [
+    "header/source manifest",
+    "record inventory",
+    "quest raw extraction/index",
+    "dialogue topic+response extraction",
+    "book text extraction",
+    "NPC/faction/cell/worldspace/item inventories",
+    "first-pass story skeleton"
+  ],
+  "next": [
+    "INFO speaker/alias resolution",
+    "SCEN extraction and ordering",
+    "high-relevance character dossiers",
+    "narrative quest graph",
+    "document-to-quest/location linking",
+    "Coldharbour location graph"
+  ],
+  "counts": {
+    "quests": 120,
+    "dial_topics": 1012,
+    "infos": 1225,
+    "responses": 1698,
+    "books": 179,
+    "npcs": 1233
+  }
+}
