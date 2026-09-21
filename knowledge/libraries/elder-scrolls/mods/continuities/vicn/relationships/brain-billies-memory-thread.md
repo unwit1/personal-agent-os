@@ -18,7 +18,18 @@ This appears in the same conversation where Mecha-Kanra says Sotha Sil sent him 
 
 DAc0da therefore gives Brain-Billies a direct **memory-recovery** function.
 
+DAc0da also implements the phenomenon mechanically through:
+
+- `zDcdMgEBrainBillies`;
+- `zDcdFoodBrainbillies`;
+- a memory-spirit/needle effect;
+- a progression in which repeated use contributes toward **Mnemolic Sign**.
+
+This implementation remains DAc0da-specific unless another work independently establishes the same mechanics.
+
 ## GLENMORIL
+
+GLENMORIL contains the large retrospective quest **Brain-Billy's Sting**, whose 577 resolved responses center on Rolls-On-Roads and the Augur of the Obscure.
 
 GLENMORIL's **Augur of the Obscure** independently uses the exact rare term **brain-billies** in his non-linear dialogue.
 
