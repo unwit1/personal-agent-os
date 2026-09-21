@@ -10,7 +10,7 @@ Raw ESM scene-action resolution completed for the four pending identity-bearing 
 - Tuning Box: 5 exact rows
 
 **Batch total: 28 exact dialogue rows.**
-**Running total after batches 01–04: 112 resolved rows.**
+**Corrected running total after batches 01–04: 111 resolved rows.**
 
 Major resolutions:
 - Father = LazaFather, not Gerhard.
@@ -21,3 +21,7 @@ Major resolutions:
 - Hanged Man supplies a first-person Hamah / Daughter of Kyne / Vahdin Holt family account.
 
 All identities were resolved through SCEN Actor ID → QUST alias → filled reference/NPC.
+
+## Audit note
+
+The earlier displayed running total of 112 inherited the one-row Ja'zel-Boy overcount from batch 03. Batch 04 itself remains correctly counted at 28.

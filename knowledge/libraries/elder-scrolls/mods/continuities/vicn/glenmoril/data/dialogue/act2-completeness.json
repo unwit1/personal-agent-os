@@ -1,0 +1,25 @@
+{
+  "source_plugin": "Glenmoril.esm",
+  "continuity": "tes.mod.vicn.glenmoril",
+  "scope": "core Act 2 direct QUST/SCEN dialogue",
+  "method": {
+    "scene_association": "SCEN PNAM -> QUST",
+    "scene_dialogue": "ANAM type 0 DATA -> DIAL -> child INFO NAM1",
+    "topic_dialogue": "DIAL QNAM -> QUST, excluding DIALs used by SCEN dialogue actions",
+    "speaker_resolution": ["SCEN actor alias", "GetIsAliasRef:566", "GetIsID:72"]
+  },
+  "raw_expected_responses": 1743,
+  "reconciled_responses": 1743,
+  "status": "closed_direct_linkage",
+  "audit_corrections": {
+    "zzzGHMq05ScJazelBoy": {"old": 17, "new": 16},
+    "zzzGHMq06ScPlan": {"old": 8, "new": 9}
+  },
+  "recovery_batch_18": {
+    "zzzGHMq02Gen": 15,
+    "zzzGHMq04BO": 5,
+    "zzzGHMq04Radio": 15,
+    "zzzGHMq06_non_scene_topics": 113,
+    "total": 148
+  }
+}

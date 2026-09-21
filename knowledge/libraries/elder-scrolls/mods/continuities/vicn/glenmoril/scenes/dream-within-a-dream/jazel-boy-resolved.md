@@ -6,9 +6,9 @@ Quest: `Glenmoril.esm:00C946` — **Dream Within a Dream**
 Alias 3 `JazelBoy` resolves to NPC `04012DBD zzzGHM05JazeriBoy`, display name **Ja'zel**.
 Alias 5 `Owl` resolves to NPC `04012DC2 zzzGHM05OwlOrland01`.
 
-The scene contains **17 non-null dialogue actions** alternating primarily between Ja'zel and the Owl.
+The scene contains **16 exact dialogue response rows** alternating primarily between Ja'zel and the Owl.
 
-## Exact sequence
+## Sequence
 
 Ja'zel begins by insisting there is no Ja'zeri. The Owl tells him that Ja'zeri died and was decapitated, leaving Ja'zel alone. Ja'zel asks who the speaker is; the Owl identifies himself as **“Orlando, Orlando the Knowledgeable.”**
 
@@ -27,3 +27,7 @@ The exchange then acknowledges an **observer** whom Ja'zel apparently cannot per
 The statement about ancient Anequina is Orlando's attributed account, not automatically objective history.
 
 Confidence: **exact structural speaker attribution**.
+
+## Audit correction
+
+An earlier count described this as 17 non-null dialogue actions. Raw DIAL→INFO response reconciliation gives **16 response rows**. This correction is incorporated into the Act-2 completeness ledger.

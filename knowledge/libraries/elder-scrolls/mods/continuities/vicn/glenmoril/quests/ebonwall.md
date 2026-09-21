@@ -5,36 +5,60 @@
 **Act:** 2 — Witch Hunt  
 **Primary evidence:** supplied `Glenmoril.esm`
 
-## Quest objectives
+## Direct mission
 
-The QUST record directly contains objectives to:
+Ja'zel orders Ozwald's group to **Wulfharth's Ebonwall**, where Ashlanders have revolted.
 
-1. talk to FL-4N;
-2. talk to Ozwald in the workshop and follow him;
-3. board the airship;
-4. listen to and receive the mission briefing;
-5. optionally read the documents on the table;
-6. leave the airship to begin the mission;
-7. head to the watchtower and climb it;
-8. defeat a Gulakhan;
-9. optionally assassinate **Magni**, commander of the volunteer army;
-10. defeat the Thalmor commander;
-11. optionally contact FL-4N/use the communicator;
-12. head to the graveyard;
-13. defeat Gulakhans and then the Ashkhan;
-14. follow and speak with Ozwald;
-15. return to the airship to complete the mission;
-16. optionally kill **Tabiah**;
-17. speak with Romion and Ozwald afterward.
+He says the revolt's leader is a Glenmoril witch. Ozwald immediately understands the assignment as:
+- kill the witch;
+- take her **Red Drop**.
 
-This is direct quest-objective evidence rather than chronology inferred from editor IDs.
+Romion and Ozwald expect Ebonwall to become a battlefield between the Ashlanders and a Nord volunteer army.
 
-## Setting and conflict evidence
+## Principal actors
 
-The dialogue topics let the player ask Romion about the Ashlanders, their leaders, Ebonwall, the Ashlanders in Ebonwall, and the cause of a riot. Ozwald's topics include the **Eton Nir Research Institute** and the presence of the **Thalmor**.
+- **Wise Woman Tabiah** — Glenmoril witch / Ashlander Wise Woman / mission target
+- **Ashkhan Gadaratto**
+- **Magni the Iron Fist** — Nord volunteer-army commander
+- **Thalmor Commander**
+- Eton Nir Research Institute agents
+- Gulakhans / Ashlander forces
+- Mudspawn
 
-The mission therefore directly involves competing groups at Ebonwall: Ashlander forces/leaders, a Nord volunteer-army commander, and a Thalmor commander. The exact political history and motives of these groups remain to be reconstructed from INFO responses and mission documents.
+## Tabiah
 
-## Aftermath
+Romion says Tabiah:
+- was born in Mournhold in the Third Era;
+- served as a lady of Almalexia;
+- traveled Morrowind after the Tribunal fell;
+- came into contact with Glenmoril during that period.
 
-Post-mission dialogue explicitly asks Romion what happened at Ebonwall and where a recovered **heart stone** is now. Another branch asks whether Tabiah can simply be left behind. These establish the heart stone and Tabiah as persistent consequences/nodes of the mission without yet assigning an interpretation to them.
+At the end of the mission, Tabiah is found beneath the graveyard/statue area repeatedly saying no one will take **“these children”** and that she promised **“him.”**
+
+Ozwald believes the **Heart Stone** has broken her mind. He elects not to kill her, saying she is already effectively destroyed, and takes the stone instead.
+
+## Heart Stone
+
+Post-mission Romion says the Heart Stone was sent to the **Chick Trader**, who specifically wanted it because it was full of magic.
+
+Later Or the Gospel dialogue explicitly identifies the Heart Stone from Ebonwall as the device Ja'zel prepared for the temple assault.
+
+## Eton Nir / Thalmor
+
+Ozwald discovers Eton Nir agents operating at Ebonwall and suspects they are attempting to collect the Glenmoril witch's curse.
+
+The quest includes an Eton Nir communicator operation and a Thalmor commander encounter.
+
+## Branching aftermath
+
+The post-mission dialogue contains at least two outcome states:
+- if the Nord commander falls, the Nord army withdraws and some Ashlanders survive/wander, with some settling in Windhelm's Grey Quarter;
+- in the harsher state, the riot is suppressed, all Ashlanders at Ebonwall are executed, and the settlement becomes abandoned again.
+
+The **Embers** subquest follows the survival branch.
+
+## Corpus status
+
+Ebonwall contributes **161 exact responses**:
+- 60 SCEN responses
+- 101 non-SCEN topic responses

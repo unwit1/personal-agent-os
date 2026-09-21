@@ -5,12 +5,12 @@ Direct raw-ESM resolution of the Ja'zel / Ja'zeri / Gerhard scene cluster.
 ## Completed
 
 - Ja'zel Child: 3 exact rows — speaker resolves to **Ja'zeri**
-- Ja'zel Boy: 17 exact rows — speakers resolve to **Ja'zel** and **Orlando/Owl**
+- Ja'zel Boy: **16** exact rows — speakers resolve to **Ja'zel** and **Orlando/Owl**
 - Ja'zel Mad: 4 exact rows — speaker resolves to **Ja'zel**
 - Gerhard / Charm: 4 exact rows — speaker resolves to **Gerhard**
 
-**Batch total: 28 exact dialogue rows.**
-**Running total after batches 01–03: 84 resolved rows.**
+**Batch total: 27 exact dialogue rows.**
+**Running total after batches 01–03: 83 resolved rows.**
 
 ## Major resolutions
 
@@ -20,4 +20,8 @@ Direct raw-ESM resolution of the Ja'zel / Ja'zeri / Gerhard scene cluster.
 4. Ja'zel's later scene directly combines Rolly-Polly / Ja'bal / chicks / EGG vocabulary.
 5. Gerhard explicitly identifies Lalanoah as his daughter and himself as the person she calls dad/daddy.
 
-These are now direct structurally attributed scene records, replacing earlier EDID-only hypotheses.
+## Audit correction
+
+The original batch count treated Ja'zel Boy as 17 rows. Raw record reconciliation gives 16, so this batch is corrected from 28 → **27**. The later Or-the-Gospel batch had an opposite one-row undercount, so the post-batch-05 cumulative total remains unchanged.
+
+These are direct structurally attributed scene records, replacing earlier EDID-only hypotheses.

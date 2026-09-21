@@ -1,0 +1,5 @@
+{"batch":18,"quest_editor_id":"zzzGHMq02Gen","title":"Mq02 Generic","scene_responses":5,"topic_responses":10,"total_responses":15,"speaker_methods":["scene_actor_alias","GetIsID"],"detail_path":"dialogue/ebonwall/mq02-generic-resolved.md"}
+{"batch":18,"quest_editor_id":"zzzGHMq04BO","title":"The Black Owl 04","scene_responses":1,"topic_responses":4,"total_responses":5,"speaker_methods":["scene_actor_alias","GetIsAliasRef"],"detail_path":"dialogue/black-owl-04/resolved.md"}
+{"batch":18,"quest_editor_id":"zzzGHMq04Radio","title":"Thalmor Radio","scene_responses":15,"topic_responses":0,"total_responses":15,"speaker_methods":["scene_actor_alias"],"detail_path":"dialogue/bronze-key/thalmor-radio-resolved.md"}
+{"batch":18,"quest_editor_id":"zzzGHMq06","title":"Or the Gospel","scene_responses":0,"topic_responses":113,"total_responses":113,"speaker_methods":["GetIsAliasRef"],"detail_path":"dialogue/or-the-gospel/topics-resolved.md"}
+{"batch":18,"audit":"act2-core","previous_total":1595,"recovered_responses":148,"corrected_overcount":1,"corrected_undercount":1,"reconciled_total":1743,"raw_expected_total":1743}
