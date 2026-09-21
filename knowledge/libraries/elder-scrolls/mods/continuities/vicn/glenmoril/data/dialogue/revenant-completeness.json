@@ -1,0 +1,17 @@
+{
+  "source_plugin": "Glenmoril.esm",
+  "scope": "zzzRev direct QUST/SCEN dialogue",
+  "text_bearing_quests": 44,
+  "zero_response_quests": 35,
+  "expected_responses": 1328,
+  "normalized_responses": 258,
+  "remaining_responses": 1070,
+  "normalized_quests": {
+    "zzzRevGen": 146,
+    "zzzRevMq00": 21,
+    "zzzRevMq01": 19,
+    "zzzRevSub01": 35,
+    "zzzRevSub02": 19,
+    "zzzRevSub03": 18
+  }
+}
