@@ -35,7 +35,8 @@ Scope: the ten main `zzzLrhMq01–zzzLrhMq10` **Little Red** quests.
 - Mq02 — The Chick Trader: **76 / 76 normalized**
 - Mq03 — A Curious Animal: **26 / 26 normalized**
 - Mq04 — Weary of Waiting: **29 / 29 normalized**
-- Mq05–Mq10: inventoried, pending sequential normalization
+- Mq05 — Ah, Apple Pie!: **53 / 53 normalized**
+- Mq06–Mq10: inventoried, pending sequential normalization
 
-Normalized so far: **228 / 585**
-Remaining: **357**
+Normalized so far: **281 / 585**
+Remaining: **304**
