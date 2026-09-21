@@ -46,3 +46,20 @@ Haalj's testimony is deliberately placed against Yngol's competing version, in w
 DAc0da also separately includes Snow-Elf orders for an attack on Jylkurfyk and a Dagon contract, so Haalj's testimony should **not** be flattened into the sole objective history.
 
 His importance is that DAc0da supplies an internal Atmoran/mixed-blood dissident account from someone Yngol later remembers as belonging to the 500 Companions.
+
+
+## Half-Drake form
+
+The parent quest also has a separate alias `Boss03M` pointing to:
+
+- `DAc0da.esm:0051B1`
+- Editor ID: `zDcdBossAtmoraOutcast02Mutated`
+- FULL: **Haalj the Half-Drake**
+- short name: **Haalj**
+- race: `zDcdWereDrakeRace` — **Weredrake**
+
+This form is physically placed in the same `DcdFrostSeaCEND` cell at **Jylkurfyk Checkpoint** as Haalj's ordinary quest state.
+
+Because Drowned Nighthawk already establishes that Haalj was born to a **Snow Drake**, the separate Half-Drake/Weredrake form is strong structural support that DAc0da literalizes that mixed lineage as a transformation/state.
+
+The precise trigger and branch condition for the mutation remain script/quest-state details and should not be assumed from the actor form alone.
