@@ -23,20 +23,48 @@ Presence inside DAc0da does **not** prove DAc0da/Vicn authored the prose. Each n
 | `DAc0da.esm:00CEDF` | `zDcdLetterTharnWillA` | The Last Will and Testament of Abnur Tharn | DAc0da epilogue variant |
 | `DAc0da.esm:00CEE0` | `zDcdLetterTharnWillB` | The Last Will and Testament of Abnur Tharn | DAc0da epilogue variant |
 
-## Daggerfall / Totem-letter reprint candidates
+## Verified Daggerfall / Totem-letter reuse
 
-These six records reproduce the recognizable Totem-of-Tiber-Septim correspondence set and should be treated as **source-reuse candidates**, not automatically Vicn-authored lore:
+The following six records are now verified as adapted reuses of the official **The Elder Scrolls II: Daggerfall** correspondence from the **Totem, Totem, Who Gets the Totem? / Who Gets the Totem** quest sequence.
 
-| Source | Editor ID | Title |
-|---|---|---|
-| `DAc0da.esm:00455D` | `zDcdLetterDaggerfall01` | Letter from Queen Akorithi |
-| `DAc0da.esm:00455E` | `zDcdLetterDaggerfall02` | Letter from King Eadwyre |
-| `DAc0da.esm:00455F` | `zDcdLetterDaggerfall03` | Letter from Gortwog |
-| `DAc0da.esm:004560` | `zDcdLetterDaggerfall04` | Letter from King of the Worms |
-| `DAc0da.esm:004561` | `zDcdLetterDaggerfall05` | Letter from The Underking |
-| `DAc0da.esm:004562` | `zDcdLetterDaggerfall06` | Letter from Lady Brisienna |
+They are **not Vicn-authored lore text**.
 
-Exact text-level comparison against the canonical/apocryphal source library is still pending.
+| DAc0da source | Editor ID | DAc0da title | Origin status |
+|---|---|---|---|
+| `DAc0da.esm:00455D` | `zDcdLetterDaggerfall01` | Letter from Queen Akorithi | verified Daggerfall official-text reuse |
+| `DAc0da.esm:00455E` | `zDcdLetterDaggerfall02` | Letter from King Eadwyre | verified Daggerfall official-text reuse |
+| `DAc0da.esm:00455F` | `zDcdLetterDaggerfall03` | Letter from Gortwog | verified Daggerfall official-text reuse |
+| `DAc0da.esm:004560` | `zDcdLetterDaggerfall04` | Letter from King of the Worms | verified Daggerfall official-text reuse |
+| `DAc0da.esm:004561` | `zDcdLetterDaggerfall05` | Letter from The Underking | verified Daggerfall official-text reuse |
+| `DAc0da.esm:004562` | `zDcdLetterDaggerfall06` | Letter from Lady Brisienna | verified Daggerfall official-text reuse |
+
+### Adaptation behavior
+
+DAc0da preserves the substantive Daggerfall wording while resolving dynamic quest placeholders into a static in-mod form.
+
+Examples:
+
+- Daggerfall's dynamic `(Player's name)` becomes **Agent**.
+- Eadwyre's `Noble (player's name)` becomes **Noble Agent**.
+- Underking's dynamic meeting location is replaced by **the appointed place**.
+- Brisienna's dynamic town/region/building destination is likewise replaced by **the appointed place**.
+
+Minor punctuation/spacing differences also occur.
+
+### DAc0da-specific significance
+
+Although the letter prose itself is reused official text, DAc0da places the six-letter set inside:
+
+- `DAc0da.esm:004563` — `zDcdLitemAgentLetter`
+
+and places that list in the dedicated MQ01 **Agent ash pile**.
+
+Therefore:
+
+- **letter content** -> Daggerfall official-source provenance;
+- **selection/placement as Agent loot** -> DAc0da/Vicn narrative-design evidence.
+
+This distinction is important for the DAc0da Agent -> Daggerfall Agent / Warp in the West relationship.
 
 ## Nahd fiction / apocryphal-developer-text block
 
@@ -70,8 +98,7 @@ Their short DESC fields generally name the summon/spell rather than provide pros
 
 ## Next provenance work
 
-1. exact-hash/text comparison for the six Daggerfall letters;
-2. exact source resolution for all `NahdFiction_*_MK` records;
-3. preserve DAc0da temporal-tome prose as alternate-reality evidence;
-4. link DAc0da-specific letters to their quests/characters;
-5. do not duplicate full apocryphal texts when the canonical library already stores them—link to the existing source instead.
+1. exact source resolution for unresolved `NahdFiction_*_MK` records;
+2. preserve DAc0da temporal-tome prose as alternate-reality evidence;
+3. link DAc0da-specific letters to their quests/characters;
+4. do not duplicate full apocryphal texts when the canonical library already stores them—link to the existing source instead.
