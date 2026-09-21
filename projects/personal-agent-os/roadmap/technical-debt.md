@@ -116,3 +116,39 @@ Candidate profile updates flow through the generic candidate pipeline. There is
 no rule yet for when a conversational observation may become a durable profile
 fact, which EXEC-0.5 asks for.
 
+## From P0.3 — Shared document intelligence
+
+### HR-GUI is not yet wired to this layer
+
+The shared layer exists and is tested, but the scanner that would benefit from
+it still has its own path. Nothing is faster in production until HR-GUI calls
+`extract_page` with its own extractor and OCR callables. That work belongs in
+the HR-GUI repository and was deliberately not attempted from here.
+
+### Field-zone OCR and concurrency are not started
+
+Steps 4 and 5 of the optimization path need the real scanner, real documents,
+and measurement on the work machine. Guessing at zone coordinates or thread
+counts without that evidence would be the kind of unmeasured optimization the
+roadmap explicitly gates against.
+
+### The form vocabulary is a fixed allowlist
+
+`FORM_VOCABULARY` is a curated set of generic form words. It is safe by
+construction -- a personal value cannot become an anchor -- but a form whose
+structure uses unusual vocabulary yields few anchors and therefore a weak
+template signature. The honest fix is to learn anchors from terms recurring
+*across many documents*, which needs corpus state this layer does not have yet.
+
+### Benchmark numbers are simulated
+
+The measured speedups use a stand-in OCR cost, not a real engine. The ratios
+are structurally sound -- a cache hit genuinely skips the call -- but absolute
+seconds saved in production are unknown until HR-GUI is wired up and measured.
+
+### No cross-machine cache story
+
+The cache is deliberately workstation-local and must never sync. That is
+correct for privacy, and it means a second machine starts cold with no way to
+share the work. Accepted, not solved.
+

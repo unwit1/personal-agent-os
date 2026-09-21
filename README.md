@@ -180,6 +180,26 @@ transcript, so an interrupted job resumes from disk. Escalation happens only
 after a declared validator actually fails, and a stage that already passed is
 never silently redone by a stronger model. See `docs/staged-workflows.md`.
 
+### Shared document intelligence
+
+A reusable extraction layer so projects do not each repeat page hashing, blank
+detection, embedded-text extraction and OCR routing. No OCR engine is bundled:
+callers pass their own extraction and OCR callables.
+
+```powershell
+agent-os document-cache-status
+agent-os document-cache-prune --max-age-days 90
+agent-os document-cache-clear
+```
+
+The cache key covers only what determines the extracted bytes, so changing a
+classifier or fingerprint reuses the OCR instead of paying for it again. The
+cache is workstation-local: a location inside the tracked repository is refused
+structurally, and `validate` asserts nothing under `.agent-local/` is tracked.
+Template signatures are built from an allowlisted form vocabulary, so two
+copies of one form filled in by different people match while personal values
+never enter a signature. See `docs/document-intelligence.md`.
+
 ### Selective profile retrieval
 
 Durable personal context in `profile/` is never injected whole. It is flattened

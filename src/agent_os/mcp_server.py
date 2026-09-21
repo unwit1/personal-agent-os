@@ -10,6 +10,7 @@ from .changes import capture_change, get_change, google_safe_projection, list_ch
 from .chat import context as chat_context
 from .chat import latest_project_handoff, project_status, skills_match
 from .compiler import compile_context
+from .documents import cache_status_safe
 from .forms import form_issue_payload, route_form
 from .handoffs import create_handoff
 from .index import search
@@ -116,6 +117,10 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "description": "Incrementally synchronize recent iCloud messages into the local read-only index.",
         "inputSchema": {"type": "object", "properties": {"limit": {"type": "integer", "default": 500}}},
     },
+    "document.cache_status": {
+        "description": "Report local document-cache size and age as counts only. The cache is workstation-local and its contents are never returned.",
+        "inputSchema": {"type": "object", "properties": {}},
+    },
     "profile.retrieve": {
         "description": "Retrieve only the durable personal-profile slice a task touches, with diagnostics. Never returns the whole profile.",
         "inputSchema": {"type": "object", "properties": {"task": {"type": "string"}, "limit": {"type": "integer", "default": 5}, "minimum_score": {"type": "integer", "default": 3}}, "required": ["task"]},
@@ -209,6 +214,7 @@ def methods() -> dict[str, Callable[..., Any]]:
         "mail.get_message": mail_get_message,
         "mail.sync_status": mail_status,
         "mail.sync": mail_sync,
+        "document.cache_status": cache_status_safe,
         "profile.retrieve": profile_retrieve,
         "profile.status": profile_status,
         "workflow.list": list_workflows,

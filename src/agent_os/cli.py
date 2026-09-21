@@ -9,6 +9,7 @@ from .adapters import sync_adapters
 from .candidates import candidate_status, curate_candidates, stage_candidates
 from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, update_change
 from .compiler import compile_context
+from .documents import DocumentCache
 from .forms import form_issue_payload, route_form
 from .handoffs import create_handoff
 from .index import rebuild, search
@@ -66,6 +67,11 @@ def parser() -> argparse.ArgumentParser:
     integration.add_argument("--surface")
     integration.add_argument("--strict", action="store_true")
     commands.add_parser("validate")
+    commands.add_parser("document-cache-status")
+    commands.add_parser("document-cache-clear")
+    cache_prune = commands.add_parser("document-cache-prune")
+    cache_prune.add_argument("--max-bytes", type=int, default=536870912)
+    cache_prune.add_argument("--max-age-days", type=int, default=90)
     commands.add_parser("profile-status")
     profile_retrieve = commands.add_parser("profile-retrieve")
     profile_retrieve.add_argument("task")
@@ -232,6 +238,12 @@ def main(argv: list[str] | None = None) -> int:
             result = validate()
             _print(result)
             return 0 if result["ok"] else 1
+        elif args.command == "document-cache-status":
+            _print(DocumentCache().stats())
+        elif args.command == "document-cache-clear":
+            _print(DocumentCache().clear())
+        elif args.command == "document-cache-prune":
+            _print(DocumentCache().prune(args.max_bytes, args.max_age_days))
         elif args.command == "profile-status":
             _print(profile_status())
         elif args.command == "profile-retrieve":

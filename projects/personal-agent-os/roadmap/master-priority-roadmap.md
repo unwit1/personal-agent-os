@@ -218,6 +218,27 @@ Detailed design:
 
 ### P0.3 — Shared document intelligence + local persistent extraction/OCR cache
 
+Status: **foundation complete** (2026-09-21) — steps 1-3 of the five-step path.
+Implemented in `src/agent_os/documents.py`, exposed through CLI and MCP,
+enforced by `agent.py validate`, and covered by 40 regression tests.
+
+Delivered:
+1. persistent exact-page cache keyed by content hash — **done**;
+2. dependency/version-aware invalidation, so interpretation changes reuse
+   OCR — **done**, and asserted structurally by test;
+3. template-level structural signatures that are person-independent — **done**;
+4. targeted field-zone OCR — **not started**;
+5. bounded concurrency — **not started**, and correctly gated behind measuring
+   the earlier steps.
+
+Measured (40 pages, simulated OCR at 20ms/page): cold 0.65s, warm 0.14s
+(4.5x repeat-run speedup, 78% avoided), classifier change 0.00s of OCR, OCR
+engine upgrade correctly re-extracts.
+
+HR-GUI is a separate repository and was not modified; wiring its scanner to
+this layer is the next concrete step. Remaining debt is recorded in
+`projects/personal-agent-os/roadmap/technical-debt.md`.
+
 Prioritize the reusable document-intelligence layer and HR-GUI scan optimization work.
 
 Implementation order:

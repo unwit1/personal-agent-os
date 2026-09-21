@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-21T18:21:57.969571+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main\n M README.md\n M projects/personal-agent-os/roadmap/master-priority-roadmap.md\n M projects/personal-agent-os/roadmap/technical-debt.md\n M src/agent_os/cli.py\n M src/agent_os/mcp_server.py\n M src/agent_os/validation.py\n?? docs/document-intelligence.md\n?? src/agent_os/documents.py\n?? tests/test_documents.py",
+    "error": ""
+  },
+  "completed": [
+    "Implemented the P0.3 foundation in src/agent_os/documents.py: content-addressed page hashing, cheap blank detection, embedded-text-before-OCR routing, a persistent local extraction cache, retention/prune/clear, and compact telemetry.",
+    "Cache key covers only extraction inputs (file hash, page, dpi, rotation, extractor, engine, preprocess). Classifier, fingerprint, naming, date and packet logic are excluded by construction and asserted absent by test, so interpretation changes reuse OCR.",
+    "Privacy boundary is structural: a cache location inside the tracked repository raises CachePrivacyError, validate asserts .agent-local is gitignored and untracked, and cache_status_safe omits even the absolute path.",
+    "Rebuilt structural_fingerprint on an allowlisted form vocabulary after a test caught a surname leaking into the signature via intra-page repetition. Signatures are now person-independent: the same form filled in by different people matches.",
+    "Exposed document-cache-status/clear/prune via CLI and document.cache_status via MCP (counts only, never contents). Added tests/test_documents.py with 40 regression tests.",
+    "Documented in docs/document-intelligence.md; recorded five debt items including that HR-GUI is not yet wired to the layer."
+  ],
+  "decisions": [
+    "No OCR engine is bundled; callers inject extraction and OCR callables, keeping the layer provider-neutral and testable without an engine installed.",
+    "Repetition within one page is not evidence of boilerplate. Anchors come from an allowlist, which fixes the privacy leak by construction and produces a genuine template signature.",
+    "Steps 4 and 5 (field-zone OCR, bounded concurrency) were not attempted: they need the real scanner and real documents, and the roadmap gates concurrency behind measuring the earlier steps.",
+    "HR-GUI was not modified; it is a separate repository and wiring it is its own piece of work."
+  ],
+  "remaining": [
+    "HR-GUI is not yet wired to this layer, so nothing is faster in production yet. That is the next concrete step and belongs in the HR-GUI repository.",
+    "Field-zone OCR and bounded concurrency (steps 4-5) are not started.",
+    "FORM_VOCABULARY is a fixed allowlist; learning anchors from cross-document recurrence needs corpus state this layer lacks.",
+    "Benchmark numbers use a simulated OCR cost; real production savings are unmeasured.",
+    "Next roadmap item is P0.4 resumable/checkpointed ingestion everywhere."
+  ],
+  "validation": [
+    "python -m unittest discover -s tests (220 passed, was 180)",
+    "python agent.py validate (338 checks, 0 errors, 0 warnings)",
+    "python agent.py launcher-verify (ok, 23 tools)",
+    "benchmark 40 pages at 20ms/page simulated OCR: cold 0.65s, warm 0.14s (4.5x, 78% avoided), classifier change 0.00s OCR, engine upgrade correctly re-extracts"
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}
