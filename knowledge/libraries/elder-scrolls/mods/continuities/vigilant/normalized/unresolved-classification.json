@@ -1,0 +1,15 @@
+{
+  "total": 89,
+  "policy": "Do not infer a personal speaker from wording alone; preserve quest/scene/role evidence when unique identity is unavailable.",
+  "categories": {
+    "dynamic_quest_alias": {"count":17,"info_formids":["02038AB4","02038ABD","02038AB6","02038AB8","02038ABA","02038ABC","0203A0C2","024E3737","024E3739","024E373C","024E373F","024E3742","024E3745","024E3746","024E3748","024E374A","024E3749"]},
+    "scene_specific_reference": {"count":15,"info_formids":["0203D780","020875F8","022CC1E5","022CC1E7","022CC1E9","022CC1EC","022CC1EE","022CC1F3","022CC1F5","022CC1F7","022E47D0","022E47D3","024D8321","024D8323","024D8325"]},
+    "subject_specific_reference": {"count":13,"info_formids":["02531D03","02531D02","024D4C43","024D4C45","024D4C47","024D4C49","024D4C4B","024D4C4D","024D4C4F","024D4C51","024D4C53","024D4C55","0256F0C0"]},
+    "location_ref_alias": {"count":12,"info_formids":["0212B2DE","02139C27","02139C29","02139C2B","02140805","02140807","02140809","0214080B","0214080D","0214080F","02140811","02140813"]},
+    "ambiguous_structural": {"count":10,"info_formids":["0206646F","024E919C","0251EAE7","0251EA99","0251EA9A","0251EA9B","0251EA9C","0251EA9D","0251EA9E","0251EA9F"]},
+    "scene_dynamic_alias": {"count":10,"info_formids":["0212B2E3","0212B2E5","0212B2EA","0212B2EC","0212B2F1","0212B2F3","0212DBB1","02141F23","02141F25","02141F27"]},
+    "external_unique_actor": {"count":4,"info_formids":["02009E57","02009E58","02009E5A","02009E5C"]},
+    "voice_type_pool": {"count":4,"info_formids":["0251EAA0","0251EAA1","0251EAA2","0251EAA3"]},
+    "no_identity_structure": {"count":4,"info_formids":["02008862","022A534E","022A5350","022A5352"]}
+  }
+}
