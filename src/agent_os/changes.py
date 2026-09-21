@@ -8,6 +8,7 @@ from typing import Any, Iterable
 
 from .candidates import stage_candidates
 from .paths import ROOT
+from .locking import canonical_write
 from .privacy import privacy_findings, require_private_safe
 from .registry import get_project
 from .storage import load_json, write_json
@@ -72,6 +73,7 @@ def _write(record: dict[str, Any]) -> None:
     write_json(directory / "index.json", {"schema_version": 1, "project": record["routing"]["project_id"], "changes": _index(record["routing"]["project_id"])})
 
 
+@canonical_write
 def capture_change(
     project: str,
     title: str,
@@ -84,6 +86,7 @@ def capture_change(
     external_key: str | None = None,
     google_eligible: bool = False,
     reusable_candidate: bool = False,
+    task_id: str | None = None,
 ) -> dict[str, Any]:
     canonical = get_project(project)["id"]
     if change_type not in CHANGE_TYPES:
@@ -95,7 +98,7 @@ def capture_change(
     component_items = list(dict.fromkeys(str(item).strip() for item in components if str(item).strip()))
     file_items = list(dict.fromkeys(str(item).strip() for item in repository_files if str(item).strip()))
     safe_input = {"title": title, "request_summary": request_summary, "components": component_items, "repository_files": file_items, "external_key": external_key}
-    require_private_safe(safe_input, "change")
+    require_private_safe({**safe_input, "task_id": task_id}, "change")
     if not title.strip() or not request_summary.strip():
         raise ValueError("change title and request summary are required")
     fingerprint = _fingerprint(canonical, change_type, title, request_summary, component_items, file_items)
@@ -103,6 +106,9 @@ def capture_change(
     for existing in records:
         same_external = external_key and any(ref.get("external_key") == external_key for ref in existing.get("source_refs", []))
         if same_external or (existing.get("fingerprint") == fingerprint and existing.get("status") not in {"REJECTED", "SUPERSEDED"}):
+            if task_id and task_id not in existing.get("task_ids", []):
+                existing.setdefault("task_ids", []).append(task_id)
+                _write(existing)
             if external_key and not same_external:
                 existing.setdefault("source_refs", []).append({"kind": source_kind, "external_key": external_key})
                 existing["updated_at"] = _now()
@@ -130,6 +136,7 @@ def capture_change(
         "privacy": {"contains_raw_private_source": False, "google_eligible": bool(google_eligible), "google_block_reasons": [], "policy_version": "1"},
         "source_refs": [{"kind": source_kind, "external_key": external_key}] if external_key else [{"kind": source_kind}],
         "fingerprint": fingerprint,
+        "task_ids": [task_id] if task_id else [],
     }
     _write(record)
     return {"project": canonical, "created": True, "record": record}
@@ -150,6 +157,7 @@ def list_changes(project: str, status: str | None = None) -> list[dict[str, Any]
     return [record for record in _records(canonical) if status is None or record.get("status") == status]
 
 
+@canonical_write
 def update_change(
     project: str,
     change_id: str,

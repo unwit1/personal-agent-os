@@ -17,11 +17,18 @@ from .mail import get_message as mail_get_message, search as mail_search, status
 from .improvements import capture_improvement, get_improvement, issue_payload, list_improvements, search_improvements, update_improvement
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .skills import discover, match, metadata
+from .contracts import BEGIN_INPUT, CONTINUE_INPUT, FINISH_INPUT, ABORT_INPUT, validate_contract
+from .lifecycle import begin_task, continue_task, finish_task, abort_task, task_status
 
 
 TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
+    "agent.begin_task": {"description": "Required preflight for each controlled task, including ordinary prompts. Returns a task ID and selective context.", "inputSchema": BEGIN_INPUT},
+    "agent.continue_task": {"description": "Continue an active task with context deltas; reset_context reloads context after compaction; resume reopens an aborted task.", "inputSchema": CONTINUE_INPUT},
+    "agent.finish_task": {"description": "Required structured postflight. Stages evidenced sanitized findings, handoff and review status without promoting memory.", "inputSchema": FINISH_INPUT},
+    "agent.abort_task": {"description": "Record interrupted or failed work with safe classifications and recovery guidance.", "inputSchema": ABORT_INPUT},
+    "agent.task_status": {"description": "Inspect local task status and pending sanitized postflight for recovery.", "inputSchema": {"type": "object", "properties": {"task_id": {"type": "string"}}, "required": ["task_id"], "additionalProperties": False}},
     "agent.context": {
-        "description": "Resolve one likely project and return a compact, token-budgeted context packet. Use this first for substantial project work.",
+        "description": "Advanced read-only fallback: compact project context. Prefer agent.begin_task for normal work.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -115,6 +122,11 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
 
 def methods() -> dict[str, Callable[..., Any]]:
     available = {
+        "agent.begin_task": begin_task,
+        "agent.continue_task": continue_task,
+        "agent.finish_task": lambda task_id, postflight: finish_task(task_id, postflight),
+        "agent.abort_task": abort_task,
+        "agent.task_status": task_status,
         "project.list": lambda: projects(),
         "project.identify": lambda path: identify_project(Path(path)),
         "project.status": lambda project: {"state": load_state(get_project(project)), "git": git_status(get_project(project))},
@@ -154,8 +166,7 @@ def methods() -> dict[str, Callable[..., Any]]:
         "form.route": route_form,
         "form.issue_payload": form_issue_payload,
     }
-    # These aliases are deliberately small: regular-chat clients should normally
-    # need only agent.context and agent.capture_candidates.
+    # Retain legacy aliases; lifecycle tools own normal orchestration.
     available.update(
         {
             "agent.context": chat_context,
@@ -187,7 +198,7 @@ def _handle_mcp(request: dict[str, Any], available: dict[str, Callable[..., Any]
                 "protocolVersion": params.get("protocolVersion", "2025-06-18"),
                 "capabilities": {"tools": {"listChanged": False}},
                 "serverInfo": {"name": "personal-agent-os", "version": "0.1.0"},
-                "instructions": "Use agent.context first for substantial project work. It retrieves compact context only. Use agent.capture_candidates to stage evidence-backed findings; it never promotes canonical memory.",
+                "instructions": "Mandatory controlled lifecycle: agent.begin_task -> work -> agent.finish_task; agent.continue_task adds a turn and agent.abort_task records failure. Every prompt receives an envelope; ordinary prompts load no project context. Follow project-local policy. Postflight contains sanitized engineering summaries, evidence and validation, never raw history or hidden chain-of-thought. MCP instructions require client cooperation; only the controlled gateway technically wraps execution.",
             },
         }
     if method == "tools/list":
@@ -201,9 +212,12 @@ def _handle_mcp(request: dict[str, Any], available: dict[str, Callable[..., Any]
             arguments = params.get("arguments", {})
             if not isinstance(arguments, dict):
                 raise ValueError("tool arguments must be an object")
+            if name in {"agent.begin_task", "agent.continue_task", "agent.finish_task", "agent.abort_task", "agent.task_status"}:
+                validate_contract(arguments, TOOL_SCHEMAS[name]["inputSchema"], "arguments")
             return {"jsonrpc": "2.0", "id": request_id, "result": _mcp_result(available[name](**arguments))}
         except Exception as exc:
-            return {"jsonrpc": "2.0", "id": request_id, "result": _mcp_result({"error": str(exc)}, error=True)}
+            message = "Lifecycle request failed; check arguments and task status" if name in {"agent.begin_task", "agent.continue_task", "agent.finish_task", "agent.abort_task", "agent.task_status"} else str(exc)
+            return {"jsonrpc": "2.0", "id": request_id, "result": _mcp_result({"error": message}, error=True)}
     return None
 
 

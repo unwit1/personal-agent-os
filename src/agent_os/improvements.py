@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from .paths import ROOT
+from .locking import canonical_write
 from .privacy import require_private_safe
 from .registry import get_project
 from .storage import load_json, write_json
@@ -85,6 +86,7 @@ def _write(record: dict[str, Any]) -> None:
     write_json(directory / "index.json", {"schema_version": 1, "project": record["project"], "improvements": _index(record["project"])})
 
 
+@canonical_write
 def capture_improvement(
     project: str,
     title: str,
@@ -98,6 +100,7 @@ def capture_improvement(
     risks: Iterable[str] = (),
     source: dict[str, Any] | None = None,
     dedupe_key: str | None = None,
+    task_id: str | None = None,
 ) -> dict[str, Any]:
     canonical = get_project(project)["id"]
     acceptance_items = [str(item).strip() for item in acceptance if str(item).strip()]
@@ -113,10 +116,13 @@ def capture_improvement(
         if set(source) - {"type", "reference"} or source.get("type") not in {"chat", "work", "codex", "claude", "manual", "regression", "review", "other"}:
             raise ValueError("invalid improvement source")
     safe_input = {"title": title, "observation": observation, "direction": suggested_direction, "acceptance": acceptance_items, "evidence": evidence_items, "risks": risk_items, "source": source or {}}
-    require_private_safe(safe_input, "improvement")
+    require_private_safe({**safe_input, "subsystem": subsystem, "task_id": task_id}, "improvement")
     fingerprint = _dedupe_key(canonical, category, subsystem, title, observation, dedupe_key)
     for existing in _records(canonical):
         if existing.get("dedupe_key") == fingerprint and existing.get("status") in ACTIVE_STATUSES:
+            if task_id and task_id not in existing.get("task_ids", []):
+                existing.setdefault("task_ids", []).append(task_id)
+                _write(existing)
             merged = list(dict.fromkeys([*existing.get("evidence", []), *evidence_items]))
             if merged != existing.get("evidence", []):
                 existing["evidence"] = merged
@@ -141,6 +147,7 @@ def capture_improvement(
         "risks": risk_items,
         "dedupe_key": fingerprint,
         "source": source or {"type": "manual", "reference": None},
+        "task_ids": [task_id] if task_id else [],
         "github": None,
         "created_at": now,
         "updated_at": now,
@@ -165,9 +172,11 @@ def list_improvements(project: str, status: str | None = None) -> list[dict[str,
     return [record for record in _records(canonical) if status is None or record.get("status") == status]
 
 
+@canonical_write
 def update_improvement(project: str, improvement_id: str, status: str | None = None, evidence: Iterable[str] = (), github: dict[str, Any] | None = None) -> dict[str, Any]:
     record = get_improvement(project, improvement_id)
     evidence_items = [str(item).strip() for item in evidence if str(item).strip()]
+    require_private_safe(evidence_items, "improvement evidence")
     if status:
         if status not in STATUSES:
             raise ValueError(f"unsupported improvement status: {status}")

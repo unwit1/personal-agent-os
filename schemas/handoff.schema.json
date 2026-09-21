@@ -2,16 +2,63 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Project handoff",
   "type": "object",
-  "required": ["schema_version", "project", "created_at", "completed", "remaining", "validation"],
+  "required": [
+    "schema_version",
+    "project",
+    "created_at",
+    "completed",
+    "remaining",
+    "validation"
+  ],
   "properties": {
-    "schema_version": {"type": "integer", "minimum": 1},
-    "project": {"type": "string", "minLength": 1},
-    "created_at": {"type": "string", "format": "date-time"},
-    "completed": {"type": "array", "items": {"type": "string"}},
-    "remaining": {"type": "array", "items": {"type": "string"}},
-    "validation": {"type": "array", "items": {"type": "string"}},
-    "candidate_memories": {"type": "array", "items": {"type": "string"}},
-    "candidate_skills": {"type": "array", "items": {"type": "string"}}
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "project": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "remaining": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "validation": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "candidate_memories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "candidate_skills": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "task_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
   },
   "additionalProperties": true
 }

@@ -17,7 +17,14 @@ def get_project(project_id: str) -> dict[str, Any]:
     for project in projects():
         names = {project["id"].casefold(), project["name"].casefold(), *(str(alias).casefold() for alias in project.get("aliases", []))}
         if normalized in names:
-            return get_project(project["redirect_to"]) if project.get("redirect_to") else project
+            if project.get("redirect_to"):
+                return get_project(project["redirect_to"])
+            resolved = dict(project)
+            # The registry's own repository can be cloned or checked out as a
+            # worktree somewhere other than the bootstrap machine path.
+            if resolved.get("canonical_owner") == "this_repository":
+                resolved["path"] = str(ROOT)
+            return resolved
     raise KeyError(f"Unknown project: {project_id}")
 
 

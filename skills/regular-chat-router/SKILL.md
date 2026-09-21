@@ -1,6 +1,6 @@
 ---
 name: regular-chat-router
-description: Route substantial project or technical requests through Agent OS, minimize unnecessary work/context, use staged execution when justified, and capture evidence-backed durable findings.
+description: Route controlled requests through the Agent OS lifecycle, minimize unnecessary work/context, use staged execution when justified, and capture evidence-backed durable findings.
 ---
 
 # Regular Chat Router
@@ -8,7 +8,7 @@ description: Route substantial project or technical requests through Agent OS, m
 For a substantial request about code, a repository, implementation, debugging,
 architecture, agent workflows, research, skills, artifacts, or durable project decisions:
 
-1. Run the Agent OS preflight/context route with the user's request and an explicit project hint when available.
+1. Call `agent.begin_task` with the request, source client, and project hint when available, or consume the envelope supplied by a controlled gateway.
 2. Apply `task-complexity-triage` so trivial work stays simple and only genuinely multi-step/expensive work becomes staged.
 3. Run `artifact-reuse-check` before regenerating prompts, ZIPs, reports, manifests, checkpoints, indexes, or other substantial artifacts.
 4. Use the compact returned context packet; apply `context-budgeter` rather than preloading every project, skill, transcript, or historical handoff.
@@ -23,7 +23,7 @@ architecture, agent workflows, research, skills, artifacts, or durable project d
 13. At a stage boundary, use `stage-completion-handoff`; compact growing state with `checkpoint-compactor` when useful.
 14. When resuming, prefer `resume-from-checkpoint` over rediscovering completed work.
 15. After a successful repeated workflow, apply `reuse-or-automate` and stage any durable improvement through the normal candidate/review process.
-16. Stage durable, evidenced findings through `agent.capture_candidates`.
+16. Return explicit decisions, evidence, validation, and candidate proposals through `agent.finish_task`, or return structured postflight to the owning gateway. Use `agent.continue_task` for further turns and `agent.abort_task` on failure.
 
-For ordinary conversation, do not retrieve project context unnecessarily. A candidate is never
+Ordinary controlled requests still receive an envelope without project context. A candidate is never
 canonical memory until an explicit curator workflow validates and promotes it.

@@ -30,6 +30,7 @@ class AgentOSTests(unittest.TestCase):
         self.assertEqual(load_state(project)["project"], "hr-gui")
         self.assertEqual(identify_project(Path(project["path"]))["id"], "hr-gui")
         self.assertEqual(identify_project(Path(__file__).resolve())["id"], "personal-agent-os")
+        self.assertEqual(Path(get_project("personal-agent-os")["path"]).resolve(), Path(__file__).resolve().parents[1])
         self.assertEqual(len({item["id"] for item in projects()}), 7)
 
     def test_project_inventory_is_fully_registered(self) -> None:
@@ -46,6 +47,9 @@ class AgentOSTests(unittest.TestCase):
         destinations = [str(destination) for _, destination in targets()]
         self.assertEqual(len(destinations), 7)
         self.assertTrue(any(destination.endswith(".codex\\AGENTS.md") for destination in destinations))
+        skill = (Path(__file__).resolve().parents[1] / ".agents/skills/personal-agent-os/SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("begin-task", skill)
+        self.assertIn("finish-task", skill)
 
     def test_skill_discovery_and_selective_match(self) -> None:
         skills = discover()

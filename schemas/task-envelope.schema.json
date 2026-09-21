@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent OS task-envelope",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "task_id": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "source": {
+      "type": "object"
+    },
+    "routing": {
+      "type": "object"
+    },
+    "request": {
+      "type": "object"
+    },
+    "privacy": {
+      "type": "object"
+    },
+    "requirements": {
+      "type": "object"
+    },
+    "preflight_completed": {
+      "const": true
+    },
+    "context_mode": {
+      "enum": [
+        "full",
+        "delta"
+      ]
+    },
+    "context": {
+      "type": "object"
+    },
+    "measurement": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_version",
+    "task_id",
+    "source",
+    "routing",
+    "request",
+    "privacy",
+    "requirements",
+    "preflight_completed",
+    "context_mode",
+    "context",
+    "measurement"
+  ],
+  "additionalProperties": false
+}

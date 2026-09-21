@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import getpass
+import sys
 from pathlib import Path
 
 from .adapters import sync_adapters
@@ -22,6 +23,9 @@ from .review import assess
 from .routing import install as install_routing
 from .routing import status as routing_status
 from .validation import validate
+from .lifecycle import begin_task, continue_task, finish_task, abort_task, task_status
+from .gateway import run as gateway_run, GatewayError
+from .clients import CLIProvider, CommandProvider
 
 
 def _print(value: object) -> None:
@@ -48,6 +52,32 @@ def parser() -> argparse.ArgumentParser:
     commands.add_parser("routing-status")
     commands.add_parser("validate")
     commands.add_parser("mcp")
+    for name in ("begin-task", "continue-task", "run", "codex", "claude"):
+        command = commands.add_parser(name)
+        if name == "continue-task":
+            command.add_argument("task_id")
+            command.add_argument("--reset-context", action="store_true")
+            command.add_argument("--resume", action="store_true")
+        else:
+            command.add_argument("--project")
+        command.add_argument("--prompt-file", default="-", help="UTF-8 request file, or - for stdin")
+        command.add_argument("--token-budget", type=int, default=2200)
+        if name == "begin-task":
+            command.add_argument("--source-client", default="cli")
+            command.add_argument("--source-session")
+        if name in {"run", "codex", "claude"}:
+            command.add_argument("--timeout", type=float, default=600)
+        if name == "run":
+            command.add_argument("--command-json", required=True, help="Worker executable and args as a JSON array")
+    finish = commands.add_parser("finish-task")
+    finish.add_argument("task_id")
+    finish.add_argument("--json", required=True, help="Structured postflight JSON file, or - for stdin")
+    abort = commands.add_parser("abort-task")
+    abort.add_argument("task_id")
+    abort.add_argument("--stage", choices=("preflight", "execution", "postflight"), default="execution")
+    abort.add_argument("--error-class", default="interrupted")
+    status_task = commands.add_parser("task-status")
+    status_task.add_argument("task_id")
     mail_cmd = commands.add_parser("mail")
     mail_sub = mail_cmd.add_subparsers(dest="mail_command", required=True)
     mail_setup = mail_sub.add_parser("setup")
@@ -172,6 +202,26 @@ def main(argv: list[str] | None = None) -> int:
             return 0 if result["ok"] else 1
         elif args.command == "mcp":
             return serve()
+        elif args.command in {"begin-task", "continue-task", "run", "codex", "claude"}:
+            query = sys.stdin.read() if args.prompt_file == "-" else Path(args.prompt_file).read_text(encoding="utf-8")
+            if args.command == "begin-task":
+                _print(begin_task(query, args.source_client, args.source_session, args.project, args.token_budget))
+            elif args.command == "continue-task":
+                _print(continue_task(args.task_id, query, args.token_budget, args.reset_context, args.resume))
+            else:
+                provider = CommandProvider(json.loads(args.command_json), args.timeout) if args.command == "run" else CLIProvider(args.command, args.timeout)
+                result = gateway_run(query, provider, source_client=args.command, project_hint=args.project, token_budget=args.token_budget)
+                _print(result)
+                return result["exit_code"]
+        elif args.command == "finish-task":
+            payload = json.loads(sys.stdin.read()) if args.json == "-" else _load_object(args.json)
+            result = finish_task(args.task_id, payload)
+            _print(result)
+            return 0 if result["outcome"] == "completed" else 3
+        elif args.command == "abort-task":
+            _print(abort_task(args.task_id, args.stage, args.error_class))
+        elif args.command == "task-status":
+            _print(task_status(args.task_id))
         elif args.command == "mail":
             if args.mail_command == "setup":
                 address = args.email or input("iCloud email: ").strip()
@@ -240,6 +290,9 @@ def main(argv: list[str] | None = None) -> int:
             _print({"created": str(path)})
         elif args.command == "review":
             _print(assess(args.changed_file, args.tests_failed, args.architecture_change))
+    except GatewayError as exc:
+        _print({"error": str(exc), "task_id": exc.task_id, "stage": exc.stage})
+        return exc.exit_code
     except (KeyError, OSError, ValueError) as exc:
         _print({"error": str(exc)})
         return 2

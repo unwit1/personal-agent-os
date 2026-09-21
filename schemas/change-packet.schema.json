@@ -3,27 +3,143 @@
   "title": "ChangePacket",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "change_id", "created_at", "updated_at", "change_type", "status", "title", "request_summary", "routing", "privacy"],
+  "required": [
+    "schema_version",
+    "change_id",
+    "created_at",
+    "updated_at",
+    "change_type",
+    "status",
+    "title",
+    "request_summary",
+    "routing",
+    "privacy"
+  ],
   "properties": {
-    "schema_version": {"const": 1},
-    "change_id": {"type": "string", "pattern": "^CR-[A-Za-z0-9._-]+$"},
-    "created_at": {"type": "string"},
-    "updated_at": {"type": "string"},
-    "change_type": {"enum": ["bug", "feature", "refactor", "workflow", "performance", "security", "test", "documentation", "architecture", "other"]},
-    "status": {"enum": ["OPEN", "ANALYZED", "PROPOSED", "IMPLEMENTED", "VERIFIED", "REJECTED", "DUPLICATE", "SUPERSEDED", "BLOCKED"]},
-    "title": {"type": "string", "minLength": 1, "maxLength": 180},
-    "request_summary": {"type": "string", "minLength": 1, "maxLength": 3000},
-    "diagnosis_summary": {"type": ["string", "null"]},
-    "fix_summary": {"type": ["string", "null"]},
-    "validation_summary": {"type": ["string", "null"]},
-    "components": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
-    "repository_files": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
-    "routing": {"type": "object", "required": ["project_id", "confidence", "evidence"]},
-    "relations": {"type": "object"},
-    "implementation": {"type": "object"},
-    "reusable": {"type": "object"},
-    "privacy": {"type": "object", "required": ["contains_raw_private_source", "google_eligible", "google_block_reasons"]},
-    "source_refs": {"type": "array", "items": {"type": "object"}},
-    "fingerprint": {"type": ["string", "null"]}
+    "schema_version": {
+      "const": 1
+    },
+    "change_id": {
+      "type": "string",
+      "pattern": "^CR-[A-Za-z0-9._-]+$"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "change_type": {
+      "enum": [
+        "bug",
+        "feature",
+        "refactor",
+        "workflow",
+        "performance",
+        "security",
+        "test",
+        "documentation",
+        "architecture",
+        "other"
+      ]
+    },
+    "status": {
+      "enum": [
+        "OPEN",
+        "ANALYZED",
+        "PROPOSED",
+        "IMPLEMENTED",
+        "VERIFIED",
+        "REJECTED",
+        "DUPLICATE",
+        "SUPERSEDED",
+        "BLOCKED"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 180
+    },
+    "request_summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 3000
+    },
+    "diagnosis_summary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fix_summary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "validation_summary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "repository_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "routing": {
+      "type": "object",
+      "required": [
+        "project_id",
+        "confidence",
+        "evidence"
+      ]
+    },
+    "relations": {
+      "type": "object"
+    },
+    "implementation": {
+      "type": "object"
+    },
+    "reusable": {
+      "type": "object"
+    },
+    "privacy": {
+      "type": "object",
+      "required": [
+        "contains_raw_private_source",
+        "google_eligible",
+        "google_block_reasons"
+      ]
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "fingerprint": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "task_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
   }
 }

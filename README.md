@@ -1,8 +1,9 @@
 # Personal Agent OS
 
-Personal Agent OS is a small, Git-backed context layer for coding agents. Durable
-knowledge stays in this repository; the local SQLite search index is derived and
-can always be rebuilt.
+Personal Agent OS is a Git-backed lifecycle gateway for controlled agent work.
+Requests pass through preflight, a replaceable worker, and structured postflight
+or failure handling. Durable knowledge stays in Git; the local search index is
+derived and can always be rebuilt.
 
 The first integrated project is **HR GUI**. Its project-local policy, memory,
 handoffs, and skills remain in that repository. This repository stores routing
@@ -17,15 +18,23 @@ explicit privacy boundary; runtime business data is excluded from indexing.
 
 ```powershell
 python agent.py init
-python agent.py context hr-gui "fix the two-digit scanner date regression"
+"fix the two-digit scanner date regression" | python agent.py begin-task --project hr-gui
 ```
 
 This local launcher has no third-party dependencies. For a conventional virtual
 environment and globally available command, create a venv and run
 `python -m pip install -e .`; then use `agent-os` instead of `python agent.py`.
 
+Use `agent-os codex --project hr-gui --prompt-file request.txt` to run a controlled
+Codex worker, or `agent-os claude` for an installed Claude Code client. Workers keep
+their normal permissions. See [gateway usage and recovery](docs/gateway.md) for
+postflight JSON, programmatic providers, review hooks, privacy, and limitations.
+
 ## Core commands
 
+- `agent-os begin-task`, `continue-task`, `finish-task`, and `abort-task` manage the lifecycle; `task-status TASK-ID` supports recovery.
+- `agent-os run --command-json '["worker", "arg"]'` wraps a JSON stdin/stdout worker.
+- `agent-os codex` and `agent-os claude` use structured CLI workers through the same gateway.
 - `agent-os projects` lists known projects.
 - `agent-os scan-projects` detects new or moved folders without reading data files.
 - `agent-os install-routing` safely installs missing global and project adapters.
@@ -50,14 +59,19 @@ environment and globally available command, create a venv and run
 Canonical, reviewed files live under `profile/`, `projects/`, `memory/`,
 `skills/`, `policy/`, and `schemas/`. `.agent-os/index.sqlite` is a local cache.
 Raw conversation history is deliberately outside the default context path.
+`.agent-local/tasks/` stores minimal local task journals. Material, sanitized,
+evidenced postflight writes unverified traces under `projects/<id>/tasks/` plus
+deduplicated candidate records and a task-linked handoff. Ordinary tasks create
+no canonical files. A sanitized flag is an explicit author attestation, backed by
+pattern and field checks; it is not a guarantee that arbitrary prose is private-safe.
 
 Relevant active changes and improvements are scored per task and capped at three
 compact summaries of each kind. Full records and full skill bodies are fetched only
 on demand. Form intake stores template structure only: never source documents,
 completed values, raw OCR, or personal data. Google is not a form-intake fallback;
 change records can only produce an explicitly requested, allowlisted safe projection.
-These repository capabilities do not force every ChatGPT surface to invoke them;
-clients must use the installed skill/MCP bridge or an explicit GitHub issue payload.
+Only the controlled gateway enforces the wrapper lifecycle. MCP, instruction
+adapters, hosted ChatGPT, and clients started directly still need cooperation.
 
 ## Fresh-machine recovery
 
@@ -88,7 +102,15 @@ agent-os mcp
 
 The server retains `project.list`, `project.status`, `project.context`,
 `memory.search`, `skill.search`, `agent.start_session`, and
-`agent.finish_session`. Its regular-chat surface is deliberately smaller:
+`agent.finish_session`. The preferred workflow is:
+
+- `agent.begin_task` creates an envelope for every controlled request.
+- `agent.continue_task` returns context deltas for additional turns.
+- `agent.finish_task` processes explicit, sanitized decisions, evidence, validation,
+  and proposed changes/improvements/memories/skills.
+- `agent.abort_task` records safe failure metadata; `agent.task_status` reads recovery state.
+
+Legacy focused tools remain available:
 
 - `agent.context` recognizes substantial project work, resolves one likely
   project, and returns a token-budgeted packet with matched skill metadata,

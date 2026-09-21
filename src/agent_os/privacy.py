@@ -5,6 +5,8 @@ from typing import Any
 
 
 _PATTERNS = {
+    "bearer_secret": re.compile(r"\bBearer\s+[A-Za-z0-9._~+/-]{12,}", re.I),
+    "provider_secret": re.compile(r"\b(?:gh[pousr]_[A-Za-z0-9]{30,}|sk-[A-Za-z0-9_-]{20,})"),
     "email": re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.I),
     "ssn": re.compile(r"\b\d{3}-\d{2}-\d{4}\b"),
     "phone": re.compile(r"(?<!\d)(?:\+?1[\s.-]?)?(?:\(\d{3}\)|\d{3})[\s.-]\d{3}[\s.-]\d{4}(?!\d)"),
@@ -17,6 +19,10 @@ _PATTERNS = {
 }
 
 _FORBIDDEN_KEYS = {
+    "chain_of_thought",
+    "hidden_reasoning",
+    "transcript",
+    "raw_prompt",
     "answers",
     "completed_values",
     "field_values",

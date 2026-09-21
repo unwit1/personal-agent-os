@@ -15,6 +15,7 @@ from .registry import load_state, projects
 from .routing import status as routing_status
 from .skills import discover
 from .storage import load_json
+from .contracts import ENVELOPE, TRACE, POSTFLIGHT, PROVIDER_RESULT, validate_contract
 
 
 SECRET_PATTERNS = {
@@ -41,6 +42,28 @@ def validate() -> dict[str, Any]:
         return {"ok": False, "errors": [f"project registry: {exc}"], "warnings": [], "checked": 0}
 
     ids: set[str] = set()
+    for filename, contract in (("task-envelope", ENVELOPE), ("decision-trace", TRACE), ("postflight", POSTFLIGHT), ("provider-result", PROVIDER_RESULT)):
+        checked += 1
+        schema_path = ROOT / "schemas" / f"{filename}.schema.json"
+        try:
+            schema = load_json(schema_path)
+            schema.pop("$schema", None)
+            schema.pop("title", None)
+            if schema != contract:
+                errors.append(f"schema contract is out of sync: {filename}")
+        except (OSError, ValueError):
+            errors.append(f"missing or invalid gateway schema: {filename}")
+    for trace_path in sorted((ROOT / "projects").glob("*/tasks/TASK-*.json")):
+        checked += 1
+        try:
+            trace = load_json(trace_path)
+            validate_contract(trace, TRACE, "decision trace")
+            if privacy_findings(trace):
+                errors.append(f"privacy findings in {trace_path.relative_to(ROOT)}")
+            if not trace["postflight"]["sanitized"]:
+                errors.append(f"unsanitized trace: {trace_path.relative_to(ROOT)}")
+        except (OSError, ValueError):
+            errors.append(f"invalid decision trace: {trace_path.relative_to(ROOT)}")
     for project in known_projects:
         checked += 1
         _required(project, {"id", "name", "path", "state_file"}, "project", errors)
@@ -50,6 +73,9 @@ def validate() -> dict[str, Any]:
         ids.add(project_id)
         if project.get("redirect_to") and project["redirect_to"] not in {item.get("id") for item in known_projects}:
             errors.append(f"{project_id}: unknown redirect target {project['redirect_to']}")
+        effective_project = dict(project)
+        if effective_project.get("canonical_owner") == "this_repository":
+            effective_project["path"] = str(ROOT)
         state_path = ROOT / project.get("state_file", "")
         if not state_path.exists():
             errors.append(f"missing project state: {state_path}")
@@ -58,7 +84,7 @@ def validate() -> dict[str, Any]:
         _required(state, {"schema_version", "project", "status", "summary", "context_files", "validation_commands"}, project_id, errors)
         if state.get("project") != project_id:
             errors.append(f"{project_id}: state project id mismatch")
-        project_path = Path(project["path"])
+        project_path = Path(effective_project["path"])
         if not project_path.exists():
             warnings.append(f"{project_id}: local checkout not found at {project_path}")
         else:

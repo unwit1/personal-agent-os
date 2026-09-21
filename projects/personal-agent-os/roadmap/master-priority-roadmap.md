@@ -37,6 +37,10 @@ This is the highest-priority work. P0.0 and P0.1 must be treated as the first im
 
 ### P0.0 — Universal Agent OS routing for chats and work projects
 
+Implementation status (2026-09-21):
+- **P0.0a complete:** the provider-neutral controlled lifecycle gateway now enforces preflight before worker execution and valid postflight or abort handling afterward. It is exposed through Python, CLI, Codex/Claude wrappers, and MCP lifecycle tools; local task journals support continuation and recovery without storing prompts or transcripts.
+- **P0.0b next:** add the integration-health report and thin fallback/capture bridge that classifies each supported client surface as fully routed, partially bridged, or unavailable. Do not mark all of P0.0 complete until this report and bridge behavior satisfy the acceptance criteria below.
+
 Make Agent OS the default execution/context layer for every supported ChatGPT chat, Work project, coding-agent task, and other connected agent surface.
 
 Goal:
@@ -465,8 +469,8 @@ Dream Eater and other writing projects should reuse the same selective/evidence-
 
 Unless an urgent correctness/privacy bug or explicitly promoted user request intervenes, coding agents should pull work in this order:
 
-1. universal Agent OS preflight/routing for supported ChatGPT chats, Work projects, coding agents, and connected agent surfaces;
-2. integration-health/fallback bridge so unsupported or partially supported clients still produce compact handoffs/candidate updates;
+1. universal Agent OS preflight/routing core for supported coding-agent and MCP entry points — completed as P0.0a on 2026-09-21;
+2. integration-health/fallback bridge so unsupported or partially supported clients still produce compact handoffs/candidate updates — next as P0.0b;
 3. staged workflow manifests, checkpoints, validators, stage-completion packets, and generated next-prompt + capability/model/effort recommendations;
 4. selective profile/context retrieval with measurable context-size diagnostics;
 5. exact page/file extraction + OCR cache and embedded-text-first document path;

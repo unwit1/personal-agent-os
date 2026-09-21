@@ -1,0 +1,505 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent OS decision-trace",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "task_id": {
+      "type": "string",
+      "maxLength": 40
+    },
+    "project": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "prompt_hash": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "source": {
+      "type": "object"
+    },
+    "postflight": {
+      "type": "object",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "maxLength": 2000,
+          "minLength": 1
+        },
+        "sanitized": {
+          "type": "boolean"
+        },
+        "decisions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "decision": {
+                "type": "string",
+                "maxLength": 2000
+              },
+              "rationale_summary": {
+                "type": "string",
+                "maxLength": 2000
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 2000
+                },
+                "maxItems": 20
+              },
+              "alternatives": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 2000
+                },
+                "maxItems": 20
+              },
+              "uncertainties": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 2000
+                },
+                "maxItems": 20
+              },
+              "risks": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 2000
+                },
+                "maxItems": 20
+              }
+            },
+            "required": [
+              "decision",
+              "rationale_summary"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 20
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "maxItems": 20
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "maxItems": 20
+        },
+        "uncertainties": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "maxItems": 20
+        },
+        "risks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "maxItems": 20
+        },
+        "files_changed": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "maxItems": 200
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "maxItems": 20
+        },
+        "validation": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "enum": [
+                "passed",
+                "failed",
+                "not_run"
+              ]
+            },
+            "checks": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 2000
+              },
+              "maxItems": 20
+            }
+          },
+          "required": [
+            "status",
+            "checks"
+          ],
+          "additionalProperties": false
+        },
+        "remaining": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "maxItems": 20
+        },
+        "lessons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "enum": [
+                  "decision_candidate",
+                  "lesson_candidate",
+                  "skill_candidate",
+                  "skill_patch_candidate",
+                  "preference_candidate",
+                  "project_state_candidate",
+                  "prompt_optimization_candidate",
+                  "test_candidate",
+                  "deterministic_rule_candidate",
+                  "documentation_candidate"
+                ]
+              },
+              "statement": {
+                "type": "string",
+                "maxLength": 2000
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 2000
+                },
+                "maxItems": 20
+              },
+              "confidence": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            },
+            "required": [
+              "kind",
+              "statement",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 20
+        },
+        "proposed_memories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "enum": [
+                  "decision_candidate",
+                  "lesson_candidate",
+                  "skill_candidate",
+                  "skill_patch_candidate",
+                  "preference_candidate",
+                  "project_state_candidate",
+                  "prompt_optimization_candidate",
+                  "test_candidate",
+                  "deterministic_rule_candidate",
+                  "documentation_candidate"
+                ]
+              },
+              "statement": {
+                "type": "string",
+                "maxLength": 2000
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 2000
+                },
+                "maxItems": 20
+              },
+              "confidence": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            },
+            "required": [
+              "kind",
+              "statement",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 20
+        },
+        "proposed_skills": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "enum": [
+                  "decision_candidate",
+                  "lesson_candidate",
+                  "skill_candidate",
+                  "skill_patch_candidate",
+                  "preference_candidate",
+                  "project_state_candidate",
+                  "prompt_optimization_candidate",
+                  "test_candidate",
+                  "deterministic_rule_candidate",
+                  "documentation_candidate"
+                ]
+              },
+              "statement": {
+                "type": "string",
+                "maxLength": 2000
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 2000
+                },
+                "maxItems": 20
+              },
+              "confidence": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            },
+            "required": [
+              "kind",
+              "statement",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 20
+        },
+        "proposed_changes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "request_summary": {
+                "type": "string",
+                "maxLength": 2000
+              },
+              "change_type": {
+                "enum": [
+                  "bug",
+                  "feature",
+                  "refactor",
+                  "workflow",
+                  "performance",
+                  "security",
+                  "test",
+                  "documentation",
+                  "architecture",
+                  "other"
+                ]
+              },
+              "components": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 2000
+                },
+                "maxItems": 20
+              },
+              "repository_files": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 2000
+                },
+                "maxItems": 20
+              },
+              "diagnosis_summary": {
+                "type": "string",
+                "maxLength": 2000
+              },
+              "fix_summary": {
+                "type": "string",
+                "maxLength": 2000
+              }
+            },
+            "required": [
+              "title",
+              "request_summary",
+              "change_type"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 5
+        },
+        "proposed_improvements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "maxLength": 160
+              },
+              "category": {
+                "enum": [
+                  "bug",
+                  "performance",
+                  "architecture",
+                  "missing_test",
+                  "documentation",
+                  "skill_candidate",
+                  "workflow",
+                  "security",
+                  "privacy",
+                  "other"
+                ]
+              },
+              "observation": {
+                "type": "string",
+                "maxLength": 2000
+              },
+              "suggested_direction": {
+                "type": "string",
+                "maxLength": 2000
+              },
+              "acceptance": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 2000
+                },
+                "maxItems": 20
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 2000
+                },
+                "maxItems": 20
+              },
+              "subsystem": {
+                "type": "string",
+                "maxLength": 2000
+              },
+              "priority": {
+                "enum": [
+                  "critical",
+                  "high",
+                  "medium",
+                  "low"
+                ]
+              },
+              "risks": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 2000
+                },
+                "maxItems": 20
+              }
+            },
+            "required": [
+              "title",
+              "category",
+              "observation",
+              "suggested_direction",
+              "acceptance",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 5
+        },
+        "architecture_change": {
+          "type": "boolean"
+        },
+        "destructive_change": {
+          "type": "boolean"
+        },
+        "cross_project": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "summary",
+        "sanitized",
+        "decisions",
+        "evidence",
+        "files_changed",
+        "validation",
+        "remaining"
+      ],
+      "additionalProperties": false
+    },
+    "review": {
+      "type": "object"
+    },
+    "artifacts": {
+      "type": "object"
+    },
+    "outcome": {
+      "enum": [
+        "completed",
+        "validation_failed",
+        "review_required"
+      ]
+    },
+    "status": {
+      "const": "unverified"
+    },
+    "created_at": {
+      "type": "string",
+      "maxLength": 2000
+    }
+  },
+  "required": [
+    "schema_version",
+    "task_id",
+    "project",
+    "prompt_hash",
+    "source",
+    "postflight",
+    "review",
+    "artifacts",
+    "outcome",
+    "status",
+    "created_at"
+  ],
+  "additionalProperties": false
+}

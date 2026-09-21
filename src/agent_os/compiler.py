@@ -60,10 +60,10 @@ def _fit(packet: dict[str, Any], token_budget: int) -> tuple[dict[str, Any], int
     limit = max(token_budget, 250) * 4
     prunable = (
         ("search_matches", lambda value: value.pop()),
-        ("development_context", _prune_development_context),
         ("matched_skills", lambda value: value.pop()),
         ("state", lambda value: value.pop(next(iter(value))) if value else None),
         ("latest_agent_os_handoff", lambda value: value.clear()),
+        ("development_context", _prune_development_context),
     )
     for key, reduce in prunable:
         while len(json.dumps(packet, default=str, ensure_ascii=False)) > limit and packet.get(key):

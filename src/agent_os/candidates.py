@@ -7,6 +7,8 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from .paths import ROOT
+from .locking import canonical_write
+from .privacy import require_private_safe
 from .registry import get_project
 from .storage import load_json, write_json
 
@@ -62,15 +64,21 @@ def _require_candidate(candidate: dict[str, Any]) -> None:
         raise ValueError("candidate confidence must be between 0 and 1")
 
 
+@canonical_write
 def stage_candidates(
     project_id: str,
     task_summary: str,
     candidates: Iterable[dict[str, Any]],
     source_agent: str | None = None,
     source_session: str | None = None,
+    task_id: str | None = None,
 ) -> dict[str, Any]:
     """Persist reviewable candidate events; this function never promotes them."""
     project = get_project(project_id)
+    candidates = list(candidates)
+    require_private_safe({"summary": task_summary, "candidates": candidates, "agent": source_agent, "session": source_session, "task_id": task_id}, "candidates")
+    for item in candidates:
+        _require_candidate(item)
     existing = {record.get("fingerprint"): record for record in _load_candidates(project["id"])}
     created: list[dict[str, Any]] = []
     duplicates: list[dict[str, Any]] = []
@@ -80,6 +88,9 @@ def stage_candidates(
         _require_candidate(candidate)
         fingerprint = _fingerprint(project["id"], candidate["kind"], candidate["statement"])
         if fingerprint in existing:
+            if task_id and task_id not in existing[fingerprint].get("task_ids", []):
+                existing[fingerprint].setdefault("task_ids", []).append(task_id)
+                write_json(_candidate_dir(project["id"]) / f"{existing[fingerprint]['id']}.json", existing[fingerprint])
             duplicates.append({"id": existing[fingerprint]["id"], "fingerprint": fingerprint})
             continue
         record = {
@@ -96,6 +107,7 @@ def stage_candidates(
             "created_at": now,
             "resolved_at": None,
             "fingerprint": fingerprint,
+            "task_ids": [task_id] if task_id else [],
         }
         write_json(_candidate_dir(project["id"]) / f"{record['id']}.json", record)
         existing[fingerprint] = record
@@ -114,6 +126,7 @@ def _promoted_path() -> Path:
     return ROOT / "memory" / "promoted-candidates.json"
 
 
+@canonical_write
 def curate_candidates(project_id: str, candidate_ids: Iterable[str] | None = None, action: str = "review") -> dict[str, Any]:
     """Review staged candidates. Promotion is explicit and produces canonical Git-tracked data."""
     project = get_project(project_id)
@@ -156,6 +169,7 @@ def curate_candidates(project_id: str, candidate_ids: Iterable[str] | None = Non
         if material:
             results.append({"id": record["id"], "outcome": "review_required", "review": review})
             continue
+        require_private_safe(record, "candidate promotion")
         if record.get("fingerprint") in known:
             record["status"] = "merged"
             record["resolved_at"] = datetime.now(timezone.utc).isoformat()
