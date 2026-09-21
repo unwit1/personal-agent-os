@@ -4,7 +4,9 @@
 - Role: historical witness concerning Varla the Man-Hunter
 - Key preserved dialogue: `INFO 02157AAB`
 - Knights cluster: supplementary membership in VIGILANT's Knights of the Nine group
-- Exact NPC FormID: not yet persisted in the current browsable repository corpus
+- Primary form: `NPC_ 020BDABE` / `zzzCHKnightOfNine02` — **Sir Henrik**
+- Dead form: `NPC_ 0212660D` / `zzzCHKnightOfNine02Dead` — **Sir Henrik**
+- Quest: `QUST 021265FB` / **Knight of Julianos**
 
 ## Varla testimony
 
@@ -68,3 +70,29 @@ Unresolved:
 ## Canon boundary
 
 Sir Henrik originates from established Knights of the Nine material. His VIGILANT testimony and Coldharbour-related reuse belong to `tes.mod.vigilant`.
+
+
+## Knight of Julianos direct-source recovery
+
+The supplied VIGILANT 1.8.2 ESM directly binds **Knight of Julianos** to Sir Henrik.
+
+Quest aliases:
+- `Knight` → Sir Henrik
+- `KnightDead` → Sir Henrik dead form
+
+The quest contains 21 DIAL topics and 34 INFO responses.
+
+Henrik's direct quest material establishes:
+- repeated imprisonment/trapping;
+- a slave-trader and alcohol incident;
+- a plan to regroup at Mathmalatu Priory;
+- concern for two missing fellow knights;
+- a request for the player to investigate their traces;
+- his direct political account of Varla;
+- knowledge of the old Ayleid/Alessian/Reman prison tower.
+
+This converts Henrik from a witness-only node into a major Act 4 recurring knight.
+
+See:
+- `analysis/act4-direct-source-recovery.md`
+- `dialogue/act4/recovered-sidequests.md`
