@@ -3,14 +3,10 @@
 Source: `Glenmoril.esm:017260` — `zzzGHMq05ScChaplain`
 Quest: `Glenmoril.esm:01719C` — **Oneiromancer**
 
-The scene's dialogue actions resolve through quest alias 15 **Chaplain**, filled by NPC `04008820`.
+Both dialogue actions resolve to alias 15 `Chaplain`, NPC `04008820 zzzGHChaplainApostle`, display name **Chaplain's Louse**.
 
-## Attribution
+The Chaplain's Louse addresses a “tainted soul,” speaks of a secret hidden in rain, and describes a female figure as “the spinner” familiar with knots in the thread. It also calls her the listener's redeemer, calls “us” **dreaming lice**, and invokes **Kyne's Feast of Love**.
 
-All Chaplain dialogue rows in this scene are assigned structurally through SCEN Actor ID → Oneiromancer alias 15 → NPC `04008820`, rather than by EDID-name inference.
+These statements are preserved as attributed religious/symbolic language, not decoded into objective cosmology without corroboration.
 
-## Narrative placement
-
-The Chaplain participates directly in the Oneiromancer expedition's Quagmire sequence and therefore belongs in the same retrieval network as Romion, Ozwald, the gate machinery, and the memory-recovery operation.
-
-Confidence: **exact actor identity at scene-action level**.
+Confidence: **exact structural speaker attribution**.
