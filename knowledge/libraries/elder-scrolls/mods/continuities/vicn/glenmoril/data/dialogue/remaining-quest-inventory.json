@@ -1,22 +1,10 @@
 {
   "source_plugin": "Glenmoril.esm",
-  "remaining_direct_responses": 1405,
-  "remaining_quests": 49,
+  "remaining_direct_responses": 1328,
+  "remaining_quests": 44,
   "namespace_totals": {
-    "zzzRev": {"quests": 44, "responses": 1328},
-    "zzzGH_other": {"quests": 5, "responses": 77}
+    "zzzRev": {"quests": 44, "responses": 1328}
   },
-  "closed_lam_block": {
-    "expected_responses": 372,
-    "normalized_responses": 372,
-    "status": "closed_direct_linkage",
-    "quests": [
-      {"editor_id":"zzzLaMMq01","title":"The Pipers","responses":133},
-      {"editor_id":"zzzLaMMq02","title":"In Plain Sight","responses":55},
-      {"editor_id":"zzzLaMMq03","title":"Falling Sky","responses":29},
-      {"editor_id":"zzzLaMMq04","title":"Little Red","responses":74},
-      {"editor_id":"zzzLaMMq05","title":"Lice and Maggots","responses":75},
-      {"editor_id":"zzzLaMMqAlt","title":"Skip Hinnmon","responses":6}
-    ]
-  }
+  "closed_scopes_unique_responses": 3464,
+  "status": "only_zzzRev_direct_dialogue_remaining"
 }
