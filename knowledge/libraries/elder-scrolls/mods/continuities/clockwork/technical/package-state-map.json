@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "note": "Curated PACK target/state map. PLDT/PTDA targets are resolved through REFR/ACHR group-parent CELL context. Strict dialogue speaker counts are unaffected.",
+  "shadow_management": [
+    {
+      "package_form_id": "0506FCE5",
+      "editor_id": "CLWShadowManage01Stage10Package",
+      "quest": "0506FCE4",
+      "stage_condition": 10,
+      "target_ref": "0506FCE3",
+      "target_cell": "05063DB9",
+      "target_cell_name": "Velothi Mountain Tunnels"
+    },
+    {
+      "package_form_id": "0506FCE7",
+      "editor_id": "CLWShadowManage01Stage20Package",
+      "quest": "0506FCE4",
+      "stage_condition": 20,
+      "target_ref": "0506FCE6",
+      "target_cell": "05063DB9",
+      "target_cell_name": "Velothi Mountain Tunnels"
+    },
+    {
+      "package_form_id": "05073A4C",
+      "editor_id": "CLWShadowManage01Stage30Package",
+      "quest": "0506FCE4",
+      "stage_condition": 30,
+      "target_ref": "05073A4A",
+      "target_cell": "05063DB9",
+      "target_cell_name": "Velothi Mountain Tunnels"
+    },
+    {
+      "package_form_id": "0507F7B9",
+      "editor_id": "CLWShadowManage01Stage40Package",
+      "quest": "0506FCE4",
+      "stage_condition": 40,
+      "target_ref": "0507F7B8",
+      "target_cell": "05079DDF",
+      "target_cell_name": "Velothi Tunnels - Bone Hollow"
+    },
+    {
+      "package_form_id": "0507F7BD",
+      "editor_id": "CLWShadowManage01Stage50Package",
+      "quest": "0506FCE4",
+      "stage_condition": 50,
+      "target_ref": "0507F7BC",
+      "target_cell": "05079DDF",
+      "target_cell_name": "Velothi Tunnels - Bone Hollow"
+    },
+    {
+      "package_form_id": "05764B53",
+      "editor_id": "CLWShadowSQ04Stage20Package",
+      "quest": "0508DA63",
+      "stage_condition": 20,
+      "target_ref": "05764B52",
+      "target_ref_editor_id": "CLWShadowSQ04S20Mark01REF",
+      "target_cell": "053566B7",
+      "target_cell_name": "Clockwork Castle Mausoleum"
+    }
+  ],
+  "story_choreography": [
+    {
+      "package_form_id": "054F7876",
+      "editor_id": "CLWSQ02CantLeave01PlayerMark01Package",
+      "target_ref": "054F7873",
+      "target_ref_editor_id": "CLWSQ02CantLeave01PlayerMark01REF",
+      "target_cell": "0503C62F",
+      "target_cell_name": "Clockwork Castle Travel Room",
+      "meaning": "player can't-leave sequence is staged in the Travel Room"
+    },
+    {
+      "package_form_id": "0538448B",
+      "editor_id": "CLWSQ02GildedIntro01Mark01Package",
+      "target_ref": "05384486",
+      "target_ref_editor_id": "CLWGildedIntro01Mark01REF",
+      "target_cell": "0537A08F",
+      "target_cell_name": "Nurndural - Hall of Elements",
+      "scene_role": "Gilded01"
+    },
+    {
+      "package_form_id": "0538448E",
+      "editor_id": "CLWSQ02GildedIntro02Mark01Package",
+      "target_ref": "05384487",
+      "target_ref_editor_id": "CLWGildedIntro02Mark01REF",
+      "target_cell": "0537A08F",
+      "target_cell_name": "Nurndural - Hall of Elements",
+      "scene_role": "Gilded02"
+    },
+    {
+      "package_form_id": "05384491",
+      "editor_id": "CLWSQ02GildedIntro03Mark01Package",
+      "target_ref": "05384488",
+      "target_ref_editor_id": "CLWGildedIntro03Mark01REF",
+      "target_cell": "0537A08F",
+      "target_cell_name": "Nurndural - Hall of Elements",
+      "scene_role": "Gilded03"
+    },
+    {
+      "package_form_id": "0559A4B4",
+      "editor_id": "CLWSQ03Stage70Scene01AmalgamMark01Package",
+      "target_ref": "0559A4B2",
+      "target_ref_editor_id": "CLWSQ03Stage70Scene01AmalgamMark01REF",
+      "target_cell": "0552F496",
+      "target_cell_name": "Nurndural - Sickness Ward",
+      "scene_role": "EncAmalgam"
+    },
+    {
+      "package_form_id": "0559A4B7",
+      "editor_id": "CLWAmalgamSQ03Stage80Package",
+      "target_ref": "0559A4B2",
+      "target_cell": "0552F496",
+      "target_cell_name": "Nurndural - Sickness Ward",
+      "scene_role": "EncAmalgam"
+    }
+  ]
+}

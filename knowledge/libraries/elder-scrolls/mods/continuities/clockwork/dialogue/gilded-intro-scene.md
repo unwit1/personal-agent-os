@@ -2,9 +2,10 @@
 
 Continuity: `tes.mod.clockwork`  
 Scene: `05384489` / `CLWSQ02GildedIntroScene01`  
-Quest: `052908C1` / *Steam-Powered*
+Quest: `052908C1` / *Steam-Powered*  
+Location: `CELL 0537A08F` / **Nurndural - Hall of Elements**
 
-These seven INFO records are broad-Gilded matches in the strict voice/faction resolver, but the SCEN record assigns each dialogue action to a specific **quest actor alias**. This narrows the narrative speaker role without pretending the underlying leveled alias is one fixed NPC form.
+These seven INFO records are broad-Gilded matches in the strict voice/faction resolver, but the SCEN record assigns each dialogue action to a specific quest actor alias. The scene's three choreography packages target placed markers inside the Hall of Elements.
 
 | INFO | Scene role | Alias | Text |
 |---|---|---:|---|
@@ -16,8 +17,6 @@ These seven INFO records are broad-Gilded matches in the strict voice/faction re
 | `053895A8` | Gilded03 | 5 | I won't bite your face. |
 | `053895AA` | Gilded01 | 3 | Come away with me. |
 
-Each still has the same broad physical candidate pool at the strict NPC-form layer. The supplemental result is therefore **high confidence at quest-role level**, not a unique base-NPC identification.
+Each remains non-unique at physical NPC-form level. The result is high-confidence **quest-role + location attribution**, not a unique base-NPC identification.
 
-### Ambiguity accounting
-
-The strict resolver still contains **519** broad-Gilded multi-candidate INFO records. Seven of those are now scene-bound to Gilded01/02/03, leaving **512 genuinely undifferentiated broad-Gilded records** pending deeper package/reference/context analysis.
+The strict broad-Gilded pool remains 519 records; seven now have this richer SCEN/PACK context, leaving 512 undifferentiated records.
