@@ -1,0 +1,38 @@
+{
+  "source_plugin": "Glenmoril.esm",
+  "source_sha256": "5669018c81acf13147ff489f486963ecc3c57515a73ed9afd210c7ede85e1cc8",
+  "status": "complete",
+  "reconstruction_scope": "all SCEN records; intra-scene choreography and phase chronology",
+  "scene_records": 314,
+  "shard_count": 16,
+  "standard_shard_size": 20,
+  "final_shard_size": 14,
+  "action_records": 2211,
+  "action_types": {
+    "dialogue": 1578,
+    "package": 461,
+    "timer": 172
+  },
+  "scenes_with_dialogue": 282,
+  "scenes_with_package": 139,
+  "scenes_with_timer": 131,
+  "scenes_zero_actions": 1,
+  "linked_info_records": 1324,
+  "linked_response_texts": 1324,
+  "preserved_fields": [
+    "scene and quest stable IDs/EditorIDs",
+    "quest name",
+    "registered and used actor aliases",
+    "action index/type/flags",
+    "start/end phase",
+    "dialogue DIAL and child INFO response text",
+    "package source ID/EditorID",
+    "timer duration",
+    "phase timeline"
+  ],
+  "chronology_policy": {
+    "intra_scene": "complete from SCEN phase/action structure",
+    "cross_scene": "not inferred; requires quest stages/scripts and corroborating evidence"
+  },
+  "next_frontier": "cross-scene quest chronology plus package target semantics and Papyrus/script transitions"
+}
