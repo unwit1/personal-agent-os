@@ -157,6 +157,24 @@ Store them as:
 `supplementary_commentary`
 rather than direct VIGILANT ESM fact.
 
+## Owl comment-thread correction from later direct ESM evidence
+
+The article's comment thread included informal identifications such as:
+- Black Owl = Orlando the Knowledgeable;
+- White Owl = a familiar of Julianos.
+
+Later direct GLENMORIL and UNSLAAD ESM-derived evidence is more precise and should outrank those shorthand comments:
+
+- GLENMORIL: **White Owl → Jhunal the White**
+- GLENMORIL: **Black Owl quest speaker → Jhunal the Black**
+- GLENMORIL: Gray Owl actor uses an Orlando-family form
+- UNSLAAD: **Jhunal the Gray explicitly calls himself the Gray Owl**
+
+Therefore those older comment-thread identities are retained only as historical supplementary commentary, not as current Lorekeeper identity conclusions.
+
+See:
+- `analysis/vicn-owl-continuity-bridge.md`
+
 ## Lorekeeper usage rule
 
 When this source resolves an ESM gap, phrase answers like:
