@@ -23,6 +23,19 @@ GLENMORIL independently defines NPC `04008826` / `zzzGHRomion` as **Romion** and
 
 This is a strong named-character continuity bridge rather than a merely thematic resemblance. The bridge does **not** mean every DAc0da statement automatically becomes a GLENMORIL fact or vice versa.
 
+## Altano / Radiance / VIGILANT
+
+DAc0da BOOK `DAc0da.esm:006133`, **Letter to a Friend**, instructs a person seeking **Radiance** to:
+
+- go to nightmare-plagued **Dawnstar**;
+- find a Vigilant named **Altano**;
+- learn compassion;
+- undergo suffering as part of the path to Radiance.
+
+The VIGILANT corpus independently contains **Altano** as a central Vigilant of Stendarr character with a full main-quest chain and dedicated journal.
+
+This is a direct named DAc0da -> VIGILANT continuity bridge. DAc0da's claim that Altano/Dawnstar form part of a path to Radiance remains attributable to DAc0da and should not be used to rewrite VIGILANT's source-specific sequence.
+
 ## Fifth-Era / later-time material
 
 DAc0da's Numidium records expose an alternate Fifth-Era line involving a Nerevarine-piloted Akulakhan and later Jillian censorship.
@@ -76,6 +89,11 @@ This is one of the strongest exact-vocabulary DAc0da <-> UNSLAAD bridges now ind
 
 DAc0da's **Drowned Nighthawk** and **The End of All Wishes** both expose conflicting Atmoran histories involving Yngol, Ysgramor, Snow-Elf/mixed-blood persecution, endless winter, old-kalpa dragon material, and ritual violence.
 
+DAc0da's written Snow-Elf orders add two more evidence layers:
+
+- a Snow-Elf military order to strike Jylkurfyk under a claimed contract with Lord Dagon;
+- a separate denial letter explicitly describing an anti-elven purge in Jylkurfyk, including mixed-blood victims.
+
 UNSLAAD and GLENMORIL independently contain major Atmora, Saarthal, Night-of-Tears, Owl/Jhunal, and old-history reinterpretation material.
 
-These should be co-retrieved for comparison, but DAc0da's specific Jylkurfyk and sacrifice testimony remains source-scoped until matching named evidence is recovered elsewhere.
+These should be co-retrieved for comparison, but DAc0da's specific Jylkurfyk testimony remains source-scoped until matching named evidence is recovered elsewhere.
