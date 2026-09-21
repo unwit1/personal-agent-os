@@ -4,8 +4,8 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "unresolved": 684,
-    "verified_official_game_text": 96,
+    "unresolved": 654,
+    "verified_official_game_text": 126,
     "verified_developer_text": 4
   },
   "entries": [
@@ -62,8 +62,8 @@
       "title": "A Summoner's Guide to Nymics",
       "editor_id": "LB_Book_CLO_Nymics",
       "text_path": "books/040009CC-a-summoners-guide-to-nymics.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "040008FB",
@@ -174,8 +174,8 @@
       "title": "All Our Perfect Forms",
       "editor_id": "LB_Book_AP_Amundro01",
       "text_path": "books/040008E7-all-our-perfect-forms.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "04000904",
@@ -782,8 +782,8 @@
       "title": "Arboreal Architecture",
       "editor_id": "LB_Book_CLO_Arboreal",
       "text_path": "books/04000A0D-arboreal-architecture.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "04000887",
@@ -894,8 +894,8 @@
       "title": "Azurah's Crossing",
       "editor_id": "LB_Book_AP_Amundro03",
       "text_path": "books/040008E9-azurahs-crossing.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "04000093",
@@ -1366,8 +1366,8 @@
       "title": "Blackreach: Fictions and Facts",
       "editor_id": "LB_Book_CLO_Blackreach",
       "text_path": "books/040009CE-blackreach-fictions-and-facts.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "040008A3",
@@ -1590,8 +1590,8 @@
       "title": "Chaotic Creatia: The Azure Plasm",
       "editor_id": "LB_Book_CLO_AzurePlasm",
       "text_path": "books/040009CA-chaotic-creatia-the-azure-plasm.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "040000CA",
@@ -2169,8 +2169,8 @@
       "title": "Exegesis of Merid-Nunda",
       "editor_id": "LB_Book_LL_Dae08",
       "text_path": "books/040008CD-exegesis-of-merid-nunda.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "04000033",
@@ -2193,16 +2193,16 @@
       "title": "Fabricated Fauna, a Study",
       "editor_id": "LB_Book_AP_FabricFauna",
       "text_path": "books/040008B2-fabricated-fauna-a-study.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "040008B1",
       "title": "Fabricated Flora, a Study",
       "editor_id": "LB_Book_AP_FabricFlora",
       "text_path": "books/040008B1-fabricated-flora-a-study.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "04000810",
@@ -2265,8 +2265,8 @@
       "title": "Favoured Daughter of Fadomai",
       "editor_id": "LB_Book_AP_Amundro08",
       "text_path": "books/040008EE-favoured-daughter-of-fadomai.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "0400005A",
@@ -2617,8 +2617,8 @@
       "title": "History of Markarth",
       "editor_id": "LB_Book_CLO_Markarth",
       "text_path": "books/04000A10-history-of-markarth.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "040000C1",
@@ -2785,8 +2785,8 @@
       "title": "Jhunal the Rune God",
       "editor_id": "LB_Book_LL_Jhunal",
       "text_path": "books/040008CE-jhunal-the-rune-god.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "040000E0",
@@ -2953,8 +2953,8 @@
       "title": "Leki's Memory Stone",
       "editor_id": "LB_Book_AP_Leki01",
       "text_path": "books/040008B0-lekis-memory-stone.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "0400011F",
@@ -3553,8 +3553,8 @@
       "title": "Northpoint: An Assessment",
       "editor_id": "LB_Book_CLO_Northpoint",
       "text_path": "books/040009D0-northpoint-an-assessment.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "0400093A",
@@ -3737,8 +3737,8 @@
       "title": "Old Orc Sayings: Shields",
       "editor_id": "LB_Book_LL_OrcShield",
       "text_path": "books/04000830-old-orc-sayings-shields.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "040000A1",
@@ -3769,8 +3769,8 @@
       "title": "On Extending Existence",
       "editor_id": "LB_Book_CLO_Barilzar",
       "text_path": "books/040009CD-on-extending-existence.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "04000007",
@@ -4732,8 +4732,8 @@
       "title": "Starkhorn's Compendium",
       "editor_id": "LB_Book_AP_Starkhorn",
       "text_path": "books/0400086E-starkhorns-compendium.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "0400087D",
@@ -4748,8 +4748,8 @@
       "title": "Study on Fabricants",
       "editor_id": "LB_Book_AP_Fabricants",
       "text_path": "books/040008B3-study-on-fabricants.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "04000004",
@@ -4796,8 +4796,8 @@
       "title": "The Adversarial Spirits",
       "editor_id": "LB_Book_AP_Amundro02",
       "text_path": "books/040008E8-the-adversarial-spirits.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "04000087",
@@ -4988,8 +4988,8 @@
       "title": "The Dark Spirits",
       "editor_id": "LB_Book_AP_Amundro04",
       "text_path": "books/040008EA-the-dark-spirits.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "04000123",
@@ -5100,8 +5100,8 @@
       "title": "The Glenmoril Wyrd",
       "editor_id": "LB_Book_CLO_Glenmoril",
       "text_path": "books/040009C8-the-glenmoril-wyrd.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "040000A2",
@@ -5324,8 +5324,8 @@
       "title": "The Onus of the Oghma",
       "editor_id": "LB_Book_CLO_OnusOghma",
       "text_path": "books/040009BF-the-onus-of-the-oghma.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "040000A3",
@@ -5404,8 +5404,8 @@
       "title": "The Seasons of Argonia",
       "editor_id": "LB_Book_CLO_ArgoniaSeasons",
       "text_path": "books/040009CF-the-seasons-of-argonia.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "040000AD",
@@ -5476,16 +5476,16 @@
       "title": "The Sky Spirits",
       "editor_id": "LB_Book_AP_Amundro05",
       "text_path": "books/040008EB-the-sky-spirits.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "040009C9",
       "title": "The Slave Rebellion",
       "editor_id": "LB_Book_CLO_slaverebellion",
       "text_path": "books/040009C9-the-slave-rebellion.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "04000062",
@@ -5532,8 +5532,8 @@
       "title": "The Ternion Monks",
       "editor_id": "LB_Book_CLO_Ternion",
       "text_path": "books/040009E9-the-ternion-monks.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "040000C9",
@@ -5700,8 +5700,8 @@
       "title": "The Wandering Spirits",
       "editor_id": "LB_Book_AP_Amundro06",
       "text_path": "books/040008EC-the-wandering-spirits.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "04000057",
@@ -5748,8 +5748,8 @@
       "title": "The Worldly Spirits",
       "editor_id": "LB_Book_AP_Amundro07",
       "text_path": "books/040008ED-the-worldly-spirits.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "040009B9",
@@ -6124,8 +6124,8 @@
       "title": "Vindication for the Dragon Break",
       "editor_id": "LB_Book_CLO_Vindication",
       "text_path": "books/04000A0C-vindication-for-the-dragon-break.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "040000F3",
@@ -6276,8 +6276,8 @@
       "title": "Ysmir the Forefather",
       "editor_id": "LB_Book_AP_Ysmir01",
       "text_path": "books/040008AD-ysmir-the-forefather.txt",
-      "provenance_status": "unresolved",
-      "evidence": "No origin classification established yet."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Corroborated by the Apocryphal Library published Book Credits as taken from Elder Scrolls Online or an earlier TES game and credited to ZeniMax Online Studios/Bethesda; compilation provenance retained separately."
     },
     {
       "form_id": "04000936",
