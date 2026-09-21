@@ -4,8 +4,8 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "verified_official_game_text": 23,
-    "editor_id_hint_eso": 59,
+    "verified_official_game_text": 29,
+    "editor_id_hint_eso": 53,
     "editor_id_hint_oblivion": 10,
     "editor_id_hint_morrowind": 3,
     "editor_id_hint_developer_mk": 3,
@@ -1602,9 +1602,8 @@
       "title": "Charge of the Welkynar",
       "editor_id": "LB_Book3_CL_WelkynarCharge_ESO",
       "text_path": "books/040000CA-charge-of-the-welkynar.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an official The Elder Scrolls Online: Summerset book, Charge of the Welkynar."
     },
     {
       "form_id": "04000A12",
@@ -1627,9 +1626,8 @@
       "title": "Children of the Root",
       "editor_id": "LB_Book3_CL_ChildrenRoot_ESO",
       "text_path": "books/0400010B-children-of-the-root.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an official The Elder Scrolls Online: Murkmire book, Children of the Root."
     },
     {
       "form_id": "04000865",
@@ -1700,9 +1698,8 @@
       "title": "Cries From Empty Mouths",
       "editor_id": "LB_Book3_AP_EmptyMouths_ESO",
       "text_path": "books/0400009E-cries-from-empty-mouths.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an official The Elder Scrolls Online: Gold Road book, Cries from Empty Mouths."
     },
     {
       "form_id": "0400002B",
@@ -1757,9 +1754,8 @@
       "title": "Daedra Worship: The Ayleids",
       "editor_id": "LB_Book2_AP_Ayleids01_ESO",
       "text_path": "books/04000066-daedra-worship-the-ayleids.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an official The Elder Scrolls Online book, Daedra Worship: The Ayleids."
     },
     {
       "form_id": "04000818",
@@ -1921,9 +1917,8 @@
       "title": "Dragons: A Report for the Queen",
       "editor_id": "LB_Book3_DG_Report01_ESO",
       "text_path": "books/040000D7-dragons-a-report-for-the-queen.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an official The Elder Scrolls Online: Elsweyr book, Dragons: A Report for the Queen."
     },
     {
       "form_id": "04000837",
@@ -2058,9 +2053,8 @@
       "title": "Ecology of the Death Hound",
       "editor_id": "LB_Book3_VG_DeathHound01_ESO",
       "text_path": "books/040000E2-ecology-of-the-death-hound.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an official The Elder Scrolls Online: Greymoor book, Ecology of the Death Hound."
     },
     {
       "form_id": "04000922",
