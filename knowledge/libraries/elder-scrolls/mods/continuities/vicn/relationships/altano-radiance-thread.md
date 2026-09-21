@@ -43,6 +43,28 @@ The strongest safe parent-level claim is:
 
 This is a direct cross-work interpretive bridge.
 
+## Holy-Piper triangulation
+
+The DAc0da letter is not the only cross-work Radiance evidence.
+
+VIGILANT's **Holy Pipers** explicitly invoke **Radiance** in their Sacred-Anatomancer doctrine.
+
+DAc0da's **Athanasius**:
+- calls himself a Keeper of Stendarr of the **Holy Pipers**;
+- later says he has **attained Radiance**.
+
+The associated DAc0da letter then points the seeker toward **Altano**.
+
+This produces a stronger interpretive chain:
+
+`VIGILANT Holy-Piper Radiance doctrine`
+→ `DAc0da Holy Piper attains Radiance`
+→ `DAc0da says Altano/VIGILANT teaches compassion-through-suffering on that path`
+
+The chain is strong evidence of deliberate cross-work design.
+
+It still does not make Altano a Holy Piper or prove he consciously participates in Radiance doctrine.
+
 ## Dawnstar boundary
 
 The currently normalized VIGILANT corpus does not independently establish the exact **Dawnstar** phrasing recovered from the DAc0da letter.
