@@ -23,3 +23,20 @@ Sparing Carene is therefore not presented as erasing prior harm.
 - `QUST 0200EA8A` / *No Mercy*
 - `QUST 024D0376` / *Art of Mercy*
 - `INFO 024D037F`–`024D0397`
+
+
+## Family-document crosslinks
+
+Exact direct books now normalized alongside this dossier:
+- `BOOK 02013BE7` / **Letter from Lilian** → `lilian.md`
+- `BOOK 02013BE8` / **Letter from Carene**
+- `BOOK 02013BE9` / **Letter from Taranis** → `taranis.md`
+
+Together they directly establish:
+- Carene ↔ Taranis as the adult pair;
+- Lilian as their daughter;
+- Taranis's sword curse;
+- Carene's concern about the unnamed summoner offering a cure;
+- the flower-crown/homecoming motif immediately preceding the family's tragedy.
+
+The summoner and cursed sword remain unidentified in the persisted direct layer.
