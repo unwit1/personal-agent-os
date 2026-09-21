@@ -4,8 +4,8 @@
   "text_bearing_quests": 44,
   "zero_response_quests": 35,
   "expected_responses": 1328,
-  "normalized_responses": 1163,
-  "remaining_responses": 165,
+  "normalized_responses": 1328,
+  "remaining_responses": 0,
   "normalized_quests": {
     "zzzRevGen": 146,
     "zzzRevMq00": 21,
@@ -29,6 +29,28 @@
     "zzzRevCqDragon01": 37,
     "zzzRevGenSkoomaCat": 28,
     "zzzRevGenHircine": 21,
-    "zzzRevMisc03": 21
-  }
+    "zzzRevMisc03": 21,
+    "zzzRevGenNamira": 18,
+    "zzzRevBossQuest04": 15,
+    "zzzRevGenAzura": 14,
+    "zzzRevBossQuest03": 12,
+    "zzzRevCqCitizen04": 11,
+    "zzzRevMisc01": 11,
+    "zzzRevCqAhzidal": 10,
+    "zzzRevCqCitizen01": 9,
+    "zzzRevCircusIntro": 8,
+    "zzzRevDAAzura": 8,
+    "zzzRevGenAdoringFan": 7,
+    "zzzRevGenSanguine": 7,
+    "zzzRevCqCitizen02": 5,
+    "zzzRevCqCitizen03": 5,
+    "zzzRevCqCitizen05": 5,
+    "zzzRevDANamira": 5,
+    "zzzRevCqLeaperSurgey": 4,
+    "zzzRevMisc04": 4,
+    "zzzRevBossQuestAhzidal": 3,
+    "zzzRevBossQuest01": 2,
+    "zzzRevBossQuest02": 2
+  },
+  "status": "closed_direct_linkage"
 }
