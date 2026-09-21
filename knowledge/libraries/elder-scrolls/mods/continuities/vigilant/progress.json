@@ -94,7 +94,8 @@
     "priest Ainam documentary dossier from Lamae's Kin",
     "Lamae's Kin curse/outbreak analysis: 2E 582 Lake Ilinalta case, Mages Guild incineration, lost ashes, and Facis corroboration",
     "Lamae Bal dossier deepened with exact Lamae's Kin outbreak chronology",
-    "Great Gate / Caliburn / Marukh posthumous ritual reconciliation"
+    "Great Gate / Caliburn / Marukh posthumous ritual reconciliation",
+    "A Vision in the City of Stone distribution, negative phrase check, and Red Stone terminology reconciliation"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -130,14 +131,14 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "small-batch reconciliation of The Great Gate with Caliburn and Marukh",
+    "focus": "small-batch deepening of A Vision in the City of Stone",
     "added": [
-      "verified existing Caliburn/Great Gate reconstruction already covers the dedicated boss quest, unique death-loot book, Stone fragment, and summon chain",
-      "linked Marukh's dossier to the posthumous Malada gate ritual",
-      "recorded Marukh's holy corpse as the ritual medium that traces the Seventy-Seven signs and opens the luminous breach",
-      "preserved uncertainty over whether the corpse acts consciously, is invoked by Caliburn, or reaches a specific named realm"
+      "recorded its three physical placements as circulation evidence rather than independent witnesses",
+      "recorded negative persisted-source checks for red woman, tainted child, hollow soul, and city of Dwemer",
+      "linked the prophecy's red Stone terminology to Marukh's direct Red Stone item 0205AE01 without promoting that overlap to an identity",
+      "kept Joshua, the red woman, the tainted child, the hollow soul, and the northern Dwemer city unresolved where direct evidence is absent"
     ],
-    "source_state": "direct BOOK 020D429E plus BOOK 020CB0DF and existing structural Caliburn boss/death-list evidence",
-    "open_followup": "next small batch should begin a separate evidence-rich lore unit; do not repeat the completed Great Gate/Caliburn pass."
+    "source_state": "direct BOOK 02054ED1, persisted placement index, Marukh/Adabal structural reconstruction, and repository-wide exact-phrase checks",
+    "open_followup": "next continuation should move to a different single lore unit; do not reprocess City of Stone unless new direct source layers become available."
   }
 }
