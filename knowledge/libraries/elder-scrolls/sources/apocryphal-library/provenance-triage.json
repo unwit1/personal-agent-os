@@ -4,8 +4,8 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "verified_official_game_text": 29,
-    "editor_id_hint_eso": 53,
+    "verified_official_game_text": 37,
+    "editor_id_hint_eso": 45,
     "editor_id_hint_oblivion": 10,
     "editor_id_hint_morrowind": 3,
     "editor_id_hint_developer_mk": 3,
@@ -2101,9 +2101,8 @@
       "title": "End of the Journey",
       "editor_id": "LB_Book2_DT_Journey_ESO",
       "text_path": "books/04000025-end-of-the-journey.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an official The Elder Scrolls Online text, End of the Journey."
     },
     {
       "form_id": "0400010E",
@@ -2118,18 +2117,16 @@
       "title": "Epistle on Amun-dro, vol. II",
       "editor_id": "LB_Book3_CL_EpistleAmundro02_ESO",
       "text_path": "books/0400010F-epistle-on-amun-dro-vol-ii.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an official The Elder Scrolls Online text in the Epistle on the Spirits of Amun-dro series, volume II."
     },
     {
       "form_id": "04000110",
       "title": "Epistle on Amun-dro, vol. III",
       "editor_id": "LB_Book3_CL_EpistleAmundro03_ESO",
       "text_path": "books/04000110-epistle-on-amun-dro-vol-iii.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an official The Elder Scrolls Online text in the Epistle on the Spirits of Amun-dro series, volume III."
     },
     {
       "form_id": "0400099C",
@@ -2184,9 +2181,8 @@
       "title": "Exodus from Summerset",
       "editor_id": "LB_Book2_DT_Exodus01_ESO",
       "text_path": "books/04000033-exodus-from-summerset.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an official The Elder Scrolls Online text, Exodus from Summerset."
     },
     {
       "form_id": "04000A16",
@@ -2225,9 +2221,8 @@
       "title": "Faith in the Shadow of Red Mountain",
       "editor_id": "LB_Book2_DT_ShadowRedMount_ESO",
       "text_path": "books/0400006C-faith-in-the-shadow-of-red-mountain.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated by an official ZeniMax Online Studios ESO: Morrowind publication as Faith in the Shadow of Red Mountain."
     },
     {
       "form_id": "0400097E",
@@ -2322,9 +2317,8 @@
       "title": "Fragmentae Abyssum",
       "editor_id": "LB_Book2_AP_Fragmentum_ESO",
       "text_path": "books/04000056-fragmentae-abyssum.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an official The Elder Scrolls Online lorebook, Fragmentae Abyssum Hermaeus Morus, in the Daedric Princes collection."
     },
     {
       "form_id": "04000997",
@@ -2443,9 +2437,8 @@
       "title": "Further Notes on the Sload",
       "editor_id": "LB_Book3_CL_Sload01_ESO",
       "text_path": "books/04000105-further-notes-on-the-sload.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an official The Elder Scrolls Online: Summerset text, Further Notes on the Sload, by Telenger the Artificer."
     },
     {
       "form_id": "04000925",
@@ -2469,9 +2462,8 @@
       "title": "Gifts of the Nereids",
       "editor_id": "LB_Book3_AP_Nereid_ESO",
       "text_path": "books/040000B1-gifts-of-the-nereids.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as an official The Elder Scrolls Online base-game lorebook, Gifts of the Nereids, in Greenshade Lore."
     },
     {
       "form_id": "04000929",
