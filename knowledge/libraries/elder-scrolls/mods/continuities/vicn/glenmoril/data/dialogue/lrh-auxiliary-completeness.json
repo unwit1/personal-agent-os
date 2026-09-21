@@ -1,0 +1,30 @@
+{
+  "source_plugin": "Glenmoril.esm",
+  "continuity": "tes.mod.vicn.glenmoril",
+  "scope": "auxiliary zzzLrh/zzzLRH QUST records outside zzzLrhMq01-10",
+  "raw_expected_responses": 692,
+  "normalized_responses": 115,
+  "remaining_responses": 577,
+  "remaining_quest": {
+    "editor_id": "zzzLrhSqRoadRoller",
+    "title": "Brain-Billy's Sting",
+    "scene_responses": 8,
+    "topic_responses": 569,
+    "total_responses": 577
+  },
+  "zero_response_quests": [
+    "zzzLrhBypass",
+    "zzzLrhQCheckDreamTorvesard",
+    "zzzLrhqChickTraderRevenge",
+    "zzzLRHrqChicken",
+    "zzzLRHrqCookingRecipe",
+    "zzzLRHrqKanraRescue",
+    "zzzLRHrqMushroom",
+    "zzzLRHrqNutrient",
+    "zzzLRHrqRogueHunt",
+    "zzzLRHrqSweetroll",
+    "zzzLRHSqRoadRollerStarter",
+    "zzzLrhSubQuest02",
+    "zzzLrhSubQuest03"
+  ]
+}
