@@ -49,3 +49,9 @@ This supports a deliberate cluster of **ice ↔ memory ↔ arrested time**, but 
 Do not automatically equate frozen Atmora, Dragon Breaks, mnemolichite, Lyg memory evaporation, or Blue Star / Mnemo-Li phenomena.
 
 They are linked retrieval topics, not yet proven identical mechanisms.
+
+## Ice of Atmora research
+
+Four Atmora Study tablets in **Frozen Cave** add a material research layer: refugee corpses, soft ice extracted from a pregnant corpse, luminescent larvae, and a creeping Atmoran ice seal.
+
+This makes frozen Atmora a material/research phenomenon as well as a mythic one. Its exact relationship to Ulliss's body, ice trees, and Dragon's Cradle dolls remains unresolved.

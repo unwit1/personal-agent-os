@@ -101,3 +101,9 @@ Their descriptions add direct identity/history statements:
 - **Shadow of the Gray OWL** says the secret of Saarthal granted him insight into higher planes.
 
 These post-quest descriptions strongly reinforce the existing Atmora / dragon-dream / Saarthal / Chick-Trader network, while leaving the exact meaning of "second CHICK" unresolved.
+
+## Multiple physical representations at Dragon's Peak
+
+Placed-reference analysis finds separate inspection objects for **Jhunal the Gray** and **Gray Owl** in different Dragon's Peak cells. The Jhunal body has an unknown real name; the Gray-Owl body is described as shattered after pursuing the dragon.
+
+Because dialogue elsewhere directly links Jhunal the Gray to the Gray Owl title, this supports a model with **multiple bodies/representations/states** inside the identity network rather than either a universal one-body merge or a complete identity split.
