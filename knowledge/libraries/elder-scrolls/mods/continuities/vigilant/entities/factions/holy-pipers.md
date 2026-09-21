@@ -18,7 +18,9 @@ However, the current repository does not yet preserve a direct VIGILANT ESM fact
 
 ## Current classification
 
-**Supplementary organization node / direct-source gap.**
+**VIGILANT-only:** supplementary organization / direct-source gap.
+
+**Cross-Vicn:** directly corroborated in GLENMORIL with quest/dialogue evidence.
 
 Lorekeeper may use the a123999 description as intended-background commentary, but should not present Holy Pipers as fully reconstructed from the shipped ESM.
 
@@ -60,3 +62,47 @@ Future exact-source work should search:
 ## Canon boundary
 
 Holy Pipers are VIGILANT supplementary material and should not be promoted into base Elder Scrolls canon.
+
+
+## Cross-Vicn direct corroboration — GLENMORIL
+
+The Holy Pipers are not merely a VIGILANT supplementary concept.
+
+GLENMORIL directly reconstructs the organization in its own ESM-derived corpus.
+
+Relevant files:
+- `../vicn/glenmoril/quests/the-pipers.md`
+- `../vicn/glenmoril/dialogue/pipers/the-pipers-resolved.md`
+- `../vicn/glenmoril/relationships/holy-pipers-perception-thread.md`
+
+GLENMORIL directly establishes:
+- the Holy Pipers were originally an **inquisitorial branch of the Temple/Vigil of Stendarr**;
+- they escalated into kidnapping and torture of suspected Daedra worshippers;
+- they were **excommunicated**;
+- Stendarr is said to have cursed them;
+- they wear unusual headgear said to suppress the curse;
+- they occupy **Piper's Hill**;
+- Laelnoah and other Falkreath-area victims are tied to their abductions;
+- the **Sacred Anatomancer** is identified as their leader in later intelligence.
+
+This means the organization itself is **directly ESM-corroborated at the wider Vicn-continuity level**, even though the current VIGILANT ESM extraction does not yet expose a Holy-Piper-named faction record.
+
+## Perception hazard
+
+GLENMORIL also gives the Holy Pipers a strong **perception hazard** layer.
+
+Rolls-On-Roads says:
+- merely knowing about them is dangerous;
+- their influence spreads through perception;
+- listening to them is analogous to opening oneself to them;
+- Psijics deliberately withhold information about them.
+
+This is relevant when interpreting the earlier VIGILANT supplementary description because it shows the faction is not simply a torture cult; later Vicn material develops them into a cognitively/metaphysically hazardous organization.
+
+## Revised classification
+
+**VIGILANT-only:** supplementary organization / direct-source gap.
+
+**Cross-Vicn:** directly corroborated organization with detailed GLENMORIL quest/dialogue implementation.
+
+Do not back-project every GLENMORIL-era detail into VIGILANT's exact historical period unless a VIGILANT record supports it.
