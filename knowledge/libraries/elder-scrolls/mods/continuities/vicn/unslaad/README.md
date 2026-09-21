@@ -8,12 +8,12 @@
 
 UNSLAAD is stored under the shared **Vicn continuity** with **VIGILANT**, **GLENMORIL**, and **DAc0da**. Source-level claims remain attributable to UNSLAAD unless another Vicn work independently supports them. Nothing in this layer is silently promoted into official Elder Scrolls canon.
 
-## Initial direct ESM inventory
+## Direct ESM inventory
 
-The first deterministic parser pass found **44,103 records**, including:
+The deterministic parser pass found **44,103 records**, including:
 
 - 833 INFO records with **1,015 embedded response strings**
-- 661 DIAL records, including 383 named/player-facing topic prompts
+- 661 DIAL records
 - 52 QUST records
 - 517 NPC_ records
 - 50 BOOK records with embedded DESC text
@@ -24,31 +24,55 @@ The first deterministic parser pass found **44,103 records**, including:
 
 The translated ESM is not localized, so its English dialogue and book text can be extracted directly without external string tables.
 
-## High-priority narrative chain discovered
+## Main-quest ingestion status
 
-1. 0301D8FF — **Falling Cat** (zzzCrbMq01)
-2. 0302299D — **Hoarfrost** (zzzCrbMq02)
-3. 03112A83 — **When You Wish Upon a Star** (zzzCrbMq03)
-4. 03117B3E — **Long Winter** (zzzCrbMq04)
-5. 03117B3F — **Lingering Snow** (zzzCrbMq05)
-6. 031DFDFA — **Stairway to Llesw'er** (zzzCrbMq06)
-7. 031DFDFB — **The Owl Flies at Dusk** (zzzCrbMq07)
-8. 03465EBF — **The Final Journey** (zzzCrbMq08)
-9. 0347A32B — **Loveletter to the Fifth Era** (zzzCrbMq09)
-10. 0347A38C — **Under the Elder Tree** (zzzCrbMq10)
+The lore-bearing dialogue/scene pass is complete for the numbered main chain:
 
-## Initial recurring/important entities
+1. Falling Cat
+2. Hoarfrost
+3. When You Wish Upon a Star
+4. Long Winter
+5. Lingering Snow
+6. Stairway to Llesw'er
+7. The Owl Flies at Dusk
+8. The Final Journey
+9. Loveletter to the Fifth Era
+10. Under the Elder Tree
 
-Direct NPC records include **Ulliss**, **Aisha**, **Austella**, **Jhunal the Gray**, **Ja'cobee**, **Black Owl**, **Lizz**, **Arkved the Dreamer**, **Herkel the Fool**, **Wulf the Veteran**, and **Mankar Camoran's Eye**, among many others. These are only identity/index seeds; detailed claims require dialogue, quest, scene, book, and condition evidence.
+Dedicated pages now cover the major main-chain nodes including Aisha, Ulliss, Austella, Ja'cobee, Lizz, Jhunal/Gray Owl, the Owls, the Twinkling Star, the Ancient Dragon Ring, Herkel, Oohoo'Laf, Ysmaalithax, and the dream-without-a-dreamer concept.
 
-## Cross-Vicn handling
+## Side-quest ingestion started
 
-Exact-name and concept overlaps already visible in the existing corpus include **Ja'cobee**, **Ulliss**, **Aisha**, **Jhunal**, and **Black Owl/Owl** material in GLENMORIL, plus substantial Jhunal/Owl material in VIGILANT. These are queued as cross-work relationship candidates, not automatic identity/equivalence assertions.
+High-value side/generic dialogue now includes:
 
-## Next ingestion passes
+- Fluffy's Secret — Twinkling Star as memory trigger; Fluffy remembers the Egg, a child/promise, guilt/forgiveness.
+- Arkved — generic-dialogue resolution; direct Oneiromancer deal and Prisoner/dream-memory material.
+- Liturgy of I — seven Loveletter fragments, Hermit interpretation, freedom/player-choice dialogue, Black Owl continuation.
+- Watcher from the Third Era — Mankar Camoran's Eye / Mysterium Xarxes observer.
+- Orlando the Knowledgeable — direct Ja'cobee/EGG statement and Black Owl/Elder Wood origin link.
+- Hermit — Austella/Jhunal caution plus Blue Star, chicks, Egg, Black Owl, golden-dragon prophetic imagery.
 
-1. Build a DIAL-to-INFO dialogue transcript and preserve FormID provenance.
-2. Resolve quest aliases and scenes to speaker identities where the ESM structurally supports it.
-3. Extract all 50 BOOK texts with provenance and distinguish official reused texts from UNSLAAD-authored material.
-4. Build character, location, artifact, and concept pages from direct evidence.
-5. Compare recurrent Vicn nodes against GLENMORIL/VIGILANT/DAc0da without collapsing contradictory or source-specific claims.
+## Strongest cross-VICN links currently established
+
+- **Ja'cobee / Ulliss / Aisha / EGG:** direct named and conceptual overlap with GLENMORIL.
+- **Jhunal / Owls / Saarthal / Night of Tears / Magnus-fire:** independently recurring in UNSLAAD, VIGILANT, and GLENMORIL.
+- **Arkved / Oneiromancer:** direct explicit link in both UNSLAAD and GLENMORIL.
+- **Orlando / Blue Star / Owl identities:** direct Orlando recurrence plus Owl/Atmora/Elder-Wood material.
+- **Mnemo-Li / Blue Orphan / dream without a dreamer:** distinctive vocabulary shared with GLENMORIL.
+- **Loveletter / Fifth Era:** reused apocryphal text employed as active UNSLAAD narrative substrate.
+
+## Provenance policy
+
+- Quest/objective structure, aliases, GetIsID/GetIsAliasRef conditions, scene bindings, record placements, and exact actor forms are implementation evidence.
+- Character explanations remain attributed testimony unless separately corroborated.
+- Reused official/apocryphal texts are not attributed to Vicn merely because copies exist in Unslaad.esm.
+- Colored Owl/Jhunal/Orlando forms remain linked but are not globally merged into one body/person.
+- Translation wording is preserved when terminology is uncertain.
+
+## Next ingestion frontier
+
+1. Finish remaining story-bearing side quests, especially Snow Guardian, Road to Atmora, Revive, and boss/optional quest families.
+2. Resolve remaining zzzCrbGeneric dialogue by GetIsID speaker conditions.
+3. Extract and provenance-classify all 50 BOOK texts and seven Loveletter fragments.
+4. Build remaining character/location/artifact dossiers.
+5. Align direct DAc0da evidence against the now-established VICN cross-work graph.
