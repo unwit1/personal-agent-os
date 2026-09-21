@@ -1,0 +1,17 @@
+{
+  "continuity_id": "tes.mod.clockwork",
+  "relationships": [
+    {"source":"Lahar","relation":"created_process_for","target":"The Gilded","status":"Lamashtu testimony","evidence":["INFO 0566AC24","INFO 0566AC27"]},
+    {"source":"Lahar","relation":"second_generation_member_of","target":"The Gilded","status":"Lamashtu testimony","evidence":["INFO 052FB0CD","INFO 0566AC27"]},
+    {"source":"Lahar","relation":"caretaker_of","target":"Clockwork Castle","status":"self-description / journal corroboration","evidence":["INFO 052D78C0","INFO 052D78C2","BOOK 05332EA7"]},
+    {"source":"Lahar","relation":"cares_for","target":"Lamashtu","status":"direct narrative action","evidence":["INFO 05651689","INFO 0565168A","INFO 0565168C","INFO 0565168D"]},
+    {"source":"Lamashtu","relation":"third_generation_member_of","target":"The Gilded","status":"self-testimony","evidence":["INFO 052FB0CD","INFO 0566AC27"]},
+    {"source":"Lamashtu","relation":"copy_origin_shared_with","target":"Shadow","status":"post-reunion self-testimony","evidence":["INFO 05788344"]},
+    {"source":"Shadow","relation":"kept_close","target":"Player","status":"post-reunion Lamashtu/Shadow memory","evidence":["INFO 0578D460"]},
+    {"source":"Shadow","relation":"likely_kept_close","target":"Ludwig Chlodovech","status":"qualified post-reunion testimony","evidence":["INFO 0578D460"]},
+    {"source":"Amalgam","relation":"took_hearts_from","target":"Other Gilded","status":"Lahar testimony / Amalgam corroboration","evidence":["INFO 0551B02C","INFO 0556769D","INFO 0556769E"]},
+    {"source":"Ludwig Chlodovech","relation":"invited_into_castle","target":"Lahar and Lamashtu","status":"Lahar testimony / Ludwig journals","evidence":["INFO 052E1B2F","BOOK 05332EA7"]},
+    {"source":"Ludwig Chlodovech","relation":"son_of","target":"Maximilian Chlodovech","status":"first-person journal","evidence":["BOOK 05332EA2"]},
+    {"source":"Camilla","relation":"expedition_partner_of","target":"Isidor","status":"written source","evidence":["BOOK 0505F158","BOOK 05065F4A","BOOK 05066A37","BOOK 05070265","BOOK 05070266"]}
+  ]
+}

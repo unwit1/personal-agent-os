@@ -11,19 +11,22 @@ Sub-continuity for the Skyrim mod **Clockwork**.
 
 - **13/13 BOOK records** are preserved as individual files in `books/`.
 - **242 DIAL topics / 888 INFO records** are represented in the raw dialogue corpus.
-- **520 direct response strings** expand to **1,103 effective response strings** after following Skyrim `DNAM` response-data reuse.
+- **520 direct response strings** expand to **1,103 effective response strings** after Skyrim `DNAM` response-data reuse.
 - **12 QUST records** are preserved in the raw quest corpus.
 - Player-facing quest pages are browsable in `quests/`.
-- Core Clockwork characters and Ludwig's chronology are browsable in `entities/` and `events/`.
+- Core characters, relationships, and Ludwig's chronology are browsable in `entities/` and `events/`.
+- Continuity-local concept/location/technology pages are browsable in `topics/`.
+- `dialogue/lahar/` contains all **192** INFO records uniquely attributable to Lahar; `dialogue/amalgam.md` contains the **5** uniquely attributable primary-Amalgam INFO records.
 
 ## Dialogue normalization
 
-The current resolver uses scene actor aliases and speaker-producing conditions such as `GetIsID`, `GetInFaction`, and `GetIsVoiceType`.
+The resolver uses scene actor aliases and speaker-producing conditions such as `GetIsID`, `GetInFaction`, and `GetIsVoiceType`.
 
 - 867 / 888 INFO records resolve to one or more plausible speaker candidates.
 - 322 INFO records resolve to a single NPC form.
 - 21 INFO records remain unresolved.
-- Named-character dialogue is only promoted when attribution is unique; broad Gilded/faction/voice-type matches remain ambiguous evidence.
+- Major unique counts: Lahar 192; Lamashtu 125; primary Amalgam 5.
+- Named-character transcripts promote only unique attribution. Broad Gilded/faction/voice-type matches remain ambiguous evidence.
 
 See `normalized/resolution-stats.json`.
 
@@ -31,12 +34,15 @@ See `normalized/resolution-stats.json`.
 
 - `books/` — exact decoded in-game book/note text
 - `raw/` — archival dialogue and quest record text extracted from the ESP
-- `quests/` — journal stages, objectives, and resolved aliases for player-facing quests
-- `entities/characters/` — evidence-backed Clockwork character pages
-- `events/ludwig-clockwork-timeline.md` — dated chronology from Ludwig's journals
-- `claim-seeds.json` — initial evidence-backed claims with FormID provenance
+- `dialogue/` — speaker-resolved browseable transcript material
+- `quests/` — journal stages, objectives, and resolved aliases
+- `topics/` — evidence-backed Clockwork lore topics
+- `entities/characters/` — character pages
+- `entities/relationships.md` — relationship index with evidence/status
+- `events/ludwig-clockwork-timeline.md` — dated Ludwig/Clockwork chronology
+- `claim-seeds.json` — evidence-backed claim seeds
 - `source-manifest.json` — source/book manifest and hashes
 
 ## Provenance rule
 
-Clockwork testimony remains scoped to this continuity. In particular, Lamashtu's statements about Kagrenac, the Heart of Lorkhan, and her own death are preserved as character testimony rather than converted into an objective answer to the canonical Dwemer disappearance.
+Clockwork testimony remains scoped to this continuity. In particular, Lamashtu's statements about Kagrenac, the Heart of Lorkhan, and her own death remain character testimony rather than an objective answer to the canonical Dwemer disappearance.
