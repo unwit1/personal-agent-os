@@ -4,12 +4,13 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "verified_official_game_text": 79,
-    "editor_id_hint_eso": 3,
-    "editor_id_hint_oblivion": 10,
-    "editor_id_hint_morrowind": 3,
-    "editor_id_hint_developer_mk": 3,
-    "unresolved": 686
+    "unresolved": 686,
+    "verified_official_game_text": 82,
+    "verified_developer_text": 1,
+    "editor_id_hint_oblivion": 8,
+    "editor_id_hint_developer_mk": 2,
+    "editor_id_hint_morrowind": 2,
+    "editor_id_hint_eso": 3
   },
   "entries": [
     {
@@ -209,9 +210,8 @@
       "title": "And We Ate It To Become It",
       "editor_id": "LB_Book2_AP_TsaeciCreation_MK",
       "text_path": "books/0400002D-and-we-ate-it-to-become-it.txt",
-      "provenance_status": "editor_id_hint_developer_mk",
-      "editor_id_hint": "MK",
-      "evidence": "The compilation plugin editor ID contains an explicit `_MK` marker. Treat as a possible developer-text attribution hint only until independently verified."
+      "provenance_status": "verified_developer_text",
+      "evidence": "Independently corroborated as Michael Kirkbride's out-of-game Tsaesci Creation Myth, published on the official Elder Scrolls forum in 2006 and subsequently archived by TES lore repositories; kept distinct from in-game official texts."
     },
     {
       "form_id": "0400004F",
@@ -2453,9 +2453,8 @@
       "title": "Ghost-Free Papers",
       "editor_id": "LB_Note3_GhostFree_MW",
       "text_path": "books/0400014D-ghost-free-papers.txt",
-      "provenance_status": "editor_id_hint_morrowind",
-      "editor_id_hint": "MW",
-      "evidence": "The compilation plugin editor ID contains an explicit `_MW` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as The Elder Scrolls III: Morrowind note Ghost-Free Papers (bk_uleni's_papers), associated with Uleni Heleran and the Gateway Ghost quest; compilation provenance retained separately."
     },
     {
       "form_id": "040000B1",
@@ -4120,9 +4119,8 @@
       "title": "Plan for the Big Heist",
       "editor_id": "LB_Note3_BigHeist_OBL",
       "text_path": "books/04000142-plan-for-the-big-heist.txt",
-      "provenance_status": "editor_id_hint_oblivion",
-      "editor_id_hint": "OBL",
-      "evidence": "The compilation plugin editor ID contains an explicit `_OBL` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as The Elder Scrolls IV: Oblivion note Plan for the Big Heist, FormID 00022DB4, given by the Gray Fox for The Ultimate Heist; compilation provenance retained separately."
     },
     {
       "form_id": "04000933",
@@ -5358,9 +5356,8 @@
       "title": "The Path of Transcendence",
       "editor_id": "LB_Book2_NC_Transcendence_OBL",
       "text_path": "books/04000047-the-path-of-transcendence.txt",
-      "provenance_status": "editor_id_hint_oblivion",
-      "editor_id_hint": "OBL",
-      "evidence": "The compilation plugin editor ID contains an explicit `_OBL` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as The Elder Scrolls IV: Oblivion book The Path of Transcendence, FormID 0003647E, found in Leafrot Cave during Affairs of a Wizard; compilation provenance retained separately."
     },
     {
       "form_id": "04000117",
