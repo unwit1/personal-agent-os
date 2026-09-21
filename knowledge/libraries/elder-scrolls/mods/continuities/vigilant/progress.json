@@ -140,7 +140,17 @@
     "Petition to House Tharn Vol. 11 individual source map",
     "Petition to House Tharn Vol. 23 individual source map",
     "Petition to House Tharn Vol. 68 individual source map",
-    "Petition to House Tharn Vol. 77 individual source map"
+    "Petition to House Tharn Vol. 77 individual source map",
+    "Aina the Wench lightweight scene-role dossier",
+    "Kathutet lightweight scene-role dossier",
+    "Amkaos lightweight scene-role dossier",
+    "Volar the Deathbringer Aetherius structural dossier",
+    "Johan memory/family identity-cluster dossier",
+    "Simon memory/funeral identity-cluster dossier",
+    "Tlass memory/funeral identity-cluster dossier",
+    "Priest of Arkay Johan-memory role node",
+    "Madness KingShadow unresolved-role cluster",
+    "Beyond the Shores of Madness unresolved-role cluster"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -177,20 +187,20 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "ten-unit VIGILANT source-localization batch 1",
+    "focus": "ten-unit VIGILANT structural-role batch 2",
     "added": [
-      "Slave Trader's Note 8 individual source map",
-      "What Khajiit Saw individual source map",
-      "What Khajiit Heard individual source map",
-      "What Khajiit Said individual source map",
-      "Sacred Anatomancer report individual source map",
-      "The Great Gate individual source map",
-      "Petition to House Tharn Vol. 11 individual source map",
-      "Petition to House Tharn Vol. 23 individual source map",
-      "Petition to House Tharn Vol. 68 individual source map",
-      "Petition to House Tharn Vol. 77 individual source map"
+      "Aina the Wench lightweight scene-role dossier",
+      "Kathutet lightweight scene-role dossier",
+      "Amkaos lightweight scene-role dossier",
+      "Volar the Deathbringer Aetherius structural dossier",
+      "Johan memory/family identity-cluster dossier",
+      "Simon memory/funeral identity-cluster dossier",
+      "Tlass memory/funeral identity-cluster dossier",
+      "Priest of Arkay Johan-memory role node",
+      "Madness KingShadow unresolved-role cluster",
+      "Beyond the Shores of Madness unresolved-role cluster"
     ],
-    "source_state": "All ten units use exact persisted VIGILANT BOOK text plus previously resolved structural provenance. No unresolved identity, authorship, realm, or metaphysical claim was promoted beyond its source layer.",
-    "open_followup": "Continue in ten-unit commits. Prioritize remaining exact persisted books whose evidence is only in broad analyses, then use direct structural records for high-relevance unresolved characters. Missing unpersisted BOOK text remains blocked unless the source extraction bytes can be recovered."
+    "source_state": "These ten units are intentionally lightweight where the ESM only resolves scene roles or dynamic aliases. No personal biography was invented from a title, role label, grave name, or unresolved alias.",
+    "open_followup": "Continue in ten-unit commits. Next priority: source-localize remaining exact documents still represented only by broad cluster analyses, then deepen recoverable named Coldharbour actors/factions. Sir Amiel, full Soul-Shriven roster, PEX bodies, and unpersisted BOOK text remain separate recovery targets."
   }
 }
