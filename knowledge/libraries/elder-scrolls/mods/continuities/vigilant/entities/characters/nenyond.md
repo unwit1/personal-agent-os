@@ -41,6 +41,27 @@ Nenyond's priory is also one of the many interiors attached to the main Coldharb
 
 This proves VIGILANT treats Nenyond's foundation as part of the explorable Act 4 world. It does not prove that the Coldharbour version is historically unchanged from the First Era site.
 
+## Disappearance complex
+
+The deeper reconstruction is tracked in:
+
+`analysis/nenyond-priory-complex.md`
+
+The key structural result is that **Nenyond himself remains absent**, while the two figures who followed his disappearance trail are both physically represented in the connected **Funeral Temple**:
+
+- **Sorcerer Manthar** — `ACHR 021146DA`
+- **Abbot Silorn** — `ACHR 0243A499`
+
+This makes the Funeral Temple read as an environmental aftermath of the expedition beneath Nenyond's priory rather than as a simple Nenyond boss arena.
+
+The saint text says Nenyond and Manthar vanished first, Silorn followed to search for them, and only Silorn's skin returned. VIGILANT preserves those consequences asymmetrically:
+
+- Manthar survives as a boss/summon identity;
+- Silorn survives as an actor plus the **Hide of Abbot Silorn** relic;
+- Nenyond survives only through the priory, key, historical account, and his unresolved absence.
+
+The claim that the excavated ruins are genuinely from the **Dawn Era** still comes from *The Eight Saints of Cyrod*. The implemented cells corroborate the site and relationships, not that dating.
+
 ## Current evidence limits
 
 Nenyond currently has:
