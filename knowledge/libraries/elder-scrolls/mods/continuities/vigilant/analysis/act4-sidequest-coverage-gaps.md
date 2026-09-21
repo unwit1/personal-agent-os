@@ -66,9 +66,9 @@ The scene index preserves:
 - `SCEN 021C31F3`
 - speaker: **Sir Torolf**
 
-No dedicated Sir Torolf dossier or recovered quest narrative is yet present.
+A dedicated structural dossier now exists at `entities/characters/sir-torolf.md`.
 
-Status: **named speaker recovered; narrative body still missing.**
+Status: **named speaker and stable character node recovered; narrative body still missing.**
 
 ### Kyne's Dragon — `zzzCHSubQuest11`
 
@@ -78,9 +78,9 @@ The scene index preserves:
 
 Broken Horns also stores a property pointing to **Kyne's Dragon**, making the quest structurally relevant to the Belharza/Morihaus/final-memory complex.
 
-No dedicated Kahkaankrein dossier or full quest reconstruction is yet present.
+A dedicated structural dossier now exists at `entities/characters/kahkaankrein.md`.
 
-Status: **named speaker + cross-quest linkage recovered; narrative body still missing.**
+Status: **named speaker + cross-quest linkage + stable character node recovered; narrative body still missing.**
 
 ## Starter-list membership only or near-only
 
@@ -88,7 +88,6 @@ The following quests are confirmed members of the Act 4 starter list, but the cu
 
 - `zzzCHSubQuest01` — **More Skooma**
 - `zzzCHSubQuest02` — **Archer of Kyne**
-- `zzzCHSubQuest03` — **The Black Worm**
 - `zzzCHSubQuest07` — **Knight of Julianos**
 - `zzzCHSubQuest08` — **Knight of Zenithar**
 - `zzzCHSubQuest12` — **Knight of Kynareth**
@@ -101,7 +100,7 @@ That creates a potentially important connection to `zzzCHSubQuest03` / *The Blac
 
 Do not identify the Black Worm with **Mannimarco** merely from the epithet. The current VIGILANT repository layer does not contain a direct Mannimarco identification.
 
-Status: **high-priority exact-source gap.**
+Status: **identity/source-gap analysis now preserved in `analysis/black-worm-identity-gap.md`; exact quest body still missing.**
 
 ## Funeral — `zzzCHSubQuest04`
 
@@ -116,7 +115,7 @@ However, searches for the generic word **Funeral** collide heavily with those lo
 
 The quest-specific narrative body of `zzzCHSubQuest04` has not yet been cleanly isolated from the broader Funeral Temple corpus.
 
-Status: **likely recoverable, but requires quest-specific raw extraction rather than keyword matching.**
+Status: **structural separation now preserved in `analysis/funeral-sidequest-structure.md`; Sister/SisterDead bases, dialogue, and runtime body still need recovery.**
 
 ## Why this gap map matters
 
@@ -128,15 +127,15 @@ Without this page, repeated continuation passes risk:
 
 The next raw-source priority for Act 4 side quests should be:
 
-1. **The Black Worm**
-2. **Kyne's Dragon / Kahkaankrein**
-3. **Knight of Arkay / Sir Torolf**
-4. **Funeral**
-5. **More Skooma**
-6. **Archer of Kyne**
-7. **Knight of Julianos**
-8. **Knight of Zenithar**
-9. **Knight of Kynareth**
+1. **More Skooma**
+2. **Archer of Kyne**
+3. **Knight of Julianos**
+4. **Knight of Zenithar**
+5. **Knight of Kynareth**
+6. **The Black Worm** — exact quest body after identity-gap analysis
+7. **Kyne's Dragon / Kahkaankrein** — full dialogue/alias body
+8. **Knight of Arkay / Sir Torolf** — full dialogue/alias body
+9. **Funeral** — Sister/SisterDead resolution
 
 This ordering is an **extraction priority**, not a lore-importance ranking: it favors quests with existing cross-links that can unlock other unresolved relationships.
 
