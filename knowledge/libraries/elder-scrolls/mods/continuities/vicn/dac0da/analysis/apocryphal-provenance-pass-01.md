@@ -37,7 +37,7 @@ DAc0da's BOOK text follows the same Aechneil / Bleed / Djaf / Ghost Choir 9 narr
 ## `DAc0da.esm:0085FD` — Ghost Choir 9
 
 **Editor ID:** `zDcdNahdFiction_002_MK`  
-**Origin status:** **MK-associated obscure material; exact standalone publication provenance not yet independently recovered**
+**Origin status:** **strongly attributed to Michael Kirkbride; original standalone publication location not yet recovered**
 
 The DAc0da text is titled:
 
@@ -51,17 +51,27 @@ External material confirms:
 - Kirkbride's **Landfall: Day One** uses Ghost Choir 9 directly;
 - mojonation1487 separately describes Ghost Choir 9 as an RPG idea by MK while saying they themselves wrote about the concept in their own works.
 
-However, this pass has **not** recovered a sufficiently authoritative standalone publication page for the exact long text embedded in `0085FD`.
+A later external provenance search compared the **actual full DAc0da BOOK body** against public material.
+
+Findings:
+
+- the DAc0da text is **not** the mojonation1487 `Djaf: Arena of Lyg` story; it is a separate first-person/in-character GC9 transcript that partially recalls the Djaf arena state;
+- Michael Kirkbride's **Landfall: Day One** independently uses Ghost Choir 9, confirming the concept in Kirkbride's own published C0DA material;
+- a later Italian Elder Scrolls lore translation reproduces the exact distinctive DAc0da transcript and labels it **“Ghost Choir 9 (Michael Kirkbride)”**;
+- exact-phrase searches for unique strings such as the `ODDSEMBLIO` sequence, “CHOIR 9 SLEEVESHELL,” and the nym-pause/mem-web passage did **not** recover an older primary publication page.
 
 ### Library treatment
 
-For now record:
+Current provenance confidence:
 
 - `_MK` editor attribution: direct DAc0da metadata;
-- Ghost Choir 9 concept: strongly Michael-Kirkbride-associated;
-- exact long-text authorship/source page: **unresolved**.
+- exact text: independently reproduced in a later translation explicitly attributed to Michael Kirkbride;
+- Ghost Choir 9 concept: independently present in Kirkbride's `Landfall: Day One`;
+- original standalone publication URL/date for this exact transcript: **unresolved**.
 
-Do not upgrade “associated with MK” to “verified exact text authored by MK” until the original standalone source is recovered.
+Therefore classify the text as **strongly Michael-Kirkbride-attributed obscure material**, while preserving the narrower unresolved field: **original publication provenance**.
+
+Do not confuse it with mojonation1487's separate `Djaf` prose simply because both contain Captain Starkweather and the Ghost Choir 9 identity.
 
 ## `DAc0da.esm:0085FE` — ANON/ANU/ANUI-EL
 
@@ -171,7 +181,7 @@ DAc0da uses a lightly adapted/normalized presentation, including bracketed subst
 
 ### Still not fully source-resolved
 
-- **Ghost Choir 9** long standalone text — clearly MK-associated in DAc0da metadata and wider concept history, but exact original publication/authorship page still needs recovery.
+- **Ghost Choir 9** long standalone text — strongly attributed to Michael Kirkbride by DAc0da metadata, independent Kirkbride GC9 usage, and later exact-text attribution; the remaining gap is the **original standalone publication location/date**, not the broader authorship attribution.
 
 ## DAc0da narrative significance
 
