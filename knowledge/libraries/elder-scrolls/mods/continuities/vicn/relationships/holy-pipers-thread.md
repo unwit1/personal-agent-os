@@ -75,6 +75,23 @@ That creates several plausible but unresolved models:
 
 No processed source yet selects one model conclusively.
 
+## Chronology caution
+
+A simple “DAc0da shows the Holy Pipers before they became corrupt” chronology is **not currently supported**.
+
+VIGILANT's **Report: Sacred Anatomancer** dates the Anatomancer's reappearance and organization of the Society of the Holy Pipers to **winter 4E 198**.
+
+DAc0da's Athanasius says he fought in the **Great War** and later joined the Holy Pipers. His Sea-of-Causality appearance is tied to a Solitude naval expedition launched from DAc0da's Skyrim-era present, but DAc0da's setting is heavily affected by time breaches and displaced actors.
+
+Therefore the current parent models should remain:
+
+1. multiple Holy-Piper branches/states can coexist;
+2. Athanasius may represent a benign branch not identical to the Anatomancer's Society;
+3. DAc0da may expose a temporally displaced or alternate state;
+4. the exact institutional relationship is unresolved.
+
+The evidence currently **disfavors treating chronology alone as proof** that Athanasius belongs to a pre-4E-198 organization.
+
 ## High-confidence parent claims
 
 Safe to promote:
