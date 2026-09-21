@@ -23,6 +23,20 @@ Dialogue reports a gigantic Dwemer construct offshore from Solitude. A speaker s
 
 The messenger directs the player to Solitude Lighthouse to meet its summoner. Evidence: `DAc0da.esm:00AA28`.
 
+## Lokir messenger
+
+The quest alias table resolves:
+
+- `Lokir` -> `DAc0da.esm:00AA00` / `zDcdUqLokirNew` — **Lokir of These Parts**
+
+When the player asks who the messenger Lokir was, Rolls-On-Roads says the actor was actually **a Daedra he summoned and instructed to assume a form familiar to the player**. Evidence: `DAc0da.esm:00AA56`.
+
+When the player says the figure was merely a familiar-looking Nord, Rolls-On-Roads suggests the player may have a strong impression of that Nord because they witnessed his death. Evidence: `DAc0da.esm:00AA58`.
+
+This means DAc0da is deliberately using the Skyrim opening's Lokir image as a **perception/memory-selected disguise**, not asserting that the historical Lokir survived or returned bodily.
+
+The plugin also contains `DAc0da.esm:00AA01` / `zDcdTemplateLokir`, displayed simply as **Lokir**, as the supporting template form.
+
 ## Multiple attempts, multiple "yous"
 
 The Monk speaks as though the current player is one iteration among many. When challenged, he says other versions of the player exist in other time and space but cannot perceive one another. Evidence: `DAc0da.esm:00AA30`, `00AA32`.
