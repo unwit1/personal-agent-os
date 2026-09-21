@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "policy": "Crosslinks identify referenced base-TES concepts and continuity boundaries. A base path marked stub/pending is not treated as sufficient evidence for detailed canonical claims.",
+  "links": [
+    {
+      "clockwork_claim_ids": [
+        "clockwork:lamashtu-shadow-split",
+        "clockwork:dwemer-disappearance-unknown"
+      ],
+      "clockwork_topic": "topics/kagrenac-red-mountain-claims.md",
+      "base_refs": [
+        {
+          "path": "knowledge/libraries/elder-scrolls/topics/characters/kagrenac.md",
+          "status": "priority_stub_source_expansion_pending",
+          "relation": "references_character"
+        },
+        {
+          "path": "knowledge/libraries/elder-scrolls/topics/characters/kagrenac-chief-tonal.md",
+          "status": "priority_stub_source_expansion_pending",
+          "relation": "references_title_context"
+        },
+        {
+          "path": "knowledge/libraries/elder-scrolls/topics/characters/lorkhan.md",
+          "status": "priority_stub_source_expansion_pending",
+          "relation": "references_heart_context"
+        }
+      ],
+      "boundary": "Clockwork adds Lamashtu's claimed coincidence/accident. It does not establish a base-canon explanation of the Dwemer disappearance."
+    },
+    {
+      "clockwork_claim_ids": [
+        "clockwork:numidium-in-miniature"
+      ],
+      "clockwork_topic": "topics/kagrenac-red-mountain-claims.md",
+      "base_refs": [
+        {
+          "path": "knowledge/libraries/elder-scrolls/topics/characters/kagrenac.md",
+          "status": "priority_stub_source_expansion_pending",
+          "relation": "references_numidium_context"
+        }
+      ],
+      "boundary": "The phrase 'Numidium in miniature' is Lamashtu's Clockwork-continuity characterization of Gilded bodies and must not be back-propagated into base-TES descriptions of Numidium or Dwemer constructs."
+    },
+    {
+      "clockwork_claim_ids": [
+        "clockwork:gilded-origin",
+        "clockwork:gilded-generations",
+        "clockwork:own-bones"
+      ],
+      "clockwork_topic": "topics/gilded.md",
+      "base_refs": [],
+      "boundary": "Nurndural, the Gilded generations, the Sickness Ward immortality project, Lahar's authorship, and bone-gilding adaptation are Clockwork-specific additions unless separately supported by another continuity."
+    },
+    {
+      "clockwork_claim_ids": [
+        "clockwork:gilded-soul-machine-feedback"
+      ],
+      "clockwork_topic": "topics/crystalline-hearts.md",
+      "base_refs": [],
+      "base_reference_status": "no_developed_base_soul_gem_topic_found_in_current_library",
+      "boundary": "Clockwork's soul/body feedback model is continuity-local testimony. Generic existence of soul gems in TES does not make this specific consciousness-feedback mechanism base canon."
+    },
+    {
+      "clockwork_claim_ids": [
+        "clockwork:dwemer-disappearance-unknown"
+      ],
+      "clockwork_topic": "topics/kagrenac-red-mountain-claims.md",
+      "base_refs": [],
+      "boundary": "This is a negative-knowledge guardrail: Lamashtu explicitly declines to answer the broader disappearance question."
+    }
+  ]
+}

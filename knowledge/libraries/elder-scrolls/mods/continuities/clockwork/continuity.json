@@ -77,13 +77,15 @@
     "lore_topics": "initial_complete",
     "interpretive_analysis": "initial_complete",
     "package_state_choreography": "initial_story_relevant_pass_complete",
-    "cell_reference_mapping": "clockwork_named_cells_and_story_markers_mapped"
+    "cell_reference_mapping": "clockwork_named_cells_and_story_markers_mapped",
+    "base_tes_crosslinks": "initial_boundary_map_complete; base reference dossiers currently mostly stubs"
   },
   "next_ingestion_steps": [
     "inspect remaining VMAD-bearing records for story-state changes not represented in dialogue or journals",
     "parse remaining story-relevant PACK conditions/targets and placed references beyond the first curated choreography pass",
     "catalog named ACTI/DOOR/CONT/FURN/MSTT records that materially describe castle and Nurndural systems",
-    "build explicit base-TES comparison/contradiction links for Dwemer, Kagrenac, Numidium, soul gems, and Red Mountain",
-    "add retrieval tests for spoiler gating, provenance boundaries, revised claims, and implementation-vs-lore separation"
+    "add retrieval tests for spoiler gating, provenance boundaries, revised claims, and implementation-vs-lore separation",
+    "expand base-TES Kagrenac/Heart/Numidium/Red Mountain dossiers from source-backed library ingestion before deeper canonical comparison",
+    "add retrieval tests for continuity-boundary routing and stub-aware base-canon comparisons"
   ]
 }
