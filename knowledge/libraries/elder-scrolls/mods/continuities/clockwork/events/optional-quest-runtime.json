@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "type": "optional_quest_runtime_wiring",
+  "quests": [
+    {
+      "form_id": "05337FC1",
+      "name": "A Bed of Dust",
+      "journal_refs": [
+        {
+          "part": 1,
+          "ref": "05332EA3",
+          "cell": "05013ECF",
+          "cell_name": "Clockwork Castle Master Bedroom",
+          "script": "CLWLudwigJournalScript",
+          "objective": 20
+        },
+        {
+          "part": 2,
+          "ref": "05332EA9",
+          "cell": "050261BA",
+          "cell_name": "Clockwork Castle Mage's Study",
+          "script": "CLWLudwigJournalScript",
+          "objective": 30
+        },
+        {
+          "part": 3,
+          "ref": "05332EAB",
+          "cell": "0503C62F",
+          "cell_name": "Clockwork Castle Travel Room",
+          "script": "CLWLudwigJournalScript",
+          "objective": 40
+        },
+        {
+          "part": 4,
+          "refs": [
+            "05332EB0",
+            "0534C469"
+          ],
+          "cell": "05013ECF",
+          "cell_name": "Clockwork Castle Master Bedroom",
+          "script": "defaultSetStageOnCloseBookNotAlias",
+          "stage_to_set": 40
+        }
+      ],
+      "shared_first_three_state": {
+        "stage_to_set": 30,
+        "key": "05337FC5",
+        "globals": [
+          "05337FC2",
+          "05337FC3",
+          "05337FC4"
+        ]
+      },
+      "secret_door_refs": [
+        {
+          "ref": "0501497B",
+          "base": "0501497A CLWWardrobeSecretDoor"
+        },
+        {
+          "ref": "0501497D",
+          "base": "0501497C CLWSecretWardrobePanel01"
+        }
+      ],
+      "secret_door_script": "CLWSDQ01DoorScript",
+      "secret_door_stage_configuration": 30,
+      "ludwig_found_global": "0534732C"
+    },
+    {
+      "form_id": "057A69D2",
+      "name": "Staff Enchanting",
+      "stages": [
+        10,
+        100
+      ],
+      "request_info": "057A69D4",
+      "delivery_info": "057A69D6",
+      "delivery_conditions": {
+        "quest_stage": 10,
+        "heart_stone_count_min": 1,
+        "greater_soul_gem_count_min": 3
+      },
+      "result_fragment_wiring": {
+        "staff_enchanter_ref": "050299D9",
+        "staff_enchanter_cell": "050261BA",
+        "blank_staff_global": "057A69D1",
+        "heart_stone": "03017749",
+        "greater_soul_gem": "0002E4F4"
+      },
+      "caveat": "Compiled INFO fragment bodies are not source-decoded; exact low-level Papyrus statements are not asserted."
+    }
+  ]
+}

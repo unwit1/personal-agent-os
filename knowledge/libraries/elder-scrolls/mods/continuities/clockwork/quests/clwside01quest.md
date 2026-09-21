@@ -11,19 +11,15 @@ I've found part of a journal written by someone named Ludwig, who used to live i
 
 ### Stage 20
 
-Someone named Ludwig used to live in Clockwork Castle. Lahar gave me some suggestions on where I might find Ludwig's journals. he said to look in the Master Bedroom, Mages Study and Travel Room.
-
-### Stage 20
-
-Someone named Ludwig used to live in Clockwork Castle. Lahar gave me some suggestions on where I might find the rest of Ludwig's journals. he said to look in the Master Bedroom, Mages Study and Travel Room.
+Someone named Ludwig used to live in Clockwork Castle. Lahar gave me suggestions on where I might find Ludwig's journals: the Master Bedroom, Mage's Study, and Travel Room.
 
 ### Stage 30
 
-Someone named Ludwig used to live in Clockwork Castle. I have found several of his journals. One of them contained a key which apparently belongs to a wardrobe in the Master Bedroom.
+I have found several of Ludwig's journals. One contained a key belonging to a wardrobe in the Master Bedroom.
 
 ### Stage 40
 
-Someone named Ludwig used to live in Clockwork Castle. I have found his journals... the last of which was resting on a desiccated corpse, hidden in a secret chamber behind the walls of the Master Bedroom.
+I have found Ludwig's journals; the last was resting on his desiccated corpse in a secret chamber behind the Master Bedroom walls.
 
 ## Objectives
 
@@ -35,8 +31,19 @@ Someone named Ludwig used to live in Clockwork Castle. I have found his journals
 
 ## Aliases
 
-- `0` **Lahar** (reference) → Lahar
-- `1` **Journal01** (reference) → unresolved/non-actor
-- `2` **Journal02** (reference) → unresolved/non-actor
-- `3` **Journal03** (reference) → unresolved/non-actor
-- `4` **Journal04** (reference) → unresolved/non-actor
+- `0` **Lahar** → Lahar
+- `1` **Journal01** → `REFR 05332EA3`
+- `2` **Journal02** → `REFR 05332EA9`
+- `3` **Journal03** → `REFR 05332EAB`
+- `4` **Journal04** → `REFR 05332EB0`
+
+## Runtime wiring
+
+- Part 1 is placed in the **Master Bedroom**.
+- Part 2 is placed in the **Mage's Study**.
+- Part 3 is placed in the **Travel Room**.
+- Parts 1–3 share `CLWLudwigJournalScript`, per-part read globals, wardrobe-key wiring, and objective/state configuration toward stage 30.
+- The Master Bedroom wardrobe and false back panel use `CLWSDQ01DoorScript` with this quest's stage-30 state.
+- Both placed variants of Part 4 set the quest to stage **40** when closed/read.
+
+See `../events/optional-quest-runtime.md` for exact refs and script-property evidence.
