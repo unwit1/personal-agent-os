@@ -1,0 +1,20 @@
+{
+  "source_plugin": "Glenmoril.esm",
+  "continuity": "tes.mod.vicn.glenmoril",
+  "scope": "Act 1 Little Red main quests zzzLrhMq01-zZZLrhMq10",
+  "raw_expected_responses": 585,
+  "quests": [
+    {"editor_id":"zzzLrhMq01","title":"The Way is Blocked","scene_responses":25,"topic_responses":72,"total_responses":97,"status":"normalized"},
+    {"editor_id":"zzzLrhMq02","title":"The Chick Trader","scene_responses":15,"topic_responses":61,"total_responses":76,"status":"inventoried"},
+    {"editor_id":"zzzLrhMq03","title":"A Curious Animal","scene_responses":8,"topic_responses":18,"total_responses":26,"status":"inventoried"},
+    {"editor_id":"zzzLrhMq04","title":"Weary of Waiting","scene_responses":9,"topic_responses":20,"total_responses":29,"status":"inventoried"},
+    {"editor_id":"zzzLrhMq05","title":"Ah, Apple Pie!","scene_responses":20,"topic_responses":33,"total_responses":53,"status":"inventoried"},
+    {"editor_id":"zzzLrhMq06","title":"Cleaning Up Falkreath","scene_responses":8,"topic_responses":40,"total_responses":48,"status":"inventoried"},
+    {"editor_id":"zzzLrhMq07","title":"The Blessing","scene_responses":10,"topic_responses":34,"total_responses":44,"status":"inventoried"},
+    {"editor_id":"zzzLrhMq08","title":"My Precious","scene_responses":7,"topic_responses":29,"total_responses":36,"status":"inventoried"},
+    {"editor_id":"zzzLrhMq09","title":"Ta Ta!","scene_responses":27,"topic_responses":33,"total_responses":60,"status":"inventoried"},
+    {"editor_id":"zzzLrhMq10","title":"The Cat and the Chick","scene_responses":32,"topic_responses":84,"total_responses":116,"status":"inventoried"}
+  ],
+  "normalized_responses": 97,
+  "remaining_responses": 488
+}
