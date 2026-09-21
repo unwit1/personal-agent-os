@@ -105,6 +105,12 @@ A first VMAD metadata pass confirms direct implementation links including:
 - Loveletter quest state wired to the frozen-time access gate;
 - GC9 object wired to its LYG memory-erasure message.
 
+### Artifact ownership / death-loot / factions
+
+A first deterministic ownership graph now covers named NPC/container inventories, custom death-item lists, reward-container provenance, craftable forms, enchantment links, and custom race/faction membership.
+
+Promoted dossiers include Austella's Hoarfrost equipment, Jhunal/Gray-Owl equipment, Khev/Molag/Muatra/Coldfire, Atmoran trial relics, Dov-Ah-Kiin relics, KINMUNE/Ayrenn/Oracle-Iridescent staging, Owl/Lyg-Crab/World-Eater/Blades/Companion/core factions, Sinak/Woodland-Man/Owl relationships, and Jill trial/cross-VICN material.
+
 ### No-dialogue boss/trial quests
 
 Named boss/trial families have a structural index even when they contain no ordinary INFO dialogue, including Trial of the Gods, Idol of Magnar, Last Giant of Jhunal, Jill trials, Ysgramor trial, Priest of Jhunal, and Woodland Man hunt.
@@ -134,13 +140,13 @@ Named boss/trial families have a structural index even when they contain no ordi
 
 ## Remaining ingestion frontier
 
-Basic text discovery across dialogue, books, scenes, MESG, and item descriptions is now substantially reconciled.
+The basic text-bearing layers and the first structural ownership/faction layers are now substantially reconciled.
 
 The next high-value UNSLAAD work is:
 
-1. acquisition/ownership/enchantment mapping for named weapons, armor, boss drops, and relics;
-2. faction, race, creature, death-item, and summon relationship indexing;
-3. deeper placed-reference analysis for high-value bosses and historical figures;
-4. selective VMAD property-value resolution where it can establish exact object/ref relationships without inventing script bodies;
-5. external provenance matching for remaining reused or adapted source texts;
-6. further parent-VICN reconciliation against GLENMORIL, VIGILANT, and the increasingly complete DAc0da corpus.
+1. enchantment/spell/magic-effect relationship indexing for lore-bearing artifacts and creatures;
+2. summon-tome / summon-form / corpse-drop relationships, especially Woodland/Sinak, Draco-Nord, Watcher, and Hoarfrost families;
+3. deeper quest-condition analysis for when major artifact recipes/reward sets unlock;
+4. selected placed-reference analysis for named historical weapons, masks, and transformed boss phases;
+5. provenance matching for remaining externally sourced/adapted written or mythic material;
+6. further parent-VICN reconciliation against VIGILANT, GLENMORIL, and DAc0da where exact names, artifacts, or mechanics recur.
