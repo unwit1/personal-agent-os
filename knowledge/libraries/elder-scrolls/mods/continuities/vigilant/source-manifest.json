@@ -39,5 +39,32 @@
       "file": "sources/supplementary/community-transcript-sources.md",
       "provenance_policy": "secondary only; verify against direct ESM when available"
     }
+  ],
+  "cross_continuity_evidence": [
+    {
+      "id": "vicn-glenmoril-direct",
+      "continuity": "tes.mod.vicn.glenmoril",
+      "type": "direct-cross-mod-esm-derived",
+      "examples": [
+        "Holy Pipers organization",
+        "Chick Traders organization",
+        "Sacred Anatomancer rewriting biographies",
+        "White/Gray/Black Owl texts and identities",
+        "Laza and the Owls"
+      ],
+      "provenance_policy": "may corroborate wider Vicn continuity but must not be presented as direct VIGILANT ESM evidence"
+    },
+    {
+      "id": "vicn-unslaad-direct",
+      "continuity": "tes.mod.vicn.unslaad",
+      "type": "direct-cross-mod-esm-derived",
+      "examples": [
+        "Sacred Anatomancer Name-to-Radiance dialogue",
+        "Jhunal the Gray equals Gray Owl",
+        "Laza among Gray Owl failed experiments",
+        "Owl network and Saarthal history"
+      ],
+      "provenance_policy": "may corroborate wider Vicn continuity but must not be silently back-projected into VIGILANT-specific records"
+    }
   ]
 }
