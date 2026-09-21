@@ -1,30 +1,51 @@
-# Lalanoah / Hamah address thread
+# Lalanoah / Hamah address and succession thread
 
-**Percussive Maintenance** gives direct pre-St.-Bazura evidence that Kalka calls **Lalanoah**:
+## Ta Ta! — strongest early evidence
 
-- “Ms. Hamah”
-- “Come back again any time, Ms. Hamah.”
+Kalka directly addresses Lalanoah as:
+> “Ms. Hamah.”
 
-The scene's quest alias structurally identifies the addressee as Lalanoah.
+Lalanoah corrects her:
+> “I am Lalanoah.”
 
-## Later evidence
+Kalka nevertheless continues using **Ms. Hamah**.
 
-At St. Bazura, Kalka says:
+Kalka says a nearby rune stone:
+> “protects Ms. Hamah”
+
+and warns that befouling it will cause the protection to fail.
+
+Asked directly who Hamah is, Kalka begins to answer and then stops:
+> “That is a secret of the Owl. Please, forget about it.”
+
+Asked about nearby graves, Kalka says:
+> “All of these belong to Ms. Hamah. They were all splendid ladies. That girl will become like this too, I am sure...”
+
+This is direct evidence for **multiple prior Hamahs** and a future expectation involving Lalanoah.
+
+## Percussive Maintenance
+
+Kalka again calls Lalanoah **Ms. Hamah**.
+
+## St. Bazura
+
+Kalka later says:
 - Lalanoah will soon become a **suitable vessel for succession**;
 - after her, “we” will wait for **the next Hamah, a much later Hamah**.
 
 ## Consequence
 
-The Hamah connection is stronger than a merely future possibility: Kalka is **already using Hamah as Lalanoah's form of address/identity** before the explicit succession explanation.
+The combined source strongly supports Hamah as a **recurring/successive identity or role** involving multiple women and Lalanoah.
 
 ## Remaining ambiguity
 
-This still does not settle whether Hamah is:
+It still does not settle whether Hamah is:
 - a title;
-- a recurring role;
-- incarnation/reincarnation;
 - lineage;
+- reincarnation;
+- possession;
+- ritual office;
 - vessel-state;
-- or another ontology.
+- or another metaphysical succession model.
 
-Keep Lalanoah and the historical Hanged-Man Hamah distinct entities connected through the Hamah/succession relation.
+Keep historical Hamah figures and Lalanoah as distinct entities connected through the Hamah succession relation.
