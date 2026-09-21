@@ -56,7 +56,7 @@ is:
 - a High Elf;
 - placed in **St. Dulsa's Charnel**;
 - owned by `QUST 02052F4A` / **Pitier**;
-- equipped with **Aredhel's Sword** and Knight of Diagna armor.
+- equipped with **Aredhel's Sword** and the separate **Blade of Diagna** armor set.
 
 The quest alias is still called `Renald`, but resolves directly to this Aredhel base.
 
@@ -83,9 +83,11 @@ Therefore the two scene responses are structurally Aredhel's:
 The later boss:
 - is an elf;
 - carries **Aredhel's Sword**;
-- wears the internally Renald-named Knight of Diagna armor.
+- wears the **Blade of Diagna** armor set through `zzzCHOutfitAredhel`.
 
 This is a strong narrative explanation for the boss's equipment after the rename.
+
+The old internally `Renald`-named **Knight of Diagna** armor family is instead worn by **Judo of the Order of Diagna**, a named Soul-Shriven encounter. The legacy asset naming therefore spans more than one shipped character and must not be used as identity evidence by itself.
 
 ## Vigilant identity survives the rename
 
