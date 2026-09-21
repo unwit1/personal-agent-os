@@ -1,6 +1,6 @@
 {
   "source_sha256": "7d3ca2d72297fbc5afda8f1b8bb217fa1fd6d9d7414360acdf1a922d848949ba",
-  "phase": "normalized-story-ingestion",
+  "phase": "memory-quest-ingestion",
   "completed": [
     "header/source manifest",
     "record inventory",
@@ -13,7 +13,11 @@
     "SCEN actor/action parsing",
     "deterministic INFO speaker resolution",
     "act/story structure pass",
-    "first high-relevance character dossiers"
+    "compact scene/alias attribution index",
+    "first high-relevance character dossiers",
+    "Bruiant Mansion/Julius document reconstruction",
+    "Coldharbour main-quest structural reconstruction",
+    "story-critical source-book corpus seed"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -26,13 +30,13 @@
     "quest_aliases": 550
   },
   "next": [
-    "persist compact scene/alias index",
+    "reconstruct the 13 numbered Coldharbour memory quests in order",
     "resolve or classify remaining 89 INFO records",
-    "Bruiant Mansion/Julius document reconstruction",
-    "Coldharbour main-quest and memory transition graph",
+    "expand remaining high-relevance character dossiers",
+    "continue exact BOOK/note persistence from the 179-record local corpus",
     "book/note-to-quest/location linking",
     "Coldharbour location graph",
-    "additional character dossiers by narrative relevance",
+    "quest stage/script transition analysis",
     "base-canon comparison layer for historical/mythic claims"
   ],
   "counts": {
