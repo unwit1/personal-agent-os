@@ -47,7 +47,7 @@ The plugin stores English dialogue directly in INFO/NAM1 fields, so dialogue can
 
 ## Current ingestion state
 
-### Complete at first reconstruction depth
+### First-pass ESM lore ingestion — COMPLETE
 
 - Structural inventory and all-quest catalog.
 - Numbered main quest MQ00–MQ05.
@@ -98,15 +98,39 @@ The 90 BOOK records currently classify as:
 
 High-value DAc0da letters and temporal tomes are indexed. Reused Daggerfall and developer/apocryphal texts are being provenance-separated rather than silently attributed to Vicn.
 
-## Next priority
+## Completion state
 
-The dialogue-heavy, support-quest, and first provenance layers are now largely normalized. Continue with **broad structural coverage**:
+For source SHA-256 `455f07f3bba5de5b1b5a84c882be3309a66fd3d503866e05658b99896dfdb00e`:
 
-1. Build a **creature/faction encounter-family index** for Yaghra, Sload, Goldborn, Dwemer, Apocryphal, Atmoran, and Worm forces.
-2. Continue scene-derived lore only where the speaker attribution adds genuinely new evidence.
-3. Expand unresolved **NPC identity** dossiers that remain important after the form-family pass.
-4. Index remaining **factions/organizations** and their concrete encounter members.
-5. Continue source provenance only where gaps remain, chiefly the exact standalone publication trail for the long **Ghost Choir 9** text.
-6. After creature/faction coverage, perform a gap audit against all 43 quests / 554 NPCs / 90 BOOKs / 66 MESGs / 79 SCEN records.
+> **DAc0da first-pass ESM lore ingestion is complete.**
 
-See `analysis/ingestion-checkpoint-01.md` before resuming.
+Completed structural layers now also include:
+
+- creature/encounter families;
+- custom race/morphology index;
+- faction-record classification;
+- Generic Dialogue pass;
+- Citizen Dialogue pass;
+- named-NPC gap pass;
+- deterministic INFO ownership audit with **0 orphan INFO records**;
+- first comprehensive gap audit;
+- first-pass completeness report.
+
+See:
+
+- `analysis/gap-audit-01.md`
+- `analysis/completeness-report-01.md`
+- `analysis/info-ownership-audit.md`
+
+## Next phase
+
+Do **not** restart broad DAc0da ingestion unless the source hash/version changes.
+
+Continue with **second-pass cross-Vicn synthesis and topic promotion**:
+
+1. reconcile direct/rare-vocabulary bridges against VIGILANT, GLENMORIL, and UNSLAAD;
+2. preserve source-level provenance and distinguish genuine shared continuity from reused external texts;
+3. promote high-confidence entities/relationships into reusable Lorekeeper topic/claim structures;
+4. perform targeted deep dives only where a specific unresolved question remains.
+
+Residual technical/provenance gaps include readable Papyrus bodies for a few runtime mechanics and the exact original standalone posting location/date of the long Ghost Choir 9 transcript.
