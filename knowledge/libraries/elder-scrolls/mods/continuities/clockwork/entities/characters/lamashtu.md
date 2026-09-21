@@ -10,6 +10,8 @@ Lamashtu is the last and most stable generation of the Gilded, described in her 
 
 She says the Gilded project began because terminally ill Dwemer in Nurndural's Sickness Ward were searching for a way to survive death. Lahar devised their soul-transfer method. Lamashtu's generation added the subject's original bones to the new body because earlier subjects could not survive the psychological trauma of receiving a wholly alien machine body.
 
+Lamashtu says she is nearly four thousand years old and that time and mortal-life memory have become difficult for her. She has no mouth, lips, tongue, or throat; she explains that her crystalline heart shivers in her chest and words are produced through a speaker horn.
+
 Lamashtu states that her death occurred at the exact moment Kagrenac struck the Heart of Lorkhan. She believes something went wrong and that her soul split: one part entered the crystalline heart while the other became Shadow. However, she explicitly says she has no answer for what caused the larger disappearance of the Dwemer.
 
 After Shadow is drawn into her heart, Lamashtu revises her interpretation. She concludes that she and Shadow were not complementary halves restoring an original whole, but two copies of the living Lamashtu. She consequently describes herself as a ghost as well.
@@ -26,6 +28,8 @@ After Shadow is drawn into her heart, Lamashtu revises her interpretation. She c
 - `INFO 056934C6` — says the surviving Gilded are copies, not the long-lost Dwemer themselves.
 - `INFO 05788344` — after reuniting with Shadow, concludes both were copies of the living Lamashtu and calls herself a ghost.
 - `INFO 0578D460` — remembers Shadow's loneliness and keeping the player close.
+- `INFO 05347327` — says she is nearly four thousand years old and experiences time differently from mortals.
+- `INFO 057BFF32` — explains her mechanical speech mechanism.
 
 ## Reliability notes
 
@@ -33,5 +37,6 @@ Lamashtu is a primary witness to the Gilded project but repeatedly acknowledges 
 
 ## Source surfaces
 
+- Complete uniquely attributed dialogue: `../../dialogue/lamashtu/README.md`
 - Quest evidence: `../../quests/clwstory03quest.md`, `../../quests/clwstory04quest.md`
-- Full dialogue evidence: `../../raw/dialogue-transcript.txt.gz`
+- Full raw dialogue evidence: `../../raw/dialogue-transcript.txt.gz`

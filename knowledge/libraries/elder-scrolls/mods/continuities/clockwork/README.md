@@ -16,7 +16,9 @@ Sub-continuity for the Skyrim mod **Clockwork**.
 - Player-facing quest pages are browsable in `quests/`.
 - Core characters, relationships, and Ludwig's chronology are browsable in `entities/` and `events/`.
 - Continuity-local concept/location/technology pages are browsable in `topics/`.
-- `dialogue/lahar/` contains all **192** INFO records uniquely attributable to Lahar; `dialogue/amalgam.md` contains the **5** uniquely attributable primary-Amalgam INFO records.
+- All **322 single-NPC-resolved INFO records** now have browseable named-character transcripts: Lahar 192, Lamashtu 125, and primary Amalgam 5.
+- The **545 multi-candidate INFO records** are cataloged separately: 519 broad Gilded-pool records and 26 Amalgam-form-pool records.
+- **21 INFO records** remain unresolved.
 
 ## Dialogue normalization
 
@@ -24,9 +26,9 @@ The resolver uses scene actor aliases and speaker-producing conditions such as `
 
 - 867 / 888 INFO records resolve to one or more plausible speaker candidates.
 - 322 INFO records resolve to a single NPC form.
-- 21 INFO records remain unresolved.
-- Major unique counts: Lahar 192; Lamashtu 125; primary Amalgam 5.
-- Named-character transcripts promote only unique attribution. Broad Gilded/faction/voice-type matches remain ambiguous evidence.
+- 545 resolve to multiple candidate NPC forms and are kept explicitly ambiguous.
+- 21 remain unresolved.
+- Named-character transcripts promote only unique attribution; faction/voice-pool matches are never silently assigned to a named character.
 
 See `normalized/resolution-stats.json`.
 
@@ -34,7 +36,7 @@ See `normalized/resolution-stats.json`.
 
 - `books/` — exact decoded in-game book/note text
 - `raw/` — archival dialogue and quest record text extracted from the ESP
-- `dialogue/` — speaker-resolved browseable transcript material
+- `dialogue/` — speaker-resolved and ambiguity-preserving dialogue material
 - `quests/` — journal stages, objectives, and resolved aliases
 - `topics/` — evidence-backed Clockwork lore topics
 - `entities/characters/` — character pages

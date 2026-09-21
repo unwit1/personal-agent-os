@@ -14,5 +14,6 @@ Continuity-local pages derived from `Clockwork.esp`.
 - [Kagrenac and Red Mountain claims](kagrenac-red-mountain-claims.md)
 - [Identity and memory degradation](identity-memory-degradation.md)
 - [Pneumatic tube system](pneumatic-tubes.md)
+- [Lamashtu's voice and speech mechanism](lamashtu-voice.md)
 
 These pages point back to INFO, BOOK, and QUST records. They are indexes over evidence, not replacements for the source corpus.
