@@ -94,7 +94,7 @@ Primary:
 - `artifacts/princess-ayrenn-equipment.md`
 
 Parent VICN:
-- `../relationships/oracle-iridescent-thread.md`
+- `../../relationships/oracle-iridescent-thread.md`
 
 ## Pelinaalilargus / Hans the Fox
 Primary:
@@ -119,7 +119,7 @@ Parent VICN:
 - `concepts/name-and-radiance.md`
 - `concepts/mnemo-li-grabbers-books.md`
 - `concepts/memory-dependent-persistence.md`
-- parent `../relationships/radiance-mnemo-li-memory-thread.md` for parallel memory/existence mechanisms
+- parent `../../relationships/radiance-mnemo-li-memory-thread.md` for parallel memory/existence mechanisms
 - `locations/end-of-radiance.md`
 
 Parent VICN:
@@ -153,6 +153,38 @@ Parent VICN:
 ## KINMUNE
 - `concepts/kinmune-fragments.md`
 - `relationships/kinmune-ayrenn-oracle-iridescent.md`
+
+## Harakk
+- `concepts/harakk.md`
+- parent VICN: `../../relationships/harakk-thread.md`
+
+## Snow Whales
+- `concepts/snow-whales-and-sky-ecology.md`
+- parent VICN: `../../relationships/snow-whales-thread.md`
+
+## Yelem / End of Radiance
+- `locations/end-of-radiance.md`
+- parent VICN: `../../relationships/yelem-dream-machine-thread.md`
+
+## Hare / word rewriting
+- `concepts/gral-mindok-owl-forest.md`
+- `organizations/owl-faction.md`
+- parent VICN: `../../relationships/hare-word-rewriting-thread.md`
+
+## Elder Wood
+- `artifacts/elder-wood-relics.md`
+- `entities/characters/orlando-the-knowledgeable.md`
+- parent VICN: `../../relationships/elder-wood-thread.md`
+
+## Khemkel
+- `entities/characters/idolmaker-khemkel.md`
+- `artifacts/khemkels-carving-knife.md`
+- parent VICN: `../../relationships/khemkel-wooden-idol-thread.md`
+
+## Yngol / Tstunal
+- `relationships/yngol-tstunal-shezarrine-source-bridge.md`
+- `artifacts/yngol-war-cry.md`
+- parent VICN: `../../relationships/yngol-tsunaltir-tstunal-thread.md`
 
 ---
 
@@ -338,6 +370,13 @@ Prefer parent VICN relationship pages when the question spans works:
 - Loveletter From the Fifth Era — parent `relationships/loveletter-fifth-era-thread.md`
 - Dream Without a Dreamer — parent `relationships/dream-without-a-dreamer-thread.md`
 - KINMUNE provenance
+- Elder Wood — parent `../../relationships/elder-wood-thread.md`
+- Khemkel / Wooden Idol — parent `../../relationships/khemkel-wooden-idol-thread.md`
+- Yngol / Tsunaltir / Tstunal — parent `../../relationships/yngol-tsunaltir-tstunal-thread.md`
+- Hare / word rewriting — parent `../../relationships/hare-word-rewriting-thread.md`
+- Harakk / Snow Whales — parent `../../relationships/harakk-thread.md`
+- Snow Whales — parent `../../relationships/snow-whales-thread.md`
+- Yelem / Y.E.L.E.M. — parent `../../relationships/yelem-dream-machine-thread.md`
 
 ---
 
