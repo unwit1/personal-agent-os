@@ -105,7 +105,12 @@
     "Marcus Bruiant 4E 199-201 journal chronology and red-Stone dream evidence map",
     "Bartholo investigation evidence map separating observed curse/totem evidence from expert inference",
     "Judgement source map: Alessian authorization-over-outcome doctrine and Mary/Moura parallel",
-    "The Illusion of Death official-ESO provenance and VIGILANT placement/context map"
+    "The Illusion of Death official-ESO provenance and VIGILANT placement/context map",
+    "Jacob's warning note source map: Maiden Statue awakening, Blood Mist Castle, and unnamed-female identity boundary",
+    "Aredhel's Note source map: Blood Matron surrender, Jacob/Joshua testimony conflict, and Bal-steward role",
+    "Julius' Note source map preserving the unresolved referent of his plea to Marcus",
+    "Lamthor warning-note source map separating dog/incantation observations from accusations against Bal",
+    "Julia's Letter source map establishing voluntary departure with Julius and preserving the unresolved transition to her death"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -141,15 +146,15 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "five-unit VIGILANT documentary-source batch",
+    "focus": "five-unit VIGILANT short-document source batch",
     "added": [
-      "Rahel's Journal — 4E 180/182/191/200 chronology, Molag Bal follower and mace, discord mission, Vernaccus, and unresolved two-year gap",
-      "Marcus Bruiant journals — 4E 199 affair/slaver episode, 4E 200 family disappearance and red-Stone dream, 4E 201 Bartholo escalation, and final Child of Oblivion conclusion",
-      "Bartholo's Journal — direct Magicka/totem/curse observations separated from Molag Bal, Ayleid, caster-cost, and remaining-totem inferences",
-      "Judgement — authorization-over-outcome doctrine, popular-participation argument, and strong-but-not-name-confirming Mary/Moura parallel",
-      "The Illusion of Death — official ESO provenance separated from VIGILANT placement and Marukh-memory thematic use"
+      "Jacob's Note — awakening warning, sensory danger, Blood Mist Castle, Lord of Corruption title, and unresolved identity of 'her'",
+      "Aredhel's Note — Jacob killed/Joshua fled testimony, Blood Matron blood, resisting Vigilants, Bal as steward, and awakening-cycle link",
+      "Julius' Note — preserved rare first-person plea to Marcus without guessing the referent of 'this'",
+      "Lamthor's Note to Master Marcus — Julius/dog/incantation observation separated from Lamthor's inference that Bal taught him",
+      "Julia's Letter to Marcus — voluntary departure with Julius, Hidden Room placement, and source-bounded gap before Julius's recovery and Julia's death"
     ],
-    "source_state": "all five units use exact BOOK texts already persisted from canonical VIGILANT 1.8.2; official reprint provenance is retained where applicable and no unresolved identities were promoted",
-    "open_followup": "continue with another bounded five-unit documentary/character batch; unresolved raw-source targets such as Sir Amiel Lannus and the full Feral Soul-Shriven roster remain blocked unless additional direct extraction becomes available."
+    "source_state": "all five units use exact persisted VIGILANT 1.8.2 BOOK texts plus existing structural/placement evidence; no source-local unresolved identity or causal link was promoted to fact",
+    "open_followup": "continue with another five-unit batch from persisted books/notes, prioritizing still-unmapped Bruiant servant documents or other exact source texts before blocked raw-source gaps."
   }
 }
