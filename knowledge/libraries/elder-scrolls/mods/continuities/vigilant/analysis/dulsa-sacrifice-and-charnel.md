@@ -191,3 +191,8 @@ The mod reinforces this not only through Marukh's dialogue but through:
 - direct quest wiring back into the Adabal memory.
 
 The exact historical chronology remains filtered through manipulated memory.
+
+
+## Aredhel guardian correction
+
+The Charnel guardian `CHBossRenaldRef` points to **Aredhel** (`NPC_ 0204F0A9`). The Renald naming is a legacy internal name; see `analysis/aredhel-renald-identity.md`. Aredhel drops St. Dulsa's Key as encounter gating, not as proof of a historical relationship with Dulsa.
