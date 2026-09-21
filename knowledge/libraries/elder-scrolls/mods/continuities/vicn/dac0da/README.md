@@ -74,6 +74,11 @@ The plugin stores English dialogue directly in INFO/NAM1 fields, so dialogue can
 - DAc0da's Yaghra **Agent** is materially linked to the Daggerfall Agent/Warp-in-the-West cluster through its dedicated Totem-letter loot.
 - Six Daggerfall Totem letters verified as reused official game text.
 - Major Nahd-fiction provenance resolved: Djaf as mojonation1487 community apocrypha; KINMUNE, Tsaesci Creation Myth, Dominion Prism, Eat the Dreamer, Lament for Pelinal, and Type of Zero as reused Michael Kirkbride material.
+- All **79 SCEN records** indexed with owning quests and scene-speaker resolution.
+- Scene-driven dossiers added for N'Danda, Hgelhelm the Outcast, Haalj Hgelhelmson, and Sindwen the Wintercaller.
+- Full custom worldspace/location index added for **Sea of Causality**, **Dwemereth**, and **Mozarella Spacetime**, plus important named Numidium interiors.
+- Character form-family index added for ordinary/boss/ghost/summon/memospore/alternate forms.
+- Narrative artifact index expanded for Prisoner/nymic objects, abstract Totems, Yngol/Atmoran artifacts, Tsaesci weapons, Underking/Zurin gear, and related quest objects.
 
 ### Strong cross-Vicn links indexed
 
@@ -97,11 +102,11 @@ High-value DAc0da letters and temporal tomes are indexed. Reused Daggerfall and 
 
 The dialogue-heavy, support-quest, and first provenance layers are now largely normalized. Continue with **broad structural coverage**:
 
-1. Build a full **SCEN index** for all 79 scene records and resolve scene actors back through their owning quest aliases.
-2. Identify scene-only interactions that add lore not already present in owned DIAL/INFO records.
-3. Expand **NPC identity/form indexing**, especially alternate/ghost/summon/boss forms that still lack dossiers.
-4. Build **location/worldspace** indexes for the Ship Graveyard, Numidium interiors, Hahd/Sload layers, Atmoran layers, and alternate ending spaces.
-5. Index distinctive **artifacts/items/creatures** where record placement or inventory carries narrative meaning.
-6. Continue source provenance only where gaps remain, chiefly the exact standalone publication trail for the long **Ghost Choir 9** text.
+1. Build a **creature/faction encounter-family index** for Yaghra, Sload, Goldborn, Dwemer, Apocryphal, Atmoran, and Worm forces.
+2. Continue scene-derived lore only where the speaker attribution adds genuinely new evidence.
+3. Expand unresolved **NPC identity** dossiers that remain important after the form-family pass.
+4. Index remaining **factions/organizations** and their concrete encounter members.
+5. Continue source provenance only where gaps remain, chiefly the exact standalone publication trail for the long **Ghost Choir 9** text.
+6. After creature/faction coverage, perform a gap audit against all 43 quests / 554 NPCs / 90 BOOKs / 66 MESGs / 79 SCEN records.
 
 See `analysis/ingestion-checkpoint-01.md` before resuming.
