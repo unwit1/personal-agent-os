@@ -29,6 +29,7 @@ A statement established in one plugin is not automatically attributed to another
 - **Orlando the Knowledgeable:** the exact named identity recurs in VIGILANT, GLENMORIL, and UNSLAAD; each work ties him to dream-transition and Owl/Jhunal material while preserving different body/state roles.
 - **Laza / Owls / dragon experiments:** VIGILANT directly ties Laza to Jhunal's dragon harvesting, GLENMORIL preserves the White→Gray→Black Owl sequence, and UNSLAAD's Gray Owl names Laza among failed experiments.
 - **Hjalti / Alcaire / changing names:** UNSLAAD and GLENMORIL independently pair Hjalti with Alcaire; DAc0da independently continues the Hjalti/Zurin/Mantella conflict.
+- **Loveletter From the Fifth Era:** GLENMORIL directly references the Loveletter in its Nerevarine/memory data layer; UNSLAAD reconstructs the text from seven fragments and wires it as a timeless gate into frozen-time Atmoran dream-space.
 
 These are retrieval/continuity relationships, not permission to flatten source-specific claims into one narrative.
 
