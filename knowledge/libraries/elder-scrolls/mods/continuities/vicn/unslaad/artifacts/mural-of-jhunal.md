@@ -50,3 +50,20 @@ The Magnus-fire effect representation is also placed in this same exterior cell,
 The Mural activator carries a generic quest-stage script with StageTo and myQuest properties. The Mq07 quest VMAD independently contains **MuralTrg**, **Alias_MuralMarker**, **CradleKey**, and the Gray/Black Owl properties.
 
 This confirms the Mural is an explicit stage transition into the late Owl/Cradle graph, while still leaving its visual content unresolved.
+
+## Placement and visual-status closure
+
+Repository-wide FormID lookup for ACTI 031DFE1C currently resolves only:
+- this dossier;
+- the placed-reference audit;
+- the VMAD linkage pass.
+
+Those sources establish:
+- Northern Sanctuary placement;
+- exact REFR;
+- quest-stage trigger behavior;
+- membership in the Mural → Cradle → Gray/Black Owl implementation graph.
+
+No indexed source currently exposes a visual description, model interpretation, or texture-level reading of the mural itself.
+
+Therefore the **functional and spatial role is resolved**, while visual iconography remains unavailable evidence rather than an active ingestion defect. Do not infer depicted identities from the word "Mural" alone.

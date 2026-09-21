@@ -63,3 +63,20 @@ Stairway to Llesw'er and related inspection text later associate Aisha with Ja'c
 ## Cross-VICN significance
 
 GLENMORIL independently places Aisha in the Ulliss/Ja'cobee Last Chick Trader dialogue network. Preserve that as a strong continuity bridge while keeping UNSLAAD-specific biography source-scoped.
+
+## State and endpoint closure
+
+The implementation layer already distinguishes Aisha's ordinary, dead, ghost, wounded/sabre, and corrupted Dilon-named forms. These should remain separate body/state records under one linked narrative identity rather than be flattened.
+
+Mq05 also carries an explicit `Alias_Aisha` inside the same implementation graph as Lizz, Ulliss, the time-warp marker, and present/Lost-Unslaad routing.
+
+The later Stairway-to-Llesw'er endpoint independently provides:
+- Ja'cobee's statement that Aisha is waiting for him;
+- the inspection record identifying Ja'cobee and Aisha together after death.
+
+What remains intentionally unresolved:
+- the name of Aisha's white seaside city;
+- the identity of the white ship;
+- the mechanism behind her possible prior encounter with adult Lizz.
+
+Those are source-level unknowns, not missing extraction tasks.

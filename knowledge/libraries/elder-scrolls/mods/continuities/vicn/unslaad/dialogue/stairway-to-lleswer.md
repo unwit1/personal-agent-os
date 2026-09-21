@@ -49,3 +49,24 @@ The source establishes duplication/other-side language and subsequent death. It 
 - or something else.
 
 Keep the mechanism unresolved.
+
+## Endpoint closure
+
+The endpoint is fully ingested at the level supported by the ESM:
+
+- Ja'cobee chooses to leave/die;
+- he explicitly invokes Khenarthi's path and says Aisha is waiting;
+- the quest asks for his remains;
+- the inspection record identifies Ja'cobee and Aisha together after death.
+
+The earlier **two Ja'cobees / other side** statement has no source-level mechanism attached to it in the current corpus.
+
+Classify that mechanism as intentionally unresolved:
+- soul;
+- temporal counterpart;
+- dream copy;
+- metaphysical double
+
+are hypotheses, not extracted facts.
+
+This question should not remain in the active ingestion queue unless new direct evidence appears.

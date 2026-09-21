@@ -46,3 +46,19 @@ The recurring Saarthal/Magnus theft claim is high confidence; exact object ident
 REFR 031969F9 places ACTI 031969F8 / zzzCrbFXMagnusFire in exterior CELL 030B49A7 of **Northern Sanctuary**.
 
 The **Mural of Jhunal** is also placed in the same exterior cell. This co-location is direct implementation evidence and makes Northern Sanctuary a priority site for visual/script analysis of the late Jhunal arc.
+
+## Implementation resolution
+
+Mq05 VMAD exposes the linked property family:
+- `MagnusFire`;
+- `MagnusFireLit`;
+- `MagnusFireBoom`;
+- `MagnusBeacon`.
+
+Combined with ACTI 031969F8 / `zzzCrbFXMagnusFire` and its Northern Sanctuary placement, this resolves the **quest-effect implementation** of the Arcana/fire-of-Magnus sequence.
+
+What is not resolved is a separate unique inventory-object identity. The safest model is therefore:
+
+**Arcana of Magnus = named knowledge/power represented through a scripted/effect sequence, with no independently established unique carried item in the current extraction.**
+
+This closes the object-identity question for ingestion purposes while preserving the cross-plugin uncertainty over whether VIGILANT's corresponding Magnus-fire object is literally the same object.
