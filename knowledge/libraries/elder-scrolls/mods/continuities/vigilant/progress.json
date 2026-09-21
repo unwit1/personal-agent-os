@@ -43,7 +43,10 @@
     "Kahkaankrein / Kyne's Dragon structural dossier",
     "Sir Torolf / Knight of Arkay structural dossier",
     "Funeral side-quest structural separation",
-    "Act 4 near-empty quest stubs for More Skooma, Archer of Kyne, and the remaining deity-knight quests"
+    "Act 4 near-empty quest stubs for More Skooma, Archer of Kyne, and the remaining deity-knight quests",
+    "core faction dossiers: Alessian Order, Marukhati Selective, Forces of Order, Order of Diagna, Vigilants of Stendarr",
+    "Coldharbour faction/institution relationship map",
+    "Coldharbour manifestation-class ontology"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -56,6 +59,7 @@
     "quest_aliases": 550
   },
   "next": [
+    "expand secondary Coldharbour institutions/factions only where preserved evidence supports a distinct dossier",
     "recover exact source bodies for all nine structurally incomplete Act 4 quests when richer VIGILANT source bytes/transcripts become available",
     "recover full quest bodies for Black Worm, Kyne's Dragon/Kahkaankrein, Knight of Arkay/Sir Torolf, and Funeral when exact source bytes or transcripts are available",
     "expand remaining high-relevance character dossiers",
@@ -75,15 +79,17 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "completed an explicit status pass across all fifteen Act 4 side quests",
+    "focus": "formalized VIGILANT faction/institution nodes and separated historical identity from Coldharbour manifestation classes",
     "added": [
-      "Black Worm identity/source-gap analysis",
-      "Kahkaankrein structural dossier",
-      "Sir Torolf structural dossier",
-      "Funeral side-quest structural separation",
-      "near-empty stubs for More Skooma, Archer of Kyne, Knight of Julianos, Knight of Zenithar, and Knight of Kynareth"
+      "Alessian Order faction dossier",
+      "Marukhati Selective faction dossier",
+      "Forces of Order faction dossier",
+      "Order of Diagna faction dossier",
+      "Vigilants of Stendarr faction dossier",
+      "Coldharbour faction relationship map",
+      "Coldharbour manifestation-class ontology"
     ],
-    "source_state": "continued from repository-extracted VIGILANT corpus plus prior Jhunal extraction artifact; no new raw ESM or PEX bytes available",
-    "open_followup": "all fifteen Act 4 side quests now have an explicit Lorekeeper status; nine remain structurally incomplete and need exact source-body recovery, while Laza/Owl exact book texts remain open"
+    "source_state": "continued from repository-extracted VIGILANT corpus; no new raw ESM or PEX bytes introduced",
+    "open_followup": "secondary factions/organizations can now be added selectively; exact source-body gaps remain for nine Act 4 quests and the Laza/Owl books"
   }
 }
