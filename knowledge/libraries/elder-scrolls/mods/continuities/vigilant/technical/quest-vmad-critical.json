@@ -1,0 +1,153 @@
+{
+  "source": "Vigilant.esm",
+  "limitation": "Quest VMAD exposes stage-fragment mappings and object properties, not the external PEX fragment bodies.",
+  "quest_manager": {
+    "formid": "0251EABC",
+    "editor_id": "zzzCHQuestManager",
+    "script": "zzzCHQuestManagerQuestScript",
+    "properties": {
+      "Act4StarterList": "0251EABB",
+      "DreamList": "0251D63F"
+    }
+  },
+  "dream_list": [
+    [
+      "0212C4F4",
+      "The Grand Inquisitor"
+    ],
+    [
+      "0213712B",
+      "The Mad King"
+    ],
+    [
+      "0213965A",
+      "Knight of Hounds"
+    ],
+    [
+      "02140225",
+      "Johan the Fool"
+    ],
+    [
+      "0205AE03",
+      "Adabal"
+    ],
+    [
+      "0206A23B",
+      "Remains of the Miracle"
+    ],
+    [
+      "0206F53C",
+      "Temptation of Marukh"
+    ],
+    [
+      "02080E91",
+      "The Nameless Bard"
+    ],
+    [
+      "022CAE30",
+      "Beyond the Shores of Madness"
+    ],
+    [
+      "022A532E",
+      "Pelinal the Bloody"
+    ],
+    [
+      "022B9BAB",
+      "After the Storm"
+    ],
+    [
+      "022BC395",
+      "The Final Night"
+    ],
+    [
+      "0251C038",
+      "Paravania the Man-Bull"
+    ]
+  ],
+  "memory_guide": {
+    "formid": "0242E0B1",
+    "fragment_file": "QF_zzzCHMemoryGuide_0242E0B1",
+    "fragment_stages": [
+      0,
+      10,
+      20,
+      30,
+      40,
+      50,
+      60,
+      70,
+      80,
+      90,
+      100,
+      110,
+      120,
+      999
+    ],
+    "dream13_property": [
+      "0251ADBF",
+      "zzzCHSubQuest13",
+      "Broken Horns"
+    ]
+  },
+  "final_memory_handoff": {
+    "broken_horns": "0251ADBF",
+    "memory13": "0251C038",
+    "crossrefs": [
+      "Broken Horns.MemQ13 -> MemoryQuest13",
+      "MemoryQuest13.Sq13 -> Broken Horns"
+    ]
+  },
+  "aetherius": {
+    "formid": "021363DB",
+    "fragment_file": "QF_zzzCHMQ01_021363DB",
+    "fragment_stages": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      20,
+      30,
+      40,
+      50,
+      60,
+      70,
+      150,
+      160,
+      170,
+      175,
+      180,
+      255
+    ],
+    "bad_end_marker": {
+      "ref": "021369CA",
+      "cell": "02136194",
+      "cell_editor_id": "zzzCHAetheriusBad"
+    },
+    "molag_warp_marker": {
+      "ref": "021369D5",
+      "cell": "02136194",
+      "cell_editor_id": "zzzCHAetheriusBad"
+    },
+    "after_ep4_marker": {
+      "ref": "0213C070",
+      "cell": "0207FB11",
+      "cell_name": "Mathmalatu Priory"
+    },
+    "gate_break_marker": {
+      "ref": "0213C06C",
+      "cell": "02121AA2",
+      "cell_name": "Sancremor Angasel"
+    },
+    "good_aetherius_cell": {
+      "cell": "021353E4",
+      "cell_editor_id": "zzzCHAetheriusGood",
+      "notable_refs": [
+        "02080E92 CHMeq08EndMarkerRef",
+        "0242F43E CHGuideMolagBalRef"
+      ]
+    }
+  }
+}
