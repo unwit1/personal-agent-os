@@ -133,4 +133,4 @@ Continue with **second-pass cross-Vicn synthesis and topic promotion**:
 3. promote high-confidence entities/relationships into reusable Lorekeeper topic/claim structures;
 4. perform targeted deep dives only where a specific unresolved question remains.
 
-Residual technical/provenance gaps include readable Papyrus bodies for a few runtime mechanics and the exact original standalone posting location/date of the long Ghost Choir 9 transcript.
+Residual DAc0da-only gaps are now technical/refinement issues: readable Papyrus bodies for a few runtime mechanics, exhaustive navigation graphs, and optional low-prose item expansion. The long Ghost Choir 9 transcript's source provenance is resolved.
