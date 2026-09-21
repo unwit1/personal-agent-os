@@ -28,9 +28,15 @@ The overlap is strong:
 - later Witch-Hunter association;
 - approximate chronology compatible with Romion's history.
 
-However, Rolls never says the direct sentence:
+Within GLENMORIL alone, Rolls never says the direct sentence:
 > “Romion is my old Psijic friend.”
 
-Therefore store:
-**Rolls's unnamed former Psijic friend ↔ Romion**
-as a **high-confidence identity/relationship hypothesis**, not exact structural identity.
+However, DAc0da later has Rolls-On-Roads explicitly name **Romion** as his old friend/former colleague and describes the same Altmer Dwemer-scholar/apprentice relationship.
+
+Therefore:
+
+- **GLENMORIL-only reading:** high-confidence hypothesis from description;
+- **parent VICN synthesis with DAc0da:** high-confidence shared-character relationship.
+
+See:
+`../../relationships/rolls-romion-thread.md`
