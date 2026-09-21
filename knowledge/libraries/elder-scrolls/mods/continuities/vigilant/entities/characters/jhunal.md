@@ -128,6 +128,27 @@ This is suggestive because Jhunal explicitly says he sought a dragon soul in ord
 
 Because the item is part of a leveled death list rather than a unique scripted relic, Lorekeeper records this as **supporting implementation/thematic evidence**, not proof that Jhunal successfully possessed a dragon soul.
 
+## The Art of the Ayleids
+
+`BOOK 0218B1BA` / **The Art of the Ayleids** is explicitly credited **“by Jhunal.”**
+
+The surviving excerpt discusses Ayleid flesh-art and the torture of Nedic captives. Because the text is authored in-universe by Jhunal, it provides a separate documentary voice from both *The Eight Saints of Cyrod* and Jhunal the Owl's present-tense dialogue.
+
+The ESM places copies in four distinct locations:
+
+- **Bruiant Mansion South Wing** (`0204A8B9`)
+- **Slave Trader's House** (`020B07D1`)
+- **Prison Tower** (`020F9C21`)
+- **Fort Welkynd** (`020E2693`)
+
+The distribution shows that VIGILANT treats Jhunal's writing as a circulated historical/reference text rather than a unique manuscript confined to his Library.
+
+Exact decoded source text is preserved at:
+
+`books/0218B1BA-the-art-of-the-ayleids.txt`
+
+Its contents should be treated as **Jhunal's authored account/analysis**, not automatically as objective confirmation of every described Ayleid practice.
+
 ## Identity model
 
 VIGILANT does not preserve Jhunal as one simple body in one place. His identity is distributed across:
