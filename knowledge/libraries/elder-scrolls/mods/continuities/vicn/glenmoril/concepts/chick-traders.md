@@ -1,62 +1,50 @@
 # Chick Traders
 
-**Continuity:** Vicn / GLENMORIL  
-**Primary source:** supplied `Glenmoril.esm`
+**Continuity:** Vicn / GLENMORIL
 
-Chick Traders are a recurring GLENMORIL institution/title whose public language is deliberately misleading.
+Chick Traders are a recurring institution/title whose public language is deliberately misleading.
 
-## Act 1 — first direct appearance
+## Act 1 public cover
 
-In **The Chick Trader**, Ja'zel introduces himself:
-> “This one is called Ja'zel. Khajiit is a Chick Trader.”
+Ja'zel claims Chick Traders simply buy and sell cute “chicks.”
 
-His public explanation is deliberately banal:
-- Chick Traders buy and sell “chicks”;
-- chicks are small, round, and cute;
-- men become bored and abandon them at borders;
-- the civil war has made Ja'zel's business especially profitable.
+Brandt says the truth is worse than Morrowind slavery.
 
-Brandt reacts very differently:
-- he already knew Chick Traders were coming;
-- he calls Ja'zel despicable;
-- when asked whether Ja'zel is a slaver, Brandt says **“Worse than that. Even the slavery of Morrowind is better.”**
+## Falkreath orphan sale
 
-Treat Ja'zel's Act-1 explanation as a **public/cover explanation**, not a literal decoder for the later Chick terminology.
+In **The Cat and the Chick**, Brandt explicitly says:
+> the jarl ordered Falkreath's **orphans to be sold to the Chick Trader**.
 
-## Five chicks / required six
+He says **Lalanoah was counted among them**.
 
-The quest's direct alias map names five Chick records:
-- Cilla
-- Asmo
-- Sanna
-- Heikki
-- Urmas
+This establishes that the Act-1 “Chick” system has a direct institutional relationship to vulnerable children/orphans, even though later Chick terminology becomes metaphysical and deliberately substituted.
 
-Ja'zel counts them and says the letter required **six**.
+## Six-Chick transaction
 
-Brandt says one chick went missing during a recent werewolf incident.
+Ja'zel pays for Lalanoah as the sixth Chick, then offers to exchange her for a “special” tainted baby from Markarth.
 
-Ja'zel says he can “balance accounts” for the missing chick and promises:
-> he decided to collect six chicks and will surely do so.
+## Maria
 
-## Lalanoah
+Orlando says **Maria was raised by the Chick Traders**.
 
-Ja'zel's Act-2 dialogue later calls Lalanoah a Chick.
+Ja'zel says the prior Chick Trader was lazy and failed to collect Maria's tainted baby when it was born.
 
-The early six-chick count should therefore be retrieved with Lalanoah's later Chick/Hamah/succession material, but do not assume the missing sixth is Lalanoah without direct evidence.
+The Tainted Orphan quest later has the condemned former Chick Trader blame his situation on **Maria and the cursed child**, directly extending this institutional failure into Act 2.
 
-## Oneiromancer-era evidence
+## Ja'cobee
 
 Ja'cobee later says:
-- original Chick Traders were selected from the prince of Anequina and royal guards;
+- original Chick Traders came from the prince of Anequina and royal guards;
 - Ja'zel is an impostor;
-- their terminology deliberately replaces words and adds metaphors;
-- their work involves EGG → CHICK → CHICKEN, Rolly-Polly, and sacrifice.
+- their vocabulary deliberately substitutes words and metaphors;
+- their system involves EGG → CHICK → CHICKEN, Rolly-Polly, Owl, and sacrifice.
 
 ## Later fracture
 
-By **Or the Gospel**, Ozwald wants to betray/remove Ja'zel and says the Chick Trader used the hunters as a **nursery for the curse**.
+Ozwald later says Ja'zel used the hunters as a **nursery for the curse** and wants to betray him.
 
 ## Ontology rule
 
-Do not decode “Chick” globally as child, orphan, soul, dreamer, sacrifice, or vessel. The source explicitly supports context-dependent substitution and deliberate ambiguity.
+Do not decode “Chick” globally as child, orphan, soul, dreamer, sacrifice, vessel, or baby.
+
+Act 1 proves the institution literally traffics/claims children under Chick terminology, while later source material explicitly says the terminology is intentionally metaphorical/substituted.
