@@ -4,12 +4,18 @@ Parent continuity: `tes.mod.vicn`
 
 This file cross-references the Owl/Laza/Jhunal material across the Vicn continuity while preserving each mod's own evidence layer.
 
-It does **not** replace the missing exact VIGILANT texts:
+The exact VIGILANT texts are now recovered from the user-supplied translated 1.8.2 ESM:
+
 - `BOOK 021E7B13` — *Laza and the White Owl*
 - `BOOK 021E7B14` — *Laza and the Gray Owl*
 - `BOOK 021E7B15` — *Laza and the Black Owl*
 
-Those exact VIGILANT book texts are still not persisted.
+Persisted at:
+- `books/021E7B13-laza-and-the-white-owl.txt`
+- `books/021E7B14-laza-and-the-gray-owl.txt`
+- `books/021E7B15-laza-and-the-black-owl.txt`
+
+The GLENMORIL texts are therefore continuation/corroboration, not substitutes.
 
 ## VIGILANT baseline
 
@@ -20,7 +26,7 @@ Direct VIGILANT evidence establishes:
 - VIGILANT contains separate White/Gray/Black Owl book records;
 - the three books are deliberately distributed together across several Coldharbour locations.
 
-The exact color-coded identities are not directly resolved in the currently persisted VIGILANT ESM corpus.
+The exact VIGILANT prose now directly establishes the White → Gray → Black sequence, but the books still identify the speakers by color/title rather than giving explicit personal names such as “Jhunal the White.”
 
 ## GLENMORIL — direct Owl texts
 
@@ -231,3 +237,20 @@ If asked “Who are the Owls in VIGILANT?”:
 - Direct VIGILANT evidence ties Jhunal the Owl to Laza and dragon harvesting but does not currently preserve the exact color-book prose.
 - Cross-Vicn direct evidence later resolves White Owl as **Jhunal the White**, Gray Owl as **Jhunal the Gray** with an Orlando-related identity network, and Black Owl as **Jhunal the Black**.
 - These later identities are strong continuity evidence but should not be silently back-projected as exact VIGILANT body identity without the missing VIGILANT texts.
+
+
+## Direct VIGILANT / GLENMORIL textual continuity
+
+The recovered VIGILANT Owl books and GLENMORIL's later `Laza and the Owls` text preserve essentially the same three-stage narrative:
+
+1. White Owl — shepherd/wolf/wind transformation
+2. Gray Owl — self-blinding and route to Kyne's fountain/spring
+3. Black Owl — dagger into the water, Nedic maiden's blood, loss of staff, growth of fangs, corruption of Kyne's water
+
+This is now direct textual continuity across two Vicn works.
+
+Wording differs slightly between translations/versions:
+- VIGILANT uses **fountain of Kyne**;
+- GLENMORIL uses **Kyne's Spring**.
+
+The narrative sequence itself is unmistakably shared.
