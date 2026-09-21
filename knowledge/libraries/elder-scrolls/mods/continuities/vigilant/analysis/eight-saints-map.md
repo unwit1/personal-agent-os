@@ -57,6 +57,7 @@ The ESM now supports a much larger distributed identity/relic network:
 - Sir Berich explicitly links Casimir's fate to a fire rune/Wisdom of Magnus that he says Jhunal stole from Saarthal.
 - Saklas asks the player to locate Jhunal's Library and says Jhunal's name repeatedly appears in the souls/memories of Alessian priests.
 - Jhunal's own dialogue says the Black Worm tore him into pieces and that he spent centuries recovering, directly matching the three fragment actors.
+- `BOOK 0218B1BA` / **The Art of the Ayleids** is explicitly credited to Jhunal and is physically distributed across Bruiant Mansion South Wing, the Slave Trader's House, Prison Tower, and Fort Welkynd, preserving an authored documentary voice distinct from his saint biography and Owl dialogue.
 
 The named relic effects preserve different aspects of his magical identity: **Silver Knowledge** extends spell duration, **Golden Knowledge** strengthens Illusion targeting, **Arcane Fire** is described as a concealed rune of Jhunal, and the Bone relic calls him **the sorcerer of the Elder Wood**.
 
