@@ -1,13 +1,40 @@
-# Eton Nir Tech
+# Eton Nir Tech / Research Institute
 
-In the Or the Gospel battle-plan scene, Ja'zel says **Dwemer automatons from Eton Nir Tech** will enter with the first assault group after the temple barrier falls.
+Eton Nir is an Altmeri research institution specializing in Dwemer technology within the GLENMORIL continuity.
 
-## Supported role
+## Romion's direct history
 
-Eton Nir Tech is therefore directly associated with deployable Dwemer automatons in the Gospel assault.
+In **Percussive Maintenance**, Romion says:
+- he belonged to Eton Nir **more than fifty years ago**;
+- before the Oblivion Crisis, the institute researched many small technologies intended to improve ordinary life;
+- after the Thalmor rose to power, his research was increasingly restricted to **military purposes**;
+- he left because he could no longer pursue his interests freely;
+- about ten years before the quest, he became entangled in an internal Hammerfell dispute and was imprisoned by the Thalmor;
+- **Ozwald rescued him**;
+- Romion has worked for the Witch Hunters since, receiving gold and a workshop in exchange for technology.
 
-## Retrieval links
+## Ebonwall
 
-Dwemer technology; Ja'zel; Ozwald; temple assault; automatons; Oneiromancer machinery; Yelem.
+Eton Nir agents appear at Ebonwall.
 
-Do not infer an organizational relationship to Yelem or his school merely because both involve Dwemer technology; that requires direct source evidence.
+Ozwald suspects they are attempting to collect the Glenmoril witch's **curse**.
+
+Their communication devices are powered by soul-gem energy and can be reverse-traced with sufficient conversation time.
+
+## Bronze Key
+
+The Eton Nir facility at Ysmir's Howl later conducts:
+- Vaermina-related research on Arkved;
+- beast-possession experimentation;
+- Skeeven experiments;
+- use of First-Council-era automatons.
+
+## Or the Gospel
+
+Ja'zel says **Dwemer automatons from Eton Nir Tech** will participate in the first assault group.
+
+## Yelem distinction
+
+A repaired music box is explicitly identified by Romion as a product of the **Yelem School**, not Eton Nir.
+
+The two remain retrieval-linked through Dwemer technology but should not be merged organizationally without direct evidence.
