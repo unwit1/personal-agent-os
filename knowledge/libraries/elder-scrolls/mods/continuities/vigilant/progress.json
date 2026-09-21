@@ -42,7 +42,8 @@
     "Black Worm identity/source-gap analysis",
     "Kahkaankrein / Kyne's Dragon structural dossier",
     "Sir Torolf / Knight of Arkay structural dossier",
-    "Funeral side-quest structural separation"
+    "Funeral side-quest structural separation",
+    "Act 4 near-empty quest stubs for More Skooma, Archer of Kyne, and the remaining deity-knight quests"
   ],
   "normalization": {
     "infos_total": 1225,
@@ -55,8 +56,8 @@
     "quest_aliases": 550
   },
   "next": [
+    "recover exact source bodies for all nine structurally incomplete Act 4 quests when richer VIGILANT source bytes/transcripts become available",
     "recover full quest bodies for Black Worm, Kyne's Dragon/Kahkaankrein, Knight of Arkay/Sir Torolf, and Funeral when exact source bytes or transcripts are available",
-    "recover remaining near-empty Act 4 side quests: More Skooma, Archer of Kyne, Knight of Julianos, Knight of Zenithar, Knight of Kynareth",
     "expand remaining high-relevance character dossiers",
     "continue exact BOOK/note persistence from the 179-record local corpus",
     "ingest VIGILANT PEX/scripts or BSA when available for exact Papyrus transition bodies",
@@ -74,14 +75,15 @@
   },
   "last_continuation": {
     "date": "2026-09-21",
-    "focus": "resolved the highest-priority Act 4 structural gaps without over-identifying missing quest lore",
+    "focus": "completed an explicit status pass across all fifteen Act 4 side quests",
     "added": [
       "Black Worm identity/source-gap analysis",
       "Kahkaankrein structural dossier",
       "Sir Torolf structural dossier",
-      "Funeral side-quest structural separation"
+      "Funeral side-quest structural separation",
+      "near-empty stubs for More Skooma, Archer of Kyne, Knight of Julianos, Knight of Zenithar, and Knight of Kynareth"
     ],
     "source_state": "continued from repository-extracted VIGILANT corpus plus prior Jhunal extraction artifact; no new raw ESM or PEX bytes available",
-    "open_followup": "remaining near-empty Act 4 quests are More Skooma, Archer of Kyne, Knight of Julianos, Knight of Zenithar, and Knight of Kynareth; exact dialogue/alias recovery remains open for Black Worm, Kyne's Dragon, Knight of Arkay, and Funeral"
+    "open_followup": "all fifteen Act 4 side quests now have an explicit Lorekeeper status; nine remain structurally incomplete and need exact source-body recovery, while Laza/Owl exact book texts remain open"
   }
 }
