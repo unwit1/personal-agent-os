@@ -4,8 +4,8 @@
   "generated_on": "2026-09-20",
   "policy": "Editor-ID markers are discovery hints, not canon/source proof. Only independently corroborated records are marked verified.",
   "counts": {
-    "verified_official_game_text": 17,
-    "editor_id_hint_eso": 65,
+    "verified_official_game_text": 23,
+    "editor_id_hint_eso": 59,
     "editor_id_hint_oblivion": 10,
     "editor_id_hint_morrowind": 3,
     "editor_id_hint_developer_mk": 3,
@@ -2116,9 +2116,8 @@
       "title": "Epistle on Amun-dro, vol. I",
       "editor_id": "LB_Book3_CL_EpistleAmundro01_ESO",
       "text_path": "books/0400010E-epistle-on-amun-dro-vol-i.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as The Elder Scrolls Online: Dragonhold text, Epistle on the Spirits of Amun-dro Vol 1."
     },
     {
       "form_id": "0400010F",
@@ -2517,45 +2516,40 @@
       "title": "Great Spirits of the Reach, vol. 1",
       "editor_id": "LB_Book3_SK_ReachSpirits01_ESO",
       "text_path": "books/0400009F-great-spirits-of-the-reach-vol-1.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as The Elder Scrolls Online: Markarth text, Great Spirits of the Reach: Volume 1; listed in The Reach Reader and Imperial Library."
     },
     {
       "form_id": "04000097",
       "title": "Great Spirits of the Reach, vol. 2",
       "editor_id": "LB_Book3_SK_ReachSpirits02_ESO",
       "text_path": "books/04000097-great-spirits-of-the-reach-vol-2.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as The Elder Scrolls Online: Markarth text, Great Spirits of the Reach: Volume 2; listed in The Reach Reader and Imperial Library."
     },
     {
       "form_id": "04000098",
       "title": "Great Spirits of the Reach, vol. 3",
       "editor_id": "LB_Book3_SK_ReachSpirits03_ESO",
       "text_path": "books/04000098-great-spirits-of-the-reach-vol-3.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as The Elder Scrolls Online: Markarth text, Great Spirits of the Reach: Volume 3; listed in The Reach Reader and Imperial Library."
     },
     {
       "form_id": "04000099",
       "title": "Great Spirits of the Reach, vol. 4",
       "editor_id": "LB_Book3_SK_ReachSpirits04_ESO",
       "text_path": "books/04000099-great-spirits-of-the-reach-vol-4.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as The Elder Scrolls Online: Markarth text, Great Spirits of the Reach: Volume 4; listed in The Reach Reader and Imperial Library."
     },
     {
       "form_id": "0400009A",
       "title": "Great Spirits of the Reach, vol. 5",
       "editor_id": "LB_Book3_SK_ReachSpirits05_ESO",
       "text_path": "books/0400009A-great-spirits-of-the-reach-vol-5.txt",
-      "provenance_status": "editor_id_hint_eso",
-      "editor_id_hint": "ESO",
-      "evidence": "The compilation plugin editor ID contains an explicit `_ESO` marker. Treat as a discovery hint only until independently verified."
+      "provenance_status": "verified_official_game_text",
+      "evidence": "Independently corroborated as The Elder Scrolls Online: Markarth text, Great Spirits of the Reach: Volume 5; listed in The Reach Reader and Imperial Library."
     },
     {
       "form_id": "04000046",
