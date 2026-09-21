@@ -51,12 +51,18 @@ Processed:
 - Abnur Tharn epilogue/will
 - Akashiya-Samon epilogue/follow-up
 
-### Structural seed awaiting non-dialogue analysis
+### Non-dialogue/support passes completed
 
 - `zDcdSqPrisoner` — **In Grabbers' Hands**
-  - direct objective: retrieve Kye and **restore your name**
-  - aliases: Player, Boss, Kye
-  - no directly owned DIAL topics, so scene/script/form analysis is required
+  - radiant clearable-dungeon target with selected Boss alias
+  - Boss script: `DcdNymicStealerAliasScript`
+  - Kye = **Book of the Prisoner**
+  - quest nymic object = `Bendu Olo Olo`
+  - strong mechanical Grabber <-> stolen-name/nymic relationship; exact compiled rename logic still unavailable
+- `zDcdEpiQYngol` — branch-dependent dead-dragon/reward-chest aftermath
+- `zDcdMqDragon` — Golden Dragon Flight stage/package choreography
+- `zDcdMqAgent` — scripted Yaghra-Agent manifestation
+  - dedicated Agent ash pile contains the six Daggerfall Totem correspondence letters
 
 ### Major dossiers/concepts
 
@@ -112,46 +118,40 @@ High-value written findings include:
 - Abnur will variants;
 - three alternate-reality Temporal Tomes.
 
-Known/reused source material is being provenance-separated:
+Known/reused source material is now substantially provenance-separated:
 
-- six Daggerfall/Totem correspondence records are source-reuse candidates;
-- `ANON/ANU/ANUI-EL` already matches the apocryphal library;
-- `A Type of Zero Still to Be Discovered` already has verified developer-obscure-text provenance in the library;
-- remaining `NahdFiction_*_MK` texts still need exact source reconciliation.
+- six Daggerfall/Totem correspondence records are **verified official Daggerfall text reuse**, with DAc0da-specific static placeholder substitutions;
+- `Djaf: Arena of Lyg` is verified community apocrypha by **mojonation1487**;
+- `ANON/ANU/ANUI-EL / KINMUNE`, `The Tsaesci Creation Myth`, `Dominion Prism Textract`, `et'Ada, Eight Aedra, Eat the Dreamer`, `Lament for Pelinal`, and `A Type of Zero Still to Be Discovered` are verified reused Michael Kirkbride developer/obscure material;
+- the exact original standalone publication/authorship trail for the long `Ghost Choir 9` BOOK remains unresolved.
 
 ## Resume here
 
-### P1 — non-dialogue identity/name pass
+### P1 — SCEN coverage
 
-Start with:
+Build a deterministic index over all **79 SCEN records**.
 
-**`DAc0da.esm:00CEFE` — `zDcdSqPrisoner` — In Grabbers' Hands**
+For each scene:
 
-Resolve:
+1. capture local FormID and EditorID;
+2. resolve the owning quest where possible;
+3. decode scene actor/alias references;
+4. map aliases back to QUST alias names and concrete NPCs;
+5. identify dialogue/actions that are only recoverable through scene structure;
+6. flag scenes that materially change an existing character, quest, or chronology dossier.
 
-1. Kye's form and identity.
-2. Boss form/identity.
-3. target location.
-4. attached scripts, scenes, activators, messages, items, effects, and conditions.
-5. what the game mechanically means by **"restore your name."**
-6. whether the mechanic directly links Grabbers to stolen name/identity data.
+Prioritize scene-only lore over pure choreography.
 
-Do not infer mechanism from the title/objective alone.
+### P2 — entity/location coverage
 
-### P2 — remaining support/epilogue records
+After the first scene pass:
 
-Then process:
+- expand unresolved NPC/form families;
+- index important CELL/WRLD/location layers;
+- index artifacts/items/creatures where placement, inventory, or scripts carry lore.
 
-- `zDcdEpiQYngol` — Yngol epilogue via scenes/scripts;
-- `zDcdMqDragon` — Golden Dragon Flight;
-- `zDcdMqAgent` — Agent Event;
-- Numidium shortcut/manager material where it adds lore.
+### P3 — remaining provenance
 
-### P3 — provenance / indexing
+Recover the exact standalone source for the long **Ghost Choir 9** text if possible.
 
-- exact text comparison for six Daggerfall/Totem letters;
-- exact source resolution for unresolved `NahdFiction_*_MK` texts;
-- scene-speaker coverage;
-- remaining NPC/location/artifact/creature indexing.
-
-Preserve conditional branches, speaker reliability, alternate realities, and source provenance. Do not silently promote DAc0da/Vicn claims into official Elder Scrolls canon.
+Preserve conditional branches, speaker reliability, alternate realities, source provenance, and mechanical-vs-narrative evidence boundaries. Do not silently promote DAc0da/Vicn claims into official Elder Scrolls canon.
