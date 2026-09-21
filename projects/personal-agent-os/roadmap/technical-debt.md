@@ -135,7 +135,9 @@ validation remain the responsibility of the cache-owning subsystem.
 
 ## From P0.6 ? Economy regression suite
 
-### Economy baseline does not measure provider spend
+### Economy benchmarks do not measure live provider spend
 
-The initial report is intentionally deterministic and reports no provider calls.
-Privacy-safe actual usage and latency telemetry remain future work.
+The regression corpus and A/B comparison are intentionally deterministic and
+privacy-safe. They exercise policy, routing, and reported measurements without
+making provider calls; optional sanitized live usage/latency telemetry remains
+future work.

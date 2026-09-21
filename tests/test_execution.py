@@ -7,10 +7,15 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from agent_os.execution import cache_artifact, select_route
+from agent_os.execution import cache_artifact, classify_complexity, select_route
 
 
 class ExecutionPolicyTests(unittest.TestCase):
+    def test_complexity_triage_avoids_unneeded_orchestration(self) -> None:
+        self.assertEqual(classify_complexity()["path"], "SIMPLE")
+        self.assertEqual(classify_complexity(action_count=2)["path"], "PLANNED")
+        self.assertEqual(classify_complexity(needs_resume=True)["path"], "STAGED")
+
     def test_deterministic_route_is_never_replaced_by_a_model(self) -> None:
         result = select_route({"preferred_execution_path": "deterministic"})
         self.assertEqual(result["route"], "deterministic")

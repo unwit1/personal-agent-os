@@ -15,6 +15,28 @@ from .skills import discover
 
 
 ROUTE_ORDER = ("deterministic", "cache", "skill", "model")
+COMPLEXITY_PATHS = ("SIMPLE", "PLANNED", "STAGED")
+
+
+def classify_complexity(
+    *,
+    action_count: int = 1,
+    expected_context_tokens: int = 0,
+    needs_resume: bool = False,
+    tool_or_provider_count: int = 0,
+    validation_complexity: str = "low",
+) -> dict[str, str]:
+    """Choose the smallest orchestration shape from observable task facts.
+
+    This deliberately accepts structured facts rather than inferring intent
+    with a model. Callers retain the evidence alongside the result and route
+    only ``STAGED`` work through the persistent workflow orchestrator.
+    """
+    if needs_resume or action_count >= 4 or tool_or_provider_count >= 2 or expected_context_tokens > 4_000 or validation_complexity == "high":
+        return {"path": "STAGED", "reason": "resume, scale, coordination, context, or validation complexity requires checkpoints"}
+    if action_count >= 2 or expected_context_tokens > 1_200 or validation_complexity == "medium":
+        return {"path": "PLANNED", "reason": "dependent work benefits from a compact plan without persistent orchestration"}
+    return {"path": "SIMPLE", "reason": "one bounded low-risk action needs no planning or checkpoint overhead"}
 
 
 def _safe_artifact(path_value: Any, root: Path) -> Path | None:

@@ -1,0 +1,8 @@
+[
+  {"case_id": "scanner-debug", "complexity": "SIMPLE", "task": "debug a scanner date regression", "expected_active": ["scanner-debug"], "expected_dormant": ["drive-crawl", "icloud-import", "artifact-zip", "focused-fix", "research", "staged-workflow"]},
+  {"case_id": "focused-code-fix", "complexity": "SIMPLE", "task": "make a focused code fix using targeted repository search", "expected_active": ["focused-fix"], "expected_dormant": ["scanner-debug", "drive-crawl", "icloud-import", "artifact-zip", "research", "staged-workflow"]},
+  {"case_id": "artifact-zip", "complexity": "PLANNED", "task": "generate and validate an artifact ZIP", "expected_active": ["artifact-zip"], "expected_dormant": ["scanner-debug", "drive-crawl", "icloud-import", "focused-fix", "research", "staged-workflow"]},
+  {"case_id": "drive-crawl", "complexity": "STAGED", "task": "crawl a Google Drive archive in resumable batches", "expected_active": ["drive-crawl"], "expected_dormant": ["scanner-debug", "icloud-import", "artifact-zip", "focused-fix", "research"]},
+  {"case_id": "icloud-import", "complexity": "STAGED", "task": "resume an iCloud mail import backfill", "expected_active": ["icloud-import"], "expected_dormant": ["scanner-debug", "drive-crawl", "artifact-zip", "focused-fix", "research"]},
+  {"case_id": "research-heavy", "complexity": "PLANNED", "task": "perform research-heavy source evidence review", "expected_active": ["research"], "expected_dormant": ["scanner-debug", "drive-crawl", "icloud-import", "artifact-zip", "focused-fix", "staged-workflow"]}
+]
