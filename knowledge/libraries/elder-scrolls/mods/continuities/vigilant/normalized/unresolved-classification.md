@@ -21,7 +21,7 @@ Only **4/89** therefore lack usable identity structure entirely. The remaining r
 - **Johan the Fool:** the traveling bard dialogue introduces itself as **Bal**, but the speaker is routed through a location-derived alias. Record the bard persona's self-identification without silently converting the alias into a uniquely resolved Molag Bal NPC.
 - **Beyond the Shores of Madness:** most unresolved narration is tied to placed scene roles such as Bard/Sheogorath memory actors. These are scene-role testimony, not objective narration.
 - **Madness:** the KingShadow lines use dynamic scene aliases. Preserve them as a role cluster until location/runtime evidence resolves individual actors.
-- **Sacred Anatomancer:** gatekeeper/trial dialogue is routed through specific-reference or dynamic aliases. The quest role is certain even where personal identity is not.
+- **Sacred Anatomancer:** gatekeeper/trial dialogue is routed through specific-reference or dynamic aliases. The quest role is certain even where personal identity is not. See `analysis/sacred-anatomancer-source-gap.md` for the report placement, supplementary ontology, and recovery targets.
 - **Generic Minotaur Village:** greetings intentionally resolve to an ambient pool/multiple candidates; do not force them onto individual named Minotaurs.
 - **Dine and Dash:** payment dialogue routes through a unique actor outside the locally resolvable VIGILANT NPC set; preserve it as innkeeper/payment-role dialogue.
 
