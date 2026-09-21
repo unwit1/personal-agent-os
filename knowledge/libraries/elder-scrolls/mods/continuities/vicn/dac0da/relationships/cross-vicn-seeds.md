@@ -164,3 +164,24 @@ DAc0da's written Snow-Elf orders add two more evidence layers:
 UNSLAAD and GLENMORIL independently contain major Atmora, Saarthal, Night-of-Tears, Owl/Jhunal, and old-history reinterpretation material.
 
 These should be co-retrieved for comparison, but DAc0da's specific Jylkurfyk testimony remains source-scoped until matching named evidence is recovered elsewhere.
+
+
+## Brain-Billies / memory recovery
+
+DAc0da's **Mecha-Kanra** says **Brain-Billies** are local spirits that sting a person's memories so that forgotten things are remembered. Evidence: `DAc0da.esm:00D051`, `00D053`.
+
+GLENMORIL independently uses the exact rare term **brain-billies** in dialogue associated with the **Augur of the Obscure**.
+
+Because the wording is highly distinctive, this is a strong direct DAc0da <-> GLENMORIL retrieval bridge.
+
+The works should still be compared source-by-source before asserting that every Brain-Billy appearance has an identical mechanism or chronology.
+
+## Xero-Lyg
+
+DAc0da's **Crabbimarco** says **Xero-Lyg** and her son ruined his plans during a slave revolt in Lyg. Evidence: `DAc0da.esm:00492C`.
+
+GLENMORIL independently names **Xero-Lyg** in major Jazel/Aradia and related star/radiance material, including treatment of Xero-Lyg as a Black Star associated with the Serpent.
+
+This is a direct named cross-work bridge rather than a thematic resemblance.
+
+DAc0da's Crabbimarco account remains its own Lyg testimony and should not be used to import GLENMORIL's full Xero-Lyg model into DAc0da without matching evidence.
