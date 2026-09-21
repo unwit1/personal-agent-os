@@ -42,3 +42,40 @@ Other Vicn works contain repeated identity, possibility, dream, and alternate-st
 DAc0da's main plot centers on Numidium, Dwemer machinery, mirror logic, Mantella systems, canceled Dwemer projects, and machine-rhythm architecture.
 
 GLENMORIL's Romion and Yelem material includes extensive Dwemer-study and machine research. This is a strong retrieval relationship; exact technical lineage remains to be established from direct cross-work evidence.
+
+## Mnemo-Li / memory / many paths
+
+DAc0da's **Echoes of Mnemolichite** repeatedly names **Mnemo-Li**.
+
+Vanus speculates about Mnemo-Li's relationship to crystallized memory, contradictory causality, and a wound spanning time and space. DAc0da's **Sea of Radiance** then links Mnemo-Li with a sea of possibilities, multiple selves, a "tower of blood," and traversal of many paths.
+
+DAc0da evidence: `DAc0da.esm:0052F2`, `005713`, `00614A`, `00614F`, `006153`.
+
+GLENMORIL independently clusters **Mnemo-Li / Blue Orphan / Blue Star** with Yelem, Jhunal, Orlando, engineered repetition, and transformation.
+
+UNSLAAD independently uses **Mnemo-Li / Blue Orphan / Magna-Ge** vocabulary in Gray-Owl/dream material and directly shares the broader dream/possibility cluster with GLENMORIL.
+
+This is a strong rare-vocabulary Vicn bridge. DAc0da does **not** in the processed records call Mnemo-Li "Blue Orphan," so the shared terms should be compared without silently copying epithets or mechanics between works.
+
+## Adjacent Places / Lyg / Grabbers
+
+DAc0da's Augur of the Obscure directly calls himself a traveler from an **Adjacent Place** and explicitly warns about **Grabbers**. Evidence: `DAc0da.esm:00490A`, `00490C`, `00490E`.
+
+DAc0da also uses Adjacent Place terminology for:
+
+- the Numidium isolating Apocryphal contamination (`DAc0da.esm:00B50F`);
+- the golden dragon / old-kalpa intrusion in Drowned Nighthawk (`DAc0da.esm:004DF9`).
+
+The quest **In Grabbers' Hands** further has a direct objective to retrieve Kye and **restore your name**, though its detailed mechanism still requires non-dialogue analysis.
+
+UNSLAAD independently says mirrors can lead through **Lyg**, an adjacent place where fate can change, and warns that staying too long risks attention from **Grabbers**.
+
+This is one of the strongest exact-vocabulary DAc0da <-> UNSLAAD bridges now indexed.
+
+## Atmora / contested early history
+
+DAc0da's **Drowned Nighthawk** and **The End of All Wishes** both expose conflicting Atmoran histories involving Yngol, Ysgramor, Snow-Elf/mixed-blood persecution, endless winter, old-kalpa dragon material, and ritual violence.
+
+UNSLAAD and GLENMORIL independently contain major Atmora, Saarthal, Night-of-Tears, Owl/Jhunal, and old-history reinterpretation material.
+
+These should be co-retrieved for comparison, but DAc0da's specific Jylkurfyk and sacrifice testimony remains source-scoped until matching named evidence is recovered elsewhere.
