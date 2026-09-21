@@ -18,7 +18,8 @@ from .paths import ROOT
 
 LOCAL_CONFIG_ENV = "AGENT_OS_LOCAL_CONFIG"
 LOCAL_CONFIG_PATH = ROOT / ".agent-local" / "machine.json"
-HOME_CONFIG_PATH = Path.home() / ".agent-os" / "config.json"
+CONFIG_DIR = Path.home() / ".agent-os"
+HOME_CONFIG_PATH = CONFIG_DIR / "config.json"
 
 
 def _read(path: Path) -> dict[str, Any]:

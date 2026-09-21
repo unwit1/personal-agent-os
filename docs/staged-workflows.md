@@ -1,0 +1,153 @@
+# Staged workflow orchestrator
+
+Status: implemented (P0.1)
+
+## Why stages exist
+
+A single expensive session should not carry an entire multi-step job. Some
+stages of real work are deterministic — running a validator, a test suite, an
+index rebuild — and cost nothing but wall-clock time. Others genuinely need
+reasoning. Without stages, the cheap parts are paid for at the price of the
+expensive parts, and an interruption loses everything because the only record
+of progress is the conversation itself.
+
+The orchestrator splits work into stages so that:
+
+- each stage runs at the cheapest capability class that could satisfy it;
+- each stage compiles **its own** context inside **its own** token budget;
+- progress is persisted, so an interrupted job resumes from disk rather than
+  from conversation memory;
+- every boundary emits a compact completion packet and an exact next prompt.
+
+## Capability classes are provider-neutral
+
+A stage names a capability *class*, never a model:
+
+    deterministic -> fast -> balanced -> reasoning -> frontier
+
+Concrete models resolve at execution time from `~/.agent-os/providers.json`
+(override with `AGENT_OS_PROVIDERS`), shaped as:
+
+```json
+{
+  "providers": [
+    {"id": "example-runner", "enabled": true, "models": {"fast": "...", "balanced": "..."}}
+  ]
+}
+```
+
+When no provider is configured, resolution reports that honestly and the
+orchestrator still recommends a class — the operator chooses the model. Nothing
+in `src/agent_os/workflows.py`, `src/agent_os/capabilities.py`, or the manifest
+schema may name a vendor; a regression test enforces this.
+
+(The client-surface registry from P0.0 *does* name vendors, on purpose: it
+exists to describe real clients. The neutrality rule covers the orchestrator
+core, not the whole repository.)
+
+## Manifests
+
+Manifests are canonical Git data in `workflows/<workflow_id>.json`, validated by
+`schemas/workflow-manifest-v1.schema.json` and by `agent.py validate`.
+
+Each stage declares `stage_id`, `goal`, inputs/artifacts, `required_context`
+(task plus token budget), `preferred_execution_path`, `capability_class`,
+`effort`, `allowed_tools`, `limits`, a `validator`, a `stop_condition`,
+`expected_outputs`, an optional `checkpoint`, `next_stage`, and an optional
+`next_prompt` template.
+
+A deterministic stage must declare a real validator. A deterministic stage
+nobody can check is just an unverified stage wearing a cheaper label.
+
+## Lifecycle
+
+    resolve workflow
+    -> run the cheapest appropriate stage
+    -> validate
+    -> persist outputs/checkpoint
+    -> stop at the configured boundary
+    -> emit a compact completion packet
+    -> emit the next stage, its capability class, and a ready-to-paste prompt
+
+Two execution modes share that lifecycle:
+
+- **deterministic** stages execute locally, right now, with no model involved;
+- every other stage is *prepared* — context compiled, prompt generated,
+  capability recommended — and handed to whatever agent is running, which
+  reports back through `workflow-complete`.
+
+The orchestrator never pretends to run a model itself.
+
+## Escalation is evidence-driven
+
+A stage moves up the ladder one rung only after its declared validator actually
+fails, and the reason is recorded. Escalation stops at `max_escalations` and
+marks the stage `blocked` rather than climbing to the most expensive class by
+default.
+
+A stage that already passed is never re-run, and never re-run at a higher class
+without an explicitly recorded reason. Partial outputs from a failed stage are
+merged and kept, so only the unresolved portion is redone.
+
+`complete_stage` accepts what an agent reports, but the declared validator —
+not the caller's confidence — decides whether the stage passed.
+
+## Resumability
+
+Run state lives in `projects/<project>/workflows/<run_id>.json` and holds stage
+outcomes, capability classes, attempts, escalations, outputs, checkpoints, and
+validation evidence. It deliberately holds **no transcript**: saving one is
+refused, and `agent.py validate` fails a run record that carries one.
+
+`agent.py workflow-next <workflow> --run-id <id>` answers "what do I run next?"
+entirely from that file.
+
+## Commands
+
+```powershell
+agent-os workflows
+agent-os workflow-start repository-health-sweep --run-id sweep-1
+agent-os workflow-run   repository-health-sweep --run-id sweep-1
+agent-os workflow-next  repository-health-sweep --run-id sweep-1
+agent-os workflow-stage repository-health-sweep --run-id sweep-1
+agent-os workflow-complete repository-health-sweep --run-id sweep-1 --stage triage --output "..."
+agent-os workflow-runs personal-agent-os
+```
+
+The same operations are exposed over MCP as `workflow.list`, `workflow.start`,
+`workflow.next`, `workflow.stage`, `workflow.run_stage`,
+`workflow.complete_stage`, and `workflow.runs`, so every routed surface from
+P0.0 can drive a staged run.
+
+## Measured behaviour
+
+Measured on `repository-health-sweep` in this repository:
+
+| stage    | budget | context tokens | capability     | path          |
+|----------|--------|----------------|----------------|---------------|
+| validate | 600    | 549            | deterministic  | deterministic |
+| tests    | 600    | 553            | deterministic  | deterministic |
+| triage   | 1200   | 1167           | fast           | model         |
+| record   | 900    | 856            | fast           | skill         |
+| **total**|        | **3125**       |                |               |
+
+A single unstaged pass covering the whole goal measures 2536 tokens; a naive
+load of all registered context measures 29123.
+
+Read that honestly: **staging costs somewhat more total context than one
+unstaged pass** (3125 vs 2536), because each stage re-establishes its own
+footing instead of sharing one packet. What it buys is that two of the four
+stages need no model at all, no stage carries a prior transcript, each model
+stage stays near 1000 tokens instead of growing with the conversation, and an
+interruption resumes from disk. The saving is in model work and recovery, not
+in raw context bytes — and the regression test bounds the staged total rather
+than claiming a reduction that does not exist.
+
+## Known limits
+
+- The orchestrator prepares model stages; it does not execute them. Automatic
+  delegation is deliberately out of scope for P0.1.
+- `preferred_execution_path` values `cache` and `skill` are recorded and
+  surfaced to the agent but are not yet dispatched differently from `model`.
+- Stage ordering is linear: explicit `next_stage` links or declaration order.
+  There is no parallel or conditional branching yet.

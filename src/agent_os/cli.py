@@ -28,6 +28,15 @@ from .surfaces import health as integration_health
 from .routing import install as install_routing
 from .routing import status as routing_status
 from .validation import validate
+from .workflows import (
+    complete_stage,
+    list_runs,
+    list_workflows,
+    prepare_stage,
+    run_stage,
+    start as start_workflow,
+    status as workflow_status,
+)
 
 
 def _print(value: object) -> None:
@@ -56,6 +65,31 @@ def parser() -> argparse.ArgumentParser:
     integration.add_argument("--surface")
     integration.add_argument("--strict", action="store_true")
     commands.add_parser("validate")
+    commands.add_parser("workflows")
+    workflow_start = commands.add_parser("workflow-start")
+    workflow_start.add_argument("workflow")
+    workflow_start.add_argument("--run-id")
+    workflow_runs = commands.add_parser("workflow-runs")
+    workflow_runs.add_argument("project")
+    workflow_next = commands.add_parser("workflow-next")
+    workflow_next.add_argument("workflow")
+    workflow_next.add_argument("--run-id", required=True)
+    workflow_stage = commands.add_parser("workflow-stage")
+    workflow_stage.add_argument("workflow")
+    workflow_stage.add_argument("--run-id", required=True)
+    workflow_stage.add_argument("--stage")
+    workflow_run = commands.add_parser("workflow-run")
+    workflow_run.add_argument("workflow")
+    workflow_run.add_argument("--run-id", required=True)
+    workflow_run.add_argument("--stage")
+    workflow_complete = commands.add_parser("workflow-complete")
+    workflow_complete.add_argument("workflow")
+    workflow_complete.add_argument("--run-id", required=True)
+    workflow_complete.add_argument("--stage", required=True)
+    workflow_complete.add_argument("--output", action="append", default=[])
+    workflow_complete.add_argument("--checkpoint")
+    workflow_complete.add_argument("--failed", action="store_true")
+    workflow_complete.add_argument("--detail")
     commands.add_parser("mcp")
     commands.add_parser("machine-status")
     local_path = commands.add_parser("set-local-path")
@@ -192,6 +226,30 @@ def main(argv: list[str] | None = None) -> int:
             result = validate()
             _print(result)
             return 0 if result["ok"] else 1
+        elif args.command == "workflows":
+            _print(list_workflows())
+        elif args.command == "workflow-start":
+            _print(start_workflow(args.workflow, args.run_id))
+        elif args.command == "workflow-runs":
+            _print(list_runs(args.project))
+        elif args.command == "workflow-next":
+            _print(workflow_status(args.workflow, args.run_id))
+        elif args.command == "workflow-stage":
+            _print(prepare_stage(args.workflow, args.run_id, args.stage))
+        elif args.command == "workflow-run":
+            _print(run_stage(args.workflow, args.run_id, args.stage))
+        elif args.command == "workflow-complete":
+            _print(
+                complete_stage(
+                    args.workflow,
+                    args.run_id,
+                    args.stage,
+                    outputs=args.output,
+                    checkpoint=args.checkpoint,
+                    passed=False if args.failed else None,
+                    detail=args.detail,
+                )
+            )
         elif args.command == "mcp":
             return serve()
         elif args.command == "machine-status":

@@ -1,0 +1,107 @@
+{
+  "schema": "personal-agent/workflow-manifest/v1",
+  "version": 1,
+  "workflow_id": "repository-health-sweep",
+  "project": "personal-agent-os",
+  "goal": "Confirm the repository is healthy, then decide and record what should change next, spending model capability only where deterministic checks cannot decide.",
+  "max_escalations": 1,
+  "notes": [
+    "The first two stages are deterministic on purpose: they cost no model tokens and they gate the stages that do.",
+    "Capability classes are provider-neutral; the concrete model resolves at run time from configured providers."
+  ],
+  "stages": [
+    {
+      "stage_id": "validate",
+      "goal": "Run deterministic repository validation and fail fast on structural or privacy errors.",
+      "inputs": ["projects/registry.json", "surfaces/registry.json", "workflows/"],
+      "required_context": {
+        "task": "repository validation errors and project state",
+        "token_budget": 600,
+        "include_handoff": false
+      },
+      "preferred_execution_path": "deterministic",
+      "capability_class": "deterministic",
+      "effort": "none",
+      "allowed_tools": ["shell"],
+      "limits": {"max_seconds": 300},
+      "validator": {
+        "kind": "command",
+        "command": ["python", "agent.py", "validate"],
+        "description": "validate exits non-zero when the repository has structural or privacy errors"
+      },
+      "stop_condition": "validate has exited; do not fix anything in this stage",
+      "expected_outputs": ["validation report with error and warning counts"],
+      "checkpoint": "projects/personal-agent-os/workflows",
+      "next_stage": "tests"
+    },
+    {
+      "stage_id": "tests",
+      "goal": "Run the regression suite so later stages start from a known-good baseline.",
+      "inputs": ["tests/"],
+      "required_context": {
+        "task": "regression test suite and validation commands",
+        "token_budget": 600,
+        "include_handoff": false
+      },
+      "preferred_execution_path": "deterministic",
+      "capability_class": "deterministic",
+      "effort": "none",
+      "allowed_tools": ["shell"],
+      "limits": {"max_seconds": 900},
+      "validator": {
+        "kind": "command",
+        "command": ["python", "-m", "unittest", "discover", "-s", "tests"],
+        "description": "the suite exits non-zero on any failure"
+      },
+      "stop_condition": "the suite has finished; do not change code in this stage",
+      "expected_outputs": ["test run result with pass and failure counts"],
+      "next_stage": "triage"
+    },
+    {
+      "stage_id": "triage",
+      "goal": "Read the open improvement candidates and the latest handoff, and name the single highest-value next change with its evidence.",
+      "inputs": ["projects/personal-agent-os/improvements", "projects/personal-agent-os/handoffs"],
+      "artifacts": ["a ranked shortlist with one recommended change"],
+      "required_context": {
+        "task": "open improvements, recent decisions, and remaining work",
+        "token_budget": 1200,
+        "include_handoff": true
+      },
+      "preferred_execution_path": "model",
+      "capability_class": "fast",
+      "effort": "low",
+      "allowed_tools": ["read", "search"],
+      "limits": {"max_output_tokens": 800},
+      "validator": {
+        "kind": "outputs_present",
+        "description": "the stage must name a recommended change and cite its evidence"
+      },
+      "stop_condition": "one recommended change is named with evidence; do not implement it",
+      "expected_outputs": ["recommended change", "supporting evidence"],
+      "next_stage": "record"
+    },
+    {
+      "stage_id": "record",
+      "goal": "Capture the recommendation as an improvement candidate and a compact handoff, so the decision survives this session.",
+      "inputs": ["the triage recommendation"],
+      "required_context": {
+        "task": "improvement capture and handoff conventions",
+        "token_budget": 900,
+        "include_handoff": true
+      },
+      "preferred_execution_path": "skill",
+      "capability_class": "fast",
+      "effort": "low",
+      "allowed_tools": ["shell", "read"],
+      "validator": {
+        "kind": "command",
+        "command": ["python", "agent.py", "validate"],
+        "description": "captured records must leave the repository valid"
+      },
+      "stop_condition": "the candidate and handoff exist and validate; nothing is promoted to canonical memory",
+      "expected_outputs": ["improvement candidate id", "handoff path"],
+      "checkpoint": "projects/personal-agent-os/handoffs",
+      "next_stage": null
+    }
+  ]
+}

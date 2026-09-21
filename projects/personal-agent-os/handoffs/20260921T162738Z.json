@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-21T16:27:38.202513+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 4]\n M README.md\n M projects/personal-agent-os/roadmap/master-priority-roadmap.md\n M src/agent_os/cli.py\n M src/agent_os/machine.py\n M src/agent_os/mcp_server.py\n M src/agent_os/validation.py\n?? docs/staged-workflows.md\n?? projects/personal-agent-os/roadmap/technical-debt.md\n?? schemas/workflow-manifest-v1.schema.json\n?? src/agent_os/capabilities.py\n?? src/agent_os/workflows.py\n?? tests/test_workflows.py\n?? workflows/",
+    "error": ""
+  },
+  "completed": [
+    "Committed the P0.0 repair and merged origin/main (69 commits) into p0-0-universal-routing, then merged that branch into local main. Nothing pushed.",
+    "Implemented P0.1: workflow manifest schema (schemas/workflow-manifest-v1.schema.json), provider-neutral capability layer (src/agent_os/capabilities.py), and the staged orchestrator (src/agent_os/workflows.py).",
+    "Stage lifecycle: deterministic stages execute and validate locally; other stages are prepared with their own budgeted context, a recommended capability class, and an exact next prompt, then handed to the running agent.",
+    "Escalation is evidence-driven: one rung per failed validator, bounded by max_escalations, with the reason recorded. A passed stage is never re-run or silently promoted, and partial outputs survive a failure.",
+    "Exposed the orchestrator through 7 CLI commands and 7 MCP tools, so every routed surface from P0.0 can drive a staged run. Manifests and run records are now checked by agent.py validate.",
+    "Added tests/test_workflows.py: 46 regression tests covering manifest validation, ordering, restart/idempotency, checkpoints, escalation and non-escalation, per-stage budgets, transcript-free state, next-prompt generation, provider neutrality, and writeback safety.",
+    "Documented the design in docs/staged-workflows.md and recorded carried-forward debt separately in projects/personal-agent-os/roadmap/technical-debt.md."
+  ],
+  "decisions": [
+    "The orchestrator prepares model stages but never executes them; automatic delegation belongs with P1.3 because that spend is separately billed.",
+    "Provider neutrality is enforced on the orchestrator core and manifests only. The P0.0 surface registry names vendors on purpose, so the whole repository is not a meaningful target for that check.",
+    "A deterministic stage must declare a real validator; an unverifiable deterministic stage is just an unverified stage wearing a cheaper label.",
+    "Staging is not claimed as a raw context reduction. It measured 3125 staged tokens against 2536 for one unstaged pass; the test bounds the total rather than asserting a saving."
+  ],
+  "remaining": [
+    "P0.1 work is uncommitted; the user asked for no commit without approval.",
+    "cache and skill execution paths are recorded but not yet dispatched differently from model; depends on P0.3.",
+    "Stage ordering is linear, with no conditional or parallel branching.",
+    "No per-stage telemetry yet; capability selection is policy-driven rather than evidence-driven. P1.1 covers it.",
+    "Next roadmap item is P0.2 selective context and profile retrieval."
+  ],
+  "validation": [
+    "python -m unittest discover -s tests (149 passed, was 103)",
+    "python agent.py validate (238 checks, 0 errors, 0 warnings)",
+    "python agent.py integration-health (ok; 3 routed, 3 bridged as expected)",
+    "python agent.py launcher-verify (ok, 20 tools advertised)",
+    "live MCP handshake: all 7 workflow.* tools advertised and callable",
+    "CLI end-to-end: 2 deterministic stages ran and validated with no model involved"
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

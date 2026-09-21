@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Workflow stage manifest v1",
+  "description": "A workflow decomposed into economical, independently resumable stages. Stages name a provider-neutral capability class; concrete models resolve at execution time.",
+  "type": "object",
+  "required": ["schema", "version", "workflow_id", "project", "goal", "stages"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {"const": "personal-agent/workflow-manifest/v1"},
+    "version": {"type": "integer", "minimum": 1},
+    "workflow_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+    "project": {"type": "string"},
+    "goal": {"type": "string", "minLength": 1},
+    "notes": {"type": "array", "items": {"type": "string"}},
+    "max_escalations": {"type": "integer", "minimum": 0, "default": 1},
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "stage_id",
+          "goal",
+          "required_context",
+          "preferred_execution_path",
+          "capability_class",
+          "validator",
+          "stop_condition",
+          "expected_outputs"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "stage_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+          "goal": {"type": "string", "minLength": 1},
+          "inputs": {"type": "array", "items": {"type": "string"}},
+          "artifacts": {"type": "array", "items": {"type": "string"}},
+          "required_context": {
+            "type": "object",
+            "required": ["task", "token_budget"],
+            "additionalProperties": false,
+            "properties": {
+              "task": {"type": "string", "minLength": 1},
+              "token_budget": {"type": "integer", "minimum": 250},
+              "include_handoff": {"type": "boolean", "default": true}
+            }
+          },
+          "preferred_execution_path": {"enum": ["deterministic", "cache", "skill", "model"]},
+          "capability_class": {"enum": ["deterministic", "fast", "balanced", "reasoning", "frontier"]},
+          "effort": {"enum": ["none", "low", "medium", "high"], "default": "low"},
+          "allowed_tools": {"type": "array", "items": {"type": "string"}},
+          "limits": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "max_seconds": {"type": "integer", "minimum": 1},
+              "max_output_tokens": {"type": "integer", "minimum": 1}
+            }
+          },
+          "validator": {
+            "type": "object",
+            "required": ["kind"],
+            "additionalProperties": false,
+            "properties": {
+              "kind": {"enum": ["command", "outputs_present", "none"]},
+              "command": {"type": "array", "items": {"type": "string"}},
+              "description": {"type": "string"}
+            }
+          },
+          "stop_condition": {"type": "string", "minLength": 1},
+          "expected_outputs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "checkpoint": {"type": ["string", "null"]},
+          "next_stage": {"type": ["string", "null"]},
+          "next_prompt": {"type": ["string", "null"]}
+        }
+      }
+    }
+  }
+}

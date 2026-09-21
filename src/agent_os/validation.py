@@ -16,6 +16,7 @@ from .routing import status as routing_status
 from .skills import discover
 from .surfaces import SURFACE_REGISTRY_PATH, SURFACE_REGISTRY_SCHEMA, TIERS, surfaces
 from .storage import load_json
+from .workflows import FORBIDDEN_RUN_KEYS, WORKFLOW_DIR, manifest_problems, ordered_stage_ids
 
 
 SECRET_PATTERNS = {
@@ -191,7 +192,48 @@ def validate() -> dict[str, Any]:
             if "claude-code" not in surface_ids:
                 errors.append("surface registry: Claude Code is not a registered client surface")
 
-    required_schemas = {"change-packet.schema.json", "google-safe-projection.schema.json", "improvement.schema.json", "form-fingerprint-v1.schema.json", "form-intake-v1.schema.json", "form-registry-v1.schema.json", "surface-registry-v1.schema.json"}
+    for manifest_path in sorted(WORKFLOW_DIR.glob("*.json")) if WORKFLOW_DIR.exists() else []:
+        checked += 1
+        label = str(manifest_path.relative_to(ROOT))
+        try:
+            manifest = load_json(manifest_path)
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"invalid workflow manifest {label}: {exc}")
+            continue
+        for problem in manifest_problems(manifest):
+            errors.append(f"{label}: {problem}")
+        if manifest_path.stem != manifest.get("workflow_id"):
+            errors.append(f"{label}: filename does not match workflow_id")
+        if manifest.get("project") not in ids:
+            errors.append(f"{label}: unknown project {manifest.get('project')}")
+
+    for run_path in sorted((ROOT / "projects").glob("*/workflows/*.json")):
+        checked += 1
+        label = str(run_path.relative_to(ROOT))
+        try:
+            record = load_json(run_path)
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"invalid workflow run {label}: {exc}")
+            continue
+        _required(record, {"schema_version", "run_id", "workflow_id", "project", "status", "stages"}, label, errors)
+        leaked = FORBIDDEN_RUN_KEYS.intersection(record)
+        if leaked:
+            errors.append(f"{label}: run state carries conversation context: {', '.join(sorted(leaked))}")
+        manifest_file = WORKFLOW_DIR / f"{record.get('workflow_id')}.json"
+        if not manifest_file.exists():
+            warnings.append(f"{label}: run references a workflow manifest that no longer exists")
+            continue
+        try:
+            manifest = load_json(manifest_file)
+        except (OSError, json.JSONDecodeError):
+            continue
+        if manifest_problems(manifest):
+            continue
+        unknown = set(record.get("stages", {})) - set(ordered_stage_ids(manifest))
+        if unknown:
+            errors.append(f"{label}: run records stages absent from the manifest: {', '.join(sorted(unknown))}")
+
+    required_schemas = {"change-packet.schema.json", "google-safe-projection.schema.json", "improvement.schema.json", "form-fingerprint-v1.schema.json", "form-intake-v1.schema.json", "form-registry-v1.schema.json", "surface-registry-v1.schema.json", "workflow-manifest-v1.schema.json"}
     for schema_name in required_schemas:
         checked += 1
         if not (ROOT / "schemas" / schema_name).exists():

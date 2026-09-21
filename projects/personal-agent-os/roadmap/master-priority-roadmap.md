@@ -98,6 +98,30 @@ Success signal:
 
 ### P0.1 — Staged Workflow Orchestrator + next-prompt/model handoffs
 
+Status: **complete** (2026-09-21). Manifest schema, stage lifecycle, persisted
+run state, evidence-driven escalation, next-prompt generation, and CLI + MCP
+exposure are implemented and covered by 46 regression tests.
+
+Acceptance criteria met:
+- a multi-step job pauses after any stage and resumes in another agent from
+  persisted state, with no conversation history reconstructed;
+- the next prompt is generated from the run record, not from chat memory;
+- low-complexity stages run at `deterministic` and cost no model tokens, while
+  harder stages escalate only after a declared validator fails;
+- the stage completion packet is compact and carries no transcript;
+- `agent-os workflow-next` answers "what do I run next?" with a ready-to-paste
+  prompt and a capability recommendation.
+
+Measured on `repository-health-sweep`: 2 of 4 stages need no model at all, and
+per-stage context stays inside each stage's own budget (549/553/1167/856
+tokens). Staged context totals 3125 tokens against 2536 for a single unstaged
+pass — staging costs somewhat more raw context and buys model-free stages,
+transcript-free resumption, and bounded per-stage packets. It is not a raw
+context reduction, and the tests assert a bound rather than a saving.
+
+Carried-forward technical debt is recorded in
+`projects/personal-agent-os/roadmap/technical-debt.md`.
+
 Immediately after universal routing, implement a first-class staged execution system for complex work.
 
 Purpose:

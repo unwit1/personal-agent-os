@@ -159,6 +159,27 @@ while the inherited pipes stay open, and waits on a server it believes is dead
 until its own timeout. `launcher-verify` holds the process open across a real
 handshake and fails if it exits, which draining stdout to EOF would not catch.
 
+### Staged workflows
+
+Complex work decomposes into stages so one expensive session does not carry a
+whole job. Stages name a provider-neutral capability class (deterministic ->
+fast -> balanced -> reasoning -> frontier); concrete models resolve at run time
+from configured providers. Deterministic stages execute locally for free; other
+stages are prepared with their own budgeted context and an exact next prompt,
+then handed to whatever agent is running.
+
+```powershell
+agent-os workflows
+agent-os workflow-start repository-health-sweep --run-id sweep-1
+agent-os workflow-run   repository-health-sweep --run-id sweep-1
+agent-os workflow-next  repository-health-sweep --run-id sweep-1
+```
+
+Run state persists under `projects/<project>/workflows/` and carries no
+transcript, so an interrupted job resumes from disk. Escalation happens only
+after a declared validator actually fails, and a stage that already passed is
+never silently redone by a stronger model. See `docs/staged-workflows.md`.
+
 ### Context budgeting
 
 `agent.context` prunes by usefulness, not by source order. Verbose history goes

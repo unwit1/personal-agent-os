@@ -17,6 +17,15 @@ from .mail import get_message as mail_get_message, search as mail_search, status
 from .improvements import capture_improvement, get_improvement, issue_payload, list_improvements, search_improvements, update_improvement
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .skills import discover, match, metadata
+from .workflows import (
+    complete_stage as workflow_complete_stage,
+    list_runs as workflow_list_runs,
+    list_workflows,
+    prepare_stage as workflow_prepare_stage,
+    run_stage as workflow_run_stage,
+    start as workflow_start,
+    status as workflow_status,
+)
 
 
 TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
@@ -106,6 +115,46 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "description": "Incrementally synchronize recent iCloud messages into the local read-only index.",
         "inputSchema": {"type": "object", "properties": {"limit": {"type": "integer", "default": 500}}},
     },
+    "workflow.list": {
+        "description": "List available staged workflow manifests.",
+        "inputSchema": {"type": "object", "properties": {}},
+    },
+    "workflow.start": {
+        "description": "Start or resume a staged workflow run. Resuming an existing run is idempotent.",
+        "inputSchema": {"type": "object", "properties": {"workflow_id": {"type": "string"}, "run_id": {"type": ["string", "null"]}}, "required": ["workflow_id"]},
+    },
+    "workflow.next": {
+        "description": "Answer 'what do I run next?' from persisted stage state: the next stage, its provider-neutral capability class, and a ready-to-paste prompt.",
+        "inputSchema": {"type": "object", "properties": {"workflow_id": {"type": "string"}, "run_id": {"type": "string"}}, "required": ["workflow_id", "run_id"]},
+    },
+    "workflow.stage": {
+        "description": "Compile one stage's own token-budgeted context packet. Carries no previous transcript.",
+        "inputSchema": {"type": "object", "properties": {"workflow_id": {"type": "string"}, "run_id": {"type": "string"}, "stage_id": {"type": ["string", "null"]}}, "required": ["workflow_id", "run_id"]},
+    },
+    "workflow.run_stage": {
+        "description": "Advance one stage. Deterministic stages execute and validate locally; others are prepared and handed back with a recommended capability class.",
+        "inputSchema": {"type": "object", "properties": {"workflow_id": {"type": "string"}, "run_id": {"type": "string"}, "stage_id": {"type": ["string", "null"]}}, "required": ["workflow_id", "run_id"]},
+    },
+    "workflow.complete_stage": {
+        "description": "Record an agent-run stage outcome. The declared validator, not the caller's confidence, decides whether it passed.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "workflow_id": {"type": "string"},
+                "run_id": {"type": "string"},
+                "stage_id": {"type": "string"},
+                "outputs": {"type": "array", "items": {"type": "string"}},
+                "checkpoint": {"type": ["string", "null"]},
+                "passed": {"type": ["boolean", "null"]},
+                "detail": {"type": ["string", "null"]},
+            },
+            "required": ["workflow_id", "run_id", "stage_id"],
+        },
+    },
+    "workflow.runs": {
+        "description": "List staged workflow runs recorded for a project.",
+        "inputSchema": {"type": "object", "properties": {"project_id": {"type": "string"}}, "required": ["project_id"]},
+    },
     "form.route": {
         "description": "Route a sanitized work-form fingerprint; persistence is local-only and explicit.",
         "inputSchema": {"type": "object", "properties": {"candidate": {"type": "object"}, "persist": {"type": "boolean", "default": False}, "queue_dir": {"type": ["string", "null"]}}, "required": ["candidate"]},
@@ -151,6 +200,13 @@ def methods() -> dict[str, Callable[..., Any]]:
         "mail.get_message": mail_get_message,
         "mail.sync_status": mail_status,
         "mail.sync": mail_sync,
+        "workflow.list": list_workflows,
+        "workflow.start": lambda workflow_id, run_id=None: workflow_start(workflow_id, run_id),
+        "workflow.next": workflow_status,
+        "workflow.stage": workflow_prepare_stage,
+        "workflow.run_stage": workflow_run_stage,
+        "workflow.complete_stage": workflow_complete_stage,
+        "workflow.runs": workflow_list_runs,
         "form.route": route_form,
         "form.issue_payload": form_issue_payload,
     }
