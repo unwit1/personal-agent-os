@@ -88,7 +88,9 @@ default. Accuracy coverage also checks relevant, weak, and unrelated synthetic
 tasks through both direct matching and compiled context packets. Workflow
 regression coverage verifies completed cheap stages remain no-ops, partial
 failure escalates only the unresolved stage, and persisted checkpoints produce
-the same resumable next prompt.
+the same resumable next prompt. A synthetic benchmark also compares a baseline
+packet with staged fixture packets and records model-free stages, validation
+parity, and bounded context overhead.
 
 A deterministic stage must declare a real validator. A deterministic stage
 nobody can check is just an unverified stage wearing a cheaper label.

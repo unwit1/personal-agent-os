@@ -398,6 +398,42 @@ class StageContextTests(WorkflowFixture):
         )
 
 
+class EconomyBenchmarkTests(WorkflowFixture):
+    def test_synthetic_baseline_vs_staged_economy_report(self) -> None:
+        total_budget = sum(stage["required_context"]["token_budget"] for stage in MANIFEST["stages"])
+        baseline_packet = compile_context("personal-agent-os", MANIFEST["goal"], token_budget=total_budget)
+        baseline_validation = workflows._validate_stage(MANIFEST["stages"][0], {}, workflows.ROOT)
+
+        workflows.start("fixture-sweep", run_id="economy-benchmark")
+        staged_packets = [
+            workflows.prepare_stage("fixture-sweep", "economy-benchmark", stage["stage_id"])
+            for stage in MANIFEST["stages"]
+        ]
+        staged_result = workflows.run_stage("fixture-sweep", "economy-benchmark", "cheap-check")
+        record = workflows.load_run("personal-agent-os", "economy-benchmark")
+        model_free_stages = [
+            stage_id
+            for stage_id, state in record["stages"].items()
+            if state["status"] == "complete" and state["execution_path"] == "deterministic"
+        ]
+        staged_tokens = sum(packet["context_tokens"] for packet in staged_packets)
+        baseline_tokens = baseline_packet["context_measurement"]["estimated_packet_tokens"]
+        validation_parity = baseline_validation["passed"] == staged_result["completed_stage"]["validation"]["passed"]
+        benchmark = {
+            "baseline_context_tokens": baseline_tokens,
+            "staged_context_tokens": staged_tokens,
+            "model_free_stages": model_free_stages,
+            "validation_parity": validation_parity,
+            "absolute_token_overhead": abs(staged_tokens - baseline_tokens),
+        }
+
+        self.assertEqual(benchmark["model_free_stages"], ["cheap-check"])
+        self.assertTrue(benchmark["validation_parity"])
+        self.assertLessEqual(benchmark["staged_context_tokens"], baseline_tokens * 2)
+        self.assertLessEqual(benchmark["absolute_token_overhead"], baseline_tokens)
+        self.assertTrue(baseline_packet["context_measurement"]["within_budget"])
+
+
 class NextPromptTests(WorkflowFixture):
     def test_the_next_prompt_is_generated_from_persisted_state(self) -> None:
         workflows.start("fixture-sweep", run_id="prompt")

@@ -359,7 +359,9 @@ skill bodies remain unloaded by default. A representative synthetic corpus now
 covers strong, project-specific, weak, and unrelated task queries through both
 `skills.match` and `compile_context`. A staged workflow evaluation also proves
 cheap successes are not rerun, partial unresolved work survives escalation, and
-checkpoints/next prompts resume from persisted state.
+checkpoints/next prompts resume from persisted state. A synthetic economy
+benchmark records baseline versus staged context tokens, model-free stage IDs,
+validation parity, and bounded token overhead.
 
 Test four dimensions:
 
