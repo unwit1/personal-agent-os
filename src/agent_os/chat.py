@@ -128,7 +128,37 @@ def context(query: str, project_hint: str | None = None, token_budget: int = 220
     if resolution["ambiguous"]:
         return {"activation": "project_related", "project": None, "context": None, "resolution": resolution, "reason": "ambiguous project resolution; no full project context loaded"}
     packet = compile_context(project["id"], query, token_budget=token_budget, include_handoff=include_handoff)
-    return {"activation": "project_related", "project": project["id"], "resolution": {key: value for key, value in resolution.items() if key != "project"}, "context": packet}
+    result = {"activation": "project_related", "project": project["id"], "resolution": {key: value for key, value in resolution.items() if key != "project"}, "context": packet}
+
+    # Who else is working here, surfaced without being asked.
+    #
+    # On 2026-09-22 two agents worked one repository within the same hour. The
+    # second landed eight commits while the first was measuring a corpus, and
+    # the first nearly attributed the resulting regression to its own change.
+    # Neither had any way to see the other. A preflight that reports project
+    # context but not the colleague editing it is describing an empty room.
+    from .coordination import active_claims
+
+    try:
+        others = active_claims(project["id"])
+    except Exception:  # noqa: BLE001 - coordination must never block retrieval
+        others = []
+    if others:
+        result["active_work"] = {
+            "warning": "another agent has announced work on this project",
+            "claims": [
+                {
+                    "claim_id": item["claim_id"],
+                    "agent": item["agent"],
+                    "task": item["task"],
+                    "scope": item["scope"],
+                    "since": item["created_at"],
+                }
+                for item in others
+            ],
+            "advice": "check scope overlap before editing; message them rather than racing",
+        }
+    return result
 
 
 def project_status(project_hint: str | None = None, query: str = "") -> dict[str, Any]:

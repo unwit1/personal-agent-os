@@ -10,6 +10,14 @@ from .changes import capture_change, get_change, google_safe_projection, list_ch
 from .chat import context as chat_context
 from .chat import latest_project_handoff, project_status, skills_match
 from .compiler import compile_context
+from .coordination import (
+    check as check_claims,
+    claim as make_claim,
+    heartbeat as claim_heartbeat,
+    message as claim_message,
+    release as release_claim,
+    status as claims_status,
+)
 from .documents import cache_status_safe
 from .forms import form_issue_payload, route_form
 from .handoffs import create_handoff
@@ -43,6 +51,30 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
             },
             "required": ["query"],
         },
+    },
+    "work.check": {
+        "description": "Before editing, see which other agents have announced work overlapping your scope. Announces nothing.",
+        "inputSchema": {"type": "object", "properties": {"project": {"type": "string"}, "scope": {"type": "array", "items": {"type": "string"}}}, "required": ["project"]},
+    },
+    "work.claim": {
+        "description": "Announce what you are about to work on and receive any overlapping claims. Advisory: it records and reports, it does not lock.",
+        "inputSchema": {"type": "object", "properties": {"project": {"type": "string"}, "task": {"type": "string"}, "agent": {"type": "string"}, "scope": {"type": "array", "items": {"type": "string"}}, "lease_minutes": {"type": "integer", "default": 90}}, "required": ["project", "task", "agent"]},
+    },
+    "work.status": {
+        "description": "List work other agents are doing right now on this machine.",
+        "inputSchema": {"type": "object", "properties": {"project": {"type": ["string", "null"]}}},
+    },
+    "work.heartbeat": {
+        "description": "Keep a claim alive during long work and collect replies from other agents.",
+        "inputSchema": {"type": "object", "properties": {"claim_id": {"type": "string"}}, "required": ["claim_id"]},
+    },
+    "work.release": {
+        "description": "Release a claim when the work is finished.",
+        "inputSchema": {"type": "object", "properties": {"claim_id": {"type": "string"}, "note": {"type": ["string", "null"]}}, "required": ["claim_id"]},
+    },
+    "work.message": {
+        "description": "Leave a note for the agent holding a claim, so overlapping work is negotiated rather than raced.",
+        "inputSchema": {"type": "object", "properties": {"claim_id": {"type": "string"}, "text": {"type": "string"}, "sender": {"type": "string"}}, "required": ["claim_id", "text", "sender"]},
     },
     "agent.capture_candidates": {
         "description": "Stage evidenced durable findings for curation. This never promotes canonical memory.",
@@ -232,6 +264,12 @@ def methods() -> dict[str, Callable[..., Any]]:
     available.update(
         {
             "agent.context": chat_context,
+            "work.check": check_claims,
+            "work.claim": make_claim,
+            "work.status": claims_status,
+            "work.heartbeat": claim_heartbeat,
+            "work.release": release_claim,
+            "work.message": claim_message,
             "agent.capture_candidates": lambda project=None, project_id=None, task_summary="", candidates=(), source_agent=None, source_session=None: stage_candidates(project_id or project or "", task_summary, candidates, source_agent, source_session),
             "agent.search": search,
             "agent.project_status": project_status,

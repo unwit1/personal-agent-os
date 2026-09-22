@@ -159,6 +159,25 @@ while the inherited pipes stay open, and waits on a server it believes is dead
 until its own timeout. `launcher-verify` holds the process open across a real
 handshake and fails if it exits, which draining stdout to EOF would not catch.
 
+### Working alongside other agents
+
+Several agents on one repository cannot see each other, and that is how a
+measurement gets silently invalidated. Agents announce what they are about to
+touch and are told who is already there.
+
+```powershell
+agent-os work-check  hr-gui --scope "modules/scanner/engine/src"
+agent-os work-claim  hr-gui "auditing zones" --agent claude-opus-5 --scope "src/zone_learn.py"
+agent-os work-status
+```
+
+It is visibility, not locking: a claim is always recorded, an overlap is always
+reported, and nothing is ever refused. Claims are machine-local, expire without
+a heartbeat, and `agent.context` surfaces active work for the resolved project
+without being asked — because relying on an agent to remember to check is a
+convention, and conventions fail quietly. See
+`docs/multi-agent-coordination.md`.
+
 ### Staged workflows
 
 Complex work decomposes into stages so one expensive session does not carry a

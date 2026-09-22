@@ -9,6 +9,14 @@ from .adapters import sync_adapters
 from .candidates import candidate_status, curate_candidates, stage_candidates
 from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, update_change
 from .compiler import compile_context
+from .coordination import (
+    check as check_claims,
+    claim as make_claim,
+    heartbeat as claim_heartbeat,
+    message as claim_message,
+    release as release_claim,
+    status as claims_status,
+)
 from .documents import DocumentCache
 from .forms import form_issue_payload, route_form
 from .handoffs import create_handoff
@@ -67,6 +75,26 @@ def parser() -> argparse.ArgumentParser:
     integration = commands.add_parser("integration-health")
     integration.add_argument("--surface")
     integration.add_argument("--strict", action="store_true")
+    work_claim = commands.add_parser("work-claim")
+    work_claim.add_argument("project")
+    work_claim.add_argument("task")
+    work_claim.add_argument("--agent", required=True)
+    work_claim.add_argument("--scope", action="append", default=[])
+    work_claim.add_argument("--lease-minutes", type=int, default=90)
+    work_check = commands.add_parser("work-check")
+    work_check.add_argument("project")
+    work_check.add_argument("--scope", action="append", default=[])
+    work_status = commands.add_parser("work-status")
+    work_status.add_argument("--project")
+    work_beat = commands.add_parser("work-heartbeat")
+    work_beat.add_argument("claim_id")
+    work_release = commands.add_parser("work-release")
+    work_release.add_argument("claim_id")
+    work_release.add_argument("--note")
+    work_message = commands.add_parser("work-message")
+    work_message.add_argument("claim_id")
+    work_message.add_argument("text")
+    work_message.add_argument("--from-agent", required=True)
     commands.add_parser("validate")
     telemetry_report = commands.add_parser("telemetry-report")
     telemetry_report.add_argument("--path")
@@ -237,6 +265,22 @@ def main(argv: list[str] | None = None) -> int:
             report = integration_health(args.surface)
             _print(report)
             return 1 if args.strict and not report["ok"] else 0
+        elif args.command == "work-claim":
+            result = make_claim(args.project, args.task, args.agent, args.scope, args.lease_minutes)
+            _print(result)
+            return 1 if result["conflicts"] else 0
+        elif args.command == "work-check":
+            result = check_claims(args.project, args.scope)
+            _print(result)
+            return 0 if result["clear"] else 1
+        elif args.command == "work-status":
+            _print(claims_status(args.project))
+        elif args.command == "work-heartbeat":
+            _print(claim_heartbeat(args.claim_id))
+        elif args.command == "work-release":
+            _print(release_claim(args.claim_id, args.note))
+        elif args.command == "work-message":
+            _print(claim_message(args.claim_id, args.text, args.from_agent))
         elif args.command == "validate":
             result = validate()
             _print(result)
