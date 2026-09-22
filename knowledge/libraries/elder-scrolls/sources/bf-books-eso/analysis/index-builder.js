@@ -1,0 +1,11 @@
+globalThis.buildBFESOIndexes=function(rows){
+ const retrieval=[],claims=[];
+ for(const r of rows){
+  retrieval.push({type:"book",ordinal:r.ordinal,form_id:r.form_id,title:r.title,text_sha256:r.text_sha256,genre:r.genre,epistemic_mode:r.epistemic_mode,provenance_status:r.provenance?.status,reliability_cues:r.reliability_cues||[],catalog_links:r.catalog_links||[],topic_count:(r.topic_links||[]).length,lore_tags:(r.lore_tags||[]).map(x=>x.label),entity_candidate_count:(r.unresolved_entity_candidates||[]).length,claim_candidate_count:(r.claim_candidates||[]).length,source:r.source});
+  for(const t of r.topic_links||[])retrieval.push({type:"topic_link",topic_path:t.path,topic_label:t.label,topic_category:t.category,mentions:t.mentions,title_match:t.title_match,score:t.score,book:{ordinal:r.ordinal,form_id:r.form_id,title:r.title,provenance_status:r.provenance?.status}});
+  for(const t of r.lore_tags||[])retrieval.push({type:"lore_tag",tag_category:t.category,tag_label:t.label,mentions:t.mentions,title_match:t.title_match,book:{ordinal:r.ordinal,form_id:r.form_id,title:r.title,provenance_status:r.provenance?.status}});
+  for(const e of r.unresolved_entity_candidates||[])retrieval.push({type:"entity_candidate",label:e.label,mentions:e.count,title_overlap:e.title_overlap,status:"unreviewed_candidate",book:{ordinal:r.ordinal,form_id:r.form_id,title:r.title,provenance_status:r.provenance?.status},source:r.source});
+  for(const c of r.claim_candidates||[])claims.push({type:"claim_candidate",candidate_id:c.candidate_id,form_id:r.form_id,title:r.title,book_ordinal:r.ordinal,book_genre:r.genre,provenance_status:r.provenance?.status,epistemic_mode:c.epistemic_mode||r.epistemic_mode,reliability_cues:r.reliability_cues||[],proposition_text:c.proposition_text,linked_topics:c.linked_topics||[],linked_lore_tags:c.linked_lore_tags||[],negated:!!c.negated,relation_signature:c.relation_signature||null,evidence:c.evidence,score:c.score,status:"unreviewed_candidate"});
+ }
+ return{retrieval,claims,stats:{books:rows.length,retrieval_records:retrieval.length,claim_candidates:claims.length,topic_links:retrieval.filter(x=>x.type==="topic_link").length,lore_tags:retrieval.filter(x=>x.type==="lore_tag").length,entity_candidates:retrieval.filter(x=>x.type==="entity_candidate").length}};
+};
