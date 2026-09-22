@@ -25,7 +25,10 @@ RFC822 records to `mail.sync_records()`, which commits the local SQLite index
 before marking each ledger item processed. Synthetic fixture tests cover
 idempotent re-import, changed content for the same UID, interruption recovery,
 and checkpoint continuation. Provider adapters for Drive, messages, feeds, and
-document batches remain provider-specific, but the shared document layer now
+document batches remain provider-specific, while the Google Drive adapter now
+accepts connector-shaped records through a synthetic fixture. Its contract uses
+the Drive scope plus file ID for identity and content bytes for change detection;
+renames and moves preserve identity without reprocessing. The shared document layer now
 has an `extract_batch()` seam that applies the same ledger to local page
 extraction while reusing `extract_page()` and its OCR cache. Its fixture tests
 cover idempotent re-import, changed page bytes, interruption recovery, and
@@ -51,14 +54,15 @@ recording interrupted scans and completed source files.
 The sanitized local form registry reader now uses its own ledger item and
 checkpoint as well, preserving the existing form-routing privacy boundary
 while detecting changed registry content and recovering interrupted reads.
-The currently covered local seams are therefore mail fixtures, document page
+The currently covered seams are therefore the synthetic Google Drive and mail
+fixtures, document page
 batches, canonical index rebuilds, profile sources, candidate records,
 improvement records, change records, project handoffs, and the sanitized form
 registry. Workflow run state is intentionally excluded because its existing
 stage checkpoint/state machine is already the canonical resumability boundary.
-Drive archive, text-message, feed, and other provider adapters still require
-their own source-specific identity and changed-content semantics before they
-can safely be added here.
+Text-message, feed, and other future provider adapters still require their own
+source-specific identity and changed-content semantics before they can safely
+be added here.
 The implementation assumes one active worker per ledger and does not store
 provider credentials, raw records, OCR text, or derived artifacts in the
 ledger.

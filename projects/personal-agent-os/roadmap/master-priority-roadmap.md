@@ -290,14 +290,16 @@ checkpoints, and recovery of interrupted claims. The iCloud Mail adapter,
 shared document page batches, and canonical local search-index rebuild now
 delegate work through that ledger. The curated local profile JSON importer now
 also reuses a gitignored derived-fact cache through the same ledger, with
-changed-source requeue and interrupted-claim recovery. Drive, messages, feeds,
-and other provider-specific imports remain unwired. The local candidate-record
+changed-source requeue and interrupted-claim recovery. The synthetic
+Google Drive adapter now maps `(drive_scope, file_id)` identity and content
+fingerprints through the ledger; messages, feeds, and other provider-specific
+imports remain unwired. The local candidate-record
 reader now uses a project-scoped ledger for resumable directory scans without
 changing the explicit curation/promotion boundary. The local improvement-record
 reader now uses the same project-scoped ledger for `IMP-*.json` scans,
 preserving canonical improvement records while making status/search/capture
-reads idempotent and restart-safe. Drive, messages, feeds, and other
-provider-specific imports remain unwired. The local change-record reader now
+reads idempotent and restart-safe. Messages, feeds, and other provider-specific
+imports remain unwired. The local change-record reader now
 uses a separate project-scoped ledger for `CR-*.json` scans, preserving its
 existing lifecycle and safe-projection behavior while making reads incremental
 and restart-safe.
@@ -307,12 +309,13 @@ latest-handoff retrieval while recording interrupted scans and completed files.
 The sanitized local form-registry reader now uses its own ledger item and
 checkpoint, preserving the existing form-routing privacy boundary while
 detecting changed registry content and recovering interrupted reads.
-All currently identified safe local/fixture seams are now covered. Workflow
+All currently identified safe local/fixture seams, including the synthetic
+Google Drive adapter, are now covered. Workflow
 run state remains intentionally outside this ledger because its existing stage
 checkpoint/state machine is already canonical. The remaining P0.4 work is
-provider-specific Drive archive, text-message, feed, or future adapter
-integration and requires source identity plus changed-content semantics before
-implementation; plain IMAP UID/UIDNEXT cursors remain deferred.
+text-message, feed, or future provider-specific adapter integration and
+requires source identity plus changed-content semantics before implementation;
+plain IMAP UID/UIDNEXT cursors remain deferred.
 
 ### P0.5 — Deterministic/cache/skill-first execution policy
 

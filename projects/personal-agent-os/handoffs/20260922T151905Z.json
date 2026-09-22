@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-22T15:19:05.472805+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 14]\n M docs/resumable-ingestion.md\n M projects/personal-agent-os/roadmap/master-priority-roadmap.md\n?? docs/integrations/google-drive.md\n?? src/agent_os/google_drive.py\n?? tests/fixtures/\n?? tests/test_google_drive.py",
+    "error": ""
+  },
+  "completed": [
+    "Implemented the thin synthetic Google Drive adapter in src/agent_os/google_drive.py behind IngestionLedger.",
+    "Established and documented Drive identity as (drive_scope, file_id); names and parent folders do not affect identity, while fetched content bytes drive changed-content requeueing.",
+    "Added a fictional fixture and adapter tests covering idempotent re-import, rename/move identity preservation, changed-content requeueing, interruption recovery, metadata-only ledger storage, and checkpoint continuation."
+  ],
+  "decisions": [
+    "Keep Google Drive behavior behind the connector-facing adapter and keep source content out of the ledger.",
+    "Plain IMAP UID/UIDNEXT cursor work remains deferred."
+  ],
+  "remaining": [
+    "P0.4 provider-specific work remains for text-message, feed, and future adapters; each needs its own verified identity and changed-content contract.",
+    "A production connector must feed GoogleDriveFile-shaped records into this boundary when one is authorized; this stage intentionally does not query live Drive or add credentials."
+  ],
+  "validation": [
+    "Focused Google Drive adapter tests: 4 passed.",
+    "Full suite: 273 passed.",
+    "python agent.py validate: 354 checks passed with no errors or warnings."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}
