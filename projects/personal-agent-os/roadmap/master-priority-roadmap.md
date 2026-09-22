@@ -496,9 +496,30 @@ The router should:
 
 ### P1.2A — Multi-agent coding orchestrator + control GUI
 
-Status: **promoted user priority** (2026-09-22). Build on the completed staged
-workflow/adaptive-routing foundation and the current machine-local multi-agent
-coordination primitives.
+Status: **implemented, first release** (2026-09-22, branch
+`p1.2a-orchestrator`, not yet merged to `main`; see
+`docs/multi-agent-orchestrator.md`). Implemented:
+- provider-neutral engine, with Claude Code and Codex CLI adapters whose flags
+  were verified against the installed `--help`;
+- a registry-driven router covering model and effort, user overrides and
+  per-node failover;
+- per-worker worktrees with serialization of overlapping scopes;
+- validator-gated, review-gated integration;
+- structured cross-review with repair and re-review;
+- approval gates;
+- bounded retry and escalation;
+- restart reconciliation;
+- Auto Continue;
+- CLI and MCP surfaces, plus a loopback GUI.
+
+Verified by 64 synthetic-provider tests and one live run (Claude Code
+implements, Codex reviews) that reached COMPLETE. Remaining limits:
+- Auto Continue runs only while a driver process is alive;
+- routing does not yet learn from cross-run telemetry;
+- the GUI is dependency-free web UI rather than Tauri, because no Rust
+  toolchain is installed.
+
+The original scope below is kept for reference.
 
 Create an Agent OS control plane that can coordinate Claude Code, Codex CLI, and
 future coding agents as independent workers on one larger task.

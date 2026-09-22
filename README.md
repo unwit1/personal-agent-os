@@ -199,6 +199,24 @@ transcript, so an interrupted job resumes from disk. Escalation happens only
 after a declared validator actually fails, and a stage that already passed is
 never silently redone by a stronger model. See `docs/staged-workflows.md`.
 
+### Multi-agent coding orchestrator
+
+One goal, several coding agents. The orchestrator plans the goal and routes
+each stage from a capability class to a provider, model and effort (Claude
+Code, Codex CLI, or another adapter). It runs each editing worker in its own
+Git worktree and validates every change. A different agent reviews each change,
+and findings are routed back for repair. Only work that is validated and
+reviewed is integrated. With Auto Continue, the orchestrator keeps going until
+the run is complete, paused, blocked, or waiting at a declared approval gate.
+
+```powershell
+agent-os orchestrate providers --suggest --write
+agent-os orchestrate gui
+agent-os orchestrate start-recommended --goal "..." --project personal-agent-os
+```
+
+See `docs/multi-agent-orchestrator.md`.
+
 ### Shared document intelligence
 
 A reusable extraction layer so projects do not each repeat page hashing, blank
