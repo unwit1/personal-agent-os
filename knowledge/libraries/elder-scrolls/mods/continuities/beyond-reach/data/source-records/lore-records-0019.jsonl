@@ -1,0 +1,50 @@
+{"observed_form_id":"0407BA2D","record_type":"DIAL","editor_id":"ArnimaMainquest13Child1t2","title":"[Persuade] I never knew, if hurting these evil men can convince you, then I'll do it. ","origin_id":"arnima.esm:07BA2D","quest_origin_id":"arnima.esm:3B67E6","prompt":"[Persuade] I never knew, if hurting these evil men can convince you, then I'll do it. ","info_count":1}
+{"observed_form_id":"0407DC8C","record_type":"DIAL","editor_id":"ArnimaGuardDialogueForceGreetTopic","origin_id":"arnima.esm:07DC8C","quest_origin_id":"arnima.esm:0778C0","info_count":1}
+{"observed_form_id":"0407DC8F","record_type":"DIAL","editor_id":"ArnimaGuardDialoguesubmit","title":"I submit, take me to Jail.","origin_id":"arnima.esm:07DC8F","quest_origin_id":"arnima.esm:0778C0","prompt":"I submit, take me to Jail.","info_count":1}
+{"observed_form_id":"0407DC91","record_type":"DIAL","editor_id":"ArnimaGuardDialoguepay","title":"Fine, I'll pay my bounty.","origin_id":"arnima.esm:07DC91","quest_origin_id":"arnima.esm:0778C0","prompt":"Fine, I'll pay my bounty.","info_count":1}
+{"observed_form_id":"0407DC93","record_type":"DIAL","editor_id":"ArnimaGuardDialogueresist","title":"I'd rather die than go to jail!","origin_id":"arnima.esm:07DC93","quest_origin_id":"arnima.esm:0778C0","prompt":"I'd rather die than go to jail!","info_count":1}
+{"observed_form_id":"0407DC95","record_type":"DIAL","origin_id":"arnima.esm:07DC95","quest_origin_id":"arnima.esm:0778C0","info_count":1}
+{"observed_form_id":"0407DC97","record_type":"DIAL","origin_id":"arnima.esm:07DC97","quest_origin_id":"arnima.esm:0778C0","info_count":1}
+{"observed_form_id":"0407DC99","record_type":"DIAL","origin_id":"arnima.esm:07DC99","quest_origin_id":"arnima.esm:0778C0","info_count":8}
+{"observed_form_id":"0407DC9C","record_type":"DIAL","origin_id":"arnima.esm:07DC9C","quest_origin_id":"arnima.esm:0778C0","info_count":2}
+{"observed_form_id":"0407DC9F","record_type":"DIAL","origin_id":"arnima.esm:07DC9F","quest_origin_id":"arnima.esm:0778C0","info_count":1}
+{"observed_form_id":"0407DCA1","record_type":"DIAL","origin_id":"arnima.esm:07DCA1","quest_origin_id":"arnima.esm:0778C0","info_count":2}
+{"observed_form_id":"0407DCA4","record_type":"DIAL","origin_id":"arnima.esm:07DCA4","quest_origin_id":"arnima.esm:0778C0","info_count":5}
+{"observed_form_id":"0407DCA7","record_type":"DIAL","origin_id":"arnima.esm:07DCA7","quest_origin_id":"arnima.esm:0778C0","info_count":3}
+{"observed_form_id":"0407DCAB","record_type":"DIAL","origin_id":"arnima.esm:07DCAB","quest_origin_id":"arnima.esm:0778C0","info_count":2}
+{"observed_form_id":"0407DCAE","record_type":"DIAL","origin_id":"arnima.esm:07DCAE","quest_origin_id":"arnima.esm:0778C0","info_count":2}
+{"observed_form_id":"0407DCB1","record_type":"DIAL","origin_id":"arnima.esm:07DCB1","quest_origin_id":"arnima.esm:0778C0","info_count":2}
+{"observed_form_id":"0407DCB4","record_type":"DIAL","origin_id":"arnima.esm:07DCB4","quest_origin_id":"arnima.esm:0778C0","info_count":1}
+{"observed_form_id":"0407DCB6","record_type":"DIAL","origin_id":"arnima.esm:07DCB6","quest_origin_id":"arnima.esm:0778C0","info_count":1}
+{"observed_form_id":"0407DCB8","record_type":"DIAL","origin_id":"arnima.esm:07DCB8","quest_origin_id":"arnima.esm:0778C0","info_count":2}
+{"observed_form_id":"0407DCBB","record_type":"DIAL","origin_id":"arnima.esm:07DCBB","quest_origin_id":"arnima.esm:06B5A4","info_count":6}
+{"observed_form_id":"0407DCBF","record_type":"DIAL","origin_id":"arnima.esm:07DCBF","quest_origin_id":"arnima.esm:06B5A4","info_count":3}
+{"observed_form_id":"0407DCC2","record_type":"DIAL","origin_id":"arnima.esm:07DCC2","quest_origin_id":"arnima.esm:06B5A4","info_count":3}
+{"observed_form_id":"0407DCC5","record_type":"DIAL","origin_id":"arnima.esm:07DCC5","quest_origin_id":"arnima.esm:06B5A4","info_count":2}
+{"observed_form_id":"0407DCCA","record_type":"DIAL","origin_id":"arnima.esm:07DCCA","quest_origin_id":"arnima.esm:06B5A4","info_count":3}
+{"observed_form_id":"0407DCD2","record_type":"DIAL","editor_id":"ArnimaUlkarinFollowerHireTopic","title":"Consider yourself hired. (<global=hirelinggold>)","origin_id":"arnima.esm:07DCD2","quest_origin_id":"arnima.esm:07DCCF","prompt":"Consider yourself hired. (<global=hirelinggold>)","info_count":3}
+{"observed_form_id":"0407DCD5","record_type":"DIAL","editor_id":"ArnimaUlkarinFollowerRehireTopic","title":"Very well, let's go.","origin_id":"arnima.esm:07DCD5","quest_origin_id":"arnima.esm:07DCCF","prompt":"Very well, let's go.","info_count":1}
+{"observed_form_id":"0407DCDC","record_type":"DIAL","origin_id":"arnima.esm:07DCDC","quest_origin_id":"arnima.esm:06B5A4","info_count":3}
+{"observed_form_id":"0407DCDF","record_type":"DIAL","origin_id":"arnima.esm:07DCDF","quest_origin_id":"arnima.esm:06B5A4","info_count":4}
+{"observed_form_id":"0407DCE2","record_type":"DIAL","origin_id":"arnima.esm:07DCE2","quest_origin_id":"arnima.esm:06B5A4","info_count":5}
+{"observed_form_id":"0407DCE5","record_type":"DIAL","origin_id":"arnima.esm:07DCE5","quest_origin_id":"arnima.esm:06B5A4","info_count":5}
+{"observed_form_id":"0407DCE9","record_type":"DIAL","origin_id":"arnima.esm:07DCE9","quest_origin_id":"arnima.esm:06B5A4","info_count":3}
+{"observed_form_id":"0407DCEC","record_type":"DIAL","origin_id":"arnima.esm:07DCEC","quest_origin_id":"arnima.esm:06B5A4","info_count":1}
+{"observed_form_id":"0407DCEE","record_type":"DIAL","origin_id":"arnima.esm:07DCEE","quest_origin_id":"arnima.esm:06B5A4","info_count":2}
+{"observed_form_id":"0407DCF1","record_type":"DIAL","origin_id":"arnima.esm:07DCF1","quest_origin_id":"arnima.esm:06B5A4","info_count":1}
+{"observed_form_id":"0407DCF3","record_type":"DIAL","origin_id":"arnima.esm:07DCF3","quest_origin_id":"arnima.esm:06B5A4","info_count":4}
+{"observed_form_id":"0407DCF7","record_type":"DIAL","origin_id":"arnima.esm:07DCF7","quest_origin_id":"arnima.esm:06B5A4","info_count":1}
+{"observed_form_id":"0407DCF9","record_type":"DIAL","origin_id":"arnima.esm:07DCF9","quest_origin_id":"arnima.esm:06B5A4","info_count":2}
+{"observed_form_id":"0407DCFB","record_type":"DIAL","origin_id":"arnima.esm:07DCFB","quest_origin_id":"arnima.esm:06B5A4","info_count":1}
+{"observed_form_id":"0407DCFE","record_type":"DIAL","editor_id":"ArnimaCommonDialogueRentRoomTopic","title":"I would like to rent a room.  (<Global=RoomCost> gold)","origin_id":"arnima.esm:07DCFE","quest_origin_id":"arnima.esm:06B5A4","prompt":"I would like to rent a room.  (<Global=RoomCost> gold)","info_count":5}
+{"observed_form_id":"0407E9E0","record_type":"DIAL","origin_id":"arnima.esm:07E9E0","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"0407E9E2","record_type":"DIAL","origin_id":"arnima.esm:07E9E2","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"0407E9E4","record_type":"DIAL","origin_id":"arnima.esm:07E9E4","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"0407E9E6","record_type":"DIAL","origin_id":"arnima.esm:07E9E6","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"0407E9E8","record_type":"DIAL","origin_id":"arnima.esm:07E9E8","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"0407E9EA","record_type":"DIAL","origin_id":"arnima.esm:07E9EA","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"0407E9EC","record_type":"DIAL","origin_id":"arnima.esm:07E9EC","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"0407E9EE","record_type":"DIAL","origin_id":"arnima.esm:07E9EE","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"0407E9F0","record_type":"DIAL","origin_id":"arnima.esm:07E9F0","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"0407E9F3","record_type":"DIAL","editor_id":"ArnimaMainQuest14Priest1t2","title":"You're right, the only thing living here will be the rats if we don't get out of here. Is this everyone you could find?","origin_id":"arnima.esm:07E9F3","quest_origin_id":"arnima.esm:3B67E7","prompt":"You're right, the only thing living here will be the rats if we don't get out of here. Is this everyone you could find?","info_count":1}
+{"observed_form_id":"0407E9F5","record_type":"DIAL","editor_id":"ArnimaMainQuest14Priest1t3","title":"It's worth a shot, spare a prayer and hope for the best. Let's reach the Divide together. ","origin_id":"arnima.esm:07E9F5","quest_origin_id":"arnima.esm:3B67E7","prompt":"It's worth a shot, spare a prayer and hope for the best. Let's reach the Divide together. ","info_count":1}
