@@ -137,12 +137,37 @@ def context(query: str, project_hint: str | None = None, token_budget: int = 220
     # the first nearly attributed the resulting regression to its own change.
     # Neither had any way to see the other. A preflight that reports project
     # context but not the colleague editing it is describing an empty room.
-    from .coordination import active_claims
+    from .coordination import active_claims, inbox as work_inbox
 
     try:
         others = active_claims(project["id"])
     except Exception:  # noqa: BLE001 - coordination must never block retrieval
         others = []
+    try:
+        waiting = work_inbox(project["id"])["notes"]
+    except Exception:  # noqa: BLE001
+        waiting = []
+    if waiting:
+        result["messages_for_you"] = {
+            "warning": "another agent left notes on this project",
+            # Bounded on purpose. A note is written by another agent and can be
+            # any length; dropping it whole into every preflight would let one
+            # verbose colleague dominate the context packet it is attached to.
+            # The first lines carry the ask; the full text is one call away.
+            "notes": [
+                {
+                    "note_id": n["note_id"],
+                    "from": n["from"],
+                    "about": n.get("about"),
+                    "at": n["at"],
+                    "excerpt": n["text"][:400] + ("..." if len(n["text"]) > 400 else ""),
+                    "read_in_full": f"agent-os work-inbox --project {project['id']}",
+                }
+                for n in waiting[:3]
+            ],
+            "more_notes": max(0, len(waiting) - 3),
+            "advice": "read these before editing; acknowledge with work.acknowledge once handled",
+        }
     if others:
         result["active_work"] = {
             "warning": "another agent has announced work on this project",

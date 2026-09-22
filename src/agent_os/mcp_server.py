@@ -16,6 +16,9 @@ from .coordination import (
     heartbeat as claim_heartbeat,
     message as claim_message,
     release as release_claim,
+    acknowledge as acknowledge_note,
+    inbox as work_inbox,
+    note as work_note,
     status as claims_status,
 )
 from .documents import cache_status_safe
@@ -59,6 +62,18 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     "work.claim": {
         "description": "Announce what you are about to work on and receive any overlapping claims. Advisory: it records and reports, it does not lock.",
         "inputSchema": {"type": "object", "properties": {"project": {"type": "string"}, "task": {"type": "string"}, "agent": {"type": "string"}, "scope": {"type": "array", "items": {"type": "string"}}, "lease_minutes": {"type": "integer", "default": 90}}, "required": ["project", "task", "agent"]},
+    },
+    "work.note": {
+        "description": "Leave a note for whoever works this project next, even if no agent has claimed it. Use when the agent you need to reach never announced itself.",
+        "inputSchema": {"type": "object", "properties": {"project": {"type": "string"}, "text": {"type": "string"}, "sender": {"type": "string"}, "about": {"type": ["string", "null"]}}, "required": ["project", "text", "sender"]},
+    },
+    "work.inbox": {
+        "description": "Read notes other agents left for this project. Check this before starting work.",
+        "inputSchema": {"type": "object", "properties": {"project": {"type": ["string", "null"]}, "include_acknowledged": {"type": "boolean", "default": False}}},
+    },
+    "work.acknowledge": {
+        "description": "Mark a note read, optionally replying, so it stops being repeated.",
+        "inputSchema": {"type": "object", "properties": {"note_id": {"type": "string"}, "agent": {"type": "string"}, "reply": {"type": ["string", "null"]}}, "required": ["note_id", "agent"]},
     },
     "work.status": {
         "description": "List work other agents are doing right now on this machine.",
@@ -267,6 +282,9 @@ def methods() -> dict[str, Callable[..., Any]]:
             "work.check": check_claims,
             "work.claim": make_claim,
             "work.status": claims_status,
+            "work.note": work_note,
+            "work.inbox": work_inbox,
+            "work.acknowledge": acknowledge_note,
             "work.heartbeat": claim_heartbeat,
             "work.release": release_claim,
             "work.message": claim_message,

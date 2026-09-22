@@ -276,12 +276,68 @@ def message(claim_id: str, text: str, sender: str, path: Path | None = None) -> 
     raise KeyError(f"unknown claim: {claim_id}")
 
 
+def note(project: str, text: str, sender: str, about: str | None = None,
+         path: Path | None = None) -> dict[str, Any]:
+    """Leave a note for whoever works this project next.
+
+    Messages attach to a claim, which is no help when the agent you need to
+    reach never announced itself -- the common case while a protocol is still
+    being adopted. A note attaches to the *project*, so it waits in the inbox
+    until somebody picks the work up, and it survives the sender's session
+    ending.
+    """
+    location = claims_path(path)
+    data = _load(location)
+    entry = {
+        "note_id": "WN-" + hashlib.sha256(
+            f"{project}\0{sender}\0{utc_now_iso()}".encode("utf-8")).hexdigest()[:10],
+        "project": project,
+        "from": sender,
+        "about": about,
+        "text": str(text)[:4000],
+        "at": utc_now_iso(),
+        "acknowledged_by": [],
+    }
+    data.setdefault("notes", []).append(entry)
+    _save(location, data)
+    return {"note": entry, "delivered_to": f"the {project} inbox"}
+
+
+def inbox(project: str | None = None, include_acknowledged: bool = False,
+          path: Path | None = None) -> dict[str, Any]:
+    """Notes waiting for whoever works this project."""
+    data = _load(claims_path(path))
+    notes = [
+        n for n in data.get("notes", [])
+        if (project is None or n.get("project") == project)
+        and (include_acknowledged or not n.get("acknowledged_by"))
+    ]
+    return {"project": project, "waiting": len(notes), "notes": notes}
+
+
+def acknowledge(note_id: str, agent: str, reply: str | None = None,
+                path: Path | None = None) -> dict[str, Any]:
+    """Mark a note read, optionally answering it, so it stops being repeated."""
+    location = claims_path(path)
+    data = _load(location)
+    for entry in data.get("notes", []):
+        if entry.get("note_id") == note_id:
+            entry.setdefault("acknowledged_by", []).append(
+                {"agent": agent, "at": utc_now_iso(), "reply": reply})
+            _save(location, data)
+            return {"note_id": note_id, "acknowledged_by": agent, "reply": reply}
+    raise KeyError(f"unknown note: {note_id}")
+
+
 def status(project: str | None = None, path: Path | None = None) -> dict[str, Any]:
     """What is being worked on right now, and by whom."""
     claims = active_claims(project, path)
+    waiting = inbox(project, path=path)
     return {
         "registry": str(claims_path(path)),
         "covers": "agents on this machine that announced themselves; not a lock",
+        "unread_notes": waiting["waiting"],
+        "notes": waiting["notes"],
         "active": [
             {
                 "claim_id": c["claim_id"],

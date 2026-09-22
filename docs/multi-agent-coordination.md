@@ -83,6 +83,47 @@ An agent that pulls project context now sees the colleague editing it. A
 preflight that describes the repository but not the person in it is describing
 an empty room.
 
+## Reaching an agent that never announced itself
+
+Messages attach to a claim, which is no help when the agent you need has not
+adopted the protocol yet -- the common case while it is still spreading. A
+**note** attaches to the project instead, so it waits in the inbox until
+somebody picks the work up and survives the sender's session ending.
+
+```powershell
+agent-os work-note hr-gui "Question about _unknown_form_reason ..." `
+    --from-agent claude-opus-5 `
+    --about "modules/scanner/engine/src/rename_pipeline.py::_unknown_form_reason"
+
+agent-os work-inbox --project hr-gui          # exits non-zero when notes wait
+agent-os work-ack WN-5152b28f8b --agent codex --reply "good catch, changing it"
+```
+
+`agent.context` reports waiting notes as `messages_for_you` without being
+asked, alongside `active_work`.
+
+Note excerpts in the preflight are capped at 400 characters and three notes,
+with a pointer to read them in full. A note is written by another agent and can
+be any length; dropping it whole into every preflight would let one verbose
+colleague dominate the packet it rides along with.
+
+## Seeing it from the Codex CLI
+
+The Codex adapters (`~/.codex/AGENTS.md` and
+`~/.codex/skills/personal-agent-os/SKILL.md`) instruct the agent to read the
+inbox and check scope before substantial edits, and -- importantly -- to
+**surface what it finds to you verbatim** rather than acting on it silently.
+You need to see that agents are talking, not just that one of them decided
+something.
+
+To look yourself at any time:
+
+```powershell
+agent-os work-status                  # who is working, and unread note counts
+agent-os work-inbox                   # every waiting note, all projects
+agent-os work-inbox --project hr-gui --all   # including acknowledged ones
+```
+
 ## Design decisions worth knowing
 
 **Claims are machine-local, not in Git.** Two agents pushing claim files would

@@ -15,6 +15,9 @@ from .coordination import (
     heartbeat as claim_heartbeat,
     message as claim_message,
     release as release_claim,
+    acknowledge as acknowledge_note,
+    inbox as work_inbox,
+    note as work_note,
     status as claims_status,
 )
 from .documents import DocumentCache
@@ -91,6 +94,18 @@ def parser() -> argparse.ArgumentParser:
     work_release = commands.add_parser("work-release")
     work_release.add_argument("claim_id")
     work_release.add_argument("--note")
+    work_note_p = commands.add_parser("work-note")
+    work_note_p.add_argument("project")
+    work_note_p.add_argument("text")
+    work_note_p.add_argument("--from-agent", required=True)
+    work_note_p.add_argument("--about")
+    work_inbox_p = commands.add_parser("work-inbox")
+    work_inbox_p.add_argument("--project")
+    work_inbox_p.add_argument("--all", action="store_true")
+    work_ack = commands.add_parser("work-ack")
+    work_ack.add_argument("note_id")
+    work_ack.add_argument("--agent", required=True)
+    work_ack.add_argument("--reply")
     work_message = commands.add_parser("work-message")
     work_message.add_argument("claim_id")
     work_message.add_argument("text")
@@ -279,6 +294,14 @@ def main(argv: list[str] | None = None) -> int:
             _print(claim_heartbeat(args.claim_id))
         elif args.command == "work-release":
             _print(release_claim(args.claim_id, args.note))
+        elif args.command == "work-note":
+            _print(work_note(args.project, args.text, args.from_agent, args.about))
+        elif args.command == "work-inbox":
+            result = work_inbox(args.project, args.all)
+            _print(result)
+            return 1 if result["waiting"] else 0
+        elif args.command == "work-ack":
+            _print(acknowledge_note(args.note_id, args.agent, args.reply))
         elif args.command == "work-message":
             _print(claim_message(args.claim_id, args.text, args.from_agent))
         elif args.command == "validate":
