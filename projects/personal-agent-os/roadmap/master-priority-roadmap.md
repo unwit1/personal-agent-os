@@ -307,6 +307,12 @@ latest-handoff retrieval while recording interrupted scans and completed files.
 The sanitized local form-registry reader now uses its own ledger item and
 checkpoint, preserving the existing form-routing privacy boundary while
 detecting changed registry content and recovering interrupted reads.
+All currently identified safe local/fixture seams are now covered. Workflow
+run state remains intentionally outside this ledger because its existing stage
+checkpoint/state machine is already canonical. The remaining P0.4 work is
+provider-specific Drive archive, text-message, feed, or future adapter
+integration and requires source identity plus changed-content semantics before
+implementation; plain IMAP UID/UIDNEXT cursors remain deferred.
 
 ### P0.5 — Deterministic/cache/skill-first execution policy
 

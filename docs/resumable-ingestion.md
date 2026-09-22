@@ -51,6 +51,14 @@ recording interrupted scans and completed source files.
 The sanitized local form registry reader now uses its own ledger item and
 checkpoint as well, preserving the existing form-routing privacy boundary
 while detecting changed registry content and recovering interrupted reads.
+The currently covered local seams are therefore mail fixtures, document page
+batches, canonical index rebuilds, profile sources, candidate records,
+improvement records, change records, project handoffs, and the sanitized form
+registry. Workflow run state is intentionally excluded because its existing
+stage checkpoint/state machine is already the canonical resumability boundary.
+Drive archive, text-message, feed, and other provider adapters still require
+their own source-specific identity and changed-content semantics before they
+can safely be added here.
 The implementation assumes one active worker per ledger and does not store
 provider credentials, raw records, OCR text, or derived artifacts in the
 ledger.

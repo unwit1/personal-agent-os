@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-22T14:38:35.383329+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 10]\n M docs/resumable-ingestion.md\n M projects/personal-agent-os/roadmap/master-priority-roadmap.md",
+    "error": ""
+  },
+  "completed": [
+    "P0.4 local/fixture coverage reconciliation: after integrating the existing safe local seams, repository inspection found no additional unwired local importer suitable for a ledger without duplicating workflow state semantics. Documented the covered seams and the provider-specific boundary."
+  ],
+  "decisions": [
+    "Kept workflow run state outside IngestionLedger because the existing staged workflow state machine already owns canonical checkpoints and resumability. Kept provider-specific Drive/messages/feeds deferred because no adapter exists in this checkout and changed-content identity semantics are not established; plain IMAP UID/UIDNEXT remains explicitly deferred."
+  ],
+  "remaining": [
+    "P0.4 now requires one real provider-specific adapter integration, not another local reader. Next agent should inspect available provider code/fixtures and choose exactly one source with demonstrable stable identity and changed-content semantics; prefer a fixture-backed Google Drive archive path if one exists, otherwise document the blocker. Add interruption, idempotency, changed-content, and checkpoint tests. Do not implement plain IMAP UID/UIDNEXT without negotiated changed-message semantics."
+  ],
+  "validation": [
+    "python -m unittest discover -s tests -v (269 passed before documentation-only boundary update); python agent.py validate (ok, 350 checks); git diff --check (clean)."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}
