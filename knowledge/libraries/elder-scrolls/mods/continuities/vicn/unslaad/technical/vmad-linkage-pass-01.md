@@ -173,3 +173,17 @@ They do not reveal:
 - whether a property name is metaphorical or purely technical.
 
 Use this layer to strengthen links, not to invent script behavior.
+
+## Resolution summary
+
+This VMAD pass is sufficient to close the currently listed high-value wiring questions:
+
+- Mq07: Mural → Cradle → future ice doll → soul-fire → Gray/Black Owl graph;
+- Mq05: Dov-Ah-Kiin → Magnus-fire → Owl → Lizz time-warp → present/Lost-Unslaad routing;
+- Mq08: ice mirror → Lyg route → ice seal / World-Eater route;
+- Mq09: Loveletter-gated end-act transition and Kalpic Ship control unit;
+- GC9 object → message pairing.
+
+Remaining unknowns are script-body/runtime details that are **not exposed by embedded property metadata**. Unless Papyrus source or bytecode is later added, those should be labeled unavailable rather than left as open ingestion tasks.
+
+VMAD property names remain structural evidence only; they do not independently settle cosmological interpretation.

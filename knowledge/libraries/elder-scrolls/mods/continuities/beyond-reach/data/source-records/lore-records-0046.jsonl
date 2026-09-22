@@ -1,0 +1,50 @@
+{"observed_form_id":"0417A572","record_type":"DIAL","origin_id":"arnima.esm:17A572","quest_origin_id":"arnima.esm:16E82D","info_count":1}
+{"observed_form_id":"0417A574","record_type":"DIAL","origin_id":"arnima.esm:17A574","quest_origin_id":"arnima.esm:16E82D","info_count":1}
+{"observed_form_id":"0417A576","record_type":"DIAL","origin_id":"arnima.esm:17A576","quest_origin_id":"arnima.esm:16E82D","info_count":1}
+{"observed_form_id":"0417A57A","record_type":"DIAL","editor_id":"arnimadunlainquestjaruntalkTopic","title":"Someone went missing?","origin_id":"arnima.esm:17A57A","quest_origin_id":"arnima.esm:16E82D","prompt":"Someone went missing?","info_count":1}
+{"observed_form_id":"0417A57C","record_type":"DIAL","editor_id":"arnimadunlainquesttalk2","title":"Why do you think he went up there?","origin_id":"arnima.esm:17A57C","quest_origin_id":"arnima.esm:16E82D","prompt":"Why do you think he went up there?","info_count":1}
+{"observed_form_id":"0417A57E","record_type":"DIAL","editor_id":"arnimadunlainquesttalk3","title":"What are you on about?","origin_id":"arnima.esm:17A57E","quest_origin_id":"arnima.esm:16E82D","prompt":"What are you on about?","info_count":1}
+{"observed_form_id":"0417A580","record_type":"DIAL","editor_id":"arnimadunlainquesttalk4","title":"Why didn't you do anything to stop them?","origin_id":"arnima.esm:17A580","quest_origin_id":"arnima.esm:16E82D","prompt":"Why didn't you do anything to stop them?","info_count":1}
+{"observed_form_id":"0417A582","record_type":"DIAL","editor_id":"arnimadunlainquesttalk5","title":"What do you want me to do then?","origin_id":"arnima.esm:17A582","quest_origin_id":"arnima.esm:16E82D","prompt":"What do you want me to do then?","info_count":1}
+{"observed_form_id":"0417A5E5","record_type":"DIAL","editor_id":"arnimadunlainquestendTopic","title":"I found the boy, what was left of him anyway.","origin_id":"arnima.esm:17A5E5","quest_origin_id":"arnima.esm:16E82D","prompt":"I found the boy, what was left of him anyway.","info_count":1}
+{"observed_form_id":"0417A5E7","record_type":"DIAL","editor_id":"arnimadunlainquestend2","title":"I've also killed off most of the witchmen that were in the mountains.","origin_id":"arnima.esm:17A5E7","quest_origin_id":"arnima.esm:16E82D","prompt":"I've also killed off most of the witchmen that were in the mountains.","info_count":1}
+{"observed_form_id":"04180616","record_type":"DIAL","origin_id":"arnima.esm:180616","quest_origin_id":"arnima.esm:02B523","info_count":1}
+{"observed_form_id":"04183B7B","record_type":"DIAL","origin_id":"arnima.esm:183B7B","quest_origin_id":"arnima.esm:0441C8","info_count":1}
+{"observed_form_id":"041890D9","record_type":"DIAL","editor_id":"arnimamainquest2SharedInfo","origin_id":"arnima.esm:1890D9","quest_origin_id":"arnima.esm:046F8F","info_count":1}
+{"observed_form_id":"041890DC","record_type":"DIAL","editor_id":"arnimamainquest2OfficerFGTopic","origin_id":"arnima.esm:1890DC","quest_origin_id":"arnima.esm:046F8F","info_count":1}
+{"observed_form_id":"04190358","record_type":"DIAL","editor_id":"ArnimaBeggarRadiant31t1Topic","title":"You need anything?","origin_id":"arnima.esm:190358","quest_origin_id":"arnima.esm:190348","prompt":"You need anything?","info_count":1}
+{"observed_form_id":"0419035B","record_type":"DIAL","editor_id":"ArnimaBeggarRadiant32t1Topic","title":"I've brought the goods.","origin_id":"arnima.esm:19035B","quest_origin_id":"arnima.esm:190348","prompt":"I've brought the goods.","info_count":1}
+{"observed_form_id":"0419651D","record_type":"DIAL","editor_id":"arnimamainquest0MerosaEnd3","title":"I don't want to work for the Imperials, is there any other work for me?","origin_id":"arnima.esm:19651D","quest_origin_id":"arnima.esm:04D8D5","prompt":"I don't want to work for the Imperials, is there any other work for me?","info_count":1}
+{"observed_form_id":"0419651F","record_type":"DIAL","editor_id":"arnimamainquest0MerosaEnd2","title":"I'll head straight to them.","origin_id":"arnima.esm:19651F","quest_origin_id":"arnima.esm:04D8D5","prompt":"I'll head straight to them.","info_count":1}
+{"observed_form_id":"0419A69A","record_type":"DIAL","editor_id":"arnimamainquest0MerchantTownBeforeTopic","title":"Hey, are you in trouble with the guards?","origin_id":"arnima.esm:19A69A","quest_origin_id":"arnima.esm:04D8D5","prompt":"Hey, are you in trouble with the guards?","info_count":1}
+{"observed_form_id":"0419A69B","record_type":"DIAL","editor_id":"arnimamainquest0MerchantTownBeforet2","title":"Do you want me to have a word with him?","origin_id":"arnima.esm:19A69B","quest_origin_id":"arnima.esm:04D8D5","prompt":"Do you want me to have a word with him?","info_count":1}
+{"observed_form_id":"0419A69D","record_type":"DIAL","editor_id":"arnimamainquest0MerchantTownAfterTopic","origin_id":"arnima.esm:19A69D","quest_origin_id":"arnima.esm:04D8D5","info_count":1}
+{"observed_form_id":"0419A69E","record_type":"DIAL","editor_id":"arnimamainquest0MerchantTownAftert2","origin_id":"arnima.esm:19A69E","quest_origin_id":"arnima.esm:04D8D5","info_count":1}
+{"observed_form_id":"0419A6A0","record_type":"DIAL","editor_id":"arnimamainquest0GuardTown1t1Topic","title":"Hey, that merchant looked distraught over this cart. I'm sure you're just keeping it here temporarily right?","origin_id":"arnima.esm:19A6A0","quest_origin_id":"arnima.esm:04D8D5","prompt":"Hey, that merchant looked distraught over this cart. I'm sure you're just keeping it here temporarily right?","info_count":1}
+{"observed_form_id":"0419A6A1","record_type":"DIAL","editor_id":"arnimamainquest0GuardTown1t2","title":"[Persuade] Scaring off the traders will bring serious troubles later on, do you really want to be poorer than you are?","origin_id":"arnima.esm:19A6A1","quest_origin_id":"arnima.esm:04D8D5","prompt":"[Persuade] Scaring off the traders will bring serious troubles later on, do you really want to be poorer than you are?","info_count":2}
+{"observed_form_id":"0419A6A2","record_type":"DIAL","editor_id":"arnimamainquest0Guard1t3","origin_id":"arnima.esm:19A6A2","quest_origin_id":"arnima.esm:04D8D5","info_count":0}
+{"observed_form_id":"041A07CB","record_type":"DIAL","origin_id":"arnima.esm:1A07CB","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"041A07CD","record_type":"DIAL","origin_id":"arnima.esm:1A07CD","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"041A07CF","record_type":"DIAL","origin_id":"arnima.esm:1A07CF","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"041A07D1","record_type":"DIAL","origin_id":"arnima.esm:1A07D1","quest_origin_id":"arnima.esm:3B67E6","info_count":2}
+{"observed_form_id":"041A07D3","record_type":"DIAL","origin_id":"arnima.esm:1A07D3","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"041A12C8","record_type":"DIAL","origin_id":"arnima.esm:1A12C8","quest_origin_id":"arnima.esm:0E70A8","info_count":1}
+{"observed_form_id":"041A12CA","record_type":"DIAL","origin_id":"arnima.esm:1A12CA","quest_origin_id":"arnima.esm:0E70A8","info_count":1}
+{"observed_form_id":"041A12CC","record_type":"DIAL","origin_id":"arnima.esm:1A12CC","quest_origin_id":"arnima.esm:0E70A8","info_count":1}
+{"observed_form_id":"041A12CE","record_type":"DIAL","origin_id":"arnima.esm:1A12CE","quest_origin_id":"arnima.esm:0E70A8","info_count":1}
+{"observed_form_id":"041A12D0","record_type":"DIAL","origin_id":"arnima.esm:1A12D0","quest_origin_id":"arnima.esm:0E70A8","info_count":1}
+{"observed_form_id":"041A1ABE","record_type":"DIAL","editor_id":"ArnimaGuardDialogueSharedInfo","origin_id":"arnima.esm:1A1ABE","quest_origin_id":"arnima.esm:0778C0","info_count":40}
+{"observed_form_id":"041A1AD8","record_type":"DIAL","origin_id":"arnima.esm:1A1AD8","quest_origin_id":"arnima.esm:06B5A4","info_count":2}
+{"observed_form_id":"041A1ADB","record_type":"DIAL","origin_id":"arnima.esm:1A1ADB","quest_origin_id":"arnima.esm:0778C0","info_count":1}
+{"observed_form_id":"041A30EC","record_type":"DIAL","editor_id":"arnimamainquest0MerchantTownAfter3","title":"Could you wait here for a moment longer? I'll need you to return a message to Merosa.","origin_id":"arnima.esm:1A30EC","quest_origin_id":"arnima.esm:04D8D5","prompt":"Could you wait here for a moment longer? I'll need you to return a message to Merosa.","info_count":1}
+{"observed_form_id":"041AD8B3","record_type":"DIAL","origin_id":"arnima.esm:1AD8B3","quest_origin_id":"arnima.esm:1AD8B1","info_count":1}
+{"observed_form_id":"041AD8B5","record_type":"DIAL","origin_id":"arnima.esm:1AD8B5","quest_origin_id":"arnima.esm:1AD8B1","info_count":1}
+{"observed_form_id":"041AD8B7","record_type":"DIAL","origin_id":"arnima.esm:1AD8B7","quest_origin_id":"arnima.esm:1AD8B1","info_count":1}
+{"observed_form_id":"041AFA98","record_type":"DIAL","editor_id":"ArnimaHousePurchaseQuestCraft","title":"Exterior Crafting Station","origin_id":"arnima.esm:1AFA98","quest_origin_id":"arnima.esm:1F440D","prompt":"Exterior Crafting Station","info_count":2}
+{"observed_form_id":"041AFA9B","record_type":"DIAL","editor_id":"ArnimaHousePurchaseQuestLuxuryLivingRoom","title":"Living Room [Luxury Theme] (1000 Gold)","origin_id":"arnima.esm:1AFA9B","quest_origin_id":"arnima.esm:1F440D","prompt":"Living Room [Luxury Theme] (1000 Gold)","info_count":2}
+{"observed_form_id":"041B0B36","record_type":"DIAL","origin_id":"arnima.esm:1B0B36","quest_origin_id":"arnima.esm:086743","info_count":0}
+{"observed_form_id":"041B0B43","record_type":"DIAL","origin_id":"arnima.esm:1B0B43","quest_origin_id":"arnima.esm:01BCE9","info_count":1}
+{"observed_form_id":"041B0B45","record_type":"DIAL","origin_id":"arnima.esm:1B0B45","quest_origin_id":"arnima.esm:01BCE9","info_count":1}
+{"observed_form_id":"041B0B47","record_type":"DIAL","origin_id":"arnima.esm:1B0B47","quest_origin_id":"arnima.esm:01BCE9","info_count":1}
+{"observed_form_id":"041B0B49","record_type":"DIAL","origin_id":"arnima.esm:1B0B49","quest_origin_id":"arnima.esm:01BCE9","info_count":1}
+{"observed_form_id":"041B0B4B","record_type":"DIAL","origin_id":"arnima.esm:1B0B4B","quest_origin_id":"arnima.esm:01BCE9","info_count":1}

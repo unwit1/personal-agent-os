@@ -1,150 +1,85 @@
-# Act 4 side-quest coverage and remaining extraction gaps
+# Act 4 side-quest coverage — direct-source status
 
 Continuity: `tes.mod.vigilant`
 
-This page tracks which quests in `FLST 0251EABB` / `zzzCHAct4QuestStarterList` already have usable Lorekeeper reconstruction and which still need raw dialogue, quest-alias, placement, or Papyrus recovery.
+The previous raw-source gaps tracked here were resolved after ingestion of the user-supplied translated VIGILANT 1.8.2 ESM.
 
-It is intentionally conservative: **starter-list membership proves orchestration, not narrative content.**
+Primary recovery:
+- `analysis/act4-direct-source-recovery.md`
+- `dialogue/act4/recovered-sidequests.md`
 
-## Current coverage
+## Previously incomplete quests now recovered
 
-### Strongly reconstructed or dossiered
+### More Skooma
+- `QUST 021273E0`
+- alias **Khajiit** → **Ja'zhan**
+- direct dialogue recovered
 
-#### Madness — `zzzCHSubQuest05`
-Current repository material already ties the quest to the Dro'Zel / mad-cat-king / bard recurrence cluster.
+### Archer of Kyne
+- `QUST 021279A1`
+- **Bourlor** ↔ **Vernaccus**
+- direct dialogue recovered
 
-Useful anchors include:
-- the Dro'Zel dossier;
-- *A Vision in Malada* stanza 4 mapping;
-- three Madness scenes with king-shadow aliases;
-- wider Coldharbour memory/story analysis.
+### The Black Worm
+- `QUST 02129061`
+- alias **blackworm** → `NPC_ 020AEFE3` / **Black Worm**
+- direct dialogue recovered
+- Mannimarco identity remains supplementary
 
-Status: **substantial narrative coverage already present.**
+### Funeral
+- `QUST 02129BCA`
+- **Martha**
+- direct family-grave narrative recovered
 
-#### Pitier — `zzzCHSubQuest06`
-The scene index resolves the quest's `Renald` role to **Aredhel**, and the repository already contains:
-- Aredhel dossier;
-- Aredhel/Renald identity analysis;
-- Diagna/Coldharbour cluster work.
+### Knight of Julianos
+- `QUST 021265FB`
+- **Sir Henrik**
+- living/dead quest forms recovered
 
-Status: **substantial identity coverage already present.**
+### Knight of Zenithar
+- `QUST 021306FA`
+- **Sir Ralvas**
+- Ja'zhan/head-recovery branch recovered
 
-#### Paladin Melus — `zzzCHSubQuest09`
-Now covered by:
-- `entities/characters/melus-petilius.md`
-- *A Vision in Malada* stanza 6 mapping
-- `SCEN 021C1EA7`
+### Knight of Arkay
+- `QUST 021C31F2`
+- **Sir Torolf**
+- direct doctrine recovered
 
-Status: **core recurrence motif reconstructed; graverobber identity/mechanism still open.**
+### Kyne's Dragon
+- `QUST 0221ED0C`
+- **Kahkaankrein**
+- 28 direct responses recovered
+- major Laza/Owl/Kyne testimony recovered
 
-#### Broken Horns — `zzzCHSubQuest13`
-Now covered by:
-- Belharza dossier;
-- Amicus Tharn dossier and petition analysis;
-- Act 4 orchestration;
-- `analysis/broken-horns-final-memory-handoff.md`
+### Knight of Kynareth
+- `QUST 02334C8F`
+- **Sir Juncan**
+- direct Gregory/Melus/Varla/Pepe testimony recovered
 
-Status: **high-confidence structural reconstruction.**
+## Still partial, but not source-body gaps
 
-#### Bald Man-Ape — `zzzCHSubQuest14`
-Covered by the Saklas dossier and Jhunal's Library investigation.
+The following may still benefit from deeper placement/item/PEX work:
+- exact runtime transitions;
+- external Papyrus fragment bodies;
+- exhaustive item aliases;
+- precise stage timing;
+- some dynamic actor-state changes.
 
-Status: **substantial structural/dialogue coverage already present.**
+Those are **implementation-depth gaps**, not missing narrative bodies.
 
-#### The Saint's Corpse — `zzzChSubQuest15`
-Now has a Gravekeeper structural dossier plus:
-- dedicated Gravekeeper dialogue scenes;
-- Gravekeeper's House topology.
+## Existing strong reconstructions
 
-Status: **structural coverage present; full dialogue/content extraction still incomplete.**
+Other Act 4 side quests already had substantial coverage before this pass:
+- Madness
+- Pitier
+- Paladin Melus
+- Broken Horns
+- Bald Man-Ape
+- The Saint's Corpse
 
-## Partial structural coverage
+## Current implication
 
-### Knight of Arkay — `zzzCHSubQuest10`
+All fifteen Act 4 side quests now have a usable Lorekeeper narrative/structural status.
 
-The scene index preserves:
-- `SCEN 021C31F3`
-- speaker: **Sir Torolf**
-
-A dedicated structural dossier now exists at `entities/characters/sir-torolf.md`.
-
-Status: **named speaker and stable character node recovered; narrative body still missing.**
-
-### Kyne's Dragon — `zzzCHSubQuest11`
-
-The scene index preserves:
-- `SCEN 022C374B`
-- speaker: **Kahkaankrein**
-
-Broken Horns also stores a property pointing to **Kyne's Dragon**, making the quest structurally relevant to the Belharza/Morihaus/final-memory complex.
-
-A dedicated structural dossier now exists at `entities/characters/kahkaankrein.md`.
-
-Status: **named speaker + cross-quest linkage + stable character node recovered; narrative body still missing.**
-
-## Starter-list membership only or near-only
-
-The following quests are confirmed members of the Act 4 starter list, but the current browsable repository does not yet contain enough quest-specific narrative evidence for a reliable dossier:
-
-- `zzzCHSubQuest01` — **More Skooma**
-- `zzzCHSubQuest02` — **Archer of Kyne**
-- `zzzCHSubQuest07` — **Knight of Julianos**
-- `zzzCHSubQuest08` — **Knight of Zenithar**
-- `zzzCHSubQuest12` — **Knight of Kynareth**
-
-### The Black Worm caution
-
-Jhunal testimony elsewhere refers to a **Black Worm** who tore Jhunal apart.
-
-That creates a potentially important connection to `zzzCHSubQuest03` / *The Black Worm*, but the currently persisted quest-specific evidence does not yet prove that the side quest's title refers to the exact same entity or episode.
-
-Do not identify the Black Worm with **Mannimarco** merely from the epithet. The current VIGILANT repository layer does not contain a direct Mannimarco identification.
-
-Status: **identity/source-gap analysis now preserved in `analysis/black-worm-identity-gap.md`; exact quest body still missing.**
-
-## Funeral — `zzzCHSubQuest04`
-
-The repository contains extensive material involving:
-- Funeral Temple;
-- Manthar;
-- Silorn;
-- Nenyond;
-- funerary/charnel complexes.
-
-However, searches for the generic word **Funeral** collide heavily with those location and relic records.
-
-The quest-specific narrative body of `zzzCHSubQuest04` has not yet been cleanly isolated from the broader Funeral Temple corpus.
-
-Status: **structural separation now preserved in `analysis/funeral-sidequest-structure.md`; Sister/SisterDead bases, dialogue, and runtime body still need recovery.**
-
-## Why this gap map matters
-
-Without this page, repeated continuation passes risk:
-- mistaking a quest title for a reconstructed storyline;
-- equating similarly named characters or concepts without evidence;
-- repeatedly searching already-completed clusters;
-- over-promoting scene-only characters into full biographies.
-
-The next raw-source priority for Act 4 side quests should be:
-
-1. **More Skooma**
-2. **Archer of Kyne**
-3. **Knight of Julianos**
-4. **Knight of Zenithar**
-5. **Knight of Kynareth**
-6. **The Black Worm** — exact quest body after identity-gap analysis
-7. **Kyne's Dragon / Kahkaankrein** — full dialogue/alias body
-8. **Knight of Arkay / Sir Torolf** — full dialogue/alias body
-9. **Funeral** — Sister/SisterDead resolution
-
-This ordering is an **extraction priority**, not a lore-importance ranking: it favors quests with existing cross-links that can unlock other unresolved relationships.
-
-## Source limitation
-
-The current repository retains strong structural extraction from the original VIGILANT ESM, but the source plugin bytes and external Papyrus PEX bodies are not currently available through the connected source layer.
-
-Accordingly:
-- scene and quest IDs are structural evidence;
-- starter-list membership is structural evidence;
-- existing resolved dialogue is usable testimony;
-- missing narrative detail should remain explicitly missing rather than reconstructed from title semantics.
+The former nine-item source recovery queue is complete at the ESM record/dialogue level.

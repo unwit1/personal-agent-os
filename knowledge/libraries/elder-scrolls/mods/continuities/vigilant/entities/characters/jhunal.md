@@ -145,3 +145,24 @@ These records support continuity of identity and motif, but they do not justify 
 ## Canon boundary
 
 VIGILANT's First Era Jhunal biography, Marukh's Torch, Black Worm experimentation, Laza manipulation, dragon-soul ambitions, flesh art, relic trail, Owl identity, and soul/Tower metaphysics are mod-continuity claims unless separately corroborated by licensed TES sources.
+
+
+## Cross-Vicn Owl resolution
+
+Later direct Vicn ESM evidence materially sharpens the Owl identity problem.
+
+See:
+- `analysis/vicn-owl-continuity-bridge.md`
+
+Key later evidence:
+- GLENMORIL directly resolves **White Owl → Jhunal the White**.
+- GLENMORIL's dedicated **The Black Owl** quest uses **Jhunal the Black** as speaker.
+- GLENMORIL pairs a **Gray Owl actor from the Orlando family** with Jhunal the Black.
+- UNSLAAD has **Jhunal the Gray explicitly self-identify as the Gray Owl**.
+- UNSLAAD's Gray Owl independently lists **Laza** among failed experiments and repeats the dream of becoming a dragon.
+
+This strongly corroborates the VIGILANT Jhunal/Laza/dragon-experiment cluster.
+
+It also means the earlier low-provenance comment-thread shorthand **“Black Owl = Orlando”** should not be used as a global identity rule. Later record-level evidence places Orlando-family material primarily on the Gray-Owl side while Black Owl material is directly spoken by Jhunal the Black.
+
+The exact VIGILANT color-book identities remain source-limited until their own text is recovered.

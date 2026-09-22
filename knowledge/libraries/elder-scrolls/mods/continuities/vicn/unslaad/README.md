@@ -111,6 +111,48 @@ A first deterministic ownership graph now covers named NPC/container inventories
 
 Promoted dossiers include Austella's Hoarfrost equipment, Jhunal/Gray-Owl equipment, Khev/Molag/Muatra/Coldfire, Atmoran trial relics, Dov-Ah-Kiin relics, KINMUNE/Ayrenn/Oracle-Iridescent staging, Owl/Lyg-Crab/World-Eater/Blades/Companion/core factions, Sinak/Woodland-Man/Owl relationships, and Jill trial/cross-VICN material.
 
+### Named forms / race taxonomy
+
+The lore-facing actor layer is now indexed structurally:
+- **243 named NPC forms** out of 517 NPC_ records;
+- **174 unique display names**;
+- **41 duplicate-name/form families**;
+- **57 custom races used by named actors**.
+
+Named forms are split across four alphabetic indexes, with a separate duplicate-family summary and custom-race catalog. Unnamed/template/leveled NPC records are retained as implementation forms rather than promoted as characters.
+
+This provides canonical form-state lookup for cases such as Ulliss, Aisha, Jhunal the Gray, Khev, Sinak summons, Jills, Dragon Pus forms, and training proxies.
+
+### Summons, magic, recipes, and identity-state coverage
+
+The structural combat/magic layer now includes:
+
+- complete deterministic **32-book summon-chain** mapping: BOOK -> SPEL -> MGEF -> summoned NPC;
+- hostile/natural versus summoned-form differentiation for Sinak, Draco-Nord, Hor/Dreugh, Watcher, Hoarfrost, Atmoran beasts, and Rackety-Nix;
+- selected artifact ENCH/MGEF mapping, including Dragon-Soul-scaled Dragonslayer gear;
+- custom weapon-art mapping for Bormahu/Jill/World-Eater staves, Woodland-Man weapons, and Yngol;
+- custom SHOU/Voice ownership for Ulliss dragons, Ysgrim/Ysgramor, Dregs of Alduin, Manque, Rackety-Nix, Eamal, and Pelinaalilargus;
+- recipe-condition mapping for major post-encounter artifact reconstructions;
+- mask/outfit identity mapping, including Gray Owl's Mask on multiple Jhunal-the-Gray forms and the Void-Jill set on Elja;
+- a reusable multi-form identity graph for Ulliss, Aisha, Jhunal/Gray Owl, Elja/Jills, Ysgrim/Ysgramor, Khev, and Ja'cobee/Fluffy.
+
+### Relic and placement coverage
+
+Additional named-relic dossiers now cover:
+- GHARTOK weapons;
+- Wolf King / Earthbones;
+- Hor Ritual;
+- Khemkel's Carving Knife;
+- Spear of the Fox;
+- Saarthal's Sorrow;
+- Elder Wood equipment;
+- Princess Ayrenn equipment;
+- Dragon Fangs;
+- Dragonbone Smashers;
+- Ysgramor's Fork;
+- Jill equipment;
+- Hermit's Tower Vivec/Muatra source cluster.
+
 ### No-dialogue boss/trial quests
 
 Named boss/trial families have a structural index even when they contain no ordinary INFO dialogue, including Trial of the Gods, Idol of Magnar, Last Giant of Jhunal, Jill trials, Ysgramor trial, Priest of Jhunal, and Woodland Man hunt.
@@ -138,15 +180,37 @@ Named boss/trial families have a structural index even when they contain no ordi
 - Translation wording is preserved when terminology is uncertain.
 - Contradictory or unstable identity evidence is retained rather than normalized away.
 
-## Remaining ingestion frontier
+## Second-pass synthesis additions
 
-The basic text-bearing layers and the first structural ownership/faction layers are now substantially reconciled.
+New parent-level synthesis now includes:
+- **Jhunal identity matrix** — separates original/deific Jhunal, Gray/Black/White Owl mappings, VIGILANT Jhunal the Owl, Orlando incarnation claims, and body/state uncertainty.
+- **Atmora / Saarthal / Night of Tears** — reconciles repeated named history across all four VICN works while preserving DAc0da's contradictory Atmoran testimony and the distinct Magnus/Owl layers.
 
-The next high-value UNSLAAD work is:
+These should be used before attempting new local identity merges.
 
-1. enchantment/spell/magic-effect relationship indexing for lore-bearing artifacts and creatures;
-2. summon-tome / summon-form / corpse-drop relationships, especially Woodland/Sinak, Draco-Nord, Watcher, and Hoarfrost families;
-3. deeper quest-condition analysis for when major artifact recipes/reward sets unlock;
-4. selected placed-reference analysis for named historical weapons, masks, and transformed boss phases;
-5. provenance matching for remaining externally sourced/adapted written or mythic material;
-6. further parent-VICN reconciliation against VIGILANT, GLENMORIL, and DAc0da where exact names, artifacts, or mechanics recur.
+## Ingestion completion status
+
+**Status: complete for the supplied translated UNSLAAD 3.0.6 ESM.**
+
+The current Lorekeeper corpus now accounts for:
+- all numbered main-quest dialogue families;
+- high-value side, generic, radiant, boss, and epilogue dialogue;
+- all 59 SCEN records at the dialogue/orchestration classification layer;
+- all 50 BOOK records with source/provenance handling;
+- all 98 MESG records;
+- all direct ARMO/WEAP description records;
+- named NPC/form families and custom races;
+- major factions, inventories, death items, recipes, enchantments, Shouts, summon chains, masks/outfits, and multi-form identities;
+- high-value placements and VMAD property linkages;
+- cross-VICN synthesis for the strongest recurring identities, places, institutions, and source traditions;
+- explicit reliability and contradiction handling for unstable testimony.
+
+Remaining unknowns are **documented evidence boundaries**, not an active ingestion backlog. Examples include unsigned Owl Study authorship, the exact referent of Austella's "that person," visual iconography not exposed by the indexed data, and metaphysical questions the ESM itself leaves ambiguous.
+
+Future work is optional and question-driven:
+1. ingest a newer UNSLAAD version if supplied;
+2. inspect original Japanese wording when a translation nuance matters;
+3. inspect Papyrus/model/texture assets only for a specific unresolved question;
+4. add newly discovered external provenance if a concrete earlier source appears.
+
+For routine retrieval, start with `indexes/retrieval-map.md` and `analysis/source-reliability-matrix.md`.

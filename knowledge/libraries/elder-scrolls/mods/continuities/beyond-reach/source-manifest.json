@@ -1,0 +1,96 @@
+{
+  "source_file": "arnima.esm",
+  "sha256": "48d0c8bd09123f279820289aa8c31caa0a5731d0e5fe67be237aa7a6ae68def9",
+  "source_identity_note": "User-provided arnima.esm verified by SHA-256; form provenance is retained as master-or-plugin-qualified origin IDs.",
+  "extraction": "Direct Skyrim plugin parsing preserves QUST metadata/journals/objectives/aliases, DIAL prompts/topic metadata, the full INFO layer including direct responses and shared-response reuse, BOOK titles/full DESC text, and MESG titles/descriptions/menu text with form provenance.",
+  "raw_corpus": {
+    "path": "data/source-records/",
+    "files": 68,
+    "records": 3366,
+    "record_types": {
+      "QUST": 196,
+      "DIAL": 3170
+    }
+  },
+  "derived_indexes": [
+    {
+      "path": "indexes/quest-catalog/",
+      "records": 196,
+      "description": "Lightweight normalized quest index with source-file and source-line provenance."
+    },
+    {
+      "path": "indexes/lore-dialogue-topic-catalog/",
+      "records": 102,
+      "description": "All DIAL topics explicitly tagged [Lore], retaining source and quest provenance."
+    },
+    {
+      "path": "indexes/main-quest-structure.md",
+      "description": "Breton/Evermore main-chain structural index derived from QUST records."
+    },
+    {
+      "path": "indexes/orc-main-quest-structure.md",
+      "description": "Orc-route structural index derived from ArnimaOrcMainQuest records."
+    },
+    {
+      "path": "indexes/lore-topic-retrieval-map.md",
+      "description": "Thematic retrieval map over explicit [Lore] prompts; prompts are not treated as claim evidence."
+    }
+  ],
+  "pending_structured_exports": [
+    "named_actor_records",
+    "factions",
+    "locations",
+    "artifacts",
+    "scenes_and_packages",
+    "additional_dialogue_speaker_resolution",
+    "continuity_scoped_claims"
+  ],
+  "plugin_inventory": {
+    "total_records": 217581,
+    "QUST": 196,
+    "DIAL": 3170,
+    "INFO": 4377,
+    "BOOK": 83,
+    "MESG": 127,
+    "NPC_": 1028,
+    "SCEN": 192,
+    "LCTN": 167,
+    "FACT": 94
+  },
+  "inventory_note": "The earlier BOOK/MESG/NPC_/SCEN counts were produced by an incomplete record traversal. A full recursive parse of the same verified SHA corrected the type inventory without changing total_records.",
+  "info_corpus": {
+    "path": "data/info-records/",
+    "files": 88,
+    "records": 4377,
+    "batching": "87 batches of 50 records plus final batch of 27",
+    "compression": "gzip",
+    "expanded_format": "UTF-8 JSONL",
+    "raw_response_strings": 5133,
+    "effective_response_strings_after_shared_info_reuse": 5613,
+    "shared_info_records": 489,
+    "explicit_ANAM_speaker_records": 96,
+    "records_with_conditions": 1866,
+    "condition_entries": 3225,
+    "checksum_audit": "88/88 Git blob SHAs and sizes matched deterministic local batches"
+  },
+  "book_corpus": {
+    "path": "data/book-records/",
+    "files": 2,
+    "records": 83,
+    "batching": "one batch of 50 records plus final batch of 33",
+    "compression": "gzip",
+    "expanded_format": "UTF-8 JSONL",
+    "records_with_text": 83,
+    "checksum_audit": "2/2 Git blob SHAs matched deterministic local batches"
+  },
+  "message_corpus": {
+    "path": "data/message-records/",
+    "files": 3,
+    "records": 127,
+    "batching": "two batches of 50 records plus final batch of 27",
+    "compression": "gzip",
+    "expanded_format": "UTF-8 JSONL",
+    "records_with_description": 125,
+    "checksum_audit": "3/3 Git blob SHAs matched deterministic local batches"
+  }
+}

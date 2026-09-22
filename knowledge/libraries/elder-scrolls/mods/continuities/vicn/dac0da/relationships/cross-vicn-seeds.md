@@ -164,3 +164,40 @@ DAc0da's written Snow-Elf orders add two more evidence layers:
 UNSLAAD and GLENMORIL independently contain major Atmora, Saarthal, Night-of-Tears, Owl/Jhunal, and old-history reinterpretation material.
 
 These should be co-retrieved for comparison, but DAc0da's specific Jylkurfyk testimony remains source-scoped until matching named evidence is recovered elsewhere.
+
+
+## Brain-Billies / memory recovery
+
+DAc0da's **Mecha-Kanra** says **Brain-Billies** are local spirits that sting a person's memories so that forgotten things are remembered. Evidence: `DAc0da.esm:00D051`, `00D053`.
+
+GLENMORIL independently uses the exact rare term **brain-billies** in dialogue associated with the **Augur of the Obscure**.
+
+Because the wording is highly distinctive, this is a strong direct DAc0da <-> GLENMORIL retrieval bridge.
+
+The works should still be compared source-by-source before asserting that every Brain-Billy appearance has an identical mechanism or chronology.
+
+## Xero-Lyg
+
+DAc0da's **Crabbimarco** says **Xero-Lyg** and her son ruined his plans during a slave revolt in Lyg. Evidence: `DAc0da.esm:00492C`.
+
+GLENMORIL independently names **Xero-Lyg** in major Jazel/Aradia and related star/radiance material, including treatment of Xero-Lyg as a Black Star associated with the Serpent.
+
+This is a direct named cross-work bridge rather than a thematic resemblance.
+
+DAc0da's Crabbimarco account remains its own Lyg testimony and should not be used to import GLENMORIL's full Xero-Lyg model into DAc0da without matching evidence.
+
+
+## Holy Pipers
+
+DAc0da's **Vigilant Athanasius** directly identifies himself as a **Keeper of Stendarr of the Holy Pipers branch**. Evidence: `DAc0da.esm:00554C`.
+
+He says the Holy Pipers travel the land, spread Stendarr's teachings, and aid the less fortunate; his group entered the Sea of Causality with the Solitude navy to rescue survivors. Evidence: `DAc0da.esm:00555E`.
+
+The same named organization is independently established in:
+
+- VIGILANT: `entities/factions/holy-pipers.md`
+- GLENMORIL: `quests/the-pipers.md` and related Holy-Pipers relationship files
+
+This is a direct institutional bridge across **DAc0da, VIGILANT, and GLENMORIL**.
+
+The source-specific states differ sharply: DAc0da's Athanasius presents a charitable rescue/teaching branch, while GLENMORIL contains excommunicated/inquisitorial/extremist Holy-Piper material. Preserve those differences rather than merging them into one timeless organization state.

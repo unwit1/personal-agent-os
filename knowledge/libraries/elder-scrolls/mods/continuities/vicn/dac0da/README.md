@@ -47,7 +47,7 @@ The plugin stores English dialogue directly in INFO/NAM1 fields, so dialogue can
 
 ## Current ingestion state
 
-### Complete at first reconstruction depth
+### First-pass ESM lore ingestion — COMPLETE
 
 - Structural inventory and all-quest catalog.
 - Numbered main quest MQ00–MQ05.
@@ -74,6 +74,11 @@ The plugin stores English dialogue directly in INFO/NAM1 fields, so dialogue can
 - DAc0da's Yaghra **Agent** is materially linked to the Daggerfall Agent/Warp-in-the-West cluster through its dedicated Totem-letter loot.
 - Six Daggerfall Totem letters verified as reused official game text.
 - Major Nahd-fiction provenance resolved: Djaf as mojonation1487 community apocrypha; KINMUNE, Tsaesci Creation Myth, Dominion Prism, Eat the Dreamer, Lament for Pelinal, and Type of Zero as reused Michael Kirkbride material.
+- All **79 SCEN records** indexed with owning quests and scene-speaker resolution.
+- Scene-driven dossiers added for N'Danda, Hgelhelm the Outcast, Haalj Hgelhelmson, and Sindwen the Wintercaller.
+- Full custom worldspace/location index added for **Sea of Causality**, **Dwemereth**, and **Mozarella Spacetime**, plus important named Numidium interiors.
+- Character form-family index added for ordinary/boss/ghost/summon/memospore/alternate forms.
+- Narrative artifact index expanded for Prisoner/nymic objects, abstract Totems, Yngol/Atmoran artifacts, Tsaesci weapons, Underking/Zurin gear, and related quest objects.
 
 ### Strong cross-Vicn links indexed
 
@@ -93,15 +98,39 @@ The 90 BOOK records currently classify as:
 
 High-value DAc0da letters and temporal tomes are indexed. Reused Daggerfall and developer/apocryphal texts are being provenance-separated rather than silently attributed to Vicn.
 
-## Next priority
+## Completion state
 
-The dialogue-heavy, support-quest, and first provenance layers are now largely normalized. Continue with **broad structural coverage**:
+For source SHA-256 `455f07f3bba5de5b1b5a84c882be3309a66fd3d503866e05658b99896dfdb00e`:
 
-1. Build a full **SCEN index** for all 79 scene records and resolve scene actors back through their owning quest aliases.
-2. Identify scene-only interactions that add lore not already present in owned DIAL/INFO records.
-3. Expand **NPC identity/form indexing**, especially alternate/ghost/summon/boss forms that still lack dossiers.
-4. Build **location/worldspace** indexes for the Ship Graveyard, Numidium interiors, Hahd/Sload layers, Atmoran layers, and alternate ending spaces.
-5. Index distinctive **artifacts/items/creatures** where record placement or inventory carries narrative meaning.
-6. Continue source provenance only where gaps remain, chiefly the exact standalone publication trail for the long **Ghost Choir 9** text.
+> **DAc0da first-pass ESM lore ingestion is complete.**
 
-See `analysis/ingestion-checkpoint-01.md` before resuming.
+Completed structural layers now also include:
+
+- creature/encounter families;
+- custom race/morphology index;
+- faction-record classification;
+- Generic Dialogue pass;
+- Citizen Dialogue pass;
+- named-NPC gap pass;
+- deterministic INFO ownership audit with **0 orphan INFO records**;
+- first comprehensive gap audit;
+- first-pass completeness report.
+
+See:
+
+- `analysis/gap-audit-01.md`
+- `analysis/completeness-report-01.md`
+- `analysis/info-ownership-audit.md`
+
+## Next phase
+
+Do **not** restart broad DAc0da ingestion unless the source hash/version changes.
+
+Continue with **second-pass cross-Vicn synthesis and topic promotion**:
+
+1. reconcile direct/rare-vocabulary bridges against VIGILANT, GLENMORIL, and UNSLAAD;
+2. preserve source-level provenance and distinguish genuine shared continuity from reused external texts;
+3. promote high-confidence entities/relationships into reusable Lorekeeper topic/claim structures;
+4. perform targeted deep dives only where a specific unresolved question remains.
+
+Residual DAc0da-only gaps are now technical/refinement issues: readable Papyrus bodies for a few runtime mechanics, exhaustive navigation graphs, and optional low-prose item expansion. The long Ghost Choir 9 transcript's source provenance is resolved.

@@ -51,3 +51,18 @@ This cycle tightly joins:
 - the recurring VICN interest in bodies as replaceable or writable containers.
 
 Do not merge Gral, Mindok, BBBux, the Gray Owl, or Orlando merely because all intersect Owl/Jhunal imagery.
+
+## Cross-VICN retrieval boundary
+
+The strongest parent-level bridge from this cycle is **the Hare / word-rewriting motif**, not a shared Gral or Mindok identity.
+
+For cross-work comparison, retrieve:
+- parent VICN `../../relationships/hare-word-rewriting-thread.md`;
+- `organizations/owl-faction.md` for the Strange Hare implementation edge;
+- `relationships/jhunal-priest-mnegmegh-ability.md` only when comparing distinct Jhunal-associated figures.
+
+Current safe conclusion:
+- DAc0da and UNSLAAD independently connect Hare imagery to words that can alter or redefine form/identity.
+- **Gral/Mindok himself remains UNSLAAD-local in the indexed corpus.**
+
+Do not merge Gral/Mindok with Mnegmegh, Gray Owl, Orlando, or DAc0da's Hare entities without a direct source-level identity statement.

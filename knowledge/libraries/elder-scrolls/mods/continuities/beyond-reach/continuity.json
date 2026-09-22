@@ -1,0 +1,87 @@
+{
+  "continuity_id": "tes.mod.beyond-reach",
+  "name": "Beyond Reach",
+  "universe": "The Elder Scrolls",
+  "kind": "mod_continuity_overlay",
+  "status": "dialogue_books_messages_complete_entity_layers_pending",
+  "canon_policy": {
+    "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
+    "default_claim_scope": "tes.mod.beyond-reach",
+    "may_reference_base_tes_lore": true,
+    "conflicts_with_base": "retain_both_with_provenance"
+  },
+  "primary_source": {
+    "filename": "arnima.esm",
+    "sha256": "48d0c8bd09123f279820289aa8c31caa0a5731d0e5fe67be237aa7a6ae68def9",
+    "source_type": "user_provided_skyrim_plugin",
+    "ingested_at": "2026-09-21"
+  },
+  "extracted_counts": {
+    "source_record_files": 68,
+    "source_records_total": 3366,
+    "quests": 196,
+    "dialogue_topics": 3170,
+    "explicit_lore_dialogue_topics": 102,
+    "total_plugin_records": 217581,
+    "info_records": 4377,
+    "info_batch_files": 88,
+    "raw_dialogue_response_strings": 5133,
+    "effective_dialogue_response_strings": 5613,
+    "shared_info_records": 489,
+    "explicit_speaker_records": 96,
+    "info_records_with_conditions": 1866,
+    "info_condition_entries": 3225,
+    "books": 83,
+    "book_batch_files": 2,
+    "messages": 127,
+    "message_batch_files": 3,
+    "actors": 1028,
+    "scenes": 192,
+    "locations": 167,
+    "factions": 94
+  },
+  "structured_layers": {
+    "source_qust_dial_records": "complete",
+    "quest_catalog": "complete_196_records",
+    "explicit_lore_topic_catalog": "complete_102_records",
+    "main_quest_structure": "initial_complete_from_QUST",
+    "orc_main_quest_structure": "initial_complete_from_QUST",
+    "lore_topic_retrieval_map": "initial_complete_from_explicit_lore_prompts",
+    "dialogue_info_response_text": "complete_4377_records_88_gzip_jsonl_batches",
+    "books_and_notes": "complete_83_records_2_gzip_jsonl_batches",
+    "messages": "complete_127_records_3_gzip_jsonl_batches",
+    "actors_and_speakers": "not_yet_ingested",
+    "locations": "not_yet_ingested",
+    "artifacts": "not_yet_ingested",
+    "claims": "not_yet_ingested",
+    "interpretive_analysis": "not_yet_complete",
+    "dialogue_response_payloads": "complete_5133_direct_5613_effective_strings",
+    "dialogue_conditions": "raw_complete_1866_records_3225_condition_entries",
+    "explicit_dialogue_speaker_resolution": "complete_for_96_ANAM_explicit_records"
+  },
+  "data_integrity": {
+    "jsonl_validation": "all currently indexed source-record files used by the lore pass parse successfully after repair",
+    "repaired_files": [
+      "data/source-records/lore-records-0057.jsonl",
+      "data/source-records/lore-records-0063.jsonl",
+      "data/source-records/lore-records-0064.jsonl"
+    ],
+    "info_batch_checksum_audit": "88_of_88_git_blobs_match_local_generated_batches",
+    "info_final_record_count": 4377,
+    "info_final_batch_records": 27,
+    "book_message_batch_checksum_audit": "5_of_5_git_blobs_match_deterministic_local_generated_batches",
+    "book_records_with_text": 83,
+    "message_records_with_description": 125,
+    "source_sha256_verified": true,
+    "inventory_correction": "A full recursive parse of the same verified arnima.esm SHA corrected earlier incomplete type counts: BOOK 83, MESG 127, NPC_ 1028, SCEN 192, LCTN 167, FACT 94. Total plugin record count remains 217581."
+  },
+  "next_ingestion_steps": [
+    "extract named actor and faction records and resolve additional dialogue speakers without collapsing ambiguity",
+    "extract location records and world/cell mapping",
+    "extract artifacts and important item records",
+    "ingest scenes and packages where they clarify chronology or speaker identity",
+    "build character, faction, location, artifact, and concept dossiers",
+    "promote evidence-backed propositions into continuity-scoped claims",
+    "build retrieval tests and a final completeness audit"
+  ]
+}

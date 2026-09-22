@@ -89,3 +89,20 @@ Use:
 - dialogue/quests/placed lore = narrative identity evidence.
 
 Only merge those layers when multiple sources agree.
+
+## Full custom-race catalog
+
+The exhaustive lore-facing custom-race index is now stored at:
+
+- indexes/custom-race-catalog.md
+
+It records all **57 custom RACE records used by named NPC forms**, with FormID, EditorID, named-form count, and representative users.
+
+The named NPC form layer is separately sharded across:
+- indexes/npc-forms-a-f.md
+- indexes/npc-forms-g-m.md
+- indexes/npc-forms-n-s.md
+- indexes/npc-forms-t-z.md
+- indexes/npc-form-families.md
+
+Together these indexes make race/body changes and duplicate-name states explicit instead of relying on name matching.

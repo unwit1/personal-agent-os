@@ -1,0 +1,35 @@
+{
+  "source_plugin": "Glenmoril.esm",
+  "source_sha256": "5669018c81acf13147ff489f486963ecc3c57515a73ed9afd210c7ede85e1cc8",
+  "total_books": 264,
+  "text_bearing": 264,
+  "empty": 0,
+  "classes": {
+    "yelem_notes": {
+      "count": 54,
+      "exact_transcribed": 54,
+      "status": "closed_exact_text"
+    },
+    "glenmoril_original_candidates": {
+      "count": 43,
+      "status": "exact_source_text_preserved"
+    },
+    "reused_official_reference": {
+      "count": 30,
+      "status": "classified_source_occurrence_pending_canonical_reference_reconciliation"
+    },
+    "mechanical_book_records": {
+      "count": 136,
+      "exact_transcribed": 136,
+      "shards": 17,
+      "status": "closed_exact_text"
+    },
+    "debug_structural": {
+      "count": 1,
+      "status": "normalized"
+    }
+  },
+  "raw_classification_complete": true,
+  "mechanical_dataset_pattern": "data/books/mechanical-books-01.jsonl ... mechanical-books-17.jsonl",
+  "status": "raw_book_inventory_closed_reference_reconciliation_remaining"
+}

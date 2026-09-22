@@ -123,35 +123,66 @@ Known/reused source material is now substantially provenance-separated:
 - six Daggerfall/Totem correspondence records are **verified official Daggerfall text reuse**, with DAc0da-specific static placeholder substitutions;
 - `Djaf: Arena of Lyg` is verified community apocrypha by **mojonation1487**;
 - `ANON/ANU/ANUI-EL / KINMUNE`, `The Tsaesci Creation Myth`, `Dominion Prism Textract`, `et'Ada, Eight Aedra, Eat the Dreamer`, `Lament for Pelinal`, and `A Type of Zero Still to Be Discovered` are verified reused Michael Kirkbride developer/obscure material;
-- the exact original standalone publication/authorship trail for the long `Ghost Choir 9` BOOK remains unresolved.
+- the long `Ghost Choir 9` BOOK is verified Michael Kirkbride unofficial/developer-text reuse, originally posted to **The Elder Scrolls Forums** on **2012-02-18**.
 
-## Resume here
+## Completion marker
 
-### P1 — SCEN coverage
+For source hash:
 
-Build a deterministic index over all **79 SCEN records**.
+`455f07f3bba5de5b1b5a84c882be3309a66fd3d503866e05658b99896dfdb00e`
 
-For each scene:
+> **First-pass DAc0da ESM lore ingestion: COMPLETE**
 
-1. capture local FormID and EditorID;
-2. resolve the owning quest where possible;
-3. decode scene actor/alias references;
-4. map aliases back to QUST alias names and concrete NPCs;
-5. identify dialogue/actions that are only recoverable through scene structure;
-6. flag scenes that materially change an existing character, quest, or chronology dossier.
+Additional completion work after the earlier checkpoint:
 
-Prioritize scene-only lore over pure choreography.
+- all 79 SCEN records indexed;
+- worldspace/location layers indexed;
+- character-form families indexed;
+- creature/faction and custom-race morphology passes completed;
+- narrative artifacts indexed;
+- 66 MESG records covered by insight/system passes;
+- Generic Dialogue and Citizen Dialogue normalized;
+- named NPC gap pass completed;
+- all 1,027 INFO records deterministically mapped to exactly one owning quest;
+- no orphan, unresolved-parent, ownerless-QNAM, or multi-owner INFO records remain;
+- Daggerfall and Nahd/apocryphal provenance separated;
+- Ghost Choir 9 exact text and original publication metadata resolved;
+- comprehensive gap audit and completeness report committed.
 
-### P2 — entity/location coverage
+## Resume here — second-pass synthesis
 
-After the first scene pass:
+Do not re-run broad ingestion unless the source hash changes.
 
-- expand unresolved NPC/form families;
-- index important CELL/WRLD/location layers;
-- index artifacts/items/creatures where placement, inventory, or scripts carry lore.
+### P1 — cross-Vicn direct-link reconciliation
 
-### P3 — remaining provenance
+Prioritize:
 
-Recover the exact standalone source for the long **Ghost Choir 9** text if possible.
+- Brain-Billies;
+- Xero-Lyg;
+- Radiance / Mnemo-Li / Blue Star;
+- Adjacent Places / Lyg / Grabbers;
+- Jhunal / Owl;
+- GC9 / LYG;
+- Romion / Rolls-On-Roads;
+- Altano / Radiance.
 
-Preserve conditional branches, speaker reliability, alternate realities, source provenance, and mechanical-vs-narrative evidence boundaries. Do not silently promote DAc0da/Vicn claims into official Elder Scrolls canon.
+For each node, distinguish:
+
+1. same proper noun / rare vocabulary used independently by multiple Vicn plugins;
+2. direct named relationship between characters/works;
+3. external obscure-text vocabulary reused by multiple works;
+4. thematic resemblance only.
+
+### P2 — topic/claim promotion
+
+Promote only evidence-backed shared claims into the parent Vicn/Lorekeeper layer. Preserve plugin-specific evidence pointers.
+
+### P3 — targeted unresolved questions
+
+Examples:
+
+- Papyrus-only runtime details if scripts are later supplied;
+- exact identity relationships that remain merely suggested;
+- deeper cross-work reconciliation where the same rare term has different mechanics.
+
+Do not flatten branch states, unreliable testimony, reused external sources, or one work's mechanics into another work's canon.

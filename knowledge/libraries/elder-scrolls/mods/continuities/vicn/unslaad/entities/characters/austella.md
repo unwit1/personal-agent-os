@@ -70,3 +70,15 @@ Do not automatically identify:
 - the Hermit's "pretender" with every Jhunal manifestation in the VICN continuity.
 
 The direct connection is specifically between Austella and the Gray Owl/Jhunal representation used in UNSLAAD.
+
+## Bargain-target closure
+
+The **speaker** side of Austella's bargain is sufficiently resolved: the active UNSLAAD scene uses the Gray-Owl/Jhunal representation, and the Hermit's testimony plus the later Gray-Owl confession support the pretender/appropriated-Jhunal reading.
+
+The object of Austella's phrase **"that person"** is not named by the scene, and the current indexed quest/VMAD evidence does not expose a property or alias that resolves it.
+
+Therefore:
+- Gray Owl/Jhunal as bargain partner: resolved.
+- identity of "that person": intentionally unresolved.
+
+Do not keep this phrase in the active ingestion backlog unless new script, scene, or dialogue evidence directly names the referent.

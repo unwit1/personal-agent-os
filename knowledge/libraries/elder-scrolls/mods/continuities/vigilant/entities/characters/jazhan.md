@@ -2,7 +2,7 @@
 
 - Continuity: `tes.mod.vigilant`
 - Role: historical witness to Mary/Moura's healing and execution
-- Exact NPC FormID: not yet persisted in the current browsable repository corpus
+- Primary form: `NPC_ 020FED32` / `zzzCHJazhan` — **Ja'zhan**
 
 ## Eyewitness account of Mary
 
@@ -67,3 +67,95 @@ Still unresolved:
 ## Canon boundary
 
 Ja'zhan's eyewitness narrative and its connection to Mary/Moura are VIGILANT continuity material. The mod uses established Alessian, Mara, and plague concepts as substrate but supplies this specific witness history itself.
+
+
+## More Skooma / Sir Ralvas direct-source roles
+
+The supplied VIGILANT 1.8.2 ESM directly binds Ja'zhan to:
+- `QUST 021273E0` / **More Skooma** as alias `Khajiit`;
+- `QUST 021306FA` / **Knight of Zenithar** as alias `Cat`.
+
+### More Skooma
+
+Ja'zhan says he is trapped by:
+- leeches in the sewer;
+- a large guard near the prison entrance;
+- dwindling skooma supplies.
+
+After the player's help, he says he can get fresh air again and offers cheap trade.
+
+### Sir Ralvas's head
+
+In **Knight of Zenithar**, Ja'zhan offers a strange golden-looking “helmet” found in the sewer for 100 gold.
+
+That object is structurally the route to recovering Sir Ralvas's missing head.
+
+This adds a comedic but direct Ja'zhan ↔ Ralvas quest link.
+
+See:
+- `dialogue/act4/recovered-sidequests.md`
+
+
+## Authored trilogy — direct VIGILANT books
+
+Ja'zhan is not only an encounter/witness NPC. VIGILANT directly credits him as author of three books:
+
+- `BOOK 02054ED4` — **What Khajiit Saw**
+- `BOOK 02054ED5` — **What Khajiit Heard**
+- `BOOK 02054ED6` — **What Khajiit Said**
+
+These books substantially deepen his worldview.
+
+### What Khajiit Saw
+
+Ja'zhan condemns Cyrodiilic nobles who adopt Khajiiti children while abusing them.
+
+His account centers on a five-year-old child subjected to severe physical abuse and winter confinement.
+
+The point of the account is not simply anti-human prejudice: Ja'zhan frames cruelty toward children as evidence that outwardly cultured people can conceal predatory behavior.
+
+### What Khajiit Heard
+
+Ja'zhan recounts a wealthy retired knight of the Alessian Order after the cleansing of Malada.
+
+According to the account:
+- the knight believed status gave him power over subjects' lives;
+- a servant's nine-year-old child accidentally injured one of the knight's hounds;
+- the child was imprisoned overnight;
+- the next morning the knight turned the child loose and had his hounds hunt and kill him in front of the child's mother.
+
+This directly gives Ja'zhan an anti-Alessian historical/moral critique independent of his Mary testimony.
+
+The knight remains unnamed in the text and should not be assigned to a known Alessian character without additional evidence.
+
+### What Khajiit Said
+
+The final book explicitly rejects what Ja'zhan calls Alessian **harmony** when that harmony requires innocent suffering.
+
+Its repeated child images include:
+- the child confined in the cold latrine;
+- a child lost in red mist;
+- a child struggling with a rope.
+
+Ja'zhan says unheard suffering must be atoned for and that no truth is worth a system in which children must suffer for atonement.
+
+He says he would maintain that position even at a chopping block.
+
+## Ja'zhan's ethical position
+
+Across the trilogy and his Mary testimony, Ja'zhan consistently opposes:
+- institutional cruelty hidden behind civilization or religious authority;
+- punishment of innocents;
+- abstract harmony or truth purchased through victimization;
+- Alessian persecution.
+
+This makes him a significant ethical witness in VIGILANT rather than merely comic relief or a skooma merchant.
+
+## Distribution
+
+The direct placement index shows the trilogy distributed broadly through Coldharbour, including Jo'vanni's House, the Slums, Bruiant Mansion, Mathmalatu Priory, Narfin's Inquisition Court, Prison Tower, and other sites.
+
+That distribution gives the books environmental-narrative relevance across multiple Coldharbour districts.
+
+Exact placements remain catalogued in:
+- `indexes/book-location-placements.md`

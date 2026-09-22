@@ -17,7 +17,7 @@ This page treats the thirteen numbered visions as a cross-story prophecy/index a
 | 6 | Melus Petilius / Vena / returning graverobber | high | Melus explicitly says he repeatedly crushes the returning graverobber's skull |
 | 7 | The Falling Khajiit cluster | medium-low | suicide by jumping and “bottomless abyss” are direct echoes; Stone transfer remains unexplained |
 | 8 | unresolved brother episode | low | brother pair and burning-hand transfer lack a unique matched scene |
-| 9 | unnamed fiery-eyed slave trader | medium | Pepe remembers a slave trader emerging alive with eyes that burned like fire; exact preceding murder remains unresolved |
+| 9 | unnamed fiery-eyed slave trader | high for role; identity unresolved | the prophecy directly names an unnamed slave trader killing the stanza-8 brother and passing through a gate after the burning Stone looks into his eyes; Pepe independently remembers a fiery-eyed slave trader emerging alive from a sarcophagus |
 | 10 | Jacob and Rahel / Old Regrets | high for bargain; medium for Stone identity | dying Vigilant sacrifices his wife's soul for revival—an explicit “false heartbeat” analogue |
 | 11 | likely Julia/Julius / Bruiant family | medium-low | jealousy, burning mother, following child, and coldness fit the mansion tragedy, but no explicit Stone-swallow line survives |
 | 12 | Altano / Temple of Stendarr collapse | high | man with no past is exact; he brings Bal's mace to the Temple; later Temple/Horn imagery matches strongly |
@@ -85,11 +85,15 @@ VIGILANT contains several important brother pairs, especially Simon/Tlass around
 
 ## 9 — brother killed by a slave trader; fiery eyes; gate
 
-Current mapping: unnamed slave-trader figure — medium confidence.
+Current mapping: unnamed fiery-eyed slave-trader figure — **high confidence for the role, unresolved personal identity**.
 
-INFO 0212F271 is the strongest anchor: Pepe remembers another living person emerging from the sarcophagus before the player, believes he was a slave trader, and says the man's eyes burned like fire. The eight Slave Trader notes form a deliberately cryptic trail through Act 4 locations/events. The prophecy's exact statement that the slave trader killed the stanza-8 brother has not yet been independently recovered.
+The prophecy itself directly states that the stanza-8 brother is killed by an unnamed slave trader; a gate opens; the burning Stone looks into the trader's eyes; and he steps through the gate.
 
-The documentary sequence and known placements are reconstructed separately in `analysis/slave-trader-note-trail.md`.
+INFO 0212F271 independently strengthens that identification: Pepe remembers another living person emerging from the sarcophagus before the player, believes he was a slave trader, and says the man's eyes burned like fire. The eight Slave Trader notes form a deliberately cryptic trail through Act 4 locations/events.
+
+What remains unresolved is not stanza 9's role, but the trader's personal name/base actor and the exact ownership/acquisition chain for all eight notes.
+
+The documentary sequence and known placements are reconstructed separately in `analysis/slave-trader-note-trail.md`; the normalized identity node is `entities/characters/slave-trader.md`.
 
 ## 10 — Vigilant trades love for a false heartbeat
 

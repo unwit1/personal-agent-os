@@ -1,103 +1,104 @@
 # Reyda
 
 - Continuity: `tes.mod.vigilant`
-- Role: Ivarstead witch / Molag Bal-associated antagonist
-- Main narrative cluster: **No Mercy → The Endless Fall**
-- Associated location: **Witch's Outlook**
-- Exact NPC FormID: not yet persisted in the current browsable repository corpus
+- Primary form: `NPC_ 0216685A` / `zzzAoMBossReyda` — **Reyda**
+- Placement: `ACHR 02171D70` on **AoMWitchIsland** (`CELL 0216685B`)
+- Quest: `QUST 0217576E` / **The Witch of Ivarstead**
+- Quest alias: **Witch**
+- Direct source: translated VIGILANT 1.8.2 ESM
 
-## ESM-level anchor
+## Direct self-identification
 
-The current VIGILANT prophecy analysis preserves a direct Reyda statement connecting the player to the Stone.
+Reyda directly says:
 
-Reyda says, in substance, that:
-- the **Stone is Molag Bal**;
-- she can recognize contact with it from the fire behind the player's eyes.
+> Me? I'm Reyda, a Glenmoril witch.
 
-This makes Reyda an unusually important pre-Coldharbour witness for the Stone/Molag Bal identity motif.
+and:
 
-Her statement remains character testimony rather than neutral cosmology.
+> Ivarstead is mine. All people and beasts here belong to me.
 
-## No Mercy / Endless Fall position
+## No Mercy aftermath
 
-Community quest transcripts consistently place Reyda as the actual dangerous witch encountered after the Carene/Lilian moral choice in **No Mercy**, leading into **The Endless Fall**.
+Reyda says she watched the preceding family tragedy from the beginning.
 
-This is narratively significant because:
-- Carene and Lilian may be condemned as “witches” despite being a family trying to cure Taranis;
-- Reyda is the genuinely hostile supernatural figure in the same Ivarstead cluster;
-- the contrast sharpens VIGILANT's critique of indiscriminate Vigilant judgment.
+She accuses the player of:
+- killing an innocent woman;
+- killing her child;
+- bringing the curse on themselves.
 
-## Hilda testimony
+She says she only watched and made the fog somewhat thicker.
 
-A community transcript of Hilda the Witch's dialogue provides a fuller Reyda backstory:
+Her account is hostile testimony, not neutral adjudication.
 
-Hilda remembers Reyda as:
-- an alchemist in Ivarstead;
-- a village girl caring for a sick brother;
-- someone who regularly bought ingredients from Hilda;
-- one of Hilda's few friends.
+## Molag Bal
 
-Hilda then says Reyda disappeared, died, and had her soul claimed by Molag Bal. When Hilda later saw her again, Reyda had become a monstrous form and drained Hilda's life/power.
+When first accused of serving Molag Bal, Reyda evades.
 
-This is useful character testimony but is currently sourced through a community transcript rather than the persisted ESM extraction.
+After being defeated and begging for mercy, she directly says:
 
-## The Endless Fall dialogue
+> I was deceived by Molag Bal.
 
-Community dialogue transcripts preserve Reyda:
-- mocking Stendarr;
-- invoking Molag Bal's transformation of a Nede from mortal to beast;
-- threatening the player;
-- invoking **Laza**;
-- reacting differently depending on whether the player shows mercy;
-- threatening to spread destruction through Ivarstead if spared.
+This makes Molag Bal involvement direct ESM evidence.
 
-These lines connect Reyda to:
-- Molag Bal;
-- Laza;
-- the mercy/coercion theme;
-- the broader “endless fall” transformation motif.
+## Burnt soul / inner Oblivion
 
-## Stone witness value
+Reyda tells the player:
 
-Reyda's Stone statement matters beyond her own quest.
+> Your black soul found the gates of your inner Oblivion.
 
-It supports the same larger motif seen elsewhere:
-- Stone contact changes or marks people;
-- Molag Bal and the Stone are repeatedly treated as overlapping/identical by some speakers;
-- fiery eyes recur in prophetic and slave-trader material.
+She says the gate will eventually swallow the player from within and that the player is already trapped in Oblivion.
 
-Lorekeeper should preserve:
-- **Reyda claims Stone = Molag Bal**
-rather than:
-- **Stone objectively equals Molag Bal in all contexts**.
+## The Stone
 
-## Current classification
+When asked what Stone she means, Reyda directly says:
 
-**High-confidence role:** major witch antagonist/witness in the Ivarstead branch.
+> That Stone is Molag Bal.
 
-**High-value testimony:** Stone/Molag Bal and fiery-eye recognition.
+She references:
+- the demon who violated a Nede woman;
+- transformation from mortal to beast;
+- “the oldest of the fallen.”
 
-**Supplementary backstory:** former Ivarstead alchemist, sick brother, Hilda friendship, death and Molag Bal claim.
+This is direct VIGILANT testimony for **Stone = Molag Bal** in Reyda's interpretation.
 
-## Relationship map
+It should remain attributed testimony rather than a universal objective equation.
 
-- **Reyda → associated with → Witch's Outlook**
-- **Reyda → linked to → No Mercy / The Endless Fall**
-- **Reyda → claims → Stone is Molag Bal**
-- **Reyda → recognizes → Stone contact by fiery eyes**
-- **Hilda → remembers → Reyda as former alchemist/friend**
-- **Hilda → says → Molag Bal claimed Reyda after death**
-- **Reyda → invokes → Laza**
+## Fire behind the eyes
+
+Reyda recognizes Stone contact:
+
+> I know now the nature of the flame burning behind your eyes. You've touched the Stone, haven't you?
+
+She says she can smell the player's burnt soul and calls the player a monster.
+
+This directly supports the fiery-eye / burnt-soul / Stone-contact motif.
+
+## Laza
+
+Reyda's death line is:
+
+> You monster... Laza will devour you...
+
+This gives a direct Reyda → Laza relationship.
+
+The exact mechanism of that threat remains unexplained here.
+
+## Mercy branch
+
+If spared, Reyda promises a modest life.
+
+A later branch reveals what she means:
+
+> I'll spread my fury among the people of Ivarstead.
+
+She defines a witch's “modest life” as destroying everything unable to escape her gaze.
 
 ## Source boundary
 
-The Stone statement is already preserved in the VIGILANT repository analysis.
+The direct ESM now supplies Reyda's identity, Molag Bal involvement, Stone claim, Laza line, curse doctrine, and branching outcome.
 
-The more detailed Hilda/Reyda biography and branching dialogue currently come from community dialogue transcripts and should remain labeled supplementary until direct INFO records are recovered from the source plugin.
-
-Supplementary source index:
-- `sources/supplementary/community-transcript-sources.md`
+Community transcripts remain secondary only where they preserve background not yet mapped here.
 
 ## Canon boundary
 
-Reyda's biography, transformation, Ivarstead role, and Stone testimony belong to `tes.mod.vigilant`.
+Reyda is VIGILANT-continuity material.

@@ -28,3 +28,16 @@ After the revival sequence, Fluffy describes something warm filling Ulliss, "lik
 ## Owls
 
 Jhunal explicitly refers to "my other friends, the Owls." This is direct evidence that Gray Owl is not merely a solitary nickname but is presented by Jhunal as belonging to or associated with a plural Owl group.
+
+## Time-transition closure
+
+The Long Winter time jump is structurally resolved at the level needed for retrieval:
+
+- the quest explicitly sends the player to future Unslaad;
+- Fluffy gives an approximate several-century elapsed interval;
+- Mq05 later exposes `LizzTimeWarpMarker` plus present/Lost-Unslaad door routing;
+- persistent characters and the Blades aftermath corroborate a major forward displacement.
+
+Do not convert Fluffy's rough estimate into an exact date.
+
+The warm/life-growing language after Ulliss's revival is narratively important and later aligns with Lizz's lineage, but its exact biological/metaphysical mechanism remains deliberately unstated. That uncertainty is now classified rather than pending extraction.

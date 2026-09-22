@@ -58,6 +58,8 @@ A separate ACTI audit finds **28 objects with the activation verb "Gain Insight.
 
 - 033B3ECD — zzzCrbMsgInsightYngolFlame — Yngol as strategist/blacksmith; dreams of a dragon wearing his armor; Yngol/Ylgar ashes combine and Grit-Prince Tstunal rises.
 
+**Provenance note:** the rare Yngol/Ylgar/Tstunal cluster matches the apocryphal *The Shezarrine* tradition already stored in the source library. Treat the Insight as a Vicn adaptation/extension of external substrate, not wholly original prose/history. See `relationships/yngol-tstunal-shezarrine-source-bridge.md`.
+
 ## KINMUNE fragments
 
 - 033AC26D — zzzCrbMsgInsightKinmune01 — ANON/ANU/ANUI-EL / Queen Ayreen fragment.

@@ -167,3 +167,98 @@ Use this index when a lore question depends on:
 - where a boss or transformed actor is physically placed.
 
 Do not infer culture, intelligence, or chronology solely from combat-class names when dialogue or quest evidence is absent.
+
+
+## Worm Cult / necromancer forces
+
+DAc0da distinguishes several recurring Black-Worm combat roles:
+
+- **Worm Spellsword**
+- **Worm Knight**
+- **Worm Assassin**
+- **Worm Berserker**
+- **Worm's Sacrifice**
+- **Worm's Midwife**
+
+Named Worm Anchorites:
+
+- `0043CE` — **Bolor Savel the Worm Anchorite**
+- `0043D0` — **Mercator Hosidus the Worm Anchorite**
+- `0043D1` — **Camilla Lollia the Worm Anchorite**
+
+Important boss/state forms:
+
+- `003104` — **Worm's Midwife**
+- `003075` — **Mannimarco the God of Worms**
+- `00606E` — **Necromancer's Moon**
+
+These forces cluster around the Sload-city / Revenant-Gate side of **Echoes of Mnemolichite**.
+
+## Goldborn
+
+DAc0da defines a distinct gold/bone encounter ecology:
+
+- **Goldborn**
+- **Goldborn Crawler**
+- **Goldborn Wheeler**
+- **Goldborn Guardian**
+- **Goldborn Colossus**
+- **Goldborn Skirmisher**
+- **Goldborn Storm**
+
+Representative source forms:
+
+- `005F2A` — Goldborn
+- `005F59` — Goldborn Crawler
+- `005F61` — Goldborn Wheeler
+- `005F53` / `005F56` — Goldborn Guardian
+- `005F52` — Goldborn Colossus
+- `005FC2` — Goldborn Skirmisher
+- `005FD8` — Goldborn Storm
+
+Many also have separate summon and auto-delete variants. Their encounter-family structure is concrete; their exact metaphysical origin should remain quest-contextual rather than inferred from the gold/bone naming alone.
+
+## Dwemereth / Dwemer encounter family
+
+DAc0da defines humanoid Dwemer-derived or Dwemer-associated roles including:
+
+- **Dwarven Warrior**
+- **Dwarven Worker**
+- **Dwarven Architon**
+- **Dwemer Specter**
+- **Nchunak the Evangelist**
+- **Nchunak the Second**
+- **Dumac's Tonalframe**
+- **Mecha-Kanra**
+
+Representative forms:
+
+- `0084E9` — Dwarven Warrior
+- `0084F7` — Dwarven Worker
+- `008585` — Dwarven Architon
+- `00CBF9` / `00CBFC` — Dwemer Specter
+- `006B69` — **Nchunak the Evangelist**
+- `00858C` — **Nchunak the Second**
+- `00B1F8` — **Dumac's Tonalframe**
+- `00D024` — **Mecha-Kanra**
+
+The separate worker/warrior labels are useful machine-world role vocabulary. Named boss forms should be analyzed individually rather than treated as generic species representatives.
+
+## Apocryphal encounter family
+
+DAc0da implements an Apocrypha-linked combat ecology inside the Numidium material:
+
+- **Apocryphal Hound**
+- **Apocryphal Hunter**
+- **Arcanist**
+- **Frayed Fate**
+
+Representative forms:
+
+- `0085A7` — Apocryphal Hound
+- `0085B2` — Apocryphal Hunter
+- `00B217` — Arcanist
+- `00CBC6` — Frayed Fate
+- `00CBCF` — Arcanist summon
+
+These forms support the MQ04 evidence that Apocryphal contamination has entered Numidium and is being isolated into an Adjacent Place.

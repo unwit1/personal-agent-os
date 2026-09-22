@@ -107,3 +107,20 @@ These post-quest descriptions strongly reinforce the existing Atmora / dragon-dr
 Placed-reference analysis finds separate inspection objects for **Jhunal the Gray** and **Gray Owl** in different Dragon's Peak cells. The Jhunal body has an unknown real name; the Gray-Owl body is described as shattered after pursuing the dragon.
 
 Because dialogue elsewhere directly links Jhunal the Gray to the Gray Owl title, this supports a model with **multiple bodies/representations/states** inside the identity network rather than either a universal one-body merge or a complete identity split.
+
+## Merge boundary
+
+The supported merge is **narrative identity linkage**, not universal deific equivalence.
+
+Safe:
+- the active Jhunal-the-Gray representation calls himself the Gray Owl;
+- multiple Jhunal-the-Gray forms participate in one narrative identity family;
+- the Gray Owl says he used the name Jhunal for millennia;
+- he acknowledges an older distinction between himself and the god remembered as Jhunal.
+
+Unsafe without additional source evidence:
+- every historical deed of deific/original Jhunal was performed by this Gray Owl;
+- every Owl body is one continuous physical body;
+- VIGILANT/GLENMORIL/UNSLAAD Jhunal manifestations are automatically the same body or timeline-state.
+
+For cross-work questions, route through parent `../../relationships/jhunal-identity-matrix.md` before merging identities.

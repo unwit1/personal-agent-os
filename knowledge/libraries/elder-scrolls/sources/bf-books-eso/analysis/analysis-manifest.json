@@ -1,0 +1,14 @@
+{
+  "analysis_version": "eso-books-first-pass-v1",
+  "source": "BF_Books_ESO.esp",
+  "books_analyzed": 4277,
+  "analysis_batch_count": 86,
+  "batch_size": 50,
+  "final_batch_size": 27,
+  "entity_candidate_count": 61778,
+  "claim_seed_count": 11812,
+  "claim_promotion_status": "candidate_only_requires_review",
+  "completeness": "4277/4277",
+  "raw_evidence_path": "../batches/",
+  "analysis_path": "./"
+}

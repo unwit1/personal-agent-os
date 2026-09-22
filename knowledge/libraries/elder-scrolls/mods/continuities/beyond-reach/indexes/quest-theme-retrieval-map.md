@@ -1,0 +1,403 @@
+# Beyond Reach Quest Theme Retrieval Map
+
+This map groups the 196 QUST records by lexical evidence in quest titles, editor IDs, journal text, objectives, and aliases. It is a retrieval aid, not an assertion that every matched quest is centrally about the category.
+
+## Evermore and royal politics (50)
+
+- `04017980` — **LAY HER TO REST** (`ARNIMAcemetaryquest`) — lore-records-0001.jsonl:11
+- `04017F4C` — **Red Dawn** (`arnimareddawnquestbug`) — lore-records-0001.jsonl:12
+- `0401BCE9` — **One Aching Vista, Everlasting** (`Arnimaexilequest1`) — lore-records-0001.jsonl:13
+- `0401D3D7` — **A Wish for Wings** (`ArnimaGriffonQuest`) — lore-records-0001.jsonl:15
+- `04021B39` — **THE WORST IS YET TO COME** (`arnimamainquest7`) — lore-records-0001.jsonl:17
+- `040297FF` — **Warden of Souls** (`ArnimaWolfShamanQuest`) — lore-records-0001.jsonl:21
+- `04031000` — **ArnimaAyleidKingVoiceQuest** (`ArnimaAyleidKingVoiceQuest`) — lore-records-0001.jsonl:23
+- `040318AB` — **Confluence Of Desire** (`ArnimaMQ14AfterBountyQuest`) — lore-records-0001.jsonl:24
+- `04035D99` — **Interloper** (`arnimamainquest8`) — lore-records-0001.jsonl:25
+- `0403885D` — **Beast Beneath** (`arnimaevermorequest2`) — lore-records-0001.jsonl:28
+- `0403BDA8` — **What it takes** (`arnimamainquest9`) — lore-records-0001.jsonl:30
+- `0403DF8F` — **Opiate of the Masses** (`arnimaexilequest4`) — lore-records-0001.jsonl:31
+- `040441C8` — **Rags To Riches** (`arnimamainquest10`) — lore-records-0001.jsonl:32
+- `0404D2FE` — **Service of Sin** (`arnimainvisiblemainquest`) — lore-records-0001.jsonl:35
+- `0404D8D5` — **Beyond Reach** (`arnimamainquest0`) — lore-records-0001.jsonl:36
+- `040529CF` — **Hunting Hope** (`arnimamainquest3`) — lore-records-0001.jsonl:41
+- `0405AE4B` — **End of Eternal Grey** (`arnimamainquest5`) — lore-records-0001.jsonl:45
+- `0405EAD3` — **Relic Reaching** (`arnimamainquest4new`) — lore-records-0001.jsonl:47
+- `04060D87` — **Orcs Vs Evermore** (`ArnimaWEOrcsBattle`) — lore-records-0001.jsonl:48
+- `0406220B` — **The lost shibbledibble** (`arnimajokequest`) — lore-records-0001.jsonl:50
+- `0408F505` — **Plight of the Plagued** (`arnimahorustairquest`) — lore-records-0002.jsonl:28
+- `0409FB63` — **Forever Evermore** (`arnimaevermorequest1`) — lore-records-0002.jsonl:33
+- `040A6E67` — **ArnimaMadShamanQuest** (`ArnimaMadShamanQuest`) — lore-records-0002.jsonl:35
+- `040A9364` — **Talking scenes by king as you ascend tower** (`ArnimaVoidKingAscendTowerScenes`) — lore-records-0002.jsonl:38
+- `040D7AD5` — **Wool for Wolves** (`ArnimaMainQuest12Damian`) — lore-records-0003.jsonl:2
+- `040E70A8` — **Remembering the Rubicon** (`ArnimaOrcMainquest3`) — lore-records-0003.jsonl:4
+- `040E70A9` — **black and tans** (`ArnimaOrcMainQuest4`) — lore-records-0003.jsonl:5
+- `040E70AA` — **Conatus** (`ArnimaOrcMainQuest5`) — lore-records-0003.jsonl:6
+- `040EA1DB` — **Hidden Blade** (`arnimabladequest`) — lore-records-0003.jsonl:7
+- `040F6154` — **MER DE SANG** (`arnimathalmororcquest`) — lore-records-0003.jsonl:8
+- `04126635` — **From Dust** (`arnimafromdust2`) — lore-records-0003.jsonl:12
+- `04135497` — **ArnimaBeastBurrowKingScene** (`ArnimaBeastBurrowKingScene`) — lore-records-0003.jsonl:18
+- `041777BB` — **ArnimaSeekerPrinceVoice** (`ArnimaSeekerPrinceVoice`) — lore-records-0003.jsonl:32
+- `042F3AFC` — **ArnimaQuarryScene1** (`ArnimaQuarryScene1`) — lore-records-0004.jsonl:8
+- `04361A42` — **Quests started from giving Hermeus Mora Prince special Soul gem.** (`ArnimaPastQuest1`) — lore-records-0004.jsonl:12
+- `04371B39` — **ArnimaPastQuest2** (`ArnimaPastQuest2`) — lore-records-0004.jsonl:14
+- `04371B3B` — **ArnimaPastQuest4** (`ArnimaPastQuest4`) — lore-records-0004.jsonl:16
+- `04371B3C` — **ArnimaPastQuest5** (`ArnimaPastQuest5`) — lore-records-0004.jsonl:17
+- `04371B3D` — **ArnimaPastQuest6** (`ArnimaPastQuest6`) — lore-records-0004.jsonl:18
+- `04399E97` — **ArnimaDamianVoiceQuest** (`ArnimaDamianVoiceQuest`) — lore-records-0004.jsonl:20
+- `04399E9C` — **ArnimaMortifayneVoiceQuest** (`ArnimaMortifayneVoiceQuest`) — lore-records-0004.jsonl:25
+- `04399EF2` — **ArnimaLastKingVoiceQuest** (`ArnimaLastKingVoiceQuest`) — lore-records-0004.jsonl:26
+- `043B0AE9` — **DREAMS OF PEACE** (`ArnimaMainquest11`) — lore-records-0004.jsonl:28
+- `043B67E5` — **Periphery** (`ArnimaMainQuest12`) — lore-records-0004.jsonl:29
+- `043B67E6` — **Pathos for Perdition** (`ArnimaMainquest13`) — lore-records-0004.jsonl:30
+- `043B67E7` — **Iris** (`ArnimaMainQuest14`) — lore-records-0004.jsonl:31
+- `0444A95F` — **Gestalt** (`ArnimaRejectsRespiteQuest`) — lore-records-0004.jsonl:32
+- `04528EB8` — **A Dual Soul and the Wayward Witch** (`ArnimaDenizeQuest`) — lore-records-0004.jsonl:38
+- `04557CB5` — **Greener Pastures** (`ArnimaOrcMainQuest1`) — lore-records-0004.jsonl:41
+- `045A46C9` — **Descent of the Eternal Rabbit** (`ArnimaDirenniApocQuest`) — lore-records-0004.jsonl:43
+
+## Arnima / Divide / local settlements (190)
+
+- `0400D0FF` — **ArnimaWoundedMercQuest** (`ArnimaWoundedMercQuest`) — lore-records-0001.jsonl:7
+- `04011E38` — **ArnimaAftermathTownScene** (`ArnimaAftermathTownScene`) — lore-records-0001.jsonl:8
+- `0401781E` — **arnimaNPCcoversations** (`arnimaNPCcoversations`) — lore-records-0001.jsonl:9
+- `0401791B` — **Web of Intrigue** (`arnimaspidercavequest`) — lore-records-0001.jsonl:10
+- `04017980` — **LAY HER TO REST** (`ARNIMAcemetaryquest`) — lore-records-0001.jsonl:11
+- `04017F4C` — **Red Dawn** (`arnimareddawnquestbug`) — lore-records-0001.jsonl:12
+- `0401BCE9` — **One Aching Vista, Everlasting** (`Arnimaexilequest1`) — lore-records-0001.jsonl:13
+- `0401D3C1` — **arnimatravel** (`arnimatravel`) — lore-records-0001.jsonl:14
+- `0401D3D7` — **A Wish for Wings** (`ArnimaGriffonQuest`) — lore-records-0001.jsonl:15
+- `04020429` — **The lost and the Damned** (`Arnimalostdamned`) — lore-records-0001.jsonl:16
+- `04021B39` — **THE WORST IS YET TO COME** (`arnimamainquest7`) — lore-records-0001.jsonl:17
+- `04024ED8` — **ArnimaCapturedWomanQuest2** (`ArnimaCapturedWomanQuest2`) — lore-records-0001.jsonl:18
+- `04027B20` — **ArnimaMarxusVoiceQuest** (`ArnimaMarxusVoiceQuest`) — lore-records-0001.jsonl:19
+- `04028851` — **arnimatrollbasement** (`arnimatrollbasement`) — lore-records-0001.jsonl:20
+- `040297FF` — **Warden of Souls** (`ArnimaWolfShamanQuest`) — lore-records-0001.jsonl:21
+- `0402B523` — **COME HITHER HORROR** (`arnimamainquest6new`) — lore-records-0001.jsonl:22
+- `04031000` — **ArnimaAyleidKingVoiceQuest** (`ArnimaAyleidKingVoiceQuest`) — lore-records-0001.jsonl:23
+- `040318AB` — **Confluence Of Desire** (`ArnimaMQ14AfterBountyQuest`) — lore-records-0001.jsonl:24
+- `04035D99` — **Interloper** (`arnimamainquest8`) — lore-records-0001.jsonl:25
+- `0403767F` — **ArnimaMainquest12Bog** (`ArnimaMainquest12Bog`) — lore-records-0001.jsonl:26
+- `04037680` — **ArnimaMainquest12Outpost** (`ArnimaMainquest12Outpost`) — lore-records-0001.jsonl:27
+- `0403885D` — **Beast Beneath** (`arnimaevermorequest2`) — lore-records-0001.jsonl:28
+- `0403BBAC` — **arnimaexecution** (`arnimaexecution`) — lore-records-0001.jsonl:29
+- `0403BDA8` — **What it takes** (`arnimamainquest9`) — lore-records-0001.jsonl:30
+- `0403DF8F` — **Opiate of the Masses** (`arnimaexilequest4`) — lore-records-0001.jsonl:31
+- `040441C8` — **Rags To Riches** (`arnimamainquest10`) — lore-records-0001.jsonl:32
+- `04046F8F` — **Malacath's March** (`arnimamainquest2`) — lore-records-0001.jsonl:33
+- `04046FA2` — **arnimamainquest2officertalk** (`arnimamainquest2officertalk`) — lore-records-0001.jsonl:34
+- `0404D2FE` — **Service of Sin** (`arnimainvisiblemainquest`) — lore-records-0001.jsonl:35
+- `0404D8D5` — **Beyond Reach** (`arnimamainquest0`) — lore-records-0001.jsonl:36
+- `0404E413` — **ArnimaBrothelDialogue** (`ArnimaBrothelDialogue`) — lore-records-0001.jsonl:37
+- `0404FAC0` — **Wearing your kills** (`arnimaexilequest2`) — lore-records-0001.jsonl:38
+- `0405135E` — **arnimabridgeradiant3** (`arnimabridgeradiant3`) — lore-records-0001.jsonl:39
+- `0405147D` — **Bounty Horustair** (`ArnimaBountyQuests2`) — lore-records-0001.jsonl:40
+- `040529CF` — **Hunting Hope** (`arnimamainquest3`) — lore-records-0001.jsonl:41
+- `04056FD3` — **ArnimaGriffonGirlQuest** (`ArnimaGriffonGirlQuest`) — lore-records-0001.jsonl:42
+- `04059AA6` — **Mystery in the Tree** (`arnimaevermorequest3`) — lore-records-0001.jsonl:43
+- `0405A73A` — **ArnimaTownEventTorturedOrc** (`ArnimaTownEventTorturedOrc`) — lore-records-0001.jsonl:44
+- `0405AE4B` — **End of Eternal Grey** (`arnimamainquest5`) — lore-records-0001.jsonl:45
+- `0405DA87` — **arnimaForlornRadiant** (`arnimaForlornRadiant`) — lore-records-0001.jsonl:46
+- `0405EAD3` — **Relic Reaching** (`arnimamainquest4new`) — lore-records-0001.jsonl:47
+- `04060D87` — **Orcs Vs Evermore** (`ArnimaWEOrcsBattle`) — lore-records-0001.jsonl:48
+- `04060FBB` — **ArnimaBeggarDivideQuest** (`ArnimaBeggarDivideQuest`) — lore-records-0001.jsonl:49
+- `0406220B` — **The lost shibbledibble** (`arnimajokequest`) — lore-records-0001.jsonl:50
+- `040652F5` — **arnimabridgeSCENE1** (`arnimabridgeSCENE1`) — lore-records-0002.jsonl:1
+- `04065304` — **arnimabridgeSCENE2** (`arnimabridgeSCENE2`) — lore-records-0002.jsonl:2
+- `04065333` — **ArnimaTOWNSCENE1** (`ArnimaTOWNSCENE1`) — lore-records-0002.jsonl:3
+- `04065C78` — **ArnimaWIShopGreetings** (`ArnimaWIShopGreetings`) — lore-records-0002.jsonl:4
+- `04069096` — **Boss for Jehanna Area** (`ArnimaJehannaBossSpawnerRadiant`) — lore-records-0002.jsonl:5
+- `0406A744` — **ArnimaSilatDialogue** (`ArnimaSilatDialogue`) — lore-records-0002.jsonl:6
+- `0406B5A4` — **ArnimaCommonDialogue** (`ArnimaCommonDialogue`) — lore-records-0002.jsonl:7
+- `0406CFAF` — **arnimahunterquest1** (`arnimahunterquest1`) — lore-records-0002.jsonl:8
+- `0406CFB9` — **arnimahunterquest2** (`arnimahunterquest2`) — lore-records-0002.jsonl:9
+- `0406CFC1` — **arnimahunterquest3** (`arnimahunterquest3`) — lore-records-0002.jsonl:10
+- `04072CD7` — **ArnimaRadiantBeggarQuest** (`ArnimaRadiantBeggarQuest`) — lore-records-0002.jsonl:11
+- `04072CF3` — **arnimaImperialRadiant** (`arnimaImperialRadiant`) — lore-records-0002.jsonl:12
+- `040778C0` — **ArnimaGuardDialogue** (`ArnimaGuardDialogue`) — lore-records-0002.jsonl:13
+- `04077B8F` — **Rescue** (`ArnimaRescue2`) — lore-records-0002.jsonl:14
+- `04078EE2` — **Heart of Nature** (`arnimasprigganquest`) — lore-records-0002.jsonl:15
+- `04079006` — **Arnimaaftermarthorcbase** (`Arnimaaftermarthorcbase`) — lore-records-0002.jsonl:16
+- `0407DCCF` — **ArnimaUlkarinFollower** (`ArnimaUlkarinFollower`) — lore-records-0002.jsonl:17
+- `0407F292` — **Of Roaches and Rats** (`arnimabeggarquest1`) — lore-records-0002.jsonl:18
+- `0408215A` — **ArnimaTownCrier2** (`ArnimaTownCrier2`) — lore-records-0002.jsonl:19
+- `0408400F` — **ArnimaBanditDialogue** (`ArnimaBanditDialogue`) — lore-records-0002.jsonl:20
+- `0408403F` — **ArnimaBeggarDialogue** (`ArnimaBeggarDialogue`) — lore-records-0002.jsonl:21
+- `04084059` — **ArnimaWitchmanDialogue** (`ArnimaWitchmanDialogue`) — lore-records-0002.jsonl:22
+- `040845AB` — **ArnimaSqualidCommuneQuest** (`ArnimaSqualidCommuneQuest`) — lore-records-0002.jsonl:23
+- `04086743` — **Arnima Management in MQ14, scenes, NPCs** (`ArnimaMainQuest14Arnima`) — lore-records-0002.jsonl:24
+- `04086744` — **Divide Management in MQ14, scenes, NPCS** (`ArnimaMainQuest14Divide1`) — lore-records-0002.jsonl:25
+- `0408D605` — **Ustase vs Witchmen** (`ArnimaWEMQ14UstaseWitchmen`) — lore-records-0002.jsonl:26
+- `0408D608` — **Wayrest vs Witchmen** (`ArnimaWEMQ14WitchmenWayrest`) — lore-records-0002.jsonl:27
+- `0408F505` — **Plight of the Plagued** (`arnimahorustairquest`) — lore-records-0002.jsonl:28
+- `0409059F` — **ArnimaCommonRadiant** (`ArnimaCommonRadiant`) — lore-records-0002.jsonl:29
+- `0409AEEB` — **ArnimaOrcDialogue** (`ArnimaOrcDialogue`) — lore-records-0002.jsonl:30
+- `0409AEFC` — **ArnimaOrcSceneRefugee** (`ArnimaOrcSceneRefugee`) — lore-records-0002.jsonl:31
+- `0409F2EB` — **Killing the Cynic** (`ArnimaAramiDenizeMisc`) — lore-records-0002.jsonl:32
+- `0409FB63` — **Forever Evermore** (`arnimaevermorequest1`) — lore-records-0002.jsonl:33
+- `040A4F69` — **Priestess Approach** (`ArnimaStartSceneQuest`) — lore-records-0002.jsonl:34
+- `040A6E67` — **ArnimaMadShamanQuest** (`ArnimaMadShamanQuest`) — lore-records-0002.jsonl:35
+- `040A8DE3` — **ArnimaEvermoreGuardRadiant** (`ArnimaEvermoreGuardRadiant`) — lore-records-0002.jsonl:36
+- `040A8DEB` — **ArnimaEvermoreGuardRadiant2** (`ArnimaEvermoreGuardRadiant2`) — lore-records-0002.jsonl:37
+- `040A9364` — **Talking scenes by king as you ascend tower** (`ArnimaVoidKingAscendTowerScenes`) — lore-records-0002.jsonl:38
+- `040AF077` — **ArnimaBanditRadiant** (`ArnimaBanditRadiant`) — lore-records-0002.jsonl:39
+- `040B509F` — **ArnimaWitchmenRadiant** (`ArnimaWitchmenRadiant`) — lore-records-0002.jsonl:40
+- `040B50A5` — **ArnimaWitchmenRadiant2** (`ArnimaWitchmenRadiant2`) — lore-records-0002.jsonl:41
+- `040B6D9C` — **ArnimaNPCStoryConversations** (`ArnimaNPCStoryConversations`) — lore-records-0002.jsonl:42
+- `040B6D9D` — **ArnimaGuardCitizenRadiantDivide** (`ArnimaGuardCitizenRadiantDivide`) — lore-records-0002.jsonl:43
+- `040B6D9E` — **ArnimaGuardCitizenRadiantA** (`ArnimaGuardCitizenRadiantA`) — lore-records-0002.jsonl:44
+- `040B6D9F` — **ArnimaGuardCitizenRadiantEvermore** (`ArnimaGuardCitizenRadiantEvermore`) — lore-records-0002.jsonl:45
+- `040B8FC6` — **ArnimaDivideCurseQuest** (`ArnimaDivideCurseQuest`) — lore-records-0002.jsonl:46
+- `040BF789` — **ArnimaJestersWE** (`ArnimaJestersWE`) — lore-records-0002.jsonl:47
+- `040BFF00` — **Academic** (`ArnimaWEInnAcademic`) — lore-records-0002.jsonl:48
+- `040C5FA6` — **ArnimaPriestessVoiceQuest** (`ArnimaPriestessVoiceQuest`) — lore-records-0002.jsonl:49
+- `040CC127` — **arnimabridgeradiant1** (`arnimabridgeradiant1`) — lore-records-0002.jsonl:50
+- `040D2047` — **arnimabridgeradiant2** (`arnimabridgeradiant2`) — lore-records-0003.jsonl:1
+- `040D7AD5` — **Wool for Wolves** (`ArnimaMainQuest12Damian`) — lore-records-0003.jsonl:2
+- `040E70A7` — **Forlorn's Eulogy** (`ArnimaOrcMainQuest2`) — lore-records-0003.jsonl:3
+- `040E70A8` — **Remembering the Rubicon** (`ArnimaOrcMainquest3`) — lore-records-0003.jsonl:4
+- `040E70A9` — **black and tans** (`ArnimaOrcMainQuest4`) — lore-records-0003.jsonl:5
+- `040E70AA` — **Conatus** (`ArnimaOrcMainQuest5`) — lore-records-0003.jsonl:6
+- `040EA1DB` — **Hidden Blade** (`arnimabladequest`) — lore-records-0003.jsonl:7
+- `040F6154` — **MER DE SANG** (`arnimathalmororcquest`) — lore-records-0003.jsonl:8
+- `04101C2E` — **Brothel Service** (`ArnimaWEBrothelService`) — lore-records-0003.jsonl:9
+- `0410E483` — **ArnimaMainquest14Deepcrag** (`ArnimaMainquest14Deepcrag`) — lore-records-0003.jsonl:10
+- `04123434` — **Hunt Avatars** (`ArnimaSpecialBossRadiant`) — lore-records-0003.jsonl:11
+- `04126635` — **From Dust** (`arnimafromdust2`) — lore-records-0003.jsonl:12
+- `0412D7E6` — **ArnimaOrcFriendVoiceQuest** (`ArnimaOrcFriendVoiceQuest`) — lore-records-0003.jsonl:13
+- `0412D7E7` — **ArnimaWarchiefVoiceQuest** (`ArnimaWarchiefVoiceQuest`) — lore-records-0003.jsonl:14
+- `0412D7E8` — **ArnimaFirstbornVoiceQuest** (`ArnimaFirstbornVoiceQuest`) — lore-records-0003.jsonl:15
+- `041310C5` — **Stables** (`ArnimaStables1`) — lore-records-0003.jsonl:16
+- `04133EDB` — **ArnimaTotemFindMiscQuest** (`ArnimaTotemFindMiscQuest`) — lore-records-0003.jsonl:17
+- `04135497` — **ArnimaBeastBurrowKingScene** (`ArnimaBeastBurrowKingScene`) — lore-records-0003.jsonl:18
+- `041359C8` — **ArnimaLutherVoiceQuest** (`ArnimaLutherVoiceQuest`) — lore-records-0003.jsonl:19
+- `0413A057` — **ArnimaOliverVoiceQuest** (`ArnimaOliverVoiceQuest`) — lore-records-0003.jsonl:20
+- `0413A06B` — **ArnimaMerchantVoiceQuest** (`ArnimaMerchantVoiceQuest`) — lore-records-0003.jsonl:21
+- `0413DB70` — **ArnimaMainQuest14Evermore** (`ArnimaMainQuest14Evermore`) — lore-records-0003.jsonl:22
+- `0414E74D` — **ArnimaHalfBreedScene** (`ArnimaHalfBreedScene`) — lore-records-0003.jsonl:23
+- `041526E5` — **Bounty** (`ArnimaBountyQuests`) — lore-records-0003.jsonl:24
+- `041550CE` — **ArnimaSigmayneVoiceQuest** (`ArnimaSigmayneVoiceQuest`) — lore-records-0003.jsonl:25
+- `04156A5A` — **Collect Book** (`ArnimaCollectBookQuest`) — lore-records-0003.jsonl:26
+- `04156A64` — **Trickle Down** (`ArnimaBeggarRadiant1`) — lore-records-0003.jsonl:27
+- `0415D312` — **ArnimaDenizeVoiceQuest** (`ArnimaDenizeVoiceQuest`) — lore-records-0003.jsonl:28
+- `04166E8A` — **PickPocket Radiant** (`ArnimaBeggarRadiant2`) — lore-records-0003.jsonl:29
+- `0416E82D` — **The hills have ice** (`arnimadunlainquest`) — lore-records-0003.jsonl:30
+- `04175D39` — **ArnimaGriffonVoiceQuest** (`ArnimaGriffonVoiceQuest`) — lore-records-0003.jsonl:31
+- `041777BB` — **ArnimaSeekerPrinceVoice** (`ArnimaSeekerPrinceVoice`) — lore-records-0003.jsonl:32
+- `0418C31D` — **ArnimaWeaponQuest** (`ArnimaWeaponQuest`) — lore-records-0003.jsonl:33
+- `0418FF2E` — **Teleport** (`ArnimaTeleportHandlerQuest`) — lore-records-0003.jsonl:34
+- `04190348` — **ArnimaBeggarRadiant3** (`ArnimaBeggarRadiant3`) — lore-records-0003.jsonl:35
+- `041ABC8A` — **Ustase Hunters** (`ArnimaWEUstaseHunters`) — lore-records-0003.jsonl:36
+- `041AD8B1` — **ArnimaPurgerRadiant** (`ArnimaPurgerRadiant`) — lore-records-0003.jsonl:37
+- `041B95CA` — **ArnimaUniqueDialogue** (`ArnimaUniqueDialogue`) — lore-records-0003.jsonl:38
+- `041C523A` — **ArnimaBruteVoiceDialogue** (`ArnimaBruteVoiceDialogue`) — lore-records-0003.jsonl:39
+- `041D2FC5` — **The Lure of Karim** (`arnimanordquest2`) — lore-records-0003.jsonl:40
+- `041D83F8` — **Nord Voice Korvid** (`ArnimaNordVoiceQuest`) — lore-records-0003.jsonl:41
+- `041DD48B` — **ArnimaDagonArenaQuest** (`ArnimaDagonArenaQuest`) — lore-records-0003.jsonl:42
+- `041E2975` — **Purgers vs Afflicted** (`ArnimaWEpurger`) — lore-records-0003.jsonl:43
+- `041E578F` — **Orc slave escape** (`ArnimaWEEscapedOrc`) — lore-records-0003.jsonl:44
+- `041F440D` — **ArnimaHousePurchaseQuest** (`ArnimaHousePurchaseQuest`) — lore-records-0003.jsonl:45
+- `041FA234` — **Witchmen vs exile** (`ArnimaWEWitchmanexile`) — lore-records-0003.jsonl:46
+- `0420BC8B` — **Pilgrims** (`ArnimaWEpilgrims`) — lore-records-0003.jsonl:47
+- `042178DB` — **Brothel Guards** (`ArnimaWEbrothelguards`) — lore-records-0003.jsonl:48
+- `04251D13` — **ArnimaMaleThalmorVoiceQuest** (`ArnimaMaleThalmorVoiceQuest`) — lore-records-0003.jsonl:49
+- `042A2AE4` — **ArnimaNordShamanVoiceQuest** (`ArnimaNordShamanVoiceQuest`) — lore-records-0003.jsonl:50
+- `042AABE4` — **ArnimaMortierreVoiceQuest** (`ArnimaMortierreVoiceQuest`) — lore-records-0004.jsonl:1
+- `042C2B7D` — **ArnimaWaywardEgoVoiceQuest** (`ArnimaWaywardEgoVoiceQuest`) — lore-records-0004.jsonl:2
+- `042C9305` — **One Shot Town Crier Scene** (`ArnimaTownCrierDivideQuest`) — lore-records-0004.jsonl:3
+- `042E1371` — **ArnimaJackosVoiceQuest** (`ArnimaJackosVoiceQuest`) — lore-records-0004.jsonl:4
+- `042E1372` — **ArnimaKegorVoiceQuest** (`ArnimaKegorVoiceQuest`) — lore-records-0004.jsonl:5
+- `042E1376` — **ArnimaDrugoVoiceQuest** (`ArnimaDrugoVoiceQuest`) — lore-records-0004.jsonl:6
+- `042E1377` — **ArnimaImperialOfficerVoiceQuest** (`ArnimaImperialOfficerVoiceQuest`) — lore-records-0004.jsonl:7
+- `042F3AFC` — **ArnimaQuarryScene1** (`ArnimaQuarryScene1`) — lore-records-0004.jsonl:8
+- `042F9329` — **Vigilants on hunt** (`ArnimaWEVigilantHunters`) — lore-records-0004.jsonl:9
+- `043330CE` — **ArnimaBeggar3VoicesQuest** (`ArnimaBeggar3VoicesQuest`) — lore-records-0004.jsonl:10
+- `043357D9` — **Scene** (`ArnimaCutscene`) — lore-records-0004.jsonl:11
+- `04361A42` — **Quests started from giving Hermeus Mora Prince special Soul gem.** (`ArnimaPastQuest1`) — lore-records-0004.jsonl:12
+- `04361A43` — **ArnimaGeneralMiscHandler** (`ArnimaGeneralMiscHandler`) — lore-records-0004.jsonl:13
+- `04371B39` — **ArnimaPastQuest2** (`ArnimaPastQuest2`) — lore-records-0004.jsonl:14
+- `04371B3A` — **ArnimaPastQuest3** (`ArnimaPastQuest3`) — lore-records-0004.jsonl:15
+- `04371B3B` — **ArnimaPastQuest4** (`ArnimaPastQuest4`) — lore-records-0004.jsonl:16
+- `04371B3C` — **ArnimaPastQuest5** (`ArnimaPastQuest5`) — lore-records-0004.jsonl:17
+- `04371B3D` — **ArnimaPastQuest6** (`ArnimaPastQuest6`) — lore-records-0004.jsonl:18
+- `04379C52` — **ArnimaZenalataVoiceQuest** (`ArnimaZenalataVoiceQuest`) — lore-records-0004.jsonl:19
+- `04399E97` — **ArnimaDamianVoiceQuest** (`ArnimaDamianVoiceQuest`) — lore-records-0004.jsonl:20
+- `04399E98` — **ArnimaWaywardHuskVoiceQuest** (`ArnimaWaywardHuskVoiceQuest`) — lore-records-0004.jsonl:21
+- `04399E99` — **ArnimaMissionaryVoiceQuest** (`ArnimaMissionaryVoiceQuest`) — lore-records-0004.jsonl:22
+- `04399E9A` — **ArnimaPriestNineVoiceQuest** (`ArnimaPriestNineVoiceQuest`) — lore-records-0004.jsonl:23
+- `04399E9B` — **ArnimaHorustairVoiceQuest** (`ArnimaHorustairVoiceQuest`) — lore-records-0004.jsonl:24
+- `04399E9C` — **ArnimaMortifayneVoiceQuest** (`ArnimaMortifayneVoiceQuest`) — lore-records-0004.jsonl:25
+- `04399EF2` — **ArnimaLastKingVoiceQuest** (`ArnimaLastKingVoiceQuest`) — lore-records-0004.jsonl:26
+- `043A1EE9` — **ArnimaMerosaVoiceQuest** (`ArnimaMerosaVoiceQuest`) — lore-records-0004.jsonl:27
+- `043B0AE9` — **DREAMS OF PEACE** (`ArnimaMainquest11`) — lore-records-0004.jsonl:28
+- `043B67E5` — **Periphery** (`ArnimaMainQuest12`) — lore-records-0004.jsonl:29
+- `043B67E6` — **Pathos for Perdition** (`ArnimaMainquest13`) — lore-records-0004.jsonl:30
+- `043B67E7` — **Iris** (`ArnimaMainQuest14`) — lore-records-0004.jsonl:31
+- `0444A95F` — **Gestalt** (`ArnimaRejectsRespiteQuest`) — lore-records-0004.jsonl:32
+- `0448A14B` — **ArnimaNordWyrmDungeonQuest** (`ArnimaNordWyrmDungeonQuest`) — lore-records-0004.jsonl:33
+- `04492E07` — **ArnimaArchBishopVoiceQuest** (`ArnimaArchBishopVoiceQuest`) — lore-records-0004.jsonl:34
+- `0449AEB6` — **ArnimaDirenniVoiceQuest** (`ArnimaDirenniVoiceQuest`) — lore-records-0004.jsonl:35
+- `044DCAFE` — **Inn Customers** (`ArnimaWEInnCusts`) — lore-records-0004.jsonl:36
+- `045230F8` — **ArnimaWEcollectIng1** (`ArnimaWEcollectIng1`) — lore-records-0004.jsonl:37
+- `04528EB8` — **A Dual Soul and the Wayward Witch** (`ArnimaDenizeQuest`) — lore-records-0004.jsonl:38
+- `0453A8C5` — **ArnimaGrimbayneVoiceQuest** (`ArnimaGrimbayneVoiceQuest`) — lore-records-0004.jsonl:39
+- `04542845` — **ArnimaElritchVoiceQuest** (`ArnimaElritchVoiceQuest`) — lore-records-0004.jsonl:40
+- `04557CB5` — **Greener Pastures** (`ArnimaOrcMainQuest1`) — lore-records-0004.jsonl:41
+- `0455DA8E` — **ArnimaWitchmenEatingQuest** (`ArnimaWitchmenEatingQuest`) — lore-records-0004.jsonl:42
+- `045A46C9` — **Descent of the Eternal Rabbit** (`ArnimaDirenniApocQuest`) — lore-records-0004.jsonl:43
+- `0468F025` — **New World** (`ArnimaMainQuestEpilogueBadQuest`) — lore-records-0004.jsonl:44
+- `04714235` — **Orcs March** (`ArnimaWEOrcsMarchSettlement`) — lore-records-0004.jsonl:45
+- `04714236` — **Witchmen March** (`ArnimaWEWitchmanMarchSettlement`) — lore-records-0004.jsonl:46
+
+## Orcs / Orsinium / Malacath (25)
+
+- `0403767F` — **ArnimaMainquest12Bog** (`ArnimaMainquest12Bog`) — lore-records-0001.jsonl:26
+- `04046F8F` — **Malacath's March** (`arnimamainquest2`) — lore-records-0001.jsonl:33
+- `04060D87` — **Orcs Vs Evermore** (`ArnimaWEOrcsBattle`) — lore-records-0001.jsonl:48
+- `04086744` — **Divide Management in MQ14, scenes, NPCS** (`ArnimaMainQuest14Divide1`) — lore-records-0002.jsonl:25
+- `040A6E67` — **ArnimaMadShamanQuest** (`ArnimaMadShamanQuest`) — lore-records-0002.jsonl:35
+- `040B8FC6` — **ArnimaDivideCurseQuest** (`ArnimaDivideCurseQuest`) — lore-records-0002.jsonl:46
+- `040D7AD5` — **Wool for Wolves** (`ArnimaMainQuest12Damian`) — lore-records-0003.jsonl:2
+- `040E70A7` — **Forlorn's Eulogy** (`ArnimaOrcMainQuest2`) — lore-records-0003.jsonl:3
+- `040E70A8` — **Remembering the Rubicon** (`ArnimaOrcMainquest3`) — lore-records-0003.jsonl:4
+- `040E70A9` — **black and tans** (`ArnimaOrcMainQuest4`) — lore-records-0003.jsonl:5
+- `040E70AA` — **Conatus** (`ArnimaOrcMainQuest5`) — lore-records-0003.jsonl:6
+- `040F6154` — **MER DE SANG** (`arnimathalmororcquest`) — lore-records-0003.jsonl:8
+- `041E578F` — **Orc slave escape** (`ArnimaWEEscapedOrc`) — lore-records-0003.jsonl:44
+- `042F3AFC` — **ArnimaQuarryScene1** (`ArnimaQuarryScene1`) — lore-records-0004.jsonl:8
+- `04361A42` — **Quests started from giving Hermeus Mora Prince special Soul gem.** (`ArnimaPastQuest1`) — lore-records-0004.jsonl:12
+- `04371B39` — **ArnimaPastQuest2** (`ArnimaPastQuest2`) — lore-records-0004.jsonl:14
+- `04371B3A` — **ArnimaPastQuest3** (`ArnimaPastQuest3`) — lore-records-0004.jsonl:15
+- `04371B3C` — **ArnimaPastQuest5** (`ArnimaPastQuest5`) — lore-records-0004.jsonl:17
+- `043B0AE9` — **DREAMS OF PEACE** (`ArnimaMainquest11`) — lore-records-0004.jsonl:28
+- `043B67E5` — **Periphery** (`ArnimaMainQuest12`) — lore-records-0004.jsonl:29
+- `043B67E6` — **Pathos for Perdition** (`ArnimaMainquest13`) — lore-records-0004.jsonl:30
+- `043B67E7` — **Iris** (`ArnimaMainQuest14`) — lore-records-0004.jsonl:31
+- `04528EB8` — **A Dual Soul and the Wayward Witch** (`ArnimaDenizeQuest`) — lore-records-0004.jsonl:38
+- `04557CB5` — **Greener Pastures** (`ArnimaOrcMainQuest1`) — lore-records-0004.jsonl:41
+- `04714235` — **Orcs March** (`ArnimaWEOrcsMarchSettlement`) — lore-records-0004.jsonl:45
+
+## Witchmen / Reach conflict (23)
+
+- `0401791B` — **Web of Intrigue** (`arnimaspidercavequest`) — lore-records-0001.jsonl:10
+- `04017F4C` — **Red Dawn** (`arnimareddawnquestbug`) — lore-records-0001.jsonl:12
+- `0401BCE9` — **One Aching Vista, Everlasting** (`Arnimaexilequest1`) — lore-records-0001.jsonl:13
+- `0402B523` — **COME HITHER HORROR** (`arnimamainquest6new`) — lore-records-0001.jsonl:22
+- `04037680` — **ArnimaMainquest12Outpost** (`ArnimaMainquest12Outpost`) — lore-records-0001.jsonl:27
+- `0403DF8F` — **Opiate of the Masses** (`arnimaexilequest4`) — lore-records-0001.jsonl:31
+- `0404D8D5` — **Beyond Reach** (`arnimamainquest0`) — lore-records-0001.jsonl:36
+- `0404FAC0` — **Wearing your kills** (`arnimaexilequest2`) — lore-records-0001.jsonl:38
+- `040529CF` — **Hunting Hope** (`arnimamainquest3`) — lore-records-0001.jsonl:41
+- `0405DA87` — **arnimaForlornRadiant** (`arnimaForlornRadiant`) — lore-records-0001.jsonl:46
+- `0406220B` — **The lost shibbledibble** (`arnimajokequest`) — lore-records-0001.jsonl:50
+- `04084059` — **ArnimaWitchmanDialogue** (`ArnimaWitchmanDialogue`) — lore-records-0002.jsonl:22
+- `0408D605` — **Ustase vs Witchmen** (`ArnimaWEMQ14UstaseWitchmen`) — lore-records-0002.jsonl:26
+- `0408D608` — **Wayrest vs Witchmen** (`ArnimaWEMQ14WitchmenWayrest`) — lore-records-0002.jsonl:27
+- `040B509F` — **ArnimaWitchmenRadiant** (`ArnimaWitchmenRadiant`) — lore-records-0002.jsonl:40
+- `040B50A5` — **ArnimaWitchmenRadiant2** (`ArnimaWitchmenRadiant2`) — lore-records-0002.jsonl:41
+- `040E70A7` — **Forlorn's Eulogy** (`ArnimaOrcMainQuest2`) — lore-records-0003.jsonl:3
+- `040EA1DB` — **Hidden Blade** (`arnimabladequest`) — lore-records-0003.jsonl:7
+- `041FA234` — **Witchmen vs exile** (`ArnimaWEWitchmanexile`) — lore-records-0003.jsonl:46
+- `043357D9` — **Scene** (`ArnimaCutscene`) — lore-records-0004.jsonl:11
+- `04371B3D` — **ArnimaPastQuest6** (`ArnimaPastQuest6`) — lore-records-0004.jsonl:18
+- `043B67E5` — **Periphery** (`ArnimaMainQuest12`) — lore-records-0004.jsonl:29
+- `04714236` — **Witchmen March** (`ArnimaWEWitchmanMarchSettlement`) — lore-records-0004.jsonl:46
+
+## Direnni / Ayleid / ancient history (8)
+
+- `04020429` — **The lost and the Damned** (`Arnimalostdamned`) — lore-records-0001.jsonl:16
+- `04031000` — **ArnimaAyleidKingVoiceQuest** (`ArnimaAyleidKingVoiceQuest`) — lore-records-0001.jsonl:23
+- `0403BDA8` — **What it takes** (`arnimamainquest9`) — lore-records-0001.jsonl:30
+- `0405AE4B` — **End of Eternal Grey** (`arnimamainquest5`) — lore-records-0001.jsonl:45
+- `0405EAD3` — **Relic Reaching** (`arnimamainquest4new`) — lore-records-0001.jsonl:47
+- `040D7AD5` — **Wool for Wolves** (`ArnimaMainQuest12Damian`) — lore-records-0003.jsonl:2
+- `043B67E7` — **Iris** (`ArnimaMainQuest14`) — lore-records-0004.jsonl:31
+- `045A46C9` — **Descent of the Eternal Rabbit** (`ArnimaDirenniApocQuest`) — lore-records-0004.jsonl:43
+
+## Daedra / Oblivion / supernatural realms (25)
+
+- `0401791B` — **Web of Intrigue** (`arnimaspidercavequest`) — lore-records-0001.jsonl:10
+- `0401D3D7` — **A Wish for Wings** (`ArnimaGriffonQuest`) — lore-records-0001.jsonl:15
+- `04020429` — **The lost and the Damned** (`Arnimalostdamned`) — lore-records-0001.jsonl:16
+- `04021B39` — **THE WORST IS YET TO COME** (`arnimamainquest7`) — lore-records-0001.jsonl:17
+- `040297FF` — **Warden of Souls** (`ArnimaWolfShamanQuest`) — lore-records-0001.jsonl:21
+- `0402B523` — **COME HITHER HORROR** (`arnimamainquest6new`) — lore-records-0001.jsonl:22
+- `040318AB` — **Confluence Of Desire** (`ArnimaMQ14AfterBountyQuest`) — lore-records-0001.jsonl:24
+- `04035D99` — **Interloper** (`arnimamainquest8`) — lore-records-0001.jsonl:25
+- `0404D2FE` — **Service of Sin** (`arnimainvisiblemainquest`) — lore-records-0001.jsonl:35
+- `0405AE4B` — **End of Eternal Grey** (`arnimamainquest5`) — lore-records-0001.jsonl:45
+- `0405EAD3` — **Relic Reaching** (`arnimamainquest4new`) — lore-records-0001.jsonl:47
+- `040D7AD5` — **Wool for Wolves** (`ArnimaMainQuest12Damian`) — lore-records-0003.jsonl:2
+- `040E70A8` — **Remembering the Rubicon** (`ArnimaOrcMainquest3`) — lore-records-0003.jsonl:4
+- `040E70A9` — **black and tans** (`ArnimaOrcMainQuest4`) — lore-records-0003.jsonl:5
+- `040E70AA` — **Conatus** (`ArnimaOrcMainQuest5`) — lore-records-0003.jsonl:6
+- `041D2FC5` — **The Lure of Karim** (`arnimanordquest2`) — lore-records-0003.jsonl:40
+- `04361A42` — **Quests started from giving Hermeus Mora Prince special Soul gem.** (`ArnimaPastQuest1`) — lore-records-0004.jsonl:12
+- `04371B3B` — **ArnimaPastQuest4** (`ArnimaPastQuest4`) — lore-records-0004.jsonl:16
+- `04371B3C` — **ArnimaPastQuest5** (`ArnimaPastQuest5`) — lore-records-0004.jsonl:17
+- `043B0AE9` — **DREAMS OF PEACE** (`ArnimaMainquest11`) — lore-records-0004.jsonl:28
+- `043B67E5` — **Periphery** (`ArnimaMainQuest12`) — lore-records-0004.jsonl:29
+- `043B67E6` — **Pathos for Perdition** (`ArnimaMainquest13`) — lore-records-0004.jsonl:30
+- `043B67E7` — **Iris** (`ArnimaMainQuest14`) — lore-records-0004.jsonl:31
+- `0444A95F` — **Gestalt** (`ArnimaRejectsRespiteQuest`) — lore-records-0004.jsonl:32
+- `045A46C9` — **Descent of the Eternal Rabbit** (`ArnimaDirenniApocQuest`) — lore-records-0004.jsonl:43
+
+## Plague / affliction / body horror (19)
+
+- `04017980` — **LAY HER TO REST** (`ARNIMAcemetaryquest`) — lore-records-0001.jsonl:11
+- `04017F4C` — **Red Dawn** (`arnimareddawnquestbug`) — lore-records-0001.jsonl:12
+- `0402B523` — **COME HITHER HORROR** (`arnimamainquest6new`) — lore-records-0001.jsonl:22
+- `04035D99` — **Interloper** (`arnimamainquest8`) — lore-records-0001.jsonl:25
+- `0403885D` — **Beast Beneath** (`arnimaevermorequest2`) — lore-records-0001.jsonl:28
+- `0403BDA8` — **What it takes** (`arnimamainquest9`) — lore-records-0001.jsonl:30
+- `0406CFC1` — **arnimahunterquest3** (`arnimahunterquest3`) — lore-records-0002.jsonl:10
+- `04078EE2` — **Heart of Nature** (`arnimasprigganquest`) — lore-records-0002.jsonl:15
+- `0408F505` — **Plight of the Plagued** (`arnimahorustairquest`) — lore-records-0002.jsonl:28
+- `0409FB63` — **Forever Evermore** (`arnimaevermorequest1`) — lore-records-0002.jsonl:33
+- `040D7AD5` — **Wool for Wolves** (`ArnimaMainQuest12Damian`) — lore-records-0003.jsonl:2
+- `040E70A8` — **Remembering the Rubicon** (`ArnimaOrcMainquest3`) — lore-records-0003.jsonl:4
+- `040E70A9` — **black and tans** (`ArnimaOrcMainQuest4`) — lore-records-0003.jsonl:5
+- `04126635` — **From Dust** (`arnimafromdust2`) — lore-records-0003.jsonl:12
+- `0416E82D` — **The hills have ice** (`arnimadunlainquest`) — lore-records-0003.jsonl:30
+- `041D2FC5` — **The Lure of Karim** (`arnimanordquest2`) — lore-records-0003.jsonl:40
+- `041E2975` — **Purgers vs Afflicted** (`ArnimaWEpurger`) — lore-records-0003.jsonl:43
+- `043B67E5` — **Periphery** (`ArnimaMainQuest12`) — lore-records-0004.jsonl:29
+- `043B67E7` — **Iris** (`ArnimaMainQuest14`) — lore-records-0004.jsonl:31
+
+## Religion / priests / Mara / Vigil (30)
+
+- `04017980` — **LAY HER TO REST** (`ARNIMAcemetaryquest`) — lore-records-0001.jsonl:11
+- `04020429` — **The lost and the Damned** (`Arnimalostdamned`) — lore-records-0001.jsonl:16
+- `04021B39` — **THE WORST IS YET TO COME** (`arnimamainquest7`) — lore-records-0001.jsonl:17
+- `04035D99` — **Interloper** (`arnimamainquest8`) — lore-records-0001.jsonl:25
+- `0403BDA8` — **What it takes** (`arnimamainquest9`) — lore-records-0001.jsonl:30
+- `0404D2FE` — **Service of Sin** (`arnimainvisiblemainquest`) — lore-records-0001.jsonl:35
+- `0404D8D5` — **Beyond Reach** (`arnimamainquest0`) — lore-records-0001.jsonl:36
+- `040529CF` — **Hunting Hope** (`arnimamainquest3`) — lore-records-0001.jsonl:41
+- `04056FD3` — **ArnimaGriffonGirlQuest** (`ArnimaGriffonGirlQuest`) — lore-records-0001.jsonl:42
+- `0405AE4B` — **End of Eternal Grey** (`arnimamainquest5`) — lore-records-0001.jsonl:45
+- `0405EAD3` — **Relic Reaching** (`arnimamainquest4new`) — lore-records-0001.jsonl:47
+- `04065C78` — **ArnimaWIShopGreetings** (`ArnimaWIShopGreetings`) — lore-records-0002.jsonl:4
+- `04072CD7` — **ArnimaRadiantBeggarQuest** (`ArnimaRadiantBeggarQuest`) — lore-records-0002.jsonl:11
+- `04078EE2` — **Heart of Nature** (`arnimasprigganquest`) — lore-records-0002.jsonl:15
+- `04086743` — **Arnima Management in MQ14, scenes, NPCs** (`ArnimaMainQuest14Arnima`) — lore-records-0002.jsonl:24
+- `04086744` — **Divide Management in MQ14, scenes, NPCS** (`ArnimaMainQuest14Divide1`) — lore-records-0002.jsonl:25
+- `040A4F69` — **Priestess Approach** (`ArnimaStartSceneQuest`) — lore-records-0002.jsonl:34
+- `040B8FC6` — **ArnimaDivideCurseQuest** (`ArnimaDivideCurseQuest`) — lore-records-0002.jsonl:46
+- `040D7AD5` — **Wool for Wolves** (`ArnimaMainQuest12Damian`) — lore-records-0003.jsonl:2
+- `04126635` — **From Dust** (`arnimafromdust2`) — lore-records-0003.jsonl:12
+- `041D2FC5` — **The Lure of Karim** (`arnimanordquest2`) — lore-records-0003.jsonl:40
+- `0420BC8B` — **Pilgrims** (`ArnimaWEpilgrims`) — lore-records-0003.jsonl:47
+- `042F9329` — **Vigilants on hunt** (`ArnimaWEVigilantHunters`) — lore-records-0004.jsonl:9
+- `04361A43` — **ArnimaGeneralMiscHandler** (`ArnimaGeneralMiscHandler`) — lore-records-0004.jsonl:13
+- `04399E99` — **ArnimaMissionaryVoiceQuest** (`ArnimaMissionaryVoiceQuest`) — lore-records-0004.jsonl:22
+- `043B0AE9` — **DREAMS OF PEACE** (`ArnimaMainquest11`) — lore-records-0004.jsonl:28
+- `043B67E5` — **Periphery** (`ArnimaMainQuest12`) — lore-records-0004.jsonl:29
+- `043B67E6` — **Pathos for Perdition** (`ArnimaMainquest13`) — lore-records-0004.jsonl:30
+- `043B67E7` — **Iris** (`ArnimaMainQuest14`) — lore-records-0004.jsonl:31
+- `04557CB5` — **Greener Pastures** (`ArnimaOrcMainQuest1`) — lore-records-0004.jsonl:41
+
+## Use with provenance
+
+- Follow a matched quest back to the raw QUST record before extracting a proposition.
+- Journal entries are player-facing/in-world quest narration and can reflect route state, assumption, or incomplete knowledge.
+- Route-specific Orc and Breton/Evermore material should remain separately attributable when later claims are created.

@@ -1,0 +1,17 @@
+[pagebreak]
+<p align="center">
+
+
+An Overview of the C0DA Document
+
+by 
+Yelem-Boltzmer
+</p>
+
+[pagebreak]
+<p align="left">
+The C0DA document was extracted from the center of Apocrypha, "Mythos" with the cooperation of the "First Servant." Despite being written in an unknown script, the grammatical rules employed in the language are nearly analogous to those of our own, thus necessitating only the substitution of letters to facilitate translation. The author is identified as [NUMINIT], and although their name is clearly written beneath the title, it appears to have been meticulously concealed with mind-altering magic to prevent the reader from perceiving it.
+
+Within the realm of Mundus, the C0DA document stands as perhaps a particularly peculiar example, telling the story of a Dunmer of House Sul, set in the Fifth Era. The author's writing is ruthlessly schizophrenic, a chaotic word salad driven by excessive symbolism. The document's content is almost incomprehensible to an average person, and one could easily mistake it as a spur-of-the-moment work of Sheogorath. If it were truly the work of a madman, reading it would be a futile endeavor. However, the fact that many of the author's works are encrypted and ingeniously concealed within the very center of Apocrypha is a matter of interest. Given Hermaeus Mora's persistent efforts to conceal these incoherent documents, it is reasonable to assume that something worthwhile lies hidden within them.
+
+A thorough examination of this work reveals that it makes extensive use of the very same theories that we, the Dwemer, and the Psijic Order keep as closely guarded secrets. The author's erudition suggests they are more than a mere street playwright. Thus, it is reasonable to assume that a renowned mystic concealed their identity and the results of their research behind this story. Should we be successful in deciphering the document, the findings are likely to provide invaluable insights that would significantly contribute to the advancement of existing theories.

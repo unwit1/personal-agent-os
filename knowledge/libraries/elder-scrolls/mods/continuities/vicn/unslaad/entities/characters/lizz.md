@@ -53,3 +53,20 @@ He eventually asks the player to take Lizz back through time to Ulliss.
 Ulliss says she feels an immediate bond with Lizz and chooses to accept the role of mother even if the literal mechanism is uncertain.
 
 The quest completion record treats the reunion as fulfilling Ja'cobee's promise.
+
+## Implementation corroboration
+
+Mq05 / **Lingering Snow** exposes VMAD properties for:
+- `Alias_Lizz`;
+- `Alias_Ulliss`;
+- `Alias_Aisha`;
+- `Alias_Kedama`;
+- `LizzTimeWarpMarker`;
+- present/Lost-Unslaad door routing.
+
+This is structural evidence that Lizz's reunion/family sequence and the time-warp transition belong to one quest graph. It strengthens the narrative relationship network, but it does **not** define the biological/metaphysical mechanism by which the player's dragon soul contributes to Lizz.
+
+Completion status:
+- Ulliss ↔ Lizz mother/daughter relationship: resolved at high confidence.
+- player ↔ Lizz parental framing: resolved at high confidence as narrative relationship.
+- exact metaphysical reproduction mechanism: intentionally unresolved, not an ingestion gap.

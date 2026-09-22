@@ -50,3 +50,11 @@ The remaining records primarily teach or represent summons and frost/creature ab
 ## Interpretation rule
 
 A BOOK's presence in Unslaad.esm proves that the mod distributes/uses that record. It does not by itself prove Vicn authored the text, that the in-world author is reliable, that the book's claims are objectively true, or that the text belongs to official Bethesda/ZeniMax continuity.
+
+## Final BOOK status
+
+**Complete:** 50 / 50 BOOK records are preserved and classified for the supplied ESM.
+
+The unresolved external authorship of **Vivec and Molag Bal** is an accepted provenance classification after repeat verification, not an unprocessed book.
+
+No further general BOOK extraction is required unless a newer plugin version is supplied.

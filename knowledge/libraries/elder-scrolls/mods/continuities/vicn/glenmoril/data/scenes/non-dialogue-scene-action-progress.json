@@ -1,0 +1,20 @@
+{
+  "source_plugin": "Glenmoril.esm",
+  "source_sha256": "5669018c81acf13147ff489f486963ecc3c57515a73ed9afd210c7ede85e1cc8",
+  "total_non_dialogue_actions": 633,
+  "normalized_actions": 633,
+  "remaining_actions": 0,
+  "normalized_package_actions": 461,
+  "normalized_timer_actions": 172,
+  "last_normalized_scene_source_id": "Glenmoril.esm:009B93",
+  "last_normalized_scene_editor_id": "zzzGHMq01SideASc04",
+  "last_normalized_action_index": 4,
+  "next_batch_ordinal": null,
+  "status": "complete",
+  "normalization_rules": {
+    "action_type_1": "package; PNAM is package FormID",
+    "action_type_2": "timer; second SNAM is float32 timer value",
+    "stable_ids": "resolved from TES4 master order; load-order prefix stripped",
+    "raw_evidence": "ordered action subrecords retained as hex"
+  }
+}

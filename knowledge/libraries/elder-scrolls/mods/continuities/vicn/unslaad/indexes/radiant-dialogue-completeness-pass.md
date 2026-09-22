@@ -118,3 +118,9 @@ Low/local/gameplay:
 - Rogue Rat;
 - Mementos;
 - Raging Pot.
+
+## Completion status
+
+The repeatable/radiant dialogue discovery pass is complete for the supplied ESM.
+
+All lore-bearing families found in this audit have been classified or promoted. Remaining repeatable quests are local/gameplay material rather than an unprocessed narrative backlog.

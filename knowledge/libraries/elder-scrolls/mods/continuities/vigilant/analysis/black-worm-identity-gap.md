@@ -2,8 +2,10 @@
 
 Continuity: `tes.mod.vigilant`
 
-Known structural anchor:
-- `zzzCHSubQuest03` — **The Black Worm**
+Known direct quest anchor:
+- `QUST 02129061` / `zzzCHSubQuest03` — **The Black Worm**
+- alias `blackworm` → `NPC_ 020AEFE3` / **Black Worm**
+- alias `Prisoner` → `NPC_ 0223C4B1` / Dremora Worm Keeper
 - member of `FLST 0251EABB` / the Act 4 starter list
 
 Known narrative anchor:
@@ -11,12 +13,16 @@ Known narrative anchor:
 
 ## What is established
 
-The repository currently preserves two independent facts:
+The supplied VIGILANT 1.8.2 ESM now proves that the Act 4 side quest directly contains a specific NPC named **Black Worm**.
 
-1. Act 4 contains a side quest explicitly titled **The Black Worm**.
-2. Jhunal directly refers to a **Black Worm** who learned from him and later mutilated him.
+The quest actor:
+- asks the player to open his cell;
+- refuses to identify himself;
+- refuses to explain why he is imprisoned.
 
-Those facts create a strong candidate connection, but the currently retained extraction does not include enough quest-specific aliases, dialogue, scene attribution, placement, or script data to prove that the side-quest title and Jhunal's attacker are the same instantiated character.
+Jhunal separately refers to a Black Worm who learned from him and mutilated him.
+
+The name/quest identity is now direct; the strict personal-equivalence question between the imprisoned actor and Jhunal's historical attacker remains a final identity-link question rather than a missing quest-body problem.
 
 Accordingly, Lorekeeper should model:
 
@@ -66,11 +72,13 @@ However, the retained source layer does not establish exactly which techniques t
 
 **High-confidence testimony:** a figure called the Black Worm was Jhunal's student/learner and later mutilated him.
 
-**High-confidence structure:** Act 4 includes a quest titled *The Black Worm*.
+**High-confidence structure:** Act 4 includes `NPC_ 020AEFE3` / **Black Worm** as the direct actor of *The Black Worm*.
+
+**High-confidence direct dialogue:** the actor is an evasive prisoner asking to be freed.
 
 **Supplementary identity:** a123999 identifies the Black Worm as a scattered part of Mannimarco's spirit.
 
-**Still unresolved at ESM level:** whether Jhunal's attacker, the Act 4 side-quest title, and every Black Worm manifestation are represented by one exact actor record/episode.
+**Still unresolved:** strict proof that the imprisoned actor is the exact historical manifestation that mutilated Jhunal, and direct ESM proof of the Mannimarco identity.
 
 ## Required future extraction
 
@@ -85,3 +93,27 @@ Priority source recovery should target:
 ## Canon boundary
 
 The Black Worm/Jhunal relationship is VIGILANT-continuity material. No official-canon identity should be assigned without independent evidence.
+
+
+## Cross-Vicn corroboration search
+
+A repository-wide search across the currently ingested GLENMORIL, UNSLAAD, and DAc0da corpora found no direct later record naming:
+- **Black Worm**;
+- **Mannimarco**;
+- **King of Worms**
+
+in a way that corroborates the VIGILANT identity claim.
+
+Therefore the Mannimarco-fragment identification remains:
+
+**supplementary a123999 commentary, not direct cross-Vicn ESM corroboration.**
+
+This search result strengthens the need to preserve the source boundary rather than treating the identity as universally confirmed across Vicn works.
+
+
+## Direct-source dossier
+
+See:
+- `entities/characters/black-worm.md`
+- `analysis/act4-direct-source-recovery.md`
+- `dialogue/act4/recovered-sidequests.md`

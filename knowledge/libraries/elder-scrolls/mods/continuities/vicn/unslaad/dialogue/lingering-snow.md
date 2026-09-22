@@ -143,3 +143,20 @@ This quest contains several first-person metaphysical explanations from Jhunal. 
 - hard structural facts: quest aliases, named NPCs, objectives, actor presence, return-to-present sequence;
 - direct testimony: Jhunal's claims about Alduin, Akatosh, Ulliss's construction, Owl Arcana, Magnus, and Dov-Ah-Kiin;
 - interpretation: any attempt to equate Dov-Ah-Kiin with the player, a timeline double, or a universal Dragonborn destiny.
+
+## Structural-uncertainty closure
+
+Mq05's major identity/state transitions are now structurally accounted for through:
+- explicit quest aliases for Lizz, Ja'cobee, Jhunal, wounded Jhunal, Dov-Ah-Kiin, Ulliss/Aisha ghosts, present Ulliss/Aisha, and Fluffy;
+- VMAD properties for Magnus-fire, Owl, Lizz time warp, present/Lost-Unslaad doors, and transition into later quests;
+- direct quest objectives and dialogue.
+
+The remaining **Dov-Ah-Kiin ontology** is intentionally interpretive. The ESM establishes a named boss and frames it as "one of the fates of the Dragonslayer," but does not provide enough ordinary dialogue to force:
+- player double;
+- future self;
+- universal Dragonborn destiny;
+- separate symbolic entity
+
+as the single answer.
+
+That ambiguity is now classified, not pending extraction.

@@ -28,3 +28,14 @@ The opening and ending of the UNSLAAD copy match the ESO text, including the fin
 Official-source status for the sermon does **not** make UNSLAAD itself official canon.
 
 This page classifies provenance of the reused text only.
+
+## Provenance closure
+
+For ingestion purposes this provenance question is closed.
+
+Classification:
+- **official released-game text**;
+- reused by UNSLAAD;
+- source-local placement and interpretation remain Vicn-authored design choices.
+
+No further provenance search is needed unless comparing textual variants between ESO versions.

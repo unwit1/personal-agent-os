@@ -12,191 +12,303 @@ Primary records:
 - `020B0828` — Slave Trader's Note 7
 - `020C8FCE` — Slave Trader's Note 8
 
-## Why this is a trail, not a faction dossier
+Direct actor:
+- `NPC_ 020CAA71` / **Slave Trader**
+- dossier: `entities/characters/slave-trader.md`
 
-The ESM preserves eight books named as **Slave Trader's Notes**, but the current corpus does not establish:
-- a formal slave-trader organization;
-- multiple members;
-- hierarchy;
-- faction record membership;
-- a stable headquarters beyond one location named Slave Trader's House.
+## Exact eight-note sequence
 
-Accordingly, Lorekeeper should treat this as a **documentary/narrative trail associated with a slave-trader figure**, not invent a “Slave Traders faction.”
+1. **Note 1**
+   - “A body in sarcophagus.”
 
-## Exact note sequence
+2. **Note 2**
+   - “A miserable bard. A poor storyteller with a boring tale.”
 
-The eight notes are extremely short and cryptic.
+3. **Note 3**
+   - “The morning did not come for Gideon.”
 
-Their motifs progress through:
+4. **Note 4**
+   - “Bravil burned.”
 
-1. a body in a sarcophagus;
-2. a miserable bard / poor storyteller;
-3. Gideon losing its morning;
-4. Bravil burning;
-5. Gilverdale sinking twice;
-6. repeated gathering of firewood and anticipation of the next burning;
-7. the shepherd dying and the wolf being set free;
-8. a poetic image of day ending and the world being left to darkness.
+5. **Note 5**
+   - “Gilverdale sank twice.”
 
-The sequence reads more like **compressed observations, historical/calamity markers, or prophetic breadcrumbs** than commercial records.
+6. **Note 6**
+   - “Gathering firewood, yesterday and today. What will we burn tomorrow?”
 
-## Known physical placements
+7. **Note 7**
+   - “The shepherd is dead, and the wolf set free.”
 
-The current placement index resolves the first five:
+8. **Note 8**
+   - quotes the opening of *Elegy Written in a Country Churchyard*, ending with the world being left “to darkness and to me.”
 
-- Note 1 → **Mathmalatu Priory**
-- Note 2 → **Slave Trader's House**
-- Note 3 → **Temple of Mara**
-- Note 4 → **Imperial Prison Sewers**
-- Note 5 → **Malatar Mansion**
+The notes read as compressed observations/waypoints rather than commercial records.
 
-The current persisted placement index does not resolve fixed placements for Notes 6–8.
+## Direct placement and acquisition map
 
-That absence should not be treated as proof that they are unused. They may be distributed through containers, scripts, leveled systems, or source paths not yet persisted.
+The restored canonical VIGILANT ESM now resolves all eight routes.
 
-## Note 1 and the sarcophagus
+### Note 1 — Mathmalatu Priory
 
-Note 1's sarcophagus motif is notable because Pepe says another living person emerged from a sarcophagus before the player.
+- placed as `REFR 020B082A`
+- cell: `CELL 0207FB11` / **Mathmalatu Priory**
 
-Pepe believes that person was a slave trader and says the man's eyes burned like fire.
+The text's sarcophagus image strongly aligns with the opening Coldharbour sarcophagus sequence.
 
-This creates a strong documentary association:
+### Note 2 — Slave Trader's House
 
-**Slave Trader note trail ↔ sarcophagus survivor / fiery-eyed slave trader testimony**
+- placed as `REFR 020B0829`
+- cell: `CELL 020B07D1` / **Slave Trader's House**
 
-The exact identity and chronology remain unresolved.
+This is the clearest fixed-location anchor tying the note series to the named Slave Trader's own environment.
 
-## A Vision in Malada — stanzas 8–9
+### Note 3 — Temple of Mara
 
-The current *A Vision in Malada* evidence map treats stanza 9 as likely involving an unnamed slave-trader figure.
+- placed as `REFR 020C8445`
+- cell: `CELL 020C62F3` / **Temple of Mara**
 
-The prophecy includes:
-- the aftermath of a brother-related Stone episode;
-- a slave trader;
-- fiery eyes;
-- a gate.
+### Note 4 — Imperial Prison Sewers
 
-Pepe's sarcophagus testimony supplies the strongest existing anchor for the fiery-eyed slave trader.
+- placed as `REFR 02121AA0`
+- cell: `CELL 020F4D2F` / **Imperial Prison Sewers**
 
-However, the repository has not yet recovered a complete independent chain proving:
-- the slave trader killed the stanza-8 brother;
-- the slave trader carried the Stone;
-- every Slave Trader note records this same journey.
+### Note 5 — Malatar Mansion
 
-Current confidence remains **medium**, not settled.
+- placed as `REFR 02121AA1`
+- cell: `CELL 021038CB` / **Malatar Mansion**
 
-## Note 2 and the bard
+### Note 6 — Sir Ralvas
 
-Note 2 dismisses a bard as a poor storyteller.
+`BOOK 020B0827` is directly carried by:
 
-VIGILANT repeatedly uses bard figures in:
-- Dro'Zel's Mad King material;
-- Johan the Fool;
-- The Nameless Bard;
-- Beyond the Shores of Madness;
-- Molag Bal-linked narration.
+- `NPC_ 020BCF1E` / **Sir Ralvas**
 
-The note clearly belongs to that larger bard/storytelling motif, but the current evidence does not identify which bard it means.
+Ralvas is the direct Knight actor in **Knight of Zenithar**.
 
-Do not automatically assign it to:
-- Dro'Zel's bard;
-- Molag Bal;
-- the Nameless Bard;
-- Orlando.
+This means Note 6 is not an unplaced/unused book: it is a character-held clue.
 
-## Notes 3–5 and calamity geography
+The exact reason Ralvas possesses it remains unresolved.
 
-The notes name:
-- Gideon;
-- Bravil;
-- Gilverdale.
+### Note 7 — Marukh death-item list
 
-These look like compressed records of disaster.
+`BOOK 020B0828` is directly included in:
 
-Without a fuller source trail, Lorekeeper should preserve:
-- place name;
-- disaster language;
-- note order;
-- physical placement;
+- `LVLI 020E76B2` / `zzzCHDeathItemMarukhu`
 
-without inventing the exact historical event being referenced.
+That leveled list is assigned as the death-item list of:
 
-## Note 6 and the firewood motif
+- `NPC_ 0211D025` / **Marukh**
 
-Note 6 returns to repeated **firewood** gathering.
+The list also contains:
+- *The Illusion of Death*
+- Nail of St. Dulsa
+- several external/master items.
 
-That motif strongly echoes:
+Therefore Note 7 participates in Marukh's direct loot/death-item system.
+
+Do not infer from this alone that Marukh authored the note.
+
+### Note 8 — dead Slave Trader
+
+`BOOK 020C8FCE` is directly carried by:
+
+- `NPC_ 020CAA71` / **Slave Trader**
+
+The actor is placed as:
+- `ACHR 020CAA72`
+- in **Chapel of Arkay Cemetery**
+- using **Bone Human Race**
+- with ragdoll/dead-state data.
+
+This makes Note 8 the strongest endpoint in the sequence:
+**the named Slave Trader's remains carry the final Slave Trader note in a cemetery.**
+
+## The sarcophagus survivor
+
+In the Coldharbour main quest, Inquisitor Pepe tells the player:
+
+> Fools climb out from this sarcophagus every day. I don't remember all of them.
+>
+> No, wait. There was another one who was still alive like you. I believe he was a slave trader.
+>
+> But his eyes burned like fire. Yours are as cold as ice.
+
+When asked where that slave trader went, Pepe answers:
+
+> I don't know and I don't care.
+
+The direct actor record is not mechanically referenced by this INFO, so the safest identity relation remains:
+
+**fiery-eyed sarcophagus survivor ↔ very strong candidate for NPC 020CAA71 / Slave Trader**
+
+rather than a formally encoded alias link.
+
+## Sir Henrik and Slave Trader's House
+
+The restored ESM strengthens the trail through **Knight of Julianos**.
+
+Henrik says:
+
+> I don't quite remember. There was something about a slave trader and cheap booze...
+
+and later:
+
+> When I woke up again, he was no longer there. What a bastard, to lock me up in this hole...
+
+The quest contains:
+
+- `PACK 02126606`
+- `zzzCHsq07HenikStaySlaverHouse`
+
+This directly links Henrik's implementation to **Slave Trader's House**.
+
+Thus the Slave Trader thread intersects:
+- the note route;
+- the Knights of the Nine;
+- captivity/imprisonment;
+- the Coldharbour sarcophagus cycle.
+
+## Note 6 — firewood
+
+Note 6's “firewood” wording directly resonates with:
 - *Judgement*;
 - Mary/Moura's execution;
 - *The Grand Inquisitor*;
 - *A Vision in Malada* stanza 5.
 
-This may deliberately connect the slave-trader trail to recurring Alessian persecution and burning imagery.
+Its carrier being **Sir Ralvas** is now structural fact.
 
-It is still thematic evidence, not proof that Note 6 describes Mary specifically.
+That does not prove the note refers to Mary specifically.
 
 ## Note 7 — shepherd and wolf
 
-The note says the shepherd is dead and the wolf is free.
+Note 7 says:
 
-VIGILANT repeatedly uses shepherd/wolf imagery:
-- Jhunal calls Laza a simple shepherd he manipulated;
-- Alessia warns about “the Wolf” in Aetherius;
-- domination/salvation metaphors recur throughout the story.
+> The shepherd is dead, and the wolf set free.
 
-The current source layer does not uniquely resolve the note's shepherd or wolf.
+The restored ESM now gives substantially stronger Laza context elsewhere:
 
-Keep both identities open.
+- the exact Laza book says one may **take on the name of Laza**;
+- the White Owl describes shepherd → wolf → wind;
+- Kahkaankrein calls Laza mortal children/shepherds outside Kyne's garden;
+- Jhunal says he used Laza as an obedient shepherd.
 
-## Note 8
+Because Note 7 is in **Marukh's death-item list**, its final referent remains deliberately ambiguous.
 
-The final note shifts into elegiac evening/darkness imagery.
+Strong motif connection:
+**Note 7 ↔ Laza shepherd/wolf transformation language**
 
-Its function may be:
-- endpoint;
-- death marker;
-- mood transition;
-- literary quotation;
-- signal of the trail entering darkness/Coldharbour.
+Unresolved:
+- whether “the shepherd” is one specific Laza;
+- whether “the wolf” is Laza, Molag Bal, another figure, or a symbolic state;
+- why Marukh carries this note.
 
-The ESM evidence currently available does not establish which.
+## Note 8 — cemetery endpoint
+
+Note 8 is the opening of Thomas Gray's *Elegy Written in a Country Churchyard*.
+
+Its direct placement on the dead Slave Trader in **Chapel of Arkay Cemetery** gives the literary quotation a concrete environmental function.
+
+This strongly supports:
+- finality;
+- death;
+- cemetery endpoint;
+- a self-conscious end to the note itinerary.
+
+a123999's supplementary background article says the Slave Trader's life ended with writing a poem.
+
+The ESM's Note 8-on-corpse placement is highly compatible with that statement.
+
+## Funeral grave implementation clue
+
+Three grave activators in the same cemetery are:
+
+- `ACTI 020CAA73` / `zzzCHSlaverTomb01` — **Johan's Grave**
+- `ACTI 020CAA74` / `zzzCHSlaverTomb02` — **Simon's Grave**
+- `ACTI 020CAA75` / `zzzCHSlaverTomb03` — **Tlass' Grave**
+
+They are the graves Martha seeks in **Funeral**.
+
+The internal **SlaverTomb** naming creates a direct implementation-level connection to the Slave Trader namespace.
+
+The narrative meaning is not yet explicit.
+
+Do not infer:
+- Slave Trader = Johan / Simon / Tlass;
+- Martha is the Slave Trader's family;
+- the Slave Trader built the graves.
+
+This is a high-value unresolved implementation clue.
+
+## A Vision in Malada — stanza 9
+
+Stanza 9 remains mapped to the fiery-eyed Slave Trader with medium confidence.
+
+The new direct source strengthens that mapping because:
+- a concrete Slave Trader NPC exists;
+- Note 1 begins at the sarcophagus motif;
+- Pepe explicitly remembers a fiery-eyed slave trader coming through the sarcophagus;
+- Note 8 ends on the Slave Trader's cemetery remains.
+
+Still unresolved:
+- the exact stanza-8 brother killed by the Slave Trader;
+- direct proof that the Slave Trader carried the Stone;
+- exact gate/event referenced by the prophecy.
+
+## LST cross-work clue
+
+The actor EditorID is:
+
+`zzzCHlstSlaveTrader`
+
+The **lst** fragment is compatible with a123999's supplementary statement that this Slave Trader is the soul/protagonist of Vicn's earlier *LST Bravil Underground*.
+
+This is meaningful implementation evidence, but not enough by itself to import the whole LST protagonist biography as direct VIGILANT fact.
 
 ## Current model
 
-The best supported reconstruction is:
+The direct source now supports:
 
-**an unnamed slave-trader-associated observer/survivor leaves a sequence of cryptic notes distributed across Coldharbour locations, recording or alluding to recurring disasters, bard stories, burning, and a sarcophagus route.**
+**a named Slave Trader emerges in the same sarcophagus cycle described by Pepe, leaves/is associated with an eight-note itinerary through Coldharbour locations and characters, intersects Sir Henrik and the Knights, and ends as dead Bone-Human remains in the Chapel of Arkay Cemetery carrying Note 8.**
 
-The notes participate in VIGILANT's wider pattern of:
-- prophetic itineraries;
-- repeated disasters;
-- unstable history;
-- bard-authored stories;
-- Stone-related recurrence.
+The notes appear to catalogue prior calamities, transformations, and recurring Vicn/VIGILANT events.
+
+Whether they are:
+- chronological travel notes;
+- memories from repeated lives;
+- prophecy confirmations;
+- cross-work recollections
+
+remains open.
 
 ## Reliability
 
-High-confidence:
-- exact existence/order of eight named notes;
-- exact persisted text;
-- fixed placements for Notes 1–5;
-- Pepe's testimony about a fiery-eyed slave trader emerging from a sarcophagus.
+High-confidence direct:
+- exact eight note texts;
+- placements for Notes 1–5;
+- Note 6 held by Sir Ralvas;
+- Note 7 in Marukh's death-item list;
+- Note 8 held by the named dead Slave Trader;
+- Slave Trader NPC, house, outfit, race, cemetery placement;
+- Pepe's fiery-eyed slave-trader testimony;
+- Henrik's Slave Trader/house connection.
 
-Medium/interpretive:
-- one author wrote all eight;
-- the notes form one chronological journey;
-- they map directly onto *A Vision in Malada* stanzas 8–9;
-- named disasters represent specific licensed historical events.
+Strong but not formally alias-linked:
+- Pepe's fiery-eyed sarcophagus survivor = the named Slave Trader NPC.
 
-## Open extraction work
+Supplementary:
+- Slave Trader = prior *LST Bravil Underground* protagonist/soul;
+- his life ends through writing the final poem.
 
-Future exact-source work should recover:
-- placements or acquisition paths for Notes 6–8;
-- any container/NPC ownership of the notes;
-- slave-trader NPC base or alias if one exists;
-- quest conditions around Slave Trader's House;
-- dialogue cross-references to Gideon, Bravil, and Gilverdale.
+## Remaining questions
+
+1. What exactly connects the Slave Trader to the `SlaverTomb` Johan/Simon/Tlass graves?
+2. Why does Sir Ralvas carry Note 6?
+3. Why is Note 7 part of Marukh's death items?
+4. Which events exactly correspond to Gideon, Bravil, and Gilverdale in this itinerary?
+5. Does the actor's `lst` EditorID encode a formal cross-mod identity bridge beyond the supplementary commentary?
+6. Can scripts/stages establish a direct identity link between the sarcophagus survivor and `NPC_ 020CAA71`?
 
 ## Canon boundary
 
-The Slave Trader note sequence and fiery-eyed slave-trader thread are VIGILANT-continuity narrative material.
+The Slave Trader note sequence, fiery-eyed sarcophagus survivor, cemetery endpoint, and associated cross-work hints are Vicn/VIGILANT continuity material.

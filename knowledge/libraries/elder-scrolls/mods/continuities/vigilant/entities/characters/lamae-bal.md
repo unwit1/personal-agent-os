@@ -24,3 +24,24 @@ A separate `zzzCHLamaeMemory` form has structurally attributed dialogue in the C
 - `INFO 0203C191`–`0203C197`
 - `BOOK 020DB22D` / *Lamae's Kin*
 - `NPC_ 02080E93` / `zzzCHLamaeMemory`
+
+
+## Lamae's Kin outbreak chronology
+
+The exact text of `BOOK 020DB22D` adds a more detailed historical layer than the earlier dossier summary.
+
+The book claims Lamae's Kin:
+- is a painful curse rather than ordinary curable vampirism;
+- is bloodborne but, in the cases known to the author, transmitted through drinking blood rather than wounds;
+- causes infected people to see/dream of Lamae;
+- produces progressive psychological instability and later violent vampirism.
+
+It cites **priest Ainam** for a last confirmed outbreak near Lake Ilinalta on **7 Frostfall, 2E 582**.
+
+The reported victim/perpetrator was a local boy about ten years old. The Mages Guild incinerated him, and the text says his ashes were later lost from Arcane University custody during turmoil involving a winged Daedroth.
+
+See:
+- `analysis/lamaes-kin-outbreak.md`
+- `entities/characters/ainam.md`
+
+This documentary outbreak should remain source-separated from Lamae's own direct Blood Matron dialogue and from Facis's later personal testimony.

@@ -37,7 +37,9 @@ DAc0da's BOOK text follows the same Aechneil / Bleed / Djaf / Ghost Choir 9 narr
 ## `DAc0da.esm:0085FD` — Ghost Choir 9
 
 **Editor ID:** `zDcdNahdFiction_002_MK`  
-**Origin status:** **MK-associated obscure material; exact standalone publication provenance not yet independently recovered**
+**Origin:** Michael Kirkbride  
+**Original publication:** The Elder Scrolls Forums, archived/indexed as **General:Ghost Choir 9**, February 18, 2012  
+**Status:** verified developer/obscure-text reuse
 
 The DAc0da text is titled:
 
@@ -51,17 +53,27 @@ External material confirms:
 - Kirkbride's **Landfall: Day One** uses Ghost Choir 9 directly;
 - mojonation1487 separately describes Ghost Choir 9 as an RPG idea by MK while saying they themselves wrote about the concept in their own works.
 
-However, this pass has **not** recovered a sufficiently authoritative standalone publication page for the exact long text embedded in `0085FD`.
+A later exact-source search resolved the remaining provenance gap.
+
+UESP's **General:Ghost Choir 9** archive entry reproduces distinctive wording from this same text, including the “Martin's Knees” section, and its book metadata identifies:
+
+- archived source: **The Elder Scrolls Forums**;
+- writer: **Michael Kirkbride**;
+- date: **February 18, 2012**.
+
+This confirms that DAc0da's `0085FD` is a formatted reuse of an existing Michael Kirkbride unofficial/developer text.
+
+The DAc0da text is **not** mojonation1487's separate `Djaf: Arena of Lyg` prose, even though both use Captain Starkweather and Ghost Choir 9.
+
+Michael Kirkbride's later **Landfall: Day One** independently reuses Ghost Choir 9 as well, supporting continuity of the concept across his C0DA-related material.
 
 ### Library treatment
 
-For now record:
-
-- `_MK` editor attribution: direct DAc0da metadata;
-- Ghost Choir 9 concept: strongly Michael-Kirkbride-associated;
-- exact long-text authorship/source page: **unresolved**.
-
-Do not upgrade “associated with MK” to “verified exact text authored by MK” until the original standalone source is recovered.
+- prose/content origin: **Michael Kirkbride**
+- original venue: **The Elder Scrolls Forums**
+- archived date: **2012-02-18**
+- DAc0da role: **Vicn curation, formatting, placement, and integration**
+- source class: **unofficial/developer/obscure text**, not Bethesda game canon
 
 ## `DAc0da.esm:0085FE` — ANON/ANU/ANUI-EL
 
@@ -169,9 +181,9 @@ DAc0da uses a lightly adapted/normalized presentation, including bracketed subst
 - **Lament for Pelinal** — Michael Kirkbride
 - **A Type of Zero Still to Be Discovered** — Michael Kirkbride
 
-### Still not fully source-resolved
+### Provenance block complete at first-pass depth
 
-- **Ghost Choir 9** long standalone text — clearly MK-associated in DAc0da metadata and wider concept history, but exact original publication/authorship page still needs recovery.
+The major Nahd-fiction source identities in this pass are now resolved sufficiently for first-pass provenance. Future work may preserve archived URLs/snapshots, but no major authorship/source-class ambiguity remains.
 
 ## DAc0da narrative significance
 

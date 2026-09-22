@@ -29,3 +29,23 @@ The remaining records are predominantly spell tomes, dragon bones, beast bones, 
 - **Ysmir the Forefather, Volume IV; Harakk Warrior's Final Note; Note from Fluffy:** currently treated as UNSLAAD-source texts pending contrary evidence.
 
 Presence inside Unslaad.esm never by itself establishes authorship.
+
+## Provenance audit status
+
+The lore-bearing BOOK provenance audit is now complete enough for normal retrieval.
+
+Resolved:
+- Loveletter and fragments — external developer/apocryphal reuse;
+- Sermon 37 — official ESO reuse;
+- Sermon 0 — unofficial developer/forum reuse;
+- KINMUNE material is tracked as Insight/source reuse rather than a BOOK provenance issue.
+
+Intentionally unresolved:
+- Vivec and Molag Bal — no reliable earlier exact source located after repeat searches.
+
+UNSLAAD-local unless contrary evidence emerges:
+- Ysmir the Forefather, Volume IV;
+- Harakk Warrior's Final Note;
+- Note from Fluffy.
+
+An intentionally unresolved source is still a completed provenance classification. Do not keep it in the active ingestion backlog solely because authorship is unknown.

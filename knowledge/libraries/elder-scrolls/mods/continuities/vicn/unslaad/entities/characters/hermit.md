@@ -71,3 +71,14 @@ The dream imagery directly overlaps existing VICN nodes:
 - UNSLAAD's Ysmaalithax/golden-dragon/name-concealment thread.
 
 Treat these as prophetic/dream correspondences, not literal event transcripts.
+
+## Dream-evidence boundary
+
+The Hermit's dream paintings are **direct evidence that these images and correspondences exist in UNSLAAD**, but not direct evidence that the depicted events happened literally.
+
+For retrieval:
+- use dream imagery as a bridge to Blue Star, Chick/EGG, Black Owl, Elder Wood, and golden-dragon topics;
+- keep the dream source label attached;
+- require a second source before converting a dream correspondence into an event or identity claim.
+
+His first-person statement that he advised Austella is stronger historical testimony than the symbolic content of the paintings, but it is still witness testimony rather than implementation proof.

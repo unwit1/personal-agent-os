@@ -1,0 +1,50 @@
+{"observed_form_id":"0404D94C","record_type":"DIAL","origin_id":"arnima.esm:04D94C","quest_origin_id":"arnima.esm:528EB8","info_count":1}
+{"observed_form_id":"0404D94E","record_type":"DIAL","origin_id":"arnima.esm:04D94E","quest_origin_id":"arnima.esm:528EB8","info_count":1}
+{"observed_form_id":"0404DB77","record_type":"DIAL","editor_id":"ArnimaMainQuest14FBTopic","origin_id":"arnima.esm:04DB77","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"0404DB79","record_type":"DIAL","editor_id":"ArnimaMainQuest14FB1t2","title":"Such is the way of Orcs, to struggle and endure.... Something a coward like you wouldn't understand. ","origin_id":"arnima.esm:04DB79","quest_origin_id":"arnima.esm:3B67E7","prompt":"Such is the way of Orcs, to struggle and endure.... Something a coward like you wouldn't understand. ","info_count":1}
+{"observed_form_id":"0404E414","record_type":"DIAL","origin_id":"arnima.esm:04E414","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"0404E41F","record_type":"DIAL","editor_id":"ArnimaWEcollectIng11t2","title":"Sure, anything to speed up the rebuilding. ","origin_id":"arnima.esm:04E41F","quest_origin_id":"arnima.esm:5230F8","prompt":"Sure, anything to speed up the rebuilding. ","info_count":1}
+{"observed_form_id":"0404E422","record_type":"DIAL","editor_id":"ArnimaWEcollectIng1EndTopic","title":"Here's those pickaxes you asked for.","origin_id":"arnima.esm:04E422","quest_origin_id":"arnima.esm:5230F8","prompt":"Here's those pickaxes you asked for.","info_count":1}
+{"observed_form_id":"0404F338","record_type":"DIAL","origin_id":"arnima.esm:04F338","quest_origin_id":"arnima.esm:05EAD3","info_count":5}
+{"observed_form_id":"0404F33C","record_type":"DIAL","origin_id":"arnima.esm:04F33C","quest_origin_id":"arnima.esm:05EAD3","info_count":1}
+{"observed_form_id":"0404F33E","record_type":"DIAL","origin_id":"arnima.esm:04F33E","quest_origin_id":"arnima.esm:05EAD3","info_count":3}
+{"observed_form_id":"0404F341","record_type":"DIAL","origin_id":"arnima.esm:04F341","quest_origin_id":"arnima.esm:05EAD3","info_count":1}
+{"observed_form_id":"0404F349","record_type":"DIAL","editor_id":"arnimamainquest4newDeviceTopic","title":"[Lore] Why do you think the gauntlets were moved here?","origin_id":"arnima.esm:04F349","quest_origin_id":"arnima.esm:05EAD3","prompt":"[Lore] Why do you think the gauntlets were moved here?","info_count":1}
+{"observed_form_id":"0404FAC3","record_type":"DIAL","editor_id":"arnimaexilequest2talkTopic","title":"[Quest] Seeing as you're the head of this enclave, do you have any work for me?","origin_id":"arnima.esm:04FAC3","quest_origin_id":"arnima.esm:04FAC0","prompt":"[Quest] Seeing as you're the head of this enclave, do you have any work for me?","info_count":1}
+{"observed_form_id":"0404FAC5","record_type":"DIAL","editor_id":"arnimaexilequest2accept","title":"Aye, I'm up for some flaying. ","origin_id":"arnima.esm:04FAC5","quest_origin_id":"arnima.esm:04FAC0","prompt":"Aye, I'm up for some flaying. ","info_count":1}
+{"observed_form_id":"0404FAC7","record_type":"DIAL","editor_id":"arnimaexilequest2reject","title":"I'm not ready for beasts of that scale just yet. ","origin_id":"arnima.esm:04FAC7","quest_origin_id":"arnima.esm:04FAC0","prompt":"I'm not ready for beasts of that scale just yet. ","info_count":1}
+{"observed_form_id":"0404FACB","record_type":"DIAL","editor_id":"arnimaexilequest2endTopic","title":"Beasts are no match for steel. ","origin_id":"arnima.esm:04FACB","quest_origin_id":"arnima.esm:04FAC0","prompt":"Beasts are no match for steel. ","info_count":1}
+{"observed_form_id":"0404FFFE","record_type":"DIAL","editor_id":"arnimamainquest0guard1Topic","title":"What happened here?","origin_id":"arnima.esm:04FFFE","quest_origin_id":"arnima.esm:04D8D5","prompt":"What happened here?","info_count":1}
+{"observed_form_id":"0405000F","record_type":"DIAL","editor_id":"arnimamainquest0witchTopic","origin_id":"arnima.esm:05000F","quest_origin_id":"arnima.esm:04D8D5","info_count":0}
+{"observed_form_id":"0405065A","record_type":"DIAL","editor_id":"arnimaNPCcoversationsEntemonTopic","origin_id":"arnima.esm:05065A","quest_origin_id":"arnima.esm:01781E","info_count":1}
+{"observed_form_id":"040510C0","record_type":"DIAL","origin_id":"arnima.esm:0510C0","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"040510C2","record_type":"DIAL","origin_id":"arnima.esm:0510C2","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"040510C4","record_type":"DIAL","origin_id":"arnima.esm:0510C4","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"040510CB","record_type":"DIAL","editor_id":"ArnimaMainquest13Kegor1Topic","origin_id":"arnima.esm:0510CB","quest_origin_id":"arnima.esm:3B67E6","info_count":0}
+{"observed_form_id":"040510CC","record_type":"DIAL","editor_id":"ArnimaMainquest13Kegor1t2","origin_id":"arnima.esm:0510CC","quest_origin_id":"arnima.esm:3B67E6","info_count":0}
+{"observed_form_id":"040510CE","record_type":"DIAL","editor_id":"ArnimaMainquest13Kegor2Topic","origin_id":"arnima.esm:0510CE","quest_origin_id":"arnima.esm:3B67E6","info_count":0}
+{"observed_form_id":"040510CF","record_type":"DIAL","editor_id":"ArnimaMainquest13Kegor2t2","origin_id":"arnima.esm:0510CF","quest_origin_id":"arnima.esm:3B67E6","info_count":0}
+{"observed_form_id":"04051362","record_type":"DIAL","origin_id":"arnima.esm:051362","quest_origin_id":"arnima.esm:05135E","info_count":1}
+{"observed_form_id":"04051364","record_type":"DIAL","origin_id":"arnima.esm:051364","quest_origin_id":"arnima.esm:05135E","info_count":1}
+{"observed_form_id":"04051366","record_type":"DIAL","origin_id":"arnima.esm:051366","quest_origin_id":"arnima.esm:05135E","info_count":1}
+{"observed_form_id":"04051368","record_type":"DIAL","origin_id":"arnima.esm:051368","quest_origin_id":"arnima.esm:05135E","info_count":1}
+{"observed_form_id":"0405147F","record_type":"DIAL","editor_id":"ArnimaBountyQuests2startTopic","title":"Have anything for me?","origin_id":"arnima.esm:05147F","quest_origin_id":"arnima.esm:05147D","prompt":"Have anything for me?","info_count":1}
+{"observed_form_id":"04051484","record_type":"DIAL","editor_id":"ArnimaBountyQuests2endTopic","title":"I've fulfilled the bounty. ","origin_id":"arnima.esm:051484","quest_origin_id":"arnima.esm:05147D","prompt":"I've fulfilled the bounty. ","info_count":1}
+{"observed_form_id":"040529D2","record_type":"DIAL","editor_id":"arnimamainquest3talk1Topic","title":"Does your highness require my services?","origin_id":"arnima.esm:0529D2","quest_origin_id":"arnima.esm:0529CF","prompt":"Does your highness require my services?","info_count":1}
+{"observed_form_id":"040529D4","record_type":"DIAL","editor_id":"arnimamainquest3accept","title":"Could you not just buy another?","origin_id":"arnima.esm:0529D4","quest_origin_id":"arnima.esm:0529CF","prompt":"Could you not just buy another?","info_count":1}
+{"observed_form_id":"040529DB","record_type":"DIAL","editor_id":"arnimamainquest3endTopic","title":"[Quest] I return with your amulet, and have taken care of the thieves.","origin_id":"arnima.esm:0529DB","quest_origin_id":"arnima.esm:0529CF","prompt":"[Quest] I return with your amulet, and have taken care of the thieves.","info_count":1}
+{"observed_form_id":"0405575F","record_type":"DIAL","editor_id":"arnimamainquest4newDevjceTopic","title":"What should we do?","origin_id":"arnima.esm:05575F","quest_origin_id":"arnima.esm:05EAD3","prompt":"What should we do?","info_count":1}
+{"observed_form_id":"04055763","record_type":"DIAL","editor_id":"arnimamainquest3MissionaryTopic","title":"[Quest] Do you know where the Witchmen took the lord's amulet?","origin_id":"arnima.esm:055763","quest_origin_id":"arnima.esm:0529CF","prompt":"[Quest] Do you know where the Witchmen took the lord's amulet?","info_count":1}
+{"observed_form_id":"0405579C","record_type":"DIAL","editor_id":"ArnimaMainquest11Bishop1t2","title":"You're so generous, Bishop.","origin_id":"arnima.esm:05579C","quest_origin_id":"arnima.esm:3B0AE9","prompt":"You're so generous, Bishop.","info_count":1}
+{"observed_form_id":"0405579E","record_type":"DIAL","editor_id":"ArnimaMainquest11Bishop1t3","title":"The king doesn't need me for anything else?","origin_id":"arnima.esm:05579E","quest_origin_id":"arnima.esm:3B0AE9","prompt":"The king doesn't need me for anything else?","info_count":1}
+{"observed_form_id":"040557A0","record_type":"DIAL","editor_id":"ArnimaMainquest11Bishop1t4","title":"So all's settled then.","origin_id":"arnima.esm:0557A0","quest_origin_id":"arnima.esm:3B0AE9","prompt":"So all's settled then.","info_count":1}
+{"observed_form_id":"04056FB9","record_type":"DIAL","origin_id":"arnima.esm:056FB9","quest_origin_id":"arnima.esm:3B67E5","info_count":1}
+{"observed_form_id":"04056FBB","record_type":"DIAL","origin_id":"arnima.esm:056FBB","quest_origin_id":"arnima.esm:3B67E5","info_count":1}
+{"observed_form_id":"04056FBD","record_type":"DIAL","origin_id":"arnima.esm:056FBD","quest_origin_id":"arnima.esm:3B67E5","info_count":1}
+{"observed_form_id":"04056FBF","record_type":"DIAL","origin_id":"arnima.esm:056FBF","quest_origin_id":"arnima.esm:3B67E5","info_count":1}
+{"observed_form_id":"04056FC2","record_type":"DIAL","origin_id":"arnima.esm:056FC2","quest_origin_id":"arnima.esm:3B67E5","info_count":1}
+{"observed_form_id":"04056FC7","record_type":"DIAL","origin_id":"arnima.esm:056FC7","quest_origin_id":"arnima.esm:3B67E5","info_count":1}
+{"observed_form_id":"04056FC9","record_type":"DIAL","origin_id":"arnima.esm:056FC9","quest_origin_id":"arnima.esm:3B67E5","info_count":1}
+{"observed_form_id":"04056FCB","record_type":"DIAL","origin_id":"arnima.esm:056FCB","quest_origin_id":"arnima.esm:3B67E5","info_count":1}
+{"observed_form_id":"04056FCD","record_type":"DIAL","origin_id":"arnima.esm:056FCD","quest_origin_id":"arnima.esm:3B67E5","info_count":1}
+{"observed_form_id":"04056FCF","record_type":"DIAL","origin_id":"arnima.esm:056FCF","quest_origin_id":"arnima.esm:3B67E5","info_count":1}

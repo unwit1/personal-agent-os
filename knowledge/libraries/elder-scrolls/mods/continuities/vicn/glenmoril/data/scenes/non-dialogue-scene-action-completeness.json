@@ -1,0 +1,31 @@
+{
+  "source_plugin": "Glenmoril.esm",
+  "source_sha256": "5669018c81acf13147ff489f486963ecc3c57515a73ed9afd210c7ede85e1cc8",
+  "scene_records": 314,
+  "action_records": 2211,
+  "action_types": {
+    "0_dialogue": 1578,
+    "1_package": 461,
+    "2_timer": 172
+  },
+  "non_dialogue_backlog": 633,
+  "non_dialogue_normalized": 633,
+  "package_actions_normalized": 461,
+  "timer_actions_normalized": 172,
+  "quest_links_resolved": 633,
+  "alias_names_resolved": 633,
+  "package_refs_preserved": 461,
+  "glenmoril_package_editor_ids_resolved": 428,
+  "external_master_package_refs": 33,
+  "timer_values_resolved": 172,
+  "scenes_with_dialogue": 282,
+  "scenes_without_dialogue": 32,
+  "scenes_with_package": 139,
+  "scenes_with_timer": 131,
+  "scenes_with_package_and_timer": 53,
+  "scenes_only_non_dialogue": 31,
+  "scenes_zero_actions": 1,
+  "dialogue_layer_status": "closed_elsewhere",
+  "non_dialogue_layer_status": "exact_action_normalization_complete",
+  "next_frontier": "scene_choreography_and_chronology_reconstruction"
+}

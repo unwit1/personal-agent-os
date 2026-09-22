@@ -8,6 +8,7 @@ VIGILANT's `BOOK` records include a mixture of mod-specific documents, spell/con
 
 The following records match published *The Elder Scrolls Online* books and should be dual-tagged as **official-source reprint embedded in VIGILANT**, not as original VIGILANT claims:
 
+- `02054ED2` — **The Remnant of Light** by Beredalmo the Signifier — official *The Elder Scrolls Online* Rivenspire lorebook; VIGILANT embeds the published Ayleid tract rather than originating Filestis/Anumaril's Remnant narrative.
 - `0212905B` — **The Archimonk's Dream** — first chant within ESO's *Proper-Life: Three Chants*.
 - `0212905C` — **The Song-Never-Sung-at-Twilight** — second chant within ESO's *Proper-Life: Three Chants*.
 - `0212905D` — **The Forty-Third Praise-Song of Alessia** — third chant within ESO's *Proper-Life: Three Chants*.
@@ -29,4 +30,14 @@ VIGILANT-specific placement, context, editing, omissions, additions, or juxtapos
 
 ## Pending classification
 
-The remaining 170 BOOK records need title/text comparison against the official corpus. Priority should go to Coldharbour/Alessian/Ayleid/history books before spell tomes and `Fragment of the Stone` conjuration objects.
+The remaining 169 BOOK records need title/text comparison against the official corpus. Priority should go to Coldharbour/Alessian/Ayleid/history books before spell tomes and `Fragment of the Stone` conjuration objects.
+
+
+## Verification note — The Remnant of Light
+
+The exact VIGILANT transcription of `BOOK 02054ED2` matches the published ESO lorebook **The Remnant of Light**, credited to Beredalmo the Signifier and classified as Rivenspire lore.
+
+Therefore:
+- Filestis and Anumaril's Remnant-of-Light episode is licensed-source substrate;
+- VIGILANT-specific placement/juxtaposition remains valid mod evidence;
+- the prose itself should not be treated as a Vicn-authored historical claim.

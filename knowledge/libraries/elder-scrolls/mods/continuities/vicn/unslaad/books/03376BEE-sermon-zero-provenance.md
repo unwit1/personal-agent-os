@@ -31,3 +31,14 @@ Sermon 37 and Sermon Zero have different provenance:
 - Sermon Zero = unofficial developer/forum text by Douglas Goodall.
 
 They should not share a generic "apocryphal" tag that erases this distinction.
+
+## Provenance closure
+
+For ingestion purposes this provenance question is closed.
+
+Classification:
+- **unofficial developer/forum text by Douglas Goodall**;
+- reused by UNSLAAD;
+- not a released-game book merely because it appears inside the mod.
+
+Future work should concern UNSLAAD's use of the text, not basic source attribution.

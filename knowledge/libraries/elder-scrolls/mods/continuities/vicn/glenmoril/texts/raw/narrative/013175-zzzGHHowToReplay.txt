@@ -1,0 +1,5 @@
+Completed missions can be replayed.
+
+1. Use console command "pcb".
+2. Use console command "tfc" and wait/sleep for respawn period (~30 days).
+3. Choose chalice that corresponds with the mission you wish to replay.

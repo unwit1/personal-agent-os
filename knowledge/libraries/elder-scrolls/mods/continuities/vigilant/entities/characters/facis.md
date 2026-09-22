@@ -1,68 +1,74 @@
 # Facis
 
 - Continuity: `tes.mod.vigilant`
-- Role: Lamae-associated servant/steward figure; Blood Matron aftermath witness
-- Coldharbour memory scene: `SCEN 02080EA5` / `zzzCHMeQ08Sc01` — **The Nameless Bard**
-- Scene actors: Facis and Lamae Beolfag
-- Key preserved dialogue anchor: `INFO 0203AE23`
-- Exact NPC FormID: not yet persisted in the current browsable repository corpus
+- Present/post-Lamae form: `NPC_ 0203AE15` / `zzzBMVampireMerchant` — **Facis**
+- Memory form: `NPC_ 02080E98` / `zzzCHLamaeFollowerMemory` — **Facis**
+- Dead-memory form: `NPC_ 022C8785` / `zzzCHLamaeFollowerMemoryDead` — **Facis**
+- Present placement: `ACHR 0203AE16` in **Matron's Chamber** (`CELL 02034E12`)
+- Quest roles:
+  - `QUST 02038524` / **Empty Cells** — alias `Merchant`
+  - `QUST 02080E91` / **The Nameless Bard** — alias `Facis`
+- Direct source: translated VIGILANT 1.8.2 ESM
 
-## Direct ESM evidence
+## Direct identity
 
-Facis is structurally present in the **Nameless Bard** memory sequence alongside **Lamae Beolfag**.
+Facis directly introduces himself:
 
-The current VIGILANT evidence map also preserves `INFO 0203AE23`, in which Facis describes the successful release of Lamae's soul back into **Arkay's embrace**.
+> My name is Facis. I am a servant of mistress Lamae.
 
-This makes Facis an important witness for the intended endpoint of the Blood Matron arc:
-- Lamae is not merely defeated;
-- the quest's successful resolution is framed as release from Molag Bal's curse and return toward Arkay.
+## Lamae's release
+
+After Lamae's ending, Facis says:
+
+> Mistress Lamae has fallen into eternal sleep. She will never wake up again.
+
+When asked what happened:
+
+> Her soul left the grasp of Molag Bal and now rests in Arkay's embrace.
+
+He thanks the player for freeing Lamae from long suffering.
 
 ## Relationship to Lamae
 
-The direct scene pairing establishes a strong Facis ↔ Lamae relationship.
+Facis says:
+- Lamae was like a mother to him;
+- he hates that she was hurt;
+- Lamae's kin are connected to her through hearts and minds;
+- they knew her suffering;
+- they wished for her release;
+- he therefore cannot turn his fangs on the one who granted that wish.
 
-Supplementary community guides describe Facis as Lamae's old steward/servant, someone who knew her from mortal life and continued serving her for an extremely long period.
+This directly establishes a servant/familial/psychic-emotional bond.
 
-Supplementary source index:
-- `sources/supplementary/community-transcript-sources.md`
+## Other servant
 
-Because that material is not currently recovered from the ESM dialogue corpus itself, Lorekeeper should preserve it as **supplementary walkthrough/background testimony**, not as structural fact.
+Facis says:
+- he is now Lamae's only servant there;
+- another servant existed until a few years earlier;
+- Molag Bal sent that servant elsewhere;
+- Facis does not know the details.
 
-## Post-Blood-Matron role
+The second servant remains unidentified in this dialogue.
 
-Supplementary walkthrough material places Facis in the Matron's Chamber after the Blood Matron arc, functioning as a merchant and warning the player that permanently freeing Lamae has angered Molag Bal.
+## Molag Bal warning
 
-This fits the ESM-level evidence that Facis remains tied to Lamae's fate after her release.
+Facis warns:
 
-## Nameless Bard memory
+> Lord Molag Bal seems to be very fond of you... Be on your guard.
 
-Facis's appearance in `SCEN 02080EA5` alongside Lamae is especially important because *The Nameless Bard* reconstructs Lamae's earlier mortal/Bard history.
+## Memory forms
 
-Therefore Facis spans at least two narrative layers:
-- Blood Matron aftermath;
-- Lamae memory/backstory.
+The ESM separately implements:
+- present Facis;
+- Nameless Bard memory Facis;
+- dead-memory Facis.
 
-The exact chronological identity relationship between these manifestations should remain source-scoped.
+This supports a recurring/remembered identity structure rather than a single simple body state.
 
-## Reliability
+## Source boundary
 
-High-confidence:
-- Facis is a named dialogue actor in the Nameless Bard memory;
-- Facis directly discusses Lamae's release toward Arkay.
-
-Supplementary:
-- old steward/servant status;
-- knowing Lamae during mortal life;
-- serving her for millennia;
-- post-quest merchant role.
-
-## Relationship map
-
-- **Facis → associated with → Lamae Beolfag**
-- **Facis → witnesses/describes → Lamae's release to Arkay**
-- **Facis → appears in → Nameless Bard memory**
-- **supplementary guides → identify → Facis as Lamae's long-serving steward**
+Community guides may still help with walkthrough context, but the core Facis biography above is now direct ESM evidence.
 
 ## Canon boundary
 
-Facis and his role in Lamae's VIGILANT history are mod-continuity material.
+Facis and his relationship to Lamae are VIGILANT-continuity material.

@@ -56,3 +56,19 @@ Unresolved:
 - whether "worlding of the words" is literal creation, reconstruction, or metaphor;
 - whether stolen stories directly power Blue Star/Radiance phenomena;
 - whether the hostile Crab-Arkay teachings are reliable.
+
+## Relationship closure
+
+The current corpus supports a shared information/memory cluster but not one universal mechanism.
+
+Resolved:
+- Crab-Arkay material directly links Grabbers, stolen stories, Mnemo-Li, and "worlding of the words";
+- UNSLAAD separately warns that Lyg exposure can attract Grabbers;
+- DAc0da independently gives Grabbers explicit name/nymic-loss behavior.
+
+Do not project DAc0da's nymic-stealing mechanic backward onto every UNSLAAD Grabber reference unless a local record says so.
+
+Likewise, hostile statements about Mnemo-Li consuming words/blood remain attributed doctrine.
+
+This topic is complete for ingestion as:
+**strong cross-VICN retrieval cluster + source-specific mechanics + unresolved universal ontology.**

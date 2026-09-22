@@ -1,0 +1,7 @@
+<font face="$HandwrittenFont">
+Dear <Alias=Player>,
+
+The celebration of St. Bazura's resurrection is approaching. If there's no particular celebration in Falkreath, we sometimes hold a feast in honor of St. Bazura instead.
+Grolly, uncle Brandt and I will be preparing lots of sweets and food, so please come and join us. We'll be waiting for you.
+
+Lalanoah
