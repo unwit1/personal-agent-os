@@ -68,6 +68,7 @@ REVIEW_KEY_LIMIT = 160
 REVIEW_FINDING_LIMIT = 500
 REVIEW_VALIDATION_LIMIT = 1000
 MAX_REVIEW_FINDINGS = 5
+MAX_REVIEW_FILES = 32
 MAX_REQUEUE_HISTORY = 8
 
 
@@ -599,6 +600,13 @@ def _review_findings(values: list[str] | None) -> list[str]:
     return [_task_text(value, "finding", REVIEW_FINDING_LIMIT) for value in entries]
 
 
+def _review_changed_files(values: list[str] | None) -> list[str]:
+    entries = values or []
+    if len(entries) > MAX_REVIEW_FILES:
+        raise ValueError(f"a peer review may list at most {MAX_REVIEW_FILES} changed files")
+    return _normalize_scope(entries)
+
+
 def _reviews(data: dict[str, Any]) -> list[dict[str, Any]]:
     if not isinstance(data.get("reviews"), list):
         data["reviews"] = []
@@ -648,7 +656,7 @@ def request_review(
         "reviewer": reviewer_name,
         "task_id": linked_task,
         "commit_fingerprint": linked_commit,
-        "changed_files": _normalize_scope(changed_files),
+        "changed_files": _review_changed_files(changed_files),
         "status": "requested",
         "requested_at": now,
         "updated_at": now,

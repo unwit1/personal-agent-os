@@ -181,8 +181,10 @@ agent-os work-review-submit WR-0123456789ab --agent codex `
 
 Review requests are idempotent for a project, review key, and linked identity.
 The requester cannot submit the verdict, an assigned reviewer cannot be
-replaced, findings are capped and length-limited, and every final verdict needs
-non-empty validation evidence. Retrying the exact final verdict by the same
+replaced, changed-file scope is normalized and capped at 32 paths, findings
+are capped and length-limited, and every final verdict needs non-empty
+validation evidence. Oversized scope is rejected before a review record is
+written. Retrying the exact final verdict by the same
 reviewer returns the persisted record idempotently; a changed verdict or
 evidence cannot mutate it. An approval is recorded evidence, not an automatic
 merge or promotion decision.

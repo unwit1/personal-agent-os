@@ -459,6 +459,15 @@ class PeerReviewTests(ClaimFixture):
                 reviewer="alpha", path=self.registry,
             )
 
+    def test_review_changed_files_are_bounded_before_persistence(self) -> None:
+        changed_files = [f"src/fixture_{index}.py" for index in range(33)]
+        with self.assertRaisesRegex(ValueError, "at most 32 changed files"):
+            coordination.request_review(
+                "demo", "oversized-review", "alpha", commit_fingerprint="bounded123",
+                changed_files=changed_files, path=self.registry,
+            )
+        self.assertEqual(coordination.list_reviews("demo", path=self.registry), [])
+
     def test_task_and_review_listing_respects_case_insensitive_project_identity(self) -> None:
         task = coordination.delegate("Demo", "case-list", "Case fixture", "alpha", path=self.registry)
         requested = coordination.request_review(
