@@ -471,9 +471,18 @@ Initial reports should answer:
 
 ### P1.2 — Adaptive router
 
+Status: **deterministic foundation complete** (2026-09-22). Provider-neutral
+capability classes, cheapest-path selection, persisted fallback, validator-
+driven one-rung escalation, bounded escalation, and observable route
+explanations are implemented and regression-covered. No concrete deterministic
+gap remains in the current scope; provider/model delegation remains outside
+this foundation and P1.3.
+
 Current deterministic slice (2026-09-22): workflow packets expose the
 provider-neutral selected execution path, declared candidates, and a compact
 route explanation. Provider/model delegation remains outside this slice.
+
+The next safe deterministic roadmap stage is P2.1, Automation Miner.
 
 Implement provider-neutral capability classes and validator-driven escalation.
 
