@@ -361,7 +361,9 @@ covers strong, project-specific, weak, and unrelated task queries through both
 cheap successes are not rerun, partial unresolved work survives escalation, and
 checkpoints/next prompts resume from persisted state. A synthetic economy
 benchmark records baseline versus staged context tokens, model-free stage IDs,
-validation parity, and bounded token overhead.
+validation parity, and bounded token overhead. An A/B fixture comparison also
+records synthetic model-call/handoff avoidance and highest executed path without
+calling live providers.
 
 Test four dimensions:
 

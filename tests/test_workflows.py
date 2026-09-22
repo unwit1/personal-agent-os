@@ -433,6 +433,43 @@ class EconomyBenchmarkTests(WorkflowFixture):
         self.assertLessEqual(benchmark["absolute_token_overhead"], baseline_tokens)
         self.assertTrue(baseline_packet["context_measurement"]["within_budget"])
 
+    def test_synthetic_ab_counter_favors_deterministic_staged_execution(self) -> None:
+        baseline_validation = workflows._validate_stage(MANIFEST["stages"][0], {}, workflows.ROOT)
+        baseline = {
+            "model_calls": 1,
+            "model_handoffs": 1,
+            "highest_execution_path": "model",
+            "validation_passed": baseline_validation["passed"],
+        }
+
+        workflows.start("fixture-sweep", run_id="economy-ab")
+        staged_result = workflows.run_stage("fixture-sweep", "economy-ab", "cheap-check")
+        record = workflows.load_run("personal-agent-os", "economy-ab")
+        executed = [
+            state["execution_path"]
+            for state in record["stages"].values()
+            if state["status"] == "complete"
+        ]
+        staged = {
+            "model_calls": 0,
+            "model_handoffs": sum(state["status"] == "awaiting_agent" for state in record["stages"].values()),
+            "highest_execution_path": max(executed, key=("deterministic", "cache", "skill", "model").index),
+            "validation_passed": staged_result["completed_stage"]["validation"]["passed"],
+        }
+        report = {
+            "baseline": baseline,
+            "staged": staged,
+            "model_calls_avoided": baseline["model_calls"] - staged["model_calls"],
+            "handoffs_avoided": baseline["model_handoffs"] - staged["model_handoffs"],
+            "validation_parity": baseline["validation_passed"] == staged["validation_passed"],
+        }
+
+        self.assertTrue(report["validation_parity"])
+        self.assertEqual(staged["highest_execution_path"], "deterministic")
+        self.assertEqual(report["model_calls_avoided"], 1)
+        self.assertEqual(report["handoffs_avoided"], 1)
+        self.assertEqual(record["stages"]["think"]["status"], "pending")
+
 
 class NextPromptTests(WorkflowFixture):
     def test_the_next_prompt_is_generated_from_persisted_state(self) -> None:
