@@ -639,6 +639,7 @@ def request_review(
     reviewer_name = _task_text(reviewer, "reviewer", REVIEW_KEY_LIMIT) if reviewer else None
     if reviewer_name == requester_name:
         raise ValueError("requester and reviewer must be different agents")
+    requested_scope = _review_changed_files(changed_files) if changed_files is not None else None
     location = claims_path(path)
     data = _load(location)
     reviews = _reviews(data)
@@ -650,6 +651,8 @@ def request_review(
     review_id = _review_id(project_name, key, link)
     existing = next((item for item in reviews if item.get("review_id") == review_id), None)
     if existing is not None:
+        if requested_scope is not None and _review_changed_files(existing.get("changed_files")) != requested_scope:
+            raise ValueError("changed_files cannot change for an existing peer review")
         return {"created": False, "idempotent": True, "review": existing}
     now = utc_now_iso()
     review = {
@@ -660,7 +663,7 @@ def request_review(
         "reviewer": reviewer_name,
         "task_id": linked_task,
         "commit_fingerprint": linked_commit,
-        "changed_files": _review_changed_files(changed_files),
+        "changed_files": requested_scope if requested_scope is not None else _review_changed_files(None),
         "status": "requested",
         "requested_at": now,
         "updated_at": now,

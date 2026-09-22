@@ -444,6 +444,12 @@ class PeerReviewTests(ClaimFixture):
         self.assertFalse(second["created"])
         self.assertTrue(second["idempotent"])
         self.assertEqual(first["review"]["review_id"], second["review"]["review_id"])
+        with self.assertRaisesRegex(ValueError, "changed_files cannot change"):
+            coordination.request_review(
+                "demo", "fixture-review", "other", task_id=task["task"]["task_id"],
+                changed_files=["src/other_fixture.py"], path=self.registry,
+            )
+        self.assertEqual(first["review"]["changed_files"], ["src/fixture.py"])
         with self.assertRaisesRegex(ValueError, "linked task project"):
             coordination.request_review(
                 "other", "cross-project", "alpha", task_id=task["task"]["task_id"], path=self.registry,

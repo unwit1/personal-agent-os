@@ -184,7 +184,9 @@ The requester cannot submit the verdict, an assigned reviewer cannot be
 replaced, changed-file scope is normalized and capped at 32 paths of at most
 500 characters each, findings are capped and length-limited, and every final
 verdict needs non-empty validation evidence. Oversized scope is rejected
-before a review record is written. Retrying the exact final verdict by the same
+before a review record is written. An explicit retry must preserve the original
+changed-file scope; omitting scope preserves idempotency. Retrying the exact
+final verdict by the same
 reviewer returns the persisted record idempotently; a changed verdict or
 evidence cannot mutate it. An approval is recorded evidence, not an automatic
 merge or promotion decision.
