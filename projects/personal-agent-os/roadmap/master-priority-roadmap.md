@@ -436,6 +436,14 @@ Build after or alongside the P0 primitives so optimization is measured against r
 
 ### P1.1 — Privacy-safe usage telemetry
 
+Current bounded implementation (2026-09-22): `src/agent_os/telemetry.py`
+defines a strict metadata-only event schema and append-only JSONL store under
+the gitignored `.agent-local/telemetry` tree. Synthetic tests prove compact
+labels/counts round-trip, canonical repository paths are rejected, and raw
+prompt/document/secret-like fields and free-form labels fail closed. Provider
+usage adapters, aggregate reports, and live integrations remain future slices;
+unavailable metrics are never fabricated.
+
 Record, when exposed:
 - task/project/category;
 - provider/model/capability class;

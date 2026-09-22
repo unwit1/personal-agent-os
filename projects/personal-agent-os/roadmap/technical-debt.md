@@ -78,11 +78,14 @@ transcript-free resumption, but it is a real cost: a workflow split into many
 tiny stages would pay it repeatedly. The regression test bounds the staged
 total at twice the single-pass figure rather than asserting a reduction.
 
-### No telemetry yet
+### Telemetry is metadata-only and not yet connected to workflows
 
-Nothing records how long a stage took, how many tokens it actually consumed, or
-how often escalation fired. P1.1 covers this; until then, capability selection
-is policy-driven rather than evidence-driven at the workflow level.
+P1.1 now has a strict local `TelemetryEvent` schema and append-only JSONL store
+under the gitignored `.agent-local` tree. It records only compact labels,
+counts, booleans, and timestamps; raw prompts, documents, secrets, and free-form
+labels are rejected. No workflow/provider usage adapter or aggregate report is
+connected yet, so unavailable metrics remain absent and capability selection is
+still policy-driven rather than evidence-driven at the workflow level.
 
 ### Run records are Git-tracked
 
