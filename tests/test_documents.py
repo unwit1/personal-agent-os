@@ -15,8 +15,10 @@ from agent_os.documents import (
     CachePrivacyError,
     DocumentCache,
     PageKey,
+    PageInput,
     cache_status_safe,
     embedded_text_is_sufficient,
+    extract_batch,
     extract_page,
     hash_bytes,
     hash_file,
@@ -369,6 +371,87 @@ class TelemetryTests(CacheFixture):
             extract_page(self.key(page_index=index), lambda: FORM_TEXT, None, second)
         self.assertEqual(first_pass, 0.0)
         self.assertEqual(second.telemetry.as_dict()["cache_hit_rate"], 1.0)
+
+
+class BatchExtractionTests(CacheFixture):
+    def page(self, source_key: str, content: bytes, page_index: int = 0, embedded_text=None, ocr=None) -> PageInput:
+        return PageInput(
+            source_key=source_key,
+            content=content,
+            key=self.key(file_hash=hash_bytes(content), page_index=page_index),
+            embedded_text=embedded_text,
+            ocr=ocr,
+        )
+
+    def ledger_path(self) -> Path:
+        return self.location / "batch.json"
+
+    def test_batch_reimport_is_idempotent_and_uses_page_cache(self) -> None:
+        pages = [self.page("fixture/page-0", b"page-zero", embedded_text=lambda: FORM_TEXT)]
+        first = extract_batch(pages, batch_id="fixture-batch", cache=self.cache, ledger_path=self.ledger_path())
+        second = extract_batch(pages, batch_id="fixture-batch", cache=self.cache, ledger_path=self.ledger_path())
+
+        self.assertEqual(first["queued"], 1)
+        self.assertEqual(second["skipped"], 1)
+        self.assertTrue(second["results"]["fixture/page-0"]["cached"])
+        ledger = json.loads(self.ledger_path().read_text(encoding="utf-8"))
+        self.assertNotIn(FORM_TEXT, json.dumps(ledger))
+
+    def test_changed_page_content_requeues_the_same_source_key(self) -> None:
+        old = self.page("fixture/page-0", b"old-page", embedded_text=lambda: "old extracted text")
+        new = self.page("fixture/page-0", b"new-page", embedded_text=lambda: "new extracted text")
+        extract_batch([old], batch_id="fixture-batch", cache=self.cache, ledger_path=self.ledger_path())
+        result = extract_batch([new], batch_id="fixture-batch", cache=self.cache, ledger_path=self.ledger_path())
+
+        self.assertEqual(result["reprocessed"], 1)
+        self.assertEqual(result["results"]["fixture/page-0"]["text"], "new extracted text")
+        ledger = json.loads(self.ledger_path().read_text(encoding="utf-8"))
+        item = next(iter(ledger["items"].values()))
+        self.assertEqual(item["revision"], 2)
+        self.assertEqual(item["status"], "processed")
+
+    def test_interrupted_batch_recovers_the_claimed_page(self) -> None:
+        def interrupt() -> str:
+            raise KeyboardInterrupt()
+
+        pages = [
+            self.page("fixture/page-0", b"page-zero", embedded_text=lambda: FORM_TEXT),
+            self.page("fixture/page-1", b"page-one", embedded_text=interrupt),
+        ]
+        with self.assertRaises(KeyboardInterrupt):
+            extract_batch(pages, batch_id="fixture-batch", cache=self.cache, ledger_path=self.ledger_path())
+
+        interrupted = json.loads(self.ledger_path().read_text(encoding="utf-8"))
+        self.assertEqual(sorted(item["status"] for item in interrupted["items"].values()), ["processed", "processing"])
+        resumed_pages = [
+            pages[0],
+            self.page("fixture/page-1", b"page-one", embedded_text=lambda: FORM_TEXT),
+        ]
+        result = extract_batch(resumed_pages, batch_id="fixture-batch", cache=self.cache, ledger_path=self.ledger_path())
+        self.assertEqual(result["skipped"], 1)
+        self.assertEqual(result["resumed"], 1)
+        self.assertEqual(result["errors"], 0)
+
+    def test_batch_checkpoint_continues_after_interruption(self) -> None:
+        def interrupt() -> str:
+            raise KeyboardInterrupt()
+
+        first = self.page("fixture/page-0", b"page-zero", embedded_text=lambda: FORM_TEXT)
+        second = self.page("fixture/page-1", b"page-one", embedded_text=interrupt)
+        with self.assertRaises(KeyboardInterrupt):
+            extract_batch([first, second], batch_id="fixture-batch", cache=self.cache, ledger_path=self.ledger_path())
+        interrupted = json.loads(self.ledger_path().read_text(encoding="utf-8"))
+        self.assertEqual(interrupted["checkpoint"]["cursor"], "fixture/page-0")
+
+        extract_batch(
+            [first, self.page("fixture/page-1", b"page-one", embedded_text=lambda: FORM_TEXT)],
+            batch_id="fixture-batch",
+            cache=self.cache,
+            ledger_path=self.ledger_path(),
+        )
+        resumed = json.loads(self.ledger_path().read_text(encoding="utf-8"))
+        self.assertEqual(resumed["checkpoint"]["cursor"], "fixture/page-1")
+        self.assertGreater(resumed["checkpoint"]["sequence"], interrupted["checkpoint"]["sequence"])
 
 
 if __name__ == "__main__":

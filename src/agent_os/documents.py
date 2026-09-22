@@ -43,6 +43,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
+from .ingestion import IngestionLedger, stable_item_id, stable_stage_id, stable_work_id
 from .paths import ROOT
 from .privacy import privacy_findings
 
@@ -504,6 +505,93 @@ def extract_page(
     }
     store.put(key, payload)
     return {**payload, "cached": False}
+
+
+@dataclass(frozen=True)
+class PageInput:
+    """One local document page handed to the resumable batch seam."""
+
+    source_key: str
+    content: bytes
+    key: PageKey
+    embedded_text: Callable[[], str | None] | None = None
+    ocr: Callable[[], str | None] | None = None
+
+
+def extract_batch(
+    pages: Iterable[PageInput],
+    *,
+    batch_id: str,
+    cache: DocumentCache | None = None,
+    ledger_path: Path | None = None,
+    processor_version: str = "document-extract@1",
+) -> dict[str, Any]:
+    """Extract a local page batch through a restart-safe ingestion ledger.
+
+    The ledger records that extraction for a page fingerprint finished, while
+    ``extract_page`` remains responsible for embedded-text/OCR routing and its
+    content-addressed cache. Reopening the same local ledger resumes work.
+    """
+    if not str(batch_id).strip():
+        raise ValueError("batch_id must not be empty")
+    store = cache if cache is not None else DocumentCache()
+    work_id = stable_work_id("documents", batch_id)
+    stage_id = stable_stage_id(work_id, "extract")
+    target_ledger = ledger_path or (store.root.parent / "document-batches" / f"{batch_id}.json")
+    assert_private_location(target_ledger)
+    ledger = IngestionLedger(
+        target_ledger,
+        source="document-page",
+        work_id=work_id,
+        stage_id=stage_id,
+        processor_version=processor_version,
+    )
+    results: dict[str, dict[str, Any]] = {}
+    checked = newly_queued = reprocessed = resumed = skipped = errors = 0
+    for page in pages:
+        if not isinstance(page, PageInput):
+            raise ValueError("document batch pages must be PageInput instances")
+        checked += 1
+        item = ledger.enqueue(page.source_key, content=page.content)
+        if item["action"] == "queued":
+            newly_queued += 1
+        elif item["action"] == "requeued":
+            reprocessed += 1
+        elif item["status"] == "queued":
+            resumed += 1
+        elif item["status"] == "processed":
+            skipped += 1
+            results[page.source_key] = extract_page(page.key, page.embedded_text, page.ocr, store)
+            ledger.checkpoint(page.source_key, checked=checked, processed=checked - skipped - errors)
+            continue
+        elif item["status"] == "error":
+            errors += 1
+            ledger.checkpoint(page.source_key, checked=checked, processed=checked - skipped - errors)
+            continue
+
+        claimed = ledger.claim(1)
+        if not claimed:
+            continue
+        item_id = claimed[0]["item_id"]
+        try:
+            result = extract_page(page.key, page.embedded_text, page.ocr, store)
+            results[page.source_key] = result
+            ledger.complete(item_id, [f"page:{stable_item_id('document-page', page.source_key)}"])
+            ledger.checkpoint(page.source_key, checked=checked, processed=checked - skipped - errors, route=result["route"])
+        except Exception as exc:
+            ledger.fail(item_id, str(exc) or exc.__class__.__name__, retryable=True)
+            errors += 1
+            ledger.checkpoint(page.source_key, checked=checked, processed=checked - skipped - errors)
+    return {
+        "batch_id": batch_id,
+        "checked": checked,
+        "queued": newly_queued,
+        "reprocessed": reprocessed,
+        "resumed": resumed,
+        "skipped": skipped,
+        "errors": errors,
+        "results": results,
+    }
 
 
 def cache_status_safe(cache: DocumentCache | None = None) -> dict[str, Any]:

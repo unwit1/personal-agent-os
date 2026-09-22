@@ -286,9 +286,9 @@ Success signal:
 Current bounded foundation (2026-09-22): `src/agent_os/ingestion.py` provides
 provider-neutral local ledgers with stable work/run/stage/item IDs, content and
 processor fingerprints, deduplication, explicit item states, scalar
-checkpoints, and recovery of interrupted claims. The iCloud Mail adapter now
-delegates its fetched records through that ledger; other providers remain
-unwired.
+checkpoints, and recovery of interrupted claims. The iCloud Mail adapter and
+shared document page batches now delegate work through that ledger; Drive,
+messages, feeds, and other provider-specific imports remain unwired.
 
 ### P0.5 — Deterministic/cache/skill-first execution policy
 

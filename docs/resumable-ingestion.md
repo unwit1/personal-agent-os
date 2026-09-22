@@ -20,11 +20,15 @@ Completion is idempotent, while errors can be explicitly retried only when
 marked retryable. A scalar cursor and compact metrics are persisted as a
 monotonic checkpoint.
 
-The first adapter seam is now iCloud Mail: `mail.sync()` delegates fetched
+The first adapter seam is iCloud Mail: `mail.sync()` delegates fetched
 RFC822 records to `mail.sync_records()`, which commits the local SQLite index
 before marking each ledger item processed. Synthetic fixture tests cover
 idempotent re-import, changed content for the same UID, interruption recovery,
 and checkpoint continuation. Provider adapters for Drive, messages, feeds, and
-document batches still need their own bounded stages. The implementation
-assumes one active worker per ledger and does not store provider credentials,
-raw records, OCR text, or derived artifacts in the ledger.
+document batches remain provider-specific, but the shared document layer now
+has an `extract_batch()` seam that applies the same ledger to local page
+extraction while reusing `extract_page()` and its OCR cache. Its fixture tests
+cover idempotent re-import, changed page bytes, interruption recovery, and
+checkpoint continuation. The implementation assumes one active worker per
+ledger and does not store provider credentials, raw records, OCR text, or
+derived artifacts in the ledger.
