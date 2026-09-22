@@ -496,8 +496,7 @@ The router should:
 
 ### P1.2A — Multi-agent coding orchestrator + control GUI
 
-Status: **implemented, first release** (2026-09-22, branch
-`p1.2a-orchestrator`, not yet merged to `main`; see
+Status: **implemented, first release** (2026-09-22, merged to `main`; see
 `docs/multi-agent-orchestrator.md`). Implemented:
 - provider-neutral engine, with Claude Code and Codex CLI adapters whose flags
   were verified against the installed `--help`;
