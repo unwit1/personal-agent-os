@@ -350,6 +350,10 @@ Success signal:
 
 Build an automated test/evaluation harness that proves the usage-saving skill layer actually saves context/usage and does not create its own bloat.
 
+Current bounded implementation (2026-09-22): skill matching now fails closed
+below a default lexical relevance score of two, records that threshold in the
+context packet, and has synthetic regression coverage for weak generic overlap.
+
 Test four dimensions:
 
 1. **Skill-selection accuracy**

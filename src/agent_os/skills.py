@@ -9,6 +9,7 @@ from .paths import ROOT
 
 
 WORD_RE = re.compile(r"[a-z0-9]+", re.IGNORECASE)
+DEFAULT_MINIMUM_SCORE = 2
 
 
 @dataclass(frozen=True)
@@ -106,7 +107,15 @@ def discover(project_path: Path | None = None, skill_roots: Iterable[str] = ()) 
     return sorted(by_name.values(), key=lambda skill: skill.name)
 
 
-def match(task: str, available: list[Skill], limit: int = 3) -> list[Skill]:
+def match(
+    task: str,
+    available: list[Skill],
+    limit: int = 3,
+    minimum_score: int = DEFAULT_MINIMUM_SCORE,
+) -> list[Skill]:
+    """Return only skills with enough lexical evidence to be useful."""
+    if not isinstance(minimum_score, int) or minimum_score < 1:
+        raise ValueError("minimum_score must be a positive integer")
     task_tokens = set(WORD_RE.findall(task.casefold()))
     scored: list[tuple[float, Skill]] = []
     for skill in available:
@@ -115,7 +124,7 @@ def match(task: str, available: list[Skill], limit: int = 3) -> list[Skill]:
         overlap = len(task_tokens & tokens)
         phrase_bonus = 2 if skill.name.replace("-", " ") in task.casefold() else 0
         score = overlap + phrase_bonus
-        if score:
+        if score >= minimum_score:
             scored.append((score, skill))
     scored.sort(key=lambda item: (-item[0], item[1].name))
     return [skill for _, skill in scored[:limit]]

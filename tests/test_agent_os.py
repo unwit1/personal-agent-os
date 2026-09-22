@@ -19,7 +19,7 @@ from agent_os.inventory import scan
 from agent_os.registry import get_project, identify_project, load_state, projects
 from agent_os.review import assess
 from agent_os.routing import targets
-from agent_os.skills import discover, match
+from agent_os.skills import Skill, discover, match
 from agent_os.validation import validate
 
 
@@ -58,6 +58,16 @@ class AgentOSTests(unittest.TestCase):
         project_skills = discover(Path(project["path"]), state["skill_roots"])
         matched = match("fix scanner two digit year regression", project_skills)
         self.assertTrue(any(skill.name == "scanner-regression" for skill in matched))
+
+    def test_skill_matching_fails_closed_on_one_generic_overlap(self) -> None:
+        weak = Skill("synthetic-skill", "context", Path("synthetic/SKILL.md"), "synthetic")
+        self.assertEqual(match("context", [weak]), [])
+        self.assertEqual(match("context", [weak], minimum_score=1), [weak])
+
+    def test_context_compiler_records_and_applies_skill_threshold(self) -> None:
+        packet = compile_context("personal-agent-os", "context", token_budget=1200)
+        self.assertEqual(packet["matched_skills"], [])
+        self.assertEqual(packet["context_policy"]["minimum_skill_score"], 2)
 
     def test_canonical_skills_have_no_deterministic_invocation_entrypoint(self) -> None:
         skills = discover()

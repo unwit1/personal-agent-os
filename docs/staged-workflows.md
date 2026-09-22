@@ -79,6 +79,11 @@ Each stage declares `stage_id`, `goal`, inputs/artifacts, `required_context`
 `expected_outputs`, an optional `checkpoint`, `next_stage`, and an optional
 `next_prompt` template.
 
+Context compilation uses a default minimum skill relevance score of two lexical
+points. A single generic overlap is omitted; callers can request a different
+threshold explicitly, and the selected threshold is recorded in
+`context_policy`.
+
 A deterministic stage must declare a real validator. A deterministic stage
 nobody can check is just an unverified stage wearing a cheaper label.
 

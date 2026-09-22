@@ -11,7 +11,7 @@ from .improvements import compact_improvements
 from .profile import compact_profile
 from .paths import ROOT
 from .registry import get_project, git_status, load_state
-from .skills import discover, match, metadata
+from .skills import DEFAULT_MINIMUM_SCORE, discover, match, metadata
 from .storage import load_json
 
 
@@ -266,12 +266,13 @@ def compile_context(
     token_budget: int = 4000,
     include_handoff: bool = True,
     include_skill_content: bool = False,
+    minimum_skill_score: int = DEFAULT_MINIMUM_SCORE,
 ) -> dict[str, Any]:
     project = get_project(project_id)
     state = load_state(project)
     project_path = Path(project["path"])
     available = discover(project_path, state.get("skill_roots", []))
-    selected = match(task, available)
+    selected = match(task, available, minimum_score=minimum_skill_score)
     selected_skills = []
     for skill in selected:
         item = metadata(skill)
@@ -305,6 +306,7 @@ def compile_context(
             "token_budget": token_budget,
             "raw_history_loaded": False,
             "selection": "metadata, lexical search, compact state, matched skill metadata only",
+            "minimum_skill_score": minimum_skill_score,
             "full_skill_bodies_loaded": include_skill_content,
         },
     }
