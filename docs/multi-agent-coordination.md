@@ -146,7 +146,9 @@ idempotent when repeated before another agent claims the task.
 Unauthorized agents cannot turn that idempotent retry into a successful
 coordination operation.
 Completion is also retry-safe: the assigned agent can repeat a completed-task
-call and receive the persisted record without overwriting its result.
+call, even if a replay does not carry validation text, and receive the
+persisted record without overwriting its result. New completions still require
+non-empty validation evidence.
 For review-gated tasks, approvals recorded before the latest requeue are
 preserved as history but do not satisfy the new completion attempt; a fresh
 independent approval is required.

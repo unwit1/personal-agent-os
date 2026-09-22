@@ -555,11 +555,11 @@ def complete_task(
     data = _load(location)
     task = _find_task(data, task_id)
     agent_name = _task_text(agent, "agent", TASK_KEY_LIMIT)
-    evidence = _task_text(validation, "validation", TASK_VALIDATION_LIMIT)
     if task.get("status") == "completed":
         if task.get("assignee") != agent_name:
             raise ValueError("only the assigned agent can complete a delegated task")
         return {"completed": True, "idempotent": True, "task": task}
+    evidence = _task_text(validation, "validation", TASK_VALIDATION_LIMIT)
     if task.get("status") != "in_progress":
         raise ValueError("delegated task must be in_progress before completion")
     if task.get("assignee") != agent_name:
