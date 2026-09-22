@@ -364,6 +364,24 @@ def _task_dependencies(values: list[str] | None) -> list[str]:
     return sorted({str(value).strip() for value in (values or []) if str(value).strip()})
 
 
+def _dependency_cycle(data: dict[str, Any], task_id: str, dependencies: list[str]) -> bool:
+    graph = {
+        item.get("task_id"): item.get("depends_on", [])
+        for item in data.get("tasks", [])
+        if item.get("task_id")
+    }
+    graph[task_id] = dependencies
+
+    def visits(node: str, trail: set[str]) -> bool:
+        if node in trail:
+            return True
+        if node not in graph:
+            return False
+        return any(visits(dependency, trail | {node}) for dependency in graph[node])
+
+    return visits(task_id, set())
+
+
 def _find_task(data: dict[str, Any], task_id: str) -> dict[str, Any]:
     for task in data.get("tasks", []):
         if task.get("task_id") == task_id:
@@ -404,6 +422,9 @@ def delegate(
     existing = next((item for item in data["tasks"] if item.get("task_id") == task_id), None)
     if existing is not None:
         return {"created": False, "idempotent": True, "task": existing}
+    dependencies = _task_dependencies(depends_on)
+    if _dependency_cycle(data, task_id, dependencies):
+        raise ValueError("delegated task dependencies must be acyclic")
     assigned = _task_text(assignee, "assignee", TASK_KEY_LIMIT) if assignee else None
     now = utc_now_iso()
     task = {
@@ -414,7 +435,7 @@ def delegate(
         "requester": requester_name,
         "assignee": assigned,
         "scope": _normalize_scope(scope),
-        "depends_on": _task_dependencies(depends_on),
+        "depends_on": dependencies,
         "review_required": review_required,
         "status": "assigned" if assigned else "queued",
         "created_at": now,

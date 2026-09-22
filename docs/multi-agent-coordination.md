@@ -126,7 +126,8 @@ tasks retain the normal completion behavior.
 The task ID is stable for a case-insensitive `(project, task_key)` pair, so
 retrying delegation is idempotent. Task and review listings use that same
 case-insensitive project identity. Dependencies are checked before claiming,
-and an already
+dependency cycles are rejected at delegation time, and unknown dependencies
+remain resumable blockers until their tasks exist and complete. An already
 `in_progress` task returns an idempotent no-op when retried by its assignee;
 another agent cannot take it over. Completion is limited to the assigned agent,
 and non-empty validation evidence is required. Task

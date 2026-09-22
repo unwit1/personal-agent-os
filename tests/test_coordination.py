@@ -176,6 +176,24 @@ class DelegatedTaskTests(ClaimFixture):
         self.assertTrue(claimed["claimed"])
         self.assertEqual(claimed["task"]["status"], "in_progress")
 
+    def test_dependency_cycles_are_rejected_but_unknown_dependencies_can_wait(self) -> None:
+        first_id = coordination._task_id("demo", "cycle-first")
+        second_id = coordination._task_id("demo", "cycle-second")
+        first = coordination.delegate(
+            "demo", "cycle-first", "Cycle fixture", "alpha", depends_on=[second_id], path=self.registry,
+        )
+        self.assertEqual(first["task"]["depends_on"], [second_id])
+        with self.assertRaisesRegex(ValueError, "must be acyclic"):
+            coordination.delegate(
+                "demo", "cycle-second", "Cycle fixture", "alpha", depends_on=[first_id], path=self.registry,
+            )
+        self.assertEqual(len(coordination.list_tasks("demo", path=self.registry)), 1)
+        with self.assertRaisesRegex(ValueError, "must be acyclic"):
+            coordination.delegate(
+                "demo", "self-cycle", "Self cycle fixture", "alpha",
+                depends_on=[coordination._task_id("demo", "self-cycle")], path=self.registry,
+            )
+
     def test_normal_task_completes_without_review_gate(self) -> None:
         created = coordination.delegate("demo", "assigned", "Assigned fixture task", "alpha", assignee="beta", path=self.registry)
         task_id = created["task"]["task_id"]
