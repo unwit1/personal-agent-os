@@ -113,6 +113,36 @@ class AgentOSTests(unittest.TestCase):
             self.assertFalse(expanded["context_policy"]["full_skill_bodies_loaded"])
             self.assertTrue(all("content" not in item for item in expanded["matched_skills"]))
 
+    def test_synthetic_skill_selection_corpus_matches_and_omits_expected_skills(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            definitions = {
+                "compile-project-context": "compile project context",
+                "scanner-regression": "debug scanner regression",
+                "context-budgeter": "budget context tokens",
+            }
+            synthetic: list[Skill] = []
+            for name, description in definitions.items():
+                path = root / name / "SKILL.md"
+                path.parent.mkdir()
+                path.write_text(f"synthetic {description}", encoding="utf-8")
+                synthetic.append(Skill(name, description, path, "synthetic"))
+
+            corpus = (
+                ("compile project context", ["compile-project-context"]),
+                ("scanner regression", ["scanner-regression"]),
+                ("context", []),
+                ("weather dinner", []),
+            )
+            for task, expected in corpus:
+                with self.subTest(task=task):
+                    self.assertEqual([skill.name for skill in match(task, synthetic)], expected)
+                    with patch("agent_os.compiler.discover", return_value=synthetic):
+                        packet = compile_context("personal-agent-os", task, token_budget=1200)
+                    self.assertEqual([item["name"] for item in packet["matched_skills"]], expected)
+                    self.assertFalse(packet["context_policy"]["full_skill_bodies_loaded"])
+                    self.assertTrue(all("content" not in item for item in packet["matched_skills"]))
+
     def test_canonical_skills_have_no_deterministic_invocation_entrypoint(self) -> None:
         skills = discover()
         self.assertTrue(skills)

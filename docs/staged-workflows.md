@@ -84,7 +84,8 @@ points. A single generic overlap is omitted; callers can request a different
 threshold explicitly, and the selected threshold is recorded in
 `context_policy`. Synthetic context-bloat coverage keeps unrelated skill growth
 out of the selected metadata and confirms skill bodies remain unloaded by
-default.
+default. Accuracy coverage also checks relevant, weak, and unrelated synthetic
+tasks through both direct matching and compiled context packets.
 
 A deterministic stage must declare a real validator. A deterministic stage
 nobody can check is just an unverified stage wearing a cheaper label.

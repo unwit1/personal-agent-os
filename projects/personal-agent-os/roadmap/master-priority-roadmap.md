@@ -355,7 +355,9 @@ below a default lexical relevance score of two, records that threshold in the
 context packet, and has synthetic regression coverage for weak generic overlap.
 An adversarial synthetic skill-count test also proves unrelated skills do not
 increase selected-skill count or materially inflate the compiled packet, while
-skill bodies remain unloaded by default.
+skill bodies remain unloaded by default. A representative synthetic corpus now
+covers strong, project-specific, weak, and unrelated task queries through both
+`skills.match` and `compile_context`.
 
 Test four dimensions:
 
