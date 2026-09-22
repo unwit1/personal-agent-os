@@ -1,0 +1,47 @@
+{
+  "source_name": "BF Books ESO book corpus",
+  "source_file": "BF_Books_ESO.esp",
+  "source_sha256": "636cd8138f7b5eef3d10c57791ed894610cc3da571f76934eac0193f827cddc7",
+  "source_class": "compiled Skyrim plugin / ESO book corpus",
+  "masters": [
+    "Skyrim.esm"
+  ],
+  "extracted_on": "2026-09-21",
+  "book_count": 4277,
+  "empty_text_count": 4,
+  "unique_title_count": 4244,
+  "duplicate_title_instances": 33,
+  "unique_text_count": 4255,
+  "duplicate_text_instances": 22,
+  "total_text_characters": 7835819,
+  "total_text_bytes_utf8": 7837308,
+  "storage": {
+    "format": "newline-delimited JSON",
+    "batch_size": 50,
+    "batch_count": 86,
+    "path": "batches/",
+    "batch_index": "batch-index.json",
+    "record_schema": [
+      "ordinal",
+      "form_id",
+      "editor_id",
+      "title",
+      "text_sha256",
+      "characters",
+      "bytes_utf8",
+      "origin_status",
+      "record_flags",
+      "compressed_record",
+      "source_file",
+      "source_sha256",
+      "text"
+    ],
+    "note": "The batches are the complete per-record manifest and full-text corpus; no book text is omitted from this source-level manifest."
+  },
+  "text_encoding": "Windows-1252 source strings decoded losslessly to UTF-8; Skyrim/ESO markup retained",
+  "continuity_policy": "All editor IDs in this supplied compilation use the ZOS prefix, strongly indicating ESO-derived material. The plugin is retained as direct extraction provenance, but compilation membership alone is not treated as per-record proof of original ESO provenance. Per-record provenance can be verified later against ESO game data, UESP, or The Imperial Library.",
+  "derived_assets": {
+    "index": "INDEX.md",
+    "ingestion_report": "INGESTION_REPORT.md"
+  }
+}
