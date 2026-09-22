@@ -1,0 +1,48 @@
+{
+  "source_file": "arnima.esm",
+  "sha256": null,
+  "source_identity_note": "Form provenance throughout the corpus uses arnima.esm origin IDs. A source-file SHA-256 was not captured in the current repository artifacts.",
+  "extraction": "Direct Skyrim plugin source-record ingestion currently preserves QUST metadata/journal/objective/alias surfaces and DIAL topic metadata/prompts/INFO counts. Full INFO response text and other record types remain pending.",
+  "raw_corpus": {
+    "path": "data/source-records/",
+    "files": 68,
+    "records": 3366,
+    "record_types": {
+      "QUST": 196,
+      "DIAL": 3170
+    }
+  },
+  "derived_indexes": [
+    {
+      "path": "indexes/quest-catalog/",
+      "records": 196,
+      "description": "Lightweight normalized quest index with source-file and source-line provenance."
+    },
+    {
+      "path": "indexes/lore-dialogue-topic-catalog/",
+      "records": 102,
+      "description": "All DIAL topics explicitly tagged [Lore], retaining source and quest provenance."
+    },
+    {
+      "path": "indexes/main-quest-structure.md",
+      "description": "Breton/Evermore main-chain structural index derived from QUST records."
+    },
+    {
+      "path": "indexes/orc-main-quest-structure.md",
+      "description": "Orc-route structural index derived from ArnimaOrcMainQuest records."
+    },
+    {
+      "path": "indexes/lore-topic-retrieval-map.md",
+      "description": "Thematic retrieval map over explicit [Lore] prompts; prompts are not treated as claim evidence."
+    }
+  ],
+  "pending_structured_exports": [
+    "dialogue_info_responses",
+    "books_and_notes",
+    "messages",
+    "named_actor_records",
+    "locations",
+    "artifacts",
+    "scenes_and_packages"
+  ]
+}
