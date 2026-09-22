@@ -283,6 +283,12 @@ Requirements:
 Success signal:
 - interruption or restart does not cause a full re-run.
 
+Current bounded foundation (2026-09-22): `src/agent_os/ingestion.py` provides
+provider-neutral local ledgers with stable work/run/stage/item IDs, content and
+processor fingerprints, deduplication, explicit item states, scalar
+checkpoints, and recovery of interrupted claims. Provider adapters are not yet
+wired to it.
+
 ### P0.5 — Deterministic/cache/skill-first execution policy
 
 Make the default execution preference operational, not just documented:

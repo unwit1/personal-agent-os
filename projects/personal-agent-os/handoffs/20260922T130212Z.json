@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-22T13:02:12.133653+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main\n M projects/personal-agent-os/roadmap/master-priority-roadmap.md\n?? docs/resumable-ingestion.md\n?? src/agent_os/ingestion.py\n?? tests/test_ingestion.py",
+    "error": ""
+  },
+  "completed": [
+    "P0.4 bounded foundation: added provider-neutral ingestion ledger with stable work/run/stage/item IDs, content+processor fingerprints, atomic state, deduplication, incremental requeue, explicit item states, checkpoint cursors, and interrupted-claim recovery.",
+    "Added focused tests/test_ingestion.py and docs/resumable-ingestion.md; recorded progress in the P0.4 roadmap."
+  ],
+  "decisions": [
+    "Processor-version changes are allowed when reopening a ledger; existing items are requeued only when enqueue observes a changed content or processor fingerprint.",
+    "The ledger is metadata-only and assumes one active worker per ledger; provider adapters and concurrency are intentionally out of scope for this bounded stage."
+  ],
+  "remaining": [
+    "Wire the ledger into one real provider adapter, starting with the smallest safe local/import path; preserve provider-specific behavior behind the ledger API.",
+    "Add adapter-level interruption/resumption tests before extending to iCloud Mail, Drive, messages, feeds, or document batches."
+  ],
+  "validation": [
+    "python -m unittest tests.test_ingestion -v: 8 passed",
+    "python -m unittest discover -s tests -v: 228 passed",
+    "python agent.py validate: 340 checks, 0 errors, 0 warnings"
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}
