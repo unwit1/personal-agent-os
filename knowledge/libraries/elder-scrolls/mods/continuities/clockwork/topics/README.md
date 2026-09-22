@@ -15,7 +15,7 @@ Continuity-local pages derived from `Clockwork.esp`.
 - [Identity and memory degradation](identity-memory-degradation.md)
 - [Pneumatic tube system](pneumatic-tubes.md)
 - [Lamashtu's voice and speech mechanism](lamashtu-voice.md)
-- [Castle automation and domestic systems](castle-automation.md)
+- [Castle automation and domestic systems](castle-automation.md)\n- [Castle services and restoration states](castle-services.md)
 - [Bathing and hygiene](bathing.md)
 
 These pages point back to INFO, BOOK, QUST, SCEN, VMAD, and other plugin records as appropriate. They are indexes over evidence, not replacements for the source corpus.

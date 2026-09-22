@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "continuity_id": "tes.mod.clockwork",
+  "type": "castle_service_state_machine",
+  "states": [
+    {
+      "id": "underpowered",
+      "prerequisites": "before CLWSQ02Machines01GLOB == 1",
+      "unavailable_or_limited": [
+        "outside supply procurement",
+        "trade service",
+        "Glass Garden growth",
+        "steam-dependent machinery"
+      ],
+      "evidence": [
+        "INFO 052D78B4",
+        "INFO 052D78B5",
+        "INFO 052D78CD",
+        "INFO 052EBD5B",
+        "GLOB 052A9E1F"
+      ]
+    },
+    {
+      "id": "steam_restored",
+      "prerequisite": "CLWStory02Quest stage 110/120 restoration sequence",
+      "services": [
+        "outside supplies",
+        "food provisioning",
+        "Lahar trade",
+        "safe Work Room",
+        "replanted Glass Garden",
+        "mechanically functional Travel Machine"
+      ],
+      "evidence": [
+        "INFO 054E8522",
+        "INFO 054ED63A",
+        "GLOB 052A9E1F",
+        "QUST 052908C1"
+      ]
+    },
+    {
+      "id": "mage_study_restored",
+      "prerequisite": "CLWStory03Quest > 150",
+      "services": [
+        "Alchemy station",
+        "Enchanting station",
+        "maturing Glass Garden"
+      ],
+      "one_shot_global": "056985D6 CLWSQ03EndLaharCommentGLOB",
+      "evidence": [
+        "INFO 056985DB",
+        "INFO 056985DD",
+        "INFO 056985DF",
+        "INFO 056985E1"
+      ]
+    },
+    {
+      "id": "post_shadow_armoury",
+      "prerequisite": "CLWStory04Quest stage 200 done",
+      "services": [
+        "Armoury achievement mementos"
+      ],
+      "one_shot_global": "057B0BFF CLWLaharPostQuestArmouryLine01GLOB",
+      "evidence": [
+        "INFO 0579C7AA"
+      ]
+    },
+    {
+      "id": "staff_enchanter_upgrade",
+      "prerequisite": "CLWSide02Quest completion path",
+      "services": [
+        "Staff Enchanter",
+        "blank-staff trade state"
+      ],
+      "station_ref": "050299D9 CLWStaffEnchanterEP01REF",
+      "global": "057A69D1 CLWLaharBlankStaffSpawn01",
+      "evidence": [
+        "INFO 057A69D4",
+        "INFO 057A69D6",
+        "QUST 057A69D2"
+      ]
+    }
+  ],
+  "trade_investment": {
+    "trade_info": "054ED63A",
+    "investment_info": "054F2750",
+    "investment_global": "054F274D CLWPerkInvestorLahar",
+    "requirements": [
+      "CLWStory02Quest stage >= 120",
+      "Investor perk",
+      "player gold >= 500",
+      "investment global configured pre-investment value"
+    ],
+    "caveat": "Merchant inventory details are not inferred here."
+  }
+}
