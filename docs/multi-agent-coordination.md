@@ -130,7 +130,7 @@ records contain bounded summaries, paths, IDs, and validation metadata; they do
 not carry prompts, transcripts, documents, or secrets. The queue is advisory
 and machine-local like claims, but it gives agents a resumable handoff instead
 of relying on chat memory. The requester or current assignee can explicitly
-requeue interrupted `in_progress` work; requeueing clears the assignee, keeps
+requeue interrupted `assigned` or `in_progress` work; requeueing clears the assignee, keeps
 the stable task ID and review records, records a bounded reason, and is
 idempotent when repeated before another agent claims the task.
 Unauthorized agents cannot turn that idempotent retry into a successful

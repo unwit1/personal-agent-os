@@ -246,6 +246,19 @@ class DelegatedTaskTests(ClaimFixture):
         claimed = coordination.claim_task(task_id, "gamma", path=self.registry)
         self.assertTrue(claimed["claimed"])
 
+    def test_requeue_recovers_assigned_task_before_first_claim(self) -> None:
+        created = coordination.delegate(
+            "demo", "assigned-recovery", "Assigned fixture task", "alpha", assignee="beta", path=self.registry,
+        )
+        task_id = created["task"]["task_id"]
+        recovered = coordination.requeue_task(task_id, "alpha", "assigned agent stopped before starting", path=self.registry)
+        self.assertTrue(recovered["requeued"])
+        self.assertEqual(recovered["task"]["requeued_from_status"], "assigned")
+        self.assertEqual(recovered["task"]["status"], "queued")
+        self.assertIsNone(recovered["task"]["assignee"])
+        claimed = coordination.claim_task(task_id, "gamma", path=self.registry)
+        self.assertTrue(claimed["claimed"])
+
     def test_requeue_requires_fresh_approval_for_gated_completion(self) -> None:
         created = coordination.delegate(
             "demo", "recoverable-gated", "Recoverable gated task", "alpha", assignee="beta",

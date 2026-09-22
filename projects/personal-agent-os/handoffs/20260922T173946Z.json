@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-22T17:39:46.229393+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 9]\n M docs/multi-agent-coordination.md\n M src/agent_os/coordination.py\n M tests/test_coordination.py",
+    "error": ""
+  },
+  "completed": [
+    "P0.4 coordination recovery: explicit requeue now recovers assigned delegated tasks before first claim; records requeued_from_status; added synthetic recovery coverage and documentation."
+  ],
+  "decisions": [
+    "Keep recovery explicit and authorization-bound: requester or current assignee may requeue assigned or in_progress work; no timeout inference, live coordination service, provider/model, or orchestrator redesign."
+  ],
+  "remaining": [
+    "Audit the next deterministic coordination gap while preserving assigned/in_progress requeue, review gates, fresh-review boundaries, requeue authorization, completion idempotency, and project identity checks. P0.3/P0.4 provider additions remain deferred; P0.5 skill execution remains blocked by missing reviewed runner contract."
+  ],
+  "validation": [
+    "Focused: python -m unittest tests.test_coordination -v (32 passed). Full: python -m unittest discover -s tests -v (346 passed). python agent.py validate: ok, 389 checks, 0 warnings. git diff --check passed."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

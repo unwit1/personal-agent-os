@@ -474,14 +474,16 @@ def requeue_task(
         if agent_name not in {task.get("requester"), task.get("requeued_by"), task.get("last_assignee")}:
             raise ValueError("only the task requester or last requeue agent can repeat a requeue")
         return {"requeued": False, "idempotent": True, "task": task}
-    if task.get("status") != "in_progress":
-        raise ValueError("only an in_progress delegated task can be requeued")
+    previous_status = task.get("status")
+    if previous_status not in {"assigned", "in_progress"}:
+        raise ValueError("only an assigned or in_progress delegated task can be requeued")
     if agent_name not in {task.get("requester"), task.get("assignee")}:
         raise ValueError("only the task requester or assigned agent can requeue delegated work")
     now = utc_now_iso()
     task["last_assignee"] = task.get("assignee")
     task["assignee"] = None
     task["status"] = "queued"
+    task["requeued_from_status"] = previous_status
     task["requeue_count"] = int(task.get("requeue_count") or 0) + 1
     task["requeue_reason"] = requeue_reason
     task["requeued_by"] = agent_name
