@@ -22,3 +22,16 @@ The plugin directly defines named NPC forms for **Ulliss**, **Aisha**, **Austell
 - NPC names based on established TES figures do not by themselves establish literal identity.
 - Quest/objective wording is high-confidence evidence for structure, but weaker evidence for metaphysical truth.
 - The English ESM is a translation layer; unusual terminology should preserve the translated wording and, where later needed, be checked against Japanese/original-context material rather than silently normalized.
+
+## Historical status
+
+This file is retained as the **initial discovery snapshot**.
+
+Statements such as "still awaiting indexing" describe the state at the time of the first pass and are superseded by the completed corpus.
+
+For current status use:
+- `../README.md`;
+- `../indexes/retrieval-map.md`;
+- `source-reliability-matrix.md`.
+
+Do not use this first-pass document to infer that a current ingestion backlog still exists.

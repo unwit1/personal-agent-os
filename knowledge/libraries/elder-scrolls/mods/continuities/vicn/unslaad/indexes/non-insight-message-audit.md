@@ -58,3 +58,13 @@ The rest are primarily:
 All 98 MESG records are now classified at the discovery layer:
 - 33 Insight messages;
 - 65 non-Insight messages, with lore-bearing clusters promoted separately.
+
+## Final message status
+
+**Complete:** all 98 MESG records are classified for UNSLAAD 3.0.6.
+
+The discovery layer is closed:
+- 33 Insight messages;
+- 65 non-Insight messages.
+
+Further message work should only revisit a specific record for interpretation, provenance, or exact wording.

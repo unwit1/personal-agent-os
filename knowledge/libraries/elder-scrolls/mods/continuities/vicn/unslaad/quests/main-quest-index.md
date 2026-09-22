@@ -31,3 +31,11 @@ This is a record-derived index. Quest order is based on the numbered zzzCrbMq01 
 ## Evidence boundary
 
 Quest titles and objectives establish authored structure and player tasks. They do not by themselves establish the truth of metaphysical claims implied by names such as Loveletter, Jhunal, Shor, or Fifth Era. Those claims require the associated dialogue, books, messages, scenes, and conditions.
+
+## Coverage completion
+
+All ten numbered main quests now have lore-bearing dialogue/scene coverage in the UNSLAAD corpus, with structural follow-up for major aliases, state transitions, objects, and VMAD linkages.
+
+High-value side/bridge material has also been separately ingested.
+
+This index should be treated as a navigation table, not a queue of quests still awaiting processing.

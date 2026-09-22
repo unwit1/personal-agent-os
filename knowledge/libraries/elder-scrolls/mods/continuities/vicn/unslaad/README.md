@@ -188,33 +188,29 @@ New parent-level synthesis now includes:
 
 These should be used before attempting new local identity merges.
 
-## Remaining ingestion frontier
+## Ingestion completion status
 
-The broad ESM ingestion is now mature across text, dialogue, scenes, books, messages, placements, VMAD metadata, ownership, factions, summon chains, enchantments, custom magic, Shouts, recipe gates, outfits, and multi-form identity states.
+**Status: complete for the supplied translated UNSLAAD 3.0.6 ESM.**
 
-The next high-value work is narrower and more synthetic:
+The current Lorekeeper corpus now accounts for:
+- all numbered main-quest dialogue families;
+- high-value side, generic, radiant, boss, and epilogue dialogue;
+- all 59 SCEN records at the dialogue/orchestration classification layer;
+- all 50 BOOK records with source/provenance handling;
+- all 98 MESG records;
+- all direct ARMO/WEAP description records;
+- named NPC/form families and custom races;
+- major factions, inventories, death items, recipes, enchantments, Shouts, summon chains, masks/outfits, and multi-form identities;
+- high-value placements and VMAD property linkages;
+- cross-VICN synthesis for the strongest recurring identities, places, institutions, and source traditions;
+- explicit reliability and contradiction handling for unstable testimony.
 
-1. external provenance verification for the remaining unresolved/adapted source texts and mythic fragments;
-2. selective cross-VICN synthesis where UNSLAAD now has exact implementation matches to VIGILANT, GLENMORIL, or DAc0da;
-3. deeper placed-reference analysis only where a visual/model or exact spatial relationship could resolve an existing ambiguity;
-4. selected quest-alias/script-property value resolution for still-uncertain identity transitions;
-5. contradiction/reliability indexing across Khev, Jhunal/Gray Owl, Hermit, Herkel, Insights, and reused texts;
-6. optional polish/index generation so Lorekeeper can retrieve UNSLAAD by person, artifact, location, concept, faction, spell, or cross-VICN thread without scanning the raw corpus.
+Remaining unknowns are **documented evidence boundaries**, not an active ingestion backlog. Examples include unsigned Owl Study authorship, the exact referent of Austella's "that person," visual iconography not exposed by the indexed data, and metaphysical questions the ESM itself leaves ambiguous.
 
-## Provenance frontier status
+Future work is optional and question-driven:
+1. ingest a newer UNSLAAD version if supplied;
+2. inspect original Japanese wording when a translation nuance matters;
+3. inspect Papyrus/model/texture assets only for a specific unresolved question;
+4. add newly discovered external provenance if a concrete earlier source appears.
 
-The external-text provenance frontier is now closed for the currently indexed lore-bearing material.
-
-Final classifications include:
-- official released-game reuse;
-- unofficial developer/apocryphal reuse;
-- identified shared apocryphal substrate;
-- UNSLAAD-local text;
-- deliberately **unresolved external provenance** where no reliable earlier source could be established.
-
-The remaining unknown origin of **Vivec and Molag Bal** is documented as an accepted uncertainty rather than an ingestion blocker.
-
-The active frontier is therefore reduced to:
-1. selected quest-alias/script-property resolution for identity transitions that remain materially ambiguous;
-2. deeper placement analysis only where it can resolve a live ambiguity;
-3. final retrieval/index polish and completion accounting.
+For routine retrieval, start with `indexes/retrieval-map.md` and `analysis/source-reliability-matrix.md`.
