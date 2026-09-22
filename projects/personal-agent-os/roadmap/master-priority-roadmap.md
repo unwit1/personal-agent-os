@@ -436,7 +436,10 @@ Build after or alongside the P0 primitives so optimization is measured against r
 
 ### P1.1 — Privacy-safe usage telemetry
 
-Current bounded implementation (2026-09-22): `src/agent_os/telemetry.py`
+Current bounded implementation (2026-09-22): orchestrated runs now record
+per-run efficiency telemetry with normalized provider token usage (P1.2C,
+`docs/simple-mode.md`); cross-run usage reports remain open.
+`src/agent_os/telemetry.py`
 defines a strict metadata-only event schema and append-only JSONL store under
 the gitignored `.agent-local/telemetry` tree. Synthetic tests prove compact
 labels/counts round-trip, canonical repository paths are rejected, and raw
@@ -538,6 +541,27 @@ implements, Codex reviews) that reached COMPLETE. Remaining limits:
   raises still saves its progress. Workers are reattached after a driver
   restart, and MCP/GUI-created Auto Continue runs get a detached background
   driver.
+
+**P1.2C — Simple Mode, Continue Roadmap, efficiency telemetry (2026-09-22).**
+See `docs/simple-mode.md`. Changes:
+- **Simple Mode GUI (default):** Continue Roadmap, Tell Me What To Press,
+  plain-English steps/agents/activity, beginner-friendly problem cards with
+  Advanced Details, immediate click acknowledgement (measured 6-7 ms).
+- **Continue Roadmap / campaigns:** deterministic roadmap scan, resume of
+  unfinished runs, skip of stages with another agent's unmerged branch,
+  stage-only goal excerpt, landing behind Approve Commit, Auto Continue Until
+  Done with repeat/run-count guards.
+- **Telemetry:** per-run `telemetry.jsonl` + `transcript.log`; routing
+  decisions with reasons; exact/estimated/unavailable token accounting.
+  Fixed: Claude cache tokens were dropped (a 1,725,628-input-token planner call
+  would have been recorded as 38).
+- **Economy:** test results reused for identical code, no review of no-change
+  work, loop guards; benchmark `agent-os orchestrate benchmark [--live]`.
+- **Measured finding:** in a live run, the prompts Orchestrator wrote were
+  ~939 tokens while the two agent CLIs consumed 162,540 input tokens (99.4%
+  their own instructions, tools and exploration). Prompt-level context
+  selection is therefore a small lever; the next economy work is per-call
+  CLI overhead and avoiding calls (see P2.3).
 
 The original scope below is kept for reference.
 

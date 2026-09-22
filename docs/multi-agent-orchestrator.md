@@ -2,7 +2,9 @@
 
 Status: implemented (P1.2A), 2026-09-22. Cost-aware routing, model discovery,
 small-batch planning, fan-out and mandatory cross-review added in P1.2B,
-2026-09-22.
+2026-09-22. Simple Mode, Continue Roadmap, campaigns, per-run efficiency
+telemetry, test-result reuse, loop guards and the benchmark added in P1.2C:
+see `docs/simple-mode.md`.
 
 Submit one coding goal. Agent OS plans it, picks a provider, model and
 reasoning effort for each part, runs Claude Code and Codex CLI workers in
@@ -471,7 +473,8 @@ orchestration code.
   output alone (validators still decide whether the work passed).
 - Routing uses registry costs plus per-run load and failure evidence. It does
   not yet learn costs or success rates from historical telemetry across runs.
-- Token usage is reported only when a CLI reports it; `costs` are relative
+- Token usage is reported only when a CLI reports it (normalized in
+  `usage.py`; missing usage is `unavailable`, never 0); `costs` are relative
   weights you set, not measured prices.
 - Each review covers one change; Luna batches are not yet reviewed together in
   one call.
