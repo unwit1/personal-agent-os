@@ -353,6 +353,9 @@ Build an automated test/evaluation harness that proves the usage-saving skill la
 Current bounded implementation (2026-09-22): skill matching now fails closed
 below a default lexical relevance score of two, records that threshold in the
 context packet, and has synthetic regression coverage for weak generic overlap.
+An adversarial synthetic skill-count test also proves unrelated skills do not
+increase selected-skill count or materially inflate the compiled packet, while
+skill bodies remain unloaded by default.
 
 Test four dimensions:
 

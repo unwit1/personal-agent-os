@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import sys
+import tempfile
 import unittest
 import uuid
 from pathlib import Path
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
@@ -68,6 +70,48 @@ class AgentOSTests(unittest.TestCase):
         packet = compile_context("personal-agent-os", "context", token_budget=1200)
         self.assertEqual(packet["matched_skills"], [])
         self.assertEqual(packet["context_policy"]["minimum_skill_score"], 2)
+
+    def test_unrelated_skill_growth_keeps_context_packet_bounded(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target_path = root / "compile-project-context" / "SKILL.md"
+            target_path.parent.mkdir()
+            target_path.write_text("synthetic target skill", encoding="utf-8")
+
+            def synthetic_skills(count: int) -> list[Skill]:
+                target = Skill(
+                    "compile-project-context",
+                    "compile project context",
+                    target_path,
+                    "synthetic",
+                )
+                unrelated: list[Skill] = []
+                for index in range(count):
+                    path = root / f"unrelated-{index}" / "SKILL.md"
+                    path.parent.mkdir(exist_ok=True)
+                    path.write_text(f"synthetic unrelated marker {index}", encoding="utf-8")
+                    unrelated.append(
+                        Skill(f"unrelated-{index}", f"synthetic unrelated marker {index}", path, "synthetic")
+                    )
+                return [target, *unrelated]
+
+            with patch("agent_os.compiler.discover", return_value=synthetic_skills(0)):
+                baseline = compile_context("personal-agent-os", "compile project context", token_budget=1200)
+            with patch("agent_os.compiler.discover", return_value=synthetic_skills(250)):
+                expanded = compile_context("personal-agent-os", "compile project context", token_budget=1200)
+
+            self.assertEqual([item["name"] for item in baseline["matched_skills"]], ["compile-project-context"])
+            self.assertEqual([item["name"] for item in expanded["matched_skills"]], ["compile-project-context"])
+            self.assertLessEqual(
+                expanded["context_measurement"]["estimated_packet_tokens"],
+                baseline["context_measurement"]["estimated_packet_tokens"] + 4,
+            )
+            self.assertGreater(
+                expanded["context_measurement"]["naive_all_registered_context_tokens"],
+                baseline["context_measurement"]["naive_all_registered_context_tokens"],
+            )
+            self.assertFalse(expanded["context_policy"]["full_skill_bodies_loaded"])
+            self.assertTrue(all("content" not in item for item in expanded["matched_skills"]))
 
     def test_canonical_skills_have_no_deterministic_invocation_entrypoint(self) -> None:
         skills = discover()
