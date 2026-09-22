@@ -293,7 +293,11 @@ also reuses a gitignored derived-fact cache through the same ledger, with
 changed-source requeue and interrupted-claim recovery. Drive, messages, feeds,
 and other provider-specific imports remain unwired. The local candidate-record
 reader now uses a project-scoped ledger for resumable directory scans without
-changing the explicit curation/promotion boundary.
+changing the explicit curation/promotion boundary. The local improvement-record
+reader now uses the same project-scoped ledger for `IMP-*.json` scans,
+preserving canonical improvement records while making status/search/capture
+reads idempotent and restart-safe. Drive, messages, feeds, and other
+provider-specific imports remain unwired.
 
 ### P0.5 — Deterministic/cache/skill-first execution policy
 

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-22T14:33:15.022313+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 6]\n M docs/resumable-ingestion.md\n M projects/personal-agent-os/roadmap/master-priority-roadmap.md\n M src/agent_os/improvements.py\n?? tests/test_improvements_import.py",
+    "error": ""
+  },
+  "completed": [
+    "P0.4 local improvement-record import sub-stage: load_improvements_incremental now routes project IMP-*.json reads through a project-scoped IngestionLedger with stable work/stage identities, metadata-only fingerprints, idempotent reads, changed-record requeueing, interrupted-claim recovery, and checkpoints. Existing improvement status/search/capture reads delegate through the new path; docs and roadmap progress updated."
+  ],
+  "decisions": [
+    "Selected the existing local improvement-record directory reader because it is a bounded structured-JSON import path already used by the project improvement lifecycle. Preserved canonical improvement files and existing status/search/capture behavior; the ledger stores only metadata. No IMAP cursor or other provider/import path was changed."
+  ],
+  "remaining": [
+    "P0.4 remains incomplete. Next agent: inspect the clean repository and choose exactly one remaining local or fixture-backed import path to integrate with IngestionLedger. Keep plain IMAP UID/UIDNEXT cursors deferred unless negotiated changed-message semantics are proven; do not combine provider paths. Re-run focused/full validation and update this handoff."
+  ],
+  "validation": [
+    "python -m unittest tests.test_improvements_import tests.test_agent_os tests.test_profile tests.test_candidates tests.test_index -v (61 passed); python -m unittest discover -s tests -v (257 passed); python agent.py validate (ok, 346 checks); git diff --check (clean)."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}
