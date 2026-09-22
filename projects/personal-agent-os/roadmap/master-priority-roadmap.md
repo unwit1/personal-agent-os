@@ -350,7 +350,9 @@ Success signal:
 
 Build an automated test/evaluation harness that proves the usage-saving skill layer actually saves context/usage and does not create its own bloat.
 
-Current bounded implementation (2026-09-22): skill matching now fails closed
+Status: **complete for the initial synthetic regression suite** (2026-09-22).
+
+Completion evidence: skill matching now fails closed
 below a default lexical relevance score of two, records that threshold in the
 context packet, and has synthetic regression coverage for weak generic overlap.
 An adversarial synthetic skill-count test also proves unrelated skills do not
@@ -364,6 +366,13 @@ benchmark records baseline versus staged context tokens, model-free stage IDs,
 validation parity, and bounded token overhead. An A/B fixture comparison also
 records synthetic model-call/handoff avoidance and highest executed path without
 calling live providers.
+
+The four initial evaluation dimensions are covered by the focused regression
+suite: selection accuracy, context-bloat resistance, staged workflow behavior,
+and synthetic A/B economy comparison. Broader corpus expansion is optional
+follow-up, not a reason to keep P0.6 open. The next safe roadmap stage is P1.1,
+privacy-safe usage telemetry; it must keep raw traces local and record only
+reviewed aggregate findings in Git.
 
 Test four dimensions:
 
