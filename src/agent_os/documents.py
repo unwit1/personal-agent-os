@@ -44,6 +44,7 @@ from pathlib import Path
 from typing import Any, Callable, Iterable
 
 from .ingestion import IngestionLedger, stable_item_id, stable_stage_id, stable_work_id
+from .local_paths import is_gitignored_local_path
 from .paths import ROOT
 from .privacy import privacy_findings
 
@@ -89,13 +90,11 @@ def assert_private_location(path: Path) -> None:
     repository would put derived work-document text into canonical history, and
     no amount of care elsewhere would undo that.
     """
-    resolved = Path(path).resolve()
-    try:
-        relative = resolved.relative_to(ROOT.resolve())
-    except ValueError:
-        return  # Outside the repository entirely; nothing for Git to track.
-    first = relative.parts[0] if relative.parts else ""
-    if first not in {".agent-local", ".agent-os", ".tmp"}:
+    if not is_gitignored_local_path(
+        path,
+        allowed_roots=(".agent-local", ".agent-os", ".tmp"),
+    ):
+        relative = Path(path).expanduser().resolve().relative_to(ROOT.resolve())
         raise CachePrivacyError(
             f"refusing a document cache inside the repository at {relative}; "
             "the cache holds derived work-document text and must stay in a "

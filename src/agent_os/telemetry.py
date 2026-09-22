@@ -18,6 +18,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
+from .local_paths import is_gitignored_local_path
 from .paths import ROOT
 
 
@@ -242,13 +243,7 @@ def aggregate_report(events: Iterable[TelemetryEvent | Mapping[str, Any]]) -> di
 def assert_private_location(path: Path) -> None:
     """Reject canonical repository paths outside the gitignored local tree."""
 
-    resolved = Path(path).expanduser().resolve()
-    repository = ROOT.resolve()
-    try:
-        relative = resolved.relative_to(repository)
-    except ValueError:
-        return
-    if not relative.parts or relative.parts[0] != ".agent-local":
+    if not is_gitignored_local_path(path):
         raise TelemetryPrivacyError(
             "telemetry must remain outside canonical Git state or under .agent-local"
         )
