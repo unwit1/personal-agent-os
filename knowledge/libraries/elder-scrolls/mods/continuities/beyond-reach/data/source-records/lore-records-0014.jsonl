@@ -1,0 +1,50 @@
+{"observed_form_id":"040572B2","record_type":"DIAL","origin_id":"arnima.esm:0572B2","quest_origin_id":"arnima.esm:0529CF","info_count":1}
+{"observed_form_id":"040572B4","record_type":"DIAL","origin_id":"arnima.esm:0572B4","quest_origin_id":"arnima.esm:0529CF","info_count":1}
+{"observed_form_id":"040572B6","record_type":"DIAL","origin_id":"arnima.esm:0572B6","quest_origin_id":"arnima.esm:0529CF","info_count":1}
+{"observed_form_id":"040572B8","record_type":"DIAL","origin_id":"arnima.esm:0572B8","quest_origin_id":"arnima.esm:0529CF","info_count":1}
+{"observed_form_id":"040572BA","record_type":"DIAL","origin_id":"arnima.esm:0572BA","quest_origin_id":"arnima.esm:0529CF","info_count":1}
+{"observed_form_id":"040572BF","record_type":"DIAL","origin_id":"arnima.esm:0572BF","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"040572C1","record_type":"DIAL","origin_id":"arnima.esm:0572C1","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"040572C3","record_type":"DIAL","origin_id":"arnima.esm:0572C3","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"040572C5","record_type":"DIAL","origin_id":"arnima.esm:0572C5","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"040572C7","record_type":"DIAL","origin_id":"arnima.esm:0572C7","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"040572C9","record_type":"DIAL","origin_id":"arnima.esm:0572C9","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"040572CB","record_type":"DIAL","origin_id":"arnima.esm:0572CB","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"040572CD","record_type":"DIAL","origin_id":"arnima.esm:0572CD","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"040572D4","record_type":"DIAL","origin_id":"arnima.esm:0572D4","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"040572D6","record_type":"DIAL","origin_id":"arnima.esm:0572D6","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"040572D8","record_type":"DIAL","origin_id":"arnima.esm:0572D8","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"040572DA","record_type":"DIAL","origin_id":"arnima.esm:0572DA","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"040572DC","record_type":"DIAL","origin_id":"arnima.esm:0572DC","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"040572DE","record_type":"DIAL","origin_id":"arnima.esm:0572DE","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"040572E0","record_type":"DIAL","origin_id":"arnima.esm:0572E0","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"040572E2","record_type":"DIAL","origin_id":"arnima.esm:0572E2","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"040572E4","record_type":"DIAL","origin_id":"arnima.esm:0572E4","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"040572E6","record_type":"DIAL","origin_id":"arnima.esm:0572E6","quest_origin_id":"arnima.esm:3B67E7","info_count":1}
+{"observed_form_id":"0405858A","record_type":"DIAL","origin_id":"arnima.esm:05858A","quest_origin_id":"arnima.esm:04D8D5","info_count":1}
+{"observed_form_id":"0405858C","record_type":"DIAL","origin_id":"arnima.esm:05858C","quest_origin_id":"arnima.esm:04D8D5","info_count":1}
+{"observed_form_id":"0405858E","record_type":"DIAL","origin_id":"arnima.esm:05858E","quest_origin_id":"arnima.esm:04D8D5","info_count":1}
+{"observed_form_id":"04058590","record_type":"DIAL","origin_id":"arnima.esm:058590","quest_origin_id":"arnima.esm:04D8D5","info_count":1}
+{"observed_form_id":"04058595","record_type":"DIAL","editor_id":"arnimamainquest0merosaTopic","title":"[Quest] Merosa?","origin_id":"arnima.esm:058595","quest_origin_id":"arnima.esm:04D8D5","prompt":"[Quest] Merosa?","info_count":1}
+{"observed_form_id":"04058597","record_type":"DIAL","editor_id":"arnimamainquest0merosa2","title":"I am <Alias=Player>. Your lookout tower was sacked by Witchmen.","origin_id":"arnima.esm:058597","quest_origin_id":"arnima.esm:04D8D5","prompt":"I am <Alias=Player>. Your lookout tower was sacked by Witchmen.","info_count":1}
+{"observed_form_id":"04058599","record_type":"DIAL","editor_id":"arnimamainquest0merosa3","title":"Gold for talking? Sure thing. ","origin_id":"arnima.esm:058599","quest_origin_id":"arnima.esm:04D8D5","prompt":"Gold for talking? Sure thing. ","info_count":1}
+{"observed_form_id":"0405859C","record_type":"DIAL","editor_id":"arnimamainquest0jackosTopic","title":"[Quest] Arnima fallen on hard times? ","origin_id":"arnima.esm:05859C","quest_origin_id":"arnima.esm:04D8D5","prompt":"[Quest] Arnima fallen on hard times? ","info_count":1}
+{"observed_form_id":"0405859E","record_type":"DIAL","editor_id":"arnimamainquest0jackos2","title":"Anything else?","origin_id":"arnima.esm:05859E","quest_origin_id":"arnima.esm:04D8D5","prompt":"Anything else?","info_count":1}
+{"observed_form_id":"040585A1","record_type":"DIAL","editor_id":"arnimamainquest0merosaendTopic","title":"Jackos told me of their condition, seems like the \"rumors\" were true. ","origin_id":"arnima.esm:0585A1","quest_origin_id":"arnima.esm:04D8D5","prompt":"Jackos told me of their condition, seems like the \"rumors\" were true. ","info_count":1}
+{"observed_form_id":"04058A15","record_type":"DIAL","editor_id":"ArnimaCommonDialoguetrainerTopic","origin_id":"arnima.esm:058A15","quest_origin_id":"arnima.esm:06B5A4","info_count":0}
+{"observed_form_id":"04059AAD","record_type":"DIAL","editor_id":"arnimaevermorequest3talkTopic","title":"[Quest] This side of Evermore is worlds away from the east..","origin_id":"arnima.esm:059AAD","quest_origin_id":"arnima.esm:059AA6","prompt":"[Quest] This side of Evermore is worlds away from the east..","info_count":1}
+{"observed_form_id":"04059AAF","record_type":"DIAL","editor_id":"arnimaevermorequest3talk2","title":"What's wrong with them?","origin_id":"arnima.esm:059AAF","quest_origin_id":"arnima.esm:059AA6","prompt":"What's wrong with them?","info_count":1}
+{"observed_form_id":"04059AB1","record_type":"DIAL","editor_id":"arnimaevermorequest3tal3","title":"Want me to investigate?","origin_id":"arnima.esm:059AB1","quest_origin_id":"arnima.esm:059AA6","prompt":"Want me to investigate?","info_count":1}
+{"observed_form_id":"04059AB3","record_type":"DIAL","editor_id":"arnimaevermorequest3accept","title":"Sure, I'm curious to see what they're about. Let's go. ","origin_id":"arnima.esm:059AB3","quest_origin_id":"arnima.esm:059AA6","prompt":"Sure, I'm curious to see what they're about. Let's go. ","info_count":1}
+{"observed_form_id":"04059AB5","record_type":"DIAL","editor_id":"arnimaevermorequest3reject","title":"I'll have to postpone this investigation for later. ","origin_id":"arnima.esm:059AB5","quest_origin_id":"arnima.esm:059AA6","prompt":"I'll have to postpone this investigation for later. ","info_count":1}
+{"observed_form_id":"04059ABA","record_type":"DIAL","editor_id":"arnimaevermorequest3stoptalkTopic","origin_id":"arnima.esm:059ABA","quest_origin_id":"arnima.esm:059AA6","info_count":1}
+{"observed_form_id":"04059AC4","record_type":"DIAL","editor_id":"arnimaevermorequest3stoptalkend","title":"I'm not here to harm anyone, and I don't want any trouble. ","origin_id":"arnima.esm:059AC4","quest_origin_id":"arnima.esm:059AA6","prompt":"I'm not here to harm anyone, and I don't want any trouble. ","info_count":1}
+{"observed_form_id":"04059ACA","record_type":"DIAL","editor_id":"arnimaevermorequest3woodelfTopic","title":"We've been sent from Evermore to investigate your presence here (lie)","origin_id":"arnima.esm:059ACA","quest_origin_id":"arnima.esm:059AA6","prompt":"We've been sent from Evermore to investigate your presence here (lie)","info_count":1}
+{"observed_form_id":"04059B33","record_type":"DIAL","editor_id":"arnimaevermorequest3woodelf2Topic","title":"Do I speak?","origin_id":"arnima.esm:059B33","quest_origin_id":"arnima.esm:059AA6","prompt":"Do I speak?","info_count":1}
+{"observed_form_id":"0405A72C","record_type":"DIAL","origin_id":"arnima.esm:05A72C","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"0405A72E","record_type":"DIAL","origin_id":"arnima.esm:05A72E","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"0405A730","record_type":"DIAL","origin_id":"arnima.esm:05A730","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"0405A732","record_type":"DIAL","origin_id":"arnima.esm:05A732","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"0405A8FC","record_type":"DIAL","editor_id":"arnimareddawnquestbugKegorEndTopic","title":"The outposts have been dealt with. ","origin_id":"arnima.esm:05A8FC","quest_origin_id":"arnima.esm:017F4C","prompt":"The outposts have been dealt with. ","info_count":1}
+{"observed_form_id":"0405AEAC","record_type":"DIAL","origin_id":"arnima.esm:05AEAC","quest_origin_id":"arnima.esm:05AE4B","info_count":1}
+{"observed_form_id":"0405AEAE","record_type":"DIAL","origin_id":"arnima.esm:05AEAE","quest_origin_id":"arnima.esm:05AE4B","info_count":1}
