@@ -68,6 +68,7 @@ REVIEW_KEY_LIMIT = 160
 REVIEW_FINDING_LIMIT = 500
 REVIEW_VALIDATION_LIMIT = 1000
 MAX_REVIEW_FINDINGS = 5
+MAX_REQUEUE_HISTORY = 8
 
 
 def claims_path(override: Path | None = None) -> Path:
@@ -513,7 +514,19 @@ def requeue_task(
     if agent_name not in {task.get("requester"), task.get("assignee")}:
         raise ValueError("only the task requester or assigned agent can requeue delegated work")
     now = utc_now_iso()
-    task["last_assignee"] = task.get("assignee")
+    previous_assignee = task.get("assignee")
+    history = task.get("requeue_history")
+    if not isinstance(history, list):
+        history = []
+    history.append({
+        "from_status": previous_status,
+        "assignee": previous_assignee,
+        "reason": requeue_reason,
+        "requeued_by": agent_name,
+        "requeued_at": now,
+    })
+    task["requeue_history"] = history[-MAX_REQUEUE_HISTORY:]
+    task["last_assignee"] = previous_assignee
     task["assignee"] = None
     task["status"] = "queued"
     task["requeued_from_status"] = previous_status

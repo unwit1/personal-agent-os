@@ -140,7 +140,8 @@ not carry prompts, transcripts, documents, or secrets. The queue is advisory
 and machine-local like claims, but it gives agents a resumable handoff instead
 of relying on chat memory. The requester or current assignee can explicitly
 requeue interrupted `assigned` or `in_progress` work; requeueing clears the assignee, keeps
-the stable task ID and review records, records a bounded reason, and is
+the stable task ID and review records, records a bounded reason in both the
+latest metadata and a capped requeue history, and is
 idempotent when repeated before another agent claims the task.
 Unauthorized agents cannot turn that idempotent retry into a successful
 coordination operation.

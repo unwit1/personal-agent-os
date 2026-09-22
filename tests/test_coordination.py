@@ -306,6 +306,8 @@ class DelegatedTaskTests(ClaimFixture):
         self.assertIsNone(recovered["task"]["assignee"])
         self.assertEqual(recovered["task"]["last_assignee"], "beta")
         self.assertEqual(recovered["task"]["requeue_count"], 1)
+        self.assertEqual(recovered["task"]["requeue_history"][0]["assignee"], "beta")
+        self.assertEqual(recovered["task"]["requeue_history"][0]["requeued_by"], "alpha")
         self.assertEqual(coordination.list_reviews("demo", path=self.registry)[0]["review_id"], requested["review"]["review_id"])
 
         with self.assertRaisesRegex(ValueError, "last requeue agent"):
@@ -315,6 +317,24 @@ class DelegatedTaskTests(ClaimFixture):
         self.assertTrue(repeated["idempotent"])
         claimed = coordination.claim_task(task_id, "gamma", path=self.registry)
         self.assertTrue(claimed["claimed"])
+
+    def test_requeue_history_is_bounded_and_idempotent_retries_do_not_duplicate(self) -> None:
+        created = coordination.delegate(
+            "demo", "history-bound", "History fixture", "alpha", assignee="beta", path=self.registry,
+        )
+        task_id = created["task"]["task_id"]
+        current = "beta"
+        for index in range(9):
+            coordination.claim_task(task_id, current, path=self.registry)
+            coordination.requeue_task(task_id, current, f"synthetic interruption {index}", path=self.registry)
+            current = f"worker-{index}"
+
+        repeated = coordination.requeue_task(task_id, "alpha", "same interruption", path=self.registry)
+        self.assertTrue(repeated["idempotent"])
+        history = repeated["task"]["requeue_history"]
+        self.assertEqual(len(history), 8)
+        self.assertEqual(history[0]["reason"], "synthetic interruption 1")
+        self.assertEqual(history[-1]["reason"], "synthetic interruption 8")
 
     def test_requeue_recovers_assigned_task_before_first_claim(self) -> None:
         created = coordination.delegate(
