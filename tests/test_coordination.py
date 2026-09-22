@@ -468,6 +468,15 @@ class PeerReviewTests(ClaimFixture):
             )
         self.assertEqual(coordination.list_reviews("demo", path=self.registry), [])
 
+    def test_review_changed_file_paths_are_bounded_before_persistence(self) -> None:
+        oversized_path = "src/" + ("fixture_" * 100)
+        with self.assertRaisesRegex(ValueError, "at most 500 characters"):
+            coordination.request_review(
+                "demo", "oversized-path-review", "alpha", commit_fingerprint="bounded456",
+                changed_files=[oversized_path], path=self.registry,
+            )
+        self.assertEqual(coordination.list_reviews("demo", path=self.registry), [])
+
     def test_task_and_review_listing_respects_case_insensitive_project_identity(self) -> None:
         task = coordination.delegate("Demo", "case-list", "Case fixture", "alpha", path=self.registry)
         requested = coordination.request_review(

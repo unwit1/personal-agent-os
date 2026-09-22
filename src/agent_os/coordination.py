@@ -66,6 +66,7 @@ REVIEW_STATUSES = ("requested", "approved", "changes_requested", "blocked")
 REVIEW_VERDICTS = ("approved", "changes_requested", "blocked")
 REVIEW_KEY_LIMIT = 160
 REVIEW_FINDING_LIMIT = 500
+REVIEW_FILE_LIMIT = 500
 REVIEW_VALIDATION_LIMIT = 1000
 MAX_REVIEW_FINDINGS = 5
 MAX_REVIEW_FILES = 32
@@ -604,7 +605,10 @@ def _review_changed_files(values: list[str] | None) -> list[str]:
     entries = values or []
     if len(entries) > MAX_REVIEW_FILES:
         raise ValueError(f"a peer review may list at most {MAX_REVIEW_FILES} changed files")
-    return _normalize_scope(entries)
+    normalized = _normalize_scope(entries)
+    if any(len(entry) > REVIEW_FILE_LIMIT for entry in normalized):
+        raise ValueError(f"a peer review changed-file path may contain at most {REVIEW_FILE_LIMIT} characters")
+    return normalized
 
 
 def _reviews(data: dict[str, Any]) -> list[dict[str, Any]]:
