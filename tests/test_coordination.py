@@ -238,6 +238,36 @@ class DelegatedTaskTests(ClaimFixture):
         claimed = coordination.claim_task(task_id, "gamma", path=self.registry)
         self.assertTrue(claimed["claimed"])
 
+    def test_requeue_requires_fresh_approval_for_gated_completion(self) -> None:
+        created = coordination.delegate(
+            "demo", "recoverable-gated", "Recoverable gated task", "alpha", assignee="beta",
+            review_required=True, path=self.registry,
+        )
+        task_id = created["task"]["task_id"]
+        coordination.claim_task(task_id, "beta", path=self.registry)
+        prior = coordination.request_review(
+            "demo", "prior-review", "alpha", task_id=task_id, reviewer="gamma", path=self.registry,
+        )
+        coordination.submit_review(
+            prior["review"]["review_id"], "gamma", "approved", "synthetic pre-requeue approval",
+            path=self.registry,
+        )
+        coordination.requeue_task(task_id, "alpha", "synthetic interruption after review", path=self.registry)
+        coordination.claim_task(task_id, "delta", path=self.registry)
+        with self.assertRaisesRegex(ValueError, "approved independent peer review"):
+            coordination.complete_task(task_id, "delta", "synthetic pass", path=self.registry)
+
+        fresh = coordination.request_review(
+            "demo", "fresh-review", "alpha", task_id=task_id, reviewer="epsilon", path=self.registry,
+        )
+        coordination.submit_review(
+            fresh["review"]["review_id"], "epsilon", "approved", "synthetic post-requeue approval",
+            path=self.registry,
+        )
+        completed = coordination.complete_task(task_id, "delta", "synthetic pass", path=self.registry)
+        self.assertTrue(completed["completed"])
+        self.assertEqual(len(coordination.list_reviews("demo", path=self.registry)), 2)
+
     def test_changes_requested_review_blocks_gated_completion(self) -> None:
         created = coordination.delegate(
             "demo", "gated-changes", "Review-gated fixture task", "alpha", assignee="beta",

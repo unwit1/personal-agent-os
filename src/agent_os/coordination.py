@@ -511,12 +511,14 @@ def complete_task(
     if task.get("assignee") != agent_name:
         raise ValueError("only the assigned agent can complete a delegated task")
     if task.get("review_required"):
+        requeue_checkpoint = task.get("requeued_at")
         approved = [
             review for review in _reviews(data)
             if review.get("task_id") == task_id
             and review.get("status") == "approved"
             and review.get("requester") == task.get("requester")
             and review.get("reviewer") not in {task.get("requester"), task.get("assignee")}
+            and (not requeue_checkpoint or review.get("reviewed_at", "") > requeue_checkpoint)
         ]
         if not approved:
             raise ValueError("delegated task requires an approved independent peer review")
