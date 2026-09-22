@@ -175,6 +175,26 @@ class DelegatedTaskTests(ClaimFixture):
             )
         self.assertTrue(gated["task"]["review_required"])
 
+    def test_dependency_graph_is_immutable_across_delegation_retries(self) -> None:
+        first_dependency = coordination.delegate("demo", "dep-first", "Dependency fixture", "alpha", path=self.registry)
+        second_dependency = coordination.delegate("demo", "dep-second", "Dependency fixture", "alpha", path=self.registry)
+        first = coordination.delegate(
+            "demo", "immutable-deps", "Dependency graph fixture", "alpha",
+            depends_on=[first_dependency["task"]["task_id"]], path=self.registry,
+        )
+        compatible_retry = coordination.delegate(
+            "demo", "immutable-deps", "Dependency graph fixture", "other",
+            depends_on=[first_dependency["task"]["task_id"], first_dependency["task"]["task_id"]], path=self.registry,
+        )
+        self.assertFalse(compatible_retry["created"])
+        self.assertTrue(compatible_retry["idempotent"])
+        with self.assertRaisesRegex(ValueError, "depends_on cannot change"):
+            coordination.delegate(
+                "demo", "immutable-deps", "Dependency graph fixture", "alpha",
+                depends_on=[second_dependency["task"]["task_id"]], path=self.registry,
+            )
+        self.assertEqual(first["task"]["depends_on"], [first_dependency["task"]["task_id"]])
+
     def test_dependencies_block_claim_until_completed(self) -> None:
         prerequisite = coordination.delegate("demo", "prepare", "Prepare fixture", "alpha", path=self.registry)
         dependent = coordination.delegate(

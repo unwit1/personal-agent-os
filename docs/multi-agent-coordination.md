@@ -132,6 +132,8 @@ remain resumable blockers until their tasks exist and complete. An already
 another agent cannot take it over. Completion is limited to the assigned agent,
 and non-empty validation evidence is required. The opt-in `review_required`
 gate is immutable for an existing task; a retry that changes it is rejected.
+The normalized `depends_on` graph is immutable as well; compatible retries are
+idempotent, while a different dependency set is rejected.
 Task
 records contain bounded summaries, paths, IDs, and validation metadata; they do
 not carry prompts, transcripts, documents, or secrets. The queue is advisory

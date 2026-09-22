@@ -419,12 +419,14 @@ def delegate(
     location = claims_path(path)
     data = _load(location)
     data.setdefault("tasks", [])
+    dependencies = _task_dependencies(depends_on)
     existing = next((item for item in data["tasks"] if item.get("task_id") == task_id), None)
     if existing is not None:
         if bool(existing.get("review_required", False)) != review_required:
             raise ValueError("review_required cannot change for an existing delegated task")
+        if _task_dependencies(existing.get("depends_on")) != dependencies:
+            raise ValueError("depends_on cannot change for an existing delegated task")
         return {"created": False, "idempotent": True, "task": existing}
-    dependencies = _task_dependencies(depends_on)
     if _dependency_cycle(data, task_id, dependencies):
         raise ValueError("delegated task dependencies must be acyclic")
     assigned = _task_text(assignee, "assignee", TASK_KEY_LIMIT) if assignee else None
