@@ -190,6 +190,12 @@ class DelegatedTaskTests(ClaimFixture):
         completed = coordination.complete_task(task_id, "beta", "synthetic pass", "done", path=self.registry)
         self.assertTrue(completed["completed"])
         self.assertEqual(coordination.list_tasks("demo", "completed", self.registry)[0]["task_id"], task_id)
+        retried = coordination.complete_task(task_id, "beta", "synthetic pass", "different retry result", path=self.registry)
+        self.assertTrue(retried["completed"])
+        self.assertTrue(retried["idempotent"])
+        self.assertEqual(retried["task"]["result"], "done")
+        with self.assertRaisesRegex(ValueError, "only the assigned agent"):
+            coordination.complete_task(task_id, "alpha", "synthetic pass", path=self.registry)
 
     def test_review_required_task_needs_approved_peer_review(self) -> None:
         created = coordination.delegate(
