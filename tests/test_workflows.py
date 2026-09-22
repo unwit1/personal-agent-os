@@ -547,6 +547,7 @@ class NextPromptTests(WorkflowFixture):
         result = workflows.run_stage("fixture-sweep", "packet", "cheap-check")
         self.assertEqual(result["next_stage"]["stage_id"], "think")
         self.assertEqual(result["next_stage"]["capability_class"], "fast")
+        self.assertEqual(result["next_stage"]["execution_path_explanation"]["selected"], "model")
         self.assertIsNotNone(result["next_prompt"])
         self.assertLess(len(json.dumps(result)), 8000, "the completion packet is not compact")
 
@@ -570,6 +571,17 @@ class CapabilityTests(unittest.TestCase):
             "cache",
         )
         self.assertEqual(capabilities.select_execution_path("model"), "model")
+
+    def test_execution_policy_explains_the_selected_route(self) -> None:
+        explanation = capabilities.explain_execution_path("model", ["model", "skill", "cache"])
+        self.assertEqual(explanation["selected"], "cache")
+        self.assertEqual(explanation["available"], ["model", "skill", "cache"])
+        self.assertEqual(explanation["reason"], "selected cheapest declared execution path")
+
+        fallback = capabilities.explain_execution_path(
+            "deterministic", ["deterministic", "model"], selected="model"
+        )
+        self.assertEqual(fallback["reason"], "selected persisted fallback execution path")
 
     def test_execution_policy_rejects_unknown_or_empty_candidates(self) -> None:
         with self.assertRaises(ValueError):

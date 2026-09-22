@@ -62,6 +62,11 @@ persists the next declared path before handing the stage to its caller. The
 cache adapter returns only hit metadata; cached document content never enters
 workflow state. Skill execution remains caller-owned.
 
+Stage packets also expose a compact `execution_path_explanation` containing the
+preferred path, declared candidates, selected path, and whether the cheapest
+declared route or a persisted fallback was selected. This is an observable
+policy explanation; it does not name or invoke a provider.
+
 `cache_lookup` is currently limited to a content-addressed `document_page` key
 (`file_hash`, `page_index`, and optional extraction settings). It is a lookup
 contract, not a second document-processing implementation; callers populate

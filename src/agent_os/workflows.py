@@ -33,6 +33,7 @@ from .capabilities import (
     EXECUTION_PATHS,
     next_class,
     resolve as resolve_capability,
+    explain_execution_path,
     select_execution_path,
 )
 from .compiler import compile_context
@@ -445,6 +446,9 @@ def prepare_stage(workflow_id: str, run_id: str, stage_id: str | None = None) ->
     capability = state.get("capability_class", stage["capability_class"])
     execution_path = state.get("execution_path") or _stage_execution_path(stage)
     state["execution_path"] = execution_path
+    route_explanation = explain_execution_path(
+        stage["preferred_execution_path"], stage.get("available_execution_paths"), execution_path
+    )
     return {
         "workflow_id": workflow_id,
         "run_id": run_id,
@@ -457,6 +461,7 @@ def prepare_stage(workflow_id: str, run_id: str, stage_id: str | None = None) ->
             "preferred_execution_path": stage["preferred_execution_path"],
             "available_execution_paths": stage.get("available_execution_paths", [stage["preferred_execution_path"]]),
             "execution_path": execution_path,
+            "execution_path_explanation": route_explanation,
             "capability_class": capability,
             "effort": stage.get("effort", "low"),
             "allowed_tools": stage.get("allowed_tools", []),
@@ -525,6 +530,10 @@ def _completion_packet(
             "available_execution_paths", [following_stage["preferred_execution_path"]]
         ),
         "execution_path": _stage_execution_path(following_stage),
+        "execution_path_explanation": explain_execution_path(
+            following_stage["preferred_execution_path"],
+            following_stage.get("available_execution_paths"),
+        ),
         "stop_condition": following_stage["stop_condition"],
     }
     packet["recommended_capability"] = resolve_capability(capability)

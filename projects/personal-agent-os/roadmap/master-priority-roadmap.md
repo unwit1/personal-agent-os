@@ -471,6 +471,10 @@ Initial reports should answer:
 
 ### P1.2 — Adaptive router
 
+Current deterministic slice (2026-09-22): workflow packets expose the
+provider-neutral selected execution path, declared candidates, and a compact
+route explanation. Provider/model delegation remains outside this slice.
+
 Implement provider-neutral capability classes and validator-driven escalation.
 
 The router should:

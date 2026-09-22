@@ -82,6 +82,31 @@ def select_execution_path(preferred: str, available: Iterable[str] | None = None
     return min(candidates, key=EXECUTION_PATHS.index)
 
 
+def explain_execution_path(
+    preferred: str,
+    available: Iterable[str] | None = None,
+    selected: str | None = None,
+) -> dict[str, Any]:
+    """Return a compact, deterministic explanation of route selection."""
+
+    candidates = tuple(available) if available is not None else (preferred,)
+    cheapest = select_execution_path(preferred, candidates)
+    actual = selected or cheapest
+    if actual not in candidates:
+        raise ValueError(f"selected execution path is not available: {actual}")
+    reason = (
+        "selected cheapest declared execution path"
+        if actual == cheapest
+        else "selected persisted fallback execution path"
+    )
+    return {
+        "preferred": preferred,
+        "available": list(candidates),
+        "selected": actual,
+        "reason": reason,
+    }
+
+
 def load_providers(path: Path | None = None) -> dict[str, Any]:
     """Read the machine-local provider registry, or report that there is none.
 
