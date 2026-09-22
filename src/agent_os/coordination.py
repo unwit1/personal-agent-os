@@ -448,6 +448,8 @@ def claim_task(task_id: str, agent: str, path: Path | None = None) -> dict[str, 
         raise ValueError(f"delegated task is already {task['status']}")
     if task.get("assignee") and task["assignee"] != agent_name:
         raise ValueError("delegated task is assigned to another agent")
+    if task.get("status") == "in_progress" and task.get("assignee") == agent_name:
+        return {"claimed": False, "blocked": False, "idempotent": True, "task": task}
     blockers = _blocked_by(data, task)
     if blockers:
         return {"claimed": False, "blocked": True, "blocked_by": blockers, "task": task}

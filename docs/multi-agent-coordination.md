@@ -124,8 +124,10 @@ approved independent peer review. Without that opt-in flag, existing and new
 tasks retain the normal completion behavior.
 
 The task ID is stable for a `(project, task_key)` pair, so retrying delegation
-is idempotent. Dependencies are checked before claiming, completion is limited
-to the assigned agent, and non-empty validation evidence is required. Task
+is idempotent. Dependencies are checked before claiming, and an already
+`in_progress` task returns an idempotent no-op when retried by its assignee;
+another agent cannot take it over. Completion is limited to the assigned agent,
+and non-empty validation evidence is required. Task
 records contain bounded summaries, paths, IDs, and validation metadata; they do
 not carry prompts, transcripts, documents, or secrets. The queue is advisory
 and machine-local like claims, but it gives agents a resumable handoff instead

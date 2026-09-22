@@ -197,6 +197,21 @@ class DelegatedTaskTests(ClaimFixture):
         with self.assertRaisesRegex(ValueError, "only the assigned agent"):
             coordination.complete_task(task_id, "alpha", "synthetic pass", path=self.registry)
 
+    def test_same_agent_claim_retry_is_idempotent(self) -> None:
+        created = coordination.delegate(
+            "demo", "claim-retry", "Claim retry fixture", "alpha", assignee="beta", path=self.registry,
+        )
+        task_id = created["task"]["task_id"]
+        first = coordination.claim_task(task_id, "beta", path=self.registry)
+        before = json.dumps(first["task"], sort_keys=True)
+        retry = coordination.claim_task(task_id, "beta", path=self.registry)
+        self.assertTrue(first["claimed"])
+        self.assertFalse(retry["claimed"])
+        self.assertTrue(retry["idempotent"])
+        self.assertEqual(json.dumps(retry["task"], sort_keys=True), before)
+        with self.assertRaisesRegex(ValueError, "assigned to another agent"):
+            coordination.claim_task(task_id, "gamma", path=self.registry)
+
     def test_review_required_task_needs_approved_peer_review(self) -> None:
         created = coordination.delegate(
             "demo", "gated", "Review-gated fixture task", "alpha", assignee="beta",
