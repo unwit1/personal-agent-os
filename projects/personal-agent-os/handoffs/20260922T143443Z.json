@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-22T14:34:43.139226+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 7]\n M docs/resumable-ingestion.md\n M projects/personal-agent-os/roadmap/master-priority-roadmap.md\n M src/agent_os/changes.py\n?? tests/test_changes_import.py",
+    "error": ""
+  },
+  "completed": [
+    "P0.4 local change-record import sub-stage: load_changes_incremental now routes project CR-*.json reads through a separate project-scoped IngestionLedger with stable work/stage identities, metadata-only fingerprints, idempotent reads, changed-record requeueing, interrupted-claim recovery, and checkpoints. Existing change lifecycle reads delegate through the new path; documentation and roadmap progress updated."
+  ],
+  "decisions": [
+    "Selected the existing local change-record directory reader because it is a bounded structured-JSON import path already used by capture, deduplication, search, and safe projection. Preserved canonical change files and lifecycle behavior; the ledger stores only metadata. No IMAP cursor or other provider/import path was changed."
+  ],
+  "remaining": [
+    "P0.4 remains incomplete. Next agent: inspect the clean repository and choose exactly one remaining local or fixture-backed import path to integrate with IngestionLedger. Keep plain IMAP UID/UIDNEXT cursors deferred unless negotiated changed-message semantics are proven; do not combine provider paths. Re-run focused/full validation and update this handoff."
+  ],
+  "validation": [
+    "python -m unittest tests.test_changes_import tests.test_capture_systems tests.test_agent_os -v (23 passed); python -m unittest discover -s tests -v (261 passed); python agent.py validate (ok, 347 checks); git diff --check (clean)."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

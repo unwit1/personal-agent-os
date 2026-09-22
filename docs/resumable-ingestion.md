@@ -42,6 +42,9 @@ changed records, idempotent reads, and interrupted directory scans.
 The local improvement-record reader now uses the same seam for project-scoped
 `IMP-*.json` scans, so status/search/capture reads can resume after an
 interruption without copying improvement content into the ledger.
+The local change-record reader now follows the same project-scoped pattern for
+`CR-*.json` scans, preserving the existing lifecycle, deduplication, and safe
+projection behavior while making reads incremental and restart-safe.
 The implementation assumes one active worker per ledger and does not store
 provider credentials, raw records, OCR text, or derived artifacts in the
 ledger.

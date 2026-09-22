@@ -297,7 +297,10 @@ changing the explicit curation/promotion boundary. The local improvement-record
 reader now uses the same project-scoped ledger for `IMP-*.json` scans,
 preserving canonical improvement records while making status/search/capture
 reads idempotent and restart-safe. Drive, messages, feeds, and other
-provider-specific imports remain unwired.
+provider-specific imports remain unwired. The local change-record reader now
+uses a separate project-scoped ledger for `CR-*.json` scans, preserving its
+existing lifecycle and safe-projection behavior while making reads incremental
+and restart-safe.
 
 ### P0.5 — Deterministic/cache/skill-first execution policy
 

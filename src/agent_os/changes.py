@@ -4,9 +4,10 @@ import hashlib
 import re
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Callable, Iterable
 
 from .candidates import stage_candidates
+from .ingestion import IngestionLedger, stable_stage_id, stable_work_id
 from .paths import ROOT
 from .privacy import privacy_findings, require_private_safe
 from .registry import get_project
@@ -16,6 +17,7 @@ from .storage import load_json, write_json
 CHANGE_TYPES = {"bug", "feature", "refactor", "workflow", "performance", "security", "test", "documentation", "architecture", "other"}
 STATUSES = {"OPEN", "ANALYZED", "PROPOSED", "IMPLEMENTED", "VERIFIED", "REJECTED", "DUPLICATE", "SUPERSEDED", "BLOCKED"}
 ACTIVE_STATUSES = {"OPEN", "ANALYZED", "PROPOSED", "IMPLEMENTED", "BLOCKED"}
+CHANGE_PROCESSOR_VERSION = "change-records@1"
 TRANSITIONS = {
     "OPEN": {"ANALYZED", "REJECTED", "DUPLICATE", "BLOCKED"},
     "ANALYZED": {"PROPOSED", "REJECTED", "DUPLICATE", "BLOCKED"},
@@ -42,8 +44,83 @@ def _directory(project_id: str) -> Path:
 
 
 def _records(project_id: str) -> list[dict[str, Any]]:
-    directory = _directory(project_id)
-    return [load_json(path) for path in sorted(directory.glob("CR-*.json"))] if directory.exists() else []
+    return list(load_changes_incremental(project_id)["records"])
+
+
+def load_changes_incremental(
+    project_id: str,
+    *,
+    source_dir: Path | None = None,
+    ledger_path: Path | None = None,
+    processor_version: str = CHANGE_PROCESSOR_VERSION,
+    before_parse: Callable[[Path], None] | None = None,
+) -> dict[str, Any]:
+    """Read local change records through a restart-safe ingestion ledger.
+
+    Canonical change JSON remains on disk. The ledger stores only source names,
+    fingerprints, processing state, output references, and checkpoints.
+    """
+    directory = Path(source_dir) if source_dir is not None else _directory(project_id)
+    target_ledger = Path(ledger_path or (ROOT / ".agent-local" / "changes" / f"{project_id}.json"))
+    work_id = stable_work_id("change-records", project_id)
+    ledger = IngestionLedger(
+        target_ledger,
+        source="change-record",
+        work_id=work_id,
+        stage_id=stable_stage_id(work_id, "read"),
+        processor_version=processor_version,
+    )
+    records: list[dict[str, Any]] = []
+    stats = {
+        "checked": 0,
+        "queued": 0,
+        "reprocessed": 0,
+        "resumed": 0,
+        "skipped": 0,
+        "errors": 0,
+    }
+    paths = sorted(directory.glob("CR-*.json")) if directory.exists() else []
+    for path in paths:
+        stats["checked"] += 1
+        raw = path.read_bytes()
+        source_key = path.name
+        queued = ledger.enqueue(source_key, content=raw, processor_version=processor_version)
+        if queued["action"] == "queued":
+            stats["queued"] += 1
+        elif queued["action"] == "requeued":
+            stats["reprocessed"] += 1
+
+        item_id = str(queued["item_id"])
+        claimed = ledger.claim(1) if queued["status"] != "processed" else []
+        if claimed:
+            if claimed[0]["item_id"] != item_id:
+                raise RuntimeError(f"change ledger claimed an unexpected item: {claimed[0]['item_id']}")
+            if int(claimed[0].get("attempts", 0)) > 1:
+                stats["resumed"] += 1
+        elif queued["action"] == "duplicate":
+            stats["skipped"] += 1
+        else:
+            continue
+
+        try:
+            if before_parse is not None:
+                before_parse(path)
+            record = load_json(path)
+            if not isinstance(record, dict):
+                raise ValueError("change record must contain a JSON object")
+            records.append(record)
+            if claimed:
+                ledger.complete(item_id, output_refs=(f"change-record:{source_key}",))
+            ledger.checkpoint(source_key, **stats)
+        except (OSError, ValueError, UnicodeError) as exc:
+            stats["errors"] += 1
+            if claimed:
+                ledger.fail(item_id, str(exc), retryable=True)
+            ledger.checkpoint(source_key, **stats)
+            raise
+
+    stats["records"] = len(records)
+    return {"records": records, "stats": stats, "checkpoint": ledger.status()["checkpoint"]}
 
 
 def _fingerprint(project_id: str, change_type: str, title: str, request_summary: str, components: Iterable[str], files: Iterable[str]) -> str:
