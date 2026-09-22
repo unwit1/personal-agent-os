@@ -1,0 +1,50 @@
+{"observed_form_id":"0405AEB0","record_type":"DIAL","origin_id":"arnima.esm:05AEB0","quest_origin_id":"arnima.esm:05AE4B","info_count":1}
+{"observed_form_id":"0405AEB2","record_type":"DIAL","origin_id":"arnima.esm:05AEB2","quest_origin_id":"arnima.esm:05AE4B","info_count":1}
+{"observed_form_id":"0405AEB4","record_type":"DIAL","origin_id":"arnima.esm:05AEB4","quest_origin_id":"arnima.esm:05AE4B","info_count":1}
+{"observed_form_id":"0405AEB6","record_type":"DIAL","origin_id":"arnima.esm:05AEB6","quest_origin_id":"arnima.esm:05AE4B","info_count":1}
+{"observed_form_id":"0405AEB8","record_type":"DIAL","origin_id":"arnima.esm:05AEB8","quest_origin_id":"arnima.esm:05AE4B","info_count":1}
+{"observed_form_id":"0405AEBA","record_type":"DIAL","origin_id":"arnima.esm:05AEBA","quest_origin_id":"arnima.esm:05AE4B","info_count":1}
+{"observed_form_id":"0405AEBC","record_type":"DIAL","origin_id":"arnima.esm:05AEBC","quest_origin_id":"arnima.esm:05AE4B","info_count":1}
+{"observed_form_id":"0405AEC1","record_type":"DIAL","editor_id":"arnimamainquest5talkTopic","title":"[Quest] What is happening?","origin_id":"arnima.esm:05AEC1","quest_origin_id":"arnima.esm:05AE4B","prompt":"[Quest] What is happening?","info_count":1}
+{"observed_form_id":"0405AEC3","record_type":"DIAL","editor_id":"arnimamainquest5talk2","title":"Maybe it would be good to have Evermore step in?","origin_id":"arnima.esm:05AEC3","quest_origin_id":"arnima.esm:05AE4B","prompt":"Maybe it would be good to have Evermore step in?","info_count":1}
+{"observed_form_id":"0405AEC5","record_type":"DIAL","editor_id":"arnimamainquest5talk3","title":"And how is this important?","origin_id":"arnima.esm:05AEC5","quest_origin_id":"arnima.esm:05AE4B","prompt":"And how is this important?","info_count":1}
+{"observed_form_id":"0405AEC7","record_type":"DIAL","editor_id":"arnimamainquest5accept","title":"I will seek him out then.","origin_id":"arnima.esm:05AEC7","quest_origin_id":"arnima.esm:05AE4B","prompt":"I will seek him out then.","info_count":1}
+{"observed_form_id":"0405AEC9","record_type":"DIAL","editor_id":"arnimamainquest5reject","title":"I will have to decline for the time being.","origin_id":"arnima.esm:05AEC9","quest_origin_id":"arnima.esm:05AE4B","prompt":"I will have to decline for the time being.","info_count":1}
+{"observed_form_id":"0405AECC","record_type":"DIAL","editor_id":"arnimamainquest5radosTopic","title":"I hail from Arnima, and we're in need of your help. ","origin_id":"arnima.esm:05AECC","quest_origin_id":"arnima.esm:05AE4B","prompt":"I hail from Arnima, and we're in need of your help. ","info_count":1}
+{"observed_form_id":"0405AECE","record_type":"DIAL","editor_id":"arnimamainquest5rados2","title":"I heard you're the grandson of Mados.","origin_id":"arnima.esm:05AECE","quest_origin_id":"arnima.esm:05AE4B","prompt":"I heard you're the grandson of Mados.","info_count":1}
+{"observed_form_id":"0405AED0","record_type":"DIAL","editor_id":"arnimamainquest5rados3","title":"Your grandfathers body stands there, and the witchmen grow stronger. ","origin_id":"arnima.esm:05AED0","quest_origin_id":"arnima.esm:05AE4B","prompt":"Your grandfathers body stands there, and the witchmen grow stronger. ","info_count":1}
+{"observed_form_id":"0405AED2","record_type":"DIAL","editor_id":"arnimamainquest5rados4","title":"You hollow coward, will you let the efforts of your ancestor go in vain?","origin_id":"arnima.esm:05AED2","quest_origin_id":"arnima.esm:05AE4B","prompt":"You hollow coward, will you let the efforts of your ancestor go in vain?","info_count":1}
+{"observed_form_id":"0405AED3","record_type":"DIAL","editor_id":"arnimamainquest5rados5","title":"Know this: you alone can prevent a slaughter. Maybe you just don't want to?","origin_id":"arnima.esm:05AED3","quest_origin_id":"arnima.esm:05AE4B","prompt":"Know this: you alone can prevent a slaughter. Maybe you just don't want to?","info_count":1}
+{"observed_form_id":"0405AED8","record_type":"DIAL","editor_id":"arnimamainquest5endTopic","title":"[Quest] I've brought him back, as you asked. ","origin_id":"arnima.esm:05AED8","quest_origin_id":"arnima.esm:05AE4B","prompt":"[Quest] I've brought him back, as you asked. ","info_count":1}
+{"observed_form_id":"0405AEDF","record_type":"DIAL","editor_id":"arnimamainquest5startTopic","title":"[Quest] Anything else Priest?","origin_id":"arnima.esm:05AEDF","quest_origin_id":"arnima.esm:05AE4B","prompt":"[Quest] Anything else Priest?","info_count":1}
+{"observed_form_id":"0405AEE1","record_type":"DIAL","editor_id":"arnimamainquest5startt","title":"Ok, I'll be there. ","origin_id":"arnima.esm:05AEE1","quest_origin_id":"arnima.esm:05AE4B","prompt":"Ok, I'll be there. ","info_count":1}
+{"observed_form_id":"0405BA0C","record_type":"DIAL","editor_id":"arnimamainquest3miss2","title":"Ok sure, I'll try to take notes on anything I find...","origin_id":"arnima.esm:05BA0C","quest_origin_id":"arnima.esm:0529CF","prompt":"Ok sure, I'll try to take notes on anything I find...","info_count":1}
+{"observed_form_id":"0405C1E8","record_type":"DIAL","origin_id":"arnima.esm:05C1E8","quest_origin_id":"arnima.esm:059AA6","info_count":1}
+{"observed_form_id":"0405C1EA","record_type":"DIAL","origin_id":"arnima.esm:05C1EA","quest_origin_id":"arnima.esm:059AA6","info_count":1}
+{"observed_form_id":"0405C1EC","record_type":"DIAL","origin_id":"arnima.esm:05C1EC","quest_origin_id":"arnima.esm:059AA6","info_count":1}
+{"observed_form_id":"0405C1EE","record_type":"DIAL","origin_id":"arnima.esm:05C1EE","quest_origin_id":"arnima.esm:059AA6","info_count":1}
+{"observed_form_id":"0405C1F0","record_type":"DIAL","origin_id":"arnima.esm:05C1F0","quest_origin_id":"arnima.esm:059AA6","info_count":1}
+{"observed_form_id":"0405C1F2","record_type":"DIAL","origin_id":"arnima.esm:05C1F2","quest_origin_id":"arnima.esm:059AA6","info_count":1}
+{"observed_form_id":"0405C1F4","record_type":"DIAL","origin_id":"arnima.esm:05C1F4","quest_origin_id":"arnima.esm:059AA6","info_count":1}
+{"observed_form_id":"0405C1F7","record_type":"DIAL","origin_id":"arnima.esm:05C1F7","quest_origin_id":"arnima.esm:059AA6","info_count":1}
+{"observed_form_id":"0405C1F9","record_type":"DIAL","origin_id":"arnima.esm:05C1F9","quest_origin_id":"arnima.esm:059AA6","info_count":1}
+{"observed_form_id":"0405C1FC","record_type":"DIAL","editor_id":"arnimaevermorequest3endTopic","title":"[Quest] What happened in there?","origin_id":"arnima.esm:05C1FC","quest_origin_id":"arnima.esm:059AA6","prompt":"[Quest] What happened in there?","info_count":1}
+{"observed_form_id":"0405CB76","record_type":"DIAL","editor_id":"ArnimaMadShamanQuestWoundedScout2Topic","origin_id":"arnima.esm:05CB76","quest_origin_id":"arnima.esm:0A6E67","info_count":1}
+{"observed_form_id":"0405CB78","record_type":"DIAL","editor_id":"ArnimaMadShamanQuestWoundedScout2t2","title":"I'm going to deal with the shaman...","origin_id":"arnima.esm:05CB78","quest_origin_id":"arnima.esm:0A6E67","prompt":"I'm going to deal with the shaman...","info_count":1}
+{"observed_form_id":"0405DA8A","record_type":"DIAL","origin_id":"arnima.esm:05DA8A","quest_origin_id":"arnima.esm:05DA87","info_count":2}
+{"observed_form_id":"0405DA8C","record_type":"DIAL","origin_id":"arnima.esm:05DA8C","quest_origin_id":"arnima.esm:05DA87","info_count":2}
+{"observed_form_id":"0405DA8E","record_type":"DIAL","origin_id":"arnima.esm:05DA8E","quest_origin_id":"arnima.esm:05DA87","info_count":2}
+{"observed_form_id":"0405DA90","record_type":"DIAL","origin_id":"arnima.esm:05DA90","quest_origin_id":"arnima.esm:05DA87","info_count":2}
+{"observed_form_id":"0405DE59","record_type":"DIAL","origin_id":"arnima.esm:05DE59","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"0405DE5B","record_type":"DIAL","origin_id":"arnima.esm:05DE5B","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"0405DE5D","record_type":"DIAL","origin_id":"arnima.esm:05DE5D","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"0405DE5F","record_type":"DIAL","origin_id":"arnima.esm:05DE5F","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"0405DE6A","record_type":"DIAL","origin_id":"arnima.esm:05DE6A","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"0405DE6C","record_type":"DIAL","origin_id":"arnima.esm:05DE6C","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"0405DE78","record_type":"DIAL","origin_id":"arnima.esm:05DE78","quest_origin_id":"arnima.esm:037680","info_count":1}
+{"observed_form_id":"0405DE7C","record_type":"DIAL","origin_id":"arnima.esm:05DE7C","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"0405DE7E","record_type":"DIAL","origin_id":"arnima.esm:05DE7E","quest_origin_id":"arnima.esm:3B67E6","info_count":1}
+{"observed_form_id":"0405EAD6","record_type":"DIAL","editor_id":"arnimamainquest4newintrotalkTopic","title":"[Quest] The lord told me that you have some news, do you need my help again?","origin_id":"arnima.esm:05EAD6","quest_origin_id":"arnima.esm:05EAD3","prompt":"[Quest] The lord told me that you have some news, do you need my help again?","info_count":1}
+{"observed_form_id":"0405EAD8","record_type":"DIAL","editor_id":"arnimamainquest4newtalk2","title":"Yes, I know of it.","origin_id":"arnima.esm:05EAD8","quest_origin_id":"arnima.esm:05EAD3","prompt":"Yes, I know of it.","info_count":1}
+{"observed_form_id":"0405EADA","record_type":"DIAL","editor_id":"arnimamainquest4newaccept","title":"It seems as though being an errand runner is my fate, very well.","origin_id":"arnima.esm:05EADA","quest_origin_id":"arnima.esm:05EAD3","prompt":"It seems as though being an errand runner is my fate, very well.","info_count":1}
+{"observed_form_id":"0405EADC","record_type":"DIAL","editor_id":"arnimamainquest4newreject","title":"I'm sick of running errands, you'll just have to forget about those gloves. ","origin_id":"arnima.esm:05EADC","quest_origin_id":"arnima.esm:05EAD3","prompt":"I'm sick of running errands, you'll just have to forget about those gloves. ","info_count":2}
