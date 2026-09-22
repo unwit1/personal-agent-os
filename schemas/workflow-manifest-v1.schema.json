@@ -51,6 +51,28 @@
             "uniqueItems": true,
             "items": {"enum": ["deterministic", "cache", "skill", "model"]}
           },
+          "cache_lookup": {
+            "type": "object",
+            "required": ["kind", "key"],
+            "additionalProperties": false,
+            "properties": {
+              "kind": {"const": "document_page"},
+              "key": {
+                "type": "object",
+                "required": ["file_hash", "page_index"],
+                "additionalProperties": false,
+                "properties": {
+                  "file_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+                  "page_index": {"type": "integer", "minimum": 0},
+                  "dpi": {"type": "integer"},
+                  "rotation": {"type": "integer"},
+                  "extractor": {"type": "string"},
+                  "ocr_engine": {"type": "string"},
+                  "preprocess": {"type": "string"}
+                }
+              }
+            }
+          },
           "capability_class": {"enum": ["deterministic", "fast", "balanced", "reasoning", "frontier"]},
           "effort": {"enum": ["none", "low", "medium", "high"], "default": "low"},
           "allowed_tools": {"type": "array", "items": {"type": "string"}},

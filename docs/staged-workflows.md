@@ -56,8 +56,16 @@ deterministic economy order:
 
 The selected path is persisted in run state and returned in stage packets, so a
 resumed agent sees the same routing decision. This bounded policy stage makes
-route selection deterministic; external cache and skill execution remain
-caller-owned.
+route selection deterministic. A stage that declares a `cache_lookup` may use
+the existing private document cache: a hit completes locally, while a miss
+persists the next declared path before handing the stage to its caller. The
+cache adapter returns only hit metadata; cached document content never enters
+workflow state. Skill execution remains caller-owned.
+
+`cache_lookup` is currently limited to a content-addressed `document_page` key
+(`file_hash`, `page_index`, and optional extraction settings). It is a lookup
+contract, not a second document-processing implementation; callers populate
+the cache through `agent_os.documents.extract_page`.
 
 ## Manifests
 

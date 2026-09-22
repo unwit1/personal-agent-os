@@ -335,8 +335,10 @@ The staged orchestrator in P0.1 should use this policy when selecting how each s
 Current bounded implementation (2026-09-22): manifests may declare
 `available_execution_paths`; the orchestrator deterministically selects and
 persists the cheapest candidate in the economy order, while preserving the
-backward-compatible single `preferred_execution_path` form. External cache and
-skill execution remain caller-owned.
+backward-compatible single `preferred_execution_path` form. A bounded local
+cache adapter now executes content-addressed document-page cache hits and
+persists deterministic fallback to the next declared route on misses; skill
+execution remains caller-owned.
 
 Success signal:
 - repeated structured work increasingly bypasses LLM calls.

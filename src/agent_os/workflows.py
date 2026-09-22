@@ -36,6 +36,7 @@ from .capabilities import (
     select_execution_path,
 )
 from .compiler import compile_context
+from .execution import cache_lookup_problems, lookup_document_page
 from .paths import ROOT
 from .registry import get_project
 from .storage import load_json, write_json
@@ -137,6 +138,12 @@ def manifest_problems(manifest: Any) -> list[str]:
                 invalid_paths = [path for path in available_paths if path not in EXECUTION_PATHS]
                 if invalid_paths:
                     problems.append(f"{label}: unsupported available_execution_path {invalid_paths[0]}")
+        cache_lookup = stage.get("cache_lookup")
+        if cache_lookup is not None:
+            problems.extend(f"{label}: {problem}" for problem in cache_lookup_problems(cache_lookup))
+        candidates = available_paths or [stage.get("preferred_execution_path")]
+        if "cache" in candidates and cache_lookup is None:
+            problems.append(f"{label}: cache execution path requires cache_lookup")
         if stage.get("effort", "low") not in EFFORTS:
             problems.append(f"{label}: unsupported effort")
         context = stage.get("required_context")
@@ -513,6 +520,9 @@ def _completion_packet(
         "capability_class": capability,
         "effort": following_stage.get("effort", "low"),
         "preferred_execution_path": following_stage["preferred_execution_path"],
+        "available_execution_paths": following_stage.get(
+            "available_execution_paths", [following_stage["preferred_execution_path"]]
+        ),
         "execution_path": _stage_execution_path(following_stage),
         "stop_condition": following_stage["stop_condition"],
     }
@@ -533,6 +543,31 @@ def _finish_if_done(manifest: dict[str, Any], record: dict[str, Any]) -> None:
         record["status"] = "blocked"
     else:
         record["status"] = "in_progress"
+
+
+def _fallback_execution_path(stage: dict[str, Any], current: str) -> str | None:
+    candidates = stage.get("available_execution_paths") or [stage["preferred_execution_path"]]
+    remaining = [path for path in candidates if path != current]
+    if not remaining:
+        return None
+    return min(remaining, key=EXECUTION_PATHS.index)
+
+
+def _complete_from_cache(
+    manifest: dict[str, Any], record: dict[str, Any], stage_id: str, stage: dict[str, Any], detail: str
+) -> dict[str, Any]:
+    state = record["stages"][stage_id]
+    state["attempts"] += 1
+    state["outputs"] = list(dict.fromkeys([*state["outputs"], *stage.get("expected_outputs", [])]))
+    if stage.get("checkpoint"):
+        state["checkpoint"] = stage["checkpoint"]
+    validation = {"kind": "cache_lookup", "passed": True, "detail": detail}
+    state["validation"] = validation
+    state["status"] = "complete"
+    state["completed_at"] = _now()
+    _finish_if_done(manifest, record)
+    _save(record)
+    return _completion_packet(manifest, record, stage_id, validation)
 
 
 def _escalate(record: dict[str, Any], stage_id: str, reason: str) -> bool:
@@ -589,6 +624,30 @@ def run_stage(workflow_id: str, run_id: str, stage_id: str | None = None) -> dic
             "reason": "stage already completed and validated; re-running requires an explicit recorded reason",
             "run_status": record["status"],
         }
+
+    if execution_path == "cache":
+        lookup = lookup_document_page(stage["cache_lookup"], ROOT)
+        if lookup.hit:
+            return _complete_from_cache(manifest, record, target, stage, lookup.reason)
+        fallback = _fallback_execution_path(stage, execution_path)
+        if fallback is None:
+            validation = {"kind": "cache_lookup", "passed": False, "detail": lookup.reason}
+            state["validation"] = validation
+            state["status"] = "failed"
+            _escalate(record, target, f"cache lookup failed: {lookup.reason}")
+            _finish_if_done(manifest, record)
+            _save(record)
+            return _completion_packet(manifest, record, target, validation)
+        state["execution_path"] = fallback
+        state["status"] = "pending"
+        _save(record)
+        if fallback != "deterministic":
+            state["status"] = "awaiting_agent"
+            _save(record)
+            packet = prepare_stage(workflow_id, run_id, target)
+            packet["message"] = f"cache miss; stage prepared on fallback execution path {fallback}"
+            return packet
+        execution_path = fallback
 
     if execution_path != "deterministic":
         state["status"] = "awaiting_agent"

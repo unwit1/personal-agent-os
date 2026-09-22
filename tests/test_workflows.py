@@ -12,6 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from agent_os import capabilities, workflows
 from agent_os.compiler import compile_context
+from agent_os.documents import DocumentCache, PageKey, extract_page
 from agent_os.paths import ROOT
 
 
@@ -129,6 +130,10 @@ class ManifestValidationTests(WorkflowFixture):
     def test_invalid_execution_path_candidates_are_rejected(self) -> None:
         problems = self._broken(lambda m: m["stages"][1].__setitem__("available_execution_paths", ["model", "model"]))
         self.assertTrue(any("available_execution_paths must be unique" in item for item in problems))
+
+    def test_cache_execution_path_requires_a_lookup_contract(self) -> None:
+        problems = self._broken(lambda m: m["stages"][1].__setitem__("available_execution_paths", ["cache", "model"]))
+        self.assertTrue(any("cache execution path requires cache_lookup" in item for item in problems))
 
     def test_command_validator_without_a_command_is_rejected(self) -> None:
         problems = self._broken(lambda m: m["stages"][0].__setitem__("validator", {"kind": "command"}))
@@ -453,10 +458,51 @@ class CapabilityTests(unittest.TestCase):
 
 
 class ExecutionPolicyTests(WorkflowFixture):
-    def test_prepared_stage_persists_the_cheapest_declared_path(self) -> None:
+    def _cache_manifest(self, available: list[str]) -> tuple[dict, PageKey]:
         manifest = copy.deepcopy(MANIFEST)
-        manifest["stages"][1]["available_execution_paths"] = ["model", "skill", "cache"]
+        key = PageKey(file_hash="a" * 64, page_index=0)
+        manifest["stages"][1]["available_execution_paths"] = available
+        manifest["stages"][1]["cache_lookup"] = {"kind": "document_page", "key": key.as_dict()}
+        manifest["stages"][1]["checkpoint"] = "projects/personal-agent-os/workflows"
         self.write_manifest(manifest)
+        return manifest, key
+
+    def _seed_cache(self, key: PageKey) -> None:
+        cache = DocumentCache(root=self.temporary / ".agent-local" / "document-cache")
+        extract_page(key, embedded_text=lambda: "synthetic cached document text with enough words", cache=cache)
+
+    def test_cache_hit_completes_without_model_and_persists_checkpoint(self) -> None:
+        _, key = self._cache_manifest(["cache", "model"])
+        self._seed_cache(key)
+        workflows.start("fixture-sweep", run_id="cache-hit")
+
+        packet = workflows.run_stage("fixture-sweep", "cache-hit", "think")
+        state = workflows.load_run("personal-agent-os", "cache-hit")["stages"]["think"]
+        self.assertEqual(state["execution_path"], "cache")
+        self.assertEqual(state["status"], "complete")
+        self.assertEqual(state["checkpoint"], "projects/personal-agent-os/workflows")
+        self.assertEqual(state["validation"]["kind"], "cache_lookup")
+        self.assertTrue(packet["completed_stage"]["validation"]["passed"])
+
+    def test_cache_miss_persists_fallback_and_resume_does_not_repeat_lookup(self) -> None:
+        self._cache_manifest(["cache", "model"])
+        workflows.start("fixture-sweep", run_id="cache-miss")
+
+        first = workflows.run_stage("fixture-sweep", "cache-miss", "think")
+        state = workflows.load_run("personal-agent-os", "cache-miss")["stages"]["think"]
+        self.assertEqual(state["execution_path"], "model")
+        self.assertEqual(state["status"], "awaiting_agent")
+        self.assertIn("cache miss", first["message"])
+
+        workflows.start("fixture-sweep", run_id="cache-miss")
+        resumed = workflows.run_stage("fixture-sweep", "cache-miss", "think")
+        resumed_state = workflows.load_run("personal-agent-os", "cache-miss")["stages"]["think"]
+        self.assertEqual(resumed["stage"]["execution_path"], "model")
+        self.assertEqual(resumed_state["execution_path"], "model")
+        self.assertEqual(resumed_state["attempts"], 0)
+
+    def test_prepared_stage_persists_the_cheapest_declared_path(self) -> None:
+        self._cache_manifest(["model", "skill", "cache"])
         workflows.start("fixture-sweep", run_id="policy")
 
         packet = workflows.prepare_stage("fixture-sweep", "policy", "think")
