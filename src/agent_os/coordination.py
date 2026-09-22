@@ -583,7 +583,9 @@ def request_review(
     data = _load(location)
     reviews = _reviews(data)
     if linked_task:
-        _find_task(data, linked_task)
+        linked_task_record = _find_task(data, linked_task)
+        if str(linked_task_record.get("project", "")).casefold() != project_name.casefold():
+            raise ValueError("review project must match the linked task project")
     link = linked_task or linked_commit or ""
     review_id = _review_id(project_name, key, link)
     existing = next((item for item in reviews if item.get("review_id") == review_id), None)

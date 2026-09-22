@@ -154,7 +154,9 @@ by an agent who is neither that requester nor the assigned worker.
 ## Independent peer review
 
 Delegated work can request a review linked to exactly one stable identity:
-either a delegated task ID or a commit fingerprint.
+either a delegated task ID or a commit fingerprint. A task-linked review must
+also use the task's project identity, so an approval cannot cross project
+boundaries.
 
 ```powershell
 agent-os work-review-request personal-agent-os fixture-review `
