@@ -15,7 +15,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
 
 from .machine import CONFIG_DIR
 
@@ -59,6 +59,27 @@ def next_class(capability_class: str) -> str | None:
     if position + 1 >= len(CAPABILITY_CLASSES):
         return None
     return CAPABILITY_CLASSES[position + 1]
+
+
+def select_execution_path(preferred: str, available: Iterable[str] | None = None) -> str:
+    """Choose the cheapest declared execution path for a stage.
+
+    ``preferred`` remains the backward-compatible default when a manifest does
+    not declare alternatives. A manifest may declare available candidates when
+    a deterministic utility, cache entry, or approved skill is known to exist;
+    selection is still deterministic and follows ``EXECUTION_PATHS``.
+    """
+    if preferred not in EXECUTION_PATHS:
+        raise ValueError(f"unsupported execution path: {preferred}")
+    candidates = tuple(available) if available is not None else (preferred,)
+    if not candidates:
+        raise ValueError("available execution paths must not be empty")
+    invalid = [path for path in candidates if path not in EXECUTION_PATHS]
+    if invalid:
+        raise ValueError(f"unsupported execution path: {invalid[0]}")
+    if len(set(candidates)) != len(candidates):
+        raise ValueError("available execution paths must be unique")
+    return min(candidates, key=EXECUTION_PATHS.index)
 
 
 def load_providers(path: Path | None = None) -> dict[str, Any]:

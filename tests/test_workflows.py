@@ -126,6 +126,10 @@ class ManifestValidationTests(WorkflowFixture):
         problems = self._broken(lambda m: m["stages"][0].__setitem__("validator", {"kind": "none"}))
         self.assertTrue(any("needs a validator" in item for item in problems))
 
+    def test_invalid_execution_path_candidates_are_rejected(self) -> None:
+        problems = self._broken(lambda m: m["stages"][1].__setitem__("available_execution_paths", ["model", "model"]))
+        self.assertTrue(any("available_execution_paths must be unique" in item for item in problems))
+
     def test_command_validator_without_a_command_is_rejected(self) -> None:
         problems = self._broken(lambda m: m["stages"][0].__setitem__("validator", {"kind": "command"}))
         self.assertTrue(any("declares no command" in item for item in problems))
@@ -393,6 +397,20 @@ class CapabilityTests(unittest.TestCase):
         self.assertEqual(capabilities.next_class("deterministic"), "fast")
         self.assertIsNone(capabilities.next_class("frontier"))
 
+    def test_execution_policy_selects_the_cheapest_declared_path(self) -> None:
+        self.assertEqual(
+            capabilities.select_execution_path("model", ["model", "skill", "cache"]),
+            "cache",
+        )
+        self.assertEqual(capabilities.select_execution_path("model"), "model")
+
+    def test_execution_policy_rejects_unknown_or_empty_candidates(self) -> None:
+        with self.assertRaises(ValueError):
+            capabilities.select_execution_path("model", [])
+        with self.assertRaises(ValueError):
+            capabilities.select_execution_path("model", ["model", "unknown"])
+
+
     def test_an_unknown_class_is_rejected(self) -> None:
         with self.assertRaises(capabilities.UnknownCapabilityClass):
             capabilities.rank("genius")
@@ -432,6 +450,31 @@ class CapabilityTests(unittest.TestCase):
         )
         self.addCleanup(path.unlink)
         self.assertFalse(capabilities.resolve("fast", path)["resolved"])
+
+
+class ExecutionPolicyTests(WorkflowFixture):
+    def test_prepared_stage_persists_the_cheapest_declared_path(self) -> None:
+        manifest = copy.deepcopy(MANIFEST)
+        manifest["stages"][1]["available_execution_paths"] = ["model", "skill", "cache"]
+        self.write_manifest(manifest)
+        workflows.start("fixture-sweep", run_id="policy")
+
+        packet = workflows.prepare_stage("fixture-sweep", "policy", "think")
+        state = workflows.load_run("personal-agent-os", "policy")["stages"]["think"]
+        self.assertEqual(packet["stage"]["execution_path"], "cache")
+        self.assertEqual(state["execution_path"], "cache")
+
+    def test_run_stage_uses_selected_non_deterministic_path(self) -> None:
+        manifest = copy.deepcopy(MANIFEST)
+        manifest["stages"][1]["available_execution_paths"] = ["model", "skill"]
+        self.write_manifest(manifest)
+        workflows.start("fixture-sweep", run_id="skill-route")
+
+        packet = workflows.run_stage("fixture-sweep", "skill-route", "think")
+        state = workflows.load_run("personal-agent-os", "skill-route")["stages"]["think"]
+        self.assertEqual(packet["stage"]["execution_path"], "skill")
+        self.assertEqual(state["execution_path"], "skill")
+        self.assertEqual(state["status"], "awaiting_agent")
 
 
 class ProviderNeutralityTests(unittest.TestCase):

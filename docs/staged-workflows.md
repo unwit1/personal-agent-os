@@ -45,13 +45,28 @@ schema may name a vendor; a regression test enforces this.
 exists to describe real clients. The neutrality rule covers the orchestrator
 core, not the whole repository.)
 
+## Execution paths are selected economically
+
+`preferred_execution_path` remains the backward-compatible default. A stage may
+also declare `available_execution_paths` when more than one approved route is
+actually available. The orchestrator selects the first candidate in the
+deterministic economy order:
+
+    deterministic -> cache -> skill -> model
+
+The selected path is persisted in run state and returned in stage packets, so a
+resumed agent sees the same routing decision. This bounded policy stage makes
+route selection deterministic; external cache and skill execution remain
+caller-owned.
+
 ## Manifests
 
 Manifests are canonical Git data in `workflows/<workflow_id>.json`, validated by
 `schemas/workflow-manifest-v1.schema.json` and by `agent.py validate`.
 
 Each stage declares `stage_id`, `goal`, inputs/artifacts, `required_context`
-(task plus token budget), `preferred_execution_path`, `capability_class`,
+(task plus token budget), `preferred_execution_path`, optional
+`available_execution_paths`, `capability_class`,
 `effort`, `allowed_tools`, `limits`, a `validator`, a `stop_condition`,
 `expected_outputs`, an optional `checkpoint`, `next_stage`, and an optional
 `next_prompt` template.
@@ -147,7 +162,7 @@ than claiming a reduction that does not exist.
 
 - The orchestrator prepares model stages; it does not execute them. Automatic
   delegation is deliberately out of scope for P0.1.
-- `preferred_execution_path` values `cache` and `skill` are recorded and
-  surfaced to the agent but are not yet dispatched differently from `model`.
+- `cache` and `skill` paths are selected and persisted when a manifest declares
+  them as available, but their external execution remains caller-owned.
 - Stage ordering is linear: explicit `next_stage` links or declaration order.
   There is no parallel or conditional branching yet.

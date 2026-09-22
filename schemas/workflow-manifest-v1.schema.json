@@ -45,6 +45,12 @@
             }
           },
           "preferred_execution_path": {"enum": ["deterministic", "cache", "skill", "model"]},
+          "available_execution_paths": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {"enum": ["deterministic", "cache", "skill", "model"]}
+          },
           "capability_class": {"enum": ["deterministic", "fast", "balanced", "reasoning", "frontier"]},
           "effort": {"enum": ["none", "low", "medium", "high"], "default": "low"},
           "allowed_tools": {"type": "array", "items": {"type": "string"}},

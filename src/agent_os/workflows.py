@@ -33,6 +33,7 @@ from .capabilities import (
     EXECUTION_PATHS,
     next_class,
     resolve as resolve_capability,
+    select_execution_path,
 )
 from .compiler import compile_context
 from .paths import ROOT
@@ -126,6 +127,16 @@ def manifest_problems(manifest: Any) -> list[str]:
             problems.append(f"{label}: unsupported capability_class")
         if stage.get("preferred_execution_path") not in EXECUTION_PATHS:
             problems.append(f"{label}: unsupported preferred_execution_path")
+        available_paths = stage.get("available_execution_paths")
+        if available_paths is not None:
+            if not isinstance(available_paths, list) or not available_paths:
+                problems.append(f"{label}: available_execution_paths must be a non-empty list")
+            elif len(set(available_paths)) != len(available_paths):
+                problems.append(f"{label}: available_execution_paths must be unique")
+            else:
+                invalid_paths = [path for path in available_paths if path not in EXECUTION_PATHS]
+                if invalid_paths:
+                    problems.append(f"{label}: unsupported available_execution_path {invalid_paths[0]}")
         if stage.get("effort", "low") not in EFFORTS:
             problems.append(f"{label}: unsupported effort")
         context = stage.get("required_context")
@@ -224,6 +235,7 @@ def _new_run(manifest: dict[str, Any], run_id: str) -> dict[str, Any]:
                 "attempts": 0,
                 "escalations": 0,
                 "capability_class": stage_of(manifest, stage_id)["capability_class"],
+                "execution_path": _stage_execution_path(stage_of(manifest, stage_id)),
                 "outputs": [],
                 "checkpoint": None,
                 "validation": None,
@@ -233,6 +245,10 @@ def _new_run(manifest: dict[str, Any], run_id: str) -> dict[str, Any]:
             for stage_id in ordered_stage_ids(manifest)
         },
     }
+
+
+def _stage_execution_path(stage: dict[str, Any]) -> str:
+    return select_execution_path(stage["preferred_execution_path"], stage.get("available_execution_paths"))
 
 
 def start(workflow_id: str, run_id: str | None = None, resume: bool = True) -> dict[str, Any]:
@@ -419,6 +435,8 @@ def prepare_stage(workflow_id: str, run_id: str, stage_id: str | None = None) ->
         include_handoff=bool(required.get("include_handoff", True)),
     )
     capability = state.get("capability_class", stage["capability_class"])
+    execution_path = state.get("execution_path") or _stage_execution_path(stage)
+    state["execution_path"] = execution_path
     return {
         "workflow_id": workflow_id,
         "run_id": run_id,
@@ -429,6 +447,8 @@ def prepare_stage(workflow_id: str, run_id: str, stage_id: str | None = None) ->
             "inputs": stage.get("inputs", []),
             "artifacts": stage.get("artifacts", []),
             "preferred_execution_path": stage["preferred_execution_path"],
+            "available_execution_paths": stage.get("available_execution_paths", [stage["preferred_execution_path"]]),
+            "execution_path": execution_path,
             "capability_class": capability,
             "effort": stage.get("effort", "low"),
             "allowed_tools": stage.get("allowed_tools", []),
@@ -493,6 +513,7 @@ def _completion_packet(
         "capability_class": capability,
         "effort": following_stage.get("effort", "low"),
         "preferred_execution_path": following_stage["preferred_execution_path"],
+        "execution_path": _stage_execution_path(following_stage),
         "stop_condition": following_stage["stop_condition"],
     }
     packet["recommended_capability"] = resolve_capability(capability)
@@ -555,6 +576,8 @@ def run_stage(workflow_id: str, run_id: str, stage_id: str | None = None) -> dic
         }
     stage = stage_of(manifest, target)
     state = record["stages"][target]
+    execution_path = state.get("execution_path") or _stage_execution_path(stage)
+    state["execution_path"] = execution_path
 
     # Successful work is never redone by a stronger model on a whim.
     if state["status"] == "complete":
@@ -567,7 +590,7 @@ def run_stage(workflow_id: str, run_id: str, stage_id: str | None = None) -> dic
             "run_status": record["status"],
         }
 
-    if stage["preferred_execution_path"] != "deterministic":
+    if execution_path != "deterministic":
         state["status"] = "awaiting_agent"
         _save(record)
         packet = prepare_stage(workflow_id, run_id, target)
@@ -612,6 +635,7 @@ def complete_stage(
         raise KeyError(f"unknown stage: {stage_id}")
     stage = stage_of(manifest, stage_id)
     state = record["stages"][stage_id]
+    state["execution_path"] = state.get("execution_path") or _stage_execution_path(stage)
     if state["status"] == "complete":
         return {
             "workflow_id": workflow_id,

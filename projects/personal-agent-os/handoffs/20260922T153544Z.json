@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-22T15:35:44.471211+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 17]\n M docs/staged-workflows.md\n M projects/personal-agent-os/roadmap/master-priority-roadmap.md\n M schemas/workflow-manifest-v1.schema.json\n M src/agent_os/capabilities.py\n M src/agent_os/workflows.py\n M tests/test_workflows.py",
+    "error": ""
+  },
+  "completed": [
+    "Reconciled the blocked P0.4 provider boundary and advanced P0.5 with deterministic execution-path selection.",
+    "Added optional available_execution_paths to workflow manifests; selected and persisted the cheapest declared path in stage state and packets while preserving single preferred_execution_path compatibility."
+  ],
+  "decisions": [
+    "Keep cache and skill execution provider/caller-owned; this stage only makes route selection deterministic and resumable."
+  ],
+  "remaining": [
+    "P0.4 still has no safe remaining provider fixture or explicitly authorized sanitized connector scope; preserve the Google Drive adapter and keep plain IMAP UID/UIDNEXT deferred.",
+    "P0.5 still needs a bounded caller-owned cache or reusable-skill execution integration before its full success signal is met; do not claim external dispatch is implemented."
+  ],
+  "validation": [
+    "Focused workflows: 51 passed.",
+    "Agent OS tests: 13 passed.",
+    "Full suite: 278 passed.",
+    "python agent.py validate: 357 checks passed with no warnings."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

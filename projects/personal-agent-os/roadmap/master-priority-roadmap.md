@@ -332,6 +332,12 @@ Add deterministic validators wherever possible so expensive escalation is trigge
 
 The staged orchestrator in P0.1 should use this policy when selecting how each stage runs.
 
+Current bounded implementation (2026-09-22): manifests may declare
+`available_execution_paths`; the orchestrator deterministically selects and
+persists the cheapest candidate in the economy order, while preserving the
+backward-compatible single `preferred_execution_path` form. External cache and
+skill execution remain caller-owned.
+
 Success signal:
 - repeated structured work increasingly bypasses LLM calls.
 
