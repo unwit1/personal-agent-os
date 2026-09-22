@@ -506,6 +506,17 @@ Use OpenAI/Anthropic APIs for bounded Agent-OS-owned subtasks when doing so is a
 
 ### P2.1 — Automation Miner
 
+Status: **deterministic foundation complete** (2026-09-22).
+
+Completion evidence: five repository-evidenced repeated deterministic seams were
+extracted into normal reusable code with synthetic or existing regression
+coverage: local-path privacy checks, text normalization, UTC ISO timestamps,
+project collection paths, and shared record-import counters. The changes keep
+caller-specific policies and interfaces intact and do not infer automation from
+unvalidated behavior. Larger repeated import-loop structures remain outside
+this bounded foundation because extracting them would require an architectural
+design decision.
+
 Prioritize normal code for repeated deterministic tasks such as:
 - hashing/fingerprinting;
 - normalization;
@@ -518,6 +529,10 @@ Prioritize normal code for repeated deterministic tasks such as:
 
 ### P2.2 — Skill Miner
 
+Status: **deferred** pending a reviewed deterministic skill-runner contract and
+validated replay traces. Canonical approved skills remain instruction-only
+`SKILL.md` files, so no executable skill automation is inferred here.
+
 Detect repeated model/tool workflows and create candidate reusable skills.
 
 Lifecycle:
@@ -526,6 +541,10 @@ observed pattern → candidate → replay/evaluation → review → approved/rej
 No generated skill may silently self-promote.
 
 ### P2.3 — Prompt/context optimization
+
+Next safe deterministic stage: begin with synthetic prompt/context measurement
+over the existing compiler, skill-selection, telemetry, and handoff fixtures;
+do not require live providers, models, or raw traces.
 
 Use telemetry and corrections to improve:
 - retrieval queries;
