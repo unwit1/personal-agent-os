@@ -8,7 +8,7 @@ from typing import Any, Callable, Iterable
 from .candidates import stage_candidates
 from .ingestion import IngestionLedger, stable_stage_id, stable_work_id
 from .normalization import normalise_text as _normalise
-from .paths import ROOT
+from .paths import ROOT, project_collection_dir
 from .privacy import privacy_findings, require_private_safe
 from .registry import get_project
 from .storage import load_json, write_json
@@ -33,7 +33,7 @@ TRANSITIONS = {
 
 
 def _directory(project_id: str) -> Path:
-    return ROOT / "projects" / project_id / "changes"
+    return project_collection_dir(project_id, "changes", root=ROOT)
 
 
 def _records(project_id: str) -> list[dict[str, Any]]:

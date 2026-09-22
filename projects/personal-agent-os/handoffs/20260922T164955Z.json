@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-22T16:49:55.677337+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 37]\n M projects/personal-agent-os/improvements/IMP-0001.json\n M projects/personal-agent-os/improvements/index.json\n M src/agent_os/candidates.py\n M src/agent_os/changes.py\n M src/agent_os/improvements.py\n M src/agent_os/paths.py\n?? projects/personal-agent-os/candidates/candidate-300bfae4f7ea41f5.json\n?? projects/personal-agent-os/candidates/candidate-e7efb8c6359f232e.json\n?? projects/personal-agent-os/changes/\n?? tests/test_paths.py",
+    "error": ""
+  },
+  "completed": [
+    "P2.1 bounded slice: extracted the repeated project-collection directory construction from candidates, changes, and improvements into project_collection_dir.",
+    "Preserved existing module-local ROOT overrides by allowing callers to pass an explicit synthetic root.",
+    "Added synthetic path regression coverage for canonical collection identity, collection separation, and root overrides."
+  ],
+  "decisions": [
+    "The initial full-suite run exposed module-local ROOT override compatibility; retain the reusable helper but pass each caller ROOT explicitly, with the canonical paths.ROOT only as the default."
+  ],
+  "remaining": [
+    "P2.1 next: identify one additional repository-evidenced repeated deterministic seam and extract only if its behavior is validated; do not infer automation from unvalidated behavior.",
+    "P0.3 remains deferred pending scanner-authorized zone contracts/fixtures and concurrency measurement.",
+    "P0.4 provider-specific additions remain blocked; preserve Google Drive and keep plain IMAP UID/UIDNEXT deferred.",
+    "P0.5 approved-skill execution remains blocked because canonical skills are instruction-only SKILL.md files without a reviewed deterministic runner.",
+    "P1.3 API delegation remains deferred because it is provider/model work rather than deterministic Luna work."
+  ],
+  "validation": [
+    "Focused: python -m unittest tests.test_paths tests.test_agent_os tests.test_capture_systems tests.test_portability (74 passed).",
+    "Full: python -m unittest discover -s tests (313 passed).",
+    "python agent.py validate (ok=true, checked=380).",
+    "git diff --check passed."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

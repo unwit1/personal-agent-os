@@ -8,7 +8,7 @@ from typing import Any, Callable, Iterable
 
 from .ingestion import IngestionLedger, stable_stage_id, stable_work_id
 from .normalization import normalise_text as _normalise
-from .paths import ROOT
+from .paths import ROOT, project_collection_dir
 from .registry import get_project
 from .storage import load_json, write_json
 
@@ -29,7 +29,7 @@ STATUSES = {"candidate", "rejected", "merged", "promoted", "superseded"}
 
 
 def _candidate_dir(project_id: str) -> Path:
-    return ROOT / "projects" / project_id / "candidates"
+    return project_collection_dir(project_id, "candidates", root=ROOT)
 
 
 CANDIDATE_LOCAL_DIR = ROOT / ".agent-local" / "candidates"
