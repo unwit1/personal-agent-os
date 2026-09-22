@@ -29,6 +29,9 @@ document batches remain provider-specific, but the shared document layer now
 has an `extract_batch()` seam that applies the same ledger to local page
 extraction while reusing `extract_page()` and its OCR cache. Its fixture tests
 cover idempotent re-import, changed page bytes, interruption recovery, and
-checkpoint continuation. The implementation assumes one active worker per
-ledger and does not store provider credentials, raw records, OCR text, or
-derived artifacts in the ledger.
+checkpoint continuation. The canonical local search index also now exposes
+`index.rebuild_documents()`: unchanged source documents are skipped, changed
+documents are reindexed, and a deleted derived SQLite index is repaired from
+source without trusting the ledger as canonical state. The implementation
+assumes one active worker per ledger and does not store provider credentials,
+raw records, OCR text, or derived artifacts in the ledger.
