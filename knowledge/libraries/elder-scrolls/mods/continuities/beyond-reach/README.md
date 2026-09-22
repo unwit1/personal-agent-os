@@ -12,6 +12,9 @@ Completed:
 - **196** normalized quest-catalog records
 - **3,170** DIAL topic records in the source corpus
 - **102** dialogue topics explicitly tagged `[Lore]`, normalized into the lore-topic catalog
+- **4,377** INFO records across **88** gzip-compressed JSONL batches (`data/info-records/`)
+- **5,133** direct dialogue response strings and **5,613** effective strings after shared-INFO reuse
+- **96** structurally explicit ANAM speaker resolutions and **1,866** conditioned INFO records
 - Breton/Evermore main-quest structural index
 - Orc-route main-quest structural index
 - thematic retrieval map for the explicit lore prompts
@@ -22,8 +25,8 @@ Current source-record boundary:
 
 - QUST records retain titles, journal entries, objectives, aliases, condition counts, override provenance where available.
 - DIAL records retain editor IDs, prompts/titles, quest provenance, and INFO counts.
-- **Full INFO response text is not yet present in this continuity directory.**
-- BOOK/NOTE text, MESG records, actor/speaker resolution, locations, artifacts, scenes/packages, and final claims remain pending.
+- Full INFO response text is present in `data/info-records/`, with DIAL/quest provenance, previous/shared INFO links, raw condition payloads, and explicit speaker data where structurally available.
+- BOOK/NOTE text, MESG records, broader actor/speaker resolution, locations, artifacts, scenes/packages, and final claims remain pending.
 
 ## Retrieval guidance
 
@@ -31,17 +34,18 @@ Use the following layers in order:
 
 1. `indexes/lore-topic-retrieval-map.md` for broad subject routing.
 2. `indexes/lore-dialogue-topic-catalog/` for exact `[Lore]` prompt FormIDs and quest provenance.
-3. `indexes/main-quest-structure.md` or `indexes/orc-main-quest-structure.md` for narrative-route structure.
-4. `indexes/quest-catalog/` for lightweight quest lookup.
-5. `data/source-records/` when exact raw QUST/DIAL metadata is required.
+3. `data/info-records/` for full NPC response payloads and INFO-level provenance.
+4. `indexes/main-quest-structure.md` or `indexes/orc-main-quest-structure.md` for narrative-route structure.
+5. `indexes/quest-catalog/` for lightweight quest lookup.
+6. `data/source-records/` when exact raw QUST/DIAL metadata is required.
 
-Do **not** treat a dialogue prompt as the NPC's answer. Prompts that ask about Namira, Direnni history, Orcs, Witchmen, politics, metaphysics, or other subjects are routing evidence until their INFO response records are ingested.
+Do **not** treat a dialogue prompt as the NPC's answer. Use the linked INFO response records as evidence, preserve conditional/alternate answers, and keep route/speaker uncertainty explicit.
 
 ## Next ingestion stages
 
-The highest-value next pass is full **INFO dialogue-response extraction**, including speaker/alias resolution, response text, conditions, quest/topic linkage, and route provenance.
+The INFO extraction pass is complete and checksum-verified. The highest-value next pass is **BOOK/NOTE full-text extraction**.
 
-After INFO:
+Next:
 
 1. BOOK/NOTE full text
 2. MESG and other player-facing text
