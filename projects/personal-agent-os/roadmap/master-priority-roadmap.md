@@ -301,6 +301,9 @@ provider-specific imports remain unwired. The local change-record reader now
 uses a separate project-scoped ledger for `CR-*.json` scans, preserving its
 existing lifecycle and safe-projection behavior while making reads incremental
 and restart-safe.
+The context compiler's project handoff reader now uses a separate
+metadata-only ledger for newest-first canonical handoff scans, preserving
+latest-handoff retrieval while recording interrupted scans and completed files.
 
 ### P0.5 — Deterministic/cache/skill-first execution policy
 

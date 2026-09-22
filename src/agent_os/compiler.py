@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
+from .ingestion import IngestionLedger, stable_stage_id, stable_work_id
 from .changes import compact_changes
 from .index import search
 from .improvements import compact_improvements
@@ -14,10 +15,84 @@ from .skills import discover, match, metadata
 from .storage import load_json
 
 
+HANDOFF_PROCESSOR_VERSION = "handoff-records@1"
+
+
+def load_handoffs_incremental(
+    project_id: str,
+    *,
+    source_dir: Path | None = None,
+    ledger_path: Path | None = None,
+    processor_version: str = HANDOFF_PROCESSOR_VERSION,
+    before_parse: Callable[[Path], None] | None = None,
+) -> dict[str, Any]:
+    """Read project handoff records through a restart-safe local ledger."""
+    directory = Path(source_dir) if source_dir is not None else ROOT / "projects" / project_id / "handoffs"
+    target_ledger = Path(ledger_path or (ROOT / ".agent-local" / "handoffs" / f"{project_id}.json"))
+    work_id = stable_work_id("handoff-records", project_id)
+    ledger = IngestionLedger(
+        target_ledger,
+        source="handoff-record",
+        work_id=work_id,
+        stage_id=stable_stage_id(work_id, "read"),
+        processor_version=processor_version,
+    )
+    records: list[dict[str, Any]] = []
+    stats = {
+        "checked": 0,
+        "queued": 0,
+        "reprocessed": 0,
+        "resumed": 0,
+        "skipped": 0,
+        "errors": 0,
+    }
+    paths = sorted(directory.glob("*.json"), reverse=True) if directory.exists() else []
+    for path in paths:
+        stats["checked"] += 1
+        raw = path.read_bytes()
+        source_key = path.name
+        queued = ledger.enqueue(source_key, content=raw, processor_version=processor_version)
+        if queued["action"] == "queued":
+            stats["queued"] += 1
+        elif queued["action"] == "requeued":
+            stats["reprocessed"] += 1
+
+        item_id = str(queued["item_id"])
+        claimed = ledger.claim(1) if queued["status"] != "processed" else []
+        if claimed:
+            if claimed[0]["item_id"] != item_id:
+                raise RuntimeError(f"handoff ledger claimed an unexpected item: {claimed[0]['item_id']}")
+            if int(claimed[0].get("attempts", 0)) > 1:
+                stats["resumed"] += 1
+        elif queued["action"] == "duplicate":
+            stats["skipped"] += 1
+        else:
+            continue
+
+        try:
+            if before_parse is not None:
+                before_parse(path)
+            record = load_json(path)
+            if not isinstance(record, dict):
+                raise ValueError("handoff record must contain a JSON object")
+            records.append(record)
+            if claimed:
+                ledger.complete(item_id, output_refs=(f"handoff-record:{source_key}",))
+            ledger.checkpoint(source_key, **stats)
+        except (OSError, ValueError, UnicodeError) as exc:
+            stats["errors"] += 1
+            if claimed:
+                ledger.fail(item_id, str(exc), retryable=True)
+            ledger.checkpoint(source_key, **stats)
+            raise
+
+    stats["records"] = len(records)
+    return {"records": records, "stats": stats, "checkpoint": ledger.status()["checkpoint"]}
+
+
 def latest_handoff(project_id: str) -> dict[str, Any] | None:
-    handoff_dir = ROOT / "projects" / project_id / "handoffs"
-    files = sorted(handoff_dir.glob("*.json"), reverse=True) if handoff_dir.exists() else []
-    return load_json(files[0]) if files else None
+    records = load_handoffs_incremental(project_id)["records"]
+    return records[0] if records else None
 
 
 def _compact_state(state: dict[str, Any]) -> dict[str, Any]:

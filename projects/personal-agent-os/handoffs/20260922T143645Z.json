@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-22T14:36:45.091609+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 8]\n M docs/resumable-ingestion.md\n M projects/personal-agent-os/roadmap/master-priority-roadmap.md\n M src/agent_os/compiler.py\n?? tests/test_handoffs_import.py",
+    "error": ""
+  },
+  "completed": [
+    "P0.4 local handoff-record import sub-stage: load_handoffs_incremental now routes canonical project handoff JSON through a metadata-only project-scoped IngestionLedger with stable work/stage identities, idempotent reads, changed-record requeueing, interrupted-claim recovery, and checkpoints. compiler.latest_handoff() delegates through the new path; docs and roadmap progress updated."
+  ],
+  "decisions": [
+    "Selected the existing compiler.latest_handoff directory reader because it is a real local structured-JSON import consumer used by context compilation and MCP context retrieval. Preserved newest-first canonical handoff retrieval and kept payloads out of the ledger. No IMAP cursor or other provider/import path was changed."
+  ],
+  "remaining": [
+    "P0.4 remains incomplete. Next agent: inspect the clean repository and choose exactly one remaining local or fixture-backed import path to integrate with IngestionLedger, or document the architectural boundary if no safe existing path remains. Keep plain IMAP UID/UIDNEXT cursors deferred unless negotiated changed-message semantics are proven; do not combine provider paths."
+  ],
+  "validation": [
+    "python -m unittest tests.test_handoffs_import tests.test_portability tests.test_agent_os -v (64 passed); python -m unittest discover -s tests -v (265 passed); python agent.py validate (ok, 348 checks); git diff --check (clean)."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

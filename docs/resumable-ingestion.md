@@ -45,6 +45,9 @@ interruption without copying improvement content into the ledger.
 The local change-record reader now follows the same project-scoped pattern for
 `CR-*.json` scans, preserving the existing lifecycle, deduplication, and safe
 projection behavior while making reads incremental and restart-safe.
+The context compiler's project handoff reader now uses the same metadata-only
+ledger for canonical handoff JSON, preserving newest-first retrieval while
+recording interrupted scans and completed source files.
 The implementation assumes one active worker per ledger and does not store
 provider credentials, raw records, OCR text, or derived artifacts in the
 ledger.
