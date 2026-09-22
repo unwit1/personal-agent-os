@@ -117,6 +117,10 @@ agent-os work-task-complete WT-0123456789ab --agent codex `
     --validation "focused tests passed" --result "review packet ready"
 ```
 
+Add `--review-required` to `work-delegate` when completion must wait for an
+approved independent peer review. Without that opt-in flag, existing and new
+tasks retain the normal completion behavior.
+
 The task ID is stable for a `(project, task_key)` pair, so retrying delegation
 is idempotent. Dependencies are checked before claiming, completion is limited
 to the assigned agent, and non-empty validation evidence is required. Task
@@ -128,6 +132,10 @@ of relying on chat memory.
 Peer code evaluation is a separate protocol from task completion: the current
 `review` command selects a risk level, while the coordination review record
 persists the independent verdict and validation evidence.
+
+For a review-gated task, `approved` is the only completion-enabling verdict;
+`changes_requested` and `blocked` leave the task in progress. Review records
+remain linked to the stable task ID and are not replaced by task completion.
 
 ## Independent peer review
 

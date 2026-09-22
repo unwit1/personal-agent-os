@@ -176,9 +176,10 @@ class DelegatedTaskTests(ClaimFixture):
         self.assertTrue(claimed["claimed"])
         self.assertEqual(claimed["task"]["status"], "in_progress")
 
-    def test_only_assignee_can_complete_with_validation_evidence(self) -> None:
+    def test_normal_task_completes_without_review_gate(self) -> None:
         created = coordination.delegate("demo", "assigned", "Assigned fixture task", "alpha", assignee="beta", path=self.registry)
         task_id = created["task"]["task_id"]
+        self.assertFalse(created["task"]["review_required"])
         with self.assertRaises(ValueError):
             coordination.claim_task(task_id, "alpha", path=self.registry)
         coordination.claim_task(task_id, "beta", path=self.registry)
@@ -189,6 +190,44 @@ class DelegatedTaskTests(ClaimFixture):
         completed = coordination.complete_task(task_id, "beta", "synthetic pass", "done", path=self.registry)
         self.assertTrue(completed["completed"])
         self.assertEqual(coordination.list_tasks("demo", "completed", self.registry)[0]["task_id"], task_id)
+
+    def test_review_required_task_needs_approved_peer_review(self) -> None:
+        created = coordination.delegate(
+            "demo", "gated", "Review-gated fixture task", "alpha", assignee="beta",
+            review_required=True, path=self.registry,
+        )
+        task_id = created["task"]["task_id"]
+        coordination.claim_task(task_id, "beta", path=self.registry)
+        with self.assertRaisesRegex(ValueError, "approved independent peer review"):
+            coordination.complete_task(task_id, "beta", "synthetic pass", path=self.registry)
+
+        requested = coordination.request_review(
+            "demo", "gated-review", "alpha", task_id=task_id, reviewer="gamma", path=self.registry,
+        )
+        coordination.submit_review(
+            requested["review"]["review_id"], "gamma", "approved", "synthetic peer validation passed",
+            path=self.registry,
+        )
+        completed = coordination.complete_task(task_id, "beta", "synthetic pass", path=self.registry)
+        self.assertTrue(completed["completed"])
+
+    def test_changes_requested_review_blocks_gated_completion(self) -> None:
+        created = coordination.delegate(
+            "demo", "gated-changes", "Review-gated fixture task", "alpha", assignee="beta",
+            review_required=True, path=self.registry,
+        )
+        task_id = created["task"]["task_id"]
+        coordination.claim_task(task_id, "beta", path=self.registry)
+        requested = coordination.request_review(
+            "demo", "gated-changes-review", "alpha", task_id=task_id, reviewer="gamma", path=self.registry,
+        )
+        coordination.submit_review(
+            requested["review"]["review_id"], "gamma", "changes_requested", "synthetic reviewer found an issue",
+            findings=["fixture assertion needs correction"], path=self.registry,
+        )
+        with self.assertRaisesRegex(ValueError, "approved independent peer review"):
+            coordination.complete_task(task_id, "beta", "synthetic pass", path=self.registry)
+        self.assertEqual(coordination.list_tasks("demo", "in_progress", self.registry)[0]["task_id"], task_id)
 
 
 class PeerReviewTests(ClaimFixture):

@@ -382,8 +382,11 @@ def delegate(
     scope: list[str] | None = None,
     depends_on: list[str] | None = None,
     path: Path | None = None,
+    review_required: bool = False,
 ) -> dict[str, Any]:
-    """Create an idempotent, machine-local task for another agent."""
+    """Create an idempotent task, optionally requiring an approved peer review."""
+    if not isinstance(review_required, bool):
+        raise ValueError("review_required must be a boolean")
     project_name = _task_text(project, "project", TASK_KEY_LIMIT)
     key = _task_text(task_key, "task_key", TASK_KEY_LIMIT)
     requester_name = _task_text(requester, "requester", TASK_KEY_LIMIT)
@@ -405,6 +408,7 @@ def delegate(
         "assignee": assigned,
         "scope": _normalize_scope(scope),
         "depends_on": _task_dependencies(depends_on),
+        "review_required": review_required,
         "status": "assigned" if assigned else "queued",
         "created_at": now,
         "updated_at": now,
@@ -460,7 +464,11 @@ def complete_task(
     result: str | None = None,
     path: Path | None = None,
 ) -> dict[str, Any]:
-    """Complete a delegated task only by its assigned agent with evidence."""
+    """Complete a delegated task only by its assigned agent with evidence.
+
+    The review gate is opt-in on the task record. Older records without the
+    field remain backward compatible and complete through the existing path.
+    """
     location = claims_path(path)
     data = _load(location)
     task = _find_task(data, task_id)
@@ -470,6 +478,13 @@ def complete_task(
         raise ValueError("delegated task must be in_progress before completion")
     if task.get("assignee") != agent_name:
         raise ValueError("only the assigned agent can complete a delegated task")
+    if task.get("review_required"):
+        approved = [
+            review for review in _reviews(data)
+            if review.get("task_id") == task_id and review.get("status") == "approved"
+        ]
+        if not approved:
+            raise ValueError("delegated task requires an approved independent peer review")
     task["status"] = "completed"
     task["validation"] = evidence
     if result:

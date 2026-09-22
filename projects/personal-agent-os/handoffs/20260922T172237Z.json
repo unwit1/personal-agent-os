@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-22T17:22:37.407455+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 2]\n M docs/multi-agent-coordination.md\n M src/agent_os/cli.py\n M src/agent_os/coordination.py\n M src/agent_os/mcp_server.py\n M tests/test_coordination.py",
+    "error": ""
+  },
+  "completed": [
+    "Added opt-in review_required metadata to delegated tasks with legacy-compatible default false.",
+    "Gated completion on an approved linked peer review while changes_requested and blocked remain non-completing.",
+    "Added synthetic normal, required-approval, and changes-requested coordination tests plus CLI/MCP/docs coverage."
+  ],
+  "decisions": [
+    "Review gating is opt-in at delegation time; existing task records without review_required remain ungated.",
+    "The gate checks the existing bounded review ledger by task ID and does not store prompts, documents, secrets, or raw diffs."
+  ],
+  "remaining": [
+    "Coordination remains machine-local and advisory; cross-machine registries, filesystem locking, and automatic merge orchestration are not implemented.",
+    "P0.3 remains deferred pending scanner-authorized zone contracts/fixtures and concurrency measurement.",
+    "P0.4 provider-specific additions remain blocked; preserve Google Drive and keep plain IMAP UID/UIDNEXT deferred.",
+    "P0.5 approved-skill execution remains blocked because canonical skills are instruction-only SKILL.md files without a reviewed deterministic runner."
+  ],
+  "validation": [
+    "Focused: python -m unittest tests.test_coordination -v (28 passed).",
+    "CLI/MCP smoke: --review-required parser flag and work.delegate boolean schema available.",
+    "Full: python -m unittest discover -s tests -v (342 passed).",
+    "python agent.py validate (ok=true, checked=382).",
+    "git diff --check passed."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

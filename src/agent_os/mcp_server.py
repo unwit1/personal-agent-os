@@ -100,7 +100,7 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     },
     "work.delegate": {
         "description": "Create an idempotent delegated task with optional scope, assignee, and task dependencies.",
-        "inputSchema": {"type": "object", "properties": {"project": {"type": "string"}, "task_key": {"type": "string"}, "title": {"type": "string"}, "requester": {"type": "string"}, "assignee": {"type": ["string", "null"]}, "scope": {"type": "array", "items": {"type": "string"}}, "depends_on": {"type": "array", "items": {"type": "string"}}}, "required": ["project", "task_key", "title", "requester"]},
+        "inputSchema": {"type": "object", "properties": {"project": {"type": "string"}, "task_key": {"type": "string"}, "title": {"type": "string"}, "requester": {"type": "string"}, "assignee": {"type": ["string", "null"]}, "scope": {"type": "array", "items": {"type": "string"}}, "depends_on": {"type": "array", "items": {"type": "string"}}, "review_required": {"type": "boolean", "description": "Require an approved independent peer review before completion."}}, "required": ["project", "task_key", "title", "requester"]},
     },
     "work.tasks": {
         "description": "List local delegated tasks and their resumable status.",

@@ -125,6 +125,7 @@ def parser() -> argparse.ArgumentParser:
     work_delegate.add_argument("--to-agent")
     work_delegate.add_argument("--scope", action="append", default=[])
     work_delegate.add_argument("--depends-on", action="append", default=[])
+    work_delegate.add_argument("--review-required", action="store_true")
     work_tasks = commands.add_parser("work-tasks")
     work_tasks.add_argument("--project")
     work_tasks.add_argument("--status", choices=("queued", "assigned", "in_progress", "completed", "cancelled"))
@@ -348,7 +349,7 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "work-message":
             _print(claim_message(args.claim_id, args.text, args.from_agent))
         elif args.command == "work-delegate":
-            _print(delegate(args.project, args.task_key, args.title, args.from_agent, args.to_agent, args.scope, args.depends_on))
+            _print(delegate(args.project, args.task_key, args.title, args.from_agent, args.to_agent, args.scope, args.depends_on, review_required=args.review_required))
         elif args.command == "work-tasks":
             _print(list_tasks(args.project, args.status))
         elif args.command == "work-task-claim":
