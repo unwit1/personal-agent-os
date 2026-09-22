@@ -12,10 +12,11 @@ import json
 import os
 import re
 import uuid
+from collections import Counter
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Iterable, Mapping
 
 from .paths import ROOT
 
@@ -86,6 +87,9 @@ _SERIALIZED_OPTIONAL_FIELDS = (
 
 class TelemetryPrivacyError(ValueError):
     """Raised when an event is not representable as safe metadata."""
+
+
+REPORT_SCHEMA = "personal-agent/telemetry-report/v1"
 
 
 def _utc_now() -> str:
@@ -205,6 +209,36 @@ class TelemetryEvent:
         return payload
 
 
+def aggregate_report(events: Iterable[TelemetryEvent | Mapping[str, Any]]) -> dict[str, Any]:
+    """Return count-only usage findings from validated metadata events.
+
+    The report intentionally excludes event IDs, timestamps, projects,
+    categories, providers, models, and all other per-event fields. ``None``
+    means the source did not expose a metric and is counted as ``unknown``;
+    it is never converted into a guessed value.
+    """
+
+    execution_paths: Counter[str] = Counter()
+    validator_outcomes: Counter[str] = Counter()
+    total = 0
+    for item in events:
+        event = item if isinstance(item, TelemetryEvent) else TelemetryEvent.from_mapping(item)
+        total += 1
+        execution_paths[event.execution_path or "unknown"] += 1
+        if event.validator_passed is True:
+            validator_outcomes["passed"] += 1
+        elif event.validator_passed is False:
+            validator_outcomes["failed"] += 1
+        else:
+            validator_outcomes["unknown"] += 1
+    return {
+        "schema": REPORT_SCHEMA,
+        "event_count": total,
+        "execution_path_counts": dict(sorted(execution_paths.items())),
+        "validator_outcome_counts": dict(sorted(validator_outcomes.items())),
+    }
+
+
 def assert_private_location(path: Path) -> None:
     """Reject canonical repository paths outside the gitignored local tree."""
 
@@ -245,3 +279,8 @@ class LocalTelemetryStore:
             if line.strip():
                 events.append(TelemetryEvent.from_mapping(json.loads(line)))
         return events
+
+    def aggregate_report(self) -> dict[str, Any]:
+        """Summarize local events without exposing the underlying records."""
+
+        return aggregate_report(self.read_events())

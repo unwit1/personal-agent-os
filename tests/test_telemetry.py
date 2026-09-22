@@ -12,6 +12,7 @@ from agent_os.telemetry import (  # noqa: E402
     LocalTelemetryStore,
     TelemetryEvent,
     TelemetryPrivacyError,
+    aggregate_report,
 )
 from agent_os.paths import ROOT  # noqa: E402
 
@@ -82,6 +83,82 @@ class TelemetryStoreTests(unittest.TestCase):
     def test_default_store_is_gitignored_local_runtime(self) -> None:
         self.assertIn(".agent-local", str(DEFAULT_PATH))
         self.assertIn(".agent-local/", (ROOT / ".gitignore").read_text(encoding="utf-8"))
+
+    def test_aggregate_report_counts_paths_and_validator_outcomes_only(self) -> None:
+        events = [
+            TelemetryEvent(
+                project_id="fixture-project",
+                task_category="stage",
+                event_id="event-a",
+                execution_path="deterministic",
+                validator_passed=True,
+            ),
+            TelemetryEvent(
+                project_id="fixture-project",
+                task_category="stage",
+                event_id="event-b",
+                execution_path="cache",
+                validator_passed=False,
+            ),
+            TelemetryEvent(
+                project_id="other-fixture",
+                task_category="stage",
+                event_id="event-c",
+            ),
+            TelemetryEvent(
+                project_id="other-fixture",
+                task_category="stage",
+                event_id="event-d",
+                execution_path="cache",
+                validator_passed=True,
+            ),
+        ]
+
+        report = aggregate_report(events)
+
+        self.assertEqual(report["event_count"], 4)
+        self.assertEqual(
+            report["execution_path_counts"],
+            {"cache": 2, "deterministic": 1, "unknown": 1},
+        )
+        self.assertEqual(
+            report["validator_outcome_counts"],
+            {"failed": 1, "passed": 2, "unknown": 1},
+        )
+        serialized = str(report)
+        self.assertNotIn("event-a", serialized)
+        self.assertNotIn("fixture-project", serialized)
+        self.assertNotIn("other-fixture", serialized)
+
+    def test_store_aggregate_report_never_returns_raw_events(self) -> None:
+        self.store.record(
+            TelemetryEvent(
+                project_id="fixture-project",
+                task_category="stage",
+                event_id="event-local",
+                execution_path="skill",
+                validator_passed=None,
+            )
+        )
+
+        report = self.store.aggregate_report()
+
+        self.assertEqual(report["event_count"], 1)
+        self.assertEqual(report["execution_path_counts"], {"skill": 1})
+        self.assertEqual(report["validator_outcome_counts"], {"unknown": 1})
+        self.assertNotIn("event-local", str(report))
+
+    def test_aggregate_report_applies_the_privacy_gate_to_mappings(self) -> None:
+        with self.assertRaises(TelemetryPrivacyError):
+            aggregate_report(
+                [
+                    {
+                        "project_id": "fixture-project",
+                        "task_category": "stage",
+                        "document_text": "private source text",
+                    }
+                ]
+            )
 
 
 if __name__ == "__main__":

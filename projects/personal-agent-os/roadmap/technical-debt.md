@@ -83,9 +83,11 @@ total at twice the single-pass figure rather than asserting a reduction.
 P1.1 now has a strict local `TelemetryEvent` schema and append-only JSONL store
 under the gitignored `.agent-local` tree. It records only compact labels,
 counts, booleans, and timestamps; raw prompts, documents, secrets, and free-form
-labels are rejected. No workflow/provider usage adapter or aggregate report is
-connected yet, so unavailable metrics remain absent and capability selection is
-still policy-driven rather than evidence-driven at the workflow level.
+labels are rejected. A count-only synthetic aggregate report now summarizes
+execution paths and validator outcomes without exposing event records. No
+workflow/provider usage adapter is connected yet, so unavailable metrics remain
+absent and capability selection is still policy-driven rather than
+evidence-driven at the workflow level.
 
 ### Run records are Git-tracked
 

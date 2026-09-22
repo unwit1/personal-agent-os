@@ -441,8 +441,9 @@ defines a strict metadata-only event schema and append-only JSONL store under
 the gitignored `.agent-local/telemetry` tree. Synthetic tests prove compact
 labels/counts round-trip, canonical repository paths are rejected, and raw
 prompt/document/secret-like fields and free-form labels fail closed. Provider
-usage adapters, aggregate reports, and live integrations remain future slices;
-unavailable metrics are never fabricated.
+usage adapters and live integrations remain future slices. Its count-only
+aggregate report covers execution paths and validator outcomes without exposing
+per-event records; unavailable metrics are never fabricated.
 
 Record, when exposed:
 - task/project/category;
