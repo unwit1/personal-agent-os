@@ -170,7 +170,12 @@ than claiming a reduction that does not exist.
 
 - The orchestrator prepares model stages; it does not execute them. Automatic
   delegation is deliberately out of scope for P0.1.
-- `cache` and `skill` paths are selected and persisted when a manifest declares
-  them as available, but their external execution remains caller-owned.
+- The local `cache` path can complete approved `document_page` lookups; cache
+  misses persist the next declared route. `skill` paths are selected and
+  persisted but remain caller-owned.
+- No approved skill currently exposes a deterministic invocation interface:
+  canonical skills are instruction-only `SKILL.md` files, and discovery/match
+  returns metadata rather than an executable adapter. A skill path must not be
+  treated as code until a reviewed runner contract exists.
 - Stage ordering is linear: explicit `next_stage` links or declaration order.
   There is no parallel or conditional branching yet.

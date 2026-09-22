@@ -50,13 +50,18 @@ exact prompt, then stops. It does not call a model. Automatic delegation was
 deliberately out of scope for P0.1 and belongs with P1.3 optional API
 delegation, which is separately billed and must not shift cost invisibly.
 
-### `cache` and `skill` execution paths are recorded but not dispatched
+### `skill` execution path is recorded but not dispatched
 
-A stage may declare `preferred_execution_path` of `cache` or `skill`. Both are
-surfaced to the agent and carried in the completion packet, but neither is
-dispatched differently from `model` yet. Closing this depends on P0.3's
-content-addressed cache and on a skill-invocation path that can run a skill
-without a model turn.
+A stage may declare `preferred_execution_path` of `skill`. It is surfaced to
+the agent and carried in the completion packet, but it is not dispatched as
+code. The canonical skill tree currently contains instruction-only `SKILL.md`
+files; discovery and matching expose metadata/context, not a deterministic
+callable entry point. A safe adapter therefore needs a reviewed skill-runner
+contract before it can be implemented.
+
+P0.5 now dispatches the existing local document cache through a constrained
+`document_page` lookup adapter. Cache misses persist the next declared route,
+so this debt is specifically the approved-skill invocation boundary.
 
 ### Stage ordering is linear
 

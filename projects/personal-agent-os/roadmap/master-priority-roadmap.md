@@ -338,7 +338,9 @@ persists the cheapest candidate in the economy order, while preserving the
 backward-compatible single `preferred_execution_path` form. A bounded local
 cache adapter now executes content-addressed document-page cache hits and
 persists deterministic fallback to the next declared route on misses; skill
-execution remains caller-owned.
+execution remains caller-owned because the repository's approved skills are
+instruction-only `SKILL.md` files without a reviewed deterministic invocation
+interface.
 
 Success signal:
 - repeated structured work increasingly bypasses LLM calls.

@@ -59,6 +59,15 @@ class AgentOSTests(unittest.TestCase):
         matched = match("fix scanner two digit year regression", project_skills)
         self.assertTrue(any(skill.name == "scanner-regression" for skill in matched))
 
+    def test_canonical_skills_have_no_deterministic_invocation_entrypoint(self) -> None:
+        skills = discover()
+        self.assertTrue(skills)
+        for skill in skills:
+            with self.subTest(skill=skill.name):
+                self.assertEqual(skill.path.name, "SKILL.md")
+                files = [path.name for path in skill.path.parent.iterdir() if path.is_file()]
+                self.assertEqual(files, ["SKILL.md"])
+
     def test_rebuild_and_search(self) -> None:
         result = rebuild()
         self.assertGreater(result["documents"], 3)

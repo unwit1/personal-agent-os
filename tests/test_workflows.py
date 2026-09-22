@@ -501,6 +501,21 @@ class ExecutionPolicyTests(WorkflowFixture):
         self.assertEqual(resumed_state["execution_path"], "model")
         self.assertEqual(resumed_state["attempts"], 0)
 
+    def test_cache_miss_falls_back_to_skill_without_executing_prose(self) -> None:
+        self._cache_manifest(["cache", "skill", "model"])
+        workflows.start("fixture-sweep", run_id="skill-fallback")
+
+        packet = workflows.run_stage("fixture-sweep", "skill-fallback", "think")
+        state = workflows.load_run("personal-agent-os", "skill-fallback")["stages"]["think"]
+        self.assertEqual(packet["stage"]["execution_path"], "skill")
+        self.assertEqual(state["execution_path"], "skill")
+        self.assertEqual(state["status"], "awaiting_agent")
+        self.assertIn("cache miss", packet["message"])
+
+        workflows.start("fixture-sweep", run_id="skill-fallback")
+        resumed = workflows.run_stage("fixture-sweep", "skill-fallback", "think")
+        self.assertEqual(resumed["stage"]["execution_path"], "skill")
+
     def test_prepared_stage_persists_the_cheapest_declared_path(self) -> None:
         self._cache_manifest(["model", "skill", "cache"])
         workflows.start("fixture-sweep", run_id="policy")
@@ -521,6 +536,26 @@ class ExecutionPolicyTests(WorkflowFixture):
         self.assertEqual(packet["stage"]["execution_path"], "skill")
         self.assertEqual(state["execution_path"], "skill")
         self.assertEqual(state["status"], "awaiting_agent")
+
+    def test_skill_route_is_prepared_and_resume_safe(self) -> None:
+        manifest = copy.deepcopy(MANIFEST)
+        manifest["stages"][1]["available_execution_paths"] = ["skill", "model"]
+        self.write_manifest(manifest)
+        workflows.start("fixture-sweep", run_id="skill-route-resume")
+
+        first = workflows.run_stage("fixture-sweep", "skill-route-resume", "think")
+        state = workflows.load_run("personal-agent-os", "skill-route-resume")["stages"]["think"]
+        self.assertEqual(first["stage"]["execution_path"], "skill")
+        self.assertEqual(state["execution_path"], "skill")
+        self.assertEqual(state["status"], "awaiting_agent")
+
+        workflows.start("fixture-sweep", run_id="skill-route-resume")
+        resumed = workflows.run_stage("fixture-sweep", "skill-route-resume", "think")
+        self.assertEqual(resumed["stage"]["execution_path"], "skill")
+        self.assertEqual(
+            workflows.load_run("personal-agent-os", "skill-route-resume")["stages"]["think"]["attempts"],
+            0,
+        )
 
 
 class ProviderNeutralityTests(unittest.TestCase):
