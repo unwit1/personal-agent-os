@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-22T17:48:08.470656+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 12]\n M docs/multi-agent-coordination.md\n M src/agent_os/coordination.py\n M tests/test_coordination.py",
+    "error": ""
+  },
+  "completed": [
+    "P0.4 coordination identity consistency: delegated-task and peer-review listings now match the existing case-insensitive stable project identity semantics; added synthetic cross-case coverage and docs."
+  ],
+  "decisions": [
+    "Project identity remains case-insensitive consistently for stable task IDs, task-linked review validation, and task/review listings. No authorization, recovery, review-gate, provider/model, or orchestrator behavior was broadened."
+  ],
+  "remaining": [
+    "Audit the next deterministic coordination gap while preserving assigned/in_progress requeue, same-agent claim idempotency, review gates, fresh-review boundaries, requeue authorization, completion idempotency, immutable peer-review verdicts, and project identity checks. P0.3/P0.4 provider additions remain deferred; P0.5 skill execution remains blocked by missing reviewed runner contract."
+  ],
+  "validation": [
+    "Focused: python -m unittest tests.test_coordination -v (35 passed). Full: python -m unittest discover -s tests -v (349 passed). python agent.py validate: ok, 392 checks, 0 warnings. git diff --check passed."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

@@ -354,6 +354,12 @@ def _task_text(value: str, label: str, limit: int) -> str:
     return text[:limit]
 
 
+def _project_matches(record_project: Any, requested_project: str | None) -> bool:
+    if requested_project is None:
+        return True
+    return str(record_project or "").casefold() == str(requested_project).casefold()
+
+
 def _task_dependencies(values: list[str] | None) -> list[str]:
     return sorted({str(value).strip() for value in (values or []) if str(value).strip()})
 
@@ -431,7 +437,7 @@ def list_tasks(
     return sorted(
         [
             task for task in tasks
-            if (project is None or task.get("project") == project)
+            if _project_matches(task.get("project"), project)
             and (status is None or task.get("status") == status)
         ],
         key=lambda item: (item.get("created_at", ""), item.get("task_id", "")),
@@ -626,7 +632,7 @@ def list_reviews(
     return sorted(
         [
             review for review in reviews
-            if (project is None or review.get("project") == project)
+            if _project_matches(review.get("project"), project)
             and (status is None or review.get("status") == status)
         ],
         key=lambda item: (item.get("requested_at", ""), item.get("review_id", "")),

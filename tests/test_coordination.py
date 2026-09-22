@@ -381,6 +381,19 @@ class PeerReviewTests(ClaimFixture):
                 reviewer="alpha", path=self.registry,
             )
 
+    def test_task_and_review_listing_respects_case_insensitive_project_identity(self) -> None:
+        task = coordination.delegate("Demo", "case-list", "Case fixture", "alpha", path=self.registry)
+        requested = coordination.request_review(
+            "dEmO", "case-list-review", "alpha", task_id=task["task"]["task_id"],
+            reviewer="beta", path=self.registry,
+        )
+        self.assertEqual(
+            coordination.list_tasks("demo", path=self.registry)[0]["task_id"], task["task"]["task_id"],
+        )
+        self.assertEqual(
+            coordination.list_reviews("DEMO", path=self.registry)[0]["review_id"], requested["review"]["review_id"],
+        )
+
     def test_reviewer_separation_findings_and_validation_are_enforced(self) -> None:
         requested = coordination.request_review(
             "demo", "commit-review", "alpha", commit_fingerprint="abc1234",
