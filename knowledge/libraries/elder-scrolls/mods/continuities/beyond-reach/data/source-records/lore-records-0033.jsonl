@@ -1,0 +1,50 @@
+{"observed_form_id":"040E3953","record_type":"DIAL","editor_id":"ArnimaOrcMainQuest5Lowlandboss1t2","title":"Anything to get out of here.","origin_id":"arnima.esm:0E3953","quest_origin_id":"arnima.esm:0E70AA","prompt":"Anything to get out of here.","info_count":1}
+{"observed_form_id":"040E4905","record_type":"DIAL","origin_id":"arnima.esm:0E4905","quest_origin_id":"arnima.esm:1DD48B","info_count":1}
+{"observed_form_id":"040E4908","record_type":"DIAL","origin_id":"arnima.esm:0E4908","quest_origin_id":"arnima.esm:1DD48B","info_count":1}
+{"observed_form_id":"040E70C9","record_type":"DIAL","editor_id":"ArnimaOrcMainQuest2Warchief1Topic","title":"[Quest] So what are we going to do next?","origin_id":"arnima.esm:0E70C9","quest_origin_id":"arnima.esm:0E70A7","prompt":"[Quest] So what are we going to do next?","info_count":1}
+{"observed_form_id":"040E70CB","record_type":"DIAL","editor_id":"ArnimaOrcMainQuest2Warchief2Topic","title":"I got your son his amulet. ","origin_id":"arnima.esm:0E70CB","quest_origin_id":"arnima.esm:0E70A7","prompt":"I got your son his amulet. ","info_count":1}
+{"observed_form_id":"040E70CD","record_type":"DIAL","editor_id":"ArnimaOrcMainQuest2FirstBorn1Topic","title":"Chief asked me to talk to you, got something for me to do?","origin_id":"arnima.esm:0E70CD","quest_origin_id":"arnima.esm:0E70A7","prompt":"Chief asked me to talk to you, got something for me to do?","info_count":1}
+{"observed_form_id":"040E70CF","record_type":"DIAL","editor_id":"ArnimaOrcMainQuest2FirstBorn2Topic","title":"Here's the amulet. ","origin_id":"arnima.esm:0E70CF","quest_origin_id":"arnima.esm:0E70A7","prompt":"Here's the amulet. ","info_count":1}
+{"observed_form_id":"040E70D1","record_type":"DIAL","editor_id":"ArnimaOrcMainQuest2Warchief2t2","title":"So what's our next move? Tell me it's not another errand for your firstborn.","origin_id":"arnima.esm:0E70D1","quest_origin_id":"arnima.esm:0E70A7","prompt":"So what's our next move? Tell me it's not another errand for your firstborn.","info_count":1}
+{"observed_form_id":"040E70D2","record_type":"DIAL","editor_id":"ArnimaOrcMainQuest2Firstborn1t2","title":"He can't be that weak if he sees you every day. ","origin_id":"arnima.esm:0E70D2","quest_origin_id":"arnima.esm:0E70A7","prompt":"He can't be that weak if he sees you every day. ","info_count":1}
+{"observed_form_id":"040E70D3","record_type":"DIAL","editor_id":"ArnimaOrcMainQuest2FirstBorn2t2","origin_id":"arnima.esm:0E70D3","quest_origin_id":"arnima.esm:0E70A7","info_count":0}
+{"observed_form_id":"040E8F31","record_type":"DIAL","origin_id":"arnima.esm:0E8F31","quest_origin_id":"arnima.esm:0D7AD5","info_count":1}
+{"observed_form_id":"040E8F33","record_type":"DIAL","origin_id":"arnima.esm:0E8F33","quest_origin_id":"arnima.esm:0D7AD5","info_count":1}
+{"observed_form_id":"040E8F35","record_type":"DIAL","origin_id":"arnima.esm:0E8F35","quest_origin_id":"arnima.esm:0D7AD5","info_count":1}
+{"observed_form_id":"040E8F37","record_type":"DIAL","origin_id":"arnima.esm:0E8F37","quest_origin_id":"arnima.esm:0D7AD5","info_count":1}
+{"observed_form_id":"040E8F39","record_type":"DIAL","origin_id":"arnima.esm:0E8F39","quest_origin_id":"arnima.esm:0D7AD5","info_count":1}
+{"observed_form_id":"040E8F3B","record_type":"DIAL","origin_id":"arnima.esm:0E8F3B","quest_origin_id":"arnima.esm:0D7AD5","info_count":1}
+{"observed_form_id":"040E8F3D","record_type":"DIAL","origin_id":"arnima.esm:0E8F3D","quest_origin_id":"arnima.esm:0D7AD5","info_count":1}
+{"observed_form_id":"040E8F3F","record_type":"DIAL","origin_id":"arnima.esm:0E8F3F","quest_origin_id":"arnima.esm:0D7AD5","info_count":1}
+{"observed_form_id":"040EA1DE","record_type":"DIAL","editor_id":"arnimabladequestvaeserTopic","title":"[Quest] What's your role in the city?","origin_id":"arnima.esm:0EA1DE","quest_origin_id":"arnima.esm:0EA1DB","prompt":"[Quest] What's your role in the city?","info_count":1}
+{"observed_form_id":"040EA1E0","record_type":"DIAL","editor_id":"arnimabladequestvaeser2","title":"How does the Empire fare in High Rock?","origin_id":"arnima.esm:0EA1E0","quest_origin_id":"arnima.esm:0EA1DB","prompt":"How does the Empire fare in High Rock?","info_count":1}
+{"observed_form_id":"040EA1E2","record_type":"DIAL","editor_id":"arnimabladequestvaeser3","title":"Anything I could do to lift the burden?","origin_id":"arnima.esm:0EA1E2","quest_origin_id":"arnima.esm:0EA1DB","prompt":"Anything I could do to lift the burden?","info_count":1}
+{"observed_form_id":"040EA1E4","record_type":"DIAL","editor_id":"arnimabladequestvaeser4","title":"You'd like me to find him, I take it.","origin_id":"arnima.esm:0EA1E4","quest_origin_id":"arnima.esm:0EA1DB","prompt":"You'd like me to find him, I take it.","info_count":1}
+{"observed_form_id":"040EA1E7","record_type":"DIAL","editor_id":"arnimabladequestfugitiveTopic","origin_id":"arnima.esm:0EA1E7","quest_origin_id":"arnima.esm:0EA1DB","info_count":1}
+{"observed_form_id":"040EA1E9","record_type":"DIAL","editor_id":"arnimabladequestfugitive2","title":"I was sent to find you by someone in Evermore. ","origin_id":"arnima.esm:0EA1E9","quest_origin_id":"arnima.esm:0EA1DB","prompt":"I was sent to find you by someone in Evermore. ","info_count":1}
+{"observed_form_id":"040EA1EB","record_type":"DIAL","editor_id":"arnimabladequestfugitive3","title":"Neither, the person who sent me sympathizes with your plight. ","origin_id":"arnima.esm:0EA1EB","quest_origin_id":"arnima.esm:0EA1DB","prompt":"Neither, the person who sent me sympathizes with your plight. ","info_count":1}
+{"observed_form_id":"040EA1ED","record_type":"DIAL","editor_id":"arnimabladequestfugitive4","title":"Your head, in the bag, now.","origin_id":"arnima.esm:0EA1ED","quest_origin_id":"arnima.esm:0EA1DB","prompt":"Your head, in the bag, now.","info_count":1}
+{"observed_form_id":"040EA1F0","record_type":"DIAL","editor_id":"arnimabladequestvaesertopic2Topic","title":"[Quest] I found the Blade member in the fort. ","origin_id":"arnima.esm:0EA1F0","quest_origin_id":"arnima.esm:0EA1DB","prompt":"[Quest] I found the Blade member in the fort. ","info_count":1}
+{"observed_form_id":"040EA1F2","record_type":"DIAL","editor_id":"arnimabladequesttopic2","title":"Yes, the Thalmor won't have another head.","origin_id":"arnima.esm:0EA1F2","quest_origin_id":"arnima.esm:0EA1DB","prompt":"Yes, the Thalmor won't have another head.","info_count":1}
+{"observed_form_id":"040EA1F6","record_type":"DIAL","editor_id":"arnimabladequestnarumanTopic","title":"[Quest] The Blade was found, I eliminated him for you.","origin_id":"arnima.esm:0EA1F6","quest_origin_id":"arnima.esm:0EA1DB","prompt":"[Quest] The Blade was found, I eliminated him for you.","info_count":1}
+{"observed_form_id":"040EBB4B","record_type":"DIAL","origin_id":"arnima.esm:0EBB4B","quest_origin_id":"arnima.esm:08400F","info_count":1}
+{"observed_form_id":"040EBB4D","record_type":"DIAL","origin_id":"arnima.esm:0EBB4D","quest_origin_id":"arnima.esm:08400F","info_count":1}
+{"observed_form_id":"040EBB4F","record_type":"DIAL","origin_id":"arnima.esm:0EBB4F","quest_origin_id":"arnima.esm:08400F","info_count":2}
+{"observed_form_id":"040EBB52","record_type":"DIAL","origin_id":"arnima.esm:0EBB52","quest_origin_id":"arnima.esm:08400F","info_count":2}
+{"observed_form_id":"040EBB55","record_type":"DIAL","origin_id":"arnima.esm:0EBB55","quest_origin_id":"arnima.esm:08400F","info_count":2}
+{"observed_form_id":"040EBB58","record_type":"DIAL","origin_id":"arnima.esm:0EBB58","quest_origin_id":"arnima.esm:08400F","info_count":1}
+{"observed_form_id":"040EBB5B","record_type":"DIAL","origin_id":"arnima.esm:0EBB5B","quest_origin_id":"arnima.esm:07DCCF","info_count":2}
+{"observed_form_id":"040EBB5E","record_type":"DIAL","origin_id":"arnima.esm:0EBB5E","quest_origin_id":"arnima.esm:07DCCF","info_count":2}
+{"observed_form_id":"040EBB61","record_type":"DIAL","origin_id":"arnima.esm:0EBB61","quest_origin_id":"arnima.esm:07DCCF","info_count":2}
+{"observed_form_id":"040EBB64","record_type":"DIAL","origin_id":"arnima.esm:0EBB64","quest_origin_id":"arnima.esm:07DCCF","info_count":1}
+{"observed_form_id":"040EBB66","record_type":"DIAL","origin_id":"arnima.esm:0EBB66","quest_origin_id":"arnima.esm:07DCCF","info_count":5}
+{"observed_form_id":"040EBB6A","record_type":"DIAL","origin_id":"arnima.esm:0EBB6A","quest_origin_id":"arnima.esm:07DCCF","info_count":10}
+{"observed_form_id":"040EBB6E","record_type":"DIAL","origin_id":"arnima.esm:0EBB6E","quest_origin_id":"arnima.esm:07DCCF","info_count":4}
+{"observed_form_id":"040EBB71","record_type":"DIAL","origin_id":"arnima.esm:0EBB71","quest_origin_id":"arnima.esm:07DCCF","info_count":6}
+{"observed_form_id":"040EBB75","record_type":"DIAL","origin_id":"arnima.esm:0EBB75","quest_origin_id":"arnima.esm:07DCCF","info_count":2}
+{"observed_form_id":"040EBB78","record_type":"DIAL","origin_id":"arnima.esm:0EBB78","quest_origin_id":"arnima.esm:07DCCF","info_count":1}
+{"observed_form_id":"040EBB7A","record_type":"DIAL","origin_id":"arnima.esm:0EBB7A","quest_origin_id":"arnima.esm:07DCCF","info_count":2}
+{"observed_form_id":"040EBB7D","record_type":"DIAL","origin_id":"arnima.esm:0EBB7D","quest_origin_id":"arnima.esm:07DCCF","info_count":1}
+{"observed_form_id":"040EBB85","record_type":"DIAL","origin_id":"arnima.esm:0EBB85","quest_origin_id":"arnima.esm:07DCCF","info_count":1}
+{"observed_form_id":"040EBB87","record_type":"DIAL","origin_id":"arnima.esm:0EBB87","quest_origin_id":"arnima.esm:07DCCF","info_count":3}
+{"observed_form_id":"040EBB8A","record_type":"DIAL","origin_id":"arnima.esm:0EBB8A","quest_origin_id":"arnima.esm:07DCCF","info_count":2}
