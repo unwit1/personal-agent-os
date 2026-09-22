@@ -357,7 +357,9 @@ An adversarial synthetic skill-count test also proves unrelated skills do not
 increase selected-skill count or materially inflate the compiled packet, while
 skill bodies remain unloaded by default. A representative synthetic corpus now
 covers strong, project-specific, weak, and unrelated task queries through both
-`skills.match` and `compile_context`.
+`skills.match` and `compile_context`. A staged workflow evaluation also proves
+cheap successes are not rerun, partial unresolved work survives escalation, and
+checkpoints/next prompts resume from persisted state.
 
 Test four dimensions:
 

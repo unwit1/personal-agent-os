@@ -85,7 +85,10 @@ threshold explicitly, and the selected threshold is recorded in
 `context_policy`. Synthetic context-bloat coverage keeps unrelated skill growth
 out of the selected metadata and confirms skill bodies remain unloaded by
 default. Accuracy coverage also checks relevant, weak, and unrelated synthetic
-tasks through both direct matching and compiled context packets.
+tasks through both direct matching and compiled context packets. Workflow
+regression coverage verifies completed cheap stages remain no-ops, partial
+failure escalates only the unresolved stage, and persisted checkpoints produce
+the same resumable next prompt.
 
 A deterministic stage must declare a real validator. A deterministic stage
 nobody can check is just an unverified stage wearing a cheaper label.

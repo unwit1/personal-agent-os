@@ -246,6 +246,55 @@ class CheckpointTests(WorkflowFixture):
             workflows._save(record)
 
 
+class WorkflowBehaviorEvaluationTests(WorkflowFixture):
+    def test_synthetic_workflow_preserves_cheap_success_and_unresolved_partial_work(self) -> None:
+        workflows.start("fixture-sweep", run_id="behavior-eval")
+
+        first = workflows.run_stage("fixture-sweep", "behavior-eval", "cheap-check")
+        self.assertTrue(first["completed_stage"]["validation"]["passed"])
+        cheap_before = workflows.load_run("personal-agent-os", "behavior-eval")["stages"]["cheap-check"]
+        self.assertEqual(cheap_before["status"], "complete")
+        self.assertEqual(cheap_before["attempts"], 1)
+        self.assertEqual(cheap_before["capability_class"], "deterministic")
+        self.assertEqual(cheap_before["checkpoint"], MANIFEST["stages"][0]["checkpoint"])
+
+        repeated = workflows.run_stage("fixture-sweep", "behavior-eval", "cheap-check")
+        cheap_after = workflows.load_run("personal-agent-os", "behavior-eval")["stages"]["cheap-check"]
+        self.assertTrue(repeated["skipped"])
+        self.assertEqual(cheap_after["attempts"], cheap_before["attempts"])
+        self.assertEqual(cheap_after["capability_class"], "deterministic")
+
+        prepared = workflows.prepare_stage("fixture-sweep", "behavior-eval", "think")
+        self.assertIn("behavior-eval", prepared["next_prompt"])
+        self.assertIn("think", prepared["next_prompt"])
+
+        partial = workflows.complete_stage(
+            "fixture-sweep",
+            "behavior-eval",
+            "think",
+            outputs=["partial recommendation"],
+            checkpoint="artifacts/partial-recommendation.json",
+            passed=False,
+            detail="synthetic interruption",
+        )
+        record = workflows.start("fixture-sweep", run_id="behavior-eval")
+        cheap_reloaded = record["stages"]["cheap-check"]
+        think_reloaded = record["stages"]["think"]
+        self.assertEqual(cheap_reloaded["status"], "complete")
+        self.assertEqual(cheap_reloaded["attempts"], 1)
+        self.assertEqual(cheap_reloaded["capability_class"], "deterministic")
+        self.assertIn("partial recommendation", think_reloaded["outputs"])
+        self.assertEqual(think_reloaded["checkpoint"], "artifacts/partial-recommendation.json")
+        self.assertEqual(think_reloaded["status"], "pending")
+        self.assertEqual(think_reloaded["capability_class"], "balanced")
+        self.assertEqual(partial["next_stage"]["stage_id"], "think")
+
+        resumed = workflows.status("fixture-sweep", "behavior-eval")
+        self.assertEqual(resumed["next_stage"]["stage_id"], "think")
+        self.assertIn("behavior-eval", resumed["next_prompt"])
+        self.assertIn("think", resumed["next_prompt"])
+
+
 class EscalationTests(WorkflowFixture):
     def _failing_manifest(self, max_escalations: int = 1) -> dict:
         manifest = copy.deepcopy(MANIFEST)

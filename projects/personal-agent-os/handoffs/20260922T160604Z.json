@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-22T16:06:04.138557+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 23]\n M docs/staged-workflows.md\n M projects/personal-agent-os/roadmap/master-priority-roadmap.md\n M tests/test_workflows.py",
+    "error": ""
+  },
+  "completed": [
+    "Advanced P0.6 with one bounded synthetic staged-workflow behavior evaluation.",
+    "Added an end-to-end regression proving completed cheap stages are not rerun, checkpoints persist, partial unresolved output survives failure, escalation affects only the unresolved stage, and status regenerates the resumable next prompt."
+  ],
+  "decisions": [
+    "Use the existing fixture-sweep workflow as the synthetic evaluation corpus; assert persisted state after each boundary rather than adding a new workflow engine or production path."
+  ],
+  "remaining": [
+    "P0.4 still has no safe remaining provider fixture or explicitly authorized sanitized connector scope; preserve the Google Drive adapter and keep plain IMAP UID/UIDNEXT deferred.",
+    "P0.5 skill execution remains caller-owned because approved skills have no reviewed deterministic runner. P0.6 still needs economy benchmarks and any remaining workflow evaluation corpus slices."
+  ],
+  "validation": [
+    "Focused workflow tests: 57 passed.",
+    "Full suite: 289 passed.",
+    "python agent.py validate: 363 checks passed with no warnings."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}
