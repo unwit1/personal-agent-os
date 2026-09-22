@@ -21,7 +21,10 @@ from .coordination import (
     delegate,
     inbox as work_inbox,
     list_tasks,
+    list_reviews,
     note as work_note,
+    request_review,
+    submit_review,
     status as claims_status,
 )
 from .documents import DocumentCache
@@ -133,6 +136,23 @@ def parser() -> argparse.ArgumentParser:
     work_task_complete.add_argument("--agent", required=True)
     work_task_complete.add_argument("--validation", required=True)
     work_task_complete.add_argument("--result")
+    work_review_request = commands.add_parser("work-review-request")
+    work_review_request.add_argument("project")
+    work_review_request.add_argument("review_key")
+    work_review_request.add_argument("--from-agent", required=True)
+    work_review_request.add_argument("--task-id")
+    work_review_request.add_argument("--commit-fingerprint")
+    work_review_request.add_argument("--reviewer")
+    work_review_request.add_argument("--changed-file", action="append", default=[])
+    work_reviews = commands.add_parser("work-reviews")
+    work_reviews.add_argument("--project")
+    work_reviews.add_argument("--status", choices=("requested", "approved", "changes_requested", "blocked"))
+    work_review_submit = commands.add_parser("work-review-submit")
+    work_review_submit.add_argument("review_id")
+    work_review_submit.add_argument("--agent", required=True)
+    work_review_submit.add_argument("--verdict", choices=("approved", "changes_requested", "blocked"), required=True)
+    work_review_submit.add_argument("--validation", required=True)
+    work_review_submit.add_argument("--finding", action="append", default=[])
     commands.add_parser("validate")
     telemetry_report = commands.add_parser("telemetry-report")
     telemetry_report.add_argument("--path")
@@ -335,6 +355,12 @@ def main(argv: list[str] | None = None) -> int:
             _print(claim_task(args.task_id, args.agent))
         elif args.command == "work-task-complete":
             _print(complete_task(args.task_id, args.agent, args.validation, args.result))
+        elif args.command == "work-review-request":
+            _print(request_review(args.project, args.review_key, args.from_agent, task_id=args.task_id, commit_fingerprint=args.commit_fingerprint, reviewer=args.reviewer, changed_files=args.changed_file))
+        elif args.command == "work-reviews":
+            _print(list_reviews(args.project, args.status))
+        elif args.command == "work-review-submit":
+            _print(submit_review(args.review_id, args.agent, args.verdict, args.validation, args.finding))
         elif args.command == "validate":
             result = validate()
             _print(result)

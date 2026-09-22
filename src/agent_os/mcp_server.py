@@ -21,8 +21,11 @@ from .coordination import (
     complete_task,
     delegate,
     inbox as work_inbox,
+    list_reviews,
     list_tasks,
     note as work_note,
+    request_review,
+    submit_review,
     status as claims_status,
 )
 from .documents import cache_status_safe
@@ -110,6 +113,18 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     "work.task_complete": {
         "description": "Complete a delegated task with validation evidence from its assigned agent.",
         "inputSchema": {"type": "object", "properties": {"task_id": {"type": "string"}, "agent": {"type": "string"}, "validation": {"type": "string"}, "result": {"type": ["string", "null"]}}, "required": ["task_id", "agent", "validation"]},
+    },
+    "work.review_request": {
+        "description": "Create an idempotent peer-review request linked to exactly one delegated task ID or commit fingerprint.",
+        "inputSchema": {"type": "object", "properties": {"project": {"type": "string"}, "review_key": {"type": "string"}, "requester": {"type": "string"}, "task_id": {"type": ["string", "null"]}, "commit_fingerprint": {"type": ["string", "null"]}, "reviewer": {"type": ["string", "null"]}, "changed_files": {"type": "array", "items": {"type": "string"}}}, "required": ["project", "review_key", "requester"]},
+    },
+    "work.reviews": {
+        "description": "List bounded peer-review requests and independent verdict metadata.",
+        "inputSchema": {"type": "object", "properties": {"project": {"type": ["string", "null"]}, "status": {"type": ["string", "null"]}}},
+    },
+    "work.review_submit": {
+        "description": "Submit one independent peer-review verdict with bounded findings and validation evidence.",
+        "inputSchema": {"type": "object", "properties": {"review_id": {"type": "string"}, "reviewer": {"type": "string"}, "verdict": {"type": "string"}, "validation": {"type": "string"}, "findings": {"type": "array", "items": {"type": "string"}}}, "required": ["review_id", "reviewer", "verdict", "validation"]},
     },
     "agent.capture_candidates": {
         "description": "Stage evidenced durable findings for curation. This never promotes canonical memory.",
@@ -312,6 +327,9 @@ def methods() -> dict[str, Callable[..., Any]]:
             "work.tasks": list_tasks,
             "work.task_claim": claim_task,
             "work.task_complete": complete_task,
+            "work.review_request": request_review,
+            "work.reviews": list_reviews,
+            "work.review_submit": submit_review,
             "agent.capture_candidates": lambda project=None, project_id=None, task_summary="", candidates=(), source_agent=None, source_session=None: stage_candidates(project_id or project or "", task_summary, candidates, source_agent, source_session),
             "agent.search": search,
             "agent.project_status": project_status,

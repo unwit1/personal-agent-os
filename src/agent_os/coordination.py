@@ -61,6 +61,12 @@ TASK_KEY_LIMIT = 160
 TASK_TITLE_LIMIT = 320
 TASK_RESULT_LIMIT = 2000
 TASK_VALIDATION_LIMIT = 1000
+REVIEW_STATUSES = ("requested", "approved", "changes_requested", "blocked")
+REVIEW_VERDICTS = ("approved", "changes_requested", "blocked")
+REVIEW_KEY_LIMIT = 160
+REVIEW_FINDING_LIMIT = 500
+REVIEW_VALIDATION_LIMIT = 1000
+MAX_REVIEW_FINDINGS = 5
 
 
 def claims_path(override: Path | None = None) -> Path:
@@ -472,6 +478,130 @@ def complete_task(
     task["updated_at"] = task["completed_at"]
     _save(location, data)
     return {"completed": True, "task": task}
+
+
+def _review_id(project: str, review_key: str, link: str) -> str:
+    return "WR-" + hashlib.sha256(
+        f"{project.strip().casefold()}\0{review_key.strip().casefold()}\0{link}".encode("utf-8")
+    ).hexdigest()[:12]
+
+
+def _review_findings(values: list[str] | None) -> list[str]:
+    entries = values or []
+    if len(entries) > MAX_REVIEW_FINDINGS:
+        raise ValueError(f"a peer review may contain at most {MAX_REVIEW_FINDINGS} findings")
+    return [_task_text(value, "finding", REVIEW_FINDING_LIMIT) for value in entries]
+
+
+def _reviews(data: dict[str, Any]) -> list[dict[str, Any]]:
+    if not isinstance(data.get("reviews"), list):
+        data["reviews"] = []
+    return data["reviews"]
+
+
+def request_review(
+    project: str,
+    review_key: str,
+    requester: str,
+    *,
+    task_id: str | None = None,
+    commit_fingerprint: str | None = None,
+    reviewer: str | None = None,
+    changed_files: list[str] | None = None,
+    path: Path | None = None,
+) -> dict[str, Any]:
+    """Create an idempotent review request linked to one bounded work identity."""
+    project_name = _task_text(project, "project", REVIEW_KEY_LIMIT)
+    key = _task_text(review_key, "review_key", REVIEW_KEY_LIMIT)
+    requester_name = _task_text(requester, "requester", REVIEW_KEY_LIMIT)
+    if bool(task_id) == bool(commit_fingerprint):
+        raise ValueError("peer review must link to exactly one task_id or commit_fingerprint")
+    linked_task = str(task_id).strip() if task_id else None
+    linked_commit = _task_text(commit_fingerprint, "commit_fingerprint", REVIEW_KEY_LIMIT) if commit_fingerprint else None
+    reviewer_name = _task_text(reviewer, "reviewer", REVIEW_KEY_LIMIT) if reviewer else None
+    if reviewer_name == requester_name:
+        raise ValueError("requester and reviewer must be different agents")
+    location = claims_path(path)
+    data = _load(location)
+    reviews = _reviews(data)
+    if linked_task:
+        _find_task(data, linked_task)
+    link = linked_task or linked_commit or ""
+    review_id = _review_id(project_name, key, link)
+    existing = next((item for item in reviews if item.get("review_id") == review_id), None)
+    if existing is not None:
+        return {"created": False, "idempotent": True, "review": existing}
+    now = utc_now_iso()
+    review = {
+        "review_id": review_id,
+        "project": project_name,
+        "review_key": key,
+        "requester": requester_name,
+        "reviewer": reviewer_name,
+        "task_id": linked_task,
+        "commit_fingerprint": linked_commit,
+        "changed_files": _normalize_scope(changed_files),
+        "status": "requested",
+        "requested_at": now,
+        "updated_at": now,
+    }
+    reviews.append(review)
+    _save(location, data)
+    return {"created": True, "idempotent": False, "review": review}
+
+
+def list_reviews(
+    project: str | None = None,
+    status: str | None = None,
+    path: Path | None = None,
+) -> list[dict[str, Any]]:
+    """List bounded peer-review metadata and verdicts."""
+    if status is not None and status not in REVIEW_STATUSES:
+        raise ValueError(f"unknown peer review status: {status}")
+    reviews = _reviews(_load(claims_path(path)))
+    return sorted(
+        [
+            review for review in reviews
+            if (project is None or review.get("project") == project)
+            and (status is None or review.get("status") == status)
+        ],
+        key=lambda item: (item.get("requested_at", ""), item.get("review_id", "")),
+    )
+
+
+def submit_review(
+    review_id: str,
+    reviewer: str,
+    verdict: str,
+    validation: str,
+    findings: list[str] | None = None,
+    path: Path | None = None,
+) -> dict[str, Any]:
+    """Record one independent, evidence-backed peer-review verdict."""
+    if verdict not in REVIEW_VERDICTS:
+        raise ValueError(f"unknown peer review verdict: {verdict}")
+    location = claims_path(path)
+    data = _load(location)
+    review = next((item for item in _reviews(data) if item.get("review_id") == review_id), None)
+    if review is None:
+        raise KeyError(f"unknown peer review: {review_id}")
+    reviewer_name = _task_text(reviewer, "reviewer", REVIEW_KEY_LIMIT)
+    if reviewer_name == review.get("requester"):
+        raise ValueError("requester cannot submit the independent peer review")
+    if review.get("reviewer") and review["reviewer"] != reviewer_name:
+        raise ValueError("review was assigned to another reviewer")
+    if review.get("status") != "requested":
+        raise ValueError("peer review already has a final verdict")
+    evidence = _task_text(validation, "validation", REVIEW_VALIDATION_LIMIT)
+    review["reviewer"] = reviewer_name
+    review["verdict"] = verdict
+    review["findings"] = _review_findings(findings)
+    review["validation"] = evidence
+    review["status"] = verdict
+    review["reviewed_at"] = utc_now_iso()
+    review["updated_at"] = review["reviewed_at"]
+    _save(location, data)
+    return {"submitted": True, "review": review}
 
 
 def status(project: str | None = None, path: Path | None = None) -> dict[str, Any]:

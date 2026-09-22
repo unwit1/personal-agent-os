@@ -191,6 +191,67 @@ class DelegatedTaskTests(ClaimFixture):
         self.assertEqual(coordination.list_tasks("demo", "completed", self.registry)[0]["task_id"], task_id)
 
 
+class PeerReviewTests(ClaimFixture):
+    def test_review_request_is_idempotent_and_requires_one_link(self) -> None:
+        task = coordination.delegate("demo", "fixture", "Run fixture", "alpha", path=self.registry)
+        first = coordination.request_review(
+            "demo", "fixture-review", "alpha", task_id=task["task"]["task_id"],
+            reviewer="beta", changed_files=["src/fixture.py"], path=self.registry,
+        )
+        second = coordination.request_review(
+            "demo", "fixture-review", "other", task_id=task["task"]["task_id"],
+            reviewer="gamma", path=self.registry,
+        )
+        self.assertTrue(first["created"])
+        self.assertFalse(second["created"])
+        self.assertTrue(second["idempotent"])
+        self.assertEqual(first["review"]["review_id"], second["review"]["review_id"])
+        with self.assertRaises(ValueError):
+            coordination.request_review(
+                "demo", "bad", "alpha", task_id=task["task"]["task_id"],
+                commit_fingerprint="abc1234", path=self.registry,
+            )
+        with self.assertRaises(ValueError):
+            coordination.request_review(
+                "demo", "self-review", "alpha", commit_fingerprint="abc1234",
+                reviewer="alpha", path=self.registry,
+            )
+
+    def test_reviewer_separation_findings_and_validation_are_enforced(self) -> None:
+        requested = coordination.request_review(
+            "demo", "commit-review", "alpha", commit_fingerprint="abc1234",
+            reviewer="beta", changed_files=["src/fixture.py"], path=self.registry,
+        )
+        review_id = requested["review"]["review_id"]
+        with self.assertRaises(ValueError):
+            coordination.submit_review(review_id, "alpha", "approved", "synthetic pass", path=self.registry)
+        with self.assertRaises(ValueError):
+            coordination.submit_review(review_id, "gamma", "approved", "synthetic pass", path=self.registry)
+        with self.assertRaises(ValueError):
+            coordination.submit_review(review_id, "beta", "approved", "", path=self.registry)
+        with self.assertRaises(ValueError):
+            coordination.submit_review(
+                review_id, "beta", "changes_requested", "synthetic fail",
+                findings=["one", "two", "three", "four", "five", "six"], path=self.registry,
+            )
+        result = coordination.submit_review(
+            review_id, "beta", "changes_requested", "synthetic validator failed",
+            findings=["fixture assertion needs correction"], path=self.registry,
+        )
+        self.assertEqual(result["review"]["status"], "changes_requested")
+        self.assertEqual(coordination.list_reviews("demo", "changes_requested", self.registry)[0]["review_id"], review_id)
+
+    def test_commit_fingerprint_review_can_be_completed_once(self) -> None:
+        requested = coordination.request_review(
+            "demo", "commit-review", "alpha", commit_fingerprint="def5678", path=self.registry,
+        )
+        review_id = requested["review"]["review_id"]
+        result = coordination.submit_review(review_id, "beta", "approved", "synthetic tests passed", path=self.registry)
+        self.assertTrue(result["submitted"])
+        with self.assertRaises(ValueError):
+            coordination.submit_review(review_id, "gamma", "approved", "another pass", path=self.registry)
+
+
 class HonestyTests(ClaimFixture):
     def test_the_registry_says_it_is_not_a_lock(self) -> None:
         """An agent that thinks it holds a lock is worse than one that knows."""
