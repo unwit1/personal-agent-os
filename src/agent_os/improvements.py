@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
-from .ingestion import IngestionLedger, stable_stage_id, stable_work_id
+from .ingestion import IngestionLedger, empty_record_import_stats, stable_stage_id, stable_work_id
 from .normalization import normalise_text as _normalise
 from .paths import ROOT, project_collection_dir
 from .privacy import require_private_safe
@@ -66,14 +66,7 @@ def load_improvements_incremental(
         processor_version=processor_version,
     )
     records: list[dict[str, Any]] = []
-    stats = {
-        "checked": 0,
-        "queued": 0,
-        "reprocessed": 0,
-        "resumed": 0,
-        "skipped": 0,
-        "errors": 0,
-    }
+    stats = empty_record_import_stats()
     paths = sorted(directory.glob("IMP-*.json")) if directory.exists() else []
     for path in paths:
         stats["checked"] += 1

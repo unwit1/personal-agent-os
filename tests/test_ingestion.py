@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from agent_os.ingestion import (  # noqa: E402
     IngestionLedger,
     content_fingerprint,
+    empty_record_import_stats,
     processing_fingerprint,
     stable_item_id,
     stable_run_id,
@@ -54,6 +55,15 @@ class IngestionLedgerTests(unittest.TestCase):
         raw = json.loads(self.path.read_text(encoding="utf-8"))
         serialized = json.dumps(raw)
         self.assertNotIn("private source text", serialized)
+
+    def test_record_import_stats_are_fresh_and_have_the_shared_shape(self) -> None:
+        first = empty_record_import_stats()
+        first["queued"] = 1
+        second = empty_record_import_stats()
+        self.assertEqual(
+            set(second), {"checked", "queued", "reprocessed", "resumed", "skipped", "errors"}
+        )
+        self.assertEqual(second["queued"], 0)
 
     def test_duplicate_enqueue_is_a_no_op(self) -> None:
         ledger = self.ledger()

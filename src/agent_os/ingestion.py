@@ -57,6 +57,19 @@ def processing_fingerprint(content_hash: str, processor_version: str) -> str:
     return _digest("processing", content_hash, processor_version)
 
 
+def empty_record_import_stats() -> dict[str, int]:
+    """Return counters shared by resumable JSON-record imports."""
+
+    return {
+        "checked": 0,
+        "queued": 0,
+        "reprocessed": 0,
+        "resumed": 0,
+        "skipped": 0,
+        "errors": 0,
+    }
+
+
 def _primitive(value: Any) -> bool:
     return value is None or isinstance(value, (bool, int, float, str))
 
