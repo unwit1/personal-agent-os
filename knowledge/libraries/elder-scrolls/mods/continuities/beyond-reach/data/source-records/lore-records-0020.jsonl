@@ -1,0 +1,50 @@
+{"observed_form_id":"0407F295","record_type":"DIAL","editor_id":"arnimabeggarquest1introtalkTopic","title":"[Quest] Need help with anything?","origin_id":"arnima.esm:07F295","quest_origin_id":"arnima.esm:07F292","prompt":"[Quest] Need help with anything?","info_count":1}
+{"observed_form_id":"0407F297","record_type":"DIAL","editor_id":"arnimabeggarquest1accept","title":"Sure, I'll get to it for some coin.","origin_id":"arnima.esm:07F297","quest_origin_id":"arnima.esm:07F292","prompt":"Sure, I'll get to it for some coin.","info_count":1}
+{"observed_form_id":"0407F299","record_type":"DIAL","editor_id":"arnimabeggarquest1reject","title":"The guard isn't another force I want to deal with just yet.","origin_id":"arnima.esm:07F299","quest_origin_id":"arnima.esm:07F292","prompt":"The guard isn't another force I want to deal with just yet.","info_count":1}
+{"observed_form_id":"0407F29E","record_type":"DIAL","editor_id":"arnimabeggarquest1endTopic","title":"[Quest] The matter is over, with the helmet to boot.","origin_id":"arnima.esm:07F29E","quest_origin_id":"arnima.esm:07F292","prompt":"[Quest] The matter is over, with the helmet to boot.","info_count":1}
+{"observed_form_id":"0407FFB5","record_type":"DIAL","editor_id":"ArnimaOrcMainquest3FirstbornFG1t2","title":"Stay back, I was nowhere near your father. ","origin_id":"arnima.esm:07FFB5","quest_origin_id":"arnima.esm:0E70A8","prompt":"Stay back, I was nowhere near your father. ","info_count":1}
+{"observed_form_id":"0407FFB7","record_type":"DIAL","editor_id":"ArnimaOrcMainquest3FirstbornFG2Topic","origin_id":"arnima.esm:07FFB7","quest_origin_id":"arnima.esm:0E70A8","info_count":0}
+{"observed_form_id":"0407FFB8","record_type":"DIAL","editor_id":"ArnimaOrcMainquest3FirstbornFG2t2","origin_id":"arnima.esm:07FFB8","quest_origin_id":"arnima.esm:0E70A8","info_count":0}
+{"observed_form_id":"0407FFB9","record_type":"DIAL","origin_id":"arnima.esm:07FFB9","quest_origin_id":"arnima.esm:0E70A8","info_count":1}
+{"observed_form_id":"0407FFBB","record_type":"DIAL","origin_id":"arnima.esm:07FFBB","quest_origin_id":"arnima.esm:0E70A8","info_count":1}
+{"observed_form_id":"0407FFBD","record_type":"DIAL","origin_id":"arnima.esm:07FFBD","quest_origin_id":"arnima.esm:0E70A8","info_count":1}
+{"observed_form_id":"0407FFBF","record_type":"DIAL","origin_id":"arnima.esm:07FFBF","quest_origin_id":"arnima.esm:0E70A8","info_count":1}
+{"observed_form_id":"0407FFC1","record_type":"DIAL","origin_id":"arnima.esm:07FFC1","quest_origin_id":"arnima.esm:0E70A8","info_count":1}
+{"observed_form_id":"0407FFC3","record_type":"DIAL","origin_id":"arnima.esm:07FFC3","quest_origin_id":"arnima.esm:0E70A8","info_count":1}
+{"observed_form_id":"0407FFC6","record_type":"DIAL","editor_id":"ArnimaOrcMainquest3OrcSpeeker2Topic","title":"What will you be doing in Evermore?","origin_id":"arnima.esm:07FFC6","quest_origin_id":"arnima.esm:0E70A8","prompt":"What will you be doing in Evermore?","info_count":1}
+{"observed_form_id":"0407FFC7","record_type":"DIAL","editor_id":"ArnimaOrcMainquest3OrcSpeeker2t2","origin_id":"arnima.esm:07FFC7","quest_origin_id":"arnima.esm:0E70A8","info_count":0}
+{"observed_form_id":"0407FFD3","record_type":"DIAL","editor_id":"ArnimaOrcMainQuest4OrcFriendFG2Topic","origin_id":"arnima.esm:07FFD3","quest_origin_id":"arnima.esm:0E70A9","info_count":1}
+{"observed_form_id":"0407FFD4","record_type":"DIAL","editor_id":"ArnimaOrcMainQuest4OrcFriendFG2t2","title":"And what if they haven't? The Bretons don't leave loose ends. ","origin_id":"arnima.esm:07FFD4","quest_origin_id":"arnima.esm:0E70A9","prompt":"And what if they haven't? The Bretons don't leave loose ends. ","info_count":1}
+{"observed_form_id":"0407FFDA","record_type":"DIAL","editor_id":"ArnimaOrcMainQuest4FBFG1Topic","origin_id":"arnima.esm:07FFDA","quest_origin_id":"arnima.esm:0E70A9","info_count":0}
+{"observed_form_id":"0407FFDB","record_type":"DIAL","editor_id":"ArnimaOrcMainQuest4FBFG1t2","origin_id":"arnima.esm:07FFDB","quest_origin_id":"arnima.esm:0E70A9","info_count":0}
+{"observed_form_id":"0407FFDD","record_type":"DIAL","editor_id":"ArnimaOrcMainQuest4FBFG2Topic","origin_id":"arnima.esm:07FFDD","quest_origin_id":"arnima.esm:0E70A9","info_count":1}
+{"observed_form_id":"0407FFDE","record_type":"DIAL","editor_id":"ArnimaOrcMainQuest4FBFG2t2","title":"Do I have a choice?","origin_id":"arnima.esm:07FFDE","quest_origin_id":"arnima.esm:0E70A9","prompt":"Do I have a choice?","info_count":1}
+{"observed_form_id":"0407FFE0","record_type":"DIAL","editor_id":"ArnimaOrcMainQuest4NewChief1Topic","origin_id":"arnima.esm:07FFE0","quest_origin_id":"arnima.esm:0E70A9","info_count":0}
+{"observed_form_id":"0407FFE1","record_type":"DIAL","editor_id":"ArnimaOrcMainQuest4Newchief1t2","origin_id":"arnima.esm:07FFE1","quest_origin_id":"arnima.esm:0E70A9","info_count":0}
+{"observed_form_id":"04084014","record_type":"DIAL","editor_id":"ArnimaBanditDialogueHello","origin_id":"arnima.esm:084014","quest_origin_id":"arnima.esm:08400F","info_count":7}
+{"observed_form_id":"04084018","record_type":"DIAL","origin_id":"arnima.esm:084018","quest_origin_id":"arnima.esm:08400F","info_count":1}
+{"observed_form_id":"0408401A","record_type":"DIAL","origin_id":"arnima.esm:08401A","quest_origin_id":"arnima.esm:08400F","info_count":5}
+{"observed_form_id":"04084020","record_type":"DIAL","origin_id":"arnima.esm:084020","quest_origin_id":"arnima.esm:08400F","info_count":3}
+{"observed_form_id":"04084024","record_type":"DIAL","origin_id":"arnima.esm:084024","quest_origin_id":"arnima.esm:08400F","info_count":9}
+{"observed_form_id":"04084029","record_type":"DIAL","origin_id":"arnima.esm:084029","quest_origin_id":"arnima.esm:08400F","info_count":4}
+{"observed_form_id":"0408402E","record_type":"DIAL","origin_id":"arnima.esm:08402E","quest_origin_id":"arnima.esm:08400F","info_count":3}
+{"observed_form_id":"04084032","record_type":"DIAL","origin_id":"arnima.esm:084032","quest_origin_id":"arnima.esm:08400F","info_count":2}
+{"observed_form_id":"04084035","record_type":"DIAL","origin_id":"arnima.esm:084035","quest_origin_id":"arnima.esm:08400F","info_count":3}
+{"observed_form_id":"04084037","record_type":"DIAL","origin_id":"arnima.esm:084037","quest_origin_id":"arnima.esm:08400F","info_count":2}
+{"observed_form_id":"0408403A","record_type":"DIAL","origin_id":"arnima.esm:08403A","quest_origin_id":"arnima.esm:08400F","info_count":1}
+{"observed_form_id":"0408403D","record_type":"DIAL","origin_id":"arnima.esm:08403D","quest_origin_id":"arnima.esm:08400F","info_count":1}
+{"observed_form_id":"04084041","record_type":"DIAL","origin_id":"arnima.esm:084041","quest_origin_id":"arnima.esm:08403F","info_count":3}
+{"observed_form_id":"04084045","record_type":"DIAL","origin_id":"arnima.esm:084045","quest_origin_id":"arnima.esm:08403F","info_count":3}
+{"observed_form_id":"04084049","record_type":"DIAL","origin_id":"arnima.esm:084049","quest_origin_id":"arnima.esm:08403F","info_count":2}
+{"observed_form_id":"0408404B","record_type":"DIAL","origin_id":"arnima.esm:08404B","quest_origin_id":"arnima.esm:08403F","info_count":3}
+{"observed_form_id":"0408404F","record_type":"DIAL","origin_id":"arnima.esm:08404F","quest_origin_id":"arnima.esm:08403F","info_count":2}
+{"observed_form_id":"04084052","record_type":"DIAL","origin_id":"arnima.esm:084052","quest_origin_id":"arnima.esm:08403F","info_count":1}
+{"observed_form_id":"04084054","record_type":"DIAL","origin_id":"arnima.esm:084054","quest_origin_id":"arnima.esm:08403F","info_count":2}
+{"observed_form_id":"04084057","record_type":"DIAL","origin_id":"arnima.esm:084057","quest_origin_id":"arnima.esm:08403F","info_count":1}
+{"observed_form_id":"0408405A","record_type":"DIAL","origin_id":"arnima.esm:08405A","quest_origin_id":"arnima.esm:084059","info_count":7}
+{"observed_form_id":"04084060","record_type":"DIAL","origin_id":"arnima.esm:084060","quest_origin_id":"arnima.esm:084059","info_count":2}
+{"observed_form_id":"04084063","record_type":"DIAL","origin_id":"arnima.esm:084063","quest_origin_id":"arnima.esm:084059","info_count":6}
+{"observed_form_id":"04084067","record_type":"DIAL","origin_id":"arnima.esm:084067","quest_origin_id":"arnima.esm:084059","info_count":3}
+{"observed_form_id":"0408406A","record_type":"DIAL","origin_id":"arnima.esm:08406A","quest_origin_id":"arnima.esm:084059","info_count":3}
+{"observed_form_id":"0408406D","record_type":"DIAL","origin_id":"arnima.esm:08406D","quest_origin_id":"arnima.esm:084059","info_count":5}
+{"observed_form_id":"04084072","record_type":"DIAL","origin_id":"arnima.esm:084072","quest_origin_id":"arnima.esm:084059","info_count":2}
