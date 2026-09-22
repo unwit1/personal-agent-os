@@ -39,6 +39,8 @@ from .launcher import status as launcher_status
 from .launcher import verify as verify_launcher
 from .machine import describe as describe_machine
 from .machine import write_override
+from .orchestrator.cli import dispatch as dispatch_orchestrate
+from .orchestrator.cli import register as register_orchestrate
 from .mcp_server import serve
 from .maintenance import run as run_maintenance
 from .mail import health as mail_health, setup_icloud, status as mail_status, sync as mail_sync, search as mail_search
@@ -299,6 +301,7 @@ def parser() -> argparse.ArgumentParser:
     review.add_argument("--changed-file", action="append", default=[])
     review.add_argument("--tests-failed", action="store_true")
     review.add_argument("--architecture-change", action="store_true")
+    register_orchestrate(commands)
     return root
 
 
@@ -492,6 +495,8 @@ def main(argv: list[str] | None = None) -> int:
             _print({"created": str(path)})
         elif args.command == "review":
             _print(assess(args.changed_file, args.tests_failed, args.architecture_change))
+        elif args.command == "orchestrate":
+            return dispatch_orchestrate(args, _print)
     except (KeyError, OSError, ValueError) as exc:
         _print({"error": str(exc)})
         return 2

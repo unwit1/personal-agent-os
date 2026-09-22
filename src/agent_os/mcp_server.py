@@ -33,6 +33,8 @@ from .documents import cache_status_safe
 from .forms import form_issue_payload, route_form
 from .handoffs import create_handoff
 from .index import search
+from .orchestrator.service import MCP_TOOL_SCHEMAS as ORCHESTRATE_TOOL_SCHEMAS
+from .orchestrator.service import mcp_methods as orchestrate_methods
 from .mail import get_message as mail_get_message, search as mail_search, status as mail_status, sync as mail_sync
 from .improvements import capture_improvement, get_improvement, issue_payload, list_improvements, search_improvements, update_improvement
 from .profile import compact_profile as profile_retrieve, profile_status
@@ -262,6 +264,8 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     },
 }
 
+TOOL_SCHEMAS.update(ORCHESTRATE_TOOL_SCHEMAS)
+
 
 def methods() -> dict[str, Callable[..., Any]]:
     available = {
@@ -343,6 +347,7 @@ def methods() -> dict[str, Callable[..., Any]]:
             "agent.latest_handoff": latest_project_handoff,
         }
     )
+    available.update(orchestrate_methods())
     return available
 
 

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="agent-os-token" content="__AGENT_OS_TOKEN__">
+  <title>Agent OS Orchestrator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Agent OS <span>Orchestrator</span></div>
+    <label class="run-picker">Run
+      <select id="run-select"><option value="">— new task —</option></select>
+    </label>
+    <button id="providers-button" class="ghost">Providers</button>
+  </header>
+
+  <main>
+    <section id="new-task" class="panel">
+      <h2>New task</h2>
+      <label>Goal<textarea id="goal" rows="3" placeholder="Describe the coding goal once. Agent OS plans, assigns, validates, reviews and integrates."></textarea></label>
+      <div class="grid2">
+        <label>Repository path<input id="repository" placeholder="C:\path\to\repo"></label>
+        <label>or registered project<input id="project" placeholder="personal-agent-os"></label>
+      </div>
+      <label>Validators (one command per line; default: the project's registered validation commands)
+        <textarea id="validators" rows="2" placeholder="python -m unittest discover -s tests"></textarea></label>
+      <div class="row">
+        <label class="inline">Preference
+          <select id="preference"><option value="economy">economy</option><option value="balanced" selected>balanced</option><option value="quality">quality</option></select>
+        </label>
+        <label class="inline switch"><input type="checkbox" id="new-auto" checked> Auto Continue</label>
+        <span class="spacer"></span>
+        <button id="create-manual" class="ghost">Create only</button>
+        <button id="start-recommended" class="primary">Start Recommended</button>
+      </div>
+    </section>
+
+    <section id="run" class="panel hidden">
+      <div class="run-head">
+        <div>
+          <div class="run-goal" id="run-goal"></div>
+          <div class="muted" id="run-meta"></div>
+        </div>
+        <span class="badge" id="run-state">—</span>
+      </div>
+      <div class="progress"><div id="progress-bar"></div></div>
+      <div class="muted" id="run-reason"></div>
+      <div class="row controls">
+        <label class="inline switch"><input type="checkbox" id="auto-toggle"> Auto Continue</label>
+        <button data-action="drive" class="primary">Drive</button>
+        <button data-action="step" class="ghost">Step</button>
+        <button data-action="pause">Pause</button>
+        <button data-action="resume">Resume</button>
+        <button data-action="stop" class="danger">Stop</button>
+        <span class="spacer"></span>
+        <span class="muted" id="driver"></span>
+      </div>
+      <details class="override">
+        <summary>Provider / model / effort override (applies to new launches; never edits manifests)</summary>
+        <div class="row">
+          <select id="ov-scope"><option value="run">whole run</option><option value="role:implementer">role: implementer</option><option value="role:reviewer">role: reviewer</option><option value="role:planner">role: planner</option><option value="role:repairer">role: repairer</option></select>
+          <select id="ov-provider"><option value="">(recommended provider)</option></select>
+          <input id="ov-model" placeholder="model (optional)">
+          <select id="ov-effort"><option value="">(stage effort)</option><option>none</option><option>low</option><option>medium</option><option>high</option></select>
+          <button id="ov-apply">Apply</button>
+          <button id="ov-clear" class="ghost">Clear</button>
+        </div>
+      </details>
+    </section>
+
+    <section id="gates" class="panel hidden">
+      <h2>Approval required</h2>
+      <div id="gate-list"></div>
+    </section>
+
+    <section id="agents" class="panel hidden">
+      <h2>Agents &amp; stages</h2>
+      <div id="agent-cards" class="cards"></div>
+    </section>
+
+    <div class="split">
+      <section id="findings" class="panel hidden">
+        <h2>Cross-review findings</h2>
+        <table><thead><tr><th>Node</th><th>Sev.</th><th>Path</th><th>Finding</th><th>Disposition</th></tr></thead><tbody id="finding-rows"></tbody></table>
+      </section>
+      <section id="final" class="panel hidden">
+        <h2>Validation &amp; integration</h2>
+        <div id="final-body"></div>
+      </section>
+    </div>
+
+    <section id="events" class="panel hidden">
+      <h2>Event log</h2>
+      <ol id="event-log"></ol>
+    </section>
+  </main>
+
+  <dialog id="providers-dialog">
+    <h2>Providers</h2>
+    <pre id="providers-body"></pre>
+    <div class="row"><button id="providers-suggest" class="ghost">Probe installed CLIs</button><button id="providers-write" class="ghost">Add missing to registry</button><span class="spacer"></span><button id="providers-close">Close</button></div>
+  </dialog>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="app.js"></script>
+</body>
+</html>
