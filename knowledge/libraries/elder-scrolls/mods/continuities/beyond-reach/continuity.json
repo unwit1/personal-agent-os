@@ -1,0 +1,60 @@
+{
+  "continuity_id": "tes.mod.beyond-reach",
+  "name": "Beyond Reach",
+  "universe": "The Elder Scrolls",
+  "kind": "mod_continuity_overlay",
+  "status": "source_record_ingestion_complete_indexing_in_progress",
+  "canon_policy": {
+    "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
+    "default_claim_scope": "tes.mod.beyond-reach",
+    "may_reference_base_tes_lore": true,
+    "conflicts_with_base": "retain_both_with_provenance"
+  },
+  "primary_source": {
+    "filename": "arnima.esm",
+    "sha256": null,
+    "sha256_status": "not_recorded_in_current_repository_artifacts",
+    "source_type": "user_provided_skyrim_plugin",
+    "ingested_at": "2026-09-21"
+  },
+  "extracted_counts": {
+    "source_record_files": 68,
+    "source_records_total": 3366,
+    "quests": 196,
+    "dialogue_topics": 3170,
+    "explicit_lore_dialogue_topics": 102
+  },
+  "structured_layers": {
+    "source_qust_dial_records": "complete",
+    "quest_catalog": "complete_196_records",
+    "explicit_lore_topic_catalog": "complete_102_records",
+    "main_quest_structure": "initial_complete_from_QUST",
+    "orc_main_quest_structure": "initial_complete_from_QUST",
+    "lore_topic_retrieval_map": "initial_complete_from_explicit_lore_prompts",
+    "dialogue_info_response_text": "not_yet_ingested",
+    "books_and_notes": "not_yet_ingested",
+    "messages": "not_yet_ingested",
+    "actors_and_speakers": "not_yet_ingested",
+    "locations": "not_yet_ingested",
+    "artifacts": "not_yet_ingested",
+    "claims": "not_yet_ingested",
+    "interpretive_analysis": "not_yet_complete"
+  },
+  "data_integrity": {
+    "jsonl_validation": "all currently indexed source-record files used by the lore pass parse successfully after repair",
+    "repaired_files": [
+      "data/source-records/lore-records-0057.jsonl",
+      "data/source-records/lore-records-0063.jsonl",
+      "data/source-records/lore-records-0064.jsonl"
+    ]
+  },
+  "next_ingestion_steps": [
+    "ingest INFO response text with speaker and condition provenance",
+    "extract and preserve BOOK/NOTE full text",
+    "extract MESG and other player-facing textual records",
+    "resolve dialogue speakers and quest/scene context",
+    "build character, faction, location, artifact, and concept dossiers",
+    "promote evidence-backed propositions into continuity-scoped claims",
+    "build retrieval tests and a final completeness audit"
+  ]
+}
