@@ -229,6 +229,34 @@ class DelegatedTaskTests(ClaimFixture):
             coordination.complete_task(task_id, "beta", "synthetic pass", path=self.registry)
         self.assertEqual(coordination.list_tasks("demo", "in_progress", self.registry)[0]["task_id"], task_id)
 
+    def test_gated_completion_rejects_non_independent_approved_reviews(self) -> None:
+        created = coordination.delegate(
+            "demo", "gated-identity", "Review-gated fixture task", "alpha", assignee="beta",
+            review_required=True, path=self.registry,
+        )
+        task_id = created["task"]["task_id"]
+        coordination.claim_task(task_id, "beta", path=self.registry)
+
+        assigned_worker_review = coordination.request_review(
+            "demo", "assigned-worker-review", "alpha", task_id=task_id, reviewer="beta", path=self.registry,
+        )
+        coordination.submit_review(
+            assigned_worker_review["review"]["review_id"], "beta", "approved", "synthetic approval by worker",
+            path=self.registry,
+        )
+        with self.assertRaisesRegex(ValueError, "approved independent peer review"):
+            coordination.complete_task(task_id, "beta", "synthetic pass", path=self.registry)
+
+        unrelated_requester_review = coordination.request_review(
+            "demo", "unrelated-requester-review", "delta", task_id=task_id, reviewer="gamma", path=self.registry,
+        )
+        coordination.submit_review(
+            unrelated_requester_review["review"]["review_id"], "gamma", "approved", "synthetic approval by unrelated requester",
+            path=self.registry,
+        )
+        with self.assertRaisesRegex(ValueError, "approved independent peer review"):
+            coordination.complete_task(task_id, "beta", "synthetic pass", path=self.registry)
+
 
 class PeerReviewTests(ClaimFixture):
     def test_review_request_is_idempotent_and_requires_one_link(self) -> None:

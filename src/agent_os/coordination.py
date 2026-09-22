@@ -481,7 +481,10 @@ def complete_task(
     if task.get("review_required"):
         approved = [
             review for review in _reviews(data)
-            if review.get("task_id") == task_id and review.get("status") == "approved"
+            if review.get("task_id") == task_id
+            and review.get("status") == "approved"
+            and review.get("requester") == task.get("requester")
+            and review.get("reviewer") not in {task.get("requester"), task.get("assignee")}
         ]
         if not approved:
             raise ValueError("delegated task requires an approved independent peer review")

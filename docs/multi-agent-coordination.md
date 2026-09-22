@@ -136,6 +136,8 @@ persists the independent verdict and validation evidence.
 For a review-gated task, `approved` is the only completion-enabling verdict;
 `changes_requested` and `blocked` leave the task in progress. Review records
 remain linked to the stable task ID and are not replaced by task completion.
+The approval must be requested by the delegated task's requester and submitted
+by an agent who is neither that requester nor the assigned worker.
 
 ## Independent peer review
 
