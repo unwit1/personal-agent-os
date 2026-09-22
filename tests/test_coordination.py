@@ -158,6 +158,23 @@ class DelegatedTaskTests(ClaimFixture):
         self.assertEqual(first["task"]["task_id"], second["task"]["task_id"])
         self.assertEqual(len(coordination.list_tasks("demo", path=self.registry)), 1)
 
+    def test_review_gate_is_immutable_across_delegation_retries(self) -> None:
+        normal = coordination.delegate("demo", "gate-normal", "Normal fixture", "alpha", path=self.registry)
+        with self.assertRaisesRegex(ValueError, "review_required cannot change"):
+            coordination.delegate(
+                "demo", "gate-normal", "Normal fixture", "alpha", review_required=True, path=self.registry,
+            )
+        self.assertFalse(normal["task"]["review_required"])
+
+        gated = coordination.delegate(
+            "demo", "gate-enabled", "Gated fixture", "alpha", review_required=True, path=self.registry,
+        )
+        with self.assertRaisesRegex(ValueError, "review_required cannot change"):
+            coordination.delegate(
+                "demo", "gate-enabled", "Gated fixture", "alpha", review_required=False, path=self.registry,
+            )
+        self.assertTrue(gated["task"]["review_required"])
+
     def test_dependencies_block_claim_until_completed(self) -> None:
         prerequisite = coordination.delegate("demo", "prepare", "Prepare fixture", "alpha", path=self.registry)
         dependent = coordination.delegate(

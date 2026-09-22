@@ -421,6 +421,8 @@ def delegate(
     data.setdefault("tasks", [])
     existing = next((item for item in data["tasks"] if item.get("task_id") == task_id), None)
     if existing is not None:
+        if bool(existing.get("review_required", False)) != review_required:
+            raise ValueError("review_required cannot change for an existing delegated task")
         return {"created": False, "idempotent": True, "task": existing}
     dependencies = _task_dependencies(depends_on)
     if _dependency_cycle(data, task_id, dependencies):

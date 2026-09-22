@@ -130,7 +130,9 @@ dependency cycles are rejected at delegation time, and unknown dependencies
 remain resumable blockers until their tasks exist and complete. An already
 `in_progress` task returns an idempotent no-op when retried by its assignee;
 another agent cannot take it over. Completion is limited to the assigned agent,
-and non-empty validation evidence is required. Task
+and non-empty validation evidence is required. The opt-in `review_required`
+gate is immutable for an existing task; a retry that changes it is rejected.
+Task
 records contain bounded summaries, paths, IDs, and validation metadata; they do
 not carry prompts, transcripts, documents, or secrets. The queue is advisory
 and machine-local like claims, but it gives agents a resumable handoff instead
