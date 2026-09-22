@@ -114,3 +114,22 @@ WRLD 0342AF9C — **Frozen Abyss** contains:
 Placement is hard implementation evidence for where an object is encountered.
 
 It does not automatically prove every piece of lore in the same cell is causally related. Location clustering is a retrieval and context signal, not permission to merge separate myths.
+
+## Placement frontier closure
+
+The high-value placement pass now covers the locations needed to answer the active lore questions in this ESM version, including:
+- main-quest Arcana/Mural/Magnus-fire objects;
+- Old City of Chains / GC9;
+- Dragon's Cradle;
+- Ysgrim's Seal;
+- Frozen Tomb;
+- Oracle Iridescent's Workshop;
+- World-Eater's-Waking;
+- End of Radiance;
+- Harakk and other major Insight sites.
+
+No broad second sweep is required for ingestion completeness.
+
+Further spatial work should be **question-driven only**—for example, if an exact distance, visual composition, model, or neighboring object is needed to test a specific hypothesis.
+
+Co-location remains context evidence, not automatic causal identity.

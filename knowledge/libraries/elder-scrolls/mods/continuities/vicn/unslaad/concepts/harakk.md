@@ -70,3 +70,22 @@ Do not assume from UNSLAAD alone that Harakk is:
 - one star.
 
 Cross-VICN evidence from DAc0da adds a stellar and geographic/route dimension, but those meanings should remain source-aware.
+
+## Ontology closure
+
+Cross-VICN work now shows that **Harakk** is intentionally multivalent rather than a category that must be reduced to one noun.
+
+UNSLAAD directly supports:
+- sailors;
+- warriors/equipment;
+- a wreck/site;
+- frozen-sea/Snow-Whale memory;
+- mythic prayer language.
+
+DAc0da independently adds:
+- route/geographic use;
+- explicit twin-star language.
+
+The safe parent model is therefore a **shared Harakk cultural/mythic node with source-specific meanings**.
+
+Do not keep "is Harakk a person, ship, tribe, city, or star?" as a mandatory unresolved task. The corpus supports name reuse across categories; a single ontology is not required for ingestion completeness.

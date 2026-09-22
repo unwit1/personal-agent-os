@@ -31,3 +31,15 @@ UNSLAAD's inclusion/placement of these fragments is valid evidence for what the 
 The underlying prose/concept should retain its apocryphal/developer-text provenance rather than being attributed to Vicn.
 
 Future work can compare where the Insight objects are placed and what nearby quests/characters make of KINMUNE, but placement alone should not silently canonize the external text.
+
+## Provenance closure
+
+The source distinction is sufficiently resolved for Lorekeeper:
+
+- **external layer:** ANON, ANU, ANUI-EL / KINMUNE material;
+- **UNSLAAD layer:** two Insight records, their placement, and their relationship to Oracle Iridescent/Ayrenn staging;
+- **cross-VICN layer:** Oracle Iridescent recurrence where independently supported.
+
+Do not treat the copied KINMUNE wording as Vicn-authored prose. Do treat its deliberate placement and surrounding quest/object relationships as UNSLAAD-authored interpretation.
+
+This item no longer belongs in the unresolved provenance queue.

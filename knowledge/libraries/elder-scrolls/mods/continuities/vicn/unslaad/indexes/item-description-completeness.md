@@ -77,3 +77,9 @@ Future item work should focus on:
 - cross-source provenance
 
 rather than another general description scan.
+
+## Final DESC status
+
+**Complete:** the direct ARMO/WEAP description scan has no remaining unknown records for this ESM version.
+
+Non-DESC mechanics such as scripts, keywords, perks, models, and ownership are separate evidence layers and are not a missing-description backlog.

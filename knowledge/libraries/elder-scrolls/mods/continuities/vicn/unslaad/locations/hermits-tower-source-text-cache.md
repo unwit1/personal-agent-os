@@ -55,3 +55,16 @@ The shared placement does not make all three texts equal in source status:
 - Short Muatra = UNSLAAD item implementation.
 
 Lorekeeper should retrieve them together for UNSLAAD interpretation while preserving those provenance differences.
+
+## Source-cluster closure
+
+The Hermit's Tower cluster now has a complete provenance split for its major text/relic components:
+
+- Sermon 37 — official ESO reuse;
+- Sermon 0 — unofficial Douglas Goodall developer/forum reuse;
+- Vivec and Molag Bal — exact external provenance unresolved after repeat verification;
+- Short Muatra — UNSLAAD item implementation.
+
+The unresolved origin of the parody is an accepted provenance state, not a missing-ingestion failure.
+
+For interpretation, retrieve the cluster together; for authorship, keep the four source classes separate.

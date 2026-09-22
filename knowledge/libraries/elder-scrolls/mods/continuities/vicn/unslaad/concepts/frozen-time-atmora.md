@@ -55,3 +55,24 @@ They are linked retrieval topics, not yet proven identical mechanisms.
 Four Atmora Study tablets in **Frozen Cave** add a material research layer: refugee corpses, soft ice extracted from a pregnant corpse, luminescent larvae, and a creeping Atmoran ice seal.
 
 This makes frozen Atmora a material/research phenomenon as well as a mythic one. Its exact relationship to Ulliss's body, ice trees, and Dragon's Cradle dolls remains unresolved.
+
+## Causal-model closure
+
+The frozen-Atmora corpus is now complete enough to distinguish **phenomenon** from **cause**.
+
+High-confidence recurring phenomenon:
+- time ceases or arrests;
+- water/ice and death become static;
+- memory is repeatedly described through frozen-flow imagery;
+- thaw/warmth is associated with release or hope.
+
+Competing attributed causal models include:
+- the sleeping dragon;
+- loss of warmth;
+- ice/material conditions;
+- Orkey/death framing;
+- memory/historical arrest.
+
+No single source neutralizes the others. Lorekeeper should therefore store **frozen-time Atmora** as a resolved phenomenon with intentionally plural/contested explanations.
+
+The unresolved relation between Atmora Study material, Ulliss, ice trees, and Dragon's Cradle dolls remains comparison-only unless a direct record links them.

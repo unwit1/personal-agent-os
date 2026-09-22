@@ -51,3 +51,9 @@ They may still orchestrate movement, packages, animation, conditions, or scripts
 At the SCEN/DIAL layer there is **no hidden scene-dialogue backlog** in the supplied ESM version.
 
 Future SCEN work is therefore technical/narrative-orchestration analysis rather than additional dialogue discovery.
+
+## Final scene status
+
+**Complete:** all 59 SCEN records are accounted for at the dialogue-discovery layer.
+
+No additional SCEN transcript ingestion is required for UNSLAAD 3.0.6. Future work on the six non-dialogue scenes would be optional orchestration/script analysis only.

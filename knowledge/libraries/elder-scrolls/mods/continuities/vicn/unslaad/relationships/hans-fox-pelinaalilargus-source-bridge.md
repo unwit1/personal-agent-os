@@ -55,3 +55,14 @@ Therefore the Spear is a related Fox relic, not a directly evidenced carried wea
 The external text itself is apocryphal/unofficial source material.
 
 UNSLAAD's reuse of Hans/Pelinaalilargus is valid VICN continuity evidence, but it does not make the Shezarrine interpretation official Bethesda/ZeniMax canon.
+
+## Provenance closure
+
+The rare **Hans the Fox ↔ Pelinaalilargus** pairing is sufficiently source-resolved for this ingestion pass.
+
+Classification:
+- external apocryphal substrate supplies the rare name-pair tradition;
+- UNSLAAD supplies its own Herkel dialogue, dragon encounter, Shout/Voice implementation, and related Fox relic staging;
+- the Spear of the Fox remains related thematic/item evidence, not a directly carried Pelinaalilargus weapon.
+
+This bridge should now be treated as a resolved source-adaptation relationship rather than an open provenance question.

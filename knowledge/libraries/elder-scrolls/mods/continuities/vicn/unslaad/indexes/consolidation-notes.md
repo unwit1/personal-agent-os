@@ -80,3 +80,16 @@ Prefer unresolved high-value work that adds new evidence rather than repeating t
 3. selected alias/script-property resolution where identity transitions are still uncertain;
 4. deeper placement analysis only when it can resolve a live ambiguity.
 
+## Final consolidation status
+
+**No active UNSLAAD consolidation backlog remains for the supplied 3.0.6 ESM.**
+
+The previously listed frontier items have been closed as follows:
+- provenance: classified, including intentional unknown-provenance cases;
+- reliability/contradictions: indexed;
+- alias/identity transitions: resolved where implementation evidence exists and explicitly bounded where it does not;
+- placement analysis: broad high-value sweep complete; further work is question-driven only;
+- cross-VICN seeds: promoted, source-scoped, or rejected as insufficient;
+- retrieval: compact map in place.
+
+New work should be triggered by **new source evidence or a concrete research question**, not by re-running general ingestion.

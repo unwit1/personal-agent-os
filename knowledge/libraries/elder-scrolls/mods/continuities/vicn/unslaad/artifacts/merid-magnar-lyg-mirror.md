@@ -55,3 +55,20 @@ Unresolved:
 The Final Journey's quest VMAD includes properties named **DoorLyg**, **Alias_IceMirrorMarker**, **Alias_LygMidMarker**, and **Alias_LygEndMarker**, alongside the ice-seal properties.
 
 This is direct implementation evidence that the Lyg door and ice-mirror route are one deliberate quest mechanism.
+
+## Identity closure
+
+The quest mirror has three directly supported properties:
+
+1. Herkel calls it an **imitation of Magnar**.
+2. Herkel says it is made from polished **Merid-Nunda essence**.
+3. VMAD and quest objectives establish it as the operational **Lyg transit mirror** beneath the ice seal.
+
+The separate **Merid's water mirror** Insight is therefore a related mirror tradition, not a proven second name for this exact object.
+
+For retrieval, merge the concepts but not the object identities:
+- `quest Lyg mirror` = resolved implementation object/route;
+- `Merid's water mirror` = separate Insight claim;
+- `Magnar replaced by mirrors` = mythic tradition.
+
+No additional object-identity claim should be made without a direct record link.

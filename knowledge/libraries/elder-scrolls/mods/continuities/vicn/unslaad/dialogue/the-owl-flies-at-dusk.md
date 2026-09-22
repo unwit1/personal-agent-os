@@ -84,3 +84,25 @@ GLENMORIL already contains:
 - engineered repetition and Owl/Jhunal dream scenarios.
 
 UNSLAAD independently reuses the same distinctive conceptual vocabulary in the Gray Owl arc. This is strong evidence for deliberate continuity rather than generic TES overlap.
+
+## Alias/state closure
+
+The quest's explicit aliases distinguish:
+- Black Owl;
+- Gray Owl;
+- Ja'cobee talking activator;
+
+while the broader corpus separately contains Jhunal-the-Gray forms linked narratively to the Gray Owl identity.
+
+Mq07 VMAD further ties the aliases to:
+- Mural trigger;
+- Cradle;
+- ice-doll/future path;
+- soul-fire;
+- reveal/interference/erosion mechanics.
+
+This resolves the quest-state graph without requiring a one-body identity merge. The safest reading remains:
+
+**Gray Owl/Jhunal = linked narrative identity expressed through multiple representations; Black Owl = separately aliased Owl actor unless a source explicitly merges them.**
+
+The dream/wish distinction and "dream without a dreamer" claims remain attributed dialogue, not implementation facts.

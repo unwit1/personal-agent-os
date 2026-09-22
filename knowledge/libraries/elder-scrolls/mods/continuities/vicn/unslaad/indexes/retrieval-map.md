@@ -55,8 +55,8 @@ Primary:
 
 Supporting:
 - `dialogue/boss-rush-jhunal-confession.md`
-- parent VICN `relationships/jhunal-identity-matrix.md`
-- parent VICN `relationships/jhunal-saarthal-owls-thread.md`
+- parent VICN `../../relationships/jhunal-identity-matrix.md`
+- parent VICN `../../relationships/jhunal-saarthal-owls-thread.md`
 - `technical/owl-interference-reveal.md`
 
 ## Austella
@@ -113,8 +113,8 @@ Primary:
 - `locations/old-city-of-chains.md`
 
 Parent VICN:
-- Lyg relationship thread
-- GC9/LYG bridge
+- `../../relationships/lyg-thread.md`
+- `../../relationships/ghost-choir-9-lyg-bridge.md`
 
 ## Radiance / Mnemo-Li / memory
 - `concepts/name-and-radiance.md`
@@ -124,7 +124,7 @@ Parent VICN:
 - `locations/end-of-radiance.md`
 
 Parent VICN:
-- Radiance/Mnemo-Li/memory thread
+- `../../relationships/radiance-mnemo-li-memory-thread.md`
 
 ## Frozen Atmora / time
 - `concepts/frozen-time-atmora.md`
@@ -362,8 +362,8 @@ Indexes:
 
 # Cross-VICN priority threads
 
-- **Atmora / Saarthal / Night of Tears** — parent `relationships/atmora-saarthal-night-of-tears-thread.md`
-- **Jhunal identity matrix** — parent `relationships/jhunal-identity-matrix.md`
+- **Atmora / Saarthal / Night of Tears** — parent `../../relationships/atmora-saarthal-night-of-tears-thread.md`
+- **Jhunal identity matrix** — parent `../../relationships/jhunal-identity-matrix.md`
 
 Prefer parent VICN relationship pages when the question spans works:
 
@@ -374,12 +374,12 @@ Prefer parent VICN relationship pages when the question spans works:
 - Jills
 - Jhunal / Saarthal / Owls
 - Chick Trader / Anequina
-- Arkved / Oneiromancer — parent `relationships/arkved-oneiromancer-thread.md`
-- Ja'cobee / Aisha / Ulliss — parent `relationships/jacobee-aisha-ulliss-thread.md`
-- Orlando the Knowledgeable — parent `relationships/orlando-the-knowledgeable-thread.md`
-- Laza / Owls / dragon experiments — parent `relationships/laza-owls-dragon-experiments.md`
-- Loveletter From the Fifth Era — parent `relationships/loveletter-fifth-era-thread.md`
-- Dream Without a Dreamer — parent `relationships/dream-without-a-dreamer-thread.md`
+- Arkved / Oneiromancer — parent `../../relationships/arkved-oneiromancer-thread.md`
+- Ja'cobee / Aisha / Ulliss — parent `../../relationships/jacobee-aisha-ulliss-thread.md`
+- Orlando the Knowledgeable — parent `../../relationships/orlando-the-knowledgeable-thread.md`
+- Laza / Owls / dragon experiments — parent `../../relationships/laza-owls-dragon-experiments.md`
+- Loveletter From the Fifth Era — parent `../../relationships/loveletter-fifth-era-thread.md`
+- Dream Without a Dreamer — parent `../../relationships/dream-without-a-dreamer-thread.md`
 - KINMUNE provenance
 - Elder Wood — parent `../../relationships/elder-wood-thread.md`
 - Khemkel / Wooden Idol — parent `../../relationships/khemkel-wooden-idol-thread.md`
@@ -420,3 +420,13 @@ High-risk topics include:
 - frozen-Atmora causal explanations.
 
 For these, retrieve one direct source page plus one structural or provenance page before synthesizing.
+
+## Completion routing note
+
+This map is the canonical entry point for the **completed UNSLAAD 3.0.6 ingestion**.
+
+Do not restart broad scans by default. Expand only when:
+- the requested answer needs raw wording;
+- a new source/version has been added;
+- a specific ambiguity requires model/script/placement inspection;
+- or a new cross-VICN match appears.

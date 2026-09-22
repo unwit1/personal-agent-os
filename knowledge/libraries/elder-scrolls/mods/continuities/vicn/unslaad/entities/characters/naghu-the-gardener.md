@@ -25,3 +25,17 @@ He remembers Ulliss visiting and playing there as a child.
 ## Evidence boundary
 
 Naghu's statements establish the local gardening/ecological rules used by UNSLAAD. The unspecified authority, date, and reason behind Austella's confinement remain unresolved.
+
+## Completion boundary
+
+Naghu's lore-bearing role is fully covered for the current ESM:
+
+- caretaker relationship to Austella's residence;
+- ice-tree ecology;
+- correct destruction method;
+- repeatable garden/forest maintenance;
+- recollection of Ulliss as a child.
+
+The authority that restricts Austella, the exact date, and the reason for confinement are not named in Naghu's dialogue and are not resolved by the current indexed implementation evidence.
+
+Those details should remain source-local unknowns rather than active ingestion tasks.
