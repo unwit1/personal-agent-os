@@ -10,7 +10,7 @@ import copy
 import re
 from typing import Any
 
-from ..capabilities import CAPABILITY_CLASSES, EFFORTS
+from ..capabilities import CAPABILITY_CLASSES, EFFORTS, next_class
 from ..timestamps import utc_now_iso as now
 
 
@@ -96,12 +96,22 @@ PREFERENCES = ("economy", "balanced", "quality")
 PLANNING_MODES = ("auto", "single", "explicit")
 FINAL_INTEGRATION_MODES = ("branch", "merge_to_base")
 
+# Commands a planner (a model) may propose as a validator or a deterministic
+# step. Anything else must come from the caller or the project's canonical
+# validation_commands. Matched against the whole command; shell metacharacters
+# are never allowed, and matching commands run without a shell.
+DEFAULT_APPROVED_COMMANDS = [
+    r"python -m unittest( [A-Za-z0-9_./-]+)*( -v)?",
+    r"python -m pytest( [A-Za-z0-9_./:\[\]-]+)*( -q| -x)*",
+    r"python agent\.py validate",
+]
+
 DEFAULT_POLICY: dict[str, Any] = {
     "auto_continue": False,
-    "max_parallel_editors": 2,
+    "max_parallel_editors": 6,
     "require_isolated_worktrees": True,
     "require_independent_review_for_model_edits": True,
-    "require_distinct_review_provider": False,
+    "require_distinct_review_provider": True,
     "validation_required_before_integration": True,
     "provider_failover": True,
     "max_stage_retries": 2,
@@ -112,7 +122,10 @@ DEFAULT_POLICY: dict[str, Any] = {
     "approval_gates": list(APPROVAL_GATES),
     "preference": "balanced",
     "planning": "auto",
-    "max_planned_tasks": 8,
+    "max_planned_tasks": 16,
+    "planner_capability_class": "balanced",
+    "planner_effort": "high",
+    "approved_commands": list(DEFAULT_APPROVED_COMMANDS),
     "final_integration": "branch",
     "max_launches": 40,
     "poll_interval_seconds": 2.0,
@@ -193,6 +206,18 @@ def _check_policy(policy: dict[str, Any]) -> None:
         raise PolicyError(f"planning must be one of {PLANNING_MODES}")
     if policy["final_integration"] not in FINAL_INTEGRATION_MODES:
         raise PolicyError(f"final_integration must be one of {FINAL_INTEGRATION_MODES}")
+    if policy["planner_capability_class"] not in CAPABILITY_CLASSES or policy["planner_capability_class"] == "deterministic":
+        raise PolicyError("planner_capability_class must be a model capability class")
+    if policy["planner_effort"] not in EFFORTS:
+        raise PolicyError(f"planner_effort must be one of {EFFORTS}")
+    approved = policy["approved_commands"]
+    if not isinstance(approved, list) or any(not isinstance(item, str) for item in approved):
+        raise PolicyError("approved_commands must be a list of regular expressions")
+    for pattern in approved:
+        try:
+            re.compile(pattern)
+        except re.error as exc:
+            raise PolicyError(f"approved_commands: invalid pattern {pattern!r}: {exc}") from exc
     severities = policy["material_severities"]
     if not isinstance(severities, list) or any(item not in SEVERITIES for item in severities):
         raise PolicyError("material_severities must list known severities")
@@ -237,6 +262,7 @@ def new_node(
     context_budget: int = 1200,
     subject: str | None = None,
     origin: str = "plan",
+    ladder: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     check_identifier(node_id, "node id")
     if not str(goal or "").strip():
@@ -263,6 +289,7 @@ def new_node(
             raise PlanError(f"node {node_id}: approval_gate.kind must be one of {APPROVAL_GATES}")
     if not isinstance(context_budget, int) or context_budget < 250:
         raise PlanError(f"node {node_id}: context_budget must be an integer >= 250")
+    rungs = check_ladder(node_id, ladder, capability_class, effort) if ladder else default_ladder(capability_class, effort, execution_path)
     stamp = now()
     return {
         "id": node_id,
@@ -276,6 +303,9 @@ def new_node(
         "capability_class": capability_class,
         "requested_capability_class": capability_class,
         "effort": effort,
+        "requested_effort": effort,
+        "ladder": rungs,
+        "ladder_step": 0,
         "execution_path": execution_path,
         "command": command,
         "validators": list(validators or []),
@@ -304,6 +334,44 @@ def new_node(
         "updated_at": stamp,
         "completed_at": None,
     }
+
+
+def default_ladder(capability_class: str, effort: str, execution_path: str = "model") -> list[dict[str, str]]:
+    """Cheapest-first escalation plan: more effort on the same model before a
+    stronger model, then one class at a time."""
+    if execution_path != "model" or capability_class == "deterministic":
+        return []
+    rungs = [{"capability_class": capability_class, "effort": effort}]
+    if capability_class in {"fast", "balanced"} and effort in {"none", "low", "medium"}:
+        rungs.append({"capability_class": capability_class, "effort": "high"})
+    current = capability_class
+    while True:
+        promoted = next_class(current)
+        if promoted is None:
+            break
+        rungs.append({"capability_class": promoted, "effort": "high" if promoted == "frontier" else "medium"})
+        current = promoted
+    return rungs
+
+
+def check_ladder(node_id: str, ladder: Any, capability_class: str, effort: str) -> list[dict[str, str]]:
+    """Validate a planned ladder. Its first rung is the node's own class/effort."""
+    if not isinstance(ladder, list) or not ladder:
+        raise PlanError(f"node {node_id}: ladder must be a non-empty list")
+    rungs = []
+    for rung in ladder[:6]:
+        if not isinstance(rung, dict):
+            raise PlanError(f"node {node_id}: each ladder rung must be an object")
+        rung_class = rung.get("capability_class")
+        rung_effort = rung.get("effort", "medium")
+        if rung_class not in CAPABILITY_CLASSES or rung_class == "deterministic":
+            raise PlanError(f"node {node_id}: ladder capability_class {rung_class!r} is not a model class")
+        if rung_effort not in EFFORTS:
+            raise PlanError(f"node {node_id}: ladder effort {rung_effort!r} is unsupported")
+        rungs.append({"capability_class": rung_class, "effort": rung_effort})
+    if rungs[0] != {"capability_class": capability_class, "effort": effort}:
+        rungs.insert(0, {"capability_class": capability_class, "effort": effort})
+    return rungs
 
 
 def normalize_scope(scope: list[str] | None) -> list[str]:

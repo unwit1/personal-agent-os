@@ -48,7 +48,7 @@ from .model import (
     scopes_overlap,
 )
 from .review import MalformedReview, apply_dispositions, material, parse_review
-from .router import ProviderRegistry, select
+from .router import ProviderRegistry, load_key, select
 from .store import RunStore, pid_alive, redact
 from .validators import run_all
 from .worktrees import GitError, WorktreeManager, current_branch, head_commit, is_dirty, repository_root
@@ -187,7 +187,7 @@ class Orchestrator:
         elif run_policy["planning"] == "explicit":
             raise OrchestratorError("planning=explicit needs tasks")
         else:
-            nodes = planner.planner_plan(goal)
+            nodes = planner.planner_plan(goal, run_policy["planner_capability_class"], run_policy["planner_effort"])
             planning = "auto"
         dirty = is_dirty(repo)
         record: dict[str, Any] = {
@@ -211,6 +211,7 @@ class Orchestrator:
             "nodes": nodes,
             "order": list(nodes),
             "gates": [],
+            "worktree_layout": "short",
             "launches": 0,
             "launch_budget": run_policy["max_launches"],
             "integration": {"branch": None, "path": None, "head": None, "merged": []},
@@ -437,17 +438,27 @@ class Orchestrator:
                 self._cancel_active(record, reason="stopped by user")
                 record["control"]["stop_requested"] = False
             passed_before = _count_passed(record)
-            self._poll(record)
-            # Without Auto Continue a stage boundary is a stopping point: the
-            # tick that sees a stage pass integrates it but launches nothing.
-            boundary = not record["policy"]["auto_continue"] and _count_passed(record) > passed_before
-            dispatching = dispatch and record["control"]["started"] and not record["control"]["paused"]
-            if dispatching and not self._blocked(record):
-                self._integrate(record)
-                self._check_completion(record)
-                if not boundary and not self._open_gates(record) and record["state"] != "COMPLETE":
-                    self._dispatch(record)
-            self._derive_state(record, after_dispatch=dispatching and not boundary)
+            try:
+                self._poll(record)
+                # Without Auto Continue a stage boundary is a stopping point: the
+                # tick that sees a stage pass integrates it but launches nothing.
+                boundary = not record["policy"]["auto_continue"] and _count_passed(record) > passed_before
+                dispatching = dispatch and record["control"]["started"] and not record["control"]["paused"]
+                if dispatching and not self._blocked(record):
+                    self._integrate(record)
+                    self._check_completion(record)
+                    if not boundary and not self._open_gates(record) and record["state"] != "COMPLETE":
+                        self._dispatch(record)
+                self._derive_state(record, after_dispatch=dispatching and not boundary)
+            except Exception as exc:
+                # Whatever the tick already did (collected results, expanded a
+                # plan, launched workers) is real; persist it before failing so
+                # state.json never falls behind the event log.
+                detail = redact(f"{type(exc).__name__}: {exc}", 400)
+                self.store.append_event(run_id, "tick.error", None, detail)
+                record["state_reason"] = f"tick error: {detail}"
+                self.store.save(record)
+                raise
             self.store.save(record)
             return self.summary(record)
 
@@ -501,12 +512,16 @@ class Orchestrator:
             key = (record["run_id"], node_id)
             handle = self._handles.get(key)
             if handle is None:
-                process = node.get("process") or {}
-                if process.get("pid") and pid_alive(process.get("pid")):
-                    node["wait_reason"] = "worker from an earlier orchestrator process is still running; its outcome will be treated as interrupted"
+                handle = self._reattach(node)
+                if handle is None:
+                    process = node.get("process") or {}
+                    if process.get("pid") and pid_alive(process.get("pid")):
+                        node["wait_reason"] = "worker from an earlier orchestrator process is still running; its outcome will be treated as interrupted"
+                        continue
+                    self._fail(record, node, "interrupted", "the orchestrator restarted while this worker was running; outcome unknown, partial work kept")
                     continue
-                self._fail(record, node, "interrupted", "the orchestrator restarted while this worker was running; outcome unknown, partial work kept")
-                continue
+                self._handles[key] = handle
+                self.store.append_event(record["run_id"], "worker.reattached", node_id, f"pid {handle.pid} via {handle.provider_id}")
             adapter = self._adapter(handle.provider_id)
             status = adapter.poll(handle)
             if status.running:
@@ -519,6 +534,36 @@ class Orchestrator:
             result = adapter.collect(handle)
             self._handles.pop(key, None)
             self._finish_worker(record, node, result)
+
+    def _reattach(self, node: dict[str, Any]) -> RunningAgent | None:
+        """Rebuild a handle for a subprocess worker launched by an earlier
+        orchestrator process, so its output is collected instead of discarded.
+
+        In-process (synthetic) workers and records without an output path
+        cannot be reattached.
+        """
+        process = node.get("process") or {}
+        provider = process.get("provider") or (node.get("selection") or {}).get("provider")
+        if not provider or process.get("token") or not process.get("stdout_path"):
+            return None
+        if self.registry().get(provider) is None:
+            return None
+        try:
+            started = datetime.fromisoformat(str(process.get("started_at")))
+            elapsed = max((datetime.now(timezone.utc) - started).total_seconds(), 0.0)
+        except (TypeError, ValueError):
+            elapsed = 0.0
+        return RunningAgent(
+            provider_id=provider,
+            node_id=node["id"],
+            pid=process.get("pid"),
+            started_monotonic=time.monotonic() - elapsed,
+            started_at=str(process.get("started_at") or now()),
+            stdout_path=process["stdout_path"],
+            stderr_path=process.get("stderr_path") or process["stdout_path"],
+            result_path=process.get("result_path"),
+            display=process.get("display") or "",
+        )
 
     def _finish_worker(self, record: dict[str, Any], node: dict[str, Any], result: AgentResult) -> None:
         payload = result.as_dict()
@@ -559,14 +604,25 @@ class Orchestrator:
 
     def _finish_planner(self, record: dict[str, Any], node: dict[str, Any], structured: dict[str, Any] | None) -> None:
         try:
-            added = planner.expand(record["nodes"], node["id"], structured, record["policy"]["max_planned_tasks"])
+            added, notes = planner.expand(
+                record["nodes"],
+                node["id"],
+                structured,
+                record["policy"]["max_planned_tasks"],
+                approved_commands=record["policy"]["approved_commands"],
+                project_commands=_project_commands(record.get("project")),
+            )
         except PlanError as exc:
             self._fail(record, node, "malformed", f"planner output rejected: {exc}")
             return
+        for note in notes:
+            self.store.append_event(record["run_id"], "plan.adjusted", node["id"], note)
         for node_id in added:
             record["order"].append(node_id)
-            if not record["nodes"][node_id]["validators"]:
-                record["nodes"][node_id]["validators"] = list(record["policy"]["default_validators"])
+            planned = record["nodes"][node_id]
+            # A planned targeted test runs first; the project's full suite
+            # still guards integration.
+            planned["validators"] = [*planned["validators"], *record["policy"]["default_validators"]]
         node["state"] = "PASSED"
         node["completed_at"] = now()
         node["validation"] = {"passed": True, "declared_validators": 0, "evidence": [{"name": "plan-structure", "kind": "plan", "passed": True, "detail": f"{len(added)} task(s)"}]}
@@ -616,14 +672,16 @@ class Orchestrator:
         _push_failure(node, "validator_failed", (node.get("selection") or {}).get("provider"), detail)
         policy = record["policy"]
         if node["execution_path"] == "model" and node["escalations"] < policy["max_escalations"]:
-            promoted = next_class(node["capability_class"])
-            if promoted:
-                node["capability_class"] = promoted
+            rung = _next_rung(node)
+            if rung:
+                node["capability_class"] = rung["capability_class"]
+                node["effort"] = rung["effort"]
                 node["escalations"] += 1
                 node["state"] = "FAILED_RETRYABLE"
                 node["selection"] = None
-                node["wait_reason"] = f"validator failed; escalated to {promoted}"
-                self.store.append_event(record["run_id"], "node.escalated", node["id"], f"-> {promoted}: {detail}")
+                label = f"{rung['capability_class']}/{rung['effort']}"
+                node["wait_reason"] = f"validator failed; escalated to {label}"
+                self.store.append_event(record["run_id"], "node.escalated", node["id"], f"-> {label}: {detail}")
                 return
         node["retries"] += 1
         if node["retries"] <= policy["max_stage_retries"] and node["execution_path"] == "deterministic":
@@ -706,13 +764,14 @@ class Orchestrator:
     def _create_repair(self, record: dict[str, Any], subject: dict[str, Any], findings: list[dict[str, Any]]) -> None:
         round_number = subject["review"]["rounds"]
         repair_id = f"{subject['id']}.repair{round_number}"
+        capability, effort = _repair_class(subject, findings)
         repair = new_node(
             repair_id,
             f"Repair review findings on {subject['id']}: {subject['goal']}",
             "repairer",
             scope=subject["scope"],
-            capability_class=subject["capability_class"] if subject["capability_class"] != "deterministic" else "balanced",
-            effort=subject["effort"] if subject["effort"] != "none" else "medium",
+            capability_class=capability,
+            effort=effort,
             validators=subject["validators"],
             subject=subject["id"],
             origin="repair",
@@ -778,9 +837,9 @@ class Orchestrator:
         editors = 0
         for node in nodes.values():
             if node["state"] in ACTIVE_NODE_STATES:
-                provider = (node.get("selection") or {}).get("provider")
-                if provider:
-                    running[provider] = running.get(provider, 0) + 1
+                selection = node.get("selection") or {}
+                if selection.get("provider"):
+                    _count_running(running, selection["provider"], selection.get("capability_class"))
                 if node["role"] in {"implementer", "test_author", "repairer"}:
                     editors += 1
         for node_id in list(record["order"]):
@@ -834,7 +893,12 @@ class Orchestrator:
         integration = self._ensure_integration(record)
         if editing and node["worktree"] is None:
             generation = int(node.get("generation", 0))
-            node["worktree"] = dict(manager.create(node["id"], integration["head"], generation), owned_by=node["id"])
+            try:
+                created = manager.create(node["id"], integration["head"], generation)
+            except GitError as exc:
+                self._fail(record, node, "process_error", f"worktree creation failed: {exc}")
+                return False
+            node["worktree"] = dict(created, owned_by=node["id"])
             node["state"] = "CLAIMED"
             self.store.append_event(record["run_id"], "worktree.created", node["id"], node["worktree"]["branch"])
         if node["execution_path"] == "deterministic":
@@ -915,7 +979,7 @@ class Orchestrator:
         node["state"] = "RUNNING"
         node["wait_reason"] = None
         record["launches"] += 1
-        running[selection["provider"]] = running.get(selection["provider"], 0) + 1
+        _count_running(running, selection["provider"], selection["capability_class"])
         self._announce(record, node)
         self.store.append_event(
             record["run_id"],
@@ -1244,7 +1308,8 @@ class Orchestrator:
     # -- helpers ------------------------------------------------------------------
 
     def _manager(self, record: dict[str, Any]) -> WorktreeManager:
-        return WorktreeManager(record["repository"], self.store.worktree_root(), record["run_id"])
+        layout = record.get("worktree_layout", "legacy")
+        return WorktreeManager(record["repository"], self.store.worktree_root(layout), record["run_id"], layout)
 
     def _node(self, record: dict[str, Any], node_id: str) -> dict[str, Any]:
         node = record["nodes"].get(node_id)
@@ -1463,6 +1528,44 @@ def _project_validators(project_id: str) -> list[dict[str, Any]]:
     except Exception:
         return []
     return [{"kind": "command", "command": str(command), "name": f"project-validation-{index + 1}"} for index, command in enumerate(commands) if str(command).strip()]
+
+
+def _project_commands(project_id: str | None) -> list[str]:
+    return [validator["command"] for validator in _project_validators(project_id)] if project_id else []
+
+
+def _count_running(running: dict[str, int], provider: str, capability_class: str | None) -> None:
+    running[provider] = running.get(provider, 0) + 1
+    if capability_class:
+        key = load_key(provider, capability_class)
+        running[key] = running.get(key, 0) + 1
+
+
+def _next_rung(node: dict[str, Any]) -> dict[str, str] | None:
+    """The next step on the node's escalation ladder (cheapest-first)."""
+    ladder = node.get("ladder")
+    if ladder is None:  # records created before ladders existed
+        promoted = next_class(node["capability_class"])
+        return {"capability_class": promoted, "effort": node["effort"]} if promoted else None
+    step = int(node.get("ladder_step", 0)) + 1
+    if step >= len(ladder):
+        return None
+    node["ladder_step"] = step
+    return ladder[step]
+
+
+def _repair_class(subject: dict[str, Any], findings: list[dict[str, Any]]) -> tuple[str, str]:
+    """Downgrade repairs of minor findings to the class the task was planned
+    at; serious findings keep whatever class the task escalated to."""
+    serious = any(item["severity"] in {"critical", "high"} for item in findings)
+    source = ("capability_class", "effort") if serious else ("requested_capability_class", "requested_effort")
+    capability = subject.get(source[0]) or subject["capability_class"]
+    effort = subject.get(source[1]) or subject["effort"]
+    if capability == "deterministic":
+        capability = "balanced"
+    if effort == "none":
+        effort = "medium"
+    return capability, effort
 
 
 def _dependency_met(node: dict[str, Any] | None) -> bool:

@@ -38,6 +38,9 @@ INVALID_MODEL_PATTERN = re.compile(
 # Variables a CLI needs to find its own configuration and credentials store.
 # Anything else in the parent environment is withheld unless the provider
 # registry allows it explicitly.
+# Set for every worker: no bytecode caches in the worktree.
+WORKER_ENV = {"PYTHONDONTWRITEBYTECODE": "1"}
+
 SYSTEM_ENV_ALLOWLIST = (
     "PATH", "PATHEXT", "SYSTEMROOT", "SYSTEMDRIVE", "WINDIR", "COMSPEC", "OS",
     "HOME", "USERPROFILE", "HOMEDRIVE", "HOMEPATH", "USERNAME", "USER", "LOGNAME",
@@ -185,6 +188,7 @@ def build_env(provider_allowlist: list[str], request_allowlist: list[str], prefi
         upper = key.upper()
         if upper in wanted or any(upper.startswith(prefix) for prefix in prefixes):
             env[key] = value
+    env.update(WORKER_ENV)
     return env
 
 

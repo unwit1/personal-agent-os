@@ -10,6 +10,7 @@ never force-deletes an unmerged branch.
 
 from __future__ import annotations
 
+import hashlib
 import os
 import shutil
 import subprocess
@@ -18,6 +19,19 @@ from typing import Any
 
 
 COMMITTER = ("-c", "user.name=Agent OS Orchestrator", "-c", "user.email=agent-os@localhost")
+# Worker worktrees sit several directories below the main checkout; without
+# long-path support a deep repository file overflows MAX_PATH on Windows and
+# ``git worktree add`` fails half-way through the checkout.
+LONG_PATHS = ("-c", "core.longpaths=true")
+# Generated files a worker or validator leaves behind are never part of a
+# change: committing them would fail the editable-scope check for nothing.
+ARTIFACT_EXCLUDES = (
+    ":(exclude,glob)**/__pycache__/**",
+    ":(exclude,glob)**/*.pyc",
+    ":(exclude,glob)**/.pytest_cache/**",
+    ":(exclude,glob)**/.mypy_cache/**",
+    ":(exclude,glob)**/.ruff_cache/**",
+)
 MAX_DIFF_CHARS = 60_000
 
 
@@ -26,7 +40,7 @@ class GitError(RuntimeError):
 
 
 def git(args: list[str], cwd: Path | str, check: bool = True, identity: bool = False) -> subprocess.CompletedProcess:
-    command = ["git", *(COMMITTER if identity else ()), *args]
+    command = ["git", *LONG_PATHS, *(COMMITTER if identity else ()), *args]
     completed = subprocess.run(
         command,
         cwd=str(cwd),
@@ -63,11 +77,31 @@ def _safe_component(value: str) -> str:
     return "".join(char if char.isalnum() or char in "-_." else "-" for char in value)[:64]
 
 
+def _short_component(value: str, keep: int) -> str:
+    """A path segment of at most ``keep`` + 5 characters that stays unique."""
+    safe = _safe_component(value)
+    if len(safe) <= keep:
+        return safe
+    return f"{safe[:keep].rstrip('-_.')}-{hashlib.sha1(value.encode('utf-8')).hexdigest()[:4]}"
+
+
+# ``legacy`` keeps the original <root>/<run-id>/<node-id> layout for runs
+# created before short paths; ``short`` bounds every directory segment.
+LAYOUTS = ("legacy", "short")
+
+
 class WorktreeManager:
-    def __init__(self, repository: Path | str, root: Path | str, run_id: str) -> None:
+    def __init__(self, repository: Path | str, root: Path | str, run_id: str, layout: str = "legacy") -> None:
         self.repository = Path(repository)
-        self.root = Path(root) / _safe_component(run_id)
+        self.layout = layout if layout in LAYOUTS else "legacy"
+        if self.layout == "short":
+            self.root = Path(root) / hashlib.sha1(run_id.encode("utf-8")).hexdigest()[:8]
+        else:
+            self.root = Path(root) / _safe_component(run_id)
         self.run_id = run_id
+
+    def _node_dir(self, node_id: str) -> str:
+        return _short_component(node_id, 16) if self.layout == "short" else _safe_component(node_id)
 
     # -- naming ------------------------------------------------------------
 
@@ -77,7 +111,7 @@ class WorktreeManager:
 
     def path_for(self, node_id: str, generation: int = 0) -> Path:
         suffix = f"-g{generation}" if generation else ""
-        return self.root / f"{_safe_component(node_id)}{suffix}"
+        return self.root / f"{self._node_dir(node_id)}{suffix}"
 
     @property
     def integration_branch(self) -> str:
@@ -85,7 +119,7 @@ class WorktreeManager:
 
     @property
     def integration_path(self) -> Path:
-        return self.root / "_integration"
+        return self.root / ("_int" if self.layout == "short" else "_integration")
 
     # -- inventory -----------------------------------------------------------
 
@@ -116,10 +150,21 @@ class WorktreeManager:
             return {"path": str(path), "branch": branch, "base_commit": base, "reused": True}
         if path.exists() and any(path.iterdir()):
             raise GitError(f"refusing to reuse unregistered non-empty directory {path}")
-        if self.branch_exists(branch):
-            git(["worktree", "add", str(path), branch], self.repository)
-        else:
-            git(["worktree", "add", "-b", branch, str(path), base], self.repository)
+        created_branch = not self.branch_exists(branch)
+        try:
+            if created_branch:
+                git(["worktree", "add", "-b", branch, str(path), base], self.repository)
+            else:
+                git(["worktree", "add", str(path), branch], self.repository)
+        except GitError:
+            # A failed checkout leaves a half-written directory and, for a new
+            # branch, an empty branch; remove both so a retry starts clean.
+            git(["worktree", "prune"], self.repository, check=False)
+            if path.exists() and not self.is_registered(path):
+                shutil.rmtree(path, ignore_errors=True)
+            if created_branch and self.branch_exists(branch):
+                git(["branch", "-D", branch], self.repository, check=False)
+            raise
         return {"path": str(path), "branch": branch, "base_commit": base, "reused": False}
 
     def ensure_integration(self, base_commit: str) -> dict[str, Any]:
@@ -133,7 +178,7 @@ class WorktreeManager:
 
     def checkpoint(self, path: Path | str, message: str) -> str | None:
         """Commit everything the worker left behind. Returns the new commit or None."""
-        git(["add", "-A"], path)
+        git(["add", "-A", "--", ".", *ARTIFACT_EXCLUDES], path)
         if not git(["diff", "--cached", "--name-only"], path).stdout.strip():
             return None
         git(["commit", "--no-verify", "-m", message[:200]], path, identity=True)

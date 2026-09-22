@@ -134,8 +134,9 @@ class RunStore:
         path.mkdir(parents=True, exist_ok=True)
         return path
 
-    def worktree_root(self) -> Path:
-        return self.home / "worktrees"
+    def worktree_root(self, layout: str = "legacy") -> Path:
+        # Short layout keeps worker checkouts shallow enough for Windows paths.
+        return self.home / ("wt" if layout == "short" else "worktrees")
 
     # -- state -------------------------------------------------------------
 

@@ -20,8 +20,10 @@ from .base import (
     RunningAgent,
 )
 from .claude_code import ClaudeCodeAdapter
+from .claude_code import discover_models as _claude_code_models
 from .claude_code import suggested_provider as _claude_code_suggestion
 from .codex_cli import CodexCliAdapter
+from .codex_cli import discover_models as _codex_cli_models
 from .codex_cli import suggested_provider as _codex_cli_suggestion
 from .synthetic import SyntheticAdapter
 
@@ -38,8 +40,25 @@ SUGGESTIONS: dict[str, Callable[[str | None], dict[str, Any]]] = {
 }
 
 
+# Local, call-free model discovery per adapter: capability class -> model.
+DISCOVERY: dict[str, Callable[[], dict[str, str]]] = {
+    ClaudeCodeAdapter.adapter_id: _claude_code_models,
+    CodexCliAdapter.adapter_id: _codex_cli_models,
+}
+
+
 class UnknownAdapter(KeyError):
     pass
+
+
+def discover_models(adapter_id: str | None) -> dict[str, str]:
+    discover = DISCOVERY.get(str(adapter_id))
+    if discover is None:
+        return {}
+    try:
+        return {key: str(value) for key, value in discover().items() if value}
+    except Exception:
+        return {}
 
 
 def get_adapter(provider: dict[str, Any]) -> CodingAgentAdapter:
@@ -76,6 +95,7 @@ __all__ = [
     "ProviderStatus",
     "RunningAgent",
     "UnknownAdapter",
+    "discover_models",
     "get_adapter",
     "suggested_registry",
 ]

@@ -1,6 +1,8 @@
 # Multi-agent coding orchestrator
 
-Status: implemented (P1.2A), 2026-09-22.
+Status: implemented (P1.2A), 2026-09-22. Cost-aware routing, model discovery,
+small-batch planning, fan-out and mandatory cross-review added in P1.2B,
+2026-09-22.
 
 Submit one coding goal. Agent OS plans it, picks a provider, model and
 reasoning effort for each part, runs Claude Code and Codex CLI workers in
@@ -26,6 +28,9 @@ agent-os orchestrate gui                 # http://127.0.0.1:8765/ ; Ctrl+C stops
 # 2b. Headless: Start Recommended + Auto Continue, driven in the foreground
 agent-os orchestrate start-recommended --goal "Add retry to the mail sync" `
     --project personal-agent-os
+
+# 2c. From an agent session (MCP): orchestrate.create with start + auto_continue
+#     detaches a background driver; the call returns at once.
 ```
 
 With `--project`, the project's registered `validation_commands` become the
@@ -91,9 +96,24 @@ Plans are chosen in this order, cheapest first:
 1. **Explicit tasks** (`--tasks tasks.json`) need no model call.
 2. **`planning: single`** creates one implementer node for the whole goal.
 3. **`planning: auto`** (Start Recommended) runs a read-only planner node at
-   `balanced`/`medium`. Its structured output expands into the graph. A planner
-   can never inject a shell command (the deterministic path is caller-only) and
-   can never request `frontier`.
+   `planner_capability_class`/`planner_effort` (default `balanced`/`high`: a
+   better plan saves more tokens than it costs). The planner is told to split
+   the goal into the smallest independently verifiable batches (one concern,
+   1-3 files, disjoint scopes for parallel work, a targeted test per task) and
+   to default each task to `fast`, keeping `reasoning` for small design tasks
+   whose output `fast` tasks then implement. Up to `max_planned_tasks` (16).
+
+A planner is a model, so its proposals are checked:
+
+- A proposed **validator** or **deterministic step** is kept only if the
+  command equals one of the project's `validation_commands` or fully matches
+  a policy `approved_commands` pattern (default: `python -m unittest ...`,
+  `python -m pytest ...`, `python agent.py validate`) and has no shell
+  metacharacters. It then runs as an argument list, never through a shell.
+  Unapproved validators are dropped (a `plan.adjusted` event says so); an
+  unapproved deterministic step rejects the plan.
+- The project's default validators still run on every planned task.
+- A planner can never request `frontier` or add approval gates.
 
 A task looks like this:
 
@@ -109,11 +129,25 @@ A task looks like this:
 `execution_path: "deterministic"` together with `command` runs a local command
 in the node's worktree with no model involved.
 
+A task may carry a **ladder**: the escalation steps to take when its
+validators fail, cheapest first. Without one, the default raises effort on the
+same class before moving up a class, one class at a time:
+
+```json
+"ladder": [{"capability_class": "fast", "effort": "low"},
+           {"capability_class": "fast", "effort": "high"},
+           {"capability_class": "balanced", "effort": "medium"}]
+```
+
 ## Worktrees, scope and integration
 
 - Every editing node gets a branch `agent-os/<run>/<node>` and a worktree
-  under `.agent-local/orchestrator/worktrees/<run>/`. Two editors never share
-  a writable tree. A repair node takes over its subject's worktree, with
+  under `.agent-local/orchestrator/wt/<8-hex run hash>/<node, <=21 chars>`.
+  Paths are kept short, and every Git call enables `core.longpaths`, so deep
+  repository files do not overflow Windows `MAX_PATH` (runs created before
+  P1.2B keep the old `worktrees/<run>/` layout). A failed checkout removes its
+  half-written directory and empty branch. Two editors never share a writable
+  tree. A repair node takes over its subject's worktree, with
   explicit ownership recorded.
 - A worker's tree is branched from the **current integration head** when the
   worker launches, so a dependent task sees the work it depends on.
@@ -146,8 +180,13 @@ in the node's worktree with no model involved.
 ## Cross-review
 
 After an editing node passes validation, the orchestrator adds a reviewer node.
-The reviewer prefers a **different provider** from the author: Claude reviews
-Codex's work and Codex reviews Claude's. It runs read-only (Claude Code
+The reviewer must use a **different provider** from the author
+(`require_distinct_review_provider`, default on): Claude reviews Codex's work and
+Codex reviews Claude's. If the other provider is busy, the review waits for it.
+The reviewer checks correctness first, then **waste** (dead code, unused
+parameters, logic an existing helper covers, needless abstraction, speculative
+features), **efficiency**, and scope. Bad code that should be cut is a `medium`
+finding, which is material by default and so goes to repair. It runs read-only (Claude Code
 `--permission-mode plan`, Codex `-s read-only`) in the author's worktree and
 gets the diff in its prompt. It must return:
 
@@ -163,13 +202,17 @@ retried. An approval that lists a critical or high finding is treated as
 `changes_requested`. Material findings (policy `material_severities`) create a
 repair node in the author's worktree. The repairer marks each finding
 `fixed`, or `rejected` with a reason. The change is then revalidated and
-re-reviewed. After `max_review_rounds`, remaining material findings open an
+re-reviewed. A repair of only medium/low findings runs at the class and effort
+the task was *planned* at, even if the task had escalated; critical/high
+findings keep the escalated class. After `max_review_rounds`, remaining
+material findings open an
 `unresolved_review_findings` gate. **Review Again** requests another round for
 a validated change that has not been integrated yet.
 
-Set `require_distinct_review_provider: true` to forbid same-provider review. By
-default, a machine with only one provider still gets a separate review
-session, and the review record says `independent_provider: false`.
+A machine with only one available provider still gets a separate review
+session, and the review record says `independent_provider: false`. Set
+`require_distinct_review_provider: false` to let the router use the author's
+provider whenever it is cheaper or less busy.
 
 ## Routing: provider, model, effort
 
@@ -179,12 +222,25 @@ works as follows:
 - It applies the run's `preference`: `economy` moves one rung down (never below
   `fast`), `quality` moves one rung up.
 - It considers only providers that are enabled, pass their probe, are under
-  `max_concurrency`, are allowed for the role, and are not excluded for this
-  node after a provider failure.
-- It picks the configured model for the class. If no provider covers that
-  class, it uses the nearest *stronger* covered class, and only then a weaker
-  one.
+  `max_concurrency` and their `tier_concurrency` limit for the class, are
+  allowed for the role, and are not excluded for this node after a provider
+  failure.
+- Among those it picks the **lowest relative cost** for the class (`costs`),
+  then the **least loaded**, then registry order. With the default costs, Codex
+  (Luna) wins `fast` work, `balanced` work spreads across both providers by
+  load, and reviews go to whichever provider did not write the change.
+- If no provider *covers* the class, it uses the nearest stronger covered
+  class, and only then a weaker one. If the class is covered but busy, the node
+  waits for a slot rather than paying for a stronger class.
 - It maps effort through the provider's `effort_map`.
+
+**Model discovery.** A provider with `"discover": true` refreshes its models
+from its adapter on every registry load, without a model call: Codex reads
+the CLI's local model catalog (`~/.codex/models_cache.json`) and maps model
+families to classes (`luna` fast, `terra` balanced, `sol` reasoning, `astra`
+frontier, newest version of each), and Claude Code uses its self-updating tier
+aliases. `"pin_models": true` keeps the registry's models instead. With no
+registry file at all, the installed CLIs are probed and used directly.
 
 It never spends a model call to decide which model to launch, and every
 selection carries a one-line reason.
@@ -203,23 +259,30 @@ with these fields:
   "providers": [
     {
       "id": "claude-code", "enabled": true, "adapter": "claude_code", "executable": "claude",
+      "discover": true,
       "models": {"fast": "haiku", "balanced": "sonnet", "reasoning": "opus", "frontier": "fable"},
+      "costs": {"fast": 2, "balanced": 3, "reasoning": 6, "frontier": 10},
       "effort_map": {"none": "low", "low": "low", "medium": "medium", "high": "high"},
-      "max_concurrency": 2,
+      "max_concurrency": 3, "tier_concurrency": {"reasoning": 2, "frontier": 1},
       "options": {"permission_mode": "acceptEdits", "read_only_permission_mode": "plan"}
     },
     {
       "id": "codex", "enabled": true, "adapter": "codex_cli", "executable": "codex",
-      "models": {"fast": "<model>", "balanced": "<model>", "reasoning": "<model>", "frontier": "<model>"},
+      "discover": true,
+      "models": {"fast": "gpt-6-luna", "balanced": "gpt-5.6-terra", "reasoning": "gpt-6-sol", "frontier": "gpt-6-astra"},
+      "costs": {"fast": 1, "balanced": 3, "reasoning": 6, "frontier": 10},
       "effort_map": {"none": "low", "low": "low", "medium": "medium", "high": "high"},
-      "max_concurrency": 2,
+      "max_concurrency": 6, "tier_concurrency": {"reasoning": 2, "frontier": 1},
       "options": {"sandbox": "workspace-write", "read_only_sandbox": "read-only"}
     }
   ]
 }
 ```
 
-Values that still start with `<` are treated as unconfigured placeholders.
+`costs` are relative weights, not prices: tune them to how your plans bill
+(for example, raise Claude's `balanced` cost to push more balanced work to
+Codex). Values that still start with `<` are treated as unconfigured
+placeholders.
 Optional provider fields: `priority`, `roles`, `env_allowlist`,
 `options.allowed_tools`, and `options.persist_sessions`.
 
@@ -238,8 +301,28 @@ summary, structured result, usage and duration.
 
 Optional flags are passed only when the probed `--help` output advertises
 them. Workers receive an **allowlisted environment**: system basics plus the
-adapter's own credential prefixes and anything in `env_allowlist`. The display
-command never contains secrets.
+adapter's own credential prefixes and anything in `env_allowlist`, with
+`PYTHONDONTWRITEBYTECODE=1`. The display command never contains secrets.
+
+**Workers are kept lean.** A worker gets everything it needs in its prompt:
+- **No MCP servers.** Codex runs with every server in `~/.codex/config.toml`
+  disabled (`-c mcp_servers.<name>.enabled=false`), and Claude Code runs with
+  `--strict-mcp-config`. Set `options.keep_mcp_servers` to `true`, or (Codex)
+  to a list of server names, to keep them.
+- **No Agent OS lookups, few turns.** The prompt tells workers not to consult
+  Agent OS or memory tools, to read only the files they need, and to run their
+  validator once.
+- **Reviewers see the plan.** A reviewer is shown the run's other tasks, so it
+  does not report work that belongs to a sibling task as missing.
+- **Checkpoints skip artifacts.** `__pycache__`, `*.pyc`, and pytest, mypy and
+  ruff caches are never committed.
+
+In a live run, these changes cut uncached input by about 60%.
+
+On Windows, Codex's restricted-token sandbox refuses to run in a workspace
+nested inside `%TEMP%`. The orchestrator's default worktree location is
+fine. If a worker hits this, the adapter reports a provider failure
+(`unavailable`), and the node fails over to another provider.
 
 Adding another CLI means one module in `adapters/` plus an `ADAPTERS` entry.
 The scheduler does not change.
@@ -254,23 +337,33 @@ The scheduler does not change.
   its worktree and partial work, which is committed as a checkpoint, and is
   re-routed to an allowed alternative. Retries are bounded by
   `max_stage_retries`.
-- A **validator failure** escalates the node one capability rung, up to
-  `max_escalations`, and then marks it `FAILED_FINAL`.
+- A **validator failure** moves the node one step up its ladder (more effort
+  first, then a stronger class), up to `max_escalations`, and then marks it
+  `FAILED_FINAL`.
 - A user **Stop** cancels running workers without consuming the retry budget.
   **Resume** re-dispatches them, and their partial work is still in their
   worktrees.
 - **Restart reconciliation**: when a run is loaded by a process that did not
-  start its workers, a worker that is no longer alive is marked
-  `interrupted`, never complete. Its checkpoint and worktree are kept and it
-  is retried. A worker whose PID is still alive is left alone and reported.
-  Passed nodes are never rerun.
+  start its workers, each subprocess worker is **reattached** from its
+  persisted PID and output files: the new driver waits for it (within
+  `worker_timeout_seconds`) and then collects its result normally, so a
+  finished plan or change is not thrown away. Only a worker that cannot be
+  reattached is marked `interrupted`, never complete; its checkpoint and
+  worktree are kept and it is retried. Passed nodes are never rerun.
+- **Tick errors**: if anything inside a tick raises, the progress that tick
+  already made (collected results, expanded plan, launched workers) is saved
+  before the error propagates, with a `tick.error` event. A worktree that
+  cannot be created fails that node, not the tick.
 - **Single driver**: only one live process may drive a run
   (`runs/<id>/driver.json`). Status reports who is driving, if anyone.
 
 Auto Continue drives the run only while an orchestrator process is running it:
-`orchestrate run`, `start-recommended`, `orchestrate.advance`, or the GUI
-server. Nothing continues in the background after that process exits. The next
-driver resumes from persisted state.
+`orchestrate run`, `start-recommended`, `orchestrate.advance`, the GUI server,
+or a **background driver**. MCP `orchestrate.create` with `start` +
+`auto_continue` detaches one (`agent.py orchestrate run <id>`, logging to
+`runs/<id>/driver.log`), as do `orchestrate.control` `drive`, and
+start/resume/decide/retry/reassign/review-again on an Auto Continue run with no
+open gate. The next driver resumes from persisted state.
 
 ## Approval gates
 
@@ -293,12 +386,14 @@ open, nothing new is dispatched.
 
 ```json
 {
-  "auto_continue": true, "max_parallel_editors": 2, "require_isolated_worktrees": true,
-  "require_independent_review_for_model_edits": true, "require_distinct_review_provider": false,
+  "auto_continue": true, "max_parallel_editors": 6, "require_isolated_worktrees": true,
+  "require_independent_review_for_model_edits": true, "require_distinct_review_provider": true,
   "validation_required_before_integration": true, "provider_failover": true,
   "max_stage_retries": 2, "max_escalations": 2, "max_review_rounds": 2, "max_final_repairs": 1,
   "material_severities": ["critical", "high", "medium"], "preference": "balanced",
-  "planning": "auto", "max_planned_tasks": 8, "final_integration": "branch", "max_launches": 40,
+  "planning": "auto", "max_planned_tasks": 16, "planner_capability_class": "balanced",
+  "planner_effort": "high", "approved_commands": ["python -m unittest( [A-Za-z0-9_./-]+)*( -v)?", "..."],
+  "final_integration": "branch", "max_launches": 40,
   "poll_interval_seconds": 2.0, "worker_timeout_seconds": 3600,
   "default_validators": [], "completion_validators": [],
   "announce_claims": true, "telemetry": true, "cleanup_worktrees": true
@@ -314,6 +409,7 @@ agent-os orchestrate create --goal "..." --repo . --tasks tasks.json --start --a
 agent-os orchestrate run <run>                 # exit 0 COMPLETE, 3 PAUSED, 4 gate, 5 BLOCKED
 agent-os orchestrate status|result|events|list <run>
 agent-os orchestrate pause|resume|stop <run>
+agent-os orchestrate providers              # discovered models, costs, concurrency, picks
 agent-os orchestrate approve|reject <run> <gate> --note "..."
 agent-os orchestrate retry|review-again <run> <node>
 agent-os orchestrate reassign <run> <node> --provider codex --effort high
@@ -368,14 +464,17 @@ orchestration code.
 
 ## Known limits
 
-- Auto Continue needs a live driver process (see above). There is no daemon
-  or OS service.
-- A worker whose process outlives a crashed orchestrator cannot be reattached
-  to collect its exit status. After it exits it is treated as interrupted and
-  retried, with its partial work kept.
-- Routing uses configuration plus per-run failure evidence. It does not yet
-  learn from historical telemetry across runs.
-- Token usage is reported only when a CLI reports it; cost is not computed.
+- Auto Continue needs a live driver process (see above). A background driver
+  is a detached process, not an OS service: it does not survive a reboot, and
+  the next `drive` resumes the run.
+- A reattached worker's exit code is unknown, so its result is judged from its
+  output alone (validators still decide whether the work passed).
+- Routing uses registry costs plus per-run load and failure evidence. It does
+  not yet learn costs or success rates from historical telemetry across runs.
+- Token usage is reported only when a CLI reports it; `costs` are relative
+  weights you set, not measured prices.
+- Each review covers one change; Luna batches are not yet reviewed together in
+  one call.
 - Planner quality depends on the model; the plan is validated structurally,
   not semantically.
 - Run records are local. Durable outcomes reach Git through handoffs, not by

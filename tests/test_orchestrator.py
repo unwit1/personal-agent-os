@@ -252,7 +252,54 @@ class RoutingTests(unittest.TestCase):
         self.assertEqual(choice["provider"], "beta")
         solo = self.registry(provider("alpha"))
         forced = select(solo, capability_class="balanced", effort="medium", role="reviewer", avoid=["alpha"], require_avoid=True)
-        self.assertFalse(forced["resolved"])
+        # With no other provider on the machine at all, review still happens,
+        # and the selection says independence is session-level only.
+        self.assertEqual(forced["provider"], "alpha")
+        self.assertIn("session-level", " ".join(forced["notes"]))
+        busy = select(
+            self.registry(), capability_class="balanced", effort="medium", role="reviewer",
+            avoid=["alpha"], require_avoid=True, running={"beta": 2},
+        )
+        self.assertTrue(busy["waiting"], "a busy distinct reviewer is waited for, not replaced by the author")
+
+    def test_cheapest_provider_wins_and_load_breaks_ties(self) -> None:
+        cheap = provider("beta", costs={"fast": 0.5})
+        choice = select(self.registry(provider("alpha"), cheap), capability_class="fast", effort="low", role="implementer")
+        self.assertEqual(choice["provider"], "beta")
+        self.assertIn("cheapest", choice["reason"])
+        tied = select(self.registry(), capability_class="balanced", effort="low", role="implementer", running={"alpha": 1})
+        self.assertEqual(tied["provider"], "beta", "equal cost: the less loaded provider is chosen")
+
+    def test_tier_concurrency_caps_expensive_classes_only(self) -> None:
+        capped = provider("alpha", max_concurrency=6, tier_concurrency={"reasoning": 1})
+        registry = self.registry(capped)
+        running = {"alpha": 1, "alpha:reasoning": 1}
+        self.assertTrue(select(registry, capability_class="reasoning", effort="high", role="implementer", running=running)["waiting"])
+        fast = select(registry, capability_class="fast", effort="low", role="implementer", running=running)
+        self.assertEqual(fast["provider"], "alpha")
+
+    def test_discovery_refreshes_models_unless_pinned(self) -> None:
+        from agent_os.orchestrator.adapters.codex_cli import discover_models
+
+        cache = Path(tempfile.mkdtemp()) / "models_cache.json"
+        self.addCleanup(shutil.rmtree, cache.parent, True)
+        cache.write_text(json.dumps({"models": [
+            {"slug": "gpt-6-luna", "visibility": "list"},
+            {"slug": "gpt-5.6-luna", "visibility": "list"},
+            {"slug": "gpt-5.6-terra", "visibility": "list"},
+            {"slug": "gpt-6-sol", "visibility": "list"},
+            {"slug": "gpt-7-astra", "visibility": "hide"},
+            {"slug": "codex-auto-review", "visibility": "list"},
+        ]}), encoding="utf-8")
+        self.assertEqual(discover_models(cache), {"fast": "gpt-6-luna", "balanced": "gpt-5.6-terra", "reasoning": "gpt-6-sol"})
+        from agent_os.orchestrator.router import normalize_provider
+
+        raw = provider("alpha", discover=True)
+        found = {"fast": "new-fast"}
+        self.assertEqual(normalize_provider(raw, 0, found)["models"]["fast"], "new-fast")
+        self.assertEqual(normalize_provider(raw, 0, found)["models"]["balanced"], "alpha-balanced")
+        pinned = provider("alpha", discover=True, pin_models=True)
+        self.assertEqual(normalize_provider(pinned, 0, found)["models"]["fast"], "alpha-fast")
 
     def test_placeholder_models_are_not_routable(self) -> None:
         entry = provider("alpha")
@@ -318,6 +365,7 @@ class FailoverAndRestartTests(OrchestratorFixture):
 
     def test_restart_keeps_passed_work_and_interrupts_running_workers(self) -> None:
         synthetic.SCRIPTS["alpha"] = edit_script({"b": {"ticks": 1000}})
+        synthetic.SCRIPTS["beta"] = edit_script({"b": {"ticks": 1000}})
         run_id = self.create([self.task("a"), self.task("b")], require_independent_review_for_model_edits=False)
         self.engine.start(run_id)
         for _ in range(3):
@@ -331,6 +379,7 @@ class FailoverAndRestartTests(OrchestratorFixture):
         # Simulate a crash: a new engine has no live handles for b.
         synthetic._LIVE.clear()
         synthetic.SCRIPTS["alpha"] = edit_script()
+        synthetic.SCRIPTS["beta"] = edit_script()
         restarted = self.make_engine()
         restarted.step(run_id)
         b = self.node(run_id, "b", restarted)
@@ -364,7 +413,8 @@ class FailoverAndRestartTests(OrchestratorFixture):
         self.assertEqual(a["state"], "FAILED_FINAL")
         self.assertEqual(a["escalations"], 2)
         self.assertEqual(a["attempts"], 3)
-        self.assertEqual(a["capability_class"], "frontier")
+        # Cheapest-first ladder: more effort on the same class, then one class up.
+        self.assertEqual((a["capability_class"], a["effort"]), ("reasoning", "medium"))
         self.assertEqual([item["kind"] for item in a["failures"]], ["validator_failed"] * 3)
         self.assertFalse(a["integrated"])
 

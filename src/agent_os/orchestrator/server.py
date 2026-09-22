@@ -112,6 +112,7 @@ class Api:
                 overrides=body.get("overrides") or None,
                 start=recommended,
                 auto_continue=auto if recommended else None,
+                background=False,  # this server drives its runs on its own threads
             )
             if recommended:
                 self.drivers.ensure(summary["run_id"])

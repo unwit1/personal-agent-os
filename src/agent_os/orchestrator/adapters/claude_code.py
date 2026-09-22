@@ -29,7 +29,9 @@ from .base import (
 # current without a code change. The registry (data) is authoritative.
 SUGGESTED_MODELS = {"fast": "haiku", "balanced": "sonnet", "reasoning": "opus", "frontier": "fable"}
 SUGGESTED_EFFORT_MAP = {"none": "low", "low": "low", "medium": "medium", "high": "high"}
-OPTIONAL_FLAGS = ("--effort", "--permission-mode", "--permission-prompts", "--no-session-persistence", "--allowedTools")
+# Relative cost weights per capability class; data the operator may edit.
+SUGGESTED_COSTS = {"fast": 2, "balanced": 3, "reasoning": 6, "frontier": 10}
+OPTIONAL_FLAGS = ("--effort", "--permission-mode", "--permission-prompts", "--no-session-persistence", "--allowedTools", "--strict-mcp-config")
 
 
 class ClaudeCodeAdapter(SubprocessAdapter):
@@ -60,6 +62,11 @@ class ClaudeCodeAdapter(SubprocessAdapter):
             argv += ["--permission-prompts", "none"]
         if features.get("--no-session-persistence") and options.get("persist_sessions") is not True:
             argv.append("--no-session-persistence")
+        if features.get("--strict-mcp-config") and options.get("keep_mcp_servers") is not True:
+            # A bounded worker gets everything it needs in its prompt. The
+            # operator's MCP servers (mail, Agent OS, ...) would only add
+            # turns and reach beyond the worktree.
+            argv.append("--strict-mcp-config")
         tools = request.allowed_tools or options.get("allowed_tools") or []
         if tools and features.get("--allowedTools"):
             argv += ["--allowedTools", ",".join(tools)]
@@ -126,14 +133,22 @@ def _last_json_object(text: str) -> dict[str, Any] | None:
     return None
 
 
+def discover_models() -> dict[str, str]:
+    """Claude Code resolves tier aliases to the newest model itself."""
+    return dict(SUGGESTED_MODELS)
+
+
 def suggested_provider(executable: str | None = None) -> dict[str, Any]:
     return {
         "id": "claude-code",
         "enabled": True,
         "adapter": ClaudeCodeAdapter.adapter_id,
         "executable": executable or "claude",
+        "discover": True,
         "models": dict(SUGGESTED_MODELS),
+        "costs": dict(SUGGESTED_COSTS),
         "effort_map": dict(SUGGESTED_EFFORT_MAP),
-        "max_concurrency": 2,
+        "max_concurrency": 3,
+        "tier_concurrency": {"reasoning": 2, "frontier": 1},
         "options": {"permission_mode": "acceptEdits", "read_only_permission_mode": "plan"},
     }

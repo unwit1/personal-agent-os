@@ -6,6 +6,7 @@ is compact (return code plus a short redacted tail), never a raw output dump.
 
 from __future__ import annotations
 
+import os
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -31,6 +32,7 @@ def run_validator(validator: dict[str, Any], cwd: Path | str, timeout: int = 900
                 errors="replace",
                 timeout=int(validator.get("timeout_seconds", timeout)),
                 stdin=subprocess.DEVNULL,
+                env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
             )
         except (OSError, subprocess.TimeoutExpired) as error:
             return {"name": label, "kind": "command", "passed": False, "returncode": None, "detail": redact(f"validator could not run: {error}", 400)}

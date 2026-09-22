@@ -134,7 +134,7 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         if tasks:
             summary = service.create(args.goal, args.repo, args.project, tasks, {**policy, "auto_continue": True}, run_id=args.run_id, start=True, auto_continue=True)
         else:
-            summary = service.start_recommended(args.goal, args.repo, args.project, policy)
+            summary = service.start_recommended(args.goal, args.repo, args.project, policy, run_id=args.run_id)
         if args.no_drive:
             emit(summary)
             return 0

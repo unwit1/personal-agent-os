@@ -518,6 +518,27 @@ implements, Codex reviews) that reached COMPLETE. Remaining limits:
 - the GUI is dependency-free web UI rather than Tauri, because no Rust
   toolchain is installed.
 
+**P1.2B — token-economy routing (2026-09-22, branch
+`p1.2b-orchestrator-routing`).** Changes:
+- **Routing:** providers refresh their models from local discovery (the Codex
+  model catalog, Claude tier aliases). The router picks the cheapest provider
+  per class using registry `costs`, then the least loaded one.
+- **Concurrency:** `tier_concurrency` caps expensive classes while cheap `fast`
+  work fans out (Codex up to 6 workers, `max_parallel_editors` 6).
+- **Planning:** the planner is told to cut goals into small, verifiable
+  `fast` batches with targeted tests and optional escalation ladders.
+  Planner-proposed commands must match approved patterns and run without a
+  shell.
+- **Escalation:** failures raise effort first, then move one class up.
+  Repairs of minor review findings drop back to the planned class.
+- **Review:** cross-provider review is mandatory, and reviewers check for
+  waste, dead code and efficiency.
+- **Durability:** short Windows-safe worktree paths plus `core.longpaths`,
+  fixing the stuck run that failed with "Filename too long". A tick that
+  raises still saves its progress. Workers are reattached after a driver
+  restart, and MCP/GUI-created Auto Continue runs get a detached background
+  driver.
+
 The original scope below is kept for reference.
 
 Create an Agent OS control plane that can coordinate Claude Code, Codex CLI, and

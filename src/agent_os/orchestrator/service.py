@@ -8,32 +8,97 @@ engine so live worker handles are shared by every caller in that process.
 from __future__ import annotations
 
 import json
+import os
+import subprocess
+import sys
 import threading
 from pathlib import Path
 from typing import Any
 
 from ..capabilities import registry_path
+from ..paths import ROOT
 from ..storage import write_json
 from .engine import Orchestrator
 
 
 _ENGINE: Orchestrator | None = None
+_ENGINE_IS_DEFAULT = False
 _ENGINE_LOCK = threading.Lock()
 
 
 def engine() -> Orchestrator:
-    global _ENGINE
+    global _ENGINE, _ENGINE_IS_DEFAULT
     with _ENGINE_LOCK:
         if _ENGINE is None:
             _ENGINE = Orchestrator()
+            _ENGINE_IS_DEFAULT = True
         return _ENGINE
 
 
 def set_engine(value: Orchestrator | None) -> None:
     """Tests and embedding hosts may supply their own engine."""
-    global _ENGINE
+    global _ENGINE, _ENGINE_IS_DEFAULT
     with _ENGINE_LOCK:
         _ENGINE = value
+        _ENGINE_IS_DEFAULT = False
+
+
+# ---------------------------------------------------------------------------
+# Background driver
+# ---------------------------------------------------------------------------
+
+
+def drive_in_background(run_id: str) -> dict[str, Any]:
+    """Start a detached ``agent.py orchestrate run`` process for the run.
+
+    MCP and GUI calls return in seconds, but a run takes minutes to hours;
+    without a driver nothing collects finished workers or launches the next
+    stage. Only one live process may drive a run, so this is a no-op while a
+    driver is alive. An embedded engine (tests, custom hosts) is never
+    re-created in another process: its registry and store may be in-memory.
+    """
+    orchestrator = engine()
+    current = orchestrator.store.driver(run_id)
+    if current.get("active"):
+        return {"spawned": False, "reason": "a live driver already owns this run", "driver": current}
+    if not _ENGINE_IS_DEFAULT:
+        return {"spawned": False, "reason": "embedded engine; drive it in-process with advance/run"}
+    log_path = orchestrator.store.run_dir(run_id) / "driver.log"
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    env = {**os.environ, "AGENT_OS_ORCHESTRATOR_HOME": str(orchestrator.store.home), "PYTHONUTF8": "1"}
+    argv = [sys.executable, str(ROOT / "agent.py"), "orchestrate", "run", run_id]
+    kwargs: dict[str, Any] = {"cwd": str(ROOT), "env": env, "stdin": subprocess.DEVNULL}
+    flag_sets: list[int] = [0]
+    if os.name == "nt":
+        base = subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.DETACHED_PROCESS
+        # Breaking away from the host's job object keeps the driver alive when
+        # the MCP client that asked for it exits; not every job allows it.
+        flag_sets = [base | subprocess.CREATE_BREAKAWAY_FROM_JOB, base]
+    else:
+        kwargs["start_new_session"] = True
+    last_error: Exception | None = None
+    for flags in flag_sets:
+        try:
+            with open(log_path, "ab") as log:
+                process = subprocess.Popen(argv, stdout=log, stderr=log, creationflags=flags, **kwargs)
+            orchestrator.store.append_event(run_id, "driver.spawned", None, f"pid {process.pid}")
+            return {"spawned": True, "pid": process.pid, "log": str(log_path)}
+        except OSError as exc:
+            last_error = exc
+    return {"spawned": False, "reason": f"could not start a driver: {last_error}"}
+
+
+def _kick(summary: dict[str, Any]) -> dict[str, Any]:
+    """After a control action, make sure an Auto Continue run keeps moving."""
+    open_gates = any(gate.get("status") == "open" for gate in summary.get("gates") or [])
+    if (
+        summary.get("auto_continue")
+        and not summary.get("paused")
+        and summary.get("state") not in {"COMPLETE", "CREATED"}
+        and not open_gates
+    ):
+        summary["background_driver"] = drive_in_background(summary["run_id"])
+    return summary
 
 
 # ---------------------------------------------------------------------------
@@ -95,22 +160,40 @@ def create(
     run_id: str | None = None,
     start: bool = False,
     auto_continue: bool | None = None,
+    background: bool | None = None,
 ) -> dict[str, Any]:
+    """Create (and optionally start) a run.
+
+    ``background`` defaults to on for a started Auto Continue run: a detached
+    driver keeps it moving after this call returns.
+    """
     orchestrator = engine()
     summary = orchestrator.create_run(
         goal, repository=repository, project=project, tasks=tasks, policy=policy, overrides=overrides, run_id=run_id
     )
     if start or auto_continue is not None:
         summary = orchestrator.start(summary["run_id"], auto_continue)
+    if background is None:
+        background = bool(summary.get("auto_continue")) and bool(start or auto_continue)
+    if background:
+        summary["background_driver"] = drive_in_background(summary["run_id"])
     return summary
 
 
-def start_recommended(goal: str, repository: str | None = None, project: str | None = None, policy: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Create a planned run with Auto Continue on; the caller then drives it."""
+def start_recommended(
+    goal: str,
+    repository: str | None = None,
+    project: str | None = None,
+    policy: dict[str, Any] | None = None,
+    background: bool | None = False,
+    run_id: str | None = None,
+) -> dict[str, Any]:
+    """Create a planned run with Auto Continue on. The CLI drives it in the
+    foreground; MCP/GUI callers pass ``background=None`` to detach a driver."""
     merged = dict(policy or {})
     merged.setdefault("planning", "auto")
     merged["auto_continue"] = True
-    return create(goal, repository=repository, project=project, policy=merged, start=True, auto_continue=True)
+    return create(goal, repository=repository, project=project, policy=merged, run_id=run_id, start=True, auto_continue=True, background=background)
 
 
 def status(run_id: str) -> dict[str, Any]:
@@ -138,6 +221,10 @@ def advance(run_id: str, max_seconds: float | None = 60.0, max_ticks: int | None
 
 def control(run_id: str, action: str) -> dict[str, Any]:
     orchestrator = engine()
+    if action == "drive":
+        summary = orchestrator.status(run_id)
+        summary["background_driver"] = drive_in_background(run_id)
+        return summary
     actions = {
         "start": lambda: orchestrator.start(run_id),
         "pause": lambda: orchestrator.pause(run_id),
@@ -147,24 +234,25 @@ def control(run_id: str, action: str) -> dict[str, Any]:
         "auto_continue_off": lambda: orchestrator.set_auto_continue(run_id, False),
     }
     if action not in actions:
-        raise ValueError(f"unknown control action {action!r}; expected one of {sorted(actions)}")
-    return actions[action]()
+        raise ValueError(f"unknown control action {action!r}; expected one of {sorted([*actions, 'drive'])}")
+    summary = actions[action]()
+    return _kick(summary) if action in {"start", "resume", "auto_continue_on"} else summary
 
 
 def decide(run_id: str, gate_id: str, approve: bool, note: str | None = None) -> dict[str, Any]:
-    return engine().decide(run_id, gate_id, approve, note)
+    return _kick(engine().decide(run_id, gate_id, approve, note))
 
 
 def retry(run_id: str, node_id: str) -> dict[str, Any]:
-    return engine().retry(run_id, node_id)
+    return _kick(engine().retry(run_id, node_id))
 
 
 def reassign(run_id: str, node_id: str, provider: str, model: str | None = None, effort: str | None = None) -> dict[str, Any]:
-    return engine().reassign(run_id, node_id, provider, model, effort)
+    return _kick(engine().reassign(run_id, node_id, provider, model, effort))
 
 
 def review_again(run_id: str, node_id: str) -> dict[str, Any]:
-    return engine().review_again(run_id, node_id)
+    return _kick(engine().review_again(run_id, node_id))
 
 
 def override(
@@ -216,6 +304,7 @@ MCP_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
                 "run_id": {"type": ["string", "null"]},
                 "start": {"type": "boolean", "default": False},
                 "auto_continue": {"type": ["boolean", "null"]},
+                "background": {"type": ["boolean", "null"], "description": "default on for a started Auto Continue run: a detached driver keeps it moving"},
             },
             ["goal"],
         ),
@@ -227,8 +316,8 @@ MCP_TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "inputSchema": _schema({**_RUN, "max_seconds": {"type": "number", "default": 60}, "max_ticks": {"type": ["integer", "null"]}}, ["run_id"]),
     },
     "orchestrate.control": {
-        "description": "Start, pause, resume, stop, or toggle Auto Continue on a run.",
-        "inputSchema": _schema({**_RUN, "action": {"type": "string", "enum": ["start", "pause", "resume", "stop", "auto_continue_on", "auto_continue_off"]}}, ["run_id", "action"]),
+        "description": "Start, pause, resume, stop, toggle Auto Continue, or 'drive' (start a detached background driver) on a run.",
+        "inputSchema": _schema({**_RUN, "action": {"type": "string", "enum": ["start", "pause", "resume", "stop", "auto_continue_on", "auto_continue_off", "drive"]}}, ["run_id", "action"]),
     },
     "orchestrate.decide": {
         "description": "Approve or reject an open approval gate.",
