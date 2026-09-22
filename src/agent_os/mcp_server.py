@@ -25,6 +25,7 @@ from .coordination import (
     list_tasks,
     note as work_note,
     request_review,
+    requeue_task,
     submit_review,
     status as claims_status,
 )
@@ -113,6 +114,10 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     "work.task_complete": {
         "description": "Complete a delegated task with validation evidence from its assigned agent.",
         "inputSchema": {"type": "object", "properties": {"task_id": {"type": "string"}, "agent": {"type": "string"}, "validation": {"type": "string"}, "result": {"type": ["string", "null"]}}, "required": ["task_id", "agent", "validation"]},
+    },
+    "work.task_requeue": {
+        "description": "Return interrupted in-progress delegated work to the queue without deleting task or review records.",
+        "inputSchema": {"type": "object", "properties": {"task_id": {"type": "string"}, "agent": {"type": "string"}, "reason": {"type": "string"}}, "required": ["task_id", "agent", "reason"]},
     },
     "work.review_request": {
         "description": "Create an idempotent peer-review request linked to exactly one delegated task ID or commit fingerprint.",
@@ -327,6 +332,7 @@ def methods() -> dict[str, Callable[..., Any]]:
             "work.tasks": list_tasks,
             "work.task_claim": claim_task,
             "work.task_complete": complete_task,
+            "work.task_requeue": requeue_task,
             "work.review_request": request_review,
             "work.reviews": list_reviews,
             "work.review_submit": submit_review,

@@ -24,6 +24,7 @@ from .coordination import (
     list_reviews,
     note as work_note,
     request_review,
+    requeue_task,
     submit_review,
     status as claims_status,
 )
@@ -137,6 +138,10 @@ def parser() -> argparse.ArgumentParser:
     work_task_complete.add_argument("--agent", required=True)
     work_task_complete.add_argument("--validation", required=True)
     work_task_complete.add_argument("--result")
+    work_task_requeue = commands.add_parser("work-task-requeue")
+    work_task_requeue.add_argument("task_id")
+    work_task_requeue.add_argument("--agent", required=True)
+    work_task_requeue.add_argument("--reason", required=True)
     work_review_request = commands.add_parser("work-review-request")
     work_review_request.add_argument("project")
     work_review_request.add_argument("review_key")
@@ -356,6 +361,8 @@ def main(argv: list[str] | None = None) -> int:
             _print(claim_task(args.task_id, args.agent))
         elif args.command == "work-task-complete":
             _print(complete_task(args.task_id, args.agent, args.validation, args.result))
+        elif args.command == "work-task-requeue":
+            _print(requeue_task(args.task_id, args.agent, args.reason))
         elif args.command == "work-review-request":
             _print(request_review(args.project, args.review_key, args.from_agent, task_id=args.task_id, commit_fingerprint=args.commit_fingerprint, reviewer=args.reviewer, changed_files=args.changed_file))
         elif args.command == "work-reviews":

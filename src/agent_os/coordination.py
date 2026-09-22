@@ -61,6 +61,7 @@ TASK_KEY_LIMIT = 160
 TASK_TITLE_LIMIT = 320
 TASK_RESULT_LIMIT = 2000
 TASK_VALIDATION_LIMIT = 1000
+TASK_REQUEUE_REASON_LIMIT = 1000
 REVIEW_STATUSES = ("requested", "approved", "changes_requested", "blocked")
 REVIEW_VERDICTS = ("approved", "changes_requested", "blocked")
 REVIEW_KEY_LIMIT = 160
@@ -455,6 +456,37 @@ def claim_task(task_id: str, agent: str, path: Path | None = None) -> dict[str, 
     task["updated_at"] = utc_now_iso()
     _save(location, data)
     return {"claimed": True, "blocked": False, "task": task}
+
+
+def requeue_task(
+    task_id: str,
+    agent: str,
+    reason: str,
+    path: Path | None = None,
+) -> dict[str, Any]:
+    """Return interrupted work to the queue without discarding its records."""
+    location = claims_path(path)
+    data = _load(location)
+    task = _find_task(data, task_id)
+    agent_name = _task_text(agent, "agent", TASK_KEY_LIMIT)
+    requeue_reason = _task_text(reason, "reason", TASK_REQUEUE_REASON_LIMIT)
+    if task.get("status") == "queued" and task.get("requeued_at") and not task.get("assignee"):
+        return {"requeued": False, "idempotent": True, "task": task}
+    if task.get("status") != "in_progress":
+        raise ValueError("only an in_progress delegated task can be requeued")
+    if agent_name not in {task.get("requester"), task.get("assignee")}:
+        raise ValueError("only the task requester or assigned agent can requeue delegated work")
+    now = utc_now_iso()
+    task["last_assignee"] = task.get("assignee")
+    task["assignee"] = None
+    task["status"] = "queued"
+    task["requeue_count"] = int(task.get("requeue_count") or 0) + 1
+    task["requeue_reason"] = requeue_reason
+    task["requeued_by"] = agent_name
+    task["requeued_at"] = now
+    task["updated_at"] = now
+    _save(location, data)
+    return {"requeued": True, "idempotent": False, "task": task}
 
 
 def complete_task(

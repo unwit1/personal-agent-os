@@ -115,6 +115,8 @@ agent-os work-tasks --project personal-agent-os
 agent-os work-task-claim WT-0123456789ab --agent codex
 agent-os work-task-complete WT-0123456789ab --agent codex `
     --validation "focused tests passed" --result "review packet ready"
+agent-os work-task-requeue WT-0123456789ab --agent luna `
+    --reason "assigned agent stopped; resume from the persisted task"
 ```
 
 Add `--review-required` to `work-delegate` when completion must wait for an
@@ -127,7 +129,10 @@ to the assigned agent, and non-empty validation evidence is required. Task
 records contain bounded summaries, paths, IDs, and validation metadata; they do
 not carry prompts, transcripts, documents, or secrets. The queue is advisory
 and machine-local like claims, but it gives agents a resumable handoff instead
-of relying on chat memory.
+of relying on chat memory. The requester or current assignee can explicitly
+requeue interrupted `in_progress` work; requeueing clears the assignee, keeps
+the stable task ID and review records, records a bounded reason, and is
+idempotent when repeated before another agent claims the task.
 
 Peer code evaluation is a separate protocol from task completion: the current
 `review` command selects a risk level, while the coordination review record

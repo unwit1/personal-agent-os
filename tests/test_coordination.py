@@ -211,6 +211,33 @@ class DelegatedTaskTests(ClaimFixture):
         completed = coordination.complete_task(task_id, "beta", "synthetic pass", path=self.registry)
         self.assertTrue(completed["completed"])
 
+    def test_requeue_recovers_interrupted_work_and_preserves_reviews(self) -> None:
+        created = coordination.delegate(
+            "demo", "recoverable", "Recoverable fixture task", "alpha", assignee="beta", path=self.registry,
+        )
+        task_id = created["task"]["task_id"]
+        requested = coordination.request_review(
+            "demo", "recoverable-review", "alpha", task_id=task_id, reviewer="delta", path=self.registry,
+        )
+        coordination.claim_task(task_id, "beta", path=self.registry)
+        with self.assertRaisesRegex(ValueError, "requester or assigned agent"):
+            coordination.requeue_task(task_id, "gamma", "synthetic interruption", path=self.registry)
+
+        recovered = coordination.requeue_task(task_id, "alpha", "assigned agent stopped", path=self.registry)
+        self.assertTrue(recovered["requeued"])
+        self.assertFalse(recovered["idempotent"])
+        self.assertEqual(recovered["task"]["status"], "queued")
+        self.assertIsNone(recovered["task"]["assignee"])
+        self.assertEqual(recovered["task"]["last_assignee"], "beta")
+        self.assertEqual(recovered["task"]["requeue_count"], 1)
+        self.assertEqual(coordination.list_reviews("demo", path=self.registry)[0]["review_id"], requested["review"]["review_id"])
+
+        repeated = coordination.requeue_task(task_id, "alpha", "same interruption", path=self.registry)
+        self.assertFalse(repeated["requeued"])
+        self.assertTrue(repeated["idempotent"])
+        claimed = coordination.claim_task(task_id, "gamma", path=self.registry)
+        self.assertTrue(claimed["claimed"])
+
     def test_changes_requested_review_blocks_gated_completion(self) -> None:
         created = coordination.delegate(
             "demo", "gated-changes", "Review-gated fixture task", "alpha", assignee="beta",
