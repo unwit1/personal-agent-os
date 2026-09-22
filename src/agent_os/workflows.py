@@ -42,6 +42,7 @@ from .paths import ROOT
 from .registry import get_project
 from .storage import load_json, write_json
 from .telemetry import LocalTelemetryStore, TelemetryEvent
+from .timestamps import utc_now_iso as _now
 
 
 MANIFEST_SCHEMA = "personal-agent/workflow-manifest/v1"
@@ -55,10 +56,6 @@ RUN_STATUSES = ("in_progress", "complete", "blocked")
 # is asserted by tests: carrying a transcript forward is the cost the staged
 # orchestrator exists to avoid.
 FORBIDDEN_RUN_KEYS = {"transcript", "messages", "history", "conversation"}
-
-
-def _now() -> str:
-    return datetime.now(timezone.utc).isoformat()
 
 
 # --------------------------------------------------------------------------

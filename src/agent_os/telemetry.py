@@ -20,6 +20,7 @@ from typing import Any, Iterable, Mapping
 
 from .local_paths import is_gitignored_local_path
 from .paths import ROOT
+from .timestamps import utc_now_iso as _utc_now
 
 
 SCHEMA_VERSION = 1
@@ -91,10 +92,6 @@ class TelemetryPrivacyError(ValueError):
 
 
 REPORT_SCHEMA = "personal-agent/telemetry-report/v1"
-
-
-def _utc_now() -> str:
-    return datetime.now(timezone.utc).isoformat()
 
 
 def _check_string(field_name: str, value: str, *, event_id: bool = False) -> str:

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import hashlib
 import re
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
@@ -12,6 +11,7 @@ from .paths import ROOT
 from .privacy import require_private_safe
 from .registry import get_project
 from .storage import load_json, write_json
+from .timestamps import utc_now_iso as _now
 
 
 CATEGORIES = {"bug", "performance", "architecture", "missing_test", "documentation", "skill_candidate", "workflow", "security", "privacy", "other"}
@@ -29,10 +29,6 @@ TRANSITIONS = {
     "superseded": set(),
     "duplicate": set(),
 }
-
-
-def _now() -> str:
-    return datetime.now(timezone.utc).isoformat()
 
 
 def _directory(project_id: str) -> Path:

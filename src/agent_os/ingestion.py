@@ -12,21 +12,17 @@ from __future__ import annotations
 import hashlib
 import json
 from collections import Counter
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
 from .storage import load_json, write_json
+from .timestamps import utc_now_iso as _now
 
 
 SCHEMA = "personal-agent/ingestion-ledger/v1"
 VERSION = 1
 ITEM_STATUSES = ("queued", "processing", "processed", "error")
 _MISSING = object()
-
-
-def _now() -> str:
-    return datetime.now(timezone.utc).isoformat()
 
 
 def _digest(kind: str, *parts: object) -> str:
