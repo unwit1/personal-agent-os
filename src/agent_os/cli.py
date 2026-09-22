@@ -27,6 +27,7 @@ from .profile import compact_profile, profile_status
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .review import assess
 from .surfaces import health as integration_health
+from .telemetry import LocalTelemetryStore
 from .routing import install as install_routing
 from .routing import status as routing_status
 from .validation import validate
@@ -67,6 +68,8 @@ def parser() -> argparse.ArgumentParser:
     integration.add_argument("--surface")
     integration.add_argument("--strict", action="store_true")
     commands.add_parser("validate")
+    telemetry_report = commands.add_parser("telemetry-report")
+    telemetry_report.add_argument("--path")
     commands.add_parser("document-cache-status")
     commands.add_parser("document-cache-clear")
     cache_prune = commands.add_parser("document-cache-prune")
@@ -238,6 +241,9 @@ def main(argv: list[str] | None = None) -> int:
             result = validate()
             _print(result)
             return 0 if result["ok"] else 1
+        elif args.command == "telemetry-report":
+            store = LocalTelemetryStore(Path(args.path) if args.path else None)
+            _print(store.aggregate_report())
         elif args.command == "document-cache-status":
             _print(DocumentCache().stats())
         elif args.command == "document-cache-clear":

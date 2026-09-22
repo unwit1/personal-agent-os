@@ -445,8 +445,9 @@ usage adapters and live integrations remain future slices. Its count-only
 aggregate report covers execution paths and validator outcomes without exposing
 per-event records; the deterministic fixture workflow can opt into one local
 event per executed stage without changing its state machine. Production
-workflow/provider integrations remain future slices; unavailable metrics are
-never fabricated.
+workflow/provider integrations remain future slices. The local
+`telemetry-report --path <events.jsonl>` command exposes only those aggregate
+counts; unavailable metrics are never fabricated.
 
 Record, when exposed:
 - task/project/category;

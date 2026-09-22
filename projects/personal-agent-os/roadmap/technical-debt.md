@@ -88,7 +88,8 @@ execution paths and validator outcomes without exposing event records. No
 production workflow/provider usage adapter is connected yet; only the explicit
 deterministic fixture seam records a local event. Unavailable metrics remain
 absent and capability selection is still policy-driven rather than
-evidence-driven at the workflow level.
+evidence-driven at the workflow level. `telemetry-report` is intentionally a
+count-only local read surface; it is not a provider adapter or raw-event export.
 
 ### Run records are Git-tracked
 

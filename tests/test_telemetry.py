@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import contextlib
+import io
+import json
 import sys
 import tempfile
 import unittest
@@ -14,6 +17,7 @@ from agent_os.telemetry import (  # noqa: E402
     TelemetryPrivacyError,
     aggregate_report,
 )
+from agent_os.cli import main  # noqa: E402
 from agent_os.paths import ROOT  # noqa: E402
 
 
@@ -159,6 +163,29 @@ class TelemetryStoreTests(unittest.TestCase):
                     }
                 ]
             )
+
+    def test_cli_reports_counts_without_emitting_persisted_events(self) -> None:
+        self.store.record(
+            TelemetryEvent(
+                project_id="fixture-project",
+                task_category="stage",
+                event_id="event-cli",
+                execution_path="deterministic",
+                validator_passed=True,
+            )
+        )
+        output = io.StringIO()
+
+        with contextlib.redirect_stdout(output):
+            exit_code = main(["telemetry-report", "--path", str(self.store.path)])
+
+        self.assertEqual(exit_code, 0)
+        report = json.loads(output.getvalue())
+        self.assertEqual(report["event_count"], 1)
+        self.assertEqual(report["execution_path_counts"], {"deterministic": 1})
+        self.assertEqual(report["validator_outcome_counts"], {"passed": 1})
+        self.assertNotIn("event-cli", output.getvalue())
+        self.assertNotIn("fixture-project", output.getvalue())
 
 
 if __name__ == "__main__":
