@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import re
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Callable, Iterable
 
+from .ingestion import IngestionLedger, stable_stage_id, stable_work_id
 from .paths import ROOT
 from .registry import get_project
 from .storage import load_json, write_json
@@ -30,6 +32,10 @@ def _candidate_dir(project_id: str) -> Path:
     return ROOT / "projects" / project_id / "candidates"
 
 
+CANDIDATE_LOCAL_DIR = ROOT / ".agent-local" / "candidates"
+CANDIDATE_PROCESSOR_VERSION = "candidate-records@1"
+
+
 def _normalise(value: str) -> str:
     return " ".join(re.findall(r"[a-z0-9]+", value.casefold()))
 
@@ -39,12 +45,86 @@ def _fingerprint(project_id: str, kind: str, statement: str) -> str:
     return hashlib.sha256(source.encode("utf-8")).hexdigest()
 
 
-def _load_candidates(project_id: str) -> list[dict[str, Any]]:
-    directory = _candidate_dir(project_id)
+def load_candidates_incremental(
+    project_id: str,
+    *,
+    source_dir: Path | None = None,
+    ledger_path: Path | None = None,
+    processor_version: str = CANDIDATE_PROCESSOR_VERSION,
+    before_parse: Callable[[Path], None] | None = None,
+) -> dict[str, Any]:
+    """Read local candidate records through the restart-safe ingestion ledger.
+
+    Candidate JSON remains canonical on disk. The local ledger tracks only
+    names, hashes, processing state and checkpoints, so a resumed read never
+    changes the review/promotion boundary or copies record content into the
+    ledger.
+    """
+    directory = Path(source_dir) if source_dir is not None else _candidate_dir(project_id)
+    target_ledger = Path(ledger_path or (CANDIDATE_LOCAL_DIR / f"{project_id}.json"))
+    work_id = stable_work_id("candidate-records", project_id)
+    ledger = IngestionLedger(
+        target_ledger,
+        source="candidate-record",
+        work_id=work_id,
+        stage_id=stable_stage_id(work_id, "read"),
+        processor_version=processor_version,
+    )
     records: list[dict[str, Any]] = []
-    for path in sorted(directory.glob("*.json")) if directory.exists() else []:
-        records.append(load_json(path))
-    return records
+    stats = {
+        "checked": 0,
+        "queued": 0,
+        "reprocessed": 0,
+        "resumed": 0,
+        "skipped": 0,
+        "errors": 0,
+    }
+    paths = sorted(directory.glob("*.json")) if directory.exists() else []
+    for path in paths:
+        stats["checked"] += 1
+        raw = path.read_bytes()
+        source_key = path.name
+        queued = ledger.enqueue(source_key, content=raw, processor_version=processor_version)
+        if queued["action"] == "queued":
+            stats["queued"] += 1
+        elif queued["action"] == "requeued":
+            stats["reprocessed"] += 1
+
+        item_id = str(queued["item_id"])
+        claimed = ledger.claim(1) if queued["status"] != "processed" else []
+        if claimed:
+            if claimed[0]["item_id"] != item_id:
+                raise RuntimeError(f"candidate ledger claimed an unexpected item: {claimed[0]['item_id']}")
+            if int(claimed[0].get("attempts", 0)) > 1:
+                stats["resumed"] += 1
+        elif queued["action"] == "duplicate":
+            stats["skipped"] += 1
+        else:
+            continue
+
+        try:
+            if before_parse is not None:
+                before_parse(path)
+            record = json.loads(raw.decode("utf-8"))
+            if not isinstance(record, dict):
+                raise ValueError("candidate record must contain a JSON object")
+            records.append(record)
+            if claimed:
+                ledger.complete(item_id, output_refs=(f"candidate-record:{source_key}",))
+            ledger.checkpoint(source_key, **stats)
+        except (OSError, ValueError, UnicodeError) as exc:
+            stats["errors"] += 1
+            if claimed:
+                ledger.fail(item_id, str(exc), retryable=True)
+            ledger.checkpoint(source_key, **stats)
+            raise
+
+    stats["records"] = len(records)
+    return {"records": records, "stats": stats, "checkpoint": ledger.status()["checkpoint"]}
+
+
+def _load_candidates(project_id: str) -> list[dict[str, Any]]:
+    return list(load_candidates_incremental(project_id)["records"])
 
 
 def _require_candidate(candidate: dict[str, Any]) -> None:

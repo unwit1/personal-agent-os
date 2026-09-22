@@ -36,6 +36,9 @@ source without trusting the ledger as canonical state. The local structured
 profile importer also routes `profile.index_facts()` through the ledger: its
 gitignored fact cache reuses unchanged canonical profile sources, requeues
 changed JSON, and resumes claims interrupted between checkpointed sources.
+The local candidate-record reader likewise routes per-record JSON through a
+project-scoped ledger, preserving the review/promotion boundary while tracking
+changed records, idempotent reads, and interrupted directory scans.
 The implementation assumes one active worker per ledger and does not store
 provider credentials, raw records, OCR text, or derived artifacts in the
 ledger.

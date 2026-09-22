@@ -291,7 +291,9 @@ shared document page batches, and canonical local search-index rebuild now
 delegate work through that ledger. The curated local profile JSON importer now
 also reuses a gitignored derived-fact cache through the same ledger, with
 changed-source requeue and interrupted-claim recovery. Drive, messages, feeds,
-and other provider-specific imports remain unwired.
+and other provider-specific imports remain unwired. The local candidate-record
+reader now uses a project-scoped ledger for resumable directory scans without
+changing the explicit curation/promotion boundary.
 
 ### P0.5 — Deterministic/cache/skill-first execution policy
 
