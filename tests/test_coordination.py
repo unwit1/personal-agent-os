@@ -142,6 +142,55 @@ class MessageTests(ClaimFixture):
             coordination.message("WC-nope", "hi", sender="beta", path=self.registry)
 
 
+class DelegatedTaskTests(ClaimFixture):
+    def test_delegation_is_stable_and_idempotent(self) -> None:
+        first = coordination.delegate(
+            "demo", "fixture-review", "Review synthetic fixture", "alpha",
+            assignee="beta", scope=["src/agent_os"], path=self.registry,
+        )
+        second = coordination.delegate(
+            "demo", "fixture-review", "A different duplicate title", "other",
+            assignee="other", path=self.registry,
+        )
+        self.assertTrue(first["created"])
+        self.assertFalse(second["created"])
+        self.assertTrue(second["idempotent"])
+        self.assertEqual(first["task"]["task_id"], second["task"]["task_id"])
+        self.assertEqual(len(coordination.list_tasks("demo", path=self.registry)), 1)
+
+    def test_dependencies_block_claim_until_completed(self) -> None:
+        prerequisite = coordination.delegate("demo", "prepare", "Prepare fixture", "alpha", path=self.registry)
+        dependent = coordination.delegate(
+            "demo", "review", "Review fixture", "alpha",
+            depends_on=[prerequisite["task"]["task_id"]], path=self.registry,
+        )
+        blocked = coordination.claim_task(dependent["task"]["task_id"], "beta", path=self.registry)
+        self.assertFalse(blocked["claimed"])
+        self.assertEqual(blocked["blocked_by"], [prerequisite["task"]["task_id"]])
+
+        coordination.claim_task(prerequisite["task"]["task_id"], "alpha", path=self.registry)
+        coordination.complete_task(
+            prerequisite["task"]["task_id"], "alpha", "synthetic validator passed", "fixture ready", path=self.registry
+        )
+        claimed = coordination.claim_task(dependent["task"]["task_id"], "beta", path=self.registry)
+        self.assertTrue(claimed["claimed"])
+        self.assertEqual(claimed["task"]["status"], "in_progress")
+
+    def test_only_assignee_can_complete_with_validation_evidence(self) -> None:
+        created = coordination.delegate("demo", "assigned", "Assigned fixture task", "alpha", assignee="beta", path=self.registry)
+        task_id = created["task"]["task_id"]
+        with self.assertRaises(ValueError):
+            coordination.claim_task(task_id, "alpha", path=self.registry)
+        coordination.claim_task(task_id, "beta", path=self.registry)
+        with self.assertRaises(ValueError):
+            coordination.complete_task(task_id, "alpha", "synthetic pass", path=self.registry)
+        with self.assertRaises(ValueError):
+            coordination.complete_task(task_id, "beta", "", path=self.registry)
+        completed = coordination.complete_task(task_id, "beta", "synthetic pass", "done", path=self.registry)
+        self.assertTrue(completed["completed"])
+        self.assertEqual(coordination.list_tasks("demo", "completed", self.registry)[0]["task_id"], task_id)
+
+
 class HonestyTests(ClaimFixture):
     def test_the_registry_says_it_is_not_a_lock(self) -> None:
         """An agent that thinks it holds a lock is worse than one that knows."""

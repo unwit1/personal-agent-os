@@ -16,7 +16,11 @@ from .coordination import (
     message as claim_message,
     release as release_claim,
     acknowledge as acknowledge_note,
+    claim_task,
+    complete_task,
+    delegate,
     inbox as work_inbox,
+    list_tasks,
     note as work_note,
     status as claims_status,
 )
@@ -110,6 +114,25 @@ def parser() -> argparse.ArgumentParser:
     work_message.add_argument("claim_id")
     work_message.add_argument("text")
     work_message.add_argument("--from-agent", required=True)
+    work_delegate = commands.add_parser("work-delegate")
+    work_delegate.add_argument("project")
+    work_delegate.add_argument("task_key")
+    work_delegate.add_argument("title")
+    work_delegate.add_argument("--from-agent", required=True)
+    work_delegate.add_argument("--to-agent")
+    work_delegate.add_argument("--scope", action="append", default=[])
+    work_delegate.add_argument("--depends-on", action="append", default=[])
+    work_tasks = commands.add_parser("work-tasks")
+    work_tasks.add_argument("--project")
+    work_tasks.add_argument("--status", choices=("queued", "assigned", "in_progress", "completed", "cancelled"))
+    work_task_claim = commands.add_parser("work-task-claim")
+    work_task_claim.add_argument("task_id")
+    work_task_claim.add_argument("--agent", required=True)
+    work_task_complete = commands.add_parser("work-task-complete")
+    work_task_complete.add_argument("task_id")
+    work_task_complete.add_argument("--agent", required=True)
+    work_task_complete.add_argument("--validation", required=True)
+    work_task_complete.add_argument("--result")
     commands.add_parser("validate")
     telemetry_report = commands.add_parser("telemetry-report")
     telemetry_report.add_argument("--path")
@@ -304,6 +327,14 @@ def main(argv: list[str] | None = None) -> int:
             _print(acknowledge_note(args.note_id, args.agent, args.reply))
         elif args.command == "work-message":
             _print(claim_message(args.claim_id, args.text, args.from_agent))
+        elif args.command == "work-delegate":
+            _print(delegate(args.project, args.task_key, args.title, args.from_agent, args.to_agent, args.scope, args.depends_on))
+        elif args.command == "work-tasks":
+            _print(list_tasks(args.project, args.status))
+        elif args.command == "work-task-claim":
+            _print(claim_task(args.task_id, args.agent))
+        elif args.command == "work-task-complete":
+            _print(complete_task(args.task_id, args.agent, args.validation, args.result))
         elif args.command == "validate":
             result = validate()
             _print(result)

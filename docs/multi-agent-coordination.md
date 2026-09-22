@@ -102,6 +102,33 @@ agent-os work-ack WN-5152b28f8b --agent codex --reply "good catch, changing it"
 `agent.context` reports waiting notes as `messages_for_you` without being
 asked, alongside `active_work`.
 
+## Delegating bounded tasks
+
+Claims describe overlapping work; they do not assign or track a unit of work.
+For that, the local registry also supports deterministic delegated tasks:
+
+```powershell
+agent-os work-delegate personal-agent-os fixture-review "Review the fixture" `
+    --from-agent luna --to-agent codex --scope "tests" `
+    --depends-on WT-0123456789ab
+agent-os work-tasks --project personal-agent-os
+agent-os work-task-claim WT-0123456789ab --agent codex
+agent-os work-task-complete WT-0123456789ab --agent codex `
+    --validation "focused tests passed" --result "review packet ready"
+```
+
+The task ID is stable for a `(project, task_key)` pair, so retrying delegation
+is idempotent. Dependencies are checked before claiming, completion is limited
+to the assigned agent, and non-empty validation evidence is required. Task
+records contain bounded summaries, paths, IDs, and validation metadata; they do
+not carry prompts, transcripts, documents, or secrets. The queue is advisory
+and machine-local like claims, but it gives agents a resumable handoff instead
+of relying on chat memory.
+
+Peer code evaluation is intentionally a separate protocol: the current
+`review` command selects a risk level, but does not yet persist an independent
+reviewer verdict or require a second agent before completion.
+
 Note excerpts in the preflight are capped at 400 characters and three notes,
 with a pointer to read them in full. A note is written by another agent and can
 be any length; dropping it whole into every preflight would let one verbose

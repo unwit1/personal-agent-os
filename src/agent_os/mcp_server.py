@@ -17,7 +17,11 @@ from .coordination import (
     message as claim_message,
     release as release_claim,
     acknowledge as acknowledge_note,
+    claim_task,
+    complete_task,
+    delegate,
     inbox as work_inbox,
+    list_tasks,
     note as work_note,
     status as claims_status,
 )
@@ -90,6 +94,22 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     "work.message": {
         "description": "Leave a note for the agent holding a claim, so overlapping work is negotiated rather than raced.",
         "inputSchema": {"type": "object", "properties": {"claim_id": {"type": "string"}, "text": {"type": "string"}, "sender": {"type": "string"}}, "required": ["claim_id", "text", "sender"]},
+    },
+    "work.delegate": {
+        "description": "Create an idempotent delegated task with optional scope, assignee, and task dependencies.",
+        "inputSchema": {"type": "object", "properties": {"project": {"type": "string"}, "task_key": {"type": "string"}, "title": {"type": "string"}, "requester": {"type": "string"}, "assignee": {"type": ["string", "null"]}, "scope": {"type": "array", "items": {"type": "string"}}, "depends_on": {"type": "array", "items": {"type": "string"}}}, "required": ["project", "task_key", "title", "requester"]},
+    },
+    "work.tasks": {
+        "description": "List local delegated tasks and their resumable status.",
+        "inputSchema": {"type": "object", "properties": {"project": {"type": ["string", "null"]}, "status": {"type": ["string", "null"]}}},
+    },
+    "work.task_claim": {
+        "description": "Claim a delegated task when its dependencies are complete.",
+        "inputSchema": {"type": "object", "properties": {"task_id": {"type": "string"}, "agent": {"type": "string"}}, "required": ["task_id", "agent"]},
+    },
+    "work.task_complete": {
+        "description": "Complete a delegated task with validation evidence from its assigned agent.",
+        "inputSchema": {"type": "object", "properties": {"task_id": {"type": "string"}, "agent": {"type": "string"}, "validation": {"type": "string"}, "result": {"type": ["string", "null"]}}, "required": ["task_id", "agent", "validation"]},
     },
     "agent.capture_candidates": {
         "description": "Stage evidenced durable findings for curation. This never promotes canonical memory.",
@@ -288,6 +308,10 @@ def methods() -> dict[str, Callable[..., Any]]:
             "work.heartbeat": claim_heartbeat,
             "work.release": release_claim,
             "work.message": claim_message,
+            "work.delegate": delegate,
+            "work.tasks": list_tasks,
+            "work.task_claim": claim_task,
+            "work.task_complete": complete_task,
             "agent.capture_candidates": lambda project=None, project_id=None, task_summary="", candidates=(), source_agent=None, source_session=None: stage_candidates(project_id or project or "", task_summary, candidates, source_agent, source_session),
             "agent.search": search,
             "agent.project_status": project_status,

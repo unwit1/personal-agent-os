@@ -56,6 +56,11 @@ SCHEMA_VERSION = 1
 DEFAULT_LEASE_MINUTES = 90
 
 STATUSES = ("active", "released", "expired")
+TASK_STATUSES = ("queued", "assigned", "in_progress", "completed", "cancelled")
+TASK_KEY_LIMIT = 160
+TASK_TITLE_LIMIT = 320
+TASK_RESULT_LIMIT = 2000
+TASK_VALIDATION_LIMIT = 1000
 
 
 def claims_path(override: Path | None = None) -> Path:
@@ -327,6 +332,146 @@ def acknowledge(note_id: str, agent: str, reply: str | None = None,
             _save(location, data)
             return {"note_id": note_id, "acknowledged_by": agent, "reply": reply}
     raise KeyError(f"unknown note: {note_id}")
+
+
+def _task_id(project: str, task_key: str) -> str:
+    return "WT-" + hashlib.sha256(
+        f"{project.strip().casefold()}\0{task_key.strip().casefold()}".encode("utf-8")
+    ).hexdigest()[:12]
+
+
+def _task_text(value: str, label: str, limit: int) -> str:
+    text = str(value).strip()
+    if not text:
+        raise ValueError(f"{label} must not be empty")
+    return text[:limit]
+
+
+def _task_dependencies(values: list[str] | None) -> list[str]:
+    return sorted({str(value).strip() for value in (values or []) if str(value).strip()})
+
+
+def _find_task(data: dict[str, Any], task_id: str) -> dict[str, Any]:
+    for task in data.get("tasks", []):
+        if task.get("task_id") == task_id:
+            return task
+    raise KeyError(f"unknown delegated task: {task_id}")
+
+
+def _blocked_by(data: dict[str, Any], task: dict[str, Any]) -> list[str]:
+    by_id = {item.get("task_id"): item for item in data.get("tasks", [])}
+    return [
+        dependency
+        for dependency in task.get("depends_on", [])
+        if by_id.get(dependency, {}).get("status") != "completed"
+    ]
+
+
+def delegate(
+    project: str,
+    task_key: str,
+    title: str,
+    requester: str,
+    assignee: str | None = None,
+    scope: list[str] | None = None,
+    depends_on: list[str] | None = None,
+    path: Path | None = None,
+) -> dict[str, Any]:
+    """Create an idempotent, machine-local task for another agent."""
+    project_name = _task_text(project, "project", TASK_KEY_LIMIT)
+    key = _task_text(task_key, "task_key", TASK_KEY_LIMIT)
+    requester_name = _task_text(requester, "requester", TASK_KEY_LIMIT)
+    task_id = _task_id(project_name, key)
+    location = claims_path(path)
+    data = _load(location)
+    data.setdefault("tasks", [])
+    existing = next((item for item in data["tasks"] if item.get("task_id") == task_id), None)
+    if existing is not None:
+        return {"created": False, "idempotent": True, "task": existing}
+    assigned = _task_text(assignee, "assignee", TASK_KEY_LIMIT) if assignee else None
+    now = utc_now_iso()
+    task = {
+        "task_id": task_id,
+        "project": project_name,
+        "task_key": key,
+        "title": _task_text(title, "title", TASK_TITLE_LIMIT),
+        "requester": requester_name,
+        "assignee": assigned,
+        "scope": _normalize_scope(scope),
+        "depends_on": _task_dependencies(depends_on),
+        "status": "assigned" if assigned else "queued",
+        "created_at": now,
+        "updated_at": now,
+    }
+    data["tasks"].append(task)
+    _save(location, data)
+    return {"created": True, "idempotent": False, "task": task}
+
+
+def list_tasks(
+    project: str | None = None,
+    status: str | None = None,
+    path: Path | None = None,
+) -> list[dict[str, Any]]:
+    """List delegated tasks without loading prompts, documents, or transcripts."""
+    if status is not None and status not in TASK_STATUSES:
+        raise ValueError(f"unknown delegated task status: {status}")
+    tasks = _load(claims_path(path)).get("tasks", [])
+    return sorted(
+        [
+            task for task in tasks
+            if (project is None or task.get("project") == project)
+            and (status is None or task.get("status") == status)
+        ],
+        key=lambda item: (item.get("created_at", ""), item.get("task_id", "")),
+    )
+
+
+def claim_task(task_id: str, agent: str, path: Path | None = None) -> dict[str, Any]:
+    """Claim a delegated task once its dependencies are complete."""
+    location = claims_path(path)
+    data = _load(location)
+    task = _find_task(data, task_id)
+    agent_name = _task_text(agent, "agent", TASK_KEY_LIMIT)
+    if task.get("status") in {"completed", "cancelled"}:
+        raise ValueError(f"delegated task is already {task['status']}")
+    if task.get("assignee") and task["assignee"] != agent_name:
+        raise ValueError("delegated task is assigned to another agent")
+    blockers = _blocked_by(data, task)
+    if blockers:
+        return {"claimed": False, "blocked": True, "blocked_by": blockers, "task": task}
+    task["assignee"] = agent_name
+    task["status"] = "in_progress"
+    task["updated_at"] = utc_now_iso()
+    _save(location, data)
+    return {"claimed": True, "blocked": False, "task": task}
+
+
+def complete_task(
+    task_id: str,
+    agent: str,
+    validation: str,
+    result: str | None = None,
+    path: Path | None = None,
+) -> dict[str, Any]:
+    """Complete a delegated task only by its assigned agent with evidence."""
+    location = claims_path(path)
+    data = _load(location)
+    task = _find_task(data, task_id)
+    agent_name = _task_text(agent, "agent", TASK_KEY_LIMIT)
+    evidence = _task_text(validation, "validation", TASK_VALIDATION_LIMIT)
+    if task.get("status") != "in_progress":
+        raise ValueError("delegated task must be in_progress before completion")
+    if task.get("assignee") != agent_name:
+        raise ValueError("only the assigned agent can complete a delegated task")
+    task["status"] = "completed"
+    task["validation"] = evidence
+    if result:
+        task["result"] = str(result).strip()[:TASK_RESULT_LIMIT]
+    task["completed_at"] = utc_now_iso()
+    task["updated_at"] = task["completed_at"]
+    _save(location, data)
+    return {"completed": True, "task": task}
 
 
 def status(project: str | None = None, path: Path | None = None) -> dict[str, Any]:
