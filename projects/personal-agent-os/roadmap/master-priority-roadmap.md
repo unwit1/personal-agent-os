@@ -494,6 +494,117 @@ The router should:
 - record an observable route explanation;
 - never claim to hot-swap the model already running inside ChatGPT/Claude.
 
+### P1.2A — Multi-agent coding orchestrator + control GUI
+
+Status: **promoted user priority** (2026-09-22). Build on the completed staged
+workflow/adaptive-routing foundation and the current machine-local multi-agent
+coordination primitives.
+
+Create an Agent OS control plane that can coordinate Claude Code, Codex CLI, and
+future coding agents as independent workers on one larger task.
+
+Core behavior:
+- decompose a task into a dependency-aware stage/DAG plan and assign bounded
+  roles such as planner, implementer, test author, adversarial reviewer, and
+  integrator;
+- launch agents through provider-specific CLI adapters while keeping the
+  orchestrator core provider-neutral;
+- resolve capability class -> provider -> concrete model -> reasoning/effort at
+  launch time from a machine-local model registry;
+- pass the selected model and effort to each CLI automatically, while exposing
+  a user override before or during a run;
+- use separate Git branches/worktrees for concurrently editing agents so one
+  agent cannot silently overwrite another agent's half-finished work;
+- reuse `work-check`, `work-claim`, notes/inbox, staged workflow checkpoints,
+  compact context compilation, and validation before adding duplicate
+  coordination machinery;
+- support deliberate cross-review: Claude can review Codex work, Codex can
+  review Claude work, findings are structured, and implementation changes
+  require validation after review;
+- preserve successful partial work and hand it to another provider if a quota,
+  provider, or session ends instead of restarting the task.
+
+Automatic model routing:
+- workflow stages request provider-neutral capability classes and effort, not
+  hard-coded vendor model names;
+- a model registry maps capability classes to the currently recommended local
+  CLI/provider model identifiers and supported effort controls;
+- selection considers declared task type, validator history, context size,
+  provider availability, configured usage/cost policy, prior success/failure
+  telemetry, and explicit user preference;
+- automatic routing must be explainable in compact metadata and must never
+  silently rewrite the canonical recommendation registry from one anecdotal
+  run;
+- model names live in data/configuration, not in provider-neutral workflow code,
+  so new Claude/Codex models can be adopted without rewriting manifests.
+
+Auto-continue-until-done mode:
+- add an explicit `auto_continue` run policy that repeatedly advances runnable
+  stages, validates outputs, checkpoints state, launches the next approved
+  agent/model, handles bounded retries/escalations, and continues until the
+  task's completion criteria pass;
+- do not require the user to paste the next prompt between normal safe stages;
+- resume from persisted run state after GUI restart, CLI crash, quota cutoff, or
+  provider switch;
+- stop and ask for approval only at declared approval gates such as destructive
+  actions, credential/secret entry, consequential external writes, policy-
+  restricted operations, unresolved merge/conflict decisions, exhausted safety/
+  cost limits, or ambiguity that would materially change the requested outcome;
+- a provider/model failure is normally a routing event, not a reason to abandon
+  the whole run: preserve the checkpoint and try an allowed alternate route;
+- include a visible Pause/Stop/Kill control and never claim background execution
+  once the local orchestrator process is no longer running.
+
+GUI requirements:
+- one-click **Start Recommended** launches the generated plan with automatic
+  provider/model/effort selection;
+- show each agent, role, branch/worktree, current stage, selected model/effort,
+  status, validator result, usage when available, cross-review findings, and
+  unresolved blockers;
+- provide per-agent model/provider overrides and an overall economy/quality
+  preference without forcing users to know CLI flags;
+- expose Auto Continue, Pause, Resume, Retry, Reassign, Review Again, and
+  Approve Merge controls;
+- the GUI is a client of the Agent OS orchestration APIs/state machine, not the
+  place where orchestration policy lives, so CLI/MCP/headless use remains
+  possible.
+
+Implementation constraints:
+- never run two editing agents in the same worktree;
+- do not auto-merge merely because both agents report success; declared tests,
+  validators, and review gates remain authoritative;
+- default to deterministic/local work before model calls and avoid using a
+  frontier model as a planner for trivial routing decisions;
+- keep raw prompts/transcripts out of canonical Git state; persist compact
+  structured stage state, outputs, decisions, review findings, and handoffs;
+- record provider/model identifiers in telemetry only where permitted and keep
+  sensitive/raw traces local;
+- preserve provider neutrality in core orchestration and isolate CLI syntax in
+  adapters.
+
+Acceptance criteria:
+- one task can assign non-overlapping work to Claude Code and Codex
+  concurrently in isolated worktrees and later integrate the validated results;
+- the orchestrator can automatically launch the recommended concrete model and
+  effort for both CLIs without manual `/model` interaction;
+- a user override takes effect without editing workflow manifests;
+- each agent can review the other's diff through a structured review stage;
+- killing/restarting the GUI or losing one provider does not lose completed
+  stage state;
+- with `auto_continue` enabled, a fixture workflow proceeds across multiple
+  model stages without manual next-prompt copy/paste and stops only when
+  complete, blocked by a declared gate, or explicitly paused/stopped;
+- regression tests prove worktree isolation, model-resolution fallback,
+  validation-gated continuation, bounded escalation, provider handoff, and
+  no-auto-merge-on-self-reported-success.
+
+Success signal:
+- the user can submit a substantial coding goal once, select **Start
+  Recommended + Auto Continue**, and Agent OS coordinates the cheapest suitable
+  Claude/Codex workers, cross-checks their work, preserves checkpoints, and
+  drives the task to validated completion with human intervention only at
+  meaningful approval gates.
+
 ### P1.3 — Optional API delegation
 
 Only after local/deterministic/context savings are functioning.
@@ -678,15 +789,16 @@ Unless an urgent correctness/privacy bug or explicitly promoted user request int
 9. skill/economy regression suite: relevance threshold, selection corpus, bloat stress tests, workflow evals, and A/B economy benchmarks;
 10. local privacy-safe usage telemetry and usage report;
 11. adaptive routing + validator-driven escalation;
-12. automation miner;
-13. skill miner + replay/evaluation;
-14. Executive Event Bus / schemas / Next Action Engine;
-15. capture + Rescue Mode;
-16. communication/calendar intelligence;
-17. proactivity/voice;
-18. controlled autonomy;
-19. reusable Knowledge Library / Elder Scrolls implementation;
-20. mature Lorekeeper/live-writing systems.
+12. multi-agent coding orchestrator + control GUI: isolated worktrees, automatic CLI model/effort routing, cross-review, resumable provider handoff, and auto-continue-until-done;
+13. automation miner;
+14. skill miner + replay/evaluation;
+15. Executive Event Bus / schemas / Next Action Engine;
+16. capture + Rescue Mode;
+17. communication/calendar intelligence;
+18. proactivity/voice;
+19. controlled autonomy;
+20. reusable Knowledge Library / Elder Scrolls implementation;
+21. mature Lorekeeper/live-writing systems.
 
 ## Gate for adding new features
 
@@ -701,6 +813,8 @@ Before implementing a major new model-driven feature, answer:
 - What validates a cheap route before escalation?
 - Can this be broken into bounded stages with cheaper capability classes for some stages?
 - Does every long stage emit a resumable checkpoint and exact next-step handoff?
+- Can independent agents use isolated worktrees and structured cross-review instead of racing in one checkout?
+- Can safe stages auto-continue from persisted state while still stopping at meaningful approval gates?
 - Will this create recurring model calls that should instead be event/rule driven?
 
 If these questions have no satisfactory answer, improve the economy layer first.
