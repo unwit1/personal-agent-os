@@ -400,6 +400,27 @@ class PeerReviewTests(ClaimFixture):
         with self.assertRaises(ValueError):
             coordination.submit_review(review_id, "gamma", "approved", "another pass", path=self.registry)
 
+    def test_peer_review_verdict_retry_is_idempotent_and_immutable(self) -> None:
+        requested = coordination.request_review(
+            "demo", "retry-review", "alpha", commit_fingerprint="retry123", reviewer="beta", path=self.registry,
+        )
+        review_id = requested["review"]["review_id"]
+        first = coordination.submit_review(
+            review_id, "beta", "approved", "synthetic tests passed", findings=["no issues"], path=self.registry,
+        )
+        retry = coordination.submit_review(
+            review_id, "beta", "approved", "synthetic tests passed", findings=["no issues"], path=self.registry,
+        )
+        self.assertTrue(first["submitted"])
+        self.assertFalse(retry["submitted"])
+        self.assertTrue(retry["idempotent"])
+        self.assertEqual(retry["review"]["reviewed_at"], first["review"]["reviewed_at"])
+        with self.assertRaisesRegex(ValueError, "final verdict"):
+            coordination.submit_review(
+                review_id, "beta", "changes_requested", "synthetic changed verdict", path=self.registry,
+            )
+        self.assertEqual(coordination.list_reviews("demo", path=self.registry)[0]["status"], "approved")
+
 
 class HonestyTests(ClaimFixture):
     def test_the_registry_says_it_is_not_a_lock(self) -> None:

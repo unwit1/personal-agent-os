@@ -652,12 +652,20 @@ def submit_review(
         raise ValueError("requester cannot submit the independent peer review")
     if review.get("reviewer") and review["reviewer"] != reviewer_name:
         raise ValueError("review was assigned to another reviewer")
-    if review.get("status") != "requested":
-        raise ValueError("peer review already has a final verdict")
     evidence = _task_text(validation, "validation", REVIEW_VALIDATION_LIMIT)
+    normalized_findings = _review_findings(findings)
+    if review.get("status") != "requested":
+        if (
+            review.get("reviewer") == reviewer_name
+            and review.get("verdict") == verdict
+            and review.get("validation") == evidence
+            and review.get("findings") == normalized_findings
+        ):
+            return {"submitted": False, "idempotent": True, "review": review}
+        raise ValueError("peer review already has a final verdict")
     review["reviewer"] = reviewer_name
     review["verdict"] = verdict
-    review["findings"] = _review_findings(findings)
+    review["findings"] = normalized_findings
     review["validation"] = evidence
     review["status"] = verdict
     review["reviewed_at"] = utc_now_iso()

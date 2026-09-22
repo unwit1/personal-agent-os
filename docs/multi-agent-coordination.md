@@ -170,8 +170,10 @@ agent-os work-review-submit WR-0123456789ab --agent codex `
 Review requests are idempotent for a project, review key, and linked identity.
 The requester cannot submit the verdict, an assigned reviewer cannot be
 replaced, findings are capped and length-limited, and every final verdict needs
-non-empty validation evidence. An approval is recorded evidence, not an
-automatic merge or promotion decision.
+non-empty validation evidence. Retrying the exact final verdict by the same
+reviewer returns the persisted record idempotently; a changed verdict or
+evidence cannot mutate it. An approval is recorded evidence, not an automatic
+merge or promotion decision.
 
 Note excerpts in the preflight are capped at 400 characters and three notes,
 with a pointer to read them in full. A note is written by another agent and can
