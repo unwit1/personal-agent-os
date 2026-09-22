@@ -3,7 +3,7 @@
   "name": "Beyond Reach",
   "universe": "The Elder Scrolls",
   "kind": "mod_continuity_overlay",
-  "status": "dialogue_info_ingestion_complete_next_text_layers_pending",
+  "status": "dialogue_books_messages_complete_entity_layers_pending",
   "canon_policy": {
     "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
     "default_claim_scope": "tes.mod.beyond-reach",
@@ -31,10 +31,14 @@
     "explicit_speaker_records": 96,
     "info_records_with_conditions": 1866,
     "info_condition_entries": 3225,
-    "books": 106,
-    "messages": 82,
-    "actors": 828,
-    "scenes": 16
+    "books": 83,
+    "book_batch_files": 2,
+    "messages": 127,
+    "message_batch_files": 3,
+    "actors": 1028,
+    "scenes": 192,
+    "locations": 167,
+    "factions": 94
   },
   "structured_layers": {
     "source_qust_dial_records": "complete",
@@ -44,8 +48,8 @@
     "orc_main_quest_structure": "initial_complete_from_QUST",
     "lore_topic_retrieval_map": "initial_complete_from_explicit_lore_prompts",
     "dialogue_info_response_text": "complete_4377_records_88_gzip_jsonl_batches",
-    "books_and_notes": "not_yet_ingested",
-    "messages": "not_yet_ingested",
+    "books_and_notes": "complete_83_records_2_gzip_jsonl_batches",
+    "messages": "complete_127_records_3_gzip_jsonl_batches",
     "actors_and_speakers": "not_yet_ingested",
     "locations": "not_yet_ingested",
     "artifacts": "not_yet_ingested",
@@ -65,13 +69,17 @@
     "info_batch_checksum_audit": "88_of_88_git_blobs_match_local_generated_batches",
     "info_final_record_count": 4377,
     "info_final_batch_records": 27,
-    "source_sha256_verified": true
+    "book_message_batch_checksum_audit": "5_of_5_git_blobs_match_deterministic_local_generated_batches",
+    "book_records_with_text": 83,
+    "message_records_with_description": 125,
+    "source_sha256_verified": true,
+    "inventory_correction": "A full recursive parse of the same verified arnima.esm SHA corrected earlier incomplete type counts: BOOK 83, MESG 127, NPC_ 1028, SCEN 192, LCTN 167, FACT 94. Total plugin record count remains 217581."
   },
   "next_ingestion_steps": [
-    "extract and preserve BOOK/NOTE full text",
-    "extract MESG and other player-facing textual records",
-    "resolve additional dialogue speakers from conditions, quest aliases, and scenes without collapsing ambiguity",
-    "extract named actor/faction/location/artifact records",
+    "extract named actor and faction records and resolve additional dialogue speakers without collapsing ambiguity",
+    "extract location records and world/cell mapping",
+    "extract artifacts and important item records",
+    "ingest scenes and packages where they clarify chronology or speaker identity",
     "build character, faction, location, artifact, and concept dossiers",
     "promote evidence-backed propositions into continuity-scoped claims",
     "build retrieval tests and a final completeness audit"
