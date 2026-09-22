@@ -1,8 +1,8 @@
 {
   "source_file": "arnima.esm",
-  "sha256": null,
-  "source_identity_note": "Form provenance throughout the corpus uses arnima.esm origin IDs. A source-file SHA-256 was not captured in the current repository artifacts.",
-  "extraction": "Direct Skyrim plugin source-record ingestion currently preserves QUST metadata/journal/objective/alias surfaces and DIAL topic metadata/prompts/INFO counts. Full INFO response text and other record types remain pending.",
+  "sha256": "48d0c8bd09123f279820289aa8c31caa0a5731d0e5fe67be237aa7a6ae68def9",
+  "source_identity_note": "User-provided arnima.esm verified by SHA-256; form provenance is retained as master-or-plugin-qualified origin IDs.",
+  "extraction": "Direct Skyrim plugin parsing preserves QUST metadata/journals/objectives/aliases, DIAL prompts/topic metadata, and the full INFO layer including direct responses, shared-response reuse, parent DIAL/quest provenance, previous/shared INFO links, topic/sound references, raw condition payloads, and structurally explicit ANAM speaker resolution.",
   "raw_corpus": {
     "path": "data/source-records/",
     "files": 68,
@@ -37,12 +37,38 @@
     }
   ],
   "pending_structured_exports": [
-    "dialogue_info_responses",
     "books_and_notes",
     "messages",
     "named_actor_records",
     "locations",
     "artifacts",
-    "scenes_and_packages"
-  ]
+    "scenes_and_packages",
+    "additional_dialogue_speaker_resolution",
+    "continuity_scoped_claims"
+  ],
+  "plugin_inventory": {
+    "total_records": 217581,
+    "QUST": 196,
+    "DIAL": 3170,
+    "INFO": 4377,
+    "BOOK": 106,
+    "MESG": 82,
+    "NPC_": 828,
+    "SCEN": 16
+  },
+  "info_corpus": {
+    "path": "data/info-records/",
+    "files": 88,
+    "records": 4377,
+    "batching": "87 batches of 50 records plus final batch of 27",
+    "compression": "gzip",
+    "expanded_format": "UTF-8 JSONL",
+    "raw_response_strings": 5133,
+    "effective_response_strings_after_shared_info_reuse": 5613,
+    "shared_info_records": 489,
+    "explicit_ANAM_speaker_records": 96,
+    "records_with_conditions": 1866,
+    "condition_entries": 3225,
+    "checksum_audit": "88/88 Git blob SHAs and sizes matched deterministic local batches"
+  }
 }
