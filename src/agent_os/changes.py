@@ -8,6 +8,7 @@ from typing import Any, Callable, Iterable
 
 from .candidates import stage_candidates
 from .ingestion import IngestionLedger, stable_stage_id, stable_work_id
+from .normalization import normalise_text as _normalise
 from .paths import ROOT
 from .privacy import privacy_findings, require_private_safe
 from .registry import get_project
@@ -33,10 +34,6 @@ TRANSITIONS = {
 
 def _now() -> str:
     return datetime.now(timezone.utc).isoformat()
-
-
-def _normalise(value: str) -> str:
-    return " ".join(re.findall(r"[a-z0-9]+", value.casefold()))
 
 
 def _directory(project_id: str) -> Path:

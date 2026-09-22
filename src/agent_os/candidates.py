@@ -2,12 +2,12 @@ from __future__ import annotations
 
 import hashlib
 import json
-import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
 from .ingestion import IngestionLedger, stable_stage_id, stable_work_id
+from .normalization import normalise_text as _normalise
 from .paths import ROOT
 from .registry import get_project
 from .storage import load_json, write_json
@@ -34,10 +34,6 @@ def _candidate_dir(project_id: str) -> Path:
 
 CANDIDATE_LOCAL_DIR = ROOT / ".agent-local" / "candidates"
 CANDIDATE_PROCESSOR_VERSION = "candidate-records@1"
-
-
-def _normalise(value: str) -> str:
-    return " ".join(re.findall(r"[a-z0-9]+", value.casefold()))
 
 
 def _fingerprint(project_id: str, kind: str, statement: str) -> str:
