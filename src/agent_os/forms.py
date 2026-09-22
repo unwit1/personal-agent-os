@@ -5,14 +5,16 @@ import json
 import re
 from copy import deepcopy
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
+from .ingestion import IngestionLedger, stable_stage_id, stable_work_id
 from .paths import ROOT
 from .privacy import privacy_findings
 from .storage import load_json, write_json
 
 
 SANITIZER_VERSION = "1.0"
+FORM_REGISTRY_PROCESSOR_VERSION = "form-registry@1"
 FORM_REGISTRY = ROOT / "forms" / "registry.json"
 DEFAULT_QUEUE = ROOT / ".agent-local" / "form-intake" / "pending"
 _GOOGLE = re.compile(r"(?:google(?:apis)?\.com|googleusercontent\.com|drive\.google\.com|docs\.google\.com|gmail\.com|firebase)", re.I)
@@ -45,6 +47,63 @@ def _signature(fingerprint: dict[str, Any]) -> str:
         if value and value.strip()
     })
     return hashlib.sha256("\n".join(labels).encode("utf-8")).hexdigest()
+
+
+def load_form_registry_incremental(
+    registry_path: Path | None = None,
+    *,
+    ledger_path: Path | None = None,
+    processor_version: str = FORM_REGISTRY_PROCESSOR_VERSION,
+    before_parse: Callable[[Path], None] | None = None,
+) -> dict[str, Any]:
+    """Read the sanitized local form registry through a restart-safe ledger."""
+    path = Path(registry_path) if registry_path is not None else FORM_REGISTRY
+    target_ledger = Path(ledger_path or (ROOT / ".agent-local" / "forms" / "registry.json"))
+    work_id = stable_work_id("form-registry", "canonical")
+    ledger = IngestionLedger(
+        target_ledger,
+        source="form-registry",
+        work_id=work_id,
+        stage_id=stable_stage_id(work_id, "read"),
+        processor_version=processor_version,
+    )
+    raw = path.read_bytes()
+    queued = ledger.enqueue(path.name, content=raw, processor_version=processor_version)
+    stats = {
+        "checked": 1,
+        "queued": int(queued["action"] == "queued"),
+        "reprocessed": int(queued["action"] == "requeued"),
+        "resumed": 0,
+        "skipped": 0,
+        "errors": 0,
+    }
+    item_id = str(queued["item_id"])
+    claimed = ledger.claim(1) if queued["status"] != "processed" else []
+    if claimed:
+        if claimed[0]["item_id"] != item_id:
+            raise RuntimeError(f"form registry ledger claimed an unexpected item: {claimed[0]['item_id']}")
+        stats["resumed"] = int(claimed[0].get("attempts", 0)) > 1
+    elif queued["action"] == "duplicate":
+        stats["skipped"] = 1
+    else:
+        return {"registry": None, "stats": stats, "checkpoint": ledger.status()["checkpoint"]}
+
+    try:
+        if before_parse is not None:
+            before_parse(path)
+        registry = load_json(path)
+        if not isinstance(registry, dict):
+            raise ValueError("form registry must contain a JSON object")
+        if claimed:
+            ledger.complete(item_id, output_refs=(f"form-registry:{path.name}",))
+        ledger.checkpoint(path.name, **stats)
+    except (OSError, ValueError, UnicodeError) as exc:
+        stats["errors"] += 1
+        if claimed:
+            ledger.fail(item_id, str(exc), retryable=True)
+        ledger.checkpoint(path.name, **stats)
+        raise
+    return {"registry": registry, "stats": stats, "checkpoint": ledger.status()["checkpoint"]}
 
 
 def _forbidden_structure(value: Any) -> bool:
@@ -110,7 +169,7 @@ def score_fingerprint(fingerprint: dict[str, Any], entry: dict[str, Any]) -> flo
 
 
 def best_form_match(fingerprint: dict[str, Any], registry: dict[str, Any] | None = None) -> tuple[float, dict[str, Any] | None]:
-    registry = registry or load_json(FORM_REGISTRY)
+    registry = registry or load_form_registry_incremental()["registry"]
     scored = [(score_fingerprint(fingerprint, entry), entry) for entry in registry.get("forms", [])]
     return max(scored, default=(0.0, None), key=lambda item: item[0])
 

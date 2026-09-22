@@ -48,6 +48,9 @@ projection behavior while making reads incremental and restart-safe.
 The context compiler's project handoff reader now uses the same metadata-only
 ledger for canonical handoff JSON, preserving newest-first retrieval while
 recording interrupted scans and completed source files.
+The sanitized local form registry reader now uses its own ledger item and
+checkpoint as well, preserving the existing form-routing privacy boundary
+while detecting changed registry content and recovering interrupted reads.
 The implementation assumes one active worker per ledger and does not store
 provider credentials, raw records, OCR text, or derived artifacts in the
 ledger.

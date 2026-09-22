@@ -304,6 +304,9 @@ and restart-safe.
 The context compiler's project handoff reader now uses a separate
 metadata-only ledger for newest-first canonical handoff scans, preserving
 latest-handoff retrieval while recording interrupted scans and completed files.
+The sanitized local form-registry reader now uses its own ledger item and
+checkpoint, preserving the existing form-routing privacy boundary while
+detecting changed registry content and recovering interrupted reads.
 
 ### P0.5 — Deterministic/cache/skill-first execution policy
 
