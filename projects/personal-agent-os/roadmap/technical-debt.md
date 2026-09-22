@@ -85,7 +85,8 @@ under the gitignored `.agent-local` tree. It records only compact labels,
 counts, booleans, and timestamps; raw prompts, documents, secrets, and free-form
 labels are rejected. A count-only synthetic aggregate report now summarizes
 execution paths and validator outcomes without exposing event records. No
-workflow/provider usage adapter is connected yet, so unavailable metrics remain
+production workflow/provider usage adapter is connected yet; only the explicit
+deterministic fixture seam records a local event. Unavailable metrics remain
 absent and capability selection is still policy-driven rather than
 evidence-driven at the workflow level.
 

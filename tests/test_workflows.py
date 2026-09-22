@@ -4,6 +4,7 @@ import copy
 import json
 import shutil
 import sys
+import tempfile
 import unittest
 import uuid
 from pathlib import Path
@@ -14,6 +15,7 @@ from agent_os import capabilities, workflows
 from agent_os.compiler import compile_context
 from agent_os.documents import DocumentCache, PageKey, extract_page
 from agent_os.paths import ROOT
+from agent_os.telemetry import LocalTelemetryStore
 
 
 MANIFEST = {
@@ -312,6 +314,7 @@ class EscalationTests(WorkflowFixture):
         self.assertEqual(state["escalations"], 1)
         self.assertIn("validator failed", state["escalation_reason"])
 
+
     def test_escalation_stops_at_the_configured_budget(self) -> None:
         self._failing_manifest(max_escalations=1)
         workflows.start("failing-sweep", run_id="esc2")
@@ -353,6 +356,43 @@ class EscalationTests(WorkflowFixture):
         result = workflows.complete_stage("fixture-sweep", "honest", "think", outputs=[])
         self.assertFalse(result["completed_stage"]["validation"]["passed"])
         self.assertIn("missing outputs", result["completed_stage"]["validation"]["detail"])
+
+
+class TelemetryIntegrationTests(WorkflowFixture):
+    def test_deterministic_fixture_stage_records_one_countable_local_event(self) -> None:
+        workflows.start("fixture-sweep", run_id="telemetry-fixture")
+        with tempfile.TemporaryDirectory() as telemetry_dir:
+            store = LocalTelemetryStore(Path(telemetry_dir) / "events.jsonl")
+            result = workflows.run_stage(
+                "fixture-sweep",
+                "telemetry-fixture",
+                "cheap-check",
+                telemetry_store=store,
+            )
+
+            self.assertEqual(result["completed_stage"]["status"], "complete")
+            events = store.read_events()
+            self.assertEqual(len(events), 1)
+            self.assertEqual(events[0].project_id, "personal-agent-os")
+            self.assertEqual(events[0].task_category, "workflow-stage")
+            self.assertEqual(events[0].execution_path, "deterministic")
+            self.assertTrue(events[0].validator_passed)
+            self.assertEqual(events[0].retries, 0)
+            self.assertEqual(events[0].escalations, 0)
+
+            repeated = workflows.run_stage(
+                "fixture-sweep",
+                "telemetry-fixture",
+                "cheap-check",
+                telemetry_store=store,
+            )
+            self.assertTrue(repeated["skipped"])
+            self.assertEqual(len(store.read_events()), 1)
+
+            raw = store.path.read_text(encoding="utf-8")
+            self.assertNotIn("routing and validation", raw)
+            self.assertNotIn("check result", raw)
+            self.assertNotIn("raise SystemExit", raw)
 
 
 class StageContextTests(WorkflowFixture):

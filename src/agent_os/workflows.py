@@ -40,6 +40,7 @@ from .execution import cache_lookup_problems, lookup_document_page
 from .paths import ROOT
 from .registry import get_project
 from .storage import load_json, write_json
+from .telemetry import LocalTelemetryStore, TelemetryEvent
 
 
 MANIFEST_SCHEMA = "personal-agent/workflow-manifest/v1"
@@ -553,6 +554,29 @@ def _fallback_execution_path(stage: dict[str, Any], current: str) -> str | None:
     return min(remaining, key=EXECUTION_PATHS.index)
 
 
+def _record_deterministic_telemetry(
+    telemetry_store: LocalTelemetryStore | None,
+    manifest: dict[str, Any],
+    state: dict[str, Any],
+    validation: dict[str, Any],
+) -> None:
+    """Record one countable deterministic stage outcome when explicitly enabled."""
+
+    if telemetry_store is None:
+        return
+    telemetry_store.record(
+        TelemetryEvent(
+            project_id=manifest["project"],
+            task_category="workflow-stage",
+            capability_class="deterministic",
+            execution_path="deterministic",
+            retries=max(int(state["attempts"]) - 1, 0),
+            validator_passed=bool(validation["passed"]),
+            escalations=int(state["escalations"]),
+        )
+    )
+
+
 def _complete_from_cache(
     manifest: dict[str, Any], record: dict[str, Any], stage_id: str, stage: dict[str, Any], detail: str
 ) -> dict[str, Any]:
@@ -589,7 +613,12 @@ def _escalate(record: dict[str, Any], stage_id: str, reason: str) -> bool:
     return True
 
 
-def run_stage(workflow_id: str, run_id: str, stage_id: str | None = None) -> dict[str, Any]:
+def run_stage(
+    workflow_id: str,
+    run_id: str,
+    stage_id: str | None = None,
+    telemetry_store: LocalTelemetryStore | None = None,
+) -> dict[str, Any]:
     """Advance the run by one stage.
 
     A deterministic stage is executed and validated here. Any other stage is
@@ -671,6 +700,7 @@ def run_stage(workflow_id: str, run_id: str, stage_id: str | None = None) -> dic
         _escalate(record, target, f"validator failed: {validation.get('detail') or 'no detail'}")
     _finish_if_done(manifest, record)
     _save(record)
+    _record_deterministic_telemetry(telemetry_store, manifest, state, validation)
     return _completion_packet(manifest, record, target, validation)
 
 
