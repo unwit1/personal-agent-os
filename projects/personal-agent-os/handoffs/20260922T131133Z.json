@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-22T13:11:33.069995+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 1]\n M docs/resumable-ingestion.md\n M projects/personal-agent-os/roadmap/master-priority-roadmap.md\n M src/agent_os/mail.py\n M tests/test_mail.py",
+    "error": ""
+  },
+  "completed": [
+    "P0.4 iCloud Mail adapter sub-stage: mail.sync now delegates fetched RFC822 records through ledger-backed mail.sync_records with stable mailbox/UID identities, content fingerprints, idempotent indexing, changed-content reprocessing, checkpoints, and interrupted-claim recovery.",
+    "Added synthetic fixture tests for public sync delegation, idempotent re-import, same-UID content changes, interruption recovery, and checkpoint continuation; updated resumable-ingestion documentation and roadmap progress."
+  ],
+  "decisions": [
+    "SQLite commits happen before ledger completion; a crash between them is safe because re-import uses INSERT OR REPLACE and the ledger item is resumable.",
+    "Provider enumeration/fetching remains inside mail.sync; the fixture-friendly sync_records seam owns only fetched-record indexing and ledger transitions.",
+    "No credentials, raw message bodies, or provider data enter the ledger; existing raw mail remains in the existing gitignored local SQLite index."
+  ],
+  "remaining": [
+    "Add a provider-native cursor/UIDVALIDITY strategy so iCloud sync can avoid fetching the full UID window while still detecting remote changes safely.",
+    "Integrate the ledger into one additional provider-neutral/local import path, such as a document batch or structured text import, with the same interruption and idempotency tests.",
+    "Do not mark P0.4 complete until the cross-provider pattern and adapter-level recovery behavior are demonstrated."
+  ],
+  "validation": [
+    "python -m unittest tests.test_mail tests.test_ingestion -v: 16 passed",
+    "python -m unittest discover -s tests: 236 passed",
+    "python agent.py validate: 341 checks, 0 errors, 0 warnings"
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}
