@@ -471,6 +471,8 @@ def requeue_task(
     agent_name = _task_text(agent, "agent", TASK_KEY_LIMIT)
     requeue_reason = _task_text(reason, "reason", TASK_REQUEUE_REASON_LIMIT)
     if task.get("status") == "queued" and task.get("requeued_at") and not task.get("assignee"):
+        if agent_name not in {task.get("requester"), task.get("requeued_by"), task.get("last_assignee")}:
+            raise ValueError("only the task requester or last requeue agent can repeat a requeue")
         return {"requeued": False, "idempotent": True, "task": task}
     if task.get("status") != "in_progress":
         raise ValueError("only an in_progress delegated task can be requeued")

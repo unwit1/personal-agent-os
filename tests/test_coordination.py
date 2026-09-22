@@ -232,6 +232,8 @@ class DelegatedTaskTests(ClaimFixture):
         self.assertEqual(recovered["task"]["requeue_count"], 1)
         self.assertEqual(coordination.list_reviews("demo", path=self.registry)[0]["review_id"], requested["review"]["review_id"])
 
+        with self.assertRaisesRegex(ValueError, "last requeue agent"):
+            coordination.requeue_task(task_id, "gamma", "unauthorized repeat", path=self.registry)
         repeated = coordination.requeue_task(task_id, "alpha", "same interruption", path=self.registry)
         self.assertFalse(repeated["requeued"])
         self.assertTrue(repeated["idempotent"])

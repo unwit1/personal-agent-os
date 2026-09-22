@@ -133,6 +133,8 @@ of relying on chat memory. The requester or current assignee can explicitly
 requeue interrupted `in_progress` work; requeueing clears the assignee, keeps
 the stable task ID and review records, records a bounded reason, and is
 idempotent when repeated before another agent claims the task.
+Unauthorized agents cannot turn that idempotent retry into a successful
+coordination operation.
 For review-gated tasks, approvals recorded before the latest requeue are
 preserved as history but do not satisfy the new completion attempt; a fresh
 independent approval is required.
