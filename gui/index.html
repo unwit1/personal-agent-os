@@ -10,13 +10,128 @@
 <body>
   <header class="topbar">
     <div class="brand">Agent OS <span>Orchestrator</span></div>
-    <label class="run-picker">Run
-      <select id="run-select"><option value="">— new task —</option></select>
+    <label class="project-picker">Project
+      <select id="project-select"></select>
     </label>
-    <button id="providers-button" class="ghost">Providers</button>
+    <span class="spacer"></span>
+    <button id="help-button" class="help" data-target-name="help">Tell me what to press</button>
+    <div class="mode-switch" role="group" aria-label="Mode">
+      <button id="mode-simple" class="mode on" aria-pressed="true">Simple</button>
+      <button id="mode-advanced" class="mode" aria-pressed="false">Advanced</button>
+    </div>
   </header>
 
-  <main>
+  <div id="advice" class="advice hidden" role="status" aria-live="polite">
+    <span id="advice-text"></span>
+    <button id="advice-close" class="ghost small" aria-label="Close">✕</button>
+  </div>
+  <div id="busy" class="busy hidden" role="status" aria-live="polite"><span class="spinner"></span><span id="busy-text"></span></div>
+
+  <!-- ============================== SIMPLE MODE ============================== -->
+  <main id="simple-mode">
+    <section class="panel hero">
+      <div class="project-facts">
+        <div><div class="fact-label">Project</div><div class="fact-value" id="s-project">—</div></div>
+        <div><div class="fact-label">Roadmap</div><div class="fact-value" id="s-roadmap">—</div>
+          <div class="stage-dots" id="s-stage-dots" aria-hidden="true"></div></div>
+        <div class="wide"><div class="fact-label">Next task</div><div class="fact-value" id="s-next">—</div>
+          <div class="muted" id="s-next-why"></div></div>
+      </div>
+
+      <div class="primary-action">
+        <button id="continue-button" class="big primary" data-target-name="continue">
+          <span class="spinner hidden" id="continue-spinner"></span><span id="continue-label">CONTINUE ROADMAP</span>
+        </button>
+        <div class="primary-help">Find the next unfinished roadmap task and continue working automatically.</div>
+        <label class="inline switch"><input type="checkbox" id="until-done"> Keep going until the roadmap is done (Auto Continue Until Done)</label>
+      </div>
+
+      <div class="secondary-actions">
+        <button id="start-task-button" data-target-name="start-task">Start Specific Task</button>
+        <button id="view-progress-button" data-target-name="view-progress">View Progress</button>
+        <button id="pause-button" data-target-name="pause">Pause Work</button>
+        <button id="resume-button" data-target-name="resume" class="hidden">Resume</button>
+        <button id="stop-button" data-target-name="stop" class="danger">Stop Work</button>
+        <button id="settings-button" data-target-name="settings" class="ghost">Settings</button>
+      </div>
+
+      <div id="task-form" class="task-form hidden">
+        <label>What should the agents do?<textarea id="task-goal" rows="3" placeholder="Example: Add a --dry-run option to the mail sync command"></textarea></label>
+        <div class="row"><button id="task-start" class="primary">Start This Task</button><button id="task-cancel" class="ghost">Cancel</button></div>
+      </div>
+    </section>
+
+    <section id="run-panel" class="panel run-panel hidden" aria-live="polite">
+      <div class="run-title">
+        <div>
+          <div class="eyebrow" id="r-eyebrow">AUTONOMOUS ROADMAP RUN</div>
+          <div class="overall"><span class="fact-label">Overall status</span> <span id="r-overall" class="status-pill">—</span></div>
+          <div id="r-headline" class="headline"></div>
+        </div>
+      </div>
+      <div class="facts2">
+        <div><div class="fact-label">Current stage</div><div id="r-stage" class="fact-value small">—</div></div>
+        <div><div class="fact-label">Current task</div><div id="r-task" class="fact-value small">—</div></div>
+        <div><div class="fact-label">Tasks in this stage</div><div id="r-tasks" class="fact-value small">—</div></div>
+      </div>
+
+      <div id="r-problems"></div>
+
+      <div class="cols">
+        <div>
+          <h3>Progress</h3>
+          <ol id="r-steps" class="steps"></ol>
+        </div>
+        <div>
+          <h3>Agents</h3>
+          <table class="agents"><tbody id="r-agents"></tbody></table>
+          <div id="r-warning" class="wait hidden"></div>
+        </div>
+      </div>
+
+      <div id="r-summary" class="summary hidden"></div>
+
+      <h3>Activity</h3>
+      <ol id="r-activity" class="activity"></ol>
+
+      <details id="r-efficiency" class="efficiency">
+        <summary>How much work did the models do? (token and efficiency report)</summary>
+        <p class="muted">“Measured” and “exact” numbers come from the providers or from counting. “Estimated” numbers are calculated and labelled as such. Nothing here is guessed.</p>
+        <table><tbody id="r-eff-rows"></tbody></table>
+        <div class="muted" id="r-eff-files"></div>
+      </details>
+
+      <details class="advanced-details">
+        <summary>Advanced Details</summary>
+        <pre id="r-advanced"></pre>
+      </details>
+    </section>
+
+    <dialog id="settings-dialog">
+      <h2>Settings</h2>
+      <label>Cost preference
+        <select id="set-preference"><option value="economy">Economy — cheapest models first</option><option value="balanced" selected>Balanced</option><option value="quality">Quality — stronger models</option></select></label>
+      <p class="muted">Advanced Mode shows every agent, branch, model and log line. Switch with the buttons at the top right.</p>
+      <div class="row"><span class="spacer"></span><button id="settings-close" class="primary">Done</button></div>
+    </dialog>
+
+    <dialog id="explain-dialog">
+      <h2 id="explain-title"></h2>
+      <p id="explain-body"></p>
+      <p class="muted">This explanation is built in; asking for it does not use a model.</p>
+      <div class="row"><span class="spacer"></span><button id="explain-close" class="primary">Got it</button></div>
+    </dialog>
+  </main>
+
+  <!-- ============================== ADVANCED MODE ============================== -->
+  <main id="advanced-mode" class="hidden">
+    <div class="row adv-bar">
+      <label class="run-picker">Run
+        <select id="run-select"><option value="">— new task —</option></select>
+      </label>
+      <button id="providers-button" class="ghost">Providers</button>
+    </div>
+
     <section id="new-task" class="panel">
       <h2>New task</h2>
       <label>Goal<textarea id="goal" rows="3" placeholder="Describe the coding goal once. Agent OS plans, assigns, validates, reviews and integrates."></textarea></label>
@@ -104,6 +219,8 @@
   </dialog>
 
   <div id="toast" class="toast hidden"></div>
+  <script src="simple-core.js"></script>
   <script src="app.js"></script>
+  <script src="simple.js"></script>
 </body>
 </html>

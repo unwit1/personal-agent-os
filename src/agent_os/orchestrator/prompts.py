@@ -12,27 +12,41 @@ import json
 from typing import Any
 
 from .adapters.base import RESULT_FENCE
+from .usage import estimate_tokens
 
 
-def _context_packet(project: str | None, task: str, budget: int) -> str:
+def _context_packet(project: str | None, task: str, budget: int) -> tuple[str, dict[str, Any] | None]:
+    """The compact project context for a worker, plus how it was selected:
+    how much registered project context existed (the candidate) and how much
+    was actually put in the prompt."""
     if not project:
-        return ""
+        return "", None
     try:
         from ..compiler import compile_context
 
         packet = compile_context(project, task, token_budget=budget, include_handoff=False)
     except Exception:
-        return ""
+        return "", None
     state = packet.get("state") or {}
     lines = []
     if packet.get("summary"):
         lines.append(f"Project summary: {packet['summary']}")
+    items = 0
     for key in ("constraints", "validation_commands"):
         values = state.get(key) or []
         if values:
+            items += 1
             lines.append(f"{key.replace('_', ' ').capitalize()}:")
             lines.extend(f"- {item}" for item in values[:8])
-    return "\n".join(lines)[: budget * 4]
+    text = "\n".join(lines)[: budget * 4]
+    measurement = packet.get("context_measurement") or {}
+    return text, {
+        "method": "candidate = every registered context file and skill for the project; selected = the compact slice placed in the prompt",
+        "candidate_items": measurement.get("naive_all_registered_context_items"),
+        "candidate_tokens_estimate": measurement.get("naive_all_registered_context_tokens"),
+        "selected_items": items + (1 if packet.get("summary") else 0),
+        "selected_tokens_estimate": estimate_tokens(text),
+    }
 
 
 def _contract(role: str) -> str:
@@ -112,6 +126,13 @@ def _sibling_lines(run: dict[str, Any], node: dict[str, Any]) -> list[str]:
 
 
 def build(run: dict[str, Any], node: dict[str, Any], *, diff: str | None = None, findings: list[dict[str, Any]] | None = None) -> str:
+    return build_measured(run, node, diff=diff, findings=findings)[0]
+
+
+def build_measured(
+    run: dict[str, Any], node: dict[str, Any], *, diff: str | None = None, findings: list[dict[str, Any]] | None = None
+) -> tuple[str, dict[str, Any] | None]:
+    """The prompt and the context-selection measurement behind it."""
     role = node["role"]
     lines = [
         f"You are the {role.replace('_', ' ')} for Agent OS orchestrated run `{run['run_id']}`.",
@@ -189,8 +210,8 @@ def build(run: dict[str, Any], node: dict[str, Any], *, diff: str | None = None,
             "  `summary` instead.",
             "",
         ]
-    context = _context_packet(run.get("project"), node["goal"], int(node.get("context_budget", 1200)))
+    context, measurement = _context_packet(run.get("project"), node["goal"], int(node.get("context_budget", 1200)))
     if context:
         lines += ["Project context:", context, ""]
     lines.append(_contract(role))
-    return "\n".join(lines)
+    return "\n".join(lines), measurement

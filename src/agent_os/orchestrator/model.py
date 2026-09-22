@@ -135,6 +135,7 @@ DEFAULT_POLICY: dict[str, Any] = {
     "announce_claims": True,
     "telemetry": True,
     "cleanup_worktrees": True,
+    "reuse_validation": True,
 }
 
 _ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$")
@@ -177,6 +178,7 @@ def _check_policy(policy: dict[str, Any]) -> None:
         "announce_claims",
         "telemetry",
         "cleanup_worktrees",
+        "reuse_validation",
     ):
         if not isinstance(policy[key], bool):
             raise PolicyError(f"{key} must be boolean")

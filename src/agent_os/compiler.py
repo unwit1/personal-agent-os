@@ -327,6 +327,9 @@ def compile_context(
         "token_budget": max(token_budget, 250),
         "within_budget": packet_chars <= limit,
         "naive_all_registered_context_tokens": (naive_chars + 3) // 4,
+        "naive_all_registered_context_items": sum(
+            1 for relative in state.get("context_files", []) if (project_path / relative).is_file()
+        ) + len(available),
         "estimated_tokens_avoided": max((naive_chars - packet_chars) // 4, 0),
     }
     packet, limit = _fit(packet, token_budget)

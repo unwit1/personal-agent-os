@@ -138,7 +138,7 @@ class AgentResult:
     failure_kind: str | None = None
     summary: str = ""
     structured: dict[str, Any] | None = None
-    usage: dict[str, int] = field(default_factory=dict)
+    usage: dict[str, Any] = field(default_factory=dict)  # see orchestrator.usage
     duration_ms: int | None = None
     detail: str | None = None
 

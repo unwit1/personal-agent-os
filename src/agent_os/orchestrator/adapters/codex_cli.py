@@ -16,6 +16,7 @@ import tomllib
 from pathlib import Path
 from typing import Any
 
+from ..usage import from_codex_turns
 from .base import (
     AgentLaunchRequest,
     AgentResult,
@@ -39,6 +40,8 @@ _SLUG = re.compile(r"^gpt-(?P<version>\d+(?:\.\d+)*)-(?P<family>[a-z]+)$")
 # Logged by the Windows restricted-token sandbox when it cannot confine
 # commands to the workspace (for example, a workspace nested inside %TEMP%).
 SANDBOX_REFUSAL = "cannot enforce split writable root sets"
+# `codex exec --json` item types that are tool invocations, counted per worker.
+TOOL_ITEM_TYPES = frozenset({"command_execution", "mcp_tool_call", "file_change", "web_search"})
 OPTIONAL_FLAGS = ("--json", "--output-last-message", "--ephemeral", "--sandbox", "--cd", "--skip-git-repo-check")
 
 
@@ -98,7 +101,8 @@ class CodexCliAdapter(SubprocessAdapter):
         )
 
     def parse_result(self, handle: RunningAgent, returncode: int | None, stdout: str, stderr: str) -> AgentResult:
-        usage = {"input_tokens": 0, "cached_tokens": 0, "output_tokens": 0}
+        turns: list[dict] = []
+        tool_calls = 0
         errors: list[str] = []
         last_agent_text = ""
         for line in stdout.splitlines():
@@ -111,10 +115,7 @@ class CodexCliAdapter(SubprocessAdapter):
                 continue
             kind = str(event.get("type", ""))
             if kind == "turn.completed" and isinstance(event.get("usage"), dict):
-                data = event["usage"]
-                usage["input_tokens"] += int(data.get("input_tokens") or 0)
-                usage["cached_tokens"] += int(data.get("cached_input_tokens") or 0)
-                usage["output_tokens"] += int(data.get("output_tokens") or 0)
+                turns.append(event["usage"])
             elif kind in {"turn.failed", "error"}:
                 error = event.get("error") if isinstance(event.get("error"), dict) else event
                 errors.append(str(error.get("message") or error))
@@ -122,6 +123,9 @@ class CodexCliAdapter(SubprocessAdapter):
                 item = event["item"]
                 if item.get("type") in {"agent_message", "assistant_message"} and item.get("text"):
                     last_agent_text = str(item["text"])
+                elif item.get("type") in TOOL_ITEM_TYPES:
+                    tool_calls += 1
+        usage = from_codex_turns(turns, tool_calls)
         final_text = _read_tail(handle.result_path) if handle.result_path else ""
         final_text = final_text or last_agent_text
         if SANDBOX_REFUSAL in stderr:

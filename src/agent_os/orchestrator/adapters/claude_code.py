@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
+from ..usage import from_claude
 from .base import (
     AgentLaunchRequest,
     AgentResult,
@@ -92,12 +93,7 @@ class ClaudeCodeAdapter(SubprocessAdapter):
                 return self.failed(classify_failure(text, returncode), text or f"exit code {returncode}")
             return self.failed("malformed", "no JSON result on stdout")
         final_text = str(payload.get("result") or "")
-        usage = payload.get("usage") if isinstance(payload.get("usage"), dict) else {}
-        usage_counts = {
-            "input_tokens": int(usage.get("input_tokens") or 0),
-            "cached_tokens": int(usage.get("cache_read_input_tokens") or 0),
-            "output_tokens": int(usage.get("output_tokens") or 0),
-        }
+        usage_counts = from_claude(payload)
         if payload.get("is_error") or str(payload.get("subtype", "success")) != "success" or returncode not in (0, None):
             text = final_text or str(payload.get("subtype") or stderr)
             return AgentResult(
