@@ -32,6 +32,10 @@ cover idempotent re-import, changed page bytes, interruption recovery, and
 checkpoint continuation. The canonical local search index also now exposes
 `index.rebuild_documents()`: unchanged source documents are skipped, changed
 documents are reindexed, and a deleted derived SQLite index is repaired from
-source without trusting the ledger as canonical state. The implementation
-assumes one active worker per ledger and does not store provider credentials,
-raw records, OCR text, or derived artifacts in the ledger.
+source without trusting the ledger as canonical state. The local structured
+profile importer also routes `profile.index_facts()` through the ledger: its
+gitignored fact cache reuses unchanged canonical profile sources, requeues
+changed JSON, and resumes claims interrupted between checkpointed sources.
+The implementation assumes one active worker per ledger and does not store
+provider credentials, raw records, OCR text, or derived artifacts in the
+ledger.

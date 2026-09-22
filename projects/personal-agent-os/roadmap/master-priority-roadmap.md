@@ -288,8 +288,10 @@ provider-neutral local ledgers with stable work/run/stage/item IDs, content and
 processor fingerprints, deduplication, explicit item states, scalar
 checkpoints, and recovery of interrupted claims. The iCloud Mail adapter,
 shared document page batches, and canonical local search-index rebuild now
-delegate work through that ledger; Drive, messages, feeds, and other
-provider-specific imports remain unwired.
+delegate work through that ledger. The curated local profile JSON importer now
+also reuses a gitignored derived-fact cache through the same ledger, with
+changed-source requeue and interrupted-claim recovery. Drive, messages, feeds,
+and other provider-specific imports remain unwired.
 
 ### P0.5 — Deterministic/cache/skill-first execution policy
 

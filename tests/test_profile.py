@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -68,6 +69,104 @@ class IndexTests(unittest.TestCase):
         confidences = {fact["confidence"] for fact in profile.index_facts()}
         self.assertTrue(confidences)
         self.assertTrue(confidences.issubset(set(profile.CONFIDENCE_ORDER)))
+
+
+class IncrementalIndexTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tempdir = tempfile.TemporaryDirectory()
+        root = Path(self.tempdir.name)
+        self.preferences = root / "preferences.json"
+        self.context = root / "user-context.json"
+        self.ledger = root / "ingestion.json"
+        self.cache = root / "facts.json"
+        self._write_sources("Prefer compact fixture handoffs.", "The fixture goal is continuity.")
+
+    def tearDown(self) -> None:
+        self.tempdir.cleanup()
+
+    def _write_sources(self, preference: str, goal: str) -> None:
+        self.preferences.write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "updated_at": "2026-09-22",
+                    "provenance": [{"status": "user_stated", "source": "fixture"}],
+                    "preferences": {"workflow": {"handoffs": preference}},
+                }
+            ),
+            encoding="utf-8",
+        )
+        self.context.write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "updated_at": "2026-09-22",
+                    "provenance": [{"status": "seeded", "source": "fixture"}],
+                    "goals": {"primary": goal},
+                }
+            ),
+            encoding="utf-8",
+        )
+
+    def _run(self, **kwargs: object) -> dict[str, object]:
+        return profile.index_facts_incremental(
+            (self.preferences, self.context),
+            ledger_path=self.ledger,
+            cache_path=self.cache,
+            **kwargs,
+        )
+
+    def test_reimport_is_idempotent_and_ledger_is_metadata_only(self) -> None:
+        first = self._run()
+        second = self._run()
+
+        self.assertEqual(first["stats"]["queued"], 2)
+        self.assertEqual(second["stats"]["skipped"], 2)
+        self.assertEqual(first["facts"], second["facts"])
+        ledger_blob = self.ledger.read_text(encoding="utf-8")
+        self.assertNotIn("Prefer compact fixture handoffs", ledger_blob)
+        self.assertNotIn("The fixture goal is continuity", ledger_blob)
+
+    def test_changed_content_requeues_only_the_changed_source(self) -> None:
+        self._run()
+        self._write_sources("Prefer changed fixture handoffs.", "The fixture goal is continuity.")
+
+        result = self._run()
+        statements = {fact["statement"] for fact in result["facts"]}
+        self.assertEqual(result["stats"]["reprocessed"], 1)
+        self.assertEqual(result["stats"]["skipped"], 1)
+        self.assertIn("Prefer changed fixture handoffs.", statements)
+        self.assertNotIn("Prefer compact fixture handoffs.", statements)
+
+    def test_interruption_recovers_processing_item(self) -> None:
+        def interrupt(path: Path) -> None:
+            if path.name == "user-context.json":
+                raise KeyboardInterrupt("fixture interruption")
+
+        with self.assertRaises(KeyboardInterrupt):
+            self._run(before_parse=interrupt)
+
+        interrupted = json.loads(self.ledger.read_text(encoding="utf-8"))
+        statuses = {item["source_key"]: item["status"] for item in interrupted["items"].values()}
+        self.assertEqual(statuses["preferences.json"], "processed")
+        self.assertEqual(statuses["user-context.json"], "processing")
+        self.assertEqual(interrupted["checkpoint"]["cursor"], "preferences.json")
+
+        resumed = self._run()
+        self.assertEqual(resumed["stats"]["resumed"], 1)
+        self.assertEqual(resumed["stats"]["skipped"], 1)
+        self.assertEqual(resumed["checkpoint"]["cursor"], "user-context.json")
+
+    def test_checkpoint_advances_only_after_completed_source(self) -> None:
+        first = self._run()
+        first_checkpoint = first["checkpoint"]
+        second = self._run()
+        second_checkpoint = second["checkpoint"]
+
+        self.assertEqual(first_checkpoint["cursor"], "user-context.json")
+        self.assertGreater(second_checkpoint["sequence"], first_checkpoint["sequence"])
+        self.assertEqual(second_checkpoint["cursor"], "user-context.json")
+        self.assertEqual(second["stats"]["skipped"], 2)
 
 
 class PrivacyTests(unittest.TestCase):

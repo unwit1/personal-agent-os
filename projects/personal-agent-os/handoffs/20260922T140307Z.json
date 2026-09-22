@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-22T14:03:07.667101+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 4]\n M docs/resumable-ingestion.md\n M projects/personal-agent-os/roadmap/master-priority-roadmap.md\n M src/agent_os/profile.py\n M tests/test_profile.py",
+    "error": ""
+  },
+  "completed": [
+    "P0.4 local profile-import sub-stage: profile.index_facts now uses a provider-neutral IngestionLedger with stable source identities, content/processor fingerprints, a gitignored derived-fact cache, idempotent reuse, changed-source requeue, interrupted-claim recovery, and source checkpoints. Added fixture-backed interruption, idempotency, changed-content, and checkpoint tests. Updated resumable-ingestion documentation and P0.4 roadmap progress."
+  ],
+  "decisions": [
+    "Selected curated local profile JSON indexing because it is deterministic, fixture-friendly, and has an explicit privacy boundary; the ledger stores only metadata while derived facts remain in .agent-local. No IMAP cursor or second provider/import path was changed."
+  ],
+  "remaining": [
+    "P0.4 remains incomplete. Next agent: inspect the clean repository and choose exactly one remaining local or fixture-backed import path to integrate with IngestionLedger. Keep plain IMAP UID/UIDNEXT cursors deferred unless negotiated changed-message semantics are proven; do not combine provider paths. Re-run focused/full validation and update this handoff."
+  ],
+  "validation": [
+    "python -m unittest tests.test_profile tests.test_ingestion -v (43 passed); python -m unittest discover -s tests -v (249 passed); python agent.py validate (ok, 344 checks); git diff --check (clean)."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

@@ -24,12 +24,15 @@ Three rules shape everything here:
 from __future__ import annotations
 
 import hashlib
+import json
 import re
-from typing import Any, Iterable
+from pathlib import Path
+from typing import Any, Callable, Iterable
 
+from .ingestion import IngestionLedger, stable_item_id, stable_stage_id, stable_work_id
 from .paths import ROOT
 from .privacy import privacy_findings
-from .storage import load_json
+from .storage import load_json, write_json
 
 
 PREFERENCES_PATH = ROOT / "profile" / "preferences.json"
@@ -39,6 +42,11 @@ USER_CONTEXT_PATH = ROOT / "profile" / "user-context.json"
 # derived index, not durable curated context, and loading it would reintroduce
 # exactly the bulk injection this module exists to prevent.
 CANONICAL_SOURCES = (PREFERENCES_PATH, USER_CONTEXT_PATH)
+PROFILE_LOCAL_DIR = ROOT / ".agent-local" / "profile"
+PROFILE_LEDGER_PATH = PROFILE_LOCAL_DIR / "ingestion.json"
+PROFILE_CACHE_PATH = PROFILE_LOCAL_DIR / "facts.json"
+PROFILE_CACHE_SCHEMA = "personal-agent/profile-index-cache/v1"
+PROFILE_PROCESSOR_VERSION = "profile-index@1"
 
 # Sections that describe the privacy regime itself, or that exist only as
 # bookkeeping, are never retrievable context.
@@ -138,49 +146,171 @@ def _fact_id(source: str, path: str) -> str:
     return "PF-" + hashlib.sha256(f"{source}\0{path}".encode("utf-8")).hexdigest()[:12]
 
 
+def _facts_from_data(path: Path, data: dict[str, Any]) -> list[dict[str, Any]]:
+    """Flatten one canonical source into addressable facts."""
+    source = path.name
+    updated_at = str(data.get("updated_at", ""))
+    confidence = _confidence_of(item.get("status", "") for item in data.get("provenance", []) if isinstance(item, dict))
+    provenance = [
+        str(item.get("source", "")) for item in data.get("provenance", []) if isinstance(item, dict) and item.get("source")
+    ]
+    collected: list[dict[str, Any]] = []
+    if source == PREFERENCES_PATH.name:
+        _walk(data.get("preferences", {}), source, "preferences", "", collected)
+    else:
+        for key, value in data.items():
+            if key in STRUCTURAL_KEYS:
+                continue
+            _walk(value, source, str(key), str(key), collected)
+    for fact in collected:
+        sensitive = fact["domain"] in RESTRICTED_DOMAINS or fact["path"].split(".")[0] in RESTRICTED_DOMAINS
+        findings = privacy_findings(fact["statement"])
+        fact.update(
+            {
+                "id": _fact_id(source, fact["path"]),
+                "updated_at": updated_at,
+                "confidence": confidence,
+                "provenance": provenance,
+                "sensitivity": "restricted" if (sensitive or findings) else "personal",
+                "privacy_findings": findings,
+            }
+        )
+    return collected
+
+
+def _load_fact_cache(path: Path) -> dict[str, dict[str, Any]]:
+    try:
+        state = load_json(path)
+    except (OSError, ValueError):
+        return {}
+    if not isinstance(state, dict) or state.get("schema") != PROFILE_CACHE_SCHEMA:
+        return {}
+    sources = state.get("sources")
+    return dict(sources) if isinstance(sources, dict) else {}
+
+
+def index_facts_incremental(
+    sources: Iterable[Path] = CANONICAL_SOURCES,
+    *,
+    ledger_path: Path | None = None,
+    cache_path: Path | None = None,
+    processor_version: str = PROFILE_PROCESSOR_VERSION,
+    before_parse: Callable[[Path], None] | None = None,
+) -> dict[str, Any]:
+    """Index canonical profile sources through a restart-safe local ledger.
+
+    The ledger records only source names, hashes, state and checkpoints. The
+    derived fact cache stays in the gitignored local directory (or the caller's
+    fixture path), so a completed source can be reused without reparsing while
+    changed content is deterministically requeued.
+    """
+    source_paths = tuple(Path(path) for path in sources)
+    target_ledger = Path(ledger_path or PROFILE_LEDGER_PATH)
+    target_cache = Path(cache_path or PROFILE_CACHE_PATH)
+    ledger = IngestionLedger(
+        target_ledger,
+        source="profile-source",
+        work_id=stable_work_id("profile-index", "canonical-sources"),
+        stage_id=stable_stage_id(stable_work_id("profile-index", "canonical-sources"), "facts"),
+        processor_version=processor_version,
+    )
+    cached_sources = _load_fact_cache(target_cache)
+    facts: list[dict[str, Any]] = []
+    present: set[str] = set()
+    stats = {
+        "checked": 0,
+        "queued": 0,
+        "reprocessed": 0,
+        "resumed": 0,
+        "skipped": 0,
+        "repaired": 0,
+        "errors": 0,
+        "cache_errors": 0,
+    }
+
+    for path in source_paths:
+        if not path.exists():
+            continue
+        stats["checked"] += 1
+        source_key = path.name
+        present.add(source_key)
+        raw = path.read_bytes()
+        queued = ledger.enqueue(source_key, content=raw, processor_version=processor_version)
+        item_id = str(queued["item_id"])
+        item = ledger.get(item_id)
+        cached = cached_sources.get(source_key)
+        if (
+            queued["action"] == "duplicate"
+            and queued["status"] == "processed"
+            and isinstance(cached, dict)
+            and cached.get("fingerprint") == item.get("fingerprint")
+            and isinstance(cached.get("facts"), list)
+        ):
+            facts.extend(cached["facts"])
+            stats["skipped"] += 1
+            ledger.checkpoint(source_key, **stats)
+            continue
+
+        if queued["action"] == "queued":
+            stats["queued"] += 1
+        elif queued["action"] == "requeued":
+            stats["reprocessed"] += 1
+
+        claimed = ledger.claim(1)
+        if claimed:
+            claimed_item = claimed[0]
+            if claimed_item["item_id"] != item_id:
+                raise RuntimeError(f"profile ledger claimed an unexpected item: {claimed_item['item_id']}")
+            if int(claimed_item.get("attempts", 0)) > 1:
+                stats["resumed"] += 1
+        elif queued["action"] == "duplicate":
+            # A completed ledger item with a missing local cache is a repair;
+            # its source is still safe to parse without changing ledger state.
+            stats["repaired"] += 1
+        else:
+            continue
+
+        try:
+            if before_parse is not None:
+                before_parse(path)
+            data = json.loads(raw.decode("utf-8"))
+            if not isinstance(data, dict):
+                raise ValueError("profile source must contain a JSON object")
+            source_facts = _facts_from_data(path, data)
+            cached_sources[source_key] = {"fingerprint": item["fingerprint"], "facts": source_facts}
+            try:
+                write_json(target_cache, {"schema": PROFILE_CACHE_SCHEMA, "sources": cached_sources})
+            except OSError:
+                stats["cache_errors"] += 1
+            if claimed:
+                ledger.complete(item_id, output_refs=(f"profile-cache:{source_key}",))
+            facts.extend(source_facts)
+            ledger.checkpoint(source_key, **stats)
+        except (OSError, ValueError, UnicodeError) as exc:
+            stats["errors"] += 1
+            if claimed:
+                ledger.fail(item_id, str(exc), retryable=True)
+            ledger.checkpoint(source_key, **stats)
+
+    stale = set(cached_sources) - present
+    for source_key in stale:
+        cached_sources.pop(source_key, None)
+    if stale:
+        try:
+            write_json(target_cache, {"schema": PROFILE_CACHE_SCHEMA, "sources": cached_sources})
+        except OSError:
+            stats["cache_errors"] += 1
+    stats["facts"] = len(facts)
+    return {"facts": facts, "stats": stats, "checkpoint": ledger.status()["checkpoint"]}
+
+
 def index_facts() -> list[dict[str, Any]]:
     """Flatten the canonical profile sources into addressable facts.
 
     Deterministic: the same files always produce the same facts in the same
     order, so retrieval is testable without a model in the loop.
     """
-    facts: list[dict[str, Any]] = []
-    for path in CANONICAL_SOURCES:
-        if not path.exists():
-            continue
-        try:
-            data = load_json(path)
-        except (OSError, ValueError):
-            continue
-        source = path.name
-        updated_at = str(data.get("updated_at", ""))
-        confidence = _confidence_of(item.get("status", "") for item in data.get("provenance", []) if isinstance(item, dict))
-        provenance = [
-            str(item.get("source", "")) for item in data.get("provenance", []) if isinstance(item, dict) and item.get("source")
-        ]
-        collected: list[dict[str, Any]] = []
-        if source == PREFERENCES_PATH.name:
-            _walk(data.get("preferences", {}), source, "preferences", "", collected)
-        else:
-            for key, value in data.items():
-                if key in STRUCTURAL_KEYS:
-                    continue
-                _walk(value, source, str(key), str(key), collected)
-        for fact in collected:
-            sensitive = fact["domain"] in RESTRICTED_DOMAINS or fact["path"].split(".")[0] in RESTRICTED_DOMAINS
-            findings = privacy_findings(fact["statement"])
-            fact.update(
-                {
-                    "id": _fact_id(source, fact["path"]),
-                    "updated_at": updated_at,
-                    "confidence": confidence,
-                    "provenance": provenance,
-                    "sensitivity": "restricted" if (sensitive or findings) else "personal",
-                    "privacy_findings": findings,
-                }
-            )
-        facts.extend(collected)
-    return facts
+    return list(index_facts_incremental()["facts"])
 
 
 def retrievable_facts() -> list[dict[str, Any]]:
