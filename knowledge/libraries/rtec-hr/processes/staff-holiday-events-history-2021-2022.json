@@ -1,0 +1,159 @@
+{
+  "id": "rtec-process-staff-holiday-events-history-2021-2022",
+  "record_type": "process",
+  "title": "Staff holiday-event coordination - 2021-2022 historical examples",
+  "status": "validated",
+  "temporal_status": "historical",
+  "effective_from": "2021-12-08",
+  "effective_to": "2022-12-15",
+  "summary": "Restricted staff-event correspondence shows how RTEC coordinated optional holiday morale events during the COVID period, including an ornament exchange, staff contest, café meal, group photo and later snack-day participant list. Names/participant identities remain restricted.",
+  "claims": [
+    {
+      "claim": "A December 8, 2021 executive memorandum canceled the recurring '7 days of snacks' again because of COVID-19 while continuing other staff holiday events.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-employee-event-correspondence-aab4768d6d9a",
+          "page_or_section": "2021 Christmas Events memo - generalized event content only",
+          "evidence_type": "explicit_text",
+          "note": "Named coordinators excluded."
+        }
+      ]
+    },
+    {
+      "claim": "The 2021 memo coordinated an optional ornament exchange with a $7 limit, an ugly-sweater contest, a café Christmas meal with a $1 employee discount, and a scheduled group photograph with requested red-top/black-bottom attire.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-employee-event-correspondence-aab4768d6d9a",
+          "page_or_section": "2021 event schedule",
+          "evidence_type": "explicit_text",
+          "note": "Historical morale-event logistics, not employment policy."
+        }
+      ]
+    },
+    {
+      "claim": "A separate participant-list document is internally titled 'SNACK DAY 12/15/2022 - MAIN OFFICE' even though its filename begins '2017-12-15', confirming that filename dates can be stale and internal document dates must be preferred when stronger.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-automation-content-first-document-classification"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-employee-event-participant-list-a9bffcd32f3a",
+          "page_or_section": "document title versus filename",
+          "evidence_type": "structural",
+          "note": "Participant names excluded."
+        }
+      ]
+    },
+    {
+      "claim": "The 2022 snack-day artifact is a participant list only and contains no event rules beyond the internal date/location title; therefore names in the list must not be interpreted as policy or attendance requirements.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-employee-event-participant-list-a9bffcd32f3a",
+          "page_or_section": "document structure",
+          "evidence_type": "structural",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "trigger": "Management coordinates optional staff morale/holiday activities.",
+  "prerequisites": [
+    "Define event/date/location/budget or contribution limit as applicable.",
+    "Apply current safety/public-health rules."
+  ],
+  "actors": [
+    "Executive leadership",
+    "HR/administrative coordinators",
+    "Employees",
+    "Café/event participants"
+  ],
+  "systems": [
+    "Staff memorandum",
+    "Participant list"
+  ],
+  "forms": [
+    "Staff event memorandum",
+    "Participant list"
+  ],
+  "steps": [
+    "Select event activities and constraints.",
+    "Publish date/time/location and participation instructions.",
+    "Assign coordinators where needed.",
+    "Maintain participant list only when operationally necessary."
+  ],
+  "decisions": [
+    "Whether public-health conditions require cancelling/modifying activities.",
+    "Whether participation lists are required."
+  ],
+  "deadlines": [
+    "Event-specific dates/times."
+  ],
+  "outputs": [
+    "Staff event communication",
+    "Optional participant list"
+  ],
+  "exceptions": [
+    "Activities were modified during COVID conditions."
+  ],
+  "controls": [
+    "Treat participation as event logistics rather than personnel-policy evidence unless a source explicitly states otherwise.",
+    "Keep participant names out of generalized knowledge.",
+    "Prefer internal document date/title over filename date when they conflict and log the mismatch."
+  ],
+  "unresolved_questions": [
+    "Is there a current standard process/budget/approval rule for employee morale events or staff appreciation activities?"
+  ],
+  "automation_candidates": [
+    "Reusable staff-event memo/template with event date, location, budget/limit, coordinator and public-health/accessibility checks.",
+    "Filename-vs-internal-date validation during ingestion."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-restricted-employee-event-correspondence-aab4768d6d9a",
+      "safe_source_type": "restricted_employee_event_correspondence",
+      "source_date_or_version": "2021-12-08",
+      "content_sha256": "aab4768d6d9ab1abc27bb9f0c11a9a9755f6d03647c62a18ee0936546fc7ee1a",
+      "page_or_section": "general event instructions only",
+      "ingested_at": "2026-09-23",
+      "notes": "Named coordinators/participants excluded.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": "2021-12-08",
+      "source_effective_to": "2021-12-21",
+      "temporal_status": "historical",
+      "full_source_path": null,
+      "searchable_text_path": null
+    },
+    {
+      "source_id": "rtec-restricted-employee-event-participant-list-a9bffcd32f3a",
+      "safe_source_type": "restricted_employee_event_participant_list",
+      "source_date_or_version": "internal title 2022-12-15",
+      "content_sha256": "a9bffcd32f3a849775a42767ba937a57764bb2b51f980daf2d1f05843538d387",
+      "page_or_section": "title/structure only",
+      "ingested_at": "2026-09-23",
+      "notes": "Filename says 2017; participant names excluded.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": "2022-12-15",
+      "source_effective_to": "2022-12-15",
+      "temporal_status": "historical",
+      "full_source_path": null,
+      "searchable_text_path": null
+    }
+  ]
+}
