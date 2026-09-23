@@ -1,0 +1,35 @@
+{
+  "continuity_id": "tes.mod.wheels-of-lull",
+  "source_sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
+  "document_count": 1090,
+  "materialization_mode": "deterministic_on_checkout",
+  "canonical_source": "../raw/source-records-*.jsonl[.gz]",
+  "builder": "../technical/build-retrieval-index.py",
+  "speaker_overlay": "../dialogue/speaker-resolution-compact.jsonl.gz",
+  "generated_output_directory": ".generated-retrieval",
+  "generated_outputs": [
+    "retrieval-documents.jsonl.gz",
+    "form-routing.json.gz",
+    "lexical-df.json.gz",
+    "build-result.json"
+  ],
+  "persistent_indexes": [
+    "../indexes/form-routing.json.gz",
+    "../indexes/lexical-df.json.gz",
+    "../locations/cell-index.json.gz"
+  ],
+  "retrieval_policy": {
+    "lexical": "Deterministic BM25 over materialized normalized documents.",
+    "dense": "Vector embeddings are downstream/model-specific and intentionally not committed as canonical repository state.",
+    "hybrid": "Use lexical retrieval for deterministic baseline/routing, then optional dense reranking or embedding retrieval over the same materialized documents.",
+    "provenance": "Every normalized document retains source_record_index, raw shard, record type, FormID, source offset, and speaker attribution when available."
+  },
+  "storage_policy": "Normalized full-text retrieval documents are regenerated from canonical raw shards to avoid duplicating source text in Git. Compact deterministic indexes may be committed because they are cheap to verify and useful for routing.",
+  "validation": {
+    "builder_syntax_checked": true,
+    "synthetic_bm25_smoke_test": true,
+    "form_routing_entries": 1090,
+    "location_records": 33,
+    "cell_records": 103
+  }
+}
