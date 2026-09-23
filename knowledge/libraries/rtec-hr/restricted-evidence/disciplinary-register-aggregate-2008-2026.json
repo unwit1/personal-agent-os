@@ -1,0 +1,345 @@
+{
+  "scope": "Privacy-safe aggregate of historical disciplinary registers from Correspondence.zip. No names, employee identifiers, protected-class counts, or case narratives are stored.",
+  "ingested_at": "2026-09-23",
+  "source_family": "restricted disciplinary-action and AAP-sorted workbooks",
+  "coverage": [
+    {
+      "period": "2008-2009",
+      "events": 76,
+      "date_min": "2008-04-17",
+      "date_max": "2009-06-18",
+      "schema": "legacy_origin",
+      "note": "Contains pre-period records beginning 2008-04-17."
+    },
+    {
+      "period": "2009-2010",
+      "events": 78,
+      "date_min": "2009-07-01",
+      "date_max": "2010-06-29",
+      "schema": "eeo_race"
+    },
+    {
+      "period": "2010-2011",
+      "events": 55,
+      "date_min": "2010-07-01",
+      "date_max": "2011-06-30",
+      "schema": "eeo_race"
+    },
+    {
+      "period": "2011-2012",
+      "events": 92,
+      "date_min": "2011-07-07",
+      "date_max": "2012-06-29",
+      "schema": "eeo_race"
+    },
+    {
+      "period": "2012-2013",
+      "events": 77,
+      "date_min": "2012-07-06",
+      "date_max": "2013-06-12",
+      "schema": "eeo_race"
+    },
+    {
+      "period": "2013-2014",
+      "events": 53,
+      "date_min": "2013-07-11",
+      "date_max": "2014-06-23",
+      "schema": "eeo_race"
+    },
+    {
+      "period": "2014-2015",
+      "events": 73,
+      "date_min": "2014-07-10",
+      "date_max": "2015-06-30",
+      "schema": "eeo_race_vet_iwd"
+    },
+    {
+      "period": "2015-2016",
+      "events": 123,
+      "date_min": "2015-07-02",
+      "date_max": "2016-06-27",
+      "schema": "eeo_race_vet_iwd"
+    },
+    {
+      "period": "2016-2017",
+      "events": 127,
+      "date_min": "2016-07-05",
+      "date_max": "2017-06-28",
+      "schema": "eeo_race_vet_iwd"
+    },
+    {
+      "period": "2017-2018",
+      "events": 96,
+      "date_min": "2017-07-01",
+      "date_max": "2018-06-29",
+      "schema": "eeo_race_vet_iwd"
+    },
+    {
+      "period": "2018-2019",
+      "events": 85,
+      "date_min": "2018-07-11",
+      "date_max": "2019-06-25",
+      "schema": "eeo_race_vet_iwd"
+    },
+    {
+      "period": "2019-2020",
+      "events": 95,
+      "date_min": "2019-07-02",
+      "date_max": "2020-06-23",
+      "schema": "eeo_race_vet_iwd"
+    },
+    {
+      "period": "2020-2021",
+      "events": 54,
+      "date_min": "2020-07-09",
+      "date_max": "2021-06-29",
+      "schema": "eeo_race_vet_iwd"
+    },
+    {
+      "period": "2021-2022",
+      "events": 44,
+      "date_min": "2021-07-14",
+      "date_max": "2022-06-16",
+      "schema": "eeo_race_vet_iwd"
+    },
+    {
+      "period": "2022-2023",
+      "events": 47,
+      "date_min": "2022-07-05",
+      "date_max": "2023-06-29",
+      "schema": "eeo_race_vet_iwd"
+    },
+    {
+      "period": "2023-2024",
+      "events": 18,
+      "date_min": "2023-07-05",
+      "date_max": "2023-09-22",
+      "schema": "eeo_race_vet_iwd",
+      "note": "Partial coverage only through 2023-09-22."
+    },
+    {
+      "period": "2024-2025",
+      "events": null,
+      "date_min": null,
+      "date_max": null,
+      "schema": null,
+      "note": "No fiscal-year workbook was present in the supplied archive; absence of a file is not evidence that no disciplinary events occurred."
+    },
+    {
+      "period": "2025-2026",
+      "events": 0,
+      "date_min": null,
+      "date_max": null,
+      "schema": "eeo_race_vet_iwd",
+      "note": "Supplied workbook is an empty template only."
+    }
+  ],
+  "schema_history": [
+    {
+      "era": "2008-2009",
+      "meaningful_fields": [
+        "department",
+        "employee_name",
+        "job_title",
+        "gender",
+        "origin",
+        "type",
+        "date",
+        "reason",
+        "eeo_1"
+      ],
+      "note": "Legacy source uses ORIGIN rather than later RACE field."
+    },
+    {
+      "era": "2009-2014",
+      "meaningful_fields": [
+        "department",
+        "employee_name",
+        "job_title",
+        "eeo_1",
+        "gender",
+        "race",
+        "type",
+        "reason",
+        "date"
+      ],
+      "note": "EEO-1 is sometimes misspelled EE0-1 in source headers."
+    },
+    {
+      "era": "2014-2015 onward",
+      "meaningful_fields": [
+        "department",
+        "employee_name",
+        "job_title",
+        "eeo_1",
+        "gender",
+        "race",
+        "veteran",
+        "iwd",
+        "type",
+        "reason",
+        "date"
+      ],
+      "note": "Veteran and individual-with-disability fields were added to the register."
+    }
+  ],
+  "historical_type_vocabulary_counts": {
+    "WW1": 227,
+    "Verbal": 225,
+    "WW2": 151,
+    "Incident": 127,
+    "WW3": 92,
+    "WW4": 67,
+    "Counsel": 64,
+    "verbal": 47,
+    "WWI": 27,
+    "WW5": 27,
+    "Warning": 21,
+    "WWIII": 16,
+    "WWII": 16,
+    "WW6": 15,
+    "Infraction": 11,
+    "Final": 9,
+    "WWIV": 8,
+    "W": 7,
+    "WW7": 6,
+    "Counseling": 4,
+    "WW8": 3,
+    "WW9": 3,
+    "Suspension": 2,
+    "WWI1": 1,
+    "Caution": 1,
+    "Susp": 1,
+    "WW1-4": 1,
+    "WW": 1
+  },
+  "type_vocabulary_warning": "The source uses inconsistent spellings/numerals for warning stages (for example WW1 versus WWI, WW2 versus WWII) and includes Incident/Infraction/Counsel labels. These values require normalization and must not be mechanically mapped to the current Group A-D policy.",
+  "broad_reason_multilabel_counts": {
+    "substandard_work_or_performance": 424,
+    "attendance": 327,
+    "company_policy_violation": 315,
+    "vehicle_accident_or_incident": 148,
+    "safety": 137,
+    "tardiness_or_leaving_early": 75,
+    "customer_or_coworker_conduct": 50,
+    "cash_deposits_or_fares": 21,
+    "other_or_uncategorized": 19,
+    "insubordination_or_chain_of_command": 14,
+    "timekeeping": 9,
+    "dress_or_appearance": 8,
+    "cell_phone": 6,
+    "scheduling_referral_or_trip_processing": 2,
+    "property_or_equipment": 1
+  },
+  "reason_taxonomy_warning": "Reason counts are privacy-safe text-derived, non-mutually-exclusive broad categories from free-text reasons. They are not an official policy taxonomy and should not be interpreted as one event per category.",
+  "aap_derivatives": [
+    {
+      "period": "2013-2014",
+      "rows_nonempty": 54,
+      "columns": 9,
+      "retains_date": true,
+      "retains_type": true,
+      "retains_reason": true,
+      "subtotal_rows_estimate": 0
+    },
+    {
+      "period": "2014-2015",
+      "rows_nonempty": 71,
+      "columns": 7,
+      "retains_date": false,
+      "retains_type": false,
+      "retains_reason": false,
+      "subtotal_rows_estimate": 0
+    },
+    {
+      "period": "2015-2016",
+      "rows_nonempty": 137,
+      "columns": 11,
+      "retains_date": false,
+      "retains_type": false,
+      "retains_reason": false,
+      "subtotal_rows_estimate": 9
+    },
+    {
+      "period": "2016-2017_variant_date_retained",
+      "rows_nonempty": 128,
+      "columns": 9,
+      "retains_date": true,
+      "retains_type": false,
+      "retains_reason": false,
+      "subtotal_rows_estimate": 0
+    },
+    {
+      "period": "2016-2017_variant_subtotals",
+      "rows_nonempty": 139,
+      "columns": 9,
+      "retains_date": false,
+      "retains_type": false,
+      "retains_reason": false,
+      "subtotal_rows_estimate": 12
+    },
+    {
+      "period": "2017-2018",
+      "rows_nonempty": 105,
+      "columns": 12,
+      "retains_date": true,
+      "retains_type": true,
+      "retains_reason": true,
+      "subtotal_rows_estimate": 8
+    },
+    {
+      "period": "2018-2019",
+      "rows_nonempty": 93,
+      "columns": 7,
+      "retains_date": false,
+      "retains_type": false,
+      "retains_reason": false,
+      "subtotal_rows_estimate": 6
+    },
+    {
+      "period": "2019-2020",
+      "rows_nonempty": 103,
+      "columns": 7,
+      "retains_date": false,
+      "retains_type": false,
+      "retains_reason": false,
+      "subtotal_rows_estimate": 3
+    },
+    {
+      "period": "2020-2021",
+      "rows_nonempty": 65,
+      "columns": 8,
+      "retains_date": false,
+      "retains_type": false,
+      "retains_reason": false,
+      "subtotal_rows_estimate": 8
+    },
+    {
+      "period": "2021-2022",
+      "rows_nonempty": 51,
+      "columns": 9,
+      "retains_date": false,
+      "retains_type": true,
+      "retains_reason": false,
+      "subtotal_rows_estimate": 5
+    },
+    {
+      "period": "2022-2023",
+      "rows_nonempty": 55,
+      "columns": 7,
+      "retains_date": false,
+      "retains_type": false,
+      "retains_reason": false,
+      "subtotal_rows_estimate": 5
+    }
+  ],
+  "aap_transform_findings": [
+    "AAP-sorted copies regroup records by EEO-1 category and protected-characteristic fields.",
+    "The retained columns vary materially by year; some preserve event details while others reduce to demographic/reporting fields.",
+    "Several derivatives insert subgroup subtotal/count rows among detail rows.",
+    "No spreadsheet formulas were detected in the supplied AAP-sorted copies; observed subtotal/count values are hard-coded.",
+    "Two distinct 2016-2017 AAP derivatives exist with materially different layouts and retained fields.",
+    "A fixed-column parser would silently misclassify some subtotal rows as employee records unless it detects row type and schema version."
+  ],
+  "privacy_control": "Raw disciplinary registers and AAP-sorted derivatives remain restricted. This aggregate intentionally excludes names, direct identifiers, individual event narratives, and protected-class counts."
+}
