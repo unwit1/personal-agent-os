@@ -1,0 +1,112 @@
+{
+  "continuity_id": "tes.mod.wheels-of-lull",
+  "pass": "book_provenance_03_search_audit",
+  "searched_at": "2026-09-23",
+  "status": "complete_no_new_exact_prior_text_reuse_verified",
+  "harquebuses": {
+    "form_id": "0537158D",
+    "title": "Harquebuses",
+    "concept_preexists_wheels": "verified",
+    "exact_treatise_preexists_wheels": "unverified",
+    "classification": "probable_legacy_trainwiz_material",
+    "evidence": [
+      {
+        "url": "https://www.nexusmods.com/skyrim/mods/23569",
+        "note": "September 2012 page explicitly describes Trainwiz Aethernautics harquebuses and original designs."
+      },
+      {
+        "url": "https://www.nexusmods.com/skyrim/mods/41754",
+        "note": "Aethernautics history/features independently document harquebus weapon types."
+      }
+    ],
+    "promotion_blocker": "No dated pre-Wheels witness for the exact BOOK treatise text was located."
+  },
+  "unresolved_named_works": [
+    {
+      "form_id": "05371591",
+      "title": "Wind Up and Wound Down",
+      "status": "origin_unresolved",
+      "search_state": "no_verified_pre_wheels_witness_found",
+      "negative_evidence_is_not_authorship_proof": true
+    },
+    {
+      "form_id": "05371592",
+      "title": "Musings On Power",
+      "status": "origin_unresolved",
+      "search_state": "no_verified_pre_wheels_witness_found",
+      "negative_evidence_is_not_authorship_proof": true
+    },
+    {
+      "form_id": "05371593",
+      "title": "De Rerum Mutabilitatis",
+      "status": "origin_unresolved",
+      "search_state": "no_verified_pre_wheels_witness_found",
+      "negative_evidence_is_not_authorship_proof": true
+    },
+    {
+      "form_id": "05371594",
+      "title": "How Two Moon",
+      "status": "origin_unresolved",
+      "search_state": "no_verified_pre_wheels_witness_found",
+      "negative_evidence_is_not_authorship_proof": true
+    },
+    {
+      "form_id": "05371595",
+      "title": "Chronography, Volume I",
+      "status": "origin_unresolved",
+      "search_state": "no_verified_pre_wheels_witness_found",
+      "negative_evidence_is_not_authorship_proof": true
+    },
+    {
+      "form_id": "05376714",
+      "title": "Chronography, Volume II",
+      "status": "origin_unresolved",
+      "search_state": "no_verified_pre_wheels_witness_found",
+      "negative_evidence_is_not_authorship_proof": true
+    },
+    {
+      "form_id": "05376715",
+      "title": "Chronography, Volume III",
+      "status": "origin_unresolved",
+      "search_state": "no_verified_pre_wheels_witness_found",
+      "negative_evidence_is_not_authorship_proof": true
+    },
+    {
+      "form_id": "0543D471",
+      "title": "On Trademarks",
+      "status": "origin_unresolved",
+      "search_state": "no_verified_pre_wheels_witness_found",
+      "negative_evidence_is_not_authorship_proof": true
+    },
+    {
+      "form_id": "0543D472",
+      "title": "On Sybandis",
+      "status": "origin_unresolved",
+      "search_state": "no_verified_pre_wheels_witness_found",
+      "negative_evidence_is_not_authorship_proof": true
+    },
+    {
+      "form_id": "0543D473",
+      "title": "Journeys through Sybandis, the Nirn That Never Was",
+      "status": "origin_unresolved",
+      "search_state": "no_verified_pre_wheels_witness_found",
+      "negative_evidence_is_not_authorship_proof": true
+    }
+  ],
+  "rejected_false_positive_classes": [
+    "generic-word fuzzy matches",
+    "post-Wheels transcriptions",
+    "later community translations",
+    "thematically related lunar or Clockwork texts without textual identity",
+    "ESO corpus fuzzy hit for Musings On Power lacking the exact title on inspection"
+  ],
+  "next_high_value_sources": [
+    "archived Sotha Sil Expanded plugin/book records",
+    "archived original Aethernautics plugin/book records",
+    "pre-October-2014 Trainwiz forum/blog snapshots",
+    "old Nexus file versions/readmes/assets",
+    "Wayback captures for exact title strings",
+    "source plugins in the user's mod archives"
+  ],
+  "repeat_search_policy": "Do not repeat generic web/title searches unless a new archive/source corpus becomes available."
+}
