@@ -1,0 +1,84 @@
+{
+  "id": "rtec-policy-progressive-discipline-2023",
+  "record_type": "policy",
+  "title": "Progressive discipline and disciplinary guideline groups - 2023 handbook",
+  "status": "validated",
+  "temporal_status": "historical",
+  "effective_from": "2023-03-01",
+  "effective_to": null,
+  "summary": "Historical handbook discipline model describing counseling/opportunity to improve when reasonable, while retaining discretion to skip steps. It groups example infractions into A-D guideline levels with escalating suggested responses.",
+  "claims": [
+    {
+      "claim": "The handbook describes progressive discipline as a philosophy intended to provide counseling and an opportunity to improve when reasonable.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-employee-handbook-selected-2023-03-01","page_or_section":"printed page 39","evidence_type":"explicit_text","note":null}]
+    },
+    {
+      "claim": "The handbook states that progressive steps may include verbal warning, written warning, unpaid administrative leave and termination, but RTEC may skip steps or terminate without prior progressive steps.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-employee-handbook-selected-2023-03-01","page_or_section":"printed pages 39-41","evidence_type":"explicit_text","note":"The source explicitly says the guideline groups are suggested and supervisory determination controls."}]
+    },
+    {
+      "claim": "The handbook's disciplinary group lists are guidelines rather than an exhaustive or mechanically mandatory matrix.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-employee-handbook-selected-2023-03-01","page_or_section":"printed page 40","evidence_type":"explicit_text","note":null}]
+    }
+  ],
+  "trigger": "Employee performance or conduct issue requiring counseling/corrective action.",
+  "prerequisites": ["Identify applicable policy/procedure and facts of the incident."],
+  "actors": ["Supervisor", "Management", "Employee"],
+  "systems": [],
+  "forms": [],
+  "steps": [
+    "Use informal discussion/coaching when appropriate.",
+    "Determine severity/category and appropriate corrective action.",
+    "Apply counseling, written warning, suspension/administrative leave, termination, or another level as management determines appropriate.",
+    "Retain required disciplinary documentation in the personnel record."
+  ],
+  "decisions": [
+    "Whether progressive correction is reasonable.",
+    "Whether a guideline step should be skipped.",
+    "Which disciplinary level is appropriate given the conduct and circumstances."
+  ],
+  "deadlines": ["Some guideline escalation examples reference repeated infractions within three or six months."],
+  "outputs": ["Counseling/corrective action record", "Possible suspension or termination"],
+  "exceptions": ["The source permits steps to be skipped and states termination may occur without previous progressive steps."],
+  "controls": ["Supervisor makes final determination under the source's guideline language.", "Progressive discipline does not alter at-will status according to the handbook."],
+  "unresolved_questions": [
+    "Is the 2023 disciplinary matrix still current?",
+    "What current disciplinary forms, approval levels, investigation steps and documentation standards are used?",
+    "Which matters require HR review before supervisory action?"
+  ],
+  "automation_candidates": [
+    "Disciplinary case checklist that surfaces prior related actions without automatically deciding discipline.",
+    "Policy-version-aware guidance showing the applicable historical matrix at the incident date.",
+    "Reminder/approval workflow for required documentation and HR review."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [{
+    "source_id":"rtec-hr-employee-handbook-selected-2023-03-01",
+    "safe_source_type":"employee_handbook_excerpt",
+    "source_date_or_version":"2023-03-01",
+    "source_created_date":"2023-03-01",
+    "source_revision_date":null,
+    "source_effective_from":"2023-03-01",
+    "source_effective_to":null,
+    "temporal_status":"historical",
+    "content_sha256":"88eea6dfa5da39d4d2d916bb934e7ebcebc5b6ef68da1c7ad5998d817b59e31e",
+    "page_or_section":"printed pages 39-41",
+    "full_source_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-selected-2023-03-01/fulltext.md",
+    "searchable_text_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-selected-2023-03-01/fulltext.md",
+    "ingested_at":"2026-09-23",
+    "notes":"Validated as faithful extraction of historical handbook language, not validated as current policy."
+  }]
+}
