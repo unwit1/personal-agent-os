@@ -1,0 +1,59 @@
+{
+  "batch_id": "rtec-hr-correspondence-2026-09-23",
+  "ingested_at": "2026-09-23",
+  "source_archive": "Correspondence.zip",
+  "source_artifact_count": 95,
+  "safe_position_level_artifacts": 9,
+  "safe_source_families": 8,
+  "restricted_artifacts": 86,
+  "exact_duplicate_restricted_artifacts": 0,
+  "status": "ingested_with_currentness_questions",
+  "safe_source_family_ids": [
+    "rtec-hr-employee-evaluation-template-legacy",
+    "rtec-hr-disciplinary-examples-undated",
+    "rtec-hr-disciplinary-steps-undated",
+    "rtec-hr-admin-timesheet-attendance-memo-2016-01-07",
+    "rtec-hr-csr-do-not-call-state-memo-2015-06-02",
+    "rtec-hr-rotation-schedule-absence-memo-2021-06-08",
+    "rtec-hr-unemployment-fraud-alert-2021-04-07",
+    "rtec-hr-preventive-vaccine-posting-2021-10-01"
+  ],
+  "restricted_evidence_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json",
+  "derived_records": [
+    "knowledge/libraries/rtec-hr/forms/employee-evaluation-template-legacy.json",
+    "knowledge/libraries/rtec-hr/policies/disciplinary-point-framework-legacy.json",
+    "knowledge/libraries/rtec-hr/policies/personal-sick-leave-vacation-boundary-2015.json",
+    "knowledge/libraries/rtec-hr/policies/rotation-schedule-absence-point-rule-2021.json",
+    "knowledge/libraries/rtec-hr/processes/admin-timesheet-leave-approval-2016.json",
+    "knowledge/libraries/rtec-hr/processes/csr-client-assistance-escalation-2015.json",
+    "knowledge/libraries/rtec-hr/processes/disciplinary-logging-aap-history.json",
+    "knowledge/libraries/rtec-hr/processes/employee-preventive-vaccination-event-2021.json",
+    "knowledge/libraries/rtec-hr/processes/unemployment-identity-fraud-response-2021.json",
+    "knowledge/libraries/rtec-hr/automation/content-first-document-classification.json"
+  ],
+  "privacy_summary": {
+    "disciplinary_log_fiscal_year": 17,
+    "disciplinary_log_aap_sorted": 11,
+    "disciplinary_verbal_warning_log": 1,
+    "employee_specific_disciplinary_case": 33,
+    "employee_specific_incident_record": 1,
+    "employee_specific_leave_case_correspondence": 1,
+    "employee_specific_medical_attendance_record": 19,
+    "employee_schedule_roster": 1,
+    "employee_event_participant_list": 1,
+    "employee_event_correspondence_with_named_staff": 1
+  },
+  "key_findings": [
+    "The supplied Disciplinary steps workbook is a blank historical matrix: violation labels are populated, but 1st/2nd/3rd-offense point/date cells contain no values.",
+    "The archive preserves two unlabeled legacy discipline point ladders plus attendance point examples; their scope and relationship to the 2023 handbook remain unresolved.",
+    "Historical disciplinary-action logs were maintained by fiscal year and AAP-sorted derivatives were created for multiple years.",
+    "The archive has no supplied 2024-2025 fiscal-year disciplinary-action workbook despite adjacent periods being represented.",
+    "A 2015 restricted employee-case memo contains an explicit historical company-wide statement against extending scheduled vacation with adjacent personal/sick leave; only that generalized policy statement was promoted.",
+    "Filename type/date cannot be trusted as authoritative: content-first classification/date validation is required."
+  ],
+  "notes": [
+    "Restricted personnel, medical, disciplinary, incident, schedule, and participant-list content was not committed to GitHub.",
+    "The fraud-alert DOCX and signed PDF are preserved as two artifact variants of one source family.",
+    "Historical external links, vendor arrangements, benefit coverage statements, point rules, routing chains, and role-specific instructions require current verification before operational use."
+  ]
+}
