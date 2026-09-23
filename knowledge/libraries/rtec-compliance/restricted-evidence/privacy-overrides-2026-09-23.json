@@ -36,8 +36,8 @@
   ],
   "corrected_archive_counts": {
     "total_files": 864,
-    "restricted_metadata_only": 280,
-    "safe": 584
+    "restricted_metadata_only": 275,
+    "safe": 589
   },
-  "audit_note": "Blank applicant/self-identification forms, blank complaint/investigation forms, aggregate termination summaries, and general accommodation policies/templates remain safe when they contain no completed person-level data."
+  "audit_note": "The raw staging manifest contained 270 restricted / 594 safe entries. These five manual false-negative corrections produce 275 restricted / 589 safe, matching the validated high-level archive count."
 }
