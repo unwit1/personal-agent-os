@@ -1,0 +1,32 @@
+{
+  "source_id": "rtec-compliance-aap-plan-2018-2024",
+  "title": "RTEC Equal Employment Opportunity Affirmative Action Plan - plan years 2018-2019 through 2023-2024",
+  "original_path": "Affirmative Action Plan (AAP)/Plan Documents/AAP PLAN July 2018 - June 2024.doc",
+  "sha256": "abc8ff6b30fcf02b0152274ba4a0b584ab4cc7cc6a437396a84b67e19cae01fb",
+  "source_type": "affirmative_action_plan",
+  "temporal_status": "historical",
+  "plan_years": [
+    "2018-07-01/2019-06-30",
+    "2019-07-01/2020-06-30",
+    "2020-07-01/2021-06-30",
+    "2021-07-01/2022-06-30",
+    "2022-07-01/2023-06-30",
+    "2023-07-01/2024-06-30"
+  ],
+  "updated_through": "2024-06-30",
+  "source_representation": "complete deterministic text extraction split into five parts",
+  "fulltext_parts": [
+    "fulltext-part-001.txt",
+    "fulltext-part-002.txt",
+    "fulltext-part-003.txt",
+    "fulltext-part-004.txt",
+    "fulltext-part-005.txt"
+  ],
+  "currentness": "historical; later EEO/AAP evidence must govern current practice",
+  "privacy": "safe_position_and_policy_level_source",
+  "notes": [
+    "The plan contains dated names/role assignments and historical employment practices. Preserve them as historical evidence rather than current instructions.",
+    "The source's legal/regulatory statements and hiring-screening practices are retained faithfully and are not independently validated by ingestion."
+  ],
+  "ingested_at": "2026-09-23"
+}
