@@ -12,25 +12,22 @@ Sub-continuity for the Skyrim mod **The Wheels of Lull**.
 
 - **33/33 BOOK** records preserved with exact decoded text.
 - **32/32 QUST** records preserved with quest stages, journal text, objectives, and provenance where present.
-- **182/337 DIAL** topics and **203/410 INFO** records preserved in physical plugin order.
-- **385/747 combined dialogue records** are now ingested.
-- **450 prioritized source records** are checkpointed overall.
+- **196/337 DIAL** topics and **239/410 INFO** records preserved in physical plugin order.
+- **435/747 combined dialogue records** are now ingested.
+- **500 prioritized source records** are checkpointed overall.
 
 ## Dialogue evidence already preserved
 
-This pass finishes the Wailway farewell and moves through additional Fyr, Yagrum, Avarri/Stoker, and Arms Merchant material.
+This pass completes the immediate Arms Merchant purchase responses, covers Avarri's clockwork crafting requests, and reaches the opening Dye Trader interaction.
 
-Notable continuity-scoped testimony includes:
+Notable continuity-scoped material includes:
 
-- The Wailway locomotive welcomes its destruction as release from its engine-bound existence.
-- Divayth Fyr describes himself as a millennia-old wizard lord with experience in Sotha Sil's mechanisms.
-- Yagrum Bagarn explicitly titles himself the Last Living Dwarf after years of finding no other Dwemer.
-- Avarri says he bound the Stoker into his mind to learn clockwork smithing; the Stoker identifies itself as a foundry-running, steel-shaping intelligence.
-- Avarri describes deep-down protective packs as standard equipment for soldiers.
-- Ganaran-21, the Arms Merchant, identifies himself as a fabricant using an FRF to speak.
-- The Arms Merchant describes a clandestine trade in recovered fabricant body parts and permanent augmentations, including aetherial glass eyes, secondary mystic hearts, and quartz ligaments.
+- The Arms Merchant supports purchasable permanent fabricant augmentations, including the Aetherial Glass Eye, Secondary Mystic Heart, Quartz Ligaments, and Sehtian Hydraulics.
+- Avarri can construct multiple clockwork weapons from supplied materials, including a mace, drill, sword, clockwork shots, several specialized harquebuses, and an experimental Lullian harquebus.
+- The crafting dialogue is linked to the existing in-plugin crafting-list books already preserved in the complete BOOK corpus.
+- The Dye Trader sequence begins immediately after this batch.
 
-These remain attributed source statements rather than automatic Bethesda-canon conclusions.
+These remain source-scoped implementation/dialogue evidence rather than automatic Bethesda-canon conclusions.
 
 ## Raw corpus
 
@@ -42,18 +39,19 @@ These remain attributed source statements rather than automatic Bethesda-canon c
 - `raw/source-records-0301-0350.jsonl.gz` — records 301-350
 - `raw/source-records-0351-0400.jsonl.gz` — records 351-400
 - `raw/source-records-0401-0450.jsonl.gz` — records 401-450
+- `raw/source-records-0451-0500.jsonl.gz` — records 451-500
 - `raw/record-counts.json` — complete plugin record inventory
 - `source-manifest.json` — extraction policy and corpus state
 - `ingestion-checkpoint.json` — resumable cursor
 
 ## Next cursor
 
-Dialogue combined record **386/747**:
+Dialogue combined record **436/747**:
 
-- INFO `0526796C`
-- Parent topic: `05267904 _Lull_SQ_ArmsMerchant_GetEye`
-- Topic: `(Purchase the Aetherial Glass Eye)`
-- Owning quest: `055400DA _Lull_SQ_ArmsMerchant`
+- INFO `0527701E`
+- Parent topic: `0527701D _Lull_SQ_DyeTrader_IntroTopic`
+- Owning quest: `055400D9 _Lull_SQ_DyeTrader`
+- Response begins: `(Beeping that implies a trade request)`
 
 ## Provenance rule
 

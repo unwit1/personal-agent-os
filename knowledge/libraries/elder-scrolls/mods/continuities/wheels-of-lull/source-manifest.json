@@ -6,27 +6,27 @@
   "masters": ["Skyrim.esm", "Update.esm", "Dawnguard.esm", "HearthFires.esm", "Dragonborn.esm"],
   "extraction": "Direct Bethesda TES5 plugin parsing. Compressed records are zlib-decoded. BOOK DESC text is retained exactly. QUST records preserve stages, journal text, objectives, target bytes, script presence, offsets, FormIDs, and editor IDs. Dialogue is ingested in physical source order across DIAL and INFO records. DIAL records preserve topic prompt and owning quest; INFO records preserve parent-topic linkage, responses, raw CTDA conditions, previous INFO link when present, script presence, and source offsets.",
   "stored_source_records": {
-    "count": 450,
-    "types": {"BOOK": 33, "QUST": 32, "DIAL": 182, "INFO": 203},
+    "count": 500,
+    "types": {"BOOK": 33, "QUST": 32, "DIAL": 196, "INFO": 239},
     "first": {"record_type": "BOOK", "form_id": "0500089D", "editor_id": "_Lull_LlavadosLetter", "title": "Strange Note"},
-    "last": {"record_type": "DIAL", "form_id": "05267904", "editor_id": "_Lull_SQ_ArmsMerchant_GetEye", "title": "(Purchase the Aetherial Glass Eye)"}
+    "last": {"record_type": "DIAL", "form_id": "0527701D", "editor_id": "_Lull_SQ_DyeTrader_IntroTopic", "title": null}
   },
   "book_corpus": {"status": "complete", "records": 33},
   "quest_corpus": {"status": "complete", "records": 32},
   "dialogue_corpus": {
     "status": "in_progress",
     "combined_total_records": 747,
-    "combined_records_stored": 385,
-    "stored_DIAL": 182,
-    "stored_INFO": 203,
+    "combined_records_stored": 435,
+    "stored_DIAL": 196,
+    "stored_INFO": 239,
     "ordering": "physical_plugin_source_offset",
     "next": {
-      "combined_index": 386,
+      "combined_index": 436,
       "record_type": "INFO",
-      "form_id": "0526796C",
-      "parent_topic_form_id": "05267904",
-      "parent_topic_editor_id": "_Lull_SQ_ArmsMerchant_GetEye",
-      "quest_form_id": "055400DA"
+      "form_id": "0527701E",
+      "parent_topic_form_id": "0527701D",
+      "parent_topic_editor_id": "_Lull_SQ_DyeTrader_IntroTopic",
+      "quest_form_id": "055400D9"
     }
   },
   "raw_corpus": [
@@ -57,6 +57,7 @@
     {"path": "raw/source-records-0301-0350.jsonl.gz", "records": "301-350", "compression": "gzip", "expanded_format": "UTF-8 JSONL"},
     {"path": "raw/source-records-0351-0400.jsonl.gz", "records": "351-400", "compression": "gzip", "expanded_format": "UTF-8 JSONL"},
     {"path": "raw/source-records-0401-0450.jsonl.gz", "records": "401-450", "compression": "gzip", "expanded_format": "UTF-8 JSONL"},
+    {"path": "raw/source-records-0451-0500.jsonl.gz", "records": "451-500", "compression": "gzip", "expanded_format": "UTF-8 JSONL"},
     {"path": "raw/record-counts.json", "description": "Complete plugin record-type inventory."}
   ]
 }
