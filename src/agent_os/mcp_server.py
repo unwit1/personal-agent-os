@@ -10,7 +10,7 @@ from .changes import capture_change, get_change, google_safe_projection, list_ch
 from .chat import context as chat_context
 from .chat import latest_project_handoff, project_status, skills_match
 from .compiler import compile_context
-from .connectors import connector_status
+from .connectors import connector_import_candidates, connector_status
 from .coordination import (
     check as check_claims,
     claim as make_claim,
@@ -190,6 +190,10 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     },
     "connector.list": {
         "description": "List provider-neutral connector metadata and per-surface registration health. Secret-store references are never returned.",
+        "inputSchema": {"type": "object", "properties": {"surface_id": {"type": ["string", "null"]}}},
+    },
+    "connector.import_candidates": {
+        "description": "Read-only inventory of client MCP server names and executable basenames for import review. Arguments, paths, environment values, and credentials are omitted.",
         "inputSchema": {"type": "object", "properties": {"surface_id": {"type": ["string", "null"]}}},
     },
     "change.capture": {
@@ -399,6 +403,7 @@ def methods() -> dict[str, Callable[..., Any]]:
             "agent.skills_match": skills_match,
         "agent.latest_handoff": latest_project_handoff,
         "connector.list": connector_status,
+        "connector.import_candidates": connector_import_candidates,
         }
     )
     available.update(orchestrate_methods())
@@ -414,6 +419,7 @@ INSTRUCTIONS = (
     "Use agent.context first for substantial project work. It retrieves compact context only. "
     "Use agent.capture_candidates to stage evidence-backed findings; it never promotes canonical memory. "
     "Use connector.list to discover registered connector metadata; credential references stay local."
+    " Use connector.import_candidates for a read-only, privacy-filtered inventory of client MCP registrations."
 )
 
 

@@ -101,6 +101,9 @@ Success signal:
 Status: **in progress** (2026-09-23). Added the v1 provider-neutral connector
 registry schema, empty canonical registry, strict privacy-checked loader, and
 read-only `connector.list` MCP discovery with secret-reference redaction.
+`connector.import_candidates` now scans registered client configuration files
+read-only and returns only server labels, executable basenames, and surfaces;
+all import candidates require review and no configuration is changed.
 `integration-health` now reports registry-declared connector-provider health and
 per-surface readiness reasons in a separate `connector_providers` section. Its
 `surface_readiness` entries distinguish registry-ready-but-unverified from
@@ -108,8 +111,8 @@ blocked, naming reachability, registration, and provider-health gaps. A surface
 filter narrows the readiness checks while retaining all configured connectors.
 This reads declared status only and does not probe provider APIs or claim live
 invocation. The connected Agent OS MCP tool inventory still lacks
-`connector.list`, so its running server needs a host-side restart before the
-new tool can be verified through MCP.
+`connector.list` and `connector.import_candidates`, so its running server needs
+a host-side restart before these tools can be verified through MCP.
 Connector import, credential resolution, surface adapters, reconciliation,
 live provider health checks, and cross-surface verification remain open.
 

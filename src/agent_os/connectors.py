@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import json
 import re
+import tomllib
 from datetime import datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterator
 
 from .paths import ROOT
 from .privacy import privacy_findings
@@ -85,6 +86,105 @@ def connector_status(surface_id: str | None = None) -> dict[str, Any]:
         "count": len(connectors),
         "connectors": connectors,
     }
+
+
+def connector_import_candidates(surface_id: str | None = None) -> dict[str, Any]:
+    """Inventory client MCP server labels for explicit, privacy-safe import review.
+
+    Only the configured server name and executable basename leave this function.
+    Arguments, environment entries, file paths, and credential values are never
+    included in the returned candidate records.
+    """
+    from .machine import resolve_user_path
+    from .surfaces import surfaces
+
+    selected = surfaces()
+    if surface_id:
+        selected = [item for item in selected if item["id"].casefold() == surface_id.casefold()]
+        if not selected:
+            raise KeyError(f"Unknown client surface: {surface_id}")
+
+    grouped: dict[tuple[str, str], dict[str, Any]] = {}
+    inspected_files = 0
+    malformed_files = 0
+    privacy_filtered = 0
+    parsed_files: dict[str, Any | None] = {}
+
+    for surface in selected:
+        invocation = surface["invocation"]
+        ignored_names = {str(name).casefold() for name in invocation.get("server_keys", [])}
+        for location in invocation.get("registrations", []):
+            path = resolve_user_path(location)
+            path_key = str(path).casefold()
+            if not path.is_file():
+                continue
+            if path_key not in parsed_files:
+                try:
+                    raw = path.read_text(encoding="utf-8-sig")
+                    if path.suffix.casefold() == ".toml":
+                        document = tomllib.loads(raw)
+                    else:
+                        document = json.loads(raw)
+                except (OSError, UnicodeError, json.JSONDecodeError, tomllib.TOMLDecodeError):
+                    malformed_files += 1
+                    parsed_files[path_key] = None
+                    continue
+                inspected_files += 1
+                parsed_files[path_key] = document
+            document = parsed_files[path_key]
+            if document is None:
+                continue
+            for name, command in _walk_mcp_servers(document):
+                label = str(name).strip()
+                executable = _command_basename(command)
+                if not label or label.casefold() in ignored_names or not executable:
+                    continue
+                record = {"server_name": label[:120], "command": executable[:120]}
+                if privacy_findings(record):
+                    privacy_filtered += 1
+                    continue
+                key = (record["server_name"].casefold(), record["command"].casefold())
+                candidate = grouped.setdefault(
+                    key,
+                    {
+                        "server_name": record["server_name"],
+                        "command": record["command"],
+                        "surfaces": [],
+                        "classification": "needs_review",
+                    },
+                )
+                if surface["id"] not in candidate["surfaces"]:
+                    candidate["surfaces"].append(surface["id"])
+
+    candidates = sorted(grouped.values(), key=lambda item: (item["server_name"].casefold(), item["command"].casefold()))
+    return {
+        "schema": "personal-agent/connector-import-candidates/v1",
+        "scanned_surfaces": [item["id"] for item in selected],
+        "inspected_files": inspected_files,
+        "malformed_files": malformed_files,
+        "privacy_filtered": privacy_filtered,
+        "count": len(candidates),
+        "candidates": candidates,
+    }
+
+
+def _walk_mcp_servers(document: Any) -> Iterator[tuple[str, Any]]:
+    if isinstance(document, dict):
+        for key, value in document.items():
+            if key in {"mcpServers", "mcp_servers"} and isinstance(value, dict):
+                for name, entry in value.items():
+                    if isinstance(entry, dict):
+                        yield str(name), entry.get("command")
+            yield from _walk_mcp_servers(value)
+    elif isinstance(document, list):
+        for item in document:
+            yield from _walk_mcp_servers(item)
+
+
+def _command_basename(command: Any) -> str | None:
+    if not isinstance(command, str) or not command.strip():
+        return None
+    return command.strip().replace("\\", "/").rsplit("/", 1)[-1]
 
 
 def _validate_connector(connector: Any) -> None:
