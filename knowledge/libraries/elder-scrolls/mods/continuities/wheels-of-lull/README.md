@@ -12,22 +12,26 @@ Sub-continuity for the Skyrim mod **The Wheels of Lull**.
 
 - **33/33 BOOK** records preserved with exact decoded text.
 - **32/32 QUST** records preserved with quest stages, journal text, objectives, and provenance where present.
-- **196/337 DIAL** topics and **239/410 INFO** records preserved in physical plugin order.
-- **435/747 combined dialogue records** are now ingested.
-- **500 prioritized source records** are checkpointed overall.
+- **216/337 DIAL** topics and **269/410 INFO** records preserved in physical plugin order.
+- **485/747 combined dialogue records** are now ingested.
+- **550 prioritized source records** are checkpointed overall.
 
 ## Dialogue evidence already preserved
 
-This pass completes the immediate Arms Merchant purchase responses, covers Avarri's clockwork crafting requests, and reaches the opening Dye Trader interaction.
+This pass completes the Dye Trader exchange, adds the remaining Cartwright riddle outcomes in this section, and reaches a concentrated block of Memory ambient dialogue.
 
 Notable continuity-scoped material includes:
 
-- The Arms Merchant supports purchasable permanent fabricant augmentations, including the Aetherial Glass Eye, Secondary Mystic Heart, Quartz Ligaments, and Sehtian Hydraulics.
-- Avarri can construct multiple clockwork weapons from supplied materials, including a mace, drill, sword, clockwork shots, several specialized harquebuses, and an experimental Lullian harquebus.
-- The crafting dialogue is linked to the existing in-plugin crafting-list books already preserved in the complete BOOK corpus.
-- The Dye Trader sequence begins immediately after this batch.
+- The Dye Trader requests human hearts in exchange for colored dyes and refuses to explain why.
+- The Cartwright continues to treat riddles as lethal gatekeeping for tram access.
+- Memory says: "Know Love to avoid the Landfall."
+- Memory identifies herself as "the mage" and "the clockmaker."
+- Memory says the oceans hold thoughts and those thoughts hold salvation.
+- Memory predicts that the Thalmor will ultimately win.
+- Memory says "It will come in the form of screaming brass."
+- Memory says that when the world cracks open, "at last we will know our destiny."
 
-These remain source-scoped implementation/dialogue evidence rather than automatic Bethesda-canon conclusions.
+These remain attributed and, where appropriate, cryptic source statements rather than automatic Bethesda-canon conclusions.
 
 ## Raw corpus
 
@@ -40,18 +44,19 @@ These remain source-scoped implementation/dialogue evidence rather than automati
 - `raw/source-records-0351-0400.jsonl.gz` — records 351-400
 - `raw/source-records-0401-0450.jsonl.gz` — records 401-450
 - `raw/source-records-0451-0500.jsonl.gz` — records 451-500
+- `raw/source-records-0501-0550.jsonl.gz` — records 501-550
 - `raw/record-counts.json` — complete plugin record inventory
 - `source-manifest.json` — extraction policy and corpus state
 - `ingestion-checkpoint.json` — resumable cursor
 
 ## Next cursor
 
-Dialogue combined record **436/747**:
+Dialogue combined record **486/747**:
 
-- INFO `0527701E`
-- Parent topic: `0527701D _Lull_SQ_DyeTrader_IntroTopic`
-- Owning quest: `055400D9 _Lull_SQ_DyeTrader`
-- Response begins: `(Beeping that implies a trade request)`
+- INFO `0529FCA1`
+- Parent topic: `0529FC98 _Lull_MQ07_MemoryGreetings`
+- Owning quest: `05005913 _Lull_MQ07`
+- Response: `The c0da does not bend. The Digitals have seen to that.`
 
 ## Provenance rule
 
