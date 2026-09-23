@@ -3,7 +3,7 @@
   "name": "Dealing with Daedra",
   "universe": "The Elder Scrolls",
   "kind": "mod_continuity_overlay",
-  "status": "semantic_analysis_in_progress_pass_09_complete",
+  "status": "semantic_analysis_in_progress_pass_10_complete",
   "canon_policy": {
     "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
     "default_claim_scope": "tes.mod.dealing-with-daedra",
@@ -47,11 +47,12 @@
     "response_resolution_fraction": 0.9245,
     "remaining_non_explicit_subject_info": 171,
     "remaining_positive_subject_faction_condition_info": 47,
-    "claim_seeds": 124,
-    "semantic_passes_completed": 9,
+    "claim_seeds": 132,
+    "semantic_passes_completed": 10,
     "core_dialogue_manager_quests_mapped": 7,
     "contradiction_index_entries": 6,
-    "unresolved_identity_entries": 7
+    "unresolved_identity_entries": 7,
+    "contextual_faction_role_groups": 19
   },
   "structured_layers": {
     "plugin_record_inventory": "complete",
@@ -64,8 +65,8 @@
     "item_and_magic_names_descriptions": "complete_for_plugin_records",
     "papyrus_source_string_pass": "complete_for_available_source",
     "speaker_resolution": "subject_run_GetIsID_equal_1_complete_1636_of_1807_mod_added_INFO_covering_2472_of_2674_all_responses_faction_generic_and_contextual_resolution_pending",
-    "claim_promotion": "124_evidence_backed_claim_seeds_across_9_semantic_passes",
-    "interpretive_analysis": "semantic_passes_01_to_09_complete_minor_sources_remaining_contextual_dialogue_and expanded_entity_layers_pending",
+    "claim_promotion": "132_evidence_backed_claim_seeds_across_10_semantic_passes",
+    "interpretive_analysis": "semantic_passes_01_to_10_complete_minor_sources remaining contextual role resolution and expanded entity layers pending",
     "written_lore_analysis": "high_value_longform_sources_complete_initial_pass",
     "artifact_analysis": "initial_high_value_artifact_pass_plus_book_of_curses_complete",
     "location_analysis": "initial_placed_actor_location_map_complete",
@@ -79,6 +80,8 @@
     "contradiction_tracking": "initial_structured_index_complete_6_conflict_edges",
     "unresolved_identity_tracking": "initial_complete_7_entries",
     "social_recruitment_analysis": "initial_cross_faction_pipeline_pass_complete",
-    "coercive_economy_analysis": "initial_complete_for_widows_sanguine_family_brethren_and_ratway_cases"
+    "coercive_economy_analysis": "initial_complete_for_widows_sanguine_family_brethren_and_ratway_cases",
+    "contextual_speaker_attribution": "initial_faction_role_index_complete_19_condition_groups",
+    "hircine_ecology_analysis": "north_jerall_frostmoon_balance_cluster_complete_initial_pass"
   }
 }
