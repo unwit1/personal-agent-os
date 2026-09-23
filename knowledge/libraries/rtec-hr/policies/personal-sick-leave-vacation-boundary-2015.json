@@ -1,0 +1,74 @@
+{
+  "id": "rtec-policy-personal-sick-leave-vacation-boundary-2015",
+  "record_type": "policy",
+  "title": "Personal/sick leave immediately before or after scheduled vacation - 2015 evidence",
+  "status": "candidate",
+  "temporal_status": "historical",
+  "effective_from": null,
+  "effective_to": null,
+  "summary": "A restricted 2015 employee-case memo explicitly states a company policy that personal/sick leave could not be used immediately before or after scheduled vacation to extend the vacation. The employee-specific case details are intentionally excluded.",
+  "claims": [
+    {
+      "claim": "A November 2015 HR memo explicitly states that company policy prohibited using personal/sick leave before or after a scheduled vacation to extend the vacation, and says the rule applied to all employees.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-personal-leave-policy-memo-2015-11-10",
+          "page_or_section": "sanitized policy statement only",
+          "evidence_type": "explicit_text",
+          "note": "The source is an employee-specific case memo. Employee identity, case details, and raw text are excluded."
+        }
+      ]
+    }
+  ],
+  "actors": [
+    "Employee",
+    "Area Manager",
+    "Human Resources"
+  ],
+  "systems": [],
+  "forms": [],
+  "steps": [
+    "Do not operationally apply this historical rule until current policy authority is confirmed."
+  ],
+  "decisions": [
+    "Whether a leave request adjacent to scheduled vacation is governed by a current equivalent rule or an exception."
+  ],
+  "deadlines": [],
+  "outputs": [
+    "Leave approval/denial decision under the governing current policy"
+  ],
+  "exceptions": [],
+  "controls": [
+    "A single case memo can evidence that a policy statement existed in 2015 but cannot establish that the rule remains current.",
+    "Keep employee-specific leave facts out of generalized knowledge."
+  ],
+  "unresolved_questions": [
+    "Does current RTEC policy still prohibit personal/sick leave immediately before or after scheduled vacation, and what exceptions/approval authority apply?",
+    "Which handbook/policy source formally established this 2015 rule?"
+  ],
+  "automation_candidates": [
+    "Leave-request validation could flag adjacency to scheduled vacation for human review only after current policy and exceptions are validated."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-restricted-personal-leave-policy-memo-2015-11-10",
+      "safe_source_type": "restricted_employee_case_correspondence",
+      "source_date_or_version": "2015-11-10",
+      "content_sha256": "5925021cc4231aca2891ec79d8895b288f4661271842d395390b698ab53b1dfe",
+      "page_or_section": "sanitized policy statement only",
+      "ingested_at": "2026-09-23",
+      "notes": "Restricted source; raw content and employee-specific facts are not stored in GitHub.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "full_source_path": null,
+      "searchable_text_path": null
+    }
+  ]
+}
