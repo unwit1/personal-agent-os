@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-23",
+  "purpose": "Sanitized household, meal-convenience, housing, and recurring-life-admin model derived from the local iCloud mail index. It avoids prices, addresses, account identifiers, and health conclusions.",
+  "household_context": {
+    "partner": "Olivia",
+    "planning_scope": "Recent evidence supports treating many groceries, home purchases, housing decisions, and discretionary household choices as two-person planning rather than purely individual consumption.",
+    "caution": "A household purchase or food order does not prove which person selected, consumed, or preferred it."
+  },
+  "housing_and_home_administration": {
+    "confidence": "high",
+    "recurring_tasks": [
+      "lease and tenant changes",
+      "roommate changes",
+      "utility setup",
+      "rent/autopay administration",
+      "maintenance/work-order follow-up",
+      "move-out and security-deposit planning",
+      "new rental applications"
+    ],
+    "behavioral_signal": "The user often asks for the actual process/checklist before a move or policy-sensitive change, but may need help keeping administrative follow-through visible over time.",
+    "current_state_rule": "A September 2026 rental application was under review; therefore housing assumptions should remain variable until newer evidence resolves the outcome.",
+    "privacy_rule": "Exact addresses and private third-party tenant information remain local and are excluded from the durable profile."
+  },
+  "meal_convenience_pattern": {
+    "confidence": "high_for_behavior_medium_for_preference",
+    "period": "late 2025 through September 2026",
+    "transactional_email_signals": {
+      "McDonald's mobile-order confirmations": 20,
+      "Chick-fil-A mobile-order receipts": 8,
+      "Wendy's digital-order receipts": 8,
+      "Arby's confirmed-order messages": 4,
+      "Subway order confirmations": 3,
+      "Domino's direct order messages": "several",
+      "Sonic confirmed-order messages": 1
+    },
+    "interpretation": [
+      "Convenience/mobile ordering is an actual recurring behavior, not just a hypothetical meal preference.",
+      "Meal planning that assumes every dinner will be cooked from scratch would conflict with observed behavior.",
+      "A realistic plan should include inexpensive low-prep meals, planned takeout/convenience slots, and ways to avoid emergency food spending."
+    ],
+    "caution": "These are order-confirmation signals, not a complete food diary, and they do not establish who ate each order or any medical/dietary conclusion."
+  },
+  "cooking_and_home_project_interest": {
+    "confidence": "medium_high",
+    "direct_user_authored_2022_list": [
+      "knife and silverware storage",
+      "meat thermometer",
+      "bulk grain/flour/sugar storage",
+      "mason jars for canning, pickling, and homemade spice blends",
+      "Dutch oven",
+      "grill/air-fryer equipment",
+      "drill bits and socket tools",
+      "lumber/table-building project"
+    ],
+    "interpretation": "There is real interest in cooking equipment, pantry organization/preservation, and practical DIY, even though recent convenience-food behavior means planning should not assume high-effort cooking every day."
+  },
+  "retail_and_grocery_signal_quality": {
+    "observed_message_volume": {
+      "Costco_related": 170,
+      "Walmart_related": 13,
+      "Kroger_related": 5,
+      "Target_related": 2
+    },
+    "caution": "Retailer message volume includes promotions, membership notices, orders, shipping, and recommendations. These counts are not spending totals and are not sufficient to infer where most groceries are purchased."
+  },
+  "vehicle_administration": {
+    "confidence": "high",
+    "current_vehicle_signal": "A 2012 Honda Accord is strongly supported in 2026 correspondence.",
+    "recurring_tasks": [
+      "oil/service reminders",
+      "tire rotation/service",
+      "registration",
+      "repair/service visits"
+    ],
+    "agent_behavior": "Vehicle reminders are a good fit for stateful commitments with due dates and completion evidence."
+  },
+  "household_technology_signals": {
+    "high_confidence": [
+      "Refurbished Dell Latitude 5520 purchased in May 2026.",
+      "iCloud+ 200 GB active in August 2026."
+    ],
+    "medium_confidence": [
+      "iPhone 11 inferred from personally addressed accessory purchases.",
+      "Nintendo Switch 2 inferred at household level from repeated accessory purchases."
+    ],
+    "rule": "Accessory purchases and household orders should stay confidence-labeled rather than silently becoming personal-device facts."
+  },
+  "planning_implications_for_agent": [
+    "Meal planning should optimize for cost, two-person acceptance, low-prep fallback options, and leftover control.",
+    "Housing tasks should be tracked as a project with documents, deadlines, next actor, and unresolved questions.",
+    "Vehicle maintenance should be converted from email noise into actionable reminders.",
+    "Home/cooking purchases should be separated into durable equipment needs versus promotional impulse opportunities.",
+    "Do not infer spending totals from email receipts; use the dedicated finance data path when financial analysis is requested."
+  ]
+}
