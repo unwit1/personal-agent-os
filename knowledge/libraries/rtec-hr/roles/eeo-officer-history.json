@@ -6,7 +6,7 @@
   "temporal_status": "current",
   "effective_from": null,
   "effective_to": null,
-  "summary": "Versioned history of the official or organizationally identified EEO Manager/Officer role based on dated handbook, organization-chart, and policy evidence.",
+  "summary": "Versioned history of RTEC EEO Manager/Officer assignments assembled from policy statements, AAP plans, Title VI plans, organization charts and handbook evidence.",
   "claims": [
     {
       "claim": "The March 2023 handbook names Sheila Stallsworth as EEO Manager/EEO Officer reporting directly to the Executive Director.",
@@ -24,6 +24,23 @@
       ]
     },
     {
+      "claim": "The AAP plan updated through June 30, 2024 names Tracy Champion as EEO Administrative Manager and EEO Officer, reporting within the Executive Director/Board accountability structure.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDES",
+      "related_record_ids": [
+        "rtec-aap-history"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-compliance-aap-plan-2018-2024",
+          "page_or_section": "Responsibility for Affirmative Action Plan Administration / EEO Policy Statement",
+          "evidence_type": "explicit_text",
+          "note": "Evidence establishes the named role holder in the plan updated through 2024; it does not establish the exact start date of the assignment."
+        }
+      ]
+    },
+    {
       "claim": "The 2026 organization chart revised 2025-12-30 names Clarissa Hodge as HR & EEO Manager, providing an early-2026 organizational snapshot between the 2023 handbook assignment and the later 2026 signed EEO statement.",
       "claim_kind": "observed_fact",
       "confidence": 1,
@@ -37,6 +54,24 @@
           "page_or_section": "HR & EEO Manager box",
           "evidence_type": "explicit_text",
           "note": "Early-2026 organization-chart snapshot; later 2026 signed EEO policy names a different EEO Officer."
+        }
+      ]
+    },
+    {
+      "claim": "The Title VI/LEP plan approved by the Board on January 19, 2026 names Clarissa Hodge as Title VI Coordinator/EEO Manager, corroborating the early-2026 organization-chart assignment.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-role-organization-structure-history",
+        "rtec-process-title-vi-lep-program"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-compliance-title-vi-lep-2026",
+          "page_or_section": "Title VI Statement of Policy / Coordinator Contact Information",
+          "evidence_type": "explicit_text",
+          "note": "Board-approved 2026 Title VI/LEP plan."
         }
       ]
     },
@@ -74,8 +109,9 @@
     "Direct reporting to the Executive Director is explicit in the 2023 handbook and 2026 signed EEO policy."
   ],
   "unresolved_questions": [
-    "What exact date did the EEO responsibility transition from the early-2026 HR & EEO Manager assignment to the EEO Officer named in the 2026-08-26 signed policy?",
-    "Did HR Manager and EEO Officer responsibilities remain combined or split after that transition?"
+    "What exact date did EEO responsibility transition from the AAP-era Tracy Champion assignment to Clarissa Hodge?",
+    "What exact date did the early-2026 Clarissa Hodge EEO assignment transition to the EEO Officer named in the signed 2026-08-26 policy?",
+    "Did HR Manager, EEO Officer and Title VI Coordinator responsibilities remain combined or split during each transition?"
   ],
   "automation_candidates": [
     "Maintain role-holder history separately from durable EEO role responsibilities so personnel changes do not overwrite the policy model."
@@ -100,6 +136,22 @@
       "notes": "Historical named officer."
     },
     {
+      "source_id": "rtec-compliance-aap-plan-2018-2024",
+      "safe_source_type": "affirmative_action_plan",
+      "source_date_or_version": "plan years through 2023-2024; updated 2024-06-30",
+      "source_created_date": null,
+      "source_revision_date": "2024-06-30",
+      "source_effective_from": null,
+      "source_effective_to": "2024-06-30",
+      "temporal_status": "historical",
+      "content_sha256": "abc8ff6b30fcf02b0152274ba4a0b584ab4cc7cc6a437396a84b67e19cae01fb",
+      "page_or_section": "EEO policy and AAP administration",
+      "full_source_path": "knowledge/libraries/rtec-compliance/plans/aap/2018-2024/",
+      "searchable_text_path": "knowledge/libraries/rtec-compliance/plans/aap/2018-2024/",
+      "ingested_at": "2026-09-23",
+      "notes": "Names Tracy Champion as EEO Administrative Manager/EEO Officer in the plan updated through June 2024."
+    },
+    {
       "source_id": "rtec-hr-organization-chart-2026-rev-2025-12-30",
       "safe_source_type": "organizational_reference",
       "source_date_or_version": "2026 chart, revised 2025-12-30",
@@ -114,6 +166,22 @@
       "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-organization-chart-2026-rev-2025-12-30/fulltext.md",
       "ingested_at": "2026-09-23",
       "notes": "Early-2026 role snapshot."
+    },
+    {
+      "source_id": "rtec-compliance-title-vi-lep-2026",
+      "safe_source_type": "title_vi_lep_plan",
+      "source_date_or_version": "revised 2026-01; Board approved 2026-01-19",
+      "source_created_date": null,
+      "source_revision_date": "2026-01",
+      "source_effective_from": "2026-01-19",
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "content_sha256": "017d426c7b18064f401e85fcd520ee7574fd7f0e6c4da104b0eaf8f9f254f0d0",
+      "page_or_section": "Title VI Statement of Policy / Coordinator information",
+      "full_source_path": "knowledge/libraries/rtec-compliance/plans/title-vi-lep/2026/",
+      "searchable_text_path": "knowledge/libraries/rtec-compliance/plans/title-vi-lep/2026/",
+      "ingested_at": "2026-09-23",
+      "notes": "Early-2026 EEO/Title VI role evidence; later August 2026 EEO policy supersedes current role-holder purposes."
     },
     {
       "source_id": "rtec-hr-eeo-policy-2026-08-26",
