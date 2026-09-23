@@ -1,0 +1,59 @@
+mod,version,plugin,canonical_key,edid,name,baseline_plugin,field,baseline_value,current_value,evidence_stage,rule_status
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:029B52,MAG_ConjureFrostAtronachStaffEnch,Conjure Frost Atronach,MysticismMagic.esp,effect_count,3,2,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:029B53,MAG_RevenantStaffEnch,Revenant,MysticismMagic.esp,effect_count,3,4,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:029B56,MAG_DreadZombieStaffEnch,Dread Zombie,MysticismMagic.esp,effect_count,4,5,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:029B57,MAG_ConjureStormAtronachStaffEnch,Conjure Storm Atronach,MysticismMagic.esp,effect_count,3,2,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:029B72,MAG_TurnGreaterUndeadStaffEnch,Turn Greater Undead,MysticismMagic.esp,effect_count,3,4,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:029B96,MAG_TurnUndeadStaffEnch,Turn Undead,MysticismMagic.esp,effect_count,3,4,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:029B98,MAG_RepelUndeadStaffEnch,Repel Undead,MysticismMagic.esp,effect_count,3,4,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:04DEDA,MAG_FlamesStaffEnch,Flames,MysticismMagic.esp,effect_count,4,9,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:04DEDC,MAG_SparksStaffEnch,Sparks,MysticismMagic.esp,effect_count,3,4,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:069CE7,MAG_BoundSwordEnchantment,Bound Sword,MysticismMagic.esp,enit_flags_hex,0x00000001,0x00000005,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:069CE7,MAG_BoundSwordEnchantment,Bound Sword,MysticismMagic.esp,effect_count,4,9,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:0B602D,MAG_RaiseZombieStaffEnch,Raise Zombie,MysticismMagic.esp,effect_count,3,4,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:0B62DA,MAG_ReanimateCorpseStaffEnch,Reanimate Corpse,MysticismMagic.esp,effect_count,3,4,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:0B62DB,MAG_ConjureFlameAtronachStaffEnch,Conjure Flame Atronach,MysticismMagic.esp,effect_count,3,2,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:0B62E2,MAG_HealingHandsStaffEnch,Healing Hands,MysticismMagic.esp,effect_count,3,5,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:0B62E3,MAG_TurnLesserUndeadStaffEnch,Turn Lesser Undead,MysticismMagic.esp,effect_count,3,4,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:0B72A2,MAG_SlowFrostRune,Slow,MysticismMagic.esp,effect_count,2,3,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:0C5BE3,MAG_BoundBowEnchantment,Bound Bow,MysticismMagic.esp,enit_flags_hex,0x00000001,0x00000005,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Skyrim.esm:0C5BE3,MAG_BoundBowEnchantment,Bound Bow,MysticismMagic.esp,effect_count,4,9,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Dragonborn.esm:03D37C,MAG_BoundDaggerEnchantment,Bound Dagger,MysticismMagic.esp,enit_flags_hex,0x00000001,0x00000005,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,Dragonborn.esm:03D37C,MAG_BoundDaggerEnchantment,Bound Dagger,MysticismMagic.esp,effect_count,4,9,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:3857FD,MAG_SlowFrostRuneDualCast,Slow,MysticismMagic.esp,effect_count,2,3,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:47DBBF,MAG_EnchFireRuneDualcast,Fire Rune Dualcast,MysticismMagic.esp,effect_count,2,3,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:47DBC0,MAG_EnchFireRune2,Fire Rune,MysticismMagic.esp,effect_count,1,2,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:47DBC2,MAG_EnchFireRune2Dualcast,Fire Rune,MysticismMagic.esp,effect_count,1,2,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:47DBCE,MAG_EnchShockRuneDualCast,Shock Rune,MysticismMagic.esp,effect_count,2,3,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:47DBD0,MAG_EnchShockRune2,Shock Rune,MysticismMagic.esp,effect_count,2,1,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:47DBD2,MAG_EnchShockRune2Dualcast,Shock Rune,MysticismMagic.esp,effect_count,2,1,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:A4E654,MAG_EnchSunRuneExplosion,Sunlight Rune,MysticismMagic.esp,effect_count,1,3,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:A53754,MAG_EnchGreaterSunRuneExplosion,Sunlight Rune,MysticismMagic.esp,effect_count,1,3,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:A53755,MAG_EnchGreaterSunRuneExplosionDualCast,Sunlight Rune,MysticismMagic.esp,effect_count,1,3,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:A53757,MAG_EnchSunRuneExplosionDualCast,Sunlight Rune,MysticismMagic.esp,effect_count,1,3,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:CDB96E,MAG_GreaterFlamesStaffEnch,Greater Flames,MysticismMagic.esp,effect_count,4,8,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:CDB96F,MAG_FlameTempestStaffEnch,Flame Tempest,MysticismMagic.esp,effect_count,4,8,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:CF9FBF,MAG_GreaterSparksStaffEnch,Greater Sparks,MysticismMagic.esp,effect_count,3,4,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:CF9FCC,MAG_LightningStormStaffEnch,Lightning Storm,MysticismMagic.esp,effect_count,3,4,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:D2C9ED,MAG_PoisonSprayStaffEnch,Poison Spray,MysticismMagic.esp,effect_count,3,8,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:D2C9EE,MAG_PoisonboltStaffEnch,Poisonbolt,MysticismMagic.esp,effect_count,2,8,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:D2C9EF,MAG_DeadlyPoisonSprayStaffEnch,Dealdy Poison Spray,MysticismMagic.esp,effect_count,3,8,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:D2C9F1,MAG_MiasmaStaffEnch,Miasma,MysticismMagic.esp,effect_count,3,8,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:D2C9F3,MAG_ViperboltStaffEnch,Viperbolt,MysticismMagic.esp,effect_count,2,8,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:D2C9F6,MAG_PoisonCloudStaffEnch,Poison Cloud,MysticismMagic.esp,effect_count,2,8,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:D2C9FA,MAG_DeathCloudStaffEnch,Death Cloud,MysticismMagic.esp,effect_count,2,8,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:D4B034,MAG_SunfireStaffEnch,Sun Fire,MysticismMagic.esp,effect_count,2,4,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:D4B03B,MAG_SunbeamStaffEnch,Sunbeam,MysticismMagic.esp,effect_count,2,4,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:D4B03F,MAG_RadiantSunbeamStaffEnch,Radiant Sunbeam,MysticismMagic.esp,effect_count,2,4,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:D4B040,MAG_VampiresBaneStaffEnch,Vampire's Bane,MysticismMagic.esp,effect_count,2,4,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:D4B044,MAG_ReflectiveLightStaffEnch,Reflective Light,MysticismMagic.esp,effect_count,2,4,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:D4B057,MAG_SolarFlareStaffEnch,Solar Flare,MysticismMagic.esp,effect_count,2,4,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:D4B05E,MAG_DaybreakStaffEnch,Daybreak,MysticismMagic.esp,effect_count,2,4,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:DC99E4,MAG_BoundGreatswordEnchantment,Bound Greatsword FX,MysticismMagic.esp,effect_count,4,9,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:DD3BE9,MAG_BoundWarAxeEnchantment,Bound War Axe,MysticismMagic.esp,effect_count,4,9,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:DED0F4,MAG_BoundWarhammerEnchantment,Bound Warhammer,MysticismMagic.esp,effect_count,4,9,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:DFC3FD,MAG_BoundMaceEnchantment,Bound Mace,MysticismMagic.esp,effect_count,4,9,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:E1FB7D,MAG_ConjureFlameMonarchStaffEnch,Conjure Flame Monarch,MysticismMagic.esp,effect_count,3,2,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:E1FB7E,MAG_ConjureStormMonarchStaffEnch,Conjure Storm Atronach,MysticismMagic.esp,effect_count,3,2,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:E1FB8B,MAG_ConjureFrostMonarchStaffEnch,Conjure Frost Atronach,MysticismMagic.esp,effect_count,3,2,decoded_delta,not_a_rule
+Adamant,6.0.4,Adamant.esp,MysticismMagic.esp:E1FBA1,MAG_DeadThrallStaffEnch,Dead Thrall,MysticismMagic.esp,effect_count,3,4,decoded_delta,not_a_rule
