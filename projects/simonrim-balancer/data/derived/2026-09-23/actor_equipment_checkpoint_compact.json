@@ -1,0 +1,32 @@
+{
+  "snapshot":"2026-09-23",
+  "decoder":"NPC_/CLAS/RACE/OTFT/CONT/ARMO/ALCH/AMMO",
+  "summary":{
+    "NPC_":51,
+    "CLAS":2,
+    "RACE":2,
+    "OTFT":3,
+    "CONT":22,
+    "ARMO":7,
+    "ALCH":6,
+    "AMMO":6,
+    "decode_failures":0,
+    "npc_spell_links":71,
+    "npc_perk_links":145,
+    "npc_inventory_rows":29,
+    "container_inventory_rows":408,
+    "outfit_item_rows":9,
+    "exact_imported_armor_comparisons":2,
+    "modified_imported_armor":2,
+    "approved_rules":0
+  },
+  "armor_exact_deltas":[
+    {"edid":"MAG_BoundArmorShield","armor_rating":[26,28],"enchantment":["", "Adamant.esp:051818"]},
+    {"edid":"MAG_BoundArmorShieldMystic","armor_rating":[36,34],"enchantment":["", "Adamant.esp:051818"]}
+  ],
+  "guardrails":[
+    "Template-inherited values remain unknown unless the template body is imported.",
+    "Facegen/model data is retained but excluded from balance inference.",
+    "No decoded actor/equipment observation is automatically an approved rule."
+  ]
+}
