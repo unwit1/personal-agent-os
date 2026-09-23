@@ -2,11 +2,11 @@
   "id": "rtec-process-disciplinary-logging-aap-history",
   "record_type": "process",
   "title": "Disciplinary logging and AAP reporting practice - historical archive evidence",
-  "status": "candidate",
+  "status": "validated",
   "temporal_status": "unknown",
   "effective_from": null,
   "effective_to": null,
-  "summary": "The correspondence archive contains a long-running series of restricted annual disciplinary-action workbooks, separate AAP-sorted derivatives, and a verbal-warning log. This supports a privacy-safe process candidate that disciplinary activity was historically tracked by fiscal year and periodically reorganized for AAP reporting.",
+  "summary": "Historical disciplinary activity was maintained in annual restricted workbooks and repeatedly transformed into AAP-sorted reporting copies. The corpus now documents register coverage, schema evolution, inconsistent warning labels, AAP transformation behavior and post-2023 coverage gaps without preserving employee-level records.",
   "claims": [
     {
       "claim": "The supplied archive contains 17 distinct restricted disciplinary-action workbooks labeled by fiscal year, covering 2008-2009 through 2023-2024 plus 2025-2026; no 2024-2025 fiscal-year workbook was present in this upload.",
@@ -67,6 +67,98 @@
           "note": "No case-level content was used."
         }
       ]
+    },
+    {
+      "claim": "The supplied annual disciplinary registers provide near-continuous fiscal-year evidence from 2009-2010 through 2022-2023, plus a 2008-2009 file containing records beginning April 2008; the 2023-2024 file is only populated through September 22, 2023, no 2024-2025 fiscal-year workbook is present, and the supplied 2025-2026 workbook is an empty template.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "coverage",
+          "evidence_type": "structural",
+          "note": "A missing/empty workbook is a source-coverage gap, not evidence that no discipline occurred."
+        }
+      ]
+    },
+    {
+      "claim": "The annual register schema evolved from department/name/job/gender/origin/type/date/reason/EEO-1 in 2008-2009, to an EEO-1/gender/race schema from 2009-2014, then added Veteran and IWD fields beginning in 2014-2015.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "schema_history",
+          "evidence_type": "structural",
+          "note": "Raw protected-class values remain restricted."
+        }
+      ]
+    },
+    {
+      "claim": "Historical discipline-type values are not normalized: examples include WW1/WWI, WW2/WWII, WW3/WWIII, WW4/WWIV, Verbal/verbal, Counsel/Counseling, Warning, Final, Incident and Infraction. The labels must not be mechanically mapped to current disciplinary groups.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-policy-safety-confidentiality-discipline-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "historical_type_vocabulary_counts",
+          "evidence_type": "repeated_observation",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Free-text historical reasons cluster broadly around work/performance, attendance, policy violations, vehicle incidents, safety, tardiness/leaving early, customer/coworker conduct, cash/deposits/fares and smaller operational categories; these categories are derived multi-label analysis rather than an official RTEC taxonomy.",
+      "claim_kind": "interpretation",
+      "confidence": 0.98,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "broad_reason_multilabel_counts",
+          "evidence_type": "repeated_observation",
+          "note": "Categories overlap and are not suitable as official disciplinary codes without validation."
+        }
+      ]
+    },
+    {
+      "claim": "AAP-sorted disciplinary copies changed layout year to year, sometimes preserving type/reason/date and sometimes reducing to reporting/demographic fields; several include hard-coded subgroup subtotal rows and no formulas were detected.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "aap_derivatives/aap_transform_findings",
+          "evidence_type": "structural",
+          "note": "Fixed-schema parsing is unsafe."
+        }
+      ]
+    },
+    {
+      "claim": "Two materially different 2016-2017 AAP-sorted derivatives exist: one retains event date with no type/reason and no detected subtotal rows, while another strips the date and contains hard-coded subgroup count rows.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "aap_derivatives - 2016-2017 variants",
+          "evidence_type": "structural",
+          "note": "The later/refined status of either version is not assumed without authority metadata."
+        }
+      ]
     }
   ],
   "trigger": "Disciplinary action or verbal warning is documented; AAP reporting may require a historical disciplinary-data extract.",
@@ -86,9 +178,12 @@
     "AAP-sorted disciplinary extract"
   ],
   "steps": [
-    "Record disciplinary activity in the applicable controlled system/log.",
-    "Organize records by fiscal year.",
-    "When required for AAP reporting, prepare a reporting-specific extract without altering the authoritative case records."
+    "Record each disciplinary/incident event in the authoritative restricted register.",
+    "Maintain fiscal-year coverage and schema/version metadata.",
+    "Normalize historical labels only in a derived analytical layer; preserve source values for provenance.",
+    "Generate AAP-specific reporting views from authoritative records rather than manually copying/re-sorting workbooks.",
+    "Detect and separate detail rows from subtotal/count rows.",
+    "Validate fiscal-year completeness before reporting."
   ],
   "decisions": [
     "Which current disciplinary events belong in the reporting population.",
@@ -104,19 +199,25 @@
   "exceptions": [],
   "controls": [
     "Keep employee-level disciplinary facts restricted.",
-    "Do not infer current fields, formulas, or AAP methodology from filenames alone.",
-    "Do not duplicate authoritative case records merely to create reporting views when a controlled derived report can be generated."
+    "Do not duplicate authoritative case records merely to create reporting views when a controlled derived report can be generated.",
+    "Keep employee-level disciplinary and protected-characteristic data restricted.",
+    "Never treat a missing fiscal-year file or an empty template as proof of zero disciplinary events.",
+    "Preserve raw historical type/reason values while maintaining normalized derived categories separately.",
+    "AAP parsers must be schema-aware and must identify subtotal/count rows before treating a row as an employee/event record.",
+    "Current discipline decisions must use the current handbook/process, not historical WW labels."
   ],
   "unresolved_questions": [
-    "Is there a 2024-2025 disciplinary-action log outside this uploaded archive, or was that period tracked differently?",
-    "What is the current authoritative system for disciplinary actions and verbal warnings?",
-    "What exact AAP reporting requirement drove the historical sorted copies, and is that requirement still current?",
-    "Why are there two distinct 2016-2017 AAP-sorted artifacts, and are they complementary versions or revisions?"
+    "Was disciplinary activity after September 22, 2023 moved to another system/file, and where is the authoritative 2024-2025/current register?",
+    "What exactly did historical WW1-WW9/WWI-WWIV labels mean in each era, and were they local warning sequence labels or policy-defined levels?",
+    "Why are there two distinct 2016-2017 AAP-sorted derivatives, and which was used for the final AAP analysis?",
+    "What current AAP discipline-analysis requirement, if any, supersedes the manual sorted-workbook practice?"
   ],
   "automation_candidates": [
-    "Replace manual annual/AAP-sorted workbook copies with controlled views or generated privacy-safe reports from one authoritative disciplinary register.",
-    "Automatically produce fiscal-year and AAP reporting extracts while retaining provenance and access controls.",
-    "Detect missing fiscal-year coverage and duplicate/revision relationships before AAP preparation."
+    "Maintain one authoritative restricted disciplinary-event register and generate fiscal-year/AAP views on demand.",
+    "Normalize historical warning-stage labels with an explicit source-to-normalized mapping and confidence rather than string replacement.",
+    "Schema-detect annual/AAP workbook variants and classify each row as detail/header/subtotal before import.",
+    "Automatically flag partial/missing fiscal-year coverage and empty-template years before AAP/audit reporting.",
+    "Generate privacy-safe aggregate AAP analyses without duplicating employee-level rosters."
   ],
   "provenance": [
     {
@@ -134,6 +235,22 @@
       "temporal_status": "unknown",
       "full_source_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json",
       "searchable_text_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json"
+    },
+    {
+      "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+      "safe_source_type": "privacy_safe_restricted_aggregate",
+      "source_date_or_version": "2008-2026 archive analysis",
+      "content_sha256": null,
+      "page_or_section": "complete aggregate",
+      "ingested_at": "2026-09-23",
+      "notes": "No employee identifiers or protected-class counts stored.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "full_source_path": "knowledge/libraries/rtec-hr/restricted-evidence/disciplinary-register-aggregate-2008-2026.json",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/restricted-evidence/disciplinary-register-aggregate-2008-2026.json"
     }
   ]
 }
