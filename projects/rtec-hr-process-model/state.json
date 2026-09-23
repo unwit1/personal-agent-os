@@ -11,7 +11,8 @@
     "Validate percentage/formula anomalies before reusing 2022 AAP calculations in any later plan.",
     "Use later and more authoritative sources to resolve the currentness/gap queue and build supersession chains.",
     "Preserve safe manuals, policies, procedures, templates, training/reference sources, and organizational materials in full searchable form.",
-    "Keep live employee/applicant/medical/incident/EEO roster content out of GitHub while retaining privacy-safe provenance and aggregate evidence."
+    "Keep live employee/applicant/medical/incident/EEO roster content out of GitHub while retaining privacy-safe provenance and aggregate evidence.",
+    "Establish current approved job-description versions and resolve FLSA/title/qualification conflicts before using historical role descriptions operationally."
   ],
   "important_paths": [
     "projects/rtec-hr-process-model/README.md",
@@ -22,7 +23,10 @@
     "schemas/rtec-hr-knowledge-v1.schema.json",
     "projects/rtec-hr-process-model/docs/REFERENCE_FORM_CONTEXT.md",
     "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json",
-    "knowledge/libraries/rtec-hr/plans/aap-2022-06-30/README.md"
+    "knowledge/libraries/rtec-hr/plans/aap-2022-06-30/README.md",
+    "knowledge/libraries/rtec-hr/sources/job-descriptions/manifest.json",
+    "knowledge/libraries/rtec-hr/roles/job-description-history.json",
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-job-descriptions-2026-09-23.json"
   ],
   "context_files": [
     "projects/rtec-hr-process-model/README.md",
@@ -30,7 +34,9 @@
     "knowledge/libraries/rtec-hr/README.md",
     "projects/rtec-hr-process-model/docs/REFERENCE_FORM_CONTEXT.md",
     "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json",
-    "knowledge/libraries/rtec-hr/plans/aap-2022-06-30/README.md"
+    "knowledge/libraries/rtec-hr/plans/aap-2022-06-30/README.md",
+    "knowledge/libraries/rtec-hr/sources/job-descriptions/manifest.json",
+    "knowledge/libraries/rtec-hr/roles/job-description-history.json"
   ],
   "skill_roots": [],
   "validation_commands": [],
@@ -52,14 +58,16 @@
     "preservation_rule": "Retain obsolete and superseded process sources for chronology and legacy-reference purposes."
   },
   "ingestion_status": {
-    "batches_completed": 2,
-    "latest_batch": "rtec-aap-2022-06-30",
-    "latest_batch_source_count": 20,
-    "latest_batch_safe_sources": 18,
+    "batches_completed": 3,
+    "latest_batch": "rtec-hr-job-descriptions-2026-09-23",
+    "latest_batch_source_count": 55,
+    "latest_batch_safe_sources": 51,
     "latest_batch_restricted_employee_rosters": 2,
     "latest_batch_exact_duplicates": 1,
     "plan_packages_ingested": 1,
-    "open_currentness_or_gap_questions": 17
+    "open_currentness_or_gap_questions": 20,
+    "latest_batch_restricted_case_sources": 4,
+    "latest_batch_searchable_source_groups": 14
   },
   "reference_form_context": {
     "catalog_path": "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json",
@@ -72,5 +80,18 @@
     "unique_identity_keys": 74,
     "full_source_rule": "When a safe original reference artifact is available, preserve it in full or by a lossless repository-safe representation and link it to the existing catalog entry.",
     "authority_rule": "Form presence is contextual evidence, not automatic current policy authority."
+  },
+  "job_description_context": {
+    "source_set": "rtec-hr-job-description-library-2026-09-23",
+    "manifest_path": "knowledge/libraries/rtec-hr/sources/job-descriptions/manifest.json",
+    "role_index_path": "knowledge/libraries/rtec-hr/roles/job-description-history.json",
+    "batch_path": "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-job-descriptions-2026-09-23.json",
+    "total_files_observed": 55,
+    "safe_position_level_sources": 51,
+    "restricted_employee_specific_sources": 4,
+    "searchable_source_groups": 14,
+    "integrity_status": "all 14 searchable source-group mirrors verified byte-for-byte against the extracted local corpus using Git blob hashes",
+    "temporal_rule": "Historical/unknown by default until current approved versions and effective dates are established.",
+    "privacy_rule": "Employee-specific temporary light-duty descriptions are restricted metadata-only and excluded from reusable role knowledge."
   }
 }
