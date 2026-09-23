@@ -26,9 +26,9 @@ The raw source import is complete. Messages preserve user-facing text where pres
 Completed:
 - speaker/condition analysis for every readable INFO record;
 - character, place, artifact/technology, and faction dossiers;
-- 25 normalized core claims and 7 tension/canon-boundary records;
-- topic/theme/reliability synthesis;
-- compact routing/retrieval derivatives;
+- 31 normalized core claims and 7 tension/canon-boundary records;
+- 14 topic dossiers plus theme/reliability synthesis;
+- compact routing/retrieval derivatives with 76 analysis entries;
 - deterministic fingerprints for all 33 BOOK records;
 - BOOK provenance passes 01-03;
 - machine-readable BOOK-to-central-source relations.
