@@ -102,9 +102,12 @@ Status: **in progress** (2026-09-23). Added the v1 provider-neutral connector
 registry schema, empty canonical registry, strict privacy-checked loader, and
 read-only `connector.list` MCP discovery with secret-reference redaction.
 `integration-health` now reports registry-declared connector-provider health and
-surface registration states in a separate `connector_providers` section; a
-surface filter narrows that section to connectors registered with the selected
-surface. This reads declared status only and does not probe provider APIs.
+per-surface readiness reasons in a separate `connector_providers` section. Its
+`surface_readiness` entries distinguish registry-ready-but-unverified from
+blocked, naming reachability, registration, and provider-health gaps. A surface
+filter narrows the readiness checks while retaining all configured connectors.
+This reads declared status only and does not probe provider APIs or claim live
+invocation.
 Connector import, credential resolution, surface adapters, reconciliation,
 live provider health checks, and cross-surface verification remain open.
 

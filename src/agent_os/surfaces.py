@@ -341,8 +341,31 @@ def health(surface_id: str | None = None) -> dict[str, Any]:
     connector_reports = []
     for connector in connector_registry["connectors"]:
         registrations = connector["registrations"]
-        if surface_id and not any(item["surface_id"].casefold() == surface_id.casefold() for item in registrations):
-            continue
+        registration_states = {item["surface_id"].casefold(): item["state"] for item in registrations}
+        surface_readiness = []
+        for surface in reports:
+            state = registration_states.get(surface["id"].casefold())
+            reasons = []
+            if not surface["reachable"]:
+                reasons.append("client cannot reach Agent OS")
+            if state is None:
+                reasons.append("no connector registration is declared for this client")
+            elif state != "registered":
+                reasons.append(f"connector registration is {state}")
+            health_status = connector["health"]["status"]
+            if health_status != "healthy":
+                reasons.append(f"provider health is {health_status}")
+            registry_ready = not reasons
+            surface_readiness.append(
+                {
+                    "surface_id": surface["id"],
+                    "surface_reachable": surface["reachable"],
+                    "registration_state": state or "not_registered",
+                    "registry_ready": registry_ready,
+                    "status": "declared_ready_unverified" if registry_ready else "blocked",
+                    "reasons": reasons or ["registry checks pass; provider invocation has not been verified"],
+                }
+            )
         connector_reports.append(
             {
                 "id": connector["id"],
@@ -350,6 +373,7 @@ def health(surface_id: str | None = None) -> dict[str, Any]:
                 "health": connector["health"],
                 "privacy_domain": connector["privacy_domain"],
                 "registrations": registrations,
+                "surface_readiness": surface_readiness,
             }
         )
     return {
