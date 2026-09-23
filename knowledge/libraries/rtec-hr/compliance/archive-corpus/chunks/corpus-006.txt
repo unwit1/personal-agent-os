@@ -1,0 +1,20 @@
+===== SOURCE BEGIN / PART 1 =====
+SOURCE_PATH: EEO/Breakdown of EEO Job Categories.docx
+SHA256: 76e3a28b508deed7d43f8db7e6677ce7213047e7cd4a69a9aef97caca7312f28
+TEXT_CHARS_TOTAL: 3465
+OFFSET: 0
+===== TEXT =====
+Breakdown of EEO Job Categories
+There were nine EEO job categories, but the first one has been separated into two distinct groups – making ten in total. The EEO job categories are:
+1.1 – Executive/Senior Level Officials and Managers. This category is reserved for the highest level within the organization. This level includes individuals who plan, direct, and formulate policies, they set the strategy, and they provide information to be approved by the board of directors. Some examples are the chief executive officer or the chief operating officer.
+1.2 – First/Mid Level Officials and Managers. Individuals in this category take direction from those in the 1.1 EEO job category. The 1.2 EEO job category includes managers at the group, regional, or divisional level of the organization. Examples might include vice presidents, operations managers, or group directors.
+2 – Professionals. Jobs in this category typically (but not always) require professional degrees or certifications. This category includes roles like engineers, accountants, teachers, pilots, programmers, lawyers, programmers, and doctors.
+3 – Technicians. This category includes jobs that require specific skills to be applied in the work. This category is very specific; certainly not every company will have technicians. Some examples include chemical technicians, drafters, engineering technicians, dental hygienists, and emergency medical technicians.
+4 – Sales Workers. As the name implies, this EEO job category includes anyone dealing in sales as their primary function. Retail salespeople, insurance salespeople, travel agents, real-estate agents, financial services salespeople, and telemarketers are some examples of roles that would fall into this category.
+5 – Administrative Support Workers. These jobs are typically found in office settings and include roles such as secretaries, paralegals, switchboard operators, payroll and timekeeping clerks, file clerks, dispatchers, and other general office clerks.
+6 – Craft Workers. Individuals in this category typically will have a specific skill set that makes them qualified for a particular subset of jobs. For example: carpenters, brick and stone masons, plumbers, painters, auto mechanics, and roofers, just to name a few. The distinction here is that a craft worker will have a specific skill to set them apart. This can be difficult to distinguish from the next category, which generally includes what can be termed “semi-skilled” workers.
+7 – Operatives. This group includes jobs that require minimal (a few months, maximum) training. They can be termed as semi-skilled or intermediate-skilled because the training is less specific, but there is still a specific job title involved. Examples include butchers, forklift drivers, bus drivers, bakers, poultry processing workers, etc.
+8 – Laborers and Helpers. Roles in this category generally don’t require anything more than brief training, and the individuals who perform them are not expected to exercise independent judgment. Some examples might include helpers, assistants, attendants, and freight movers.
+9 – Service Workers. It is important to note that just because this is the last job category does not indicate that it is considered to be the lowest, and certainly not lowest paid. This category includes those in the service sector, such as cooks, bartenders, firefighters, hairdressers, janitors, police, detectives, criminal investigators, and medical assistants.
+
+===== SOURCE PART 1 END =====

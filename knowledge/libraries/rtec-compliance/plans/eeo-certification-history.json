@@ -1,0 +1,89 @@
+{
+  "id": "rtec-eeo-certification-history",
+  "record_type": "certification_version_history",
+  "title": "RTEC Kentucky EEO certification history",
+  "status": "validated_from_available_approval_letters",
+  "temporal_status": "historical_series_with_current_period",
+  "certification_authority": "Commonwealth of Kentucky Finance and Administration Cabinet, Office of EEO and Contract Compliance",
+  "observed_periods": [
+    {
+      "approval_date": "2013-08-14",
+      "expires": "2014-09-30",
+      "source_sha256": "805ad6bdc0a94888d2f13ec1f42ee409150ad1509ed383a84f1bf74123a26b93",
+      "source_type": "scan-only approval letter"
+    },
+    {
+      "approval_date": "2014-08-11",
+      "expires": "2015-09-30",
+      "source_sha256": "83d82730d940303edfe3f37e6fca2f254ec71e56505d5ca72f1259f5110a2e22",
+      "source_type": "scan-only approval letter"
+    },
+    {
+      "approval_date": "2015-08-21",
+      "expires": "2016-09-30",
+      "source_sha256": "3cabcecc8d37926968c2599376234d50e8147acfda4215ae632d61abacb9e59a",
+      "source_type": "scan-only approval letter"
+    },
+    {
+      "approval_date": "2016-09-13",
+      "expires": "2017-09-30",
+      "source_sha256": "c5705d50d820967129392837d3c2df6449bced0279c7aced0d52b60024ada3a1",
+      "source_type": "scan-only approval letter"
+    },
+    {
+      "approval_date": "2017-08-24",
+      "expires": "2018-09-30",
+      "source_sha256": "5f3e241340dee80f2bccae3337c2d43ed19f7a81883966450f8ac71204fb9b32",
+      "source_type": "scan-only approval letter"
+    },
+    {
+      "approval_date": "2018-10-24",
+      "expires": "2019-09-30",
+      "source_sha256": "424ec1e6c4bb0b1ab4108110338aa2520a65ae0c3247f487e002475e10a8a9c2",
+      "source_type": "scan-only approval letter"
+    },
+    {
+      "approval_date": "2019-10-10",
+      "expires": "2020-09-30",
+      "source_sha256": "18bf25d17971610c5d147d0df853f756def0d5d2b9828be97f79366b728e7b03",
+      "source_type": "text-layer approval letter"
+    },
+    {
+      "approval_date": "2020-12-29",
+      "expires": "2021-09-30",
+      "source_sha256": "5d4c6bc53ddebe0ae94cefff92d2c27421a5a5b807c299e1c737d7b7eb651010",
+      "source_type": "text-layer approval letter"
+    },
+    {
+      "approval_date": "2021-09-16",
+      "expires": "2022-09-30",
+      "source_sha256": "b0bcc00041abdfb367fde9bfef198e4ac58212359b6d25b7cc664638ef0aa866",
+      "source_type": "text-layer approval letter"
+    },
+    {
+      "approval_date": "2022-09-06",
+      "expires": "2023-09-30",
+      "source_sha256": "6672059e4a5ad52a98e4f8bc99555ca48a739a8b075d11fa8304ff68016db791",
+      "source_type": "text-layer approval letter"
+    },
+    {
+      "approval_date": "2025-09-24",
+      "expires": "2026-09-30",
+      "source_sha256": "6edd3199b69044ef4479fbecda4ceec23703f0ff0eeb5c88f1a1a3bb804e0964",
+      "source_type": "text-layer approval letter",
+      "status": "current_through_2026-09-30"
+    }
+  ],
+  "gaps": [
+    "No certification approval letter for the period ending 2024-09-30 was located in the approval-letter folder during this pass.",
+    "No certification approval letter for the period ending 2025-09-30 was located in the approval-letter folder during this pass.",
+    "Signed annual renewal forms exist through 2023 and may document submissions even where the approval letter is absent."
+  ],
+  "source_interpretation": [
+    "Each observed approval letter states RTEC was certified to do business with the Commonwealth under Kentucky's Equal Employment Opportunity Act, KRS 45.550-45.640.",
+    "The approval letters describe one-year certification periods and state that a recertification notice will be sent before expiration.",
+    "Certification approval is distinct from FTA/KYTC approval of an EEO/Affirmative Action Plan; both histories should be retained separately."
+  ],
+  "currentness": "The latest approval source found is dated 2025-09-24 and states expiration 2026-09-30. This does not prove renewal after that date.",
+  "privacy": "Organization-level certification evidence only; signed renewal forms may contain individual signatory details but not employee-case records."
+}

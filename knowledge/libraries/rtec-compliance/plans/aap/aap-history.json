@@ -2,84 +2,119 @@
   "id": "rtec-aap-history",
   "record_type": "plan_version_history",
   "title": "RTEC Affirmative Action / EEO Plan history",
-  "status": "partial_but_validated_from_archive",
+  "status": "validated_archive_version_history_with_known_gaps",
   "temporal_status": "historical_series",
   "observed_plan_versions": [
     {
-      "period": "2009-07 through 2010-06",
+      "period": "2009-07-01/2010-06-30",
       "source": "AAP PLAN July 2009 - June 2010.doc",
-      "sha256": "c4be88e929ff3c04"
+      "sha256": "c4be88e929ff3c04d16cf09b4fbcd111f505ccb4255891619fe5668c9a97f44b"
     },
     {
-      "period": "2010-07 through 2011-06",
+      "period": "2010-07-01/2011-06-30",
       "source": "AAP PLAN July 2010 - June 2011.doc",
-      "sha256": "2c86e353ba1e2209"
+      "sha256": "2c86e353ba1e2209cf5c23ef99d3bcc6e616e8aec8790d63986b1c225e3b3456"
     },
     {
-      "period": "2013-07 through 2014-06",
+      "period": "2013-07-01/2014-06-30",
       "source": "AAP PLAN July 2013 - June 2014.doc",
-      "sha256": "fb0c2dc4334121bf"
+      "sha256": "fb0c2dc4334121bfc565b2799253b3e01ea0c9430791de154b7b2777833fa544"
     },
     {
       "period": "2015-07 through 2018-06",
       "source": "AAP PLAN July 2015 - June 2018.doc",
-      "sha256": "08ef1c128bf47b38"
+      "sha256": "08ef1c128bf47b38fdc29884dfd9454bdd60c109988b7afea8df2a19ec1a0fbf",
+      "canonical_fulltext_path": "knowledge/libraries/rtec-hr/compliance/sources/aap-2015-2018/"
+    },
+    {
+      "period": "2018-07-01/2019-06-30",
+      "source": "AAP PLAN as of June 30, 2019.doc",
+      "sha256": "612cf3bdc4756fd9dfd14bf625071c783493fe65fcfc7ee1fe2abe3d639c38c6"
     },
     {
       "period": "2018-07 through 2022-06",
       "source": "AAP PLAN July 2018 - June 2022.doc",
-      "sha256": "a35531d961c911d8"
+      "sha256": "35466702a71efd12e858df37779ef30dd13df6ea037764451b88a413b519f546",
+      "note": "Archive also contains a differently named/edited source with SHA a35531d961c911d8 whose printed plan years extend through 2022-2023; treat as a separate historical variant."
     },
     {
-      "period": "2018-07 through 2023-06",
+      "period": "2018-07 through 2024-06",
       "source": "AAP PLAN July 2018 - June 2023.doc",
-      "sha256": "3c87030f6ac68bf9"
+      "sha256": "3c87030f6ac68bf91e660288764eefaefaed3464c19b49b31483a6af9ba211a0",
+      "note": "Filename is stale: extracted text prints plan year through 2023-2024 and UPDATED JUNE 30, 2024."
     },
     {
       "period": "2018-07 through 2024-06",
       "source": "AAP PLAN July 2018 - June 2024.doc",
-      "sha256": "abc8ff6b30fcf02b",
-      "canonical_fulltext_path": "knowledge/libraries/rtec-compliance/plans/aap/2018-2024/"
+      "sha256": "abc8ff6b30fcf02b0152274ba4a0b584ab4cc7cc6a437396a84b67e19cae01fb",
+      "canonical_fulltext_path": "knowledge/libraries/rtec-compliance/plans/aap/2018-2024/",
+      "note": "Near-identical to the stale-filename 2018-2023 source (text similarity about 99.9%); this variant adds/clarifies Tracy Champion in EEO-manager text and is retained separately."
     }
   ],
   "observed_state_approval_letters": [
     {
       "date": "2009-11-10",
       "source": "Approval letter dated 11 10 2009.pdf",
-      "sha256": "7c0b64fad53328ff"
+      "sha256": "7c0b64fad53328ff",
+      "finding": "RTEC EEO program described as adequately addressing listed FTA Circular 4704.1 components."
     },
     {
       "date": "2012-01-03",
       "source": "Approval letter dated 01 03 2012.pdf",
-      "sha256": "7cb91a533175feac"
+      "sha256": "7cb91a533175feac",
+      "finding": "Updated EEO plan reviewed by Kentucky Office of Transportation Delivery; letter identifies standard EEO-plan components and grant-recipient conditions."
     },
     {
       "date": "2014-11-15",
       "source": "Approval letter dated 11 15 2014.pdf",
-      "sha256": "303ac000919866eb"
+      "sha256": "303ac000919866eb",
+      "finding": "Updated EEO/AAP reviewed and found satisfactory.",
+      "next_plan_due": "2017-11-17"
     },
     {
       "date": "2018-12-27",
       "source": "Approval letter dated 12 27 2018.pdf",
-      "sha256": "c57b15dc60d9b424"
+      "sha256": "c57b15dc60d9b424",
+      "finding": "RTEC EEO/AAP reviewed and found satisfactory; Kentucky states updated plan required every four years.",
+      "next_plan_due": "2022-01-01"
     },
     {
       "date": "2020-12-30",
-      "source": "Approval letter dated 12 30 2020.pdf",
-      "sha256": "6f5848d20235d31e"
-    },
-    {
-      "date": "2020",
       "source": "Rural Transit Enterprises Coordinated Inc. 2020 EEO Plan Approval Letter.pdf",
-      "sha256": "3b60dd0744ed6da3"
+      "sha256": "3b60dd0744ed6da399c3a0a6722e22b4a4608329aa28ceb76eba5235ce06bb11",
+      "finding": "RTEC EEO/AAP reviewed and found satisfactory under EEO Guidelines for Grant Recipients / FTA Circular 4704.1.",
+      "next_plan_due": "2024-01-30",
+      "canonical_path": "knowledge/libraries/rtec-compliance/plans/aap/2020-state-approval.md"
     }
   ],
   "related_snapshot": "knowledge/libraries/rtec-hr/plans/aap-2022-06-30/",
   "newest_full_plan_observed_end_date": "2024-06-30",
   "unresolved_questions": [
-    "What approved AAP/EEO plan governs after June 30, 2024?",
-    "Which approval letter corresponds to each plan revision and what exact approval/effective dates did Kentucky assign?",
-    "How did the AAP methodology change across plan versions, especially labor availability and placement-goal calculations?"
+    "What approved EEO/Affirmative Action Plan governs after June 30, 2024?",
+    "Was a plan submitted by the January 30, 2024 date stated in Kentucky's 2020 approval letter, and where is its approval correspondence?",
+    "What exact effective date did EEO program responsibility move from Sheila Stallsworth to Tracy Champion?",
+    "How did the AAP methodology change across plan versions, especially labor availability, job groups and placement-goal calculations?",
+    "Resolve stale/misleading plan filenames against printed plan-year/update text rather than relying on filenames alone."
   ],
-  "preservation_rule": "Keep every historical plan and state approval letter as a versioned source. Never overwrite old goals, named role holders, screening practices or workforce analyses with newer values."
+  "preservation_rule": "Keep every historical plan and state approval letter as a versioned source. Never overwrite old goals, named role holders, screening practices or workforce analyses with newer values.",
+  "observed_role_history": [
+    {
+      "through_period": "at least 2009-2010 through the 2018-era plan family",
+      "eeo_manager": "Sheila Stallsworth",
+      "evidence": "Repeated AAP plan text assigns EEO program implementation/management to Sheila Stallsworth."
+    },
+    {
+      "period": "2018-2024 plan as updated 2024",
+      "eeo_manager": "Tracy Champion",
+      "evidence": "Latest 2018-2024 plan variant names Tracy Champion as EEO Manager/Officer/Administrative Manager in source text."
+    },
+    {
+      "period": "later evidence",
+      "note": "Later organization charts, handbook sources and 2026 signed EEO policy are maintained in the HR role-history records and may supersede AAP-era role assignments."
+    }
+  ],
+  "analysis_notes": [
+    "The archive contains near-duplicate and stale-filename plan variants. SHA-256 and printed plan-year/update text are authoritative for source identity; filenames are not.",
+    "State EEO/AAP plan approval and Kentucky EEO contractor certification are separate compliance histories."
+  ]
 }
