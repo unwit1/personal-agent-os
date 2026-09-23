@@ -44,7 +44,10 @@
       ],
       "limitation": "The indexed message text was exhaustively scanned, but 231 of 232 attachment records contain metadata only, so attachment contents such as resumes, leases, and forms were not available for semantic analysis.",
       "scan_status": "complete_for_indexed_message_text",
-      "attachment_content_status": "The archive's indexed message text is exhausted for this pass. Attachment bodies are a separate future corpus because 231 of 232 attachment records expose metadata only."
+      "attachment_content_status": "The archive's indexed message text is exhausted for this pass. Attachment bodies are a separate future corpus because 231 of 232 attachment records expose metadata only.",
+      "synthesis_status": "complete_for_indexed_message_text",
+      "structured_analysis_files": 7,
+      "notes_on_completion": "The indexed message text has been analyzed at corpus, timeline, career/education, communication/work-style, relationships/organizations, interests/digital-life, and commitment/automation levels. Attachment bodies remain a separately incomplete corpus."
     }
   },
   "identity_and_account_context": {
@@ -79,7 +82,23 @@
       "Has experience learning operational work on the fly with limited training/support.",
       "Shows a strong service orientation and discomfort with giving customers false hope when a problem cannot be fixed."
     ],
-    "job_alert_interpretation": "Employment-folder alerts continue even after the April 2026 RTEC start. Automated alerts are background subscriptions and must not be interpreted as proof of an active current job search without direct correspondence or user confirmation."
+    "job_alert_interpretation": "Employment-folder alerts continue even after the April 2026 RTEC start. Automated alerts are background subscriptions and must not be interpreted as proof of an active current job search without direct correspondence or user confirmation.",
+    "application_confirmation_analysis": {
+      "explicit_linkedin_application_confirmations": 49,
+      "date_range": [
+        "2025-10-31",
+        "2026-03-16"
+      ],
+      "categories": {
+        "benefits_compensation_payroll": 20,
+        "hr_people_operations": 18,
+        "sales_insurance": 5,
+        "other": 3,
+        "claims": 2,
+        "recruiting": 1
+      },
+      "conclusion": "Direct application evidence strongly centers the late-2025/early-2026 search on HR, benefits, compensation, payroll, and people-operations roles. Generic job-alert traffic is excluded from this conclusion."
+    }
   },
   "household_and_life_history": {
     "independent_living": "Has a history of renting apartments, setting up utilities, paying rent online, and handling maintenance/work-order issues in Berea, Kentucky.",
@@ -182,7 +201,19 @@
     "drafting_implication": "Agent-written messages should preserve the context-dependent split between concise professional courtesy and informal humor with close contacts.",
     "follow_up_pattern": "When a professional process is unresolved, the user commonly sends courteous follow-ups rather than waiting indefinitely; this appears in job-search, support, housing, and work correspondence.",
     "question_style": "The user tends to bundle practical questions into organized, concrete lists covering timelines, expectations, policies, benefits, logistics, and next steps.",
-    "channel_preference": "At least one direct service/sales exchange explicitly says 'I prefer email'; broader correspondence also shows heavy reliance on email for practical coordination. Treat this as a useful preference signal, not an absolute rule."
+    "channel_preference": "At least one direct service/sales exchange explicitly says 'I prefer email'; broader correspondence also shows heavy reliance on email for practical coordination. Treat this as a useful preference signal, not an absolute rule.",
+    "quantitative_sent_mail": {
+      "sent_messages_reviewed": 203,
+      "classified_professional_or_external": 109,
+      "classified_personal": 38,
+      "self_forward_or_cross_account_transport": 29,
+      "automated_unsubscribe": 27,
+      "professional_median_authored_words": 78,
+      "professional_question_rate": 0.486,
+      "professional_thanks_rate": 0.523,
+      "professional_explicit_follow_up_rate": 0.229,
+      "note": "These are descriptive of the indexed Sent Messages rather than all communication channels."
+    }
   },
   "evidence_quality_rules": {
     "high_confidence": [
@@ -272,5 +303,61 @@
         "Skyrim/modding, PC gaming, AI/coding tools, paid research platforms, and shared household planning with Olivia are all high-frequency current signals."
       ]
     }
-  ]
+  ],
+  "analysis_artifacts": [
+    {
+      "path": "profile/icloud-mail-analysis/corpus-summary.json",
+      "purpose": "Corpus coverage, evidence rules, privacy boundaries, and attachment limitations."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/timeline.json",
+      "purpose": "Dated personal-history reconstruction with confidence and historical-state rules."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/communication-and-workstyle.json",
+      "purpose": "Quantitative and qualitative model of professional/personal email style, work style, follow-up, and organization patterns."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/career-and-education.json",
+      "purpose": "Education, employment, direct application/interview history, career concentration, and work-fit evidence."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/interests-and-digital-life.json",
+      "purpose": "Gaming/modding, reading/fanfiction, brick collecting, paid research, AI/dev services, devices, and digital workflows."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/relationships-and-organizations.json",
+      "purpose": "Privacy-preserving personal/institutional relationship graph with dated organization roles."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/commitments-and-automation.json",
+      "purpose": "Commitment-state patterns, administrative friction, follow-up rules, and automation opportunities."
+    }
+  ],
+  "behavior_and_commitments": {
+    "lexical_sent_mail_signals": {
+      "explicit_follow_up_messages": 25,
+      "delay_or_lateness_apology_messages": 9,
+      "explicit_forgot_or_back_burner_mentions": 2,
+      "attachment_related_messages": 42,
+      "confirmation_language_messages": 16
+    },
+    "synthesis": [
+      "The user is persistent about unresolved processes and commonly follows up when waiting on another person or organization.",
+      "Occasional delay/forgetting evidence supports keeping commitments stateful and visible until completion evidence exists.",
+      "Once a lapse is noticed, the user typically tries to repair it promptly by asking what remains, providing the missing item, and confirming completion.",
+      "Email is frequently used as a transport layer for documents and reference material, creating a strong case for integrated retrieval and document-request tracking."
+    ],
+    "automation_priorities": [
+      "Application/interview state tracking",
+      "Requested-document and attachment verification",
+      "Housing/lease/utility task tracking",
+      "Vehicle maintenance/registration reminders",
+      "Support/RMA next-actor tracking",
+      "Travel/study form and deadline checklists",
+      "Subscription/actionable-change filtering",
+      "Paid-study invitation versus scheduled/completed-state separation",
+      "Cross-account self-forward reduction"
+    ]
+  }
 }
