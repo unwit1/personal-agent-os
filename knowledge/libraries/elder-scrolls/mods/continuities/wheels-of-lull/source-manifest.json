@@ -146,16 +146,31 @@
   },
   "next_actions": [
     "Run a fresh deterministic 1,090-document retrieval materialization on checkout as a verification step; raw-shard blockers are closed.",
-    "Optionally add the 328-record implementation-text supplement as a secondary retrieval collection without mixing it into narrative canon claims.",
+    "Optionally index the 370-record implementation-evidence layer as a secondary retrieval collection without mixing it into narrative canon claims.",
     "Continue narrow BOOK source/edition research only when new archival Trainwiz/Sotha Sil Expanded/Aethernautics source assets become available."
   ],
   "implementation_text_supplement": {
     "status": "complete_for_supplied_esp",
-    "records": 328,
-    "path": "raw/implementation-text-supplement.jsonl.gz",
+    "records": 370,
+    "base_records": 328,
+    "augmentation_new_records": 42,
+    "field_augmentations": 16,
+    "paths": [
+      "raw/implementation-text-supplement.jsonl.gz",
+      "raw/source-evidence-augmentation.jsonl"
+    ],
     "manifest": "analysis/implementation-text-supplement.json",
     "audit": "analysis/exhaustiveness-audit.md",
-    "gzip_sha256": "e7ce7982e058679f1c61fc5360a506d0f330fb3f02751a5e871d4437c5ad3c8f",
-    "policy": "Separate evidence layer; does not change the 1,090-record core narrative/source corpus."
+    "base_gzip_sha256": "e7ce7982e058679f1c61fc5360a506d0f330fb3f02751a5e871d4437c5ad3c8f",
+    "policy": "Separate evidence layer; does not change the 1,090-record core narrative/source corpus. Cosmetic implementation labels remain explicitly non-narrative."
+  },
+  "total_persisted_source_evidence_records": 1460,
+  "deep_text_audit": {
+    "status": "complete",
+    "embedded_phrase_candidates": 2008,
+    "unique_embedded_phrases": 1796,
+    "natural_language_vmad_payloads_found": 0,
+    "source_localized": false,
+    "field_augmentations": 16
   }
 }
