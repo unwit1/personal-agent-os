@@ -1,0 +1,89 @@
+{
+  "id": "rtec-process-unemployment-identity-fraud-response-2021",
+  "record_type": "process",
+  "title": "Employee unemployment identity-fraud response guidance - 2021",
+  "status": "validated",
+  "temporal_status": "historical",
+  "effective_from": "2021-04-07",
+  "effective_to": null,
+  "summary": "Historical HR guidance for employees who received Kentucky unemployment correspondence despite not applying for benefits. It directed reporting to federal/state fraud channels, account verification, optional credit-bureau fraud alerts, and HR assistance.",
+  "claims": [
+    {
+      "claim": "In April 2021, RTEC HR instructed employees who received unemployment-benefit correspondence they did not initiate to report suspected fraud through federal and Kentucky channels, review relevant account/banking information, consider fraud alerts with credit bureaus, and contact HR for help.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-unemployment-fraud-alert-2021-04-07",
+          "page_or_section": "signed memorandum, page 1",
+          "evidence_type": "explicit_text",
+          "note": "Specific external contact details are historical."
+        }
+      ]
+    }
+  ],
+  "trigger": "Employee receives unemployment-benefit correspondence or tax documentation inconsistent with the employee's own filing/activity.",
+  "prerequisites": [],
+  "actors": [
+    "Employee",
+    "Human Resources",
+    "External fraud-reporting agencies"
+  ],
+  "systems": [
+    "Kentucky unemployment account",
+    "External fraud reporting websites"
+  ],
+  "forms": [
+    "External fraud reports"
+  ],
+  "steps": [
+    "Recognize potentially unauthorized unemployment activity.",
+    "Use the then-current official fraud-reporting channels.",
+    "Review unemployment account/banking information if applicable.",
+    "Consider credit-bureau fraud alerts.",
+    "Contact Human Resources for assistance."
+  ],
+  "decisions": [
+    "Whether the correspondence/activity is unauthorized.",
+    "Which current external reporting channels apply."
+  ],
+  "deadlines": [],
+  "outputs": [
+    "Fraud report(s)",
+    "Account verification",
+    "Possible credit fraud alert",
+    "HR support"
+  ],
+  "exceptions": [],
+  "controls": [
+    "Never reuse 2021 URLs, phone numbers, addresses, or agency instructions without verifying the current official source.",
+    "Do not store employee-specific identity-theft case details in the generalized knowledge layer."
+  ],
+  "unresolved_questions": [
+    "What is RTEC's current standard response/checklist for employees reporting unemployment identity theft or similar benefit fraud?",
+    "Which official current government resources should HR direct employees to now?"
+  ],
+  "automation_candidates": [
+    "Current-link checker for HR fraud-response templates so stale government URLs/contact details are flagged before sending."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-unemployment-fraud-alert-2021-04-07",
+      "safe_source_type": "employee_guidance_correspondence",
+      "source_date_or_version": "2021-04-07",
+      "content_sha256": "2cc9d0aaea2dc2f41563dc7d51eb67ee4ef39b56ef43113210c409f5d2617bc2",
+      "page_or_section": "signed memorandum, page 1",
+      "ingested_at": "2026-09-23",
+      "notes": "Signed PDF visually verified; DOCX companion retained as same source family.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": "2021-04-07",
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-unemployment-fraud-alert-2021-04-07/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-unemployment-fraud-alert-2021-04-07/fulltext.md"
+    }
+  ]
+}
