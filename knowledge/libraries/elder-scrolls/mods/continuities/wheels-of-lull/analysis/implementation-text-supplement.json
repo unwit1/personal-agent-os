@@ -4,9 +4,7 @@
   "source_sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
   "audit_date": "2026-09-23",
   "corpus": "implementation_text_supplement",
-  "path": "raw/implementation-text-supplement.jsonl.gz",
   "records": 370,
-  "gzip_sha256": "e7ce7982e058679f1c61fc5360a506d0f330fb3f02751a5e871d4437c5ad3c8f",
   "selection_policy": "Retain every omitted record with player-facing FULL/DESC text plus structural FACT/TACT/VTYP evidence. HDPT/CLFM cosmetic labels are retained but explicitly classified as cosmetic implementation evidence. Add semantically meaningful nonstandard text fields discovered by the deep embedded-string sweep without promoting binary/asset metadata.",
   "type_counts": {
     "ACTI": 43,
@@ -38,9 +36,10 @@
   "total_plugin_records": 36824,
   "source_exhaustion_status": "complete_for_supplied_esp",
   "notes": [
-    "Core source-record corpus remains 1,090 records; this supplement is a distinct implementation-text evidence layer.",
+    "Core source-record corpus remains 1,090 records; this is a distinct 370-record implementation-evidence layer stored in a 328-record base plus a 42-record augmentation.",
+    "Sixteen augmentation rows add fields to already-counted records and therefore do not increase the unique-record total.",
     "Three REFR rows are included only because they carry distinct player-facing FULL names.",
-    "Vanilla-derived race descriptions are implementation evidence and must not be promoted as Wheels-specific lore claims."
+    "HDPT/CLFM and vanilla-derived descriptions are implementation evidence and must not be promoted as Wheels-specific narrative claims."
   ],
   "storage": {
     "base_gzip": "raw/implementation-text-supplement.jsonl.gz",
