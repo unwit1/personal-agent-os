@@ -74,6 +74,36 @@
       "domain": "customer_service_training",
       "question": "Verify whether the 2013/2017 National RTAP customer-service packet remains part of current driver training and how completion is recorded.",
       "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "affirmative_action_plan",
+      "question": "What AAP/EEO plan superseded the June 30, 2022 snapshot, and what were the exact effective/submission dates for this plan and its successor?",
+      "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "affirmative_action_plan",
+      "question": "Are the 2010 Census labor-market source, recruitment areas, internal/external placement weights, and job-group methodology still used in later RTEC AAP plans?",
+      "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "affirmative_action_plan_data_quality",
+      "question": "Were the minority/veteran percentage fields in the 2022 AAP workbooks intended to be decimal fractions formatted incorrectly or manually entered values approximately 100x too small? Recover and validate the original formulas/number formats before reusing them.",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "title_vii_eeo_complaints",
+      "question": "What current Title VII/EEO and sexual-harassment complaint forms/processes supersede the 2016 Title VII and 2017 sexual-harassment forms found in the 2022 AAP package?",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "affirmative_action_plan_sources",
+      "question": "Locate the sample ads/brochures and Commonwealth of Kentucky certification documents referenced by the 2022 AAP binder index but not included in this upload.",
+      "status": "open"
     }
   ]
 }
