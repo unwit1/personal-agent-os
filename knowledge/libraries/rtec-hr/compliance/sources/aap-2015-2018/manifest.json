@@ -16,25 +16,24 @@
     "2014-07-01 through 2015-06-30"
   ],
   "source_printed_update": "2018-06-30",
-  "ingestion_status": "sectioned_full-source-preservation_in_progress",
+  "ingestion_status": "full_safe_extracted_text_preserved",
   "sections_committed": [
     "fulltext.part001.txt — title, plan years, table of contents",
     "sections/title-vii-and-employee-complaints.md",
     "sections/harassment-accommodation-lep.md"
   ],
-  "sections_pending_full_preservation": [
-    "EEO policy statement and assurances",
-    "AAP administration roles and duties",
-    "program guidelines/employment practices",
-    "policy dissemination/comment",
-    "internal audit/reporting systems",
-    "underutilization/goals",
-    "employment practices/hiring criteria",
-    "self-identification invitations and remaining addenda"
-  ],
+  "sections_pending_full_preservation": [],
   "notes": [
     "This manifest intentionally distinguishes source discovery from complete preservation. Do not treat the GitHub source as fully preserved until all sections are committed or a lossless safe source artifact is synchronized.",
     "Some provisions are clearly historical and may conflict with current law, policy or practice. Preserve source wording and separately validate current requirements."
   ],
-  "ingested_at": "2026-09-23"
+  "ingested_at": "2026-09-23",
+  "fulltext_parts": [
+    "fulltext.part001.txt",
+    "fulltext.part002.txt",
+    "fulltext.part003.txt",
+    "fulltext.part004.txt",
+    "fulltext.part005.txt"
+  ],
+  "fulltext_completion_date": "2026-09-23"
 }
