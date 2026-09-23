@@ -1,0 +1,69 @@
+{
+  "archive_id": "rtec-compliance-archive-2026-09-23",
+  "source_filename": "!Compliance.zip",
+  "source_sha256": "9e53d3dd6ca0854172f8e71ac257555143c10720d46a8a27110c93b98d33f446",
+  "ingested_at": "2026-09-23",
+  "total_files": 864,
+  "unique_hashes": 824,
+  "exact_duplicate_groups": 24,
+  "privacy_counts": {
+    "restricted_metadata_only": 275,
+    "safe": 589
+  },
+  "role_counts": {
+    "compliance_document": 366,
+    "reference_asset": 208,
+    "restricted_source": 275,
+    "supporting_source": 15
+  },
+  "top_level_counts": {
+    "Affirmative Action Plan (AAP)": 436,
+    "TITLE VI LEP PLAN": 280,
+    "EEO": 143,
+    "Equal Employment Opportunity Plan (EEO)": 5
+  },
+  "notable_collections": {
+    "aap": [
+      "AAP plans and annual analytical workpapers spanning FY2008 forward",
+      "Applicant logs by fiscal year through 2026-2027",
+      "State AAP approval letters",
+      "Completed voluntary affirmative-action forms (restricted)",
+      "Historical workforce, incumbency, availability, hiring, termination and personnel-activity analyses"
+    ],
+    "eeo": [
+      "EEO employee lists by fiscal year (restricted)",
+      "EEO-1 reporting materials",
+      "EEO training for managers/supervisors",
+      "Reasonable-accommodation materials",
+      "EEOC charge files (restricted)",
+      "Certification renewal / AAP submission materials"
+    ],
+    "title_vi_lep": [
+      "Title VI/LEP plans and historical versions",
+      "2026 Title VI/LEP planning package",
+      "Complaint forms and response-letter templates",
+      "ADA complaint process and form",
+      "Public notices and Spanish-language materials",
+      "State approval letters",
+      "Public participation and language-assistance materials",
+      "demographic/census supporting evidence"
+    ]
+  },
+  "privacy_rules": [
+    "Do not persist names from filenames of restricted completed forms/cases.",
+    "Do not copy applicant logs, employee rosters, payroll rows, voluntary EEO demographics, EEOC case narratives, or individual accommodation facts into generalized knowledge.",
+    "Aggregate plan analyses may be retained when they do not identify individuals.",
+    "Blank templates and position-level policies may be preserved in full."
+  ],
+  "duplicate_examples": [
+    "The 2018 Driver Training & Orientation source appears repeatedly in historical AAP folders and is already canonical in the RTEC HR library.",
+    "The Sexual Harassment Complaint Form appears in multiple plan folders and should be referenced to one canonical source.",
+    "Several Title VI reference/web assets are exact duplicates across exported web-page folders."
+  ],
+  "extraction_status": {
+    "archive_index": "complete",
+    "privacy_classification": "initial deterministic pass complete",
+    "safe_current_plan_texts": "priority extraction underway",
+    "scanned_pdf_full_ocr": "staged_due_to_scan_only_sources"
+  }
+}
