@@ -107,7 +107,9 @@ per-surface readiness reasons in a separate `connector_providers` section. Its
 blocked, naming reachability, registration, and provider-health gaps. A surface
 filter narrows the readiness checks while retaining all configured connectors.
 This reads declared status only and does not probe provider APIs or claim live
-invocation.
+invocation. The connected Agent OS MCP tool inventory still lacks
+`connector.list`, so its running server needs a host-side restart before the
+new tool can be verified through MCP.
 Connector import, credential resolution, surface adapters, reconciliation,
 live provider health checks, and cross-surface verification remain open.
 
@@ -690,6 +692,13 @@ a small code change (3 runs each, delivery verified): median task input
 161,847 → 100,513 tokens; review calls ~84.6k → ~41.8k. Also fixed: a worker
 reporting "done" with no changes was accepted (now a failed attempt unless it
 reports `already_done`).
+
+Additional hardening (2026-09-23): worker subprocesses carry an internal marker,
+and orchestrator control entry points reject nested run/control calls before
+they touch shared Git state. A direct live CLI model trial delivered with the
+exact `codex` / `gpt-6-luna` / `fast` selection and completed without failures
+(66,494 input and 789 output tokens). The connected MCP server's runtime
+restart and through-MCP smoke remain unverified.
 
 The original scope below is kept for reference.
 
