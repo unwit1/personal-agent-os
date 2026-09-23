@@ -1,0 +1,38 @@
+{
+  "source_id": "rtec-compliance-archive-upload-2026-09-23",
+  "original_filename": "!Compliance.zip",
+  "sha256": "9e53d3dd6ca0854172f8e71ac257555143c10720d46a8a27110c93b98d33f446",
+  "archive_file_count": 864,
+  "uncompressed_bytes": 553596933,
+  "top_level_counts": {
+    "Affirmative Action Plan (AAP)": 436,
+    "TITLE VI LEP PLAN": 280,
+    "EEO": 143,
+    "Equal Employment Opportunity Plan (EEO)": 5
+  },
+  "extension_counts": {
+    ".xls": 271,
+    ".pdf": 241,
+    ".doc": 112,
+    ".download": 88,
+    ".css": 56,
+    ".png": 23,
+    ".svg": 20,
+    "<none>": 16,
+    ".xlsx": 13,
+    ".html": 7,
+    ".docx": 6,
+    ".csv": 3,
+    ".pptx": 2,
+    ".xlsb": 1,
+    ".tmp": 1,
+    ".ini": 1,
+    ".ppt": 1,
+    ".jpg": 1,
+    ".msg": 1
+  },
+  "privacy_mode": "mixed_corpus_safe_sources_plus_restricted_case_records",
+  "status": "indexed_ingestion_in_progress",
+  "historical_scope": "approximately 2008-2026 based on discovered filenames/version folders, with some older source/reference material",
+  "binary_preservation_note": "The original ZIP is identified by hash. Safe source text/structure is promoted into GitHub incrementally; restricted person-level records remain metadata/aggregate only."
+}

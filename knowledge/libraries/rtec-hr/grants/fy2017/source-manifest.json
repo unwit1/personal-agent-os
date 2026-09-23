@@ -1,0 +1,50 @@
+{
+  "corpus_id": "rtec-fy2017-transit-grants",
+  "temporal_status": "historical",
+  "ingested_at": "2026-09-23",
+  "sources": [
+    {
+      "source_id": "rtec-grant-fy2017-section-5310",
+      "title": "Grant Application for Assistance — Enhanced Mobility of Seniors and Individuals with Disabilities Program (5310), State Fiscal Year 2017",
+      "original_filename": "FY 17 Section 5310 Grant.pdf",
+      "sha256": "a89090c38d1de000eb068e8545bdfb2d628266b8f030964fc6ba5dbd45efbc70",
+      "pages": 305,
+      "pdf_creation_date": "2016-10-17",
+      "pdf_modified_date": "2016-10-17",
+      "cover_date": "2016-04-01",
+      "representation": "image-only scanned PDF",
+      "temporal_status": "historical"
+    },
+    {
+      "source_id": "rtec-grant-fy2017-section-5311",
+      "title": "Grant Application for Assistance — Rural Area Formula Program (5311), State Fiscal Year 2017",
+      "original_filename": "FY 17 Section 5311 Grant.pdf",
+      "sha256": "0b8f81f4823108a502d21c03cbaf4b34104f55ba468e4949ebc810bebba99f0a",
+      "pages": 533,
+      "pdf_creation_date": "2016-10-17",
+      "pdf_modified_date": "2016-10-17",
+      "cover_date": "2016-04-01",
+      "other_dated_evidence": [
+        "application checklist signed 2016-03-23",
+        "receipt page dated 2017-03-31"
+      ],
+      "representation": "image-only scanned PDF",
+      "temporal_status": "historical"
+    },
+    {
+      "source_id": "rtec-grant-fy2017-section-5339",
+      "title": "Grant Application for Assistance — Section 5339 Bus and Bus Facilities, State Fiscal Year 2017",
+      "original_filename": "FY 17 Section 5339 Grant.pdf",
+      "sha256": "68eb5fddf2a326a88ee990c55175c8b0ac40f24c9c08d5bd0aab8c6b74fb41e8",
+      "pages": 183,
+      "pdf_creation_date": "2016-10-17",
+      "pdf_modified_date": "2016-12-13",
+      "cover_date": "2016-04-01",
+      "state_completeness_letter_date": "2016-04-13",
+      "representation": "image-only scanned PDF",
+      "temporal_status": "historical"
+    }
+  ],
+  "source_pages_total": 1021,
+  "privacy_note": "Grant applications are treated as organizational/process sources. Any page that contains employee/applicant or other individual-sensitive case data must be handled under the restricted-evidence rules instead of copied into generalized GitHub knowledge."
+}
