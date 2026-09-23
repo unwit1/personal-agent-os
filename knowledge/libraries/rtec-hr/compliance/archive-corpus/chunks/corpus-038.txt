@@ -1,3 +1,205 @@
+===== SOURCE BEGIN / PART 3 OF 5 =====
+SOURCE_PATH: EEO/EEO-1 REPORT INFO/EEO1ReportandInstructions 2010.doc
+SHA256: b9cf8728058615b18a7c3b26bf72b56f7ec8201ddb48c48ca289dd72854928d0
+TEXT_CHARS_TOTAL: 41332
+OFFSET: 20000
+ALIASES: 
+===== TEXT =====
+sufficient);
+
+3. City, State and Zip Code of the parent company;
+
+4. Name of the Branch Office/Other location (locations other than the
+   company headquarters office);
+
+5. Street address of the Branch Office/Other location (simply listing a
+   post office box number is not sufficient); and
+
+6. City, State and Zip Code of the Branch Office/Other location.
+
+
+                   SECTION III.  ESTABLISHMENT INFORMATION
+
+The description of the major activity must clearly identify the industry
+and product produced or service provided.  If the establishment is involved
+in more than one activity, describe the activity that involves the greatest
+number of employees.
+
+Note for Consolidated employers: The description of the major activity must
+reflect the dominant economic activity of the firm, i.e., the activity that
+involves the greatest number of employees.
+
+
+                      SECTION IV.  GENERAL INFORMATION
+
+1. Select the primary geographical area(s) from which your employees are
+   hired, i.e., county, city, metropolitan statistical area, state or
+   nationwide (Note: if you select ‘nationwide’ only the national percentage
+   will be used to evaluate your workforce data).  A response to this
+   question is required.
+
+   Next, identify the primary hiring area(s) by name, i.e., you must list
+all areas included in your
+   primary hiring area.  County and city information must be clearly
+identified, e.g., Broward
+   County, Florida; Providence, Rhode Island, etc.  Do not assume the
+reviewer knows the state
+   in which the county or city is located, e.g., Franklin County, Missouri,
+Franklin County,
+   Kentucky or Franklin County, Virginia.  (Note: a company headquartered in
+another
+   country, e.g., Canada, is also required to comply with Kentucky’s EEO Act
+and should
+   identify the primary hiring area(s) accordingly.)  A response is
+required.  If necessary,
+   attach a separate sheet.
+
+2. Indicate whether the firm routinely hires extra workers to perform work
+   on contracts.  A “Yes” or “No” response is required.  (Note: Extra
+   workers are hired for a specific time period or for the duration of a
+   specific contract.)
+
+3. Write in the maximum number of employees that worked for the firm at any
+   one time during a typical 12-month period.  A response is required.
+
+4. Indicate whether the firm has a current, up-to-date affirmative action
+   plan signed by its owner, president, chief executive officer or other
+   official or manager.  A “Yes” or “No” response is required.
+
+5. Indicate whether the firm has a current, up-to-date Equal Employment
+   Opportunity (EEO) policy signed by its owner, president, chief executive
+   officer or other official or manager.  A “Yes” or “No” response is
+   required.
+
+6. Indicate whether the firm’s employment practices are currently under
+   review by any government agency.  A “Yes” or “No” response is required.
+   A “Yes” response to this question requires a full explanation to include
+   the current status of the review.  The explanation must include the name
+   of the agency conducting the review, the name and title of the agency
+   contact person and the agency contact person’s telephone number
+   (including area code).  Attach a separate sheet.
+
+7. Indicate whether the firm was barred from government contract
+   work—federal, state, city, county, or local—during the past five (5)
+   years due to a finding of employment discrimination.  A “Yes” or “No”
+   response is required.  A “Yes” response to this question requires a full
+   explanation of the situation.  The explanation must include the name of
+   the agency that found employment discrimination existed, the name and
+   title of the agency contact person and the agency contact person’s
+   telephone number (including area code).  Attach a separate sheet.
+
+
+               SECTION V.  WORKFORCE DATA/NUMBER OF EMPLOYEES
+
+Workforce data is required.  Collecting and maintaining employee race and
+ethnicity data is permitted by state and federal law if the data is kept
+separate from other personnel information and is not used to commit
+unlawful discrimination.  Current workforce data and workforce data from
+your previous report (if applicable) must be reported in this section.  A
+substitute or alternate version of this report will not be accepted or
+processed.
+
+Definition of Employee.  "Employee" means any person on the
+Vendor’s/Contractor’s payroll who is a full-time or permanent part-time
+employee for purposes of Social Security withholding taxes (exception:
+insurance salespersons who are considered to be employees for such purposes
+solely because of the provisions of Section 3121 (d)(3)(B) of the Internal
+Revenue Code).   Leased employees are included in this definition. Leased
+employees are included in this definition.
+
+
+ o “Leased Employee” means a permanent employee provided by an employment
+   agency for a fee to an outside company.  The employment agency handles
+   all personnel functions related to the leased employee including payroll,
+   staffing, benefit payments and compliance reporting.  Therefore, the
+   employment agency is responsible for reporting leased employees in its
+   EEO-1: Employer Information Report.
+
+ o The term “Employee” does not include persons who are hired on a casual
+   basis for a specific time period, or for the duration of a specific job.
+   For example: workers at a construction site whose employment relationship
+   is expected to terminate with the end of the employee's work at the site;
+   workers temporarily employed in any industry (excludes construction),
+   i.e., temporary office workers, lumber yard workers, factory workers,
+   etc.   These workers are hired through hiring halls or other referral
+   arrangements, through employee contractors or agents, or by individual
+   hiring arrangements; workers (excludes leased employees) on the payroll
+   of an employment agency who are referred by the employment agency to work
+   on the premises of another employer under that employer's direction and
+   control.
+
+
+Counting Employees.  Count each employee in one and only one job category
+and in one and only one race/ethnicity category.  (Descriptions of job
+categories and race/ethnicity categories appear later in this section.)  Do
+not count an employee in more than one job category.  Do not count an
+employee in more than one race/ethnicity category.
+
+The count must include all full-time and permanent part-time employees who
+were employed during the countemployed during the selected payroll period
+(how does this relate to what A6?), except those workers specifically
+excluded in Section V., Definition of Employee, Pages 7 and 8.
+
+Note:  If the firm has previously filed an EEO-1: Employer Information
+Report, data regarding “Total from Previous Report” at the bottom of page 2
+is also required.
+
+
+Check the Math.  Calculate a total for each row and each column.  The grand
+total for all rows and the grand total for all columns must be the same.
+Record the grand total in the heavily outlined box (__________).  Totals,
+including the grand total, must be clearly indicated on the form.  Forms
+without totals will not be processed.  Forms with mathematical errors will
+not be processed.
+
+
+Description of Job Categories.  Workforce data must be reported by job
+category.  The major job categories are listed below.  Each job category
+includes a brief description of the skills and training needed and examples
+of job titles that fit the category.  The job titles are for descriptive
+purposes only.  Therefore, the descriptions do not include all job titles
+in a particular category.
+
+Each employee should be counted in one and only one job category.  Select
+the job category that contains the jobs most similar to those performed by
+the employee.   For more information about EEO job categories, visit the
+U.S. Equal Employment Opportunity Commission’s web site at www.eeoc.gov.
+
+ o Officials and Managers. Jobs in this category include individuals who 1)
+   plan, direct and formulate broad policies, set strategy and provide the
+   overall direction of enterprises/ organizations for the development and
+   delivery of products or services; 2) oversee and direct the delivery of
+   products, services or functions at group, regional or divisional levels
+   of organizations; 3) direct and execute the day-to-day operational
+   objectives of enterprises/organizations, conveying the directions of
+   higher level officials and managers to subordinate personnel; or 4)
+   directly supervise the activities of exempt and non-exempt personnel.
+   Examples of these kinds of positions include: owners; chief executive
+   officers; presidents or executive vice presidents; chief legal officers;
+   managing partners; vice presidents and directors; treasurers; human
+   resources managers; operations managers; team managers; unit managers;
+   purchasing managers; administrative services managers; customer service
+   managers; technical support managers; first-line managers; and product
+   managers.
+
+ o Professionals. Most jobs in this category require bachelor and graduate
+   degrees, and/or professional certification.  In some case, comparable
+   experience may establish a persons qualifications.  Examples of these
+   kinds of positions include: accountants;  auditors; architects;
+   engineers; surveyors; computer programmers; teachers; personnel and labor
+   relations specialists; airplane pilots and flight engineers; artists;
+   chemists; designers; dieticians; editors; lawyers; librarians;
+   mathematical scientists; natural scientists; registered nurses; physical
+   scientists; physicians and surgeons; and social scientists.
+
+ o Technicians. Jobs in this category include activities that require
+   applied scientific skills, usually obtained by postsecondary education
+   (including community, technical and junior college).  Depending on the
+   occupation, in some instances additional training, certification, or
+   comparable experience is 
+===== SOURCE PART 3 END =====
+
+
 ===== SOURCE BEGIN / PART 4 OF 5 =====
 SOURCE_PATH: EEO/EEO-1 REPORT INFO/EEO1ReportandInstructions 2010.doc
 SHA256: b9cf8728058615b18a7c3b26bf72b56f7ec8201ddb48c48ca289dd72854928d0
@@ -604,204 +806,3 @@ by the firm’s headquarters.
 2. Street address of the parent company (simply listing a post office box
    number is not 
 ===== SOURCE PART 2 END =====
-
-===== SOURCE BEGIN / PART 3 OF 5 =====
-SOURCE_PATH: EEO/EEO-1 REPORT INFO/EEO1ReportandInstructions 2011.doc
-SHA256: d6693232bff799699075ebaa230606007ffd5f54ac61c5c75fbf532939d1de2e
-TEXT_CHARS_TOTAL: 41332
-OFFSET: 20000
-ALIASES: 
-===== TEXT =====
-sufficient);
-
-3. City, State and Zip Code of the parent company;
-
-4. Name of the Branch Office/Other location (locations other than the
-   company headquarters office);
-
-5. Street address of the Branch Office/Other location (simply listing a
-   post office box number is not sufficient); and
-
-6. City, State and Zip Code of the Branch Office/Other location.
-
-
-                   SECTION III.  ESTABLISHMENT INFORMATION
-
-The description of the major activity must clearly identify the industry
-and product produced or service provided.  If the establishment is involved
-in more than one activity, describe the activity that involves the greatest
-number of employees.
-
-Note for Consolidated employers: The description of the major activity must
-reflect the dominant economic activity of the firm, i.e., the activity that
-involves the greatest number of employees.
-
-
-                      SECTION IV.  GENERAL INFORMATION
-
-1. Select the primary geographical area(s) from which your employees are
-   hired, i.e., county, city, metropolitan statistical area, state or
-   nationwide (Note: if you select ‘nationwide’ only the national percentage
-   will be used to evaluate your workforce data).  A response to this
-   question is required.
-
-   Next, identify the primary hiring area(s) by name, i.e., you must list
-all areas included in your
-   primary hiring area.  County and city information must be clearly
-identified, e.g., Broward
-   County, Florida; Providence, Rhode Island, etc.  Do not assume the
-reviewer knows the state
-   in which the county or city is located, e.g., Franklin County, Missouri,
-Franklin County,
-   Kentucky or Franklin County, Virginia.  (Note: a company headquartered in
-another
-   country, e.g., Canada, is also required to comply with Kentucky’s EEO Act
-and should
-   identify the primary hiring area(s) accordingly.)  A response is
-required.  If necessary,
-   attach a separate sheet.
-
-2. Indicate whether the firm routinely hires extra workers to perform work
-   on contracts.  A “Yes” or “No” response is required.  (Note: Extra
-   workers are hired for a specific time period or for the duration of a
-   specific contract.)
-
-3. Write in the maximum number of employees that worked for the firm at any
-   one time during a typical 12-month period.  A response is required.
-
-4. Indicate whether the firm has a current, up-to-date affirmative action
-   plan signed by its owner, president, chief executive officer or other
-   official or manager.  A “Yes” or “No” response is required.
-
-5. Indicate whether the firm has a current, up-to-date Equal Employment
-   Opportunity (EEO) policy signed by its owner, president, chief executive
-   officer or other official or manager.  A “Yes” or “No” response is
-   required.
-
-6. Indicate whether the firm’s employment practices are currently under
-   review by any government agency.  A “Yes” or “No” response is required.
-   A “Yes” response to this question requires a full explanation to include
-   the current status of the review.  The explanation must include the name
-   of the agency conducting the review, the name and title of the agency
-   contact person and the agency contact person’s telephone number
-   (including area code).  Attach a separate sheet.
-
-7. Indicate whether the firm was barred from government contract
-   work—federal, state, city, county, or local—during the past five (5)
-   years due to a finding of employment discrimination.  A “Yes” or “No”
-   response is required.  A “Yes” response to this question requires a full
-   explanation of the situation.  The explanation must include the name of
-   the agency that found employment discrimination existed, the name and
-   title of the agency contact person and the agency contact person’s
-   telephone number (including area code).  Attach a separate sheet.
-
-
-               SECTION V.  WORKFORCE DATA/NUMBER OF EMPLOYEES
-
-Workforce data is required.  Collecting and maintaining employee race and
-ethnicity data is permitted by state and federal law if the data is kept
-separate from other personnel information and is not used to commit
-unlawful discrimination.  Current workforce data and workforce data from
-your previous report (if applicable) must be reported in this section.  A
-substitute or alternate version of this report will not be accepted or
-processed.
-
-Definition of Employee.  "Employee" means any person on the
-Vendor’s/Contractor’s payroll who is a full-time or permanent part-time
-employee for purposes of Social Security withholding taxes (exception:
-insurance salespersons who are considered to be employees for such purposes
-solely because of the provisions of Section 3121 (d)(3)(B) of the Internal
-Revenue Code).   Leased employees are included in this definition. Leased
-employees are included in this definition.
-
-
- o “Leased Employee” means a permanent employee provided by an employment
-   agency for a fee to an outside company.  The employment agency handles
-   all personnel functions related to the leased employee including payroll,
-   staffing, benefit payments and compliance reporting.  Therefore, the
-   employment agency is responsible for reporting leased employees in its
-   EEO-1: Employer Information Report.
-
- o The term “Employee” does not include persons who are hired on a casual
-   basis for a specific time period, or for the duration of a specific job.
-   For example: workers at a construction site whose employment relationship
-   is expected to terminate with the end of the employee's work at the site;
-   workers temporarily employed in any industry (excludes construction),
-   i.e., temporary office workers, lumber yard workers, factory workers,
-   etc.   These workers are hired through hiring halls or other referral
-   arrangements, through employee contractors or agents, or by individual
-   hiring arrangements; workers (excludes leased employees) on the payroll
-   of an employment agency who are referred by the employment agency to work
-   on the premises of another employer under that employer's direction and
-   control.
-
-
-Counting Employees.  Count each employee in one and only one job category
-and in one and only one race/ethnicity category.  (Descriptions of job
-categories and race/ethnicity categories appear later in this section.)  Do
-not count an employee in more than one job category.  Do not count an
-employee in more than one race/ethnicity category.
-
-The count must include all full-time and permanent part-time employees who
-were employed during the countemployed during the selected payroll period
-(how does this relate to what A6?), except those workers specifically
-excluded in Section V., Definition of Employee, Pages 7 and 8.
-
-Note:  If the firm has previously filed an EEO-1: Employer Information
-Report, data regarding “Total from Previous Report” at the bottom of page 2
-is also required.
-
-
-Check the Math.  Calculate a total for each row and each column.  The grand
-total for all rows and the grand total for all columns must be the same.
-Record the grand total in the heavily outlined box (__________).  Totals,
-including the grand total, must be clearly indicated on the form.  Forms
-without totals will not be processed.  Forms with mathematical errors will
-not be processed.
-
-
-Description of Job Categories.  Workforce data must be reported by job
-category.  The major job categories are listed below.  Each job category
-includes a brief description of the skills and training needed and examples
-of job titles that fit the category.  The job titles are for descriptive
-purposes only.  Therefore, the descriptions do not include all job titles
-in a particular category.
-
-Each employee should be counted in one and only one job category.  Select
-the job category that contains the jobs most similar to those performed by
-the employee.   For more information about EEO job categories, visit the
-U.S. Equal Employment Opportunity Commission’s web site at www.eeoc.gov.
-
- o Officials and Managers. Jobs in this category include individuals who 1)
-   plan, direct and formulate broad policies, set strategy and provide the
-   overall direction of enterprises/ organizations for the development and
-   delivery of products or services; 2) oversee and direct the delivery of
-   products, services or functions at group, regional or divisional levels
-   of organizations; 3) direct and execute the day-to-day operational
-   objectives of enterprises/organizations, conveying the directions of
-   higher level officials and managers to subordinate personnel; or 4)
-   directly supervise the activities of exempt and non-exempt personnel.
-   Examples of these kinds of positions include: owners; chief executive
-   officers; presidents or executive vice presidents; chief legal officers;
-   managing partners; vice presidents and directors; treasurers; human
-   resources managers; operations managers; team managers; unit managers;
-   purchasing managers; administrative services managers; customer service
-   managers; technical support managers; first-line managers; and product
-   managers.
-
- o Professionals. Most jobs in this category require bachelor and graduate
-   degrees, and/or professional certification.  In some case, comparable
-   experience may establish a persons qualifications.  Examples of these
-   kinds of positions include: accountants;  auditors; architects;
-   engineers; surveyors; computer programmers; teachers; personnel and labor
-   relations specialists; airplane pilots and flight engineers; artists;
-   chemists; designers; dieticians; editors; lawyers; librarians;
-   mathematical scientists; natural scientists; registered nurses; physical
-   scientists; physicians and surgeons; and social scientists.
-
- o Technicians. Jobs in this category include activities that require
-   applied scientific skills, usually obtained by postsecondary education
-   (including community, technical and junior college).  Depending on the
-   occupation, in some instances additional training, certification, or
-   comparable experience is 
-===== SOURCE PART 3 END =====
