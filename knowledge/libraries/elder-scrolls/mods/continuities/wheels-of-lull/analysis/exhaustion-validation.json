@@ -1,0 +1,72 @@
+{
+  "continuity_id": "tes.mod.wheels-of-lull",
+  "source_file": "WheelsOfLull.esp",
+  "source_sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
+  "validated_at": "2026-09-23",
+  "result": "supplied_esp_source_ingestion_exhausted",
+  "physical_structure": {
+    "records_including_TES4": 36824,
+    "group_headers": 767,
+    "declared_records_and_groups_excluding_TES4": 37590,
+    "structural_count_consistent": true,
+    "recursive_GRUP_traversal": true,
+    "compressed_records_inflated": true,
+    "XXXX_extended_subrecords_supported": true
+  },
+  "text_coverage": {
+    "source_localized": false,
+    "external_strings_files_required": false,
+    "core_records": 1090,
+    "implementation_evidence_records": 370,
+    "unique_persisted_source_evidence_records": 1460,
+    "field_augmentations": 16,
+    "remaining_FULL_DESC_records_outside_core_or_implementation_sets": 0,
+    "embedded_phrase_candidates": 2008,
+    "unique_embedded_phrases": 1796,
+    "natural_language_VMAD_payloads_found": 0,
+    "meaningful_nonstandard_fields_captured": {
+      "MGEF_DNAM": 14,
+      "INFO_NAM2": 1,
+      "INFO_RNAM": 1,
+      "TES4_header_metadata": 1
+    },
+    "residual_printable_binary_classes_classified_nontext": [
+      "WRLD/CELL MHDT",
+      "NAVM NVNM",
+      "REFR DATA",
+      "ACHR XRGD"
+    ]
+  },
+  "dialogue_integrity": {
+    "INFO_total": 410,
+    "strict_processed": 410,
+    "strict_resolved": 332,
+    "strict_unresolved": 78,
+    "excluded_for_source_corruption": 0,
+    "previous_readable_baseline": {
+      "INFO": 358,
+      "resolved": 288,
+      "unresolved": 70,
+      "reproduced_exactly": true
+    },
+    "repaired_ranges": {
+      "INFO": 52,
+      "resolved": 44,
+      "unresolved": 8
+    }
+  },
+  "raw_integrity": {
+    "unreadable_shards": 0,
+    "repaired_shards": [
+      "raw/source-records-0151-0200.jsonl.gz",
+      "raw/source-records-0401-0450.jsonl.gz"
+    ]
+  },
+  "completion_boundary": {
+    "unprocessed_content_in_supplied_ESP": false,
+    "remaining_external_work": [
+      "historical BOOK provenance/edition witnesses not present in this ESP",
+      "optional fresh checkout rebuild/verification of deterministic retrieval derivatives"
+    ]
+  }
+}
