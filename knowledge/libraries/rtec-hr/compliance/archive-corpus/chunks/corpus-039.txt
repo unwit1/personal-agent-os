@@ -1,0 +1,877 @@
+===== SOURCE BEGIN / PART 4 OF 5 =====
+SOURCE_PATH: EEO/EEO-1 REPORT INFO/EEO1ReportandInstructions 2011.doc
+SHA256: d6693232bff799699075ebaa230606007ffd5f54ac61c5c75fbf532939d1de2e
+TEXT_CHARS_TOTAL: 41332
+OFFSET: 30000
+ALIASES: 
+===== TEXT =====
+required.  Examples of these kinds of positions
+   include: drafters; engineering aides; emergency medical technicians;
+   chemical technicians; and broadcast and sound engineering technicians.
+
+ o Sales Workers. These jobs include non-managerial activities that for the
+   most part involve direct sales.  Examples of these kinds of positions
+   include: advertising sales agents; insurance sales agents; real estate
+   brokers and sales agents; wholesale sales representatives; securities,
+   commodities, and financial services sales agents; telemarketers;
+   demonstrators; retail salespersons; counter and rental clerks; and
+   cashiers.
+
+ o Office, Clerical and Administrative Support. These jobs involve non-
+   managerial tasks that provide administrative assistance and support,
+   primarily in office settings. Examples of these kinds of positions
+   include: office and administrative support workers; bookkeeping;
+   accounting and auditing clerks; cargo and freight agents; dispatchers;
+   couriers; data entry keyers; computer operators; shipping, receiving and
+   traffic clerks; word processors and typists; proofreaders; desktop
+   publishers; and general office clerks.
+
+ o Craft Workers. Most jobs in this category include higher skilled
+   occupations in construction (building trades craft workers and their
+   formal apprentices) and natural resource extraction workers.  Examples of
+   these types of positions include: boilermakers; brick and stone masons;
+   carpenters; electricians; painters (both construction and maintenance);
+   glaziers; pipelayers, plumbers, pipefitters and steamfitters; plasterers;
+   roofers; elevator installers; earth drillers; derrick operators; oil and
+   gas rotary drill operators; and blasters and explosive workers.
+
+   The craft workers category also includes occupations related to the
+   installation, maintenance and part replacement of equipment, machines and
+   tools.  Examples include: automotive mechanics; aircraft mechanics; and
+   electric and electronic equipment repairers.
+
+
+   This category also includes some production occupations that are
+   distinguished by the high degree of skill and precision required to
+   perform them, based on clearly defined task specifications.  Examples
+   include: millwrights; etchers and engravers; tool and die makers; and
+   pattern makers.
+
+ o Operatives. Most jobs in this category include intermediate skilled
+   occupations and include workers who operate machines or factory-related
+   processing equipment. Most of these occupations do not usually require
+   more than several months of training. Examples include: textile machine
+   workers; laundry and dry cleaning workers; photographic process workers;
+   weaving machine operators; electrical and electronic equipment
+   assemblers; semiconductor processors; testers, graders and sorters;
+   bakers; and butchers and other meat, poultry and fish processing workers.
+   This category also includes occupations of generally intermediate skill
+   levels that are concerned with operating and controlling equipment to
+   facilitate the movement of people or materials, such as: bridge and lock
+   tenders; truck, bus or taxi drivers; industrial truck and tractor
+   (forklift) operators; parking lot attendants; sailors; conveyor
+   operators; and hand packers and packagers.
+
+ o Laborers and Helpers. Jobs in this category include workers with more
+   limited skills who require only brief training to perform tasks that
+   require little or no independent judgment.  Examples include:
+   construction worker helpers; construction laborers; vehicle and equipment
+   cleaners; freight, stock and material movers; laborers; service station
+   attendants; refuse and recyclable materials collectors; septic tank
+   servicers; sewer pipe cleaners; and production worker helpers.
+ o Service Workers. Jobs in this category include food service, cleaning
+   service, personal service, and protective service activities. Skill may
+   be acquired through formal training, job-related training or direct
+   experience. Examples of food service positions include: cooks;
+   bartenders; and other food service workers. Examples of personal service
+   positions include: medical assistants and other healthcare support
+   positions; hairdressers; ushers; and transportation attendants. Examples
+   of cleaning service positions include: cleaners; janitors; and porters.
+   Examples of protective service positions include: transit and railroad
+   police and fire fighters; guards; private detectives and investigators.
+
+
+Description of Race/Ethnicity Categories.  You may obtain race/ethnicity
+information for this report either by visual surveys of the work force or
+from post-employment records, e.g., payroll records.  Obtaining
+race/ethnicity information through direct inquiry is NOT encouraged.
+
+Where records are maintained, it is strongly recommended the records be
+kept separately from the employee's basic personnel file or other records
+available to workers responsible for personnel duties.  Conducting visual
+surveys and keeping post-records about the race/ ethnicity of employees is
+legal in all jurisdictions and under all Federal and state laws.
+
+Since visual surveys are permitted, the fact that race/ethnicity
+identifications are not present on employment or payroll records is not an
+excuse for failure to provide the data.  In addition, the fact that
+employees may be located at different locations does not provide an
+acceptable reason for failure to comply with the reporting requirements.
+In such cases, it is recommended the employer conduct visual surveys (using
+persons such as supervisors who are responsible for the work of the
+employees or to whom the employees report for instructions).
+
+
+When collecting workforce data, the basic principles for racial and ethnic
+self-identification are:
+
+1. Offer employees the opportunity to self-identify; and
+
+2. Provide a statement about the voluntary nature of this inquiry for
+   employees. For example, language such as the following may be used
+   (employers may adapt this language): "<Company> is subject to certain
+   governmental recordkeeping and reporting requirements for the
+   administration of civil rights laws and regulations. To comply with these
+   laws, <Company> invites employees to voluntarily self-identify their race
+   or ethnicity. Providing this information is voluntary and refusal will
+   not subject you to any adverse treatment. The information will be kept
+   confidential and will only be used in accordance with applicable laws,
+   executive orders,
+   and regulations, including those that require the information to be
+   summarized and reported to government agencies for civil rights
+   enforcement."
+
+If an employee declines to self-identify, employment records or observer
+identification may be used.
+
+Race/ethnicity designations used by the Finance and Administration Cabinet,
+Office of Equal Employment Opportunity and Contract Compliance do not
+represent scientific definitions of anthropological origins.  For the
+purposes of this report, an employee may be included in the group to which
+he or she appears to belong, identifies with, or is regarded in the
+community as belonging.  However, no employee should be counted in more
+than one race/ethnic group, i.e., each employee should be counted in one
+and only one race/ethnicity category.  The race/ethnic categories for this
+report are:
+
+
+ o Hispanic or Latino - All persons of Cuban, Mexican, Puerto Rican, South
+   or Central American, Dominican, or other Spanish culture or origin
+   regardless of race.
+
+ o White (Not Hispanic or Latino) - All persons having origins in any of the
+   original peoples of Europe, North Africa, or the Middle East.
+
+ o Black or African American (Not Hispanic or Latino) - All persons having
+   origins in any of the black racial groups of Africa.
+
+ o Native Hawaiian or Other Pacific Islander (Not Hispanic or Latino) – All
+   persons having origins in any of the peoples of Hawaii, Guam, Samoa,
+   Fiji, or other Pacific Islands.
+
+ o Asian (Not Hispanic or Latino) – All persons having origins in any of the
+   original peoples of the Far East, Southeast Asia, or the Indian
+   Subcontinent, including, for example, Cambodia, China, India, Japan,
+   Korea, Malaysia, Pakistan, Sri Lanka, the Philippine Islands, Thailand,
+   and Vietnam.
+
+ o American Indian or Alaskan Native (Not Hispanic or Latino) - All persons
+   having origins in any of the original peoples of North and South America
+   (including Central America), and who maintain cultural identification
+   through tribal affiliation or community attachment.
+
+ o Two or More Races (Not Hispanic or Latino) – All persons who identify
+   with more than one of the above five races.
+
+
+                        SECTION VI.  DATA COLLECTION
+
+1. Select “Visual Survey” if you used this method to determine
+   race/ethnicity.
+
+   a. If you used another method, select “Other” and identify the method
+      used.  For example, if payroll records were used, write “payroll” and
+      indicate the beginning payroll date and ending payroll date under
+      question 1a.  Note: Data must not be older than sixty (60) days old.
+      Data older than sixty (60) days old will not be accepted or processed.
+
+
+   b. If some other method—not payroll records—was used, you must also
+      identify the method under “Other.”  In addition, you must indicate the
+      time period used with a beginning date and an ending date under
+      question 1a.  Note: Data must not be older than sixty (60) days old.
+      Data older than sixty (60) days old will not be accepted or processed.
+
+
+
+2. Indicate whether the firm employs apprentices or on-the-job trainees.  A
+   “Yes” or “No” response is required.
+
+
+                         SECTION VII.  CERTIFICATION
+
+Contact Information.  The Finance and Administration Cabinet, Office of EEO
+and Contract Compliance may have questions about your report.  To e
+===== SOURCE PART 4 END =====
+
+===== SOURCE BEGIN / PART 5 OF 5 =====
+SOURCE_PATH: EEO/EEO-1 REPORT INFO/EEO1ReportandInstructions 2011.doc
+SHA256: d6693232bff799699075ebaa230606007ffd5f54ac61c5c75fbf532939d1de2e
+TEXT_CHARS_TOTAL: 41332
+OFFSET: 40000
+ALIASES: 
+===== TEXT =====
+nsure
+the questions are resolved and the certification process proceeds without
+delay, you are required to provide the following information:
+
+1. Name and title of the person who can answer questions about any part of
+   the report (this is the contact person);
+
+2. Street address (simply listing a post office box number is NOT
+   sufficient);
+
+3. City, State and Zip Code;
+
+4. Telephone number including area code (also include an extension number
+   if applicable);
+
+5. Fax number including area code; and
+
+6. E-mail address (if the contact person does not have an e-mail address
+   write “None”)
+
+Authorized Signature and Accuracy of Information Contained in the Report.
+The person who signs the report must be an official or manager of the firm.
+ No other signature will be accepted.  To complete this section, include
+the following:
+
+1. Name and title of the certifying official;
+
+2. Signature of the certifying official; and
+
+3. Date.
+4. Item 6. List the pay period of the last payroll withholding report was
+   submitted to the Federal government. If payroll was not used to determine
+   race/ethnic identification in Item 5, enterwrite “NA” here.
+5.
+6.
+7.
+
+
+For Official Use Only.  Do NOT write in this box.  The gray-shaded area is
+for use by the Finance and Administration Cabinet, Office of EEO and
+Contract Compliance.
+
+===== SOURCE PART 5 END =====
+
+===== SOURCE BEGIN / PART 1 OF 7 =====
+SOURCE_PATH: EEO/Reasonable Accommodation/Executive order 13164 Reasonable Accomodation.doc
+SHA256: 54df40c723b70c6596f9109b12dbdef60f2eaad4993d7361fc71e4aad1b2de95
+TEXT_CHARS_TOTAL: 62684
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+1. SUBJECT. EEOC Policy Guidance on Executive Order 13164: Establishing
+Procedures to Facilitate the Provision of Reasonable Accommodation.
+2. PURPOSE. This policy guidance explains the requirements of Executive
+Order 13164, which requires federal agencies to establish effective written
+procedures for processing requests for reasonable accommodation.
+
+3. EFFECTIVE DATE. Upon receipt.
+
+4. EXPIRATION DATE. As an exception to EEOC Order 205.001, Appendix B,
+Attachment 4, § a(5), this Notice will remain in effect until rescinded or
+superseded.
+
+5. ORIGINATOR. Office of Legal Counsel, EEOC.
+
+6. INSTRUCTIONS. File after Section 902 of Volume II of the Compliance
+Manual.
+
+
+
+
+
+
+
+10/20/2000                              /S/
+____________________              _____________________________
+Date                              Ida L. Castro
+                                  Chairwoman
+
+
+
+
+
+
+   Policy Guidance On Executive Order 13164: Establishing Procedures To
+   Facilitate The Provision Of Reasonable Accommodation
+
+
+1 Introduction
+
+On July 26, 2000, President Clinton signed Executive Order 13164
+(Order),(1) which requires each federal agency to establish effective
+written procedures for processing requests for reasonable accommodation.
+The Order helps to implement the requirement of the Rehabilitation Act of
+1973(2) that agencies provide reasonable accommodation to qualified
+employees and applicants with disabilities. It is an important part of the
+government's national policy to create additional employment opportunities
+for people with disabilities.
+
+An accommodation is a change involving the workplace that enables a person
+with a disability to enjoy equal employment opportunities. Many individuals
+with disabilities can apply for and perform jobs without the need for an
+accommodation. However, where workplace barriers exist, such as physical
+obstacles or rules about how a job is to be performed, reasonable
+accommodation serves two fundamental purposes. First, reasonable
+accommodations remove barriers that prevent people with disabilities from
+applying for, or performing, jobs for which they are qualified. Second,
+reasonable accommodations enable agencies to expand the pool of qualified
+workers, thus allowing the agencies to benefit from the talents of people
+who might otherwise be arbitrarily barred from employment.
+
+Effective procedures for processing reasonable accommodation requests will
+advance both these goals. They will enable agencies to handle requests in a
+prompt, fair, and efficient manner; they will assure that individuals with
+disabilities understand how to approach the system and know what to expect;
+and they will be a resource both for individuals with disabilities and for
+agency employees, so that all parties can understand the legal requirements
+of the Rehabilitation Act.
+
+The U.S. Equal Employment Opportunity Commission (EEOC or Commission) is
+responsible for issuing guidance to implement the Order. This Guidance
+first sets forth some background information on the obligation to provide
+reasonable accommodation and the standards of the Rehabilitation Act. It
+then addresses each of the requirements of the Order. This Guidance is to
+be read in conjunction with relevant EEOC regulations, see 29 C.F.R. part
+1630, and the EEOC's "Enforcement Guidance on Reasonable Accommodation and
+Undue Hardship Under the Americans with Disabilities Act," available on the
+web at www.eeoc.gov.
+
+
+2 I. Background
+
+
+1 A. Key Terms
+
+Reasonable accommodation. The Rehabilitation Act of 1973 requires federal
+agencies to provide reasonable accommodation to qualified employees or
+applicants with disabilities, unless to do so would cause undue hardship.
+In general, an accommodation is a change in the work environment or in the
+way things are customarily done that would enable an individual with a
+disability to enjoy equal employment opportunities.(3) There are three
+categories of reasonable accommodations:
+
+    • modifications or adjustments to a job application process to permit an
+      individual with a disability to be considered for a job (such as
+      providing application forms in alternative formats like large print or
+      Braille);
+    • modifications or adjustments necessary to enable a qualified
+      individual with a disability to perform the essential functions of the
+      job (such as providing sign language interpreters); and
+    • modifications or adjustments that enable employees with disabilities
+      to enjoy equal benefits and privileges of employment (such as removing
+      physical barriers in an office cafeteria).
+
+Agency procedures must address how to handle requests for each of these
+categories of accommodation.
+
+Undue hardship. Agencies do not have to provide reasonable accommodations
+that would impose an undue hardship on the operation of the agency. An
+undue hardship means that a specific accommodation would require
+significant difficulty or expense. This determination, which must be made
+on a case-by-case basis, considers factors such as the nature and cost of
+the accommodation needed and the impact of the accommodation on the
+operations of the agency.
+
+Essential functions. The essential functions of a job are those job duties
+that are so fundamental to the position that the individual cannot do the
+job without being able to perform them. A function can be "essential" if,
+among other things, the position exists specifically to perform that
+function, there are a limited number of other employees who could perform
+the function if it were assigned to them, or the function is specialized
+and the incumbent is hired based on his/her ability to perform it.
+
+For further guidance on their obligation to provide reasonable
+accommodation, agencies should consult the EEOC's "Enforcement Guidance on
+Reasonable Accommodation and Undue Hardship Under the Americans with
+Disabilities Act" (EEOC Reasonable Accommodation Guidance).(4) The EEOC
+Reasonable Accommodation Guidance discusses the types of accommodations
+that employers may be required to make; the ways in which individuals may
+request reasonable accommodation; the "interactive process" between the
+agency and the individual following a request for reasonable accommodation;
+and factors to consider in evaluating undue hardship. All agency reasonable
+accommodation procedures must, at a minimum, conform to the standards set
+forth in the EEOC Reasonable Accommodation Guidance.
+
+
+2 B. General Guidelines for Agency Reasonable Accommodation Procedures
+
+Reasonable accommodation procedures should be designed to expand employment
+opportunities for people with disabilities, not to create new bureaucratic
+requirements. The Rehabilitation Act requires that individuals be given
+substantial leeway in the ways in which they can make requests for
+reasonable accommodation. Additionally, agency procedures must permit
+flexibility in the processing of requests and assure that agency officials
+act expeditiously in providing reasonable accommodations.
+
+Agency procedures must also inform individuals with disabilities and agency
+employees about their rights and responsibilities under the Rehabilitation
+Act. The procedures must be written in plain language so that they can be
+understood by those not familiar with the law. They must also explain
+relevant terms (e.g., essential functions, undue hardship, etc.).
+
+An agency may permit different components of the agency to adopt their own
+procedures as necessary to expedite the processing of reasonable
+accommodation requests. However, all procedures must comply with the
+requirements of the Order and the standards set forth in this Guidance.
+
+Agencies are also required to notify their collective bargaining
+representatives, and to bargain over their reasonable accommodation
+procedures, to the extent required by law. Order, Section 3.
+
+
+3 C. Dissemination of Agency Reasonable Accommodation Procedures
+
+Each agency must make copies of its reasonable accommodation procedures
+readily available to all agency employees. The procedures can, among other
+things, be posted on the agency's website or intranet service and included
+in employee handbooks. They should also be available in designated
+locations such as agency libraries, EEO offices, and/or personnel offices.
+
+Each agency's procedures must be accessible to individuals with
+disabilities. Where agencies post their procedures on their websites, those
+websites must be accessible. Agencies should also make their procedures
+available in alternative formats, such as large print or Braille, on
+request. Moreover, agencies should provide other reasonable accommodations
+where necessary to make the procedures accessible for particular
+individuals with disabilities.
+
+EXAMPLE - Matthew, who is mentally retarded, cannot understand the agency's
+reasonable accommodation procedures as written. The agency must provide the
+information contained in the procedures in a manner accessible to him.
+
+Each agency must also educate its employees about its procedures. Agencies
+may tailor training to suit the needs of their workforces, but must ensure
+that all agency employees have sufficient information to understand their
+roles and obligations in the reasonable accommodation process.
+
+
+4 D. Relationship of the Order and the Rehabilitation Act
+
+This Order does not create any new rights for Executive branch applicants
+or employees; nor does it limit an individual's rights under the
+Rehabilitation Act. As a result, an individual who believes that a
+violation of this Order also constitutes a violation of the Rehabilitation
+Act may pursue his/her remedies under the Act without limitation.
+
+
+3 II. Components Of Agency Reasonable Accommodation Procedures
+
+
+1 A. Initiating the Reasonable Accommodation Process
+
+As the Executive Order states, each agency's procedures must:
+
+"Explain that an employee or job applicant may initiate a request for
+reasonable accommodation orally or in writing. If the agency requires an
+applicant or employee 
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 2 OF 7 =====
+SOURCE_PATH: EEO/Reasonable Accommodation/Executive order 13164 Reasonable Accomodation.doc
+SHA256: 54df40c723b70c6596f9109b12dbdef60f2eaad4993d7361fc71e4aad1b2de95
+TEXT_CHARS_TOTAL: 62684
+OFFSET: 10000
+ALIASES: 
+===== TEXT =====
+to complete a reasonable accommodation request form
+for recordkeeping purposes, the form must be provided as an attachment to
+the agency's written procedures." (Order, Section 1(b)(1))
+
+
+1 1. May an agency require that individuals with disabilities use
+       particular words to request a reasonable accommodation?
+
+No. A request for accommodation is a statement that an individual needs an
+adjustment or a change at work or in the application process for a reason
+related to a medical condition. Agencies may not require, for example, that
+individuals mention the Rehabilitation Act or use the phrase "reasonable
+accommodation." The agency's procedures should make this point clear.(5)
+
+EXAMPLE - Michelle tells her supervisor, "I'm having trouble getting to
+work at my scheduled starting time because of the anti-depressants I take."
+This is a request for reasonable accommodation. Whether or not Michelle is
+ultimately entitled to an accommodation, the agency must start to consider
+the request.
+
+EXAMPLE - An applicant who is vision-impaired asks for assistance with the
+agency's application materials. This is a request for reasonable
+accommodation and triggers the agency's obligation to engage in its
+reasonable accommodation process.
+
+
+2 2. May an agency wait to begin processing a request for reasonable
+       accommodation until after an individual has submitted a written
+       request?
+
+No. Although an agency can, for recordkeeping purposes, ask an applicant or
+employee to fill out a form, an individual's oral request will start the
+reasonable accommodation process. Accordingly, the time limits set by the
+agency's procedures (see Section C below) must also run from the date of
+the oral request. Of course, a request can be initiated in writing if the
+individual prefers.
+
+EXAMPLE - Elizabeth, whose left leg is amputated, orally requests that her
+office be moved closer to the ladies' restroom because of the fatigue and
+pain caused by using crutches. Agency Z's reasonable accommodation
+procedures provide that all individuals requesting accommodation should
+complete a written form for agency records. Elizabeth submits the form to
+the head of her office one week following her oral request.
+
+Agency Z's procedures properly require the head of Elizabeth's office to
+begin processing her request for reasonable accommodation on the date of
+her oral request.
+
+Where an agency requires those requesting reasonable accommodation to
+complete a written form, the form must be attached to the agency's
+procedures. Like the procedures, the form must be written in plain language
+and must conform to Rehabilitation Act limits on requests for medical or
+disability-related information. (See Section D below.) Where an individual
+with a disability requires assistance to complete a written request, an
+agency must provide that assistance.
+
+
+3 3. When someone requires a reasonable accommodation on a repeated basis,
+       may an agency require the individual to submit a written request for
+       recordkeeping purposes each time the accommodation is needed?
+
+No. Where an employee has requested a type of reasonable accommodation that
+s/he is likely to need on a repeated basis - for example, the assistance of
+sign language interpreters or readers - an agency may not require that the
+individual submit a written request for recordkeeping purposes each time
+the accommodation is needed. Agency procedures should provide that once the
+reasonable accommodation is approved the first time, the employee may
+obtain the accommodation by notice to an appropriate individual or office
+(e.g., his/her supervisor or a centralized accommodation office).
+
+
+4 4. May an agency require that a request for reasonable accommodation be
+       made at a certain time?
+
+No. Under the Rehabilitation Act, the duty to provide reasonable
+accommodation is an ongoing one. Thus, an individual with a disability must
+be permitted to request a reasonable accommodation whenever s/he chooses.
+That request will then trigger the agency's obligation to start the process
+laid out in its procedures.
+
+EXAMPLE - Agency R's reasonable accommodation procedures require that all
+requests for reasonable accommodation be made within ten days of the date
+that an applicant is offered a job or that a current employee is offered a
+different position within the agency. This is impermissible.
+
+EXAMPLE - Randy, who has multiple sclerosis, requests that his desk be
+raised to accommodate his wheelchair. The agency promptly processes and
+approves his request. Six months later, Randy requests an additional
+accommodation to further assist him in the workplace in light of
+complications that have arisen from his disability. The agency must
+promptly process Randy's second request, and should anticipate that other
+requests may be made if his condition worsens.
+
+
+5 5. May an agency require that a request for reasonable accommodation be
+       made to a certain agency official?
+
+No. An agency's obligation to consider an individual's request begins when
+the individual makes that request to any of the following: his/her
+supervisor; a supervisor or manager in his/her immediate chain of command;
+the EEO office(6); any other office designated by the agency to oversee the
+reasonable accommodation process; or, in connection with the application
+process, any agency employee with whom the applicant has contact. Agencies
+may also designate others, in addition to those identified above, to whom
+requests may be made.
+
+Agency procedures should advise the employees who are designated to receive
+reasonable accommodation requests to then notify, if necessary, any other
+agency personnel who will be involved in the decisionmaking.
+
+
+6 6. Must an agency consider requests made by others on behalf of an
+       individual with a disability?
+
+Yes. A family member, health professional, or other representative may
+request a reasonable accommodation on behalf of an individual with a
+disability. Where possible, the agency should then confirm with the person
+with a disability that s/he in fact wants a reasonable accommodation.
+
+EXAMPLE - An employee has been out of work for six months with a serious
+injury. The employee's doctor sends the agency a letter, stating that the
+employee is released to return to work, but with certain work restrictions.
+The letter is a request for reasonable accommodation. The agency should
+first confirm with the employee that the doctor's note was sent with the
+employee's consent.
+
+
+2 B. Processing Requests for Reasonable Accommodation
+
+As the Executive Order states, each agency's procedures must:
+
+"Explain how the agency will process a request for reasonable
+accommodation, and from whom the individual will receive a final decision."
+(Order, Section 1(b)(2))
+
+
+1 7. Should agency procedures be flexible?
+
+Yes. Agencies should not adopt a "one size fits all" approach to processing
+requests for reasonable accommodation. Instead, agency procedures should
+direct decision makers to process requests in a manner that imposes the
+fewest burdens on individuals with disabilities and permits the most
+expeditious consideration and delivery of the reasonable accommodation.
+
+
+2 8. May first-line supervisors be authorized to approve requests for
+       reasonable accommodations?
+
+Yes. To eliminate unnecessary levels of review, agencies should authorize
+first-line supervisors to approve requests for reasonable accommodation
+wherever possible.
+
+EXAMPLE - David has a disability that causes extreme fatigue at the end of
+each day. David is an accountant, and is expected to attend budget planning
+meetings with his supervisor and another colleague every Wednesday
+afternoon. David asks his supervisor whether the meetings can be changed to
+the morning so that he can attend them when he does not feel tired. The
+agency's procedures should authorize David's supervisor to evaluate and
+approve this type of request, absent undue hardship to the operation of the
+office.
+
+
+3 9. May an agency designate a particular office, or offices, to be
+       involved in processing a request?
+
+Yes. An agency may choose to establish or designate an office to oversee
+the agency's reasonable accommodation process. Such an office would develop
+expertise in the requirements of the Rehabilitation Act, potential
+accommodations, and available resources, and be a resource for individuals
+with disabilities and agency decision makers. Additionally, agencies may
+designate a particular office to handle specialized requests, such as those
+involving computer technology.
+
+Agency procedures should identify offices that supervisors or other
+decision makers can consult for assistance in considering and implementing
+different types of reasonable accommodation requests.
+
+EXAMPLE - Melissa, who is blind, requests that her supervisor provide
+equipment that will read information on her computer screen to her. Because
+the requested accommodation involves the purchase of equipment, Melissa's
+supervisor may not be able to approve and implement the request on her own.
+The agency's procedures should identify the office that is to consider
+requests for computer equipment, and should provide for prompt processing
+by that office.
+
+
+4 10. Should agency procedures encourage a discussion between the
+       individual requesting the accommodation and the agency decision
+       maker?
+
+Yes. To ensure that all effective accommodations have been considered,
+agency procedures should require that decision makers talk to the
+individual requesting the accommodation where the specific limitation,
+problem, or barrier is unclear; where an effective accommodation is not
+obvious; or where the parties are choosing between different possible
+reasonable accommodations.
+
+EXAMPLE - Roger has a disability that prevents him from working in the
+early mornings. He asks for a reasonable accommodation that would permit
+him to work part-time and to come in every day at 11:00 a.m. The agency
+decision maker discusses Roger's requ
+===== SOURCE PART 2 END =====
+
+===== SOURCE BEGIN / PART 3 OF 7 =====
+SOURCE_PATH: EEO/Reasonable Accommodation/Executive order 13164 Reasonable Accomodation.doc
+SHA256: 54df40c723b70c6596f9109b12dbdef60f2eaad4993d7361fc71e4aad1b2de95
+TEXT_CHARS_TOTAL: 62684
+OFFSET: 20000
+ALIASES: 
+===== TEXT =====
+est with him and proposes that Roger
+simply shift his schedule to work two hours longer in the evenings. Roger
+agrees to this alternative reasonable accommodation.
+
+Such discussions may not be necessary where the existence of the
+disability, the need for accommodation, and the nature of the effective
+accommodation are clear.
+
+
+5 11. Should agency procedures specify resources that individuals with
+       disabilities and agency decision makers could consult to identify and
+       evaluate possible accommodations?
+
+Yes. The Appendix to this Guidance provides a non-exhaustive list of
+relevant resources. This list, as well as any other sources that agencies
+can identify, should be attached to each agency's procedures.
+
+Agencies should also develop internal resources to provide technical
+assistance to agency personnel. These internal resources could, for
+example, demonstrate and evaluate equipment and assistive devices;
+expeditiously purchase or lease equipment needed for reasonable
+accommodation; provide referrals for additional information; and promptly
+prepare agency printed and audiovisual materials in alternative formats on
+request.(7)
+
+
+6 12. How should agencies fund requested reasonable accommodations?
+
+Under the Rehabilitation Act, the resources of the agency as a whole -- and
+not just those of an individual office -- will be factors in determining
+whether a requested reasonable accommodation poses an undue hardship. As a
+result, agencies should anticipate the expenses of reasonable accommodation
+and should include those expenses in their agency-wide budget planning and
+requests for each fiscal year. In addition, each agency is strongly
+encouraged to implement practices that will reduce bureaucratic barriers
+that could make it difficult for individual offices to provide effective
+accommodations. Possible practices include:
+
+    • establishing a central pool of staff assistant slots, that would not
+      be included in a requesting office's personnel ceiling, to provide
+      readers, interpreters, and other assistants throughout the agency; and
+
+
+    • implementing funding mechanisms that will avoid charging individual
+      offices for the cost of accommodations.
+
+
+3 C. Time Limits
+
+As the Executive Order states, each agency's procedures must:
+
+"Designate a time period during which reasonable accommodation requests
+will be granted or denied, absent extenuating circumstances. Time limits
+for decision making should be as short as reasonably possible." (Order,
+Section 1(b)(3))
+
+
+1 13. How should agencies set applicable time limits?
+
+Time limits for processing requests for and providing reasonable
+accommodations should be as short as reasonably possible. The time
+necessary to respond to any particular request for accommodation will
+depend largely on the nature of that accommodation. A reassignment is
+likely, for example, to take longer to review and implement than a request
+that a desk be put on blocks. Where the requested accommodation is simple
+and straightforward, the agency should provide it immediately, absent undue
+hardship. Furthermore, the time frame should be cut down considerably where
+a supervisor is authorized to grant an accommodation.
+
+Agencies may wish to identify the maximum amount of time that the process
+can take. But agency procedures should make clear that where a particular
+reasonable accommodation can be provided in less time than is authorized
+under those procedures, the failure to respond promptly to the request may
+result in a violation of the Rehabilitation Act.
+
+EXAMPLE - Ruth's agency prohibits employees from eating or drinking at
+their workstations. Ruth has insulin-dependent diabetes, and asks her
+supervisor to permit her to eat a candy bar or drink fruit juice at her
+desk if necessary to avoid going into insulin shock. The agency's
+reasonable accommodation procedures state that decisions about whether to
+grant or deny requests for reasonable accommodation should be made within
+15 days of the date of the request. In this case, however, the agency
+should be able to provide the reasonable accommodation in no more than a
+day or two, and hopefully sooner. The agency should not wait the full 15
+days before responding to Ruth's request.
+
+EXAMPLE - Marcus works for the same agency as Ruth. He has a psychiatric
+disability that causes him to be easily distracted, and requests that he be
+given a private office on a quiet corridor. Because the agency must
+investigate the availability of office space and is entitled to consider
+other effective accommodations, the agency may need to take the full 15
+days allotted by its procedures to make a decision on his request.
+
+Of course, special circumstances may influence the timing of the reasonable
+accommodation process. For example, agency procedures should require that
+processing of reasonable accommodation requests be expedited in appropriate
+cases. Expedited processing might be necessary where, for instance:
+
+    • the reasonable accommodation is needed to enable an individual to
+      apply for a job; or
+    • the reasonable accommodation is needed for a specific agency activity
+      that is scheduled to occur shortly.
+
+EXAMPLE - James, who uses a wheelchair, is chosen to attend a computer
+training class that will be held in the agency's computer lab starting the
+following day. James requests that the computer desk be raised in time for
+him to participate in the class. The agency's procedures should provide for
+expedited processing of James' request in circumstances like these.
+
+
+2 14. What are "extenuating circumstances" that would justify an agency not
+       processing a request for reasonable accommodation during the
+       designated time period?
+
+"Extenuating circumstances" are factors that could not reasonably have been
+anticipated or avoided in advance of the request for the accommodation.
+These can include situations in which equipment must be back-ordered or the
+vendor typically used by an agency has unexpectedly gone out of business.
+In addition, an agency will not be expected to adhere to its usual time
+frames if an individual's health professional fails to provide needed
+documentation, see Section D below, in a timely manner.
+
+Where there is a delay in either processing a request for, or delivering, a
+reasonable accommodation, the agency must notify the individual of the
+reason for the delay. To the extent possible, the agency must also keep the
+individual informed of the date on which the agency expects to complete the
+process.
+
+If there is a delay, the agency must investigate whether there are
+temporary measures that could be taken to assist the individual with a
+disability. An agency could consider, for example, a temporary job
+restructuring or the use of equipment that might permit the individual to
+perform some of the functions of his/her job.
+
+EXAMPLE - To perform the essential functions of her job, Maria, who has a
+vision-related disability, needs a sophisticated piece of equipment that is
+not readily available from the agency's suppliers. The agency has asked its
+suppliers to check further, and is also independently pursuing other
+avenues to obtain the necessary equipment. Because of this delay, the
+agency is not able to meet the time limit set in its procedures for a
+response to Maria's request.
+
+The agency should notify Maria about the delay and tell her when it expects
+to be able to respond to her request. Whether or not it ultimately grants
+Maria's request, the agency should also investigate alternative
+accommodations, such as a qualified reader, that it could provide on an
+interim basis to remove at least some of the barriers that limit Maria's
+use of her computer.
+
+
+3 15. Are there steps an agency can take prior to receiving a request for
+       reasonable accommodation that will avoid unnecessary delays in
+       responding if a request is made?
+
+Yes. To anticipate and limit impediments that may cause unnecessary delay
+in providing reasonable accommodation, agencies should review and modify,
+in advance of a specific request, policies that might affect the agency's
+ability to respond promptly to requests for reasonable accommodation. Among
+the policies that agencies should review are those that affect:
+
+    • the purchasing or leasing of equipment;
+    • the hiring of, or contracting for, readers, interpreters, or other
+      assistants; and
+    • the flexibility to approve leave or to restructure work schedules.
+
+Agencies must also ensure that all contracts for the use of external
+facilities -- such as contracts to use hotels for conferences or training
+programs -- reflect the obligation that such facilities be accessible to
+people with disabilities. Of course, an agency's own facilities must also
+conform to the laws on accessibility of federal buildings.(8)
+
+
+4 D. Medical Information
+
+As the Executive Order states, each agency's procedures must:
+
+    • "Explain the responsibility of the employee or applicant to provide
+      appropriate medical information related to the functional impairment
+      at issue and the requested accommodation where the disability and/or
+      need for accommodation is not obvious;
+    • Explain the agency's right to request relevant supplemental medical
+      information if the information submitted does not clearly explain the
+      nature of the disability, or the need for the reasonable
+      accommodation, or does not otherwise clarify how the requested
+      accommodation will assist the employee to perform the essential
+      functions of the job or to enjoy the benefits and privileges of the
+      workplace; and
+    • Explain the agency's right to have medical information reviewed by a
+      medical expert of the agency's choosing at the agency's expense."
+      (Order, Section 1(b)(4-6))
+
+
+1 16. When may an agency request medical information in connection with a
+       request for reasonable accommodation?
+
+An agency is entitled to know that an employee or applicant has a covere
+===== SOURCE PART 3 END =====

@@ -1,0 +1,807 @@
+===== SOURCE BEGIN / PART 4 OF 5 =====
+SOURCE_PATH: EEO/EEO-1 REPORT INFO/EEO1ReportandInstructions 2010.doc
+SHA256: b9cf8728058615b18a7c3b26bf72b56f7ec8201ddb48c48ca289dd72854928d0
+TEXT_CHARS_TOTAL: 41332
+OFFSET: 30000
+ALIASES: 
+===== TEXT =====
+required.  Examples of these kinds of positions
+   include: drafters; engineering aides; emergency medical technicians;
+   chemical technicians; and broadcast and sound engineering technicians.
+
+ o Sales Workers. These jobs include non-managerial activities that for the
+   most part involve direct sales.  Examples of these kinds of positions
+   include: advertising sales agents; insurance sales agents; real estate
+   brokers and sales agents; wholesale sales representatives; securities,
+   commodities, and financial services sales agents; telemarketers;
+   demonstrators; retail salespersons; counter and rental clerks; and
+   cashiers.
+
+ o Office, Clerical and Administrative Support. These jobs involve non-
+   managerial tasks that provide administrative assistance and support,
+   primarily in office settings. Examples of these kinds of positions
+   include: office and administrative support workers; bookkeeping;
+   accounting and auditing clerks; cargo and freight agents; dispatchers;
+   couriers; data entry keyers; computer operators; shipping, receiving and
+   traffic clerks; word processors and typists; proofreaders; desktop
+   publishers; and general office clerks.
+
+ o Craft Workers. Most jobs in this category include higher skilled
+   occupations in construction (building trades craft workers and their
+   formal apprentices) and natural resource extraction workers.  Examples of
+   these types of positions include: boilermakers; brick and stone masons;
+   carpenters; electricians; painters (both construction and maintenance);
+   glaziers; pipelayers, plumbers, pipefitters and steamfitters; plasterers;
+   roofers; elevator installers; earth drillers; derrick operators; oil and
+   gas rotary drill operators; and blasters and explosive workers.
+
+   The craft workers category also includes occupations related to the
+   installation, maintenance and part replacement of equipment, machines and
+   tools.  Examples include: automotive mechanics; aircraft mechanics; and
+   electric and electronic equipment repairers.
+
+
+   This category also includes some production occupations that are
+   distinguished by the high degree of skill and precision required to
+   perform them, based on clearly defined task specifications.  Examples
+   include: millwrights; etchers and engravers; tool and die makers; and
+   pattern makers.
+
+ o Operatives. Most jobs in this category include intermediate skilled
+   occupations and include workers who operate machines or factory-related
+   processing equipment. Most of these occupations do not usually require
+   more than several months of training. Examples include: textile machine
+   workers; laundry and dry cleaning workers; photographic process workers;
+   weaving machine operators; electrical and electronic equipment
+   assemblers; semiconductor processors; testers, graders and sorters;
+   bakers; and butchers and other meat, poultry and fish processing workers.
+   This category also includes occupations of generally intermediate skill
+   levels that are concerned with operating and controlling equipment to
+   facilitate the movement of people or materials, such as: bridge and lock
+   tenders; truck, bus or taxi drivers; industrial truck and tractor
+   (forklift) operators; parking lot attendants; sailors; conveyor
+   operators; and hand packers and packagers.
+
+ o Laborers and Helpers. Jobs in this category include workers with more
+   limited skills who require only brief training to perform tasks that
+   require little or no independent judgment.  Examples include:
+   construction worker helpers; construction laborers; vehicle and equipment
+   cleaners; freight, stock and material movers; laborers; service station
+   attendants; refuse and recyclable materials collectors; septic tank
+   servicers; sewer pipe cleaners; and production worker helpers.
+ o Service Workers. Jobs in this category include food service, cleaning
+   service, personal service, and protective service activities. Skill may
+   be acquired through formal training, job-related training or direct
+   experience. Examples of food service positions include: cooks;
+   bartenders; and other food service workers. Examples of personal service
+   positions include: medical assistants and other healthcare support
+   positions; hairdressers; ushers; and transportation attendants. Examples
+   of cleaning service positions include: cleaners; janitors; and porters.
+   Examples of protective service positions include: transit and railroad
+   police and fire fighters; guards; private detectives and investigators.
+
+
+Description of Race/Ethnicity Categories.  You may obtain race/ethnicity
+information for this report either by visual surveys of the work force or
+from post-employment records, e.g., payroll records.  Obtaining
+race/ethnicity information through direct inquiry is NOT encouraged.
+
+Where records are maintained, it is strongly recommended the records be
+kept separately from the employee's basic personnel file or other records
+available to workers responsible for personnel duties.  Conducting visual
+surveys and keeping post-records about the race/ ethnicity of employees is
+legal in all jurisdictions and under all Federal and state laws.
+
+Since visual surveys are permitted, the fact that race/ethnicity
+identifications are not present on employment or payroll records is not an
+excuse for failure to provide the data.  In addition, the fact that
+employees may be located at different locations does not provide an
+acceptable reason for failure to comply with the reporting requirements.
+In such cases, it is recommended the employer conduct visual surveys (using
+persons such as supervisors who are responsible for the work of the
+employees or to whom the employees report for instructions).
+
+
+When collecting workforce data, the basic principles for racial and ethnic
+self-identification are:
+
+1. Offer employees the opportunity to self-identify; and
+
+2. Provide a statement about the voluntary nature of this inquiry for
+   employees. For example, language such as the following may be used
+   (employers may adapt this language): "<Company> is subject to certain
+   governmental recordkeeping and reporting requirements for the
+   administration of civil rights laws and regulations. To comply with these
+   laws, <Company> invites employees to voluntarily self-identify their race
+   or ethnicity. Providing this information is voluntary and refusal will
+   not subject you to any adverse treatment. The information will be kept
+   confidential and will only be used in accordance with applicable laws,
+   executive orders,
+   and regulations, including those that require the information to be
+   summarized and reported to government agencies for civil rights
+   enforcement."
+
+If an employee declines to self-identify, employment records or observer
+identification may be used.
+
+Race/ethnicity designations used by the Finance and Administration Cabinet,
+Office of Equal Employment Opportunity and Contract Compliance do not
+represent scientific definitions of anthropological origins.  For the
+purposes of this report, an employee may be included in the group to which
+he or she appears to belong, identifies with, or is regarded in the
+community as belonging.  However, no employee should be counted in more
+than one race/ethnic group, i.e., each employee should be counted in one
+and only one race/ethnicity category.  The race/ethnic categories for this
+report are:
+
+
+ o Hispanic or Latino - All persons of Cuban, Mexican, Puerto Rican, South
+   or Central American, Dominican, or other Spanish culture or origin
+   regardless of race.
+
+ o White (Not Hispanic or Latino) - All persons having origins in any of the
+   original peoples of Europe, North Africa, or the Middle East.
+
+ o Black or African American (Not Hispanic or Latino) - All persons having
+   origins in any of the black racial groups of Africa.
+
+ o Native Hawaiian or Other Pacific Islander (Not Hispanic or Latino) – All
+   persons having origins in any of the peoples of Hawaii, Guam, Samoa,
+   Fiji, or other Pacific Islands.
+
+ o Asian (Not Hispanic or Latino) – All persons having origins in any of the
+   original peoples of the Far East, Southeast Asia, or the Indian
+   Subcontinent, including, for example, Cambodia, China, India, Japan,
+   Korea, Malaysia, Pakistan, Sri Lanka, the Philippine Islands, Thailand,
+   and Vietnam.
+
+ o American Indian or Alaskan Native (Not Hispanic or Latino) - All persons
+   having origins in any of the original peoples of North and South America
+   (including Central America), and who maintain cultural identification
+   through tribal affiliation or community attachment.
+
+ o Two or More Races (Not Hispanic or Latino) – All persons who identify
+   with more than one of the above five races.
+
+
+                        SECTION VI.  DATA COLLECTION
+
+1. Select “Visual Survey” if you used this method to determine
+   race/ethnicity.
+
+   a. If you used another method, select “Other” and identify the method
+      used.  For example, if payroll records were used, write “payroll” and
+      indicate the beginning payroll date and ending payroll date under
+      question 1a.  Note: Data must not be older than sixty (60) days old.
+      Data older than sixty (60) days old will not be accepted or processed.
+
+
+   b. If some other method—not payroll records—was used, you must also
+      identify the method under “Other.”  In addition, you must indicate the
+      time period used with a beginning date and an ending date under
+      question 1a.  Note: Data must not be older than sixty (60) days old.
+      Data older than sixty (60) days old will not be accepted or processed.
+
+
+
+2. Indicate whether the firm employs apprentices or on-the-job trainees.  A
+   “Yes” or “No” response is required.
+
+
+                         SECTION VII.  CERTIFICATION
+
+Contact Information.  The Finance and Administration Cabinet, Office of EEO
+and Contract Compliance may have questions about your report.  To e
+===== SOURCE PART 4 END =====
+
+===== SOURCE BEGIN / PART 5 OF 5 =====
+SOURCE_PATH: EEO/EEO-1 REPORT INFO/EEO1ReportandInstructions 2010.doc
+SHA256: b9cf8728058615b18a7c3b26bf72b56f7ec8201ddb48c48ca289dd72854928d0
+TEXT_CHARS_TOTAL: 41332
+OFFSET: 40000
+ALIASES: 
+===== TEXT =====
+nsure
+the questions are resolved and the certification process proceeds without
+delay, you are required to provide the following information:
+
+1. Name and title of the person who can answer questions about any part of
+   the report (this is the contact person);
+
+2. Street address (simply listing a post office box number is NOT
+   sufficient);
+
+3. City, State and Zip Code;
+
+4. Telephone number including area code (also include an extension number
+   if applicable);
+
+5. Fax number including area code; and
+
+6. E-mail address (if the contact person does not have an e-mail address
+   write “None”)
+
+Authorized Signature and Accuracy of Information Contained in the Report.
+The person who signs the report must be an official or manager of the firm.
+ No other signature will be accepted.  To complete this section, include
+the following:
+
+1. Name and title of the certifying official;
+
+2. Signature of the certifying official; and
+
+3. Date.
+4. Item 6. List the pay period of the last payroll withholding report was
+   submitted to the Federal government. If payroll was not used to determine
+   race/ethnic identification in Item 5, enterwrite “NA” here.
+5.
+6.
+7.
+
+
+For Official Use Only.  Do NOT write in this box.  The gray-shaded area is
+for use by the Finance and Administration Cabinet, Office of EEO and
+Contract Compliance.
+
+===== SOURCE PART 5 END =====
+
+===== SOURCE BEGIN / PART 1 OF 5 =====
+SOURCE_PATH: EEO/EEO-1 REPORT INFO/EEO1ReportandInstructions 2011.doc
+SHA256: d6693232bff799699075ebaa230606007ffd5f54ac61c5c75fbf532939d1de2e
+TEXT_CHARS_TOTAL: 41332
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+
+
+                   Form—EEO                  Part                  I
+FINANCE            AND            ADMINISTRATION             CABINET
+    Effective: 1-Jul-06
+         OFFICE OF EQUAL EMPLOYMENT OPPORTUNITY/CONTRACT COMPLIANCE
+                CAPITOL ANNEX, ROOM 395, FRANKFORT, KY 40601
+               TELEPHONE: 502-564-2874    (FAX: 502-564-1055)
+                  E-MAIL: Finance.ContractCompliance@ky.gov
+
+                     EEO-1: EMPLOYER INFORMATION REPORT
+
+Important Notice: Read instructions before completing this form.
+Incomplete forms and forms that are not completed according to the
+instructions will not be processed.  A substitute or alternate
+version of this report will not be accepted or processed.
+|SECTION I.  TYPE OF REPORT                                                           |
+|Type of Report (check | Single-Establishment—firm conducts business from a single    |
+|one):                 |location                                                      |
+|                      | Consolidated—firm operates from multiple locations; the      |
+|                      |report must be filed by the firm’s                            |
+|                      |headquarters office and must combine workforce data for all   |
+|                      |locations                                                     |
+|                      | Branch Office/Other (required for all Consolidated           |
+|                      |employers)—contains employment data                           |
+|                      |for a specific location; a separate branch office/other report|
+|                      |must be filed for each location                               |
+|                      |                                                              |
+|Total number of reports being filed by this firm (answer on           |1             |
+|Consolidated Report only)                                             |              |
+|                                                                                     |
+|SECTION II.  EMPLOYER/FIRM IDENTIFICATION                                            |
+|Name of Parent Company|Rural Transit Enterprise Coordinated, Inc.                    |
+|(owns or controls the |                                                              |
+|branch office/other   |                                                              |
+|location              |                                                              |
+|listed in Section II, |                                                              |
+|#2)                   |                                                              |
+|                      |                                                              |
+|Street Address:       |100 Main St.                                                  |
+|                      |Mount Vernon, Ky. 40456                                       |
+|City, State and Zip   |                                                              |
+|Code:                 |                                                              |
+|                                                                                     |
+|Name of Branch        |     N/A                                                      |
+|Office/Other location |                                                              |
+|for                   |                                                              |
+|which this form is    |                                                              |
+|filed:                |                                                              |
+|                      |                                                              |
+|Street Address:       |                                                              |
+|                      |                                                              |
+|City, State and Zip   |                                                              |
+|Code:                 |                                                              |
+|                                                                                     |
+|SECTION III.  ESTABLISHMENT INFORMATION                                              |
+|        Describe the major activity of this establishment.  Be specific, e.g.,       |
+|wholesale computer supplies, vehicle insurance carrier,                              |
+|electrical contractor, bus transportation, hot mix/cold mix supplier, landscape      |
+|architectural services, custom computer                                              |
+|programming, etc.                       Public Passenger Transportation              |
+|                                                                                     |
+|SECTION IV.  GENERAL INFORMATION                                                     |
+|Does the firm hire primarily    | County?   City?  Metropolitan Statistical Area?    |
+|from (check one):               |State?    Nationwide?                               |
+|                                                                                     |
+|        Identify the primary geographical area(s) from which the firm draws its      |
+|employees by listing the counties, cities, Metropolitan                              |
+|Statistical Areas (MSAs) or states that apply.  (attach a separate sheet if necessary|
+|):Bell, Clinton, Cumberland, Knox, Laurel                                            |
+|                                    McCreary, Monroe, Pulaski, Rockcastle, Russell,  |
+|Taylor, Wayne, Whitley & Barren Counties                                             |
+|                                                                                     |
+|Does the firm normally hire additional employees to perform contract work (check     |
+|one)?           Yes           No                                                     |
+|                                                                                     |
+|List the maximum number of employees working for the firm at any one time during a   |
+|typical 12 month period. 198                                                         |
+|                                                                                     |
+|Does the firm have a current Affirmative Action Plan? (check one)           Yes      |
+|No                                                                                   |
+|                                                                                     |
+|Does the firm have a current Equal Employment Opportunity (EEO) policy? (check one)  |
+|Yes           No                                                                     |
+|                                                                                     |
+|Is the firm currently under federal, state or local review regarding its employment  |
+|practices for any of its public contracts (check one)?  If yes, attach a separate    |
+|sheet fully explaining the situation and status of the review.           Yes         |
+|No                                                                                   |
+|                                                                                     |
+|Within the past five (5) years, has the firm been declared ineligible for any public |
+|contract based on a finding of employment discrimination (check one)?  If yes, attach|
+|a separate sheet fully explaining the situation.           Yes           No          |
+|         |                                                                                                           |
+|         |WORKFORCE DATA/NUMBER OF EMPLOYEES                                                                         |
+|         |                                                                                                           |
+|         |                                                                                                           |
+|         |                                                                                                           |
+|         |                                                                                                           |
+|Job      |                                                                                                           |
+|Categorie|                                                                                                           |
+|s        |                                                                                                           |
+|         |Race/Ethnicity                                                                                             |
+|         |                                                  |                                                |Total  |
+|         |Male                                              |Female                                          |(A – N)|
+|                                                                                      |
+|                                                                                      |
+|How was employment data in Section V obtained?  (check one):    Visual Survey         |
+|Other (specify): Voluntary AAP Data Sheets and Employee Database file.                |
+|       (Note: Data must not be more than 60 days old.  Data more than 60 days old will|
+|not be accepted or processed.)                                                        |
+|                       |                                                              |
+|        a) If payroll is indicated, enter the date of     |                           |
+|payroll used for Section V:                               |                           |
+|OR                                                        |                           |
+|        b) If another method is indicated, enter the time |  7/18/2011 to             |
+|period used for Section V:                                |7/30/2011         
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 2 OF 5 =====
+SOURCE_PATH: EEO/EEO-1 REPORT INFO/EEO1ReportandInstructions 2011.doc
+SHA256: d6693232bff799699075ebaa230606007ffd5f54ac61c5c75fbf532939d1de2e
+TEXT_CHARS_TOTAL: 41332
+OFFSET: 10000
+ALIASES: 
+===== TEXT =====
+         |
+|                                                          |                           |
+|Does this firm employ apprentices or formal on-the-job trainees? (check one):      Yes|
+|x No                                                                                  |
+|                                                                                      |
+|                                                                                      |
+|SECTION VII.  CERTIFICATION                                                           |
+|Name of Person to Contact Regarding this Report       |Title                          |
+|Sheila Stallsworth                                    |EEO Manager                    |
+|                                                      |                               |
+|Street Address                                                                        |
+|                                                                                      |
+|100 Main Street                                                                       |
+|City                               |State   |Zip Code |Telephone Number|Fax Number    |
+|                                   |KY      |40456    |606-256-9835    |              |
+|Mount Vernon                       |        |         |                |606-256-4319  |
+|E-mail Address jerry.sims@4rtec.com                                                   |
+
+
+
+I certify that the information contained in this EEO-1: Employer
+Information Report, and any attachments, is true and accurate to the best
+of my knowledge and belief.  The employer agrees to comply with the
+requirements found in the Kentucky EEO Act, KRS 45.560 – KRS 45.640 and
+Finance and Administration Cabinet rules and regulations.  Further, I am
+authorized to sign this form on behalf of the employer.
+
+
+
+|Shirley Cummins – Executive Director                |  |                             |
+|Print Name and Title of Certifying Official         |  |Date                         |
+|                                                    |  |                             |
+|                                                    |  |                             |
+|Signature of Certifying Official (must be an        |  |                             |
+|official or manager; refer to Instructions)         |  |                             |
+
+
+
+|                                                    |                               |
+|For Official Use Only:                              |Initials: _________     Review |
+|                                                    |Date: _________                |
+|                                                                                     |
+
+                     FINANCE AND ADMINISTRATION CABINET
+         OFFICE OF EQUAL EMPLOYMENT OPPORTUNITY/CONTRACT COMPLIANCE
+                CAPITOL ANNEX, ROOM 395, FRANKFORT, KY 40601
+
+                         Instructions for Completing
+                     EEO-1: Employer Information Report
+
+
+  Need Assistance?  Call 502-564-2874, Monday through Friday, 8:00 a.m. to
+                                 5:00 p.m.,
+     Eastern Standard Time or e-mail: Finance.ContractCompliance@ky.gov.
+
+                   EEO forms are available on the web at:
+https://eprocurement.ky.gov/servlet/KYECServlet?object=ECOMMERCE&action=show
+                                  MainPage
+ (Note: Under Vendor Information, click on Standard Attachments and General
+                                   Terms)
+
+
+
+Legal Authority.  The filing requirement is found at KRS 45.560 – KRS
+45.640, the Kentucky EEO Act.
+
+
+Who Must File.  Filing is required by law and is not optional for companies
+interested in doing business with the Commonwealth of Kentucky.  Penalties
+for vendors/contractors and subcontractors that fail to comply with KRS
+45.560 to KRS 45.640 may include non-award or termination of the contract,
+withholding payments or a declaration of ineligibility to bid on future
+contracts.  So, who must file?  Your company must file EEO documents if any
+one of the following applies:
+
+1. The firm is the apparent low bidder on a state contract valued at more
+   than $250,000 and you have not previously filed;
+
+2. Change orders or contract modifications bring the value of your state
+   contract to more than $250,000 and you have not previously filed;
+
+3. The firm is directed to file by a contracting agency, county, city,
+   town, school district, water district, hospital district, other political
+   subdivision of the state or prime Vendor/Contractor;
+
+4. The firm has a subcontract on a state project and the subcontract is
+   valued at more than $250,000 and you have not previously filed;
+
+5. The firm’s six (6) month certification has or will soon expire; or
+
+6. The firm is directed to file EEO documents by the Finance and
+   Administration Cabinet, Office of Equal Employment Opportunity and
+   Contract Compliance.
+
+
+Proper Filing.  Incomplete, blank, or unsigned reports will NOT be accepted
+or processed.  Further, a substitute or alternate version will NOT be
+accepted for this report.  See below for more guidance:
+
+1. Type or print legibly.
+
+2. If you print your responses, do not use a pencil.  Use black or dark
+   blue ink.
+
+3. Signatures must be in black or dark blue ink.
+
+                         SECTION I.  TYPE OF REPORT
+
+Before completing this section, you may need to make additional copies of
+pages one, two and three of the EEO-1: Employer Information Report.
+Remember, if your firm has more than one location, a separate report is
+required for EACH location.
+
+Type of Report.  Check only one box per report.  There are three (3) types
+of reporting (all of which use the EEO-1: Employer Information Report
+form).  A description of each type follows.  Examples are provided to help
+you decide on the most appropriate report(s) to file.
+
+1) Single-Establishment—Firms that conduct business from only one location
+   are required to file Single-Establishment Reports.
+
+   Example: An electrical contractor with 8 employees is located in
+Franklin, Kentucky.  The firm
+   does not have any other business locations.  This firm will file a Single-
+Establishment
+   Report.
+
+   Example: A janitorial services company with 27 employees is located in
+Bowling Green,
+   Kentucky.  The firm has no other locations.  For this reason, the firm
+will file a Single-
+   Establishment Report.
+
+
+   Example: A uniform manufacturer with 800 employees is located in Ontario,
+Canada.  The
+   firm does not have any other business locations.  This firm will file a
+Single-Establishment
+   Report.
+
+2) Consolidated—Firms that operate from more than one location are required
+   to file a Consolidated Report.  The Consolidated Report must be filed by
+   the firm’s headquarters office and must reflect employment data for all
+   locations.  Firms that file a Consolidated Report must also file a Branch
+   Office/Other Report for each location.
+
+
+   The grand total number of employees indicated on the Consolidated Report
+   must equal the number of employees indicated on all Branch Office/Other
+   Reports.
+
+
+3) Branch Office/Other—Any firm that files a Consolidated Report must also
+   file a Branch Office/Other report(s).  The Branch Office/Other Report
+   contains employment data for a specific location.  A separate Branch
+   Office/Other Report is required for each location including the
+   headquarters office.
+
+   Example: A construction company with 375 employees is headquartered in
+Covington,
+   Kentucky.  The firm has nine separate office, quarry and plant locations
+(including the
+   main office).  Six locations are in Kentucky.  The remaining three
+locations are in Ohio.  The
+   firm will file 10 reports: one (1) Consolidated Report reflecting data
+for all employees in
+   Kentucky and Ohio and a separate Branch Office/Other Report for each of
+its 9 locations.
+
+
+   Example: An insurance company has a main office in Lexington, Kentucky
+and six branch
+   offices located in Paducah, Elizabethtown, Pikeville, Somerset,
+Louisville and Ashland.
+   The Lexington headquarters office will file one (1) Consolidated Report
+that combines the
+   firm’s employment data for all seven locations.  In addition, the
+Lexington office will file 7
+   Branch Office/Other Reports—one each for Lexington, Paducah,
+Elizabethtown, Pikeville,
+   Somerset, Louisville and Ashland.
+
+   Example: A computer hardware company with 7,500 employees is
+headquartered in La Jolla,
+   California.  The firm has 30 separate plants and offices (including the
+headquarters office)
+   throughout the United States.  Each location is in a different state.
+The firm’s headquarters
+   office will file 31 reports: one (1) Consolidated Report listing all
+employees nationwide and
+   30 Branch Office/Other Reports.
+
+
+Total Number of Reports Being Filed.  Respond to this question only on a
+Consolidated Report.  For example, a Consolidated employer with four (4)
+business locations (including the headquarters office) will enter ‘5’ in
+the space provided representing one (1) Consolidated Report and four (4)
+Branch Office/Other Reports.
+
+
+                  SECTION II.  EMPLOYER/FIRM IDENTIFICATION
+
+Single-Establishment employers.  Complete Section 1, Name of Parent Company
+only.  List:
+
+1. Name of the company;
+
+2. Street address (simply listing a post office box number is not
+   sufficient); and
+
+3. City, State and Zip Code;
+
+
+Consolidated employers.  Complete Section 1, Name of Parent Company, etc.,
+and Section 2, Name of Branch Office/Other location for which this form is
+filed.  Note:  The firm’s headquarters office should file all reports on
+behalf of its various locations.  However, any report received directly
+from a Branch Office/Other location will be considered to have been filed
+by the firm’s headquarters.
+
+1. Name of the parent company (company headquarters office only);
+
+2. Street address of the parent company (simply listing a post office box
+   number is not 
+===== SOURCE PART 2 END =====
+
+===== SOURCE BEGIN / PART 3 OF 5 =====
+SOURCE_PATH: EEO/EEO-1 REPORT INFO/EEO1ReportandInstructions 2011.doc
+SHA256: d6693232bff799699075ebaa230606007ffd5f54ac61c5c75fbf532939d1de2e
+TEXT_CHARS_TOTAL: 41332
+OFFSET: 20000
+ALIASES: 
+===== TEXT =====
+sufficient);
+
+3. City, State and Zip Code of the parent company;
+
+4. Name of the Branch Office/Other location (locations other than the
+   company headquarters office);
+
+5. Street address of the Branch Office/Other location (simply listing a
+   post office box number is not sufficient); and
+
+6. City, State and Zip Code of the Branch Office/Other location.
+
+
+                   SECTION III.  ESTABLISHMENT INFORMATION
+
+The description of the major activity must clearly identify the industry
+and product produced or service provided.  If the establishment is involved
+in more than one activity, describe the activity that involves the greatest
+number of employees.
+
+Note for Consolidated employers: The description of the major activity must
+reflect the dominant economic activity of the firm, i.e., the activity that
+involves the greatest number of employees.
+
+
+                      SECTION IV.  GENERAL INFORMATION
+
+1. Select the primary geographical area(s) from which your employees are
+   hired, i.e., county, city, metropolitan statistical area, state or
+   nationwide (Note: if you select ‘nationwide’ only the national percentage
+   will be used to evaluate your workforce data).  A response to this
+   question is required.
+
+   Next, identify the primary hiring area(s) by name, i.e., you must list
+all areas included in your
+   primary hiring area.  County and city information must be clearly
+identified, e.g., Broward
+   County, Florida; Providence, Rhode Island, etc.  Do not assume the
+reviewer knows the state
+   in which the county or city is located, e.g., Franklin County, Missouri,
+Franklin County,
+   Kentucky or Franklin County, Virginia.  (Note: a company headquartered in
+another
+   country, e.g., Canada, is also required to comply with Kentucky’s EEO Act
+and should
+   identify the primary hiring area(s) accordingly.)  A response is
+required.  If necessary,
+   attach a separate sheet.
+
+2. Indicate whether the firm routinely hires extra workers to perform work
+   on contracts.  A “Yes” or “No” response is required.  (Note: Extra
+   workers are hired for a specific time period or for the duration of a
+   specific contract.)
+
+3. Write in the maximum number of employees that worked for the firm at any
+   one time during a typical 12-month period.  A response is required.
+
+4. Indicate whether the firm has a current, up-to-date affirmative action
+   plan signed by its owner, president, chief executive officer or other
+   official or manager.  A “Yes” or “No” response is required.
+
+5. Indicate whether the firm has a current, up-to-date Equal Employment
+   Opportunity (EEO) policy signed by its owner, president, chief executive
+   officer or other official or manager.  A “Yes” or “No” response is
+   required.
+
+6. Indicate whether the firm’s employment practices are currently under
+   review by any government agency.  A “Yes” or “No” response is required.
+   A “Yes” response to this question requires a full explanation to include
+   the current status of the review.  The explanation must include the name
+   of the agency conducting the review, the name and title of the agency
+   contact person and the agency contact person’s telephone number
+   (including area code).  Attach a separate sheet.
+
+7. Indicate whether the firm was barred from government contract
+   work—federal, state, city, county, or local—during the past five (5)
+   years due to a finding of employment discrimination.  A “Yes” or “No”
+   response is required.  A “Yes” response to this question requires a full
+   explanation of the situation.  The explanation must include the name of
+   the agency that found employment discrimination existed, the name and
+   title of the agency contact person and the agency contact person’s
+   telephone number (including area code).  Attach a separate sheet.
+
+
+               SECTION V.  WORKFORCE DATA/NUMBER OF EMPLOYEES
+
+Workforce data is required.  Collecting and maintaining employee race and
+ethnicity data is permitted by state and federal law if the data is kept
+separate from other personnel information and is not used to commit
+unlawful discrimination.  Current workforce data and workforce data from
+your previous report (if applicable) must be reported in this section.  A
+substitute or alternate version of this report will not be accepted or
+processed.
+
+Definition of Employee.  "Employee" means any person on the
+Vendor’s/Contractor’s payroll who is a full-time or permanent part-time
+employee for purposes of Social Security withholding taxes (exception:
+insurance salespersons who are considered to be employees for such purposes
+solely because of the provisions of Section 3121 (d)(3)(B) of the Internal
+Revenue Code).   Leased employees are included in this definition. Leased
+employees are included in this definition.
+
+
+ o “Leased Employee” means a permanent employee provided by an employment
+   agency for a fee to an outside company.  The employment agency handles
+   all personnel functions related to the leased employee including payroll,
+   staffing, benefit payments and compliance reporting.  Therefore, the
+   employment agency is responsible for reporting leased employees in its
+   EEO-1: Employer Information Report.
+
+ o The term “Employee” does not include persons who are hired on a casual
+   basis for a specific time period, or for the duration of a specific job.
+   For example: workers at a construction site whose employment relationship
+   is expected to terminate with the end of the employee's work at the site;
+   workers temporarily employed in any industry (excludes construction),
+   i.e., temporary office workers, lumber yard workers, factory workers,
+   etc.   These workers are hired through hiring halls or other referral
+   arrangements, through employee contractors or agents, or by individual
+   hiring arrangements; workers (excludes leased employees) on the payroll
+   of an employment agency who are referred by the employment agency to work
+   on the premises of another employer under that employer's direction and
+   control.
+
+
+Counting Employees.  Count each employee in one and only one job category
+and in one and only one race/ethnicity category.  (Descriptions of job
+categories and race/ethnicity categories appear later in this section.)  Do
+not count an employee in more than one job category.  Do not count an
+employee in more than one race/ethnicity category.
+
+The count must include all full-time and permanent part-time employees who
+were employed during the countemployed during the selected payroll period
+(how does this relate to what A6?), except those workers specifically
+excluded in Section V., Definition of Employee, Pages 7 and 8.
+
+Note:  If the firm has previously filed an EEO-1: Employer Information
+Report, data regarding “Total from Previous Report” at the bottom of page 2
+is also required.
+
+
+Check the Math.  Calculate a total for each row and each column.  The grand
+total for all rows and the grand total for all columns must be the same.
+Record the grand total in the heavily outlined box (__________).  Totals,
+including the grand total, must be clearly indicated on the form.  Forms
+without totals will not be processed.  Forms with mathematical errors will
+not be processed.
+
+
+Description of Job Categories.  Workforce data must be reported by job
+category.  The major job categories are listed below.  Each job category
+includes a brief description of the skills and training needed and examples
+of job titles that fit the category.  The job titles are for descriptive
+purposes only.  Therefore, the descriptions do not include all job titles
+in a particular category.
+
+Each employee should be counted in one and only one job category.  Select
+the job category that contains the jobs most similar to those performed by
+the employee.   For more information about EEO job categories, visit the
+U.S. Equal Employment Opportunity Commission’s web site at www.eeoc.gov.
+
+ o Officials and Managers. Jobs in this category include individuals who 1)
+   plan, direct and formulate broad policies, set strategy and provide the
+   overall direction of enterprises/ organizations for the development and
+   delivery of products or services; 2) oversee and direct the delivery of
+   products, services or functions at group, regional or divisional levels
+   of organizations; 3) direct and execute the day-to-day operational
+   objectives of enterprises/organizations, conveying the directions of
+   higher level officials and managers to subordinate personnel; or 4)
+   directly supervise the activities of exempt and non-exempt personnel.
+   Examples of these kinds of positions include: owners; chief executive
+   officers; presidents or executive vice presidents; chief legal officers;
+   managing partners; vice presidents and directors; treasurers; human
+   resources managers; operations managers; team managers; unit managers;
+   purchasing managers; administrative services managers; customer service
+   managers; technical support managers; first-line managers; and product
+   managers.
+
+ o Professionals. Most jobs in this category require bachelor and graduate
+   degrees, and/or professional certification.  In some case, comparable
+   experience may establish a persons qualifications.  Examples of these
+   kinds of positions include: accountants;  auditors; architects;
+   engineers; surveyors; computer programmers; teachers; personnel and labor
+   relations specialists; airplane pilots and flight engineers; artists;
+   chemists; designers; dieticians; editors; lawyers; librarians;
+   mathematical scientists; natural scientists; registered nurses; physical
+   scientists; physicians and surgeons; and social scientists.
+
+ o Technicians. Jobs in this category include activities that require
+   applied scientific skills, usually obtained by postsecondary education
+   (including community, technical and junior college).  Depending on the
+   occupation, in some instances additional training, certification, or
+   comparable experience is 
+===== SOURCE PART 3 END =====
