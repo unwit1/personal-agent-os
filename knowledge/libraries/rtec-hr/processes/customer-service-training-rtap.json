@@ -1,0 +1,79 @@
+{
+  "id": "rtec-process-customer-service-training-rtap",
+  "record_type": "process",
+  "title": "Driver customer-service training using National RTAP material",
+  "status": "validated",
+  "temporal_status": "historical",
+  "effective_from": null,
+  "effective_to": null,
+  "summary": "Six-unit National RTAP customer-service training packet used as evidence of RTEC driver/customer-service training material. It covers customer definition, customer needs, service behaviors, morale, complaints and difficult passengers, with trainee/supervisor sign-off on each quiz.",
+  "claims": [
+    {
+      "claim": "The training packet contains six customer-service topic units paired with quizzes and trainee/supervisor signature and date lines.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "EXTENDS",
+      "related_record_ids": ["rtec-process-driver-hiring-orientation-training-2018"],
+      "evidence": [{"source_id":"rtec-hr-rtap-customer-service-test-2013-2017","page_or_section":"complete document","evidence_type":"structural","note":null}]
+    },
+    {
+      "claim": "The material teaches that transit customers include riders, community organizations, government stakeholders and the broader public, and emphasizes reliability, safety/security, accessibility, cleanliness, understandability, affordability and empathy.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "EXTENDS",
+      "related_record_ids": ["rtec-process-driver-hiring-orientation-training-2018"],
+      "evidence": [{"source_id":"rtec-hr-rtap-customer-service-test-2013-2017","page_or_section":"Issues One and Two","evidence_type":"explicit_text","note":null}]
+    },
+    {
+      "claim": "The material instructs drivers to address complaints promptly, involve customers in reasonable solutions, avoid taking complaints personally, and use de-escalation techniques with difficult passengers.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "EXTENDS",
+      "related_record_ids": ["rtec-process-driver-hiring-orientation-training-2018"],
+      "evidence": [{"source_id":"rtec-hr-rtap-customer-service-test-2013-2017","page_or_section":"Issues Five and Six","evidence_type":"explicit_text","note":null}]
+    }
+  ],
+  "trigger": "Customer-service training assigned to a trainee/driver.",
+  "prerequisites": [],
+  "actors": ["Trainee/driver", "Supervisor or trainer"],
+  "systems": [],
+  "forms": ["National RTAP Customer Service quizzes 1-6"],
+  "steps": [
+    "Review customer-service issue material.",
+    "Complete corresponding quiz.",
+    "Capture trainee signature/date.",
+    "Capture supervisor signature/date."
+  ],
+  "decisions": [],
+  "deadlines": [],
+  "outputs": ["Signed customer-service training/quiz evidence"],
+  "exceptions": [],
+  "controls": ["Trainee and supervisor sign-off is built into each quiz page."],
+  "unresolved_questions": [
+    "Is this exact RTAP packet still used?",
+    "Are quiz scores tracked or is completion/sign-off the only recorded control?",
+    "Where are completed customer-service training records filed today?"
+  ],
+  "automation_candidates": [
+    "Track completion of each training unit and supervisor sign-off.",
+    "Link training evidence to the driver's training-file inventory and recertification dashboard."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [{
+    "source_id":"rtec-hr-rtap-customer-service-test-2013-2017",
+    "safe_source_type":"training_material_and_quizzes",
+    "source_date_or_version":"PDF created 2013-05-28; modified 2017-11-08",
+    "source_created_date":"2013-05-28",
+    "source_revision_date":"2017-11-08",
+    "source_effective_from":null,
+    "source_effective_to":null,
+    "temporal_status":"historical",
+    "content_sha256":"fbc30303aa16e83bdbdc4f22c0f17157681a5483d29cdb97cf67c7d53a294b5a",
+    "page_or_section":"complete six-page source",
+    "full_source_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-rtap-customer-service-test-2013-2017/fulltext.md",
+    "searchable_text_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-rtap-customer-service-test-2013-2017/fulltext.md",
+    "ingested_at":"2026-09-23",
+    "notes":"Source dates are PDF metadata, not proof of RTEC adoption/effective dates."
+  }]
+}
