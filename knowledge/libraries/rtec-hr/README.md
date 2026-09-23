@@ -108,6 +108,13 @@ See:
 - `roles/email-derived-professional-contact-map-2016-2026.json`
 - `roles/hr-handoff-network-email-evidence-2016-2026.json`
 - `questions/email-derived-gaps-2026-09-23.json`
-- `../../projects/rtec-hr-process-model/docs/EMAIL_ARCHIVE_INGESTION_2026-09-23.md`
+- `../../../projects/rtec-hr-process-model/docs/EMAIL_ARCHIVE_INGESTION_2026-09-23.md`
 
 Email-derived historical practices remain version-aware evidence and must not override current policy, system authority or user-confirmed workflow ownership.
+
+
+### Email-archive deepening index
+
+The consolidated discovery index for the sanitized email-derived knowledge is `sources/email-archive-derived-index-2026-09-23.json`. It links the domain-specific benefits, payroll/time/tax, leave/FMLA, workers' compensation, EEO/AAP, recruiting, retirement, unemployment, Kentucky new-hire, system/vendor, account-continuity, training/reference, company, role, professional-contact, handoff, mailbox-transition, automation-candidate, and validation-question records.
+
+Every one of the 576 unique messages received a structural classification pass, and the initial low-signal bucket received a separate review. Semantic records remain currentness-gated and privacy-safe; raw employee/applicant/case email content is not canonicalized in GitHub.
