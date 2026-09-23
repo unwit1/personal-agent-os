@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import getpass
 from pathlib import Path
 
 from .adapters import sync_adapters
@@ -43,7 +42,7 @@ from .orchestrator.cli import dispatch as dispatch_orchestrate
 from .orchestrator.cli import register as register_orchestrate
 from .mcp_server import serve
 from .maintenance import run as run_maintenance
-from .mail import health as mail_health, setup_icloud, status as mail_status, sync as mail_sync, search as mail_search
+from .mail import cli as mail_cli
 from .profile import compact_profile, profile_status
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .review import assess
@@ -209,18 +208,7 @@ def parser() -> argparse.ArgumentParser:
     launcher_install.add_argument("--repository-path")
     commands.add_parser("launcher-status")
     commands.add_parser("launcher-verify")
-    mail_cmd = commands.add_parser("mail")
-    mail_sub = mail_cmd.add_subparsers(dest="mail_command", required=True)
-    mail_setup = mail_sub.add_parser("setup")
-    mail_setup.add_argument("provider", choices=("icloud",))
-    mail_setup.add_argument("--email")
-    mail_sub.add_parser("status")
-    mail_sub.add_parser("health")
-    mail_sync_cmd = mail_sub.add_parser("sync")
-    mail_sync_cmd.add_argument("--limit", type=int, default=500)
-    mail_search_cmd = mail_sub.add_parser("search")
-    mail_search_cmd.add_argument("query")
-    mail_search_cmd.add_argument("--limit", type=int, default=10)
+    mail_cli.register(commands)
     maintenance = commands.add_parser("maintenance")
     maintenance.add_argument("--event", default="scheduled")
     maintenance.add_argument("--project")
@@ -428,18 +416,7 @@ def main(argv: list[str] | None = None) -> int:
             _print(result)
             return 0 if result["ok"] else 1
         elif args.command == "mail":
-            if args.mail_command == "setup":
-                address = args.email or input("iCloud email: ").strip()
-                password = getpass.getpass("Apple app-specific password: ")
-                _print(setup_icloud(address, password))
-            elif args.mail_command == "status":
-                _print(mail_status())
-            elif args.mail_command == "health":
-                _print(mail_health())
-            elif args.mail_command == "sync":
-                _print(mail_sync(args.limit))
-            elif args.mail_command == "search":
-                _print(mail_search(args.query, args.limit))
+            return mail_cli.dispatch(args, _print)
         elif args.command == "maintenance":
             _print(run_maintenance(args.event, args.project))
         elif args.command == "capture-candidates":

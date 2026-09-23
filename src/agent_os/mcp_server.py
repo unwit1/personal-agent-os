@@ -35,7 +35,7 @@ from .handoffs import create_handoff
 from .index import search
 from .orchestrator.service import MCP_TOOL_SCHEMAS as ORCHESTRATE_TOOL_SCHEMAS
 from .orchestrator.service import mcp_methods as orchestrate_methods
-from .mail import get_message as mail_get_message, search as mail_search, status as mail_status, sync as mail_sync
+from .mail import account_status as mail_account_status, get_message as mail_get_message, get_thread as mail_get_thread, list_accounts as mail_accounts, search as mail_search, status as mail_status, sync as mail_sync
 from .improvements import capture_improvement, get_improvement, issue_payload, list_improvements, search_improvements, update_improvement
 from .profile import compact_profile as profile_retrieve, profile_status
 from .registry import get_project, git_status, identify_project, load_state, projects
@@ -190,21 +190,42 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
             "required": ["project", "title", "category", "observation", "suggested_direction", "acceptance"],
         },
     },
-    "mail.search": {
-        "description": "Search the local read-only personal mail index and return compact relevant snippets.",
-        "inputSchema": {"type": "object", "properties": {"query": {"type": "string"}, "limit": {"type": "integer", "default": 10}}, "required": ["query"]},
-    },
-    "mail.get_message": {
-        "description": "Get one message already present in the local mail index. Full body is opt-in.",
-        "inputSchema": {"type": "object", "properties": {"uid": {"type": "string"}, "mailbox": {"type": "string", "default": "INBOX"}, "include_body": {"type": "boolean", "default": False}}, "required": ["uid"]},
-    },
-    "mail.sync_status": {
-        "description": "Return local iCloud Mail configuration/index status without exposing credentials.",
+    "mail.accounts": {
+        "description": "List configured mail accounts (iCloud, EarthLink, ...) with provider, read-only state and whether a credential is available. Never returns credentials.",
         "inputSchema": {"type": "object", "properties": {}},
     },
+    "mail.account_status": {
+        "description": "One mail account: last authentication result, mailboxes, last sync, counts, capability mode, sanitized errors.",
+        "inputSchema": {"type": "object", "properties": {"account_id": {"type": "string"}}, "required": ["account_id"]},
+    },
+    "mail.search": {
+        "description": "Search the local read-only mail index across accounts and archives. Returns compact results with stable ids (msg_...), thread ids and source attribution (account:mailbox). Filters are optional.",
+        "inputSchema": {"type": "object", "properties": {
+            "query": {"type": "string", "description": "words to match (all must appear); empty lists recent mail"},
+            "limit": {"type": "integer", "default": 10},
+            "accounts": {"type": "array", "items": {"type": "string"}}, "providers": {"type": "array", "items": {"type": "string"}},
+            "mailboxes": {"type": "array", "items": {"type": "string"}}, "source_kinds": {"type": "array", "items": {"type": "string"}, "description": "live_imap, pst_archive"},
+            "sender": {"type": "string"}, "recipient": {"type": "string"},
+            "after": {"type": "string", "description": "ISO date, inclusive"}, "before": {"type": "string", "description": "ISO date, exclusive"}},
+            "required": ["query"]},
+    },
+    "mail.get_message": {
+        "description": "Get one indexed message by stable id (msg_...), or by uid + mailbox (+ account_id). Full body is opt-in.",
+        "inputSchema": {"type": "object", "properties": {
+            "id": {"type": "string"}, "uid": {"type": "string"}, "mailbox": {"type": "string", "default": "INBOX"}, "account_id": {"type": "string"},
+            "include_body": {"type": "boolean", "default": False}, "include_sources": {"type": "boolean", "default": True}, "include_attachments": {"type": "boolean", "default": True}}},
+    },
+    "mail.get_thread": {
+        "description": "Get a conversation (References/In-Reply-To) by thread id (thr_...) or any message id in it. Bodies are opt-in.",
+        "inputSchema": {"type": "object", "properties": {"thread_id": {"type": "string"}, "message_id": {"type": "string"}, "include_body": {"type": "boolean", "default": False}, "limit": {"type": "integer", "default": 50}}},
+    },
+    "mail.sync_status": {
+        "description": "Mail sync status for every account (or one account_id): configured, credential available, authentication, last sync, caught up, capability mode. Never exposes credentials.",
+        "inputSchema": {"type": "object", "properties": {"account_id": {"type": "string"}}},
+    },
     "mail.sync": {
-        "description": "Incrementally synchronize recent iCloud messages into the local read-only index.",
-        "inputSchema": {"type": "object", "properties": {"limit": {"type": "integer", "default": 500}}},
+        "description": "Incrementally synchronize mail into the local read-only index: one account_id, or all enabled accounts. New messages up to limit per mailbox; backfill pulls that many older ones.",
+        "inputSchema": {"type": "object", "properties": {"account_id": {"type": "string"}, "mailbox": {"type": "string"}, "limit": {"type": "integer", "default": 200}, "backfill": {"type": "integer", "default": 0}}},
     },
     "document.cache_status": {
         "description": "Report local document-cache size and age as counts only. The cache is workstation-local and its contents are never returned.",
@@ -301,8 +322,11 @@ def methods() -> dict[str, Callable[..., Any]]:
         "improvement.update": update_improvement,
         "improvement.search": search_improvements,
         "improvement.issue_payload": issue_payload,
+        "mail.accounts": mail_accounts,
+        "mail.account_status": mail_account_status,
         "mail.search": mail_search,
         "mail.get_message": mail_get_message,
+        "mail.get_thread": mail_get_thread,
         "mail.sync_status": mail_status,
         "mail.sync": mail_sync,
         "document.cache_status": cache_status_safe,

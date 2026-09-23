@@ -303,6 +303,13 @@ imports remain unwired. The local change-record reader now
 uses a separate project-scoped ledger for `CR-*.json` scans, preserving its
 existing lifecycle and safe-projection behavior while making reads incremental
 and restart-safe.
+Mail (2026-09-23, branch `mail-multi-account`, `docs/integrations/mail.md`):
+the iCloud adapter is generalized into read-only multi-account IMAP (iCloud +
+EarthLink) with identity `provider/account/mailbox/UIDVALIDITY/UID`,
+UIDVALIDITY rollover handling, a metadata-only overlap check instead of
+trusting UIDNEXT, CONDSTORE flag updates when advertised, batched ledger
+saves, logical-message/observation provenance shared with a PST archive
+seam, threads, FTS5 search and a schema v1 migration.
 The context compiler's project handoff reader now uses a separate
 metadata-only ledger for newest-first canonical handoff scans, preserving
 latest-handoff retrieval while recording interrupted scans and completed files.

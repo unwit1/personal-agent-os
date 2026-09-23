@@ -1,5 +1,9 @@
 # iCloud Mail Connector Architecture
 
+> **Superseded 2026-09-23** by `docs/integrations/mail.md` (multi-account
+> iCloud + EarthLink, read-only). This document is kept as the original design
+> record.
+
 Status: planned / implementation-ready
 Privacy class: personal communications; local-first
 Provider: Apple iCloud Mail via IMAP/SMTP
