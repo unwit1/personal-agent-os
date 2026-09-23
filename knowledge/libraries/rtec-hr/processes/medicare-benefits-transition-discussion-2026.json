@@ -1,0 +1,76 @@
+{
+  "id": "rtec-process-medicare-benefits-transition-discussion-2026",
+  "record_type": "process",
+  "title": "Potential Medicare transition / benefits-cost discussion - April 2026 draft",
+  "status": "candidate",
+  "temporal_status": "historical",
+  "effective_from": null,
+  "effective_to": null,
+  "summary": "Draft HR planning notes for discussing Medicare options with employees in connection with a June 1, 2026 increase in RTEC health-plan costs. Because the source contains unfinished questions and missing information, it is evidence of a contemplated workflow, not an approved process.",
+  "claims": [
+    {
+      "claim": "In April 2026, HR was preparing information about Medicare options in anticipation of a June 1 increase in RTEC health-plan costs.",
+      "claim_kind": "observed_fact",
+      "confidence": 0.95,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-medicare-options-draft-2026-04","page_or_section":"Medicare introduction","evidence_type":"explicit_text","note":"Draft source."}]
+    },
+    {
+      "claim": "The draft contemplated explaining Part B and Part D income-related premiums and comparing Medigap and Medicare Advantage characteristics.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-medicare-options-draft-2026-04","page_or_section":"pages 1-3","evidence_type":"explicit_text","note":"Draft source."}]
+    },
+    {
+      "claim": "The document may represent an HR counseling/communication workflow for Medicare-eligible employees, but the final eligibility, employer-plan interaction, communication language and approval process are not established by this draft.",
+      "claim_kind": "interpretation",
+      "confidence": 0.7,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-medicare-options-draft-2026-04","page_or_section":"complete document","evidence_type":"structural","note":"Contains explicit drafting questions and unfinished text."}]
+    }
+  ],
+  "trigger": "Potential health-plan premium increase and identification of employees who may have Medicare options.",
+  "prerequisites": ["Final RTEC plan rates", "Accurate Medicare premium/coverage information", "Eligibility and benefits-compliance review"],
+  "actors": ["HR Manager", "Potentially Medicare-eligible employee"],
+  "systems": [],
+  "forms": [],
+  "steps": [],
+  "decisions": [],
+  "deadlines": ["Draft references June 1, 2026 plan increase."],
+  "outputs": ["Potential employee-facing Medicare comparison/communication"],
+  "exceptions": [],
+  "controls": ["Do not operationalize the draft without validating Medicare figures, legal/compliance implications and current RTEC benefit-plan rules."],
+  "unresolved_questions": [
+    "Was a final version of this communication ever issued?",
+    "Which employees were intended to receive it and under what eligibility criteria?",
+    "What final June 2026 RTEC health-plan rates were approved?",
+    "Were the Medicare premium tables independently validated before employee use?",
+    "How does RTEC handle employer coverage, Medicare eligibility and coordination of benefits in current practice?"
+  ],
+  "automation_candidates": [
+    "Maintain a versioned benefits communication template sourced from approved plan-year figures.",
+    "Separate authoritative annual premium data from editable employee-communication language."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [{
+    "source_id":"rtec-hr-medicare-options-draft-2026-04",
+    "safe_source_type":"benefits_planning_draft",
+    "source_date_or_version":"created 2026-04-16; modified 2026-04-23",
+    "source_created_date":"2026-04-16",
+    "source_revision_date":"2026-04-23",
+    "source_effective_from":null,
+    "source_effective_to":null,
+    "temporal_status":"historical",
+    "content_sha256":"701b5bbc1c611feaaa6168e8472e8a6a767ed5eae55b3d5336f36b250257573b",
+    "page_or_section":"complete three-page draft",
+    "full_source_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-medicare-options-draft-2026-04/fulltext.md",
+    "searchable_text_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-medicare-options-draft-2026-04/fulltext.md",
+    "ingested_at":"2026-09-23",
+    "notes":"Candidate only; source visibly contains unfinished drafting notes."
+  }]
+}
