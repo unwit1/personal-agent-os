@@ -12,27 +12,41 @@ import json
 from typing import Any
 
 from .adapters.base import RESULT_FENCE
+from .usage import estimate_tokens
 
 
-def _context_packet(project: str | None, task: str, budget: int) -> str:
+def _context_packet(project: str | None, task: str, budget: int) -> tuple[str, dict[str, Any] | None]:
+    """The compact project context for a worker, plus how it was selected:
+    how much registered project context existed (the candidate) and how much
+    was actually put in the prompt."""
     if not project:
-        return ""
+        return "", None
     try:
         from ..compiler import compile_context
 
         packet = compile_context(project, task, token_budget=budget, include_handoff=False)
     except Exception:
-        return ""
+        return "", None
     state = packet.get("state") or {}
     lines = []
     if packet.get("summary"):
         lines.append(f"Project summary: {packet['summary']}")
+    items = 0
     for key in ("constraints", "validation_commands"):
         values = state.get(key) or []
         if values:
+            items += 1
             lines.append(f"{key.replace('_', ' ').capitalize()}:")
             lines.extend(f"- {item}" for item in values[:8])
-    return "\n".join(lines)[: budget * 4]
+    text = "\n".join(lines)[: budget * 4]
+    measurement = packet.get("context_measurement") or {}
+    return text, {
+        "method": "candidate = every registered context file and skill for the project; selected = the compact slice placed in the prompt",
+        "candidate_items": measurement.get("naive_all_registered_context_items"),
+        "candidate_tokens_estimate": measurement.get("naive_all_registered_context_tokens"),
+        "selected_items": items + (1 if packet.get("summary") else 0),
+        "selected_tokens_estimate": estimate_tokens(text),
+    }
 
 
 def _contract(role: str) -> str:
@@ -84,7 +98,7 @@ def _contract(role: str) -> str:
         }
     else:
         example = {
-            "status": "done | needs_decision",
+            "status": "done | already_done | needs_decision",
             "summary": "one line",
             "outputs": ["files you created or changed"],
             "question": "only when status is needs_decision",
@@ -112,10 +126,28 @@ def _sibling_lines(run: dict[str, Any], node: dict[str, Any]) -> list[str]:
 
 
 def build(run: dict[str, Any], node: dict[str, Any], *, diff: str | None = None, findings: list[dict[str, Any]] | None = None) -> str:
+    return build_measured(run, node, diff=diff, findings=findings)[0]
+
+
+def build_measured(
+    run: dict[str, Any], node: dict[str, Any], *, diff: str | None = None, findings: list[dict[str, Any]] | None = None,
+    repo_map: str | None = None,
+    cwd: str | None = None,
+) -> tuple[str, dict[str, Any] | None]:
+    """The prompt and the context-selection measurement behind it."""
     role = node["role"]
     lines = [
         f"You are the {role.replace('_', ' ')} for Agent OS orchestrated run `{run['run_id']}`.",
         "",
+        *(
+            [
+                f"Your working directory is {cwd}. It is a complete checkout of the code you work on:",
+                "use paths relative to it. Never read or edit the repository it is nested inside.",
+                "",
+            ]
+            if cwd
+            else []
+        ),
         f"Overall goal: {run['goal']}",
         f"Your assignment ({node['id']}): {node['goal']}",
         "",
@@ -131,6 +163,7 @@ def build(run: dict[str, Any], node: dict[str, Any], *, diff: str | None = None,
             "- Everything you need is in this prompt and the worktree. Do not consult Agent OS, memory, or other context",
             "  tools. Read only the files you need, make the change, run your validator once, and finish.",
             "- If a decision would materially change the requested outcome, stop and report status needs_decision with a question.",
+            "- If the assignment is already fully done in this worktree, change nothing and report status already_done, citing the evidence in summary.",
         ]
         validators = [item for item in node.get("validators") or [] if item.get("kind") == "command"]
         if validators:
@@ -166,8 +199,21 @@ def build(run: dict[str, Any], node: dict[str, Any], *, diff: str | None = None,
         lines.append("")
     if role == "planner":
         limit = int((run.get("policy") or {}).get("max_planned_tasks", 16))
+        if repo_map:
+            budget = int((run.get("policy") or {}).get("planner_read_budget", 8))
+            lines += [
+                "Do not edit files. Start from the repository map below; it was built for this goal. Open only the files",
+                f"you need to name each task's scope and test, usually no more than {budget}. Prefer Grep for a symbol over",
+                "reading a whole file. Text quoted in the goal (roadmap, handoff) is authoritative: do not re-read it.",
+                "Stop exploring as soon as every task names concrete files and a test command.",
+                "",
+                repo_map,
+                "",
+                "Then break the goal into the",
+            ]
+        else:
+            lines.append("Do not edit files. Read enough of the repository to plan concretely, then break the goal into the")
         lines += [
-            "Do not edit files. Read enough of the repository to plan concretely, then break the goal into the",
             "smallest batches that can each be verified on their own. Cheap models run many small tasks in parallel;",
             "a stronger model reviews each one. Rules:",
             f"- At most {limit} tasks. Prefer several small tasks over a few large ones.",
@@ -189,8 +235,8 @@ def build(run: dict[str, Any], node: dict[str, Any], *, diff: str | None = None,
             "  `summary` instead.",
             "",
         ]
-    context = _context_packet(run.get("project"), node["goal"], int(node.get("context_budget", 1200)))
+    context, measurement = _context_packet(run.get("project"), node["goal"], int(node.get("context_budget", 1200)))
     if context:
         lines += ["Project context:", context, ""]
     lines.append(_contract(role))
-    return "\n".join(lines)
+    return "\n".join(lines), measurement

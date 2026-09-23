@@ -32,8 +32,10 @@ from ..capabilities import next_class
 from ..telemetry import LocalTelemetryStore, TelemetryEvent, TelemetryPrivacyError
 from ..timestamps import utc_now_iso as now
 from . import planner, prompts
+from . import usage as usage_lib
 from .adapters import AgentLaunchRequest, AgentResult, RunningAgent, get_adapter
 from .adapters.base import kill_tree
+from .ledger import Ledger
 from .model import (
     ACTIVE_NODE_STATES,
     DISPATCHABLE_NODE_STATES,
@@ -89,6 +91,7 @@ class Orchestrator:
         self._adapters: dict[str, Any] = {}
         self._availability: dict[str, bool] | None = None
         self._lock = threading.RLock()
+        self.ledger = Ledger(self.store.run_dir)
 
     # ------------------------------------------------------------------
     # Providers
@@ -165,6 +168,7 @@ class Orchestrator:
         policy: dict[str, Any] | None = None,
         overrides: dict[str, Any] | None = None,
         run_id: str | None = None,
+        origin: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         goal = str(goal or "").strip()
         if not goal:
@@ -211,12 +215,14 @@ class Orchestrator:
             "nodes": nodes,
             "order": list(nodes),
             "gates": [],
+            "origin": dict(origin or {"kind": "task"}),
             "worktree_layout": "short",
             "launches": 0,
             "launch_budget": run_policy["max_launches"],
             "integration": {"branch": None, "path": None, "head": None, "merged": []},
             "final": {"validation": None, "repairs": 0, "landed": None, "summary": None},
-            "usage": {"input_tokens": 0, "cached_tokens": 0, "output_tokens": 0, "workers": 0},
+            "usage": usage_lib.empty_totals(),
+            "validation_cache": {},
             "created_at": now(),
             "updated_at": now(),
         }
@@ -246,6 +252,10 @@ class Orchestrator:
                 identified = identify_project(repo)
             except Exception:
                 identified = None
+            # A separate repository nested inside a project folder (a fixture,
+            # a vendored checkout) is not that project.
+            if identified and identified.get("path") and Path(identified["path"]).resolve() != Path(repo).resolve():
+                identified = None
             project_id = identified["id"] if identified else None
         return project_id, repo
 
@@ -261,11 +271,14 @@ class Orchestrator:
             record = self.store.load(run_id)
             if auto_continue is not None:
                 record["policy"]["auto_continue"] = bool(auto_continue)
+            first_start = not record["control"]["started"]
             record["control"]["started"] = True
             record["control"]["paused"] = False
             self._derive_state(record)
             self.store.save(record)
             self.store.append_event(run_id, "run.started", detail=f"auto_continue={record['policy']['auto_continue']}")
+            if first_start:
+                self.ledger.emit(run_id, "run_started", mode="orchestrated run", project=record.get("project"), planning=record["preflight"].get("planning"), auto_continue=record["policy"]["auto_continue"], nodes=len(record["nodes"]))
             return self.summary(record)
 
     def set_auto_continue(self, run_id: str, enabled: bool) -> dict[str, Any]:
@@ -283,6 +296,7 @@ class Orchestrator:
             self._derive_state(record)
             self.store.save(record)
             self.store.append_event(run_id, "run.paused", detail="no new work will be dispatched")
+            self.ledger.emit(run_id, "run_paused", reason="paused by user")
             return self.summary(record)
 
     def resume(self, run_id: str, auto_continue: bool | None = None) -> dict[str, Any]:
@@ -296,6 +310,7 @@ class Orchestrator:
             self._derive_state(record)
             self.store.save(record)
             self.store.append_event(run_id, "run.resumed")
+            self.ledger.emit(run_id, "run_resumed")
             return self.summary(record)
 
     def stop(self, run_id: str) -> dict[str, Any]:
@@ -308,6 +323,7 @@ class Orchestrator:
             self._derive_state(record)
             self.store.save(record)
             self.store.append_event(run_id, "run.stopped", detail=f"cancelled {cancelled['count']} worker(s)")
+            self.ledger.emit(run_id, "run_paused", reason="stopped by user", workers_cancelled=cancelled["count"])
             return self.summary(record)
 
     def decide(self, run_id: str, gate_id: str, approve: bool, note: str | None = None) -> dict[str, Any]:
@@ -325,6 +341,10 @@ class Orchestrator:
             self._derive_state(record)
             self.store.save(record)
             self.store.append_event(run_id, f"gate.{gate['status']}", gate.get("node"), f"{gate['kind']}: {gate['reason']}")
+            from .simple import GATE_CARDS
+
+            title = GATE_CARDS.get(gate["kind"], {}).get("title", gate["kind"].replace("_", " "))
+            self.ledger.emit(run_id, "note", gate.get("node"), text=f"You {'approved' if approve else 'declined'}: {title.lower()}", gate=gate_id, approved=approve, kind=gate["kind"])
             return self.summary(record)
 
     def retry(self, run_id: str, node_id: str) -> dict[str, Any]:
@@ -568,20 +588,52 @@ class Orchestrator:
     def _finish_worker(self, record: dict[str, Any], node: dict[str, Any], result: AgentResult) -> None:
         payload = result.as_dict()
         structured = payload.pop("structured", None)
+        model_call = node["execution_path"] == "model"
+        call_usage = usage_lib.coerce(result.usage, (node.get("selection") or {}).get("provider") or "unknown") if model_call else usage_lib.unavailable("local")
         node["result"] = {
             "outcome": payload["outcome"],
             "failure_kind": payload["failure_kind"],
             "summary": payload["summary"],
             "self_reported_status": str((structured or {}).get("status") or "")[:40] or None,
-            "usage": payload["usage"],
+            "usage": call_usage,
             "duration_ms": payload["duration_ms"],
             "at": now(),
         }
         usage = record["usage"]
         usage["workers"] += 1
-        for key in ("input_tokens", "cached_tokens", "output_tokens"):
-            usage[key] += int((result.usage or {}).get(key) or 0)
+        if model_call:
+            usage_lib.add(usage, call_usage)
         self.store.append_event(record["run_id"], "worker.finished", node["id"], f"{result.outcome} {result.failure_kind or ''} {result.summary[:160]}")
+        selection = node.get("selection") or {}
+        if model_call:
+            self.ledger.emit(
+                record["run_id"],
+                "model_completed" if result.outcome == "completed" else "model_failed",
+                node["id"],
+                role=node["role"],
+                provider=selection.get("provider"),
+                model=selection.get("model"),
+                capability_class=selection.get("capability_class"),
+                effort=selection.get("provider_effort"),
+                attempt=node["attempts"],
+                failure_kind=result.failure_kind,
+                duration_ms=result.duration_ms,
+                usage=call_usage,
+                prompt_chars=node.get("prompt_chars"),
+                prompt_tokens_estimate=usage_lib.estimate_tokens(node["prompt_chars"]) if node.get("prompt_chars") is not None else None,
+            )
+        else:
+            self.ledger.emit(record["run_id"], "local_execution", node["id"], what=f"deterministic step {node['id']}", passed=result.outcome == "completed")
+            self.ledger.emit(
+                record["run_id"],
+                "work_avoided",
+                node["id"],
+                category="deterministic",
+                model_calls_avoided=1,
+                reason="a planned deterministic command did this step instead of a model worker",
+                tokens_avoided_estimate=self._measured_average(record, "implementer"),
+                estimate_basis="average exact input+output tokens of implementer calls in this run" if self._measured_average(record, "implementer") else None,
+            )
         if result.outcome != "completed":
             self._record_telemetry(record, node, result, validator_passed=None)
             self._fail(record, node, result.failure_kind or "process_error", result.detail or "worker failed")
@@ -635,19 +687,35 @@ class Orchestrator:
         manager = self._manager(record)
         changed = manager.changed_files(worktree["path"], worktree["base_commit"])
         validators = node["validators"] or record["policy"]["default_validators"]
-        validation = run_all(
-            validators,
-            worktree["path"],
-            changed=changed,
-            scope=node["scope"],
-            timeout=int(record["policy"]["worker_timeout_seconds"]),
-        )
+        validation = self._validate(record, node, validators, worktree["path"], changed=changed, scope=node["scope"])
         validation["changed_files"] = changed[:50]
-        validation["at"] = now()
         node["validation"] = validation
         self.store.append_event(record["run_id"], "validation." + ("passed" if validation["passed"] else "failed"), node["id"], _evidence_line(validation))
         if not validation["passed"]:
             self._validation_failed(record, node, validation)
+            return
+        if not changed and node["role"] in INTEGRATED_ROLES and node["review"]["rounds"] == 0:
+            if str((structured or {}).get("status")) != "already_done":
+                # "Done" with no change is a failed attempt, not a success:
+                # passing tests only prove nothing broke.
+                self.ledger.emit(record["run_id"], "loop_guard", node["id"], guard="no_change_reported_done", reason="the worker reported done but changed no files")
+                self._validation_failed(record, node, {"evidence": [{"name": "produced-changes", "kind": "check", "passed": False, "detail": "reported done but changed no files; if the work already exists, report status already_done"}]}, reason="it reported done but changed no files")
+                return
+            # The worker says the work already exists: nothing to review or
+            # integrate, and a reviewer call would read an empty diff.
+            node["state"] = "PASSED"
+            node["completed_at"] = now()
+            node["review_required"] = False
+            self.ledger.emit(
+                record["run_id"],
+                "work_avoided",
+                node["id"],
+                category="no_change",
+                model_calls_avoided=1 if self._review_required(record, {**node, "review_required": None}) else 0,
+                reason="the work already existed (worker reported already_done), so no review was requested",
+                tokens_avoided_estimate=self._measured_average(record, "reviewer"),
+                estimate_basis="average exact input+output tokens of reviewer calls in this run" if self._measured_average(record, "reviewer") else None,
+            )
             return
         if node["role"] == "repairer":
             subject = record["nodes"][node["subject"]]
@@ -667,11 +735,76 @@ class Orchestrator:
         node["state"] = "PASSED"
         node["completed_at"] = now()
 
-    def _validation_failed(self, record: dict[str, Any], node: dict[str, Any], validation: dict[str, Any]) -> None:
+    def _validate(
+        self,
+        record: dict[str, Any],
+        node: dict[str, Any] | None,
+        validators: list[dict[str, Any]],
+        cwd: str | Path,
+        *,
+        changed: list[str] | None = None,
+        scope: list[str] | None = None,
+    ) -> dict[str, Any]:
+        """Run validators, reusing an earlier result for identical code.
+
+        Validator results are cached per run by (Git tree, validator list).
+        The same tree with the same commands cannot give a different answer
+        unless the tests are flaky, so re-running them only costs time; set
+        policy ``reuse_validation`` to false for flaky suites. The editable
+        scope check is always recomputed.
+        """
+        run_id = record["run_id"]
+        node_id = node["id"] if node else None
+        tree = _tree_hash(cwd)
+        key = _validation_key(tree, validators) if tree and record["policy"].get("reuse_validation", True) else None
+        cache = record.setdefault("validation_cache", {})
+        cached = cache.get(key) if key else None
+        if cached is not None:
+            scoped = run_all([], cwd, changed=changed, scope=scope) if changed is not None else {"evidence": []}
+            evidence = [*scoped["evidence"], *cached["evidence"]]
+            validation = {
+                "passed": all(item["passed"] for item in evidence),
+                "declared_validators": cached["declared_validators"],
+                "evidence": evidence,
+                "reused": {"tree": tree[:12], "from": cached["at"]},
+                "at": now(),
+            }
+            self.ledger.emit(run_id, "cache_hit", node_id, what="test results for identical code", tree=tree[:12])
+            self.ledger.emit(run_id, "tests_completed", node_id, reused=True, passed=validation["passed"], **_test_totals(cached["evidence"]))
+            self.ledger.emit(run_id, "work_avoided", node_id, category="validation_cache", model_calls_avoided=0, reason="identical code was already tested in this run", seconds_avoided=cached.get("duration_s"), tokens_avoided_estimate=None)
+            if not cached["passed"]:
+                self.ledger.emit(run_id, "loop_guard", node_id, guard="unchanged_code_retest", reason="no new code since the last failed test run; tests were not run again")
+            return validation
+        self.ledger.emit(run_id, "tests_started", node_id, validators=len(validators))
+        started = time.monotonic()
+        validation = run_all(validators, cwd, changed=changed, scope=scope, timeout=int(record["policy"]["worker_timeout_seconds"]))
+        duration = round(time.monotonic() - started, 2)
+        validation["at"] = now()
+        commands = [item for item in validation["evidence"] if item["kind"] != "scope"]
+        if key:
+            cache[key] = {"evidence": commands, "declared_validators": validation["declared_validators"], "passed": all(item["passed"] for item in commands), "at": validation["at"], "duration_s": duration}
+            for stale in list(cache)[:-50]:
+                del cache[stale]
+        self.ledger.emit(run_id, "tests_completed", node_id, passed=validation["passed"], duration_s=duration, **_test_totals(commands))
+        return validation
+
+    def _measured_average(self, record: dict[str, Any], role: str) -> int | None:
+        """Average exact provider tokens (input + output) of this run's
+        completed calls for ``role``; the only basis used for "tokens avoided"
+        estimates. ``None`` when nothing was measured."""
+        totals = []
+        for node in record["nodes"].values():
+            usage = (node.get("result") or {}).get("usage") or {}
+            if node["role"] == role and usage.get("accuracy") == "exact" and usage.get("source") != "synthetic" and usage.get("input_tokens") is not None:
+                totals.append(int(usage["input_tokens"]) + int(usage.get("output_tokens") or 0))
+        return int(sum(totals) / len(totals)) if totals else None
+
+    def _validation_failed(self, record: dict[str, Any], node: dict[str, Any], validation: dict[str, Any], reason: str = "its tests failed") -> None:
         detail = _evidence_line(validation)
         _push_failure(node, "validator_failed", (node.get("selection") or {}).get("provider"), detail)
         policy = record["policy"]
         if node["execution_path"] == "model" and node["escalations"] < policy["max_escalations"]:
+            before = f"{node['capability_class']}/{node['effort']}"
             rung = _next_rung(node)
             if rung:
                 node["capability_class"] = rung["capability_class"]
@@ -682,6 +815,7 @@ class Orchestrator:
                 label = f"{rung['capability_class']}/{rung['effort']}"
                 node["wait_reason"] = f"validator failed; escalated to {label}"
                 self.store.append_event(record["run_id"], "node.escalated", node["id"], f"-> {label}: {detail}")
+                self.ledger.emit(record["run_id"], "model_escalated", node["id"], **{"from": before, "to": label, "reason": reason, "evidence": detail, "escalation": node["escalations"]})
                 return
         node["retries"] += 1
         if node["retries"] <= policy["max_stage_retries"] and node["execution_path"] == "deterministic":
@@ -695,6 +829,7 @@ class Orchestrator:
             subject["state"] = "FAILED_FINAL"
             subject["wait_reason"] = f"repair {node['id']} could not pass validation"
         self.store.append_event(record["run_id"], "node.failed", node["id"], node["wait_reason"])
+        self.ledger.emit(record["run_id"], "loop_guard", node["id"], guard="escalation_limit", reason=f"stopped after {node['escalations']} escalation(s); tests still fail")
 
     def _finish_review(self, record: dict[str, Any], reviewer: dict[str, Any], structured: dict[str, Any] | None) -> None:
         subject = record["nodes"][reviewer["subject"]]
@@ -724,6 +859,11 @@ class Orchestrator:
         this_round = [item for item in subject["review"]["findings"] if item["round"] == round_number]
         blocking = material(this_round, record["policy"]["material_severities"])
         self.store.append_event(record["run_id"], "review.completed", subject["id"], f"{parsed['verdict']}; {len(blocking)} material finding(s)")
+        self.ledger.emit(
+            record["run_id"], "review_completed", reviewer["id"], subject=subject["id"], provider=provider,
+            verdict=parsed["verdict"], findings=len(parsed["findings"]), material_findings=len(blocking),
+            independent_provider=bool(author and provider != author), round=round_number,
+        )
         if not blocking and parsed["verdict"] != "blocked":
             subject["state"] = "PASSED"
             subject["completed_at"] = now()
@@ -732,6 +872,7 @@ class Orchestrator:
             subject["state"] = "NEEDS_REPAIR"
             self._create_repair(record, subject, blocking)
             return
+        self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="review_rounds", reason=f"stopped the review/fix cycle after {subject['review']['rounds']} round(s); asking you instead")
         subject["state"] = "APPROVAL_REQUIRED"
         self._open_gate(
             record,
@@ -810,14 +951,17 @@ class Orchestrator:
                 if provider not in node["excluded_providers"]:
                     node["excluded_providers"].append(provider)
                     self.store.append_event(record["run_id"], "provider.failover", node["id"], f"{provider} excluded for this node after {kind}")
+                    self.ledger.emit(record["run_id"], "fallback", node["id"], from_provider=provider, reason=kind)
         node["retries"] += 1
         if node["retries"] > policy["max_stage_retries"]:
             node["state"] = "FAILED_FINAL"
             node["wait_reason"] = f"{kind} after {node['retries'] - 1} retr(ies): {redact(detail, 200)}"
+            self.ledger.emit(record["run_id"], "loop_guard", node["id"], guard="retry_limit", reason=f"stopped retrying after {node['retries'] - 1} retr(ies) ({kind})")
             return
         node["state"] = "FAILED_RETRYABLE"
         node["selection"] = None
         node["wait_reason"] = f"{kind}; retry {node['retries']}/{policy['max_stage_retries']} will re-route"
+        self.ledger.emit(record["run_id"], "retry", node["id"], reason=kind, retry=node["retries"], limit=policy["max_stage_retries"])
 
     def _checkpoint(self, record: dict[str, Any], node: dict[str, Any], label: str) -> None:
         worktree = node["worktree"]
@@ -825,6 +969,7 @@ class Orchestrator:
             return
         commit = self._manager(record).checkpoint(worktree["path"], f"agent-os {record['run_id']}/{node['id']}: {label}")
         node["checkpoint"] = {"commit": commit or head_commit(worktree["path"]), "label": label, "at": now()}
+        self.ledger.emit(record["run_id"], "checkpoint_created", node["id"], commit=node["checkpoint"]["commit"][:12], new_commit=bool(commit), label=label)
         if node["role"] == "repairer" and node.get("subject") in record["nodes"]:
             record["nodes"][node["subject"]]["checkpoint"] = node["checkpoint"]
 
@@ -946,10 +1091,42 @@ class Orchestrator:
         if node["role"] == "repairer" and subject:
             wanted = set(node.get("finding_ids") or [])
             findings = [item for item in subject["review"]["findings"] if item["id"] in wanted]
-        prompt = prompts.build(record, node, diff=diff, findings=findings)
+        repo_map = None
+        if node["role"] == "planner" and policy.get("planner_repo_map"):
+            from .repomap import build as build_map
+
+            try:
+                mapped = build_map(cwd, record["goal"])
+                repo_map = mapped["text"]
+                self.ledger.emit(
+                    record["run_id"], "context_selected", node["id"], method="local repository map for the planner (no model call)",
+                    candidate_items=mapped["stats"]["tracked_files"], selected_items=mapped["stats"]["listed"],
+                    selected_tokens_estimate=usage_lib.estimate_tokens(mapped["stats"]["chars"]),
+                )
+            except Exception as exc:  # the planner still works without a map
+                self.ledger.emit(record["run_id"], "note", node["id"], text=f"repository map unavailable: {type(exc).__name__}")
+        prompt, context = prompts.build_measured(record, node, diff=diff, findings=findings, repo_map=repo_map, cwd=str(cwd))
         prompt += _prior_attempts(node)
         prompt_path = worker_dir / "prompt.md"
         prompt_path.write_text(prompt, encoding="utf-8")
+        node["prompt_chars"] = len(prompt)
+        run_id = record["run_id"]
+        self.ledger.emit(
+            run_id, "routing_decision", node["id"], role=node["role"], tier=_tier(selection["capability_class"]),
+            capability_class=selection["capability_class"], requested=f"{node['requested_capability_class']}/{node['requested_effort']}",
+            provider=selection["provider"], model=selection["model"], effort=selection["provider_effort"],
+            escalations=node["escalations"], attempt=attempt, overridden=bool(selection.get("overridden")),
+            reason=_routing_reason(node, selection),
+        )
+        self.ledger.emit(run_id, "model_selected", node["id"], role=node["role"], provider=selection["provider"], model=selection["model"], effort=selection["provider_effort"], capability_class=selection["capability_class"])
+        if context:
+            candidate = context.get("candidate_tokens_estimate") or 0
+            chosen = context.get("selected_tokens_estimate") or 0
+            self.ledger.emit(
+                run_id, "context_selected", node["id"], **context,
+                reduction_pct=round(100.0 * (candidate - chosen) / candidate, 1) if candidate else None,
+                prompt_chars=len(prompt), diff_chars=len(diff or ""),
+            )
         provider = self.registry().get(selection["provider"]) or {}
         request = AgentLaunchRequest(
             run_id=record["run_id"],
@@ -987,6 +1164,7 @@ class Orchestrator:
             node["id"],
             f"{node['role']} via {selection['provider']} model={selection['model']} effort={selection['provider_effort']} ({selection['reason']})",
         )
+        self.ledger.emit(record["run_id"], "review_started" if node["role"] == "reviewer" else "model_started", node["id"], role=node["role"], provider=selection["provider"], model=selection["model"], subject=node.get("subject"))
         return True
 
     def _run_deterministic(self, record: dict[str, Any], node: dict[str, Any]) -> bool:
@@ -1034,6 +1212,7 @@ class Orchestrator:
                 record["integration"]["merged"].append(node_id)
                 self._release_claim(record, node, "integrated")
                 self.store.append_event(record["run_id"], "integration.merged", node_id, outcome["commit"][:12])
+                self.ledger.emit(record["run_id"], "commit_created", node_id, commit=outcome["commit"][:12], branch=record["integration"]["branch"])
                 if record["policy"]["cleanup_worktrees"]:
                     cleanup = manager.remove(node["worktree"]["path"], node["worktree"]["branch"])
                     node["worktree"]["removed"] = cleanup["removed"]
@@ -1099,8 +1278,7 @@ class Orchestrator:
             return
         integration = self._ensure_integration(record)
         validators = record["policy"]["completion_validators"] or record["policy"]["default_validators"]
-        validation = run_all(validators, integration["path"], timeout=int(record["policy"]["worker_timeout_seconds"]))
-        validation["at"] = now()
+        validation = self._validate(record, None, validators, integration["path"])
         validation["commit"] = integration["head"]
         record["final"]["validation"] = validation
         self.store.append_event(record["run_id"], "completion." + ("passed" if validation["passed"] else "failed"), None, _evidence_line(validation))
@@ -1152,6 +1330,7 @@ class Orchestrator:
         if record["policy"]["cleanup_worktrees"] and integration["path"]:
             self._manager(record).remove(integration["path"], None)
         self.store.append_event(record["run_id"], "run.complete", None, record["final"]["summary"]["how_to_land"])
+        self.ledger.emit(record["run_id"], "run_completed", integrated=len(merged), branch=integration["branch"])
 
     def _land(self, record: dict[str, Any]) -> None:
         """Fast-forward the base branch to the validated integration branch."""
@@ -1195,6 +1374,11 @@ class Orchestrator:
         }
         record["gates"].append(gate)
         self.store.append_event(record["run_id"], "gate.opened", node_id, f"{gate['id']} {kind}: {gate['reason']}")
+        from .simple import GATE_CARDS
+
+        self.ledger.emit(record["run_id"], "approval_required", node_id, gate=gate["id"], kind=kind, title=GATE_CARDS.get(kind, {}).get("title", "a decision").lower())
+        if kind == "budget_exhausted":
+            self.ledger.emit(record["run_id"], "loop_guard", node_id, guard="launch_budget", reason=gate["reason"])
         return gate
 
     def _open_gates(self, record: dict[str, Any]) -> list[dict[str, Any]]:
@@ -1421,6 +1605,8 @@ class Orchestrator:
                 state, reason = "READY", None
         if state != record["state"]:
             self.store.append_event(record["run_id"], "run.state", None, f"{record['state']} -> {state}")
+            if state in {"BLOCKED", "FAILED"}:
+                self.ledger.emit(record["run_id"], "run_failed", reason=redact(reason or state, 300))
         record["state"] = state
         record["state_reason"] = reason
 
@@ -1436,6 +1622,7 @@ class Orchestrator:
             "run_id": record["run_id"],
             "goal": record["goal"],
             "project": record.get("project"),
+            "origin": record.get("origin") or {"kind": "task"},
             "repository": record["repository"],
             "base_ref": record["base_ref"],
             "base_commit": record["base_commit"],
@@ -1455,10 +1642,37 @@ class Orchestrator:
             "final": record["final"],
             "gates": record["gates"],
             "nodes": [_node_view(nodes[node_id]) for node_id in record["order"]],
+            "telemetry_warning": self.ledger.warning(record["run_id"]),
         }
 
     def status(self, run_id: str) -> dict[str, Any]:
         return self.summary(self.store.load(run_id))
+
+    def efficiency(self, run_id: str) -> dict[str, Any]:
+        """Efficiency summary from the run's telemetry file, reconciled with
+        the run record's own usage totals."""
+        from .ledger import summarize
+
+        events, malformed = self.ledger.read(run_id)
+        report = summarize(events, malformed)
+        try:
+            record = self.store.load(run_id)
+        except (KeyError, ValueError):
+            record = None
+        if record is not None:
+            recorded = record.get("usage") or {}
+            exact = report["tokens"]["exact"]
+            report["reconciliation"] = {
+                "run_record_exact_input_tokens": recorded.get("input_tokens"),
+                "telemetry_exact_input_tokens": exact["input"] + report["tokens"]["synthetic"]["input"],
+                "run_record_output_tokens": recorded.get("output_tokens"),
+                "telemetry_output_tokens": exact["output"] + report["tokens"]["synthetic"]["output"],
+                "consistent": recorded.get("input_tokens") == exact["input"] + report["tokens"]["synthetic"]["input"]
+                and recorded.get("output_tokens") == exact["output"] + report["tokens"]["synthetic"]["output"],
+            }
+        report["telemetry_warning"] = self.ledger.warning(run_id)
+        report["files"] = {name: str(path) for name, path in zip(("events", "transcript"), self.ledger.paths(run_id))}
+        return report
 
     def result(self, run_id: str) -> dict[str, Any]:
         record = self.store.load(run_id)
@@ -1604,6 +1818,56 @@ def _evidence_line(validation: dict[str, Any]) -> str:
         status = "ok" if item["passed"] else "FAIL"
         parts.append(f"{item.get('name')}={status}" + (f" ({item['detail']})" if not item["passed"] and item.get("detail") else ""))
     return redact("; ".join(parts) or "no validators", 400)
+
+
+_TIERS = {"deterministic": "local", "fast": "cheap/fast model", "balanced": "stronger model", "reasoning": "high-reasoning model", "frontier": "highest-capability model"}
+
+
+def _tier(capability_class: str | None) -> str:
+    return _TIERS.get(str(capability_class), str(capability_class))
+
+
+def _routing_reason(node: dict[str, Any], selection: dict[str, Any]) -> str:
+    """Why this tier, then why this provider: one plain sentence."""
+    requested = node["requested_capability_class"]
+    if selection.get("overridden"):
+        why = "you set an override"
+    elif node["escalations"]:
+        why = f"escalated {node['escalations']} step(s) from {requested} after failed validation"
+    elif node["role"] == "reviewer":
+        why = "reviews use at least the balanced tier and a different provider from the author"
+    elif node["role"] == "planner":
+        why = "planning uses the run's planner tier; a better plan saves more than it costs"
+    elif node["role"] == "repairer":
+        why = "repairs run at the task's planned tier unless the findings are critical/high"
+    else:
+        why = f"planned as {requested} work"
+    return f"{why}; {selection.get('reason') or 'router default'}"
+
+
+def _tree_hash(cwd: str | Path) -> str | None:
+    from .worktrees import git
+
+    try:
+        completed = git(["rev-parse", "HEAD^{tree}"], cwd, check=False)
+    except Exception:
+        return None
+    value = completed.stdout.strip()
+    return value if completed.returncode == 0 and value else None
+
+
+def _validation_key(tree: str, validators: list[dict[str, Any]]) -> str:
+    import hashlib
+    import json
+
+    return hashlib.sha256(json.dumps([tree, validators], sort_keys=True, default=str).encode("utf-8")).hexdigest()[:24]
+
+
+def _test_totals(evidence: list[dict[str, Any]]) -> dict[str, int | None]:
+    counted = [item for item in evidence if "tests_run" in item]
+    if not counted:
+        return {"tests_run": None, "tests_passed": None, "tests_failed": None}
+    return {key: sum(int(item.get(key) or 0) for item in counted) for key in ("tests_run", "tests_passed", "tests_failed")}
 
 
 def _prior_attempts(node: dict[str, Any]) -> str:

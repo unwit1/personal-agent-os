@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from ...timestamps import utc_now_iso
+from ..usage import coerce, unavailable
 from .base import AgentLaunchRequest, AgentProcessStatus, AgentResult, InvocationPlan, ProviderStatus, RunningAgent
 
 
@@ -127,7 +128,13 @@ class SyntheticAdapter:
             _apply(request.cwd, behaviour.get("edits") or {})
         structured = behaviour.get("structured")
         summary = str(behaviour.get("summary") or (structured or {}).get("summary") or "synthetic worker finished")
-        usage = behaviour.get("usage") or {"input_tokens": 100, "output_tokens": 20}
+        # Scripted numbers: labelled ``synthetic`` so reports never mix them
+        # with provider-measured usage. ``usage: None`` simulates a provider
+        # that reports nothing.
+        raw = behaviour["usage"] if "usage" in behaviour else {"input_tokens": 100, "output_tokens": 20}
+        usage = coerce(raw, "synthetic") if raw is not None else unavailable("synthetic")
+        if raw is not None:
+            usage["source"] = "synthetic"
         return AgentResult(outcome="completed", summary=summary, structured=structured, usage=usage, duration_ms=1)
 
 

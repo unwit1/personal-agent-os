@@ -16,6 +16,7 @@ import tomllib
 from pathlib import Path
 from typing import Any
 
+from ..usage import from_codex_turns
 from .base import (
     AgentLaunchRequest,
     AgentResult,
@@ -39,7 +40,18 @@ _SLUG = re.compile(r"^gpt-(?P<version>\d+(?:\.\d+)*)-(?P<family>[a-z]+)$")
 # Logged by the Windows restricted-token sandbox when it cannot confine
 # commands to the workspace (for example, a workspace nested inside %TEMP%).
 SANDBOX_REFUSAL = "cannot enforce split writable root sets"
-OPTIONAL_FLAGS = ("--json", "--output-last-message", "--ephemeral", "--sandbox", "--cd", "--skip-git-repo-check")
+# `codex exec --json` item types that are tool invocations, counted per worker.
+TOOL_ITEM_TYPES = frozenset({"command_execution", "mcp_tool_call", "file_change", "web_search"})
+OPTIONAL_FLAGS = ("--json", "--output-last-message", "--ephemeral", "--sandbox", "--cd", "--skip-git-repo-check", "--ignore-user-config", "--disable")
+# Defaults chosen from measurements (docs/simple-mode.md, "Per-call overhead"),
+# codex-cli 0.155.1 / gpt-6-luna, trivial prompt: 19,007 input tokens per call
+# with the operator's config.toml (15-19k uncached), 14,022 (3,014 uncached)
+# with --ignore-user-config. Set options.use_user_config to keep the config.
+# Some config.toml settings are what lets a headless worker run commands at
+# all (on Windows, `windows.sandbox = "unelevated"`; without it every command
+# is "blocked by policy"). When the config is ignored, these keys are read from
+# it and passed explicitly with -c.
+LEAN_DEFAULTS: dict[str, Any] = {"use_user_config": False, "disable_features": [], "carry_config_keys": ["windows.sandbox"]}
 
 
 class CodexCliAdapter(SubprocessAdapter):
@@ -60,8 +72,18 @@ class CodexCliAdapter(SubprocessAdapter):
         options = self.provider.get("options", {})
         result_path = str(Path(request.output_dir) / "last-message.md")
         argv = ["exec", "-m", request.model]
+        ignore_config = not options.get("use_user_config", LEAN_DEFAULTS["use_user_config"]) and features.get("--ignore-user-config")
+        if ignore_config:
+            # The operator's config.toml (plugins, MCP servers, service tier,
+            # notify hooks) is for interactive use; model, effort and sandbox
+            # are passed explicitly below. Authentication is unaffected.
+            argv.append("--ignore-user-config")
+            for key, value in carried_config(options.get("carry_config_keys", LEAN_DEFAULTS["carry_config_keys"])):
+                argv += ["-c", f"{key}={json.dumps(value)}"]
+        for feature in options.get("disable_features", LEAN_DEFAULTS["disable_features"]) if features.get("--disable") else []:
+            argv += ["--disable", str(feature)]
         keep = options.get("keep_mcp_servers")
-        if keep is not True:
+        if keep is not True and not ignore_config:
             # A bounded worker gets everything it needs in its prompt; the
             # operator's MCP servers (mail, Agent OS, ...) would only add turns
             # and reach beyond the worktree.
@@ -98,7 +120,8 @@ class CodexCliAdapter(SubprocessAdapter):
         )
 
     def parse_result(self, handle: RunningAgent, returncode: int | None, stdout: str, stderr: str) -> AgentResult:
-        usage = {"input_tokens": 0, "cached_tokens": 0, "output_tokens": 0}
+        turns: list[dict] = []
+        tool_calls = 0
         errors: list[str] = []
         last_agent_text = ""
         for line in stdout.splitlines():
@@ -111,10 +134,7 @@ class CodexCliAdapter(SubprocessAdapter):
                 continue
             kind = str(event.get("type", ""))
             if kind == "turn.completed" and isinstance(event.get("usage"), dict):
-                data = event["usage"]
-                usage["input_tokens"] += int(data.get("input_tokens") or 0)
-                usage["cached_tokens"] += int(data.get("cached_input_tokens") or 0)
-                usage["output_tokens"] += int(data.get("output_tokens") or 0)
+                turns.append(event["usage"])
             elif kind in {"turn.failed", "error"}:
                 error = event.get("error") if isinstance(event.get("error"), dict) else event
                 errors.append(str(error.get("message") or error))
@@ -122,6 +142,9 @@ class CodexCliAdapter(SubprocessAdapter):
                 item = event["item"]
                 if item.get("type") in {"agent_message", "assistant_message"} and item.get("text"):
                     last_agent_text = str(item["text"])
+                elif item.get("type") in TOOL_ITEM_TYPES:
+                    tool_calls += 1
+        usage = from_codex_turns(turns, tool_calls)
         final_text = _read_tail(handle.result_path) if handle.result_path else ""
         final_text = final_text or last_agent_text
         if SANDBOX_REFUSAL in stderr:
@@ -159,13 +182,29 @@ def configured_model(config_path: Path | None = None) -> str | None:
     return str(model) if model else None
 
 
-def configured_mcp_servers(config_path: Path | None = None) -> list[str]:
+def _user_config(config_path: Path | None = None) -> dict[str, Any]:
     path = config_path or Path.home() / ".codex" / "config.toml"
     try:
-        data = tomllib.loads(path.read_text(encoding="utf-8"))
+        return tomllib.loads(path.read_text(encoding="utf-8"))
     except (OSError, tomllib.TOMLDecodeError):
-        return []
-    servers = data.get("mcp_servers")
+        return {}
+
+
+def carried_config(keys: list[str], config_path: Path | None = None) -> list[tuple[str, Any]]:
+    """(dotted key, value) pairs from the operator's config.toml; scalars only."""
+    data = _user_config(config_path)
+    found = []
+    for key in keys:
+        value: Any = data
+        for part in str(key).split("."):
+            value = value.get(part) if isinstance(value, dict) else None
+        if isinstance(value, (str, int, float, bool)) and re.fullmatch(r"[A-Za-z0-9_.]+", str(key)):
+            found.append((str(key), value))
+    return found
+
+
+def configured_mcp_servers(config_path: Path | None = None) -> list[str]:
+    servers = _user_config(config_path).get("mcp_servers")
     return sorted(name for name in servers if re.fullmatch(r"[A-Za-z0-9_-]+", name)) if isinstance(servers, dict) else []
 
 

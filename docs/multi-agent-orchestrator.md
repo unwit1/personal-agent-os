@@ -2,7 +2,9 @@
 
 Status: implemented (P1.2A), 2026-09-22. Cost-aware routing, model discovery,
 small-batch planning, fan-out and mandatory cross-review added in P1.2B,
-2026-09-22.
+2026-09-22. Simple Mode, Continue Roadmap, campaigns, per-run efficiency
+telemetry, test-result reuse, loop guards and the benchmark added in P1.2C:
+see `docs/simple-mode.md`.
 
 Submit one coding goal. Agent OS plans it, picks a provider, model and
 reasoning effort for each part, runs Claude Code and Codex CLI workers in
@@ -96,8 +98,9 @@ Plans are chosen in this order, cheapest first:
 1. **Explicit tasks** (`--tasks tasks.json`) need no model call.
 2. **`planning: single`** creates one implementer node for the whole goal.
 3. **`planning: auto`** (Start Recommended) runs a read-only planner node at
-   `planner_capability_class`/`planner_effort` (default `balanced`/`high`: a
-   better plan saves more tokens than it costs). The planner is told to split
+   `planner_capability_class`/`planner_effort` (default `balanced`/`medium`
+   since P2.3; with the local repository map, medium produced equally complete
+   plans at about half the tokens, see `docs/simple-mode.md`). The planner is told to split
    the goal into the smallest independently verifiable batches (one concern,
    1-3 files, disjoint scopes for parallel work, a targeted test per task) and
    to default each task to `fast`, keeping `reasoning` for small design tasks
@@ -392,7 +395,7 @@ open, nothing new is dispatched.
   "max_stage_retries": 2, "max_escalations": 2, "max_review_rounds": 2, "max_final_repairs": 1,
   "material_severities": ["critical", "high", "medium"], "preference": "balanced",
   "planning": "auto", "max_planned_tasks": 16, "planner_capability_class": "balanced",
-  "planner_effort": "high", "approved_commands": ["python -m unittest( [A-Za-z0-9_./-]+)*( -v)?", "..."],
+  "planner_effort": "medium", "planner_repo_map": true, "planner_read_budget": 8, "reuse_validation": true, "approved_commands": ["python -m unittest( [A-Za-z0-9_./-]+)*( -v)?", "..."],
   "final_integration": "branch", "max_launches": 40,
   "poll_interval_seconds": 2.0, "worker_timeout_seconds": 3600,
   "default_validators": [], "completion_validators": [],
@@ -471,7 +474,8 @@ orchestration code.
   output alone (validators still decide whether the work passed).
 - Routing uses registry costs plus per-run load and failure evidence. It does
   not yet learn costs or success rates from historical telemetry across runs.
-- Token usage is reported only when a CLI reports it; `costs` are relative
+- Token usage is reported only when a CLI reports it (normalized in
+  `usage.py`; missing usage is `unavailable`, never 0); `costs` are relative
   weights you set, not measured prices.
 - Each review covers one change; Luna batches are not yet reviewed together in
   one call.

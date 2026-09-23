@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
+from ..usage import from_claude
 from .base import (
     AgentLaunchRequest,
     AgentResult,
@@ -31,7 +32,15 @@ SUGGESTED_MODELS = {"fast": "haiku", "balanced": "sonnet", "reasoning": "opus", 
 SUGGESTED_EFFORT_MAP = {"none": "low", "low": "low", "medium": "medium", "high": "high"}
 # Relative cost weights per capability class; data the operator may edit.
 SUGGESTED_COSTS = {"fast": 2, "balanced": 3, "reasoning": 6, "frontier": 10}
-OPTIONAL_FLAGS = ("--effort", "--permission-mode", "--permission-prompts", "--no-session-persistence", "--allowedTools", "--strict-mcp-config")
+OPTIONAL_FLAGS = (
+    "--effort", "--permission-mode", "--permission-prompts", "--no-session-persistence", "--allowedTools",
+    "--strict-mcp-config", "--tools", "--disable-slash-commands", "--exclude-dynamic-system-prompt-sections",
+    "--setting-sources",
+)
+# Built-in tools a bounded worker needs. Everything else in the default set
+# (sub-agents, web, notebooks, task lists, skills...) is tool-definition text
+# sent with every request. Measured with `agent-os orchestrate overhead`.
+LEAN_TOOLS = {"edit": ("Bash", "Read", "Edit", "Write", "Glob", "Grep"), "read_only": ("Bash", "Read", "Glob", "Grep"), "inspect": ("Read", "Glob", "Grep")}
 
 
 class ClaudeCodeAdapter(SubprocessAdapter):
@@ -54,7 +63,12 @@ class ClaudeCodeAdapter(SubprocessAdapter):
         if request.provider_effort and features.get("--effort"):
             argv += ["--effort", request.provider_effort]
         if features.get("--permission-mode"):
-            mode = options.get("read_only_permission_mode", "plan") if request.read_only else options.get("permission_mode", "acceptEdits")
+            if request.read_only and read_only_mode(options) == "tools":
+                # Read-only by construction (only Read/Glob/Grep exist), so
+                # plan mode and its plan-file workflow are not needed.
+                mode = "dontAsk"
+            else:
+                mode = options.get("read_only_permission_mode", "plan") if request.read_only else options.get("permission_mode", "acceptEdits")
             argv += ["--permission-mode", mode]
         if features.get("--permission-prompts"):
             # Nobody is at the keyboard of a headless worker: anything that
@@ -70,6 +84,7 @@ class ClaudeCodeAdapter(SubprocessAdapter):
         tools = request.allowed_tools or options.get("allowed_tools") or []
         if tools and features.get("--allowedTools"):
             argv += ["--allowedTools", ",".join(tools)]
+        argv += lean_flags(options, features, request.read_only)
         display = " ".join(["claude", *argv]) + " < prompt.md"
         return InvocationPlan(
             executable=status.executable,
@@ -92,12 +107,7 @@ class ClaudeCodeAdapter(SubprocessAdapter):
                 return self.failed(classify_failure(text, returncode), text or f"exit code {returncode}")
             return self.failed("malformed", "no JSON result on stdout")
         final_text = str(payload.get("result") or "")
-        usage = payload.get("usage") if isinstance(payload.get("usage"), dict) else {}
-        usage_counts = {
-            "input_tokens": int(usage.get("input_tokens") or 0),
-            "cached_tokens": int(usage.get("cache_read_input_tokens") or 0),
-            "output_tokens": int(usage.get("output_tokens") or 0),
-        }
+        usage_counts = from_claude(payload)
         if payload.get("is_error") or str(payload.get("subtype", "success")) != "success" or returncode not in (0, None):
             text = final_text or str(payload.get("subtype") or stderr)
             return AgentResult(
@@ -110,6 +120,48 @@ class ClaudeCodeAdapter(SubprocessAdapter):
         structured = payload.get("structured_output") if isinstance(payload.get("structured_output"), dict) else None
         structured = structured or extract_structured(final_text)
         return AgentResult(outcome="completed", summary=final_text[-600:], structured=structured, usage=usage_counts)
+
+
+def lean_flags(options: dict[str, Any], features: dict[str, bool], read_only: bool) -> list[str]:
+    """Flags that shrink the fixed per-call context of a headless worker.
+
+    Each is optional in the registry (``options``) and passed only when the
+    installed CLI advertises it. ``--bare`` is deliberately not used: it
+    ignores OAuth/keychain logins and requires an API key.
+    """
+    argv: list[str] = []
+    lean = options.get("lean_tools", LEAN_DEFAULTS["lean_tools"])
+    if read_only and read_only_mode(options) == "tools" and features.get("--tools"):
+        argv += ["--tools", ",".join(LEAN_TOOLS["inspect"])]
+    elif lean and features.get("--tools"):
+        tools = lean if isinstance(lean, list) else LEAN_TOOLS["read_only" if read_only else "edit"]
+        argv += ["--tools", ",".join(tools)]
+    if options.get("disable_skills", LEAN_DEFAULTS["disable_skills"]) and features.get("--disable-slash-commands"):
+        argv.append("--disable-slash-commands")
+    if options.get("shared_prompt_cache", LEAN_DEFAULTS["shared_prompt_cache"]) and features.get("--exclude-dynamic-system-prompt-sections"):
+        # Per-worktree details (cwd, git status) move out of the system
+        # prompt, so every worker's system prompt is identical and cacheable.
+        argv.append("--exclude-dynamic-system-prompt-sections")
+    sources = options.get("setting_sources", LEAN_DEFAULTS["setting_sources"])
+    if sources is not None and features.get("--setting-sources"):
+        argv += ["--setting-sources", str(sources)]
+    return argv
+
+
+# Defaults chosen from measurements (docs/simple-mode.md, "Per-call overhead"),
+# Claude Code 2.1.280 / haiku, trivial prompt: 25,177 input tokens per call by
+# default; 14,331 with the lean tool set (-43%); skills listing ~2.6k more.
+# --exclude-dynamic-system-prompt-sections measured no cache benefit across
+# worktrees, and --setting-sources saves ~2% but drops user permission rules
+# workers may rely on, so both stay off unless a registry entry turns them on.
+LEAN_DEFAULTS: dict[str, Any] = {"lean_tools": True, "disable_skills": True, "shared_prompt_cache": False, "setting_sources": None, "read_only_mode": "tools"}
+
+
+def read_only_mode(options: dict[str, Any]) -> str:
+    """How planners and reviewers are kept read-only: ``plan`` (Claude's plan
+    permission mode) or ``tools`` (only Read/Glob/Grep are available)."""
+    value = options.get("read_only_mode", LEAN_DEFAULTS["read_only_mode"])
+    return value if value in {"plan", "tools"} else "plan"
 
 
 def _last_json_object(text: str) -> dict[str, Any] | None:

@@ -78,10 +78,60 @@ def register(commands: argparse._SubParsersAction) -> None:
     target.add_argument("--node")
     override.add_argument("--clear", action="store_true")
 
+    road = actions.add_parser("roadmap", help="show roadmap progress and the next eligible stage (no model call)")
+    road.add_argument("--project")
+    road.add_argument("--repo")
+
+    cont = actions.add_parser("continue-roadmap", help="Continue Roadmap: resume unfinished work or start the next roadmap stage, then drive it")
+    cont.add_argument("--project")
+    cont.add_argument("--repo")
+    cont.add_argument("--until-done", action="store_true", help="Auto Continue Until Done: after each stage completes and lands, start the next")
+    cont.add_argument("--fresh", action="store_true", help="set aside unfinished runs instead of resuming them")
+    cont.add_argument("--preference", choices=["economy", "balanced", "quality"])
+    cont.add_argument("--no-drive", action="store_true", help="prepare and start, but return without driving")
+
+    report = actions.add_parser("report", help="efficiency report for a run from its telemetry (tokens, calls, context, avoided work)")
+    report.add_argument("run_id")
+    report.add_argument("--transcript", action="store_true", help="print the human-readable run transcript instead")
+
+    bench = actions.add_parser("benchmark", help="repeatable token-efficiency benchmark (offline by default; --live uses real providers)")
+    bench.add_argument("--scenario", action="append", help="run only these scenarios (repeatable)")
+    bench.add_argument("--live", action="store_true", help="use the machine's real providers (costs usage) for the small-code-change scenario")
+    bench.add_argument("--out", help="directory for results.json and report.md")
+
+    usage = actions.add_parser("usage-report", help="cross-run token usage report from run telemetry (provider-reported numbers)")
+    usage.add_argument("--since", help="ISO timestamp; only events at or after it")
+    usage.add_argument("--include-benchmarks", action="store_true", help="also count benchmark runs")
+
+    models_cmd = actions.add_parser("models", help="model catalog: current tier models, new/outdated models, proposals (local + official online sources; no model call)")
+    models_cmd.add_argument("--refresh", action="store_true", help="check sources now")
+    models_cmd.add_argument("--offline", action="store_true", help="with --refresh: local sources only")
+    trial_cmd = actions.add_parser("model-trial", help="try a model for a tier on a real small task (real calls; spends usage)")
+    trial_cmd.add_argument("--provider", required=True)
+    trial_cmd.add_argument("--model", required=True)
+    trial_cmd.add_argument("--tier", required=True, choices=["fast", "balanced", "reasoning", "frontier"])
+    decide_cmd = actions.add_parser("model-proposal", help="apply or dismiss a model proposal (apply writes the provider registry, with a backup)")
+    decide_cmd.add_argument("proposal_id")
+    decide_cmd.add_argument("decision", choices=["apply", "dismiss"])
+
+    pbench = actions.add_parser("planner-bench", help="measure planner token use and plan quality per prompt/tool variant (real calls; spends usage)")
+    pbench.add_argument("--project")
+    pbench.add_argument("--repo", default=".")
+    pbench.add_argument("--provider", default="claude-code")
+    pbench.add_argument("--variant", action="append")
+
+    over = actions.add_parser("overhead", help="measure each coding CLI's fixed per-call context cost (real calls; spends usage)")
+    over.add_argument("--provider", action="append", help="provider id(s); default all enabled")
+    over.add_argument("--variant", action="append", help="option variant(s) to measure; default all")
+    over.add_argument("--repo", default=".")
+    over.add_argument("--capability-class", default="fast")
+
     gui = actions.add_parser("gui", help="serve the local control GUI and API")
     gui.add_argument("--host", default="127.0.0.1")
     gui.add_argument("--port", type=int, default=8765)
     gui.add_argument("--no-browser", action="store_true")
+    gui.add_argument("--project", help="registered project shown on the Simple Mode home screen")
+    gui.add_argument("--repo", help="repository path for Simple Mode when the project is not registered")
 
 
 def _create_arguments(parser: argparse.ArgumentParser) -> None:
@@ -181,8 +231,77 @@ def dispatch(args: argparse.Namespace, emit) -> int:
     if action == "override":
         emit(service.override(args.run_id, args.provider, args.model, args.effort, args.role, args.node, args.clear))
         return 0
+    if action == "roadmap":
+        from .roadmap import overview
+
+        emit(overview(service.engine(), args.project, args.repo))
+        return 0
+    if action == "continue-roadmap":
+        import threading
+
+        from . import models
+        from .roadmap import continue_roadmap, drive_campaign
+
+        # Keep the model catalog current without delaying the run.
+        threading.Thread(target=lambda: models.refresh_if_stale(), name="agent-os-model-check", daemon=True).start()
+        engine = service.engine()
+        result = continue_roadmap(engine, args.project, args.repo, auto_until_done=args.until_done, preference=args.preference, fresh=args.fresh)
+        if args.no_drive or result["action"] not in {"started", "resumed"}:
+            emit(result)
+            return 0 if result["action"] != "error" else 2
+        if args.until_done:
+            campaign = drive_campaign(engine, args.project, args.repo)
+            emit({**result, "campaign": campaign, "final": engine.status(campaign.get("current_run") or result["run_id"])["state"]})
+            return 0
+        final = engine.run_loop(result["run_id"], owner="cli")
+        emit({**result, "final_state": final["state"], "state_reason": final.get("state_reason")})
+        return TERMINAL_EXIT.get(final["state"], 0)
+    if action == "report":
+        engine = service.engine()
+        if args.transcript:
+            path = engine.ledger.paths(args.run_id)[1]
+            print(path.read_text(encoding="utf-8") if path.exists() else f"no transcript at {path}")
+            return 0
+        emit(engine.efficiency(args.run_id))
+        return 0
+    if action == "benchmark":
+        from .benchmark import run_benchmark
+
+        report = run_benchmark(args.scenario, live=args.live, out_dir=Path(args.out) if args.out else None)
+        emit({"files": report["files"], "totals": report["totals"], "scenarios": [{key: item[key] for key in ("scenario", "scenario_passed", "model_calls", "model_calls_avoided", "local_operations", "cache_hits", "escalations", "runtime_s")} for item in report["scenarios"]]})
+        return 0 if report["totals"]["passed"] == report["totals"]["scenarios"] else 1
+    if action == "usage-report":
+        from .usage_report import report
+
+        emit(report(since=args.since, include_benchmarks=args.include_benchmarks))
+        return 0
+    if action == "models":
+        from . import models
+
+        emit(models.refresh(online=not args.offline) if args.refresh else models.view())
+        return 0
+    if action == "model-trial":
+        from . import models
+
+        emit(models.trial(args.provider, args.model, args.tier))
+        return 0
+    if action == "model-proposal":
+        from . import models
+
+        emit(models.decide(args.proposal_id, args.decision == "apply"))
+        return 0
+    if action == "planner-bench":
+        from .overhead import measure_planner
+
+        emit(measure_planner(args.repo, args.project, provider=args.provider, variants=args.variant))
+        return 0
+    if action == "overhead":
+        from .overhead import measure
+
+        emit(measure(args.provider, repository=args.repo, capability_class=args.capability_class, variants=args.variant))
+        return 0
     if action == "gui":
         from .server import serve
 
-        return serve(args.host, args.port, open_browser=not args.no_browser)
+        return serve(args.host, args.port, open_browser=not args.no_browser, project=args.project, repository=args.repo)
     raise ValueError(f"unknown orchestrate action {action}")

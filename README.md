@@ -217,6 +217,21 @@ agent-os orchestrate start-recommended --goal "..." --project personal-agent-os
 
 See `docs/multi-agent-orchestrator.md`.
 
+The GUI opens in **Simple Mode**: one **Continue Roadmap** button finds the
+next unfinished roadmap stage (or resumes unfinished work) and drives it, a
+**Tell me what to press** button gives one state-aware recommendation, and
+every run shows plain-English steps, agent status, activity and a token /
+efficiency report that labels each number exact, estimated or unavailable.
+
+```powershell
+agent-os orchestrate roadmap --project personal-agent-os        # progress + next stage, no model call
+agent-os orchestrate continue-roadmap --project personal-agent-os [--until-done]
+agent-os orchestrate report <run> [--transcript]                # efficiency summary / readable log
+agent-os orchestrate benchmark [--live]                         # repeatable efficiency benchmark
+```
+
+See `docs/simple-mode.md`.
+
 ### Shared document intelligence
 
 A reusable extraction layer so projects do not each repeat page hashing, blank

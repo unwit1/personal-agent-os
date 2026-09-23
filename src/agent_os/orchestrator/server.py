@@ -25,7 +25,7 @@ from typing import Any
 from urllib.parse import parse_qs, urlparse
 
 from ..paths import ROOT
-from . import service
+from . import roadmap, service, simple
 
 
 GUI_DIR = ROOT / "gui"
@@ -67,16 +67,188 @@ class Drivers:
 
 
 class Api:
-    def __init__(self, drivers: Drivers) -> None:
+    def __init__(self, drivers: Drivers, default_project: str | None = None, default_repository: str | None = None) -> None:
         self.drivers = drivers
+        self.default_repository = default_repository
+        self.campaigns = roadmap.CampaignThreads()
+        self.preps: dict[str, roadmap.Preparation] = {}
+        self.default_project = default_project
+        self._providers_cache: tuple[float, list[dict[str, Any]]] | None = None
+        self.model_jobs: dict[str, dict[str, Any]] = {}  # "refresh" / "trial" background jobs
+
+    # -- Models ---------------------------------------------------------------
+
+    def _job(self, name: str, work) -> dict[str, Any]:
+        """Run model work (web fetches, trial runs) off the request thread."""
+        current = self.model_jobs.get(name)
+        if current and current.get("state") == "running":
+            return current
+        job = {"name": name, "state": "running", "started_at": time.time(), "result": None, "error": None}
+        self.model_jobs[name] = job
+
+        def run() -> None:
+            try:
+                job["result"] = work()
+                job["state"] = "done"
+            except Exception as exc:
+                job.update(state="failed", error=f"{type(exc).__name__}: {exc}"[:300])
+
+        threading.Thread(target=run, name=f"agent-os-models-{name}", daemon=True).start()
+        return job
+
+    def models_view(self) -> dict[str, Any]:
+        from . import models
+        from .usage_report import build, telemetry_files
+
+        view = models.view()
+        view["scorecard"] = build(telemetry_files(service.engine().store.home))["model_scorecard"]
+        view["jobs"] = {name: {key: job.get(key) for key in ("state", "error")} for name, job in self.model_jobs.items()}
+        return simple.models_view(view)
+
+    def start_model_checks(self, interval_seconds: float = 24 * 3600) -> None:
+        """Check model sources at start and then daily, only while serving."""
+        from . import models
+
+        def loop() -> None:
+            while True:
+                if models.is_stale():
+                    self._job("refresh", lambda: models.refresh())
+                time.sleep(interval_seconds)
+
+        threading.Thread(target=loop, name="agent-os-model-checks", daemon=True).start()
 
     def _status(self, run_id: str) -> dict[str, Any]:
         summary = service.status(run_id)
         summary["gui_driver"] = {"alive": self.drivers.alive(run_id), "error": self.drivers.error(run_id)}
         return summary
 
+    def _redrive(self, run_id: str) -> None:
+        """Keep a run moving after a control action: through its campaign when
+        it is part of Auto Continue Until Done, otherwise on its own."""
+        record = service.engine().load(run_id)
+        origin = record.get("origin") or {}
+        if origin.get("auto_until_done") and record.get("project"):
+            self.campaigns.ensure(service.engine(), record["project"])
+        else:
+            self.drivers.ensure(run_id)
+
+    def _stop_campaign(self, run_id: str) -> None:
+        record = service.engine().load(run_id)
+        if record.get("project"):
+            self.campaigns.request_stop(record["project"])
+
+    # -- Simple Mode ----------------------------------------------------------
+
+    def _providers(self) -> list[dict[str, Any]]:
+        """Probing CLIs takes a moment; the home screen reuses a result for a minute."""
+        if self._providers_cache and time.monotonic() - self._providers_cache[0] < 60:
+            return self._providers_cache[1]
+        try:
+            rows = [
+                {"id": item["id"], "enabled": item.get("enabled", True), "probe": item.get("probe") or {}}
+                for item in service.providers().get("providers", [])
+            ]
+        except Exception as exc:
+            rows = [{"id": "unknown", "enabled": False, "probe": {"available": False, "reason": str(exc)[:200]}}]
+        self._providers_cache = (time.monotonic(), rows)
+        return rows
+
+    def _project(self, query_or_body: dict[str, Any]) -> str | None:
+        value = query_or_body.get("project")
+        if isinstance(value, list):
+            value = value[0] if value else None
+        return value or self.default_project
+
+    def _driving(self, run_id: str, project: str | None) -> bool:
+        engine = service.engine()
+        return self.drivers.alive(run_id) or (bool(project) and self.campaigns.alive(project)) or bool(engine.store.driver(run_id).get("active"))
+
+    def _latest_prep(self, keys: set[str | None]) -> dict[str, Any] | None:
+        mine = [prep for prep in self.preps.values() if getattr(prep, "project", None) in keys]
+        return mine[-1].view() if mine else None
+
+    def home(self, project: str | None) -> dict[str, Any]:
+        engine = service.engine()
+        overview = roadmap.overview(engine, project, None if project else self.default_repository)
+        key = overview["project"] or overview["repository"]
+        overview["providers"] = self._providers()
+        run_id = None
+        campaign = overview.get("campaign") or {}
+        if campaign.get("current_run") and engine.store.exists(campaign["current_run"]):
+            if not (engine.load(campaign["current_run"]).get("origin") or {}).get("abandoned"):
+                run_id = campaign["current_run"]
+        if run_id is None and overview["unfinished_runs"]:
+            run_id = overview["unfinished_runs"][0]["run_id"]
+        prep = self._latest_prep({overview["project"], overview["repository"], self.default_repository} - {None})
+        view = self.simple(run_id, key, dirty=overview["dirty"], prep=prep) if run_id else None
+        overview["current_run"] = view
+        overview["prep"] = prep
+        overview["campaign_driver"] = {"alive": self.campaigns.alive(key), "error": self.campaigns.errors.get(key)}
+        overview["advice"] = simple.advise(overview, view, prep if prep and prep.get("state") == "running" else None)
+        overview["projects"] = [item["id"] for item in _registered_projects()]
+        from . import models
+
+        overview["model_suggestions"] = sum(1 for item in models.load().get("proposals", []) if item.get("status") == "open")
+        return overview
+
+    def simple(self, run_id: str, project: str | None = None, dirty: bool | None = None, prep: dict[str, Any] | None = None) -> dict[str, Any]:
+        engine = service.engine()
+        summary = self._status(run_id)
+        key = project or summary.get("project")
+        events, _ = engine.ledger.read(run_id)
+        report = engine.efficiency(run_id)
+        origin = summary.get("origin") or {}
+        if prep is None or (prep.get("result") or {}).get("run_id") not in {None, run_id}:
+            prep = self.preps[origin["prep"]].view() if origin.get("prep") in self.preps else None
+        view = simple.run_view(summary, events, report, self._providers(), driving=self._driving(run_id, key), prep=prep, git_dirty=dirty)
+        view["advice"] = simple.advise({"next_stage": None}, view)
+        return view
+
+    def start_continue(self, body: dict[str, Any]) -> dict[str, Any]:
+        """Return at once; the preparation runs on a thread and reports each step."""
+        engine = service.engine()
+        project = self._project(body)
+        prep = roadmap.Preparation()
+        prep.project = project or body.get("repository") or self.default_repository  # type: ignore[attr-defined]
+        self.preps[prep.id] = prep
+        for stale in list(self.preps)[:-20]:
+            del self.preps[stale]
+        auto_until_done = bool(body.get("auto_until_done"))
+
+        def work() -> None:
+            result = roadmap.continue_roadmap(
+                engine, project, body.get("repository") or (None if project else self.default_repository),
+                auto_until_done=auto_until_done, preference=body.get("preference") or None,
+                fresh=bool(body.get("fresh")), prep=prep,
+            )
+            if result["action"] in {"started", "resumed"}:
+                if auto_until_done and project:
+                    self.campaigns.ensure(engine, project)
+                else:
+                    self.drivers.ensure(result["run_id"])
+
+        threading.Thread(target=work, name=f"agent-os-{prep.id}", daemon=True).start()
+        return {"prep": prep.view()}
+
     def get(self, path: str, query: dict[str, list[str]]) -> Any:
         parts = [part for part in path.split("/") if part][1:]  # drop "api"
+        if parts == ["models"]:
+            return self.models_view()
+        if parts == ["usage"]:
+            from .usage_report import build, telemetry_files
+
+            return simple.usage_view(build(telemetry_files(service.engine().store.home), (query.get("since") or [None])[0]))
+        if parts == ["home"]:
+            return self.home(self._project(query))
+        if len(parts) == 2 and parts[0] == "prep":
+            prep = self.preps.get(parts[1])
+            if prep is None:
+                raise KeyError(parts[1])
+            return prep.view()
+        if len(parts) == 3 and parts[0] == "runs" and parts[2] == "simple":
+            return self.simple(parts[1])
+        if len(parts) == 3 and parts[0] == "runs" and parts[2] == "efficiency":
+            return service.engine().efficiency(parts[1])
         if parts == ["providers"]:
             return service.providers()
         if parts == ["runs"]:
@@ -91,6 +263,25 @@ class Api:
 
     def post(self, path: str, body: dict[str, Any]) -> Any:
         parts = [part for part in path.split("/") if part][1:]
+        if parts == ["models", "refresh"]:
+            from . import models
+
+            self._job("refresh", lambda: models.refresh(online=not body.get("offline")))
+            return self.models_view()
+        if parts == ["models", "trial"]:
+            from . import models
+
+            self._job("trial", lambda: models.trial(str(body["provider"]), str(body["model"]), str(body["tier"])))
+            return self.models_view()
+        if parts == ["models", "proposal"]:
+            from . import models
+
+            models.decide(str(body["id"]), body.get("decision") == "apply")
+            service.engine().reload_providers()
+            self._providers_cache = None
+            return self.models_view()
+        if parts == ["roadmap", "continue"]:
+            return self.start_continue(body)
         if parts == ["providers", "suggest"]:
             return service.suggest_providers(write=bool(body.get("write")), force=bool(body.get("force")))
         if parts == ["runs"]:
@@ -122,34 +313,40 @@ class Api:
             engine = service.engine()
             if action == "start":
                 engine.start(run_id, body.get("auto_continue"))
-                self.drivers.ensure(run_id)
+                self._redrive(run_id)
             elif action == "drive":
-                self.drivers.ensure(run_id)
+                self._redrive(run_id)
             elif action == "step":
                 engine.step(run_id)
             elif action == "pause":
+                self._stop_campaign(run_id)
                 engine.pause(run_id)
             elif action == "resume":
                 engine.resume(run_id)
-                self.drivers.ensure(run_id)
+                self._redrive(run_id)
             elif action == "stop":
+                self._stop_campaign(run_id)
                 engine.stop(run_id)
+            elif action == "fresh":
+                record = engine.load(run_id)
+                roadmap._abandon(engine, run_id, "set aside by user (Start Fresh)")
+                return self.start_continue({"project": record.get("project"), "auto_until_done": (record.get("origin") or {}).get("auto_until_done")})
             elif action == "auto-continue":
                 engine.set_auto_continue(run_id, bool(body.get("enabled")))
                 if body.get("enabled"):
-                    self.drivers.ensure(run_id)
+                    self._redrive(run_id)
             elif action == "decide":
                 engine.decide(run_id, str(body["gate_id"]), bool(body.get("approve")), body.get("note"))
-                self.drivers.ensure(run_id)
+                self._redrive(run_id)
             elif action == "retry":
                 engine.retry(run_id, str(body["node_id"]))
-                self.drivers.ensure(run_id)
+                self._redrive(run_id)
             elif action == "reassign":
                 engine.reassign(run_id, str(body["node_id"]), str(body["provider"]), body.get("model") or None, body.get("effort") or None)
-                self.drivers.ensure(run_id)
+                self._redrive(run_id)
             elif action == "review-again":
                 engine.review_again(run_id, str(body["node_id"]))
-                self.drivers.ensure(run_id)
+                self._redrive(run_id)
             elif action == "override":
                 engine.set_override(
                     run_id,
@@ -282,23 +479,48 @@ def make_handler(api: Api, token: str, allowed_hosts: set[str]):
     return Handler
 
 
-def build_server(host: str = "127.0.0.1", port: int = 8765) -> tuple[ThreadingHTTPServer, str]:
+def _registered_projects() -> list[dict[str, Any]]:
+    try:
+        from ..registry import projects
+
+        return projects()
+    except Exception:
+        return []
+
+
+def _default_project() -> str | None:
+    """The project this checkout belongs to, else the first registered one."""
+    try:
+        from ..registry import identify_project
+
+        found = identify_project(Path.cwd())
+        if found:
+            return found["id"]
+    except Exception:
+        pass
+    registered = _registered_projects()
+    return registered[0]["id"] if registered else None
+
+
+def build_server(host: str = "127.0.0.1", port: int = 8765, project: str | None = None, repository: str | None = None) -> tuple[ThreadingHTTPServer, str]:
     if host not in {"127.0.0.1", "localhost", "::1"}:
         raise ValueError("the control GUI only binds to loopback")
     token = secrets.token_urlsafe(24)
     drivers = Drivers()
-    api = Api(drivers)
+    api = Api(drivers, project or (None if repository else _default_project()), repository)
     server = ThreadingHTTPServer((host, port), make_handler(api, token, set()))
     actual = server.server_address[1]
     allowed = {f"{name}:{actual}".casefold() for name in ("127.0.0.1", "localhost", "[::1]")}
     server.RequestHandlerClass = make_handler(api, token, allowed)
     server.daemon_threads = True
     server.drivers = drivers  # type: ignore[attr-defined]
+    server.api = api  # type: ignore[attr-defined]
     return server, token
 
 
-def serve(host: str = "127.0.0.1", port: int = 8765, open_browser: bool = True) -> int:
-    server, token = build_server(host, port)
+def serve(host: str = "127.0.0.1", port: int = 8765, open_browser: bool = True, project: str | None = None, repository: str | None = None) -> int:
+    server, token = build_server(host, port, project, repository)
+    server.api.start_model_checks()  # type: ignore[attr-defined]
     url = f"http://{host}:{server.server_address[1]}/"
     print(json.dumps({"gui": url, "note": "runs are driven only while this process is running; Ctrl+C stops driving (state is kept)"}), flush=True)
     if open_browser:
