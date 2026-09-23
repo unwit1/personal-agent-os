@@ -8,8 +8,9 @@
       "name": "Sheila Stallsworth",
       "organization": "RTEC",
       "role_history": [
-        "EEO/Benefits Manager (email signatures, 2016-2021 evidence)",
-        "Human Resource Manager (2021 email signatures)"
+        "EEO/Benefits Manager signature observed from 2016-04-28 through at least 2021-07-06",
+        "Human Resource Manager signature observed beginning 2021-03-11 through at least 2021-09-29",
+        "The signature periods overlap from March through July 2021; treat this as a gradual title/role transition or signature inconsistency, not a proven exact change date."
       ],
       "work_context": [
         "historical HR hub",
@@ -24,7 +25,13 @@
         "HR documents and website maintenance"
       ],
       "confidence": "high",
-      "currentness": "historical; not assumed current"
+      "currentness": "historical; not assumed current",
+      "evidence_ids": [
+        "000001",
+        "000201",
+        "000269",
+        "000312"
+      ]
     },
     {
       "name": "Shirley L. Cummins",
