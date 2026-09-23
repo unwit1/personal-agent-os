@@ -1,0 +1,139 @@
+{
+  "id": "rtec-process-grant-compliance-crosswalk-fy2017",
+  "record_type": "crosswalk",
+  "title": "FY2017 federal transit grant requirements to RTEC compliance/HR processes",
+  "status": "validated_historical",
+  "temporal_status": "historical",
+  "purpose": "Explain which RTEC HR/compliance artifacts supported federal/state transit grant application requirements in the FY2017 5310, 5311 and 5339 packages.",
+  "requirements": [
+    {
+      "domain": "Title VI / civil rights",
+      "grants": [
+        "5310",
+        "5311",
+        "5339"
+      ],
+      "evidence": [
+        "local/annual civil-rights assurances",
+        "Title VI documentation or minority-service information",
+        "nondiscrimination assurances"
+      ],
+      "linked_library": [
+        "plans/title-vi-lep/",
+        "processes/title-vi-complaints/"
+      ]
+    },
+    {
+      "domain": "Affirmative Action / EEO",
+      "grants": [
+        "5311"
+      ],
+      "evidence": [
+        "FY2017 checklist explicitly calls for an Affirmative Action Plan for employers with 50 or more employees"
+      ],
+      "linked_library": [
+        "plans/aap/",
+        "training/eeo-managers-supervisors-2009/"
+      ]
+    },
+    {
+      "domain": "Limited English Proficiency",
+      "grants": [
+        "5311"
+      ],
+      "evidence": [
+        "FY2017 checklist explicitly calls for LEP Access Plan"
+      ],
+      "linked_library": [
+        "plans/title-vi-lep/"
+      ]
+    },
+    {
+      "domain": "ADA / disability / Section 504",
+      "grants": [
+        "5310",
+        "5311",
+        "5339"
+      ],
+      "evidence": [
+        "Section 504/disability assurances",
+        "equivalent-service certification",
+        "elderly/persons-with-disabilities provisions"
+      ],
+      "linked_library": [
+        "processes/ada-complaints/",
+        "plans/title-vi-lep/"
+      ]
+    },
+    {
+      "domain": "Drug and alcohol / safety-sensitive workforce",
+      "grants": [
+        "5311"
+      ],
+      "evidence": [
+        "updated drug & alcohol policy",
+        "list of safety-sensitive employees without SSNs",
+        "drug-free workplace certification",
+        "training conducted during current/past fiscal years"
+      ],
+      "linked_library": [
+        "knowledge/libraries/rtec-hr/processes/",
+        "knowledge/libraries/rtec-hr/sources/rtec-hr-2018-driver-training-orientation/"
+      ]
+    },
+    {
+      "domain": "Procurement / contracting / vendor compliance",
+      "grants": [
+        "5310",
+        "5311",
+        "5339"
+      ],
+      "evidence": [
+        "procurement certification",
+        "federally required/model clauses",
+        "DBE/WBE or DBE goal evidence",
+        "Buy America and vendor certifications"
+      ],
+      "linked_library": [
+        "future procurement/compliance process records"
+      ]
+    },
+    {
+      "domain": "Public participation / coordination",
+      "grants": [
+        "5310",
+        "5311"
+      ],
+      "evidence": [
+        "coordinated plan",
+        "coordination meetings",
+        "public hearing where applicable",
+        "private sector participation"
+      ],
+      "linked_library": [
+        "plans/title-vi-lep/2026/"
+      ]
+    },
+    {
+      "domain": "Training / documentation",
+      "grants": [
+        "5310",
+        "5311"
+      ],
+      "evidence": [
+        "RTAP needs/budget and training conducted",
+        "training documentation and certifications"
+      ],
+      "linked_library": [
+        "knowledge/libraries/rtec-hr/processes/customer-service-training-rtap.json",
+        "knowledge/libraries/rtec-hr/processes/driver-hiring-orientation-training-2018.json"
+      ]
+    }
+  ],
+  "conclusion": "The compliance archive is not separate from HR history: AAP/EEO, Title VI/LEP, ADA, training, safety-sensitive employee documentation and complaint procedures repeatedly appear as grant-supporting evidence.",
+  "source_ids": [
+    "rtec-grant-fy2017-5310",
+    "rtec-grant-fy2017-5311",
+    "rtec-grant-fy2017-5339"
+  ]
+}
