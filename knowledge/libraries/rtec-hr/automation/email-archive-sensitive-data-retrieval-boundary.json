@@ -1,0 +1,40 @@
+{
+  "record_id": "rtec-email-archive-sensitive-data-retrieval-boundary",
+  "updated_at": "2026-09-23",
+  "status": "high_priority_control",
+  "source": "576-message historical HR email archive",
+  "finding": "The raw archive contains authentication/recovery/security messages and credential-like values intermingled with normal HR correspondence. Exact secret values are intentionally not recorded in this knowledge record.",
+  "sensitive_classes_observed": [
+    "one-time authentication/passcode messages",
+    "password-reset and security-factor reset notifications",
+    "account recovery/appeal messages",
+    "vendor registration/access values",
+    "historical account/filing credential material",
+    "employee/applicant PII and restricted case data",
+    "medical/leave/workers-comp documents and narratives",
+    "payroll/tax/benefit identifiers in source mail or attachments"
+  ],
+  "controls": [
+    "Do not commit raw mailbox text to GitHub.",
+    "Do not embed or send the full raw archive to remote semantic-index providers by default.",
+    "Before semantic indexing, detect and redact/suppress passwords, OTPs, PINs, registration/access codes, recovery codes, tokens, SSNs, account numbers and similar secrets.",
+    "Treat security notifications as metadata/process evidence while excluding the secret payload.",
+    "Keep employee/applicant/case text in restricted local storage and retrieve only narrowly scoped snippets when authorized.",
+    "Maintain a local provenance link from sanitized derived claims to message IDs without copying sensitive text into canonical knowledge.",
+    "Use deterministic rules plus secret/PII scanners before any raw message becomes agent-visible.",
+    "Logs and debugging output must redact secrets as well."
+  ],
+  "retrieval_policy": {
+    "default": "sanitized_metadata_and_process_knowledge",
+    "raw_message_access": "explicitly scoped local retrieval only when needed for the user's task",
+    "remote_model_context": "minimum necessary excerpt after redaction",
+    "durable_memory": "never store authentication secrets or employee/applicant case details"
+  },
+  "implementation_candidates": [
+    "mail.archive.redact_message",
+    "mail.archive.classify_sensitivity",
+    "mail.archive.safe_search",
+    "mail.archive.get_sanitized_message",
+    "mail.archive.audit_sensitive_access"
+  ]
+}
