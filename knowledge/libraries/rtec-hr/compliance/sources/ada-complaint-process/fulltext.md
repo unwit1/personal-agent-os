@@ -1,0 +1,40 @@
+RTEC ADA COMPLAINT PROCESS
+
+In compliance with the U.S. Department of Transportation Americans with
+Disabilities Act (ADA) of 1990 (49 CFR Parts 27, 37, 38 and 39), and
+Section 504 of The Rehabilitation Act of 1973, as amended, Rural Transit
+Enterprises Coordinated, Inc. ensures its services, vehicles, and
+facilities are accessible to and usable by individuals with disabilities.
+Anyone who believes he or she has been discriminated against on the basis
+of disability may file an ADA complaint.
+
+Complaints may be submitted by filing a RTEC ADA Complaint Form or by
+calling 606-256-9835, extension 223 or toll-free at 800-321-7832 or TTY at
+606-256-2047, or hearing and voice impaired at 1-800-648-6057 (KY Relay
+7-1-1). If the complainant is unable to write a complaint, a representative
+may file on his or her behalf, or a designated RTEC staff member will
+provide assistance. Complaints must be filed within 5 calendar days of the
+alleged incident.
+
+1. The ADA Coordinator will contact the complainant within 10 business days
+   of receipt of complaint. Any requested information must be received by
+   RTEC within 5 days.
+2. RTEC will begin the investigation within 15 business days of receipt of
+   complaint if the alleged discrimination is found to be a violation of ADA
+   regulations.
+3. An investigation into the complaint will be conducted and documented to
+   determine whether RTEC failed to comply with ADA regulations.
+4. RTEC will complete the investigation within 60 calendar days of receipt
+   of complaint. If additional time is needed for the investigation, the
+   complainant will be notified.
+5. RTEC will promptly communicate its response to the complainant, including
+   its reasons for the response. The complainant will have 5 business days
+   from receipt of RTEC's response to file an appeal. If no appeal is filed,
+   the complaint will be closed.
+
+RTEC will process and investigate all complaints that meet the requirements
+of ADA discrimination. If the complainant fails to provide required
+information within the required timeframe, the complaint may be closed.
+
+If information is needed in another language, contact 800-321-7832.
+Si se necesita información en otro idioma, comuníquese 800-321-7832.
