@@ -133,7 +133,8 @@
       "priority": "high",
       "domain": "title_vi_lep",
       "question": "Build the supersession chain from the September 2016 Title VI/LEP plan through the December 2019 versions to the 2026 Title VI/LEP plan, and identify which complaint/public-notice/language-assistance rules are current.",
-      "status": "in_progress"
+      "status": "partially_answered",
+      "resolution_note": "2016 -> December 2019 -> January 2026 source chain established. January 2026 plan is newest complete editable plan found and records Board approval 2026-01-19. Full-source section preservation and attachment comparison remain in progress."
     },
     {
       "priority": "high",
