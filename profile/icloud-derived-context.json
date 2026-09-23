@@ -7,7 +7,10 @@
     "provider": "icloud",
     "archive_path_class": ".agent-local/mail/index.sqlite3",
     "analyzed_message_count": 10577,
-    "date_range": ["2018-01-20", "2026-09-23"],
+    "date_range": [
+      "2018-01-20",
+      "2026-09-23"
+    ],
     "mailboxes_observed": {
       "INBOX": 8361,
       "Employment": 1525,
@@ -24,7 +27,23 @@
       "This file records durable or repeatedly evidenced context, not a copy of the mailbox.",
       "Automated marketing, recommendations, and job-alert suggestions are weaker evidence than sent mail, repeated behavior, confirmations, and direct correspondence.",
       "Sensitive material was present in the source archive and was deliberately not copied into Git."
-    ]
+    ],
+    "analysis_coverage": {
+      "message_rows_scanned": 10577,
+      "distinct_sender_strings": 609,
+      "sent_messages_reviewed": 203,
+      "attachment_records_checked": 232,
+      "attachments_with_extracted_text": 1,
+      "attachments_metadata_only": 231,
+      "methods": [
+        "Full-corpus sender/domain/mailbox/date aggregation",
+        "Review of all Sent Messages subjects and correspondent patterns",
+        "Targeted body reads for education, employment, housing, travel, vehicle, technology, hobbies, research participation, and close-contact evidence",
+        "Repeated-signal checks across transactional and notification mail",
+        "Negative filtering for marketing-only, recommendation-only, stale job-alert, and sensitive-source signals"
+      ],
+      "limitation": "The indexed message text was exhaustively scanned, but 231 of 232 attachment records contain metadata only, so attachment contents such as resumes, leases, and forms were not available for semantic analysis."
+    }
   },
   "identity_and_account_context": {
     "name": "Jacob Salsman",
@@ -36,16 +55,16 @@
     "online_handle_signal": "The handle 'unwit' appears repeatedly across GitHub and older communication/account context."
   },
   "education_history": {
-    "berea_college": "Strong correspondence evidence of studying at Berea College, including classes, finals, housing, campus employment/job applications, and institutional email use.",
-    "study_abroad_2022": "Planned and completed a roughly one-month study-abroad period in Galway, Ireland during summer 2022.",
+    "berea_college": "Strong correspondence evidence of studying at Berea College and being a recent graduate by September 2023; exact degree/major was not recovered confidently from indexed message text.",
+    "study_abroad_2022": "Completed the ISA Irish Studies Summer School in Galway, Ireland from roughly June 20 through July 19, 2022, including coursework and a Dublin excursion.",
     "learning_workflow": "Frequently moves documents, research links, scans, and reading material through email and cloud links."
   },
   "employment_history_and_career": {
     "triple_r_ranch": "Worked multiple summers with Triple R Ranch before 2022 and pursued additional summer/grounds or trading-post work there in 2022.",
-    "berea_college_work": "Has prior work experience at Berea College; later professional-reference correspondence identifies a former Berea College manager.",
-    "university_of_kentucky": "Has prior University of Kentucky HR Benefits Customer Service experience; a former HR Benefits Customer Service supervisor was used as a professional reference in 2025.",
-    "rtec": "Accepted an HR Manager position with RTEC in Mount Vernon, Kentucky in April 2026 and prepared detailed onboarding, benefits, policy, training, and parking questions before starting.",
-    "job_search_2025_2026": "Conducted an active 2025-2026 job search across HR, benefits/compensation, administrative, analyst, field-tech, and adjacent technical roles, with frequent recruiter and hiring-manager follow-up.",
+    "berea_college_work": "Has prior Berea College work experience connected to the Office of Sustainability; later professional-reference correspondence identifies a former manager there.",
+    "university_of_kentucky": "Started a University of Kentucky STEPS Benefits Associate assignment in Employee Benefits in July 2023; later professional-reference correspondence identifies the relevant background as HR Benefits Customer Service experience.",
+    "rtec": "Accepted an HR Manager position with RTEC in Mount Vernon, Kentucky and expected to start April 13, 2026. Before starting, proactively asked about dress code, parking, training/30-60-90-day expectations, handbook/policies, vacation, insurance, and open enrollment.",
+    "job_search_2025_2026": "Conducted a broad, active 2025-2026 search with direct interview/recruiter correspondence for HR, benefits/compensation, HR generalist/manager, analyst, administrative, and some adjacent technical/field roles. Automated job alerts are not treated as proof of application or current intent.",
     "development_signal": "In April 2026 the user described employee-relations experience as a relative gap in the prior background.",
     "career_behavior": [
       "Often follows up proactively after applications and interviews.",
@@ -60,12 +79,14 @@
       "Food storage, canning/pickling, and homemade spice storage",
       "Home/DIY tools and small woodworking projects"
     ],
-    "shopping_planning": "Has used spreadsheets and emailed lists to track needs, purchases, and gift ideas."
+    "shopping_planning": "Has used spreadsheets and emailed lists to track needs, purchases, and gift ideas.",
+    "vehicle": "Repeated CARFAX service records in 2026 strongly support a current 2012 Honda Accord; maintenance reminders include oil changes, tire rotation, registration, and service visits.",
+    "shared_household_signal": "Repeated household purchases and money-sharing correspondence with Olivia support treating many grocery, utility, home, and discretionary decisions as shared-household planning rather than purely individual spending.",
+    "craft_purchase_signal": "Repeated 2026 household orders include diamond-painting/craft supplies, home organization, and décor; treat these as household-level interests unless separately confirmed as the user's own hobby."
   },
   "family_and_relationship_context": {
     "partner": "Olivia is a long-term romantic partner and an important household-planning relationship.",
-    "mother": "Correspondence explicitly identifies Jen Salsman as the user's mother.",
-    "younger_brother": "Correspondence identifies Timothy Salsman as a younger brother.",
+    "immediate_family": "Correspondence explicitly labels and supports relationships with the user's mother, father, and younger brother; avoid copying relatives' contact details into durable profile state.",
     "family_ties": "Historical messages show continuing family ties in Virginia and holiday/visit planning."
   },
   "travel_and_geography": {
@@ -85,31 +106,59 @@
       "Nintendo Switch-related hardware/repair purchases"
     ],
     "email_as_transport": "Frequently emails or forwards links, scans, receipts, resumes, software information, and documents between personal, school, and work contexts.",
-    "self_service_troubleshooting": "Support correspondence shows a tendency to test issues across devices, describe reproduction steps, and provide detailed troubleshooting evidence."
+    "self_service_troubleshooting": "Support correspondence shows a tendency to test issues across devices, describe reproduction steps, and provide detailed troubleshooting evidence.",
+    "current_ai_and_automation_ecosystem": [
+      "OpenAI / ChatGPT",
+      "Anthropic / Claude and Claude Code",
+      "Runpod",
+      "Make",
+      "GitHub"
+    ],
+    "current_ai_and_automation_note": "2026 account/service mail plus very high GitHub activity supports active use or experimentation with multiple AI, coding, cloud-compute, and automation services. Treat marketing mail as weak evidence, but account/login/balance/repository notifications as stronger evidence.",
+    "account_security_behavior": "Uses services such as Bitwarden and receives device/login/security notifications across major accounts; security artifacts themselves must remain local and excluded from profile content."
   },
   "interests_and_leisure": {
     "gaming_and_modding": [
-      "Skyrim modding and mod creators",
+      "Skyrim modding and a large ecosystem of Skyrim mod creators",
       "PC gaming / Steam",
-      "Nintendo gaming"
+      "Nintendo gaming",
+      "Strategy, simulation, sandbox, RPG, survival/crafting, and indie games are strongly represented in the Steam wishlist"
     ],
-    "brick_collecting": "Strong LEGO-compatible/third-party brick-set interest, including direct purchasing and product-availability inquiries.",
+    "brick_collecting": "Strong LEGO-compatible/third-party brick-set interest, with repeated LEGO Ideas, Rebrickable, Brickwith/Brixtoy, and direct third-party-set purchasing or availability correspondence.",
     "online_fiction": [
       "Sufficient Velocity",
       "SpaceBattles",
       "Questionable Questing",
-      "watched fanfiction involving franchises such as Worm, Fate/stay night, Spider-Man, and Cyberpunk"
+      "Archive of Our Own",
+      "Recurring watched/read fiction across Worm, Fate/stay night, Spider-Man/Marvel, Cyberpunk, Naruto, Harry Potter, Star Wars, DC, and other crossover/fanfiction settings"
     ],
-    "reading": "Regular e-book/Kindle workflow and book-related purchases are consistent with an active reading habit."
+    "reading": "Regular e-book/Kindle workflow and book-related purchases are consistent with an active reading habit.",
+    "steam_wishlist_examples": [
+      "Stellaris",
+      "RimWorld",
+      "No Man's Sky",
+      "Caves of Qud",
+      "Kerbal Space Program",
+      "Oxygen Not Included",
+      "Mount & Blade II: Bannerlord",
+      "Tiny Bookshop",
+      "Rain World",
+      "Sun Haven",
+      "Deep Rock Galactic",
+      "Citizen Sleeper 2"
+    ],
+    "skyrim_creator_ecosystem": "2026 Patreon mail is heavily concentrated in Skyrim/modding creators, including Arcanyx Studios, Thumblesteen, Yanholic, Nether's Modding Mayhem, Martimius, DwemerDynamics, Smooth, Xavbio, SkyrimNet, Simon Magus, MihailMods, Pathoschild, and others. This is strong supporting evidence for the existing high-priority Skyrim-modding interest."
   },
   "side_income_and_research_participation": {
-    "paid_research": "Repeatedly monitors or participates in paid focus-group and user-research platforms, including FocusGroups.org, User Interviews, Respondent, Prolific, L&E Research, and related services.",
-    "interpretation": "Treat this as evidence of interest in flexible side-income/research opportunities, not as proof that every invitation was completed."
+    "paid_research": "Repeatedly monitors and in some cases participates in paid focus-group/user-research platforms, including FocusGroups.org, User Interviews, Respondent, Prolific, L&E Research, Focuscope, and related services.",
+    "interpretation": "Treat this as a durable interest in flexible paid research/side-income opportunities. Invitation volume alone must not be treated as proof that a study was completed."
   },
   "communication_style": {
     "professional": "Professional email is typically polite, direct, appreciative, and follow-up oriented; the user often asks multiple concrete questions in one message.",
     "personal": "Personal correspondence is substantially more casual, humorous, and expressive.",
-    "drafting_implication": "Agent-written messages should preserve the context-dependent split between concise professional courtesy and informal humor with close contacts."
+    "drafting_implication": "Agent-written messages should preserve the context-dependent split between concise professional courtesy and informal humor with close contacts.",
+    "follow_up_pattern": "When a professional process is unresolved, the user commonly sends courteous follow-ups rather than waiting indefinitely; this appears in job-search, support, housing, and work correspondence.",
+    "question_style": "The user tends to bundle practical questions into organized, concrete lists covering timelines, expectations, policies, benefits, logistics, and next steps."
   },
   "evidence_quality_rules": {
     "high_confidence": [
@@ -130,5 +179,18 @@
       "A study-match profile label as a current profession",
       "An inferred relationship not explicitly supported by correspondence"
     ]
+  },
+  "privacy_and_exclusions": {
+    "sensitive_source_classes_seen": [
+      "account/security codes and reset material",
+      "financial/payment correspondence",
+      "health-provider correspondence",
+      "private intimate correspondence",
+      "exact residential/contact information",
+      "institutional identifiers",
+      "third-party personal information"
+    ],
+    "policy": "These source classes were used only where needed to recognize broad non-sensitive context; raw values and sensitive conclusions are excluded from Git-tracked profile state.",
+    "attachment_policy": "Attachment filenames may support provenance/category recognition, but metadata-only attachments are not treated as if their contents were read."
   }
 }
