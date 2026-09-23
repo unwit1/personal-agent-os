@@ -18,7 +18,7 @@ Completed products:
 - BOOK provenance passes 01-03 plus a search audit and KINMUNE variant pass;
 - central-source links for verified KINMUNE, Tatterdemalion, and Xal-Gosleigh reuse;
 - full physical audit of all 36,824 plugin records;
-- separate 328-record implementation-text supplement for omitted player-facing/structural evidence.
+- separate 370-record implementation-evidence layer for omitted player-facing/structural evidence, plus 16 field augmentations.
 
 ## Dialogue integrity
 
