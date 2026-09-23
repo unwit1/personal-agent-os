@@ -1,15 +1,22 @@
 {
   "continuity_id": "tes.mod.wheels-of-lull",
   "source_sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
-  "last_completed_batch": "0001",
-  "completed_source_records": 50,
-  "completed": {"BOOK": 33, "QUST": 17},
+  "last_completed_batch": "0002",
+  "completed_source_records": 100,
+  "completed": {
+    "BOOK": 33,
+    "QUST": 32,
+    "DIAL": 18,
+    "INFO": 17
+  },
+  "dialogue_combined_records_completed": 35,
   "next_cursor": {
-    "record_type": "QUST",
-    "record_index_1_based": 18,
-    "form_id": "05005917",
-    "editor_id": "_Lull_DI_Fyr_Bagarn",
-    "full_name": "Fyr and Bagarn's Dialogue"
+    "record_type": "INFO",
+    "dialogue_combined_index_1_based": 36,
+    "form_id": "05019E5A",
+    "parent_topic_form_id": "05019E59",
+    "parent_topic_editor_id": "_Lull_MQ02_CanHelp",
+    "quest_form_id": "0500590E"
   },
   "default_checkpoint_target": 50,
   "resume_rule": "Verify source SHA-256, then continue from next_cursor without rewriting completed source shards."

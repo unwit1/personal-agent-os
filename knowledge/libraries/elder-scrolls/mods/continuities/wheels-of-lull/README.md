@@ -10,24 +10,32 @@ Sub-continuity for the Skyrim mod **The Wheels of Lull**.
 
 ## Current ingestion status
 
-- **33/33 BOOK** records are preserved with exact decoded text.
-- **17/32 QUST** records are preserved with quest stages, journal text, objectives, and provenance where present.
-- **50 source records** are now checkpointed in deterministic five-record JSONL shards.
-- Source inventory is complete: **337 DIAL / 410 INFO**, **32 QUST**, **75 NPC_**, **33 LCTN**, **103 CELL**, **53 MESG**, and **14 SCEN** records identified for later passes.
-- Next cursor: QUST 18, `05005917 _Lull_DI_Fyr_Bagarn` ("Fyr and Bagarn's Dialogue").
+- **33/33 BOOK** records preserved with exact decoded text.
+- **32/32 QUST** records preserved with quest stages, journal text, objectives, and provenance where present.
+- **35 DIAL/INFO source records** ingested in physical plugin order: **18 DIAL + 17 INFO**.
+- **100 prioritized source records** are checkpointed in deterministic five-record JSONL shards.
+- Source inventory remains **337 DIAL / 410 INFO**, **75 NPC_**, **33 LCTN**, **103 CELL**, **53 MESG**, and **14 SCEN** records.
 
-## High-value source material already preserved
+## High-value evidence already preserved
 
-The source layer now includes the complete in-plugin book corpus, including the Chronography volumes, KINMUNE, Sybandis material, Archeron's notes/diary, memodermis references, fabricant death/rewinding material, and Chronographer technical texts.
+The source layer now includes the full book corpus and complete quest corpus, plus the opening dialogue sequence for Llavados and Numinar.
 
-The quest layer now includes the main sequence from **Deep Down** through **The Wheels of Lull**, preserving journal evidence for Lull-Mor, the Chronographers, Snow-Throat, Whitehorn Pass, Archeron, the Boiling Foundry, the Brass Forest, Memory, Masscroft, and the Stone of Snow-Throat.
+Numinar's dialogue explicitly presents the Chronographers as fabricants serving Seht, says they monitor time and space, identifies Snow-Throat with the Throat of the World, and describes Towers as essential mechanisms or "pinpoints" of the Wheels of Lull. These statements remain attributed dialogue evidence inside this continuity rather than automatic Bethesda-canon conclusions.
 
 ## Browse
 
-- `raw/source-records-0001-0005.jsonl` through `raw/source-records-0046-0050.jsonl` — first 50 source records
+- `raw/source-records-0001-0005.jsonl` through `raw/source-records-0096-0100.jsonl` — first 100 prioritized source records
 - `raw/record-counts.json` — complete plugin record inventory
-- `source-manifest.json` — source metadata and extraction state
+- `source-manifest.json` — source metadata, extraction policy, and corpus state
 - `ingestion-checkpoint.json` — resumable cursor
+
+## Next cursor
+
+Dialogue source record 36/747 combined DIAL+INFO records:
+
+- INFO `05019E5A`
+- parent topic: `05019E59 _Lull_MQ02_CanHelp`
+- owning quest: `0500590E _Lull_MQ02`
 
 ## Provenance rule
 
