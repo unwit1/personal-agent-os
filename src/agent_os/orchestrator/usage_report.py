@@ -28,6 +28,7 @@ from .store import orchestrator_home
 from .usage import estimate_tokens
 
 SCHEMA = "personal-agent/orchestrator-usage-report/v1"
+AVAILABILITY_FAILURES = frozenset({"quota", "unavailable", "invalid_model", "interrupted", "cancelled"})
 
 
 def _bucket() -> dict[str, Any]:
@@ -64,6 +65,7 @@ def build(files: Iterable[Path], since: str | None = None, include_benchmarks: b
     friction: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
     avoided: dict[str, int] = defaultdict(int)
     prompt = {"calls": 0, "prompt_tokens_estimate": 0, "provider_input": 0}
+    scorecard: dict[str, dict[str, Any]] = {}
     runs: list[dict[str, Any]] = []
     malformed = 0
     for path in files:
@@ -78,6 +80,7 @@ def build(files: Iterable[Path], since: str | None = None, include_benchmarks: b
         run_id = events[0].get("run_id")
         origin = "roadmap" if any(event["type"] == "task_selected" for event in events) else "task"
         run_bucket = _bucket()
+        last_model: dict[str, str] = {}  # node -> scorecard key of the model that last worked on it
         for event in events:
             data = event.get("data") or {}
             kind = event["type"]
@@ -89,6 +92,15 @@ def build(files: Iterable[Path], since: str | None = None, include_benchmarks: b
                 role = str(data.get("role") or "unknown")
                 tier = str(data.get("capability_class") or "unknown")
                 model = f"{data.get('provider')}/{data.get('model')}"
+                card_key = f"{data.get('provider')}/{usage.get('model_resolved') or data.get('model')}|{role}"
+                card = scorecard.setdefault(card_key, {"provider": data.get("provider"), "model": usage.get("model_resolved") or data.get("model"), "role": role, "tiers": [], **_bucket(), "failed_calls": 0, "unavailable_calls": 0, "test_failures_after": 0, "escalated_away": 0, "false_done": 0, "rejected_results": 0})
+                _add(card, usage)
+                if tier not in card["tiers"]:
+                    card["tiers"].append(tier)
+                if kind == "model_failed":
+                    # Usage limits and outages say nothing about the model's work.
+                    card["unavailable_calls" if data.get("failure_kind") in AVAILABILITY_FAILURES else "failed_calls"] += 1
+                last_model[event.get("node") or ""] = card_key
                 for bucket in (totals, run_bucket, by_role[role], by_tier[tier], by_model[model], by_origin[origin]):
                     _add(bucket, usage)
                 if tier in EXPENSIVE_CLASSES:
@@ -100,6 +112,17 @@ def build(files: Iterable[Path], since: str | None = None, include_benchmarks: b
             elif kind in {"retry", "model_escalated", "fallback", "loop_guard"}:
                 key = data.get("guard") or data.get("reason") or data.get("from_provider") or "?"
                 friction[kind][str(key)[:60]] += 1
+                card = scorecard.get(last_model.get(event.get("node") or "", ""))
+                if card is not None and kind == "model_escalated":
+                    card["escalated_away"] += 1
+                elif card is not None and data.get("guard") == "no_change_reported_done":
+                    card["false_done"] += 1
+                elif card is not None and kind == "retry" and data.get("reason") == "malformed":
+                    card["rejected_results"] += 1
+            elif kind == "tests_completed" and not data.get("reused") and data.get("passed") is False:
+                card = scorecard.get(last_model.get(event.get("node") or "", ""))
+                if card is not None:
+                    card["test_failures_after"] += 1
             elif kind == "work_avoided":
                 avoided[str(data.get("category") or "other")] += int(data.get("model_calls_avoided") or 0)
         runs.append({"run_id": run_id, "origin": origin, "first_event": events[0].get("at"), **{key: run_bucket[key] for key in ("calls", "exact_calls", "input", "output", "cost_usd", "unreported_calls")}})
@@ -131,6 +154,24 @@ def build(files: Iterable[Path], since: str | None = None, include_benchmarks: b
             "note": "prompt tokens are characters/4 (estimated); provider input is exact",
         },
         "top_runs_by_input": ranked[:10],
+        "model_scorecard": sorted((_score(card) for card in scorecard.values()), key=lambda item: (item["role"], -item["calls"])),
+    }
+
+
+def _score(card: dict[str, Any]) -> dict[str, Any]:
+    """Per model and role: how often its work needed another attempt."""
+    troubles = card["failed_calls"] + card["test_failures_after"] + card["false_done"] + card["rejected_results"]
+    judged = card["calls"] - card["unavailable_calls"]
+    exact = card["exact_calls"]
+    return {
+        "provider": card["provider"], "model": card["model"], "role": card["role"], "tiers": card["tiers"],
+        "calls": card["calls"], "unavailable_calls": card["unavailable_calls"], "failed_calls": card["failed_calls"], "test_failures_after": card["test_failures_after"],
+        "escalated_away": card["escalated_away"], "false_done": card["false_done"], "rejected_results": card["rejected_results"],
+        "clean_rate": round(1 - min(troubles, judged) / judged, 3) if judged > 0 else None,
+        "mean_input_tokens": int(card["input"] / exact) if exact else None,
+        "mean_output_tokens": int(card["output"] / exact) if exact else None,
+        "claude_cost_usd": card["cost_usd"] or None,
+        "note": "small samples: a few calls say little" if judged < 5 else None,
     }
 
 

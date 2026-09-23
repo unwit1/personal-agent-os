@@ -74,6 +74,48 @@ class Api:
         self.preps: dict[str, roadmap.Preparation] = {}
         self.default_project = default_project
         self._providers_cache: tuple[float, list[dict[str, Any]]] | None = None
+        self.model_jobs: dict[str, dict[str, Any]] = {}  # "refresh" / "trial" background jobs
+
+    # -- Models ---------------------------------------------------------------
+
+    def _job(self, name: str, work) -> dict[str, Any]:
+        """Run model work (web fetches, trial runs) off the request thread."""
+        current = self.model_jobs.get(name)
+        if current and current.get("state") == "running":
+            return current
+        job = {"name": name, "state": "running", "started_at": time.time(), "result": None, "error": None}
+        self.model_jobs[name] = job
+
+        def run() -> None:
+            try:
+                job["result"] = work()
+                job["state"] = "done"
+            except Exception as exc:
+                job.update(state="failed", error=f"{type(exc).__name__}: {exc}"[:300])
+
+        threading.Thread(target=run, name=f"agent-os-models-{name}", daemon=True).start()
+        return job
+
+    def models_view(self) -> dict[str, Any]:
+        from . import models
+        from .usage_report import build, telemetry_files
+
+        view = models.view()
+        view["scorecard"] = build(telemetry_files(service.engine().store.home))["model_scorecard"]
+        view["jobs"] = {name: {key: job.get(key) for key in ("state", "error")} for name, job in self.model_jobs.items()}
+        return simple.models_view(view)
+
+    def start_model_checks(self, interval_seconds: float = 24 * 3600) -> None:
+        """Check model sources at start and then daily, only while serving."""
+        from . import models
+
+        def loop() -> None:
+            while True:
+                if models.is_stale():
+                    self._job("refresh", lambda: models.refresh())
+                time.sleep(interval_seconds)
+
+        threading.Thread(target=loop, name="agent-os-model-checks", daemon=True).start()
 
     def _status(self, run_id: str) -> dict[str, Any]:
         summary = service.status(run_id)
@@ -144,6 +186,9 @@ class Api:
         overview["campaign_driver"] = {"alive": self.campaigns.alive(key), "error": self.campaigns.errors.get(key)}
         overview["advice"] = simple.advise(overview, view, prep if prep and prep.get("state") == "running" else None)
         overview["projects"] = [item["id"] for item in _registered_projects()]
+        from . import models
+
+        overview["model_suggestions"] = sum(1 for item in models.load().get("proposals", []) if item.get("status") == "open")
         return overview
 
     def simple(self, run_id: str, project: str | None = None, dirty: bool | None = None, prep: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -187,6 +232,8 @@ class Api:
 
     def get(self, path: str, query: dict[str, list[str]]) -> Any:
         parts = [part for part in path.split("/") if part][1:]  # drop "api"
+        if parts == ["models"]:
+            return self.models_view()
         if parts == ["usage"]:
             from .usage_report import build, telemetry_files
 
@@ -216,6 +263,23 @@ class Api:
 
     def post(self, path: str, body: dict[str, Any]) -> Any:
         parts = [part for part in path.split("/") if part][1:]
+        if parts == ["models", "refresh"]:
+            from . import models
+
+            self._job("refresh", lambda: models.refresh(online=not body.get("offline")))
+            return self.models_view()
+        if parts == ["models", "trial"]:
+            from . import models
+
+            self._job("trial", lambda: models.trial(str(body["provider"]), str(body["model"]), str(body["tier"])))
+            return self.models_view()
+        if parts == ["models", "proposal"]:
+            from . import models
+
+            models.decide(str(body["id"]), body.get("decision") == "apply")
+            service.engine().reload_providers()
+            self._providers_cache = None
+            return self.models_view()
         if parts == ["roadmap", "continue"]:
             return self.start_continue(body)
         if parts == ["providers", "suggest"]:
@@ -456,6 +520,7 @@ def build_server(host: str = "127.0.0.1", port: int = 8765, project: str | None 
 
 def serve(host: str = "127.0.0.1", port: int = 8765, open_browser: bool = True, project: str | None = None, repository: str | None = None) -> int:
     server, token = build_server(host, port, project, repository)
+    server.api.start_model_checks()  # type: ignore[attr-defined]
     url = f"http://{host}:{server.server_address[1]}/"
     print(json.dumps({"gui": url, "note": "runs are driven only while this process is running; Ctrl+C stops driving (state is kept)"}), flush=True)
     if open_browser:

@@ -120,6 +120,28 @@ The most important lines:
   where there is a real measurement to compare with; otherwise it says "not
   available".
 
+### "AI models": keeping up with new models
+
+New AI models and upgrades come out often. Agent OS checks for them every day
+while the window is open (or when you press **Check Now**), using the official
+Claude and OpenAI model lists and the Codex app's own model list. This check
+does not use an AI model and costs nothing.
+
+- **Newer versions of the same model** (for example a new "sonnet" or a new
+  "luna") are used automatically.
+- **A different model** for a kind of work is only ever a *suggestion*, for
+  example: "use gpt-6-sol for Codex's balanced work, because OpenAI now calls
+  gpt-5.6-terra an older model". You choose:
+  - **Try It First** runs the suggested model on a small real task and shows
+    whether it worked and how many tokens it used (this uses a little of your
+    plan);
+  - **Use It** switches (a backup of the old setting is kept);
+  - **Not Now** hides the suggestion.
+- **How each model has done in your runs** shows, per model and job (plan,
+  write code, review), how often its work went through without needing a
+  retry, and how many tokens it used. Usage-limit failures are not held
+  against a model.
+
 ### "Model usage across all runs"
 
 A section on the home screen that adds up every run on this computer: model
@@ -423,6 +445,54 @@ mode had no permission denials and read ~30k input tokens per review (was
 ~42k). Codex had hit its ChatGPT usage limit, so both runs also exercised
 provider failover to Claude.
 
+### Model catalog (keeping models current)
+
+`orchestrator/models.py`; catalog at `.agent-local/orchestrator/models/catalog.json`.
+
+Sources, each best-effort (a failure is recorded in `checks`, never fatal):
+
+| Source | What it gives |
+|---|---|
+| `~/.codex/models_cache.json` | Codex's own catalog, refreshed online by the Codex CLI: slugs, vendor descriptions, visibility, priority, reasoning levels |
+| official pages (`MODEL_SOURCES`, override with `~/.agent-os/model-sources.json`) | model identifiers listed by Anthropic (`platform.claude.com/docs/en/models/overview`) and OpenAI (`developers.openai.com/codex/models`, `.../api/docs/models`) |
+| run telemetry | the concrete version behind an alias (Claude reports `claude-sonnet-5` for `sonnet` in `modelUsage`; recorded as `usage.model_resolved`) |
+
+A refresh (daily while the GUI server runs, on **Check Now**, or `agent-os
+orchestrate models --refresh [--offline]`) records first/last seen per model
+and produces:
+
+- **notices**: a new model (after the first, baseline refresh), or an alias
+  that now resolves to a different version;
+- **proposals**: (a) a tier mapped to a model its vendor now describes as
+  older/legacy/deprecated -> the current model the vendor describes for the
+  *same kind of work* (frontier / workhorse / fast wording; never a costlier
+  tier), (b) a newer listed version of the same model line than the tier
+  uses (or than its alias actually ran).
+
+Newer versions within a family are still adopted automatically by the
+adapters' discovery. Proposals are applied only by request (`agent-os
+orchestrate model-proposal <id> apply|dismiss`, or **Use It**), which writes
+`model_overrides: {tier: model}` into `~/.agent-os/providers.json` with a
+timestamped backup; overrides beat discovery.
+
+Evidence before switching:
+
+- `agent-os orchestrate model-trial --provider codex --model gpt-6-sol --tier
+  balanced` runs the candidate as that tier's implementer on the benchmark's
+  small code change (real calls). It records whether the model is usable on
+  this account (some listed models are not), whether the change was delivered
+  (checked on the integration branch), escalations and exact tokens, and
+  attaches the result to the matching proposal.
+- The usage report's `model_scorecard` (per provider, resolved model and role):
+  calls, availability failures (not counted against the model), failed calls,
+  rejected results, test failures after its change, false "done" reports,
+  escalations away, clean rate, mean tokens, Claude list cost.
+
+Limits: the online pages are HTML scanned for identifiers, so a page redesign
+can break a source (reported as a failed check); vendor descriptions drive the
+outdated/tier wording rules; the catalog proposes but never judges quality
+itself -- that is what trials and the scorecard are for.
+
 ### Cross-run usage report (P1.1)
 
 ```powershell
@@ -448,6 +518,8 @@ totals under **Model usage across all runs** (`GET /api/usage`).
 | `agent-os orchestrate overhead` | provider measurement (real calls; spends usage) |
 | `tests/test_orchestrator_planner_context.py` | repository map, planner budget prompt, read-only tool mode |
 | `agent-os orchestrate planner-bench` | planner token/quality measurement (real calls; spends usage) |
+| `tests/test_orchestrator_models.py` | model catalog sources, notices, proposals, apply, overrides (no network) |
+| `agent-os orchestrate model-trial` | candidate model on a real small task (real calls; spends usage) |
 | `tests/gui/simple_core.test.js` | GUI state (`node --test tests/gui/simple_core.test.js`) |
 | `agent-os orchestrate benchmark --live` | provider smoke test (opt-in; uses real usage) |
 

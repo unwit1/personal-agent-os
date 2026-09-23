@@ -73,6 +73,7 @@ def normalized(
     tool_calls: Any = None,
     source: str,
     accuracy: str = "exact",
+    model_resolved: str | None = None,
 ) -> dict[str, Any]:
     """Build the canonical record. Give either ``total_input`` (Codex style)
     or ``uncached_input`` (Claude style); the other is derived."""
@@ -104,6 +105,7 @@ def normalized(
         "tool_calls": _int(tool_calls),
         "accuracy": accuracy if accuracy in ACCURACIES else "estimated",
         "source": source,
+        "model_resolved": model_resolved,
     }
 
 
@@ -115,6 +117,10 @@ def from_claude(payload: dict[str, Any] | None) -> dict[str, Any]:
     if not isinstance(usage, dict):
         return unavailable("claude-code")
     details = usage.get("output_tokens_details") if isinstance(usage.get("output_tokens_details"), dict) else {}
+    # modelUsage names the concrete model(s) behind an alias; the main model
+    # is the one that produced the most output.
+    by_model = payload.get("modelUsage") if isinstance(payload.get("modelUsage"), dict) else {}
+    resolved = max(by_model, key=lambda name: (by_model[name] or {}).get("outputTokens") or 0) if by_model else None
     return normalized(
         uncached_input=usage.get("input_tokens"),
         cache_read=usage.get("cache_read_input_tokens"),
@@ -124,6 +130,7 @@ def from_claude(payload: dict[str, Any] | None) -> dict[str, Any]:
         cost_usd=payload.get("total_cost_usd"),
         turns=payload.get("num_turns"),
         source="claude-code",
+        model_resolved=resolved,
     )
 
 

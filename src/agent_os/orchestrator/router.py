@@ -61,6 +61,11 @@ def normalize_provider(raw: dict[str, Any], order: int, discovered: dict[str, st
         # catalog does not cover.
         models = {**models, **discovered}
         model_source = "discovered"
+    overrides = raw.get("model_overrides") if isinstance(raw.get("model_overrides"), dict) else {}
+    overrides = {key: str(value) for key, value in overrides.items() if value}
+    if overrides:
+        # Approved tier changes (orchestrator.models proposals) beat discovery.
+        models = {**models, **overrides}
     effort_map = raw.get("effort_map") if isinstance(raw.get("effort_map"), dict) else {}
     roles = raw.get("roles")
     tier_concurrency = {key: max(int(value), 1) for key, value in _number_map(raw.get("tier_concurrency")).items()}
@@ -71,6 +76,7 @@ def normalize_provider(raw: dict[str, Any], order: int, discovered: dict[str, st
         "executable": raw.get("executable"),
         "models": models,
         "model_source": model_source,
+        "model_overrides": overrides,
         "costs": {**DEFAULT_COSTS, **_number_map(raw.get("costs"))},
         "effort_map": {key: str(value) for key, value in effort_map.items() if value and not str(value).startswith("<")},
         "max_concurrency": max(int(raw.get("max_concurrency", 1) or 1), 1),

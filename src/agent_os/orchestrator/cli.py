@@ -103,6 +103,17 @@ def register(commands: argparse._SubParsersAction) -> None:
     usage.add_argument("--since", help="ISO timestamp; only events at or after it")
     usage.add_argument("--include-benchmarks", action="store_true", help="also count benchmark runs")
 
+    models_cmd = actions.add_parser("models", help="model catalog: current tier models, new/outdated models, proposals (local + official online sources; no model call)")
+    models_cmd.add_argument("--refresh", action="store_true", help="check sources now")
+    models_cmd.add_argument("--offline", action="store_true", help="with --refresh: local sources only")
+    trial_cmd = actions.add_parser("model-trial", help="try a model for a tier on a real small task (real calls; spends usage)")
+    trial_cmd.add_argument("--provider", required=True)
+    trial_cmd.add_argument("--model", required=True)
+    trial_cmd.add_argument("--tier", required=True, choices=["fast", "balanced", "reasoning", "frontier"])
+    decide_cmd = actions.add_parser("model-proposal", help="apply or dismiss a model proposal (apply writes the provider registry, with a backup)")
+    decide_cmd.add_argument("proposal_id")
+    decide_cmd.add_argument("decision", choices=["apply", "dismiss"])
+
     pbench = actions.add_parser("planner-bench", help="measure planner token use and plan quality per prompt/tool variant (real calls; spends usage)")
     pbench.add_argument("--project")
     pbench.add_argument("--repo", default=".")
@@ -258,6 +269,21 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         from .usage_report import report
 
         emit(report(since=args.since, include_benchmarks=args.include_benchmarks))
+        return 0
+    if action == "models":
+        from . import models
+
+        emit(models.refresh(online=not args.offline) if args.refresh else models.view())
+        return 0
+    if action == "model-trial":
+        from . import models
+
+        emit(models.trial(args.provider, args.model, args.tier))
+        return 0
+    if action == "model-proposal":
+        from . import models
+
+        emit(models.decide(args.proposal_id, args.decision == "apply"))
         return 0
     if action == "planner-bench":
         from .overhead import measure_planner

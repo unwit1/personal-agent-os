@@ -298,6 +298,33 @@
     storageSet("agent-os-mode", mode);
   }
 
+  function renderModels(view) {
+    $("models-headline").textContent = view.headline + (view.source_problems.length ? ` · could not read: ${view.source_problems.join("; ")}` : "");
+    const busy = view.jobs && Object.values(view.jobs).some((job) => job.state === "running");
+    const open = view.proposal_cards.length;
+    $("models-badge").classList.toggle("hidden", !open);
+    $("models-badge").textContent = open ? `${open} suggestion${open > 1 ? "s" : ""}` : "";
+    $("models-proposals").replaceChildren(...view.proposal_cards.map((card) => el("div", { class: "problem" },
+      el("div", { class: "problem-title" }, card.title),
+      el("p", {}, card.what),
+      card.tried ? el("p", { class: "unchanged" }, card.tried) : null,
+      el("p", { class: "muted" }, card.note),
+      el("div", { class: "row" },
+        el("button", { disabled: busy ? "disabled" : null, onclick: (event) => act(event.currentTarget, "retry", "trying the model on a small task", async () => renderModels(await api("models/trial", { provider: card.provider, model: card.candidate, tier: card.tier }))) }, "Try It First"),
+        el("button", { class: "primary", onclick: (event) => act(event.currentTarget, "decide", "switching the model", async () => renderModels(await api("models/proposal", { id: card.id, decision: "apply" }))) }, "Use It"),
+        el("button", { class: "ghost", onclick: (event) => act(event.currentTarget, "decide", "dismissing", async () => renderModels(await api("models/proposal", { id: card.id, decision: "dismiss" }))) }, "Not Now")))));
+    $("models-tiers").replaceChildren(...view.tiers.map((row) => el("tr", {},
+      el("td", {}, row.provider), el("td", {}, row.tier),
+      el("td", {}, row.model + (row.runs_as && row.runs_as !== row.model ? ` (runs ${row.runs_as})` : "") + (row.overridden ? " · chosen by you" : "")),
+      el("td", { class: row.outdated ? "wait" : "muted" }, row.outdated ? `vendor now says: ${row.description}` : (row.description || "")))));
+    $("models-notices").replaceChildren(...(view.notices || []).slice(-5).reverse().map((notice) => el("div", { class: "muted" }, `${notice.at.slice(0, 10)} — ${notice.text}`)));
+    $("models-scorecard").replaceChildren(...(view.scorecard || []).map((card) => el("tr", {},
+      el("td", {}, `${card.provider}/${card.model}`), el("td", {}, card.role), el("td", { class: "num" }, card.calls),
+      el("td", { class: "num" }, card.clean_rate === null ? "—" : `${Math.round(card.clean_rate * 100)}%`),
+      el("td", { class: "num" }, core.formatNumber(card.mean_input_tokens)))));
+    if (busy) setTimeout(() => api("models").then(renderModels).catch(() => {}), 3000);
+  }
+
   async function loadUsage() {
     const usage = await api("usage");
     $("usage-rows").replaceChildren(...usage.rows.map((raw) => {
@@ -310,6 +337,8 @@
   }
 
   function wireSimple() {
+    $("models-panel").addEventListener("toggle", (event) => { if (event.target.open) act(null, "refresh", "reading the model list", async () => renderModels(await api("models"))); });
+    $("models-refresh").addEventListener("click", (event) => act(event.currentTarget, "refresh", "checking the official model lists", async () => renderModels(await api("models/refresh", {}))));
     $("usage-panel").addEventListener("toggle", (event) => { if (event.target.open) act(null, "refresh", "adding up model usage", loadUsage); });
     $("continue-button").addEventListener("click", (event) => continueRoadmap(event.currentTarget));
     $("help-button").addEventListener("click", (event) => tellMeWhatToPress(event.currentTarget));

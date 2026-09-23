@@ -433,6 +433,36 @@ def usage_view(report: dict[str, Any]) -> dict[str, Any]:
     return {"rows": rows, "report": report}
 
 
+def models_view(view: dict[str, Any]) -> dict[str, Any]:
+    """The model catalog in plain words."""
+    from .ledger import provider_name
+
+    proposals = []
+    for item in view.get("proposals", []):
+        trials = item.get("trials") or []
+        last = trials[-1] if trials else None
+        tried = None
+        if last:
+            tried = ("Tried it: the change was delivered" if last.get("delivered") else "Tried it: the change was NOT delivered") + (
+                f", {last.get('input_tokens'):,} input tokens" if last.get("input_tokens") else "") + (
+                "; the model could not be used on this account" if not last.get("usable") else "")
+        proposals.append({
+            **item,
+            "title": f"Suggested: use {item['candidate']} for {provider_name(item['provider'])}'s {item['tier']} work",
+            "what": f"Now: {item['current']}. Why: {item['reason'].rstrip('.')}.",
+            "tried": tried,
+            "note": "Using it changes which model runs this kind of work and may change cost. Try it first to see it work on a small real task (uses a little of your plan).",
+        })
+    refreshed = view.get("refreshed_at")
+    failed = [check for check in view.get("checks", []) if not check.get("ok")]
+    return {
+        **view,
+        "headline": ("Last checked " + refreshed[:16].replace("T", " ") + " UTC" if refreshed else "Not checked yet") + (" (due for a check)" if view.get("stale") else ""),
+        "source_problems": [f"{check.get('source')}: {check.get('error')}" for check in failed],
+        "proposal_cards": proposals,
+    }
+
+
 # ---------------------------------------------------------------------------
 # Tell me what to press
 # ---------------------------------------------------------------------------
@@ -474,6 +504,8 @@ def advise(home: dict[str, Any], run_view_: dict[str, Any] | None, prep: dict[st
         return {"target": "continue", "message": "Press Continue Roadmap. It will resume the run that was interrupted."}
     if home.get("next_stage"):
         note = " Your project has uncommitted changes; the agents will not see them." if home.get("dirty") else ""
+        if home.get("model_suggestions"):
+            note += " Optional: there is a suggested model change under AI models."
         return {"target": "continue", "message": f"Press Continue Roadmap. Everything is ready.{note}"}
     if home.get("roadmap") is None:
         return {"target": "start-task", "message": "Press Start Specific Task. This project has no roadmap file I can read."}

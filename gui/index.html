@@ -108,6 +108,21 @@
     </section>
 
     <section class="panel">
+      <details id="models-panel" class="efficiency">
+        <summary>AI models <span id="models-badge" class="badge hidden"></span></summary>
+        <p class="muted">Agent OS checks the official Claude and OpenAI model lists and the Codex app's own list every day (no AI model is used for this). Newer versions of the same model are used automatically; switching to a different model waits for you.</p>
+        <div class="row"><span id="models-headline" class="muted"></span><span class="spacer"></span><button id="models-refresh">Check Now</button></div>
+        <div id="models-proposals"></div>
+        <table><thead><tr><th>Agent</th><th>Work type</th><th>Model</th><th></th></tr></thead><tbody id="models-tiers"></tbody></table>
+        <div id="models-notices"></div>
+        <details><summary>How each model has done in your runs</summary>
+          <p class="muted">"Clean" means its work needed no retry: no failed call, rejected result, test failure after its change, or false "done". Usage-limit failures are not counted against a model. Few calls say little.</p>
+          <table><thead><tr><th>Model</th><th>Role</th><th>Calls</th><th>Clean</th><th>Avg input tokens</th></tr></thead><tbody id="models-scorecard"></tbody></table>
+        </details>
+      </details>
+    </section>
+
+    <section class="panel">
       <details id="usage-panel" class="efficiency">
         <summary>Model usage across all runs</summary>
         <p class="muted">Totals from every orchestrated run on this computer. Test and benchmark runs are not included.</p>
