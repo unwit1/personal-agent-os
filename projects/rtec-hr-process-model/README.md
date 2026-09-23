@@ -75,3 +75,10 @@ For each supplied document:
 10. Promote only corroborated or user-confirmed knowledge to validated/canonical state, with explicit currentness status.
 11. Capture automation opportunities separately from factual process rules.
 12. Commit coherent sanitized checkpoints so other agents can resume without rereading every source.
+
+
+## Cross-project reference forms
+
+Reusable blank/reference forms and templates from related HR projects are indexed in `knowledge/libraries/rtec-hr/forms/reference-form-catalog.json`. Usage and authority rules are documented in `projects/rtec-hr-process-model/docs/REFERENCE_FORM_CONTEXT.md`.
+
+Agents should consult this catalog when identifying forms, aliases, fields, page structure, workflow inputs/outputs, scanner fingerprints, and missing process evidence. Form presence is contextual evidence only; it does not by itself establish current policy or an effective workflow rule.
