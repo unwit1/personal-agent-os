@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-23",
+  "purpose": "Sanitized relationship and organization graph derived from the local iCloud mail index. It captures relationship type, period, and interaction purpose without retaining personal contact details.",
+  "personal_relationships": {
+    "partner": {
+      "label": "Olivia",
+      "confidence": "very_high",
+      "timeline": [
+        "Partner relationship is visible in 2023 housing correspondence.",
+        "A September 2025 professional message used the dated label 'fiancée'.",
+        "2026 household evidence supports shared planning/purchases and housing-related decisions."
+      ],
+      "current_state_rule": "Use the user's most recent direct wording for the current relationship label; the 2025 'fiancée' wording is historical evidence, not permission to override newer user-stated terminology.",
+      "agent_relevance": [
+        "Meal and grocery planning often concerns two people.",
+        "Housing and household-spending assumptions may involve shared decisions.",
+        "Do not infer Olivia's personal preferences from household purchases unless directly supported."
+      ]
+    },
+    "immediate_family": {
+      "confidence": "high",
+      "roles_supported": [
+        "mother",
+        "father",
+        "younger brother"
+      ],
+      "geography_signal": "Historical correspondence supports continuing family ties in Virginia.",
+      "privacy_rule": "Names, addresses, phone numbers, email addresses, and other relatives' identifying/contact information are excluded from this derived graph."
+    },
+    "friends_roommates_and_extended_contacts": {
+      "confidence": "high_as_category",
+      "pattern": "Housing and personal correspondence show recurring roommate/friend/extended-family interactions, but the canonical profile does not need a roster of private third parties.",
+      "agent_rule": "Retain a person's identity only when the user explicitly makes them relevant to a future task or relationship model."
+    }
+  },
+  "organization_relationships": [
+    {
+      "organization": "Berea College",
+      "relationship": [
+        "applicant",
+        "student",
+        "employee",
+        "alumnus/recent graduate",
+        "later job applicant"
+      ],
+      "years_observed": "2019-2026",
+      "approximate_message_count": 76,
+      "confidence": "very_high",
+      "significance": "One of the longest-running institutional relationships in the archive, spanning education, work, housing/campus context, references, and later employment applications."
+    },
+    {
+      "organization": "University of Kentucky",
+      "relationship": [
+        "employee / STEPS Benefits Associate",
+        "HR Benefits Customer Service",
+        "later institutional/job correspondence"
+      ],
+      "years_observed": "2023-2026",
+      "approximate_message_count": 198,
+      "confidence": "very_high",
+      "significance": "Major professional HR/benefits experience and later reference point."
+    },
+    {
+      "organization": "Triple R Ranch",
+      "relationship": [
+        "repeat seasonal employee / applicant"
+      ],
+      "years_observed": "2020 and 2022 in the indexed archive, with correspondence describing prior summers",
+      "approximate_message_count": 33,
+      "confidence": "high",
+      "significance": "Repeated seasonal-work relationship predating the later HR career."
+    },
+    {
+      "organization": "RTEC",
+      "relationship": [
+        "HR Manager"
+      ],
+      "years_observed": "2026",
+      "approximate_message_count": 6,
+      "confidence": "very_high",
+      "significance": "Current-role transition in the archive; direct onboarding and withdrawal-from-other-process correspondence establishes the April 2026 start."
+    },
+    {
+      "organization": "ISA / WorldStrides",
+      "relationship": [
+        "study-abroad program participant"
+      ],
+      "years_observed": "2022",
+      "approximate_message_count": 27,
+      "confidence": "high",
+      "significance": "Primary institutional source for the Galway, Ireland study-abroad period."
+    },
+    {
+      "organization": "Kentucky rental/property-management relationships",
+      "relationship": [
+        "tenant / applicant"
+      ],
+      "years_observed": "2020-2026",
+      "confidence": "high",
+      "significance": "Multi-year evidence of independent lease, roommate, rent/autopay, utilities, work-order, move-out, deposit, and new-rental application administration.",
+      "privacy_rule": "Property names and exact addresses are not needed for the durable profile unless the user explicitly requests location-specific retrieval."
+    },
+    {
+      "organization": "Enterprise",
+      "relationship": [
+        "management-trainee applicant/interviewee"
+      ],
+      "years_observed": "2023, 2025, 2026",
+      "approximate_message_count": 16,
+      "confidence": "high",
+      "significance": "Recurring example of willingness to revisit an employer/role family across different job-search periods."
+    },
+    {
+      "organization": "McLane",
+      "relationship": [
+        "HR Generalist applicant/interviewee"
+      ],
+      "years_observed": "2025",
+      "approximate_message_count": 5,
+      "confidence": "high",
+      "significance": "Representative direct HR-generalist process with questionnaire/interview/follow-up."
+    },
+    {
+      "organization": "Machinify",
+      "relationship": [
+        "COB Analyst applicant/interviewee"
+      ],
+      "years_observed": "2025",
+      "approximate_message_count": 4,
+      "confidence": "high",
+      "significance": "Representative benefits/analyst-adjacent process."
+    },
+    {
+      "organization": "Spectrum",
+      "relationship": [
+        "field-tech applicant",
+        "later mobile/service customer"
+      ],
+      "years_observed": "2026",
+      "approximate_message_count": 19,
+      "confidence": "high",
+      "significance": "Shows two distinct contexts: a technical-role application and later consumer/mobile-service relationship. These must not be conflated."
+    }
+  ],
+  "digital_and_platform_relationships": [
+    {
+      "organization": "GitHub",
+      "approximate_message_count": 3791,
+      "years_observed": "2026 heavily represented",
+      "relationship": "Active repository/project/security notification ecosystem",
+      "confidence": "very_high",
+      "note": "Message volume is consistent with intensive current development/project activity."
+    },
+    {
+      "organization": "Patreon and individual creators",
+      "approximate_message_count": 942,
+      "relationship": "Creator-following/support and post-notification ecosystem",
+      "confidence": "high",
+      "note": "Heavily concentrated in Skyrim/modding creators; individual creator relationships should be treated as follow/subscription evidence, not personal relationships."
+    },
+    {
+      "organization": "Steam",
+      "approximate_message_count": 120,
+      "relationship": "Gaming account/wishlist/activity",
+      "confidence": "high"
+    },
+    {
+      "organization": "Paid research platforms",
+      "relationship": "Study/focus-group invitation and participation ecosystem",
+      "platforms": [
+        "FocusGroups.org",
+        "User Interviews",
+        "Respondent",
+        "Prolific",
+        "L&E Research",
+        "Focuscope"
+      ],
+      "confidence": "high_as_category",
+      "note": "Invitations are not proof of participation in each study."
+    },
+    {
+      "organization": "AI/development services",
+      "relationship": "Current account/tool ecosystem",
+      "platforms": [
+        "OpenAI / ChatGPT",
+        "Anthropic / Claude and Claude Code",
+        "Runpod",
+        "Make",
+        "GitHub"
+      ],
+      "confidence": "high",
+      "privacy_rule": "Do not retain login/security/account-linking details."
+    }
+  ],
+  "professional_network_patterns": {
+    "references": "2025 job-search correspondence shows the user maintains and supplies professional references from prior Berea College and University of Kentucky work.",
+    "recruiter_and_hiring_manager_behavior": "The user tends to preserve professional relationships through courteous follow-up, prompt answers to questionnaires, and explicit withdrawals when no longer available.",
+    "recurring_employer_behavior": "Some employers/role families recur across years, suggesting the user may revisit a potentially good fit rather than treating one prior application as permanent closure.",
+    "agent_implications": [
+      "When the user asks 'who was that recruiter/manager/company?', search dated correspondence and role context rather than guessing from memory.",
+      "Track professional relationships as organization + role/process + date range before storing individual names.",
+      "Prefer current organization/role state over old application states when compiling context."
+    ]
+  },
+  "graph_semantics": {
+    "edge_types": [
+      "studied_at",
+      "worked_at",
+      "applied_to",
+      "interviewed_with",
+      "used_service",
+      "subscribed_or_followed",
+      "rented_from",
+      "traveled_with_program",
+      "household_with",
+      "family_role"
+    ],
+    "temporal_rule": "Every edge should carry first-seen/last-seen or a dated event range so historical connections do not become timeless current facts.",
+    "provenance_rule": "Direct sent/reply/transactional evidence outranks recommendation or marketing mail.",
+    "privacy_rule": "Keep raw addresses, personal contact details, private third-party facts, and sensitive relationship content in the local evidence store rather than Git-tracked profile state."
+  }
+}
