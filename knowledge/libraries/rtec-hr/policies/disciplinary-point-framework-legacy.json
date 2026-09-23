@@ -1,0 +1,173 @@
+{
+  "id": "rtec-policy-disciplinary-point-framework-legacy",
+  "record_type": "policy",
+  "title": "Legacy disciplinary and attendance point framework",
+  "status": "candidate",
+  "temporal_status": "unknown",
+  "summary": "Undated legacy discipline materials show point-based escalation examples, attendance point examples, a violation matrix with 1st/2nd/3rd-offense point columns, and explicit management discretion. Scope/date and relationship to the 2023 handbook remain unresolved.",
+  "claims": [
+    {
+      "claim": "An undated discipline example document shows two parallel point-threshold ladders: 2/4/6/8/10 points mapped to verbal/written/final/suspension/discharge, and 5/7/10/15/18-20 points mapped to verbal/WW1/WW2/final warning/termination.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-progressive-discipline-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-examples-undated",
+          "page_or_section": "full document",
+          "evidence_type": "explicit_text",
+          "note": "The source does not identify what distinguishes the two side-by-side ladders."
+        }
+      ]
+    },
+    {
+      "claim": "The same source assigns 1/2 point to tardiness, 1 point to unexcused absences, and an extra 1/2 point for failing to give notice.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-progressive-discipline-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-examples-undated",
+          "page_or_section": "full document",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The legacy source says satisfactory performance for one year may allow new violations to be treated as first occurrences, while past discipline may still be considered.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-progressive-discipline-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-examples-undated",
+          "page_or_section": "full document",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The legacy source explicitly states progressive discipline is discretionary and a first offense may justify discharge in some circumstances.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "DUPLICATE",
+      "related_record_ids": [
+        "rtec-policy-progressive-discipline-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-examples-undated",
+          "page_or_section": "warning statement",
+          "evidence_type": "explicit_text",
+          "note": "This is consistent with the later handbook discretion language."
+        }
+      ]
+    },
+    {
+      "claim": "A separate legacy workbook is structured as a violation matrix with 1st-, 2nd-, and 3rd-offense points assessed and includes operational violations spanning attendance, dress code, safety, billing, client information, trip processing, denials, prior authorization, eligibility, breaks, cell phones, and work rules.",
+      "claim_kind": "observed_fact",
+      "confidence": 0.98,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-progressive-discipline-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-steps-undated",
+          "page_or_section": "workbook labels",
+          "evidence_type": "structural",
+          "note": "Numeric matrix cell values were not decoded in this pass and are not asserted."
+        }
+      ]
+    }
+  ],
+  "actors": [
+    "Employee",
+    "Supervisor",
+    "Management",
+    "Human Resources"
+  ],
+  "systems": [],
+  "forms": [
+    "Legacy disciplinary steps workbook"
+  ],
+  "steps": [
+    "Identify the violation and prior offense history.",
+    "Use the applicable historical point/escalation framework only when its date, scope, and authority are established.",
+    "Apply management discretion allowed by the governing policy."
+  ],
+  "decisions": [
+    "Which historical framework applied to the employee/job/incident date?",
+    "Whether the infraction warrants skipping progressive steps."
+  ],
+  "deadlines": [
+    "One legacy example references a 12-month period and satisfactory record for one year."
+  ],
+  "outputs": [
+    "Disciplinary action level",
+    "Attendance/discipline point record"
+  ],
+  "exceptions": [
+    "First-offense discharge may be appropriate under certain circumstances according to the legacy example."
+  ],
+  "controls": [
+    "Do not combine the two point ladders or infer their scope without corroborating evidence.",
+    "Do not use the undated matrix as current policy until authority/currentness is established."
+  ],
+  "unresolved_questions": [
+    "What date/version and employee population did each of the two legacy point ladders govern?",
+    "What are the exact numeric 1st/2nd/3rd-offense point values in the legacy Disciplinary steps workbook?",
+    "Did the 2023 handbook supersede these point-based materials, coexist with them for some roles, or describe a different discipline layer?"
+  ],
+  "automation_candidates": [
+    "Policy-version-aware discipline reference that requires the incident date/employee class before surfacing any point matrix.",
+    "Legacy .xls backfill parser to recover and verify the full numeric matrix without manual transcription."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-disciplinary-examples-undated",
+      "safe_source_type": "procedure_reference",
+      "source_date_or_version": null,
+      "content_sha256": "3755ca182c835fce0e7bfe5800fdb6e4e1747a87d5b7d8ba9af866718a4f82bb",
+      "page_or_section": "full document",
+      "ingested_at": "2026-09-23",
+      "notes": "Undated legacy discipline reference.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "unknown",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-disciplinary-examples-undated/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-disciplinary-examples-undated/fulltext.md"
+    },
+    {
+      "source_id": "rtec-hr-disciplinary-steps-undated",
+      "safe_source_type": "procedure_matrix",
+      "source_date_or_version": null,
+      "content_sha256": "228be0d1afd69a0d816e0562935f6815cf9a4fdccb230d98bfa8e6e3e5b57516",
+      "page_or_section": "workbook labels",
+      "ingested_at": "2026-09-23",
+      "notes": "Undated legacy workbook; labels recovered, numeric cells pending trusted parser.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "unknown",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-disciplinary-steps-undated/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-disciplinary-steps-undated/fulltext.md"
+    }
+  ]
+}
