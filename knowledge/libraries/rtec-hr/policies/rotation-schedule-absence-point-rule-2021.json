@@ -1,0 +1,94 @@
+{
+  "id": "rtec-policy-rotation-schedule-absence-point-rule-2021",
+  "record_type": "policy",
+  "title": "Scheduled office rotation absence point rule - 2021",
+  "status": "validated",
+  "temporal_status": "historical",
+  "effective_from": "2021-06-08",
+  "effective_to": null,
+  "summary": "A June 2021 Operations memo states that Area Manager/CSR staff who could not work a scheduled in-office rotation day would be treated as absent and subject to the normal point system, rather than routinely switching rotation days.",
+  "claims": [
+    {
+      "claim": "The June 8, 2021 rotation-schedule memo states that inability to work a scheduled office rotation day would be treated as an absence and subject to the normal point system.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-disciplinary-point-framework-legacy"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-rotation-schedule-absence-memo-2021-06-08",
+          "page_or_section": "full memorandum",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The memo states that rotation days should not be continually switched to accommodate sickness, appointments, and similar conflicts during the transition back to normal operations.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-rotation-schedule-absence-memo-2021-06-08",
+          "page_or_section": "full memorandum",
+          "evidence_type": "explicit_text",
+          "note": "The source is explicitly tied to a return-to-normal period."
+        }
+      ]
+    }
+  ],
+  "actors": [
+    "Area Manager",
+    "Customer Service Representative",
+    "Operations Manager"
+  ],
+  "systems": [],
+  "forms": [],
+  "steps": [
+    "Work the assigned in-office rotation day.",
+    "If unable to work the assigned day, record the occurrence as an absence under the then-current normal point system rather than automatically swapping the rotation day."
+  ],
+  "decisions": [
+    "Whether a missed scheduled rotation day is excused or otherwise handled under a separate validated exception."
+  ],
+  "deadlines": [],
+  "outputs": [
+    "Attendance/absence record",
+    "Potential attendance points under the governing historical system"
+  ],
+  "exceptions": [],
+  "controls": [
+    "Do not apply this 2021 return-to-normal rule as current policy without confirmation.",
+    "The source does not define leave-law, accommodation, or other protected-absence exceptions; those must be handled under controlling policy/law."
+  ],
+  "unresolved_questions": [
+    "When did the 2021 office rotation schedule end or change?",
+    "What current attendance/point rules apply to Area Managers and CSRs?",
+    "What exceptions governed protected leave, approved appointments, remote work, or accommodations during the rotation period?"
+  ],
+  "automation_candidates": [
+    "Schedule-aware attendance checker that compares an employee's assigned in-office day with an absence only after current attendance rules and protected exceptions are encoded."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-rotation-schedule-absence-memo-2021-06-08",
+      "safe_source_type": "procedure_correspondence",
+      "source_date_or_version": "2021-06-08",
+      "content_sha256": "636aca9618a66663d77ea5ccd9560483195fbcc8f375ff51036594d1fceffeb4",
+      "page_or_section": "full memorandum",
+      "ingested_at": "2026-09-23",
+      "notes": "Explicit historical return-to-normal attendance instruction.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": "2021-06-08",
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-rotation-schedule-absence-memo-2021-06-08/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-rotation-schedule-absence-memo-2021-06-08/fulltext.md"
+    }
+  ]
+}
