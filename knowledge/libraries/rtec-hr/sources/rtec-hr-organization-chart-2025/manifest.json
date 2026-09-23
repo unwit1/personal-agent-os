@@ -1,0 +1,19 @@
+{
+  "source_id": "rtec-hr-organization-chart-2025",
+  "title": "RTEC Organization Chart 2025",
+  "source_type": "organizational_reference",
+  "original_filename": "RTEC Organizational Chart 2025.pdf",
+  "source_representation": "complete_structural_text_transcription_of_supplied_chart",
+  "temporal_status": "historical",
+  "currentness": "historical_snapshot",
+  "dates": {
+    "chart_year": "2025",
+    "scan_date": "2026-01-02"
+  },
+  "sha256": "bb8ca9663d9c35d2fba278e16d2123b9ccaae7a46a5dffcc4f10f6ee0a5c7ef1",
+  "page_count": 1,
+  "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-organization-chart-2025/fulltext.md",
+  "derived_records": ["knowledge/libraries/rtec-hr/roles/organization-structure-history.json"],
+  "notes": ["Chart is labeled 2025. PDF scan metadata is 2026-01-02 and is not treated as the chart's effective date."],
+  "ingested_at": "2026-09-23"
+}
