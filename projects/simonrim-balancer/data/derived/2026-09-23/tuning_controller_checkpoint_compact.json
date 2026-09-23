@@ -1,0 +1,35 @@
+{
+  "snapshot":"2026-09-23",
+  "decoder":"GMST/GLOB/IDLE/QUST/SMQN/MESG",
+  "summary":{
+    "settings":118,
+    "settings_module_comparisons":18,
+    "settings_modified":8,
+    "settings_identical":10,
+    "idles":16,
+    "idle_sibling_comparisons":4,
+    "quests":10,
+    "quest_stages":11,
+    "story_manager_quest_nodes":6,
+    "story_manager_quest_links":5,
+    "messages":15,
+    "decode_failures":0,
+    "approved_rules":0
+  },
+  "notable_setting_deltas":[
+    {"plugin":"AdamantSmithing.esp","setting":"fSmithingArmorMax","baseline":10.0,"current":8.9},
+    {"plugin":"AdamantSmithing.esp","setting":"fSmithingWeaponMax","baseline":10.0,"current":6.1},
+    {"plugin":"BBNoSprintChanges.esp","setting":"fSprintStaminaDrainMult","baseline":0.0,"current":8.0},
+    {"plugin":"BBVanillaSliders.esp","setting":"fDiffMultHPByPCVE","baseline":1.5,"current":2.0},
+    {"plugin":"BBVanillaSliders.esp","setting":"fDiffMultHPByPCE","baseline":1.25,"current":1.5},
+    {"plugin":"BBVanillaSliders.esp","setting":"fDiffMultHPByPCH","baseline":1.0,"current":0.75},
+    {"plugin":"BBVanillaSliders.esp","setting":"fDiffMultHPByPCVH","baseline":0.75,"current":0.5},
+    {"plugin":"BBVanillaSliders.esp","setting":"fDiffMultHPByPCL","baseline":0.5,"current":0.25}
+  ],
+  "guardrails":[
+    "GMST semantic identity is EDID-based.",
+    "Optional/reversion modules remain scoped and do not contaminate main baselines.",
+    "Sibling override comparisons are labeled separately from true master-chain deltas.",
+    "No setting is auto-promoted into an approved rule."
+  ]
+}
