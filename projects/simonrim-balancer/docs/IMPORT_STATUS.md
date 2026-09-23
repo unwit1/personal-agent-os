@@ -1,83 +1,65 @@
 # Import Status — 2026-09-23
 
-## Imported versions
+Imported: Adamant 6.0.4, Hand to Hand 2.0.2, Blade and Blunt 4.0.3, Mysticism 2.5.0.
 
-- Adamant 6.0.4
-- Hand to Hand 2.0.2
-- Blade and Blunt 4.0.3
-- Mysticism 2.5.0
+## Core snapshot
 
-## Raw / source inventory
+- 21 plugins
+- 6,009 records / 5,988 Forms
+- 81,523 subrecords
+- 11,676 original deterministic relations
+- 3,951 effect instances
+- 476 BSA members
+- 115 Papyrus source files
+- 953 spells
+- 1,648 magic effects
+- 625 perks
+- 216 weapons
+- 269 enchantments
+- 62 combat styles
+- 12 movement types
+- 25 actor-value / perk-tree records
 
-- Source files: 73
-- Plugins: 21
-- Records: 6,009 (5,988 non-header Forms)
-- Subrecords: 81,523
-- Original deterministic relations: 11,676
-- Effect instances: 3,951
-- BSA members: 476
-- Papyrus source files: 115
-- Papyrus properties: 279
-- Config values: 129
-- FOMOD options: 20
-- Spells: 953
-- Magic effects: 1,648
-- Perks: 625
-- Weapons: 216
-- Enchantments: 269
-- Combat styles: 62
-- Movement types: 12
-- Actor-value / perk-tree records: 25
+## Resolution / exact deltas
 
-## Master-aware resolution / deltas
+- 5,988 Forms resolved; 0 slot-resolution failures
+- 537 exact imported-master baselines; 1,619 external baselines
+- 484 exact-baseline changed overrides; 53 identical forwards
+- 311 typed field deltas currently emitted
 
-- Forms resolved: 5,988; FormID slot-resolution failures: 0
-- Relations resolved: 11,676; failures: 0
-- Effect references resolved: 3,951; failures: 0
-- New local Forms: 3,832
-- Overrides: 2,156
-- Exact imported-master baselines: 537
-- External/unimported baselines: 1,619
-- Canonical Forms with multiple imported versions: 567
-- Imported override-chain rows: 1,145
-- Exact-baseline changed overrides: 484
-- Exact-baseline identical forwards: 53
-- Typed field deltas currently emitted: 311
+## Completed high-value decoders
 
-## Exact high-value decoders
+- MGEF DATA: 1,648 / 1,648
+- CTDA: 8,229 / 8,229
+- PERK: 625 headers, 1,006 effect entries, 4,035 conditions
+- WEAP: 216 / 216; 21 groups; 18 recurring patterns; 18 exact deltas
+- ENCH: 269 / 269; 870 effects; 36 groups; 27 recurring patterns; 58 exact deltas
+- CSTY: 62 / 62; 12 groups; 7 recurring patterns
+- MOVT: 12 / 12; 8 profiles; 3 recurring/complete-domain observations
+- AVIF: 25 / 25; 297 nodes; 283 graphical edges; 7 exact add-on graph deltas; no missing targets, unreachable nodes, or cycles
+- MGEF generic VMAD: 395 / 395; 416 script attachments; 1,067 properties; 915 object-property relations with 0 unresolved targets
 
-- MGEF DATA: 1,648 / 1,648, 0 failures
-- CTDA: 8,229 / 8,229, 0 failures
-- PERK headers: 625 / 625; 1,006 effect entries; 4,035 perk conditions
-- WEAP: 216 / 216, 21 baseline groups, 18 observed patterns, 18 exact imported-baseline deltas
-- ENCH: 269 / 269, 870 effects, 36 baseline groups, 27 observed patterns, 58 exact imported-baseline deltas
-- CSTY: 62 / 62, 12 descriptive groups, 7 observed patterns, 62 external Skyrim baselines
-- MOVT: 12 / 12, 8 exact movement profiles, 3 observed movement patterns, 12 external Skyrim baselines
-- AVIF: 25 / 25, 297 perk-tree nodes, 283 graphical tree edges, 0 missing targets, 0 unreachable nodes, 0 cycles
-  - 7 exact imported Adamant baselines for add-on graph deltas
-  - all 7 exact-baseline add-ons add nodes and change edges; 4 also remove nodes
-  - 18 external Skyrim baselines unavailable in the current snapshot
+## MGEF VMAD exact comparisons
 
-## Observed-pattern layer
+- 31 exact imported-baseline VMAD comparisons
+- 30 modified VMADs
+- 1 identical VMAD forward
+- 115 distinct attached script names
+- 234 / 416 attachments match supplied PSC source
+- 80 / 115 distinct attached script names have supplied PSC source
+- property types: 915 Object, 83 Float, 33 Int32, 33 Bool, 3 String
+- 4 Object properties preserve non--1 alias bindings
 
-- Spell profiles: 953; spell numeric baseline groups: 294
-- Perk entry-point baseline groups: 148
-- Spell/perk observed-pattern rows: 179
-- Weapon observed-pattern rows: 18
-- Enchantment observed-pattern rows: 27
-- Combat-style observed-pattern rows: 7
-- Movement observed-pattern rows: 3
-- Combined observed patterns: 234
+## Evidence / rule state
+
+- Combined aggregated observed patterns: 234
 - Approved design rules: 0
+- AVIF graph edges remain distinct from actual PERK CTDA prerequisites.
+- Script attachment frequency and property values remain implementation evidence, not automatically promoted rules.
 
-## Important semantic guardrail
+## Deferred
 
-AVIF tree connections are graphical/UI topology, not perk prerequisites. Actual perk gating remains in PERK CTDA conditions. The balancer stores those systems separately and will overlay them later rather than treating a tree line as a gameplay requirement.
-
-## Preserved but not fully semantically decoded yet
-
-- VMAD property values/attachments and fragments
-- quests/story-manager structures
+- VMAD on PERK, NPC_, ARMO, ACTI
+- QUST VMAD fragments / aliases
+- quest/story-manager structures
 - additional record-specific structures
-
-Uncertain structures remain raw evidence instead of being promoted into balance facts.

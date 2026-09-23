@@ -1,0 +1,28 @@
+{
+  "snapshot": "2026-09-23",
+  "decoder": "MGEF generic VMAD v5/object-format-2",
+  "summary": {
+    "mgef_records_with_vmad": 395,
+    "mgef_vmad_decoded": 395,
+    "decode_failures": 0,
+    "script_attachments": 416,
+    "distinct_script_names": 115,
+    "properties": 1067,
+    "property_types": {"Object": 915, "Float": 83, "Int32": 33, "Bool": 33, "String": 3},
+    "object_property_relations": 915,
+    "unresolved_object_property_targets": 0,
+    "object_properties_with_alias_binding": 4,
+    "script_attachments_with_source": 234,
+    "distinct_attached_scripts_with_source": 80,
+    "exact_imported_baseline_vmad_comparisons": 31,
+    "modified_exact_vmad": 30,
+    "identical_exact_vmad_forwards": 1,
+    "approved_rules": 0
+  },
+  "guardrails": [
+    "This batch parses MGEF generic VMAD scripts/properties only.",
+    "QUST fragments/aliases and VMAD on PERK/NPC_/ARMO/ACTI remain deferred.",
+    "Script attachment frequency is implementation evidence, not an approved design rule.",
+    "Object properties retain canonical Form target plus alias binding where present."
+  ]
+}
