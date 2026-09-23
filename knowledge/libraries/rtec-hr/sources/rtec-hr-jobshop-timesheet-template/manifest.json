@@ -1,0 +1,27 @@
+{
+  "source_id": "rtec-hr-jobshop-timesheet-template",
+  "title": "RTEC Timesheet for Jobshop",
+  "source_type": "timekeeping_and_leave_template",
+  "original_filename": "RTEC Timesheet for Jobshop.xls",
+  "source_representation": "searchable_textual_inventory_of_legacy_xls_content",
+  "temporal_status": "unknown",
+  "currentness": "recently_saved_but_effective_version_not_established",
+  "dates": {
+    "metadata_created": "2016-07-23",
+    "metadata_last_printed": "2023-02-13",
+    "metadata_last_saved": "2026-04-20",
+    "visible_revision_marker": "s/rev/12"
+  },
+  "author_metadata": "jclark",
+  "last_saved_by_metadata": "Shonda Singleton",
+  "sha256": "90ab94099693cdbd2e7ac3dc3d4e12994592cdbddacfd794077228c52a6eb730",
+  "sheet_names_detected": ["Sheet1", "Sheet2", "Sheet3"],
+  "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-jobshop-timesheet-template/fulltext.md",
+  "derived_records": ["knowledge/libraries/rtec-hr/forms/jobshop-employee-time-record.json"],
+  "notes": [
+    "This is a legacy binary Excel file. Textual workbook content and metadata were extracted deterministically without treating metadata timestamps as policy effective dates.",
+    "The printable text contains a visible s/rev/12 marker, but its meaning/date format is not assumed.",
+    "A future spreadsheet-native extraction should map exact cells/formulas if needed; the current searchable mirror preserves all user-facing text recovered in this pass."
+  ],
+  "ingested_at": "2026-09-23"
+}
