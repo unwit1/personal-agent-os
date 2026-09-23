@@ -7,13 +7,14 @@
 - Blade and Blunt 4.0.3
 - Mysticism 2.5.0
 
-## Parsed counts
+## Raw / source inventory
 
 - Source files: 73
 - Plugins: 21
-- Records: 6,009
+- Records: 6,009 (5,988 non-header Forms)
 - Subrecords: 81,523
-- Deterministic relations: 11,676
+- Original deterministic relations: 11,676
+- Effect instances: 3,951
 - BSA members: 476
 - Papyrus source files: 115
 - Papyrus properties: 279
@@ -22,39 +23,43 @@
 - Spells: 953
 - Magic effects: 1,648
 - Perks: 625
-- Effect instances: 3,951
 
-## Deterministic decoding implemented
+## Master-aware resolution / deltas
 
-- Bethesda record/group structure
-- compressed plugin records
-- subrecord structure including XXXX extended sizes
-- EDID and textual FULL/DESC
-- SPEL/SPIT
-- EFID / EFIT
-- GMST and GLOB values
-- basic PERK/DATA
-- basic WEAP/DATA
-- basic ARMO/DATA
-- BSA v105 inventory for these packages
-- uncompressed BSA text extraction
-- Papyrus script/property/member inventory
-- INI/TOML/JSON key/value extraction
-- FOMOD option extraction
-- FormID relationships for keywords, effects, leveled lists, form lists, and crafting
+- Forms resolved: 5,988; slot failures: 0
+- Relations resolved: 11,676; failures: 0
+- Effect references resolved: 3,951; failures: 0
+- New local Forms: 3,832
+- Overrides: 2,156
+- Exact imported-master baselines: 537
+- External/unimported baselines: 1,619
+- Canonical Forms with multiple imported versions: 567
+- Imported override-chain rows: 1,145
+- Exact-baseline changed overrides: 484
+- Exact-baseline identical forwards: 53
+- Typed field deltas currently emitted: 311
 
-## Preserved but not fully semantically decoded yet
+## Exact high-value decoders
 
-The raw snapshot retains bytes needed for later exact decoders for:
-- complete MGEF/DATA
-- conditions (CTDA)
-- complete perk entry-point structures
-- weapon DNAM
-- enchantment structures
-- combat styles
-- movement types
-- quests/story manager data
-- VMAD property values and attachments
-- additional record-specific structures
+- MGEF DATA: 1,648 / 1,648 decoded; 0 failures
+- CTDA: 8,229 / 8,229 decoded; 0 failures
+- MGEF/CTDA semantic relations added: 9,937
+- PERK headers: 625 / 625 decoded
+- PERK effect entries: 1,006 / 1,006 decoded; 0 failures
+  - Entry Point: 875
+  - Ability: 121
+  - Quest + Stage: 10
+- PERK conditions: 4,035
+- PERK semantic relations added: 2,803
+- Distinct perk entry points observed: 62
+- Distinct perk entry functions observed: 9
 
-Uncertain fields remain raw evidence instead of being promoted into incorrect balance facts.
+## Observed-pattern layer
+
+- Spell design profiles: 953
+- Spell numeric baseline groups: 294
+- Perk entry-point baseline groups: 148
+- Observed-pattern rows with sample size >= 3: 179
+- Approved design rules: 0
+
+Raw bytes remain authoritative. WEAP DNAM, ENCH-specific fields, CSTY, MOVT, AVIF perk-tree geometry, deeper VMAD, and additional record structures remain future decoder work.
