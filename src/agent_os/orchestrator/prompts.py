@@ -98,7 +98,7 @@ def _contract(role: str) -> str:
         }
     else:
         example = {
-            "status": "done | needs_decision",
+            "status": "done | already_done | needs_decision",
             "summary": "one line",
             "outputs": ["files you created or changed"],
             "question": "only when status is needs_decision",
@@ -152,6 +152,7 @@ def build_measured(
             "- Everything you need is in this prompt and the worktree. Do not consult Agent OS, memory, or other context",
             "  tools. Read only the files you need, make the change, run your validator once, and finish.",
             "- If a decision would materially change the requested outcome, stop and report status needs_decision with a question.",
+            "- If the assignment is already fully done in this worktree, change nothing and report status already_done, citing the evidence in summary.",
         ]
         validators = [item for item in node.get("validators") or [] if item.get("kind") == "command"]
         if validators:

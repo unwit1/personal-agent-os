@@ -406,6 +406,11 @@ class SimpleApiTests(RoadmapFixture):
         self.assertEqual(home["next_stage"]["id"], "P0.2")
         self.assertEqual(home["advice"]["target"], "continue")
         self.assertIsNone(home["current_run"])
+        status, usage, _ = self.call("GET", "/api/usage")
+        self.assertEqual(status, 200)
+        rows = {row["label"]: row for row in usage["rows"]}
+        self.assertEqual(rows["Model calls"]["value"], 0)
+        self.assertIsNone(rows["Input tokens (provider-reported)"]["value"], "no reports: unknown, not zero")
 
 
 class GuiCoreTests(unittest.TestCase):

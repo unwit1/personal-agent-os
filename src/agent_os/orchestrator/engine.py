@@ -695,8 +695,14 @@ class Orchestrator:
             self._validation_failed(record, node, validation)
             return
         if not changed and node["role"] in INTEGRATED_ROLES and node["review"]["rounds"] == 0:
-            # Nothing changed, so there is nothing to review or integrate: a
-            # reviewer call here would read an empty diff.
+            if str((structured or {}).get("status")) != "already_done":
+                # "Done" with no change is a failed attempt, not a success:
+                # passing tests only prove nothing broke.
+                self.ledger.emit(record["run_id"], "loop_guard", node["id"], guard="no_change_reported_done", reason="the worker reported done but changed no files")
+                self._validation_failed(record, node, {"evidence": [{"name": "produced-changes", "kind": "check", "passed": False, "detail": "reported done but changed no files; if the work already exists, report status already_done"}]}, reason="it reported done but changed no files")
+                return
+            # The worker says the work already exists: nothing to review or
+            # integrate, and a reviewer call would read an empty diff.
             node["state"] = "PASSED"
             node["completed_at"] = now()
             node["review_required"] = False
@@ -706,7 +712,7 @@ class Orchestrator:
                 node["id"],
                 category="no_change",
                 model_calls_avoided=1 if self._review_required(record, {**node, "review_required": None}) else 0,
-                reason="the worker changed no files, so no review was requested",
+                reason="the work already existed (worker reported already_done), so no review was requested",
                 tokens_avoided_estimate=self._measured_average(record, "reviewer"),
                 estimate_basis="average exact input+output tokens of reviewer calls in this run" if self._measured_average(record, "reviewer") else None,
             )
@@ -793,7 +799,7 @@ class Orchestrator:
                 totals.append(int(usage["input_tokens"]) + int(usage.get("output_tokens") or 0))
         return int(sum(totals) / len(totals)) if totals else None
 
-    def _validation_failed(self, record: dict[str, Any], node: dict[str, Any], validation: dict[str, Any]) -> None:
+    def _validation_failed(self, record: dict[str, Any], node: dict[str, Any], validation: dict[str, Any], reason: str = "its tests failed") -> None:
         detail = _evidence_line(validation)
         _push_failure(node, "validator_failed", (node.get("selection") or {}).get("provider"), detail)
         policy = record["policy"]
@@ -809,7 +815,7 @@ class Orchestrator:
                 label = f"{rung['capability_class']}/{rung['effort']}"
                 node["wait_reason"] = f"validator failed; escalated to {label}"
                 self.store.append_event(record["run_id"], "node.escalated", node["id"], f"-> {label}: {detail}")
-                self.ledger.emit(record["run_id"], "model_escalated", node["id"], **{"from": before, "to": label, "reason": "its tests failed", "evidence": detail, "escalation": node["escalations"]})
+                self.ledger.emit(record["run_id"], "model_escalated", node["id"], **{"from": before, "to": label, "reason": reason, "evidence": detail, "escalation": node["escalations"]})
                 return
         node["retries"] += 1
         if node["retries"] <= policy["max_stage_retries"] and node["execution_path"] == "deterministic":

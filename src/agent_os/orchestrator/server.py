@@ -187,6 +187,10 @@ class Api:
 
     def get(self, path: str, query: dict[str, list[str]]) -> Any:
         parts = [part for part in path.split("/") if part][1:]  # drop "api"
+        if parts == ["usage"]:
+            from .usage_report import build, telemetry_files
+
+            return simple.usage_view(build(telemetry_files(service.engine().store.home), (query.get("since") or [None])[0]))
         if parts == ["home"]:
             return self.home(self._project(query))
         if len(parts) == 2 and parts[0] == "prep":

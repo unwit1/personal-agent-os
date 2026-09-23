@@ -99,6 +99,16 @@ def register(commands: argparse._SubParsersAction) -> None:
     bench.add_argument("--live", action="store_true", help="use the machine's real providers (costs usage) for the small-code-change scenario")
     bench.add_argument("--out", help="directory for results.json and report.md")
 
+    usage = actions.add_parser("usage-report", help="cross-run token usage report from run telemetry (provider-reported numbers)")
+    usage.add_argument("--since", help="ISO timestamp; only events at or after it")
+    usage.add_argument("--include-benchmarks", action="store_true", help="also count benchmark runs")
+
+    over = actions.add_parser("overhead", help="measure each coding CLI's fixed per-call context cost (real calls; spends usage)")
+    over.add_argument("--provider", action="append", help="provider id(s); default all enabled")
+    over.add_argument("--variant", action="append", help="option variant(s) to measure; default all")
+    over.add_argument("--repo", default=".")
+    over.add_argument("--capability-class", default="fast")
+
     gui = actions.add_parser("gui", help="serve the local control GUI and API")
     gui.add_argument("--host", default="127.0.0.1")
     gui.add_argument("--port", type=int, default=8765)
@@ -238,6 +248,16 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         report = run_benchmark(args.scenario, live=args.live, out_dir=Path(args.out) if args.out else None)
         emit({"files": report["files"], "totals": report["totals"], "scenarios": [{key: item[key] for key in ("scenario", "scenario_passed", "model_calls", "model_calls_avoided", "local_operations", "cache_hits", "escalations", "runtime_s")} for item in report["scenarios"]]})
         return 0 if report["totals"]["passed"] == report["totals"]["scenarios"] else 1
+    if action == "usage-report":
+        from .usage_report import report
+
+        emit(report(since=args.since, include_benchmarks=args.include_benchmarks))
+        return 0
+    if action == "overhead":
+        from .overhead import measure
+
+        emit(measure(args.provider, repository=args.repo, capability_class=args.capability_class, variants=args.variant))
+        return 0
     if action == "gui":
         from .server import serve
 

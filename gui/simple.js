@@ -298,7 +298,19 @@
     storageSet("agent-os-mode", mode);
   }
 
+  async function loadUsage() {
+    const usage = await api("usage");
+    $("usage-rows").replaceChildren(...usage.rows.map((raw) => {
+      const row = core.effRow(raw);
+      return el("tr", { title: row.help },
+        el("th", {}, row.label, " ", el("span", { class: "help-dot", title: row.help, tabindex: "0", "aria-label": row.help }, "?")),
+        el("td", { class: "num" }, row.value),
+        el("td", {}, el("span", { class: `acc acc-${row.accuracy}` }, row.accuracy)));
+    }));
+  }
+
   function wireSimple() {
+    $("usage-panel").addEventListener("toggle", (event) => { if (event.target.open) act(null, "refresh", "adding up model usage", loadUsage); });
     $("continue-button").addEventListener("click", (event) => continueRoadmap(event.currentTarget));
     $("help-button").addEventListener("click", (event) => tellMeWhatToPress(event.currentTarget));
     $("advice-close").addEventListener("click", () => $("advice").classList.add("hidden"));

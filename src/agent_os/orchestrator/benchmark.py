@@ -206,15 +206,28 @@ def scenario_roadmap_continuation(engine: Orchestrator, repo: Path) -> dict[str,
     result = roadmap.continue_roadmap(engine, None, repo, policy=_policy(default_validators=[TEST_VALIDATOR], final_integration="branch"))
     if result["action"] != "started":
         return {"run_id": None, "passed": False, "state": result["action"], "detail": result["message"]}
-    final = engine.run_loop(result["run_id"], max_seconds=180)
-    return {"run_id": result["run_id"], "passed": final["state"] == "COMPLETE" and result["stage"]["id"] == "P0.2", "state": final["state"], "stage": result["stage"]["id"]}
+    final = engine.run_loop(result["run_id"], max_seconds=300)
+    return {"run_id": result["run_id"], "passed": result["stage"]["id"] == "P0.2" and _delivered(repo, final, *CHECKS["farewell"]), "state": final["state"], "stage": result["stage"]["id"]}
+
+
+def _delivered(repo: Path, final: dict[str, Any], path: str, needle: str) -> bool:
+    """The change really exists on the run's integration branch. A COMPLETE
+    state alone is not proof: a worker can report done having changed nothing."""
+    branch = (final.get("integration") or {}).get("branch")
+    if final["state"] != "COMPLETE" or not branch:
+        return False
+    shown = subprocess.run(["git", "show", f"{branch}:{path}"], cwd=repo, capture_output=True, text=True)
+    return shown.returncode == 0 and needle in shown.stdout
+
+
+CHECKS = {"docs": ("docs/usage.md", "greet("), "farewell": ("app/greet.py", "def farewell")}
 
 
 def _explicit(engine: Orchestrator, repo: Path, goal: str, task: dict[str, Any]) -> dict[str, Any]:
     summary = engine.create_run(goal, repository=repo, tasks=[task], policy=_policy(default_validators=[TEST_VALIDATOR]))
     engine.start(summary["run_id"], True)
-    final = engine.run_loop(summary["run_id"], max_seconds=180)
-    return {"run_id": summary["run_id"], "passed": final["state"] == "COMPLETE", "state": final["state"]}
+    final = engine.run_loop(summary["run_id"], max_seconds=300)
+    return {"run_id": summary["run_id"], "passed": _delivered(repo, final, *CHECKS[task["id"]]), "state": final["state"]}
 
 
 def scenario_documentation_change(engine: Orchestrator, repo: Path) -> dict[str, Any]:
@@ -368,7 +381,7 @@ def run_benchmark(scenarios: list[str] | None = None, *, live: bool = False, out
     if unknown:
         raise ValueError(f"unknown scenario(s): {unknown}; choose from {sorted(SCENARIOS)}")
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    target = Path(out_dir) if out_dir else orchestrator_home() / "benchmarks" / stamp
+    target = (Path(out_dir) if out_dir else orchestrator_home() / "benchmarks" / stamp).resolve()
     target.mkdir(parents=True, exist_ok=True)
     # Live runs keep their state and transcripts for inspection, and work
     # outside %TEMP%: Codex's Windows sandbox refuses workspaces under it.

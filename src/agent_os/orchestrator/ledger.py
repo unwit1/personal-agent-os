@@ -260,6 +260,8 @@ def describe(event: dict[str, Any]) -> str:
             return f"Skipped repeat work: {data.get('reason')}{tail}"
         return f"Avoided {data.get('model_calls_avoided')} model call(s): {data.get('reason')}{tail}"
     if kind == "loop_guard":
+        if data.get("guard") == "no_change_reported_done":
+            return f"Caught a false 'done' on {node}: {data.get('reason')}"
         return f"Stopped a repeat: {data.get('reason')}"
     if kind == "approval_required":
         return f"Waiting for you: {data.get('title') or data.get('kind')}"

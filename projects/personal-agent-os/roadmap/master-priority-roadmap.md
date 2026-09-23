@@ -436,9 +436,12 @@ Build after or alongside the P0 primitives so optimization is measured against r
 
 ### P1.1 — Privacy-safe usage telemetry
 
-Current bounded implementation (2026-09-22): orchestrated runs now record
-per-run efficiency telemetry with normalized provider token usage (P1.2C,
-`docs/simple-mode.md`); cross-run usage reports remain open.
+Current bounded implementation (2026-09-23): orchestrated runs record
+per-run efficiency telemetry with normalized provider token usage (P1.2C), and
+`agent-os orchestrate usage-report` / the GUI's "Model usage across all runs"
+aggregate it across runs by role, tier, provider/model and origin, with
+coverage and overhead share (P1.2D, `docs/simple-mode.md`). Telemetry from
+non-orchestrator surfaces (chat sessions, staged workflows) remains open.
 `src/agent_os/telemetry.py`
 defines a strict metadata-only event schema and append-only JSONL store under
 the gitignored `.agent-local/telemetry` tree. Synthetic tests prove compact
@@ -562,6 +565,16 @@ See `docs/simple-mode.md`. Changes:
   their own instructions, tools and exploration). Prompt-level context
   selection is therefore a small lever; the next economy work is per-call
   CLI overhead and avoiding calls (see P2.3).
+
+**P1.2D — per-call CLI overhead (2026-09-23).** Adapters now send lean
+worker invocations: Claude Code with a 6-tool set and skills disabled, Codex
+with `--ignore-user-config` (carrying over `windows.sandbox`). Measured with
+`agent-os orchestrate overhead`: fixed cost per Claude call 25,177 → 14,331
+input tokens, per Codex call 19,007 → 14,022 (uncached ~15k → 3k). Live A/B on
+a small code change (3 runs each, delivery verified): median task input
+161,847 → 100,513 tokens; review calls ~84.6k → ~41.8k. Also fixed: a worker
+reporting "done" with no changes was accepted (now a failed attempt unless it
+reports `already_done`).
 
 The original scope below is kept for reference.
 

@@ -266,8 +266,8 @@ class EngineTelemetryTests(OrchestratorFixture):
         report = self.engine.efficiency(run_id)
         self.assertEqual(report["tests"]["runs"], 1, "identical failing code is tested once")
 
-    def test_no_change_worker_skips_review(self) -> None:
-        synthetic.SCRIPTS["alpha"] = synthetic.SCRIPTS["beta"] = edit_script({"a": {"edits": {}}})
+    def test_already_done_worker_skips_review(self) -> None:
+        synthetic.SCRIPTS["alpha"] = synthetic.SCRIPTS["beta"] = edit_script({"a": {"edits": {}, "structured": {"status": "already_done", "summary": "exists"}}})
         run_id = self.create([self.task("a")])
         self.engine.start(run_id)
         self.assertEqual(self.engine.run_loop(run_id, max_ticks=40)["state"], "COMPLETE")
@@ -275,6 +275,20 @@ class EngineTelemetryTests(OrchestratorFixture):
         report = self.engine.efficiency(run_id)
         self.assertEqual(report["avoided"]["model_calls"], 1)
         self.assertEqual(report["avoided"]["tokens_estimate"], 0, "no measured review cost: no token claim")
+
+    def test_done_without_changes_is_a_failed_attempt(self) -> None:
+        # A live Codex worker once reported "done" having changed nothing;
+        # tests still passed because they did not cover the missing work.
+        synthetic.SCRIPTS["alpha"] = synthetic.SCRIPTS["beta"] = edit_script({"a": {"edits": {}}})
+        run_id = self.create([self.task("a")], max_escalations=1)
+        self.engine.start(run_id)
+        self.assertEqual(self.engine.run_loop(run_id, max_ticks=40)["state"], "BLOCKED")
+        node = self.node(run_id, "a")
+        self.assertFalse(node["integrated"])
+        self.assertEqual(node["escalations"], 1)
+        guards = [event["data"]["guard"] for event in self.events(run_id) if event["type"] == "loop_guard"]
+        self.assertIn("no_change_reported_done", guards)
+        self.assertNotIn("run_completed", self.types(run_id))
 
     def test_deterministic_step_records_local_execution(self) -> None:
         task = {"id": "det", "goal": "run a command", "scope": ["a"], "execution_path": "deterministic", "command": [sys.executable, "-c", "open('a/x.txt','w').write('x')"], "validators": [PASS]}

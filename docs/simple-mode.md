@@ -1,6 +1,6 @@
 # Orchestrator Simple Mode, Continue Roadmap, and efficiency telemetry
 
-Status: implemented 2026-09-22 (P1.2C). Part 1 is for everyone. Part 2 is for
+Status: implemented 2026-09-22 (P1.2C); per-call overhead reduction and cross-run usage report 2026-09-23 (P1.2D). Part 1 is for everyone. Part 2 is for
 developers.
 
 ---
@@ -119,6 +119,12 @@ The most important lines:
 - **Model calls avoided** and **Estimated tokens avoided** — only filled in
   where there is a real measurement to compare with; otherwise it says "not
   available".
+
+### "Model usage across all runs"
+
+A section on the home screen that adds up every run on this computer: model
+calls, tokens the providers reported, calls that reported nothing, how much of
+what the models read was the agent tools' own overhead, and calls avoided.
 
 ### Advanced Mode
 
@@ -271,14 +277,16 @@ exists.
 |---|---|
 | `nothing_to_do` | no eligible stage, so no planner is started |
 | `resume` | an unfinished run is continued instead of re-planned |
-| `no_change` | a worker changed nothing, so no review is requested |
+| `no_change` | a worker reported `already_done` and changed nothing, so no review is requested |
 | `validation_cache` | identical code (Git tree) + identical validators already tested in this run: no model call, saves test time |
 | `deterministic` | a planned deterministic command replaced a model worker |
 
 ### Loop guards (`loop_guard`)
 
 `unchanged_code_retest` (no new code since a failed test run: tests not
-re-run), `escalation_limit`, `retry_limit`, `review_rounds` (reviewer/repairer
+re-run), `no_change_reported_done` (a worker said "done" but changed no
+files: treated as a failed attempt and escalated, never integrated; seen live
+with gpt-6-luna at low effort in 2 of 9 runs), `escalation_limit`, `retry_limit`, `review_rounds` (reviewer/repairer
 ping-pong), `launch_budget`, `duplicate_roadmap_work`, `stage_repeat`,
 `campaign_run_limit`.
 
@@ -310,6 +318,67 @@ avoided ones) on the highest tier with the whole tracked project text in the
 prompt, and no reuse of test results. Relative cost units use the registry's
 configured `costs` weights, which are not prices.
 
+### Per-call overhead (P1.2D)
+
+Measured finding: the prompt Agent OS writes is ~1% of what the agent CLIs
+read. The rest is each CLI's fixed per-call context (system prompt, tool
+definitions, skill/plugin listings) plus its own exploration. The adapters
+now trim the fixed part, using only flags the installed CLI advertises:
+
+| Provider | Default now | Registry option to change it |
+|---|---|---|
+| Claude Code | `--tools Bash,Read,Edit,Write,Glob,Grep` (read-only workers: `Bash,Read,Glob,Grep`), `--disable-slash-commands` | `options.lean_tools` (false, or a tool list), `options.disable_skills` |
+| Claude Code | not used: `--exclude-dynamic-system-prompt-sections` (no measured cache benefit), `--setting-sources` (~2%, but drops user permission rules), `--bare` (ignores OAuth logins) | `options.shared_prompt_cache`, `options.setting_sources` |
+| Codex | `--ignore-user-config`, carrying over `windows.sandbox` from your config with `-c` (without it every command is "blocked by policy") | `options.use_user_config: true`, `options.carry_config_keys`, `options.disable_features` |
+
+Ignoring `~/.codex/config.toml` also drops interactive-only settings such as
+plugins, MCP servers, notify hooks and `service_tier = "priority"`: background
+workers run on the standard tier.
+
+**Measurement 1 — fixed cost per call** (`agent-os orchestrate overhead`:
+trivial prompt, no tool use, two different worktrees, exact provider usage,
+2026-09-23, Claude Code 2.1.280 / haiku, codex-cli 0.155.1 / gpt-6-luna):
+
+| Variant | Input tokens per call |
+|---|---|
+| Claude, previous flags | 25,177 |
+| Claude, lean tool set | 14,331 (−43%) |
+| Claude, skills disabled only | 22,565 (−10%) |
+| Claude, dynamic sections excluded | 25,032 (no cache gain in the 2nd worktree) |
+| Claude, project settings only | 24,616 (−2%) |
+| Codex, with user config | 19,007 (15,167–19,007 uncached) |
+| Codex, `--ignore-user-config` | 14,022 (3,014 uncached) |
+
+**Measurement 2 — real task, A/B** (`benchmark --live --scenario
+small_code_change`, 3 runs each; every run verified that `farewell()` exists
+on the integration branch):
+
+| | Lean (new defaults) | Previous settings |
+|---|---|---|
+| Task input tokens | 85,940 · 147,768* · 100,513 (median 100,513) | 328,175* · 161,847 · 142,928 (median 161,847) |
+| Claude sonnet review, per call | 42,114 · 41,756 · 41,679 | 84,345 · 84,995 · 172,442 (multi-turn) |
+| Codex luna implementer, per call | 43,826 – 59,246 (mean 52,168) | 57,933 – 77,987 (mean 72,792) |
+| Claude list-price cost per review | $0.053 – $0.060 | $0.097 – $0.130 |
+
+\* one extra implementer attempt after `no_change_reported_done`.
+
+Three runs per arm is a small sample and agent behaviour varies; the per-call
+fixed-cost numbers (measurement 1) are deterministic, the task totals are not.
+
+### Cross-run usage report (P1.1)
+
+```powershell
+agent-os orchestrate usage-report [--since 2026-09-01T00:00:00] [--include-benchmarks]
+```
+
+Reads every run's `telemetry.jsonl` and reports provider-reported tokens by
+role, tier, provider/model and origin (roadmap vs task), expensive-tier calls
+by role, retries/escalations/fallbacks/loop guards, calls avoided by
+category, prompt-vs-provider input (overhead share), and coverage (calls with
+exact tokens, calls without a report, synthetic calls excluded). Written to
+`.agent-local/orchestrator/reports/usage-<utc>.json`; the GUI shows the same
+totals under **Model usage across all runs** (`GET /api/usage`).
+
 ### Tests
 
 | Suite | Kind |
@@ -317,6 +386,8 @@ configured `costs` weights, which are not prices.
 | `tests/test_orchestrator_telemetry.py` | unit (usage, ledger, aggregation) + integration (engine) |
 | `tests/test_orchestrator_roadmap.py` | roadmap unit, Continue Roadmap / campaign integration, Simple Mode view model, HTTP API, Node GUI tests |
 | `tests/test_orchestrator_benchmark.py` | benchmark regression |
+| `tests/test_orchestrator_overhead.py` | adapter overhead flags, config carry-over, usage report |
+| `agent-os orchestrate overhead` | provider measurement (real calls; spends usage) |
 | `tests/gui/simple_core.test.js` | GUI state (`node --test tests/gui/simple_core.test.js`) |
 | `agent-os orchestrate benchmark --live` | provider smoke test (opt-in; uses real usage) |
 

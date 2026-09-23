@@ -412,6 +412,27 @@ def run_summary(run: dict[str, Any], report: dict[str, Any] | None) -> dict[str,
     }
 
 
+def usage_view(report: dict[str, Any]) -> dict[str, Any]:
+    """Cross-run usage in plain words; every row keeps its accuracy label."""
+    totals = report["totals"]
+    coverage = report["coverage"]
+    gap = report["prompt_vs_provider_input"]
+    measured = totals["exact_calls"] > 0
+    rows = [
+        {"label": "Runs with model use", "value": report["runs_counted"], "accuracy": "measured", "help": "Orchestrated runs on this computer that recorded telemetry."},
+        {"label": "Model calls", "value": totals["calls"], "accuracy": "measured", "help": "Every time Claude or Codex was started."},
+        {"label": "Input tokens (provider-reported)", "value": totals["input"] if measured else None, "accuracy": "exact", "help": "All tokens the models read, including cached ones."},
+        {"label": "Output tokens (provider-reported)", "value": totals["output"] if measured else None, "accuracy": "exact", "help": "Tokens the models wrote."},
+        {"label": "Calls with no token report", "value": coverage["calls_without_token_report"], "accuracy": "measured", "help": "Their tokens are not in the totals above."},
+        {"label": "Share of input that was agent-tool overhead", "value": round(100 * gap["overhead_share_estimate"], 1) if gap.get("overhead_share_estimate") is not None else None, "unit": "%", "accuracy": "estimated", "help": "How much of what the models read was the agent tool's own instructions and exploration rather than the task Orchestrator wrote."},
+        {"label": "Highest-cost model calls", "value": sum(report["expensive_tier_calls_by_role"].values()), "accuracy": "measured", "help": "Calls on the reasoning or frontier tier."},
+        {"label": "Model calls avoided", "value": sum(report["model_calls_avoided_by_category"].values()), "accuracy": "measured", "help": "Calls not needed because work was reused, skipped or done locally."},
+    ]
+    if totals["cost_usd"]:
+        rows.insert(4, {"label": "Claude list-price cost", "value": totals["cost_usd"], "unit": "USD", "accuracy": "exact", "help": "Reported by Claude Code at list price. Codex reports no cost; subscription plans are not billed this way."})
+    return {"rows": rows, "report": report}
+
+
 # ---------------------------------------------------------------------------
 # Tell me what to press
 # ---------------------------------------------------------------------------
