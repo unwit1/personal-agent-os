@@ -1,0 +1,121 @@
+{
+  "record_id": "rtec-payroll-time-tax-email-evidence-2016-2026",
+  "updated_at": "2026-09-23",
+  "status": "historical_workflow_with_current_adp_signals",
+  "scope": "Sanitized process model. No employee pay amounts, account numbers, tax identifiers or row-level payroll data are retained.",
+  "phases": [
+    {
+      "phase": "time_and_attendance",
+      "observed": [
+        "ADP time-and-attendance evaluation/demo",
+        "approval of timecards/timesheets before payroll"
+      ],
+      "evidence_ids": [
+        "000029",
+        "000030",
+        "000159",
+        "000287",
+        "000301"
+      ]
+    },
+    {
+      "phase": "payroll_review_handoff",
+      "observed": [
+        "repeated check-register follow-up with finance/controller role"
+      ],
+      "evidence_ids": [
+        "000191",
+        "000206",
+        "000288"
+      ]
+    },
+    {
+      "phase": "employee_payment_setup",
+      "observed": [
+        "direct-deposit administration and related employee setup"
+      ],
+      "evidence_ids": [
+        "000146"
+      ]
+    },
+    {
+      "phase": "withholding_forms",
+      "observed": [
+        "recurring checks for new federal W-4 and Kentucky K-4 forms/instructions"
+      ],
+      "evidence_ids": [
+        "000107",
+        "000182",
+        "000193",
+        "000320"
+      ]
+    },
+    {
+      "phase": "adjustments_and_quarter_end",
+      "observed": [
+        "historical quarterly-adjustment tool guidance",
+        "2026 previous-quarter adjustment deadlines",
+        "quarter-end dashboard tasks",
+        "preview tax forms/reports in iReports"
+      ],
+      "evidence_ids": [
+        "000121",
+        "000346",
+        "000572",
+        "000574"
+      ]
+    },
+    {
+      "phase": "calendar_and_bank_holiday_coordination",
+      "observed": [
+        "ADP notices requiring payroll schedule awareness around holidays/office closures"
+      ],
+      "evidence_ids": [
+        "000572",
+        "000576"
+      ]
+    },
+    {
+      "phase": "temporary_staff_pay_coordination",
+      "observed": [
+        "historical coordination with The Job Shop about holiday-pay eligibility for job-shop employees"
+      ],
+      "evidence_ids": [
+        "000018"
+      ],
+      "currentness": "historical"
+    }
+  ],
+  "current_2026_adp_environment": {
+    "strongly_evidenced_tools": [
+      "ADP Workforce Now",
+      "Quarter-End Dashboard",
+      "ADP SmartCompliance",
+      "iReports",
+      "Employee Self-Service",
+      "Service Connect"
+    ],
+    "caution": "Targeted operational emails strongly support active use/customer status, but exact licensed modules, approval permissions and data ownership should be confirmed in the live environment."
+  },
+  "historical_role_handoffs": [
+    "HR approved or chased time records.",
+    "Finance/controller supplied or was associated with check-register review.",
+    "HR monitored tax-form changes and employee/payroll data readiness.",
+    "ADP supplied payroll/tax deadlines, reports and adjustment mechanisms."
+  ],
+  "unresolved": [
+    "Who currently approves timesheets/timecards and at what cutoff?",
+    "Who reviews the check register before payroll finalization?",
+    "Which payroll changes can HR enter versus finance/controller?",
+    "What is the current W-4/K-4 intake, validation and retention process?",
+    "Who owns quarterly tax verification and adjustment decisions?",
+    "What payroll calendar/holiday schedule is authoritative?"
+  ],
+  "automation_candidates": [
+    "pre-payroll checklist with time-approval completeness",
+    "check-register review handoff and approval capture",
+    "quarter-end ADP checklist generated from authoritative current guidance",
+    "tax-form version/currentness check",
+    "holiday/payroll-schedule exception warning"
+  ]
+}
