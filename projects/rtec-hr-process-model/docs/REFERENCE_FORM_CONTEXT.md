@@ -12,9 +12,11 @@ Current imported source sets:
 
 - **HR-GUI:** 72 reference-library records from `assets/reference_fingerprint_manifest.csv`.
 - **job-applicant-dashboard:** 3 reusable application/interview/denial-template sources from `Templates/`.
-- **RTEC HR Process Model:** 4 form records preserved in the canonical HR corpus, including the visually checked Guardian enrollment reference discovered in work email. The new Guardian source may overlap an HR-GUI packet identity and remains flagged for content-level deduplication.
+- **RTEC HR Process Model:** 9 form records preserved in the canonical HR corpus, including the visually checked Guardian enrollment reference and five blank orientation/training references discovered in work email. The five July 15, 2026 orientation documents are preserved as unchanged PDFs with searchable OCR in `knowledge/libraries/rtec-hr/sources/rtec-hr-new-hire-orientation-packet-2026-07-15/`.
 
-The catalog contains **79 provenance records**, **74 confirmed identity keys**, and **1 source awaiting identity/deduplication review**. Repeated sources are preserved as multi-source provenance rather than discarded.
+The catalog contains **84 provenance records**, **74 confirmed identity keys**, and **6 sources awaiting identity/deduplication review**. The five orientation documents have possible related HR-GUI catalog entries; full HR-GUI originals are unavailable for content-hash comparison, so these matches remain candidates. Repeated sources are preserved as multi-source provenance rather than discarded.
+
+The orientation packet's scanned PDFs were visually checked as blank, including signature/name/date fields. The searchable text was created with local OCR and is only a search aid; the unchanged PDFs control. Their effective dates and currentness are unknown. One drug-and-alcohol page is explicitly page 18 of 20 and is preserved only as a fragment. The bus-safety page includes time-sensitive legal/statistical statements that were not independently validated.
 
 ## How agents should use these forms
 
