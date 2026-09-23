@@ -1,0 +1,229 @@
+{
+  "record_id": "rtec-hr-email-job-duty-corroboration-matrix-2016-2026",
+  "updated_at": "2026-09-23",
+  "status": "cross_source_evidence_matrix",
+  "sources": [
+    "576-message historical HR email archive",
+    "knowledge/libraries/rtec-hr/sources/job-descriptions/hr-manager.md",
+    "knowledge/libraries/rtec-hr/policies/hours-pay-benefits-2025.json",
+    "knowledge/libraries/rtec-hr/policies/leave-time-off-2025.json"
+  ],
+  "findings": [
+    {
+      "domain": "payroll_check_register",
+      "email_evidence_ids": [
+        "000191",
+        "000206",
+        "000288"
+      ],
+      "job_duty_evidence": "Verify monthly check registers with bank statements; get from/work with Randy.",
+      "relationship": "CORROBORATES",
+      "cadence": "monthly in historical duty document",
+      "currentness": "current ownership/process not yet confirmed"
+    },
+    {
+      "domain": "hr_report",
+      "email_evidence_ids": [
+        "000189",
+        "000310"
+      ],
+      "job_duty_evidence": "1st of month HR Report to Shirley.",
+      "relationship": "CORROBORATES",
+      "cadence": "first of month in historical duty document",
+      "currentness": "current report recipient/content unknown"
+    },
+    {
+      "domain": "eeo1",
+      "email_evidence_ids": [
+        "000027",
+        "000135",
+        "000219"
+      ],
+      "job_duty_evidence": "File annual federal EEO-1 report; run EEO-1 report from ADP.",
+      "relationship": "CORROBORATES",
+      "cadence": "annual in historical duty document",
+      "currentness": "current filing applicability/calendar must follow current authority"
+    },
+    {
+      "domain": "state_eeo_recertification",
+      "email_evidence_ids": [
+        "000180",
+        "000299",
+        "000302"
+      ],
+      "job_duty_evidence": "File annual state recertification form and retain/distribute certification letter.",
+      "relationship": "CORROBORATES",
+      "cadence": "annual in historical duty document",
+      "currentness": "current state certification owner/process unresolved"
+    },
+    {
+      "domain": "medicare_creditable_coverage",
+      "email_evidence_ids": [
+        "000148",
+        "000289",
+        "000306"
+      ],
+      "job_duty_evidence": "Medicare Creditable Coverage Notice to eligible employees prior to 10/15 each year and electronic CMS submission.",
+      "relationship": "CORROBORATES",
+      "cadence": "annual, historical duty document says prior to October 15",
+      "currentness": "must verify current plan/provider and regulatory workflow before automation"
+    },
+    {
+      "domain": "benefit_eligibility_and_changes",
+      "email_evidence_ids": [
+        "000118",
+        "000134",
+        "000178",
+        "000215",
+        "000308"
+      ],
+      "job_duty_evidence": "Send new enrollments/changes to CVIM at least 30 days before effective date; historical benefit eligibility first of month following 60 days.",
+      "relationship": "CORROBORATES_AND_PARTIALLY_CURRENT",
+      "current_policy_evidence": "2025 handbook independently states medical/life/dental/vision eligibility generally first of month after 60 days.",
+      "currentness": "60-day eligibility is current handbook evidence; CVIM routing remains historical"
+    },
+    {
+      "domain": "benefit_invoices",
+      "email_evidence_ids": [
+        "000272",
+        "000283",
+        "000340"
+      ],
+      "job_duty_evidence": "Print monthly UHC/Guardian/Delta Dental/Colonial invoices around the 20th-21st and give to AP.",
+      "relationship": "CORROBORATES",
+      "cadence": "monthly in historical duty document",
+      "currentness": "current carriers/AP handoff and exact timing unresolved"
+    },
+    {
+      "domain": "fmla_administration",
+      "email_evidence_ids": [
+        "000052",
+        "000183",
+        "000214"
+      ],
+      "job_duty_evidence": "Distribute FMLA paperwork, monitor documentation/time, recertify ongoing FMLA, maintain/send designation notices.",
+      "relationship": "CORROBORATES",
+      "current_policy_evidence": "2025 handbook remains current position-level FMLA policy source.",
+      "currentness": "exact current forms/recertification rules and operational checklist still require validation"
+    },
+    {
+      "domain": "workers_comp",
+      "email_evidence_ids": [
+        "000063",
+        "000108",
+        "000194",
+        "000233",
+        "000269"
+      ],
+      "job_duty_evidence": "First Report of Injury/KACO filing, OSHA 300/301, doctor excuses, documentation, claim follow-up.",
+      "relationship": "CORROBORATES",
+      "current_policy_evidence": "2025 handbook says job-related injury/accident must be reported immediately and workers comp runs concurrently with FMLA.",
+      "currentness": "current carrier/forms/OSHA workflow unresolved"
+    },
+    {
+      "domain": "service_anniversaries",
+      "email_evidence_ids": [
+        "000055",
+        "000056",
+        "000059",
+        "000060",
+        "000076",
+        "000097",
+        "000126",
+        "000147",
+        "000149",
+        "000184",
+        "000185",
+        "000186",
+        "000187",
+        "000188",
+        "000298",
+        "000315"
+      ],
+      "job_duty_evidence": "Employee Years of Service Awards.",
+      "relationship": "CORROBORATES",
+      "currentness": "whether recognition program remains active is unresolved"
+    },
+    {
+      "domain": "website_job_postings",
+      "email_evidence_ids": [
+        "000195",
+        "000249",
+        "000312"
+      ],
+      "job_duty_evidence": "Keep current openings posted on RTEC website through IT; send openings to newspaper when necessary.",
+      "relationship": "CORROBORATES",
+      "currentness": "current ADP ATS/external posting ownership may supersede older website workflow"
+    },
+    {
+      "domain": "temporary_staffing",
+      "email_evidence_ids": [
+        "000018",
+        "000270"
+      ],
+      "job_duty_evidence": "Work with Job Shop; Monday timesheets; invoice/AP handoff; transfer form; historical 320-hour threshold before move to RTEC.",
+      "relationship": "CORROBORATES",
+      "currentness": "current staffing vendor and threshold/process unresolved"
+    },
+    {
+      "domain": "retirement_401k",
+      "email_evidence_ids": [
+        "000038",
+        "000105",
+        "000163",
+        "000177",
+        "000305"
+      ],
+      "job_duty_evidence": "401(k) enrollment, termination/disbursement letters, withdrawal/% changes routed to Randy/payroll.",
+      "relationship": "CORROBORATES",
+      "current_policy_evidence": "2025 handbook confirms a 401(k) plan exists but does not establish the old 30-day eligibility/routing details.",
+      "currentness": "provider/eligibility/workflow unresolved"
+    },
+    {
+      "domain": "attendance_tracking",
+      "email_evidence_ids": [
+        "000157",
+        "000158",
+        "000278",
+        "000300"
+      ],
+      "job_duty_evidence": "Log daily absences, maintain absentee calendar/points, annual attendance calendar.",
+      "relationship": "CORROBORATES",
+      "current_policy_evidence": "2025 handbook has current attendance rules and protected exclusions.",
+      "currentness": "current operational tracker/system and approval roles unresolved"
+    },
+    {
+      "domain": "new_hire_payroll_packet",
+      "email_evidence_ids": [
+        "000107",
+        "000182",
+        "000193",
+        "000256",
+        "000320"
+      ],
+      "job_duty_evidence": "New-hire orientation historically included employment sheet, W-4, K-4 and direct deposit handoff to payroll.",
+      "relationship": "PARTIAL_CORROBORATION",
+      "current_policy_evidence": "2025 handbook requires direct deposit within first two weeks.",
+      "currentness": "exact current onboarding packet/system routing unresolved"
+    },
+    {
+      "domain": "aap_schedule",
+      "email_evidence_ids": [
+        "000067",
+        "000085"
+      ],
+      "job_duty_evidence": "Historical duty document says actual updated AAP every 4 years and lists January 30, 2024 as due.",
+      "relationship": "CONFLICTS_WITH_OTHER_DATED_EVIDENCE",
+      "conflict": "A 2019 email reminder says AAP due to state January 2022, while the preserved AAP package centers on a June 30, 2022 workforce snapshot.",
+      "currentness": "do not infer a fixed cadence/deadline until the plan supersession history is resolved"
+    },
+    {
+      "domain": "direct_deposit_record_storage",
+      "email_evidence_ids": [],
+      "job_duty_evidence": "Historical duty document says direct-deposit form goes in the medical file after payroll handoff.",
+      "relationship": "UNCONFIRMED_HISTORICAL_RULE",
+      "currentness": "requires explicit current records-management validation before reuse; current handbook only establishes direct-deposit requirement, not storage location"
+    }
+  ],
+  "rule": "Cross-source agreement raises confidence that a historical practice existed; it does not by itself make that practice current. Current handbook/policy evidence supersedes historical role instructions when the scopes conflict."
+}
