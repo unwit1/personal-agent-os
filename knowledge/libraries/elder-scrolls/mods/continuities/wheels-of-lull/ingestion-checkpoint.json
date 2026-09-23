@@ -1,15 +1,15 @@
 {
   "continuity_id": "tes.mod.wheels-of-lull",
   "source_sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
-  "last_completed_batch": "0001-part-a",
-  "completed_source_records": 20,
-  "completed": {"BOOK": 20, "QUST": 0},
+  "last_completed_batch": "0001",
+  "completed_source_records": 50,
+  "completed": {"BOOK": 33, "QUST": 17},
   "next_cursor": {
-    "record_type": "BOOK",
-    "record_index_1_based": 21,
-    "form_id": "05371591",
-    "editor_id": "_Lull_Book5",
-    "full_name": "Wind Up and Wound Down"
+    "record_type": "QUST",
+    "record_index_1_based": 18,
+    "form_id": "05005917",
+    "editor_id": "_Lull_DI_Fyr_Bagarn",
+    "full_name": "Fyr and Bagarn's Dialogue"
   },
   "default_checkpoint_target": 50,
   "resume_rule": "Verify source SHA-256, then continue from next_cursor without rewriting completed source shards."

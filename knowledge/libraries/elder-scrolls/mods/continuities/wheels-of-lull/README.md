@@ -10,19 +10,24 @@ Sub-continuity for the Skyrim mod **The Wheels of Lull**.
 
 ## Current ingestion status
 
-- **20/33 BOOK** records preserved exactly in source batch 0001.
+- **33/33 BOOK** records are preserved with exact decoded text.
+- **17/32 QUST** records are preserved with quest stages, journal text, objectives, and provenance where present.
+- **50 source records** are now checkpointed in deterministic five-record JSONL shards.
 - Source inventory is complete: **337 DIAL / 410 INFO**, **32 QUST**, **75 NPC_**, **33 LCTN**, **103 CELL**, **53 MESG**, and **14 SCEN** records identified for later passes.
-- The next cursor is BOOK 21, `05371591 _Lull_Book5` ("Wind Up and Wound Down").
+- Next cursor: QUST 18, `05005917 _Lull_DI_Fyr_Bagarn` ("Fyr and Bagarn's Dialogue").
+
+## High-value source material already preserved
+
+The source layer now includes the complete in-plugin book corpus, including the Chronography volumes, KINMUNE, Sybandis material, Archeron's notes/diary, memodermis references, fabricant death/rewinding material, and Chronographer technical texts.
+
+The quest layer now includes the main sequence from **Deep Down** through **The Wheels of Lull**, preserving journal evidence for Lull-Mor, the Chronographers, Snow-Throat, Whitehorn Pass, Archeron, the Boiling Foundry, the Brass Forest, Memory, Masscroft, and the Stone of Snow-Throat.
 
 ## Browse
 
-- `raw/source-records-0001-0005.jsonl`
-- `raw/source-records-0006-0010.jsonl`
-- `raw/source-records-0011-0015.jsonl`
-- `raw/source-records-0016-0020.jsonl`
-- `raw/record-counts.json`
-- `source-manifest.json`
-- `ingestion-checkpoint.json`
+- `raw/source-records-0001-0005.jsonl` through `raw/source-records-0046-0050.jsonl` — first 50 source records
+- `raw/record-counts.json` — complete plugin record inventory
+- `source-manifest.json` — source metadata and extraction state
+- `ingestion-checkpoint.json` — resumable cursor
 
 ## Provenance rule
 

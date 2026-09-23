@@ -4,28 +4,52 @@
   "author": "Trainwiz",
   "plugin_version": "6.0.0.3",
   "masters": ["Skyrim.esm", "Update.esm", "Dawnguard.esm", "HearthFires.esm", "Dragonborn.esm"],
-  "extraction": "Direct Bethesda TES5 plugin parsing. Compressed records are zlib-decoded. Source-record JSONL preserves record type, FormID, editor ID, display name, source offset, exact decoded BOOK text, provenance status, and continuity scope.",
+  "extraction": "Direct Bethesda TES5 plugin parsing. Compressed records are zlib-decoded. BOOK DESC text is retained exactly. QUST records preserve stage indexes, journal CNAM text, objective indexes/text, target bytes, script presence, source offsets, FormIDs, editor IDs, and continuity provenance.",
   "stored_source_records": {
-    "count": 20,
-    "types": {"BOOK": 20},
-    "first": {"form_id": "0500089D", "editor_id": "_Lull_LlavadosLetter", "title": "Strange Note"},
-    "last": {"form_id": "05371590", "editor_id": "_Lull_Book4", "title": "The Cacophany"}
+    "count": 50,
+    "types": {"BOOK": 33, "QUST": 17},
+    "first": {"record_type": "BOOK", "form_id": "0500089D", "editor_id": "_Lull_LlavadosLetter", "title": "Strange Note"},
+    "last": {"record_type": "QUST", "form_id": "05005916", "editor_id": "_Lull_DI_Numinar_DI", "title": "Numinar's Dialogue"}
+  },
+  "book_corpus": {
+    "status": "complete",
+    "records": 33,
+    "notable_sources": [
+      "Archeron's Diary",
+      "Message from the Eternity",
+      "Harquebuses",
+      "KINMUNE",
+      "Tatterdemalion",
+      "The Cacophany",
+      "Wind Up and Wound Down",
+      "Musings On Power",
+      "How To Moon",
+      "Chronography, Volume I",
+      "Chronography, Volume II",
+      "Chronography, Volume III",
+      "Trademarks",
+      "Sybandis",
+      "Journeys Through Sybandis",
+      "Research Notes"
+    ]
+  },
+  "quest_corpus": {
+    "stored_records": 17,
+    "total_records": 32,
+    "main_story_records_stored": ["Deep Down", "Sky Spy", "The Mer In The High Castle", "The Boiling Foundry", "The Brass Forest", "At The Bottom Of The World", "The Wheels of Lull"]
   },
   "raw_corpus": [
     {"path": "raw/source-records-0001-0005.jsonl", "records": "1-5"},
     {"path": "raw/source-records-0006-0010.jsonl", "records": "6-10"},
     {"path": "raw/source-records-0011-0015.jsonl", "records": "11-15"},
     {"path": "raw/source-records-0016-0020.jsonl", "records": "16-20"},
+    {"path": "raw/source-records-0021-0025.jsonl", "records": "21-25"},
+    {"path": "raw/source-records-0026-0030.jsonl", "records": "26-30"},
+    {"path": "raw/source-records-0031-0035.jsonl", "records": "31-35"},
+    {"path": "raw/source-records-0036-0040.jsonl", "records": "36-40"},
+    {"path": "raw/source-records-0041-0045.jsonl", "records": "41-45"},
+    {"path": "raw/source-records-0046-0050.jsonl", "records": "46-50"},
     {"path": "raw/record-counts.json", "description": "Complete plugin record-type inventory."}
   ],
-  "notable_sources_already_preserved": [
-    "Archeron's Diary",
-    "Wailyard Operation Instrctions",
-    "Message from the Eternity",
-    "Harquebuses",
-    "KINMUNE",
-    "Tatterdemalion",
-    "The Cacophany"
-  ],
-  "next_cursor": {"record_type": "BOOK", "record_index_1_based": 21, "form_id": "05371591", "editor_id": "_Lull_Book5"}
+  "next_cursor": {"record_type": "QUST", "record_index_1_based": 18, "form_id": "05005917", "editor_id": "_Lull_DI_Fyr_Bagarn"}
 }

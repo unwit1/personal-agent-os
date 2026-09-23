@@ -3,7 +3,7 @@
   "name": "The Wheels of Lull",
   "universe": "The Elder Scrolls",
   "kind": "mod_continuity_overlay",
-  "status": "source_ingestion_in_progress_batch_0001_records_1_20_complete",
+  "status": "source_ingestion_in_progress_first_50_records_complete",
   "canon_policy": {
     "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
     "default_claim_scope": "tes.mod.wheels-of-lull",
@@ -32,18 +32,20 @@
   },
   "structured_layers": {
     "plugin_record_inventory": "complete",
-    "book_text": "20_of_33_exact_records_persisted",
-    "source_record_shards": "records_0001_to_0020_complete",
-    "quest_text": "pending",
+    "book_text": "complete_33_of_33_exact_records_persisted",
+    "source_record_shards": "records_0001_to_0050_complete",
+    "quest_text": "17_of_32_quest_records_persisted_with_stages_objectives_and_journal_text",
+    "main_story_quest_journals": "complete_for_MQ01_through_MQ07",
     "dialogue": "pending",
     "speaker_resolution": "pending",
     "claim_promotion": "pending",
     "interpretive_analysis": "pending"
   },
   "next_ingestion_steps": [
-    "finish BOOK records 21-33, then ingest QUST records",
-    "extract complete DIAL/INFO corpus with topic linkage and direct response text",
+    "ingest QUST records 18-32",
+    "extract complete DIAL/INFO corpus with topic linkage and response text",
     "resolve strict speaker conditions where deterministic evidence exists",
-    "build character, location, artifact, faction, quest, and metaphysical topic dossiers"
+    "build character, location, artifact, faction, quest, and metaphysical topic dossiers from source-backed evidence",
+    "separate source testimony, quest-journal facts, and implementation evidence during claim promotion"
   ]
 }
