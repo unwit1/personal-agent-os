@@ -12,30 +12,41 @@ Sub-continuity for the Skyrim mod **The Wheels of Lull**.
 
 - **33/33 BOOK** records preserved with exact decoded text.
 - **32/32 QUST** records preserved with quest stages, journal text, objectives, and provenance where present.
-- **35 DIAL/INFO source records** ingested in physical plugin order: **18 DIAL + 17 INFO**.
-- **100 prioritized source records** are checkpointed in deterministic five-record JSONL shards.
-- Source inventory remains **337 DIAL / 410 INFO**, **75 NPC_**, **33 LCTN**, **103 CELL**, **53 MESG**, and **14 SCEN** records.
+- **42/337 DIAL** topics and **43/410 INFO** records preserved in physical plugin order.
+- **85/747 combined dialogue records** are now ingested.
+- **150 prioritized source records** are checkpointed overall.
 
-## High-value evidence already preserved
+## Dialogue evidence already preserved
 
-The source layer now includes the full book corpus and complete quest corpus, plus the opening dialogue sequence for Llavados and Numinar.
+The current dialogue corpus covers the opening Llavados/Numinar material, the Analyst sequence, Numinar's Whitehorn plan, and Subori's Upgate introduction.
 
-Numinar's dialogue explicitly presents the Chronographers as fabricants serving Seht, says they monitor time and space, identifies Snow-Throat with the Throat of the World, and describes Towers as essential mechanisms or "pinpoints" of the Wheels of Lull. These statements remain attributed dialogue evidence inside this continuity rather than automatic Bethesda-canon conclusions.
+Notable continuity-scoped testimony includes:
 
-## Browse
+- Numinar describes the Chronographers as fabricant servants of Seht who monitor time and space.
+- Snow-Throat is identified with the Throat of the World and described as a Tower/world mechanism.
+- The Analyst describes itself as an intelligence that once ran data collection in Sotha Sil.
+- The three investigative sites are the Greybeards, College of Winterhold, and Thalmor.
+- The Analyst identifies Thalmor activity at Whitehorn Pass.
+- Numinar describes infiltration rather than direct assault as the preferred response.
+- Subori describes the Upgate as the Chronographers' surface-travel mechanism and says their team lacks a helicarrier.
 
-- `raw/source-records-0001-0005.jsonl` through `raw/source-records-0096-0100.jsonl` — first 100 prioritized source records
+These remain attributed source statements rather than automatic Bethesda-canon conclusions.
+
+## Raw corpus
+
+- `raw/source-records-0001-0005.jsonl` through `raw/source-records-0096-0100.jsonl` — records 1-100
+- `raw/source-records-0101-0150.jsonl.gz` — records 101-150, gzip-compressed UTF-8 JSONL
 - `raw/record-counts.json` — complete plugin record inventory
-- `source-manifest.json` — source metadata, extraction policy, and corpus state
+- `source-manifest.json` — extraction policy and corpus state
 - `ingestion-checkpoint.json` — resumable cursor
 
 ## Next cursor
 
-Dialogue source record 36/747 combined DIAL+INFO records:
+Dialogue combined record **86/747**:
 
-- INFO `05019E5A`
-- parent topic: `05019E59 _Lull_MQ02_CanHelp`
-- owning quest: `0500590E _Lull_MQ02`
+- DIAL `05024257`
+- Editor ID: `_Lull_MQ03_ToadyIntroTopic`
+- Owning quest: `0500590F _Lull_MQ03`
 
 ## Provenance rule
 

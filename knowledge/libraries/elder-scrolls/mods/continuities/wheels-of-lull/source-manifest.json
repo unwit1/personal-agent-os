@@ -6,25 +6,27 @@
   "masters": ["Skyrim.esm", "Update.esm", "Dawnguard.esm", "HearthFires.esm", "Dragonborn.esm"],
   "extraction": "Direct Bethesda TES5 plugin parsing. Compressed records are zlib-decoded. BOOK DESC text is retained exactly. QUST records preserve stages, journal text, objectives, target bytes, script presence, offsets, FormIDs, and editor IDs. Dialogue is ingested in physical source order across DIAL and INFO records. DIAL records preserve topic prompt and owning quest; INFO records preserve parent-topic linkage, responses, raw CTDA conditions, previous INFO link when present, script presence, and source offsets.",
   "stored_source_records": {
-    "count": 100,
-    "types": {"BOOK": 33, "QUST": 32, "DIAL": 18, "INFO": 17},
+    "count": 150,
+    "types": {"BOOK": 33, "QUST": 32, "DIAL": 42, "INFO": 43},
     "first": {"record_type": "BOOK", "form_id": "0500089D", "editor_id": "_Lull_LlavadosLetter", "title": "Strange Note"},
-    "last": {"record_type": "DIAL", "form_id": "05019E59", "editor_id": "_Lull_MQ02_CanHelp", "title": "I think I can help there."}
+    "last": {"record_type": "INFO", "form_id": "05024255", "parent_topic_form_id": "05024254"}
   },
   "book_corpus": {"status": "complete", "records": 33},
-  "quest_corpus": {
-    "status": "complete",
-    "records": 32,
-    "main_story_records": ["Deep Down", "Sky Spy", "The Mer In The High Castle", "The Boiling Foundry", "The Brass Forest", "At The Bottom Of The World", "The Wheels of Lull"]
-  },
+  "quest_corpus": {"status": "complete", "records": 32},
   "dialogue_corpus": {
     "status": "in_progress",
     "combined_total_records": 747,
-    "combined_records_stored": 35,
-    "stored_DIAL": 18,
-    "stored_INFO": 17,
+    "combined_records_stored": 85,
+    "stored_DIAL": 42,
+    "stored_INFO": 43,
     "ordering": "physical_plugin_source_offset",
-    "next": {"combined_index": 36, "record_type": "INFO", "form_id": "05019E5A", "parent_topic_form_id": "05019E59"}
+    "next": {
+      "combined_index": 86,
+      "record_type": "DIAL",
+      "form_id": "05024257",
+      "editor_id": "_Lull_MQ03_ToadyIntroTopic",
+      "quest_form_id": "0500590F"
+    }
   },
   "raw_corpus": [
     {"path": "raw/source-records-0001-0005.jsonl", "records": "1-5"},
@@ -47,6 +49,7 @@
     {"path": "raw/source-records-0086-0090.jsonl", "records": "86-90"},
     {"path": "raw/source-records-0091-0095.jsonl", "records": "91-95"},
     {"path": "raw/source-records-0096-0100.jsonl", "records": "96-100"},
+    {"path": "raw/source-records-0101-0150.jsonl.gz", "records": "101-150", "compression": "gzip", "expanded_format": "UTF-8 JSONL"},
     {"path": "raw/record-counts.json", "description": "Complete plugin record-type inventory."}
   ]
 }
