@@ -1,0 +1,31 @@
+{
+  "snapshot": "2026-09-23",
+  "records_decoded": 216,
+  "failures": 0,
+  "baseline_groups": [
+    {"plugin":"Adamant.esp","anim_type":"Bow","governing_skill":"Marksman","sample_count":3,"damage_median":15.0,"speed_median":0.875,"reach_median":1.0,"stagger_median":0.0},
+    {"plugin":"Adamant.esp","anim_type":"OneHandAxe","governing_skill":"OneHanded","sample_count":3,"damage_median":13.0,"speed_median":0.9,"reach_median":1.0,"stagger_median":0.85},
+    {"plugin":"Adamant.esp","anim_type":"OneHandDagger","governing_skill":"OneHanded","sample_count":3,"damage_median":10.0,"speed_median":1.3,"reach_median":0.7,"stagger_median":0.0},
+    {"plugin":"Adamant.esp","anim_type":"OneHandMace","governing_skill":"OneHanded","sample_count":3,"damage_median":14.0,"speed_median":0.8,"reach_median":1.0,"stagger_median":1.0},
+    {"plugin":"Adamant.esp","anim_type":"OneHandSword","governing_skill":"OneHanded","sample_count":3,"damage_median":12.0,"speed_median":1.0,"reach_median":1.0,"stagger_median":0.75},
+    {"plugin":"Adamant.esp","anim_type":"TwoHandAxe","governing_skill":"TwoHanded","sample_count":6,"damage_median":22.0,"speed_median":0.65,"reach_median":1.3,"stagger_median":1.2},
+    {"plugin":"Adamant.esp","anim_type":"TwoHandSword","governing_skill":"TwoHanded","sample_count":3,"damage_median":20.0,"speed_median":0.75,"reach_median":1.3,"stagger_median":1.15},
+    {"plugin":"BladeAndBlunt.esp","anim_type":"TwoHandSword","governing_skill":"TwoHanded","sample_count":1,"damage_median":15.0,"speed_median":0.7,"reach_median":1.3,"stagger_median":0.0},
+    {"plugin":"HandtoHand.esp","anim_type":"Other","governing_skill":"None","sample_count":1,"damage_median":0.0,"speed_median":1.0,"reach_median":1.0,"stagger_median":0.0},
+    {"plugin":"MysticismMagic.esp","anim_type":"Bow","governing_skill":"Marksman","sample_count":5,"damage_median":19.0,"speed_median":0.75,"reach_median":1.0,"stagger_median":0.0},
+    {"plugin":"MysticismMagic.esp","anim_type":"OneHandAxe","governing_skill":"OneHanded","sample_count":3,"damage_median":13.0,"speed_median":0.9,"reach_median":1.0,"stagger_median":0.85},
+    {"plugin":"MysticismMagic.esp","anim_type":"OneHandDagger","governing_skill":"OneHanded","sample_count":2,"damage_median":8.0,"speed_median":1.3,"reach_median":0.7,"stagger_median":0.0},
+    {"plugin":"MysticismMagic.esp","anim_type":"OneHandMace","governing_skill":"OneHanded","sample_count":3,"damage_median":12.0,"speed_median":0.8,"reach_median":1.0,"stagger_median":1.0},
+    {"plugin":"MysticismMagic.esp","anim_type":"OneHandSword","governing_skill":"OneHanded","sample_count":3,"damage_median":12.0,"speed_median":1.0,"reach_median":1.0,"stagger_median":0.75},
+    {"plugin":"MysticismMagic.esp","anim_type":"Staff","governing_skill":"Alteration","sample_count":22,"damage_median":0.0,"speed_median":1.0,"reach_median":1.3,"stagger_median":0.0},
+    {"plugin":"MysticismMagic.esp","anim_type":"Staff","governing_skill":"Conjuration","sample_count":47,"damage_median":0.0,"speed_median":1.0,"reach_median":1.3,"stagger_median":0.0},
+    {"plugin":"MysticismMagic.esp","anim_type":"Staff","governing_skill":"Destruction","sample_count":43,"damage_median":0.0,"speed_median":1.0,"reach_median":1.3,"stagger_median":0.0},
+    {"plugin":"MysticismMagic.esp","anim_type":"Staff","governing_skill":"Illusion","sample_count":27,"damage_median":0.0,"speed_median":1.0,"reach_median":1.3,"stagger_median":0.0},
+    {"plugin":"MysticismMagic.esp","anim_type":"Staff","governing_skill":"Restoration","sample_count":26,"damage_median":0.0,"speed_median":1.0,"reach_median":1.3,"stagger_median":0.0},
+    {"plugin":"MysticismMagic.esp","anim_type":"TwoHandAxe","governing_skill":"TwoHanded","sample_count":6,"damage_median":21.0,"speed_median":0.65,"reach_median":1.3,"stagger_median":1.2},
+    {"plugin":"MysticismMagic.esp","anim_type":"TwoHandSword","governing_skill":"TwoHanded","sample_count":3,"damage_median":20.0,"speed_median":0.75,"reach_median":1.3,"stagger_median":1.1}
+  ],
+  "observed_patterns_min_sample_3": 18,
+  "exact_imported_field_deltas": 18,
+  "approved_rules": 0
+}
