@@ -1,3 +1,284 @@
+===== SOURCE BEGIN / PART 2 OF 13 =====
+SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/Title VI Florida Dept. of Transportation.doc
+SHA256: e300bfd0d414e29497bc13f41bafda4613ca5817d6e4769437e2cd937962a64b
+TEXT_CHARS_TOTAL: 121647
+OFFSET: 10000
+ALIASES: 
+===== TEXT =====
+TICIPATION PLAN
+APPENDIX G  LANGUAGE ASSISTANCE PLAN
+APPENDIX H  OPERATING AREA LANGUAGE DATA: YOUR COMMUNITY TRANSIT SERVICE
+AREA
+APPENDIX I  DEMOGRAPHIC MAPS
+APPENDIX J  TITLE VI EQUITY ANALYSIS
+APPENDIX K  TEXT FORMATTING PALETTE
+
+
+
+  Title VI/Nondiscrimination Policy Statement and Management Commitment to
+                                Title VI Plan
+
+[pic]
+
+Your Community Transit assures the Florida Department of Transportation
+that no person shall on the basis of race, color, national origin, age,
+disability, family or religious status, as provided by Title VI of the
+Civil Rights Act of 1964, the Civil Rights Restoration Act of 1987 and the
+Florida Civil Rights Act of 1992 be excluded from participation in, be
+denied the benefits of, or be otherwise subjected to discrimination or
+retaliation under any program or activity undertaken by the agency.
+
+Your Community Transit further agrees to the following responsibilities
+with respect to its programs and activities:
+
+Designate a Title VI Liaison that has a responsible position within the
+organization and access to the recipient’s Chief Executive Officer or
+authorized representative.
+
+Issue a policy statement signed by the Executive Director or authorized
+representative, which expresses its commitment to the nondiscrimination
+provisions of Title VI. The policy statement shall be circulated throughout
+the Recipient’s organization and to the general public. Such information
+shall be published where appropriate in language other than English.
+
+Insert the clauses of Section 4.5 of this plan into every contract subject
+to the Acts and the Regulations.
+
+Develop a complaint process and attempt to resolve complaints of
+discrimination against Your Community Transit.
+
+Participate in training offered on the Title VI and other nondiscrimination
+requirements.
+
+If reviewed by FDOT or any other state or federal regulatory agency, take
+affirmative actions to correct any deficiencies found within a reasonable
+time period, not to exceed ninety (90) days.
+
+Have a process to collect racial and ethnic data on persons impacted by the
+agency’s programs.
+
+Submit the information required by FTA Circular 4702.1B to the primary
+recipients (refer to Appendix A of this plan)
+
+THIS ASSURANCE is given in consideration of and for the purpose of
+obtaining any and all federal funds, grants, loans, contracts, properties,
+discounts or other federal financial assistance under all programs and
+activities and is binding. The person whose signature appears below is
+authorized to sign this assurance on behalf of the agency.
+
+                                                                   Signature
+
+                                                ____________________________
+
+                                                                Printed Name
+       Executive Director/Signatory Authority, Your Community Transit, Date:
+                                                              Month/Day/Year
+
+                   Introduction & Description of Services
+
+
+Your Community Transit submits this Title VI Plan in compliance with Title
+VI of the Civil Rights Act of 1964, 49 CFR Part 21, and the guidelines of
+FTA Circular 4702.1B, published October 1, 2012.
+
+Your Community Transit is a sub-recipient of FTA funds and provides service
+in [indicate service area here]. A description of the current Your
+Community Transit system is included in Appendix B.
+
+
+Title VI Liaison
+
+Your Community Transit Liaison Name
+Title
+Phone Number
+Address
+
+
+Alternate Title VI Contact
+
+Alternate Title VI Contact Name
+Title
+Phone Number
+Address
+
+Your Community Transit must designate a liaison for Title VI issues and
+complaints within the organization. The liaison is the focal point for
+Title VI implementation and monitoring of activities receiving federal
+financial assistance. Key responsibilities of the Title VI Liaison include:
+
+Maintain knowledge of Title VI requirements.
+
+Attend training on Title VI and other nondiscrimination authorities when
+offered by FDOT or any other regulatory agency.
+
+Disseminate Title VI information to the public including in languages other
+than English, when necessary.
+
+Develop a process to collect data related to race, gender and national
+origin of service area population to ensure low income, minorities, and
+other underserved groups are included and not discriminated against.
+
+Implement procedures for the prompt processing of Title VI complaints.
+
+
+2 First Time Applicant Requirements
+
+
+Your Community Transit [is] or [is not] a first time applicant for FTA/FDOT
+funding. The following is a summary of Your Community Transit’s current and
+pending federal and state funding.
+
+Complete the following list, add and remove number as necessary.
+
+   Current and Pending FTA Funding
+
+      1. [Title], [Date], [Amount], [Current] or [Pending]
+
+      2. [Title], [Date], [Amount], [Current] or [Pending]
+
+   Current and Pending FDOT Funding
+
+      1. [Title], [Date], [Amount], [Current] or [Pending]
+
+      2. [Title], [Date], [Amount], [Current] or [Pending]
+
+   Current and Pending Federal Funding (non-FTA)
+
+      1. [Title], [Date], [Amount], [Current] or [Pending]
+
+      2. [Title], [Date], [Amount], [Current] or [Pending]
+
+   Current and Pending State Funding (non-FDOT)
+
+      1. [Title], [Date], [Amount], [Current] or [Pending]
+
+      2. [Title], [Date], [Amount], [Current] or [Pending]
+
+During the previous three years, Federal Agency or State Agency name [did]
+or [did not] complete a Title VI compliance review of Your Community
+Transit. Your Community Transit [has] or [has not] been found to be in
+noncompliance with any civil rights requirements.
+
+If you select “did not” this section is complete and the remainder of 2.1
+should be removed.
+
+The following is a summary of the compliance review.
+
+   a. Date of the compliance review
+      Insert date of the Title VI compliance review
+
+   b. The purpose or reason for the review
+      Insert purpose or reason for Title VI compliance review
+
+   c. Agency or organization that performed the review
+      Insert name or agency or organization that performed the review
+
+   d. Summary of the finding and recommendations of the review
+      Insert summary of the findings and recommendations from the review
+
+   e. Report on the status of the findings and recommendations
+      Insert a report on the status of the findings and recommendations
+
+   f. Current status of the compliance review
+      Insert the current status of the compliance review
+
+
+3 Annual Certifications and Assurances
+
+In accordance with 49 CFR Section 21.7(a), every application for financial
+assistance from FTA must be accompanied by an assurance that the applicant
+will carry out the program in compliance with Title VI regulations. This
+requirement shall be fulfilled when the applicant/recipient submits its
+annual certifications and assurances. Primary recipients will collect Title
+VI assurances from sub-recipients prior to passing through FTA funds.
+
+Your Community Transit will remain in compliance with this requirement by
+annual submission of certifications and assurances as required by [FDOT]
+and/or [other primary recipient].
+
+
+4 Title VI Plan Concurrence and Adoption
+
+This Title VI Plan received FDOT concurrence on date. The Plan was approved
+and adopted by Your Community Transit’s Board of Directors during a meeting
+held on date. A copy of the meeting minutes and FDOT concurrence letter is
+included in Appendix C of this Plan.
+
+
+
+
+
+
+
+Any additional text for Chapter 2 must be inserted above this point for
+formatting/page numbering purposes.
+
+
+                        Title VI Notice to the Public
+
+
+
+1 Notice to Public
+
+Recipients must notify the public of its rights under Title VI and include
+the notice and where it is posted in the Title VI Plan. The notice must
+include:
+
+A statement that the agency operates programs without regard to race, color
+and national origin
+
+A description of the procedures members of the public should follow in
+order to request additional information on the grantee’s nondiscrimination
+obligations
+
+A description of the procedure members of the public should follow in order
+to file a discrimination complaint against the grantee
+
+Customize the sample notice, as necessary. A sample of the notice is
+included in Appendix D of this Plan. The sample notice should be translated
+into other languages, as necessary.
+
+
+2 Notice Posting Locations
+
+The Notice to Public will be posted at many locations to apprise the public
+of Your Community Transit’s obligations under Title VI and to inform them
+of the protections afforded them under Title VI. At a minimum, the notice
+will be posted in public areas of Your Community Transit’s office(s)
+including the reception desk and meeting rooms, and on the Your Community
+Transit’s website at yourcommunitytransit.gov. Additionally, Your Community
+Transit will post the notice at stations, stops and on transit vehicles.
+
+A sample version of this notice is included in Appendix D of this Plan
+along with any translated versions of the notice, as necessary.
+
+The public notice must be provided in any other language which meets the
+Safe Harbor threshold (See Appendix G).
+
+
+
+Any additional text for Chapter 3 must be inserted above this point for
+formatting/page numbering purposes.
+
+                     Title VI Procedures and Compliance
+
+
+
+1 Complaint Procedure
+
+Any person who believes he or she has been discriminated against on the
+basis of race, color or national origin by Your Community Transit may file
+a Title VI complaint by completing and submitting the agency’s Title VI
+Complaint Form (refer to Appendix E). Your Community Transit investigates
+complaints received no more than 180 days after the alleged incident. Your
+Community Transit will process complaints that are complete.
+
+Once the complaint is received, Your Community Transit will review it to
+determine if our office has jurisdiction. The complainant will receive an
+acknowledgement letter informing him
+===== SOURCE PART 2 END =====
+
+
 ===== SOURCE BEGIN / PART 3 OF 13 =====
 SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/Title VI Florida Dept. of Transportation.doc
 SHA256: e300bfd0d414e29497bc13f41bafda4613ca5817d6e4769437e2cd937962a64b
@@ -716,7 +997,6 @@ APPENDIX K  TEXT FORMATTING PALETTE
 
 
                                  Appendix A
-
       FTA Circular 4702.1B Reporting Requirements for Transit Providers
 
 
@@ -781,219 +1061,3 @@ APPENDIX K  TEXT FORMATTING PALETTE
          o Vehicle headway for each mode
          o O
 ===== SOURCE PART 5 END =====
-
-===== SOURCE BEGIN / PART 6 OF 13 =====
-SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/Title VI Florida Dept. of Transportation.doc
-SHA256: e300bfd0d414e29497bc13f41bafda4613ca5817d6e4769437e2cd937962a64b
-TEXT_CHARS_TOTAL: 121647
-OFFSET: 50000
-ALIASES: 
-===== TEXT =====
-n time performance for each mode
-         o Service availability for each mode
-      ← Service policies
-         o Transit Amenities for each mode
-         o Vehicle Assignment for each mode
-
-
-Transit Providers that operate 50 or  more  fixed  route  vehicles  in  peak
-service and are located in an  Urbanized  Area  (UZA)  of  200,000  or  more
-people must submit:
-
-      ← Demographic and service profile maps and charts
-      ← Demographic ridership and travel patterns, collected by surveys
-      ←  Results  of  their  monitoring  program  and   report,   including
-        evidence that the board or other governing  entity  or  official(s)
-        considered, was aware of the results, and approved the analysis
-      ← A description of the public  engagement  process  for  setting  the
-        “major  service  change  policy,”  disparate  impact  policy,   and
-        disproportionate burden policy
-      ← Results of service and/or  fare  equity  analyses  conducted  since
-        the last Title VI Program submission, including evidence  that  the
-        board or other governing  entity  or  official(s)  considered,  was
-        aware of, and approved the results of the analysis
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                 Appendix B
-
-                         Current System Description
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-The following is a sample laguage which must be revised for your agency.
-
-                         Current System Description
-
-1. An overview of the organization including its mission, program goals and
-   objectives.
-   Your Community Transit’s current and long-term focus as a transportation
-   provider is on maintaining the best-coordinated transportation system
-   possible for this community.  Our goal is to create a coordinated system
-   with the objective of providing safe, reliable, timely and efficient
-   transportation services to county residents.
-
-2. Organizational structure, type of operation, number of employees,
-   service hours, staffing plan and safety and security plan.
-   Your Community Transit is a [for profit] or [non-profit 501(c)(3)]
-   organization. Our organization is made up of XX full-time employees, XX
-   part-time employees, and XX volunteers. Our [CEO/General
-   Manager/Administrator] is responsible for all of the day-to-day
-   operations of our organization and reports directly to our Board of
-   County Commissioners (BCC).  Our BCC is committed to this program and
-   has, therefore, incorporated our service within the County’s Public
-   Transportation Program.  Transportation services are provided in
-   accordance with the BCC’s approved Operations Manual/System
-   Safety/Security Program and its Transportation Disadvantaged Service Plan
-   (TDSP).  Our agency staffing plan is outlined in our 2011 Transit
-   Development Plan (page 201) and 2012 Operations Handbook (page 34).  We
-   will continue to operate at previous year (2011) service hours averaging
-   84 total fleet service hours per day or approximately 25,200 annual
-   service hours (assuming 300 operating days).
-
-3. Indicate if your agency is a government authority or a private non-
-   profit agency.
-   Your Community Transit operates as a [for profit] or [non-profit
-   501(c)(3)] with a CTC agreement with the BCC.  We have an executed CTC
-   agreement dated [date].
-
-4. Who is responsible for insurance, training and management, and
-   administration of the agency’s transportation programs?
-   Your Community Transit’s manager is responsible for training and
-   management of our transportation program.  All safety sensitive employees
-   are required to complete FDOT approved safety and security training
-   course as part of their new hire orientation.  All new employees are also
-   required to complete 80 hours of on-the-road drivers training, which
-   includes riding with a training driver, behind-the-wheel training, and
-   training on proper use of wheel chair lifts and securement devices. The
-   Transportation Services Manager is responsible for annual renewal of all
-   liability insurance for both FDOT and agency owned vehicles, as well as
-   vehicle registration renewal.  It is the Transportation Manager’s
-   responsibility to administer all aspects of the transportation program
-   and to control access and usage of all agency vehicles.
-
-5. Who provides vehicle maintenance and record keeping?
-   Maintenance on all agency vehicles is provided by [contractor].
-   [Contractor] employs only ASE certified technicians with experience in
-   working on commercial passenger vehicles like the type our agency uses.
-   All maintenance is performed using the Preventative Maintenance Plan,
-   which conforms to the State Vehicle Maintenance Guidelines set forth in
-   the FDOT Preventative Maintenance Guidelines document.  All vehicle files
-   and driver files are kept on-site at our operations base located at
-   [address] and are maintained by the [manager]. All records are maintained
-   and retained for a minimum of four (4) years.
-
-6. Number of current transportation related employees
-   Our transportation department has a total of XX employees that include:
-   XX full-time drivers, XX part-time drivers, XX administrators and XX
-   support staff.
-
-7. Who will drive the vehicle, number of drivers, CDL certifications, etc.?
-   Only transportation employees that have completed all of the required
-   safety and drivers training requirements will be allowed to drive the
-   agency vehicles. All our drivers are required to carry a Commercial
-   Driver’s License. This allows coverage of all of the larger vehicles and
-   for the opportunity for the other drivers to fill in on service routes
-   with the larger vehicles.
-
-8. A detailed description of service routes and ridership numbers
-   Transportation services provided through our program are available to
-   [customers].  Our service incorporates [services]. We provide a wide
-   range of trip purposes that include: medical, nutrition, shopping, social
-   service, training, employment, social and recreation.  Approximately XX%
-   of the medical trips we provide are to medical facilities out of the
-   county; therefore, our out of county services are directed to the nearby
-   highway corridors that surround this community for optimum efficiency of
-   trip duration and the most convenient route.  Currently, we use a variety
-   of vehicles to provide passenger services.  Our fleet includes vans,
-   modified vans, and buses.  [Number] of our vehicles are equipped for
-   wheelchair service.  We also have a contract provider that can supplement
-   any services that we are unable to accommodate.  We prioritize grouping
-   trips and multi-loading to the maximum extent possible.  We make XX
-   passenger trips per day on average and leverage our fleet resources so
-   that all vehicles are used in a responsible manner to provide full
-   coverage and retire the vehicles at a consistent pace and appropriate age
-   and mileage.
-
-
-
-
-
-
-                                 Appendix C
-
-     Title VI Plan Adoption Meeting Minutes and FDOT Concurrence Letter
-
-
-
-
-
-
-Insert a copy of the Title VI Plan adoption meeting minutes and the FDOT
-concurrence letter.
-
-
-
-
-
-
-
-
-
-
