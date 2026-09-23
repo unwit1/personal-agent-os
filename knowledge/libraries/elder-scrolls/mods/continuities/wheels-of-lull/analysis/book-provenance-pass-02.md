@@ -114,7 +114,7 @@ These classes are intentionally non-exclusive at the conceptual level: "continui
 2. Search archived Trainwiz/Sotha Sil Expanded/Aethernautics sources for the exact *Harquebuses* treatise text.
 3. Research the ten unresolved named works against archived forum posts, old mod assets, Imperial Library mirrors, and developer-text collections.
 4. Promote only evidence-backed source relationships into the central work registry.
-5. Keep the 52 damaged INFO dialogue records isolated from this BOOK provenance work until the original ESP is available for deterministic shard regeneration.
+5. The former 52-INFO raw-shard gap was repaired from the exact verified ESP on 2026-09-23; BOOK provenance work no longer has a dialogue-integrity dependency.
 
 ## Integrity boundary
 
