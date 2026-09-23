@@ -1,0 +1,131 @@
+{
+  "id": "rtec-process-ada-complaint-historical",
+  "record_type": "process",
+  "title": "RTEC ADA complaint process — historical source version",
+  "status": "validated",
+  "temporal_status": "unknown",
+  "summary": "Organization-level ADA complaint procedure found in the compliance archive. It defines intake channels, a five-calendar-day filing rule, coordinator contact, investigation timing, response, appeal and closure logic. Currentness has not yet been established.",
+  "claims": [
+    {
+      "claim": "The source allows an ADA complaint by form, phone, representative, or RTEC staff assistance when the complainant cannot write.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-compliance-ada-complaint-process",
+          "page_or_section": "intake paragraph",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The source states complaints must be filed within five calendar days of the alleged incident.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-compliance-ada-complaint-process",
+          "page_or_section": "intake paragraph",
+          "evidence_type": "explicit_text",
+          "note": "Historical source; current legal/process validity must be revalidated before operational use."
+        }
+      ]
+    },
+    {
+      "claim": "The historical workflow specifies coordinator contact within 10 business days, investigation initiation within 15 business days when applicable, completion within 60 calendar days, and a five-business-day appeal window after RTEC's response.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-compliance-ada-complaint-process",
+          "page_or_section": "steps 1-5",
+          "evidence_type": "explicit_text",
+          "note": "Historical source."
+        }
+      ]
+    }
+  ],
+  "trigger": "Allegation of disability discrimination involving RTEC service, vehicles or facilities.",
+  "prerequisites": [],
+  "actors": [
+    "Complainant",
+    "Representative if applicable",
+    "ADA Coordinator",
+    "RTEC investigator/staff"
+  ],
+  "systems": [],
+  "forms": [
+    "RTEC ADA Complaint Form"
+  ],
+  "steps": [
+    "Receive complaint through form/phone/assisted intake.",
+    "ADA Coordinator contacts complainant and requests needed information.",
+    "Determine whether allegation falls within ADA complaint process.",
+    "Begin and document investigation.",
+    "Complete investigation or notify complainant if additional time is needed.",
+    "Communicate response/reasons.",
+    "Allow appeal within source-defined window; close when final."
+  ],
+  "decisions": [
+    "Whether complaint meets ADA-discrimination requirements.",
+    "Whether requested information was provided in the required timeframe.",
+    "Whether an appeal is filed."
+  ],
+  "deadlines": [
+    "Complaint filing: 5 calendar days from alleged incident in this source.",
+    "Coordinator contact: within 10 business days.",
+    "Requested information: within 5 days.",
+    "Investigation start: within 15 business days if applicable.",
+    "Investigation completion: within 60 calendar days.",
+    "Appeal: within 5 business days of response."
+  ],
+  "outputs": [
+    "Documented ADA complaint investigation",
+    "Written/communicated response",
+    "Appeal or closure status"
+  ],
+  "exceptions": [
+    "Complaint may be closed if required information is not supplied in the source-defined timeframe."
+  ],
+  "controls": [
+    "Accessible/assisted complaint intake.",
+    "Documented investigation.",
+    "Defined response and appeal windows."
+  ],
+  "unresolved_questions": [
+    "What date/version is this ADA complaint process?",
+    "Does the current ADA process still use the five-calendar-day filing requirement and these deadlines?",
+    "Who is the current ADA Coordinator and where is the current complaint log/form maintained?"
+  ],
+  "automation_candidates": [
+    "Restricted ADA complaint case workflow with deadline tracking and accessibility accommodations.",
+    "Version-aware form/process publishing so outdated complaint deadlines are not used."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-compliance-ada-complaint-process",
+      "safe_source_type": "organization_level_compliance_process",
+      "source_date_or_version": "undated in extracted text",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "unknown",
+      "content_sha256": "07eef165319293efa00c9013db1149077d3e0802b71a09dc09d9a0164281c4f8",
+      "page_or_section": "complete source",
+      "full_source_path": "knowledge/libraries/rtec-hr/compliance/sources/ada-complaint-process/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/compliance/sources/ada-complaint-process/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": "Found in !Compliance.zip under TITLE VI LEP PLAN/ADA."
+    }
+  ]
+}

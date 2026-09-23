@@ -1,0 +1,218 @@
+{
+  "id": "rtec-process-fy2017-transit-grant-application-workflow",
+  "record_type": "process",
+  "title": "Historical SFY 2017 transit grant application and compliance compilation workflow",
+  "status": "validated_historical",
+  "temporal_status": "historical",
+  "effective_from": "2016-03-01",
+  "effective_to": null,
+  "summary": "The FY2017 Section 5310, 5311 and 5339 application binders show a recurring grant-compilation workflow: define service/project need, assemble operating/capital and coordination evidence, attach organizational/legal/fiscal documentation, satisfy program-specific civil-rights/ADA/EEO/DBE/procurement/safety/lobbying/charter/school-bus assurances, document local match and budgets, and submit an indexed signed package for state/federal review.",
+  "claims": [
+    {
+      "claim": "The three FY2017 grant applications use checklist-driven binder assembly with signed certifications and multiple recurring compliance attachments.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-grant-fy2017-section-5310",
+          "page_or_section": "application checklist, PDF pages 3-5",
+          "evidence_type": "structural",
+          "note": null
+        },
+        {
+          "source_id": "rtec-grant-fy2017-section-5311",
+          "page_or_section": "application checklist, PDF pages 4-7",
+          "evidence_type": "structural",
+          "note": null
+        },
+        {
+          "source_id": "rtec-grant-fy2017-section-5339",
+          "page_or_section": "application checklist, PDF pages 3-4",
+          "evidence_type": "structural",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Civil-rights and accessibility compliance artifacts are not isolated HR documents; they functioned as required evidence in RTEC's transit-grant application process.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-eeo-2026"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-grant-fy2017-section-5310",
+          "page_or_section": "requirements and assurances checklist",
+          "evidence_type": "explicit_text",
+          "note": "Includes Title VI, 504, local civil-rights and disabled/equivalent-service assurances."
+        },
+        {
+          "source_id": "rtec-grant-fy2017-section-5311",
+          "page_or_section": "Part II compliance checklist",
+          "evidence_type": "explicit_text",
+          "note": "Includes Title VI, annual civil-rights assurance, AAP, LEP, 504, disabled assurance, ADA equivalent service."
+        },
+        {
+          "source_id": "rtec-grant-fy2017-section-5339",
+          "page_or_section": "executed documents checklist",
+          "evidence_type": "explicit_text",
+          "note": "Includes local civil-rights, disabled assurance and equivalent-service certification."
+        }
+      ]
+    },
+    {
+      "claim": "Procurement, local match, budgeting and equipment specifications were formal grant-approval controls rather than informal administrative steps.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-grant-fy2017-section-5310",
+          "page_or_section": "checklist and preliminary assessment",
+          "evidence_type": "explicit_text",
+          "note": null
+        },
+        {
+          "source_id": "rtec-grant-fy2017-section-5311",
+          "page_or_section": "Part I project budgets and purchase requirements",
+          "evidence_type": "explicit_text",
+          "note": null
+        },
+        {
+          "source_id": "rtec-grant-fy2017-section-5339",
+          "page_or_section": "checklist items 5-6 and 15",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "trigger": "Preparation of an annual/state-fiscal-year transit grant application or capital/operating funding request.",
+  "prerequisites": [
+    "Program/project need identified",
+    "Current organizational/legal authority documentation",
+    "Program-specific service/project description",
+    "Current compliance documents required by the funding program"
+  ],
+  "actors": [
+    "Executive Director / Authorized Transit Official",
+    "Grant/project preparer",
+    "Operations and program managers",
+    "Fleet/facilities personnel",
+    "HR/EEO/Title VI/ADA compliance roles",
+    "Finance/accounting",
+    "Kentucky Transportation Cabinet / Office of Transportation Delivery"
+  ],
+  "systems": [
+    "Historical paper/PDF grant binders",
+    "Supporting spreadsheets, plans and certifications"
+  ],
+  "forms": [
+    "Program application checklist",
+    "Authorizing resolution",
+    "Civil-rights assurances",
+    "ADA/504/disabled/equivalent-service certifications",
+    "Procurement certification",
+    "Local-match assurance/resolution",
+    "Lobbying certification",
+    "Charter/school-bus certifications",
+    "Drug-free workplace certification where applicable",
+    "Safety-plan certification where applicable",
+    "Federally required/model contract clauses",
+    "Budget and detailed backup",
+    "Equipment specifications/bid package/ICE"
+  ],
+  "steps": [
+    "Identify the funding program and requested project/service.",
+    "Compile current service/project description, justification and supporting operating/capital data.",
+    "Compile coordination, public/private-sector participation and planning evidence required by the program.",
+    "Compile financial capability, operating-fund/local-match, budget and detailed backup.",
+    "Compile vehicle/facility/equipment inventory, maintenance, specifications and procurement documentation.",
+    "Attach current program-required compliance plans, assurances and certifications.",
+    "Obtain required signatures/resolutions and verify each checklist item as complete or N/A.",
+    "Submit binder/application to KYTC/OTD and retain completeness/approval correspondence."
+  ],
+  "decisions": [
+    "Which grant program and project category applies.",
+    "Whether each checklist item is applicable or N/A.",
+    "Whether local match and fiscal/managerial capability are sufficient.",
+    "Whether current compliance evidence satisfies each grant requirement.",
+    "Whether requested vehicles/equipment are replacement, expansion, new service or accessibility improvements."
+  ],
+  "controls": [
+    "Checklist completion/NA requirement before state/federal approval.",
+    "Authorized official signatures.",
+    "Board/local resolutions where required.",
+    "Currentness/version checks for civil-rights, AAP, Title VI/LEP, ADA, DBE and other compliance attachments.",
+    "Competitive-procurement and independent cost estimate/specification evidence for applicable purchases.",
+    "Local-match source documentation."
+  ],
+  "unresolved_questions": [
+    "Which staff role currently owns grant-application compilation and annual compliance attachment refresh?",
+    "Which historical FY2017 attachments remain current versus having newer replacements?",
+    "What current grant-document repository and retention structure replaces the historical binder model?",
+    "Which documents in !Compliance.zip are exact source versions embedded in each FY2017 grant binder?"
+  ],
+  "automation_candidates": [
+    "Grant checklist engine that resolves each requirement to the current canonical compliance source/version.",
+    "Automatic stale-document detection before grant submission.",
+    "Reusable source library so repeated certifications/plans are linked rather than copied into every grant binder.",
+    "Grant package completeness validator with signature/date/version checks.",
+    "Crosswalk from grant requirement to responsible RTEC role, source document, expiration date and renewal workflow."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-grant-fy2017-section-5310",
+      "safe_source_type": "historical_grant_application",
+      "source_date_or_version": "SFY2017",
+      "source_created_date": "2016-10-17",
+      "source_revision_date": "2016-10-17",
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "content_sha256": "a89090c38d1de000eb068e8545bdfb2d628266b8f030964fc6ba5dbd45efbc70",
+      "page_or_section": "checklist and early forms",
+      "full_source_path": null,
+      "searchable_text_path": "knowledge/libraries/rtec-hr/grants/fy2017/5310/checklist-and-structure.md",
+      "ingested_at": "2026-09-23",
+      "notes": "Image-only PDF; section-level ingestion in progress."
+    },
+    {
+      "source_id": "rtec-grant-fy2017-section-5311",
+      "safe_source_type": "historical_grant_application",
+      "source_date_or_version": "SFY2017",
+      "source_created_date": "2016-10-17",
+      "source_revision_date": "2016-10-17",
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "content_sha256": "0b8f81f4823108a502d21c03cbaf4b34104f55ba468e4949ebc810bebba99f0a",
+      "page_or_section": "checklist and early project description",
+      "full_source_path": null,
+      "searchable_text_path": "knowledge/libraries/rtec-hr/grants/fy2017/5311/checklist-and-structure.md",
+      "ingested_at": "2026-09-23",
+      "notes": "Image-only PDF; section-level ingestion in progress."
+    },
+    {
+      "source_id": "rtec-grant-fy2017-section-5339",
+      "safe_source_type": "historical_grant_application",
+      "source_date_or_version": "SFY2017",
+      "source_created_date": "2016-10-17",
+      "source_revision_date": "2016-12-13",
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "content_sha256": "68eb5fddf2a326a88ee990c55175c8b0ac40f24c9c08d5bd0aab8c6b74fb41e8",
+      "page_or_section": "checklist, project description and justification",
+      "full_source_path": null,
+      "searchable_text_path": "knowledge/libraries/rtec-hr/grants/fy2017/5339/checklist-and-structure.md",
+      "ingested_at": "2026-09-23",
+      "notes": "Image-only PDF; section-level ingestion in progress."
+    }
+  ]
+}
