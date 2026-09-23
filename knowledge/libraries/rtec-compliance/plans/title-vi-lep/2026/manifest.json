@@ -1,0 +1,30 @@
+{
+  "source_id": "rtec-compliance-title-vi-lep-2026",
+  "title": "RTEC Limited English Proficient Plan / Title VI Program - Revised January 2026",
+  "original_path": "TITLE VI LEP PLAN/Title VI 2025 Prepared for 2026 deadline/Updated Current Title VI and Limited English Proficient Plan due 01 30 2026.doc",
+  "sha256": "017d426c7b18064f401e85fcd520ee7574fd7f0e6c4da104b0eaf8f9f254f0d0",
+  "source_type": "title_vi_lep_plan",
+  "temporal_status": "current_candidate",
+  "created": "2008-08",
+  "revisions": [
+    "2010-06",
+    "2011-03",
+    "2013-01",
+    "2013-09",
+    "2014-07",
+    "2016-12",
+    "2019-12",
+    "2022-12",
+    "2026-01"
+  ],
+  "source_representation": "complete deterministic text extraction split into four parts",
+  "fulltext_parts": [
+    "fulltext-part-001.txt",
+    "fulltext-part-002.txt",
+    "fulltext-part-003.txt",
+    "fulltext-part-004.txt"
+  ],
+  "currentness": "Newest full Title VI/LEP plan source identified in supplied archive; treat as current candidate pending board/state approval/version confirmation.",
+  "privacy": "safe_policy_and_service_plan",
+  "ingested_at": "2026-09-23"
+}
