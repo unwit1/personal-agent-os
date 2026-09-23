@@ -2,15 +2,12 @@
   "continuity_id": "tes.mod.wheels-of-lull",
   "source_sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
   "expected_document_count": 1090,
-  "current_materialization_status": "blocked_pending_raw_shard_regeneration",
+  "current_materialization_status": "unblocked_after_verified_raw_shard_repair_fresh_rebuild_pending_verification",
   "materialization_mode": "deterministic_on_checkout_fail_closed",
   "canonical_source": "../raw/source-records-*.jsonl[.gz]",
   "builder": "../technical/build-retrieval-index.py",
   "repair_plan": "../analysis/repair-plan.md",
-  "known_unreadable_shards": [
-    "../raw/source-records-0151-0200.jsonl.gz",
-    "../raw/source-records-0401-0450.jsonl.gz"
-  ],
+  "known_unreadable_shards": [],
   "speaker_overlay": "../dialogue/speaker-resolution-compact.jsonl.gz",
   "book_source_relations": "book-source-relations.json",
   "generated_output_directory": ".generated-retrieval",
@@ -27,7 +24,7 @@
   ],
   "persistent_index_state": {
     "status": "preexisting_full_corpus_derivatives_from_prior_ingestion_analysis",
-    "caution": "They report the expected 1,090-record corpus, but a fresh deterministic rebuild is currently blocked by the two corrupt raw shards. Treat raw source evidence as authoritative and do not claim current reproducibility until repair succeeds."
+    "caution": "Raw source evidence is now complete and readable. The committed compact indexes still reflect the prior full 1,090-record build; run the deterministic builder on a checkout before claiming a newly regenerated index byte-for-byte."
   },
   "retrieval_policy": {
     "lexical": "Deterministic BM25 over a fully materialized normalized corpus. Partial builds are forbidden.",
@@ -45,9 +42,21 @@
     "synthetic_bm25_smoke_test_previously_passed": true
   },
   "current_rebuild_requirements": [
-    "Regenerate the two corrupt raw shards from the verified WheelsOfLull.esp.",
-    "Merge the 52 repaired INFO records into exhaustive speaker resolution.",
-    "Run build-retrieval-index.py over all 1,090 source records.",
-    "Validate new routing and lexical artifacts against expected corpus counts before replacing persistent indexes."
-  ]
+    "Run build-retrieval-index.py over all 1,090 core source records on a checkout.",
+    "Validate generated routing and lexical artifacts against the expected 1,090-document count before replacing persistent indexes.",
+    "Keep the 328-record implementation-text supplement separate unless secondary retrieval is explicitly enabled."
+  ],
+  "implementation_text_supplement": {
+    "path": "../raw/implementation-text-supplement.jsonl.gz",
+    "records": 328,
+    "mode": "secondary_evidence_collection_not_part_of_1090_core_document_count",
+    "manifest": "../analysis/implementation-text-supplement.json"
+  },
+  "repair_completion": {
+    "date": "2026-09-23",
+    "shards_repaired": 2,
+    "recovered_info_records": 52,
+    "raw_integrity": "complete",
+    "full_plugin_audit": "analysis/exhaustiveness-audit.md"
+  }
 }
