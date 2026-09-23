@@ -21,8 +21,8 @@
   "status": "source_ingestion_exhausted_for_supplied_esp",
   "resume_rule": "No WheelsOfLull.esp ingestion cursor remains. Resume only external provenance/edition research or optional retrieval/index regeneration; do not repeat plugin ingestion unless a different source version is supplied.",
   "raw_integrity": "complete_verified_after_repair",
-  "implementation_text_supplement_records": 328,
-  "total_persisted_source_evidence_records": 1418,
+  "implementation_text_supplement_records": 370,
+  "total_persisted_source_evidence_records": 1460,
   "full_plugin_records_audited": 36824,
   "speaker_integrity": {
     "total_info": 410,
@@ -30,5 +30,13 @@
     "strict_resolved": 332,
     "strict_unresolved": 78,
     "excluded": 0
+  },
+  "implementation_text_base_records": 328,
+  "implementation_text_augmentation_new_records": 42,
+  "field_augmentations": 16,
+  "source_localized": false,
+  "deep_text_audit": {
+    "status": "complete",
+    "natural_language_vmad_payloads_found": 0
   }
 }
