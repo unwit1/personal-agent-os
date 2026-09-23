@@ -18,10 +18,10 @@
       "title": "Canonical adapter text must not carry a machine-specific checkout path",
       "category": "architecture",
       "subsystem": null,
-      "status": "candidate",
+      "status": "verified",
       "priority": "medium",
       "dedupe_key": "04a2775ea51ab49c99d7fa8ed39f0c375bbac3a76ea6ca8f3a4626cee30a1140",
-      "updated_at": "2026-09-21T16:10:42.383586+00:00",
+      "updated_at": "2026-09-23T21:14:07.026023+00:00",
       "github_issue_number": null
     }
   ]
