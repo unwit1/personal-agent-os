@@ -1,0 +1,18 @@
+{
+  "source_id": "rtec-hr-preventive-vaccine-posting-2021-10-01",
+  "source_class": "benefits_wellness_posting",
+  "source_artifact": "Flu Shot posting.pub",
+  "privacy_class": "safe_position_level",
+  "sha256": "5793476853dbd9017954a08376ec549d6c511f55603ab6ac798d0596eef6a3bd",
+  "source_date_or_version": "2021-10-01",
+  "temporal_status": "historical",
+  "rendered_for_review": true,
+  "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-preventive-vaccine-posting-2021-10-01/fulltext.md",
+  "derived_records": [
+    "knowledge/libraries/rtec-hr/processes/employee-preventive-vaccination-event-2021.json"
+  ],
+  "ingested_at": "2026-09-23",
+  "notes": [
+    "Publisher source converted to PDF and visually inspected. Coverage/vendor details are historical."
+  ]
+}
