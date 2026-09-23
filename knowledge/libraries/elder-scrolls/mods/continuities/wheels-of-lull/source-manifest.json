@@ -69,34 +69,40 @@
     }
   ],
   "raw_integrity": {
-    "status": "complete_ingestion_with_two_stored_shards_requiring_regeneration",
-    "unreadable_shards": [
+    "status": "complete_verified_after_deterministic_repair",
+    "unreadable_shards": [],
+    "affected_speaker_analysis_info_records": 0,
+    "repaired_shards": [
       {
         "path": "raw/source-records-0151-0200.jsonl.gz",
-        "records": "151-200"
+        "records": "151-200",
+        "commit": "5762fbc4db9db45419038ac5898e16bd630e079a",
+        "gzip_sha256": "88efb18959daad4676dbf614e307077ad21003f2ed80959fc659261fe4e1aab7"
       },
       {
         "path": "raw/source-records-0401-0450.jsonl.gz",
-        "records": "401-450"
+        "records": "401-450",
+        "commit": "6d9d2afe29c20edef47c9e5b5a168929e98ca1a5",
+        "gzip_sha256": "06458f4619b57d6633d2b8c7a6049964fb6802ba0cd81415bd810cd82e3de84d"
       }
     ],
-    "affected_speaker_analysis_info_records": 52,
-    "repair_plan": "analysis/repair-plan.md",
-    "source_reacquisition_requirement": "Exact WheelsOfLull.esp with matching SHA-256 is required for deterministic regeneration."
+    "repair_record": "analysis/repair-plan.md"
   },
   "post_ingestion_analysis": {
-    "status": "core_complete_with_bounded_shard_repair_required",
+    "status": "core_complete_source_integrity_complete_supplied_esp_exhausted",
     "analysis_root": "analysis/",
     "speaker_resolution_files": [
       "analysis/speaker-resolution-0001.jsonl",
-      "analysis/speaker-resolution-0002.jsonl"
+      "analysis/speaker-resolution-0002.jsonl",
+      "analysis/speaker-repair-validation.json"
     ],
     "speaker_resolution": {
       "total_info": 410,
-      "processed_readable": 358,
-      "resolved": 288,
-      "unresolved_readable": 70,
-      "excluded_pending_repair": 52
+      "processed_readable": 410,
+      "resolved": 332,
+      "unresolved_readable": 78,
+      "excluded_pending_repair": 0,
+      "policy": "strict CTDA integrity count; broader contextual/candidate speaker analysis remains in dialogue/speaker-resolution-compact.jsonl.gz and analysis/speaker-resolution.md"
     },
     "claims_file": "analysis/claims/core-claims.jsonl",
     "tensions_file": "analysis/claims/tensions.jsonl",
@@ -132,15 +138,24 @@
     "origin_unresolved": 29
   },
   "retrieval_rebuild": {
-    "status": "blocked_pending_raw_shard_regeneration",
+    "status": "unblocked_after_raw_shard_repair",
     "manifest": "normalized/retrieval-manifest.json",
     "builder": "technical/build-retrieval-index.py",
-    "policy": "fail_closed_no_partial_index"
+    "policy": "fail_closed_no_partial_index",
+    "note": "A fresh checkout/materialization can now read all canonical core raw shards. The 328-record implementation-text supplement is a separate evidence corpus and is not counted in the 1,090-document core retrieval baseline unless explicitly opted in."
   },
   "next_actions": [
-    "Reacquire and SHA-256 verify the exact WheelsOfLull.esp, then regenerate the two corrupt raw shards.",
-    "Rerun strict speaker resolution for the 52 excluded INFO records and merge the results.",
-    "Rebuild and validate the full 1,090-document retrieval corpus.",
+    "Run a fresh deterministic 1,090-document retrieval materialization on checkout as a verification step; raw-shard blockers are closed.",
+    "Optionally add the 328-record implementation-text supplement as a secondary retrieval collection without mixing it into narrative canon claims.",
     "Continue narrow BOOK source/edition research only when new archival Trainwiz/Sotha Sil Expanded/Aethernautics source assets become available."
-  ]
+  ],
+  "implementation_text_supplement": {
+    "status": "complete_for_supplied_esp",
+    "records": 328,
+    "path": "raw/implementation-text-supplement.jsonl.gz",
+    "manifest": "analysis/implementation-text-supplement.json",
+    "audit": "analysis/exhaustiveness-audit.md",
+    "gzip_sha256": "e7ce7982e058679f1c61fc5360a506d0f330fb3f02751a5e871d4437c5ad3c8f",
+    "policy": "Separate evidence layer; does not change the 1,090-record core narrative/source corpus."
+  }
 }
