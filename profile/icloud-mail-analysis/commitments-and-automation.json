@@ -1,0 +1,263 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-23",
+  "purpose": "Evidence-backed model of commitments, follow-up behavior, administrative friction, and automation opportunities derived from the local iCloud mail index.",
+  "sent_mail_signals": {
+    "sent_messages_reviewed": 203,
+    "explicit_follow_up_messages": 25,
+    "delay_or_lateness_apology_messages": 9,
+    "explicit_forgot_or_back_burner_mentions": 2,
+    "deadline_or_due_date_mentions": 3,
+    "attachment_related_messages": 42,
+    "confirmation_language_messages": 16,
+    "interpretation": [
+      "These counts are lexical indicators, not a claim that every matching message represents a missed commitment.",
+      "Attachment-related messages mainly show that document exchange is common; they should not be interpreted as 42 attachment mistakes.",
+      "The combination of repeated follow-ups plus occasional delay/forgetting supports a workflow where unresolved obligations should remain visible until completion evidence arrives."
+    ]
+  },
+  "behavioral_model": {
+    "before_action": [
+      "Often asks for process, policy, deadline, logistics, or required-document details before acting.",
+      "For consequential transitions such as employment or housing, tends to gather multiple practical questions into one exchange."
+    ],
+    "unresolved_state": [
+      "If an application, interview, support case, housing request, or administrative process remains unresolved, the user often sends a follow-up rather than abandoning it.",
+      "The archive contains multiple direct examples of delayed responses, forgotten/back-burner tasks, or uncertainty about whether a prior administrative step was completed."
+    ],
+    "recovery": [
+      "Once a missed or delayed step is recognized, usually asks what remains, supplies the missing information/document, and tries to close the loop.",
+      "Often uses explicit confirmation language after completing an important step."
+    ],
+    "agent_implication": "The user's existing preference to resurface unresolved commitments is strongly supported by email behavior: model commitments as stateful objects rather than one-shot reminders."
+  },
+  "commitment_categories_to_detect": [
+    {
+      "category": "job applications and interviews",
+      "states": [
+        "applied",
+        "screening",
+        "interview scheduled",
+        "follow-up due",
+        "waiting",
+        "offer",
+        "rejected",
+        "withdrawn",
+        "accepted elsewhere",
+        "closed"
+      ],
+      "signals": [
+        "interview invitations",
+        "requested questionnaires or documents",
+        "stated follow-up dates",
+        "thank-you/follow-up messages",
+        "offer/start-date correspondence",
+        "rejection or withdrawal messages"
+      ],
+      "automation": "Maintain one process record per employer/role, suggest follow-up only when the thread remains open, and close it when a terminal state is evidenced."
+    },
+    {
+      "category": "employment onboarding and HR administration",
+      "states": [
+        "question outstanding",
+        "document requested",
+        "submitted",
+        "confirmed",
+        "start pending",
+        "complete"
+      ],
+      "signals": [
+        "handbook/policy requests",
+        "benefits enrollment/open-enrollment questions",
+        "training/start logistics",
+        "requested forms or attachments"
+      ],
+      "automation": "Turn onboarding questions and requested documents into a checklist with owner, due date, evidence, and completion status."
+    },
+    {
+      "category": "housing and utilities",
+      "states": [
+        "application",
+        "lease change",
+        "utility setup",
+        "payment/autopay issue",
+        "maintenance request",
+        "move-out planning",
+        "deposit pending",
+        "resolved"
+      ],
+      "signals": [
+        "lease/roommate changes",
+        "rent/autopay",
+        "utilities",
+        "work orders",
+        "move-out/deposit checklists",
+        "new rental applications"
+      ],
+      "automation": "Keep move/lease tasks grouped by property period while omitting exact addresses from durable Git profile state."
+    },
+    {
+      "category": "vehicle and registration",
+      "states": [
+        "maintenance due",
+        "registration due",
+        "service scheduled",
+        "completed",
+        "next interval"
+      ],
+      "signals": [
+        "CARFAX/service reminders",
+        "registration correspondence",
+        "repair/service appointments"
+      ],
+      "automation": "Convert dated maintenance/registration mail into low-noise reminders and close them on service/renewal evidence."
+    },
+    {
+      "category": "support, warranty, returns, and RMA",
+      "states": [
+        "opened",
+        "troubleshooting",
+        "waiting on user",
+        "waiting on vendor",
+        "return requested",
+        "shipped",
+        "replacement/refund pending",
+        "resolved"
+      ],
+      "signals": [
+        "support ticket numbers",
+        "requested troubleshooting steps",
+        "return labels",
+        "replacement confirmations"
+      ],
+      "automation": "Track the last party responsible for the next action and resurface cases that stall beyond a reasonable interval."
+    },
+    {
+      "category": "travel and study administration",
+      "states": [
+        "application",
+        "clearance/document requested",
+        "deadline",
+        "travel scheduled",
+        "completed"
+      ],
+      "signals": [
+        "program forms",
+        "clearance forms",
+        "travel dates",
+        "deadline reminders"
+      ],
+      "automation": "Extract deadlines and required forms into a checklist while keeping passports/identity documents out of the durable profile."
+    },
+    {
+      "category": "subscriptions and recurring services",
+      "states": [
+        "active",
+        "renewing",
+        "expiring",
+        "payment issue",
+        "cancelled"
+      ],
+      "signals": [
+        "renewal notices",
+        "service changes",
+        "balance/usage warnings",
+        "trial expiration"
+      ],
+      "automation": "Surface only actionable changes and suppress routine marketing; financial decisions remain subject to the user's approval."
+    },
+    {
+      "category": "paid studies and focus groups",
+      "states": [
+        "invited",
+        "screened",
+        "scheduled",
+        "completed",
+        "ineligible",
+        "expired"
+      ],
+      "signals": [
+        "study invitations",
+        "screeners",
+        "appointment confirmations",
+        "completion/payment notices"
+      ],
+      "automation": "Differentiate high-volume invitations from actually scheduled or completed opportunities so the executive layer does not flood the user."
+    },
+    {
+      "category": "packages and purchases",
+      "states": [
+        "ordered",
+        "shipped",
+        "delivered",
+        "return/refund",
+        "problem"
+      ],
+      "signals": [
+        "order confirmations",
+        "shipping notices",
+        "delivery notices",
+        "return correspondence"
+      ],
+      "automation": "Treat ordinary delivery mail as low priority unless a delay, return, refund, or needed household item creates an unresolved action."
+    }
+  ],
+  "document_and_attachment_workflow": {
+    "evidence": "At least 42 Sent Messages contain attachment-related language, and the archive contains resumes, forms, scans, spreadsheets, PDFs, and other document metadata.",
+    "observed_pattern": "Email frequently acts as a bridge for sending documents among personal, school, employer, landlord, support, and other systems.",
+    "automation_opportunities": [
+      "Detect when a message says something is attached and verify an attachment is actually present before sending.",
+      "Recognize requested-document threads and mark the document request resolved only after sent-message evidence or an explicit confirmation.",
+      "Associate documents with the relevant application, lease, support case, or onboarding process rather than leaving them as disconnected attachments.",
+      "Preserve version/provenance so an old resume or form is not mistaken for the current one."
+    ]
+  },
+  "follow_up_policy_for_agent": {
+    "default": "Do not let an unresolved commitment disappear merely because the last message was sent.",
+    "recommended_state_fields": [
+      "commitment_id",
+      "category",
+      "summary",
+      "source_message_or_thread_id",
+      "created_at",
+      "due_at_or_expected_response_window",
+      "next_actor",
+      "next_action",
+      "status",
+      "last_evidence_at",
+      "completion_evidence",
+      "confidence",
+      "privacy_class"
+    ],
+    "resolution_rules": [
+      "A sent email asking for action is not completion if a reply or external outcome is still required.",
+      "A drafted/intended action is not completion without sent/transactional evidence.",
+      "A reminder should stop when the thread contains clear terminal evidence or the user marks it resolved.",
+      "If the expected response window passes, surface a concrete follow-up suggestion rather than a generic 'remember this' message.",
+      "Merge duplicate reminders that refer to the same underlying thread/process."
+    ]
+  },
+  "proactive_insight_candidates": [
+    {
+      "insight": "Email follow-up state machine",
+      "rationale": "The user's professional and administrative mail repeatedly moves through recognizable states that can be tracked deterministically.",
+      "potential_project_fit": "Personal Agent OS Personal Communication Gateway / Executive layer"
+    },
+    {
+      "insight": "Attachment/document request verifier",
+      "rationale": "Document exchange is common enough that attachment presence, version, request state, and completion evidence can be checked automatically.",
+      "potential_project_fit": "Personal Communication Gateway plus document knowledge layer"
+    },
+    {
+      "insight": "Cross-account/self-forward reduction",
+      "rationale": "At least 29 sent messages are self-forwards or cross-account transport. An integrated document/mail retrieval layer could reduce the need to manually email material to oneself.",
+      "potential_project_fit": "Personal Agent OS connector and knowledge-ingestion roadmap"
+    },
+    {
+      "insight": "Administrative rescue queue",
+      "rationale": "Delay/forgetting evidence is low-volume but recurring; the agent can detect stalled obligations and surface the smallest next action.",
+      "potential_project_fit": "Personal Executive / Rescue Mode"
+    }
+  ],
+  "exclusions": "No raw sensitive mail, exact addresses, account numbers, private intimate content, health details, credentials, or third-party contact data are retained."
+}
