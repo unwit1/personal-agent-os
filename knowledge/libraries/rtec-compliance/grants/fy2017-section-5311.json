@@ -1,0 +1,35 @@
+{
+  "id": "rtec-grant-fy2017-5311",
+  "title": "FY2017 Section 5311 Rural Area Formula Program grant application",
+  "program": "FTA Section 5311",
+  "source_filename": "FY 17 Section 5311 Grant.pdf",
+  "source_sha256": "0b8f81f4823108a502d21c03cbaf4b34104f55ba468e4949ebc810bebba99f0a",
+  "pdf_metadata": {
+    "creation_date": "2016-10-17",
+    "actual_page_count": 533
+  },
+  "application_cover_date": "2016-04-01",
+  "receipt_evidence_date": "2017-03-31",
+  "temporal_status": "historical",
+  "source_representation": "scan-only PDF; indexed/visually reviewed, full OCR pending staged extraction",
+  "purpose": "Rural Area Formula Program (5311), State Fiscal Year 2017.",
+  "compliance_evidence": [
+    "The application checklist is divided into Planning & Programming and Compliance.",
+    "Planning/programming materials include project/service descriptions, routes/fares/hours/days, HSTD/NEMT participation, vehicle/facility/equipment maintenance plans, demand-response/intercity service, drug and alcohol policy, safety-sensitive employee list, community/population information, training, prior grant status, budgets, procurement requirements and planning documentation.",
+    "Compliance checklist includes coordination evidence, public hearing, private-sector participation, written local complaint process, Title VI documentation, annual civil-rights assurance, Affirmative Action Plan for employers with 50 or more employees, LEP access plan, environmental statement, elderly/persons-with-disabilities hearing or certification, statistical report, disability assurance, ADA equivalent-service certification, charter/school-bus certifications, opinion of counsel, labor letter, authorizing/local-share resolutions, standard/local/regulatory assurances, DBE/WBE policy statement, drug-free workplace certification, lobbying certification, incidental-services certification, federally required/model clauses, and transit-agency safety-plan certification.",
+    "The service description documents an 18-county Southeast Kentucky service area and demand-response operation rather than fixed-route service.",
+    "The intercity-bus assurance documents 5311(f) activity and describes regional rural-to-urban connections."
+  ],
+  "hr_links": [
+    "Affirmative Action Plan",
+    "Title VI",
+    "LEP",
+    "EEO/civil rights",
+    "ADA/disability",
+    "drug and alcohol",
+    "training",
+    "safety-sensitive employee records",
+    "complaint procedure"
+  ],
+  "provenance_note": "Historical application requirements are evidence of why AAP/EEO/Title VI/LEP and personnel/training documentation existed in RTEC's grant-compliance workflow."
+}
