@@ -430,13 +430,16 @@ class IncrementalLedger:
         self._save(record)
 
     def fail(self, item_id: str, detail: str) -> None:
+        """Mark an item failed without persisting caller-supplied error text."""
         record = self._load()
         item = record["items"].get(item_id)
         if not item:
             raise KeyError(f"unknown item: {item_id}")
         item["status"] = "failed"
         item["retry_count"] = int(item.get("retry_count", 0)) + 1
-        item["failure"] = detail[:500]
+        # Error messages can contain imported content, paths, or credentials.
+        # Keep only a generic state marker in the local ledger.
+        item["failure"] = "processing failed"
         self._save(record)
 
     def status(self) -> dict[str, Any]:
