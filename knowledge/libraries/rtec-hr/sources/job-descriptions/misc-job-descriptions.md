@@ -285,4 +285,119 @@ Employee Signature						Date
 ## rtec-hr-jobdesc-misc-job-descriptions-job-description-accounts-receivable-clerk-pdf
 
 - Source path: `!Misc Job Descriptions/Job Description Accounts Receivable Clerk.pdf`
-- 
+- Source class: `job_description`
+- Role family: `accounts-receivable-clerk`
+- Temporal status: `unknown`
+- Source SHA-256: `efe82143ec8dfc43d34e9915d3b8c0936a6019665679f112f276ecb6226bec9b`
+- Normalized text SHA-256: `1ebe831d07ce8f98d135c1ff4c87c042b8062f593c9dce75e961b73333b98917`
+- Extraction: `ocr_from_rendered_scan`
+
+### Full searchable text
+
+Rural Transit Enterprises Coordinated, Inc.
+
+Job Description: Accounts Receivable Clerk
+
+FLSA Classification: Non-exempt
+
+Characteristics of the Class: Under the general supervision of Executive Director or
+Designee
+
+Requirements and Qualifications:
+
+High School Diploma with bookkeeping experience, good computer skills with data entry
+experience, business office, billing and general accounting experience; Knowledge of
+contemporary office practices and procedures; Knowledge of business English, good
+spelling, punctuation and arithmetic; Ability to work well with people; Must be proficient
+in the use of office equipment including copier, fax machine, telephone, postage meter
+and calculator; Ability to maintain accurate records and files; Must be detail-oriented;
+Good communication skills; Ability to establish and maintain effective working
+relationship with employees and businesses; to enter and research data in computer
+accurately and timely; Good telephone etiquette; Trainable in functions, organizational
+procedures, rules and regulations of the agencies involved; Self-starter, team player and
+ability to work independently; Must possess tact, patience, thoroughness, accuracy,
+honesty, orderliness and sound judgment.
+
+Duties and Responsibilities:
+
+These duties include but not limited to verifying accuracy of cash fares and charge
+accounts. Data collection includes mileage, rates and payments. Reconcile collections
+and payments. Generate invoices for charge customers, evaluate contract compliance,
+payment collection, mailing, filing, faxing, and other general clerical duties assigned.
+Record and verify daily deposits. Record billing and deposits on Excel software. Issue
+and fax outing confirmation numbers to agencies. Filter and sort Transview data for
+billing inconsistencies. Check client eligibility to insure payment method is correct.
+Compare and match deposit slips with computer data to insure correct payment and
+correct mileage. Maintenance and accountability of the Electronic Payment Gateway
+(EPG) system for charge fares, veterans, charter and reports.
+
+Responsible for accurate cash fare collection, charge accounts receivables/balances and
+reporting to the Executive Director at the end of each month.
+
+These duties do not necessarily include all essential functions of this job. Performs other
+duties as assigned by the Executive Director.
+
+Ninety (90) days to be proficient in duties and responsibilities.
+
+Signature Date
+
+sc/07/07/2015
+
+---
+
+## rtec-hr-jobdesc-misc-job-descriptions-job-description-administrative-assistant-accounts-payable-docx
+
+- Source path: `!Misc Job Descriptions/Job Description Administrative Assistant Accounts Payable.docx`
+- Source class: `job_description`
+- Role family: `administrative-assistant-accounts-payable`
+- Temporal status: `unknown`
+- Source SHA-256: `5e1e8e8092acc03eb72332e2ba56e437b505c2c50e62951e01e479482e4247bf`
+- Normalized text SHA-256: `4a391270acbc6989543508895d5f145b5315256514bf5e21cfe009bc8dac3604`
+- Extraction: `python-docx`
+
+### Full searchable text
+
+Rural Transit Enterprises Coordinated, Inc.
+Job Description:          Administrative Assistant/Accounts Payable
+FLSA Classification:   Non-Exempt Full Time
+Reports to:                   Executive Director/CEO
+Characteristics of the Class:
+The Administrative Assistant/Accounts Payable is a member of the administrative office, under the direction of the Executive Director/CEO and performs such duties as required for assisting in carrying out grant requirements in compliance with federal, state and local laws. The role of the Accounts Payable involves providing financial, administrative and clerical support to the organization.  As an ambassador of RTEC, the Administrative Assistant coordinates activities toward good working relations for the best interest of the company, its customers and employees.
+Requirements and Qualifications:
+A High School graduate, having held a responsible position for a minimum of 5 years in a formal office setting.  Must have good oral and written communication skills; the ability to read, write, type and comprehend the English language; and professional experience in an office environment with record keeping.  Essential requirements for this position is the ability to sit for long periods of time with high concentration levels while working with various production numbers in currency, mileage and various other transit duties.  Physical requirements include stretching, bending and stooping to reach files; lifting and carrying up to 30 pounds as the standard rule for copying, filing and storing records in an office environment.  Must be flexible and acceptable to change, since it is impossible to list each project and all of the requirements that may be associated with the programs of RTEC that may vary during each grant/fiscal year.
+Duties and Responsibilities:
+The duties and responsibilities are briefly described as:
+Collect and compile invoices/payables and review for accuracy
+Process payables for payment in a timely manger
+Direct the flow of paperwork and critique for accuracy
+Clerical duties, including copying, filing, typing, etc.
+Data entry of monthly paperwork, travel, maintenance and cafeteria reports
+Annex Office Manager (2nd floor), including monitor the custodial services to maintain a clean working environment for staff and ascertain good work flow of employee activities
+Custodian of records for the office of the Executive Director, and
+Other duties assigned by the Executive Director
+These duties do not necessarily include all essential functions of this job.
+Starting pay $15.99 per hour
+____________________________________                      ___________________
+Employee Signature						Date
+
+---
+
+## rtec-hr-jobdesc-misc-job-descriptions-job-description-quality-control-manager-docx
+
+- Source path: `!Misc Job Descriptions/Job Description Quality Control Manager.docx`
+- Source class: `job_description`
+- Role family: `quality-control-manager-circuit-rider`
+- Temporal status: `unknown`
+- Source SHA-256: `7cfd76fe241a0295513271e1cd50fa2622d5fff69775f4393abd0a5a30cbb5d4`
+- Normalized text SHA-256: `086268481bb47b062538002f2279c78c38a3514a941136a542bc77510cbafe72`
+- Extraction: `python-docx`
+
+### Full searchable text
+
+Rural Transit Enterprises Coordinated, Inc.
+Job Description:          Quality Control Manager/Circuit Rider
+FLSA Classification:   NON-EXEMPT
+Characteristics of the Class
+The Quality Control Manager/Circuit Rider is a member of the administrative office, under the general direction of the Executive Director/CEO (or designee).  This is a safety sensitive position requiring participation in pre-employment and ongoing substance abuse testing and drug and alcohol free workplace.
+Requirements and Qualifications
+A four-year degree in the field of Human Services. Experience in a formal office setting with supervisory background and excellent computer skills.  Ability to maintain good working relationship with the public and other employees.  Must have good telephone and communication etiquette.  Cooperative and have initiative to be a self-starter.  Be a team player and show courtesy to 
