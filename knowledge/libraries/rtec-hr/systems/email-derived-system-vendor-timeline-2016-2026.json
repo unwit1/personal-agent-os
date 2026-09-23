@@ -7,74 +7,191 @@
       "name": "ADP",
       "observed": "2016-2026",
       "relationship": "HR/payroll/time/benefits-related platform and services",
-      "currentness": "2026 communications confirm ongoing account/reporting activity; exact current module split requires validation."
+      "currentness": "2026 targeted client communications identify ADP Workforce Now, the Quarter-End Dashboard, SmartCompliance tax services, iReports, Employee Self-Service and Service Connect. This strongly supports an active payroll/tax relationship; exact licensed modules and authoritative data ownership still require validation.",
+      "evidence_ids": [
+        "000346",
+        "000572",
+        "000574",
+        "000576"
+      ]
     },
     {
       "name": "Guardian",
       "observed": "2016-2026",
       "relationship": "benefits carrier/account administration",
-      "currentness": "Active 2026 account and submission evidence."
+      "currentness": "Active 2026 security/account-email change and plan-administration submission evidence. The account email was moved toward the shared HR address, while legacy mailbox traffic remains present.",
+      "evidence_ids": [
+        "000351",
+        "000352",
+        "000353",
+        "000354",
+        "000573"
+      ]
     },
     {
-      "name": "CVIM",
-      "observed": "2017-2021",
-      "relationship": "historical benefits broker/contact channel",
-      "currentness": "Current relationship unknown."
-    },
-    {
-      "name": "iSolved / Infinisource",
-      "observed": "2019-2026",
-      "relationship": "HR/payroll/People Cloud related vendor communications",
-      "currentness": "2026 registration and billing evidence exists; exact live modules and system-of-record status unresolved."
-    },
-    {
-      "name": "ridertec.org online application forms",
-      "observed": "2018-2019",
-      "relationship": "historical applicant intake",
-      "currentness": "Likely superseded candidate; must not be treated as current without confirmation."
-    },
-    {
-      "name": "Kentucky New Hire Reporting",
+      "name": "ComPsych ResourceCenter via Guardian",
       "observed": "2026",
-      "relationship": "state new-hire reporting portal",
-      "currentness": "Active 2026 evidence."
-    },
-    {
-      "name": "Kentucky Unemployment Insurance Portal",
-      "observed": "2021-2026",
-      "relationship": "unemployment administration",
-      "currentness": "Active 2026 evidence."
-    },
-    {
-      "name": "3CX",
-      "observed": "2026",
-      "relationship": "RTEC communications/telephony account",
-      "currentness": "Active account evidence."
-    },
-    {
-      "name": "Google Workspace / Calendar",
-      "observed": "2026",
-      "relationship": "calendar/vendor meeting coordination",
-      "currentness": "Active use evidence."
+      "relationship": "employee-assistance/program administration resource center",
+      "currentness": "2026 welcome message provides access to utilization reports, training requests, program information and communication materials. Exact contracted program scope should be confirmed.",
+      "evidence_ids": [
+        "000569"
+      ]
     },
     {
       "name": "UnitedHealthcare",
       "observed": "2026",
       "relationship": "health-plan carrier/account-management relationship",
-      "currentness": "Active professional account-management evidence."
+      "currentness": "A June 2026 survey explicitly references a recent UnitedHealthcare implementation for RTEC, and named Kentucky account-management contacts send ongoing wellness/resources. Exact product/plan scope is not inferred.",
+      "evidence_ids": [
+        "000347",
+        "000349",
+        "000485",
+        "000512"
+      ]
+    },
+    {
+      "name": "CVIM",
+      "observed": "2017-2021",
+      "relationship": "historical benefits broker/contact channel",
+      "currentness": "Historical enrollment, renewal and carrier-administration evidence; current relationship unknown."
+    },
+    {
+      "name": "iSolved / Infinisource",
+      "observed": "2019-2026",
+      "relationship": "HR/payroll/People Cloud/benefit-services vendor relationship",
+      "currentness": "2026 People Cloud registration and direct RTEC billing evidence indicate an active vendor account, but the exact module(s), owner and system-of-record status remain unresolved.",
+      "evidence_ids": [
+        "000358",
+        "000391",
+        "000498"
+      ]
+    },
+    {
+      "name": "ridertec.org online application forms",
+      "observed": "2018-2019",
+      "relationship": "historical applicant intake",
+      "currentness": "Likely superseded candidate; raw applicant submissions remain restricted."
+    },
+    {
+      "name": "Kentucky Career Center / Focus Talent",
+      "observed": "2021",
+      "relationship": "historical job-order posting and refresh channel",
+      "currentness": "Eight December 2021 driver/dispatcher job-order closure notices show a 30-day refresh lifecycle; current use unknown.",
+      "evidence_ids": [
+        "000329",
+        "000330",
+        "000331",
+        "000332",
+        "000333",
+        "000334",
+        "000335",
+        "000336"
+      ]
+    },
+    {
+      "name": "Kentucky New Hire Reporting",
+      "observed": "2026",
+      "relationship": "state new-hire reporting portal",
+      "currentness": "Active May 2026 bulk-upload evidence. One upload contained eight records, of which seven were recognized as previously submitted duplicates and one as acceptable; no employee details are retained.",
+      "evidence_ids": [
+        "000361",
+        "000362",
+        "000363"
+      ]
+    },
+    {
+      "name": "Kentucky Unemployment Insurance / KUIP",
+      "observed": "2021-2026",
+      "relationship": "unemployment tax/administration",
+      "currentness": "June 2026 communication scheduled the new KUIP employer tax system for August 17, 2026; that schedule is historical email evidence and requires post-launch/current verification.",
+      "evidence_ids": [
+        "000355",
+        "000570"
+      ]
+    },
+    {
+      "name": "Microsoft Outlook",
+      "observed": "2017-2026",
+      "relationship": "mailbox client/configuration",
+      "currentness": "Three May 2026 test messages show active configuration/testing of the historical individual HR mailbox.",
+      "evidence_ids": [
+        "000357",
+        "000453",
+        "000454"
+      ]
+    },
+    {
+      "name": "Microsoft Office 365 Message Encryption",
+      "observed": "2021",
+      "relationship": "secure external-message access",
+      "currentness": "Historical one-time-passcode evidence.",
+      "evidence_ids": [
+        "000198",
+        "000199",
+        "000200"
+      ]
+    },
+    {
+      "name": "3CX",
+      "observed": "2026",
+      "relationship": "RTEC communications/telephony account",
+      "currentness": "Active account-recovery evidence.",
+      "evidence_ids": [
+        "000359"
+      ]
+    },
+    {
+      "name": "Google Workspace / Calendar / Accounts",
+      "observed": "2026",
+      "relationship": "shared HR account, security/recovery and vendor meeting coordination",
+      "currentness": "Active use evidence. The shared HR account's recovery relationship to the historical individual HR mailbox should be verified as intentional/current.",
+      "evidence_ids": [
+        "000434",
+        "000502",
+        "000516",
+        "000575"
+      ]
+    },
+    {
+      "name": "Zoom",
+      "observed": "2021-2026",
+      "relationship": "meeting/collaboration channel",
+      "currentness": "Historical HR-hosted Zoom evidence plus vendor meeting links; current organizational standard not established.",
+      "evidence_ids": [
+        "000321",
+        "000434"
+      ]
     },
     {
       "name": "Bim Group",
       "observed": "2026",
-      "relationship": "HR/legislative information source",
-      "currentness": "Active information-source evidence; not necessarily an operational system."
+      "relationship": "HR/legislative and benefits-compliance information source",
+      "currentness": "Active information-source evidence; not necessarily an operational system.",
+      "evidence_ids": [
+        "000372",
+        "000571"
+      ]
     },
     {
       "name": "Rippling",
       "observed": "2026",
       "relationship": "vendor evaluation/contact",
-      "currentness": "Exploratory/unconfirmed. A meeting invitation is not evidence of implementation."
+      "currentness": "Exploratory/unconfirmed. A scheduled/canceled meeting does not establish implementation.",
+      "evidence_ids": [
+        "000434"
+      ]
+    },
+    {
+      "name": "Indeed",
+      "observed": "2021",
+      "relationship": "recruiting-platform/vendor outreach",
+      "currentness": "Historical sales/account outreach; paid adoption not established.",
+      "evidence_ids": [
+        "000282",
+        "000317"
+      ]
     }
   ],
-  "architectural_observation": "The email record suggests a layered HR technology environment rather than one proven all-in-one system. Current authoritative ownership by data domain must be mapped before automation writes to any external system."
+  "architectural_observation": "The email record supports a layered HR technology environment with payroll/tax, benefits/carrier, state reporting, communications and recruiting functions split across different services. Current authoritative ownership by data domain must be mapped before automation writes to any external system.",
+  "transition_observation": "May-June 2026 messages show movement toward a shared HR identity while the historical individual HR mailbox remained operational in several systems. Treat mailbox/account migration and recovery ownership as an explicit transition to validate rather than assuming it is complete."
 }
