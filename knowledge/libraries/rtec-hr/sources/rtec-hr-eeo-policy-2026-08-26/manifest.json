@@ -1,0 +1,26 @@
+{
+  "source_id": "rtec-hr-eeo-policy-2026-08-26",
+  "title": "RTEC Equal Employment Opportunity Policy Statement",
+  "source_type": "policy_statement",
+  "original_filename": "RTEC EEO Policy Statement Updated 20265.pdf",
+  "source_representation": "complete_searchable_transcription_from_scanned_source",
+  "temporal_status": "current",
+  "currentness": "supported_by_signature_date_2026-08-26",
+  "dates": {
+    "template_revision_date_printed": "2016-11-01",
+    "signed_date": "2026-08-26",
+    "scan_date": "2026-08-27"
+  },
+  "sha256": "61bd0aa5daf6303a6b2b932ab1852917c8cb4e572f9719a9ce1f7a3d4a757bce",
+  "page_count": 1,
+  "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-eeo-policy-2026-08-26/fulltext.md",
+  "derived_records": [
+    "knowledge/libraries/rtec-hr/policies/equal-employment-opportunity-2026.json"
+  ],
+  "notes": [
+    "The source is signed and dated 08/26/26. The bottom of the form also says REVISED 11/1/16, which is treated as the underlying template/policy revision marker rather than the 2026 signature date.",
+    "The PDF was scanned on 2026-08-27.",
+    "This is currently the newest EEO policy statement in the ingested corpus, so it is treated as current unless a later source supersedes it."
+  ],
+  "ingested_at": "2026-09-23"
+}
