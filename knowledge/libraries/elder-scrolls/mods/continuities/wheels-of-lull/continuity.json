@@ -1,1 +1,84 @@
-{"continuity_id":"tes.mod.wheels-of-lull","name":"The Wheels of Lull","universe":"The Elder Scrolls","kind":"mod_continuity_overlay","status":"structured_lore_source_ingestion_complete","canon_policy":{"base_canon_promotion":"forbidden_without_explicit_evidence_and_review","default_claim_scope":"tes.mod.wheels-of-lull","may_reference_base_tes_lore":true,"conflicts_with_base":"retain_both_with_provenance"},"primary_source":{"filename":"WheelsOfLull.esp","sha256":"230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb","source_type":"user_provided_skyrim_plugin","ingested_at":"2026-09-23","author":"Trainwiz"},"extracted_counts":{"total_plugin_records":36824,"books":33,"quests":32,"dialogue_topics":337,"dialogue_info_records":410,"npcs":75,"locations":33,"cells":103,"messages":53,"scenes":14},"ingested_counts":{"books":33,"quests":32,"dialogue_topics":337,"dialogue_info_records":410,"npcs":75,"locations":33,"cells":103,"messages":53,"scenes":14,"structured_source_records":1090},"structured_layers":{"plugin_record_inventory":"complete","book_text":"complete","quest_text":"complete","dialogue":"complete","npc_records":"complete","location_records":"complete","cell_records":"complete","message_records":"complete","scene_records":"complete","supplemental_lore_records":"complete_278_of_278","speaker_resolution":"pending_post_ingestion_analysis","claim_promotion":"pending_post_ingestion_analysis","interpretive_analysis":"pending_post_ingestion_analysis"}}
+{
+  "continuity_id": "tes.mod.wheels-of-lull",
+  "name": "The Wheels of Lull",
+  "universe": "The Elder Scrolls",
+  "kind": "mod_continuity_overlay",
+  "status": "structured_lore_source_ingestion_complete",
+  "canon_policy": {
+    "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
+    "default_claim_scope": "tes.mod.wheels-of-lull",
+    "may_reference_base_tes_lore": true,
+    "conflicts_with_base": "retain_both_with_provenance"
+  },
+  "primary_source": {
+    "filename": "WheelsOfLull.esp",
+    "sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
+    "source_type": "user_provided_skyrim_plugin",
+    "ingested_at": "2026-09-23",
+    "author": "Trainwiz"
+  },
+  "extracted_counts": {
+    "total_plugin_records": 36824,
+    "books": 33,
+    "quests": 32,
+    "dialogue_topics": 337,
+    "dialogue_info_records": 410,
+    "npcs": 75,
+    "locations": 33,
+    "cells": 103,
+    "messages": 53,
+    "scenes": 14
+  },
+  "ingested_counts": {
+    "books": 33,
+    "quests": 32,
+    "dialogue_topics": 337,
+    "dialogue_info_records": 410,
+    "npcs": 75,
+    "locations": 33,
+    "cells": 103,
+    "messages": 53,
+    "scenes": 14,
+    "structured_source_records": 1090
+  },
+  "structured_layers": {
+    "plugin_record_inventory": "complete",
+    "book_text": "complete",
+    "quest_text": "complete",
+    "dialogue": "complete",
+    "npc_records": "complete",
+    "location_records": "complete",
+    "cell_records": "complete",
+    "message_records": "complete",
+    "scene_records": "complete",
+    "supplemental_lore_records": "complete_278_of_278",
+    "speaker_resolution": "pending_post_ingestion_analysis",
+    "claim_promotion": "pending_post_ingestion_analysis",
+    "interpretive_analysis": "pending_post_ingestion_analysis"
+  },
+  "post_ingestion_analysis": {
+    "status": "complete_with_bounded_integrity_gap",
+    "speaker_resolution": {
+      "total_info": 410,
+      "processed": 358,
+      "resolved": 288,
+      "unresolved": 70,
+      "excluded_due_shard_decode": 52
+    },
+    "dossiers": {
+      "characters": 9,
+      "locations": 8,
+      "artifact_technology": 10,
+      "faction_group": 4
+    },
+    "claims": {
+      "core": 25,
+      "tensions": 7
+    },
+    "retrieval_index_entries": 56,
+    "integrity_gap_files": [
+      "raw/source-records-0151-0200.jsonl.gz",
+      "raw/source-records-0401-0450.jsonl.gz"
+    ]
+  }
+}

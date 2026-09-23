@@ -1,15 +1,17 @@
-# Wheels of Lull analysis
+# Wheels of Lull Post-Ingestion Analysis
 
-Continuity: `tes.mod.wheels-of-lull`
+Status: **complete with a bounded raw-shard decode gap**.
 
-This directory contains interpretive synthesis derived from the preserved BOOK, QUST, DIAL, INFO, NPC_, LCTN, CELL, MESG, and SCEN evidence layers. Analysis never replaces the raw source records.
+Completed products:
+- deterministic speaker-resolution batches for every readable INFO shard;
+- major character evidence dossiers;
+- complete 33-location / 103-cell place index and high-value place dossiers;
+- artifact/technology dossiers;
+- faction/group dossiers;
+- 25 normalized core claims;
+- 7 canon/tension handling records;
+- machine-readable retrieval index.
 
-Current analysis policy:
+Speaker resolution processed 358 of 410 INFO records. 288 were deterministically resolved and 70 remain intentionally unresolved. The other 52 INFO records fall inside two stored gzip shards that the current analysis reader could not decode. They are explicitly documented in `source-integrity.json` and must be reparsed/regenerated before speaker resolution can be called fully exhaustive.
 
-1. Separate direct implementation evidence from dialogue testimony, quest-journal narration, in-universe scholarship, and literary/satirical texts.
-2. Preserve story-state revisions. The apparent Divayth Fyr presentation and Numinar's saboteur accusation are not treated as final truth after Archeron's reveal.
-3. Treat shared voice classes conservatively. See `speaker-resolution.md`.
-4. Keep every Wheels of Lull claim scoped to `tes.mod.wheels-of-lull` unless separately supported in the base Elder Scrolls library.
-5. Confidence means confidence that the source says or implements the claim, not confidence that the claim is Bethesda canon.
-
-Major topic dossiers live under `../topics/`; character dossiers live under `../entities/characters/`.
+No ambiguous line is silently assigned to a speaker. No Wheels of Lull claim is silently promoted into Bethesda canon.

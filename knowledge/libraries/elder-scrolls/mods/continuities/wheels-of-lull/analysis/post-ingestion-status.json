@@ -1,19 +1,32 @@
 {
-  "continuity_id":"tes.mod.wheels-of-lull",
-  "stage":"post_ingestion_analysis",
-  "speaker_resolution":{
-    "status":"in_progress_with_integrity_exclusions",
-    "policy":"strict_ctda_only",
-    "processed_info_records":358,
-    "resolved_records":288,
-    "methods":{"GetIsID":27,"GetIsVoiceType_unique":261},
-    "unresolved_records":70,
-    "integrity_exclusions":["source-records-0151-0200.jsonl.gz","source-records-0401-0450.jsonl.gz"],
-    "covered_source_ranges":["66-150","201-400","451-812"]
+  "continuity_id": "tes.mod.wheels-of-lull",
+  "stage": "post_ingestion_analysis",
+  "status": "complete_with_bounded_integrity_gap",
+  "completed": {
+    "structured_source_ingestion": true,
+    "speaker_resolution_readable_shards": true,
+    "character_dossiers": true,
+    "location_dossiers": true,
+    "artifact_technology_dossiers": true,
+    "faction_group_dossiers": true,
+    "core_claim_registry": true,
+    "tension_registry": true,
+    "retrieval_index": true
   },
-  "integrity_findings":[
-    {"kind":"gzip_decode_failure","source_range":"151-200","action":"repair_or_reparse_required"},
-    {"kind":"gzip_decode_failure","source_range":"401-450","action":"repair_or_reparse_required"}
+  "speaker_resolution": {
+    "total_info": 410,
+    "processed": 358,
+    "resolved": 288,
+    "unresolved": 70,
+    "excluded_due_shard_decode": 52
+  },
+  "integrity_gap_files": [
+    "raw/source-records-0151-0200.jsonl.gz",
+    "raw/source-records-0401-0450.jsonl.gz"
   ],
-  "next":["repair or reparse the two unreadable raw shards","merge the complete speaker-resolution index","build evidence-backed dossiers and claim graph"]
+  "next_after_repair": [
+    "rerun strict speaker resolution for the 52 excluded INFO records",
+    "merge repaired rows into a single exhaustive speaker index",
+    "optionally build BM25/vector retrieval from the dossier/claim corpus"
+  ]
 }

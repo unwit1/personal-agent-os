@@ -1,0 +1,30 @@
+{
+  "continuity_id": "tes.mod.wheels-of-lull",
+  "source_sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
+  "status": "analysis_complete_with_bounded_raw_shard_decode_gap",
+  "speaker_resolution": {
+    "total_info_records": 410,
+    "processed_readable_info_records": 358,
+    "excluded_info_records": 52,
+    "deterministic_resolved": 288,
+    "deterministic_unresolved_within_readable": 70,
+    "policy": "Equality GetIsID or uniquely mapped equality GetIsVoiceType only."
+  },
+  "raw_shard_findings": [
+    {
+      "path": "raw/source-records-0151-0200.jsonl.gz",
+      "blob_sha": "33e190cca1894d5e1ca41758b23014af7c54af6f",
+      "source_record_range": "151-200",
+      "analysis_reader_result": "gzip_deflate_decode_failure",
+      "required_action": "reparse these records from WheelsOfLull.esp or regenerate shard with a standard gzip writer"
+    },
+    {
+      "path": "raw/source-records-0401-0450.jsonl.gz",
+      "blob_sha": "b4eb58a37ebad7cd6bba931f7a92bded9b36e6f6",
+      "source_record_range": "401-450",
+      "analysis_reader_result": "gzip_deflate_decode_failure",
+      "required_action": "reparse these records from WheelsOfLull.esp or regenerate shard with a standard gzip writer"
+    }
+  ],
+  "interpretation": "The source-ingestion checkpoint still reports all 1,090 structured records. The gap is specifically in post-ingestion rereading of two stored gzip shards; no missing source range is being silently treated as analyzed."
+}
