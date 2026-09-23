@@ -1,0 +1,39 @@
+{
+  "id": "rtec-process-ada-complaint",
+  "record_type": "process",
+  "title": "RTEC ADA complaint process",
+  "status": "validated_source_unknown_currentness",
+  "temporal_status": "unknown",
+  "source_id": "rtec-compliance-ada-complaint-process",
+  "trigger": "Allegation of disability discrimination involving RTEC service, vehicles or facilities.",
+  "source_timelines": {
+    "filing": "within 5 calendar days of alleged incident",
+    "initial_contact": "ADA Coordinator contacts complainant within 10 business days",
+    "requested_information": "within 5 days",
+    "investigation_start": "within 15 business days if allegation is found to be an ADA-regulation matter",
+    "investigation_completion": "within 60 calendar days unless additional time is communicated",
+    "appeal": "within 5 business days of receiving RTEC's response"
+  },
+  "steps": [
+    "Accept complaint by form or telephone; provide assistance if complainant cannot write the complaint.",
+    "Coordinator contacts complainant and obtains needed information.",
+    "Determine whether the allegation falls within ADA complaint scope.",
+    "Investigate and document compliance with ADA requirements.",
+    "Communicate response and reasons.",
+    "Allow appeal within the source-stated window.",
+    "Close when resolved or when required information is not provided within the source's timeframe."
+  ],
+  "accessibility": [
+    "Source provides telephone, TTY/Kentucky Relay pathways and bilingual notice language."
+  ],
+  "controls": [
+    "Do not operationalize the 5-calendar-day filing window without confirming this source is still current.",
+    "Complaint details and disability/medical information remain restricted."
+  ],
+  "unresolved_questions": [
+    "What is the effective/revision date of this ADA complaint procedure?",
+    "Is the 5-day filing deadline still current?",
+    "Who is the current ADA Coordinator and what system is used for complaint tracking?"
+  ],
+  "source_path": "knowledge/libraries/rtec-compliance/processes/ada-complaints/fulltext.txt"
+}
