@@ -1,0 +1,81 @@
+{
+  "continuity_id": "tes.mod.wheels-of-lull",
+  "audit_date": "2026-09-23",
+  "status": "archive_witnesses_located_binary_materialization_pending",
+  "policy": "Archive metadata may establish a dated source corpus, but no Wheels BOOK is promoted to prior reuse until exact package text is inspected.",
+  "package_witnesses": [
+    {
+      "source_family": "Aethernautics",
+      "title": "Aethernautics Main File",
+      "uploader": "Trainwiz",
+      "added": "2012-12-21",
+      "filename": "Aethernautics.rar",
+      "size_bytes": 7995338,
+      "published_md5": "ea6e4206bd1485571ba54de32ba902a3",
+      "source_url": "https://www.moddb.com/mods/aethernautics-a-space-travel-mod/downloads/aethernautics-main-file",
+      "pre_wheels": true,
+      "materialized": false
+    },
+    {
+      "source_family": "Sotha Sil Expanded",
+      "title": "Sotha Sil Expanded Full Release",
+      "uploader": "Trainwiz",
+      "added": "2012-12-25",
+      "filename": "SothaSilExpanded.rar",
+      "size_bytes": 135490464,
+      "published_md5": "38ae4da28fc17168b5258789ae8ec6a5",
+      "source_url": "https://www.moddb.com/mods/sotha-sil-expanded/downloads/sotha-sil-expanded-full-release",
+      "pre_wheels": true,
+      "materialized": false
+    },
+    {
+      "source_family": "Sotha Sil Expanded",
+      "title": "Sotha Sil Expanded 2.0",
+      "uploader": "Trainwiz",
+      "added": "2014-03-08",
+      "filename": "SothaSilExpanded2_0.rar",
+      "size_bytes": 157456777,
+      "published_md5": "b8bda83b188e9e89603345eb01964a53",
+      "source_url": "https://www.moddb.com/mods/sotha-sil-expanded/downloads/sotha-sil-expanded-20",
+      "pre_wheels": true,
+      "materialized": false
+    }
+  ],
+  "mirror_findings": [
+    {
+      "filename": "SothaSilExpanded2_0.rar",
+      "mirror": "DS-Servers",
+      "page_url": "https://en.ds-servers.com/gf/elder-scrolls-iii-morrowind/modifications/sotha-sil-expanded/the-elder-scrolls-3-morrowind-mod-sotha-sil-expanded-v2-0.html",
+      "result": "mirror metadata and direct binary endpoint located; application/octet-stream could not be materialized by current retrieval tooling"
+    }
+  ],
+  "harquebuses": {
+    "form_id": "0537158D",
+    "technology_predates_wheels": "verified",
+    "exact_treatise_predates_wheels": "unverified",
+    "status": "probable_legacy_trainwiz_material",
+    "confidence": "strong_indirect",
+    "promotion": "blocked_pending_exact_archive_text_comparison"
+  },
+  "provenance_totals": {
+    "books": 33,
+    "verified_prior_external_reuse": 3,
+    "strong_indirect_legacy_candidates": 1,
+    "origin_unresolved": 29,
+    "pre_wheels_package_families_located": 2,
+    "package_families_materialized": 0
+  },
+  "unresolved_named_works": [
+    "Wind Up and Wound Down",
+    "Musings On Power",
+    "De Rerum Mutabilitatis",
+    "How To Moon",
+    "Chronography, Volume I",
+    "Chronography, Volume II",
+    "Chronography, Volume III",
+    "Trademarks",
+    "Sybandis",
+    "Journeys Through Sybandis"
+  ],
+  "resume_rule": "Do not repeat generic title searches or archive discovery. Resume by materializing a located package, verifying its published hash, and performing deterministic source-text comparison."
+}
