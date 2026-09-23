@@ -39,6 +39,8 @@ Examples include:
 
 Restricted records may be used only when the governing task explicitly permits analysis. Their raw content and employee-level facts must not be committed to GitHub. If a process rule is inferred from a restricted record, store only the generalized rule, safe provenance, confidence, and any required review question.
 
+Official position-level source documents are different from case records. Under the user's full-corpus instruction, manuals, policies, procedures, organizational references, templates, training documents, and similar authoritative/reference sources should be preserved in full even when they incidentally contain the names, signatures, titles, or business contact details of officials responsible for the process. This exception does not extend to personnel files, applicant files, medical/benefit case records, disciplinary case records, identity documents, or other individual case artifacts.
+
 ## Required provenance
 
 Every source-derived knowledge record should retain:
@@ -54,7 +56,7 @@ Every source-derived knowledge record should retain:
 - confidence;
 - validation state.
 
-Do not store unsafe source filenames or verbatim excerpts containing PII.
+Do not store unsafe case-record filenames or verbatim case excerpts containing employee/applicant PII. Full official process/reference sources follow the full-source preservation rule above.
 
 ## Claim discipline
 
