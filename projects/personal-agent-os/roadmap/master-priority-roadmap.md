@@ -336,25 +336,37 @@ Detailed design:
 
 ### P0.3 — Shared document intelligence + local persistent extraction/OCR cache
 
-Status: **foundation complete** (2026-09-21) — steps 1-3 of the five-step path.
+Status: **in progress** (2026-09-23) — shared cache foundation and HR-GUI
+wiring delivered; steps 1-4 of the seven-step path are complete.
 Implemented in `src/agent_os/documents.py`, exposed through CLI and MCP,
 enforced by `agent.py validate`, and covered by 40 regression tests.
 
 Delivered:
 1. persistent exact-page cache keyed by content hash — **done**;
-2. dependency/version-aware invalidation, so interpretation changes reuse
+2. embedded-text-first extraction before OCR — **done**;
+3. dependency/version-aware invalidation, so interpretation changes reuse
    OCR — **done**, and asserted structurally by test;
-3. template-level structural signatures that are person-independent — **done**;
-4. targeted field-zone OCR — **not started**;
-5. bounded concurrency — **not started**, and correctly gated behind measuring
+4. person-independent template structural signatures — **done**;
+5. known-template/fingerprint recognition and reuse through the shared layer —
+   **not started**; HR-GUI retains its project-local fingerprint pipeline;
+6. targeted field-zone OCR for validated templates — **not started in the shared
+   layer**; HR-GUI has a separate local zone OCR path;
+7. bounded concurrency — **not started**, and correctly gated behind measuring
    the earlier steps.
 
 Measured (40 pages, simulated OCR at 20ms/page): cold 0.65s, warm 0.14s
 (4.5x repeat-run speedup, 78% avoided), classifier change 0.00s of OCR, OCR
 engine upgrade correctly re-extracts.
 
-HR-GUI is a separate repository and was not modified; wiring its scanner to
-this layer is the next concrete step. Remaining debt is recorded in
+HR-GUI `origin/main` now contains a scanner adapter to the shared exact-page
+cache (`cffccbb`, `Remember pages between runs and read them concurrently`).
+The adapter resolves a local Agent OS checkout and falls back to the existing
+scanner extraction path when the shared layer or cache is unavailable. This
+confirms code wiring, not workstation runtime behavior. Follow-up cache fixes
+are pushed on HR-GUI branch `fix/cache-source-change` (`4118188`, `06ef9f5`):
+they invalidate a memoized file hash after source metadata changes and preserve
+page rotation across persistent-cache hits. Focused synthetic validation and
+merge review remain outstanding. Remaining debt is recorded in
 `projects/personal-agent-os/roadmap/technical-debt.md`.
 
 Prioritize the reusable document-intelligence layer and HR-GUI scan optimization work.
@@ -363,9 +375,10 @@ Implementation order:
 1. content-addressed exact file/page cache;
 2. embedded-text extraction before OCR;
 3. dependency/version-aware cache invalidation;
-4. known-template/fingerprint reuse;
-5. targeted field-zone OCR for validated templates;
-6. bounded concurrency only after measuring the above.
+4. person-independent template structural signature;
+5. known-template/fingerprint recognition and reuse;
+6. targeted field-zone OCR for validated templates;
+7. bounded concurrency only after measuring the above.
 
 Requirements:
 - raw work documents, OCR text, page images, employee information, and private correction data remain workstation-local and gitignored;
