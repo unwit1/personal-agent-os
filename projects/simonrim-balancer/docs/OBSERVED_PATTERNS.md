@@ -29,3 +29,11 @@ Adamant perk behavior heavily depends on conditions such as HasPerk, EPMagic_Spe
 ## Promotion policy
 
 Before an observed pattern can become a rule candidate, check whether samples represent one mechanic, whether identical forwards or compatibility/reversion modules polluted the sample, whether scripts/configs add hidden behavior, whether named exceptions exist, and whether the pattern persists across versions.
+
+## Weapon grammar
+
+All 216 supplied WEAP records now have the TES5/SSE 100-byte DNAM structure decoded with zero failures. The review layer exposes animation type, governing skill, base damage, speed, reach, stagger, range, weapon flags, critical data, enchantment/equip references, keywords, and sound-detection level.
+
+The decoder emits 21 plugin/animation/skill numeric groups, of which 18 have at least three examples. These are descriptive observations, not approved rules. The simple_damage_speed_product field is explicitly a comparison metric, not true in-game DPS.
+
+Exact imported-master comparison currently exposes 18 weapon field deltas. Adamant repeatedly adds Update.esm:ADA117 to Mysticism-derived bound weapons, and two imported Mysticism two-handed bound-weapon records increase stagger from about 1.10 to 1.15. These remain implementation facts until reviewed as rule candidates.
