@@ -1,0 +1,23 @@
+{
+  "source_id": "rtec-hr-rejection-email-batch-sheet-2026-08",
+  "title": "Rejection Emails workbook",
+  "source_type": "applicant_communication_batch_template",
+  "original_filename": "Rejection Emails.xlsx",
+  "source_representation": "complete_sheet_content_transcription",
+  "temporal_status": "current",
+  "currentness": "recent_template_evidence",
+  "dates": {
+    "created": "2026-08-03",
+    "modified": "2026-08-04"
+  },
+  "sha256": "a604c7c6d97f1e75b6febbf0e2824992853dba90e417482bd0fca9cdfc11a078",
+  "sheets": ["Sheet1"],
+  "used_range": "A1:E3",
+  "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-rejection-email-batch-sheet-2026-08/fulltext.md",
+  "derived_records": ["knowledge/libraries/rtec-hr/processes/applicant-rejection-email-batch-2026.json"],
+  "notes": [
+    "Workbook inspection found no applicant names or completed rejection reasons in the supplied copy.",
+    "The workbook contains a title row, columns Position/First/Last/County/Reason, and a Transit Driver entry in Position."
+  ],
+  "ingested_at": "2026-09-23"
+}
