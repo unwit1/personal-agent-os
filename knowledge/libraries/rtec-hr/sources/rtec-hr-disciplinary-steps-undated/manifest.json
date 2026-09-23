@@ -1,0 +1,24 @@
+{
+  "source_id": "rtec-hr-disciplinary-steps-undated",
+  "source_class": "procedure_matrix",
+  "source_artifact": "Disciplinary steps.xls",
+  "privacy_class": "safe_position_level",
+  "sha256": "228be0d1afd69a0d816e0562935f6815cf9a4fdccb230d98bfa8e6e3e5b57516",
+  "temporal_status": "unknown",
+  "source_date_or_version": null,
+  "workbook_sheets": [
+    "Sheet1",
+    "Sheet2",
+    "Sheet3"
+  ],
+  "matrix_rows": 29,
+  "numeric_point_values_present": false,
+  "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-disciplinary-steps-undated/fulltext.md",
+  "derived_records": [
+    "knowledge/libraries/rtec-hr/policies/disciplinary-point-framework-legacy.json"
+  ],
+  "ingested_at": "2026-09-23",
+  "notes": [
+    "Converted deterministically from legacy XLS for inspection. Point/date assessment cells are blank in the supplied workbook."
+  ]
+}
