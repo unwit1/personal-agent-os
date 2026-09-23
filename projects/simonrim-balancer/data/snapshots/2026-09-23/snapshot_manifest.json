@@ -1,0 +1,32 @@
+{
+  "snapshot_date": "2026-09-23",
+  "project": "Simonrim Balancer",
+  "source_mods": [
+    {"name": "Adamant", "version": "6.0.4"},
+    {"name": "Hand to Hand", "version": "2.0.2"},
+    {"name": "Blade and Blunt", "version": "4.0.3"},
+    {"name": "Mysticism", "version": "2.5.0"}
+  ],
+  "counts": {
+    "source_files": 73,
+    "plugins": 21,
+    "records": 6009,
+    "subrecords": 81523,
+    "relations": 11676,
+    "bsa_files": 476,
+    "script_sources": 115,
+    "script_properties": 279,
+    "config_values": 129,
+    "fomod_options": 20,
+    "spells": 953,
+    "magic_effects": 1648,
+    "perks": 625,
+    "effects": 3951
+  },
+  "scope_notes": [
+    "Original mod binaries are not included in the derived snapshot.",
+    "Plugin record and subrecord payloads are preserved in the complete ingestion package for deterministic re-analysis.",
+    "Author-supplied Papyrus/config/FOMOD text is preserved in the complete private snapshot.",
+    "BSA binary assets are inventoried but not copied into the derived snapshot."
+  ]
+}
