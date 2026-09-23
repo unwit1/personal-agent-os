@@ -56,6 +56,9 @@ Current review corpus:
 - 9 have medium generalizability; 264 remain low
 - 50 have medium promotion readiness; 223 remain low
 - 38 are high-evidence / low-generalizability cases
+- 149 deterministic review families now group the 273 candidates
+- 66 families contain multiple candidates; 56 span multiple mods
+- 13 families contain at least one candidate with promotion readiness >= 55
 - **Approved rules: 0**
 
 No candidate is automatically canonical.
@@ -65,8 +68,8 @@ No candidate is automatically canonical.
 The most valuable next ingestion is no longer another pass over these archives. It is the matching Skyrim/Update/DLC master evidence needed to resolve the 1,619 external-baseline overrides. That would allow the balancer to distinguish absolute Simonrim values from deliberate changes to vanilla with much greater confidence.
 
 After baseline completion, the next architecture milestones are:
-1. attach exact vanilla→Simonrim deltas to candidate evidence;
-2. cluster duplicate/related candidates into design-principle families;
+1. attach exact vanilla→Simonrim deltas to candidate evidence and existing review families;
+2. refine the completed first-pass family clustering with stronger delta evidence;
 3. identify exceptions and counterexamples explicitly;
 4. review/promote narrowly scoped rules;
 5. expose selective MCP/API queries for analysis and design assistance;
