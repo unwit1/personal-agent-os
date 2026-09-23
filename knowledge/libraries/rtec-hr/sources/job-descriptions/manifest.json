@@ -1,0 +1,56 @@
+{
+  "source_set_id": "rtec-hr-job-description-library-2026-09-23",
+  "ingested_at": "2026-09-23",
+  "source_archive": "Driver.zip",
+  "total_files_observed": 55,
+  "safe_sources_preserved": 51,
+  "restricted_employee_specific_sources": 4,
+  "policy": "Historical/versioned by default. Job-description text is role evidence, not automatic current policy. Exact duplicate artifacts retain separate provenance.",
+  "source_groups": [
+    "area-manager-am",
+    "bookkeeper",
+    "cafe",
+    "csr",
+    "dispatcher",
+    "driver",
+    "garage",
+    "hr-manager",
+    "its",
+    "misc-job-descriptions",
+    "mobility-manager",
+    "operations-manager",
+    "receptionist",
+    "root"
+  ],
+  "exact_normalized_text_duplicate_groups": [
+    [
+      "rtec-hr-jobdesc-misc-job-descriptions-accounts-receivable-clerk-job-description-doc",
+      "rtec-hr-jobdesc-misc-job-descriptions-job-description-accounts-receivable-clerk-pdf"
+    ],
+    [
+      "rtec-hr-jobdesc-bookkeeper-bookkeeper-07-07-2015-pdf",
+      "rtec-hr-jobdesc-bookkeeper-job-descrip-bookkeeper-2016-doc"
+    ],
+    [
+      "rtec-hr-jobdesc-garage-revised-job-description-garage-attendant-00000002-doc",
+      "rtec-hr-jobdesc-garage-revised-job-description-garage-attendant-doc"
+    ]
+  ],
+  "group_files": [
+    "knowledge/libraries/rtec-hr/sources/job-descriptions/area-manager-am.md",
+    "knowledge/libraries/rtec-hr/sources/job-descriptions/bookkeeper.md",
+    "knowledge/libraries/rtec-hr/sources/job-descriptions/cafe.md",
+    "knowledge/libraries/rtec-hr/sources/job-descriptions/csr.md",
+    "knowledge/libraries/rtec-hr/sources/job-descriptions/dispatcher.md",
+    "knowledge/libraries/rtec-hr/sources/job-descriptions/driver.md",
+    "knowledge/libraries/rtec-hr/sources/job-descriptions/garage.md",
+    "knowledge/libraries/rtec-hr/sources/job-descriptions/hr-manager.md",
+    "knowledge/libraries/rtec-hr/sources/job-descriptions/its.md",
+    "knowledge/libraries/rtec-hr/sources/job-descriptions/misc-job-descriptions.md",
+    "knowledge/libraries/rtec-hr/sources/job-descriptions/mobility-manager.md",
+    "knowledge/libraries/rtec-hr/sources/job-descriptions/operations-manager.md",
+    "knowledge/libraries/rtec-hr/sources/job-descriptions/receptionist.md",
+    "knowledge/libraries/rtec-hr/sources/job-descriptions/root.md"
+  ],
+  "source_metadata_location": "Each group file contains per-source path, class, role family, temporal status, source SHA-256, normalized text SHA-256, extraction method, and full searchable text."
+}
