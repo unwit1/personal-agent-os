@@ -51,11 +51,19 @@ Other mod continuities, including VICN material, also reference Landfall/c0da.
 
 These concepts, histories, and entities are continuity-local unless a separately sourced base record exists.
 
-## KINMUNE, Tatterdemalion, and other imported-style texts
+## KINMUNE, Tatterdemalion, and imported external texts
 
-The plugin embeds texts that resemble or reproduce known apocryphal/developer-lore traditions.
+Book-provenance pass 01 now verifies three external-source relationships:
 
-**Boundary:** their presence establishes that those texts exist **inside the Wheels of Lull source corpus**. It does not by itself change the authority classification of the underlying work in the central lore library.
+- `0537158E KINMUNE` is developer/apocryphal KINMUNE reuse and routes to the existing central source `sources/apocryphal-library/books/040008F1-anon-anu-anui-el.txt`.
+- `0537158F Tatterdemalion` reuses Michael Kirkbride's out-of-game *Tatterdemalion: The Lunar Province of Secunda*; a dedicated central source record is still needed.
+- `05371590 The Cacophany` is an excerpt from *The Xal-Gosleigh Letters* (Day of the Power/Knowledge material); a dedicated central work/source record is still needed.
+
+The remaining 30 Wheels BOOK records are still pending provenance review. No-match or lack of a known earlier source is not proof of original authorship.
+
+**Boundary:** embedding an external text establishes its presence and adoption **inside the Wheels of Lull continuity**. It does not upgrade the authority/canon class of the underlying work. Central work/source records own source-history and edition provenance; the Wheels BOOK records own local placement, excerpt boundaries, and continuity adoption.
+
+See `book-provenance-pass-01.md` and `book-provenance-pass-01.json` for the current provenance ledger.
 
 ## Retrieval rule
 
