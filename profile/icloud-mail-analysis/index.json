@@ -62,6 +62,10 @@
     {
       "path": "profile/icloud-mail-analysis/open-questions-and-uncertainties.json",
       "purpose": "Unresolved facts, version conflicts, and questions that must not be guessed."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/validation-summary.json",
+      "purpose": "Final JSON/privacy-pattern validation for all canonical and derived analysis files."
     }
   ],
   "promotion_model": {
@@ -70,5 +74,10 @@
     "rule": "Only high-confidence, useful, non-sensitive conclusions are promoted to canonical user context. Rich historical/evidence analysis remains supporting context and is not automatically injected wholesale."
   },
   "privacy_boundary": "No raw message bodies, email addresses, phone numbers, exact addresses, account identifiers, credentials/security artifacts, payment identifiers, health details, intimate correspondence, or unnecessary third-party PII are stored in these Git-tracked analysis files.",
-  "completion_boundary": "The indexed email-message text is exhausted for this pass. The 231 metadata-only attachment bodies remain a separate future corpus and are explicitly not treated as read."
+  "completion_boundary": "The indexed email-message text is exhausted for this pass. The 231 metadata-only attachment bodies remain a separate future corpus and are explicitly not treated as read.",
+  "validation": {
+    "status": "pass",
+    "files_checked": 15,
+    "summary": "profile/icloud-mail-analysis/validation-summary.json"
+  }
 }
