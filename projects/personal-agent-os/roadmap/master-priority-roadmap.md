@@ -101,6 +101,9 @@ Success signal:
 Status: **in progress** (2026-09-23). Added the v1 provider-neutral connector
 registry schema, empty canonical registry, strict privacy-checked loader, and
 read-only `connector.list` MCP discovery with secret-reference redaction.
+`connector.register` now previews metadata by default and supports an explicit,
+serialized, idempotent write of desired-only metadata; it cannot mark provider
+health or client registration as verified.
 `connector.import_candidates` now scans registered client configuration files
 read-only and returns only stable candidate IDs, server labels, executable
 basenames, and surfaces; candidates remain unclassified until provider identity

@@ -22,6 +22,15 @@ registry.
 `integration-health` reports each connector under `connector_providers`,
 separately from whether each client surface reaches Agent OS.
 
+`connector.register` validates a metadata descriptor and previews it by default.
+It writes only when the caller sets `confirm_write: true`. New entries must
+start with provider health `unknown` and client registrations `desired`; only
+adapters may report verified states. Replacing an existing ID also requires
+`replace_existing: true`. Identical repeats are idempotent. The write is
+serialized across local processes and atomically replaces the registry file.
+This operation stores metadata only; it does not resolve or copy credentials,
+connect to a provider, or make a connector callable.
+
 The same discovery report is available without MCP:
 
 ```powershell

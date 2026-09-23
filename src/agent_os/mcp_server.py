@@ -10,7 +10,7 @@ from .changes import capture_change, get_change, google_safe_projection, list_ch
 from .chat import context as chat_context
 from .chat import latest_project_handoff, project_status, skills_match
 from .compiler import compile_context
-from .connectors import connector_import_candidates, connector_status
+from .connectors import connector_import_candidates, connector_status, register_connector
 from .coordination import (
     check as check_claims,
     claim as make_claim,
@@ -195,6 +195,33 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     "connector.import_candidates": {
         "description": "Read-only inventory of client MCP server names and executable basenames for import review. Arguments, paths, environment values, and credentials are omitted.",
         "inputSchema": {"type": "object", "properties": {"surface_id": {"type": ["string", "null"]}}},
+    },
+    "connector.register": {
+        "description": "Preview or explicitly write provider-neutral connector metadata. Writing requires confirm_write=true; credentials and verified health/registration states are never accepted.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "connector": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "properties": {
+                        "id": {"type": "string"},
+                        "provider": {"type": "object", "properties": {"id": {"type": "string"}, "name": {"type": "string"}}, "required": ["id", "name"], "additionalProperties": False},
+                        "capabilities": {"type": "array", "items": {"type": "string"}},
+                        "scopes": {"type": "array", "items": {"type": "string"}},
+                        "health": {"type": "object", "properties": {"status": {"const": "unknown"}, "checked_at": {"type": "null"}}, "required": ["status", "checked_at"], "additionalProperties": False},
+                        "privacy_domain": {"type": "string"},
+                        "registrations": {"type": "array", "items": {"type": "object", "properties": {"surface_id": {"type": "string"}, "state": {"const": "desired"}}, "required": ["surface_id", "state"], "additionalProperties": False}},
+                        "secret_ref": {"type": ["string", "null"]},
+                    },
+                    "required": ["id", "provider", "capabilities", "scopes", "health", "privacy_domain", "registrations", "secret_ref"],
+                },
+                "confirm_write": {"type": "boolean", "default": False},
+                "replace_existing": {"type": "boolean", "default": False},
+            },
+            "required": ["connector"],
+            "additionalProperties": False,
+        },
     },
     "change.capture": {
         "description": "Capture one sanitized project change with deterministic deduplication.",
@@ -404,6 +431,7 @@ def methods() -> dict[str, Callable[..., Any]]:
         "agent.latest_handoff": latest_project_handoff,
         "connector.list": connector_status,
         "connector.import_candidates": connector_import_candidates,
+        "connector.register": register_connector,
         }
     )
     available.update(orchestrate_methods())
@@ -420,6 +448,7 @@ INSTRUCTIONS = (
     "Use agent.capture_candidates to stage evidence-backed findings; it never promotes canonical memory. "
     "Use connector.list to discover registered connector metadata; credential references stay local."
     " Use connector.import_candidates for a read-only, privacy-filtered inventory of client MCP registrations."
+    " connector.register previews metadata by default and writes only when confirm_write=true; credentials and unverified health states are rejected."
 )
 
 

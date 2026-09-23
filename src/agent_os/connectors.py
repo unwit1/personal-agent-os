@@ -4,14 +4,17 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import tomllib
+from contextlib import contextmanager
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterator
 
 from .paths import ROOT
 from .privacy import privacy_findings
+from .storage import write_json
 
 
 REGISTRY_SCHEMA = "personal-agent/connector-registry/v1"
@@ -25,6 +28,7 @@ _SECRET_REF = re.compile(
 _HEALTH_STATES = {"unknown", "healthy", "degraded", "unavailable"}
 _REGISTRATION_STATES = {"desired", "registered", "disabled", "unsupported", "error"}
 _REGISTRY_KEYS = {"schema", "version", "connectors"}
+_REGISTRY_LOCK_PATH = ROOT / ".agent-local" / "connector-registry.lock"
 _CONNECTOR_KEYS = {
     "id", "provider", "capabilities", "scopes", "health", "privacy_domain",
     "registrations", "secret_ref",
@@ -87,6 +91,86 @@ def connector_status(surface_id: str | None = None) -> dict[str, Any]:
         "count": len(connectors),
         "connectors": connectors,
     }
+
+
+def register_connector(
+    connector: Any,
+    *,
+    confirm_write: bool = False,
+    replace_existing: bool = False,
+) -> dict[str, Any]:
+    """Preview or explicitly persist desired connector metadata, never credentials."""
+    _validate_connector(connector)
+    if type(confirm_write) is not bool or type(replace_existing) is not bool:
+        raise ValueError("confirm_write and replace_existing must be booleans")
+    if connector["health"] != {"status": "unknown", "checked_at": None}:
+        raise ValueError("new connector metadata must start with unknown provider health")
+    if any(item["state"] != "desired" for item in connector["registrations"]):
+        raise ValueError("new connector registrations must start as desired; adapters own verified states")
+
+    connector_id = connector["id"]
+    if not confirm_write:
+        return {
+            "written": False,
+            "confirmation_required": True,
+            "connector_id": connector_id,
+            "replace_existing_requested": replace_existing,
+        }
+
+    with _registry_write_lock():
+        registry = load_connector_registry()
+        existing_index = next(
+            (index for index, item in enumerate(registry["connectors"]) if item["id"] == connector_id),
+            None,
+        )
+        if existing_index is not None:
+            if registry["connectors"][existing_index] == connector:
+                return {"written": False, "idempotent": True, "connector_id": connector_id}
+            if not replace_existing:
+                raise ValueError("connector ID already exists; set replace_existing and confirm to update it")
+            registry["connectors"][existing_index] = connector
+        else:
+            if replace_existing:
+                raise ValueError("replace_existing was set, but the connector ID does not exist")
+            registry["connectors"].append(connector)
+
+        registry["connectors"].sort(key=lambda item: item["id"])
+        write_json(REGISTRY_PATH, registry)
+    return {
+        "written": True,
+        "replaced": existing_index is not None,
+        "connector_id": connector_id,
+        "count": len(registry["connectors"]),
+    }
+
+
+@contextmanager
+def _registry_write_lock() -> Iterator[None]:
+    """Serialize registry read/modify/write across MCP and CLI processes."""
+    _REGISTRY_LOCK_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with _REGISTRY_LOCK_PATH.open("a+b") as lock_file:
+        if os.name == "nt":
+            import msvcrt
+
+            lock_file.seek(0, os.SEEK_END)
+            if lock_file.tell() == 0:
+                lock_file.write(b"\0")
+                lock_file.flush()
+            lock_file.seek(0)
+            msvcrt.locking(lock_file.fileno(), msvcrt.LK_LOCK, 1)
+            try:
+                yield
+            finally:
+                lock_file.seek(0)
+                msvcrt.locking(lock_file.fileno(), msvcrt.LK_UNLCK, 1)
+        else:
+            import fcntl
+
+            fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
+            try:
+                yield
+            finally:
+                fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
 
 
 def connector_import_candidates(surface_id: str | None = None) -> dict[str, Any]:
