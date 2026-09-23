@@ -1,0 +1,37 @@
+{
+  "snapshot":"2026-09-23",
+  "record_coverage":{
+    "record_types":53,
+    "records":6009,
+    "unmapped_record_types":0,
+    "gameplay_behavior_typed_support_records":5556,
+    "keyword_identity_records":208,
+    "presentation_support_records":224,
+    "plugin_header_records":21
+  },
+  "source_coverage":{
+    "top_level_source_files":73,
+    "plugin_files":21,
+    "bsa_files":4,
+    "runtime_config_files_decoded":9,
+    "fomod_xml_files":6,
+    "bsa_members":476,
+    "bsa_member_extensions":{
+      ".nif":134,
+      ".pex":123,
+      ".psc":114,
+      ".dds":78,
+      ".wav":26,
+      ".txt":1
+    },
+    "papyrus_sources_parsed":115,
+    "behavior_config_entries":169,
+    "fomod_options":20
+  },
+  "explicit_limits":{
+    "external_unimported_baseline_overrides":1619,
+    "native_dll_files_not_reverse_engineered":2,
+    "pdb_files_not_reverse_engineered":2,
+    "approved_rules":0
+  }
+}
