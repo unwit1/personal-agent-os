@@ -1,0 +1,47 @@
+{
+  "snapshot": "2026-09-23",
+  "records_decoded": 269,
+  "failures": 0,
+  "enit_sizes": {
+    "36": 269
+  },
+  "effect_rows": 870,
+  "effect_conditions": 101,
+  "baseline_groups": 36,
+  "observed_patterns_min_sample_3": 27,
+  "exact_imported_field_deltas": 58,
+  "validated_delta_types": {
+    "effect_count": 55,
+    "enit_flags_hex": 3
+  },
+  "plugin_records": {
+    "Adamant.esp": 66,
+    "MysticismMagic.esp": 203
+  },
+  "manual_calc": {
+    "Adamant.esp": {
+      "true": 58,
+      "false": 8
+    },
+    "MysticismMagic.esp": {
+      "true": 171,
+      "false": 32
+    }
+  },
+  "enchant_type": {
+    "Adamant.esp": {
+      "Enchantment": 26,
+      "Staff Enchantment": 40
+    },
+    "MysticismMagic.esp": {
+      "Enchantment": 43,
+      "Staff Enchantment": 160
+    }
+  },
+  "approved_rules": 0,
+  "notes": [
+    "Observed patterns are descriptive evidence only.",
+    "Estimated auto-calc costs are diagnostic and are not approved balance rules.",
+    "Raw plugin bytes remain authoritative."
+  ]
+}
