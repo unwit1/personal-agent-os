@@ -1,0 +1,16 @@
+{
+  "continuity_id":"tes.mod.wheels-of-lull",
+  "stage":"post_ingestion_analysis",
+  "speaker_resolution":{
+    "status":"in_progress",
+    "policy":"strict_ctda_only",
+    "resolved_records":115,
+    "processed_info_records":151,
+    "covered_source_ranges":["66-150","201-400"],
+    "integrity_exclusions":["151-200","401-450"],
+    "methods":{"GetIsID":11,"GetIsVoiceType_unique":104},
+    "unresolved_records":36,
+    "ambiguous_voice_condition_occurrences":27
+  },
+  "next":["process readable source ranges 451-812","repair or reparse source ranges 151-200 and 401-450","merge speaker-resolution index","build evidence-backed dossiers and claims"]
+}
