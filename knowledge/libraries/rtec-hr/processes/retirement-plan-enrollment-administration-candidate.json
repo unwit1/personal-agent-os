@@ -1,0 +1,91 @@
+{
+  "id": "rtec-process-retirement-plan-enrollment-administration-candidate",
+  "record_type": "process",
+  "title": "Retirement plan enrollment administration - case-derived candidate",
+  "status": "candidate",
+  "temporal_status": "unknown",
+  "summary": "A 2026 completed retirement-plan participant enrollment form establishes that this document type enters RTEC's HR records, but one case does not establish the complete enrollment, payroll, approval, transmission, or retention workflow.",
+  "claims": [
+    {
+      "claim": "RTEC HR received or retained a completed retirement-plan participant enrollment form in at least one 2026 case.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-2026-03-retirement-plan-enrollment",
+          "page_or_section": null,
+          "evidence_type": "structural",
+          "note": "Restricted case record; metadata-only evidence."
+        }
+      ]
+    },
+    {
+      "claim": "HR or payroll may have a repeatable process for reviewing, transmitting, implementing and retaining retirement-plan enrollment elections.",
+      "claim_kind": "rule_candidate",
+      "confidence": 0.55,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-2026-03-retirement-plan-enrollment",
+          "page_or_section": null,
+          "evidence_type": "structural",
+          "note": "Inference from a single completed enrollment form; requires corroboration."
+        }
+      ]
+    }
+  ],
+  "trigger": "Employee submits or changes a retirement-plan enrollment/election.",
+  "prerequisites": [],
+  "actors": [
+    "Employee",
+    "HR",
+    "Payroll and/or retirement-plan administrator - unconfirmed"
+  ],
+  "systems": [],
+  "forms": [
+    "Retirement-plan participant enrollment form"
+  ],
+  "steps": [],
+  "decisions": [],
+  "deadlines": [],
+  "outputs": [
+    "Enrollment/election record - candidate"
+  ],
+  "exceptions": [],
+  "controls": [
+    "Do not infer payroll or provider transmission steps until corroborated."
+  ],
+  "unresolved_questions": [
+    "Which retirement plan/provider is involved?",
+    "Who reviews and transmits enrollment elections?",
+    "How are payroll deductions implemented and verified?",
+    "Where are completed forms retained and for how long?",
+    "What is the current enrollment/change deadline process?"
+  ],
+  "automation_candidates": [
+    "Once validated, track enrollment/change request receipt, review, payroll implementation and confirmation without storing sensitive election/beneficiary data in the Agent OS."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-restricted-2026-03-retirement-plan-enrollment",
+      "safe_source_type": "restricted_case_metadata",
+      "source_date_or_version": "2026-03 case evidence",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "unknown",
+      "content_sha256": "606c074c70816b3bcfcbdeebde5ae21bdacf053dabba35859d053e238aab15db",
+      "page_or_section": null,
+      "full_source_path": null,
+      "searchable_text_path": null,
+      "ingested_at": "2026-09-23",
+      "notes": "No raw case content retained in GitHub."
+    }
+  ]
+}
