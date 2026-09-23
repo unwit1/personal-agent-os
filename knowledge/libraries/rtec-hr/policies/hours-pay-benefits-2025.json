@@ -1,0 +1,259 @@
+{
+  "id": "rtec-policy-hours-pay-benefits-2025",
+  "record_type": "policy",
+  "title": "Work hours, pay and employee benefits - 2025 handbook",
+  "status": "validated",
+  "temporal_status": "current",
+  "effective_from": "2025-12-15",
+  "effective_to": null,
+  "summary": "2025 handbook rules covering workweek/start times, overtime, payday/deductions/direct deposit, call-out pay, incentives, medical/COBRA, workers' compensation, life/dental/vision insurance, Social Security and retirement.",
+  "claims": [
+    {
+      "claim": "The workweek runs Sunday through Saturday; full-time is defined as regularly working 37.5 hours or more per week and part-time as less than 37.5 hours.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 7 - Work Week",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Starting times are set by the company and may change with business/seasonal needs; employees are paid for actual time worked.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 7 - Starting Time",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Overtime is paid for work over 40 hours in a workweek at 1.5 times the regular straight-time hourly rate.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 7 - Overtime Pay",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Pay is every other Friday for the prior two weeks worked; RTEC requires staff to establish direct deposit within the first two weeks of employment.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 7 - Payday / Direct Deposit",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Non-exempt employees may receive two hours of call-out pay subject to manager approval.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 7 - Call Out Pay",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Incentives may be awarded subject to available funds using factors such as program requirements, job performance, tenure, goals, timely records, customer satisfaction and safety performance.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 8 - Incentives",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Medical insurance is described for eligible active full-time workers, generally effective the first day of the month after 60 days of employment when enrollment requirements and employee contributions are met; qualifying events require prompt HR notice and application within 30 days.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 10-11 - Medical Insurance",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "COBRA continuation rules describe a 60-day election period, generally 18 months of continuation after termination/reduced hours, a premium up to 102% of total premium, and an 11-month disability extension for qualifying Social Security disability determinations.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 11-13 - COBRA",
+          "evidence_type": "explicit_text",
+          "note": "This is a transcription of RTEC handbook language, not an independent legal interpretation."
+        }
+      ]
+    },
+    {
+      "claim": "Workers' compensation benefits are stated to begin on the first day of employment; employees must report job-related injury/accident immediately to the supervisor, person in charge, or HR Manager, and FMLA runs concurrently with workers' compensation leave.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-process-vehicle-accident-document-handling-candidate"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 13 - Workers' Compensation",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The handbook describes company-paid term life insurance and budgeted contributions toward dental and vision insurance, with eligibility generally on the first day of the month after 60 days of employment subject to stated enrollment/active-status conditions.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 14 - Term Life / Dental and Vision",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "RTEC describes a 401(k) employee savings plan through pretax payroll deduction with employer match for eligible full-time active employees, subject to additional service and plan requirements.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 15 - Retirement",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "trigger": "Employment, payroll processing, benefit eligibility/enrollment, job-related injury, or employment separation/reduced hours.",
+  "prerequisites": [],
+  "actors": [
+    "Employee",
+    "Supervisor",
+    "Manager",
+    "Human Resource Manager",
+    "Payroll Department",
+    "Executive Director"
+  ],
+  "systems": [
+    "Payroll/direct deposit"
+  ],
+  "forms": [
+    "Insurance enrollment forms",
+    "COBRA Continuation of Coverage Election Form",
+    "Physician statement where required"
+  ],
+  "steps": [
+    "Apply work/pay rules for each pay period.",
+    "Enroll eligible employees in applicable benefits when conditions are met.",
+    "Process qualifying-event or COBRA notices/elections when triggered.",
+    "Report and process job-related injuries immediately."
+  ],
+  "decisions": [
+    "Benefit eligibility/status",
+    "Manager approval for call-out pay",
+    "Whether a qualifying event permits special enrollment",
+    "COBRA continuation election"
+  ],
+  "deadlines": [
+    "Direct deposit within first 2 weeks of employment.",
+    "Qualifying-event medical enrollment application within 30 days.",
+    "COBRA election within 60 days of notice/loss of coverage as stated by the handbook."
+  ],
+  "outputs": [
+    "Pay/direct-deposit record",
+    "Benefit enrollment/coverage record",
+    "COBRA election/waiver",
+    "Workers' compensation claim"
+  ],
+  "exceptions": [
+    "Benefit amounts and company contributions are stated as subject to change.",
+    "Layoff and recall rules affect medical coverage.",
+    "COBRA disability extension applies only under the conditions stated in the handbook."
+  ],
+  "controls": [
+    "Payroll deductions require authorization where applicable.",
+    "Workers' compensation incidents must be reported immediately.",
+    "Employee premium share remains due during unpaid/benefit leave situations described by the handbook."
+  ],
+  "unresolved_questions": [
+    "Confirm current benefit providers, plan documents and exact enrollment workflows.",
+    "Document current workers' compensation/OSHA forms, deadlines and record-separation rules."
+  ],
+  "automation_candidates": [
+    "Benefit eligibility and qualifying-event deadline reminders.",
+    "Workers' compensation intake checklist and routing.",
+    "COBRA trigger checklist tied to separation/reduced-hours workflows."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "safe_source_type": "employee_handbook",
+      "source_date_or_version": "2025-12-15",
+      "source_created_date": null,
+      "source_revision_date": "2025-12-15",
+      "source_effective_from": "2025-12-15",
+      "source_effective_to": null,
+      "temporal_status": "current",
+      "content_sha256": "d8601d4c5ded962051c521ace697f447492dc178d565a393e5c945c309a7e22c",
+      "page_or_section": "printed pages 7-15",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": "Policy details are modeled as explicit handbook statements; plan documents may further govern benefits."
+    }
+  ]
+}
