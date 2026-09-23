@@ -377,12 +377,14 @@ def checkpoint_workflow_record(record: dict[str, Any], repo: Path = ROOT) -> dic
     current = next((stage_id for stage_id, state in stages.items() if state.get("status") != "complete"), None)
     state = stages.get(current, {}) if current else {}
     validation = state.get("validation") or {}
-    failures = [str(validation.get("detail"))] if validation and not validation.get("passed", True) and validation.get("detail") else []
+    passed = validation.get("passed") if isinstance(validation, dict) else None
+    validation_summary = {"passed": passed} if type(passed) is bool else {}
+    failures = ["stage validation failed"] if passed is False else []
     return create_checkpoint(
         project_id=record.get("project"), workflow_id=record["workflow_id"], run_id=record["run_id"],
         stage_id=current, completed_stages=completed,
         unresolved_work=[] if current is None else [f"Complete stage {current}"],
-        validation_state=validation, known_failures=failures,
+        validation_state=validation_summary, known_failures=failures,
         next_action=(f"Run workflow-stage {record['workflow_id']} --run-id {record['run_id']}" if current else "Workflow complete."),
         recommended_capability_class=state.get("capability_class", "deterministic"), repo=repo,
     )
