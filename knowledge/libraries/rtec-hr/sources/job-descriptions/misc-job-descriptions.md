@@ -400,4 +400,144 @@ FLSA Classification:   NON-EXEMPT
 Characteristics of the Class
 The Quality Control Manager/Circuit Rider is a member of the administrative office, under the general direction of the Executive Director/CEO (or designee).  This is a safety sensitive position requiring participation in pre-employment and ongoing substance abuse testing and drug and alcohol free workplace.
 Requirements and Qualifications
-A four-year degree in the field of Human Services. Experience in a formal office setting with supervisory background and excellent computer skills.  Ability to maintain good working relationship with the public and other employees.  Must have good telephone and communication etiquette.  Cooperative and have initiative to be a self-starter.  Be a team player and show courtesy to 
+A four-year degree in the field of Human Services. Experience in a formal office setting with supervisory background and excellent computer skills.  Ability to maintain good working relationship with the public and other employees.  Must have good telephone and communication etiquette.  Cooperative and have initiative to be a self-starter.  Be a team player and show courtesy to other employees.  Ability to resolve problems and make decisions safely and quickly.  Trainable in transit vehicle procedures, Federal, State, and Local regulations.  Ability to work flexible hours as needed.  Physical requirements include stretching, bending and stooping to reach files and inspection of vehicles, lifting and carrying up to 50 pounds as the standard rule for copying, filing and storing records in an office environment.
+Duties and Responsibilities
+Identify Service problems and cause daily, and take corrective action.
+Monitor trips for timeliness, gaps in schedule, idle time, break times, etc.
+Monitor no shows, cancels and unaccommodated trips.
+Evaluate drivers on work performance concerning service and routes.
+Meet and review with Drivers on a regular basis.  Travel required.
+Ensure correct forms are utilized and properly completed.
+Meet with Operations Manager and Area Managers regularly.
+Identify problem areas with phone, tablets, equipment, etc.
+Issue reports regularly of all activity.
+Develop a systematic audit for inspection of vans for cleanliness, damage, repair needed.
+Review video from buses to resolve complaints and random review for quality control.
+Perform other related duties as assigned by Executive Director or Designee.
+Salary - $12.00 per hour
+Probation:  Ninety (90) days to be proficient in duties and responsibilities.
+________________________________________                        ____________________
+EMPLOYEE SIGNATURE				                     DATE
+
+---
+
+## rtec-hr-jobdesc-misc-job-descriptions-miscellaneous-info-for-job-descriptions-doc
+
+- Source path: `!Misc Job Descriptions/Miscellaneous info for job descriptions.doc`
+- Source class: `job_description_authoring_reference`
+- Role family: `job-description-authoring-reference`
+- Temporal status: `unknown`
+- Source SHA-256: `f2a6318f9f0e4fa042f55580824d53c767ac9cb16bf6f462b9015f0a1db46485`
+- Normalized text SHA-256: `3c66926a70d6ce8ee898f1d92a7c458bb522dfea95adb0a88af4a9d8959ba43d`
+- Extraction: `antiword`
+
+### Full searchable text
+
+LANGUAGE SKILLS Ability to read and interpret documents such as
+governmental regulations, legal documents, operating instructions, and
+procedure manuals. Ability to write routine reports and correspondence.
+Ability to speak effectively with the public and employees of the
+organization. Requires good knowledge of the English language and spelling.
+
+
+MATHEMATICAL SKILLS Ability to add, subtract, multiply, and divide in all
+units of measure, using whole numbers, common fractions, and decimals.
+Ability to compute rate, ratio, and percent and to draw and interpret bar
+graphs.
+
+REASONING ABILITY Ability to apply common sense understanding to carry out
+instructions furnished in written, oral, or diagram form. Ability to deal
+with problems involving several concrete variables in standardized
+situations.
+
+CERTIFICATES, LICENSES, REGISTRATIONS As required.
+
+PHYSICAL DEMANDS The physical demands described here are representative of
+those that must be met by an employee to successfully perform the primary
+functions of this job. While performing the duties of this job, the
+employee is frequently required to sit; use hands to finger, handle, or
+feel; and talk; or hear. The employee is occasionally required to stand and
+walk. The employee must occasionally lift and/or move up to 10 pounds.
+Specific vision abilities required by this job include close vision and
+distance vision.
+
+WORK ENVIRONMENT The work environment characteristics described here are
+representative of those an employee encounters while performing the
+functions of this job. Normal office conditions. The noise level in the
+work environment is usually quiet to moderate.
+
+---
+
+## rtec-hr-jobdesc-misc-job-descriptions-sample-doc
+
+- Source path: `!Misc Job Descriptions/Sample.doc`
+- Source class: `external_sample_job_description`
+- Role family: `external-clerk-sample`
+- Temporal status: `unknown`
+- Source SHA-256: `0496940fe39ae6576b38e64ec6fa6d263ff12f526d59af421bbf3405e2caad02`
+- Normalized text SHA-256: `41036d98b7a1e48c6dd35c1ca258945f3ea9bad845e4dfe571504217a95d0ab2`
+- Extraction: `antiword`
+
+### Full searchable text
+
+City of Anacortes
+Job Description
+JOB TITLE: Clerk, Maintenance Division
+UNION CLASSIFICATION: Department Secretary I (32-hours/week)
+DEPARTMENT: Public Works
+REPORTS TO: Superintendent, Maintenance Division (or designee)
+PRINCIPAL PURPOSE OF JOB: Perform division&s routine clerical duties.
+Services include handling incoming messages, establishing and maintaining
+files; preparing routine correspondence; administering certain standardized
+projects and completing duties as assigned.
+LEVEL OF AUTHORITY: Performs duties with a high level of supervision.
+Responsibility for judgment, thoroughness and competence is most important
+due to potential disruption of division operations or adverse public
+relations.
+WORK ENVIRONMENT: Work is performed in an office setting with the
+requirement to drive on occasion.
+ESSENTIAL JOB FUNCTIONS
+1. Reception: Greet visitors and take incoming phone, fax and radio
+messages and promptly take care of a request or relay the message to the
+appropriate person. Distribute incoming mail appropriately.
+2. Project Support: Administer the routine functions of some department
+programs. Examples of typical duties which may be assigned include:
+backflow prevention; lead and copper pipe and calibration test
+notifications. Specific assignments will be made considering the department
+workload and skills of support staff personnel.
+3. Clerical: Maintain necessary lists and records. Examples of such
+assignments include, but are not limited to, the following: dialysis
+patient list; irrigation system list and vendor files. File division
+paperwork and records. Maintain forms. Assist with supply inventory and
+orders. Prepare items for shipping. Specific assignments will be made
+considering the department workload and skills of support staff personnel.
+4. Public Relations: Maintain excellent public relations through
+communications with public and other departments, as necessary or assigned.
+Respond courteously to inquiries, provide information within scope of
+responsibility and refer calls as appropriate to other staff.
+ADDITIONAL JOB FUNCTIONS
+1. May perform portions of the work of higher classified positions
+occasionally, as assigned.
+2. May perform duties of similar complexity in any City department as
+required or assigned.
+QUALIFICATIONS
+Technical
+1. Must type 60 wpm with accuracy in a setting with many interruptions.
+2. Must be able to operate a personal computer and display entry-level
+skill when using software programs for word processing, database and
+spreadsheets.
+3. Must possess strong attention to detail, including the ability to
+proofread the work of self and others with high degree of accuracy.
+4. Must have basic knowledge of general office skills and equipment as
+evidenced by a combination of course work and similar experience in a
+comparable environment.
+5. Must be able to quickly acquire knowledge of the division s purpose,
+functions and procedures and applicable City procedures and practices.
+6. Must be familiar with standard office equipment and able to learn
+quickly the models in the division.
+7. Must be able to perform basic accounting and mathematical computations
+with a good degree of accuracy using 10-key calculator.
+8. Must have a valid Washington State driver s license.
+Physical
+1. Ability to sit at work station for extended periods, using computer
+keyboard
