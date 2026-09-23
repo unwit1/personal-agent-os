@@ -30,7 +30,7 @@ PLANNER_ID = "plan"
 PLANNABLE_ROLES = ("implementer", "test_author")
 TASK_KEYS = {
     "id", "goal", "role", "depends_on", "scope", "capability_class", "effort", "execution_path",
-    "fallback_execution_paths", "command", "validators", "approval_gate", "review_required", "expected_outputs", "context_budget", "ladder",
+    "fallback_execution_paths", "available_execution_paths", "command", "validators", "approval_gate", "review_required", "expected_outputs", "context_budget", "ladder",
 }
 _SHELL_META = re.compile(r"[;&|<>`$\n\r%^]")
 
@@ -45,16 +45,25 @@ def node_from_task(task: dict[str, Any], *, extra_depends: list[str] | None = No
     if role not in PLANNABLE_ROLES:
         raise PlanError(f"task {task.get('id')}: role must be one of {PLANNABLE_ROLES}")
     execution_path = task.get("execution_path", "model")
+    available_paths = task.get("available_execution_paths")
     fallback_paths = task.get("fallback_execution_paths") or []
-    has_model_fallback = execution_path == "deterministic" and fallback_paths == ["model"]
+    if available_paths is not None and not isinstance(available_paths, list):
+        raise PlanError(f"task {task.get('id')}: available_execution_paths must be a list")
+    if not isinstance(fallback_paths, list):
+        raise PlanError(f"task {task.get('id')}: fallback_execution_paths must be a list")
+    route_candidates = list(available_paths) if available_paths is not None else [execution_path]
+    route_candidates.extend(path for path in fallback_paths if path not in route_candidates)
+    has_model_route = "model" in route_candidates
+    has_deterministic_route = "deterministic" in route_candidates
+    has_model_fallback = has_model_route and has_deterministic_route
     return new_node(
         str(task.get("id") or ""),
         str(task.get("goal") or ""),
         role,
         depends_on=[*(extra_depends or []), *list(task.get("depends_on") or [])],
         scope=task.get("scope"),
-        capability_class=task.get("capability_class", "balanced" if has_model_fallback else "deterministic" if execution_path == "deterministic" else "balanced"),
-        effort=task.get("effort", "medium" if has_model_fallback else "none" if execution_path == "deterministic" else "medium"),
+        capability_class=task.get("capability_class", "balanced" if has_model_route else "deterministic" if has_deterministic_route else "balanced"),
+        effort=task.get("effort", "medium" if has_model_route else "none" if has_deterministic_route else "medium"),
         execution_path=execution_path,
         command=task.get("command"),
         validators=task.get("validators"),
@@ -65,6 +74,7 @@ def node_from_task(task: dict[str, Any], *, extra_depends: list[str] | None = No
         origin=origin,
         ladder=task.get("ladder"),
         fallback_execution_paths=fallback_paths,
+        available_execution_paths=available_paths,
     )
 
 
@@ -193,15 +203,19 @@ def expand(
             raise PlanError("each planned task must be an object")
         task = {key: value for key, value in task.items() if key in TASK_KEYS}
         task.pop("approval_gate", None)  # gates are the caller's policy, not the planner's
+        for path_key in ("available_execution_paths", "fallback_execution_paths"):
+            if path_key in task and not isinstance(task[path_key], list):
+                raise PlanError(f"planner task {task.get('id')}: {path_key} must be a list")
         task["validators"] = _planned_validators(task, patterns, project, notes)
-        if task.get("execution_path") == "deterministic":
+        deterministic_available = task.get("execution_path") == "deterministic" or "deterministic" in (task.get("available_execution_paths") or [])
+        if deterministic_available:
             argv = approved_argv(task.get("command"), patterns, project)
             if argv is None:
                 # A model-proposed shell command is not an approved runner; it
                 # would bypass review of what actually executes.
                 raise PlanError(f"planner task {task.get('id')}: deterministic command is not approved: {str(task.get('command'))[:120]!r}")
             task["command"] = argv
-            if task.get("fallback_execution_paths") != ["model"]:
+            if "model" not in (task.get("available_execution_paths") or []) and task.get("fallback_execution_paths") != ["model"]:
                 task["capability_class"] = "deterministic"
                 task["effort"] = "none"
             task.pop("ladder", None)

@@ -987,6 +987,7 @@ class Orchestrator:
         if node.get("execution_path") != "deterministic" or "model" not in node.get("fallback_execution_paths", []):
             return False
         from .model import default_ladder
+        from ..capabilities import explain_execution_path
 
         capability = node.get("capability_class")
         effort = node.get("effort")
@@ -996,6 +997,11 @@ class Orchestrator:
             node["effort"] = node["requested_effort"] = effort
         node["execution_path"] = "model"
         node["fallback_execution_paths"] = []
+        node["execution_route"] = explain_execution_path(
+            node.get("preferred_execution_path", "deterministic"),
+            node.get("available_execution_paths", ["deterministic", "model"]),
+            "model",
+        )
         node["ladder"] = default_ladder(capability, effort, "model")
         node["ladder_step"] = 0
         node["state"] = "FAILED_RETRYABLE"
@@ -1940,6 +1946,9 @@ def _node_view(node: dict[str, Any]) -> dict[str, Any]:
         "requested_capability_class": node["requested_capability_class"],
         "effort": node["effort"],
         "execution_path": node["execution_path"],
+        "preferred_execution_path": node.get("preferred_execution_path", node["execution_path"]),
+        "available_execution_paths": node.get("available_execution_paths", [node["execution_path"]]),
+        "execution_route": node.get("execution_route"),
         "provider": selection.get("provider"),
         "model": selection.get("model"),
         "provider_effort": selection.get("provider_effort"),

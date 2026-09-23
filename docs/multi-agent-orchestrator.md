@@ -140,6 +140,13 @@ launch budget, model routing, and independent review policies still apply.
 Without this field, deterministic failures keep the existing bounded retry
 behavior.
 
+Tasks may declare `available_execution_paths: ["deterministic", "model"]` to
+let the orchestrator select the approved command first and retain model as the
+evidence-triggered fallback. `execution_path` remains the preferred path and
+defaults to `model` for backward compatibility. Only deterministic and model
+routes are wired into the orchestrator today; cache and skill execution remain
+outside this task runner.
+
 A task may carry a **ladder**: the escalation steps to take when its
 validators fail, cheapest first. Without one, the default raises effort on the
 same class before moving up a class, one class at a time:

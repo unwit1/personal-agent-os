@@ -468,7 +468,10 @@ instruction-only `SKILL.md` files without a reviewed deterministic invocation
 interface. The staged orchestrator also supports an explicit deterministic to
 model fallback after a command or task validator failure; model launches still
 obey the run budget and review policy. Cache and skill routes remain outside
-the orchestrator until their invocation adapters are reviewed.
+the orchestrator until their invocation adapters are reviewed. Task plans may
+declare deterministic and model as available routes; the orchestrator chooses
+the deterministic command first and preserves model as an evidence-triggered
+fallback.
 
 Success signal:
 - repeated structured work increasingly bypasses LLM calls.

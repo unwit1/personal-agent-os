@@ -10,7 +10,7 @@ import copy
 import re
 from typing import Any
 
-from ..capabilities import CAPABILITY_CLASSES, EFFORTS, next_class
+from ..capabilities import CAPABILITY_CLASSES, EFFORTS, explain_execution_path, next_class, select_execution_path
 from ..timestamps import utc_now_iso as now
 
 
@@ -272,6 +272,7 @@ def new_node(
     origin: str = "plan",
     ladder: list[dict[str, Any]] | None = None,
     fallback_execution_paths: list[str] | None = None,
+    available_execution_paths: list[str] | None = None,
 ) -> dict[str, Any]:
     check_identifier(node_id, "node id")
     if not str(goal or "").strip():
@@ -282,13 +283,31 @@ def new_node(
         raise PlanError(f"node {node_id}: unsupported capability_class {capability_class!r}")
     if effort not in EFFORTS:
         raise PlanError(f"node {node_id}: unsupported effort {effort!r}")
+    preferred_path = execution_path
     if execution_path not in EXECUTION_PATHS:
         raise PlanError(f"node {node_id}: unsupported execution_path {execution_path!r}")
+    if fallback_execution_paths is not None and not isinstance(fallback_execution_paths, list):
+        raise PlanError(f"node {node_id}: fallback_execution_paths must be a list")
+    if available_execution_paths is not None and not isinstance(available_execution_paths, list):
+        raise PlanError(f"node {node_id}: available_execution_paths must be a list")
     fallbacks = list(fallback_execution_paths or [])
-    if len(set(fallbacks)) != len(fallbacks) or any(path not in EXECUTION_PATHS for path in fallbacks):
+    if any(not isinstance(path, str) for path in fallbacks) or len(set(fallbacks)) != len(fallbacks) or any(path not in EXECUTION_PATHS for path in fallbacks):
         raise PlanError(f"node {node_id}: fallback_execution_paths must contain unique supported paths")
-    if fallbacks and (execution_path != "deterministic" or fallbacks != ["model"]):
+    candidates = list(available_execution_paths) if available_execution_paths is not None else [preferred_path]
+    if any(not isinstance(path, str) for path in candidates) or len(set(candidates)) != len(candidates) or any(path not in EXECUTION_PATHS for path in candidates):
+        raise PlanError(f"node {node_id}: available_execution_paths must contain unique supported paths")
+    for path in fallbacks:
+        if path not in candidates:
+            candidates.append(path)
+    if not candidates:
+        raise PlanError(f"node {node_id}: available_execution_paths must not be empty")
+    if fallbacks and (preferred_path != "deterministic" or fallbacks != ["model"]):
         raise PlanError(f"node {node_id}: only a deterministic node may declare the model fallback")
+    try:
+        execution_path = select_execution_path(preferred_path, candidates)
+    except ValueError as exc:
+        raise PlanError(f"node {node_id}: {exc}") from exc
+    fallbacks = ["model"] if execution_path == "deterministic" and "model" in candidates else []
     if execution_path == "deterministic" and not command:
         raise PlanError(f"node {node_id}: a deterministic node needs a command")
     if capability_class == "deterministic" and execution_path != "deterministic":
@@ -321,6 +340,9 @@ def new_node(
         "ladder": rungs,
         "ladder_step": 0,
         "execution_path": execution_path,
+        "preferred_execution_path": preferred_path,
+        "available_execution_paths": candidates,
+        "execution_route": explain_execution_path(preferred_path, candidates, execution_path),
         "fallback_execution_paths": fallbacks,
         "command": command,
         "validators": list(validators or []),
