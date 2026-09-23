@@ -7,8 +7,8 @@
   "unique_hashes": 824,
   "exact_duplicate_groups": 24,
   "privacy_counts": {
-    "restricted_metadata_only": 280,
-    "safe": 584
+    "restricted_metadata_only": 275,
+    "safe": 589
   },
   "role_counts": {
     "compliance_document": 366,
@@ -71,6 +71,6 @@
     "status": "post-index manual audit completed for obvious person-level false negatives",
     "corrections": 5,
     "override_path": "knowledge/libraries/rtec-compliance/restricted-evidence/privacy-overrides-2026-09-23.json",
-    "note": "Five person-level applicant/payroll/EEO roster workbooks were reclassified from the initial deterministic safe flag to restricted metadata-only."
+    "note": "Five false-negative rows in the raw staging manifest were reclassified. The resulting validated archive totals are 275 restricted and 589 safe."
   }
 }
