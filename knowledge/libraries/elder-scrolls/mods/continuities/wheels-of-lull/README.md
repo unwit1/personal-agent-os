@@ -31,7 +31,8 @@ See:
 - `analysis/source-integrity.json`
 - `analysis/exhaustiveness-audit.md`
 - `analysis/implementation-text-supplement.json`
-- `raw/implementation-text-supplement.jsonl.gz`\n- `raw/source-evidence-augmentation.jsonl`
+- `raw/implementation-text-supplement.jsonl.gz`
+- `raw/source-evidence-augmentation.jsonl`
 
 ## Dialogue integrity
 
@@ -55,7 +56,7 @@ Completed:
 - 14 topic dossiers plus theme/reliability synthesis;
 - compact routing/retrieval derivatives with 76 analysis entries;
 - deterministic fingerprints for all 33 BOOK records;
-- BOOK provenance passes 01-03;
+- BOOK provenance passes 01-04;
 - machine-readable BOOK-to-central-source relations;
 - full source-integrity repair and full-plugin exhaustiveness audit.
 
@@ -70,6 +71,8 @@ Current provenance state:
 - **10** named lore works with no verified pre-Wheels witness in the currently available source corpora.
 
 Those unresolved items now represent **external historical provenance work**, not unprocessed material in `WheelsOfLull.esp`.
+
+Pass 04 located original pre-Wheels Trainwiz archive packages for **Aethernautics** (2012) and **Sotha Sil Expanded** (2012/2014) and persisted their filenames, dates, byte sizes, source URLs, and published MD5 hashes. Their binary RAR contents could not be materialized in the current retrieval environment, so the exact-text classifications remain unchanged. Future work should resume at archive-byte acquisition and deterministic text comparison, not generic title searching or package rediscovery.
 
 ## Retrieval state
 
