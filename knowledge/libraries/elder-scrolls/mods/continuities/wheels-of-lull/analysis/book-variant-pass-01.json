@@ -1,0 +1,66 @@
+{
+  "continuity_id": "tes.mod.wheels-of-lull",
+  "pass": "book_variant_01",
+  "status": "partial_1_of_3_verified_reuses_diffed",
+  "method": {
+    "normalization": "wol-book-normalize-v1 comparison text",
+    "tokenizer": "lowercase word tokens",
+    "shingle_size_tokens": 5,
+    "similarity_metrics": [
+      "unique_shingle_containment",
+      "jaccard",
+      "longest_exact_contiguous_token_run"
+    ]
+  },
+  "records": [
+    {
+      "form_id": "0537158E",
+      "title": "KINMUNE",
+      "work_identity": "same",
+      "exact_text_identity": "different",
+      "relation": "embedded_abridged_edited_variant",
+      "wheels": {
+        "raw_text_sha256": "e0e5bc8540d5ace7c57b63c84e498d9abeb47f1a45b8b344436c9dc914e9524d",
+        "normalized_text_sha256": "58fd4261a7abfe7ac6b7fe55c2abf5ea2e60e58e03d37a415553b91a594302f5",
+        "comparison_text_sha256": "7a28bb0a9531239b3bb051d3ac005af3679ddb38d387a1a7a65f58cb838a7759",
+        "tokens": 615,
+        "five_shingles": 610
+      },
+      "central": {
+        "path": "knowledge/libraries/elder-scrolls/sources/apocryphal-library/books/040008F1-anon-anu-anui-el.txt",
+        "git_blob_sha": "edecd6f81ba984ae7cd3f643cfa6d41cf2bc5259",
+        "tokens": 736,
+        "five_shingles": 719
+      },
+      "similarity": {
+        "shared_five_shingles": 561,
+        "wheels_five_shingle_containment": 0.919672131147541,
+        "five_shingle_jaccard": 0.73046875,
+        "longest_exact_contiguous_tokens": 191
+      },
+      "notable_difference_classes": [
+        "central_framing_absent_from_wheels",
+        "acronym_expansion_variant",
+        "substantive_ending_rewrite",
+        "copy_edit_spelling_punctuation_changes",
+        "central_trailing_material_absent_from_wheels",
+        "notation_variant"
+      ],
+      "safe_full_text_deduplication": false,
+      "safe_work_identity_centralization": true
+    },
+    {
+      "form_id": "0537158F",
+      "title": "Tatterdemalion",
+      "relation": "embedded_copy_or_variant",
+      "full_local_variant_diff": "pending_external_witness_ingestion"
+    },
+    {
+      "form_id": "05371590",
+      "title": "The Cacophany",
+      "relation": "embedded_excerpt",
+      "section_hint": "Xal's letter - Day of the Power/Knowledge",
+      "full_local_variant_diff": "pending_external_witness_ingestion"
+    }
+  ]
+}
