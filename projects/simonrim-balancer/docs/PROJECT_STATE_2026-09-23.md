@@ -2,75 +2,127 @@
 
 ## Source-ingestion state
 
-**Complete for the four supplied archives.**
+**Complete for both supplied ingestion slices.**
 
-Imported versions:
+### Core slice
 - Adamant 6.0.4
 - Hand to Hand 2.0.2
 - Blade and Blunt 4.0.3
 - Mysticism 2.5.0
-
-Coverage boundary:
 - 6,009 plugin records
 - 53 record types
 - 0 unmapped record types
-- 5,556 gameplay / behavioral / typed-support records
-- 208 keyword identity records
-- 224 presentation-support records
-- 21 plugin headers
-- 73 top-level source artifacts
-- 476 BSA members
-- 115 parsed Papyrus source files
-- 169 decoded runtime/config behavior entries
-- 20 FOMOD options
 
-Remaining source limits are explicit evidence boundaries, not unfinished parsing:
-- 1,619 overrides point to Skyrim/DLC baselines whose record bodies were not supplied.
-- 2 native DLLs and 2 PDBs are inventoried but not reverse engineered.
-- 208 attached script instances do not have matching supplied PSC source in these packages.
-- Binary presentation/runtime assets are inventoried rather than converted into balance rules.
+### Expansion slice
+- Adamant - Bard Addon 1.1.0
+- Aetherius 2.15.1
+- Apothecary 1.3.9
+- Apprentice 1.1.0
+- Arena 1.2.0
+- Artificer 1.0.11
+- Candlehearth 1.1.1
+- Crusader 0.6
+- Gourmet 1.2.0
+- Manbeast 2.1.1
+- Mercantile 1.0.0
+- Pilgrim 1.3.1
+- Power Attack Speed Perks 1
+- Scion 2.2.2
+- Sorcerer 1.1.0
+- Starfrost 2.0.0
+- Stormcrown 1.1.17
+- 9,769 plugin record occurrences
+- 68 record types
+- 0 unmapped record types
+- 53 plugin source occurrences / 51 unique plugin binaries
+- 289,053 subrecords
+- 12 BSAs / 898 members
+- 239 PSC source occurrences / 202 unique source hashes
+- 2,046 decoded configuration values
+- 55 FOMOD options
+
+Across the two slices the project now carries **15,778 plugin record occurrences** from 21 named Simonrim/core-addon sources, while retaining slice provenance rather than flattening versions or installer variants.
+
+## Expansion semantic coverage
+
+Every expansion record has an explicit treatment:
+
+- 8,988 semantic gameplay records
+- 216 typed support / routing records
+- 236 keyword identity records
+- 276 presentation / navigation inventory records
+- 53 plugin headers / provenance records
+- 0 unmapped types
+
+Major typed coverage includes encounter zones, races, ingestibles/ingredients, artifacts/equipment, spells/magic effects, perks, crafting, leveled lists, containers, shouts/words, NPCs, AVIF perk trees, quests/dialogue, factions, world placement, survival/vampire/werewolf behavior, staff/scroll infrastructure and suite integration patches.
+
+Behavior layer:
+- 935 / 935 VMAD payloads decoded
+- 1,121 script attachments
+- 3,953 typed properties
+- 386 fragments
+- 83 quest aliases
+- 690 attachments joined to supplied PSC source
+- 0 VMAD failures
+
+Internal expansion delta layer:
+- 187 exact supplied parent-plugin comparisons
+- 125 raw modifications / 62 raw-identical forwards
+- 156 deterministic semantic comparisons
+- 99 semantic modifications / 57 semantic-identical forwards
+- 342 sibling-override pairs kept separate from parent-child deltas
 
 ## Architecture state
 
 Implemented evidence pipeline:
 
-raw source → deterministic decoding → canonical Form resolution → typed relationships → exact deltas where baselines exist → observed patterns → rule candidates → review matrix
+raw source → deterministic decoding → canonical Form resolution → typed relationships → exact deltas where baselines exist → observed patterns → rule candidates → review families
 
 Important separation rules:
-- AVIF tree lines are UI topology, not perk prerequisites; PERK CTDA is authoritative for gating.
+- AVIF tree lines are UI topology, not PERK prerequisites; PERK CTDA remains authoritative for gating.
 - Strong evidence that a behavior exists is separate from evidence that it generalizes.
-- Optional modules, compatibility patches, and reversion plugins carry contamination flags.
+- Optional modules, compatibility patches, reversion plugins and alternate variants retain narrow scope.
 - Missing external baselines reduce generalizability instead of being guessed.
-- Presentation-only data cannot independently create balance rules.
+- Presentation/navigation data cannot independently create balance rules.
+- Empty/placeholder implementation records are preserved rather than counted as decoder failures.
 
 ## Candidate layer
 
-Current review corpus:
-- 273 rule candidates
-- 256 from repeated implementation patterns
-- 17 from nontrivial author/FOMOD statements
-- 17/17 explicit-author candidates have corresponding implementation evidence in the supplied archives
-- 14/17 have strong implementation corroboration; 3/17 are implementation-present but baseline-limited
-- 38 candidates have high evidence strength
-- 235 have medium evidence strength
-- 9 have medium generalizability; 264 remain low
-- 50 have medium promotion readiness; 223 remain low
-- 38 are high-evidence / low-generalizability cases
-- 149 deterministic review families now group the 273 candidates
-- 66 families contain multiple candidates; 56 span multiple mods
-- 13 families contain at least one candidate with promotion readiness >= 55
-- **Approved rules: 0**
+Core slice:
+- 273 review candidates
+- 149 first-pass review families
 
-No candidate is automatically canonical.
+Expansion slice:
+- 405 review candidates
+- 363 repeated implementation profiles
+- 42 non-boilerplate author/FOMOD statements
+- 93 first-pass review families
+- 52 multi-candidate families
+- 32 cross-mod families
+
+Current source-scoped review inventory: **678 candidates**.
+
+The core and expansion family indexes are intentionally not simply added together as a canonical suite-wide family count. Cross-snapshot consolidation remains a separate deduplication/synthesis pass.
+
+**Approved rules: 0.**
+
+## Remaining evidence boundaries
+
+These are now evidence dependencies, not unfinished parsing of the supplied archives:
+
+- The original core slice still has 1,619 overrides whose Skyrim/DLC baselines were not supplied.
+- The expansion slice has 3,409 records whose canonical origin is outside the expansion slice. Most point to Skyrim/Update/DLC/Creation masters; a small number point to other compatibility targets.
+- Native DLL/PDB behavior not shipped as source remains inventory-only unless separately reverse engineered.
+- Binary presentation/runtime assets are retained as provenance rather than converted into design laws.
 
 ## Next dependency
 
-The most valuable next ingestion is no longer another pass over these archives. It is the matching Skyrim/Update/DLC master evidence needed to resolve the 1,619 external-baseline overrides. That would allow the balancer to distinguish absolute Simonrim values from deliberate changes to vanilla with much greater confidence.
+The highest-value next ingestion is matching Skyrim.esm, Update.esm, Dawnguard.esm, HearthFires.esm, Dragonborn.esm and required Creation master record bodies. That will allow exact vanilla/DLC → Simonrim deltas across both slices.
 
-After baseline completion, the next architecture milestones are:
-1. attach exact vanilla→Simonrim deltas to candidate evidence and existing review families;
-2. refine the completed first-pass family clustering with stronger delta evidence;
-3. identify exceptions and counterexamples explicitly;
-4. review/promote narrowly scoped rules;
-5. expose selective MCP/API queries for analysis and design assistance;
-6. test the system against an external target mod.
+After baseline expansion:
+1. recompute exact vanilla/DLC/Creation → Simonrim deltas;
+2. consolidate the 273 core and 405 expansion candidates into a single deduplicated suite review graph;
+3. attach exceptions/counterexamples and compatibility-scope evidence;
+4. promote only narrowly scoped, human-reviewed rules;
+5. expose selective MCP/API queries;
+6. test the system against external target mods.
