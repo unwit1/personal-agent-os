@@ -637,6 +637,34 @@ class SurfaceTests(MailFixture):
         self.assertEqual((listed["account_id"], listed["credential_available"], listed["read_only"]), ("work-earthlink", True, True))
 
 
+class SetupWindowTests(MailFixture):
+    """The window's logic (no display needed)."""
+
+    def test_save_account_stores_secret_tests_login_and_reuses_account(self) -> None:
+        from agent_os.mail.setup_window import save_account
+
+        seen = []
+        outcome = save_account("earthlink", " me@earthlink.net ", LEAK_PROBE, test=lambda account: seen.append(account.id) or {"ok": True})
+        self.assertEqual((outcome["ok"], outcome["account_id"], outcome["created"]), (True, "earthlink", True))
+        self.assertNotIn(LEAK_PROBE, json.dumps(outcome))
+        self.assertEqual(self.keyring.get_password(accounts_lib.SECRET_SERVICE, "earthlink"), LEAK_PROBE)
+        self.assertNotIn(LEAK_PROBE, config.ACCOUNTS_FILE.read_text(encoding="utf-8"))
+        retry = save_account("earthlink", "ME@earthlink.net", "new-value", test=lambda account: {"ok": False, "error": "auth_failed"})
+        self.assertEqual((retry["ok"], retry["account_id"], retry["created"]), (False, "earthlink", False))
+        self.assertIn("not accepted", retry["message"])
+        second = save_account("earthlink", "other@earthlink.net", "x", test=lambda account: {"ok": True})
+        self.assertEqual(second["account_id"], "earthlink-2")
+        self.assertEqual(len(accounts_lib.load_accounts()), 2)
+
+    def test_save_account_validates_before_touching_anything(self) -> None:
+        from agent_os.mail.setup_window import save_account
+
+        for provider, email, secret in (("gmail", "a@b.c", "x"), ("icloud", "not-an-email", "x"), ("icloud", "a@icloud.com", "")):
+            self.assertFalse(save_account(provider, email, secret, test=lambda account: {"ok": True})["ok"])
+        self.assertEqual(accounts_lib.load_accounts(), [])
+        self.assertEqual(self.keyring.data, {})
+
+
 class BenchmarkTests(unittest.TestCase):
     def test_benchmark_runs_on_synthetic_mail(self) -> None:
         from agent_os.mail.benchmark import run

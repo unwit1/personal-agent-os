@@ -22,7 +22,18 @@ moved or marked as read: access is read-only.
 Never paste a password into a chat with an agent. You type it into a hidden
 prompt; it goes straight into Windows Credential Manager.
 
-### Steps
+### Easiest: the setup window
+
+Double-click **`Mail Setup.pyw`** in the repository folder (or run
+`python agent.py mail setup`). A small window opens:
+
+1. Pick **EarthLink** or **iCloud**, type the email address and the password.
+2. Press **Save and test**. The password goes into Windows Credential Manager
+   and Agent OS signs in once to check it. If it fails, the window says why;
+   re-enter the password and press it again.
+3. Press **Get my mail now** to download recent mail, or add another account.
+
+### Steps at the command line (alternative)
 
 ```powershell
 # 1. Tell Agent OS about each mailbox (a short name of your choice + the address)

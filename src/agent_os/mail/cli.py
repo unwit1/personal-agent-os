@@ -39,8 +39,8 @@ def register(commands: argparse._SubParsersAction) -> None:
     folders.add_argument("--set", required=True, help='comma-separated folders, or "*" for all')
     folders.add_argument("--exclude", default="", help='with "*": comma-separated folders to skip')
 
-    setup = sub.add_parser("setup", help="(older command) set up the iCloud account")
-    setup.add_argument("provider", choices=("icloud",))
+    setup = sub.add_parser("setup", help="open a small window to add a mail account and its password")
+    setup.add_argument("provider", nargs="?", choices=("icloud",), help="(older command) set up iCloud at the prompt instead")
     setup.add_argument("--email")
 
     health = sub.add_parser("health", help="log in to each account (or one) and report")
@@ -83,6 +83,10 @@ def dispatch(args: argparse.Namespace, emit: Callable[[Any], None]) -> int:
         emit(list_accounts())
     elif command == "account":
         return _account(args, emit)
+    elif command == "setup" and not args.provider:
+        from .setup_window import run
+
+        return run()
     elif command == "setup":
         address = args.email or input("iCloud email address: ").strip()
         print(accounts_lib.PROVIDERS["icloud"]["credential_help"], file=sys.stderr)
