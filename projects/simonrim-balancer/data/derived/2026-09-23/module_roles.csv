@@ -1,0 +1,22 @@
+mod,version,plugin,module_role,role_source
+Adamant,6.0.4,Adamant.esp,main,author_fomod
+Adamant,6.0.4,AdamantBlade.esp,integration_addon,author_fomod
+Adamant,6.0.4,AdamantCrossbows.esp,integration_addon,author_fomod
+Adamant,6.0.4,AdamantSmithing.esp,feature_addon,author_fomod
+Adamant,6.0.4,SimonrimAttackSpeedFix.esp,compatibility_patch,author_fomod
+Adamant,6.0.4,SimonrmSaintsSeducersSmithing.esp,compatibility_patch,author_fomod
+Blade and Blunt,4.0.3,BladeAndBlunt.esp,main,author_fomod
+Blade and Blunt,4.0.3,BBNoCastingChanges.esp,reversion,author_fomod
+Blade and Blunt,4.0.3,BBNoJumpCost.esp,reversion,author_fomod
+Blade and Blunt,4.0.3,BBNoKillmoves.esp,reversion,author_fomod
+Blade and Blunt,4.0.3,BBNoPowerAttackChanges.esp,reversion,author_fomod
+Blade and Blunt,4.0.3,BBNoSneakCost.esp,reversion,author_fomod
+Blade and Blunt,4.0.3,BBNoSprintChanges.esp,reversion,author_fomod
+Blade and Blunt,4.0.3,BBNoSwimCost.esp,reversion,author_fomod
+Blade and Blunt,4.0.3,BBVanillaSliders.esp,unmapped,none
+Hand to Hand,2.0.2,HandtoHand.esp,standalone_main,package_structure
+Mysticism,2.5.0,MysticismMagic.esp,main,author_fomod
+Mysticism,2.5.0,MysticismJumpSpells.esp,feature_addon,author_fomod
+Mysticism,2.5.0,MysticOrdinator.esp,compatibility_patch,author_fomod
+Mysticism,2.5.0,MysticismSlowerUnlocks.esp,optional_module,author_fomod
+Mysticism,2.5.0,MysticismSurvivalSpells.esp,feature_addon,author_fomod
