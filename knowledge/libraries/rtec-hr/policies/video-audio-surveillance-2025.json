@@ -1,0 +1,213 @@
+{
+  "id": "rtec-policy-video-audio-surveillance-2025",
+  "record_type": "policy",
+  "title": "Video and audio surveillance / recording maintenance - 2025 handbook",
+  "status": "validated",
+  "temporal_status": "current",
+  "effective_from": "2025-12-15",
+  "effective_to": null,
+  "summary": "2025 handbook policy governing audio/video equipment on RTEC vehicles and property, notice, ownership, viewing/access, law-enforcement/legal disclosure, accident-recording retention and equipment maintenance.",
+  "claims": [
+    {
+      "claim": "RTEC states that audio/video equipment may be placed on vehicles and property for passenger/public safety, driver management and general security, and that notices are to be posted where equipment is located.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-dress-cell-work-rules-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 43 - Video Surveillance & Audio Policy",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The posted-notice language states that people entering/riding in recorded vehicles/property acknowledge their image and/or voice may be recorded and that they have no reasonable expectation of privacy in the recording.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 43 - Posting Guidelines",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Ownership of vehicle/property audio-video recordings rests exclusively with RTEC; recordings may be provided for accident/criminal investigations or defense and may be produced pursuant to court order, subpoena or other legal process.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 44 - Ownership of Recordings",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "RTEC may view cameras/listen to audio for reasons including employee performance review, accident investigation, passenger/driver complaints, equipment maintenance/testing, criminal investigation or other reasons determined by RTEC.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 44 - Viewing and Monitoring Policy",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The Executive Director designates authorized recording reviewers; the handbook names the Safety & Security Officer, Operations Manager, Human Resource Manager and IT technician among those with access, plus others designated by the Executive Director.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 44 - Viewing and Monitoring Policy",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Law-enforcement review is subject to the Executive Director's decision unless lawful court process/subpoena requires production.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 44 - Viewing and Monitoring Policy",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Recordings retained for accident investigation are to be kept for three years after the event or until litigation reaches final resolution; other retained recordings follow the record-retention policy.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 44-45 - Video/Audio Recordings Retention",
+          "evidence_type": "explicit_text",
+          "note": "The handbook also notes different camera systems retain for different periods and RTEC does not guarantee retention when it has no notice of an investigation."
+        }
+      ]
+    },
+    {
+      "claim": "RTEC is to check vehicle recording equipment at least once every three months, operators/maintenance personnel are to report malfunctioning equipment to the Operations Manager, and daily pre-trip/post-trip checks are described as a practice.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 45 - Maintenance",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "trigger": "Operation, review, disclosure, retention or maintenance of RTEC audio/video recording equipment.",
+  "prerequisites": [
+    "Authorized RTEC role or Executive Director designation for review/access where applicable."
+  ],
+  "actors": [
+    "Executive Director",
+    "Safety & Security Officer",
+    "Operations Manager",
+    "Human Resource Manager",
+    "IT Technician",
+    "Operators",
+    "Maintenance Personnel",
+    "Law Enforcement"
+  ],
+  "systems": [
+    "Vehicle/property audio-video recording systems"
+  ],
+  "forms": [],
+  "steps": [
+    "Post required recording notices.",
+    "Maintain/inspect recording equipment.",
+    "Restrict review to authorized/designated personnel.",
+    "Retain accident-related recordings for the stated period and other recordings under the retention policy.",
+    "Route external/legal access through the Executive Director or lawful process."
+  ],
+  "decisions": [
+    "Whether a recording is retained for accident/other investigation",
+    "Whether law enforcement may review absent compulsory legal process",
+    "Who is designated to review recordings"
+  ],
+  "deadlines": [
+    "Accident-investigation recordings: three years after the event or until litigation is finally resolved.",
+    "Vehicle recording equipment: operation check once every three months; daily pre/post-trip checks are described as practice."
+  ],
+  "outputs": [
+    "Audio/video recording",
+    "Investigation/performance-review evidence",
+    "Disclosure to authorized/legal recipient",
+    "Maintenance report"
+  ],
+  "exceptions": [
+    "Actual system retention varies by equipment, and the handbook states RTEC does not guarantee a specific retention period when not on notice of an accident or other investigation."
+  ],
+  "controls": [
+    "Posted notice",
+    "Executive Director access designation",
+    "Legal-process control",
+    "Retention requirement for accident investigations",
+    "Periodic/daily equipment checks"
+  ],
+  "unresolved_questions": [
+    "Locate and ingest the separate record-retention policy referenced by this section.",
+    "Confirm current named roles and access-control implementation for recording systems."
+  ],
+  "automation_candidates": [
+    "Retention hold workflow when an accident/complaint/litigation notice is opened.",
+    "Quarterly camera inspection and malfunction-remediation tracking.",
+    "Access/audit log for recording review and external disclosure."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "safe_source_type": "employee_handbook",
+      "source_date_or_version": "2025-12-15",
+      "source_created_date": null,
+      "source_revision_date": "2025-12-15",
+      "source_effective_from": "2025-12-15",
+      "source_effective_to": null,
+      "temporal_status": "current",
+      "content_sha256": "d8601d4c5ded962051c521ace697f447492dc178d565a393e5c945c309a7e22c",
+      "page_or_section": "printed pages 43-45",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": null
+    }
+  ]
+}
