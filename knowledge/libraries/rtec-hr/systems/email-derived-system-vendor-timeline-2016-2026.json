@@ -190,8 +190,49 @@
         "000282",
         "000317"
       ]
+    },
+    {
+      "name": "Baptist Health Plan",
+      "observed": "2016",
+      "relationship": "historical medical plan/provider listed in HR benefits implementation correspondence",
+      "currentness": "historical only; later carrier history supersedes/changes this picture",
+      "evidence_ids": [
+        "000004"
+      ]
+    },
+    {
+      "name": "Humana",
+      "observed": "2016-2018",
+      "relationship": "historical dental/vision provider in 2016 benefits setup and formal Humana installation kickoff in 2018",
+      "currentness": "historical; 2026 UnitedHealthcare implementation indicates a later medical-plan/carrier change, but exact supersession path is not fully reconstructed",
+      "evidence_ids": [
+        "000004",
+        "000054"
+      ]
+    },
+    {
+      "name": "The Abacus Group",
+      "observed": "2016",
+      "relationship": "historical voluntary life and short-term disability provider/contact in benefits implementation correspondence",
+      "currentness": "historical only",
+      "evidence_ids": [
+        "000004"
+      ]
+    },
+    {
+      "name": "Infinisource",
+      "observed": "2016 onward",
+      "relationship": "historical setup call and later iSolved/Infinisource HR/benefits account relationship",
+      "currentness": "2016 setup plus 2019-2026 account evidence; exact continuity/module evolution requires validation",
+      "evidence_ids": [
+        "000006",
+        "000102",
+        "000358",
+        "000391",
+        "000498"
+      ]
     }
   ],
   "architectural_observation": "The email record supports a layered HR technology environment with payroll/tax, benefits/carrier, state reporting, communications and recruiting functions split across different services. Current authoritative ownership by data domain must be mapped before automation writes to any external system.",
-  "transition_observation": "May-June 2026 messages show movement toward a shared HR identity while the historical individual HR mailbox remained operational in several systems. Treat mailbox/account migration and recovery ownership as an explicit transition to validate rather than assuming it is complete."
+  "transition_observation": "May-June 2026 messages show movement toward a shared HR identity while the historical individual HR mailbox remained operational in several systems. Treat mailbox/account migration and recovery ownership as an explicit transition to validate rather than assuming it is complete. Earlier benefits-carrier history now includes Baptist Health Plan, Humana, The Abacus Group and a 2018 Humana installation kickoff; this should be treated as historical version context rather than current provider authority."
 }
