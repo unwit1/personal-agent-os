@@ -540,4 +540,130 @@ with a good degree of accuracy using 10-key calculator.
 8. Must have a valid Washington State driver s license.
 Physical
 1. Ability to sit at work station for extended periods, using computer
-keyboard
+keyboard and visual display terminal.
+2. Ability to stand, walk and drive as needed throughout the day.
+3. Ability to occasionally lift, carry and put away parcels weighing up to
+20 pounds.
+4. Ability to monitor several audible communications devices, such as
+telephone, fax and radio, throughout the day while performing other duties.
+Other
+1. Ability to handle multiple interruptions and adjustments to priorities
+throughout the day.
+2. Ability to communicate effectively with diverse and sometimes irate
+individuals and to handle calmly and efficiently situations ranging from
+routine to emergency.
+3. Ability to deal with multiple responsibilities and to meet deadlines.
+Use of Tools and Equipment
+Standard office equipment, including personal computer, typewriter, multi-
+line phone system, two-way radio, fax machine, copier, 10-key calculator
+and Dictaphone.
+OTHER
+1. As an absolute condition of employment, employees are required upon hire
+to sign a drug-free workplace agreement and an agreement not to use tobacco
+products of any kind while on the job.
+2. The statements contained in this job description reflect general details
+as necessary to describe the principal functions of this job, the level of
+knowledge and skill typically required and the scope of responsibility. It
+should not be considered an all-inclusive listing of work requirements.
+Individuals may perform other duties as assigned, including work in other
+functional areas to cover absences or provide relief, to equalize peak work
+periods or otherwise to balance the workload.
+3. Following an offer of employment, and prior to starting work,
+individuals may be required to have a pre-employment physical examination
+by a physician designated by the City. The examination will be paid for by
+the City. Satisfactory clearance to perform essential job functions will be
+required for employment.
+4/97
+
+---
+
+## rtec-hr-jobdesc-misc-job-descriptions-student-temp-job-description-revised-05-2022-docx
+
+- Source path: `!Misc Job Descriptions/Student Temp Job Description revised 05 2022.docx`
+- Source class: `job_description`
+- Role family: `student-temp`
+- Temporal status: `historical`
+- Source SHA-256: `0ab7ec0c028342507eda01cac77c7a5918cf82d1ed1853948760b5064e9c2c21`
+- Normalized text SHA-256: `23fe37a6e3357822a84cbcb96a5db3a1a31b4e038e840bce579bd215ef9b5e4b`
+- Extraction: `python-docx`
+
+### Full searchable text
+
+Rural Transit Enterprises Coordinated, Inc.
+Job Description:   General Office Clerk (Temporary position)
+		      FLSA Classification:  NON-EXEMPT
+Characteristics of the Class:   Under the general supervision of Human Resources and/or Deputy Director.
+Requirements and Qualifications:
+Knowledge of contemporary office practices and procedures and equipment.  Cooperative and have initiative to be a self-starter.  Ability to work independently.  Be a team player and show courtesy to other employees.  Good working knowledge of computers.  Good attendance.
+Essential Requirements:
+The ability to sit for long periods of time with high concentration levels while working with various record keeping.  Physical requirements include stretching, bending and stooping to reach files, lifting and carrying up to 50 pounds as the standard rule for copying, filing, storing records, and light custodial duties in an office environment.
+Duties and Responsibilities:
+Prepare files for scanning, scan file into server.  Set up and organize folders in server with titles and categories. In order to fill the day, there will be some other light duties, including custodial/ housekeeping duties, cleaning windows, restrooms, work at the Historical Society records, make a Christmas float, or other value tasks.
+These duties do not necessarily include all essential functions of the job.
+Starting rate of pay - $11.00 per hour
+Signature ________________________________    Date ________________________
+
+---
+
+## rtec-hr-jobdesc-misc-job-descriptions-temporary-general-office-clerk-scanning-docx
+
+- Source path: `!Misc Job Descriptions/Temporary General Office Clerk Scanning.docx`
+- Source class: `job_description`
+- Role family: `temporary-general-office-clerk-scanning`
+- Temporal status: `unknown`
+- Source SHA-256: `994703bb2bbfd7c9975f19ae5ae8e1b81bb4dab483664cbd1267329d196cdca5`
+- Normalized text SHA-256: `486b767fdc21ad7b23db359abb3f35eab5685b384931b3964c9535889fba64ca`
+- Extraction: `python-docx`
+
+### Full searchable text
+
+Rural Transit Enterprises Coordinated, Inc.
+Job Description:   General Office Clerk (Temporary position)
+		      FLSA Classification:  NON-EXEMPT
+Characteristics of the Class:   Under the general supervision of Human Resources.
+Requirements and Qualifications:
+Knowledge of contemporary office practices and procedures and equipment.  Cooperative and have initiative to be a self-starter.  Be a team player and show courtesy to other employees.  Good working knowledge of computers.
+Essential Requirements:
+The ability to sit for long periods of time with high concentration levels while working with various record keeping.  Physical requirements include stretching, bending and stooping to reach files, lifting and carrying up to 50 pounds as the standard rule for copying, filing and storing records in an office environment.
+Duties and Responsibilities:
+Prepare files for scanning, scan file into server.  Set up and organize folders in server with titles and categories.  
+These duties do not necessarily include all essential functions of the job.
+Starting rate of pay - $10.10 per hour
+Signature ________________________________    Date ________________________
+
+---
+
+## rtec-hr-jobdesc-misc-job-descriptions-sample-job-description-executive-secretary-doc
+
+- Source path: `!Misc Job Descriptions/sample job description executive secretary.doc`
+- Source class: `external_sample_job_description`
+- Role family: `executive-secretary`
+- Temporal status: `unknown`
+- Source SHA-256: `e8019a28944770636fa3e73d96f0afe033cfebae66919b83bc336152e10009bb`
+- Normalized text SHA-256: `d54fb43f5b1b308e539e1524fb9dbc2aa538ab34bc648fddd3248f47bac64a62`
+- Extraction: `antiword`
+
+### Full searchable text
+
+|CITY OF ANACORTES                                             |
+|Position Description                                          |
+|JOB TITLE: Executive Secretary                                |
+|CLASSIFICATION: 38M                                           |
+|DEPARTMENT: Executive                                         |
+|REPORTS TO: Mayor and Director of Public Works                |
+|PRINCIPAL PURPOSE OF JOB: To perform a variety of responsible,|
+|confidential and complex administrative, technical and        |
+|secretarial duties for the mayor and director of public works.|
+|Acts as a liaison with City departments, staff, outside       |
+|agencies and the general public. Ensures the efficient        |
+|operation of the mayor s office and public works director s   |
+|office.                                                       |
+|LEVEL OF AUTHORITY: Performs routine duties independently,    |
+|setting priorities and scheduling own work in accordance with |
+|established and general policies and procedures requiring     |
+|regular interpretation. Is responsible for sound judgment,    |
+|thoroughness and competence, where failure to perform         |
+|effectively and efficiently could have serious impact on      |
+|municipal operations, public relations and the efficient use  |
+|of resources.                                                 |
+|WORK ENVIRONMENT: Most of the 
