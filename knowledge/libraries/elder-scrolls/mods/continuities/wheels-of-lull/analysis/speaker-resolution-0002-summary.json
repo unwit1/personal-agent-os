@@ -1,0 +1,14 @@
+{
+  "policy": "Strict CTDA resolution only. Equality GetIsID resolves directly. Equality GetIsVoiceType resolves only when exactly one ingested NPC has that voice. Alias-driven and shared-voice dialogue remains unresolved.",
+  "covered_source_ranges": [
+    "451-812"
+  ],
+  "stats": {
+    "infos": 207,
+    "resolved": 173,
+    "by_id": 16,
+    "by_voice_unique": 157,
+    "ambiguous_voice": 17,
+    "unresolved": 34
+  }
+}
