@@ -1,0 +1,52 @@
+{
+  "record_id": "rtec-recruiting-channel-history-from-email-2016-2021",
+  "updated_at": "2026-09-23",
+  "status": "historical_evidence",
+  "channels": [
+    {
+      "channel": "Forwarded/direct applications",
+      "observed_period": "2016 onward",
+      "evidence_summary": "Applications were routed into HR by email before/alongside web intake.",
+      "currentness": "historical"
+    },
+    {
+      "channel": "ridertec.org online application form",
+      "observed_period": "2018-2019",
+      "evidence_summary": "Website form submissions delivered complete applicant records to the historical HR mailbox.",
+      "privacy": "Raw submissions are restricted applicant records and are not committed.",
+      "currentness": "superseded candidate"
+    },
+    {
+      "channel": "Kentucky Career Center / Focus Talent",
+      "observed_period": "2021",
+      "evidence_summary": "Eight job-order closure notices on 2021-12-12 covered a second-shift dispatcher role and transit-driver roles in Knox, Clinton, Monroe, Laurel, Pulaski, Rockcastle and Williamsburg service areas. Closed orders could be refreshed for the next 30 days.",
+      "evidence_ids": [
+        "000329",
+        "000330",
+        "000331",
+        "000332",
+        "000333",
+        "000334",
+        "000335",
+        "000336"
+      ],
+      "currentness": "historical; successor/current use unknown"
+    },
+    {
+      "channel": "Indeed",
+      "observed_period": "2021",
+      "evidence_summary": "Senior Account Executive Michael Kaniatyn contacted RTEC HR regarding company-page/Glassdoor branding and year-end hiring.",
+      "evidence_ids": [
+        "000282",
+        "000317"
+      ],
+      "currentness": "outreach/contact evidence only; paid adoption not established"
+    }
+  ],
+  "workflow_findings": [
+    "Historical recruiting was multi-channel rather than a single ATS-only process.",
+    "Job orders had explicit posting lifecycle/refresh behavior in Focus Talent.",
+    "Recruiting evidence should be reconciled against the current ADP ATS workflow before any historical channel is treated as active."
+  ],
+  "open_question": "When were ridertec.org and Focus Talent retired or reduced, and which functions are now performed in ADP ATS versus external job boards/state systems?"
+}
