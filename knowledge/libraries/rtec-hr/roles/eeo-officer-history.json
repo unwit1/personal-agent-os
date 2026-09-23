@@ -6,28 +6,62 @@
   "temporal_status": "current",
   "effective_from": null,
   "effective_to": null,
-  "summary": "Versioned history of the official assigned day-to-day EEO program/complaint role based on ingested policy sources.",
+  "summary": "Versioned history of the official or organizationally identified EEO Manager/Officer role based on dated handbook, organization-chart, and policy evidence.",
   "claims": [
     {
       "claim": "The March 2023 handbook names Sheila Stallsworth as EEO Manager/EEO Officer reporting directly to the Executive Director.",
       "claim_kind": "observed_fact",
-      "confidence": 1.0,
+      "confidence": 1,
       "relationship": "SUPERSEDES",
       "related_record_ids": [],
-      "evidence": [{"source_id":"rtec-hr-employee-handbook-selected-2023-03-01","page_or_section":"printed page 46","evidence_type":"explicit_text","note":"Historical 2023 assignment."}]
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-selected-2023-03-01",
+          "page_or_section": "printed page 46",
+          "evidence_type": "explicit_text",
+          "note": "Historical 2023 assignment."
+        }
+      ]
+    },
+    {
+      "claim": "The 2026 organization chart revised 2025-12-30 names Clarissa Hodge as HR & EEO Manager, providing an early-2026 organizational snapshot between the 2023 handbook assignment and the later 2026 signed EEO statement.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDES",
+      "related_record_ids": [
+        "rtec-role-organization-structure-history"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-organization-chart-2026-rev-2025-12-30",
+          "page_or_section": "HR & EEO Manager box",
+          "evidence_type": "explicit_text",
+          "note": "Early-2026 organization-chart snapshot; later 2026 signed EEO policy names a different EEO Officer."
+        }
+      ]
     },
     {
       "claim": "The signed 2026-08-26 EEO policy statement names Jacob Salsman as EEO Manager/EEO Officer, reporting directly to the Executive Director with authority across levels of management and employees.",
       "claim_kind": "canonical_rule",
-      "confidence": 1.0,
+      "confidence": 1,
       "relationship": "SUPERSEDES",
       "related_record_ids": [],
-      "evidence": [{"source_id":"rtec-hr-eeo-policy-2026-08-26","page_or_section":"EEO responsibility paragraph","evidence_type":"explicit_text","note":"Later dated assignment supersedes the 2023 officer assignment for current role-holder purposes."}]
+      "evidence": [
+        {
+          "source_id": "rtec-hr-eeo-policy-2026-08-26",
+          "page_or_section": "EEO responsibility paragraph",
+          "evidence_type": "explicit_text",
+          "note": "Later dated assignment supersedes the 2023 officer assignment for current role-holder purposes."
+        }
+      ]
     }
   ],
   "trigger": null,
   "prerequisites": [],
-  "actors": ["Executive Director", "EEO Officer / EEO Manager"],
+  "actors": [
+    "Executive Director",
+    "EEO Officer / EEO Manager"
+  ],
   "systems": [],
   "forms": [],
   "steps": [],
@@ -35,43 +69,67 @@
   "deadlines": [],
   "outputs": [],
   "exceptions": [],
-  "controls": ["EEO Officer reports directly to Executive Director under both source versions."],
-  "unresolved_questions": ["Was there an intermediate EEO Officer assignment between the 2023 handbook and 2026 signed statement?"],
-  "automation_candidates": ["Maintain role-holder history separately from durable EEO role responsibilities so personnel changes do not overwrite the policy model."],
+  "controls": [
+    "Treat named role holders as effective-dated evidence rather than timeless profile facts.",
+    "Direct reporting to the Executive Director is explicit in the 2023 handbook and 2026 signed EEO policy."
+  ],
+  "unresolved_questions": [
+    "What exact date did the EEO responsibility transition from the early-2026 HR & EEO Manager assignment to the EEO Officer named in the 2026-08-26 signed policy?",
+    "Did HR Manager and EEO Officer responsibilities remain combined or split after that transition?"
+  ],
+  "automation_candidates": [
+    "Maintain role-holder history separately from durable EEO role responsibilities so personnel changes do not overwrite the policy model."
+  ],
   "supersedes_record_ids": [],
   "superseded_by_record_ids": [],
   "provenance": [
     {
-      "source_id":"rtec-hr-employee-handbook-selected-2023-03-01",
-      "safe_source_type":"employee_handbook_excerpt",
-      "source_date_or_version":"2023-03-01",
-      "source_created_date":"2023-03-01",
-      "source_revision_date":null,
-      "source_effective_from":"2023-03-20",
-      "source_effective_to":null,
-      "temporal_status":"historical",
-      "content_sha256":"88eea6dfa5da39d4d2d916bb934e7ebcebc5b6ef68da1c7ad5998d817b59e31e",
-      "page_or_section":"printed page 46",
-      "full_source_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-selected-2023-03-01/fulltext.md",
-      "searchable_text_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-selected-2023-03-01/fulltext.md",
-      "ingested_at":"2026-09-23",
-      "notes":"Historical named officer."
+      "source_id": "rtec-hr-employee-handbook-selected-2023-03-01",
+      "safe_source_type": "employee_handbook_excerpt",
+      "source_date_or_version": "2023-03-01",
+      "source_created_date": "2023-03-01",
+      "source_revision_date": null,
+      "source_effective_from": "2023-03-20",
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "content_sha256": "88eea6dfa5da39d4d2d916bb934e7ebcebc5b6ef68da1c7ad5998d817b59e31e",
+      "page_or_section": "printed page 46",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-selected-2023-03-01/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-selected-2023-03-01/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": "Historical named officer."
     },
     {
-      "source_id":"rtec-hr-eeo-policy-2026-08-26",
-      "safe_source_type":"policy_statement",
-      "source_date_or_version":"signed 2026-08-26",
-      "source_created_date":"2026-08-26",
-      "source_revision_date":"2016-11-01",
-      "source_effective_from":"2026-08-26",
-      "source_effective_to":null,
-      "temporal_status":"current",
-      "content_sha256":"61bd0aa5daf6303a6b2b932ab1852917c8cb4e572f9719a9ce1f7a3d4a757bce",
-      "page_or_section":"complete source",
-      "full_source_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-eeo-policy-2026-08-26/fulltext.md",
-      "searchable_text_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-eeo-policy-2026-08-26/fulltext.md",
-      "ingested_at":"2026-09-23",
-      "notes":"Newest assignment currently present in corpus."
+      "source_id": "rtec-hr-organization-chart-2026-rev-2025-12-30",
+      "safe_source_type": "organizational_reference",
+      "source_date_or_version": "2026 chart, revised 2025-12-30",
+      "source_created_date": null,
+      "source_revision_date": "2025-12-30",
+      "source_effective_from": "2026-01-01",
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "content_sha256": "7a84225ca482eca69e5a18c6a85b562571961504c663285ccecef8ccc2f168c4",
+      "page_or_section": "HR & EEO Manager box",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-organization-chart-2026-rev-2025-12-30/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-organization-chart-2026-rev-2025-12-30/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": "Early-2026 role snapshot."
+    },
+    {
+      "source_id": "rtec-hr-eeo-policy-2026-08-26",
+      "safe_source_type": "policy_statement",
+      "source_date_or_version": "signed 2026-08-26",
+      "source_created_date": "2026-08-26",
+      "source_revision_date": "2016-11-01",
+      "source_effective_from": "2026-08-26",
+      "source_effective_to": null,
+      "temporal_status": "current",
+      "content_sha256": "61bd0aa5daf6303a6b2b932ab1852917c8cb4e572f9719a9ce1f7a3d4a757bce",
+      "page_or_section": "complete source",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-eeo-policy-2026-08-26/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-eeo-policy-2026-08-26/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": "Newest assignment currently present in corpus."
     }
   ]
 }
