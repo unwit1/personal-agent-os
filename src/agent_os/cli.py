@@ -8,6 +8,7 @@ from .adapters import sync_adapters
 from .candidates import candidate_status, curate_candidates, stage_candidates
 from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, update_change
 from .compiler import compile_context
+from .connectors import connector_import_candidates
 from .coordination import (
     check as check_claims,
     claim as make_claim,
@@ -87,6 +88,11 @@ def parser() -> argparse.ArgumentParser:
     integration = commands.add_parser("integration-health")
     integration.add_argument("--surface")
     integration.add_argument("--strict", action="store_true")
+    connector_candidates = commands.add_parser(
+        "connector-import-candidates",
+        help="read-only inventory of local client MCP registrations for connector review",
+    )
+    connector_candidates.add_argument("--surface")
     work_claim = commands.add_parser("work-claim")
     work_claim.add_argument("project")
     work_claim.add_argument("task")
@@ -320,6 +326,8 @@ def main(argv: list[str] | None = None) -> int:
             report = integration_health(args.surface)
             _print(report)
             return 1 if args.strict and not report["ok"] else 0
+        elif args.command == "connector-import-candidates":
+            _print(connector_import_candidates(args.surface))
         elif args.command == "work-claim":
             result = make_claim(args.project, args.task, args.agent, args.scope, args.lease_minutes)
             _print(result)

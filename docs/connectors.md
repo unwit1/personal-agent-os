@@ -20,6 +20,13 @@ review; they are not imported or written to the canonical registry.
 `integration-health` reports each connector under `connector_providers`,
 separately from whether each client surface reaches Agent OS.
 
+The same discovery report is available without MCP:
+
+```powershell
+python agent.py connector-import-candidates
+python agent.py connector-import-candidates --surface codex-cli
+```
+
 Each connector's `surface_readiness` entries describe the checks for that
 surface:
 
