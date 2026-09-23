@@ -6,7 +6,11 @@ This project learns from process documents, policies, blank forms, templates, in
 
 ## Canonical boundary
 
-GitHub is canonical for **derived, sanitized process knowledge**.
+GitHub is canonical for **the safe authoritative source corpus plus derived, sanitized process knowledge**.
+
+Process documents, manuals, policies, procedure guides, blank forms/templates, training materials, system instructions, and similar position-level reference material should be preserved **in full** when they do not contain prohibited employee/applicant PII. Preserve the original file when practical and also maintain a searchable full-text/structured mirror so agents can quote, diff, search, and re-derive knowledge later.
+
+This corpus spans roughly the last 20 years and is historical by default. Age does not make a source disposable: retain superseded material for chronology, but never assume an older source is current merely because it exists in the corpus.
 
 Do not commit:
 - employee or applicant records;
@@ -16,7 +20,7 @@ Do not commit:
 - names, addresses, identifiers, medical/leave facts, compensation values, disciplinary facts, or other employee-level PII;
 - source filenames when those filenames contain employee/applicant PII.
 
-Raw source documents remain outside GitHub. A source may be represented in GitHub by a sanitized source ID, safe document class/title, cryptographic content hash when available, date/version metadata, and page/section provenance.
+Live personnel/applicant source records remain outside GitHub. Safe position-level process sources are stored in full under the RTEC HR source corpus, with a sanitized source ID, original/source artifact when practical, searchable text mirror, cryptographic content hash when available, date/version metadata, and page/section provenance.
 
 ## Knowledge lifecycle
 
@@ -61,11 +65,13 @@ For each supplied document:
 
 1. Determine whether it is safe process evidence or contains live employee/applicant PII.
 2. If live PII is present, do not commit the document, raw OCR, or employee-level facts.
-3. Assign a sanitized source ID and capture safe provenance.
-4. Extract explicit process claims separately from interpretation.
-5. Link claims to existing workflows, forms, systems, roles, and rules.
-6. Classify each claim as NEW, DUPLICATE, EXTENDS, CONFLICTS_WITH, DEPENDS_ON, or SUPERSEDES existing knowledge.
-7. Record unresolved questions when evidence is incomplete or ambiguous.
-8. Promote only corroborated or user-confirmed knowledge to validated/canonical state.
-9. Capture automation opportunities separately from factual process rules.
-10. Commit coherent sanitized checkpoints so other agents can resume without rereading every source.
+3. Assign a sanitized source ID, determine source date/effective period/currentness, and capture safe provenance.
+4. If it is a safe process/manual/policy/reference source, preserve the source in full and create or update its searchable text mirror.
+5. Extract explicit process claims separately from interpretation.
+6. Link claims to existing workflows, forms, systems, roles, and rules.
+7. Classify each claim as NEW, DUPLICATE, EXTENDS, CONFLICTS_WITH, DEPENDS_ON, or SUPERSEDES existing knowledge.
+8. Compare dates/versions and preserve supersession chains; newer does not automatically mean authoritative when scope differs.
+9. Record unresolved questions when evidence is incomplete, ambiguous, undated, or conflicts with later material.
+10. Promote only corroborated or user-confirmed knowledge to validated/canonical state, with explicit currentness status.
+11. Capture automation opportunities separately from factual process rules.
+12. Commit coherent sanitized checkpoints so other agents can resume without rereading every source.
