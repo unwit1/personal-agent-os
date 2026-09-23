@@ -213,9 +213,9 @@
         "000085"
       ],
       "job_duty_evidence": "Historical duty document says actual updated AAP every 4 years and lists January 30, 2024 as due.",
-      "relationship": "CONFLICTS_WITH_OTHER_DATED_EVIDENCE",
-      "conflict": "A 2019 email reminder says AAP due to state January 2022, while the preserved AAP package centers on a June 30, 2022 workforce snapshot.",
-      "currentness": "do not infer a fixed cadence/deadline until the plan supersession history is resolved"
+      "relationship": "SUPERSEDED_CHRONOLOGY",
+      "conflict": "The 2019 reminder for January 2022 matched the 2018 state approval letter's then-current next-due date. A December 2020 state approval later superseded that schedule and set January 30, 2024 as the next due date.",
+      "currentness": "Archive contains a full plan updated through June 30, 2024; post-2024 approved plan/approval correspondence remains unresolved."
     },
     {
       "domain": "direct_deposit_record_storage",
