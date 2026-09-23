@@ -44,7 +44,7 @@ class ClaudeLeanFlagTests(unittest.TestCase):
         self.assertNotIn("--bare", argv, "--bare would ignore OAuth logins")
 
     def test_read_only_workers_get_no_edit_tools(self) -> None:
-        argv = adapter(claude_code.ClaudeCodeAdapter, claude_code.OPTIONAL_FLAGS, lean_tools=True).resolve_invocation(request(read_only=True)).argv
+        argv = adapter(claude_code.ClaudeCodeAdapter, claude_code.OPTIONAL_FLAGS, lean_tools=True, read_only_mode="plan").resolve_invocation(request(read_only=True)).argv
         self.assertEqual(argv[argv.index("--tools") + 1], "Bash,Read,Glob,Grep")
 
     def test_options_off_and_unadvertised_flags_are_not_passed(self) -> None:
@@ -105,7 +105,8 @@ class UsageReportTests(unittest.TestCase):
         self.ledger.emit("r2", "retry", "n", reason="quota")
         self.ledger.emit("r2", "loop_guard", "n", guard="retry_limit", reason="x")
         self.ledger.emit("r2", "work_avoided", category="resume", model_calls_avoided=1)
-        (self.tmp / "runs" / "r2" / "telemetry.jsonl").open("a").write("not json\n")
+        with (self.tmp / "runs" / "r2" / "telemetry.jsonl").open("a", encoding="utf-8") as handle:
+            handle.write("not json\n")
         report = build(sorted(self.tmp.glob("runs/*/telemetry.jsonl")))
         self.assertEqual(report["runs_counted"], 2)
         self.assertEqual(report["totals"]["input"], 10_000 + 6_010)

@@ -134,3 +134,127 @@ def _summary(calls: list[dict[str, Any]]) -> dict[str, Any]:
         "output_tokens_per_call": [item.get("output_tokens") for item in usable],
         "cost_usd_per_call": [item.get("cost_usd") for item in usable],
     }
+
+
+# ---------------------------------------------------------------------------
+# Planner exploration (P2.3)
+# ---------------------------------------------------------------------------
+
+# (name, run policy overrides, adapter option overrides)
+PLANNER_VARIANTS: list[tuple[str, dict[str, Any], dict[str, Any]]] = [
+    ("current", {"planner_repo_map": False, "planner_effort": "high"}, {"read_only_mode": "plan"}),
+    ("read_only_tools", {"planner_repo_map": False, "planner_effort": "high"}, {"read_only_mode": "tools"}),
+    ("map_and_budget", {"planner_repo_map": True, "planner_effort": "high"}, {"read_only_mode": "tools"}),
+    ("map_budget_medium", {"planner_repo_map": True, "planner_effort": "medium"}, {"read_only_mode": "tools"}),
+    ("tools_medium", {"planner_repo_map": False, "planner_effort": "medium"}, {"read_only_mode": "tools"}),
+]
+
+
+def measure_planner(
+    repository: str | Path = ".",
+    project: str | None = None,
+    *,
+    goal: str | None = None,
+    provider: str = "claude-code",
+    variants: list[str] | None = None,
+    timeout: float = 1800,
+) -> dict[str, Any]:
+    """Run only the planner of a real orchestrated run, once per variant, and
+    report exact usage plus objective plan-quality checks. Real model calls."""
+    from ..telemetry import LocalTelemetryStore
+    from . import roadmap
+    from .engine import Orchestrator
+    from .store import RunStore
+
+    repo = repository_root(Path(repository))
+    base = ProviderRegistry()
+    entry = base.get(provider)
+    if entry is None:
+        raise ValueError(f"provider {provider} is not configured")
+    if goal is None:
+        scanned = roadmap.scan(project, repo)
+        stage, _ = roadmap.choose_stage(scanned["stages"], roadmap.stage_branches(repo, scanned["stages"]))
+        if stage is None:
+            raise ValueError("no eligible roadmap stage to plan")
+        goal = roadmap.build_goal(project, stage, scanned["relative_path"], roadmap._latest_handoff(project))
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    root = orchestrator_home() / "planner-bench" / f"{stamp}-{uuid.uuid4().hex[:4]}"
+    root.mkdir(parents=True, exist_ok=True)
+    tracked = set(git(["ls-files"], repo).stdout.splitlines())
+    rows = []
+    for name, policy, options in PLANNER_VARIANTS:
+        if variants and name not in variants:
+            continue
+        providers = [dict(item, options={**(item.get("options") or {}), **options}) if item["id"] == provider else item for item in base.providers]
+        engine = Orchestrator(
+            RunStore(root / "state" / name),
+            registry=ProviderRegistry(providers=providers, discover=False),
+            telemetry_store=LocalTelemetryStore(root / "telemetry.jsonl"),
+            claims_path=root / "claims.json",
+        )
+        run_policy = {"planning": "auto", "auto_continue": False, "announce_claims": False, "final_integration": "branch", "poll_interval_seconds": 2.0, **policy}
+        summary = engine.create_run(goal, repository=repo, project=project, policy=run_policy, overrides={"roles": {"planner": {"provider": provider}}})
+        run_id = summary["run_id"]
+        started = time.monotonic()
+        try:
+            engine.run_loop(run_id, max_seconds=timeout)
+        finally:
+            record = engine.load(run_id)
+            _cleanup(engine, record)
+        rows.append({"variant": name, "policy": policy, "options": options, "seconds": round(time.monotonic() - started, 1), **_plan_quality(record, tracked), "all_planner_calls": _planner_calls(engine, run_id), "files": {"telemetry": str(engine.ledger.paths(run_id)[0]), "prompt": str(engine.store.run_dir(run_id) / "workers" / "plan-1" / "prompt.md")}})
+    report = {"created_at": stamp, "repository": str(repo), "provider": provider, "goal_chars": len(goal), "goal_first_line": goal.splitlines()[0], "variants": rows}
+    path = root / "planner.json"
+    path.write_text(json.dumps(report, indent=2), encoding="utf-8")
+    report["file"] = str(path)
+    return report
+
+
+def _plan_quality(record: dict[str, Any], tracked: set[str]) -> dict[str, Any]:
+    planner = record["nodes"].get("plan") or {}
+    result = planner.get("result") or {}
+    tasks = [node for node in record["nodes"].values() if node["role"] in {"implementer", "test_author"}]
+    scoped = [path for node in tasks for path in node["scope"]]
+    existing = [path for path in scoped if path in tracked or any(item.startswith(path.rstrip("/") + "/") for item in tracked)]
+    return {
+        "planner_state": planner.get("state"),
+        "planner_failure": (planner.get("failures") or [{}])[-1].get("detail") if planner.get("state") != "PASSED" else None,
+        "model": (planner.get("selection") or {}).get("model"),
+        "effort": (planner.get("selection") or {}).get("provider_effort"),
+        "usage": result.get("usage"),
+        "tasks": len(tasks),
+        "task_classes": {cls: sum(1 for node in tasks if node["capability_class"] == cls) for cls in {node["capability_class"] for node in tasks}},
+        "scope_paths": len(scoped),
+        "scope_paths_existing": len(existing),
+        "tasks_with_targeted_test": sum(1 for node in tasks if any(item.get("kind") == "command" and "project-validation" not in str(item.get("name")) for item in node["validators"])),
+        "summary": (result.get("summary") or "")[-500:],
+        "plan": [{"id": node["id"], "goal": node["goal"][:300], "scope": node["scope"], "class": node["capability_class"]} for node in tasks],
+    }
+
+
+def _planner_calls(engine: Any, run_id: str) -> dict[str, Any]:
+    """Every planner call of the run from its telemetry, retries and
+    fallbacks included (the node keeps only its last result)."""
+    calls = [event["data"] for event in engine.ledger.read(run_id)[0] if event["type"] in {"model_completed", "model_failed"} and event["node"] == "plan"]
+    exact = [call["usage"] for call in calls if (call.get("usage") or {}).get("accuracy") == "exact"]
+    return {
+        "calls": len(calls),
+        "providers": [call.get("provider") for call in calls],
+        "input_tokens": sum(item.get("input_tokens") or 0 for item in exact),
+        "output_tokens": sum(item.get("output_tokens") or 0 for item in exact),
+        "claude_cost_usd": round(sum(item.get("cost_usd") or 0 for item in exact), 6),
+        "calls_without_report": len(calls) - len(exact),
+    }
+
+
+def _cleanup(engine: Any, record: dict[str, Any]) -> None:
+    """Remove the run's integration worktree and branch; planning edits nothing."""
+    try:
+        engine.stop(record["run_id"])
+    except Exception:
+        pass
+    manager = engine._manager(record)
+    integration = record.get("integration") or {}
+    if integration.get("path"):
+        manager.remove(integration["path"], None)
+    if integration.get("branch"):
+        git(["branch", "-D", integration["branch"]], record["repository"], check=False)

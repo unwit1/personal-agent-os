@@ -858,7 +858,7 @@ class AdapterTests(unittest.TestCase):
         self.assertEqual(plan.argv[plan.argv.index("--effort") + 1], "high")
         self.assertEqual(plan.argv[plan.argv.index("--permission-mode") + 1], "acceptEdits")
         review = adapter.resolve_invocation(self.request(tmp, read_only=True))
-        self.assertEqual(review.argv[review.argv.index("--permission-mode") + 1], "plan")
+        self.assertEqual(review.argv[review.argv.index("--permission-mode") + 1], "dontAsk")  # read-only by tool set (P2.3)
         self.assertEqual(plan.stdin_path, str(tmp / "prompt.md"))
 
     def test_claude_code_omits_flags_the_installed_cli_does_not_advertise(self) -> None:

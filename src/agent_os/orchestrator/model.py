@@ -124,7 +124,9 @@ DEFAULT_POLICY: dict[str, Any] = {
     "planning": "auto",
     "max_planned_tasks": 16,
     "planner_capability_class": "balanced",
-    "planner_effort": "high",
+    # Measured (docs/simple-mode.md, "Planner context"): medium effort with the
+    # repository map halves planner tokens with equally complete plans.
+    "planner_effort": "medium",
     "approved_commands": list(DEFAULT_APPROVED_COMMANDS),
     "final_integration": "branch",
     "max_launches": 40,
@@ -136,6 +138,8 @@ DEFAULT_POLICY: dict[str, Any] = {
     "telemetry": True,
     "cleanup_worktrees": True,
     "reuse_validation": True,
+    "planner_repo_map": True,
+    "planner_read_budget": 8,
 }
 
 _ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$")
@@ -179,6 +183,7 @@ def _check_policy(policy: dict[str, Any]) -> None:
         "telemetry",
         "cleanup_worktrees",
         "reuse_validation",
+        "planner_repo_map",
     ):
         if not isinstance(policy[key], bool):
             raise PolicyError(f"{key} must be boolean")
@@ -191,6 +196,7 @@ def _check_policy(policy: dict[str, Any]) -> None:
         "max_planned_tasks",
         "max_launches",
         "worker_timeout_seconds",
+        "planner_read_budget",
     ):
         if not isinstance(policy[key], int) or isinstance(policy[key], bool) or policy[key] < 0:
             raise PolicyError(f"{key} must be a non-negative integer")

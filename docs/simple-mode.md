@@ -365,6 +365,64 @@ on the integration branch):
 Three runs per arm is a small sample and agent behaviour varies; the per-call
 fixed-cost numbers (measurement 1) are deterministic, the task totals are not.
 
+### Planner context (P2.3)
+
+The planner is the most expensive single call: before this change a planner
+read 1.73M input tokens over 32 turns ($1.19 list price) for a vague "continue
+my roadmap" goal. Tokens grow with turns x context, because every turn re-sends
+the whole conversation. Changes, each measured:
+
+- **Local repository map** (`orchestrator/repomap.py`, policy
+  `planner_repo_map`, default on): no model call, ~0.1 s, ~500 tokens. Tracked
+  layout plus the files most relevant to the goal (explicit mentions, path and
+  content terms weighted by rarity, bulk data folders not read), with line
+  counts, top-level names, their test file, and **companion files by name**
+  (e.g. `workflows.py` -> `schemas/workflow-manifest-v1.schema.json`). For a
+  Continue Roadmap goal only the quoted stage section is used for ranking.
+- **Exploration budget** in the planner prompt (`planner_read_budget`, default
+  8 files): start from the map, prefer Grep, do not re-read quoted text, stop
+  once every task names files and a test.
+- **Medium planner effort** (`planner_effort`, was `high`).
+- **Read-only by tool set** (Claude `options.read_only_mode`, default `tools`):
+  planners and reviewers get only `Read,Glob,Grep` with `--permission-mode
+  dontAsk` instead of plan mode. Plan mode brought its own "explore and write a
+  plan file" workflow (the costly planner saved a plan under `~/.claude/plans`,
+  outside its worktree). `read_only_mode: plan` restores it.
+- **Working-directory line** in every worker prompt. Worktrees live inside the
+  repository folder; planners sometimes read the *enclosing main checkout*
+  instead of their worktree. In `dontAsk` mode those reads were denied (a
+  planner then returned no plan); in plan mode they would silently read a
+  possibly different version of the code.
+- **Handoff items filtered per stage**: a Continue Roadmap goal only includes
+  latest-handoff items that name the stage or share three distinctive terms
+  with it (the project-wide item about merging P1.2A no longer reaches P0.3).
+
+Measurement (`agent-os orchestrate planner-bench`; real planner only, stops
+before implementation; same goal: add `on_failure` branching to the staged
+workflow runner; Claude sonnet; exact provider usage; only runs with no
+permission denials and no provider limit counted):
+
+| Planner config | Runs | Input tokens | List cost | Time | Plan touched the schema |
+|---|---|---|---|---|---|
+| plan mode, high, no map (before) | 2 | 514,109 · 500,299 | $0.55 · $0.53 | ~206 s | 2/2 |
+| tools read-only, high, no map | 1 | 521,932 | $0.50 | 206 s | 1/1 |
+| map + budget, high | 1 | 530,565 | $0.41 | 192 s | 1/1 |
+| no map, medium | 2 | 434,201 · 357,072 | $0.47 · $0.36 | ~126 s | 2/2 |
+| map + budget, medium, *without* companion line | 3 | 180,193 · 402,669 · 139,753 | $0.25 · $0.31 · $0.16 | ~93 s | **1/3** |
+| **map + budget + companions, medium, tools, cwd line (now default)** | 3 | 330,857 · 264,861 · 164,391 | $0.27 · $0.29 · $0.21 | ~102 s | 3/3 |
+
+Result: about **-50% input tokens, -52% cost, half the time** with plans as
+complete as before (all name concrete functions and include the schema). What
+did *not* help on its own: the map at high effort (turns went up), and
+replacing plan mode (token-neutral; kept for the correctness reasons above).
+Samples are small and planner behaviour varies run to run.
+
+Live check with the new defaults (`benchmark --live --scenario
+small_code_change`, 2 runs): both delivered; the Claude reviewer in tools
+mode had no permission denials and read ~30k input tokens per review (was
+~42k). Codex had hit its ChatGPT usage limit, so both runs also exercised
+provider failover to Claude.
+
 ### Cross-run usage report (P1.1)
 
 ```powershell
@@ -388,6 +446,8 @@ totals under **Model usage across all runs** (`GET /api/usage`).
 | `tests/test_orchestrator_benchmark.py` | benchmark regression |
 | `tests/test_orchestrator_overhead.py` | adapter overhead flags, config carry-over, usage report |
 | `agent-os orchestrate overhead` | provider measurement (real calls; spends usage) |
+| `tests/test_orchestrator_planner_context.py` | repository map, planner budget prompt, read-only tool mode |
+| `agent-os orchestrate planner-bench` | planner token/quality measurement (real calls; spends usage) |
 | `tests/gui/simple_core.test.js` | GUI state (`node --test tests/gui/simple_core.test.js`) |
 | `agent-os orchestrate benchmark --live` | provider smoke test (opt-in; uses real usage) |
 

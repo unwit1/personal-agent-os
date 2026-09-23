@@ -731,6 +731,16 @@ No generated skill may silently self-promote.
 
 ### P2.3 — Prompt/context optimization
 
+Current bounded implementation (2026-09-23): the orchestrator planner now gets
+a local goal-focused repository map (with companion files), an exploration
+budget, medium effort, tool-restricted read-only mode and an explicit working
+directory; Continue Roadmap goals carry only stage-relevant handoff items.
+Measured with `agent-os orchestrate planner-bench` on a real goal: mean planner
+input 507k -> 253k tokens, list cost $0.54 -> $0.26, time halved, plan
+completeness unchanged (`docs/simple-mode.md`, "Planner context"). Retrieval
+for implementers/reviewers, handoff compaction beyond filtering, and
+telemetry-driven capability selection remain open.
+
 Next safe deterministic stage: begin with synthetic prompt/context measurement
 over the existing compiler, skill-selection, telemetry, and handoff fixtures;
 do not require live providers, models, or raw traces.

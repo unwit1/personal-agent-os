@@ -40,7 +40,7 @@ OPTIONAL_FLAGS = (
 # Built-in tools a bounded worker needs. Everything else in the default set
 # (sub-agents, web, notebooks, task lists, skills...) is tool-definition text
 # sent with every request. Measured with `agent-os orchestrate overhead`.
-LEAN_TOOLS = {"edit": ("Bash", "Read", "Edit", "Write", "Glob", "Grep"), "read_only": ("Bash", "Read", "Glob", "Grep")}
+LEAN_TOOLS = {"edit": ("Bash", "Read", "Edit", "Write", "Glob", "Grep"), "read_only": ("Bash", "Read", "Glob", "Grep"), "inspect": ("Read", "Glob", "Grep")}
 
 
 class ClaudeCodeAdapter(SubprocessAdapter):
@@ -63,7 +63,12 @@ class ClaudeCodeAdapter(SubprocessAdapter):
         if request.provider_effort and features.get("--effort"):
             argv += ["--effort", request.provider_effort]
         if features.get("--permission-mode"):
-            mode = options.get("read_only_permission_mode", "plan") if request.read_only else options.get("permission_mode", "acceptEdits")
+            if request.read_only and read_only_mode(options) == "tools":
+                # Read-only by construction (only Read/Glob/Grep exist), so
+                # plan mode and its plan-file workflow are not needed.
+                mode = "dontAsk"
+            else:
+                mode = options.get("read_only_permission_mode", "plan") if request.read_only else options.get("permission_mode", "acceptEdits")
             argv += ["--permission-mode", mode]
         if features.get("--permission-prompts"):
             # Nobody is at the keyboard of a headless worker: anything that
@@ -126,7 +131,9 @@ def lean_flags(options: dict[str, Any], features: dict[str, bool], read_only: bo
     """
     argv: list[str] = []
     lean = options.get("lean_tools", LEAN_DEFAULTS["lean_tools"])
-    if lean and features.get("--tools"):
+    if read_only and read_only_mode(options) == "tools" and features.get("--tools"):
+        argv += ["--tools", ",".join(LEAN_TOOLS["inspect"])]
+    elif lean and features.get("--tools"):
         tools = lean if isinstance(lean, list) else LEAN_TOOLS["read_only" if read_only else "edit"]
         argv += ["--tools", ",".join(tools)]
     if options.get("disable_skills", LEAN_DEFAULTS["disable_skills"]) and features.get("--disable-slash-commands"):
@@ -147,7 +154,14 @@ def lean_flags(options: dict[str, Any], features: dict[str, bool], read_only: bo
 # --exclude-dynamic-system-prompt-sections measured no cache benefit across
 # worktrees, and --setting-sources saves ~2% but drops user permission rules
 # workers may rely on, so both stay off unless a registry entry turns them on.
-LEAN_DEFAULTS: dict[str, Any] = {"lean_tools": True, "disable_skills": True, "shared_prompt_cache": False, "setting_sources": None}
+LEAN_DEFAULTS: dict[str, Any] = {"lean_tools": True, "disable_skills": True, "shared_prompt_cache": False, "setting_sources": None, "read_only_mode": "tools"}
+
+
+def read_only_mode(options: dict[str, Any]) -> str:
+    """How planners and reviewers are kept read-only: ``plan`` (Claude's plan
+    permission mode) or ``tools`` (only Read/Glob/Grep are available)."""
+    value = options.get("read_only_mode", LEAN_DEFAULTS["read_only_mode"])
+    return value if value in {"plan", "tools"} else "plan"
 
 
 def _last_json_object(text: str) -> dict[str, Any] | None:

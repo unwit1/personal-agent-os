@@ -1091,7 +1091,21 @@ class Orchestrator:
         if node["role"] == "repairer" and subject:
             wanted = set(node.get("finding_ids") or [])
             findings = [item for item in subject["review"]["findings"] if item["id"] in wanted]
-        prompt, context = prompts.build_measured(record, node, diff=diff, findings=findings)
+        repo_map = None
+        if node["role"] == "planner" and policy.get("planner_repo_map"):
+            from .repomap import build as build_map
+
+            try:
+                mapped = build_map(cwd, record["goal"])
+                repo_map = mapped["text"]
+                self.ledger.emit(
+                    record["run_id"], "context_selected", node["id"], method="local repository map for the planner (no model call)",
+                    candidate_items=mapped["stats"]["tracked_files"], selected_items=mapped["stats"]["listed"],
+                    selected_tokens_estimate=usage_lib.estimate_tokens(mapped["stats"]["chars"]),
+                )
+            except Exception as exc:  # the planner still works without a map
+                self.ledger.emit(record["run_id"], "note", node["id"], text=f"repository map unavailable: {type(exc).__name__}")
+        prompt, context = prompts.build_measured(record, node, diff=diff, findings=findings, repo_map=repo_map, cwd=str(cwd))
         prompt += _prior_attempts(node)
         prompt_path = worker_dir / "prompt.md"
         prompt_path.write_text(prompt, encoding="utf-8")

@@ -130,13 +130,24 @@ def build(run: dict[str, Any], node: dict[str, Any], *, diff: str | None = None,
 
 
 def build_measured(
-    run: dict[str, Any], node: dict[str, Any], *, diff: str | None = None, findings: list[dict[str, Any]] | None = None
+    run: dict[str, Any], node: dict[str, Any], *, diff: str | None = None, findings: list[dict[str, Any]] | None = None,
+    repo_map: str | None = None,
+    cwd: str | None = None,
 ) -> tuple[str, dict[str, Any] | None]:
     """The prompt and the context-selection measurement behind it."""
     role = node["role"]
     lines = [
         f"You are the {role.replace('_', ' ')} for Agent OS orchestrated run `{run['run_id']}`.",
         "",
+        *(
+            [
+                f"Your working directory is {cwd}. It is a complete checkout of the code you work on:",
+                "use paths relative to it. Never read or edit the repository it is nested inside.",
+                "",
+            ]
+            if cwd
+            else []
+        ),
         f"Overall goal: {run['goal']}",
         f"Your assignment ({node['id']}): {node['goal']}",
         "",
@@ -188,8 +199,21 @@ def build_measured(
         lines.append("")
     if role == "planner":
         limit = int((run.get("policy") or {}).get("max_planned_tasks", 16))
+        if repo_map:
+            budget = int((run.get("policy") or {}).get("planner_read_budget", 8))
+            lines += [
+                "Do not edit files. Start from the repository map below; it was built for this goal. Open only the files",
+                f"you need to name each task's scope and test, usually no more than {budget}. Prefer Grep for a symbol over",
+                "reading a whole file. Text quoted in the goal (roadmap, handoff) is authoritative: do not re-read it.",
+                "Stop exploring as soon as every task names concrete files and a test command.",
+                "",
+                repo_map,
+                "",
+                "Then break the goal into the",
+            ]
+        else:
+            lines.append("Do not edit files. Read enough of the repository to plan concretely, then break the goal into the")
         lines += [
-            "Do not edit files. Read enough of the repository to plan concretely, then break the goal into the",
             "smallest batches that can each be verified on their own. Cheap models run many small tasks in parallel;",
             "a stronger model reviews each one. Rules:",
             f"- At most {limit} tasks. Prefer several small tasks over a few large ones.",

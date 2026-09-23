@@ -103,6 +103,12 @@ def register(commands: argparse._SubParsersAction) -> None:
     usage.add_argument("--since", help="ISO timestamp; only events at or after it")
     usage.add_argument("--include-benchmarks", action="store_true", help="also count benchmark runs")
 
+    pbench = actions.add_parser("planner-bench", help="measure planner token use and plan quality per prompt/tool variant (real calls; spends usage)")
+    pbench.add_argument("--project")
+    pbench.add_argument("--repo", default=".")
+    pbench.add_argument("--provider", default="claude-code")
+    pbench.add_argument("--variant", action="append")
+
     over = actions.add_parser("overhead", help="measure each coding CLI's fixed per-call context cost (real calls; spends usage)")
     over.add_argument("--provider", action="append", help="provider id(s); default all enabled")
     over.add_argument("--variant", action="append", help="option variant(s) to measure; default all")
@@ -252,6 +258,11 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         from .usage_report import report
 
         emit(report(since=args.since, include_benchmarks=args.include_benchmarks))
+        return 0
+    if action == "planner-bench":
+        from .overhead import measure_planner
+
+        emit(measure_planner(args.repo, args.project, provider=args.provider, variants=args.variant))
         return 0
     if action == "overhead":
         from .overhead import measure

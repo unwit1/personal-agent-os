@@ -95,11 +95,18 @@ class RoadmapParsingTests(unittest.TestCase):
 
     def test_goal_quotes_only_the_stage(self) -> None:
         stage = roadmap.parse(ROADMAP)[1]
-        goal = roadmap.build_goal("demo", stage, "ROADMAP.md", {"remaining": ["finish the thing"]})
+        goal = roadmap.build_goal("demo", stage, "ROADMAP.md", {"remaining": ["P0.2: finish the thing"]})
         self.assertIn("Pending work for P0.2.", goal)
         self.assertNotIn("P0.3", goal)
-        self.assertIn("finish the thing", goal)
+        self.assertIn("P0.2: finish the thing", goal)
         self.assertLessEqual(len(goal), 4000)
+
+    def test_only_relevant_handoff_items_reach_the_goal(self) -> None:
+        stage = roadmap.parse(ROADMAP)[1]
+        items = ["Merge branch p1.2a-orchestrator into main", "P0.2 needs a follow-up test", "Second thing: add pending work checks"]
+        self.assertEqual(roadmap.relevant_items(stage, items), items[1:])
+        goal = roadmap.build_goal("demo", stage, "ROADMAP.md", {"remaining": items})
+        self.assertNotIn("Merge branch", goal)
 
     def test_real_project_roadmap_scans(self) -> None:
         from agent_os.paths import ROOT

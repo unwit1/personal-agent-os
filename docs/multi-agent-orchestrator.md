@@ -98,8 +98,9 @@ Plans are chosen in this order, cheapest first:
 1. **Explicit tasks** (`--tasks tasks.json`) need no model call.
 2. **`planning: single`** creates one implementer node for the whole goal.
 3. **`planning: auto`** (Start Recommended) runs a read-only planner node at
-   `planner_capability_class`/`planner_effort` (default `balanced`/`high`: a
-   better plan saves more tokens than it costs). The planner is told to split
+   `planner_capability_class`/`planner_effort` (default `balanced`/`medium`
+   since P2.3; with the local repository map, medium produced equally complete
+   plans at about half the tokens, see `docs/simple-mode.md`). The planner is told to split
    the goal into the smallest independently verifiable batches (one concern,
    1-3 files, disjoint scopes for parallel work, a targeted test per task) and
    to default each task to `fast`, keeping `reasoning` for small design tasks
@@ -394,7 +395,7 @@ open, nothing new is dispatched.
   "max_stage_retries": 2, "max_escalations": 2, "max_review_rounds": 2, "max_final_repairs": 1,
   "material_severities": ["critical", "high", "medium"], "preference": "balanced",
   "planning": "auto", "max_planned_tasks": 16, "planner_capability_class": "balanced",
-  "planner_effort": "high", "approved_commands": ["python -m unittest( [A-Za-z0-9_./-]+)*( -v)?", "..."],
+  "planner_effort": "medium", "planner_repo_map": true, "planner_read_budget": 8, "reuse_validation": true, "approved_commands": ["python -m unittest( [A-Za-z0-9_./-]+)*( -v)?", "..."],
   "final_integration": "branch", "max_launches": 40,
   "poll_interval_seconds": 2.0, "worker_timeout_seconds": 3600,
   "default_validators": [], "completion_validators": [],

@@ -265,7 +265,7 @@ def build_goal(project: str | None, stage: dict[str, Any], roadmap_rel: str, han
     excerpt = stage["excerpt"]
     if len(excerpt) > MAX_EXCERPT_CHARS:
         excerpt = excerpt[:MAX_EXCERPT_CHARS].rsplit("\n", 1)[0] + "\n[... section continues in the roadmap file ...]"
-    remaining = [str(item)[:200] for item in (handoff or {}).get("remaining") or []][:4]
+    remaining = relevant_items(stage, (handoff or {}).get("remaining") or [])[:4]
     lines = [
         f"Continue the {project or 'project'} roadmap: stage {stage['id']} — {stage['title']}.",
         f"Roadmap status: {stage['evidence'] or 'no status line (not started)'}",
@@ -279,6 +279,21 @@ def build_goal(project: str | None, stage: dict[str, Any], roadmap_rel: str, han
         lines += ["", "Open items from the latest handoff:", *[f"- {item}" for item in remaining]]
     lines += ["", "Roadmap section:", excerpt]
     return "\n".join(lines)[:3900]
+
+
+def relevant_items(stage: dict[str, Any], items: list[Any]) -> list[str]:
+    """Handoff items that concern this stage: they name it, or share at least
+    three distinctive terms with its section. A project-wide handoff otherwise
+    puts unrelated work in front of the planner."""
+    from .repomap import terms
+
+    stage_terms = set(terms(stage["title"] + "\n" + stage["excerpt"], limit=40))
+    kept = []
+    for item in items:
+        text = str(item)
+        if stage["id"].casefold() in text.casefold() or len(stage_terms.intersection(terms(text, limit=40))) >= 3:
+            kept.append(text[:200])
+    return kept
 
 
 # ---------------------------------------------------------------------------
