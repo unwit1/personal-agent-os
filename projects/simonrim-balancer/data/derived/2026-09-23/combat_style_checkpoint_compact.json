@@ -1,0 +1,74 @@
+{
+  "snapshot": "2026-09-23",
+  "records_decoded": 62,
+  "failures": 0,
+  "field_sizes": {
+    "CSGD:40": 62,
+    "CSME:32": 62,
+    "CSCR:16": 62,
+    "CSLR:4": 62,
+    "CSFL:32": 62,
+    "DATA:4": 62
+  },
+  "baseline_groups": 12,
+  "observed_patterns_min_sample_3": 7,
+  "flags_distribution": {
+    "Dueling;AllowDualWielding": 18,
+    "Dueling": 39,
+    "": 1,
+    "Flanking": 4
+  },
+  "dominant_equipment_distribution": {
+    "Melee;Shout": 1,
+    "Ranged": 8,
+    "Melee;Magic;Ranged;Shout;Unarmed;Staff": 8,
+    "Melee": 34,
+    "Magic": 6,
+    "Staff": 3,
+    "Melee;Magic;Ranged;Shout;Staff": 1,
+    "Unarmed": 1
+  },
+  "exact_imported_baselines": 0,
+  "external_baselines": 62,
+  "recurring_groups": [
+    {
+      "flags": "Dueling",
+      "dominant_equipment": "Melee",
+      "sample_count": 17
+    },
+    {
+      "flags": "Dueling;AllowDualWielding",
+      "dominant_equipment": "Melee",
+      "sample_count": 16
+    },
+    {
+      "flags": "Dueling",
+      "dominant_equipment": "Melee;Magic;Ranged;Shout;Unarmed;Staff",
+      "sample_count": 7
+    },
+    {
+      "flags": "Dueling",
+      "dominant_equipment": "Magic",
+      "sample_count": 6
+    },
+    {
+      "flags": "Dueling",
+      "dominant_equipment": "Ranged",
+      "sample_count": 4
+    },
+    {
+      "flags": "Flanking",
+      "dominant_equipment": "Ranged",
+      "sample_count": 4
+    },
+    {
+      "flags": "Dueling",
+      "dominant_equipment": "Staff",
+      "sample_count": 3
+    }
+  ],
+  "exception_notes": [
+    "csDraugrMagic has neither Dueling nor Flanking flag set; preserve as observed exception."
+  ],
+  "approved_rules": 0
+}
