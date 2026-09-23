@@ -31,13 +31,13 @@
     }
   ],
   "stats": {
-    "total_reference_records": 84,
+    "total_reference_records": 85,
     "hr_gui_manifest_records": 72,
     "applicant_dashboard_records": 3,
     "already_ingested_hr_corpus_records": 9,
     "unique_identity_keys": 74,
     "duplicate_or_multi_source_identity_keys": 4,
-    "pending_identity_review_records": 6
+    "pending_identity_review_records": 7
   },
   "entries": [
     {
@@ -2050,6 +2050,23 @@
       "related_catalog_entry_ids": ["hrgui-reference-036", "hrgui-reference-056"],
       "policy_authority": "none_by_form_presence",
       "notes": ["This is explicitly page 18 of a 20-page policy and cannot substitute for the complete policy.", "Possible related HR-GUI entries; originals are unavailable for content-hash comparison."]
+    },
+    {
+      "id": "rtec-form-ky-aoc-ru-004-records-check-request-2026-official-site",
+      "title": "Kentucky AOC-RU-004 Records Check Request, Rev. 12-22",
+      "category": "Pre Employment / Background Check",
+      "source_project": "rtec-hr-process-model",
+      "source_repository": "unwit1/personal-agent-os",
+      "source_path": "knowledge/libraries/rtec-hr/sources/ky-aoc-ru-004-criminal-record-request/source/AOC-RU-004-Rev-12-22.pdf",
+      "source_kind": "official_blank_government_form",
+      "mapping_status": "candidate_external_reference_not_validated_for_rtec_use",
+      "canonical_form_type": "Criminal Records Request Form",
+      "temporal_status": "official listing observed 2026-09-23; form revision 12-22",
+      "validation_state": "official_source_checked_blank_reference_possible_packet_replacement_unconfirmed",
+      "full_source_status": "unchanged official one-page PDF and searchable extraction preserved with retrieval provenance and SHA-256 in source manifest",
+      "related_catalog_entry_ids": [],
+      "policy_authority": "none_by_catalog_presence",
+      "notes": ["A July 2026 RTEC email asked whether this state form could replace a prior application-packet form; no approval or implementation is documented in that thread.", "Kentucky Court of Justice guidance says altering a form beyond completion is prohibited; preserve unchanged.", "Contains blank fields for sensitive identifiers. Completed forms and applicant data must remain outside this repository.", "Official source: https://www.kycourts.gov/Legal-Forms/Legal%20Forms/RU-004.pdf; official listing: https://www.kycourts.gov/Legal-Forms/Pages/default.aspx."]
     }
   ]
 }

@@ -27,3 +27,9 @@ This source set preserves five blank orientation, training, or acknowledgment do
 - All five source PDFs were individually hash-matched to the local read-only mail attachment index before copying.
 - All six pages were visually inspected. No filled names, dates, signatures, or other completed values were detected.
 - The source email and unrelated message text are not retained here.
+
+## Related historical process correspondence
+
+The 2026-07-15 to 2026-07-16 email thread (`msg_a954276fc09da43ad2c079da`, `msg_d14dd4dc6c46c60e6c0b3386`, and `msg_d0cf37f587403c054d37852a`) documents a request for blank orientation references and later informal guidance that onboarding packets vary by position. The former coordinator described Operations Area Managers as receiving the driver packet, described role-specific training for safety-sensitive Operations positions, and stated that the Contractor PHI/Confidentiality Agreement applied to everyone. These are historical email statements, not a validated current checklist; the underlying confidentiality agreement was not attached in this packet.
+
+The same thread asked whether the Kentucky AOC-RU-004 form could replace an older court-record request in the application packet. It contains no approval or implementation record. The official blank AOC-RU-004 source is preserved separately at `knowledge/libraries/rtec-hr/sources/ky-aoc-ru-004-criminal-record-request/`; official guidance prohibits altering it beyond completion.

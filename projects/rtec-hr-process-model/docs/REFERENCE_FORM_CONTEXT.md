@@ -12,11 +12,13 @@ Current imported source sets:
 
 - **HR-GUI:** 72 reference-library records from `assets/reference_fingerprint_manifest.csv`.
 - **job-applicant-dashboard:** 3 reusable application/interview/denial-template sources from `Templates/`.
-- **RTEC HR Process Model:** 9 form records preserved in the canonical HR corpus, including the visually checked Guardian enrollment reference and five blank orientation/training references discovered in work email. The five July 15, 2026 orientation documents are preserved as unchanged PDFs with searchable OCR in `knowledge/libraries/rtec-hr/sources/rtec-hr-new-hire-orientation-packet-2026-07-15/`.
+- **RTEC HR Process Model:** 10 form records preserved in the canonical HR corpus, including the visually checked Guardian enrollment reference, five blank orientation/training references discovered in work email, and the unchanged official Kentucky AOC-RU-004 Records Check Request. The five July 15, 2026 orientation documents are preserved with searchable OCR in `knowledge/libraries/rtec-hr/sources/rtec-hr-new-hire-orientation-packet-2026-07-15/`; the government form and its extraction are in `knowledge/libraries/rtec-hr/sources/ky-aoc-ru-004-criminal-record-request/`.
 
-The catalog contains **84 provenance records**, **74 confirmed identity keys**, and **6 sources awaiting identity/deduplication review**. The five orientation documents have possible related HR-GUI catalog entries; full HR-GUI originals are unavailable for content-hash comparison, so these matches remain candidates. Repeated sources are preserved as multi-source provenance rather than discarded.
+The catalog contains **85 provenance records**, **74 confirmed identity keys**, and **7 sources awaiting identity/deduplication review**. The five orientation documents have possible related HR-GUI catalog entries; full HR-GUI originals are unavailable for content-hash comparison, so these matches remain candidates. The state form is an external reference mentioned in a historical email; its proposed use in an RTEC packet remains unconfirmed. Repeated sources are preserved as multi-source provenance rather than discarded.
 
 The orientation packet's scanned PDFs were visually checked as blank, including signature/name/date fields. The searchable text was created with local OCR and is only a search aid; the unchanged PDFs control. Their effective dates and currentness are unknown. One drug-and-alcohol page is explicitly page 18 of 20 and is preserved only as a fragment. The bus-safety page includes time-sensitive legal/statistical statements that were not independently validated.
+
+The official Kentucky AOC-RU-004 form is preserved exactly as published, labeled Rev. 12-22; its official listing was checked on 2026-09-23. Kentucky Court of Justice guidance says alteration beyond completion is prohibited. The email thread asking about replacing an older packet form does not show approval or implementation. Do not customize it or treat it as an approved RTEC workflow. It contains blank SSN, driver's-license, and date-of-birth fields; completed applicant forms and data stay outside this repository.
 
 ## How agents should use these forms
 

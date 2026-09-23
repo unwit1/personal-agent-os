@@ -1,0 +1,31 @@
+{
+  "source_id": "ky-aoc-ru-004-criminal-record-request",
+  "record_type": "official_external_blank_reference_source",
+  "title": "Kentucky AOC-RU-004 Records Check Request",
+  "source_kind": "official_blank_government_form",
+  "source_url": "https://www.kycourts.gov/Legal-Forms/Legal%20Forms/RU-004.pdf",
+  "official_listing_url": "https://www.kycourts.gov/Legal-Forms/Pages/default.aspx",
+  "source_retrieved_at": "2026-09-23",
+  "official_listing_observed_at": "2026-09-23",
+  "revision_shown_on_form": "12-22",
+  "page_count": 1,
+  "mime_type": "application/pdf",
+  "full_source_path": "knowledge/libraries/rtec-hr/sources/ky-aoc-ru-004-criminal-record-request/source/AOC-RU-004-Rev-12-22.pdf",
+  "searchable_text_path": "knowledge/libraries/rtec-hr/sources/ky-aoc-ru-004-criminal-record-request/text/AOC-RU-004-Rev-12-22.md",
+  "content_sha256": "E8F065A6869C1A979F9DCF635025D051CE3535D377C95C52D8D77296AE625794",
+  "size_bytes": 186236,
+  "pdf_metadata_author": "Administrative Office of the Courts",
+  "interactive_fields": 22,
+  "page_widgets": 25,
+  "completed_values_detected": false,
+  "source_context": "A July 2026 RTEC email thread asked whether this official state form could replace an older court-record request form in an employment application packet. The thread does not confirm approval or implementation.",
+  "currentness": "The official Kentucky Court of Justice Legal Forms listing identified AOC-RU-004, Records Check Request, Rev. 12-22 on 2026-09-23. This records what the official listing showed on that date; it does not validate RTEC workflow or employment-screening authority.",
+  "handling_constraints": [
+    "Preserve the official source unchanged; do not customize or remove the Commonwealth seal or AOC form number.",
+    "The official Legal Forms guidance says altering a form beyond mere completion is prohibited and may result in civil or criminal liability.",
+    "The form contains blank fields for Social Security number, driver's-license number, date of birth, and other sensitive identifiers. Never store completed forms or applicant data in this repository.",
+    "This form's presence does not establish that it is approved or required for RTEC use. Verify current legal and operational requirements before use."
+  ],
+  "policy_authority": "none_by_catalog_presence",
+  "ingested_at": "2026-09-23"
+}
