@@ -1,0 +1,223 @@
+{
+  "id": "rtec-policy-attendance-solicitation-harassment-2025",
+  "record_type": "policy",
+  "title": "Solicitation, tobacco, attendance and sexual-harassment policies - 2025 handbook",
+  "status": "validated",
+  "temporal_status": "current",
+  "effective_from": "2025-12-15",
+  "effective_to": null,
+  "summary": "2025 handbook rules on workplace solicitation/distribution, tobacco use, no-fault attendance/point discipline and sexual harassment reporting/discipline.",
+  "claims": [
+    {
+      "claim": "Employees may not distribute literature, sell merchandise, solicit contributions, or solicit for causes in the workplace during working time or through RTEC email/telephonic systems without management approval; non-staff solicitation/distribution on RTEC property is prohibited.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 23-24 - Non-Solicitation/Distribution",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Smoking and tobacco use are prohibited inside RTEC facilities and in RTEC-owned and leased vehicles.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 24 - Smoking/Tobacco",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "RTEC describes a no-fault attendance policy requiring employees to be present, on time, at the workstation ready at shift start, and remain through shift end.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 24-26 - Attendance Policy",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Excused absences include policy-provided leave, illness under stated documentation rules, prior supervisor approval, or supervisor-recognized emergencies; unexcused absences and no-call/no-show conduct can result in termination under the handbook.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 24-25 - Attendance Policy",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The attendance policy assigns points by duration: 4 hours or less = 1/4 point, 4-6 hours = 1/2 point, 7 hours or more = 1 point; it states verbal warning at the stated initial threshold, written warning at 2 points, three-day unpaid suspension at 4 points, and termination at 6 points.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-progressive-discipline-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 25 - Attendance point schedule",
+          "evidence_type": "explicit_text",
+          "note": "The source formatting around the first verbal-warning threshold is imperfect; full source text is preserved for review."
+        }
+      ]
+    },
+    {
+      "claim": "Employees who will be absent must call at least two hours before the department or employee start time, whichever comes first, and must call each day absent unless otherwise instructed; failure to call results in disciplinary action.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 25 - Attendance Policy",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Funeral leave, jury duty, FMLA leave with proper documentation, and workers' compensation incidents are stated not to generate attendance points.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 26 - Attendance Policy",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "RTEC states sexual harassment is unacceptable and includes both quid-pro-quo-type conduct and conduct that creates an intimidating, hostile or offensive work environment; harassing conduct is subject to discipline.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 26 - Policy Prohibiting Sexual Harassment",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Employees who experience sexual harassment are encouraged to report/discuss it with their supervisor, Human Resource Manager, or Executive Director.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 26 - Policy Prohibiting Sexual Harassment",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "trigger": "Solicitation/distribution activity, tobacco use, employee absence/tardiness, or harassment concern.",
+  "prerequisites": [],
+  "actors": [
+    "Employee",
+    "Supervisor",
+    "Human Resource Manager",
+    "Executive Director",
+    "Management"
+  ],
+  "systems": [
+    "RTEC email and telephonic communication systems"
+  ],
+  "forms": [
+    "Attendance documentation",
+    "Physician statement where required"
+  ],
+  "steps": [
+    "Classify absence as excused/unexcused and determine point treatment.",
+    "Record attendance points and apply stated progressive consequences.",
+    "Require daily absence notification unless otherwise instructed.",
+    "Route harassment reports to supervisor, HR Manager, or Executive Director."
+  ],
+  "decisions": [
+    "Whether absence is excused/emergency",
+    "Whether documentation is required/adequate",
+    "Whether conduct violates harassment or solicitation policy"
+  ],
+  "deadlines": [
+    "Absence call-in at least two hours before applicable start time.",
+    "Daily call-in for each day absent unless instructed otherwise."
+  ],
+  "outputs": [
+    "Attendance/point record",
+    "Disciplinary action when triggered",
+    "Harassment report/investigation routing"
+  ],
+  "exceptions": [
+    "Documented FMLA, workers' compensation, jury duty and funeral leave are excluded from attendance points as stated.",
+    "Management approval can authorize certain solicitation/distribution activity."
+  ],
+  "controls": [
+    "Supervisor approval/documentation for excused absence",
+    "Harassment reporting alternatives",
+    "Attendance point thresholds"
+  ],
+  "unresolved_questions": [
+    "Clarify the formatting/threshold for the verbal-warning line in the attendance point schedule.",
+    "Identify the current harassment complaint form/investigation procedure that operationalizes the handbook reporting statement."
+  ],
+  "automation_candidates": [
+    "Attendance point calculator with protected-leave exclusions and human review.",
+    "Call-in/deadline reminder workflow.",
+    "Harassment intake routing with restricted access."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "safe_source_type": "employee_handbook",
+      "source_date_or_version": "2025-12-15",
+      "source_created_date": null,
+      "source_revision_date": "2025-12-15",
+      "source_effective_from": "2025-12-15",
+      "source_effective_to": null,
+      "temporal_status": "current",
+      "content_sha256": "d8601d4c5ded962051c521ace697f447492dc178d565a393e5c945c309a7e22c",
+      "page_or_section": "printed pages 23-26",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": null
+    }
+  ]
+}
