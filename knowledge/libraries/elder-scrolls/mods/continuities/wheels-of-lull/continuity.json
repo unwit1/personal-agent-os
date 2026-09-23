@@ -3,7 +3,7 @@
   "name": "The Wheels of Lull",
   "universe": "The Elder Scrolls",
   "kind": "mod_continuity_overlay",
-  "status": "source_ingestion_in_progress_first_200_prioritized_records_complete",
+  "status": "source_ingestion_in_progress_first_250_prioritized_records_complete",
   "canon_policy": {
     "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
     "default_claim_scope": "tes.mod.wheels-of-lull",
@@ -33,24 +33,24 @@
   "ingested_counts": {
     "books": 33,
     "quests": 32,
-    "dialogue_topics": 66,
-    "dialogue_info_records": 69,
-    "dialogue_combined_records": 135,
-    "prioritized_source_records": 200
+    "dialogue_topics": 91,
+    "dialogue_info_records": 94,
+    "dialogue_combined_records": 185,
+    "prioritized_source_records": 250
   },
   "structured_layers": {
     "plugin_record_inventory": "complete",
     "book_text": "complete_33_of_33_exact_records_persisted",
     "quest_text": "complete_32_of_32_records_persisted_with_stages_objectives_and_journal_text",
     "main_story_quest_journals": "complete_for_MQ01_through_MQ07",
-    "dialogue": "135_of_747_combined_DIAL_INFO_source_records_persisted_with_parent_topic_linkage",
+    "dialogue": "185_of_747_combined_DIAL_INFO_source_records_persisted_with_parent_topic_linkage",
     "dialogue_conditions": "raw_CTDA_preserved_for_ingested_INFO_records",
     "speaker_resolution": "pending_deterministic_condition_decode",
     "claim_promotion": "pending",
     "interpretive_analysis": "pending"
   },
   "next_ingestion_steps": [
-    "continue DIAL/INFO physical source order from DIAL 0502EC86",
+    "continue DIAL/INFO physical source order from DIAL 05038EE7",
     "complete dialogue topic/INFO corpus with owning quest and parent-topic linkage",
     "decode condition functions and resolve strict speaker identity where deterministic",
     "build character, location, artifact, faction, quest, and metaphysical topic dossiers from source-backed evidence",

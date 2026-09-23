@@ -12,24 +12,23 @@ Sub-continuity for the Skyrim mod **The Wheels of Lull**.
 
 - **33/33 BOOK** records preserved with exact decoded text.
 - **32/32 QUST** records preserved with quest stages, journal text, objectives, and provenance where present.
-- **66/337 DIAL** topics and **69/410 INFO** records preserved in physical plugin order.
-- **135/747 combined dialogue records** are now ingested.
-- **200 prioritized source records** are checkpointed overall.
+- **91/337 DIAL** topics and **94/410 INFO** records preserved in physical plugin order.
+- **185/747 combined dialogue records** are now ingested.
+- **250 prioritized source records** are checkpointed overall.
 
 ## Dialogue evidence already preserved
 
-The corpus now extends through Archeron's Whitehorn dialogue and the beginning of the Boiling Foundry sequence.
+The corpus now reaches the first Divayth Fyr / Yagrum Bagarn sequence following the Brass Forest and Unwound encounter.
 
-Notable continuity-scoped testimony now includes:
+Notable continuity-scoped testimony in this pass includes:
 
-- Whitehorn personnel describe Archeron as a former Psijic and skilled enchanter.
-- Archeron explicitly discusses the Thalmor goal of destroying the world and frames it as a return to immortal pre-mortal forms.
-- Archeron identifies Aetherial travel, soul gems, and the Wheels of Lull among his research interests.
-- Llavados describes local tears in spacetime and places where the Wheels of Lull "poke out."
-- Numinar identifies the Stone as the anchor that keeps a Tower working and says destruction of a Stone causes its Tower to cease operating.
-- Numinar says loss of Towers destabilizes Nirn and identifies Snow-Throat as one of the last remaining Towers.
-- Numinar attributes Archeron's unusual access to a combination of Sotha Sil's writings and Psijic training.
-- The Boiling Foundry sequence introduces titanium as "the blood of Stendarr" and as a material capable of cutting through the Wheels of Lull.
+- Numinar says the Boiling Foundry lies in the deeper parts of Sotha Sil and was once connected to Lull-Mor by an elevator station.
+- The drilling teams break into previously unknown catacombs of Sotha Sil populated by hostile undead fabricants.
+- Numinar characterizes those dead fabricants as ancestors who understand the needs of the machine and should not normally attack the Chronographers.
+- Divayth Fyr introduces himself as an old friend of Sotha Sil and identifies his companion as Yagrum Bagarn.
+- Yagrum identifies himself as the last living Dwemer.
+- Fyr attributes Yagrum's Third Era physical condition to Corprus and says the disease receded after Dagoth Ur's demise enough for Fyr to restore him.
+- The characters warn that a saboteur may be active and that a rogue fabricant could be dangerous.
 
 These remain attributed source statements rather than automatic Bethesda-canon conclusions.
 
@@ -38,18 +37,18 @@ These remain attributed source statements rather than automatic Bethesda-canon c
 - `raw/source-records-0001-0005.jsonl` through `raw/source-records-0096-0100.jsonl` — records 1-100
 - `raw/source-records-0101-0150.jsonl.gz` — records 101-150
 - `raw/source-records-0151-0200.jsonl.gz` — records 151-200
+- `raw/source-records-0201-0250.jsonl.gz` — records 201-250
 - `raw/record-counts.json` — complete plugin record inventory
 - `source-manifest.json` — extraction policy and corpus state
 - `ingestion-checkpoint.json` — resumable cursor
 
 ## Next cursor
 
-Dialogue combined record **136/747**:
+Dialogue combined record **186/747**:
 
-- DIAL `0502EC86`
-- Editor ID: `_Lull_MQ04_DoItMyself`
-- Topic: `Why not do it yourself?`
-- Owning quest: `05005910 _Lull_MQ04`
+- DIAL `05038EE7`
+- Editor ID: `_Lull_MQ05_FinalTopicTopic`
+- Owning quest: `05005911 _Lull_MQ05`
 
 ## Provenance rule
 

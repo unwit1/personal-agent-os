@@ -6,26 +6,26 @@
   "masters": ["Skyrim.esm", "Update.esm", "Dawnguard.esm", "HearthFires.esm", "Dragonborn.esm"],
   "extraction": "Direct Bethesda TES5 plugin parsing. Compressed records are zlib-decoded. BOOK DESC text is retained exactly. QUST records preserve stages, journal text, objectives, target bytes, script presence, offsets, FormIDs, and editor IDs. Dialogue is ingested in physical source order across DIAL and INFO records. DIAL records preserve topic prompt and owning quest; INFO records preserve parent-topic linkage, responses, raw CTDA conditions, previous INFO link when present, script presence, and source offsets.",
   "stored_source_records": {
-    "count": 200,
-    "types": {"BOOK": 33, "QUST": 32, "DIAL": 66, "INFO": 69},
+    "count": 250,
+    "types": {"BOOK": 33, "QUST": 32, "DIAL": 91, "INFO": 94},
     "first": {"record_type": "BOOK", "form_id": "0500089D", "editor_id": "_Lull_LlavadosLetter", "title": "Strange Note"},
-    "last": {"record_type": "INFO", "form_id": "0502EC85", "parent_topic_form_id": "0502EC84"}
+    "last": {"record_type": "INFO", "form_id": "05038EE5", "parent_topic_form_id": "05038EE4"}
   },
   "book_corpus": {"status": "complete", "records": 33},
   "quest_corpus": {"status": "complete", "records": 32},
   "dialogue_corpus": {
     "status": "in_progress",
     "combined_total_records": 747,
-    "combined_records_stored": 135,
-    "stored_DIAL": 66,
-    "stored_INFO": 69,
+    "combined_records_stored": 185,
+    "stored_DIAL": 91,
+    "stored_INFO": 94,
     "ordering": "physical_plugin_source_offset",
     "next": {
-      "combined_index": 136,
+      "combined_index": 186,
       "record_type": "DIAL",
-      "form_id": "0502EC86",
-      "editor_id": "_Lull_MQ04_DoItMyself",
-      "quest_form_id": "05005910"
+      "form_id": "05038EE7",
+      "editor_id": "_Lull_MQ05_FinalTopicTopic",
+      "quest_form_id": "05005911"
     }
   },
   "raw_corpus": [
@@ -51,6 +51,7 @@
     {"path": "raw/source-records-0096-0100.jsonl", "records": "96-100"},
     {"path": "raw/source-records-0101-0150.jsonl.gz", "records": "101-150", "compression": "gzip", "expanded_format": "UTF-8 JSONL"},
     {"path": "raw/source-records-0151-0200.jsonl.gz", "records": "151-200", "compression": "gzip", "expanded_format": "UTF-8 JSONL"},
+    {"path": "raw/source-records-0201-0250.jsonl.gz", "records": "201-250", "compression": "gzip", "expanded_format": "UTF-8 JSONL"},
     {"path": "raw/record-counts.json", "description": "Complete plugin record-type inventory."}
   ]
 }

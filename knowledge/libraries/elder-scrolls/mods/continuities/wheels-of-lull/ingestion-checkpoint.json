@@ -1,22 +1,22 @@
 {
   "continuity_id": "tes.mod.wheels-of-lull",
   "source_sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
-  "last_completed_batch": "0004",
-  "completed_source_records": 200,
+  "last_completed_batch": "0005",
+  "completed_source_records": 250,
   "completed": {
     "BOOK": 33,
     "QUST": 32,
-    "DIAL": 66,
-    "INFO": 69
+    "DIAL": 91,
+    "INFO": 94
   },
-  "dialogue_combined_records_completed": 135,
+  "dialogue_combined_records_completed": 185,
   "next_cursor": {
     "record_type": "DIAL",
-    "dialogue_combined_index_1_based": 136,
-    "form_id": "0502EC86",
-    "editor_id": "_Lull_MQ04_DoItMyself",
-    "full_name": "Why not do it yourself?",
-    "quest_form_id": "05005910"
+    "dialogue_combined_index_1_based": 186,
+    "form_id": "05038EE7",
+    "editor_id": "_Lull_MQ05_FinalTopicTopic",
+    "full_name": null,
+    "quest_form_id": "05005911"
   },
   "default_checkpoint_target": 50,
   "resume_rule": "Verify source SHA-256, then continue from next_cursor without rewriting completed source shards."
