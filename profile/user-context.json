@@ -36,7 +36,7 @@
       "Google Drive"
     ],
     "employment_history": [
-      "Prior Berea College work experience connected to the Office of Sustainability.",
+      "Former Berea College Alternative Transportation Coordinator, managing a small bicycle/alternative-transportation program connected to sustainability work.",
       "Worked multiple summers with Triple R Ranch; correspondence supports returning for summer work through at least 2022.",
       "Started a University of Kentucky STEPS Benefits Associate assignment in Employee Benefits in July 2023; later reference correspondence characterizes the experience as HR Benefits Customer Service.",
       "Accepted and started the RTEC HR Manager role in April 2026."
@@ -46,6 +46,12 @@
       "Before starting a role, tends to ask concrete questions about training, policies, benefits, logistics, timelines, and expectations.",
       "Keeps resumes and professional references ready for recruiter follow-up.",
       "In April 2026, described employee-relations experience as a relative gap in the prior HR background."
+    ],
+    "work_style": [
+      "Explicitly described working best semi-autonomously.",
+      "Values room to experiment and learn how to run a function rather than constant supervision.",
+      "Has prior experience managing a small operation with one coworker and little initial training, learning the workflow on the fly.",
+      "Customer-service approach emphasizes being helpful without giving people false hope."
     ]
   },
   "current_projects_and_interests": [
@@ -81,7 +87,9 @@
     ],
     "housing_costs": "Treat housing assumptions as variable because the arrangement may change.",
     "vehicle_context": "As of 2026 correspondence, a 2012 Honda Accord is strongly supported as the user's current vehicle; maintenance/registration reminders may be useful commitment signals.",
-    "shared_household_signal": "Repeated 2026 correspondence supports treating groceries, utilities, home purchases, and some discretionary spending with Olivia as shared-household planning."
+    "shared_household_signal": "Repeated 2026 correspondence supports treating groceries, utilities, home purchases, and some discretionary spending with Olivia as shared-household planning.",
+    "meal_behavior_signal": "2026 transactional mail shows recurring mobile food ordering across several fast-food/quick-service chains. Treat convenience and low-effort meals as a real household behavior to account for in grocery/meal planning rather than assuming all meals will be cooked from scratch.",
+    "housing_transition_signal": "Housing should remain modeled as variable: a rental application was actively under review in September 2026. Do not persist exact residential addresses."
   },
   "financial_assistant_goals": [
     "Eventually integrate financial accounts and credit-score information.",
@@ -130,7 +138,15 @@
     "communication_style": {
       "professional": "Usually polite, direct, appreciative, and follow-up oriented; often groups several concrete questions into one organized message.",
       "personal": "More casual, humorous, and expressive with close contacts."
-    }
+    },
+    "current_devices_and_services_2026": [
+      "Purchased a refurbished Dell Latitude 5520 (2021, Core i5-1145G7, 16 GB RAM, 256 GB SSD) in May 2026.",
+      "Likely uses an iPhone 11 as of March 2026 based on personally addressed case/screen-protector orders; treat this as medium-confidence rather than guaranteed current device identity.",
+      "Household likely has a Nintendo Switch 2 by May 2026 based on repeated Switch 2 accessory orders.",
+      "iCloud+ 200 GB was active in August 2026.",
+      "A Mullvad VPN 30-day subscription was purchased in September 2026.",
+      "Spectrum account mail in mid/late 2026 supports an active Spectrum mobile/service relationship after an AT&T number-transfer workflow in June 2026."
+    ]
   },
   "privacy": {
     "exclude_from_git": [
