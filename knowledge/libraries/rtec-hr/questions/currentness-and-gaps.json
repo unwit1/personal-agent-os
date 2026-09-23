@@ -13,7 +13,8 @@
       "priority": "high",
       "domain": "employee_handbook",
       "question": "Is the March 2023 employee handbook the current handbook? If not, locate the superseding version and effective date.",
-      "status": "open"
+      "status": "answered",
+      "answer": "A complete RTEC Employee Handbook dated 2025-12-15 was supplied and ingested. It supersedes overlapping March 2023 handbook provisions. Later section-specific policies, such as the signed 2026-08-26 EEO statement, may supersede individual handbook sections."
     },
     {
       "priority": "high",
@@ -25,7 +26,8 @@
       "priority": "high",
       "domain": "discipline",
       "question": "Are the 2023 Group A-D disciplinary guidelines still current, and what present-day HR review/approval steps govern discipline?",
-      "status": "open"
+      "status": "partially_answered",
+      "answer": "The complete 2025-12-15 handbook retains a Group A-D disciplinary guideline matrix and progressive-discipline language. The present-day HR review/approval steps and forms still need to be established."
     },
     {
       "priority": "high",
@@ -103,6 +105,30 @@
       "priority": "medium",
       "domain": "affirmative_action_plan_sources",
       "question": "Locate the sample ads/brochures and Commonwealth of Kentucky certification documents referenced by the 2022 AAP binder index but not included in this upload.",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "computer_use_policy",
+      "question": "Is the undated standalone Computer Use Policy currently in force, and does it supplement or predate the 2025 handbook communication-system/work-rule provisions?",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "workplace_conduct",
+      "question": "Is the undated No Gossip Policy currently in force, and what was the intended wording of commitment 4, which appears to omit a negation?",
+      "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "leave_policy_consistency",
+      "question": "Resolve the 2025 handbook's physician-statement timing difference between Personal/Sick Leave ('exceeds two consecutive workdays') and Attendance ('following three consecutive days') before automating leave/attendance decisions.",
+      "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "policy_legal_review",
+      "question": "Before operational automation, review current legal/compliance accuracy of the handbook's FMLA, Kentucky pregnancy/accommodation, military-leave and other statutory summaries without altering the preserved source text.",
       "status": "open"
     }
   ]
