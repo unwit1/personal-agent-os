@@ -1,3 +1,302 @@
+===== SOURCE BEGIN / PART 6 OF 13 =====
+SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/Title VI Florida Dept. of Transportation.doc
+SHA256: e300bfd0d414e29497bc13f41bafda4613ca5817d6e4769437e2cd937962a64b
+TEXT_CHARS_TOTAL: 121647
+OFFSET: 50000
+ALIASES: 
+===== TEXT =====
+n time performance for each mode
+         o Service availability for each mode
+      ← Service policies
+         o Transit Amenities for each mode
+         o Vehicle Assignment for each mode
+
+
+Transit Providers that operate 50 or  more  fixed  route  vehicles  in  peak
+service and are located in an  Urbanized  Area  (UZA)  of  200,000  or  more
+people must submit:
+
+      ← Demographic and service profile maps and charts
+      ← Demographic ridership and travel patterns, collected by surveys
+      ←  Results  of  their  monitoring  program  and   report,   including
+        evidence that the board or other governing  entity  or  official(s)
+        considered, was aware of the results, and approved the analysis
+      ← A description of the public  engagement  process  for  setting  the
+        “major  service  change  policy,”  disparate  impact  policy,   and
+        disproportionate burden policy
+      ← Results of service and/or  fare  equity  analyses  conducted  since
+        the last Title VI Program submission, including evidence  that  the
+        board or other governing  entity  or  official(s)  considered,  was
+        aware of, and approved the results of the analysis
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                 Appendix B
+
+                         Current System Description
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The following is a sample laguage which must be revised for your agency.
+
+                         Current System Description
+
+1. An overview of the organization including its mission, program goals and
+   objectives.
+   Your Community Transit’s current and long-term focus as a transportation
+   provider is on maintaining the best-coordinated transportation system
+   possible for this community.  Our goal is to create a coordinated system
+   with the objective of providing safe, reliable, timely and efficient
+   transportation services to county residents.
+
+2. Organizational structure, type of operation, number of employees,
+   service hours, staffing plan and safety and security plan.
+   Your Community Transit is a [for profit] or [non-profit 501(c)(3)]
+   organization. Our organization is made up of XX full-time employees, XX
+   part-time employees, and XX volunteers. Our [CEO/General
+   Manager/Administrator] is responsible for all of the day-to-day
+   operations of our organization and reports directly to our Board of
+   County Commissioners (BCC).  Our BCC is committed to this program and
+   has, therefore, incorporated our service within the County’s Public
+   Transportation Program.  Transportation services are provided in
+   accordance with the BCC’s approved Operations Manual/System
+   Safety/Security Program and its Transportation Disadvantaged Service Plan
+   (TDSP).  Our agency staffing plan is outlined in our 2011 Transit
+   Development Plan (page 201) and 2012 Operations Handbook (page 34).  We
+   will continue to operate at previous year (2011) service hours averaging
+   84 total fleet service hours per day or approximately 25,200 annual
+   service hours (assuming 300 operating days).
+
+3. Indicate if your agency is a government authority or a private non-
+   profit agency.
+   Your Community Transit operates as a [for profit] or [non-profit
+   501(c)(3)] with a CTC agreement with the BCC.  We have an executed CTC
+   agreement dated [date].
+
+4. Who is responsible for insurance, training and management, and
+   administration of the agency’s transportation programs?
+   Your Community Transit’s manager is responsible for training and
+   management of our transportation program.  All safety sensitive employees
+   are required to complete FDOT approved safety and security training
+   course as part of their new hire orientation.  All new employees are also
+   required to complete 80 hours of on-the-road drivers training, which
+   includes riding with a training driver, behind-the-wheel training, and
+   training on proper use of wheel chair lifts and securement devices. The
+   Transportation Services Manager is responsible for annual renewal of all
+   liability insurance for both FDOT and agency owned vehicles, as well as
+   vehicle registration renewal.  It is the Transportation Manager’s
+   responsibility to administer all aspects of the transportation program
+   and to control access and usage of all agency vehicles.
+
+5. Who provides vehicle maintenance and record keeping?
+   Maintenance on all agency vehicles is provided by [contractor].
+   [Contractor] employs only ASE certified technicians with experience in
+   working on commercial passenger vehicles like the type our agency uses.
+   All maintenance is performed using the Preventative Maintenance Plan,
+   which conforms to the State Vehicle Maintenance Guidelines set forth in
+   the FDOT Preventative Maintenance Guidelines document.  All vehicle files
+   and driver files are kept on-site at our operations base located at
+   [address] and are maintained by the [manager]. All records are maintained
+   and retained for a minimum of four (4) years.
+
+6. Number of current transportation related employees
+   Our transportation department has a total of XX employees that include:
+   XX full-time drivers, XX part-time drivers, XX administrators and XX
+   support staff.
+
+7. Who will drive the vehicle, number of drivers, CDL certifications, etc.?
+   Only transportation employees that have completed all of the required
+   safety and drivers training requirements will be allowed to drive the
+   agency vehicles. All our drivers are required to carry a Commercial
+   Driver’s License. This allows coverage of all of the larger vehicles and
+   for the opportunity for the other drivers to fill in on service routes
+   with the larger vehicles.
+
+8. A detailed description of service routes and ridership numbers
+   Transportation services provided through our program are available to
+   [customers].  Our service incorporates [services]. We provide a wide
+   range of trip purposes that include: medical, nutrition, shopping, social
+   service, training, employment, social and recreation.  Approximately XX%
+   of the medical trips we provide are to medical facilities out of the
+   county; therefore, our out of county services are directed to the nearby
+   highway corridors that surround this community for optimum efficiency of
+   trip duration and the most convenient route.  Currently, we use a variety
+   of vehicles to provide passenger services.  Our fleet includes vans,
+   modified vans, and buses.  [Number] of our vehicles are equipped for
+   wheelchair service.  We also have a contract provider that can supplement
+   any services that we are unable to accommodate.  We prioritize grouping
+   trips and multi-loading to the maximum extent possible.  We make XX
+   passenger trips per day on average and leverage our fleet resources so
+   that all vehicles are used in a responsible manner to provide full
+   coverage and retire the vehicles at a consistent pace and appropriate age
+   and mileage.
+
+
+
+
+
+
+                                 Appendix C
+
+     Title VI Plan Adoption Meeting Minutes and FDOT Concurrence Letter
+
+
+
+
+
+
+Insert a copy of the Title VI Plan adoption meeting minutes and the FDOT
+concurrence letter.
+
+
+
+
+
+
+
+
+
+
+
+
+                                 Appendix D
+
+                      Title VI Sample Notice to Public
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                 Appendix E
+
+                           Title VI Complaint Form
+
+
+
+
+
+
+                           Your Community Transit
+                           Title VI Complaint Form
+
+
+|Section I:                                                                |
+|Name:                                                                     |
+|Address:                                                                  |
+|Telephone (Home):                      |Telephone (Work):                 |
+|Electronic Mail Address:                                                  |
+|Accessible Format   |Large Print     |        |Audio Tape      |         |
+|Requirements?       |                |        |                |         |
+|                    |TDD             |        |Other           |         |
+|Section II:                                                               |
+|Are you filing this complaint on your own       |Yes*        |No          |
+|behalf?                                         |            |            |
+|*If you answered "yes" to this question, go to Section III.               |
+|If not, please supply the name and relationship |                         |
+|of the person for whom you are complaining:     |                         |
+|Please explain why you have filed for a   |                               |
+|third party:                              |                               |
+|                         |            |        |              |           |
+|Please confirm that you have obtained the       |Yes         |No         |
+|permission of the aggrieved party if you are    |            |           |
+|filing on behalf of a third party.              |            |           |
+|Section III:                                                              |
+|I believe the discrimination I experienced was based on (check all that   |
+|apply):                                                                   |
+|[ ] Race [ ] Color [ ] National Origin                        [ ] Age     |
+|[ ] Disability  [ ] Family or Religious Status  [ ] Other (explain)       |
+|____________________________                                              |
+|Date of Alleged Discrimination (Month, Day, Year):  __________            |
+|Explain as clearly as possible what happened and why you believe you were |
+|discriminated against. Describe all persons who were involved. Include the|
+|name and contact information of the person(s) who discriminated against   |
+|you (if known) as well as names and contact information of any witnesses. |
+|If more space is needed, please use the back of this
+===== SOURCE PART 6 END =====
+
+
 ===== SOURCE BEGIN / PART 7 OF 13 =====
 SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/Title VI Florida Dept. of Transportation.doc
 SHA256: e300bfd0d414e29497bc13f41bafda4613ca5817d6e4769437e2cd937962a64b
@@ -650,150 +949,3 @@ qualifying for the Safe Harbor Provision.
 |“very well”                |                  |                       |
 |French (incl. Patois,      |                  |      
 ===== SOURCE PART 9 END =====
-
-===== SOURCE BEGIN / PART 10 OF 13 =====
-SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/Title VI Florida Dept. of Transportation.doc
-SHA256: e300bfd0d414e29497bc13f41bafda4613ca5817d6e4769437e2cd937962a64b
-TEXT_CHARS_TOTAL: 121647
-OFFSET: 90000
-ALIASES: 
-===== TEXT =====
-                 |
-|Cajun)                     |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|French Creole              |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Italian                    |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Portuguese or Portuguese   |                  |                       |
-|Creole                     |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|German                     |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Yiddish                    |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Other West Germanic        |                  |                       |
-|languages                  |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Scandinavian languages     |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Greek                      |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Russian                    |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Polish                     |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Serbo-Croatian             |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Other Slavic Languages     |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Armenian                   |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Persian                    |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Gujarati                   |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Hindi                      |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Urdu                       |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Other Indic languages      |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Other Indo-European        |                  |                       |
-|Languages                  |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Chinese                    |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Japanese                   |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Korean                     |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Mon-Khmer, Cambodian       |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Hmong                      |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Thai                       |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Laotian                    |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Vietnamese                 |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Other Asian languages      |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Tagalog                    |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Other Pacific Island       |                  |                       |
-|languages                  |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Navajo                     |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |                       |
-|Other Native American      |                  |                       |
-|languages                  |                  |                       |
-|  Speak English “very well”|                  |                       |
-|  Speak English less than  |                  |                       |
-|“very well”                |                  |     
-===== SOURCE PART 10 END =====
