@@ -1,0 +1,98 @@
+{
+  "id": "rtec-process-vehicle-accident-document-handling-candidate",
+  "record_type": "process",
+  "title": "Vehicle accident / collision document handling - case-derived candidate",
+  "status": "candidate",
+  "temporal_status": "unknown",
+  "summary": "A 2026 official police traffic-collision report establishes that collision-report evidence can enter the RTEC document corpus. The larger accident investigation, reporting, discipline, training, insurance, safety and filing workflow remains to be established.",
+  "claims": [
+    {
+      "claim": "An official police traffic-collision report was retained in at least one RTEC 2026 case.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-process-driver-hiring-orientation-training-2018",
+        "rtec-policy-progressive-discipline-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-2026-03-traffic-collision-report",
+          "page_or_section": null,
+          "evidence_type": "structural",
+          "note": "Restricted case record; metadata-only evidence."
+        }
+      ]
+    },
+    {
+      "claim": "Traffic-collision reports may support a repeatable RTEC accident review/documentation process.",
+      "claim_kind": "rule_candidate",
+      "confidence": 0.6,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-progressive-discipline-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-2026-03-traffic-collision-report",
+          "page_or_section": null,
+          "evidence_type": "structural",
+          "note": "Single-case inference requiring corroboration."
+        }
+      ]
+    }
+  ],
+  "trigger": "Vehicle accident/collision involving an RTEC employee or vehicle - candidate.",
+  "prerequisites": [],
+  "actors": [
+    "Driver",
+    "Supervisor/Operations",
+    "HR - involvement unconfirmed",
+    "Safety/insurance roles - unconfirmed"
+  ],
+  "systems": [],
+  "forms": [
+    "Official police traffic-collision report - when applicable"
+  ],
+  "steps": [],
+  "decisions": [],
+  "deadlines": [],
+  "outputs": [
+    "Accident/collision case record - candidate"
+  ],
+  "exceptions": [],
+  "controls": [
+    "Historical driver-training source says corrective defensive-driving training may follow an accident; 2023 discipline source also references vehicle/non-vehicle accidents, but current accident workflow is not yet established."
+  ],
+  "unresolved_questions": [
+    "Who receives the first accident notification?",
+    "Which internal accident forms are required?",
+    "When is a police report required or collected?",
+    "Who determines preventability, discipline, corrective training and return-to-driving status?",
+    "What insurance/FTA/state reports and deadlines apply?",
+    "Where is the complete accident packet filed?"
+  ],
+  "automation_candidates": [
+    "Once validated, create an accident case checklist that collects required documents, deadlines, training/discipline review and closure status without making disciplinary decisions automatically."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-restricted-2026-03-traffic-collision-report",
+      "safe_source_type": "restricted_case_metadata",
+      "source_date_or_version": "2026-03 case evidence",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "unknown",
+      "content_sha256": "29176ad92126fdd0d6ce6e9bba6892ec730a5b0a4590380158a4c7247eef1dff",
+      "page_or_section": null,
+      "full_source_path": null,
+      "searchable_text_path": null,
+      "ingested_at": "2026-09-23",
+      "notes": "No raw collision-report content retained in GitHub."
+    }
+  ]
+}
