@@ -396,6 +396,55 @@
         "000270"
       ],
       "note": "Candidate identities and compensation details are intentionally excluded."
+    },
+    {
+      "name": "Kayla M. Toth",
+      "organization": "Infinisource",
+      "role_history": [
+        "professional setup/contact role (2016 WebEx invite)"
+      ],
+      "work_context": [
+        "RTEC account/setup call",
+        "early Infinisource implementation relationship"
+      ],
+      "confidence": "high",
+      "currentness": "historical",
+      "evidence_ids": [
+        "000006"
+      ]
+    },
+    {
+      "name": "Ethan Moseley",
+      "organization": "Humana",
+      "role_history": [
+        "Humana installation contact (2018)"
+      ],
+      "work_context": [
+        "RTEC Humana installation kickoff",
+        "implementation timeline and ongoing service"
+      ],
+      "confidence": "high",
+      "currentness": "historical",
+      "evidence_ids": [
+        "000054"
+      ]
+    },
+    {
+      "name": "Kayla Sawyer",
+      "organization": "ADP",
+      "role_history": [
+        "Account Manager / Client Support Specialist II, Major Accounts (2019 signature)"
+      ],
+      "work_context": [
+        "ADP Workforce Now Employee Self-Service education/support",
+        "administrative self-service rollout guidance"
+      ],
+      "confidence": "high",
+      "currentness": "historical contact",
+      "evidence_ids": [
+        "000124"
+      ],
+      "note": "Vendor guidance does not prove RTEC enabled every Employee Self-Service feature."
     }
   ],
   "not_promoted": "The exhaustive raw contact/header index remains outside GitHub because it includes one-off correspondents and may contain personal or case-linked identities. Additional people are promoted only when repeated professional context can be separated safely from case facts."
