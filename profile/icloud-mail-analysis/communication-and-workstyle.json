@@ -110,5 +110,18 @@
     "When correcting an error, brief ownership plus a repair action fits the user's observed style.",
     "For close personal messages, allow significantly more humor and informality; do not blindly transfer professional-email habits."
   ],
-  "exclusions": "Private intimate content, sensitive health material, credentials, contact details, and raw message text are intentionally excluded."
+  "exclusions": "Private intimate content, sensitive health material, credentials, contact details, and raw message text are intentionally excluded.",
+  "reply_timing_sample": {
+    "paired_thread_replies": 30,
+    "methodology": "Matched a Sent Messages item to the most recent prior non-sent message in the same indexed thread_id, excluding negative and extreme-over-60-day intervals.",
+    "median_hours": 1.94,
+    "mean_hours": 52.9,
+    "within_1_hour_rate": 0.433,
+    "within_4_hours_rate": 0.6,
+    "within_24_hours_rate": 0.7,
+    "within_48_hours_rate": 0.8,
+    "within_7_days_rate": 0.9,
+    "interpretation": "In the small subset of threads that can be reliably paired, many replies are quite prompt, with a long tail of delayed responses. This fits the broader pattern of generally active follow-up plus occasional administrative delay.",
+    "caveat": "Only 30 paired replies were available from this archive/thread representation, so these values are descriptive rather than a universal response-time profile."
+  }
 }
