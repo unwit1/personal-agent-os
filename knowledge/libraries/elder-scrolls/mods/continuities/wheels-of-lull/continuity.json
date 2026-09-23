@@ -59,7 +59,7 @@
     "claim_analysis": "complete_31_core_7_tension_records_continuity_scoped",
     "interpretive_analysis": "complete_14_topics_plus_core_dossiers_reliability_themes",
     "book_text_fingerprinting": "complete_33_of_33",
-    "book_provenance": "passes_01_03_complete_followup_active",
+    "book_provenance": "passes_01_04_complete_archive_witnesses_located_materialization_pending",
     "book_source_relations": "complete_33_of_33",
     "retrieval_materialization": "unblocked_for_fresh_1090_document_core_rebuild",
     "raw_source_integrity": "complete_verified_after_two_deterministic_shard_repairs",
@@ -95,7 +95,12 @@
       "strong_indirect_legacy_candidate": 1,
       "origin_unresolved": 29,
       "variant_diffs_complete": 1,
-      "machine_source_relations": 33
+      "machine_source_relations": 33,
+      "archive_witnesses": {
+        "pre_wheels_package_families_located": 2,
+        "package_families_materialized": 0,
+        "audit": "analysis/book-provenance-pass-04-archive-witnesses.md"
+      }
     },
     "integrity_gap_files": [],
     "repair_requirement": null,
@@ -116,7 +121,7 @@
   },
   "next_stage": {
     "blocked_branch": null,
-    "active_branch": "External BOOK source/edition provenance research when new archived Trainwiz/Sotha Sil Expanded/Aethernautics witnesses become available; optional fresh deterministic retrieval rebuild is now unblocked.",
-    "do_not_repeat": "generic exact-title web searches audited in analysis/book-provenance-pass-03-search-audit.*"
+    "active_branch": "Materialize the already-located pre-Wheels Aethernautics/Sotha Sil Expanded archives and compare exact source text; continue Tatterdemalion/Xal edition work when durable witnesses are available. Optional fresh deterministic retrieval rebuild is unblocked.",
+    "do_not_repeat": "Generic exact-title searches from pass 03 or archive package rediscovery from pass 04."
   }
 }
