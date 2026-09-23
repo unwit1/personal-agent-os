@@ -231,13 +231,18 @@ def import_pst(path: Path, *, archive_id: str | None = None, db_path: Path | Non
                     if message is None:
                         counts["unreadable"] += 1
                         continue
+                    # A savepoint per message: a damaged message undoes only itself,
+                    # never the rest of the uncommitted batch.
+                    store.conn.execute("SAVEPOINT pst_record")
                     try:
                         raw, notes = to_rfc822(message)
                         if not indexed:
                             outcome = store.record(parse(raw), {"id": source_id, "source_kind": "pst_archive", "provider": "archive",
                                                                 "archive_id": archive_id, "mailbox": label, "record_key": key})
+                        store.conn.execute("RELEASE pst_record")
                     except Exception:
-                        store.conn.rollback()
+                        store.conn.execute("ROLLBACK TO pst_record")
+                        store.conn.execute("RELEASE pst_record")
                         counts["unreadable"] += 1
                         continue
                     if exporter is not None:

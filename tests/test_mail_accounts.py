@@ -876,6 +876,37 @@ class PstImportTests(MailFixture):
             self.assertEqual(part_time[0]["source_count"], 2)
             self.assertIn("pat@4rtec.test", json.dumps(mail.get_message(id=part_time[0]["id"])))
 
+    def test_a_damaged_message_does_not_undo_the_rest_of_the_batch(self) -> None:
+        import types
+
+        from agent_os.mail import pst
+
+        messages = [FakePstMessage(index, f"Memo {index}", f"body number {index}", message_id=f"<m{index}@x>") for index in range(1, 7)]
+        root = FakePstFolder("", folders=[FakePstFolder("Inbox", messages)])
+
+        class File:
+            def open(self, path):
+                pass
+
+            def close(self):
+                pass
+
+            def get_root_folder(self):
+                return root
+
+        real = pst.to_rfc822
+
+        def flaky(message):
+            if message.identifier == 4:
+                raise ValueError("damaged message")
+            return real(message)
+
+        with mock.patch.dict(sys.modules, {"pypff": types.SimpleNamespace(file=File)}), mock.patch.object(pst, "to_rfc822", flaky):
+            result = pst.import_pst(self.tmp / "b.pst", db_path=self.db, archive_id="pst-b", batch=100)
+        self.assertEqual((result["indexed_new"], result["unreadable"]), (5, 1))
+        with store_lib.Store(self.db) as store:
+            self.assertEqual(store.conn.execute("SELECT COUNT(*) FROM mail_sources").fetchone()[0], 5, "earlier messages in the batch survive")
+
     def test_identical_pst_files_are_imported_once(self) -> None:
         from agent_os.mail import pst
 
