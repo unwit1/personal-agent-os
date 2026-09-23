@@ -12,7 +12,16 @@
   "page_count": 48,
   "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
   "derived_records": [
-    "knowledge/libraries/rtec-hr/policies/employee-handbook-2025-12-15.json"
+    "knowledge/libraries/rtec-hr/policies/employee-handbook-2025-12-15.json",
+    "knowledge/libraries/rtec-hr/policies/handbook-governance-employment-2025.json",
+    "knowledge/libraries/rtec-hr/policies/hours-pay-benefits-2025.json",
+    "knowledge/libraries/rtec-hr/policies/leave-time-off-2025.json",
+    "knowledge/libraries/rtec-hr/policies/attendance-solicitation-harassment-2025.json",
+    "knowledge/libraries/rtec-hr/policies/dress-cell-work-rules-2025.json",
+    "knowledge/libraries/rtec-hr/policies/safety-confidentiality-discipline-2025.json",
+    "knowledge/libraries/rtec-hr/policies/communications-nepotism-2025.json",
+    "knowledge/libraries/rtec-hr/policies/video-audio-surveillance-2025.json",
+    "knowledge/libraries/rtec-hr/policies/eeo-handbook-2025.json"
   ],
   "relationships": [
     {
