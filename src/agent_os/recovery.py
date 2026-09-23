@@ -160,7 +160,32 @@ def working_tree_fingerprint(repo: Path = ROOT) -> dict[str, Any]:
         "base_commit": payload["base_commit"],
         "inventory": inventory,
         "untracked_hashes": untracked_hashes,
+        "change_fingerprints": _change_fingerprints(repo, inventory),
     }
+
+
+def _change_fingerprints(repo: Path, inventory: dict[str, list[str]]) -> dict[str, str]:
+    """Fingerprint dirty paths so later edits to the same file require review."""
+    paths: set[str] = set()
+    for key in ("modified", "staged", "untracked", "deleted"):
+        paths.update(inventory.get(key, []))
+    for rename in inventory.get("renamed", []):
+        source, separator, destination = rename.partition(" -> ")
+        if separator:
+            paths.update((source, destination))
+        else:
+            paths.add(rename)
+
+    result: dict[str, str] = {}
+    for relative in sorted(paths):
+        path = repo / relative
+        diff = _git(repo, "diff", "HEAD", "--no-ext-diff", "--binary", "--", relative) or ""
+        result[relative] = _digest({
+            "diff": diff,
+            "file": _sha256_path(path) if path.is_file() else None,
+            "exists": path.exists(),
+        }, 64)
+    return result
 
 
 def runtime_dir(repo: Path = ROOT) -> Path:
@@ -278,10 +303,16 @@ def _recovery_status(checkpoint: dict[str, Any], current: dict[str, Any], repo: 
         return "interrupted_resumable_task", True, None
     if saved.get("branch") != current.get("branch") or saved.get("head") != current.get("head"):
         return "interrupted_task_with_external_changes", False, "branch or HEAD moved after checkpoint"
-    saved_files = set(checkpoint.get("touched_files") or []) | set(checkpoint.get("newly_created_untracked_files") or [])
+    saved_files = set(saved.get("change_fingerprints") or {})
     current_files = set().union(*[set(values) for values in current["inventory"].values()])
-    if saved_files and saved_files.issubset(current_files):
+    current_changes = current.get("change_fingerprints") or {}
+    if saved_files and saved_files.issubset(current_changes) and all(
+        saved["change_fingerprints"][path] == current_changes[path] for path in saved_files
+    ):
         return "interrupted_task_with_additional_safe_edits", True, "working tree has additional non-overlapping edits"
+    if not saved_files and not (checkpoint.get("touched_files") or checkpoint.get("newly_created_untracked_files")):
+        if not current_files:
+            return "interrupted_task_with_additional_safe_edits", True, "working tree has additional non-overlapping edits"
     return "conflicting_changes_requiring_review", False, "checkpointed edits were changed or removed"
 
 
