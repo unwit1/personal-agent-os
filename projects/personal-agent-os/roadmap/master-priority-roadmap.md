@@ -102,8 +102,9 @@ Status: **in progress** (2026-09-23). Added the v1 provider-neutral connector
 registry schema, empty canonical registry, strict privacy-checked loader, and
 read-only `connector.list` MCP discovery with secret-reference redaction.
 `connector.import_candidates` now scans registered client configuration files
-read-only and returns only server labels, executable basenames, and surfaces;
-all import candidates require review and no configuration is changed.
+read-only and returns only stable candidate IDs, server labels, executable
+basenames, and surfaces; candidates remain unclassified until provider identity
+and scopes receive explicit review, and no configuration is changed.
 `integration-health` now reports registry-declared connector-provider health and
 per-surface readiness reasons in a separate `connector_providers` section. Its
 `surface_readiness` entries distinguish registry-ready-but-unverified from

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import tomllib
@@ -144,13 +145,16 @@ def connector_import_candidates(surface_id: str | None = None) -> dict[str, Any]
                     privacy_filtered += 1
                     continue
                 key = (record["server_name"].casefold(), record["command"].casefold())
+                candidate_id = hashlib.sha256((key[0] + "\0" + key[1]).encode("utf-8")).hexdigest()[:20]
                 candidate = grouped.setdefault(
                     key,
                     {
+                        "candidate_id": candidate_id,
                         "server_name": record["server_name"],
                         "command": record["command"],
                         "surfaces": [],
                         "classification": "needs_review",
+                        "reason": "provider identity and allowed data scopes need explicit review",
                     },
                 )
                 if surface["id"] not in candidate["surfaces"]:

@@ -16,7 +16,9 @@ value. The read-only MCP tool `connector.import_candidates` inventories MCP
 server names and executable basenames from the client registration files
 declared by the surface registry. It omits full paths, command arguments,
 environment entries, and credentials. Results are unclassified proposals for
-review; they are not imported or written to the canonical registry.
+review; each has a stable ID for the server/executable pair and combines the
+surfaces where it appears. They are not imported or written to the canonical
+registry.
 `integration-health` reports each connector under `connector_providers`,
 separately from whether each client surface reaches Agent OS.
 
