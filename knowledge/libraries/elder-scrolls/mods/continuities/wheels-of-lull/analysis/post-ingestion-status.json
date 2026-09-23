@@ -1,7 +1,7 @@
 {
   "continuity_id": "tes.mod.wheels-of-lull",
   "stage": "post_ingestion_analysis",
-  "status": "core_complete_with_bounded_shard_repair_required_provenance_stage_exhausted_for_current_sources",
+  "status": "source_ingestion_exhausted_for_supplied_esp_external_book_provenance_followup_only",
   "completed": {
     "structured_source_ingestion": true,
     "speaker_resolution_for_all_readable_info": true,
@@ -22,15 +22,19 @@
     "central_source_catalog_links_for_verified_reuse": true,
     "retrieval_builder_fail_closed_on_corrupt_shards": true,
     "semantic_topic_gap_closure": true,
-    "analysis_retrieval_topic_indexing": true
+    "analysis_retrieval_topic_indexing": true,
+    "deterministic_raw_shard_repair": true,
+    "exhaustive_strict_speaker_integrity_pass": true,
+    "full_plugin_text_exhaustiveness_audit": true,
+    "implementation_text_supplement": true
   },
   "metrics": {
     "structured_source_records": 1090,
     "total_info_records": 410,
-    "speaker_processed": 358,
-    "speaker_resolved": 288,
-    "speaker_unresolved_readable": 70,
-    "speaker_excluded_pending_repair": 52,
+    "speaker_processed": 410,
+    "speaker_resolved": 332,
+    "speaker_unresolved_readable": 78,
+    "speaker_excluded_pending_repair": 0,
     "character_dossiers": 9,
     "place_dossiers": 8,
     "artifact_technology_dossiers": 10,
@@ -48,14 +52,14 @@
     "book_continuity_local_functional_origin_unresolved": 19,
     "verified_reuse_variant_diffs_complete": 1,
     "verified_reuse_variant_diffs_pending_external_witness_ingestion": 2,
-    "topic_dossiers": 14
+    "topic_dossiers": 14,
+    "implementation_text_supplement_records": 328,
+    "total_persisted_source_evidence_records": 1418,
+    "total_plugin_records_audited": 36824
   },
-  "only_remaining_raw_repair": [
-    "raw/source-records-0151-0200.jsonl.gz",
-    "raw/source-records-0401-0450.jsonl.gz"
-  ],
-  "repair_blocker": "The original WheelsOfLull.esp bytes are not present in the current repository/file-library access layer. Both bad gzip blobs were already corrupt in their creation commits, so exact recovery from Git history is unavailable.",
-  "next_stage_after_repair": "Merge the 52 repaired INFO rows into an exhaustive speaker index; then rerun and validate retrieval materialization over all 1,090 records.",
+  "only_remaining_raw_repair": [],
+  "repair_blocker": null,
+  "next_stage_after_repair": "No remaining WheelsOfLull.esp ingestion blocker. A fresh deterministic retrieval materialization is unblocked; remaining source work is external historical BOOK provenance/edition research.",
   "provenance_progress": "All 33 BOOK records are fingerprinted and source-routed. Three verified reused works are centrally linked; KINMUNE has a deterministic edition comparison. Generic provenance searches for the remaining named works are exhausted and logged.",
   "provenance_current_source_blockers": [
     "Full local source witness for Tatterdemalion is not yet ingested for deterministic variant diffing.",
@@ -64,12 +68,19 @@
     "No verified pre-Wheels witness was located for the ten unresolved named works."
   ],
   "next_high_value_inputs": [
-    "Exact WheelsOfLull.esp matching the recorded SHA-256.",
     "Archived Sotha Sil Expanded plugin/assets.",
     "Archived original Aethernautics plugin/assets.",
     "Durable local full-text witness for Tatterdemalion.",
     "Durable local full-text witness for Xal's Day of the Power/Knowledge letter."
   ],
   "repeat_work_guard": "Do not repeat generic exact-title web searches documented in analysis/book-provenance-pass-03-search-audit.* unless a new archive/source corpus becomes available.",
-  "semantic_followup": "Added source-scoped analysis for Musings On Power, De Rerum Mutabilitatis, and How Two Moon; promoted six new book-backed claims without changing provenance status."
+  "semantic_followup": "Added source-scoped analysis for Musings On Power, De Rerum Mutabilitatis, and How Two Moon; promoted six new book-backed claims without changing provenance status.",
+  "source_exhaustion": {
+    "supplied_esp": "complete",
+    "physical_records_audited": 36824,
+    "core_records": 1090,
+    "implementation_text_supplement_records": 328,
+    "report": "analysis/exhaustiveness-audit.md",
+    "strict_speaker_validation": "analysis/speaker-repair-validation.json"
+  }
 }
