@@ -1,0 +1,67 @@
+{
+  "id": "rtec-form-pre-employment-driver-test",
+  "record_type": "form",
+  "title": "Pre-Employment Applicant Driver Test",
+  "status": "validated",
+  "temporal_status": "unknown",
+  "effective_from": null,
+  "effective_to": null,
+  "summary": "Undated RTEC driver pre-employment knowledge test and answer key. The source contains 25 driving-safety questions and states an 80 percent passing threshold. Its current use is not yet established.",
+  "claims": [
+    {
+      "claim": "The source is an RTEC pre-employment applicant driver test with 25 questions worth four points each and an 80 percent passing threshold.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "EXTENDS",
+      "related_record_ids": ["rtec-process-driver-hiring-orientation-training-2018"],
+      "evidence": [{"source_id":"rtec-hr-pre-employment-driver-test","page_or_section":"Instructions","evidence_type":"explicit_text","note":null}]
+    },
+    {
+      "claim": "The test evaluates basic driving safety topics including parking, alcohol/drug impairment, night driving, hydroplaning, distractions, accessible parking, seat belts, intersections, backing, blind spots, railroad crossings, school/church buses, weather, right-of-way, skids, pedestrians and bicyclists.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "EXTENDS",
+      "related_record_ids": ["rtec-process-driver-hiring-orientation-training-2018"],
+      "evidence": [{"source_id":"rtec-hr-pre-employment-driver-test","page_or_section":"Questions 1-25","evidence_type":"explicit_text","note":null}]
+    }
+  ],
+  "trigger": "Driver applicant reaches the stage at which the pre-employment driving knowledge test is administered.",
+  "prerequisites": [],
+  "actors": ["Driver applicant", "RTEC interviewer or hiring/training staff"],
+  "systems": [],
+  "forms": ["Pre-Employment Applicant Driver Test"],
+  "steps": ["Administer the 25-question test.", "Score against the supplied answer key.", "Determine whether the stated passing threshold is met."],
+  "decisions": ["Whether applicant scores at least 80 percent."],
+  "deadlines": [],
+  "outputs": ["Driver-test score/pass-fail result"],
+  "exceptions": [],
+  "controls": ["Answer-key copy should be kept separate from an applicant test copy during administration."],
+  "unresolved_questions": [
+    "Is this test still used in the current hiring process?",
+    "At what exact point in the current applicant workflow is it administered?",
+    "Does a failed test permit retesting, and if so after what interval?",
+    "Has the answer key been reviewed against current Kentucky law and RTEC policy?"
+  ],
+  "automation_candidates": [
+    "Digitize scoring while preserving a human-review gate.",
+    "Version the question bank and flag answers that depend on changing law or policy."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [{
+    "source_id":"rtec-hr-pre-employment-driver-test",
+    "safe_source_type":"pre_employment_test_and_answer_key",
+    "source_date_or_version":"undated",
+    "source_created_date":null,
+    "source_revision_date":null,
+    "source_effective_from":null,
+    "source_effective_to":null,
+    "temporal_status":"unknown",
+    "content_sha256":"afd94bb30d27162d6896931b95a7b781ea94f98b8ec132d6e3039dcce8e06e69",
+    "page_or_section":"complete four-page source",
+    "full_source_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-pre-employment-driver-test/fulltext.md",
+    "searchable_text_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-pre-employment-driver-test/fulltext.md",
+    "ingested_at":"2026-09-23",
+    "notes":"OCR/transcription visually checked; original is image-only scan."
+  }]
+}
