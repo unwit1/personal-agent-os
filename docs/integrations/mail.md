@@ -24,7 +24,7 @@ prompt; it goes straight into Windows Credential Manager.
 
 ### Easiest: the setup window
 
-Double-click **`Mail Setup.pyw`** in the repository folder (or run
+Double-click **`Mail Setup.pyw`** in the `personal-agent-os` folder (or run
 `python agent.py mail setup`). A small window opens:
 
 1. Pick **EarthLink** or **iCloud**, type the email address and the password.
@@ -139,6 +139,22 @@ Duplicates are removed: an email found in a PST and in a live mailbox, in two
 PSTs, or twice in one PST, is one search result that lists every place it was
 found. An exact copy of a PST file is skipped. Reruns skip messages already
 imported. Damaged messages or attachments are counted and skipped.
+
+### Attachments saved to Downloads
+
+```powershell
+agent-os mail attachments --enable      # from now on, sync and PST import save attachments
+agent-os mail attachments               # also fetch attachments of mail indexed before that
+```
+
+Files go to `Downloads\Mail Attachments\Work\<year>\` or
+`...\Personal\<year>\`, named `2019-05-01 - Shirley Cummings - W4 2019.pdf`
+(email date, sender, original name) and dated with the email's date.
+Inline logos and signature pictures (images under 20 KB or embedded in the
+message body), calendar invites and `.p7s` signatures are skipped. A file
+whose exact contents were already saved is not saved again; a different file
+with the same name gets ` (2)`. Nothing is ever overwritten or deleted.
+Progress is kept in `.agent-local/mail/<scope>/attachments.sqlite3`.
 
 ### Privacy
 
