@@ -1,0 +1,100 @@
+{
+  "id": "rtec-process-employee-preventive-vaccination-event-2021",
+  "record_type": "process",
+  "title": "Employee preventive-vaccination event communication - 2021",
+  "status": "validated",
+  "temporal_status": "historical",
+  "effective_from": "2021-10-01",
+  "effective_to": "2021-10-01",
+  "summary": "A 2021 staff posting documents an on-site preventive-vaccination event coordinated at the RTEC Conference Room with Walgreens and communicated insurance-coverage guidance.",
+  "claims": [
+    {
+      "claim": "RTEC advertised an on-site vaccination event for October 1, 2021 in the RTEC Conference Room, with Walgreens providing flu shots and other listed preventive vaccines.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-preventive-vaccine-posting-2021-10-01",
+          "page_or_section": "posting page 1",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The 2021 posting stated that the listed preventive services were covered 100% by United Healthcare for employees with RTEC United Healthcare insurance and told employees with other insurance to verify their own coverage.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-preventive-vaccine-posting-2021-10-01",
+          "page_or_section": "posting page 1",
+          "evidence_type": "explicit_text",
+          "note": "Historical benefits statement; not current-plan authority."
+        }
+      ]
+    }
+  ],
+  "trigger": "Scheduled employee wellness/vaccination event.",
+  "prerequisites": [
+    "Confirm current vendor, vaccine availability, insurance coverage, eligibility/age guidance, and event logistics."
+  ],
+  "actors": [
+    "Human Resources/benefits staff",
+    "Employees",
+    "Vaccination vendor"
+  ],
+  "systems": [],
+  "forms": [],
+  "steps": [
+    "Schedule the on-site event.",
+    "Communicate date, location, time, available vaccines, and coverage caveats.",
+    "Direct employees with other insurance to verify coverage."
+  ],
+  "decisions": [
+    "Which vaccines/vendor/coverage terms apply for the current event."
+  ],
+  "deadlines": [
+    "Event-specific date and time."
+  ],
+  "outputs": [
+    "Employee wellness event communication",
+    "On-site vaccination availability"
+  ],
+  "exceptions": [
+    "Employees with insurance other than the identified RTEC plan were told to check with their insurer."
+  ],
+  "controls": [
+    "Do not reuse historical age/coverage/vendor statements without current verification.",
+    "Do not record individual vaccination status in the generalized HR knowledge layer."
+  ],
+  "unresolved_questions": [
+    "Does RTEC still coordinate on-site vaccination events?",
+    "What current insurer/vendor and employee communication process governs preventive-vaccine events?"
+  ],
+  "automation_candidates": [
+    "Annual wellness-event template with required current verification of date, vendor, coverage, eligibility, and insurer language before publication."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-preventive-vaccine-posting-2021-10-01",
+      "safe_source_type": "benefits_wellness_posting",
+      "source_date_or_version": "2021-10-01",
+      "content_sha256": "5793476853dbd9017954a08376ec549d6c511f55603ab6ac798d0596eef6a3bd",
+      "page_or_section": "posting page 1",
+      "ingested_at": "2026-09-23",
+      "notes": "Publisher source rendered and visually verified.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": "2021-10-01",
+      "source_effective_to": "2021-10-01",
+      "temporal_status": "historical",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-preventive-vaccine-posting-2021-10-01/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-preventive-vaccine-posting-2021-10-01/fulltext.md"
+    }
+  ]
+}
