@@ -39,7 +39,10 @@ INVALID_MODEL_PATTERN = re.compile(
 # Anything else in the parent environment is withheld unless the provider
 # registry allows it explicitly.
 # Set for every worker: no bytecode caches in the worktree.
-WORKER_ENV = {"PYTHONDONTWRITEBYTECODE": "1"}
+WORKER_ENV = {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "AGENT_OS_ORCHESTRATOR_WORKER": "1",
+}
 
 SYSTEM_ENV_ALLOWLIST = (
     "PATH", "PATHEXT", "SYSTEMROOT", "SYSTEMDRIVE", "WINDIR", "COMSPEC", "OS",

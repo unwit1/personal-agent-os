@@ -24,6 +24,16 @@ from .engine import Orchestrator
 _ENGINE: Orchestrator | None = None
 _ENGINE_IS_DEFAULT = False
 _ENGINE_LOCK = threading.Lock()
+WORKER_MARKER = "AGENT_OS_ORCHESTRATOR_WORKER"
+
+
+def _reject_worker_control() -> None:
+    """Keep isolated workers from mutating shared orchestrator Git state."""
+    if os.environ.get(WORKER_MARKER) == "1":
+        raise RuntimeError(
+            "orchestrator control is unavailable inside an isolated worker; "
+            "report the host-side prerequisite to the parent controller"
+        )
 
 
 def engine() -> Orchestrator:
@@ -57,6 +67,7 @@ def drive_in_background(run_id: str) -> dict[str, Any]:
     driver is alive. An embedded engine (tests, custom hosts) is never
     re-created in another process: its registry and store may be in-memory.
     """
+    _reject_worker_control()
     orchestrator = engine()
     current = orchestrator.store.driver(run_id)
     if current.get("active"):
@@ -167,6 +178,7 @@ def create(
     ``background`` defaults to on for a started Auto Continue run: a detached
     driver keeps it moving after this call returns.
     """
+    _reject_worker_control()
     orchestrator = engine()
     summary = orchestrator.create_run(
         goal, repository=repository, project=project, tasks=tasks, policy=policy, overrides=overrides, run_id=run_id
@@ -205,12 +217,14 @@ def list_runs() -> list[dict[str, Any]]:
 
 
 def step(run_id: str) -> dict[str, Any]:
+    _reject_worker_control()
     return engine().step(run_id)
 
 
 def advance(run_id: str, max_seconds: float | None = 60.0, max_ticks: int | None = None) -> dict[str, Any]:
     """Drive the run for a bounded time. Honest about what happens next: when
     this call returns, nothing keeps running the run in this process."""
+    _reject_worker_control()
     summary = engine().run_loop(run_id, max_seconds=max_seconds, max_ticks=max_ticks, owner="advance")
     summary["driver_note"] = (
         "this call has returned; unless another orchestrator process is driving the run, "
@@ -220,6 +234,7 @@ def advance(run_id: str, max_seconds: float | None = 60.0, max_ticks: int | None
 
 
 def control(run_id: str, action: str) -> dict[str, Any]:
+    _reject_worker_control()
     orchestrator = engine()
     if action == "drive":
         summary = orchestrator.status(run_id)
@@ -240,18 +255,22 @@ def control(run_id: str, action: str) -> dict[str, Any]:
 
 
 def decide(run_id: str, gate_id: str, approve: bool, note: str | None = None) -> dict[str, Any]:
+    _reject_worker_control()
     return _kick(engine().decide(run_id, gate_id, approve, note))
 
 
 def retry(run_id: str, node_id: str) -> dict[str, Any]:
+    _reject_worker_control()
     return _kick(engine().retry(run_id, node_id))
 
 
 def reassign(run_id: str, node_id: str, provider: str, model: str | None = None, effort: str | None = None) -> dict[str, Any]:
+    _reject_worker_control()
     return _kick(engine().reassign(run_id, node_id, provider, model, effort))
 
 
 def review_again(run_id: str, node_id: str) -> dict[str, Any]:
+    _reject_worker_control()
     return _kick(engine().review_again(run_id, node_id))
 
 
@@ -264,6 +283,7 @@ def override(
     node: str | None = None,
     clear: bool = False,
 ) -> dict[str, Any]:
+    _reject_worker_control()
     return engine().set_override(run_id, provider=provider, model=model, effort=effort, role=role, node=node, clear=clear)
 
 

@@ -164,7 +164,9 @@ same class before moving up a class, one class at a time:
   outside the worker's write boundary. A task that needs a host-side action
   (such as restarting the MCP server or running a live smoke from an authorized
   host) must report `needs_decision` with that prerequisite for the parent
-  controller to handle.
+  controller to handle. Worker subprocesses receive an internal environment
+  marker, and orchestrator control entry points reject calls carrying it before
+  they touch run state or Git refs.
 - Integration merges a node into `agent-os/<run>/integration` only when:
   - its validators passed (never on the worker's say-so);
   - required independent review approved it, or you explicitly accepted the
