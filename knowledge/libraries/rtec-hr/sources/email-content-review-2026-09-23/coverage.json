@@ -35,6 +35,20 @@
         "knowledge/libraries/rtec-hr/sources/ky-aoc-ru-004-criminal-record-request/"
       ],
       "excluded_content": "No employee/applicant identities, personal training status, raw email bodies, or case details were retained."
+    },
+    {
+      "reviewed_at": "2026-09-23",
+      "source_type": "two archived handbook-version emails with position-level attachments",
+      "message_ids": ["msg_0c4270a04a4f9172ccd202ea", "msg_346de0d91c8d3296d74a9113"],
+      "safe_process_summary": "The archive contains an earlier same-day DOCX and a later 48-page PDF with the same printed March 1, 2023 handbook date. The later email describes the PDF as revised and says to post it as the 2023 Employee Handbook. The complete version covers employment terms, pay and benefits, leave, attendance, harassment, dress and role-specific guidance, safety, confidentiality, discipline, communications, nepotism/fraternization, surveillance, EEO, and a blank handbook receipt certificate.",
+      "review_method": "Both file hashes matched the attachment index. All 48 PDF pages were visually reviewed and text extracted. The DOCX's 690 main paragraphs were extracted; tracked edits and comments were absent. Text overlap was substantial but not exact, so both originals were retained as distinct versions.",
+      "authority_note": "This is pre-April-2026 company history, not the user's personal work history. The source is historical; the complete December 2025 handbook is later and section-level supersession may apply.",
+      "persisted_sources": [
+        "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2023-03-01/",
+        "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json",
+        "projects/rtec-hr-process-model/docs/REFERENCE_FORM_CONTEXT.md"
+      ],
+      "excluded_content": "No employee/applicant case records or person-level dossiers were created. Official names/signatures embedded in the handbook remain only within the position-level source allowed by the ingestion contract."
     }
   ],
   "method_notes": [

@@ -26,18 +26,18 @@
     {
       "project": "rtec-hr-process-model",
       "repository": "unwit1/personal-agent-os",
-      "entries": 4,
-      "note": "Forms already fully ingested into the RTEC HR knowledge corpus, including a visually checked Guardian enrollment reference found in the work mailbox."
+      "entries": 11,
+      "note": "Blank/reference forms preserved or embedded in the RTEC HR knowledge corpus, including the Guardian enrollment packet, new-hire orientation references, the official Kentucky AOC-RU-004 reference, and the 2023 handbook receipt certificate."
     }
   ],
   "stats": {
-    "total_reference_records": 85,
+    "total_reference_records": 86,
     "hr_gui_manifest_records": 72,
     "applicant_dashboard_records": 3,
-    "already_ingested_hr_corpus_records": 9,
+    "already_ingested_hr_corpus_records": 11,
     "unique_identity_keys": 74,
     "duplicate_or_multi_source_identity_keys": 4,
-    "pending_identity_review_records": 7
+    "pending_identity_review_records": 8
   },
   "entries": [
     {
@@ -2067,6 +2067,24 @@
       "related_catalog_entry_ids": [],
       "policy_authority": "none_by_catalog_presence",
       "notes": ["A July 2026 RTEC email asked whether this state form could replace a prior application-packet form; no approval or implementation is documented in that thread.", "Kentucky Court of Justice guidance says altering a form beyond completion is prohibited; preserve unchanged.", "Contains blank fields for sensitive identifiers. Completed forms and applicant data must remain outside this repository.", "Official source: https://www.kycourts.gov/Legal-Forms/Legal%20Forms/RU-004.pdf; official listing: https://www.kycourts.gov/Legal-Forms/Pages/default.aspx."]
+    },
+    {
+      "id": "rtec-form-employee-handbook-receipt-certificate-2023",
+      "title": "Employee Handbook Certificate of Receipt, March 2023",
+      "category": "New Hire / Handbook Acknowledgment",
+      "source_project": "rtec-hr-process-model",
+      "source_repository": "unwit1/personal-agent-os",
+      "source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2023-03-01/source/RTEC-Employee-Handbook-2023-03-01-revised.pdf",
+      "source_location": "printed page 48 of 48",
+      "source_kind": "blank_reference_form_embedded_in_handbook",
+      "mapping_status": "candidate_possible_related_source",
+      "canonical_form_type": "Employee Handbook Receipt Certificate",
+      "temporal_status": "historical handbook; no form-specific effective date",
+      "validation_state": "visually_checked_blank_possible_related_source",
+      "full_source_status": "embedded in the unchanged complete 48-page handbook PDF; page text included in the searchable mirror; same-date DOCX variant also preserved",
+      "related_catalog_entry_ids": ["hrgui-reference-034", "rtec-form-policy-resources-receipt-2026-email"],
+      "policy_authority": "none_by_form_presence",
+      "notes": ["The printed-name/issued-to, signature, and date-received fields on page 48 are blank.", "Possible related HR-GUI and 2026 RTEC policy-receipt sources; wording and structure differ, so identity/deduplication is unconfirmed.", "Historical form content does not establish current onboarding requirements."]
     }
   ]
 }
