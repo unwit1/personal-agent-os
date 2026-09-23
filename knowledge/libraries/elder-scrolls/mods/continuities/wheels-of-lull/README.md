@@ -19,14 +19,66 @@ Sub-continuity for the Skyrim mod **The Wheels of Lull**.
 - SCEN **14/14**
 - **1,090 structured lore-bearing source records** persisted.
 
-The final batch completes the plugin messages and scenes. Messages preserve exact user-facing description/button text where present. Scenes preserve owning quest, subrecord order, and deterministic references to dialogue/quest/NPC records where those FormIDs resolve.
+The raw source import is complete. Messages preserve user-facing text where present; scenes preserve owning quest, subrecord order, and deterministic references to dialogue/quest/NPC records where resolvable.
 
-Notable final records include Technomancy knowledge, monitoring/tram state messages, Wailway interaction messages, and scenes for Archeron introductions, Numinar's speech, the traitor confrontation, Llavados explanations, Wailway ending, Fyr's saboteur sequence, and the Numinar approach.
+## Core post-ingestion analysis: complete with one bounded repair
 
-## Provenance
+Completed:
+- speaker/condition analysis for every readable INFO record;
+- character, place, artifact/technology, and faction dossiers;
+- 25 normalized core claims and 7 tension/canon-boundary records;
+- topic/theme/reliability synthesis;
+- compact routing/retrieval derivatives;
+- deterministic fingerprints for all 33 BOOK records;
+- BOOK provenance passes 01-03;
+- machine-readable BOOK-to-central-source relations.
 
-All material remains scoped to `tes.mod.wheels-of-lull`. Character testimony, quest narration, message/UI text, scene structure, and implementation evidence remain distinct evidence classes.
+### Dialogue repair boundary
 
-## Post-ingestion analysis
+Two stored gzip shards are corrupt:
 
-The raw/structured source import is complete. Downstream work can now use the full preserved corpus for deterministic speaker-condition resolution, character/location/artifact/faction dossiers, cross-source claim extraction, contradiction handling, and retrieval indexes without reparsing the ESP.
+- `raw/source-records-0151-0200.jsonl.gz`
+- `raw/source-records-0401-0450.jsonl.gz`
+
+This leaves **52 INFO records** outside exhaustive speaker resolution. Of 410 INFO records, 358 are readable/processed, 288 are deterministically speaker-resolved, and 70 readable records remain intentionally unresolved.
+
+The bad blobs were already corrupt in their creation commits. The exact `WheelsOfLull.esp` is not currently available in the repository or indexed file library, so deterministic repair requires reacquiring that exact source file and verifying its SHA-256 before regeneration.
+
+See:
+- `analysis/source-integrity.json`
+- `analysis/repair-plan.md`
+- `analysis/post-ingestion-status.json`
+
+## BOOK provenance
+
+All **33/33 BOOK records** have raw, normalized, and comparison SHA-256 fingerprints.
+
+Current provenance state:
+- **3** verified prior/external text reuses: KINMUNE, Tatterdemalion, and The Cacophany / Xal-Gosleigh excerpt;
+- **1** strong-indirect legacy Trainwiz candidate: *Harquebuses* — concept predates Wheels, exact treatise witness still unverified;
+- **19** continuity-local contextual/operational documents with historical origin unresolved;
+- **10** named lore works with no verified pre-Wheels witness found in the current search surfaces.
+
+KINMUNE has a completed edition-level comparison proving the Wheels text is an abridged/edited variant rather than an exact duplicate.
+
+See:
+- `analysis/book-normalization-index.json`
+- `analysis/book-provenance-pass-02.*`
+- `analysis/book-provenance-pass-03-search-audit.*`
+- `analysis/book-variant-pass-01.*`
+- `normalized/book-source-relations.json`
+
+## Retrieval state
+
+Existing compact indexes cover the expected 1,090-record corpus, but a **fresh full materialization is currently blocked** by the two corrupt raw shards. The retrieval builder now fails closed instead of silently creating a partial corpus.
+
+After shard repair:
+1. merge the 52 repaired INFO records into speaker resolution;
+2. rerun full 1,090-record retrieval materialization;
+3. validate routing/lexical derivatives before replacing persistent indexes.
+
+## Provenance policy
+
+All material remains scoped to `tes.mod.wheels-of-lull` unless an explicit source relationship is verified. Character testimony, quest narration, UI/message text, implementation evidence, external/developer texts, and later synthesis remain distinct evidence classes.
+
+No missing dialogue is inferred, no ambiguous line is silently assigned to a speaker, and no reused text is promoted into Bethesda canon merely because Wheels embeds it.
