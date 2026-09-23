@@ -1,0 +1,178 @@
+{
+  "id": "rtec-policy-handbook-governance-employment-2025",
+  "record_type": "policy",
+  "title": "Handbook governance, employment relationship, company policy and complaint procedure - 2025 handbook",
+  "status": "validated",
+  "temporal_status": "current",
+  "effective_from": "2025-12-15",
+  "effective_to": null,
+  "summary": "Currentest ingested complete RTEC handbook provisions governing handbook authority, at-will employment, policy amendment, equal-merit company policy, grievance/complaint escalation, orientation responsibility, and handbook acknowledgment/return.",
+  "claims": [
+    {
+      "claim": "The handbook states that it is not an employment contract, describes employment as at-will, and places suspension/termination authority with the Executive Director.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDES",
+      "related_record_ids": [
+        "rtec-policy-employment-at-will-handbook-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 5 - Introduction",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "RTEC reserves the right to amend policies/procedures at its discretion, with amended policy stated to become effective immediately; the handbook is for internal use and must be returned with company property at separation.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDES",
+      "related_record_ids": [
+        "rtec-policy-employment-at-will-handbook-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 5 - Introduction",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "RTEC's company policy describes recruitment, employment, training and promotion based on merit and nondiscrimination, with the Executive Director assigned monitoring responsibility and complaints reportable to the immediate supervisor or Executive Director.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-eeo-2026"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 6 - RTEC's Company Policy",
+          "evidence_type": "explicit_text",
+          "note": "Later signed 2026 EEO policy is the controlling current EEO source where it differs."
+        }
+      ]
+    },
+    {
+      "claim": "The complaint procedure directs employees first to the supervisor and, if unresolved, to the Executive Director; it states the Executive Director will review the matter and advise the employee of the decision within ten workdays after escalation.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 9 - Complaint Procedure",
+          "evidence_type": "explicit_text",
+          "note": "The section also says 'reasonable time' generally means five working days and reserves discretion to reject improper complaints."
+        }
+      ]
+    },
+    {
+      "claim": "The Human Resource Manager and employee's supervisor are responsible for orienting the employee to workplace expectations, including the dress-code policy.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 30 - Orientation",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The certificate of receipt requires the employee to acknowledge responsibility for knowing and keeping the manual updated, recognizes company ownership/return requirements, and reiterates that the manual does not alter at-will status.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDES",
+      "related_record_ids": [
+        "rtec-policy-employment-at-will-handbook-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 48 - Certificate of Receipt",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "trigger": null,
+  "prerequisites": [],
+  "actors": [
+    "Executive Director",
+    "Human Resource Manager",
+    "Supervisor",
+    "Employee",
+    "Applicant"
+  ],
+  "systems": [],
+  "forms": [
+    "Certificate of Receipt"
+  ],
+  "steps": [
+    "Use the handbook as the policy reference for employees.",
+    "Raise ordinary work-related complaints first with the supervisor.",
+    "Escalate unresolved complaints to the Executive Director.",
+    "Orient employees to workplace expectations and obtain/retain handbook acknowledgment."
+  ],
+  "decisions": [
+    "Whether a complaint is appropriate for the grievance procedure.",
+    "Whether policy amendments are issued.",
+    "Whether corrective employment action is taken under at-will authority."
+  ],
+  "deadlines": [
+    "Executive Director decision within ten workdays after an appropriate complaint is brought to their attention.",
+    "The complaint section defines 'reasonable time' generally as five working days."
+  ],
+  "outputs": [
+    "Complaint/grievance response",
+    "Employee handbook acknowledgment"
+  ],
+  "exceptions": [
+    "Later standalone policies supersede individual handbook sections where they are more recent and authoritative."
+  ],
+  "controls": [
+    "No retaliation/discrimination for making a complaint is stated in the complaint section.",
+    "Handbook receipt remains on file."
+  ],
+  "unresolved_questions": [
+    "What current form or system records handbook acknowledgments and complaint escalations?"
+  ],
+  "automation_candidates": [
+    "Track handbook version acknowledgments and missing receipts.",
+    "Complaint routing checklist with escalation/deadline reminders."
+  ],
+  "supersedes_record_ids": [
+    "rtec-policy-employment-at-will-handbook-2023"
+  ],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "safe_source_type": "employee_handbook",
+      "source_date_or_version": "2025-12-15",
+      "source_created_date": null,
+      "source_revision_date": "2025-12-15",
+      "source_effective_from": "2025-12-15",
+      "source_effective_to": null,
+      "temporal_status": "current",
+      "content_sha256": "d8601d4c5ded962051c521ace697f447492dc178d565a393e5c945c309a7e22c",
+      "page_or_section": "printed pages 5-9, 30, 48",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": "Validated as faithful extraction of the complete 2025 handbook; later section-specific sources can supersede it."
+    }
+  ]
+}
