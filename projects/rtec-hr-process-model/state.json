@@ -29,10 +29,16 @@
     "Do not generalize employee-specific case facts into global process rules.",
     "Uncertain claims remain candidates until corroborated or user-confirmed.",
     "Preserve source provenance and document-version context for every promoted rule.",
-    "HR-GUI PROJECT_GUIDE.md privacy rules remain authoritative for scanner development."
+    "HR-GUI PROJECT_GUIDE.md privacy rules remain authoritative for scanner development.",
+    "Do not assume an older source is current; determine effective period and supersession before relying on it operationally."
   ],
   "provenance": {
     "source": "user-authorized project initialization",
     "observed_at": "2026-09-23"
+  },
+  "corpus_scope": {
+    "approximate_history_years": 20,
+    "temporal_assumption": "Historical by default until effective period/currentness is established.",
+    "preservation_rule": "Retain obsolete and superseded process sources for chronology and legacy-reference purposes."
   }
 }
