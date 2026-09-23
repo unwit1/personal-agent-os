@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-23",
+  "purpose": "Sanitized manifest for the exhaustive iCloud-mail profile analysis. It records coverage, classification rules, and safe aggregate signals without copying raw personal correspondence into Git.",
+  "source": {
+    "type": "local_icloud_mail_index",
+    "indexed_messages": 10577,
+    "indexed_sources": 10579,
+    "indexed_attachments": 232,
+    "date_range": [
+      "2018-01-20",
+      "2026-09-23"
+    ],
+    "sent_messages": 203,
+    "distinct_sender_strings": 609,
+    "mailboxes": {
+      "INBOX": 8361,
+      "Employment": 1523,
+      "Archive": 216,
+      "Sent Messages": 203,
+      "Junk": 144,
+      "Studies": 67,
+      "Stories": 22,
+      "Deleted Messages": 22,
+      "Orders": 10,
+      "Shopping": 9
+    },
+    "messages_by_year": {
+      "2018": 4,
+      "2019": 6,
+      "2020": 103,
+      "2021": 37,
+      "2022": 65,
+      "2023": 95,
+      "2024": 24,
+      "2025": 592,
+      "2026": 9651
+    },
+    "attachment_coverage": {
+      "records": 232,
+      "with_extracted_text": 1,
+      "metadata_only": 231,
+      "common_types": {
+        "png": 72,
+        "pdf": 60,
+        "jpg": 34,
+        "jpeg": 27,
+        "docx": 17,
+        "xlsx": 3,
+        "epub": 2
+      },
+      "limitation": "Indexed email text is available for exhaustive message-level analysis, but attachment bodies are not exhausted because 231 of 232 attachment records expose metadata only."
+    }
+  },
+  "evidence_policy": {
+    "strongest": [
+      "User-authored Sent Messages",
+      "Direct replies from known people or organizations",
+      "Offer, interview, enrollment, lease, service, and other transactional confirmations",
+      "Repeated behavior across months or years"
+    ],
+    "supporting": [
+      "Account and service notifications",
+      "Repeated transactional purchase/service mail",
+      "Persistent subscription or creator-following patterns"
+    ],
+    "weak_or_non_authoritative": [
+      "Marketing mail",
+      "Algorithmic recommendations",
+      "Generic job alerts",
+      "Third-party study invitations",
+      "Accessory purchases as proof of current device ownership",
+      "Household purchases as proof of the user's own hobby"
+    ],
+    "historical_state_rule": "A dated email is evidence of state at that date. It must not silently overwrite newer user-stated or newer corroborated state.",
+    "conflict_rule": "Prefer newer direct user statements or confirmations; retain older evidence as timeline provenance rather than flattening it into current state.",
+    "negative_inference_rule": "Absence of email evidence is not evidence that something did not happen."
+  },
+  "privacy_policy": {
+    "excluded_from_git": [
+      "raw message bodies",
+      "email addresses and phone numbers",
+      "exact residential addresses",
+      "credentials, product keys, reset links, verification codes, and security artifacts",
+      "financial account identifiers and balances",
+      "health and medical details",
+      "private intimate correspondence",
+      "government or institutional identifiers",
+      "unnecessary third-party personal information"
+    ],
+    "handling": "Sensitive source material may be encountered during local analysis but must not be promoted into the Git-tracked personal profile unless the user explicitly asks for that specific class of information and it is appropriate to retain."
+  },
+  "analysis_passes_completed": [
+    "Full-corpus mailbox/year/sender-domain aggregation",
+    "All 203 Sent Messages reviewed as highest-value autobiographical evidence",
+    "Self-referential statements extracted from Sent Messages",
+    "Career/application/interview correspondence cross-checked against direct institutional replies",
+    "Education, housing, travel, vehicle, technology, hobbies, household, paid-research, and creator/subscription signals targeted",
+    "Attachment inventory classified by type and extraction availability",
+    "False-positive controls applied to marketing, recommendations, job alerts, and household/device ambiguity"
+  ],
+  "next_deepening_targets": [
+    "Build evidence-backed personal timeline with first/last-seen dates",
+    "Build relationship/organization graph without contact details",
+    "Separate direct applications/interviews from automated job alerts",
+    "Model communication style by recipient/context",
+    "Extract recurring commitments and follow-up behavior",
+    "Model interest evolution and digital-service history",
+    "Generate automation opportunities from repeated manual workflows",
+    "Recover/extract attachment bodies as a separate corpus if source files become available"
+  ]
+}

@@ -8,11 +8,11 @@ Completed products:
 - complete 33-location / 103-cell place index and high-value place dossiers;
 - artifact/technology dossiers;
 - faction/group dossiers;
-- 25 normalized core claims;
+- 31 normalized core claims;
 - 7 canon/tension handling records;
-- machine-readable retrieval index;
+- machine-readable retrieval index with 76 entries, including all 14 topic dossiers;
 - deterministic normalization and SHA-256 fingerprints for all 33 BOOK records;
-- BOOK provenance passes 01-02;
+- BOOK provenance passes 01-03 plus a search audit and KINMUNE variant pass;
 - central-source links for verified KINMUNE, Tatterdemalion, and Xal-Gosleigh reuse.
 
 ## Dialogue integrity boundary
@@ -28,6 +28,8 @@ The original ESP is not currently present in the repository/file-library access 
 
 All **33/33 BOOK records** have raw, normalized, and comparison SHA-256 fingerprints in `book-normalization-index.json`.
 
+Semantic gap closure also added dedicated topic dossiers for *Musings On Power*, *De Rerum Mutabilitatis*, and *How Two Moon* without changing their unresolved historical provenance.
+
 Current origin/provenance triage:
 - **3** verified prior/external text reuses;
 - **1** strong-indirect legacy Trainwiz candidate (*Harquebuses*), not yet promoted to verified exact-text reuse;
@@ -37,6 +39,8 @@ Current origin/provenance triage:
 See:
 - `book-provenance-pass-01.md`
 - `book-provenance-pass-02.md`
+- `book-provenance-pass-03-search-audit.md`
+- `book-variant-pass-01.md`
 - `book-normalization-index.json`
 
 ## Policy

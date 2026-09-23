@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-23",
+  "purpose": "Sanitized communication/work-style model derived primarily from all 203 Sent Messages in the local iCloud index.",
+  "quantitative_sent_mail_profile": {
+    "sent_messages_reviewed": 203,
+    "professional_or_external_messages": 109,
+    "personal_messages": 38,
+    "self_forward_or_cross_account_transport_messages": 29,
+    "automated_unsubscribe_messages": 27,
+    "professional_messages": {
+      "median_authored_words": 78,
+      "mean_authored_words": 153.2,
+      "contains_question_rate": 0.486,
+      "contains_thanks_rate": 0.523,
+      "contains_apology_rate": 0.183,
+      "explicit_follow_up_rate": 0.229,
+      "greeting_rate": 0.56,
+      "exclamation_mark_rate": 0.541,
+      "explicit_jacob_signoff_rate": 0.477
+    },
+    "recurring_professional_phrases": {
+      "have a great rest of your week": 13,
+      "have a great weekend": 12,
+      "thank you for your time": 10,
+      "just wanted to follow up": 8,
+      "just following up": 9,
+      "looking forward": 11,
+      "out of curiosity": 7
+    }
+  },
+  "professional_style": {
+    "default_tone": "Polite, direct, appreciative, conversational, and question-oriented rather than stiff or highly formal.",
+    "common_structure": [
+      "Friendly time-of-day greeting when the exchange is important or ongoing.",
+      "One-sentence context/reminder of the prior interaction.",
+      "Concrete question or short cluster of practical questions.",
+      "Thanks/appreciation.",
+      "Positive closing such as wishing the recipient a good day, week, or weekend.",
+      "Often signs as Jacob or Jacob Salsman."
+    ],
+    "question_behavior": "Frequently asks multiple concrete operational questions in one message, especially before a job start, interview, move, policy-sensitive situation, or administrative transition.",
+    "follow_up_behavior": "Strong recurring tendency to follow up when a process is unresolved. Job applications/interviews are the clearest example, but the same behavior appears in housing, support, registration, and other administrative threads.",
+    "courtesy_behavior": "Even when withdrawing from a process or correcting a mistake, usually thanks the other person and closes positively.",
+    "uncertainty_language": "Often softens questions with phrases such as 'just wanted to', 'out of curiosity', 'would it be possible', and 'do you happen to have'.",
+    "error_recovery": "When a message, attachment, deadline, or administrative step may have been missed, generally acknowledges the mistake, apologizes briefly, and immediately asks what is needed to fix it.",
+    "preferred_channel_signal": "At least one direct service interaction explicitly states a preference for email. The broader archive independently shows heavy use of email for coordination, records, and cross-system transport, so email should be treated as a strong default communication channel when otherwise appropriate."
+  },
+  "informal_style": {
+    "tone": "Much shorter, more humorous, more expressive, and less structured with close contacts.",
+    "humor": "Comfortable with exaggerated, absurd, self-deprecating, or deliberately over-written humor in casual contexts.",
+    "drafting_rule": "Do not imitate the formal professional template when drafting for close personal contacts; the archive shows a strong context-dependent style split."
+  },
+  "work_style_evidence": {
+    "autonomy": "In 2023 interview notes, explicitly described working best semi-autonomously and valued freedom to experiment while learning to manage a function.",
+    "learning_by_doing": "Described a prior two-person operation with little training as stressful but valuable because it required learning the work on the fly.",
+    "preparation": "Before transitions, tends to gather rules, logistics, expectations, timelines, and contingencies in advance.",
+    "customer_service": "Self-authored interview notes emphasize helping customers without giving false hope when a problem cannot be fixed.",
+    "troubleshooting": "Technical-support mail shows a methodical pattern: reproduce the issue, test across devices or conditions, distinguish likely physical/software causes, document what has already been tried, then escalate with evidence.",
+    "policy_orientation": "Housing and employment messages repeatedly ask for the actual process/rule before acting, suggesting the agent should surface policy, deadlines, and exception paths rather than giving vague advice."
+  },
+  "organization_and_memory_patterns": {
+    "self_forwarding": "At least 29 Sent Messages are self-forwards or cross-account transport, often moving links, scans, interview details, receipts, or reference material between personal, school, and work accounts.",
+    "lists_and_spreadsheets": "Has used emailed spreadsheets/lists to track needs, gift ideas, and other personal planning.",
+    "delayed_admin_pattern": "Several threads contain variants of 'sorry for the delay', 'thought I had already sent this', late follow-up, or a task placed on the back burner. This supports the user's existing preference for unresolved commitments to be resurfaced rather than assuming they are complete.",
+    "recovery_strength": "Once a forgotten or blocked administrative task is noticed, correspondence usually shows active recovery: ask what remains, provide the missing item, and confirm completion.",
+    "agent_implication": [
+      "Detect promises, deadlines, requested documents, follow-up dates, renewals, maintenance, and unresolved application/support states.",
+      "Resurface them until there is evidence of completion.",
+      "Offer a checklist and next action rather than a generic reminder.",
+      "Keep a sent/received evidence trail so the agent can tell the user whether something was actually sent rather than merely drafted or intended."
+    ]
+  },
+  "historical_style_change": {
+    "observation": "Professional messages became more structured and follow-up-heavy over time, especially during the 2025-2026 job-search period.",
+    "selected_year_metrics": {
+      "2020": {
+        "professional_messages": 18,
+        "median_words": 40,
+        "follow_up_rate": 0.06,
+        "thanks_rate": 0.39
+      },
+      "2023": {
+        "professional_messages": 21,
+        "median_words": 123,
+        "follow_up_rate": 0.19,
+        "thanks_rate": 0.67
+      },
+      "2025": {
+        "professional_messages": 25,
+        "median_words": 178,
+        "follow_up_rate": 0.56,
+        "thanks_rate": 0.8
+      },
+      "2026": {
+        "professional_messages": 18,
+        "median_words": 197,
+        "follow_up_rate": 0.28,
+        "thanks_rate": 0.5
+      }
+    },
+    "caveat": "Counts are descriptive of the archived Sent Messages, not a complete sample of all communication channels."
+  },
+  "drafting_defaults_for_agent": [
+    "For professional email, preserve the user's concise conversational courtesy rather than making drafts sound overly corporate.",
+    "Lead with context, then ask the concrete question(s).",
+    "When there are multiple operational questions, use a compact list.",
+    "Use appreciative closing language without excessive formality.",
+    "For follow-ups, acknowledge the prior interaction and ask directly for status or the next step.",
+    "When correcting an error, brief ownership plus a repair action fits the user's observed style.",
+    "For close personal messages, allow significantly more humor and informality; do not blindly transfer professional-email habits."
+  ],
+  "exclusions": "Private intimate content, sensitive health material, credentials, contact details, and raw message text are intentionally excluded."
+}

@@ -1,0 +1,260 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-23",
+  "purpose": "Sanitized chronological reconstruction from the local iCloud mail index. Events are historical evidence, not assumptions about current state.",
+  "confidence_legend": {
+    "high": "Direct user-authored statement plus corroborating reply/transaction, or repeated multi-message evidence.",
+    "medium": "Direct user-authored statement with limited corroboration, or strong transactional inference.",
+    "low": "Weak inference retained only as a lead and not promoted to canonical profile."
+  },
+  "timeline": [
+    {
+      "period": "2018",
+      "events": [
+        {
+          "date": "2018-01",
+          "confidence": "high",
+          "fact": "Applied for an honors scholarship at Liberty and requested a recommendation letter.",
+          "evidence": [
+            "msg_7b39d4759b8ff068013f40dd",
+            "msg_7a2ca74ecb640d2bc1111f17"
+          ]
+        },
+        {
+          "date": "2018-01",
+          "confidence": "high",
+          "fact": "Described creativity as a personal strength and wanted future education/work to make meaningful use of it.",
+          "evidence": [
+            "msg_7a2ca74ecb640d2bc1111f17"
+          ]
+        }
+      ]
+    },
+    {
+      "period": "2019",
+      "events": [
+        {
+          "date": "2019-02/03",
+          "confidence": "high",
+          "fact": "Was preparing a Berea College application and requested completion of Berea's student evaluation/endorsement form.",
+          "evidence": [
+            "msg_ccd1e5ca4d0b16605799e13a"
+          ]
+        }
+      ]
+    },
+    {
+      "period": "2020",
+      "events": [
+        {
+          "date": "2020-04",
+          "confidence": "high",
+          "fact": "Applied for and accepted another summer at Triple R Ranch; correspondence indicates 2020 was the first year being considered as senior staff rather than the first year at the ranch.",
+          "evidence": [
+            "msg_1bbfbf5de9d5e0ec5b255d0d"
+          ]
+        },
+        {
+          "date": "2020-09",
+          "confidence": "high",
+          "fact": "Was a college student living independently off campus for part of the semester, with plans at that point to return to a dorm later.",
+          "evidence": [
+            "msg_36b2984f900bdc1bf0647ca7"
+          ]
+        },
+        {
+          "date": "2020",
+          "confidence": "high",
+          "fact": "Used an iPhone and handled consumer-electronics troubleshooting in a methodical, cross-device way.",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "period": "2021",
+      "events": [
+        {
+          "date": "2021-05",
+          "confidence": "high",
+          "fact": "Was independently managing a Kentucky rental/utility setup with a roommate.",
+          "evidence": [
+            "msg_7595c36c897c3bd87d33c1d8"
+          ]
+        }
+      ]
+    },
+    {
+      "period": "2022",
+      "events": [
+        {
+          "date": "2022-03 to 2022-07",
+          "confidence": "high",
+          "fact": "Applied to and completed an ISA Irish Studies summer program in Galway, Ireland, with the trip occupying roughly one month of summer 2022.",
+          "evidence": [
+            "msg_4ddb1f5e5fbb4e448f3f0ce8"
+          ]
+        },
+        {
+          "date": "2022-03/04",
+          "confidence": "high",
+          "fact": "Sought another summer of work at Triple R Ranch and described having several summers of prior experience there; was interested in grounds or trading-post responsibilities.",
+          "evidence": [
+            "msg_b874cfbd4a332f879cf2b016"
+          ]
+        },
+        {
+          "date": "2022-10/11",
+          "confidence": "high",
+          "fact": "Maintained a spreadsheet/list for personal needs and gift planning; the list showed durable interest in cooking equipment, food storage/canning, tools, and a small woodworking/table project.",
+          "evidence": [
+            "msg_ea8a5366343c4495606c6a6c"
+          ]
+        }
+      ]
+    },
+    {
+      "period": "2023",
+      "events": [
+        {
+          "date": "2023-05 to 2023-07",
+          "confidence": "high",
+          "fact": "Ran an active post-college job search including BereaCorps, Enterprise, University of Kentucky and other opportunities, and regularly followed up on interview timelines.",
+          "evidence": []
+        },
+        {
+          "date": "2023-07",
+          "confidence": "high",
+          "fact": "Accepted a University of Kentucky STEPS Benefits Associate role in Employee Benefits with a July 17 start.",
+          "evidence": [
+            "msg_6c80c48eb93958091bb2bdf9"
+          ]
+        },
+        {
+          "date": "2023-09",
+          "confidence": "high",
+          "fact": "Described a prior Berea job managing a bicycle/alternative-transportation program as a strong fit because it allowed semi-autonomous work, experimentation, and learning how to run the operation with one coworker and little training.",
+          "evidence": [
+            "msg_8513d8698718d893e8dad86c"
+          ]
+        },
+        {
+          "date": "2023-09",
+          "confidence": "high",
+          "fact": "Was managing a rental lease with roommate changes and explicitly asked about visitor rules for a partner, showing a preference for clarifying policy before accidentally violating it.",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "period": "2024",
+      "events": [
+        {
+          "date": "2024-08",
+          "confidence": "high",
+          "fact": "Handled rent/autopay and vehicle-registration administration directly and followed up when processes did not complete as expected.",
+          "evidence": []
+        },
+        {
+          "date": "2024-10/11",
+          "confidence": "high",
+          "fact": "Was planning a possible move away from the existing Berea apartment and proactively requested a move-out/deposit checklist months in advance; subsequently resolved a roommate-removal issue through digital lease paperwork.",
+          "evidence": [
+            "msg_3ac60547dad494dd964a43db"
+          ]
+        }
+      ]
+    },
+    {
+      "period": "2025",
+      "events": [
+        {
+          "date": "2025-05",
+          "confidence": "medium",
+          "fact": "In a user-authored outreach email, described several years of intermittent church/live-sound setup experience and said they were working on a master's in Audio Engineering. The archive contains no second source identifying the program, so this remains a dated self-report rather than a fully corroborated current credential.",
+          "evidence": [
+            "msg_6a391376e3750f395d4f1c78"
+          ]
+        },
+        {
+          "date": "2025-07 to 2026-04",
+          "confidence": "high",
+          "fact": "Conducted a sustained job search across HR, benefits/compensation, administrative/analyst, management-trainee, and selected technical/field roles. Direct correspondence shows repeated interviews, questionnaires, recruiter exchanges, and courteous withdrawals after accepting other opportunities.",
+          "evidence": []
+        },
+        {
+          "date": "2025-09",
+          "confidence": "high",
+          "fact": "Referred to Olivia as fiancée in dated professional correspondence. Preserve this as historical evidence while allowing newer user-stated relationship wording to control current profile state.",
+          "evidence": [
+            "msg_ab23ffac8ba78fa349170c3b"
+          ]
+        },
+        {
+          "date": "2025-12",
+          "confidence": "high",
+          "fact": "Applied for a Berea College compensation/benefits role that closely matched prior experience and subsequently progressed through phone screening and a final interview process into early 2026.",
+          "evidence": [
+            "msg_033436230c6195597dc91372",
+            "msg_eb5c366f60b2e5ba29672845"
+          ]
+        }
+      ]
+    },
+    {
+      "period": "2026",
+      "events": [
+        {
+          "date": "2026-03",
+          "confidence": "high",
+          "fact": "After being declined for a field-tech role, proactively asked about future reapplication rules and how to revise the resume to better reflect qualifications rather than treating the rejection as final.",
+          "evidence": [
+            "msg_accc410406b93379d3084c24"
+          ]
+        },
+        {
+          "date": "2026-04",
+          "confidence": "high",
+          "fact": "Accepted an HR Manager role with RTEC in Mount Vernon, Kentucky and prepared for the start by asking detailed questions about dress, parking, training, policies, vacation, insurance, and open enrollment.",
+          "evidence": [
+            "msg_ca5b2a63ad27db6dba067600"
+          ]
+        },
+        {
+          "date": "2026-04",
+          "confidence": "high",
+          "fact": "Confirmed having started the new HR Manager role and withdrew from another HR Manager interview process.",
+          "evidence": [
+            "msg_4ee9f0b4886e046f527773a7"
+          ]
+        },
+        {
+          "date": "2026",
+          "confidence": "high",
+          "fact": "Current correspondence strongly supports active use of GitHub plus multiple AI/coding/automation services, heavy Skyrim/modding engagement, PC gaming, third-party brick/minifigure collecting, and recurring paid-research/focus-group participation.",
+          "evidence": []
+        },
+        {
+          "date": "2026",
+          "confidence": "high",
+          "fact": "Current vehicle evidence strongly supports a 2012 Honda Accord, with maintenance and registration reminders appearing as recurring administrative signals.",
+          "evidence": []
+        },
+        {
+          "date": "2026-09",
+          "confidence": "high",
+          "fact": "A new rental application was under review, reinforcing that housing assumptions should remain variable rather than being treated as permanent.",
+          "evidence": [
+            "msg_0fe08fbf9b2a3c4bb477a5e3"
+          ]
+        }
+      ]
+    }
+  ],
+  "interpretation_rules": [
+    "Timeline facts are dated; historical roles, housing, devices, and relationship labels do not automatically describe the present.",
+    "Current user-stated facts override older email-derived evidence.",
+    "The May 2025 Audio Engineering master's statement is retained as medium confidence because it is direct self-report but not independently corroborated by program/provider mail in this archive.",
+    "Automated job-alert traffic after April 2026 is not treated as evidence that the user resumed an active job search.",
+    "No exact addresses, account numbers, contact details, sensitive health information, or intimate correspondence are retained here."
+  ]
+}

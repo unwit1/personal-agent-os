@@ -54,8 +54,8 @@
     "scene_records": "complete_14_of_14",
     "supplemental_lore_records": "complete_278_of_278",
     "speaker_resolution": "complete_for_all_readable_INFO_358_processed_52_pending_shard_regeneration",
-    "claim_analysis": "complete_25_core_7_tension_records_continuity_scoped",
-    "interpretive_analysis": "complete_core_dossiers_topics_reliability_themes",
+    "claim_analysis": "complete_31_core_7_tension_records_continuity_scoped",
+    "interpretive_analysis": "complete_14_topics_plus_core_dossiers_reliability_themes",
     "book_text_fingerprinting": "complete_33_of_33",
     "book_provenance": "passes_01_03_complete_followup_active",
     "book_source_relations": "complete_33_of_33",
@@ -77,10 +77,10 @@
       "faction_group": 4
     },
     "claims": {
-      "core": 25,
+      "core": 31,
       "tensions": 7
     },
-    "retrieval_index_entries": 56,
+    "retrieval_index_entries": 76,
     "book_provenance": {
       "total": 33,
       "fingerprinted": 33,
@@ -94,7 +94,8 @@
       "raw/source-records-0151-0200.jsonl.gz",
       "raw/source-records-0401-0450.jsonl.gz"
     ],
-    "repair_requirement": "Regenerate the two corrupt shards from the exact verified WheelsOfLull.esp, rerun strict speaker resolution for the excluded INFO records, then rebuild/validate retrieval derivatives."
+    "repair_requirement": "Regenerate the two corrupt shards from the exact verified WheelsOfLull.esp, rerun strict speaker resolution for the excluded INFO records, then rebuild/validate retrieval derivatives.",
+    "topic_dossiers": 14
   },
   "next_stage": {
     "blocked_branch": "dialogue shard repair requires exact source ESP bytes",

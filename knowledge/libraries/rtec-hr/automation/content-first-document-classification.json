@@ -1,0 +1,124 @@
+{
+  "id": "rtec-automation-content-first-document-classification",
+  "record_type": "automation_candidate",
+  "title": "Content-first HR document classification and date validation",
+  "status": "candidate",
+  "temporal_status": "current",
+  "summary": "The correspondence archive demonstrates that filenames can misstate both document type and date. HR ingestion should classify and date from document content/metadata first, using filenames only as weak hints.",
+  "claims": [
+    {
+      "claim": "A source named 'Term Doc.dotx' visibly contains an Employee Evaluation form, so filename-based document typing would misclassify it.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-form-employee-evaluation-template-legacy"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-evaluation-template-legacy",
+          "page_or_section": "rendered page 1",
+          "evidence_type": "structural",
+          "note": "Visible title is EMPLOYEE EVALUATION."
+        }
+      ]
+    },
+    {
+      "claim": "A staff-event memo artifact has a filename year of 2017 while the internal document text identifies the event as December 15, 2022, showing that filename dates can be stale or wrong.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "employee_event_participant_list source classification",
+          "evidence_type": "structural",
+          "note": "Employee names/content are excluded; only the filename/content-date mismatch is generalized."
+        }
+      ]
+    },
+    {
+      "claim": "For HR scanning and ingestion, filename-derived type/date should be treated as a low-confidence hint and reconciled against visible title, internal dates, form fingerprints, document metadata, and trusted workflow context.",
+      "claim_kind": "rule_candidate",
+      "confidence": 0.99,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-evaluation-template-legacy",
+          "page_or_section": "rendered page 1",
+          "evidence_type": "structural",
+          "note": null
+        },
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "employee_event_participant_list source classification",
+          "evidence_type": "structural",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "trigger": "A document enters the HR scanner/import pipeline.",
+  "prerequisites": [
+    "Content extraction or visual/form fingerprinting is available."
+  ],
+  "actors": [
+    "HR scanner",
+    "Human reviewer"
+  ],
+  "systems": [
+    "HR GUI scanner",
+    "Knowledge ingestion pipeline"
+  ],
+  "forms": [],
+  "steps": [
+    "Treat the original filename as provenance, not authoritative classification.",
+    "Detect document title/type from visible content, structural fingerprints, and metadata.",
+    "Extract internal dates and distinguish document date/effective date from filesystem or filename dates.",
+    "Compare filename hints with content-derived classification/date.",
+    "If they conflict, prefer stronger content evidence and log the mismatch for audit/review."
+  ],
+  "decisions": [
+    "Whether filename/content conflicts are confidently resolvable or require manual review."
+  ],
+  "deadlines": [],
+  "outputs": [
+    "Content-derived document type",
+    "Content-derived date/version",
+    "Filename mismatch warning",
+    "Audit log evidence"
+  ],
+  "exceptions": [
+    "A filename may be authoritative only where a validated workflow explicitly defines it as such."
+  ],
+  "controls": [
+    "Never silently overwrite provenance; preserve the original filename outside generalized knowledge where privacy permits.",
+    "Do not use employee-identifying filenames as durable generalized knowledge."
+  ],
+  "unresolved_questions": [],
+  "automation_candidates": [
+    "Add deterministic filename-vs-content mismatch flags to the HR GUI scanner.",
+    "Weight visible title/form fingerprints above filename tokens during classification.",
+    "Require internal-date validation before using a filename date in renamed HR documents."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-correspondence-2026-09-23",
+      "safe_source_type": "cross_source_ingestion_analysis",
+      "source_date_or_version": "2026-09-23",
+      "content_sha256": null,
+      "page_or_section": "multiple source artifacts",
+      "ingested_at": "2026-09-23",
+      "notes": "Derived from privacy-safe structural mismatches only.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "current",
+      "full_source_path": null,
+      "searchable_text_path": null
+    }
+  ]
+}

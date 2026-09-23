@@ -1,0 +1,139 @@
+{
+  "id": "rtec-process-disciplinary-logging-aap-history",
+  "record_type": "process",
+  "title": "Disciplinary logging and AAP reporting practice - historical archive evidence",
+  "status": "candidate",
+  "temporal_status": "unknown",
+  "effective_from": null,
+  "effective_to": null,
+  "summary": "The correspondence archive contains a long-running series of restricted annual disciplinary-action workbooks, separate AAP-sorted derivatives, and a verbal-warning log. This supports a privacy-safe process candidate that disciplinary activity was historically tracked by fiscal year and periodically reorganized for AAP reporting.",
+  "claims": [
+    {
+      "claim": "The supplied archive contains 17 distinct restricted disciplinary-action workbooks labeled by fiscal year, covering 2008-2009 through 2023-2024 plus 2025-2026; no 2024-2025 fiscal-year workbook was present in this upload.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "disciplinary_log_fiscal_year inventory",
+          "evidence_type": "repeated_observation",
+          "note": "Employee-level workbook contents were not committed or generalized."
+        }
+      ]
+    },
+    {
+      "claim": "The archive contains 11 distinct restricted disciplinary-log workbooks explicitly organized as AAP-sorted copies for periods from 2013-2014 through 2022-2023, including two distinct 2016-2017 artifacts.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "disciplinary_log_aap_sorted inventory",
+          "evidence_type": "repeated_observation",
+          "note": "This establishes archive structure, not the employee-level contents of the workbooks."
+        }
+      ]
+    },
+    {
+      "claim": "The repeated AAP-sorted copies suggest that disciplinary log data was historically reorganized or prepared for AAP-related reporting.",
+      "claim_kind": "interpretation",
+      "confidence": 0.92,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "disciplinary_log_aap_sorted inventory",
+          "evidence_type": "structural",
+          "note": "Inference from repeated source naming/organization; exact AAP use should be validated against plan instructions."
+        }
+      ]
+    },
+    {
+      "claim": "A separate restricted verbal-warning workbook exists in the archive, indicating verbal warnings may have been tracked separately from the fiscal-year disciplinary-action logs.",
+      "claim_kind": "interpretation",
+      "confidence": 0.88,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "disciplinary_verbal_warning_log inventory",
+          "evidence_type": "structural",
+          "note": "No case-level content was used."
+        }
+      ]
+    }
+  ],
+  "trigger": "Disciplinary action or verbal warning is documented; AAP reporting may require a historical disciplinary-data extract.",
+  "prerequisites": [
+    "Validated current discipline-recording policy and privacy/access controls."
+  ],
+  "actors": [
+    "Human Resources",
+    "Management"
+  ],
+  "systems": [
+    "Historical Excel workbooks"
+  ],
+  "forms": [
+    "Disciplinary action log",
+    "Verbal warning log",
+    "AAP-sorted disciplinary extract"
+  ],
+  "steps": [
+    "Record disciplinary activity in the applicable controlled system/log.",
+    "Organize records by fiscal year.",
+    "When required for AAP reporting, prepare a reporting-specific extract without altering the authoritative case records."
+  ],
+  "decisions": [
+    "Which current disciplinary events belong in the reporting population.",
+    "Which fields may be used in AAP analysis under current policy and privacy rules."
+  ],
+  "deadlines": [
+    "Historical files were organized by fiscal year; exact reporting deadlines are not established by this evidence."
+  ],
+  "outputs": [
+    "Fiscal-year disciplinary log",
+    "AAP reporting extract"
+  ],
+  "exceptions": [],
+  "controls": [
+    "Keep employee-level disciplinary facts restricted.",
+    "Do not infer current fields, formulas, or AAP methodology from filenames alone.",
+    "Do not duplicate authoritative case records merely to create reporting views when a controlled derived report can be generated."
+  ],
+  "unresolved_questions": [
+    "Is there a 2024-2025 disciplinary-action log outside this uploaded archive, or was that period tracked differently?",
+    "What is the current authoritative system for disciplinary actions and verbal warnings?",
+    "What exact AAP reporting requirement drove the historical sorted copies, and is that requirement still current?",
+    "Why are there two distinct 2016-2017 AAP-sorted artifacts, and are they complementary versions or revisions?"
+  ],
+  "automation_candidates": [
+    "Replace manual annual/AAP-sorted workbook copies with controlled views or generated privacy-safe reports from one authoritative disciplinary register.",
+    "Automatically produce fiscal-year and AAP reporting extracts while retaining provenance and access controls.",
+    "Detect missing fiscal-year coverage and duplicate/revision relationships before AAP preparation."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+      "safe_source_type": "restricted_evidence_inventory",
+      "source_date_or_version": "2026-09-23 ingestion",
+      "content_sha256": null,
+      "page_or_section": "disciplinary inventory classes",
+      "ingested_at": "2026-09-23",
+      "notes": "Derived only from privacy-safe file classes, periods, and hashes; no employee case content was used.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "unknown",
+      "full_source_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json"
+    }
+  ]
+}
