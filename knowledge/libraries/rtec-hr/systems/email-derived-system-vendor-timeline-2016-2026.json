@@ -1,0 +1,80 @@
+{
+  "record_id": "rtec-email-derived-system-vendor-timeline-2016-2026",
+  "updated_at": "2026-09-23",
+  "status": "evidence_timeline",
+  "systems": [
+    {
+      "name": "ADP",
+      "observed": "2016-2026",
+      "relationship": "HR/payroll/time/benefits-related platform and services",
+      "currentness": "2026 communications confirm ongoing account/reporting activity; exact current module split requires validation."
+    },
+    {
+      "name": "Guardian",
+      "observed": "2016-2026",
+      "relationship": "benefits carrier/account administration",
+      "currentness": "Active 2026 account and submission evidence."
+    },
+    {
+      "name": "CVIM",
+      "observed": "2017-2021",
+      "relationship": "historical benefits broker/contact channel",
+      "currentness": "Current relationship unknown."
+    },
+    {
+      "name": "iSolved / Infinisource",
+      "observed": "2019-2026",
+      "relationship": "HR/payroll/People Cloud related vendor communications",
+      "currentness": "2026 registration and billing evidence exists; exact live modules and system-of-record status unresolved."
+    },
+    {
+      "name": "ridertec.org online application forms",
+      "observed": "2018-2019",
+      "relationship": "historical applicant intake",
+      "currentness": "Likely superseded candidate; must not be treated as current without confirmation."
+    },
+    {
+      "name": "Kentucky New Hire Reporting",
+      "observed": "2026",
+      "relationship": "state new-hire reporting portal",
+      "currentness": "Active 2026 evidence."
+    },
+    {
+      "name": "Kentucky Unemployment Insurance Portal",
+      "observed": "2021-2026",
+      "relationship": "unemployment administration",
+      "currentness": "Active 2026 evidence."
+    },
+    {
+      "name": "3CX",
+      "observed": "2026",
+      "relationship": "RTEC communications/telephony account",
+      "currentness": "Active account evidence."
+    },
+    {
+      "name": "Google Workspace / Calendar",
+      "observed": "2026",
+      "relationship": "calendar/vendor meeting coordination",
+      "currentness": "Active use evidence."
+    },
+    {
+      "name": "UnitedHealthcare",
+      "observed": "2026",
+      "relationship": "health-plan carrier/account-management relationship",
+      "currentness": "Active professional account-management evidence."
+    },
+    {
+      "name": "Bim Group",
+      "observed": "2026",
+      "relationship": "HR/legislative information source",
+      "currentness": "Active information-source evidence; not necessarily an operational system."
+    },
+    {
+      "name": "Rippling",
+      "observed": "2026",
+      "relationship": "vendor evaluation/contact",
+      "currentness": "Exploratory/unconfirmed. A meeting invitation is not evidence of implementation."
+    }
+  ],
+  "architectural_observation": "The email record suggests a layered HR technology environment rather than one proven all-in-one system. Current authoritative ownership by data domain must be mapped before automation writes to any external system."
+}
