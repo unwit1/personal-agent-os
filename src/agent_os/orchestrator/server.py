@@ -167,9 +167,9 @@ class Api:
         mine = [prep for prep in self.preps.values() if getattr(prep, "project", None) in keys]
         return mine[-1].view() if mine else None
 
-    def home(self, project: str | None) -> dict[str, Any]:
+    def home(self, project: str | None, repository: str | None = None) -> dict[str, Any]:
         engine = service.engine()
-        overview = roadmap.overview(engine, project, None if project else self.default_repository)
+        overview = roadmap.overview(engine, project, repository or (None if project else self.default_repository))
         key = overview["project"] or overview["repository"]
         overview["providers"] = self._providers()
         run_id = None
@@ -239,7 +239,12 @@ class Api:
 
             return simple.usage_view(build(telemetry_files(service.engine().store.home), (query.get("since") or [None])[0]))
         if parts == ["home"]:
-            return self.home(self._project(query))
+            repository = (query.get("repository") or [None])[0]
+            return self.home(None if repository else self._project(query), repository)
+        if parts == ["repos"]:
+            from . import repos
+
+            return {"repositories": repos.list_repositories(), "roots": [str(path) for path in repos.default_roots()]}
         if len(parts) == 2 and parts[0] == "prep":
             prep = self.preps.get(parts[1])
             if prep is None:
@@ -280,6 +285,11 @@ class Api:
             service.engine().reload_providers()
             self._providers_cache = None
             return self.models_view()
+        if parts == ["repos"]:
+            from . import repos
+
+            return repos.create_repository(str(body.get("name") or ""), body.get("parent") or None,
+                                           description=str(body.get("description") or ""), github=bool(body.get("github")))
         if parts == ["roadmap", "continue"]:
             return self.start_continue(body)
         if parts == ["providers", "suggest"]:

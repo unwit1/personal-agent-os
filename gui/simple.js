@@ -5,7 +5,7 @@
 
 (function () {
   const core = window.SimpleCore;
-  const S = { project: null, home: null, prep: null, prepTimer: null, homeTimer: null, pending: 0, lastRunId: null };
+  const S = { project: null, repository: null, repos: [], home: null, prep: null, prepTimer: null, homeTimer: null, pending: 0, lastRunId: null };
 
   function storageGet(key, fallback) { try { return localStorage.getItem(key) ?? fallback; } catch { return fallback; } }
   function storageSet(key, value) { try { localStorage.setItem(key, value); } catch { /* per-viewer convenience only */ } }
@@ -59,7 +59,7 @@
   // ------------------------------------------------------------ loading
 
   async function loadHome() {
-    const query = S.project ? `?project=${encodeURIComponent(S.project)}` : "";
+    const query = S.repository ? `?repository=${encodeURIComponent(S.repository)}` : S.project ? `?project=${encodeURIComponent(S.project)}` : "";
     const home = await api(`home${query}`);
     S.home = home;
     if (!S.project && home.project) S.project = home.project;
@@ -95,16 +95,11 @@
   // ------------------------------------------------------------ rendering
 
   function render(home) {
-    const picker = $("project-select");
-    const ids = [...(home.projects || [])];
-    if (!home.project) ids.unshift("");
-    if (picker.options.length !== ids.length) {
-      picker.replaceChildren(...ids.map((id) => el("option", { value: id }, id || "(this folder)")));
-    }
-    picker.value = home.project || "";
-    $("s-project").textContent = home.project || String(home.repository || "").split(/[\\/]/).pop();
+    const folder = String(home.repository || "").split(/[\\/]/).pop();
+    $("repo-name").textContent = folder || home.project || "Choose a repository";
+    $("repo-button").title = `${home.repository || ""} (click to switch repository)`;
+    $("s-project").textContent = home.project || folder;
     $("s-project").title = home.repository || "";
-    picker.closest("label").classList.toggle("hidden", !(home.projects || []).length);
     $("s-roadmap").textContent = core.roadmapLine(home.roadmap);
     $("s-stage-dots").replaceChildren(...((home.roadmap && home.roadmap.stages) || []).map((stage) =>
       el("span", { class: `dot st-${stage.status}`, title: `${stage.id} ${stage.title}: ${stage.plain_status}` })));
@@ -264,7 +259,7 @@
     S.prep = core.optimisticPrep();
     renderPrep(S.prep);
     await act(button, "continue", "starting the roadmap run", async () => {
-      const result = await api("roadmap/continue", { project: S.project, auto_until_done: untilDone, preference: storageGet("agent-os-preference", "") || null });
+      const result = await api("roadmap/continue", { project: S.project, repository: S.repository || undefined, auto_until_done: untilDone, preference: storageGet("agent-os-preference", "") || null });
       S.prep = result.prep;
       renderPrep(result.prep);
       pollPrep(result.prep.id);
@@ -357,7 +352,7 @@
       const goal = $("task-goal").value.trim();
       if (!goal) { showAdvice("Type what the agents should do first, then press Start This Task.", null); return; }
       act(event.currentTarget, "start-task", "starting your task", async () => {
-        await api("runs", { goal, project: S.project, start_recommended: true, auto_continue: true, preference: storageGet("agent-os-preference", "") || undefined });
+        await api("runs", { goal, project: S.project, repository: S.repository || undefined, start_recommended: true, auto_continue: true, preference: storageGet("agent-os-preference", "") || undefined });
         $("task-form").classList.add("hidden");
         $("task-goal").value = "";
         await loadHome();
@@ -367,12 +362,95 @@
     $("settings-button").addEventListener("click", () => { $("set-preference").value = storageGet("agent-os-preference", "balanced"); $("settings-dialog").showModal(); });
     $("settings-close").addEventListener("click", () => { storageSet("agent-os-preference", $("set-preference").value); $("settings-dialog").close(); });
     $("explain-close").addEventListener("click", () => $("explain-dialog").close());
-    $("project-select").addEventListener("change", (event) => { S.project = event.target.value; act(null, "refresh", "loading the project", loadHome); });
+    $("repo-button").addEventListener("click", openRepos);
+    $("repo-close").addEventListener("click", () => $("repo-dialog").close());
+    $("repo-search").addEventListener("input", renderRepos);
+    $("repo-new-button").addEventListener("click", () => { $("repo-new").classList.toggle("hidden"); $("repo-new-name").focus(); });
+    $("repo-new-cancel").addEventListener("click", () => $("repo-new").classList.add("hidden"));
+    $("repo-new-create").addEventListener("click", (event) => createRepo(event.currentTarget));
     $("mode-simple").addEventListener("click", () => setMode("simple"));
     $("mode-advanced").addEventListener("click", () => setMode("advanced"));
   }
 
+  // ------------------------------------------------------------ repositories
+
+  function whenText(iso) {
+    if (!iso) return "no commits yet";
+    const days = Math.floor((Date.now() - Date.parse(iso)) / 86400000);
+    if (days <= 0) return "changed today";
+    if (days === 1) return "changed yesterday";
+    if (days < 60) return `changed ${days} days ago`;
+    return `changed ${new Date(iso).toLocaleDateString()}`;
+  }
+
+  async function openRepos() {
+    if (!$("repo-dialog").open) $("repo-dialog").showModal();
+    $("repo-search").value = "";
+    try {
+      const data = await api("repos");
+      S.repos = data.repositories || [];
+      $("repo-new-parent").replaceChildren(...(data.roots || []).map((root) => el("option", { value: root }, root)));
+      $("repo-roots").textContent = data.roots && data.roots.length ? `Looked in ${data.roots.join(", ")}` : "";
+      renderRepos();
+      $("repo-search").focus();
+    } catch (error) {
+      $("repo-list").replaceChildren(el("p", { class: "muted" }, `Could not list repositories: ${error.message}`));
+    }
+  }
+
+  function renderRepos() {
+    const needle = $("repo-search").value.trim().toLowerCase();
+    const current = S.home ? String(S.home.repository || "").toLowerCase() : "";
+    const shown = S.repos.filter((repo) => !needle || `${repo.name} ${repo.project || ""} ${repo.path}`.toLowerCase().includes(needle));
+    if (!shown.length) {
+      $("repo-list").replaceChildren(el("p", { class: "muted" }, needle ? "No repository matches that search." : "No repositories found. Press + New repository to make one."));
+      return;
+    }
+    $("repo-list").replaceChildren(...shown.map((repo) => el("button", {
+      class: `repo-card${repo.path.toLowerCase() === current ? " current" : ""}`, role: "listitem", type: "button",
+      disabled: repo.git ? undefined : "disabled",
+      title: repo.git ? `Work in ${repo.path}` : "This folder is not a Git repository yet, so agents cannot work in it safely.",
+      onclick: () => chooseRepo(repo),
+    },
+      el("span", { class: "repo-title" }, repo.name,
+        repo.project && repo.project !== repo.name ? el("span", { class: "badge" }, repo.project) : null,
+        repo.branch && repo.branch !== "main" ? el("span", { class: "badge" }, repo.branch) : null,
+        repo.git ? null : el("span", { class: "badge" }, "not a Git repository")),
+      el("span", { class: "repo-when" }, repo.git ? whenText(repo.last_commit) : ""),
+      el("span", { class: "repo-path" }, repo.path))));
+  }
+
+  function chooseRepo(repo) {
+    if (!repo.git) return;
+    S.project = repo.project || null;
+    S.repository = repo.project ? null : repo.path;
+    storageSet("agent-os-repo", JSON.stringify({ project: S.project, repository: S.repository }));
+    if ($("repo-dialog").open) $("repo-dialog").close();
+    $("repo-name").textContent = repo.name;
+    act(null, "refresh", `opening ${repo.name}`, loadHome);
+  }
+
+  async function createRepo(button) {
+    const name = $("repo-new-name").value.trim();
+    if (!name) { $("repo-new-name").focus(); toast("Type a name for the new repository first."); return; }
+    const github = $("repo-new-github").checked;
+    await act(button, "create-repository", github ? "creating the repository and uploading it to GitHub" : "creating the repository", async () => {
+      const created = await api("repos", { name, description: $("repo-new-description").value, parent: $("repo-new-parent").value || undefined, github });
+      if (created.github && !created.github.ok) toast(`Created locally. GitHub: ${created.github.message}`);
+      $("repo-new").classList.add("hidden");
+      $("repo-new-name").value = "";
+      $("repo-new-description").value = "";
+      $("repo-new-github").checked = false;
+      chooseRepo({ ...created, git: true, project: null });
+    });
+  }
+
   wireSimple();
   setMode(storageGet("agent-os-mode", "simple"));
-  act(null, "refresh", "reading the project and roadmap", loadHome);
+  let remembered = null;
+  try { remembered = JSON.parse(storageGet("agent-os-repo", "null")); } catch { remembered = null; }
+  if (remembered) { S.project = remembered.project || null; S.repository = remembered.repository || null; }
+  // First visit: show the list so the user picks where to work.
+  act(null, "refresh", "reading the project and roadmap", loadHome).then((home) => { if (!remembered || !home) openRepos(); });
+
 })();

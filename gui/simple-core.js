@@ -16,6 +16,7 @@
     fresh: { button: "Starting…", status: "Setting the old run aside and starting fresh..." },
     help: { button: "Checking…", status: "Looking at what is happening right now..." },
     refresh: { button: "Loading…", status: "Loading..." },
+    "create-repository": { button: "Creating…", status: "Creating the new repository..." },
   };
 
   const PREP_STEPS = [

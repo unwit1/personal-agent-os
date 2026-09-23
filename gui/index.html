@@ -10,9 +10,9 @@
 <body>
   <header class="topbar">
     <div class="brand">Agent OS <span>Orchestrator</span></div>
-    <label class="project-picker">Project
-      <select id="project-select"></select>
-    </label>
+    <button id="repo-button" class="repo-button" data-target-name="repository" title="Choose which repository to work in">
+      <span class="repo-icon" aria-hidden="true">&#128193;</span><span id="repo-name">Choose a repository</span><span aria-hidden="true">&#9662;</span>
+    </button>
     <span class="spacer"></span>
     <button id="help-button" class="help" data-target-name="help">Tell me what to press</button>
     <div class="mode-switch" role="group" aria-label="Mode">
@@ -129,6 +129,22 @@
         <table><tbody id="usage-rows"></tbody></table>
       </details>
     </section>
+
+    <dialog id="repo-dialog" aria-labelledby="repo-title">
+      <div class="row"><h2 id="repo-title">Choose a repository</h2><span class="spacer"></span>
+        <button id="repo-new-button" class="primary">+ New repository</button></div>
+      <form id="repo-new" class="repo-new hidden" method="dialog">
+        <label>Name<input id="repo-new-name" placeholder="my-new-project" autocomplete="off" required></label>
+        <label>What is it for? (optional)<input id="repo-new-description" placeholder="One line for the README"></label>
+        <label>Create it in<select id="repo-new-parent"></select></label>
+        <label class="inline"><input type="checkbox" id="repo-new-github"> Also create a private repository on GitHub and upload it</label>
+        <div class="row"><button id="repo-new-create" class="primary" type="button">Create and open</button>
+          <button id="repo-new-cancel" class="ghost" type="button">Cancel</button></div>
+      </form>
+      <input id="repo-search" type="search" placeholder="Search repositories" aria-label="Search repositories" autocomplete="off">
+      <div id="repo-list" class="repo-list" role="list"><p class="muted">Looking for your repositories…</p></div>
+      <div class="row"><span class="muted" id="repo-roots"></span><span class="spacer"></span><button id="repo-close" class="ghost">Close</button></div>
+    </dialog>
 
     <dialog id="settings-dialog">
       <h2>Settings</h2>

@@ -535,3 +535,20 @@ totals under **Model usage across all runs** (`GET /api/usage`).
 - Campaign and GUI drivers live in the GUI process (or the foreground CLI);
   they do not survive a reboot.
 - `seq` ordering uses wall-clock nanoseconds per process.
+
+## Choosing a repository
+
+The folder button at the top left shows the repository you are working in.
+Click it to see every Git repository in `~/GitHub`, `~/Projects`,
+`~/source/repos` and `~/Documents/GitHub` (plus registered projects stored
+elsewhere), newest activity first, with a search box. Click one to switch; the
+choice is remembered in this browser. The list opens by itself the first time.
+
+Registered project folders that are not Git repositories yet are shown greyed
+out: agents only work in Git repositories, and turning a folder into one is
+left to you so nothing private is committed by accident.
+
+**+ New repository** makes a folder with `git init`, a README, a `.gitignore`
+and a first commit, then opens it. Ticking *Also create a private repository
+on GitHub* publishes it with the GitHub CLI (`gh`, must be installed and
+signed in); without it the repository stays on this computer.
