@@ -1,0 +1,40 @@
+{
+  "source_id": "rtec-compliance-aap-2015-2018",
+  "title": "RTEC Equal Employment Opportunity Affirmative Action Plan (AAP) — July 2015 through June 2018 source package",
+  "source_type": "affirmative_action_plan",
+  "source_archive_path": "Affirmative Action Plan (AAP)/OLD AAP INFO/FY 2017 AAP/AAP PLAN July 2015 - June 2018.doc",
+  "sha256": "08ef1c128bf47b38fdc29884dfd9454bdd60c109988b7afea8df2a19ec1a0fbf",
+  "extraction": "antiword plain-text extraction",
+  "extracted_text_lines": 1362,
+  "extracted_text_bytes": 63029,
+  "temporal_status": "historical",
+  "currentness": "superseded_or_unknown_not_for_current_operational_use",
+  "plan_years_printed": [
+    "2016-07-01 through 2018-06-30",
+    "2016-07-01 through 2017-06-30",
+    "2015-07-01 through 2016-06-30",
+    "2014-07-01 through 2015-06-30"
+  ],
+  "source_printed_update": "2018-06-30",
+  "ingestion_status": "sectioned_full-source-preservation_in_progress",
+  "sections_committed": [
+    "fulltext.part001.txt — title, plan years, table of contents",
+    "sections/title-vii-and-employee-complaints.md",
+    "sections/harassment-accommodation-lep.md"
+  ],
+  "sections_pending_full_preservation": [
+    "EEO policy statement and assurances",
+    "AAP administration roles and duties",
+    "program guidelines/employment practices",
+    "policy dissemination/comment",
+    "internal audit/reporting systems",
+    "underutilization/goals",
+    "employment practices/hiring criteria",
+    "self-identification invitations and remaining addenda"
+  ],
+  "notes": [
+    "This manifest intentionally distinguishes source discovery from complete preservation. Do not treat the GitHub source as fully preserved until all sections are committed or a lossless safe source artifact is synchronized.",
+    "Some provisions are clearly historical and may conflict with current law, policy or practice. Preserve source wording and separately validate current requirements."
+  ],
+  "ingested_at": "2026-09-23"
+}

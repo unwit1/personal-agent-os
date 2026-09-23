@@ -1,0 +1,26 @@
+{
+  "source_group_id": "rtec-compliance-eeo-certification-2016",
+  "title": "RTEC Kentucky EEO certification renewal and approval — 2016",
+  "temporal_status": "historical",
+  "sources": [
+    {
+      "source_id": "rtec-eeo-cert-renewal-2016",
+      "archive_path": "EEO/Certification Renewals/2016 Cert Signed and Approval Letter/2016 Certification Renewal/Signed Certification Renewal September 2016.pdf",
+      "sha256": "9001ab24ddb3db737ef5d1a765dc195ec596fbc85a642ac1be15c7378d815fec",
+      "supplied_pages": 2,
+      "source_form_printed_page_count_indication": "second supplied page says Page 2 of 3; third page absent from supplied PDF",
+      "searchable_path": "knowledge/libraries/rtec-hr/compliance/sources/eeo-certification-2016/certification-renewal.md"
+    },
+    {
+      "source_id": "rtec-eeo-cert-approval-2016",
+      "archive_path": "EEO/Certification Renewals/2016 Cert Signed and Approval Letter/2016 Certification Notice Approval.pdf",
+      "sha256": "c5705d50d820967129392837d3c2df6449bced0279c7aced0d52b60024ada3a1",
+      "supplied_pages": 1,
+      "letter_date": "2016-09-13",
+      "certification_expiration": "2017-09-30",
+      "searchable_path": "knowledge/libraries/rtec-hr/compliance/sources/eeo-certification-2016/certification-approval.md"
+    }
+  ],
+  "relationship_to_fy2017_grants": "Historical EEO/civil-rights certification evidence from the same grant era; link when a binder checklist or attachment identity confirms it.",
+  "ingested_at": "2026-09-23"
+}
