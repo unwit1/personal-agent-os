@@ -3,18 +3,21 @@
   "project": "rtec-hr-process-model",
   "status": "active",
   "updated_at": "2026-09-23",
-  "summary": "Provenance-backed, privacy-safe knowledge model of RTEC HR processes derived from documents and user clarification.",
+  "summary": "Provenance-backed, privacy-safe, version-aware model and searchable source corpus for roughly 20 years of RTEC HR process documentation.",
   "repository": "https://github.com/unwit1/personal-agent-os.git",
   "current_priorities": [
-    "Ingest RTEC HR process evidence into a structured, provenance-backed knowledge library.",
-    "Separate reusable process rules from employee/applicant case facts and PII.",
-    "Build workflow, form, system, role, exception, decision-rule, and automation maps incrementally.",
-    "Generate questions for ambiguity, conflicts, undocumented exceptions, and missing prerequisites."
+    "Continue ingesting the historical RTEC HR document base in small committed batches.",
+    "Use later and more authoritative sources to resolve the currentness/gap queue and build supersession chains.",
+    "Preserve safe manuals, policies, procedures, templates, training/reference sources, and organizational materials in full searchable form.",
+    "Keep live employee/applicant/medical/incident case content out of GitHub while retaining privacy-safe provenance and candidate workflow evidence.",
+    "Synchronize safe original binary source artifacts through a local Git-capable Agent OS workflow where practical; current connector commits full searchable mirrors and hashes."
   ],
   "important_paths": [
     "projects/rtec-hr-process-model/README.md",
     "projects/rtec-hr-process-model/docs/INGESTION_CONTRACT.md",
     "knowledge/libraries/rtec-hr/README.md",
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-batch-001.json",
+    "knowledge/libraries/rtec-hr/questions/currentness-and-gaps.json",
     "schemas/rtec-hr-knowledge-v1.schema.json"
   ],
   "context_files": [
@@ -40,5 +43,14 @@
     "approximate_history_years": 20,
     "temporal_assumption": "Historical by default until effective period/currentness is established.",
     "preservation_rule": "Retain obsolete and superseded process sources for chronology and legacy-reference purposes."
+  },
+  "ingestion_status": {
+    "batches_completed": 1,
+    "latest_batch": "rtec-hr-batch-001",
+    "latest_batch_source_count": 14,
+    "safe_position_level_sources_preserved": 11,
+    "restricted_case_records_metadata_only": 3,
+    "derived_knowledge_records": 15,
+    "open_currentness_or_gap_questions": 12
   }
 }
