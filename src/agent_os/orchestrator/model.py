@@ -271,6 +271,7 @@ def new_node(
     subject: str | None = None,
     origin: str = "plan",
     ladder: list[dict[str, Any]] | None = None,
+    fallback_execution_paths: list[str] | None = None,
 ) -> dict[str, Any]:
     check_identifier(node_id, "node id")
     if not str(goal or "").strip():
@@ -283,6 +284,11 @@ def new_node(
         raise PlanError(f"node {node_id}: unsupported effort {effort!r}")
     if execution_path not in EXECUTION_PATHS:
         raise PlanError(f"node {node_id}: unsupported execution_path {execution_path!r}")
+    fallbacks = list(fallback_execution_paths or [])
+    if len(set(fallbacks)) != len(fallbacks) or any(path not in EXECUTION_PATHS for path in fallbacks):
+        raise PlanError(f"node {node_id}: fallback_execution_paths must contain unique supported paths")
+    if fallbacks and (execution_path != "deterministic" or fallbacks != ["model"]):
+        raise PlanError(f"node {node_id}: only a deterministic node may declare the model fallback")
     if execution_path == "deterministic" and not command:
         raise PlanError(f"node {node_id}: a deterministic node needs a command")
     if capability_class == "deterministic" and execution_path != "deterministic":
@@ -315,6 +321,7 @@ def new_node(
         "ladder": rungs,
         "ladder_step": 0,
         "execution_path": execution_path,
+        "fallback_execution_paths": fallbacks,
         "command": command,
         "validators": list(validators or []),
         "approval_gate": approval_gate,

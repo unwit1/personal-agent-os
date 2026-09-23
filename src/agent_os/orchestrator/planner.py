@@ -30,7 +30,7 @@ PLANNER_ID = "plan"
 PLANNABLE_ROLES = ("implementer", "test_author")
 TASK_KEYS = {
     "id", "goal", "role", "depends_on", "scope", "capability_class", "effort", "execution_path",
-    "command", "validators", "approval_gate", "review_required", "expected_outputs", "context_budget", "ladder",
+    "fallback_execution_paths", "command", "validators", "approval_gate", "review_required", "expected_outputs", "context_budget", "ladder",
 }
 _SHELL_META = re.compile(r"[;&|<>`$\n\r%^]")
 
@@ -45,14 +45,16 @@ def node_from_task(task: dict[str, Any], *, extra_depends: list[str] | None = No
     if role not in PLANNABLE_ROLES:
         raise PlanError(f"task {task.get('id')}: role must be one of {PLANNABLE_ROLES}")
     execution_path = task.get("execution_path", "model")
+    fallback_paths = task.get("fallback_execution_paths") or []
+    has_model_fallback = execution_path == "deterministic" and fallback_paths == ["model"]
     return new_node(
         str(task.get("id") or ""),
         str(task.get("goal") or ""),
         role,
         depends_on=[*(extra_depends or []), *list(task.get("depends_on") or [])],
         scope=task.get("scope"),
-        capability_class=task.get("capability_class", "deterministic" if execution_path == "deterministic" else "balanced"),
-        effort=task.get("effort", "none" if execution_path == "deterministic" else "medium"),
+        capability_class=task.get("capability_class", "balanced" if has_model_fallback else "deterministic" if execution_path == "deterministic" else "balanced"),
+        effort=task.get("effort", "medium" if has_model_fallback else "none" if execution_path == "deterministic" else "medium"),
         execution_path=execution_path,
         command=task.get("command"),
         validators=task.get("validators"),
@@ -62,6 +64,7 @@ def node_from_task(task: dict[str, Any], *, extra_depends: list[str] | None = No
         context_budget=int(task.get("context_budget", 1200)),
         origin=origin,
         ladder=task.get("ladder"),
+        fallback_execution_paths=fallback_paths,
     )
 
 
@@ -198,8 +201,9 @@ def expand(
                 # would bypass review of what actually executes.
                 raise PlanError(f"planner task {task.get('id')}: deterministic command is not approved: {str(task.get('command'))[:120]!r}")
             task["command"] = argv
-            task["capability_class"] = "deterministic"
-            task["effort"] = "none"
+            if task.get("fallback_execution_paths") != ["model"]:
+                task["capability_class"] = "deterministic"
+                task["effort"] = "none"
             task.pop("ladder", None)
         node = node_from_task(task, extra_depends=[planner_id], origin="planner")
         if node["id"] in nodes or node["id"] in added:

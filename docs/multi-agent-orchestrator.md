@@ -129,8 +129,16 @@ A task looks like this:
  "approval_gate": {"kind": "destructive_action", "reason": "drops a column"}}
 ```
 
-`execution_path: "deterministic"` together with `command` runs a local command
-in the node's worktree with no model involved.
+`execution_path: "deterministic"` together with `command` starts with a local
+command in the node's worktree.
+
+A deterministic task may opt into `fallback_execution_paths: ["model"]` when
+the command is a useful first attempt but may need model work after concrete
+failure evidence. The command must still pass the normal approval checks. A
+command or task validator failure selects the declared model route; the worker
+launch budget, model routing, and independent review policies still apply.
+Without this field, deterministic failures keep the existing bounded retry
+behavior.
 
 A task may carry a **ladder**: the escalation steps to take when its
 validators fail, cheapest first. Without one, the default raises effort on the

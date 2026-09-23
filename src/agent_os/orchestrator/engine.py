@@ -637,7 +637,13 @@ class Orchestrator:
             )
         if result.outcome != "completed":
             self._record_telemetry(record, node, result, validator_passed=None)
-            self._fail(record, node, result.failure_kind or "process_error", result.detail or "worker failed")
+            self._fail(
+                record,
+                node,
+                result.failure_kind or "process_error",
+                result.detail or "worker failed",
+                allow_fallback=not model_call and node.get("execution_path") == "deterministic",
+            )
             return
         if isinstance(structured, dict) and structured.get("status") == "needs_decision":
             if node["worktree"] and node["role"] in {"implementer", "test_author", "repairer"}:
@@ -804,6 +810,8 @@ class Orchestrator:
         detail = _evidence_line(validation)
         _push_failure(node, "validator_failed", (node.get("selection") or {}).get("provider"), detail)
         policy = record["policy"]
+        if self._fallback_to_model(record, node, "validator_failed", detail):
+            return
         if node["execution_path"] == "model" and node["escalations"] < policy["max_escalations"]:
             before = f"{node['capability_class']}/{node['effort']}"
             rung = _next_rung(node)
@@ -931,7 +939,7 @@ class Orchestrator:
 
     # -- failures -----------------------------------------------------------
 
-    def _fail(self, record: dict[str, Any], node: dict[str, Any], kind: str, detail: str) -> None:
+    def _fail(self, record: dict[str, Any], node: dict[str, Any], kind: str, detail: str, *, allow_fallback: bool = False) -> None:
         provider = (node.get("selection") or {}).get("provider")
         _push_failure(node, kind, provider, detail)
         if node["worktree"] and node["role"] in {"implementer", "test_author", "repairer"}:
@@ -940,6 +948,8 @@ class Orchestrator:
             except GitError:
                 pass
         self.store.append_event(record["run_id"], f"node.{kind}", node["id"], detail)
+        if allow_fallback and kind != "cancelled" and self._fallback_to_model(record, node, kind, detail):
+            return
         if kind == "cancelled":
             node["state"] = "FAILED_RETRYABLE"
             node["selection"] = None
@@ -971,6 +981,29 @@ class Orchestrator:
         node["selection"] = None
         node["wait_reason"] = f"{kind}; retry {node['retries']}/{policy['max_stage_retries']} will re-route"
         self.ledger.emit(record["run_id"], "retry", node["id"], reason=kind, retry=node["retries"], limit=policy["max_stage_retries"])
+
+    def _fallback_to_model(self, record: dict[str, Any], node: dict[str, Any], kind: str, detail: str) -> bool:
+        """Use only a declared model fallback after concrete deterministic failure."""
+        if node.get("execution_path") != "deterministic" or "model" not in node.get("fallback_execution_paths", []):
+            return False
+        from .model import default_ladder
+
+        capability = node.get("capability_class")
+        effort = node.get("effort")
+        if capability == "deterministic":
+            capability, effort = "balanced", "medium"
+            node["capability_class"] = node["requested_capability_class"] = capability
+            node["effort"] = node["requested_effort"] = effort
+        node["execution_path"] = "model"
+        node["fallback_execution_paths"] = []
+        node["ladder"] = default_ladder(capability, effort, "model")
+        node["ladder_step"] = 0
+        node["state"] = "FAILED_RETRYABLE"
+        node["selection"] = None
+        node["wait_reason"] = f"{kind}; declared model fallback selected after deterministic evidence: {redact(detail, 180)}"
+        self.store.append_event(record["run_id"], "execution_path.fallback", node["id"], node["wait_reason"])
+        self.ledger.emit(record["run_id"], "fallback", node["id"], from_path="deterministic", to_path="model", reason=kind)
+        return True
 
     def _checkpoint(self, record: dict[str, Any], node: dict[str, Any], label: str) -> None:
         worktree = node["worktree"]

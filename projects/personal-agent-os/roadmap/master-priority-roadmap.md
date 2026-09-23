@@ -465,7 +465,10 @@ cache adapter now executes content-addressed document-page cache hits and
 persists deterministic fallback to the next declared route on misses; skill
 execution remains caller-owned because the repository's approved skills are
 instruction-only `SKILL.md` files without a reviewed deterministic invocation
-interface.
+interface. The staged orchestrator also supports an explicit deterministic to
+model fallback after a command or task validator failure; model launches still
+obey the run budget and review policy. Cache and skill routes remain outside
+the orchestrator until their invocation adapters are reviewed.
 
 Success signal:
 - repeated structured work increasingly bypasses LLM calls.
