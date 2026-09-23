@@ -1,0 +1,124 @@
+{
+  "id": "rtec-title-vi-lep-version-history",
+  "record_type": "plan_version_history",
+  "title": "RTEC Title VI / Limited English Proficiency Plan version history",
+  "status": "validated_from_compliance_archive",
+  "temporal_status": "historical_series_with_current_version",
+  "versions": [
+    {
+      "period_marker": "January 2013",
+      "source": "Limited English Proficient Plan Revised January 2013 OLD.doc",
+      "sha256": "6efdf235e68aa488c520573f2b91351cabd868ce011ff97820a15dffbb1dcfe0",
+      "temporal_status": "historical",
+      "notes": [
+        "Early LEP-focused source in archive; later 2013 source expands Title VI program material."
+      ]
+    },
+    {
+      "period_marker": "September 2013",
+      "source": "Title VI and Limited English Proficient Plan Revised Sept 2013.doc",
+      "sha256": "dd6f6ef9b950623c641b3398d46f9e61b85758f2b27c442bc6360dfbf8c7431d",
+      "alternate_variant_sha256": "555b3afcf1de83253e217ac77f45a848c7b54c02632d86907c429ad46c880002",
+      "temporal_status": "historical",
+      "notes": [
+        "Two distinct September 2013 variants are present and should not be collapsed without comparison."
+      ]
+    },
+    {
+      "period_marker": "July 2014",
+      "source": "Title VI and Limited English Proficient Plan Revised July 2014.doc",
+      "sha256": "36742d5fe045a2d6d57e5a799152a8437fe2ee7acc15412b740982b44341683b",
+      "temporal_status": "historical"
+    },
+    {
+      "period_marker": "2016",
+      "source": "Title VI and Limited English Proficient Plan Revised Sept 2016.doc",
+      "sha256": "71546ccfe3006abe83663dc0d1353b71cd927e1fbdf9f52e76559ee4c9a01978",
+      "printed_revision_history_end": "December 2016",
+      "board_approval_text_date": "2016-10-17",
+      "coordinator": "Sheila Stallsworth",
+      "temporal_status": "historical",
+      "canonical_fulltext_path": "knowledge/libraries/rtec-hr/compliance/sources/title-vi-lep-2016/",
+      "notes": [
+        "Filename says Revised Sept 2016 while the source's printed revision history reaches December 2016.",
+        "Board-approval text says October 17, 2016; preserve the date tension rather than silently reconciling it."
+      ]
+    },
+    {
+      "period_marker": "December 2019",
+      "source": "Revised Current Title VI and Limited English Proficient Plan Revised December 2019.doc",
+      "sha256": "01aa3c5fda45bbd1804585f6aad84eccc2ef2e6e3ff2c2b5f0a1d222d0185c1f",
+      "alternate_variant_sha256": "06b85bb97981cb6a75639ba48eb7826e0880c3c4851469ac11daa141003f4cba",
+      "board_approval_date": "2019-10-21",
+      "coordinator": "Sheila Stallsworth",
+      "temporal_status": "historical",
+      "canonical_fulltext_path": "knowledge/libraries/rtec-hr/compliance/sources/title-vi-lep-2019/"
+    },
+    {
+      "period_marker": "December 2022 / January 2023 submission",
+      "source": "Updated Current Title VI and Limited English Proficient Plan due 01 30 2023.doc",
+      "sha256": "8e5acaa78f7f973d70d07b61e761042a652a735777b2cdc9b74b5c6ced5c91c8",
+      "printed_revision_history_end": "December 2022",
+      "coordinator": "Sheila Stallsworth",
+      "plan_text_board_approval_date": "2022-12-19",
+      "board_policy_approval_block_date": "2023-01-16",
+      "temporal_status": "historical_superseded",
+      "canonical_fulltext_path": "knowledge/libraries/rtec-compliance/plans/title-vi-lep/2023/",
+      "notes": [
+        "The source contains two different Board-related dates: December 19, 2022 in plan approval/adoption text and January 16, 2023 in the Board policy approval block. Both are preserved."
+      ]
+    },
+    {
+      "period_marker": "January 2026",
+      "source": "Updated Current Title VI and Limited English Proficient Plan due 01 30 2026.doc",
+      "sha256": "017d426c7b18064f401e85fcd520ee7574fd7f0e6c4da104b0eaf8f9f254f0d0",
+      "printed_revision_history_end": "January 2026",
+      "board_approval_date": "2026-01-19",
+      "coordinator": "Clarissa Hodge",
+      "temporal_status": "current",
+      "canonical_fulltext_path": "knowledge/libraries/rtec-compliance/plans/title-vi-lep/2026/"
+    }
+  ],
+  "complaint_process_changes": [
+    {
+      "source_period": "standalone older/2016-era process",
+      "filing_window": "180 days",
+      "acknowledgement": "10 days",
+      "investigation_window": "90 days",
+      "requested_information_due": "10 business days",
+      "appeal_window": "7 days"
+    },
+    {
+      "source_period": "2023 Board-approved plan",
+      "filing_window": "180 days unless extended by FTA",
+      "acknowledgement": "10 days",
+      "investigation_window": "90 days",
+      "requested_information_due": "30 business days",
+      "appeal_window": "90 days"
+    },
+    {
+      "source_period": "2026 Board-approved plan",
+      "filing_window": "180 days unless extended by FTA",
+      "acknowledgement": "10 days",
+      "investigation_window": "90 days",
+      "requested_information_due": "30 business days",
+      "appeal_window": "90 days"
+    }
+  ],
+  "role_history": [
+    {
+      "period": "2016 through 2023 plan family",
+      "title_vi_coordinator": "Sheila Stallsworth"
+    },
+    {
+      "period": "January 2026 plan",
+      "title_vi_coordinator": "Clarissa Hodge"
+    }
+  ],
+  "authority_rule": "Use the January 2026 Board-approved plan for current internal process modeling unless a later approved source is found. Preserve all earlier plan language for chronology and grant-era evidence.",
+  "unresolved_questions": [
+    "Was any revision adopted after January 19, 2026?",
+    "Do later signed organizational/EEO role changes explicitly reassign the Title VI Coordinator role?",
+    "Which state approval/acceptance letters correspond to the 2013, 2014, 2016, 2019, 2023 and 2026 submissions?"
+  ]
+}
