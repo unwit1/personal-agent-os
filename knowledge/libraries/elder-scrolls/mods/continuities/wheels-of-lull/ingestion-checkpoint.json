@@ -1,23 +1,22 @@
 {
   "continuity_id": "tes.mod.wheels-of-lull",
   "source_sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
-  "last_completed_batch": "0011",
-  "completed_source_records": 550,
+  "last_completed_batch": "0012",
+  "completed_source_records": 600,
   "completed": {
     "BOOK": 33,
     "QUST": 32,
-    "DIAL": 216,
-    "INFO": 269
+    "DIAL": 240,
+    "INFO": 295
   },
-  "dialogue_combined_records_completed": 485,
+  "dialogue_combined_records_completed": 535,
   "next_cursor": {
-    "record_type": "INFO",
-    "dialogue_combined_index_1_based": 486,
-    "form_id": "0529FCA1",
-    "parent_topic_form_id": "0529FC98",
-    "parent_topic_editor_id": "_Lull_MQ07_MemoryGreetings",
-    "parent_topic_full_name": null,
-    "quest_form_id": "05005913"
+    "record_type": "DIAL",
+    "dialogue_combined_index_1_based": 536,
+    "form_id": "05361508",
+    "editor_id": null,
+    "full_name": null,
+    "quest_form_id": "05005912"
   },
   "default_checkpoint_target": 50,
   "resume_rule": "Verify source SHA-256, then continue from next_cursor without rewriting completed source shards."

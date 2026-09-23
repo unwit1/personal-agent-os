@@ -12,26 +12,26 @@ Sub-continuity for the Skyrim mod **The Wheels of Lull**.
 
 - **33/33 BOOK** records preserved with exact decoded text.
 - **32/32 QUST** records preserved with quest stages, journal text, objectives, and provenance where present.
-- **216/337 DIAL** topics and **269/410 INFO** records preserved in physical plugin order.
-- **485/747 combined dialogue records** are now ingested.
-- **550 prioritized source records** are checkpointed overall.
+- **240/337 DIAL** topics and **295/410 INFO** records preserved in physical plugin order.
+- **535/747 combined dialogue records** are now ingested.
+- **600 prioritized source records** are checkpointed overall.
 
 ## Dialogue evidence already preserved
 
-This pass completes the Dye Trader exchange, adds the remaining Cartwright riddle outcomes in this section, and reaches a concentrated block of Memory ambient dialogue.
+This pass closes the first Memory greeting block, covers the underwater Contingency Station Alpha / Trademark sequence, and returns to the Fyr/Yagrum sabotage investigation.
 
-Notable continuity-scoped material includes:
+Notable continuity-scoped testimony includes:
 
-- The Dye Trader requests human hearts in exchange for colored dyes and refuses to explain why.
-- The Cartwright continues to treat riddles as lethal gatekeeping for tram access.
-- Memory says: "Know Love to avoid the Landfall."
-- Memory identifies herself as "the mage" and "the clockmaker."
-- Memory says the oceans hold thoughts and those thoughts hold salvation.
-- Memory predicts that the Thalmor will ultimately win.
-- Memory says "It will come in the form of screaming brass."
-- Memory says that when the world cracks open, "at last we will know our destiny."
+- Memory says, "The c0da does not bend. The Digitals have seen to that."
+- Belarus identifies Contingency Station Alpha as an underwater Chronographer/fabricant installation on the ocean floor.
+- Belarus says the Trademarks are creatures mortals call sea monsters, krakens, or giant squid, built by Sotha Sil to guard his work.
+- Belarus says the ocean is Sotha Sil's domain and describes the waters as "our thoughts."
+- A crashed Dwemer craft from a northern outpost is connected to the pneuma used to pass the Trademarks.
+- The Fyr/Yagrum sequence says someone has been sabotaging the Chronographers' dig.
+- Yagrum's mechanical tracing is presented as evidence that the saboteur used a backdoor and does not carry fabricant signatures.
+- Fyr says the Clockwork City was partly a product of his own "drunken tirades" as well as Sotha Sil's.
 
-These remain attributed and, where appropriate, cryptic source statements rather than automatic Bethesda-canon conclusions.
+These remain attributed source statements rather than automatic Bethesda-canon conclusions.
 
 ## Raw corpus
 
@@ -45,18 +45,17 @@ These remain attributed and, where appropriate, cryptic source statements rather
 - `raw/source-records-0401-0450.jsonl.gz` — records 401-450
 - `raw/source-records-0451-0500.jsonl.gz` — records 451-500
 - `raw/source-records-0501-0550.jsonl.gz` — records 501-550
+- `raw/source-records-0551-0600.jsonl.gz` — records 551-600
 - `raw/record-counts.json` — complete plugin record inventory
 - `source-manifest.json` — extraction policy and corpus state
 - `ingestion-checkpoint.json` — resumable cursor
 
 ## Next cursor
 
-Dialogue combined record **486/747**:
+Dialogue combined record **536/747**:
 
-- INFO `0529FCA1`
-- Parent topic: `0529FC98 _Lull_MQ07_MemoryGreetings`
-- Owning quest: `05005913 _Lull_MQ07`
-- Response: `The c0da does not bend. The Digitals have seen to that.`
+- DIAL `05361508`
+- Owning quest: `05005912 _Lull_MQ06`
 
 ## Provenance rule
 
