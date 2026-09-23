@@ -29,3 +29,29 @@ Memory is both a character and a repeated motif. Memodermis reacts to memories; 
 ## Repairing the future
 
 Chronography's "integrity preservation," Tower maintenance, Snow-Throat's crisis, and Memory's future purpose all frame the present as maintenance work performed so a future remains possible.
+
+## Metaphysics as infrastructure
+
+*Musings On Power* makes an implicit pattern elsewhere in the mod explicit: cosmic power behaves like infrastructure. Energy must be moved, movement incurs loss, distance from a source matters, and the largest systems fail hardest when support collapses.
+
+That theory does not itself mention Towers, but it gives a useful continuity-local lens for the mod's larger architecture: Snow-Throat, world mechanisms, Lullian machinery, and Sotha Sil's systems are repeatedly treated as things that can be powered, maintained, overloaded, and repaired. The connection is interpretive rather than a direct BOOK claim.
+
+## Engineered worlds and successor creation
+
+The continuity contains several distinct responses to a flawed or threatened world:
+
+- Sybandis is described as an unsuccessful prototype or stillborn world.
+- *How Two Moon* imagines creating a deliberately clockwork replacement world in Oblivion without repeating the trauma of prior creation.
+- Memory is built to survive catastrophe and help future people build again.
+- Chronographer work preserves enough continuity for a future to remain possible.
+
+These should not be collapsed into one project. Together, however, they make **world-building literal engineering** a recurring structural idea: creation can be prototyped, repaired, replaced, or bootstrapped after failure.
+
+## The flesh-machine boundary
+
+The continuity repeatedly destabilizes the distinction between organism and mechanism.
+
+Fabricants are mechanical persons with pneuma; Rewound bodies continue after pneuma departs; Mimics are described as deliberately created flesh-metal organisms; Trademarks and memodermis blur material categories; Wailway engines contain bound human identity; Archeron modifies himself into the world mechanism.
+
+The texts disagree in tone and reliability, but together they make artificial embodiment a central question: which parts of identity, life, memory, and agency survive when bodies are engineered, replaced, or integrated into machines?
+
