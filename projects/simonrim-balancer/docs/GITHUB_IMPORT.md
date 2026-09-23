@@ -1,17 +1,11 @@
 # GitHub Import Scope — 2026-09-23
 
-The connected GitHub interface cannot create a new repository, so this project is staged under projects/simonrim-balancer in the private unwit1/personal-agent-os repository. The directory is portable for a later repository split.
+The project is staged under projects/simonrim-balancer in the private uniwit1/personal-agent-os repository path (GitHub account: unwit1; repository: personal-agent-os). The directory remains portable for a later repository split.
 
-## Current GitHub stage
+## Connector-friendly Git content
 
-This first commit series establishes:
-- architecture and schema documentation
-- versioned snapshot manifest
-- mod and plugin inventories
-- record-type inventory
+This pass records architecture/status documentation and compact evidence summaries in GitHub. The complete downloadable project package additionally retains large evidence tables such as subrecords.csv, records_full.jsonl, resolved_forms.csv, conditions.csv, semantic relation graphs, and extracted text-source JSONL.
 
-The complete derived evidence package also contains the byte-heavy datasets records.csv, subrecords.csv, records_full.jsonl, relations.csv, mechanics tables, BSA/Papyrus/config/FOMOD inventories, and a review workbook.
+Large derived evidence is not falsely claimed as mirrored when the connected writer is impractical for multi-megabyte datasets. A dedicated repository can later use normal Git/LFS or deterministic regeneration.
 
-Those complete artifacts are preserved in the downloadable ingestion package produced alongside this GitHub stage. The connected GitHub writer accepts text content but cannot directly ingest an already-generated local ZIP/file reference, so the largest evidence files are intentionally not claimed as uploaded here yet.
-
-No original mod DLL/PDB/BSA/ESP assets are republished in the derived project package.
+No original mod DLL/PDB/BSA/ESP assets are republished in the derived package; it contains derived data, hashes, paths, analysis code, and author-supplied text evidence used for private analysis.
