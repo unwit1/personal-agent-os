@@ -1,0 +1,83 @@
+{
+  "id": "rtec-form-fleet-manager-interview-2017",
+  "record_type": "form",
+  "title": "Fleet Manager / Superintendent of Facilities interview guide - 2017",
+  "status": "validated",
+  "temporal_status": "historical",
+  "effective_from": "2017-07-06",
+  "effective_to": null,
+  "summary": "Historical structured interview guide for Fleet Manager and Superintendent of Facilities, including minimum qualifications, maintenance/supervisory/job-duty questions, policy explanation prompts, accommodation inquiry and interviewer recommendation.",
+  "claims": [
+    {
+      "claim": "The form treated a high-school diploma/GED, CDL with passenger endorsement or ability to obtain it within 30 days, and vehicle/building maintenance experience as minimum-requirement topics.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-fleet-manager-interview-form-2017-07-06","page_or_section":"minimum requirements","evidence_type":"explicit_text","note":"Historical interview guide; current qualification requirements require newer evidence."}]
+    },
+    {
+      "claim": "The interviewer was instructed to review the application/resume and explain wages, benefits and key policies including attendance, dress code, drug/alcohol policy and codes of conduct.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-fleet-manager-interview-form-2017-07-06","page_or_section":"interviewer review and closing prompts","evidence_type":"explicit_text","note":null}]
+    },
+    {
+      "claim": "The form asks whether the candidate can perform job duties and whether accommodations are needed.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "EXTENDS",
+      "related_record_ids": ["rtec-policy-eeo-2026"],
+      "evidence": [{"source_id":"rtec-hr-fleet-manager-interview-form-2017-07-06","page_or_section":"interviewer review and closing prompts","evidence_type":"explicit_text","note":null}]
+    }
+  ],
+  "trigger": "Interview scheduled for Fleet Manager / Superintendent of Facilities candidate.",
+  "prerequisites": ["Application and/or resume available for interviewer review."],
+  "actors": ["Interviewer", "Applicant", "Executive Director for possible further interview"],
+  "systems": [],
+  "forms": ["Fleet Manager interview form", "Application/resume", "Drug and Alcohol statement", "Job description"],
+  "steps": [
+    "Review minimum requirements.",
+    "Ask structured experience and job-duty questions.",
+    "Review application/resume for additional relevant points.",
+    "Discuss ability to perform job duties and accommodations.",
+    "Explain wages, benefits and named policies.",
+    "Record interviewer observations and recommendation.",
+    "Sign and date the interview form."
+  ],
+  "decisions": ["Recommend applicant for the position, reject, or refer for further interview with Executive Director."],
+  "deadlines": ["Historical form states CDL/passenger endorsement could be obtained within 30 days of employment."],
+  "outputs": ["Completed interview record and recommendation"],
+  "exceptions": [],
+  "controls": ["Interviewer signature and interview date.", "Structured prompts intended to cover minimum requirements and core duties."],
+  "unresolved_questions": [
+    "Is this interview form still used for the position?",
+    "What current job description/qualification standard supersedes the 2017 requirements?",
+    "Which interview observations remain appropriate under current hiring practices and EEO guidance?"
+  ],
+  "automation_candidates": [
+    "Versioned structured interview checklist tied to the current job description.",
+    "Require interviewer completion/sign-off before applicant status can advance.",
+    "Automatically surface only current approved interview questions and qualification criteria."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [{
+    "source_id":"rtec-hr-fleet-manager-interview-form-2017-07-06",
+    "safe_source_type":"interview_form_and_hiring_guide",
+    "source_date_or_version":"2017-07-06",
+    "source_created_date":"2017-07-06",
+    "source_revision_date":"2017-07-06",
+    "source_effective_from":null,
+    "source_effective_to":null,
+    "temporal_status":"historical",
+    "content_sha256":"02cf3413fc3cb5b559d4eb82c46fa2f657701760d692ebe42e8b2516e82979d8",
+    "page_or_section":"complete source",
+    "full_source_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-fleet-manager-interview-form-2017-07-06/fulltext.md",
+    "searchable_text_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-fleet-manager-interview-form-2017-07-06/fulltext.md",
+    "ingested_at":"2026-09-23",
+    "notes":"Blank interview guide, not applicant-specific record."
+  }]
+}
