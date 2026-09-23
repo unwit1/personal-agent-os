@@ -54,6 +54,34 @@
       ]
     },
     {
+      "id": "rtec-hr-process-model",
+      "name": "RTEC HR Process Model",
+      "directory": "rtec-hr-process-model",
+      "repository": "https://github.com/unwit1/personal-agent-os.git",
+      "classification": "active",
+      "state_file": "projects/rtec-hr-process-model/state.json",
+      "canonical_owner": "this_repository",
+      "privacy": "Store only derived, sanitized process knowledge and safe provenance; never commit live employee/applicant records, raw OCR, PII-bearing filenames, or employee-level case facts.",
+      "aliases": [
+        "RTEC HR model",
+        "RTEC processes",
+        "HR process model",
+        "RTEC HR knowledge"
+      ],
+      "routing_terms": [
+        "RTEC HR",
+        "HR process",
+        "HR procedure",
+        "HR policy",
+        "onboarding process",
+        "recruiting process",
+        "personnel workflow",
+        "benefits workflow",
+        "disciplinary workflow",
+        "termination process"
+      ]
+    },
+    {
       "id": "auto-click",
       "name": "AutoClick",
       "directory": "AutoClick",
