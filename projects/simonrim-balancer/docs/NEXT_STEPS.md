@@ -20,8 +20,8 @@ Status after full source exhaustion and initial candidate generation on 2026-09-
 6. **P6 — Baseline expansion — NEXT DATA PRIORITY**
    Import matching Skyrim.esm, Update.esm and required DLC/Creation master record bodies for the 1,619 unresolved external baselines. Recompute exact deltas and candidate confidence afterward.
 
-7. **P7 — Candidate synthesis and review**
-   Cluster related candidates into design-principle families, attach counterexamples/exceptions, deduplicate near-equivalent observations and promote only narrowly scoped, evidence-backed rules.
+7. **P7 — Candidate synthesis and review — STARTED / FAMILY PASS COMPLETE**
+   The 273 candidates are now grouped into 149 deterministic review families; 66 are multi-candidate families and 56 span more than one mod. Family membership is a review aid only. Counterexample/exception attachment and narrow human-reviewed promotion remain next; approved rules remain 0.
 
 8. **P8 — Analysis API/MCP**
    Add selective queries for mechanics, dependencies, deltas, evidence, candidates, approved rules, exceptions and compatible design space.
