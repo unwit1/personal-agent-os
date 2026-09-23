@@ -89,3 +89,8 @@ The batch contains 95 file artifacts. Nine safe position-level artifacts were co
 Derived knowledge includes the legacy employee-evaluation template, historical disciplinary point/reference material, a 2015 vacation-adjacent personal/sick-leave rule candidate, 2016 administrative time/leave routing, a 2015 CSR client-assistance instruction, a 2021 rotation-schedule absence rule, 2021 unemployment-fraud guidance, a 2021 preventive-vaccination event process, historical disciplinary-log/AAP reporting structure, and a content-first document-classification rule.
 
 Notable ingestion findings: the supplied `Disciplinary steps` workbook is a blank violation matrix with no embedded offense-point values; the archive contains long-running fiscal-year disciplinary logs and AAP-sorted derivatives; and filenames are not reliable authority for type or date, so content-derived titles/dates should take precedence with mismatch logging. Historical policy, benefits, external-link, vendor, point-system, and routing statements remain version-aware evidence rather than current operational authority.
+
+
+## Employee handbook archive versions
+
+Historical complete or alternate employee-handbook copies are preserved as separate versioned sources rather than overwritten: 2019 and 2021 archives at `sources/rtec-hr-employee-handbook-archive-2019-2021/`, March 2023 variants at `sources/rtec-hr-employee-handbook-2023-03-01/`, and the December 2025 handbook at `sources/rtec-hr-employee-handbook-2025-12-15/`. The 2019/2021 archive batch is indexed at `sources/batches/rtec-hr-employee-handbook-archive-2019-2021.json`. All are historical evidence until section-specific authority is established; the 2021 DOCX contains unresolved tracked revisions.

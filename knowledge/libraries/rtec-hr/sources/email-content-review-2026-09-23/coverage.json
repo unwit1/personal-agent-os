@@ -27,7 +27,11 @@
     {
       "reviewed_at": "2026-09-23",
       "source_type": "three-message orientation-packet email thread",
-      "message_ids": ["msg_a954276fc09da43ad2c079da", "msg_d14dd4dc6c46c60e6c0b3386", "msg_d0cf37f587403c054d37852a"],
+      "message_ids": [
+        "msg_a954276fc09da43ad2c079da",
+        "msg_d14dd4dc6c46c60e6c0b3386",
+        "msg_d0cf37f587403c054d37852a"
+      ],
       "safe_process_summary": "Historical coordinator correspondence described position-dependent onboarding packets, driver-equivalent packets for Operations Area Managers, role-specific training for safety-sensitive Operations positions, and a Contractor PHI/Confidentiality Agreement stated to apply to everyone. These are unverified historical statements; the agreement was not attached.",
       "unresolved_question": "A proposed replacement of a prior court-record request form with Kentucky AOC-RU-004 was asked about, but approval or implementation is not documented.",
       "persisted_sources": [
@@ -39,7 +43,10 @@
     {
       "reviewed_at": "2026-09-23",
       "source_type": "two archived handbook-version emails with position-level attachments",
-      "message_ids": ["msg_0c4270a04a4f9172ccd202ea", "msg_346de0d91c8d3296d74a9113"],
+      "message_ids": [
+        "msg_0c4270a04a4f9172ccd202ea",
+        "msg_346de0d91c8d3296d74a9113"
+      ],
       "safe_process_summary": "The archive contains an earlier same-day DOCX and a later 48-page PDF with the same printed March 1, 2023 handbook date. The later email describes the PDF as revised and says to post it as the 2023 Employee Handbook. The complete version covers employment terms, pay and benefits, leave, attendance, harassment, dress and role-specific guidance, safety, confidentiality, discipline, communications, nepotism/fraternization, surveillance, EEO, and a blank handbook receipt certificate.",
       "review_method": "Both file hashes matched the attachment index. All 48 PDF pages were visually reviewed and text extracted. The DOCX's 690 main paragraphs were extracted; tracked edits and comments were absent. Text overlap was substantial but not exact, so both originals were retained as distinct versions.",
       "authority_note": "This is pre-April-2026 company history, not the user's personal work history. The source is historical; the complete December 2025 handbook is later and section-level supersession may apply.",
@@ -49,6 +56,23 @@
         "projects/rtec-hr-process-model/docs/REFERENCE_FORM_CONTEXT.md"
       ],
       "excluded_content": "No employee/applicant case records or person-level dossiers were created. Official names/signatures embedded in the handbook remain only within the position-level source allowed by the ingestion contract."
+    },
+    {
+      "reviewed_at": "2026-09-23",
+      "source_type": "three archived employee-handbook attachment emails (two 2019 copies and one 2021 revised copy)",
+      "message_ids": [
+        "msg_05d17b50d2e0c892303d23a7",
+        "msg_0d0386ba508647f4c0b08f46",
+        "msg_a34c4864d9d9a0839bef31aa"
+      ],
+      "safe_process_summary": "Two distinct DOCX copies printed July 15, 2019 were archived on Jan 2 and Jan 3, 2020; the Jan 3 position-level email requests website posting. A July 19, 2021 printed handbook was archived Oct 1, 2021, and its position-level email says it should replace the website copy. The 2021 document retains unresolved tracked revisions affecting leave and attendance, so those edits are not treated as adopted policy. Full original files and searchable redline/text mirrors are preserved.",
+      "review_method": "Verified exact attachment hashes and source sizes; extracted all main-document text nodes and paragraph blocks; confirmed no comment parts and no 2019 tracked changes; compared the 2019 copies paragraph by paragraph; recorded 2021 tracked revision counts/authorship/date and policy subjects; preserved all three originals unchanged. Full clause-by-clause review remains in progress.",
+      "authority_note": "All sources predate the user?s April 2026 start and are RTEC organizational history, not the user?s personal work history. No effective dates established; later complete handbook archives are preserved separately.",
+      "persisted_sources": [
+        "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/",
+        "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-employee-handbook-archive-2019-2021.json"
+      ],
+      "excluded_content": "No raw email bodies, personal timeline facts, employee/applicant case records, or person-level dossiers were retained."
     }
   ],
   "method_notes": [

@@ -26,18 +26,18 @@
     {
       "project": "rtec-hr-process-model",
       "repository": "unwit1/personal-agent-os",
-      "entries": 11,
-      "note": "Blank/reference forms preserved or embedded in the RTEC HR knowledge corpus, including the Guardian enrollment packet, new-hire orientation references, the official Kentucky AOC-RU-004 reference, and the 2023 handbook receipt certificate."
+      "entries": 13,
+      "note": "Blank/reference forms preserved or embedded in the RTEC HR knowledge corpus, including orientation and pre-employment references plus handbook receipt certificates from 2019, 2021, and 2023."
     }
   ],
   "stats": {
-    "total_reference_records": 86,
+    "total_reference_records": 88,
     "hr_gui_manifest_records": 72,
     "applicant_dashboard_records": 3,
-    "already_ingested_hr_corpus_records": 11,
+    "already_ingested_hr_corpus_records": 13,
     "unique_identity_keys": 74,
     "duplicate_or_multi_source_identity_keys": 4,
-    "pending_identity_review_records": 8
+    "pending_identity_review_records": 10
   },
   "entries": [
     {
@@ -1963,7 +1963,9 @@
       "temporal_status": "unknown",
       "validation_state": "validated_reference_identity_possible_duplicate",
       "full_source_status": "blank original PDF and searchable page outline preserved under knowledge/libraries/rtec-hr/sources/rtec-hr-guardian-enrollment-packet-2026-07-31/; compare with HR-GUI Guardian packet before deduplicating",
-      "related_catalog_entry_ids": ["hrgui-reference-008"],
+      "related_catalog_entry_ids": [
+        "hrgui-reference-008"
+      ],
       "policy_authority": "none_by_form_presence"
     },
     {
@@ -1979,9 +1981,14 @@
       "temporal_status": "unknown",
       "validation_state": "visually_checked_blank_possible_duplicate",
       "full_source_status": "unchanged blank one-page PDF preserved with searchable OCR under the cited source packet; SHA-256 verified against mailbox attachment index",
-      "related_catalog_entry_ids": ["hrgui-reference-034"],
+      "related_catalog_entry_ids": [
+        "hrgui-reference-034"
+      ],
       "policy_authority": "none_by_form_presence",
-      "notes": ["Contains a named return-routing instruction; routing currentness is unknown.", "Possible related HR-GUI entry; original HR-GUI artifact is unavailable for content-hash comparison."]
+      "notes": [
+        "Contains a named return-routing instruction; routing currentness is unknown.",
+        "Possible related HR-GUI entry; original HR-GUI artifact is unavailable for content-hash comparison."
+      ]
     },
     {
       "id": "rtec-form-school-bus-safety-acknowledgment-2026-email",
@@ -1996,9 +2003,14 @@
       "temporal_status": "unknown",
       "validation_state": "visually_checked_blank_possible_duplicate",
       "full_source_status": "unchanged blank one-page PDF preserved with searchable OCR under the cited source packet; SHA-256 verified against mailbox attachment index",
-      "related_catalog_entry_ids": ["hrgui-reference-046"],
+      "related_catalog_entry_ids": [
+        "hrgui-reference-046"
+      ],
       "policy_authority": "none_by_form_presence",
-      "notes": ["Contains legal and safety statements and historical statistics; currentness was not independently verified.", "Possible related HR-GUI entry; original HR-GUI artifact is unavailable for content-hash comparison."]
+      "notes": [
+        "Contains legal and safety statements and historical statistics; currentness was not independently verified.",
+        "Possible related HR-GUI entry; original HR-GUI artifact is unavailable for content-hash comparison."
+      ]
     },
     {
       "id": "rtec-form-company-property-return-acknowledgment-2026-email",
@@ -2013,9 +2025,13 @@
       "temporal_status": "unknown",
       "validation_state": "visually_checked_blank_possible_duplicate",
       "full_source_status": "unchanged blank one-page PDF preserved with searchable OCR under the cited source packet; SHA-256 verified against mailbox attachment index",
-      "related_catalog_entry_ids": ["hrgui-reference-044"],
+      "related_catalog_entry_ids": [
+        "hrgui-reference-044"
+      ],
       "policy_authority": "none_by_form_presence",
-      "notes": ["Possible related HR-GUI entry; original HR-GUI artifact is unavailable for content-hash comparison."]
+      "notes": [
+        "Possible related HR-GUI entry; original HR-GUI artifact is unavailable for content-hash comparison."
+      ]
     },
     {
       "id": "rtec-form-sexual-harassment-prevention-agreement-2026-email",
@@ -2030,9 +2046,14 @@
       "temporal_status": "unknown",
       "validation_state": "visually_checked_blank_possible_duplicate",
       "full_source_status": "unchanged blank two-page PDF preserved with searchable OCR under the cited source packet; SHA-256 verified against mailbox attachment index",
-      "related_catalog_entry_ids": ["hrgui-reference-045"],
+      "related_catalog_entry_ids": [
+        "hrgui-reference-045"
+      ],
       "policy_authority": "none_by_form_presence",
-      "notes": ["No revision or effective date is visible; do not rely on this historical copy as current policy without validation.", "Possible related HR-GUI entry; original HR-GUI artifact is unavailable for content-hash comparison."]
+      "notes": [
+        "No revision or effective date is visible; do not rely on this historical copy as current policy without validation.",
+        "Possible related HR-GUI entry; original HR-GUI artifact is unavailable for content-hash comparison."
+      ]
     },
     {
       "id": "rtec-form-drug-alcohol-free-workplace-agreement-fragment-2026-email",
@@ -2047,9 +2068,15 @@
       "temporal_status": "unknown",
       "validation_state": "visually_checked_blank_fragment_possible_duplicate",
       "full_source_status": "unchanged one-page fragment preserved with searchable OCR under the cited source packet; SHA-256 verified against mailbox attachment index",
-      "related_catalog_entry_ids": ["hrgui-reference-036", "hrgui-reference-056"],
+      "related_catalog_entry_ids": [
+        "hrgui-reference-036",
+        "hrgui-reference-056"
+      ],
       "policy_authority": "none_by_form_presence",
-      "notes": ["This is explicitly page 18 of a 20-page policy and cannot substitute for the complete policy.", "Possible related HR-GUI entries; originals are unavailable for content-hash comparison."]
+      "notes": [
+        "This is explicitly page 18 of a 20-page policy and cannot substitute for the complete policy.",
+        "Possible related HR-GUI entries; originals are unavailable for content-hash comparison."
+      ]
     },
     {
       "id": "rtec-form-ky-aoc-ru-004-records-check-request-2026-official-site",
@@ -2066,7 +2093,12 @@
       "full_source_status": "unchanged official one-page PDF and searchable extraction preserved with retrieval provenance and SHA-256 in source manifest",
       "related_catalog_entry_ids": [],
       "policy_authority": "none_by_catalog_presence",
-      "notes": ["A July 2026 RTEC email asked whether this state form could replace a prior application-packet form; no approval or implementation is documented in that thread.", "Kentucky Court of Justice guidance says altering a form beyond completion is prohibited; preserve unchanged.", "Contains blank fields for sensitive identifiers. Completed forms and applicant data must remain outside this repository.", "Official source: https://www.kycourts.gov/Legal-Forms/Legal%20Forms/RU-004.pdf; official listing: https://www.kycourts.gov/Legal-Forms/Pages/default.aspx."]
+      "notes": [
+        "A July 2026 RTEC email asked whether this state form could replace a prior application-packet form; no approval or implementation is documented in that thread.",
+        "Kentucky Court of Justice guidance says altering a form beyond completion is prohibited; preserve unchanged.",
+        "Contains blank fields for sensitive identifiers. Completed forms and applicant data must remain outside this repository.",
+        "Official source: https://www.kycourts.gov/Legal-Forms/Legal%20Forms/RU-004.pdf; official listing: https://www.kycourts.gov/Legal-Forms/Pages/default.aspx."
+      ]
     },
     {
       "id": "rtec-form-employee-handbook-receipt-certificate-2023",
@@ -2082,9 +2114,71 @@
       "temporal_status": "historical handbook; no form-specific effective date",
       "validation_state": "visually_checked_blank_possible_related_source",
       "full_source_status": "embedded in the unchanged complete 48-page handbook PDF; page text included in the searchable mirror; same-date DOCX variant also preserved",
-      "related_catalog_entry_ids": ["hrgui-reference-034", "rtec-form-policy-resources-receipt-2026-email"],
+      "related_catalog_entry_ids": [
+        "hrgui-reference-034",
+        "rtec-form-policy-resources-receipt-2026-email"
+      ],
       "policy_authority": "none_by_form_presence",
-      "notes": ["The printed-name/issued-to, signature, and date-received fields on page 48 are blank.", "Possible related HR-GUI and 2026 RTEC policy-receipt sources; wording and structure differ, so identity/deduplication is unconfirmed.", "Historical form content does not establish current onboarding requirements."]
+      "notes": [
+        "The printed-name/issued-to, signature, and date-received fields on page 48 are blank.",
+        "Possible related HR-GUI and 2026 RTEC policy-receipt sources; wording and structure differ, so identity/deduplication is unconfirmed.",
+        "Historical form content does not establish current onboarding requirements."
+      ]
+    },
+    {
+      "id": "rtec-form-employee-handbook-receipt-certificate-2019-archive",
+      "title": "Employee Handbook Certificate of Receipt, July 2019 archive copies",
+      "category": "New Hire / Handbook Acknowledgment",
+      "source_project": "rtec-hr-process-model",
+      "source_repository": "unwit1/personal-agent-os",
+      "source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/source/Employee-Handbook-2019-archive-copy-2020-01-03.docx",
+      "source_location": "Certificate of Receipt section; document printed July 15, 2019",
+      "source_kind": "blank_reference_form_embedded_in_handbook",
+      "mapping_status": "candidate_possible_related_source",
+      "canonical_form_type": "Employee Handbook Receipt Certificate",
+      "temporal_status": "historical handbook; no form-specific effective date",
+      "validation_state": "text_extracted_blank_fields_possible_related_source",
+      "full_source_status": "embedded in unchanged complete 2019 handbook DOCX; both distinct 2019 archival copies are preserved with searchable text mirrors",
+      "related_catalog_entry_ids": [
+        "hrgui-reference-034",
+        "rtec-form-employee-handbook-receipt-certificate-2023",
+        "rtec-form-policy-resources-receipt-2026-email"
+      ],
+      "policy_authority": "none_by_form_presence",
+      "notes": [
+        "Issued To, Signed, and Date Received fields are blank in extracted text.",
+        "A second distinct DOCX archive copy of the same printed July 15, 2019 handbook is also preserved; the receipt fields appear in both.",
+        "Possible relationship to later handbook receipt and policy acknowledgment forms is unconfirmed; do not treat the copies as identical without content/layout comparison.",
+        "Historical form content does not establish current onboarding requirements."
+      ]
+    },
+    {
+      "id": "rtec-form-employee-handbook-receipt-certificate-2021-archive",
+      "title": "Employee Handbook Certificate of Receipt, July 2021 archive copy",
+      "category": "New Hire / Handbook Acknowledgment",
+      "source_project": "rtec-hr-process-model",
+      "source_repository": "unwit1/personal-agent-os",
+      "source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/source/Employee-Handbook-2021-revised-with-tracked-changes.docx",
+      "source_location": "Certificate of Receipt section; document printed July 19, 2021",
+      "source_kind": "blank_reference_form_embedded_in_handbook",
+      "mapping_status": "candidate_possible_related_source",
+      "canonical_form_type": "Employee Handbook Receipt Certificate",
+      "temporal_status": "historical handbook; no form-specific effective date",
+      "validation_state": "text_extracted_blank_fields_possible_related_source",
+      "full_source_status": "embedded in unchanged handbook DOCX with full searchable redline mirror; tracked revisions remain unresolved elsewhere in the source",
+      "related_catalog_entry_ids": [
+        "hrgui-reference-034",
+        "rtec-form-employee-handbook-receipt-certificate-2019-archive",
+        "rtec-form-employee-handbook-receipt-certificate-2023",
+        "rtec-form-policy-resources-receipt-2026-email"
+      ],
+      "policy_authority": "none_by_form_presence",
+      "notes": [
+        "Issued To, Signed, and Date Received fields are blank in extracted text.",
+        "This is a historical form embedded in a revised handbook copy whose tracked changes remain unresolved.",
+        "Possible relationship to 2019, 2023, HR-GUI, and 2026 acknowledgment forms is unconfirmed.",
+        "Historical form content does not establish current onboarding requirements."
+      ]
     }
   ]
 }

@@ -35,7 +35,11 @@
     "knowledge/libraries/rtec-hr/compliance/sources/title-vi-lep-2016/plan-core-and-complaints.md",
     "projects/rtec-hr-process-model/checkpoints/fy2017-grants-compliance.json",
     "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-correspondence-2026-09-23.json",
-    "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json"
+    "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json",
+    "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/README.md",
+    "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/manifest.json",
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-employee-handbook-archive-2019-2021.json",
+    "knowledge/libraries/rtec-hr/sources/email-content-review-2026-09-23/coverage.json"
   ],
   "context_files": [
     "projects/rtec-hr-process-model/README.md",
@@ -50,7 +54,11 @@
     "knowledge/libraries/rtec-hr/compliance/archive-index/README.md",
     "knowledge/libraries/rtec-hr/processes/fy2017-transit-grant-application-workflow.json",
     "projects/rtec-hr-process-model/checkpoints/fy2017-grants-compliance.json",
-    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-correspondence-2026-09-23.json"
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-correspondence-2026-09-23.json",
+    "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/README.md",
+    "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/manifest.json",
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-employee-handbook-archive-2019-2021.json",
+    "knowledge/libraries/rtec-hr/sources/email-content-review-2026-09-23/coverage.json"
   ],
   "skill_roots": [],
   "validation_commands": [],
@@ -105,10 +113,11 @@
       "unwit1/job-applicant-dashboard",
       "unwit1/personal-agent-os"
     ],
-    "total_reference_records": 78,
+    "total_reference_records": 88,
     "unique_identity_keys": 74,
     "full_source_rule": "When a safe original reference artifact is available, preserve it in full or by a lossless repository-safe representation and link it to the existing catalog entry.",
-    "authority_rule": "Form presence is contextual evidence, not automatic current policy authority."
+    "authority_rule": "Form presence is contextual evidence, not automatic current policy authority.",
+    "already_ingested_hr_corpus_records": 13
   },
   "job_description_context": {
     "source_set": "rtec-hr-job-description-library-2026-09-23",
