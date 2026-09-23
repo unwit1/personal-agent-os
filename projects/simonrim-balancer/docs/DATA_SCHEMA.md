@@ -70,3 +70,13 @@ Every derived mechanic or future rule must remain traceable to plugin/Form/subre
 | `data/derived/2026-09-23/weapon_field_deltas.csv` | exact imported-baseline WEAP field differences |
 
 The full local/private snapshot additionally contains `weapons_full.csv`, `weapon_design_view.csv`, `weapon_numeric_baselines.csv`, `weapon_observed_patterns.csv`, and `weapon_decoder_summary.json`. They remain reproducible from the lossless record payloads.
+
+
+## Enchantment decoder checkpoint
+
+| File | Purpose |
+| --- | --- |
+| `data/derived/2026-09-23/enchantment_checkpoint_compact.json` | compact ENCH checkpoint counts and validated delta categories |
+| `data/derived/2026-09-23/enchantment_field_deltas.csv` | all 58 exact imported-baseline ENCH field differences |
+
+The full local/private snapshot additionally contains `enchantments_full.csv`, `enchantment_design_view.csv`, `enchantment_effect_design_view.csv`, `enchantment_numeric_baselines.csv`, `enchantment_observed_patterns.csv`, and `enchantment_decoder_summary.json`. Raw records remain authoritative.
