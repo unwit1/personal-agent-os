@@ -1,0 +1,351 @@
+# Workforce Analysis Form 06 30 2022.xls — searchable cell map
+
+This mirror preserves every non-empty cell value recovered from the supplied legacy Excel workbook, with original sheet names and cell coordinates.
+Numeric entries are stored as their workbook cached/raw values. Legacy Excel formulas and formatting are not reconstructed in this text mirror; the source hash and binary-sync requirement are retained separately.
+
+## Sheet: Sheet1
+
+- `A1`: Department/Work Unit:  Garage
+- `E1`: Males
+- `M1`: Females
+- `A3`: Job Title
+- `B3`: EEO-1 Cat./ ⏎ Job Group
+- `C3`: Total Employees
+- `D3`: Wage Rate
+- `E3`: TOTAL
+- `F3`: American Indian/Alaskan Native
+- `G3`: Asian
+- `H3`: Black/African American
+- `I3`: Hispanic/Latino 
+- `J3`: Native Hawaiian/ ⏎ Other Pacific Islander
+- `K3`: White
+- `L3`: Two or more races
+- `M3`: TOTAL
+- `N3`: American Indian/Alaskan Native
+- `O3`: Asian
+- `P3`: Black/African American
+- `Q3`: Hispanic/Latino ⏎ 
+- `R3`: Native Hawaiian/ ⏎ Other Pacific Islander
+- `S3`: White
+- `T3`: Two or more races
+- `U3`: Veterans
+- `V3`: Individual with Disabilities
+- `A14`: Fleet Manager
+- `B14`: 1.0
+- `C14`: 1.0
+- `E14`: 1.0
+- `K14`: 1.0
+- `A15`: Head Mechanic
+- `B15`: 6.0
+- `C15`: 1.0
+- `E15`: 1.0
+- `K15`: 1.0
+- `A16`: Mechanic
+- `B16`: 6.0
+- `C16`: 1.0
+- `E16`: 1.0
+- `K16`: 1.0
+- `A17`: Garage Attendant II
+- `B17`: 8.0
+- `A18`: Garage Attendant
+- `B18`: 8.0
+- `C18`: 2.0
+- `E18`: 2.0
+- `K18`: 2.0
+- `A19`: Part-Time Garage Attendant
+- `B19`: 8.0
+- `C19`: 1.0
+- `E19`: 1.0
+- `K19`: 1.0
+- `U19`: 1.0
+- `A43`: DEPARTMENT TOTAL
+- `C43`: 6.0
+- `E43`: 6.0
+- `K43`: 6.0
+- `U43`: 1.0
+- `A44`: Department/Work Unit: Operations
+- `E44`: Males
+- `M44`: Females
+- `A46`: Job Title
+- `B46`: EEO-1 Cat./ ⏎ Job Group
+- `C46`: Total Employees
+- `D46`: Wage Rate
+- `E46`: TOTAL
+- `F46`: American Indian/Alaskan Native
+- `G46`: Asian
+- `H46`: Black/African American
+- `I46`: Hispanic/Latino
+- `J46`: Native Hawaiian/ ⏎ Other Pacific Islander
+- `K46`: White
+- `L46`: Two or more races
+- `M46`: TOTAL
+- `N46`: American Indian/Alaskan Native
+- `O46`: Asian
+- `P46`: Black/African American
+- `Q46`: Hispanic/Latino
+- `R46`: Native Hawaiian/ ⏎ Other Pacific Islander
+- `S46`: White
+- `T46`: Two or more races
+- `U46`: Veterans
+- `V46`: Individual with Disabilities
+- `A56`: Operations Manager
+- `B56`: 1.0
+- `C56`: 1.0
+- `E56`: 1.0
+- `K56`: 1.0
+- `U56`: 1.0
+- `A57`: Network Provider Manager
+- `B57`: 1.0
+- `C57`: 1.0
+- `E57`: 1.0
+- `K57`: 1.0
+- `A58`: Area Manager
+- `B58`: 1.0
+- `C58`: 4.0
+- `M58`: 4.0
+- `S58`: 4.0
+- `V58`: 1.0
+- `A59`: Dispatcher/Relief Operator
+- `B59`: 5.0
+- `C59`: 1.0
+- `E59`: 1.0
+- `K59`: 1.0
+- `U59`: 1.0
+- `A60`: Dispatcher
+- `B60`: 5.0
+- `C60`: 2.0
+- `E60`: 1.0
+- `K60`: 1.0
+- `M60`: 1.0
+- `S60`: 1.0
+- `A61`: Transit Drivers
+- `B61`: 7.0
+- `C61`: 113.0
+- `E61`: 77.0
+- `H61`: 1.0
+- `I61`: 2.0
+- `K61`: 73.0
+- `L61`: 1.0
+- `M61`: 36.0
+- `P61`: 1.0
+- `Q61`: 1.0
+- `S61`: 34.0
+- `U61`: 14.0
+- `V61`: 5.0
+- `A62`: Part-time Transit Drivers
+- `B62`: 7.0
+- `C62`: 1.0
+- `M62`: 1.0
+- `S62`: 1.0
+- `A85`: DEPARTMENT TOTAL
+- `C85`: 123.0
+- `E85`: 81.0
+- `H85`: 1.0
+- `I85`: 2.0
+- `K85`: 77.0
+- `L85`: 1.0
+- `M85`: 42.0
+- `P85`: 1.0
+- `Q85`: 1.0
+- `S85`: 40.0
+- `U85`: 16.0
+- `V85`: 6.0
+- `A86`: Department/Work Unit: Administrative
+- `E86`: Males
+- `M86`: Females
+- `A88`: Job Title
+- `B88`: EEO-1 Cat./ ⏎ Job Group
+- `C88`: Total Employees
+- `D88`: Wage Rate
+- `E88`: TOTAL
+- `F88`: American Indian/Alaskan Native
+- `G88`: Asian
+- `H88`: Black/African American
+- `I88`: Hispanic/Latino
+- `J88`: Native Hawaiian/ ⏎ Other Pacific Islander
+- `K88`: White
+- `L88`: Two or more races
+- `M88`: TOTAL
+- `N88`: American Indian/Alaskan Native
+- `O88`: Asian
+- `P88`: Black/African American
+- `Q88`: Hispanic/Latino
+- `R88`: Native Hawaiian/ ⏎ Other Pacific Islander
+- `S88`: White
+- `T88`: Two or more races
+- `U88`: Veterans
+- `V88`: Individual with Disabilities
+- `A98`: * Executive Director
+- `B98`: 1.0
+- `C98`: 1.0
+- `M98`: 1.0
+- `S98`: 1.0
+- `A99`: Deputy Director
+- `B99`: 1.0
+- `C99`: 1.0
+- `M99`: 1.0
+- `S99`: 1.0
+- `A100`: Mobility Manager
+- `B100`: 1.0
+- `C100`: 1.0
+- `M100`: 1.0
+- `S100`: 1.0
+- `A101`: Comptroller
+- `B101`: 2.0
+- `C101`: 1.0
+- `E101`: 1.0
+- `K101`: 1.0
+- `A102`: Human Resource/EEO/Benefits Manager
+- `B102`: 2.0
+- `C102`: 1.0
+- `M102`: 1.0
+- `S102`: 1.0
+- `A103`: Safety/Training/D&A Manager
+- `B103`: 2.0
+- `C103`: 1.0
+- `E103`: 1.0
+- `K103`: 1.0
+- `A104`: Information Systems Technician
+- `B104`: 3.0
+- `C104`: 1.0
+- `E104`: 1.0
+- `K104`: 1.0
+- `A105`: Admin Support Technician
+- `B105`: 5.0
+- `C105`: 1.0
+- `M105`: 1.0
+- `S105`: 1.0
+- `A106`: Administrative Assistant/Accounts Payable
+- `B106`: 5.0
+- `C106`: 1.0
+- `M106`: 1.0
+- `S106`: 1.0
+- `A107`: Executive Secretary
+- `B107`: 5.0
+- `A108`: Bookkeeper
+- `B108`: 5.0
+- `C108`: 1.0
+- `M108`: 1.0
+- `S108`: 1.0
+- `A109`: Receptionist/Clerical
+- `B109`: 5.0
+- `C109`: 1.0
+- `M109`: 1.0
+- `S109`: 1.0
+- `V109`: 1.0
+- `A110`: Temporary Clerical
+- `B110`: 5.0
+- `C110`: 4.0
+- `E110`: 1.0
+- `K110`: 1.0
+- `M110`: 3.0
+- `S110`: 3.0
+- `A111`: Custodian
+- `B111`: 9.0
+- `A120`: * Executive/Senior Level Officials & Managers
+- `A129`: DEPARTMENT TOTAL
+- `C129`: 15.0
+- `E129`: 4.0
+- `K129`: 4.0
+- `M129`: 11.0
+- `S129`: 11.0
+- `V129`: 1.0
+- `A130`: Department/Work Unit: Administrative - Customer Service
+- `E130`: Males
+- `M130`: Females
+- `A132`: Job Title
+- `B132`: EEO-1 Cat./ ⏎ Job Group
+- `C132`: Total Employees
+- `D132`: Wage Rate
+- `E132`: TOTAL
+- `F132`: American Indian/Alaskan Native
+- `G132`: Asian
+- `H132`: Black/African American
+- `I132`: Hispanic/Latino
+- `J132`: Native Hawaiian/ ⏎ Other Pacific Islander
+- `K132`: White
+- `L132`: Two or more races
+- `M132`: TOTAL
+- `N132`: American Indian/Alaskan Native
+- `O132`: Asian
+- `P132`: Black/African American
+- `Q132`: Hispanic/Latino
+- `R132`: Native Hawaiian/ ⏎ Other Pacific Islander
+- `S132`: White
+- `T132`: Two or more races
+- `U132`: Veterans
+- `V132`: Individual with Disabilities
+- `A143`: Customer Service Rep. (CSR) - Network Billing
+- `B143`: 5.0
+- `C143`: 2.0
+- `M143`: 2.0
+- `S143`: 2.0
+- `A144`: Customer Service Rep. (CSR)
+- `B144`: 5.0
+- `C144`: 10.0
+- `E144`: 1.0
+- `K144`: 1.0
+- `M144`: 9.0
+- `S144`: 9.0
+- `V144`: 1.0
+- `A145`: Customer Service Rep. (CSR) - Relief Operator
+- `B145`: 5.0
+- `C145`: 1.0
+- `M145`: 1.0
+- `S145`: 1.0
+- `A171`: DEPARTMENT TOTAL
+- `C171`: 13.0
+- `E171`: 1.0
+- `K171`: 1.0
+- `M171`: 12.0
+- `S171`: 12.0
+- `V171`: 1.0
+- `A172`: Department/Work Unit: Cafeteria
+- `E172`: Males
+- `M172`: Females
+- `A174`: Job Title
+- `B174`: EEO-1 Cat./ ⏎ Job Group
+- `C174`: Total Employees
+- `D174`: Wage Rate
+- `E174`: TOTAL
+- `F174`: American Indian/Alaskan Native
+- `G174`: Asian
+- `H174`: Black/African American
+- `I174`: Hispanic/Latino
+- `J174`: Native Hawaiian/ ⏎ Other Pacific Islander
+- `K174`: White
+- `L174`: Two or more races
+- `M174`: TOTAL
+- `N174`: American Indian/Alaskan Native
+- `O174`: Asian
+- `P174`: Black/African American
+- `Q174`: Hispanic/Latino
+- `R174`: Native Hawaiian/ ⏎ Other Pacific Islander
+- `S174`: White
+- `T174`: Two or more races
+- `U174`: Veterans
+- `V174`: Individual with Disabilities
+- `A185`: Food Service Manager
+- `B185`: 1.0
+- `C185`: 1.0
+- `M185`: 1.0
+- `S185`: 1.0
+- `A186`: Food Service Assistant
+- `B186`: 9.0
+- `C186`: 1.0
+- `M186`: 1.0
+- `S186`: 1.0
+- `A213`: DEPARTMENT TOTAL
+- `C213`: 2.0
+- `M213`: 2.0
+- `S213`: 2.0
+
+## Sheet: Sheet1 (2)
+
+This second worksheet copy contains structure/job-title mappings rather than populated workforce counts.
+
+- Garage: Fleet Manager (Job Group 1), Mechanic (6), Garage Attendant (7).
+- Operations: Operations Manager (1), Network Provider Manager (1), Area Manager (1), Dispatcher (5), Part-time Dispatcher (5), Transit Drivers (9), Part-time Transit Drivers (9).
+- Administrative: Executive Director (1), Comptroller (2), Human Resource Manager (2), Safety/Training/D&A Manager (2), Information Systems Technician (3), Admin Support Technician (5), Administrative Assistant (5), Executive Secretary (5), Accounts Receivable (5), EEO Manager (1), Receptionist/Clerical (5), Custodian (7).
+- Administrative - Customer Service: Customer Service Rep. (CSR) - Network Billing (5), Customer Service Rep. (CSR) (5).
+- Cafeteria: Food Service Manager (1), Food Service Assistant (9).
