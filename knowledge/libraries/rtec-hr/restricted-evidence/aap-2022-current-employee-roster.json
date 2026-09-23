@@ -1,0 +1,23 @@
+{
+  "source_id": "rtec-aap-2022-current-employee-roster",
+  "privacy_class": "restricted_employee_roster",
+  "snapshot_date": "2022-06-30",
+  "sha256": "f0febe6881ddbaeb4135c8b8f22f65bcb08e5216721c0629dac5f6729d854454",
+  "named_employee_rows_detected": 159,
+  "retained_in_github": "metadata_only",
+  "sensitive_fields_observed": [
+    "employee number",
+    "employee name",
+    "Social Security number",
+    "date of birth",
+    "home address",
+    "county",
+    "job title",
+    "EEO-1 category",
+    "gender",
+    "race",
+    "veteran status"
+  ],
+  "generalized_use": "Input/supporting roster for the 2022 workforce and incumbency analyses.",
+  "prohibition": "Do not commit row-level content, raw OCR/cell exports, names, identifiers, addresses, or person-level EEO attributes."
+}

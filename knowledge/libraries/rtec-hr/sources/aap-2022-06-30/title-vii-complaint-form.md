@@ -1,0 +1,49 @@
+# TITLE VII COMPLAINT FORM — searchable cell map
+
+## Sheet: Sheet1
+
+- A1: Section I:
+- A2: Name:
+- A3: Address:
+- A4: Telephone (Home):
+- G4: Telephone (Work):
+- A5: Electronic Mail Address:
+- A6: Accessible Format Requirements?
+- D6: Large Print
+- I6: Audio Tape
+- D7: TDD
+- I7: Other
+- A8: Section II:
+- A9: Are you filing this complaint on your own behalf?
+- H9: Yes*
+- J9: No
+- A10: * If you answered "yes" to this question, go to Section III.
+- A11: If not, please supply the name and relationship of the person for whom you are complaining:
+- A13: Please explain why you have filed for a third party.
+- A15: Please confirm that you have obtained the permission of the aggrieved party if you are filing on behalf of a third party.
+- H15: Yes
+- J15: No
+- A17: Section III:
+- A18: I believe the discrimination I experienced was based on (check all that apply): Race, Color, National Origin, Sex, Age, Disability. The section asks for the date of alleged discrimination and a description of what happened, why discrimination is alleged, all persons involved, contact information of alleged discriminators if known, and witness names/contact information.
+- A33: Section IV
+- A34: Have you previously filed a Title VII or other discrimination complaint with RTEC?
+- I34: Yes
+- J34: No
+- A36: Section V
+- A37: Have you filed this complaint with any other Federal, State, or local agency, or with any Federal or State court? The form provides Federal Agency, Federal Court, State Agency, State Court, and Local Agency selections.
+- A43: Please provide information about a contact person at the agency/court where the complaint was filed.
+- A44: Name:
+- A45: Title:
+- A46: Agency:
+- A47: Address:
+- A48: Telephone:
+- A49: Section VI
+- A50: Name of agency complaint is against:
+- A51: Contact person:
+- A52: Title:
+- A53: Telephone Number:
+- A54: You may attach any written materials or other information that you think is relevant to your complaint.
+- A55: Signature and date required below
+- A57: Signature
+- H57: Date
+- A59: Please submit this form in person at the address below, or mail this form to: RTEC 100 Main Street, Mt. Vernon, KY 40456 Attn: Title VII Coordinator

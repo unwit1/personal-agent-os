@@ -1,0 +1,22 @@
+{
+  "source_id": "rtec-aap-2022-current-eeo-employee-roster",
+  "privacy_class": "restricted_employee_eeo_roster",
+  "snapshot_date": "2022-06-30",
+  "sha256": "88133e266063f8fdb7b3045a75080988be94a0c9c253517f5a1b8620bdbc1710",
+  "retained_in_github": "metadata_only",
+  "sensitive_fields_observed": [
+    "employee name",
+    "Social Security number",
+    "date of birth",
+    "county",
+    "employment date",
+    "job title",
+    "EEO-1 category",
+    "sex/gender",
+    "race/ethnicity flags",
+    "veteran status",
+    "disability status"
+  ],
+  "generalized_use": "Employee-level source used to construct or validate aggregate EEO workforce/incumbency analyses.",
+  "prohibition": "Do not commit row-level content or person-level EEO/disability/veteran data."
+}

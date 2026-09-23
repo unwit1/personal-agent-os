@@ -1,0 +1,21 @@
+{
+  "id": "rtec-aap-2022-06-30",
+  "record_type": "historical_plan_package",
+  "title": "RTEC Affirmative Action Plan / EEO analysis package — snapshot 2022-06-30",
+  "status": "validated_historical_source_package",
+  "temporal_status": "historical",
+  "snapshot_date": "2022-06-30",
+  "forward_goal_period": "2022-07-01 through 2023-06-30 as stated in the narrative",
+  "source_count": 20,
+  "safe_source_count": 18,
+  "restricted_employee_rosters": 2,
+  "exact_duplicate_sources": 1,
+  "currentness": "not_current_unless_independently_revalidated",
+  "source_manifest": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/source-manifest.json",
+  "notes": [
+    "Several files carry 2022-2023 save dates despite the 2022-06-30 snapshot; preserve snapshot date separately from file-edit metadata.",
+    "The plan uses 2010 Census data in its availability analysis.",
+    "The supplied source set does not include the actual sample ads/brochures or Commonwealth of Kentucky certification documents referenced by the index tabs.",
+    "The 2018 driver-orientation source is an exact duplicate of an existing canonical RTEC HR source."
+  ]
+}

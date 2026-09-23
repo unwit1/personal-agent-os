@@ -1,0 +1,262 @@
+{
+  "plan_id": "rtec-aap-2022-06-30",
+  "snapshot_date": "2022-06-30",
+  "ingested_at": "2026-09-23",
+  "sources": [
+    {
+      "source_id": "rtec-aap-2022-index-tabs",
+      "filename": "AAP INDEX TABS.doc",
+      "sha256": "8b3f624d0197129794246360a90bf5f1e6627b4fc2366897b5eb4d18554b0045",
+      "class": "binder_index_tabs",
+      "privacy": "safe_full_source",
+      "temporal_status": "historical",
+      "metadata": {
+        "last_saved": "2018-08-22"
+      },
+      "searchable_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/aap-index-tabs.md"
+    },
+    {
+      "source_id": "rtec-aap-2022-insert-sheets",
+      "filename": "AAP INSERT SHEETS.doc",
+      "sha256": "b66783e9170e993c7b7a5d507db4307cc5b2d494ba1a5e90faf3dae24a5f7004",
+      "class": "binder_section_dividers",
+      "privacy": "safe_full_source",
+      "temporal_status": "historical",
+      "metadata": {
+        "as_of": "2022-06-30",
+        "last_saved": "2023-03-28"
+      },
+      "searchable_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/aap-insert-sheets.md"
+    },
+    {
+      "source_id": "rtec-aap-2022-current-eeo-employee-roster",
+      "filename": "Current EEO Employee List 06 30 2022.xls",
+      "sha256": "88133e266063f8fdb7b3045a75080988be94a0c9c253517f5a1b8620bdbc1710",
+      "class": "employee_level_eeo_roster",
+      "privacy": "restricted_metadata_only",
+      "temporal_status": "historical",
+      "metadata": {
+        "snapshot_date": "2022-06-30",
+        "last_saved": "2022-09-22"
+      },
+      "restricted_path": "knowledge/libraries/rtec-hr/restricted-evidence/aap-2022-eeo-employee-roster.json"
+    },
+    {
+      "source_id": "rtec-aap-2022-current-employee-roster",
+      "filename": "CURRENT EMPLOYEE LIST 06 30 2022.xls",
+      "sha256": "f0febe6881ddbaeb4135c8b8f22f65bcb08e5216721c0629dac5f6729d854454",
+      "class": "employee_level_master_roster",
+      "privacy": "restricted_metadata_only",
+      "temporal_status": "historical",
+      "metadata": {
+        "snapshot_date": "2022-06-30",
+        "last_saved": "2022-07-07"
+      },
+      "restricted_path": "knowledge/libraries/rtec-hr/restricted-evidence/aap-2022-current-employee-roster.json"
+    },
+    {
+      "source_id": "rtec-aap-2022-determining-availability",
+      "filename": "Determining Availability 06 30 2022.xls",
+      "sha256": "9420e6a0b571a9e1391429ff705ed9c96a3269d5d6363cbda41f0a5086bc5bf0",
+      "class": "availability_analysis_female_minority",
+      "privacy": "safe_full_source",
+      "temporal_status": "historical",
+      "metadata": {
+        "as_of": "2022-06-30",
+        "last_saved": "2023-07-05"
+      },
+      "searchable_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/determining-availability.md"
+    },
+    {
+      "source_id": "rtec-aap-2022-determining-availability-iwd",
+      "filename": "Determining Availability for IWD's 06 30 2022.xls",
+      "sha256": "6fb01ee84dac9ebb468ee5747bd2a07ed76bc2a9797dc002c761e310f73ebed6",
+      "class": "availability_analysis_individuals_with_disabilities",
+      "privacy": "safe_full_source",
+      "temporal_status": "historical",
+      "metadata": {
+        "as_of": "2022-06-30",
+        "last_saved": "2022-10-06"
+      },
+      "searchable_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/determining-availability-iwd.md"
+    },
+    {
+      "source_id": "rtec-aap-2022-determining-availability-veterans",
+      "filename": "Determining Availability for Veterans 06 30 2022.xls",
+      "sha256": "a18cf3643e16112050eb13893c124b8905fc84113a081cf2e121b5a35769c815",
+      "class": "availability_analysis_veterans",
+      "privacy": "safe_full_source",
+      "temporal_status": "historical",
+      "metadata": {
+        "as_of": "2022-06-30",
+        "last_saved": "2022-10-06"
+      },
+      "searchable_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/determining-availability-veterans.md"
+    },
+    {
+      "source_id": "rtec-aap-2022-incumbency-analysis",
+      "filename": "Incumbency Analysis 06 30 2022.xls",
+      "sha256": "0ace45c2abf05e0dd16416686533e253482870eb45c4d9917ee526ee7a12058b",
+      "class": "incumbency_analysis",
+      "privacy": "safe_aggregate_source",
+      "temporal_status": "historical",
+      "metadata": {
+        "as_of": "2022-06-30",
+        "last_saved": "2023-03-27"
+      },
+      "searchable_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/incumbency-analysis.md"
+    },
+    {
+      "source_id": "rtec-aap-2022-incumbency-to-availability",
+      "filename": "Incumbency to Availability 06 30 2022.xls",
+      "sha256": "ee7e61c4f6eedaf1f42e9911eacb78e195388a213d8b33efbdc1bfbd978aea57",
+      "class": "incumbency_availability_goal_comparison",
+      "privacy": "safe_aggregate_source",
+      "temporal_status": "historical",
+      "metadata": {
+        "as_of": "2022-06-30",
+        "last_saved": "2023-07-17"
+      },
+      "searchable_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/incumbency-to-availability.md"
+    },
+    {
+      "source_id": "rtec-aap-2022-job-group-analysis",
+      "filename": "Job Group Analysis 06 30 2022.xls",
+      "sha256": "28e076d6d2261e575d07fea5feca578066a51de693bed0b1cd518ddfcb6d12b4",
+      "class": "job_group_analysis",
+      "privacy": "safe_full_source",
+      "temporal_status": "historical",
+      "metadata": {
+        "as_of": "2022-06-30",
+        "last_saved": "2022-10-07"
+      },
+      "searchable_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/job-group-analysis.md"
+    },
+    {
+      "source_id": "rtec-aap-2022-labor-statistics",
+      "filename": "Labor Statistics 6 30 2022.xls",
+      "sha256": "616f2dbebbc129256a21b655c221c3e7f181517fae59fe634d1a40e8fb605731",
+      "class": "labor_market_statistics",
+      "privacy": "safe_aggregate_source",
+      "temporal_status": "historical",
+      "metadata": {
+        "source_label": "2010 Census Data",
+        "last_saved": "2023-05-31"
+      },
+      "searchable_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/labor-statistics.md"
+    },
+    {
+      "source_id": "rtec-aap-2022-narrative-good-faith",
+      "filename": "Narrative Description as of June 30 2022.doc",
+      "sha256": "d41e51202c5b40210484f185dee6c5674c2cee373ec14ac370333932f9319e4d",
+      "class": "narrative_good_faith_efforts",
+      "privacy": "safe_full_source",
+      "temporal_status": "historical",
+      "metadata": {
+        "as_of": "2022-06-30",
+        "last_saved": "2023-07-05"
+      },
+      "searchable_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/narrative-good-faith-efforts.md"
+    },
+    {
+      "source_id": "rtec-aap-2022-new-hire-summary",
+      "filename": "New Hire Summary 06 30 2022.xls",
+      "sha256": "6b4bfa9342aa059c0c69220621a57450810c7643e7e6fbe42dbb7f9f391a71c7",
+      "class": "aggregate_new_hire_summary",
+      "privacy": "safe_aggregate_source",
+      "temporal_status": "historical",
+      "metadata": {
+        "as_of": "2022-06-30",
+        "last_saved": "2022-10-06"
+      },
+      "searchable_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/new-hire-summary.md"
+    },
+    {
+      "source_id": "rtec-hr-2018-driver-training-orientation",
+      "filename": "ORIENTATION OF DRIVERS rev by Dale (8) 2018.doc",
+      "sha256": "c1c8c5640079fc92b6bdebad96f36ec40f57766827a9f9281ce35431cd738f71",
+      "class": "employment_practices_driver_training",
+      "privacy": "safe_full_source",
+      "temporal_status": "historical",
+      "deduplication": "exact_duplicate_existing_source",
+      "canonical_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-2018-driver-training-orientation/fulltext.md"
+    },
+    {
+      "source_id": "rtec-aap-2022-personnel-activity",
+      "filename": "Personnel Activity Data Sheet 06 30 2022.xls",
+      "sha256": "d081289e341cf3cbcefd431ef4b6ea2234a820dbac3f51cb62e2d1f64c4bb378",
+      "class": "aggregate_personnel_activity",
+      "privacy": "safe_aggregate_source",
+      "temporal_status": "historical",
+      "metadata": {
+        "as_of": "2022-06-30",
+        "last_saved": "2023-03-27"
+      },
+      "searchable_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/personnel-activity-data.md"
+    },
+    {
+      "source_id": "rtec-hr-sexual-harassment-complaint-form-2017",
+      "filename": "Sexual Harassment Complaint Form.doc",
+      "sha256": "56d04fdbc10bf2abdc84ab51d9f6c2c2c326509870be573d716964111c169ef7",
+      "class": "blank_complaint_form",
+      "privacy": "safe_blank_template",
+      "temporal_status": "historical_unknown_currentness",
+      "metadata": {
+        "last_saved": "2017-09-21"
+      },
+      "searchable_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/sexual-harassment-complaint-form.md"
+    },
+    {
+      "source_id": "rtec-aap-2022-termination-summary",
+      "filename": "Termination SUMMARY 06 30 2022.xls",
+      "sha256": "91daf529a60cc6c978422ce7ca2c928554f095f716c6dbc3b8efebfd1f57f7c4",
+      "class": "aggregate_termination_summary",
+      "privacy": "safe_aggregate_source",
+      "temporal_status": "historical",
+      "metadata": {
+        "as_of": "2022-06-30",
+        "last_saved": "2022-10-06"
+      },
+      "searchable_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/termination-summary.md"
+    },
+    {
+      "source_id": "rtec-hr-title-vii-complaint-form-2016",
+      "filename": "TITLE VII COMPLAINT FORM.xls",
+      "sha256": "268358b8c71857b8b4cc15e1d2726b15930ce50a8e0805ea0816d1b992b72cce",
+      "class": "blank_title_vii_complaint_form",
+      "privacy": "safe_blank_template",
+      "temporal_status": "historical_unknown_currentness",
+      "metadata": {
+        "last_saved": "2016-10-24"
+      },
+      "searchable_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/title-vii-complaint-form.md"
+    },
+    {
+      "source_id": "rtec-aap-2022-title-vii-investigations",
+      "filename": "Title VII Investigations Form.xls",
+      "sha256": "7b93b8004e55f4138aea5ed73e73f528e589e9ada0ac4320437dd2f264214278",
+      "class": "historical_title_vii_investigation_log",
+      "privacy": "safe_empty_aggregate_log",
+      "temporal_status": "historical",
+      "metadata": {
+        "as_of": "2022-06-30",
+        "last_saved": "2022-09-01"
+      },
+      "searchable_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/title-vii-investigations.md"
+    },
+    {
+      "source_id": "rtec-aap-2022-workforce-analysis",
+      "filename": "Workforce Analysis Form 06 30 2022.xls",
+      "sha256": "aa0eda171dba2d4644563a9aefc33854ea5a0582aaeb0a42006ba71fddb22542",
+      "class": "workforce_analysis_by_department_job_title",
+      "privacy": "safe_aggregate_source",
+      "temporal_status": "historical",
+      "metadata": {
+        "as_of": "2022-06-30",
+        "last_saved": "2023-03-27"
+      },
+      "searchable_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/workforce-analysis.md"
+    }
+  ],
+  "binary_preservation_note": "The current GitHub connector accepts UTF-8 text, not arbitrary local binary Word/Excel artifacts. Complete searchable text/cell mirrors and source hashes are committed now. Safe original binaries should be synchronized by a local Git-capable Agent OS workflow; restricted employee rosters must not be committed."
+}

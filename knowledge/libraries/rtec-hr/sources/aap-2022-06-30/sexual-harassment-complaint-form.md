@@ -1,0 +1,41 @@
+# RTEC Sexual Harassment Complaint Form
+
+Rural Transit Enterprises Coordinated Inc. (RTEC)
+
+## Complainant information
+
+- NAME
+- ID #
+- DEPARTMENT
+- JOB TITLE
+- TIME PERIOD COVERED BY COMPLAINT
+
+## Allegation information
+
+INDIVIDUAL(S) WHO ALLEGEDLY COMMITTED HARASSMENT: list NAME, JOB TITLE, DEPARTMENT.
+
+DESCRIBE THE DATE(S) AND THE NATURE OF THE HARASSMENT ALLEGEDLY COMMITTED BY EACH IDENTIFIED INDIVIDUAL.
+
+IDENTIFY ALL EMPLOYEES OR OTHERS WITH KNOWLEDGE OF THE COMPLAINED OF CONDUCT.
+
+ARE THERE ANY DOCUMENTS WHICH CONTAIN INFORMATION SUPPORTING THE OCCURRENCES DESCRIBED ABOVE?
+
+IS THERE ANY PHYSICAL EVIDENCE WHICH SUPPORTS YOUR COMPLAINT? IF SO, PLEASE DESCRIBE.
+
+HAVE YOU MISSED ANY WORK TIME AS THE RESULT OF THE ALLEGED HARASSMENT? IF “YES”, IDENTIFY THE OCCASION(S).
+
+HAVE YOU INCURRED ANY UNREIMBURSED MEDICAL EXPENSES AS THE RESULT OF THE ALLEGED HARASSMENT?
+
+IF YOU PREVIOUSLY COMPLAINED ABOUT THIS OR RELATED ACTS OF SEXUAL HARASSMENT TO A COMPANY SUPERVISOR OR OFFICIAL, IDENTIFY THE INDIVIDUAL TO WHOM YOU COMPLAINED, THE DATE OF THE COMPLAINT AND THE RESOLUTION OF YOUR COMPLAINT.
+
+WHAT IS YOUR REQUESTED REMEDY IN THIS COMPLAINT?
+
+## Acknowledgements
+
+THE INFORMATION PROVIDED HEREIN IS TRUE AND CORRECT.
+
+Signature/date lines are provided.
+
+The form states that investigation will require interviewing the complainant, alleged harasser(s), and witnesses with knowledge of the allegations or defenses. It states that RTEC will notify persons involved that the investigation is confidential and that unauthorized disclosure could result in disciplinary action up to and including discharge.
+
+The complainant acknowledges willingness to cooperate fully and provide evidence RTEC deems relevant, followed by a second signature/date line.
