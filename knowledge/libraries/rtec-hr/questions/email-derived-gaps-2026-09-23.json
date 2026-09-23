@@ -1,0 +1,122 @@
+{
+  "queue_id": "rtec-hr-email-derived-gaps-2026-09-23",
+  "updated_at": "2026-09-23",
+  "source_batch": "rtec-hr-email-archive-2016-2026-analysis-2026-09-23",
+  "questions": [
+    {
+      "priority": "high",
+      "domain": "hr_systems",
+      "question": "What is the authoritative 2026 system-of-record split among ADP, iSolved, Guardian, UnitedHealthcare/broker systems, Google, and any replacement HRIS?",
+      "evidence_ids": [
+        "000346",
+        "000354",
+        "000358",
+        "000391",
+        "000512",
+        "000572"
+      ]
+    },
+    {
+      "priority": "high",
+      "domain": "payroll_timekeeping",
+      "question": "Who currently owns timesheet approval, check-register review, payroll adjustments, W-4/K-4 distribution, and quarter-end tax validation?",
+      "evidence_ids": [
+        "000159",
+        "000191",
+        "000193",
+        "000287",
+        "000288",
+        "000301",
+        "000572",
+        "000574"
+      ]
+    },
+    {
+      "priority": "high",
+      "domain": "benefits",
+      "question": "What is the current benefits broker/carrier workflow, including enrollment/termination, SBC publication, FSA/COBRA, Medicare/CMS notices, and account ownership?",
+      "evidence_ids": [
+        "000118",
+        "000134",
+        "000205",
+        "000211",
+        "000215",
+        "000228",
+        "000354",
+        "000573"
+      ]
+    },
+    {
+      "priority": "high",
+      "domain": "hris_modernization",
+      "question": "Did the May 2026 Rippling contact lead to evaluation, rejection, procurement, or implementation, and how does that relate to ADP/iSolved?",
+      "evidence_ids": [
+        "000434"
+      ]
+    },
+    {
+      "priority": "high",
+      "domain": "workers_comp",
+      "question": "What replaced the historical HR/KACo return-to-work and workers-comp email follow-up pattern, and what are the current forms, deadlines and owners?",
+      "evidence_ids": [
+        "000063",
+        "000108",
+        "000194",
+        "000233",
+        "000269"
+      ]
+    },
+    {
+      "priority": "medium",
+      "domain": "task_management",
+      "question": "Which historical email-reminder tasks should become recurring Agent OS commitments/checklists, and which are obsolete or reassigned?",
+      "evidence_count": 122
+    },
+    {
+      "priority": "medium",
+      "domain": "employee_recognition",
+      "question": "Is service-anniversary tracking/recognition still performed, and if so what milestones, owners and outputs are current?",
+      "evidence_ids": [
+        "000055",
+        "000126",
+        "000188",
+        "000315"
+      ]
+    },
+    {
+      "priority": "medium",
+      "domain": "website_publishing",
+      "question": "Who owns employee-facing HR/benefits content on the RTEC website and what approval/version-control process governs updates?",
+      "evidence_ids": [
+        "000211",
+        "000249"
+      ]
+    },
+    {
+      "priority": "medium",
+      "domain": "recruiting_history",
+      "question": "When was ridertec.org online application intake retired, and what exact system/process superseded it?",
+      "evidence_ids": [
+        "000077",
+        "000094"
+      ]
+    },
+    {
+      "priority": "medium",
+      "domain": "retirement",
+      "question": "Who is the current 401(k)/retirement provider and what current eligibility/enrollment/change workflow replaced the historical paper-material process?",
+      "evidence_ids": [
+        "000038",
+        "000105",
+        "000163",
+        "000305"
+      ]
+    },
+    {
+      "priority": "medium",
+      "domain": "mailbox_security",
+      "question": "Should the current shared HR mailbox add stronger spam/phishing filtering or automated triage? The 2026 archive contains a substantial cluster of low-quality unsolicited messages mixed with operational mail.",
+      "status": "candidate_from_corpus_quality_review"
+    }
+  ]
+}
