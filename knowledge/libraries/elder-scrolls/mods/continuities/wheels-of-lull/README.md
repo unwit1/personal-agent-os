@@ -12,24 +12,23 @@ Sub-continuity for the Skyrim mod **The Wheels of Lull**.
 
 - **33/33 BOOK** records preserved with exact decoded text.
 - **32/32 QUST** records preserved with quest stages, journal text, objectives, and provenance where present.
-- **116/337 DIAL** topics and **119/410 INFO** records preserved in physical plugin order.
-- **235/747 combined dialogue records** are now ingested.
-- **300 prioritized source records** are checkpointed overall.
+- **139/337 DIAL** topics and **146/410 INFO** records preserved in physical plugin order.
+- **285/747 combined dialogue records** are now ingested.
+- **350 prioritized source records** are checkpointed overall.
 
 ## Dialogue evidence already preserved
 
-This pass covers the end of the Brass Forest aftermath, the attack on Lull-Mor, Archeron's reveal beneath the Fyr disguise, Memory's intervention, and Llavados' extended explanation of Memory.
+This pass completes more of Llavados' Bottom-of-the-World guidance, the final Archeron confrontation, the post-fight Llavados/Numinar material, and transitions into ambient guard dialogue.
 
 Notable continuity-scoped testimony includes:
 
-- Numinar initially concludes that the player is the saboteur and a Thalmor agent.
-- The figure posing as Divayth Fyr reveals himself as Archeron and says he used the fabricants' excavation to reach the Stone.
-- Memory appears after the player's fall and tells them they are needed.
-- Llavados says his apparent madness is partly a facade and that he knows more than the other Chronographers.
-- Llavados identifies Memory as Sotha Sil's final creation: a child of mer, machine, and Lullian magic.
-- Llavados says a future disaster will destroy the world and that Memory is intended to help people survive it and build a new world.
-- Llavados says the Towers sustain Memory as well as stabilizing Nirn, and that destruction of Snow-Throat would kill her.
-- Llavados says Archeron's understanding of the Wheels of Lull lets him alter himself and his experiments in ways that make them resistant to ordinary destruction.
+- Llavados says Archeron cannot be killed by ordinary means because he has "hacked" himself into the Wheels of Lull.
+- Llavados says equipment at the Bottom of the World can "unwind" Archeron's modifications.
+- After Archeron's defeat, Llavados describes the location as past the bottom of the world, the core of Nirn, Magnus' workshop, Sotha Sil's central mainframe, and Memory's room.
+- Llavados says Archeron's soul became integrated into the world mechanism after death.
+- Llavados hints that he has walked "in the shoes of a god," calls himself a godfather to Memory and an architect, and says he and the Dragonborn will meet again at Landfall.
+- Numinar reiterates that the Chronographers fix problems and move on rather than celebrating them.
+- Archeron's combat taunts claim control of the World Mechanism and compare his strength to Sotha Sil.
 
 These remain attributed source statements rather than automatic Bethesda-canon conclusions.
 
@@ -40,18 +39,18 @@ These remain attributed source statements rather than automatic Bethesda-canon c
 - `raw/source-records-0151-0200.jsonl.gz` — records 151-200
 - `raw/source-records-0201-0250.jsonl.gz` — records 201-250
 - `raw/source-records-0251-0300.jsonl.gz` — records 251-300
+- `raw/source-records-0301-0350.jsonl.gz` — records 301-350
 - `raw/record-counts.json` — complete plugin record inventory
 - `source-manifest.json` — extraction policy and corpus state
 - `ingestion-checkpoint.json` — resumable cursor
 
 ## Next cursor
 
-Dialogue combined record **236/747**:
+Dialogue combined record **286/747**:
 
-- DIAL `0503E1A8`
-- Editor ID: `_Lull_MQ06_Llavados8`
-- Topic: `So I just escape, reach Archeron, and kill him, simple.`
-- Owning quest: `05005912 _Lull_MQ06`
+- INFO `050488A4`
+- Parent topic: `050488A2 _Lull_Misc_GuardGreetings`
+- Owning quest: `05005918 _Lull_Misc`
 
 ## Provenance rule
 
