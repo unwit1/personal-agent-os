@@ -1,0 +1,432 @@
+===== PDF SOURCE BEGIN / PART 1 OF 6 =====
+SOURCE_PATH: Equal Employment Opportunity Plan (EEO)/2022_EEO_1_Component_1_Instruction_Booklet.pdf
+SHA256: 7fed06d031d7214eb0fc7089bd6203071e0f648ed93cbb5be23154b6f9a6851d
+PAGES: 57
+TEXT_CHARS_TOTAL: 195987
+PART_INDEX: 1
+===== TEXT =====
+
+U.S. Equal Employment Opportunity 
+Commission 
+ 
+ 
+ 
+ 
+ 
+ 
+2022 
+EEO-1 Component 1 
+Data Collection 
+Instruction Booklet 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+EEOC Headquarters 
+131 M Street, NE 
+Washington, DC 20507 
+OMB Control Number: 3046-0049 
+Expiration Date: 08/31/2024 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+2 
+U.S. EQUAL EMPLOYMENT OPPORTUNITY COMMISSION 
+ 
+2022 EEO-1 COMPONENT 1 DATA COLLECTION 
+ 
+Employer Information Report – Standard Form 100 
+EEO-1 Component 1 Report 
+ 
+INSTRUCTION BOOKLET 
+ 
+NOTICE 
+As discussed in the 30 -day Notice published in the Federal 
+Register on May 2, 2023 , the EEOC created the Office of 
+Enterprise Data and Analytics (OEDA) in May 2018 with the 
+goal of creating a modern data and analytics organization at the 
+agency. Sin ce its creation, OEDA, which administers the 
+agency’s EEO data collections, including the EEO -1 
+Component 1, has worked to modernize the collections and 
+improve the quality of data collected. OEDA has also 
+streamlined functions, such as providing additional self-service 
+options, resource materials, and an online support message 
+center.  
+As part of its ongoing modernization efforts and in response to 
+feedback from filers in prior collections, OEDA has redesigned 
+the EEO-1 Component 1 Instruction Booklet  to better meet the 
+needs of filers. The Instruction Booklet consolidates existing 
+filer-support materials, including frequently asked questions 
+(FAQs) and fact sheets, into a single resource for filers and 
+provides additional information to clarify reporting 
+requirements. Like the dedicated EEO-1 Component 1 website 
+launched by the EEOC in 2021, the updated Instruction Booklet 
+will serve as a “one -stop-shop” containing important 
+information for new and returning filers.  
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+3 
+Table of Contents 
+Overview of the EEO-1 Component 1 Report ............................................................................................... 7 
+Instructions ................................................................................................................................................... 8 
+1. LEGAL BASIS ...................................................................................................................................... 8 
+2. WHO MUST FILE ................................................................................................................................ 8 
+Private Employers ................................................................................................................................. 9 
+Federal Contractors ............................................................................................................................ 10 
+3. WHEN TO FILE ................................................................................................................................. 10 
+4. HOW TO FILE ................................................................................................................................... 11 
+5. WHAT IS AN ESTABLISHMENT ......................................................................................................... 11 
+6. REQUIRED REPORT FOR A SINGLE-ESTABLISHMENT EMPLOYER .................................................... 12 
+Single-Establishment Employer Report .............................................................................................. 12 
+7. REQUIRED REPORTS FOR A MULTI-ESTABLISHMENT EMPLOYER ................................................... 12 
+Headquarters Report .......................................................................................................................... 12 
+Establishment-Level Report ................................................................................................................ 13 
+Consolidated Report ........................................................................................................................... 13 
+8. WORKFORCE SNAPSHOT PERIOD .................................................................................................... 14 
+9. REPORTING BY RACE OR ETHNICITY ............................................................................................... 15 
+10. REPORTING BY SEX ...................................................................................................................... 16 
+11. CLASSIFICATION OF EMPLOYEES INTO JOB CATEGORIES ........................................................... 17 
+12. HOW TO REPORT NAICS CODES .................................................................................................. 17 
+13. HOW TO REPORT EMPLOYER IDENTIFICATION NUMBER (EIN) .................................................. 18 
+14. HOW TO REPORT UNIQUE ENTITY ID FOR FEDERAL CONTRACTORS .......................................... 18 
+(Only applicable for employers that are federal contractors.) ............................................................... 18 
+15. HOW TO REPORT REMOTE/TELEWORK EMPLOYEES .................................................................. 18 
+16. HOW TO REPORT EMPLOYEES AT CLIENT SITES ......................................................................... 19 
+17. HOW TO REPORT EMPLOYEES AT U.S. GOVERNMENT AND MILITARY LOCATIONS THAT ARE 
+RESTRICTED FROM DISCLOSURE ............................................................................................................. 19 
+18. HOW TO REPORT AN ACQUISITION, SPINOFF, OR MERGER ....................................................... 19 
+Filing Responsibilities of New Companies Created as the Result of a Merger ................................... 20 
+Filing Responsibilities of Companies which Acquired Another Company .......................................... 20 
+Filing Responsibilities of Companies which Completed a Spinoff ...................................................... 21 
+19. REPORTING PROCEDURES FOR THIRD-PARTY HUMAN RESOURCE ORGANIZATIONS AND THEIR 
+CLIENT EMPLOYERS ................................................................................................................................. 22 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+4 
+Client Employers and Third-Party Human Resource Organizations ................................................... 22 
+Client Employer Registration .............................................................................................................. 22 
+Filing on Behalf of a Client Employer .................................................................................................. 22 
+Upload of Data File on Behalf of a Client Employer ............................................................................ 23 
+Filing Responsibility of Client Employers ............................................................................................ 23 
+Client Employer Certification .............................................................................................................. 23 
+Third-Party Human Resource Organization Filing as an Employer ..................................................... 23 
+Requests by Client Employers for Prior Reports Filed by a Third-Party Human Resource Organization
+ ............................................................................................................................................................ 24 
+Processing of Client Employer Establishment Deletions/Registrations by the EEOC ......................... 24 
+20. OFFICIAL CERTIFICATION OF SUBMISSION ................................................................................. 24 
+21. OFS INSTRUCTIONS FOR NEW AND RETURNING EMPLOYERS AND ACCOUNT HOLDERS .......... 25 
+Employers Filing for the First Time ..................................................................................................... 25 
+Employers that have Previously Filed ................................................................................................. 25 
+Adding/Changing an Employer’s Point of Contact (POC).................................................................... 27 
+Saving Entries within the OFS ............................................................................................................. 27 
+Correcting Establishment Information in the OFS .............................................................................. 27 
+Finishing Required Filing Steps in the OFS .......................................................................................... 28 
+Saving/Printing a Copy of Submitted/Certified EEO-1 Component 1 Reports ................................... 28 
+22. OFS REQUIRED FILING INFORMATION ........................................................................................ 28 
+SECTION A – TYPE OF REPORT ............................................................................................................ 29 
+SECTION B – EMPLOYER IDENTIFICATION ........................................................................................... 29 
+SECTION C – HEADQUARTERS OR ESTABLISHMENT-LEVEL IDENTIFICATION (if applicable) .............. 29 
+SECTION D – EMPLOYER IDENTIFICATION NUMBER (EIN) .................................................................. 30 
+SECTION E – EMPLOYER FILING ELIGIBILITY ........................................................................................ 30 
+SECTION F – FEDERAL CONTRACTOR DESIGNATION (if applicable) ................................................... 30 
+SECTION G – NAICS INFORMATION .................................................................................................... 31 
+SECTION H – WORKFORCE DEMOGRAPHIC DATA .............................................................................. 31 
+SECTION I – WORKFORCE SNAPSHOT PERIOD .................................................................................... 32 
+SECTION J – HEADQUARTERS OR ESTABLISHMENT-LEVEL COMMENTS (optional) ............................ 32 
+SECTION K – OFFICIAL CERTIFICATION OF SUBMISSION ..................................................................... 34 
+23. FAILURE TO FILE .......................................................................................................................... 36 
+24. APPLICATION FOR UNDUE HARDSHIP EXEMPTION .................................................................... 36 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+5 
+25. CONFIDENTIALITY........................................................................................................................ 37 
+26. BURDEN ESTIMATE ..................................................................................................................... 37 
+APPENDIX A ................................................................................................................................................. 39 
+DEFINITIONS ............................................................................................................................................ 39 
+APPENDIX B ................................................................................................................................................. 43 
+DEFINITIONS OF RACE AND ETHNICITY CATEGORIES ............................................................................. 43 
+Hispanic or Latino ................................................................................................................................ 43 
+White ................................................................................................................................................... 43 
+Black or African American ................................................................................................................... 43 
+Native Hawaiian or Other Pacific Islander .......................................................................................... 43 
+Asian .................................................................................................................................................... 43 
+American Indian or Alaska Native ....................................................................................................... 43 
+Two or More Races ............................................................................................................................. 43 
+Instructions for Assigning Employees into the Race/Ethnicity Categories ............................................. 43 
+Hispanic or Latino ................................................................................................................................ 43 
+White (Not Hispanic or Latino) ........................................................................................................... 44 
+Black or African American (Not Hispanic or Latino) ............................................................................ 44 
+Native Hawaiian or Other Pacific Islander (Not Hispanic or Latino) ................................................... 44 
+Asian (Not Hispanic or Latino)............................................................................................................. 44 
+American Indian or Alaska Native (Not Hispanic or Latino) ................................................................ 44 
+Two or More Races (Not Hispanic or Latino) ...................................................................................... 44 
+APPENDIX C ................................................................................................................................................. 45 
+DESCRIPTION OF JOB CATEGORIES ......................................................................................................... 45 
+Executive/Senior Level Officials and Managers .................................................................................. 45 
+First/Mid-Level Officials and Managers .............................................................................................. 45 
+Professionals ....................................................................................................................................... 46 
+Technicians .......................................................................................................................................... 46 
+Sales Workers ...................................................................................................................................... 46 
+Administrative Support Workers ........................................................................................................ 46 
+Craft Workers ...................................................................................................................................... 46 
+Operatives ........................................................................................................................................... 47 
+Laborers and Helpers .......................................................................................................................... 47 
+Service Workers .................................................................................................................................. 47 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+6 
+APPENDIX D ................................................................................................................................................. 49 
+ADDITIONAL RESPONSIBILITIES OF THIRD-PARTY HUMAN RESOURCE ORGANIZATIONS AND THEIR 
+CLIENT EMPLOYERS ................................................................................................................................. 49 
+Reports Required for Filing on Behalf of a Client Employer ............................................................... 49 
+Single-Establishment Client Employer (i.e., single-establishment employer) .................................... 49 
+Multi-Establishment Client Employer (i.e., multi-establishment employer) ...................................... 50 
+EIN and NAICS Code Required for Filing on Behalf of a Client Employer ........................................... 52 
+Filing for Only Eligible Client Employers ............................................................................................. 52 
+Reporting Considerations for a Client Employer Using a Third-Party Human Resource Organization 
+EIN ....................................................................................................................................................... 52 
+Reporting by an ASO (Administrative Services Organization) ............................................................ 53 
+Considerations for Current and Former Client Employers of Third-Party Human Resource 
+Organizations ...................................................................................................................................... 53 
+APPENDIX E ................................................................................................................................................. 55 
+SAMPLE EEO-1 COMPONENT 1 REPORT ................................................................................................. 55 
+ 
+  
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+7 
+OVERVIEW OF THE EEO-1 COMPONENT 1 REPORT 
+Since 1966, the EEOC has required employers to submit workforce demographic data (EEO -1 
+Component 1) on an annual basis. All private employers that are covered by Title VII of the Civil 
+Rights Act of 1964, as amended (Title VII),1 and that have 100 or more employees are required to 
+file workforce demographic data. 2 In addition, U.S. Department of Labor, Office of Federal 
+Contract Compliance Programs (OFCCP) regulations require certain federal contractors to file the 
+EEO-1 Component 1 if they have 50 or more employees and are not exempt as provided for by 41 
+CFR 60-1.5.3 
+ 
+Under these authorities, private employers with 100 or more employees and federal contractors 
+with 50 or more employees and that meet certain criteria are required to report annually the number 
+of individuals they employ by job category 4 and by sex and race or ethnicity. 5 These data are 
+currently collected electronically by the EEOC through a web -based data collection application 
+(i.e., portal) referred to as the EEO-1 Component 1 Online Filing System (OFS).6 Employers must 
+submit their data electronically to the OFS through either manual data entry or the upload of a data 
+file. The individual EEO -1 reports are confidential. 7 EEO-1 data are used by the EEOC to 
+                                                           
+1 42 U.S.C. 2000e, et seq. 
+2 The EEOC’s EEO-1 regulation is at 29 CFR Part 1602 Subpart B. § 1602.7 requires eligible employers to file “…in conformity 
+with the directions set forth in the form and accompanying instructions.” 
+3 Pursuant to Executive Order 11246, OFCCP in 1978 issued its regulations describing the EEO-1 as a report “promulgated jointly 
+with” the EEOC and requiring certain contractors to submit “complete and accurate reports” annually. 41 CFR 60-1.7(a). OFCCP 
+obtains EEO-1 Component 1 reports for federal contractors and subcontractors  (contractors) pursuant to its own legal authority 
+under E.O. 11246 and its implementing regulations. See id at 60-1.7(a)(1).  
+4 The 10 job categories are: Executive/Senior Level Officials and Managers; First/Mid -Level Officials and Managers; 
+Professionals; Technicians; Sales Workers; Administrative Support Workers; Craft Workers; Operatives; Laborers and Helpers; 
+and Service Workers. 
+5 The EEO -1 Component 1 uses federal race and ethnicity categories, which were adopted by the Commission in 2005 and 
+implemented in 2007. The seven race/ethnicity categories are: Hispanic or Latino – A person of Cuban, Mexican, Puerto Rican, 
+South or Central American, or other Spanish culture or origin regardless of race. White (Not Hispanic or Latino) – A person having 
+origins in any of the original peoples of Europe, the Middle East, or North Africa. Black or African American (Not Hispanic or 
+Latino) – A person having origins in any of the black racial groups of Africa. Native Hawaiian or Other Pacif ic Islander (Not 
+Hispanic or Latino) – A person having origins in any of the peoples of Hawaii, Guam, Samoa, or other Pacific Islands. Asian (Not 
+Hispanic or Latino ) – A person having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian 
+Subcontinent, including, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, the Philippine Islands, Thailand, 
+and Vietnam. American Indian or Alaska Native (Not Hispanic or Latino) – A person having origins in any of the original peoples 
+of North and South America (including Central America), and who maintain tribal affiliation or community attachment. Two or 
+More Races (Not Hispanic or Latino) – All persons who identify with more than one of the above five races. Please see Appendix 
+B of the Instruction Booklet for additional information on the EEO-1 Component 1 race and ethnicity categories. 
+6 EEO-1 Component 1 filers may access the EEO-1 Component 1 Online Filing System (OFS) through the EEOC’s dedicated EEO-
+1 Component 1 website at www.eeocdata.org/eeo1.  
+7 All reports and any information from individual reports are subject to the confidentiality provisions of Section 709(e) of Title VII 
+of the Civil Rights Act of 1964, 42 U.S.C. § 2000e-8(e), as amended (Title VII) and may not be made public by the EEOC prior to 
+the institution of any proceeding under Title VII involving such information. Any EEOC employee who violates this prohibition 
+may be found guilty of a criminal misdemeanor and could be fined or imprisoned. The confidentiality requirements allow the EEOC 
+to publish only aggregated data, and only in a manner that does not identify any particular filer or reveal any individual employee’s 
+personal information. Because OFCCP obtains EEO-1 data for contractors under its own E.O. 11246 authority, some courts have 
+ruled that the Title VII prohibition against disclosure does not apply to OFCCP’s collection of EEO-1 data. See, e.g., United Techs. 
+Corp. v. Marshall,  464 F. Supp. 845, 851 -52 (D. Conn. 1979); Sears Roebuck & Co. v. Gen. Servs. Admin.,  509 F.2d 527, 529 
+(D.C. Cir. 1974). Accordingly, the EEO-1 Component 1 data of federal contractors received by OFCCP may be subject to potential 
+disclosure by OFCCP under the Freedom of Information Act (FOIA), although FOIA exemptions may prevent disclosure. For more 
+information, see the Department of Labor’s FOIA regulations at 41 CFR part 70 and f requently asked questions ( Freedom of 
+Information Act (FOIA) Frequently Asked Questions | U.S. Department of Labor (dol.gov)) at https://www.dol.gov/agencies/ofccp/ 
+faqs/foia. With respect to other federal agencies with a legitimate law enforcement purpose but without OFCCP’s independent 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+8 
+investigate charges of employm ent discrimination against employers in private industry and to 
+publish periodic reports on workforce demographics.8  
+ 
+INSTRUCTIONS  
+ 
+1. LEGAL BASIS 
+All private employers and federal contractors meeting the eligibility requirements detailed  below 
+have a mandatory legal obligation to submit and certify annual EEO -1 Component 1 report(s) 
+containing required workforce demographic data to the EEOC. 9 The instructions for submitting 
+and certifying such reports, including the types of data requested and relevant deadlines, are 
+provided here in the 2022 EEO-1 Component 1 Instruction Booklet.10  
+ 
+2. WHO MUST FILE 
+Pursuant to Title VII and Executive Order Number 11246 , p rivate employers and federal 
+contractors meeting the below requirements have a mandatory legal obligation to submit and 
+certify annual EEO-1 Component 1 report(s) containing required workforce demographic data to 
+the EEOC.11 Different employee threshold requirements apply depending on whether the employer 
+is a federal contractor that meets certain criteria.   
+ 
+Please note t he EEOC does not collect workforce demographic data from local referral unions , 
+state and local governments , and public elementary and secondary school systems and districts  
+                                                           
+authority to collect EEO-1 data, the EEOC gives access to information collected under Title VII only if the agencies agree, by letter 
+or memorandum of understanding, to comply with the confidentiality provisions of Title VII. In addition, section 709(d) (42 U.S.C. 
+2000e-8(d)) provides that the EEOC shall furnish upon request and without cost to state or local civil rights agencies information 
+about employers in their jurisdiction on the condition that they not make it public prior to starting a proceeding under state or local 
+law involving such information. The EEOC shares EEO -1 data with Fair Employment Practices Agencies (FEPAs) pursuant to 
+Worksharing Agreements that impose obligations on the contracted FEPA with respect to confidentiality, privacy, and data security. 
+On a case-by-case basis, the EEOC may share EEO-1 data with a FEPA that does not have a Worksharing Agreement, but only if 
+that FEPA agrees to co mply with confidentiality, privacy, and data security obligations  similar to those imposed on FEPAs with 
+Worksharing Agreements.  
+8 Any reports the EEOC publishes based on EEO -1 Component 1 data include only aggregated EEO -1 Component 1 data that 
+protect the confidentiality of each employer’s information, as well as the privacy of each employee’s personal information. 
+9 The authorities under which EEO -1 Component 1 data are collected include: Section 709(c) of Title VII and Sections 1602.7 -
+1602.14, Chapter XIV, Title 29 of the Code of Federal Regulations (CFR); Exec. Order No. 11246, 30 FR 12319 (Sept. 24, 1965) 
+and 40 CFR 60-1.7(a). 
+10 To further assist filers , the EEOC provides supplementary resource materials (e.g., user’s guide; frequently asked questions 
+(FAQs); fact sheets; mini help desk guides; video tutorials) at the opening of each data collection. Access by registered OFS account 
+holders to these supplementary resource materials is available through the dedicated EEO -1 Component 1 data collection website 
+at www.eeocdata.org/eeo1. 
+11 An employer that receives an EEO-1 Component 1 filing notice from the EEOC but believes it is not required to file must access 
+the EEO-1 Component 1 Online Filing System  (OFS) to complete the embedded eligibility screener. If the screener confirms 
+eligibility, the employer must follow the prompts to submit and certify the required workforce demographic data. If the eligi bility 
+screener indicates the employer is ineligible  to file, the employer must certify that it is ineligible in the OFS. Failure to certify 
+ineligibility through the OFS will result in future EEO -1 Component 1 filing notices being sent to the employer by the EEOC. 
+Additionally, an employer that receives an EEO-1 Component 1 filing notice from the EEOC but has ceased operations and is no 
+longer in business must also access the EEO-1 Component 1 Online Filing System (OFS) to complete the eligibility screener. If the 
+eligibility screener indicates the employer is ineligible to file, the employer must certify that its company is ineligible and no longer 
+in business in the OFS. Similarly, failure to certify ineligibility through the OFS will result in future EEO -1 Component 1 filing 
+notices being sent to the employer by the EEOC.  
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+9 
+through the EEO-1 Component 1 data collection. Demographic data for these entities are collected 
+through other EEO data collections administered by the EEOC. 12 These biennial data collections 
+include the EEO-3 Local Union Report, the EEO -4 State and Local Government Report, and the 
+EEO-5 Elementary-Secondary Staff Information Report.13  
+ 
+Private Employers14 
+A private employer that is subject to Title VII  and that has 100 or more employees  during an 
+employer-selected pay period (i.e., workforce snapshot period) in the fourth quarter (i.e., October 
+1 through December 31 ) of the reporting year 15 has a mandatory legal obligation to submit and 
+certify an annual EEO-1 Component 1 report containing required workforce demographic data to 
+the EEOC.16  
+ 
+Additionally, a private employer that is subject to Title VII with fewer than 100 employees has a 
+mandatory legal obligation to submit and certify an annual EEO -1 Component 1 report (s) 
+containing required workforce demographic data to the EEOC if the employer owns, is owned by, 
+and/or is affiliated or associated 17 with another employer or there is centralized or common 
+ownership, control,18 or management so that the group of employers constitutes a single enterprise 
+and/or integrated enterprise  and the entire  enterprise had 100 or more employees 19 during an 
+employer-selected pay period (i.e., workforce snapshot period) in the fourth quarter (i.e., October 
+1 through December 31) of the reporting year.20  
+ 
+                                                           
+12 If you are one of these entities but have received an EEO-1 Component 1 filing notice from the EEOC, please contact the EEO-
+1 Component 1 Filer Support Team via the online Message Center at www.eeocdata.org/eeo1. 
+13 Please note that the National Center for Education Statistics (NCES), located within the U.S. Department of Education’s Institute 
+for Education Sciences, collects data on post -secondary education through the annual Integrated Posts econdary Education Data 
+System (IPEDS) Survey. See https://nces.ed.gov/ipeds/.  
+14 Appendix A of the Instruction Booklet provides the definition of an “employer” for purposes of filing the EEO-1 Component 1 
+report(s). 
+15 Workforce demographic data (i.e., employee data by job category and sex and race or ethnicity) submitted by an eligible employer 
+must include all full-time and part-time employees who were employed during an employer -selected pay period (i.e., “workforce 
+snapshot period”) in the fourth quarter (i.e., October 1 through December 31) of the reporting year. Please refer to the below section 
+of the Instruction Booklet entitled “WORKFORCE SNAPSHOT PERIOD” for additional information.  
+16 Beginning with the 2023 EEO-1 Component 1 data collection, tentatively scheduled to open in 2024, an employer that meets the 
+employee threshold for EEO -1 Component 1 reporting purposes at any time during the fourth quarter  (i.e., October 1 through 
+December 31) of the reporting year , may not select a “workforce snapshot period”  from this quarter where it falls below the 
+threshold in an effort to avoid the filing requirement.  
+17 For example, if there is interrelation between operations. 
+18 For example, there is financial control or centralized control of personnel policies and/or labor relations. 
+19 For example, if an employer (e.g., a parent corporation) has only 30 employees but owns two separate subsidiaries (i.e., 
+establishments) each with 35 employees, the headquarters of the parent corporation must file EEO -1 Component 1 reports for its 
+two subsidiaries (i.e., establishments) since the parent corporation and its two subsidiaries comprise a single enterprise with 100 
+employees. 
+20 Workforce demographic data (i.e., employee data by job category and sex and race or ethnicity) submitted by an eligible employer 
+must include all full-time and part-time employees who were employed during an employer -selected pay period (i.e., “workforce 
+snapshot period”) in the fourth quarter (i.e., October 1 through December 31) of the reporting year. Please refer to the below section 
+of the Instruction Booklet entitled “WORKFORCE SNAPSHOT PERIOD” for additional information. Also, beginning with the 
+2023 EEO-1 Component 1 data collection, tentatively scheduled to open in 2024, an employer  that meets the employee threshold 
+for EEO-1 Component 1 reporting purposes at any time during the fourth quarter  (i.e., October 1 through December 31)  of the 
+reporting year, may not select a “workforce snapshot period”  from this quarter where it falls below the threshold in an effort to 
+avoid the filing requirement.  
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+10 
+Federal Contractors  
+Pursuant to Executive Order  11246 and Office of Federal Contract Compliance Programs 
+(OFCCP) regulations,21 a federal prime or subcontractor that meets all the following four criteria22  
+has a mandatory legal obligation to submit and certify annual EEO -1 Component 1 report(s) 
+containing required workforce demographic data to the EEOC . The four criteria outlined in the 
+OFCCP regulations23 require a contractor to file the EEO-1 if it:  
+ 
+(1) is not exempt from the provisions of these regulations in accordance with § 60-1.5;24 
+ 
+(2) has 50 or more employees; 
+ 
+(3) is a prime contractor or first tier subcontractor; and 
+ 
+(4) has a contract, subcontract or purchase order amounting to $50,000 or more or serve s 
+as a depository of Government funds in any amount, or is a financial institution which 
+is an issuing and paying agent for U.S. savings bonds and savings notes: Provided, That 
+any subcontractor below the first tier which performs construction work at the site of 
+construction shall be required to file such a report if it meets requirements of (1), (2) 
+and (4).  
+ 
+Filers with questions as to whether an employer (i.e., company) is a federal prime or subcontractor 
+meeting the above criteria should refer to OFCCP’s regulations at https://www.ecfr.gov/current/ 
+title-41/subtitle-B/chapter-60/part-60-1/subpart-A/section-60-1.7. Additional information on 
+federal contractor status may also be found on OFCCP’s website at https://www.dol.gov/agencies/ 
+ofccp or by contacting OFCCP directly at https://www.dol.gov/agencies/ofccp/contact. 
+ 
+3. WHEN TO FILE 
+The 2022 EEO-1 Component 1 data collection is scheduled to open on Tuesday, October 31, 2023. 
+The deadline to file the 2022 EEO-1 Component 1 report(s) is Tuesday, December 5, 2023 . 
+The final opening and deadline dates will be posted on the EEOC’s dedicated website for its EEO-
+1 Component 1 data collection at www.eeocdata.org/eeo1 and on the EEOC’s public website at 
+www.eeoc.gov. Filers are strongly advised to visit www.eeocdata.org/eeo1 for the latest updates 
+regarding the 2022 EEO-1 Component 1 data collection , including any updates regarding the 
+deadline to submit and certify reports. Once data collection closes for a particular reporting cycle, 
+employers are not able to correct and/or update any workforce demographic data reported during 
+that cycle. 
+ 
+Further, a n employer that fail s to submit required EEO -1 Component 1 report(s) during any 
+reporting cycle(s) is not permitted to submit any such reports during subsequent reporting cycle(s). 
+For example, an eligible employer that failed to submit a 2021 EEO -1 Component 1 report(s) is 
+not permitted submit that report during the 2022 EEO-1 Component 1 data collection cycle.  
+                                                           
+21 41 CFR 60-1.7(a). See https://www.ecfr.gov/current/title-41/subtitle-B/chapter-60/part-60-1/subpart-A/section-60-1.7.  
+22 Id. 
+23 Id. 
+24 41 CFR 60-1.5. See https://www.ecfr.gov/current/title-41/subtitle-B/chapter-60/part-60-1/subpart-A/section-60-1.5.
+
+===== PDF SOURCE PART 1 END =====

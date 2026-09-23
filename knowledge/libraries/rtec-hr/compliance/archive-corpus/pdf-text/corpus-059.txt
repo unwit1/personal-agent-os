@@ -1,0 +1,426 @@
+===== PDF SOURCE BEGIN / PART 2 OF 6 =====
+SOURCE_PATH: Equal Employment Opportunity Plan (EEO)/2022_EEO_1_Component_1_Instruction_Booklet.pdf
+SHA256: 7fed06d031d7214eb0fc7089bd6203071e0f648ed93cbb5be23154b6f9a6851d
+PAGES: 57
+TEXT_CHARS_TOTAL: 195987
+PART_INDEX: 2
+===== TEXT =====
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+11 
+ 
+4.  HOW TO FILE  
+The EEOC requires electronic submission of EEO-1 Component 1 report(s) through a web-based 
+data collection application (i.e., portal) referred to as the EEO-1 Component 1 Online Filing System 
+(OFS). The OFS is accessible at www.eeocdata.org/eeo1.  
+ 
+All individuals responsible for filing an employer’s reports will be required to have an individual 
+user account associated with their email address to access the EEO-1 Component 1 Online Filing 
+System (OFS). To create a new account, visit www.eeocdata.org/eeo1/signin and select “Create an 
+Account.” New account holders for employers (i.e., companies) that have filed in prior year 
+reporting cycles can link their individual user account to the employer record using the employer’s 
+“OFS Company ID” and “Employer PIN,” which will be sent to them via postal mail  prior to the 
+opening of data collection. Account holders for employers that have never filed before can register 
+a new employer by selecting “Add Employer” on the “My Employer List Screen.” Returning OFS 
+account holders who created their account during or after the 2019/2020 data collection cycle, can 
+sign in using their existing username (i.e., email address) and password. Returning account holders 
+may be required to reset their password when logging in to the OFS  if the account holder has not 
+accessed the OFS in th e past 90 days . Account holders must submit the employer’s  workforce 
+demographic data electronically in the web-based portal (i.e., OFS) through either (1) manual data 
+entry25 or (2) data file upload.26 The employer’s certifying official must then certify the EEO-1 
+Component 1 report(s) in the OFS. 
+ 
+The EEOC will only accept EEO -1 Component 1 report(s) submitted and certified through the 
+agency’s EEO-1 Component 1 Online Filing System  (OFS). The EEOC will not accept reports 
+submitted via paper or through other non -OFS electronic means (e.g., email, CD-ROM). The 
+EEOC will consider filers submitting reports outside of the OFS to be non-compliant for purposes 
+of their mandatory EEO-1 Component 1 filing obligation. 
+ 
+5. WHAT IS AN ESTABLISHMENT 
+An establishment is generally a single physical location where business is conducted or where 
+services or industrial operations are performed (e.g., factory, mill, store, hotel, movie theater, mine, 
+farm, airline terminal, sales office, warehouse, or centr al administrative office).27 Establishments 
+at different physical locations must be reported as separate establishments even if conducting the 
+same business or performing the same services or industrial operations. In addition, employers 
+should only include establishments located in the 50 United States and the District of Columbia.28  
+                                                           
+25 The “manual data entry” option requires directly entering workforce demographic data into the EEOC’s web -based data 
+collection application referred to as the EEO-1 Component 1 Online Filing System (OFS). 
+26 The “data file upload” option requires uploading a data file using the EEOC’s 2022 EEO-1 Component 1 Data File Upload 
+Specifications which may be found online at www.eeocdata.org/eeo1.  
+27 See Frequently Asked Question 2 (What is an establishment?) at https://www.census.gov/naics/ for the U.S. Census Bureau’s 
+North American Industry Classification System (NAICS) definition. 
+28 Employers should not include establishments located in Puerto Rico, the Virgin Islands, or other American protectorates.  
+However, foreign-based and/or foreign -owned employers must report for eligible establishments located in the 50 United States 
+and the District of Columbia. If a foreign -based and/or foreign-owned employer has a United States-based headquarters, the U.S. 
+based headquarters is responsible for filing as a multi-establishment filer (i.e., multi-establishment employer) for all the employer’s 
+establishments located in the 50 United States and the District of Columbia. If a foreign -based and/or foreign -owned employer 
+does not have a headquarters based in the 50 United States or the District of Columbia, one of its establishments located in the U.S. 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+12 
+ 
+6. REQUIRED REPORT FOR A SINGLE-ESTABLISHMENT EMPLOYER 
+The EEOC defines a single -establishment employer as an employer with a single establishment 
+where business is conducted or where services or industrial operations are performed.  A single-
+establishment employer is also referred to as a single-establishment filer for purposes of the EEO-
+1 Component 1 data collection. A single-establishment employer is required to submit and certify 
+only one EEO-1 Component 1 report (i.e., a “Single-Establishment Employer Report”).  
+ 
+Single-Establishment Employer Report29  
+An employer conducting business or performing services or industrial operations at only one 
+establishment is required to submit and certify one EEO -1 Component 1 report. This report is 
+referred to as a “Single -Establishment Employer Report.” The “Single -Establishment Employer 
+Report” must include demographic data for all the employer’s employees categorized b y job 
+category and sex and race or ethnicity. 
+ 
+7. REQUIRED REPORTS FOR A MULTI-ESTABLISHMENT EMPLOYER 
+The EEOC defines a multi -establishment employer as an employer with more than one  
+establishment where business is conducted or where services or industrial o perations are 
+performed. A multi-establishment employer is also referred to as a multi -establishment filer for 
+purposes of the EEO-1 Component 1 data collection. A multi-establishment employer is required 
+to submit and certify all the following three types  of EEO -1 Component 1 reports (i.e., 
+“Consolidated Report,” “Headquarters Report,” “Establishment-Level Report(s)”).30  
+ 
+Headquarters Report31  
+A multi-establishment employer is required to submit and certify a “Headquarters Report.” The 
+“Headquarters Report” must include demographic data for all the employer’s employees at its 
+headquarters (i.e., main office site), as well as any remote employees who report to the employer’s 
+headquarters, categorized by job category and sex and race or ethnicity.32  
+ 
+                                                           
+may file on behalf of all the employer’s establishments as a multi-establishment filer (i.e., multi-establishment employer) but is not 
+required to do so. Otherwise, each establishment must file its own EEO-1 Component 1 report with the EEOC. 
+29 The “Single-Establishment Employer Report” was formerly referred to as a “Type 1” single establishment r eport. Beginning 
+with the 2022 EEO-1 Component 1 data collection, this report is now known as a “Single-Establishment Employer Report.” 
+30 Multi-establishment employers, including, for example, parent corporations and their subsidiary holdings, must report workforce 
+demographic data for all employees at each establishment and subsidiary establishment(s). A multi-establishment employer is not 
+permitted to report its entire workforce on the employer’s “Headquarters Report.” Workforce demographic data for non -
+headquarters establishments must be reported separately for each establishment on the “Establishment-Level Report(s).”  
+31 The “Headquarters Report” was formerly referred to as a “Type 3” headquarters report. Beginning with the 2022 EEO -1 
+Component 1 data collection, this report is now known simply as a “Headquarters Report.” 
+32 Please note that if an employer’s headquarters is a holding company, or similar type entity, with zero employees, it is still 
+necessary for the employer to file as a multi -establishment employer. The filing requirements for the EEO -1 Component 1 data 
+collection are based on employee counts across all establishments of the employer (i.e., a total of 100 or more employees and 50 
+or more employees for federal contractors meeting certain criteria). For example, if a holding company has non -headquarters 
+establishments which total 100 or more employees (or 50 or more employees for federal contractors meeting certain criteria) , the 
+holding company must file as a multi -establishment employer and submit a “Headquarters Report” for the holding company and 
+“Establishment-Level Report” for each of its establishments.  
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+13 
+Establishment-Level Report33  
+A multi-establishment employer is required to submit and certify an “Establishment-Level Report” 
+for each non-headquarters establishment of the employer regardless of the number of employees 
+at the establishment. The “Establishment-Level Report” must include demographic data for all the 
+employer’s employees at each establishment, as well as any remote employees who report to the 
+establishment, categorized by job category and sex and race or ethnicity.34  
+ 
+Beginning with the 2022 EEO-1 Component 1 data collection, multi-establishment employers will 
+no longer be required to file a separate “type” of establishment report based on the size of an 
+individual non -headquarters establishment (i.e., establishments wi th 50 or more employees or 
+establishments with fewer than 50 employees). 35 Rather, in place of the “Type 4” and “Type 8” 
+establishment reports and the former “Type 6” establishment list report, there will be a newly 
+named “Establishment -Level Report.” All m ulti-establishment employers will use an 
+“Establishment-Level Report” to submit establishment-level employee demographic data for each 
+of their non-headquarters establishment(s) regardless of size.  
+ 
+With this change, a multi -establishment employer will no  longer have to take the additional step 
+of counting employees in each establishment to determine whether to file a “Type 4” or “Type 8” 
+establishment report. Multi-establishment employers will still be required to submit a 
+“Headquarters Report ” and a “Con solidated Report.” However, all individual “Consolidated 
+Reports” for multi-establishment employers will be auto -populated and auto-generated with data 
+from their “Headquarters Report” and each “Establishment-Level Report” within the OFS.36  
+ 
+Consolidated Report37  
+A multi-establishment employer is required to submit and certify a “Consolidated Report.” The 
+“Consolidated Report” must include workforce demographic data for all the multi -establishment 
+employer’s employees (i.e., all employees at the employer’s headquarters and all its 
+establishments) categorized by job category and sex and race or ethnicity. In other words, the total 
+number of employees in the “Headquarters Report” plus the total number of employees in all the 
+multi-establishment employer’s “Establishment-Level Report(s)” must equal the total number of 
+employees in the “Consolidated Report.”  
+ 
+                                                           
+33 The “Establishment-Level Report” replaces the former “Type 4” and “Type 8” non-headquarters establishment reports and the 
+former “Type 6” establishment list report . Beginning with the 2022 EEO -1 Component 1 data collection, a non -headquarters 
+establishment report is now known simply as an “Establishment-Level Report.” 
+34 Please note that if establishments are located at the same address (including, for example, suite number) and have both the same NAICS 
+code and the same EIN, the establishments must be combined into a single “Establishment-Level Report.” Such establishments are 
+considered one establishment for purposes of EEO-1 Component 1 reporting. 
+35 Please note that if during the employer’s selected “workforce snapshot period, ” an establishment had zero employees, the 
+employer should not file an “Establishment -Level Report” for that establishment.  If the establishment appears in the  employer’s 
+list of establishments from the previous reporting cycle, the filer should delete the establishment with zero employees from its list. 
+36 Please note that the 2022 EEO-1 Component 1 Data File Upload Specifications will allow users to indicate an “Establishment-
+Level Report” by using a Status Code (Field 2) of either 4 or 8 (i.e., filers can leverage either code to indicate an “Establ ishment-
+Level Report” when using the data file upload option to report workforce demographic data). Selecting either Status Code (4 or 8) 
+will have the identical effect of indicating that a report is an “Establishment-Level Report.” 
+37 The “Consolidated Report” was formerly referred to as a “Type 2” consolidated report. Beginning with the 2022 EEO -1 
+Component 1 data collection, this report is now known simply as a “Consolidated Report.” 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+14 
+With the discontinuation of the “Type 6” establishment list report,38 a “Consolidated Report” is 
+now auto -populated and auto -generated with data from a multi-establishment employer’s 
+“Headquarters Report” and “Establishment-Level Report(s)” within the EEOC’s electronic, web-
+based EEO-1 Component 1 Online Filing System (OFS) for all multi-establishment employers.39  
+ 
+Although a “Consolidated Report” is now auto-populated and auto-generated in the OFS, a multi-
+establishment employer is still responsible for ensuring that the total employee count in the 
+“Consolidated Report” matches the total number of employees the filer is reporting in its 
+“Headquarters Report” and “Establishment -Level Report(s)” prior to certification. An employer 
+must also ensure that it has reported for all its establishments. For example, if an employer has 200 
+establishments, but only reported data for 150 establishments, the “Consolidated Report” will only 
+reflect the data for establishments submitted by the filer  (i.e., 150). It is the responsibility of the 
+employer to ensure that data for each of its establishments has been submitted  and that the 
+“Consolidated Report” matches that number.40 
+ 
+8. WORKFORCE SNAPSHOT PERIOD 
+Workforce demographic data (i.e., employee data by job category  and sex and race or ethnicity)  
+must include all full -time and part-time employees who were employed during an employer -
+selected pay period (i.e., workforce snapshot period) in the fourth quarter (i.e., October 1 through 
+December 31) of the reporting year.  
+ 
+The workforce snapshot period  for the 2022 EEO-1 Component 1 report would be an employer-
+selected pay period between October 1, 2022 and December 31, 2022.41  
+ 
+Employees must be counted by sex and race  or ethnicity within the 10 specified job categories.  
+Each employee  must be counted in only one  of the job category, sex, race , and ethnicity 
+classifications (i.e., the employee must not be included more than once in a “Single-Establishment 
+Employer Report” or in a “Headquarters Report” and “Establishment-Level Report(s).”  
+ 
+If an employee was employed during the selected workforce snapsh ot period, then the employer 
+must include the employee in its reporting even if the employee resigned or was terminated during 
+                                                           
+38 The former “Type 6” establishment list report contained the name and address of each non-headquarters establishment with 
+fewer than 50 employees, as well as the total number of employees at each establishment. A multi-establishment employer choosing 
+the option to submit a “Type 6” establishment list report , instead of a “Type 8” report,  was required to manually enter employee 
+demographic data by job category and sex and race or ethnicity  into the accompanying “Type 2” consolidated report for every 
+employee of every establishment included on the “Type 6” establishment list report. 
+39 The “Consolidated Report” will be generated by the EEO-1 Component 1 Online Filing System  (OFS) once the “Headquarters 
+Report” and all “Establishment-Level Report(s)” have been completed by the filer. 
+40 As discussed in the below section of the Instruction Booklet  entitled “REPORTING BY SEX,” the EEO -1 Component 1 data 
+collection currently provides only binary options (i.e., male or female) for reporting employee counts by sex, job category, and race 
+or ethnicity. However, employers may voluntarily choose to report employee demographic data for non -binary employees – that 
+is, employees who do not iden tify as exclusively male or female – by sex (i.e., non-binary), job category and race or ethnicity in 
+the “comments” section of the report(s). Employers that voluntarily choose to report non -binary employees in the “comments” 
+section of the report(s) should not assign such employees to the male or female categories or any other categories (i.e., job category 
+and race or ethnicity) within the report(s). For additional information on the voluntary reporting of non -binary employees, please 
+refer to the below section of the Instruction Booklet entitled “REPORTING BY SEX.”  
+41 An employer is not required to use the same workforce snapshot period (i.e., months, days) from the fourth quarter of the reporting 
+year that it selected in previous reporting cycles.  For example, an employer that selected a workforce snapshot period with the 
+month/days of October 1 through October 14 for the 2021 EEO -1 Component 1 reporting cycle may select different month/days 
+(e.g., November 15 through November 30) for the 2022 EEO-1 Component 1 reporting cycle.  
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+15 
+or after the selected workforce snapshot period. If the employee was employed at any time during 
+the selected workforce snapshot period, then the employee must be reported.  An employer is not 
+required to report employees who were not employed at any time during the selected workforce 
+snapshot period.  
+ 
+Beginning with 2023 EEO-1 Component 1 data collection, tentatively scheduled to open in 2024, 
+an employer that meets the employee threshold for EEO-1 Component 1 reporting purposes at any 
+time during the fourth quarter (i.e., October 1 through December 31) of the reporting year , may 
+not select a workforce snapshot period where it falls below the threshold in an effort to avoid the 
+filing requirement.  
+ 
+9. REPORTING BY RACE OR ETHNICITY 
+Voluntary self-identification by employees is the preferred method of identifying the race and /or 
+ethnicity information required for the EEO-1 Component 1 report.  
+ 
+The basic principles for race and ethnicity self-identification for purposes of the EEO -1 
+Component 1 report are: 
+ 
+(1) Offer employees the opportunity to self-identify. 
+ 
+(2) Provide a statement about the voluntary nature of this inquiry for employees.  
+ 
+For example, language such as the following may be used (employers may adapt this 
+language): 
+ 
+“The employer is subject to certain governmental recordkeeping and reporting 
+requirements for the administration of civil rights laws and regulations. In order to comply 
+with these laws, the employer invites employees to  voluntarily self-identify their race or 
+ethnicity. Submission of this information is voluntary and refusal to provide it will  not 
+subject you to any adverse treatment. The  information obtained will be kept confidential 
+and may only be used in accordance  with the provisions  of applicable laws, executive 
+orders, and regulations, including those that require the information to be summarized and 
+reported to the federal government for civil rights enforcement. When reported, data will 
+not identify any specific individual.” 
+ 
+If an employee declines to self-identify their race and/or ethnicity, employment records or observer 
+identification may be used. Where records are maintained, they should be kept separately from the 
+employee’s basic personnel file or other records available to those responsible for personnel 
+decisions. 
+ 
+Definitions of the race and ethnicity categories used by the EEOC for purposes of EEO-1 
+Component 1 reporting are found below in Appendix B of the Instruction Booklet. Instructions for 
+assigning employees into these categories are also provided in Appendix B.42  
+                                                           
+42 Please note that race and ethnicity designations, as used by the EEOC for the EEO-1 Component 1 report, do not denote scientific 
+definitions of anthropological origins. In addition, such designations do not control who is protected by Title VII’s prohibitions 
+against employment discrimination based on race or national origin. 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+16 
+ 
+10. REPORTING BY SEX 
+The EEO -1 Component 1 data collection currently provides only binary options (i.e., male or 
+female) for  reporting employee counts by sex , job category , and race or ethnicity . However, 
+employers may voluntarily choose to report employee demographic data for non-binary employees 
+– that is, employees who do not identify as exclusively male or female – by sex (i.e., non-binary), 
+job category and race or ethnicity  in the “comments” sect ion of the report(s) . Employers that 
+voluntarily choose to report  non-binary employees in the “comments” section of the report(s) 
+should not assign such employees to the male or female categories or any other categories (i.e., 
+job category and race or ethnicity) within the report(s). 
+ 
+Single-establishment employers that voluntarily choose to report demographic data for non-binary 
+employees may do so in the “Certification Comments” section within the OFS. 43 Multi-
+establishment employers that voluntarily choose to report demographic data f or non -binary 
+employees may do so in the “Headquarters or Establishment -Level Comments” section. 44 This 
+option will be available to multi -establishment filers through manual entry in the OFS as well as 
+through the data file upload function.45  
+ 
+For employers  that voluntarily choose to provide demographic data for their non -binary 
+employees, please follow the instructions in the above section of the Instruction Booklet entitled 
+“REPORTING BY RACE OR ETHNICITY” when deciding whether to report an employee as 
+male, female, or non -binary. If the sex reported by an employee during voluntary self -
+identification differs from the sex recorded in the  employee’s employment records, the employer 
+should report the former (i.e., self-identification) and not the latter (i.e., employment records).  
+ 
+Employers choosing to voluntarily report employee demographic data for non-binary employees 
+should preface any such data in the comments with the phrase “Additional Non-Binary Employee 
+                                                           
+43 For example, a single-establishment employer that has a total of 500 employees and is voluntarily reporting 2 of those employees 
+as non -binary in the “Certification Comments” section should show an employee count of 498 employees on the employer’s 
+“Single-Establishment Employer Report” (i.e., less the 2 non -binary employees reported in the comments section). Also, please 
+note that the voluntary reporting of non -binary employees does not impact the employee threshold for EEO -1 Component 1 
+reporting purposes. For example, if a non -federal contractor employer has a total of 10 0 employees, of which 2 are voluntarily 
+reported as non -binary in the comments, the employer is still required to file even though the total number of employees on the 
+employer’s “Single-Establishment Employer Report” would reflect only 98 employees.  
+44 For example, if a multi-establishment employer has a total of 1,000 employees and is voluntarily reporting 10 of those employees 
+as non -binary for the entire enterprise, the multi -establishment employer would do so in the comments section of the EEO -1 
+Component 1 report where those 10 non -binary employees are employed (i.e., on the appropriate “Headquarters Report” or 
+“Establishment-Level Report”). Using this same example, if there are 200 employees at the multi -establishment employer’s 
+headquarters and 5 of those employees are voluntarily reported as non-binary in the comments section, the “Headquarters Report” 
+would only show a total of 195 employees (i.e., less the 5 non -binary employees reported in the comments section). Continuing 
+this example, the remaining 5 non-binary employees would be reported in the comments section of the appropriate “Establishment-
+Level Report.” Finally, the employer’s “Consolidated Report” would show an employee count of 990 employees (i.e., less the 10  
+non-binary employees reported in the comments sections on the “Headquarters Report” and “Establishment-Level Report”). Also, 
+please note that the voluntary reporting of non-binary employees does not impact the employee threshold for EEO-1 Component 1 
+reporting purposes. For example,  if a non -federal contractor employer has a total of 100 employees, of which 2 are voluntarily 
+reported as non -binary in the comments, the employer is still required to file even though the total number of employees on the 
+employer’s “Consolidated Report” would reflect only 98 employees.  
+45 The “Headquarters or Establishment-Level Comments” section allows a multi-establishment employer to provide comments for 
+its headquarters as well as each of its individual non-headquarters establishments at the establishment-level. Providing comments, 
+including demographic data for non-binary employees, is optional and not required. 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+17 
+Data:”. For example: 
+ 
+“Additional Non-Binary Employee Data: 1 non -binary employee in Job Category 
+Administrative Support Workers; Race/Ethnicity: White (Not Hispanic  or Latino). 3 non-
+binary employees in Job Category Professionals; Race/Ethnicity: Employee 1 – Black or 
+African American (Not Hispanic or Latino) / Employee 2 – Hispanic or Latino / Employee 
+3 – Two or More Races (Not Hispanic or Latino).”46 
+ 
+11. CLASSIFICATION OF EMPLOYEES INTO JOB CATEGORIES 
+The 10 major job categories used by the EEOC for purposes of EEO-1 Component 1 reporting are 
+found below in Appendix C of the  Instruction Booklet . Each job category includes a brief 
+description of the skills and training required for occupations in that category and examples of the 
+job titles that fit  each category. The examples provided are illustrative and not intended to be 
+exhaustive of all job titles in a job category. These job categories are primarily based on the average 
+skill level, knowledge, and responsibility involved in each occupation within the job category.  
+Employers shoul d select the category which best reflects the job function performed by each 
+employee.47  
+ 
+12. HOW TO REPORT NAICS CODES 
+The North American Industry Classification System (NAICS) code is used to identify the primary 
+industry in which a business or  an establishment operates. The industry represents  the primary 
+goods or services provided to the public and is very specific. For example, a business that provides 
+IT technical support to its clients would be classified as 541519 (Other Computer Related 
+Services), while a business that primarily provides software design or support services would be 
+classified as 541512 (Computer Systems Design Services).  
+ 
+Businesses that operate in more than one location  may have different industries assigned to their 
+establishments. For example, a coffee company may have establishments for retail distribution of 
+their products, establishments for roasting and processing the coffee beans, as well as 
+establishments associated with warehousing supplies used by other aspects of the business’ 
+operations. In this example, each of these establishments would have a different NAICS code. 
+Please note that if a business operates several industries at one establishment and thus, has several 
+NAICS codes associated with that one location, the employer must provide the one NAICS code 
+under which the largest number of employees work.  
+ 
+Each establishment must have an appropriate NAICS code associated with it. NAICS codes are 
+updated by the Office of Management and Budget (OMB) every five years (i.e., in years that end 
+in 2 or 7). For the 2022 EEO-1 Component 1 report(s), the 2022 NAICS codes should be used. To 
+identify the correct NAICS code for each establishment, an employer can search using keywords 
+for its business using the U.S. Census Bureau NAICS Search Tool at  
+                                                           
+46 Please note that filers voluntarily choosing to provide such data at the headquarters or establishment -level through the data file 
+upload option must ensure that any comments submitted do not contain any commas. See “Field 189” in the 2022 Data File Upload 
+Specifications. 
+47 For additional assistance, employers should refer to the EEO-1 Component 1 Job Classification Guide, located within the OFS, 
+that maps Standard Occupational Classifications (SOC), occupational titles, and three -digit Census Job Codes to the EEO -1 
+Component 1 job categories. 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+18 
+https://www.census.gov/naics/.  
+ 
+13. HOW TO REPORT EMPLOYER IDENTIFICATION NUMBER (EIN) 
+The Employer Identification Number (EIN) is a unique, nine-digit identifier used to identify 
+business entities in the U.S. It is assigned by the IRS and is needed by all businesses that have 
+employees and certain others with no employees. For purposes of EEO-1 Component 1 reporting, 
+an EIN must be provided for a single-establishment employer and a multi-establishment employer’s 
+headquarters and each of its establishments.  
+ 
+However, if establishments are located at the same address (including, for example, suite number) and 
+have both the same NAICS code and the same EIN, the establishments must be combined into a single 
+“Establishment-Level Report.” Such establishments are considered one establishment for purposes of 
+EEO-1 Component 1 reporting. 
+ 
+Please note that if an establishment (e.g., subsidiary) has a different EIN than, for example, its “parent” 
+company, the establishment cannot file its EEO-1 Component 1 report separately from its “parent” 
+company. The “parent” company’s headquarters is responsible for filing “Establishment -Level 
+Report(s)” for all its establishments, even if the establishments have different EINs from the “parent” 
+company.48 
+ 
+14. HOW TO REPORT UNIQUE ENTITY ID FOR FEDERAL CONTRACTORS  
+(Only applicable for employers that are federal contractors.) 
+On April 4, 2022, the federal government stopped using the “Data Universal Numbering System” 
+(DUNS) to uniquely identify entities doing business with the federal government (i.e., federal 
+contractors).49 The “Unique Entity ID” (UEI) created in SAM.gov (i.e., www.sam.gov) is now the 
+official identifier for federal contractors.50  
+For purposes of the EEO-1 Component 1 data collection, eligible federal contractors will no longer 
+provide the “D UNS Numbers” associated with their headquarters and/or establishment(s)  in the 
+EEO-1 Component 1 Online Filing System  (OFS) or in any data files uploaded to the OFS.  
+Beginning with the 2022 EEO -1 Component 1 data collection, employers (i.e., single -
+establishment and multi -establishment employers)  that are federal contractors must instead 
+provide UEIs. For example, a multi-establishment employer must provide UEI s for a ny 
+headquarters and/or establishment(s) which are federal contractors.51 
+15. HOW TO REPORT REMOTE/TELEWORK EMPLOYEES 
+                                                           
+48 Please note that a “parent” company, holding company, or other such corporate-type entity must file as a multi -establishment 
+employer (i.e., multi-establishment filer) for itself as well as any other commonly owned, controlled, managed, affiliated, or 
+associated establishments (e.g., subsidiaries, holdings). 
+49 Before April 4, 2022, the DUNS Number issued by Dun & Bradstreet was the official entity identifier used by the federal 
+government. 
+50 For more information on the federal government’s transition to the Unique Entity ID (i.e., UEI), see https://www.gsa.gov/about-
+us/organization/federal-acquisition-service/technology-transformation-services/integrated-award-environment-iae/iae-systems-
+information-kit/unique-entity-identifier-update; 
+https://www.fsd.gov/gsafsd_sp?id=kb_article_view&sysparm_article=KB0041254&sys_kb_id=875189f21bee8d54937fa64ce54b
+cbaa&spa=1 and https://sam.gov/content/duns-uei. 
+51 Please refer to the above section of the Instruction Booklet entitled “WHO MUST FILE” for federal contractor eligibility.
+
+===== PDF SOURCE PART 2 END =====
