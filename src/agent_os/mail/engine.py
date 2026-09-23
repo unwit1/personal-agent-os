@@ -267,7 +267,7 @@ def sync_account(
         return {**result, "status": "not_configured", "error": "credential_missing"}
     client = None
     try:
-        client = connect(account.host, account.port, factory=connect_factory)
+        client = connect(account.host, account.port, security=account.tls, factory=connect_factory)
         client.login(account.login_name, secret)
         record_auth(account.id, True, None)
         names = mailboxes or account.folders or ["INBOX"]
@@ -302,7 +302,7 @@ def health(account: Account, *, connect_factory: Any = None) -> dict[str, Any]:
     except AccountError:
         return {"account_id": account.id, "provider": account.provider, "ok": False, "error": "credential_missing"}
     try:
-        client = connect(account.host, account.port, factory=connect_factory)
+        client = connect(account.host, account.port, security=account.tls, factory=connect_factory)
         client.login(account.login_name, secret)
         capabilities = sorted(item for item in client.capabilities if item in {"CONDSTORE", "QRESYNC", "IDLE", "UIDPLUS", "IMAP4REV1", "IMAP4REV2"})
         client.logout()

@@ -61,9 +61,19 @@ class MailTests(unittest.TestCase):
             original_connect, original_db = mail._connect, mail.DB
             mail._connect = lambda: FixtureClient()
             mail.DB = root / "mail.sqlite3"
+            from unittest import mock
+
+            from agent_os.mail import config
+
+            # No configured accounts (never the real ones), so the legacy path runs.
+            isolated = [mock.patch.object(config, "ACCOUNTS_FILE", root / "accounts.json"), mock.patch.object(config, "LEGACY_CONFIG", root / "icloud.json")]
             try:
+                for patch in isolated:
+                    patch.start()
                 result = mail.sync()
             finally:
+                for patch in isolated:
+                    patch.stop()
                 mail._connect, mail.DB = original_connect, original_db
             self.assertEqual(result["indexed_new"], 1)
             self.assertEqual(mail.search("One", db_path=root / "mail.sqlite3")[0]["subject"], "One")

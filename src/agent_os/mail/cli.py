@@ -29,6 +29,9 @@ def register(commands: argparse._SubParsersAction) -> None:
     add.add_argument("--label", default="")
     add.add_argument("--username", help="only if the provider needs a login name other than the email address")
     add.add_argument("--folders", default="INBOX", help='comma-separated folders, or "*" for all (default INBOX)')
+    add.add_argument("--host", help="incoming IMAP server (default: the provider's; EarthLink-hosted domains get securemail.hosting.earthlink.net)")
+    add.add_argument("--port", type=int)
+    add.add_argument("--security", choices=accounts_lib.SECURITY_MODES)
     credential = account_sub.add_parser("credential", help="store the account's password in the OS keyring (hidden prompt)")
     credential.add_argument("account_id")
     credential.add_argument("--clear", action="store_true", help="remove the stored credential")
@@ -119,7 +122,13 @@ def _account(args: argparse.Namespace, emit: Callable[[Any], None]) -> int:
     command = args.account_command
     if command == "add":
         folders = [item.strip() for item in args.folders.split(",") if item.strip()]
-        account = accounts_lib.add_account(args.provider, args.id, args.email, label=args.label, username=args.username, folders=folders)
+        host, port, security = accounts_lib.default_server(args.provider, args.email)
+        host, port, security = args.host or host, args.port or port, args.security or security
+        defaults = accounts_lib.PROVIDERS[args.provider]
+        account = accounts_lib.add_account(args.provider, args.id, args.email, label=args.label, username=args.username, folders=folders,
+                                           imap_host=host if host != defaults["imap_host"] else None,
+                                           imap_port=port if port != defaults["imap_port"] else None,
+                                           security=security if security != defaults["security"] else None)
         emit({"added": account.public(), "next": f"agent-os mail account credential {account.id}"})
     elif command == "credential":
         account = accounts_lib.get_account(args.account_id)

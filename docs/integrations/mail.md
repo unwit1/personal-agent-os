@@ -31,6 +31,12 @@ Double-click **`Mail Setup.pyw`** in the repository folder (or run
 2. Press **Save and test**. The password goes into Windows Credential Manager
    and Agent OS signs in once to check it. If it fails, the window says why;
    re-enter the password and press it again.
+   The **Incoming server** is filled in for you. EarthLink addresses on your
+   own domain (for example `you@yourcompany.com`) use
+   `securemail.hosting.earthlink.net`, port 993: `mail.yourcompany.com` points
+   at the same server, but its security certificate only carries EarthLink's
+   name, so Agent OS uses that name and keeps certificate checks on.
+   Stray spaces or line breaks around a pasted password are removed.
 3. Press **Get my mail now** to download recent mail, or add another account.
 
 ### Steps at the command line (alternative)

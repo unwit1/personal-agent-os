@@ -15,6 +15,7 @@ credential.
 
 from __future__ import annotations
 
+import contextlib
 import imaplib
 import re
 import socket
@@ -49,6 +50,8 @@ class MailError(RuntimeError):
 def categorize(exc: BaseException) -> str:
     if isinstance(exc, MailError):
         return exc.category
+    if isinstance(exc, ssl.SSLCertVerificationError):
+        return "tls_certificate"
     if isinstance(exc, (socket.timeout, TimeoutError)):
         return "timeout"
     if isinstance(exc, (ssl.SSLError, ConnectionError, socket.gaierror, OSError)) and not isinstance(exc, imaplib.IMAP4.error):
@@ -179,9 +182,23 @@ class ReadOnlyIMAP:
         return self._client.uid(command, *args)
 
 
-def connect(host: str, port: int, *, timeout: float = 60, factory: Callable[..., Any] | None = None) -> ReadOnlyIMAP:
+def connect(host: str, port: int, *, security: str = "ssl", timeout: float = 60, factory: Callable[..., Any] | None = None) -> ReadOnlyIMAP:
+    """TLS is always on and always verified: ``ssl`` wraps the connection from
+    the start (usually port 993); ``starttls`` upgrades a plain connection
+    before anything else is sent (usually port 143)."""
     try:
-        client = (factory or imaplib.IMAP4_SSL)(host, port, ssl_context=ssl.create_default_context(), timeout=timeout)
+        if factory is not None or security == "ssl":
+            client = (factory or imaplib.IMAP4_SSL)(host, port, ssl_context=ssl.create_default_context(), timeout=timeout)
+        elif security == "starttls":
+            client = imaplib.IMAP4(host, port, timeout=timeout)
+            try:
+                client.starttls(ssl_context=ssl.create_default_context())
+            except Exception:
+                with contextlib.suppress(Exception):
+                    client.shutdown()
+                raise
+        else:
+            raise MailError("protocol_error", f"unknown security mode {security!r}")
     except Exception as exc:
         raise MailError(categorize(exc)) from None
     return ReadOnlyIMAP(client)

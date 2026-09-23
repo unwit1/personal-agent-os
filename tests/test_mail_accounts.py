@@ -656,6 +656,46 @@ class SetupWindowTests(MailFixture):
         self.assertEqual(second["account_id"], "earthlink-2")
         self.assertEqual(len(accounts_lib.load_accounts()), 2)
 
+    def test_earthlink_hosted_domain_gets_hosting_server_and_existing_account_is_updated(self) -> None:
+        from agent_os.mail.setup_window import save_account
+
+        self.assertEqual(accounts_lib.default_server("earthlink", "hr@4rtec.com"), ("securemail.hosting.earthlink.net", 993, "ssl"))
+        self.assertEqual(accounts_lib.default_server("earthlink", "me@earthlink.net")[0], "imap.earthlink.net")
+        self.assertEqual(accounts_lib.default_server("icloud", "me@example.com")[0], "imap.mail.me.com")
+        accounts_lib.add_account("earthlink", "earthlink", "hr@4rtec.com")  # saved earlier with the wrong server
+        outcome = save_account("earthlink", "hr@4rtec.com", "x", test=lambda account: {"ok": True})
+        self.assertEqual((outcome["created"], outcome["server"]), (False, "securemail.hosting.earthlink.net:993 (ssl)"))
+        custom = save_account("earthlink", "hr@4rtec.com", "x", host="mail.4rtec.com", port=143, security="starttls", test=lambda account: {"ok": True})
+        self.assertEqual(custom["server"], "mail.4rtec.com:143 (starttls)")
+        self.assertEqual(accounts_lib.get_account("earthlink").public()["imap"], {"host": "mail.4rtec.com", "port": 143, "security": "starttls"})
+        self.assertFalse(save_account("earthlink", "hr@4rtec.com", "x", security="none", test=lambda account: {"ok": True})["ok"])
+
+    def test_starttls_upgrades_before_login_and_certificate_errors_are_named(self) -> None:
+        import ssl
+
+        calls = []
+
+        class Plain:
+            def __init__(self, host, port, timeout=None):
+                calls.append(("connect", host, port))
+
+            def starttls(self, ssl_context=None):
+                calls.append(("starttls", ssl_context.check_hostname, ssl_context.verify_mode == ssl.CERT_REQUIRED))
+
+        with mock.patch.object(imaplib, "IMAP4", Plain):
+            imap.connect("mail.example.test", 143, security="starttls")
+        self.assertEqual(calls, [("connect", "mail.example.test", 143), ("starttls", True, True)])
+        self.assertEqual(imap.categorize(ssl.SSLCertVerificationError("hostname mismatch")), "tls_certificate")
+
+    def test_pasted_password_line_break_is_trimmed(self) -> None:
+        from agent_os.mail.setup_window import save_account
+
+        save_account("icloud", "me@icloud.com", f"  {LEAK_PROBE}\r\n", test=lambda account: {"ok": True})
+        self.assertEqual(self.keyring.get_password(accounts_lib.SECRET_SERVICE, "icloud"), LEAK_PROBE)
+        with self.assertRaises(accounts_lib.AccountError):
+            accounts_lib.set_secret("icloud", "two\nlines")
+        self.assertFalse(save_account("icloud", "me@icloud.com", " \n", test=lambda account: {"ok": True})["ok"])
+
     def test_save_account_validates_before_touching_anything(self) -> None:
         from agent_os.mail.setup_window import save_account
 

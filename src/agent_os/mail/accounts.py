@@ -51,8 +51,25 @@ PROVIDERS: dict[str, dict[str, Any]] = {
         "credential_label": "EarthLink mailbox password",
         "credential_help": "The password you use to sign in to this EarthLink mailbox.",
         "future_smtp": {"host": "smtpauth.earthlink.net", "port": 587, "security": "starttls"},
+        # Addresses on your own domain hosted by EarthLink (EarthLink Business
+        # "hosting"). mail.<yourdomain> points at the same servers, but their
+        # TLS certificate names only the hosting.earthlink.net hosts.
+        "hosted_imap_host": "securemail.hosting.earthlink.net",
+        "hosted_future_smtp": {"host": "smtpauth.hosting.earthlink.net", "port": 587, "security": "starttls"},
+        "own_domains": ["earthlink.net", "mindspring.com", "peoplepc.com", "ix.netcom.com", "netcom.com"],
     },
 }
+SECURITY_MODES = ("ssl", "starttls")
+
+
+def default_server(provider: str, email: str) -> tuple[str, int, str]:
+    """(host, port, security) to suggest for this address."""
+    defaults = PROVIDERS[provider]
+    domain = str(email or "").rpartition("@")[2].strip().lower()
+    host = defaults["imap_host"]
+    if defaults.get("hosted_imap_host") and domain and domain not in defaults.get("own_domains", []):
+        host = defaults["hosted_imap_host"]
+    return host, int(defaults["imap_port"]), defaults["security"]
 
 
 class AccountError(ValueError):
@@ -72,6 +89,7 @@ class Account:
     overlap: int = 100
     imap_host: str | None = None
     imap_port: int | None = None
+    security: str | None = None
     legacy: bool = False
     created_at: str | None = None
 
@@ -92,6 +110,10 @@ class Account:
         return int(self.imap_port or self.defaults["imap_port"])
 
     @property
+    def tls(self) -> str:
+        return self.security or self.defaults["security"]
+
+    @property
     def login_name(self) -> str:
         return self.username or self.email
 
@@ -105,7 +127,7 @@ class Account:
             "email": self.email,
             "enabled": self.enabled,
             "read_only": True,
-            "imap": {"host": self.host, "port": self.port, "security": self.defaults["security"]},
+            "imap": {"host": self.host, "port": self.port, "security": self.tls},
             "folders": list(self.folders),
             "exclude_folders": list(self.exclude_folders),
             "credential_available": available,
@@ -178,17 +200,21 @@ def save_accounts(accounts: list[Account], path: Path | None = None) -> None:
     _write(path or config.ACCOUNTS_FILE, {"schema_version": 1, "accounts": items})
 
 
-def add_account(provider: str, account_id: str, email: str, *, label: str = "", username: str | None = None, folders: list[str] | None = None, path: Path | None = None) -> Account:
+def add_account(provider: str, account_id: str, email: str, *, label: str = "", username: str | None = None, folders: list[str] | None = None,
+                imap_host: str | None = None, imap_port: int | None = None, security: str | None = None, path: Path | None = None) -> Account:
     if provider not in PROVIDERS:
         raise AccountError(f"unknown mail provider {provider!r}; supported: {', '.join(sorted(PROVIDERS))}")
     email = str(email or "").strip()
     if "@" not in email:
         raise AccountError("enter the full email address")
+    if security not in (None, *SECURITY_MODES):
+        raise AccountError(f"security must be one of {', '.join(SECURITY_MODES)}")
     accounts = load_accounts(path)
     identifier = check_account_id(account_id)
     if any(account.id == identifier for account in accounts):
         raise AccountError(f"a mail account {identifier!r} already exists")
-    account = Account(id=identifier, provider=provider, email=email, label=label, username=username or None, folders=folders or ["INBOX"], created_at=now())
+    account = Account(id=identifier, provider=provider, email=email, label=label, username=username or None, folders=folders or ["INBOX"],
+                      imap_host=imap_host or None, imap_port=imap_port or None, security=security or None, created_at=now())
     save_accounts([*accounts, account], path)
     return account
 
@@ -198,10 +224,12 @@ def update_account(account_id: str, path: Path | None = None, **changes: Any) ->
     identifier = check_account_id(account_id)
     for index, account in enumerate(accounts):
         if account.id == identifier:
-            allowed = {"label", "username", "enabled", "folders", "exclude_folders", "overlap"}
+            allowed = {"label", "username", "enabled", "folders", "exclude_folders", "overlap", "imap_host", "imap_port", "security"}
             unknown = set(changes) - allowed
             if unknown:
                 raise AccountError(f"cannot change {sorted(unknown)} (read-only mode and identity are fixed)")
+            if changes.get("security") not in (None, *SECURITY_MODES):
+                raise AccountError(f"security must be one of {', '.join(SECURITY_MODES)}")
             for key, value in changes.items():
                 setattr(account, key, value)
             accounts[index] = account
@@ -301,9 +329,15 @@ def get_secret(account: Account) -> str:
 
 
 def set_secret(account_id: str, secret: str) -> str:
-    """Store a credential in the OS keyring. Returns where it went."""
+    """Store a credential in the OS keyring. Returns where it went.
+
+    Surrounding spaces and line breaks are removed: a pasted password often
+    carries a trailing newline, which IMAP servers reject."""
+    secret = (secret or "").strip()
     if not secret:
         raise AccountError("empty credential")
+    if any(ch in secret for ch in "\r\n\0"):
+        raise AccountError("the password contains a line break; enter it on one line")
     store = _keyring()
     if store is None:
         raise AccountError(f"the keyring package is not installed; set {env_name(account_id)} in your local environment instead")

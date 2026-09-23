@@ -16,11 +16,15 @@ from typing import Any, Callable
 
 from . import accounts as accounts_lib
 
+SECURITY_LABELS = ("SSL/TLS", "STARTTLS")
+
 ERROR_HELP = {
     "auth_failed": "The email or password was not accepted. Check both and try again.",
     "credential_missing": "No password was saved. Enter it and try again.",
     "connection_failed": "Could not reach the mail server. Check your internet connection and try again.",
     "timeout": "The mail server took too long to answer. Try again in a minute.",
+    "tls_certificate": ("The server's security certificate does not match its name. For an EarthLink-hosted "
+                        "address use securemail.hosting.earthlink.net, port 993."),
 }
 
 
@@ -36,6 +40,7 @@ def _account_id_for(provider: str, email: str, existing: list[accounts_lib.Accou
 
 
 def save_account(provider: str, email: str, secret: str, *, folders: list[str] | None = None,
+                 host: str | None = None, port: int | None = None, security: str | None = None,
                  test: Callable[[accounts_lib.Account], dict[str, Any]] | None = None) -> dict[str, Any]:
     """Add the account (or reuse the one with this email), store the password,
     and test the sign-in. Returns a plain summary; never includes the secret."""
@@ -44,13 +49,25 @@ def save_account(provider: str, email: str, secret: str, *, folders: list[str] |
         return {"ok": False, "message": "Choose EarthLink or iCloud."}
     if "@" not in email:
         return {"ok": False, "message": "Enter the full email address, like name@earthlink.net."}
-    if not secret:
+    if not (secret or "").strip():
         return {"ok": False, "message": "Enter the password."}
+    default_host, default_port, default_security = accounts_lib.default_server(provider, email)
+    host = (host or "").strip() or default_host
+    port = int(port or default_port)
+    security = security or default_security
+    if security not in accounts_lib.SECURITY_MODES:
+        return {"ok": False, "message": "Security must be SSL/TLS or STARTTLS."}
+    # Store only what differs from the provider's standard server.
+    server = {"imap_host": host if host != accounts_lib.PROVIDERS[provider]["imap_host"] else None,
+              "imap_port": port if port != accounts_lib.PROVIDERS[provider]["imap_port"] else None,
+              "security": security if security != accounts_lib.PROVIDERS[provider]["security"] else None}
     existing = accounts_lib.load_accounts()
     account = next((item for item in existing if item.provider == provider and item.email.lower() == email.lower()), None)
     created = account is None
     if created:
-        account = accounts_lib.add_account(provider, _account_id_for(provider, email, existing), email, folders=folders)
+        account = accounts_lib.add_account(provider, _account_id_for(provider, email, existing), email, folders=folders, **server)
+    else:
+        account = accounts_lib.update_account(account.id, **server)
     try:
         accounts_lib.set_secret(account.id, secret)
     except accounts_lib.AccountError as exc:
@@ -61,10 +78,16 @@ def save_account(provider: str, email: str, secret: str, *, folders: list[str] |
         test = health
     result = test(account)
     if result.get("ok"):
-        return {"ok": True, "account_id": account.id, "created": created, "message": f"Signed in to {email}. The password is saved in Windows Credential Manager."}
+        return {"ok": True, "account_id": account.id, "created": created, "server": f"{account.host}:{account.port} ({account.tls})",
+                "message": f"Signed in to {email} at {account.host}. The password is saved in Windows Credential Manager."}
     category = result.get("error") or "unknown"
-    return {"ok": False, "account_id": account.id, "created": created, "error": category,
-            "message": ERROR_HELP.get(category, f"Sign-in did not work ({category}).") + " The account is saved; just re-enter the password to retry."}
+    return {"ok": False, "account_id": account.id, "created": created, "error": category, "server": f"{account.host}:{account.port} ({account.tls})",
+            "message": ERROR_HELP.get(category, f"Sign-in did not work ({category}).") + f" (Server: {account.host}, port {account.port}.) The account is saved; fix the details and press Save and test again."}
+
+
+def _greeting() -> str:
+    ready = [item.email for item in accounts_lib.load_accounts() if accounts_lib.credential_status(item)[0]]
+    return f"Already set up: {', '.join(ready)}. " if ready else ""
 
 
 def run() -> int:
@@ -81,7 +104,7 @@ def run() -> int:
     provider = tk.StringVar(value="earthlink")
     email = tk.StringVar()
     password = tk.StringVar()
-    status = tk.StringVar(value="Mail is read-only: Agent OS can search your mail but never sends, deletes, or moves anything.")
+    status = tk.StringVar(value=_greeting() + "Mail is read-only: Agent OS can search your mail but never sends, deletes, or moves anything.")
 
     ttk.Label(frame, text="Mail service").grid(row=0, column=0, sticky="w", pady=4)
     choices = ttk.Frame(frame)
@@ -101,26 +124,58 @@ def run() -> int:
     ttk.Checkbutton(frame, text="Show password", variable=shown,
                     command=lambda: password_entry.configure(show="" if shown.get() else "•")).grid(row=3, column=1, sticky="w")
 
-    hint = ttk.Label(frame, wraplength=380, foreground="#555")
-    hint.grid(row=4, column=0, columnspan=2, sticky="w", pady=(6, 8))
+    ttk.Label(frame, text="Incoming server").grid(row=4, column=0, sticky="w", pady=4)
+    server_row = ttk.Frame(frame)
+    server_row.grid(row=4, column=1, sticky="ew")
+    host = tk.StringVar()
+    port = tk.StringVar()
+    security = tk.StringVar()
+    ttk.Entry(server_row, textvariable=host, width=26).pack(side="left")
+    ttk.Label(server_row, text=" Port").pack(side="left")
+    ttk.Entry(server_row, textvariable=port, width=5).pack(side="left")
+    ttk.Combobox(server_row, textvariable=security, values=SECURITY_LABELS, state="readonly", width=9).pack(side="left", padx=(4, 0))
+    ttk.Label(frame, text="Filled in for you. Change it only if your mail program uses a different incoming (IMAP) server.",
+              wraplength=380, foreground="#555").grid(row=5, column=1, sticky="w")
 
-    def on_provider(*_: Any) -> None:
+    hint = ttk.Label(frame, wraplength=380, foreground="#555")
+    hint.grid(row=6, column=0, columnspan=2, sticky="w", pady=(6, 8))
+    suggested: dict[str, tuple[str, str, str]] = {}
+
+    def on_change(*_: Any) -> None:
         defaults = accounts_lib.PROVIDERS[provider.get()]
         password_label.configure(text=defaults["credential_label"].replace("mailbox ", "").capitalize())
         hint.configure(text=defaults["credential_help"])
+        new_host, new_port, new_security = accounts_lib.default_server(provider.get(), email.get())
+        current = (host.get(), port.get(), security.get())
+        # Follow the suggestion until the person edits the server themselves.
+        if not host.get() or current == suggested.get("last"):
+            host.set(new_host)
+            port.set(str(new_port))
+            security.set(SECURITY_LABELS[accounts_lib.SECURITY_MODES.index(new_security)])
+            suggested["last"] = (host.get(), port.get(), security.get())
 
-    provider.trace_add("write", on_provider)
-    on_provider()
+    def on_port(*_: Any) -> None:
+        if port.get() == "143":
+            security.set(SECURITY_LABELS[1])
+        elif port.get() == "993":
+            security.set(SECURITY_LABELS[0])
+
+    provider.trace_add("write", on_change)
+    email.trace_add("write", on_change)
+    port.trace_add("write", on_port)
+    on_change()
 
     buttons = ttk.Frame(frame)
-    buttons.grid(row=5, column=0, columnspan=2, sticky="e")
+    buttons.grid(row=7, column=0, columnspan=2, sticky="e")
     save_button = ttk.Button(buttons, text="Save and test")
     sync_button = ttk.Button(buttons, text="Get my mail now")
     close_button = ttk.Button(buttons, text="Close", command=root.destroy)
     save_button.pack(side="left", padx=4)
+    if any(accounts_lib.credential_status(item)[0] for item in accounts_lib.load_accounts()):
+        sync_button.pack(side="left", padx=4)
     close_button.pack(side="left", padx=4)
 
-    ttk.Label(frame, textvariable=status, wraplength=380).grid(row=6, column=0, columnspan=2, sticky="w", pady=(12, 0))
+    ttk.Label(frame, textvariable=status, wraplength=380).grid(row=8, column=0, columnspan=2, sticky="w", pady=(12, 0))
 
     def in_background(work: Callable[[], Any], done: Callable[[Any], None]) -> None:
         def target() -> None:
@@ -134,6 +189,10 @@ def run() -> int:
 
     def on_save() -> None:
         chosen, address, secret = provider.get(), email.get(), password.get()
+        if not port.get().strip().isdigit():
+            status.set("The port must be a number, usually 993.")
+            return
+        server = {"host": host.get(), "port": int(port.get()), "security": accounts_lib.SECURITY_MODES[SECURITY_LABELS.index(security.get())]}
         save_button.configure(state="disabled")
         status.set("Saving and signing in...")
 
@@ -146,9 +205,11 @@ def run() -> int:
                 sync_button.pack(side="left", padx=4, before=close_button)
                 save_button.configure(text="Add another")
                 email.set("")
+                host.set("")
+                on_change()
                 status.set(outcome["message"] + " Press \"Get my mail now\" to download recent mail, or add another account.")
 
-        in_background(lambda: save_account(chosen, address, secret), done)
+        in_background(lambda: save_account(chosen, address, secret, **server), done)
 
     def on_sync() -> None:
         from . import sync
