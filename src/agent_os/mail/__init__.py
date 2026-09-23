@@ -39,6 +39,18 @@ DB = config.DB
 INGESTION_PROCESSOR_VERSION = "mail-index@1"  # legacy sync_records ledgers keep their version
 
 
+def _target(scope: str | None, db_path: Path | None) -> Path:
+    """The index to use: an explicit path, a scope's index, or the older
+    single combined index while it still exists (before the scope split)."""
+    if db_path:
+        return Path(db_path)
+    if scope:
+        return config.db_for(scope)
+    if DB.exists():
+        return DB
+    raise ValueError("choose a mail scope: work or personal")
+
+
 @dataclass
 class MailMessage:
     """Schema v1 record shape, kept for existing importers."""
@@ -70,9 +82,9 @@ def _parse_record(uid: str, mailbox: str, raw_message: bytes) -> ParsedMessage:
 # ---------------------------------------------------------------------------
 
 
-def list_accounts() -> dict[str, Any]:
+def list_accounts(scope: str | None = None) -> dict[str, Any]:
     """``mail.accounts``: configured accounts, never a credential."""
-    items = accounts_lib.load_accounts()
+    items = [item for item in accounts_lib.load_accounts() if scope is None or item.mail_scope == scope]
     auth = account_state()
     return {
         "accounts": [account.public() | {"auth": auth.get(account.id)} for account in items],
@@ -84,7 +96,7 @@ def list_accounts() -> dict[str, Any]:
 def account_status(account_id: str, db_path: Path | None = None) -> dict[str, Any]:
     """``mail.account_status``: auth state, mailboxes, counts, last sync."""
     account = accounts_lib.get_account(account_id)
-    target = db_path or DB
+    target = db_path or (DB if DB.exists() else config.db_for(account.mail_scope))
     mailboxes: list[dict[str, Any]] = []
     indexed = 0
     if target.exists():
@@ -163,7 +175,8 @@ def _connect() -> Any:
     return client
 
 
-def sync(limit: int = DEFAULT_LIMIT, mailbox: str | None = None, account_id: str | None = None, backfill: int = 0, all_enabled: bool = True) -> dict[str, Any]:
+def sync(limit: int = DEFAULT_LIMIT, mailbox: str | None = None, account_id: str | None = None, backfill: int = 0, all_enabled: bool = True,
+         scope: str | None = None) -> dict[str, Any]:
     """``mail.sync``: one account, or every enabled account.
 
     With no account configured, falls back to the schema v1 single-iCloud
@@ -173,7 +186,14 @@ def sync(limit: int = DEFAULT_LIMIT, mailbox: str | None = None, account_id: str
     if not configured:
         return _legacy_sync(limit, mailbox or "INBOX")
     targets = [accounts_lib.get_account(account_id)] if account_id else [item for item in configured if item.enabled] if all_enabled else []
-    results = [sync_account(item, store_path=DB, limit=limit, backfill=backfill, mailboxes=[mailbox] if mailbox else None) for item in targets]
+    if config.DB.exists() and DB == config.DB and not any(config.db_for(scope).exists() for scope in config.SCOPES):
+        from .scopes import split_combined_index
+
+        split_combined_index()
+    if scope:
+        targets = [item for item in targets if item.mail_scope == config.check_scope(scope)]
+    results = [sync_account(item, store_path=config.db_for(item.mail_scope), ledger_dir=config.ledger_dir_for(item.mail_scope), limit=limit, backfill=backfill,
+                            mailboxes=[mailbox] if mailbox else None) for item in targets]
     totals = {key: sum(item.get(key, 0) for item in results) for key in ("indexed_new", "deduplicated", "reprocessed", "skipped", "errors", "fetched", "missing")}
     return {"accounts": results, **totals, "complete": all(item.get("status") == "ok" for item in results), "read_only": True}
 
@@ -273,11 +293,12 @@ def sync_archive_records(
     archive_id = accounts_lib.check_account_id(archive_id)
     work_id = stable_work_id("mail-archive", archive_id)
     ledger = IngestionLedger(
-        (ledger_dir or config.LEDGER_DIR) / "archives" / f"{archive_id}.json",
+        (ledger_dir or config.ledger_dir_for("work")) / "archives" / f"{archive_id}.json",
         source="mail-archive", work_id=work_id, stage_id=stable_stage_id(work_id, "import"), processor_version="mail-archive@1",
     )
     counts = {"indexed_new": 0, "deduplicated": 0, "reprocessed": 0, "skipped": 0, "errors": 0, "checked": 0}
-    with Store(db_path or DB) as store, ledger.deferred_saves():
+    # Archives are Outlook backups of work mail: always the work index.
+    with Store(db_path or config.db_for("work")) as store, ledger.deferred_saves():
         completed = []
         for record in records:
             folder, key, raw = str(record["folder"]), str(record["record_key"]), bytes(record["raw"])
@@ -321,9 +342,10 @@ def search(
     recipient: str | None = None,
     after: str | None = None,
     before: str | None = None,
+    scope: str | None = None,
 ) -> list[dict[str, Any]]:
     """``mail.search``: compact results, each attributed to its sources."""
-    target = db_path or DB
+    target = _target(scope, db_path)
     if not target.exists():
         return []
     with Store(target) as store:
@@ -341,10 +363,11 @@ def get_message(
     account_id: str | None = None,
     include_sources: bool = True,
     include_attachments: bool = True,
+    scope: str | None = None,
 ) -> dict[str, Any]:
     """``mail.get_message`` by stable id (``msg_...``), or by the v1
     ``uid`` + ``mailbox`` (optionally ``account_id``)."""
-    target = db_path or DB
+    target = _target(scope, db_path)
     if not target.exists():
         raise KeyError("Message not found in local index.")
     with Store(target) as store:
@@ -357,9 +380,10 @@ def get_message(
     return result
 
 
-def get_thread(thread_id: str | None = None, message_id: str | None = None, include_body: bool = False, limit: int = 50, db_path: Path | None = None) -> dict[str, Any]:
+def get_thread(thread_id: str | None = None, message_id: str | None = None, include_body: bool = False, limit: int = 50, db_path: Path | None = None,
+               *, scope: str | None = None) -> dict[str, Any]:
     """``mail.get_thread`` by thread id (``thr_...``) or any message id in it."""
-    target = db_path or DB
+    target = _target(scope, db_path)
     if not (thread_id or message_id):
         raise ValueError("give thread_id or message_id")
     if not target.exists():
@@ -368,19 +392,30 @@ def get_thread(thread_id: str | None = None, message_id: str | None = None, incl
         return store.thread(thread_id or message_id, include_body=include_body, limit=limit)
 
 
-def status(account_id: str | None = None, db_path: Path | None = None) -> dict[str, Any]:
-    """``mail.sync_status``: per account, plus the v1 top-level fields."""
+def status(account_id: str | None = None, db_path: Path | None = None, *, scope: str | None = None) -> dict[str, Any]:
+    """``mail.sync_status``: per account, plus the v1 top-level fields.
+    With ``scope``, only that scope's accounts and index."""
     if account_id:
         return account_status(account_id, db_path)
-    configured = accounts_lib.load_accounts()
-    target = db_path or DB
+    configured = [item for item in accounts_lib.load_accounts() if scope is None or item.mail_scope == scope]
+    if db_path or DB.exists():
+        targets = {"all": Path(db_path or DB)}
+    else:
+        targets = {name: config.db_for(name) for name in ([scope] if scope else config.SCOPES)}
     counts = {"logical_messages": 0, "source_observations": 0, "observations_by_account": {}}
     migration = None
-    if target.exists():
+    by_scope = {}
+    for name, target in targets.items():
+        if not target.exists():
+            continue
         with Store(target) as store:
-            counts = store.counts()
-            migration = store.migration
+            found = store.counts()
+            migration = migration or store.migration
+        by_scope[name] = {"indexed_messages": found["logical_messages"], "source_observations": found["source_observations"], "directory": str(target.parent)}
+        counts["logical_messages"] += found["logical_messages"]
+        counts["source_observations"] += found["source_observations"]
     return {
+        "scopes": by_scope,
         "configured": bool(configured),
         "accounts": [account_status(item.id, db_path) for item in configured],
         "indexed_messages": counts["logical_messages"],

@@ -51,7 +51,8 @@
         "ocr",
         "personnel form",
         "employee file naming"
-      ]
+      ],
+      "mail_scope": "work"
     },
     {
       "id": "rtec-hr-process-model",
@@ -79,7 +80,8 @@
         "benefits workflow",
         "disciplinary workflow",
         "termination process"
-      ]
+      ],
+      "mail_scope": "work"
     },
     {
       "id": "auto-click",
@@ -124,7 +126,8 @@
         "overtime",
         "overtime report",
         "timesheet parsing"
-      ]
+      ],
+      "mail_scope": "work"
     },
     {
       "id": "tes-tagger",
@@ -139,7 +142,8 @@
         "tes tagger",
         "elder scrolls tagging",
         "lore tagging"
-      ]
+      ],
+      "mail_scope": "personal"
     },
     {
       "id": "scan-renamer",

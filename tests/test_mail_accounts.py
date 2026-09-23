@@ -273,7 +273,7 @@ class AccountTests(MailFixture):
 
         tools = methods()
         with mock.patch.object(mail, "DB", self.db):
-            outputs = [mail.list_accounts(), mail.status(), mail.account_status("work-earthlink"), sync_result, failed, tools["mail.accounts"](), tools["mail.sync_status"]()]
+            outputs = [mail.list_accounts(), mail.status(), mail.account_status("work-earthlink"), sync_result, failed, tools["mail.accounts"](project="hr-gui"), tools["mail.sync_status"](project="hr-gui")]
         for path in (config.ACCOUNTS_FILE, config.LOG_FILE, config.LOCAL_DIR / "account-state.json"):
             outputs.append(path.read_text(encoding="utf-8"))
         for output in outputs:
@@ -535,7 +535,7 @@ class SearchThreadProvenanceTests(MailFixture):
                 {"folder": "Inbox", "record_key": "0002", "raw": conflicting},
                 {"folder": "Notes", "record_key": "0003", "raw": no_id},
                 {"folder": "Notes-copy", "record_key": "0004", "raw": no_id},
-            ], archive_id="pst-2019", ledger_dir=config.LEDGER_DIR)
+            ], archive_id="pst-2019", ledger_dir=config.LEDGER_DIR, db_path=self.db)
             self.assertEqual((result["indexed_new"], result["deduplicated"]), (4, 2))
             hit = mail.search("Benefits")[0]
             self.assertEqual(hit["source_count"], 2)
@@ -545,9 +545,9 @@ class SearchThreadProvenanceTests(MailFixture):
             self.assertEqual(len(mail.search("Benefits", source_kinds=["pst_archive"])), 1)
             twin = rfc822("Weekly note", "identical text", message_id="<twin-1@x>")
             twin2 = rfc822("Weekly note", "identical text", message_id="<twin-2@x>")
-            mail.sync_archive_records([{"folder": "Inbox", "record_key": "t1", "raw": twin}, {"folder": "Inbox", "record_key": "t2", "raw": twin2}], archive_id="pst-2019", ledger_dir=config.LEDGER_DIR)
+            mail.sync_archive_records([{"folder": "Inbox", "record_key": "t1", "raw": twin}, {"folder": "Inbox", "record_key": "t2", "raw": twin2}], archive_id="pst-2019", ledger_dir=config.LEDGER_DIR, db_path=self.db)
             self.assertEqual(len(mail.search("identical text")), 2, "same text, different Message-IDs: two emails")
-            again = mail.sync_archive_records([{"folder": "Inbox", "record_key": "0001", "raw": raw}], archive_id="pst-2019", ledger_dir=config.LEDGER_DIR)
+            again = mail.sync_archive_records([{"folder": "Inbox", "record_key": "0001", "raw": raw}], archive_id="pst-2019", ledger_dir=config.LEDGER_DIR, db_path=self.db)
             self.assertEqual(again["skipped"], 1)
 
 
@@ -703,6 +703,192 @@ class SetupWindowTests(MailFixture):
             self.assertFalse(save_account(provider, email, secret, test=lambda account: {"ok": True})["ok"])
         self.assertEqual(accounts_lib.load_accounts(), [])
         self.assertEqual(self.keyring.data, {})
+
+
+class ScopeTests(MailFixture):
+    """Work and personal mail are separate indexes; projects see one scope."""
+
+    def _servers(self):
+        work_server, home_server = FakeIMAPServer(), FakeIMAPServer()
+        work_server.add("INBOX", 1, rfc822("Payroll schedule", "work payroll text", message_id="<w1@x>"))
+        home_server.add("INBOX", 1, rfc822("Garden club", "personal garden text", message_id="<h1@x>"))
+        return {"work-earthlink": work_server, "personal-icloud": home_server}
+
+    def _sync_all(self, servers):
+        def routed(account, **kwargs):
+            return sync_lib.sync_account(account, connect_factory=servers[account.id].factory, **kwargs)
+
+        with mock.patch.object(mail, "DB", self.tmp / "no-combined.sqlite3"), mock.patch.object(mail, "sync_account", routed):
+            return mail.sync()
+
+    def test_accounts_sync_into_separate_directories_and_projects_see_one_scope(self) -> None:
+        self.account("earthlink", "work-earthlink", "me@4rtec.test")
+        self.account("icloud", "personal-icloud", "me@icloud.com")
+        self.assertEqual([accounts_lib.get_account(name).mail_scope for name in ("work-earthlink", "personal-icloud")], ["work", "personal"])
+        self.assertTrue(self._sync_all(self._servers())["complete"])
+        for scope, text, other in (("work", "payroll", "garden"), ("personal", "garden", "payroll")):
+            self.assertTrue(config.db_for(scope).exists())
+            with mock.patch.object(mail, "DB", self.tmp / "no-combined.sqlite3"):
+                self.assertEqual(len(mail.search(text, scope=scope)), 1)
+                self.assertEqual(mail.search(other, scope=scope), [], f"{other} must not be visible in {scope}")
+        from agent_os.mail.scopes import MailScopeError
+        from agent_os.mcp_server import methods
+
+        tools = methods()
+        registry = {"hr-gui": {"id": "hr-gui", "mail_scope": "work"}, "tes-tagger": {"id": "tes-tagger", "mail_scope": "personal"}, "scan-renamer": {"id": "scan-renamer"}}
+
+        def get_project(name):
+            if name not in registry:
+                raise KeyError(name)
+            return registry[name]
+
+        with mock.patch("agent_os.registry.get_project", get_project), mock.patch.object(mail, "DB", self.tmp / "no-combined.sqlite3"):
+            self.assertEqual([hit["subject"] for hit in tools["mail.search"](project="hr-gui", query="text")], ["Payroll schedule"])
+            self.assertEqual([hit["subject"] for hit in tools["mail.search"](project="tes-tagger", query="text")], ["Garden club"])
+            with self.assertRaises(PermissionError):
+                tools["mail.search"](project="tes-tagger", query="text", scope="work")
+            with self.assertRaises(PermissionError):
+                tools["mail.account_status"](project="tes-tagger", account_id="work-earthlink")
+            with self.assertRaises(PermissionError):
+                tools["mail.search"](project="tes-tagger", query="text", account_id="work-earthlink")
+            for project in ("scan-renamer", "", "nope"):
+                with self.assertRaises(MailScopeError):
+                    tools["mail.search"](project=project, query="text")
+            self.assertEqual([item["account_id"] for item in tools["mail.accounts"](project="hr-gui")["accounts"]], ["work-earthlink"])
+        with self.assertRaises(ValueError):
+            with mock.patch.object(mail, "DB", self.tmp / "no-combined.sqlite3"):
+                mail.search("text")
+
+    def test_combined_index_is_split_by_scope_and_removed(self) -> None:
+        from agent_os.mail.scopes import split_combined_index
+
+        self.account("earthlink", "work-earthlink", "me@4rtec.test")
+        self.account("icloud", "personal-icloud", "me@icloud.com")
+        servers = self._servers()
+        for account_id, server in servers.items():
+            self.sync(accounts_lib.get_account(account_id), server)
+        mail.sync_archive_records([{"folder": "Inbox", "record_key": "1", "raw": rfc822("Old memo", "archived work memo", message_id="<a1@x>")}],
+                                  archive_id="pst-old", db_path=self.db, ledger_dir=config.LEDGER_DIR)
+        result = split_combined_index(self.db)
+        self.assertEqual((result["work"]["observations"], result["personal"]["observations"]), (2, 1))
+        self.assertFalse(self.db.exists(), "the combined file mixed scopes and is removed")
+        self.assertTrue((config.ledger_dir_for("work") / "work-earthlink").exists())
+        self.assertTrue((config.ledger_dir_for("personal") / "personal-icloud").exists())
+        with mock.patch.object(mail, "DB", self.db):
+            self.assertEqual(len(mail.search("memo", scope="work")), 1)
+            self.assertEqual(mail.search("memo", scope="personal"), [])
+            self.assertEqual(mail.search("garden", scope="work"), [])
+        second = self._sync_all(servers)
+        self.assertEqual(second["indexed_new"], 0, "ledgers moved with their accounts: nothing downloaded again")
+
+
+class FakePstMessage:
+    def __init__(self, identifier, subject, body, *, headers="", sender=("Pat", "pat@4rtec.test"), to="Lee", message_id=None, broken_attachments=False):
+        from datetime import datetime
+
+        self.identifier, self.subject, self.plain_text_body, self.transport_headers = identifier, subject, body.encode(), headers
+        self.html_body = None
+        self.client_submit_time = datetime(2019, 5, 1, 12, 0)
+        self._props = {0x0C1A: sender[0], 0x0C1F: sender[1], 0x0E04: to}
+        if message_id:
+            self._props[0x1035] = message_id
+        self._broken = broken_attachments
+
+    number_of_record_sets = 1
+
+    def get_record_set(self, index):
+        props = self._props
+
+        class Entry:
+            def __init__(self, tag, value):
+                self.entry_type, self.value_type, self._value = tag, 0x001F, value
+
+            def get_data_as_string(self):
+                return self._value
+
+        class RecordSet:
+            number_of_entries = len(props)
+
+            def get_entry(self, i):
+                tag = list(props)[i]
+                return Entry(tag, props[tag])
+
+        return RecordSet()
+
+    @property
+    def number_of_attachments(self):
+        if self._broken:
+            raise OSError("invalid local descriptors node")
+        return 0
+
+
+class FakePstFolder:
+    def __init__(self, name, messages=(), folders=()):
+        self.name, self._messages, self._folders = name, list(messages), list(folders)
+        self.number_of_sub_messages, self.number_of_sub_folders = len(self._messages), len(self._folders)
+
+    def get_sub_message(self, index):
+        return self._messages[index]
+
+    def get_sub_folder(self, index):
+        return self._folders[index]
+
+
+class PstImportTests(MailFixture):
+    def test_pst_messages_import_into_work_and_merge_with_live_copies(self) -> None:
+        import types
+
+        from agent_os.mail import pst
+
+        live = FakeIMAPServer()
+        live.add("INBOX", 1, rfc822("Benefits memo", "open enrollment details", sender="HR <hr@4rtec.test>", to="me@4rtec.test",
+                                    message_id="<memo@x>", date="Tue, 01 Sep 2026 10:00:00 +0000"))
+        self.account("earthlink", "work-earthlink", "me@4rtec.test")
+        self.sync(accounts_lib.get_account("work-earthlink"), live)
+        headers = "From: HR <hr@4rtec.test>\r\nTo: me@4rtec.test\r\nSubject: Benefits memo\r\nDate: Tue, 01 Sep 2026 10:00:00 +0000\r\nMessage-ID: <memo@x>\r\n"
+        root = FakePstFolder("", folders=[FakePstFolder("Top of Personal Folders", folders=[
+            FakePstFolder("Inbox", [FakePstMessage(11, "Benefits memo", "open enrollment details", headers=headers)]),
+            FakePstFolder("Sent Items", [FakePstMessage(12, "Part time employees", "schedule for part time staff", message_id="<pt@x>", broken_attachments=True),
+                                         FakePstMessage(13, "Part time employees", "schedule for part time staff", message_id="<pt@x>")]),
+        ])])
+
+        class File:
+            def open(self, path):
+                pass
+
+            def close(self):
+                pass
+
+            def get_root_folder(self):
+                return root
+
+        with mock.patch.dict(sys.modules, {"pypff": types.SimpleNamespace(file=File)}):
+            first = pst.import_pst(self.tmp / "backup.pst", db_path=self.db, archive_id="pst-backup")
+            again = pst.import_pst(self.tmp / "backup.pst", db_path=self.db, archive_id="pst-backup")
+        self.assertEqual((first["messages_seen"], first["indexed_new"], first["deduplicated"], first["unreadable"]), (3, 1, 2, 0))
+        self.assertEqual((again["already_imported"], again["indexed_new"]), (3, 0), "rerun reads nothing again")
+        with mock.patch.object(mail, "DB", self.db):
+            memo = mail.search("enrollment")
+            self.assertEqual(len(memo), 1, "the PST copy of a live mail is one result")
+            self.assertEqual(sorted(memo[0]["sources"]), ["pst_archive:pst-backup/Inbox", "work-earthlink:INBOX"])
+            part_time = mail.search("part time")
+            self.assertEqual(len(part_time), 1, "two copies inside the PST are one result")
+            self.assertEqual(part_time[0]["source_count"], 2)
+            self.assertIn("pat@4rtec.test", json.dumps(mail.get_message(id=part_time[0]["id"])))
+
+    def test_identical_pst_files_are_imported_once(self) -> None:
+        from agent_os.mail import pst
+
+        folder = self.tmp / "backups"
+        folder.mkdir()
+        (folder / "a.pst").write_bytes(b"same bytes" * 100)
+        (folder / "b.pst").write_bytes(b"same bytes" * 100)
+        (folder / "c.pst").write_bytes(b"other bytes" * 100)
+        with mock.patch.object(pst, "import_pst", side_effect=lambda path, **kw: {"file": str(path), "messages_seen": 1, "indexed_new": 1}) as imported:
+            report = pst.import_directory(folder, db_path=self.db)
+        self.assertEqual(imported.call_count, 2)
+        self.assertEqual(sum(1 for item in report["files"] if "skipped" in item), 1)
+        self.assertTrue((config.scope_dir("work") / "pst-imports.jsonl").exists())
 
 
 class BenchmarkTests(unittest.TestCase):

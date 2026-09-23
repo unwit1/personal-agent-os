@@ -99,6 +99,47 @@ indexed yet.
 | `connection_failed` / `timeout` | try again later; nothing is lost |
 | a folder shows `partial` | run `agent-os mail sync` again; failed messages are retried |
 
+### Work and personal mail are kept apart
+
+| Scope | What goes there | Directory |
+|---|---|---|
+| `work` | EarthLink accounts (default) and every imported Outlook PST/OST backup | `.agent-local/mail/work/` |
+| `personal` | iCloud accounts (default) | `.agent-local/mail/personal/` |
+
+Each scope has its own search index and sync ledgers. An agent reads mail
+through a **project**, and gets only the scope named by that project's
+`mail_scope` in `projects/registry.json`. A project with no `mail_scope`
+gets no mail. Currently:
+
+- `work`: `hr-gui`, `rtec-hr-process-model`, `overtime-parser`
+- `personal`: `tes-tagger`
+- no mail: everything else, including `job-applicant-dashboard` (its privacy
+  policy excludes email archives)
+
+At the command line you choose the scope yourself:
+`agent-os mail search "open enrollment" --scope work`.
+
+This keeps cooperating agents apart; it is not a Windows permission, since
+both folders stay readable by your user account.
+
+An index built before the split was divided automatically (or with
+`agent-os mail split-scopes`); the old combined file is deleted once the
+split has been checked.
+
+### Outlook backups (PST/OST)
+
+```powershell
+agent-os mail import-pst "C:\Users\you\Documents\Outlook Backups"   # a folder (all .pst/.ost) or one file
+```
+
+Everything goes into the **work** index. The file is opened read-only with
+libpff (`pip install libpff-python`, which compiles with the Visual Studio
+Build Tools); Outlook is not used. Folder names are kept (`pst-backup/Inbox`).
+Duplicates are removed: an email found in a PST and in a live mailbox, in two
+PSTs, or twice in one PST, is one search result that lists every place it was
+found. An exact copy of a PST file is skipped. Reruns skip messages already
+imported. Damaged messages or attachments are counted and skipped.
+
 ### Privacy
 
 - Mail, the search index and sync state stay in `.agent-local/mail/` on this

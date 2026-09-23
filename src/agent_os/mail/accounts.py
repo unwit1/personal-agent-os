@@ -41,6 +41,7 @@ PROVIDERS: dict[str, dict[str, Any]] = {
         "credential_label": "Apple app-specific password",
         "credential_help": "Create one at account.apple.com > Sign-In and Security > App-Specific Passwords. Never enter your Apple Account password here.",
         "future_smtp": {"host": "smtp.mail.me.com", "port": 587, "security": "starttls"},
+        "default_scope": "personal",
     },
     "earthlink": {
         "label": "EarthLink Mail",
@@ -57,6 +58,7 @@ PROVIDERS: dict[str, dict[str, Any]] = {
         "hosted_imap_host": "securemail.hosting.earthlink.net",
         "hosted_future_smtp": {"host": "smtpauth.hosting.earthlink.net", "port": 587, "security": "starttls"},
         "own_domains": ["earthlink.net", "mindspring.com", "peoplepc.com", "ix.netcom.com", "netcom.com"],
+        "default_scope": "work",
     },
 }
 SECURITY_MODES = ("ssl", "starttls")
@@ -90,6 +92,7 @@ class Account:
     imap_host: str | None = None
     imap_port: int | None = None
     security: str | None = None
+    scope: str | None = None
     legacy: bool = False
     created_at: str | None = None
 
@@ -110,6 +113,11 @@ class Account:
         return int(self.imap_port or self.defaults["imap_port"])
 
     @property
+    def mail_scope(self) -> str:
+        """``work`` or ``personal``: which separate index this account's mail goes to."""
+        return self.scope or self.defaults["default_scope"]
+
+    @property
     def tls(self) -> str:
         return self.security or self.defaults["security"]
 
@@ -127,6 +135,7 @@ class Account:
             "email": self.email,
             "enabled": self.enabled,
             "read_only": True,
+            "scope": self.mail_scope,
             "imap": {"host": self.host, "port": self.port, "security": self.tls},
             "folders": list(self.folders),
             "exclude_folders": list(self.exclude_folders),
@@ -201,7 +210,8 @@ def save_accounts(accounts: list[Account], path: Path | None = None) -> None:
 
 
 def add_account(provider: str, account_id: str, email: str, *, label: str = "", username: str | None = None, folders: list[str] | None = None,
-                imap_host: str | None = None, imap_port: int | None = None, security: str | None = None, path: Path | None = None) -> Account:
+                imap_host: str | None = None, imap_port: int | None = None, security: str | None = None, scope: str | None = None,
+                path: Path | None = None) -> Account:
     if provider not in PROVIDERS:
         raise AccountError(f"unknown mail provider {provider!r}; supported: {', '.join(sorted(PROVIDERS))}")
     email = str(email or "").strip()
@@ -209,12 +219,15 @@ def add_account(provider: str, account_id: str, email: str, *, label: str = "", 
         raise AccountError("enter the full email address")
     if security not in (None, *SECURITY_MODES):
         raise AccountError(f"security must be one of {', '.join(SECURITY_MODES)}")
+    if scope not in (None, *config.SCOPES):
+        raise AccountError(f"scope must be one of {', '.join(config.SCOPES)}")
     accounts = load_accounts(path)
     identifier = check_account_id(account_id)
     if any(account.id == identifier for account in accounts):
         raise AccountError(f"a mail account {identifier!r} already exists")
     account = Account(id=identifier, provider=provider, email=email, label=label, username=username or None, folders=folders or ["INBOX"],
-                      imap_host=imap_host or None, imap_port=imap_port or None, security=security or None, created_at=now())
+                      imap_host=imap_host or None, imap_port=imap_port or None, security=security or None,
+                      scope=scope if scope and scope != PROVIDERS[provider]["default_scope"] else None, created_at=now())
     save_accounts([*accounts, account], path)
     return account
 

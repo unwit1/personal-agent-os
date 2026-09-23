@@ -33,8 +33,32 @@ from .documents import cache_status_safe
 from .forms import form_issue_payload, route_form
 from .handoffs import create_handoff
 from .index import search
+def _mail_scoped(function, account_arg: bool = False):
+    """Mail tools take ``project`` and see only that project's mail scope
+    (work or personal, from ``mail_scope`` in the project registry)."""
+
+    def call(project: str = "", **arguments):
+        scope = mail_project_scope(project)
+        if account_arg or arguments.get("account_id"):
+            from .mail.accounts import get_account
+
+            account = get_account(arguments["account_id"])
+            if account.mail_scope != scope:
+                raise PermissionError(f"account {account.id} is {account.mail_scope} mail; project {project} may only use {scope} mail")
+            if account_arg:
+                return function(**arguments)
+        if arguments.get("scope") not in (None, scope):
+            raise PermissionError(f"project {project} may only use {scope} mail")
+        arguments["scope"] = scope
+        return function(**arguments)
+
+    call.__name__ = getattr(function, "__name__", "mail_tool")
+    return call
+
+
 from .orchestrator.service import MCP_TOOL_SCHEMAS as ORCHESTRATE_TOOL_SCHEMAS
 from .orchestrator.service import mcp_methods as orchestrate_methods
+from .mail.scopes import project_scope as mail_project_scope
 from .mail import account_status as mail_account_status, get_message as mail_get_message, get_thread as mail_get_thread, list_accounts as mail_accounts, search as mail_search, status as mail_status, sync as mail_sync
 from .improvements import capture_improvement, get_improvement, issue_payload, list_improvements, search_improvements, update_improvement
 from .profile import compact_profile as profile_retrieve, profile_status
@@ -192,40 +216,40 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     },
     "mail.accounts": {
         "description": "List configured mail accounts (iCloud, EarthLink, ...) with provider, read-only state and whether a credential is available. Never returns credentials.",
-        "inputSchema": {"type": "object", "properties": {}},
+        "inputSchema": {"type": "object", "properties": {"project": {"type": "string", "description": "registry project id; mail is limited to the project's mail_scope (work or personal)"}}, "required": ["project"]},
     },
     "mail.account_status": {
         "description": "One mail account: last authentication result, mailboxes, last sync, counts, capability mode, sanitized errors.",
-        "inputSchema": {"type": "object", "properties": {"account_id": {"type": "string"}}, "required": ["account_id"]},
+        "inputSchema": {"type": "object", "properties": {"project": {"type": "string", "description": "registry project id; mail is limited to the project's mail_scope (work or personal)"}, "account_id": {"type": "string"}}, "required": ["project", "account_id"]},
     },
     "mail.search": {
         "description": "Search the local read-only mail index across accounts and archives. Returns compact results with stable ids (msg_...), thread ids and source attribution (account:mailbox). Filters are optional.",
-        "inputSchema": {"type": "object", "properties": {
+        "inputSchema": {"type": "object", "properties": {"project": {"type": "string", "description": "registry project id; mail is limited to the project's mail_scope (work or personal)"}, 
             "query": {"type": "string", "description": "words to match (all must appear); empty lists recent mail"},
             "limit": {"type": "integer", "default": 10},
             "accounts": {"type": "array", "items": {"type": "string"}}, "providers": {"type": "array", "items": {"type": "string"}},
             "mailboxes": {"type": "array", "items": {"type": "string"}}, "source_kinds": {"type": "array", "items": {"type": "string"}, "description": "live_imap, pst_archive"},
             "sender": {"type": "string"}, "recipient": {"type": "string"},
             "after": {"type": "string", "description": "ISO date, inclusive"}, "before": {"type": "string", "description": "ISO date, exclusive"}},
-            "required": ["query"]},
+            "required": ["project", "query"]},
     },
     "mail.get_message": {
         "description": "Get one indexed message by stable id (msg_...), or by uid + mailbox (+ account_id). Full body is opt-in.",
-        "inputSchema": {"type": "object", "properties": {
+        "inputSchema": {"type": "object", "properties": {"project": {"type": "string", "description": "registry project id; mail is limited to the project's mail_scope (work or personal)"}, 
             "id": {"type": "string"}, "uid": {"type": "string"}, "mailbox": {"type": "string", "default": "INBOX"}, "account_id": {"type": "string"},
-            "include_body": {"type": "boolean", "default": False}, "include_sources": {"type": "boolean", "default": True}, "include_attachments": {"type": "boolean", "default": True}}},
+            "include_body": {"type": "boolean", "default": False}, "include_sources": {"type": "boolean", "default": True}, "include_attachments": {"type": "boolean", "default": True}}, "required": ["project"]},
     },
     "mail.get_thread": {
         "description": "Get a conversation (References/In-Reply-To) by thread id (thr_...) or any message id in it. Bodies are opt-in.",
-        "inputSchema": {"type": "object", "properties": {"thread_id": {"type": "string"}, "message_id": {"type": "string"}, "include_body": {"type": "boolean", "default": False}, "limit": {"type": "integer", "default": 50}}},
+        "inputSchema": {"type": "object", "properties": {"project": {"type": "string", "description": "registry project id; mail is limited to the project's mail_scope (work or personal)"}, "thread_id": {"type": "string"}, "message_id": {"type": "string"}, "include_body": {"type": "boolean", "default": False}, "limit": {"type": "integer", "default": 50}}, "required": ["project"]},
     },
     "mail.sync_status": {
         "description": "Mail sync status for every account (or one account_id): configured, credential available, authentication, last sync, caught up, capability mode. Never exposes credentials.",
-        "inputSchema": {"type": "object", "properties": {"account_id": {"type": "string"}}},
+        "inputSchema": {"type": "object", "properties": {"project": {"type": "string", "description": "registry project id; mail is limited to the project's mail_scope (work or personal)"}, "account_id": {"type": "string"}}, "required": ["project"]},
     },
     "mail.sync": {
         "description": "Incrementally synchronize mail into the local read-only index: one account_id, or all enabled accounts. New messages up to limit per mailbox; backfill pulls that many older ones.",
-        "inputSchema": {"type": "object", "properties": {"account_id": {"type": "string"}, "mailbox": {"type": "string"}, "limit": {"type": "integer", "default": 200}, "backfill": {"type": "integer", "default": 0}}},
+        "inputSchema": {"type": "object", "properties": {"project": {"type": "string", "description": "registry project id; mail is limited to the project's mail_scope (work or personal)"}, "account_id": {"type": "string"}, "mailbox": {"type": "string"}, "limit": {"type": "integer", "default": 200}, "backfill": {"type": "integer", "default": 0}}, "required": ["project"]},
     },
     "document.cache_status": {
         "description": "Report local document-cache size and age as counts only. The cache is workstation-local and its contents are never returned.",
@@ -322,13 +346,13 @@ def methods() -> dict[str, Callable[..., Any]]:
         "improvement.update": update_improvement,
         "improvement.search": search_improvements,
         "improvement.issue_payload": issue_payload,
-        "mail.accounts": mail_accounts,
-        "mail.account_status": mail_account_status,
-        "mail.search": mail_search,
-        "mail.get_message": mail_get_message,
-        "mail.get_thread": mail_get_thread,
-        "mail.sync_status": mail_status,
-        "mail.sync": mail_sync,
+        "mail.accounts": _mail_scoped(mail_accounts),
+        "mail.account_status": _mail_scoped(mail_account_status, account_arg=True),
+        "mail.search": _mail_scoped(mail_search),
+        "mail.get_message": _mail_scoped(mail_get_message),
+        "mail.get_thread": _mail_scoped(mail_get_thread),
+        "mail.sync_status": _mail_scoped(mail_status),
+        "mail.sync": _mail_scoped(mail_sync),
         "document.cache_status": cache_status_safe,
         "profile.retrieve": profile_retrieve,
         "profile.status": profile_status,
