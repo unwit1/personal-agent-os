@@ -1,0 +1,53 @@
+{
+  "record_id": "rtec-retirement-401k-email-evidence-2017-2021",
+  "updated_at": "2026-09-23",
+  "status": "validated_historical_pattern_current_provider_unresolved",
+  "privacy": "No participant names, balances, contribution rates, elections or account identifiers are retained.",
+  "evidence": [
+    {
+      "finding": "HR received and routed retirement-plan paperwork.",
+      "evidence_ids": [
+        "000038"
+      ]
+    },
+    {
+      "finding": "HR handled Roth/retirement-plan communication and document follow-up.",
+      "evidence_ids": [
+        "000065"
+      ]
+    },
+    {
+      "finding": "HR periodically ordered 401(k) books/materials.",
+      "evidence_ids": [
+        "000105",
+        "000163"
+      ]
+    },
+    {
+      "finding": "Repeated reminders show a handoff of 401(k) material/work to the finance/controller role.",
+      "evidence_ids": [
+        "000177",
+        "000305"
+      ]
+    }
+  ],
+  "historical_workflow_skeleton": [
+    "receive employee plan request/paperwork",
+    "verify required forms/materials",
+    "route or coordinate with finance/controller role",
+    "retain/update plan materials"
+  ],
+  "unresolved": [
+    "Current provider/recordkeeper",
+    "Current eligibility/enrollment/change method",
+    "Current HR versus finance/payroll ownership",
+    "Current payroll-feed implementation",
+    "Current required notices/material distribution and retention"
+  ],
+  "automation_candidates": [
+    "eligibility/enrollment checklist",
+    "missing-paperwork detection",
+    "HR-to-payroll/finance handoff tracking",
+    "plan-material version/currentness check"
+  ]
+}
