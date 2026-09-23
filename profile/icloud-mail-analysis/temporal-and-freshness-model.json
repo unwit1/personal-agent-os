@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-23",
+  "purpose": "Temporal/freshness model for the iCloud mail archive. It helps Agent OS distinguish genuine changes in the user's life from changes in notification volume.",
+  "annual_message_counts": {
+    "2018": 4,
+    "2019": 6,
+    "2020": 103,
+    "2021": 37,
+    "2022": 65,
+    "2023": 95,
+    "2024": 24,
+    "2025": 592,
+    "2026_through_2026_09_23": 9651
+  },
+  "recent_monthly_counts": {
+    "2025-09": 7,
+    "2025-10": 139,
+    "2025-11": 276,
+    "2025-12": 160,
+    "2026-01": 131,
+    "2026-02": 136,
+    "2026-03": 472,
+    "2026-04": 840,
+    "2026-05": 900,
+    "2026-06": 829,
+    "2026-07": 891,
+    "2026-08": 867,
+    "2026-09_through_23": 4585
+  },
+  "selected_automated_notification_estimate": {
+    "definition": "Messages whose sender matched a conservative subset of obvious notification systems such as GitHub, LinkedIn, Patreon, Amazon, Steam, research platforms, or noreply/notification patterns. This is not a complete automation classifier.",
+    "counts": {
+      "2025-10": 130,
+      "2025-11": 239,
+      "2025-12": 153,
+      "2026-01": 125,
+      "2026-02": 123,
+      "2026-03": 326,
+      "2026-04": 629,
+      "2026-05": 703,
+      "2026-06": 613,
+      "2026-07": 633,
+      "2026-08": 564,
+      "2026-09_through_23": 4255
+    }
+  },
+  "interpretation": [
+    "The dramatic 2025-2026 increase in archive volume is driven heavily by automated notifications and subscriptions, not a comparable increase in autobiographical information.",
+    "Raw message frequency therefore must not be used as a direct proxy for importance, preference strength, or life-event frequency.",
+    "Older sparse years can contain unusually high-value direct correspondence despite having far fewer messages.",
+    "Sent Messages, direct replies, transactions, and repeated cross-source confirmation should receive substantially more profile weight than aggregate notification volume."
+  ],
+  "freshness_rules": [
+    "Current direct user statements outrank all historical email evidence.",
+    "For changing facts such as employer, housing, device, service, or relationship label, prefer the newest direct/transactional evidence and retain older values only as timeline history.",
+    "For durable interests, recurrence across years or independent sources increases confidence.",
+    "For 2026 high-volume feeds, deduplicate and down-weight repeated notification templates before drawing conclusions.",
+    "A burst of automated mail after subscribing to a service is evidence of the subscription/account relationship, not evidence that every notification was read or acted on."
+  ],
+  "agent_retrieval_implication": "Future mail retrieval should rank by evidence class and relevance before recency-only scoring. Otherwise thousands of 2026 notification messages can bury a small number of highly informative direct messages from earlier years."
+}
