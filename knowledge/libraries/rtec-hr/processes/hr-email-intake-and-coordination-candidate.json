@@ -1,0 +1,184 @@
+{
+  "id": "rtec-process-hr-email-intake-and-coordination-candidate",
+  "record_type": "process",
+  "title": "HR email intake and coordination observations",
+  "status": "candidate",
+  "temporal_status": "unknown",
+  "summary": "Initial, privacy-safe observations from the HR mailbox and former HR manager archives. These are process leads for validation, not instructions for handling current cases.",
+  "claims": [
+    {
+      "claim": "In September 2026, the HR inbox received repeated notifications for employment application form submissions. This suggests the online form is one channel for applicant intake; its relationship to ADP and the full review workflow remains to be verified.",
+      "claim_kind": "rule_candidate",
+      "confidence": 0.65,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-process-historical-hiring-screening-aap-2015-2018"
+      ],
+      "evidence": [
+        {
+          "source_id": "email-msg-7ee41a769c0c509dc2a78eca",
+          "page_or_section": "HR inbox message, 2026-09-22",
+          "evidence_type": "repeated_observation",
+          "note": "Application response content and applicant identity are excluded."
+        },
+        {
+          "source_id": "email-msg-66bc304254a0fbf26c6d7ffb",
+          "page_or_section": "HR inbox message, 2026-09-22",
+          "evidence_type": "repeated_observation",
+          "note": "Application response content and applicant identity are excluded."
+        },
+        {
+          "source_id": "email-msg-3ea8cc380004df1c8abe9070",
+          "page_or_section": "HR inbox message, 2026-09-21",
+          "evidence_type": "repeated_observation",
+          "note": "Application response content and applicant identity are excluded."
+        }
+      ]
+    },
+    {
+      "claim": "HR correspondence includes coordination to collect missing new-hire information before benefits paperwork can be completed. The responsible parties, required documents, system of record, and sequence need confirmation from position-level sources.",
+      "claim_kind": "rule_candidate",
+      "confidence": 0.55,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "email-msg-586459b1b62f547acda27ba4",
+          "page_or_section": "HR inbox message, 2026-09-22",
+          "evidence_type": "explicit_text",
+          "note": "Employee identity and the requested personal information are excluded. This single-case message does not establish a universal process."
+        }
+      ]
+    },
+    {
+      "claim": "A 2017 handbook discussion described the insurance section as applying after 60 days, consistent at a high level with the 2025 handbook's 60-day eligibility language. The email does not establish the complete effective-date formula or current plan rules.",
+      "claim_kind": "observed_fact",
+      "confidence": 0.8,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-hours-pay-benefits-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "email-msg-248abc64259c87ecb4943330",
+          "page_or_section": "former HR manager archive message, 2017-03-16",
+          "evidence_type": "explicit_text",
+          "note": "Historical email evidence only; the 2025 handbook remains the current position-level source. No employee case details are retained."
+        }
+      ]
+    },
+    {
+      "claim": "A 2017–2020 scan of former HR manager archives surfaced recurring handbook, policy, EEO, FMLA, ADP/payroll, benefit enrollment, training, and audit topics. This establishes a source map for further historical process research, not the content or currentness of any rule.",
+      "claim_kind": "interpretation",
+      "confidence": 0.7,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "email-archive-former-hr-manager-folders-2016-2020",
+          "page_or_section": "targeted subject/body searches across two former HR manager mailboxes",
+          "evidence_type": "repeated_observation",
+          "note": "Counts and topics only; no contact dossiers, employee/applicant identities, or case details retained."
+        }
+      ]
+    }
+  ],
+  "provenance": [
+    {
+      "source_id": "email-msg-7ee41a769c0c509dc2a78eca",
+      "safe_source_type": "restricted_email_metadata_only",
+      "source_date_or_version": "2026-09-22",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "unknown",
+      "content_sha256": null,
+      "page_or_section": "HR inbox message metadata",
+      "full_source_path": null,
+      "searchable_text_path": null,
+      "ingested_at": "2026-09-23",
+      "notes": "Application response content and applicant identity are excluded."
+    },
+    {
+      "source_id": "email-msg-66bc304254a0fbf26c6d7ffb",
+      "safe_source_type": "restricted_email_metadata_only",
+      "source_date_or_version": "2026-09-22",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "unknown",
+      "content_sha256": null,
+      "page_or_section": "HR inbox message metadata",
+      "full_source_path": null,
+      "searchable_text_path": null,
+      "ingested_at": "2026-09-23",
+      "notes": "Application response content and applicant identity are excluded."
+    },
+    {
+      "source_id": "email-msg-3ea8cc380004df1c8abe9070",
+      "safe_source_type": "restricted_email_metadata_only",
+      "source_date_or_version": "2026-09-21",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "unknown",
+      "content_sha256": null,
+      "page_or_section": "HR inbox message metadata",
+      "full_source_path": null,
+      "searchable_text_path": null,
+      "ingested_at": "2026-09-23",
+      "notes": "Application response content and applicant identity are excluded."
+    },
+    {
+      "source_id": "email-msg-586459b1b62f547acda27ba4",
+      "safe_source_type": "restricted_email_metadata_only",
+      "source_date_or_version": "2026-09-22",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "unknown",
+      "content_sha256": null,
+      "page_or_section": "HR inbox message metadata",
+      "full_source_path": null,
+      "searchable_text_path": null,
+      "ingested_at": "2026-09-23",
+      "notes": "The message concerns one new-hire case. Personal information and identity are excluded; it does not establish a universal process."
+    },
+    {
+      "source_id": "email-msg-248abc64259c87ecb4943330",
+      "safe_source_type": "restricted_email_metadata_only",
+      "source_date_or_version": "2017-03-16",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "content_sha256": null,
+      "page_or_section": "former HR manager archive message metadata",
+      "full_source_path": null,
+      "searchable_text_path": null,
+      "ingested_at": "2026-09-23",
+      "notes": "Raw email body and surrounding case context remain outside the Git corpus. The current 2025 handbook remains the position-level authority."
+    },
+    {
+      "source_id": "email-archive-former-hr-manager-folders-2016-2020",
+      "safe_source_type": "restricted_email_metadata_only",
+      "source_date_or_version": "Targeted scan performed 2026-09-23; hits dated 2016-2020",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "content_sha256": null,
+      "page_or_section": "subject/body keyword search across two former HR manager folders",
+      "full_source_path": null,
+      "searchable_text_path": null,
+      "ingested_at": "2026-09-23",
+      "notes": "Only topic clusters were retained. No contact dossiers, employee/applicant identities, or case details are included."
+    }
+  ]
+}
