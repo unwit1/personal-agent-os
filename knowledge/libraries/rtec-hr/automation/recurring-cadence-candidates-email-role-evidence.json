@@ -1,0 +1,202 @@
+{
+  "record_id": "rtec-hr-recurring-cadence-candidates-from-email-and-role-evidence",
+  "updated_at": "2026-09-23",
+  "status": "candidate_calendar_requires_currentness_validation",
+  "principle": "Observed recurrence is not treated as a mandated deadline unless a separate role/policy source explicitly states a cadence.",
+  "items": [
+    {
+      "task": "HR report",
+      "email_evidence_ids": [
+        "000189",
+        "000310"
+      ],
+      "observed_recurrence": "at least twice in 2021",
+      "corroborated_cadence": "Historical HR duty document says first of each month.",
+      "confidence": "high_historical",
+      "currentness": "recipient/content/current use unknown"
+    },
+    {
+      "task": "check-register verification",
+      "email_evidence_ids": [
+        "000191",
+        "000206",
+        "000288"
+      ],
+      "observed_recurrence": "three reminders in Feb/Mar/Jul 2021",
+      "corroborated_cadence": "Historical HR duty document says monthly.",
+      "confidence": "high_historical",
+      "currentness": "current finance/HR split unresolved"
+    },
+    {
+      "task": "insurance invoice retrieval and AP handoff",
+      "email_evidence_ids": [
+        "000272",
+        "000283",
+        "000340"
+      ],
+      "observed_recurrence": "multiple carrier/invoice reminders in 2021",
+      "corroborated_cadence": "Historical HR duty document says monthly, usually around the 20th-21st.",
+      "confidence": "high_historical",
+      "currentness": "current carriers and AP workflow unresolved"
+    },
+    {
+      "task": "Medicare creditable-coverage notice",
+      "email_evidence_ids": [
+        "000148",
+        "000289"
+      ],
+      "observed_recurrence": "late July reminders in 2020 and 2021",
+      "corroborated_cadence": "Historical HR duty document says annually before October 15.",
+      "confidence": "high_historical",
+      "currentness": "current regulatory/provider workflow requires verification"
+    },
+    {
+      "task": "CMS creditable-coverage submission",
+      "email_evidence_ids": [
+        "000306"
+      ],
+      "observed_recurrence": "single explicit 2021 reminder",
+      "corroborated_cadence": "Historical HR duty document independently requires electronic CMS submission in the Medicare-notice workflow.",
+      "confidence": "medium_high_historical",
+      "currentness": "current deadline/process requires validation"
+    },
+    {
+      "task": "EEO-1 filing",
+      "email_evidence_ids": [
+        "000027",
+        "000135",
+        "000219"
+      ],
+      "observed_recurrence": "account/reporting evidence across 2016, 2020, 2021",
+      "corroborated_cadence": "Historical HR duty document says annual federal EEO-1.",
+      "confidence": "high_historical",
+      "currentness": "follow current EEOC filing calendar/applicability"
+    },
+    {
+      "task": "state EEO recertification",
+      "email_evidence_ids": [
+        "000180",
+        "000299",
+        "000302"
+      ],
+      "observed_recurrence": "Dec 2020 and Sep 2021 reminders",
+      "corroborated_cadence": "Historical HR duty document says annual state recertification.",
+      "confidence": "high_historical",
+      "currentness": "current state program/owner unresolved"
+    },
+    {
+      "task": "employee service anniversaries/awards",
+      "email_evidence_ids": [
+        "000055",
+        "000056",
+        "000059",
+        "000060",
+        "000076",
+        "000097",
+        "000126",
+        "000147",
+        "000149",
+        "000184",
+        "000185",
+        "000186",
+        "000187",
+        "000188",
+        "000298",
+        "000315"
+      ],
+      "observed_recurrence": "numerous anniversary reminders 2018-2021",
+      "corroborated_cadence": "Historical HR duty document identifies years-of-service awards as an HR duty.",
+      "confidence": "high_historical",
+      "currentness": "current recognition program unknown"
+    },
+    {
+      "task": "attendance/absentee reporting",
+      "email_evidence_ids": [
+        "000278",
+        "000300",
+        "000157",
+        "000158"
+      ],
+      "observed_recurrence": "repeated 2020-2021 reminders",
+      "corroborated_cadence": "Historical HR duty document says daily absence logging plus annual attendance-calendar creation.",
+      "confidence": "high_historical",
+      "currentness": "current tracker/system unknown"
+    },
+    {
+      "task": "W-4/K-4 version monitoring",
+      "email_evidence_ids": [
+        "000107",
+        "000182",
+        "000193",
+        "000320"
+      ],
+      "observed_recurrence": "2019 and multiple 2021 checks",
+      "corroborated_cadence": null,
+      "confidence": "medium_historical",
+      "currentness": "treat as event/version-driven, not fixed annual deadline without current tax authority"
+    },
+    {
+      "task": "Census/QuickFacts data refresh",
+      "email_evidence_ids": [
+        "000279",
+        "000303",
+        "000309"
+      ],
+      "observed_recurrence": "three reminders Jul-Sep 2021",
+      "corroborated_cadence": "Historical HR duty document says current Census data usually around April and ties it to HR tracking.",
+      "confidence": "medium_high_historical",
+      "currentness": "exact AAP data source/methodology unresolved"
+    },
+    {
+      "task": "401(k) material ordering",
+      "email_evidence_ids": [
+        "000105",
+        "000163"
+      ],
+      "observed_recurrence": "2019 and 2020 reminders",
+      "corroborated_cadence": null,
+      "confidence": "medium_historical",
+      "currentness": "likely demand/inventory driven rather than fixed cadence"
+    },
+    {
+      "task": "timesheet/timecard approval",
+      "email_evidence_ids": [
+        "000159",
+        "000287",
+        "000301"
+      ],
+      "observed_recurrence": "2020-2021 reminders",
+      "corroborated_cadence": "Current handbook establishes biweekly payday, but email/role evidence does not by itself prove the exact approval cutoff.",
+      "confidence": "medium_high",
+      "currentness": "pay-period cutoff/owner needs live validation"
+    },
+    {
+      "task": "OSHA 300A posting",
+      "email_evidence_ids": [],
+      "observed_recurrence": null,
+      "corroborated_cadence": "Historical HR duty document says annually February 1-April 30.",
+      "confidence": "role_document_only",
+      "currentness": "verify current legal/applicability requirements before adding to active calendar"
+    },
+    {
+      "task": "flu-shot event coordination",
+      "email_evidence_ids": [],
+      "observed_recurrence": null,
+      "corroborated_cadence": "Historical HR duty document says annually, usually September/October.",
+      "confidence": "role_document_only",
+      "currentness": "current wellness program/vendor unknown"
+    },
+    {
+      "task": "AAP filing",
+      "email_evidence_ids": [
+        "000067",
+        "000085"
+      ],
+      "observed_recurrence": "submission/review plus a January-2022 reminder",
+      "corroborated_cadence": "Historical role document separately says every four years with January 30, 2024 due.",
+      "confidence": "conflicted",
+      "currentness": "do not schedule until supersession/cycle is resolved"
+    }
+  ],
+  "automation_rule": "Only items marked current by authoritative sources should become active recurring Agent OS tasks. Historical/high-confidence recurrence may be used to ask targeted currentness questions, not silently schedule work."
+}
