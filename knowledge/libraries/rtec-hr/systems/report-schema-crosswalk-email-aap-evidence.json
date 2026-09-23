@@ -1,0 +1,321 @@
+{
+  "record_id": "rtec-hr-report-schema-crosswalk-email-aap-evidence",
+  "updated_at": "2026-09-23",
+  "status": "cross_source_data_model",
+  "purpose": "Map historical HR trackers and safe aggregate AAP/report outputs to reusable schemas and likely modern source systems without preserving person-level records in GitHub.",
+  "models": [
+    {
+      "model": "workforce_position_snapshot",
+      "historical_artifacts": [
+        "Workforce Analysis Form",
+        "Employee List - Current",
+        "Employees by County",
+        "EEO Category List"
+      ],
+      "safe_aggregate_schema": [
+        "department_or_work_unit",
+        "job_title",
+        "eeo1_category",
+        "job_group",
+        "total_employees",
+        "wage_rate_or_band_if_allowed",
+        "male_total",
+        "female_total",
+        "race_ethnicity_counts_by_sex",
+        "veteran_count",
+        "individual_with_disability_count"
+      ],
+      "likely_source_domains": [
+        "employee master",
+        "job/position master",
+        "EEO/demographic fields"
+      ],
+      "modern_source_candidates": [
+        "ADP Workforce Now for employee/job/EEO data",
+        "separate authoritative organizational/job-description source for role taxonomy"
+      ],
+      "duplicate_manual_entry_risk": "high",
+      "recommendation": "Generate aggregate snapshot from authoritative employee/job data instead of maintaining a parallel person-level spreadsheet whenever data quality permits.",
+      "privacy": "Only aggregate output belongs in GitHub; person-level EEO/demographic data stays restricted."
+    },
+    {
+      "model": "personnel_activity_ledger",
+      "historical_artifacts": [
+        "New Hires by Fiscal Year",
+        "Terminations by Fiscal Year",
+        "Promotions by Fiscal Year",
+        "Transfers by Fiscal Year",
+        "Disciplinary Action by Fiscal Year",
+        "AAP Personnel Activity Data Sheet"
+      ],
+      "safe_aggregate_schema": [
+        "job_group",
+        "activity_type",
+        "sex",
+        "race_ethnicity",
+        "veteran_flag_aggregate",
+        "iwd_flag_aggregate",
+        "count"
+      ],
+      "activity_types": [
+        "external_hire",
+        "external_applicant",
+        "promotion_into_group",
+        "promotion_within_group",
+        "transfer_into_group",
+        "transfer_within_group",
+        "voluntary_termination_or_retirement",
+        "involuntary_termination",
+        "layoff",
+        "recall",
+        "disciplinary_action"
+      ],
+      "modern_source_candidates": [
+        "ADP employee/job history for hires/terms/transfers/promotions",
+        "ADP ATS for applicants/hiring pipeline",
+        "restricted disciplinary case log for discipline"
+      ],
+      "duplicate_manual_entry_risk": "very_high",
+      "recommendation": "Maintain event-level restricted source ledgers once, then derive fiscal-year aggregate AAP tables automatically.",
+      "privacy": "Event/person rows restricted; aggregate counts safe."
+    },
+    {
+      "model": "new_hire_summary",
+      "historical_artifacts": [
+        "New Hire Summary",
+        "New Hires by Fiscal Year"
+      ],
+      "safe_aggregate_schema": [
+        "job_group",
+        "male_race_counts",
+        "female_race_counts",
+        "veteran_count",
+        "iwd_count",
+        "total",
+        "male_pct",
+        "female_pct",
+        "minority_pct",
+        "veteran_pct",
+        "iwd_pct"
+      ],
+      "modern_source_candidates": [
+        "ADP employee master + EEO fields",
+        "ADP ATS applicant/hire linkage"
+      ],
+      "duplicate_manual_entry_risk": "high",
+      "recommendation": "Derive from authoritative hire events and validated EEO data; never manually re-enter employee demographic rows solely to produce the summary."
+    },
+    {
+      "model": "termination_summary",
+      "historical_artifacts": [
+        "Termination Summary",
+        "Terminations by Fiscal Year"
+      ],
+      "safe_aggregate_schema": [
+        "job_group",
+        "male_race_counts",
+        "female_race_counts",
+        "veteran_count",
+        "iwd_count",
+        "total",
+        "male_pct",
+        "female_pct",
+        "minority_pct",
+        "veteran_pct",
+        "iwd_pct"
+      ],
+      "modern_source_candidates": [
+        "ADP employee separation history"
+      ],
+      "duplicate_manual_entry_risk": "high",
+      "recommendation": "Derive aggregate termination summary from authoritative separation events; keep termination reasons/person details restricted."
+    },
+    {
+      "model": "job_group_mapping",
+      "historical_artifacts": [
+        "Job Group Analysis",
+        "job descriptions",
+        "EEO Category List"
+      ],
+      "safe_schema": [
+        "job_title",
+        "job_group",
+        "eeo1_category",
+        "effective_from",
+        "effective_to",
+        "source_version"
+      ],
+      "modern_source_candidates": [
+        "canonical job-description library",
+        "ADP job codes/titles",
+        "current organization chart"
+      ],
+      "duplicate_manual_entry_risk": "medium",
+      "recommendation": "Maintain one versioned role-to-job-group crosswalk and reuse it across EEO/AAP analyses. Do not infer current mapping from stale titles."
+    },
+    {
+      "model": "incumbency_availability_goal_analysis",
+      "historical_artifacts": [
+        "Incumbency Analysis",
+        "Incumbency to Availability",
+        "Determining Availability",
+        "Determining Availability for IWDs",
+        "Determining Availability for Veterans"
+      ],
+      "safe_schema": [
+        "job_group",
+        "incumbency_pct",
+        "availability_pct",
+        "goal_required",
+        "goal_value",
+        "population_dimension",
+        "labor_market_source",
+        "analysis_date"
+      ],
+      "population_dimensions": [
+        "female",
+        "minority",
+        "veteran",
+        "individual_with_disability"
+      ],
+      "modern_source_candidates": [
+        "derived internal workforce aggregates",
+        "validated external labor-market/availability source"
+      ],
+      "duplicate_manual_entry_risk": "medium",
+      "recommendation": "Separate the calculation engine from source workbooks. Store source provenance and formulas/versioned methodology so new plan years can be regenerated deterministically.",
+      "unresolved": "Current labor-market sources, weighting methodology, and known percentage-format anomalies need validation before reuse."
+    },
+    {
+      "model": "title_vii_case_register",
+      "historical_artifacts": [
+        "Title VII Investigations Tracker",
+        "Title VII complaint forms"
+      ],
+      "safe_template_schema": [
+        "case_date",
+        "case_class",
+        "summary_basis_category",
+        "status",
+        "actions_taken"
+      ],
+      "case_classes": [
+        "investigation",
+        "lawsuit",
+        "complaint"
+      ],
+      "modern_source_candidates": [
+        "restricted EEO complaint/case workflow"
+      ],
+      "duplicate_manual_entry_risk": "medium",
+      "recommendation": "Use a restricted case system as source; derive a safe status/aggregate report when needed. Current signed EEO policy establishes current EEO Officer authority but current complaint forms/workflow remain unresolved.",
+      "privacy": "Completed cases are restricted; only blank schema and non-identifying aggregate status can be durable."
+    },
+    {
+      "model": "attendance_event_ledger",
+      "historical_artifacts": [
+        "Attendance Calendar",
+        "Absentee Report",
+        "Personal Time Taken List"
+      ],
+      "safe_schema": [
+        "event_date",
+        "absence_code",
+        "hours_or_duration_band",
+        "point_value",
+        "protected_or_excluded_flag",
+        "approval_status",
+        "point_expiry_date"
+      ],
+      "modern_source_candidates": [
+        "current time/attendance system or controlled HR attendance ledger",
+        "current 2025 handbook as rule source"
+      ],
+      "duplicate_manual_entry_risk": "very_high",
+      "recommendation": "Use one restricted event ledger and derive calendar, absentee report and point balance automatically. Do not maintain three parallel manual artifacts."
+    },
+    {
+      "model": "benefit_enrollment_and_billing_events",
+      "historical_artifacts": [
+        "benefit election/change forms",
+        "insurance deduction spreadsheet",
+        "carrier invoices",
+        "SBCs",
+        "COBRA reports",
+        "Medicare/CMS notices"
+      ],
+      "safe_schema": [
+        "event_type",
+        "plan_or_vendor",
+        "effective_date",
+        "submission_status",
+        "required_notice_type",
+        "reconciliation_status"
+      ],
+      "modern_source_candidates": [
+        "Guardian/UHC/current carrier systems",
+        "iSolved/benefit-services where applicable",
+        "ADP deductions/payroll",
+        "approved benefit plan documents"
+      ],
+      "duplicate_manual_entry_risk": "high",
+      "recommendation": "Track benefit events once with provider/system provenance; reconcile payroll deductions and carrier confirmations without duplicating participant details into ad hoc spreadsheets."
+    },
+    {
+      "model": "payroll_control_cycle",
+      "historical_artifacts": [
+        "timesheet/timecard approvals",
+        "Payroll Check Register",
+        "W-4/K-4 monitoring",
+        "ADP quarter-end reports"
+      ],
+      "safe_schema": [
+        "pay_period_or_quarter",
+        "control_step",
+        "owner_role",
+        "status",
+        "exception_count",
+        "approval_timestamp",
+        "source_system"
+      ],
+      "modern_source_candidates": [
+        "ADP Workforce Now",
+        "ADP SmartCompliance",
+        "iReports"
+      ],
+      "duplicate_manual_entry_risk": "medium",
+      "recommendation": "Model the control checklist and exceptions, not duplicate payroll data. Completed payroll rows/reports remain restricted."
+    },
+    {
+      "model": "new_hire_state_reporting_batch",
+      "historical_artifacts": [
+        "Kentucky New Hire upload spreadsheet",
+        "Web File Upload Preview",
+        "Web File Upload Completion"
+      ],
+      "safe_schema": [
+        "batch_id",
+        "submission_date",
+        "record_count",
+        "acceptable_count",
+        "previously_submitted_count",
+        "rejected_count",
+        "within_file_duplicate_count",
+        "validation_errors_sanitized",
+        "completion_status"
+      ],
+      "modern_source_candidates": [
+        "authoritative new-hire employee source + Kentucky New Hire portal"
+      ],
+      "duplicate_manual_entry_risk": "high",
+      "recommendation": "Generate batch from unreported hires, preflight before submission, persist sanitized portal result/audit metadata, and keep employee rows restricted."
+    }
+  ],
+  "architectural_principles": [
+    "Canonicalize schemas, calculations, provenance and aggregate outputs; do not canonicalize mutable live person-level spreadsheets in GitHub.",
+    "Prefer one authoritative event/employee source with derived reports over several manually synchronized trackers.",
+    "Version role/job-group mappings and compliance calculation methodology.",
+    "Separate policy/rule authority from generated report data.",
+    "Every derived aggregate should be reproducible from its source snapshot and transformation version."
+  ]
+}
