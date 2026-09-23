@@ -104,6 +104,24 @@
       "domain": "affirmative_action_plan_sources",
       "question": "Locate the sample ads/brochures and Commonwealth of Kentucky certification documents referenced by the 2022 AAP binder index but not included in this upload.",
       "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "job_descriptions",
+      "question": "Which uploaded job-description version is the current approved version for each active RTEC role, and what effective/revision dates supersede the historical variants?",
+      "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "job_descriptions_flsa",
+      "question": "Resolve conflicting FLSA classifications and role-title variants in the historical job-description archive, notably Human Resources Manager and Information Systems Technician, against current payroll/organizational authority before operational use.",
+      "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "job_descriptions_hiring",
+      "question": "Reconcile qualification, safety-sensitive, background-check, drug/alcohol-testing, physical-demand, pay, benefit, and licensing language in historical job descriptions/recruitment materials with current approved policies and postings before reusing it.",
+      "status": "open"
     }
   ]
 }
