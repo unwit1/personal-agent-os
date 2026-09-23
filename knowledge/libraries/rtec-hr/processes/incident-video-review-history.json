@@ -1,0 +1,152 @@
+{
+  "id": "rtec-process-incident-video-review-history",
+  "record_type": "process",
+  "title": "Incident video-review documentation - observed 2024 case",
+  "status": "candidate",
+  "temporal_status": "historical",
+  "effective_from": "2024-08-09",
+  "effective_to": "2024-08-09",
+  "summary": "A restricted 2024 incident note documents review of recorded video/audio and a written observation summary. It provides case evidence for an investigation workflow that is independently compatible with the current 2025 surveillance policy, but one case does not establish the complete incident-investigation procedure.",
+  "claims": [
+    {
+      "claim": "A restricted August 2024 incident record is explicitly a written review of video evidence and records the reviewer's observed sequence of events from the recording.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-policy-video-audio-surveillance-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-employee-specific-incident-record-572211628ea1",
+          "page_or_section": "restricted 2024 video-review note - structural purpose only",
+          "evidence_type": "explicit_text",
+          "note": "People, allegations and observed case details are excluded."
+        }
+      ]
+    },
+    {
+      "claim": "The current 2025 surveillance policy expressly permits authorized review of recordings for accident investigations, complaints, employee performance review, criminal investigation and other RTEC-determined reasons, corroborating video/audio as a current investigation evidence source.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-video-audio-surveillance-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 44 - Viewing and Monitoring Policy",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Because the 2024 note records an observer's interpretation of a recording rather than the recording itself, investigation records should distinguish source evidence from reviewer observations and final findings.",
+      "claim_kind": "interpretation",
+      "confidence": 0.99,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-employee-specific-incident-record-572211628ea1",
+          "page_or_section": "document structure",
+          "evidence_type": "structural",
+          "note": "Process inference; no case conclusion is generalized."
+        }
+      ]
+    }
+  ],
+  "trigger": "An incident, complaint or performance issue has relevant RTEC video/audio recording.",
+  "prerequisites": [
+    "Authorized access to the recording under current policy.",
+    "Preservation/retention hold when applicable."
+  ],
+  "actors": [
+    "Authorized recording reviewer",
+    "Human Resources",
+    "Operations/Safety management",
+    "Executive Director where access/disclosure decisions apply"
+  ],
+  "systems": [
+    "RTEC video/audio recording system",
+    "Restricted incident/case file"
+  ],
+  "forms": [
+    "Video-review observation note",
+    "Incident/investigation record"
+  ],
+  "steps": [
+    "Preserve the original recording when investigation/retention rules apply.",
+    "Record who reviewed the evidence and when.",
+    "Document objective observations separately from interpretations or conclusions.",
+    "Corroborate the recording with other available evidence when needed.",
+    "Link the review note to the original recording/case and retain access/audit provenance."
+  ],
+  "decisions": [
+    "Whether the recording is relevant and requires a retention hold.",
+    "Whether additional evidence/witness review is required.",
+    "What findings, if any, are supported after complete investigation."
+  ],
+  "deadlines": [
+    "Current handbook requires accident-investigation recordings to be retained for three years after the event or until litigation is finally resolved."
+  ],
+  "outputs": [
+    "Preserved recording",
+    "Reviewer observation note",
+    "Investigation evidence record",
+    "Final finding handled in the governing incident/discipline process"
+  ],
+  "exceptions": [],
+  "controls": [
+    "Do not substitute a reviewer summary for preservation of the source recording.",
+    "Distinguish observation, interpretation and final finding.",
+    "Restrict recording review to authorized roles/current access policy.",
+    "Keep case-specific allegations and identities restricted."
+  ],
+  "unresolved_questions": [
+    "What current standard form/checklist governs non-accident video investigations?",
+    "Is reviewer identity/time/system-access automatically logged today?",
+    "How are relevant clips exported, hashed and placed under retention hold when an HR investigation is opened?"
+  ],
+  "automation_candidates": [
+    "Create an investigation-evidence manifest that hashes recordings/exports and records reviewer, review time, source system and retention hold.",
+    "Separate objective timestamped observations from investigator conclusions in the case UI.",
+    "Automatically trigger the current surveillance-policy retention workflow when a case references video/audio."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-restricted-employee-specific-incident-record-572211628ea1",
+      "safe_source_type": "restricted_employee_incident_record",
+      "source_date_or_version": "2024-08-09",
+      "content_sha256": "572211628ea1bc28658fd2801909f63619a3be5883f4e0f811201ddaca38a54e",
+      "page_or_section": "document purpose/structure only",
+      "ingested_at": "2026-09-23",
+      "notes": "Names, allegations and case facts excluded.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": "2024-08-09",
+      "source_effective_to": "2024-08-09",
+      "temporal_status": "historical",
+      "full_source_path": null,
+      "searchable_text_path": null
+    },
+    {
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "safe_source_type": "employee_handbook",
+      "source_date_or_version": "2025-12-15",
+      "content_sha256": "d8601d4c5ded962051c521ace697f447492dc178d565a393e5c945c309a7e22c",
+      "page_or_section": "printed pages 43-45",
+      "ingested_at": "2026-09-23",
+      "notes": "Current surveillance policy context.",
+      "source_created_date": null,
+      "source_revision_date": "2025-12-15",
+      "source_effective_from": "2025-12-15",
+      "source_effective_to": null,
+      "temporal_status": "current",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md"
+    }
+  ]
+}
