@@ -1,0 +1,19 @@
+{
+  "snapshot":"2026-09-23",
+  "source":"Adamant/module scrambled/SKSE/Plugins/ScrambledBugs.json",
+  "summary":{
+    "entries":40,
+    "enabled_true":32,
+    "disabled_false":7,
+    "numeric_settings":1,
+    "quickShotPlaybackSpeed":2.0,
+    "expanded_behavior_config_entries":169,
+    "behavior_config_files":9,
+    "approved_rules":0
+  },
+  "guardrails":[
+    "Package runtime patch selection is implementation/dependency evidence.",
+    "Disabled patches are preserved as intentionally unselected configuration.",
+    "No Scrambled Bugs option is automatically an approved Simonrim rule."
+  ]
+}
