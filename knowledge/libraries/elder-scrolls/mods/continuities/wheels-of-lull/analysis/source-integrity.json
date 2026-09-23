@@ -63,9 +63,15 @@
   "exhaustiveness_audit": {
     "status": "complete_for_supplied_esp",
     "report": "exhaustiveness-audit.md",
-    "implementation_text_supplement": "../raw/implementation-text-supplement.jsonl.gz",
-    "implementation_text_records": 328,
-    "supplement_gzip_sha256": "e7ce7982e058679f1c61fc5360a506d0f330fb3f02751a5e871d4437c5ad3c8f"
+    "implementation_text_base": "../raw/implementation-text-supplement.jsonl.gz",
+    "implementation_text_augmentation": "../raw/source-evidence-augmentation.jsonl",
+    "implementation_text_records": 370,
+    "base_records": 328,
+    "augmentation_new_records": 42,
+    "field_augmentations": 16,
+    "total_persisted_source_evidence_records": 1460,
+    "natural_language_vmad_payloads_found": 0,
+    "source_localized": false
   },
-  "interpretation": "The prior 1,090-record core ingestion remains authoritative and is now fully readable. The previously excluded 52 INFO records were recovered from the exact source ESP. A separate 328-record implementation-text evidence layer closes omitted player-facing/structural text without reclassifying implementation metadata as narrative lore."
+  "interpretation": "The prior 1,090-record core ingestion remains authoritative and is fully readable. The previously excluded 52 INFO records were recovered from the exact source ESP. A separate 370-record implementation-evidence layer plus 16 field augmentations closes omitted player-facing/structural text without reclassifying implementation metadata as narrative lore."
 }
