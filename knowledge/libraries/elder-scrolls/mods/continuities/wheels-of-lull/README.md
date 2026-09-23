@@ -25,13 +25,13 @@ Core narrative/source corpus:
 
 The previously corrupt raw shards `151-200` and `401-450` were regenerated deterministically from the exact verified ESP on 2026-09-23. All core raw source records are now readable.
 
-A second full-plugin audit traversed all **36,824 physical plugin records** and added a separate **328-record implementation-text supplement** for player-facing or lore-structural evidence omitted by the original priority filter. This includes factions, talking activators, voice types, mechanisms, equipment, spells/effects, races/creatures, and three named placed references. Asset paths, package parameter labels, and other engine-only metadata were audited but not promoted into lore claims.
+A second full-plugin audit traversed all **36,824 physical plugin records** and produced a separate **370-record implementation-evidence layer** for player-facing or lore-structural evidence omitted by the original priority filter. This includes factions, talking activators, voice types, mechanisms, equipment, enchantments, keys, spells/effects, races/creatures, three named placed references, and explicitly classified cosmetic implementation labels. A final deep payload sweep also captured 14 MGEF `DNAM` descriptions plus the only human-readable INFO `NAM2` and `RNAM` fields. Asset paths, package parameter labels, binary false positives, and other engine-only metadata were audited but not promoted into lore claims. No natural-language VMAD/script payloads were found, and the plugin is not localized.
 
 See:
 - `analysis/source-integrity.json`
 - `analysis/exhaustiveness-audit.md`
 - `analysis/implementation-text-supplement.json`
-- `raw/implementation-text-supplement.jsonl.gz`
+- `raw/implementation-text-supplement.jsonl.gz`\n- `raw/source-evidence-augmentation.jsonl`
 
 ## Dialogue integrity
 
@@ -75,7 +75,7 @@ Those unresolved items now represent **external historical provenance work**, no
 
 The raw blocker is closed. Existing compact indexes cover the expected **1,090-record core corpus**, and a fresh deterministic materialization is now unblocked.
 
-A fresh checkout rebuild is still recommended as a verification step before replacing committed routing/lexical derivatives. The 328-record implementation-text supplement should remain a secondary evidence collection unless explicitly enabled, so implementation metadata does not become indistinguishable from narrative lore.
+A fresh checkout rebuild is still recommended as a verification step before replacing committed routing/lexical derivatives. The 370-record implementation-evidence layer should remain a secondary evidence collection unless explicitly enabled, so implementation metadata does not become indistinguishable from narrative lore.
 
 ## Provenance policy
 
