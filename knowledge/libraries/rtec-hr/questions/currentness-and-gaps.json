@@ -13,7 +13,8 @@
       "priority": "high",
       "domain": "employee_handbook",
       "question": "Is the March 2023 employee handbook the current handbook? If not, locate the superseding version and effective date.",
-      "status": "open"
+      "status": "resolved",
+      "resolution_note": "Resolved from the supplied December 15, 2025 Employee Handbook, which is the newer full handbook source currently modeled. The March 2023 selected handbook/discipline record is historical and has been linked as superseded."
     },
     {
       "priority": "high",
@@ -25,7 +26,8 @@
       "priority": "high",
       "domain": "discipline",
       "question": "Are the 2023 Group A-D disciplinary guidelines still current, and what present-day HR review/approval steps govern discipline?",
-      "status": "open"
+      "status": "partially_answered",
+      "resolution_note": "The December 15, 2025 handbook supersedes the 2023 Group A-D guidelines for current use and preserves current progressive-discipline language. The remaining open portion is the present-day corrective-action form, HR review/approval chain, and investigation/documentation standard."
     },
     {
       "priority": "high",
@@ -164,7 +166,8 @@
       "priority": "high",
       "domain": "attendance_leave",
       "question": "Does current RTEC policy still prohibit using personal/sick leave immediately before or after scheduled vacation to extend the vacation, and what exceptions or approval rules apply?",
-      "status": "open"
+      "status": "resolved",
+      "resolution_note": "Yes. The December 15, 2025 handbook explicitly states that Personal/Sick Leave cannot extend annual vacation, independently corroborating the historical 2015 memo. Current exceptions beyond the handbook language were not identified."
     },
     {
       "priority": "medium",
@@ -182,7 +185,8 @@
       "priority": "medium",
       "domain": "attendance_rotation",
       "question": "When did the 2021 Area Manager/CSR office-rotation attendance rule end or change, and what current attendance/point rules and protected-absence exceptions apply?",
-      "status": "open"
+      "status": "partially_answered",
+      "resolution_note": "The 2021 rotation memo is historical. Current attendance/point rules are established by the December 15, 2025 handbook (six-point system with protected exclusions), but the exact end/supersession date of the COVID office rotation remains unresolved."
     },
     {
       "priority": "medium",
