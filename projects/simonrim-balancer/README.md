@@ -4,20 +4,23 @@ A provenance-aware Skyrim gameplay design and balance knowledge project.
 
 The project imports the actual implementation of Simonrim mods, separates raw evidence from interpretation, learns version-scoped design patterns, and will use reviewed rules to analyze or design features for other mods. It is intentionally not a single balance score.
 
-## Current snapshot — 2026-09-23
+## Current evidence — 2026-09-23
 
-| Mod | Version |
-| --- | --- |
-| Adamant | 6.0.4 |
-| Hand to Hand | 2.0.2 |
-| Blade and Blunt | 4.0.3 |
-| Mysticism | 2.5.0 |
+The project now has two provenance-preserving ingestion slices.
 
-Current evidence includes 21 plugins, 6,009 records, 81,523 subrecords, 11,676 first-pass relations, 3,951 effect instances, 1,648 fully decoded MGEFs, 8,229 decoded conditions, 625 decoded perks with 1,006 effect entries, Papyrus/config/FOMOD evidence, master-aware override chains, and the first descriptive spell/perk baselines.
+### Core slice
+Adamant 6.0.4, Hand to Hand 2.0.2, Blade and Blunt 4.0.3 and Mysticism 2.5.0.
+
+### Expansion slice
+Adamant Bard Addon 1.1.0, Aetherius 2.15.1, Apothecary 1.3.9, Apprentice 1.1.0, Arena 1.2.0, Artificer 1.0.11, Candlehearth 1.1.1, Crusader 0.6, Gourmet 1.2.0, Manbeast 2.1.1, Mercantile 1.0.0, Pilgrim 1.3.1, Power Attack Speed Perks 1, Scion 2.2.2, Sorcerer 1.1.0, Starfrost 2.0.0 and Stormcrown 1.1.17.
+
+Across both slices there are 15,778 plugin record occurrences. The expansion alone adds 9,769 records, 289,053 subrecords, 239 PSC source occurrences, 2,046 decoded config values, 55 installer options and complete explicit treatment for all 68 record types encountered.
+
+Expansion behavioral coverage includes 935/935 VMAD payloads, 1,121 script attachments, 3,953 typed properties, 386 fragments and 83 quest aliases with zero VMAD failures.
 
 No design rules have been auto-approved. The architecture explicitly separates:
 
-raw → decoded → projected → observed_pattern → rule_candidate → approved_rule → exception
+raw → decoded → projected → observed_pattern → rule_candidate → review_family → approved_rule → exception
 
 ## Implemented analysis stages
 
@@ -25,15 +28,16 @@ raw → decoded → projected → observed_pattern → rule_candidate → approv
 - source/BSA/Papyrus/config/FOMOD inventory
 - canonical FormID resolver
 - imported-master override/delta engine
-- exact MGEF DATA decoder
-- exact CTDA decoder
-- exact PERK effect-entry decoder
-- semantic FormID relationships
+- exact magic/spell/perk/equipment/item decoders
+- encounter-zone, race, crafting/distribution and delivery decoders
+- VMAD script/property/fragment/alias decoding
+- quest/dialogue/world-placement support
+- semantic Form relationships
 - module/reversion/compatibility semantics
-- spell design profiles and numeric baselines
-- perk entry-point baselines
+- observed-pattern generation
+- candidate and review-family synthesis
 
-See docs/ARCHITECTURE.md, docs/RESOLUTION_AND_DELTAS.md, docs/SCHEMA_PROVENANCE.md, docs/OBSERVED_PATTERNS.md, docs/IMPORT_STATUS.md, and docs/NEXT_STEPS.md.
+See `docs/PROJECT_STATE_2026-09-23.md`, `docs/EXPANSION_INGESTION_2026-09-23.md`, `docs/EXPANSION_SEMANTIC_ANALYSIS_2026-09-23.md`, and `docs/NEXT_STEPS.md`.
 
 ## Core design principle
 
