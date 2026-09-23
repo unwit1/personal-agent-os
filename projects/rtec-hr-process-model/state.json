@@ -7,10 +7,11 @@
   "repository": "https://github.com/unwit1/personal-agent-os.git",
   "current_priorities": [
     "Continue ingesting the historical RTEC HR document base in small committed batches.",
+    "Find later AAP/EEO plans so the June 30, 2022 AAP package can be linked into a supersession/version chain.",
+    "Validate percentage/formula anomalies before reusing 2022 AAP calculations in any later plan.",
     "Use later and more authoritative sources to resolve the currentness/gap queue and build supersession chains.",
     "Preserve safe manuals, policies, procedures, templates, training/reference sources, and organizational materials in full searchable form.",
-    "Keep live employee/applicant/medical/incident case content out of GitHub while retaining privacy-safe provenance and candidate workflow evidence.",
-    "Synchronize safe original binary source artifacts through a local Git-capable Agent OS workflow where practical; current connector commits full searchable mirrors and hashes."
+    "Keep live employee/applicant/medical/incident/EEO roster content out of GitHub while retaining privacy-safe provenance and aggregate evidence."
   ],
   "important_paths": [
     "projects/rtec-hr-process-model/README.md",
@@ -20,14 +21,16 @@
     "knowledge/libraries/rtec-hr/questions/currentness-and-gaps.json",
     "schemas/rtec-hr-knowledge-v1.schema.json",
     "projects/rtec-hr-process-model/docs/REFERENCE_FORM_CONTEXT.md",
-    "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json"
+    "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json",
+    "knowledge/libraries/rtec-hr/plans/aap-2022-06-30/README.md"
   ],
   "context_files": [
     "projects/rtec-hr-process-model/README.md",
     "projects/rtec-hr-process-model/docs/INGESTION_CONTRACT.md",
     "knowledge/libraries/rtec-hr/README.md",
     "projects/rtec-hr-process-model/docs/REFERENCE_FORM_CONTEXT.md",
-    "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json"
+    "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json",
+    "knowledge/libraries/rtec-hr/plans/aap-2022-06-30/README.md"
   ],
   "skill_roots": [],
   "validation_commands": [],
@@ -49,13 +52,14 @@
     "preservation_rule": "Retain obsolete and superseded process sources for chronology and legacy-reference purposes."
   },
   "ingestion_status": {
-    "batches_completed": 1,
-    "latest_batch": "rtec-hr-batch-001",
-    "latest_batch_source_count": 14,
-    "safe_position_level_sources_preserved": 11,
-    "restricted_case_records_metadata_only": 3,
-    "derived_knowledge_records": 15,
-    "open_currentness_or_gap_questions": 12
+    "batches_completed": 2,
+    "latest_batch": "rtec-aap-2022-06-30",
+    "latest_batch_source_count": 20,
+    "latest_batch_safe_sources": 18,
+    "latest_batch_restricted_employee_rosters": 2,
+    "latest_batch_exact_duplicates": 1,
+    "plan_packages_ingested": 1,
+    "open_currentness_or_gap_questions": 17
   },
   "reference_form_context": {
     "catalog_path": "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json",
