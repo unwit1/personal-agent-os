@@ -1,0 +1,47 @@
+{
+  "snapshot_date": "2026-09-23",
+  "imported_versions": {
+    "Adamant": "6.0.4",
+    "Hand to Hand": "2.0.2",
+    "Blade and Blunt": "4.0.3",
+    "Mysticism": "2.5.0"
+  },
+  "resolution": {
+    "records_resolved": 5988,
+    "records_new_local": 3832,
+    "records_overrides": 2156,
+    "overrides_with_imported_baseline": 537,
+    "overrides_external_baseline_missing": 1619,
+    "canonical_keys_with_multiple_imported_versions": 567,
+    "override_chain_rows": 1145,
+    "changed_exact_baseline_overrides": 484,
+    "identical_forwards": 53,
+    "typed_field_deltas": 311,
+    "slot_resolution_failures": 0,
+    "relation_resolution_failures": 0,
+    "effect_resolution_failures": 0
+  },
+  "decoders": {
+    "magic_effects_decoded": 1648,
+    "magic_effect_failures": 0,
+    "conditions_decoded": 8229,
+    "condition_failures": 0,
+    "condition_functions_observed": 84,
+    "mgef_ctda_semantic_relations": 9937,
+    "perks_decoded": 625,
+    "perk_effect_entries": 1006,
+    "perk_conditions": 4035,
+    "perk_decoder_failures": 0,
+    "perk_semantic_relations": 2803,
+    "perk_entry_points_observed": 62,
+    "perk_entry_functions_observed": 9
+  },
+  "observed_patterns": {
+    "spell_profiles": 953,
+    "spell_baseline_groups": 294,
+    "perk_entry_point_baseline_groups": 148,
+    "patterns_min_sample_3": 179,
+    "approved_rules": 0
+  },
+  "next": "Finish remaining high-value decoders and semantic subdivision, then implement evidence-backed rule candidates with review gating."
+}
