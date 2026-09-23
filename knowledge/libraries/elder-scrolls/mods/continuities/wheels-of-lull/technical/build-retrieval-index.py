@@ -2,10 +2,12 @@
 """Deterministic retrieval materializer for the Wheels of Lull continuity.
 
 Uses only the persisted raw source-record shards plus derived speaker-resolution data.
-No ESP reparse is required.
+A full rebuild requires every raw shard to be readable. If a shard is corrupt, the
+builder fails closed and points to the continuity repair plan rather than silently
+building a partial retrieval corpus.
 """
 from __future__ import annotations
-import argparse, gzip, json, math, re
+import argparse, gzip, json, math, re, zlib
 from collections import Counter
 from pathlib import Path
 
@@ -29,13 +31,21 @@ def source_shards(raw_dir: Path):
 def load_records(raw_dir: Path):
     rows=[]
     for start,end,path in source_shards(raw_dir):
-        with open_text(path) as f:
-            for line_no,line in enumerate(f, 0):
-                if not line.strip(): continue
-                row=json.loads(line)
-                row["_source_record_index"] = start + line_no
-                row["_raw_shard"] = path.name
-                rows.append(row)
+        try:
+            with open_text(path) as f:
+                for line_no,line in enumerate(f, 0):
+                    if not line.strip(): continue
+                    row=json.loads(line)
+                    row["_source_record_index"] = start + line_no
+                    row["_raw_shard"] = path.name
+                    rows.append(row)
+        except (OSError, EOFError, UnicodeDecodeError, json.JSONDecodeError, zlib.error) as exc:
+            raise RuntimeError(
+                f"Cannot materialize retrieval corpus: unreadable raw shard {path.name}. "
+                "Do not build a partial index. Regenerate the shard from the verified "
+                "source ESP using analysis/repair-plan.md, then rerun this builder. "
+                f"Underlying error: {exc}"
+            ) from exc
     rows.sort(key=lambda r:r["_source_record_index"])
     return rows
 
