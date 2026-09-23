@@ -812,6 +812,31 @@ class Orchestrator:
                     self.store.append_event(record["run_id"], "provider.failover", node["id"], f"{provider} excluded for this node after {kind}")
         node["retries"] += 1
         if node["retries"] > policy["max_stage_retries"]:
+            selection = node.get("selection") or {}
+            if (
+                kind == "malformed"
+                and node["role"] == "planner"
+                and not selection.get("overridden")
+                and node["escalations"] < policy["max_escalations"]
+            ):
+                rung = _next_rung(node)
+                if rung:
+                    before = f"{node['capability_class']}/{node['effort']}"
+                    node["capability_class"] = rung["capability_class"]
+                    node["effort"] = rung["effort"]
+                    node["escalations"] += 1
+                    node["retries"] = 0
+                    node["state"] = "FAILED_RETRYABLE"
+                    node["selection"] = None
+                    label = f"{rung['capability_class']}/{rung['effort']}"
+                    node["wait_reason"] = f"planner response malformed; escalated to {label}"
+                    self.store.append_event(
+                        record["run_id"],
+                        "node.escalated",
+                        node["id"],
+                        f"{before} -> {label} after malformed planner output",
+                    )
+                    return
             node["state"] = "FAILED_FINAL"
             node["wait_reason"] = f"{kind} after {node['retries'] - 1} retr(ies): {redact(detail, 200)}"
             return
