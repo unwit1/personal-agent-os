@@ -1,0 +1,43 @@
+{
+  "snapshot": "2026-09-23",
+  "decoder": "MOVT",
+  "summary": {
+    "records_found": 12,
+    "records_decoded": 12,
+    "decode_failures": 0,
+    "sped_44_byte_records": 12,
+    "inam_12_byte_records": 12,
+    "exact_numeric_profile_groups": 8,
+    "repeated_profiles_min_sample_3": 2,
+    "observed_patterns": 3,
+    "all_inam_thresholds_sentinel": true,
+    "exact_imported_baselines": 0,
+    "external_skyrim_baselines": 12,
+    "approved_rules": 0
+  },
+  "repeated_profiles": [
+    {
+      "members": ["NPC_Attacking_MT", "NPC_Attacking2H_MT", "NPC_PowerAttacking_MT"],
+      "sample_count": 3,
+      "forward_walk": 75.0,
+      "forward_run": 200.0,
+      "back_walk": 35.0,
+      "back_run": 105.0,
+      "rotate_run_degrees": 80.0
+    },
+    {
+      "members": ["NPC_Default_MT", "NPC_1HM_MT", "NPC_2HM_MT"],
+      "sample_count": 3,
+      "forward_walk": 80.0,
+      "forward_run": 350.0,
+      "back_walk": 75.0,
+      "back_run": 200.0,
+      "rotate_run_degrees": 180.0
+    }
+  ],
+  "guardrails": [
+    "No Skyrim.esm record bodies are present for these overrides.",
+    "No vanilla-to-Blade-and-Blunt movement delta is claimed.",
+    "Observed patterns are not approved rules."
+  ]
+}
