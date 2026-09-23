@@ -1,29 +1,30 @@
-# Book-of-Curses Dremora
+# Book of Curses Dremora / game-master
 
-Form ID: 055B914C
+Form ID: 05520B3C
 Editor ID: dealsvampdremora
 Continuity: tes.mod.dealing-with-daedra
 
-An unnamed Dremora acts as the game-master or instigator of the Book of Curses contest.
+This Dremora is the organizer/game-master behind the Book of Curses contest.
 
-It explicitly says it set the game into motion.
+The Vampire Master is a participant rather than the ultimate architect. The Master says he was "chosen as a participant" and received the book's spine; when the Dremora appears, it says it set the game into motion.
+
+The player's dialogue and the Master's later response also treat this Dremora as the book's owner.
 
 ## Intervention
 
-After the player recovers pages for the Vampire Master, the Dremora removes the Master's Curse of Obedience without asking.
+Near the end of the collection route the Dremora:
+- removes the Vampire Master's Curse of Obedience from the player;
+- says it did so because it likes an underdog and wants the game to continue;
+- offers the player a meaningful choice between returning to the Master, trying to seize the completed book, or destroying the remaining page through the Vigilants.
 
-Its stated motive is entertainment: it likes underdogs and wants the game to continue longer.
+It does not intervene out of mercy. Every response is framed around making the contest more entertaining.
 
-It then permits or encourages several outcomes:
-- return voluntarily to the Master;
-- attempt to kill him and take the prize;
-- destroy the relevant page using holy fire at Stendarr's Beacon;
-- deceive the Master and wait for escape.
+If the player chooses the Vigilants, the Dremora directs them to the purging flame at Stendarr's Beacon.
 
-The Dremora reacts to choices primarily in terms of whether they make the contest interesting.
+If the player chooses rebellion, it encourages an attempt to kill the Master and take the book.
 
-## Reliability / patron
+If the player wants to return, it calls the choice boring.
 
-The source never identifies which Prince, if any, the Dremora serves in this contest.
+## Unknown patronage
 
-Do not infer a Prince from the artifact, behavior, or love of games without additional evidence.
+The surviving dialogue in this arc does not identify which Prince, if any, the Dremora serves. Do not infer a patron from the Book of Curses alone.
