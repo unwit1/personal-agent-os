@@ -1,0 +1,218 @@
+===== PDF SOURCE BEGIN / PART 6 OF 6 =====
+SOURCE_PATH: Equal Employment Opportunity Plan (EEO)/2022_EEO_1_Component_1_Instruction_Booklet.pdf
+SHA256: 7fed06d031d7214eb0fc7089bd6203071e0f648ed93cbb5be23154b6f9a6851d
+PAGES: 57
+TEXT_CHARS_TOTAL: 195987
+PART_INDEX: 6
+===== TEXT =====
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+51 
+employees who report to the establishment, categorized by job category and sex and race 
+or ethnicity.107  
+ 
+Consolidated Report108  
+A third-party human resource organization (e.g., PEO, HRO, ASO) choosing to file on 
+behalf of a multi-establishment client employer (i.e., multi-establishment employer), must 
+submit a “Consolidated Report” for the multi -establishment client employer. The 
+Consolidated Report must include demographic data for all the multi -establishment client 
+employer’s employees (i.e., all employees at the employer’s headquarters as well as all 
+non-headquarters establishments) categorized by job category and sex and race or 
+ethnicity. In other words, the total number of employees contained in the client employer’s 
+“Headquarters Report ” plus the total number of employees contained in all the client 
+employer’s “Establishment-Level Report(s)” must equal the total number of employees 
+contained in the “Consolidated Report.”  
+ 
+With the discontinuation of the “Type 6” establishment list report,109 a “Consolidated 
+Report” is now auto -populated and auto -generated with data f rom a multi-establishment 
+client employer’s “Headquarters Report” and “Establishment-Level Report(s)” within the 
+EEOC’s electronic, web-based EEO-1 Component 1 Online Filing System  (OFS) for all 
+multi-establishment employers.  
+ 
+Although a “Consolidated Report” is now auto -populated and auto -generated, a multi -
+establishment employer is still responsible for ensuring that the total employee count in the 
+“Consolidated Report” matches the total number of employees the filer is report ing in its 
+“Headquarters Report” and “Establishment -Level Report(s)” prior to certification. An 
+employer must also ensure that it has reported for all its establishments. For example, if an 
+employer has 200 establishments, but only reported data for 150 es tablishments, the 
+“Consolidated Report” will only reflect the data for establishments submitted by the filer 
+(i.e., 150). It is the responsibility of the employer to ensure that data for each of its 
+establishments has been submitted and that the “Consolida ted Report” matches that 
+number.110 
+ 
+                                                           
+107 The EEOC has discontinued the option to use a “Type 6” establishment list report for establishments with fewer than 50 
+employees. All multi -establishment employers must instead submit an “Establishment -Level Report” for each non -headquarters 
+establishment regardless of the number of employees at the establishment (e.g., fewer than 50 or 50 or more).  
+108 The “Consolidated Report” was formerly referred to as a “Type 2” consolidated report. Beginning with the 2022 EEO -1 
+Component 1 data collection, this report is now known simply as a “Consolidated Report.” 
+109 The prior “Type 6” establishment list report contained the name and address of each non-headquarters establishment with fewer 
+than 50 employees, as well as the total number of employees at each establishment. A multi-establishment employer choosing the 
+option to submit a “Type 6” estab lishment list report, instead of a “Type 8” report, was required to manually enter employee 
+demographic data by job category and sex and race or ethnicity into the accompanying “Type 2” consolidated report for every 
+employee of every establishment included on the “Type 6” establishment list report. 
+110 As discussed in the above section of the Instruction Book entitled “REPORTING BY SEX,” the EEO -1 Component 1 data 
+collection currently provides only binary options (i.e., male or female) for reporting employee counts by sex, job category, and race 
+or ethnicity. However, employers may voluntarily choose to report employee demographic data for non -binary employees – that 
+is, employees who do not identify as exclusively male or female – by sex (i.e., non-binary), job category and race or ethnicity in 
+the “comments” section of the report(s). Employer s that voluntarily choose to report non -binary employees in the “comments” 
+section of the report(s) should not assign such employees to the male or female categories or any other categories (i.e., job category 
+and race or ethnicity) within the report(s). F or additional information on the voluntary reporting of non -binary employees, please 
+refer to the above section of the Instruction Booklet entitled “REPORTING BY SEX.”  
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+52 
+Additionally, a third -party human resource organization (e.g., PEO,  HRO, ASO) is not 
+permitted to certify a multi-establishment client employer’s EEO-1 Component 1 report (i.e., 
+“Consolidated Report, ” “Headquarters Report,” “Establishment-Level Report(s) ”). An 
+official (i.e., employee) of the client employer (i.e., “Certifying Official”) must certify the 
+client employer’s EEO-1 Component 1 report(s). The client employer’s “Certifying 
+Official” cannot be from the third-party human resource organization (e.g., PEO, HRO, 
+ASO). 
+ 
+EIN and NAICS Code Required for Filing on Behalf of a Client Employer 
+Every eligible client employer on behalf of which a third-party human resource organization (e.g., 
+PEO, HRO, ASO ) chooses to file will be required to have its own employer registration record 
+under the client employer’s EIN (Employer Identification Number) within the EEO-1 Component 
+1 Online Filing System (OFS). Additionally, all client employers and third-party human resource 
+organizations (e.g., PEOs, HROs, ASOs) are required to have a user account to gain access to the 
+EEO-1 Component 1 Online Filing System (OFS). 
+ 
+The employer registration record must be for the client employer itself and not the third-party 
+human resource organization (e.g., PEO, HRO, ASO) filing on the client employer’s behalf.  
+Additionally, the NAICS code for the client employer and each of its establishments must be based 
+on the major business activity at each of the client emp loyer’s establishment(s) as well as the  
+appropriate EIN for each of the client employer’s establishment(s). The third-party human resource 
+organization (e.g., PEO) is not permitted to use its own NAICS code (e.g., 561330 – Professional 
+Employer Organizations) or the third-party human resource organization’s EIN (e.g., PEO’s EIN, 
+HRO’s EIN, ASO’s EIN) on the client employer’s reports (i.e., “Single-Establishment Employer 
+Report,” “Consolidated Report,” “Headquarters Report,” “Establishment-Level Report(s)”). 
+ 
+Filing for Only Eligible Client Employers 
+If a client employer of a third-party human resource organization (e.g., PEO, HRO, ASO) is not 
+otherwise subject to the EEO -1 Component 1 filing requirements, that client employer is not 
+required to file an EEO-1 Component 1 report(s) simply by virtue of being a client of a third-party 
+human resource organization (e.g., PEO, HRO, ASO). 
+ 
+For example, a single-establishment client employer with only 40 employees would not meet the 
+eligibility thresholds requiring it to file an EEO-1 Component 1 report. Thus, neither the client 
+employer nor its PEO would be required to report the client employer’s employees for purposes of 
+EEO-1 Component 1 reporting. 
+ 
+Reporting Considerations for a Client Employer Using a Third -Party Human Resource 
+Organization EIN 
+If a client employer uses a third-party human resource organization’s (e.g., HRO) EIN for payroll 
+purposes and the client employer is not otherwise subject to the EEO -1 Component 1 filing 
+requirements, that client employer is not required to file an EEO-1 Component 1 report(s) simply 
+by virtue of being a client of a third-party human resource organization (e.g., HRO) and/or using 
+the organization’s EIN for payroll purposes. For example, a single-establishment client employer 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+53 
+with only 40 employees that uses a HRO’s EIN for payroll purposes would not meet the eligibility 
+thresholds requiring it to file an EEO-1 Component 1 report. 
+ 
+Alternatively, if a client employer meets the EEO -1 Component 1 eligibility requirements, then 
+the client employer is required to submit an EEO-1 Component 1 report(s). The EEO-1 Component 
+1 report(s) filed by a client employer,  or on behalf of a client employer  by a third -party human 
+resource organization (e.g., HRO), must include all the client employer’s employees, even if some 
+or all of those employees were paid under the third-party human resource organization’s  (e.g., 
+HRO) EIN. 
+ 
+Reporting by an ASO (Administrative Services Organization) 
+An ASO is permitted to link multiple client employers to an individual user account created by the 
+ASO within the EEO-1 Component 1 Online Filing System (OFS). However, every eligible client 
+employer on behalf of which a third-party human resource organization (e.g., ASO) chooses to file 
+is required to have its own employer registration  record under the client employer’s EIN (i.e., 
+Employer Identification Number ) within the EEO-1 Component 1 Online Filing System  (OFS). 
+This employer registration record must be for the client employer itself and not the third-party 
+human resource organization (e.g., PEO, HRO) filing on the client employer’s behalf.  
+Additionally, all client employers, as well as all third -party human resource organizati ons filing 
+on behalf of client employers, are required to have a user account to gain access to the EEO-1 
+Component 1 Online Filing System (OFS).  
+ 
+Considerations for Current and Former Client Employers of Third-Party Human Resource 
+Organizations 
+The EEOC cannot provide current or former  client employers of a third -party human resource 
+organization with any prior year EEO -1 Component 1 report(s) filed on their behalf by a third -
+party human resource organization (e.g., PEO, HRO, ASO).  Current or former c lient employers 
+for which a third-party human resource organization (e.g., PEO, HRO, ASO) filed historical EEO-
+1 Component 1 data on the client employers’ behalf must contact their third-party human resource 
+organization (e.g., PEO, HRO, ASO) to obtain any such reports. 
+ 
+If a client employer has changed its third-party human resource organization (e.g., PEO, HRO, 
+ASO), it is the responsibility of the client employer to determine which third-party human resource 
+organization (e.g., PEO, HRO, ASO) is choosing to prepare and file the client employer’s EEO-1 
+Component 1 report(s) on its behalf. It is also the responsibility of the client employer to ensure an 
+EEO-1 Component 1 report(s) is filed on its behalf. If a third-party human resource organization 
+(e.g., PEO, HRO, ASO) is choosing to prepare and file a client employer’s EEO-1 Component 1 
+report(s), the client employer should contact the third-party human resource organization to ensure 
+it has the necessary information to file. 
+ 
+It is the responsibility of a client employer  and/or former client employer to ensure a n EEO-1 
+Component 1 report(s) is filed with the EEOC. If neither a former nor current third-party human 
+resource organization (e.g., PEO, HRO, ASO) is choosing to prepare and file EEO -1 Component 
+1 report(s) on a client employer’s behalf, the client employer is  still required to have its own 
+employer registration record under the client employer’s EIN (i.e., Employer Identification 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+54 
+Number) within the EEO-1 Component 1 Online Filing System (OFS).  
+ 
+  
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+55 
+APPENDIX E 
+SAMPLE EEO-1 COMPONENT 1 REPORT  
+NOTICE 
+  SAMPLE EEO-1 Component 1 Report 
+ 
+As discussed in the 30 -day Notice published in the Federal Register on May 2, 
+2023, the EEOC created the Office of Enterprise Data and Analytics (OEDA) in 
+May 2018 with the goal of creating a modern data and analytics organization at the 
+agency. Since its creation, OEDA, which administers the agency’s EEO data 
+collections, including the EEO -1 Component 1, has worked to modernize the 
+collections and improve the quality of data collected. OEDA has also streamlined 
+functions, such as providing additional self-service options, resource materials, and 
+an online support message center.  
+ 
+As part of its ongoing modernization efforts and in response to feedback from filers 
+in prior collections, OEDA has redesigned the format of the certified report(s) 
+generated by the EEO-1 Component 1 Online Filing System (OFS). The report(s), 
+which filers will be able to download and save as a PDF, contain several 
+enhancements to how information provided by filers is displayed. For example, the 
+updated report(s) now have delineated sections and headers that clearly identify the 
+information being displayed and filers’ answers to reporting questions such as 
+eligibility and federal contractor status.   
+ 
+PLEASE NOTE:  This is a “sample” EEO-1 Component 1 report generated by the 
+EEOC’s EEO-1 Component 1 Online Filing System (OFS). Filers are not permitted 
+to submit EEO-1 Component 1 workforce demographic data using this sample. The 
+EEOC requires electronic submission of EEO-1 Component 1 report(s) through the 
+OFS, the agency’s web-based data collection application (i.e., portal). The OFS is 
+accessible at www.eeocdata.org/eeo1.  
+ 
+The EEOC will only accept EEO-1 Component 1 report(s) submitted and certified 
+through the OFS. The EEOC will not accept reports submitted via paper or through 
+other non-OFS electronic means (e.g., email, CD-ROM). The EEOC will consider 
+filers submitting reports outside of the OFS to be non -compliant for purposes of 
+their mandatory EEO-1 Component 1 filing obligation. 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+56 
+ 
+ 
+
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+57
+
+===== PDF SOURCE PART 6 END =====
