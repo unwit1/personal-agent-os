@@ -1,0 +1,89 @@
+{
+  "id": "rtec-policy-eeo-2026",
+  "record_type": "policy",
+  "title": "Equal Employment Opportunity Policy and Program - signed 2026-08-26",
+  "status": "canonical",
+  "temporal_status": "current",
+  "effective_from": "2026-08-26",
+  "effective_to": null,
+  "summary": "Currentest ingested EEO policy statement, signed 2026-08-26. It covers nondiscrimination across employment actions, anti-retaliation, reasonable accommodation, EEO complaint/program responsibilities, and assigns day-to-day EEO management/complaint investigation authority.",
+  "claims": [
+    {
+      "claim": "RTEC states that employment opportunities and actions are to be administered without unlawful exclusion based on protected classes listed in the policy.",
+      "claim_kind": "canonical_rule",
+      "confidence": 1.0,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-eeo-policy-2026-08-26","page_or_section":"paragraphs 1-2","evidence_type":"explicit_text","note":null}]
+    },
+    {
+      "claim": "The policy prohibits retaliation against people who complain of discrimination, participate in discrimination proceedings, or otherwise engage in protected activity.",
+      "claim_kind": "canonical_rule",
+      "confidence": 1.0,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-eeo-policy-2026-08-26","page_or_section":"paragraph 3","evidence_type":"explicit_text","note":null}]
+    },
+    {
+      "claim": "RTEC commits to reasonable accommodations for disability or religious practice/observance absent undue hardship.",
+      "claim_kind": "canonical_rule",
+      "confidence": 1.0,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-eeo-policy-2026-08-26","page_or_section":"paragraph 4","evidence_type":"explicit_text","note":null}]
+    },
+    {
+      "claim": "The Executive Director retains overall responsibility/accountability for EEO compliance while the appointed EEO Officer handles day-to-day program management, monitoring and complaint investigation and reports directly to the Executive Director.",
+      "claim_kind": "canonical_rule",
+      "confidence": 1.0,
+      "relationship": "SUPERSEDES",
+      "related_record_ids": ["rtec-role-eeo-officer-history"],
+      "evidence": [{"source_id":"rtec-hr-eeo-policy-2026-08-26","page_or_section":"EEO responsibility paragraph","evidence_type":"explicit_text","note":null}]
+    },
+    {
+      "claim": "Executives, management and supervisors share responsibility for implementing and monitoring the EEO program in their areas, with performance evaluated on implementation.",
+      "claim_kind": "canonical_rule",
+      "confidence": 1.0,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-eeo-policy-2026-08-26","page_or_section":"management responsibility paragraph","evidence_type":"explicit_text","note":null}]
+    }
+  ],
+  "trigger": null,
+  "prerequisites": [],
+  "actors": ["Executive Director", "EEO Officer / EEO Manager", "Executives", "Management", "Supervisors", "Applicants", "Employees"],
+  "systems": [],
+  "forms": [],
+  "steps": [],
+  "decisions": [],
+  "deadlines": [],
+  "outputs": ["Written nondiscrimination/EEO program", "Complaint investigation", "EEO program available for inspection upon request"],
+  "exceptions": ["Reasonable accommodation obligation is stated as subject to undue hardship."],
+  "controls": ["Direct reporting relationship for EEO Officer", "Management/supervisor implementation accountability", "Anti-retaliation rule"],
+  "unresolved_questions": [
+    "What separate current EEO Program document sets the detailed goals, timetables, complaint process and reporting requirements?",
+    "What current forms/logs are used to receive and investigate EEO complaints?"
+  ],
+  "automation_candidates": [
+    "EEO complaint intake and case-status workflow with restricted access and retention controls.",
+    "Version tracking for annual/periodic EEO statement signatures and officer assignments."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [{
+    "source_id":"rtec-hr-eeo-policy-2026-08-26",
+    "safe_source_type":"policy_statement",
+    "source_date_or_version":"signed 2026-08-26; template revision marker 2016-11-01",
+    "source_created_date":"2026-08-26",
+    "source_revision_date":"2016-11-01",
+    "source_effective_from":"2026-08-26",
+    "source_effective_to":null,
+    "temporal_status":"current",
+    "content_sha256":"61bd0aa5daf6303a6b2b932ab1852917c8cb4e572f9719a9ce1f7a3d4a757bce",
+    "page_or_section":"complete one-page source",
+    "full_source_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-eeo-policy-2026-08-26/fulltext.md",
+    "searchable_text_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-eeo-policy-2026-08-26/fulltext.md",
+    "ingested_at":"2026-09-23",
+    "notes":"Signed one month before ingestion; treated as current unless later evidence supersedes it."
+  }]
+}
