@@ -2,40 +2,65 @@
   "id": "rtec-policy-employment-at-will-handbook-2023",
   "record_type": "policy",
   "title": "Employment at-will and handbook amendment/return provisions - 2023 handbook",
-  "status": "validated",
-  "temporal_status": "historical",
+  "status": "superseded",
+  "temporal_status": "superseded",
   "effective_from": "2023-03-01",
-  "effective_to": null,
+  "effective_to": "2025-12-14",
   "summary": "Historical handbook provisions stating that the handbook is not an employment contract, describing the employment relationship as at-will, assigning termination/suspension authority to the Executive Director, allowing policy amendment at RTEC's discretion, and requiring return of the handbook/property at the end of employment.",
   "claims": [
     {
       "claim": "The 2023 handbook states that it is not a contract of employment and describes the employment relationship as at-will.",
       "claim_kind": "observed_fact",
-      "confidence": 1.0,
+      "confidence": 1,
       "relationship": "NEW",
       "related_record_ids": [],
-      "evidence": [{"source_id":"rtec-hr-employee-handbook-selected-2023-03-01","page_or_section":"printed page 5","evidence_type":"explicit_text","note":"Historical source; currentness must be checked against newer handbook/policy versions."}]
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-selected-2023-03-01",
+          "page_or_section": "printed page 5",
+          "evidence_type": "explicit_text",
+          "note": "Historical source; currentness must be checked against newer handbook/policy versions."
+        }
+      ]
     },
     {
       "claim": "The 2023 handbook states that RTEC may amend policies/procedures at its discretion and that amended policy becomes effective immediately.",
       "claim_kind": "observed_fact",
-      "confidence": 1.0,
+      "confidence": 1,
       "relationship": "NEW",
       "related_record_ids": [],
-      "evidence": [{"source_id":"rtec-hr-employee-handbook-selected-2023-03-01","page_or_section":"printed page 5","evidence_type":"explicit_text","note":null}]
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-selected-2023-03-01",
+          "page_or_section": "printed page 5",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
     },
     {
       "claim": "The 2023 handbook instructs employees to return the handbook and RTEC-issued property to the Personnel Manager or Executive Director at the end of employment.",
       "claim_kind": "observed_fact",
-      "confidence": 1.0,
+      "confidence": 1,
       "relationship": "NEW",
       "related_record_ids": [],
-      "evidence": [{"source_id":"rtec-hr-employee-handbook-selected-2023-03-01","page_or_section":"printed page 5","evidence_type":"explicit_text","note":null}]
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-selected-2023-03-01",
+          "page_or_section": "printed page 5",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
     }
   ],
   "trigger": null,
   "prerequisites": [],
-  "actors": ["Executive Director", "Personnel Manager", "Employees"],
+  "actors": [
+    "Executive Director",
+    "Personnel Manager",
+    "Employees"
+  ],
   "systems": [],
   "forms": [],
   "steps": [],
@@ -43,25 +68,34 @@
   "deadlines": [],
   "outputs": [],
   "exceptions": [],
-  "controls": ["Handbook described as internal-use material.", "Return of handbook/property at separation."],
-  "unresolved_questions": ["Is the March 2023 handbook still the current employee handbook, and if not, what version superseded it?"],
-  "automation_candidates": ["Track handbook version, employee acknowledgment, and replacement/supersession dates."],
+  "controls": [
+    "Handbook described as internal-use material.",
+    "Return of handbook/property at separation."
+  ],
+  "unresolved_questions": [],
+  "automation_candidates": [
+    "Track handbook version, employee acknowledgment, and replacement/supersession dates."
+  ],
   "supersedes_record_ids": [],
-  "superseded_by_record_ids": [],
-  "provenance": [{
-    "source_id":"rtec-hr-employee-handbook-selected-2023-03-01",
-    "safe_source_type":"employee_handbook_excerpt",
-    "source_date_or_version":"2023-03-01",
-    "source_created_date":"2023-03-01",
-    "source_revision_date":null,
-    "source_effective_from":"2023-03-01",
-    "source_effective_to":null,
-    "temporal_status":"historical",
-    "content_sha256":"88eea6dfa5da39d4d2d916bb934e7ebcebc5b6ef68da1c7ad5998d817b59e31e",
-    "page_or_section":"printed page 5",
-    "full_source_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-selected-2023-03-01/fulltext.md",
-    "searchable_text_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-selected-2023-03-01/fulltext.md",
-    "ingested_at":"2026-09-23",
-    "notes":"Only selected handbook pages were supplied."
-  }]
+  "superseded_by_record_ids": [
+    "rtec-policy-handbook-governance-employment-2025"
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-employee-handbook-selected-2023-03-01",
+      "safe_source_type": "employee_handbook_excerpt",
+      "source_date_or_version": "2023-03-01",
+      "source_created_date": "2023-03-01",
+      "source_revision_date": null,
+      "source_effective_from": "2023-03-01",
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "content_sha256": "88eea6dfa5da39d4d2d916bb934e7ebcebc5b6ef68da1c7ad5998d817b59e31e",
+      "page_or_section": "printed page 5",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-selected-2023-03-01/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-selected-2023-03-01/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": "Only selected handbook pages were supplied."
+    }
+  ]
 }
