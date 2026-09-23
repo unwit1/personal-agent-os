@@ -213,6 +213,10 @@
     "profile/icloud-mail-analysis/relationships-and-organizations.json",
     "profile/icloud-mail-analysis/commitments-and-automation.json",
     "profile/icloud-mail-analysis/personal-operating-patterns.json",
-    "profile/icloud-mail-analysis/open-questions-and-uncertainties.json"
+    "profile/icloud-mail-analysis/open-questions-and-uncertainties.json",
+    "profile/icloud-mail-analysis/index.json",
+    "profile/icloud-mail-analysis/household-and-routines.json",
+    "profile/icloud-mail-analysis/temporal-and-freshness-model.json",
+    "profile/icloud-mail-analysis/attachment-corpus-status.json"
   ]
 }
