@@ -3,7 +3,7 @@
   "name": "Dealing with Daedra",
   "universe": "The Elder Scrolls",
   "kind": "mod_continuity_overlay",
-  "status": "complete_text_source_import_normalization_pending",
+  "status": "semantic_analysis_in_progress_pass_04_complete_retrieval_map_added",
   "canon_policy": {
     "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
     "default_claim_scope": "tes.mod.dealing-with-daedra",
@@ -40,6 +40,13 @@
     "papyrus_string_literals": 198,
     "compiled_scripts_without_source": 2
   },
+  "analysis_counts": {
+    "explicit_single_npc_info_resolutions": 1469,
+    "responses_covered_by_explicit_resolution": 2188,
+    "claim_seeds": 64,
+    "semantic_passes_completed": 4,
+    "core_dialogue_manager_quests_mapped": 7
+  },
   "structured_layers": {
     "plugin_record_inventory": "complete",
     "book_text": "complete",
@@ -50,9 +57,13 @@
     "cell_and_world_names": "complete_for_plugin_records",
     "item_and_magic_names_descriptions": "complete_for_plugin_records",
     "papyrus_source_string_pass": "complete_for_available_source",
-    "speaker_resolution": "pending",
-    "claim_promotion": "pending",
-    "interpretive_analysis": "pending",
+    "speaker_resolution": "explicit_single_GetIsID_complete_1469_of_1809_INFO_covering_2188_of_2674_responses_alias_and_scene_resolution_pending",
+    "claim_promotion": "64_evidence_backed_claim_seeds_across_4_semantic_passes",
+    "interpretive_analysis": "semantic_passes_01_to_04_complete_additional_minor_sources_and_full_chronology_pending",
+    "written_lore_analysis": "high_value_longform_sources_complete_initial_pass",
+    "faction_relationship_map": "initial_complete",
+    "dialogue_manager_retrieval_map": "complete_for_7_core_dialogue_manager_quests",
+    "chronology": "initial_relative_chronology_complete",
     "text_bearing_plugin_records": "complete",
     "source_text_shards": "complete_7721_records_29_gzip_jsonl_shards",
     "papyrus_string_pass": "complete_source_literal_inventory"
