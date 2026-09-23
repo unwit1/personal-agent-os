@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-23",
+  "purpose": "Sanitized career and education reconstruction from the local iCloud mail index. Historical claims are dated and confidence-rated; current user statements take precedence.",
+  "education": {
+    "early_college_application_evidence": [
+      {
+        "period": "2018",
+        "confidence": "high",
+        "fact": "Applied for an honors scholarship at Liberty and requested a recommendation letter.",
+        "interpretation": "Useful as historical education/application context only; it does not establish attendance."
+      },
+      {
+        "period": "2019",
+        "confidence": "high",
+        "fact": "Prepared a Berea College application and requested completion of Berea's student evaluation/endorsement materials.",
+        "interpretation": "Subsequent mail confirms Berea attendance, so this is part of the pre-enrollment timeline."
+      }
+    ],
+    "berea_college": {
+      "confidence": "high",
+      "facts": [
+        "Mail confirms Berea College student status by 2020.",
+        "Housing, classes/finals, campus work, institutional correspondence, and later professional-reference threads provide multi-year support.",
+        "By September 2023 the user described self as a recent Berea College graduate."
+      ],
+      "unresolved": "The exact degree and major were not recovered with sufficient confidence from indexed message text and should not be guessed."
+    },
+    "ireland_study_abroad_2022": {
+      "confidence": "high",
+      "program": "ISA Irish Studies Summer School",
+      "location": "Galway, Ireland",
+      "approximate_dates": "June 20 through July 19, 2022",
+      "notes": [
+        "Correspondence supports both planning and completion-period activity.",
+        "Program mail included coursework and a Dublin excursion.",
+        "This period overlapped with planning around summer employment."
+      ]
+    },
+    "audio_engineering_2025": {
+      "confidence": "medium",
+      "source_type": "direct user-authored self-report",
+      "fact": "In May 2025 the user wrote that they had several years of intermittent church/live-sound and audio-equipment setup experience and were 'currently working on' a master's in Audio Engineering.",
+      "limitation": "No second source in this archive identifies the school/program or confirms later enrollment/completion. Keep this as dated self-report, not a current credential, until corroborated."
+    }
+  },
+  "employment_history": [
+    {
+      "organization": "Triple R Ranch",
+      "period": "multiple summers through at least 2022",
+      "confidence": "high",
+      "role_context": "Seasonal/summer work; 2020 correspondence says the user was being considered as senior staff after prior summers, and 2022 correspondence discusses returning again with interest in grounds or trading-post responsibilities.",
+      "durable_signal": "Repeated seasonal work and comfort returning to a familiar service/operations environment."
+    },
+    {
+      "organization": "Berea College",
+      "role": "Alternative Transportation Coordinator",
+      "period": "before September 2023",
+      "confidence": "high",
+      "role_context": "Managed a small bicycle/alternative-transportation program connected to sustainability work.",
+      "work_style_evidence": [
+        "Described this as a particularly good fit because the work was semi-autonomous.",
+        "Valued freedom to experiment and learn how to run the operation.",
+        "Worked with one coworker and little initial training, requiring learning on the fly."
+      ]
+    },
+    {
+      "organization": "University of Kentucky",
+      "role": "STEPS Benefits Associate / HR Benefits Customer Service",
+      "period": "started July 17, 2023",
+      "confidence": "high",
+      "role_context": "Employee Benefits assignment; later professional-reference correspondence characterizes the experience as HR Benefits Customer Service.",
+      "durable_signal": "Benefits/customer-service experience became a major anchor for later HR, benefits, compensation, and payroll applications."
+    },
+    {
+      "organization": "RTEC",
+      "role": "HR Manager",
+      "period": "accepted and started April 2026",
+      "confidence": "high",
+      "role_context": "Before starting, asked detailed questions about dress, parking, training expectations, policies/handbook, vacation, insurance timing, and open enrollment.",
+      "durable_signal": "Current-role transition involved deliberate preparation and process clarification."
+    }
+  ],
+  "direct_job_search_history": {
+    "2023": [
+      "Berea Program Support Specialist interview process; withdrew after accepting the UKY role.",
+      "UKY STEPS Web Content Writer phone-interview invitation.",
+      "UKY Benefits process included a second behavioral interview and offer acceptance.",
+      "Enterprise Management Trainee interview activity."
+    ],
+    "2025": [
+      "Berea Residence Life Coordinator interview activity.",
+      "McLane HR Generalist questionnaire/interview/follow-up.",
+      "Machinify COB Analyst screen/follow-up.",
+      "Enterprise Management Trainee interview activity.",
+      "Began a Berea Compensation & Benefits Coordinator process in December that continued into 2026.",
+      "High-volume direct LinkedIn applications, strongly concentrated in HR/benefits/compensation/payroll."
+    ],
+    "2026": [
+      "Berea Compensation & Benefits Coordinator progressed through final interview; another candidate was selected in February.",
+      "Spectrum Field Tech I interview process; after rejection the user asked how soon reapplication was allowed and how to better reflect qualifications.",
+      "Community Action Council HR Manager interview opportunity; withdrew after starting RTEC.",
+      "Accepted and started RTEC HR Manager in April."
+    ]
+  },
+  "linkedin_application_confirmations_2025_2026": {
+    "count": 49,
+    "date_range": [
+      "2025-10-31",
+      "2026-03-16"
+    ],
+    "category_counts": {
+      "benefits_compensation_payroll": 20,
+      "hr_people_operations": 18,
+      "sales_insurance": 5,
+      "other": 3,
+      "claims": 2,
+      "recruiting": 1
+    },
+    "interpretation": "38 of 49 explicit LinkedIn application-confirmation messages were directly HR/people-operations or benefits/compensation/payroll roles. This is much stronger evidence of career focus than generic job-alert traffic.",
+    "representative_titles": [
+      "Human Resource Generalist",
+      "Human Resources Generalist",
+      "Benefits Specialist",
+      "HR Service Center Representative",
+      "Benefits Analyst",
+      "Human Resources Analyst",
+      "Benefits Operations Analyst",
+      "Human Resources Specialist",
+      "HRIS Specialist",
+      "HR Employee Benefits Specialist",
+      "Payroll Specialist",
+      "Self-Insured Benefits Analyst",
+      "Senior Benefits Analyst",
+      "People Relations Coordinator",
+      "Human Resources Coordinator",
+      "Compensation & Benefits Analyst",
+      "Payroll Systems Support Specialist",
+      "Benefits Enrollment Specialist",
+      "HR People Operations Specialist",
+      "HR Operations & Payroll Coordinator",
+      "Employee Benefits Specialist",
+      "Health and Welfare Benefits Coordinator",
+      "Benefits and Compensation Specialist",
+      "Human Resources Associate"
+    ],
+    "caveat": "Automated recommendations shown inside LinkedIn confirmation emails are excluded from the application count."
+  },
+  "career_behavior_and_preferences": {
+    "persistence": [
+      "Frequently follows up when an interview or application process is unresolved.",
+      "After rejection, may ask whether reapplication is possible and what concrete qualification or resume changes would improve a future attempt.",
+      "Usually withdraws courteously when another opportunity is accepted rather than ghosting the process."
+    ],
+    "preparation": [
+      "Asks about job scope, training, timelines, benefits, policies, dress/logistics, and next steps before starting.",
+      "Maintains resumes and professional references for recruiter follow-up."
+    ],
+    "role_fit_signals": [
+      "Strongest demonstrated career concentration in 2025-2026 is HR, employee benefits, compensation, payroll, and HR operations.",
+      "Also explored analyst, administrative, management-trainee, claims, recruiting, and selected technical/field roles.",
+      "This breadth appears compatible with searching for better fit/opportunity rather than a single narrowly fixed job title."
+    ],
+    "development_signal": "In April 2026 the user described employee-relations experience as a relative gap in prior HR experience.",
+    "work_style": [
+      "Prefers meaningful autonomy and room to experiment.",
+      "Can learn operational work on the fly when training is limited.",
+      "Customer-service framing emphasizes being useful while avoiding false hope."
+    ]
+  },
+  "evidence_rules": [
+    "Direct application confirmations and interview correspondence outrank generic job alerts.",
+    "Job alerts that continued after the April 2026 RTEC start are background subscriptions, not evidence of a resumed active job search.",
+    "Historical self-descriptions are retained with dates and must not silently become current credentials.",
+    "No salary, contact details, exact addresses, institutional identifiers, or sensitive application-form data are retained."
+  ]
+}
