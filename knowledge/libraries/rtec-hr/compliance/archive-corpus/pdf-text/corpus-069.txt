@@ -1,0 +1,1000 @@
+===== PDF SOURCE BEGIN / PART 6 OF 8 =====
+SOURCE_PATH: TITLE VI LEP PLAN/FTA_Title_VI_FINAL.pdf
+SHA256: 21dfaa2b0e937e2f548c150590a5116a99a200e81ccc6a2aec353090e657ae04
+PAGES: 130
+TEXT_CHARS_TOTAL: 281439
+PART_INDEX: 6
+===== TEXT =====
+
+FTA C 4702.1B 	 Chap. IX-1 
+CHAPTER IX 
+COMPLAINTS 
+1.	 INTRODUCTION. This chapter describes how FTA will respond to complaints filed with 
+FTA alleging that an FTA recipient has violated the DOT Title VI regulations. FTA will 
+promptly investigate all complaints in accordance with 49 CFR Section 21.11. FTA may 
+delay its investigation if the complainant and the party complained against agree to postpone 
+the investigation pending settlement negotiations.  
+2.	 RIGHT TO FILE A COMPLAINT. Any person who believes himself, herself, or any 
+specific class of persons to be subjected to discrimination on the basis of race, color, or 
+national origin may by himself or by a representative file a written complaint with FTA. A 
+complaint must be filed no later than 180 days after the date of the alleged discrimination, 
+unless the time for filing is extended by FTA.  
+3.	 COMPLAINT ACCEPTANCE. Once a complaint has been accepted by FTA for 
+investigation, FTA will notify the recipient that it is the subject of a Title VI complaint and 
+ask the recipient to respond in writing to the complainant’s allegations. If the complainant 
+agrees to release the complaint to the recipient, FTA will provide the agency with the 
+complaint, which may have personal information redacted at the request of the complainant. 
+If the complainant does not agree to release the complaint to the recipient, FTA may choose 
+to close the complaint.  
+4.	 INVESTIGATIONS. FTA will make a prompt investigation whenever a compliance review, 
+report, complaint, or any other information indicates a possible failure to comply with DOT’s 
+Title VI regulations. The investigation will include, where appropriate, a review of the 
+pertinent practices and policies of the recipient, the circumstances under which the possible 
+noncompliance with DOT’s Title VI regulations occurred, and other factors relevant to a 
+determination as to whether the recipient has failed to comply with DOT’s Title VI 
+regulations. 
+5.	 LETTERS OF FINDING. After FTA has concluded the investigation, FTA’s Office of Civil 
+Rights will transmit to the complainant and the recipient one of the following letters based on 
+its findings: 
+a.	 A letter of finding indicating FTA did not find a violation of DOT’s Title VI regulations. 
+This letter will include an explanation of why FTA did not find a violation. If applicable, 
+the letter may include a list of procedural violations or concerns, which will put the 
+recipient on notice that certain practices are questionable and that without corrective 
+steps, a future violation finding is possible.  
+b.	 A letter of finding indicating the recipient is in violation of DOT’s Title VI regulations. 
+The letter will include each violation referenced to the applicable regulation, a brief 
+description of proposed remedies, notice of the time limit on coming into compliance, the 
+consequences of failure to achieve voluntary compliance, and an offer of assistance to the 
+recipient in devising a remedial plan for compliance, if appropriate.  
+
+ 
+ 
+ 
+ 
+ 
+ 
+Chap. IX-2 	 FTA C 4702.1B 
+6.	 ADMINISTRATIVE CLOSURE. FTA will administratively close Title VI complaints before 
+a resolution is reached where (1) the complainant decides to withdraw the case; (2) the 
+complainant is not responsive to FTA’s requests for information or to sign a consent release 
+form; (3) FTA has conducted or plans to conduct a related compliance review of the agency 
+against which the complaint is lodged; (4) litigation has been filed raising similar allegations 
+involved in the complaint; (5) the complaint was not filed within 180 days of the alleged 
+discrimination; (6) the complaint does not indicate a possible violation of 49 CFR part 21; (7) 
+the complaint is so weak, insubstantial, or lacking in detail that FTA determines it is without 
+merit, or so replete with incoherent or unreadable statements that it, as a whole, cannot be 
+considered to be grounded in fact; (8) the complaint has been investigated by another agency 
+and the resolution of the complaint meets DOT regulatory standards; (9) the complaint 
+allegations are foreclosed by previous decisions of the Federal courts, the Secretary, DOT 
+policy determinations, or the U.S. DOT’s Office of Civil Rights; (10) FTA obtains credible 
+information that the allegations raised by the complaint have been resolved; (11) the 
+complaint is a continuation of a pattern of previously filed complaints involving the same or 
+similar allegations against the same recipient or other recipients that have been found 
+factually or legally insubstantial by FTA; (12) the same complaint allegations have been filed 
+with another Federal, state, or local agency, and FTA anticipates that the recipient will 
+provide the complainant with a comparable resolution process under comparable legal 
+standards; or (13) the death of the complainant or injured party makes it impossible to 
+investigate the allegations fully. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+INTRODUCTION TO TECHNICAL APPENDICES 
+The following Appendices A through M provide sample checklists, templates, standards, 
+policies, tables and maps for FTA recipients to consult when preparing their Title VI Programs. 
+FTA is issuing these appendices in order to provide technical assistance and guidance and 
+thereby increase the level of clarity, organization, and uniformity across Title VI Programs. The 
+samples are provided as guidance; recipients may revise as appropriate for their purposes. 
+
+
+
+ 
+ 
+ 
+ 
+ 
+  
+  
+ 
+  
+  
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+FTA C 4702.1B 	 App. A-1 
+APPENDIX A 
+TITLE VI PROGRAM CHECKLIST 
+Every three years, on a date determined by FTA, each recipient is required to submit the 
+following information to the Federal Transit Administration (FTA) as part of their Title VI 
+Program. Subrecipients shall submit the information below to their primary recipient (the 
+entity from whom the subrecipient receives funds directly), on a schedule to be determined by 
+the primary recipient. 
+General Requirements (Chapter III) 
+All recipients must submit: 
+ Title VI Notice to the Public, including a list of locations where the notice is posted 
+ Title VI Complaint Procedures (i.e., instructions to the public regarding how to file a 
+Title VI discrimination complaint) 
+ Title VI Complaint Form 
+ List of transit-related Title VI investigations, complaints, and lawsuits 
+ Public Participation Plan, including information about outreach methods to engage 
+minority and limited English proficient populations (LEP), as well as a summary of 
+outreach efforts made since the last Title VI Program submission 
+ Language Assistance Plan for providing language assistance to persons with limited 
+English proficiency (LEP), based on the DOT LEP Guidance  
+ A table depicting the membership of non-elected committees and councils, the 
+membership of which is selected by the recipient, broken down by race, and a 
+description of the process the agency uses to encourage the participation of minorities 
+on such committees  
+ Primary recipients shall include a description of how the agency monitors its 
+subrecipients for compliance with Title VI, and a schedule of subrecipient Title VI 
+Program submissions  
+ A Title VI equity analysis if the recipient has constructed a facility, such as a vehicle 
+storage facility, maintenance facility, operation center, etc. 
+ A copy of board meeting minutes, resolution, or other appropriate documentation 
+showing the board of directors or appropriate governing entity or official(s) 
+responsible for policy decisions reviewed and approved the Title VI Program. For 
+State DOT’s, the appropriate governing entity is the State’s Secretary of 
+Transportation or equivalent. The approval must occur prior to submission to FTA. 
+ Additional information as specified in chapters IV, V, and VI, depending on whether 
+the recipient is a transit provider, a State, or a planning entity (see below) 
+Requirements of Transit Providers (Chapter IV) 
+All Fixed Route Transit Providers must submit: 
+ All requirements set out in Chapter III (General Requirements) 
+ Service standards 
+
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+App. A-2 	 FTA C 4702.1B 
+o	 Vehicle load for each mode 
+o	 Vehicle headway for each mode 
+o	 On time performance for each mode 
+o	 Service availability for each mode 
+ Service policies 
+o	 Transit Amenities for each mode 
+o	 Vehicle Assignment for each mode 
+Transit Providers that operate 50 or more fixed route vehicles in peak service and are located in 
+an Urbanized Area (UZA) of 200,000 or more people must submit: 
+ Demographic and service profile maps and charts 
+ Demographic ridership and travel patterns, collected by surveys  
+ Results of their monitoring program and report, including evidence that the board or 
+other governing entity or official(s) considered, was aware of the results, and 
+approved the analysis 
+ A description of the public engagement process for setting the “major service change 
+policy,” disparate impact policy, and disproportionate burden policy 
+ Results of service and/or fare equity analyses conducted since the last Title VI 
+Program submission, including evidence that the board or other governing entity or 
+official(s) considered, was aware of, and approved the results of the analysis 
+Requirements of States (Chapter V) 
+States must submit: 
+ All requirements set out in Chapter III (General Requirements) 
+ The requirements set out in Chapter IV (Transit Provider) if the State is a provider of 
+fixed route public transportation 
+ Demographic profile of the State  
+ Demographic maps that show the impacts of the distribution of State and Federal 
+funds in the aggregate for public transportation projects 
+ Analysis of the State’s transportation system investments that identifies and addresses 
+any disparate impacts 
+ A description of the Statewide planning process that identifies the transportation 
+needs of minority populations 
+ Description of the procedures the agency uses to ensure nondiscriminatory pass-
+through of FTA financial assistance 
+ Description of the procedures the agency uses to provide assistance to potential 
+subrecipients, including efforts to assist applicants that would serve predominantly 
+minority populations 
+Requirements of MPOs (Chapter VI) 
+Metropolitan Planning Organizations and other planning entities must submit: 
+ All requirements set out in Chapter III (General Requirements) 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B 	 App. A-3 
+ The requirements set out in Chapter IV (Transit Provider) if the MPO is a provider of 
+fixed route public transportation 
+ Demographic profile of the metropolitan area 
+ A description of the procedures by which the mobility needs of minority populations 
+are identified and considered within the planning process 
+ Demographic maps that show the impacts of the distribution of State and Federal 
+funds in the aggregate for public transportation projects 
+ Analysis of the MPO’s transportation system investments that identifies and 
+addresses any disparate impacts 
+ Description of the procedures the agency uses to ensure nondiscriminatory pass-
+through of FTA financial assistance (if requested) 
+ Description of the procedures the agency uses to provide assistance to potential 
+subrecipients in a nondiscriminatory manner (if requested) 
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+ 
+     
+     
+     
+       
+ 
+       
+   
+    
+    
+ 
+    
+      
+    
+     
+    
+    
+    
+ 
+ 
+ 
+FTA C 4702.1B 	 App. B-1 
+APPENDIX B 
+TITLE VI NOTICE TO THE PUBLIC (GENERAL REQUIREMENT)  
+Background 
+A Title VI Notice to the Public must be displayed to inform a recipient’s customers of their 
+rights under Title VI. At a minimum, recipients must post the notice on the agency’s website and 
+in public areas of the agency’s office(s), including the reception desk, meeting rooms, etc. Many 
+agencies display their Title VI Notices in transit facilities (e.g., headquarters, transit shelters and 
+stations, etc.), and on transit vehicles (e.g., buses, rail cars, etc.). The Title VI Notice is a vital 
+document.  If any of the Limited English Proficient (LEP) populations in your service area meet 
+the Safe Harbor threshold (see Chapter III), then the Notice should be provided in English and in 
+any other language(s) spoken by LEP populations that meet the Safe Harbor Threshold.  At a 
+minimum, this statement in the Notice—“If information is needed in another language, then 
+contact [phone number]”—should be stated in English and in any other language(s) spoken by 
+LEP populations that meet the Safe Harbor threshold.   
+The sample below is provided for the purposes of guidance only. 
+SAMPLE Title VI Notification to the Public 
+Notifying the Public of Rights Under Title VI 
+THE CITY OF USA
+ 
+•	 The City of USA operates its programs and services without regard to
+race, color, and national origin in accordance with Title VI of the Civil
+Rights Act. Any person who believes she or he has been aggrieved by
+any unlawful discriminatory practice under Title VI may file a complaint 
+with the City of USA. 
+•	 For more information on the City of USA’s civil rights program, and the 
+procedures to file a complaint, contact 800-555-1212, (TTY 800-555-
+1111); email title.vi.complaint@city.ca.us; or visit our administrative
+office at 1234 Center Street, City of USA, State 11111. For more
+information, visit www.city.ca.us 
+•	 A complainant may file a complaint directly with the Federal Transit
+Administration by filing a complaint with the Office of Civil Rights,
+Attention: Title VI Program Coordinator, East Building, 5
+th Floor-TCR, 
+1200 New Jersey Ave., SE, Washington, DC 20590 
+•	 If information is needed in another language, contact 800-555-1212. 
+•	 MAKE SURE THE SENTENCE ABOVE IS ALSO PRO VIDED IN ANY LANGUAGE(S)
+SPO KEN BY LEP PO PULATIO NS THAT MEET THE SAFE HARBOR THRESHO LD 
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B App. C-1 
+APPENDIX C 
+TITLE VI COMPLAINT PROCEDURE (GENERAL REQUIREMENT) 
+Background 
+Recipients’ Title VI Programs must include a copy of the agency’s Title VI complaint procedure. 
+The complaint procedure and complaint form shall be available on the recipient’s website. The 
+Title VI Complaint Procedure is a vital document.  If any of the Limited English Proficient 
+(LEP) populations in your service area meet the Safe Harbor threshold (see Chapter III), then the 
+complaint procedure should be provided in English and in any other language(s) spoken by LEP 
+populations that meet the Safe Harbor Threshold.  At a minimum, the complaint procedure 
+should include a notice—“If information is needed in another language, then contact [phone 
+number]”—should be stated in English and in any other language(s) spoken by LEP populations 
+that meet the Safe Harbor threshold.    
+The sample below is provided for the purposes of guidance only. 
+SAMPLE Title VI Complaint Procedure 
+Any person who believes she or he has been discriminated against on the basis of race, color, or 
+national origin by the City of USA Transit Authority (hereinafter referred to as “the Authority”) 
+may file a Title VI complaint by completing and submitting the agency’s Title VI Complaint 
+Form. The City of USA Transit Authority investigates complaints received no more than 180 
+days after the alleged incident. The Authority will process complaints that are complete. 
+Once the complaint is received, the Authority will review it to determine if our office has 
+jurisdiction. The complainant will receive an acknowledgement letter informing her/him whether 
+the complaint will be investigated by our office. 
+The Authority has XX days to investigate the complaint. If more information is needed to resolve 
+the case, the Authority may contact the complainant. The complainant has XX business days 
+from the date of the letter to send requested information to the investigator assigned to the case. 
+If the investigator is not contacted by the complainant or does not receive the additional 
+information within XX business days, the Authority can administratively close the case. A case 
+can be administratively closed also if the complainant no longer wishes to pursue their case. 
+After the investigator reviews the complaint, she/he will issue one of two letters to the 
+complainant: a closure letter or a letter of finding (LOF). A closure letter summarizes the 
+allegations and states that there was not a Title VI violation and that the case will be closed. An 
+LOF summarizes the allegations and the interviews regarding the alleged incident, and explains 
+whether any disciplinary action, additional training of the staff member, or other action will 
+occur. If the complainant wishes to appeal the decision, she/he has XX days after the date of the 
+letter or the LOF to do so. 
+A person may also file a complaint directly with the Federal Transit Administration, at FTA 
+Office of Civil Rights, 1200 New Jersey Avenue SE, Washington, DC 20590. 
+
+
+
+ 
+ 
+ 
+ 
+ 
+  
+ 
+  
+ 
+ 
+  
+     
+  
+ 
+FTA C 4702.1B App. D-1 
+APPENDIX D 
+SAMPLE TITLE VI COMPLAINT FORM (GENERAL REQUIREMENT) 
+Background 
+Recipients must create and make available a Title VI Complaint Form for use by customers who 
+wish to file a Title VI complaint. The complaint form shall be available on the recipient’s 
+website. A recipient’s Title VI Complaint Form shall specify the three classes protected by Title 
+VI—race, color, and national origin—and allow the complainant to select one or more of those 
+protected classes as the basis/bases for discrimination. The Title VI Complaint Form is a vital 
+document. If any of the Limited English Proficient (LEP) populations in your service area meet 
+the Safe Harbor threshold (see Chapter III), then the procedure should be provided in English 
+and in any other language(s) spoken by LEP populations that meet the Safe Harbor Threshold.  
+The sample below is provided for the purposes of guidance only. 
+Section I: 
+Name: 
+Address: 
+Telephone (Home): Telephone (Work): 
+Electronic Mail Address: 
+Accessible Format 
+Requirements? 
+Large Print Audio Tape 
+TDD Other 
+Section II: 
+Are you filing this complaint on your own behalf? Yes* No 
+*If you answered "yes" to this question, go to Section III. 
+If not, please supply the name and relationship of the person 
+for whom you are complaining:  
+Please explain why you have filed for a third party: 
+Please confirm that you have obtained the permission of the 
+aggrieved party if you are filing on behalf of a third party.  
+Yes No 
+Section III: 
+I believe the discrimination I experienced was based on (check all that apply):  
+[ ] Race [ ] Color [ ] National Origin 
+Date of Alleged Discrimination (Month, Day, Year):  __________ 
+Explain as clearly as possible what happened and why you believe you were discriminated 
+against. Describe all persons who were involved. Include the name and contact information of 
+the person(s) who discriminated against you (if known) as well as names and contact information 
+
+ 
+ 
+ 
+ 
+  
+ 
+      
+      
+    
+  
+ 
+ 
+  
+  
+ 
+ 
+App. D-2 FTA C 4702.1B 
+of any witnesses. If more space is needed, please use the back of this form. 
+______________________________________________________________________________ 
+______________________________________________________________________________ 
+Section IV 
+Have you previously filed a Title VI complaint with this 
+agency? 
+Yes No 
+Section V 
+Have you filed this complaint with any other Federal, State, or local agency, or with any Federal 
+or State court? 
+[ ] Yes [ ] No 
+If yes, check all that apply: 
+[ ] Federal Agency: 
+[ ] Federal Court [ ] State Agency  
+[ ] State Court [ ] Local Agency 
+Please provide information about a contact person at the agency/court where the complaint was 
+filed. 
+Name: 
+Title: 
+Agency: 
+Address: 
+Telephone: 
+Section VI 
+Name of agency complaint is against: 
+Contact person: 
+Title: 
+Telephone number: 
+You may attach any written materials or other information that you think is relevant to your 
+complaint. 
+Signature and date required below 
+_____________________________________ ________________________ 
+Signature  Date 
+Please submit this form in person at the address below, or mail this form to: 
+City of USA Title VI Coordinator 
+1234 Center Street 
+City of USA, State 11111 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+   
+ 
+ 
+     
+   
+     
+ 
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+ 
+ 
+FTA C 4702.1B App. E-1 
+APPENDIX E
+ 
+LIST OF TRANSIT-RELATED TITLE VI INVESTIGATIONS, COMPLAINTS, AND 
+LAWSUITS (GENERAL REQUIREMENT) 
+Background 
+All recipients shall prepare and maintain a list of any of the following that allege discrimination 
+on the basis of race, color, or national origin:  
+ Active investigations conducted by FTA and entities other than FTA;  
+ Lawsuits; and  
+ Complaints naming the recipient.  
+This list shall include the date that the transit-related Title VI investigation, lawsuit, or complaint 
+was filed; a summary of the allegation(s); the status of the investigation, lawsuit, or complaint; 
+and actions taken by the recipient in response, or final findings related to the investigation, 
+lawsuit, or complaint. This list shall be included in the Title VI Program submitted to FTA every 
+three years.  
+The sample below is provided for the purposes of guidance only. 
+SAMPLE List of Investigations, Lawsuits and Complaints 
+Date 
+(Month, Day, 
+Year) 
+Summary 
+(include basis of 
+complaint: race, 
+color, or national 
+origin) 
+Status Action(s) Taken 
+Investigations 
+1. 
+2. 
+Lawsuits 
+1. 
+2. 
+Complaints 
+1. 
+2. 
+
+
+
+ 
+ 
+ 
+ 
+ 
+       
+ 
+ 
+ 
+ 
+ 
+ 
+           
+ 
+           
+ 
+ 
+ 
+         
+ 
+ 
+ 
+         
+ 
+ 
+FTA C 4702.1B App. F-1 
+APPENDIX F
+ 
+TABLE DEPICTING MINORITY REPRESENTATION ON COMMITTEES AND 
+COUNCILS SELECTED BY THE RECIPIENT (GENERAL REQUIREMENT) 
+Background 
+Recipients that have transit-related, non-elected planning boards, advisory councils or 
+committees, or similar bodies, the membership of which is selected by the recipient, must 
+provide a table depicting the membership of those committees broken down by race, and a 
+description of efforts made to encourage the participation of minorities on such committees.  
+The sample below is provided for the purposes of guidance only. 
+SAMPLE Table Depicting Membership of Committees, Councils, Broken Down by Race 
+Body Caucasian Latino African 
+American 
+Asian 
+American 
+Native 
+American 
+Population 46% 28% 14% 8% 4% 
+Access 
+Committee 60% 23% 10% 7% 0% 
+Citizens 
+Advisory 
+Council 
+40% 25% 20% 10% 5% 
+Bicycle 
+Pedestrian 
+Committee 
+45% 30% 15% 5% 5% 
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+  
+FTA C 4702.1B 	 App. G-1 
+APPENDIX G 
+SERVICE STANDARDS (REQUIREMENT FOR ALL FIXED ROUTE TRANSIT 
+PROVIDERS) 
+Background 
+FTA requires all fixed route transit providers of public transportation to develop quantitative 
+standards for the following indicators. Individual public transportation providers will set these 
+standards; therefore, these standards will apply to each individual agency rather than across the 
+entire transit industry. 
+	 Vehicle load for each mode: Generally expressed as the ratio of passengers to the number 
+of seats on a vehicle, relative to the vehicle’s maximum load point. For example, on a 40­
+seat bus, a vehicle load of 1.3 means all seats are filled and there are approximately 12 
+standees. Transit providers can specify vehicle loads for peak vs. off-peak times, and for 
+different modes of transit.  
+	 Vehicle headways for each mode: The amount of time between two vehicles traveling in 
+the same direction on a given line or combination of lines.  
+ On-time performance for each mode: A measure of runs completed as scheduled.   
+ Service availability for each mode: A general measure of the distribution of routes within 
+an agency’s service area. 
+The samples below are provided for the purposes of guidance only. 
+SAMPLE Standards 
+SAMPLE Vehicle Load Standards 
+1.	 Expressed in writing 
+The average of all loads during the peak operating period should not exceed vehicles’ achievable 
+capacities, which are 30 passengers for a 15’ mini-bus, 51 passengers for low-floor 40-foot 
+buses, 60 passengers for standard 40-foot buses, and 133 passengers on a light rail car. 
+2.	 Expressed in tabular format 
+Vehicle Type 
+Maximum 
+Load 
+Seated Total Factor 
+Average Passenger Capacities 
+Standing
+15′ Mini-Bus 28 2 30 1.1 
+40′ Low Floor Bus 39 12 51 1.3 
+40′ Standard Bus 43 17 60 1.4 
+Light Rail Vehicle 64 69 133 2.1 
+
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+  
+ 
+ 
+    
+     
+   
+    
+   
+ 
+  
+ 
+ 
+   
+   
+  
+   
+   
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+App. G-2 FTA C 4702.1B 
+SAMPLE Vehicle Headway Standards 
+1. Expressed in writing 
+Service operates on regional trunk lines every 15 minutes or better from early morning to late in 
+the evening, seven days a week. On weekdays, 15 minute or better service should begin no later 
+than 6:00 a.m. and continue until 10:30 p.m. On weekends, 15 minute or better service should 
+begin by 8:00 a.m. and continue until 10:30 p.m. 
+Scheduling involves the consideration of a number of factors including: ridership productivity, 
+transit/pedestrian friendly streets, density of transit-dependent population and activities, 
+relationship to the Regional Transportation Plan, relationship to major transportation 
+developments, land use connectivity, and transportation demand management. 
+2. Expressed in tabular format 
+POLICY HEADWAYS AND PERIODS OF OPERATION 
+WEEKDAY Peak Base Evening Night 
+Regional Trunk 10 15 15 30 
+Urban Radial 15 15 30 60 
+Cross-Town 15 15 30 --
+Secondary Radial 30 30 60 --
+Feeder 30 30 60 --
+Peak Express 30 -- -- --
+Employer Feeder 60 -- -- --
+* Peak: 7-9 am and 4-6 pm; Base 9am - 4pm; Evening: 6-9:30 pm; Night: 9:30pm-
+Midnight; 
+“--“ means no service is provided during that time period. 
+SATURDAY Day Evening Night 
+Regional Trunk 15 30 30 
+Urban Radial 30 60 --
+Cross-Town 15 30 --
+Secondary Radial 60 60 --
+Feeder 60 60 --
+Peak Express -- -- --
+Employer Feeder -- -- --
+* Day 7am - 6pm; Evening: 6-9:30 pm; Night: 9:30pm – Midnight; 
+“--“ means no service is provided during that time period. 
+
+ 
+ 
+ 
+  
+   
+   
+  
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B 	 App. G-3 
+SUNDAY Day Evening Night 
+Regional Trunk 	 30 60 --
+Urban Radial	 30 60 --
+Cross-Town 	 30 -- --
+Secondary Radial -- -- --
+Feeder 	 -- -- --
+Peak Express 	 -- -- --
+Employer Feeder -- -- --
+* Day 7am - 6pm; Evening: 6-9:30 pm; Night: 9:30pm-Midnight;
+“--“ means no service is provided during that time period. 
+SAMPLE On-Time Performance Standards 
+Expressed in writing 
+	 Sample 1: 
+o	 Ninety-five (95) percent of the City of USA’s transit vehicles will complete their 
+established runs no more than 5 minutes early or late in comparison to the established 
+schedule/published timetables.  
+	 Sample 2: 
+o	 A vehicle is considered on time if it departs a scheduled timepoint no more than 1 
+minute early and no more than 5 minutes late. The City of USA’s on-time 
+performance objective is 90% or greater. The City of USA continuously monitors on-
+time performance and system results are published and posted as part of monthly 
+performance reports covering all aspects of operations.  
+SAMPLE Service Availability Standards 
+Expressed in writing 
+The City of USA will distribute transit service so that 90% of all residents in the service area are 
+within a ¼ mile walk of bus service or within a ½ mile walk of rail service. 
+AND/OR 
+Local bus stops will be not more than 3 blocks apart.  Express bus stops will be one-half to three-
+quarters of a mile apart. 
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B App. H-1 
+APPENDIX H 
+SERVICE POLICIES (REQUIREMENT FOR ALL FIXED ROUTE TRANSIT
+ 
+PROVIDERS) 
+Background 
+FTA requires that all providers of fixed route public transportation develop qualitative policies 
+for the following procedures. These policies are to be set by individual transit providers; 
+therefore, these policies will apply to individual agencies rather than across the entire transit 
+industry. 
+ Vehicle Assignment 
+ Transit Amenities 
+The samples below are provided for the purposes of guidance only. 
+Policies 
+SAMPLE Vehicle Assignment Policy 
+Expressed in writing 
+Vehicles will be assigned to the South, North, and East depots such that the average 
+age of the fleet serving each depot does not exceed “x” years. Low-floor buses are 
+deployed on frequent service and other high-ridership lines, so these buses carry a 
+higher share of ridership than their numerical proportion of the overall bus fleet. 
+Low-floor buses are also equipped with air conditioning and automated stop 
+announcement systems. 
+All rail cars are equipped with air conditioning, and high-floor rail cars are always 
+paired with a low-floor car to provide accessibility. 
+Bus assignments take into account the operating characteristics of buses of various 
+lengths, which are matched to the operating characteristics of the route. Local routes 
+with lower ridership may be assigned 30-foot buses rather than the 40-foot buses. 
+Some routes requiring tight turns on narrow streets are operated with 30-foot rather 
+than 40-foot buses. 
+SAMPLE Transit Amenities Policy 
+Expressed in writing 
+Installation of transit amenities along bus and rail routes are based on the number of passenger 
+boardings at stops and stations along those routes. 
+
+
+
+ 
+ 
+  
+ 
+ 
+ 
+ 
+  
+ 
+FTA C 4702.1B App. I-1 
+APPENDIX I 
+DEMOGRAPHIC PROFILE AND TRAVEL PATTERNS (REQUIREMENT FOR TRANSIT 
+PROVIDERS THAT OPERATE 50 OR MORE FIXED ROUTE VEHICLES IN PEAK SERVICE 
+AND ARE LOCATED IN URBANIZED AREAS (UZA) OF 200,000 OR MORE PEOPLE, OR
+ 
+THAT OTHERWISE MEET THE THRESHOLD DEFINED IN CHAPTER IV) 
+Background 
+Transit service providers that operate 50 or more fixed route vehicles in peak service and are 
+located in urbanized areas (UZA) of 200,000 or more people, or that otherwise meet the 
+threshold defined in Chapter IV, are required to prepare demographic and service profile maps 
+and charts to determine whether and to what extent transit service is available to minority 
+populations within the recipient’s service area. Transit providers shall include charts and tables 
+summarizing data in their Title VI Programs. Transit providers shall not send raw data to FTA 
+unless requested. 
+The aforementioned transit providers are also required to prepare data regarding customer 
+demographics and travel patterns.  
+The sample below is provided for the purposes of guidance only. 
+SAMPLE Demographic and Service Profile Maps and Charts 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+App. I-2 FTA C 4702.1B 
+Additional guidance 
+FTA will publish additional guidance, and/or update this appendix, with detailed approaches to 
+data collection, surveys, and analysis methods. 
+
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B App. J-1 
+APPENDIX J 
+REQUIREMENT TO MONITOR TRANSIT SERVICE (REQUIREMENT FOR 
+TRANSIT PROVIDERS THAT OPERATE 50 OR MORE FIXED ROUTE VEHICLES 
+IN PEAK SERVICE AND ARE LOCATED IN URBANIZED AREAS (UZA) OF 200,000 
+OR MORE PEOPLE, OR THAT OTHERW ISE MEET THE TH RESHOLD DEFINED 
+IN CHAPTER IV)
+ 
+Background 
+FTA requires transit providers that operate 50 or more fixed route vehicles in peak service and are 
+located in urbanized areas (UZA) of 200,000 or more people, or that otherwise meet the threshold 
+defined in Chapter IV, to monitor their service standards and policies. Service standards and policies 
+provide the framework for monitoring and assessment of service to compare service provided in 
+areas with a percentage of minority population that exceeds the percentage of minority population in 
+the service area to service provided in areas with a percentage of minority populations that is below 
+the percentage of minority population in the service area. 
+The following tables and maps are provided as examples of how to assess the performance of 
+service on minority and non-minority routes for each of the transit provider’s service standards 
+and service policies. Providers of fixed route public transportation should follow these examples 
+for submitting data in their Title VI Programs. Transit providers should assess transit service and 
+compare actual/observed service to the established service policies and standards. The standards 
+and policies that must be monitored are: 
+ Standards 
+o Vehicle Load for each mode 
+o Vehicle Headway for each mode 
+o On-Time Performance for each mode 
+o Service Accessibility for each mode 
+ Policies
+ 
+o Vehicle Assignment for each mode 
+o Distribution of Transit Amenities (Policy and Standards) for each mode 
+The samples below are provided for the purposes of guidance only. 
+SAMPLE Methodology 
+This section describes a sample methodology to determine the minority populations served by 
+each bus and rail line, and provides a framework for comparisons. 
+For each individual bus and/or rail line, calculate the percentages of all persons residing in areas 
+served by the line who are minority persons. Define a unique geographic area of coverage for 
+each line by including all Census Block Groups within one-quarter mile walking distance of bus 
+stops and/or within one-half mile walking distance of rail stations served by that line. For each 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+      
+ 
+ 
+  
+  
+ 
+ 
+ 
+ 
+ 
+App. J-2 FTA C 4702.1B 
+line, calculate the number of minority persons residing in all Block Groups served, and 
+determine the percentage of minority persons among all persons served by the line.  
+SAMPLE Monitoring of Service Standards 
+SAMPLE Vehicle Load Monitoring 
+Table 1 below shows passenger capacities for buses and light rail cars as the average maximum 
+number of persons seated and standing during the peak one-hour in the peak direction. Maximum 
+load factors represent the maximum achievable capacity, and are calculated by dividing the total 
+seated and standing capacity by the seated capacity of the vehicle.   
+Table 1. SAMPLE Passenger Capacities
+ Average Passenger Capacity 
+Vehicle Type Seated Standing Total 
+30’ Bus 28 2 30 
+40’ Low-Floor 
+Bus 39 12 51 
+40’ Standard Bus 43 17 60 
+Light Rail 
+Vehicle 64 69 133 
+Load Standard 
+1.1 
+1.3 
+1.4 
+2.1 
+Maximum Load Factor 

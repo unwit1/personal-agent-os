@@ -1,0 +1,659 @@
+===== PDF SOURCE BEGIN / PART 5 OF 8 =====
+SOURCE_PATH: TITLE VI LEP PLAN/FTA_Title_VI_FINAL.pdf
+SHA256: 21dfaa2b0e937e2f548c150590a5116a99a200e81ccc6a2aec353090e657ae04
+PAGES: 130
+TEXT_CHARS_TOTAL: 281439
+PART_INDEX: 5
+===== TEXT =====
+
+FTA C 4702.1B 	 Chap. IV-21 
+adjustments that will eliminate unnecessary disparate effects on populations 
+defined by race, color, or national origin. Where disparate impacts are identified, 
+the transit provider shall provide a meaningful opportunity for public comment on 
+any proposed mitigation measures, including any less discriminatory alternatives 
+that may be available. 
+(f) Low-Income Disproportionate Burden Policy. The transit provider shall 
+develop a policy for measuring the bur den of fare changes on low-income 
+riders to determine when low-income riders are bearing a disproportionate 
+burden of the change between the exis ting fare and the proposed fare. The 
+impact may be defined as a statistical percentage. The disproportionate burden 
+threshold must be applied uniformly, rega rdless of fare media, and cannot be 
+altered until the next program submission.  
+(i) The transit provider shall engage the public in the decision-making process 
+to develop the disproportionate burden threshold. 
+(ii) At the conclusion of the analysis, if the transit provider finds that low-income 
+populations will bear a disproportionate burden of the proposed fare change, 
+the transit provider should take steps to avoid, minimize or mitigate impacts 
+where practicable. The transit provider should describe alternatives available 
+to low-income populations affected by the fare changes. 
+c.	 Service and Fare Equity Analysis for New Starts and Other New Fixed Guideway 
+Systems. Transit providers that have implemented or will implement a New Start, Small 
+Start, or other new fixed guideway capital project shall conduct a service and fare equity 
+analysis. The service and fare equity analysis will be conducted six months prior to the 
+beginning of revenue operations, whether or not the proposed changes to existing service 
+rise to the level of “major service change” as defined by the transit provider. All proposed 
+changes to parallel or connecting service will be examined. If the entity that builds the 
+project is different from the transit provider that will operate the project, the transit 
+provider operating the project shall conduct the analysis. The service equity analysis shall 
+include a comparative analysis of service levels pre-and post- the New Starts/Small 
+Starts/new fixed guideway capital project. The analysis shall be depicted in tabular 
+format and shall determine whether the service changes proposed (including both 
+reductions and increases) due to the capital project will result in a disparate impact on 
+minority populations. The transit provider shall also conduct a fare equity analysis for 
+any and all fares that will change as a result of the capital project.   
+
+
+
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B 	 Chap. V-1 
+CHAPTER V 
+REQUIREMENTS FOR STATES 
+1.	 INTRODUCTION. This chapter provides requirements for States. States that receive 
+financial assistance from FTA are also responsible for following: 
+a.	 The general requirements in Chapter III of this Circular; and 
+b.	 The requirements in Chapter IV of this Circular if the State is a provider of fixed route 
+public transportation. 
+2.	 REQUIREMENT TO PREPARE AND SUBMIT A TITLE VI PROGRAM. Title 49 CFR 
+Section 21.9(b) requires recipients to submit reports to FTA in order for FTA to ascertain 
+whether the recipient is in compliance with the DOT Title VI regulations, and recipients must 
+have available “racial and ethnic data showing the extent to which members of minority 
+groups are beneficiaries of programs receiving Federal financial assistance.” As stated in 
+Chapter III of this Circular, FTA requires that all direct and primary recipients document 
+their compliance by submitting a Title VI Program to their FTA regional civil rights officer 
+once every three years, or as otherwise directed by FTA.  
+For all recipients (including subrecipients), the Title VI Program must be approved by the 
+recipient’s board of directors or appropriate governing entity or official(s) responsible for 
+policy decisions prior to submission to FTA. For State DOTs, the appropriate governing 
+entity is the State’s Secretary of Transportation or equivalent. States shall submit a copy of 
+the appropriate documentation demonstrating that the State’s Secretary of Transportation or 
+equivalent official has approved the Title VI Program. FTA will review and concur or 
+request the recipient provide additional information. Subrecipients, including MPOs that 
+receive planning money from the State, shall submit Title VI Programs to the State as the 
+primary recipient from whom they receive funding, in order to assist the State in its 
+compliance efforts, on a schedule determined by the State. Collection and storage of 
+subrecipient Title VI Programs may be electronic at the option of the State.  See Appendix L 
+for clarification of reporting responsibilities by recipient category.  
+States shall include the following information in their Title VI Program:  
+a.	 All general requirements set out in section 4 of Chapter III of this Circular; 
+b.	 All requirements for transit providers set out in Chapter IV of this Circular if the State is 
+a provider of fixed route public transportation services; 
+c.	 A demographic profile of the State that includes identification of the locations of 
+minority populations in the aggregate; 
+d.	 Demographic maps that overlay the percent minority and non-minority populations as 
+identified by Census or American Community Survey data at Census tract or block group 
+level, and charts that analyze the impacts of the distribution of State and Federal funds in 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Chap. V-2 	 FTA C 4702.1B 
+the aggregate for public transportation purposes, including Federal funds managed by the 
+State as a designated recipient; 
+e.	 An analysis of impacts identified in paragraph d that identifies any disparate impacts on 
+the basis of race, color, or national origin, and, if so, determines whether there is a 
+substantial legitimate justification for the policy that resulted in the disparate impacts, 
+and if there are alternatives that could be employed that would have a less discriminatory 
+impact. 
+f.	 A description of the statewide transportation planning process that identifies the 
+transportation needs of minority populations;  
+g.	 A description of the procedures the State uses to pass through FTA financial assistance to 
+subrecipients in a non-discriminatory manner; and 
+h.	 A description of the procedures the State uses to provide assistance to potential 
+subrecipients applying for funding, including its efforts to assist applicants that would 
+serve predominantly minority populations.  
+3.	 PLANNING. All States are responsible for conducting planning activities that comply with 
+49 U.S.C. Section 5304, Statewide Transportation Planning, as well as subpart B of 23 CFR 
+part 450, Statewide Transportation Planning and Programming. Since States “pass through” 
+planning funds to the MPO, the State as primary recipient is responsible for collecting Title 
+VI programs from MPOs on a schedule to be determined by the State. Collection and storage 
+of subrecipient Title VI Programs may be electronic at the option of the State. The State is 
+thus responsible for monitoring the Title VI compliance of the MPO for those activities for 
+which the MPO is a subrecipient.  
+Self-certification of compliance with all applicable Federal requirements is required of all 
+States, which is reviewed by FTA and the Federal Highway Administration (FHWA) in the 
+joint Statewide Planning Finding, rendered at the time of update or amendment of the 
+Statewide Improvement Program (STIP). The joint FTA/FHWA planning certification 
+review includes a review of Title VI compliance. The self-certification and joint FTA/FHWA 
+“Finding” include a review of Title VI compliance. As part of the planning certification 
+review, FTA/FHWA review State-developed documentation to determine whether States 
+have: 
+a.	 Analyzed regional demographic data to identify minority populations within the non-
+urbanized areas of the State. 
+b.	 Where necessary, provided local service providers and agencies with data to assist them 
+in identifying minority populations in their service area. 
+c.	 Ensured that members of minority communities are provided with full opportunities to 
+engage in the Statewide Transportation Planning process. This includes actions to 
+eliminate language, mobility, temporal, and other obstacles to allow these populations to 
+participate fully in the process. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B 	 Chap. V-3 
+d.	 Monitored the activities of subrecipients with regard to Title VI compliance, where the 
+State passes funds through to subrecipients. 
+4.	 REQUIREMENTS FOR PROGRAM ADMINISTRATION. In order to comply with 49 CFR 
+Section 21.5, the general nondiscrimination provision, States shall document that they pass 
+through FTA funds under the Enhanced Mobility for Seniors and Individuals with 
+Disabilities (Section 5310) program, the Formula Grants for Rural Areas (Section 5311) 
+program, and any other FTA funds, to subrecipients without regard to race, color, or national 
+origin, and assure that minority populations are not being denied the benefits of or excluded 
+from participation in these programs.  
+States shall prepare and maintain, but not report unless requested by FTA, the following 
+information:  
+a.	 A record of funding requests received from private non-profit organizations, State or 
+local governmental authorities, and Indian tribes. The record shall identify those 
+applicants that would use grant program funds to provide assistance to predominantly 
+minority populations. The record shall also indicate which applications were rejected and 
+accepted for funding. 
+b.	 A description of how the agency develops its competitive selection process or annual 
+program of projects submitted to FTA as part of its grant applications. This description 
+shall emphasize the method used to ensure the equitable distribution of funds to 
+subrecipients that serve predominantly minority populations, including Native American 
+tribes, where present. Equitable distribution can be achieved by engaging in outreach to 
+diverse stakeholders regarding the availability of funds, and ensuring the competitive 
+process is not itself a barrier to selection of minority applicants. 
+c.	 A description of the agency’s criteria for selecting entities to participate in an FTA grant 
+program. 
+When a subrecipient is also a direct recipient of FTA funds, that is, applies for funds directly 
+from FTA in addition to receiving funds from a State, the subrecipient/direct recipient reports 
+directly to FTA and the State as designated recipient is not responsible for monitoring 
+compliance of that subrecipient/direct recipient. The supplemental agreement signed by both 
+entities in their roles as designated recipient and direct recipient relieves the State as 
+designated recipient of this oversight responsibility. See Appendix L for clarification of 
+reporting responsibilities by recipient category. 
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B 	 Chap. VI-1 
+CHAPTER VI 
+REQUIREMENTS FOR METROPOLITAN TRANSPORTATION PLANNING 
+ORGANIZATIONS 
+1.	 INTRODUCTION. This chapter describes the procedures that metropolitan planning 
+organizations (MPOs) shall follow in order to comply with the DOT’s Title VI regulations. 
+MPOs are also responsible for following the general requirements in Chapter III of this 
+circular.  
+An MPO may serve many different roles depending on its “recipient” status, i.e., designated 
+recipient, direct recipient, primary recipient, or subrecipient. This chapter describes the many 
+roles an MPO may fill, and provides guidance on Title VI compliance for each of those roles.  
+2.	 REQUIREMENT TO PREPARE AND SUBMIT A TITLE VI PROGRAM. Title 49 CFR 
+Section 21.9(b) requires recipients to submit reports to FTA in order for FTA to ascertain 
+whether the recipient is in compliance with the DOT Title VI regulations, and recipients must 
+have available “racial and ethnic data showing the extent to which members of minority 
+groups are beneficiaries of programs receiving Federal financial assistance.” As stated in 
+Chapter III of this Circular, FTA requires that all direct and primary recipients document 
+their compliance by submitting a Title VI Program to their FTA regional civil rights officer 
+once every three years, or as otherwise directed by FTA.  
+For all recipients (including subrecipients), the Title VI Program must be approved by the 
+recipient’s board of directors or appropriate governing entity or official(s) responsible for 
+policy decisions prior to submission to FTA. FTA will review and concur or request the 
+recipient provide additional information. Subrecipients, including MPOs that receive Federal 
+planning money from the State, shall submit Title VI Programs to the State as the primary 
+recipient from whom they receive funding, on a schedule to be determined by the State, in 
+order to assist the State in its compliance efforts. Collection and storage of subrecipient Title 
+VI Programs may be electronic at the option of the State.  See Appendix L for clarification of 
+reporting responsibilities by recipient category.  
+MPOs shall include the following information in their Title VI Programs. 
+a.	 In its regional transportation planning capacity, the MPO shall submit to the State as the 
+primary recipient, and also to FTA: 
+(1) All general requirements) set out in section 4 of Chapter III of this Circular; 
+(2) A demographic profile of the metropolitan area that includes identification of the 
+locations of minority populations in the aggregate;  
+(3) A description of the procedures by which the mobility needs of minority populations 
+are identified and considered within the planning process;  
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Chap. VI-2 	 FTA C 4702.1B 
+(4) Demographic maps that overlay the percent minority and non-minority populations as 
+identified by Census or ACS data, at Census tract or block group level, and charts that 
+analyze the impacts of the distribution of State and Federal funds in the aggregate for 
+public transportation purposes, including Federal funds managed by the MPO as a 
+designated recipient; 
+(5) An analysis of impacts identified in paragraph (4) that identifies any disparate 
+impacts on the basis of race, color, or national origin, and, if so, determines whether 
+there is a substantial legitimate justification for the policy that resulted in the 
+disparate impacts, and if there are alternatives that could be employed that would 
+have a less discriminatory impact. 
+b.	 In its capacity as a direct recipient, the MPO shall submit to FTA: 
+(1) The information required under section 2a of this chapter; and 
+(2) If the MPO is a provider of fixed route public transportation service, the information 
+required under section 2 of chapter IV (Requirements and Guidelines for Fixed Route 
+Transit Providers). The reporting requirements that the MPO must follow for the 
+provision of public transportation service will be based on whether the MPO serves a 
+large UZA with 200,000 or more in population and whether the number of fixed route 
+vehicles in peak service is 50 or more.  
+c.	 In its capacity as a primary recipient, the MPO shall submit to FTA: 
+(1) The information required under section 2a of this chapter; 
+(2) A description of the procedures the MPO uses to pass through FTA financial 
+assistance to subrecipients in a nondiscriminatory manner; and 
+(3) A description of the procedures the MPO uses to provide assistance to potential 
+subrecipients applying for funding, including its efforts to assist applicants that would 
+serve predominantly minority populations. 
+See Appendix L for clarification of reporting responsibilities by recipient category. 
+3.	 PLANNING. All MPOs are responsible for conducting planning activities that comply with 
+49 U.S.C. Section 5303, Metropolitan Transportation Planning, as well as subpart C of 23 
+CFR part 450, Metropolitan Transportation Planning and Programming, for a specified 
+metropolitan planning area. Since States “pass through” planning funds to the MPO, MPOs 
+are subrecipients of the State and must submit Title VI compliance reports for planning 
+activities to the State in order to assist the State in demonstrating compliance with Title VI.  
+The State is thus responsible for monitoring the Title VI compliance of the MPO for those 
+activities for which the MPO is a subrecipient. If the MPO passes planning funds through to 
+one or more subrecipients, the MPO is responsible for ensuring those subrecipients comply 
+with Title VI. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B 	 Chap. VI-3 
+All MPOs are required to self-certify compliance with all applicable Federal requirements. 
+Planning certification reviews conducted jointly by FTA and FHWA of the metropolitan 
+transportation planning processes of transportation management areas include a review of 
+Title VI compliance. As part of the planning certification review, FTA/FHWA review MPO-
+developed documentation to determine whether MPOs have: 
+a.	 Analyzed regional demographic data to identify minority populations within the region. 
+b.	 Where necessary, provided member agencies with regional data to assist them in 
+identifying minority populations in their service area. 
+c.	 Ensured that members of minority communities are provided with full opportunities to 
+engage in the transportation planning process. This includes actions to eliminate 
+language, mobility, temporal, and other obstacles to allow these populations to participate 
+fully in the process.  
+d.	 Monitored the activities of subrecipients with regard to Title VI compliance, where the 
+MPO passes funds through to subrecipients. 
+4.	 DESIGNATED RECIPIENT. MPOs sometimes serve the role of designated recipient. FTA 
+apportions funds each year to the MPO as designated recipient, and the MPO, in turn, 
+suballocates funds (without receiving the actual funds from FTA) to various entities and/or 
+retains funds to carry out its own projects or activities, or to pass through to subrecipients. If 
+the MPO as designated recipient simply suballocates the funds to other entities, and those 
+entities apply to FTA directly for the funds, the MPO and each entity to which it suballocates 
+funds enter into a “supplemental agreement.” Under a supplemental agreement, the direct 
+recipient is responsible for demonstrating compliance with Federal law, including Title VI, 
+and the MPO is not in any manner subject to or responsible for the direct recipient’s 
+compliance with the DOT Title VI regulations. 
+However, the MPO as designated recipient is responsible for suballocating FTA funds 
+without regard to race, color, or national origin. Suballocations must be based on project 
+implementation priorities in the MTP, which includes a robust public participation process. 
+Each MPO must have a locally developed process that establishes criteria for making 
+determinations of funding priorities in a nondiscriminatory manner. 
+5.	 DIRECT RECIPIENT. An MPO that receives funding directly from FTA for its own 
+activities is a direct recipient, and therefore must develop a Title VI Program and report Title 
+VI compliance to FTA for those activities for which it is a direct recipient. As a direct 
+recipient, an MPO may also pass through funds to subrecipients. When an MPO receives 
+funds directly from FTA and then passes funds through to subrecipients, the MPO becomes a 
+primary recipient under the DOT Title VI regulations and is responsible for monitoring the 
+compliance of its subrecipients with Title VI, unless that subrecipient is also an FTA direct 
+recipient. Refer to Appendix L for clarification of reporting responsibilities by recipient 
+category.  
+6. REQUIREMENTS FOR PROGRAM ADMINISTRATION. In order to comply with 49 CFR 
+Section 21.5, the general nondiscrimination provision, MPOs shall document that they pass 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Chap. VI-2 	 FTA C 4702.1B 
+through FTA funds under any FTA programs (e.g., 49 U.S.C. 5310, Enhanced Mobility for 
+Seniors and Individuals with Disabilities), to subrecipients without regard to race, color, or 
+national origin, and assure that minority populations are not being denied the benefits of or 
+excluded from participation in these programs.  
+MPOs shall prepare and maintain, but not report unless requested by FTA, the following 
+information:  
+a.	 A record of funding requests received from private non-profit organizations, State or 
+local governmental authorities, and Indian tribes. The record shall identify those 
+applicants that would use grant program funds to provide assistance to predominantly 
+minority populations. The record shall also indicate which applications were rejected and 
+accepted for funding. 
+b.	 A description of how the MPO develops its competitive selection process or annual 
+program of projects submitted to FTA as part of its grant applications. This description 
+shall emphasize the method used to ensure the equitable distribution of funds to 
+subrecipients that serve predominantly minority populations, including Native American 
+tribes, where present. Equitable distribution can be achieved by engaging in outreach to 
+diverse stakeholders regarding the availability of funds, and ensuring the competitive 
+process is not itself a barrier to selection of minority applicants. 
+c.	 A description of the MPO’s criteria for selecting entities to participate in an FTA grant 
+program. 
+
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B 	 Chap. VII-1 
+CHAPTER VII 
+EFFECTING COMPLIANCE WITH DOT TITLE VI REGULATIONS 
+1.	 INTRODUCTION. This chapter outlines procedures when FTA determines that a recipient is 
+noncompliant with the DOT Title VI regulations. Title 49 CFR Section 21.13(a) states the 
+following: 
+If there appears to be a failure or threatened failure to comply with this part, and if 
+the noncompliance or threatened noncompliance cannot be corrected by informal 
+means, compliance with this part may be effected by the suspension or 
+termination of or refusal to grant or to continue Federal financial assistance or by 
+any other means authorized by law. Such other means may include, but are not 
+limited to: (1) A reference to the Department of Justice with a recommendation 
+that appropriate proceedings be brought to enforce any rights of the United States 
+under any law of the United States (including other titles of the [Civil Rights] 
+Act), or any assurance or other contractual undertaking, and (2) any applicable 
+proceeding under State or local law. 
+2.	 PROCEDURES FOR SECURING VOLUNTARY COMPLIANCE. FTA may determine a 
+recipient is noncompliant with DOT’s Title VI regulations following a compliance review or 
+after FTA completes an investigation in response to a Title VI complaint. Prior to taking 
+measures to effect compliance, FTA will attempt to resolve noncompliance informally and 
+by using the following procedures. 
+a.	 Notification to the Recipient. When FTA has determined that a recipient is noncompliant 
+with DOT’s Title VI regulations, it will transmit a letter of finding to the recipient that 
+describes FTA’s determination and requests that the recipient voluntarily take corrective 
+action(s) that FTA deems necessary and appropriate.  
+b.	 Recipient Response. Within 30 days of receipt of FTA’s letter of finding, the recipient 
+must submit a remedial action plan, including a list of planned corrective actions and, if 
+necessary, sufficient reasons and justification for FTA to reconsider any of its findings or 
+recommendations. The recipient’s plan shall:  
+(1) List all corrective action(s) accepted by the recipient.  
+(2) Describe how the corrective actions will be implemented, and provide a timeline for 
+achieving compliance.  
+(3) Include a written assurance that the recipient will implement the accepted corrective 
+action(s) and has the capability to implement the accepted corrective action(s) in the 
+manner discussed in the plan.  
+(4) A copy of the board resolution, meeting minutes, or similar documentation with 
+evidence that the board of directors or appropriate governing entity or official(s) has 
+approved the remedial action plan. 
+
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+  
+ 
+ 
+Chap. VII-2	 FTA C 4702.1B 
+c.	 Request for Reconsideration. A recipient may request that FTA reconsider its finding. A 
+request for reconsideration shall provide a justification for the request to reconsider, 
+including any evidence or information supporting such a request, and include a written 
+assurance that on the basis of the requested reconsideration, the agency is or otherwise 
+will come into compliance with DOT’s Title VI regulations. This request shall be 
+submitted within 30 days of FTA’s notification to the recipient. 
+d.	 FTA Review of the Recipient Response. Within 30 days after receiving the recipient’s 
+response, FTA will review the submitted remedial action plan and any request for 
+reconsideration and decide what remedial action(s) are necessary and appropriate to bring 
+the recipient into compliance. If necessary, before making a decision, FTA may conduct a 
+site visit to substantiate information or statements contained in the recipient’s response. 
+FTA will issue a decision, including its findings and recommendations, as part of a final 
+remedial action plan. The final remedial action plan will be sent to the recipient for 
+review and consent. Consent means the recipient agrees to initiate action(s) specified in 
+the plan. 
+e.	 Conditions for Declining the Remedial Action Plan. The recipient has 15 days from the 
+date of notification by FTA to agree or disagree with the final remedial action plan. If a 
+recipient disagrees with this plan, it must submit a written statemen t of its reasons for 
+not agreeing to the remedial actions contai ned in the plan. Under those circumstances, 
+the recipient will be considered in noncom pliance, and FTA will schedule a meeting 
+with the recipient within 30 days to resolve the disagreements.  
+3.	 PROCEEDINGS. When FTA and the recipient cannot agree on a final remedial action plan 
+and the recipient continues to be in noncompliance with DOT Title VI regulations, in 
+accordance with 49 CFR Section 21.13, FTA may suspend, terminate, or refuse to grant or 
+continue Federal financial assistance to the recipient. This will generally occur when all 
+means of informal resolution have failed to get the recipient to comply with the law. FTA 
+may refer a matter to DOJ with a recommendation that appropriate proceedings be brought to 
+enforce any rights of the United States under any law of the United States or any assurance or 
+other contractual undertaking. 
+a.	 Termination of or refusal to grant or to continue Federal financial assistance. In 
+accordance with 49 CFR Section 21.13(c), FTA will not suspend, terminate, or refuse 
+to grant or continue Federa l financial assistance until: 
+(1) FTA has notified the applicant or recipi ent of its failure to comply and has 
+determined that compliance cannot be secured by voluntary means; 
+(2) FTA has found, after o pportunity for a hearing, that the applicant or recipient has 
+failed to comply with Title VI regulations; 
+(3) The action has been approved by the Secretary of Transportation; and 
+(4) 30 days have passed after FTA has filed w ith the Transportation and Infrastructure 
+Committee of the House of Representativ es; and the Banking, Housing and Urban 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B 	 Chap. VII-3 
+Affairs Committee of the Senate, a full wr itten report of the circumstances and the 
+grounds for such action. 
+b.	 Other means authorized by law. In accord ance with 49 CFR Section 21.13(d), FTA 
+will not refer the matter to DOJ or take any other action to effect compliance until: 
+(1) FTA has determined that compliance cannot be secured by voluntary means; 
+(2) FTA has notified the recipient of its failu re to comply and th e action FTA intends 
+to take; and 
+(3) At least 10 days have passed from the ma iling of such notice to the recipient. 
+During this 10-day period, FTA will make  additional efforts to persuade the 
+recipient to comply with th e regulation and to take such corrective action as may 
+be appropriate. 
+c.	 Hearings. Whenever FTA has determined that it is appropriate to terminate or refuse to 
+grant or continue Federal financial assistance, prior to such action FTA will provide the 
+applicant or recipient with an opportunity for a hearing, in accordance with 49 CFR 
+Section 21.15. FTA will provide reasonable notice of the hearing by registered or 
+certified mail, return receipt requested, to the applicant or recipient. The notice will 
+advise the applicant or recipient of the action proposed to be taken, the specific provision 
+under which the proposed action against it is to be taken, and the matters of fact or law 
+asserted as the basis for this action. The notice will either:  
+(1) Fix a date not less than 20 days after the date of such notice within which the 
+applicant or recipient may request of the FTA Administrator that the matter be 
+scheduled for hearing; or 
+(2) Advise the applicant or recipient that the matter in question has been scheduled for a 
+hearing at a stated place and time. The time and place will be reasonable and subject 
+to change for cause. 
+The complainant, if any, shall be advised of the time and place of the hearing. 
+d.	 Waiver of Hearing. An applicant or recipient may waive a hearing and submit written 
+information and argument for the record. The failure of an applicant or recipient to 
+request a hearing or to appear at a hearing for which a date has been set shall be deemed 
+to be a waiver of the right to a hearing under Section 602 of the Civil Rights Act of 1964 
+and 49 CFR Section 21.13(c), and consent to FTA making a decision on the basis of the 
+available information.  
+e.	 Time and Location of Hearing. Hearings will be held at the FTA Headquarters office in 
+Washington, DC, at a time fixed by the FTA Administrator unless the convenience of the 
+applicant or recipient or of FTA requires that another place be selected.  
+
+  
+ 
+ 
+ 
+ 
+ 
+ 
+Chap. VII-4	 FTA C 4702.1B 
+f.	 Hearing officer. Hearings will be held before the Secretary of Transportation or before a 
+hearing examiner appointed in accordance with Section 3105 of title 5, United States 
+Code. 
+g.	 Right to counsel. In all proceedings carried out under the authority of 49 CFR Section 
+21.15, the applicant or recipient and FTA shall have the right to be represented by 
+counsel. 
+h.	 Procedures, evidence, and record. Pursuant to 49 CFR 21.15(d), the hearing, decision, 
+and any administrative review thereof shall be conducted in conformity with Sections 554 
+through 557 of title 5, United States Code, and in accordance with such rules of 
+procedure as are proper relating to the conduct of the hearing, giving of notices to the 
+applicant or recipient, taking of testimony, exhibits, arguments and briefs, requests for 
+findings, and other related matters. FTA and the applicant or recipient shall be entitled to 
+introduce all relevant evidence on the issues as stated in the notice for hearing or as 
+determined by the officer conducting the hearing at the outset of or during the hearing.  
+4.	 JUDICIAL REVIEW. When FTA issues a final order after a hearing on the record, such final 
+action is subject to judicial review.  
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B 	 Chap. VIII-1 
+CHAPTER VIII 
+COMPLIANCE REVIEWS 
+1.	 INTRODUCTION. This chapter describes the review process FTA will follow when 
+determining whether a recipient is compliant or noncompliant with DOT Title VI regulations, 
+subsequent to the award of Federal financial assistance, and describes the information and 
+actions expected from recipients that are subject to these reviews.  
+2.	 COMPLIANCE PROCEDURES. Title 49 CFR Section 21.11(a) requires FTA to conduct 
+compliance reviews of its recipients. These reviews are separate from and may be in addition 
+to a Triennial Review, State Management Review, or Planning Certification Review and will 
+be conducted either as a desk audit or an on-site visit. The review may cover all or a portion 
+of the recipient’s compliance with Title VI. Such reviews are conducted at the discretion of 
+FTA, and the scope of a review is defined on a case-by-case basis.  
+3.	 CRITERIA. The following list of factors will contribute to the selection of recipients for 
+compliance reviews:  
+a.	 Lawsuits, complaints, or investigations conducted by organizations other than FTA 
+alleging the recipient is noncompliant with DOT Title VI regulations; 
+b.	 Alleged noncompliance brought to the attention of FTA by other Federal, State, or local 
+agencies; 
+c.	 A recipient submitting an incomplete or insufficient Title VI Program; and 
+d.	 Title VI findings or recommendations on prior Triennial, State Management, or Planning 
+Certification Reviews that have not been sufficiently resolved or implemented, or repeat 
+findings in any FTA review concerning Title VI. 
+4.	 SCOPE. In general, compliance reviews will assess the following information:  
+a.	 The recipient’s documented efforts to meet the requirements under Chapter III and the 
+program-specific sections of this Circular.  
+b.	 Other information that is necessary and appropriate to make a determination that the 
+recipient is in compliance with Title VI.  
+5.	 DETERMINATIONS. After reviewing the recipient’s or subrecipient’s efforts to meet the 
+general reporting and program-specific reporting sections of the Circular, FTA will issue a 
+compliance report that includes findings of no deficiency, deficiency, or noncompliance.  
+a.	 Findings of no deficiency are determinations that no deficiency was found in review of 
+the recipient’s Title VI Program or after the results of an investigation or compliance 
+review. Agencies are not expected to take any corrective action in response to findings of 
+no deficiency except with regard to advisory comments. Advisory comments are 
+recommendations that the recipient undertake activities in a manner more consistent with 
+
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+Chap. VIII-2 	 FTA C 4702.1B 
+the guidance provided in the pertaining section of the Circular. FTA expects recipients to 
+notify FTA as to whether the recipient will take action in response to the advisory 
+comments. 
+b.	 Findings of deficiency are determinations that the recipient has not complied with one or 
+more of the pertinent provisions of this circular. Recipients are expected to take 
+corrective actions in response to findings of deficiency and the compliance review will 
+provide specific instructions to the recipient on how the corrective action shall be taken.  
+c.	 Findings of noncompliance are determinations that the recipient has engaged in activities 
+that have had the purpose or effect of denying persons the benefits of, excluding them 
+from participation in, or subjecting persons to discrimination on the basis of race, color, 
+or national origin under the recipient’s program or activity; upon such determination, 
+FTA will consider the recipient to be noncompliant with Title VI. If noncompliance 
+cannot be corrected informally, the recipient may be subject to remedial action or 
+proceedings under Chapter VII of this Circular and the DOT Title VI regulations at 49 
+CFR Sections 21.13, 21.15, and 21.17. 
+6.	 RESULTS OF COMPLIANCE REVIEW ACTIVITIES. FTA will summarize the results of 
+the review in a draft compliance report, which will include findings of no deficiency, 
+findings of deficiency, and advisory comments, as appropriate. If findings of deficiency 
+remain in the final compliance report, the recipient will be required to take corrective action, 
+develop a timeline for compliance, and report on its progress to FTA on, at minimum, a 
+quarterly basis. Once FTA determines that the recipient has satisfactorily responded to the 
+review’s findings, it will inform the recipient that the review process has ended and release it 
+from further progress reporting in response to the review. FTA may follow up on a 
+compliance review with additional reviews as necessary.  
+7.	 EFFECTING COMPLIANCE. Consistent with the provisions of 49 CFR Sections 21.13, 
+21.15, and 21.17, and as explained in Chapter VII of this Circular, if a recipient fails to take 
+appropriate corrective action in response to the findings of deficiency in the report, FTA may 
+initiate proceedings that could result in action taken by the U.S. DOT to suspend, terminate, 
+refuse to grant or continue Federal financial assistance to a recipient, or may make a referral 
+to the Department of Justice (DOJ) with a recommendation that appropriate proceedings be 
+brought to enforce any rights of the United States under any law of the United States or any 
+assurance or other contractual undertaking.
+
+===== PDF SOURCE PART 5 END =====

@@ -1,0 +1,1000 @@
+===== PDF SOURCE BEGIN / PART 7 OF 8 =====
+SOURCE_PATH: TITLE VI LEP PLAN/FTA_Title_VI_FINAL.pdf
+SHA256: 21dfaa2b0e937e2f548c150590a5116a99a200e81ccc6a2aec353090e657ae04
+PAGES: 130
+TEXT_CHARS_TOTAL: 281439
+PART_INDEX: 7
+===== TEXT =====
+
+App. J-4 FTA C 4702.1B 
+Table 3. Weekday, Saturday and Sunday Headways and Span of Service on Weekdays, 
+Saturdays, and Sundays, for Minority and Non-Minority Lines 
+WEEKDAY 
+Lines 
+Operating 
+% 
+Operating Freq Lines Rail Lines 
+Service 
+Begins 
+AM Peak 
+Headway 
+Midday 
+Headway 
+PM Peak 
+Headway 
+Evening 
+Headway 
+Night 
+Headway 
+Service 
+Ends 
+Span 
+(Hours) 
+4th Quartile (Minority Population > 29%) 
+3rd Quartile (Minority Population > 21.6%) 
+2nd Quartile (Minority Population > 16.6%) 
+1st Quartile (Minority Population < 16.6%) 
+Minority Lines (3rd and 4th Quartiles) 
+Non-Minority Lines (1st and 2nd Quartiles) 
+25 
+24 
+24 
+24 
+49 
+48 
+100% 
+100% 
+100% 
+100% 
+100% 
+100% 
+5 
+6 
+3 
+2 
+11 
+5 
+3 5:14 a 
+5:14 a 
+5:33 a 
+5:45 a 
+5:14 a 
+5:39 a 
+26 
+21 
+27 
+30 
+24 
+29 
+28 
+26 
+39 
+38 
+27 
+38 
+27 
+22 
+27 
+31 
+24 
+29 
+31 
+30 
+38 
+45 
+30 
+41 
+41 
+44 
+42 
+53 
+43 
+47 
+9:48 p 
+10:52 p 
+8:56 p 
+8:13 p 
+10:19 p 
+8:35 p 
+16.6 
+17.6 
+15.4 
+14.5 
+17.1 
+14.9 
+System 97 100% 16 5:26 a 26 32 27 34 44 9:29 p 16.0 
+SATURDAY 
+Lines 
+Operating 
+% 
+Operating Freq Lines Rail Lines 
+Service 
+Begins 
+Daytime 
+Headway 
+Evening 
+Headway 
+Night 
+Headway 
+Service 
+Ends 
+Span 
+(Hours) 
+4th Quartile (Minority Population > 29%) 
+3rd Quartile (Minority Population > 21.6%) 
+18 
+19 
+72% 
+79% 
+5 
+6 
+3 5:35 a 
+5:52 a 
+33 
+25 
+37 
+38 
+36 
+45 
+10:22 p 
+12:00 a 
+16.8 
+18.1 
+2nd Quartile (Minority Population > 16.6%) 
+1st Quartile (Minority Population < 16.6%) 
+16 
+11 
+67% 
+46% 
+3 
+2 
+6:50 a 
+7:50 a 
+43 
+37 
+48 
+45 
+48 
+50 
+8:56 p 
+9:11 p 
+14.1 
+13.3 
+Minority Lines (3rd and 4th Quartiles) 
+Non-Minority Lines (1st and 2nd Quartiles) 
+37 
+27 
+76% 
+56% 
+11 
+5 
+5:43 a 
+7:15 a 
+29 
+40 
+38 
+47 
+42 
+49 
+11:13 p 
+9:02 p 
+17.5 
+13.8 
+System 64 66% 16 6:21 a 34 41 44 10:19 p 16.0 
+SUNDAY 
+Lines 
+Operating 
+% 
+Operating Freq Lines Rail Lines 
+Service 
+Begins 
+Daytime 
+Headway 
+Evening 
+Headway 
+Night 
+Headway 
+Service 
+Ends 
+Span 
+(Hours) 
+4th Quartile (Minority Population > 29%) 
+3rd Quartile (Minority Population > 21.6%) 
+17 
+19 
+68% 
+79% 
+5 
+6 
+3 6:08 a 
+6:27 a 
+34 
+32 
+39 
+46 
+33 
+46 
+10:38 p 
+11:33 p 
+16.5 
+17.1 
+2nd Quartile (Minority Population > 16.6%) 
+1st Quartile (Minority Population < 16.6%) 
+Minority Lines (3rd and 4th Quartiles) 
+Non-Minority Lines (1st and 2nd Quartiles) 
+13 
+7 
+37 
+27 
+54% 
+29% 
+76% 
+56% 
+3 
+2 
+11 
+5 
+7:02 a 
+7:57 a 
+6:18 a 
+7:21 a 
+45 
+34 
+33 
+41 
+48 
+40 
+43 
+46 
+48 
+45 
+42 
+47 
+9:55 p 
+8:52 p 
+11:07 p 
+9:33 p 
+14.9 
+12.9 
+16.8 
+14.2 
+System 64 66% 16 6:40 a 36 44 44 10:33 p 15.9 
+Shaded cells represent minority lines. 
+On weekdays, Saturdays, and Sundays, eleven (11) minority lines and five (5) non-minority lines 
+were designated as Frequent Service lines (i.e., Freq Lines). On weekdays, the average AM and 
+PM peak headway on minority lines was 24 minutes, versus 29 minutes on non-minority lines. 
+Average headways on minority lines during weekday midday, evening, and night periods were 
+lower (i.e., provided more frequent service) than on non-minority lines. Minority lines had an 
+average weekday span of service of 17.1 hours, as compared with a 14.9 span of service on non-
+minority lines.  
+On Saturdays and Sundays, average daytime headways on minority lines were 29 and 33 
+minutes, respectively, versus 40 and 41 minutes, respectively, for non-minority lines. Average 
+headways on minority lines during Saturday and Sunday evening and night periods were lower 
+(i.e., provided more frequent service) than on non-minority lines. Minority lines had average 
+Saturday and Sunday span of service of 17.5 and 16.8 hours, respectively, as compared with a 
+13.8 and 14.2 span of service on non-minority lines. 
+Figure 2 below depicts weekday headways for minority and non-minority lines for AM peak, 
+midday, PM peak, and evening. Saturday and Sunday headways for minority and non-minority 
+lines are shown for daytime, evening, and night periods. In all days and time periods, average 
+frequency of service on minority lines exceeded frequency of service on non-minority lines (i.e., 
+the average headway in minutes was lower on minority lines).  
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+FTA C 4702.1B 	 App. J-5 
+Figure 2. Headways for Minority and Non-Minority Lines on Weekdays, Saturdays, and 
+Sundays by Time Period 
+SAMPLE On-Time Performance Monitoring 
+	 SAMPLE Figure: Figure 3 below shows that 59.49% of transit vehicles passed time 
+points on time, 7.22% passed time points early, and 33.3% passed time points late. This 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+App. J-6 	 FTA C 4702.1B 
+information would be compared with the On-Time Performance Standard and analyzed to 
+determine potential disparate impacts. 
+Figure 3. Weekday On-Time Performance 
+Courtesy of ACE Transit 
+	 SAMPLE Assessment: The City of USA initiated a random spot check program to assess 
+a variety of performance measures, including on-time performance. This “Mystery Rider” 
+program completed a total 77 observations during the past fiscal year. Of the 77 bus trips 
+observed, approximately five (5) percent were found departing a schedule time point late 
+(i.e., more than 5 minutes after the departure time in the printed schedule). These routes 
+on which late departures were observed were: 
+o	 B07 
+o	 R10 
+o	 R24 
+o B48 
+Of these four routes, three (B07, R10, and R24) have a greater-than-average proportion of 
+route miles in minority Census blocks. These findings suggest that additional monitoring 
+of on-time performance to assess potential disparate impacts is warranted. The City of 
+USA will initiate additional on-time performance monitoring as part of the “Mystery 
+Rider” spot check program. 
+SAMPLE Service Availability Monitoring  
+SAMPLE Assessment: Table 4 below shows the percentages of minority and non-minority 
+households served. The percentage of minority households within a ½ mile walk of stops and/or 
+
+ 
+ 
+ 
+                
+     
+     
+     
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+  
+     
+   
+  
+  
+   
+   
+           
+   
+   
+           
+  
+     
+ 
+ 
+FTA C 4702.1B App. J-7 
+stations was 86.6%. The percentage of non-minority households within a ½ mile walk of stops 
+and/or stations was 76.8%. 
+Table 4. Service Availability for Minority and Non-Minority Residents 
+Households Within ½ Mile More than ½ Mile 
+Minority 86.6% 13.4% 
+Non‐Minority 76.8% 23.2% 
+System 78.5% 21.5% 
+Source: 2000 Census Block Group Data 
+All residents of Census Block Groups where geographic center of the Block Group is within ½-
+mile walk of a bus stop and/or rail station are considered within ½-mile of service. 
+SAMPLE Monitoring of Service Policies 
+SAMPLE Vehicle Assignment Monitoring 
+SAMPLE Assessment: Table 5 below shows the average age of buses in relation to 
+minority population served. In this case, all rail lines are minority lines, so rail 
+vehicle age is excluded from the calculation of average vehicle age. Buses on 
+minority lines had an average age of 12.1 years, compared to the system bus fleet 
+average age of 12.7 years. 
+SAMPLE Table: 
+Table 5. Vehicle Assignment 
+Shaded Cells Represent Lines Serving Areas with Minority Percentages Above the Median 
+Average Vehicle Age 
+Avg Date Avg 
+Lines 
+with 
+Low 
+of Age of Floor 
+Purchase Buses Buses 
+4th Quartile (Minority Population > 29%) 1994.4 13.1 8 
+3rd Quartile (Minority Population > 21.6%) 1996.3 11.2 9 
+2nd Quartile (Minority Population > 16.6%) 1994.3 13.2 4 
+1st Quartile (Minority Population < 16.6%)  1994.3 13.2 5 
+Minority Lines (3rd and 4th Quartiles) 
+Non-Minority Lines (1st and 2nd Quartiles) 
+1995.4 
+1994.3 
+12.1 
+13.2 
+17 
+9 
+System 1994.8 12.7 26 
+SAMPLE Transit Amenities Monitoring 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+App. J-8 FTA C 4702.1B 
+The overlay map below shows the locations of many of the transit agency’s amenities, including 
+park and ride facilities, transit centers, pedestrian improvements, and bus shelters, relative to the 
+locations of bus and rail routes and the locations of minority and non-minority populations. Such 
+a map is one way to demonstrate how amenities are distributed across the transit system. 
+Figure 4. Transit Amenities Overlay Map 
+
+ 
+ 
+   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B 	 App. K-1 
+APPENDIX K 
+SERVICE AND FARE EQUITY ANALYSIS QUESTIONNAIRE CHECKLIST 
+(REQUIREMENT FOR TRANSIT PROVIDERS THAT OPERATE 50 OR MORE 
+FIXED ROUTE VEHICLES IN PEAK SERVICE AND ARE LOCATED IN 
+URBANIZED AREAS (UZA) OF 200,000 OR MORE PEOPLE, OR THAT 
+OTHERWISE MEET THE THRESHOLD DEFINED IN CHAPTER IV) 
+Background 
+Transit providers that operate 50 or more fixed route vehicles in peak service and are located in 
+urbanized areas (UZA) of 200,000 or more people, or that otherwise meet the threshold defined 
+in Chapter IV, must conduct a Title VI equity analysis whenever they plan a fare change and/or a 
+major service change. Equity analyses are required regardless of whether proposed changes 
+would cause positive or negative impacts to riders. In other words, transit providers must conduct 
+an equity analysis for all fare changes and for major service reductions and major service 
+expansions. Financial exigencies and other special circumstances (e.g., economic hardships, size 
+of transit provider’s service area or staff) do not exempt transit providers from the requirement to 
+conduct equity analyses. 
+The checklist below is provided for the purposes of guidance only. 
+Service and Fare Equity Questionnaire Checklist 
+(1) Considerations for Service Equity Analysis 
+A. Major Service Change Policy 
+ We have briefly and clearly stated our Major Service Change Policy. 
+ We have briefly and clearly explained how this particular service change meets or 
+exceeds our Major Service Change Policy.  
+ Our Major Service Change Policy is presented as a numerical standard, applies to both 
+service reductions and service increases, and is not set so high as to never require an 
+analysis. 
+ We have included a description of the public engagement process for setting the major 
+service change policy. 
+ We have included a copy of board meeting minutes or a resolution demonstrating the 
+board’s or governing entity or official(s)’s consideration, awareness, and approval of the 
+major service change policy. 
+
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+App. K-2 	 FTA C 4702.1B 
+B. Adverse Effects 
+ We have defined and analyzed adverse effects related to major service changes, paying 
+attention to the fact that elimination of a route will likely have a greater adverse effect 
+that a reduced frequency (headway change) in service.  We have analyzed service 
+between the existing and proposed service, and have considered the degree of the adverse 
+effects when planning service changes. 
+C. Disparate Impact Policy 
+ We have briefly and clearly stated our policy to determine when a “disparate impact” 
+occurs in the context of major service changes, including both service reductions and/or 
+expansions. In particular, our agency has established a threshold for determining whether 
+adverse effects are borne disproportionately by minority populations. 
+ Our agency applies the disparate impact policy uniformly to all major service changes, 
+regardless of mode. 
+ Our policy describes how we engaged the public in developing our policy for measuring 
+disparate impacts. 
+ We have included a copy of board meeting minutes or a resolution demonstrating the 
+board’s or governing entity or official(s)’s consideration, awareness, and approval of the 
+disparate impact policy. 
+D. Disproportionate Burden Policy 
+ We have briefly and clearly stated our policy to determine when a disproportionate 
+burden occurs in the context of major service changes.  In particular, our agency has 
+established a threshold for determining whether adverse effects are borne 
+disproportionately by low-income populations. 
+ Our agency applies the disparate impact policy uniformly to all major service changes, 
+regardless of mode 
+ Our policy describes how we engaged the public in developing the disproportionate 
+burden policy. 
+ We have included a copy of board meeting minutes or a resolution demonstrating the 
+board’s or governing entity or official(s)’s consideration, awareness, and approval of the 
+disproportionate burden policy. 
+
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B 	 App. K-3 
+E. Analysis Framework 
+ We have described the dataset(s) used in the analysis and provided the reason for the 
+dataset(s) selected, as well as the techniques and/or technologies used to collect the data. 
+ If using general population for the comparison population, we have described the 
+geographic level (e.g., Census block, Census block group, TAZ, etc.) at which we have 
+measured minority and low-income concentrations. 
+ If using ridership as the comparison population, we have described how we determined 
+the minority and low-income ridership of affected routes and the system as a whole. 
+F. Assessing Impacts 
+ We have shown how the proposed major service changes would impact minority and 
+low-income populations at the geographic level by including the following:  
+o	 Overlay maps showing proposed service changes as well as demographic data in 
+order to study the affected population 
+o	 Tables showing impacts associated with each type of route or service change (e.g., 
+routing, frequency, span of service, addition or elimination of routes). 
+ We have used our adverse effects definition and our disparate impact policy and 
+compared the proportion of minorities adversely affected to the proportion of non-
+minorities adversely affected.    
+ We have provided a step-by-step description of the analytical methodology we followed 
+to determine whether the proposed change(s) would have a disparate impact on minority 
+populations. 
+ We have identified whether minority populations will experience disparate impacts. 
+ If we have determined that a disparate impact exists, we have considered modifying our 
+proposal to remove these impacts.  If we modified our proposal, we have analyzed the 
+modified proposal to determine whether minority populations will experience disparate 
+impacts. 
+ If we have determined that a disparate impact exists and we will make the service 
+changes despite these impacts, we have also: 
+o	 Clearly demonstrated that we have a substantial legitimate justification for the 
+proposed service changes; and 
+
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+App. K-4 	 FTA C 4702.1B 
+o	 Clearly demonstrated that we analyzed alternatives to determine whether the 
+proposed service changes are the least discriminatory alternative. 
+ We have used our adverse effects definition and our disproportionate burden policy and 
+compared the proportion of low-income persons adversely affected to the proportion of 
+non-low-income persons adversely affected. 
+ We have provided a step-by-step description of the analytical methodology we followed 
+to determine whether the proposed change(s) would have a disproportionate burden on 
+low-income populations. 
+ We have identified whether low-income populations will experience disproportionate 
+burdens. 
+ If we have determined that a disproportionate burden exists, we have also taken steps to 
+avoid, minimize, or mitigate impacts where practicable.  We have also described 
+alternatives available to low-income passengers affected by the service changes.   
+o	 Note: Alternatives could include the availability of other lines or services, 
+potentially involving transfers and/or other modes, which connect affected riders 
+with destinations that they commonly access.  Depending on the nature of 
+impacts, service-related mitigation could include strategies such as alignment or 
+frequency changes to nearby lines or services to offer more convenient access to 
+affected areas. 
+ If we are proposing a service improvement, we have analyzed accrual of benefits for 
+minority populations as compared to non-minority populations, and low-income 
+populations as compared to non-low-income populations, using the comparison 
+population we selected (i.e., ridership or service area). 
+ If service is proposed to be increased and/or expanded, but minority and/or low-income 
+populations are not expected to benefit from the expansion as much as non-minority 
+and/or non-low-income populations, then we have explained how our agency plans to 
+improve service to the minority and/or low-income populations. 
+ We have described any plans our agency has developed to restore service as additional 
+funds become available. 
+
+ 
+ 
+ 
+   
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B App. K-5 
+Exhibit 1. 
+SAMPLE reporting of proposed headway change based on ridership. 
+Impact of Potential  Service Adjustments on Minority and Low Income Passengers 
+W eekly Numbers 
+Bus Lines W kly Ons Under20k Minority %<20k % Min Impacted Ons Under20k Minority 
+1 50,340 25,081 21,602 50% 43% 1,453 724 624 
+2 56,929 20,727 10,639 36% 19% 4,623 1,683 864 
+3 39,479 15,902 7,414 40% 19% 2,396 965 450 
+4 18,396 7,309 4,509 40% 25% 688 273 169 
+5 52,845 21,450 13,172 41% 25% 1,572 638 392 
+6 952 446 248 47% 26% 237 111 62 
+7 4,562 679 2,012 15% 44% 659 98 291 
+8 1,781 455 414 26% 23% 280 71 65 
+9 13,596 4,177 4,093 31% 30% 1,161 357 349 
+10 19,346 7,186 4,965 37% 26% 1,014 377 260 
+11 65,337 33,005 22,653 51% 35% 998 402 187 
+12 19,406 7,565 3,864 39% 20% 378 150 93 
+13 21,728 7,379 4,359 34% 20% 931 378 232 
+Ridership Adjusted Lines 364,697 151,360 99,943 42% 28% 16,390 6,228 4,037 
+Total Percent impacted 38% 25% 
+Ridership All Bus Lines 1,266,568 527,728 381,169 42% 30% 
+“Impacted Ons” is calculated by taking the number of trips eliminated in a given hour times the 
+number of passengers per trip during that hour and adding up the number of passengers impacted 
+in a week. 
+In the table above, an agency has assessed how proposed reductions in service frequency 
+(headway changes) would impact minority and low-income passengers on a bus-only system.  
+Here, the cumulative proposed reduction in service frequency will impact minority and low-
+income passengers slightly less than their proportion of ridership of the system.   
+Notably, assessing the cumulative impacts of the route changes appears to reduce the impacts of 
+some of the changes, while increasing the impacts of other changes.  Transit providers should 
+consider whether to evaluate changes to routes separately or cumulatively and include this in their 
+disparate impact policy. 
+If the cumulative impact analysis showed a different result, i.e., a higher percent of minority or 
+low-income populations being impacted than their presence in the overall ridership, the transit 
+provider would likely want to take another look at the routes with high passenger counts and 
+higher-than-system-average minority and/or low-income passengers in order to adjust the changes 
+and reduce the adverse effects. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+     
+ 
+               
+   
+   
+ 
+   
+   
+    
+   
+ 
+   
+   
+   
+ 
+                    
+ 
+                  
+ 
+                    
+ 
+                  
+ 
+              
+ 
+                    
+ 
+                  
+ 
+                    
+ 
+                  
+ 
+ 
+ 
+                    
+ 
+                  
+ 
+                    
+ 
+                  
+ 
+ 
+ 
+App. K-6 FTA C 4702.1B 
+Exhibit 2. 
+SAMPLE GIS map depicting proposed route changes and nearby minority and low-income 
+concentrations. 
+Type of Service 
+Change 
+Minority Proportion of Population Low‐Income Proportion of Population 
+Census blocks 
+along routes 
+Average 
+population in 
+service area 
+Census blocks 
+along routes 
+Average 
+population in 
+service area 
+Changes in 
+Routing 38.9% 34.3% 13.7% 12.2% 
+Headway 
+Changes 27.5% 34.3% 11.0% 12.2% 
+Route 
+discontinuation 30.6% 34.3% 12.8% 12.2% 
+In the table above, the transit provider has analyzed the cumulative impacts of each type of 
+service change on minority populations and low-income populations in its service area.  The 
+analysis is based on block-level Census demographic data and therefore does not represent 
+ridership directly. 
+The changes in routing appear to affect minority populations more adversely than the population 
+as a whole, and the changes in routing and route discontinuations appear to affect low-income 
+populations more adversely than the population as a whole.  The transit provider’s ultimate 
+determination of disparate impact on minority riders or disproportionate burden on low-income 
+riders would depend on the disparate impact and disproportionate burden threshold policies 
+developed by the transit provider through a public participation process. 
+
+ 
+ 
+       
+ 
+ 
+   
+ 
+   
+   
+ 
+ 
+         
+ 
+             
+       
+ 
+ 
+ 
+ 
+ 
+   
+   
+ 
+ 
+ 
+               
+               
+             
+ 
+ 
+ 
+ 
+FTA C 4702.1B App. K-7 
+Exhibit 3. 
+SAMPLE Population Comparison 
+Table 1 ‐Regional Population Data 
+Total 
+Population 
+of Service 
+Area 
+Minority 
+Population 
+Percent 
+Minority 
+Low‐
+income 
+Population 
+Percent 
+Low‐
+Income 
+242,916 50,829 21% 43,000 18% 
+Table 2 ‐Affected Census Block Area Population Data 
+Route # Change type 
+Total 
+Population 
+affected 
+Census 
+blocks 
+Minority 
+Population 
+Percent 
+Minority 
+Low‐
+Income 
+Population 
+Percent 
+Low‐
+Income 
+Route 6 Discontinued 5870 800 14% 250 4% 
+Route 7 Discontinued 9500 2500 26% 2100 22% 
+Total 15370 3300 21% 2350 15% 
+Here, the transit provider is proposing elimination of two routes, and is using population data, not 
+ridership data. The affected population is the Ce nsus blocks with access to the route, generally 
+defined as a one-quarter mile walk to a bus stop or a one-half mile walk to a rail station. While the 
+elimination of Route 7 appears to affect low-income and minority populations more adversely 
+than the population as a whole, the provider’s ultimate determination of disparate impact on 
+minority riders or disproportionate burden on low-income riders would depend on the disparate 
+impact and disproportionate burden threshold policies developed by the transit provider through a 
+public participation process.   
+Notably, assessing the cumulative impacts of the two route changes appears to reduce the impacts 
+of the elimination of Route 7.  Transit providers should consider whether to evaluate changes to 
+routes separately or cumulatively and include this in their disparate impact policy.  See the 
+example on the next page for a different result.  
+
+ 
+ 
+ 
+ 
+       
+   
+ 
+ 
+ 
+ 
+   
+ 
+ 
+ 
+         
+ 
+         
+Route No  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+              
+             
+           
+ 
+ 
+ 
+ 
+ 
+App. K-8 FTA C 4702.1B 
+Exhibit 4. 
+SAMPLE Ridership Comparison 
+Table 3 ‐Regional Ridership Data 
+Total System‐wide 
+Riders 
+Minority 
+Riders 
+Percent 
+Minority 
+Low‐
+Income 
+Riders 
+Percent 
+Low‐
+Income 
+3,224,000 1,346,000 42% 1,235,000 38% 
+Table 4 ‐Affected Route Ridership Data 
+Discontinued 
+Segment ‐Ridership 
+Minority 
+Riders 
+% 
+Minority 
+Riders 
+Low‐
+Income 
+Riders 
+% Low‐
+Income 
+Riders 
+Route 1 20,800 6,000 29% 4,700 23% 
+Route 2 72,600 33,400 46% 31,200 43% 
+Total 93,400 39,400 42% 35,900 38% 
+Here, the transit provider is proposing eliminating segments of two different routes (shortlining).  
+The elimination of a segment of Route 2 appears to affect minority and low-income passengers 
+more adversely than ridership of the system as a whole; however, the provider’s ultimate 
+determination of disparate impact on minority passengers or disproportionate burden on low-
+income passengers would depend on the disparate impact and disproportionate burden threshold 
+policies developed by the transit provider through a public participation process.   
+Here, assessing the cumulative impacts of two shortlined routes appears to increase the adverse 
+effects of the change to Route 1, and decrease the effects of the change to Route 2.  Transit 
+providers should consider whether to evaluate changes to routes separately or cumulatively and 
+include this in their disparate impact policy. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+                        
+ 
+                                          
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B App. K-9 
+Exhibit 5. 
+SAMPLE Impacts to passengers 
+Type of Service 
+Change 
+Ridership of affected route Ridership of system 
+Total 
+Boardings 
+% Minority % Low-
+Income 
+% Minority % Low-Income 
+Service span 
+(reduction of 
+entire trips) 
+24 83% 17% 73.7% 10% 
+Here, a transit provider that operates service into the late evening has proposed to discontinue 
+trips that begin after 10:00 p.m.  In this example, the provider’s ridership is the basis of the 
