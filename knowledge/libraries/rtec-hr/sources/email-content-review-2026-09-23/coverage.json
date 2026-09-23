@@ -1,0 +1,55 @@
+{
+  "schema": "rtec-hr-email-review-coverage/v1",
+  "as_of": "2026-09-23",
+  "status": "inventory_complete_semantic_review_in_progress",
+  "purpose": "Track corpus coverage and gaps for a comprehensive email review without retaining raw mail or person-level case details.",
+  "sources": {
+    "work": {
+      "provider": "EarthLink IMAP",
+      "authorized_accounts": 4,
+      "indexed_messages": 22671,
+      "source_observations": 43230,
+      "thread_count": 17617,
+      "messages_without_indexed_body": 1614,
+      "messages_with_attachments": 7284,
+      "date_range": "2015-2026",
+      "sync_status": "caught_up",
+      "semantic_review": "in_progress"
+    },
+    "personal_icloud": {
+      "provider": "iCloud IMAP",
+      "authorized_accounts": 1,
+      "indexed_messages": 10577,
+      "source_observations": 10579,
+      "thread_count": 10489,
+      "messages_without_indexed_body": 166,
+      "messages_with_attachments": 131,
+      "date_range": "2018-2026",
+      "sync_status": "caught_up",
+      "semantic_review": "in_progress"
+    },
+    "personal_gmail": {
+      "inbox_label_count": 527,
+      "search_email_results": 484,
+      "search_ids_inventory": 527,
+      "semantic_review": "not_started_in_this_batch",
+      "coverage_issue": "The label count and search-result count differ; reconcile message-ID coverage before marking complete."
+    },
+    "outlook_connector": {
+      "status": "duplicate_view_of_iCloud_identity",
+      "counted_as_separate_source": false
+    }
+  },
+  "method_notes": [
+    "The local message index is read-only and caught up for work and iCloud scopes.",
+    "A deterministic lexical pass touched each indexed message body to produce topic-discovery counts; these are overlapping search leads, not human semantic review or HR process metrics.",
+    "Messages without indexed bodies and all attachment content remain explicit review gaps.",
+    "Mailbox files, full message bodies, credentials, employee/applicant identities, and case narratives are excluded from this tracked record."
+  ],
+  "next_steps": [
+    "Review full message bodies in bounded, deduplicated batches and capture only corroborated process knowledge or durable user context.",
+    "Reconcile Gmail search IDs with the inbox label count and review all in-scope messages.",
+    "Inspect work attachments selectively; do not run the all-attachments exporter.",
+    "Use position-level sources to validate historical claims and preserve only safe reference documents."
+  ]
+}
