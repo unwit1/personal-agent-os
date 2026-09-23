@@ -1,0 +1,127 @@
+{
+  "index_id": "rtec-hr-email-archive-derived-knowledge-index-2026-09-23",
+  "updated_at": "2026-09-23",
+  "source_batch": "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-email-archive-2016-2026-2026-09-23.json",
+  "corpus": {
+    "unique_messages": 576,
+    "date_range": [
+      "2016-04-28",
+      "2026-06-26"
+    ],
+    "self_task_reminders": 122
+  },
+  "privacy": "Raw email bodies and employee/applicant/case facts remain outside GitHub. This index points only to sanitized derived knowledge.",
+  "records": [
+    {
+      "path": "knowledge/libraries/rtec-hr/processes/email-derived-hr-work-patterns-2016-2026.json",
+      "kind": "workflow_summary",
+      "status": "historical/currentness-gated"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/processes/benefits-administration-email-evidence-2016-2026.json",
+      "kind": "workflow",
+      "status": "historical_with_current_2026_signals"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/processes/payroll-time-tax-email-evidence-2016-2026.json",
+      "kind": "workflow",
+      "status": "historical_with_current_ADP_signals"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/processes/leave-attendance-fmla-email-evidence-2018-2021.json",
+      "kind": "workflow",
+      "status": "historical_requires_current_policy_alignment"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/processes/workers-comp-return-to-work-email-evidence-2018-2021.json",
+      "kind": "workflow",
+      "status": "historical_current_process_unresolved"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/processes/eeo-aap-reporting-email-evidence-2016-2021.json",
+      "kind": "workflow",
+      "status": "historical_linked_to_AAP_corpus"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/processes/recruiting-channel-history-email-evidence-2016-2021.json",
+      "kind": "workflow_history",
+      "status": "historical"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/processes/retirement-401k-email-evidence-2017-2021.json",
+      "kind": "workflow",
+      "status": "historical_current_provider_unresolved"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/processes/unemployment-administration-email-evidence-2021-2026.json",
+      "kind": "workflow",
+      "status": "historical_plus_2026_transition_evidence"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/processes/kentucky-new-hire-reporting-email-evidence-2026.json",
+      "kind": "current_process_evidence",
+      "status": "quality_question_open"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/systems/email-derived-system-vendor-timeline-2016-2026.json",
+      "kind": "system_vendor_timeline",
+      "status": "currentness_gated"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/systems/email-infrastructure-access-findings-2016-2026.json",
+      "kind": "account_infrastructure",
+      "status": "verification_questions_open"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/systems/training-information-source-map-email-evidence-2016-2026.json",
+      "kind": "reference_source_map",
+      "status": "context_only_not_authority"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/company/email-derived-company-profile-2016-2026.json",
+      "kind": "company_profile",
+      "status": "candidate_with_corroborated_elements"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/roles/current-hr-role-email-evidence-2026.json",
+      "kind": "work_role_profile",
+      "status": "candidate"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/roles/email-derived-professional-contact-map-2016-2026.json",
+      "kind": "professional_people_profiles",
+      "status": "professional_context_only"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/roles/hr-handoff-network-email-evidence-2016-2026.json",
+      "kind": "handoff_network",
+      "status": "historical_with_currentness_flags"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/roles/hr-mailbox-role-transition-2026.json",
+      "kind": "role_account_transition",
+      "status": "candidate_transition_model"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/automation/email-reminders-to-structured-task-candidate.json",
+      "kind": "automation_candidate",
+      "status": "candidate"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/questions/email-derived-gaps-2026-09-23.json",
+      "kind": "validation_queue",
+      "status": "open"
+    },
+    {
+      "path": "projects/rtec-hr-process-model/docs/EMAIL_ARCHIVE_INGESTION_2026-09-23.md",
+      "kind": "checkpoint_doc",
+      "status": "complete"
+    },
+    {
+      "path": "projects/rtec-hr-process-model/docs/EMAIL_ARCHIVE_DEEPENING_PASS_002_2026-09-23.md",
+      "kind": "checkpoint_doc",
+      "status": "complete"
+    }
+  ],
+  "coverage_note": "Every message received a structural classification pass. The initial low-signal bucket was separately reviewed, and major recurring domains have dedicated semantic models. Further thread-level deepening can enrich chronology and cadence without changing the privacy boundary."
+}
