@@ -10,6 +10,7 @@ from .changes import capture_change, get_change, google_safe_projection, list_ch
 from .chat import context as chat_context
 from .chat import latest_project_handoff, project_status, skills_match
 from .compiler import compile_context
+from .connectors import connector_status
 from .coordination import (
     check as check_claims,
     claim as make_claim,
@@ -186,6 +187,10 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
     "agent.latest_handoff": {
         "description": "Retrieve the latest relevant project handoff.",
         "inputSchema": {"type": "object", "properties": {"project_hint": {"type": ["string", "null"]}, "query": {"type": "string", "default": ""}}},
+    },
+    "connector.list": {
+        "description": "List provider-neutral connector metadata and per-surface registration health. Secret-store references are never returned.",
+        "inputSchema": {"type": "object", "properties": {"surface_id": {"type": ["string", "null"]}}},
     },
     "change.capture": {
         "description": "Capture one sanitized project change with deterministic deduplication.",
@@ -392,7 +397,8 @@ def methods() -> dict[str, Callable[..., Any]]:
             "agent.search": search,
             "agent.project_status": project_status,
             "agent.skills_match": skills_match,
-            "agent.latest_handoff": latest_project_handoff,
+        "agent.latest_handoff": latest_project_handoff,
+        "connector.list": connector_status,
         }
     )
     available.update(orchestrate_methods())
@@ -406,7 +412,8 @@ SERVER_CAPABILITIES = {"tools": {"listChanged": False}}
 SUPPORTED_PROTOCOL_VERSIONS = ("2025-06-18", "2025-03-26", "2024-11-05")
 INSTRUCTIONS = (
     "Use agent.context first for substantial project work. It retrieves compact context only. "
-    "Use agent.capture_candidates to stage evidence-backed findings; it never promotes canonical memory."
+    "Use agent.capture_candidates to stage evidence-backed findings; it never promotes canonical memory. "
+    "Use connector.list to discover registered connector metadata; credential references stay local."
 )
 
 

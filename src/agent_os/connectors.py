@@ -59,6 +59,34 @@ def validate_connector_registry(registry: Any) -> None:
         seen_ids.add(connector["id"])
 
 
+def connector_status(surface_id: str | None = None) -> dict[str, Any]:
+    """Return registry metadata for clients; credential-store references stay local."""
+    registry = load_connector_registry()
+    connectors = []
+    for connector in registry["connectors"]:
+        registrations = connector["registrations"]
+        if surface_id and not any(item["surface_id"] == surface_id for item in registrations):
+            continue
+        connectors.append(
+            {
+                "id": connector["id"],
+                "provider": connector["provider"],
+                "capabilities": connector["capabilities"],
+                "scopes": connector["scopes"],
+                "health": connector["health"],
+                "privacy_domain": connector["privacy_domain"],
+                "registrations": registrations,
+                "credential_reference_configured": connector["secret_ref"] is not None,
+            }
+        )
+    return {
+        "schema": REGISTRY_SCHEMA,
+        "version": REGISTRY_VERSION,
+        "count": len(connectors),
+        "connectors": connectors,
+    }
+
+
 def _validate_connector(connector: Any) -> None:
     if not isinstance(connector, dict) or set(connector) != _CONNECTOR_KEYS:
         raise ValueError("connector entry has missing or unsupported fields")

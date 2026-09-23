@@ -6,10 +6,12 @@ import tempfile
 import unittest
 from copy import deepcopy
 from pathlib import Path
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from agent_os.connectors import REGISTRY_SCHEMA, load_connector_registry, validate_connector_registry
+from agent_os.connectors import REGISTRY_SCHEMA, connector_status, load_connector_registry, validate_connector_registry
+from agent_os.mcp_server import _handle_mcp, methods
 from agent_os.paths import ROOT
 
 
@@ -96,6 +98,37 @@ class ConnectorRegistryTests(unittest.TestCase):
         registry["comment"] = "unexpected"
         with self.assertRaisesRegex(ValueError, "only schema"):
             validate_connector_registry(registry)
+
+    def test_status_redacts_secret_store_reference_and_filters_by_surface(self) -> None:
+        with patch("agent_os.connectors.load_connector_registry", return_value=valid_registry()):
+            status = connector_status()
+            filtered = connector_status("agent-os-mcp")
+            empty = connector_status("claude-code")
+        self.assertEqual(status["count"], 1)
+        self.assertEqual(filtered["count"], 1)
+        self.assertEqual(empty["connectors"], [])
+        connector = status["connectors"][0]
+        self.assertTrue(connector["credential_reference_configured"])
+        self.assertNotIn("secret_ref", connector)
+        self.assertNotIn("keyring:agent-os/google-drive-work", json.dumps(status))
+
+    def test_mcp_connector_list_is_discoverable_and_redacted(self) -> None:
+        available = methods()
+        listing = _handle_mcp({"jsonrpc": "2.0", "id": 1, "method": "tools/list"}, available)
+        names = {item["name"] for item in listing["result"]["tools"]}
+        self.assertIn("connector.list", names)
+
+        with patch("agent_os.connectors.load_connector_registry", return_value=valid_registry()):
+            response = _handle_mcp(
+                {
+                    "jsonrpc": "2.0", "id": 2, "method": "tools/call",
+                    "params": {"name": "connector.list", "arguments": {}},
+                },
+                available,
+            )
+        payload = json.loads(response["result"]["content"][0]["text"])
+        self.assertEqual(payload["count"], 1)
+        self.assertNotIn("secret_ref", payload["connectors"][0])
 
 
 if __name__ == "__main__":

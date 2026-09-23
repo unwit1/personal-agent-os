@@ -99,10 +99,10 @@ Success signal:
 ### P0.0A — Unified Connector Broker + cross-surface auto-provisioning
 
 Status: **in progress** (2026-09-23). Added the v1 provider-neutral connector
-registry schema, empty canonical registry, and a strict loader with privacy
-checks for metadata and local secret-store references. Connector discovery,
-credential resolution, surface adapters, reconciliation, and cross-surface
-verification remain open.
+registry schema, empty canonical registry, strict privacy-checked loader, and
+read-only `connector.list` MCP discovery with secret-reference redaction.
+Connector import, credential resolution, surface adapters, reconciliation,
+provider health checks, and cross-surface verification remain open.
 
 Make Agent OS the canonical provider-neutral connector registry and broker for
 Claude, ChatGPT, Codex, desktop clients, mobile/voice clients, and future agent
