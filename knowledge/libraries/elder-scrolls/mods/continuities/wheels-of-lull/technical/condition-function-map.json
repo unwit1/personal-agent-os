@@ -1,0 +1,53 @@
+{
+  "continuity_id": "tes.mod.wheels-of-lull",
+  "source_sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
+  "ctda_layout_note": "Skyrim INFO CTDA decoded as type/comparison/function/params/run-on/reference while preserving raw fields.",
+  "comparison_operators": {
+    "0x00": "==",
+    "0x20": "!=",
+    "0x40": ">",
+    "0x60": ">=",
+    "0x80": "<",
+    "0xA0": "<=",
+    "0xC0": "unknown_c0",
+    "0xE0": "unknown_e0"
+  },
+  "run_on": {
+    "0": "Subject",
+    "1": "Target",
+    "2": "Reference",
+    "3": "CombatTarget",
+    "4": "LinkedReference",
+    "5": "QuestAlias",
+    "6": "PackageData",
+    "7": "EventData"
+  },
+  "functions_used": [
+    {"id":14,"name":"GetActorValue","occurrences":1},
+    {"id":47,"name":"GetItemCount","occurrences":120},
+    {"id":48,"name":"GetGold","occurrences":8},
+    {"id":56,"name":"GetQuestRunning","occurrences":28},
+    {"id":58,"name":"GetStage","occurrences":263},
+    {"id":67,"name":"GetInCell","occurrences":68},
+    {"id":72,"name":"GetIsID","occurrences":36},
+    {"id":74,"name":"GetGlobalValue","occurrences":2},
+    {"id":80,"name":"GetLevel","occurrences":7},
+    {"id":264,"name":"HasSpell","occurrences":8},
+    {"id":310,"name":"GetInWorldspace","occurrences":6},
+    {"id":426,"name":"GetIsVoiceType","occurrences":354},
+    {"id":543,"name":"GetQuestCompleted","occurrences":37},
+    {"id":566,"name":"GetIsAliasRef","occurrences":2}
+  ],
+  "speaker_resolution_policy": {
+    "exact_form_or_scene": "GetIsID/GetIsAliasRef or SCEN dialogue action alias resolves to a concrete plugin form.",
+    "exact_semantic_custom_voice": "Custom voice type is character-specific in this continuity; technical talking-activator proxies do not change persona.",
+    "exact_talking_activator_voice": "Custom voice type uniquely identifies a talking activator.",
+    "role_level_custom_voice": "Custom voice identifies a role/class but not necessarily a unique physical individual.",
+    "shared_custom_voice_candidates": "Custom voice is intentionally shared; candidates are retained instead of forcing attribution.",
+    "contextual_wailway_train_not_condition_proven": "Wailway quest context strongly identifies the train, but INFO itself lacks a deterministic speaker condition; kept separate from exact resolutions.",
+    "unresolved": "No deterministic local speaker evidence."
+  },
+  "external_function_reference_notes": [
+    "Function IDs follow standard Skyrim condition-function numbering; raw IDs are always retained so future tooling can re-decode independently."
+  ]
+}
