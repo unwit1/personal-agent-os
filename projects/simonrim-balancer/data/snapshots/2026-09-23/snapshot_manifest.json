@@ -2,10 +2,22 @@
   "snapshot_date": "2026-09-23",
   "project": "Simonrim Balancer",
   "source_mods": [
-    {"name": "Adamant", "version": "6.0.4"},
-    {"name": "Hand to Hand", "version": "2.0.2"},
-    {"name": "Blade and Blunt", "version": "4.0.3"},
-    {"name": "Mysticism", "version": "2.5.0"}
+    {
+      "name": "Adamant",
+      "version": "6.0.4"
+    },
+    {
+      "name": "Hand to Hand",
+      "version": "2.0.2"
+    },
+    {
+      "name": "Blade and Blunt",
+      "version": "4.0.3"
+    },
+    {
+      "name": "Mysticism",
+      "version": "2.5.0"
+    }
   ],
   "counts": {
     "source_files": 73,
@@ -28,5 +40,14 @@
     "Plugin record and subrecord payloads are preserved in the complete ingestion package for deterministic re-analysis.",
     "Author-supplied Papyrus/config/FOMOD text is preserved in the complete private snapshot.",
     "BSA binary assets are inventoried but not copied into the derived snapshot."
+  ],
+  "derived_counts": {
+    "weapons_full_decoded": 216,
+    "weapon_baseline_groups": 21,
+    "weapon_observed_patterns": 18,
+    "weapon_exact_imported_field_deltas": 18
+  },
+  "schema_sources": [
+    "https://github.com/Holastor/skyrim-record-parser/blob/533c29b34cbe430636cc608e5b1347a65d3f1fbe/docs/UESP%20Wiki/skyrim_mod_file_formats/records/weap.md"
   ]
 }
