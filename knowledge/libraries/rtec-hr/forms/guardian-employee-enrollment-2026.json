@@ -1,0 +1,79 @@
+{
+  "id": "rtec-form-guardian-employee-enrollment-2026",
+  "record_type": "form",
+  "title": "Guardian Employee Enrollment and Change Packet - RTEC reference, 2026",
+  "status": "validated",
+  "temporal_status": "unknown",
+  "effective_from": null,
+  "effective_to": null,
+  "summary": "Six-page blank Guardian employee enrollment/change packet. The pages cover employee enrollment and coverage changes, dependent details, basic life and accidental death coverage, voluntary life selections, short-term disability selections, employee acknowledgments, and state-specific fraud statements. The source PDF was visually checked on all six pages and contains no completed employee/dependent entries. Its effective date and current use are unknown.",
+  "claims": [
+    {
+      "claim": "The blank packet contains an employee enrollment/change form and sections for dependent coverage, life insurance, short-term disability, acknowledgments, and signature.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-guardian-enrollment-packet-2026-07-31",
+          "page_or_section": "pages 1-6",
+          "evidence_type": "structural",
+          "note": "All six pages visually reviewed; no completed person-specific values observed."
+        }
+      ]
+    },
+    {
+      "claim": "This is a reference form only; its presence does not establish eligibility, plan terms, the operational process, or current policy.",
+      "claim_kind": "interpretation",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": ["rtec-policy-hours-pay-benefits-2025"],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-guardian-enrollment-packet-2026-07-31",
+          "page_or_section": "complete source and source metadata",
+          "evidence_type": "structural",
+          "note": "The document is an enrollment form; no effective-date evidence was found."
+        }
+      ]
+    }
+  ],
+  "trigger": "A Guardian employee enrollment or coverage-change form is prepared.",
+  "prerequisites": [],
+  "actors": ["Employee", "Benefits administrator"],
+  "systems": [],
+  "forms": ["Guardian Employee Enrollment and Change Packet"],
+  "steps": [],
+  "decisions": [],
+  "deadlines": [],
+  "outputs": ["Completed enrollment or change form; completed copies are restricted employee records."],
+  "exceptions": [],
+  "controls": ["Keep completed copies with restricted employee records; do not place them in the shared reference library."],
+  "unresolved_questions": [
+    "Is this packet still used for current RTEC benefits enrollment?",
+    "What is the packet's effective date and how does it relate to the 2025 benefits policy?",
+    "Is this source identical to or a subset of the HR-GUI Guardian Packet reference?"
+  ],
+  "automation_candidates": [],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-guardian-enrollment-packet-2026-07-31",
+      "safe_source_type": "blank_benefits_enrollment_form",
+      "source_date_or_version": "2026-07-31 email attachment; form effective date unknown",
+      "source_created_date": "2026-07-31",
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "unknown",
+      "content_sha256": "bf72f1e91aa3e591337f39457b829bf536cfd9dd54bdced1194c7187e3441f7b",
+      "page_or_section": "complete six-page source",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-guardian-enrollment-packet-2026-07-31/source.pdf",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-guardian-enrollment-packet-2026-07-31/reference-notes.md",
+      "ingested_at": "2026-09-23",
+      "notes": "Blank source visually checked on all pages. Possible related source: hrgui-reference-008; preserve both until content/hash comparison is possible."
+    }
+  ]
+}

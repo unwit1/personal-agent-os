@@ -26,17 +26,18 @@
     {
       "project": "rtec-hr-process-model",
       "repository": "unwit1/personal-agent-os",
-      "entries": 3,
-      "note": "Forms already fully ingested into the RTEC HR knowledge corpus."
+      "entries": 4,
+      "note": "Forms already fully ingested into the RTEC HR knowledge corpus, including a visually checked Guardian enrollment reference found in the work mailbox."
     }
   ],
   "stats": {
-    "total_reference_records": 78,
+    "total_reference_records": 79,
     "hr_gui_manifest_records": 72,
     "applicant_dashboard_records": 3,
-    "already_ingested_hr_corpus_records": 3,
+    "already_ingested_hr_corpus_records": 4,
     "unique_identity_keys": 74,
-    "duplicate_or_multi_source_identity_keys": 4
+    "duplicate_or_multi_source_identity_keys": 4,
+    "pending_identity_review_records": 1
   },
   "entries": [
     {
@@ -1948,6 +1949,22 @@
       "temporal_status": "unknown",
       "validation_state": "validated",
       "full_source_status": "searchable full source and derived form record already preserved in RTEC HR corpus"
+    },
+    {
+      "id": "rtec-form-guardian-employee-enrollment-2026",
+      "title": "Guardian employee enrollment and change packet - RTEC reference, 2026",
+      "category": "Benefits",
+      "source_project": "rtec-hr-process-model",
+      "source_repository": "unwit1/personal-agent-os",
+      "source_path": "knowledge/libraries/rtec-hr/forms/guardian-employee-enrollment-2026.json",
+      "source_kind": "fully_ingested_form_record",
+      "mapping_status": "candidate_possible_related_source",
+      "canonical_form_type": "Guardian Employee Enrollment and Change Form",
+      "temporal_status": "unknown",
+      "validation_state": "validated_reference_identity_possible_duplicate",
+      "full_source_status": "blank original PDF and searchable page outline preserved under knowledge/libraries/rtec-hr/sources/rtec-hr-guardian-enrollment-packet-2026-07-31/; compare with HR-GUI Guardian packet before deduplicating",
+      "related_catalog_entry_ids": ["hrgui-reference-008"],
+      "policy_authority": "none_by_form_presence"
     }
   ]
 }

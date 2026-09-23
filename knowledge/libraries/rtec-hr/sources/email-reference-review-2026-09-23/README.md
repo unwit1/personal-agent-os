@@ -8,6 +8,7 @@ This review note records reusable RTEC HR documents found in the former HR manag
 - Existing RTEC forms include `../../forms/pre-employment-driver-test.json`, `../../forms/fleet-manager-interview-form-2017.json`, `../../forms/jobshop-employee-time-record.json`, and the full-text source `../rtec-hr-fleet-manager-interview-form-2017-07-06/`.
 - Historical job descriptions are preserved under `../job-descriptions/`.
 - Safe aggregate compliance reports and analyses are indexed under `../../plans/aap-2022-06-30/`.
+- The blank 2026 Guardian enrollment/change packet discovered in work email is preserved under `../rtec-hr-guardian-enrollment-packet-2026-07-31/`, with a searchable page outline and an unknown effective-date status.
 
 These sources are searchable in the repository and should be checked for currentness before operational use. A form's presence does not establish current policy.
 

@@ -12,9 +12,9 @@ Current imported source sets:
 
 - **HR-GUI:** 72 reference-library records from `assets/reference_fingerprint_manifest.csv`.
 - **job-applicant-dashboard:** 3 reusable application/interview/denial-template sources from `Templates/`.
-- **RTEC HR Process Model:** 3 form records already fully ingested in the canonical HR corpus.
+- **RTEC HR Process Model:** 4 form records preserved in the canonical HR corpus, including the visually checked Guardian enrollment reference discovered in work email. The new Guardian source may overlap an HR-GUI packet identity and remains flagged for content-level deduplication.
 
-The catalog contains **78 provenance records** representing **74 identity keys**; repeated sources are preserved as multi-source provenance rather than discarded.
+The catalog contains **79 provenance records**, **74 confirmed identity keys**, and **1 source awaiting identity/deduplication review**. Repeated sources are preserved as multi-source provenance rather than discarded.
 
 ## How agents should use these forms
 

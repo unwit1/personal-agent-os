@@ -1,0 +1,31 @@
+{
+  "source_id": "rtec-hr-guardian-enrollment-packet-2026-07-31",
+  "record_type": "safe_reference_source",
+  "title": "Guardian RTEC Employee Enrollment and Change Packet",
+  "source_kind": "blank_benefits_enrollment_form",
+  "source_scope": "RTEC work mailbox",
+  "source_date": "2026-07-31",
+  "source_created_date": "2026-07-31",
+  "effective_date": null,
+  "temporal_status": "unknown",
+  "page_count": 6,
+  "mime_type": "application/pdf",
+  "original_filename": "Blank Guardian RTEC Enrollment Packet.pdf",
+  "content_sha256": "bf72f1e91aa3e591337f39457b829bf536cfd9dd54bdced1194c7187e3441f7b",
+  "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-guardian-enrollment-packet-2026-07-31/source.pdf",
+  "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-guardian-enrollment-packet-2026-07-31/reference-notes.md",
+  "content_review": {
+    "review_state": "visually_checked_blank_reference_copy",
+    "pages_reviewed": "all six pages",
+    "completed_values_detected": false,
+    "notes": "The packet is an unfilled employee enrollment/change form. The original blank contains prompts for private employee and dependent information, beneficiary selections, and signature; completed copies are person-specific records and must remain outside the shared RTEC knowledge corpus."
+  },
+  "text_extraction": {
+    "state": "source_text_not_extractable_as_unicode",
+    "notes": "The PDF renders as vector text but provides almost no Unicode text to extract. A manual searchable outline is stored in reference-notes.md."
+  },
+  "policy_authority": "none_by_form_presence",
+  "possible_related_catalog_entry_ids": ["hrgui-reference-008"],
+  "deduplication_state": "possible_related_source_not_hash_comparable",
+  "ingested_at": "2026-09-23"
+}
