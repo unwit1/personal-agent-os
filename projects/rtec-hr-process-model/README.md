@@ -82,3 +82,10 @@ For each supplied document:
 Reusable blank/reference forms and templates from related HR projects are indexed in `knowledge/libraries/rtec-hr/forms/reference-form-catalog.json`. Usage and authority rules are documented in `projects/rtec-hr-process-model/docs/REFERENCE_FORM_CONTEXT.md`.
 
 Agents should consult this catalog when identifying forms, aliases, fields, page structure, workflow inputs/outputs, scanner fingerprints, and missing process evidence. Form presence is contextual evidence only; it does not by itself establish current policy or an effective workflow rule.
+
+
+## Job-description context
+
+The version-aware role/job-description corpus is indexed at `knowledge/libraries/rtec-hr/roles/job-description-history.json`, with source-set provenance at `knowledge/libraries/rtec-hr/sources/job-descriptions/manifest.json` and full searchable source mirrors under `knowledge/libraries/rtec-hr/sources/job-descriptions/`.
+
+Agents should use these sources to understand historical role duties, supervision, qualifications, workflow ownership, handoffs, and terminology. They must not assume a description is the current approved version merely because it exists; conflicting titles, FLSA classifications, requirements, pay/benefits, and other time-sensitive terms remain validation questions until current authority is established.
