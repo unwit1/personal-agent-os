@@ -1,0 +1,2 @@
+{"claim_id":"dwd-325","continuity":"tes.mod.dealing-with-daedra","subject":"High Tide","predicate":"advertises","object":"offshore lodging accessed by dinghy from Raven Rock","status":"public_advertisement_fact","confidence":"high","evidence":[{"type":"BOOK","form_id":"05661008"}]}
+{"claim_id":"dwd-326","continuity":"tes.mod.dealing-with-daedra","subject":"High Tide","predicate":"pays","object":"Geldis a share for customers he refers to the ship","status":"written_commercial_arrangement","confidence":"high","evidence":[{"type":"BOOK","form_id":"05661008"}]}
