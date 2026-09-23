@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "project": "rtec-hr-process-model",
+  "status": "active",
+  "updated_at": "2026-09-23",
+  "summary": "Provenance-backed, privacy-safe knowledge model of RTEC HR processes derived from documents and user clarification.",
+  "repository": "https://github.com/unwit1/personal-agent-os.git",
+  "current_priorities": [
+    "Ingest RTEC HR process evidence into a structured, provenance-backed knowledge library.",
+    "Separate reusable process rules from employee/applicant case facts and PII.",
+    "Build workflow, form, system, role, exception, decision-rule, and automation maps incrementally.",
+    "Generate questions for ambiguity, conflicts, undocumented exceptions, and missing prerequisites."
+  ],
+  "important_paths": [
+    "projects/rtec-hr-process-model/README.md",
+    "projects/rtec-hr-process-model/docs/INGESTION_CONTRACT.md",
+    "knowledge/libraries/rtec-hr/README.md",
+    "schemas/rtec-hr-knowledge-v1.schema.json"
+  ],
+  "context_files": [
+    "projects/rtec-hr-process-model/README.md",
+    "projects/rtec-hr-process-model/docs/INGESTION_CONTRACT.md",
+    "knowledge/libraries/rtec-hr/README.md"
+  ],
+  "skill_roots": [],
+  "validation_commands": [],
+  "constraints": [
+    "GitHub stores derived sanitized process knowledge, not live employee/applicant records or raw OCR.",
+    "Do not generalize employee-specific case facts into global process rules.",
+    "Uncertain claims remain candidates until corroborated or user-confirmed.",
+    "Preserve source provenance and document-version context for every promoted rule.",
+    "HR-GUI PROJECT_GUIDE.md privacy rules remain authoritative for scanner development."
+  ],
+  "provenance": {
+    "source": "user-authorized project initialization",
+    "observed_at": "2026-09-23"
+  }
+}
