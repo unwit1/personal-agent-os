@@ -10,15 +10,15 @@ Sub-continuity for the Skyrim mod **The Wheels of Lull**.
 
 - **33/33 BOOK** complete.
 - **32/32 QUST** complete.
-- **306/337 DIAL** and **379/410 INFO** preserved.
-- **685/747 combined dialogue records** ingested.
-- **750 prioritized source records** checkpointed.
+- **331/337 DIAL** and **404/410 INFO** preserved.
+- **735/747 combined dialogue records** ingested.
+- **800 prioritized source records** checkpointed.
 
-This batch completes Water Under the Bridge, adds more Fyr/Yagrum personal testimony, Llavados equipment explanations, and Medeliu Hammar's claims about Talos, Oversouls, and the Wheels of Lull.
+This batch covers Llavados in pneuma form, Stonehole Mine background, Upgate/Lull-Mor history, Numinar's role and equipment, and the Whitehorn infiltration scene.
 
 ## Next cursor
 
-Dialogue combined record **686/747**:
+Dialogue combined record **736/747**:
 
-- DIAL `054C5D62`
-- Owning quest: `0500590D _Lull_MQ01`
+- DIAL `05530C5F`
+- Owning quest: Whitehorn / MQ03 scene dialogue.
