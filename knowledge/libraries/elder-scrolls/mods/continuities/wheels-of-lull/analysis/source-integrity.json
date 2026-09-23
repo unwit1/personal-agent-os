@@ -1,38 +1,71 @@
 {
   "continuity_id": "tes.mod.wheels-of-lull",
   "source_sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
-  "status": "analysis_complete_with_bounded_raw_shard_regeneration_required",
+  "status": "complete_verified_after_deterministic_raw_shard_repair",
+  "verified_source": {
+    "filename": "WheelsOfLull.esp",
+    "supplied_again": "2026-09-23",
+    "physical_record_count": 36824,
+    "core_priority_record_count": 1090,
+    "priority_count_reproduction": "exact"
+  },
   "speaker_resolution": {
     "total_info_records": 410,
-    "processed_readable_info_records": 358,
-    "excluded_info_records": 52,
-    "deterministic_resolved": 288,
-    "deterministic_unresolved_within_readable": 70,
+    "processed_info_records": 410,
+    "excluded_info_records": 0,
+    "deterministic_resolved": 332,
+    "deterministic_unresolved": 78,
+    "previous_readable_baseline": {
+      "records": 358,
+      "resolved": 288,
+      "unresolved": 70,
+      "comparison": "exact_match"
+    },
+    "repaired_ranges": {
+      "records": 52,
+      "resolved": 44,
+      "unresolved": 8
+    },
     "policy": "Equality GetIsID or uniquely mapped equality GetIsVoiceType only."
   },
-  "raw_shard_findings": [
+  "repaired_raw_shards": [
     {
       "path": "raw/source-records-0151-0200.jsonl.gz",
-      "blob_sha": "33e190cca1894d5e1ca41758b23014af7c54af6f",
-      "source_record_range": "151-200",
-      "analysis_reader_results": [
-        "buffered DEFLATE decoder: bad Huffman stream",
-        "lookup-table DEFLATE decoder: bad Huffman stream",
-        "byte-accurate bitstream DEFLATE decoder: bad Huffman at bit 793"
-      ],
-      "required_action": "regenerate this shard from WheelsOfLull.esp using the canonical record parser and a standard gzip writer"
+      "previous_corrupt_blob_sha": "33e190cca1894d5e1ca41758b23014af7c54af6f",
+      "repaired_blob_sha": "e0870ad5f07968319d5a614c17d820167fd67f48",
+      "repaired_gzip_sha256": "88efb18959daad4676dbf614e307077ad21003f2ed80959fc659261fe4e1aab7",
+      "records": 50,
+      "info_records": 25,
+      "commit": "5762fbc4db9db45419038ac5898e16bd630e079a",
+      "validation": [
+        "gzip expands successfully",
+        "exactly 50 JSONL records",
+        "schema/order reproduced from canonical source",
+        "source SHA-256 verified"
+      ]
     },
     {
       "path": "raw/source-records-0401-0450.jsonl.gz",
-      "blob_sha": "b4eb58a37ebad7cd6bba931f7a92bded9b36e6f6",
-      "source_record_range": "401-450",
-      "analysis_reader_results": [
-        "buffered DEFLATE decoder: bad Huffman stream",
-        "lookup-table DEFLATE decoder: bad Huffman stream",
-        "byte-accurate bitstream DEFLATE decoder: bad Huffman at bit 637"
-      ],
-      "required_action": "regenerate this shard from WheelsOfLull.esp using the canonical record parser and a standard gzip writer"
+      "previous_corrupt_blob_sha": "b4eb58a37ebad7cd6bba931f7a92bded9b36e6f6",
+      "repaired_blob_sha": "7d77d5fdbb6c5905c1be8e4785a62fd01eb29825",
+      "repaired_gzip_sha256": "06458f4619b57d6633d2b8c7a6049964fb6802ba0cd81415bd810cd82e3de84d",
+      "records": 50,
+      "info_records": 27,
+      "commit": "6d9d2afe29c20edef47c9e5b5a168929e98ca1a5",
+      "validation": [
+        "gzip expands successfully",
+        "exactly 50 JSONL records",
+        "schema/order reproduced from canonical source",
+        "source SHA-256 verified"
+      ]
     }
   ],
-  "interpretation": "The 1,090-record ingestion checkpoint remains authoritative for what was previously parsed and committed. The post-ingestion analysis deliberately excludes the 52 INFO records contained in these two unreadable stored shards until the shards are regenerated."
+  "exhaustiveness_audit": {
+    "status": "complete_for_supplied_esp",
+    "report": "exhaustiveness-audit.md",
+    "implementation_text_supplement": "../raw/implementation-text-supplement.jsonl.gz",
+    "implementation_text_records": 328,
+    "supplement_gzip_sha256": "e7ce7982e058679f1c61fc5360a506d0f330fb3f02751a5e871d4437c5ad3c8f"
+  },
+  "interpretation": "The prior 1,090-record core ingestion remains authoritative and is now fully readable. The previously excluded 52 INFO records were recovered from the exact source ESP. A separate 328-record implementation-text evidence layer closes omitted player-facing/structural text without reclassifying implementation metadata as narrative lore."
 }
