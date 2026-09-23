@@ -1,0 +1,799 @@
+===== SOURCE BEGIN / PART 7 OF 13 =====
+SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/Title VI Florida Dept. of Transportation.doc
+SHA256: e300bfd0d414e29497bc13f41bafda4613ca5817d6e4769437e2cd937962a64b
+TEXT_CHARS_TOTAL: 121647
+OFFSET: 60000
+ALIASES: 
+===== TEXT =====
+ form.                |
+|________________________________________________________________________  |
+|________________________________________________________________________  |
+|Section IV                                                                |
+|Have you previously filed a Title VI complaint  |Yes        |No           |
+|with this agency?                               |           |             |
+
+
+|Section V                                                                 |
+|Have you filed this complaint with any other Federal, State, or local     |
+|agency, or with any Federal or State court?                               |
+|[ ] Yes [ ] No                                                            |
+|If yes, check all that apply:                                             |
+|[ ] Federal Agency:                                                       |
+|[ ] Federal Court   [ ] State Agency                                      |
+|[ ] State Court   [ ] Local Agency                                        |
+|Please provide information about a contact person at the agency/court     |
+|where the complaint was filed.                                            |
+|Name:                                                                     |
+|Title:                                                                    |
+|Agency:                                                                   |
+|Address:                                                                  |
+|Telephone:                                                                |
+|Section VI                                                                |
+|Name of agency complaint is against:                                      |
+|Contact person:                                                           |
+|Title:                                                                    |
+|Telephone number:                                                         |
+
+
+You may attach any written materials or other information that you think is
+relevant to your complaint.
+
+Signature and date required below
+
+
+
+
+                 _________________________________
+________________________
+  Signature                                        Date
+
+
+
+Please submit this form in person at the address below, or mail this form
+to:
+
+Your Community Transit Title VI Liaison
+12345 Address
+City, FL Zip
+
+
+
+
+                                 Appendix F
+
+                       Public Participation Plan (PPP)
+
+
+
+
+
+
+Introduction
+
+The Public Participation Plan (PPP) for Your Community Transit was
+developed to ensure that all members of the public, including minorities
+and Limited English Proficient (LEP) populations, are encouraged to
+participate in the decision making process for Your Community Transit.
+Policy and service delivery decisions need to take into consideration
+community sentiment and public opinion based upon well-executed outreach
+efforts. The public outreach strategies described in the PPP are designed
+to provide the public with effective access to information about Your
+Community Transit services and to provide a variety of efficient and
+convenient methods for receiving and considering public comment prior to
+implementing changes to services. Your Community Transit also recognizes
+the importance of many types of stakeholders in the decision-making
+process, including other units of government, metropolitan area agencies,
+community based organizations, major employers, passengers and the general
+public, including low-income, minority, LEP, and other traditionally
+underserved communities.
+
+Public Participation Goals
+
+The main goal of the PPP is to offer meaningful opportunities for all
+interested segments of the public, including, but not limited to, low-
+income, minority and LEP groups, to comment, about Your Community Transit
+and its operations. The goals for this PPP include:
+
+Inclusion and Diversity: Your Community Transit will proactively reach out
+and engage low-income, minority, and LEP populations for the Your Community
+Transit service area so these groups will have an opportunity to
+participate.
+
+Accessibility: All legal requirements for accessibility will be met.
+Efforts will be made to enhance the accessibility of the public’s
+participation – physically, geographically, temporally, linguistically and
+culturally.
+
+Clarity and Relevance: Issues will be framed in public meetings in such a
+way that the significance and potential effect of proposed decisions is
+understood by participants. Proposed adjustments to fares or services will
+be described in language that is clear and easy to understand.
+
+Responsive: Your Community Transit will strive to respond to and
+incorporate, when possible, appropriate public comments into transportation
+decisions.
+
+Tailored: Public participation methods will be tailored to match local and
+cultural preferences as much as possible.
+
+Flexible: The public participation process will accommodate participation
+in a variety of ways and will be adjusted over time as needed.
+
+Public Participation Methods
+
+The methods of public participation included in this PPP were developed
+based upon best practices in conjunction with the needs and capabilities of
+Your Community Transit. Your Community Transit intends to achieve
+meaningful public participation by a variety of methods with respect to
+service and any changes to service.
+
+Your Community Transit will conduct community meetings and listening
+sessions as appropriate with passengers, employers, community based
+organizations, and advisory committees to gather public input and
+distribute information about service quality, proposed changes or new
+service options.
+
+The public will be invited to provide feedback on the Your Community
+Transit website (www.yourcommunitytransit.com) and all feedback on the site
+will be recorded and passed on to Your Community Transit management. The
+public will also be able to call the Your Community Transit office at XXX-
+XXX-XXXX during its hours of operation. Feedback collected over the phone
+will be recorded and passed on to Your Community Transit management. Formal
+customer surveys to measure performance, and listening sessions to solicit
+input, will be conducted periodically. The comments recorded as a part of
+these participation methods will be responded to as appropriate.
+
+Meeting formats will be tailored to help achieve specific public
+participation goals that vary by project or the nature of the proposed
+adjustment of service. Some meetings will be designed to share information
+and answer questions. Some will be designed to engage the public in
+providing input, establishing priorities, and helping to achieve consensus
+on a specific recommendation. Others will be conducted to solicit and
+consider public comments before implementing proposed adjustments to
+services. In each case, an agenda for  the meetings will be created that
+work to achieve the stated goals and is relevant to the subject and not
+overwhelming for the public.
+
+For all public meetings, the venue will be a facility that is accessible
+for persons with disabilities and, preferably, is served by public transit.
+If a series of meetings are scheduled on a topic, different meeting
+locations may be used, since no one location is usually convenient to all
+participants.
+
+For community meetings and other important information, Your Community
+Transit will use a variety of means to make riders and citizens aware,
+including some or all of the following methods:
+
+In-vehicle advertisement
+
+Posters or flyers in transit center
+
+Posting information on website
+
+Press releases and briefings to media outlets
+
+Multilingual flyer distribution to community based organizations,
+particularly those that target LEP population
+
+Flyers and information distribution through various libraries and other
+civic locations that currently help distribute timetables and other
+information
+
+Communications to relevant elected officials
+
+Other methods required by local or state laws or agreements
+
+All information and materials communicating proposed and actual service
+adjustments will be provided in English and any other language that meets
+the “safe harbor” criteria.
+
+Public Hearing
+
+If your agency is required to perform public hearings summarize them in
+this section. If the agency is not required to perform public hearings
+state that in this section.
+
+LCB Meetings
+
+Discuss how the agency conducts the LCB meetings in this section.
+
+
+
+
+
+
+
+
+
+
+                                 Appendix G
+
+                       Language Assistance Plan (LAP)
+
+
+
+
+I. Introduction
+
+Your Community Transit operates a transit system within [service area]. The
+Language Assistance Plan (LAP) has been prepared to address Your Community
+Transit’s responsibilities as they relate to the needs of individuals with
+Limited English Proficiency (LEP). Individuals, who have a limited ability
+to read, write, speak or understand English are LEP. In Your Community
+Transit service area there are XX,XXX residents or X.XX% who describe
+themselves as not able to communicate in English “very well” (Source: US
+Census). Your Community Transit is federally mandated (Executive Order
+13166) to take responsible steps to ensure meaningful access to the
+benefits, services, information and other important portions of its
+programs and activities for individuals who are LEP. Your Community Transit
+has utilized the U.S. Department of Transportation (USDOT) LEP Guidance
+Handbook and performed a four factor analysis to develop its LAP.
+
+Calculate the number and percentage of people who do not speak English very
+well by using Appendix H.
+
+The U.S. Department of Transportation Handbook, titled “Implementing the
+Department of Transportation’s Policy Guidance Concerning Recipients’
+Responsibilities to Limited English Proficient (LEP) Persons: A Handbook
+for Public Transportation Providers, (April 13, 2007) “ (hereinafter
+“Handbook”), states that Title VI of the Civil Rights Act of 1964, 42
+U.S.C. 2000d 
+===== SOURCE PART 7 END =====
+
+===== SOURCE BEGIN / PART 8 OF 13 =====
+SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/Title VI Florida Dept. of Transportation.doc
+SHA256: e300bfd0d414e29497bc13f41bafda4613ca5817d6e4769437e2cd937962a64b
+TEXT_CHARS_TOTAL: 121647
+OFFSET: 70000
+ALIASES: 
+===== TEXT =====
+et seq., and its implementing regulations provide that no
+person in the United States shall, on the grounds of race, color, or
+national origin, be excluded from participation in, be denied the benefits
+of, or be otherwise subjected to discrimination under any program or
+activity that receives Federal financial assistance (Handbook, page 5).
+The Handbook further adds that Title VI prohibits conduct that has a
+disproportionate effect on LEP persons because such conduct constitutes
+national origin discrimination (Handbook, page 5).
+
+Executive Order 13166 of August 16, 2000 states that recipients of Federal
+financial assistance must take reasonable steps to ensure meaningful access
+to their programs and activities by LEP persons (Handbook, page 6).
+Additionally recipients should use the DOT LEP Guidance to determine how
+best to comply with statutory and regulatory obligations to provide
+meaningful access to the benefits, services, information and other
+important portions of their programs and activities for individuals who are
+LEP (Handbook, page 6).   These provisions are included in FTA Circular
+4702.1B in Paragraph 9 of Chapter III (pages III-6 to III-9).
+
+For many LEP individuals, public transit is the principal transportation
+mode available. It is important for Your Community Transit be able to
+communicate effectively with all of its riders. When Your Community Transit
+is able to communicate effectively with all of its riders, the service
+provided is safer, more reliable, convenient, and accessible for all within
+its service area. Your Community Transit is committed to taking reasonable
+steps to ensure meaningful access for LEP individuals to this agency’s
+services in accordance with Title VI.
+
+This plan will demonstrate the efforts that Your Community Transit
+undertakes to make its service accessible to all persons without regard to
+their ability to communicate in English. The plan addresses how services
+will be provided through general guidelines and procedures including the
+following:
+
+Identification: Identifying LEP populations in service areas
+
+Notification: Providing notice to LEP individuals about their right to
+language services
+
+Interpretation: Offering timely interpretation to LEP individuals upon
+request
+
+Translation: Providing timely translation of important documents
+
+Staffing: Identifying Your Community Transit staff to assist LEP customers
+
+Training: Providing training on LAP to responsible employees.
+
+II. Four Factor Analysis
+
+The analysis provided in this report has been developed to identify LEP
+population that may use Your Community Transit services and identify needs
+for language assistance. This analysis is based on the “Four Factor
+Analysis” presented in the Implementing the Department of Transportation’s
+Policy Guidance Concerning Recipients’ Responsibilities to Limited English
+Proficient (LEP) Persons, dated April 13, 2007, which considers the
+following factors:
+
+   1. The number and proportion of LEP persons in the service area who may
+      be served or are likely to encounter a Your Community Transit program,
+      activity or service.
+
+   2. The frequency with which LEP persons come in contact with Your
+      Community Transit programs, activities or services.
+
+   3. The nature and importance of programs, activities or services provided
+      by Your Community Transit to the LEP population.
+
+   4. The resources available to Your Community Transit and overall costs to
+      provide LEP assistance
+
+     a. Factor 1: The Number and Proportion of LEP Persons Serviced or
+        Encountered in the Eligible Service Population
+
+        Of the XX,XXX residents in the Your Community Transit service area
+        XXX residents describe themselves as speaking English less than
+        “very well”. People of [most numerous ethnicity] descent are the
+        primary LEP persons likely to utilize Your Community Transit
+        services. For the Your Community Transit service area, the American
+        Community Survey of the U.S. Census Bureau shows that among the
+        area’s population XX.X% speak English “very well”. For groups who
+        speak English “less than very well”, X.XX% speak [language one] and
+        X.XX% speak  [language two].
+
+           Language one and two are the most spoken languages within your
+           service area for the largest groups of  LEP persons. Complete
+           the table in Appendix H to determine langauge one and language
+           two.Appendix H contains a table which lists the languages spoken
+           at home by the ability to speak English for the population
+           within the Your Community Transit service area.
+
+     b. Factor 2: The Frequency with which LEP Individuals Come into
+        Contact with Your Programs, Activities, and Services
+
+        The Federal guidance for this factor recommends that agencies
+        should assess the frequency with which they have contact with LEP
+        individuals from different language groups. The more frequent the
+        contact with a particular LEP language group, the more likely
+        enhanced services will be needed.
+
+        Your Community Transit has assessed the frequency with  which LEP
+        individuals come in contact with the transit system. The methods
+        utilized for this assessment  include analysis of Census data,
+        examining phone inquiries, requests for translated documents, and
+        staff survey. As discussed above, Census data indicates that
+        [insert a summary of either possible prominent LEP groups or the
+        lack of prominent LEP group]. Phone inquiries and staff survey
+        feedback indicated that Your Community Transit dispatchers and
+        drivers interact [frequently] or [infrequently] with LEP persons.
+        The majority of these interactions have occurred with LEP persons
+        who mainly spoke [language or languages]. Over the past XX years,
+        Your Community Transit has had XX requests for translated
+        documents.
+
+     c. Factor 3: The Nature and Importance of the Program, Activity, or
+        Service Provided by the Recipient to People’s Lives
+
+        Public transportation and regional transportation planning is vital
+        to many people’s lives. According to the Department of
+        Transportation’s Policy Guidance Concerning Recipient’s
+        Responsibilites to LEP Persons, providing public transportation
+        access to LEP persons is crucial. A LEP person’s inability to
+        utilize public transportation effectively,  may adversely affect
+        his or her ability to access health care, education, or employment.
+
+        Insert futher information about your agency’s services and how
+        important those services are to the lives of LEP riders/customers.
+        Insert results of any ridership surveys that may have been
+        completed. The following is an example paragraph.
+
+        An on-board passenger survey was conducted to collect data on usage
+        of and access to the Your Community Transit services. According to
+        the survey, the most common age among all the participants in the
+        survey was 65 or older. This supports the fact that Your Community
+        Transit can be considered a senior transit serice as most of its
+        patrons are over the age of 65.
+
+        To further access personal mobility options, each respondent was
+        asked how he or she would have made the surveyed trip had Your
+        Community Transit not been availbable. The most frequent response
+        was “friend of family member” (40 percent). An additional 25
+        percent indicated they would not have made the surveyed trip if the
+        service was not available. This data indicates that the Your
+        Community Transit Service is very important as a primary means of
+        transportation for its customers.
+
+     d. Factor 4: The Resources Available to the Recipient and Costs
+
+        Insert in this section information on the language assistance
+        resources available to your agency and their cost. Compare this to
+        the LEP needs in your service area.
+
+        Your Community Transit assessed its available resources that are
+        currently being used, and those that could be used, to provide
+        assistance to LEP populations.These resources include the
+        following: XXXXX, XXXX, and XXXX.  Your Community Transit provides
+        a reasonable degree of services for LEP populations in its service
+        area.
+
+III. Language Assistance Plan
+
+In developing a Language Assistance Plan, FTA guidance recommends the
+analysis of the following five elements:
+
+   1. Identifying LEP individuals who need language assistance
+   2. Providing language assistance measures
+   3. Training staff
+   4. Providing notice to LEP persons
+   5. Monitoring and updating the plan
+
+
+The five elements are addressed below.
+
+     a. Element 1: Identifying LEP Individuals Who Need Language Assistance
+
+        Federal guidance provides that there should be an assessment of the
+        number or proportion of LEP individuals eligible to be serviced or
+        encountered and the frequency of encounters pursuant to the first
+        two factors in the four-factor analysis.
+
+        Your Community Transit has identified the number and proportion of
+        LEP individuals within its service area using United States Census
+        data (see Appendix H). As presented  earlier, XX% of the service
+        area population speaks English only. The largest non-English spoken
+        language in the service area is [language one] (XX.X%). Of those
+        who primary spoken language is [language one], approximately XX.X%
+        identify themselves as speaking less than “very well”. Those
+        residents whose primary language is not English or [language one]
+        and who identify themselves as speaking English less than “very
+        well” account for X.XX% of the service area population.
+
+        Modify th
+===== SOURCE PART 8 END =====
+
+===== SOURCE BEGIN / PART 9 OF 13 =====
+SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/Title VI Florida Dept. of Transportation.doc
+SHA256: e300bfd0d414e29497bc13f41bafda4613ca5817d6e4769437e2cd937962a64b
+TEXT_CHARS_TOTAL: 121647
+OFFSET: 80000
+ALIASES: 
+===== TEXT =====
+e following list with the efforts your agency is willing
+        and able to undertake with regards to identifying LEP persons.
+
+        Your Community Transit may identify language assistance need for an
+        LEP group by:
+
+           1. Examining records to see if requests for language assistance
+              have been received in the past, either at meetings or over
+              the phone, to determine whether language assistance might be
+              needed at future events or meetings.
+           2. Having Census Bureau Language Identification Flashcards
+              available at Your Community Transit Meetings. This will
+              assist Your Community Transit in identifying language
+              assistance needs for future events and meetings.
+           3. Having Census Bureau Language Identification Flashcards on
+              all transit vehicles to assist operators in identifying
+              specific language assistance needs of passengers. If such
+              individuals are encountered, vehicle operators will be
+              instructed to obtain contact information to give to Your
+              Community Transit management to follow-up.
+           4. Vehicle operators and front-line staff (i.e. Dispatchers,
+              Transit Operation Supervisors, etc.) will be surveyed on
+              their experience concerning any contacts with LEP persons
+              during the previous year.
+
+     b. Element 2: Language Assistance Measures
+
+        Federal Guidance suggests that an effective LAP should include
+        information about the ways in which language assistance will be
+        provided. This refers to listing the different language services an
+        agency provides and how staff can access this information.
+
+        For this task Federal Guidance recommends that transit agencies
+        consider developing strategies that train staff as to how to
+        effectively deal with LEP individuals when they either call agency
+        centers or otherwise interact with the agency.
+
+        Modify the following list with the efforts your agency is willing
+        and able to undertake with regards to language assistance measures.
+
+
+
+        Your Community Transit has undertaken the following actions to
+        improve access to information and services for LEP individuals:
+
+           1. Provide bilingual staff at community events, public hearings,
+              and transit committee meetings.
+           2. Survey transit drivers and other front-line staff annually on
+              their experience concerning any contacts with LEP persons
+              during the previous year.
+           3. Provide Language Identification Flashcards onboard transit
+              vehicles and in the Your Community Transit offices.
+           4. Include statements clarifying that being bilingual is
+              preferred on bus driver recruitment flyers and onboard
+              recruitment posters.
+           5. When an interpreter is needed in person or on the telephone,
+              staff will attempt to access language assistance services
+              from a professional translation service or qualified
+              community volunteers.
+
+        Your Community Transit will utilize the demographic maps provided
+        in Appendix I in order to better provide the above efforts to the
+        LEP persons within the service area.
+
+     c. Element 3: Training Staff
+
+        Federal guidance states staff members of an agency should know
+        their obligations to provide meaningful access to information and
+        services for LEP persons and that all employees in public contact
+        positions should be properly trained.
+
+        Suggestions for implementing Element 3 of the Language Assistance
+        Plan, involve: (1) identifying agency staff likely to come into
+        contact with LEP individuals; (2) identifying existing staff
+        training opportunities;  (3) providing regular re-training for
+        staff dealing with LEP individual needs; and (4) designing and
+        implementing LEP training for agency staff.
+
+        In the case of Your Community Transit, the most important staff
+        training is for Customer Service Representatives and transit
+        drivers. Several representatives are bilingual in English and
+        [other language].
+
+        Modify the following list with the efforts your agency is willing
+        and able to undertake with regards to training staff.
+
+        The following training will be provided to Customer Service
+        Representative:
+
+           1. Information on Title VI Procedures and LEP responsibilities
+           2. Use of Language Identification Flashcards
+           3. Documentation of language assistance requests
+           4. How to handle a potential Title VI/LEP complaint
+
+     d. Element 4: Providing Note to LEP Persons
+
+        Your Community Transit will make Title VI information available in
+        English and XXXXXX on the Agency’s website. Key documents are
+        written in English and XXXXXX.  Notices are also posted in Your
+        Community Transit office lobby, on buses, and XXXXXX.
+        Additionally, when staff prepares a document or schedules a
+        meeting, for which the target audience is expected to include LEP
+        individuals, then documents, meeting notices, flyers, and agendas
+        will be printed in an alternative language based on the known LEP
+        population.
+
+     e. Element 5: Monitoring and Updating the Plan
+
+        The plan will be reviewed and updated on an ongoing basis. Updates
+        will consider the following:
+
+           0. The number of documented LEP person contacts encountered
+              annually
+           0. How the needs of LEP persons have been addressed
+           0. Determination of the current LEP population in the service
+              area
+           0. Determination as to whether the need for translation services
+              has changed
+           0. Determine whether Your Community Transit’s financial
+              resources are sufficient to fund language assistance
+              resources needed
+
+        Your Community Transit understands the value that its service plays
+        in the lives of individuals who rely on this service, and the
+        importance of any measures undertaken to make the use of system
+        easier. Your Community Transit is open to suggestions from all
+        sources, including customers, Your Community Transit staff, other
+        transportation agencies with similar experiences with LEP
+        communities, and the general public, regarding additional methods
+        to improve their accessibility to LEP communities.
+
+IV. Safe Harbor Provision
+
+DOT has adopted the Department of Justice’s Safe Harbor Provision, which
+outlines circumstances that can provide a “safe harbor” for recipients
+regarding translation of written materials for LEP population. The Safe
+Harbor Provision stipulates that, if a recipient provides written
+translation of vital documents for each eligible LEP language group that
+constitutes five percent (5%) or 1,000 persons, whichever is less, of the
+total population of persons eligible to be served or likely to be affected
+or encountered, then such action will be considered strong evidence of
+compliance with the recipient’s written translation obligations.
+Translation of non-vital documents, if needed, can be provided orally. If
+there are fewer than 50 persons in a language group that reaches the five
+percent (5%) trigger, the recipient is not required to translate vital
+written materials but should provide written notice in the primary language
+of the LEP language group of the right to receive competent oral
+interpretation of those written materials, free of cost.
+
+Your Community Transit service area [does] or [does not] have LEP
+populations which qualify for the Safe Harbor Provision. [As shown in
+Appendix H, Your Community Transit does not have LEP groups which speak
+English less than “very well” which exceed either 5.0% or 1,000 person.] or
+[As shown in Appendix H, XXXXX speakers qualify for the Safe Harbor
+Provision as the number of person which speak English less than “very well”
+is counted as XX.X% and X,XXX persons.]
+
+The Safe Harbor Provision applies to the translation  of  written  documents
+only. They do not affect the requirement to  provide  meaningful  access  to
+LEP individuals through competent  oral  interpreters  where  oral  language
+services  are  needed  and  are  reasonable.  Your  Community  Transit   may
+determine, based on the Four Factor Analysis, that even  though  a  language
+group meets the threshold specified by the Safe  Harbor  Provision,  written
+translation may not be an effective means  to  provide  language  assistance
+measures.
+
+Complete the table in Appendix H  to  determine  which,  if  any,  languages
+qualify for the Safe Harbor Provision. Once  the  table  in  Appendix  H  is
+complete, review the total number and percentage for the Speak English  less
+than “Very Well” category for each  language.  Any  language  which  exceeds
+1,000 people or 5% of the service area population, must be listed  above  as
+qualifying for the Safe Harbor Provision.
+
+
+
+
+
+
+
+
+
+
+                                 Appendix H
+
+                        Operating Area Language Data:
+
+                     Your Community Transit Service Area
+
+
+
+
+
+
+|Language                   |County            |Percent of Population  |
+|Total                      |                  |                       |
+|Speak only English         |                  |                       |
+|Spanish or Spanish Creole  |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|French (incl. Patois,      |                  |      
+===== SOURCE PART 9 END =====
+
+===== SOURCE BEGIN / PART 10 OF 13 =====
+SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/Title VI Florida Dept. of Transportation.doc
+SHA256: e300bfd0d414e29497bc13f41bafda4613ca5817d6e4769437e2cd937962a64b
+TEXT_CHARS_TOTAL: 121647
+OFFSET: 90000
+ALIASES: 
+===== TEXT =====
+                 |
+|Cajun)                     |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|French Creole              |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Italian                    |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Portuguese or Portuguese   |                  |                       |
+|Creole                     |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|German                     |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Yiddish                    |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Other West Germanic        |                  |                       |
+|languages                  |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Scandinavian languages     |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Greek                      |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Russian                    |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Polish                     |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Serbo-Croatian             |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Other Slavic Languages     |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Armenian                   |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Persian                    |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Gujarati                   |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Hindi                      |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Urdu                       |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Other Indic languages      |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Other Indo-European        |                  |                       |
+|Languages                  |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Chinese                    |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Japanese                   |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Korean                     |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Mon-Khmer, Cambodian       |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Hmong                      |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Thai                       |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Laotian                    |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Vietnamese                 |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Other Asian languages      |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Tagalog                    |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Other Pacific Island       |                  |                       |
+|languages                  |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Navajo                     |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Other Native American      |                  |                       |
+|languages                  |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |     
+===== SOURCE PART 10 END =====

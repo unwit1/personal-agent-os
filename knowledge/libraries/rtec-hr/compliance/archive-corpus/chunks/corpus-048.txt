@@ -1,0 +1,942 @@
+===== SOURCE BEGIN / PART 5 OF 5 =====
+SOURCE_PATH: TITLE VI LEP PLAN/OLD Title VI and LEP Plans/Title VI and Limited English Proficient Plan Revised Sept 2016.doc
+SHA256: 71546ccfe3006abe83663dc0d1353b71cd927e1fbdf9f52e76559ee4c9a01978
+TEXT_CHARS_TOTAL: 44623
+OFFSET: 40000
+ALIASES: 
+===== TEXT =====
+s or services will be described in language that is clear and easy
+      to understand.
+    • Responsive:  RTEC will strive to  respond  to  and  incorporate,  when
+      possible, appropriate public comments into transportation decisions.
+    • Tailored:  Public participation methods  will  be  tailored  to  match
+      local and cultural preferences as much as possible.
+    •  Flexible:  The  public   participation   process   will   accommodate
+      participation in a variety of ways and will be adjusted over  time  as
+      needed.
+
+
+   Public Participation Methods
+
+
+   The methods of public participation included in this PPP  were  developed
+   based upon best practices in conjunction with the needs and  capabilities
+   of RTEC.  RTEC intends to achieve meaningful public  participation  by  a
+   variety of methods with respect to service and any changes to service.
+
+
+   RTEC  will  conduct  community  meetings  and   listening   sessions   as
+   appropriate with passengers, employers,  community  based  organizations,
+   and advisory committees to gather public input and distribute information
+   about service quality, proposed changes or new service options.
+
+
+   The public will be invited  to  provide  feedback  on  the  RTEC  website
+   (www.4rtec.com) and all feedback on the site will be recorded and  passed
+   on to RTEC management.  The public will also be able  to  call  the  RTEC
+   office  at  1-800-321-7832  during  its  hours  of  operation.   Feedback
+   collected over  the  phone  will  be  recorded  and  passed  on  to  RTEC
+   management.  Formal customer  surveys  to  measure  performance  will  be
+   conducted periodically.   The  comments  recorded  as  a  part  of  these
+   participation methods will be responded to as appropriate.
+
+
+   Meeting  formats  will  be  tailored  to  help  achieve  specific  public
+   participation goals that vary by project or the nature  of  the  proposed
+   adjustment  to  service.   Some  meetings  will  be  designed  to   share
+   information and answer questions.  Some will be designed  to  engage  the
+   public in  providing  input,  establishing  priorities,  and  helping  to
+   achieve consensus on a specific recommendation.  Others will be conducted
+   to solicit and consider  public  comments  before  implementing  proposed
+   adjustments to services.  In each case, an agenda for the  meetings  will
+   be created that work to achieve the stated goals and is relevant  to  the
+   subject and not overwhelming for the public.
+
+
+   For all public meetings, the venue will be a facility that is  accessible
+   for persons with  disabilities  and,  preferably,  is  served  by  public
+   transit.  If a series of meetings are scheduled  on  a  topic,  different
+   meeting  locations  may  be  used,  since  no  one  location  is  usually
+   convenient to all participants.
+
+
+   For community meetings and other important information, RTEC will  use  a
+   variety of means to make riders and citizens aware, including some or all
+   of the following methods:
+
+
+      • In-vehicle advertisement
+      • Posters or flyers in transit center
+      • Posting information on website
+      • Press releases and briefings to media outlets
+      • Multilingual flyer distribution to community  based  organizations,
+        particularly those that target LEP population
+      • Flyers and information distribution through various  libraries  and
+        other civic locations that currently help distribute timetables and
+        other information
+      • Communications to relevant elected officials
+      • Other methods required by state laws or agreements
+
+
+
+
+   All information and materials communicating proposed and  actual  service
+   adjustments will be provided in English and any other language that meets
+   the "safe harbor" criteria.
+
+
+
+
+
+   Public Hearing
+
+
+   A copy of the letter and advertisement for notice of  public  hearing  is
+   attached to this plan.  See attachment IX.
+
+
+
+ Summary of outreach efforts made by RTEC in the past three years
+
+    • Advertisement wraps on bus including Spanish translation portions on
+      the advertisements.
+    • Spanish brochures advertising RTEC services (see attachment I).
+    • RTEC services available in Spanish on website.
+    • Advertise Notice of Public Hearing in newspapers with language that
+      persons with disabilities and Limited English Proficient (LEP)
+      individuals will be accommodated.
+    • Increased the number of bilingual Drivers to help with the translation
+      process.
+    • Include Spanish translation portions on telephone message.
+
+===== SOURCE PART 5 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/Facility contruction statement (sample).doc
+SHA256: 1f877004f9d9a8425d306595fd0aa8eef136d72a4c15c7462721565b54b5c696
+TEXT_CHARS_TOTAL: 2625
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+Title 49 CFR, Appendix C, Section (3)(iv) requires that “the location of
+projects requiring land acquisition and the displacement of persons from
+their residences and business may not be determined on the basis of race,
+color, or national origin.” For purposes of this requirement, “facilities”
+does not include bus shelters, as they are considered transit amenities. It
+also does not include transit stations, power substations, or any other
+project evaluated by the National Environmental Policy Act (NEPA) process.
+Facilities included in the provision include, but are not limited to,
+storage facilities, maintenance facilities, operations centers, etc. In
+order to comply with the regulations, RTEC will ensure the following:
+1.      RTEC will complete a Title VI equity analysis for any facility
+during the planning stage with regard to where a project is located or
+sited to ensure the location is selected without regard to race, color, or
+national origin. RTEC will engage in outreach to persons potentially
+impacted by the siting of the facility. The Title VI equity analysis must
+compare the equity impacts of various siting alternatives, and the analysis
+must occur before the selection of the preferred site.
+1.      When evaluating locations of facilities, RTEC will give attention
+to other facilities with similar impacts in the area to determine if any
+cumulative adverse impacts might result. Analysis should be done at the
+Census tract or block group level where appropriate to ensure that proper
+perspective is given to localized impacts.
+2.      If RTEC determines that the location of the project will result in
+a disparate impact on the basis of race, color, or national origin, RTEC
+may only locate the project in that location if there is a substantial
+legitimate justification for locating the project there, and where there
+are no alternative locations that would have a less disparate impact on the
+basis of race, color, or national origin. RTEC must demonstrate and
+document how both tests are met. RTEC will consider and analyze
+alternatives to determine whether those alternatives would have less of a
+disparate impact on the basis of race, color, or national origin, and then
+implement the least discriminatory alternative.
+Choose and complete the following statement that fits your agency.
+[RTEC has not recently constructed any facilities nor does it currently
+have any facilities in the planning stage. Therefore, RTEC does not have
+any Title VI Equity Analysis reports to submit with this Plan. RTEC will
+utilize the demographic maps included in Appendix I for future Title VI
+analysis.]
+
+
+
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/Old Public Participation Plan.doc
+SHA256: 5763c8e48af6dfaccc774f23c9cb28df7399bfd1318aada13e975100384ac23c
+TEXT_CHARS_TOTAL: 2699
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+VI.   Public Participation Plan
+
+
+Promoting Inclusive Public Participation
+
+In order to integrate into  community  outreach  activities,  considerations
+expressed in  the  DOT  order  on  Environment  Justice,  and  the  DOT  LEP
+Guidance, RTEC will seek out and consider the viewpoints of  minority,  low-
+income, and LEP populations in the course of conducting public outreach  and
+involvement   activities.    RTEC   shall   offer   early   and   continuous
+opportunities for the  public  to  be  involved  in  the  identification  of
+social, economic,  and  environmental  impacts  of  proposed  transportation
+decisions.
+
+Effective  Practices  for  Fulfilling  the  Inclusive  Public  Participation
+Requirement
+
+FTA states that grant recipients have wide latitude to determine how,  when,
+and how often specific public involvement measures should  take  place,  and
+what specific measures are most  appropriate.   FTA  advises  recipients  to
+make these  determinations  based  on  the  composition  of  the  population
+affected by the recipient’s action, the type of public  involvement  process
+planned by the  recipient,  and  the  resources  available  to  the  agency.
+Efforts to involve minority and low-income people and populations in  public
+involvement activities can include  both  comprehensive  measures,  such  as
+placing public notices in all vehicles and  measures  targeted  to  overcome
+linguistic,  institutional,  cultural,  economic,   historical,   or   other
+barriers that may prevent minority and  low-income  people  and  populations
+from effectively participating in  a  recipient’s  decision-making  process.
+Effective practices include:
+
+    • Coordinating with  individuals,  institutions,  or  organizations  and
+      implementing community-based public involvement  strategies  to  reach
+      out to members in the affected minority and/or low income communities.
+
+    • Providing opportunities for public participation through  means  other
+      than written communication, such as  personal  interviews  or  use  of
+      audio or video recording devices to capture oral comments.
+
+    • Using locations, facilities, and meeting times that are convenient and
+      accessible to low-income and minority communities.
+
+    • Using different meeting sizes or formats,  or  varying  the  type  and
+      number  of  news  media  used   to   announce   public   participation
+      opportunities, so that communications are tailored to  the  particular
+      community population; and
+
+    •   Implementing   DOT’s   policy   guidance   concerning    recipients’
+      responsibilities  to  LEP  persons  to  overcome  barriers  to  public
+      participation.
+
+
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/RTEC Title VI plan (samples).doc
+SHA256: 64873e13e0bbeaae80dbb2c73b947befd8e8486706fa444566a26fd71ce087ab
+TEXT_CHARS_TOTAL: 5307
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+
+
+
+
+
+                 RURAL TRANSIT ENTERPRISES COORDINATED, INC.
+                                TITLE VI PLAN
+
+
+I.   Plan Statement
+
+Title VI of the Civil Rights Act of 1964  prohibits  discrimination  on  the
+basis of  race,  color,  or  national  origin  in  programs  and  activities
+receiving Federal financial assistance.   Specifically,  Title  VI  provides
+that “no person in the United States shall, on the ground  of  race,  color,
+or national origin,  be  excluded  from  participation  in,  be  denied  the
+benefits of,  or  be  subjected  to  discrimination  under  any  program  or
+activity receiving Federal financial assistance” (42  U.S.C.  Section  2000d
+et seq.).
+
+Rural Transit Enterprises Coordinated,  Inc.  (hereinafter  referred  to  as
+RTEC)  is  committed  to  ensuring  that  no   person   is   excluded   from
+participation in, or denied the benefits of  its  transit  services  on  the
+basis of race, color, or national origin, as  protected  by  VI  in  Federal
+Transit Administration (FTA) Circular 4702.1B.
+
+This plan was developed to guide RTEC in is  administration  and  management
+of Title VI related activities.
+
+Title VI Coordinator Contact Information
+
+Sheila Stallsworth
+Title VI Coordinator/EEO Manager
+Rural Transit Enterprises Coordinated, Inc.
+100 Main Street
+Mt. Vernon, KY 40456
+
+
+II.   Title VI Information Dissemination
+
+
+Title VI information posters shall be prominently and publicly displayed  in
+the RTEC lobby, on the RTEC website and on RTEC  buses.  This  includes  the
+counties of Bell,  Clinton,  Cumberland,  Knox,  Laurel,  McCreary,  Monroe,
+Pulaski,  Rockcastle,  Russell,  Taylor,  Wayne,  and  Whitley.   Title   VI
+coordinator contact  information  is  available  on  the  RTEC  website,  at
+www.4rtec.com.   Additional  information   relating   to   nondiscrimination
+obligation can be obtained from the RTEC Title VI Coordinator. See  Appendix
+A
+
+
+
+III.   Subcontracts and Vendors
+
+All subcontractors and vendors who receive payments from RTEC where  funding
+originates from any federal assistance are  subject  to  the  provisions  of
+Title VI of the Civil Rights Act of 1964 as amended.
+
+Written  contracts  shall  contain   non-discrimination   language,   either
+directly  or  through  the  bid  specification  package  which  becomes   an
+associated component of the contract.
+
+
+IV.   Record Keeping
+
+
+The Title VI Coordinator will maintain  permanent  records,  which  include,
+but are not limited signed acknowledgements of receipt  from  the  employees
+indicating the  receipt  of  RTEC’s  Title  VI  plan,  copies  of  Title  VI
+complaints  or  lawsuits,  and  related  documentation,   and   records   of
+correspondence to and from complainants, and Title VI  investigations.   See
+Appendix  B;  spreadsheet  of  transit-related  Title   VI   investigations,
+complaints and lawsuit.
+
+
+V.   Title VI Complaint Procedures
+
+
+Any person who believes she or he has  been  discriminated  against  on  the
+basis of race, color,  or  national  origin  by  Rural  Transit  Enterprises
+Coordinated, Inc. d/b/a RTEC may file a Title  VI  complaint  by  completing
+and  submitting  RTEC’s  Title  VI  Complaint   Form.    RTEC   investigates
+complaints received no more than 180 days after the alleged  incident.  RTEC
+will process complaints that are complete.
+
+Once the complaint is received, RTEC will review  it  to  determine  if  our
+office has jurisdiction.  The complainant will  receive  an  acknowledgement
+letter informing her/him whether the complaint will be investigated  by  our
+office within ten (10) days by mail.
+
+RTEC has 30 days to investigate  the  complaint.   If  more  information  is
+needed  to  resolve  the  case,  RTEC  may  contact  the  complainant.   The
+complainant has 60 business days  from  the  date  of  the  letter  to  send
+requested information to the investigator assigned  to  the  case.   If  the
+investigator is not contacted by the complainant or  does  not  receive  the
+additional information within 60 business days,  RTEC  can  administratively
+close the  case.   A  case  can  be  administratively  closed  also  if  the
+complainant no longer wishes to pursue their case.
+
+After the investigator reviews the complaint, she/he will issue one  of  two
+letters to the complainant: a closure letter or a letter of  finding  (LOF).
+A closure letter summarizes the allegations and states that there was not  a
+Title VI violation and that the case will be closed.  A  letter  of  finding
+summarizes  the  allegations  and  the  interviews  regarding  the   alleged
+incident, and explains whether any disciplinary action, additional  training
+of the staff member or other action will occur.  If the  complainant  wishes
+to appeal the decision, she/he has 7 days after the date of  the  letter  or
+the letter of finding to do so.
+
+A person may also  file  a  complaint  directly  with  the  Federal  Transit
+Administration, at FTA Office of Civil Rights, 1200 New  Jersey  Avenue  SE,
+Washington, DC 20590.
+See Appendix C and Appendix D Title VI complaint form.
+
+
+VI. Public Participation Plan
+
+
+This should include information about outreach methods  to  engage  minority
+and limited English Proficient populations (LEP), as well as  a  summary  of
+outreach efforts made over the last three years.
+
+
+
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/SAFE HARBOR PROVISION (sample).doc
+SHA256: eb50ec0447cd2f21b7a501fa063f2d436beefd7d9279d2993daf4d2e5eeebbf2
+TEXT_CHARS_TOTAL: 988
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+SAFE HARBOR PROVISION
+
+After completing the  four-factor  analysis  RTEC  has  determined  that  on
+average no language group actually meets the  five  percent  (5%)  or  1,000
+rule in our service area.  However the Hispanic/Latino language group is  an
+increasing population in our service area.  Therefore, RTEC makes  available
+Spanish brochures advertising RTEC  services,  advertisement  wraps  on  bus
+that include Spanish translation, RTEC  services  available  in  Spanish  on
+company website.  Even though RTEC does not translate all written  materials
+we will provide written notice in Spanish of the right to receive  competent
+oral interpretation of written materials free of cost.
+
+RTEC understands that these safe harbor provisions apply to the  translation
+of written documents only.  They do not affect the  requirement  to  provide
+meaningful access to LEP individuals  through  competent  oral  interpreters
+where oral language services are needed and are reasonable.
+
+
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/TITLE VI COMPLAINT PROCEDURE (sample).doc
+SHA256: 67d54ef9f43d33cb2d9586d85628f9f19b9132ef00b647dc43b1085666ec6659
+TEXT_CHARS_TOTAL: 2120
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+TITLE VI COMPLAINT PROCEDURE
+
+
+
+
+Any person who believes she or he has  been  discriminated  against  on  the
+basis of race, color,  or  national  origin  by  Rural  Transit  Enterprises
+Coordinated, Inc. d/b/a RTEC may file a Title  VI  complaint  by  completing
+and  submitting  RTEC’s  Title  VI  Complaint   Form.    RTEC   investigates
+complaints received no more than 180 days after the alleged  incident.  RTEC
+will process complaints that are complete.
+
+Once the complaint is received, RTEC will review  it  to  determine  if  our
+office has jurisdiction.  The complainant will  receive  an  acknowledgement
+letter informing her/him whether the complaint will be investigated  by  our
+office within ten (10) days by mail.
+
+RTEC has 30 days to investigate  the  complaint.   If  more  information  is
+needed  to  resolve  the  case,  RTEC  may  contact  the  complainant.   The
+complainant has 60 business days  from  the  date  of  the  letter  to  send
+requested information to the investigator assigned  to  the  case.   If  the
+investigator is not contacted by the complainant or  does  not  receive  the
+additional information within 60 business days,  RTEC  can  administratively
+close the  case.   A  case  can  be  administratively  closed  also  if  the
+complainant no longer wishes to pursue their case.
+
+After the investigator reviews the complaint, she/he will issue one  of  two
+letters to the complainant: a closure letter or a letter of  finding  (LOF).
+A closure letter summarizes the allegations and states that there was not  a
+Title VI violation and that the case will be closed.  An LOF summarizes  the
+allegations and the interviews regarding the alleged incident, and  explains
+whether any disciplinary action, additional training of  the  staff  member,
+or other action will  occur.   If  the  complainant  wishes  to  appeal  the
+decision, she/he has 7 days after the date of the letter or the  LOF  to  do
+so.
+
+A person may also  file  a  complaint  directly  with  the  Federal  Transit
+Administration, at FTA Office of Civil Rights, 1200 New  Jersey  Avenue  SE,
+Washington, DC 20590.
+
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 1 OF 13 =====
+SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/Title VI Florida Dept. of Transportation.doc
+SHA256: e300bfd0d414e29497bc13f41bafda4613ca5817d6e4769437e2cd937962a64b
+TEXT_CHARS_TOTAL: 121647
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+
+Preface
+
+This  template  has  been   developed   by   the   Florida   Department   of
+Transportation (FDOT) District Two in coordination  with  the  FDOT  Central
+Office in order to assist transit agencies with  the  development  of  their
+Title VI Plan. Although each  agency  is  different  in  size,  organization
+structure, operations, etc., minimum Title VI  compliance  requirements  are
+common to all.   This  template  document  is  intended  to  assist  smaller
+transit agencies that often do not have  adequate  resources  to  develop  a
+Title VI Plan in accordance with the  minimum  requirements  of  Section  49
+Code of Federal Regulations, Part  21  and  Federal  Transit  Administration
+(FTA) Circular 4702.1B. It should be noted that  this  template  covers  the
+Title VI requirements for sub-recipient transit providers that operate  less
+than 50 vehicles in peak service and are located in  urbanized  areas  (UZA)
+of less than 200,000 population and rural transit providers.
+
+While the development, adoption, and implementation of a Title VI Plan  that
+complies, at a minimum, with the requirements  set  forth  by  FTA  Circular
+4702.1B is mandatory, the agencies have the prerogative  to  either  utilize
+this template or enhance their existing Title VI Plan with  the  information
+contained in this document.  If an agency decides to utilize this  template,
+they will have to customize this  document  to  fit  their  agency  ensuring
+compliance with FTA Circular 4702.1B, adopt the document, and implement  and
+comply with the Title VI Plan.
+
+It is important to note that the Department is not requiring transit
+agencies to adopt this template. Transit agencies must, however, adopt a
+Title VI Plan which addresses all of the requirements of FTA Circular
+4702.1B which apply to their agency.  The intent of the Department was to
+develop a document which addresses the provisions of the circular and
+provide it to local transit agencies as a means of helping them reduce
+their administrative burden in preparing or updating their Title VI Plans.
+We believe this document will be invaluable to you in this regard. In
+developing this document, it was understood that some transit agencies may
+elect to adopt the template document in whole with little customization.
+This decision is up to the local transit agency. It must be understood,
+however, that future compliance reviews will examine your policies and
+observed practices to ensure that they are consistent with the Title VI
+Plan you have adopted, and also compliant with FTA Circular 4702.1B.
+
+To use this template, open the electronic file contained in the Title VI
+Plan Template CD in Microsoft Word and save the file with an appropriate
+name (e.g. “Your Community Transit Bus System Title VI Plan.doc”).  You
+will quickly note that the Template Document has been color coded to help
+you distinguish between the actual requirements of FTA Circular 4702.1B,
+and optional language we have provided that might assist you in developing
+your plan, or elaborating on how your agency is addressing the requirements
+of FTA Circular 4702.1B.
+
+Text  Any text highlighted in yellow color  should  be  replaced  with  your
+agency’s information.
+
+Text  Any text highlighted in blue color are instructions for completion  of
+      the template.  Please  delete  all  blue  highlighted  text  prior  to
+      completion of the Plan.
+
+      Text appearing within the blue shaded boxes is informational only  and
+      may provide instructions or other information that will  help  you  in
+      customizing your Title VI Plan.
+
+
+Text        Any  text  appearing  in  green  color  represents  optional  or
+      suggested language that may assist you in explaining or elaborating on
+      how you are meeting the intent of the requirement.
+
+      Text appearing within the bordered boxes as well  as  the  black  text
+      found within the section  descriptions  which  follow,  represent  the
+      actual requirements as stated in FTA  Circular  4702.1B,  or  provides
+      information directly related to the requirements.
+
+      Certain FTA Circular 4702.1B requirements are  very  prescriptive  and
+      the  requirements  are  defined   in   great   detail.   Under   these
+      circumstances, it would be redundant to explain the requirements twice
+      (once in the bordered box and then restate again  within  the  general
+      text that would follow). When such circumstances  occur,  it  will  be
+      noted within the bordered box and the general text will be deferred to
+      in summarizing the requirement.
+
+Remember, in the context of FTA Circular 4702.1B, some requirements are  not
+always prescriptive and detailed.  Some portions  of  FTA  Circular  4702.1B
+simply obligate the agency to define or develop a  policy  or  procedure  to
+explain how the agency  will  meet  the  intent  of  the  requirement.   The
+language the Department has developed in the green colored text is  optional
+or example language crafted to assist you in these instances.  You  are  not
+required to use it. Whether you elect to use  the  optional  green  text  is
+entirely up to you, but please ensure that any green text  utilized  applies
+precisely to your agency.  Regardless, your policy or procedure must  comply
+with the requirements set forth by FTA Circular 4702.1B.   Also,  note  that
+this Template is geared towards satisfying the requirements of FTA  Circular
+4702.1B  only.  You  may  have  to  incorporate  additional   policies   and
+procedures to  meet  the  requirements  of  other  regulatory  agencies,  as
+appropriate. You can also customize the Appendices as needed  to  supplement
+the Title VI Plan.  The document is provided in  a  format  that  is  easily
+editable by the Agencies, a text formatting palette  has  been  provided  in
+the Appendix of the document specifying font type, text size, etc.
+
+If you have any questions related to this  document,  please  feel  free  to
+contact Ms. Doreen  Joyner-Howard,  AICP;  District  Two  Modal  Development
+Manager at doreen.joynerhoward@dot.state.fl.us or 904-360-5650.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                         Title VI Plan Activity Log
+
+|Date        |Activity                  |Concerned Person |Remarks         |
+|            |(Review/Update/Addendum/  |(Signature)      |                |
+|            |Adoption/Distribution)    |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+
+
+
+
+
+                         Title VI Plan Activity Log
+                                 (Continued)
+
+|Date        |Activity                  |Concerned Person |Remarks         |
+|            |(Review/Update/Addendum/  |(Signature)      |                |
+|            |Adoption/Distribution)    |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+|            |                          |                 |                |
+
+
+
+                              Table of Contents
+
+
+1.0   Title VI/Nondiscrimination Policy Statement
+      and Management Commitment to Title VI Plan   1-1
+
+
+2.0   Introduction & Description of Services 2-1
+
+2.1   First Time Applicant Requirements 2-2
+2.2   Annual Certifications and Assurances   2-3
+2.3   Title VI Plan Concurrence and Adoption 2-3
+
+3.0   Title VI Notice to the Public     3-1
+
+3.1   Notice to Public 3-1
+3.2   Notice Posting Locations    3-1
+
+4.0   Title VI Procedures and Compliance     4-1
+
+4.1   Complaint Procedure    4-1
+4.2   Complaint Form   4-1
+4.3   Record Retention and Reporting Policy  4-2
+4.4   Sub-recipient Assistance and Monitoring      4-2
+4.5   Contractors and Subcontractors    4-3
+
+5.0   Title VI Investigations, Complaints, and Lawsuits  5-1
+
+
+6.0   Public Participation Plan   6-1
+
+
+7.0   Language Assistance Plan    7-1
+
+
+8.0   Transit Planning and Advisory Bodies   8-1
+
+
+9.0   Title VI Equity Analysis    9-1
+
+
+10.0  System-Wide Service Standards and Service Policies 10-1
+
+10.1  Service Standards      10-1
+10.2  Service Policies 10-3
+
+11.0  Appendices 11-1
+
+
+
+APPENDIX A  FTA CIRCULAR 4702.1B REPORTING REQUIREMENTS FOR TRANSIT
+PROVIDERS
+APPENDIX B  CURRENT SYSTEM DESCRIPTION
+APPENDIX C  TITLE VI PLAN ADOPTION MEETING MINUTES AND FDOT CONCURRENCE
+LETTER
+APPENDIX D  TITLE VI SAMPLE NOTICE TO PUBLIC
+APPENDIX E  TITLE VI COMPLAINT FORM
+APPENDIX F  PUBLIC PAR
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 2 OF 13 =====
+SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/Title VI Florida Dept. of Transportation.doc
+SHA256: e300bfd0d414e29497bc13f41bafda4613ca5817d6e4769437e2cd937962a64b
+TEXT_CHARS_TOTAL: 121647
+OFFSET: 10000
+ALIASES: 
+===== TEXT =====
+TICIPATION PLAN
+APPENDIX G  LANGUAGE ASSISTANCE PLAN
+APPENDIX H  OPERATING AREA LANGUAGE DATA: YOUR COMMUNITY TRANSIT SERVICE
+AREA
+APPENDIX I  DEMOGRAPHIC MAPS
+APPENDIX J  TITLE VI EQUITY ANALYSIS
+APPENDIX K  TEXT FORMATTING PALETTE
+
+
+
+  Title VI/Nondiscrimination Policy Statement and Management Commitment to
+                                Title VI Plan
+
+[pic]
+
+Your Community Transit assures the Florida Department of Transportation
+that no person shall on the basis of race, color, national origin, age,
+disability, family or religious status, as provided by Title VI of the
+Civil Rights Act of 1964, the Civil Rights Restoration Act of 1987 and the
+Florida Civil Rights Act of 1992 be excluded from participation in, be
+denied the benefits of, or be otherwise subjected to discrimination or
+retaliation under any program or activity undertaken by the agency.
+
+Your Community Transit further agrees to the following responsibilities
+with respect to its programs and activities:
+
+Designate a Title VI Liaison that has a responsible position within the
+organization and access to the recipient’s Chief Executive Officer or
+authorized representative.
+
+Issue a policy statement signed by the Executive Director or authorized
+representative, which expresses its commitment to the nondiscrimination
+provisions of Title VI. The policy statement shall be circulated throughout
+the Recipient’s organization and to the general public. Such information
+shall be published where appropriate in language other than English.
+
+Insert the clauses of Section 4.5 of this plan into every contract subject
+to the Acts and the Regulations.
+
+Develop a complaint process and attempt to resolve complaints of
+discrimination against Your Community Transit.
+
+Participate in training offered on the Title VI and other nondiscrimination
+requirements.
+
+If reviewed by FDOT or any other state or federal regulatory agency, take
+affirmative actions to correct any deficiencies found within a reasonable
+time period, not to exceed ninety (90) days.
+
+Have a process to collect racial and ethnic data on persons impacted by the
+agency’s programs.
+
+Submit the information required by FTA Circular 4702.1B to the primary
+recipients (refer to Appendix A of this plan)
+
+THIS ASSURANCE is given in consideration of and for the purpose of
+obtaining any and all federal funds, grants, loans, contracts, properties,
+discounts or other federal financial assistance under all programs and
+activities and is binding. The person whose signature appears below is
+authorized to sign this assurance on behalf of the agency.
+
+                                                                   Signature
+
+                                                ____________________________
+
+                                                                Printed Name
+       Executive Director/Signatory Authority, Your Community Transit, Date:
+                                                              Month/Day/Year
+
+                   Introduction & Description of Services
+
+
+Your Community Transit submits this Title VI Plan in compliance with Title
+VI of the Civil Rights Act of 1964, 49 CFR Part 21, and the guidelines of
+FTA Circular 4702.1B, published October 1, 2012.
+
+Your Community Transit is a sub-recipient of FTA funds and provides service
+in [indicate service area here]. A description of the current Your
+Community Transit system is included in Appendix B.
+
+
+Title VI Liaison
+
+Your Community Transit Liaison Name
+Title
+Phone Number
+Address
+
+
+Alternate Title VI Contact
+
+Alternate Title VI Contact Name
+Title
+Phone Number
+Address
+
+Your Community Transit must designate a liaison for Title VI issues and
+complaints within the organization. The liaison is the focal point for
+Title VI implementation and monitoring of activities receiving federal
+financial assistance. Key responsibilities of the Title VI Liaison include:
+
+Maintain knowledge of Title VI requirements.
+
+Attend training on Title VI and other nondiscrimination authorities when
+offered by FDOT or any other regulatory agency.
+
+Disseminate Title VI information to the public including in languages other
+than English, when necessary.
+
+Develop a process to collect data related to race, gender and national
+origin of service area population to ensure low income, minorities, and
+other underserved groups are included and not discriminated against.
+
+Implement procedures for the prompt processing of Title VI complaints.
+
+
+2 First Time Applicant Requirements
+
+
+Your Community Transit [is] or [is not] a first time applicant for FTA/FDOT
+funding. The following is a summary of Your Community Transit’s current and
+pending federal and state funding.
+
+Complete the following list, add and remove number as necessary.
+
+   Current and Pending FTA Funding
+
+      1. [Title], [Date], [Amount], [Current] or [Pending]
+
+      2. [Title], [Date], [Amount], [Current] or [Pending]
+
+   Current and Pending FDOT Funding
+
+      1. [Title], [Date], [Amount], [Current] or [Pending]
+
+      2. [Title], [Date], [Amount], [Current] or [Pending]
+
+   Current and Pending Federal Funding (non-FTA)
+
+      1. [Title], [Date], [Amount], [Current] or [Pending]
+
+      2. [Title], [Date], [Amount], [Current] or [Pending]
+
+   Current and Pending State Funding (non-FDOT)
+
+      1. [Title], [Date], [Amount], [Current] or [Pending]
+
+      2. [Title], [Date], [Amount], [Current] or [Pending]
+
+During the previous three years, Federal Agency or State Agency name [did]
+or [did not] complete a Title VI compliance review of Your Community
+Transit. Your Community Transit [has] or [has not] been found to be in
+noncompliance with any civil rights requirements.
+
+If you select “did not” this section is complete and the remainder of 2.1
+should be removed.
+
+The following is a summary of the compliance review.
+
+   a. Date of the compliance review
+      Insert date of the Title VI compliance review
+
+   b. The purpose or reason for the review
+      Insert purpose or reason for Title VI compliance review
+
+   c. Agency or organization that performed the review
+      Insert name or agency or organization that performed the review
+
+   d. Summary of the finding and recommendations of the review
+      Insert summary of the findings and recommendations from the review
+
+   e. Report on the status of the findings and recommendations
+      Insert a report on the status of the findings and recommendations
+
+   f. Current status of the compliance review
+      Insert the current status of the compliance review
+
+
+3 Annual Certifications and Assurances
+
+In accordance with 49 CFR Section 21.7(a), every application for financial
+assistance from FTA must be accompanied by an assurance that the applicant
+will carry out the program in compliance with Title VI regulations. This
+requirement shall be fulfilled when the applicant/recipient submits its
+annual certifications and assurances. Primary recipients will collect Title
+VI assurances from sub-recipients prior to passing through FTA funds.
+
+Your Community Transit will remain in compliance with this requirement by
+annual submission of certifications and assurances as required by [FDOT]
+and/or [other primary recipient].
+
+
+4 Title VI Plan Concurrence and Adoption
+
+This Title VI Plan received FDOT concurrence on date. The Plan was approved
+and adopted by Your Community Transit’s Board of Directors during a meeting
+held on date. A copy of the meeting minutes and FDOT concurrence letter is
+included in Appendix C of this Plan.
+
+
+
+
+
+
+
+Any additional text for Chapter 2 must be inserted above this point for
+formatting/page numbering purposes.
+
+
+                        Title VI Notice to the Public
+
+
+
+1 Notice to Public
+
+Recipients must notify the public of its rights under Title VI and include
+the notice and where it is posted in the Title VI Plan. The notice must
+include:
+
+A statement that the agency operates programs without regard to race, color
+and national origin
+
+A description of the procedures members of the public should follow in
+order to request additional information on the grantee’s nondiscrimination
+obligations
+
+A description of the procedure members of the public should follow in order
+to file a discrimination complaint against the grantee
+
+Customize the sample notice, as necessary. A sample of the notice is
+included in Appendix D of this Plan. The sample notice should be translated
+into other languages, as necessary.
+
+
+2 Notice Posting Locations
+
+The Notice to Public will be posted at many locations to apprise the public
+of Your Community Transit’s obligations under Title VI and to inform them
+of the protections afforded them under Title VI. At a minimum, the notice
+will be posted in public areas of Your Community Transit’s office(s)
+including the reception desk and meeting rooms, and on the Your Community
+Transit’s website at yourcommunitytransit.gov. Additionally, Your Community
+Transit will post the notice at stations, stops and on transit vehicles.
+
+A sample version of this notice is included in Appendix D of this Plan
+along with any translated versions of the notice, as necessary.
+
+The public notice must be provided in any other language which meets the
+Safe Harbor threshold (See Appendix G).
+
+
+
+Any additional text for Chapter 3 must be inserted above this point for
+formatting/page numbering purposes.
+
+                     Title VI Procedures and Compliance
+
+
+
+1 Complaint Procedure
+
+Any person who believes he or she has been discriminated against on the
+basis of race, color or national origin by Your Community Transit may file
+a Title VI complaint by completing and submitting the agency’s Title VI
+Complaint Form (refer to Appendix E). Your Community Transit investigates
+complaints received no more than 180 days after the alleged incident. Your
+Community Transit will process complaints that are complete.
+
+Once the complaint is received, Your Community Transit will review it to
+determine if our office has jurisdiction. The complainant will receive an
+acknowledgement letter informing him
+===== SOURCE PART 2 END =====

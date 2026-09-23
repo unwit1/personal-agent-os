@@ -1,0 +1,999 @@
+===== SOURCE BEGIN / PART 11 OF 13 =====
+SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/Title VI Florida Dept. of Transportation.doc
+SHA256: e300bfd0d414e29497bc13f41bafda4613ca5817d6e4769437e2cd937962a64b
+TEXT_CHARS_TOTAL: 121647
+OFFSET: 100000
+ALIASES: 
+===== TEXT =====
+                  |
+|Hungarian                  |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Arabic                     |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Hebrew                     |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|African languages          |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+|Other and unspecified      |                  |                       |
+|languages                  |                  |                       |
+|  Speak English “very well”|                  |                       |
+|  Speak English less than  |                  |                       |
+|“very well”                |                  |                       |
+
+
+
+Instructions for completing  Appendix H:
+
+   1. Determine the counties in your service area.
+   2. Open the file “Language Data Tables_FDOT D2 Counties.doc” file that
+      was provided with this template document.
+   3. Copy the language profiency tables from the “Language Data Tables_FDOT
+      D2 Counties.doc” file into Appendix H for each county in the service
+      area.
+   4. Appendix H is complete.
+
+
+The data for completing Appendix H was provided by the District with the
+template document. If you need to complete Appendix H by yourself in the
+future, here are the instructions:
+
+   1. Go to the American Factfinder website -
+      http://factfinder2.census.gov/faces/nav/jsf/pages/index.xhtml
+   2. Click on the “Advanced Search” option on the top menu
+   3. Under Number 1, type “language” into the “topic or table name” box
+   4. Select Option “B16001: LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK
+      ENGLISH FOR THE POPULATION 5 YEARS AND OVER” from the drop down menu
+      and click “GO”
+   5. Click “Geographies” from menu on left side
+   6. Select “Name” from top Geographies menu
+   7. Type the name of a city, county, or other areas within your service
+      area
+        a. Select the correct area from the drop down menu
+        b. Click “GO”
+        c. Select checkbox next to correct area in “Geography Results” menu
+        d. Click “Add” at top of menu
+        e. Remove area from search by clicking “x” next to area name in
+           “Your Geography Filters” in left menu
+   8. Repeat Step 7 for each city, county, or other area in your service
+      area (Note: For larger service areas you do not have to select
+      counties and the cities within the county.  For example if your
+      service area included all of Putnam County, you would not have to
+      select Palatka or Interlachen in addition to Putnam County)
+   9. Once all of your areas are shown in the “Your Selections” box in the
+      upper left menu, select the “Close” box in the Geographies menu
+  10. Select the checkbox next to the most up-to-date B16001 labeled as ACS
+      5-year estimate
+  11. Select “View” at the top or bottom of the menu
+  12. Type the data in the displayed table into the table in Appendix H.
+        a. You may attempt to download the data as opposed to typing it,
+           but the download function at the American FactFinder website is
+           unreliable.
+
+
+
+
+
+
+
+
+                                 Appendix I
+
+                              Demographic Maps
+
+
+[pic][pic]
+
+[pic]
+
+
+
+Instructions for completing  Appendix I:
+
+   1. Determine the counties in the transit agency’s service area.
+   2. Open the file “Demographic Maps_FDOT D2 counties.doc” that was
+      provided along with this template document.
+   3. Copy the three demographic maps from each county in the service area
+      into Appendix I.
+   4. Appendix I is complete.
+
+
+The maps for completing Appendix I were provided by the District with the
+template document. If you need to complete Appendix I by yourself in the
+future, here are the instructions:
+
+   1. You will need ArcGIS software
+
+   2. The datasets  used within ArcGIS include the 2010 Census Block Group
+      Data and the 2011
+
+      American Community Survey (ACS) data by Census Block Group
+
+   3. By selecting attributes relating to the percent minority, percent of
+      limited English proficiency, and the percent below poverty from the
+      data sources, join the data to the census block groups and display
+      percentages for each block group within the counties
+
+   4. This should be completed for each county in your service area creating
+      a total of 3 maps for each county (showing LEP population, minority
+      population, and population percentage below poverty level)
+
+
+
+
+
+
+                                 Appendix J
+
+                          Title VI Equity Analysis
+
+
+
+
+Insert Title VI equity analysis completed during the planning phase for  any
+facility recently constructed or planned by the agency.
+
+If a Title  VI  equity  analysis  was  not  completed  for  any  constructed
+facility  the  agency  must  complete  an  equity  analysis  to  remain   in
+compliance with Title VI requirements. The equity  analysis  must  meet  the
+three (3) requirements discussed in Section 9.0. The following template  may
+be utilized as a basis for  a  simple  Title  VI  Equity  Analysis.  If  not
+needed, use the first sentence and delete the remainder of Appendix J.
+
+[Your Community Transit has not preformed Title VI Equity Analysis.]
+
+Or
+
+Title VI Equity Analysis for XXXX Facility
+
+Title 49 CFR, Appendix C, Section (3)(iv) requires  that  “the  location  of
+projects requiring land acquisition and the  displacement  of  persons  from
+their residences and business may not be determined on the  basis  of  race,
+color, or national origin.” Your Community  Transit  completed  a  Title  VI
+equity analysis for XXXX facility during the planning stage to  ensure  that
+the location is selected without regard to race, color, or national origin.
+
+Purpose and need for the facility:
+
+Include a brief description.
+
+Service area population characteristics:
+
+The 2010 Census defined the following  population  characteristics  for  the
+[Your Community Transit Service Area]:
+
+xx% White,
+
+xx% Black,
+
+xx% Hispanic
+
+Alternative locations considered:
+
+Insert figure showing ½ mile buffers (Area of Potential Effect)  around  the
+alternate site locations. You can use the maps provided  in  Appendix  I  as
+the  base.   The  demographic  maps  included  in  Appendix   I   show   the
+distribution of minority, low income  population,  and  the  LEP  population
+across the Your Community Transit service area.
+
+Equity impacts of siting alternatives:
+
+Discuss the minority population characteristics of the  Areas  of  Potential
+Effect using the maps included in Appendix I.
+
+   No Action Alternative
+
+   Discuss the impacts of not constructing the facility.
+
+   Alternative 1
+
+   Discuss the impacts of selecting alternative 1 (focus o  n  ½  mile  area
+   around the site).
+
+   Alternative 2
+
+   Discuss the impacts of selecting alternative 2 (focus o  n  ½  mile  area
+   around the site).
+
+   Alternative 3
+
+   Discuss the impacts of selecting alternative 3 (focus o  n  ½  mile  area
+   around the site).
+
+Outreach activities:
+
+   Summarize outreach to persons potentially impacted by the siting  of  the
+   facility
+
+Preferred alternative:
+
+   Discuss how the preferred alternative was  selected  and  the  associated
+   impacts of the proposed facility location. The following is example text.
+
+
+
+   The preferred alternative involves demolition and construction of  a  new
+   multimodal transportation facility. The demolition removes  aged  parking
+   structure,  commercial  building  and  skywalks.  The  new   construction
+   replaces the removed structures  with  a  new  multimodal  transportation
+   facility  and  skywalk  system.  These  improvements  do  not   displace,
+   temporarily  or  long  term,  any  low  income  or  minority  housing  or
+   businesses.  Rather,  the   preferred   alternative   provides   business
+   opportunities within the expanded skywalk system, improved  accessibility
+   to multiple forms of transportation, and the ability  to  expand  transit
+   service. The preferred alternative is located only 1 block away from  the
+   current transit center where it will continue to provide transit  service
+   to low income and minority  populations.  The  preferred  alternative  is
+   conveniently located to service daycare providers, low wage  jobs,  semi-
+   skilled jobs, low income housing, Hope IV Developments; all of which  are
+   serviced by Your Community Transit.
+
+   The Your Community Transit has  held  50  meetings  that  have  discussed
+   relocating the existing transit center and the preferred alternative.  Of
+   these 50 public meetings, 23 have been open to the public and 9 of  these
+   public meetings had Environmental Justice population in  attendance.  The
+   public meetings were held at times and locations that allow environmental
+   justice population to attend. The public open houses were held during the
+   later afternoon through early evening  at  the  existing  Your  Community
+   Transit Center.
+
+   There  will  be  temporary  air,  noise  and  vibration  impacts   during
+   construction of the population. These impacts are not an  adverse  effect
+   nor disproportionately hig
+===== SOURCE PART 11 END =====
+
+===== SOURCE BEGIN / PART 12 OF 13 =====
+SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/Title VI Florida Dept. of Transportation.doc
+SHA256: e300bfd0d414e29497bc13f41bafda4613ca5817d6e4769437e2cd937962a64b
+TEXT_CHARS_TOTAL: 121647
+OFFSET: 110000
+ALIASES: 
+===== TEXT =====
+h towards the EJ population.
+
+   The preferred alternative provides improved aesthetic values  and  health
+   conditions to the EJ population, and the community as  a  whole,  through
+   the removal of existing structures that are in disrepair.  The  preferred
+   alternative would have a positive  impact  on  minority  and  low  income
+   populations because it would improve Your Community Transit’s ability  to
+   continue, and expand, transit service to  the  high  percentage  of  this
+   population throughout the [service area]. The preferred alternative would
+   also improve  accessibility  to  multimodal  transportation  options  and
+   provide potential business  opportunities  to  low  income  and  minority
+   populations through vendor and small retail opportunities. The  preferred
+   alternative increases access and connectivity to the  given  and  broader
+   community.
+
+   The preferred alternative would not result in any  permanent  destruction
+   or disruption of:
+
+
+      o community cohesion or community’s economic vitality,
+
+
+      o availability of public and private facilities and services
+
+      Nor would the preferred alternative result in:
+
+
+      o displacement of persons, businesses, or nonprofit organizations,
+
+
+      o Increased traffic congestions, isolation, exclusion, or  separation
+        of minority or low-income individuals within a given  community  or
+        from the broader community.
+
+Mitigation:
+
+
+   Insert discussion on possible mitigation activities to remedy the impacts
+   discussed above. The following is example text.
+
+   The phasing of the construction  would  limit  impacts  to  any  adjacent
+   businesses along [impact  area].  Transit  service  would  be  maintained
+   throughout construction  of  the  project  and  the  low  income/minority
+   populations  would  be  kept  appraised  of  the  construction  schedule,
+   business opportunities and changes in  transit  routes.   Your  Community
+   Transit will create a Public Participation Plan that will allow  comments
+   or complaints to be easily documented with  an  established  process  for
+   responding to any and all comments.
+
+   Your Community Transit has provided the public with public  outreach  and
+   opportunities to comment on the  design  of  the  preferred  alternative.
+   Since 2010, the Your Community Transit has had 23 meetings  open  to  the
+   public and 9 of these meetings had EJ population in attendance.
+
+   In summary, no adverse impacts are anticipated and no mitigation measures
+   will be required, beyond establishment of a public participation plan.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                 Appendix K
+
+                           Text Formatting Palette
+
+
+
+
+Formatting/Styles
+
+Report margins:
+
+      Top margin = 1”
+
+      Bottom margin = 1”
+
+      Left margin = 1.25”
+
+      Right margin = .75”
+
+
+
+Heading levels:
+
+
+Heading One
+
+Calibri 14 pt bold; left-aligned; paragraph spacing = 10 pt after; line
+spacing multiple 1.15
+
+
+
+
+      Heading 2
+
+Calibri 13 pt bold; left-aligned; line spacing-multiple 1.15; paragraph
+spacing = 10 pt after
+
+Body Text: Calibri 11; fully-justified text; line spacing-multiple 1.15; 10
+pt. after.
+
+Bulleted List: Calibri 10 pt; line spacing-multiple 1.15; paragraph spacing
+= 10 pt after
+
+
+
+General Instructions
+
+How to Update Table of Contents:
+
+      Right click on table of contents and choose update field—you will then
+      have the option of updating the entire table of contents or just the
+      page numbers.
+
+How to Add New Section:
+
+      Under Page Layout Menu, choose Breaks, then Section Break, then Next
+      Page. Heading numbers should update automatically in new section.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------
+                     Agency Name: Your Community Transit
+
+
+
+
+
+
+
+
+
+                                                Date Adopted: Month/Day/Year
+
+
+
+                                Title VI Plan
+
+
+
+
+
+
+
+49 CFR Part 21.7(a): Every application for Federal financial assistance to
+which this part applies shall contain, or be accompanied by, an assurance
+that the program will be conducted or the facility operated in compliance
+with all requirements imposed or pursuant to [49 CFR Part 21].
+
+
+
+
+
+This is a section of the plan which covers general information about the
+transit agency.
+
+
+
+FTA Circular 4702.1B, Chapter III, Paragraph 3: Entities applying for FTA
+funding for the first time shall provide information regarding their Title
+VI compliance history if they have previously received funding from another
+Federal agency.
+
+
+
+
+
+FTA Circular 4702.1B, Chapter III, Paragraph 2: Every application for
+financial assistance from FTA must be accompanied by an assurance that the
+applicant will carry out the program in compliance with the Title VI
+regulations.
+
+
+
+
+
+FTA Circular 4702.1B, Chapter III, Paragraph 5: Title 49 CFR 21.9(d)
+requires recipients to provide information to the public regarding the
+recipient’s obligations under DOT’s Title VI regulations and apprise
+members of the public of the protections against discrimination afforded to
+them by Title VI.
+
+
+
+
+
+If your agency does not have a website, contact Ms. Doreen Joyner-Howard,
+AICP; District Two Modal Development Manager at 904-360-5650 or
+doreen.joynerhoward@dot.state.fl.us.
+
+
+
+FTA Circular 4702.1B, Chapter III, Paragraph 6: All recipients shall
+develop procedures for investigating and tracking Title VI complaints filed
+aginst them and make their procedures for filing a complaint available to
+member of the public.
+
+
+
+
+
+FTA Circular 4702.1B, Chapter III, Paragraph 11: Primary recipients should
+assist their sub-recipients in complying with DOT’s Title VI regulations,
+including the general reporting requirements.
+
+
+
+FTA Circular 4702.1B, Chapter III, Paragraph 7: In order to comply with the
+reporting requirements of 49 CFR 21.9(b), FTA requires all recipients to
+prepare and maintain a list of any of the following that allege
+discrimination on the basis of race, color, or national origin: active
+investigations….; lawsuits, and complaints naming the recipient.
+
+
+
+
+
+
+
+FTA Circular 4702.1B, Chapter III, Paragraph 4.a.4: Every Title VI Plan
+shall include the following information: A public participation plan that
+includes an outreach plan to engage minority and limited English proficient
+populations, as well as a summary of outreach efforts made since the last
+Title VI Plan submission. A recipient’s targeted public participation plan
+of minority populations may be part of efforts that extend more broadly to
+include constituencies that are traditionally underserved, such as people
+with disabilities, low-income populations, and others.
+
+
+
+
+
+FTA Circular 4702.1B, Chapter III, Paragraph 9: Recipients shall take
+reasonable steps to ensure meaningful access to benefits, services,
+information, and other important portions of their programs and activities
+for individuals who are limited English proficient (LEP).
+
+
+
+FTA Circular 4702.1B, Chapter III, Paragraph 10: Recipients that have
+transit-related, non-elected planning boards, advisory councils or
+commitees, or similar committess, the membership of which is selected by
+the recipient, must provide a table depicting the racial breakdown of the
+membership of those committees, and a description of efforts made to
+encourage the participation of minorities on such committees.
+
+
+
+FTA Circular 4702.1B, Chapter III, Paragraph 4.a.8: If the recipient has
+constructed a facility, such as vehicle storage, maintenance facility,
+operation center, etc., the recipient shall include a copy of the Title VI
+equity analysis conducted during the planning stage with regard to the
+location of the facility.
+
+
+
+FTA Circular 4702.1B, Chapter III, Paragraph 10: All fixed route transit
+providers shall set service standards and policies for each specific fixed
+route mode of service they provide.
+
+
+
+                Notifying the Public of Rights Under Title VI
+
+
+                           Your Community Transit
+
+
+    • Your Community Transit operates its programs and services without
+      regard to race, color, and national origin in accordance with Title VI
+      of the Civil Rights Act. Any person who believes she or he has been
+      aggrieved by any unlawful discriminatory practice under Title VI may
+      file a complaint with Your Community Transit.
+
+    • For more information on Your Community Transit’s civil rights program,
+      and the procedures to file a complaint, contact XXX-XXX-XXXX, (TTY XXX-
+      XXX-XXXX); email xxxx.xxxx@yourcommunitytransit.gov; or visit our
+      administrative office at 12345 Road, City, Florida Zip Code. For more
+      information, visit yourcommunitytransit.gov.
+
+    • If information is needed in another language, contact XXX-XXX-XXXX
+
+         The above sentence must also be provided in any language(s)
+           spoken by the LEP population that meet the Safe Harbor
+                                 threshold.
+
+
+
+
+
+The Public Participation Plan (PPP) is an open ended plan  which  should  be
+tailored to the needs and capabilities of your agency. The  following  is  a
+rough template for a  possible  PPP  for  a  typical  sub-recipient  transit
+agency. The plan should be modified to match the public participation  needs
+of your agency with  capabilities  of  your  agency.  FTA  Circular  4702.1B
+provides little concrete guidance to the contents of the PPP. The  following
+are instructions from FTA Circular 4702.1B with regards to the PPP:
+
+“Recipients have wide  latitude  to  determine  how,  when,  and  how  often
+specific public  participation  activities  should  take  place,  and  which
+specific  measures  are  most  appropriate.  Recipients  should  make  these
+determinations  based  on  a  demographic  analysis  of  the   population(s)
+affected, the type of plan, program and/or service under consideration,  and
+the resources available.”
+
+“Some of those effective practices include:
+
+   a. Scheduling meeting at times and  locatio
+===== SOURCE PART 12 END =====
+
+===== SOURCE BEGIN / PART 13 OF 13 =====
+SOURCE_PATH: TITLE VI LEP PLAN/SAMPLES/Title VI Florida Dept. of Transportation.doc
+SHA256: e300bfd0d414e29497bc13f41bafda4613ca5817d6e4769437e2cd937962a64b
+TEXT_CHARS_TOTAL: 121647
+OFFSET: 120000
+ALIASES: 
+===== TEXT =====
+ns  that  are  convenient  and
+      accessible for minority and LEP communities.
+   b. Employing different meeting sizes and formats.
+   c. Coordinating with community and faith-based organizations, educational
+      institutions, and other organizations to implement  public  engagement
+      strategies that reach out specifically to members of affected minority
+      and/or LEP communities.
+   d. Considering radio, television, or newspaper ads  on  stations  and  in
+      publications that serve LEP populations. Outreach to  LEP  populations
+      could also include audio programming available on podcasts.
+   e. Providing opportunities for public participation through  means  other
+      than written communication, such as  personal  interviews  or  use  of
+      audio or video recording devices to capture oral communication. “
+
+
+With these instructions in  mind,  please  add  or  remove  items  from  the
+template as you see fit. The majority of the plan is shown in green text  to
+indicate the flexibility in the plan.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    [pic]
+
+
+
+                         Doreen Joyner-Howard, AICP
+
+                     District Modal Development Manager
+
+                    Florida Department of Transportation
+
+                         2198 Edison Avenue, MS 2806
+
+                           Jacksonville, FL 32204
+
+                             Phone: 904-360-5650
+
+                 Email: doreen.joynerhoward@dot.state.fl.us
+
+
+
+                         Consultant Project Manager:
+
+                              Santanu Roy, PTP
+
+                            HDR Engineering, Inc.
+
+
+
+
+
+
+
+
+===== SOURCE PART 13 END =====
+
+===== SOURCE BEGIN / PART 1 OF 5 =====
+SOURCE_PATH: TITLE VI LEP PLAN/Title VI 2025 Prepared for 2026 deadline/Updated Current Title VI and Limited English Proficient Plan due 01 30 2026.doc
+SHA256: 017d426c7b18064f401e85fcd520ee7574fd7f0e6c4da104b0eaf8f9f254f0d0
+TEXT_CHARS_TOTAL: 46751
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+
+
+                       Limited English Proficient Plan
+                              Title VI Program
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                          RURAL TRANSIT ENTERPRISES
+                              COORDINATED, INC.
+
+                               100 MAIN STREET
+                            MT. VERNON, KY  40456
+                            PHONE (606) 256-9835
+                               1-800-321-7832
+
+                             FAX (606) 256-4319
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                         Created August 2008
+
+
+                                                           Revised June 2010
+
+                                                                     Revised
+                                                                  March 2011
+                                                        Revised January 2013
+                                                      Revised September 2013
+                                                           Revised July 2014
+                                                       Revised December 2016
+                                                       Revised December 2019
+                                                       Revised December 2022
+                                                        Revised January 2026
+
+
+Table of Contents
+
+Title VI “STATEMENT OF POLICY”    2
+Introduction     2
+Who is a Limited English Proficient Person   2
+Four Factor Analysis - Self-assessment  2
+RTEC Language Assistance Measures 2
+Staff Training   2
+Safe Harbor Provision  2
+Evaluation of the LEP plan   2
+Title VI Equity Analysis     2
+RTEC Board Members     2
+I.   Plan Statement/Assurances    2
+II.   Title VI Information Dissemination     2
+III.   Subcontracts and Vendors   2
+IV.   Record Keeping   2
+V.   Title VI Complaint Procedures      2
+RTEC Procedures for Tracking and Investigating Title VI Complaints  2
+How to File a Title VI Complaint to RTEC     2
+VI.   Public Participation Plan   2
+BOARD POLICY APPROVAL  2
+
+Attachment I:      Spanish Brochure
+Attachment II:     Title VI Public Notice (office posting and bus posting)
+Attachment III:    Title VI Complaint Form
+Attachment IV:    Letter acknowledging receipt of complaint
+Attachment V:     Letter notifying complainant that the complaint is not
+substantiated
+Attachment VI:    Letter notifying complainant that the complaint is
+substantiated
+Attachment VII:   List of transit-related Title VI complaints
+Attachment VIII:  Copy of letter and advertisement for notice of public
+hearing
+
+
+
+
+
+                       Title VI “STATEMENT OF POLICY”
+
+
+
+Rural Transit Enterprises Coordinated, Inc. (RTEC) is committed to a  policy
+of non-discrimination in the conduct of its business,  including  its  Title
+VI responsibilities – delivery of equitable  and  accessible  transportation
+services.  RTEC recognizes its responsibilities to the communities in  which
+it operates and to the society it serves.  It is RTEC’s  policy  to  utilize
+its best efforts to assure their “Statement of Policy” is accomplished.
+
+RTEC as a federal grant  recipient,  is  required  by  the  Federal  Transit
+Administration (FTA) to conform to Title VI of the Civil Rights Act of  1964
+and its amendments.  Section 601 of Title VI of  the  Civil  Rights  Act  of
+1964 requires that “No person in the United States, on the grounds of  race,
+color or national origin be excluded from participation in,  be  denied  the
+benefits of, or  be  subjected  to  discrimination,  under  any  program  or
+activity receiving Federal  financial  assistance.   Presidential  Executive
+Order 12898 addresses  environmental  justice  in  minority  and  low-income
+populations.  Presidential  Executive  Order  13166  addresses  services  to
+those individuals with limited English proficiency.
+
+RTEC is committed to enforcing the provisions of  Title  VI  and  protecting
+the rights and opportunities of all  persons  associated  with  the  agency.
+RTEC’s commitment includes vigorously  enforcing  all  applicable  laws  and
+regulations that affect the County and those organizations, both public  and
+private, which participate and benefit through our programs.
+
+RTEC will take positive and realistic affirmative steps to ensure  that  all
+persons and/or firms wishing to participate in  its  program  are  given  an
+equal and equitable chance to participate.
+
+RTEC’s   sub-recipients   and   contractors   are   required   to    prevent
+discrimination and  ensure  nondiscrimination  in  all  of  their  programs,
+activities and services.
+
+RTEC is responsible  for  providing  leadership,  direction  and  policy  to
+ensure compliance with Title VI of the 1964 Civil Rights Act in  respect  to
+its  transit  services.   Any  person(s)  who  feels  that  they  have  been
+discriminated against is encourage to report such violations in  writing  to
+the Title VI Coordinator.
+
+RTEC’S objective to:
+
+   A. Ensure that the level and quality of public transportation service  is
+      provided in a nondiscriminatory manner
+   B. Promote full and fair participation in public transportation decision-
+      making without regard to race, color, or national origin;
+   C. Ensure meaningful access to programs and activities  by  persons  with
+      limited English proficiency.
+   D. Identify and address,  as  appropriate,  disproportionately  high  and
+      adverse human health and environmental effects, including  social  and
+      economic effects of programs and activities  on  minority  populations
+      and low-income populations;
+   E. Prevent the  denial,  reduction,  or  delay  in  benefits  related  to
+      programs and activities that  benefit  minority  populations  or  low-
+      income  populations  and  to  notify  beneficiaries   of   protections
+      available under Title VI;
+   F. Adhere to the Title VI reporting requirements of the  Federal  Transit
+      Administration through the annual Certification and  Assurance  module
+      in TEAM and provide written Title VI policy documentation every  three
+      years as required in as required in FTA circular 4702.1A.
+   G. Provide public notification of Title VI protections in all  buses  and
+      public places where RTEC conducts business or operations.
+
+The responsibility for carrying out RTEC’s commitment to  this  program  has
+been delegated to Clarissa Hodge, a Title VI Compliance  Officer,  who  will
+receive  and  investigate  Title  VI  complaints  which  come  through   the
+complaint procedure.   However,  all  managers,  supervisors  and  employees
+share in the responsibility for making RTEC’s Title VI  Program  a  success.
+Additional information  concerning  RTEC’s  obligations  and  the  complaint
+procedure can be found  on  the  RTEC’s  web  site  www.ridertec.org  or  by
+calling 800-321-7832.
+
+
+
+
+
+_____________________________                _________________
+ Signature                              Date
+
+Shirley L. Cummins
+Executive Director
+RTEC
+Introduction
+
+Rural Transit Enterprises Coordinated, Inc. d/b/a RTEC recognizes  the  need
+to provide equal service opportunities for all individuals  in  the  service
+area.  Most  individuals  in  the  United  States  read,  write,  speak  and
+understand English.  However, the inability  to  speak  and  understand  the
+English language may potentially  hinder  some  individuals  from  arranging
+transportation services needed.  Therefore, RTEC  has  developed  a  Limited
+English Proficient Plan to address this language barrier issue.
+
+There are two pieces of legislation that  provide  the  foundation  for  the
+development of an LEP plan: Title VI of the Civil Rights Act  of  1964,  and
+Executive Order 13166. In some circumstances, failure  to  ensure  that  LEP
+persons can effectively  participate  in  federally  assisted  programs  may
+constitute discrimination based on national origin under Title VI. In  order
+to comply with  Title  VI,  agencies  should  take  reasonable  actions  for
+competent language assistance. Executive Order 13166 clarifies  requirements
+for LEP persons under Title VI. The Executive Order requires the  agency  to
+examine the services it provides and
+develop and implement a system by which LEP persons can meaningfully  access
+those services.
+
+The U. S. Department of Transportation  (DOT)  issued  its  Policy  Guidance
+Concerning Recipient’s Responsibilities to Limited English Proficient  (LEP)
+Persons [Federal Register: December 14, 2005 (Volume 70, Number 239)].  This
+policy states that DOT recipients are required to take reasonable  steps  to
+ensure meaningful access to programs by LEP persons. This  coverage  extends
+to the recipient’s entire program. There are four factors  for  agencies  to
+consider when assessing language  needs  and  determining  what  steps  they
+should take to ensure access for LEP persons: 1) The  number  or  proportion
+of LEP persons eligible to be served  or  likely  to  be  encountered  by  a
+program, activity or service of the recipient; 2) The frequency  with  which
+LEP individuals come  in  contact  with  the  program;  3)  The  nature  and
+importance of the program, activity or service provided by the recipient  to
+people’s lives; and 4) The resources available to the recipient and costs.
+
+Who is a Limited English Proficient Person
+
+Persons who do not speak English as their primary language and  who  have  a
+limited ability to read, speak, write or understand English can  be  limited
+English proficient, or "LEP." These individuals may be entitled to  language
+assistance with respect  to  a  particular  type  of  service,  benefit,  or
+encounter.
+
+Four Factor Analysis - Self-assessment
+
+
+(1) The number or proportion of LEP persons eligible to be served or likely
+to be encountered by a program, activity or service of the recipient:
+
+Demographics by county:    RTEC  examined  the  2024  US  Census  QuickFacts
+report by state and county for each of our service areas  and  was  able  to
+determine that approximately 
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 2 OF 5 =====
+SOURCE_PATH: TITLE VI LEP PLAN/Title VI 2025 Prepared for 2026 deadline/Updated Current Title VI and Limited English Proficient Plan due 01 30 2026.doc
+SHA256: 017d426c7b18064f401e85fcd520ee7574fd7f0e6c4da104b0eaf8f9f254f0d0
+TEXT_CHARS_TOTAL: 46751
+OFFSET: 10000
+ALIASES: 
+===== TEXT =====
+2.12% or 6,749 people within our  service  area
+age 5 and older spoke a language other than English.  See chart below.   For
+the RTEC service area people of the  Hispanic  or  Latino  descent  are  the
+primary  LEP  persons  likely  to  utilize  RTEC  services.   Of  the  8,631
+residents Hispanic or Latino 5 years and over by ability  to  speak  English
+in the RTEC service area 1,114 residents  describe  themselves  as  speaking
+English "not well" or  "not  at  all".   For  the  RTEC  service  area,  the
+American Community Survey of the U.S. Census Bureau  shows  that  among  the
+area's population 27.9% speak  English  “well”  and  "very  well".   No  one
+identified as speaking another language other than Hispanic or Latino.
+
+Kentucky Demographics:  According to a study by a group called  CensusScope,
+the 2000 Census indicated that Kentucky was ranked 43 out of 50  by  percent
+of population  Age  5+  Spanish  Speaking.   The  total  number  of  Spanish
+Speaking in Kentucky was 219,500 out of a total population of 4,505,836  Age
+5+ as of the 2020  Decennial  Census.  According  to  these  statistics  and
+information provided by CensusScope, 1.86% of Kentucky Residents Age  5+  is
+Spanish Speaking.
+
+The  Cumberland  Valley  Area  Development  District  (CVADD)  conducted   a
+Demographic Analysis in 2000.  CVADD is composed of  eight  counties:  Bell,
+Clay, Harlan, Jackson, Knox, Laurel, Rockcastle, and  Whitley.   Based  upon
+ACS 2023 data, CVADD comprised 5.1% of the state’s  population.   There  are
+834 individuals with a Limited English Proficiency in the CVADD  area.   The
+highest amount was Laurel County with 364 individuals with  Limited  English
+Proficiency.
+
+Lake  Cumberland  Area  Development  District   (LCADD)   also   looked   at
+Demographic Analysis for year 2000.  LCADD  is  composed  of  ten  counties:
+Adair,  Casey,  Clinton,  Cumberland,  Green,  McCreary,  Pulaski,  Russell,
+Taylor,  and  Wayne.   In  2000,  LCADD  comprised  4.79%  of  the   state's
+population. Data shows that the population is made up of 98% White and  1.8%
+Black or African American.  A major demographic change  in  race  statistics
+for the LCADD has been the Hispanic  population.   The  Hispanic  population
+tripled for the LCADD counties between 1990  and  2000.   Counties  such  as
+Wayne and Clinton have seen a  10  fold  or  greater  increase  during  this
+period.  According to data provided by the LCADD,  these  massive  increases
+in the Hispanic population reflect the struggling Mexican  economy  and  the
+current “hot button” topic of illegal immigration.   LCADD  noted  that  the
+2000 Census tables actually show  the  number  of  Hispanics  decreasing  in
+Green and Pulaski Counties.  It is still unclear if  these  figures  reflect
+reality or data collection problems.
+
+According to the Kentucky  Annual  Economic  Report  2025  published  by  UK
+Gatton College  of  Business  and  Economics,  “Kentucky’s  racial  minority
+population is concentrated  in  the  state’s  metropolitan  areas;  in  2023
+(based on the U.S. Census 5-year  estimate),  four  of  every  five  (81.2%)
+racial minorities in Kentucky lived in metropolitan areas;  only  7  percent
+in Kentucky’s 60 mostly rural counties.”
