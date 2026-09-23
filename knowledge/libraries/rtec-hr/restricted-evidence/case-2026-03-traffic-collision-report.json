@@ -1,0 +1,25 @@
+{
+  "source_id": "rtec-restricted-2026-03-traffic-collision-report",
+  "privacy_class": "restricted_case_record",
+  "document_class": "official_police_traffic_collision_report",
+  "retention_mode": "metadata_only_no_raw_content",
+  "source_scan_date": "2026-03-10",
+  "page_count": 5,
+  "content_sha256": "29176ad92126fdd0d6ce6e9bba6892ec730a5b0a4590380158a4c7247eef1dff",
+  "generalized_evidence": [
+    "An official traffic-collision report entered the HR/operational document corpus in 2026.",
+    "The report may be evidence used in an accident/incident review or employee-file workflow."
+  ],
+  "prohibited_from_github": [
+    "raw document",
+    "raw OCR",
+    "driver identities",
+    "addresses",
+    "vehicle identifiers",
+    "incident narrative",
+    "citations",
+    "signatures"
+  ],
+  "derived_candidate_id": "rtec-process-vehicle-accident-document-handling-candidate",
+  "ingested_at": "2026-09-23"
+}
