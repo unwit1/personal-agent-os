@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Turn supplied HR documents into durable, privacy-safe operational knowledge without turning GitHub into an employee-record repository.
+Turn supplied HR documents into a durable, privacy-safe, version-aware source corpus and operational knowledge model without turning GitHub into an employee-record repository. The supplied corpus may span roughly 20 years; historical preservation and current-policy determination are separate concerns.
 
 ## Intake classes
 
@@ -17,6 +17,14 @@ Examples include:
 - vendor guidance;
 - sanitized examples;
 - organizational reference material.
+
+### Full-source preservation rule
+
+For safe position-level materials, preserve the **entire source**, not merely a summary. When practical retain both:
+- the original source artifact or a lossless repository-safe representation; and
+- a searchable full-text/structured mirror with stable headings/page markers.
+
+This applies to manuals, policies, procedures, training materials, system guides, blank forms/templates, checklists, and other reference documents for the HR position. Derived records must point back to the exact source/version so future agents can search, quote, diff, and re-evaluate the evidence.
 
 ### Restricted live records
 Examples include:
@@ -37,6 +45,8 @@ Every source-derived knowledge record should retain:
 - sanitized `source_id`;
 - safe source type/class;
 - source date/version when known;
+- document creation/revision/effective/retirement dates when available;
+- temporal status: current, historical, superseded, future-effective, unknown, or conflicting;
 - content hash when available;
 - page/section/location;
 - ingestion date;
@@ -105,3 +115,17 @@ After substantive ingestion:
 - capture unresolved questions;
 - capture automation opportunities separately;
 - commit a coherent sanitized checkpoint.
+
+
+## Historical corpus / temporal reasoning
+
+The document base spans approximately two decades. Therefore:
+
+- Treat every source as historical evidence until its effective period and currentness are established.
+- Preserve obsolete and superseded documents; they are part of the process history and may explain legacy files, terminology, or decisions.
+- Never silently replace an older document with a newer one. Link versions through `SUPERSEDES` / `superseded_by` relationships.
+- Prefer explicit effective/revision dates over filesystem timestamps or filename dates.
+- A newer document is not automatically controlling if it covers a different department, employee class, program, jurisdiction, or process scope.
+- When no current authority can be established, mark the rule/currentness as `unknown` and generate a question rather than presenting it as current policy.
+- When answering "how do we do this now?", prioritize current/validated sources and clearly separate historical practice.
+- When analyzing why an old employee file was handled a certain way, use the source version that was effective or likely operative at that time.
