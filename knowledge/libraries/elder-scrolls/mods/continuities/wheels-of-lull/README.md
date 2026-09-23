@@ -12,23 +12,24 @@ Sub-continuity for the Skyrim mod **The Wheels of Lull**.
 
 - **33/33 BOOK** records preserved with exact decoded text.
 - **32/32 QUST** records preserved with quest stages, journal text, objectives, and provenance where present.
-- **91/337 DIAL** topics and **94/410 INFO** records preserved in physical plugin order.
-- **185/747 combined dialogue records** are now ingested.
-- **250 prioritized source records** are checkpointed overall.
+- **116/337 DIAL** topics and **119/410 INFO** records preserved in physical plugin order.
+- **235/747 combined dialogue records** are now ingested.
+- **300 prioritized source records** are checkpointed overall.
 
 ## Dialogue evidence already preserved
 
-The corpus now reaches the first Divayth Fyr / Yagrum Bagarn sequence following the Brass Forest and Unwound encounter.
+This pass covers the end of the Brass Forest aftermath, the attack on Lull-Mor, Archeron's reveal beneath the Fyr disguise, Memory's intervention, and Llavados' extended explanation of Memory.
 
-Notable continuity-scoped testimony in this pass includes:
+Notable continuity-scoped testimony includes:
 
-- Numinar says the Boiling Foundry lies in the deeper parts of Sotha Sil and was once connected to Lull-Mor by an elevator station.
-- The drilling teams break into previously unknown catacombs of Sotha Sil populated by hostile undead fabricants.
-- Numinar characterizes those dead fabricants as ancestors who understand the needs of the machine and should not normally attack the Chronographers.
-- Divayth Fyr introduces himself as an old friend of Sotha Sil and identifies his companion as Yagrum Bagarn.
-- Yagrum identifies himself as the last living Dwemer.
-- Fyr attributes Yagrum's Third Era physical condition to Corprus and says the disease receded after Dagoth Ur's demise enough for Fyr to restore him.
-- The characters warn that a saboteur may be active and that a rogue fabricant could be dangerous.
+- Numinar initially concludes that the player is the saboteur and a Thalmor agent.
+- The figure posing as Divayth Fyr reveals himself as Archeron and says he used the fabricants' excavation to reach the Stone.
+- Memory appears after the player's fall and tells them they are needed.
+- Llavados says his apparent madness is partly a facade and that he knows more than the other Chronographers.
+- Llavados identifies Memory as Sotha Sil's final creation: a child of mer, machine, and Lullian magic.
+- Llavados says a future disaster will destroy the world and that Memory is intended to help people survive it and build a new world.
+- Llavados says the Towers sustain Memory as well as stabilizing Nirn, and that destruction of Snow-Throat would kill her.
+- Llavados says Archeron's understanding of the Wheels of Lull lets him alter himself and his experiments in ways that make them resistant to ordinary destruction.
 
 These remain attributed source statements rather than automatic Bethesda-canon conclusions.
 
@@ -38,17 +39,19 @@ These remain attributed source statements rather than automatic Bethesda-canon c
 - `raw/source-records-0101-0150.jsonl.gz` — records 101-150
 - `raw/source-records-0151-0200.jsonl.gz` — records 151-200
 - `raw/source-records-0201-0250.jsonl.gz` — records 201-250
+- `raw/source-records-0251-0300.jsonl.gz` — records 251-300
 - `raw/record-counts.json` — complete plugin record inventory
 - `source-manifest.json` — extraction policy and corpus state
 - `ingestion-checkpoint.json` — resumable cursor
 
 ## Next cursor
 
-Dialogue combined record **186/747**:
+Dialogue combined record **236/747**:
 
-- DIAL `05038EE7`
-- Editor ID: `_Lull_MQ05_FinalTopicTopic`
-- Owning quest: `05005911 _Lull_MQ05`
+- DIAL `0503E1A8`
+- Editor ID: `_Lull_MQ06_Llavados8`
+- Topic: `So I just escape, reach Archeron, and kill him, simple.`
+- Owning quest: `05005912 _Lull_MQ06`
 
 ## Provenance rule
 
