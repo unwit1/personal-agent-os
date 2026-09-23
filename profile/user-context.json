@@ -52,6 +52,12 @@
       "Values room to experiment and learn how to run a function rather than constant supervision.",
       "Has prior experience managing a small operation with one coworker and little initial training, learning the workflow on the fly.",
       "Customer-service approach emphasizes being helpful without giving people false hope."
+    ],
+    "career_focus_2025_2026": "Direct application confirmations show the 2025-2026 search was strongly centered on HR, employee benefits, compensation, payroll, HR operations, and adjacent people-operations roles, with some exploration of analyst, claims, recruiting, sales/insurance, management-trainee, and technical/field roles.",
+    "career_search_behavior": [
+      "Frequently follows up when an application or interview remains unresolved.",
+      "After rejection, may ask about reapplication timing and what concrete qualification or resume changes would improve a future attempt.",
+      "Usually withdraws courteously after accepting another opportunity rather than leaving an active process hanging."
     ]
   },
   "current_projects_and_interests": [
@@ -76,7 +82,10 @@
   "behavioral_workflow_notes": {
     "commitments": "Statements such as needing to call someone should be treated as unresolved commitments and resurfaced until resolved.",
     "project_continuity": "Preserve stopping points, decisions, next actions, and relevant context so projects are easy to resume.",
-    "proactivity": "Investigate available integrations and perform permitted preparation; request approval for consequential actions."
+    "proactivity": "Investigate available integrations and perform permitted preparation; request approval for consequential actions.",
+    "email_commitment_evidence": "Email history independently supports the preference to resurface unresolved commitments: repeated follow-ups coexist with occasional delayed/forgotten administrative steps, and the user generally closes the loop once the omission is noticed.",
+    "process_preference": "For consequential transitions, prefers concrete checklists, policies, deadlines, required documents, logistics, and next steps rather than vague guidance.",
+    "document_transport": "Frequently uses email/self-forwarding to move links, scans, resumes, forms, receipts, e-books, and other documents among personal, school, and work contexts; integrated retrieval should reduce the need for manual self-forwarding."
   },
   "household_planning": {
     "meal_planning_scope": "Plan groceries and meals for two people: the user and Olivia.",
@@ -126,7 +135,8 @@
       "Studied at Berea College and described self as a recent graduate by September 2023; exact degree/major was not recovered confidently from indexed mail.",
       "Completed an ISA Irish Studies Summer School / study-abroad program in Galway, Ireland in summer 2022."
     ],
-    "paid_research_interest": "Repeated mail supports an ongoing interest in paid focus groups and user-research studies as a flexible side-income/research-participation channel; invitations alone are not treated as completed studies."
+    "paid_research_interest": "Repeated mail supports an ongoing interest in paid focus groups and user-research studies as a flexible side-income/research-participation channel; invitations alone are not treated as completed studies.",
+    "historical_creativity_signal": "A 2018 self-authored scholarship message described creativity as a personal strength and expressed a desire for future education/work to make meaningful use of it. Treat this as historical supporting evidence rather than a fixed personality label."
   },
   "digital_usage_observations": {
     "ebook_workflow": "Strong evidence of sending EPUB/AZW3 books to Kindle and other recipients for reading.",
@@ -146,7 +156,8 @@
       "iCloud+ 200 GB was active in August 2026.",
       "A Mullvad VPN 30-day subscription was purchased in September 2026.",
       "Spectrum account mail in mid/late 2026 supports an active Spectrum mobile/service relationship after an AT&T number-transfer workflow in June 2026."
-    ]
+    ],
+    "communication_channel_signal": "Email is a strong practical default channel for records, follow-up, and coordination; at least one direct service exchange explicitly states a preference for email. Treat this as a context-dependent preference, not an absolute rule."
   },
   "privacy": {
     "exclude_from_git": [
@@ -183,10 +194,23 @@
       "captured_at": "2026-09-23",
       "status": "derived_context_full_index_scan",
       "note": "Scanned 10,577 indexed messages across 2018-2026, reviewed all 203 Sent Messages and targeted evidence across work, education, household, vehicle, technology, hobbies, and research participation. Raw bodies, credentials, exact addresses, health/private-intimate content, payment identifiers, institutional IDs, and unnecessary third-party PII were excluded. Attachment contents were largely unavailable because 231 of 232 attachment records were metadata-only."
+    },
+    {
+      "source": "icloud_exhaustive_profile_analysis",
+      "captured_at": "2026-09-23",
+      "status": "derived_context_full_index_scan_with_cross_corpus_synthesis",
+      "note": "Message-level synthesis covered the full indexed 10,577-message corpus, all 203 Sent Messages, career/education, communication/work style, relationships/organizations, interests/digital life, commitments/automation, and false-positive controls. Raw sensitive content was excluded; 231 attachment bodies remain unavailable because the index contains metadata only."
     }
   ],
   "context_indexes": [
     "profile/drive-derived-context.json",
-    "profile/icloud-derived-context.json"
+    "profile/icloud-derived-context.json",
+    "profile/icloud-mail-analysis/corpus-summary.json",
+    "profile/icloud-mail-analysis/timeline.json",
+    "profile/icloud-mail-analysis/communication-and-workstyle.json",
+    "profile/icloud-mail-analysis/career-and-education.json",
+    "profile/icloud-mail-analysis/interests-and-digital-life.json",
+    "profile/icloud-mail-analysis/relationships-and-organizations.json",
+    "profile/icloud-mail-analysis/commitments-and-automation.json"
   ]
 }
