@@ -470,8 +470,9 @@ Current bounded implementation (2026-09-22): manifests may declare
 `available_execution_paths`; the orchestrator deterministically selects and
 persists the cheapest candidate in the economy order, while preserving the
 backward-compatible single `preferred_execution_path` form. A bounded local
-cache adapter now executes content-addressed document-page cache hits and
-persists deterministic fallback to the next declared route on misses; skill
+cache adapter now executes content-addressed document-page cache hits from the
+workflow project's registered checkout and persists deterministic fallback to
+the next declared route on misses; skill
 execution remains caller-owned because the repository's approved skills are
 instruction-only `SKILL.md` files without a reviewed deterministic invocation
 interface. The staged orchestrator also supports an explicit deterministic to

@@ -661,7 +661,10 @@ def run_stage(
         }
 
     if execution_path == "cache":
-        lookup = lookup_document_page(stage["cache_lookup"], ROOT)
+        # Cache entries belong to the workflow's project checkout, not the
+        # Agent OS control-plane repository.
+        project_root = Path(get_project(manifest["project"])["path"]).resolve()
+        lookup = lookup_document_page(stage["cache_lookup"], project_root)
         if lookup.hit:
             return _complete_from_cache(manifest, record, target, stage, lookup.reason)
         fallback = _fallback_execution_path(stage, execution_path)
