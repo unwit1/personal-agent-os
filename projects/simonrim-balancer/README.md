@@ -2,11 +2,9 @@
 
 A provenance-aware Skyrim gameplay design and balance knowledge project.
 
-The goal is not to reduce Simonrim to a single balance score. The project imports the actual implementation of Simonrim mods, separates raw evidence from interpretation, learns repeatable design patterns, and uses those patterns to analyze or design features for other mods.
+The project imports the actual implementation of Simonrim mods, separates raw evidence from interpretation, learns version-scoped design patterns, and will use reviewed rules to analyze or design features for other mods. It is intentionally not a single balance score.
 
-## Current snapshot
-
-Initial ingestion: **2026-09-23**
+## Current snapshot — 2026-09-23
 
 | Mod | Version |
 | --- | --- |
@@ -15,22 +13,32 @@ Initial ingestion: **2026-09-23**
 | Blade and Blunt | 4.0.3 |
 | Mysticism | 2.5.0 |
 
-The initial snapshot has parsed 21 plugins containing 6,009 records and 81,523 subrecords, plus 11,676 deterministic FormID relationships, 476 BSA members, 115 Papyrus source files, configs, installer choices, and typed mechanic projections.
+Current evidence includes 21 plugins, 6,009 records, 81,523 subrecords, 11,676 first-pass relations, 3,951 effect instances, 1,648 fully decoded MGEFs, 8,229 decoded conditions, 625 decoded perks with 1,006 effect entries, Papyrus/config/FOMOD evidence, master-aware override chains, and the first descriptive spell/perk baselines.
+
+No design rules have been auto-approved. The architecture explicitly separates:
+
+raw → decoded → projected → observed_pattern → rule_candidate → approved_rule → exception
+
+## Implemented analysis stages
+
+- lossless plugin/subrecord ingestion
+- source/BSA/Papyrus/config/FOMOD inventory
+- canonical FormID resolver
+- imported-master override/delta engine
+- exact MGEF DATA decoder
+- exact CTDA decoder
+- exact PERK effect-entry decoder
+- semantic FormID relationships
+- module/reversion/compatibility semantics
+- spell design profiles and numeric baselines
+- perk entry-point baselines
+
+See docs/ARCHITECTURE.md, docs/RESOLUTION_AND_DELTAS.md, docs/SCHEMA_PROVENANCE.md, docs/OBSERVED_PATTERNS.md, docs/IMPORT_STATUS.md, and docs/NEXT_STEPS.md.
 
 ## Core design principle
 
-Every rule must be traceable back to evidence.
-
-A recommendation should be able to answer:
-
-1. Which Simonrim mod/version supports it?
-2. Which plugin, record, FormID, script, config value, or installer option is the evidence?
-3. Is the statement directly observed, deterministically decoded, statistically inferred, or manually approved?
-4. Is it a suite-wide rule, subsystem rule, or intentional exception?
-5. Does it remain valid for the target mod/version?
+Every recommendation should remain traceable to a mod/version and concrete plugin/Form/script/config/installer evidence, distinguish direct evidence from observed patterns and approved rules, preserve counterexamples/exceptions, and state its intended scope.
 
 ## Repository role
 
-This project is currently staged as a self-contained folder inside the private Personal Agent OS repository because the connected GitHub interface cannot create a new repository. The directory is intentionally portable so it can later be split into a dedicated simonrim-balancer repository without changing its internal architecture.
-
-See docs/ARCHITECTURE.md, docs/IMPORT_STATUS.md, and docs/NEXT_STEPS.md.
+This project is staged as a self-contained folder inside the private Personal Agent OS repository. The folder is intentionally portable so it can later become a dedicated simonrim-balancer repository without changing its internal model.
