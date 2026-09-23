@@ -114,11 +114,16 @@ per-surface readiness reasons in a separate `connector_providers` section. Its
 blocked, naming reachability, registration, and provider-health gaps. A surface
 filter narrows the readiness checks while retaining all configured connectors.
 This reads declared status only and does not probe provider APIs or claim live
-invocation. The connected Agent OS MCP tool inventory still lacks
-`connector.list` and `connector.import_candidates`, so its running server needs
-a host-side restart before these tools can be verified through MCP.
-Connector import, credential resolution, surface adapters, reconciliation,
-live provider health checks, and cross-surface verification remain open.
+invocation. `connector.import` and `connector-import` now attach explicitly
+reviewed provider, capability, scope, privacy-domain, and local secret-reference
+metadata to a currently discovered candidate. The flow requires separate
+`reviewed` and `confirm_write` flags, never copies client configuration or
+credential values, and records only desired registrations until an adapter
+verifies them. The connected Agent OS MCP tool inventory still lacks the
+connector tools, so its running server needs a host-side restart before this
+surface can be verified through MCP. Credential resolution, surface adapters,
+reconciliation, live provider health checks, and cross-surface verification
+remain open.
 
 Make Agent OS the canonical provider-neutral connector registry and broker for
 Claude, ChatGPT, Codex, desktop clients, mobile/voice clients, and future agent

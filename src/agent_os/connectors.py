@@ -21,6 +21,7 @@ REGISTRY_SCHEMA = "personal-agent/connector-registry/v1"
 REGISTRY_VERSION = 1
 REGISTRY_PATH = ROOT / "connectors" / "registry.json"
 _IDENTIFIER = re.compile(r"^[a-z][a-z0-9._-]{0,63}$")
+_CANDIDATE_ID = re.compile(r"^[a-f0-9]{20}$")
 _SECRET_REF = re.compile(
     r"^(?:keyring|windows-credential|macos-keychain|secret-service|env):"
     r"[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$"
@@ -253,6 +254,64 @@ def connector_import_candidates(surface_id: str | None = None) -> dict[str, Any]
         "privacy_filtered": privacy_filtered,
         "count": len(candidates),
         "candidates": candidates,
+    }
+
+
+def import_connector_candidate(
+    candidate_id: str,
+    connector: Any,
+    *,
+    reviewed: bool = False,
+    confirm_write: bool = False,
+    replace_existing: bool = False,
+) -> dict[str, Any]:
+    """Attach explicitly reviewed metadata to a discovered client registration.
+
+    Candidate discovery exposes only a server label and executable basename;
+    it cannot establish provider identity, allowed scopes, or credential
+    portability. Those details must be supplied and reviewed by the caller.
+    This operation never reads a credential store or copies client config.
+    """
+    if not isinstance(candidate_id, str) or not _CANDIDATE_ID.fullmatch(candidate_id):
+        raise ValueError("candidate_id must be a 20-character lowercase hexadecimal ID")
+    if type(reviewed) is not bool:
+        raise ValueError("reviewed must be a boolean")
+    if type(confirm_write) is not bool or type(replace_existing) is not bool:
+        raise ValueError("confirm_write and replace_existing must be booleans")
+    _validate_connector(connector)
+
+    result = connector_import_candidates()
+    candidate = next(
+        (item for item in result["candidates"] if item["candidate_id"] == candidate_id),
+        None,
+    )
+    if candidate is None:
+        raise KeyError(f"unknown connector import candidate: {candidate_id}")
+
+    candidate_surfaces = sorted(candidate["surfaces"])
+    connector_surfaces = {item["surface_id"] for item in connector["registrations"]}
+    if not connector_surfaces.intersection(candidate_surfaces):
+        raise ValueError("connector must declare a desired registration on at least one candidate surface")
+
+    if not reviewed:
+        return {
+            "written": False,
+            "review_required": True,
+            "candidate": candidate,
+            "candidate_surfaces": candidate_surfaces,
+            "credential_values_transferred": False,
+        }
+
+    outcome = register_connector(
+        connector,
+        confirm_write=confirm_write,
+        replace_existing=replace_existing,
+    )
+    return {
+        **outcome,
+        "candidate_id": candidate_id,
+        "candidate_surfaces": candidate_surfaces,
+        "credential_values_transferred": False,
     }
 
 

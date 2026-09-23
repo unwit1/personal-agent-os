@@ -8,7 +8,7 @@ from .adapters import sync_adapters
 from .candidates import candidate_status, curate_candidates, stage_candidates
 from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, update_change
 from .compiler import compile_context
-from .connectors import connector_import_candidates, register_connector
+from .connectors import connector_import_candidates, import_connector_candidate, register_connector
 from .coordination import (
     check as check_claims,
     claim as make_claim,
@@ -100,6 +100,15 @@ def parser() -> argparse.ArgumentParser:
     connector_register.add_argument("metadata_file")
     connector_register.add_argument("--confirm-write", action="store_true")
     connector_register.add_argument("--replace-existing", action="store_true")
+    connector_import = commands.add_parser(
+        "connector-import",
+        help="review a discovered local MCP registration and optionally add its supplied metadata to Agent OS",
+    )
+    connector_import.add_argument("candidate_id")
+    connector_import.add_argument("metadata_file")
+    connector_import.add_argument("--reviewed", action="store_true")
+    connector_import.add_argument("--confirm-write", action="store_true")
+    connector_import.add_argument("--replace-existing", action="store_true")
     work_claim = commands.add_parser("work-claim")
     work_claim.add_argument("project")
     work_claim.add_argument("task")
@@ -339,6 +348,16 @@ def main(argv: list[str] | None = None) -> int:
             _print(
                 register_connector(
                     _load_object(args.metadata_file),
+                    confirm_write=args.confirm_write,
+                    replace_existing=args.replace_existing,
+                )
+            )
+        elif args.command == "connector-import":
+            _print(
+                import_connector_candidate(
+                    args.candidate_id,
+                    _load_object(args.metadata_file),
+                    reviewed=args.reviewed,
                     confirm_write=args.confirm_write,
                     replace_existing=args.replace_existing,
                 )
