@@ -28,7 +28,8 @@
     "full_plugin_text_exhaustiveness_audit": true,
     "implementation_text_supplement": true,
     "deep_embedded_text_audit": true,
-    "nonstandard_text_field_closure": true
+    "nonstandard_text_field_closure": true,
+    "book_provenance_pass_04_archive_witness_location": true
   },
   "metrics": {
     "structured_source_records": 1090,
@@ -59,25 +60,27 @@
     "total_persisted_source_evidence_records": 1460,
     "total_plugin_records_audited": 36824,
     "field_augmentations": 16,
-    "natural_language_vmad_payloads_found": 0
+    "natural_language_vmad_payloads_found": 0,
+    "archived_pre_wheels_trainwiz_package_families_located": 2,
+    "archived_pre_wheels_trainwiz_package_families_materialized": 0
   },
   "only_remaining_raw_repair": [],
   "repair_blocker": null,
   "next_stage_after_repair": "No remaining WheelsOfLull.esp ingestion blocker. A fresh deterministic retrieval materialization is unblocked; remaining source work is external historical BOOK provenance/edition research.",
-  "provenance_progress": "All 33 BOOK records are fingerprinted and source-routed. Three verified reused works are centrally linked; KINMUNE has a deterministic edition comparison. Generic provenance searches for the remaining named works are exhausted and logged.",
+  "provenance_progress": "All 33 BOOK records are fingerprinted and source-routed. Three verified reused works are centrally linked; KINMUNE has a deterministic edition comparison. Generic provenance searches are exhausted. Pass 04 located original pre-Wheels Aethernautics and Sotha Sil Expanded package witnesses; exact text comparison remains blocked only on binary archive materialization.",
   "provenance_current_source_blockers": [
     "Full local source witness for Tatterdemalion is not yet ingested for deterministic variant diffing.",
     "Full local Day of the Power/Knowledge Xal letter witness is not yet ingested for deterministic variant diffing.",
-    "No archived Sotha Sil Expanded or original Aethernautics plugin/book source is currently available to verify the exact Harquebuses treatise.",
-    "No verified pre-Wheels witness was located for the ten unresolved named works."
+    "Original pre-Wheels Aethernautics and Sotha Sil Expanded packages are located with dated archive metadata and published hashes, but their RAR bytes could not be materialized in the current retrieval environment for exact plugin/text comparison.",
+    "No verified pre-Wheels text witness has yet been established for the ten unresolved named Wheels works."
   ],
   "next_high_value_inputs": [
-    "Archived Sotha Sil Expanded plugin/assets.",
-    "Archived original Aethernautics plugin/assets.",
+    "Materialized Aethernautics.rar matching published MD5 ea6e4206bd1485571ba54de32ba902a3.",
+    "Materialized SothaSilExpanded.rar or SothaSilExpanded2_0.rar matching published MD5 38ae4da28fc17168b5258789ae8ec6a5 or b8bda83b188e9e89603345eb01964a53.",
     "Durable local full-text witness for Tatterdemalion.",
     "Durable local full-text witness for Xal's Day of the Power/Knowledge letter."
   ],
-  "repeat_work_guard": "Do not repeat generic exact-title web searches documented in analysis/book-provenance-pass-03-search-audit.* unless a new archive/source corpus becomes available.",
+  "repeat_work_guard": "Do not repeat generic exact-title web searches documented in analysis/book-provenance-pass-03-search-audit.* or re-discover the ModDB Aethernautics/Sotha Sil Expanded package metadata documented in analysis/book-provenance-pass-04-archive-witnesses.md. Resume at binary materialization or a genuinely new archive/source corpus.",
   "semantic_followup": "Added source-scoped analysis for Musings On Power, De Rerum Mutabilitatis, and How Two Moon; promoted six new book-backed claims without changing provenance status.",
   "source_exhaustion": {
     "supplied_esp": "complete",
@@ -90,5 +93,12 @@
     "field_augmentations": 16,
     "source_localized": false,
     "deep_text_audit": "analysis/exhaustiveness-audit.md"
+  },
+  "external_provenance": {
+    "status": "archive_witnesses_located_materialization_pending",
+    "audit": "analysis/book-provenance-pass-04-archive-witnesses.md",
+    "located_package_families": 2,
+    "materialized_package_families": 0,
+    "blocker": "temporary archive mirror binaries are not materializable in the current retrieval environment"
   }
 }
