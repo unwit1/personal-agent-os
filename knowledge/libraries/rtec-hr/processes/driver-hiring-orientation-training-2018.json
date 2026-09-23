@@ -1,0 +1,161 @@
+{
+  "id": "rtec-process-driver-hiring-orientation-training-2018",
+  "record_type": "process",
+  "title": "Driver hiring, pre-employment clearance, orientation and initial training (2018 historical workflow)",
+  "status": "validated",
+  "temporal_status": "historical",
+  "effective_from": null,
+  "effective_to": null,
+  "summary": "Historical end-to-end driver intake and training workflow evidenced by the 2018 Driver Training & Orientation Synopsis. It is preserved as a validated description of that source, not assumed to be current practice.",
+  "claims": [
+    {
+      "claim": "Applications were reviewed by RTEC Administration for completeness, mistakes, prior experience and education before further processing.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-2018-driver-training-orientation","page_or_section":"RTEC Driver Training","evidence_type":"explicit_text","note":null}]
+    },
+    {
+      "claim": "Historical pre-employment screening included driving-record checks, criminal/background checks, reference checks, an interview by at least two Administration/Management members, and a pre-offer contingent on DOT physical and pre-employment drug testing.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-2018-driver-training-orientation","page_or_section":"RTEC Driver Training; Medical; Background Record","evidence_type":"explicit_text","note":null}]
+    },
+    {
+      "claim": "The document required a verified negative DOT drug-test result and qualifying DOT physical before solo safety-sensitive work, with additional background/registry checks completed before safety-sensitive function.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-2018-driver-training-orientation","page_or_section":"Medical; Background Record","evidence_type":"explicit_text","note":"Historical requirement; current regulatory/process status must be revalidated."}]
+    },
+    {
+      "claim": "Historical driver orientation included a multi-day curriculum followed by approximately 30 hours of OJT with an experienced driver, management review of training documentation, and a three-month introductory evaluation.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-2018-driver-training-orientation","page_or_section":"On-The-Job Training; Driver Training Plan; Training Completion","evidence_type":"explicit_text","note":null}]
+    }
+  ],
+  "trigger": "Receipt and approval of an application for a posted driver opening.",
+  "prerequisites": [
+    "Application review",
+    "Driving-record check",
+    "Background-record checks",
+    "Reference checks",
+    "Interview",
+    "Conditional/pre-offer employment decision",
+    "DOT physical",
+    "Verified negative pre-employment DOT drug test"
+  ],
+  "actors": [
+    "RTEC Administration",
+    "Administration or Management interviewers",
+    "Operations Manager",
+    "Human Resources",
+    "Training Coordinator",
+    "Immediate Supervisor",
+    "Area Manager",
+    "Fleet Manager and/or ASE Certified Mechanic",
+    "Experienced driver/trainer"
+  ],
+  "systems": [],
+  "forms": [
+    "Application / Applicant Letter",
+    "Employment Eligibility Verification",
+    "Confidentiality agreement",
+    "Cabinet for Health & Human Services agreement",
+    "Employer agreements",
+    "Driving Record Release Form",
+    "Background Record Release Authorization Form",
+    "Drug-Free / Drug & Alcohol Program agreement",
+    "Tax forms",
+    "Job description acknowledgment/review",
+    "Policy/procedure receipt verification",
+    "New Driver Orientation Routing Sheet",
+    "Previous Employer Drug & Alcohol Testing Release Form"
+  ],
+  "steps": [
+    "Review application for completeness, mistakes, experience and education.",
+    "Complete driving-record, background and reference checks.",
+    "Schedule and conduct interview with at least two Administration/Management members.",
+    "If selected, make pre-offer contingent on DOT physical and pre-employment drug test.",
+    "Complete required pre-employment paperwork and prior-employer drug/alcohol records request.",
+    "Confirm qualifying DOT physical and verified negative drug-test result before safety-sensitive work.",
+    "Complete additional registry/background checks described in the source.",
+    "Complete orientation and initial driver training curriculum.",
+    "Complete OJT with an experienced driver and document performance.",
+    "Obtain management/training review before solo vehicle assignment.",
+    "Retain training documentation in the employee training file.",
+    "Evaluate performance at end of three-month introductory period."
+  ],
+  "decisions": [
+    "Whether application advances to interview.",
+    "Whether interview supports conditional/pre-offer.",
+    "Whether medical/drug/background requirements are satisfied.",
+    "Whether OJT performance is satisfactory or needs corrective/additional training.",
+    "Whether driver is ready for solo assignment.",
+    "Whether introductory-period performance is satisfactory."
+  ],
+  "deadlines": [
+    "Driver was given two weeks to read and understand distributed handbooks/policies/procedures.",
+    "Historical OJT target was approximately/minimum 30 hours, subject to experience and proficiency.",
+    "Historical introductory evaluation occurred at three months.",
+    "First Aid/CPR recertification described as at least every two years; blood-borne pathogens and fire-extinguisher training described as annual; passenger-assistance refresher recommended at least every two years."
+  ],
+  "outputs": [
+    "Cleared driver candidate",
+    "Completed pre-employment paperwork",
+    "Completed training documentation",
+    "Vehicle/solo assignment authorization",
+    "Three-month evaluation"
+  ],
+  "exceptions": [
+    "OJT could exceed or be reduced below 30 hours depending on experience and proficiency.",
+    "Some in-vehicle defensive-driving evaluation could be substituted by OJT/trainer evaluation.",
+    "NCI could be temporarily replaced by Managing Threatening Confrontations training.",
+    "Additional/corrective training could be required."
+  ],
+  "controls": [
+    "No solo safety-sensitive function before specified clearance/training requirements.",
+    "Training documentation reviewed and retained.",
+    "Policy/procedure receipt verification collected.",
+    "Supervisor/Operations/Training review gates before vehicle assignment."
+  ],
+  "unresolved_questions": [
+    "Which 2018 requirements remain current in 2026?",
+    "What current systems/forms replaced the historical paper releases and routing sheet?",
+    "Are the cited recertification intervals still current?",
+    "What current regulatory checks are required and which are RTEC policy rather than external regulation?"
+  ],
+  "automation_candidates": [
+    "Driver onboarding checklist with gated prerequisites and evidence attachments.",
+    "Automatic training/recertification due-date tracking.",
+    "Pre-employment clearance status dashboard.",
+    "Routing-sheet replacement that prevents solo assignment until mandatory gates are complete."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-2018-driver-training-orientation",
+      "safe_source_type": "procedure_and_training_plan",
+      "source_date_or_version": "2018 working version; saved 2019",
+      "source_created_date": "2019-08-01",
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "content_sha256": "c1c8c5640079fc92b6bdebad96f36ec40f57766827a9f9281ce35431cd738f71",
+      "page_or_section": "complete document",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-2018-driver-training-orientation/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-2018-driver-training-orientation/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": "Validated as a faithful model of the historical source; not validated as current policy."
+    }
+  ]
+}
