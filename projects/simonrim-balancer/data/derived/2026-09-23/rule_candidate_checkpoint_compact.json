@@ -1,0 +1,32 @@
+{
+  "snapshot": "2026-09-23",
+  "candidate_count": 273,
+  "by_source_kind": {
+    "observed_pattern": 256,
+    "fomod_description": 17
+  },
+  "by_domain": {
+    "combat_style": 7,
+    "enchantment_numeric": 27,
+    "movement_numeric": 2,
+    "movement_thresholds": 1,
+    "perk_entry_point": 75,
+    "spell_numeric": 104,
+    "weapon_numeric": 18,
+    "projectile_delivery": 4,
+    "explosion_delivery": 10,
+    "hazard_delivery": 8,
+    "author_explicit_design": 17
+  },
+  "by_confidence": {
+    "low": 253,
+    "medium": 20
+  },
+  "review_required": 273,
+  "approved_rules": 0,
+  "guardrails": [
+    "candidate != approved rule",
+    "missing external baselines reduce confidence",
+    "optional/reversion/compatibility contamination is explicit"
+  ]
+}
