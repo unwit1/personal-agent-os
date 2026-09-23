@@ -1,0 +1,79 @@
+{
+  "queue_id": "rtec-hr-currentness-and-gap-queue",
+  "updated_at": "2026-09-23",
+  "purpose": "Questions that future sources should answer automatically when possible before asking the user.",
+  "questions": [
+    {
+      "priority": "high",
+      "domain": "driver_hiring_training",
+      "question": "Which portions of the 2018 driver hiring/orientation/training workflow remain current, and what newer forms or systems supersede its paper workflow?",
+      "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "employee_handbook",
+      "question": "Is the March 2023 employee handbook the current handbook? If not, locate the superseding version and effective date.",
+      "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "eeo",
+      "question": "What exact date and organizational change led from the early-2026 HR & EEO Manager assignment to the EEO Manager/Officer named in the 2026-08-26 signed statement?",
+      "status": "partially_answered"
+    },
+    {
+      "priority": "high",
+      "domain": "discipline",
+      "question": "Are the 2023 Group A-D disciplinary guidelines still current, and what present-day HR review/approval steps govern discipline?",
+      "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "workplace_injury",
+      "question": "Document the complete current workplace injury/workers' compensation/OSHA workflow, deadlines, forms, owners and record-separation rules.",
+      "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "vehicle_accident",
+      "question": "Document the complete current vehicle-accident workflow, including notification, internal forms, police/insurance reporting, preventability review, training, discipline and closure.",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "retirement_plan",
+      "question": "Document current retirement-plan enrollment/change workflow, provider, payroll implementation, deadlines and retention.",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "timekeeping",
+      "question": "Determine whether the Jobshop Employee Time Record is still active, its pay-period cadence, formulas, approval order and downstream payroll process.",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "applicant_communications",
+      "question": "Identify the process/script and approved wording behind the 2026 Rejection Emails workbook and the human-review/send steps.",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "benefits_medicare",
+      "question": "Determine whether the April 2026 Medicare draft became an approved employee communication or workflow and locate the final version if one exists.",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "driver_testing",
+      "question": "Verify whether the undated pre-employment driver test is still used, whether retesting is allowed, and whether all keyed answers remain current.",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "customer_service_training",
+      "question": "Verify whether the 2013/2017 National RTAP customer-service packet remains part of current driver training and how completion is recorded.",
+      "status": "open"
+    }
+  ]
+}
