@@ -22,7 +22,7 @@
   "board_approval_date": "2026-01-19",
   "temporal_status": "current",
   "title_vi_coordinator_in_source": "Clarissa Hodge",
-  "ingestion_status": "core_current_procedures_preserved_full_source_preservation_in_progress",
+  "ingestion_status": "full_safe_extracted_text_preserved",
   "supersedes": [
     "rtec-compliance-title-vi-lep-2019"
   ],
@@ -31,5 +31,14 @@
     "A separate 2026 PDF version also exists in the archive; exact content identity between the DOC and PDF has not yet been proven.",
     "A later 2026 signed EEO policy names a different EEO Officer. Do not assume the EEO Officer change automatically changes the Title VI Coordinator without explicit evidence."
   ],
-  "ingested_at": "2026-09-23"
+  "ingested_at": "2026-09-23",
+  "fulltext_parts": [
+    "fulltext.part001a.txt",
+    "fulltext.part001b.txt",
+    "fulltext.part001c.txt",
+    "fulltext.part002.txt",
+    "fulltext.part003.txt",
+    "fulltext.part004.txt"
+  ],
+  "fulltext_completion_date": "2026-09-23"
 }
