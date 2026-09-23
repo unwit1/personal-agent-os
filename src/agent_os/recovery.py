@@ -95,6 +95,9 @@ def stable_project_id(repo: Path = ROOT, preferred: str | None = None) -> str:
 def _sha256_path(path: Path) -> str:
     digest = hashlib.sha256()
     try:
+        if path.is_symlink():
+            digest.update(os.fsencode(os.readlink(path)))
+            return digest.hexdigest()
         with path.open("rb") as handle:
             for chunk in iter(lambda: handle.read(1024 * 1024), b""):
                 digest.update(chunk)
@@ -139,7 +142,9 @@ def working_tree_fingerprint(repo: Path = ROOT) -> dict[str, Any]:
     repo = Path(repo).resolve()
     inventory = _status_inventory(repo)
     untracked_hashes = {
-        name: _sha256_path(repo / name) for name in inventory["untracked"] if (repo / name).is_file()
+        name: _sha256_path(repo / name)
+        for name in inventory["untracked"]
+        if (repo / name).is_symlink() or (repo / name).is_file()
     }
     payload = {
         "head": _git(repo, "rev-parse", "HEAD"),
@@ -182,8 +187,8 @@ def _change_fingerprints(repo: Path, inventory: dict[str, list[str]]) -> dict[st
         diff = _git(repo, "diff", "HEAD", "--no-ext-diff", "--binary", "--", relative) or ""
         result[relative] = _digest({
             "diff": diff,
-            "file": _sha256_path(path) if path.is_file() else None,
-            "exists": path.exists(),
+            "file": _sha256_path(path) if path.is_symlink() or path.is_file() else None,
+            "exists": path.is_symlink() or path.exists(),
         }, 64)
     return result
 

@@ -245,7 +245,8 @@ Status: implemented in the P0.4 recovery foundation (`agent_os.recovery`), with
 local compact checkpoints, Git fingerprints, cross-agent continuation, and a
 generic incremental ledger. Ledger failure records now discard caller-supplied
 error text to keep imported content, paths, and credentials out of runtime
-metadata. See `docs/restart-recovery.md`.
+metadata. Working-tree fingerprints hash symlink targets without following
+them, so external file contents are not read. See `docs/restart-recovery.md`.
 
 Long-running imports and crawls must not lose progress or rescan completed material.
 
