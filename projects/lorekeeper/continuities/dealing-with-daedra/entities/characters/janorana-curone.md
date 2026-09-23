@@ -3,19 +3,11 @@
 Form ID: 059B7875
 Editor ID: dealsdragonfooder
 Continuity: tes.mod.dealing-with-daedra
-Role: Cult of the Return matron/charity organizer.
+Affiliation: Cult of the Return
+Role: soup-kitchen matron / charity contact
 
-Janorana runs the Cult of the Return's soup-kitchen and welfare function.
+Janorana runs the Cult of the Return's soup kitchen. She provides food to people in need and points newcomers toward unclaimed bedrolls and storage, while distinguishing those handouts from support for already inducted members.
 
-She offers genuinely useful material support to the needy:
-- food;
-- a bedroll;
-- storage/shelter access.
+Her charity is explicitly connected to evangelism: she describes the downtrodden and outcast as people still capable of salvation and directs prospective converts to Hrotggi.
 
-At the same time, she explicitly treats charity as spiritual recruitment. Her formulation is that soup feeds the body while faith feeds the soul.
-
-She says the humble, meek, downtrodden, and outcast are the people most worth ministering to and directs interested recipients to Hrotggi Asgikverssen for formal induction.
-
-Her theology rejects the Alessian pantheon and anticipates return of the cult's true rulers.
-
-Janorana demonstrates that the Cult of the Return builds legitimacy and membership through real welfare provision rather than relying only on secret ritual or coercion.
+Reliability: high for the soup-kitchen operation, target population, and recruitment handoff; her religious history remains Cult of the Return doctrine.
