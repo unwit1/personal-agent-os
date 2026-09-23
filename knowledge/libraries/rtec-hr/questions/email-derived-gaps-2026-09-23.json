@@ -5,66 +5,47 @@
   "questions": [
     {
       "priority": "high",
+      "domain": "account_security",
+      "question": "Is the historical individual HR mailbox still the intended recovery contact for the shared HR Google account? If not, update recovery ownership through the authorized account-admin process.",
+      "evidence_ids": ["000575"],
+      "status": "open"
+    },
+    {
+      "priority": "high",
       "domain": "hr_systems",
       "question": "What is the authoritative 2026 system-of-record split among ADP, iSolved, Guardian, UnitedHealthcare/broker systems, Google, and any replacement HRIS?",
-      "evidence_ids": [
-        "000346",
-        "000354",
-        "000358",
-        "000391",
-        "000512",
-        "000572"
-      ]
+      "evidence_ids": ["000346","000354","000358","000391","000512","000572"]
     },
     {
       "priority": "high",
       "domain": "payroll_timekeeping",
       "question": "Who currently owns timesheet approval, check-register review, payroll adjustments, W-4/K-4 distribution, and quarter-end tax validation?",
-      "evidence_ids": [
-        "000159",
-        "000191",
-        "000193",
-        "000287",
-        "000288",
-        "000301",
-        "000572",
-        "000574"
-      ]
+      "evidence_ids": ["000159","000191","000193","000287","000288","000301","000572","000574"]
     },
     {
       "priority": "high",
       "domain": "benefits",
       "question": "What is the current benefits broker/carrier workflow, including enrollment/termination, SBC publication, FSA/COBRA, Medicare/CMS notices, and account ownership?",
-      "evidence_ids": [
-        "000118",
-        "000134",
-        "000205",
-        "000211",
-        "000215",
-        "000228",
-        "000354",
-        "000573"
-      ]
+      "evidence_ids": ["000118","000134","000205","000211","000215","000228","000354","000573"]
     },
     {
       "priority": "high",
       "domain": "hris_modernization",
       "question": "Did the May 2026 Rippling contact lead to evaluation, rejection, procurement, or implementation, and how does that relate to ADP/iSolved?",
-      "evidence_ids": [
-        "000434"
-      ]
+      "evidence_ids": ["000434"]
     },
     {
       "priority": "high",
       "domain": "workers_comp",
       "question": "What replaced the historical HR/KACo return-to-work and workers-comp email follow-up pattern, and what are the current forms, deadlines and owners?",
-      "evidence_ids": [
-        "000063",
-        "000108",
-        "000194",
-        "000233",
-        "000269"
-      ]
+      "evidence_ids": ["000063","000108","000194","000233","000269"]
+    },
+    {
+      "priority": "medium",
+      "domain": "mailbox_continuity",
+      "question": "Why was the historical individual HR mailbox being actively tested in Outlook in May 2026, and is it intended to remain a live account?",
+      "evidence_ids": ["000357","000453","000454"],
+      "status": "open"
     },
     {
       "priority": "medium",
@@ -76,41 +57,25 @@
       "priority": "medium",
       "domain": "employee_recognition",
       "question": "Is service-anniversary tracking/recognition still performed, and if so what milestones, owners and outputs are current?",
-      "evidence_ids": [
-        "000055",
-        "000126",
-        "000188",
-        "000315"
-      ]
+      "evidence_ids": ["000055","000126","000188","000315"]
     },
     {
       "priority": "medium",
       "domain": "website_publishing",
       "question": "Who owns employee-facing HR/benefits content on the RTEC website and what approval/version-control process governs updates?",
-      "evidence_ids": [
-        "000211",
-        "000249"
-      ]
+      "evidence_ids": ["000211","000249"]
     },
     {
       "priority": "medium",
       "domain": "recruiting_history",
-      "question": "When was ridertec.org online application intake retired, and what exact system/process superseded it?",
-      "evidence_ids": [
-        "000077",
-        "000094"
-      ]
+      "question": "When was ridertec.org online application intake retired, how did Kentucky Career Center Focus/Talent job orders fit into the process, and what exact system/process superseded both?",
+      "evidence_ids": ["000077","000094","000329","000330","000331","000332","000333","000334","000335","000336"]
     },
     {
       "priority": "medium",
       "domain": "retirement",
       "question": "Who is the current 401(k)/retirement provider and what current eligibility/enrollment/change workflow replaced the historical paper-material process?",
-      "evidence_ids": [
-        "000038",
-        "000105",
-        "000163",
-        "000305"
-      ]
+      "evidence_ids": ["000038","000105","000163","000305"]
     },
     {
       "priority": "medium",
