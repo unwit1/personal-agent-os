@@ -66,3 +66,11 @@ be added here.
 The implementation assumes one active worker per ledger and does not store
 provider credentials, raw records, OCR text, or derived artifacts in the
 ledger.
+
+Large imports: `IngestionLedger.deferred_saves()` writes the ledger once when
+a block ends (also on an exception) instead of after every call, and
+`claim(item_ids=...)` claims specific items without sorting the whole ledger.
+Callers must commit their own durable outputs before marking items processed
+inside the block. The multi-account mail engine uses both, one batch at a
+time (measured in `docs/integrations/mail.md`: per-message cost stays about
+1.5 ms at 2,000 messages, against 19.4 ms with per-call saves).

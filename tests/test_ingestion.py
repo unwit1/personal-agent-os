@@ -127,5 +127,41 @@ class IngestionLedgerTests(unittest.TestCase):
         self.assertEqual(resumed.status()["checkpoint"]["sequence"], 2)
 
 
+class DeferredSaveAndTargetedClaimTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.path = Path(self.temp.name) / "ledger.json"
+        work_id = stable_work_id("fixture", "batch")
+        self.ledger = IngestionLedger(self.path, source="fixture", work_id=work_id, stage_id=stable_stage_id(work_id, "s"), processor_version="p@1")
+
+    def items_on_disk(self) -> dict:
+        return json.loads(self.path.read_text(encoding="utf-8"))["items"]
+
+    def test_deferred_saves_write_once_at_the_end(self) -> None:
+        with self.ledger.deferred_saves():
+            first = self.ledger.enqueue("a", content=b"a")
+            self.ledger.enqueue("b", content=b"b")
+            self.assertEqual(self.items_on_disk(), {}, "nothing written inside the block")
+            self.ledger.claim(1, item_ids=[first["item_id"]])
+        on_disk = self.items_on_disk()
+        self.assertEqual(sorted(item["status"] for item in on_disk.values()), ["processing", "queued"])
+
+    def test_deferred_saves_flush_on_exception(self) -> None:
+        with self.assertRaises(KeyboardInterrupt):
+            with self.ledger.deferred_saves():
+                self.ledger.enqueue("a", content=b"a")
+                raise KeyboardInterrupt()
+        self.assertEqual(len(self.items_on_disk()), 1)
+
+    def test_targeted_claim_takes_only_the_named_queued_item(self) -> None:
+        older = self.ledger.enqueue("old", content=b"1")
+        newer = self.ledger.enqueue("new", content=b"2")
+        claimed = self.ledger.claim(5, item_ids=[newer["item_id"], "missing-id"])
+        self.assertEqual([item["item_id"] for item in claimed], [newer["item_id"]])
+        self.assertEqual(self.ledger.get(older["item_id"])["status"], "queued")
+        self.assertEqual(self.ledger.claim(1, item_ids=[newer["item_id"]]), [], "already processing")
+
+
 if __name__ == "__main__":
     unittest.main()

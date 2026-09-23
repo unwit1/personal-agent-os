@@ -12,8 +12,9 @@ from __future__ import annotations
 import hashlib
 import json
 from collections import Counter
+from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Iterable, Iterator
 
 from .storage import load_json, write_json
 from .timestamps import utc_now_iso as _now
@@ -97,6 +98,8 @@ class IngestionLedger:
         self.work_id = work_id
         self.stage_id = stage_id
         self.processor_version = processor_version
+        self._deferred = 0
+        self._dirty = False
         if self.path.exists():
             self._state = self._load()
             self._check_identity()
@@ -142,7 +145,30 @@ class IngestionLedger:
 
     def _save(self) -> None:
         self._state["updated_at"] = _now()
+        if self._deferred:
+            self._dirty = True
+            return
         write_json(self.path, self._state)
+        self._dirty = False
+
+    @contextmanager
+    def deferred_saves(self) -> Iterator["IngestionLedger"]:
+        """Write the ledger once when the block ends (also on an exception)
+        instead of after every call.
+
+        For large batches: the file is rewritten whole on each save, so per-call
+        saves make a long import quadratic. Callers must commit their own
+        durable outputs before the block ends; a crash inside the block loses
+        only the ledger's view of that batch, which replays idempotently.
+        """
+        self._deferred += 1
+        try:
+            yield self
+        finally:
+            self._deferred -= 1
+            if not self._deferred and self._dirty:
+                write_json(self.path, self._state)
+                self._dirty = False
 
     def _recover_interrupted(self) -> None:
         recovered = 0
@@ -213,11 +239,17 @@ class IngestionLedger:
             counts[result["action"]] += 1
         return dict(counts)
 
-    def claim(self, limit: int = 1) -> list[dict[str, Any]]:
+    def claim(self, limit: int = 1, item_ids: Iterable[str] | None = None) -> list[dict[str, Any]]:
+        """Claim queued items, oldest first; ``item_ids`` claims exactly those
+        (still only when queued) without scanning the whole ledger."""
         if limit < 1:
             raise ValueError("limit must be at least 1")
         selected = []
-        for item in sorted(self._state["items"].values(), key=lambda value: (value["queued_at"], value["item_id"])):
+        if item_ids is not None:
+            candidates = [self._state["items"][item_id] for item_id in item_ids if item_id in self._state["items"]]
+        else:
+            candidates = sorted(self._state["items"].values(), key=lambda value: (value["queued_at"], value["item_id"]))
+        for item in candidates:
             if item["status"] != "queued":
                 continue
             item["status"] = "processing"
