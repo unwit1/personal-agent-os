@@ -26,7 +26,9 @@
     "deterministic_raw_shard_repair": true,
     "exhaustive_strict_speaker_integrity_pass": true,
     "full_plugin_text_exhaustiveness_audit": true,
-    "implementation_text_supplement": true
+    "implementation_text_supplement": true,
+    "deep_embedded_text_audit": true,
+    "nonstandard_text_field_closure": true
   },
   "metrics": {
     "structured_source_records": 1090,
@@ -53,9 +55,11 @@
     "verified_reuse_variant_diffs_complete": 1,
     "verified_reuse_variant_diffs_pending_external_witness_ingestion": 2,
     "topic_dossiers": 14,
-    "implementation_text_supplement_records": 328,
-    "total_persisted_source_evidence_records": 1418,
-    "total_plugin_records_audited": 36824
+    "implementation_text_supplement_records": 370,
+    "total_persisted_source_evidence_records": 1460,
+    "total_plugin_records_audited": 36824,
+    "field_augmentations": 16,
+    "natural_language_vmad_payloads_found": 0
   },
   "only_remaining_raw_repair": [],
   "repair_blocker": null,
@@ -79,8 +83,12 @@
     "supplied_esp": "complete",
     "physical_records_audited": 36824,
     "core_records": 1090,
-    "implementation_text_supplement_records": 328,
+    "implementation_text_supplement_records": 370,
     "report": "analysis/exhaustiveness-audit.md",
-    "strict_speaker_validation": "analysis/speaker-repair-validation.json"
+    "strict_speaker_validation": "analysis/speaker-repair-validation.json",
+    "total_persisted_source_evidence_records": 1460,
+    "field_augmentations": 16,
+    "source_localized": false,
+    "deep_text_audit": "analysis/exhaustiveness-audit.md"
   }
 }
