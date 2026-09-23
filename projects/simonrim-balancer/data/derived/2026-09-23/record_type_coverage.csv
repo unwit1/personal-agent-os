@@ -1,0 +1,56 @@
+<PARSED TEXT FOR SHEET: 1 / 1 TABS
+TAB NAME: record_type_coverage.csv>
+index,record_type,record_count,coverage_status,semantic_scope,primary_outputs,remaining_limitation,coverage_complete
+0,MGEF,1648,fully_semantic_gameplay,"magic effect data, conditions, runtime attachments",magic_effects_full.csv;conditions.csv;mgef_vmad_*,external master baselines remain unavailable where not supplied,True
+1,SPEL,953,fully_semantic_gameplay,"spell header, effects, costs, conditions, design profiles",spells.csv;spell_design_profiles.csv;effects.csv,external Skyrim/DLC baselines remain unavailable where not supplied,True
+2,PERK,625,fully_semantic_gameplay,perk header/effects/conditions plus fragmented VMAD,perks_full.csv;perk_effects.csv;perk_conditions.csv;perk_vmad_*,approved design rules remain review-gated,True
+3,LVLI,389,fully_semantic_gameplay,"leveled distribution, chance none/global, entries",leveled_lists.csv;leveled_list_entries.csv;distribution_item_semantic_deltas.csv,external master baselines remain unavailable where not supplied,True
+4,SCRL,305,fully_semantic_gameplay,"scroll headers, effects and effect conditions",scrolls_full.csv;distribution_item_semantic_deltas.csv,external master baselines remain unavailable where not supplied,True
+5,BOOK,303,fully_semantic_gameplay,spell-tome/skill-book flags and taught Forms,books_full.csv,all supplied books are spell tomes,True
+6,ENCH,269,fully_semantic_gameplay,"enchantment header, effects, conditions, typed deltas",enchantments_full.csv;enchantment_effects.csv;enchantment_field_deltas.csv,none beyond external baselines,True
+7,WEAP,216,fully_semantic_gameplay,"weapon damage/value/weight, DNAM mechanics, refs/keywords",weapons_full.csv;weapon_numeric_baselines.csv;weapon_field_deltas.csv,external master baselines remain unavailable where not supplied,True
+8,KYWD,208,identifier_relationship_semantics,keyword identifiers used by typed record relations,records.csv;relations.csv,no intrinsic balance payload beyond identity/description,True
+9,COBJ,181,fully_semantic_gameplay,"crafting outputs, quantities, workstation, inputs and CTDA",crafting_recipes.csv;crafting_inputs.csv,external master baselines remain unavailable where not supplied,True
+10,EXPL,76,fully_semantic_gameplay,damage/radius/force/flags and delivery references,explosions_full.csv;delivery_field_deltas.csv,visual/audio refs retained as support evidence,True
+11,PROJ,76,fully_semantic_gameplay,projectile type/speed/range/gravity/collision/lifetime and refs,projectiles_full.csv;delivery_field_deltas.csv,visual/audio refs retained as support evidence,True
+12,GMST,74,fully_semantic_gameplay,typed game setting values and semantic EDID comparisons,settings_full.csv;settings_module_deltas.csv,runtime Papyrus writes modeled separately,True
+13,CSTY,62,fully_semantic_gameplay,combat-style general/melee/range/flight fields,combat_styles_full.csv;combat_style_numeric_baselines.csv,Skyrim baseline bodies not supplied,True
+14,ARTO,55,presentation_support_inventory,effect art type and model provenance,records.csv;presentation_support_inventory.csv,no independent balance inference,True
+15,NPC_,51,fully_semantic_gameplay,"summon stats, templates, AI, spells, perks, inventory and refs",npcs_full.csv;npc_spells.csv;npc_perks.csv;npc_inventory.csv,template-inherited values unknown when template body absent,True
+16,HAZD,47,fully_semantic_gameplay,radius/lifetime/interval/flags/spell and impact refs,hazards_full.csv;delivery_field_deltas.csv,visual/audio refs retained as support evidence,True
+17,GLOB,44,fully_semantic_gameplay,typed global values and canonical identity,settings_full.csv;resolved_forms.csv,runtime script mutations modeled separately,True
+18,FLST,36,fully_semantic_gameplay,ordered canonical form membership and semantic deltas,form_lists.csv;form_list_members.csv;distribution_item_semantic_deltas.csv,none,True
+19,EFSH,35,presentation_support_inventory,effect shader raw/typed source inventory,records.csv;presentation_support_inventory.csv,"visual presentation, no independent balance inference",True
+20,IPCT,31,presentation_support_inventory,impact presentation/physics support inventory,records.csv;presentation_support_inventory.csv,not promoted as a balance channel,True
+21,DUAL,26,fully_semantic_gameplay,dual-cast projectile/explosion/art/impact links and scale flags,dual_cast_data.csv,visual refs remain support evidence,True
+22,AVIF,25,fully_semantic_gameplay,skill coefficients plus perk-tree geometry/graph deltas,actor_values_full.csv;perk_tree_nodes.csv;perk_tree_edges.csv;perk_tree_deltas.csv,graph topology is not prerequisite logic,True
+23,CONT,22,fully_semantic_gameplay,container flags and inventory/distribution contents,containers_full.csv;container_items.csv,visual model ignored for balance,True
+24,TES4,21,provenance_header,plugin metadata/master/version provenance,plugins.csv;records.csv,not a gameplay record,True
+25,SNDR,19,presentation_support_inventory,sound descriptor inventory and provenance,records.csv;presentation_support_inventory.csv,audio presentation; no balance inference,True
+26,IPDS,18,presentation_support_inventory,impact-data-set membership inventory,records.csv;presentation_support_inventory.csv,presentation/support mapping only,True
+27,STAT,17,presentation_support_inventory,static model/material inventory,records.csv;presentation_support_inventory.csv,no independent balance payload,True
+28,IDLE,16,fully_semantic_gameplay,animation event/parent/loop metadata plus CTDA comparisons,idles_full.csv;idle_module_comparisons.csv,animation asset bodies remain binary inventory,True
+29,REFR,16,typed_support_world,"base object, location/cell/world and transform",placed_references.csv;support_relations.csv,"placement evidence, not general balance law",True
+30,MESG,15,typed_support_ui,message flags/text response structure and quest links,messages_full.csv,UI/user feedback support,True
+31,MOVT,12,fully_semantic_gameplay,directional movement speeds/rotation/thresholds,movement_types_full.csv;movement_numeric_baselines.csv,Skyrim baselines not supplied,True
+32,CELL,11,typed_support_world,"cell flags, grid, location/climate/water/encounter/music refs",cells_support.csv;support_relations.csv,lighting presentation fields not mined for balance,True
+33,LIGH,11,presentation_support_inventory,light record inventory,records.csv;presentation_support_inventory.csv,visual presentation only,True
+34,ADDN,10,presentation_support_inventory,addon-node model/flags inventory,records.csv;presentation_support_inventory.csv,"presentation/runtime support, no independent balance inference",True
+35,IMAD,10,presentation_support_inventory,image-space modifier inventory,records.csv;presentation_support_inventory.csv,visual presentation only,True
+36,QUST,10,typed_behavioral_controller,quest headers/stages plus VMAD scripts/fragments/aliases,quests_full.csv;quest_stages.csv;quest_vmad_*,full quest objective/alias fill semantics only modeled where behavior-relevant,True
+37,TXST,9,presentation_support_inventory,texture-set inventory,records.csv;presentation_support_inventory.csv,visual presentation only,True
+38,MISC,8,fully_semantic_gameplay,item value/weight/keywords,misc_items.csv,visual assets ignored for balance,True
+39,ARMO,7,fully_semantic_gameplay,value/weight/armor rating/enchantment/equip/body keywords,armor_gameplay.csv;actor_equipment_deltas.csv,worn-model geometry delegated to ARMA inventory,True
+40,ALCH,6,fully_semantic_gameplay,consumable value/weight/flags/effect tuples,alchemy_items.csv,none,True
+41,AMMO,6,fully_semantic_gameplay,projectile/damage/value/weight/flags,ammo_gameplay.csv,model/icon presentation ignored,True
+42,SMQN,6,typed_behavioral_controller,story-manager conditions/quest routing/reset data,story_manager_quest_nodes.csv;story_manager_node_quests.csv,parent story tree outside supplied records may be external,True
+43,ACTI,4,typed_support_interaction,activator text/flags/VMAD/interactions,activators_support.csv;generic_vmad_*,models/presentation ignored for balance,True
+44,SOUN,4,presentation_support_inventory,legacy sound reference inventory,records.csv;presentation_support_inventory.csv,audio presentation only,True
+45,ARMA,3,presentation_support_inventory,armor-addon body/model/race support inventory,records.csv;presentation_support_inventory.csv,ARMO carries gameplay armor stats; ARMA treated as worn-model support,True
+46,OTFT,3,fully_semantic_gameplay,actor outfit item membership,outfits_full.csv;outfit_items.csv,visual assets delegated to item records,True
+47,CLAS,2,fully_semantic_gameplay,"training, skill weights and attribute weights",classes_full.csv,none,True
+48,FACT,2,typed_support_distribution,"vendor/crime flags, lists/chests and conditions",factions_support.csv;faction_relations.csv,external faction baselines may be absent,True
+49,RACE,2,fully_semantic_gameplay,"base stats, skill boosts, regen, unarmed/equipment capabilities",races_gameplay.csv;race_spells.csv,facegen/morph data inventory-only,True
+50,WRLD,2,typed_support_world,world flags/parent/climate/location/water/music,worldspaces_support.csv;support_relations.csv,landscape/LOD presentation not mined for balance,True
+51,HDPT,1,presentation_support_inventory,head-part inventory,records.csv;presentation_support_inventory.csv,cosmetic only,True
+52,LSCR,1,presentation_support_inventory,load-screen model/text inventory,records.csv;presentation_support_inventory.csv,presentation only,True
