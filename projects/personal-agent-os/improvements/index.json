@@ -7,10 +7,10 @@
       "title": "Launcher must serve in the process the MCP client spawned",
       "category": "bug",
       "subsystem": null,
-      "status": "candidate",
+      "status": "verified",
       "priority": "medium",
       "dedupe_key": "9836375aa5a7b8efc2f6193275de234bf28e10e48608a7798ed05be4152492b7",
-      "updated_at": "2026-09-21T16:10:04.292269+00:00",
+      "updated_at": "2026-09-23T21:13:01.816572+00:00",
       "github_issue_number": null
     },
     {

@@ -5,13 +5,16 @@
   "title": "Launcher must serve in the process the MCP client spawned",
   "category": "bug",
   "subsystem": null,
-  "status": "candidate",
+  "status": "verified",
   "priority": "medium",
   "observation": "os.execv does not replace the process image on Windows. The launcher exited with code 0 during the handshake while a detached grandchild kept the inherited pipes open, so Claude Code timed out after 30s even though the server answered correctly on the pipe.",
   "evidence": [
     "before: claude mcp list reported connection timed out after 30000ms",
     "before: probe showed spawned process exit code 0 after 4s while stdout still served",
-    "after: claude mcp list reports agent-os Connected"
+    "after: claude mcp list reports agent-os Connected",
+    "launcher-status: installed launcher matches the current template and the configured repository is a valid checkout (2026-09-23).",
+    "launcher-verify: served_in_spawned_process=true; initialize, tools/list, and read-only project status call passed; 58 tools; no stderr (2026-09-23).",
+    "Prior recorded acceptance evidence: Claude Code reported the Agent OS MCP connected after the in-process launcher change."
   ],
   "suspected_root_cause": null,
   "suggested_direction": "Resolve the checkout, then import and call the CLI in-process. Keep launcher-verify holding the process open across the handshake so a replacement-process regression fails loudly.",
@@ -28,6 +31,6 @@
   },
   "github": null,
   "created_at": "2026-09-21T16:10:04.292269+00:00",
-  "updated_at": "2026-09-21T16:10:04.292269+00:00",
+  "updated_at": "2026-09-23T21:13:01.816572+00:00",
   "notes": null
 }
