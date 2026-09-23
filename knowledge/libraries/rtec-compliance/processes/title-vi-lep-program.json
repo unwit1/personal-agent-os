@@ -1,0 +1,51 @@
+{
+  "id": "rtec-process-title-vi-lep-program",
+  "record_type": "compliance_program",
+  "title": "RTEC Title VI / Limited English Proficiency program",
+  "status": "validated_from_board_approved_2026_source",
+  "temporal_status": "current",
+  "current_source": "rtec-compliance-title-vi-lep-2026",
+  "board_approval_date": "2026-01-19",
+  "coordinator_evidence": "January 2026 plan identifies Clarissa Hodge as Title VI Coordinator/EEO Manager.",
+  "program_components": [
+    "Title VI policy/assurances",
+    "four-factor LEP analysis",
+    "language-assistance measures",
+    "staff training",
+    "safe-harbor analysis for written translations",
+    "ongoing plan evaluation",
+    "Title VI facility-equity analysis when applicable",
+    "public notices and information dissemination",
+    "subrecipient/vendor compliance",
+    "complaint recordkeeping and investigation",
+    "public participation/outreach",
+    "governing-board approval"
+  ],
+  "operational_rules_from_2026_source": [
+    "Title VI information is to be displayed in RTEC public areas, facilities, buses and website.",
+    "New-employee orientation includes Title VI expectations.",
+    "Customer Service and Operations staff receive LEP-awareness training and retraining.",
+    "Language-assistance encounters are tracked for program evaluation.",
+    "Federally funded vendors/subcontractors are subject to Title VI requirements and contract nondiscrimination language.",
+    "The Title VI Coordinator maintains complaint/lawsuit/correspondence/investigation records.",
+    "Facility siting that triggers the plan's equity-analysis requirement must be analyzed before preferred-site selection.",
+    "Public-participation methods should be accessible and include outreach to low-income, minority and LEP populations."
+  ],
+  "supersedes": [
+    "rtec-compliance-title-vi-lep-2023"
+  ],
+  "unresolved_questions": [
+    "Has any Title VI/LEP revision after the January 19, 2026 board approval been adopted?",
+    "Which current systems/logs record language-assistance encounters, Title VI training and public-participation evidence?"
+  ],
+  "privacy_controls": [
+    "Complaint/case content remains restricted; generalized program records store only process and non-identifying aggregate evidence."
+  ],
+  "source_paths": [
+    "knowledge/libraries/rtec-compliance/plans/title-vi-lep/2026/manifest.json",
+    "knowledge/libraries/rtec-compliance/plans/title-vi-lep/2026/fulltext-part-001.txt",
+    "knowledge/libraries/rtec-compliance/plans/title-vi-lep/2026/fulltext-part-002.txt",
+    "knowledge/libraries/rtec-compliance/plans/title-vi-lep/2026/fulltext-part-003.txt",
+    "knowledge/libraries/rtec-compliance/plans/title-vi-lep/2026/fulltext-part-004.txt"
+  ]
+}
