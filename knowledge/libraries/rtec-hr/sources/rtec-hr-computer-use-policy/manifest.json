@@ -1,0 +1,29 @@
+{
+  "source_id": "rtec-hr-computer-use-policy",
+  "title": "RTEC Computer Use Policy",
+  "source_type": "standalone_policy",
+  "original_filename": "Computer Use Policy.doc",
+  "source_representation": "complete_searchable_text",
+  "source_date": null,
+  "effective_from": null,
+  "effective_to": null,
+  "temporal_status": "unknown",
+  "sha256": "c17169ed6cc71ed0891e0cae3af14b33951946cb0097bf00b6ee63017d37319e",
+  "page_count": 4,
+  "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-computer-use-policy/fulltext.md",
+  "derived_records": [
+    "knowledge/libraries/rtec-hr/policies/computer-use-policy.json"
+  ],
+  "relationships": [
+    {
+      "relationship": "OVERLAPS_WITH",
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "note": "Handbook communication-system, work-rule, confidentiality, and discipline provisions overlap this standalone computer-use policy; the standalone source is undated so priority/currentness is not inferred."
+    }
+  ],
+  "notes": [
+    "Undated standalone policy. Preserve separately rather than treating it as automatically superseded by the handbook.",
+    "Covers business-purpose use, prohibited communications, monitoring, software controls, security, encryption, online forums, sanctions, and employee acknowledgment."
+  ],
+  "ingested_at": "2026-09-23"
+}
