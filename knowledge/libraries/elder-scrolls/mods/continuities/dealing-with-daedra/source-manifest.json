@@ -1,0 +1,62 @@
+{
+  "source_file": "DealingwithDaedra.esp",
+  "sha256": "c278b1a9ccaa7080579a6421a0c21d6b0513a2ad8263048c3c96208bd6a19133",
+  "archive_file": "Dealing with Daedra-40494-9-03-1707629858.zip",
+  "archive_sha256": "d4b8418dfdf6005e8d5aa291bb4fbbec2fbdef97629da6f6e8a4c99ea59f3f48",
+  "plugin_author": "Flinch",
+  "plugin_description": "Abandon hope, all ye software engineers who enter here. Mod added forms have a \"deals\" prefix, Bethesda modified forms are listed in deals___editedlist along with how they were changed, but it hasn't been updated since 3.0",
+  "masters": [
+    "Skyrim.esm",
+    "Update.esm",
+    "Dawnguard.esm",
+    "HearthFires.esm",
+    "Dragonborn.esm"
+  ],
+  "extraction": "Direct Bethesda TES5 plugin record parsing, including zlib-compressed records and extended-size subrecords. Text-bearing records are retained with FormID and mod-added/override provenance. Papyrus source is scanned separately for runtime string literals.",
+  "counts": {
+    "total_plugin_records": 20733,
+    "mod_added_records": 19793,
+    "master_overrides": 939,
+    "dialogue_topics": 889,
+    "info_records": 1809,
+    "dialogue_response_strings": 2674,
+    "books": 332,
+    "books_with_text": 295,
+    "messages": 557,
+    "quests": 19,
+    "scenes": 3,
+    "actors": 216,
+    "factions": 46,
+    "cells": 247,
+    "worlds": 8,
+    "item_like_records": 853,
+    "magic_records": 2855,
+    "papyrus_source_files": 784,
+    "papyrus_string_literals": 198,
+    "compiled_scripts_without_source": 2
+  },
+  "known_gaps": [
+    "Dialogue speaker attribution is not fully normalized; INFO conditions are retained for later resolution.",
+    "Two compiled Papyrus scripts do not have matching source files; their printable strings are retained, but no full decompilation was attempted.",
+    "Meshes, textures, audio, and other non-text assets were intentionally not copied into the lore continuity."
+  ],
+  "canonical_import_format": {
+    "source_records": "29 gzip-compressed UTF-8 JSONL shards under source-records/ containing every decoded non-EDID text-bearing plugin record; EDID retained as record identity.",
+    "included_text_tags": [
+      "CIS2",
+      "CNAM",
+      "DESC",
+      "DNAM",
+      "FULL",
+      "ITXT",
+      "MODL",
+      "NAM1",
+      "NAM2",
+      "RNAM",
+      "SHRT",
+      "SNAM"
+    ],
+    "indexes": "Books, dialogue topics, quests, actors, factions, cells, worlds, and scenes.",
+    "papyrus": "Full extracted source string-literal inventory plus printable strings from the two compiled-only PEX files."
+  }
+}
