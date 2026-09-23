@@ -41,8 +41,8 @@
     "messages": 53,
     "scenes": 14,
     "structured_source_records": 1090,
-    "implementation_text_supplement_records": 328,
-    "total_persisted_source_evidence_records": 1418
+    "implementation_text_supplement_records": 370,
+    "total_persisted_source_evidence_records": 1460
   },
   "structured_layers": {
     "plugin_record_inventory": "complete",
@@ -63,8 +63,9 @@
     "book_source_relations": "complete_33_of_33",
     "retrieval_materialization": "unblocked_for_fresh_1090_document_core_rebuild",
     "raw_source_integrity": "complete_verified_after_two_deterministic_shard_repairs",
-    "implementation_text_supplement": "complete_328_records_separate_evidence_layer",
-    "full_plugin_text_exhaustiveness_audit": "complete_36824_records_traversed"
+    "implementation_text_supplement": "complete_370_records_separate_evidence_layer_plus_16_field_augmentations",
+    "full_plugin_text_exhaustiveness_audit": "complete_36824_records_traversed",
+    "deep_embedded_text_audit": "complete_no_natural_language_vmad_payloads_source_not_localized"
   },
   "post_ingestion_analysis": {
     "status": "core_complete_source_integrity_complete_supplied_esp_exhausted",
@@ -101,10 +102,17 @@
     "topic_dossiers": 14,
     "exhaustiveness_audit": "analysis/exhaustiveness-audit.md",
     "implementation_text_supplement": {
-      "records": 328,
-      "path": "raw/implementation-text-supplement.jsonl.gz",
+      "records": 370,
+      "base_records": 328,
+      "augmentation_new_records": 42,
+      "field_augmentations": 16,
+      "paths": [
+        "raw/implementation-text-supplement.jsonl.gz",
+        "raw/source-evidence-augmentation.jsonl"
+      ],
       "manifest": "analysis/implementation-text-supplement.json"
-    }
+    },
+    "source_localized": false
   },
   "next_stage": {
     "blocked_branch": null,
