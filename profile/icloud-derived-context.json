@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-23",
+  "purpose": "Sanitized, provenance-aware context derived from the user's local iCloud Mail index. Raw message bodies, credentials, security artifacts, exact addresses, medical details, sexual content, payment identifiers, employee/applicant PII, and other unnecessary sensitive source material are intentionally excluded.",
+  "source": {
+    "type": "icloud_mail_local_index",
+    "provider": "icloud",
+    "archive_path_class": ".agent-local/mail/index.sqlite3",
+    "analyzed_message_count": 10577,
+    "date_range": ["2018-01-20", "2026-09-23"],
+    "mailboxes_observed": {
+      "INBOX": 8361,
+      "Employment": 1525,
+      "Archive": 216,
+      "Sent Messages": 203,
+      "Junk": 144,
+      "Studies": 67,
+      "Stories": 22,
+      "Deleted Messages": 22,
+      "Orders": 10,
+      "Shopping": 9
+    },
+    "notes": [
+      "This file records durable or repeatedly evidenced context, not a copy of the mailbox.",
+      "Automated marketing, recommendations, and job-alert suggestions are weaker evidence than sent mail, repeated behavior, confirmations, and direct correspondence.",
+      "Sensitive material was present in the source archive and was deliberately not copied into Git."
+    ]
+  },
+  "identity_and_account_context": {
+    "name": "Jacob Salsman",
+    "primary_personal_mail": "Long-running iCloud Mail account is the dominant personal mailbox.",
+    "institutional_history": [
+      "Previously used a Berea College institutional email account.",
+      "Later used a University of Kentucky institutional email account."
+    ],
+    "online_handle_signal": "The handle 'unwit' appears repeatedly across GitHub and older communication/account context."
+  },
+  "education_history": {
+    "berea_college": "Strong correspondence evidence of studying at Berea College, including classes, finals, housing, campus employment/job applications, and institutional email use.",
+    "study_abroad_2022": "Planned and completed a roughly one-month study-abroad period in Galway, Ireland during summer 2022.",
+    "learning_workflow": "Frequently moves documents, research links, scans, and reading material through email and cloud links."
+  },
+  "employment_history_and_career": {
+    "triple_r_ranch": "Worked multiple summers with Triple R Ranch before 2022 and pursued additional summer/grounds or trading-post work there in 2022.",
+    "berea_college_work": "Has prior work experience at Berea College; later professional-reference correspondence identifies a former Berea College manager.",
+    "university_of_kentucky": "Has prior University of Kentucky HR Benefits Customer Service experience; a former HR Benefits Customer Service supervisor was used as a professional reference in 2025.",
+    "rtec": "Accepted an HR Manager position with RTEC in Mount Vernon, Kentucky in April 2026 and prepared detailed onboarding, benefits, policy, training, and parking questions before starting.",
+    "job_search_2025_2026": "Conducted an active 2025-2026 job search across HR, benefits/compensation, administrative, analyst, field-tech, and adjacent technical roles, with frequent recruiter and hiring-manager follow-up.",
+    "development_signal": "In April 2026 the user described employee-relations experience as a relative gap in the prior background.",
+    "career_behavior": [
+      "Often follows up proactively after applications and interviews.",
+      "Asks detailed questions about role scope, benefits, training, timelines, and expectations before accepting or starting work.",
+      "Keeps professional references and resumes ready for recruiter follow-up."
+    ]
+  },
+  "household_and_life_history": {
+    "independent_living": "Has a history of renting apartments, setting up utilities, paying rent online, and handling maintenance/work-order issues in Berea, Kentucky.",
+    "meal_and_home_interests": [
+      "Cooking and kitchen equipment",
+      "Food storage, canning/pickling, and homemade spice storage",
+      "Home/DIY tools and small woodworking projects"
+    ],
+    "shopping_planning": "Has used spreadsheets and emailed lists to track needs, purchases, and gift ideas."
+  },
+  "family_and_relationship_context": {
+    "partner": "Olivia is a long-term romantic partner and an important household-planning relationship.",
+    "mother": "Correspondence explicitly identifies Jen Salsman as the user's mother.",
+    "younger_brother": "Correspondence identifies Timothy Salsman as a younger brother.",
+    "family_ties": "Historical messages show continuing family ties in Virginia and holiday/visit planning."
+  },
+  "travel_and_geography": {
+    "kentucky": "Berea and central/eastern Kentucky recur across housing, school, work, shopping, and job-search correspondence.",
+    "virginia": "Virginia recurs through family visits and Triple R Ranch work.",
+    "ireland": "Galway, Ireland was a 2022 study-abroad destination."
+  },
+  "technology_and_digital_workflows": {
+    "devices_and_platforms": [
+      "Long-running iPhone use",
+      "iCloud Mail",
+      "Google Drive and Google Sheets",
+      "Adobe Scan",
+      "Discord",
+      "Kindle/e-book delivery",
+      "Steam and PC gaming",
+      "Nintendo Switch-related hardware/repair purchases"
+    ],
+    "email_as_transport": "Frequently emails or forwards links, scans, receipts, resumes, software information, and documents between personal, school, and work contexts.",
+    "self_service_troubleshooting": "Support correspondence shows a tendency to test issues across devices, describe reproduction steps, and provide detailed troubleshooting evidence."
+  },
+  "interests_and_leisure": {
+    "gaming_and_modding": [
+      "Skyrim modding and mod creators",
+      "PC gaming / Steam",
+      "Nintendo gaming"
+    ],
+    "brick_collecting": "Strong LEGO-compatible/third-party brick-set interest, including direct purchasing and product-availability inquiries.",
+    "online_fiction": [
+      "Sufficient Velocity",
+      "SpaceBattles",
+      "Questionable Questing",
+      "watched fanfiction involving franchises such as Worm, Fate/stay night, Spider-Man, and Cyberpunk"
+    ],
+    "reading": "Regular e-book/Kindle workflow and book-related purchases are consistent with an active reading habit."
+  },
+  "side_income_and_research_participation": {
+    "paid_research": "Repeatedly monitors or participates in paid focus-group and user-research platforms, including FocusGroups.org, User Interviews, Respondent, Prolific, L&E Research, and related services.",
+    "interpretation": "Treat this as evidence of interest in flexible side-income/research opportunities, not as proof that every invitation was completed."
+  },
+  "communication_style": {
+    "professional": "Professional email is typically polite, direct, appreciative, and follow-up oriented; the user often asks multiple concrete questions in one message.",
+    "personal": "Personal correspondence is substantially more casual, humorous, and expressive.",
+    "drafting_implication": "Agent-written messages should preserve the context-dependent split between concise professional courtesy and informal humor with close contacts."
+  },
+  "evidence_quality_rules": {
+    "high_confidence": [
+      "Messages sent by the user",
+      "direct replies from known correspondents",
+      "transactional confirmations",
+      "repeated multi-year behavior"
+    ],
+    "lower_confidence": [
+      "Marketing mail",
+      "algorithmic recommendations",
+      "job alerts that may be broad or stale",
+      "study invitations matched from third-party profile data"
+    ],
+    "do_not_promote_without_more_evidence": [
+      "A product ad as proof of ownership or preference",
+      "A job alert as proof the user wants that occupation",
+      "A study-match profile label as a current profession",
+      "An inferred relationship not explicitly supported by correspondence"
+    ]
+  }
+}
