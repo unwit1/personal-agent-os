@@ -1,0 +1,29 @@
+{
+  "continuity_id": "tes.mod.wheels-of-lull",
+  "source_file": "WheelsOfLull.esp",
+  "source_sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
+  "record_type": "TES4",
+  "source_role": "plugin_header_metadata_not_in_world_lore",
+  "hedr": {
+    "format_version": 1.7100000381469727,
+    "declared_records_and_groups_excluding_TES4": 37590,
+    "next_object_id": 342625
+  },
+  "physical_validation": {
+    "records_including_TES4": 36824,
+    "group_headers": 767,
+    "records_plus_groups_excluding_TES4": 37590,
+    "declared_count_matches": true
+  },
+  "author": "Trainwiz",
+  "localized": false,
+  "description": "\r\nThat which turns, turns well.\r\nVersion 6.0.0.3 \r\n--- Original Mod by Trainwiz\r\n\r\nv4.0+ Updates by the Chronographer Maintenance Team:\r\n\r\nDarthVitrial\r\nthemayor897\r\nMega Dread\r\nMallnaxus\r\nSolstice\r\n\r\nv5.1 Updates by DarthVitrial\r\n\r\n{{BASH:C.Location}}",
+  "masters": [
+    "Skyrim.esm",
+    "Update.esm",
+    "Dawnguard.esm",
+    "HearthFires.esm",
+    "Dragonborn.esm"
+  ],
+  "provenance_status": "direct_plugin_header"
+}
