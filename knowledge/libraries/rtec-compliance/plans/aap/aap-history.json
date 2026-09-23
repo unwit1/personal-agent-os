@@ -1,0 +1,85 @@
+{
+  "id": "rtec-aap-history",
+  "record_type": "plan_version_history",
+  "title": "RTEC Affirmative Action / EEO Plan history",
+  "status": "partial_but_validated_from_archive",
+  "temporal_status": "historical_series",
+  "observed_plan_versions": [
+    {
+      "period": "2009-07 through 2010-06",
+      "source": "AAP PLAN July 2009 - June 2010.doc",
+      "sha256": "c4be88e929ff3c04"
+    },
+    {
+      "period": "2010-07 through 2011-06",
+      "source": "AAP PLAN July 2010 - June 2011.doc",
+      "sha256": "2c86e353ba1e2209"
+    },
+    {
+      "period": "2013-07 through 2014-06",
+      "source": "AAP PLAN July 2013 - June 2014.doc",
+      "sha256": "fb0c2dc4334121bf"
+    },
+    {
+      "period": "2015-07 through 2018-06",
+      "source": "AAP PLAN July 2015 - June 2018.doc",
+      "sha256": "08ef1c128bf47b38"
+    },
+    {
+      "period": "2018-07 through 2022-06",
+      "source": "AAP PLAN July 2018 - June 2022.doc",
+      "sha256": "a35531d961c911d8"
+    },
+    {
+      "period": "2018-07 through 2023-06",
+      "source": "AAP PLAN July 2018 - June 2023.doc",
+      "sha256": "3c87030f6ac68bf9"
+    },
+    {
+      "period": "2018-07 through 2024-06",
+      "source": "AAP PLAN July 2018 - June 2024.doc",
+      "sha256": "abc8ff6b30fcf02b",
+      "canonical_fulltext_path": "knowledge/libraries/rtec-compliance/plans/aap/2018-2024/"
+    }
+  ],
+  "observed_state_approval_letters": [
+    {
+      "date": "2009-11-10",
+      "source": "Approval letter dated 11 10 2009.pdf",
+      "sha256": "7c0b64fad53328ff"
+    },
+    {
+      "date": "2012-01-03",
+      "source": "Approval letter dated 01 03 2012.pdf",
+      "sha256": "7cb91a533175feac"
+    },
+    {
+      "date": "2014-11-15",
+      "source": "Approval letter dated 11 15 2014.pdf",
+      "sha256": "303ac000919866eb"
+    },
+    {
+      "date": "2018-12-27",
+      "source": "Approval letter dated 12 27 2018.pdf",
+      "sha256": "c57b15dc60d9b424"
+    },
+    {
+      "date": "2020-12-30",
+      "source": "Approval letter dated 12 30 2020.pdf",
+      "sha256": "6f5848d20235d31e"
+    },
+    {
+      "date": "2020",
+      "source": "Rural Transit Enterprises Coordinated Inc. 2020 EEO Plan Approval Letter.pdf",
+      "sha256": "3b60dd0744ed6da3"
+    }
+  ],
+  "related_snapshot": "knowledge/libraries/rtec-hr/plans/aap-2022-06-30/",
+  "newest_full_plan_observed_end_date": "2024-06-30",
+  "unresolved_questions": [
+    "What approved AAP/EEO plan governs after June 30, 2024?",
+    "Which approval letter corresponds to each plan revision and what exact approval/effective dates did Kentucky assign?",
+    "How did the AAP methodology change across plan versions, especially labor availability and placement-goal calculations?"
+  ],
+  "preservation_rule": "Keep every historical plan and state approval letter as a versioned source. Never overwrite old goals, named role holders, screening practices or workforce analyses with newer values."
+}
