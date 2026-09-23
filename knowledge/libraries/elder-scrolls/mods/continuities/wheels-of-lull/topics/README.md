@@ -15,3 +15,6 @@ Continuity: `tes.mod.wheels-of-lull`
 - [Chronography and the Pearlescent Chronographers](chronography.md)
 
 Each dossier distinguishes source type and attribution.
+- [Power, energy, and metaphysical infrastructure](power-energy-metaphysics.md)
+- [Mimics and artificial mutability](mimics-and-mutability.md)
+- [How Two Moon and artificial world-building](how-two-moon-clockwork-creation.md)
