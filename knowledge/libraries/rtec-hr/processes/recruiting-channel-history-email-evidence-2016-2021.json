@@ -10,6 +10,17 @@
       "currentness": "historical"
     },
     {
+      "channel": "The Job Shop / Impact Employment Solutions",
+      "observed_period": "2016-2021",
+      "evidence_summary": "Historical staffing-agency relationship. In 2016 HR coordinated temporary-worker holiday-pay handling; in 2021 HR exchanged a general staffing agreement and job description for a temporary-to-possible-permanent custodian opening and chose to interview candidates before placement.",
+      "evidence_ids": [
+        "000018",
+        "000270"
+      ],
+      "currentness": "historical; current staffing-agency relationship unknown",
+      "privacy": "No candidate identity or compensation amount is retained."
+    },
+    {
       "channel": "ridertec.org online application form",
       "observed_period": "2018-2019",
       "evidence_summary": "Website form submissions delivered complete applicant records to the historical HR mailbox.",
@@ -45,8 +56,9 @@
   ],
   "workflow_findings": [
     "Historical recruiting was multi-channel rather than a single ATS-only process.",
+    "Temporary staffing could use an external staffing agreement, HR-supplied job description and RTEC interview decision before placement.",
     "Job orders had explicit posting lifecycle/refresh behavior in Focus Talent.",
     "Recruiting evidence should be reconciled against the current ADP ATS workflow before any historical channel is treated as active."
   ],
-  "open_question": "When were ridertec.org and Focus Talent retired or reduced, and which functions are now performed in ADP ATS versus external job boards/state systems?"
+  "open_question": "When were ridertec.org, Focus Talent and the historical staffing-agency workflow retired or reduced, and which functions are now performed in ADP ATS versus external job boards/state systems?"
 }
