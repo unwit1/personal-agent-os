@@ -1,0 +1,15 @@
+{
+  "candidates": 405,
+  "families": 93,
+  "multi_candidate_families": 52,
+  "cross_mod_families": 32,
+  "explicit_author_candidates": 42,
+  "observed_pattern_candidates": 363,
+  "approved_rules": 0,
+  "guardrails": [
+    "Family normalization is a review aid, not a rule merger.",
+    "Explicit author claims remain source-scoped.",
+    "Numeric normalization does not imply numeric equivalence.",
+    "No family is auto-promoted."
+  ]
+}
