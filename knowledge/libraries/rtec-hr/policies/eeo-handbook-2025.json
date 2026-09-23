@@ -1,0 +1,171 @@
+{
+  "id": "rtec-policy-eeo-handbook-2025",
+  "record_type": "policy",
+  "title": "Equal Employment Opportunity / Affirmative Action statement - 2025 handbook",
+  "status": "superseded",
+  "temporal_status": "superseded",
+  "effective_from": "2025-12-15",
+  "effective_to": "2026-08-25",
+  "summary": "The 2025 handbook's EEO/affirmative-action statement and officer assignment. The substantive nondiscrimination, anti-retaliation and accommodation language is preserved as historical policy evidence, but the later signed 2026-08-26 EEO statement is the current canonical source for EEO policy/officer assignment where the two differ.",
+  "claims": [
+    {
+      "claim": "The 2025 handbook states that no person is unlawfully excluded from employment opportunities based on race, color, religion, national origin, sex (including gender identity, sexual orientation and pregnancy), age, genetic information, disability, veteran status or other protected class.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "DUPLICATE",
+      "related_record_ids": [
+        "rtec-policy-eeo-2026"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 45 - EEO/Affirmative Action Policy Statement",
+          "evidence_type": "explicit_text",
+          "note": "Later signed 2026 EEO statement is canonical/current."
+        }
+      ]
+    },
+    {
+      "claim": "The 2025 handbook applies its EEO policy to employment actions including recruitment, hiring, training selection, promotion, transfer, demotion, layoff, termination and compensation.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "DUPLICATE",
+      "related_record_ids": [
+        "rtec-policy-eeo-2026"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 45 - EEO/Affirmative Action Policy Statement",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The 2025 handbook prohibits retaliation for filing a discrimination complaint/charge, participating in an employment-discrimination proceeding or otherwise engaging in protected activity.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "DUPLICATE",
+      "related_record_ids": [
+        "rtec-policy-eeo-2026"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 45 - EEO/Affirmative Action Policy Statement",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The 2025 handbook states RTEC will provide reasonable accommodations for disability or religious practice/observance absent undue hardship.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "DUPLICATE",
+      "related_record_ids": [
+        "rtec-policy-eeo-2026"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 45 - EEO/Affirmative Action Policy Statement",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The 2025 handbook assigns overall EEO responsibility to the Executive Director and names Clarissa Hodge as EEO Manager/Officer for day-to-day program preparation, monitoring and complaint investigation, reporting directly to the Executive Director.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "CONFLICTS_WITH",
+      "related_record_ids": [
+        "rtec-policy-eeo-2026",
+        "rtec-role-eeo-officer-history"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 46 - EEO responsibility paragraph",
+          "evidence_type": "explicit_text",
+          "note": "This assignment is historical; the later signed 2026-08-26 EEO statement supersedes the officer assignment."
+        }
+      ]
+    },
+    {
+      "claim": "Executives, management and supervisors share responsibility for implementation/monitoring of the EEO program, and the handbook states their performance will be evaluated on implementation.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "DUPLICATE",
+      "related_record_ids": [
+        "rtec-policy-eeo-2026"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 46 - Management responsibility",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "trigger": null,
+  "prerequisites": [],
+  "actors": [
+    "Executive Director",
+    "EEO Manager / EEO Officer",
+    "Executives",
+    "Management",
+    "Supervisors",
+    "Applicants",
+    "Employees"
+  ],
+  "systems": [],
+  "forms": [],
+  "steps": [],
+  "decisions": [],
+  "deadlines": [],
+  "outputs": [
+    "Written nondiscrimination/EEO program",
+    "Complaint investigation",
+    "EEO program available for inspection on request"
+  ],
+  "exceptions": [
+    "Reasonable-accommodation language is stated as subject to undue hardship."
+  ],
+  "controls": [
+    "Executive Director accountability",
+    "Direct-reporting EEO officer",
+    "Management/supervisor implementation accountability",
+    "Anti-retaliation requirement"
+  ],
+  "unresolved_questions": [],
+  "automation_candidates": [
+    "Retain officer-assignment and annual policy versions as a supersession chain."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [
+    "rtec-policy-eeo-2026"
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "safe_source_type": "employee_handbook",
+      "source_date_or_version": "2025-12-15",
+      "source_created_date": null,
+      "source_revision_date": "2025-12-15",
+      "source_effective_from": "2025-12-15",
+      "source_effective_to": "2026-08-25",
+      "temporal_status": "superseded",
+      "content_sha256": "d8601d4c5ded962051c521ace697f447492dc178d565a393e5c945c309a7e22c",
+      "page_or_section": "printed pages 45-46",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": "The later signed 2026-08-26 EEO policy is retained as current canonical authority where it differs."
+    }
+  ]
+}
