@@ -1,20 +1,27 @@
 # Frysla
 
-Continuity: tes.mod.dealing-with-daedra
-NPC variants: dealsvampthotA1-A4 and related quest-state forms
+Continuity: `tes.mod.dealing-with-daedra`
 
-Frysla is a recruiter and servant of the Vampire Master.
+Relevant NPC forms include **055075AC**, **055117DE**, **055117E0**, **055117E1**, and **0551181F**, representing different quest states.
 
-She approaches potential recruits in ordinary social spaces and frames the offer as a simple exchange:
-- magical power;
-- in return, work for her boss until released.
+Frysla is the recruiter who introduces the player to the Vampire Master's cursed-tome scheme.
 
-She compares it to joining an army but with better compensation.
+## Recruitment
 
-The actual result is substantially more coercive: the recruit is transported to the Master's Lair, subjected to a Curse of Obedience, and placed into a slave hierarchy.
+Frysla approaches prospective recruits by asking whether they want more from life, then specifically identifies a desire for power. She offers a small amount of magical ability and explicitly states the price:
 
-When confronted, Frysla insists she told the recruit the price and blames them for failing to consider the consequences.
+> Freedom — the recruit must work for her boss until he says otherwise.
 
-Frysla can herself later become a vampire and describes the hunger as a small cost for greater strength and better service.
+She compares the arrangement to joining an army and directs an accepting recruit to a magical rune behind the stables.
 
-Her role illustrates a recurring mod pattern: supernatural predation often begins through a mundane-looking contract, job, apprenticeship, or service offer whose true enforcement mechanism is only revealed after consent is already compromised.
+## Responsibility and self-understanding
+
+Later dialogue shows that Frysla believes she gave adequate warning. If blamed for the outcome, she says she told the recruit the price and that the recruit agreed.
+
+That defense is only partly exculpatory. Her recruitment pitch does not disclose that the boss is a Vampire Lord who will cast a Curse of Obedience while the recruit sleeps.
+
+## Arc role
+
+Frysla is therefore not merely a captive servant. She functions as a recruitment intermediary who has accepted the Master's hierarchy and helps reproduce it by bringing in new labor/slaves.
+
+Her different NPC forms should be treated as state variants of one character rather than separate people.
