@@ -1,0 +1,254 @@
+{
+  "id": "rtec-policy-attendance-fmla-history-2012-2017",
+  "record_type": "policy",
+  "title": "Attendance-point and FMLA interaction - historical 2012-2017 practice",
+  "status": "validated",
+  "temporal_status": "historical",
+  "effective_from": "2012-09-13",
+  "effective_to": "2017-04-19",
+  "summary": "Restricted historical counseling records document how an older attendance-point system interacted with FMLA, call-in rules, medical releases and management exceptions. The old 9/10-point thresholds are superseded by the current 2025 six-point attendance policy.",
+  "claims": [
+    {
+      "claim": "Historical 2012 and 2015 counseling records identify a 9-point suspension level and a 10-point termination level under the then attendance policy; other warnings in 2014-2015 document counseling in approximately the 7.5-9 point range.",
+      "claim_kind": "observed_fact",
+      "confidence": 0.99,
+      "relationship": "SUPERSEDES",
+      "related_record_ids": [
+        "rtec-policy-attendance-solicitation-harassment-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted attendance counseling corpus, 2012-2015 - generalized thresholds only",
+          "evidence_type": "repeated_observation",
+          "note": "The current handbook uses a different six-point system."
+        }
+      ]
+    },
+    {
+      "claim": "A 2015 case record explicitly states that 10 points normally meant termination under the then policy but management made an exception and allowed another chance, demonstrating historical management discretion in attendance enforcement.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-safety-confidentiality-discipline-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted 2015 attendance counseling record - generalized exception only",
+          "evidence_type": "explicit_text",
+          "note": "A single exception does not establish a universal exception rule."
+        }
+      ]
+    },
+    {
+      "claim": "Historical formal attendance warnings sometimes directed employees to schedule partial days rather than full-day absences as an improvement strategy when point balances were high.",
+      "claim_kind": "observed_fact",
+      "confidence": 0.95,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "formal warning notices, 2014-2015 - improvement-plan pattern",
+          "evidence_type": "repeated_observation",
+          "note": "Historical corrective strategy, not current policy."
+        }
+      ]
+    },
+    {
+      "claim": "A 2017 counseling record shows employees were given copies of the company call-in and no-fault attendance policies, and late or missing calls were treated as separate concerns from the underlying absence.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-attendance-solicitation-harassment-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted 2017 attendance counseling record - generalized workflow",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "A 2013 intermittent-FMLA counseling record instructed that intermittent leave be scheduled as far in advance as possible; unscheduled FMLA-related absences still followed company call-in procedures; supporting documentation was routed to Human Resources and was not to be attached to timesheets or absentee requests.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-leave-time-off-2025",
+        "rtec-policy-attendance-solicitation-harassment-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted 2013 intermittent-FMLA counseling record - generalized instructions",
+          "evidence_type": "explicit_text",
+          "note": "Currentness of the document-routing detail is not established by the handbook."
+        }
+      ]
+    },
+    {
+      "claim": "A 2012 counseling record separately tracked remaining FMLA time and attendance/tardiness not related to FMLA, indicating protected leave and ordinary attendance points were administratively separated.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-attendance-solicitation-harassment-2025",
+        "rtec-policy-leave-time-off-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted 2012 FMLA/attendance counseling record - generalized tracking pattern",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "A 2013 return-to-work record documents an instruction to report to Human Resources before returning to the workstation and provide a doctor's release. The current 2025 FMLA policy independently requires a fitness-for-duty statement to return.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-leave-time-off-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted 2013 return-to-work counseling record - generalized instruction",
+          "evidence_type": "explicit_text",
+          "note": null
+        },
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 23 - FMLA",
+          "evidence_type": "explicit_text",
+          "note": "Current handbook corroboration."
+        }
+      ]
+    },
+    {
+      "claim": "The current December 15, 2025 attendance policy supersedes the historical 9/10-point thresholds with 1/4, 1/2 and 1-point absence bands, written warning at 2 points, three-day unpaid suspension at 4 points and termination at 6 points, while excluding documented FMLA and workers' compensation incidents from attendance points.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDES",
+      "related_record_ids": [
+        "rtec-policy-attendance-solicitation-harassment-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 24-26 - Attendance Policy",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "trigger": "Employee absence/tardiness may involve attendance points, FMLA/protected leave, medical documentation or return-to-work clearance.",
+  "prerequisites": [
+    "Classify the absence under current policy before assessing points.",
+    "Keep protected leave/medical information restricted."
+  ],
+  "actors": [
+    "Employee",
+    "Supervisor",
+    "Human Resources",
+    "Management"
+  ],
+  "systems": [
+    "Attendance record",
+    "FMLA/leave record",
+    "Personnel/medical record separation"
+  ],
+  "forms": [
+    "Call-in/absence documentation",
+    "FMLA supporting documentation",
+    "Fitness-for-duty/medical release",
+    "Attendance point record"
+  ],
+  "steps": [
+    "Receive absence/call-in notice.",
+    "Determine whether the event is FMLA/protected or ordinary attendance.",
+    "Route medical/FMLA supporting documentation to the restricted HR process.",
+    "Apply attendance points only under current policy after exclusions.",
+    "Track FMLA usage separately from non-FMLA attendance events.",
+    "Require applicable return-to-work/fitness documentation before return when current policy requires it."
+  ],
+  "decisions": [
+    "Protected/FMLA versus point-bearing absence.",
+    "Documentation sufficiency.",
+    "Return-to-work clearance.",
+    "Whether a discretionary corrective-action exception is considered by authorized management."
+  ],
+  "deadlines": [
+    "Current call-in rule is at least two hours before start time and daily while absent unless instructed otherwise; foreseeable FMLA notice is 30 days under the current handbook."
+  ],
+  "outputs": [
+    "Attendance point record",
+    "FMLA/leave record",
+    "Medical/supporting documentation record",
+    "Return-to-work clearance",
+    "Possible corrective-action record"
+  ],
+  "exceptions": [
+    "Protected leave and workers' compensation exclusions under current policy.",
+    "Historical management exceptions to point consequences are case evidence, not automatic entitlement."
+  ],
+  "controls": [
+    "Never apply legacy 9/10-point thresholds to current attendance decisions.",
+    "Do not attach sensitive medical/FMLA documentation to ordinary timesheets or general attendance requests unless a current controlled process explicitly requires it.",
+    "Maintain separation between FMLA/protected-leave tracking and ordinary attendance points."
+  ],
+  "unresolved_questions": [
+    "Does the current HR process still require FMLA/medical supporting documents to be sent directly to HR and kept off timesheets/ordinary absence requests?",
+    "What current system tracks FMLA hours/remaining entitlement separately from attendance points?",
+    "Who has authority to approve discretionary exceptions to attendance consequences under current practice?"
+  ],
+  "automation_candidates": [
+    "Protected-leave-aware attendance calculator that blocks point assessment until leave classification is resolved.",
+    "Separate restricted FMLA document intake from ordinary attendance/timekeeping records.",
+    "Automated FMLA-balance and attendance-point views with role-based access and no medical details in the attendance view.",
+    "Return-to-work clearance checklist that prevents premature return when a fitness release is required."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+      "safe_source_type": "restricted_case_pattern_analysis",
+      "source_date_or_version": "2012-2017 attendance/FMLA cases",
+      "content_sha256": null,
+      "page_or_section": "repeated attendance/FMLA counseling records",
+      "ingested_at": "2026-09-23",
+      "notes": "Employee identities, diagnoses and case-specific facts excluded.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": "2012-09-13",
+      "source_effective_to": "2017-04-19",
+      "temporal_status": "historical",
+      "full_source_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json"
+    },
+    {
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "safe_source_type": "employee_handbook",
+      "source_date_or_version": "2025-12-15",
+      "content_sha256": "d8601d4c5ded962051c521ace697f447492dc178d565a393e5c945c309a7e22c",
+      "page_or_section": "printed pages 21-26",
+      "ingested_at": "2026-09-23",
+      "notes": "Current policy comparison/currentness.",
+      "source_created_date": null,
+      "source_revision_date": "2025-12-15",
+      "source_effective_from": "2025-12-15",
+      "source_effective_to": null,
+      "temporal_status": "current",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md"
+    }
+  ]
+}
