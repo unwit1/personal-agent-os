@@ -20,6 +20,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from .connectors import REGISTRY_SCHEMA as CONNECTOR_REGISTRY_SCHEMA
+from .connectors import load_connector_registry
 from .launcher import LAUNCHER_PATH
 from .launcher import status as launcher_status
 from .machine import resolve_user_path
@@ -335,6 +337,21 @@ def health(surface_id: str | None = None) -> dict[str, Any]:
         )
 
     counts = {tier: sum(1 for item in reports if item["tier"] == tier) for tier in reversed(TIERS)}
+    connector_registry = load_connector_registry()
+    connector_reports = []
+    for connector in connector_registry["connectors"]:
+        registrations = connector["registrations"]
+        if surface_id and not any(item["surface_id"].casefold() == surface_id.casefold() for item in registrations):
+            continue
+        connector_reports.append(
+            {
+                "id": connector["id"],
+                "provider": connector["provider"],
+                "health": connector["health"],
+                "privacy_domain": connector["privacy_domain"],
+                "registrations": registrations,
+            }
+        )
     return {
         "schema": SURFACE_REGISTRY_SCHEMA,
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -342,4 +359,9 @@ def health(surface_id: str | None = None) -> dict[str, Any]:
         "degraded": [item["id"] for item in reports if not item["meets_expectation"]],
         "ok": all(item["meets_expectation"] for item in reports),
         "surfaces": reports,
+        "connector_providers": {
+            "schema": CONNECTOR_REGISTRY_SCHEMA,
+            "count": len(connector_reports),
+            "connectors": connector_reports,
+        },
     }

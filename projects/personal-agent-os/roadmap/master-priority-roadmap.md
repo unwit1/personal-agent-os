@@ -101,8 +101,12 @@ Success signal:
 Status: **in progress** (2026-09-23). Added the v1 provider-neutral connector
 registry schema, empty canonical registry, strict privacy-checked loader, and
 read-only `connector.list` MCP discovery with secret-reference redaction.
+`integration-health` now reports registry-declared connector-provider health and
+surface registration states in a separate `connector_providers` section; a
+surface filter narrows that section to connectors registered with the selected
+surface. This reads declared status only and does not probe provider APIs.
 Connector import, credential resolution, surface adapters, reconciliation,
-provider health checks, and cross-surface verification remain open.
+live provider health checks, and cross-surface verification remain open.
 
 Make Agent OS the canonical provider-neutral connector registry and broker for
 Claude, ChatGPT, Codex, desktop clients, mobile/voice clients, and future agent
