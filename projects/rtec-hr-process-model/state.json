@@ -18,12 +18,16 @@
     "knowledge/libraries/rtec-hr/README.md",
     "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-batch-001.json",
     "knowledge/libraries/rtec-hr/questions/currentness-and-gaps.json",
-    "schemas/rtec-hr-knowledge-v1.schema.json"
+    "schemas/rtec-hr-knowledge-v1.schema.json",
+    "projects/rtec-hr-process-model/docs/REFERENCE_FORM_CONTEXT.md",
+    "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json"
   ],
   "context_files": [
     "projects/rtec-hr-process-model/README.md",
     "projects/rtec-hr-process-model/docs/INGESTION_CONTRACT.md",
-    "knowledge/libraries/rtec-hr/README.md"
+    "knowledge/libraries/rtec-hr/README.md",
+    "projects/rtec-hr-process-model/docs/REFERENCE_FORM_CONTEXT.md",
+    "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json"
   ],
   "skill_roots": [],
   "validation_commands": [],
@@ -52,5 +56,17 @@
     "restricted_case_records_metadata_only": 3,
     "derived_knowledge_records": 15,
     "open_currentness_or_gap_questions": 12
+  },
+  "reference_form_context": {
+    "catalog_path": "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json",
+    "source_projects": [
+      "unwit1/HR-GUI",
+      "unwit1/job-applicant-dashboard",
+      "unwit1/personal-agent-os"
+    ],
+    "total_reference_records": 78,
+    "unique_identity_keys": 74,
+    "full_source_rule": "When a safe original reference artifact is available, preserve it in full or by a lossless repository-safe representation and link it to the existing catalog entry.",
+    "authority_rule": "Form presence is contextual evidence, not automatic current policy authority."
   }
 }
