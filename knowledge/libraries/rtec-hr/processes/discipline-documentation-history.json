@@ -1,0 +1,235 @@
+{
+  "id": "rtec-process-discipline-documentation-history",
+  "record_type": "process",
+  "title": "Disciplinary counseling and warning documentation - historical practice",
+  "status": "validated",
+  "temporal_status": "historical",
+  "effective_from": "2011-01-01",
+  "effective_to": "2019-12-31",
+  "summary": "Thirty-three restricted individual-warning artifacts show a historical RTEC discipline documentation practice using informal personnel-file memoranda, counseling/conversation records and a formal Employee Warning Notice. Only reusable form/workflow structure is generalized.",
+  "claims": [
+    {
+      "claim": "The supplied individual-warning corpus contains 33 artifacts; 24 contain 'Personnel File' style documentation and 7 use the formal 'Employee Warning Notice' template. The corpus spans primarily 2011-2017 with one 2019 conversation record.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-policy-safety-confidentiality-discipline-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "employee_specific_disciplinary_case inventory plus restricted-source structural analysis",
+          "evidence_type": "repeated_observation",
+          "note": "No employee identities or case facts are promoted."
+        }
+      ]
+    },
+    {
+      "claim": "Informal discipline/counseling memoranda commonly record the date/time, 'To: Personnel File' or similar destination, the people present, the concern/policy discussed, employee response or acknowledgement, and the HR/management author.",
+      "claim_kind": "observed_fact",
+      "confidence": 0.98,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted individual-warning memoranda",
+          "evidence_type": "repeated_observation",
+          "note": "Pattern observed across multiple restricted case documents."
+        }
+      ]
+    },
+    {
+      "claim": "The formal Employee Warning Notice captures employee identification/job/manager/department, warning stage, offense category, description of infraction, plan for improvement, consequences of further infractions, employee acknowledgement, employee comments, and multiple signature/approval lines.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-policy-safety-confidentiality-discipline-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "seven formal Employee Warning Notice artifacts",
+          "evidence_type": "repeated_observation",
+          "note": "Template structure only."
+        }
+      ]
+    },
+    {
+      "claim": "The formal template's historical offense choices include Tardiness/Leaving Early, Absenteeism, Violation of Company Policies, Substandard Work, Violation of Safety Rules, Rudeness to Customers/Coworkers, and Other.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-safety-confidentiality-discipline-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "formal Employee Warning Notice - Type of Offense block",
+          "evidence_type": "repeated_observation",
+          "note": "Historical template vocabulary."
+        }
+      ]
+    },
+    {
+      "claim": "The formal template states that signing confirms understanding/receipt and discussion of the warning and improvement plan, but does not necessarily mean the employee agrees with the warning.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "formal Employee Warning Notice - acknowledgement block",
+          "evidence_type": "repeated_observation",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Historical formal warning records use signature/approval roles for the employee, manager, department manager, Human Resource Manager and an approval authority; some forms also carry dated prior warning stages.",
+      "claim_kind": "observed_fact",
+      "confidence": 0.98,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "formal Employee Warning Notice signature and warning-stage blocks",
+          "evidence_type": "repeated_observation",
+          "note": "Specific signatory names are excluded."
+        }
+      ]
+    },
+    {
+      "claim": "Plans for improvement in the historical notices were not limited to generic warnings; observed reusable patterns include concrete behavioral instructions, repayment/corrective-action plans, counseling, suspension, and explicit next-step consequences.",
+      "claim_kind": "interpretation",
+      "confidence": 0.95,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-safety-confidentiality-discipline-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "formal Employee Warning Notice improvement/consequence sections",
+          "evidence_type": "repeated_observation",
+          "note": "Case-specific amounts, dates and facts are excluded."
+        }
+      ]
+    },
+    {
+      "claim": "The current 2025 handbook independently describes informal discussions/coaching and possible verbal warning, written warning, unpaid administrative leave and termination, corroborating the general historical documentation progression while superseding old point/stage details.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-safety-confidentiality-discipline-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 39-41 - Progressive Discipline",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "trigger": "Supervisor/management identifies a performance, conduct, attendance, safety or policy concern requiring counseling or corrective action.",
+  "prerequisites": [
+    "Establish facts and applicable current policy.",
+    "Determine whether informal coaching, formal documentation or investigation is appropriate."
+  ],
+  "actors": [
+    "Employee",
+    "Supervisor/Manager",
+    "Department Manager",
+    "Human Resources",
+    "Approval authority"
+  ],
+  "systems": [
+    "Personnel file"
+  ],
+  "forms": [
+    "Informal personnel-file memorandum",
+    "Counseling/conversation record",
+    "Employee Warning Notice"
+  ],
+  "steps": [
+    "Document the date, participants and concern.",
+    "Identify the applicable policy/offense category.",
+    "Discuss expectations and improvement plan with the employee.",
+    "Record prior warnings/stage when relevant.",
+    "Obtain required signatures/approvals and allow employee comments.",
+    "Retain the applicable record in the personnel file."
+  ],
+  "decisions": [
+    "Informal coaching versus formal warning.",
+    "Corrective action/improvement plan.",
+    "Whether escalation, suspension or termination is appropriate under current policy.",
+    "Which approvals/signatures are required."
+  ],
+  "deadlines": [],
+  "outputs": [
+    "Counseling memorandum",
+    "Employee Warning Notice",
+    "Improvement plan",
+    "Personnel-file record"
+  ],
+  "exceptions": [
+    "Current handbook permits management to skip progressive steps; historical forms must not be used to mechanically select discipline."
+  ],
+  "controls": [
+    "Employee acknowledgement is receipt/understanding, not necessarily agreement.",
+    "Case-specific facts remain restricted.",
+    "Use current handbook and current HR approval practice rather than legacy warning-stage labels."
+  ],
+  "unresolved_questions": [
+    "What is the current approved corrective-action form and exact signature/approval chain?",
+    "Are employee comments and acknowledgement language still required in the current form?",
+    "Does current practice require HR review before every formal written warning, suspension or discharge?"
+  ],
+  "automation_candidates": [
+    "Generate a policy-aware corrective-action packet with required fields/signatures but leave discipline selection to human review.",
+    "Link prior related actions by policy category/date without exposing unrelated personnel-file content.",
+    "Add structured employee-response/comments and acknowledgement fields to the HR scanner/record model."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+      "safe_source_type": "restricted_evidence_inventory_and_structural_analysis",
+      "source_date_or_version": "2011-2019 individual-warning corpus",
+      "content_sha256": null,
+      "page_or_section": "33 restricted individual-warning artifacts",
+      "ingested_at": "2026-09-23",
+      "notes": "Raw case content and employee identities are excluded.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "full_source_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json"
+    },
+    {
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "safe_source_type": "employee_handbook",
+      "source_date_or_version": "2025-12-15",
+      "content_sha256": "d8601d4c5ded962051c521ace697f447492dc178d565a393e5c945c309a7e22c",
+      "page_or_section": "printed pages 39-41",
+      "ingested_at": "2026-09-23",
+      "notes": "Current policy comparison.",
+      "source_created_date": null,
+      "source_revision_date": "2025-12-15",
+      "source_effective_from": "2025-12-15",
+      "source_effective_to": null,
+      "temporal_status": "current",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md"
+    }
+  ]
+}
