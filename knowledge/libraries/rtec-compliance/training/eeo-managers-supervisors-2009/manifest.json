@@ -1,0 +1,20 @@
+{
+  "source_id": "rtec-compliance-eeo-manager-supervisor-training-2009",
+  "title": "EEO Training for Managers and Supervisors",
+  "original_path": "EEO/EEO TRAINING/EEO TRAINING FOR MANAGERS AND SUPERVISORS.doc",
+  "sha256": "18db7d1066b80df964554c0ce078c9907ceb1314f7bd79a3e59e38766f9a4852",
+  "source_type": "eeo_manager_supervisor_training",
+  "temporal_status": "historical",
+  "source_date": "2009-02-12",
+  "source_representation": "complete deterministic text extraction split into four parts",
+  "fulltext_parts": [
+    "fulltext-part-001.txt",
+    "fulltext-part-002.txt",
+    "fulltext-part-003.txt",
+    "fulltext-part-004.txt"
+  ],
+  "notes": [
+    "Training source contains general HR/diversity material in addition to RTEC-specific good-faith checklists; preserve source provenance and do not assume every example is current RTEC procedure."
+  ],
+  "ingested_at": "2026-09-23"
+}
