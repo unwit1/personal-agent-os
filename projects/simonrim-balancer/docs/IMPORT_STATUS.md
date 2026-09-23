@@ -1,65 +1,55 @@
 # Import Status — 2026-09-23
 
-Imported: Adamant 6.0.4, Hand to Hand 2.0.2, Blade and Blunt 4.0.3, Mysticism 2.5.0.
+Imported versions: Adamant 6.0.4; Hand to Hand 2.0.2; Blade and Blunt 4.0.3; Mysticism 2.5.0.
 
-## Core snapshot
+## Snapshot
 
 - 21 plugins
 - 6,009 records / 5,988 Forms
 - 81,523 subrecords
 - 11,676 original deterministic relations
 - 3,951 effect instances
-- 476 BSA members
 - 115 Papyrus source files
-- 953 spells
-- 1,648 magic effects
-- 625 perks
-- 216 weapons
-- 269 enchantments
-- 62 combat styles
-- 12 movement types
-- 25 actor-value / perk-tree records
+- 953 spells; 1,648 MGEFs; 625 perks; 216 weapons; 269 enchantments
+- 62 combat styles; 12 movement types; 25 AVIF skill-tree records
 
-## Resolution / exact deltas
+## Resolution / deltas
 
-- 5,988 Forms resolved; 0 slot-resolution failures
+- 5,988 Forms resolved with 0 slot-resolution failures
 - 537 exact imported-master baselines; 1,619 external baselines
 - 484 exact-baseline changed overrides; 53 identical forwards
 - 311 typed field deltas currently emitted
 
-## Completed high-value decoders
+## Completed decoders
 
 - MGEF DATA: 1,648 / 1,648
 - CTDA: 8,229 / 8,229
-- PERK: 625 headers, 1,006 effect entries, 4,035 conditions
-- WEAP: 216 / 216; 21 groups; 18 recurring patterns; 18 exact deltas
-- ENCH: 269 / 269; 870 effects; 36 groups; 27 recurring patterns; 58 exact deltas
-- CSTY: 62 / 62; 12 groups; 7 recurring patterns
-- MOVT: 12 / 12; 8 profiles; 3 recurring/complete-domain observations
-- AVIF: 25 / 25; 297 nodes; 283 graphical edges; 7 exact add-on graph deltas; no missing targets, unreachable nodes, or cycles
-- MGEF generic VMAD: 395 / 395; 416 script attachments; 1,067 properties; 915 object-property relations with 0 unresolved targets
+- PERK core: 625 headers, 1,006 effect entries, 4,035 conditions
+- WEAP: 216 / 216
+- ENCH: 269 / 269
+- CSTY: 62 / 62
+- MOVT: 12 / 12
+- AVIF: 25 / 25; 297 nodes; 283 graphical edges; 7 exact add-on graph deltas
+- MGEF generic VMAD: 395 / 395; 416 script attachments; 1,067 properties; 915 resolved object-property relations
+- NPC_/ARMO/ACTI generic VMAD: 26 / 26; 26 attachments; 27 properties; 25 resolved object-property relations
 
-## MGEF VMAD exact comparisons
+## VMAD boundary status
 
-- 31 exact imported-baseline VMAD comparisons
-- 30 modified VMADs
-- 1 identical VMAD forward
-- 115 distinct attached script names
-- 234 / 416 attachments match supplied PSC source
-- 80 / 115 distinct attached script names have supplied PSC source
-- property types: 915 Object, 83 Float, 33 Int32, 33 Bool, 3 String
-- 4 Object properties preserve non--1 alias bindings
+- MGEF: generic VMAD fully decoded.
+- NPC_: 20 / 20 generic VMAD fully decoded.
+- ARMO: 4 / 4 generic VMAD fully decoded.
+- ACTI: 2 / 2 generic VMAD fully decoded.
+- PERK: 6 records have valid generic prefixes plus record-specific tails of 87, 89, 97, or 98 bytes. These are deliberately deferred.
+- QUST: 7 records remain deferred for a specialized fragment/alias decoder.
 
-## Evidence / rule state
+## Exact VMAD comparisons
 
-- Combined aggregated observed patterns: 234
-- Approved design rules: 0
-- AVIF graph edges remain distinct from actual PERK CTDA prerequisites.
-- Script attachment frequency and property values remain implementation evidence, not automatically promoted rules.
+- MGEF: 31 imported-baseline comparisons; 30 modified, 1 identical forward.
+- NPC_/ARMO/ACTI: 2 imported-baseline comparisons; both identical forwards.
 
-## Deferred
+## Guardrails
 
-- VMAD on PERK, NPC_, ARMO, ACTI
-- QUST VMAD fragments / aliases
-- quest/story-manager structures
-- additional record-specific structures
+- AVIF graph edges are UI/tree topology, not PERK prerequisites.
+- A VMAD record is called generically decoded only when the generic parser consumes the complete subrecord.
+- A valid generic prefix does not justify decoding an unknown record-specific tail.
+- Approved design rules: 0.

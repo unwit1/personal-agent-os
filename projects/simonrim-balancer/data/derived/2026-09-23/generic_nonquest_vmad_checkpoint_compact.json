@@ -1,0 +1,28 @@
+{
+  "snapshot": "2026-09-23",
+  "decoder": "generic VMAD NPC_/ARMO/ACTI + PERK tail inventory",
+  "summary": {
+    "records_decoded": 26,
+    "decode_failures": 0,
+    "records_by_type": {"NPC_": 20, "ARMO": 4, "ACTI": 2},
+    "script_attachments": 26,
+    "distinct_script_names": 7,
+    "properties": 27,
+    "property_types": {"Object": 25, "Int32": 2},
+    "object_property_relations": 25,
+    "unresolved_object_targets": 0,
+    "attachments_with_supplied_source": 5,
+    "exact_imported_baseline_comparisons": 2,
+    "modified_exact_vmad": 0,
+    "identical_exact_vmad_forwards": 2,
+    "perk_records_deferred": 6,
+    "perk_tail_bytes": [87, 89, 97, 98],
+    "approved_rules": 0
+  },
+  "guardrails": [
+    "Only NPC_, ARMO and ACTI are accepted as fully generic VMAD in this batch.",
+    "PERK generic prefixes were used only to establish tail boundaries.",
+    "PERK record-specific fragment tails require a dedicated decoder.",
+    "No script/property pattern is an approved rule."
+  ]
+}
