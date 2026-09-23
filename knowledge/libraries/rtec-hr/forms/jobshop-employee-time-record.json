@@ -1,0 +1,69 @@
+{
+  "id": "rtec-form-jobshop-employee-time-record",
+  "record_type": "form",
+  "title": "Jobshop Employee Time Record / timesheet",
+  "status": "validated",
+  "temporal_status": "unknown",
+  "effective_from": null,
+  "effective_to": null,
+  "summary": "Legacy RTEC Jobshop employee timesheet template covering daily/weekly hours, training hours, leave categories and a multi-level signature/approval section. The file was last saved in April 2026 but its effective version period is not yet established.",
+  "claims": [
+    {
+      "claim": "The form records employee identity, dates, daily/weekly work hours, training hours, regular/overtime hours and multiple leave categories.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-jobshop-timesheet-template","page_or_section":"workbook user-facing text","evidence_type":"structural","note":null}]
+    },
+    {
+      "claim": "The form contains signature/approval lines for the employee, supervisor, Operations Manager and Executive Director.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-jobshop-timesheet-template","page_or_section":"approval/signature section","evidence_type":"structural","note":"Presence of signature lines does not prove the order or mandatory status of every approval in current practice."}]
+    }
+  ],
+  "trigger": "Employee work/time period requiring a Jobshop Employee Time Record.",
+  "prerequisites": [],
+  "actors": ["Employee", "Supervisor", "Operations Manager", "Executive Director"],
+  "systems": ["Legacy Excel workbook"],
+  "forms": ["Employee Time Record"],
+  "steps": [],
+  "decisions": [],
+  "deadlines": [],
+  "outputs": ["Employee time/leave record"],
+  "exceptions": [],
+  "controls": ["Employee signature line", "Supervisor approval line", "Operations Manager approval line", "Executive Director approval line", "Official Use Only section"],
+  "unresolved_questions": [
+    "Is this Jobshop timesheet still actively used?",
+    "What pay-period cadence and submission deadline applies?",
+    "Which approval signatures are currently mandatory and in what order?",
+    "How are totals/formulas calculated in the legacy workbook?",
+    "Where are approved timesheets entered or retained downstream?"
+  ],
+  "automation_candidates": [
+    "Replace manual total calculations with validated formula-driven entry.",
+    "Route timesheets through explicit approval states while preserving required signatures/attestations.",
+    "Link training-hour entries to the training/recertification record when appropriate."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [{
+    "source_id":"rtec-hr-jobshop-timesheet-template",
+    "safe_source_type":"timekeeping_and_leave_template",
+    "source_date_or_version":"created 2016; last saved 2026-04-20",
+    "source_created_date":"2016-07-23",
+    "source_revision_date":"2026-04-20",
+    "source_effective_from":null,
+    "source_effective_to":null,
+    "temporal_status":"unknown",
+    "content_sha256":"90ab94099693cdbd2e7ac3dc3d4e12994592cdbddacfd794077228c52a6eb730",
+    "page_or_section":"workbook-level text inventory",
+    "full_source_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-jobshop-timesheet-template/fulltext.md",
+    "searchable_text_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-jobshop-timesheet-template/fulltext.md",
+    "ingested_at":"2026-09-23",
+    "notes":"Legacy XLS requires later formula/cell mapping if exact workbook reconstruction is needed."
+  }]
+}
