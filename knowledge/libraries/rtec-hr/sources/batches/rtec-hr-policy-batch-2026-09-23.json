@@ -1,0 +1,85 @@
+{
+  "batch_id": "rtec-hr-policy-batch-2026-09-23",
+  "ingested_at": "2026-09-23",
+  "project": "rtec-hr-process-model",
+  "repository": "unwit1/personal-agent-os",
+  "source_count": 4,
+  "sources": [
+    {
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "original_filename": "2023 Employee handbook-Updated 12-15-2025.docx",
+      "source_date": "2025-12-15",
+      "temporal_status": "current_with_section_level_supersession",
+      "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "manifest_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/manifest.json",
+      "notes": [
+        "Complete 48-page handbook.",
+        "Supersedes overlapping March 2023 handbook excerpts.",
+        "EEO section is superseded where different by the signed 2026-08-26 EEO policy."
+      ]
+    },
+    {
+      "source_id": "rtec-hr-no-gossip-policy",
+      "original_filename": "NO GOSSIP POLICY.doc",
+      "source_date": null,
+      "temporal_status": "unknown",
+      "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-no-gossip-policy/fulltext.md",
+      "manifest_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-no-gossip-policy/manifest.json",
+      "notes": [
+        "Undated standalone policy.",
+        "Commitment 4 contains a grammatical ambiguity/missing negation and is preserved without correction."
+      ]
+    },
+    {
+      "source_id": "rtec-hr-computer-use-policy",
+      "original_filename": "Computer Use Policy.doc",
+      "source_date": null,
+      "temporal_status": "unknown",
+      "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-computer-use-policy/fulltext.md",
+      "manifest_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-computer-use-policy/manifest.json",
+      "notes": [
+        "Undated standalone policy.",
+        "Overlaps 2025 handbook communication-system/work-rule/confidentiality provisions; priority is not inferred without a date/currentness source."
+      ]
+    },
+    {
+      "source_id": "rtec-hr-fmla-handbook-extract-2019-07-15",
+      "original_filename": "FMLA policy from Employee Handbook.pdf",
+      "source_date": "2019-07-15",
+      "temporal_status": "superseded",
+      "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-fmla-handbook-extract-2019-07-15/fulltext.md",
+      "manifest_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-fmla-handbook-extract-2019-07-15/manifest.json",
+      "notes": [
+        "Scanned three-page extract, printed pages 21-23 of 49.",
+        "Superseded by the complete 2025 handbook in the same handbook lineage."
+      ]
+    }
+  ],
+  "derived_policy_records": [
+    "knowledge/libraries/rtec-hr/policies/employee-handbook-2025-12-15.json",
+    "knowledge/libraries/rtec-hr/policies/handbook-governance-employment-2025.json",
+    "knowledge/libraries/rtec-hr/policies/hours-pay-benefits-2025.json",
+    "knowledge/libraries/rtec-hr/policies/leave-time-off-2025.json",
+    "knowledge/libraries/rtec-hr/policies/attendance-solicitation-harassment-2025.json",
+    "knowledge/libraries/rtec-hr/policies/dress-cell-work-rules-2025.json",
+    "knowledge/libraries/rtec-hr/policies/safety-confidentiality-discipline-2025.json",
+    "knowledge/libraries/rtec-hr/policies/communications-nepotism-2025.json",
+    "knowledge/libraries/rtec-hr/policies/video-audio-surveillance-2025.json",
+    "knowledge/libraries/rtec-hr/policies/eeo-handbook-2025.json",
+    "knowledge/libraries/rtec-hr/policies/no-gossip-policy.json",
+    "knowledge/libraries/rtec-hr/policies/computer-use-policy.json",
+    "knowledge/libraries/rtec-hr/policies/fmla-leave-policy-2019.json"
+  ],
+  "review_flags": [
+    "No Gossip Policy is undated and commitment 4 is grammatically ambiguous; do not infer the missing word.",
+    "Computer Use Policy is undated; treat its relationship to the 2025 handbook as unresolved overlap rather than automatic precedence.",
+    "The 2025 handbook contains differing physician-statement timing language between Personal/Sick Leave and Attendance; preserve both until reviewed.",
+    "FMLA, Kentucky pregnancy/accommodation and other statutory descriptions are retained as RTEC policy text and have not been independently corrected or legally revalidated.",
+    "The 2025 handbook EEO officer assignment is historical because the later signed 2026-08-26 EEO policy is already canonical/current."
+  ],
+  "validation": {
+    "source_preservation": "complete safe searchable source representation retained for all four supplied documents",
+    "privacy": "position-level policy material only; no live employee/applicant case records introduced",
+    "versioning": "historical and overlapping sources preserved rather than overwritten"
+  }
+}
