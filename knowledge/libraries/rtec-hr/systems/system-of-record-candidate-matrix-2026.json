@@ -1,0 +1,391 @@
+{
+  "record_id": "rtec-hr-system-of-record-candidate-matrix-2026",
+  "updated_at": "2026-09-23",
+  "status": "candidate_architecture_requires_live_validation",
+  "purpose": "Map each HR data domain to observed 2026 systems, historical systems, likely authoritative source, downstream consumers, and safe automation boundaries.",
+  "domains": [
+    {
+      "domain": "applicant_pipeline",
+      "observed_current_systems": [
+        "ADP ATS",
+        "internal Applicant Dashboard tooling"
+      ],
+      "historical_systems": [
+        "ridertec.org web application",
+        "Kentucky Career Center / Focus Talent",
+        "email-forwarded applications",
+        "The Job Shop"
+      ],
+      "likely_authoritative_source": "ADP ATS for current applicant/requisition status, subject to live validation",
+      "downstream": [
+        "interviews",
+        "new-hire conversion",
+        "AAP applicant aggregates",
+        "rejection communication"
+      ],
+      "read_automation": "high",
+      "write_automation": "approval_required",
+      "unresolved": [
+        "external job-board synchronization",
+        "which internal dashboard fields are mirrors vs source of truth"
+      ]
+    },
+    {
+      "domain": "employee_master_and_job_status",
+      "observed_current_systems": [
+        "ADP Workforce Now"
+      ],
+      "historical_systems": [
+        "manual Employee List",
+        "fiscal-year hire/termination/promotion/transfer spreadsheets"
+      ],
+      "likely_authoritative_source": "ADP Workforce Now, subject to verification of fields/history completeness",
+      "downstream": [
+        "payroll",
+        "benefits eligibility",
+        "AAP workforce aggregates",
+        "state new-hire reporting",
+        "attendance/FMLA context"
+      ],
+      "read_automation": "high",
+      "write_automation": "human_approval_and_role_permissions",
+      "unresolved": [
+        "whether all job-history/effective-dated changes are complete in ADP",
+        "canonical organization/position taxonomy"
+      ]
+    },
+    {
+      "domain": "payroll",
+      "observed_current_systems": [
+        "ADP Workforce Now",
+        "ADP SmartCompliance",
+        "iReports"
+      ],
+      "historical_systems": [
+        "check-register workflow",
+        "paper/forms",
+        "manual HR-to-controller handoffs"
+      ],
+      "likely_authoritative_source": "ADP for payroll/tax calculations; finance/controller remains an approval/control role",
+      "downstream": [
+        "direct deposit",
+        "tax filing",
+        "benefit deductions",
+        "quarter-end review"
+      ],
+      "read_automation": "high",
+      "write_automation": "strict_approval_required",
+      "unresolved": [
+        "current payroll finalization owner",
+        "HR entry permissions",
+        "exact pre-payroll checklist"
+      ]
+    },
+    {
+      "domain": "time_and_attendance",
+      "observed_current_systems": [
+        "ADP is strongly evidenced historically/currently but exact live time module ownership is not proven"
+      ],
+      "historical_systems": [
+        "Attendance Calendar",
+        "Absentee Report",
+        "Personal Time Taken List",
+        "timecards/timesheets"
+      ],
+      "likely_authoritative_source": "live time/attendance system if enabled; otherwise controlled HR ledger",
+      "downstream": [
+        "payroll",
+        "attendance points",
+        "FMLA/leave reconciliation"
+      ],
+      "read_automation": "medium_high",
+      "write_automation": "approval_required",
+      "unresolved": [
+        "current source of truth",
+        "employee groups handled outside ADP",
+        "approval cutoff and supervisor chain"
+      ]
+    },
+    {
+      "domain": "benefit_enrollment_and_coverage",
+      "observed_current_systems": [
+        "Guardian",
+        "UnitedHealthcare",
+        "ComPsych",
+        "iSolved/Infinisource",
+        "ADP deductions"
+      ],
+      "historical_systems": [
+        "CVIM",
+        "Humana",
+        "Baptist Health Plan",
+        "The Abacus Group",
+        "paper/email forms"
+      ],
+      "likely_authoritative_source": "plan-specific carrier/admin system for coverage plus ADP for payroll deductions; exact enrollment hub unresolved",
+      "downstream": [
+        "payroll deductions",
+        "COBRA/FSA",
+        "employee notices",
+        "invoices",
+        "SBCs"
+      ],
+      "read_automation": "medium_high",
+      "write_automation": "approval_required",
+      "unresolved": [
+        "which system is authoritative for elections",
+        "current broker",
+        "COBRA/FSA administrator",
+        "plan-by-plan ownership"
+      ]
+    },
+    {
+      "domain": "retirement_401k",
+      "observed_current_systems": [
+        "ADP payroll deductions; current recordkeeper/provider not identified"
+      ],
+      "historical_systems": [
+        "paper 401(k) enrollment/withdrawal forms",
+        "controller/payroll handoff"
+      ],
+      "likely_authoritative_source": "current retirement recordkeeper + payroll feed",
+      "downstream": [
+        "payroll",
+        "eligibility/enrollment",
+        "termination/distribution"
+      ],
+      "read_automation": "low_until_provider_identified",
+      "write_automation": "no_until_validated",
+      "unresolved": [
+        "provider",
+        "eligibility rules",
+        "feed method",
+        "HR vs finance ownership"
+      ]
+    },
+    {
+      "domain": "FMLA_leave_cases",
+      "observed_current_systems": [
+        "2026 blank/reference forms",
+        "current 2025 handbook",
+        "possible ADP/time integration"
+      ],
+      "historical_systems": [
+        "email reminders",
+        "paper packets",
+        "manual tracking"
+      ],
+      "likely_authoritative_source": "restricted HR case ledger linked to current forms/time data unless a live case module is identified",
+      "downstream": [
+        "attendance exclusion",
+        "payroll/benefit premium handling",
+        "return-to-work"
+      ],
+      "read_automation": "medium_high_restricted",
+      "write_automation": "case_action_requires_review",
+      "unresolved": [
+        "current case tracker",
+        "recertification rules",
+        "medical-file storage",
+        "premium billing workflow"
+      ]
+    },
+    {
+      "domain": "attendance_points",
+      "observed_current_systems": [
+        "current handbook rules; system source unresolved"
+      ],
+      "historical_systems": [
+        "Attendance Calendar",
+        "Absentee Report",
+        "personal-time lists"
+      ],
+      "likely_authoritative_source": "controlled restricted attendance event ledger or live time system with HR rule engine",
+      "downstream": [
+        "discipline",
+        "leave/FMLA protection checks",
+        "manager notifications"
+      ],
+      "read_automation": "high_once_source_mapped",
+      "write_automation": "human_review_for_consequences",
+      "unresolved": [
+        "current tracker",
+        "protected-absence coding",
+        "point adjustment approval"
+      ]
+    },
+    {
+      "domain": "workers_compensation",
+      "observed_current_systems": [
+        "current forms/reference library; carrier/admin currentness unresolved"
+      ],
+      "historical_systems": [
+        "KACo/Access24 email workflow",
+        "paper First Report/supporting forms"
+      ],
+      "likely_authoritative_source": "current workers-comp carrier claim system + restricted HR claim ledger",
+      "downstream": [
+        "OSHA",
+        "leave/FMLA",
+        "return-to-work",
+        "payroll/time"
+      ],
+      "read_automation": "medium_restricted",
+      "write_automation": "submission_requires_review",
+      "unresolved": [
+        "current carrier/admin",
+        "portal",
+        "deadline/forms",
+        "OSHA owner"
+      ]
+    },
+    {
+      "domain": "discipline_employee_relations",
+      "observed_current_systems": [
+        "current handbook/policies",
+        "HR-GUI forms",
+        "current restricted case records"
+      ],
+      "historical_systems": [
+        "fiscal-year disciplinary logs",
+        "warning forms",
+        "AAP-sorted derivatives"
+      ],
+      "likely_authoritative_source": "restricted employee-relations case ledger with signed source documents",
+      "downstream": [
+        "attendance consequences",
+        "AAP aggregate discipline reporting",
+        "personnel-file filing"
+      ],
+      "read_automation": "restricted",
+      "write_automation": "human_decision_required",
+      "unresolved": [
+        "current corrective-action form/approval chain",
+        "investigation workflow",
+        "authoritative disciplinary log"
+      ]
+    },
+    {
+      "domain": "EEO_complaints_program",
+      "observed_current_systems": [
+        "signed 2026 EEO policy",
+        "historical Title VII tracker/templates"
+      ],
+      "historical_systems": [
+        "AAP complaint trackers/forms"
+      ],
+      "likely_authoritative_source": "restricted EEO case ledger governed by current EEO Officer",
+      "downstream": [
+        "EEO program reporting",
+        "AAP compliance",
+        "executive review"
+      ],
+      "read_automation": "restricted",
+      "write_automation": "human_decision_required",
+      "unresolved": [
+        "current complaint intake form",
+        "case-status schema",
+        "retention/access policy"
+      ]
+    },
+    {
+      "domain": "AAP_EEO_workforce_reporting",
+      "observed_current_systems": [
+        "ADP EEO data/reports historically",
+        "GitHub compliance knowledge archive",
+        "restricted employee/applicant source data"
+      ],
+      "historical_systems": [
+        "annual/fiscal-year Excel workbook ecosystem"
+      ],
+      "likely_authoritative_source": "derived reproducible aggregates from employee master, ATS, restricted event ledgers and validated labor-market sources",
+      "downstream": [
+        "AAP plan",
+        "state approval",
+        "EEO analysis"
+      ],
+      "read_automation": "high",
+      "write_automation": "generation_high_submission_approval_required",
+      "unresolved": [
+        "post-2024 plan",
+        "current labor-market methodology",
+        "current filing schedule/applicability"
+      ]
+    },
+    {
+      "domain": "state_new_hire_reporting",
+      "observed_current_systems": [
+        "Kentucky New Hire Reporting portal"
+      ],
+      "historical_systems": [
+        "Excel upload batches"
+      ],
+      "likely_authoritative_source": "employee master for eligible unreported hires; state portal for submission outcome",
+      "downstream": [
+        "state compliance audit"
+      ],
+      "read_automation": "high",
+      "write_automation": "approval_required",
+      "unresolved": [
+        "submitted-state tracking source",
+        "current account ownership"
+      ]
+    },
+    {
+      "domain": "unemployment",
+      "observed_current_systems": [
+        "Kentucky Unemployment Insurance Portal / KUIP"
+      ],
+      "historical_systems": [
+        "mail/hearing reminders",
+        "older state process"
+      ],
+      "likely_authoritative_source": "state portal plus restricted HR case file",
+      "downstream": [
+        "hearings",
+        "appeals",
+        "finance/tax account administration"
+      ],
+      "read_automation": "medium_high_restricted",
+      "write_automation": "approval_required",
+      "unresolved": [
+        "portal launch/current state after Aug 2026",
+        "owner/backup",
+        "appeal authority"
+      ]
+    },
+    {
+      "domain": "HR_mail_and_service_accounts",
+      "observed_current_systems": [
+        "shared HR Google account",
+        "Outlook/legacy mailbox",
+        "3CX",
+        "vendor accounts"
+      ],
+      "historical_systems": [
+        "person-bound Sheila mailbox"
+      ],
+      "likely_authoritative_source": "service-account inventory with role ownership and provider-native account settings",
+      "downstream": [
+        "vendor access",
+        "password recovery",
+        "notifications",
+        "calendar"
+      ],
+      "read_automation": "high_metadata_only",
+      "write_automation": "approval_required_for_account_changes",
+      "unresolved": [
+        "legacy mailbox decommission plan",
+        "recovery ownership",
+        "forwarding/account inventory completeness"
+      ]
+    }
+  ],
+  "global_rules": [
+    "A source of truth must be authoritative for a defined data domain, not merely frequently used.",
+    "Mirrors, reports and derived spreadsheets must record their upstream source and refresh timestamp.",
+    "Person-level data should not be copied into GitHub merely to make it agent-searchable.",
+    "Agent writes to payroll, benefits, government portals, employee status, discipline, leave determinations or account security remain approval-gated.",
+    "Where no current source of truth is identified, the Agent OS should surface the gap rather than silently choose a historical spreadsheet."
+  ]
+}
