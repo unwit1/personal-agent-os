@@ -1,0 +1,508 @@
+===== PDF SOURCE BEGIN / PART 3 OF 6 =====
+SOURCE_PATH: Equal Employment Opportunity Plan (EEO)/2022_EEO_1_Component_1_Instruction_Booklet.pdf
+SHA256: 7fed06d031d7214eb0fc7089bd6203071e0f648ed93cbb5be23154b6f9a6851d
+PAGES: 57
+TEXT_CHARS_TOTAL: 195987
+PART_INDEX: 3
+===== TEXT =====
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+19 
+Employees who work remotely and/or telework  must be included in an employer’s  EEO-1 
+Component 1 report(s) by the specific establishment to which the employees report. Under no 
+circumstances, should an employee’s home address be reported on any EEO -1 Component 
+1 submission or report. 
+The temporary closure of a physical work site will normally not affect how employees are counted 
+on the EEO-1 Component 1 report. The fact that most, or even all, employees are teleworking will 
+typically not change EEO-1 Component 1 reporting if the employe es continue to be assigned to, 
+or report to, a physical location or establishment. Those employees should be included on the 
+“Headquarters Report” or “Establishment-Level Report” for the physical location to which they 
+are assigned or report. If the employ er has closed an establishment and reassigned an employee 
+from the closed establishment to another location, the reassigned employee should be included at 
+the establishment to which that employee reports or has been reassigned.  
+If a remote employee is not assigned to and does not report to any physical location on a permanent 
+basis, the employee should be counted at the establishment to which the employee’s manager 
+reports or is assigned. If  an employee does  not report to an  establishment and  the employee’s 
+manager also does not report to an establishment, the employee (and their manager) should be 
+included on the employer’s “Headquarters Report.”  
+If an employer operates entirely remotely and does not have any physical locations, not even a 
+headquarters office, the employer should report the address where the business  is legally 
+registered, for example, a Post Office box in lieu of a physical address.  
+ 
+16. HOW TO REPORT EMPLOYEES AT CLIENT SITES 
+Workforce demographic data on employees working at client site locations must be included in an 
+employer’s EEO -1 Component 1 filing.  For the 2022 EEO -1 Component 1 data collection, 
+employers continue to have the option to report employees working at client sites either by (1) 
+using the client site address as the location of the establishment or (2) reporting those employees 
+at an establishment of the employer (i.e., non-client site).  
+ 
+Beginning with the 2023 EEO -1 Component 1 data collection , tentatively scheduled to open in 
+2024, employers will be required to report employees working at client site locations at the address 
+of the client site. The address of the “client site” will serve as the location of the establishment for 
+any such employees. Employers will no longer have the option to report such employees at a n 
+establishment of the employer (i.e., non-client site). 
+ 
+17. HOW TO REPORT EMPLOYEES AT U.S. GOVERNMENT AND MILITARY 
+LOCATIONS THAT ARE RESTRICTED FROM DISCLOSURE 
+A filer reporting employees located at a U.S. government or military site that is restricted from 
+disclosure may enter only the city, state, and zip code for that establishment(s). In the address field 
+for the establishment, the filer may enter either “SECRET  LOCATION” or “CONFIDENTIAL  
+LOCATION.” 
+ 
+18. HOW TO REPORT AN ACQUISITION, SPINOFF, OR MERGER  
+If an employer has experienced an acquisition, spinoff, or merger since the last EEO-1 Component 
+1 reporting cycle, the employer must utilize the “Report Acquisition, Spinoff, or Merger” module 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+20 
+in the EEO-1 Component 1 Online Filing System  (OFS) to report any changes to the EEOC. The 
+module will provide filers detailed guidance on how to accurately report such changes within the 
+OFS.  
+ 
+In addition, answers are provided below to a series of frequently asked questions (FAQs) regarding 
+the filing responsibilities of employers that experienced an acquisition, spinoff, or merger since  
+the last EEO-1 Component 1 reporting cycle.52  
+ 
+Filing Responsibilities of New Companies Created as the Result of a Merger  
+If a company /employer merged with another company /employer to create a new 
+company/employer, certain filing obligations apply depending on when the merger was completed. 
+ 
+Merger Completed before or during the Fourth Quarter (i.e., October 1 through December 31) of 
+the Reporting Year (i.e., 2022) 
+ 
+If the merger was completed before or during the fourth quarter (i.e., October 1 through December 
+31) of the reporting year (i.e., 2022) and the new company otherwise meets the filing eligibility 
+requirements, the new company is responsible for submitting 2022 EEO-1 Component 1 data under 
+a new “OFS Company ID” provided by the EEOC through the EEO-1 Component 1 Online Filing 
+System (OFS).  
+ 
+Merger Completed after the Fourth Quarter (i.e., October 1 through December 31) of the Reporting 
+Year (i.e., 2022) 
+ 
+If the merger was completed after the fourth quarter (i.e., October 1 through December 31) of the 
+reporting year (i.e., 2022) and the new company otherwise meets the filing eligibility requirements 
+and has access to 2022 EEO-1 Component 1 data for a workforce snapshot period from the fourth 
+quarter of the reporting year for one or more of the companies that merged , the new company is  
+responsible for submitting 2022 EEO-1 Component 1 data under a new “ OFS Company ID ” 
+provided by the EEOC through the EEO-1 Component 1 Online Filing System (OFS).  
+ 
+If the newly created company is eligible to file and does not have access to 2022 EEO-1 Component 
+1 data for a workforce snapshot period from the fourth quarter of the reporting year  for one or 
+more of the companies that merged, the newly created company should note this in the 
+“Certification Comments” within the OFS. 
+ 
+Filing Responsibilities of Companies which Acquired Another Company 
+If a company /employer acquired another company /employer, certain filing obligations apply 
+depending on when the acquisition was completed. 
+                                                           
+52 As a general matter, when a company completes an acquisition, spinoff, or merger and does not have access to all or part of t he 
+required 2022 EEO-1 Component 1 data for an acquired, spun off, or former company, employers must note this in the 
+“Certification Comments” within the OFS. Employers should preface any such comments with the phrase “Additional ASM 
+Information:”. Following this phrase, an employer must provide a statement identifying the company (companies) and/or 
+establishments for which the employer does not have data as well as an explanation detailing why such data are not accessible  for 
+reporting purposes. 
+ 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+21 
+ 
+Acquisition Completed before or during the Fourth Quarter (i.e., October 1 through December 31) 
+of the Reporting Year (i.e., 2022) 
+ 
+If the  acquisition was completed before or during the fourth quarter (i.e., October 1 through 
+December 31) of the reporting year (i.e., 2022) and the acquiring company otherwise meets the 
+filing eligibility requirements, the acquiring company is responsible  for submitting 2022 EEO-1 
+Component 1 data for itself and the newly acquired company.  
+ 
+Acquisition Completed after the Fourth Quarter (i.e., October 1 through December 31) of the 
+Reporting Year (i.e., 2022) 
+ 
+If the acquisition was completed after the fourth quarter (i.e., October 1 through December 31) of 
+the reporting year (i.e., 2022) and the acquiring company otherwise meets the filing eligibility 
+requirements and has access to 2022 EEO-1 Component 1 data for a workforce snapshot period 
+from the fourth quarter of the reporting year for the acquired company, the acquiring company is 
+responsible for submitting 2022 EEO-1 Component 1 data for itself and the newly acquired 
+company.  
+ 
+If the acquiring company is eligible to file and does not have access to 2022 EEO-1 Component 1 
+data for a workforce snapshot period from the fourth quarter of the reporting year for the acquired 
+company, the acquiring company should note this in the “Certification Comments” within the OFS. 
+ 
+Filing Responsibilities of Companies which Completed a Spinoff  
+If a company/employer was spun off from another company /employer (e.g., a parent company), 
+certain filing obligations apply depending on when the spinoff was completed. 
+ 
+Spinoff Completed before or during the Fourth Quarter (i.e., October 1 through December 31) of 
+the Reporting Year (i.e., 2022) 
+ 
+If the spinoff was completed before or during the fourth quarter (i.e., October 1 through December 
+31) of the reporting year (i.e., 2022) and the spun off company otherwise meets the filing eligibility 
+requirements, the spun off company is responsible for submitting 2022 EEO-1 Component 1 data 
+for itself under its own “OFS Company ID.”  
+ 
+Spinoff Completed after the Fourth Quarter (i.e., October 1 through December 31) of the Reporting 
+Year (i.e., 2022) 
+ 
+If the spinoff was completed after the fourth quarter (i.e., October 1 through December 31) of the 
+reporting year (i.e., 2022) and the spun off company otherwise meets the filing eligibility 
+requirements and has access to its 2022 EEO-1 Component 1 data for a workforce snapshot period 
+from the fourth quarter of the reporting year , the spun off company is responsible  for submitting 
+2022 EEO-1 Component 1 data for itself under its own “OFS Company ID.”  
+ 
+If the spun off company is eligible to file and does not have access to its 2022 EEO-1 Component 
+1 data for a workforce snapshot period from the fourth quarter of the reporting year , the spun off 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+22 
+company should note this in the “Certification Comments” within the OFS. 
+ 
+19. REPORTING PROCEDURES FOR THIRD -PARTY HUMAN RESOURCE 
+ORGANIZATIONS AND THEIR CLIENT EMPLOYERS53 
+Client Employers and Third-Party Human Resource Organizations 
+Clients of Professional Employer Organizations ( PEOs), Administrative Services Organizations 
+(ASOs), Human Resource Outsourcing organizations (HRO s), and similar third -party human 
+resource organizations are referred to as “client employers” by the EEOC for purposes of the EEO-
+1 Component 1 data collection . A “client employer” is an employer that uses the services of a 
+third-party human resource organization (e.g., PEO, HRO, ASO).  These services can  include 
+preparing and filing the employer’s EEO-1 Component 1 report(s) on the employer’s behalf. The 
+employer using these services is referred to as a “client employer” of the third -party human 
+resource organization (e.g., PEO, HRO, ASO) that is filing on the employer’s behalf. 
+ 
+Client Employer Registration 
+Every eligible client employer on behalf of which a third-party human resource organization (e.g., 
+PEO, HRO, ASO) chooses to file is required to have its own OFS employer registration under the 
+client employer’s EIN (i.e., Employer Identification Number). The employer registration contains 
+basic contact and location information and resides within the EEO-1 Component 1 Online Filing 
+System (OFS). This employer registration must be for the client employer itself and not the third-
+party human resource organization filing on the client employer’s behalf. Additionally,  all filers 
+(e.g., client employers, PEOs, HROs, ASOs) are required to have an individual-level user account 
+to gain access to the EEO-1 Component 1 Online Filing System (OFS).54 
+ 
+Filing on Behalf of a Client Employer 
+A third-party human resource organization (e.g., PEO, HRO, ASO) is not permitted to file for the 
+eligible client employer as an “establishment” of the third -party human resource organization. In 
+other words, a PEO, HRO, ASO or other third-party human resource organization (e.g., PEO, 
+HRO, ASO) may not submit an EEO -1 Component 1 report(s) that includes  itself and a client 
+employer and/or a report that includes multiple client employers. 
+ 
+Additionally, t hird-party human resource organizations (e.g., PEOs, HROs, ASOs) are not 
+permitted to file only establishment report(s) for a client employer. Third -party human resource 
+organizations choosing to file on behalf of a single-establishment client employer (i.e., “single-
+establishment employer”) or a multi -establishment client employer (i.e., “ multi-establishment 
+employer”) must file all the reports that a client employer filing on its own behalf would be 
+                                                           
+53 Third-party human resou rce organizations and their current or former client employers should refer to Appendix D of the 
+Instruction Booklet for additional information on their filing responsibilities. 
+54 A third-party human resource organization (e.g., PEO, HRO, ASO) may still prepare and file an EEO-1 Component 1 report on 
+behalf of eligible client employers. After the eligible client employer creates its company registration record, the client e mployer 
+can invite its third -party human resource organization (e.g., PEO, HRO, ASO ) to create an associated user account. However, a 
+third-party human resource organization (e.g., PEO, HRO, ASO) is not permitted to certify a client employer’s EEO-1 Component 
+1 report. An official (i.e., employee) of the client employer (i.e.,  “certifying official”) must certify the client employer’s EEO-1 
+Component 1 report. The client employer’s “certifying official” cannot be from the third-party human resource organization (e.g., 
+PEO, HRO, ASO). 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+23 
+required to file. 
+ 
+A third-party human resource organization (e.g., PEO, HRO, ASO) is also not permitted to file 
+EEO-1 Component 1 report(s) on behalf of a client employer for only a partial number of the client 
+employer’s employees. In such a situation, the client employer, not the third-party human resource 
+organization, must file EEO-1 Component 1 report(s) for all its employees. 
+ 
+Upload of Data File on Behalf of a Client Employer 
+A third-party human resource organization (e.g., PEO, HRO, ASO) choosing to submit data file 
+uploads on behalf of eligible client employers must do so separately for each client employer. The 
+bulk or consolidated upload of data files for multiple client employers by a third -party human 
+resource organization is not permitted. Every eligible client employer on behalf of which a third-
+party human resource organization is choosing to file must have a separate data file upload under 
+that client employer’s registration in the EEO-1 Component 1 Online Filing System (OFS). 
+ 
+Filing Responsibility of Client Employers 
+It is the responsibility of a client employer, if eligible, to ensure an EEO-1 Component 1 report is 
+filed on its behalf. If a third-party human resource organization (e.g., PEO, HRO, ASO) is choosing 
+to prepare and/or file the client employer’s EEO-1 Component 1 report, the client employer should 
+contact its third-party human resource organization to ensure it has the necessary information to 
+file. It is the responsibility of the client employer to ensure an EEO-1 Component 1 report is filed 
+on its behalf.55  
+ 
+If a third -party human resource organization (e.g., PEO, HRO, ASO) is choosing not to file a n 
+eligible client employer’s 2022 EEO-1 Component 1 report, it is the responsibility of a client 
+employer to ensure a report is filed for its company.  
+ 
+Client Employer Certification 
+A third-party human resource organization (e.g., PEO, HRO, ASO) is not permitted to certify a 
+client employer’s EEO-1 Component 1 report. An official (i.e., employee) of the client employer 
+(i.e., “Certifying Official”) must certify the client employer’s EEO-1 Component 1 report. The 
+client employer’s “ Certifying Official” cannot be from the third -party human resource 
+organization (e.g., PEO, HRO, ASO). 
+ 
+Third-Party Human Resource Organization Filing as an Employer 
+A third-party human resource organization (e.g., PEO, HRO, ASO) that is eligible to file an EEO-
+1 Component 1 report in its own capacity as an employer must submit a report that includes only 
+                                                           
+55 Every eligible client employer on behalf of which a third-party human resource organization (e.g., PEO, HRO, ASO) chooses to 
+file is required to have its own OFS employer registration under the client employer’s EIN (i.e., Employer Identification Number). 
+The employer registration contains basic contact and location information and resides within the EEO-1 Component 1 Online Filing 
+System (OFS). This employer registration must be for the client employer itself and not the third-party human resource organization 
+filing on the client employer’s behalf. Additionally, all filers (e.g., client employers, PEOs, HROs, ASOs) are required to have an 
+individual-level user account to gain access to the EEO-1 Component 1 Online Filing System (OFS). 
+ 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+24 
+the third-party human resource organization and its own establishments and employees. The third-
+party human resource organization’s own report must not include any of its client employers or 
+client employers’ establishments. 
+ 
+Requests by Client Employers for Prior Reports Filed by a Third-Party Human Resource 
+Organization 
+As in prior data collection years, the EEOC cannot provide client employers with any prior year 
+EEO-1 Component 1  report(s) filed on behalf of  the client employer by a third-party human 
+resource organization (e.g., PEO, HRO, ASO). Client employers must contact the third -party 
+human resource organization (e.g., PEO, HRO, ASO) to obtain any such reports. 
+ 
+Processing of Client Employer Establishment Deletions/Registrations by the EEOC 
+In prior EEO-1 Component 1 data collection years, and upon request by a third-party human 
+resource organization (e.g., PEO, HRO, ASO), the EEOC and its EEO -1 Component 1 data 
+collection contractor manually processed client employer establishment deletions and employer 
+registrations, including bulk deletions and registrations.  The EEOC and its contractor will no 
+longer process such deletions and registrations for an individual third -party human resource 
+organization (e.g., PEO, HRO, ASO) and/or its current or former client employers. 
+ 
+20. OFFICIAL CERTIFICATION OF SUBMISSION 
+Once an employer’s reports have been completed, the name and contact information for the 
+employer’s “Certifying Official” and the employer’s “Primary Point of Contact (POC) for EEO-1 
+Component 1 Reporting ” (i.e., “Primary POC”) for receiving communications from the EEOC  
+regarding the report must be provided in the OFS .56 The “Certifying Official” will certify to the 
+below statement within the OFS.  
+ 
+“I certify that the information , including any  workforce demographic data , provided in this 
+report is correct and true to the best of my knowledge and was prepared in conformity with 
+the directions set forth in the form and accompanying instructions.”  
+ 
+Below this  statement, the EEOC provides written notice to the “ Certifying Official” that 
+“[k]nowingly and willfully false statements on this report are punishable by law, US Code, Title 
+18, Section 1001.”  
+ 
+Please note that if an employer fails to complete the final step to “Certify EEO-1 Component 1 
+Report(s)” within the EEO-1 Component 1 Online Filing System  (OFS), the status of the 
+employer’s filing will be considered “incomplete” by the E EOC.57 Any employer that has not 
+certified its submission in the OFS by the “Published Due Date” (i.e., published deadline) will 
+                                                           
+56 Employers are permitted to have the same individual from the employer serve as both the “Certifying Official” and the “Primary 
+Point of Contact (POC) for EEO-1 Component 1 Reporting” (i.e., “Primary POC”) for the employer’s “Official Certification of 
+Submission.” However, the individual serving as the “Certifying Official” must be an official (i.e., employee) of the employer. For 
+example, employers using a third-party human resource organization (e.g., PEO, HRO, ASO) are not permitted to have an official 
+(i.e., employee) of the third-party human resource organization certify an employer’s EEO-1 Component 1 report(s). An official of 
+the employer must certify the employer’s EEO-1 Component 1 report(s).  
+57 Please note that even if the employer has submitted data for each of its required reports, the filing will not be considered complete 
+by the EEOC until the employer certifies its submission in the EEO-1 Component 1 Online Filing System (OFS). 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+25 
+receive a “Notice of Failure to File” from the EEOC requesting that the employer certify its 
+submission in order to complete the required filing.  
+ 
+21. OFS INSTRUCTIONS FOR NEW AND RETURNING EMPLOYERS AND ACCOUNT 
+HOLDERS  
+Employers Filing for the First Time 
+ All individuals responsible for filing the employer’s reports will be requ ired to create an 
+individual user account associated with their email address to access the EEO-1 Component 
+1 Online Filing System (OFS). This can be done by visiting www.eeocdata.org/eeo1/signin  
+and sel ecting “Create an Account.”  
+ 
+ After creating an account and signing in to the EEO-1 Component 1 Online Filing System 
+(OFS), account holders can register a new employer (i.e., company) by selecting “Add 
+Employer to List” on the home screen.58  
+ 
+ When adding a new employer, account holders will follow a series of prompts to determine 
+an employer’s eligibility to file. If eligibility is determined, account holders will be asked 
+to provide the: (1) Employer Identification Number (EIN); 59 (2) 2022 North American 
+Industry Classification System (NAICS) code;60 (3) employer name (i.e., company name); 
+and (4) employer headquarters address. 
+ 
+ During the new employer registration process, account holders will be provided with an 
+“OFS Company ID” and “Employer PIN.” The “OFS Company ID” and “Employer PIN” 
+can be shared with other OFS account holders to link their “Individual User Account” with 
+the employer profile.  
+ 
+ After registering for an account, account holders may log in to the account using their 
+username (i.e., email address) and their password created in the account creation process. 
+If after linking an employer to a user account, the employer is not listed on the “Employer 
+List,” please contact the Filer Support Team via the Message Center.  
+ 
+Employers that have Previously Filed 
+Accessing an Employer’s Profile to Begin Submitting Reports 
+All individuals responsible for filing the employer’s reports will be required to create an 
+individual user account associated with their email address to sign in to the EEO-1 
+Component 1 Online Filing System (OFS) to access employer report(s) (formerly referred 
+to as company records) and/or submit EEO-1 Component 1 report(s). 
+ 
+                                                           
+58 After creating an account, users can communicate with the Filer Support Team via the online EEO-1 Component 1 Message 
+Center at www.eeocdata.org/eeo1 and access supplementary helpful resources, if needed. 
+59 If the employer’s EIN is associated with an existing EEO-1 Component 1 employer (i.e., company) report(s), the “New Employer 
+Registration” process cannot be completed . Please follow the instructions within the OFS to receive assistance from the Filer 
+Support Team through the online Message Center at www.eeocdata.org/eeo1. 
+60 To identify the correct 2022 NAICS code for each establishment, an employer can search using keywords for its business using 
+the U.S. Census Bureau NAICS Search Tool at  www.census.gov/naics/.  
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+26 
+Returning Users 
+Account holders may sign in to the EEO-1 Component 1 Online Filing System (OFS) by 
+visiting www.eeocdata.org/eeo1/signin and entering the email address and password 
+created beginning with the 2019/2020 EEO-1 Component 1 data collection cycle. Account 
+holders may be prompted to reset their password before proceeding.61 Account holders who 
+do not know their password should select “Forgot Password.” 
+ 
+New Account Holders for Employers which have Previously Filed 
+New individuals responsible for filing reports for employers which have previously filed 
+will be required to create an individual user account associated with their email address to 
+access the EEO-1 Component 1 Online Filing System (OFS). This can be done by visiting 
+www.eeocdata.org/eeo1/signin and selecting “Create an Account.” After creating an 
+account and logging in to the OFS, new account holders can link their individual user 
+account to an employer by selecting “Add Employer to List” on the “My Employer List” 
+screen and entering the “OFS Company ID” and “Employer PIN” provided on the 
+employer’s annual filing notifications sent via U.S. postal mail and email prior to the 
+opening of the 2022 EEO-1 Component 1 data collection.  
+ 
+If an account holder does not have the “Employer ID” and “Employer PIN,” they should 
+obtain this information from their employer’s certifying official and enter it into the OFS. 
+If the account holder does not have access to the “Employer ID” and “Employer PIN,” they 
+should proceed in the OFS to answer a series of additional prompts. If the employer has 
+previously filed an EEO -1 Component 1 report, the account holder will be taken to a 
+“Change of Contact” form  in the OFS .62 Account holders will be asked to provide  the 
+following in the “Change of Contact” form: 
+ 
+ First Name, Last Name, Title, Phone Number, and Email Address of the person requesting 
+the change of contact; 
+ Employer Name and EIN; 
+ OFS Company ID (if known); 
+ First Name, Las t Name, Title, Phone Number, and Email Address of the new employer 
+(i.e., company) contact; 
+ A verification letter in PDF format on the employer’s letterhead (i.e., company’s 
+letterhead) from an authorized employer (i.e., company) representative approving this 
+change (e.g., CEO, President, General Counsel, CFO, Controller, Vice President of Human 
+Resources) is required.  
+ 
+Accessing Prior Year Filed Reports  
+EEO-1 Component 1 reports will be available in the EEO-1 Component 1 Online  Filing 
+System (OFS) for all reports filed beginning with the 2015 EEO -1 Component 1 data 
+collection.63 Select the employer in the “Employer List” to access the “Employer 
+Dashboard,” and click on “Historic EEO -1 Component 1 Reports” to download any 
+                                                           
+61 Please note that account holders are required to reset their password every 90 days. 
+62 Please note that a “Change of Contact” request must be reviewed by the EEO-1 Component 1 Filer Support Team and may take 
+up to 5–7 business days to be approved. 
+63 Report availability is dependent on the employer’s filing history. 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+27 
+available prior year reports. 
+ 
+Adding/Changing an Employer’s Point of Contact (POC)64 
+Account Holders Who Are Linked to an Employer in the OFS 
+Account holders whose accounts are linked to an employer in the EEO-1 Component 1 
+Online Filing System (OFS) can update the employer’s contact by selecting the appropriate 
+employer from the “Employer List” page. On the “Employer Dashboard” page, select the 
+“Confirm Employer Contacts” step. To add a new employer contact, select “Add New 
+Contact.” To update or delete an existing employer contact, select “Edit/Delete” next to the 
+appropriate contact. 
+ 
+Account Holders Who Are Not Linked to an Employer in the OFS 
+If an individual needs to update an employer’s point(s) of contact (POC(s)) and their user 
+account is not linked to an employer in the EEO-1 Component 1 Online Filing System 
+(OFS), the individual can visit www.eeocdata.org/eeo1 and log in to their user account or 
+select “Get Started” to create a user account. Once logged in, account holders should select 
+“Add Employer to List” on the “Employer List” page. Account holders should follow the 
+prompts to link their individual user account to the employer. After successfully linking to 
+the employer, the account holder can select the employer on the “Employer List” page. On 
+the “Employer Dashboard” page, select the “Confirm Employer Contacts” step. To add a 
+new employer contact, select “Add New Contact” to update or delete an existing employer 
+contact, select “Edit/Delete” next to the appropriate contact. 
+ 
+Saving Entries within the OFS 
+As an account holder advances from one screen to another, the EEO-1 Component 1 Online 
+Filing System (OFS) saves their additions/deletions/changes as they click “Next,” “Save,” 
+“Confirm,” or “Submit.” An account holder must select “Next,” “Save,” “Confirm,” or 
+“Submit” and advance to the next page to save th eir additions/deletions/changes. 
+Otherwise, they will need to re-enter any additions/deletions/changes if they navigate away 
+from the OFS before clicking “Next,” “Save,” “Confirm,” or “Submit.” 
+ 
+Correcting Establishment Information in the OFS65 
+Most employer information, including an EIN, can be edited in the EEO-1 Component 1 
+Online Filing System (OFS). “OFS Company ID” and “HQ/Establishment-Level Unit ID” 
+are the only exceptions – these cannot be edited by account holders. To update employer 
+information, log in to the OFS, and select an employer from “Your Employer List” page. 
+On the “Employer Dashboard” page, select the “Confirm Employer Details” step. Follow 
+the prompts within this step to confirm or update employer information. The 2022 EEO-1 
+Component 1 User’s Guide, which will be available beginning on October 31, 2023 (i.e., 
+                                                           
+64 Please note that an employer may have more than one point of contact (POC) in the OFS. The EEOC  strongly encourages 
+employers to include more than one person as a point of contact to ensure the employer receives critical notifications about the 
+EEO-1 Component 1 data collection. 
+65 Please note that once data collection closes for a particular reporting cycle, employers are not able to retroactively correct and/or 
+update any workforce demographic data reported during that cycle. 
+
+2022 EEO-1 Component 1 Data Collection                                                       OMB Control Number: 3046-0049 
+Instruction Booklet                                                                                                         Expiration Date: 08/31/2024 
+28 
+the opening of the 2022 EEO-1 Component 1 data collection), also has additional helpful 
+technical information on how to edit employer information , if wanted by a filer . The 
+supplementary technical user’s guide can be accessed from the “Resource” page on the 
+“Your Employer List” within the OFS or by clicking the folder icon on the top of the screen.  
+ 
+Finishing Required Filing Steps in the OFS 
+As account holders complete each step of the process on the “Employer Dashboard,” each 
+step will change from “Go →” to “Complete.” After the “Report EEO-1 Component 1 Data 
+(Manual Entry or Data File Upload)” is shown as “Complete,” the “Review EEO -1 
+Component 1 Reports” and the “Certify EEO-1 Component 1 Reports” steps will show the 
+“Go →” button. Employers should r eview their report(s) to ensure data accuracy. When 
+the “Certify EEO-1 Component 1 Reports” displays “Go →,” select that step to complete 
+the certification process. Account holders will then proceed to a screen to enter “Certifying 
+Official” information and certify the EEO-1 Component 1 report(s). Account holders will 
+receive an email indicating that the EEO-1 Component 1 report(s) was certified. 
+ 
+Saving/Printing a Copy of Submitted/Certified EEO-1 Component 1 Reports 
+After certification, the “Employer Dashboard” will display “Thank you for completing the 
+EEO-1 Component 1 report for 2022.” Account holders may save and/or print a PDF copy 
+of their submitted and certified EEO -1 Component 1 report(s) by selecting “Report” on 
+this screen. 
+ 
+22. OFS REQUIRED FILING INFORMATION 
+As part of the EEO-1 Component 1 filing process, in addition to submitting workforce 
+demographic data if required to do so , an employer is required to provide within the EEO-1 
+Component 1 Online Filing System (OFS) certain identifying information on the employer and any 
+establishments being reported. The employer must also complete a set of questions to determine 
+whether it meets the threshold eligibility requirements to submit EEO-1 Component 1 workforce 
+demographic data. Additionally, all employers must indicate whether the employer and /or any 
+headquarters or non-headquarters establishments are federal contractors for purposes of EEO -1 
+Component 1 reporting.  
+ 
+The information provided by an employer in the sections and sub-sections discussed below will 
+be included in the final certified downloadable employer’s report(s) generated by the OFS (i.e., a 
+“Single-Establishment Employer Report” for single-establishment employers and a “Consolidated 
+Report,” “Headquarters Report ,” and “Establishment-Level Report(s)”  for multi -establishment 
+employers).66 Please note that all employers may preview and review uncertified PDF versions of 
+their reports prior to the employer’s official certification of the submission to the EEOC.  
+                                                           
+66 Appendix E of the Instruction Booklet contains a “sample” of an EEO-1 Component 1 report(s) generated by the EEOC’s EEO-
+1 Component 1 Online Filing System (OFS). Filers are not permitted to submit EEO-1 Component 1 workforce demographic data 
+using this sample. The EEOC requires electronic submission of EEO-1 Component 1 report(s) through the OFS, the agency’s web-
+based data collection application (i.e., portal). The OFS is accessible at www.eeocdata.org/eeo1. The EEOC will only accept EEO-
+1 Component 1 report(s) submitted and certified through the OFS. The EEOC will not accept reports submitted via paper or through 
+other non-OFS electronic means (e.g., email, CD-ROM). The EEOC will consider filers submitting reports outside of the OFS to 
+be non-compliant for purposes of their mandatory EEO-1 Component 1 filing obligation.
+
+===== PDF SOURCE PART 3 END =====

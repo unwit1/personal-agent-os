@@ -1,0 +1,745 @@
+===== PDF SOURCE BEGIN / PART 1 OF 8 =====
+SOURCE_PATH: TITLE VI LEP PLAN/FTA_Title_VI_FINAL.pdf
+SHA256: 21dfaa2b0e937e2f548c150590a5116a99a200e81ccc6a2aec353090e657ae04
+PAGES: 130
+TEXT_CHARS_TOTAL: 281439
+PART_INDEX: 1
+===== TEXT =====
+
+U.S. Department  
+of Transportation  
+Federal Transit  
+Administration 
+ 
+ 
+CIRCULAR
+ 
+FTA C 4702.1B  
+Subject: 	 TITLE VI REQUIREMENTS AND GUIDELINES FOR FEDERAL 
+TRANSIT ADMINISTRATION RECIPIENTS   
+October 1, 2012 
+1.
+	 PURPOSE. The purpose of this Circular is to provide recipients of Federal Transit 
+Administration (FTA) financial assistance with guidance and instructions necessary to carry 
+out U.S. Department of Transportation (“DOT” or “the Department”) Title VI regulations (49 
+CFR part 21) and to integrate into their programs and activities considerations expressed in 
+the Department’s Policy Guidance Concerning Recipients’ Responsibilities to Limited 
+English Proficient (“LEP”) Persons (70 FR 74087, December 14, 2005).  
+2.	 CANCELLATION. This Circular supersedes FTA Circular 4702.1A “Title VI and Title VI-
+Dependent Guidelines for Federal Transit Administration Recipients,” dated May 13, 2007.  
+3.	 AUTHORITY. 
+a.	 Title VI of the Civil Rights Act of 1964, 42 U.S.C. § 2000d et seq. 
+b.	 Federal Transit Laws, Title 49, United States Code, Chapter 53. 
+c.	 49 CFR § 1.51. 
+d.	 49 CFR part 21. 
+e.	 28 CFR § 42.401 et seq. 
+4.	 WAIVER. FTA reserves the right to waive any requirements of this Circular to the extent 
+permitted by law. 
+5.	 FEDERAL REGISTER NOTICE. In conjunction with publication of this Circular, FTA 
+published a notice in the Federal Register on August 28, 2012, addressing comments 
+received during development of the Circular.  
+6.	 AMENDMENTS TO THE CIRCULAR. FTA reserves the right to update this Circular to 
+reflect changes in other revised or new guidance and regulations that undergo notice and 
+comment, without further notice and comment on this Circular. FTA will post updates on our 
+
+ 
+ 
+ 
+ 
+  
+ 
+                                  
+ 
+Page 2 	 FTA C 4702.1B 
+website at www.fta.dot.gov. The website allows the public to register for notification when 
+FTA issues Federal Register notices or new guidance. Please visit the website and click on 
+“Sign Up For Email Updates” for more information.  
+7.	 ACCESSIBLE FORMATS. This document is available in accessible formats upon request. 
+To obtain paper copies of this Circular as well as information regarding these accessible 
+formats, call FTA’s Administrative Services Help Desk, at 202-366-4865. Individuals with 
+hearing impairments may contact the Federal Relay Service at 1-800-877-8339 for assistance 
+with the call. 
+_/s/______________ 
+ Peter Rogoff 
+ Administrator 
+
+ 
+ 
+ 
+ 
+ 
+  
+ 
+   
+   
+    
+   
+   
+   
+ 
+   
+   
+   
+   
+   
+   
+ 
+   
+    
+   
+   
+   
+ 
+ 
+ 
+ 
+   
+   
+   
+   
+   
+   
+ 
+ 
+ 
+ 
+   
+   
+  
+    
+FTA C 4702.1B 	 Page i 
+TITLE VI GUIDELINES FOR FTA RECIPIENTS 
+TABLE OF CONTENTS 
+CHAPTER	 PAGE 
+I INTRODUCTION AND BACKGROUND ................................................................ Chap. 1−1
+ 
+1. The Federal Transit Administration (FTA). ...................................................... Chap. 1−1
+ 
+2. Authorizing Legislation. .................................................................................... Chap. 1−1
+ 
+3. How to Contact FTA ......................................................................................... Chap. 1−1
+ 
+4. Grants.gov ......................................................................................................... Chap. 1−1
+ 
+5. Definitions ......................................................................................................... Chap. 1−2
+ 
+6. Environmental Justice ....................................................................................... Chap. 1−6
+ 
+II PROGRAM OVERVIEW .......................................................................................... Chap. 2−1
+ 
+1. Program Objectives ........................................................................................... Chap. 2−1
+ 
+2. Statutory Authority ............................................................................................ Chap. 2−1
+ 
+3. Regulatory Authority ......................................................................................... Chap. 2−1
+ 
+4. Additional Documents ....................................................................................... Chap. 2−2
+ 
+5. Reporting Requirements .................................................................................... Chap. 2−2
+ 
+6. Applicability to Contractors .............................................................................. Chap. 2−3
+ 
+III GENERAL REQUIREMENTS AND GUIDELINES................................................ Chap. 3−1
+ 
+1. Introduction ....................................................................................................... Chap. 3−1
+ 
+2. Requirement to Provide Title VI Assurances.................................................... Chap. 3−1
+ 
+3. Requirements for First-Time Applicants ........................................................... Chap. 3−1
+ 
+4.	 Requirement to Prepare and Submit a Title VI Program .................................. Chap. 3−1
+ 
+5.	 Requirement to Notify Beneficiaries of Protection Under Title VI .................. Chap. 3−4
+ 
+6.	 Requirement to Develop Title VI Complaint Procedures and Complaint                    
+Form .................................................................................................................. Chap. 3−5 
+7.	 Requirement to Record and Report Transit-Related Title VI Investigations, 
+Complaints, and Lawsuits ................................................................................. Chap. 3−5 
+8.	 Promoting Inclusive Public Participation .......................................................... Chap. 3−5
+ 
+9.	 Requirement to Provide Meaningful Access to LEP Persons ........................... Chap. 3−6
+ 
+10.	 Minority Representation on Planning and Advisory Bodies ............................. Chap. 3−9
+ 
+11.	 Providing Assistance to Subrecipients ............................................................ Chap. 3−10
+ 
+12.	 Monitoring Subrecipients ................................................................................ Chap. 3−10
+ 
+13.	 Determination of Site or Location of Facilities ............................................... Chap. 3−11
+ 
+14.	 Requirement to Provide Additional Information Upon Request ..................... Chap. 3−12 
+IV REQUIREMENTS AND GUIDELINES FOR FIXED ROUTE TRANSIT          
+PROVIDERS .............................................................................................................. Chap. 4−1 
+1. Introduction ....................................................................................................... Chap. 4−1 
+2. Implementation………………………………………………………………..Chap. 4−2 
+3. Requirement to Prepare and Submit a Title VI Program .................................. Chap. 4−3
+ 
+4. Requirement to Set System-Wide Service Standards and Policies ................... Chap. 4−4
+ 
+
+ 
+ 
+   
+   
+   
+ 
+   
+   
+   
+   
+ 
+   
+   
+   
+   
+   
+   
+ 
+   
+   
+   
+   
+ 
+   
+   
+   
+   
+   
+   
+ 
+ 
+   
+   
+   
+   
+   
+   
+ 
+ 
+  
+ 
+Page ii FTA C 4702.1B 
+5. Requirement to Collect and Report Demographic Data .................................... Chap. 4−7
+ 
+6. Requirement to Monitor Transit Service ........................................................... Chap. 4−9
+ 
+7. Requirement to Evaluate Service and Fare Changes ...................................... Chap. 4−10
+ 
+V REQUIREMENTS FOR STATES ............................................................................. Chap. 5−1
+ 
+1. Introduction ....................................................................................................... Chap. 5−1
+ 
+2. Requirement to Prepare and Submit a Title VI Program .................................. Chap. 5−1
+ 
+3. Planning ............................................................................................................. Chap. 5−2
+ 
+4. Requirements for Program Administration ....................................................... Chap. 5−3
+ 
+VI REQUIREMENTS FOR METROPOLITAN TRANSPORTATION PLANNING 
+ORGANIZATIONS .................................................................................................... Chap. 6−1 
+1. Introduction ....................................................................................................... Chap. 6−1
+ 
+2. Requirement to Prepare and Ssubmit a Title VI Program ................................. Chap. 6−1
+ 
+3. Planning ............................................................................................................. Chap. 6−2
+ 
+4. Designated Recipient ......................................................................................... Chap. 6−3
+ 
+5. Direct Recipient ................................................................................................. Chap. 6−3
+ 
+6. Requirements for Program Administration ....................................................... Chap. 6−3
+ 
+VII  EFFECTING COMPLIANCE WITH DOT TITLE VI REGULATIONS ................ Chap. 7−1
+ 
+1. Introduction ....................................................................................................... Chap. 7−1
+ 
+2. Procedures for Securing Voluntary Compliance ............................................... Chap. 7−1
+ 
+3. Proceedings ....................................................................................................... Chap. 7−2
+ 
+4. Judicial Review ................................................................................................. Chap. 7−4
+ 
+VIII COMPLIANCE REVIEWS ..................................................................................... Chap. 8−1
+ 
+1. Introduction ....................................................................................................... Chap. 8−1
+ 
+2. Compliance Procedures ..................................................................................... Chap. 8−1
+ 
+3. Criteria ............................................................................................................... Chap. 8−1
+ 
+4. Scope ................................................................................................................. Chap. 8−1
+ 
+5. Determinations .................................................................................................. Chap. 8−1
+ 
+6. Results of Compliance Review Activities ......................................................... Chap. 8−2
+ 
+7. Effecting Compliance ........................................................................................ Chap. 8−2 
+IX COMPLAINTS ........................................................................................................... Chap. 9−1
+ 
+1. Introduction ....................................................................................................... Chap. 9−1
+ 
+2. Right to File a Complaint .................................................................................. Chap. 9−1
+ 
+3. Complaint Acceptance ...................................................................................... Chap. 9−1
+ 
+4. Investigations .................................................................................................... Chap. 9−1
+ 
+5. Letters of Finding .............................................................................................. Chap. 9−1
+ 
+6. Administrative Closure ..................................................................................... Chap. 9−2
+ 
+APPENDICES 
+A TITLE VI PROGRAM CHECKLIST ........................................................................ App. A−1
+ 
+B TITLE VI NOTICE TO THE PUBLIC (GENERAL REQUIREMENT) ................... App. B−1
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+      
+  
+ 
+ 
+ 
+ 
+  
+ 
+ 
+FTA C 4702.1B Page iii 
+C TITLE VI COMPLAINT PROCEDURE (GENERAL REQUIREMENT) ................ App. C−1 
+D SAMPLE TITLE VI COMPLAINT FORM (GENERAL REQUIREMENT) ........... App. D−1 
+E LIST OF TRANSIT-RELATED TITLE VI INVESTIGATIONS, COMPLAINTS, AND 
+LAWSUITS (GENERAL REQUIREMENT) ............................................................. App. E−1 
+F TABLE DEPICTING MINORITY REPRESENTATION ON COMMITTEES AND 
+COUNCILS SELECTED BY THE RECIPIENT (GENERAL REQUIREMENT) .... App. F−1 
+G SERVICE STANDARDS (REQUIREMENT  FOR ALL FIXED ROUTE TRANSIT 
+PROVIDERS) ............................................................................................................. App. G−1 
+H SERVICE POLICIES (REQUIREMENT  FOR ALL FIXED ROUTE TRANSIT 
+PROVIDERS) ............................................................................................................. App. H−1 
+I DEMOGRAPHIC PROFILE AND TRAVEL PATTERNS (REQUIREMENT FOR 
+TRANSIT PROVIDERS THAT OPERATE 50 OR MORE FIXED ROUTE VEHICLES IN 
+PEAK SERVICE AND ARE LOCATED IN URBANIZED AREAS (UZA) OF 200,000 OR 
+MORE PEOPLE, OR THAT OTHERWISE MEET THE THRESHOLD DEFINED IN 
+CHAPTER IV) .............................................................................................................. App. I−1 
+J REQUIREMENT TO MONITOR TRANSIT SERVICE (REQUIREMENT FOR TRANSIT 
+PROVIDERS THAT OPERATE 50 OR MORE FIXED ROUTE VEHICLES IN PEAK 
+SERVICE AND ARE LOCATED IN URBANIZED AREAS (UZA) OF 200,000 OR MORE   
+PEOPLE, OR THAT OTHERWISE MEET THE THRESHOLD DEFINED IN 
+CHAPTER IV) ............................................................................................................. App. J−1 
+K SERVICE AND FARE EQUITY ANALYSIS QUESTIONNAIRE CHECKLIST 
+(REQUIREMENT FOR TRANSIT PROVIDERS THAT OPERATE 50 OR MORE FIXED 
+ROUTE VEHICLES IN PEAK SERVICE AND ARE LOCATED IN URBANIZED AREAS 
+(UZA) OF 200,000 OR MORE PEOPLE, OR THAT OTHERWISE MEET THE 
+THRESHOLD DEFINED IN CHAPTER IV) ......................................................... App. K −1 
+L REPORTING REQUIREMENTS ............................................................................... App. L−1 
+M TITLE VI AND LIMITED ENGLISH PROFICIENCY TECHNICAL ASSISTANCE 
+RESOURCES ............................................................................................................. App. M−1 
+REFERENCES ...................................................................................................................... REF–1 
+INDEX .............................................................................................................................. INDEX–1 
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+FTA C 4702.1B 	 Chap. I-1 
+CHAPTER I 
+INTRODUCTION AND BACKGROUND 
+1.	 THE FEDERAL TRANSIT ADMINISTRATION (FTA). FTA is one of ten operating 
+administrations within the U.S. Department of Transportation (DOT). Headed by an 
+Administrator who is appointed by the President of the United States, FTA functions through 
+a Washington, DC, headquarters office, ten regional offices, and five metropolitan offices 
+that assist transit agencies in all 50 States, the District of Columbia, Puerto Rico, the U.S. 
+Virgin Islands, Guam, Northern Mariana Islands, and American Samoa. 
+Public transportation includes buses, subways, light rail, commuter rail, monorail, passenger 
+ferry boats, trolleys, inclined railways, people movers, and vans. Public transportation can be 
+either fixed route or demand response service. 
+The Federal Government, through FTA, provides financial assistance to develop new transit 
+systems and improve, maintain, and operate existing systems. FTA oversees thousands of 
+grants to hundreds of State and local transit providers, primarily through its ten regional 
+offices. These grant recipients are responsible for managing their programs in accordance 
+with Federal requirements, and FTA is responsible for ensuring that recipients follow Federal 
+statutory and administrative requirements. 
+2.	 AUTHORIZING LEGISLATION. Most Federal transit laws are codified at title 49 U.S.C. 
+Chapter 53. Authorizing legislation is substantive legislation enacted by Congress that 
+establishes or continues the legal operation of a Federal program or agency. FTA’s most 
+recent authorizing legislation is the Moving Ahead for Progress in the 21
+st Century (MAP­
+21), Public Law 112-141, signed into law on July 6, 2012, and effective October 1, 2012.   
+3.	 HOW TO CONTACT FTA. FTA’s regional and metropolitan offices are responsible for 
+providing financial assistance to FTA recipients and oversight of grant implementation for 
+most FTA programs. Certain specific programs are the responsibility of FTA headquarters. 
+Inquiries should be directed to either the regional or metropolitan office responsible for the 
+geographic area in which the recipient is located. See FTA’s website for more information.  
+Visit FTA’s website, http://www.fta.dot.gov, or contact FTA Headquarters at the following 
+address and phone number: 
+Federal Transit Administration
+ 
+Office of Communications and Congressional Affairs 
+1200 New Jersey Avenue SE 
+East Building 
+Washington, DC 20590 
+Phone: 202-366-4043; Fax: 202-366-3472 
+4.	 GRANTS.GOV. FTA posts all competitive grant opportunities on Grants.gov. Grants.gov is 
+the one website for information on all discretionary Federal grant opportunities. Led by the 
+U.S. Department of Health and Human Services (DHHS) and in partnership with Federal 
+grant-making agencies, including 26 agencies, 11 commissions, and several States, 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Chap. I-2 	 FTA C 4702.1B 
+Grants.gov is one of 24 government-wide E-government initiatives. It is designed to improve 
+access to government services via the Internet. More information about Grants.gov is 
+available at http://www.grants.gov/. 
+5.	 DEFINITIONS. All definitions in chapter 53 of title 49, United States Code, and in 49 CFR 
+part 21 apply to this Circular, as well as the following definitions:  
+a.	 Applicant means a person or entity that submits an application, request, or plan required 
+to be approved by the FTA Administrator or by a primary recipient, as a condition of 
+eligibility for financial assistance from FTA, and “application” means such an 
+application, request, or plan. 
+b.	 Demand response system: Any non-fixed route system of transporting individuals that 
+requires advanced scheduling including services provided by public entities, non-profits, 
+and private providers. An advance request for service is a key characteristic of demand 
+response service. 
+c.	 Designated recipient means an entity designated, in accordance with the planning process 
+under sections 5303 and 5304, by the Governor of a State, responsible local officials, and 
+publicly owned operators of public transportation, to receive and apportion amounts 
+under section 5336 to urbanized areas of 200,000 or more in population; or a State or 
+regional authority, if the authority is responsible under the laws of a State for a capital 
+project and for financing and directly providing public transportation. 
+d.	 Direct recipient means an entity that receives funding directly from FTA. For purposes of 
+this Circular, a direct recipient is distinguished from a primary recipient in that a direct 
+recipient does not extend financial assistance to subrecipients, whereas a primary 
+recipient does. 
+e.	 Discrimination refers to any action or inaction, whether intentional or unintentional, in 
+any program or activity of a Federal aid recipient, subrecipient, or contractor that results 
+in disparate treatment, disparate impact, or perpetuating the effects of prior 
+discrimination based on race, color, or national origin.  
+f.	 Disparate impact refers to a facially neutral policy or practice that disproportionately 
+affects members of a group identified by race, color, or national origin, where the 
+recipient’s policy or practice lacks a substantial legitimate justification and where there 
+exists one or more alternatives that would serve the same legitimate objectives but with 
+less disproportionate effect on the basis of race, color, or national origin. 
+g.	 Disproportionate burden refers to a neutral policy or practice that disproportionately 
+affects low-income populations more than non-low-income populations. A finding of 
+disproportionate burden requires the recipient to evaluate alternatives and mitigate 
+burdens where practicable. 
+h.	 Disparate treatment refers to actions that result in circumstances where similarly situated 
+persons are intentionally treated differently (i.e., less favorably) than others because of 
+their race, color, or national origin. 
+
+ 
+ 
+  
+   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+  
+FTA C 4702.1B 	 Chap. I-3 
+i.	 Fixed guideway means a public transpor tation facility—using and occupying a 
+separate right-of-way for th e exclusive use of public transportation; using rail; using a 
+fixed catenary system; for a passenger ferry system; or for a bu s rapid transit system.    
+j.	 Fixed route  refers to public transportation service provided in vehicles operated along 
+pre-determined routes according to a fixed schedule.  
+k.	 Federal financial assistance refers to 
+(1) grants and loans of Federal funds; 
+(2) the grant or donation of Federal property and interests in property;  
+(3) the detail of Federal personnel; 
+(4) the sale and lease of, and the permission to use (on other than a casual or transient 
+basis), Federal property or any interest in such property without consideration or at a 
+nominal consideration, or at a consideration which is reduced for the purpose of 
+assisting the recipient, or in recognition of the public interest to be served by such 
+sale or lease to the recipient; and  
+(5) any Federal agreement, arrangement, or other contract that has as one of its purposes 
+the provision of assistance. 
+l.	 Limited English Proficient (LEP) persons refers to persons for whom English is not their 
+primary language and who have a limited ability to read, write, speak, or understand 
+English. It includes people who reported to the U.S. Census that they speak English 
+less than very well, not well, or not at all. 
+m. Low-income person means a person whose me dian household income is at or below 
+the U.S. Department of Health and Human Services (HHS) poverty guidelines. 
+Recipients are encouraged to use a locally developed threshold, such as the definition 
+found in 49 U.S.C. 5302 as amended by MAP-21: “refers to an individual whose family 
+income is at or below 150 percent of the poverty line (as that term is defined in Section 
+673(2) of the Community Services Block Grant Act (42 U.S.C 9902(2)), including any 
+revision required by that section) for a family of the size involved” or another threshold, 
+provided that the threshold is at least as inclusive as the HHS poverty guidelines.  
+n.	 Low-income population refers to any readily identifiable group of low-income persons 
+who live in geographic proximity, and, if circumstances warrant, geographically 
+dispersed/transient persons (such as migrant workers or Native Americans) who will be 
+similarly affected by a proposed FTA program, policy or activity.   
+o.	 Metropolitan planning organization (MPO) means the policy board of an organization 
+created and designated to carry out the metropolitan transportation planning process. 
+
+ 
+ 
+   
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+Chap. I-4 	 FTA C 4702.1B 
+p.	 Metropolitan transportation plan (MTP) means the official multimodal transportation 
+plan addressing no less than a 20-year planning horizon that is developed, adopted, and 
+updated by the MPO through the metropolitan transportation planning process. 
+q.	 Minority persons include the following: 
+(1) American Indian and Alaska Native, which refers to people having origins in any of 
+the original peoples of North and South America (including Central America), and 
+who maintain tribal affiliation or community attachment.  
+(2) Asian, which refers to people having origins in any of the original peoples of the Far 
+East, Southeast Asia, or the Indian subcontinent, including, for example, Cambodia, 
+China, India, Japan, Korea, Malaysia, Pakistan, the Philippine Islands, Thailand, and 
+Vietnam. 
+(3) Black or African American, which refers to people having origins in any of the Black 
+racial groups of Africa. 
+(4) Hispanic or Latino, which includes persons of Cuban, Mexican, Puerto Rican, South 
+or Central American, or other Spanish culture or origin, regardless of race.  
+(5) Native Hawaiian or Other Pacific Islander, which refers to people having origins in 
+any of the original peoples of Hawaii, Guam, Samoa, or other Pacific Islands.  
+r.	 Minority population means any readily identifiable group of minority persons who live in 
+geographic proximity and, if circumstances warrant, geographically dispersed/transient 
+populations (such as migrant workers or Native Americans) who will be similarly 
+affected by a proposed DOT program, policy, or activity.  
+s.	 Minority transit route means a route that has at least 1/3 of its total revenue mileage in a 
+Census block or block group, or traffic analysis zone(s) with a percentage of minority 
+population that exceeds the percentage of minority population in the transit service area. 
+A recipient may supplement this service area data with route-specific ridership data in 
+cases where ridership does not reflect the characteristics of the census block, block group, 
+or traffic analysis zone. 
+t.	 National origin means the particular nation in which a person was born, or where the 
+person’s parents or ancestors were born. 
+u.	 Noncompliance refers to an FTA determination that the recipient is not in compliance 
+with the DOT Title VI regulations, and has engaged in activities that have had the 
+purpose or effect of denying persons the benefits of, excluding from participation in, or 
+subjecting persons to discrimination in the recipient’s program or activity on the basis of 
+race, color, or national origin.  
+v.	 Non-profit organization: A cor poration or association determined by the Secretary of the 
+Treasury to be an organization described by 26 U.S.C. 501(c) which is exempt from 
+taxation under 26 U.S.C. 501(a) or one which has been determined under State law to be 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    
+ 
+ 
+   
+ 
+ 
+  
+  
+FTA C 4702.1B 	 Chap. I-5 
+non-profit and for which the designated State agency has received documentation 
+certifying the status of the non-profit organization.  
+w.	 Predominantly minority area means a geographic area, such as a neighborhood, Census 
+tract, block or block group, or traffic analysis zone, where the proportion of minority 
+persons residing in that area exceeds the average proportion of minority persons in the 
+recipient’s service area.  
+x.	 Primary recipient means any FTA recipient that extends Federal financial assistance to a 
+subrecipient. 
+y.	 Provider of fixed route public transportation (or “transit provider”) means any entity that 
+operates public transportation service, and includes States, local and regional entities, and 
+public and private entities. This term is used in place of “recipient” in chapter IV and is 
+inclusive of direct recipients, primary recipients, designated recipients, and subrecipients 
+that provide fixed route public transportation service. 
+z.	 Public transportation means regular, continuing shared-ride surface transportation 
+services that are open to the general public or open to a segment of the general public 
+defined by age, disability, or low income; and does not include Amtrak, intercity bus 
+service, charter bus service, school bus service, sightseeing service, courtesy shuttle 
+service for patrons of one or more specific establishments, or intra-terminal or intra­
+facility shuttle services. Public transportation includes buses, subways, light rail, 
+commuter rail, monorail, passenger ferry boats, trolleys, inclined railways, people 
+movers, and vans. Public transportation can be either fixed route or demand response 
+service. 
+aa. Recipient as used in this Circular, means any public or private entity that receives Federal 
+financial assistance from FTA, whether directly from FTA or indirectly through a 
+primary recipient. This term includes subrecipients, direct recipients, designated 
+recipients, and primary recipients. The term does not include any ultimate beneficiary 
+under any such assistance program. 
+bb. Secretary means the Secretary of the U.S. Department of Transportation. 
+cc. Service area refers either to the geographic area in which a transit agency is authorized by 
+its charter to provide service to the public, or to the planning area of a State Department 
+of Transportation or Metropolitan Planning Organization.  
+dd. Service standard/policy means an established service performance measure or policy 
+used by a transit provider or other recipient as a means to plan or distribute services and 
+benefits within its service area. 
+ee. Statewide transportation improvement program (STIP) means a statewide prioritized 
+listing/program of transportation projects covering a period of four years that is consistent 
+with the long-range statewide transportation plan, metropolitan transportation plans, and 
+TIPs, and required for projects to be eligible for funding under title 23 U.S.C. and title 49 
+U.S.C. Chapter 53. 
+
+ 
+ 
+ 
+ 
+   
+ 
+  
+ 
+ 
+ 
+	
+                                                 
+    
+Chap. I-6 	 FTA C 4702.1B 
+ff. Subrecipient means an entity that receives Federal financial assistance from FTA through 
+a primary recipient.   
+gg. Title VI Program refers to a document developed by an FTA recipient to demonstrate 
+how the recipient is complying with Title VI requirements. Direct and primary recipients 
+must submit their Title VI Programs to FTA every three years. The Title VI Program 
+must be approved by the recipient’s board of directors or appropriate governing entity or 
+official(s) responsible for policy decisions prior to submission to FTA. For State DOTs, 
+the appropriate governing entity is the State’s Secretary of Transportation or equivalent. 
+hh. Transportation improvement program (TIP) means a prioritized listing/program of 
+transportation projects covering a period of four years that is developed and formally 
+adopted by an MPO as part of the metropolitan transportation planning process, 
+consistent with the metropolitan transportation plan, and required for projects to be 
+eligible for funding under title 23 U.S.C. and title 49 U.S.C. Chapter 53. 
+ii.	 Transportation management area (TMA) means an urbanized area with a population over 
+200,000, as defined by the Bureau of the Census and designated by the Secretary of 
+Transportation, or any additional area where TMA designation is requested by the 
+Governor and the MPO and designated by the Secretary of Transportation. 
+6.	 ENVIRONMENTAL JUSTICE. Executive Order 12898, “Federal Actions to Address 
+Environmental Justice in Minority Populations and Low-Income Populations,” was signed by 
+President Clinton on February 11, 1994. Subsequent to issuance of the Executive Order, the 
+U.S. Department of Transportation (DOT) issued a DOT Order for implementing the 
+Executive Order on environmental justice (EJ). The DOT Order (Order 5610.2(a), “Actions 
+to Address Environmental Justice in Minority Populations and Low-Income Populations,” 77 
+FR 27534, May 10, 2012) describes the process the Department and its modal 
+administrations (including FTA) will use to incorporate EJ principles into programs, policies, 
+and activities. 
+The Presidential memorandum accompanying EO 12898 identified Title VI of the Civil 
+Rights Act of 1964 as one of several Federal laws that should be applied “to prevent minority 
+communities and low-income communities from being subject to disproportionately high and 
+adverse environmental effects.” According to the U.S. Department of Justice, “…the core 
+tenet of environmental justice—that development and urban renewal benefitting a 
+community as a whole not be unjustifiably purchased through the disproportionate allocation 
+of its adverse environmental and health burdens on the community’s minority—flows 
+directly from the underlying principle of Title VI itself.”
+1 
+Title VI prohibits discrimination by recipients of Federal financial assistance on the basis of 
+race, color, and national origin, including the denial of meaningful access for limited English 
+proficient (LEP) persons. Under DOT’s Title VI regulations, recipients of Federal financial 
+assistance are prohibited from, among other things, using “criteria or methods of 
+administering its program which have the effect of subjecting individuals to discrimination 
+based on their race, color, or national origin.” For example, facially neutral policies or 
+1 See Title VI Legal Manual, U.S. Department of Justice Civil Rights Division (2001), page 59. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+  
+FTA C 4702.1B Chap. I-7 
+practices that result in discriminatory effects or disparate impacts violate DOT's Title VI 
+regulations, unless the recipient can show the policies or practices are substantially justified 
+and there is no less discriminatory alternative. In addition, Title VI and DOT regulations 
+prohibit recipients from intentionally discriminating against people on the basis of race, 
+color, and national origin. 
+The overlap between the statutory obligation placed on Federal agencies under Title VI to 
+ensure nondiscrimination in federally assisted programs administered by State and local 
+entities, and the administrative directive to Federal agencies under the Executive Order to 
+address disproportionate adverse impacts of Federal activities on minority and low-income 
+populations explain why Title VI and environmental justice are often paired. The clear 
+objective of the Executive Order and Presidential memorandum is to ensure that Federal 
+agencies promote and enforce nondiscrimination as one way of achieving the overarching 
+objective of environmental justice—fair distribution of the adverse impacts of, or burdens 
+associated with, Federal programs, policies, and activities.  
+Over the years, U.S. DOT has encouraged a proactive approach to the implementation of 
+environmental justice principles in its programs, policies, and activities. This is reflected in 
+the DOT Order on Environmental Justice (DOT Order 5610.2(a)) which, consistent with E.O. 
+12898, sets forth a process by which DOT and its Operating Administrations, including FTA, 
+will integrate the goals of environmental justice into their existing operations to ensure that 
+consideration of EJ principles is an integral part of all programs, policies, and activities, from 
+the inception of the planning process through to project completion, operations, and 
+evaluation. 
+FTA has developed policy guidance in the form of a Circular (Circular 4703.1), 
+“Environmental Justice Policy Guidance for Federal Transit Administration Recipients,” in 
+order to provide recipients with a distinct framework to assist them as they integrate 
+principles of environmental justice into their public transportation decision-making 
+processes. FTA expects the clarification provided by the EJ Circular and the updated Title VI 
+Circular will provide recipients with the guidance they need to properly incorporate both 
+Title VI and environmental justice into their public transportation decision-making.  
+Because of the connection between EJ and Title VI, the consideration of EJ principles has 
+sometimes been confused with the requirements of Title VI. Here is a summary of the key 
+differences between the two: 
+Key Aspects of the 
+Authorities Title VI Environmental Justice 
+What is the basis for 
+the authority? 
+Title VI is a Federal statute and 
+provides that no person shall, on 
+the grounds of race, color, or 
+national origin, be excluded 
+from participation in, be denied 
+the benefits of, or be subjected 
+to discrimination under any 
+program or activity receiving 
+The basis for addressing 
+environmental justice is an 
+Executive Order: EO 12898 
+directs each Federal agency to 
+“make achieving environmental 
+justice part of its mission.”  The 
+EO is intended to improve the 
+internal management of the
+
+===== PDF SOURCE PART 1 END =====

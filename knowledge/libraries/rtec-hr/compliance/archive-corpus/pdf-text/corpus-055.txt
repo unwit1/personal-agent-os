@@ -1,0 +1,605 @@
+===== PDF SOURCE BEGIN / PART 1 OF 3 =====
+SOURCE_PATH: Equal Employment Opportunity Plan (EEO)/2022_EEO_1_Component_1_Data_File_Upload_Specifications.pdf
+SHA256: c3e01871aaf445d49a2a2ca9e047f9e4241036617eb95657c2184f124eca564c
+PAGES: 42
+TEXT_CHARS_TOTAL: 96529
+PART_INDEX: 1
+===== TEXT =====
+
+U.S. Equal Employment Opportunity 
+Commission  
+ 
+ 
+ 
+ 
+ 
+ 
+2022 
+EEO-1 Component 1 
+Data File Upload 
+Specifications 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+EEOC Headquarters  
+131 M Street, NE 
+Washington, DC 20507 
+
+ 
+ 
+ 
+2022 EEO-1 Component 1 Data Collection 
+Data File Upload Specifications 
+2 
+ 
+U.S. EQUAL EMPLOYMENT OPPORTUNITY COMMISSION  
+ 
+2022 EEO-1 COMPONENT 1 DATA COLLECTION 
+ 
+Employer Information Report – Standard Form 100 
+EEO-1 Component 1 Report  
+ 
+DATA FILE UPLOAD SPECIFICATIONS 
+ 
+NOTICE 
+ 
+As discussed in the 30-day Notice published in the Federal Register on May 2, 2023, the EEOC created 
+the Office of Enterprise Data and Analytics (OEDA) in May 2018 with the goal of creating a modern 
+data and analytics organization at the agency. Since its creation, OEDA, which administers the agency’s 
+EEO data collections, including the EEO-1 Component 1, has worked to modernize the collections and 
+improve the quality of data collected. OEDA has also streamlined functions, such as providing 
+additional self-service options, resource materials, and an online support message center.  
+ 
+As part of its ongoing modernization efforts and in response to feedback from filers in prior collections, 
+OEDA has redesigned the EEO-1 Component 1 Instruction Booklet  to better meet the needs of filers. 
+The Instruction Booklet consolidates existing filer -support materials, including frequently asked 
+questions (FAQs) and fact sheets, into a single resource for filers and provides additional information 
+to clarify reporting require ments. Like the dedicated EEO -1 Component 1 website launched by the 
+EEOC in 2021, the updated Instruction Booklet will serve as a “one -stop-shop” containing important 
+information for new and returning filers.  
+ 
+The EEOC requires electronic submission of EE O-1 Component 1 report(s) through a web -based data 
+collection application (i.e., portal) referred to as the EEO-1 Component 1 Online Filing System (OFS). 
+The OFS is accessible at www.eeocdata.org/eeo1. Filers must submit workforce demographic data 
+electronically in the web -based portal (i.e., OFS) through either (1) manual data entry or (2) data file 
+upload. The “manual data entry” option requires directly entering workforce demographic data into the 
+OFS. The “data file upload” option requires uploading a data file using the below 2022 EEO -1 
+Component 1 Data File Upload Specifications.  
+ 
+NOTE FOR FILERS CHOOSING THE “DATA FILE UPLOAD” OPTION 
+ 
+Filers choosing the “data file upload” option should read the newly updated 2022 EEO-1 Component 1 
+Instruction Booklet prior to and in conjunction with using the below 2022 EEO -1 Component 1 Data 
+File Upload Specifications (i.e., “Data File Upload Specifications”).  Filers must ensure they are 
+complying with the EEOC’s substantive filing requirements detailed in the Instruction Booklet  and 
+should not refer solely to the “Data File Upload Specifications” to complete their required 2022 EEO-
+1 Component 1 filing. The 2022 EEO-1 Component 1 Instruction Booklet is available on the EEOC's 
+dedicated EEO -1 Component 1 website ( www.eeocdata.org/eeo1) at the following link: 
+https://www.eeocdata.org/pdfs/2022_EEO_1_Component_1_Instruction_Booklet.pdf. 
+
+ 
+ 
+ 
+2022 EEO-1 Component 1 Data Collection 
+Data File Upload Specifications 
+3 
+ 
+Table of Contents 
+1. INTRODUCTION ........................................................................................................................ 4 
+2. SUMMARY OF UPDATES TO DATA FILE UPLOAD SPECIFICATIONS .......................................... 5 
+3. DATA FILE FORMATTING .......................................................................................................... 7 
+3.1 Data File Overview ................................................................................................................... 8 
+3.2  Data File Structure ................................................................................................................... 8 
+Single-Establishment Employer ............................................................................................... 8 
+Multi-Establishment Employer ................................................................................................ 9 
+3.3 Switching from a Single-Establishment Employer to a Multi-Establishment Employer (or 
+from a Multi-Establishment Employer to a Single-Establishment Employer) ......................................... 13 
+3.4  Common Issues and Errors .................................................................................................... 14 
+4. SPECIFICATIONS FOR INDIVIDUAL FIELDS .............................................................................. 15 
+Field 1: OFS Company ID .......................................................................................................................... 16 
+Field 2: Status Code ................................................................................................................................. 17 
+Field 3: OFS Company ID/Establishment-Level Unit ID ........................................................................... 19 
+Field 4: Employer/HQ/Establishment Name ........................................................................................... 21 
+Fields 5 – 9: Employer Address or Establishment Address ...................................................................... 22 
+Fields 10 – 12: NULL ................................................................................................................................. 23 
+Field 13: Federal Contractor Designation ................................................................................................ 24 
+Field 14: NULL .......................................................................................................................................... 25 
+Field 15: County Name ............................................................................................................................ 26 
+Field 16: Workforce Snapshot Period ...................................................................................................... 26 
+Field 17: 2022 North American Industry Classification System (NAICS) Code ........................................ 27 
+Fields 18 – 21: NULL ................................................................................................................................. 29 
+Fields 22 – 186: Workforce Demographic Data Matrix ........................................................................... 30 
+Field 187: Employer Identification Number (EIN) .................................................................................... 32 
+Field 188: Unique Entity ID (UEI) ............................................................................................................. 32 
+Field 189: Employer/HQ/Establishment Comments ............................................................................... 33 
+5. DETAILED MATRIX ROW REFERENCE ..................................................................................... 35 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+2022 EEO-1 Component 1 Data Collection 
+Data File Upload Specifications 
+4 
+ 
+1. INTRODUCTION 
+The EEOC requires electronic submission of EEO-1 Component 1 report(s) through a web-based 
+data collection application (i.e., portal) referred to as the EEO-1 Component 1 Online Filing System 
+(OFS). The OFS is accessible on the EEOC's dedicated EEO -1 Component 1 website at 
+www.eeocdata.org/eeo1. 
+ 
+All individuals responsible for filing an employer’s reports will be required to have an individual 
+user account associated with their email address to access the EEO-1 Component 1 Online Filing 
+System (OFS). To create a new account, visit www.eeocdata.org/eeo1/signin and select “Create an 
+Account.” New account holders for employers (i.e., companies) that have filed in prior year 
+reporting cycles can link their individual user account to the employer record using the employer’s 
+“OFS Company ID” and “Employer PIN,” which will be sent to them via postal mail prior to the 
+opening of data collection. Account holders for employers that have never filed before can register 
+a new employer by selecting “Add Employer” on the “My Employer List Screen.” Returning OFS 
+account holders who created their account during or after the 2019/2020 data collection cycle can 
+sign in using their existing username (i.e., email address) and password. Returning account holders 
+may be required to reset their password when logging in to the OFS if the account holder has not 
+accessed the OFS in the past 90 days.  
+ 
+Account holders must submit the employer’s workforce demographic data electronically in the 
+web-based portal (i.e., OFS) through either (1) manual data entry or (2) data file upload. The 
+employer’s certifying official must then certify the EEO-1 Component 1 report(s) in the OFS. The 
+“manual data entry” option requires directly entering workforce demographic data into the 
+EEOC’s web -based data collection application referred to as the EEO-1 Component 1 Online 
+Filing System (OFS). The “data file upload” option requires uploading a data file according to the 
+EEOC’s 2022 EEO-1 Component 1 Data File Upload Specifications provided below. Filers must 
+follow the specifications detailed below to ensure their 2022 EEO-1 Component 1 data file upload 
+is accurately processed by the OFS.  
+ 
+As discussed above in the “Notice,” filers choosing the “data file upload” option should read the 
+newly updated 2022 EEO -1 Component 1 Instruction Booklet prior to and in conjunction with 
+using the below 2022 EEO -1 Component 1 Data File Upload Specifications (i.e., “Data File 
+Upload Specifications”). Filers must ensure they are complying with the EEOC’s substantive filing 
+requirements detailed in the Instruction Booklet and should not refer solely to the “data file upload 
+specifications” to complete their required 202 2 EEO-1 Component 1 filing. The 2022 EEO -1 
+Component 1 Instruction Booklet is available on the EEOC's dedicated EEO -1 Component 1 
+website ( www.eeocdata.org/eeo1) at the following link: 
+https://www.eeocdata.org/pdfs/2022_EEO_1_Component_1_Instruction_Booklet.pdf. 
+ 
+Also, please note that t he EEOC will only accept EEO -1 Component 1 report(s) submitted and 
+certified through the agency’s EEO-1 Component 1 Online Filing System (OFS). The EEOC will 
+not accept reports submitted via paper or through other non -OFS electronic means (e .g., email, 
+CD-ROM). The EEOC will consider filers submitting reports outside of the OFS to be non -
+compliant for purposes of their mandatory EEO-1 Component 1 filing obligation. 
+ 
+  
+
+ 
+ 
+ 
+2022 EEO-1 Component 1 Data Collection 
+Data File Upload Specifications 
+5 
+ 
+2. SUMMARY OF UPDATES TO DATA FILE UPLOAD SPECIFICATIONS 
+Updates to the data file upload specifications have been implemented for the 2022 EEO-1 
+Component 1 Data Collection. The EEO-1 Component 1 Online Filing System  (OFS) has been 
+programmed to accommodate these updates for the 2022 collection. As a result, prior year filers 
+may need to update how they produce the ir 2022 EEO-1 Component 1 data file to prevent 
+upload errors.  
+ 
+The updates to the 2022 specifications include the following: 
+ 
+ EEO-1 Component 1 Terminology 
+o “Company ID” is now referred to as “OFS Company ID.” 
+o “Establishment/Unit ID” is now “HQ/Establishment-Level Unit ID.” 
+ 
+ “Consolidated Report” Data Row 
+Filers are no longer required to submit a data row representing the “Consolidated Report.”1 
+With the discontinuation of the “Type 6” establishment list report, a “Consolidated Report” 
+is now auto-populated and auto-generated with data from a multi-establishment employer’s 
+“Headquarters Report” and “Establishment -Level Report(s)” within the EEOC’s  
+electronic, web -based EEO-1 Component 1 Online Filing System  (OFS) for all multi -
+establishment employers.2  
+ 
+Although a “Consolidated Report” is now auto -populated and auto-generated in the OFS, 
+a multi-establishment employer is still responsible for ensuring that the total employee 
+count in the “Consolidated Report” mat ches the total number of employees the filer is 
+reporting in its “Headquarters Report” and “Establishment -Level Report(s)” prior to 
+certification. An employer must also ensure that it has reported for all its establishments.3  
+ 
+ Field 2 (Status Code) 
+The Status Code is used to indicate the report type for each row. Beginning with the 2022 
+EEO-1 Component 1 data collection, b oth Status Code=4 and Status Code=8 will allow 
+multi-establishment employers to submit an “Establishment-Level Report” for an existing 
+establishment. As in prior years, Status Code=9 will allow multi-establishment employers 
+to submit an “Establishment-Level Report” for a new establishment. 
+ 
+ Fields 10 – 12 (No Longer Applicable) 
+Data entered in these fields will not be processed by the EEO-1 Component 1 Online Filing 
+System (OFS) upon data file upload . Please note that the data file must still be structured 
+to include these fields. 
+                                                           
+1 While filers may still submit an EEO-1 Component 1 data file upload containing a “Consolidated Report” data row, this row will 
+not be processed by the OFS. 
+2 The “Consolidated Report” will be generated by the EEO-1 Component 1 Online Filing System  (OFS) once the “Headquarters 
+Report” and all “Establishment-Level Report(s)” have been completed by the filer. 
+3 For example, if an employer has 200 establishments, but only reported data for 150 establishments, the “Consolidated Report” 
+will only reflect the data for establishments submitted by the filer (i.e., 150). It is the responsibility of the employer to  ensure that 
+data for each of its establishments has been submitted and that the “Consolidated Report” matches that number. 
+
+ 
+ 
+ 
+2022 EEO-1 Component 1 Data Collection 
+Data File Upload Specifications 
+6 
+ 
+ 
+ Field 13 (Federal Contractor Designation) 
+A multi-establishment employer will use Field 13 to identify whether its headquarters or 
+any non-headquarters establishment is a federal contractor. 
+ 
+ Field 14 (No Longer Applicable) 
+As of April 2022, the federal government no longer uses the Data Universal Numbering 
+System (DUNS) number to identify federal contractors.4 As a result, any data in this field 
+will not be processed by the EEO-1 Component 1 Online Filing System (OFS). Please note 
+that the data file must still be structured to include this field. 
+ 
+ Field 17 (2022 North American Industry Classification System (NAICS) Code) 
+Employers should use 2022 NAICS codes. Please refer to https://www.census.gov/naics/ 
+to verify NAICS codes prior to submitting the EEO-1 Component 1 data file.  
+ 
+ Fields 18 – 21 (No Longer Applicable) 
+Data entered in these fields will not be processed by the EEO-1 Component 1 Online Filing 
+System (OFS) upon data file upload . Instead, “Certifying Official” information will be 
+entered directly into the OFS when certifying the 2022 EEO-1 Component 1 report. Please 
+note that the data file must still be structured to include these fields. 
+ 
+ Fields 172 – 186 (Individual Column Totals for Rows 1- 10) 
+Filers are no longer required to submit Fields 172 – 186 (Individual Column Totals for 
+Rows 1 - 10). Instead, the EEO-1 Component 1 Online Filing System  (OFS) will 
+autogenerate Individual Column Totals for Rows 1  – 10 using the data provided in Fields 
+22 – 171.5 While filers may still submit an EEO-1 Component 1 data file upload containing 
+data in Fields 172 – 186 (Individual Column Totals for Rows 1-10), these fields will not be 
+processed by the OFS. Please note that the data file must still be structured to include these 
+fields. 
+ 
+ 
+ 
+ 
+ 
+                                                           
+4 For more information on the federal government’s change to the Unique Entity ID (i.e., UEI), see https://www.gsa.gov/about-
+us/organization/federal-acquisition-service/technology-transformation-services/integrated-award-environment-iae/iae-systems-
+information-kit/unique-entity-identifier-update, https://www.fsd.gov/gsafsd_sp?id=kb_article_view&sysparm_article= 
+KB0041254&sys_kb_id=875189f21bee8d54937fa64ce54bcbaa&spa=1, and https://sam.gov/content/duns-uei. 
+5 Although a “Consolidated Report” is now auto-generated, a multi-establishment employer is still responsible for ensuring that the 
+total employee count in the “Consolidated Report” matches the total number of employees the filer is reporting in its “Headquarters 
+Report” and “Establishment -Level Report(s)” prior to certification. An employer must also ensure that it has reported for all its 
+establishments. For example, if an employer has 200 establishments, but only reported data for 150 establishments, the 
+“Consolidated Report” will only reflect the data for establishments submitted by the filer (i.e., 150). It is the responsibility of the 
+employer to ensure that data for each of its establishments has been submitted and that the “Consolidat ed Report” matches that 
+number. 
+
+ 
+ 
+ 
+2022 EEO-1 Component 1 Data Collection 
+Data File Upload Specifications 
+7 
+ 
+ Field 188 (Unique Entity ID (UEI)) 
+Field 188 contains the Unique Entity ID (UEI) for any headquarters or non-headquarters 
+establishment(s) that is designated as a federal contractor in Field 13 (i.e., Federal 
+Contractor Designation). Please note that Field 188 is only a required field for any 
+headquarters or non-headquarters establishment that is identified as a federal contractor 
+in Field 13 (i.e., Federal Contractor Designation).6 
+ 
+ Field 189 (Single Establishment/HQ/Establishment-Level Comments) 
+This optional field is now available for submitting comments not otherwise captured in 
+designated fields related to a single-establishment employer establishment (Status 
+Code=1), multi-establishment employer headquarters (Status Code=3) , or multi -
+establishment employer non-headquarters establishment (Status Code=4, Status Code=8, 
+or Status Code=9).7 Please note that commas are not permitted in this section. 
+ 
+3. DATA FILE FORMATTING 
+A data file containing an employer’s workforce demographic data requires specif ic formatting to 
+be successfully uploaded to the EEOC’s EEO-1 Component 1 Online Filing System (OFS). The 
+following sections specify the required data file format for the OFS. The “Data File Overview ” 
+section explains the method for uploading (i.e., submitting) a data file containing EEO-1 
+Component 1 workforce demographic data. A breakdown of how the data file should be organized 
+based on the specific EEO-1 Component 1 report (i.e., “Single-Establishment Employer Report”; 
+“Consolidated Report”; “Headquarters Report”; “Establishment-Level Report”) is detailed in the 
+“Data File Structure” section. Additionally, common issues and errors encountered by filers when 
+compiling a data file are identified in the “Common Issues and Errors” section.  
+ 
+ 
+ 
+                                                           
+6 On April 4, 2022, the federal government stopped using the “Data Universal Numbering System” (DUNS) to uniquely identify 
+entities doing business with the federal government (i.e., federal contractors). The “Unique Entity ID” (UEI) created in SAM.gov 
+(i.e., www.sam.gov) is now the official identifier for federal contractors. For more information on the federal government’s 
+transition to the Unique Entity ID (i.e., UEI), see https://www.gsa.gov/about-us/organization/federal-acquisition-
+service/technology-transformation-services/integrated-award-environment-iae/iae-systems-information-kit/unique-entity-
+identifier-update; 
+https://www.fsd.gov/gsafsd_sp?id=kb_article_view&sysparm_article=KB0041254&sys_kb_id=875189f21bee8d54937fa64ce54b
+cbaa&spa=1 and https://sam.gov/content/duns-uei. For purposes of the EEO-1 Component 1 data collection, eligible federal 
+contractors will no longer provide the “DUNS Numbers” associated with their headquarters and/or establishment(s) in the EEO-1 
+Component 1 Online Filing System (OFS) or in any data files uploaded to the OFS. Beginning with the 2022 EEO-1 Component 
+1 data collection, employers that are federal contractors must instead provide UEIs. 
+7 As discussed in the section of the 2022 EEO -1 Component 1 Instruction Booklet entitled “REPORTING BY SEX,” the EEO -1 
+Component 1 data collection currently provides only binary options (i.e., male or female) for reporting employee counts by se x, 
+job category, and race or ethnicity. However, employers may voluntarily choose to report employee demographic data for non -
+binary employees – that is, employees who do not identify as exclusively male or female – by sex (i.e., non-binary), job category 
+and race or ethnicity in the “comments” section of the report(s). Employers that voluntarily choose to report non-binary employees 
+in the “comments” section of the report(s) should not assign such employees to the male or female categories or any other categories 
+(i.e., job category and race or ethnicity) within the report(s). For additional information on the voluntary reporting of non -binary 
+employees, please refer to the section of the Instruction Booklet entitled “REPORTING BY SEX.” 
+ 
+
+ 
+ 
+ 
+2022 EEO-1 Component 1 Data Collection 
+Data File Upload Specifications 
+8 
+ 
+3.1 Data File Overview  
+As discussed above, the EEOC requires electronic submission of EEO -1 Component 1 report(s) 
+through a web-based data collection application (i.e., portal) referred to as the EEO-1 Component 
+1 Online Filing System  (OFS). Filers must submit workforce demographic data electronical ly in 
+the web-based portal (i.e., OFS) through either (1) manual data entry or (2) data file upload. The 
+“manual data entry” option requires directly entering workforce demographic data into the OFS. 
+The “data file upload” option requires uploading a data file, in accordance with the 2022 EEO-1 
+Component 1 Data File Upload Specifications (i.e., “Data File Upload Specifications”), containing 
+an employer’s workforce demographic data to the OFS in lieu of the manual data entry option.  
+ 
+The data file must contain a single row of data per establishment (i.e., one data row for the single-
+establishment employer location  or, for multi -establishment employers , one data row for the 
+headquarters location and one data row per non-headquarters establishment  location). In other 
+words, a single-establishment employer will have only one row of data and a multi-establishment 
+employer will have only one row of data for its headquarters and one row of data for each non-
+headquarters establishment. Please note that the data file must be either a TXT (plain text) file 
+with 2331 positions per record or a CSV (comma-separated values) file with 189 columns of 
+data.  
+ 
+Section 4 below provides detailed instructions on the individual data fields, including the TXT 
+position and CSV column of the field , as well as  any associated data rules. Section 5 below 
+provides a detailed reference for the “matrix data” fields, which contain the employer’s workforce 
+demographic data. 
+ 
+3.2  Data File Structure  
+This section describes the 2022 EEO-1 Component 1 data file structure, including how each EEO-
+1 Component 1 report (i.e., data file row) should be indicated using Field 2 (Status Code) of the 
+file. For a detailed description of each data file field (i.e., data file column), see Section 4 below.  
+Single-Establishment Employer 
+The EEOC defines a single -establishment employer as an employer with a single establishment 
+where business is conducted or where services or industrial operations are performed.  A single-
+establishment employer is also referred to as a single-establishment filer for purposes of the EEO-
+1 Component 1 data collection. A single-establishment employer is required to submit and certify 
+only one EEO-1 Component 1 report (i.e., a “Single-Establishment Employer Report”).  
+ 
+Single-Establishment Employer Report8  
+An employer conducting business or performing services or industrial operations at only 
+one establishment is required to submit and certify one EEO -1 Component 1 report. This 
+report is referred to as a “Single -Establishment Employer Report.” The “Single -
+                                                           
+8 The “Single-Establishment Employer Report” was formerly referred to as a “Type 1” single establishment report. Beginning with 
+the 2022 EEO-1 Component 1 data collection, this report is now known as a “Single-Establishment Employer Report.” 
+
+ 
+ 
+ 
+2022 EEO-1 Component 1 Data Collection 
+Data File Upload Specifications 
+9 
+ 
+Establishment Employer Report” must include demographic data for all the employer’s 
+employees categorized by job category and sex and race or ethnicity. 
+ 
+A single -establishment employ er choosing the data file upload option will provide all the 
+employer’s data in a single row of the data file . A single-establishment employer must enter a  
+Status Code=1 in Field 2 to indicate a “Single-Establishment Employer Report.”  
+Multi-Establishment Employer 
+The EEOC defines a multi -establishment employer as an employer with more than one  
+establishment where business is conducted or where services or industrial operations are 
+performed. A multi-establishment employer is also referred to as a multi -establishment filer for 
+purposes of the EEO-1 Component 1 data collection. A multi-establishment employer is required 
+to submit and certify a “Headquarters Report” and “Establishment -Level Report(s),” as well as 
+certify an auto-populated and auto-generated “Consolidated Report”.9  
+ 
+The data file upload for a multi-establishment employer will consist of multiple rows of data, with 
+each row representing a different EEO-1 Component 1 report  (i.e., “Headquarters Report,” 
+“Establishment-Level Report”). Please note that the order of rows (i.e., reports) on the data file 
+does not matter – the EEO-1 Component 1 Online Filing System  (OFS) will leverage the Status 
+Code in Field 2 to differentiate between reports. Descriptions of each report a multi-establishment 
+employer must file (i.e., “Consolidated Report,” “Headquarters Report,” “Establishment -Level 
+Report(s)”) are provided below. 
+ 
+Headquarters Report10  
+A multi-establishment employer is required to submit and certify a “Headquarters Report.” 
+The “Headquarters Report” must include demographic data for all the employer’s 
+employees at its headquarters (i.e., main office site), as well as any remote employees who 
+report to t he employer’s headquarters, categorized by job category and sex and race or 
+ethnicity.11  
+ 
+A m ulti-establishment employer must enter a Status Code=3 in Field 2 to indicate a 
+“Headquarters Report.”  Please note that there should be only one row in the data file 
+representing the “Headquarters Report” (i.e., with Status Code=3 in Field 2). 
+ 
+                                                           
+9 Multi-establishment employers, including, for example, parent corporations and their subsidiary holdings, must report workforce 
+demographic data for all employees at each establishment and subsidiary establishment(s). A multi-establishment employer is not 
+permitted to report its entire workforce on t he employer’s “Headquarters Report.” Workforce demographic data for non -
+headquarters establishments must be reported separately for each establishment on the “Establishment-Level Report(s).”  
+10 The “Headquarters Report” was formerly referred to as a “Type 3” headquarters report. Beginning with the 2022 EEO -1 
+Component 1 data collection, this report is now known simply as a “Headquarters Report.” 
+11 Please note that if an employer’s headquarters is a holding company, or similar type entity, with zero employees, it is still  
+necessary for the employer to file as a multi -establishment employer. The filing requirements for the EEO -1 Component 1 data 
+collection are based on employee counts across all establishments of the employer (i.e., a total of 100 or more employees and 50 
+or more employees for federal contractors meeting certain criteria). For example, if a holding company has non -headquarters 
+establishments which total 100 or more employees (or 50 or more employees for federal contractors meeting certain criteria), the 
+holding company must file as a multi -establishment employer and submit a “Headquarters Report” for the holding company and 
+“Establishment-Level Report” for each of its establishments.  
+
+ 
+ 
+ 
+2022 EEO-1 Component 1 Data Collection 
+Data File Upload Specifications 
+10 
+ 
+See Figure 1 below for an example of how to indicate a “Headquarters Report” on a multi-
+establishment employer’s 2022 EEO-1 Component 1 data file.  
+ 
+Figure 1. “Headquarters Report” data row on 2022 EEO-1 Component 1 data file.  
+ 
+  
+ 
+Establishment-Level Report12  
+A multi-establishment employer is required to submit and certify an “Establishment-Level 
+Report” for each non-headquarters establishment of the employer regardless of the number 
+of employees at the establishment. The “Establishment -Level Report” must include 
+demographic data for all the employer’s employees at each establishment, as well as any 
+remote employees who report to the establishment, categorized by job category and sex 
+and race or ethnicity.13  
+ 
+Beginning with the 2022 EEO -1 Component 1 data collection, multi -establishment 
+employers will no longer be required to file a separate “type” of establishment report based 
+on the size of an individual non-headquarters establishment (i.e., establishments with 50 or 
+more employees or establishments with fewer than 50 employees).14 Rather, in place of the 
+“Type 4” and “Type 8” establishment reports and the former “Type 6” establishment list 
+report, there will be a newly named “Establishment-Level Report.” All multi-establishment 
+employers will use an “Establishment -Level Report” to submit establishment -level 
+employee demographic data for each of their non-headquarters establishment(s) regardless 
+of size.  
+ 
+With this change, a multi-establishment employer will no longer have to take the additional 
+step of counting employees in each establishment to determine whether to file a “Type 4” 
+or “Type 8” establishment report. Multi-establishment employers will still be required to 
+submit a “ Headquarters Report ” and a “Consolidated Report.” However, all individual 
+“Consolidated Reports” for multi -establishment employers will be auto -populated and 
+                                                           
+12 The “Establishment-Level Report” replaces the former “Type 4” and “Type 8” non -headquarters establishment reports and the 
+former “Type 6” establishment list report. Beginning with the 2022 EEO -1 Componen t 1 data collection, a non -headquarters 
+establishment report is now known simply as an “Establishment-Level Report.” 
+13 Please note that if establishments are located at the same address (including, for example, suite number) and have both the same NAICS 
+code and the same EIN, the establishments must be combined into a single “Establishment-Level Report.” Such establishments are 
+considered one establishment for purposes of EEO-1 Component 1 reporting. 
+14 Please note that if during the employer’s selected “wor kforce snapshot period,” an establishment had zero employees, the 
+employer should not file an “Establishment -Level Report” for that establishment. If the establishment appears in the employer’s 
+list of establishments from the previous reporting cycle, the filer should delete the establishment with zero employees from its list. 
+
+
+ 
+ 
+ 
+2022 EEO-1 Component 1 Data Collection 
+Data File Upload Specifications 
+11 
+ 
+auto-generated with data from their “Headquarters Report” and each “Establishment-Level 
+Report” within the OFS.15  
+ 
+Specifications for Existing Non-Headquarters Establishments* 
+*(Only applicable to prior-year EEO-1 Component 1 filers) 
+These specifications are for non-headquarters establishments that have been included 
+in prior-year EEO-1 Component 1 reports and have an  existing Establishment-Level 
+Unit ID assigned by the EEO-1 Component 1 Online Filing System (OFS). Filers can 
+download a list of their establishments and corresponding Establishment-Level Unit 
+IDs in the OFS.16  
+ 
+Each existing non-headquarters establishment will be represented by a unique row in 
+the data file. To indicate a n existing non-headquarters establishment, e nter Status 
+Code=4 or Status Code=8 in the Status Code field (Field 2).17  
+ 
+See Figure 2 below for an example of how to indicate an existing “Establishment-Level 
+Report” on a multi-establishment employer’s 2022 EEO-1 Component 1 data file.  
+ 
+Figure 2.  Existing “Establishment -Level Report” data rows on 2022 EEO-1 
+Component 1 data file. 
+ 
+ 
+ 
+Specifications for New Non-Headquarters Establishments* 
+*(Applicable to both new and prior-year EEO-1 Component 1 filers) 
+These specifications are for non-headquarters establishments that have never been 
+reported in a prior-year EEO-1 Component 1 report and have never been assigned an 
+Establishment-Level Unit ID. Filers can download a list of their establishments and 
+                                                           
+15 Please note that the 2022 EEO-1 Component 1 Data File Upload Specifications allow users to indicate an “Establishment-Level 
+Report” by using a Status Code (Field 2) of either 4 or 8  (i.e., filers can leverage either code to indicate an “Establishment -Level 
+Report” when using the data file upload option to report workforce demographic data). Selecting either Status Code (4 or 8) w ill 
+have the identical effect of indicating that a report is an “Establishment-Level Report.” 
+16 Once logged in to the EEO-1 Component 1 Online Filing System  (OFS), filers should select their employer from “Employer 
+List,” which will take them to the “Employer Dashboard.” On this screen, filers should click “Download Establishments” to vie w 
+a CSV file listing the most recent employer establishments. 
+17 Please note that the 2022 EEO-1 Component 1 Data File Upload Specifications allow users to indicate an “Establishment-Level 
+Report” by using a Status Code (Field 2) of either 4 or 8 (i.e., filers can leverage either code to indicate an “Establishmen t-Level 
+Report” when using the data file upload option to report workforce demographic data). Selecting either Status Code (4 or 8) will 
+have the identical effect of indicating that a report is an “Establishment-Level Report.” 
+
+
+ 
+ 
+ 
+2022 EEO-1 Component 1 Data Collection 
+Data File Upload Specifications 
+12 
+ 
+assigned Establishment-Level Unit IDs  in the EEO-1 Component 1 Online Filing 
+System (OFS).18  
+ 
+Each new non-headquarters establishment will be represented by a unique row in the 
+data file. To indicate a new establishment’s “Establishment-Level Report,” enter Status 
+Code=9 in the Status Code field (Field 2) and leave the Establishment-Level Unit ID 
+(Field 3) NULL (i.e., blank). Each data field with this combination of data in Field 2 
+and Field 3 will represent a new non-headquarters “Establishment-Level Report,” and 
+the EEO-1 Component 1 Online Filing System  (OFS) will assign a n Establishment-
+Level Unit ID to these establishments upon upload.  
+ 
+See Figure 3 below for an example of how to indicate a new “Establishment -Level 
+Report” on a multi-establishment employer’s 2022 EEO-1 Component 1 data file.  
+ 
+Figure 3. New “Establishment-Level Report” data rows on 2022 EEO-1 Component 1 
+data file. 
+ 
+  
+ 
+Consolidated Report19  
+A multi-establishment employer is required to submit and certify a “Consolidated Report.” 
+The “Consolidated Report” must include workforce demographic data for all the multi -
+establishment employer’s employees (i.e., all employees at the employer’s headquar ters 
+and all its establishments) categorized by job category and sex and race or ethnicity. In 
+other words, the total number of employees in the “Headquarters Report” plus the total 
+number of employees in all the multi -establishment employer’s “Establishme nt-Level 
+Report(s)” must equal the total number of employees in the “Consolidated Report.”  
+ 
+With the discontinuation of the “Type 6” establishment list report,20 a “Consolidated 
+Report” is now auto -populated and auto -generated with data from a multi-establishment 
+                                                           
+18 Once logged in to the EEO-1 Component 1 On line Filing System  (OFS), filers should select their employer from “Employer 
+List,” which will take them to the “Employer Dashboard.” On this screen, filers should click “Download Establishments” to vie w 
+a CSV file listing the most recent employer establishments. 
+19 The “Consolidated Report” was formerly referred to as a “Type 2” consolidated report. Beginning with the 2022 EEO -1 
+Component 1 data collection, this report is now known simply as a “Consolidated Report.” 
+20 The former “Type 6” establishment list report contained the name and address of each non-headquarters establishment with 
+fewer than 50 employees, as well as the total number of employees at each establishment. A multi-establishment employer choosing 
+the option to submit a “Type 6” establishment  list report, instead of a “Type 8” report, was required to manually enter employee
+
+===== PDF SOURCE PART 1 END =====

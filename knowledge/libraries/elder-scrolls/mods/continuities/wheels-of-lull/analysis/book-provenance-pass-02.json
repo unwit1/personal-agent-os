@@ -1,0 +1,87 @@
+{
+  "continuity_id": "tes.mod.wheels-of-lull",
+  "source_sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
+  "pass": "book_provenance_02",
+  "status": "complete_with_origin_research_remaining",
+  "book_total": 33,
+  "normalization": {
+    "status": "complete",
+    "records": 33,
+    "path": "analysis/book-normalization-index.json",
+    "version": "wol-book-normalize-v1"
+  },
+  "counts": {
+    "verified_external_reuse": 3,
+    "strong_indirect_legacy_candidate": 1,
+    "continuity_local_functional_origin_unresolved": 19,
+    "named_work_origin_unresolved": 10
+  },
+  "verified_external_reuse": [
+    {
+      "form_id": "0537158E",
+      "title": "KINMUNE",
+      "relation": "embedded_variant",
+      "central_source_path": "knowledge/libraries/elder-scrolls/sources/apocryphal-library/books/040008F1-anon-anu-anui-el.txt",
+      "variant_diff_status": "pending"
+    },
+    {
+      "form_id": "0537158F",
+      "title": "Tatterdemalion",
+      "relation": "embedded_copy_or_variant",
+      "central_source_path": "knowledge/libraries/elder-scrolls/sources/imperial-library/catalog/tatterdemalion-the-lunar-province-of-secunda.md",
+      "variant_diff_status": "pending"
+    },
+    {
+      "form_id": "05371590",
+      "title": "The Cacophany",
+      "relation": "embedded_excerpt",
+      "central_source_path": "knowledge/libraries/elder-scrolls/sources/imperial-library/catalog/the-xal-gosleigh-letters.md",
+      "section_hint": "Xal's letter - Day of the Power/Knowledge",
+      "variant_diff_status": "pending"
+    }
+  ],
+  "strong_indirect_candidates": [
+    {
+      "form_id": "0537158D",
+      "title": "Harquebuses",
+      "classification": "probable_legacy_trainwiz_material",
+      "confidence": "strong_indirect",
+      "basis": "Harquebus technology is documented in pre-Wheels Aethernautics material, but the exact treatise text has not been verified in an earlier source.",
+      "promotion_blocker": "exact prior text/source edition not identified"
+    }
+  ],
+  "continuity_local_functional_form_ids": [
+    "0500089D",
+    "05000B5C",
+    "05005B3D",
+    "0502428C",
+    "0504E7F1",
+    "0525D2A0",
+    "05267AF8",
+    "05267AF9",
+    "05267AFA",
+    "05267AFB",
+    "05267AFC",
+    "05267AFD",
+    "05267B1B",
+    "052C3763",
+    "05357209",
+    "05367181",
+    "0549E1A5",
+    "0552BAD3",
+    "055400D7"
+  ],
+  "named_work_origin_unresolved_form_ids": [
+    "05371591",
+    "05371592",
+    "05371593",
+    "05371594",
+    "05371595",
+    "05376714",
+    "05376715",
+    "0543D471",
+    "0543D472",
+    "0543D473"
+  ],
+  "integrity_note": "Independent of the two corrupted dialogue shards; no excluded INFO data was inferred."
+}

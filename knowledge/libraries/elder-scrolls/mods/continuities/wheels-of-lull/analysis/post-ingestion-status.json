@@ -1,7 +1,7 @@
 {
   "continuity_id": "tes.mod.wheels-of-lull",
   "stage": "post_ingestion_analysis",
-  "status": "complete_with_bounded_shard_repair_required",
+  "status": "complete_with_bounded_shard_repair_required_and_provenance_followup_active",
   "completed": {
     "structured_source_ingestion": true,
     "speaker_resolution_for_all_readable_info": true,
@@ -13,7 +13,10 @@
     "tension_registry": true,
     "retrieval_index": true,
     "integrity_diagnosis": true,
-    "book_provenance_pass_01": true
+    "book_provenance_pass_01": true,
+    "book_text_normalization": true,
+    "book_provenance_pass_02": true,
+    "central_source_catalog_links_for_verified_reuse": true
   },
   "metrics": {
     "structured_source_records": 1090,
@@ -30,8 +33,12 @@
     "tension_records": 7,
     "retrieval_entries": 56,
     "book_records": 33,
+    "book_fingerprinted": 33,
     "book_provenance_verified_external_reuse": 3,
-    "book_provenance_pending_review": 30
+    "book_provenance_strong_indirect_candidates": 1,
+    "book_origin_unresolved": 29,
+    "book_named_work_origin_unresolved": 10,
+    "book_continuity_local_functional_origin_unresolved": 19
   },
   "only_remaining_repair": [
     "raw/source-records-0151-0200.jsonl.gz",
@@ -39,5 +46,6 @@
   ],
   "repair_blocker": "The original WheelsOfLull.esp bytes are not present in the current repository/file-library access layer. Both bad gzip blobs were already corrupt in their creation commits, so exact recovery from Git history is unavailable.",
   "next_stage_after_repair": "Merge the 52 repaired INFO rows into an exhaustive speaker index; then rerun retrieval materialization/validation over all 1,090 records.",
-  "parallel_next_stage": "Continue BOOK provenance/edition comparison and central-source linking from analysis/book-provenance-pass-01.* without inferring data from the damaged dialogue shards."
+  "parallel_stage_progress": "BOOK provenance pass 02 is complete: 33/33 books fingerprinted, three verified external reuses centrally linked, one strong-indirect legacy candidate identified, and the remaining origin-uncertain books explicitly triaged.",
+  "parallel_next_stage": "Perform edition/variant diffs for the three verified reused works; investigate the exact Harquebuses treatise source; continue evidence-backed provenance research for the ten unresolved named works."
 }

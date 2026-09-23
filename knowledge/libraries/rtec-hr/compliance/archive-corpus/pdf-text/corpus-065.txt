@@ -1,0 +1,717 @@
+===== PDF SOURCE BEGIN / PART 2 OF 8 =====
+SOURCE_PATH: TITLE VI LEP PLAN/FTA_Title_VI_FINAL.pdf
+SHA256: 21dfaa2b0e937e2f548c150590a5116a99a200e81ccc6a2aec353090e657ae04
+PAGES: 130
+TEXT_CHARS_TOTAL: 281439
+PART_INDEX: 2
+===== TEXT =====
+
+Chap. I-8 FTA C 4702.1B 
+Key Aspects of the 
+Authorities Title VI Environmental Justice 
+Federal financial assistance. executive branch and not to 
+create legal rights enforceable by 
+a party against the U.S. 
+What is the purpose of 
+the authority? 
+Title VI prohibits recipients of 
+Federal financial assistance 
+(e.g., states, local governments, 
+transit providers) from 
+discriminating on the basis of 
+race, color, or national origin in 
+their programs or activities, and 
+it obligates Federal funding 
+agencies to enforce compliance. 
+EO 12898 calls on each Federal 
+agency to achieve 
+"environmental justice...by 
+identifying and addressing, as 
+appropriate, disproportionately 
+high and adverse human health 
+or environmental effects of its 
+programs, policies, and activities 
+on minority populations and low-
+income populations...." 
+To whom does the 
+authority apply? 
+Title VI is a Federal law that 
+applies to recipients and 
+subrecipients of Federal 
+financial assistance (e.g., States, 
+local governments, transit 
+providers), and not to DOT 
+itself. 
+EO 12898 applies to Federal 
+agency actions, including DOT’s 
+and FTA’s actions. Title VI is 
+one of the tools used by Federal 
+agencies to implement this 
+directive. 
+What does the 
+authority require, and 
+of whom? 
+Under Title VI, DOT has the 
+responsibility to provide 
+oversight of recipients and to 
+enforce their compliance with 
+Title VI, to ensure that 
+recipients do not use DOT funds 
+to subsidize discrimination 
+based on race, color, or national 
+origin. 
+EO 12898 is a directive from the 
+President of the United States to 
+Federal agencies intended to 
+improve the internal management 
+of the Federal government. DOT 
+issued its own Order 
+implementing EO 12898, and 
+updated the Order in May 2012 
+(Order 5610.2(a)). 
+What does the 
+authority say with 
+regard to negative 
+effects or impacts? 
+In accordance with 49 CFR part 
+21 and Title VI case law, if an 
+otherwise facially neutral 
+program, policy, or activity will 
+have a discriminatory impact on 
+minority populations, that 
+program, policy, or activity may 
+only be carried out if (1) the 
+recipient can demonstrate a 
+substantial legitimate 
+justification for the program, 
+policy, or activity; (2) there are 
+In accordance with EO 12898 
+and the DOT Order on EJ, if a 
+DOT program, policy, or activity 
+will have a disproportionately 
+high and adverse effect on 
+minority or low-income 
+populations, that program, 
+policy, or activity may only be 
+carried out if further mitigation 
+measures or alternatives that 
+would reduce the 
+disproportionately high and 
+
+ 
+  
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B Chap. I-9 
+Key Aspects of the 
+Authorities Title VI Environmental Justice 
+no comparably effective adverse effects are not 
+alternative practices that would practicable. In determining 
+result in less-disparate impacts; whether a mitigation measure or 
+and (3) the justification for the an alternative is “practicable,” 
+program, policy or activity is the social, economic (including 
+not a pretext for discrimination.  costs) and environmental effects 
+of avoiding or mitigating the 
+adverse effects will be taken into 
+account. 
+Does the authority 
+create any rights or 
+remedies? 
+Title VI allows persons alleging 
+discrimination based on race, 
+color, or national origin by 
+recipients of Federal funds to 
+file administrative complaints 
+with the Federal departments 
+and agencies that provide 
+financial assistance. Persons 
+alleging intentional 
+discrimination (i.e., disparate 
+treatment) may bring a court 
+EO 12898 establishes the 
+Executive Branch policy on 
+environmental justice; it is not 
+enforceable in court and does not 
+create any rights or remedies. 
+action seeking to enforce Title 
+VI but cannot do so with regard 
+to allegations of discrimination 
+based on agency disparate 
+impact regulations. Disparate 
+impact claims may be filed with 
+the Federal agency. 
+Thus, while Title VI is one tool for agencies to use to achieve the principles of environmental 
+justice, it is important to recognize that Title VI imposes statutory and regulatory 
+requirements that are broader in scope than environmental justice. Recipients are cautioned 
+that while there may be overlap, engaging in an EJ analysis under Federal transportation 
+planning and NEPA provisions will not satisfy Title VI requirements, as outlined in this Title 
+VI Circular. Similarly, a Title VI analysis will not necessarily satisfy environmental justice, 
+given that Title VI does not include low-income populations. Moreover, Title VI applies to 
+all activities of Federal recipients, not solely those which may have disproportionately high 
+and adverse human health or environmental effects on EJ populations.  
+For example, while a bus rehabilitation project may not impose disproportionately high or 
+adverse health or environmental effects on minority or low-income populations, the use of 
+those buses subsequent to the rehabilitation may be subject to a Title VI analysis to ensure 
+that vehicles assigned to a particular area do not result in a disparate impact on the basis of 
+
+ 
+ 
+ 
+ 
+Chap. I-10 FTA C 4702.1B 
+race, color, or national origin. In addition, if there are substantive changes to the service 
+levels for which the rehabilitated or other buses will be used, i.e., the vehicles are deployed in 
+such a way that the nature and quantity of service in a particular area is changed, then a 
+service equity analysis must be conducted to determine whether this change results in a 
+disparate impact on the basis of race, color, or national origin. The requirements for that 
+particular analysis are part of the compliance determinations made for Federal transit 
+recipients under chapter IV of this Circular. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B 	 Chap. II-1 
+CHAPTER II 
+PROGRAM OVERVIEW 
+1.	 PROGRAM OBJECTIVES. The direction, guidance and procedures in this document will 
+help FTA recipients to:  
+a.	 Ensure that the level and quality of public transportation service is provided in a 
+nondiscriminatory manner;  
+b.	 Promote full and fair participation in public transportation decision-making without 
+regard to race, color, or national origin; 
+c.	 Ensure meaningful access to transit-related programs and activities by persons with 
+limited English proficiency.  
+2.	 STATUTORY AUTHORITY. Section 601 of Title VI of the Civil Rights Act of 1964 states 
+the following: 
+No person in the United States shall, on the ground of race, color, or national origin, be 
+excluded from participation in, be denied the benefits of, or be subjected to 
+discrimination under any program or activity receiving Federal financial assistance. 
+The Civil Rights Restoration Act of 1987 clarified the broad, institution-wide application of 
+Title VI. Title VI covers all of the operations  of covered entities without regard to whether 
+specific portions of the covered program or activity are Federally funded.  The term 
+“program or activity” means all of the operations of a department, agency, special purpose 
+district, or government; or the entity of such State or local government that distributes such 
+assistance and each such department or agency to which the assistance is extended, in the 
+case of assistance to a State or local government.  
+Therefore, compliance with this Circular does not relieve a recipient from the requirements 
+and responsibilities of the DOT Title VI regulation at 49 CFR part 21, or any other 
+requirements under other Federal agencies’ Title VI regulations, as applicable. This Circular 
+only provides guidance on the transit-related aspects of an entity’s activities. Recipients are 
+responsible for ensuring that all of their activities are in compliance with Title VI. In other 
+words, a recipient may engage in activities not described in the Circular, such as ridesharing 
+programs, roadway incident response programs, or other programs not funded by FTA, and 
+those programs must also be administered in a nondiscriminatory manner.  
+3.	 REGULATORY AUTHORITY. The U.S. Department of Justice (“DOJ”) Title VI 
+regulations can be found at 28 CFR § 42.401 et seq., and 28 CFR § 50.3. The U.S. 
+Department of Transportation (“DOT”) Title VI implementing regulations can be found at 49 
+CFR part 21. 
+All programs receiving financial assistance from FTA are subject to Title VI of the Civil 
+Rights Act of 1964 (42 U.S.C. 2000d) and DOT’s implementing regulations. In addition, 
+DOJ’s regulations require agencies such as DOT to issue guidelines to recipients to provide 
+
+  
+ 
+ 
+ 
+ 
+ 
+ 
+Chap. II-2	 FTA C 4702.1B 
+detailed information on the requirements of Title VI. In order to assist recipients in carrying 
+out the provisions of DOT’s Title VI regulations, each of the requirements in this Circular 
+includes a reference to the corresponding provision of 49 CFR part 21. 
+4.	 ADDITIONAL DOCUMENTS. In addition to the above-listed statute and regulations the 
+following documents incorporate Title VI principles:  
+a.	 The Department’s Policy Guidance Concerning Recipients’ Responsibilities to Limited 
+English Proficient Persons (“DOT LEP Guidance”), 70 FR 74087, (December 14, 2005). 
+This guidance is based on the prohibition against national origin discrimination in Title 
+VI of the Civil Rights Act of 1964, as it affects limited English proficient persons. 
+b.	 Section 12 of FTA’s Master Agreement, which provides, in pertinent part, that recipients 
+agree to comply, and assure the compliance of each subrecipient, lessee, third party 
+contractor, or other participant at any tier of the Project, with all provisions prohibiting 
+discrimination on the basis of race, color, or national origin of Title VI of the Civil Rights 
+Act of 1964, as amended, 42 U.S.C. §§ 2000d et seq., and with U.S. DOT regulations, 
+“Nondiscrimination in Federally-Assisted Programs of the Department of 
+Transportation—Effectuation of Title VI of the Civil Rights Act,” 49 CFR part 21. 
+Except to the extent FTA determines otherwise in writing, recipients agree to follow all 
+applicable provisions of the most recent edition of FTA Circular 4702.1B, “Title VI 
+Requirements and Guidelines for Federal Transit Administration Recipients,” and any 
+other applicable Federal directives that may be issued. Unless FTA states otherwise in 
+writing, the Master Agreement requires all recipients to comply with all applicable 
+Federal directives.  
+5.	 REPORTING REQUIREMENTS. Title 49 CFR Section 21.9(b) requires recipients to “keep 
+such records and submit to the Secretary timely, complete, and accurate compliance reports 
+at such times, and in such form and containing such information, as the Secretary may 
+determine to be necessary to enable him to ascertain whether the recipient has complied or is 
+complying with [49 CFR part 21].”  FTA requires that all direct and primary recipients 
+document their compliance by submitting a Title VI Program to their FTA regional civil 
+rights officer once every three years. The Title VI Program must be approved by the direct or 
+primary recipient’s board of directors or appropriate governing entity or official(s) 
+responsible for policy decisions prior to submission to FTA. For State DOTs, the appropriate 
+governing entity is the State’s Secretary of Transportation or equivalent. Recipients shall 
+submit a copy of the Board resolution, meeting minutes, or similar documentation with the 
+Title VI Program as evidence that the board of directors or appropriate governing entity or 
+official(s) has approved the Title VI Program. FTA will review and concur or request the 
+recipient provide additional information.  
+Subrecipients shall submit Title VI Programs to the primary recipient from whom they 
+receive funding, in order to assist the primary recipient in its compliance efforts, on a 
+schedule to be determined by the primary recipient. In the event an entity receives funds from 
+more than one primary recipient, the subrecipient shall submit Title VI Programs to all 
+primary recipients from which it receives funds. Chapters III, IV, V, and VI and appendices 
+
+ 
+ 
+ 
+FTA C 4702.1B 	 Chap. II-3 
+detail the specific information that shall be included in Title VI Programs, based on recipient 
+characteristics. 
+6.	 APPLICABILITY TO CONTRACTORS. Contractors and subcontractors are responsible for 
+complying with the Title VI Program of the recipient with whom they are contracting. 
+Contractors are not required to prepare or submit Title VI Programs. Recipients are 
+responsible for ensuring that contractors are following the Title VI Program, and complying 
+with Title VI. 
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B 	 Chap. III-1 
+CHAPTER III 
+GENERAL REQUIREMENTS AND GUIDELINES 
+1.	 INTRODUCTION. This chapter describes requirements that all FTA recipients must follow 
+to ensure that their programs, policies, and activities comply with DOT’s Title VI 
+regulations. 
+2.	 REQUIREMENT TO PROVIDE TITLE VI ASSURANCES. In accordance with 49 CFR 
+Section 21.7(a), every application for financial assistance from FTA must be accompanied by 
+an assurance that the applicant will carry out the program in compliance with DOT’s Title VI 
+regulations. This requirement shall be fulfilled when the applicant/recipient submits its 
+annual certifications and assurances to FTA. Primary recipients shall collect Title VI 
+assurances from subrecipients prior to passing through FTA funds. The text of FTA’s annual 
+certifications and assurances is available on FTA’s website.  
+3.	 REQUIREMENTS FOR FIRST-TIME APPLICANTS. First-time applicants must submit a 
+Title VI Program that is compliant with this Circular, and submit an assurance (as noted in 
+Section 2 above) that it will comply with Title VI. In addition, and consistent with 28 CFR § 
+50.3, entities applying for FTA funding for the first time shall provide information regarding 
+their Title VI compliance history if they have previously received funding from another 
+Federal agency. This shall include a copy of any Title VI compliance review activities 
+conducted in the previous three years. The summary shall include:  
+a.	 The purpose or reason for the review. 
+b.	 The name of the agency or organization that performed the review.  
+c.	 A summary of the findings and recommendations of the review.  
+d.	 A report on the status and/or disposition of such findings and recommendations. This 
+information shall be relevant to the organizational entity actually submitting the 
+application, not necessarily the larger agency or department of which the entity is a part.  
+In addition, first-time applicants shall submit a brief description of any pending applications 
+to other Federal agencies for assistance, and whether any Federal agency has found the 
+applicant to be in noncompliance with any civil rights requirement. 
+4.	 REQUIREMENT TO PREPARE AND SUBMIT A TITLE VI PROGRAM. Title 49 CFR 
+Section 21.9(b) requires recipients to “keep such records and submit to the Secretary timely, 
+complete, and accurate compliance reports at such times, and in such form and containing 
+such information, as the Secretary may determine to be necessary to enable him to ascertain 
+whether the recipient has complied or is complying with this [rule].” FTA requires that all 
+direct and primary recipients document their compliance with DOT’s Title VI regulations by 
+submitting a Title VI Program to their FTA regional civil rights officer once every three 
+years or as otherwise directed by FTA. For all recipients (including subrecipents), the Title 
+VI Program must be approved by the recipient’s board of directors or appropriate governing 
+entity or official(s) responsible for policy decisions prior to submission to FTA. For State 
+
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Chap. III-2 FTA C 4702.1B 
+DOTs, the appropriate governing entity is the State’s Secretary of Transportation or 
+equivalent. Recipients shall submit a copy of the board resolution, meeting minutes, or 
+similar documentation with the Title VI Program as evidence that the board of directors or 
+appropriate governing entity or official(s) has approved the Title VI Program. FTA will 
+review and concur or request the recipient provide additional information.  
+Subrecipients shall submit Title VI Programs to the primary recipient from whom they 
+receive funding in order to assist the primary recipient in its compliance efforts.  Such 
+Programs may be submitted and stored electronically at the option of the primary recipient.  
+Subrecipients may choose to adopt the primary recipient’s notice to beneficiaries, complaint 
+procedures and complaint form, public participation plan, and language assistance plan 
+where appropriate. Operational differences between the primary recipient and subrecipient 
+may require, in some instances, that the subrecipient tailor its language assistance plan. 
+Subrecipients shall develop and submit to the primary recipient a list of complaints, 
+investigations, or lawsuits. Subrecipients that have transit-related non-elected planning 
+boards, advisory councils, or committees, the membership of which is selected by the 
+subrecipient, must provide a table depicting the racial breakdown of the membership of those 
+committees, and a description of efforts made to encourage the participation of minorities on 
+such committees. Subrecipients must submit all the above information to the primary 
+recipient on a schedule requested by the primary recipient. Collection and storage of 
+subrecipient Title VI Programs may be electronic at the option of the primary recipient. 
+a. Contents. Every Title VI Program shall include the following information:  
+(1) A copy of the recipient’s Title VI notice to the public that indicates the recipient 
+complies with Title VI, and informs members of the public of the protections against 
+discrimination afforded to them by Title VI. Include a list of locations where the 
+notice is posted. A sample Title VI notice is in Appendix B. 
+(2) A copy of the recipient’s instructions to the public regarding how to file a Title VI 
+discrimination complaint, including a copy of the complaint form. Sample complaint 
+procedures are in Appendix C, and a sample Title VI complaint form is in Appendix 
+D. 
+(3) A list of any public transportation-related Title VI investigations, complaints, or 
+lawsuits filed with the recipient since the time of the last submission. See Appendix E 
+for an example of how to report this information. This list should include only those 
+investigations, complaints, or lawsuits that pertain to allegations of discrimination on 
+the basis of race, color, and/or national origin in transit-related activities and 
+programs and that pertain to the recipient submitting the report, not necessarily the 
+larger agency or department of which the recipient is a part.  
+(4) A public participation plan that includes an outreach plan to engage minority and 
+limited English proficient populations, as well as a summary of outreach efforts made 
+since the last Title VI Program submission. A recipient’s targeted public participation 
+plan for minority populations may be part of efforts that extend more broadly to 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B 	 Chap. III-3 
+include other constituencies that are traditionally underserved, such as people with 
+disabilities, low-income populations, and others.  
+(5) A copy of the recipient’s plan for providing language assistance to persons with 
+limited English proficiency, based on the DOT LEP Guidance. 
+(6) Recipients that have transit-related, non-elected planning boards, advisory councils or 
+committees, or similar bodies, the membership of which is selected by the recipient, 
+must provide a table depicting the racial breakdown of the membership of those 
+committees, and a description of efforts made to encourage the participation of 
+minorities on such committees or councils. 
+(7) Primary recipients shall include a narrative or description of efforts the primary 
+recipient uses to ensure subrecipients are complying with Title VI, as well as a 
+schedule of subrecipient Title VI program submissions.  
+(8) If the recipient has constructed a facility, such as a vehicle storage facility, 
+maintenance facility, operation center, etc., the recipient shall include a copy of the 
+Title VI equity analysis conducted during the planning stage with regard to the 
+location of the facility. 
+(9) Additional information as specified in chapters IV, V, and VI, depending on whether 
+the recipient is a fixed route transit provider, a State, or an MPO. 
+b.	 Upload Title VI Program to TEAM. Direct and primary recipients must upload their Title 
+VI Program into FTA’s Transportation Electronic Award Management (TEAM) system, 
+or other tracking system as directed by FTA. The Title VI Program shall be attached via 
+the paper clip function on the Civil Rights screen, and not attached to a particular grant. 
+Recipients must also notify their FTA Regional Civil Rights Officer via email that they 
+have uploaded their Title VI Program to TEAM. The Title VI Program must be uploaded 
+to TEAM no fewer than sixty calendar days prior to the date of expiration of the Title VI 
+Program.  
+c.	 Determinations. The status of a direct or primary recipient’s Title VI Program will be 
+noted in TEAM. The three status determinations are: 
+(1) Concur. This status indicates that the recipients’ Title VI Program meets the 
+requirements as set out in this Circular. The recipient may receive grant funds. 
+(2) In review. This status indicates that the recipient’s Title VI Program is being 
+reviewed by FTA staff and a determination as to sufficiency has not yet been made. 
+“In review” status is only effective for sixty days and grants may be processed while 
+a Title VI Program has an “in review” status. 
+(3) Expired/Expiration. This status indicates that the recipients’ Title VI Program has 
+expired and that an updated Title VI Program must be submitted. A recipient with an 
+expired Title VI Program may have its draw-down privileges suspended and grants 
+may not be processed. 
+
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Chap. III-4	 FTA C 4702.1B 
+d.	 Reporting Requirement Exemptions. Recipients whose only FTA funding is through 
+FTA’s University Transportation Center Program, National Research and Technology 
+Program, Transportation Cooperative Research Program, Over the Road Bus 
+Accessibility program, or the Public Transportation on Indian Reservations program are 
+exempt from submitting a Title VI Program to FTA. In addition, FTA may exempt a 
+recipient, upon receipt of a request for a waiver submitted to the Director of the Office of 
+Civil Rights, from the requirement to submit a Title VI Program, or from some elements 
+of the Title VI Program. The absence of the requirement to submit a Title VI Program 
+does not obviate the underlying obligations to comply with DOT’s Title VI regulations. 
+Furthermore, with the exception of the Public Transportation on Indian Reservation 
+program, FTA may, at any time, request information from an exempt recipient in order to 
+determine compliance with Title VI regulations and statutes.  
+5.	 REQUIREMENT TO NOTIFY BENEFICIARIES OF PROTECTION UNDER TITLE VI. 
+Title 49 CFR Section 21.9(d) requires recipients to provide information to the public 
+regarding the recipient’s obligations under DOT’s Title VI regulations and apprise members 
+of the public of the protections against discrimination afforded to them by Title VI. At a 
+minimum, recipients shall disseminate this information to the public by posting a Title VI 
+notice on the agency’s website and in public areas of the agency’s office(s), including the 
+reception desk, meeting rooms, etc. Recipients should also post Title VI notices at stations or 
+stops, and/or on transit vehicles. A sample Title VI notice to the public is provided in 
+Appendix B. 
+a.	 Contents. The Title VI notice shall include:  
+(1) A statement that the agency operates programs without regard to race, color, or 
+national origin. 
+(2) A description of the procedures that members of the public should follow in order to 
+request additional information on the recipient’s Title VI obligations.  
+(3) A description of the procedures that members of the public shall follow in order to 
+file a Title VI discrimination complaint against the recipient. 
+b.	 Effective Practices for Fulfilling the Notification Requirement. 
+(1) Dissemination. Agencies shall inform the public of their rights under Title VI through 
+such measures as posting the Title VI notice on posters, comment cards, or flyers 
+placed at stations, bus shelters, and in transit vehicles. The type, timing, and 
+frequency of these measures are at the recipient’s discretion, as long as the type, 
+timing, and frequency are sufficient to notify passengers and other interested persons 
+of their rights under DOT’s Title VI regulations with regard to the recipient’s 
+program. 
+(2) Document translation. Notices detailing a recipient’s Title VI obligations and 
+complaint procedures shall be translated into languages other than English, as needed 
+and consistent with the DOT LEP Guidance and the recipient’s language assistance 
+plan. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B 	 Chap. III-5 
+(3) Subrecipients. In order to reduce the administrative burden associated with this 
+requirement, subrecipients may adopt the Title VI Notice developed by the primary 
+recipient; however, subrecipients shall notify passengers and other interested persons 
+that they may file discrimination complaints directly with the subrecipient. 
+6.	 REQUIREMENT TO DEVELOP TITLE VI COMPLAINT PROCEDURES AND 
+COMPLAINT FORM. In order to comply with the reporting requirements established in 49 
+CFR Section 21.9(b), all recipients shall develop procedures for investigating and tracking 
+Title VI complaints filed against them and make their procedures for filing a complaint 
+available to members of the public. Recipients must also develop a Title VI complaint form, 
+and the form and procedure for filing a complaint shall be available on the recipient’s 
+website. FTA requires direct and primary recipients to report information regarding their 
+complaint procedures in their Title VI Programs in order for FTA to determine compliance 
+with DOT’s Title VI regulations. In order to reduce the administrative burden associated with 
+this requirement, subrecipients may adopt the Title VI complaint investigation and tracking 
+procedures and complaint form developed by the primary recipient. Sample complaint 
+procedure and complaint forms are located in Appendices C and D. See Chapter IX of this 
+Circular for more information on complaints. 
+7.	 REQUIREMENT TO RECORD AND REPORT TRANSIT-RELATED TITLE VI 
+INVESTIGATIONS, COMPLAINTS, AND LAWSUITS. In order to comply with the 
+reporting requirements of 49 CFR Section 21.9(b), FTA requires all recipients to prepare and 
+maintain a list of any of the following that allege discrimination on the basis of race, color, or 
+national origin: active investigations conducted by entities other than FTA; lawsuits; and 
+complaints naming the recipient. This list shall include the date that the investigation, 
+lawsuit, or complaint was filed; a summary of the allegation(s); the status of the 
+investigation, lawsuit, or complaint; and actions taken by the recipient in response, or final 
+findings related to, the investigation, lawsuit, or complaint. This list shall be included in the 
+Title VI Program submitted to FTA every three years. See Appendix E for an example of 
+how to report this information. 
+8.	 PROMOTING INCLUSIVE PUBLIC PARTICIPATION. The content and considerations of 
+Title VI, the Executive Order on LEP, and the DOT LEP Guidance shall be integrated into 
+each recipient’s established public participation plan or process (i.e., the document that 
+explicitly describes the proactive strategies, procedures, and desired outcomes that underpin 
+the recipient’s public participation activities). Recipients have wide latitude to determine 
+how, when, and how often specific public participation activities should take place, and 
+which specific measures are most appropriate. Recipients should make these determinations 
+based on a demographic analysis of the population(s) affected, the type of plan, program, 
+and/or service under consideration, and the resources available. Efforts to involve minority 
+and LEP populations in public participation activities can include both comprehensive 
+measures, such as placing public notices at all transit stations, stops, and vehicles, as well as 
+targeted measures to address linguistic, institutional, cultural, economic, historical, or other 
+barriers that may prevent minority and LEP persons from effectively participating in a 
+recipient’s decision-making process. FTA has developed a Circular, 4703.1, “Environmental 
+Justice Policy Guidance for Federal Transit Administration Recipients,” that includes many 
+examples of effective strategies for engaging minority and low-income populations. FTA 
+
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Chap. III-6	 FTA C 4702.1B 
+encourages recipients to review that Circular for ideas when developing their public 
+engagement strategy. Some of those effective practices include:  
+a. 	 Scheduling meetings at times and locations that are convenient and accessible for 
+minority and LEP communities.  
+b. 	 Employing different meeting sizes and formats. 
+c. 	 Coordinating with community- and faith-based organizations, educational institutions,   
+and other organizations to implement public engagement strategies that reach out 
+specifically to members of affected minority and/or LEP communities. 
+d. 	 Considering radio, television, or newspaper ads on stations and in publications that serve 
+LEP populations. Outreach to LEP populations could also include audio programming 
+available on podcasts. 
+e. 	 Providing opportunities for public participation through means other than written 
+communication, such as personal interviews or use of audio or video recording devices to 
+capture oral comments. 
+Grant recipients are required to comply with the public participation requirements of 49 
+U.S.C. Sections 5307(b) (requires programs of projects to be developed with public 
+participation) and 5307(c)(1)(I) (requires a locally developed process to consider public 
+comment before raising a fare or carrying out a major reduction in transportation service). 
+FTA/FHWA (Federal Highway Administration) joint planning regulations (23 CFR part 450) 
+require States and MPOs engaged in planning activities to seek out and consider the needs 
+and input of the general public, including interested parties and those traditionally 
+underserved by existing transportation systems, such as minority and LEP persons, who may 
+face challenges accessing employment and other services, as States and MPOs develop and 
+conduct their public involvement activities. Recipients engaged in planning and other 
+decision-making activities at the local level should consider the principles embodied in the 
+planning regulations, and develop and use a documented public participation plan or process 
+that provides adequate notice of public participation activities, as well as early and 
+continuous opportunities for public review and comment at key decision points.  
+9.	 REQUIREMENT TO PROVIDE MEANINGFUL ACCESS TO LEP PERSONS. Consistent 
+with Title VI of the Civil Rights Act of 1964, DOT’s implementing regulations, and 
+Executive Order 13166, “Improving Access to Services for Persons with Limited English 
+Proficiency” (65 FR 50121, Aug. 11, 2000), recipients shall take reasonable steps to ensure 
+meaningful access to benefits, services, information, and other important portions of their 
+programs and activities for individuals who are limited-English proficient (LEP). This 
+Circular contains only a summary of the LEP requirements as they apply to FTA recipients; 
+recipients are encouraged to review DOT’s LEP guidance for additional information (70 FR 
+74087, Dec. 14, 2005) http://www.gpo.gov/fdsys/pkg/FR-2005-12-14/pdf/05-23972.pdf. 
+Recipients are also encouraged to review DOJ’s guidelines on self-assessment, Language 
+Access Assessment and Planning Tool for Federally Conducted and Federally Assisted 
+Programs (May 2011), as well as other materials, available at www.lep.gov. 
+
+ 
+ 
+ 
+  
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+FTA C 4702.1B 	 Chap. III-7 
+a.	 Four Factor Analysis. In order to ensure meaningful access to programs and activities, 
+recipients shall use the information obtained in the Four Factor Analysis to determine the 
+specific language services that are appropriate to provide.  A careful analysis can help a 
+recipient determine if it communicates effectively with LEP persons and will inform 
+language access planning. The Four Factor Analysis is an individualized assessment that 
+balances the following four factors: 
+(1) The number or proportion of LEP persons eligible to be served or likely to be 
+encountered by the program or recipient. This population will be program-
+specific. In addition to the number or proportion of LEP persons served, the 
+recipient’s analysis should, at a minimum, identify: 
+(a) How LEP persons interact with the recipient’s agency; 
+(b) Identification of LEP communities, and assessing the number or proportion of 
+LEP persons from each language group to determine the appropriate language 
+services for each language group; 
+(c) The literacy skills of LEP populations in their native languages, in order to 
+determine whether translation of documents will be an effective practice; and 
+(d) Whether LEP persons are underserved by the recipient due to language barriers. 
+(2) The frequency with which LEP persons come into contact with the program. 
+Recipients should survey key program areas and assess major points of contact with 
+the public, such as: 
+(a) Use of bus and rail service; 
+(b) Purchase of passes and tickets through vending machines, outlets, websites, and 
+over the phone; 
+(c) Participation in public meetings; 
+(d) Customer service interactions; 
+(e) Ridership surveys; 
+(f) Operator surveys. 
+(3) The nature and importance of the program, activity, or service provided by the 
+program to people’s lives. Generally speaking, the more important the program, the 
+more frequent the contact and the likelihood that language services will be needed.   
+The provision of public transportation is a vital service, especially for people without 
+access to personal vehicles. An MPO’s regional planning activities will impact every 
+person in a region. Development of a coordinated plan to meet the specific 
+
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Chap. III-8	 FTA C 4702.1B 
+transportation needs of seniors and people with disabilities will often also meet the 
+needs of LEP persons. A person who is LEP may have a disability that prevents the 
+person from using fixed route service, thus making the person eligible for ADA 
+complementary paratransit.  Transit providers, States, and MPOs must assess their 
+programs, activities and services to ensure they are providing meaningful access to 
+LEP persons. Facilitated meetings with LEP persons are one method to inform the 
+recipient on what the local LEP population considers to be an essential service, as 
+well as the most effective means to provide language assistance. 
+(4) The resources available to the recipient for LEP outreach, as well as the costs 
+associated with that outreach. Resource and cost issues can often be reduced by 
+technological advances, reasonable business practices, and the sharing of language 
+assistance materials and services among and between recipients, advocacy groups, 
+LEP populations and Federal agencies. Large entities and those entities serving a 
+significant number of LEP persons should ensure that their resource limitations are 
+well substantiated before using this factor as a reason to limit language assistance. 
+b.	 Developing a Language Assistance Plan. After completing the Four Factor Analysis, the 
+recipient shall use the results of the analyses to determine which language assistance 
+services are appropriate. Additionally, the recipient shall develop an assistance plan to 
+address the identified needs of the LEP population(s) it serves.  The DOT LEP Guidance 
+recognizes that certain recipients, such as those serving very few LEP persons or those 
+with very limited resources, may choose not to develop a written plan.  However, FTA 
+has determined it is necessary to require its recipients to develop an assistance plan in 
+order to ensure compliance.  A recipient may formally request an exemption from this 
+requirement if it believes it fits within the exception described. 
+Recipients have considerable flexibility in developing a Language Assistance Plan, or 
+LEP Plan. An LEP Plan shall, at a minimum: 
+(a) Include the results of the Four Factor Analysis, including a description of the LEP 
+population(s) served; 
+(b) Describe how the recipient provides language assistance services by language; 
+(c) Describe how the recipient provides notice to LEP persons about the availability of 
+language assistance; 
+(d) Describe how the recipient monitors, evaluates and updates the language access plan; 
+and 
+(e) Describe how the recipient trains employees to provide timely and reasonable 
+language assistance to LEP populations.    
+FTA will solely determine, at the time the recipient submits its Title VI Program or 
+subsequent to a complaint investigation or compliance review, whether a recipient’s plan 
+is sufficient to ensure meaningful access and thus ensure the recipient is not engaging in 
+discrimination on the basis of national origin.
+
+===== PDF SOURCE PART 2 END =====
