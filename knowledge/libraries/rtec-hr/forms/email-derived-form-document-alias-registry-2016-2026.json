@@ -1,0 +1,438 @@
+{
+  "record_id": "rtec-email-derived-form-document-alias-registry-2016-2026",
+  "updated_at": "2026-09-23",
+  "status": "candidate_alias_map",
+  "purpose": "Map colloquial/email references to canonical blank/reference forms or workflow artifacts without storing completed employee/applicant documents.",
+  "aliases": [
+    {
+      "email_terms": [
+        "FMLA designation notice",
+        "designation notice"
+      ],
+      "canonical_refs": [
+        "hrgui-reference-016"
+      ],
+      "canonical_titles": [
+        "FMLA Designation Notice WH-382"
+      ],
+      "evidence_ids": [
+        "000183"
+      ],
+      "confidence": "high"
+    },
+    {
+      "email_terms": [
+        "FMLA paperwork",
+        "give FMLA"
+      ],
+      "canonical_refs": [
+        "hrgui-reference-017",
+        "hrgui-reference-018",
+        "hrgui-reference-019",
+        "hrgui-reference-020",
+        "hrgui-reference-016"
+      ],
+      "canonical_titles": [
+        "FMLA Leave Request",
+        "FMLA Medical Certification (EE)",
+        "FMLA Medical Certification (Family)",
+        "FMLA Notice of Eligibility WH-381",
+        "FMLA Designation Notice WH-382"
+      ],
+      "evidence_ids": [
+        "000052",
+        "000214"
+      ],
+      "confidence": "medium_high",
+      "note": "Email wording is bundle-level and may not imply every listed form was used in each case; historical HR duty document independently describes this form family."
+    },
+    {
+      "email_terms": [
+        "direct deposit form"
+      ],
+      "canonical_refs": [
+        "hrgui-reference-037"
+      ],
+      "canonical_titles": [
+        "Direct Deposit Form"
+      ],
+      "evidence_ids": [
+        "000146"
+      ],
+      "confidence": "high"
+    },
+    {
+      "email_terms": [
+        "termination letter",
+        "term letter"
+      ],
+      "canonical_refs": [
+        "hrgui-reference-059"
+      ],
+      "canonical_titles": [
+        "Termination Letter"
+      ],
+      "evidence_ids": [
+        "000254"
+      ],
+      "confidence": "high"
+    },
+    {
+      "email_terms": [
+        "termination paperwork",
+        "termination sheet",
+        "notice to payroll"
+      ],
+      "canonical_refs": [
+        "hrgui-reference-060",
+        "hrgui-reference-061",
+        "hrgui-reference-062"
+      ],
+      "canonical_titles": [
+        "Termination of Benefits Form",
+        "Termination of Employment - Notice to Payroll form",
+        "Termination of Employment Form"
+      ],
+      "evidence_ids": [],
+      "confidence": "medium_high",
+      "note": "Alias family is corroborated by historical HR duty document; exact one-to-one mapping requires form-content comparison."
+    },
+    {
+      "email_terms": [
+        "transfer form"
+      ],
+      "canonical_refs": [
+        "hrgui-reference-068",
+        "hrgui-reference-069"
+      ],
+      "canonical_titles": [
+        "Employee Transfer Change Notice",
+        "Employee Transfer Request Form"
+      ],
+      "evidence_ids": [
+        "000270"
+      ],
+      "confidence": "medium_high",
+      "note": "Historical HR duty document explicitly refers to a transfer form for Job Shop-to-RTEC and other transfers/promotions."
+    },
+    {
+      "email_terms": [
+        "wage statement",
+        "wages form"
+      ],
+      "canonical_refs": [
+        "hrgui-reference-070"
+      ],
+      "canonical_titles": [
+        "CT Wage Statement"
+      ],
+      "evidence_ids": [
+        "000233"
+      ],
+      "confidence": "medium_high"
+    },
+    {
+      "email_terms": [
+        "supervisor statement"
+      ],
+      "canonical_refs": [
+        "hrgui-reference-071"
+      ],
+      "canonical_titles": [
+        "Supervisor Statement"
+      ],
+      "evidence_ids": [
+        "000233"
+      ],
+      "confidence": "high"
+    },
+    {
+      "email_terms": [
+        "witness statement"
+      ],
+      "canonical_refs": [
+        "hrgui-reference-072"
+      ],
+      "canonical_titles": [
+        "WITNESS STATEMENT"
+      ],
+      "evidence_ids": [
+        "000114",
+        "000233"
+      ],
+      "confidence": "high"
+    },
+    {
+      "email_terms": [
+        "Guardian form",
+        "Guardian packet",
+        "Gui packet",
+        "Guipacket"
+      ],
+      "canonical_refs": [
+        "hrgui-reference-008",
+        "rtec-form-guardian-employee-enrollment-2026"
+      ],
+      "canonical_titles": [
+        "EE Guardian Packet",
+        "Guardian Employee Enrollment and Change Form"
+      ],
+      "evidence_ids": [
+        "000001",
+        "000134"
+      ],
+      "confidence": "candidate",
+      "note": "'Guipacket' may be a typo/shorthand for a Guardian-related packet, but the alias is not promoted as exact until confirmed."
+    },
+    {
+      "email_terms": [
+        "employment application",
+        "online application"
+      ],
+      "canonical_refs": [
+        "job-dashboard-reference-job-application-template"
+      ],
+      "canonical_titles": [
+        "Job Application Template / EE Employment Application"
+      ],
+      "evidence_ids": [
+        "000016",
+        "000028",
+        "000312"
+      ],
+      "confidence": "medium_high",
+      "privacy": "Completed applications remain restricted."
+    },
+    {
+      "email_terms": [
+        "SBC",
+        "SBCs",
+        "Summary of Benefits and Coverage"
+      ],
+      "canonical_refs": [],
+      "canonical_titles": [
+        "Summary of Benefits and Coverage"
+      ],
+      "evidence_ids": [
+        "000211",
+        "000249"
+      ],
+      "confidence": "high",
+      "gap": "No dedicated canonical SBC form/document family was located in the reference catalog; create/version by plan year/carrier when source artifacts are available."
+    },
+    {
+      "email_terms": [
+        "First Report of Injury"
+      ],
+      "canonical_refs": [],
+      "canonical_titles": [
+        "First Report of Injury"
+      ],
+      "evidence_ids": [
+        "000063"
+      ],
+      "confidence": "high",
+      "gap": "No direct canonical reference-form entry located; add when current KACo/worker-comp source form is available."
+    },
+    {
+      "email_terms": [
+        "off work statement",
+        "doctor statement",
+        "Dr excuse",
+        "work statement"
+      ],
+      "canonical_refs": [],
+      "canonical_titles": [
+        "Medical/off-work statement"
+      ],
+      "evidence_ids": [
+        "000062",
+        "000098",
+        "000104",
+        "000145",
+        "000233"
+      ],
+      "confidence": "high",
+      "privacy": "Completed documents are restricted medical/employee records.",
+      "gap": "Model as document class/fingerprint family rather than a single form unless a standard blank template exists."
+    },
+    {
+      "email_terms": [
+        "absentee report",
+        "print absentees"
+      ],
+      "canonical_refs": [],
+      "canonical_titles": [
+        "Absentee Report"
+      ],
+      "evidence_ids": [
+        "000278",
+        "000300"
+      ],
+      "confidence": "high",
+      "gap": "No canonical blank/reference form identified; likely generated report."
+    },
+    {
+      "email_terms": [
+        "personal time taken list"
+      ],
+      "canonical_refs": [],
+      "canonical_titles": [
+        "Personal Time Taken List"
+      ],
+      "evidence_ids": [
+        "000157",
+        "000158"
+      ],
+      "confidence": "high",
+      "gap": "Likely generated tracker/report rather than a standard form."
+    },
+    {
+      "email_terms": [
+        "HR Report"
+      ],
+      "canonical_refs": [],
+      "canonical_titles": [
+        "Monthly HR Report"
+      ],
+      "evidence_ids": [
+        "000189",
+        "000310"
+      ],
+      "confidence": "high_historical",
+      "note": "Historical HR duty document says first-of-month report to executive leadership; template/content remains unidentified."
+    },
+    {
+      "email_terms": [
+        "check register"
+      ],
+      "canonical_refs": [],
+      "canonical_titles": [
+        "Payroll Check Register"
+      ],
+      "evidence_ids": [
+        "000191",
+        "000206",
+        "000288"
+      ],
+      "confidence": "high_historical",
+      "note": "Historical HR duty document says monthly verification with bank statements."
+    },
+    {
+      "email_terms": [
+        "required Medicare notice",
+        "Medicare required letter",
+        "Medicare Creditable Coverage Notice"
+      ],
+      "canonical_refs": [],
+      "canonical_titles": [
+        "Medicare Creditable Coverage Notice"
+      ],
+      "evidence_ids": [
+        "000148",
+        "000289"
+      ],
+      "confidence": "high_historical",
+      "gap": "Current authoritative template/version should be sourced rather than reconstructed from old email."
+    },
+    {
+      "email_terms": [
+        "CMS report for creditable coverage"
+      ],
+      "canonical_refs": [],
+      "canonical_titles": [
+        "CMS Creditable Coverage Disclosure"
+      ],
+      "evidence_ids": [
+        "000306"
+      ],
+      "confidence": "high_historical"
+    },
+    {
+      "email_terms": [
+        "COBRA ARPA Notices Mailed Report"
+      ],
+      "canonical_refs": [],
+      "canonical_titles": [
+        "COBRA ARPA Notices Mailed Report"
+      ],
+      "evidence_ids": [
+        "000228",
+        "000297"
+      ],
+      "confidence": "high_historical",
+      "note": "System-generated report from historical iSolved Benefit Services process."
+    },
+    {
+      "email_terms": [
+        "new hire report upload",
+        "Web File Upload Preview",
+        "Web File Upload Completion"
+      ],
+      "canonical_refs": [],
+      "canonical_titles": [
+        "Kentucky New Hire Reporting Upload File/Preview/Completion"
+      ],
+      "evidence_ids": [
+        "000361",
+        "000362",
+        "000363"
+      ],
+      "confidence": "high_current_2026",
+      "note": "Treat upload spreadsheet, preview, and completion as three related artifacts with distinct audit roles."
+    },
+    {
+      "email_terms": [
+        "Preview Wage & Tax Register",
+        "Statement of Deposits",
+        "2Q 941 report",
+        "Preview Forms W-2 and 1099"
+      ],
+      "canonical_refs": [],
+      "canonical_titles": [
+        "ADP Quarter-End Payroll/Tax Reports"
+      ],
+      "evidence_ids": [
+        "000572",
+        "000574"
+      ],
+      "confidence": "high_current_2026",
+      "note": "System-generated ADP reports; not static blank forms."
+    },
+    {
+      "email_terms": [
+        "general staffing agreement"
+      ],
+      "canonical_refs": [],
+      "canonical_titles": [
+        "The Job Shop / Impact Employment Solutions General Staffing Agreement"
+      ],
+      "evidence_ids": [
+        "000270"
+      ],
+      "confidence": "high_historical",
+      "gap": "Preserve as vendor contract/reference artifact if a safe blank/current copy is available."
+    },
+    {
+      "email_terms": [
+        "certificate of completion for CSR"
+      ],
+      "canonical_refs": [],
+      "canonical_titles": [
+        "CSR Training Certificate of Completion"
+      ],
+      "evidence_ids": [
+        "000311"
+      ],
+      "confidence": "medium_high_historical",
+      "gap": "Locate training source/template and determine current use."
+    }
+  ],
+  "scanner_implications": [
+    "Add recognition aliases for email shorthand only after mapping confidence is sufficient.",
+    "Generated reports should be classified by content/system signature rather than forced into blank-form templates.",
+    "Medical/off-work statements require broad document-class recognition and restricted handling.",
+    "Keep plan-year/vendor versioning for SBCs, enrollment packets and other benefits documents.",
+    "Never use employee/applicant names from completed documents as canonical form identifiers."
+  ]
+}
