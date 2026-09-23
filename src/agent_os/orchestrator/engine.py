@@ -377,6 +377,7 @@ class Orchestrator:
                 raise OrchestratorError(f"provider {provider} is not configured")
             record["overrides"]["nodes"][node_id] = _clean_override({"provider": provider, "model": model, "effort": effort})
             node["excluded_providers"] = [item for item in node["excluded_providers"] if item != provider]
+            node.setdefault("excluded_classes", {}).pop(provider, None)
             if node["state"] in ACTIVE_NODE_STATES:
                 self._cancel_node(record, node, "reassigned by user")
             if node["state"] in {"FAILED_FINAL", "FAILED_RETRYABLE", "CANCELLED", "PENDING", "RUNNABLE"}:
@@ -945,7 +946,15 @@ class Orchestrator:
             node["wait_reason"] = "cancelled; will resume when the run resumes"
             return
         policy = record["policy"]
-        if provider and policy["provider_failover"]:
+        if provider and kind == "invalid_model" and policy["provider_failover"]:
+            capability = (node.get("selection") or {}).get("capability_class")
+            if capability:
+                excluded = node.setdefault("excluded_classes", {}).setdefault(provider, [])
+                if capability not in excluded:
+                    excluded.append(capability)
+                    self.store.append_event(record["run_id"], "provider.class_failover", node["id"], f"{provider}/{capability} excluded after invalid_model")
+                    self.ledger.emit(record["run_id"], "fallback", node["id"], from_provider=provider, reason=kind, capability_class=capability)
+        elif provider and policy["provider_failover"]:
             same_kind = [item for item in node["failures"] if item["provider"] == provider and item["kind"] in {"process_error", "timeout", "interrupted", "malformed"}]
             if kind in PROVIDER_FAILURES or len(same_kind) >= 2:
                 if provider not in node["excluded_providers"]:
@@ -1060,6 +1069,7 @@ class Orchestrator:
             preference=policy["preference"],
             availability=self.availability(),
             excluded=node["excluded_providers"],
+            excluded_classes=node.get("excluded_classes", {}),
             avoid=avoid,
             running=running,
             override=self._override_for(record, node),
@@ -1908,6 +1918,7 @@ def _node_view(node: dict[str, Any]) -> dict[str, Any]:
         "retries": node["retries"],
         "escalations": node["escalations"],
         "excluded_providers": node["excluded_providers"],
+        "excluded_classes": node.get("excluded_classes", {}),
         "failures": node["failures"][-3:],
         "validation": node.get("validation"),
         "review": node["review"],

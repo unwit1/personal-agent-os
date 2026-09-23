@@ -243,9 +243,34 @@ class RoutingTests(unittest.TestCase):
         self.assertIn("no provider registry", choice["reason"])
 
     def test_user_override_wins(self) -> None:
-        choice = select(self.registry(), capability_class="fast", effort="low", role="implementer", override={"provider": "beta", "model": "beta-custom", "effort": "high"})
-        self.assertEqual((choice["provider"], choice["model"], choice["effort"]), ("beta", "beta-custom", "high"))
+        choice = select(self.registry(), capability_class="fast", effort="low", role="implementer", override={"provider": "beta", "model": "beta-fast", "effort": "high"})
+        self.assertEqual((choice["provider"], choice["model"], choice["effort"]), ("beta", "beta-fast", "high"))
         self.assertTrue(choice["overridden"])
+
+    def test_unknown_model_alias_is_ignored_in_favor_of_registered_model(self) -> None:
+        choice = select(
+            self.registry(provider("codex", models={"fast": "gpt-6-luna", "balanced": "gpt-6-terra"})),
+            capability_class="fast", effort="low", role="implementer",
+            override={"provider": "codex", "model": "luna"},
+        )
+        self.assertEqual((choice["provider"], choice["model"]), ("codex", "gpt-6-luna"))
+        self.assertTrue(any("not a known model" in note for note in choice["notes"]))
+
+    def test_exact_model_override_routes_to_its_registered_class(self) -> None:
+        choice = select(
+            self.registry(provider("codex", models={"fast": "gpt-6-luna", "balanced": "gpt-6-terra"})),
+            capability_class="balanced", effort="medium", role="implementer",
+            override={"provider": "codex", "model": "gpt-6-luna"},
+        )
+        self.assertEqual((choice["model"], choice["capability_class"]), ("gpt-6-luna", "fast"))
+
+    def test_invalid_model_exclusion_is_limited_to_provider_class(self) -> None:
+        registry = self.registry(provider("alpha"))
+        choice = select(
+            registry, capability_class="balanced", effort="medium", role="implementer",
+            excluded_classes={"alpha": ["balanced"]},
+        )
+        self.assertEqual((choice["provider"], choice["capability_class"]), ("alpha", "reasoning"))
 
     def test_reviewer_prefers_a_distinct_provider(self) -> None:
         choice = select(self.registry(), capability_class="balanced", effort="medium", role="reviewer", avoid=["alpha"])
@@ -316,10 +341,10 @@ class OverrideTests(OrchestratorFixture):
         tasks_file.write_text(json.dumps(tasks), encoding="utf-8")
         before = tasks_file.read_bytes()
         run_id = self.create(json.loads(tasks_file.read_text(encoding="utf-8")))
-        self.engine.set_override(run_id, role="implementer", provider="beta", model="beta-pinned", effort="high")
+        self.engine.set_override(run_id, role="implementer", provider="beta", model="beta-balanced", effort="high")
         self.engine.run_loop(run_id, max_ticks=30)
         selection = self.node(run_id, "a")["selection"]
-        self.assertEqual((selection["provider"], selection["model"], selection["effort"]), ("beta", "beta-pinned", "high"))
+        self.assertEqual((selection["provider"], selection["model"], selection["effort"]), ("beta", "beta-balanced", "high"))
         self.assertTrue(selection["overridden"])
         self.assertEqual(tasks_file.read_bytes(), before)
         after = {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in (ROOT / "workflows").glob("*.json")}
@@ -341,6 +366,29 @@ class OverrideTests(OrchestratorFixture):
 
 
 class FailoverAndRestartTests(OrchestratorFixture):
+    def test_invalid_model_excludes_only_the_provider_class(self) -> None:
+        calls = 0
+
+        def reject_balanced_then_succeed(request: AgentLaunchRequest, call: int) -> dict:
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                return {"failure": "invalid_model", "detail": "model is not supported"}
+            return {"edits": {"a/fixed.txt": "done\n"}, "structured": {"status": "done"}}
+
+        synthetic.SCRIPTS["alpha"] = reject_balanced_then_succeed
+        registry = ProviderRegistry(providers=[provider("alpha"), provider("beta", models={"fast": "beta-fast"})])
+        self.engine = self.make_engine(registry)
+        run_id = self.create([self.task("a")], require_independent_review_for_model_edits=False)
+
+        final = self.engine.run_loop(run_id, max_ticks=30)
+
+        node = self.node(run_id, "a")
+        self.assertEqual(final["state"], "COMPLETE", final["state_reason"])
+        self.assertEqual(node["excluded_classes"], {"alpha": ["balanced"]})
+        self.assertNotIn("alpha", node["excluded_providers"])
+        self.assertEqual((node["selection"]["provider"], node["selection"]["capability_class"]), ("alpha", "reasoning"))
+
     def test_quota_failure_preserves_checkpoint_and_hands_off(self) -> None:
         partial = {"a/partial.txt": "half done\n"}
         synthetic.SCRIPTS["alpha"] = edit_script({"a": {"failure": "quota", "detail": "usage limit reached", "partial_edits": partial}})

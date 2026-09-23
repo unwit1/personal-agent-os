@@ -328,6 +328,7 @@ def new_node(
         "escalations": 0,
         "failures": [],
         "excluded_providers": [],
+        "excluded_classes": {},
         "selection": None,
         "worktree": None,
         "checkpoint": None,

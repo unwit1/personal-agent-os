@@ -183,6 +183,21 @@ def _class_candidates(capability_class: str) -> list[str]:
     return exact + stronger + weaker
 
 
+def _override_model(
+    provider: dict[str, Any], model: Any, excluded_classes: set[str]
+) -> tuple[str | None, str | None, str | None]:
+    """Resolve an override only when it exactly matches a registered model ID."""
+    wanted = str(model or "").strip()
+    matches = [capability for capability in MODEL_CLASSES if provider["models"].get(capability) == wanted]
+    if not matches:
+        known = ", ".join(sorted(set(provider["models"].values()))) or "none"
+        return None, None, f"model {wanted} is not a known model of provider {provider['id']} (known: {known})"
+    capability = matches[0]
+    if capability in excluded_classes:
+        return None, None, f"model {wanted} was rejected by provider {provider['id']} earlier on this node"
+    return wanted, capability, None
+
+
 def resolve_effort(provider: dict[str, Any], effort: str) -> str | None:
     if effort in provider["effort_map"]:
         return provider["effort_map"][effort]
@@ -208,6 +223,7 @@ def select(
     avoid: list[str] | None = None,
     running: dict[str, int] | None = None,
     override: dict[str, Any] | None = None,
+    excluded_classes: dict[str, list[str]] | None = None,
     require_avoid: bool = False,
 ) -> dict[str, Any]:
     """Choose a provider/model/effort for one node. Pure and deterministic.
@@ -223,6 +239,7 @@ def select(
     avoid_set = set(avoid or [])
     running = running or {}
     override = {key: value for key, value in (override or {}).items() if value}
+    excluded_classes = excluded_classes or {}
     target_class = shift_class(capability_class, preference)
     notes: list[str] = []
     if target_class != capability_class:
@@ -248,6 +265,8 @@ def select(
             return problem
         if enforce_avoid and provider["id"] in avoid_set:
             return "an independent reviewer must use a different provider"
+        if candidate_class and candidate_class in excluded_classes.get(provider["id"], []):
+            return f"{candidate_class} model was rejected earlier on this node"
         if running.get(load_key(provider["id"]), 0) >= provider["max_concurrency"]:
             return "at its concurrency limit"
         limit = provider["tier_concurrency"].get(candidate_class or "")
@@ -259,10 +278,16 @@ def select(
 
     if override.get("provider"):
         provider = registry.get(str(override["provider"]))
+        excluded = set(excluded_classes.get(provider["id"], [])) if provider else set()
         model, override_class = (None, target_class) if provider is None else _model_for(provider, target_class)
+        if provider is not None and override.get("model"):
+            requested_model, requested_class, override_problem = _override_model(provider, override["model"], excluded)
+            if requested_model:
+                model, override_class = requested_model, requested_class
+            else:
+                notes.append(f"override model ignored: {override_problem}")
         problem = "not configured" if provider is None else usable(provider, override_class)
         if provider is not None and problem is None:
-            model = override.get("model") or model
             if model:
                 return _selection(
                     provider,
@@ -279,11 +304,35 @@ def select(
         notes.append(f"override provider {override['provider']} ignored: {problem}")
 
     waiting = False
+    requested_override_class = None
+    requested_override_provider = None
+    if override.get("model"):
+        matches = []
+        for provider in registry.providers:
+            model, capability, problem = _override_model(
+                provider, override["model"], set(excluded_classes.get(provider["id"], []))
+            )
+            if model:
+                matches.append((provider, model, capability))
+        if matches:
+            requested_override_class = matches[0][2]
+            requested_override_provider = {provider["id"] for provider, _, _ in matches}
+        else:
+            known = ", ".join(sorted({model for provider in registry.providers for model in provider["models"].values()})) or "none"
+            problem = f"model {str(override['model']).strip()} is not an available exact model ID (known: {known})"
+            notes.append(f"override model ignored: {problem}")
     for candidate_class in _class_candidates(target_class):
+        if requested_override_class and candidate_class != requested_override_class:
+            continue
         candidates = []
         for provider in registry.providers:
             model = provider["models"].get(candidate_class)
             if not model:
+                continue
+            if requested_override_provider is not None and (
+                provider["id"] not in requested_override_provider
+                or model != str(override["model"]).strip()
+            ):
                 continue
             problem = usable(provider, candidate_class)
             if problem:
@@ -312,8 +361,8 @@ def select(
         reason = f"cheapest usable provider for {candidate_class} (relative cost {cost:g})"
         if candidate_class != target_class:
             reason = f"no usable provider covers {target_class}; nearest covered class {candidate_class} (relative cost {cost:g})"
-        if override.get("model") and not override.get("provider"):
-            model = str(override["model"])
+        if requested_override_class and not override.get("provider"):
+            model = str(override["model"]).strip()
             reason = "user model override"
         if chosen["id"] in avoid_set:
             notes.append("no distinct provider available; review independence is session-level only")

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-23T20:18:58.459166+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 17]\n M src/agent_os/orchestrator/engine.py\n M src/agent_os/orchestrator/model.py\n M src/agent_os/orchestrator/router.py\n M tests/test_orchestrator.py\n?? projects/personal-agent-os/candidates/candidate-05a25837e101d150.json\n?? projects/personal-agent-os/candidates/candidate-0c3befc9d256acd2.json\n?? projects/personal-agent-os/candidates/candidate-31819780beaaa556.json\n?? projects/personal-agent-os/candidates/candidate-36b44e2389fd43f8.json\n?? projects/personal-agent-os/candidates/candidate-3cb41bf6c47c8de4.json\n?? projects/personal-agent-os/candidates/candidate-4aa27c6510362f5b.json\n?? projects/personal-agent-os/candidates/candidate-5b205e3b5d1fe3b1.json\n?? projects/personal-agent-os/candidates/candidate-a12bbb5616444903.json\n?? projects/personal-agent-os/candidates/candidate-dc11b6607a554310.json\n?? projects/personal-agent-os/candidates/candidate-ea7ffb016bee3473.json\n?? projects/personal-agent-os/candidates/candidate-eaea6bc0281fd705.json\n?? projects/personal-agent-os/candidates/candidate-efcfd6530402236a.json",
+    "error": ""
+  },
+  "completed": [
+    "Validated explicit orchestrator model overrides against exact provider model IDs; unknown aliases such as luna now fall back to the configured slug.",
+    "Invalid-model failover now excludes only the rejected provider capability class, keeping other tiers of that provider routable."
+  ],
+  "decisions": [
+    "No live Codex model smoke test was run; current machine registry and CLI invocation remain an external runtime check."
+  ],
+  "remaining": [
+    "Restart the Agent OS MCP server before expecting already-running clients to use the routing fix; then run a fresh orchestrator task with the exact registered model ID (for Codex, gpt-6-luna) and confirm its selection.",
+    "Do not resume the blocked roadmap planner run without an explicit roadmap scope; it asked whether to verify Luna routing or start P2.3/P3."
+  ],
+  "validation": [
+    "23 focused orchestrator routing, override, and failover tests passed; agent.py validate passed (437 checks).",
+    "Full unittest suite: 567 tests, one known project-registry expectation failure (8 actual vs 7 expected in test_registered_project_resolves)."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}
