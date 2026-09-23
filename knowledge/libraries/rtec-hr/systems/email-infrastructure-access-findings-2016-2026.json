@@ -1,0 +1,115 @@
+{
+  "record_id": "rtec-email-infrastructure-access-findings-2016-2026",
+  "updated_at": "2026-09-23",
+  "status": "evidence_findings",
+  "findings": [
+    {
+      "system": "Microsoft Outlook",
+      "observed_period": "2017-2026",
+      "finding": "Mail delivery warnings and Outlook test messages show direct mailbox configuration/testing activity. Three Outlook test messages for the historical individual HR mailbox occur in May 2026.",
+      "evidence_ids": [
+        "000037",
+        "000357",
+        "000453",
+        "000454"
+      ],
+      "interpretation": "Supports mailbox migration/configuration activity; does not by itself identify the reason."
+    },
+    {
+      "system": "Microsoft Office 365 Message Encryption",
+      "observed_period": "2021",
+      "finding": "One-time-passcode messages show encrypted-message access was used for protected external correspondence.",
+      "evidence_ids": [
+        "000198",
+        "000199",
+        "000200"
+      ],
+      "interpretation": "Historical secure-message channel."
+    },
+    {
+      "system": "Zoom",
+      "observed_period": "2021",
+      "finding": "HR scheduled Zoom meetings for internal/external coordination.",
+      "evidence_ids": [
+        "000321"
+      ],
+      "interpretation": "Historical collaboration-tool evidence."
+    },
+    {
+      "system": "Kentucky Career Center Focus/Talent",
+      "observed_period": "2021",
+      "finding": "Eight job-order closure notices show RTEC posted dispatcher/transit-driver roles across multiple Kentucky service areas; closed orders could be refreshed for another 30 days.",
+      "evidence_ids": [
+        "000329",
+        "000330",
+        "000331",
+        "000332",
+        "000333",
+        "000334",
+        "000335",
+        "000336"
+      ],
+      "interpretation": "Historical recruiting-channel and posting-lifecycle evidence."
+    },
+    {
+      "system": "Google Accounts",
+      "observed_period": "2026",
+      "finding": "A June 2026 security alert for the shared HR Google account was copied to the historical individual HR mailbox because that mailbox was configured as the recovery email.",
+      "evidence_ids": [
+        "000575"
+      ],
+      "interpretation": "Verify that recovery ownership is intentional and current; do not infer compromise."
+    },
+    {
+      "system": "Google account recovery",
+      "observed_period": "2026",
+      "finding": "Google appeal-received and appeal-approved messages show account-restoration activity using the historical mailbox as a contact address.",
+      "evidence_ids": [
+        "000502",
+        "000516"
+      ],
+      "interpretation": "Account-access continuity evidence; exact affected account should not be inferred beyond the message text."
+    },
+    {
+      "system": "Indeed",
+      "observed_period": "2021",
+      "finding": "An Indeed Senior Account Executive contacted RTEC HR about year-end hiring demand.",
+      "evidence_ids": [
+        "000317"
+      ],
+      "interpretation": "Vendor/recruiting outreach only; not proof of paid service or adoption."
+    },
+    {
+      "system": "AssuredPartners",
+      "observed_period": "2019",
+      "finding": "An introductory meeting with RTEC HR was scheduled.",
+      "evidence_ids": [
+        "000096"
+      ],
+      "interpretation": "Broker/vendor evaluation/contact evidence only."
+    }
+  ],
+  "security_followups": [
+    {
+      "priority": "high",
+      "question": "Is the historical individual HR mailbox still the intended recovery contact for the shared HR Google account? If not, update recovery ownership through the authorized account-admin process.",
+      "evidence_ids": [
+        "000575"
+      ]
+    },
+    {
+      "priority": "medium",
+      "question": "Why was the historical HR mailbox being actively tested in Outlook in May 2026, and is it still intended to remain a live mailbox/account?",
+      "evidence_ids": [
+        "000357",
+        "000453",
+        "000454"
+      ]
+    },
+    {
+      "priority": "medium",
+      "question": "Should the HR mailbox use automated spam/phishing triage? A concentrated 2026 unsolicited-message cluster is mixed into operational mail.",
+      "evidence_basis": "full-corpus low-signal review"
+    }
+  ]
+}
