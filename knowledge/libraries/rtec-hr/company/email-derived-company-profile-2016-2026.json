@@ -1,0 +1,51 @@
+{
+  "record_id": "rtec-company-profile-from-email-evidence-2016-2026",
+  "updated_at": "2026-09-23",
+  "status": "candidate_profile_with_corroborated_elements",
+  "organization": "Rural Transit Enterprises Coordinated, Inc. (RTEC)",
+  "evidence_scope": "576-message historical HR mailbox archive, interpreted alongside existing safe RTEC HR knowledge sources",
+  "observations": [
+    {
+      "claim": "HR operates as a cross-functional administrative hub rather than an isolated recruiting function.",
+      "confidence": "high",
+      "basis": "Repeated email workflows connect HR with executive leadership, finance/IT, operations, procurement, training/compliance, benefits vendors, payroll/HRIS vendors and state reporting portals."
+    },
+    {
+      "claim": "RTEC relies on a mix of internal staff, external brokers/carriers/vendors and government portals for HR administration.",
+      "confidence": "high",
+      "basis": "Longitudinal correspondence across ADP, Guardian, CVIM, iSolved/Infinisource, UHC and Kentucky reporting systems."
+    },
+    {
+      "claim": "Compliance/reporting is a recurring organizational burden.",
+      "confidence": "high",
+      "basis": "Repeated EEO-1, AAP, contract-compliance, state-certification, unemployment, new-hire and benefit-reporting correspondence."
+    },
+    {
+      "claim": "Operational knowledge has historically been distributed across email reminders, spreadsheets/forms, vendor portals, websites and individual staff handoffs.",
+      "confidence": "high",
+      "basis": "122 informal task-reminder messages plus recurring document, website, payroll and reporting coordination."
+    },
+    {
+      "claim": "RTEC's HR technology stack has changed over time and currently appears layered.",
+      "confidence": "high",
+      "basis": "System/vendor timeline from 2016-2026; no evidence supports collapsing all domains into one current system of record."
+    },
+    {
+      "claim": "Historical HR work frequently depends on coordination with executive leadership and finance/IT before completion.",
+      "confidence": "medium_high",
+      "basis": "Repeated routing/follow-up patterns involving executive, controller/IT and administrative roles."
+    }
+  ],
+  "operational_risks_exposed_by_email_archive": [
+    "Institutional knowledge can be lost when recurring work exists only as personal reminders or mailbox history.",
+    "System-of-record ambiguity can cause duplicate entry or uncertainty about which vendor owns a process.",
+    "Historical instructions can be mistaken for current procedure unless date/currentness is attached.",
+    "Manual deadline and follow-up tracking creates avoidable continuity risk when HR responsibility changes hands."
+  ],
+  "automation_implications": [
+    "Convert recurring historical reminders into explicit candidate workflows and checklists before automating them.",
+    "Map authoritative system ownership by HR data domain before enabling write actions.",
+    "Use provenance and currentness gates for policy/compliance guidance.",
+    "Preserve professional handoff relationships as role-based knowledge so processes survive staff turnover."
+  ]
+}
