@@ -159,6 +159,12 @@ same class before moving up a class, one class at a time:
   Edits outside a node's declared scope fail validation.
 - The orchestrator commits (checkpoints) whatever a worker leaves behind.
   Workers are told not to commit, push, merge or rebase.
+- Workers must not start or control nested Agent OS orchestrator runs. Their
+  linked worktrees share Git metadata with the parent repository, which sits
+  outside the worker's write boundary. A task that needs a host-side action
+  (such as restarting the MCP server or running a live smoke from an authorized
+  host) must report `needs_decision` with that prerequisite for the parent
+  controller to handle.
 - Integration merges a node into `agent-os/<run>/integration` only when:
   - its validators passed (never on the worker's say-so);
   - required independent review approved it, or you explicitly accepted the
