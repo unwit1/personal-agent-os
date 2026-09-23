@@ -61,3 +61,12 @@ A precise source occurrence remains:
 The canonical key identifies the logical Form; the source occurrence identifies one concrete implementation/version.
 
 Every derived mechanic or future rule must remain traceable to plugin/Form/subrecord, source artifact hash/path, script/config evidence, or installer evidence. Statistical summaries never replace their sample rows.
+
+## Weapon decoder checkpoint
+
+| File | Purpose |
+| --- | --- |
+| `data/derived/2026-09-23/weapon_checkpoint_compact.json` | compact WEAP baseline medians and checkpoint counts |
+| `data/derived/2026-09-23/weapon_field_deltas.csv` | exact imported-baseline WEAP field differences |
+
+The full local/private snapshot additionally contains `weapons_full.csv`, `weapon_design_view.csv`, `weapon_numeric_baselines.csv`, `weapon_observed_patterns.csv`, and `weapon_decoder_summary.json`. They remain reproducible from the lossless record payloads.
