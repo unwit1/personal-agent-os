@@ -3,7 +3,7 @@
   "name": "The Wheels of Lull",
   "universe": "The Elder Scrolls",
   "kind": "mod_continuity_overlay",
-  "status": "structured_lore_source_ingestion_complete",
+  "status": "source_ingestion_and_core_analysis_complete_with_bounded_shard_repair_and_provenance_followup",
   "canon_policy": {
     "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
     "default_claim_scope": "tes.mod.wheels-of-lull",
@@ -15,7 +15,8 @@
     "sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
     "source_type": "user_provided_skyrim_plugin",
     "ingested_at": "2026-09-23",
-    "author": "Trainwiz"
+    "author": "Trainwiz",
+    "current_access_state": "not_present_in_current_repository_or_indexed_file_library"
   },
   "extracted_counts": {
     "total_plugin_records": 36824,
@@ -43,27 +44,31 @@
   },
   "structured_layers": {
     "plugin_record_inventory": "complete",
-    "book_text": "complete",
-    "quest_text": "complete",
-    "dialogue": "complete",
-    "npc_records": "complete",
-    "location_records": "complete",
-    "cell_records": "complete",
-    "message_records": "complete",
-    "scene_records": "complete",
+    "book_text": "complete_33_of_33",
+    "quest_text": "complete_32_of_32",
+    "dialogue": "complete_337_DIAL_410_INFO_source_import",
+    "npc_records": "complete_75_of_75",
+    "location_records": "complete_33_of_33",
+    "cell_records": "complete_103_of_103",
+    "message_records": "complete_53_of_53",
+    "scene_records": "complete_14_of_14",
     "supplemental_lore_records": "complete_278_of_278",
-    "speaker_resolution": "pending_post_ingestion_analysis",
-    "claim_promotion": "pending_post_ingestion_analysis",
-    "interpretive_analysis": "pending_post_ingestion_analysis"
+    "speaker_resolution": "complete_for_all_readable_INFO_358_processed_52_pending_shard_regeneration",
+    "claim_analysis": "complete_25_core_7_tension_records_continuity_scoped",
+    "interpretive_analysis": "complete_core_dossiers_topics_reliability_themes",
+    "book_text_fingerprinting": "complete_33_of_33",
+    "book_provenance": "passes_01_03_complete_followup_active",
+    "book_source_relations": "complete_33_of_33",
+    "retrieval_materialization": "blocked_pending_two_raw_shard_regenerations"
   },
   "post_ingestion_analysis": {
-    "status": "complete_with_bounded_integrity_gap",
+    "status": "core_complete_with_bounded_shard_repair_required",
     "speaker_resolution": {
       "total_info": 410,
       "processed": 358,
       "resolved": 288,
-      "unresolved": 70,
-      "excluded_due_shard_decode": 52
+      "unresolved_readable": 70,
+      "excluded_pending_shard_regeneration": 52
     },
     "dossiers": {
       "characters": 9,
@@ -76,9 +81,24 @@
       "tensions": 7
     },
     "retrieval_index_entries": 56,
+    "book_provenance": {
+      "total": 33,
+      "fingerprinted": 33,
+      "verified_external_reuse": 3,
+      "strong_indirect_legacy_candidate": 1,
+      "origin_unresolved": 29,
+      "variant_diffs_complete": 1,
+      "machine_source_relations": 33
+    },
     "integrity_gap_files": [
       "raw/source-records-0151-0200.jsonl.gz",
       "raw/source-records-0401-0450.jsonl.gz"
-    ]
+    ],
+    "repair_requirement": "Regenerate the two corrupt shards from the exact verified WheelsOfLull.esp, rerun strict speaker resolution for the excluded INFO records, then rebuild/validate retrieval derivatives."
+  },
+  "next_stage": {
+    "blocked_branch": "dialogue shard repair requires exact source ESP bytes",
+    "active_branch": "continue evidence-backed BOOK edition/provenance research using archived Sotha Sil Expanded/Aethernautics/Trainwiz source assets when available",
+    "do_not_repeat": "generic exact-title web searches audited in analysis/book-provenance-pass-03-search-audit.*"
   }
 }

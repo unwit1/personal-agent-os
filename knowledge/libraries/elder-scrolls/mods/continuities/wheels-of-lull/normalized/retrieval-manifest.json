@@ -1,11 +1,18 @@
 {
   "continuity_id": "tes.mod.wheels-of-lull",
   "source_sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
-  "document_count": 1090,
-  "materialization_mode": "deterministic_on_checkout",
+  "expected_document_count": 1090,
+  "current_materialization_status": "blocked_pending_raw_shard_regeneration",
+  "materialization_mode": "deterministic_on_checkout_fail_closed",
   "canonical_source": "../raw/source-records-*.jsonl[.gz]",
   "builder": "../technical/build-retrieval-index.py",
+  "repair_plan": "../analysis/repair-plan.md",
+  "known_unreadable_shards": [
+    "../raw/source-records-0151-0200.jsonl.gz",
+    "../raw/source-records-0401-0450.jsonl.gz"
+  ],
   "speaker_overlay": "../dialogue/speaker-resolution-compact.jsonl.gz",
+  "book_source_relations": "book-source-relations.json",
   "generated_output_directory": ".generated-retrieval",
   "generated_outputs": [
     "retrieval-documents.jsonl.gz",
@@ -18,18 +25,29 @@
     "../indexes/lexical-df.json.gz",
     "../locations/cell-index.json.gz"
   ],
+  "persistent_index_state": {
+    "status": "preexisting_full_corpus_derivatives_from_prior_ingestion_analysis",
+    "caution": "They report the expected 1,090-record corpus, but a fresh deterministic rebuild is currently blocked by the two corrupt raw shards. Treat raw source evidence as authoritative and do not claim current reproducibility until repair succeeds."
+  },
   "retrieval_policy": {
-    "lexical": "Deterministic BM25 over materialized normalized documents.",
+    "lexical": "Deterministic BM25 over a fully materialized normalized corpus. Partial builds are forbidden.",
     "dense": "Vector embeddings are downstream/model-specific and intentionally not committed as canonical repository state.",
-    "hybrid": "Use lexical retrieval for deterministic baseline/routing, then optional dense reranking or embedding retrieval over the same materialized documents.",
-    "provenance": "Every normalized document retains source_record_index, raw shard, record type, FormID, source offset, and speaker attribution when available."
+    "hybrid": "Use lexical retrieval for deterministic baseline/routing, then optional dense reranking or embedding retrieval over the same fully materialized documents.",
+    "provenance": "Every normalized document must retain source_record_index, raw shard, record type, FormID, source offset, and speaker attribution when available.",
+    "book_provenance": "Use book-source-relations.json to route reused BOOK records to central source/work witnesses while preserving Wheels-local variants."
   },
   "storage_policy": "Normalized full-text retrieval documents are regenerated from canonical raw shards to avoid duplicating source text in Git. Compact deterministic indexes may be committed because they are cheap to verify and useful for routing.",
-  "validation": {
-    "builder_syntax_checked": true,
-    "synthetic_bm25_smoke_test": true,
+  "last_known_full_index_validation": {
     "form_routing_entries": 1090,
     "location_records": 33,
-    "cell_records": 103
-  }
+    "cell_records": 103,
+    "builder_syntax_previously_checked": true,
+    "synthetic_bm25_smoke_test_previously_passed": true
+  },
+  "current_rebuild_requirements": [
+    "Regenerate the two corrupt raw shards from the verified WheelsOfLull.esp.",
+    "Merge the 52 repaired INFO records into exhaustive speaker resolution.",
+    "Run build-retrieval-index.py over all 1,090 source records.",
+    "Validate new routing and lexical artifacts against expected corpus counts before replacing persistent indexes."
+  ]
 }
