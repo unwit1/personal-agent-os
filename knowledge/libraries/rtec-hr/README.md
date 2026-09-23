@@ -2,7 +2,7 @@
 
 This library is the durable, privacy-safe process model for RTEC HR.
 
-## Planned structure
+## Structure
 
 - `processes/` — end-to-end workflows and subprocesses
 - `policies/` — validated policy/rule records
@@ -12,7 +12,8 @@ This library is the durable, privacy-safe process model for RTEC HR.
 - `exceptions/` — documented alternate paths and edge cases
 - `questions/` — unresolved ambiguities and conflicts
 - `automation/` — candidate automations and prerequisites
-- `sources/` — sanitized source manifests and provenance only
+- `sources/` — full searchable safe source corpus, source manifests, version metadata, and batch indexes
+- `restricted-evidence/` — metadata-only provenance for live employee/applicant/medical/incident case records; never raw case content
 
 ## Modeling rules
 
@@ -44,3 +45,15 @@ The model can grow organically from supplied documents, including:
 - internal/external correspondence workflows.
 
 No domain is assumed complete merely because it has a page.
+
+## Ingestion checkpoint — batch 001
+
+Batch 001 contains 14 source documents:
+- 11 safe position-level sources preserved as full searchable representations;
+- 3 live case records retained only as privacy-safe metadata/provenance;
+- 15 derived process, policy, form, and role records;
+- a currentness/gap queue so future sources can corroborate, conflict with, or supersede existing records.
+
+See `sources/batches/rtec-hr-batch-001.json` and `questions/currentness-and-gaps.json`.
+
+The current GitHub connector writes UTF-8 text records rather than arbitrary local binary artifacts. Therefore the complete searchable content and hashes are canonical in GitHub now; safe original binaries should also be synchronized later through a local Git-capable Agent OS workflow where practical. This limitation never permits live case binaries to be committed.
