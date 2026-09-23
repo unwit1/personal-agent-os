@@ -237,8 +237,13 @@ def dispatch(args: argparse.Namespace, emit) -> int:
         emit(overview(service.engine(), args.project, args.repo))
         return 0
     if action == "continue-roadmap":
+        import threading
+
+        from . import models
         from .roadmap import continue_roadmap, drive_campaign
 
+        # Keep the model catalog current without delaying the run.
+        threading.Thread(target=lambda: models.refresh_if_stale(), name="agent-os-model-check", daemon=True).start()
         engine = service.engine()
         result = continue_roadmap(engine, args.project, args.repo, auto_until_done=args.until_done, preference=args.preference, fresh=args.fresh)
         if args.no_drive or result["action"] not in {"started", "resumed"}:
