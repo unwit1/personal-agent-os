@@ -12,7 +12,8 @@
     "core_claim_registry": true,
     "tension_registry": true,
     "retrieval_index": true,
-    "integrity_diagnosis": true
+    "integrity_diagnosis": true,
+    "book_provenance_pass_01": true
   },
   "metrics": {
     "structured_source_records": 1090,
@@ -27,11 +28,16 @@
     "faction_group_dossiers": 4,
     "core_claims": 25,
     "tension_records": 7,
-    "retrieval_entries": 56
+    "retrieval_entries": 56,
+    "book_records": 33,
+    "book_provenance_verified_external_reuse": 3,
+    "book_provenance_pending_review": 30
   },
   "only_remaining_repair": [
     "raw/source-records-0151-0200.jsonl.gz",
     "raw/source-records-0401-0450.jsonl.gz"
   ],
-  "next_stage_after_repair": "merge the 52 repaired INFO rows into an exhaustive speaker index; then BM25/vector indexing can consume analysis/retrieval/index.jsonl and the dossier/claim corpus."
+  "repair_blocker": "The original WheelsOfLull.esp bytes are not present in the current repository/file-library access layer. Both bad gzip blobs were already corrupt in their creation commits, so exact recovery from Git history is unavailable.",
+  "next_stage_after_repair": "Merge the 52 repaired INFO rows into an exhaustive speaker index; then rerun retrieval materialization/validation over all 1,090 records.",
+  "parallel_next_stage": "Continue BOOK provenance/edition comparison and central-source linking from analysis/book-provenance-pass-01.* without inferring data from the damaged dialogue shards."
 }
