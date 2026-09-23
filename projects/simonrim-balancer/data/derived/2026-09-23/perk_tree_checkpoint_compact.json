@@ -1,0 +1,38 @@
+{
+  "snapshot": "2026-09-23",
+  "decoder": "AVIF",
+  "summary": {
+    "avif_records_found": 25,
+    "avif_records_decoded": 25,
+    "decode_failures": 0,
+    "perk_tree_nodes": 297,
+    "perk_tree_edges": 283,
+    "root_placeholder_nodes": 25,
+    "graphs_with_cycles": 0,
+    "graphs_with_unreachable_nodes": 0,
+    "missing_edge_targets": 0,
+    "exact_imported_baselines": 7,
+    "external_baselines": 18,
+    "imported_baseline_graph_deltas": 7,
+    "delta_records_with_added_nodes": 7,
+    "delta_records_with_removed_nodes": 4,
+    "delta_records_with_edge_changes": 7,
+    "approved_rules": 0,
+    "note": "AVIF graph layout does not itself define perk prerequisites; PERK CTDA remains authoritative for requirements."
+  },
+  "deltas": [
+    {"plugin":"AdamantBlade.esp","baseline_plugin":"Adamant.esp","edid":"AVTwoHanded","added_nodes":1,"removed_nodes":0,"added_edges":1,"removed_edges":0,"repositioned_nodes":0,"avsk_fields_changed":[]},
+    {"plugin":"AdamantBlade.esp","baseline_plugin":"Adamant.esp","edid":"AVBlock","added_nodes":1,"removed_nodes":0,"added_edges":1,"removed_edges":0,"repositioned_nodes":0,"avsk_fields_changed":[]},
+    {"plugin":"AdamantBlade.esp","baseline_plugin":"Adamant.esp","edid":"AVLightArmor","added_nodes":1,"removed_nodes":1,"added_edges":1,"removed_edges":1,"repositioned_nodes":0,"avsk_fields_changed":[]},
+    {"plugin":"AdamantCrossbows.esp","baseline_plugin":"Adamant.esp","edid":"AVMarksman","added_nodes":2,"removed_nodes":0,"added_edges":2,"removed_edges":1,"repositioned_nodes":1,"avsk_fields_changed":[]},
+    {"plugin":"HandtoHand.esp","baseline_plugin":"Adamant.esp","edid":"AVPickpocket","added_nodes":6,"removed_nodes":4,"added_edges":9,"removed_edges":7,"repositioned_nodes":4,"avsk_fields_changed":["skill_use_mult"]},
+    {"plugin":"HandtoHand.esp","baseline_plugin":"Adamant.esp","edid":"AVLockpicking","added_nodes":8,"removed_nodes":8,"added_edges":9,"removed_edges":8,"repositioned_nodes":0,"avsk_fields_changed":["skill_use_mult","skill_use_offset","skill_improve_mult","skill_improve_offset"]},
+    {"plugin":"HandtoHand.esp","baseline_plugin":"Adamant.esp","edid":"AVAlteration","added_nodes":2,"removed_nodes":1,"added_edges":2,"removed_edges":1,"repositioned_nodes":4,"avsk_fields_changed":[]}
+  ],
+  "guardrails": [
+    "AVIF CNAM graph connections are graphical perk-tree lines, not prerequisite logic.",
+    "PERK CTDA conditions remain authoritative for actual perk requirements.",
+    "Adamant-vs-Skyrim tree deltas remain unknown until Skyrim.esm AVIF bodies are imported.",
+    "No AVIF evidence is an approved rule."
+  ]
+}

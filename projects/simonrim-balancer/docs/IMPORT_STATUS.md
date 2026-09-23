@@ -23,15 +23,15 @@
 - Spells: 953
 - Magic effects: 1,648
 - Perks: 625
-- Weapons: 216 total WEAP records
-- Enchantments: 269 ENCH records
-- Combat styles: 62 CSTY records
-- Movement types: 12 MOVT records
+- Weapons: 216
+- Enchantments: 269
+- Combat styles: 62
+- Movement types: 12
+- Actor-value / perk-tree records: 25
 
 ## Master-aware resolution / deltas
 
-- Forms resolved: 5,988
-- FormID slot-resolution failures: 0
+- Forms resolved: 5,988; FormID slot-resolution failures: 0
 - Relations resolved: 11,676; failures: 0
 - Effect references resolved: 3,951; failures: 0
 - New local Forms: 3,832
@@ -46,78 +46,36 @@
 
 ## Exact high-value decoders
 
-- MGEF DATA: 1,648 / 1,648 decoded, 0 failures
-- CTDA: 8,229 / 8,229 decoded, 0 failures
-- Condition functions observed: 84
-- MGEF/CTDA semantic relations added: 9,937
-- PERK headers: 625 / 625 decoded
-- PERK effect entries: 1,006 / 1,006 decoded, 0 failures
-  - Entry Point: 875
-  - Ability: 121
-  - Quest + Stage: 10
-- PERK conditions: 4,035 decoded
-- PERK semantic relations added: 2,803
-- WEAP/DNAM: 216 / 216 decoded, 0 failures
-  - 21 descriptive weapon baseline groups
-  - 18 observed weapon patterns with sample size >= 3
-  - 18 exact imported-baseline weapon field deltas
-- ENCH/ENIT: 269 / 269 decoded, 0 failures
-  - 870 effect rows
-  - 101 effect-level conditions
-  - 36 descriptive enchantment baseline groups
-  - 27 observed enchantment patterns with sample size >= 3
-  - 58 exact imported-baseline enchantment field deltas
-- CSTY: 62 / 62 decoded, 0 failures
-  - 12 descriptive combat-style groups
-  - 7 observed combat-style patterns with sample size >= 3
-  - 62 external Skyrim baselines unavailable in current snapshot
-- MOVT: 12 / 12 decoded, 0 failures
-  - 8 exact movement profiles
-  - 2 repeated profiles with sample size >= 3
-  - 3 movement observed-pattern rows including the complete-domain INAM sentinel observation
-  - 12 external Skyrim baselines unavailable in current snapshot
-- Distinct perk entry points observed: 62
-- Distinct perk entry functions observed: 9
+- MGEF DATA: 1,648 / 1,648, 0 failures
+- CTDA: 8,229 / 8,229, 0 failures
+- PERK headers: 625 / 625; 1,006 effect entries; 4,035 perk conditions
+- WEAP: 216 / 216, 21 baseline groups, 18 observed patterns, 18 exact imported-baseline deltas
+- ENCH: 269 / 269, 870 effects, 36 baseline groups, 27 observed patterns, 58 exact imported-baseline deltas
+- CSTY: 62 / 62, 12 descriptive groups, 7 observed patterns, 62 external Skyrim baselines
+- MOVT: 12 / 12, 8 exact movement profiles, 3 observed movement patterns, 12 external Skyrim baselines
+- AVIF: 25 / 25, 297 perk-tree nodes, 283 graphical tree edges, 0 missing targets, 0 unreachable nodes, 0 cycles
+  - 7 exact imported Adamant baselines for add-on graph deltas
+  - all 7 exact-baseline add-ons add nodes and change edges; 4 also remove nodes
+  - 18 external Skyrim baselines unavailable in the current snapshot
 
 ## Observed-pattern layer
 
-- Spell design profiles: 953
-- Spell numeric baseline groups: 294
+- Spell profiles: 953; spell numeric baseline groups: 294
 - Perk entry-point baseline groups: 148
-- Spell/perk observed-pattern rows with sample size >= 3: 179
-- Weapon observed-pattern rows with sample size >= 3: 18
-- Enchantment observed-pattern rows with sample size >= 3: 27
-- Combat-style observed-pattern rows with sample size >= 3: 7
+- Spell/perk observed-pattern rows: 179
+- Weapon observed-pattern rows: 18
+- Enchantment observed-pattern rows: 27
+- Combat-style observed-pattern rows: 7
 - Movement observed-pattern rows: 3
-- Combined observed patterns with sample size >= 3: 234
-- Approved design rules: **0** (promotion remains review-gated)
+- Combined observed patterns: 234
+- Approved design rules: 0
 
-## Deterministic decoding implemented
+## Important semantic guardrail
 
-- Bethesda record/group and compressed-record structure
-- subrecords including `XXXX` extended sizes
-- EDID/FULL/DESC and raw payload preservation
-- SPEL/SPIT, EFID/EFIT, GMST, GLOB
-- complete MGEF/DATA for current TES5/SSE layout
-- complete WEAP/DNAM 100-byte TES5/SSE layout for all supplied weapon records
-- WEAP critical data, enchantment charge, equip/enchantment refs, keywords, and sound detection
-- ENCH ENIT fields, base/worn references, effect composition, and effect condition counts
-- CSTY general/melee/close-range/long-range/flight fields and flags
-- MOVT SPED directional/rotational movement fields and INAM thresholds
-- CTDA + observed condition function semantics
-- PERK headers, effect entries, parameters and condition tabs
-- basic WEAP/DATA and ARMO/DATA
-- BSA inventory / uncompressed author text extraction
-- Papyrus source/property/member inventory
-- INI/TOML/JSON key/value extraction
-- FOMOD options and normalized module semantics
-- master-aware Form identity and imported override chains
+AVIF tree connections are graphical/UI topology, not perk prerequisites. Actual perk gating remains in PERK CTDA conditions. The balancer stores those systems separately and will overlay them later rather than treating a tree line as a gameplay requirement.
 
 ## Preserved but not fully semantically decoded yet
 
-Raw bytes remain available for:
-
-- AVIF perk-tree geometry/connections
 - VMAD property values/attachments and fragments
 - quests/story-manager structures
 - additional record-specific structures
