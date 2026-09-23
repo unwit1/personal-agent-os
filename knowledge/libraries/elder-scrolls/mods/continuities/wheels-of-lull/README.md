@@ -10,13 +10,13 @@ Sub-continuity for the Skyrim mod **The Wheels of Lull**.
 - INFO 410/410
 - NPC_ 75/75
 - LCTN 33/33
-- CELL 42/103
+- CELL 92/103
 - MESG 0/53
 - SCEN 0/14
-- **962 structured source records** checkpointed.
+- **1,012 structured source records** checkpointed.
 
-All location records are now preserved. This batch also adds the first 42 cell records with EDID, display name, location/encounter-zone/music/climate references where present, source offsets, and provenance.
+This batch continues the cell corpus. Each stored CELL preserves its direct plugin identity, names, source offset, and deterministic links to location, encounter-zone, music, and climate records where those fields exist.
 
 ## Next cursor
 
-CELL record **43/103**: `05052FA2`.
+CELL record **93/103**: `00000D74`.
