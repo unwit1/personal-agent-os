@@ -471,7 +471,11 @@ obey the run budget and review policy. Cache and skill routes remain outside
 the orchestrator until their invocation adapters are reviewed. Task plans may
 declare deterministic and model as available routes; the orchestrator chooses
 the deterministic command first and preserves model as an evidence-triggered
-fallback.
+fallback. The document-page cache adapter remains workflow-stage-specific: it
+returns hit metadata without cached text, which is enough for its typed
+document-processing stage but cannot satisfy arbitrary coding tasks. A task
+cache route needs an explicit expected-output binding before it may skip a
+worker.
 
 Success signal:
 - repeated structured work increasingly bypasses LLM calls.

@@ -147,6 +147,12 @@ defaults to `model` for backward compatibility. Only deterministic and model
 routes are wired into the orchestrator today; cache and skill execution remain
 outside this task runner.
 
+The existing document-page cache adapter intentionally returns hit metadata
+without cached text. That result can complete its typed document-processing
+stage, but it cannot satisfy an arbitrary code-editing task. Add a task cache
+route only with an explicit output binding that proves which expected outputs a
+hit satisfies and preserves the data boundary.
+
 A task may carry a **ladder**: the escalation steps to take when its
 validators fail, cheapest first. Without one, the default raises effort on the
 same class before moving up a class, one class at a time:
