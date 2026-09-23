@@ -172,5 +172,16 @@
     "natural_language_vmad_payloads_found": 0,
     "source_localized": false,
     "field_augmentations": 16
+  },
+  "plugin_header_metadata": "raw/plugin-header-metadata.json",
+  "terminal_exhaustion_validation": "analysis/exhaustion-validation.json",
+  "validation_summary": {
+    "physical_records": 36824,
+    "group_headers": 767,
+    "declared_records_and_groups_excluding_TES4": 37590,
+    "structural_count_consistent": true,
+    "remaining_FULL_DESC_outside_core_or_implementation": 0,
+    "source_localized": false,
+    "natural_language_vmad_payloads_found": 0
   }
 }
