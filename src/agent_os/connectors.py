@@ -184,7 +184,23 @@ def _walk_mcp_servers(document: Any) -> Iterator[tuple[str, Any]]:
 def _command_basename(command: Any) -> str | None:
     if not isinstance(command, str) or not command.strip():
         return None
-    return command.strip().replace("\\", "/").rsplit("/", 1)[-1]
+    value = command.strip()
+    if value[0] in {'"', "'"}:
+        quote = value[0]
+        closing = value.find(quote, 1)
+        if closing > 0:
+            executable = value[1:closing]
+        else:
+            candidate = value[1:].strip()
+            executable = candidate.split(None, 1)[0] if candidate else ""
+        if any(char.isspace() for char in executable) and "/" not in executable and "\\" not in executable:
+            executable = executable.split(None, 1)[0]
+    else:
+        executable = value.split(None, 1)[0]
+    basename = executable.replace("\\", "/").rsplit("/", 1)[-1]
+    if not re.fullmatch(r"[A-Za-z0-9._+-]{1,120}", basename):
+        return None
+    return basename
 
 
 def _validate_connector(connector: Any) -> None:
