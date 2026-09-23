@@ -48,3 +48,14 @@ The decoder emits 36 descriptive numeric/structural groups; 27 have at least thr
 Exact imported-master comparison exposes 58 enchantment field changes, all in Adamant overrides of imported Skyrim/Dragonborn/Mysticism records: 55 change effect count and 3 change bound-weapon enchantment flags from ManualCalc to ManualCalc + ExtendDurationOnRecast. Effect-count changes are implementation evidence and require effect/condition-level review before any generalization.
 
 An estimated auto-calc cost is retained only as a diagnostic from the documented MagicItem formula. It is not a normative balance metric because stored values, manual-calculation flags, zero-cost helper effects, rounding, and runtime semantics create material residuals in this snapshot.
+
+
+## Combat-style grammar
+
+Blade and Blunt supplies 62 CSTY overrides, all of which decode cleanly with full 10-float CSGD, 8-float CSME, 4-float CSCR, 1-float CSLR, 8-float CSFL, and 4-byte DATA fields.
+
+The current snapshot produces 12 descriptive groups when partitioned by combat-style flags and dominant equipment weighting; 7 groups contain at least three records. The largest recurring groups are Dueling + melee emphasis (17), Dueling + AllowDualWielding + melee emphasis (16), Dueling with neutral/equal equipment multipliers (7), Dueling + magic emphasis (6), Dueling + ranged emphasis (4), Flanking + ranged emphasis (4), and Dueling + staff emphasis (3).
+
+All 62 records are overrides of Skyrim.esm forms, but Skyrim.esm itself is not imported here, so no vanilla-to-Blade-and-Blunt field deltas are claimed yet. Absolute values are valid Blade and Blunt evidence; comparative intent remains unknown until the vanilla baseline is available.
+
+One explicit exception is retained: `csDraugrMagic` has neither the Dueling nor Flanking DATA flag set. This contradicts the usual format-level expectation that one of those flags is present, so the system records it as an exception rather than repairing or discarding it.
