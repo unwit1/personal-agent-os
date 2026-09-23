@@ -10,16 +10,15 @@ Sub-continuity for the Skyrim mod **The Wheels of Lull**.
 
 - **33/33 BOOK** complete.
 - **32/32 QUST** complete.
-- **283/337 DIAL** and **352/410 INFO** preserved.
-- **635/747 combined dialogue records** ingested.
-- **700 prioritized source records** checkpointed.
+- **306/337 DIAL** and **379/410 INFO** preserved.
+- **685/747 combined dialogue records** ingested.
+- **750 prioritized source records** checkpointed.
 
-This batch continues Medeliu Hammar's metaphysical explanations, Cartwright riddles, Lull-Mor upkeep, and the beginning of Water Under the Bridge. Hammar's statements about Talos, Oversouls, the Wheels of Lull, and related metaphysics remain attributed testimony.
+This batch completes Water Under the Bridge, adds more Fyr/Yagrum personal testimony, Llavados equipment explanations, and Medeliu Hammar's claims about Talos, Oversouls, and the Wheels of Lull.
 
 ## Next cursor
 
-Dialogue combined record **636/747**:
+Dialogue combined record **686/747**:
 
-- INFO `053D667B`
-- Parent topic: `053D667A _Lull_SQ_Water_3`
-- Topic: `I don't follow?`
+- DIAL `054C5D62`
+- Owning quest: `0500590D _Lull_MQ01`
