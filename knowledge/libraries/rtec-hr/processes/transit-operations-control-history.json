@@ -112,6 +112,21 @@
           "note": "Current role owner/version must be validated."
         }
       ]
+    },
+    {
+      "claim": "A 2012 dispatch/case record treats correct completion of trip records and accurate no-show attribution as an operational quality control: an incomplete trip record could make the system appear to show an RTEC error when the client had not appeared.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted 2012 dispatch-error counseling record - generalized record-integrity issue",
+          "evidence_type": "explicit_text",
+          "note": "Client/employee details excluded."
+        }
+      ]
     }
   ],
   "trigger": "Cash/deposit handling, transportation referral processing or trip scheduling requires operational completion/quality control.",
@@ -159,7 +174,8 @@
   "controls": [
     "Do not treat historical signature rules or individual corrective plans as current unless corroborated.",
     "Preserve training/new-role context when evaluating errors; a single error does not by itself establish a universal discipline rule.",
-    "Use current role/system authority before automating financial or client-service decisions."
+    "Use current role/system authority before automating financial or client-service decisions.",
+    "Trip/no-show records should reflect the actual service outcome accurately so reporting does not misattribute operational failure."
   ],
   "unresolved_questions": [
     "What current procedure defines referral acceptance/release and acceptable signatures/authorizations?",
@@ -171,7 +187,8 @@
     "Referral aging/exception queue that flags unreleased referrals and missing/invalid authorization before service date.",
     "Schedule-quality monitor for unassigned trips, rebooking conflicts, gaps/no-shows/cancellations and high-priority trips.",
     "Daily deposit reconciliation workflow matching source cash/fare records to deposit slips and system totals with exception routing.",
-    "Role-aware operational checklist that uses training/tenure context for coaching but never auto-selects discipline."
+    "Role-aware operational checklist that uses training/tenure context for coaching but never auto-selects discipline.",
+    "Validate trip completion/no-show status before closure and flag records whose status conflicts with dispatch/client outcome evidence."
   ],
   "provenance": [
     {
