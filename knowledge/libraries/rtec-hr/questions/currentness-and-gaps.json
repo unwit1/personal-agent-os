@@ -122,6 +122,36 @@
       "domain": "job_descriptions_hiring",
       "question": "Reconcile qualification, safety-sensitive, background-check, drug/alcohol-testing, physical-demand, pay, benefit, and licensing language in historical job descriptions/recruitment materials with current approved policies and postings before reusing it.",
       "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "grant_compliance",
+      "question": "Map every recurring FY2017 Section 5310/5311/5339 assurance/certification page to a single canonical source in the compliance archive and establish version/effective-date history instead of storing binder duplicates.",
+      "status": "in_progress"
+    },
+    {
+      "priority": "high",
+      "domain": "title_vi_lep",
+      "question": "Build the supersession chain from the September 2016 Title VI/LEP plan through the December 2019 versions to the 2026 Title VI/LEP plan, and identify which complaint/public-notice/language-assistance rules are current.",
+      "status": "in_progress"
+    },
+    {
+      "priority": "high",
+      "domain": "ada_complaints",
+      "question": "Validate the current ADA complaint filing deadline, investigation timeline, appeal window, coordinator and form against newer compliance sources before using the historical ADA complaint process operationally.",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "grant_management",
+      "question": "Document the current RTEC process for assembling annual KYTC/FTA grant applications, including owner by section, source repository, review/signature workflow, deadline tracking and post-award retention.",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "grant_records",
+      "question": "Identify which FY2017 grant attachments are unique grant evidence versus duplicates of canonical compliance plans, policies, certifications, notices or forms in !Compliance.zip.",
+      "status": "in_progress"
     }
   ]
 }
