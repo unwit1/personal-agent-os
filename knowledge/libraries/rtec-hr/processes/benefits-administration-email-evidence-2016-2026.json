@@ -1,0 +1,177 @@
+{
+  "record_id": "rtec-benefits-administration-email-evidence-2016-2026",
+  "updated_at": "2026-09-23",
+  "status": "historical_workflow_with_current_2026_signals",
+  "scope": "Sanitized process model; employee/member-level facts and identifiers are excluded.",
+  "phases": [
+    {
+      "phase": "plan_implementation_and_renewal",
+      "observed": [
+        "ADP benefit/ACA implementation work in 2016",
+        "Guardian account-management meetings",
+        "CVIM renewal/pre-renewal coordination",
+        "2026 UnitedHealthcare implementation-feedback evidence"
+      ],
+      "evidence_ids": [
+        "000014",
+        "000015",
+        "000020",
+        "000021",
+        "000035",
+        "000136",
+        "000196",
+        "000512"
+      ]
+    },
+    {
+      "phase": "enrollment_change_and_termination",
+      "observed": [
+        "new-enrollment forms",
+        "status-change/coverage changes",
+        "dependent changes",
+        "insurance termination follow-up",
+        "carrier submission confirmations"
+      ],
+      "evidence_ids": [
+        "000099",
+        "000118",
+        "000128",
+        "000134",
+        "000178",
+        "000215",
+        "000221",
+        "000573"
+      ]
+    },
+    {
+      "phase": "carrier_broker_support",
+      "observed": [
+        "Guardian service/account contacts",
+        "CVIM broker/advisor contacts",
+        "secure carrier responses",
+        "UHC Kentucky account-management contacts"
+      ],
+      "evidence_ids": [
+        "000035",
+        "000069",
+        "000118",
+        "000181",
+        "000349",
+        "000485"
+      ]
+    },
+    {
+      "phase": "employee_cost_and_account_administration",
+      "observed": [
+        "benefit breakdown communication",
+        "FSA contribution changes",
+        "benefit-card/Benny Card support",
+        "premium/invoice checks"
+      ],
+      "evidence_ids": [
+        "000205",
+        "000217",
+        "000262",
+        "000272",
+        "000283",
+        "000340"
+      ]
+    },
+    {
+      "phase": "required_notices_and_reporting",
+      "observed": [
+        "Medicare-required notice preparation",
+        "CMS creditable-coverage reporting",
+        "COBRA ARPA mailing/report workflow"
+      ],
+      "evidence_ids": [
+        "000148",
+        "000228",
+        "000289",
+        "000306"
+      ]
+    },
+    {
+      "phase": "employee_facing_documents",
+      "observed": [
+        "benefit forms",
+        "SBC publication to website",
+        "coverage/insurance documentation"
+      ],
+      "evidence_ids": [
+        "000133",
+        "000211",
+        "000215"
+      ]
+    },
+    {
+      "phase": "wellness_eap_and_resources",
+      "observed": [
+        "historical biometric-screening communication",
+        "2026 UHC wellness resources",
+        "2026 ComPsych ResourceCenter access for utilization reports, training requests and communication materials"
+      ],
+      "evidence_ids": [
+        "000073",
+        "000349",
+        "000485",
+        "000569"
+      ]
+    },
+    {
+      "phase": "account_security_and_access",
+      "observed": [
+        "Guardian password/security reset sequence",
+        "benefits account email moved toward shared HR identity"
+      ],
+      "evidence_ids": [
+        "000351",
+        "000352",
+        "000353",
+        "000354"
+      ]
+    }
+  ],
+  "role_model": {
+    "historical_internal_owner": "HR/benefits role coordinated most employee-facing and vendor-facing steps.",
+    "external_partners": [
+      "Guardian",
+      "CVIM (historical)",
+      "ADP",
+      "UnitedHealthcare",
+      "ComPsych",
+      "other benefit/insurance contacts"
+    ],
+    "current_2026_notes": [
+      "Guardian remains active for plan administration.",
+      "UnitedHealthcare correspondence explicitly references a recent RTEC implementation, but exact plan/product scope is not inferred.",
+      "ComPsych ResourceCenter appears active through Guardian-related support.",
+      "iSolved remains an active vendor account but its exact role in benefits versus HR/payroll remains unresolved."
+    ]
+  },
+  "controls_and_artifacts": [
+    "enrollment/change forms",
+    "carrier secure-channel submissions",
+    "SBCs and employee-facing website materials",
+    "Medicare/CMS notices/reports",
+    "COBRA reports/notices",
+    "FSA/benefit-card administration",
+    "premium/invoice review",
+    "wellness/EAP communication materials"
+  ],
+  "unresolved": [
+    "Identify the current benefits broker/advisor and authoritative enrollment workflow.",
+    "Map exactly which benefits are administered in Guardian, UHC, iSolved/benefit services, ADP or another system.",
+    "Confirm current COBRA/FSA administration ownership.",
+    "Confirm who owns required Medicare/CMS notices and the annual calendar.",
+    "Identify the current employee-facing location/version owner for SBCs and benefit documents."
+  ],
+  "automation_candidates": [
+    "benefit-event checklist for enroll/change/terminate",
+    "annual Medicare/CMS notice calendar",
+    "carrier submission/reconciliation tracking",
+    "SBC/document publishing/version check",
+    "invoice/deduction reconciliation with human approval",
+    "secure-message follow-up queue"
+  ]
+}
