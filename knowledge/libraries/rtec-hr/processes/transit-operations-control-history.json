@@ -1,0 +1,210 @@
+{
+  "id": "rtec-process-transit-operations-control-history",
+  "record_type": "process",
+  "title": "Transit operations quality-control fragments - historical evidence",
+  "status": "candidate",
+  "temporal_status": "historical",
+  "effective_from": "2013-05-16",
+  "effective_to": "2016-12-31",
+  "summary": "Restricted corrective-action cases plus historical job descriptions expose reusable controls around deposits, trip/referral processing and schedule ownership. The evidence is strong enough to model the historical workflow, but exact current procedures and system rules remain unresolved.",
+  "claims": [
+    {
+      "claim": "Historical case evidence treats timely/daily deposit handling as an operational requirement; a formal corrective plan in 2015 required future deposits to be made daily, and a separate 2013 case identified untimely deposit handling as a concern.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted 2013/2015 cash-deposit cases - generalized control only",
+          "evidence_type": "repeated_observation",
+          "note": "Amounts and employee facts excluded."
+        }
+      ]
+    },
+    {
+      "claim": "Historical RTEC administrative/accounting job-description material independently includes recording and verifying daily deposits, matching deposit slips to system data and responsibility for accurate cash-fare/receivable handling.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-job-description-library-2026-09-23",
+          "page_or_section": "miscellaneous historical administrative/accounting descriptions - daily deposits/cash fares",
+          "evidence_type": "explicit_text",
+          "note": "Historical job descriptions; current role ownership must be validated."
+        }
+      ]
+    },
+    {
+      "claim": "A 2014 corrective record shows a transportation referral was expected to be followed up and released rather than left pending; it also states that a stamped signature on that referral was not acceptable under the then process.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted 2014 referral-processing counseling record - generalized workflow",
+          "evidence_type": "explicit_text",
+          "note": "Current signature/authorization requirements are not established by this historical case."
+        }
+      ]
+    },
+    {
+      "claim": "Historical CSR job descriptions independently show CSR duties including Medicaid/Waiver eligibility checks, passenger-profile updates, scanning physicians' statements/referrals/urgent-care statements and making/canceling transportation appointments, corroborating referrals as part of the CSR operational workflow.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-job-description-library-2026-09-23",
+          "page_or_section": "customer-service-representative source group",
+          "evidence_type": "explicit_text",
+          "note": "Historical/version-aware role evidence."
+        }
+      ]
+    },
+    {
+      "claim": "A 2013 management counseling record treats a high number of still-unscheduled trips late in the scheduling process as a performance concern and states that the manager was expected to work/manage the schedule rather than depend on others to complete it.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted 2013 scheduling counseling record - generalized expectation",
+          "evidence_type": "explicit_text",
+          "note": "The record also notes the employee was new to the role, which is relevant context rather than a general exception."
+        }
+      ]
+    },
+    {
+      "claim": "A separate 2013 verbal-warning record shows that canceling a trip and rebooking it to the same bus the next morning created downstream scheduling problems and required another driver to be reassigned.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted 2013 trip-rebooking warning - generalized operational effect",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Historical management job-description material includes monitoring trip timeliness, schedule gaps, idle time, breaks, no-shows, cancellations and unaccommodated trips, corroborating schedule quality/control as a management responsibility.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-job-description-library-2026-09-23",
+          "page_or_section": "historical operations/management description - trip monitoring",
+          "evidence_type": "explicit_text",
+          "note": "Current role owner/version must be validated."
+        }
+      ]
+    }
+  ],
+  "trigger": "Cash/deposit handling, transportation referral processing or trip scheduling requires operational completion/quality control.",
+  "prerequisites": [
+    "Use current system/procedure and current role ownership.",
+    "Maintain restricted handling of client/medical/referral information."
+  ],
+  "actors": [
+    "Customer Service Representative",
+    "Area/Operations Management",
+    "Administrative/Accounting staff",
+    "Driver where cash/deposit duty applies"
+  ],
+  "systems": [
+    "Historical scheduling/transportation systems",
+    "Deposit/billing spreadsheets/systems",
+    "Referral/document workflow"
+  ],
+  "forms": [
+    "Referral/supporting statement",
+    "Deposit slip",
+    "Trip/schedule record"
+  ],
+  "steps": [
+    "Capture/refine the trip/referral/deposit transaction in the authoritative system.",
+    "Complete required validation/follow-up rather than leaving the item pending.",
+    "Monitor schedules for unassigned trips/gaps/no-shows/cancellations.",
+    "Reconcile deposits/cash records to the controlling system and supporting slip/record.",
+    "Escalate anomalies before they create missed trips, cash exposure or client-service failure."
+  ],
+  "decisions": [
+    "Whether a referral/authorization is complete and acceptable.",
+    "Whether schedule changes create downstream coverage conflicts.",
+    "Whether deposit/cash records reconcile."
+  ],
+  "deadlines": [
+    "Historical evidence implies daily/timely deposits and timely referral/schedule follow-up; exact current cutoffs require present-day procedures."
+  ],
+  "outputs": [
+    "Completed/released trip/referral",
+    "Reconciled deposit record",
+    "Resolved schedule gap or exception"
+  ],
+  "exceptions": [],
+  "controls": [
+    "Do not treat historical signature rules or individual corrective plans as current unless corroborated.",
+    "Preserve training/new-role context when evaluating errors; a single error does not by itself establish a universal discipline rule.",
+    "Use current role/system authority before automating financial or client-service decisions."
+  ],
+  "unresolved_questions": [
+    "What current procedure defines referral acceptance/release and acceptable signatures/authorizations?",
+    "Which current roles own daily deposit collection, verification and reconciliation, and what are the cutoffs?",
+    "What current scheduling system/control flags unassigned trips, gaps, cancellations and rebook conflicts?",
+    "What current escalation path applies when a high-priority trip/referral is discovered unresolved?"
+  ],
+  "automation_candidates": [
+    "Referral aging/exception queue that flags unreleased referrals and missing/invalid authorization before service date.",
+    "Schedule-quality monitor for unassigned trips, rebooking conflicts, gaps/no-shows/cancellations and high-priority trips.",
+    "Daily deposit reconciliation workflow matching source cash/fare records to deposit slips and system totals with exception routing.",
+    "Role-aware operational checklist that uses training/tenure context for coaching but never auto-selects discipline."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+      "safe_source_type": "restricted_case_pattern_analysis",
+      "source_date_or_version": "2013-2015 operational corrective cases",
+      "content_sha256": null,
+      "page_or_section": "deposit/referral/scheduling cases",
+      "ingested_at": "2026-09-23",
+      "notes": "Employee/client identities and case details excluded.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": "2013-05-16",
+      "source_effective_to": "2015-04-03",
+      "temporal_status": "historical",
+      "full_source_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json"
+    },
+    {
+      "source_id": "rtec-hr-job-description-library-2026-09-23",
+      "safe_source_type": "historical_job_description_corpus",
+      "source_date_or_version": "multiple historical versions",
+      "content_sha256": null,
+      "page_or_section": "CSR and miscellaneous administrative/operations descriptions",
+      "ingested_at": "2026-09-23",
+      "notes": "Job descriptions are historical/version-aware and do not establish present owner by themselves.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/job-descriptions/manifest.json",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/job-descriptions/manifest.json"
+    }
+  ]
+}
