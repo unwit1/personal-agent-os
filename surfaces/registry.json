@@ -14,6 +14,12 @@
       "mechanism": "mcp_stdio",
       "expected_tier": "routed",
       "summary": "Terminal coding agent that calls Agent OS directly over MCP and is preflighted by the user-scoped instruction file.",
+      "connector_capabilities": {
+        "inspect_local_config": {"available": true, "reason": "Agent OS can inspect the local MCP registration read-only."},
+        "mutate_local_config": {"available": false, "reason": "Connector adapters do not yet provision or edit this client's configuration."},
+        "transfer_credentials": {"available": false, "reason": "Credential values stay in approved local secret stores and are never copied between clients."},
+        "agent_os_bridge": {"available": true, "reason": "Direct MCP is supported when this client has an Agent OS registration."}
+      },
       "invocation": {
         "kind": "mcp_stdio",
         "server_keys": ["agent-os", "personal-agent-os"],
@@ -34,6 +40,12 @@
       "mechanism": "mcp_stdio",
       "expected_tier": "routed",
       "summary": "Desktop client that can register the same MCP server; it has no user-scoped instruction file, so preflight must be carried by the server instructions.",
+      "connector_capabilities": {
+        "inspect_local_config": {"available": true, "reason": "Agent OS can inspect the local MCP registration read-only."},
+        "mutate_local_config": {"available": false, "reason": "Connector adapters do not yet provision or edit this client's configuration."},
+        "transfer_credentials": {"available": false, "reason": "Credential values stay in approved local secret stores and are never copied between clients."},
+        "agent_os_bridge": {"available": true, "reason": "Direct MCP is supported when this client has an Agent OS registration."}
+      },
       "invocation": {
         "kind": "mcp_stdio",
         "server_keys": ["agent-os", "personal-agent-os"],
@@ -57,6 +69,12 @@
       "mechanism": "mcp_stdio",
       "expected_tier": "routed",
       "summary": "Coding agent preflighted by the installed AGENTS.md adapter and able to call Agent OS over its MCP server registration.",
+      "connector_capabilities": {
+        "inspect_local_config": {"available": true, "reason": "Agent OS can inspect the local MCP registration read-only."},
+        "mutate_local_config": {"available": false, "reason": "Connector adapters do not yet provision or edit this client's configuration."},
+        "transfer_credentials": {"available": false, "reason": "Credential values stay in approved local secret stores and are never copied between clients."},
+        "agent_os_bridge": {"available": true, "reason": "Direct MCP is supported when this client has an Agent OS registration."}
+      },
       "invocation": {
         "kind": "mcp_stdio",
         "server_keys": ["agent-os", "personal-agent-os"],
@@ -77,6 +95,12 @@
       "mechanism": "manual_bridge",
       "expected_tier": "bridged",
       "summary": "No automatic invocation path. The routing skill is the thinnest bridge: the chat states its findings and they are captured locally through the CLI.",
+      "connector_capabilities": {
+        "inspect_local_config": {"available": false, "reason": "Hosted chat connection settings are not visible to this local checkout."},
+        "mutate_local_config": {"available": false, "reason": "The host manages its own connector settings; Agent OS cannot edit them from this checkout."},
+        "transfer_credentials": {"available": false, "reason": "Agent OS has no supported API here to export hosted credentials into the local registry."},
+        "agent_os_bridge": {"available": null, "reason": "Availability depends on an Agent OS connection configured through the host."}
+      },
       "invocation": {"kind": "none", "reason": "the host cannot start a local stdio server"},
       "instruction": {
         "kind": "bridge_document",
@@ -92,6 +116,12 @@
       "mechanism": "manual_bridge",
       "expected_tier": "bridged",
       "summary": "Work projects can carry the routing instructions as project text, but still cannot invoke Agent OS; captures return through the CLI.",
+      "connector_capabilities": {
+        "inspect_local_config": {"available": false, "reason": "Hosted work-project connection settings are not visible to this local checkout."},
+        "mutate_local_config": {"available": false, "reason": "The host manages its own connector settings; Agent OS cannot edit them from this checkout."},
+        "transfer_credentials": {"available": false, "reason": "Agent OS has no supported API here to export hosted credentials into the local registry."},
+        "agent_os_bridge": {"available": null, "reason": "Availability depends on an Agent OS connection configured through the host."}
+      },
       "invocation": {"kind": "none", "reason": "the host cannot start a local stdio server"},
       "instruction": {
         "kind": "bridge_document",
@@ -107,6 +137,12 @@
       "mechanism": "mcp_stdio",
       "expected_tier": "bridged",
       "summary": "Server-side readiness for clients that are not registered individually. Reaching 'routed' requires that client to also carry a preflight instruction.",
+      "connector_capabilities": {
+        "inspect_local_config": {"available": null, "reason": "No specific local client configuration is identified for this generic surface."},
+        "mutate_local_config": {"available": null, "reason": "Configuration ownership depends on the unidentified client."},
+        "transfer_credentials": {"available": false, "reason": "Credential values stay in approved local secret stores and are never copied between clients."},
+        "agent_os_bridge": {"available": true, "reason": "An MCP-compatible client can use the Agent OS bridge when it registers the server."}
+      },
       "invocation": {"kind": "server_entrypoint", "prefers_stable_launcher": true},
       "instruction": {"kind": "none", "reason": "no user-scoped instruction file is known for an unidentified client"},
       "capture": {"kind": "mcp_tools", "tools": ["agent.capture_candidates", "agent.latest_handoff"], "automatic": true}

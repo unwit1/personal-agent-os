@@ -123,7 +123,11 @@ verifies them. The connected Agent OS MCP tool inventory still lacks the
 connector tools, so its running server needs a host-side restart before this
 surface can be verified through MCP. Credential resolution, surface adapters,
 reconciliation, live provider health checks, and cross-surface verification
-remain open.
+remain open. The surface registry and `integration-health` now expose a
+per-client connector capability matrix for local configuration inspection and
+changes, credential transfer, and Agent OS bridge availability. Hosted-client
+settings are marked inaccessible to local inspection or mutation, while bridge
+status remains explicitly unknown when the local checkout cannot inspect it.
 
 Make Agent OS the canonical provider-neutral connector registry and broker for
 Claude, ChatGPT, Codex, desktop clients, mobile/voice clients, and future agent

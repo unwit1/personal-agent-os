@@ -220,6 +220,23 @@ def validate() -> dict[str, Any]:
                     errors.append(f"{label}: unsupported instruction kind")
                 if surface.get("capture", {}).get("kind") not in {"mcp_tools", "cli_bridge", "none"}:
                     errors.append(f"{label}: unsupported capture kind")
+                capabilities = surface.get("connector_capabilities")
+                capability_names = {
+                    "inspect_local_config", "mutate_local_config",
+                    "transfer_credentials", "agent_os_bridge",
+                }
+                if capabilities is not None and (not isinstance(capabilities, dict) or set(capabilities) != capability_names):
+                    errors.append(f"{label}: connector capability matrix is incomplete")
+                elif capabilities is not None:
+                    for capability_name, detail in capabilities.items():
+                        if not isinstance(detail, dict) or set(detail) != {"available", "reason"}:
+                            errors.append(f"{label}: invalid connector capability {capability_name}")
+                            continue
+                        available = detail["available"]
+                        if available is not None and type(available) is not bool:
+                            errors.append(f"{label}: connector capability {capability_name} must be true, false, or unknown")
+                        if not isinstance(detail["reason"], str) or not detail["reason"].strip():
+                            errors.append(f"{label}: connector capability {capability_name} needs a reason")
                 for location in surface.get("instruction", {}).get("locations", []):
                     if str(location).casefold().startswith("repo/") and not (ROOT / str(location)[5:]).exists():
                         errors.append(f"{label}: missing bridge document {location}")
