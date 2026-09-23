@@ -1,0 +1,17 @@
+{
+  "source_id": "rtec-hr-csr-do-not-call-state-memo-2015-06-02",
+  "source_class": "procedure_correspondence",
+  "source_artifact": "Do not call state memo.doc",
+  "privacy_class": "safe_position_level",
+  "sha256": "cf1b872278d89575eb061d4958ec9c964b6167a34fdfeed667c2193535f19eec",
+  "source_date_or_version": "2015-06-02",
+  "temporal_status": "historical",
+  "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-csr-do-not-call-state-memo-2015-06-02/fulltext.md",
+  "derived_records": [
+    "knowledge/libraries/rtec-hr/processes/csr-client-assistance-escalation-2015.json"
+  ],
+  "ingested_at": "2026-09-23",
+  "notes": [
+    "Historical memo. 'State' is not defined in the source and current escalation rules are unknown."
+  ]
+}

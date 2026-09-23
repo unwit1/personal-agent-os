@@ -1,0 +1,17 @@
+{
+  "source_id": "rtec-hr-rotation-schedule-absence-memo-2021-06-08",
+  "source_class": "procedure_correspondence",
+  "source_artifact": "Rotation Schedule absences.docx",
+  "privacy_class": "safe_position_level",
+  "sha256": "636aca9618a66663d77ea5ccd9560483195fbcc8f375ff51036594d1fceffeb4",
+  "source_date_or_version": "2021-06-08",
+  "temporal_status": "historical",
+  "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-rotation-schedule-absence-memo-2021-06-08/fulltext.md",
+  "derived_records": [
+    "knowledge/libraries/rtec-hr/policies/rotation-schedule-absence-point-rule-2021.json"
+  ],
+  "ingested_at": "2026-09-23",
+  "notes": [
+    "Historical return-to-normal instruction for Area Manager/CSR rotation days; current applicability unknown."
+  ]
+}
