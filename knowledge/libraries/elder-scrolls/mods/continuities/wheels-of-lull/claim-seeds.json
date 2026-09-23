@@ -1,0 +1,624 @@
+[
+  {
+    "id": "woll:llavados-body-not-self",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Llavados says his visible fabricant body is not what he is and instructs the player to carry its glowing component deeper.",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "0500AA3E"
+      }
+    ]
+  },
+  {
+    "id": "woll:llavados-madness-facade",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Llavados explicitly says his gibbering and rambling are a facade.",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "0503E19D"
+      }
+    ]
+  },
+  {
+    "id": "woll:memory-final-creation",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Llavados identifies Memory as Sotha Sil's final creation, a child of mer, machine, and Lullian magic.",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "0503E1A3"
+      }
+    ]
+  },
+  {
+    "id": "woll:memory-future-survival-purpose",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Llavados says a future disaster will destroy the world and Memory is intended to help people survive it and build a new world.",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "0503E1A3"
+      }
+    ]
+  },
+  {
+    "id": "woll:memory-tower-dependency",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Llavados says the Towers sustain Memory and that destruction of Snow-Throat would kill her.",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "0503E1A5"
+      }
+    ]
+  },
+  {
+    "id": "woll:core-nirn-mainframe",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Llavados describes the deepest location as the core of Nirn, Magnus' workshop, Sotha Sil's central mainframe, and Memory's room.",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "050433E4"
+      }
+    ]
+  },
+  {
+    "id": "woll:archeron-soul-integrated",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Llavados says Archeron's soul became integrated into the world mechanism after his defeat.",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "050433E6"
+      }
+    ]
+  },
+  {
+    "id": "woll:llavados-landfall",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Llavados tells the Dragonborn they will meet again at Landfall.",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "050433EA"
+      }
+    ]
+  },
+  {
+    "id": "woll:memory-know-love-landfall",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Memory says 'Know Love to avoid the Landfall.'",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "0529FC9A"
+      }
+    ]
+  },
+  {
+    "id": "woll:memory-mage-clockmaker",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Memory identifies herself as both the mage and the clockmaker.",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "0529FC9C"
+      }
+    ]
+  },
+  {
+    "id": "woll:memory-thalmor-win",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Memory predicts that the Thalmor will win in the end.",
+    "status": "prophetic_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "0529FC9E"
+      }
+    ]
+  },
+  {
+    "id": "woll:memory-screaming-brass",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Memory predicts that 'It will come in the form of screaming brass.'",
+    "status": "prophetic_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "0529FC9F"
+      }
+    ]
+  },
+  {
+    "id": "woll:memory-c0da-digitals",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Memory says 'The c0da does not bend. The Digitals have seen to that.'",
+    "status": "prophetic_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "0529FCA1"
+      }
+    ]
+  },
+  {
+    "id": "woll:numinar-snow-throat-candidates",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Numinar identifies the Greybeards, College of Winterhold, and Thalmor as candidate sources of the Snow-Throat disturbance.",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "05019E5C"
+      }
+    ]
+  },
+  {
+    "id": "woll:artophysical-manipulator",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Numinar says the Artophysical Manipulator and visor allow the player to find and manipulate hidden slots/folds in the world mechanism.",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "05019E5E"
+      }
+    ]
+  },
+  {
+    "id": "woll:numinar-overclocker",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Numinar says he was an overclocker/mechanic and was shipped out with other Chronographers after the Clockwork City died.",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "050488B0"
+      }
+    ]
+  },
+  {
+    "id": "woll:archeron-fyr-disguise",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Archeron explicitly reveals that he disguised himself as Divayth Fyr.",
+    "status": "explicit_dialogue_plus_scene_resolution",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "0503E18F"
+      },
+      {
+        "type": "scene",
+        "form_id": "0503E180"
+      }
+    ]
+  },
+  {
+    "id": "woll:archeron-controls-world-mechanism",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Archeron claims that he controls the World Mechanism.",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "050433F6"
+      }
+    ]
+  },
+  {
+    "id": "woll:memodermis-wheels-extraction",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Message from Eternity says Archeron is extracting memodermis, described there as liquidized bits of the Wheels of Lull.",
+    "status": "in_universe_book_claim",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "book",
+        "form_id": "05367181"
+      }
+    ]
+  },
+  {
+    "id": "woll:memodermis-liquid-equations",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Archeron's Research Notes call memodermis the lifeblood of the world/liquid equations and report that it reacts to memories and can be shaped.",
+    "status": "in_universe_research_notes",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "book",
+        "form_id": "055400D7"
+      }
+    ]
+  },
+  {
+    "id": "woll:wailway-soul-engine",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "The Wailway locomotive describes itself as a soul bound to an engine of movement.",
+    "status": "contextual_first_person_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "0504DF2C"
+      }
+    ]
+  },
+  {
+    "id": "woll:diolkos-punitive-fleshforging",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "The Wailway locomotive attributes political punishment by transformation into industrial machinery to the Diolkos/Resource Men.",
+    "status": "contextual_first_person_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "0504DF1B"
+      },
+      {
+        "type": "dialogue_info",
+        "form_id": "0504DF1D"
+      }
+    ]
+  },
+  {
+    "id": "woll:wailway-dark-elven-clockmaker",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "The locomotive says Reman later sold it to a dark-elven clockmaker who studied it.",
+    "status": "contextual_first_person_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "0504DF34"
+      }
+    ]
+  },
+  {
+    "id": "woll:yagrum-last-living-dwemer",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Yagrum Bagarn identifies himself as the last living Dwemer / Last Living Dwarf.",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "05038ED9"
+      },
+      {
+        "type": "dialogue_info",
+        "form_id": "0505D2F5"
+      }
+    ]
+  },
+  {
+    "id": "woll:yagrum-disappearance-uncertain",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Yagrum says he was in the Outer Realms during Red Mountain and explicitly does not know for sure what happened to the Dwemer.",
+    "status": "explicit_character_testimony_with_uncertainty",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "0505D2F7"
+      }
+    ]
+  },
+  {
+    "id": "woll:saboteur-not-fabricant",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Yagrum's mechanical tracing says the saboteur used a backdoor and does not carry fabricant signatures.",
+    "status": "explicit_character_analysis",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "05361505"
+      }
+    ]
+  },
+  {
+    "id": "woll:hammar-dwemer-numidium",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Hammar claims that the Dwemer merged with Numidium and became components of the Brass God.",
+    "status": "explicit_character_theory",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "053D6626"
+      }
+    ]
+  },
+  {
+    "id": "woll:hammar-numidium-shezarrine",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Hammar describes Numidium as a collective of world-deniers and says it can be guided by a Shezarrine.",
+    "status": "explicit_character_theory",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "053D6628"
+      }
+    ]
+  },
+  {
+    "id": "woll:hammar-talos-oversoul",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Hammar describes Talos as a collection/oversoul of Shezarrines.",
+    "status": "explicit_character_theory",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "053D662B"
+      }
+    ]
+  },
+  {
+    "id": "woll:hammar-dragonborn-akatosh-oversoul",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Hammar describes the Dragonborn as participating in an Akatoshian Oversoul.",
+    "status": "explicit_character_theory",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "053D662D"
+      }
+    ]
+  },
+  {
+    "id": "woll:hammar-towers-stones",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Hammar says Towers stabilize Nirn and each Tower has a Stone whose destruction deactivates it.",
+    "status": "explicit_character_theory",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "053D6631"
+      }
+    ]
+  },
+  {
+    "id": "woll:hammar-tower-list",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Hammar supplies a list of Towers he considers deactivated and remaining active.",
+    "status": "explicit_character_theory",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "053D6633"
+      }
+    ]
+  },
+  {
+    "id": "woll:hammar-wheels-clockwork",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Hammar describes repeated world-design iterations associated with Magnus and the Wheels of Lull as literal clockwork underlying creation.",
+    "status": "explicit_character_theory",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "053D663A"
+      }
+    ]
+  },
+  {
+    "id": "woll:trademarks-sotha-sil-guardians",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Belarus says Sotha Sil built the Trademarks to guard his underwater work.",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "052C371A"
+      }
+    ]
+  },
+  {
+    "id": "woll:ocean-sotha-sil-domain",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Belarus says the ocean is Sotha Sil's domain and its waters are 'our thoughts.'",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "052C371C"
+      }
+    ]
+  },
+  {
+    "id": "woll:pneuma-trademark-disguise",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Belarus says a working pneuma could trick the Trademarks into treating the player as a fabricant.",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "052C371E"
+      }
+    ]
+  },
+  {
+    "id": "woll:avarri-stoker-binding",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Avarri says he bound the Stoker into his mind to learn clockwork smithing; the Stoker identifies itself as a foundry-running, steel-shaping intelligence.",
+    "status": "explicit_character_testimony",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "0505D30D"
+      },
+      {
+        "type": "dialogue_info",
+        "form_id": "0505D303"
+      }
+    ]
+  },
+  {
+    "id": "woll:ganaran-augmentation-trade",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Ganaran-21 identifies himself as a fabricant Arms Merchant using an FRF proxy and offers permanent body augmentations.",
+    "status": "explicit_character_testimony_plus_transactions",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "dialogue_info",
+        "form_id": "052678B3"
+      },
+      {
+        "type": "dialogue_info",
+        "form_id": "052678C9"
+      },
+      {
+        "type": "dialogue_info",
+        "form_id": "052678F8"
+      }
+    ]
+  },
+  {
+    "id": "woll:sybandis-prototype-world",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "The book Sybandis claims the Aedra built a prototype world before Mundus to test Magnus' schema.",
+    "status": "in_universe_book_claim",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "book",
+        "form_id": "0543D472"
+      }
+    ]
+  },
+  {
+    "id": "woll:journeys-sybandis-stillborn-nirn",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Journeys Through Sybandis presents Sybandis as a Stillborn Nirn and gives a first-person travel account of its behavior.",
+    "status": "in_universe_travel_account",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "book",
+        "form_id": "0543D473"
+      }
+    ]
+  },
+  {
+    "id": "woll:chronography-integrity-preservation",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Chronography Volume II proposes 'integrity preservation' as the Chronographers' purpose, nudging events so known future events still occur.",
+    "status": "in_universe_scholarly_claim",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "book",
+        "form_id": "05376714"
+      }
+    ]
+  },
+  {
+    "id": "woll:chronography-aoq-origin",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Chronography Volume III says it is said/believed that Sotha Sil reforged 1,200 fallen followers into the Armour of Oscillating Quartz.",
+    "status": "in_universe_scholarly_claim_with_uncertainty",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "book",
+        "form_id": "05376715"
+      }
+    ]
+  },
+  {
+    "id": "woll:rewound",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Wind Up and Wound Down describes Rewound as fabricant bodies that restart after pneuma/soul departure and repeat behaviors, sometimes violently.",
+    "status": "in_universe_technical_book_claim",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "book",
+        "form_id": "05371591"
+      }
+    ]
+  },
+  {
+    "id": "woll:forged-thalmor-orders",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "The source itself identifies the Thalmor orders document as forged.",
+    "status": "explicit_forgery",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "book",
+        "form_id": "0552BAD3"
+      }
+    ]
+  },
+  {
+    "id": "woll:thomas-literary-source",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Thomas the Screaming Tank Engine And His Screaming Friends is framed as a fairy-tale/satirical Wailway text rather than neutral historical documentation.",
+    "status": "literary_or_satirical_source",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "book",
+        "form_id": "0525D2A0"
+      }
+    ]
+  },
+  {
+    "id": "woll:cheater-meta-source",
+    "scope": "tes.mod.wheels-of-lull",
+    "claim": "Cheater is a meta/satirical punitive note signed by the Cult of Sybandis and is low-reliability evidence for objective lore.",
+    "status": "literary_or_meta_source",
+    "confidence": "high",
+    "evidence": [
+      {
+        "type": "book",
+        "form_id": "0549E1A5"
+      }
+    ]
+  }
+]
