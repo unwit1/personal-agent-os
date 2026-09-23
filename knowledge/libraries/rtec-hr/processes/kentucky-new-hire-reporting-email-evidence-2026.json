@@ -10,21 +10,37 @@
     "000363"
   ],
   "observed_sequence": [
-    "Web File Upload Preview generated.",
-    "A second preview was generated shortly afterward.",
-    "Web File Upload Completion reported successful receipt."
+    "Initial web-file preview failed: 8 total records, 7 recognized as previously submitted duplicates, 1 rejected. The rejection was tied to an Employer City / Employer Optional City field containing invalid characters.",
+    "A corrected preview approximately three minutes later succeeded in preview mode: 8 total records, 1 acceptable, 7 previously submitted duplicates, 0 rejected.",
+    "The file was then submitted successfully: 1 acceptable, 7 previously submitted duplicates, 0 rejected, and 0 duplicate records within the uploaded file itself."
   ],
   "sanitized_result": {
-    "total_records_in_file": 8,
-    "acceptable_new_hires": 1,
-    "previously_submitted_duplicates": 7,
-    "rejected_new_hires": 0,
-    "duplicate_records_within_file_on_update": 0
+    "initial_preview": {
+      "total_records": 8,
+      "acceptable": 0,
+      "previously_submitted_duplicates": 7,
+      "rejected": 1,
+      "rejection_class": "employer city field character validation"
+    },
+    "corrected_preview": {
+      "total_records": 8,
+      "acceptable": 1,
+      "previously_submitted_duplicates": 7,
+      "rejected": 0
+    },
+    "final_submission": {
+      "total_records": 8,
+      "acceptable": 1,
+      "previously_submitted_duplicates": 7,
+      "rejected": 0,
+      "duplicates_within_file_on_update": 0
+    }
   },
   "source_filename_observation": "The uploaded spreadsheet filename included a 2025-05-15 date while the portal upload occurred on 2026-05-15.",
   "interpretation": [
-    "The state portal performs duplicate and rejection validation before/after submission.",
-    "The high previously-submitted duplicate ratio may indicate a reused reporting file, a deliberately cumulative file, a stale export, or another process reason; the email alone cannot decide which.",
+    "The portal supports an explicit preview/correction/submission workflow and reports different duplicate classes.",
+    "The first failure was corrected before final submission, demonstrating a recoverable validation loop rather than an unreconciled failed filing.",
+    "The high previously-submitted duplicate ratio may indicate a reused reporting file, deliberately cumulative file, stale export, or another process reason; the email alone cannot determine which.",
     "Filename/date mismatch should be validated before using filename dates as authoritative reporting-period metadata."
   ],
   "automation_opportunities": [
