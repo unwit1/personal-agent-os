@@ -1,0 +1,124 @@
+{
+  "id": "rtec-process-covid-red-status-staff-scheduling-2021",
+  "record_type": "process",
+  "title": "COVID red-status staff scheduling - January 2021",
+  "status": "validated",
+  "temporal_status": "historical",
+  "effective_from": "2021-01-13",
+  "effective_to": null,
+  "summary": "A restricted January 2021 staff schedule documents an emergency rotation used while Rockcastle County was in COVID 'red' status. X marks represented a day off or work-from-home day for roles able to work remotely, while dispatch/garage and CSR operations followed separate continuity arrangements.",
+  "claims": [
+    {
+      "claim": "A schedule revised January 13, 2021 states that an X marks a day off or work-from-home day for those able to work remotely while Rockcastle County remained 'red' with COVID.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-employee-schedule-roster-97840a18a9dd",
+          "page_or_section": "Sheet1 instruction/header only",
+          "evidence_type": "explicit_text",
+          "note": "Employee names and individual schedules are excluded."
+        }
+      ]
+    },
+    {
+      "claim": "The schedule assigns individualized weekly X-day patterns and notes that some assigned days were subject to change.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-employee-schedule-roster-97840a18a9dd",
+          "page_or_section": "Sheet1 structure/notes",
+          "evidence_type": "structural",
+          "note": "No individual schedules retained."
+        }
+      ]
+    },
+    {
+      "claim": "The schedule states that Dispatch and Garage would continue as usual and that CSRs would operate under a separate existing schedule, showing role-specific continuity rules rather than one universal remote-work rotation.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-employee-schedule-roster-97840a18a9dd",
+          "page_or_section": "Sheet1 operational notes",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "trigger": "Emergency public-health status required reduced/rotating on-site staffing.",
+  "prerequisites": [
+    "Identify functions that can work remotely without disrupting essential operations.",
+    "Maintain coverage for operations requiring in-person or separately scheduled staffing."
+  ],
+  "actors": [
+    "Management",
+    "Administrative staff",
+    "Dispatch",
+    "Garage",
+    "Customer Service Representatives"
+  ],
+  "systems": [
+    "Weekly staff scheduling spreadsheet"
+  ],
+  "forms": [
+    "Emergency staff rotation schedule"
+  ],
+  "steps": [
+    "Determine emergency status/need for reduced on-site staffing.",
+    "Assign individualized days off or work-from-home days to eligible roles.",
+    "Keep essential/role-specific operations on their separate continuity schedules.",
+    "Revise individual days as operational needs change."
+  ],
+  "decisions": [
+    "Which roles can work remotely.",
+    "Which functions continue on-site/as usual.",
+    "When individual rotation days must change."
+  ],
+  "deadlines": [],
+  "outputs": [
+    "Emergency weekly staffing/remote-work schedule"
+  ],
+  "exceptions": [
+    "Dispatch/Garage and CSR operations followed different continuity arrangements in the supplied 2021 schedule."
+  ],
+  "controls": [
+    "Historical emergency arrangement only; do not treat as current remote-work entitlement or policy.",
+    "Keep individual schedules/employee names restricted."
+  ],
+  "unresolved_questions": [
+    "What formal COVID/emergency continuity policy governed this schedule, if any?",
+    "Does RTEC currently have an emergency remote-work/business-continuity plan and role eligibility rules?",
+    "What event/status formally ended the red-status rotation?"
+  ],
+  "automation_candidates": [
+    "Emergency staffing planner that marks essential on-site functions, remote-capable roles, coverage requirements and revision history.",
+    "Publish employee-specific schedules through restricted views while retaining only aggregate continuity rules in the knowledge base."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-restricted-employee-schedule-roster-97840a18a9dd",
+      "safe_source_type": "restricted_employee_schedule_roster",
+      "source_date_or_version": "Revised 2021-01-13",
+      "content_sha256": "97840a18a9dda16278052eb91a91c9c010dfc83ead261c6617b642300665e33e",
+      "page_or_section": "Sheet1 instruction/operational notes only",
+      "ingested_at": "2026-09-23",
+      "notes": "Names and individual day assignments excluded.",
+      "source_created_date": null,
+      "source_revision_date": "2021-01-13",
+      "source_effective_from": "2021-01-13",
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "full_source_path": null,
+      "searchable_text_path": null
+    }
+  ]
+}
