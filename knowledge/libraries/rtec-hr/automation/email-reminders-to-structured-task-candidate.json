@@ -7,19 +7,21 @@
   "evidence": {
     "self_task_reminder_messages": 122,
     "explicit_task_family_lower_bounds": {
-      "leave_attendance": 17,
+      "leave_attendance_fmla": 18,
       "benefits_insurance": 16,
-      "service_anniversary": 15,
-      "payroll_timesheet_tax": 10,
-      "discipline_legal": 8,
-      "eeo_aap": 7,
+      "service_anniversary": 13,
+      "payroll_time_tax": 11,
+      "eeo_aap_compliance": 8,
+      "discipline_legal": 7,
+      "reporting_documents": 7,
       "retirement_401k": 5,
       "workers_comp_return_to_work": 5,
-      "website_documents": 4,
-      "training_credentials": 3,
-      "recruiting": 2
+      "recruiting": 3,
+      "training_credentials": 2,
+      "unemployment": 2
     },
-    "note": "Counts overlap and are conservative keyword-derived lower bounds; the full 122-message set includes additional ambiguous shorthand reminders."
+    "note": "Counts are conservative subject-pattern counts from the complete 122-message no-recipient/self-reminder set. Categories overlap. Thirty reminders are shorthand, name-only, or case-specific and are intentionally not generalized without stronger context.",
+    "uncategorized_or_case_specific_reminders": 30
   },
   "proposed_capability": [
     "Detect explicit and implicit commitments in HR mail.",
