@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-23",
+  "purpose": "Sanitized model of durable interests, digital services, and media/technology patterns derived from the local iCloud mail index. Subscription/marketing evidence is treated more cautiously than user-authored or transactional evidence.",
+  "current_intensity_signals": {
+    "note": "Message counts are not a measure of importance by themselves; they are included to show repeated exposure/engagement and must be interpreted with sender type.",
+    "selected_organization_message_counts": {
+      "GitHub": 3791,
+      "Patreon_related": 942,
+      "Amazon_related": 694,
+      "FocusGroups_org": 451,
+      "University_of_Kentucky_related": 198,
+      "Patreon_platform_direct": 186,
+      "User_Interviews": 174,
+      "Costco": 168,
+      "Steam": 120,
+      "Questionable_Questing": 115,
+      "Respondent": 82,
+      "Runpod": 54,
+      "LEGO_Ideas": 54,
+      "OpenAI": 48,
+      "Anthropic": 22,
+      "Make": 15,
+      "Prolific": 16,
+      "LE_Research": 15
+    },
+    "interpretation": [
+      "GitHub volume is dominated by 2026 repository/security/project notifications and is strong evidence of intensive current coding/project activity.",
+      "Patreon volume is unusually concentrated in Skyrim/modding creators and is strong supporting evidence for the existing Skyrim-modding priority.",
+      "Research-platform volume supports an ongoing paid-study/side-income interest, but individual invitations do not prove participation.",
+      "Retailer counts may reflect transactions, recommendations, shipping, and marketing; they are not automatically interests."
+    ]
+  },
+  "skyrim_and_modding": {
+    "confidence": "very_high",
+    "pattern": "Skyrim modding is one of the clearest and most persistent current interests in the archive, independently matching the user's known projects.",
+    "patreon_creator_signals": {
+      "note": "Counts are message volume from creator/Patreon-related mail and can include post notifications, billing, and platform activity.",
+      "leading_creators": [
+        {
+          "creator": "Arcanyx Studios",
+          "messages": 479
+        },
+        {
+          "creator": "Thumblesteen",
+          "messages": 121
+        },
+        {
+          "creator": "Yanholic",
+          "messages": 48
+        },
+        {
+          "creator": "Nether's Modding Mayhem",
+          "messages": 26
+        },
+        {
+          "creator": "Martimius",
+          "messages": 20
+        },
+        {
+          "creator": "DwemerDynamics",
+          "messages": 17
+        },
+        {
+          "creator": "Smooth",
+          "messages": 15
+        },
+        {
+          "creator": "Xavbio",
+          "messages": 12
+        },
+        {
+          "creator": "SkyrimNet",
+          "messages": 4
+        }
+      ],
+      "additional_creator_names_seen": [
+        "Kittytail",
+        "Nimwraith",
+        "Pamatronic",
+        "TheStupidDunmer",
+        "Anbeegod / Shezarrine team",
+        "full_inu",
+        "Ld1449",
+        "Fuse00",
+        "JPSteel",
+        "Eskyrim",
+        "Seb263"
+      ]
+    },
+    "agent_implications": [
+      "Skyrim-related retrieval should expect the user to follow individual creators and releases closely, not just broad game news.",
+      "Creator/version provenance can matter when analyzing mod compatibility, design influence, or update history.",
+      "A future following-feed or mod-watch subsystem would likely have high personal utility."
+    ]
+  },
+  "pc_gaming": {
+    "confidence": "high",
+    "evidence": "Steam wishlist/sale and account activity is substantial in 2026.",
+    "genre_pattern": [
+      "strategy",
+      "simulation",
+      "sandbox",
+      "RPG",
+      "survival/crafting",
+      "colony/management",
+      "indie narrative or systems-heavy games"
+    ],
+    "representative_wishlist_titles": [
+      "Stellaris",
+      "RimWorld",
+      "No Man's Sky",
+      "Caves of Qud",
+      "Kerbal Space Program",
+      "Oxygen Not Included",
+      "Mount & Blade II: Bannerlord",
+      "Rain World",
+      "Sun Haven",
+      "Deep Rock Galactic",
+      "Citizen Sleeper 2",
+      "Cult of the Lamb",
+      "Potion Craft: Alchemist Simulator",
+      "Songs of Syx",
+      "Enshrouded"
+    ],
+    "caveat": "Wishlist presence is evidence of interest, not ownership or completion."
+  },
+  "online_fiction_and_reading": {
+    "confidence": "high",
+    "communities": [
+      "Sufficient Velocity",
+      "SpaceBattles",
+      "Questionable Questing",
+      "Archive of Our Own"
+    ],
+    "recurring_fandoms_or_settings": [
+      "Worm",
+      "Fate/stay night",
+      "Spider-Man / Marvel",
+      "Cyberpunk",
+      "Naruto",
+      "Harry Potter",
+      "Star Wars",
+      "DC and crossover fiction"
+    ],
+    "ebook_workflow": "Repeated e-book/Kindle delivery and forwarding behavior supports an active reading habit and use of email as an e-book transport/archive channel.",
+    "caveat": "Notification volume can represent watched threads/stories rather than active reading of every update."
+  },
+  "lego_and_brick_collecting": {
+    "confidence": "high",
+    "pattern": "Repeated LEGO Ideas, Rebrickable, third-party brick/minifigure, and direct product-availability/purchase correspondence support a durable brick-building/collecting interest.",
+    "agent_implications": [
+      "Separate official LEGO, custom-build/reference material, and third-party/bootleg minifigure tracking rather than collapsing them into one retailer feed.",
+      "Product availability/release tracking may be more useful than generic marketing summaries."
+    ]
+  },
+  "cooking_home_and_diy": {
+    "confidence": "medium_high",
+    "user_authored_evidence": "A 2022 personal needs/gift list included cookware, knife storage, thermometers, bulk pantry containers, mason jars for canning/pickling/spice blends, a Dutch oven, grill/air-fryer equipment, drill/socket tools, and lumber for a table project.",
+    "transactional_support": "Later household purchasing supports continued home/kitchen/organization activity, though some purchases may belong to the household rather than the user personally.",
+    "agent_implication": "When helping with meals/home projects, favor practical equipment-aware planning and do not assume every craft/decor purchase is the user's own hobby."
+  },
+  "paid_research_and_side_income": {
+    "confidence": "high",
+    "platforms_seen_repeatedly": [
+      "FocusGroups.org",
+      "User Interviews",
+      "Respondent",
+      "Prolific",
+      "L&E Research",
+      "Focuscope"
+    ],
+    "interpretation": "The repeated multi-platform pattern is strong evidence of interest in flexible paid research/focus-group opportunities as side income or occasional participation.",
+    "caution": "A study invitation or match is not proof that the user qualified, participated, or was paid."
+  },
+  "current_ai_coding_and_automation_ecosystem": {
+    "confidence": "high",
+    "services": [
+      "GitHub",
+      "OpenAI / ChatGPT",
+      "Anthropic / Claude and Claude Code",
+      "Runpod",
+      "Make"
+    ],
+    "pattern": "2026 account, repository, usage, and service correspondence strongly supports active experimentation with AI-assisted coding, cloud compute, integrations, and automation.",
+    "privacy_note": "Security/login/balance/account-linking details are intentionally excluded."
+  },
+  "device_and_service_history_2026": {
+    "laptop": {
+      "confidence": "high",
+      "fact": "Purchased a refurbished Dell Latitude 5520 (2021, Core i5-1145G7, 16 GB RAM, 256 GB SSD) in May 2026."
+    },
+    "phone": {
+      "confidence": "medium",
+      "fact": "Personally addressed accessory purchases are consistent with an iPhone 11 in March 2026.",
+      "caveat": "Accessories do not prove the active handset, so this remains medium confidence."
+    },
+    "gaming_hardware": {
+      "confidence": "medium",
+      "fact": "Repeated Nintendo Switch 2 accessory purchases support a household Switch 2 by May 2026.",
+      "caveat": "Household purchase evidence does not prove exclusive personal ownership."
+    },
+    "cloud_and_privacy_services": [
+      "iCloud+ 200 GB active in August 2026.",
+      "Mullvad VPN 30-day subscription purchased in September 2026."
+    ],
+    "mobile_service": "Transactional mail supports a Spectrum mobile/service relationship after a number-transfer workflow from AT&T in June 2026."
+  },
+  "digital_workflow_patterns": {
+    "email_as_transport": "Frequently forwards links, scans, receipts, resumes, documents, software/project information, and e-books between personal, school, and work contexts.",
+    "self_forwarding": "At least 29 Sent Messages are self-forwards or cross-account transport rather than interpersonal correspondence.",
+    "troubleshooting": "Support correspondence shows a methodical tendency to reproduce issues, test across devices or conditions, describe what has already been tried, and escalate with evidence.",
+    "records_orientation": "Email is used not only for communication but as a lightweight receipt, confirmation, and document-transfer archive."
+  },
+  "confidence_rules": {
+    "strong": [
+      "User-authored statements",
+      "Direct purchases/account events",
+      "Repeated behavior across multiple senders and months",
+      "Known project/activity overlap with user-stated interests"
+    ],
+    "medium": [
+      "Persistent wishlist/watch activity",
+      "Repeated creator/subscription notifications",
+      "Household transactional patterns"
+    ],
+    "weak": [
+      "Single marketing message",
+      "Recommendation mail",
+      "A product advertisement",
+      "A single accessory purchase as proof of device ownership"
+    ]
+  },
+  "exclusions": "Raw purchase details, prices, addresses, payment/account identifiers, security artifacts, and sensitive private correspondence are not retained."
+}

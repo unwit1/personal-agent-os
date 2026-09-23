@@ -78,3 +78,14 @@ The archive contains 55 observed files: 51 safe position-level/reference sources
 The source set includes operational and administrative roles such as Transit Driver, Dispatcher, Area Manager, Operations Manager, Fleet Manager, Automotive Mechanic, Garage Attendant, Human Resources Manager, Information Systems Technician, Mobility Manager, Customer Service Representative, Receptionist, Bookkeeper, Food Service/Cafeteria roles, Accounts Receivable, administrative support, procurement, quality control, and temporary scanning/clerical roles, plus recruitment-context and external-sample material.
 
 Job-description language is historical/unknown by default. Pay, benefits, FLSA classification, safety-sensitive status, qualifications, physical requirements, testing requirements, licensing, reporting relationships, and duties must be reconciled against current approved authority before operational use. See `questions/currentness-and-gaps.json` for the resulting validation queue.
+
+
+## Correspondence archive - September 23, 2026
+
+The supplied `Correspondence.zip` archive is indexed at `sources/batches/rtec-hr-correspondence-2026-09-23.json`.
+
+The batch contains 95 file artifacts. Nine safe position-level artifacts were consolidated into eight searchable source families, while 86 employee-level disciplinary, medical, incident, schedule, leave-case, and participant-list artifacts are retained only as privacy-safe hash/class metadata under `restricted-evidence/correspondence-2026-09-23.json`.
+
+Derived knowledge includes the legacy employee-evaluation template, historical disciplinary point/reference material, a 2015 vacation-adjacent personal/sick-leave rule candidate, 2016 administrative time/leave routing, a 2015 CSR client-assistance instruction, a 2021 rotation-schedule absence rule, 2021 unemployment-fraud guidance, a 2021 preventive-vaccination event process, historical disciplinary-log/AAP reporting structure, and a content-first document-classification rule.
+
+Notable ingestion findings: the supplied `Disciplinary steps` workbook is a blank violation matrix with no embedded offense-point values; the archive contains long-running fiscal-year disciplinary logs and AAP-sorted derivatives; and filenames are not reliable authority for type or date, so content-derived titles/dates should take precedence with mismatch logging. Historical policy, benefits, external-link, vendor, point-system, and routing statements remain version-aware evidence rather than current operational authority.

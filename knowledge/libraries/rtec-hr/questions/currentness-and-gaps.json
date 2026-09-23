@@ -153,6 +153,54 @@
       "domain": "grant_records",
       "question": "Identify which FY2017 grant attachments are unique grant evidence versus duplicates of canonical compliance plans, policies, certifications, notices or forms in !Compliance.zip.",
       "status": "in_progress"
+    },
+    {
+      "priority": "high",
+      "domain": "disciplinary_records",
+      "question": "What is the current authoritative system for recording disciplinary actions and verbal warnings, what replaced the historical fiscal-year/AAP-sorted workbooks, and is the missing 2024-2025 workbook absent because the process changed or because the archive is incomplete?",
+      "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "attendance_leave",
+      "question": "Does current RTEC policy still prohibit using personal/sick leave immediately before or after scheduled vacation to extend the vacation, and what exceptions or approval rules apply?",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "administrative_timekeeping",
+      "question": "Who currently approves administrative timesheets, personal/vacation leave requests, and absence documentation, and when was the January 2016 EEO/Benefits Manager routing superseded if it changed?",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "customer_service_escalation",
+      "question": "What entity did the 2015 CSR memo mean by 'State,' and what is the current approved escalation path when a CSR cannot resolve a client's issue internally?",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "attendance_rotation",
+      "question": "When did the 2021 Area Manager/CSR office-rotation attendance rule end or change, and what current attendance/point rules and protected-absence exceptions apply?",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "employee_evaluations",
+      "question": "What current employee-evaluation form, rating scale, review cadence, employee population and approval/signature workflow supersede the undated legacy evaluation template?",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "unemployment_fraud",
+      "question": "What is RTEC's current employee unemployment/identity-fraud response checklist, and which current official government resources should HR use instead of the historical 2021 links and contact instructions?",
+      "status": "open"
+    },
+    {
+      "priority": "low",
+      "domain": "benefits_wellness",
+      "question": "Does RTEC still coordinate on-site preventive vaccination events, and what current insurer, vendor, eligibility and employee-communication process governs them?",
+      "status": "open"
     }
   ]
 }
