@@ -1,0 +1,100 @@
+{
+  "id": "rtec-form-employee-evaluation-template-legacy",
+  "record_type": "form",
+  "title": "Employee Evaluation template - legacy",
+  "status": "candidate",
+  "temporal_status": "unknown",
+  "summary": "Blank legacy employee-evaluation grid with nine evaluation dimensions and a five-level rating scale. The source file is misleadingly named Term Doc.dotx.",
+  "claims": [
+    {
+      "claim": "The blank form rates Attendance, Cooperation, Initiative, Job Knowledge, Quality of Work, Job Productivity, Dependability, Work Safety, and Management Skills.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-evaluation-template-legacy",
+          "page_or_section": "rendered page 1",
+          "evidence_type": "explicit_text",
+          "note": "Image-based template transcribed from rendered page."
+        }
+      ]
+    },
+    {
+      "claim": "The visible rating choices are Unsatisfactory, Fair, Satisfactory, Good, and Excellent.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-evaluation-template-legacy",
+          "page_or_section": "rendered page 1",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The local filename does not reliably describe the form purpose; the visible artifact is an employee evaluation form.",
+      "claim_kind": "interpretation",
+      "confidence": 0.99,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-evaluation-template-legacy",
+          "page_or_section": "rendered page 1",
+          "evidence_type": "structural",
+          "note": "Filename says Term Doc; rendered content says EMPLOYEE EVALUATION."
+        }
+      ]
+    }
+  ],
+  "forms": [],
+  "systems": [],
+  "actors": [
+    "Supervisor/manager",
+    "Employee"
+  ],
+  "steps": [
+    "Select the rating that applies for each listed evaluation dimension."
+  ],
+  "decisions": [
+    "Determine a rating for each evaluation area."
+  ],
+  "deadlines": [],
+  "outputs": [
+    "Completed employee evaluation"
+  ],
+  "exceptions": [],
+  "controls": [
+    "Do not infer termination use solely from the filename."
+  ],
+  "unresolved_questions": [
+    "When was this form used, which employee groups used it, and what current evaluation form supersedes it?",
+    "Did the original form contain additional fields above the captured evaluation grid that are cropped or embedded in the image?"
+  ],
+  "automation_candidates": [
+    "Fingerprint the rating grid in the HR scanner as a legacy Employee Evaluation form rather than using the source filename as the document type."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-employee-evaluation-template-legacy",
+      "safe_source_type": "blank_form_template",
+      "source_date_or_version": null,
+      "content_sha256": "9c36a5754865723a2ba4593e937dab645a9226f9b444d13b54a9195182fcb048",
+      "page_or_section": "rendered page 1",
+      "ingested_at": "2026-09-23",
+      "notes": "Blank legacy template; image-based.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "unknown",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-evaluation-template-legacy/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-evaluation-template-legacy/fulltext.md"
+    }
+  ]
+}
