@@ -1,0 +1,23 @@
+{
+  "source_id": "rtec-hr-no-gossip-policy",
+  "title": "RTEC No Gossip Policy",
+  "source_type": "standalone_policy",
+  "original_filename": "NO GOSSIP POLICY.doc",
+  "source_representation": "complete_searchable_text",
+  "source_date": null,
+  "effective_from": null,
+  "effective_to": null,
+  "temporal_status": "unknown",
+  "sha256": "ad53e72bf04e559b69b1f932b11a57ee80f40d7d42f95e747270ca8213f35735",
+  "page_count": 1,
+  "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-no-gossip-policy/fulltext.md",
+  "derived_records": [
+    "knowledge/libraries/rtec-hr/policies/no-gossip-policy.json"
+  ],
+  "relationships": [],
+  "notes": [
+    "The supplied document is undated, so currentness cannot be inferred from the file alone.",
+    "The policy covers spoken and email gossip, directs employees away from negative discussion of absent coworkers, and routes unethical/incorrect/disruptive conduct through proper reporting channels."
+  ],
+  "ingested_at": "2026-09-23"
+}

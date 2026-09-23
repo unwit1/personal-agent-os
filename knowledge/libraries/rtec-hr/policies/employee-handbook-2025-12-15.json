@@ -1,0 +1,119 @@
+{
+  "id": "rtec-policy-handbook-2025-index",
+  "record_type": "policy",
+  "title": "RTEC Employee Handbook - December 15, 2025 policy index",
+  "status": "validated",
+  "temporal_status": "current",
+  "effective_from": "2025-12-15",
+  "effective_to": null,
+  "summary": "Index record for the complete 48-page RTEC Employee Handbook dated December 15, 2025. The full source is preserved in the HR knowledge corpus and its policy sections are modeled in topic records. The handbook is the currentest complete handbook in the corpus, while later standalone sources supersede individual sections when applicable, notably the signed 2026 EEO policy.",
+  "claims": [
+    {
+      "claim": "A complete 48-page RTEC Employee Handbook dated December 15, 2025 has been ingested and supersedes overlapping provisions from the supplied selected March 2023 handbook pages.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDES",
+      "related_record_ids": [
+        "rtec-policy-employment-at-will-handbook-2023",
+        "rtec-policy-progressive-discipline-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "complete 48-page handbook",
+          "evidence_type": "structural",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The handbook's distinct policy domains are represented by linked topic records so retrieval can target the relevant rules without loading all 48 pages.",
+      "claim_kind": "interpretation",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-handbook-governance-employment-2025",
+        "rtec-policy-hours-pay-benefits-2025",
+        "rtec-policy-leave-time-off-2025",
+        "rtec-policy-attendance-solicitation-harassment-2025",
+        "rtec-policy-dress-cell-work-rules-2025",
+        "rtec-policy-safety-confidentiality-discipline-2025",
+        "rtec-policy-communications-nepotism-2025",
+        "rtec-policy-video-audio-surveillance-2025",
+        "rtec-policy-eeo-handbook-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "table of contents and complete handbook",
+          "evidence_type": "structural",
+          "note": "Topic records retain page/section provenance back to this complete source."
+        }
+      ]
+    },
+    {
+      "claim": "The handbook's EEO policy/officer assignment is retained as historical evidence but is superseded where different by the later signed EEO statement dated 2026-08-26.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "DUPLICATE",
+      "related_record_ids": [
+        "rtec-policy-eeo-handbook-2025",
+        "rtec-policy-eeo-2026"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 45-46",
+          "evidence_type": "explicit_text",
+          "note": "The separate signed 2026 EEO policy is later and already canonical in the HR knowledge bank."
+        }
+      ]
+    }
+  ],
+  "trigger": null,
+  "prerequisites": [],
+  "actors": [],
+  "systems": [],
+  "forms": [],
+  "steps": [],
+  "decisions": [],
+  "deadlines": [],
+  "outputs": [
+    "Topic-specific policy records for retrieval and process modeling"
+  ],
+  "exceptions": [
+    "Section-level standalone policies can supersede handbook language without superseding the entire handbook."
+  ],
+  "controls": [
+    "Source/version provenance is retained on every derived policy record."
+  ],
+  "unresolved_questions": [
+    "Determine currentness of undated standalone policies that overlap handbook sections, including Computer Use and No Gossip."
+  ],
+  "automation_candidates": [
+    "Use this index for policy routing and version-aware retrieval."
+  ],
+  "supersedes_record_ids": [
+    "rtec-policy-employment-at-will-handbook-2023",
+    "rtec-policy-progressive-discipline-2023"
+  ],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "safe_source_type": "employee_handbook",
+      "source_date_or_version": "2025-12-15",
+      "source_created_date": null,
+      "source_revision_date": "2025-12-15",
+      "source_effective_from": "2025-12-15",
+      "source_effective_to": null,
+      "temporal_status": "current",
+      "content_sha256": "d8601d4c5ded962051c521ace697f447492dc178d565a393e5c945c309a7e22c",
+      "page_or_section": "complete 48-page source",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": null
+    }
+  ]
+}

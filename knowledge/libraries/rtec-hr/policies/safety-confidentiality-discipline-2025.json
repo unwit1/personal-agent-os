@@ -1,0 +1,272 @@
+{
+  "id": "rtec-policy-safety-confidentiality-discipline-2025",
+  "record_type": "policy",
+  "title": "Safety, confidentiality and disciplinary guidelines - 2025 handbook",
+  "status": "validated",
+  "temporal_status": "current",
+  "effective_from": "2025-12-15",
+  "effective_to": null,
+  "summary": "2025 handbook rules covering general and vehicle/garage safety, confidentiality and return of RTEC information/materials, progressive discipline, and the Group A-D disciplinary guideline matrix.",
+  "claims": [
+    {
+      "claim": "Employees are required to follow the handbook's safety rules, report unsafe conditions and job-related injuries/accidents promptly, and use prescribed protective practices and equipment for their work.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 35-38 - Safety Rules",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The handbook prohibits alcohol/drug use or being under the influence on RTEC premises or vehicles and states a violator will be discharged and barred from services.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 35 - Safety Rules",
+          "evidence_type": "explicit_text",
+          "note": "Recorded as handbook language; separate FTA drug/alcohol policies may provide additional rules."
+        }
+      ]
+    },
+    {
+      "claim": "Vehicle-operator safety rules include seat-belt use, safe operation/speed, securing vehicles, use of warning equipment, training requirements, restrictions on smoking and unauthorized route deviation, and role-appropriate footwear.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 35-36 - Vehicle Operator Safety Rules",
+          "evidence_type": "explicit_text",
+          "note": "The handbook also directs operators to the Operators Manual/Driver Handbook."
+        }
+      ]
+    },
+    {
+      "claim": "Garage/maintenance safety rules require reporting defects/unsafe conditions, use of guards and eye protection, safe welding/electrical/lifting/under-vehicle practices, tagging unsafe equipment, fire/first-aid/eyewash readiness, and restrictions on smoking/open flame/refueling and unattended idling.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 36-38 - Garage Staff Safety Rules",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The confidentiality section treats client, case and RTEC business information as confidential/privileged, states RTEC materials and records belong to RTEC, prohibits disclosure without prior written Executive Director consent, and requires return of materials/copies/summaries/notes at separation.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-policy-computer-use"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 38-39 - Confidentiality",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The handbook describes progressive discipline as counseling/opportunity to improve when reasonable, with possible verbal warning, written warning, unpaid administrative leave and termination, while expressly allowing management to skip steps or terminate without prior progressive steps.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDES",
+      "related_record_ids": [
+        "rtec-policy-progressive-discipline-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 39 - Progressive Discipline",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The disciplinary guideline matrix is explicitly described as suggested rather than exhaustive or mechanically mandatory, with the supervisor making the final determination of action for an infraction.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDES",
+      "related_record_ids": [
+        "rtec-policy-progressive-discipline-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 40 - Disciplinary Guidelines",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Group A guidelines progress from verbal counseling to written counseling, suspension and discharge; examples include break abuse, attendance patterns, carelessness, horseplay, minor policy/safety issues, smoking/tobacco and dress-code violations.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDES",
+      "related_record_ids": [
+        "rtec-policy-progressive-discipline-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 40 - Group A",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Group B guidelines progress from written counseling to suspension and discharge; examples include minor customer complaints, substandard performance, inappropriate conduct, breach of confidence/ethics, safety failures, failure to follow instructions, failure to report injury, absence without prompt notice, and repeated Group A infractions.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDES",
+      "related_record_ids": [
+        "rtec-policy-progressive-discipline-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 40-41 - Group B",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Group C guidelines progress from suspension to discharge; examples include leaving without approval, sleeping, unauthorized/tampering use of IT machines, serious customer complaint, one-day absence without report, specified arrests, repeated Group C infractions, and policy violations resulting in harm or major damage.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDES",
+      "related_record_ids": [
+        "rtec-policy-progressive-discipline-2023",
+        "rtec-policy-computer-use"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 41 - Group C",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Group D guidelines identify first-offense discharge examples including falsification, refusal of orders, willful property damage, theft, weapons/explosives, FTA drug/alcohol violation, specified convictions, three-day absence without report, computer-file tampering, insubordination, failure to provide medical release/report accident, breach of confidentiality and seriously detrimental conduct.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDES",
+      "related_record_ids": [
+        "rtec-policy-progressive-discipline-2023",
+        "rtec-policy-computer-use"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 41 - Group D",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "trigger": "Safety issue, confidentiality obligation, performance/conduct concern, or possible policy infraction.",
+  "prerequisites": [
+    "Establish the applicable policy/rule and facts before corrective action."
+  ],
+  "actors": [
+    "Employee",
+    "Supervisor",
+    "Management",
+    "Human Resource Manager",
+    "Executive Director",
+    "Vehicle Operator",
+    "Garage/Maintenance Staff"
+  ],
+  "systems": [],
+  "forms": [
+    "Confidentiality agreement / personnel-file record where used",
+    "Corrective-action documentation"
+  ],
+  "steps": [
+    "Follow applicable safety controls for the job and report hazards/incidents.",
+    "Protect and return confidential RTEC materials and information.",
+    "Use coaching/counseling where reasonable.",
+    "Determine the applicable infraction/severity and corrective action under management discretion.",
+    "Document corrective action and required personnel-file records."
+  ],
+  "decisions": [
+    "Whether conduct is a policy/safety/confidentiality violation",
+    "Appropriate corrective-action level",
+    "Whether progressive steps should be skipped",
+    "Whether an incident triggers immediate discharge under the stated guideline examples"
+  ],
+  "deadlines": [
+    "Job injuries/accidents and unsafe conditions are to be reported immediately/promptly as stated in the safety rules."
+  ],
+  "outputs": [
+    "Safety/incident report",
+    "Corrective-action record",
+    "Confidentiality/return-of-materials record",
+    "Possible suspension or termination"
+  ],
+  "exceptions": [
+    "The progressive-discipline matrix is expressly a guideline; management may skip steps and the handbook states it does not alter at-will status."
+  ],
+  "controls": [
+    "Supervisor final determination under the guideline language",
+    "Personnel-file retention of applicable confidentiality/disciplinary documents",
+    "Immediate safety reporting obligations"
+  ],
+  "unresolved_questions": [
+    "What current HR review/approval steps and forms are required before discipline is issued?",
+    "Which separate driver/operator, FTA drug/alcohol, OSHA and safety manuals supersede or supplement these handbook rules?"
+  ],
+  "automation_candidates": [
+    "Policy-aware disciplinary checklist that never auto-selects discipline.",
+    "Safety incident intake/routing and deadline tracking.",
+    "Confidential-information offboarding checklist for return of materials and access."
+  ],
+  "supersedes_record_ids": [
+    "rtec-policy-progressive-discipline-2023"
+  ],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "safe_source_type": "employee_handbook",
+      "source_date_or_version": "2025-12-15",
+      "source_created_date": null,
+      "source_revision_date": "2025-12-15",
+      "source_effective_from": "2025-12-15",
+      "source_effective_to": null,
+      "temporal_status": "current",
+      "content_sha256": "d8601d4c5ded962051c521ace697f447492dc178d565a393e5c945c309a7e22c",
+      "page_or_section": "printed pages 35-41",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": "Supersedes the overlapping March 2023 selected handbook discipline record."
+    }
+  ]
+}

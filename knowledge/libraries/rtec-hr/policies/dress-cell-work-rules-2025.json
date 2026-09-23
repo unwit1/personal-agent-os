@@ -1,0 +1,224 @@
+{
+  "id": "rtec-policy-dress-cell-work-rules-2025",
+  "record_type": "policy",
+  "title": "Dress, cell-phone, surveillance notice and general work rules - 2025 handbook",
+  "status": "validated",
+  "temporal_status": "current",
+  "effective_from": "2025-12-15",
+  "effective_to": null,
+  "summary": "2025 handbook expectations for employee appearance by role, cell-phone/communication-device use, telephone/video surveillance notice, general work rules and serious violations.",
+  "claims": [
+    {
+      "claim": "Dress and grooming must be appropriate to the work situation and governed by safety, comfort and professional-image requirements; professional dress is required for scheduled meetings.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 27-30 - Dress Code",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Office casual-business attire must be practical, non-distracting and non-offensive; the handbook prohibits clothing that exposes specified body areas or bears words/terms/pictures and provides role-specific clothing/safety expectations for office, drivers, garage, dispatch, cafeteria and custodial staff.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 27-30 - Dress Code role guidelines",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Employees needing a dress-code exception for medical, religious, ethnic or other unique personal circumstances are instructed to consult their supervisor.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 28 - Dress Code exception",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Repeated dress-code noncompliance can result in progressive discipline; employees may be sent home to change and are not compensated for work time missed because of failure to comply.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-progressive-discipline-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 30 - Dress Code conclusion/orientation",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "RTEC's cell-phone policy applies to all employees and is intended to maintain a safe, customer-focused work environment free of unnecessary distraction from personal cell phones and other communication devices; the company reserves the right to modify/update the policy.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 31 - Cell Phone Use Policy",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The handbook states RTEC may conduct telephone and video surveillance of portions of its premises for safety/security purposes.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-video-audio-surveillance-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 31 - Telephone and Video Surveillance Policy",
+          "evidence_type": "explicit_text",
+          "note": "Detailed vehicle/property audio-video rules are modeled separately."
+        }
+      ]
+    },
+    {
+      "claim": "General work rules require regular attendance, timely reporting of absences, punctuality, safety-rule compliance, proper job performance, immediate incident/accident reporting, staying at the assigned work station unless authorized, accurate time records, proper personnel-record updates and proper use of bulletin boards/equipment.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 31-34 - Work Rules",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Personal use of company telephones, communications and equipment is restricted; personal calls should be limited to emergencies and personal cell phones are limited to break/lunch periods under the work-rule language.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-computer-use"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 33 - Work Rules",
+          "evidence_type": "explicit_text",
+          "note": "Standalone computer-use policy provides additional electronic-media rules."
+        }
+      ]
+    },
+    {
+      "claim": "The handbook identifies serious violations that may result in job loss, including safety endangerment, insubordination, theft, unauthorized political activity beyond voting/private opinion, abusive/threatening language or fighting, falsification, drugs/alcohol, weapons, harassment, leaving work early/walking off, confidentiality breaches, unauthorized outside employment, accident-reporting failures and other listed misconduct.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-progressive-discipline-2023"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 33-35 - Serious Violations",
+          "evidence_type": "explicit_text",
+          "note": "This is a source inventory, not an independent judgment about legal enforceability."
+        }
+      ]
+    }
+  ],
+  "trigger": "Daily workplace conduct, appearance, communication-device use or policy violation.",
+  "prerequisites": [],
+  "actors": [
+    "Employee",
+    "Supervisor",
+    "Human Resource Manager",
+    "Executive Director"
+  ],
+  "systems": [
+    "Telephone",
+    "Cell phone",
+    "Company equipment"
+  ],
+  "forms": [],
+  "steps": [
+    "Follow role-appropriate dress/safety standards.",
+    "Use communications/equipment only within permitted boundaries.",
+    "Follow general work rules and report incidents/changes promptly.",
+    "Escalate exception requests or unclear attire to the supervisor."
+  ],
+  "decisions": [
+    "Whether attire meets role/safety expectations",
+    "Whether an exception is warranted",
+    "Whether a work-rule violation warrants corrective action"
+  ],
+  "deadlines": [
+    "Employees are expected to report absences with advance notice and update personnel information promptly."
+  ],
+  "outputs": [
+    "Supervisor guidance/exception decision",
+    "Possible corrective-action record"
+  ],
+  "exceptions": [
+    "Dress exceptions may be considered for medical, religious, ethnic or other unique personal circumstances."
+  ],
+  "controls": [
+    "Supervisor monitoring/enforcement",
+    "Safety and professional-image requirements",
+    "Company right to modify cell-phone policy"
+  ],
+  "unresolved_questions": [
+    "Extract the complete cell-phone operational restrictions if a standalone cell-phone policy exists outside the handbook.",
+    "Confirm current outside-employment approval form/process."
+  ],
+  "automation_candidates": [
+    "Role-specific dress/orientation checklist.",
+    "Employee-change notification workflow for personnel-record updates.",
+    "Incident/work-rule intake checklist linked to discipline records."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "safe_source_type": "employee_handbook",
+      "source_date_or_version": "2025-12-15",
+      "source_created_date": null,
+      "source_revision_date": "2025-12-15",
+      "source_effective_from": "2025-12-15",
+      "source_effective_to": null,
+      "temporal_status": "current",
+      "content_sha256": "d8601d4c5ded962051c521ace697f447492dc178d565a393e5c945c309a7e22c",
+      "page_or_section": "printed pages 27-35",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": null
+    }
+  ]
+}
