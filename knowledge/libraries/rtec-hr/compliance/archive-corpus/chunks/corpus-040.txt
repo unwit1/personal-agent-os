@@ -1,3 +1,209 @@
+===== SOURCE BEGIN / PART 3 OF 7 =====
+SOURCE_PATH: EEO/Reasonable Accommodation/Executive order 13164 Reasonable Accomodation.doc
+SHA256: 54df40c723b70c6596f9109b12dbdef60f2eaad4993d7361fc71e4aad1b2de95
+TEXT_CHARS_TOTAL: 62684
+OFFSET: 20000
+ALIASES: 
+===== TEXT =====
+est with him and proposes that Roger
+simply shift his schedule to work two hours longer in the evenings. Roger
+agrees to this alternative reasonable accommodation.
+
+Such discussions may not be necessary where the existence of the
+disability, the need for accommodation, and the nature of the effective
+accommodation are clear.
+
+
+5 11. Should agency procedures specify resources that individuals with
+       disabilities and agency decision makers could consult to identify and
+       evaluate possible accommodations?
+
+Yes. The Appendix to this Guidance provides a non-exhaustive list of
+relevant resources. This list, as well as any other sources that agencies
+can identify, should be attached to each agency's procedures.
+
+Agencies should also develop internal resources to provide technical
+assistance to agency personnel. These internal resources could, for
+example, demonstrate and evaluate equipment and assistive devices;
+expeditiously purchase or lease equipment needed for reasonable
+accommodation; provide referrals for additional information; and promptly
+prepare agency printed and audiovisual materials in alternative formats on
+request.(7)
+
+
+6 12. How should agencies fund requested reasonable accommodations?
+
+Under the Rehabilitation Act, the resources of the agency as a whole -- and
+not just those of an individual office -- will be factors in determining
+whether a requested reasonable accommodation poses an undue hardship. As a
+result, agencies should anticipate the expenses of reasonable accommodation
+and should include those expenses in their agency-wide budget planning and
+requests for each fiscal year. In addition, each agency is strongly
+encouraged to implement practices that will reduce bureaucratic barriers
+that could make it difficult for individual offices to provide effective
+accommodations. Possible practices include:
+
+    • establishing a central pool of staff assistant slots, that would not
+      be included in a requesting office's personnel ceiling, to provide
+      readers, interpreters, and other assistants throughout the agency; and
+
+
+    • implementing funding mechanisms that will avoid charging individual
+      offices for the cost of accommodations.
+
+
+3 C. Time Limits
+
+As the Executive Order states, each agency's procedures must:
+
+"Designate a time period during which reasonable accommodation requests
+will be granted or denied, absent extenuating circumstances. Time limits
+for decision making should be as short as reasonably possible." (Order,
+Section 1(b)(3))
+
+
+1 13. How should agencies set applicable time limits?
+
+Time limits for processing requests for and providing reasonable
+accommodations should be as short as reasonably possible. The time
+necessary to respond to any particular request for accommodation will
+depend largely on the nature of that accommodation. A reassignment is
+likely, for example, to take longer to review and implement than a request
+that a desk be put on blocks. Where the requested accommodation is simple
+and straightforward, the agency should provide it immediately, absent undue
+hardship. Furthermore, the time frame should be cut down considerably where
+a supervisor is authorized to grant an accommodation.
+
+Agencies may wish to identify the maximum amount of time that the process
+can take. But agency procedures should make clear that where a particular
+reasonable accommodation can be provided in less time than is authorized
+under those procedures, the failure to respond promptly to the request may
+result in a violation of the Rehabilitation Act.
+
+EXAMPLE - Ruth's agency prohibits employees from eating or drinking at
+their workstations. Ruth has insulin-dependent diabetes, and asks her
+supervisor to permit her to eat a candy bar or drink fruit juice at her
+desk if necessary to avoid going into insulin shock. The agency's
+reasonable accommodation procedures state that decisions about whether to
+grant or deny requests for reasonable accommodation should be made within
+15 days of the date of the request. In this case, however, the agency
+should be able to provide the reasonable accommodation in no more than a
+day or two, and hopefully sooner. The agency should not wait the full 15
+days before responding to Ruth's request.
+
+EXAMPLE - Marcus works for the same agency as Ruth. He has a psychiatric
+disability that causes him to be easily distracted, and requests that he be
+given a private office on a quiet corridor. Because the agency must
+investigate the availability of office space and is entitled to consider
+other effective accommodations, the agency may need to take the full 15
+days allotted by its procedures to make a decision on his request.
+
+Of course, special circumstances may influence the timing of the reasonable
+accommodation process. For example, agency procedures should require that
+processing of reasonable accommodation requests be expedited in appropriate
+cases. Expedited processing might be necessary where, for instance:
+
+    • the reasonable accommodation is needed to enable an individual to
+      apply for a job; or
+    • the reasonable accommodation is needed for a specific agency activity
+      that is scheduled to occur shortly.
+
+EXAMPLE - James, who uses a wheelchair, is chosen to attend a computer
+training class that will be held in the agency's computer lab starting the
+following day. James requests that the computer desk be raised in time for
+him to participate in the class. The agency's procedures should provide for
+expedited processing of James' request in circumstances like these.
+
+
+2 14. What are "extenuating circumstances" that would justify an agency not
+       processing a request for reasonable accommodation during the
+       designated time period?
+
+"Extenuating circumstances" are factors that could not reasonably have been
+anticipated or avoided in advance of the request for the accommodation.
+These can include situations in which equipment must be back-ordered or the
+vendor typically used by an agency has unexpectedly gone out of business.
+In addition, an agency will not be expected to adhere to its usual time
+frames if an individual's health professional fails to provide needed
+documentation, see Section D below, in a timely manner.
+
+Where there is a delay in either processing a request for, or delivering, a
+reasonable accommodation, the agency must notify the individual of the
+reason for the delay. To the extent possible, the agency must also keep the
+individual informed of the date on which the agency expects to complete the
+process.
+
+If there is a delay, the agency must investigate whether there are
+temporary measures that could be taken to assist the individual with a
+disability. An agency could consider, for example, a temporary job
+restructuring or the use of equipment that might permit the individual to
+perform some of the functions of his/her job.
+
+EXAMPLE - To perform the essential functions of her job, Maria, who has a
+vision-related disability, needs a sophisticated piece of equipment that is
+not readily available from the agency's suppliers. The agency has asked its
+suppliers to check further, and is also independently pursuing other
+avenues to obtain the necessary equipment. Because of this delay, the
+agency is not able to meet the time limit set in its procedures for a
+response to Maria's request.
+
+The agency should notify Maria about the delay and tell her when it expects
+to be able to respond to her request. Whether or not it ultimately grants
+Maria's request, the agency should also investigate alternative
+accommodations, such as a qualified reader, that it could provide on an
+interim basis to remove at least some of the barriers that limit Maria's
+use of her computer.
+
+
+3 15. Are there steps an agency can take prior to receiving a request for
+       reasonable accommodation that will avoid unnecessary delays in
+       responding if a request is made?
+
+Yes. To anticipate and limit impediments that may cause unnecessary delay
+in providing reasonable accommodation, agencies should review and modify,
+in advance of a specific request, policies that might affect the agency's
+ability to respond promptly to requests for reasonable accommodation. Among
+the policies that agencies should review are those that affect:
+
+    • the purchasing or leasing of equipment;
+    • the hiring of, or contracting for, readers, interpreters, or other
+      assistants; and
+    • the flexibility to approve leave or to restructure work schedules.
+
+Agencies must also ensure that all contracts for the use of external
+facilities -- such as contracts to use hotels for conferences or training
+programs -- reflect the obligation that such facilities be accessible to
+people with disabilities. Of course, an agency's own facilities must also
+conform to the laws on accessibility of federal buildings.(8)
+
+
+4 D. Medical Information
+
+As the Executive Order states, each agency's procedures must:
+
+    • "Explain the responsibility of the employee or applicant to provide
+      appropriate medical information related to the functional impairment
+      at issue and the requested accommodation where the disability and/or
+      need for accommodation is not obvious;
+    • Explain the agency's right to request relevant supplemental medical
+      information if the information submitted does not clearly explain the
+      nature of the disability, or the need for the reasonable
+      accommodation, or does not otherwise clarify how the requested
+      accommodation will assist the employee to perform the essential
+      functions of the job or to enjoy the benefits and privileges of the
+      workplace; and
+    • Explain the agency's right to have medical information reviewed by a
+      medical expert of the agency's choosing at the agency's expense."
+      (Order, Section 1(b)(4-6))
+
+
+1 16. When may an agency request medical information in connection with a
+       request for reasonable accommodation?
+
+An agency is entitled to know that an employee or applicant has a covere
+===== SOURCE PART 3 END =====
+
+
 ===== SOURCE BEGIN / PART 4 OF 7 =====
 SOURCE_PATH: EEO/Reasonable Accommodation/Executive order 13164 Reasonable Accomodation.doc
 SHA256: 54df40c723b70c6596f9109b12dbdef60f2eaad4993d7361fc71e4aad1b2de95
@@ -406,595 +612,3 @@ While the Order encourages the use of informal processes for resolution of
 reasonable accommodation disputes, it does not require them. Furthermore,
 agencies are free to tailor any procedures they use to the needs of t
 ===== SOURCE PART 5 END =====
-
-===== SOURCE BEGIN / PART 6 OF 7 =====
-SOURCE_PATH: EEO/Reasonable Accommodation/Executive order 13164 Reasonable Accomodation.doc
-SHA256: 54df40c723b70c6596f9109b12dbdef60f2eaad4993d7361fc71e4aad1b2de95
-TEXT_CHARS_TOTAL: 62684
-OFFSET: 50000
-ALIASES: 
-===== TEXT =====
-heir
-own workplaces. Thus, agencies may, if they choose, create programs devoted
-exclusively to resolving reasonable accommodation disputes. Agencies could
-alternatively consider making existing mechanisms already set up to address
-workplace disputes (such as alternative dispute resolution (ADR) programs)
-available for this purpose. The objective is to permit quick and thoughtful
-reconsideration of a denial, not to establish cumbersome new procedures.
-
-
-2 30. What is the relationship between an informal dispute resolution
-       process and the EEO or other federal sector complaint processes?
-
-Three basic principles govern the relationship between an informal process
-for addressing reasonable accommodation disputes and the EEO and other
-federal sector complaint processes:
-
-    • An agency's informal process must be in addition to - and may not
-      modify or replace - the EEO complaint process governed by EEOC
-      regulations, see 29 C.F.R. part 1614, and Merit Systems Protection
-      Board (MSPB) and union grievance procedures available to federal
-      sector applicants or employees. While the agency's informal mechanism
-      for resolving reasonable accommodation disputes may rely on the same
-      ADR procedures that the agency uses in its EEO processes, the
-      individual challenging the denial of a reasonable accommodation
-      request must be able to gain access to those procedures without having
-      to contact an EEO counselor or file an EEO complaint.
-    • The informal process must be voluntary and may not be used to limit an
-      individual's rights. An agency may not require that an individual
-      challenging the denial of a reasonable accommodation request use its
-      informal dispute resolution process. Nor may an agency prevent such an
-      individual from filing an EEO complaint, an MSPB claim, or a union
-      grievance, even if s/he is also pursuing the agency's informal
-      process. The agency's informal process is not an administrative remedy
-      that must be exhausted before a complaint may be filed.
-    • The informal process does not affect the time limits governing the EEO
-      complaint process. An individual's participation in the informal
-      process does not satisfy the requirements for bringing a claim under
-      the EEO, MSPB, or union grievance procedures. When an agency denies a
-      request for reasonable accommodation, it must notify the individual in
-      writing that if s/he wishes to pursue the EEO complaint process, s/he
-      must do so within 45 days of the denial, even if s/he is also
-      participating in the agency's informal dispute resolution process.
-
-
-3 31. What is the procedure for alleging a violation of Section 501 of the
-       Rehabilitation Act?
-
-The procedure for alleging a violation of Section 501 of the Rehabilitation
-Act is set forth in the Commission's federal sector EEO process
-regulations.(13) Briefly stated, the federal sector process requires the
-following:
-
-    • the individual alleging discrimination must contact an EEO Counselor
-      within 45 days of the date of the discriminatory act or within 45 days
-      of when the individual became aware or should have become aware of the
-      allegedly illegal conduct;
-    • the agency must conduct EEO counseling or offer mediation or other
-      form of alternative dispute resolution;
-    • if the matter is not resolved informally, the agency will give the
-      individual a notice of final interview, and the individual will have
-      15 days from the date of the notice to file a formal complaint;
-    • once a formal complaint is filed, the matter will either be dismissed
-      or investigated, and may proceed either to an agency decision or a
-      hearing before a Commission Administrative Judge; and
-    • after either the agency or the Administrative Judge issues a decision,
-      the matter may be appealed to the EEOC's Office of Federal Operations,
-      which will then render a decision.
-
-
-
-
-
-
-                                 4 Appendix
-
-                 Selected Reasonable Accommodation Resources
-
-
-1 U.S. Equal Employment Opportunity Commission
-
-1-800-669-3362 (Voice) 1-800-800-3302 (TT)
-
-http://www.eeoc.gov/
-
-The EEOC's Publication Center has many free documents on the Title I
-employment provisions of the ADA, including both the statute, 42 U.S.C. §
-12101 et seq., and the regulations, 29 C.F.R. § 1630. In addition, the EEOC
-has published a great deal of basic information about reasonable
-accommodation and undue hardship. The three main sources of interpretive
-information are: (1) the Interpretive Guidance accompanying the Title I
-regulations (also known as the "Appendix" to the regulations), 29 C.F.R.
-pt. 1630 app. §§ 1630.2(o), (p), 1630.9; (2) Enforcement Guidance on
-Reasonable Accommodation and Undue Hardship Under the Americans with
-Disabilities Act, 8 FEP Manual 405:7601 (1999); and (3) A Technical
-Assistance Manual on the Employment Provisions (Title I) of the Americans
-with Disabilities Act, 8 FEP Manual (BNA) 405:6981, 6998-7018 (1992)
-(Technical Assistance Manual). The Technical Assistance Manual includes a
-200-page Resource Directory, including federal and state agencies, and
-disability organizations that can provide assistance in identifying and
-locating reasonable accommodations.
-
-The EEOC also has discussed issues involving reasonable accommodation in
-the following guidances and documents: (1) Enforcement Guidance:
-Preemployment Disability-Related Questions and Medical Examinations at 5, 6-
-8, 20, 21-22, 8 FEP Manual (BNA) 405:7191, 7192-94, 7201 (1995); (2)
-Enforcement Guidance: Workers' Compensation and the ADA at 15-20, 8 FEP
-Manual (BNA) 405:7391, 7398-7401 (1996); (3) Enforcement Guidance: The
-Americans with Disabilities Act and Psychiatric Disabilities at 19-28, 8
-FEP Manual (BNA) 405:7461, 7470-76 (1997); (4) Fact Sheet on the Family and
-Medical Leave Act, the Americans with Disabilities Act, and Title VII of
-the Civil Rights Act of 1964 at 6-9, 8 FEP Manual (BNA) 405:7371, 7374-76
-(1996); and (5) Enforcement Guidance: Disability-Related Inquiries and
-Medical Examinations of Employees Under the Americans with Disabilities Act
-at 20, 22, 23, 24-5, 8 FEP Manual (BNA) 405:7701, 7711, 7712-14, 7715-16
-(2000).
-
-Finally, the EEOC has a poster that employers and labor unions may use to
-fulfill the ADA's posting requirement.
-
-All of the above-listed documents, with the exception of the Technical
-Assistance Manual and the poster, are also available through the Internet
-at www.eeoc.gov. All of these documents provide guidance that applies to
-federal agencies through the Rehabilitation Act of 1973, 29 U.S.C. § 791.
-
-
-2 Job Accommodation Network (JAN)
-
-1-800-232-9675 (Voice/TT)
-
-http://janweb.icdi.wvu.edu/
-
-A service of the President's Committee on Employment of People with
-Disabilities. JAN can provide information, free-of-charge, about many types
-of reasonable accommodations.
-
-
-3 ADA Disability and Business Technical Assistance Centers (DBTACs)
-
-1-800-949-4232 (Voice/TT)
-
-The DBTACs consist of 10 federally funded regional centers that provide
-information, training, and technical assistance on the ADA. Each center
-works with local business, disability, governmental, rehabilitation, and
-other professional networks to provide current ADA information and
-assistance, and places special emphasis on meeting the needs of small
-businesses. The DBTACs can make referrals to local sources of expertise in
-reasonable accommodations.
-
-
-4 Registry of Interpreters for the Deaf
-
-(301) 608-0050 (Voice/TT)
-
-http://www.rid.org/
-
-The Registry offers information on locating and using interpreters and
-transliteration services.
-
-
-5 RESNA Technical Assistance Project
-
-(703) 524-6686 (Voice) (703) 524-6639 (TT)
-
-http://www.resna.org/
-
-RESNA, the Rehabilitation Engineering and Assistive Technology Society of
-North America, can refer individuals to projects in all 50 states and the
-six territories offering technical assistance on technology-related
-services for individuals with disabilities. Services may include:
-
-    • information and referral centers to help determine what devices may
-      assist a person with a disability (including access to large data
-      bases containing information on thousands of commercially available
-      assistive technology products);
-    • centers where individuals can try out devices and equipment;
-    • assistance in obtaining funding for and repairing devices; and
-    • equipment exchange and recycling programs.
-
-
-
-
-
-                   6 Footnotes
-
-1. 65 Fed. Reg. 46565, 2000 WL 1114943 (2000).
-
-2. 29 U.S.C. § 791.
-
-3. 29 C.F.R. pt. 1630 app. § 1630.2(o).
-
-4. 8 FEP Manual (BNA) 405:7601 (1999). The EEOC Reasonable Accommodation
-Guidance is also available on the EEOC's website at http://www.eeoc.gov/.
-The reasonable accommodation standards of the Americans with Disabilities
-Act apply to the Rehabilitation Act as well. 29 U.S.C. § 791(g).
-
-5. Agencies should also bear in mind the limited circumstances in which an
-employer should initiate the reasonable accommodation process without being
-asked. See EEOC Reasonable Accommodation Guidance, Question 39.
-
-6. Of course, to the extent that an EEO official is involved in the
-handling of a reasonable accommodation request, s/he should not be involved
-in the processing of any EEO complaint that is made regarding disposition
-of the request.
-
-7. Agencies may wish to seek advice from other agencies - such as the
-Department of Defense's "Computer/Electronic Accommodations Program" (CAP)
-or the Department of Agriculture's "Technology Accessible Resources Gives
-Employment Today" (TARGET) Center - that have established programs to
-provide these types of assistance. Information about the CAP program can be
-found at http://www.tricare.osd.mil/cap/; information about the TARGET
-Center is posted at http://www.usda.gov/oo/target.htm.
-
-8. Architectural Barriers Act of 1968, 42 U.S.C. § 4151 et seq.;
-Rehabilitation Act Sec
-===== SOURCE PART 6 END =====
-
-===== SOURCE BEGIN / PART 7 OF 7 =====
-SOURCE_PATH: EEO/Reasonable Accommodation/Executive order 13164 Reasonable Accomodation.doc
-SHA256: 54df40c723b70c6596f9109b12dbdef60f2eaad4993d7361fc71e4aad1b2de95
-TEXT_CHARS_TOTAL: 62684
-OFFSET: 60000
-ALIASES: 
-===== TEXT =====
-tion 504, 29 U.S.C. § 794; see also Americans with
-Disabilities Act, 42 U.S.C. § 12131.
-
-9. The EEOC has issued detailed guidance that applies to the provisions of
-the Rehabilitation Act that address permissible medical inquiries. See EEOC
-Reasonable Accommodation Guidance; "Enforcement Guidance: Preemployment
-Disability-Related Questions and Medical Examinations," 8 FEP Manual (BNA)
-405:7191 (1995); and "Enforcement Guidance: Disability-Related Inquiries
-and Medical Examinations of Employees Under the Americans with Disabilities
-Act," 8 FEP Manual (BNA) 405:7701 (2000). These documents can be found on
-the EEOC's website at http://www.eeoc.gov/.
-
-The Office of Personnel Management (OPM) also regulates when an agency may
-request medical examinations of applicants and employees. See 5 U.S.C. §
-3301 & 3302; 5 C.F.R. Part 339 (Medical Qualification Determination). In
-making these requests, agencies must comply with Rehabilitation Act
-requirements.
-
-10. See EEOC Reasonable Accommodation Guidance, Question 6; "Enforcement
-Guidance: Disability-Related Inquiries and Medical Examinations of
-Employees Under the Americans with Disabilities Act," Question 10.
-
-11. For further guidance on the circumstances in which it is permissible to
-disclose confidential medical information to workers' compensation offices
-or insurance carriers, see 29 C.F.R. pt. 1630 app. §§ 1630.14(b),
-1630.16(f).
-
-12. For further information on reassignment, see EEOC Reasonable
-Accommodation Guidance, Questions. 25-30.
-
-In March 2000, the Commission also issued a Notice of Proposed Rulemaking
-regarding proposed revisions to 29 C.F.R. § 1614.203, addressing, among
-other things, requirements related to reassignment and the obligations of
-agencies and their unions to bargain over modifications to collective
-bargaining agreements. See 65 Fed. Reg. 11019, 2000 WL 226980 (3/1/00). As
-of the date of issuance of this Guidance, the Commission is considering the
-comments received on the proposed rule and is proceeding with the
-rulemaking process.
-
-13. 29 C.F.R. pt. 1614.
-
-
-
-This page was last modified on October 20, 2000.
-
-[pic] Return to Home Page
-
-
------------------------
-
-5 Notice Concerning The Americans With Disabilities Act Amendments Act Of
-     2008
-
-The Americans with Disabilities Act (ADA) Amendments Act of 2008 was signed
-into law on September 25, 2008 and becomes effective January 1, 2009.
-Because this law makes several significant changes, including changes to
-the definition of the term "disability," the EEOC will be evaluating the
-impact of these changes on this document and other publications. See the
-list of specific changes to the ADA made by the ADA Amendments Act.
-
-
-
-
-===== SOURCE PART 7 END =====
-
-===== SOURCE BEGIN / PART 1 OF 1 =====
-SOURCE_PATH: TITLE VI LEP PLAN/ADA/ADA COMPLAINT PROCESS.doc
-SHA256: 07eef165319293efa00c9013db1149077d3e0802b71a09dc09d9a0164281c4f8
-TEXT_CHARS_TOTAL: 2408
-OFFSET: 0
-ALIASES: 
-===== TEXT =====
-
-RTEC ADA COMPLAINT PROCESS
-
-In compliance with the U.S.  Department  of  Transportation  Americans  with
-Disabilities Act (ADA) of 1990 (49  CFR  Parts  27,  37,  38  and  39),  and
-Section 504 of The Rehabilitation Act of 1973,  as  amended,  Rural  Transit
-Enterprises  Coordinated,  Inc.  ensures   its   services,   vehicles,   and
-facilities are accessible to and usable by  individuals  with  disabilities.
-Anyone who believes he or she has been discriminated against  on  the  basis
-of disability may file an ADA complaint.
-
-Complaints may be submitted by filing  a  RTEC  ADA  Complaint  Form  or  by
-calling 606-256-9835, extension 223 or toll-free at 800-321-7832 or  TTY  at
-606-256-2047, or hearing and voice impaired at 1-800-648-6057 (KY Relay 7-1-
-1).  If the complainant is unable to write  a  complaint,  a  representative
-may file on his or her behalf,  or  a  designated  RTEC  staff  member  will
-provide assistance.  Complaints must be filed within 5 calendar days of  the
-alleged incident.
-
-   1. The ADA Coordinator will contact the complainant  within  10  business
-      days of receipt of  complaint.   Any  requested  information  must  be
-      received by RTEC within 5 days.
-   2. RTEC will begin the investigation within 15 business days  of  receipt
-      of complaint if the alleged discrimination is found to be a  violation
-      of ADA regulations.
-   3. An investigation into the complaint will be conducted  and  documented
-      to determine whether RTEC failed to comply with ADA regulations.
-   4. RTEC will complete  the  investigation  within  60  calendar  days  of
-      receipt  of  complaint.   If  additional  time  is  needed   for   the
-      investigation, the complainant will be notified.
-   5. RTEC will  promptly  communicate  its  response  to  the  complainant,
-      including its reasons for the response.  The complainant will  have  5
-      business days from receipt of RTEC's response to file an  appeal.   If
-      no appeal is filed, the complaint will be closed.
-
-RTEC will process and investigate all complaints that meet the  requirements
-of ADA  discrimination.   If  the  complainant  fails  to  provide  required
-information within the required timeframe, the complaint may be closed.
-
-
-
-     If information is needed in another language, contact 800-321-7832
-     Si se necesita informaciòn en otro idioma, comuníquese 800-321-7832
-
-
-
-
-===== SOURCE PART 1 END =====
-
-===== SOURCE BEGIN / PART 1 OF 1 =====
-SOURCE_PATH: TITLE VI LEP PLAN/ATTACHMENT PAGES.doc
-SHA256: 718cd110d6580484f14219e29c7e859a05095ddf40ed8af07615a14fd3ef8ee2
-TEXT_CHARS_TOTAL: 1024
-OFFSET: 0
-ALIASES: 
-===== TEXT =====
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                ATTACHMENT I
-
-                              SPANISH BROCHURE
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                ATTACHMENT II
-
-                           TITLE VI PUBLIC NOTICE
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                               ATTACHMENT III
-
-                           TITLE VI COMPLAINT FORM
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                ATTACHMENT IV
-
-                  LETTER ACKNOWLEDGING RECEIPT OF COMPLAINT
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                ATTACHMENT V
-
-    LETTER NOTIFYING COMPLAINANT THAT THE COMPLAINT IS NOT SUBSTANTIATED
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                ATTACHMENT VI
-
-      LETTER NOTIFYING COMPLAINANT THAT THE COMPLAINT IS SUBSTANTIATED
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                               ATTACHMENT VII
-
-                 LIST OF TRANSIT-RELATED TITLE VI COMPLAINTS
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                               ATTACHMENT VIII
-
-
-        COPY OF LETTER AND ADVERTISEMENT FOR NOTICE OF PUBLIC HEARING
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-===== SOURCE PART 1 END =====
-
-===== SOURCE BEGIN / PART 1 OF 1 =====
-SOURCE_PATH: TITLE VI LEP PLAN/Complaint Forms and Letters/Letter Acknowledging Receipt of Complaint.doc
-SHA256: 2378e38559a1fba638ea0426d6073935e85fde16a21b248a7d05a335ba694a0c
-TEXT_CHARS_TOTAL: 662
-OFFSET: 0
-ALIASES: 
-===== TEXT =====
-
-                                    [pic]
-
-
-                  Letter Acknowledging Receipt of Complaint
-
-
-
-
-
-Date
-
-Name
-Address
-City, State Zip
-
-Dear Name:
-
-This letter is to  acknowledge  receipt  of  your  complaint  against  Rural
-Transit     Enterprises     Coordinated,      Inc.      (RTEC)      alleging
-__________________________________________.
-
-An investigation will begin shortly.  If  you  have  additional  information
-you wish to convey or questions concerning this matter, please feel free  to
-contact this office at
-1-800-321-7832 or in writing to RTEC, 100 Main Street, Mt. Vernon KY 40456.
-
-Sincerely,
-
-
-
-Clarissa Hodge
-Title VI Coordinator
