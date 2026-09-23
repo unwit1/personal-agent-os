@@ -2159,13 +2159,13 @@
       "source_project": "rtec-hr-process-model",
       "source_repository": "unwit1/personal-agent-os",
       "source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/source/Employee-Handbook-2021-revised-with-tracked-changes.docx",
-      "source_location": "Certificate of Receipt section; document printed July 19, 2021",
+      "source_location": "Certificate of Receipt, printed page 48 of 48 in the 2021 PDF; same form text appears in the separately preserved DOCX redline.",
       "source_kind": "blank_reference_form_embedded_in_handbook",
       "mapping_status": "candidate_possible_related_source",
       "canonical_form_type": "Employee Handbook Receipt Certificate",
       "temporal_status": "historical handbook; no form-specific effective date",
-      "validation_state": "text_extracted_blank_fields_possible_related_source",
-      "full_source_status": "embedded in unchanged handbook DOCX with full searchable redline mirror; tracked revisions remain unresolved elsewhere in the source",
+      "validation_state": "visually_checked_blank_possible_related_source",
+      "full_source_status": "Embedded in unchanged 2021 PDF identified in HR correspondence as the website copy and in separate unchanged DOCX redline; searchable PDF text and DOCX redline are preserved.",
       "related_catalog_entry_ids": [
         "hrgui-reference-034",
         "rtec-form-employee-handbook-receipt-certificate-2019-archive",
@@ -2177,7 +2177,11 @@
         "Issued To, Signed, and Date Received fields are blank in extracted text.",
         "This is a historical form embedded in a revised handbook copy whose tracked changes remain unresolved.",
         "Possible relationship to 2019, 2023, HR-GUI, and 2026 acknowledgment forms is unconfirmed.",
-        "Historical form content does not establish current onboarding requirements."
+        "Historical form content does not establish current onboarding requirements.",
+        "PDF page 48 was visually reviewed; the issued-to, signature, and date-received fields are blank."
+      ],
+      "related_source_artifact_paths": [
+        "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/source/Employee-Handbook-2021-web-copy-emailed-2022-09-19.pdf"
       ]
     }
   ]

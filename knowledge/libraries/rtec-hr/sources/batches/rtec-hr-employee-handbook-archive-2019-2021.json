@@ -2,26 +2,29 @@
   "batch_id": "rtec-hr-employee-handbook-archive-2019-2021",
   "ingested_at": "2026-09-23",
   "source_type": "RTEC work-mail attachment archive",
-  "source_artifact_count": 3,
-  "safe_position_level_artifacts": 3,
+  "source_artifact_count": 4,
+  "safe_position_level_artifacts": 4,
   "restricted_artifacts": 0,
   "status": "preserved_full_text_review_in_progress",
   "source_manifest": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/manifest.json",
   "source_ids": [
     "rtec-hr-employee-handbook-2019-archive-copy-2020-01-02",
     "rtec-hr-employee-handbook-2019-archive-copy-2020-01-03",
-    "rtec-hr-employee-handbook-2021-revised-archive-copy"
+    "rtec-hr-employee-handbook-2021-revised-archive-copy",
+    "rtec-hr-employee-handbook-2021-website-copy-2022-09-19"
   ],
   "message_ids": [
     "msg_05d17b50d2e0c892303d23a7",
     "msg_0d0386ba508647f4c0b08f46",
-    "msg_a34c4864d9d9a0839bef31aa"
+    "msg_a34c4864d9d9a0839bef31aa",
+    "msg_0de1ec147e109bab7fac52e5"
   ],
   "findings": [
     "Two distinct 2019 DOCX copies share the printed July 15, 2019 date; their content differences include funeral leave, attendance, cafeteria food handling, work rules, recording notice wording, and blank employee-notes page order.",
     "The Jan 3, 2020 email requests posting to the website; completion is not established.",
     "The 2021 DOCX is labeled revised and the email says replace the website copy, but its tracked changes remain unresolved.",
-    "Tracked edits touch personal/sick leave and attendance, including the third-day physician statement, attendance-point thresholds, point removal, partial-day threshold, and three unpaid days with no points. These remain revision evidence, not validated current rules."
+    "Tracked edits touch personal/sick leave and attendance, including the third-day physician statement, attendance-point thresholds, point removal, partial-day threshold, and three unpaid days with no points. These remain revision evidence, not validated current rules.",
+    "A separate 48-page 2021 PDF was emailed in September 2022 as the correct website handbook. It predates later DOCX tracked edits by file metadata and visibly contains mixed attendance revision text; the two sources conflict on overlapping leave/attendance wording, with no effective-date resolution."
   ],
   "temporal_boundary": "All documents predate the user?s April 2026 RTEC start and represent company history only.",
   "excluded": "No raw email bodies, user personal work history, employee/applicant case facts, or person-level dossiers."
