@@ -12,7 +12,7 @@
       "claim": "The 2019 extract provides up to three paid funeral-leave days for full-time employees for the listed family relationships, requires documentation, and requires notice to the supervisor no later than the first day of absence.",
       "claim_kind": "observed_fact",
       "confidence": 1,
-      "relationship": "SUPERSEDED",
+      "relationship": "DUPLICATE",
       "related_record_ids": [
         "rtec-policy-leave-time-off-2025"
       ],
@@ -29,7 +29,7 @@
       "claim": "The 2019 extract describes military leave for Reserve/National Guard annual duty, generally up to ten working days in a calendar year absent special circumstances, with written request to the Executive Director at least 30 days before the proposed start.",
       "claim_kind": "observed_fact",
       "confidence": 1,
-      "relationship": "SUPERSEDED",
+      "relationship": "DUPLICATE",
       "related_record_ids": [
         "rtec-policy-leave-time-off-2025"
       ],
@@ -46,7 +46,7 @@
       "claim": "The 2019 FMLA section describes up to 12 weeks of unpaid leave in a 12-month period for the listed family/medical reasons and up to 26 weeks in a single 12-month period for military caregiver leave.",
       "claim_kind": "observed_fact",
       "confidence": 1,
-      "relationship": "SUPERSEDED",
+      "relationship": "DUPLICATE",
       "related_record_ids": [
         "rtec-policy-leave-time-off-2025"
       ],
@@ -63,7 +63,7 @@
       "claim": "The 2019 section requires accrued paid leave to be applied to FMLA, states FMLA runs concurrently with workers' compensation leave, requires a physician statement, and requires the employee to pay their share of health/vision/dental premiums while on FMLA.",
       "claim_kind": "observed_fact",
       "confidence": 1,
-      "relationship": "SUPERSEDED",
+      "relationship": "DUPLICATE",
       "related_record_ids": [
         "rtec-policy-leave-time-off-2025"
       ],
@@ -80,7 +80,7 @@
       "claim": "The 2019 section states health coverage continues during FMLA with the employee paying their share, describes possible recovery of employer-paid health benefits if the employee does not return, and describes return to the same/comparable position for non-key employees subject to the stated conditions.",
       "claim_kind": "observed_fact",
       "confidence": 1,
-      "relationship": "SUPERSEDED",
+      "relationship": "DUPLICATE",
       "related_record_ids": [
         "rtec-policy-leave-time-off-2025"
       ],
@@ -97,7 +97,7 @@
       "claim": "The 2019 section requires 30 days' notice for foreseeable leave, describes key-employee and eligibility exclusions, requires a fitness-for-duty statement to return, and states employment terminates after 12 weeks if the employee cannot return to the former position.",
       "claim_kind": "observed_fact",
       "confidence": 1,
-      "relationship": "SUPERSEDED",
+      "relationship": "DUPLICATE",
       "related_record_ids": [
         "rtec-policy-leave-time-off-2025"
       ],
@@ -114,7 +114,7 @@
       "claim": "The final supplied page begins the non-solicitation/distribution policy, prohibiting unapproved workplace solicitation/distribution during working time or through RTEC email/telephonic systems.",
       "claim_kind": "observed_fact",
       "confidence": 1,
-      "relationship": "SUPERSEDED",
+      "relationship": "DUPLICATE",
       "related_record_ids": [
         "rtec-policy-attendance-solicitation-harassment-2025"
       ],
