@@ -1,0 +1,256 @@
+{
+  "record_id": "rtec-email-derived-professional-contact-map-2016-2026",
+  "updated_at": "2026-09-23",
+  "status": "professional_context_only",
+  "privacy_rule": "Profiles contain only job/organizational roles and work-process relationships. Employee/applicant case facts, health information, discipline, compensation, family data and other sensitive personal facts are excluded.",
+  "profiles": [
+    {
+      "name": "Sheila Stallsworth",
+      "organization": "RTEC",
+      "role_history": [
+        "EEO/Benefits Manager (email signatures, 2016-2021 evidence)",
+        "Human Resource Manager (2021 email signatures)"
+      ],
+      "work_context": [
+        "historical HR hub",
+        "benefits administration",
+        "EEO/AAP reporting",
+        "leave/FMLA",
+        "workers compensation/return-to-work",
+        "payroll/time coordination",
+        "recruiting",
+        "retirement administration",
+        "unemployment reporting",
+        "HR documents and website maintenance"
+      ],
+      "confidence": "high",
+      "currentness": "historical; not assumed current"
+    },
+    {
+      "name": "Shirley L. Cummins",
+      "organization": "RTEC",
+      "role_history": [
+        "Executive Director in historical email",
+        "Executive Director/CEO in 2025 organization chart"
+      ],
+      "work_context": [
+        "executive leadership",
+        "HR/executive handoff"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Freda L. Parsons",
+      "organization": "RTEC",
+      "role_history": [
+        "Deputy Director/Procurement Manager"
+      ],
+      "work_context": [
+        "executive/administrative and procurement handoffs"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Heather M. Taylor",
+      "organization": "RTEC",
+      "role_history": [
+        "Executive Secretary (2016 email signature)"
+      ],
+      "work_context": [
+        "historical executive-administrative correspondence"
+      ],
+      "confidence": "high",
+      "currentness": "historical"
+    },
+    {
+      "name": "Randy Lewis",
+      "organization": "RTEC",
+      "role_history": [
+        "Controller/IT Manager (2025 organization chart)"
+      ],
+      "work_context": [
+        "finance/IT handoffs",
+        "historical payroll/check-register/direct-deposit/retirement follow-up references"
+      ],
+      "confidence": "medium_high",
+      "note": "Email reminder references to 'Randy' are corroborated against the safe organization chart; no case facts are retained."
+    },
+    {
+      "name": "C. Dale Shelton, II",
+      "organization": "RTEC",
+      "role_history": [
+        "D&A Program Manager/Training Coordinator (2025 organization chart)"
+      ],
+      "work_context": [
+        "training/compliance coordination"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Michael Dixon",
+      "organization": "RTEC",
+      "role_history": [
+        "Operations Manager (2025 organization chart)"
+      ],
+      "work_context": [
+        "operations/HR coordination"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Jaime Martin",
+      "organization": "RTEC",
+      "role_history": [
+        "Accounts Receivable/EPG (2025 organization chart)"
+      ],
+      "work_context": [
+        "administrative/finance coordination"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Krutika Sule",
+      "organization": "ADP",
+      "role_history": [
+        "ACA Implementation Consultant (2016 email signature)"
+      ],
+      "work_context": [
+        "historical ACA/benefits implementation"
+      ],
+      "confidence": "high",
+      "currentness": "historical contact"
+    },
+    {
+      "name": "Elizabeth Kruse",
+      "organization": "ADP",
+      "role_history": [
+        "ADP Major Accounts contact"
+      ],
+      "work_context": [
+        "time-and-attendance demonstration",
+        "later account touch-base correspondence"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Elizabeth Talley",
+      "organization": "ADP",
+      "role_history": [
+        "ADP account/strategic-review contact"
+      ],
+      "work_context": [
+        "historical strategic review/account relationship"
+      ],
+      "confidence": "medium_high"
+    },
+    {
+      "name": "Whitney Sizemore",
+      "organization": "CVIM",
+      "role_history": [
+        "benefits contact; exact title not consistently stated in archive"
+      ],
+      "work_context": [
+        "benefits questions",
+        "Guardian-related administration",
+        "renewal/enrollment coordination"
+      ],
+      "confidence": "high",
+      "currentness": "historical/current relationship unresolved"
+    },
+    {
+      "name": "Sarah Joyce",
+      "organization": "CVIM",
+      "role_history": [
+        "benefits contact"
+      ],
+      "work_context": [
+        "enrollment",
+        "benefit-card/Benny Card coordination"
+      ],
+      "confidence": "high",
+      "currentness": "historical/current relationship unresolved"
+    },
+    {
+      "name": "Wilma Thompson",
+      "organization": "CVIM",
+      "role_history": [
+        "benefits contact"
+      ],
+      "work_context": [
+        "historical enrollment coordination"
+      ],
+      "confidence": "high",
+      "currentness": "historical"
+    },
+    {
+      "name": "Paula Weglarz",
+      "organization": "Commonwealth of Kentucky / contract-compliance context",
+      "role_history": [
+        "EEO/contract-compliance contact"
+      ],
+      "work_context": [
+        "affirmative-action-plan submission and compliance coordination"
+      ],
+      "confidence": "high",
+      "currentness": "historical"
+    },
+    {
+      "name": "Sonya McClanahan",
+      "organization": "UnitedHealthcare",
+      "role_history": [
+        "Senior Field Account Manager, Kentucky (2026 signature)"
+      ],
+      "work_context": [
+        "current health-plan account-management correspondence"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Sherry Babb",
+      "organization": "UnitedHealthcare",
+      "role_history": [
+        "Director, Field Account Management - Indiana/Kentucky (2026 signature)"
+      ],
+      "work_context": [
+        "current health-plan account-management correspondence"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Annika O’Connell",
+      "organization": "Rippling",
+      "role_history": [
+        "vendor meeting organizer/contact"
+      ],
+      "work_context": [
+        "2026 HR technology evaluation/contact"
+      ],
+      "confidence": "high",
+      "note": "Contact does not establish product adoption."
+    },
+    {
+      "name": "Sheldon Alderton",
+      "organization": "Spare",
+      "role_history": [
+        "Senior Account Executive"
+      ],
+      "work_context": [
+        "vendor outreach"
+      ],
+      "confidence": "high",
+      "note": "Outreach only; no adoption inferred."
+    },
+    {
+      "name": "Melinda Osborne",
+      "organization": "Cumberland Valley District / Rockcastle County Health Department context",
+      "role_history": [
+        "community/health coalition contact"
+      ],
+      "work_context": [
+        "community and health-related professional correspondence"
+      ],
+      "confidence": "medium_high"
+    }
+  ],
+  "not_promoted": "The exhaustive raw contact/header index remains outside GitHub because it includes one-off correspondents and may contain personal or case-linked identities. Additional people are promoted only when repeated professional context can be separated safely from case facts."
+}
