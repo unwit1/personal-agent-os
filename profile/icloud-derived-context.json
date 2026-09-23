@@ -42,7 +42,9 @@
         "Repeated-signal checks across transactional and notification mail",
         "Negative filtering for marketing-only, recommendation-only, stale job-alert, and sensitive-source signals"
       ],
-      "limitation": "The indexed message text was exhaustively scanned, but 231 of 232 attachment records contain metadata only, so attachment contents such as resumes, leases, and forms were not available for semantic analysis."
+      "limitation": "The indexed message text was exhaustively scanned, but 231 of 232 attachment records contain metadata only, so attachment contents such as resumes, leases, and forms were not available for semantic analysis.",
+      "scan_status": "complete_for_indexed_message_text",
+      "attachment_content_status": "The archive's indexed message text is exhausted for this pass. Attachment bodies are a separate future corpus because 231 of 232 attachment records expose metadata only."
     }
   },
   "identity_and_account_context": {
@@ -76,7 +78,8 @@
       "Values freedom to experiment and learn how to manage a function rather than needing constant supervision.",
       "Has experience learning operational work on the fly with limited training/support.",
       "Shows a strong service orientation and discomfort with giving customers false hope when a problem cannot be fixed."
-    ]
+    ],
+    "job_alert_interpretation": "Employment-folder alerts continue even after the April 2026 RTEC start. Automated alerts are background subscriptions and must not be interpreted as proof of an active current job search without direct correspondence or user confirmation."
   },
   "household_and_life_history": {
     "independent_living": "Has a history of renting apartments, setting up utilities, paying rent online, and handling maintenance/work-order issues in Berea, Kentucky.",
@@ -89,7 +92,9 @@
     "vehicle": "Repeated CARFAX service records in 2026 strongly support a current 2012 Honda Accord; maintenance reminders include oil changes, tire rotation, registration, and service visits.",
     "shared_household_signal": "Repeated household purchases and money-sharing correspondence with Olivia support treating many grocery, utility, home, and discretionary decisions as shared-household planning rather than purely individual spending.",
     "craft_purchase_signal": "Repeated 2026 household orders include diamond-painting/craft supplies, home organization, and décor; treat these as household-level interests unless separately confirmed as the user's own hobby.",
-    "housing_history": "Multi-year correspondence shows the user independently managing leases, roommates, utilities, rent/autopay, work orders, move-out checklists, and deposit planning in Kentucky; exact addresses are intentionally excluded."
+    "housing_history": "Multi-year correspondence shows the user independently managing leases, roommates, utilities, rent/autopay, work orders, move-out checklists, and deposit planning in Kentucky; exact addresses are intentionally excluded.",
+    "housing_transition_2026": "A rental application was actively under review in September 2026. Exact property/address data is excluded; treat current housing assumptions as changeable.",
+    "meal_convenience_pattern": "Late-2025/2026 transactional mail contains repeated mobile/digital quick-service food orders across several chains. Meal planning should account for convenience, low-prep, and takeout behavior rather than assuming all meals are cooked from scratch."
   },
   "family_and_relationship_context": {
     "partner": "Olivia is a long-term romantic partner and an important household-planning relationship.",
@@ -122,7 +127,17 @@
       "GitHub"
     ],
     "current_ai_and_automation_note": "2026 account/service mail plus very high GitHub activity supports active use or experimentation with multiple AI, coding, cloud-compute, and automation services. Treat marketing mail as weak evidence, but account/login/balance/repository notifications as stronger evidence.",
-    "account_security_behavior": "Uses services such as Bitwarden and receives device/login/security notifications across major accounts; security artifacts themselves must remain local and excluded from profile content."
+    "account_security_behavior": "Uses services such as Bitwarden and receives device/login/security notifications across major accounts; security artifacts themselves must remain local and excluded from profile content.",
+    "current_2026_devices_and_services": {
+      "laptop": "Purchased a refurbished Dell Latitude 5520 (2021, Core i5-1145G7, 16 GB RAM, 256 GB SSD) in May 2026.",
+      "phone_signal": "Likely uses an iPhone 11 as of March 2026 based on personally addressed case/screen-protector purchases; medium confidence because accessory purchases do not prove the active handset.",
+      "gaming_hardware_signal": "Repeated May 2026 Nintendo Switch 2 accessory purchases support a household Switch 2; treat as household-level unless separately confirmed.",
+      "cloud_and_privacy": [
+        "iCloud+ 200 GB was active in August 2026.",
+        "Purchased a 30-day Mullvad VPN subscription in September 2026."
+      ],
+      "mobile_service": "Mid/late-2026 transactional mail supports an active Spectrum mobile/service relationship following a number-transfer workflow from AT&T in June 2026."
+    }
   },
   "interests_and_leisure": {
     "gaming_and_modding": [
@@ -187,7 +202,8 @@
       "A job alert as proof the user wants that occupation",
       "A study-match profile label as a current profession",
       "An inferred relationship not explicitly supported by correspondence"
-    ]
+    ],
+    "transactional_purchase_rule": "A repeated or personally addressed transactional purchase can support device/household context, but accessory and household purchases should retain confidence labels and must not automatically become personal preferences."
   },
   "privacy_and_exclusions": {
     "sensitive_source_classes_seen": [
