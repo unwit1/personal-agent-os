@@ -34,7 +34,8 @@
     "magic_effects": 1648,
     "perks": 625,
     "effects": 3951,
-    "enchantments": 269
+    "enchantments": 269,
+    "combat_styles": 62
   },
   "scope_notes": [
     "Original mod binaries are not included in the derived snapshot.",
@@ -53,10 +54,15 @@
     "enchantment_baseline_groups": 36,
     "enchantment_observed_patterns": 27,
     "enchantment_exact_imported_field_deltas": 58,
-    "combined_observed_patterns_min_sample_3": 224
+    "combined_observed_patterns_min_sample_3": 231,
+    "combat_styles_full_decoded": 62,
+    "combat_style_baseline_groups": 12,
+    "combat_style_observed_patterns": 7,
+    "combat_style_external_baselines": 62
   },
   "schema_sources": [
     "https://github.com/Holastor/skyrim-record-parser/blob/533c29b34cbe430636cc608e5b1347a65d3f1fbe/docs/UESP%20Wiki/skyrim_mod_file_formats/records/weap.md",
-    "https://github.com/Holastor/skyrim-record-parser/blob/533c29b34cbe430636cc608e5b1347a65d3f1fbe/docs/UESP%20Wiki/skyrim_mod_file_formats/records/ench.md"
+    "https://github.com/Holastor/skyrim-record-parser/blob/533c29b34cbe430636cc608e5b1347a65d3f1fbe/docs/UESP%20Wiki/skyrim_mod_file_formats/records/ench.md",
+    "https://github.com/Holastor/skyrim-record-parser/blob/533c29b34cbe430636cc608e5b1347a65d3f1fbe/docs/UESP%20Wiki/skyrim_mod_file_formats/records/csty.md"
   ]
 }
