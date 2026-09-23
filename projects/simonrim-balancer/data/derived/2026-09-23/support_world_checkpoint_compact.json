@@ -1,0 +1,26 @@
+{
+  "snapshot":"2026-09-23",
+  "decoder":"MISC/ACTI/FACT/REFR/CELL/WRLD",
+  "summary":{
+    "misc_items":8,
+    "activators":4,
+    "factions":2,
+    "faction_relations":0,
+    "placed_references":16,
+    "cells":11,
+    "worldspaces":2,
+    "support_relations":106,
+    "decode_failures":0,
+    "approved_rules":0
+  },
+  "economy_observations":[
+    {"scope":"Adamant Treasure Hunter rewards","count":7,"value_each":1000,"weight_each":1.0},
+    {"scope":"Mysticism Simonium Ore","count":1,"value":25,"weight":1.0}
+  ],
+  "guardrails":[
+    "World placement is feature-instantiation evidence, not automatically a design rule.",
+    "Visual/model fields remain presentation evidence unless mechanically referenced.",
+    "External master bodies are not invented.",
+    "Approved rules remain review-gated."
+  ]
+}
