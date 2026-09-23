@@ -1,0 +1,185 @@
+{
+  "id": "rtec-policy-fmla-leave-2019",
+  "record_type": "policy",
+  "title": "FMLA and related leave provisions - 2019 handbook extract",
+  "status": "superseded",
+  "temporal_status": "superseded",
+  "effective_from": "2019-07-15",
+  "effective_to": "2025-12-14",
+  "summary": "Historical 2019 handbook extract containing funeral pay, military leave, FMLA rules and the beginning of the non-solicitation policy. The 2025 complete handbook is the later supplied version in the same handbook lineage and supersedes these provisions.",
+  "claims": [
+    {
+      "claim": "The 2019 extract provides up to three paid funeral-leave days for full-time employees for the listed family relationships, requires documentation, and requires notice to the supervisor no later than the first day of absence.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDED",
+      "related_record_ids": [
+        "rtec-policy-leave-time-off-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-fmla-handbook-extract-2019-07-15",
+          "page_or_section": "printed page 21 - Funeral Pay",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The 2019 extract describes military leave for Reserve/National Guard annual duty, generally up to ten working days in a calendar year absent special circumstances, with written request to the Executive Director at least 30 days before the proposed start.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDED",
+      "related_record_ids": [
+        "rtec-policy-leave-time-off-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-fmla-handbook-extract-2019-07-15",
+          "page_or_section": "printed page 21 - Military Leave",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The 2019 FMLA section describes up to 12 weeks of unpaid leave in a 12-month period for the listed family/medical reasons and up to 26 weeks in a single 12-month period for military caregiver leave.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDED",
+      "related_record_ids": [
+        "rtec-policy-leave-time-off-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-fmla-handbook-extract-2019-07-15",
+          "page_or_section": "printed pages 21-22 - FMLA",
+          "evidence_type": "explicit_text",
+          "note": "Preserved as historical RTEC policy language, not independently verified legal guidance."
+        }
+      ]
+    },
+    {
+      "claim": "The 2019 section requires accrued paid leave to be applied to FMLA, states FMLA runs concurrently with workers' compensation leave, requires a physician statement, and requires the employee to pay their share of health/vision/dental premiums while on FMLA.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDED",
+      "related_record_ids": [
+        "rtec-policy-leave-time-off-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-fmla-handbook-extract-2019-07-15",
+          "page_or_section": "printed page 22 - FMLA",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The 2019 section states health coverage continues during FMLA with the employee paying their share, describes possible recovery of employer-paid health benefits if the employee does not return, and describes return to the same/comparable position for non-key employees subject to the stated conditions.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDED",
+      "related_record_ids": [
+        "rtec-policy-leave-time-off-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-fmla-handbook-extract-2019-07-15",
+          "page_or_section": "printed page 22 - RTEC Employee Policy items 1-3",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The 2019 section requires 30 days' notice for foreseeable leave, describes key-employee and eligibility exclusions, requires a fitness-for-duty statement to return, and states employment terminates after 12 weeks if the employee cannot return to the former position.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDED",
+      "related_record_ids": [
+        "rtec-policy-leave-time-off-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-fmla-handbook-extract-2019-07-15",
+          "page_or_section": "printed page 23 - RTEC Employee Policy items 4-10",
+          "evidence_type": "explicit_text",
+          "note": "Preserved verbatim in substance; current legal compliance is not inferred."
+        }
+      ]
+    },
+    {
+      "claim": "The final supplied page begins the non-solicitation/distribution policy, prohibiting unapproved workplace solicitation/distribution during working time or through RTEC email/telephonic systems.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDED",
+      "related_record_ids": [
+        "rtec-policy-attendance-solicitation-harassment-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-fmla-handbook-extract-2019-07-15",
+          "page_or_section": "printed page 23 - Non-Solicitation/Distribution of Literature",
+          "evidence_type": "explicit_text",
+          "note": "Only the beginning of this section appears in the supplied extract."
+        }
+      ]
+    }
+  ],
+  "trigger": "Historical leave event falling under the 2019 handbook period.",
+  "prerequisites": [],
+  "actors": [
+    "Employee",
+    "Supervisor",
+    "Executive Director"
+  ],
+  "systems": [],
+  "forms": [
+    "Physician statement",
+    "Fitness-for-duty statement",
+    "Leave request/supporting documentation"
+  ],
+  "steps": [
+    "Historical reference only: use the 2019 extract when reconstructing how a leave case may have been handled under that handbook version."
+  ],
+  "decisions": [],
+  "deadlines": [
+    "30 days' notice for foreseeable FMLA and military leave as stated in the source.",
+    "Funeral-leave notice no later than the first day of absence."
+  ],
+  "outputs": [
+    "Historical leave-policy evidence"
+  ],
+  "exceptions": [
+    "The source contains the policy's stated key-employee and eligibility exclusions."
+  ],
+  "controls": [
+    "Physician support and fitness-for-duty documentation under the historical policy."
+  ],
+  "unresolved_questions": [],
+  "automation_candidates": [],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [
+    "rtec-policy-leave-time-off-2025"
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-fmla-handbook-extract-2019-07-15",
+      "safe_source_type": "employee_handbook_excerpt",
+      "source_date_or_version": "2019-07-15",
+      "source_created_date": null,
+      "source_revision_date": "2019-07-15",
+      "source_effective_from": "2019-07-15",
+      "source_effective_to": "2025-12-14",
+      "temporal_status": "superseded",
+      "content_sha256": "b2cd57fa22f4e1566d9a57263abaa8d61e4d0153db2c334ee49f30040dcf4982",
+      "page_or_section": "supplied printed pages 21-23 of 49",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-fmla-handbook-extract-2019-07-15/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-fmla-handbook-extract-2019-07-15/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": "Superseded by the later complete 2025 handbook in the same policy lineage."
+    }
+  ]
+}
