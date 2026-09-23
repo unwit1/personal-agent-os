@@ -1,0 +1,8 @@
+{
+  "candidates_checked": 17,
+  "strong_implementation_corroboration": 14,
+  "implementation_present_baseline_limited": 3,
+  "author_evidence_only": 0,
+  "approved_rules": 0,
+  "note": "Every nontrivial author/FOMOD candidate has corresponding implementation evidence in the supplied archives; baseline completeness varies."
+}

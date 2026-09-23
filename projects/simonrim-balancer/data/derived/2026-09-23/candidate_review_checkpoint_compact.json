@@ -1,0 +1,18 @@
+{
+  "candidates": 273,
+  "evidence_strength": {
+    "medium": 235,
+    "high": 38
+  },
+  "generalizability": {
+    "low": 264,
+    "medium": 9
+  },
+  "promotion_readiness": {
+    "low": 223,
+    "medium": 50
+  },
+  "high_evidence_low_generalizability": 38,
+  "approved_rules": 0,
+  "principle": "Evidence strength and rule generalizability are separate axes; promotion is always review-gated."
+}
