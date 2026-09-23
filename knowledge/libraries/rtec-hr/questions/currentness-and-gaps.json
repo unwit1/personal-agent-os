@@ -108,6 +108,24 @@
       "status": "open"
     },
     {
+      "priority": "high",
+      "domain": "job_descriptions",
+      "question": "Which uploaded job-description version is the current approved version for each active RTEC role, and what effective/revision dates supersede the historical variants?",
+      "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "job_descriptions_flsa",
+      "question": "Resolve conflicting FLSA classifications and role-title variants in the historical job-description archive, notably Human Resources Manager and Information Systems Technician, against current payroll/organizational authority before operational use.",
+      "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "job_descriptions_hiring",
+      "question": "Reconcile qualification, safety-sensitive, background-check, drug/alcohol-testing, physical-demand, pay, benefit, and licensing language in historical job descriptions/recruitment materials with current approved policies and postings before reusing it.",
+      "status": "open"
+    },
+    {
       "priority": "medium",
       "domain": "computer_use_policy",
       "question": "Is the undated standalone Computer Use Policy currently in force, and does it supplement or predate the 2025 handbook communication-system/work-rule provisions?",
