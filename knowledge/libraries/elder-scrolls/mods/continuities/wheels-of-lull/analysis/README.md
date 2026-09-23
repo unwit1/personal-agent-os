@@ -58,3 +58,9 @@ These are **external provenance questions**, not unprocessed content in the supp
 ## Policy
 
 No ambiguous line is silently assigned to a speaker. No Wheels of Lull claim is silently promoted into Bethesda canon. No text is deduplicated into a central work merely because titles or themes are similar; edition/source relationships require evidence.
+
+## Archive witness state
+
+Provenance pass 04 located dated pre-Wheels Trainwiz package witnesses for **Aethernautics** and **Sotha Sil Expanded**. The archive pages, filenames, byte sizes, dates, upload attribution, and published MD5 hashes are now persisted in `book-provenance-pass-04-archive-witnesses.md` and its JSON companion.
+
+This narrows the remaining historical-source blocker: the packages are located, but their RAR binaries could not be materialized by the current retrieval environment. No BOOK relation was promoted without exact text inspection. Resume provenance work at archive materialization and deterministic text comparison; do not repeat generic title searches or package rediscovery.
