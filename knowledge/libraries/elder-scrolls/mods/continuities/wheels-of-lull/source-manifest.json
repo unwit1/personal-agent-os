@@ -1,0 +1,31 @@
+{
+  "source_file": "WheelsOfLull.esp",
+  "sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
+  "author": "Trainwiz",
+  "plugin_version": "6.0.0.3",
+  "masters": ["Skyrim.esm", "Update.esm", "Dawnguard.esm", "HearthFires.esm", "Dragonborn.esm"],
+  "extraction": "Direct Bethesda TES5 plugin parsing. Compressed records are zlib-decoded. Source-record JSONL preserves record type, FormID, editor ID, display name, source offset, exact decoded BOOK text, provenance status, and continuity scope.",
+  "stored_source_records": {
+    "count": 20,
+    "types": {"BOOK": 20},
+    "first": {"form_id": "0500089D", "editor_id": "_Lull_LlavadosLetter", "title": "Strange Note"},
+    "last": {"form_id": "05371590", "editor_id": "_Lull_Book4", "title": "The Cacophany"}
+  },
+  "raw_corpus": [
+    {"path": "raw/source-records-0001-0005.jsonl", "records": "1-5"},
+    {"path": "raw/source-records-0006-0010.jsonl", "records": "6-10"},
+    {"path": "raw/source-records-0011-0015.jsonl", "records": "11-15"},
+    {"path": "raw/source-records-0016-0020.jsonl", "records": "16-20"},
+    {"path": "raw/record-counts.json", "description": "Complete plugin record-type inventory."}
+  ],
+  "notable_sources_already_preserved": [
+    "Archeron's Diary",
+    "Wailyard Operation Instrctions",
+    "Message from the Eternity",
+    "Harquebuses",
+    "KINMUNE",
+    "Tatterdemalion",
+    "The Cacophany"
+  ],
+  "next_cursor": {"record_type": "BOOK", "record_index_1_based": 21, "form_id": "05371591", "editor_id": "_Lull_Book5"}
+}

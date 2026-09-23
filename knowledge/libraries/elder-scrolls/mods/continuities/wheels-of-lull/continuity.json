@@ -1,0 +1,49 @@
+{
+  "continuity_id": "tes.mod.wheels-of-lull",
+  "name": "The Wheels of Lull",
+  "universe": "The Elder Scrolls",
+  "kind": "mod_continuity_overlay",
+  "status": "source_ingestion_in_progress_batch_0001_records_1_20_complete",
+  "canon_policy": {
+    "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
+    "default_claim_scope": "tes.mod.wheels-of-lull",
+    "may_reference_base_tes_lore": true,
+    "conflicts_with_base": "retain_both_with_provenance"
+  },
+  "primary_source": {
+    "filename": "WheelsOfLull.esp",
+    "sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
+    "source_type": "user_provided_skyrim_plugin",
+    "ingested_at": "2026-09-23",
+    "author": "Trainwiz",
+    "masters": ["Skyrim.esm", "Update.esm", "Dawnguard.esm", "HearthFires.esm", "Dragonborn.esm"]
+  },
+  "extracted_counts": {
+    "total_plugin_records": 36824,
+    "books": 33,
+    "dialogue_topics": 337,
+    "dialogue_info_records": 410,
+    "quests": 32,
+    "scenes": 14,
+    "npcs": 75,
+    "locations": 33,
+    "cells": 103,
+    "messages": 53
+  },
+  "structured_layers": {
+    "plugin_record_inventory": "complete",
+    "book_text": "20_of_33_exact_records_persisted",
+    "source_record_shards": "records_0001_to_0020_complete",
+    "quest_text": "pending",
+    "dialogue": "pending",
+    "speaker_resolution": "pending",
+    "claim_promotion": "pending",
+    "interpretive_analysis": "pending"
+  },
+  "next_ingestion_steps": [
+    "finish BOOK records 21-33, then ingest QUST records",
+    "extract complete DIAL/INFO corpus with topic linkage and direct response text",
+    "resolve strict speaker conditions where deterministic evidence exists",
+    "build character, location, artifact, faction, quest, and metaphysical topic dossiers"
+  ]
+}
