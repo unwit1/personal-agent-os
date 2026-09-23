@@ -25,6 +25,7 @@
 - Perks: 625
 - Weapons: 216 total WEAP records
 - Enchantments: 269 ENCH records
+- Combat styles: 62 CSTY records
 
 ## Master-aware resolution / deltas
 
@@ -63,6 +64,10 @@
   - 36 descriptive enchantment baseline groups
   - 27 observed enchantment patterns with sample size >= 3
   - 58 exact imported-baseline enchantment field deltas
+- CSTY: 62 / 62 decoded; 0 failures
+  - 12 descriptive combat-style groups
+  - 7 observed combat-style patterns with sample size >= 3
+  - 62 external Skyrim.esm baselines unavailable in current snapshot
 - Distinct perk entry points observed: 62
 - Distinct perk entry functions observed: 9
 
@@ -74,7 +79,8 @@
 - Spell/perk observed-pattern rows with sample size >= 3: 179
 - Weapon observed-pattern rows with sample size >= 3: 18
 - Enchantment observed-pattern rows with sample size >= 3: 27
-- Combined observed patterns with sample size >= 3: 224
+- Combat-style observed-pattern rows with sample size >= 3: 7
+- Combined observed patterns with sample size >= 3: 231
 - Approved design rules: 0
 
-Raw bytes remain authoritative. WEAP DNAM and ENCH ENIT/effect composition are now decoded for the supplied snapshot. CSTY, MOVT, AVIF perk-tree geometry, deeper VMAD, and additional record structures remain future decoder work.
+Raw bytes remain authoritative. WEAP DNAM, ENCH ENIT/effect composition, and CSTY combat-style fields are now decoded for the supplied snapshot. MOVT, AVIF perk-tree geometry, deeper VMAD, and additional record structures remain future decoder work.
