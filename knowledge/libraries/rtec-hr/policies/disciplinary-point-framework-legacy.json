@@ -9,7 +9,7 @@
     {
       "claim": "An undated discipline example document shows two parallel point-threshold ladders: 2/4/6/8/10 points mapped to verbal/written/final/suspension/discharge, and 5/7/10/15/18-20 points mapped to verbal/WW1/WW2/final warning/termination.",
       "claim_kind": "observed_fact",
-      "confidence": 1.0,
+      "confidence": 1,
       "relationship": "EXTENDS",
       "related_record_ids": [
         "rtec-policy-progressive-discipline-2023"
@@ -26,7 +26,7 @@
     {
       "claim": "The same source assigns 1/2 point to tardiness, 1 point to unexcused absences, and an extra 1/2 point for failing to give notice.",
       "claim_kind": "observed_fact",
-      "confidence": 1.0,
+      "confidence": 1,
       "relationship": "EXTENDS",
       "related_record_ids": [
         "rtec-policy-progressive-discipline-2023"
@@ -43,7 +43,7 @@
     {
       "claim": "The legacy source says satisfactory performance for one year may allow new violations to be treated as first occurrences, while past discipline may still be considered.",
       "claim_kind": "observed_fact",
-      "confidence": 1.0,
+      "confidence": 1,
       "relationship": "EXTENDS",
       "related_record_ids": [
         "rtec-policy-progressive-discipline-2023"
@@ -60,7 +60,7 @@
     {
       "claim": "The legacy source explicitly states progressive discipline is discretionary and a first offense may justify discharge in some circumstances.",
       "claim_kind": "observed_fact",
-      "confidence": 1.0,
+      "confidence": 1,
       "relationship": "DUPLICATE",
       "related_record_ids": [
         "rtec-policy-progressive-discipline-2023"
@@ -75,9 +75,9 @@
       ]
     },
     {
-      "claim": "A separate legacy workbook is structured as a violation matrix with 1st-, 2nd-, and 3rd-offense points assessed and includes operational violations spanning attendance, dress code, safety, billing, client information, trip processing, denials, prior authorization, eligibility, breaks, cell phones, and work rules.",
+      "claim": "A separate legacy workbook is structured as a violation matrix with 1st-, 2nd-, and 3rd-offense point/date columns and includes operational violations spanning attendance, dress code, safety, billing, client information, trip processing, denials, prior authorization, eligibility, breaks, cell phones, and work rules; the supplied point/date assessment cells are blank.",
       "claim_kind": "observed_fact",
-      "confidence": 0.98,
+      "confidence": 1,
       "relationship": "EXTENDS",
       "related_record_ids": [
         "rtec-policy-progressive-discipline-2023"
@@ -87,7 +87,7 @@
           "source_id": "rtec-hr-disciplinary-steps-undated",
           "page_or_section": "workbook labels",
           "evidence_type": "structural",
-          "note": "Numeric matrix cell values were not decoded in this pass and are not asserted."
+          "note": "The workbook was converted and inspected; the point/date assessment columns contain no values in the supplied copy."
         }
       ]
     }
@@ -123,16 +123,14 @@
   ],
   "controls": [
     "Do not combine the two point ladders or infer their scope without corroborating evidence.",
-    "Do not use the undated matrix as current policy until authority/currentness is established."
+    "The Disciplinary steps workbook is a blank historical matrix/template; do not infer point values from its column headings."
   ],
   "unresolved_questions": [
     "What date/version and employee population did each of the two legacy point ladders govern?",
-    "What are the exact numeric 1st/2nd/3rd-offense point values in the legacy Disciplinary steps workbook?",
     "Did the 2023 handbook supersede these point-based materials, coexist with them for some roles, or describe a different discipline layer?"
   ],
   "automation_candidates": [
-    "Policy-version-aware discipline reference that requires the incident date/employee class before surfacing any point matrix.",
-    "Legacy .xls backfill parser to recover and verify the full numeric matrix without manual transcription."
+    "Policy-version-aware discipline reference that requires the incident date/employee class before surfacing any point matrix."
   ],
   "supersedes_record_ids": [],
   "superseded_by_record_ids": [],
@@ -160,7 +158,7 @@
       "content_sha256": "228be0d1afd69a0d816e0562935f6815cf9a4fdccb230d98bfa8e6e3e5b57516",
       "page_or_section": "workbook labels",
       "ingested_at": "2026-09-23",
-      "notes": "Undated legacy workbook; labels recovered, numeric cells pending trusted parser.",
+      "notes": "Undated legacy workbook; deterministically inspected after XLS conversion. Violation labels are populated, but point/date assessment cells are blank.",
       "source_created_date": null,
       "source_revision_date": null,
       "source_effective_from": null,
