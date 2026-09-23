@@ -1,0 +1,264 @@
+{
+  "record_id": "rtec-professional-relationship-chronology-email-evidence-2016-2026",
+  "updated_at": "2026-09-23",
+  "status": "professional_context_only",
+  "relationships": [
+    {
+      "organization": "ADP",
+      "periods": [
+        {
+          "period": "2016",
+          "people": [
+            "Krutika Sule"
+          ],
+          "context": [
+            "benefits/ACA implementation",
+            "online implementation meetings",
+            "secure data/document exchange"
+          ]
+        },
+        {
+          "period": "2016",
+          "people": [
+            "Elizabeth Kruse"
+          ],
+          "context": [
+            "time-and-attendance demonstration/evaluation"
+          ]
+        },
+        {
+          "period": "2021",
+          "people": [
+            "Elizabeth Talley"
+          ],
+          "context": [
+            "strategic/account review"
+          ]
+        },
+        {
+          "period": "2026",
+          "people": [
+            "ADP Client Services"
+          ],
+          "context": [
+            "active Workforce Now quarter-end/tax operations",
+            "SmartCompliance",
+            "iReports",
+            "Service Connect"
+          ]
+        }
+      ],
+      "interpretation": "Long-running ADP relationship changed from named implementation/account contacts to current operational client-service workflows."
+    },
+    {
+      "organization": "Guardian",
+      "periods": [
+        {
+          "period": "2016-2017",
+          "people": [
+            "Emily Baker"
+          ],
+          "context": [
+            "account management",
+            "in-person account meetings"
+          ]
+        },
+        {
+          "period": "2019",
+          "people": [
+            "Cheri Lueddeke"
+          ],
+          "context": [
+            "customer-service feedback/improvement"
+          ]
+        },
+        {
+          "period": "2019-2021",
+          "people": [
+            "CVIM contacts"
+          ],
+          "context": [
+            "Guardian enrollment/benefit administration routed through broker channel"
+          ]
+        },
+        {
+          "period": "2026",
+          "people": [
+            "Guardian account/security systems"
+          ],
+          "context": [
+            "account-security reset",
+            "email moved toward shared HR identity",
+            "plan-administration submission evidence"
+          ]
+        }
+      ],
+      "interpretation": "Carrier relationship persists across a change in internal HR ownership and broker/account-management channels."
+    },
+    {
+      "organization": "CVIM",
+      "periods": [
+        {
+          "period": "2017-2021",
+          "people": [
+            "Whitney Sizemore",
+            "Sarah Joyce",
+            "Wilma Thompson"
+          ],
+          "context": [
+            "enrollment/change routing",
+            "benefit-card/FSA support",
+            "renewal/pre-renewal",
+            "Guardian-related administration"
+          ]
+        }
+      ],
+      "interpretation": "Strong historical benefits-broker/advisor channel; no 2026 evidence in this corpus proves the relationship remains current."
+    },
+    {
+      "organization": "UnitedHealthcare",
+      "periods": [
+        {
+          "period": "2026",
+          "people": [
+            "Sonya McClanahan",
+            "Sherry Babb"
+          ],
+          "context": [
+            "Kentucky account management",
+            "wellness/resources",
+            "post-implementation feedback"
+          ]
+        }
+      ],
+      "interpretation": "Current 2026 carrier/account-management relationship is strongly evidenced; exact product scope is not inferred."
+    },
+    {
+      "organization": "The Job Shop / Impact Employment Solutions",
+      "periods": [
+        {
+          "period": "2016",
+          "people": [
+            "Lindsey Morris"
+          ],
+          "context": [
+            "temporary-worker administration",
+            "holiday-pay coordination"
+          ]
+        },
+        {
+          "period": "2021",
+          "people": [
+            "Kristin Whitson"
+          ],
+          "context": [
+            "general staffing agreement",
+            "job-description intake",
+            "temporary-to-possible-permanent placement",
+            "RTEC interview coordination"
+          ]
+        }
+      ],
+      "interpretation": "Historical temporary-staffing relationship changed contacts but retained a similar operational role."
+    },
+    {
+      "organization": "Kentucky EEO / Contract Compliance",
+      "periods": [
+        {
+          "period": "2018",
+          "people": [
+            "Paula Weglarz"
+          ],
+          "context": [
+            "AAP submission/review",
+            "plan-date clarification"
+          ]
+        }
+      ],
+      "interpretation": "State compliance relationship provides authoritative schedule/approval evidence when available."
+    },
+    {
+      "organization": "Indeed",
+      "periods": [
+        {
+          "period": "2021",
+          "people": [
+            "Michael Kaniatyn"
+          ],
+          "context": [
+            "company-page/Glassdoor branding outreach",
+            "year-end hiring outreach"
+          ]
+        }
+      ],
+      "interpretation": "Professional outreach only; no paid-adoption claim."
+    },
+    {
+      "organization": "AssuredPartners",
+      "periods": [
+        {
+          "period": "2019",
+          "people": [
+            "Patrick Workman"
+          ],
+          "context": [
+            "introductory benefits/insurance meeting"
+          ]
+        }
+      ],
+      "interpretation": "Evaluation/contact evidence only."
+    },
+    {
+      "organization": "USI Insurance Services",
+      "periods": [
+        {
+          "period": "2017",
+          "people": [
+            "James W. Keene"
+          ],
+          "context": [
+            "benefit benchmarking/advisory discussion"
+          ]
+        }
+      ],
+      "interpretation": "Advisory/outreach evidence only."
+    },
+    {
+      "organization": "Energy Insurance Agency",
+      "periods": [
+        {
+          "period": "2020",
+          "people": [
+            "Tracy Vincent"
+          ],
+          "context": [
+            "insurance/ERISA-related professional communication"
+          ]
+        }
+      ],
+      "interpretation": "Historical insurance professional contact."
+    },
+    {
+      "organization": "RTEC executive/administrative network",
+      "periods": [
+        {
+          "period": "2016-2021",
+          "people": [
+            "Shirley L. Cummins",
+            "Freda L. Parsons",
+            "Randy Lewis",
+            "C. Dale Shelton, II"
+          ],
+          "context": [
+            "executive escalation",
+            "procurement/administrative coordination",
+            "finance/payroll/IT handoffs",
+            "training/compliance handoffs"
+          ]
+        }
+      ],
+      "interpretation": "Email plus organization/job-duty sources show HR work depended on stable role-to-role handoffs; automation should target roles rather than hard-coded person names where possible."
+    }
+  ],
+  "privacy_rule": "No personal/family/medical/disciplinary/applicant facts are included; chronology records only professional role relationships."
+}
