@@ -1,1 +1,58 @@
-# Searchable text\n\nExtracted from the unchanged official Kentucky Court of Justice PDF. See manifest for source and authority caveats.\n\nAOC-RU-004\nRev. 12-22\nPage 1 of 1\nwww.kycourts.gov\nADMINISTRATIVE OFFICE OF THE COURTS\nRECORDS UNIT\n1001 VANDALAY DRIVE\nFRANKFORT, KENTUCKY 40601\n502-573-1682 or 800-928-6381\nrecords@kycourts.net\nThe process to obtain the information contained in CourtNet is as follows:\nIndividuals\nRequesting a record on yourself requires a $25.00 fee (check or money order). If you do not receive a response\nin 30 days contact us at the number listed above.\nNonprofit/Commercial/Others\nRequesting a record on individuals requires a $25.00 fee (check or money order).\nFees are paid to the order of the KENTUCKY STATE TREASURER  by check or money order ONLY.  FAILURE TO\nCOMPLY WITH THESE PROCEDURES WILL RESULT IN THE REQUEST BEING RETURNED UNPROCESSED.  If\nyou suspect information contained on the record is incorrect, or have any questions, please contact the Records Unit at\n(502) 573-1682 or (800) 928-6381.\nPLEASE PRINT OR TYPE THE INDIVIDUAL'S INFORMATION CLEARLY.\nSOCIAL SECURITY NUMBER: ____________________________  DLN: ____________________________\n NAME:\nFIRST MIDDLE LAST\nMAIDEN NAME(S) AND/OR ALIAS: __________________________________________________________\nDATE OF BIRTH: ____________________________\nSTREET ADDRESS/P.O. BOX:  _____________________________________________________________\nCITY, STATE, ZIP CODE: __________________________________________________________________\nI understand the information supplied by me must be truthful and falsification with an intent to mislead may result\nin my prosecution under KRS 523.100.  I have provided\nthe basic information necessary to qualify for record\nprocessing and exemption of fees - if applicable.\n* ALL INFORMATION BELOW IS REQUIRED.\n___________________________________________________\nDate\n___________________________________________________\nCompany (If applicable)\n___________________________________________________\nRequestor/Contact Person\n___________________________________________________\nAddress\n___________________________________________________\nCity, State, Zip\n___________________________________________________\nTelephone Number\n___________________________________________________\nE-mail Address\nPlease denote which purpose applies to this request:\n  Employment\n  Criminal Investigation\n Screening Housing Applicants\n Volunteer/Care over Juvenile\n Licensing\n Other (please explain)\n
+# Searchable text
+
+Extracted from the unchanged official Kentucky Court of Justice PDF. See manifest for source and authority caveats.
+
+AOC-RU-004
+Rev. 12-22
+Page 1 of 1
+www.kycourts.gov
+ADMINISTRATIVE OFFICE OF THE COURTS
+RECORDS UNIT
+1001 VANDALAY DRIVE
+FRANKFORT, KENTUCKY 40601
+502-573-1682 or 800-928-6381
+records@kycourts.net
+The process to obtain the information contained in CourtNet is as follows:
+Individuals
+Requesting a record on yourself requires a $25.00 fee (check or money order). If you do not receive a response
+in 30 days contact us at the number listed above.
+Nonprofit/Commercial/Others
+Requesting a record on individuals requires a $25.00 fee (check or money order).
+Fees are paid to the order of the KENTUCKY STATE TREASURER  by check or money order ONLY.  FAILURE TO
+COMPLY WITH THESE PROCEDURES WILL RESULT IN THE REQUEST BEING RETURNED UNPROCESSED.  If
+you suspect information contained on the record is incorrect, or have any questions, please contact the Records Unit at
+(502) 573-1682 or (800) 928-6381.
+PLEASE PRINT OR TYPE THE INDIVIDUAL'S INFORMATION CLEARLY.
+SOCIAL SECURITY NUMBER: ____________________________  DLN: ____________________________
+ NAME:
+FIRST MIDDLE LAST
+MAIDEN NAME(S) AND/OR ALIAS: __________________________________________________________
+DATE OF BIRTH: ____________________________
+STREET ADDRESS/P.O. BOX:  _____________________________________________________________
+CITY, STATE, ZIP CODE: __________________________________________________________________
+I understand the information supplied by me must be truthful and falsification with an intent to mislead may result
+in my prosecution under KRS 523.100.  I have provided
+the basic information necessary to qualify for record
+processing and exemption of fees - if applicable.
+* ALL INFORMATION BELOW IS REQUIRED.
+___________________________________________________
+Date
+___________________________________________________
+Company (If applicable)
+___________________________________________________
+Requestor/Contact Person
+___________________________________________________
+Address
+___________________________________________________
+City, State, Zip
+___________________________________________________
+Telephone Number
+___________________________________________________
+E-mail Address
+Please denote which purpose applies to this request:
+  Employment
+  Criminal Investigation
+ Screening Housing Applicants
+ Volunteer/Care over Juvenile
+ Licensing
+ Other (please explain)
