@@ -1,0 +1,23 @@
+{
+  "source_id": "rtec-hr-organization-chart-2026-rev-2025-12-30",
+  "title": "RTEC Organization Chart 2026",
+  "source_type": "organizational_reference",
+  "original_filename": "RTEC Organizational Chart 2026.pdf",
+  "source_representation": "complete_structural_text_transcription_of_supplied_chart",
+  "temporal_status": "historical",
+  "currentness": "snapshot_revised_2025-12-30_later_2026_sources_show_changes",
+  "dates": {
+    "chart_year": "2026",
+    "printed_revision_date": "2025-12-30",
+    "scan_date": "2026-01-02"
+  },
+  "sha256": "7a84225ca482eca69e5a18c6a85b562571961504c663285ccecef8ccc2f168c4",
+  "page_count": 1,
+  "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-organization-chart-2026-rev-2025-12-30/fulltext.md",
+  "derived_records": ["knowledge/libraries/rtec-hr/roles/organization-structure-history.json"],
+  "notes": [
+    "The chart is labeled 2026 and explicitly says Revised 12/30/2025.",
+    "Because a later signed EEO policy dated 2026-08-26 names a different EEO Manager/Officer, this chart is treated as an early-2026 organizational snapshot rather than current for the entire year."
+  ],
+  "ingested_at": "2026-09-23"
+}
