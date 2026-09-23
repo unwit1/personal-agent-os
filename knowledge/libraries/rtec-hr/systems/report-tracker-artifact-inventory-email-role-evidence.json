@@ -1,0 +1,319 @@
+{
+  "record_id": "rtec-hr-report-tracker-artifact-inventory-email-role-evidence",
+  "updated_at": "2026-09-23",
+  "status": "cross_source_inventory",
+  "principle": "Classify each artifact by sensitivity and generation mode before deciding whether it belongs in GitHub, local restricted storage, the scanner reference library, or a live system connector.",
+  "artifacts": [
+    {
+      "name": "Monthly HR Report",
+      "class": "operational_report",
+      "sensitivity": "likely aggregate/mixed; template unknown",
+      "historical_owner": "HR",
+      "historical_cadence": "first of month",
+      "evidence": [
+        "email 000189",
+        "email 000310",
+        "historical HR duty document"
+      ],
+      "schema_status": "not recovered",
+      "currentness": "unknown",
+      "storage_rule": "Do not canonicalize completed reports until fields/sensitivity are reviewed."
+    },
+    {
+      "name": "Payroll Check Register",
+      "class": "operational_financial_report",
+      "sensitivity": "restricted financial/person-level",
+      "historical_owner": "finance/controller + HR verification",
+      "historical_cadence": "monthly",
+      "evidence": [
+        "email 000191",
+        "000206",
+        "000288",
+        "historical HR duty document"
+      ],
+      "schema_status": "not recovered",
+      "currentness": "likely replaced/produced by current payroll system but exact report unresolved",
+      "storage_rule": "Local/restricted only; durable model may store schema and workflow, not completed rows."
+    },
+    {
+      "name": "Absentee Report",
+      "class": "operational_employee_report",
+      "sensitivity": "restricted employee attendance",
+      "historical_owner": "HR",
+      "historical_cadence": "periodic",
+      "evidence": [
+        "email 000278",
+        "000300"
+      ],
+      "schema_status": "not recovered",
+      "currentness": "unknown",
+      "storage_rule": "Restricted/local; safe schema may be modeled."
+    },
+    {
+      "name": "Personal Time Taken List",
+      "class": "operational_employee_tracker",
+      "sensitivity": "restricted employee leave",
+      "historical_owner": "HR / finance handoff",
+      "historical_cadence": "periodic/event-driven",
+      "evidence": [
+        "email 000157",
+        "000158"
+      ],
+      "schema_status": "not recovered",
+      "currentness": "unknown",
+      "storage_rule": "Restricted/local."
+    },
+    {
+      "name": "Attendance Calendar",
+      "class": "employee_tracker_form",
+      "sensitivity": "restricted completed rows; safe blank structure",
+      "historical_owner": "HR",
+      "historical_cadence": "daily tracking / annual form",
+      "evidence": [
+        "historical HR duty document",
+        "knowledge/libraries/rtec-hr/forms/attendance-calendar-2023-2024.json"
+      ],
+      "schema_status": "safe reusable structure modeled",
+      "currentness": "2025 policy current; current form/system unresolved",
+      "storage_rule": "Blank/schema safe in GitHub; completed forms restricted."
+    },
+    {
+      "name": "Employee Insurance Deductions by Month",
+      "class": "employee_benefits_payroll_tracker",
+      "sensitivity": "restricted compensation/benefits",
+      "historical_owner": "HR",
+      "historical_cadence": "monthly/current roster maintenance",
+      "evidence": [
+        "historical HR duty document"
+      ],
+      "schema_status": "not recovered",
+      "currentness": "may be superseded by ADP/iSolved/carrier systems",
+      "storage_rule": "Restricted rows; only schema/process safe."
+    },
+    {
+      "name": "Employee List - Current",
+      "class": "employee_roster",
+      "sensitivity": "restricted personnel",
+      "historical_owner": "HR",
+      "historical_cadence": "continuously maintained",
+      "evidence": [
+        "historical HR duty document"
+      ],
+      "schema_status": "restricted source families exist elsewhere",
+      "currentness": "current system of record unresolved",
+      "storage_rule": "Never commit live roster rows to GitHub."
+    },
+    {
+      "name": "Employees by County",
+      "class": "employee_roster_analysis",
+      "sensitivity": "restricted if person-level; aggregate version may be safe",
+      "historical_owner": "HR",
+      "historical_cadence": "current roster maintenance",
+      "evidence": [
+        "historical HR duty document"
+      ],
+      "schema_status": "not recovered",
+      "currentness": "unknown",
+      "storage_rule": "Prefer aggregate derivation from authoritative roster."
+    },
+    {
+      "name": "New Hires by Fiscal Year",
+      "class": "personnel_activity_log",
+      "sensitivity": "restricted person-level",
+      "historical_owner": "HR",
+      "historical_cadence": "fiscal-year rolling",
+      "evidence": [
+        "historical HR duty document",
+        "AAP archive history"
+      ],
+      "schema_status": "historical restricted logs exist; safe aggregate summaries also exist",
+      "currentness": "current ADP/new-hire reporting should supersede manual duplication where possible",
+      "storage_rule": "Restricted rows, safe aggregates only."
+    },
+    {
+      "name": "Terminations by Fiscal Year",
+      "class": "personnel_activity_log",
+      "sensitivity": "restricted person-level",
+      "historical_owner": "HR",
+      "historical_cadence": "fiscal-year rolling",
+      "evidence": [
+        "historical HR duty document",
+        "AAP archive"
+      ],
+      "schema_status": "safe aggregate termination summaries plus restricted person-level logs exist",
+      "currentness": "unknown manual tracker status",
+      "storage_rule": "Restricted person-level; aggregate summary safe."
+    },
+    {
+      "name": "Promotions/Transfers by Fiscal Year",
+      "class": "personnel_activity_log",
+      "sensitivity": "restricted person-level",
+      "historical_owner": "HR",
+      "historical_cadence": "fiscal-year rolling",
+      "evidence": [
+        "historical HR duty document",
+        "AAP process requirements"
+      ],
+      "schema_status": "partially represented in AAP workpapers",
+      "currentness": "unknown",
+      "storage_rule": "Restricted person-level."
+    },
+    {
+      "name": "Disciplinary Action by Fiscal Year",
+      "class": "discipline_log",
+      "sensitivity": "restricted employee/discipline",
+      "historical_owner": "HR",
+      "historical_cadence": "fiscal-year rolling",
+      "evidence": [
+        "historical HR duty document",
+        "disciplinary-logging-aap-history"
+      ],
+      "schema_status": "historical schema/version history modeled",
+      "currentness": "current authoritative system unresolved",
+      "storage_rule": "Completed rows restricted; generalized schema/version history safe."
+    },
+    {
+      "name": "EEO Category List",
+      "class": "employee_eeo_roster",
+      "sensitivity": "highly restricted demographic/personnel",
+      "historical_owner": "HR/EEO",
+      "historical_cadence": "current + fiscal-year snapshot",
+      "evidence": [
+        "historical HR duty document",
+        "EEO/AAP archive"
+      ],
+      "schema_status": "restricted employee-level sources exist",
+      "currentness": "current EEO-1/AAP ownership needs mapping",
+      "storage_rule": "Never commit person-level demographic roster."
+    },
+    {
+      "name": "AAP Applicant Log",
+      "class": "applicant_activity_log",
+      "sensitivity": "restricted applicant-level",
+      "historical_owner": "HR/EEO",
+      "historical_cadence": "fiscal-year rolling",
+      "evidence": [
+        "AAP archive",
+        "Reason Not Hired code list"
+      ],
+      "schema_status": "restricted historical workbooks; safe codebook preserved",
+      "currentness": "current ADP ATS should be preferred source if sufficient",
+      "storage_rule": "Rows restricted; reason-code taxonomy safe."
+    },
+    {
+      "name": "AAP Workforce Analysis",
+      "class": "aggregate_compliance_workbook",
+      "sensitivity": "safe aggregate when de-identified",
+      "historical_owner": "HR/EEO",
+      "historical_cadence": "annual/plan snapshot",
+      "evidence": [
+        "2022 and historical AAP packages"
+      ],
+      "schema_status": "fully recovered safe cell maps",
+      "currentness": "methodology/current plan post-2024 unresolved",
+      "storage_rule": "Safe aggregate source may be canonical."
+    },
+    {
+      "name": "AAP Incumbency Analysis",
+      "class": "aggregate_compliance_workbook",
+      "sensitivity": "safe aggregate",
+      "historical_owner": "HR/EEO",
+      "historical_cadence": "plan snapshot",
+      "evidence": [
+        "2022 AAP package"
+      ],
+      "schema_status": "safe cell map and derived analysis present",
+      "currentness": "methodology currentness unresolved",
+      "storage_rule": "Safe aggregate."
+    },
+    {
+      "name": "AAP Determining Availability",
+      "class": "aggregate_compliance_workbook",
+      "sensitivity": "safe aggregate/external labor market",
+      "historical_owner": "HR/EEO",
+      "historical_cadence": "plan snapshot",
+      "evidence": [
+        "2022 AAP package"
+      ],
+      "schema_status": "safe cell maps preserved for women/minority, IWD and veterans variants",
+      "currentness": "labor-market source/methodology unresolved",
+      "storage_rule": "Safe aggregate."
+    },
+    {
+      "name": "Title VII Investigations Tracker",
+      "class": "compliance_tracker_template",
+      "sensitivity": "template safe; completed cases restricted",
+      "historical_owner": "EEO",
+      "historical_cadence": "case-driven",
+      "evidence": [
+        "compliance archive inventory"
+      ],
+      "schema_status": "source artifact known but detailed schema not yet promoted",
+      "currentness": "current EEO complaint forms/logs unresolved",
+      "storage_rule": "Template/schema safe after review; completed rows restricted."
+    },
+    {
+      "name": "Kentucky New Hire Upload File",
+      "class": "state_reporting_batch",
+      "sensitivity": "restricted employee identifiers",
+      "current_owner": "HR transition/current HR environment",
+      "cadence": "event/batch driven",
+      "evidence": [
+        "emails 000361-000363"
+      ],
+      "schema_status": "source filename known; row schema intentionally not copied from completed upload",
+      "currentness": "active 2026",
+      "storage_rule": "Restricted/local; safe upload schema can be modeled from official blank/specification."
+    },
+    {
+      "name": "Kentucky New Hire Preview/Completion",
+      "class": "system_audit_report",
+      "sensitivity": "mixed; counts safe, row errors may contain identifiers",
+      "current_owner": "HR",
+      "cadence": "per upload",
+      "evidence": [
+        "emails 000361-000363"
+      ],
+      "schema_status": "sanitized lifecycle modeled",
+      "currentness": "active 2026",
+      "storage_rule": "Persist sanitized counts/status/provenance; restrict row-level errors."
+    },
+    {
+      "name": "ADP Quarter-End Preview Reports",
+      "class": "payroll_tax_system_report",
+      "sensitivity": "restricted payroll/tax",
+      "current_owner": "HR/finance split unresolved",
+      "cadence": "quarterly",
+      "evidence": [
+        "emails 000572",
+        "000574"
+      ],
+      "schema_status": "report families identified: Preview W-2/1099, Wage & Tax Register, Statement of Deposits/941 context",
+      "currentness": "active 2026",
+      "storage_rule": "Restricted report data; safe checklist/schema names may be canonical."
+    },
+    {
+      "name": "Benefits Carrier Invoices",
+      "class": "financial_benefit_report",
+      "sensitivity": "company financial + possible participant detail",
+      "historical_owner": "HR -> AP",
+      "historical_cadence": "monthly around 20-21",
+      "evidence": [
+        "emails 000272",
+        "000283",
+        "000340",
+        "historical duty document"
+      ],
+      "schema_status": "not recovered",
+      "currentness": "current carrier/AP process unresolved",
+      "storage_rule": "Restricted/local; safe vendor/cadence metadata may be durable."
+    }
+  ],
+  "architecture": [
+    "Use live connectors/system APIs for current operational data where possible instead of duplicating mutable person-level spreadsheets.",
+    "Use GitHub for safe schemas, field definitions, version history, aggregate compliance workbooks and workflow rules.",
+    "Use restricted local stores for completed employee/applicant/payroll/medical/discipline records.",
+    "Generated reports need system-signature classifiers, not template fingerprints alone.",
+    "When a legacy tracker duplicates authoritative system data, preserve historical schema but avoid perpetuating duplicate manual entry."
+  ]
+}
