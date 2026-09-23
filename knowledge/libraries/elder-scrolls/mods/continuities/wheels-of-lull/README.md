@@ -12,23 +12,23 @@ Sub-continuity for the Skyrim mod **The Wheels of Lull**.
 
 - **33/33 BOOK** records preserved with exact decoded text.
 - **32/32 QUST** records preserved with quest stages, journal text, objectives, and provenance where present.
-- **139/337 DIAL** topics and **146/410 INFO** records preserved in physical plugin order.
-- **285/747 combined dialogue records** are now ingested.
-- **350 prioritized source records** are checkpointed overall.
+- **159/337 DIAL** topics and **176/410 INFO** records preserved in physical plugin order.
+- **335/747 combined dialogue records** are now ingested.
+- **400 prioritized source records** are checkpointed overall.
 
 ## Dialogue evidence already preserved
 
-This pass completes more of Llavados' Bottom-of-the-World guidance, the final Archeron confrontation, the post-fight Llavados/Numinar material, and transitions into ambient guard dialogue.
+This pass moves through ambient Lull-Mor dialogue and into the Wailway side quest.
 
 Notable continuity-scoped testimony includes:
 
-- Llavados says Archeron cannot be killed by ordinary means because he has "hacked" himself into the Wheels of Lull.
-- Llavados says equipment at the Bottom of the World can "unwind" Archeron's modifications.
-- After Archeron's defeat, Llavados describes the location as past the bottom of the world, the core of Nirn, Magnus' workshop, Sotha Sil's central mainframe, and Memory's room.
-- Llavados says Archeron's soul became integrated into the world mechanism after death.
-- Llavados hints that he has walked "in the shoes of a god," calls himself a godfather to Memory and an architect, and says he and the Dragonborn will meet again at Landfall.
-- Numinar reiterates that the Chronographers fix problems and move on rather than celebrating them.
-- Archeron's combat taunts claim control of the World Mechanism and compare his strength to Sotha Sil.
+- Numinar says he was once an overclocker/mechanic and that after the Clockwork City died he was shipped out with the other Chronographers.
+- Llavados says fabricant culture accepts experimentation on one another and themselves, with casualties treated as an expected risk.
+- The Wailway locomotive identifies itself as a soul bound into an engine for transport.
+- The locomotive attributes the Wailway project to the Reman-era Diolkos/Resource Men and describes punitive transformation of dissidents into industrial machinery.
+- It says other Wailway engines hoped service might eventually earn them a final death.
+- It says Reman later sold it to a "dark elven clockmaker," who studied and dismantled pieces of it before abandoning it.
+- The locomotive asks the player to destroy its mechanical shell to release it.
 
 These remain attributed source statements rather than automatic Bethesda-canon conclusions.
 
@@ -40,17 +40,17 @@ These remain attributed source statements rather than automatic Bethesda-canon c
 - `raw/source-records-0201-0250.jsonl.gz` — records 201-250
 - `raw/source-records-0251-0300.jsonl.gz` — records 251-300
 - `raw/source-records-0301-0350.jsonl.gz` — records 301-350
+- `raw/source-records-0351-0400.jsonl.gz` — records 351-400
 - `raw/record-counts.json` — complete plugin record inventory
 - `source-manifest.json` — extraction policy and corpus state
 - `ingestion-checkpoint.json` — resumable cursor
 
 ## Next cursor
 
-Dialogue combined record **286/747**:
+Dialogue combined record **336/747**:
 
-- INFO `050488A4`
-- Parent topic: `050488A2 _Lull_Misc_GuardGreetings`
-- Owning quest: `05005918 _Lull_Misc`
+- DIAL `0504DF3B`
+- Owning quest: `05039182 _Lull_SQ_Wailway`
 
 ## Provenance rule
 
