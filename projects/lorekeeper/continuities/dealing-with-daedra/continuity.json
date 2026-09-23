@@ -68,7 +68,7 @@
     "cell_and_world_names": "complete_for_plugin_records",
     "item_and_magic_names_descriptions": "complete_for_plugin_records",
     "papyrus_source_string_pass": "complete_for_available_source",
-    "speaker_resolution": "subject_run_GetIsID_equal_1_complete_1636_of_1807_mod_added_INFO_covering_2472_of_2674_all_responses_faction_generic_and_contextual_resolution_pending",
+    "speaker_resolution": "deterministic_named_subject_resolution_complete_1636_of_1807_mod_added_INFO_covering_2472_of_2674_responses; remaining_171_intentionally_preserved_as_faction_role_state_multi_actor_or_other_context_when_unique_named_attribution_is_not_supported",
     "claim_promotion": "341_evidence_backed_numeric_claim_seeds_across_13_semantic_passes_plus_specialized_indexes",
     "interpretive_analysis": "semantic_passes_01_to_13_complete; high_value_and_operational_text_sources_exhaustion_audited",
     "written_lore_analysis": "high_value_longform_sources_complete_plus_operational_and_bulletin_followup",
@@ -85,7 +85,7 @@
     "unresolved_identity_tracking": "initial_complete_7_entries",
     "social_recruitment_analysis": "cross_faction_pipeline_pass_complete",
     "coercive_economy_analysis": "widows_sanguine_family_brethren_ratway_syndicate_layers_complete_initial_pass",
-    "contextual_speaker_attribution": "initial_faction_role_index_complete_19_condition_groups",
+    "contextual_speaker_attribution": "faction_role_index_complete_19_condition_groups_plus_multi_actor_and_state_group_classification; named_attribution_only_when_deterministically_supported",
     "hircine_ecology_analysis": "north_jerall_frostmoon_balance_cluster_complete_initial_pass",
     "multi_actor_context_resolution": "initial_state_variant_and_role_group_pass_complete",
     "nocturnal_darkling_analysis": "detailed_ichor_and_cult_history_initial_pass_complete",
@@ -95,6 +95,7 @@
     "source_deduplication": "encoded_journal_fundaments_and_exact_duplicate_text_groups_flagged",
     "scene_semantic_audit": "3_scene_records_have_no_independent_extracted_prose; associated dialogue_scripts_are_covered_elsewhere",
     "compiled_only_script_audit": "2_pex_only_scripts_preserved_printable_strings_contain_boilerplate_only_no_additional_lore_text",
-    "semantic_source_exhaustion": "complete_for_high_value_longform_operational_and_lore_bearing_text; remaining_short_records_are_retained_as_raw_provenance_and_can_support_future_micro_queries"
+    "semantic_source_exhaustion": "complete_for_high_value_longform_operational_and_lore_bearing_text; remaining_short_records_are_retained_as_raw_provenance_and_can_support_future_micro_queries",
+    "speaker_attribution_closeout": "source_limited_residuals_classified_not_a_bulk_semantic_analysis_backlog"
   }
 }
