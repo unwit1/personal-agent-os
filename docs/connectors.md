@@ -38,6 +38,19 @@ python agent.py connector-import-candidates
 python agent.py connector-import-candidates --surface codex-cli
 ```
 
+Registering metadata from a reviewed JSON descriptor also previews by default:
+
+```powershell
+python agent.py connector-register connector.json
+python agent.py connector-register connector.json --confirm-write
+python agent.py connector-register connector.json --confirm-write --replace-existing
+```
+
+The last form updates an existing connector with the same ID. The descriptor
+must use the v1 connector shape, start with unknown provider health and desired
+surface registrations, and contain no credential values. The write updates only
+the canonical metadata registry; provider setup and invocation remain separate.
+
 Each connector's `surface_readiness` entries describe the checks for that
 surface:
 

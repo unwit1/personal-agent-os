@@ -8,7 +8,7 @@ from .adapters import sync_adapters
 from .candidates import candidate_status, curate_candidates, stage_candidates
 from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, update_change
 from .compiler import compile_context
-from .connectors import connector_import_candidates
+from .connectors import connector_import_candidates, register_connector
 from .coordination import (
     check as check_claims,
     claim as make_claim,
@@ -93,6 +93,13 @@ def parser() -> argparse.ArgumentParser:
         help="read-only inventory of local client MCP registrations for connector review",
     )
     connector_candidates.add_argument("--surface")
+    connector_register = commands.add_parser(
+        "connector-register",
+        help="preview or explicitly write provider-neutral connector metadata from a JSON file",
+    )
+    connector_register.add_argument("metadata_file")
+    connector_register.add_argument("--confirm-write", action="store_true")
+    connector_register.add_argument("--replace-existing", action="store_true")
     work_claim = commands.add_parser("work-claim")
     work_claim.add_argument("project")
     work_claim.add_argument("task")
@@ -328,6 +335,14 @@ def main(argv: list[str] | None = None) -> int:
             return 1 if args.strict and not report["ok"] else 0
         elif args.command == "connector-import-candidates":
             _print(connector_import_candidates(args.surface))
+        elif args.command == "connector-register":
+            _print(
+                register_connector(
+                    _load_object(args.metadata_file),
+                    confirm_write=args.confirm_write,
+                    replace_existing=args.replace_existing,
+                )
+            )
         elif args.command == "work-claim":
             result = make_claim(args.project, args.task, args.agent, args.scope, args.lease_minutes)
             _print(result)
