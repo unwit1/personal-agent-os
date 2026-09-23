@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-23",
+  "purpose": "Unresolved, version-sensitive, or weakly evidenced profile questions exposed by the exhaustive indexed-mail analysis. These are prompts for future evidence collection, not facts to guess.",
+  "unresolved_profile_questions": [
+    {
+      "id": "education.berea.degree",
+      "question": "What exact Berea College degree/major did the user complete?",
+      "current_evidence": "Attendance and recent-graduate status are well supported, but the indexed email text does not establish the degree/major confidently.",
+      "priority": "medium",
+      "safe_resolution_paths": [
+        "direct user confirmation",
+        "resume/CV",
+        "diploma/transcript or official school record if the user chooses to provide it"
+      ]
+    },
+    {
+      "id": "education.audio_engineering_2025",
+      "question": "What became of the master's in Audio Engineering mentioned in a May 2025 user-authored email?",
+      "current_evidence": "Single direct self-report says the user was then working on it; no program/provider or later completion evidence was found.",
+      "priority": "medium",
+      "status": "historical_claim_only",
+      "rule": "Do not describe this as a current credential or current enrollment without newer evidence."
+    },
+    {
+      "id": "relationship.olivia.current_label",
+      "question": "What relationship label should Agent OS use for Olivia now?",
+      "current_evidence": "Historical email used 'fiancée' in September 2025; current direct-user wording in conversation should control.",
+      "priority": "low",
+      "rule": "Never let historical mail silently override the user's current wording."
+    },
+    {
+      "id": "housing.2026_application_outcome",
+      "question": "What was the outcome of the September 2026 rental application?",
+      "current_evidence": "The indexed mail shows an application under review but not a confidently resolved long-term state.",
+      "priority": "medium",
+      "rule": "Keep housing-cost and address assumptions variable until a later outcome is observed or stated."
+    },
+    {
+      "id": "devices.phone_current",
+      "question": "Is the iPhone 11 signal the user's active current phone or only an accessory/household purchase?",
+      "current_evidence": "Personally addressed case/screen-protector orders support but do not prove active device ownership.",
+      "priority": "low",
+      "status": "medium_confidence"
+    },
+    {
+      "id": "devices.switch2_ownership",
+      "question": "Is the Nintendo Switch 2 personally owned by the user or a household device?",
+      "current_evidence": "Repeated accessory purchases support a household device but not exclusive ownership.",
+      "priority": "low",
+      "status": "household_signal"
+    },
+    {
+      "id": "career.post_rtec_job_search",
+      "question": "Should ongoing job alerts after the RTEC start be interpreted as an active search?",
+      "current_evidence": "Automated alerts continue after April 2026 but direct application/interview evidence does not establish a new active search period.",
+      "priority": "low",
+      "rule": "Require direct application, recruiter, interview, or user-stated evidence before marking a renewed active search."
+    },
+    {
+      "id": "attachments.unread_corpus",
+      "question": "What additional profile/project facts are contained in the archived attachment bodies?",
+      "current_evidence": "231 of 232 attachment records expose metadata only; filenames indicate resumes, forms, PDFs, scans, spreadsheets, and other documents but their contents were not available for semantic analysis.",
+      "priority": "high",
+      "rule": "Treat these attachments as unread evidence. Never infer document contents from filename alone."
+    }
+  ],
+  "contradictions_and_version_rules": [
+    {
+      "topic": "relationship labels",
+      "rule": "Use the newest direct user statement; retain old labels only as dated historical evidence."
+    },
+    {
+      "topic": "employment",
+      "rule": "Current accepted/started role outranks old applications and automated job alerts."
+    },
+    {
+      "topic": "housing",
+      "rule": "Historical leases and applications are timeline evidence; do not infer a current address from old records."
+    },
+    {
+      "topic": "devices and services",
+      "rule": "Direct purchase/account events are time-bounded; accessories and marketing do not establish current ownership."
+    },
+    {
+      "topic": "education credentials",
+      "rule": "Self-reported enrollment is not the same as completion; do not promote a degree without corroboration."
+    }
+  ],
+  "profile_questions_worth_asking_only_when_relevant": [
+    "Exact Berea degree/major, if a career/resume/education task needs it.",
+    "Current status of the 2025 Audio Engineering master's, if education or audio work becomes relevant.",
+    "Current housing outcome, if budgeting, moving, utilities, or location-specific planning needs it.",
+    "Current device ownership, only when troubleshooting or purchasing advice depends on the exact device."
+  ],
+  "profile_questions_not_worth_interrupting_for": [
+    "Low-impact historical purchases.",
+    "Names/contact details of private third parties who are not relevant to a current task.",
+    "Whether every paid-study invitation was completed.",
+    "Whether every Steam wishlist title was purchased or played.",
+    "Whether every household purchase represents the user's own preference."
+  ],
+  "attachment_recovery_plan": [
+    "Recover attachment binaries from the original mail archive/provider or source extraction pipeline.",
+    "Hash/deduplicate before extraction.",
+    "Extract text locally with format-appropriate parsers and OCR only when needed.",
+    "Keep raw attachment data local/private.",
+    "Link extracted evidence back to message_id/attachment_id.",
+    "Run the same confidence, sensitivity, version, and promotion filters used for message text.",
+    "Only promote durable sanitized findings into Git."
+  ]
+}
