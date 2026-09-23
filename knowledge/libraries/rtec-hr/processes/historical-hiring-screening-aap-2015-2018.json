@@ -1,0 +1,142 @@
+{
+  "id": "rtec-process-historical-hiring-screening-aap-2015-2018",
+  "record_type": "process",
+  "title": "Historical hiring and safety-sensitive screening workflow — AAP 2015–2018",
+  "status": "validated",
+  "temporal_status": "historical",
+  "effective_from": null,
+  "effective_to": "2018-06-30",
+  "summary": "Historical AAP evidence of RTEC's recruitment/interview/screening flow, including CEO approval to advertise/interview, local newspaper and OET recruiting, structured driver interview considerations, and safety-sensitive driving/background/DOT physical/drug screening.",
+  "claims": [
+    {
+      "claim": "The historical AAP describes a hiring flow beginning with CEO approval to advertise/interview, followed by local newspaper/OET recruitment, interview, and post-interview background screening for selected candidates.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-process-driver-hiring-orientation-training-2018"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-compliance-aap-2015-2018",
+          "page_or_section": "Employment Practices / hiring process",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The historical AAP lists driving-record check, background-record check, DOT physical, and pre-employment drug test as pre-employment screenings for safety-sensitive positions.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-process-driver-hiring-orientation-training-2018"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-compliance-aap-2015-2018",
+          "page_or_section": "pre-employment screenings",
+          "evidence_type": "explicit_text",
+          "note": "Historical source; current requirements must be revalidated."
+        }
+      ]
+    },
+    {
+      "claim": "The historical AAP includes specific driver criminal/driving-record criteria, but those criteria are not treated as current policy without newer authority.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-compliance-aap-2015-2018",
+          "page_or_section": "Criteria for Hiring Drivers",
+          "evidence_type": "explicit_text",
+          "note": "Preserved as historical evidence only."
+        }
+      ]
+    }
+  ],
+  "trigger": "Approved job opening and authorization to recruit/interview.",
+  "prerequisites": [
+    "CEO approval to advertise/interview under the historical source"
+  ],
+  "actors": [
+    "CEO/Executive Director",
+    "EEO Administrative Manager",
+    "Office of Employment & Training",
+    "Interviewer/hiring staff",
+    "Safety/Training/Accident/Drug/Alcohol Program Manager"
+  ],
+  "systems": [
+    "Historical newspaper/OET recruiting and paper forms"
+  ],
+  "forms": [
+    "Application",
+    "Driving Record Release authorization",
+    "Criminal background authorization",
+    "Information release",
+    "Drug and Alcohol Policy copy",
+    "Job Description",
+    "Voluntary Affirmative Action Data Record",
+    "Pre-employment driver test"
+  ],
+  "steps": [
+    "Obtain authorization to recruit/interview.",
+    "Advertise through local newspaper and OET with EEO language.",
+    "Collect application and driver-specific releases/materials where applicable.",
+    "Schedule and conduct interview.",
+    "Provide company/position/hours/pay/policy/benefit information.",
+    "Forward selected safety-sensitive candidate for background/safety screening.",
+    "Complete source-listed driving/background/DOT physical/drug testing requirements.",
+    "Make final hiring decision under the historical authority structure."
+  ],
+  "decisions": [
+    "Whether applicant advances to interview.",
+    "Whether selected candidate satisfies source-listed screening criteria.",
+    "Final hiring decision."
+  ],
+  "deadlines": [],
+  "outputs": [
+    "Historical candidate screening file",
+    "Hiring/no-hire decision"
+  ],
+  "exceptions": [],
+  "controls": [
+    "EEO recruiting language",
+    "Annual personnel-process review described in AAP",
+    "Separation of voluntary affirmative-action data from qualification decision should be validated against current process"
+  ],
+  "unresolved_questions": [
+    "Which historical screening criteria remain current?",
+    "What replaced OET/local-newspaper recruiting in present practice?",
+    "What is the current approved background-check adjudication matrix?",
+    "How is voluntary demographic/EEO data separated from hiring decision-makers today?"
+  ],
+  "automation_candidates": [
+    "Current-policy-aware applicant checklist that never reuses obsolete screening rules.",
+    "Automated background/release completeness checks without automatic adverse hiring decisions.",
+    "Versioned recruitment-channel and required-form mapping by job."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-compliance-aap-2015-2018",
+      "safe_source_type": "affirmative_action_plan",
+      "source_date_or_version": "historical plan ending 2018-06-30",
+      "source_created_date": null,
+      "source_revision_date": "2018-06-30",
+      "source_effective_from": null,
+      "source_effective_to": "2018-06-30",
+      "temporal_status": "historical",
+      "content_sha256": "08ef1c128bf47b38fdc29884dfd9454bdd60c109988b7afea8df2a19ec1a0fbf",
+      "page_or_section": "Employment Practices / hiring process",
+      "full_source_path": "knowledge/libraries/rtec-hr/compliance/sources/aap-2015-2018/",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/compliance/sources/aap-2015-2018/sections/employment-practices-and-hiring.md",
+      "ingested_at": "2026-09-23",
+      "notes": "Historical policy/process evidence only."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "checkpoint_id": "fy2017-grants-compliance",
+  "updated_at": "2026-09-23",
+  "status": "in_progress_restart_safe",
+  "source_scope": {
+    "grant_pdfs": 3,
+    "scanned_grant_pages": 1021,
+    "compliance_archive_files": 864,
+    "compliance_archive_uncompressed_bytes": 553596933
+  },
+  "completed": [
+    "Hashed and identified all three original grant PDFs and !Compliance.zip.",
+    "Recorded actual PDF page counts rather than the truncated 150-page viewer counts.",
+    "Committed 5310/5311/5339 checklist and initial structure maps.",
+    "Modeled the historical FY2017 grant compilation/compliance workflow.",
+    "Indexed !Compliance.zip by major collection and file type with privacy boundary.",
+    "Identified FY2017-era canonical AAP, Title VI/LEP, ADA and EEO certification sources.",
+    "Preserved the historical ADA complaint process and modeled it.",
+    "Preserved key complaint/accommodation/employment sections of the 2015–2018 AAP.",
+    "Built the Title VI plan version chain from 2016 to 2019 to January 2026.",
+    "Preserved the January 2026 Title VI core/current complaint procedure.",
+    "Preserved 2016 Kentucky EEO renewal/approval evidence.",
+    "Created explicit manifests marking AAP and Title VI full-source preservation as in progress rather than complete."
+  ],
+  "next_steps": [
+    "Continue sectioned preservation of the remaining 2015–2018 AAP text.",
+    "Continue sectioned preservation of the remaining 2016/2019/2026 Title VI/LEP plan text and attachments.",
+    "Deduplicate recurring FY2017 grant assurance/certification pages against canonical compliance archive sources.",
+    "Ingest safe EEO manager/supervisor training material.",
+    "Index current and historical EEO certification renewal chain including the 2025 approval expiring 2026-09-30.",
+    "Process remaining grant-unique sections by checklist/page batch instead of monolithic OCR.",
+    "Keep employee/applicant/case-level materials in restricted-evidence metadata only."
+  ],
+  "resume_rule": "On resume, read this checkpoint plus projects/rtec-hr-process-model/state.json and knowledge/libraries/rtec-hr/grants/fy2017/README.md before processing more pages. Never restart the 1,021-page corpus from page 1."
+}
