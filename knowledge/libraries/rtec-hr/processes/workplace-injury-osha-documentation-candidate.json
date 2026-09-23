@@ -1,0 +1,92 @@
+{
+  "id": "rtec-process-workplace-injury-osha-documentation-candidate",
+  "record_type": "process",
+  "title": "Workplace injury / OSHA documentation - case-derived candidate",
+  "status": "candidate",
+  "temporal_status": "unknown",
+  "summary": "A 2026 OSHA Form 301 case provides direct evidence that OSHA injury/illness incident documentation is used in at least one RTEC workplace-injury record flow. Reporting, workers' compensation, medical, OSHA log, supervisor, return-to-work and retention steps remain to be established.",
+  "claims": [
+    {
+      "claim": "RTEC retained an OSHA Form 301 injury/illness incident report in at least one 2026 workplace-injury case.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-2026-08-osha-injury-report",
+          "page_or_section": null,
+          "evidence_type": "structural",
+          "note": "Restricted case record; metadata-only evidence."
+        }
+      ]
+    },
+    {
+      "claim": "The OSHA Form 301 likely participates in a broader workplace-injury and/or workers' compensation process, but the complete workflow cannot be established from one case.",
+      "claim_kind": "rule_candidate",
+      "confidence": 0.65,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-2026-08-osha-injury-report",
+          "page_or_section": null,
+          "evidence_type": "structural",
+          "note": "Single-case inference requiring corroboration."
+        }
+      ]
+    }
+  ],
+  "trigger": "Work-related injury or illness - candidate.",
+  "prerequisites": [],
+  "actors": [
+    "Employee",
+    "Supervisor",
+    "HR",
+    "Workers' compensation/safety roles - unconfirmed"
+  ],
+  "systems": [],
+  "forms": [
+    "OSHA Form 301"
+  ],
+  "steps": [],
+  "decisions": [],
+  "deadlines": [],
+  "outputs": [
+    "OSHA injury/illness incident documentation - candidate"
+  ],
+  "exceptions": [],
+  "controls": [
+    "Medical and injury case details remain restricted and must not be generalized into the global knowledge layer."
+  ],
+  "unresolved_questions": [
+    "Who completes OSHA Form 301 and when?",
+    "How does Form 301 relate to OSHA 300/300A logs?",
+    "What workers' compensation forms and carrier notifications are required?",
+    "What reporting deadlines and supervisor notifications apply?",
+    "How are medical restrictions/return-to-work handled and segregated from general personnel files?"
+  ],
+  "automation_candidates": [
+    "Once validated, create a restricted injury-case checklist with deadline tracking, document inventory and separation of medical/PII data from generalized process knowledge."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-restricted-2026-08-osha-injury-report",
+      "safe_source_type": "restricted_case_metadata",
+      "source_date_or_version": "2026-08 case evidence",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "unknown",
+      "content_sha256": "e1cc5f91571ccfe45d389d67dda4a7775d72f6d7aa2f4d4176f476379072890b",
+      "page_or_section": null,
+      "full_source_path": null,
+      "searchable_text_path": null,
+      "ingested_at": "2026-09-23",
+      "notes": "No raw injury/medical case content retained in GitHub."
+    }
+  ]
+}
