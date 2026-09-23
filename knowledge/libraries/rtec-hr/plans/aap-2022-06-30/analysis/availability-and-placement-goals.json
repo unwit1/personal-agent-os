@@ -1,0 +1,118 @@
+{
+  "plan_id": "rtec-aap-2022-06-30",
+  "analysis_type": "availability_and_placement_goals",
+  "snapshot_date": "2022-06-30",
+  "status": "validated_historical_source_analysis",
+  "method_evidence": {
+    "labor_source_label": "2010 Census Data",
+    "job_group_1": {
+      "name": "Officials/Managers",
+      "reasonable_recruitment_area": "Rockcastle County",
+      "external_hire_weight": 0.09,
+      "internal_promotion_weight": 0.91,
+      "source_reported_final_factors": {
+        "female": 0.75,
+        "minority": 0,
+        "veterans": 0.051,
+        "iwd": 0.073
+      }
+    },
+    "job_group_5": {
+      "name": "Office/Clerical",
+      "reasonable_recruitment_area": "Rockcastle County",
+      "external_hire_weight": 0.79,
+      "internal_promotion_weight": 0.21,
+      "source_reported_final_factors": {
+        "female": 0.57,
+        "minority": 0.0002757,
+        "veterans": 0.0001568,
+        "iwd": 0.060168
+      }
+    },
+    "job_group_7": {
+      "name": "Operatives",
+      "reasonable_recruitment_area": [
+        "Bell",
+        "Clinton",
+        "Cumberland",
+        "Knox",
+        "Laurel",
+        "McCreary",
+        "Monroe",
+        "Pulaski",
+        "Rockcastle",
+        "Russell",
+        "Wayne",
+        "Whitley"
+      ],
+      "external_hire_weight": 1,
+      "internal_promotion_weight": 0,
+      "source_reported_final_factors": {
+        "female": 0.504,
+        "minority": 0.0006218,
+        "veterans": 0.000549,
+        "iwd": 0.07
+      }
+    }
+  },
+  "source_reported_goals": [
+    {
+      "job_group": 5,
+      "population": "minorities",
+      "establish_goal": "Yes",
+      "goal": 1
+    },
+    {
+      "job_group": 7,
+      "population": "females",
+      "establish_goal": "Yes",
+      "goal": 8
+    },
+    {
+      "job_group": 7,
+      "population": "minorities",
+      "establish_goal": "Yes",
+      "goal": 3
+    },
+    {
+      "job_group": 7,
+      "population": "individuals_with_disabilities",
+      "establish_goal": "Yes",
+      "goal": 2
+    }
+  ],
+  "source_reported_no_goal_examples": [
+    {
+      "job_group": 1,
+      "population": "females"
+    },
+    {
+      "job_group": 1,
+      "population": "minorities"
+    },
+    {
+      "job_group": 5,
+      "population": "females"
+    },
+    {
+      "job_group": 5,
+      "population": "veterans"
+    },
+    {
+      "job_group": 5,
+      "population": "individuals_with_disabilities"
+    },
+    {
+      "job_group": 7,
+      "population": "veterans"
+    }
+  ],
+  "provenance": [
+    "rtec-aap-2022-determining-availability",
+    "rtec-aap-2022-determining-availability-veterans",
+    "rtec-aap-2022-determining-availability-iwd",
+    "rtec-aap-2022-incumbency-to-availability",
+    "rtec-aap-2022-labor-statistics"
+  ],
+  "warning": "These are historical source-reported values and goals, not current recommendations. Some percentage-scale values appear internally inconsistent and are separately flagged."
+}

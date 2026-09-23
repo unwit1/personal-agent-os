@@ -1,0 +1,150 @@
+{
+  "plan_id": "rtec-aap-2022-06-30",
+  "analysis_type": "workforce_and_incumbency",
+  "snapshot_date": "2022-06-30",
+  "status": "validated_historical_source_analysis",
+  "overall_workforce": {
+    "total": 159,
+    "female": 67,
+    "minority": 6,
+    "veterans": 17,
+    "individuals_with_disabilities": 8,
+    "source_reported_percentages": {
+      "female": 0.42,
+      "minority": 0.000526,
+      "veterans": 0.11,
+      "individuals_with_disabilities": 0.05
+    }
+  },
+  "job_groups": [
+    {
+      "eeo1": 1,
+      "name": "Executive/Senior Level Officials & Managers",
+      "total": 1,
+      "female": 1,
+      "minority": 0,
+      "veterans": 0,
+      "iwd": 0
+    },
+    {
+      "eeo1": 1,
+      "name": "First/Mid-Level Officials & Managers",
+      "total": 11,
+      "female": 8,
+      "minority": 0,
+      "veterans": 1,
+      "iwd": 1
+    },
+    {
+      "eeo1": 2,
+      "name": "Professionals",
+      "total": 2,
+      "female": 0,
+      "minority": 0,
+      "veterans": 0,
+      "iwd": 0
+    },
+    {
+      "eeo1": 3,
+      "name": "Technicians",
+      "total": 1,
+      "female": 0,
+      "minority": 0,
+      "veterans": 0,
+      "iwd": 0
+    },
+    {
+      "eeo1": 4,
+      "name": "Sales Workers",
+      "total": 0,
+      "female": 0,
+      "minority": 0,
+      "veterans": 0,
+      "iwd": 0
+    },
+    {
+      "eeo1": 5,
+      "name": "Office/Clerical",
+      "total": 24,
+      "female": 20,
+      "minority": 0,
+      "veterans": 1,
+      "iwd": 2
+    },
+    {
+      "eeo1": 6,
+      "name": "Craft Workers",
+      "total": 2,
+      "female": 0,
+      "minority": 0,
+      "veterans": 0,
+      "iwd": 0
+    },
+    {
+      "eeo1": 7,
+      "name": "Operatives",
+      "total": 114,
+      "female": 37,
+      "minority": 6,
+      "veterans": 14,
+      "iwd": 5
+    },
+    {
+      "eeo1": 8,
+      "name": "Laborers/Helpers",
+      "total": 3,
+      "female": 0,
+      "minority": 0,
+      "veterans": 1,
+      "iwd": 0
+    },
+    {
+      "eeo1": 9,
+      "name": "Service Workers",
+      "total": 1,
+      "female": 1,
+      "minority": 0,
+      "veterans": 0,
+      "iwd": 0
+    }
+  ],
+  "workforce_department_snapshots": {
+    "Garage": {
+      "total": 6,
+      "male": 6,
+      "female": 0,
+      "veterans": 1
+    },
+    "Operations": {
+      "total": 123,
+      "male": 81,
+      "female": 42,
+      "veterans": 16,
+      "iwd": 6
+    },
+    "Administrative": {
+      "total": 15,
+      "male": 4,
+      "female": 11,
+      "iwd": 1
+    },
+    "Administrative - Customer Service": {
+      "total": 13,
+      "male": 1,
+      "female": 12,
+      "iwd": 1
+    },
+    "Cafeteria": {
+      "total": 2,
+      "male": 0,
+      "female": 2
+    }
+  },
+  "major_job_title_observation": "The populated workforce analysis lists 113 Transit Drivers plus 1 Part-time Transit Driver, aligning with the 114 Operatives in the incumbency analysis.",
+  "provenance": [
+    "rtec-aap-2022-incumbency-analysis",
+    "rtec-aap-2022-workforce-analysis",
+    "rtec-aap-2022-narrative-good-faith"
+  ],
+  "data_quality_note": "Source-reported percentages are preserved as source values. Potential scale inconsistencies are documented separately and are not silently corrected."
+}

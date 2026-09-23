@@ -1,0 +1,68 @@
+{
+  "plan_id": "rtec-aap-2022-06-30",
+  "analysis_type": "data_quality_findings",
+  "status": "candidate_findings_require_historical_formula_review",
+  "principle": "Preserve historical source values unchanged. Store derived arithmetic only as a review finding, never as a silent correction.",
+  "findings": [
+    {
+      "id": "aap-2022-minority-labor-percentage-scale",
+      "confidence": 0.99,
+      "evidence": {
+        "total_population": 315770,
+        "total_minority_count": 19636,
+        "count_derived_ratio": 0.0621845014,
+        "source_reported_ratio": 0.0006218
+      },
+      "observation": "The source-reported minority ratio is approximately 100 times smaller than the ratio calculated from the source's own counts."
+    },
+    {
+      "id": "aap-2022-veteran-labor-percentage-scale",
+      "confidence": 0.99,
+      "evidence": {
+        "total_population": 315770,
+        "total_veteran_count": 17321,
+        "count_derived_ratio": 0.0548532159,
+        "source_reported_ratio": 0.000549
+      },
+      "observation": "The source-reported veteran ratio is approximately 100 times smaller than the ratio calculated from the source's own counts."
+    },
+    {
+      "id": "aap-2022-operative-minority-incumbency-scale",
+      "confidence": 0.99,
+      "evidence": {
+        "operative_total": 114,
+        "operative_minority_count": 6,
+        "count_derived_ratio": 0.0526315789,
+        "source_reported_ratio": 0.000526
+      },
+      "observation": "The Operatives minority-incumbency ratio appears approximately 100 times smaller than the ratio implied by its own counts."
+    },
+    {
+      "id": "aap-2022-overall-minority-incumbency-mismatch",
+      "confidence": 0.99,
+      "evidence": {
+        "overall_total": 159,
+        "overall_minority_count": 6,
+        "count_derived_ratio": 0.0377358491,
+        "source_reported_ratio": 0.000526
+      },
+      "observation": "The overall minority-incumbency percentage does not match the source's own overall count ratio and appears to reuse the Operatives source-reported percentage."
+    },
+    {
+      "id": "aap-2022-hire-termination-percentage-scale",
+      "confidence": 0.95,
+      "observation": "Minority/veteran/IWD percentage fields in the new-hire and termination summaries show similar scale behavior relative to their count totals."
+    },
+    {
+      "id": "aap-2022-iwd-office-weighted-cell-format",
+      "confidence": 0.95,
+      "observation": "In the IWD availability workbook, an Office/Clerical internal weighted cell is rendered as 0.0168% while the final raw factor is 0.060168; workbook formula/format review is needed before interpreting the displayed percentage."
+    }
+  ],
+  "downstream_risk": "The same source percentages feed availability, incumbency-to-availability, placement-goal, and narrative values. Historical decisions should be interpreted using the original files, while any reuse for a later plan should recompute from validated raw counts/data.",
+  "required_follow_up": [
+    "Recover original formulas/number formats from the legacy XLS files.",
+    "Determine whether values were intended as decimals formatted as percentages or manually entered percentage text.",
+    "Do not retroactively rewrite the 2022 plan; document any correction as a separate reviewed version."
+  ]
+}

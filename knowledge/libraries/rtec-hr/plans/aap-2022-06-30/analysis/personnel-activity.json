@@ -1,0 +1,117 @@
+{
+  "plan_id": "rtec-aap-2022-06-30",
+  "analysis_type": "personnel_activity",
+  "snapshot_date": "2022-06-30",
+  "status": "validated_historical_source_analysis",
+  "new_hires": {
+    "total": 51,
+    "office_clerical": 11,
+    "operatives": 37,
+    "service_workers": 3,
+    "source_total_male_share": 0.55,
+    "source_total_female_share": 0.45,
+    "veterans": 2,
+    "iwd": 0
+  },
+  "terminations": {
+    "total": 51,
+    "office_clerical": 8,
+    "operatives": 41,
+    "service_workers": 2,
+    "source_total_male_share": 0.59,
+    "source_total_female_share": 0.41,
+    "veterans": 4,
+    "iwd": 1
+  },
+  "personnel_activity_framework": [
+    "External Hires",
+    "External Applicants",
+    "Promotions Into Job Group",
+    "Promotions Within Job Group",
+    "Transfers Into Job Group",
+    "Transfers Within Job Group",
+    "Voluntary Terminations & Retirements",
+    "Involuntary Terminations",
+    "Layoffs",
+    "Recalls",
+    "Disciplinary Actions"
+  ],
+  "notable_job_group_activity": {
+    "office_clerical": {
+      "external_hires": {
+        "male": 1,
+        "female": 10
+      },
+      "external_applicants": {
+        "male": 13,
+        "female": 41
+      },
+      "promotions_within": {
+        "male": 0,
+        "female": 3
+      },
+      "transfers_within": {
+        "male": 0,
+        "female": 2
+      },
+      "voluntary_terminations_retirements": {
+        "male": 1,
+        "female": 7
+      },
+      "disciplinary_actions": {
+        "male": 0,
+        "female": 8
+      }
+    },
+    "operatives": {
+      "external_hires": {
+        "male": 26,
+        "female": 11
+      },
+      "external_applicants": {
+        "male": 129,
+        "female": 59
+      },
+      "transfers_within": {
+        "male": 3,
+        "female": 0
+      },
+      "voluntary_terminations_retirements": {
+        "male": 20,
+        "female": 10
+      },
+      "involuntary_terminations": {
+        "male": 8,
+        "female": 3
+      },
+      "disciplinary_actions": {
+        "male": 29,
+        "female": 6
+      }
+    },
+    "service_workers": {
+      "external_hires": {
+        "male": 1,
+        "female": 2
+      },
+      "external_applicants": {
+        "male": 9,
+        "female": 12
+      },
+      "voluntary_terminations_retirements": {
+        "male": 1,
+        "female": 0
+      },
+      "involuntary_terminations": {
+        "male": 0,
+        "female": 1
+      }
+    }
+  },
+  "provenance": [
+    "rtec-aap-2022-new-hire-summary",
+    "rtec-aap-2022-termination-summary",
+    "rtec-aap-2022-personnel-activity"
+  ],
+  "warning": "These are aggregate historical figures. The source's percentage fields are preserved separately and are not treated as mathematically corrected values."
+}

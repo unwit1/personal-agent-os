@@ -1,0 +1,104 @@
+{
+  "id": "rtec-process-aap-compilation-2022",
+  "record_type": "process",
+  "title": "Historical RTEC AAP compilation workflow inferred from the 2022 package",
+  "status": "validated_as_historical_package_structure",
+  "temporal_status": "historical",
+  "snapshot_date": "2022-06-30",
+  "summary": "The source package demonstrates a staged AAP/EEO analysis process that moves from employee/personnel inputs through workforce/job-group/activity analysis, labor-market availability, incumbency comparisons, goal setting, narrative good-faith efforts, complaint/investigation records, and binder assembly.",
+  "stages": [
+    {
+      "order": 1,
+      "stage": "Assemble restricted employee/EEO roster inputs",
+      "sources": [
+        "rtec-aap-2022-current-employee-roster",
+        "rtec-aap-2022-current-eeo-employee-roster"
+      ],
+      "privacy": "restricted employee-level data"
+    },
+    {
+      "order": 2,
+      "stage": "Build workforce and job-group analysis",
+      "sources": [
+        "rtec-aap-2022-workforce-analysis",
+        "rtec-aap-2022-job-group-analysis",
+        "rtec-aap-2022-incumbency-analysis"
+      ]
+    },
+    {
+      "order": 3,
+      "stage": "Compile personnel activity",
+      "sources": [
+        "rtec-aap-2022-personnel-activity",
+        "rtec-aap-2022-new-hire-summary",
+        "rtec-aap-2022-termination-summary"
+      ]
+    },
+    {
+      "order": 4,
+      "stage": "Compile external labor statistics and internal/external placement weights",
+      "sources": [
+        "rtec-aap-2022-labor-statistics"
+      ]
+    },
+    {
+      "order": 5,
+      "stage": "Determine availability for females/minorities, veterans, and individuals with disabilities",
+      "sources": [
+        "rtec-aap-2022-determining-availability",
+        "rtec-aap-2022-determining-availability-veterans",
+        "rtec-aap-2022-determining-availability-iwd"
+      ]
+    },
+    {
+      "order": 6,
+      "stage": "Compare incumbency to availability and establish annual placement goals",
+      "sources": [
+        "rtec-aap-2022-incumbency-to-availability"
+      ]
+    },
+    {
+      "order": 7,
+      "stage": "Write narrative descriptions, good-faith efforts, goals and timetables",
+      "sources": [
+        "rtec-aap-2022-narrative-good-faith"
+      ]
+    },
+    {
+      "order": 8,
+      "stage": "Include employment-practice and complaint/investigation evidence",
+      "sources": [
+        "rtec-hr-2018-driver-training-orientation",
+        "rtec-hr-title-vii-complaint-form-2016",
+        "rtec-hr-sexual-harassment-complaint-form-2017",
+        "rtec-aap-2022-title-vii-investigations"
+      ]
+    },
+    {
+      "order": 9,
+      "stage": "Assemble indexed binder sections, ads/brochures, and Kentucky certification material",
+      "sources": [
+        "rtec-aap-2022-index-tabs",
+        "rtec-aap-2022-insert-sheets"
+      ],
+      "gap": "Sample ads/brochures and Commonwealth of Kentucky certification source files were referenced by the binder index but were not included in this upload."
+    }
+  ],
+  "controls": [
+    "Employee-level EEO and identity data should remain restricted from generalized process knowledge.",
+    "Snapshot/effective period must be kept distinct from later file-edit dates.",
+    "Source numbers should not be silently corrected; calculation issues require a separately reviewed correction."
+  ],
+  "automation_candidates": [
+    "Generate future AAP packages from a validated restricted roster plus versioned job-group mappings and current labor-market data.",
+    "Run deterministic arithmetic/percentage consistency checks before narrative generation or goal-setting.",
+    "Produce binder/index sections automatically from the source manifest.",
+    "Maintain a version-to-version diff of workforce composition, availability, goals, hires, terminations, and good-faith narratives.",
+    "Keep Title VII/EEO complaint case data in a separate restricted case store while exposing only aggregate counts to the AAP compiler."
+  ],
+  "provenance": [
+    "rtec-aap-2022-index-tabs",
+    "rtec-aap-2022-insert-sheets",
+    "all plan source records in source-manifest.json"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "plan_id": "rtec-aap-2022-06-30",
+  "analysis_type": "title_vii_and_complaint_process",
+  "snapshot_date": "2022-06-30",
+  "status": "validated_historical_source_analysis",
+  "title_vii_log": {
+    "investigations": "NONE",
+    "lawsuits": "NONE",
+    "complaints": "NONE",
+    "as_of": "2022-06-30"
+  },
+  "title_vii_complaint_form": {
+    "source_id": "rtec-hr-title-vii-complaint-form-2016",
+    "fields_include": [
+      "complainant name/address/telephone/email",
+      "accessible format requirement",
+      "self or third-party filing",
+      "race/color/national origin/sex/age/disability basis selections",
+      "date and description of alleged discrimination",
+      "persons involved and witnesses",
+      "prior RTEC Title VII/discrimination complaint",
+      "other Federal/State/local agency or court filings",
+      "agency/court contact information",
+      "attachments/materials",
+      "signature and date"
+    ],
+    "submission_instruction": "Submit in person or mail to RTEC, Attn: Title VII Coordinator.",
+    "currentness": "unknown"
+  },
+  "sexual_harassment_complaint_form": {
+    "source_id": "rtec-hr-sexual-harassment-complaint-form-2017",
+    "fields_include": [
+      "complainant identifying/job information",
+      "time period",
+      "alleged harasser names/job titles/departments",
+      "dates and nature of alleged harassment",
+      "witnesses/others with knowledge",
+      "supporting documents and physical evidence",
+      "missed work",
+      "unreimbursed medical expenses",
+      "prior complaint, date and resolution",
+      "requested remedy",
+      "truth/correctness acknowledgement",
+      "cooperation acknowledgement"
+    ],
+    "investigation_statement": "The form says investigation requires interviewing the complainant, alleged harasser(s), and witnesses; persons involved are to be told the investigation is confidential, with unauthorized disclosures potentially subject to discipline up to discharge.",
+    "currentness": "unknown"
+  },
+  "provenance": [
+    "rtec-aap-2022-title-vii-investigations",
+    "rtec-hr-title-vii-complaint-form-2016",
+    "rtec-hr-sexual-harassment-complaint-form-2017"
+  ]
+}
