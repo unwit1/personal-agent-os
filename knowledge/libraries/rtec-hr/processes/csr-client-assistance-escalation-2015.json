@@ -1,0 +1,75 @@
+{
+  "id": "rtec-process-csr-client-assistance-escalation-2015",
+  "record_type": "process",
+  "title": "CSR client-assistance and external escalation instruction - 2015",
+  "status": "candidate",
+  "temporal_status": "historical",
+  "effective_from": "2015-06-02",
+  "effective_to": null,
+  "summary": "A June 2015 HR memo instructed Customer Service Representatives not to direct clients to call an entity referred to as 'State' and instead to make every effort to assist clients themselves.",
+  "claims": [
+    {
+      "claim": "The June 2, 2015 memo instructs CSRs not to tell clients to call 'State' and to make every effort to assist clients as much as possible.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-csr-do-not-call-state-memo-2015-06-02",
+          "page_or_section": "full memorandum",
+          "evidence_type": "explicit_text",
+          "note": "The source does not define the exact State entity or document exceptions."
+        }
+      ]
+    }
+  ],
+  "trigger": "A client contacts a CSR with a question or service need.",
+  "prerequisites": [],
+  "actors": [
+    "Customer Service Representative",
+    "Human Resources"
+  ],
+  "systems": [],
+  "forms": [],
+  "steps": [
+    "Attempt to assist the client directly rather than redirecting the client to 'State'."
+  ],
+  "decisions": [
+    "Determine whether the CSR can resolve the client's need within current authority; current escalation exceptions are not established by this source."
+  ],
+  "deadlines": [],
+  "outputs": [
+    "Client assistance handled by CSR or escalated under a separately validated current process."
+  ],
+  "exceptions": [],
+  "controls": [
+    "Do not infer that all external/state escalation was prohibited in every circumstance; the memo does not define exceptions or the exact external entity."
+  ],
+  "unresolved_questions": [
+    "What entity did 'State' refer to in the 2015 memo?",
+    "What is the current CSR escalation path when a client issue cannot be resolved internally?",
+    "Was this instruction incorporated into later customer-service or HSTD procedures?"
+  ],
+  "automation_candidates": [
+    "CSR knowledge assistant that surfaces current internal resolution steps and approved escalation contacts before suggesting an external referral."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-csr-do-not-call-state-memo-2015-06-02",
+      "safe_source_type": "procedure_correspondence",
+      "source_date_or_version": "2015-06-02",
+      "content_sha256": "cf1b872278d89575eb061d4958ec9c964b6167a34fdfeed667c2193535f19eec",
+      "page_or_section": "full memorandum",
+      "ingested_at": "2026-09-23",
+      "notes": "Explicit historical CSR instruction; 'State' remains ambiguous.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": "2015-06-02",
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-csr-do-not-call-state-memo-2015-06-02/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-csr-do-not-call-state-memo-2015-06-02/fulltext.md"
+    }
+  ]
+}
