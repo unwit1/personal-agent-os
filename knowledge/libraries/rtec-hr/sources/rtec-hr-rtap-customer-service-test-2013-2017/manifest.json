@@ -1,0 +1,25 @@
+{
+  "source_id": "rtec-hr-rtap-customer-service-test-2013-2017",
+  "title": "National RTAP Customer Service Training and Quizzes",
+  "source_type": "training_material_and_quizzes",
+  "original_filename": "RTAP Customer Service TEST.pdf",
+  "source_representation": "complete_searchable_text_mirror",
+  "temporal_status": "historical",
+  "currentness": "unknown_not_assumed_current",
+  "dates": {
+    "pdf_creation_date": "2013-05-28",
+    "pdf_modified_date": "2017-11-08"
+  },
+  "publisher_or_origin": "National RTAP (Rural Transit Assistance Program)",
+  "sha256": "fbc30303aa16e83bdbdc4f22c0f17157681a5483d29cdb97cf67c7d53a294b5a",
+  "page_count": 6,
+  "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-rtap-customer-service-test-2013-2017/fulltext.md",
+  "derived_records": [
+    "knowledge/libraries/rtec-hr/processes/customer-service-training-rtap.json"
+  ],
+  "notes": [
+    "The PDF contains six paired issue/quiz units and signature/date lines for trainee and supervisor.",
+    "Creation and modification dates come from PDF metadata and do not by themselves establish when RTEC adopted or stopped using the material."
+  ],
+  "ingested_at": "2026-09-23"
+}
