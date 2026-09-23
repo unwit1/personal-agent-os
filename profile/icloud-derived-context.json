@@ -46,8 +46,9 @@
       "scan_status": "complete_for_indexed_message_text",
       "attachment_content_status": "The archive's indexed message text is exhausted for this pass. Attachment bodies are a separate future corpus because 231 of 232 attachment records expose metadata only.",
       "synthesis_status": "complete_for_indexed_message_text",
-      "structured_analysis_files": 9,
-      "notes_on_completion": "The indexed message text has been analyzed at corpus, timeline, career/education, communication/work-style, relationships/organizations, interests/digital-life, and commitment/automation levels. Attachment bodies remain a separately incomplete corpus."
+      "structured_analysis_files": 13,
+      "notes_on_completion": "The indexed message text has been analyzed at corpus, timeline, career/education, communication/work-style, relationships/organizations, interests/digital-life, and commitment/automation levels. Attachment bodies remain a separately incomplete corpus.",
+      "analysis_index": "profile/icloud-mail-analysis/index.json"
     }
   },
   "identity_and_account_context": {
@@ -340,6 +341,22 @@
     {
       "path": "profile/icloud-mail-analysis/open-questions-and-uncertainties.json",
       "purpose": "Version-sensitive, weakly evidenced, or unresolved questions that must not be guessed or silently promoted."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/index.json",
+      "purpose": "Entry point and completeness boundary for the exhaustive mail analysis."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/household-and-routines.json",
+      "purpose": "Housing, meal-convenience, cooking/DIY, vehicle, and household-planning evidence."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/temporal-and-freshness-model.json",
+      "purpose": "Notification-volume evolution and evidence/recency weighting rules."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/attachment-corpus-status.json",
+      "purpose": "Aggregate attachment inventory and future local extraction plan."
     }
   ],
   "behavior_and_commitments": {
