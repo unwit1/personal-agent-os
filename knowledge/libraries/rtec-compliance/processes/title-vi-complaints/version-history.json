@@ -1,0 +1,52 @@
+{
+  "id": "rtec-process-title-vi-complaint-version-history",
+  "record_type": "process_version_history",
+  "title": "RTEC Title VI complaint process version history",
+  "status": "validated",
+  "temporal_status": "current",
+  "versions": [
+    {
+      "source_id": "rtec-compliance-title-vi-complaint-procedures-standalone",
+      "temporal_status": "historical_or_superseded",
+      "filing_window": "180 days",
+      "acknowledgement": "within 10 days",
+      "investigation_window": "90 days",
+      "additional_information_due": "10 business days",
+      "appeal_window": "7 days",
+      "source_path": "knowledge/libraries/rtec-compliance/processes/title-vi-complaints/standalone-source-fulltext.txt"
+    },
+    {
+      "source_id": "rtec-compliance-title-vi-lep-2023",
+      "board_approval_date": "2023-01-16",
+      "temporal_status": "historical_superseded",
+      "filing_window": "180 days unless extended by FTA",
+      "acknowledgement": "within 10 days by mail",
+      "investigation_window": "90 days",
+      "additional_information_due": "30 business days",
+      "appeal_window": "90 days",
+      "source_path": "knowledge/libraries/rtec-compliance/plans/title-vi-lep/2023/"
+    },
+    {
+      "source_id": "rtec-compliance-title-vi-lep-2026",
+      "board_approval_date": "2026-01-19",
+      "temporal_status": "current",
+      "filing_window": "180 days unless extended by FTA",
+      "acknowledgement": "within 10 days by mail",
+      "investigation_window": "90 days",
+      "additional_information_due": "30 business days",
+      "appeal_window": "90 days",
+      "source_path": "knowledge/libraries/rtec-compliance/plans/title-vi-lep/2026/"
+    }
+  ],
+  "resolution": "Use the board-approved January 2026 plan for current internal process modeling unless a later approved source is found. Preserve the shorter 10-day information and 7-day appeal periods only as historical standalone-source evidence.",
+  "common_flow": [
+    "Receive complete complaint.",
+    "Determine jurisdiction.",
+    "Acknowledge whether RTEC will investigate.",
+    "Investigate and request additional information when needed.",
+    "Administratively close when applicable.",
+    "Issue closure letter or letter of finding.",
+    "Provide appeal/escalation path."
+  ],
+  "privacy": "Case-specific complaint data must remain in a restricted store."
+}
