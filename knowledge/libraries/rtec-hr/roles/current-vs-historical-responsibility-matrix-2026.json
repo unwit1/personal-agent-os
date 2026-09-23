@@ -1,0 +1,233 @@
+{
+  "record_id": "rtec-current-vs-historical-hr-responsibility-matrix-2026",
+  "updated_at": "2026-09-23",
+  "status": "cross_source_currentness_matrix",
+  "purpose": "Separate current assigned/current-policy HR responsibilities from historical Sheila-era duties and superseded workflows.",
+  "states": {
+    "confirmed_current_assigned": "Direct 2026 source assigns the responsibility or current operational account/activity to the current HR/EEO role.",
+    "current_policy_owner_needs_process_mapping": "Current RTEC policy explicitly involves HR, but the exact operational owner/system/checklist is not fully documented.",
+    "active_system_current_but_scope_unclear": "2026 vendor/system evidence is active, but the role's exact authority/module responsibility is not fully proven.",
+    "historical_likely_inherited_but_unverified": "Strong historical HR ownership evidence exists, but no current source yet proves the same assignment.",
+    "historical_or_superseded": "Evidence describes an older channel/provider/process and must not be treated as current."
+  },
+  "domains": [
+    {
+      "domain": "EEO program management and complaint investigation",
+      "state": "confirmed_current_assigned",
+      "current_authority": "Signed 2026-08-26 EEO policy names Jacob Salsman as EEO Manager/EEO Officer, reporting directly to the Executive Director and handling day-to-day EEO program management, monitoring and complaint investigation.",
+      "systems_or_artifacts": [
+        "current signed EEO policy",
+        "EEO complaint/program records - detailed current forms still unresolved"
+      ],
+      "historical_context": "Sheila Stallsworth -> Tracy Champion -> Clarissa Hodge -> Jacob Salsman role-holder history is effective-dated.",
+      "automation_readiness": "medium; authority is clear, detailed complaint forms/retention/access workflow still needed."
+    },
+    {
+      "domain": "general HR administration",
+      "state": "current_policy_owner_needs_process_mapping",
+      "current_authority": "2025 handbook repeatedly names the Human Resource Manager as an actor for pay/benefits, leave, safety, attendance, discipline and employee relations; user is documented as current RTEC HR Manager.",
+      "systems_or_artifacts": [
+        "ADP",
+        "personnel records",
+        "policy/handbook workflows"
+      ],
+      "historical_context": "Historical role documents show substantially broader operational detail than current policy.",
+      "automation_readiness": "medium; each subdomain needs current owner/system validation."
+    },
+    {
+      "domain": "benefits administration",
+      "state": "confirmed_current_assigned",
+      "current_authority": "2026 Guardian account email was changed to hr@4rtec.com and addressed to the current HR role; UnitedHealthcare implementation/account-management evidence is current; Guardian submissions continue in June 2026.",
+      "systems_or_artifacts": [
+        "Guardian",
+        "UnitedHealthcare",
+        "ComPsych",
+        "iSolved/benefit services - exact scope unresolved",
+        "employee-facing benefit documents"
+      ],
+      "historical_context": "CVIM, Humana, Baptist Health Plan, Abacus and older carrier/broker workflows are historical provider/version context.",
+      "automation_readiness": "medium-high for task tracking; low for automatic writes until authoritative system split and approval policy are mapped."
+    },
+    {
+      "domain": "payroll, time, tax and quarter-end coordination",
+      "state": "active_system_current_but_scope_unclear",
+      "current_authority": "2026 ADP operational mail strongly supports active Workforce Now/SmartCompliance/iReports/quarter-end activity. Current handbook sets pay/direct-deposit rules and includes HR in relevant workflows.",
+      "systems_or_artifacts": [
+        "ADP Workforce Now",
+        "SmartCompliance",
+        "iReports",
+        "Employee Self-Service",
+        "Service Connect"
+      ],
+      "historical_context": "Historical reminders show time approval, check-register review, W-4/K-4 monitoring and finance handoff.",
+      "automation_readiness": "medium; current HR-vs-finance approval boundaries and payroll cutoff must be confirmed before actions."
+    },
+    {
+      "domain": "Kentucky new-hire reporting",
+      "state": "confirmed_current_assigned",
+      "current_authority": "A May 15, 2026 web-file upload was performed under the historical HR mailbox during the current HR transition period and completed successfully after correction.",
+      "systems_or_artifacts": [
+        "Kentucky New Hire Reporting web-file upload"
+      ],
+      "historical_context": "The account identity appears to be a legacy mailbox dependency during role transition.",
+      "automation_readiness": "high for preflight/audit assistance; submission should remain approval-gated."
+    },
+    {
+      "domain": "unemployment administration",
+      "state": "active_system_current_but_scope_unclear",
+      "current_authority": "2026 Kentucky unemployment portal transition notices reach the HR environment; historical HR role handled notices/appeals/hearings.",
+      "systems_or_artifacts": [
+        "Kentucky Unemployment Insurance Portal / KUIP"
+      ],
+      "historical_context": "2021 hearing reminders and older unemployment response materials show established HR involvement.",
+      "automation_readiness": "medium; exact current account owner, case workflow and appeal authority remain unresolved."
+    },
+    {
+      "domain": "FMLA and leave administration",
+      "state": "current_policy_owner_needs_process_mapping",
+      "current_authority": "2025 handbook is current policy and explicitly involves HR; current reference library contains 2026 FMLA forms.",
+      "systems_or_artifacts": [
+        "WH-381",
+        "WH-382",
+        "medical certification forms",
+        "leave request",
+        "attendance/time systems - exact source of truth unresolved"
+      ],
+      "historical_context": "Historical role/email evidence shows FMLA packet distribution, designation notices, documentation tracking and time tracking.",
+      "automation_readiness": "medium-high for checklist/deadline tracking after legal/business-rule validation; case content must remain restricted."
+    },
+    {
+      "domain": "attendance points and absence tracking",
+      "state": "current_policy_owner_needs_process_mapping",
+      "current_authority": "2025 handbook contains current attendance rules; HR is an actor in policy enforcement and leave interactions.",
+      "systems_or_artifacts": [
+        "historical attendance calendar",
+        "possible ADP/time system",
+        "absence documentation"
+      ],
+      "historical_context": "Daily absence calendar/points and absentee reports were historically maintained by HR.",
+      "automation_readiness": "medium; current tracker/source-of-truth unresolved."
+    },
+    {
+      "domain": "workers compensation and return-to-work",
+      "state": "current_policy_owner_needs_process_mapping",
+      "current_authority": "2025 handbook requires immediate injury reporting to supervisor/person in charge/HR Manager and states FMLA concurrency.",
+      "systems_or_artifacts": [
+        "workers-comp First Report",
+        "OSHA 300/301",
+        "wage statement",
+        "supervisor/witness statements",
+        "carrier/KACo or successor - current administrator unresolved"
+      ],
+      "historical_context": "Historical HR role and emails show claim-document assembly and carrier/return-to-work follow-up.",
+      "automation_readiness": "medium; current carrier, legal deadlines, OSHA ownership and medical-record segregation need mapping."
+    },
+    {
+      "domain": "401(k)/retirement administration",
+      "state": "historical_likely_inherited_but_unverified",
+      "current_authority": "2025 handbook confirms a retirement plan exists but does not establish the old operational owner/provider/eligibility workflow.",
+      "systems_or_artifacts": [
+        "401(k) plan",
+        "payroll deductions",
+        "current provider unknown"
+      ],
+      "historical_context": "Historical HR managed enrollment/materials, changes and payroll handoffs.",
+      "automation_readiness": "low-medium until provider and current eligibility/workflow are verified."
+    },
+    {
+      "domain": "AAP/affirmative-action plan administration",
+      "state": "confirmed_current_assigned",
+      "current_authority": "Current EEO Officer authority plus the EEO/AAP historical plan structure support current accountability for EEO program administration; exact post-2024 AAP source and filing cycle remain unresolved.",
+      "systems_or_artifacts": [
+        "AAP workpapers",
+        "EEO/AAP compliance archive",
+        "state approval correspondence"
+      ],
+      "historical_context": "State approval chronology is resolved through a plan updated 2024-06-30.",
+      "automation_readiness": "medium; current plan/approval and methodology must be located before automating filing."
+    },
+    {
+      "domain": "EEO-1 and state EEO certification/recertification",
+      "state": "historical_likely_inherited_but_unverified",
+      "current_authority": "Current EEO assignment suggests responsibility may continue, but no current 2026 filing calendar/source in the email corpus proves exact ownership or applicability.",
+      "systems_or_artifacts": [
+        "EEO-1 reporting system",
+        "state certification forms"
+      ],
+      "historical_context": "Historical HR duty and emails explicitly assigned annual EEO-1 and state recertification.",
+      "automation_readiness": "low-medium until current applicability/calendar is verified."
+    },
+    {
+      "domain": "recruiting/applicant intake",
+      "state": "confirmed_current_assigned",
+      "current_authority": "Current user role and existing project context establish current recruiting/interview responsibility; current work environment uses ADP ATS.",
+      "systems_or_artifacts": [
+        "ADP ATS",
+        "Applicant Dashboard / internal tools",
+        "external recruiting channels as applicable"
+      ],
+      "historical_context": "ridertec.org form intake, Focus/Talent job orders, Job Shop staffing and 2021 Indeed outreach are historical channels.",
+      "automation_readiness": "high for intake/triage/document preparation; hiring decisions and external submissions remain human-controlled."
+    },
+    {
+      "domain": "website HR content and job-posting maintenance",
+      "state": "historical_likely_inherited_but_unverified",
+      "current_authority": "No current source proves that HR still directly maintains RTEC website benefits/job-opening content.",
+      "systems_or_artifacts": [
+        "RTEC website",
+        "IT handoff",
+        "ADP ATS/external posting integrations"
+      ],
+      "historical_context": "Historical role and reminders explicitly assigned job postings and SBC publishing through IT.",
+      "automation_readiness": "low until current owner/channel is identified."
+    },
+    {
+      "domain": "employee service-anniversary recognition",
+      "state": "historical_likely_inherited_but_unverified",
+      "current_authority": "No current source establishes continuation.",
+      "systems_or_artifacts": [
+        "historical reminder/calendar process"
+      ],
+      "historical_context": "Repeated reminders plus job-duty document show HR-owned years-of-service awards.",
+      "automation_readiness": "low until program currentness is confirmed."
+    },
+    {
+      "domain": "monthly HR report, check-register and legacy spreadsheets",
+      "state": "historical_likely_inherited_but_unverified",
+      "current_authority": "No current source establishes that the historical first-of-month HR report or legacy spreadsheet suite remains operational.",
+      "systems_or_artifacts": [
+        "historical HR report",
+        "check register",
+        "employee spreadsheets",
+        "ADP/reporting may have replaced portions"
+      ],
+      "historical_context": "Strong historical duty/email corroboration.",
+      "automation_readiness": "low until each report is mapped to a current business need/source."
+    },
+    {
+      "domain": "shared HR account/vendor identity administration",
+      "state": "confirmed_current_assigned",
+      "current_authority": "2026 Guardian, Google, Outlook, 3CX and other account activity demonstrates an active HR account-transition/continuity responsibility.",
+      "systems_or_artifacts": [
+        "hr@4rtec.com",
+        "legacy HR mailbox",
+        "Google account recovery",
+        "Outlook",
+        "3CX",
+        "vendor account emails"
+      ],
+      "historical_context": "Legacy person-bound mailbox remains connected to current shared-account workflows.",
+      "automation_readiness": "high for inventory/checklist/audit metadata; credentials must never be stored."
+    }
+  ],
+  "currentness_rule": "A historical duty is not assigned to the current HR Manager merely because Sheila performed it. Promote to current only from current policy, current system/account evidence, current role assignment, or explicit user confirmation.",
+  "next_resolution_order": [
+    "Current authoritative benefits/payroll system-of-record split.",
+    "Current workers-comp administrator and injury workflow.",
+    "Current FMLA/attendance source systems and approval chain.",
+    "Current retirement provider/workflow.",
+    "Post-June-2024 AAP plan and approval.",
+    "Current EEO-1/state recertification applicability and calendar.",
+    "Current owner for website HR content, legacy reports and service recognition."
+  ]
+}
