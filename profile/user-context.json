@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-19",
+  "updated_at": "2026-09-23",
   "purpose": "Durable, non-secret personal context for selective Agent OS retrieval. Do not preload wholesale.",
   "goals": {
     "one_to_three_years": [
@@ -34,6 +34,18 @@
       "Google Sheets",
       "desktop files",
       "Google Drive"
+    ],
+    "employment_history": [
+      "Prior Berea College work experience connected to the Office of Sustainability.",
+      "Worked multiple summers with Triple R Ranch; correspondence supports returning for summer work through at least 2022.",
+      "Started a University of Kentucky STEPS Benefits Associate assignment in Employee Benefits in July 2023; later reference correspondence characterizes the experience as HR Benefits Customer Service.",
+      "Accepted and started the RTEC HR Manager role in April 2026."
+    ],
+    "career_workflow_observations": [
+      "Professional correspondence shows consistent proactive follow-up after applications and interviews.",
+      "Before starting a role, tends to ask concrete questions about training, policies, benefits, logistics, timelines, and expectations.",
+      "Keeps resumes and professional references ready for recruiter follow-up.",
+      "In April 2026, described employee-relations experience as a relative gap in the prior HR background."
     ]
   },
   "current_projects_and_interests": [
@@ -67,7 +79,9 @@
       "Find meals both people will eat",
       "Avoid overcooking and spoiled leftovers"
     ],
-    "housing_costs": "Treat housing assumptions as variable because the arrangement may change."
+    "housing_costs": "Treat housing assumptions as variable because the arrangement may change.",
+    "vehicle_context": "As of 2026 correspondence, a 2012 Honda Accord is strongly supported as the user's current vehicle; maintenance/registration reminders may be useful commitment signals.",
+    "shared_household_signal": "Repeated 2026 correspondence supports treating groceries, utilities, home purchases, and some discretionary spending with Olivia as shared-household planning."
   },
   "financial_assistant_goals": [
     "Eventually integrate financial accounts and credit-score information.",
@@ -85,7 +99,11 @@
     "E-books and Kindle reading",
     "Brandon Sanderson / Cosmere fiction",
     "Terry Pratchett / Discworld fiction",
-    "Sporcle quizzes"
+    "Sporcle quizzes",
+    "Strategy, simulation, sandbox, RPG, survival/crafting, and indie PC games",
+    "Sufficient Velocity, SpaceBattles, Questionable Questing, and Archive of Our Own fanfiction communities",
+    "LEGO Ideas and Rebrickable",
+    "Following a large set of Skyrim mod creators through Patreon"
   ],
   "research_and_learning_context": {
     "observed_academic_topics": [
@@ -95,12 +113,24 @@
     "workflow_observations": [
       "Uses email to move research sources and PDFs between systems/people.",
       "Has used Gmail as a transport/archive for e-books and research material."
-    ]
+    ],
+    "education_history": [
+      "Studied at Berea College and described self as a recent graduate by September 2023; exact degree/major was not recovered confidently from indexed mail.",
+      "Completed an ISA Irish Studies Summer School / study-abroad program in Galway, Ireland in summer 2022."
+    ],
+    "paid_research_interest": "Repeated mail supports an ongoing interest in paid focus groups and user-research studies as a flexible side-income/research-participation channel; invitations alone are not treated as completed studies."
   },
   "digital_usage_observations": {
     "ebook_workflow": "Strong evidence of sending EPUB/AZW3 books to Kindle and other recipients for reading.",
     "spreadsheet_ai_tools": "Has installed or used GPT-for-Sheets/Excel tooling; treat as supporting evidence for existing spreadsheet-automation interests.",
-    "gmail_signal_quality": "Sent mail, receipts, confirmations, and repeated behavior are stronger profile evidence than promotions, recommendations, or generic notification mail."
+    "gmail_signal_quality": "Sent mail, receipts, confirmations, and repeated behavior are stronger profile evidence than promotions, recommendations, or generic notification mail.",
+    "ai_and_automation_services": "2026 evidence supports active use or experimentation with OpenAI/ChatGPT, Anthropic/Claude and Claude Code, Runpod, Make, and GitHub.",
+    "email_as_transport": "Frequently uses email to move links, scans, receipts, resumes, documents, and software/project information between personal, school, and work contexts.",
+    "troubleshooting_style": "Support correspondence shows a habit of testing problems, describing reproduction steps, and supplying concrete troubleshooting evidence.",
+    "communication_style": {
+      "professional": "Usually polite, direct, appreciative, and follow-up oriented; often groups several concrete questions into one organized message.",
+      "personal": "More casual, humorous, and expressive with close contacts."
+    }
   },
   "privacy": {
     "exclude_from_git": [
@@ -131,9 +161,16 @@
       "captured_at": "2026-09-19",
       "status": "derived_context_partial_archive_scan",
       "note": "Only durable low-risk observations were promoted. Promotional suggestions and sensitive message contents were excluded."
+    },
+    {
+      "source": "icloud_sanitized_profile_scan",
+      "captured_at": "2026-09-23",
+      "status": "derived_context_full_index_scan",
+      "note": "Scanned 10,577 indexed messages across 2018-2026, reviewed all 203 Sent Messages and targeted evidence across work, education, household, vehicle, technology, hobbies, and research participation. Raw bodies, credentials, exact addresses, health/private-intimate content, payment identifiers, institutional IDs, and unnecessary third-party PII were excluded. Attachment contents were largely unavailable because 231 of 232 attachment records were metadata-only."
     }
   ],
   "context_indexes": [
-    "profile/drive-derived-context.json"
+    "profile/drive-derived-context.json",
+    "profile/icloud-derived-context.json"
   ]
 }
