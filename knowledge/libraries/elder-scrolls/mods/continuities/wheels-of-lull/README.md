@@ -6,19 +6,32 @@ Sub-continuity for the Skyrim mod **The Wheels of Lull**.
 - Primary source: user-provided `WheelsOfLull.esp`
 - ESP SHA-256: `230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb`
 
-## Current ingestion status
+## Source ingestion status
 
 - **33/33 BOOK** complete.
 - **32/32 QUST** complete.
-- **331/337 DIAL** and **404/410 INFO** preserved.
-- **735/747 combined dialogue records** ingested.
-- **800 prioritized source records** checkpointed.
+- **337/337 DIAL** complete.
+- **410/410 INFO** complete.
+- **747/747 combined dialogue records** complete.
+- **812 prioritized BOOK + QUST + DIAL/INFO source records** checkpointed.
 
-This batch covers Llavados in pneuma form, Stonehole Mine background, Upgate/Lull-Mor history, Numinar's role and equipment, and the Whitehorn infiltration scene.
+The final dialogue tail closes the Whitehorn scene, includes Llavados' rescue line, and ends with a Chronographer rally addressed to Broken/homicidal/mad fabricants who still identify themselves as Chronographers.
 
-## Next cursor
+## Raw corpus
 
-Dialogue combined record **736/747**:
+The prioritized source corpus is preserved through `raw/source-records-0801-0812.jsonl.gz`.
 
-- DIAL `05530C5F`
-- Owning quest: Whitehorn / MQ03 scene dialogue.
+## Next source-ingestion work
+
+Continue automatically with lore-bearing implementation records:
+- NPC_ (75)
+- LCTN (33)
+- CELL (103)
+- MESG (53)
+- SCEN (14)
+
+Dialogue speaker/condition resolution and evidence-backed topic dossiers remain separate downstream analysis layers.
+
+## Provenance rule
+
+Statements from Wheels of Lull remain scoped to `tes.mod.wheels-of-lull`; testimony, quest narration, and implementation evidence remain distinguishable.
