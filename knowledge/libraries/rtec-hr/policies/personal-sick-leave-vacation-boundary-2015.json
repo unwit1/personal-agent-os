@@ -2,16 +2,16 @@
   "id": "rtec-policy-personal-sick-leave-vacation-boundary-2015",
   "record_type": "policy",
   "title": "Personal/sick leave immediately before or after scheduled vacation - 2015 evidence",
-  "status": "candidate",
+  "status": "validated",
   "temporal_status": "historical",
   "effective_from": null,
   "effective_to": null,
-  "summary": "A restricted 2015 employee-case memo explicitly states a company policy that personal/sick leave could not be used immediately before or after scheduled vacation to extend the vacation. The employee-specific case details are intentionally excluded.",
+  "summary": "A 2015 restricted employee-case memo explicitly stated a company-wide rule that personal/sick leave could not be used adjacent to scheduled vacation to extend it. The current 2025 handbook independently preserves the substantive rule that Personal/Sick Leave cannot extend annual vacation.",
   "claims": [
     {
       "claim": "A November 2015 HR memo explicitly states that company policy prohibited using personal/sick leave before or after a scheduled vacation to extend the vacation, and says the rule applied to all employees.",
       "claim_kind": "observed_fact",
-      "confidence": 1.0,
+      "confidence": 1,
       "relationship": "NEW",
       "related_record_ids": [],
       "evidence": [
@@ -20,6 +20,23 @@
           "page_or_section": "sanitized policy statement only",
           "evidence_type": "explicit_text",
           "note": "The source is an employee-specific case memo. Employee identity, case details, and raw text are excluded."
+        }
+      ]
+    },
+    {
+      "claim": "The December 15, 2025 employee handbook states that Personal/Sick Leave cannot extend annual vacation, corroborating the substance of the 2015 historical rule.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "DUPLICATE",
+      "related_record_ids": [
+        "rtec-policy-leave-time-off-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 15-16 - Personal Leave (Sick Leave)",
+          "evidence_type": "explicit_text",
+          "note": "Current handbook wording is broader than the 2015 memo's before/after-vacation phrasing."
         }
       ]
     }
@@ -47,7 +64,6 @@
     "Keep employee-specific leave facts out of generalized knowledge."
   ],
   "unresolved_questions": [
-    "Does current RTEC policy still prohibit personal/sick leave immediately before or after scheduled vacation, and what exceptions/approval authority apply?",
     "Which handbook/policy source formally established this 2015 rule?"
   ],
   "automation_candidates": [
@@ -69,6 +85,22 @@
       "temporal_status": "historical",
       "full_source_path": null,
       "searchable_text_path": null
+    },
+    {
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "safe_source_type": "employee_handbook",
+      "source_date_or_version": "2025-12-15",
+      "content_sha256": "d8601d4c5ded962051c521ace697f447492dc178d565a393e5c945c309a7e22c",
+      "page_or_section": "printed pages 15-16",
+      "ingested_at": "2026-09-23",
+      "notes": "Current source corroborates the substantive no-vacation-extension rule.",
+      "source_created_date": null,
+      "source_revision_date": "2025-12-15",
+      "source_effective_from": "2025-12-15",
+      "source_effective_to": null,
+      "temporal_status": "current",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md"
     }
   ]
 }
