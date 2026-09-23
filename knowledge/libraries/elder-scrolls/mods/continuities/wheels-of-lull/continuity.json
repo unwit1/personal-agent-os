@@ -3,7 +3,7 @@
   "name": "The Wheels of Lull",
   "universe": "The Elder Scrolls",
   "kind": "mod_continuity_overlay",
-  "status": "source_ingestion_and_core_analysis_complete_with_bounded_shard_repair_and_provenance_followup",
+  "status": "source_ingestion_and_core_analysis_complete_supplied_esp_exhausted_external_provenance_followup_only",
   "canon_policy": {
     "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
     "default_claim_scope": "tes.mod.wheels-of-lull",
@@ -16,7 +16,7 @@
     "source_type": "user_provided_skyrim_plugin",
     "ingested_at": "2026-09-23",
     "author": "Trainwiz",
-    "current_access_state": "not_present_in_current_repository_or_indexed_file_library"
+    "current_access_state": "verified_again_from_user-provided_source_on_2026-09-23_not_persisted_as_repo_binary"
   },
   "extracted_counts": {
     "total_plugin_records": 36824,
@@ -40,7 +40,9 @@
     "cells": 103,
     "messages": 53,
     "scenes": 14,
-    "structured_source_records": 1090
+    "structured_source_records": 1090,
+    "implementation_text_supplement_records": 328,
+    "total_persisted_source_evidence_records": 1418
   },
   "structured_layers": {
     "plugin_record_inventory": "complete",
@@ -53,22 +55,26 @@
     "message_records": "complete_53_of_53",
     "scene_records": "complete_14_of_14",
     "supplemental_lore_records": "complete_278_of_278",
-    "speaker_resolution": "complete_for_all_readable_INFO_358_processed_52_pending_shard_regeneration",
+    "speaker_resolution": "strict_integrity_complete_410_processed_332_resolved_78_unresolved_contextual_analysis_retained_separately",
     "claim_analysis": "complete_31_core_7_tension_records_continuity_scoped",
     "interpretive_analysis": "complete_14_topics_plus_core_dossiers_reliability_themes",
     "book_text_fingerprinting": "complete_33_of_33",
     "book_provenance": "passes_01_03_complete_followup_active",
     "book_source_relations": "complete_33_of_33",
-    "retrieval_materialization": "blocked_pending_two_raw_shard_regenerations"
+    "retrieval_materialization": "unblocked_for_fresh_1090_document_core_rebuild",
+    "raw_source_integrity": "complete_verified_after_two_deterministic_shard_repairs",
+    "implementation_text_supplement": "complete_328_records_separate_evidence_layer",
+    "full_plugin_text_exhaustiveness_audit": "complete_36824_records_traversed"
   },
   "post_ingestion_analysis": {
-    "status": "core_complete_with_bounded_shard_repair_required",
+    "status": "core_complete_source_integrity_complete_supplied_esp_exhausted",
     "speaker_resolution": {
       "total_info": 410,
-      "processed": 358,
-      "resolved": 288,
-      "unresolved_readable": 70,
-      "excluded_pending_shard_regeneration": 52
+      "processed": 410,
+      "resolved": 332,
+      "unresolved_readable": 78,
+      "excluded_pending_shard_regeneration": 0,
+      "scope": "strict deterministic CTDA integrity layer; contextual/candidate attributions remain in the broader speaker analysis"
     },
     "dossiers": {
       "characters": 9,
@@ -90,16 +96,19 @@
       "variant_diffs_complete": 1,
       "machine_source_relations": 33
     },
-    "integrity_gap_files": [
-      "raw/source-records-0151-0200.jsonl.gz",
-      "raw/source-records-0401-0450.jsonl.gz"
-    ],
-    "repair_requirement": "Regenerate the two corrupt shards from the exact verified WheelsOfLull.esp, rerun strict speaker resolution for the excluded INFO records, then rebuild/validate retrieval derivatives.",
-    "topic_dossiers": 14
+    "integrity_gap_files": [],
+    "repair_requirement": null,
+    "topic_dossiers": 14,
+    "exhaustiveness_audit": "analysis/exhaustiveness-audit.md",
+    "implementation_text_supplement": {
+      "records": 328,
+      "path": "raw/implementation-text-supplement.jsonl.gz",
+      "manifest": "analysis/implementation-text-supplement.json"
+    }
   },
   "next_stage": {
-    "blocked_branch": "dialogue shard repair requires exact source ESP bytes",
-    "active_branch": "continue evidence-backed BOOK edition/provenance research using archived Sotha Sil Expanded/Aethernautics/Trainwiz source assets when available",
+    "blocked_branch": null,
+    "active_branch": "External BOOK source/edition provenance research when new archived Trainwiz/Sotha Sil Expanded/Aethernautics witnesses become available; optional fresh deterministic retrieval rebuild is now unblocked.",
     "do_not_repeat": "generic exact-title web searches audited in analysis/book-provenance-pass-03-search-audit.*"
   }
 }

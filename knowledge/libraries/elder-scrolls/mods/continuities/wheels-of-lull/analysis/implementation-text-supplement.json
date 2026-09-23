@@ -1,0 +1,41 @@
+{
+  "continuity_id": "tes.mod.wheels-of-lull",
+  "source_file": "WheelsOfLull.esp",
+  "source_sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
+  "audit_date": "2026-09-23",
+  "corpus": "implementation_text_supplement",
+  "path": "raw/implementation-text-supplement.jsonl.gz",
+  "records": 328,
+  "gzip_sha256": "e7ce7982e058679f1c61fc5360a506d0f330fb3f02751a5e871d4437c5ad3c8f",
+  "selection_policy": "Retain omitted TES5 records that are player-facing (FULL/DESC) or structurally useful for lore interpretation (FACT/TACT/VTYP); exclude asset paths, package parameter labels, and implementation-only editor metadata from promotion.",
+  "type_counts": {
+    "ARMO": 57,
+    "ACTI": 43,
+    "MISC": 36,
+    "SPEL": 35,
+    "MGEF": 33,
+    "WEAP": 33,
+    "RACE": 26,
+    "VTYP": 20,
+    "CONT": 8,
+    "DOOR": 7,
+    "TACT": 7,
+    "FACT": 6,
+    "PERK": 5,
+    "REFR": 3,
+    "ALCH": 2,
+    "AMMO": 2,
+    "PROJ": 2,
+    "FURN": 1,
+    "SHOU": 1,
+    "WRLD": 1
+  },
+  "core_corpus_records": 1090,
+  "total_plugin_records": 36824,
+  "source_exhaustion_status": "complete_for_supplied_esp",
+  "notes": [
+    "Core source-record corpus remains 1,090 records; this supplement is a distinct implementation-text evidence layer.",
+    "Three REFR rows are included only because they carry distinct player-facing FULL names.",
+    "Vanilla-derived race descriptions are implementation evidence and must not be promoted as Wheels-specific lore claims."
+  ]
+}

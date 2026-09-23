@@ -1,0 +1,114 @@
+{
+  "continuity_id": "tes.mod.wheels-of-lull",
+  "source_sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
+  "repaired_ranges": [
+    "151-200",
+    "401-450"
+  ],
+  "recovered_info_records": 52,
+  "strict_ctda_policy": "Equality GetIsID or uniquely mapped equality GetIsVoiceType only; no contextual attribution is promoted to deterministic identity.",
+  "baseline_crosscheck": {
+    "previously_readable_info": 358,
+    "resolved": 288,
+    "unresolved": 70,
+    "result": "exact_match"
+  },
+  "repaired_result": {
+    "resolved": 44,
+    "unresolved": 8
+  },
+  "full_strict_result": {
+    "total_info": 410,
+    "resolved": 332,
+    "unresolved": 78
+  },
+  "repaired_resolved": [
+    "05024258",
+    "0502425A",
+    "0502425E",
+    "05024260",
+    "05024262",
+    "05024266",
+    "05024268",
+    "0502426A",
+    "0502426D",
+    "0502426F",
+    "05024271",
+    "05024276",
+    "05024278",
+    "0502427B",
+    "0502427E",
+    "05024280",
+    "05024282",
+    "05024284",
+    "05024286",
+    "05024288",
+    "0502428A",
+    "0502EC7F",
+    "0502EC81",
+    "0502EC83",
+    "0502EC85",
+    "0505D2EC",
+    "0505D2F5",
+    "0505D2FF",
+    "0505D301",
+    "0505D303",
+    "0505D306",
+    "0505D309",
+    "0505D30A",
+    "0505D30D",
+    "0505D310",
+    "0526788D",
+    "052678B3",
+    "052678B8",
+    "052678BA",
+    "052678BC",
+    "052678C9",
+    "052678CB",
+    "052678F8",
+    "05267903"
+  ],
+  "repaired_unresolved": [
+    {
+      "info_form_id": "0504DF3C",
+      "quest_form_id": "05039182",
+      "note": "No strict CTDA speaker condition; content is train-context dialogue but contextual attribution is deliberately not promoted."
+    },
+    {
+      "info_form_id": "0504DF3E",
+      "quest_form_id": "05039182",
+      "note": "No strict CTDA speaker condition; content is train-context dialogue but contextual attribution is deliberately not promoted."
+    },
+    {
+      "info_form_id": "0504DF3F",
+      "quest_form_id": "05039182",
+      "note": "No strict CTDA speaker condition; content is train-context dialogue but contextual attribution is deliberately not promoted."
+    },
+    {
+      "info_form_id": "0504DF40",
+      "quest_form_id": "05039182",
+      "note": "No strict CTDA speaker condition; content is train-context dialogue but contextual attribution is deliberately not promoted."
+    },
+    {
+      "info_form_id": "0504E754",
+      "quest_form_id": "05039182",
+      "note": "No strict CTDA speaker condition; content is train-context dialogue but contextual attribution is deliberately not promoted."
+    },
+    {
+      "info_form_id": "0504E8A2",
+      "quest_form_id": "05039182",
+      "note": "No strict CTDA speaker condition and no response text."
+    },
+    {
+      "info_form_id": "0504E8A3",
+      "quest_form_id": "05039182",
+      "note": "No strict CTDA speaker condition and no response text."
+    },
+    {
+      "info_form_id": "0504E8A4",
+      "quest_form_id": "05039182",
+      "note": "No strict CTDA speaker condition and no response text."
+    }
+  ],
+  "interpretation": "The repair introduces no disagreement with the prior strict readable set. The eight repaired strict-unresolved rows are intentionally retained as unresolved rather than inferred from scene/topic context."
+}
