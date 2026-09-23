@@ -1,1 +1,1174 @@
-The requested file reference is not currently visible. Use files.search or files.list to rediscover the file, then retry with a returned ref_id or file_id.
+===== SOURCE BEGIN / PART 6 OF 7 =====
+SOURCE_PATH: EEO/Reasonable Accommodation/Executive order 13164 Reasonable Accomodation.doc
+SHA256: 54df40c723b70c6596f9109b12dbdef60f2eaad4993d7361fc71e4aad1b2de95
+TEXT_CHARS_TOTAL: 62684
+OFFSET: 50000
+ALIASES: 
+===== TEXT =====
+heir
+own workplaces. Thus, agencies may, if they choose, create programs devoted
+exclusively to resolving reasonable accommodation disputes. Agencies could
+alternatively consider making existing mechanisms already set up to address
+workplace disputes (such as alternative dispute resolution (ADR) programs)
+available for this purpose. The objective is to permit quick and thoughtful
+reconsideration of a denial, not to establish cumbersome new procedures.
+
+
+2 30. What is the relationship between an informal dispute resolution
+       process and the EEO or other federal sector complaint processes?
+
+Three basic principles govern the relationship between an informal process
+for addressing reasonable accommodation disputes and the EEO and other
+federal sector complaint processes:
+
+    • An agency's informal process must be in addition to - and may not
+      modify or replace - the EEO complaint process governed by EEOC
+      regulations, see 29 C.F.R. part 1614, and Merit Systems Protection
+      Board (MSPB) and union grievance procedures available to federal
+      sector applicants or employees. While the agency's informal mechanism
+      for resolving reasonable accommodation disputes may rely on the same
+      ADR procedures that the agency uses in its EEO processes, the
+      individual challenging the denial of a reasonable accommodation
+      request must be able to gain access to those procedures without having
+      to contact an EEO counselor or file an EEO complaint.
+    • The informal process must be voluntary and may not be used to limit an
+      individual's rights. An agency may not require that an individual
+      challenging the denial of a reasonable accommodation request use its
+      informal dispute resolution process. Nor may an agency prevent such an
+      individual from filing an EEO complaint, an MSPB claim, or a union
+      grievance, even if s/he is also pursuing the agency's informal
+      process. The agency's informal process is not an administrative remedy
+      that must be exhausted before a complaint may be filed.
+    • The informal process does not affect the time limits governing the EEO
+      complaint process. An individual's participation in the informal
+      process does not satisfy the requirements for bringing a claim under
+      the EEO, MSPB, or union grievance procedures. When an agency denies a
+      request for reasonable accommodation, it must notify the individual in
+      writing that if s/he wishes to pursue the EEO complaint process, s/he
+      must do so within 45 days of the denial, even if s/he is also
+      participating in the agency's informal dispute resolution process.
+
+
+3 31. What is the procedure for alleging a violation of Section 501 of the
+       Rehabilitation Act?
+
+The procedure for alleging a violation of Section 501 of the Rehabilitation
+Act is set forth in the Commission's federal sector EEO process
+regulations.(13) Briefly stated, the federal sector process requires the
+following:
+
+    • the individual alleging discrimination must contact an EEO Counselor
+      within 45 days of the date of the discriminatory act or within 45 days
+      of when the individual became aware or should have become aware of the
+      allegedly illegal conduct;
+    • the agency must conduct EEO counseling or offer mediation or other
+      form of alternative dispute resolution;
+    • if the matter is not resolved informally, the agency will give the
+      individual a notice of final interview, and the individual will have
+      15 days from the date of the notice to file a formal complaint;
+    • once a formal complaint is filed, the matter will either be dismissed
+      or investigated, and may proceed either to an agency decision or a
+      hearing before a Commission Administrative Judge; and
+    • after either the agency or the Administrative Judge issues a decision,
+      the matter may be appealed to the EEOC's Office of Federal Operations,
+      which will then render a decision.
+
+
+
+
+
+
+                                 4 Appendix
+
+                 Selected Reasonable Accommodation Resources
+
+
+1 U.S. Equal Employment Opportunity Commission
+
+1-800-669-3362 (Voice) 1-800-800-3302 (TT)
+
+http://www.eeoc.gov/
+
+The EEOC's Publication Center has many free documents on the Title I
+employment provisions of the ADA, including both the statute, 42 U.S.C. §
+12101 et seq., and the regulations, 29 C.F.R. § 1630. In addition, the EEOC
+has published a great deal of basic information about reasonable
+accommodation and undue hardship. The three main sources of interpretive
+information are: (1) the Interpretive Guidance accompanying the Title I
+regulations (also known as the "Appendix" to the regulations), 29 C.F.R.
+pt. 1630 app. §§ 1630.2(o), (p), 1630.9; (2) Enforcement Guidance on
+Reasonable Accommodation and Undue Hardship Under the Americans with
+Disabilities Act, 8 FEP Manual 405:7601 (1999); and (3) A Technical
+Assistance Manual on the Employment Provisions (Title I) of the Americans
+with Disabilities Act, 8 FEP Manual (BNA) 405:6981, 6998-7018 (1992)
+(Technical Assistance Manual). The Technical Assistance Manual includes a
+200-page Resource Directory, including federal and state agencies, and
+disability organizations that can provide assistance in identifying and
+locating reasonable accommodations.
+
+The EEOC also has discussed issues involving reasonable accommodation in
+the following guidances and documents: (1) Enforcement Guidance:
+Preemployment Disability-Related Questions and Medical Examinations at 5, 6-
+8, 20, 21-22, 8 FEP Manual (BNA) 405:7191, 7192-94, 7201 (1995); (2)
+Enforcement Guidance: Workers' Compensation and the ADA at 15-20, 8 FEP
+Manual (BNA) 405:7391, 7398-7401 (1996); (3) Enforcement Guidance: The
+Americans with Disabilities Act and Psychiatric Disabilities at 19-28, 8
+FEP Manual (BNA) 405:7461, 7470-76 (1997); (4) Fact Sheet on the Family and
+Medical Leave Act, the Americans with Disabilities Act, and Title VII of
+the Civil Rights Act of 1964 at 6-9, 8 FEP Manual (BNA) 405:7371, 7374-76
+(1996); and (5) Enforcement Guidance: Disability-Related Inquiries and
+Medical Examinations of Employees Under the Americans with Disabilities Act
+at 20, 22, 23, 24-5, 8 FEP Manual (BNA) 405:7701, 7711, 7712-14, 7715-16
+(2000).
+
+Finally, the EEOC has a poster that employers and labor unions may use to
+fulfill the ADA's posting requirement.
+
+All of the above-listed documents, with the exception of the Technical
+Assistance Manual and the poster, are also available through the Internet
+at www.eeoc.gov. All of these documents provide guidance that applies to
+federal agencies through the Rehabilitation Act of 1973, 29 U.S.C. § 791.
+
+
+2 Job Accommodation Network (JAN)
+
+1-800-232-9675 (Voice/TT)
+
+http://janweb.icdi.wvu.edu/
+
+A service of the President's Committee on Employment of People with
+Disabilities. JAN can provide information, free-of-charge, about many types
+of reasonable accommodations.
+
+
+3 ADA Disability and Business Technical Assistance Centers (DBTACs)
+
+1-800-949-4232 (Voice/TT)
+
+The DBTACs consist of 10 federally funded regional centers that provide
+information, training, and technical assistance on the ADA. Each center
+works with local business, disability, governmental, rehabilitation, and
+other professional networks to provide current ADA information and
+assistance, and places special emphasis on meeting the needs of small
+businesses. The DBTACs can make referrals to local sources of expertise in
+reasonable accommodations.
+
+
+4 Registry of Interpreters for the Deaf
+
+(301) 608-0050 (Voice/TT)
+
+http://www.rid.org/
+
+The Registry offers information on locating and using interpreters and
+transliteration services.
+
+
+5 RESNA Technical Assistance Project
+
+(703) 524-6686 (Voice) (703) 524-6639 (TT)
+
+http://www.resna.org/
+
+RESNA, the Rehabilitation Engineering and Assistive Technology Society of
+North America, can refer individuals to projects in all 50 states and the
+six territories offering technical assistance on technology-related
+services for individuals with disabilities. Services may include:
+
+    • information and referral centers to help determine what devices may
+      assist a person with a disability (including access to large data
+      bases containing information on thousands of commercially available
+      assistive technology products);
+    • centers where individuals can try out devices and equipment;
+    • assistance in obtaining funding for and repairing devices; and
+    • equipment exchange and recycling programs.
+
+
+
+
+
+                   6 Footnotes
+
+1. 65 Fed. Reg. 46565, 2000 WL 1114943 (2000).
+
+2. 29 U.S.C. § 791.
+
+3. 29 C.F.R. pt. 1630 app. § 1630.2(o).
+
+4. 8 FEP Manual (BNA) 405:7601 (1999). The EEOC Reasonable Accommodation
+Guidance is also available on the EEOC's website at http://www.eeoc.gov/.
+The reasonable accommodation standards of the Americans with Disabilities
+Act apply to the Rehabilitation Act as well. 29 U.S.C. § 791(g).
+
+5. Agencies should also bear in mind the limited circumstances in which an
+employer should initiate the reasonable accommodation process without being
+asked. See EEOC Reasonable Accommodation Guidance, Question 39.
+
+6. Of course, to the extent that an EEO official is involved in the
+handling of a reasonable accommodation request, s/he should not be involved
+in the processing of any EEO complaint that is made regarding disposition
+of the request.
+
+7. Agencies may wish to seek advice from other agencies - such as the
+Department of Defense's "Computer/Electronic Accommodations Program" (CAP)
+or the Department of Agriculture's "Technology Accessible Resources Gives
+Employment Today" (TARGET) Center - that have established programs to
+provide these types of assistance. Information about the CAP program can be
+found at http://www.tricare.osd.mil/cap/; information about the TARGET
+Center is posted at http://www.usda.gov/oo/target.htm.
+
+8. Architectural Barriers Act of 1968, 42 U.S.C. § 4151 et seq.;
+Rehabilitation Act Sec
+===== SOURCE PART 6 END =====
+
+===== SOURCE BEGIN / PART 7 OF 7 =====
+SOURCE_PATH: EEO/Reasonable Accommodation/Executive order 13164 Reasonable Accomodation.doc
+SHA256: 54df40c723b70c6596f9109b12dbdef60f2eaad4993d7361fc71e4aad1b2de95
+TEXT_CHARS_TOTAL: 62684
+OFFSET: 60000
+ALIASES: 
+===== TEXT =====
+tion 504, 29 U.S.C. § 794; see also Americans with
+Disabilities Act, 42 U.S.C. § 12131.
+
+9. The EEOC has issued detailed guidance that applies to the provisions of
+the Rehabilitation Act that address permissible medical inquiries. See EEOC
+Reasonable Accommodation Guidance; "Enforcement Guidance: Preemployment
+Disability-Related Questions and Medical Examinations," 8 FEP Manual (BNA)
+405:7191 (1995); and "Enforcement Guidance: Disability-Related Inquiries
+and Medical Examinations of Employees Under the Americans with Disabilities
+Act," 8 FEP Manual (BNA) 405:7701 (2000). These documents can be found on
+the EEOC's website at http://www.eeoc.gov/.
+
+The Office of Personnel Management (OPM) also regulates when an agency may
+request medical examinations of applicants and employees. See 5 U.S.C. §
+3301 & 3302; 5 C.F.R. Part 339 (Medical Qualification Determination). In
+making these requests, agencies must comply with Rehabilitation Act
+requirements.
+
+10. See EEOC Reasonable Accommodation Guidance, Question 6; "Enforcement
+Guidance: Disability-Related Inquiries and Medical Examinations of
+Employees Under the Americans with Disabilities Act," Question 10.
+
+11. For further guidance on the circumstances in which it is permissible to
+disclose confidential medical information to workers' compensation offices
+or insurance carriers, see 29 C.F.R. pt. 1630 app. §§ 1630.14(b),
+1630.16(f).
+
+12. For further information on reassignment, see EEOC Reasonable
+Accommodation Guidance, Questions. 25-30.
+
+In March 2000, the Commission also issued a Notice of Proposed Rulemaking
+regarding proposed revisions to 29 C.F.R. § 1614.203, addressing, among
+other things, requirements related to reassignment and the obligations of
+agencies and their unions to bargain over modifications to collective
+bargaining agreements. See 65 Fed. Reg. 11019, 2000 WL 226980 (3/1/00). As
+of the date of issuance of this Guidance, the Commission is considering the
+comments received on the proposed rule and is proceeding with the
+rulemaking process.
+
+13. 29 C.F.R. pt. 1614.
+
+
+
+This page was last modified on October 20, 2000.
+
+[pic] Return to Home Page
+
+
+-----------------------
+
+5 Notice Concerning The Americans With Disabilities Act Amendments Act Of
+     2008
+
+The Americans with Disabilities Act (ADA) Amendments Act of 2008 was signed
+into law on September 25, 2008 and becomes effective January 1, 2009.
+Because this law makes several significant changes, including changes to
+the definition of the term "disability," the EEOC will be evaluating the
+impact of these changes on this document and other publications. See the
+list of specific changes to the ADA made by the ADA Amendments Act.
+
+
+
+
+===== SOURCE PART 7 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/ADA/ADA COMPLAINT PROCESS.doc
+SHA256: 07eef165319293efa00c9013db1149077d3e0802b71a09dc09d9a0164281c4f8
+TEXT_CHARS_TOTAL: 2408
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+RTEC ADA COMPLAINT PROCESS
+
+In compliance with the U.S.  Department  of  Transportation  Americans  with
+Disabilities Act (ADA) of 1990 (49  CFR  Parts  27,  37,  38  and  39),  and
+Section 504 of The Rehabilitation Act of 1973,  as  amended,  Rural  Transit
+Enterprises  Coordinated,  Inc.  ensures   its   services,   vehicles,   and
+facilities are accessible to and usable by  individuals  with  disabilities.
+Anyone who believes he or she has been discriminated against  on  the  basis
+of disability may file an ADA complaint.
+
+Complaints may be submitted by filing  a  RTEC  ADA  Complaint  Form  or  by
+calling 606-256-9835, extension 223 or toll-free at 800-321-7832 or  TTY  at
+606-256-2047, or hearing and voice impaired at 1-800-648-6057 (KY Relay 7-1-
+1).  If the complainant is unable to write  a  complaint,  a  representative
+may file on his or her behalf,  or  a  designated  RTEC  staff  member  will
+provide assistance.  Complaints must be filed within 5 calendar days of  the
+alleged incident.
+
+   1. The ADA Coordinator will contact the complainant  within  10  business
+      days of receipt of  complaint.   Any  requested  information  must  be
+      received by RTEC within 5 days.
+   2. RTEC will begin the investigation within 15 business days  of  receipt
+      of complaint if the alleged discrimination is found to be a  violation
+      of ADA regulations.
+   3. An investigation into the complaint will be conducted  and  documented
+      to determine whether RTEC failed to comply with ADA regulations.
+   4. RTEC will complete  the  investigation  within  60  calendar  days  of
+      receipt  of  complaint.   If  additional  time  is  needed   for   the
+      investigation, the complainant will be notified.
+   5. RTEC will  promptly  communicate  its  response  to  the  complainant,
+      including its reasons for the response.  The complainant will  have  5
+      business days from receipt of RTEC's response to file an  appeal.   If
+      no appeal is filed, the complaint will be closed.
+
+RTEC will process and investigate all complaints that meet the  requirements
+of ADA  discrimination.   If  the  complainant  fails  to  provide  required
+information within the required timeframe, the complaint may be closed.
+
+
+
+     If information is needed in another language, contact 800-321-7832
+     Si se necesita informaciòn en otro idioma, comuníquese 800-321-7832
+
+
+
+
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/ATTACHMENT PAGES.doc
+SHA256: 718cd110d6580484f14219e29c7e859a05095ddf40ed8af07615a14fd3ef8ee2
+TEXT_CHARS_TOTAL: 1024
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                ATTACHMENT I
+
+                              SPANISH BROCHURE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                ATTACHMENT II
+
+                           TITLE VI PUBLIC NOTICE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                               ATTACHMENT III
+
+                           TITLE VI COMPLAINT FORM
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                ATTACHMENT IV
+
+                  LETTER ACKNOWLEDGING RECEIPT OF COMPLAINT
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                ATTACHMENT V
+
+    LETTER NOTIFYING COMPLAINANT THAT THE COMPLAINT IS NOT SUBSTANTIATED
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                ATTACHMENT VI
+
+      LETTER NOTIFYING COMPLAINANT THAT THE COMPLAINT IS SUBSTANTIATED
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                               ATTACHMENT VII
+
+                 LIST OF TRANSIT-RELATED TITLE VI COMPLAINTS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                               ATTACHMENT VIII
+
+
+        COPY OF LETTER AND ADVERTISEMENT FOR NOTICE OF PUBLIC HEARING
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/Complaint Forms and Letters/Letter Acknowledging Receipt of Complaint.doc
+SHA256: 2378e38559a1fba638ea0426d6073935e85fde16a21b248a7d05a335ba694a0c
+TEXT_CHARS_TOTAL: 662
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+                                    [pic]
+
+
+                  Letter Acknowledging Receipt of Complaint
+
+
+
+
+
+Date
+
+Name
+Address
+City, State Zip
+
+Dear Name:
+
+This letter is to  acknowledge  receipt  of  your  complaint  against  Rural
+Transit     Enterprises     Coordinated,      Inc.      (RTEC)      alleging
+__________________________________________.
+
+An investigation will begin shortly.  If  you  have  additional  information
+you wish to convey or questions concerning this matter, please feel free  to
+contact this office at
+1-800-321-7832 or in writing to RTEC, 100 Main Street, Mt. Vernon KY 40456.
+
+Sincerely,
+
+
+
+Clarissa Hodge
+Title VI Coordinator
+
+
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/Complaint Forms and Letters/Letter Notifying Complainant that the Complaint Is Not Substantiated.doc
+SHA256: 48743c6069f5da9028a58eec1f4c690247c0849b16a0073079b40ef6242b71a6
+TEXT_CHARS_TOTAL: 1758
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+                                    [pic]
+
+    Letter Notifying Complainant that the Complaint Is Not Substantiated
+
+Date
+
+Name
+Address
+City, State Zip
+
+Dear Name:
+
+The matter referenced in your complaint dated ______________  against  Rural
+Transit     Enterprises     Coordinated,      Inc.      (RTEC)      alleging
+________________________________ has been investigated.
+
+The results of the investigation did not indicate  that  the  provisions  of
+Title VI of the Civil Rights Act of 1964 had in fact been violated.  As  you
+know, Title VI prohibits discrimination based on race,  color,  or  national
+origin in any program receiving federal financial assistance.
+
+Rural Transit Enterprises has analyzed the materials  and  facts  pertaining
+to your case for evidence of RTEC’s failure to comply with any of the  civil
+rights laws.  There was no evidence found that any of these laws  have  been
+violated.
+
+I therefore advise you that your complaint has not  been  substantiated  and
+that I am closing this matter in our files.
+
+You have the right to 1) provide additional information to this  office  for
+reconsideration of your complaint with seven calendar  days  of  receipt  of
+this  final  written  decision  form  RTEC,  and/or  2)  file  a   complaint
+externally with the U.S. Department of  Transportation  and/or  the  Federal
+Transit Administration at:
+
+      Federal Transit Administration Office of Civil Rights
+      Attention:  Title VI Program Coordinator
+      East Building, 5th Floor - TCR
+      1200 New Jersey Ave., SE
+      Washington, DC  20590
+
+Thank you for taking the time to contact us.  If I can be of  assistance  to
+you in the future, do not hesitate to give me a call.
+
+Sincerely,
+
+
+
+Clarissa Hodge
+Title VI Coordinator
+
+
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/Complaint Forms and Letters/Letter Notifying Complainant that the Complaint Is Substantiated.doc
+SHA256: 5ac7e1f84c22675320ed387755dede6bbbe1a8a74d1e75062371b8aed45a4d5e
+TEXT_CHARS_TOTAL: 955
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+                                    [pic]
+
+
+
+Letter Notifying Complainant that the Complaint Is Substantiated
+
+
+Date
+
+Name
+Address
+City, State Zip
+
+Dear Name:
+
+The matter referenced in your letter dated  ________________  against  Rural
+Transit Enterprises Coordinated, Inc. (RTEC)  alleging  Title  VI  violation
+has been investigated.
+
+(An/Several) apparent violation(s) of Title VI of the Civil  Rights  Act  of
+1964, including  those  mentioned  in  your  letter  (was/were)  identified.
+Efforts are underway to correct these deficiencies.
+
+Thank you for calling this important matter  to  our  attention.   You  were
+extremely helpful during our  review  of  the  program.  (If  a  hearing  is
+requested, the following sentence may be appropriate.) You  may  be  hearing
+from this office, or from federal authorities, if your  services  should  be
+needed during the administrative hearing process.
+
+Sincerely,
+
+
+
+Clarissa Hodge
+Title VI Coordinator
+
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/Cover letters for Title VI LEP submission to state/2023 Cover Letter for Title VI LEP submission to state.doc
+SHA256: 8f6cc88e5c142f5399c4f98fb059a13c30d0baafa36e5adbdbbe8b513e42cefb
+TEXT_CHARS_TOTAL: 616
+OFFSET: 0
+ALIASES: TITLE VI LEP PLAN/Title VI 2025 Prepared for 2026 deadline/2023 Cover Letter for Title VI LEP submission to state.doc
+===== TEXT =====
+
+
+
+
+
+
+
+January 19, 2026
+
+
+
+Mrs. Vickie S. Bourne, Executive Director
+Kentucky Transportation Cabinet
+Office of Transportation Delivery, 3rd Floor West
+200 Mero Street
+Frankfort, Kentucky 40622
+
+Dear Mrs. Bourne:
+
+SUBJECT:   Title VI and LEP Plan FTA Circular 4702.1B
+
+Please find enclosed a copy of the subject Title VI and LEP Plan  for  Rural
+Transit Enterprises Coordinated, Inc. (RTEC) for submission and approval.
+
+If additional information is needed, please do not hesitate to  call  Sheila
+Stallsworth or me at 606-256-9835.
+
+Respectfully,
+
+
+
+Shirley L. Cummins, CCTM
+Executive Director
+RTEC
+
+SC:ch
+Enclosure
+
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/Cover letters for Title VI LEP submission to state/2026 Cover Letter for Title VI LEP submission to state.doc
+SHA256: 23f176a66eefeb243a5dd22ab3fcb0901c61f856bd34e5c3b153bff0c43ec6e3
+TEXT_CHARS_TOTAL: 616
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+
+
+
+
+
+
+January 21, 2026
+
+
+
+Mrs. Vickie S. Bourne, Executive Director
+Kentucky Transportation Cabinet
+Office of Transportation Delivery, 3rd Floor West
+200 Mero Street
+Frankfort, Kentucky 40622
+
+Dear Mrs. Bourne:
+
+SUBJECT:   Title VI and LEP Plan FTA Circular 4702.1B
+
+Please find enclosed a copy of the subject Title VI and LEP Plan  for  Rural
+Transit Enterprises Coordinated, Inc. (RTEC) for submission and approval.
+
+If additional information is needed, please do not hesitate to  call  Sheila
+Stallsworth or me at 606-256-9835.
+
+Respectfully,
+
+
+
+Shirley L. Cummins, CCTM
+Executive Director
+RTEC
+
+SC:ch
+Enclosure
+
+===== SOURCE PART 1 END =====
+
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/LEP Binder Cover.doc
+SHA256: 28e9a752549bdea78c57ffae8ca80b145877873011452f2c37b3eeab5f0d4276
+TEXT_CHARS_TOTAL: 2239
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+                                    [pic]
+
+
+                                  TITLE VI
+
+                                   LIMITED
+                                   ENGLISH
+                                 PROFICIENT
+                                    PLAN
+
+
+                                  2020-2022
+
+
+                                    [pic]
+
+                                      T
+                                      I
+                                      T
+                                      L
+                                      E
+
+                                      V
+                                      I
+
+                                      L
+                                      I
+                                      M
+                                      I
+                                      T
+                                      E
+                                      D
+
+                                      E
+                                      N
+                                      G
+                                      L
+                                      I
+                                      S
+                                      H
+
+                                      P
+                                      R
+                                      O
+                                      F
+                                      I
+                                      C
+                                      I
+                                      E
+                                      N
+                                      T
+
+                                      P
+                                      L
+                                      A
+                                      N
+
+                                      2
+                                      0
+                                      2
+                                      0
+
+                                      2
+                                      0
+                                      2
+                                      1
+
+                                      2
+                                      0
+                                      2
+                                      2
+
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/NOTICES THAT MUST BE POSTED/OLD TITLE VI NOTICE TO PUBIC FROM STATE/ALL PASSENGERS MUST WEAR SEATBELTS.docx
+SHA256: bc50077829589573afbd0d7999eeb969bce85cf14ba99f50e12d425b1f17b511
+TEXT_CHARS_TOTAL: 1771
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+ALL PASSENGERS MUST WEAR SEATBELTS!
+NONO(SMALL CHILDREN MUST BE IN AN FMVSS APPROVED CAR SEAT)
+NO
+NO
+EATING OR DRINKINGEATING OR DRINKINGUSING TOBACCO PRODUCTSUSING TOBACCO PRODUCTS
+EATING OR DRINKING
+EATING OR DRINKING
+USING TOBACCO PRODUCTS
+USING TOBACCO PRODUCTS
+FIREARMS / WEAPONSFIREARMS / WEAPONS
+FIREARMS / WEAPONS
+FIREARMS / WEAPONS
+ALCOHOL OR ILLEGAL DRUGSALCOHOL OR ILLEGAL DRUGS
+ALCOHOL OR ILLEGAL DRUGS
+ALCOHOL OR ILLEGAL DRUGS
+RTEC WILL NOT BE RESPONSIBLE FOR ITEMS LEFT ON THIS VEHICLE.
+EMERGENCY – DIAL 9-1-1
+RTEC: 800-321-7832
+STATE PROGRAM COORDINATOR: 888-941-7433
+TITLE VI NOTICE OF PROTECTIONS AGAINST DISCRIMINATION
+(TITLE VI OF THE CIVIL RIGHTS ACT OF 1964)
+Rural Transit Enterprises Coordinated, Inc. d/b/a RTEC and all Subcontractors operate their programs without regard to race, color and national origin. To request or receive additional information on our discrimination obligations, including complaint procedures, please contact the person listed below:
+Ms. Shelia Stallsworth, Manager
+Equal Employment Opportunity
+100 Main Street
+Mount Vernon, KY 40456
+Telephone: 606-256-9835 or Toll Free: 1-800-321-7832
+Email Address:  rtec@kih.net
+To file a discrimination complaint, the written complaint must be filed to the address above within 180 days of the alleged discrimination. To accommodate limited English proficient individuals, complaints to be documented and/or translated may also be given at the above address. Written complaints may also be filed with the U.S. Department of Transportation /federal transit Administration (FTA) no later than 180 days after the date of the alleged discrimination, unless the time for filing is extended by FTA.
+REPORT SUSPECTED ABUSE & NEGLECT FOR CHILDREN & ADULTS: 
+877-KY-SAFE-1   OR   877-597-2331
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/NOTICES THAT MUST BE POSTED/OLD TITLE VI NOTICE TO PUBIC FROM STATE/OLD TITLE VI NOTICE TO BENEFICIARIES FROM STATE.doc
+SHA256: 01cec2a0607f9cd7564e01c930fe08455a1699a2bd93d97e9fdb5d6a81b9b56d
+TEXT_CHARS_TOTAL: 2315
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+
+                      YOUR CIVIL RIGHTS UNDER TITLE VI
+
+Rural Transit Enterprises Coordinated, Inc.  (RTEC)  adheres  to  the  Civil
+Rights Act of 1964 which states:  “No person in the  United  States,  shall,
+on the grounds  of  race,  color,  or  national  origin,  be  excluded  from
+participation  in,  be  denied  the  benefits  of,  or   be   subjected   to
+discrimination under any program or  activity  receiving  Federal  financial
+assistance.” For more information  on  the  Title  VI  transit  obligations,
+please see the contact information below.
+
+MAKING A TITLE VI COMPLAINT
+
+Any person who believes he/she has been subjected to discrimination  in  the
+delivery of or access to public transportation  services  on  the  basis  of
+race, color, or national  origin,  may  file  a  complaint  with  the  Rural
+Transit Enterprises Coordinated,  Inc.  (RTEC).    Such  complaint  must  be
+filed in writing  with  RTEC  no  later  than  30  days  after  the  alleged
+discrimination.  For information on how to file a  complaint,  contact  RTEC
+as listed below.
+
+        Ms. Shelia Stallsworth, Manager Equal Employment Opportunity
+ Rural Transit Enterprises Coordinated, Inc. (RTEC), 100 Main Street, Mount
+                              Vernon, KY 40456
+ Phone: (606) 256-9835, (606) 256-2047 TTY or Ky. Relay Number: 7-1-1 or 1-
+                                800-648-6057
+             Email Address: rtec@kih.net  Website: www.4rtec.com
+  Written complaints may also be submitted to Tara Walker or Gail Mayeux at
+           the Kentucky Transportation Cabinet at (502) 564-7433.
+Written  complaints  may  also  be  filed  with  the  U.  S.  Department  of
+Transportation/Federal Transit Administration (FTA) no later than  180  days
+after the date of the alleged  discrimination,  at  the  following  address:
+Office of Civil  Rights,  Attention:  Title  VI  Program  Coordinator,  East
+Building, 5th Floor-TCR, 1200 New Jersey Ave., SE, Washington, DC 20590.
+To accommodate limited English proficient individuals,  oral  complaints  to
+be documented and/or translated may also be given at the above address.   If
+information is needed in another language, contact (606) 256-9835 or  1-800-
+321-7832.  Si se necesita  información  en  otro  idioma,  comuníquese  con:
+(606) 256-9835 or 1-800-321-7832.
+
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/NOTICES THAT MUST BE POSTED/OLD TITLE VI NOTICE TO PUBIC FROM STATE/REVISED TITLE VI NOTICE TO BENEFICIARIES FROM STATE REVISED 5 5 15.doc
+SHA256: 696b378076d2aab6ddcf5058577c34261e68f2d0bfa981e2692481e2671a709f
+TEXT_CHARS_TOTAL: 2174
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+
+                      YOUR CIVIL RIGHTS UNDER TITLE VI
+
+Rural Transit Enterprises Coordinated, Inc.  (RTEC)  adheres  to  the  Civil
+Rights Act of 1964 which states:  “No person in the  United  States,  shall,
+on the grounds  of  race,  color,  or  national  origin,  be  excluded  from
+participation  in,  be  denied  the  benefits  of,  or   be   subjected   to
+discrimination under any program or  activity  receiving  Federal  financial
+assistance.” For more information  on  the  Title  VI  transit  obligations,
+please see the contact information below.
+
+MAKING A TITLE VI COMPLAINT
+
+Any person who believes he/she has been subjected to discrimination  in  the
+delivery of or access to public transportation  services  on  the  basis  of
+race, color, or national  origin,  may  file  a  complaint  with  the  Rural
+Transit Enterprises Coordinated,  Inc.  (RTEC).    Such  complaint  must  be
+filed in  writing  with  RTEC  no  later  than  5  days  after  the  alleged
+discrimination.  For information on how to file a  complaint,  contact  RTEC
+as listed below.
+
+        Ms. Sheila Stallsworth, Manager Equal Employment Opportunity Rural Transit Enterprises Coordinated, Inc. (RTEC), 100 Main Street, Mount
+                              Vernon, KY 40456
+ Phone: (606) 256-9835, (606) 256-2047 TTY or Ky. Relay Number: 7-1-1 or 1-
+                                800-648-6057
+             Email Address: rtec@kih.net  Website: www.4rtec.com
+
+Written  complaints  may  also  be  filed  with  the  U.  S.  Department  of
+Transportation/Federal Transit Administration (FTA) no later than  180  days
+after the date of the alleged  discrimination,  at  the  following  address:
+Office of Civil  Rights,  Attention:  Title  VI  Program  Coordinator,  East
+Building, 5th Floor-TCR, 1200 New Jersey Ave., SE, Washington, DC 20590.
+To accommodate limited English proficient individuals,  oral  complaints  to
+be documented and/or translated may also be given at the above address.   If
+information is needed in another language, contact (606) 256-9835 or  1-800-
+321-7832.  Si se necesita  información  en  otro  idioma,  comuníquese  con:
+(606) 256-9835 or 1-800-321-7832.
+
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/NOTICES THAT MUST BE POSTED/Revised OCT 2016 TITLE VI NOTICE TO PUBLIC.doc
+SHA256: e432449472c109c47069e1c0293f01a6c1c23f3fca1e995c3eebf4d0aadb8c2d
+TEXT_CHARS_TOTAL: 2295
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+
+                      YOUR CIVIL RIGHTS UNDER TITLE VI
+
+Rural Transit Enterprises Coordinated, Inc. (RTEC) adheres to the Civil
+Rights Act of 1964 which states: “No person in the United States, shall, on
+the grounds of race, color, or national origin, be excluded from
+participation in, be denied the benefits of, or be subjected to
+discrimination under any program or activity receiving Federal financial
+assistance.” For more information on the Title VI transit obligations,
+please see the contact information below.
+
+MAKING A TITLE VI COMPLAINT
+
+Any person who believes he/she has been subjected to discrimination in the
+delivery of or access to public transportation services on the basis of
+race, color, or national origin, may file a complaint with the Rural
+Transit Enterprises Coordinated, Inc. (RTEC).   Such complaint must be
+filed in writing with RTEC no later than 180 days after the alleged
+discrimination.  For information on how to file a complaint, contact RTEC
+as listed below.
+
+          Ms. Clarissa Hodge, Manager Equal Employment Opportunity
+ Rural Transit Enterprises Coordinated, Inc. (RTEC), 100 Main Street, Mount
+                              Vernon, KY 40456
+  Phone: (606) 256-9835, (606) 256-2047 TTY or KY Relay Number: 7-1-1 or 1-
+                                800-638-6057
+          Email Address: rtec@kih.net    Website: www.ridertec.org
+  Written complaints may also be submitted to the Project Manager or Public
+ Transit Branch Manager at the Kentucky Transportation Cabinet at (502) 564-
+                                    7433.
+Written  complaints  may  also  be  filed  with  the  U.  S.  Department  of
+Transportation/Federal Transit Administration (FTA) no later than  180  days
+after the date of the alleged  discrimination,  at  the  following  address:
+Office of Civil  Rights,  Attention:  Title  VI  Program  Coordinator,  East
+Building, 5th Floor-TCR, 1200 New Jersey Ave., SE, Washington, DC 20590.
+To accommodate limited English proficient individuals,  oral  complaints  to
+be documented and/or translated may also be given at the above address.   If
+information is needed in another language, contact (606) 256-9835 or  1-800-
+321-7832.  Si se necesita  información  en  otro  idioma,  comuníquese  con:
+(606) 256-9835 or 1-800-321-7832.
+
+
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/NOTICES THAT MUST BE POSTED/Revised Title VI Bus Notice with Spanish.docx
+SHA256: a25f99abedec9351ef3e7257d2c4a95e9059aeccecd3f962ad623de1bd18a6c4
+TEXT_CHARS_TOTAL: 1862
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+ALL PASSENGERS MUST WEAR SEATBELTS!
+NONO(SMALL CHILDREN MUST BE IN AN FMVSS APPROVED CAR SEAT)
+NO
+NO
+EATING OR DRINKINGEATING OR DRINKINGUSING TOBACCO PRODUCTSUSING TOBACCO PRODUCTS
+EATING OR DRINKING
+EATING OR DRINKING
+USING TOBACCO PRODUCTS
+USING TOBACCO PRODUCTS
+FIREARMS / WEAPONSFIREARMS / WEAPONS
+FIREARMS / WEAPONS
+FIREARMS / WEAPONS
+ALCOHOL OR ILLEGAL DRUGSALCOHOL OR ILLEGAL DRUGS
+ALCOHOL OR ILLEGAL DRUGS
+ALCOHOL OR ILLEGAL DRUGS
+RTEC WILL NOT BE RESPONSIBLE FOR ITEMS LEFT ON THIS VEHICLE.
+EMERGENCY – DIAL 9-1-1
+RTEC: 800-321-7832
+STATE PROGRAM COORDINATOR: 888-941-7433
+TITLE VI NOTICE OF PROTECTIONS AGAINST DISCRIMINATION
+(TITLE VI OF THE CIVIL RIGHTS ACT OF 1964)
+Rural Transit Enterprises Coordinated, Inc. d/b/a RTEC and all Subcontractors operate their programs without regard to race, color and national origin. To request or receive additional information on our discrimination obligations, including complaint procedures, please contact the person listed below:
+Ms. Clarissa Hodge, Manager
+Equal Employment Opportunity
+100 Main Street
+Mount Vernon, KY 40456
+Telephone: 606-256-9835 or Toll Free: 1-800-321-7832
+Email Address:  rtec@kih.net
+To file a discrimination complaint, the written complaint must be filed to the address above within 180 days of the alleged discrimination. To accommodate limited English proficient individuals, complaints to be documented and/or translated may also be given at the above address. Written complaints may also be filed with the U.S. Department of Transportation /federal transit Administration (FTA) no later than 180 days after the date of the alleged discrimination, unless the time for filing is extended by FTA.  Si se necesita información en otro idioma, comuníquese con: (606) 256-9835 or 1-800-321-7832.
+REPORT SUSPECTED ABUSE & NEGLECT FOR CHILDREN & ADULTS: 
+877-KY-SAFE-1   OR   877-597-2331
+===== SOURCE PART 1 END =====
+
+===== SOURCE BEGIN / PART 1 OF 1 =====
+SOURCE_PATH: TITLE VI LEP PLAN/NOTICES THAT MUST BE POSTED/TITLE VI OF THE CIVIL RIGHTS ACT OF 1964 Notice to Public.doc
+SHA256: 7d8c87ff607dd5d47cb01bfafd6c8a9d90a8d7563fcdf116081689530cd1a718
+TEXT_CHARS_TOTAL: 2066
+OFFSET: 0
+ALIASES: 
+===== TEXT =====
+
+
+                  TITLE VI OF THE CIVIL RIGHTS ACT OF 1964
+
+
+            TITLE VI NOTICE OF PROTECTIONS AGAINST DISCRIMINATION
+
+
+
+Rural  Transit  Enterprises   Coordinated,   Inc.   d/b/a   RTEC   and   all
+Subcontractors operate their programs without  regard  to  race,  color  and
+national origin.  Any person who believes she or he has  been  aggrieved  by
+an unlawful discriminatory practice under Tile VI may file a complaint  with
+RTEC.
+
+
+To  request  or  receive  additional  information  on   our   discrimination
+obligations, including  complaint  procedures,  please  contact  the  person
+listed below or visit  the  administrative  office  at  the  address  listed
+below:
+
+                         Ms. Clarissa Hodge, Manager
+                        Equal Employment Opportunity
+                               100 Main Street
+                           Mount Vernon, KY 40456
+
+
+            Telephone: 606-256-9835 or Toll Free: 1-800-321-7832
+         TTY or Ky. Relay Number: 1-800-648-6057, TDD 1-800-648-6056
+                         Email Address: rtec@kih.net
+                          Website: www.ridertec.org
+
+
+
+
+
+To file a discrimination complaint, the written complaint must be  filed  to
+the address above within 180 days of the  alleged  discrimination.   Written
+complaints   may   also   be   filed   with   the   U.S.    Department    of
+Transportation/Federal Transit Administration (FTA) no later than  180  days
+after the date of the alleged discrimination, unless the time for filing  is
+extended by FTA,  at  the  following  address:    Office  of  Civil  Rights,
+Attention: Title VI Program Coordinator, East Building, 5th Floor-TCR,  1200
+New Jersey Ave., SE, Washington, DC 20590.  To accommodate  limited  English
+proficient individuals, oral complaints to be documented  and/or  translated
+may also be given at  the  above  address.   If  information  is  needed  in
+another language, contact: 606-256-9835 or 1-800-321-7832.  Si  se  necesita
+información en otro idioma, comuníquese con: 606-256-9835 or 1-800-321-7832
+
+
+
+
+
+
+
+
+===== SOURCE PART 1 END =====
