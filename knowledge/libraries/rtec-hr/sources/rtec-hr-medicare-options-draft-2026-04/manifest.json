@@ -1,0 +1,24 @@
+{
+  "source_id": "rtec-hr-medicare-options-draft-2026-04",
+  "title": "What is Medicare? - RTEC benefits planning draft",
+  "source_type": "benefits_planning_draft",
+  "original_filename": "What is Medicare.docx",
+  "source_representation": "complete_searchable_text_and_table_transcription",
+  "temporal_status": "historical",
+  "currentness": "draft_not_canonical",
+  "dates": {
+    "document_created": "2026-04-16",
+    "document_modified": "2026-04-23",
+    "referenced_plan_change": "2026-06-01"
+  },
+  "author_metadata": "RTEC HR Manager",
+  "sha256": "701b5bbc1c611feaaa6168e8472e8a6a767ed5eae55b3d5336f36b250257573b",
+  "page_count_rendered": 3,
+  "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-medicare-options-draft-2026-04/fulltext.md",
+  "derived_records": ["knowledge/libraries/rtec-hr/processes/medicare-benefits-transition-discussion-2026.json"],
+  "notes": [
+    "This document contains drafting notes, parenthetical questions and incomplete sections; it is not treated as an approved policy or final employee communication.",
+    "The source discusses a June 1, 2026 plan-cost increase and possible Medicare alternatives."
+  ],
+  "ingested_at": "2026-09-23"
+}
