@@ -1,0 +1,30 @@
+{
+  "source_id": "rtec-hr-2018-driver-training-orientation",
+  "title": "Driver Training & Orientation Synopsis - RTEC Driver Training",
+  "source_type": "procedure_and_training_plan",
+  "original_filename": "ORIENTATION OF DRIVERS rev by Dale (8) 2018.doc",
+  "source_representation": "complete_text_extraction",
+  "temporal_status": "historical",
+  "currentness": "unknown_not_assumed_current",
+  "dates": {
+    "filename_year": "2018",
+    "metadata_last_printed": "2018-09-18",
+    "metadata_created": "2019-08-01",
+    "metadata_last_saved": "2019-08-01"
+  },
+  "authors_or_editors": [
+    "Dale Shelton",
+    "Sheila Stallworth"
+  ],
+  "sha256": "c1c8c5640079fc92b6bdebad96f36ec40f57766827a9f9281ce35431cd738f71",
+  "page_count_metadata": 4,
+  "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-2018-driver-training-orientation/fulltext.md",
+  "derived_records": [
+    "knowledge/libraries/rtec-hr/processes/driver-hiring-orientation-training-2018.json"
+  ],
+  "notes": [
+    "Filename and last-printed metadata support a 2018 working version; Word create/save metadata is 2019, so exact revision chronology is not assumed.",
+    "Preserved as historical evidence. Requirements must be checked against newer sources before being treated as current."
+  ],
+  "ingested_at": "2026-09-23"
+}
