@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-09-23",
+  "scope": "Git-tracked canonical and derived files produced or updated by the exhaustive iCloud mail analysis.",
+  "files_checked": 15,
+  "result": "pass",
+  "checks": {
+    "valid_json": "15/15",
+    "email_address_like_values": 0,
+    "phone_number_like_values": 0,
+    "ssn_like_values": 0,
+    "currency_amount_like_values": 0,
+    "url_values": 0,
+    "street_address_like_values": 0,
+    "raw_secret_assignment_like_values": 0
+  },
+  "files": [
+    "profile/user-context.json",
+    "profile/icloud-derived-context.json",
+    "profile/icloud-mail-analysis/index.json",
+    "profile/icloud-mail-analysis/corpus-summary.json",
+    "profile/icloud-mail-analysis/timeline.json",
+    "profile/icloud-mail-analysis/communication-and-workstyle.json",
+    "profile/icloud-mail-analysis/career-and-education.json",
+    "profile/icloud-mail-analysis/interests-and-digital-life.json",
+    "profile/icloud-mail-analysis/relationships-and-organizations.json",
+    "profile/icloud-mail-analysis/commitments-and-automation.json",
+    "profile/icloud-mail-analysis/personal-operating-patterns.json",
+    "profile/icloud-mail-analysis/household-and-routines.json",
+    "profile/icloud-mail-analysis/temporal-and-freshness-model.json",
+    "profile/icloud-mail-analysis/attachment-corpus-status.json",
+    "profile/icloud-mail-analysis/open-questions-and-uncertainties.json"
+  ],
+  "caveats": [
+    "Pattern scans are defense-in-depth checks and cannot mathematically prove that prose contains no sensitive implication.",
+    "Sensitive source mail was intentionally not copied into these artifacts.",
+    "The attachment-body corpus remains incomplete because 231 attachment records expose metadata only."
+  ]
+}
