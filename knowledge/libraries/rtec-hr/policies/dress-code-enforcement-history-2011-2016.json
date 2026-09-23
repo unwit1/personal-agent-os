@@ -1,0 +1,222 @@
+{
+  "id": "rtec-policy-dress-code-enforcement-history-2011-2016",
+  "record_type": "policy",
+  "title": "Dress-code enforcement practice - historical 2011-2016",
+  "status": "validated",
+  "temporal_status": "historical",
+  "effective_from": "2011-10-26",
+  "effective_to": "2016-04-26",
+  "summary": "Repeated restricted counseling memoranda show how RTEC historically enforced dress/personal-appearance rules. Several core expectations are independently preserved in the current 2025 handbook, while some older restrictions are not explicitly carried forward and remain historical-only.",
+  "claims": [
+    {
+      "claim": "Across repeated 2011-2016 counseling memoranda, RTEC historically enforced clothing-length/coverage standards, challenged gym/sweat wear, frayed jeans, see-through or low-cut/too-short clothing, and sometimes challenged non-RTEC graphic/advertising shirts.",
+      "claim_kind": "observed_fact",
+      "confidence": 0.99,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-dress-cell-work-rules-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "repeated restricted dress-code counseling memoranda, 2011-2016",
+          "evidence_type": "repeated_observation",
+          "note": "Employee identities and case specifics excluded."
+        }
+      ]
+    },
+    {
+      "claim": "Historical driver counseling explicitly required an RTEC name tag so clients could identify the driver and treated sweatpants/gym wear as outside the dress code; employees were sometimes given a copy of the dress policy during counseling.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-dress-cell-work-rules-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted 2013 driver dress-code counseling record - generalized rule only",
+          "evidence_type": "explicit_text",
+          "note": "Current 2025 handbook independently requires drivers to wear a nametag and RTEC apparel."
+        }
+      ]
+    },
+    {
+      "claim": "A historical counseling memo explicitly emphasized consistent enforcement of the dress-code policy when addressing a graphic/advertising shirt.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-dress-cell-work-rules-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted 2011 dress-code counseling record - generalized process statement",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Historical records show repeated dress concerns could lead to stronger consequences such as being sent home/unpaid or being addressed later in performance appraisal; these are historical practice examples rather than proof of the current corrective-action sequence.",
+      "claim_kind": "interpretation",
+      "confidence": 0.95,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-dress-cell-work-rules-2025",
+        "rtec-policy-safety-confidentiality-discipline-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "repeated 2011-2016 dress counseling records",
+          "evidence_type": "repeated_observation",
+          "note": "Current handbook independently authorizes send-home/unpaid missed time and progressive discipline."
+        }
+      ]
+    },
+    {
+      "claim": "The current December 15, 2025 handbook independently requires office/driver clothing to meet coverage/professional standards, prohibits ripped clothing, requires RTEC driver apparel and a driver nametag, calls for routine/consistent supervisor enforcement, and permits send-home corrective action/progressive discipline.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "SUPERSEDES",
+      "related_record_ids": [
+        "rtec-policy-dress-cell-work-rules-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 27-30 - Dress Code",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "A 2012 historical counseling record treated bright pink hair as outside the then dress-code policy. The current 2025 handbook does not explicitly state a hair-color prohibition, so this restriction is historical-only unless another current source establishes it.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-policy-dress-cell-work-rules-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted 2012 dress counseling record - generalized restriction only",
+          "evidence_type": "explicit_text",
+          "note": "Do not infer current prohibition."
+        }
+      ]
+    },
+    {
+      "claim": "Historical counseling sometimes treated non-RTEC graphics/advertising on shirts as prohibited. The current 2025 office-attire language allows some small university/fashion-brand logos while driver attire is limited to RTEC shirts/jackets/caps, so the old logo rule must be interpreted by role and era rather than globally.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "CONFLICTS_WITH",
+      "related_record_ids": [
+        "rtec-policy-dress-cell-work-rules-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted 2011 dress counseling record",
+          "evidence_type": "explicit_text",
+          "note": "Historical general restriction differs from current role-specific language."
+        },
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed pages 28-30",
+          "evidence_type": "explicit_text",
+          "note": "Office and driver logo rules differ."
+        }
+      ]
+    }
+  ],
+  "trigger": "Supervisor identifies attire/personal-appearance that may not meet the applicable dress standard.",
+  "prerequisites": [
+    "Determine employee role and current dress-code section.",
+    "Consider medical/religious/ethnic or other exception request under current policy."
+  ],
+  "actors": [
+    "Employee",
+    "Supervisor/Manager",
+    "Human Resources"
+  ],
+  "systems": [
+    "Personnel file where counseling is documented"
+  ],
+  "forms": [
+    "Dress-code policy copy",
+    "Counseling memorandum/corrective-action record where required"
+  ],
+  "steps": [
+    "Compare attire to role-specific current standards.",
+    "Discuss the concern and applicable rule with the employee.",
+    "Provide policy guidance/copy when useful.",
+    "Apply current correction/exception process consistently.",
+    "Document corrective action when required."
+  ],
+  "decisions": [
+    "Whether attire violates the current role-specific standard.",
+    "Whether an exception/accommodation is needed.",
+    "Whether repeated conduct warrants formal corrective action."
+  ],
+  "deadlines": [],
+  "outputs": [
+    "Supervisor guidance",
+    "Possible policy copy",
+    "Possible counseling/corrective-action record"
+  ],
+  "exceptions": [
+    "Current handbook directs employees with medical, religious, ethnic or other unique circumstances to consult the supervisor."
+  ],
+  "controls": [
+    "Use the current role-specific handbook language; do not revive historical-only appearance restrictions by analogy.",
+    "Apply standards consistently and document the actual rule relied upon."
+  ],
+  "unresolved_questions": [
+    "Is there a standalone current uniform/name-tag issuance/return procedure beyond the handbook?",
+    "Are current performance appraisals ever used to document dress-code issues, or was that an older local practice?"
+  ],
+  "automation_candidates": [
+    "Role-specific dress-code quick reference for supervisors.",
+    "Corrective-action template that cites the exact current dress-code clause and records any exception review."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+      "safe_source_type": "restricted_case_pattern_analysis",
+      "source_date_or_version": "2011-2016 dress counseling corpus",
+      "content_sha256": null,
+      "page_or_section": "repeated dress-code counseling records",
+      "ingested_at": "2026-09-23",
+      "notes": "Employee identities and case-level facts excluded.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": "2011-10-26",
+      "source_effective_to": "2016-04-26",
+      "temporal_status": "historical",
+      "full_source_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json"
+    },
+    {
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "safe_source_type": "employee_handbook",
+      "source_date_or_version": "2025-12-15",
+      "content_sha256": "d8601d4c5ded962051c521ace697f447492dc178d565a393e5c945c309a7e22c",
+      "page_or_section": "printed pages 27-30",
+      "ingested_at": "2026-09-23",
+      "notes": "Current-policy comparison.",
+      "source_created_date": null,
+      "source_revision_date": "2025-12-15",
+      "source_effective_from": "2025-12-15",
+      "source_effective_to": null,
+      "temporal_status": "current",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md"
+    }
+  ]
+}
