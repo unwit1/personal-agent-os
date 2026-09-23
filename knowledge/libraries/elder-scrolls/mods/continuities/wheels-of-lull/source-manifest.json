@@ -26,7 +26,7 @@
     "records": 32
   },
   "dialogue_corpus": {
-    "status": "complete",
+    "status": "complete_source_import",
     "combined_total_records": 747,
     "stored_DIAL": 337,
     "stored_INFO": 410
@@ -68,24 +68,68 @@
       "records": "1063-1090"
     }
   ],
-  "post_ingestion_next": [
-    "deterministic speaker/condition resolution",
-    "evidence-backed character/location/artifact/faction dossiers",
-    "claim extraction with testimony versus implementation evidence",
-    "contradiction and canon-scope analysis",
-    "retrieval/index generation"
-  ],
+  "raw_integrity": {
+    "status": "complete_ingestion_with_two_stored_shards_requiring_regeneration",
+    "unreadable_shards": [
+      {
+        "path": "raw/source-records-0151-0200.jsonl.gz",
+        "records": "151-200"
+      },
+      {
+        "path": "raw/source-records-0401-0450.jsonl.gz",
+        "records": "401-450"
+      }
+    ],
+    "affected_speaker_analysis_info_records": 52,
+    "repair_plan": "analysis/repair-plan.md",
+    "source_reacquisition_requirement": "Exact WheelsOfLull.esp with matching SHA-256 is required for deterministic regeneration."
+  },
   "post_ingestion_analysis": {
-    "status": "complete_with_bounded_integrity_gap",
+    "status": "core_complete_with_bounded_shard_repair_required",
     "analysis_root": "analysis/",
     "speaker_resolution_files": [
       "analysis/speaker-resolution-0001.jsonl",
       "analysis/speaker-resolution-0002.jsonl"
     ],
+    "speaker_resolution": {
+      "total_info": 410,
+      "processed_readable": 358,
+      "resolved": 288,
+      "unresolved_readable": 70,
+      "excluded_pending_repair": 52
+    },
     "claims_file": "analysis/claims/core-claims.jsonl",
     "tensions_file": "analysis/claims/tensions.jsonl",
     "retrieval_index": "analysis/retrieval/index.jsonl",
     "integrity_report": "analysis/source-integrity.json",
-    "excluded_info_records": 52
-  }
+    "post_ingestion_status": "analysis/post-ingestion-status.json",
+    "dossiers": {
+      "characters": 9,
+      "locations": 8,
+      "artifact_technology": 10,
+      "faction_group": 4
+    }
+  },
+  "book_provenance": {
+    "status": "passes_01_03_complete_followup_active",
+    "normalization_index": "analysis/book-normalization-index.json",
+    "normalization_builder": "technical/build-book-normalization-index.py",
+    "source_relations": "normalized/book-source-relations.json",
+    "variant_analysis": "analysis/book-variant-pass-01.json",
+    "verified_external_reuse": 3,
+    "strong_indirect_legacy_candidates": 1,
+    "origin_unresolved": 29
+  },
+  "retrieval_rebuild": {
+    "status": "blocked_pending_raw_shard_regeneration",
+    "manifest": "normalized/retrieval-manifest.json",
+    "builder": "technical/build-retrieval-index.py",
+    "policy": "fail_closed_no_partial_index"
+  },
+  "next_actions": [
+    "Reacquire and SHA-256 verify the exact WheelsOfLull.esp, then regenerate the two corrupt raw shards.",
+    "Rerun strict speaker resolution for the 52 excluded INFO records and merge the results.",
+    "Rebuild and validate the full 1,090-document retrieval corpus.",
+    "Continue narrow BOOK source/edition research only when new archival Trainwiz/Sotha Sil Expanded/Aethernautics source assets become available."
+  ]
 }
