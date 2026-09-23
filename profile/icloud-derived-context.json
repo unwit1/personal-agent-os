@@ -61,7 +61,7 @@
   },
   "employment_history_and_career": {
     "triple_r_ranch": "Worked multiple summers with Triple R Ranch before 2022 and pursued additional summer/grounds or trading-post work there in 2022.",
-    "berea_college_work": "Has prior Berea College work experience connected to the Office of Sustainability; later professional-reference correspondence identifies a former manager there.",
+    "berea_college_work": "Former Berea College role was Alternative Transportation Coordinator, managing a small bicycle/alternative-transportation program connected to sustainability work. The user later described this as a job where they worked semi-autonomously and learned to run the operation with one coworker and little initial training.",
     "university_of_kentucky": "Started a University of Kentucky STEPS Benefits Associate assignment in Employee Benefits in July 2023; later professional-reference correspondence identifies the relevant background as HR Benefits Customer Service experience.",
     "rtec": "Accepted an HR Manager position with RTEC in Mount Vernon, Kentucky and expected to start April 13, 2026. Before starting, proactively asked about dress code, parking, training/30-60-90-day expectations, handbook/policies, vacation, insurance, and open enrollment.",
     "job_search_2025_2026": "Conducted a broad, active 2025-2026 search with direct interview/recruiter correspondence for HR, benefits/compensation, HR generalist/manager, analyst, administrative, and some adjacent technical/field roles. Automated job alerts are not treated as proof of application or current intent.",
@@ -70,6 +70,12 @@
       "Often follows up proactively after applications and interviews.",
       "Asks detailed questions about role scope, benefits, training, timelines, and expectations before accepting or starting work.",
       "Keeps professional references and resumes ready for recruiter follow-up."
+    ],
+    "work_style": [
+      "Explicitly described working best semi-autonomously.",
+      "Values freedom to experiment and learn how to manage a function rather than needing constant supervision.",
+      "Has experience learning operational work on the fly with limited training/support.",
+      "Shows a strong service orientation and discomfort with giving customers false hope when a problem cannot be fixed."
     ]
   },
   "household_and_life_history": {
@@ -82,7 +88,8 @@
     "shopping_planning": "Has used spreadsheets and emailed lists to track needs, purchases, and gift ideas.",
     "vehicle": "Repeated CARFAX service records in 2026 strongly support a current 2012 Honda Accord; maintenance reminders include oil changes, tire rotation, registration, and service visits.",
     "shared_household_signal": "Repeated household purchases and money-sharing correspondence with Olivia support treating many grocery, utility, home, and discretionary decisions as shared-household planning rather than purely individual spending.",
-    "craft_purchase_signal": "Repeated 2026 household orders include diamond-painting/craft supplies, home organization, and décor; treat these as household-level interests unless separately confirmed as the user's own hobby."
+    "craft_purchase_signal": "Repeated 2026 household orders include diamond-painting/craft supplies, home organization, and décor; treat these as household-level interests unless separately confirmed as the user's own hobby.",
+    "housing_history": "Multi-year correspondence shows the user independently managing leases, roommates, utilities, rent/autopay, work orders, move-out checklists, and deposit planning in Kentucky; exact addresses are intentionally excluded."
   },
   "family_and_relationship_context": {
     "partner": "Olivia is a long-term romantic partner and an important household-planning relationship.",
@@ -147,7 +154,8 @@
       "Deep Rock Galactic",
       "Citizen Sleeper 2"
     ],
-    "skyrim_creator_ecosystem": "2026 Patreon mail is heavily concentrated in Skyrim/modding creators, including Arcanyx Studios, Thumblesteen, Yanholic, Nether's Modding Mayhem, Martimius, DwemerDynamics, Smooth, Xavbio, SkyrimNet, Simon Magus, MihailMods, Pathoschild, and others. This is strong supporting evidence for the existing high-priority Skyrim-modding interest."
+    "skyrim_creator_ecosystem": "2026 Patreon mail is heavily concentrated in Skyrim/modding creators, including Arcanyx Studios, Thumblesteen, Yanholic, Nether's Modding Mayhem, Martimius, DwemerDynamics, Smooth, Xavbio, SkyrimNet, Simon Magus, MihailMods, Pathoschild, and others. This is strong supporting evidence for the existing high-priority Skyrim-modding interest.",
+    "household_cooking_and_diy": "A 2022 self-authored needs/holiday list shows interest in cookware, knife storage, meat thermometers, bulk pantry storage, mason jars for canning/pickling/spice blends, a Dutch oven, grill/air-fryer equipment, drill/socket tools, and building a table."
   },
   "side_income_and_research_participation": {
     "paid_research": "Repeatedly monitors and in some cases participates in paid focus-group/user-research platforms, including FocusGroups.org, User Interviews, Respondent, Prolific, L&E Research, Focuscope, and related services.",
@@ -158,7 +166,8 @@
     "personal": "Personal correspondence is substantially more casual, humorous, and expressive.",
     "drafting_implication": "Agent-written messages should preserve the context-dependent split between concise professional courtesy and informal humor with close contacts.",
     "follow_up_pattern": "When a professional process is unresolved, the user commonly sends courteous follow-ups rather than waiting indefinitely; this appears in job-search, support, housing, and work correspondence.",
-    "question_style": "The user tends to bundle practical questions into organized, concrete lists covering timelines, expectations, policies, benefits, logistics, and next steps."
+    "question_style": "The user tends to bundle practical questions into organized, concrete lists covering timelines, expectations, policies, benefits, logistics, and next steps.",
+    "channel_preference": "At least one direct service/sales exchange explicitly says 'I prefer email'; broader correspondence also shows heavy reliance on email for practical coordination. Treat this as a useful preference signal, not an absolute rule."
   },
   "evidence_quality_rules": {
     "high_confidence": [
@@ -192,5 +201,60 @@
     ],
     "policy": "These source classes were used only where needed to recognize broad non-sensitive context; raw values and sensitive conclusions are excluded from Git-tracked profile state.",
     "attachment_policy": "Attachment filenames may support provenance/category recognition, but metadata-only attachments are not treated as if their contents were read."
-  }
+  },
+  "life_timeline": [
+    {
+      "period": "2020",
+      "facts": [
+        "Returned to Triple R Ranch for summer work after prior summers there.",
+        "Was a Berea College student and moved into independent housing during the school year."
+      ]
+    },
+    {
+      "period": "2021",
+      "facts": [
+        "Set up utilities and managed lease/household administration for a Berea apartment.",
+        "Maintained an insured vehicle."
+      ]
+    },
+    {
+      "period": "2022",
+      "facts": [
+        "Balanced Berea coursework/finals with plans for another period of Triple R Ranch summer work.",
+        "Completed the ISA Irish Studies Summer School in Galway, Ireland from roughly June 20 to July 19.",
+        "Used a spreadsheet to track personal needs and maintained detailed cooking/home/DIY wish lists."
+      ]
+    },
+    {
+      "period": "2023",
+      "facts": [
+        "Described self as a recent Berea College graduate by September.",
+        "Former Berea role was Alternative Transportation Coordinator, managing a small bicycle/alternative-transportation program connected to sustainability work.",
+        "Accepted a University of Kentucky STEPS Benefits Associate role in Employee Benefits with a July 17 start."
+      ]
+    },
+    {
+      "period": "2024",
+      "facts": [
+        "Continued managing apartment leases, roommate changes, rent/autopay, and move-out planning.",
+        "Handled vehicle-registration/insurance paperwork."
+      ]
+    },
+    {
+      "period": "2025",
+      "facts": [
+        "Ran a sustained job search with interviews or recruiter conversations across HR, benefits/compensation, HR generalist, management-trainee, analyst, administrative, and related roles.",
+        "Used former Berea College and University of Kentucky supervisors/managers as professional references.",
+        "Referred to Olivia as fiancée in a September 2025 professional email; retain this as dated evidence rather than overriding the user's current preferred relationship label."
+      ]
+    },
+    {
+      "period": "2026",
+      "facts": [
+        "Accepted the RTEC HR Manager role in Mount Vernon, Kentucky and started in April.",
+        "Current mail strongly supports a 2012 Honda Accord with active maintenance/registration tracking.",
+        "Skyrim/modding, PC gaming, AI/coding tools, paid research platforms, and shared household planning with Olivia are all high-frequency current signals."
+      ]
+    }
+  ]
 }
