@@ -97,16 +97,32 @@
     "Career/application/interview correspondence cross-checked against direct institutional replies",
     "Education, housing, travel, vehicle, technology, hobbies, household, paid-research, and creator/subscription signals targeted",
     "Attachment inventory classified by type and extraction availability",
-    "False-positive controls applied to marketing, recommendations, job alerts, and household/device ambiguity"
+    "False-positive controls applied to marketing, recommendations, job alerts, and household/device ambiguity",
+    "Evidence-backed personal timeline reconstructed from 2018 through September 2026",
+    "Communication and work-style model quantified from the Sent Messages corpus",
+    "Career and education history synthesized, including 49 explicit LinkedIn application confirmations",
+    "Interest and digital-life model synthesized with confidence rules",
+    "Privacy-preserving personal/organization relationship graph created",
+    "Commitment/follow-up state patterns and automation opportunities modeled",
+    "Cross-domain personal operating patterns synthesized",
+    "Uncertainties, contradictions, and evidence gaps cataloged for future resolution"
   ],
   "next_deepening_targets": [
-    "Build evidence-backed personal timeline with first/last-seen dates",
-    "Build relationship/organization graph without contact details",
-    "Separate direct applications/interviews from automated job alerts",
-    "Model communication style by recipient/context",
-    "Extract recurring commitments and follow-up behavior",
-    "Model interest evolution and digital-service history",
-    "Generate automation opportunities from repeated manual workflows",
-    "Recover/extract attachment bodies as a separate corpus if source files become available"
-  ]
+    "Recover and extract the 231 metadata-only attachment bodies as a separate local/private corpus.",
+    "Corroborate unresolved profile questions only when relevant, rather than interrupting the user with low-value questions.",
+    "Incrementally analyze new mail after the 2026-09-23 index cutoff using the same evidence/privacy rules.",
+    "Connect message/thread evidence to a stateful commitment tracker so future unresolved items can be resurfaced automatically."
+  ],
+  "status": "complete_for_indexed_message_text",
+  "analysis_artifacts": [
+    "profile/icloud-mail-analysis/timeline.json",
+    "profile/icloud-mail-analysis/communication-and-workstyle.json",
+    "profile/icloud-mail-analysis/career-and-education.json",
+    "profile/icloud-mail-analysis/interests-and-digital-life.json",
+    "profile/icloud-mail-analysis/relationships-and-organizations.json",
+    "profile/icloud-mail-analysis/commitments-and-automation.json",
+    "profile/icloud-mail-analysis/personal-operating-patterns.json",
+    "profile/icloud-mail-analysis/open-questions-and-uncertainties.json"
+  ],
+  "completion_boundary": "The 10,577 indexed email-message texts are exhausted for this analysis pass. This does not mean the 231 metadata-only attachment bodies were read; those remain a separately incomplete corpus."
 }

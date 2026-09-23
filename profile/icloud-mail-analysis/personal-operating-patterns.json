@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-23",
+  "purpose": "Cross-domain synthesis of recurring, non-sensitive operating patterns observed in the indexed personal mail. These are behavioral workflow observations, not psychological diagnoses or fixed personality claims.",
+  "patterns": [
+    {
+      "id": "prepare-by-clarifying",
+      "confidence": "high",
+      "observation": "Before consequential transitions, the user tends to reduce uncertainty by asking concrete questions about process, rules, timing, logistics, required documents, benefits, or next steps.",
+      "evidence_domains": [
+        "employment onboarding",
+        "interviews",
+        "housing",
+        "travel/study administration"
+      ],
+      "agent_behavior": "Answer with explicit next steps, checklists, deadlines, prerequisites, and exception paths rather than abstract advice."
+    },
+    {
+      "id": "persistent-follow-up",
+      "confidence": "high",
+      "observation": "When another person or organization owes the next step, the user commonly follows up instead of assuming silence means closure.",
+      "quantitative_support": "25 of 203 indexed Sent Messages contain explicit follow-up language.",
+      "agent_behavior": "Track who owns the next action and suggest a concise follow-up when the expected response window passes."
+    },
+    {
+      "id": "administrative-slip-then-recover",
+      "confidence": "medium_high",
+      "observation": "The archive contains recurring but not constant instances of delayed replies, forgotten/back-burner tasks, or uncertainty about whether an administrative step was completed. Once noticed, the user usually attempts to repair the issue promptly.",
+      "quantitative_support": "9 Sent Messages contain delay/lateness apology language and 2 contain explicit forgot/back-burner language.",
+      "agent_behavior": "Keep unresolved administrative tasks visible and make recovery easy with the smallest concrete next action."
+    },
+    {
+      "id": "semi-autonomous-work-fit",
+      "confidence": "high",
+      "observation": "The user explicitly described a semi-autonomous prior role with room to experiment and learn how to run a function as a particularly good work fit.",
+      "evidence_domains": [
+        "Berea Alternative Transportation Coordinator interview notes"
+      ],
+      "agent_behavior": "When comparing work/project workflows, favor structures that give clear objectives and guardrails without micromanaging every step."
+    },
+    {
+      "id": "learn-by-doing",
+      "confidence": "high",
+      "observation": "The user described learning an under-trained two-person operation on the fly as difficult but valuable, and support correspondence shows practical experimentation when troubleshooting.",
+      "agent_behavior": "Provide an executable path and feedback loop, not only theory; preserve checkpoints so experimentation is reversible."
+    },
+    {
+      "id": "evidence-oriented-troubleshooting",
+      "confidence": "high",
+      "observation": "Technical-support correspondence tends to include reproduction details, conditions already tested, device comparisons, and escalation after basic troubleshooting has been exhausted.",
+      "agent_behavior": "When helping debug, summarize observed facts, list tested hypotheses, avoid repeating steps already tried, and keep logs/results."
+    },
+    {
+      "id": "service-with-realistic-expectations",
+      "confidence": "high",
+      "observation": "In self-authored interview notes, the user emphasized helping customers while avoiding false hope when a problem cannot actually be fixed.",
+      "agent_behavior": "Prefer clear status and realistic options over reassuring but unsupported claims."
+    },
+    {
+      "id": "email-as-external-memory",
+      "confidence": "high",
+      "observation": "Email functions as more than messaging: the user forwards documents, links, scans, receipts, resumes, e-books, and reference material between accounts and contexts.",
+      "quantitative_support": "At least 29 Sent Messages are self-forwards/cross-account transport.",
+      "agent_behavior": "Treat communication, document retrieval, and personal knowledge management as connected workflows; reduce manual self-forwarding where integrations permit."
+    },
+    {
+      "id": "document-heavy-administration",
+      "confidence": "high",
+      "observation": "Forms, resumes, scans, verification documents, spreadsheets, and other attachments recur across school, work, housing, support, and personal administration.",
+      "quantitative_support": "42 Sent Messages contain attachment-related language; 232 attachment records exist in the indexed archive.",
+      "agent_behavior": "Track document requests, current version, sent status, destination, and completion evidence."
+    },
+    {
+      "id": "context-sensitive-writing",
+      "confidence": "high",
+      "observation": "Professional and personal writing styles differ markedly: professional mail is structured, appreciative, and direct, while close-contact mail is much shorter, more humorous, and more expressive.",
+      "agent_behavior": "Choose style by relationship/context rather than applying one universal voice."
+    },
+    {
+      "id": "career-persistence-and-adaptation",
+      "confidence": "high",
+      "observation": "The 2025-2026 search shows repeated applications and interview follow-up, willingness to revisit employers/role families, and post-rejection interest in understanding how to improve future candidacy.",
+      "agent_behavior": "Preserve job-search history and lessons so future applications build on prior outcomes rather than restarting from scratch."
+    },
+    {
+      "id": "career-center-of-gravity",
+      "confidence": "high",
+      "observation": "Direct application evidence puts the strongest recent career center of gravity in HR, benefits, compensation, payroll, and people operations, while still showing exploration of adjacent roles.",
+      "quantitative_support": "38 of 49 explicit LinkedIn application confirmations were HR/people-operations or benefits/compensation/payroll.",
+      "agent_behavior": "Use this as background context for career tasks, but current user goals and role preferences always override historical application patterns."
+    },
+    {
+      "id": "household-shared-planning",
+      "confidence": "high",
+      "observation": "Recent correspondence supports treating many housing, grocery, home, and discretionary decisions as household-level planning with Olivia rather than purely individual consumption.",
+      "agent_behavior": "For meal, grocery, housing, or household-budget tasks, account for two-person preferences and shared constraints when relevant."
+    },
+    {
+      "id": "convenience-matters",
+      "confidence": "medium_high",
+      "observation": "Recurring quick-service/mobile food ordering indicates that convenience and low-prep options are part of actual behavior.",
+      "agent_behavior": "Meal planning should include realistic convenience options and not assume an idealized cook-every-meal routine."
+    },
+    {
+      "id": "multi-project-digital-intensity",
+      "confidence": "high",
+      "observation": "2026 mail shows very high GitHub activity alongside AI/coding services, Skyrim creator ecosystems, gaming, research-study platforms, and household administration.",
+      "agent_behavior": "Selective retrieval and priority filtering are essential; broad notification ingestion without ranking would create noise."
+    },
+    {
+      "id": "historical-creativity-signal",
+      "confidence": "medium",
+      "observation": "A 2018 self-authored scholarship message identified creativity as a strength and expressed a desire for education/work that uses it.",
+      "agent_behavior": "Treat as supporting historical context for creative/technical projects, not as a fixed personality label."
+    }
+  ],
+  "anti_patterns_for_agent": [
+    "Do not mark a commitment complete just because the user sent a message; completion may depend on someone else's reply or an external outcome.",
+    "Do not infer current job-search status from automated job alerts.",
+    "Do not infer personal ownership/preferences from every household purchase.",
+    "Do not reload the whole personal profile for unrelated technical tasks.",
+    "Do not turn historical education, housing, relationship, or device evidence into current state without recency checks.",
+    "Do not use reassuring language when evidence is incomplete; surface uncertainty and next verification step."
+  ],
+  "high_value_assistant_behaviors": [
+    "Remember unresolved obligations and their evidence state.",
+    "Show the smallest useful next action.",
+    "Preserve project/task stopping points.",
+    "Use checklists for document-heavy or policy-heavy workflows.",
+    "Draft professional follow-ups in the user's natural concise/courteous style.",
+    "Reduce manual cross-account document transport through retrieval/connectors.",
+    "Filter high-volume feeds so only actionable changes surface.",
+    "Keep strong provenance and dates so old state does not contaminate current decisions."
+  ]
+}

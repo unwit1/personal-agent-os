@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-23",
+  "purpose": "Privacy-safe inventory of the attachment corpus referenced by the iCloud mail index. This records only aggregate metadata and recovery needs; it does not pretend metadata-only attachments were read.",
+  "totals": {
+    "attachment_records": 232,
+    "with_extracted_text": 1,
+    "metadata_only": 231
+  },
+  "file_extensions": {
+    "png": 72,
+    "pdf": 60,
+    "jpg": 34,
+    "jpeg": 27,
+    "docx": 17,
+    "no_extension": 5,
+    "m4r": 5,
+    "ics": 4,
+    "xlsx": 3,
+    "epub": 2,
+    "p7s": 1,
+    "mp4": 1,
+    "heic": 1
+  },
+  "mime_types": {
+    "image/png": 77,
+    "image/jpeg": 60,
+    "application/pdf": 59,
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": 17,
+    "application/octet-stream": 6,
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": 3,
+    "audio/x-m4r": 2,
+    "application/epub+zip": 2,
+    "application/x-pkcs7-signature": 1,
+    "application/ics": 1,
+    "video/mp4": 1,
+    "image/heic": 1,
+    "text/calendar": 1,
+    "text/plain": 1
+  },
+  "filename_only_category_signals": {
+    "note": "These categories are non-exclusive keyword signals from filenames/extensions only. They identify future extraction targets and are not claims about document contents.",
+    "image_or_scan_signal": 133,
+    "general_pdf_or_word_document_signal": 78,
+    "employment_or_hr_signal": 10,
+    "resume_or_cv_signal": 5,
+    "housing_or_lease_signal": 4,
+    "vehicle_or_insurance_signal": 3,
+    "spreadsheet_signal": 3,
+    "ebook_signal": 3,
+    "education_signal": 1,
+    "travel_signal": 1,
+    "no_category_signal": 16
+  },
+  "likely_value_of_future_extraction": [
+    "Resume/CV versions could clarify education, skills, employment dates, and role descriptions with strong provenance.",
+    "Employment/HR documents could resolve job-history and onboarding details, but should be handled under a strict privacy boundary.",
+    "Housing/lease documents could resolve historical housing periods, but exact addresses and third-party data should remain local unless specifically needed.",
+    "Spreadsheets may contain structured personal planning data and could reveal reusable planning workflows.",
+    "Images/scans are the largest attachment class and may require OCR only after format-native extraction is unavailable.",
+    "E-books should be treated as reading/library artifacts rather than profile facts unless usage context makes them relevant."
+  ],
+  "extraction_policy": [
+    "Recover attachment binaries from the original archive/provider or export pipeline.",
+    "Hash and deduplicate before extraction.",
+    "Use format-native parsers for PDF/DOCX/XLSX/EPUB before OCR.",
+    "Use OCR only where necessary for image/scanned documents.",
+    "Keep raw binaries, extracted text, and sensitive source details local/private.",
+    "Link every extraction to message_id and attachment_id for provenance.",
+    "Run sensitivity detection before any model or Git promotion.",
+    "Promote only sanitized durable conclusions, never raw private documents."
+  ],
+  "current_boundary": "The attachment corpus is not exhausted. Only the indexed email-message text is currently complete."
+}

@@ -46,7 +46,7 @@
       "scan_status": "complete_for_indexed_message_text",
       "attachment_content_status": "The archive's indexed message text is exhausted for this pass. Attachment bodies are a separate future corpus because 231 of 232 attachment records expose metadata only.",
       "synthesis_status": "complete_for_indexed_message_text",
-      "structured_analysis_files": 7,
+      "structured_analysis_files": 9,
       "notes_on_completion": "The indexed message text has been analyzed at corpus, timeline, career/education, communication/work-style, relationships/organizations, interests/digital-life, and commitment/automation levels. Attachment bodies remain a separately incomplete corpus."
     }
   },
@@ -332,6 +332,14 @@
     {
       "path": "profile/icloud-mail-analysis/commitments-and-automation.json",
       "purpose": "Commitment-state patterns, administrative friction, follow-up rules, and automation opportunities."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/personal-operating-patterns.json",
+      "purpose": "Cross-domain synthesis of recurring workflow/operating patterns and the assistant behaviors they imply."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/open-questions-and-uncertainties.json",
+      "purpose": "Version-sensitive, weakly evidenced, or unresolved questions that must not be guessed or silently promoted."
     }
   ],
   "behavior_and_commitments": {

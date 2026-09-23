@@ -328,7 +328,8 @@ Success signal:
 - common tasks receive materially smaller context packets without losing needed information.
 
 Detailed design:
-- `projects/personal-agent-os/roadmap/personal-executive.md` — EXEC-0.5.
+- `projects/personal-agent-os/roadmap/personal-executive.md`
+- `projects/personal-agent-os/roadmap/personal-message-archive.md` — EXEC-0.5.
 
 ### P0.3 — Shared document intelligence + local persistent extraction/OCR cache
 
@@ -939,7 +940,7 @@ Order:
 1. finish/solidify iCloud Mail ingestion and MCP/Agent-OS bridge;
 2. EXEC-11 Communication Intelligence;
 3. calendar intelligence;
-4. text-message import;
+4. Personal Message Archive / Text Intelligence (`projects/personal-agent-os/roadmap/personal-message-archive.md`) — free/local iPhone/iMessage/SMS/RCS ingestion, SQLite/FTS5 retrieval, incremental refresh, and evidence-backed profile/commitment/project/relationship integration;
 5. Discord authorized archive/API ingestion;
 6. Universal Following Feed core;
 7. additional content adapters.
@@ -1010,7 +1011,7 @@ Unless an urgent correctness/privacy bug or explicitly promoted user request int
 14. skill miner + replay/evaluation;
 15. Executive Event Bus / schemas / Next Action Engine;
 16. capture + Rescue Mode;
-17. communication/calendar intelligence;
+17. communication/calendar intelligence + Personal Message Archive / Text Intelligence (MSG-0 through MSG-10);
 18. proactivity/voice;
 19. controlled autonomy;
 20. reusable Knowledge Library / Elder Scrolls implementation;
