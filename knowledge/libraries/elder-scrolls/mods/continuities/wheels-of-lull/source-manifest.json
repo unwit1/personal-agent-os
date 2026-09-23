@@ -108,7 +108,18 @@
       "locations": 8,
       "artifact_technology": 10,
       "faction_group": 4
-    }
+    },
+    "claims": {
+      "core": 31,
+      "tensions": 7
+    },
+    "topic_dossiers": 14,
+    "retrieval_index_entries": 76,
+    "semantic_gap_closure": [
+      "topics/power-energy-metaphysics.md",
+      "topics/mimics-and-mutability.md",
+      "topics/how-two-moon-clockwork-creation.md"
+    ]
   },
   "book_provenance": {
     "status": "passes_01_03_complete_followup_active",
