@@ -1,0 +1,51 @@
+{
+  "batch_id": "rtec-hr-email-archive-2016-2026-analysis-2026-09-23",
+  "ingested_at": "2026-09-23",
+  "source_kind": "flattened_pst_email_archive",
+  "source_message_count": 576,
+  "source_date_range": {
+    "start": "2016-04-28",
+    "end": "2026-06-26"
+  },
+  "source_hashes": {
+    "all_messages_sha256": "5a5393f85eb69d432906d4ce725e8db747419ff75228547612209695c35287cb",
+    "index_sha256": "664b3d086610a94b441940d5a2a379a0c43895a1d6ea3c607bb8b6f2ea0887ff",
+    "archive_sha256": "97cdf66b0525658ce401af2edf5b3539696eb2258db8a64707f8c14a152fcc3a"
+  },
+  "status": "structural_ingestion_complete_semantic_deepening_active",
+  "privacy": {
+    "raw_email_text_committed": false,
+    "raw_headers_committed": false,
+    "employee_applicant_case_facts_committed": false,
+    "rule": "Raw PII-bearing email content remains outside GitHub. Only sanitized, professional, process-level findings are durable here."
+  },
+  "corpus_summary": {
+    "by_year": {
+      "2016": 33,
+      "2017": 15,
+      "2018": 35,
+      "2019": 43,
+      "2020": 54,
+      "2021": 160,
+      "2026": 236
+    },
+    "self_task_reminder_messages": 122,
+    "restricted_applicant_records_detected": 10,
+    "potential_employee_case_material_detected": 32,
+    "personal_nonwork_messages_detected": 13
+  },
+  "derived_records": [
+    "knowledge/libraries/rtec-hr/processes/email-derived-hr-work-patterns-2016-2026.json",
+    "knowledge/libraries/rtec-hr/systems/email-derived-system-vendor-timeline-2016-2026.json",
+    "knowledge/libraries/rtec-hr/roles/email-derived-professional-contact-map-2016-2026.json",
+    "knowledge/libraries/rtec-hr/roles/current-hr-role-email-evidence-2026.json",
+    "knowledge/libraries/rtec-hr/questions/email-derived-gaps-2026-09-23.json",
+    "projects/rtec-hr-process-model/docs/EMAIL_ARCHIVE_INGESTION_2026-09-23.md"
+  ],
+  "interpretation_guardrails": [
+    "Historical email behavior is evidence of historical practice, not automatically current policy.",
+    "One employee/applicant case never establishes a general rule.",
+    "Vendor outreach or a meeting invitation does not prove product adoption.",
+    "Professional contact profiles exclude case facts, medical facts, discipline, compensation, beneficiary data, and other sensitive personal details."
+  ]
+}
