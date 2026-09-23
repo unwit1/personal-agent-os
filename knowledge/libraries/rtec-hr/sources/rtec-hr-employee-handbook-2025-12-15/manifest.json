@@ -1,0 +1,35 @@
+{
+  "source_id": "rtec-hr-employee-handbook-2025-12-15",
+  "title": "RTEC Employee Handbook",
+  "source_type": "employee_handbook",
+  "original_filename": "2023 Employee handbook-Updated 12-15-2025.docx",
+  "source_representation": "complete_searchable_text_from_all_48_supplied_pages",
+  "source_date": "2025-12-15",
+  "effective_from": "2025-12-15",
+  "effective_to": null,
+  "temporal_status": "current_with_section_level_supersession",
+  "sha256": "d8601d4c5ded962051c521ace697f447492dc178d565a393e5c945c309a7e22c",
+  "page_count": 48,
+  "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+  "derived_records": [
+    "knowledge/libraries/rtec-hr/policies/employee-handbook-2025-12-15.json"
+  ],
+  "relationships": [
+    {
+      "relationship": "SUPERSEDES",
+      "source_id": "rtec-hr-employee-handbook-selected-2023-03-01",
+      "note": "Later complete handbook in the same RTEC handbook lineage; supersedes overlapping 2023 handbook provisions."
+    },
+    {
+      "relationship": "SUPERSEDED_IN_PART_BY",
+      "source_id": "rtec-hr-eeo-policy-2026-08-26",
+      "note": "Later signed 2026 EEO policy controls where it differs from the handbook's 2025 EEO language."
+    }
+  ],
+  "notes": [
+    "Position-level policy source; safe for full corpus preservation.",
+    "Currentness is section-specific because later standalone policies can supersede individual sections.",
+    "The filename begins with 2023, but the document itself repeatedly identifies the handbook date as 12/15/2025; the printed date is used as the source/version date."
+  ],
+  "ingested_at": "2026-09-23"
+}
