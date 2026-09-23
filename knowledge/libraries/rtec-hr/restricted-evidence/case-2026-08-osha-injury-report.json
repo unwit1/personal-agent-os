@@ -1,0 +1,24 @@
+{
+  "source_id": "rtec-restricted-2026-08-osha-injury-report",
+  "privacy_class": "restricted_case_record",
+  "document_class": "osha_form_301_injury_and_illness_incident_report",
+  "retention_mode": "metadata_only_no_raw_content",
+  "source_scan_date": "2026-08-28",
+  "page_count": 1,
+  "content_sha256": "e1cc5f91571ccfe45d389d67dda4a7775d72f6d7aa2f4d4176f476379072890b",
+  "generalized_evidence": [
+    "An OSHA Form 301 work-related injury/illness incident report entered the HR document corpus in 2026.",
+    "This provides case-level evidence that OSHA injury/illness documentation is part of at least one RTEC workplace-injury record flow."
+  ],
+  "prohibited_from_github": [
+    "raw document",
+    "raw OCR",
+    "employee identity",
+    "medical/injury details",
+    "incident narrative",
+    "provider information",
+    "signatures"
+  ],
+  "derived_candidate_id": "rtec-process-workplace-injury-osha-documentation-candidate",
+  "ingested_at": "2026-09-23"
+}
