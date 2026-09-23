@@ -1,0 +1,17 @@
+{
+  "batch_id": "rtec-hr-job-descriptions-2026-09-23",
+  "ingested_at": "2026-09-23",
+  "source_count": 55,
+  "safe_position_level_sources": 51,
+  "restricted_case_sources": 4,
+  "full_searchable_source_groups": 14,
+  "source_set_manifest": "knowledge/libraries/rtec-hr/sources/job-descriptions/manifest.json",
+  "role_index": "knowledge/libraries/rtec-hr/roles/job-description-history.json",
+  "restricted_metadata": "knowledge/libraries/rtec-hr/restricted-evidence/job-description-light-duty-2026-09-23.json",
+  "status": "ingested_with_currentness_questions",
+  "notes": [
+    "Exact duplicate and near-duplicate versions are preserved as provenance rather than silently overwritten.",
+    "Recruitment ads and generic external samples are retained as contextual sources but are not treated as formal RTEC job descriptions.",
+    "Employee-specific temporary light-duty descriptions are excluded from the reusable corpus."
+  ]
+}
