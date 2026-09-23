@@ -1,15 +1,15 @@
-# Special Patron — Sanguine recruiter
+# Special Patron (Sanguine)
 
 Form ID: 0568EB07
+Editor ID: dealspatron5
+Display name: Special Patron
 Continuity: tes.mod.dealing-with-daedra
-Primary hub: Eastmarch Gentleman's Club.
+Associated network: Eastmarch Gentleman's Club / Sanguine party pipeline
 
-The Special Patron is a socially embedded recruiter who openly invokes Lord Sanguine.
+The Special Patron is an occult contact who explicitly invokes Lord Sanguine and distributes a potent intoxicating brew.
 
-He uses a "special vintage" in a task involving gaining Svana's trust, getting her to drink, and showing her a good time.
+He offers the player a key and location for a private gathering of Sanguine followers in exchange for manipulating Svana in Riften into drinking the brew and engaging in sexual activity.
 
-Afterward he provides access to the "Love Shack", which he describes as a nearby gathering place for Sanguine's followers.
+The Patron later says the whole dose was not meant to be used, showing that he understands the brew's potency.
 
-This makes the Eastmarch Gentleman's Club another ordinary/semi-legitimate institution used as an occult recruitment surface.
-
-The later trafficking outcome begins from the party route he opens, but there is no direct source evidence that this Patron—or Sanguine himself—personally ordered the eventual enslavement.
+Reliability: high for his own task, Sanguine affiliation, intoxicant use, and party location. Do not infer that all Sanguine cults use the same recruitment method.
