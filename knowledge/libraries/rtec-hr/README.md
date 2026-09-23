@@ -67,3 +67,14 @@ The historical RTEC AAP/EEO package built around the June 30, 2022 workforce sna
 Two employee-level source rosters are retained only as restricted metadata because they contain direct identifiers and sensitive EEO/personnel attributes. The 2018 driver-orientation document included with the package was an exact duplicate of the existing canonical source and is referenced rather than duplicated.
 
 Later AAP packages should link to this plan through explicit supersession/version relationships rather than overwriting it.
+
+
+## Job-description archive — September 23, 2026
+
+The supplied historical job-description archive is indexed under `sources/job-descriptions/` and `roles/job-description-history.json`.
+
+The archive contains 55 observed files: 51 safe position-level/reference sources preserved as full searchable mirrors across 14 source groups, and 4 employee-specific temporary light-duty descriptions retained only as sanitized restricted metadata. Exact duplicate artifacts and materially different historical versions are preserved through provenance rather than silently overwritten.
+
+The source set includes operational and administrative roles such as Transit Driver, Dispatcher, Area Manager, Operations Manager, Fleet Manager, Automotive Mechanic, Garage Attendant, Human Resources Manager, Information Systems Technician, Mobility Manager, Customer Service Representative, Receptionist, Bookkeeper, Food Service/Cafeteria roles, Accounts Receivable, administrative support, procurement, quality control, and temporary scanning/clerical roles, plus recruitment-context and external-sample material.
+
+Job-description language is historical/unknown by default. Pay, benefits, FLSA classification, safety-sensitive status, qualifications, physical requirements, testing requirements, licensing, reporting relationships, and duties must be reconciled against current approved authority before operational use. See `questions/currentness-and-gaps.json` for the resulting validation queue.
