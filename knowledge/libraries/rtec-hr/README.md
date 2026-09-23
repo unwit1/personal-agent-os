@@ -4,6 +4,7 @@ This library is the durable, privacy-safe process model for RTEC HR.
 
 ## Structure
 
+- `plans/` — versioned historical/current plan packages such as AAP/EEO submissions and their analyses
 - `processes/` — end-to-end workflows and subprocesses
 - `policies/` — validated policy/rule records
 - `forms/` — blank-form purpose, ownership, inputs, outputs, and workflow links
@@ -57,3 +58,12 @@ Batch 001 contains 14 source documents:
 See `sources/batches/rtec-hr-batch-001.json` and `questions/currentness-and-gaps.json`.
 
 The current GitHub connector writes UTF-8 text records rather than arbitrary local binary artifacts. Therefore the complete searchable content and hashes are canonical in GitHub now; safe original binaries should also be synchronized later through a local Git-capable Agent OS workflow where practical. This limitation never permits live case binaries to be committed.
+
+
+## AAP package — June 30, 2022
+
+The historical RTEC AAP/EEO package built around the June 30, 2022 workforce snapshot is indexed at `plans/aap-2022-06-30/`. It includes the binder structure, full safe source mirrors, aggregate workforce/activity/availability analyses, historical complaint forms and investigation log, placement-goal analysis, and a data-quality review.
+
+Two employee-level source rosters are retained only as restricted metadata because they contain direct identifiers and sensitive EEO/personnel attributes. The 2018 driver-orientation document included with the package was an exact duplicate of the existing canonical source and is referenced rather than duplicated.
+
+Later AAP packages should link to this plan through explicit supersession/version relationships rather than overwriting it.
