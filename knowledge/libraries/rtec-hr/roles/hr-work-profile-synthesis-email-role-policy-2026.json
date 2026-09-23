@@ -1,0 +1,193 @@
+{
+  "record_id": "rtec-hr-work-profile-synthesis-email-role-policy-2026",
+  "updated_at": "2026-09-23",
+  "status": "cross_source_role_profile",
+  "purpose": "Describe the HR work as evidenced by historical email, role documents, and current position-level policy without assuming every historical duty remains assigned to the current HR manager.",
+  "dimensions": [
+    {
+      "domain": "benefits",
+      "historical_strength": "very_high",
+      "current_evidence": "high",
+      "work_character": "transactional + deadline + vendor coordination",
+      "examples": [
+        "enroll/change/terminate",
+        "carrier/broker support",
+        "SBCs",
+        "COBRA",
+        "Medicare/CMS",
+        "FSA/invoices",
+        "wellness/EAP"
+      ],
+      "currentness": "active domain; exact vendor/system split still mapping"
+    },
+    {
+      "domain": "payroll_time_tax",
+      "historical_strength": "high",
+      "current_evidence": "high",
+      "work_character": "review + handoff + deadline",
+      "examples": [
+        "time approvals",
+        "check register",
+        "W-4/K-4",
+        "direct deposit",
+        "quarter-end reports/adjustments"
+      ],
+      "currentness": "active ADP relationship; exact HR vs finance authority unresolved"
+    },
+    {
+      "domain": "leave_attendance_fmla",
+      "historical_strength": "high",
+      "current_evidence": "high_policy",
+      "work_character": "restricted case management + documentation + deadlines",
+      "examples": [
+        "designation/notice",
+        "medical documentation",
+        "absence tracking",
+        "return-to-work"
+      ],
+      "currentness": "current handbook authority exists; operational checklist/owners still mapping"
+    },
+    {
+      "domain": "workers_comp_safety",
+      "historical_strength": "high",
+      "current_evidence": "medium_high_policy",
+      "work_character": "restricted case + external carrier + documentation",
+      "examples": [
+        "first report",
+        "claim forms",
+        "doctor/off-work statements",
+        "return-to-work",
+        "OSHA records"
+      ],
+      "currentness": "current carrier/forms and OSHA workflow unresolved"
+    },
+    {
+      "domain": "eeo_aap_compliance",
+      "historical_strength": "high",
+      "current_evidence": "high_archive",
+      "work_character": "periodic compliance + analysis + external approval",
+      "examples": [
+        "EEO-1",
+        "state recertification",
+        "AAP",
+        "Census/availability data",
+        "state approval"
+      ],
+      "currentness": "plan history now resolved through June 2024; post-2024 plan still open"
+    },
+    {
+      "domain": "recruiting",
+      "historical_strength": "high",
+      "current_evidence": "high_user_context",
+      "work_character": "multi-channel intake + screening + posting lifecycle",
+      "examples": [
+        "website applications",
+        "KY Career Center",
+        "staffing agency",
+        "Indeed outreach",
+        "job postings"
+      ],
+      "currentness": "current ADP ATS is expected to supersede much historical intake; detailed channel split still mapping"
+    },
+    {
+      "domain": "retirement_401k",
+      "historical_strength": "medium_high",
+      "current_evidence": "medium_policy",
+      "work_character": "paperwork + payroll handoff",
+      "examples": [
+        "enrollment/materials",
+        "withdrawal/change paperwork",
+        "termination/disbursement letters"
+      ],
+      "currentness": "plan exists; provider/workflow unresolved"
+    },
+    {
+      "domain": "unemployment_newhire_state_reporting",
+      "historical_strength": "medium",
+      "current_evidence": "high_2026",
+      "work_character": "state portal + deadline + case/audit",
+      "examples": [
+        "new-hire upload",
+        "unemployment portal",
+        "hearings"
+      ],
+      "currentness": "active 2026 portal evidence"
+    },
+    {
+      "domain": "records_reporting",
+      "historical_strength": "very_high",
+      "current_evidence": "high_role",
+      "work_character": "continuous recordkeeping + periodic reporting",
+      "examples": [
+        "HR report",
+        "attendance trackers",
+        "employee lists",
+        "EEO lists",
+        "fiscal-year logs",
+        "invoices",
+        "bank/check register"
+      ],
+      "currentness": "specific trackers/templates need currentness mapping"
+    },
+    {
+      "domain": "employee_recognition_and_communications",
+      "historical_strength": "medium_high",
+      "current_evidence": "unknown",
+      "work_character": "calendar + communications",
+      "examples": [
+        "service anniversaries",
+        "employee cards",
+        "wellness materials",
+        "postings"
+      ],
+      "currentness": "recognition program currentness unknown"
+    },
+    {
+      "domain": "systems_accounts_vendor_admin",
+      "historical_strength": "medium",
+      "current_evidence": "very_high_2026",
+      "work_character": "account ownership + access + vendor transition",
+      "examples": [
+        "Guardian",
+        "ADP",
+        "iSolved",
+        "UHC",
+        "Google",
+        "Outlook",
+        "3CX",
+        "state portals"
+      ],
+      "currentness": "active and likely under-documented; account ownership transition is a major continuity concern"
+    },
+    {
+      "domain": "executive_and_cross_department_handoffs",
+      "historical_strength": "high",
+      "current_evidence": "high_org_context",
+      "work_character": "coordination and approvals",
+      "examples": [
+        "executive leadership",
+        "finance/IT",
+        "procurement",
+        "training/compliance",
+        "operations",
+        "AP/AR"
+      ],
+      "currentness": "role-based handoffs should be modeled independent of individual names"
+    }
+  ],
+  "work_style_evidence": [
+    "Heavy use of short self-reminder emails as a personal task system.",
+    "High context switching between employee service, compliance, vendor, payroll and administrative work.",
+    "Many tasks become complete only after an external acknowledgment, approval, document return, portal result or cross-department handoff.",
+    "A large fraction of useful institutional knowledge lives in procedural micro-details rather than formal policy documents.",
+    "Historical process depended on both scheduled recurring work and event-driven case follow-up."
+  ],
+  "agent_design_requirements": [
+    "Distinguish policy authority from historical practice, vendor guidance and one-off cases.",
+    "Support restricted-case task tracking without promoting case facts into general knowledge.",
+    "Model recurring cadences only after currentness validation.",
+    "Represent role-to-role handoffs and system ownership explicitly.",
+    "Track completion states and external acknowledgments, not just task creation.",
+    "Redact authentication secrets and sensitive identifiers from mail retrieval/indexing."
+  ]
+}
