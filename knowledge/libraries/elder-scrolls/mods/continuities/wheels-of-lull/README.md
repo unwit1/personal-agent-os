@@ -8,30 +8,19 @@ Sub-continuity for the Skyrim mod **The Wheels of Lull**.
 
 ## Source ingestion status
 
-- **33/33 BOOK** complete.
-- **32/32 QUST** complete.
-- **337/337 DIAL** complete.
-- **410/410 INFO** complete.
-- **747/747 combined dialogue records** complete.
-- **812 prioritized BOOK + QUST + DIAL/INFO source records** checkpointed.
+- BOOK **33/33**
+- QUST **32/32**
+- DIAL **337/337**
+- INFO **410/410**
+- NPC_ **50/75**
+- LCTN **0/33**
+- CELL **0/103**
+- MESG **0/53**
+- SCEN **0/14**
+- **862 structured source records** checkpointed.
 
-The final dialogue tail closes the Whitehorn scene, includes Llavados' rescue line, and ends with a Chronographer rally addressed to Broken/homicidal/mad fabricants who still identify themselves as Chronographers.
+The first supplemental batch preserves 50 NPC records with FormID, EDID, display name, race, voice type, class, worn armor/outfit references where present, faction memberships, source offsets, and provenance.
 
-## Raw corpus
+## Next cursor
 
-The prioritized source corpus is preserved through `raw/source-records-0801-0812.jsonl.gz`.
-
-## Next source-ingestion work
-
-Continue automatically with lore-bearing implementation records:
-- NPC_ (75)
-- LCTN (33)
-- CELL (103)
-- MESG (53)
-- SCEN (14)
-
-Dialogue speaker/condition resolution and evidence-backed topic dossiers remain separate downstream analysis layers.
-
-## Provenance rule
-
-Statements from Wheels of Lull remain scoped to `tes.mod.wheels-of-lull`; testimony, quest narration, and implementation evidence remain distinguishable.
+NPC_ record **51/75**: `0532945F`.
