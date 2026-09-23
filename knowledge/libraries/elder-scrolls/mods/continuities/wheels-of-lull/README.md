@@ -12,23 +12,23 @@ Sub-continuity for the Skyrim mod **The Wheels of Lull**.
 
 - **33/33 BOOK** records preserved with exact decoded text.
 - **32/32 QUST** records preserved with quest stages, journal text, objectives, and provenance where present.
-- **159/337 DIAL** topics and **176/410 INFO** records preserved in physical plugin order.
-- **335/747 combined dialogue records** are now ingested.
-- **400 prioritized source records** are checkpointed overall.
+- **182/337 DIAL** topics and **203/410 INFO** records preserved in physical plugin order.
+- **385/747 combined dialogue records** are now ingested.
+- **450 prioritized source records** are checkpointed overall.
 
 ## Dialogue evidence already preserved
 
-This pass moves through ambient Lull-Mor dialogue and into the Wailway side quest.
+This pass finishes the Wailway farewell and moves through additional Fyr, Yagrum, Avarri/Stoker, and Arms Merchant material.
 
 Notable continuity-scoped testimony includes:
 
-- Numinar says he was once an overclocker/mechanic and that after the Clockwork City died he was shipped out with the other Chronographers.
-- Llavados says fabricant culture accepts experimentation on one another and themselves, with casualties treated as an expected risk.
-- The Wailway locomotive identifies itself as a soul bound into an engine for transport.
-- The locomotive attributes the Wailway project to the Reman-era Diolkos/Resource Men and describes punitive transformation of dissidents into industrial machinery.
-- It says other Wailway engines hoped service might eventually earn them a final death.
-- It says Reman later sold it to a "dark elven clockmaker," who studied and dismantled pieces of it before abandoning it.
-- The locomotive asks the player to destroy its mechanical shell to release it.
+- The Wailway locomotive welcomes its destruction as release from its engine-bound existence.
+- Divayth Fyr describes himself as a millennia-old wizard lord with experience in Sotha Sil's mechanisms.
+- Yagrum Bagarn explicitly titles himself the Last Living Dwarf after years of finding no other Dwemer.
+- Avarri says he bound the Stoker into his mind to learn clockwork smithing; the Stoker identifies itself as a foundry-running, steel-shaping intelligence.
+- Avarri describes deep-down protective packs as standard equipment for soldiers.
+- Ganaran-21, the Arms Merchant, identifies himself as a fabricant using an FRF to speak.
+- The Arms Merchant describes a clandestine trade in recovered fabricant body parts and permanent augmentations, including aetherial glass eyes, secondary mystic hearts, and quartz ligaments.
 
 These remain attributed source statements rather than automatic Bethesda-canon conclusions.
 
@@ -41,16 +41,19 @@ These remain attributed source statements rather than automatic Bethesda-canon c
 - `raw/source-records-0251-0300.jsonl.gz` — records 251-300
 - `raw/source-records-0301-0350.jsonl.gz` — records 301-350
 - `raw/source-records-0351-0400.jsonl.gz` — records 351-400
+- `raw/source-records-0401-0450.jsonl.gz` — records 401-450
 - `raw/record-counts.json` — complete plugin record inventory
 - `source-manifest.json` — extraction policy and corpus state
 - `ingestion-checkpoint.json` — resumable cursor
 
 ## Next cursor
 
-Dialogue combined record **336/747**:
+Dialogue combined record **386/747**:
 
-- DIAL `0504DF3B`
-- Owning quest: `05039182 _Lull_SQ_Wailway`
+- INFO `0526796C`
+- Parent topic: `05267904 _Lull_SQ_ArmsMerchant_GetEye`
+- Topic: `(Purchase the Aetherial Glass Eye)`
+- Owning quest: `055400DA _Lull_SQ_ArmsMerchant`
 
 ## Provenance rule
 
