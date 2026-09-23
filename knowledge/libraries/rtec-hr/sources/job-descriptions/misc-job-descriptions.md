@@ -666,4 +666,114 @@ Signature ________________________________    Date ________________________
 |effectively and efficiently could have serious impact on      |
 |municipal operations, public relations and the efficient use  |
 |of resources.                                                 |
-|WORK ENVIRONMENT: Most of the 
+|WORK ENVIRONMENT: Most of the work is performed in a          |
+|fast-paced office setting with frequent interruptions and with|
+|the need to deal with a great diversity of people. Some work  |
+|is performed at meeting rooms in the community. Occasional    |
+|need to pick up or deliver items in the community or to other |
+|City departments.                                             |
+|ESSENTIAL JOB FUNCTIONS                                       |
+|Act as confidential administrative assistant in the executive |
+|department, managing the mayor s and director s calendars and |
+|schedules, screening callers and arranging appointments,      |
+|meetings and conferences, as directed.                        |
+|Assist in the preparation of the mayor s and the public works |
+|director s budgets, prepare expenditure estimates, gather and |
+|organize supporting data. Monitor individual accounts within  |
+|these budgets to track expenditures and alert the mayor and   |
+|public works director to potential overspending.              |
+|Design, establish and maintain a management information       |
+|system, including physical and electronic files, for the      |
+|department. Prepare reports as directed.                      |
+|Act as office manager and coordinator. As directed, supervise,|
+|train and evaluate other secretarial or clerical staff within |
+|the department.                                               |
+|Respond to public inquiries on the telephone and in person    |
+|with visitors to the executive department. Provide information|
+|and assistance to the public in a courteous manner and with   |
+|sensitivity to the diversity of a multi-cultural audience.    |
+|Resolve complaints within scope of information and authority  |
+|and refer to others, as appropriate.                          |
+|Transcribe dictated or written materials, using shorthand,    |
+|dictation equipment or handwritten drafts. Takes minutes at   |
+|meetings, as required.                                        |
+|Initiate correspondence on a variety of matters requiring an  |
+|in-depth understanding of municipal programs, department      |
+|policies and procedures and City ordinances. Format, create,  |
+|produce and edit correspondence and other written materials.  |
+|Operate office equipment including copiers, facsimile machines|
+|and computers; input and retrieve data and text; organize and |
+|maintain disk storage and filing.                             |
+|ADDITIONAL JOB FUNCTIONS                                      |
+|Research and coordinate various activities and details        |
+|associated with meetings, retreats and business trips. Prepare|
+|mayor s and director s travel expense reports.                |
+|May perform portions of the work of higher classified         |
+|positions, as assigned.                                       |
+|May perform duties of similar complexity in any City          |
+|department, as assigned.                                      |
+|QUALIFICATIONS AND CAPABILITIES                               |
+|Technical                                                     |
+|Must have or be able to quickly acquire knowledge of          |
+|departmental program structure (mission, goals and            |
+|objectives), department polices and procedures.               |
+|Must have associates degree, or comparable experience, as     |
+|evidence of a broad education and an ability to deal with     |
+|diverse situations and diversity of people.                   |
+|Must have a minimum of six years office management or         |
+|increasingly responsible secretarial/administrative           |
+|experience, preferably as a confidential secretary. Desirable |
+|to have previous experience in local.                         |
+|Some supervisory experience is desirable.                     |
+|Must type a minimum of 60 words per minute with accuracy in a |
+|setting with many interruptions and transcribe from dictation |
+|equipment, handwritten drafts or verbal dictation. Shorthand  |
+|skills are desirable.                                         |
+|Must be able to operate a memory typewriter and a personal    |
+|computer and learn quickly to use the software programs of the|
+|department.                                                   |
+|Must have a sound knowledge and ability in business           |
+|correspondence and an ability to proofread for grammar,       |
+|spelling and punctuation with a high degree of accuracy.      |
+|Must be able to do basic accounting and mathematical          |
+|computations with a high degree of accuracy, for example to   |
+|calculate travel expenses or assist with budget calculations. |
+|Must possess a valid Washington State driver s license.       |
+|Pubic Notary designation is desirable.                        |
+|Physical                                                      |
+|Ability to sit at a work station for extended periods.        |
+|Ability to stand, work and drive throughout the day.          |
+|Occasional ability to lift, carry and put away parcels        |
+|weighing up to 35 pounds.                                     |
+|Other                                                         |
+|Ability to handle multiple interruptions and adjustments to   |
+|priorities throughout the day.                                |
+|Ability to communicate effectively with diverse, and sometimes|
+|irate, individuals and to handle calmly and efficiently       |
+|situations ranging from routine to emergency.                 |
+|Excellent memory and organizational ability, in order to set  |
+|priorities, organize workload, handle multiple                |
+|responsibilities and meet deadlines.                          |
+|Use of Tools                                                  |
+|Standard office equipment including personal computer, memory |
+|typewriter, multi-line telephone system, fax machine, copier, |
+|10-key calculator and dictation equipment.                    |
+|OTHER                                                         |
+|1. As an absolute condition of employment, employees are      |
+|required upon hire to sign a drug-free workplace agreement and|
+|an agreement not to use tobacco products of any kind while on |
+|the job.                                                      |
+|2. The statements contained in this job description reflect   |
+|general details as necessary to describe the principal        |
+|functions of this job, the level of knowledge and skill       |
+|typically required and the scope of responsibility. It should |
+|not be considered an all-inclusive listing of work            |
+|requirements. Individuals may perform other duties as         |
+|assigned, including work in other functional areas to cover   |
+|absences of relief, to equalize peak work periods or otherwise|
+|to balance the workload.                                      |
+|6/98                                                          |
+
+|                                                              |
+
+---
