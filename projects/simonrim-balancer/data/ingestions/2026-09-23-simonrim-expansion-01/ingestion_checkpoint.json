@@ -1,0 +1,31 @@
+{
+  "snapshot": "2026-09-23-simonrim-expansion-01",
+  "status": "raw_ingestion_complete_semantic_analysis_in_progress",
+  "totals": {
+    "mods": 17,
+    "plugin_occurrences": 53,
+    "unique_plugin_hashes": 51,
+    "records": 9769,
+    "subrecords": 289053,
+    "record_types": 68,
+    "parser_error_files": 0,
+    "bsa_archives": 12,
+    "bsa_members": 898,
+    "bsa_text_members_extracted": 185,
+    "script_source_occurrences": 239,
+    "unique_script_source_hashes": 202,
+    "config_values": 2046,
+    "fomod_options": 55
+  },
+  "duplicate_plugin_occurrences": [
+    "ApprenticeQuickStart.esp appears in two installer paths with the same SHA-256.",
+    "Crusader.esp appears in main and slower-preset paths with the same SHA-256; the preset difference is configuration, not plugin bytes."
+  ],
+  "guardrails": [
+    "The original four-mod snapshot remains immutable; this is an append-only expansion ingestion.",
+    "Original archives and full raw subrecord payloads are retained outside the compact Git checkpoint.",
+    "Every plugin source occurrence retains archive/path/hash provenance in the local lossless ingestion package.",
+    "Main files, optional modules, compatibility patches and variants remain distinct.",
+    "No design rule is approved by raw ingestion."
+  ]
+}
