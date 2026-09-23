@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-23",
+  "status": "complete_for_indexed_message_text",
+  "purpose": "Entry point for the exhaustive, privacy-sanitized iCloud mail analysis. Raw mail remains local; this directory contains only durable derived context and evidence-model metadata.",
+  "corpus": {
+    "indexed_messages": 10577,
+    "sent_messages_reviewed": 203,
+    "date_range": [
+      "2018-01-20",
+      "2026-09-23"
+    ],
+    "attachment_records": 232,
+    "attachment_bodies_available": 1,
+    "attachment_bodies_unavailable": 231
+  },
+  "artifacts": [
+    {
+      "path": "profile/icloud-mail-analysis/corpus-summary.json",
+      "purpose": "Coverage, evidence policy, privacy rules, completion boundary."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/timeline.json",
+      "purpose": "Dated life/event timeline with confidence."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/communication-and-workstyle.json",
+      "purpose": "Communication style, reply behavior, work style, organization/memory patterns."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/career-and-education.json",
+      "purpose": "Education, employment, applications/interviews, career center of gravity."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/interests-and-digital-life.json",
+      "purpose": "Skyrim/modding, gaming, reading/fanfiction, brick collecting, research platforms, AI/dev tools, devices."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/relationships-and-organizations.json",
+      "purpose": "Privacy-preserving personal and institutional relationship graph."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/commitments-and-automation.json",
+      "purpose": "Unresolved-commitment patterns, administrative friction, deterministic automation opportunities."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/personal-operating-patterns.json",
+      "purpose": "Cross-domain behavioral workflow synthesis without diagnostic/personality labeling."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/household-and-routines.json",
+      "purpose": "Housing, meal-convenience, cooking/DIY, vehicle, and household-planning patterns."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/temporal-and-freshness-model.json",
+      "purpose": "Message-volume evolution and recency/evidence weighting rules."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/attachment-corpus-status.json",
+      "purpose": "Aggregate attachment inventory and safe future extraction plan."
+    },
+    {
+      "path": "profile/icloud-mail-analysis/open-questions-and-uncertainties.json",
+      "purpose": "Unresolved facts, version conflicts, and questions that must not be guessed."
+    }
+  ],
+  "promotion_model": {
+    "canonical_profile": "profile/user-context.json",
+    "rich_derived_context": "profile/icloud-derived-context.json",
+    "rule": "Only high-confidence, useful, non-sensitive conclusions are promoted to canonical user context. Rich historical/evidence analysis remains supporting context and is not automatically injected wholesale."
+  },
+  "privacy_boundary": "No raw message bodies, email addresses, phone numbers, exact addresses, account identifiers, credentials/security artifacts, payment identifiers, health details, intimate correspondence, or unnecessary third-party PII are stored in these Git-tracked analysis files.",
+  "completion_boundary": "The indexed email-message text is exhausted for this pass. The 231 metadata-only attachment bodies remain a separate future corpus and are explicitly not treated as read."
+}
