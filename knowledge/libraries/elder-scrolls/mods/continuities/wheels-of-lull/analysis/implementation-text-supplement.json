@@ -5,29 +5,33 @@
   "audit_date": "2026-09-23",
   "corpus": "implementation_text_supplement",
   "path": "raw/implementation-text-supplement.jsonl.gz",
-  "records": 328,
+  "records": 370,
   "gzip_sha256": "e7ce7982e058679f1c61fc5360a506d0f330fb3f02751a5e871d4437c5ad3c8f",
-  "selection_policy": "Retain omitted TES5 records that are player-facing (FULL/DESC) or structurally useful for lore interpretation (FACT/TACT/VTYP); exclude asset paths, package parameter labels, and implementation-only editor metadata from promotion.",
+  "selection_policy": "Retain every omitted record with player-facing FULL/DESC text plus structural FACT/TACT/VTYP evidence. HDPT/CLFM cosmetic labels are retained but explicitly classified as cosmetic implementation evidence. Add semantically meaningful nonstandard text fields discovered by the deep embedded-string sweep without promoting binary/asset metadata.",
   "type_counts": {
-    "ARMO": 57,
     "ACTI": 43,
-    "MISC": 36,
-    "SPEL": 35,
-    "MGEF": 33,
-    "WEAP": 33,
-    "RACE": 26,
-    "VTYP": 20,
-    "CONT": 8,
-    "DOOR": 7,
-    "TACT": 7,
-    "FACT": 6,
-    "PERK": 5,
-    "REFR": 3,
     "ALCH": 2,
     "AMMO": 2,
-    "PROJ": 2,
+    "ARMO": 57,
+    "CLFM": 3,
+    "CONT": 8,
+    "DOOR": 7,
+    "ENCH": 10,
+    "FACT": 6,
     "FURN": 1,
+    "HDPT": 15,
+    "KEYM": 14,
+    "MGEF": 33,
+    "MISC": 36,
+    "PERK": 5,
+    "PROJ": 2,
+    "RACE": 26,
+    "REFR": 3,
     "SHOU": 1,
+    "SPEL": 35,
+    "TACT": 7,
+    "VTYP": 20,
+    "WEAP": 33,
     "WRLD": 1
   },
   "core_corpus_records": 1090,
@@ -37,5 +41,37 @@
     "Core source-record corpus remains 1,090 records; this supplement is a distinct implementation-text evidence layer.",
     "Three REFR rows are included only because they carry distinct player-facing FULL names.",
     "Vanilla-derived race descriptions are implementation evidence and must not be promoted as Wheels-specific lore claims."
-  ]
+  ],
+  "storage": {
+    "base_gzip": "raw/implementation-text-supplement.jsonl.gz",
+    "base_records": 328,
+    "base_gzip_sha256": "e7ce7982e058679f1c61fc5360a506d0f330fb3f02751a5e871d4437c5ad3c8f",
+    "augmentation": "raw/source-evidence-augmentation.jsonl",
+    "augmentation_new_records": 42,
+    "augmentation_field_rows": 16,
+    "unique_record_total": 370
+  },
+  "field_augmentations": {
+    "total": 16,
+    "MGEF_DNAM_descriptions": 14,
+    "INFO_NAM2_voice_directions": 1,
+    "INFO_RNAM_prompt_notes": 1
+  },
+  "deep_text_audit": {
+    "embedded_phrase_candidates": 2008,
+    "unique_embedded_phrases": 1796,
+    "natural_language_vmad_payloads_found": 0,
+    "meaningful_nonstandard_text_fields": [
+      "MGEF DNAM descriptions",
+      "INFO NAM2 voice direction",
+      "INFO RNAM prompt/riddle note"
+    ],
+    "false_positive_binary_regions": [
+      "CELL/WRLD MHDT",
+      "NAVM NVNM",
+      "REFR DATA",
+      "ACHR XRGD"
+    ]
+  },
+  "total_persisted_source_evidence_records": 1460
 }
