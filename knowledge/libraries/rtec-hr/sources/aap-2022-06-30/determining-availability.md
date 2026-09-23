@@ -1,0 +1,90 @@
+# Determining Availability 06 30 2022.xls — searchable cell map
+
+This mirror preserves every non-empty cell value recovered from the supplied legacy Excel workbook, with original sheet names and cell coordinates.
+Numeric entries are stored as their workbook cached/raw values. Legacy Excel formulas and formatting are not reconstructed in this text mirror; the source hash and binary-sync requirement are retained separately.
+
+## Sheet: Sheet1
+
+- `A1`: Job Group 1 Officials/Managers
+- `D1`: Raw Statistics ⏎ Female       Minority                              
+- `G1`: Value Weight
+- `I1`: Weighted Statistics ⏎ Female          Minority
+- `L1`: Source of ⏎ Statistics
+- `N1`: Reason for Weighting
+- `A3`: 1.  Percentage of minorities or women ⏎ with requisite skills in the reasonable ⏎ recruitment area. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D3`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `E3`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `G3`:  ⏎  ⏎  ⏎  ⏎  ⏎ 9% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `I3`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `J3`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `L3`: 2010 Census Data ⏎ The reasonable  ⏎ recruitment area for ⏎ this job group is Rockcastle County. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `N3`: 9% of placements into this job group were made from external hires. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A19`: 2.  Percentage of minorities or women ⏎ among those promotable, transferable, ⏎ and trainable within RTEC's  ⏎ organization. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D19`: 83% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `E19`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `G19`: 91% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `I19`: 75% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `J19`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `L19`: Job Group 5 ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `N19`: 91% of placements into this job group were made from internal promotions. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A30`: Totals
+- `F30`: 1.0
+- `G30`: 1.0
+- `I30`: 0.75
+- `J30`: 0.0
+- `K30`: <Final Factor
+- `A32`: Job Group 5 Office/Clerical
+- `D32`: Raw Statistics ⏎ Female       Minority                              
+- `G32`: Value Weight
+- `I32`: Weighted Statistics ⏎ Female          Minority
+- `L32`: Source of ⏎ Statistics
+- `N32`: Reason for Weighting
+- `A34`: 1.  Percentage of minorities or women ⏎ with requisite skills in the reasonable ⏎ recruitment area. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D34`: 51% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `E34`: 0.0349% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `G34`: 79% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `I34`: 40% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `J34`: 0.02757% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `L34`: 2010 Census Data ⏎ The reasonable  ⏎ recruitment area for ⏎ this job group is Rockcastle County. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `N34`: 79% of placements into this job group were made from external hires. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A50`: 2.  Percentage of minorities or women ⏎ among those promotable, transferable, ⏎ and trainable within RTEC's  ⏎ organization. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D50`: 83% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `E50`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `G50`: 21% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `I50`: 17% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `J50`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `L50`: Job Group 5 ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `N50`: 21% of placements into this job group were made from internal promotions. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A61`: Totals
+- `F61`: 1.0
+- `G61`: 1.0
+- `I61`: 0.57
+- `J61`: 0.0002757
+- `K61`: <Final Factor
+- `A63`: Job Group 7 Operatives
+- `D63`: Raw Statistics ⏎ Female       Minority                              
+- `G63`: Value Weight
+- `I63`: Weighted Statistics ⏎ Female          Minority
+- `L63`: Source of ⏎ Statistics
+- `N63`: Reason for Weighting
+- `A65`: 1.  Percentage of minorities or women ⏎ with requisite skills in the reasonable ⏎ recruitment area. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D65`: 50.4% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `E65`: 0.06218% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `G65`: 100% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `I65`: 50.4% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `J65`: 0.06218% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `L65`:  ⏎  ⏎ 2010 Census Data ⏎ The reasonable  ⏎ recruitment area for ⏎ this job group is Bell, Clinton, Cumberland, Knox, Laurel, McCreary, Monroe Pulaski, Rockcastle Russell, Wayne and Whitley Counties. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `N65`: 100% of placements into this job group were made from external hires. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A81`: 2.  Percentage of minorities or women ⏎ among those promotable, transferable, ⏎ and trainable within RTEC's  ⏎ organization. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D81`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `E81`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `G81`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `I81`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `J81`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `N81`: 0% of placements into this group were made from internal promotions. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A92`: Totals
+- `F92`: 1.0
+- `G92`: 1.0
+- `I92`: 0.504
+- `J92`: 0.0006218
+- `K92`: <Final Factor

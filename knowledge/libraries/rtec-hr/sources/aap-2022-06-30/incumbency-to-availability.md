@@ -1,0 +1,127 @@
+# Incumbency to Availability 06 30 2022.xls — searchable cell map
+
+This mirror preserves every non-empty cell value recovered from the supplied legacy Excel workbook, with original sheet names and cell coordinates.
+Numeric entries are stored as their workbook cached/raw values. Legacy Excel formulas and formatting are not reconstructed in this text mirror; the source hash and binary-sync requirement are retained separately.
+
+## Sheet: Sheet1
+
+- `A1`: Job  ⏎ Group
+- `C1`: Female ⏎  Incumbency %
+- `D1`: Female ⏎ Availability %
+- `E1`: Establish Goal? ⏎ Yes/No
+- `F1`: If Yes, Goal ⏎ for Females
+- `G1`: Minority ⏎ Incumbency %
+- `H1`: Minority ⏎ Availability %
+- `I1`: Establish Goal? ⏎ Yes/No
+- `J1`: If Yes, Goal ⏎ for Minorities
+- `B2`: Job Group Name
+- `A3`: 1.0
+- `B3`: Executive/Senior Level Officials & Managers
+- `C3`: 1.0
+- `E3`: No
+- `G3`: 0.0
+- `I3`: No
+- `A6`: 1.0
+- `B6`: First/Mid-Level ⏎  Officials & Managers
+- `C6`: 0.73
+- `E6`: No
+- `G6`: 0.0
+- `I6`: No
+- `A9`: 2.0
+- `B9`: Professionals
+- `C9`: 0.0
+- `A11`: 3.0
+- `B11`: Technicians
+- `C11`: 0.0
+- `A13`: 4.0
+- `B13`: *Sales Workers
+- `C13`: 0.0
+- `A15`: 5.0
+- `B15`: Office/Clerical
+- `C15`: 0.83
+- `E15`: No
+- `G15`: 0.0
+- `H15`: 0.000349
+- `I15`: Yes
+- `J15`: 1.0
+- `A17`: 6.0
+- `B17`: Craftworkers
+- `C17`: 0.0
+- `A19`: 7.0
+- `B19`: Operatives
+- `C19`: 0.32
+- `E19`: Yes
+- `F19`: 8.0
+- `G19`: 0.000526
+- `H19`: 0.0006218
+- `I19`: Yes
+- `J19`: 3.0
+- `A21`: 8.0
+- `B21`: *Laborers
+- `C21`: 0.0
+- `A23`: 9.0
+- `B23`: Service Workers
+- `C23`: 1.0
+- `E23`: No
+- `G23`: 0.0
+- `A29`: *no employees in this job group
+- `A39`: Job  ⏎ Group
+- `C39`: Veteran ⏎  Incumbency %
+- `D39`: Veteran ⏎ Availability %
+- `E39`: Establish Goal? ⏎ Yes/No
+- `F39`: If Yes, Goal ⏎ for Veterans
+- `G39`:  ⏎ Disabilities ⏎ Incumbency %
+- `H39`: Disabilities ⏎ Availability %
+- `I39`: Establish Goal? ⏎ Yes/No
+- `J39`: If Yes, Goal ⏎ for Disabilities
+- `B40`: Job Group Name
+- `A41`: 1.0
+- `B41`: Executive/Senior Level Officials & Managers
+- `C41`: 0.0
+- `G41`: 0.0
+- `A44`: 1.0
+- `B44`: First/Mid-Level ⏎  Officials & Managers
+- `C44`: 0.1
+- `E44`: No
+- `G44`: 0.1
+- `I44`: No
+- `A47`: 2.0
+- `B47`: Professionals
+- `C47`: 0.0
+- `A49`: 3.0
+- `B49`: Technicians
+- `C49`: 0.0
+- `A51`: 4.0
+- `B51`: *Sales Workers
+- `C51`: 0.0
+- `A53`: 5.0
+- `B53`: Office/Clerical
+- `C53`: 0.04
+- `D53`: 0.000411
+- `E53`: No
+- `G53`: 0.08
+- `H53`: 0.07
+- `I53`: No
+- `A55`: 6.0
+- `B55`: Craftworkers
+- `C55`: 0.0
+- `A57`: 7.0
+- `B57`: Operatives
+- `C57`: 0.12
+- `D57`: 0.000549
+- `E57`: No
+- `G57`: 0.04
+- `H57`: 0.07
+- `I57`: Yes
+- `J57`: 2.0
+- `A59`: 8.0
+- `B59`: Laborers
+- `C59`: 0.33
+- `E59`: No
+- `G59`: 0.0
+- `I59`: No
+- `A61`: 9.0
+- `B61`: Service Workers
+- `C61`: 0.0
+- `G61`: 0.0
+- `A67`: *no employees in this job group

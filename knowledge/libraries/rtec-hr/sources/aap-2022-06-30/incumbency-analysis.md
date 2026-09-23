@@ -1,0 +1,138 @@
+# Incumbency Analysis 06 30 2022.xls — searchable cell map
+
+This mirror preserves every non-empty cell value recovered from the supplied legacy Excel workbook, with original sheet names and cell coordinates.
+Numeric entries are stored as their workbook cached/raw values. Legacy Excel formulas and formatting are not reconstructed in this text mirror; the source hash and binary-sync requirement are retained separately.
+
+## Sheet: Sheet1
+
+- `A1`: EEO-1
+- `B1`: EEO JOB GROUP
+- `C1`: TOTAL # OF INCUMBENTS
+- `D1`: # OF FEMALES
+- `E1`: FEMALE INCUMBENCY %
+- `F1`: # OF MINORITIES
+- `G1`: MINORITY INCUMBENCY %
+- `H1`:  # OF  ⏎ VETERANS
+- `I1`: VETERAN INCUMBENCY %
+- `J1`: # OF ⏎ INDIVIDUALS  ⏎ WITH DISABILITIES
+- `K1`: INDIVIDUALS WITH DISABILITIES INCUMBENCY %
+- `A3`: 1.0
+- `B3`: Executive/Senior Level Officials & Managers
+- `C3`: 1.0
+- `D3`: 1.0
+- `E3`: 1.0
+- `F3`: 0.0
+- `G3`: 0.0
+- `H3`: 0.0
+- `I3`: 0.0
+- `J3`: 0.0
+- `K3`: 0.0
+- `A5`: 1.0
+- `B5`: First Mid-Level ⏎  Officials & Managers
+- `C5`: 11.0
+- `D5`: 8.0
+- `E5`: 0.73
+- `F5`: 0.0
+- `G5`: 0.0
+- `H5`: 1.0
+- `I5`: 0.1
+- `J5`: 1.0
+- `K5`: 0.1
+- `A7`: 2.0
+- `B7`:  Professionals 
+- `C7`: 2.0
+- `D7`: 0.0
+- `E7`: 0.0
+- `F7`: 0.0
+- `G7`: 0.0
+- `H7`: 0.0
+- `I7`: 0.0
+- `J7`: 0.0
+- `K7`: 0.0
+- `A9`: 3.0
+- `B9`:  Technicians 
+- `C9`: 1.0
+- `D9`: 0.0
+- `E9`: 0.0
+- `F9`: 0.0
+- `G9`: 0.0
+- `H9`: 0.0
+- `I9`: 0.0
+- `J9`: 0.0
+- `K9`: 0.0
+- `A11`: 4.0
+- `B11`:  Sales Workers 
+- `C11`: 0.0
+- `D11`: 0.0
+- `E11`: 0.0
+- `F11`: 0.0
+- `G11`: 0.0
+- `H11`: 0.0
+- `I11`: 0.0
+- `J11`: 0.0
+- `K11`: 0.0
+- `A13`: 5.0
+- `B13`:  Office/Clerical/Adm.
+- `C13`: 24.0
+- `D13`: 20.0
+- `E13`: 0.83
+- `F13`: 0.0
+- `G13`: 0.0
+- `H13`: 1.0
+- `I13`: 0.04
+- `J13`: 2.0
+- `K13`: 0.08
+- `A15`: 6.0
+- `B15`:  Craft Workers 
+- `C15`: 2.0
+- `D15`: 0.0
+- `E15`: 0.0
+- `F15`: 0.0
+- `G15`: 0.0
+- `H15`: 0.0
+- `I15`: 0.0
+- `J15`: 0.0
+- `K15`: 0.0
+- `A17`: 7.0
+- `B17`:  Operatives 
+- `C17`: 114.0
+- `D17`: 37.0
+- `E17`: 0.32
+- `F17`: 6.0
+- `G17`: 0.000526
+- `H17`: 14.0
+- `I17`: 0.12
+- `J17`: 5.0
+- `K17`: 0.04
+- `A19`: 8.0
+- `B19`:  Laborers/Helpers
+- `C19`: 3.0
+- `D19`: 0.0
+- `E19`: 0.0
+- `F19`: 0.0
+- `G19`: 0.0
+- `H19`: 1.0
+- `I19`: 0.33
+- `J19`: 0.0
+- `K19`: 0.0
+- `A21`: 9.0
+- `B21`: Service Workers
+- `C21`: 1.0
+- `D21`: 1.0
+- `E21`: 1.0
+- `F21`: 0.0
+- `G21`: 0.0
+- `H21`: 0.0
+- `I21`: 0.0
+- `J21`: 0.0
+- `K21`: 0.0
+- `B24`: Overall Workforce
+- `C24`: 159.0
+- `D24`: 67.0
+- `E24`: 0.42
+- `F24`: 6.0
+- `G24`: 0.000526
+- `H24`: 17.0
+- `I24`: 0.11
+- `J24`: 8.0
+- `K24`: 0.05

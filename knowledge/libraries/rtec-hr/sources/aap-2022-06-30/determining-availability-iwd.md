@@ -1,0 +1,72 @@
+# Determining Availability for IWD's 06 30 2022.xls — searchable cell map
+
+This mirror preserves every non-empty cell value recovered from the supplied legacy Excel workbook, with original sheet names and cell coordinates.
+Numeric entries are stored as their workbook cached/raw values. Legacy Excel formulas and formatting are not reconstructed in this text mirror; the source hash and binary-sync requirement are retained separately.
+
+## Sheet: Sheet1
+
+- `A1`: Job Group 1 Officials/Managers
+- `D1`: Raw Statistics ⏎ IWD                              
+- `F1`: Value Weight
+- `H1`: Weighted Statistics ⏎ IWD
+- `J1`: Source of ⏎ Statistics
+- `L1`: Reason for Weighting
+- `A3`:  ⏎  ⏎ 1.  Percentage of Individuals with Disabilities with requisite skills in the reasonable recruitment area. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D3`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `F3`: 9% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `H3`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `J3`: 2010 Census Data ⏎ The reasonable  ⏎ recruitment area for ⏎ this job group is Rockcastle County. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `L3`: 9% of placements into this job group were made from external hires. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A19`:  ⏎  ⏎ 2.  Percentage of Individuals with Disabilities among those promotable, transferable, and trainable within RTEC's organization. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D19`: 8% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `F19`: 91% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `H19`: 7.3% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `J19`: Job Group 5 ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `L19`: 91% of placements into this job group were made from internal promotions ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A30`: Totals
+- `F30`: 1.0
+- `H30`: 0.073
+- `J30`: <Final Factor
+- `A32`: Job Group 5 Office/Clerical
+- `D32`: Raw Statistics ⏎ IWD                              
+- `F32`: Value Weight
+- `H32`: Weighted Statistics ⏎ IWD
+- `J32`: Source of ⏎ Statistics
+- `L32`: Reason for Weighting
+- `A34`:  ⏎  ⏎ 1.  Percentage of Individuals with Disabilities with requisite skills in the reasonable recruitment area. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D34`: 7% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `F34`: 79% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `H34`: 6% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `J34`:  ⏎  ⏎ 2010 Census Data ⏎ The reasonable  ⏎ recruitment area for ⏎ this job group is Rockcastle County ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `L34`: 79% of placements into this job group were made from external hires. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A50`:  ⏎  ⏎  ⏎ 2.  Percentage of Individuals with Disabilities among those promotable, transferable, and trainable within RTEC's organization. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D50`: 8% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `F50`: 21% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `H50`: 0.0168% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `J50`: Job Group 5 ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `L50`:  ⏎  ⏎  ⏎ 21% of placements into this job group were made from internal promotions. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A61`: Totals
+- `F61`: 1.0
+- `H61`: 0.060168
+- `J61`: <Final Factor
+- `A63`: Job Group 7 Operatives
+- `D63`: Raw Statistics ⏎ IWD                              
+- `F63`: Value Weight
+- `H63`: Weighted Statistics ⏎ IWD
+- `J63`: Source of ⏎ Statistics
+- `L63`: Reason for Weighting
+- `A65`:  ⏎  ⏎ 1.  Percentage of Individuals with Disabilities with requisite skills in the reasonable recruitment area. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D65`: 7% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `F65`: 100% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `H65`: 7% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `J65`:  ⏎  ⏎ 2010 Census Data ⏎ The reasonable  ⏎ recruitment area for ⏎ this job group is Bell, Knox, Whitley, Clinton, Cumberland, Monroe, Russell, McCreary, Laurel, Rockcastle, Pulaski and Wayne Counties ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `L65`: 100% of placements into this job group were made from external hires. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A81`:  ⏎  ⏎ 2.  Percentage of Individuals with Disabilities among those promotable, transferable, and trainable within RTEC's organization. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D81`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `F81`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `H81`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `L81`: 0% of placements into this job group were made from internal promotions. ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A92`: Totals
+- `F92`: 1.0
+- `H92`: 0.07
+- `J92`: <Final Factor

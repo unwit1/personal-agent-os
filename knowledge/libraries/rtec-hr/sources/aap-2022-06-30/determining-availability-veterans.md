@@ -1,0 +1,75 @@
+# Determining Availability for Veterans 06 30 2022.xls — searchable cell map
+
+This mirror preserves every non-empty cell value recovered from the supplied legacy Excel workbook, with original sheet names and cell coordinates.
+Numeric entries are stored as their workbook cached/raw values. Legacy Excel formulas and formatting are not reconstructed in this text mirror; the source hash and binary-sync requirement are retained separately.
+
+## Sheet: Sheet1
+
+- `A1`: Job Group 1 Officials/Managers
+- `D1`: Raw Statistics ⏎ Veterans                             
+- `F1`: Value Weight
+- `H1`: Weighted Statistics ⏎ Veterans
+- `K1`: Source of ⏎ Statistics
+- `M1`: Reason for Weighting
+- `A3`:  ⏎  ⏎ 1.  Percentage of  veterans with requisite skills in the reasonable ⏎ recruitment area. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D3`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `F3`: 9% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `H3`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `K3`: 2010 Census Data ⏎ The reasonable  ⏎ recruitment area for ⏎ this job group is Rockcastle County. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `M3`: 9% of placements into this job group were made from external hires ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A19`:  ⏎  ⏎ 2.  Percentage of veterans among those promotable, transferable, ⏎ and trainable within RTEC's  ⏎ organization. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D19`: 4% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `F19`: 91% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `H19`: 3.79% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `K19`: Job Group 5 ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `M19`: 91% of placements into this job group were made from internal promotions. ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A30`: Totals
+- `F30`: 1.0
+- `H30`: 0.051
+- `J30`: <Final Factor
+- `K30`: <Final Factor
+- `A33`: Job Group 5 Office/Clerical
+- `D33`: Raw Statistics ⏎ Veterans                             
+- `F33`: Value Weight
+- `H33`: Weighted Statistics ⏎ Veterans
+- `K33`: Source of ⏎ Statistics
+- `M33`: Reason for Weighting
+- `A35`:  ⏎  ⏎ 1.  Percentage of  veterans with requisite skills in the reasonable ⏎ recruitment area. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D35`: 0.04110% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `F35`: 79% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `H35`: 0.3247% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `K35`: 2010 Census Data  ⏎  The reasonable recruitment area for this job group is Rockcastle County ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `M35`:  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 79% of placements into this job group were made from external hires. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A51`:  ⏎  ⏎ 2.  Percentage of veterans among those promotable, transferable, ⏎ and trainable within RTEC's  ⏎ organization. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D51`: 4% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `F51`: 21% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `H51`: 0.01568% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `K51`: Job Group 5 ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `M51`: 21% of placements into this job group were made from internal promotions. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A62`: Totals
+- `F62`: 1.0
+- `H62`: 0.0001568
+- `J62`: <Final Factor
+- `K62`: <Final Factor
+- `A65`: Job Group 7 Operatives
+- `D65`: Raw Statistics ⏎ Veterans                             
+- `F65`: Value Weight
+- `H65`: Weighted Statistics ⏎ Veterans
+- `K65`: Source of ⏎ Statistics
+- `M65`: Reason for Weighting
+- `A67`:  ⏎ 1.  Percentage of  veterans with requisite skills in the reasonable ⏎ recruitment area. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D67`: 0.0549% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `F67`: 100% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `H67`: 0.05490% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `K67`: 2010 Census Data ⏎ The reasonable recruitment area for this job group is Bell, Knox, Whitley, Clinton, Cumberland, Monroe, Russell, McCreary, Laurel, Rockcastle, Pulaski, and Wayne Counties. ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `M67`: 100% of placements into this job group were made from external hires. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A83`:  ⏎  ⏎ 2.  Percentage of veterans among those promotable, transferable, ⏎ and trainable within RTEC's  ⏎ organization. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `D83`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `F83`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `H83`: 0% ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `M83`: 0% of placements into this job group were made from internal promotions. ⏎  ⏎  ⏎  ⏎  ⏎  ⏎ 
+- `A94`: Totals
+- `F94`: 1.0
+- `H94`: 0.000549
+- `J94`: <Final Factor
+- `K94`: <Final Factor
