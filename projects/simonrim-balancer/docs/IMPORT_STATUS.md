@@ -24,6 +24,7 @@
 - Magic effects: 1,648
 - Perks: 625
 - Weapons: 216 total WEAP records
+- Enchantments: 269 ENCH records
 
 ## Master-aware resolution / deltas
 
@@ -56,6 +57,12 @@
   - 21 descriptive weapon baseline groups
   - 18 observed weapon patterns with sample size >= 3
   - 18 exact imported-baseline weapon field deltas
+- ENCH/ENIT: 269 / 269 decoded; 0 failures
+  - 870 effect rows
+  - 101 effect-level conditions
+  - 36 descriptive enchantment baseline groups
+  - 27 observed enchantment patterns with sample size >= 3
+  - 58 exact imported-baseline enchantment field deltas
 - Distinct perk entry points observed: 62
 - Distinct perk entry functions observed: 9
 
@@ -66,7 +73,8 @@
 - Perk entry-point baseline groups: 148
 - Spell/perk observed-pattern rows with sample size >= 3: 179
 - Weapon observed-pattern rows with sample size >= 3: 18
-- Combined observed patterns with sample size >= 3: 197
+- Enchantment observed-pattern rows with sample size >= 3: 27
+- Combined observed patterns with sample size >= 3: 224
 - Approved design rules: 0
 
-Raw bytes remain authoritative. WEAP DNAM is now decoded for the supplied snapshot. ENCH-specific fields, CSTY, MOVT, AVIF perk-tree geometry, deeper VMAD, and additional record structures remain future decoder work.
+Raw bytes remain authoritative. WEAP DNAM and ENCH ENIT/effect composition are now decoded for the supplied snapshot. CSTY, MOVT, AVIF perk-tree geometry, deeper VMAD, and additional record structures remain future decoder work.
