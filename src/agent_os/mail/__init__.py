@@ -192,8 +192,15 @@ def sync(limit: int = DEFAULT_LIMIT, mailbox: str | None = None, account_id: str
         split_combined_index()
     if scope:
         targets = [item for item in targets if item.mail_scope == config.check_scope(scope)]
-    results = [sync_account(item, store_path=config.db_for(item.mail_scope), ledger_dir=config.ledger_dir_for(item.mail_scope), limit=limit, backfill=backfill,
-                            mailboxes=[mailbox] if mailbox else None) for item in targets]
+    from . import attachments
+
+    exporters = {name: attachments.Exporter(name) for name in {item.mail_scope for item in targets}} if attachments.enabled() else {}
+    try:
+        results = [sync_account(item, store_path=config.db_for(item.mail_scope), ledger_dir=config.ledger_dir_for(item.mail_scope), limit=limit, backfill=backfill,
+                                mailboxes=[mailbox] if mailbox else None, exporter=exporters.get(item.mail_scope)) for item in targets]
+    finally:
+        for exporter in exporters.values():
+            exporter.close()
     totals = {key: sum(item.get(key, 0) for item in results) for key in ("indexed_new", "deduplicated", "reprocessed", "skipped", "errors", "fetched", "missing")}
     return {"accounts": results, **totals, "complete": all(item.get("status") == "ok" for item in results), "read_only": True}
 

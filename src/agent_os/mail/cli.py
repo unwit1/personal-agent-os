@@ -82,6 +82,11 @@ def register(commands: argparse._SubParsersAction) -> None:
     pst = sub.add_parser("import-pst", help="import Outlook PST/OST backups (a file or a folder) into the work index")
     pst.add_argument("path")
     pst.add_argument("--no-ost", action="store_true", help="skip .ost files")
+    attach = sub.add_parser("attachments", help="save attachments to Downloads\Mail Attachments (named Date - Sender - Name)")
+    attach.add_argument("--enable", action="store_true", help="save attachments from now on (sync and PST import)")
+    attach.add_argument("--disable", action="store_true")
+    attach.add_argument("--folder", help="where to save (default: Downloads\Mail Attachments)")
+    attach.add_argument("--scope", choices=config.SCOPES, help="without --enable/--disable: download attachments of mail already indexed")
     sub.add_parser("split-scopes", help="one-time: split the older combined index into work and personal")
     bench = sub.add_parser("benchmark", help="time sync and search on synthetic mail (no network, no real mail)")
     bench.add_argument("--messages", type=int, default=1000, help="messages per synthetic account (two accounts)")
@@ -138,7 +143,27 @@ def dispatch(args: argparse.Namespace, emit: Callable[[Any], None]) -> int:
         def report(event: dict) -> None:
             print(json.dumps(event), file=sys.stderr, flush=True)
 
-        emit(pst.import_pst(target, progress=report) if target.is_file() else pst.import_directory(target, progress=report, include_ost=not args.no_ost))
+        from . import attachments
+
+        exporter = attachments.Exporter("work") if attachments.enabled() else None
+        try:
+            emit(pst.import_pst(target, progress=report, exporter=exporter) if target.is_file()
+                 else pst.import_directory(target, progress=report, include_ost=not args.no_ost, exporter=exporter))
+        finally:
+            if exporter is not None:
+                exporter.close()
+    elif command == "attachments":
+        from . import attachments
+
+        if args.enable or args.disable:
+            current = attachments.settings()
+            current["export_attachments"] = bool(args.enable)
+            if args.folder:
+                current["attachments_dir"] = args.folder
+            (config.LOCAL_DIR / "settings.json").write_text(json.dumps(current, indent=2), encoding="utf-8")
+            emit({"export_attachments": current["export_attachments"], "folder": str(attachments.default_root())})
+        else:
+            emit([attachments.export_missing_live(scope) for scope in ([args.scope] if args.scope else config.SCOPES)])
     elif command == "split-scopes":
         from .scopes import split_combined_index
 

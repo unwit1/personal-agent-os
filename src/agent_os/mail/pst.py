@@ -199,7 +199,8 @@ def _clean_folder(path: str) -> str:
 
 
 def import_pst(path: Path, *, archive_id: str | None = None, db_path: Path | None = None, batch: int = 500,
-               progress: Callable[[dict[str, Any]], None] | None = None, opener: Callable[[], Any] | None = None) -> dict[str, Any]:
+               progress: Callable[[dict[str, Any]], None] | None = None, opener: Callable[[], Any] | None = None,
+               exporter: Any = None) -> dict[str, Any]:
     import pypff  # type: ignore
 
     path = Path(path)
@@ -223,7 +224,8 @@ def import_pst(path: Path, *, archive_id: str | None = None, db_path: Path | Non
                     identifier = _safe(lambda: message.identifier) if message is not None else None
                     key = str(identifier if identifier is not None else f"index-{index}")
                     source_id = archive_source_id(archive_id, label, key)
-                    if store.find_source(source_id) is not None:
+                    indexed = store.find_source(source_id) is not None
+                    if indexed and (exporter is None or exporter.is_done(source_id)):
                         counts["already_imported"] += 1
                         continue
                     if message is None:
@@ -231,11 +233,20 @@ def import_pst(path: Path, *, archive_id: str | None = None, db_path: Path | Non
                         continue
                     try:
                         raw, notes = to_rfc822(message)
-                        outcome = store.record(parse(raw), {"id": source_id, "source_kind": "pst_archive", "provider": "archive",
-                                                            "archive_id": archive_id, "mailbox": label, "record_key": key})
+                        if not indexed:
+                            outcome = store.record(parse(raw), {"id": source_id, "source_kind": "pst_archive", "provider": "archive",
+                                                                "archive_id": archive_id, "mailbox": label, "record_key": key})
                     except Exception:
                         store.conn.rollback()
                         counts["unreadable"] += 1
+                        continue
+                    if exporter is not None:
+                        try:
+                            exporter.export(raw, source_id)
+                        except Exception:
+                            counts["attachment_errors"] = counts.get("attachment_errors", 0) + 1
+                    if indexed:
+                        counts["already_imported"] += 1
                         continue
                     counts["attachments_skipped"] += notes["attachments_skipped"]
                     counts["deduplicated" if outcome.get("action") == "merged" else "indexed_new"] += 1
@@ -252,7 +263,7 @@ def import_pst(path: Path, *, archive_id: str | None = None, db_path: Path | Non
 
 
 def import_directory(directory: Path, *, db_path: Path | None = None, progress: Callable[[dict[str, Any]], None] | None = None,
-                     include_ost: bool = True) -> dict[str, Any]:
+                     include_ost: bool = True, exporter: Any = None) -> dict[str, Any]:
     """Every .pst (and .ost) under ``directory``; an exact copy of a file
     already imported in this run is skipped."""
     directory = Path(directory)
@@ -267,7 +278,7 @@ def import_directory(directory: Path, *, db_path: Path | None = None, progress: 
             continue
         seen[fingerprint] = path.name
         try:
-            results.append(import_pst(path, db_path=db_path, progress=progress))
+            results.append(import_pst(path, db_path=db_path, progress=progress, exporter=exporter))
         except Exception as exc:
             results.append({"file": str(path), "error": f"{type(exc).__name__}: {str(exc)[:200]}"})
         if progress:

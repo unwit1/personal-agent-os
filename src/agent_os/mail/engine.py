@@ -81,6 +81,7 @@ def index_records(
     ledger: IngestionLedger,
     counts: Counter,
     parser: Callable[[bytes], ParsedMessage] = parse,
+    exporter: Any = None,
 ) -> list[int]:
     """Index one batch; returns UIDs now durably indexed or already current."""
     done: list[int] = []
@@ -126,6 +127,13 @@ def index_records(
         # Only after the index is durable.
         for item_id in completed:
             ledger.complete(item_id, [f"mail:{account.id}:{mailbox}:{uidvalidity}"])
+        if exporter is not None:
+            for record in records:
+                if record.raw is not None and record.uid in done:
+                    try:
+                        exporter.export(record.raw, live_source_id(account.provider, account.id, mailbox, uidvalidity, str(record.uid)))
+                    except Exception:
+                        counts.bump("attachment_errors")
         if records:
             ledger.checkpoint(str(max(record.uid for record in records)), checked=counts.get("checked", 0), errors=counts.get("errors", 0))
     return done
@@ -142,6 +150,7 @@ def sync_mailbox(
     backfill: int = 0,
     batch: int = DEFAULT_BATCH,
     progress: Progress | None = None,
+    exporter: Any = None,
 ) -> dict[str, Any]:
     started = time.monotonic()
     counts = Counter()
@@ -203,7 +212,7 @@ def sync_mailbox(
         for chunk in _chunks(wanted, max(batch, 1)):
             records = client.fetch(chunk, body=True)
             counts.bump("fetched", len(records))
-            done = index_records(records, account=account, mailbox=mailbox, uidvalidity=uidvalidity, store=store, ledger=ledger, counts=counts)
+            done = index_records(records, account=account, mailbox=mailbox, uidvalidity=uidvalidity, store=store, ledger=ledger, counts=counts, exporter=exporter)
             finished = [uid for uid in done if uid in set(chunk)]
             forward = [uid for uid in finished if high is None or uid > high]
             if forward:
@@ -255,6 +264,7 @@ def sync_account(
     mailboxes: list[str] | None = None,
     connect_factory: Any = None,
     progress: Progress | None = None,
+    exporter: Any = None,
 ) -> dict[str, Any]:
     started = time.monotonic()
     result: dict[str, Any] = {"account_id": account.id, "provider": account.provider, "read_only": True, "mailboxes": []}
@@ -275,7 +285,7 @@ def sync_account(
             names = [name for name in client.list_mailboxes() if name not in set(account.exclude_folders)]
         with Store(store_path or config.DB) as store:
             for name in names:
-                result["mailboxes"].append(sync_mailbox(client, account, name, store, ledger_dir=ledger_dir or config.LEDGER_DIR, limit=limit, backfill=backfill, batch=batch, progress=progress))
+                result["mailboxes"].append(sync_mailbox(client, account, name, store, ledger_dir=ledger_dir or config.LEDGER_DIR, limit=limit, backfill=backfill, batch=batch, progress=progress, exporter=exporter))
         statuses = {item.get("status") for item in result["mailboxes"]}
         result["status"] = "ok" if statuses <= {"ok"} else "partial"
     except MailError as exc:

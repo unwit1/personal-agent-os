@@ -891,6 +891,75 @@ class PstImportTests(MailFixture):
         self.assertTrue((config.scope_dir("work") / "pst-imports.jsonl").exists())
 
 
+class AttachmentExportTests(MailFixture):
+    def mail_with(self, *files, sender="Cummings, Shirley <shirley@4rtec.test>", date="Wed, 01 May 2019 10:00:00 -0400", message_id="<att@x>"):
+        msg = EmailMessage()
+        msg["From"], msg["To"], msg["Subject"], msg["Date"], msg["Message-ID"] = sender, "hr@4rtec.test", "Paperwork", date, message_id
+        msg.set_content("see attached")
+        for name, mime, data, inline in files:
+            main, sub = mime.split("/")
+            msg.add_attachment(data, maintype=main, subtype=sub, filename=name, disposition="inline" if inline else "attachment")
+        return bytes(msg)
+
+    def test_names_dates_skips_and_saves_each_file_once(self) -> None:
+        import datetime as dt
+
+        from agent_os.mail.attachments import Exporter
+
+        pdf = b"%PDF-1.4 w4 form" * 50
+        big_photo = b"\x89PNG" + b"x" * 30_000
+        raw = self.mail_with(("W4 2019.pdf", "application/pdf", pdf, False), ("image001.png", "image/png", b"\x89PNG tiny logo", True),
+                             ("photo.png", "image/png", big_photo, False), ("invite.ics", "text/calendar", b"BEGIN:VCALENDAR", False),
+                             ("Notes: draft?.txt", "text/plain", b"plain notes", False))
+        root = self.tmp / "Downloads"
+        with Exporter("work", root) as exporter:
+            self.assertEqual(exporter.export(raw, "src_1"), 3)
+            self.assertEqual(exporter.export(raw, "src_1"), 0, "a handled message is not re-exported")
+            again = self.mail_with(("W4 2019.pdf", "application/pdf", pdf, False), message_id="<fwd@x>", sender="Lee <lee@4rtec.test>")
+            self.assertEqual(exporter.export(again, "src_2"), 0, "same bytes in another email: saved once")
+            other = self.mail_with(("W4 2019.pdf", "application/pdf", b"%PDF different" * 50, False), message_id="<o@x>")
+            self.assertEqual(exporter.export(other, "src_3"), 1)
+            self.assertEqual(exporter.counts["duplicates"], 1)
+        folder = root / "Work" / "2019"
+        names = sorted(path.name for path in folder.iterdir())
+        self.assertEqual(names, ["2019-05-01 - Shirley Cummings - Notes draft.txt", "2019-05-01 - Shirley Cummings - W4 2019 (2).pdf",
+                                 "2019-05-01 - Shirley Cummings - W4 2019.pdf", "2019-05-01 - Shirley Cummings - photo.png"])
+        self.assertEqual((folder / "2019-05-01 - Shirley Cummings - W4 2019.pdf").read_bytes(), pdf)
+        modified = dt.datetime.fromtimestamp((folder / "2019-05-01 - Shirley Cummings - W4 2019.pdf").stat().st_mtime, dt.timezone.utc)
+        self.assertEqual(modified, dt.datetime(2019, 5, 1, 14, 0, tzinfo=dt.timezone.utc), "file dated with the email's date")
+        self.assertFalse((root / "Personal").exists())
+
+    def test_sync_saves_attachments_into_scope_folders_when_enabled(self) -> None:
+        from agent_os.mail.attachments import Exporter
+
+        server = FakeIMAPServer()
+        server.add("INBOX", 1, self.mail_with(("Roster.csv", "text/csv", b"name\nAda\n" * 10, False)))
+        account = self.account("icloud", "personal-icloud", "me@icloud.com")
+        root = self.tmp / "Downloads"
+        with Exporter("personal", root) as exporter:
+            self.sync(account, server, exporter=exporter)
+            self.assertEqual(exporter.counts["saved"], 1)
+        self.assertEqual([path.name for path in (root / "Personal" / "2019").iterdir()], ["2019-05-01 - Shirley Cummings - Roster.csv"])
+        self.assertFalse((root / "Work").exists(), "personal mail never lands in the Work folder")
+
+    def test_missing_attachments_of_already_indexed_mail_are_fetched_read_only(self) -> None:
+        from agent_os.mail import attachments
+
+        server = FakeIMAPServer()
+        server.add("INBOX", 1, self.mail_with(("Offer.pdf", "application/pdf", b"%PDF offer" * 40, False)))
+        server.add("INBOX", 2, rfc822("No files", "just text", message_id="<plain@x>"))
+        account = self.account("earthlink", "work-earthlink", "hr@4rtec.test")
+        sync_lib.sync_account(account, store_path=config.db_for("work"), ledger_dir=config.ledger_dir_for("work"), connect_factory=server.factory)
+        server.calls.clear()
+        result = attachments.export_missing_live("work", connect_factory=server.factory, root=self.tmp / "Downloads")
+        self.assertEqual((result["saved"], result["accounts"][0]["messages"]), (1, 1), "only the message with an attachment is re-read")
+        fetches = [call for call in server.calls if call[:2] == ("uid", "fetch")]
+        self.assertTrue(all("BODY.PEEK[]" in call[3] for call in fetches))
+        self.assertTrue(all(call[2] is True for call in server.calls if call[0] == "select"), "EXAMINE only")
+        again = attachments.export_missing_live("work", connect_factory=server.factory, root=self.tmp / "Downloads")
+        self.assertEqual(again["accounts"][0]["messages"], 0)
+
+
 class BenchmarkTests(unittest.TestCase):
     def test_benchmark_runs_on_synthetic_mail(self) -> None:
         from agent_os.mail.benchmark import run
