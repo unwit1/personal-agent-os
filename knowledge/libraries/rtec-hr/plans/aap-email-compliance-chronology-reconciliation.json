@@ -1,0 +1,52 @@
+{
+  "record_id": "rtec-aap-email-compliance-chronology-reconciliation",
+  "updated_at": "2026-09-23",
+  "status": "partially_resolved",
+  "chronology": [
+    {
+      "date": "2018-12-27",
+      "source": "state approval letter",
+      "finding": "Kentucky approved RTEC EEO/AAP and stated updated plan required every four years.",
+      "next_plan_due": "2022-01-01"
+    },
+    {
+      "date": "2019-01-16",
+      "source": "email/self-reminder 000085",
+      "finding": "Subject says AAP DUE TO STATE JAN 2022.",
+      "interpretation": "Consistent with the then-current 2018 state approval schedule."
+    },
+    {
+      "date": "2020-12-30",
+      "source": "state approval letter",
+      "finding": "Later Kentucky approval superseded the earlier schedule.",
+      "next_plan_due": "2024-01-30"
+    },
+    {
+      "period": "2018-07 through 2024-06",
+      "source": "full plan archive",
+      "finding": "A preserved AAP/EEO plan family extends through plan year 2023-2024 and is marked UPDATED JUNE 30, 2024."
+    },
+    {
+      "period": "2022-06-30",
+      "source": "HR AAP snapshot package",
+      "finding": "Detailed workforce/AAP analytical package exists for the June 30, 2022 snapshot and should be treated as an analytical/source package within the broader plan lineage rather than automatically as a separate four-year approval event."
+    }
+  ],
+  "resolution": [
+    "The January 2022 email reminder was not inherently erroneous; it matched the 2018 approval letter's next-due schedule.",
+    "The 2020 approval letter later reset/superseded the next plan due date to January 30, 2024.",
+    "The archive contains a full plan updated through June 30, 2024."
+  ],
+  "still_open": [
+    "Was a plan formally submitted by January 30, 2024 and where is the corresponding approval letter?",
+    "What approved plan governs after June 30, 2024?",
+    "What exact approval/effective dates apply to the post-2024 plan?",
+    "How did methodology and named EEO responsibility change across versions?"
+  ],
+  "source_paths": [
+    "knowledge/libraries/rtec-compliance/plans/aap/aap-history.json",
+    "knowledge/libraries/rtec-compliance/plans/aap/2018-2024/",
+    "knowledge/libraries/rtec-hr/plans/aap-2022-06-30/",
+    "email archive message 000085"
+  ]
+}
