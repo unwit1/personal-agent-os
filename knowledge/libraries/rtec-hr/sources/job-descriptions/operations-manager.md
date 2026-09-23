@@ -55,7 +55,7 @@ Rev/ss/3/9/18/HR
 - Role family: `operations-manager`
 - Temporal status: `historical`
 - Source SHA-256: `71c3ea2608560f78c10b548a9bc1e663808ff98c86d022d4e3b2d1267d359fb8`
-- Normalized text SHA-256: `f528b5829af665c3843d5bc448b6ae58484344f9ea5e60c448af0ba66f655c25`
+- Normalized text SHA-256: `f528b5829af5ed28b6028889b1ba80ef4bbdf16284b4943ee8b29250bf8767ba`
 - Extraction: `antiword`
 
 ### Full searchable text
