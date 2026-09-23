@@ -1,0 +1,76 @@
+{
+  "record_id": "rtec-eeo-aap-reporting-email-evidence-2016-2021",
+  "updated_at": "2026-09-23",
+  "status": "validated_historical_pattern_linked_to_existing_aap_corpus",
+  "privacy": "No passwords, credentials, employee-level EEO attributes, or roster contents are retained.",
+  "workflow_evidence": [
+    {
+      "phase": "eeo_training_and_reference",
+      "evidence": "HR received EEOC Training Institute seminar information tied to employment-discrimination compliance education.",
+      "evidence_ids": [
+        "000002",
+        "000007"
+      ]
+    },
+    {
+      "phase": "eeo1_account_and_reporting",
+      "evidence": "EEO-1 account-access correspondence appears in 2016, a 2020 EEOC notice tracks survey timing, and a 2021 self-reminder directs HR to complete the EEO-1 report.",
+      "evidence_ids": [
+        "000027",
+        "000135",
+        "000219"
+      ],
+      "note": "The credential contained in the 2016 source is intentionally excluded."
+    },
+    {
+      "phase": "affirmative_action_plan_submission",
+      "evidence": "Kentucky Office of EEO/Contract Compliance acknowledged RTEC's AAP submission in October 2018 and requested clarification because the cover-page dates appeared to end June 30, 2018.",
+      "evidence_ids": [
+        "000067"
+      ]
+    },
+    {
+      "phase": "future_aap_deadline_tracking",
+      "evidence": "A historical calendar reminder recorded an AAP due-to-state milestone for January 2022.",
+      "evidence_ids": [
+        "000085"
+      ]
+    },
+    {
+      "phase": "state_certification_tracking",
+      "evidence": "Recurring HR reminders asked whether state certification/recertification documentation was available.",
+      "evidence_ids": [
+        "000180",
+        "000299",
+        "000302"
+      ]
+    },
+    {
+      "phase": "labor_market_source_refresh",
+      "evidence": "Three 2021 reminders directed HR to check 2020 Census QuickFacts data, consistent with maintaining demographic/labor-market reference data for compliance planning.",
+      "evidence_ids": [
+        "000279",
+        "000303",
+        "000309"
+      ],
+      "caution": "The emails do not by themselves prove the exact AAP formula or dataset fields for which QuickFacts was used."
+    }
+  ],
+  "relationship_to_existing_knowledge": [
+    "The June 30, 2022 AAP package remains the authoritative preserved plan package for that snapshot.",
+    "These emails add operational chronology and deadline/handoff evidence around the formal AAP/EEO artifacts.",
+    "Historical email reminders do not supersede later policy, plan or reporting requirements."
+  ],
+  "unresolved": [
+    "Identify the AAP/EEO plan that superseded the June 30, 2022 package.",
+    "Confirm the current owner and calendar for EEO-1 and any Kentucky contract-compliance reporting.",
+    "Determine the current approved labor-market/availability data sources and methodology.",
+    "Determine the current state-certification/recertification process and owner."
+  ],
+  "automation_candidates": [
+    "compliance calendar with source-authority/currentness checks",
+    "AAP source-data refresh checklist",
+    "EEO-1 filing readiness checklist",
+    "state-certification expiry/recertification tracking"
+  ]
+}
