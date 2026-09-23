@@ -1,28 +1,45 @@
 # Wheels of Lull Post-Ingestion Analysis
 
-Status: **core analysis complete; bounded raw-shard regeneration remains; BOOK provenance follow-up is active**.
+Status: **source ingestion exhausted for the supplied ESP; core analysis complete; only external BOOK provenance/edition follow-up remains**.
 
 Completed products:
-- deterministic speaker-resolution batches for every readable INFO shard;
+- complete 1,090-record core source corpus with all stored raw shards readable;
+- deterministic raw-shard repair for the former 151-200 and 401-450 gaps;
+- strict CTDA integrity resolution for all 410 INFO records;
+- broader contextual/candidate speaker analysis retained in the dialogue layer;
 - major character evidence dossiers;
 - complete 33-location / 103-cell place index and high-value place dossiers;
 - artifact/technology dossiers;
 - faction/group dossiers;
 - 31 normalized core claims;
 - 7 canon/tension handling records;
-- machine-readable retrieval index with 76 entries, including all 14 topic dossiers;
+- machine-readable retrieval index with 76 analysis entries, including all 14 topic dossiers;
 - deterministic normalization and SHA-256 fingerprints for all 33 BOOK records;
 - BOOK provenance passes 01-03 plus a search audit and KINMUNE variant pass;
-- central-source links for verified KINMUNE, Tatterdemalion, and Xal-Gosleigh reuse.
+- central-source links for verified KINMUNE, Tatterdemalion, and Xal-Gosleigh reuse;
+- full physical audit of all 36,824 plugin records;
+- separate 328-record implementation-text supplement for omitted player-facing/structural evidence.
 
-## Dialogue integrity boundary
+## Dialogue integrity
 
-Speaker resolution processed **358 of 410 INFO records**. **288** were deterministically resolved and **70** remain intentionally unresolved. The other **52 INFO records** fall inside two stored gzip shards that are corrupt and require deterministic regeneration from the original `WheelsOfLull.esp` before speaker resolution can be called exhaustive:
+All **410 INFO records** are now source-readable.
 
-- `raw/source-records-0151-0200.jsonl.gz`
-- `raw/source-records-0401-0450.jsonl.gz`
+A strict, reproducible CTDA pass resolves **332** INFO records and intentionally leaves **78** unresolved when direct equality `GetIsID` or a uniquely mapped equality `GetIsVoiceType` is absent. The independently regenerated result for the previously readable 358-record subset is exactly the old baseline (**288 resolved / 70 unresolved**); the 52 repaired INFO records add **44 resolved / 8 unresolved**.
 
-The original ESP is not currently present in the repository/file-library access layer, and both bad blobs were already corrupt in their creation commits. No dialogue from those ranges is inferred to fill the gap.
+The broader dialogue analysis remains useful for scene aliases, role-level identities, shared candidate sets, talking activators, and contextual Wailway attribution. Strict unresolved status must not be mistaken for proof that no contextual speaker is known.
+
+See:
+- `speaker-resolution.md`
+- `speaker-repair-validation.json`
+- `source-integrity.json`
+
+## Full-plugin exhaustiveness
+
+The verified ESP was traversed through all **36,824 physical records**. The original core filter correctly captured the narrative-heavy source classes, but it omitted useful implementation text. The audit therefore added `raw/implementation-text-supplement.jsonl.gz` with **328** records covering player-facing or lore-structural evidence from factions, talking activators, voice types, mechanisms, equipment, spells/effects, races/creatures, named references, and related records.
+
+Implementation-only strings such as asset paths, package parameter labels, animation-event names, and editor wiring were audited but not promoted into lore claims.
+
+See `exhaustiveness-audit.md` and `implementation-text-supplement.json`.
 
 ## BOOK provenance state
 
@@ -36,12 +53,7 @@ Current origin/provenance triage:
 - **19** continuity-local functional/context documents whose historical origin remains unresolved;
 - **10** named works still requiring prior-source research.
 
-See:
-- `book-provenance-pass-01.md`
-- `book-provenance-pass-02.md`
-- `book-provenance-pass-03-search-audit.md`
-- `book-variant-pass-01.md`
-- `book-normalization-index.json`
+These are **external provenance questions**, not unprocessed content in the supplied Wheels of Lull plugin.
 
 ## Policy
 
