@@ -1,0 +1,52 @@
+{
+  "snapshot": "2026-09-23",
+  "decoder": "LVLI/COBJ/SCRL/BOOK/FLST/DUAL",
+  "summary": {
+    "decode_failures": 0,
+    "leveled_lists": 389,
+    "leveled_list_entries": 2791,
+    "crafting_recipes": 181,
+    "crafting_inputs": 383,
+    "scrolls": 305,
+    "scroll_effect_instances": 744,
+    "books": 303,
+    "spell_tomes": 303,
+    "skill_books": 0,
+    "form_lists": 36,
+    "form_list_members": 590,
+    "dual_cast_records": 26,
+    "exact_imported_baseline_comparisons": 81,
+    "semantic_modified": 73,
+    "semantic_identical": 8,
+    "approved_rules": 0
+  },
+  "semantic_deltas": {
+    "LVLI": {
+      "comparisons": 23,
+      "modified": 23,
+      "added_entries": 8,
+      "removed_entries": 0
+    },
+    "FLST": {
+      "comparisons": 3,
+      "modified": 3,
+      "added_members": 21,
+      "removed_members": 13
+    },
+    "SCRL": {
+      "comparisons": 55,
+      "modified": 47,
+      "identical": 8,
+      "added_effect_tuples": 107,
+      "removed_effect_tuples": 32,
+      "added_conditions": 84,
+      "removed_conditions": 49
+    }
+  },
+  "guardrails": [
+    "Raw records remain authoritative.",
+    "Optional-module distribution changes are scoped to their module.",
+    "Form-list and leveled-list membership are implementation evidence, not approved rules.",
+    "No checkpoint observation is automatically promoted to canonical design guidance."
+  ]
+}
