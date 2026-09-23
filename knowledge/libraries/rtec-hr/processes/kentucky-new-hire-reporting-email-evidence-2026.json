@@ -1,0 +1,37 @@
+{
+  "record_id": "rtec-kentucky-new-hire-reporting-email-evidence-2026",
+  "updated_at": "2026-09-23",
+  "status": "current_process_evidence_with_quality_question",
+  "workflow": "Kentucky New Hire Reporting bulk web-file upload",
+  "observed_date": "2026-05-15",
+  "evidence_ids": [
+    "000361",
+    "000362",
+    "000363"
+  ],
+  "observed_sequence": [
+    "Web File Upload Preview generated.",
+    "A second preview was generated shortly afterward.",
+    "Web File Upload Completion reported successful receipt."
+  ],
+  "sanitized_result": {
+    "total_records_in_file": 8,
+    "acceptable_new_hires": 1,
+    "previously_submitted_duplicates": 7,
+    "rejected_new_hires": 0,
+    "duplicate_records_within_file_on_update": 0
+  },
+  "source_filename_observation": "The uploaded spreadsheet filename included a 2025-05-15 date while the portal upload occurred on 2026-05-15.",
+  "interpretation": [
+    "The state portal performs duplicate and rejection validation before/after submission.",
+    "The high previously-submitted duplicate ratio may indicate a reused reporting file, a deliberately cumulative file, a stale export, or another process reason; the email alone cannot decide which.",
+    "Filename/date mismatch should be validated before using filename dates as authoritative reporting-period metadata."
+  ],
+  "automation_opportunities": [
+    "Generate new-hire submission files from only unreported hires when the source system supports reliable submitted-state tracking.",
+    "Validate reporting-period/date metadata before upload.",
+    "Preflight for duplicate candidates and show a review summary before submission.",
+    "Record portal preview/completion results in an audit log and reconcile accepted, duplicate and rejected counts."
+  ],
+  "privacy": "No employee names, identifiers, hire dates or other row-level new-hire data are stored in this record."
+}
