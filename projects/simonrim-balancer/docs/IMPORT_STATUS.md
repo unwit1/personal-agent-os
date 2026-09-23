@@ -23,6 +23,7 @@
 - Spells: 953
 - Magic effects: 1,648
 - Perks: 625
+- Weapons: 216 total WEAP records
 
 ## Master-aware resolution / deltas
 
@@ -51,6 +52,10 @@
   - Quest + Stage: 10
 - PERK conditions: 4,035
 - PERK semantic relations added: 2,803
+- WEAP/DNAM: 216 / 216 decoded; 0 failures
+  - 21 descriptive weapon baseline groups
+  - 18 observed weapon patterns with sample size >= 3
+  - 18 exact imported-baseline weapon field deltas
 - Distinct perk entry points observed: 62
 - Distinct perk entry functions observed: 9
 
@@ -59,7 +64,9 @@
 - Spell design profiles: 953
 - Spell numeric baseline groups: 294
 - Perk entry-point baseline groups: 148
-- Observed-pattern rows with sample size >= 3: 179
+- Spell/perk observed-pattern rows with sample size >= 3: 179
+- Weapon observed-pattern rows with sample size >= 3: 18
+- Combined observed patterns with sample size >= 3: 197
 - Approved design rules: 0
 
-Raw bytes remain authoritative. WEAP DNAM, ENCH-specific fields, CSTY, MOVT, AVIF perk-tree geometry, deeper VMAD, and additional record structures remain future decoder work.
+Raw bytes remain authoritative. WEAP DNAM is now decoded for the supplied snapshot. ENCH-specific fields, CSTY, MOVT, AVIF perk-tree geometry, deeper VMAD, and additional record structures remain future decoder work.
