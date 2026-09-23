@@ -1,0 +1,64 @@
+{
+  "id": "rtec-compliance-title-vi-version-chain",
+  "record_type": "version_chain",
+  "title": "RTEC Title VI / Limited English Proficient Plan version history",
+  "status": "validated_from_source_versions",
+  "current_candidate": "rtec-compliance-title-vi-lep-2026",
+  "versions": [
+    {
+      "source_id": "rtec-compliance-title-vi-lep-2016",
+      "archive_path": "TITLE VI LEP PLAN/OLD Title VI and LEP Plans/Title VI and Limited English Proficient Plan Revised Sept 2016.doc",
+      "sha256": "71546ccfe3006abe83663dc0d1353b71cd927e1fbdf9f52e76559ee4c9a01978",
+      "source_revision_markers": [
+        "Created August 2008",
+        "Revised June 2010",
+        "Revised March 2011",
+        "Revised January 2013",
+        "Revised September 2013",
+        "Revised July 2014",
+        "Revised December 2016"
+      ],
+      "board_approval_date": "2016-10-17",
+      "coordinator": "Sheila Stallsworth",
+      "complaint_requested_information_window_business_days": 10,
+      "complaint_appeal_window_days": 7,
+      "temporal_status": "historical"
+    },
+    {
+      "source_id": "rtec-compliance-title-vi-lep-2019",
+      "archive_path": "TITLE VI LEP PLAN/OLD Title VI and LEP Plans/Revised Current Title VI and Limited English Proficient Plan Revised December 2019.doc",
+      "sha256": "01aa3c5fda45bbd1804585f6aad84eccc2ef2e6e3ff2c2b5f0a1d222d0185c1f",
+      "source_revision_marker": "Revised December 2019",
+      "board_approval_date": "2019-10-21",
+      "coordinator": "Sheila Stallsworth",
+      "complaint_requested_information_window_business_days": 10,
+      "complaint_appeal_window_days": 7,
+      "temporal_status": "historical"
+    },
+    {
+      "source_id": "rtec-compliance-title-vi-lep-2026",
+      "archive_path": "TITLE VI LEP PLAN/Title VI 2025 Prepared for 2026 deadline/Updated Current Title VI and Limited English Proficient Plan due 01 30 2026.doc",
+      "sha256": "017d426c7b18064f401e85fcd520ee7574fd7f0e6c4da104b0eaf8f9f254f0d0",
+      "source_revision_markers": [
+        "Revised December 2019",
+        "Revised December 2022",
+        "Revised January 2026"
+      ],
+      "board_approval_date": "2026-01-19",
+      "coordinator": "Clarissa Hodge",
+      "complaint_filing_window_days": 180,
+      "complaint_acknowledgement_window_days": 10,
+      "investigation_window_days": 90,
+      "complaint_requested_information_window_business_days": 30,
+      "complaint_appeal_window_days": 90,
+      "temporal_status": "current_candidate"
+    }
+  ],
+  "important_changes": [
+    "The named Title VI Coordinator changes from Sheila Stallsworth in the 2016/2019 sources to Clarissa Hodge in the January 2026 source.",
+    "The source-defined complainant response window for requested information changes from 10 business days in 2016/2019 to 30 business days in the 2026 plan.",
+    "The source-defined appeal window changes from 7 days in 2016/2019 to 90 days in the 2026 plan.",
+    "The 2026 plan states Board approval/adoption on 2026-01-19."
+  ],
+  "caution": "Current-candidate means newest plan source discovered in the compliance archive, not independent legal validation. Later signed documents may alter role assignments without necessarily superseding the entire Title VI plan."
+}

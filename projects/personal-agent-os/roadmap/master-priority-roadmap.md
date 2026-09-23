@@ -96,6 +96,103 @@ Acceptance criteria:
 Success signal:
 - project continuity and Agent OS context become the default behavior rather than an opt-in prompt convention.
 
+### P0.0A — Unified Connector Broker + cross-surface auto-provisioning
+
+Status: **planned / high priority** (added 2026-09-23).
+
+Make Agent OS the canonical provider-neutral connector registry and broker for
+Claude, ChatGPT, Codex, desktop clients, mobile/voice clients, and future agent
+surfaces.
+
+User requirement:
+- configure a connector once and make it available automatically in every
+  supported agent surface;
+- a connector configured while working in Claude should become usable from
+  ChatGPT and other registered clients without repeating provider setup, and
+  the same should work in the opposite direction wherever the host exposes
+  sufficient integration/configuration APIs;
+- connector availability should follow the user's Agent OS, not remain trapped
+  in the application where the connection was first created.
+
+Architecture:
+- maintain one canonical **Connector Registry** in Agent OS containing
+  provider identity, capabilities, scopes, health, owning privacy domain,
+  registration state, and references to local secret-store entries;
+- keep credentials/tokens out of Git. Git may store only non-secret connector
+  metadata and desired-state declarations; credentials remain in approved
+  local/OS secret stores or provider-managed stores;
+- expose connected providers behind Agent OS's stable MCP/plugin/API bridge, so
+  clients can connect once to Agent OS and automatically discover newly added
+  underlying capabilities through tool discovery rather than registering each
+  provider independently;
+- add surface adapters that inspect supported Claude/Codex/desktop MCP
+  registrations and reconcile them into Agent OS desired state, then
+  provision/update compatible registrations for other installed surfaces;
+- add a capability matrix for cloud-hosted surfaces such as ChatGPT. When a
+  host does not permit Agent OS to import/export another application's
+  credentials or mutate connector settings, keep the Agent OS bridge stable
+  and expose the provider through that bridge instead of duplicating secrets;
+- when a connector originates in a host whose connection cannot legally or
+  technically be exported, detect that limitation explicitly and request only
+  the minimum one-time Agent OS authorization needed rather than pretending
+  synchronization occurred;
+- support bidirectional reconciliation of connector metadata, enabled/disabled
+  state, capability/scopes, health, and revocation where host APIs permit it;
+- prefer one Agent OS-owned provider connection shared behind policy boundaries
+  over multiple vendor-specific copies of the same credentials;
+- propagate connector additions/removals as events so integration health,
+  orchestration, the Personal Executive, and future proactive workflows can
+  immediately discover changed capabilities.
+
+Required workflows:
+
+configure/import connector on any supported surface
+→ normalize provider + capabilities
+→ store/resolve credentials in approved secret store
+→ update Agent OS Connector Registry
+→ reconcile all registered client surfaces
+→ expose provider through stable Agent OS MCP/plugin/API
+→ verify tool discovery + least-privilege access
+→ report per-surface availability and any host-imposed limitation
+
+On startup and periodically/on configuration change:
+
+discover local/client connector state
+→ compare with canonical desired state
+→ deduplicate equivalent registrations
+→ repair stale registrations where authorized
+→ health-check provider + Agent OS bridge
+→ surface conflicts, expired auth, or unsupported host behavior
+
+Acceptance criteria:
+- adding a supported connector once makes its tools discoverable from Claude,
+  Codex, ChatGPT, and other registered Agent OS surfaces without separately
+  entering that provider's credentials in every client;
+- iCloud Mail connected to Agent OS can be searched from any surface that can
+  reach the Agent OS bridge, including ChatGPT once that bridge is connected;
+- connectors already configured in Claude/Codex/other inspectable local clients
+  can be detected and imported/reconciled without duplicate configuration;
+- connector changes are idempotent and do not create duplicate MCP servers,
+  duplicate provider accounts, or conflicting registrations;
+- `integration-health` reports connector-provider health separately from
+  surface-to-Agent-OS reachability and shows exactly why a connector is or is
+  not available in a given client;
+- revoking or disabling a connector propagates to all supported surfaces and
+  stale registrations are removed or disabled where authorized;
+- secret material is never committed to Git, copied into prompts, or exposed to
+  another client merely to achieve portability;
+- host limitations are represented as explicit capability constraints rather
+  than silently breaking the configure-once expectation;
+- regression tests cover Claude → Agent OS → ChatGPT availability, ChatGPT/
+  external-host import where APIs permit it, unsupported-host fallback through
+  the Agent OS bridge, revocation, deduplication, stale registration repair,
+  credential isolation, and fresh-machine recovery.
+
+Success signal:
+- the user thinks in terms of "connect this service to Agent OS" rather than
+  "connect this service separately to Claude, ChatGPT, Codex, and every future
+  client."
+
 ### P0.1 — Staged Workflow Orchestrator + next-prompt/model handoffs
 
 Status: **complete** (2026-09-21). Manifest schema, stage lifecycle, persisted

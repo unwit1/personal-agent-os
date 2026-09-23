@@ -1,0 +1,140 @@
+{
+  "id": "rtec-training-eeo-managers-supervisors-historical",
+  "record_type": "training",
+  "title": "Historical EEO/AA training for RTEC managers and supervisors",
+  "status": "validated_historical",
+  "temporal_status": "historical",
+  "summary": "Historical manager/supervisor training packet emphasizing nondiscrimination, fair and documented selection, reasonable accommodation, recruitment outreach, staff development, termination review, complaint prevention, EEO/AA accountability, and management responsibility. The packet also includes adapted external/reference content that must not be mistaken for RTEC-specific policy.",
+  "claims": [
+    {
+      "claim": "The training instructs managers and supervisors to communicate nondiscrimination expectations, maintain EEO/AA records, support reasonable accommodations, promote staff development, and act promptly on sexual-harassment allegations.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-compliance-aap-2015-2018"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-compliance-eeo-training-managers-supervisors",
+          "page_or_section": "Good faith efforts — General",
+          "evidence_type": "explicit_text",
+          "note": "Historical training source."
+        }
+      ]
+    },
+    {
+      "claim": "The training describes a fair-selection model using job-related criteria, consistent reference checking, written records, reasonable accommodation, and documentation of the full selection process.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-process-historical-hiring-screening-aap-2015-2018"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-compliance-eeo-training-managers-supervisors",
+          "page_or_section": "Selection",
+          "evidence_type": "explicit_text",
+          "note": "Historical training source."
+        }
+      ]
+    },
+    {
+      "claim": "The packet describes manager responsibility for analyzing personnel actions for differential impacts and reviewing selection, pay, promotion, reclassification, layoff, discipline, training, and termination for bias.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-compliance-eeo-training-managers-supervisors",
+          "page_or_section": "EEO/AA — Your Role",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The packet repeats a historical RTEC hiring workflow in which HR obtains CEO approval to advertise/interview, recruits through newspaper/OET, conducts interviews, routes selected driver candidates for background screening, obtains CEO final selection, and then schedules DOT physical/drug screening before indoctrination/training.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "DUPLICATE",
+      "related_record_ids": [
+        "rtec-process-historical-hiring-screening-aap-2015-2018",
+        "rtec-process-driver-hiring-orientation-training-2018"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-compliance-eeo-training-managers-supervisors",
+          "page_or_section": "About Staff EEO Compliance / Employment practices",
+          "evidence_type": "explicit_text",
+          "note": "Corroborates other historical sources."
+        }
+      ]
+    }
+  ],
+  "trigger": "Manager/supervisor EEO and affirmative-action training.",
+  "prerequisites": [],
+  "actors": [
+    "Managers",
+    "Supervisors",
+    "HR professionals",
+    "EEO compliance staff"
+  ],
+  "systems": [],
+  "forms": [
+    "Job Vacancy Listing Form (historical reference)",
+    "Interview Data Form (historical reference)"
+  ],
+  "steps": [
+    "Review EEO/AA responsibilities and nondiscrimination expectations.",
+    "Apply fair recruitment and selection practices.",
+    "Support accommodations and staff development.",
+    "Document personnel decisions.",
+    "Recognize and respond to harassment/discrimination concerns.",
+    "Review personnel actions for differential impact or bias.",
+    "Use EEO/HR resources for review and escalation."
+  ],
+  "decisions": [],
+  "deadlines": [],
+  "outputs": [
+    "Manager/supervisor EEO awareness and documented personnel practices"
+  ],
+  "exceptions": [],
+  "controls": [
+    "Source repeatedly emphasizes job-related criteria and consistent treatment.",
+    "Source emphasizes documentation of interviews, reference checks, personnel decisions and terminations.",
+    "Externally adapted training excerpts are not promoted as RTEC-specific policy without corroboration."
+  ],
+  "unresolved_questions": [
+    "What EEO/harassment/accommodation training is currently required for RTEC managers and supervisors?",
+    "Which portions of this packet originated from external model material versus RTEC-authored policy?",
+    "How is current manager training completion documented?"
+  ],
+  "automation_candidates": [
+    "Versioned manager compliance-training curriculum tied to current approved policies.",
+    "Training-attestation tracking and recurring refresher reminders.",
+    "Current-policy checklists for interviews, accommodations, complaints, discipline and termination."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-compliance-eeo-training-managers-supervisors",
+      "safe_source_type": "manager_supervisor_training_packet",
+      "source_date_or_version": "historical packet with 2009-2010 date markers",
+      "source_created_date": null,
+      "source_revision_date": "2010-06-30",
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "content_sha256": "18db7d1066b80df964554c0ce078c9907ceb1314f7bd79a3e59e38766f9a4852",
+      "page_or_section": "complete extracted source",
+      "full_source_path": "knowledge/libraries/rtec-hr/compliance/sources/eeo-training-managers/",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/compliance/sources/eeo-training-managers/fulltext.part001.txt",
+      "ingested_at": "2026-09-23",
+      "notes": "Full extracted text spans four parts."
+    }
+  ]
+}

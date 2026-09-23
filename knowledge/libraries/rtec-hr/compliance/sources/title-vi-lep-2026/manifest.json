@@ -1,0 +1,44 @@
+{
+  "source_id": "rtec-compliance-title-vi-lep-2026",
+  "title": "RTEC Limited English Proficient Plan / Title VI Program — Revised January 2026",
+  "source_type": "title_vi_and_lep_plan",
+  "archive_path": "TITLE VI LEP PLAN/Title VI 2025 Prepared for 2026 deadline/Updated Current Title VI and Limited English Proficient Plan due 01 30 2026.doc",
+  "sha256": "017d426c7b18064f401e85fcd520ee7574fd7f0e6c4da104b0eaf8f9f254f0d0",
+  "extraction": "antiword plain-text extraction",
+  "extracted_text_lines": 992,
+  "extracted_text_bytes": 46751,
+  "source_revision_history_printed": [
+    "Created August 2008",
+    "Revised June 2010",
+    "Revised March 2011",
+    "Revised January 2013",
+    "Revised September 2013",
+    "Revised July 2014",
+    "Revised December 2016",
+    "Revised December 2019",
+    "Revised December 2022",
+    "Revised January 2026"
+  ],
+  "board_approval_date": "2026-01-19",
+  "temporal_status": "current",
+  "title_vi_coordinator_in_source": "Clarissa Hodge",
+  "ingestion_status": "full_safe_extracted_text_preserved",
+  "supersedes": [
+    "rtec-compliance-title-vi-lep-2019"
+  ],
+  "notes": [
+    "This is the newest complete editable Title VI/LEP plan source discovered in the uploaded compliance archive.",
+    "A separate 2026 PDF version also exists in the archive; exact content identity between the DOC and PDF has not yet been proven.",
+    "A later 2026 signed EEO policy names a different EEO Officer. Do not assume the EEO Officer change automatically changes the Title VI Coordinator without explicit evidence."
+  ],
+  "ingested_at": "2026-09-23",
+  "fulltext_parts": [
+    "fulltext.part001a.txt",
+    "fulltext.part001b.txt",
+    "fulltext.part001c.txt",
+    "fulltext.part002.txt",
+    "fulltext.part003.txt",
+    "fulltext.part004.txt"
+  ],
+  "fulltext_completion_date": "2026-09-23"
+}

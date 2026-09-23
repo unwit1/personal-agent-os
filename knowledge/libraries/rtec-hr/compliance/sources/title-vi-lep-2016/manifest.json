@@ -1,0 +1,43 @@
+{
+  "source_id": "rtec-compliance-title-vi-lep-2016",
+  "title": "RTEC Limited English Proficient Plan / Title VI Program — historical 2016 version",
+  "source_type": "title_vi_and_lep_plan",
+  "source_archive_path": "TITLE VI LEP PLAN/OLD TITLE VI AND LEP PLANS/Title VI and Limited English Proficient Plan Revised Sept 2016.doc",
+  "sha256": "71546ccfe3006abe83663dc0d1353b71cd927e1fbdf9f52e76559ee4c9a01978",
+  "extraction": "antiword plain-text extraction",
+  "extracted_text_lines": 924,
+  "extracted_text_bytes": 44623,
+  "temporal_status": "historical",
+  "currentness": "superseded_by_later_title_vi_plan_versions",
+  "revision_history_printed": [
+    "Created August 2008",
+    "Revised June 2010",
+    "Revised March 2011",
+    "Revised January 2013",
+    "Revised September 2013",
+    "Revised July 2014",
+    "Revised December 2016"
+  ],
+  "board_approval_evidence": "Plan text states Board approval/adoption at meeting held 2016-10-17.",
+  "ingestion_status": "full_safe_extracted_text_preserved",
+  "sections_committed": [
+    "plan-core-and-complaints.md — core Title VI policy, information dissemination, vendor/subcontractor rules, recordkeeping, complaint procedures and public-participation introduction"
+  ],
+  "sections_pending_full_preservation": [],
+  "later_versions_discovered": [
+    "December 2019 plan versions in the compliance archive",
+    "2026 Title VI and LEP Plan PDF in the compliance archive"
+  ],
+  "notes": [
+    "The archive filename says Revised Sept 2016 while the source text prints Revised December 2016; retain both facts rather than silently resolving the discrepancy.",
+    "Use later/current plan versions for current operational guidance after their supersession chain is validated."
+  ],
+  "ingested_at": "2026-09-23",
+  "fulltext_parts": [
+    "fulltext.part001.txt",
+    "fulltext.part002.txt",
+    "fulltext.part003.txt",
+    "fulltext.part004.txt"
+  ],
+  "fulltext_completion_date": "2026-09-23"
+}

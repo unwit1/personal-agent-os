@@ -1,0 +1,30 @@
+{
+  "source_id": "rtec-compliance-eeo-training-managers-supervisors",
+  "title": "EEO Training for Managers and Supervisors",
+  "source_type": "manager_supervisor_training_packet",
+  "archive_path": "EEO/EEO TRAINING/EEO TRAINING FOR MANAGERS AND SUPERVISORS.doc",
+  "sha256": "18db7d1066b80df964554c0ce078c9907ceb1314f7bd79a3e59e38766f9a4852",
+  "source_size_bytes": 172032,
+  "extracted_text_chars": 55317,
+  "temporal_status": "historical",
+  "date_markers": [
+    "2009-02-12",
+    "2010-02-13",
+    "2010-02-18",
+    "2010-06-30"
+  ],
+  "currentness": "historical_training_compilation_not_assumed_current",
+  "fulltext_parts": [
+    "fulltext.part001.txt",
+    "fulltext.part002.txt",
+    "fulltext.part003.txt",
+    "fulltext.part004.txt"
+  ],
+  "ingestion_status": "full_safe_extracted_text_preserved",
+  "source_quality_notes": [
+    "The packet mixes RTEC-specific material with externally adapted/reference material. Some sections use language such as 'campus', 'University of California', 'Regents Resolution SP-2', and an FTA complaint form. Those sections are preserved as source content but are not treated as RTEC policy unless independently corroborated.",
+    "The packet contains historical RTEC hiring/process descriptions that overlap the 2015-2018 AAP and 2018 driver-orientation sources.",
+    "Named role holders and historical contact information are versioned historical facts, not current assignments."
+  ],
+  "ingested_at": "2026-09-23"
+}
