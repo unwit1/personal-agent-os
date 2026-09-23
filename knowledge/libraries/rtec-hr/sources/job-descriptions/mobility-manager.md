@@ -65,6 +65,17 @@ acceptable to change, since it is impossible to list each project and all
 of the requirements that may be associated with the programs of RTEC that
 may vary during each grant/fiscal year.  Attendance and travel is required.
 
+
+
+
+
+
+
+
+
+
+
+
 Essential job functions:  Below is a list of actions that are required in
 the fulfillment of the duties:
 
@@ -107,7 +118,27 @@ appropriate software.  Assure that Providers receive all assigned trips and
 that they are performed in a safe and timely manner.  Responsible for
 marketing; route design and implementation of projects.
 
+
+
+
+
 Signature                    Date
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Revised 8/18/2020
 
