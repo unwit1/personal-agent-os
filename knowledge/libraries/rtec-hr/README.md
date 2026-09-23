@@ -89,3 +89,25 @@ The batch contains 95 file artifacts. Nine safe position-level artifacts were co
 Derived knowledge includes the legacy employee-evaluation template, historical disciplinary point/reference material, a 2015 vacation-adjacent personal/sick-leave rule candidate, 2016 administrative time/leave routing, a 2015 CSR client-assistance instruction, a 2021 rotation-schedule absence rule, 2021 unemployment-fraud guidance, a 2021 preventive-vaccination event process, historical disciplinary-log/AAP reporting structure, and a content-first document-classification rule.
 
 Notable ingestion findings: the supplied `Disciplinary steps` workbook is a blank violation matrix with no embedded offense-point values; the archive contains long-running fiscal-year disciplinary logs and AAP-sorted derivatives; and filenames are not reliable authority for type or date, so content-derived titles/dates should take precedence with mismatch logging. Historical policy, benefits, external-link, vendor, point-system, and routing statements remain version-aware evidence rather than current operational authority.
+
+
+## Historical HR email archive — September 23, 2026
+
+A flattened and deduplicated HR mailbox corpus of **576 unique messages** spanning **April 2016 through June 2026** has been structurally ingested. The raw PII-bearing email corpus remains outside GitHub; only sanitized process, organization, system, role, professional-contact and currentness findings are canonicalized here.
+
+The corpus exposed 11 recurring HR workflow families and **122 historical self-task/reminder messages**, showing that email itself functioned as an informal task and follow-up system. Durable findings include benefits administration, payroll/time/tax coordination, leave/FMLA, workers compensation/return-to-work, EEO/AAP reporting, recruiting, retirement/401(k), unemployment/new-hire reporting, service-anniversary tracking, HR document/website maintenance, and cross-role/vendor handoffs.
+
+Current 2026 evidence confirms active interaction with the shared RTEC HR mailbox, ADP, Guardian, iSolved, Kentucky employment-reporting portals, UnitedHealthcare, 3CX and Google tooling. Rippling is recorded only as vendor-evaluation/contact evidence, not as an implemented system.
+
+See:
+- `sources/batches/rtec-hr-email-archive-2016-2026-2026-09-23.json`
+- `processes/email-derived-hr-work-patterns-2016-2026.json`
+- `systems/email-derived-system-vendor-timeline-2016-2026.json`
+- `company/email-derived-company-profile-2016-2026.json`
+- `roles/current-hr-role-email-evidence-2026.json`
+- `roles/email-derived-professional-contact-map-2016-2026.json`
+- `roles/hr-handoff-network-email-evidence-2016-2026.json`
+- `questions/email-derived-gaps-2026-09-23.json`
+- `../../projects/rtec-hr-process-model/docs/EMAIL_ARCHIVE_INGESTION_2026-09-23.md`
+
+Email-derived historical practices remain version-aware evidence and must not override current policy, system authority or user-confirmed workflow ownership.
