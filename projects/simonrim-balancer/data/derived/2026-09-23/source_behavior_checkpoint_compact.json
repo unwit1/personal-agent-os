@@ -1,0 +1,51 @@
+{
+  "snapshot":"2026-09-23",
+  "evidence_channel":"Papyrus + loose runtime/distribution configuration",
+  "summary":{
+    "papyrus_sources":115,
+    "call_sites":705,
+    "named_actor_value_or_setting_literals":244,
+    "author_comment_lines":138,
+    "script_attachments":473,
+    "attachments_with_source":265,
+    "attachments_without_source":208,
+    "distinct_attached_scripts":136,
+    "config_entries":129,
+    "config_files":8,
+    "approved_rules":0
+  },
+  "behavior_tag_counts":{
+    "spell_management":60,
+    "global_variable_mutation":18,
+    "timing_waits":15,
+    "actor_value_query":11,
+    "runtime_game_setting_mutation":10,
+    "perk_query_or_management":10,
+    "hazard_or_object_placement":6,
+    "inventory_manipulation":6,
+    "actor_value_mutation":5,
+    "lethal_or_disintegrate":3,
+    "animation_control":3
+  },
+  "config_kind_counts":{
+    "spid_distribution":28,
+    "kid_distribution":4,
+    "ini_runtime_config":37,
+    "actor_value_data":37,
+    "improvement_names":23
+  },
+  "explicit_runtime_examples":[
+    {"mod":"Adamant","script":"MAG_GameSettings_Script","setting":"fTrainingMultCost","values":[6.0,10.0]},
+    {"mod":"Adamant","script":"MAG_GameSettings_Script","setting":"iMaxPlayerRunes","values":[1,3,5]},
+    {"mod":"Hand to Hand","script":"MAG_PerkMisdirection_Script","setting":"fPickPocketMaxChance","values":[100.0,90.0]},
+    {"mod":"Hand to Hand","config":"SKSE/Plugins/HandToHand.ini","key":"fBonusXPPerLevel","value":0.15},
+    {"mod":"Hand to Hand","config":"SKSE/Plugins/HandToHand.ini","key":"fBaseXPHerHit","value":3},
+    {"mod":"Hand to Hand","config":"SKSE/Plugins/HandToHand.ini","key":"fSkillUnarmedDamageScalingFactor","value":0.35}
+  ],
+  "guardrails":[
+    "Missing PSC source means unavailable source evidence, not a broken script attachment.",
+    "Runtime mutations are stored separately from static plugin values.",
+    "Author comments never override executable code evidence.",
+    "No source observation is automatically promoted to an approved rule."
+  ]
+}
