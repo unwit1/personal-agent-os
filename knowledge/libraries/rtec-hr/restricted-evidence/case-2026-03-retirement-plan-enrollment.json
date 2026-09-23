@@ -1,0 +1,23 @@
+{
+  "source_id": "rtec-restricted-2026-03-retirement-plan-enrollment",
+  "privacy_class": "restricted_case_record",
+  "document_class": "completed_retirement_plan_participant_enrollment_form",
+  "retention_mode": "metadata_only_no_raw_content",
+  "source_scan_date": "2026-03-10",
+  "page_count": 4,
+  "content_sha256": "606c074c70816b3bcfcbdeebde5ae21bdacf053dabba35859d053e238aab15db",
+  "generalized_evidence": [
+    "A completed retirement-plan participant enrollment form entered the HR document corpus in 2026.",
+    "The form structurally contains participant enrollment/election information that may require HR or payroll administration."
+  ],
+  "prohibited_from_github": [
+    "raw document",
+    "raw OCR",
+    "participant identity",
+    "beneficiary identity",
+    "account/election values",
+    "signatures"
+  ],
+  "derived_candidate_id": "rtec-process-retirement-plan-enrollment-administration-candidate",
+  "ingested_at": "2026-09-23"
+}
