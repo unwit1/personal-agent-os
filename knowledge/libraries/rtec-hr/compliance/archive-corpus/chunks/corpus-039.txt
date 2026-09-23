@@ -1,3 +1,205 @@
+===== SOURCE BEGIN / PART 3 OF 5 =====
+SOURCE_PATH: EEO/EEO-1 REPORT INFO/EEO1ReportandInstructions 2011.doc
+SHA256: d6693232bff799699075ebaa230606007ffd5f54ac61c5c75fbf532939d1de2e
+TEXT_CHARS_TOTAL: 41332
+OFFSET: 20000
+ALIASES: 
+===== TEXT =====
+sufficient);
+
+3. City, State and Zip Code of the parent company;
+
+4. Name of the Branch Office/Other location (locations other than the
+   company headquarters office);
+
+5. Street address of the Branch Office/Other location (simply listing a
+   post office box number is not sufficient); and
+
+6. City, State and Zip Code of the Branch Office/Other location.
+
+
+                   SECTION III.  ESTABLISHMENT INFORMATION
+
+The description of the major activity must clearly identify the industry
+and product produced or service provided.  If the establishment is involved
+in more than one activity, describe the activity that involves the greatest
+number of employees.
+
+Note for Consolidated employers: The description of the major activity must
+reflect the dominant economic activity of the firm, i.e., the activity that
+involves the greatest number of employees.
+
+
+                      SECTION IV.  GENERAL INFORMATION
+
+1. Select the primary geographical area(s) from which your employees are
+   hired, i.e., county, city, metropolitan statistical area, state or
+   nationwide (Note: if you select ‘nationwide’ only the national percentage
+   will be used to evaluate your workforce data).  A response to this
+   question is required.
+
+   Next, identify the primary hiring area(s) by name, i.e., you must list
+all areas included in your
+   primary hiring area.  County and city information must be clearly
+identified, e.g., Broward
+   County, Florida; Providence, Rhode Island, etc.  Do not assume the
+reviewer knows the state
+   in which the county or city is located, e.g., Franklin County, Missouri,
+Franklin County,
+   Kentucky or Franklin County, Virginia.  (Note: a company headquartered in
+another
+   country, e.g., Canada, is also required to comply with Kentucky’s EEO Act
+and should
+   identify the primary hiring area(s) accordingly.)  A response is
+required.  If necessary,
+   attach a separate sheet.
+
+2. Indicate whether the firm routinely hires extra workers to perform work
+   on contracts.  A “Yes” or “No” response is required.  (Note: Extra
+   workers are hired for a specific time period or for the duration of a
+   specific contract.)
+
+3. Write in the maximum number of employees that worked for the firm at any
+   one time during a typical 12-month period.  A response is required.
+
+4. Indicate whether the firm has a current, up-to-date affirmative action
+   plan signed by its owner, president, chief executive officer or other
+   official or manager.  A “Yes” or “No” response is required.
+
+5. Indicate whether the firm has a current, up-to-date Equal Employment
+   Opportunity (EEO) policy signed by its owner, president, chief executive
+   officer or other official or manager.  A “Yes” or “No” response is
+   required.
+
+6. Indicate whether the firm’s employment practices are currently under
+   review by any government agency.  A “Yes” or “No” response is required.
+   A “Yes” response to this question requires a full explanation to include
+   the current status of the review.  The explanation must include the name
+   of the agency conducting the review, the name and title of the agency
+   contact person and the agency contact person’s telephone number
+   (including area code).  Attach a separate sheet.
+
+7. Indicate whether the firm was barred from government contract
+   work—federal, state, city, county, or local—during the past five (5)
+   years due to a finding of employment discrimination.  A “Yes” or “No”
+   response is required.  A “Yes” response to this question requires a full
+   explanation of the situation.  The explanation must include the name of
+   the agency that found employment discrimination existed, the name and
+   title of the agency contact person and the agency contact person’s
+   telephone number (including area code).  Attach a separate sheet.
+
+
+               SECTION V.  WORKFORCE DATA/NUMBER OF EMPLOYEES
+
+Workforce data is required.  Collecting and maintaining employee race and
+ethnicity data is permitted by state and federal law if the data is kept
+separate from other personnel information and is not used to commit
+unlawful discrimination.  Current workforce data and workforce data from
+your previous report (if applicable) must be reported in this section.  A
+substitute or alternate version of this report will not be accepted or
+processed.
+
+Definition of Employee.  "Employee" means any person on the
+Vendor’s/Contractor’s payroll who is a full-time or permanent part-time
+employee for purposes of Social Security withholding taxes (exception:
+insurance salespersons who are considered to be employees for such purposes
+solely because of the provisions of Section 3121 (d)(3)(B) of the Internal
+Revenue Code).   Leased employees are included in this definition. Leased
+employees are included in this definition.
+
+
+ o “Leased Employee” means a permanent employee provided by an employment
+   agency for a fee to an outside company.  The employment agency handles
+   all personnel functions related to the leased employee including payroll,
+   staffing, benefit payments and compliance reporting.  Therefore, the
+   employment agency is responsible for reporting leased employees in its
+   EEO-1: Employer Information Report.
+
+ o The term “Employee” does not include persons who are hired on a casual
+   basis for a specific time period, or for the duration of a specific job.
+   For example: workers at a construction site whose employment relationship
+   is expected to terminate with the end of the employee's work at the site;
+   workers temporarily employed in any industry (excludes construction),
+   i.e., temporary office workers, lumber yard workers, factory workers,
+   etc.   These workers are hired through hiring halls or other referral
+   arrangements, through employee contractors or agents, or by individual
+   hiring arrangements; workers (excludes leased employees) on the payroll
+   of an employment agency who are referred by the employment agency to work
+   on the premises of another employer under that employer's direction and
+   control.
+
+
+Counting Employees.  Count each employee in one and only one job category
+and in one and only one race/ethnicity category.  (Descriptions of job
+categories and race/ethnicity categories appear later in this section.)  Do
+not count an employee in more than one job category.  Do not count an
+employee in more than one race/ethnicity category.
+
+The count must include all full-time and permanent part-time employees who
+were employed during the countemployed during the selected payroll period
+(how does this relate to what A6?), except those workers specifically
+excluded in Section V., Definition of Employee, Pages 7 and 8.
+
+Note:  If the firm has previously filed an EEO-1: Employer Information
+Report, data regarding “Total from Previous Report” at the bottom of page 2
+is also required.
+
+
+Check the Math.  Calculate a total for each row and each column.  The grand
+total for all rows and the grand total for all columns must be the same.
+Record the grand total in the heavily outlined box (__________).  Totals,
+including the grand total, must be clearly indicated on the form.  Forms
+without totals will not be processed.  Forms with mathematical errors will
+not be processed.
+
+
+Description of Job Categories.  Workforce data must be reported by job
+category.  The major job categories are listed below.  Each job category
+includes a brief description of the skills and training needed and examples
+of job titles that fit the category.  The job titles are for descriptive
+purposes only.  Therefore, the descriptions do not include all job titles
+in a particular category.
+
+Each employee should be counted in one and only one job category.  Select
+the job category that contains the jobs most similar to those performed by
+the employee.   For more information about EEO job categories, visit the
+U.S. Equal Employment Opportunity Commission’s web site at www.eeoc.gov.
+
+ o Officials and Managers. Jobs in this category include individuals who 1)
+   plan, direct and formulate broad policies, set strategy and provide the
+   overall direction of enterprises/ organizations for the development and
+   delivery of products or services; 2) oversee and direct the delivery of
+   products, services or functions at group, regional or divisional levels
+   of organizations; 3) direct and execute the day-to-day operational
+   objectives of enterprises/organizations, conveying the directions of
+   higher level officials and managers to subordinate personnel; or 4)
+   directly supervise the activities of exempt and non-exempt personnel.
+   Examples of these kinds of positions include: owners; chief executive
+   officers; presidents or executive vice presidents; chief legal officers;
+   managing partners; vice presidents and directors; treasurers; human
+   resources managers; operations managers; team managers; unit managers;
+   purchasing managers; administrative services managers; customer service
+   managers; technical support managers; first-line managers; and product
+   managers.
+
+ o Professionals. Most jobs in this category require bachelor and graduate
+   degrees, and/or professional certification.  In some case, comparable
+   experience may establish a persons qualifications.  Examples of these
+   kinds of positions include: accountants;  auditors; architects;
+   engineers; surveyors; computer programmers; teachers; personnel and labor
+   relations specialists; airplane pilots and flight engineers; artists;
+   chemists; designers; dieticians; editors; lawyers; librarians;
+   mathematical scientists; natural scientists; registered nurses; physical
+   scientists; physicians and surgeons; and social scientists.
+
+ o Technicians. Jobs in this category include activities that require
+   applied scientific skills, usually obtained by postsecondary education
+   (including community, technical and junior college).  Depending on the
+   occupation, in some instances additional training, certification, or
+   comparable experience is 
+===== SOURCE PART 3 END =====
+
+
 ===== SOURCE BEGIN / PART 4 OF 5 =====
 SOURCE_PATH: EEO/EEO-1 REPORT INFO/EEO1ReportandInstructions 2011.doc
 SHA256: d6693232bff799699075ebaa230606007ffd5f54ac61c5c75fbf532939d1de2e
@@ -670,208 +872,3 @@ early mornings. He asks for a reasonable accommodation that would permit
 him to work part-time and to come in every day at 11:00 a.m. The agency
 decision maker discusses Roger's requ
 ===== SOURCE PART 2 END =====
-
-===== SOURCE BEGIN / PART 3 OF 7 =====
-SOURCE_PATH: EEO/Reasonable Accommodation/Executive order 13164 Reasonable Accomodation.doc
-SHA256: 54df40c723b70c6596f9109b12dbdef60f2eaad4993d7361fc71e4aad1b2de95
-TEXT_CHARS_TOTAL: 62684
-OFFSET: 20000
-ALIASES: 
-===== TEXT =====
-est with him and proposes that Roger
-simply shift his schedule to work two hours longer in the evenings. Roger
-agrees to this alternative reasonable accommodation.
-
-Such discussions may not be necessary where the existence of the
-disability, the need for accommodation, and the nature of the effective
-accommodation are clear.
-
-
-5 11. Should agency procedures specify resources that individuals with
-       disabilities and agency decision makers could consult to identify and
-       evaluate possible accommodations?
-
-Yes. The Appendix to this Guidance provides a non-exhaustive list of
-relevant resources. This list, as well as any other sources that agencies
-can identify, should be attached to each agency's procedures.
-
-Agencies should also develop internal resources to provide technical
-assistance to agency personnel. These internal resources could, for
-example, demonstrate and evaluate equipment and assistive devices;
-expeditiously purchase or lease equipment needed for reasonable
-accommodation; provide referrals for additional information; and promptly
-prepare agency printed and audiovisual materials in alternative formats on
-request.(7)
-
-
-6 12. How should agencies fund requested reasonable accommodations?
-
-Under the Rehabilitation Act, the resources of the agency as a whole -- and
-not just those of an individual office -- will be factors in determining
-whether a requested reasonable accommodation poses an undue hardship. As a
-result, agencies should anticipate the expenses of reasonable accommodation
-and should include those expenses in their agency-wide budget planning and
-requests for each fiscal year. In addition, each agency is strongly
-encouraged to implement practices that will reduce bureaucratic barriers
-that could make it difficult for individual offices to provide effective
-accommodations. Possible practices include:
-
-    • establishing a central pool of staff assistant slots, that would not
-      be included in a requesting office's personnel ceiling, to provide
-      readers, interpreters, and other assistants throughout the agency; and
-
-
-    • implementing funding mechanisms that will avoid charging individual
-      offices for the cost of accommodations.
-
-
-3 C. Time Limits
-
-As the Executive Order states, each agency's procedures must:
-
-"Designate a time period during which reasonable accommodation requests
-will be granted or denied, absent extenuating circumstances. Time limits
-for decision making should be as short as reasonably possible." (Order,
-Section 1(b)(3))
-
-
-1 13. How should agencies set applicable time limits?
-
-Time limits for processing requests for and providing reasonable
-accommodations should be as short as reasonably possible. The time
-necessary to respond to any particular request for accommodation will
-depend largely on the nature of that accommodation. A reassignment is
-likely, for example, to take longer to review and implement than a request
-that a desk be put on blocks. Where the requested accommodation is simple
-and straightforward, the agency should provide it immediately, absent undue
-hardship. Furthermore, the time frame should be cut down considerably where
-a supervisor is authorized to grant an accommodation.
-
-Agencies may wish to identify the maximum amount of time that the process
-can take. But agency procedures should make clear that where a particular
-reasonable accommodation can be provided in less time than is authorized
-under those procedures, the failure to respond promptly to the request may
-result in a violation of the Rehabilitation Act.
-
-EXAMPLE - Ruth's agency prohibits employees from eating or drinking at
-their workstations. Ruth has insulin-dependent diabetes, and asks her
-supervisor to permit her to eat a candy bar or drink fruit juice at her
-desk if necessary to avoid going into insulin shock. The agency's
-reasonable accommodation procedures state that decisions about whether to
-grant or deny requests for reasonable accommodation should be made within
-15 days of the date of the request. In this case, however, the agency
-should be able to provide the reasonable accommodation in no more than a
-day or two, and hopefully sooner. The agency should not wait the full 15
-days before responding to Ruth's request.
-
-EXAMPLE - Marcus works for the same agency as Ruth. He has a psychiatric
-disability that causes him to be easily distracted, and requests that he be
-given a private office on a quiet corridor. Because the agency must
-investigate the availability of office space and is entitled to consider
-other effective accommodations, the agency may need to take the full 15
-days allotted by its procedures to make a decision on his request.
-
-Of course, special circumstances may influence the timing of the reasonable
-accommodation process. For example, agency procedures should require that
-processing of reasonable accommodation requests be expedited in appropriate
-cases. Expedited processing might be necessary where, for instance:
-
-    • the reasonable accommodation is needed to enable an individual to
-      apply for a job; or
-    • the reasonable accommodation is needed for a specific agency activity
-      that is scheduled to occur shortly.
-
-EXAMPLE - James, who uses a wheelchair, is chosen to attend a computer
-training class that will be held in the agency's computer lab starting the
-following day. James requests that the computer desk be raised in time for
-him to participate in the class. The agency's procedures should provide for
-expedited processing of James' request in circumstances like these.
-
-
-2 14. What are "extenuating circumstances" that would justify an agency not
-       processing a request for reasonable accommodation during the
-       designated time period?
-
-"Extenuating circumstances" are factors that could not reasonably have been
-anticipated or avoided in advance of the request for the accommodation.
-These can include situations in which equipment must be back-ordered or the
-vendor typically used by an agency has unexpectedly gone out of business.
-In addition, an agency will not be expected to adhere to its usual time
-frames if an individual's health professional fails to provide needed
-documentation, see Section D below, in a timely manner.
-
-Where there is a delay in either processing a request for, or delivering, a
-reasonable accommodation, the agency must notify the individual of the
-reason for the delay. To the extent possible, the agency must also keep the
-individual informed of the date on which the agency expects to complete the
-process.
-
-If there is a delay, the agency must investigate whether there are
-temporary measures that could be taken to assist the individual with a
-disability. An agency could consider, for example, a temporary job
-restructuring or the use of equipment that might permit the individual to
-perform some of the functions of his/her job.
-
-EXAMPLE - To perform the essential functions of her job, Maria, who has a
-vision-related disability, needs a sophisticated piece of equipment that is
-not readily available from the agency's suppliers. The agency has asked its
-suppliers to check further, and is also independently pursuing other
-avenues to obtain the necessary equipment. Because of this delay, the
-agency is not able to meet the time limit set in its procedures for a
-response to Maria's request.
-
-The agency should notify Maria about the delay and tell her when it expects
-to be able to respond to her request. Whether or not it ultimately grants
-Maria's request, the agency should also investigate alternative
-accommodations, such as a qualified reader, that it could provide on an
-interim basis to remove at least some of the barriers that limit Maria's
-use of her computer.
-
-
-3 15. Are there steps an agency can take prior to receiving a request for
-       reasonable accommodation that will avoid unnecessary delays in
-       responding if a request is made?
-
-Yes. To anticipate and limit impediments that may cause unnecessary delay
-in providing reasonable accommodation, agencies should review and modify,
-in advance of a specific request, policies that might affect the agency's
-ability to respond promptly to requests for reasonable accommodation. Among
-the policies that agencies should review are those that affect:
-
-    • the purchasing or leasing of equipment;
-    • the hiring of, or contracting for, readers, interpreters, or other
-      assistants; and
-    • the flexibility to approve leave or to restructure work schedules.
-
-Agencies must also ensure that all contracts for the use of external
-facilities -- such as contracts to use hotels for conferences or training
-programs -- reflect the obligation that such facilities be accessible to
-people with disabilities. Of course, an agency's own facilities must also
-conform to the laws on accessibility of federal buildings.(8)
-
-
-4 D. Medical Information
-
-As the Executive Order states, each agency's procedures must:
-
-    • "Explain the responsibility of the employee or applicant to provide
-      appropriate medical information related to the functional impairment
-      at issue and the requested accommodation where the disability and/or
-      need for accommodation is not obvious;
-    • Explain the agency's right to request relevant supplemental medical
-      information if the information submitted does not clearly explain the
-      nature of the disability, or the need for the reasonable
-      accommodation, or does not otherwise clarify how the requested
-      accommodation will assist the employee to perform the essential
-      functions of the job or to enjoy the benefits and privileges of the
-      workplace; and
-    • Explain the agency's right to have medical information reviewed by a
-      medical expert of the agency's choosing at the agency's expense."
-      (Order, Section 1(b)(4-6))
-
-
-1 16. When may an agency request medical information in connection with a
-       request for reasonable accommodation?
-
-An agency is entitled to know that an employee or applicant has a covere
-===== SOURCE PART 3 END =====
