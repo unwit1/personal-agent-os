@@ -1,0 +1,196 @@
+{
+  "id": "rtec-policy-communications-nepotism-2025",
+  "record_type": "policy",
+  "title": "Transportation communication systems and nepotism/fraternization - 2025 handbook",
+  "status": "validated",
+  "temporal_status": "current",
+  "effective_from": "2025-12-15",
+  "effective_to": null,
+  "summary": "2025 handbook rules for RTEC communication systems, privacy/monitoring and prohibited electronic use, plus merit-based hiring restrictions involving relatives and handling of employee relationships.",
+  "claims": [
+    {
+      "claim": "RTEC communication systems are described as company property for business purposes, and employees are told they should have no expectation of privacy in information created, sent, received, accessed or stored through those systems.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-computer-use"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 42 - RTEC Transportation Communication Systems",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "RTEC states that use of its communication systems may be accessed, monitored and audited, and that messages may be identifiable with RTEC to recipients.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-computer-use"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 42 - Communication Systems",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The handbook prohibits use of communication systems for harassing/disparaging or slur-based content, pornography/profanity/violent or sexually explicit content, unauthorized commercial/outside solicitation, advocacy not officially endorsed by RTEC, illegal activity, spam, hacking, pirated software/copyright infringement, unauthorized distribution of sensitive/proprietary/confidential information, unauthorized access and impersonation.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-computer-use"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 42 - Communication Systems",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Violation of the communication-system rules may result in disciplinary action up to and including termination.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-safety-confidentiality-discipline-2025",
+        "rtec-policy-computer-use"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 42 - Communication Systems",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The nepotism/fraternization section states that recruiting and promotion are to be based on merit rather than relationship and says RTEC does not permit employment of relatives of current RTEC employees or Board Members under the relationship definition in the policy.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 43 - Nepotism and Fraternization",
+          "evidence_type": "explicit_text",
+          "note": "The full source preserves the policy's relationship list."
+        }
+      ]
+    },
+    {
+      "claim": "When existing employees marry or enter a relationship, the exclusion normally does not apply automatically; RTEC states it will attempt to reassign one employee to a different department and employment will end within 90 days if no reassignment is available.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 43 - Nepotism and Fraternization",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The nepotism/fraternization section states that it applies to all categories of employment at RTEC Transportation.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-employee-handbook-2025-12-15",
+          "page_or_section": "printed page 43 - Nepotism and Fraternization",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "trigger": "Use of RTEC communication systems, hiring/promotion involving a relative, or an employee relationship that creates a policy issue.",
+  "prerequisites": [],
+  "actors": [
+    "Employee",
+    "Supervisor",
+    "Management",
+    "Executive Director",
+    "Board Member"
+  ],
+  "systems": [
+    "RTEC communication systems",
+    "Email",
+    "Telephone",
+    "Internet/network systems"
+  ],
+  "forms": [],
+  "steps": [
+    "Use communication systems for permitted business purposes.",
+    "Do not transmit/access prohibited content or perform unauthorized system activity.",
+    "Evaluate relation conflicts in hiring/promotion.",
+    "If existing employees enter a covered relationship, attempt reassignment before the stated employment consequence."
+  ],
+  "decisions": [
+    "Whether communication use violates policy",
+    "Whether a family/relationship falls within the policy definition",
+    "Whether reassignment is available"
+  ],
+  "deadlines": [
+    "If no reassignment is available after a covered existing-employee relationship arises, the handbook states employment will end within 90 days."
+  ],
+  "outputs": [
+    "Corrective action where applicable",
+    "Reassignment decision where applicable"
+  ],
+  "exceptions": [
+    "The handbook distinguishes a relationship that arises between existing employees from initial employment of relatives."
+  ],
+  "controls": [
+    "Monitoring/audit rights for communications",
+    "Merit-based employment principle",
+    "Reassignment step before the stated 90-day consequence for existing employees"
+  ],
+  "unresolved_questions": [
+    "Determine whether the undated standalone Computer Use Policy is a current supplement to or predecessor of the 2025 communication-system section.",
+    "Document who makes and records nepotism/reassignment determinations."
+  ],
+  "automation_candidates": [
+    "Communication-policy acknowledgment/version tracking.",
+    "Conflict-of-interest/nepotism review checklist for hiring and transfers."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "safe_source_type": "employee_handbook",
+      "source_date_or_version": "2025-12-15",
+      "source_created_date": null,
+      "source_revision_date": "2025-12-15",
+      "source_effective_from": "2025-12-15",
+      "source_effective_to": null,
+      "temporal_status": "current",
+      "content_sha256": "d8601d4c5ded962051c521ace697f447492dc178d565a393e5c945c309a7e22c",
+      "page_or_section": "printed pages 42-43",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": null
+    }
+  ]
+}
