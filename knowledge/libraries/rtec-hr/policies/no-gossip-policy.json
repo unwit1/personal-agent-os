@@ -1,0 +1,169 @@
+{
+  "id": "rtec-policy-no-gossip",
+  "record_type": "policy",
+  "title": "No Gossip Policy",
+  "status": "validated",
+  "temporal_status": "unknown",
+  "effective_from": null,
+  "effective_to": null,
+  "summary": "Undated standalone RTEC workplace-conduct policy asking employees to avoid negative gossip about absent coworkers, avoid negative/derogatory email about others, disengage from gossip, and use proper reporting channels for unethical, incorrect, procedural or disruptive conduct.",
+  "claims": [
+    {
+      "claim": "The policy defines gossip as rumor or personal/sensational/intimate talk and frames gossip as a voluntary workplace communication behavior that can occur in speech or email.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-no-gossip-policy",
+          "page_or_section": "page 1 - introduction/definition",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Employees signing the policy agree not to speak or insinuate about an absent person except to compliment them or reference work matters.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-no-gossip-policy",
+          "page_or_section": "page 1 - commitment 1",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Employees agree to refuse participation when someone speaks negatively about an absent person and instead change the subject or state that they have agreed not to talk about another person.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-no-gossip-policy",
+          "page_or_section": "page 1 - commitment 2",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Employees agree not to respond to negative email or use email to pass private or derogatory information about a person in the agency.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-computer-use"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-no-gossip-policy",
+          "page_or_section": "page 1 - commitment 3",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The source's fourth numbered commitment is grammatically ambiguous because it says 'While off the job, speak to another co-worker about people at work in a derogatory light' without an explicit negation, although the surrounding policy is anti-gossip; the text is preserved without silently correcting it.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "CONFLICTS_WITH",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-no-gossip-policy",
+          "page_or_section": "page 1 - commitment 4",
+          "evidence_type": "explicit_text",
+          "note": "Source wording appears to omit a word such as 'not', but no correction is inferred."
+        }
+      ]
+    },
+    {
+      "claim": "If another employee does something unethical, incorrect, against procedures or disruptive, the policy directs the employee to use proper channels and report it to a person in authority for corrective action.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-handbook-governance-employment-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-no-gossip-policy",
+          "page_or_section": "page 1 - commitment 5",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "trigger": "Workplace conversation/email involving an absent coworker or concern about another employee's conduct.",
+  "prerequisites": [],
+  "actors": [
+    "Employee",
+    "Coworker",
+    "Person in authority"
+  ],
+  "systems": [
+    "Email"
+  ],
+  "forms": [
+    "Employee signature/printed name/date acknowledgment on the policy"
+  ],
+  "steps": [
+    "Do not initiate negative gossip about absent coworkers.",
+    "Decline participation when others initiate it.",
+    "Do not use email to spread private or derogatory information.",
+    "Use proper reporting channels for misconduct/procedure concerns."
+  ],
+  "decisions": [
+    "Whether communication is legitimate work-related discussion or negative gossip.",
+    "Whether a conduct concern should be reported through authority channels."
+  ],
+  "deadlines": [],
+  "outputs": [
+    "Signed policy acknowledgment",
+    "Misconduct/procedure concern routed to authority when applicable"
+  ],
+  "exceptions": [
+    "Work-related references and compliments about an absent person are expressly permitted."
+  ],
+  "controls": [
+    "Employee acknowledgment/signature",
+    "Reporting through authority channels instead of informal gossip"
+  ],
+  "unresolved_questions": [
+    "Is this undated standalone policy currently in force?",
+    "What is the intended wording of commitment 4, which appears to be missing a negation?",
+    "Which specific reporting channel should be used for each category of ethical/procedural concern?"
+  ],
+  "automation_candidates": [
+    "Policy acknowledgment/version tracking only; do not automate judgment of employee speech or gossip."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-no-gossip-policy",
+      "safe_source_type": "standalone_policy",
+      "source_date_or_version": "undated",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "unknown",
+      "content_sha256": "ad53e72bf04e559b69b1f932b11a57ee80f40d7d42f95e747270ca8213f35735",
+      "page_or_section": "complete one-page source",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-no-gossip-policy/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-no-gossip-policy/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": "Currentness unknown because the supplied policy is undated."
+    }
+  ]
+}
