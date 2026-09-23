@@ -250,6 +250,132 @@
         "community and health-related professional correspondence"
       ],
       "confidence": "medium_high"
+    },
+    {
+      "name": "Emily Baker",
+      "organization": "Guardian Life",
+      "role_history": [
+        "Account Manager (100+), Cincinnati RGO (2016-2017 signature)"
+      ],
+      "work_context": [
+        "Guardian account-management relationship",
+        "scheduled in-person account meetings",
+        "carrier service/support routing"
+      ],
+      "confidence": "high",
+      "evidence_ids": [
+        "000035"
+      ]
+    },
+    {
+      "name": "James W. Keene",
+      "organization": "USI Insurance Services",
+      "role_history": [
+        "Benefits Advisor (2017 signature)"
+      ],
+      "work_context": [
+        "employee-benefits benchmarking/advisory outreach",
+        "in-person benefits discussion"
+      ],
+      "confidence": "high",
+      "evidence_ids": [
+        "000039"
+      ],
+      "note": "Evidence supports professional contact/outreach, not a proven exclusive broker relationship."
+    },
+    {
+      "name": "Lindsey Morris",
+      "organization": "The Job Shop",
+      "role_history": [
+        "Marketing Representative (2016 signature)"
+      ],
+      "work_context": [
+        "temporary/job-shop employee administration",
+        "holiday-pay eligibility coordination",
+        "RTEC social/vendor coordination"
+      ],
+      "confidence": "high",
+      "evidence_ids": [
+        "000018",
+        "000047"
+      ],
+      "currentness": "historical"
+    },
+    {
+      "name": "Michael Kaniatyn",
+      "organization": "Indeed",
+      "role_history": [
+        "Senior Account Executive (2021 signature)"
+      ],
+      "work_context": [
+        "recruiting platform/company-page outreach",
+        "year-end hiring outreach"
+      ],
+      "confidence": "high",
+      "evidence_ids": [
+        "000282",
+        "000317"
+      ],
+      "note": "Outreach does not prove paid product adoption."
+    },
+    {
+      "name": "Patrick Workman",
+      "organization": "AssuredPartners",
+      "role_history": [
+        "professional contact; exact title not available in preserved message body"
+      ],
+      "work_context": [
+        "2019 introductory meeting with RTEC HR"
+      ],
+      "confidence": "medium_high",
+      "evidence_ids": [
+        "000096"
+      ],
+      "note": "Contact/evaluation evidence only."
+    },
+    {
+      "name": "Tracy Vincent",
+      "organization": "Energy Insurance Agency",
+      "role_history": [
+        "Senior Account Manager (2020 signature)"
+      ],
+      "work_context": [
+        "insurance/ERISA-related professional communication"
+      ],
+      "confidence": "high",
+      "evidence_ids": [
+        "000144"
+      ]
+    },
+    {
+      "name": "Cheri Lueddeke",
+      "organization": "Guardian Life",
+      "role_history": [
+        "Second Vice President, Customer Response Unit, Customer Service Delivery Leadership (2019 signature)"
+      ],
+      "work_context": [
+        "Guardian service-feedback/customer-response leadership"
+      ],
+      "confidence": "high",
+      "evidence_ids": [
+        "000123"
+      ]
+    },
+    {
+      "name": "Kacy Dwornik",
+      "organization": "TESCO",
+      "role_history": [
+        "Kentucky Transit Sales Representative (2026 message)"
+      ],
+      "work_context": [
+        "KPTA-funded transit bus procurement outreach",
+        "vehicle specifications/floorplan/order contact"
+      ],
+      "confidence": "high",
+      "evidence_ids": [
+        "000356"
+      ],
+      "note": "Company/procurement context rather than core HR workflow."
     }
   ],
   "not_promoted": "The exhaustive raw contact/header index remains outside GitHub because it includes one-off correspondents and may contain personal or case-linked identities. Additional people are promoted only when repeated professional context can be separated safely from case facts."
