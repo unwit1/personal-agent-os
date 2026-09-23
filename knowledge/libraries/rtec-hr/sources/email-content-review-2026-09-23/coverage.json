@@ -3,7 +3,7 @@
   "as_of": "2026-09-23",
   "status": "inventory_complete_semantic_review_in_progress",
   "purpose": "Track coverage and gaps for the RTEC work-mail review without retaining personal mail, raw work mail, or person-level case details.",
-  "scope_boundary": "This tracked file contains RTEC work-mail coverage only. Personal mailbox coverage and user-specific work history are maintained separately in a local-only private checkpoint.",
+  "scope_boundary": "This tracked file contains RTEC work-mail coverage only. Personal mailbox coverage and user-specific work history are maintained separately in a local-only private checkpoint. The user's RTEC start date is April 2026; pre-April company correspondence is organizational history and is not treated as the user's personal work history.",
   "sources": {
     "work": {
       "provider": "EarthLink IMAP",
@@ -23,6 +23,20 @@
       "semantic_review": "in_progress"
     }
   },
+  "incremental_review": [
+    {
+      "reviewed_at": "2026-09-23",
+      "source_type": "three-message orientation-packet email thread",
+      "message_ids": ["msg_a954276fc09da43ad2c079da", "msg_d14dd4dc6c46c60e6c0b3386", "msg_d0cf37f587403c054d37852a"],
+      "safe_process_summary": "Historical coordinator correspondence described position-dependent onboarding packets, driver-equivalent packets for Operations Area Managers, role-specific training for safety-sensitive Operations positions, and a Contractor PHI/Confidentiality Agreement stated to apply to everyone. These are unverified historical statements; the agreement was not attached.",
+      "unresolved_question": "A proposed replacement of a prior court-record request form with Kentucky AOC-RU-004 was asked about, but approval or implementation is not documented.",
+      "persisted_sources": [
+        "knowledge/libraries/rtec-hr/sources/rtec-hr-new-hire-orientation-packet-2026-07-15/",
+        "knowledge/libraries/rtec-hr/sources/ky-aoc-ru-004-criminal-record-request/"
+      ],
+      "excluded_content": "No employee/applicant identities, personal training status, raw email bodies, or case details were retained."
+    }
+  ],
   "method_notes": [
     "The local work-mail index is read-only and caught up.",
     "A deterministic lexical pass touched each indexed work message body to produce topic-discovery counts; these are overlapping search leads, not human semantic review or HR process metrics.",
