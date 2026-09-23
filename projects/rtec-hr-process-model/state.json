@@ -11,7 +11,8 @@
     "Promote the FY2017-era 2015–2018 AAP, September 2016 Title VI/LEP plan, 2016 EEO certification material, ADA complaint process and related forms as canonical historical compliance sources.",
     "Build version chains from the FY2017-era compliance sources through later/current AAP, EEO and Title VI/LEP versions.",
     "Continue ingesting the broader historical RTEC HR document base in small committed batches.",
-    "Preserve safe manuals, policies, procedures, templates, training/reference sources, grant binders and organizational materials in full searchable form while keeping restricted person-level case data out of GitHub."
+    "Preserve safe manuals, policies, procedures, templates, training/reference sources, grant binders and organizational materials in full searchable form while keeping restricted person-level case data out of GitHub.",
+    "Use the correspondence archive to reconcile current discipline, attendance/leave, administrative approval, CSR escalation, employee-evaluation and employee-guidance workflows against newer authoritative sources."
   ],
   "important_paths": [
     "projects/rtec-hr-process-model/README.md",
@@ -32,7 +33,9 @@
     "knowledge/libraries/rtec-hr/processes/fy2017-transit-grant-application-workflow.json",
     "knowledge/libraries/rtec-hr/compliance/sources/ada-complaint-process/fulltext.md",
     "knowledge/libraries/rtec-hr/compliance/sources/title-vi-lep-2016/plan-core-and-complaints.md",
-    "projects/rtec-hr-process-model/checkpoints/fy2017-grants-compliance.json"
+    "projects/rtec-hr-process-model/checkpoints/fy2017-grants-compliance.json",
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-correspondence-2026-09-23.json",
+    "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json"
   ],
   "context_files": [
     "projects/rtec-hr-process-model/README.md",
@@ -46,7 +49,8 @@
     "knowledge/libraries/rtec-hr/grants/fy2017/README.md",
     "knowledge/libraries/rtec-hr/compliance/archive-index/README.md",
     "knowledge/libraries/rtec-hr/processes/fy2017-transit-grant-application-workflow.json",
-    "projects/rtec-hr-process-model/checkpoints/fy2017-grants-compliance.json"
+    "projects/rtec-hr-process-model/checkpoints/fy2017-grants-compliance.json",
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-correspondence-2026-09-23.json"
   ],
   "skill_roots": [],
   "validation_commands": [],
@@ -68,14 +72,14 @@
     "preservation_rule": "Retain obsolete and superseded process sources for chronology and legacy-reference purposes."
   },
   "ingestion_status": {
-    "batches_completed": 4,
+    "batches_completed": 5,
     "latest_batch": "rtec-fy2017-grants-and-compliance-archive",
     "latest_batch_source_count": 4,
     "latest_batch_safe_sources": 51,
     "latest_batch_restricted_employee_rosters": 2,
     "latest_batch_exact_duplicates": 1,
     "plan_packages_ingested": 1,
-    "open_currentness_or_gap_questions": 20,
+    "open_currentness_or_gap_questions": 33,
     "latest_batch_restricted_case_sources": 4,
     "latest_batch_searchable_source_groups": 14,
     "fy2017_grant_pdf_count": 3,
@@ -86,7 +90,13 @@
     "fy2017_grant_ingestion_status": "checklists/source identity/initial process model checkpointed; deep section transcription/deduplication in progress",
     "compliance_archive_ingestion_status": "archive indexed; FY2017-era AAP/Title VI/ADA/EEO sources identified; source-level promotion in progress",
     "fy2017_restart_checkpoint": "projects/rtec-hr-process-model/checkpoints/fy2017-grants-compliance.json",
-    "title_vi_version_chain_status": "2016 -> 2019 -> January 2026 established; full source/attachment ingestion continues"
+    "title_vi_version_chain_status": "2016 -> 2019 -> January 2026 established; full source/attachment ingestion continues",
+    "correspondence_archive_source_artifacts": 95,
+    "correspondence_safe_artifacts": 9,
+    "correspondence_safe_source_families": 8,
+    "correspondence_restricted_artifacts": 86,
+    "correspondence_derived_records": 10,
+    "correspondence_integrity_status": "28 committed batch files verified blob-for-blob against the validated staging branch"
   },
   "reference_form_context": {
     "catalog_path": "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json",
@@ -112,5 +122,21 @@
     "integrity_status": "all 14 searchable source-group mirrors verified byte-for-byte against the extracted local corpus using Git blob hashes",
     "temporal_rule": "Historical/unknown by default until current approved versions and effective dates are established.",
     "privacy_rule": "Employee-specific temporary light-duty descriptions are restricted metadata-only and excluded from reusable role knowledge."
+  },
+  "correspondence_context": {
+    "batch_id": "rtec-hr-correspondence-2026-09-23",
+    "batch_path": "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-correspondence-2026-09-23.json",
+    "restricted_evidence_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json",
+    "source_artifacts": 95,
+    "safe_position_level_artifacts": 9,
+    "safe_source_families": 8,
+    "restricted_artifacts": 86,
+    "derived_records": 10,
+    "privacy_rule": "Employee-level disciplinary, medical, incident, schedule, leave-case, and participant-list content is metadata-only in GitHub; generalized process claims must remain separately evidenced and version-aware.",
+    "notable_findings": [
+      "Legacy Disciplinary steps workbook is a blank violation matrix with no embedded 1st/2nd/3rd-offense point values.",
+      "Historical disciplinary tracking used fiscal-year workbooks and AAP-sorted derivatives; current authoritative tracking remains unresolved.",
+      "Filename-derived document type/date is unreliable and must be reconciled against content-derived evidence."
+    ]
   }
 }
