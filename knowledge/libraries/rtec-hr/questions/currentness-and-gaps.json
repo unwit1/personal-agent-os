@@ -81,7 +81,8 @@
       "priority": "high",
       "domain": "affirmative_action_plan",
       "question": "What AAP/EEO plan superseded the June 30, 2022 snapshot, and what were the exact effective/submission dates for this plan and its successor?",
-      "status": "open"
+      "status": "partially_answered",
+      "resolution_note": "The compliance archive establishes an EEO/AAP plan lineage through June 30, 2024, including a full 2018-2024 plan family updated June 30, 2024. The 2018 state approval set the next plan due 2022-01-01; a 2020 state approval superseded that schedule and set 2024-01-30. Still unresolved: the approval/submission correspondence for the 2024 cycle and the approved plan governing after 2024-06-30."
     },
     {
       "priority": "high",
