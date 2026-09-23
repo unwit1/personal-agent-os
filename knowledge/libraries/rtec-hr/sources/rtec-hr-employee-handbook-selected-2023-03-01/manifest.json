@@ -1,0 +1,29 @@
+{
+  "source_id": "rtec-hr-employee-handbook-selected-2023-03-01",
+  "title": "RTEC Employee Handbook - supplied selected pages",
+  "source_type": "employee_handbook_excerpt",
+  "original_filename": "RTEC Employee Handbook - Selected Pages.pdf",
+  "source_representation": "complete_searchable_transcription_of_all_supplied_pages",
+  "temporal_status": "historical",
+  "currentness": "unknown_not_assumed_current",
+  "dates": {
+    "handbook_date": "2023-03-01",
+    "scan_date": "2026-01-06"
+  },
+  "sha256": "88eea6dfa5da39d4d2d916bb934e7ebcebc5b6ef68da1c7ad5998d817b59e31e",
+  "supplied_page_count": 8,
+  "printed_pages_present": [1, 5, 6, 39, 40, 41, 46, 45],
+  "full_handbook_page_count_indicated": 48,
+  "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-selected-2023-03-01/fulltext.md",
+  "derived_records": [
+    "knowledge/libraries/rtec-hr/policies/employment-at-will-and-handbook-authority-2023.json",
+    "knowledge/libraries/rtec-hr/policies/progressive-discipline-2023.json",
+    "knowledge/libraries/rtec-hr/roles/eeo-officer-history.json"
+  ],
+  "notes": [
+    "Only eight selected pages of a 48-page handbook were supplied. This record preserves all supplied pages in full but must not be treated as the complete handbook.",
+    "The handbook is dated 2023-03-01. Currentness of most provisions is unknown until compared with newer handbook/policy sources.",
+    "Page 46 names Sheila Stallsworth as EEO Manager/Officer in 2023. A later signed EEO statement dated 2026-08-26 appoints Jacob Salsman, so the officer assignment has later evidence."
+  ],
+  "ingested_at": "2026-09-23"
+}
