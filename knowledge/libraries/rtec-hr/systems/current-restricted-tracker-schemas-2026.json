@@ -1,0 +1,139 @@
+{
+  "record_id": "rtec-current-restricted-hr-tracker-schemas-2026",
+  "updated_at": "2026-09-23",
+  "status": "current_structure_observed_rows_restricted",
+  "source_boundary": "Only metadata, tab names, and schema/header information are durable. Employee names, IDs, dates, health facts, case notes, supervisors, leave reasons, point values, and other row-level data are excluded.",
+  "trackers": [
+    {
+      "name": "FMLA Tracker",
+      "source_kind": "Google Sheets native conversion plus legacy .xls",
+      "observed_modified": "2026-05-15",
+      "evidence": "Google Drive metadata and schema-only review",
+      "tabs": [
+        "Active 2026",
+        "Active 2025",
+        "Active 2024",
+        "Active 2023",
+        "Active 2022",
+        "Active 2021",
+        "Active 2020",
+        "Active 2019",
+        "Active 2018",
+        "Active 2017",
+        "Active 2016",
+        "Active 2015",
+        "Active 2014",
+        "Active 2013",
+        "Active 2012",
+        "Active 2011",
+        "Active 2010",
+        "Active 2009",
+        "2008 AND AFTER",
+        "Term Employees"
+      ],
+      "current_2026_schema": [
+        "employee_name_or_identity (restricted)",
+        "leave_type",
+        "supervisor (restricted)",
+        "hire_date",
+        "start_date",
+        "estimated_end_date",
+        "case_notes (restricted medical/case narrative)",
+        "return_to_work_date",
+        "last_certified_date",
+        "health_care_provider (restricted)",
+        "leave_from",
+        "leave_to",
+        "returned_to",
+        "weeks_taken",
+        "days_taken",
+        "hours_taken",
+        "insurance_premium_due_status",
+        "leave_for/relationship_or_self (restricted)",
+        "company_response_status",
+        "other_notes (restricted)"
+      ],
+      "historical_schema_evolution": [
+        "Older annual tabs primarily tracked identity, hire date, leave-from/to, return-to-work, weeks/days/hours, insurance premium due, and leave-for.",
+        "Later tabs add received-in-HR, estimated begin/end dates, provider/certification and narrative workflow fields.",
+        "2026 tab adds explicit leave type, supervisor, general notes, return-to-work date, last-certified date, company-response status, and other-notes fields."
+      ],
+      "architectural_status": "Current restricted case ledger is confirmed to exist. It should be modeled as an active case source, not inferred from email reminders.",
+      "issues": [
+        "The workbook contains a long historical case archive mixed with current active cases.",
+        "Medical/case narratives and health-care-provider information make the tracker highly sensitive.",
+        "The legacy .xls and native Google Sheets copy may create duplicate-source ambiguity unless one is designated authoritative.",
+        "Policy rules must come from current handbook/legal authority, not from historical row annotations."
+      ],
+      "recommended_controls": [
+        "Designate one authoritative live tracker/version and mark the other as migration/archive if appropriate.",
+        "Separate structured case status fields from free-text medical/case notes.",
+        "Apply restricted access/audit logging.",
+        "Link FMLA deadlines/forms to the current 2025 policy and current 2026 form library.",
+        "Do not commit row-level tracker content to GitHub."
+      ]
+    },
+    {
+      "name": "Attendance Tracker",
+      "source_kind": "native Google Sheet",
+      "observed_created": "2026-05-05",
+      "observed_modified": "2026-05-05",
+      "tabs": [
+        "INPUT",
+        "Attendance",
+        "Previous Months",
+        "Points tracker",
+        "Blacklist"
+      ],
+      "input_observation": "INPUT identifies an ADP Employee Daily Totals Report with an April 2026 date range and an employee-effective-as-of date in May 2026.",
+      "attendance_schema": [
+        "employee (restricted)",
+        "supervisor (restricted)",
+        "date",
+        "regular_hours",
+        "overtime_hours",
+        "sick_hours",
+        "vacation_hours",
+        "total_hours",
+        "reserve_hours_used",
+        "reserve_hours_left_running_total",
+        "fmla_total_left"
+      ],
+      "previous_months_schema": [
+        "employee_identity (restricted)",
+        "employee_id (restricted)",
+        "title",
+        "date_of_hire",
+        "reserve_hours_left_at_period_start",
+        "points_left_at_period_start",
+        "points_at_period_start",
+        "fmla_flag"
+      ],
+      "other_tabs": [
+        {
+          "tab": "Points tracker",
+          "purpose": "restricted point-balance/point-event tracking; detailed row schema not promoted"
+        },
+        {
+          "tab": "Blacklist",
+          "purpose": "list of supervisors/entities excluded from a check/process; identities not promoted"
+        }
+      ],
+      "architectural_status": "Current attendance workflow is confirmed and consumes ADP Employee Daily Totals data as upstream input.",
+      "issues": [
+        "The tracker duplicates/derives data from ADP, so source/refresh lineage must be explicit.",
+        "Attendance, points, reserve time and FMLA intersect in one workbook, increasing risk of policy/case-data coupling.",
+        "Current handbook rules must govern point calculations and protected exclusions; spreadsheet formulas/legacy rows are not policy authority.",
+        "Supervisor exclusion/blacklist logic requires a documented business rule and owner."
+      ],
+      "recommended_controls": [
+        "Treat ADP import as upstream source data with import timestamp/date range.",
+        "Formalize derived calculations and validate them against the 2025 handbook.",
+        "Separate FMLA/protected status from ordinary attendance consequences with restricted access.",
+        "Create deterministic reconciliation checks between imported totals and derived attendance records.",
+        "Preserve only schema/process metadata in GitHub."
+      ]
+    }
+  ],
+  "cross_tracker_insight": "FMLA and Attendance are both active 2026 restricted trackers. Attendance imports ADP totals and also tracks FMLA-related balances/status, while the FMLA Tracker maintains richer case/certification/return-to-work data. The integration boundary between them should be explicit to prevent duplicate case entry and inconsistent FMLA status."
+}
