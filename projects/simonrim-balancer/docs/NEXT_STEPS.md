@@ -6,7 +6,7 @@ Status after the 2026-09-23 continuation pass:
    Canonical Form keys, source/master slots, resolved relations/effects, and imported override chains are generated with zero resolution failures.
 
 2. **P2 — High-value field decoders — IN PROGRESS**
-   Complete: MGEF DATA, CTDA, PERK effect-entry structures, WEAP DNAM/critical/reference fields, and ENCH ENIT/effect composition. Next: CSTY, MOVT, AVIF perk trees, and deeper VMAD attachments/property values.
+   Complete: MGEF DATA, CTDA, PERK effect-entry structures, WEAP DNAM/critical/reference fields, ENCH ENIT/effect composition, and CSTY combat-style fields. Next: MOVT, AVIF perk trees, and deeper VMAD attachments/property values.
 
 3. **P3 — Override/delta engine — PARTIAL / WORKING**
    Exact raw and typed deltas work when the prior master record is imported. Current snapshot has 537 exact imported baselines. Import Skyrim/DLC master evidence later to cover the remaining 1,619 external-baseline overrides.
