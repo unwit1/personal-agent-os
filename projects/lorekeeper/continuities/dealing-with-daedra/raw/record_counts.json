@@ -1,0 +1,289 @@
+{
+  "total_records": 20733,
+  "record_counts": {
+    "ACHR": 305,
+    "ACTI": 177,
+    "ALCH": 70,
+    "AMMO": 1,
+    "ARMA": 5,
+    "ARMO": 101,
+    "ARTO": 1,
+    "BOOK": 332,
+    "CELL": 247,
+    "CLAS": 5,
+    "COBJ": 807,
+    "CONT": 109,
+    "DIAL": 889,
+    "DLBR": 371,
+    "DLVW": 22,
+    "DOOR": 20,
+    "ECZN": 1,
+    "EFSH": 16,
+    "ENCH": 49,
+    "EXPL": 11,
+    "FACT": 46,
+    "FLOR": 18,
+    "FLST": 10,
+    "FURN": 80,
+    "GLOB": 159,
+    "HAZD": 1,
+    "IMAD": 12,
+    "INFO": 1809,
+    "INGR": 1,
+    "IPCT": 1,
+    "IPDS": 1,
+    "KEYM": 26,
+    "KYWD": 190,
+    "LAND": 41,
+    "LIGH": 15,
+    "LVLI": 123,
+    "LVLN": 1,
+    "MESG": 557,
+    "MGEF": 1572,
+    "MISC": 238,
+    "NAVI": 1,
+    "NAVM": 135,
+    "NPC_": 216,
+    "OTFT": 37,
+    "PACK": 34,
+    "PERK": 269,
+    "PROJ": 20,
+    "QUST": 19,
+    "RACE": 6,
+    "REFR": 10431,
+    "SCEN": 3,
+    "SCRL": 37,
+    "SHOU": 1,
+    "SLGM": 6,
+    "SMQN": 1,
+    "SNDR": 2,
+    "SOUN": 3,
+    "SPEL": 961,
+    "STAT": 55,
+    "TACT": 1,
+    "TES4": 1,
+    "TXST": 1,
+    "VTYP": 1,
+    "WEAP": 41,
+    "WOOP": 3,
+    "WRLD": 8
+  },
+  "source_scope_counts": {
+    "mod_added": 19793,
+    "override": 939
+  },
+  "by_type_source_scope": {
+    "ACHR": {
+      "mod_added": 237,
+      "override": 68
+    },
+    "ACTI": {
+      "mod_added": 177
+    },
+    "ALCH": {
+      "mod_added": 70
+    },
+    "AMMO": {
+      "mod_added": 1
+    },
+    "ARMA": {
+      "mod_added": 5
+    },
+    "ARMO": {
+      "mod_added": 101
+    },
+    "ARTO": {
+      "mod_added": 1
+    },
+    "BOOK": {
+      "mod_added": 331,
+      "override": 1
+    },
+    "CELL": {
+      "override": 217,
+      "mod_added": 30
+    },
+    "CLAS": {
+      "mod_added": 5
+    },
+    "COBJ": {
+      "mod_added": 807
+    },
+    "CONT": {
+      "mod_added": 70,
+      "override": 39
+    },
+    "DIAL": {
+      "override": 2,
+      "mod_added": 887
+    },
+    "DLBR": {
+      "mod_added": 371
+    },
+    "DLVW": {
+      "mod_added": 22
+    },
+    "DOOR": {
+      "mod_added": 20
+    },
+    "ECZN": {
+      "override": 1
+    },
+    "EFSH": {
+      "mod_added": 16
+    },
+    "ENCH": {
+      "mod_added": 49
+    },
+    "EXPL": {
+      "mod_added": 11
+    },
+    "FACT": {
+      "mod_added": 46
+    },
+    "FLOR": {
+      "mod_added": 18
+    },
+    "FLST": {
+      "mod_added": 8,
+      "override": 2
+    },
+    "FURN": {
+      "mod_added": 80
+    },
+    "GLOB": {
+      "mod_added": 159
+    },
+    "HAZD": {
+      "mod_added": 1
+    },
+    "IMAD": {
+      "override": 1,
+      "mod_added": 11
+    },
+    "INFO": {
+      "override": 2,
+      "mod_added": 1807
+    },
+    "INGR": {
+      "mod_added": 1
+    },
+    "IPCT": {
+      "mod_added": 1
+    },
+    "IPDS": {
+      "mod_added": 1
+    },
+    "KEYM": {
+      "mod_added": 26
+    },
+    "KYWD": {
+      "mod_added": 190
+    },
+    "LAND": {
+      "override": 41
+    },
+    "LIGH": {
+      "mod_added": 15
+    },
+    "LVLI": {
+      "mod_added": 105,
+      "override": 18
+    },
+    "LVLN": {
+      "mod_added": 1
+    },
+    "MESG": {
+      "mod_added": 557
+    },
+    "MGEF": {
+      "mod_added": 1570,
+      "override": 2
+    },
+    "MISC": {
+      "mod_added": 238
+    },
+    "NAVI": {
+      "override": 1
+    },
+    "NAVM": {
+      "mod_added": 128,
+      "override": 7
+    },
+    "NPC_": {
+      "mod_added": 205,
+      "override": 11
+    },
+    "OTFT": {
+      "mod_added": 37
+    },
+    "PACK": {
+      "mod_added": 33,
+      "override": 1
+    },
+    "PERK": {
+      "mod_added": 268,
+      "override": 1
+    },
+    "PROJ": {
+      "mod_added": 20
+    },
+    "QUST": {
+      "mod_added": 19
+    },
+    "RACE": {
+      "mod_added": 4,
+      "override": 2
+    },
+    "REFR": {
+      "mod_added": 9918,
+      "override": 513
+    },
+    "SCEN": {
+      "mod_added": 3
+    },
+    "SCRL": {
+      "mod_added": 37
+    },
+    "SHOU": {
+      "mod_added": 1
+    },
+    "SLGM": {
+      "mod_added": 6
+    },
+    "SMQN": {
+      "mod_added": 1
+    },
+    "SNDR": {
+      "mod_added": 2
+    },
+    "SOUN": {
+      "mod_added": 3
+    },
+    "SPEL": {
+      "mod_added": 960,
+      "override": 1
+    },
+    "STAT": {
+      "mod_added": 55
+    },
+    "TACT": {
+      "mod_added": 1
+    },
+    "TXST": {
+      "mod_added": 1
+    },
+    "VTYP": {
+      "mod_added": 1
+    },
+    "WEAP": {
+      "mod_added": 41
+    },
+    "WOOP": {
+      "mod_added": 3
+    },
+    "WRLD": {
+      "override": 8
+    }
+  }
+}

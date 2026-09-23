@@ -1,0 +1,60 @@
+{
+  "continuity_id": "tes.mod.dealing-with-daedra",
+  "name": "Dealing with Daedra",
+  "universe": "The Elder Scrolls",
+  "kind": "mod_continuity_overlay",
+  "status": "complete_text_source_import_normalization_pending",
+  "canon_policy": {
+    "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
+    "default_claim_scope": "tes.mod.dealing-with-daedra",
+    "may_reference_base_tes_lore": true,
+    "conflicts_with_base": "retain_both_with_provenance"
+  },
+  "primary_source": {
+    "filename": "DealingwithDaedra.esp",
+    "sha256": "c278b1a9ccaa7080579a6421a0c21d6b0513a2ad8263048c3c96208bd6a19133",
+    "archive_filename": "Dealing with Daedra-40494-9-03-1707629858.zip",
+    "archive_sha256": "d4b8418dfdf6005e8d5aa291bb4fbbec2fbdef97629da6f6e8a4c99ea59f3f48",
+    "source_type": "user_provided_skyrim_mod_archive",
+    "ingested_at": "2026-09-22"
+  },
+  "extracted_counts": {
+    "total_plugin_records": 20733,
+    "mod_added_records": 19793,
+    "master_overrides": 939,
+    "dialogue_topics": 889,
+    "info_records": 1809,
+    "dialogue_response_strings": 2674,
+    "books": 332,
+    "books_with_text": 295,
+    "messages": 557,
+    "quests": 19,
+    "scenes": 3,
+    "actors": 216,
+    "factions": 46,
+    "cells": 247,
+    "worlds": 8,
+    "item_like_records": 853,
+    "magic_records": 2855,
+    "papyrus_source_files": 784,
+    "papyrus_string_literals": 198,
+    "compiled_scripts_without_source": 2
+  },
+  "structured_layers": {
+    "plugin_record_inventory": "complete",
+    "book_text": "complete",
+    "dialogue_response_text": "complete",
+    "messages": "complete",
+    "quest_record_metadata": "complete",
+    "actor_and_faction_names": "complete_for_plugin_records",
+    "cell_and_world_names": "complete_for_plugin_records",
+    "item_and_magic_names_descriptions": "complete_for_plugin_records",
+    "papyrus_source_string_pass": "complete_for_available_source",
+    "speaker_resolution": "pending",
+    "claim_promotion": "pending",
+    "interpretive_analysis": "pending",
+    "text_bearing_plugin_records": "complete",
+    "source_text_shards": "complete_7721_records_29_gzip_jsonl_shards",
+    "papyrus_string_pass": "complete_source_literal_inventory"
+  }
+}
