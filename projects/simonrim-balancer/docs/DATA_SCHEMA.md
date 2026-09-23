@@ -80,3 +80,12 @@ The full local/private snapshot additionally contains `weapons_full.csv`, `weapo
 | `data/derived/2026-09-23/enchantment_field_deltas.csv` | all 58 exact imported-baseline ENCH field differences |
 
 The full local/private snapshot additionally contains `enchantments_full.csv`, `enchantment_design_view.csv`, `enchantment_effect_design_view.csv`, `enchantment_numeric_baselines.csv`, `enchantment_observed_patterns.csv`, and `enchantment_decoder_summary.json`. Raw records remain authoritative.
+
+
+## Combat-style decoder checkpoint
+
+| File | Purpose |
+| --- | --- |
+| `data/derived/2026-09-23/combat_style_checkpoint_compact.json` | compact CSTY counts, distributions, exception note, and recurring group summaries |
+
+The full local/private snapshot additionally contains `combat_styles_full.csv`, `combat_style_baselines.csv`, `combat_style_observed_patterns.csv`, and `combat_style_decoder_summary.json`. Because all 62 records point to external Skyrim.esm baselines, this checkpoint intentionally makes no vanilla-to-Blade-and-Blunt delta claims.
