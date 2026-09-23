@@ -55,7 +55,7 @@
       "claim": "The handbook's EEO policy/officer assignment is retained as historical evidence but is superseded where different by the later signed EEO statement dated 2026-08-26.",
       "claim_kind": "observed_fact",
       "confidence": 1,
-      "relationship": "SUPERSEDED",
+      "relationship": "DUPLICATE",
       "related_record_ids": [
         "rtec-policy-eeo-handbook-2025",
         "rtec-policy-eeo-2026"
