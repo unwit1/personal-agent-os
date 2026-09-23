@@ -44,11 +44,17 @@
   "current_rebuild_requirements": [
     "Run build-retrieval-index.py over all 1,090 core source records on a checkout.",
     "Validate generated routing and lexical artifacts against the expected 1,090-document count before replacing persistent indexes.",
-    "Keep the 328-record implementation-text supplement separate unless secondary retrieval is explicitly enabled."
+    "Keep the 370-record implementation-evidence layer separate unless secondary retrieval is explicitly enabled."
   ],
   "implementation_text_supplement": {
-    "path": "../raw/implementation-text-supplement.jsonl.gz",
-    "records": 328,
+    "paths": [
+      "../raw/implementation-text-supplement.jsonl.gz",
+      "../raw/source-evidence-augmentation.jsonl"
+    ],
+    "records": 370,
+    "base_records": 328,
+    "augmentation_new_records": 42,
+    "field_augmentations": 16,
     "mode": "secondary_evidence_collection_not_part_of_1090_core_document_count",
     "manifest": "../analysis/implementation-text-supplement.json"
   },
