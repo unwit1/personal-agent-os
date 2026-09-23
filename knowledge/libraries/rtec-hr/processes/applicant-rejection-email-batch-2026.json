@@ -1,0 +1,69 @@
+{
+  "id": "rtec-process-applicant-rejection-email-batch-2026",
+  "record_type": "process",
+  "title": "Applicant rejection-email batch data workflow - 2026 template evidence",
+  "status": "candidate",
+  "temporal_status": "current",
+  "effective_from": "2026-08-03",
+  "effective_to": null,
+  "summary": "Recent workbook template suggests a batch rejection-email workflow driven by position, applicant first/last name, county and rejection reason. The supplied workbook does not contain the actual email wording or enough evidence to establish the complete workflow.",
+  "claims": [
+    {
+      "claim": "The rejection-email workbook is structured around Position, First, Last, County and Reason fields.",
+      "claim_kind": "observed_fact",
+      "confidence": 1.0,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-rejection-email-batch-sheet-2026-08","page_or_section":"Sheet1 rows 1-3","evidence_type":"structural","note":null}]
+    },
+    {
+      "claim": "The template appears intended to stage applicant data for rejection communications, but the actual generation/sending mechanism is not contained in this workbook.",
+      "claim_kind": "interpretation",
+      "confidence": 0.8,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [{"source_id":"rtec-hr-rejection-email-batch-sheet-2026-08","page_or_section":"workbook title and columns","evidence_type":"structural","note":null}]
+    }
+  ],
+  "trigger": "Applicant reaches a rejection/not-selected outcome.",
+  "prerequisites": ["Final applicant disposition/reason", "Approved rejection communication language"],
+  "actors": ["HR / hiring staff"],
+  "systems": ["Excel or compatible spreadsheet workflow"],
+  "forms": ["Rejection Emails workbook"],
+  "steps": [],
+  "decisions": [],
+  "deadlines": [],
+  "outputs": ["Structured rejection-email input row", "Potential rejection communication"],
+  "exceptions": [],
+  "controls": ["The user has separately established that outbound applicant communications should remain human-reviewed before sending."],
+  "unresolved_questions": [
+    "What process or script consumes this workbook?",
+    "Where is the approved rejection-email template text stored?",
+    "How is the Reason field translated into applicant-facing language?",
+    "Are county-specific variations used?",
+    "What approvals or review occur before a rejection email is sent?"
+  ],
+  "automation_candidates": [
+    "Connect final applicant disposition to a human-reviewed rejection draft.",
+    "Generate standardized drafts from approved reason categories without exposing internal notes verbatim.",
+    "Track sent/not-sent status and communication date."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [{
+    "source_id":"rtec-hr-rejection-email-batch-sheet-2026-08",
+    "safe_source_type":"applicant_communication_batch_template",
+    "source_date_or_version":"2026-08",
+    "source_created_date":"2026-08-03",
+    "source_revision_date":"2026-08-04",
+    "source_effective_from":null,
+    "source_effective_to":null,
+    "temporal_status":"current",
+    "content_sha256":"a604c7c6d97f1e75b6febbf0e2824992853dba90e417482bd0fca9cdfc11a078",
+    "page_or_section":"Sheet1 A1:E3",
+    "full_source_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-rejection-email-batch-sheet-2026-08/fulltext.md",
+    "searchable_text_path":"knowledge/libraries/rtec-hr/sources/rtec-hr-rejection-email-batch-sheet-2026-08/fulltext.md",
+    "ingested_at":"2026-09-23",
+    "notes":"Recent template; currentness refers to source recency, not proof the workflow is active."
+  }]
+}
