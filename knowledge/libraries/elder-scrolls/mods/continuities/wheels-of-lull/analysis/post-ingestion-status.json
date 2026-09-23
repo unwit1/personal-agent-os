@@ -20,7 +20,9 @@
     "book_variant_pass_01": true,
     "book_source_relations": true,
     "central_source_catalog_links_for_verified_reuse": true,
-    "retrieval_builder_fail_closed_on_corrupt_shards": true
+    "retrieval_builder_fail_closed_on_corrupt_shards": true,
+    "semantic_topic_gap_closure": true,
+    "analysis_retrieval_topic_indexing": true
   },
   "metrics": {
     "structured_source_records": 1090,
@@ -33,9 +35,9 @@
     "place_dossiers": 8,
     "artifact_technology_dossiers": 10,
     "faction_group_dossiers": 4,
-    "core_claims": 25,
+    "core_claims": 31,
     "tension_records": 7,
-    "retrieval_entries": 56,
+    "retrieval_entries": 76,
     "book_records": 33,
     "book_fingerprinted": 33,
     "book_source_relation_records": 33,
@@ -45,7 +47,8 @@
     "book_named_work_origin_unresolved": 10,
     "book_continuity_local_functional_origin_unresolved": 19,
     "verified_reuse_variant_diffs_complete": 1,
-    "verified_reuse_variant_diffs_pending_external_witness_ingestion": 2
+    "verified_reuse_variant_diffs_pending_external_witness_ingestion": 2,
+    "topic_dossiers": 14
   },
   "only_remaining_raw_repair": [
     "raw/source-records-0151-0200.jsonl.gz",
@@ -67,5 +70,6 @@
     "Durable local full-text witness for Tatterdemalion.",
     "Durable local full-text witness for Xal's Day of the Power/Knowledge letter."
   ],
-  "repeat_work_guard": "Do not repeat generic exact-title web searches documented in analysis/book-provenance-pass-03-search-audit.* unless a new archive/source corpus becomes available."
+  "repeat_work_guard": "Do not repeat generic exact-title web searches documented in analysis/book-provenance-pass-03-search-audit.* unless a new archive/source corpus becomes available.",
+  "semantic_followup": "Added source-scoped analysis for Musings On Power, De Rerum Mutabilitatis, and How Two Moon; promoted six new book-backed claims without changing provenance status."
 }
