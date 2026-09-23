@@ -1,0 +1,84 @@
+# Termination SUMMARY 06 30 2022.xls — searchable cell map
+
+This mirror preserves every non-empty cell value recovered from the supplied legacy Excel workbook, with original sheet names and cell coordinates.
+Numeric entries are stored as their workbook cached/raw values. Legacy Excel formulas and formatting are not reconstructed in this text mirror; the source hash and binary-sync requirement are retained separately.
+
+## Sheet: Sheet1
+
+- `B1`: MALES
+- `I1`: FEMALES
+- `R1`: TOTALS + %
+- `A3`: Job Group
+- `B3`: American Indian/Alaskan Native
+- `C3`: Asian
+- `D3`: Black/African American
+- `E3`: Hispanic/Latino
+- `F3`: Native Hawaiian/ ⏎ Other Pacific Islander
+- `G3`: White
+- `H3`: Two or more races
+- `I3`: American Indian/Alaskan Native
+- `J3`: Asian
+- `K3`: Black/African American
+- `L3`: Hispanic/Latino
+- `M3`: Native Hawaiian/ ⏎ Other Pacific Islander
+- `N3`: White
+- `O3`: Two or more races
+- `P3`: Veterans ⏎ (already in totals)
+- `Q3`: Individuals with Disabilities  ⏎ (already in totals)
+- `R3`: TOTAL  
+- `S3`: MALES + %
+- `T3`: FEMALES + %
+- `U3`: MINORITY + %
+- `V3`: VETERANS %
+- `W3`: INDIVIDUALS WITH DISABILITIES %
+- `A13`: Executive/Senior Level  ⏎ Officials and Manager
+- `A15`: First/Mid-Level  ⏎ Officials and Managers
+- `A17`: Professionals
+- `A19`: Technicians
+- `A21`: Sales Workers
+- `A23`: Office/Clerical
+- `G23`: 1.0
+- `N23`: 7.0
+- `R23`: 8.0
+- `S23`: 0.12
+- `T23`: 0.88
+- `U23`: 0.0
+- `V23`: 0.0
+- `W23`: 0.0
+- `A25`: Craft Workers
+- `A27`: Operatives
+- `B27`: 1.0
+- `D27`: 1.0
+- `G27`: 26.0
+- `N27`: 13.0
+- `P27`: 4.0
+- `Q27`: 1.0
+- `R27`: 41.0
+- `S27`: 0.68
+- `T27`: 0.32
+- `U27`: 0.000488
+- `V27`: 0.000976
+- `W27`: 0.000244
+- `A29`: Laborers/Helpers
+- `A31`: Service Workers
+- `G31`: 1.0
+- `N31`: 1.0
+- `R31`: 2.0
+- `S31`: 0.5
+- `T31`: 0.5
+- `U31`: 0.0
+- `V31`: 0.0
+- `W31`: 0.0
+- `A33`: TOTAL
+- `B33`: 1.0
+- `D33`: 1.0
+- `G33`: 28.0
+- `N33`: 21.0
+- `P33`: 4.0
+- `Q33`: 1.0
+- `R33`: 51.0
+- `S33`: 0.59
+- `T33`: 0.41
+- `U33`: 0.000392
+- `V33`: 0.000784
+- `W33`: 0.000196
