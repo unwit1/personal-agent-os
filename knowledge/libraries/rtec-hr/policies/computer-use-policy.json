@@ -1,0 +1,273 @@
+{
+  "id": "rtec-policy-computer-use",
+  "record_type": "policy",
+  "title": "Computer Use Policy",
+  "status": "validated",
+  "temporal_status": "unknown",
+  "effective_from": null,
+  "effective_to": null,
+  "summary": "Undated standalone RTEC policy governing company electronic media, business/personal use, prohibited communications, monitoring/privacy, software, security, encryption, online forums, sanctions and employee acknowledgment.",
+  "claims": [
+    {
+      "claim": "RTEC-provided computers, email, telephones, voicemail, fax, online services, intranet, Internet and related electronic media/services are company property intended to facilitate/support company business and are to be used professionally, ethically and lawfully.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-communications-nepotism-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-computer-use-policy",
+          "page_or_section": "Section One - Purpose",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The policy prohibits knowingly transmitting, retrieving or storing communications that are discriminatory/harassing, derogatory, obscene/sexually explicit/pornographic, defamatory/threatening, license-violating, illegal or contrary to RTEC policy/business interests.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-communications-nepotism-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-computer-use-policy",
+          "page_or_section": "Section Two - Prohibited Communications",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "RTEC computers/electronic media are primarily for business use; personal use is permitted only as a privilege that must not negatively affect business use or be abused.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-dress-cell-work-rules-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-computer-use-policy",
+          "page_or_section": "Section Three - Personal Use",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "RTEC states it routinely gathers logs for electronic activity and may directly monitor communications for cost analysis, resource allocation, technical management and detecting policy violations/illegal activity, and reserves the right to review employee electronic files/messages for compliance.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-communications-nepotism-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-computer-use-policy",
+          "page_or_section": "Section Four - Access to Employee Communications",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Employees are told not to assume electronic communications are completely private; the acknowledgment states there is no expectation of privacy when using company telecommunications equipment/services.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-communications-nepotism-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-computer-use-policy",
+          "page_or_section": "Sections Four and Ten",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Unauthorized software downloading is prohibited; only software registered through RTEC may be downloaded, with questions directed to the system administrator.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-computer-use-policy",
+          "page_or_section": "Section Five - Software",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Without explicit management authorization, employees may not monitor/intercept others' files or communications, hack/access unauthorized systems or accounts, use others' logins/passwords, or breach/test/monitor network-security measures.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-policy-safety-confidentiality-discipline-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-computer-use-policy",
+          "page_or_section": "Section Six - Security/Appropriate Use",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Electronic communications may not hide the sender's identity or impersonate another person; electronic services may not be used in ways likely to cause network congestion, and copyright restrictions must be respected.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-computer-use-policy",
+          "page_or_section": "Section Six - Security/Appropriate Use",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Employees may use encryption software supplied by the systems administrator to protect sensitive/confidential business information; when encrypting files on a company computer, the policy requires a sealed hard-copy record of passwords/keys to be provided to the supervisor for secure retention.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-computer-use-policy",
+          "page_or_section": "Section Seven - Encryption",
+          "evidence_type": "explicit_text",
+          "note": "Preserved as source policy; current security practice should be validated before operational use."
+        }
+      ]
+    },
+    {
+      "claim": "Messages/information sent on company-provided facilities to online forums are described as statements identifiable and attributable to RTEC; job-related forum participation may be appropriate when useful to work.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-computer-use-policy",
+          "page_or_section": "Section Eight - Participation in Online Forums",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Violation of the policy may lead to corrective action including possible termination, legal action and criminal liability; the acknowledgment requires the employee to confirm understanding and compliance.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-safety-confidentiality-discipline-2025"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-computer-use-policy",
+          "page_or_section": "Sections Nine and Ten",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "trigger": "Use of RTEC computers, email, Internet, telephones, networks or other company electronic media/services.",
+  "prerequisites": [
+    "Authorized access to RTEC electronic resources."
+  ],
+  "actors": [
+    "Employee",
+    "System Administrator",
+    "Supervisor",
+    "Management"
+  ],
+  "systems": [
+    "Computers",
+    "Email",
+    "Telephones",
+    "Voicemail",
+    "Fax",
+    "Intranet",
+    "Internet",
+    "Online services",
+    "Network systems"
+  ],
+  "forms": [
+    "Employee Agreement on Use of E-mail and the Internet"
+  ],
+  "steps": [
+    "Use company systems primarily for business and within professional/ethical/legal limits.",
+    "Do not access or transmit prohibited content.",
+    "Use only authorized software/access credentials and respect security boundaries.",
+    "Assume use may be logged/reviewed and protect sensitive information appropriately.",
+    "Sign/retain the employee acknowledgment where the policy is used."
+  ],
+  "decisions": [
+    "Whether software is authorized/registered through RTEC",
+    "Whether access/monitoring is explicitly authorized by management",
+    "Whether an electronic activity violates company policy"
+  ],
+  "deadlines": [],
+  "outputs": [
+    "Electronic-use acknowledgment",
+    "Possible corrective/security response"
+  ],
+  "exceptions": [
+    "Some personal use is contemplated as a privilege so long as it does not negatively affect business use.",
+    "Online-forum participation may be job-related and appropriate."
+  ],
+  "controls": [
+    "Activity logging/monitoring",
+    "Management review rights",
+    "Software registration control",
+    "Access-control/password rules",
+    "Employee acknowledgment"
+  ],
+  "unresolved_questions": [
+    "Is this undated standalone policy currently in force, and if so does it supplement the 2025 handbook communication-system policy?",
+    "Is the sealed hard-copy encryption-key requirement still current security practice?",
+    "What current IT/system-administrator process approves software and privileged access?"
+  ],
+  "automation_candidates": [
+    "Software-approval and access-request workflow.",
+    "Computer-use policy acknowledgment/version tracking.",
+    "Security-control checklist that flags prohibited credential sharing and unauthorized software."
+  ],
+  "supersedes_record_ids": [],
+  "superseded_by_record_ids": [],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-computer-use-policy",
+      "safe_source_type": "standalone_policy",
+      "source_date_or_version": "undated",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "unknown",
+      "content_sha256": "c17169ed6cc71ed0891e0cae3af14b33951946cb0097bf00b6ee63017d37319e",
+      "page_or_section": "complete four-page source",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-computer-use-policy/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-computer-use-policy/fulltext.md",
+      "ingested_at": "2026-09-23",
+      "notes": "Currentness unknown because the supplied source is undated."
+    }
+  ]
+}
