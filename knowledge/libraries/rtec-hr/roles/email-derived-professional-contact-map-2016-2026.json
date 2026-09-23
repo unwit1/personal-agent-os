@@ -376,6 +376,26 @@
         "000356"
       ],
       "note": "Company/procurement context rather than core HR workflow."
+    },
+    {
+      "name": "Kristin Whitson",
+      "organization": "The Job Shop / Impact Employment Solutions",
+      "role_history": [
+        "Marketing Representative (2021 signature)"
+      ],
+      "work_context": [
+        "temporary staffing coordination",
+        "staffing agreement exchange",
+        "job-description intake",
+        "temporary-to-possible-permanent custodian recruiting",
+        "RTEC interview coordination before placement"
+      ],
+      "confidence": "high",
+      "currentness": "historical",
+      "evidence_ids": [
+        "000270"
+      ],
+      "note": "Candidate identities and compensation details are intentionally excluded."
     }
   ],
   "not_promoted": "The exhaustive raw contact/header index remains outside GitHub because it includes one-off correspondents and may contain personal or case-linked identities. Additional people are promoted only when repeated professional context can be separated safely from case facts."
