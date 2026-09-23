@@ -4,7 +4,7 @@
   "original_path": "TITLE VI LEP PLAN/Title VI 2025 Prepared for 2026 deadline/Updated Current Title VI and Limited English Proficient Plan due 01 30 2026.doc",
   "sha256": "017d426c7b18064f401e85fcd520ee7574fd7f0e6c4da104b0eaf8f9f254f0d0",
   "source_type": "title_vi_lep_plan",
-  "temporal_status": "current_candidate",
+  "temporal_status": "current",
   "created": "2008-08",
   "revisions": [
     "2010-06",
@@ -24,7 +24,11 @@
     "fulltext-part-003.txt",
     "fulltext-part-004.txt"
   ],
-  "currentness": "Newest full Title VI/LEP plan source identified in supplied archive; treat as current candidate pending board/state approval/version confirmation.",
+  "currentness": "Board-approved January 19, 2026 and newest complete Title VI/LEP plan identified in the supplied archive. Treat as current unless a later approved revision supersedes it.",
   "privacy": "safe_policy_and_service_plan",
-  "ingested_at": "2026-09-23"
+  "ingested_at": "2026-09-23",
+  "board_approval_date": "2026-01-19",
+  "supersedes": [
+    "rtec-compliance-title-vi-lep-2023"
+  ]
 }
