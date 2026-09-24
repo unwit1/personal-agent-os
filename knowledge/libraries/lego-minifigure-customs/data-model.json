@@ -1,0 +1,15 @@
+{
+  "schema_version": "0.1",
+  "entities": {
+    "color": ["local_id","lego_name","lego_id","bricklink_name","bricklink_id","rebrickable_id","ldraw_id","rgb_reference","material_effect","years","sources","confidence"],
+    "part": ["local_id","design_id","element_id","bricklink_id","rebrickable_id","name","category","mold_variant","color_ids","decoration","sources"],
+    "artwork": ["artwork_id","project","character","part","surface","revision","master_file","process_exports","palette","white_underbase","template_version","rights_status"],
+    "template": ["template_id","part","surface","version","physical_dimensions_mm","safe_area","bleed","dpi_exports","calibration_profile","source"],
+    "supplier": ["supplier_id","name","category","url","region","genuine_part_policy","moq","lead_time","quality_notes","last_verified"],
+    "batch": ["batch_id","artwork_revision","part_lot","process","machine_or_vendor","profile","jig_version","ink_media_lot","coating","quantity_started","quantity_accepted","defects","photos","date"],
+    "experiment": ["experiment_id","hypothesis","variables","constants","materials","procedure","samples","measurements","photos","result","conclusion","confidence"],
+    "product": ["product_id","name","rights_status","components","artwork_ids","bom","cost","qc_standard","packaging","status"]
+  },
+  "rights_status": ["original","public-domain-reviewed","licensed","commissioned-rights-documented","research-only","unclear-review-required"],
+  "confidence": ["authoritative","high","medium","low","unverified"]
+}
