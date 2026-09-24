@@ -1,0 +1,55 @@
+{
+  "id": "rtec-title-vi-spanish-brochure-publication-history",
+  "record_type": "publication_version_history",
+  "title": "RTEC Spanish-language transit brochure and LEP publication history",
+  "status": "validated_historical",
+  "temporal_status": "historical_currentness_unconfirmed",
+  "sources": [
+    {
+      "sha256": "bbc40205f159700d51520a2228f4f79cd4786e09727a5a01ec3b474e1c53d91c",
+      "source": "Attach 1 for LEP Spanish Brochures.doc",
+      "content_role": "Attachment divider/embedded-image wrapper for Spanish brochure."
+    },
+    {
+      "sha256": "eaed59c1fe9767b4dec9a9e6e28f35ea243a28b43c8d995dd6c2295576d974db",
+      "source": "R12 spanish brochure RESPONSABILIDADES DEL PASAJERO2 minor change.doc",
+      "content_role": "Full Spanish-language rider/service brochure."
+    },
+    {
+      "sha256": "8a27ab58f71913ea87646ea8db8ee40e5f4a2df8bebcfb199af3f22371727345",
+      "printed_date": "2014-06-25",
+      "source": "Eric Perez letter.doc",
+      "content_role": "Transmittal stating additional Safe Harbor information had been added to RTEC's Title VI/LEP plan at KYTC/OTD request."
+    }
+  ],
+  "brochure_topics": [
+    "passenger responsibilities and onboard conduct",
+    "advance readiness for pickup",
+    "seatbelt and child-restraint language",
+    "wheelchair/mobility-device and service-animal information",
+    "reasonable-modification statement",
+    "reservation/contact information",
+    "service-area descriptions",
+    "Medicaid/HSTD and cash-fare service references",
+    "hours and scheduling information",
+    "free language-assistance notice",
+    "Kentucky Relay information"
+  ],
+  "currentness_risks": [
+    "The brochure contains historical service areas, service descriptions, hours, web domain and program language that must not be republished as current without reconciliation.",
+    "The source uses the historical www.4rtec.com domain.",
+    "Some passenger-policy statements may have changed with current ADA, safety, service-area or operational policy.",
+    "The Spanish copy itself should be professionally/currently validated before reuse; preservation of the historical source does not establish translation quality."
+  ],
+  "durable_process": [
+    "Title VI/LEP plan attachments include translated public-facing service material as evidence of language-assistance implementation.",
+    "Changes to English service rules/contact information should trigger a linked review/update of translated brochures, website content and vehicle/public notices.",
+    "State-requested Safe Harbor updates should be retained with the plan/submission correspondence that caused the change."
+  ],
+  "related_records": [
+    "rtec-process-lep-language-assistance-2026",
+    "rtec-title-vi-public-notice-history",
+    "rtec-title-vi-submission-cover-letter-history"
+  ],
+  "automation_candidate": "Maintain one canonical multilingual content dataset for service areas, contacts, hours, rider rules and accommodation/language-assistance statements, then render English/Spanish web and print outputs from the same versioned source."
+}
