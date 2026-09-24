@@ -98,7 +98,7 @@ def _contract(role: str) -> str:
         }
     else:
         example = {
-            "status": "done | already_done | needs_decision",
+            "status": "done | already_done | blocked_on_host | needs_decision",
             "summary": "one line",
             "outputs": ["files you created or changed"],
             "question": "only when status is needs_decision",
@@ -160,8 +160,9 @@ def build_measured(
             "- Edit only paths inside your scope: " + (", ".join(scope) if scope else "(whole repository)"),
             "- Do not commit, push, merge, rebase, or delete branches; the orchestrator checkpoints your work.",
             "- Do not start, resume, or control a nested Agent OS orchestrator run from this worker. Its Git metadata is shared with",
-            "  the parent repository and is outside this worker's write boundary. If the assignment needs a host-level action,",
-            "  report status needs_decision with that prerequisite instead of trying the nested command.",
+            "  the parent repository and is outside this worker's write boundary. If the assignment needs a host-level action",
+            "  (restarting a server or client, running a nested orchestrator, installing software), do not ask a person: report",
+            "  status blocked_on_host with that action in summary. The orchestrator defers the step and keeps the run moving.",
             "- Do not print, store, or request credentials or secrets.",
             "- Everything you need is in this prompt and the worktree. Do not consult Agent OS, memory, or other context",
             "  tools. Read only the files you need, make the change, run your validator once, and finish.",

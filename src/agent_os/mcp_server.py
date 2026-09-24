@@ -522,8 +522,41 @@ def _handle_mcp(request: dict[str, Any], available: dict[str, Callable[..., Any]
     return None
 
 
+PACKAGE_DIR = Path(__file__).resolve().parent
+
+
+def _source_stamp() -> float:
+    try:
+        return max(path.stat().st_mtime for path in PACKAGE_DIR.rglob("*.py"))
+    except (OSError, ValueError):
+        return 0.0
+
+
+def _reload() -> tuple[Callable[..., Any], Callable[..., Any]] | None:
+    """Re-import the package so edited code serves without restarting the process.
+
+    The MCP client owns this process and a sandboxed agent cannot restart it,
+    so a code change used to wait for a person. Orchestrator drivers are
+    separate processes and are unaffected. A failed import (a file saved
+    mid-edit) keeps the loaded code and retries on the next change."""
+    import importlib
+
+    saved = {name: module for name, module in sys.modules.items() if name == "agent_os" or name.startswith("agent_os.")}
+    for name in saved:
+        del sys.modules[name]
+    try:
+        fresh = importlib.import_module(__name__)
+        return fresh._handle_mcp, fresh.methods()
+    except Exception as exc:
+        sys.modules.update(saved)
+        print(f"agent-os: reload failed, keeping loaded code: {exc}", file=sys.stderr, flush=True)
+        return None
+
+
 def serve() -> int:
     available = methods()
+    handle = _handle_mcp
+    stamp = _source_stamp()
     for line in sys.stdin:
         if not line.strip():
             continue
@@ -534,7 +567,14 @@ def serve() -> int:
                 raise ValueError("request must be a JSON-RPC object")
             request_id = request.get("id")
             method = request.get("method")
-            mcp_response = _handle_mcp(request, available)
+            if method == "tools/call" or method in available:
+                current = _source_stamp()
+                if current != stamp:
+                    stamp = current
+                    reloaded = _reload()
+                    if reloaded is not None:
+                        handle, available = reloaded
+            mcp_response = handle(request, available)
             if mcp_response is not None:
                 print(json.dumps(mcp_response, default=str), flush=True)
                 continue

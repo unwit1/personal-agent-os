@@ -22,9 +22,10 @@ from __future__ import annotations
 import os
 import re
 import threading
+import json
 import time
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable
 
@@ -130,7 +131,8 @@ class Orchestrator:
                 except Exception:
                     result[provider["id"]] = False
             self._availability = result
-        return self._availability
+        cooling = _cooling_providers(self.store.home)
+        return {key: value and key not in cooling for key, value in self._availability.items()}
 
     def providers(self) -> dict[str, Any]:
         registry = self.registry()
@@ -143,7 +145,7 @@ class Orchestrator:
                 entry["probe"] = {"available": False, "version": None, "reason": redact(exc, 200)}
         described["recommendations"] = {}
         for role, capability, effort in (
-            ("planner", "balanced", "medium"),
+            ("planner", "reasoning", "medium"),
             ("implementer", "balanced", "medium"),
             ("reviewer", "balanced", "medium"),
             ("implementer", "reasoning", "high"),
@@ -645,10 +647,18 @@ class Orchestrator:
                 allow_fallback=not model_call and node.get("execution_path") == "deterministic",
             )
             return
-        if isinstance(structured, dict) and structured.get("status") == "needs_decision":
+        status = structured.get("status") if isinstance(structured, dict) else None
+        if status in {"needs_decision", "blocked_on_host"}:
             if node["worktree"] and node["role"] in {"implementer", "test_author", "repairer"}:
                 self._checkpoint(record, node, "needs decision")
             question = redact(structured.get("question") or structured.get("summary") or "the agent needs a decision", 500)
+            # A host-level prerequisite is not a decision a person can answer
+            # through the gate: approving only relaunched the same worker, which
+            # asked again. Defer it and keep the run moving instead.
+            if status == "blocked_on_host" or _host_action(question) or len(node.get("decisions") or []) >= 2:
+                self._defer_host_action(record, node, question)
+                self._record_telemetry(record, node, result, validator_passed=None)
+                return
             node["state"] = "APPROVAL_REQUIRED"
             self._open_gate(record, "agent_needs_decision", question, node["id"])
             self._record_telemetry(record, node, result, validator_passed=None)
@@ -766,9 +776,16 @@ class Orchestrator:
         key = _validation_key(tree, validators) if tree and record["policy"].get("reuse_validation", True) else None
         cache = record.setdefault("validation_cache", {})
         cached = cache.get(key) if key else None
+        if cached is not None and any(
+            not item["passed"] and str(item.get("name", "")).startswith("project-validation") and "failed_tests" not in item
+            for item in cached["evidence"]
+        ):
+            # Recorded before failing tests were itemized, so it cannot be
+            # compared with the base commit; run it again.
+            cached = None
         if cached is not None:
             scoped = run_all([], cwd, changed=changed, scope=scope) if changed is not None else {"evidence": []}
-            evidence = [*scoped["evidence"], *cached["evidence"]]
+            evidence = [*scoped["evidence"], *(dict(item) for item in cached["evidence"])]
             validation = {
                 "passed": all(item["passed"] for item in evidence),
                 "declared_validators": cached["declared_validators"],
@@ -776,6 +793,7 @@ class Orchestrator:
                 "reused": {"tree": tree[:12], "from": cached["at"]},
                 "at": now(),
             }
+            self._excuse_baseline_failures(record, node_id, validators, validation)
             self.ledger.emit(run_id, "cache_hit", node_id, what="test results for identical code", tree=tree[:12])
             self.ledger.emit(run_id, "tests_completed", node_id, reused=True, passed=validation["passed"], **_test_totals(cached["evidence"]))
             self.ledger.emit(run_id, "work_avoided", node_id, category="validation_cache", model_calls_avoided=0, reason="identical code was already tested in this run", seconds_avoided=cached.get("duration_s"), tokens_avoided_estimate=None)
@@ -785,6 +803,7 @@ class Orchestrator:
         self.ledger.emit(run_id, "tests_started", node_id, validators=len(validators))
         started = time.monotonic()
         validation = run_all(validators, cwd, changed=changed, scope=scope, timeout=int(record["policy"]["worker_timeout_seconds"]))
+        self._excuse_baseline_failures(record, node_id, validators, validation)
         duration = round(time.monotonic() - started, 2)
         validation["at"] = now()
         commands = [item for item in validation["evidence"] if item["kind"] != "scope"]
@@ -794,6 +813,68 @@ class Orchestrator:
                 del cache[stale]
         self.ledger.emit(run_id, "tests_completed", node_id, passed=validation["passed"], duration_s=duration, **_test_totals(commands))
         return validation
+
+    def _excuse_baseline_failures(self, record: dict[str, Any], node_id: str | None, validators: list[dict[str, Any]], validation: dict[str, Any]) -> None:
+        """Judge a project-wide suite by what the change broke, not by what was
+        already broken.
+
+        A suite that already fails on the base commit (tests that depend on the
+        user's machine, for example) otherwise fails every worker, escalates it
+        to costlier models, and ends in failure without anyone having broken
+        anything. Only project validators are compared; a task's own validators
+        must pass outright."""
+        by_name = {item.get("name"): item for item in validators}
+        for item in validation["evidence"]:
+            validator = by_name.get(item.get("name"))
+            if item["passed"] or not validator or not str(item.get("name", "")).startswith("project-validation") or not item.get("failed_tests"):
+                continue
+            known = self._baseline_failures(record, validator)
+            if known is None:
+                continue
+            new = sorted(set(item["failed_tests"]) - set(known))
+            if new:
+                # The retry prompt carries this line: name what broke, not
+                # just a failure count, so the next attempt can fix it.
+                item["new_failures"] = new[:20]
+                excused = len(item["failed_tests"]) - len(new)
+                item["detail"] = redact(f"broken by this change: {', '.join(new[:5])}" + (f"; {excused} other failure(s) also fail on the base commit" if excused else ""), 400)
+                continue
+            item["passed"] = True
+            item["baseline_failures"] = len(item["failed_tests"])
+            item["detail"] = redact(f"only failures already present on the base commit ({len(item['failed_tests'])}); none introduced", 400)
+            self.store.append_event(record["run_id"], "validation.baseline_excused", node_id, f"{item['name']}: {len(item['failed_tests'])} pre-existing failure(s)")
+        validation["passed"] = all(item["passed"] for item in validation["evidence"])
+
+    def _baseline_failures(self, record: dict[str, Any], validator: dict[str, Any]) -> list[str] | None:
+        """Failing tests for ``validator`` on the run's base commit, measured once per run."""
+        import json
+
+        from .validators import run_validator
+        from .worktrees import git
+
+        baselines = record.setdefault("validation_baseline", {})
+        key = json.dumps(validator.get("command"), sort_keys=True, default=str)
+        if key in baselines:
+            return baselines[key]
+        repo = Path(record["repository"])
+        path = self.store.run_dir(record["run_id"]) / "baseline"
+        known = None
+        try:
+            git(["worktree", "remove", "--force", str(path)], repo, check=False)
+            git(["worktree", "prune"], repo, check=False)
+            git(["worktree", "add", "--detach", str(path), record["base_commit"]], repo)
+            outcome = run_validator(validator, path, int(record["policy"]["worker_timeout_seconds"]))
+            known = [] if outcome["passed"] else (outcome.get("failed_tests") or None)
+        except GitError as exc:
+            self.store.append_event(record["run_id"], "validation.baseline_unavailable", None, redact(exc, 300))
+        finally:
+            try:
+                git(["worktree", "remove", "--force", str(path)], repo)
+            except GitError:
+                pass
+        baselines[key] = known
+        self.store.append_event(record["run_id"], "validation.baseline", None, f"{validator.get('name')}: {'unknown' if known is None else len(known)} failure(s) on the base commit")
+        return known
 
     def _measured_average(self, record: dict[str, Any], role: str) -> int | None:
         """Average exact provider tokens (input + output) of this run's
@@ -881,6 +962,15 @@ class Orchestrator:
             subject["state"] = "NEEDS_REPAIR"
             self._create_repair(record, subject, blocking)
             return
+        if not subject["review"].get("escalated"):
+            # Before asking a person, let one stronger reviewer judge the
+            # disagreement; a cheap reviewer's false positive otherwise stops
+            # the run on a human.
+            subject["review"]["escalated"] = True
+            subject["state"] = "WAITING_FOR_REVIEW"
+            self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="review_escalated", reason="findings remain after the allowed rounds; asking a stronger reviewer before a person")
+            self._create_reviewer(record, subject, capability="reasoning")
+            return
         self.ledger.emit(record["run_id"], "loop_guard", subject["id"], guard="review_rounds", reason=f"stopped the review/fix cycle after {subject['review']['rounds']} round(s); asking you instead")
         subject["state"] = "APPROVAL_REQUIRED"
         self._open_gate(
@@ -890,11 +980,11 @@ class Orchestrator:
             subject["id"],
         )
 
-    def _create_reviewer(self, record: dict[str, Any], subject: dict[str, Any], extra_round: bool = False) -> None:
+    def _create_reviewer(self, record: dict[str, Any], subject: dict[str, Any], extra_round: bool = False, capability: str | None = None) -> None:
         subject["review"]["rounds"] += 1
         round_number = subject["review"]["rounds"]
         reviewer_id = f"{subject['id']}.review{round_number}"
-        capability = subject["requested_capability_class"]
+        capability = capability or subject["requested_capability_class"]
         if capability in {"deterministic", "fast"}:
             capability = "balanced"
         reviewer = new_node(
@@ -942,6 +1032,13 @@ class Orchestrator:
     def _fail(self, record: dict[str, Any], node: dict[str, Any], kind: str, detail: str, *, allow_fallback: bool = False) -> None:
         provider = (node.get("selection") or {}).get("provider")
         _push_failure(node, kind, provider, detail)
+        if provider and kind == "quota":
+            # Remember the quota for every node and run on this machine, so
+            # later nodes route elsewhere instead of each failing on it first.
+            until = _quota_reset(detail)
+            _write_cooldown(self.store.home, provider, until, redact(detail, 200))
+            self._availability = None
+            self.store.append_event(record["run_id"], "provider.cooldown", node["id"], f"{provider} skipped until {until}")
         if node["worktree"] and node["role"] in {"implementer", "test_author", "repairer"}:
             try:
                 self._checkpoint(record, node, f"partial after {kind}")
@@ -1156,6 +1253,12 @@ class Orchestrator:
                 self.ledger.emit(record["run_id"], "note", node["id"], text=f"repository map unavailable: {type(exc).__name__}")
         prompt, context = prompts.build_measured(record, node, diff=diff, findings=findings, repo_map=repo_map, cwd=str(cwd))
         prompt += _prior_attempts(node)
+        if node["role"] == "reviewer" and subject and subject.get("failures"):
+            # Without this a reviewer flags the fix for a test the author was
+            # told it broke as "unrelated to the assignment".
+            prompt += "\n\nWhy the author made changes beyond the assignment text (validator failures it had to fix):\n" + "\n".join(
+                f"- {failure['kind']}: {failure['detail']}" for failure in subject["failures"][-3:]
+            ) + "\nChanges that fix these failures are in scope.\n"
         prompt_path = worker_dir / "prompt.md"
         prompt_path.write_text(prompt, encoding="utf-8")
         node["prompt_chars"] = len(prompt)
@@ -1430,6 +1533,22 @@ class Orchestrator:
             self.ledger.emit(record["run_id"], "loop_guard", node_id, guard="launch_budget", reason=gate["reason"])
         return gate
 
+    def _defer_host_action(self, record: dict[str, Any], node: dict[str, Any], action: str) -> None:
+        """Set aside a step only the host can do, without asking a person.
+
+        Nothing from the step is merged; dependents proceed and the deferral is
+        recorded so the final summary and handoff still name the host action."""
+        node["state"] = "PASSED"
+        node["completed_at"] = now()
+        node["integrated"] = True
+        node["integration"] = {"deferred": True, "reason": redact(action, 300), "at": now()}
+        node["wait_reason"] = f"deferred host action: {redact(action, 200)}"
+        record.setdefault("deferred_host_actions", []).append({"node": node["id"], "action": redact(action, 300), "at": now()})
+        self._close_node_gates(record, node["id"], "deferred automatically: host-level action")
+        self._release_claim(record, node, "deferred host action")
+        self.store.append_event(record["run_id"], "node.deferred", node["id"], redact(action, 300))
+        self.ledger.emit(record["run_id"], "loop_guard", node["id"], guard="host_action_deferred", reason="the step needs a host-level action, so it was deferred instead of opening a gate")
+
     def _open_gates(self, record: dict[str, Any]) -> list[dict[str, Any]]:
         return [gate for gate in record["gates"] if gate["status"] == "open"]
 
@@ -1496,6 +1615,8 @@ class Orchestrator:
                 other = record["nodes"][other_id]
                 if other.get("subject") == node["id"] and other["state"] in DISPATCHABLE_NODE_STATES:
                     other["state"] = "CANCELLED"
+        elif kind == "agent_needs_decision" and _host_action(gate.get("reason") or ""):
+            self._defer_host_action(record, node, gate.get("reason") or "")
         elif kind == "agent_needs_decision":
             node.setdefault("decisions", []).append(note or "approved without further instruction")
             node["state"] = "FAILED_RETRYABLE"
@@ -1831,6 +1952,70 @@ def _repair_class(subject: dict[str, Any], findings: list[dict[str, Any]]) -> tu
     return capability, effort
 
 
+def _cooldown_path(home: Path) -> Path:
+    return Path(home) / "provider-cooldowns.json"
+
+
+def _quota_reset(detail: str, current: datetime | None = None) -> str:
+    """When a quota message says it resets ("try again at 1:50 PM"), that local
+    time (tomorrow if already past); otherwise one hour from now. UTC ISO."""
+    import re
+
+    local_now = (current or datetime.now(timezone.utc)).astimezone()
+    match = re.search(r"try again at (\d{1,2}):(\d{2})\s*([AP]M)", detail or "", re.IGNORECASE)
+    if match:
+        hour = int(match[1]) % 12 + (12 if match[3].upper() == "PM" else 0)
+        reset = local_now.replace(hour=hour, minute=int(match[2]), second=0, microsecond=0)
+        if reset <= local_now:
+            reset += timedelta(days=1)
+    else:
+        reset = local_now + timedelta(hours=1)
+    return reset.astimezone(timezone.utc).isoformat(timespec="seconds")
+
+
+def _read_cooldowns(home: Path) -> dict[str, Any]:
+    try:
+        return json.loads(_cooldown_path(home).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def _write_cooldown(home: Path, provider: str, until: str, reason: str) -> None:
+    data = _read_cooldowns(home)
+    data[provider] = {"until": until, "reason": reason}
+    path = _cooldown_path(home)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, indent=1), encoding="utf-8")
+
+
+def _cooling_providers(home: Path, current: datetime | None = None) -> set[str]:
+    moment = current or datetime.now(timezone.utc)
+    cooling = set()
+    for provider, entry in _read_cooldowns(home).items():
+        try:
+            if datetime.fromisoformat(entry["until"]) > moment:
+                cooling.add(provider)
+        except (KeyError, TypeError, ValueError):
+            continue
+    return cooling
+
+
+_HOST_ACTION_PATTERN = (
+    r"\brestart(?:ing|ed)?\b.{0,40}\b(?:mcp|server|client|host|agent os)\b"
+    r"|\b(?:mcp|agent os) server\b.{0,40}\brestart"
+    r"|\b(?:mcp|host|server|client) restart"
+    r"|\bhost[- ]level\b|\bhost operator\b|\bowning (?:mcp )?host\b|\bnested (?:agent os )?orchestrat"
+)
+
+
+def _host_action(text: str) -> bool:
+    """Whether a worker's question is a host-level prerequisite rather than a
+    design decision: no answer through a gate lets a sandboxed worker do it."""
+    import re
+
+    return bool(re.search(_HOST_ACTION_PATTERN, text or "", re.IGNORECASE))
+
+
 def _dependency_met(node: dict[str, Any] | None) -> bool:
     if node is None or node["state"] != "PASSED":
         return False
@@ -1927,6 +2112,13 @@ def _prior_attempts(node: dict[str, Any]) -> str:
         lines.append(f"- operator decision: {decision}")
     if not lines:
         return ""
+    if node["failures"] and node["failures"][-1]["kind"] == "validator_failed":
+        # A retried worker otherwise sees the earlier work in its worktree,
+        # reports already_done, and fails the same validator again.
+        lines.append(
+            "- the work in your worktree FAILS validation. Do not report already_done: fix the failure named above"
+            " (run that test to see why), then report done."
+        )
     return "\n\nContext from earlier attempts on this assignment (your worktree keeps their partial work):\n" + "\n".join(lines) + "\n"
 
 

@@ -1,0 +1,18 @@
+{
+  "id": "candidate-eaea6bc0281fd705",
+  "kind": "decision_candidate",
+  "project": "personal-agent-os",
+  "statement": "Mail dedup rule: Message-ID merges only with same sender, same normalized subject and dates within two days; content-hash/composite evidence never merges two different Message-IDs; dedup links observations and never deletes them. Both earlier looser variants merged distinct emails in tests/benchmark.",
+  "evidence": [
+    "src/agent_os/mail/store.py",
+    "tests/test_mail_accounts.py"
+  ],
+  "confidence": 0.85,
+  "source_agent": "claude-opus-5.5",
+  "source_session": null,
+  "task_summary": "Mail bootstrap (EarthLink + iCloud, read-only, multi-account) implemented on branch mail-multi-account (34f72aa5, 1076523a). 53 mail/ingestion tests pass; full suite only fails the 3 known worktree-path tests plus a pre-existing upstream project-count test.",
+  "status": "candidate",
+  "created_at": "2026-09-23T18:58:33.931424+00:00",
+  "resolved_at": null,
+  "fingerprint": "eaea6bc0281fd70535bd860b842887e5ff3d0eebdc39726eac4aa8eefd738d75"
+}

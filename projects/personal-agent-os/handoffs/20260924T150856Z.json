@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-24T15:08:56.563306+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 23, behind 540]\n M src/agent_os/cli.py\n M src/agent_os/mcp_server.py\n M src/agent_os/orchestrator/engine.py\n M src/agent_os/orchestrator/model.py\n M src/agent_os/orchestrator/planner.py\n M src/agent_os/orchestrator/prompts.py\n M src/agent_os/orchestrator/roadmap.py\n M src/agent_os/orchestrator/router.py\n M src/agent_os/orchestrator/validators.py\n?? docs/design/\n?? projects/personal-agent-os/candidates/candidate-05a25837e101d150.json\n?? projects/personal-agent-os/candidates/candidate-0c3befc9d256acd2.json\n?? projects/personal-agent-os/candidates/candidate-31819780beaaa556.json\n?? projects/personal-agent-os/candidates/candidate-36b44e2389fd43f8.json\n?? projects/personal-agent-os/candidates/candidate-3cb41bf6c47c8de4.json\n?? projects/personal-agent-os/candidates/candidate-4aa27c6510362f5b.json\n?? projects/personal-agent-os/candidates/candidate-5b205e3b5d1fe3b1.json\n?? projects/personal-agent-os/candidates/candidate-a12bbb5616444903.json\n?? projects/personal-agent-os/candidates/candidate-dc11b6607a554310.json\n?? projects/personal-agent-os/candidates/candidate-ea7ffb016bee3473.json\n?? projects/personal-agent-os/candidates/candidate-eaea6bc0281fd705.json\n?? projects/personal-agent-os/candidates/candidate-efcfd6530402236a.json\n?? projects/personal-agent-os/handoffs/20260923T215812Z.json\n?? projects/personal-agent-os/handoffs/20260923T215939Z.json\n?? projects/personal-agent-os/handoffs/20260923T221217Z.json\n?? tests/fixtures/pricing/\n?? tests/test_orchestrator_host_actions.py\n?? tmp/",
+    "error": ""
+  },
+  "completed": [
+    "Orchestrator autonomy fixes (uncommitted in main checkout): host-only steps deferred instead of gated; MCP server hot-reloads code; project-validation compares against base-commit failures; retry prompts name broken tests and forbid already_done; planner widens scope to validator test files; stronger reviewer before a human gate; machine-wide quota cooldown; unavailable_models registry key; planner defaults to reasoning tier; UTF-8 CLI output. Model value routing (branch design/model-value-routing, worktree ../pao-model-value): evidence store, official price parsers, refresh wiring; verified against live pricing pages. Runs dc8cf4 and 5e4d75 complete on integration branches."
+  ],
+  "decisions": [
+    "Design tier routes by intelligence_index (Opus 5.5 58 > gpt-6-sol 48); implementation tiers by effective price; ties prefer GPT-6 via provider priority; Fable unavailable on this account."
+  ],
+  "remaining": [
+    "Land main-checkout orchestrator fixes, design/model-value-routing, and run 5e4d75 integration (gate G6) onto main after user authorization. Next stage: automated benchmark research (cheap web-search worker records intelligence_index with sources) and automatic trials before model swaps. Codex quota cooldown until ~1:50 PM local. Connector validation branches lack tests."
+  ],
+  "validation": [
+    "Full suite: only pre-existing environment failures (registered_project_resolves, inventory, portability, surfaces). New tests: tests/test_orchestrator_host_actions.py (17). Live price fetch parsed both vendors correctly."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

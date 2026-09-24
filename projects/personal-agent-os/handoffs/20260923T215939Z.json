@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-23T21:59:39.404059+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 7, behind 91]\n?? projects/personal-agent-os/candidates/candidate-05a25837e101d150.json\n?? projects/personal-agent-os/candidates/candidate-0c3befc9d256acd2.json\n?? projects/personal-agent-os/candidates/candidate-31819780beaaa556.json\n?? projects/personal-agent-os/candidates/candidate-36b44e2389fd43f8.json\n?? projects/personal-agent-os/candidates/candidate-3cb41bf6c47c8de4.json\n?? projects/personal-agent-os/candidates/candidate-4aa27c6510362f5b.json\n?? projects/personal-agent-os/candidates/candidate-5b205e3b5d1fe3b1.json\n?? projects/personal-agent-os/candidates/candidate-a12bbb5616444903.json\n?? projects/personal-agent-os/candidates/candidate-dc11b6607a554310.json\n?? projects/personal-agent-os/candidates/candidate-ea7ffb016bee3473.json\n?? projects/personal-agent-os/candidates/candidate-eaea6bc0281fd705.json\n?? projects/personal-agent-os/candidates/candidate-efcfd6530402236a.json\n?? projects/personal-agent-os/handoffs/20260923T215812Z.json",
+    "error": ""
+  },
+  "completed": [
+    "Pushed 5f9d1e85 and 3a542d8c on fix/planner-malformed-escalation: retry-exhausted malformed planner results escalate through configured rungs unless explicitly overridden; provider failover is scoped to the active capability class so stronger-tier attempts can reuse prior providers. Failure records retain capability-class provenance."
+  ],
+  "decisions": [
+    "None for code changes; G1 remains an external runtime gate."
+  ],
+  "remaining": [
+    "Focused orchestrator tests were not run. Existing P0.0A smoke remains at G1 and needs the owning MCP host restarted plus an exact-model smoke in an authorized Git worktree environment."
+  ],
+  "validation": [
+    "git diff --check passed for both commits; no tests run."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

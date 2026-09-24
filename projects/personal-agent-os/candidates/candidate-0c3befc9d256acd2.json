@@ -1,0 +1,18 @@
+{
+  "id": "candidate-0c3befc9d256acd2",
+  "kind": "lesson_candidate",
+  "project": "personal-agent-os",
+  "statement": "Agent CLI overhead dominates token use: in a live small code change, Orchestrator prompts were ~939 tokens (estimated) while providers reported 162,540 exact input tokens (Codex implementer 77,976 + Claude reviewer 84,564), 99.4% of it CLI system prompt, tools and exploration. Prompt-level context selection is a small lever; per-call CLI overhead and avoided calls are the big ones.",
+  "evidence": [
+    ".agent-local/orchestrator/benchmarks (latest live results.json + transcript.log)",
+    "docs/simple-mode.md"
+  ],
+  "confidence": 0.9,
+  "source_agent": "claude-opus-5.5",
+  "source_session": null,
+  "task_summary": "P1.2C: Simple Mode GUI, Continue Roadmap + campaigns, per-run efficiency telemetry, benchmark. Branch p1.2c-simple-mode (commits d2f92f7d, 34ffba95), not pushed, not merged. 484 tests OK, agent.py validate ok.",
+  "status": "candidate",
+  "created_at": "2026-09-22T23:30:53.354894+00:00",
+  "resolved_at": null,
+  "fingerprint": "0c3befc9d256acd22cf94240ef466aabcaeb8d2f07a676a32b526c2939ef1ca6"
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-23T22:12:17.475984+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## main...origin/main [ahead 8, behind 91]\n?? projects/personal-agent-os/candidates/candidate-05a25837e101d150.json\n?? projects/personal-agent-os/candidates/candidate-0c3befc9d256acd2.json\n?? projects/personal-agent-os/candidates/candidate-31819780beaaa556.json\n?? projects/personal-agent-os/candidates/candidate-36b44e2389fd43f8.json\n?? projects/personal-agent-os/candidates/candidate-3cb41bf6c47c8de4.json\n?? projects/personal-agent-os/candidates/candidate-4aa27c6510362f5b.json\n?? projects/personal-agent-os/candidates/candidate-5b205e3b5d1fe3b1.json\n?? projects/personal-agent-os/candidates/candidate-a12bbb5616444903.json\n?? projects/personal-agent-os/candidates/candidate-dc11b6607a554310.json\n?? projects/personal-agent-os/candidates/candidate-ea7ffb016bee3473.json\n?? projects/personal-agent-os/candidates/candidate-eaea6bc0281fd705.json\n?? projects/personal-agent-os/candidates/candidate-efcfd6530402236a.json\n?? projects/personal-agent-os/handoffs/20260923T215812Z.json\n?? projects/personal-agent-os/handoffs/20260923T215939Z.json\n?? tmp/",
+    "error": ""
+  },
+  "completed": [
+    "Pushed HR-GUI cache correctness commits 4118188 and 06ef9f5 on fix/cache-source-change; changed-source metadata invalidates same-process hash memoization, and persistent-cache hits preserve OCR page rotation. Pushed PAO roadmap correction 000e5121 on docs/p03-hrgui-integration; P0.3 integration evidence and seven-step sequence are now current."
+  ],
+  "decisions": [
+    "No design decision for the cache fixes; P0.0A G1 remains external."
+  ],
+  "remaining": [
+    "Run synthetic cache mutation/orientation regressions and review/merge the HR-GUI fix branch. Then implement shared known-template/fingerprint reuse and targeted field-zone OCR; keep bounded concurrency gated on measurement. P0.0A G1 still needs the owning MCP host restart and exact-model smoke."
+  ],
+  "validation": [
+    "HR-GUI repository safety passed (194 tracked files); git diff --check passed on both HR-GUI changes and PAO roadmap; roadmap parser still selects P0.3 as partial. No unit tests run."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

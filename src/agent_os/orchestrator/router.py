@@ -66,6 +66,11 @@ def normalize_provider(raw: dict[str, Any], order: int, discovered: dict[str, st
     if overrides:
         # Approved tier changes (orchestrator.models proposals) beat discovery.
         models = {**models, **overrides}
+    # Models the account cannot use (e.g. a plan without frontier access). The
+    # tier is dropped so routing falls through to another provider, even
+    # though discovery keeps listing the model.
+    unavailable = {str(item) for item in raw.get("unavailable_models") or []}
+    models = {key: value for key, value in models.items() if value not in unavailable}
     effort_map = raw.get("effort_map") if isinstance(raw.get("effort_map"), dict) else {}
     roles = raw.get("roles")
     tier_concurrency = {key: max(int(value), 1) for key, value in _number_map(raw.get("tier_concurrency")).items()}
