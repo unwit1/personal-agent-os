@@ -1,0 +1,105 @@
+{
+  "record_id": "rtec-hr-email-attachment-safe-findings-2017-2026",
+  "updated_at": "2026-09-23",
+  "status": "sanitized_cross_source_findings",
+  "findings": [
+    {
+      "domain": "historical_employee_handbook",
+      "source": "email attachment 000045 / Emp handbook 2017.pdf",
+      "date": "2017-02-06",
+      "facts": [
+        "Historical handbook defined full-time as regularly 37.5 or more hours per week and part-time as under 37.5 hours.",
+        "Historical payday was every other Friday for the prior two weeks worked.",
+        "Direct deposit was required within the first two weeks of employment.",
+        "Medical coverage was generally first of month after 60 days for eligible active full-time employees, subject to enrollment/payment conditions.",
+        "Historical attendance policy used a point system and required daily call-in; exact rules are superseded by the 2025 handbook.",
+        "Historical EEO responsibility was assigned to Sheila Stallsworth."
+      ],
+      "currentness": "Superseded historical policy. Use only for policy evolution and historical-case context; current 2025 handbook and 2026 signed EEO policy control current operations."
+    },
+    {
+      "domain": "Humana_implementation",
+      "source": "email attachment 000054 / Rural Transit Enterprises Welcome Call Agenda.pptx",
+      "date_context": "2018-04-19 kickoff; medical effective 2018-06-01",
+      "facts": [
+        "Initial enrollment method was an enrollment spreadsheet.",
+        "Ongoing enrollment changes were planned through Humana HRBA.",
+        "Billing model was pay-as-billed with eBilling on the employer portal and email notification when the bill was present.",
+        "Humana planned written implementation-calendar follow-up and a later installation wrap-up/transition meeting.",
+        "CVIM participated in the implementation as broker/enrollment-side contact."
+      ],
+      "currentness": "Historical implementation evidence only."
+    },
+    {
+      "domain": "2020_2021_benefit_renewal_analysis",
+      "source": "email attachment 000139 / two legacy Excel contribution workbooks",
+      "facts": [
+        "RTEC compared multiple employer-contribution scenarios including 85%, 87%, 88%, and maintaining the same monthly employer contribution.",
+        "Scenario work considered Anthem medical/dental/vision combinations and UHC/Delta Dental alternatives.",
+        "The analysis explicitly considered continuing FSA employer contribution at $500 annually per employee.",
+        "The workbook text also evaluated retaining Guardian for short-term disability, company-paid life and voluntary life, depending on scenario.",
+        "The files quantified annual employer-cost increases under competing plan/contribution choices."
+      ],
+      "currentness": "Historical benefits-renewal analysis; do not use rates or options as current."
+    },
+    {
+      "domain": "2021_UHC_plan_design",
+      "source": "email attachment 000249 / June 2021 UHC plan summaries",
+      "facts": [
+        "RTEC website-change correspondence included two UnitedHealthcare Kentucky Choice Plus plan summaries: Base Plan BW3C and Buy Up Plan BW24.",
+        "Both were PPO-style Choice Plus summaries with network/out-of-network coverage and 20% network coinsurance.",
+        "Base Plan: $2,500 individual network deductible and $6,500 individual network out-of-pocket limit.",
+        "Buy Up Plan: $1,500 individual network deductible and $4,500 individual network out-of-pocket limit.",
+        "Both summaries showed a $25 office-visit copayment in the benefits-at-a-glance section.",
+        "The documents state the formal Certificate of Coverage/Schedule of Benefits controls if the summary conflicts."
+      ],
+      "currentness": "Historical 2021 plan evidence. Strongly proves UHC relationship predates the 2026 'recent implementation' wording."
+    },
+    {
+      "domain": "termination_to_payroll_form",
+      "source": "email attachment 000143 / Term notice to payroll.doc",
+      "facts": [
+        "Historical Benefits Manager termination checklist required completion rather than leaving items blank without explanation.",
+        "Checklist covered direct deposit, term life, health, dental, vision, Abacus life, Abacus disability and 401(k) contribution shutdown/handling.",
+        "Form included Benefits Manager preparation and Executive Director approval."
+      ],
+      "currentness": "Historical blank form; provider names and approval chain require current validation."
+    },
+    {
+      "domain": "direct_deposit_form",
+      "source": "email attachment 000146 / Direct Deposit Form (revised).doc",
+      "facts": [
+        "Historical blank form required bank name/address/phone, routing number, account number, checking/savings choice, employee name/signature and a voided check or deposit slip.",
+        "Because completed forms contain bank-account data, they are high-sensitivity payroll records."
+      ],
+      "currentness": "Historical form; current handbook still requires direct deposit, but current enrollment mechanism and storage location must be validated."
+    },
+    {
+      "domain": "historical_recruiting_ad",
+      "source": "email attachment 000275 / Help wanted CSR and Accounts Receivable Clerk.pdf",
+      "date_context": "2021",
+      "facts": [
+        "RTEC advertised full-time Accounts Receivable Clerk and Customer Service Representative openings from Mt. Vernon.",
+        "CSR requirements included high-school diploma/GED, computer/data-entry/telephone skills, with Spanish fluency listed as a plus.",
+        "Applications were directed to ridertec.org or the RTEC office.",
+        "The ad stated drug-free workplace and Equal Opportunity Employer language."
+      ],
+      "currentness": "Historical recruiting material; pay, application channel and qualifications must follow current job descriptions/postings."
+    },
+    {
+      "domain": "2026_wellness_resource",
+      "source": "email attachment 000485 / Men's Health quiz resources",
+      "facts": [
+        "June 2026 health/resources correspondence carried English and Spanish men's-health quiz/answer decks.",
+        "These are vendor wellness/training resources rather than RTEC policy or medical authority."
+      ],
+      "currentness": "Current resource availability in 2026; content should be treated as educational material, not durable medical guidance."
+    }
+  ],
+  "interpretation_rules": [
+    "Historical policy and plan attachments can explain older decisions but cannot override current policy.",
+    "Benefit summaries are plan-year/version specific.",
+    "Blank forms may be safe templates, but completed direct-deposit, medical, workers-comp and application records are restricted.",
+    "Vendor training resources are context/resources, not legal or medical authority."
+  ]
+}
