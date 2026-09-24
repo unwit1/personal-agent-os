@@ -1,8 +1,11 @@
 // ==UserScript==
 // @name         Agent OS Universal Capture
 // @namespace    agent-os
-// @version      3.1.1
+// @version      3.2.0
 // @description  Save useful pages from Reddit, Amazon, YouTube, Nexus Mods, XenForo forums, and the general web into the Agent OS browser inbox.
+// @homepageURL   https://github.com/unwit1/universal-capture-plugin
+// @updateURL     https://raw.githubusercontent.com/unwit1/universal-capture-plugin/main/agent-os-universal-capture.user.js
+// @downloadURL   https://raw.githubusercontent.com/unwit1/universal-capture-plugin/main/agent-os-universal-capture.user.js
 // @author       Agent OS
 // @match        http://*/*
 // @match        https://*/*
@@ -21,7 +24,7 @@
 (function () {
     "use strict";
 
-    var VERSION = "3.1.1";
+    var VERSION = "3.2.0";
     var SETTINGS_KEY = "agent_os_capture_settings_v1";
     var QUEUE_KEY = "agent_os_capture_queue_v1";
     var MAX_QUEUE = 500;
