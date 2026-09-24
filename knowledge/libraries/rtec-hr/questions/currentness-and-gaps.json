@@ -240,7 +240,7 @@
       "domain": "termination_offboarding_form",
       "question": "What is the current approved termination/offboarding control form and approval chain, and does it supersede the historical Termination of Employment - Notice to Payroll form recovered from the 2020 email attachment?",
       "status": "partially_answered",
-      "resolution_note": "A blank 2020 Notice to Payroll attachment confirms the historical form bundled direct-deposit, benefit and 401(k) shutdown with Benefits Manager preparation and Executive Director approval. HR-GUI also contains a reference artifact with the same title, but its current effective period and current approval workflow are not established."
+      "resolution_note": "Historical 2020 Notice to Payroll confirms prior bundled offboarding. Current HR-GUI now implements a review-gated termination case workflow: it requires identity/date verification, tracks a required general termination form matching 'Term Employment Form'/'Termination of Employment', supports signature review, generates local forms and .eml drafts only, and explicitly leaves the established termination writer authoritative for the active-roster move. These software defaults do not themselves prove the approved current HR form/signature/approval chain; local rules/templates and business approval still require validation."
     },
     {
       "priority": "medium",
@@ -320,6 +320,13 @@
       "domain": "hstd_csr_trip_processing",
       "question": "Validate the historical HSTD/CSR trip-processing workflow exposed by the legacy disciplinary matrix: define 'flip trips' and 'pencil notes'; identify forms 500/501 and their update deadline; determine the current eligibility, prior-authorization, supporting-document, denial-tracking, confirmation, denial-notification/cancellation and appeal workflow; and identify what replaced the historical Denial Requests Tracking database/HSTD server rules, if anything.",
       "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "fmla_module_year_method_guardrail",
+      "question": "Resolve RTEC's authoritative FMLA 12-month measurement method before implementing HR-GUI's planned FMLA balance logic. The current stub says '480 (12 wk rolling)' while authoritative/candidate source materials conflict among first-day/occurrence, calendar-year and rolling methods.",
+      "status": "open_blocker",
+      "resolution_note": "Current HR-GUI FMLA module is only a stub. The rolling-language is an unvalidated implementation assumption and must not become production policy until RTEC designates the legally permitted method it actually uses."
     }
   ]
 }
