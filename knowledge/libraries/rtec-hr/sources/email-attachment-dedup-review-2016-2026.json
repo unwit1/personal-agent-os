@@ -1,0 +1,24 @@
+{
+  "record_id": "rtec-email-attachment-dedup-review-2016-2026",
+  "updated_at": "2026-09-23",
+  "status": "complete_for_extracted_attachment_layer",
+  "counts": {
+    "extracted_payloads": 132,
+    "unique_sha256_payloads": 104,
+    "duplicate_payload_occurrences_collapsed": 28,
+    "duplicate_hash_groups": 19
+  },
+  "duplicate_characteristics": [
+    "Most repeated payloads are inline email/signature graphics reused across related vendor messages.",
+    "Several ADP operational emails reuse the same embedded graphics across quarter-end messages.",
+    "A small number of HTML/system wrapper attachments repeat across applicant-intake messages.",
+    "Duplicate payload identity is based on SHA-256, not filename, because the same image can receive different auto-generated filenames."
+  ],
+  "dedup_rule": [
+    "Store one derived attachment identity per SHA-256 and attach all email/message provenance references to it.",
+    "Do not infer that same filenames are duplicates without hash equality.",
+    "Do not delete materially distinct completed forms merely because their templates match.",
+    "Inline media and low-value system artifacts may be suppressed from semantic indexing while retaining hash/provenance metadata."
+  ],
+  "privacy": "No raw sensitive attachment content or identifiers are stored in this record."
+}
