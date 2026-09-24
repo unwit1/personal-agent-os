@@ -17,50 +17,36 @@ The self-contained userscript currently has adapters for:
 
 SpaceBattles and Questionable Questing share the XenForo adapter.
 
-Every capture uses the normalized `browser-capture-v1` envelope and includes the current URL, canonical URL, title, description, selected text, capture time, optional device label, source-specific IDs, and adapter metadata when available.
+## Automatic-update distribution
 
-## Automatic Tampermonkey updates
+The canonical Agent OS repository is private, and the current GitHub account plan does not allow GitHub Pages to be published from this private repository.
 
-The source userscript declares:
+Do not make Personal Agent OS public merely to distribute a userscript.
 
-    @updateURL   https://unwit1.github.io/personal-agent-os/agent-os-universal-capture.user.js
-    @downloadURL https://unwit1.github.io/personal-agent-os/agent-os-universal-capture.user.js
+The preferred setup is a separate public repository containing only the non-secret distributable userscript, for example:
 
-The private repository is never exposed as the update source. A GitHub Pages workflow publishes only the non-secret built userscript.
+    unwit1/agent-os-userscript
 
-The publishing workflow automatically appends the GitHub Actions run number to the source version. For example, source version `3.1.0` may be published as `3.1.0.42`. This means ordinary userscript changes do not require a human to remember to bump the Tampermonkey version.
+Once that repository exists, the userscript can use public raw GitHub URLs for:
 
-### One-time GitHub Pages setup
+    @updateURL
+    @downloadURL
 
-GitHub Pages must use **GitHub Actions** as its source:
+No credentials, endpoint tokens, private Agent OS files, knowledge, or user data belong in that public repository.
 
-1. Open this repository on GitHub.
-2. Go to **Settings -> Pages**.
-3. Under **Build and deployment**, set **Source** to **GitHub Actions**.
-4. Open **Actions -> Publish Agent OS userscript**.
-5. Run the workflow once if it did not automatically redeploy after Pages was enabled.
+## Current test install
 
-The expected public installation/update URL is:
+Until the public distribution repository exists:
 
-    https://unwit1.github.io/personal-agent-os/agent-os-universal-capture.user.js
+1. Open browser/userscripts/agent-os-universal-capture.user.js in this private repository.
+2. Copy the complete file.
+3. Open Tampermonkey -> Create a new script.
+4. Replace the generated template with the copied file and save.
+5. Use the floating + Agent OS button on a supported website.
 
-Only the built userscript, a tiny installation page, and a version marker are deployed. No private Agent OS data, source tree, credentials, or knowledge files are included in the Pages artifact.
-
-> GitHub account note: Pages from a private repository requires a GitHub plan that supports private-repository Pages. If GitHub does not offer Pages for this private repo, use a dedicated public distribution repository instead; do not make the Agent OS repository public.
-
-## Install or replace the Tampermonkey copy
-
-After the Pages workflow has deployed successfully:
-
-1. Open `https://unwit1.github.io/personal-agent-os/agent-os-universal-capture.user.js`.
-2. Tampermonkey should open its install/update screen.
-3. If your existing script is recognized as the same `@name` + `@namespace`, choose **Update** or **Reinstall**. If Tampermonkey creates a second copy, disable/delete the old `Agent OS Universal Capture` copy after installing the Pages-hosted one.
-4. In Tampermonkey Dashboard, confirm the script shows an update URL pointing to `unwit1.github.io`.
-5. From that point forward, normal updates are automatic. To force one immediately, use Tampermonkey's **Check for userscript updates** command.
+If an Agent OS endpoint has not been configured, captures are queued safely in Tampermonkey storage.
 
 ## Endpoint configuration
-
-If an Agent OS endpoint has not been configured, captures are safely queued inside Tampermonkey storage so extraction can be tested immediately.
 
 Use the Tampermonkey script menu for:
 
@@ -71,16 +57,4 @@ Use the Tampermonkey script menu for:
 - Agent OS: Copy queued captures as JSON
 - Agent OS: Clear queued captures
 
-Configure an endpoint that accepts an HTTP POST with `Content-Type: application/json`.
-
-When a device token is configured, the client sends:
-
-    X-Agent-OS-Token: <device token>
-
-A successful endpoint should return any 2xx response. A JSON response may optionally contain relationship/status values such as `NEW` or `DUPLICATE`.
-
-The intended long-term endpoint is:
-
-    POST /api/v1/browser/capture
-
-Do not commit endpoint credentials or device tokens. They live in Tampermonkey GM storage per browser/device.
+Credentials stay in per-browser Tampermonkey storage and are never committed to Git.
