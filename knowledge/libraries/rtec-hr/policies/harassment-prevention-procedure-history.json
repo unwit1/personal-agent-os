@@ -1,0 +1,36 @@
+{
+  "id": "rtec-harassment-prevention-procedure-history",
+  "record_type": "historical_policy_process",
+  "title": "RTEC harassment-prevention / anti-retaliation procedure — FY2015 archive",
+  "status": "validated_historical",
+  "temporal_status": "historical",
+  "source_sha256": "1b4838f3c6626b1b707f211e0db3321eba435a479a6014cac483fa732ccad150",
+  "source_path": "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2015/RTEC HARRASSMENT PREVENTION PROCEDURES.doc",
+  "rules": [
+    "Employees and applicants are protected from harassment, intimidation, threats, coercion or discrimination for filing a complaint, assisting in a review/investigation/hearing, or otherwise seeking legal rights related to EEO for qualified individuals with disabilities or qualified protected veterans.",
+    "The procedure also tells employees/applicants who believe they have experienced harassment or discrimination because of a protected status to contact the EEO Manager for assistance.",
+    "The source states that the policy is communicated to employees and supervisors annually.",
+    "The source states that a notice is posted in the Human Resource office."
+  ],
+  "durable_process_signals": [
+    "Anti-retaliation protection is not limited to the original complainant; participation in investigation/review/hearing activity is also protected.",
+    "Annual employee/supervisor communication and a physical HR posting were part of the historical control environment.",
+    "The EEO role served as an assistance/intake point."
+  ],
+  "currentness_boundary": [
+    "This FY2015 procedure is historical and must not control current routing or contact information.",
+    "Current anti-retaliation and EEO authority are governed by the later 2025 handbook and signed 2026 EEO policy.",
+    "The misspelled historical filename/title ('HARRASSMENT') is retained only for provenance."
+  ],
+  "automation_candidates": [
+    "Annual EEO/anti-retaliation policy acknowledgement and manager communication log.",
+    "Compliance check confirming current required notices/postings are present and version-correct.",
+    "Link retaliation concerns to the restricted employee-relations/EEO complaint case workflow rather than creating a separate uncontrolled intake channel."
+  ],
+  "related_records": [
+    "rtec-policy-eeo-2026",
+    "rtec-policy-attendance-solicitation-harassment-2025",
+    "rtec-eeo-policy-statement-version-history",
+    "rtec-sexual-harassment-reporting-investigation-authority-map"
+  ]
+}
