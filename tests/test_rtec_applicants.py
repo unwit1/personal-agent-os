@@ -197,6 +197,26 @@ class RTECApplicantAdapterTests(unittest.TestCase):
         conn.close()
         self.assertEqual(status, "Interview Requested")
 
+    def test_applicant_reads_fail_closed_before_agent_ref_migration(self):
+        conn = sqlite3.connect(self.db)
+        conn.execute("ALTER TABLE applicants RENAME TO applicants_new")
+        conn.execute(
+            "CREATE TABLE applicants (applicant_key TEXT PRIMARY KEY, name TEXT, status TEXT)"
+        )
+        conn.execute(
+            "INSERT INTO applicants VALUES ('filename-with-name.pdf','Synthetic','New')"
+        )
+        conn.execute("DROP TABLE applicants_new")
+        conn.commit()
+        conn.close()
+
+        with self.assertRaisesRegex(RuntimeError, "opaque agent_ref migration"):
+            ra.list_applicants()
+
+        status = ra.sync_status()
+        self.assertFalse(status["agent_ref_schema_ready"])
+        self.assertEqual(status["applicant_record_count"], 1)
+
     def test_acknowledge_handles_legacy_db_without_outbox(self):
         conn = sqlite3.connect(self.db)
         conn.execute("DROP TABLE agent_events")
