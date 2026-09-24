@@ -19,7 +19,7 @@ It is intentionally separate from Elder Scrolls lore. Technical implementation k
 
 ## Current corpus
 
-As of 2026-09-24, the live terminology directory contains **161 specialist terminology/reference modules**, plus authoring guides, playbooks, troubleshooting routers/catalogs, source provenance, research/frontier documents and extraction tooling.
+As of 2026-09-24, the live terminology directory contains **164 specialist terminology/reference modules**, plus authoring guides, playbooks, troubleshooting routers/catalogs, source provenance, research/frontier documents and extraction tooling.
 
 The old manually maintained heading total has been retired from this README. Exact module/heading counts are generated from a checkout by:
 
@@ -61,6 +61,7 @@ The corpus now covers, at minimum:
 - `indexes/` — generated/manual retrieval indexes and aliases.
 - `sources/` — source registry and provenance/coverage material.
 - `research/` — frontier, version/provenance policy and current-version snapshots.
+- `automation/` — Mod Factory architecture, adapters, validation gates, analyzers, fixtures and implementation playbooks.
 
 ## Primary retrieval surfaces
 
@@ -74,6 +75,9 @@ Start here instead of loading the entire corpus:
 - `research/frontier.md` — remaining open research.
 - `research/version-provenance-model.md` — how version-sensitive facts are stored.
 - `research/current-version-matrix.md` — dated verified version snapshots.
+- `automation/README.md` — idea-to-release Mod Factory entry point.
+- `automation/implementation-question-preemption.md` — questions the agent should resolve before asking the user.
+- `automation/validation-gates.md` — mandatory build, schema, compatibility and release gates.
 
 ## Knowledge model
 
