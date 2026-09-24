@@ -2,635 +2,69 @@
 
 Updated: 2026-09-24
 Status: active
-Indexed headings: 569
+Terminology/reference modules: 28
+Indexed headings: 2374
+Canonical alias mappings: 76
 
-This index is the navigation layer for the Skyrim Modding Knowledge Repository terminology corpus. The same concept may intentionally appear in more than one specialist module when it has different diagnostic implications; therefore the heading count is an index count, not a claim of 569 unique concepts.
+This index is the navigation layer for the technical Skyrim Modding Knowledge Repository. The heading total is an index count rather than a claim that every heading is a unique semantic entity: important concepts intentionally recur across subsystem modules when the diagnostic context differs.
 
-## Retrieval guidance
+## Module index
 
-- Start with **Core glossary** for general terminology and basic distinctions.
-- Use **Records, patching, and load order** for plugin structure, xEdit, LOOT, FormIDs, conflicts, and patch design.
-- Use **Papyrus, quests, dialogue, AI, and magic** for scripts, aliases, scenes, packages, conditions, and gameplay logic.
-- Use **SKSE, CommonLibSSE-NG, native plugins, and crash diagnostics** for DLL/runtime compatibility, relocation, hooks, ABI, and native crashes.
-- Use **Runtime distribution frameworks** when deciding between static patches and SPID/KID/BOS/FLM-style configuration.
-- Use **Animation, assets, BodySlide, and UI** for behavior generation, OAR, NIFs, skeletons, meshes, morphs, BodySlide, SkyUI, and MCM issues.
-- Use **Worldspaces, navmesh, saves, persistence, and LOD state** when bugs survive plugin changes, differ between new and existing saves, involve pathing/cell resets, or change with viewing distance.
+| Module | Indexed headings |
+|---|---:|
+| `animation-assets-bodyslide-ui.md` | 93 |
+| `audio-localization-archives.md` | 92 |
+| `automated-patchers-mutagen-synthesis.md` | 75 |
+| `core-glossary.md` | 85 |
+| `crash-log-patterns.md` | 47 |
+| `creation-kit-record-type-catalog.md` | 108 |
+| `creation-kit-worldbuilding-navmesh.md` | 121 |
+| `development-toolchains.md` | 72 |
+| `engine-fixes-runtime-frameworks.md` | 66 |
+| `gameplay-records-combat-magic-crafting.md` | 106 |
+| `lod-grass-seasons-occlusion.md` | 94 |
+| `mod-managers-modlists-deployment.md` | 83 |
+| `npc-appearance-facegen-racemenu.md` | 92 |
+| `papyrus-api-event-catalog.md` | 159 |
+| `papyrus-persistence-advanced.md` | 85 |
+| `papyrus-quests-dialogue-ai-magic.md` | 104 |
+| `performance-engine-limits.md` | 73 |
+| `physics-hdt-smp-collision.md` | 76 |
+| `records-patching-load-order.md` | 61 |
+| `rendering-shaders-lighting.md` | 91 |
+| `runtime-distribution-frameworks.md` | 81 |
+| `skse-commonlib-native-crash.md` | 72 |
+| `skypatcher-runtime-record-patching.md` | 31 |
+| `story-manager-quests-dialogue-scenes.md` | 98 |
+| `textures-nif-asset-optimization.md` | 80 |
+| `ui-skyui-mcm-scaleform.md` | 79 |
+| `worldspace-navmesh-saves-persistence.md` | 73 |
+| `xedit-plugin-format-advanced.md` | 77 |
 
-## Diagnostic lookup rule
+## Retrieval
 
-When troubleshooting, retrieve terms from more than one module when the symptom crosses layers. For example, an armor problem may require ARMO/ARMA records, NIF partitions, BodySlide output, skeleton/bone data, and asset overwrite order; an established-save-only problem may require current overrides plus ChangeForms, Papyrus/native serialization, quests, aliases, cell state, and migration logic.
+Use `aliases.json` to normalize acronyms and shorthand, then use `troubleshooting-routing.md` to choose subsystem modules. Do not answer cross-layer troubleshooting from one matching definition.
 
-## Core glossary
+### Primary routing layers
 
-Source: `knowledge/libraries/skyrim-modding/terminology/core-glossary.md`  
-Entries: 85
+- plugin format, records, xEdit, FormIDs and load order;
+- mod-manager deployment, archives and asset priority;
+- Papyrus, quests, Story Manager and save persistence;
+- SKSE/CommonLib/native code, engine fixes and crash logs;
+- runtime distribution/config patchers and generated patches;
+- animations, skeletons, physics, BodySlide, RaceMenu and FaceGen;
+- UI/Scaleform/SkyUI/MCM/input;
+- worldspaces, cells, navmesh and encounter/location systems;
+- textures, NIF materials, rendering and shaders;
+- LOD, grass, seasons, large references and occlusion;
+- gameplay records including actor values, perks, magic, combat, equipment and crafting;
+- development/build/testing/release workflows.
 
-- Plugin / module
-- ESP
-- ESM
-- ESL
-- ESP-FE
-- Light plugin
-- Full plugin
-- Master / parent master
-- Active File
-- Record
-- Record type / signature
-- FormID
-- ObjectID
-- EditorID
-- Base record / base form
-- Reference / placed reference
-- Persistent reference
-- Override
-- Conflict
-- Conflict winner
-- Conflict loser
-- Patch plugin
-- Merged patch
-- ITM
-- UDR
-- Quick Auto Clean / QAC
-- ModGroup
-- Unresolved FormID
-- Load order
-- Asset overwrite order
-- Data directory
-- Loose file
-- BSA
-- Virtual File System / VFS
-- Overwrite directory
-- Creation Kit / CK
-- xEdit
-- SSEEdit
-- Very Quick Show Conflicts
-- Papyrus
-- PSC
-- PEX
-- ScriptName
-- Event
-- Function
-- Property
-- Auto property
-- Script fragment
-- Papyrus VM
-- Papyrus log
-- Quest
-- Quest stage
-- Alias
-- Reference Alias
-- Condition
-- Cell
-- Worldspace
-- Navmesh
-- SKSE
-- SKSE plugin
-- Runtime version
-- Address Library
-- CommonLibSSE / CommonLibSSE-NG
-- Mesh
-- NIF
-- Texture
-- DDS
-- Normal map
-- Collision
-- HKX
-- FaceGen
-- LOD
-- Object LOD
-- Tree LOD
-- Terrain LOD
-- Billboard
-- xLODGen
-- DynDOLOD
-- TexGen
-- Active exterior cells
-- Open Animation Replacer / OAR
-- Animation replacer
-- Papyrus error vs crash
-- Plugin conflict vs asset conflict
-- Missing master
+## Maintenance rules
 
-## Records, patching, and load order
-
-Source: `knowledge/libraries/skyrim-modding/terminology/records-patching-load-order.md`  
-Entries: 61
-
-- Form
-- Form type
-- Record signature
-- GRUP
-- Master record
-- Override chain
-- Winning override
-- Forwarding
-- Conflict resolution patch
-- Intentional conflict
-- Benign conflict
-- Destructive conflict
-- Leveled list
-- LeveledItem
-- LeveledActor
-- LeveledSpell
-- FormList
-- Keyword
-- GlobalVariable
-- ConstructibleObject / COBJ
-- Container
-- Outfit
-- Faction
-- Race
-- ArmorAddon / ARMA
-- Armor / ARMO
-- Weapon / WEAP
-- MagicEffect / MGEF
-- Spell / SPEL
-- Perk
-- Condition
-- Condition function
-- Default Object
-- Injected record
-- Unresolved reference
-- Deleted reference
-- Undelete and Disable
-- Deleted navmesh
-- ITM
-- Cleaning
-- Quick Auto Clean / QAC
-- Plugin load order
-- Master block
-- Light-plugin space
-- Plugin index
-- ObjectID
-- Compacting FormIDs
-- Missing master
-- Cyclic dependency
-- LOOT
-- LOOT metadata
-- LOOT group
-- “Load after” rule
-- Dirty plugin
-- Record patch
-- Runtime patching
-- Conflict avoidance
-- Soft dependency
-- Hard dependency
-- Compatibility patch
-- Bashed/merged-style list synthesis
-
-## Papyrus, quests, dialogue, AI, and magic
-
-Source: `knowledge/libraries/skyrim-modding/terminology/papyrus-quests-dialogue-ai-magic.md`  
-Entries: 104
-
-- Papyrus
-- PSC
-- PEX
-- ScriptName
-- Extends
-- Native function
-- Global function
-- Event
-- Function
-- Property
-- Auto property
-- AutoReadOnly property
-- Script instance
-- Attached script
-- Script property binding
-- VMAD
-- Papyrus VM
-- Stack
-- Stack dump
-- Papyrus budget
-- Latent function
-- Utility.Wait
-- OnInit
-- OnPlayerLoadGame
-- OnUpdate
-- RegisterForUpdate
-- RegisterForSingleUpdate
-- UnregisterForUpdate
-- Polling
-- ModEvent
-- State
-- GoToState
-- None
-- Cast
-- Array
-- FormList vs Papyrus array
-- Debug.Trace
-- Debug.Notification
-- Papyrus log
-- Save-baked script state
-- Script update/migration
-- Quest / QUST
-- Start Game Enabled
-- Quest stage
-- Quest objective
-- Quest fragment
-- Alias
-- ReferenceAlias
-- LocationAlias
-- RefCollectionAlias
-- Forced reference alias
-- Unique actor alias
-- Find Matching Reference
-- Alias conditions
-- Optional alias
-- Essential alias
-- Alias package
-- Alias spell
-- Alias script
-- Dialogue
-- Topic / DIAL
-- TopicInfo / INFO
-- Dialogue branch
-- Response
-- VoiceType
-- Scene
-- Scene phase
-- Scene action
-- Scene fragment
-- TalkingActivator
-- AI package
-- Package stack
-- Package condition
-- Procedure
-- Procedure tree
-- Package template
-- Package data
-- Travel package
-- Follow package
-- Sandbox package
-- Patrol package
-- ForceGreet
-- Combat override package
-- EvaluatePackage / EVP
-- ResetAI
-- Linked reference / LinkRef
-- Named linked reference
-- XMarker
-- XMarkerHeading
-- MagicEffect / MGEF
-- Effect archetype
-- ActiveMagicEffect
-- Effect item
-- Spell
-- Ability
-- Lesser Power
-- Shout
-- Enchantment
-- Target condition
-- Casting type
-- Delivery
-- Magnitude
-- Duration
-- Area
-
-## SKSE, CommonLibSSE-NG, native plugins, and crash diagnostics
-
-Source: `knowledge/libraries/skyrim-modding/terminology/skse-commonlib-native-crash.md`  
-Entries: 72
-
-- Runtime
-- SE
-- AE
-- VR
-- GOG runtime
-- ABI
-- Offset
-- Address
-- RVA
-- Pattern scan
-- Hook
-- Detour
-- Trampoline
-- Call hook
-- Vtable
-- RTTI
-- Struct layout
-- Reverse engineering
-- SKSE
-- SKSE64
-- SKSE plugin
-- SKSE plugin directory
-- SKSE plugin load
-- SKSE messaging interface
-- PostLoad
-- PostPostLoad
-- DataLoaded
-- SKSE serialization interface
-- SKSE task interface
-- SKSE trampoline interface
-- SKSE Papyrus interface
-- Plugin API
-- Address Library for SKSE Plugins
-- Address Library ID
-- Version database
-- Relocation
-- REL namespace
-- REL::ID
-- REL::Relocation
-- Relocation ID
-- Raw offset
-- Missing relocation mapping
-- CommonLibSSE
-- CommonLibSSE-NG
-- RE namespace
-- SKSE namespace
-- REL namespace
-- REX namespace
-- Multi-runtime plugin
-- Runtime feature detection
-- Runtime data accessor
-- Static relocation
-- CommonLib reverse-engineered class
-- PDB
-- Symbol
-- Stack trace
-- Call stack
-- Register
-- RIP
-- Access violation
-- EXCEPTION_ACCESS_VIOLATION
-- Null pointer
-- Dangling pointer
-- Use-after-free
-- Invalid vtable
-- Module
-- Native crash log
-- CrashLoggerSSE
-- Papyrus log vs native crash log
-- Suspect module
-- Faulting instruction
-- Reproducible crash
-
-## Runtime distribution frameworks
-
-Source: `knowledge/libraries/skyrim-modding/terminology/runtime-distribution-frameworks.md`  
-Entries: 81
-
-- Runtime distribution
-- Static patching vs runtime distribution
-- Config-driven framework
-- Runtime-generated keyword
-- Filter
-- Positive filter
-- Exclusion filter
-- Wildcard / partial-match filter
-- AND filter group
-- OR / alternative group
-- Trait filter
-- Form filter
-- String filter
-- Chance
-- SPID
-- _DISTR.ini
-- Distribution entry
-- Distribution type
-- Actor-base distribution
-- String filter in SPID
-- Form filter in SPID
-- Level filter
-- Skill filter
-- Trait filter in SPID
-- Distribution count
-- Distribution chance
-- SPID deterministic distribution
-- SPID log
-- SPIDFormatter
-- KID
-- _KID.ini
-- KID distribution entry
-- KID target type
-- KID dynamic keyword
-- Exact match
-- Wildcard match
-- Exclusion
-- Exclusion wildcard
-- AND group
-- KID trait
-- KID dependency ordering
-- KID fixed chance
-- KID log
-- BOS
-- _SWAP.ini
-- Base-form swap
-- Reference-specific swap
-- Form swap
-- Locational swap
-- Swap target
-- Multiple swap candidates
-- Property override
-- Transform override
-- Relative transform
-- Absolute transform
-- Record-flag override
-- chanceS
-- chanceR
-- chanceL
-- BOS conflict resolution
-- Reference initialization
-- Runtime swap vs plugin override
-- FLM
-- _FLM.ini
-- Runtime FormList mutation
-- FLM FormList entry
-- FLM Remove
-- FLM Filter
-- FLM Alias
-- FLM Group
-- FLM Collection
-- FLM collection tag
-- FLM ModEvent
-- FLM flatten-list operator
-- Runtime list compatibility
-- FLM processing order
-- OCF
-- Categorization framework
-- Keyword categorization
-- FormList categorization
-- Framework consumer
-
-## Animation, assets, BodySlide, and UI
-
-Source: `knowledge/libraries/skyrim-modding/terminology/animation-assets-bodyslide-ui.md`  
-Entries: 93
-
-- Animation
-- HKX
-- Havok Behavior
-- Behavior graph
-- Animation clip
-- Animation event
-- Animation graph variable
-- Behavior patcher
-- Generated behavior output
-- FNIS
-- Nemesis
-- Pandora Behaviour Engine
-- Pandora patch
-- Graph injection
-- Behavior conflict
-- Conditional animation replacer
-- DAR
-- OAR
-- OAR condition
-- OAR submod
-- OAR priority
-- Animation variant
-- Paired animation
-- Behavior patcher vs OAR
-- Skeleton
-- Bone
-- Bone weight
-- Skinning
-- Weight painting
-- Reference skeleton
-- Skeleton mismatch
-- NIF
-- NifSkope
-- NIF block
-- Scene graph
-- Node
-- Shape
-- BSTriShape
-- Vertex
-- Triangle
-- Normal
-- Tangent / bitangent
-- UV
-- Vertex color
-- Shader property
-- BSLightingShaderProperty
-- BSEffectShaderProperty
-- Texture set
-- Collision
-- Havok collision
-- Partition
-- Body slot
-- Mesh path
-- Texture path
-- Loose mesh
-- Asset overwrite
-- BodySlide
-- Outfit Studio
-- BodySlide project
-- Slider
-- Slider value
-- Slider set
-- Preset
-- Group
-- Reference shape
-- Conversion reference
-- Conform
-- Slider delta
-- Base shape
-- Low-weight mesh
-- High-weight mesh
-- Weight morph
-- TRI
-- BodyMorph
-- Build Morphs
-- Batch Build
-- Output conflict
-- Zap
-- Clipping
-- Copy Bone Weights
-- ShapeData
-- SliderSets
-- SliderPresets
-- SkyUI
-- MCM
-- MCM script
-- MCM registration
-- MCM Helper
-- SWF
-- Scaleform
-- UI asset conflict
-- Interface folder
-- MCM settings persistence
-
-## Worldspaces, navmesh, saves, persistence, and LOD state
-
-Source: `knowledge/libraries/skyrim-modding/terminology/worldspace-navmesh-saves-persistence.md`  
-Entries: 73
-
-- Cell
-- Interior cell
-- Exterior cell
-- Cell coordinates
-- Worldspace / WRLD
-- Persistent reference
-- Persist location
-- Temporary reference
-- Initially Disabled
-- Enable state
-- Cell reset
-- Cleared cell
-- Respawn interval
-- OnReset
-- OnCellLoad
-- PCB
-- COC
-- COW
-- Reference state
-- Navmesh
-- Navmesh triangle
-- Navmesh edge
-- Navmesh island
-- Navmesh portal/connection
-- Finalized navmesh
-- Deleted navmesh
-- Navmesh override
-- Pathfinding
-- Navmesh conflict
-- Preferred pathing
-- Navmesh diagnostic principle
-- ESS
-- Save header
-- Plugin table
-- FormID array
-- ChangeForm
-- Change flag
-- ChangeForm table
-- Created form
-- Papyrus save section
-- Script instance
-- Active script / stack
-- Suspended stack
-- Orphaned script instance
-- Unattached instance
-- Undefined element
-- Missing plugin in save analysis
-- Save-baked state
-- Clean save
-- New-game test
-- Existing-save test
-- Save migration
-- Serialization version
-- SKSE co-save
-- ReSaver
-- FallrimTools
-- Save repair
-- Truncated save
-- Broken Papyrus section
-- Nonexistent created form
-- Null FormList entry
-- Havok ChangeForm state
-- Active exterior cells
-- uGridsToLoad
-- Large reference
-- Large-reference grid
-- Large-reference list
-- Large-reference bug
-- Dynamic LOD
-- NearGrid
-- FarGrid
-- Full model vs LOD model
-- LOD transition
-
-## Planned index extensions
-
-Future ingestion should add alias/synonym normalization, acronym expansion, cross-reference edges, source-confidence metadata, runtime/version applicability, and machine-readable entity IDs so Agent OS can resolve terms such as “ESP-FE,” “light plugin,” and “ESL-flagged ESP” to one canonical concept while preserving context-specific distinctions.
+1. Regenerate counts when modules are added or headings materially change.
+2. Add common synonyms/acronyms to `aliases.json`.
+3. Add new symptom routes to `troubleshooting-routing.md`.
+4. Version-scope volatile tool/runtime facts.
+5. Preserve conflicting evidence until resolved rather than silently overwriting it.
+6. Prefer source-backed diagnostic relationships over isolated definitions.
