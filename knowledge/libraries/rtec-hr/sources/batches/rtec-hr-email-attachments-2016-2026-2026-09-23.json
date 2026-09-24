@@ -12,11 +12,11 @@
   },
   "privacy_class_counts": {
     "safe_canonical_source": 9,
-    "safe_metadata_context": 9,
-    "restricted_applicant": 1,
-    "restricted_employee_case": 12,
+    "safe_metadata_context": 5,
+    "restricted_applicant": 2,
+    "restricted_employee_case": 14,
     "restricted_personnel_financial": 2,
-    "restricted_business_financial": 2,
+    "restricted_business_financial": 3,
     "restricted_business_identifier": 1,
     "restricted_or_nonwork_image": 9,
     "low_value_inline_media": 46,
@@ -80,9 +80,10 @@
     }
   ],
   "safe_metadata_context_examples": [
-    "Two 2020-2021 company contribution-rate workbooks for employee benefits.",
-    "Calendar invitations and professional contact-card artifacts.",
-    "System/vendor attachments whose business context is useful but whose raw payload is not necessary for durable knowledge."
+    "Two 2020-2021 organization-level contribution-rate workbooks for employee benefits.",
+    "A 2021 Budgeting Basics calendar invitation from an external financial-wellness provider.",
+    "A 2026 cancelled Rippling meeting invitation documenting vendor evaluation/contact.",
+    "A professional contact-card artifact tied to historical EEOC training correspondence."
   ],
   "restricted_classes": [
     "completed applicant applications",
@@ -100,5 +101,6 @@
     "Restricted sources may contribute document-class and workflow evidence without retaining names, medical facts, compensation, identifiers, tax IDs, banking values or case narratives.",
     "Inline signature graphics, tracking images and mail-system wrappers are recorded as reviewed low-value artifacts rather than promoted.",
     "Safe canonical attachments are versioned historical/current sources; attachment presence alone never makes a document current policy."
-  ]
+  ],
+  "reclassification_note": "A completed 2016 employment application, a 2018 employment-verification record, a workers-comp/ambulance record, and a vendor invoice were reclassified as restricted after payload inspection. No sensitive content from those files is canonicalized."
 }
