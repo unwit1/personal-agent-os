@@ -17,6 +17,7 @@ _PATHS_RELATIVE = Path("Config") / "paths_settings.json"
 _DB_NAME = "dashboard.db"
 _AUDIT_PATH = ROOT / ".agent-local" / "rtec-applicant-access.jsonl"
 _AUDIT_MAX_ROWS = 10000
+_AUDIT_MAX_BYTES = 8 * 1024 * 1024
 _AUDIT_METADATA_KEYS = {
     "result_count",
     "status_filter",
@@ -112,16 +113,32 @@ def _audit_access(action: str, *, applicant_ref: str | None = None,
 
     try:
         _AUDIT_PATH.parent.mkdir(parents=True, exist_ok=True)
-        existing: list[str] = []
-        if _AUDIT_PATH.exists():
+        line = json.dumps(entry, sort_keys=True, separators=(",", ":")) + "\n"
+        with _AUDIT_PATH.open("a", encoding="utf-8", newline="\n") as handle:
+            handle.write(line)
+
+        # Normal reads are O(1). Compact only after the local audit grows past
+        # a generous size threshold, retaining the newest bounded record set.
+        try:
+            should_compact = _AUDIT_PATH.stat().st_size > _AUDIT_MAX_BYTES
+        except OSError:
+            should_compact = False
+        if should_compact:
             with _AUDIT_PATH.open("r", encoding="utf-8") as handle:
                 existing = [line for line in handle if line.strip()]
-        existing.append(json.dumps(entry, sort_keys=True, separators=(",", ":")) + "\n")
-        existing = existing[-_AUDIT_MAX_ROWS:]
-        tmp = _AUDIT_PATH.with_suffix(_AUDIT_PATH.suffix + ".tmp")
-        with tmp.open("w", encoding="utf-8", newline="\n") as handle:
-            handle.writelines(existing)
-        os.replace(tmp, _AUDIT_PATH)
+            existing = existing[-_AUDIT_MAX_ROWS:]
+            tmp = _AUDIT_PATH.with_suffix(_AUDIT_PATH.suffix + ".tmp")
+            with tmp.open("w", encoding="utf-8", newline="\n") as handle:
+                handle.writelines(existing)
+            os.replace(tmp, _AUDIT_PATH)
+
+        # Best effort: on POSIX this keeps the local audit owner-only. Windows
+        # ACLs are outside Python chmod's full control, so this is not treated
+        # as a security boundary there.
+        try:
+            os.chmod(_AUDIT_PATH, 0o600)
+        except OSError:
+            pass
     except Exception as exc:
         raise RuntimeError(
             "Applicant access audit could not be recorded; access denied."
