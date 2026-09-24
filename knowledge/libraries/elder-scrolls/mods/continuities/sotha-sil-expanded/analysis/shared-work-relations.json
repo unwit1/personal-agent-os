@@ -1,0 +1,183 @@
+{
+  "analysis_date": "2026-09-24",
+  "status": "verified_current_package_cross_continuity_relations",
+  "historical_precedence_boundary": "The compared Sotha Sil Expanded 3.1 (2025) and Aethernautics 3.1 (2026) packages postdate Wheels of Lull. These relations establish current shared-work identity/edition relationships but do not alone prove pre-Wheels publication.",
+  "relations": [
+    {
+      "work": "Harquebuses",
+      "members": [
+        {
+          "continuity": "tes.mod.sotha-sil-expanded",
+          "record": "_sotha_gunbook"
+        },
+        {
+          "continuity": "tes.mod.wheels-of-lull",
+          "record": "0537158D"
+        }
+      ],
+      "relation": "semantic_text_exact",
+      "notes": "Exact after presentation normalization."
+    },
+    {
+      "work": "Harquebuses",
+      "members": [
+        {
+          "continuity": "tes.mod.aethernautics",
+          "record": "05002FAD"
+        },
+        {
+          "continuity": "tes.mod.wheels-of-lull",
+          "record": "0537158D"
+        }
+      ],
+      "relation": "same_body_byline_variant",
+      "notes": "Aethernautics adds 'By Confrater Trebon Talanian'; removing the byline yields the exact Wheels/Sotha body."
+    },
+    {
+      "work": "Chronography, Volume I",
+      "members": [
+        {
+          "continuity": "tes.mod.aethernautics",
+          "record": "05002FA7"
+        },
+        {
+          "continuity": "tes.mod.wheels-of-lull",
+          "record": "05371595"
+        }
+      ],
+      "relation": "semantic_text_exact"
+    },
+    {
+      "work": "Chronography, Volume II",
+      "members": [
+        {
+          "continuity": "tes.mod.aethernautics",
+          "record": "05002FA8"
+        },
+        {
+          "continuity": "tes.mod.wheels-of-lull",
+          "record": "05376714"
+        }
+      ],
+      "relation": "minor_text_variant",
+      "notes": "Aethernautics has 'his perfection changed' vs Wheels 'his imperfection changed', and 'has been referred, as' vs Wheels 'has been referred to, as'."
+    },
+    {
+      "work": "Chronography, Volume III",
+      "members": [
+        {
+          "continuity": "tes.mod.aethernautics",
+          "record": "05002FA9"
+        },
+        {
+          "continuity": "tes.mod.wheels-of-lull",
+          "record": "05376715"
+        }
+      ],
+      "relation": "semantic_text_exact"
+    },
+    {
+      "work": "How Two Moon",
+      "members": [
+        {
+          "continuity": "tes.mod.sotha-sil-expanded",
+          "record": "sotha_bookmoon"
+        },
+        {
+          "continuity": "tes.mod.wheels-of-lull",
+          "record": "05371594"
+        }
+      ],
+      "relation": "semantic_text_exact",
+      "notes": "Wheels FULL metadata says 'How To Moon'; embedded heading and Sotha title say 'How Two Moon'."
+    },
+    {
+      "work": "Musings on Power",
+      "members": [
+        {
+          "continuity": "tes.mod.sotha-sil-expanded",
+          "record": "sotha_powerbook"
+        },
+        {
+          "continuity": "tes.mod.wheels-of-lull",
+          "record": "05371592"
+        }
+      ],
+      "relation": "semantic_text_exact"
+    },
+    {
+      "work": "De Rerum Mutabilitatis",
+      "members": [
+        {
+          "continuity": "tes.mod.sotha-sil-expanded",
+          "record": "sotha_mimicbook"
+        },
+        {
+          "continuity": "tes.mod.wheels-of-lull",
+          "record": "05371593"
+        }
+      ],
+      "relation": "single_typo_variant",
+      "notes": "Sotha has 'sepetims'; Wheels has 'septims'."
+    },
+    {
+      "work": "Wind Up and Wound Down",
+      "members": [
+        {
+          "continuity": "tes.mod.sotha-sil-expanded",
+          "record": "_sotha_rewoundbook"
+        },
+        {
+          "continuity": "tes.mod.wheels-of-lull",
+          "record": "05371591"
+        }
+      ],
+      "relation": "punctuation_only_variant",
+      "notes": "Sotha includes a colon between title and byline; prose otherwise matches."
+    },
+    {
+      "work": "KINMUNE",
+      "members": [
+        {
+          "continuity": "tes.mod.sotha-sil-expanded",
+          "record": "_sotha_kinmune"
+        },
+        {
+          "continuity": "tes.mod.wheels-of-lull",
+          "record": "0537158E"
+        }
+      ],
+      "relation": "semantic_text_exact",
+      "notes": "Same embedded current-package edition; central developer-text witness remains a separate edition question."
+    },
+    {
+      "work": "Tatterdemalion: The Lunar Province of Secunda",
+      "members": [
+        {
+          "continuity": "tes.mod.sotha-sil-expanded",
+          "record": "_sotha_mooncolony"
+        },
+        {
+          "continuity": "tes.mod.wheels-of-lull",
+          "record": "0537158F"
+        }
+      ],
+      "relation": "semantic_text_exact"
+    },
+    {
+      "work": "The Xal-Gosleigh Letters: On the Cacophony",
+      "members": [
+        {
+          "continuity": "tes.mod.sotha-sil-expanded",
+          "record": "_sotha_music"
+        },
+        {
+          "continuity": "tes.mod.wheels-of-lull",
+          "record": "05371590"
+        }
+      ],
+      "relation": "semantic_text_same_after_encoding_repair",
+      "notes": "Wheels has mojibake in two opening-quote characters; prose otherwise matches."
+    }
+  ]
+}
