@@ -1,0 +1,45 @@
+{
+  "id": "rtec-title-vi-complaint-correspondence-templates",
+  "record_type": "process_supporting_templates",
+  "title": "RTEC Title VI complaint correspondence templates",
+  "status": "validated_from_safe_archive_sources",
+  "temporal_status": "mixed_currentness_requires_reconciliation",
+  "sources": [
+    {
+      "role": "acknowledgement",
+      "sha256": "2378e38559a1fba638ea0426d6073935e85fde16a21b248a7d05a335ba694a0c",
+      "named_coordinator": "Clarissa Hodge"
+    },
+    {
+      "role": "not_substantiated_closure",
+      "sha256": "48743c6069f5da9028a58eec1f4c690247c0849b16a0073079b40ef6242b71a6",
+      "named_coordinator": "Clarissa Hodge"
+    },
+    {
+      "role": "substantiated_finding",
+      "sha256": "5ac7e1f84c22675320ed387755dede6bbbe1a8a74d1e75062371b8aed45a4d5e",
+      "named_coordinator": "Clarissa Hodge"
+    }
+  ],
+  "lifecycle": [
+    "Acknowledgement template confirms receipt, identifies the allegation, states that an investigation will begin, and invites additional information/questions.",
+    "Substantiated template states that apparent Title VI violation(s) were identified and that corrective efforts are underway; it anticipates possible further administrative-hearing contact.",
+    "Not-substantiated template explains that no Title VI violation/evidence of civil-rights-law noncompliance was found, closes the matter, and provides reconsideration/external-filing language."
+  ],
+  "currentness_conflict": {
+    "finding": "The not-substantiated template gives seven calendar days to provide additional information for reconsideration.",
+    "current_plan": "The January 2026 Board-approved Title VI/LEP plan gives 90 days after the closure/Letter of Finding date to appeal.",
+    "relationship": "CONFLICTS_WITH",
+    "risk": "A current-looking template names the current 2026 coordinator but carries a shorter historical reconsideration period. It should not be used operationally until reconciled with the approved plan.",
+    "required_action": "Revise/approve the template set so acknowledgement, closure/finding, reconsideration/appeal language and coordinator/contact information match the current approved Title VI plan."
+  },
+  "controls": [
+    "Template/version IDs should be tied to the governing Title VI plan version.",
+    "Case-specific names, allegations, investigative facts and correspondence remain restricted records.",
+    "Do not infer a substantiated or unsubstantiated outcome from the existence of a blank template."
+  ],
+  "related_records": [
+    "rtec-process-title-vi-complaint-version-history",
+    "rtec-process-title-vi-lep-program"
+  ]
+}
