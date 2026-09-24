@@ -255,3 +255,111 @@ Coordinated changes to item values, merchant gold, loot, crafting, rewards and b
 - CK Wiki GetCrimeGoldNonViolent and related Faction APIs: https://ck.uesp.net/wiki/GetCrimeGoldNonViolent_-_Faction
 - CK Wiki scripting API index: https://ck.uesp.net/wiki/Category:Scripting
 - CK Wiki DefaultObjectManager: https://ck.uesp.net/wiki/DefaultObjectManager_Script
+## Native Faction crime/vendor data — CommonLibSSE-NG
+
+Source: `include/RE/T/TESFaction.h` blob `619fad4d15b1fbc2bff6ae49416787d65b2b54dd`.
+
+### Faction DATA flags
+
+| Flag | Bit |
+|---|---|
+| HiddenFromNPC | 1 << 0 |
+| SpecialCombat | 1 << 1 |
+| PlayerIsExpelled | 1 << 2 |
+| PlayerIsEnemy | 1 << 3 |
+| TrackCrime | 1 << 6 |
+| IgnoresCrimes_Murder | 1 << 7 |
+| IgnoresCrimes_Assault | 1 << 8 |
+| IgnoresCrimes_Stealing | 1 << 9 |
+| IgnoresCrimes_Trespass | 1 << 10 |
+| DoNotReportCrimesAgainstMembers | 1 << 11 |
+| CrimeGold_UseDefaults | 1 << 12 |
+| IgnoresCrimes_Pickpocket | 1 << 13 |
+| Vendor | 1 << 14 |
+| CanBeOwner | 1 << 15 |
+| IgnoresCrimes_Werewolf | 1 << 16 |
+
+The current CommonLib identifiers preserve a few historical spelling typos in source; this knowledge entry normalizes their English labels while retaining the source SHA.
+
+## Crime values
+
+Current native `FACTION_CRIME_DATA_VALUES` stores:
+
+- arrest behavior;
+- attack-on-sight behavior;
+- murder crime gold;
+- assault crime gold;
+- trespass crime gold;
+- pickpocket crime gold;
+- stealing gold multiplier;
+- escape-jail crime gold;
+- werewolf crime gold.
+
+### Crime infrastructure references
+
+`FACTION_CRIME_DATA` also links:
+- jail marker;
+- wait marker;
+- stolen-items container;
+- player inventory container;
+- crime group FormList;
+- jail outfit.
+
+This is why crime behavior is not reducible to one bounty number.
+
+## Vendor data
+
+Current `FACTION_VENDOR_DATA_VALUES` includes:
+- start hour;
+- end hour;
+- location radius;
+- buys stolen;
+- not buy/sell;
+- buys non-stolen.
+
+`FACTION_VENDOR_DATA` adds:
+- vendor location;
+- vendor conditions;
+- vendor buy/sell FormList;
+- merchant container;
+- last reset day.
+
+### Merchant-container distinction
+
+A faction/vendor can be configured correctly while a merchant still appears empty or stale if:
+- the merchant container is wrong/missing;
+- the vendor location/conditions fail;
+- the container has not reset;
+- runtime inventory state/save changes override expectations.
+
+## Faction save ChangeFlags
+
+Current CommonLib exposes:
+- `FactionFlags = 1 << 1`
+- `FactionReactions = 1 << 2`
+- `FactionCrimeCounts = 1 << 31`
+
+Faction crime/reaction state can therefore persist independently from the static FACT record.
+
+## Native faction operations
+
+Current CommonLib exposes native operations for:
+- crime gold totals, violent/nonviolent splits and infamy;
+- stolen item values;
+- ignore-crime tests;
+- crime-group membership;
+- player enemy/expelled state;
+- vendor/owner/service checks;
+- modifying and paying crime gold;
+- sending player to jail;
+- setting ally/enemy/fight reactions.
+
+## Compatibility rules
+
+1. `Vendor`, `CanBeOwner`, and `TrackCrime` are independent faction capabilities.
+2. Crime ignore flags are per category; “ignores crimes” is not one Boolean.
+3. Vendor faction data and the NPC's AI/package/service availability both matter.
+4. Faction reactions, actor relationships, and runtime combat hostility are separate systems.
+5. Static FACT patching does not automatically clear saved crime counts/reaction state.
+6. Ownership of one inventory instance/reference can still be overridden by ExtraOwnership even when faction ownership is configured.
+
