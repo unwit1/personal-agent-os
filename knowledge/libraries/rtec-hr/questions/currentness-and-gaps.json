@@ -39,7 +39,8 @@
       "priority": "high",
       "domain": "vehicle_accident",
       "question": "Document the complete current vehicle-accident workflow, including notification, internal forms, police/insurance reporting, preventability review, training, discipline and closure.",
-      "status": "open"
+      "status": "partially_answered",
+      "resolution_note": "Historical/current evidence now establishes several components: unsafe/out-of-service vehicles must not continue in service until cleared; vehicle incidents were historically tracked in the fiscal event register; accident cases may use police/DOT and video evidence; current video policy imposes accident-recording retention; historical training allowed corrective defensive-driving retraining. Current first-notification, preventability, insurance/state/federal reporting, clearance authority and case-closure steps remain unresolved."
     },
     {
       "priority": "medium",
@@ -162,7 +163,8 @@
       "priority": "high",
       "domain": "disciplinary_records",
       "question": "What is the current authoritative system for recording disciplinary actions and verbal warnings, what replaced the historical fiscal-year/AAP-sorted workbooks, and is the missing 2024-2025 workbook absent because the process changed or because the archive is incomplete?",
-      "status": "open"
+      "status": "partially_answered",
+      "resolution_note": "Historical register structure is now exhaustively modeled: 1,193 event rows, mixed discipline/vehicle-incident content from 2016-2017 onward, partial coverage after 2023-09-22, no supplied 2024-2025 file, and an empty 2025-2026 template. The current authoritative system remains unknown."
     },
     {
       "priority": "high",
@@ -249,6 +251,30 @@
       "question": "Safely convert and review the organization-level 2020-2021 Anthem and UHC/Delta Dental employee-benefit contribution workbooks if a supported legacy-XLS conversion path becomes available.",
       "status": "open",
       "resolution_note": "The two .xls attachments are hashed and provenance-linked, but the approved spreadsheet path could not parse legacy BIFF in this run. No cell-level rate claims have been promoted."
+    },
+    {
+      "priority": "high",
+      "domain": "affirmative_action_plan_disciplinary_data",
+      "question": "What AAP/EEO methodology explains the historical disciplinary-register EEO recoding (notably 7-to-9 changes in 2014-2015 and one 2016-2017 derivative), which 2016-2017 derivative was final, and were vehicle Incident rows intentionally included in the disciplinary reporting population?",
+      "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "medical_leave_records",
+      "question": "What is the current approved intake/storage workflow for doctor's notes, medical releases and FMLA supporting documents, including approved channels, original-document requirements, separation from ordinary attendance/timekeeping records, access controls and retention?",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "driver_operational_paperwork",
+      "question": "What driver paperwork/forms are currently required, who receives them, what deadlines apply, and which submission channels are approved instead of the historical drop-point/fax process?",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "employee_relations_investigations",
+      "question": "What is the current standardized employee-relations investigation checklist, case-status model, interim-action authority and approval chain, including how employee response, later evidence and final findings are documented?",
+      "status": "open"
     }
   ]
 }
