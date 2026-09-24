@@ -1,0 +1,104 @@
+{
+  "id": "rtec-process-incident-video-evidence-review-2024",
+  "record_type": "process",
+  "title": "Incident video-evidence review memorandum - 2024 candidate",
+  "status": "case_only",
+  "temporal_status": "historical",
+  "effective_from": "2024-08-09",
+  "effective_to": "2024-08-09",
+  "summary": "A restricted 2024 incident document shows that video footage could be reviewed and summarized in writing as part of an HR/management incident record. The underlying incident facts and identities remain restricted and are not generalized.",
+  "claims": [
+    {
+      "claim": "A 2024 restricted incident artifact is explicitly a written review of video footage and records the reviewer's observations from the footage.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-incident-video-572211628ea1",
+          "page_or_section": "document structure only",
+          "evidence_type": "structural",
+          "note": "Underlying incident details and identities are excluded."
+        }
+      ]
+    },
+    {
+      "claim": "The Word document metadata shows the review document was created and modified on the date of the incident review, supporting same-day incident documentation in this example.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-incident-video-572211628ea1",
+          "page_or_section": "Word core properties",
+          "evidence_type": "structural",
+          "note": "Created 2024-08-09; modified later the same day."
+        }
+      ]
+    }
+  ],
+  "trigger": "An incident has relevant video footage requiring factual review.",
+  "prerequisites": [
+    "Authorized access to the video evidence.",
+    "Incident/case identifier or restricted case location."
+  ],
+  "actors": [
+    "Authorized HR/management reviewer"
+  ],
+  "systems": [
+    "Video surveillance/evidence source",
+    "Restricted incident record"
+  ],
+  "forms": [
+    "Video review memorandum"
+  ],
+  "steps": [
+    "Review the relevant video footage.",
+    "Record objective observations and timing/context necessary to the investigation.",
+    "Store the written review with the restricted incident/case evidence."
+  ],
+  "decisions": [
+    "Whether video is relevant and should be reviewed.",
+    "Whether additional evidence/witness follow-up is needed."
+  ],
+  "deadlines": [],
+  "outputs": [
+    "Restricted video-review memorandum",
+    "Investigation evidence note"
+  ],
+  "exceptions": [],
+  "controls": [
+    "Do not generalize the factual allegations or identities from a single incident into policy.",
+    "Preserve the original video or source reference separately from the reviewer's narrative.",
+    "Distinguish observed video facts from interpretation or conclusions.",
+    "Access to video and incident narratives should remain restricted."
+  ],
+  "unresolved_questions": [
+    "What current RTEC incident-investigation procedure governs video preservation, access, review, chain of custody and retention?",
+    "Is there a standard incident-review form or required reviewer/signoff process?"
+  ],
+  "automation_candidates": [
+    "Incident evidence manifest that records video source, date/time range, reviewer, review date, hash/reference and resulting memo without embedding private footage in generalized knowledge.",
+    "Template separating objective observations from interpretation and follow-up questions."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-restricted-incident-video-572211628ea1",
+      "safe_source_type": "restricted_employee_incident_record",
+      "source_date_or_version": "2024-08-09",
+      "content_sha256": "572211628ea1bc28658fd2801909f63619a3be5883f4e0f811201ddaca38a54e",
+      "page_or_section": "structural/metadata evidence only",
+      "ingested_at": "2026-09-24",
+      "notes": "Incident identities and factual allegations are excluded from generalized knowledge.",
+      "source_created_date": "2024-08-09",
+      "source_revision_date": "2024-08-09",
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "full_source_path": null,
+      "searchable_text_path": null
+    }
+  ]
+}
