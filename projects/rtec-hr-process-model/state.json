@@ -43,7 +43,14 @@
     "knowledge/libraries/rtec-hr/processes/medical-attendance-evidence-handling-history.json",
     "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-correspondence-2026-09-23-coverage-ledger.json",
     "knowledge/libraries/rtec-hr/forms/employee-warning-notice-legacy.json",
-    "knowledge/libraries/rtec-hr/processes/hstd-csr-trip-eligibility-denial-candidate.json"
+    "knowledge/libraries/rtec-hr/processes/hstd-csr-trip-eligibility-denial-candidate.json",
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24.json",
+    "knowledge/libraries/rtec-hr/restricted-evidence/downloads-spreadsheets-2026-09-24.json",
+    "knowledge/libraries/rtec-hr/forms/downloads-spreadsheet-document-types-2026-09-24.json",
+    "knowledge/libraries/rtec-hr/systems/historical-benefits-data-import-contracts-2018.json",
+    "knowledge/libraries/rtec-hr/processes/historical-benefits-billing-reconciliation.json",
+    "knowledge/libraries/rtec-hr/sources/reference-data/downloads-reference-data-2026-09-24.json",
+    "knowledge/libraries/rtec-hr/questions/downloads-spreadsheets-currentness-2026-09-24.json"
   ],
   "context_files": [
     "projects/rtec-hr-process-model/README.md",
@@ -61,7 +68,12 @@
     "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-correspondence-2026-09-23.json",
     "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-correspondence-2026-09-23-coverage-ledger.json",
     "knowledge/libraries/rtec-hr/forms/employee-warning-notice-legacy.json",
-    "knowledge/libraries/rtec-hr/processes/hstd-csr-trip-eligibility-denial-candidate.json"
+    "knowledge/libraries/rtec-hr/processes/hstd-csr-trip-eligibility-denial-candidate.json",
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24.json",
+    "knowledge/libraries/rtec-hr/restricted-evidence/downloads-spreadsheets-2026-09-24.json",
+    "knowledge/libraries/rtec-hr/forms/downloads-spreadsheet-document-types-2026-09-24.json",
+    "knowledge/libraries/rtec-hr/systems/historical-benefits-data-import-contracts-2018.json",
+    "knowledge/libraries/rtec-hr/processes/historical-benefits-billing-reconciliation.json"
   ],
   "skill_roots": [],
   "validation_commands": [],
@@ -83,7 +95,7 @@
     "preservation_rule": "Retain obsolete and superseded process sources for chronology and legacy-reference purposes."
   },
   "ingestion_status": {
-    "batches_completed": 5,
+    "batches_completed": 6,
     "latest_batch": "rtec-fy2017-grants-and-compliance-archive",
     "latest_batch_source_count": 4,
     "latest_batch_safe_sources": 51,
@@ -116,7 +128,12 @@
     "correspondence_schema_validation": "23 checks, 0 errors",
     "correspondence_exhaustive_analysis_status": "complete_for_supplied_95_artifacts",
     "correspondence_coverage_ledger": "95/95 explicit dispositions; 0 unreviewed",
-    "correspondence_last_deepening_date": "2026-09-24"
+    "correspondence_last_deepening_date": "2026-09-24",
+    "downloads_spreadsheet_batch_status": "complete",
+    "downloads_spreadsheet_artifacts": 16,
+    "downloads_spreadsheet_logical_families": 10,
+    "downloads_spreadsheet_restricted_artifacts": 9,
+    "downloads_spreadsheet_safe_artifacts": 7
   },
   "reference_form_context": {
     "catalog_path": "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json",
@@ -125,8 +142,8 @@
       "unwit1/job-applicant-dashboard",
       "unwit1/personal-agent-os"
     ],
-    "total_reference_records": 78,
-    "unique_identity_keys": 74,
+    "total_reference_records": 81,
+    "unique_identity_keys": 76,
     "full_source_rule": "When a safe original reference artifact is available, preserve it in full or by a lossless repository-safe representation and link it to the existing catalog entry.",
     "authority_rule": "Form presence is contextual evidence, not automatic current policy authority."
   },
@@ -169,5 +186,30 @@
     "warning_form_model": "knowledge/libraries/rtec-hr/forms/employee-warning-notice-legacy.json",
     "hstd_trip_workflow_candidate": "knowledge/libraries/rtec-hr/processes/hstd-csr-trip-eligibility-denial-candidate.json",
     "exhaustion_boundary": "All 95 supplied artifacts have been structurally/content-analyzed to the privacy-safe boundary and mapped to durable knowledge. Remaining open questions require newer or more authoritative sources rather than further rereading of this archive."
+  },
+  "downloads_cleanup_context": {
+    "batch_id": "rtec-hr-downloads-spreadsheets-2026-09-24",
+    "status": "complete",
+    "source_artifacts": 16,
+    "logical_source_families": 10,
+    "safe_artifacts": 7,
+    "restricted_artifacts": 9,
+    "semantic_duplicate_groups": 2,
+    "new_reference_form_types": [
+      "Employee Demographic Data Import Template",
+      "Benefits Enrollment Data Import Template"
+    ],
+    "new_admin_document_types": [
+      "Benefits Consolidated Billing Report",
+      "Benefits Account Balance Detail Report",
+      "Dependent Coverage Termination Export"
+    ],
+    "external_reference_types": [
+      "MWBE Certified Vendor Listing",
+      "County Population Change and Rank Reference",
+      "Census Demographic Profile Reference"
+    ],
+    "scanner_rule": "Multi-person administrative reports and external reference datasets are not individual employee-file forms. Route multi-person benefits artifacts to restricted benefits administration context; keep blank import templates as contextual references.",
+    "currentness_rule": "All operational semantics from this batch are historical unless independently revalidated against current systems, carriers or procedures."
   }
 }
