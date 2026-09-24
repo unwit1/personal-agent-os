@@ -1,0 +1,96 @@
+{
+  "id": "rtec-federal-eeo1-report-history",
+  "record_type": "historical_aggregate_reporting_series",
+  "title": "RTEC federal EEO-1 report history — archived report set",
+  "status": "validated_existence_with_partial_exact_extraction",
+  "temporal_status": "historical",
+  "reports": [
+    {
+      "reporting_year": 2012,
+      "source_sha256": "62474799651429df21f93f2f19125f5709d97b2f5eb4443710fa876be54c7212",
+      "extraction_status": "text_layer_extracted",
+      "report_type": "Single Establishment Report - Type 1",
+      "company_id": "CE48195",
+      "naics": "485999 All Other Transit and Ground Passenger Transportation",
+      "payroll_period": "2012-07-16 through 2012-07-28",
+      "certified_at": "2012-08-17 09:36 AM EST",
+      "overall_total": 189,
+      "previous_report_total": 182,
+      "confidence": "high_from_report_footer"
+    },
+    {
+      "reporting_year": 2013,
+      "source_sha256": "348820d68a8b553d7a4b36f5625ef1e517d6d4efd64e7449435cb15a0db9a607",
+      "extraction_status": "text_layer_extracted",
+      "report_type": "Single Establishment Report - Type 1",
+      "company_id": "CE48195",
+      "naics": "485999 All Other Transit and Ground Passenger Transportation",
+      "payroll_period": "2013-07-15 through 2013-07-27",
+      "certified_at": "2013-08-07 11:25 AM EST",
+      "overall_total": 195,
+      "previous_report_total": 189,
+      "confidence": "high_from_report_footer"
+    },
+    {
+      "reporting_year": 2014,
+      "source_sha256": "ba377a6e65f86b5f9f4fd61356068d7bd050dee57a46ee2fceabb6cd3fb6ba0d",
+      "extraction_status": "partial_text_layer_available_but_footer_not_reliably_recovered",
+      "overall_total": null,
+      "previous_report_total": null,
+      "confidence": "insufficient_for_exact_totals_without_layout_aware_parse"
+    },
+    {
+      "reporting_year": 2015,
+      "source_sha256": "d006a27cab25a953f70b0bfee96355f8c6a86d53c0ade685dd6d611f71a24411",
+      "extraction_status": "archived_report_exists_scan_or_unparsed_layout",
+      "overall_total": null
+    },
+    {
+      "reporting_year": 2016,
+      "source_sha256": "fa619b0a3ca730f01b9725fa3e9c068560554076e1535baf0ff36a502e364a76",
+      "extraction_status": "archived_report_exists_scan_or_unparsed_layout",
+      "overall_total": null
+    },
+    {
+      "reporting_year": 2017,
+      "source_sha256": "84c39f564538f5da028f4dc21e2d3774bda504f7278c97e44b7c82e41dc6efb6",
+      "extraction_status": "archived_report_exists_scan_or_unparsed_layout",
+      "overall_total": null
+    },
+    {
+      "reporting_year": 2018,
+      "source_sha256": "4b308cf9a7d7a38d663f2b319a3e1baf7ab92ce69a20ab34dec13697b7c5126c",
+      "extraction_status": "archived_report_exists_scan_or_unparsed_layout",
+      "overall_total": null
+    },
+    {
+      "reporting_year": 2022,
+      "source_sha256": "edb159f5b69ac009748db06ef447c1332c01f3319204c3e64bfdcce62a07195b",
+      "extraction_status": "probable_text_extraction_pair_has_hash_mismatch",
+      "exact_table_values_status": "not_promoted",
+      "related_record": "rtec-federal-eeo1-report-2022-source-reconciliation"
+    },
+    {
+      "reporting_year": 2023,
+      "source_sha256": "38345c34596cbd88203dacceab3d8ceb2251217bcffc3f262f655e9069595fce",
+      "source_label": "EEO1_2023_CE48195_CE48195_Draft.pdf",
+      "extraction_status": "draft_report_exists_layout_parse_pending",
+      "overall_total": null
+    }
+  ],
+  "reconciliation": [
+    "2012 and 2013 report totals independently match the corresponding Kentucky EEO certification-renewal form totals.",
+    "No value from a Kentucky renewal form is substituted into a federal EEO-1 record when the federal report itself has not been independently parsed.",
+    "The 2015-2018 report existence is established by archive inventory and source hashes; demographic/job-category values remain unpromoted until layout-aware extraction.",
+    "The 2023 source is explicitly labeled Draft and must not be treated as a certified filing without separate evidence."
+  ],
+  "controls": [
+    "Do not reconstruct race/sex/job-category cells from flattened text order.",
+    "Do not use person-level employee rosters to backfill aggregate federal report cells.",
+    "Preserve report existence separately from independently verified report values."
+  ],
+  "source_paths": [
+    "knowledge/libraries/rtec-hr/compliance/archive-corpus/pdf-text/corpus-053.txt",
+    "knowledge/libraries/rtec-compliance/sources/sanitized-inventory/"
+  ]
+}
