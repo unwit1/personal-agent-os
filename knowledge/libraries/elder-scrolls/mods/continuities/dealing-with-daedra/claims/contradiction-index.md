@@ -9,7 +9,8 @@ This index records conflicts without deciding that the more confident, more offi
 | dwd-conflict-003 | Arkay / soul destiny | Partial metaphysical conflict | Vigilant doctrine: souls return through Arkay | Gatekeepers: souls are manipulable/tradable animus | Unresolved metaphysics |
 | dwd-conflict-004 | Synod character | Perspective conflict | Synod member: finest magical society | Mirabelle: political, exclusive power-seekers | Preserve both perspectives |
 | dwd-conflict-005 | Gray-Wave children | Official record vs occult reconstruction | Census: 37 stillbirths | Legal + ritual + Seeker evidence: concealed Hermaeus-Mora activity | Occult link strong; exact individual fates inferred |
-| dwd-conflict-006 | Toruld's faith | Temporal reversal | Early Vigilant service to Stendarr | Later rejection of Stendarr for Soul-Cairn patrons | Resolved by chronology |
+| dwd-conflict-006 | Toruld's faith | Temporal reversal | `dwd-108` encodes the transition from earlier Stendarr confidence | `dwd-011` independently represents the later Soul-Cairn-patron state | Resolved by chronology |
+| dwd-conflict-007 | Knights Mentor / Knights Templar name | Record terminology conflict | Keeper Harorn names the order Knights Mentor | Promotion writs/signs use Knights Templar | Unresolved legacy/alias terminology |
 
 ## Retrieval rule
 
