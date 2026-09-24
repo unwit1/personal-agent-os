@@ -32,8 +32,9 @@
     {
       "priority": "high",
       "domain": "workplace_injury",
-      "question": "Document the complete current workplace injury/workers' compensation/OSHA workflow, deadlines, forms, owners and record-separation rules.",
-      "status": "open"
+      "question": "Document RTEC's complete current workplace injury/workers' compensation/OSHA workflow on top of the now-validated Kentucky baseline: current insurer/claims administrator, carrier intake method, internal owners/backups, incident form, emergency/safety escalation, Kentucky OSH reporter, medical-record separation, lost-time/light-duty/RTW, OSHA log reconciliation, closure and retention.",
+      "status": "partially_answered",
+      "resolution_note": "Current Kentucky baseline is now validated: employer reports work-related/alleged work-related injury or disease to its carrier/benefits administrator within three working days; carrier/administrator handles required FROI to DWC for qualifying lost-time cases; Kentucky OSH currently requires covered fatalities within 8 hours and hospitalization/amputation/loss-of-eye within 24 hours. RTEC-specific carrier, portal, forms, ownership and closure workflow remain unresolved."
     },
     {
       "priority": "high",
