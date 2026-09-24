@@ -205,3 +205,85 @@ A canonical version/provenance model now prevents old runtime/tool claims from b
 8. Build mod-specific profiles for important user projects and dependencies.
 9. Add automated contradiction detection between old/new source snapshots.
 10. Add CI jobs that rebuild indexes and flag stale source/version facts.
+
+
+## 2026-09-24 Mod Factory automation progress
+
+The repository has now moved beyond reference-only knowledge into an implementation system.
+
+### Implemented architecture
+
+Added:
+- natural-language idea -> typed mod-project manifest -> build graph -> validation -> runtime test -> release pipeline;
+- implementation-selection rules that prefer the least invasive correct layer;
+- 24 reusable mod archetype playbooks;
+- a question-preemption catalog so Agent OS resolves ordinary low-level architecture/tooling questions before asking the user;
+- explicit human/CK/game boundaries for visual, navmesh, scene, animation-feel, physics and performance validation.
+
+### Machine-readable contracts
+
+Added schemas for:
+- `skyrim-mod-project-v1`;
+- `skyrim-tool-adapter-v1`;
+- `skyrim-mod-build-report-v1`;
+- `skyrim-analyzer-rule-v1`.
+
+### Executable scaffolding
+
+Added:
+- project bootstrapper;
+- project manifest validator;
+- deterministic first-pass build planner;
+- core tool-adapter registry;
+- xEdit schema/master capture tooling;
+- Papyrus/CommonLib/xEdit knowledge extractors.
+
+### Validation and debugging
+
+Added:
+- gates G00-G23 covering project manifest, source lock, plugin schema, masters/FormIDs, ESL, conflict intent, framework configs, Papyrus, native plugins, assets, NIF/textures, animation/behavior, world/navmesh, quests, generated outputs, compatibility, crash/logs, performance, saves, packaging and reproducibility;
+- differential schema strategy using xEdit + Mutagen + CK/runtime rather than trusting one parser;
+- F01-F28 reusable test fixtures;
+- evidence-first autonomous repair loop;
+- machine-readable analyzer-rule model and initial rules for unresolved FormIDs, deleted navmesh, FaceGen mismatch, armor/partition mismatch, missing assets, stale generated output, runtime DLL mismatch, CTDA semantic loss and OAR overlap.
+
+### Tool/framework automation
+
+Current adapter/research coverage includes:
+- xEdit/xDump;
+- Mutagen/Synthesis;
+- Spriggit;
+- Creation Kit/CKPE;
+- MO2;
+- LOOT;
+- Wrye Bash;
+- SPID/KID/BOS/FLM/SkyPatcher;
+- SKSE/CommonLib/Address Library;
+- Papyrus compilers;
+- OAR/Pandora and adjacent animation frameworks;
+- PyNifly/NifSkope/BodySlide;
+- DynDOLOD/TexGen/xLODGen;
+- crash logging;
+- FOMOD/package validation.
+
+### Remaining implementation frontier
+
+Highest-value next engineering work:
+
+1. Implement the generic adapter runner that executes adapter-registry commands, captures stdout/stderr, hashes inputs/outputs and writes build-step records.
+2. Add a typed runtime-patch intent intermediate representation and versioned renderers for SPID, KID, BOS, FLM, SkyPatcher and OAR.
+3. Implement normalized semantic plugin export/diff so xEdit and Mutagen interpretations can be compared automatically.
+4. Implement an xEdit Check-for-Errors automation wrapper and parser for the local Windows test runner.
+5. Build the local/self-hosted Windows runtime harness that can launch dedicated MO2 fixtures, collect logs/crashes and run scripted smoke scenarios without redistributing proprietary game data.
+6. Ingest and map validated Mutagen.Bethesda.Analyzers/Antigen Skyrim rules into the analyzer registry.
+7. Implement crash-log parsing and signature clustering linked to exact build IDs.
+8. Implement FaceGen/NPC appearance fingerprints and validators.
+9. Implement PyNifly-backed NIF/TRI/partition/skeleton invariants and BodySlide output checks.
+10. Implement FOMOD option-matrix simulation in addition to XML schema validation.
+11. Implement dependency/license/redistribution auditing before project architecture is locked.
+12. Add source/framework update watchers that create candidate compatibility changes and regression jobs rather than silently updating dependencies.
+13. Build a bug-to-regression pipeline that can generate an analyzer rule/fixture candidate from a validated issue.
+14. Generate per-mod CI templates from the project manifest.
+15. Expand exact framework APIs/config grammars so semantic intent can be rendered without hand-written strings.
+
+The long-term target is that a user can describe a mod idea and Agent OS can choose the architecture, generate the project, validate schemas independently, build assets/configs, launch a controlled test profile, interpret failures, repair deterministic defects and surface only genuinely creative or in-game decisions.
