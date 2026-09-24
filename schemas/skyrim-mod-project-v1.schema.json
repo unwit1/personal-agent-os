@@ -1,0 +1,324 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-mod-project-v1.schema.json",
+  "title": "Skyrim Mod Project Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project_id",
+    "name",
+    "targets",
+    "layers",
+    "outputs",
+    "validation"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-mod-project-v1"
+    },
+    "project_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string"
+    },
+    "targets": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "se-1.5.97",
+          "ae-steam",
+          "ae-gog",
+          "ae-1.7.x",
+          "vr-1.4.15",
+          "other"
+        ]
+      }
+    },
+    "plugin_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "none",
+            "esp",
+            "esm",
+            "esl",
+            "esp-fe",
+            "generated"
+          ]
+        },
+        "masters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allow_formid_compaction": {
+          "type": "boolean",
+          "default": false
+        },
+        "localized": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "layers": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "records",
+          "runtime-patching",
+          "papyrus",
+          "native",
+          "ui",
+          "animation",
+          "behavior",
+          "mesh",
+          "texture",
+          "physics",
+          "world",
+          "navmesh",
+          "quest-dialogue",
+          "audio",
+          "lod",
+          "installer",
+          "save-persistence",
+          "compatibility"
+        ]
+      }
+    },
+    "frameworks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean",
+            "default": true
+          },
+          "source": {
+            "type": "string"
+          },
+          "runtime_scope": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "role"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[A-Fa-f0-9]{64}$"
+          },
+          "source": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "type"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "plugin",
+              "psc",
+              "pex",
+              "dll",
+              "ini",
+              "json",
+              "xml",
+              "nif",
+              "tri",
+              "dds",
+              "hkx",
+              "wav",
+              "xwm",
+              "fuz",
+              "lip",
+              "lod",
+              "archive",
+              "report",
+              "other"
+            ]
+          },
+          "generated": {
+            "type": "boolean",
+            "default": true
+          },
+          "generator": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "persistence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "uses_save_state": {
+          "type": "boolean",
+          "default": false
+        },
+        "uses_skse_cosave": {
+          "type": "boolean",
+          "default": false
+        },
+        "uses_external_state": {
+          "type": "boolean",
+          "default": false
+        },
+        "schema_version": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "supports_upgrade": {
+          "type": "boolean"
+        },
+        "supports_uninstall": {
+          "type": "boolean"
+        }
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "records_touched": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "assets_touched": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "runtime_mutators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "known_conflicts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "patch_strategy": {
+          "type": "string"
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_gates"
+      ],
+      "properties": {
+        "required_gates": {
+          "type": "array",
+          "items": {
+            "pattern": "^G[0-9]{2}$"
+          },
+          "uniqueItems": true
+        },
+        "warnings_as_errors": {
+          "type": "boolean",
+          "default": false
+        },
+        "runtime_tests": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "human_checks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "release": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "license": {
+          "type": "string"
+        },
+        "fomod": {
+          "type": "boolean",
+          "default": false
+        },
+        "source_release": {
+          "type": "boolean",
+          "default": false
+        },
+        "debug_symbols": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    }
+  }
+}
