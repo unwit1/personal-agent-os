@@ -66,9 +66,12 @@ from .profile import compact_profile as profile_retrieve, profile_status
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .rtec_applicants import (
     acknowledge_event as applicant_acknowledge_event,
+    get_document_metadata as applicant_get_document_metadata,
     get_status as applicant_get_status,
     get_summary as applicant_get_summary,
+    get_timeline as applicant_get_timeline,
     list_applicants as applicant_list,
+    openings_status as applicant_openings_status,
     pending_actions as applicant_pending_actions,
     pending_events as applicant_pending_events,
     search_applicants as applicant_search,
@@ -380,6 +383,29 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
             "required": ["applicant_ref"],
         },
     },
+    "applicant.get_document_metadata": {
+        "description": "Get path-free file metadata for one normalized RTEC applicant's hiring-facing application/resume plus coarse restricted-form presence. No document content is returned.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {"applicant_ref": {"type": "string"}},
+            "required": ["applicant_ref"],
+        },
+    },
+    "applicant.get_timeline": {
+        "description": "Get metadata-only Applicant Dashboard events for one opaque applicant reference. Coverage begins when the event outbox was introduced.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "applicant_ref": {"type": "string"},
+                "limit": {"type": "integer", "minimum": 1, "maximum": 200, "default": 100}
+            },
+            "required": ["applicant_ref"],
+        },
+    },
+    "applicant.openings": {
+        "description": "Read the Dashboard's organization-level current openings configuration. This reports configured openings and is not a candidate ranking or employment recommendation.",
+        "inputSchema": {"type": "object", "properties": {}},
+    },
     "applicant.get_status": {
         "description": "Get the human-controlled workflow status and communication state for one RTEC applicant.",
         "inputSchema": {
@@ -484,6 +510,9 @@ def methods() -> dict[str, Callable[..., Any]]:
         "applicant.search": applicant_search,
         "applicant.get_summary": applicant_get_summary,
         "applicant.get_status": applicant_get_status,
+        "applicant.get_document_metadata": applicant_get_document_metadata,
+        "applicant.get_timeline": applicant_get_timeline,
+        "applicant.openings": applicant_openings_status,
         "applicant.pending_actions": applicant_pending_actions,
         "applicant.sync_status": applicant_sync_status,
         "applicant.events": applicant_pending_events,
