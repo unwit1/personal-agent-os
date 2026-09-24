@@ -3,7 +3,7 @@
   "record_type": "certification_version_history",
   "title": "RTEC Kentucky EEO certification history",
   "status": "validated_from_available_approval_letters",
-  "temporal_status": "historical_series_with_current_period",
+  "temporal_status": "historical_series_with_current_approval_expiring_2026-09-30",
   "certification_authority": "Commonwealth of Kentucky Finance and Administration Cabinet, Office of EEO and Contract Compliance",
   "observed_periods": [
     {
@@ -80,10 +80,35 @@
     "Signed annual renewal forms exist through 2023 and may document submissions even where the approval letter is absent."
   ],
   "source_interpretation": [
-    "Each observed approval letter states RTEC was certified to do business with the Commonwealth under Kentucky's Equal Employment Opportunity Act, KRS 45.550-45.640.",
-    "The approval letters describe one-year certification periods and state that a recertification notice will be sent before expiration.",
-    "Certification approval is distinct from FTA/KYTC approval of an EEO/Affirmative Action Plan; both histories should be retained separately."
+    "Historical RTEC approval letters establish a recurring series of one-year approval periods and are preserved as evidence of prior practice.",
+    "The current Finance Contract Compliance page states that approved contractors/vendors may bid on covered contracts without additional data for one year.",
+    "Current official process guidance makes the contracting agency/procurement event the submission path: apparent low bidders provide EEO information to the contracting agency, which routes it for review.",
+    "Current KYTC response instructions state that Finance does not pre-approve vendors and does not process unsolicited submissions.",
+    "Therefore a historical pattern of annual letters must not be converted into an automatic annual submit-by-September-30 workflow without a current contracting-agency request or direct Finance instruction.",
+    "Contract Compliance approval remains distinct from FTA/KYTC approval of an EEO/Affirmative Action Plan; both histories should remain separately modeled."
   ],
-  "currentness": "The latest approval source found is dated 2025-09-24 and states expiration 2026-09-30. This does not prove renewal after that date.",
-  "privacy": "Organization-level certification evidence only; signed renewal forms may contain individual signatory details but not employee-case records."
+  "currentness": "Latest internal approval evidence is dated 2025-09-24 and expires 2026-09-30. No successor approval has been found. Current Kentucky guidance indicates the next approval workflow is procurement/contract-triggered rather than an unsolicited pre-approval submission; verify whether RTEC has a current covered bid/contract or agency request before treating a replacement certification as due.",
+  "privacy": "Organization-level certification evidence only; signed renewal forms may contain individual signatory details but not employee-case records.",
+  "updated_at": "2026-09-24",
+  "current_official_process": {
+    "observed_at": "2026-09-24",
+    "authority": "Kentucky Finance and Administration Cabinet, Office of Equal Employment Opportunity and Contract Compliance",
+    "facts": [
+      "The current Contract Compliance Program applies EEO requirements to vendors, contractors and subcontractors on state-funded contracts over the current published threshold.",
+      "Apparent low bidders provide EEO information to the contracting agency, including intent to comply, workforce breakdown and subcontractor information.",
+      "The current certification/approval process is electronic.",
+      "The Office of EEO and Contract Compliance reviews EEO information received from the contracting agency and determines whether additional information is required or the contractor/vendor should be approved.",
+      "An approved contractor/vendor is qualified to bid on covered contracts without filing additional data for one year.",
+      "Current KYTC response instructions state that Finance does not pre-approve vendors and that unsolicited compliance submissions are not processed or returned."
+    ],
+    "operational_interpretation": "The 2025-09-24 RTEC approval expiration on 2026-09-30 is a real end date for that approval period, but current official guidance does not support treating expiration alone as an instruction to send an unsolicited annual recertification packet. The next submission should be linked to a covered procurement/contracting-agency request unless RTEC has a specific contrary notice from the Office of EEO and Contract Compliance.",
+    "source_urls": [
+      "https://finance.ky.gov/office-of-the-secretary/office-of-equal-employment-opportunity-contract-compliance/Pages/default.aspx",
+      "https://transportation.ky.gov/ProfessionalServices/Documents/Electronic%20Response%20Instructions.pdf"
+    ],
+    "source_freshness": [
+      "Finance Contract Compliance page retrieved 2026-09-24",
+      "KYTC Electronic Response Instructions updated October 2025"
+    ]
+  }
 }
