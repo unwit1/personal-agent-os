@@ -286,3 +286,43 @@ Inspect per-instance owner ExtraData and container ownership.
 - `ess-changeforms-savegame-internals.md`
 - `plugin-record-schema-items-magic.md`
 - `native-magic-equip-actorvalue-enums-commonlib.md`
+## Native item-removal and soul-level enums
+
+Sources:
+- `include/RE/I/ItemRemoveReason.h` blob `b6fa5a9fbc76dbb162cfb7cd5b1b3e261965b840`
+- `include/RE/S/SoulLevels.h` blob `b05abd11c7fda2d1f73c964a6c2a3776b90a7bbc`
+
+### ITEM_REMOVE_REASON
+
+| ID | Reason |
+|---:|---|
+| 0 | Remove |
+| 1 | Steal |
+| 2 | Selling |
+| 3 | Dropping |
+| 4 | Store In Container |
+| 5 | Store In Teammate |
+
+The removal reason is semantically meaningful: theft, selling, dropping and storage can trigger different crime, event, ownership, destination and UI behavior even when the same base item/count is removed.
+
+### SOUL_LEVEL
+
+| ID | Soul level |
+|---:|---|
+| 0 | None |
+| 1 | Petty |
+| 2 | Lesser |
+| 3 | Common |
+| 4 | Greater |
+| 5 | Grand |
+
+Soul level is instance-sensitive where `ExtraSoul` is present. A soul gem's base SLGM capacity/form and the soul actually stored in a particular inventory instance are separate pieces of state.
+
+### Automation implications
+
+When an agent or native framework manipulates inventory:
+1. preserve the intended `ITEM_REMOVE_REASON` rather than treating every transfer as generic removal;
+2. resolve the exact ExtraDataList when instance-specific state matters;
+3. keep container destination and ownership semantics explicit;
+4. never infer a filled soul gem's actual stored soul from the base form alone.
+
