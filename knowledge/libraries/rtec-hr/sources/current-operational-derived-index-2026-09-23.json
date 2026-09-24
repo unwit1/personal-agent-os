@@ -48,6 +48,10 @@
     {
       "path": "knowledge/libraries/rtec-hr/processes/workers-comp-return-to-work-email-evidence-2018-2021.json",
       "kind": "current_Kentucky_baseline_plus_historical_RTEC_process"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/processes/retirement-401k-currentness-public-evidence-2026-09-24.json",
+      "kind": "public_retirement_currentness_evidence"
     }
   ],
   "applicant_pipeline": [
@@ -143,6 +147,10 @@
     {
       "path": "knowledge/libraries/rtec-hr/questions/currentness-and-gaps.json",
       "kind": "open_currentness_queue"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/sources/pst-source-exhaustion-audit-2026-09-24.json",
+      "kind": "source_exhaustion_boundary"
     }
   ],
   "checkpoints": [
@@ -165,6 +173,14 @@
     {
       "path": "projects/rtec-hr-process-model/docs/CURRENT_SYSTEM_AND_APPLICANT_INTEGRATION_PASS_005_2026-09-23.md",
       "pass": 5
+    },
+    {
+      "path": "projects/rtec-hr-process-model/docs/CURRENT_SYSTEM_DEEPENING_PASS_006_2026-09-24.md",
+      "pass": 6
+    },
+    {
+      "path": "projects/rtec-hr-process-model/docs/PST_SOURCE_EXHAUSTION_PASS_007_2026-09-24.md",
+      "pass": 7
     }
   ],
   "source_priority": [
