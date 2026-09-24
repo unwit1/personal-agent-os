@@ -124,6 +124,44 @@
           "note": null
         }
       ]
+    },
+    {
+      "claim": "Separate restricted 2012 attendance memos explicitly reference a 9-point suspension level and a 10-point termination level, providing corroborated historical evidence of an attendance-point ladder distinct from the unlabeled point examples preserved elsewhere.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-attendance-case-cc71b4ab6023",
+          "page_or_section": "sanitized attendance-threshold statement",
+          "evidence_type": "explicit_text",
+          "note": "Employee identity and case facts excluded."
+        },
+        {
+          "source_id": "rtec-restricted-attendance-case-f536c6a81cbf",
+          "page_or_section": "sanitized attendance-threshold statement",
+          "evidence_type": "explicit_text",
+          "note": "Employee identity and case facts excluded."
+        }
+      ]
+    },
+    {
+      "claim": "Historical case evidence also shows attendance points were discussed separately from FMLA-protected time, supporting the interpretation that protected FMLA absences were not simply treated as ordinary attendance-point events.",
+      "claim_kind": "interpretation",
+      "confidence": 0.96,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-intermittent-fmla-document-routing-2013"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-attendance-case-cc71b4ab6023",
+          "page_or_section": "sanitized attendance/FMLA distinction",
+          "evidence_type": "explicit_text",
+          "note": "The source distinguishes remaining FMLA time from non-FMLA absences/tardiness."
+        }
+      ]
     }
   ],
   "actors": [
@@ -157,11 +195,15 @@
   ],
   "controls": [
     "Do not combine the two point ladders or infer their scope without corroborating evidence.",
-    "The Disciplinary steps workbook is a blank historical matrix/template; do not infer point values from its column headings."
+    "The Disciplinary steps workbook is a blank historical matrix/template; do not infer point values from its column headings.",
+    "Do not merge historical point ladders into one synthetic policy; preserve each dated/undated framework until its scope and supersession are established.",
+    "Protected-leave status must be resolved before applying attendance-point logic."
   ],
   "unresolved_questions": [
     "What date/version and employee population did each of the two legacy point ladders govern?",
-    "What historical date/version and employee population did each of the two unlabeled legacy point ladders govern before the current handbook system?"
+    "What historical date/version and employee population did each of the two unlabeled legacy point ladders govern before the current handbook system?",
+    "How did the 2012 9-point suspension / 10-point termination attendance ladder relate to the two unlabeled point ladders in the undated Disciplinary Examples document?",
+    "What attendance events counted as points, what events reduced or expired points, and how were protected FMLA/other protected absences excluded?"
   ],
   "automation_candidates": [
     "Policy-version-aware discipline reference that requires the incident date/employee class before surfacing any point matrix."
