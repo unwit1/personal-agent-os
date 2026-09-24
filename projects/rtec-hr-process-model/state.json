@@ -6,6 +6,7 @@
   "summary": "Provenance-backed, privacy-safe, version-aware model and searchable source corpus for roughly 20 years of RTEC HR process documentation.",
   "repository": "https://github.com/unwit1/personal-agent-os.git",
   "current_priorities": [
+    "Import the six distinct unindexed local PST candidates recorded in projects/rtec-hr-process-model/checkpoints/pst-archive-source-inventory.json after coordinating with the active read-only email-review pass; deduplicate at message level and preserve restricted content only in the local mail index.",
     "Continue the FY2017 grant scan ingestion in bounded, restart-safe section batches; do not attempt monolithic OCR of all 1,021 pages.",
     "Use grant checklists as the section map and deduplicate repeated assurances/certifications against the !Compliance archive before transcribing copies.",
     "Promote the FY2017-era 2015–2018 AAP, September 2016 Title VI/LEP plan, 2016 EEO certification material, ADA complaint process and related forms as canonical historical compliance sources.",
@@ -42,7 +43,8 @@
     "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/README.md",
     "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/manifest.json",
     "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-employee-handbook-archive-2019-2021.json",
-    "knowledge/libraries/rtec-hr/sources/email-content-review-2026-09-23/coverage.json"
+    "knowledge/libraries/rtec-hr/sources/email-content-review-2026-09-23/coverage.json",
+    "projects/rtec-hr-process-model/checkpoints/pst-archive-source-inventory.json"
   ],
   "context_files": [
     "projects/rtec-hr-process-model/README.md",
@@ -61,7 +63,8 @@
     "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/README.md",
     "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/manifest.json",
     "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-employee-handbook-archive-2019-2021.json",
-    "knowledge/libraries/rtec-hr/sources/email-content-review-2026-09-23/coverage.json"
+    "knowledge/libraries/rtec-hr/sources/email-content-review-2026-09-23/coverage.json",
+    "projects/rtec-hr-process-model/checkpoints/pst-archive-source-inventory.json"
   ],
   "skill_roots": [],
   "validation_commands": [],
@@ -115,7 +118,11 @@
     "work_email_attachment_text_extractions": 308,
     "work_email_review_records": 12,
     "work_email_review_message_ids": 18,
-    "work_email_semantic_review_status": "in_progress; most indexed bodies and attachment content still require review"
+    "work_email_semantic_review_status": "in_progress; most indexed bodies and attachment content still require review",
+    "pst_archive_source_inventory_checkpoint": "projects/rtec-hr-process-model/checkpoints/pst-archive-source-inventory.json",
+    "pst_archive_unindexed_distinct_candidates": 6,
+    "pst_archive_source_inventory_status": "Six distinct local PSTs hashed; import pending coordination with the active email-review pass.",
+    "pst_archive_scope_checked": "User-profile PST locations, temporary-folder PST filenames, and the mapped RTEC HR folder; one inaccessible temporary subfolder remains."
   },
   "reference_form_context": {
     "catalog_path": "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json",
