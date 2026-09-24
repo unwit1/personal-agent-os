@@ -133,11 +133,14 @@
     "knowledge/libraries/rtec-hr/processes/historical-benefits-billing-reconciliation.json",
     "knowledge/libraries/rtec-hr/sources/reference-data/downloads-reference-data-2026-09-24.json",
     "knowledge/libraries/rtec-hr/restricted-evidence/downloads-spreadsheets-2026-09-24.json",
-    "knowledge/libraries/rtec-hr/questions/downloads-spreadsheets-currentness-2026-09-24.json"
+    "knowledge/libraries/rtec-hr/questions/downloads-spreadsheets-currentness-2026-09-24.json",
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24-coverage-ledger.json"
   ],
   "scanner_routing_summary": [
     "Do not auto-file multi-subscriber or multi-consumer benefits reports into an individual personnel folder.",
     "Treat blank import templates as contextual reference/forms, not completed employee records.",
     "Treat census/MWBE/population workbooks as external reference datasets, not personnel documents."
-  ]
+  ],
+  "coverage_ledger_path": "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24-coverage-ledger.json",
+  "coverage_status": "16/16 artifacts accounted for; 0 unreviewed"
 }
