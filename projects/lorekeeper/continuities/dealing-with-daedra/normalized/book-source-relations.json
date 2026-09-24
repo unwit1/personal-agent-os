@@ -1,7 +1,7 @@
 {
   "continuity_id": "tes.mod.dealing-with-daedra",
   "source_sha256": "c278b1a9ccaa7080579a6421a0c21d6b0513a2ad8263048c3c96208bd6a19133",
-  "status": "partial_high_value_book_provenance_normalization_complete",
+  "status": "high_value_book_provenance_identity_verified_central_records_pending",
   "policy": {
     "centralization": "Central work identity does not erase Dealing-with-Daedra placement, wrappers, annotations, or variant text.",
     "unresolved": "A candidate witness or narrative match is not promoted to a stable canonical work ID without source verification.",
@@ -14,12 +14,40 @@
       "title": "Encoded Journal",
       "continuity_id": "tes.mod.dealing-with-daedra",
       "local_embedding": true,
-      "origin_status": "strong_base_game_reuse_candidate",
-      "work_identity_candidate": "Gallus/Mercer encoded journal from the Skyrim Thieves Guild storyline",
+      "origin_status": "verified_base_game_text_reuse",
       "relation": "embedded_base_game_story_text_candidate",
-      "central_work_state": "not_yet_located_in_personal_agent_os",
-      "exact_text_identity": "pending_canonical_witness",
-      "overlay_policy": "retain_mod_specific_placement_encoding_and_derivative_use_only_after_central_identity_is_verified"
+      "central_work_state": "external_identity_and_text_verified_central_record_pending",
+      "exact_text_identity": "verified_after_removing_falmer_font_markup_and_normalizing_whitespace",
+      "overlay_policy": "retain local title, placement/context, and Falmer-font wrapper; route the reused journal text to a future central Skyrim work record",
+      "work_identity": "Gallus's Encoded Journal",
+      "author": "Gallus Desidenius",
+      "local_title_variant": "Encoded Dossier",
+      "local_desc_sha256": "4f6698017b5e99ac14281559586b2501ffc247a38487ed35c73c4b6127b64617",
+      "comparison_normalized_sha256": "f10bf3dd333a2db65030e273c5b778b68052744aa4b7f98ac3146ae792ebea3b",
+      "comparison_word_count": 471,
+      "canonical_game_witness": {
+        "game": "The Elder Scrolls V: Skyrim",
+        "form_id": "000CEDA6",
+        "editor_id": "TG05GallusJournalPre",
+        "title": "Gallus's Encoded Journal"
+      },
+      "translated_game_witness": {
+        "form_id": "0001BB6D",
+        "editor_id": "TG05GallusJournal",
+        "title": "Gallus's Journal"
+      },
+      "external_verification": [
+        {
+          "source": "public Skyrim encoded-journal transcription",
+          "url": "https://gs11.ru/the-elder-scrolls-5-skyrim/knigi/zashifrovannyj-dnevnik-galla",
+          "scope": "form identity plus full encoded payload"
+        },
+        {
+          "source": "Elder Scrolls Wiki",
+          "url": "https://elderscrolls.fandom.com/wiki/Gallus%27s_Journal",
+          "scope": "author, translated-journal relationship, translated FormID"
+        }
+      ]
     },
     {
       "form_id": "05815E32",
@@ -28,23 +56,48 @@
       "author": "Alyandon Mathierry",
       "continuity_id": "tes.mod.dealing-with-daedra",
       "local_embedding": true,
-      "origin_status": "established_work_reuse_with_mod_specific_wrapper",
+      "origin_status": "verified_established_work_reuse_with_mod_specific_wrapper",
       "work_identity": "Fundaments of Alchemy",
       "relation": "embedded_work_plus_continuity_overlay",
-      "central_work_state": "candidate_external_witness_available_but_not_stable_canonical_id",
+      "central_work_state": "external_work_identity_verified_central_record_pending",
       "candidate_external_witness": {
         "path": "knowledge/libraries/elder-scrolls/sources/bf-books-eso/batches/books-1151-1200.jsonl",
         "form_id": "01012E04",
         "text_sha256": "a0943982753526977655531c591e902239731c3890ebbe0c899b6a6eacf82e8f",
-        "provenance_status": "official_eso_text_via_compilation_plugin_unverified_per_record"
+        "provenance_status": "official_eso_text_via_compilation_plugin_cross_checked_against_external_work_identity"
       },
-      "exact_text_identity": "pending_variant_diff",
+      "exact_text_identity": "near_exact_variant_against_stored_eso_witness",
       "overlay_material": [
         "Arcadia's heavily used and marginally annotated copy",
         "physical deterioration",
         "mod-added summary of later diagrams and recipes",
         "Cyrodilic-ingredient framing",
         "gameplay/read-effect context"
+      ],
+      "local_desc_sha256": "219c71fa48d53a20855ea733efac8087a8427580284f217c36c22cac6e88060a",
+      "canonical_game_witness": {
+        "game": "The Elder Scrolls IV: Oblivion",
+        "form_id": "00024567",
+        "title": "Fundaments of Alchemy",
+        "author": "Alyandon Mathierry"
+      },
+      "variant_analysis": {
+        "comparison": "Dealing with Daedra embedded primer vs BF_Books_ESO witness 01012E04",
+        "normalization": "exclude Dealing-with-Daedra wrapper and the added summary line; normalize line breaks/whitespace",
+        "normalized_dwd_sha256": "693c5630ef622172bbe56ef7720977c089f13cc4629a92461b2c6e1fa74414c4",
+        "eso_text_sha256": "a0943982753526977655531c591e902239731c3890ebbe0c899b6a6eacf82e8f",
+        "lexical_differences": [
+          "Dealing with Daedra adds the line 'A fundamental primer on Alchemy' after the author line.",
+          "The Dealing with Daedra copy uses 'magickal' where the stored ESO compilation witness uses 'magical'.",
+          "After excluding the added summary line, the remaining normalized word sequence differs only by that one spelling."
+        ]
+      },
+      "external_verification": [
+        {
+          "source": "Elder Scrolls Wiki",
+          "url": "https://elderscrolls.fandom.com/wiki/Fundaments_of_Alchemy",
+          "scope": "work identity, author, Oblivion FormID, Oblivion/ESO appearances"
+        }
       ]
     }
   ],
