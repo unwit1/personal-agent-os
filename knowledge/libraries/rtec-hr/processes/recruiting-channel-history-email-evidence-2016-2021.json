@@ -60,5 +60,18 @@
     "Job orders had explicit posting lifecycle/refresh behavior in Focus Talent.",
     "Recruiting evidence should be reconciled against the current ADP ATS workflow before any historical channel is treated as active."
   ],
-  "open_question": "When were ridertec.org, Focus Talent and the historical staffing-agency workflow retired or reduced, and which functions are now performed in ADP ATS versus external job boards/state systems?"
+  "open_question": "When were ridertec.org, Focus Talent and the historical staffing-agency workflow retired or reduced, and which functions are now performed in ADP ATS versus external job boards/state systems?",
+  "attachment_evidence": [
+    {
+      "archive_id": "000275",
+      "artifact": "Help wanted CSR and Accounts Receivable Clerk.pdf",
+      "findings": [
+        "2021 recruiting advertisement covered full-time Accounts Receivable Clerk and Customer Service Representative openings in Mt. Vernon.",
+        "Applications were directed to ridertec.org or the RTEC office.",
+        "CSR posting emphasized computer/data-entry/telephone skills and listed Spanish fluency as a plus.",
+        "The ad included drug-free-workplace and Equal Opportunity Employer language."
+      ],
+      "currentness": "historical; current qualifications/pay/application channel require current job descriptions and ATS/posting sources"
+    }
+  ]
 }
