@@ -58,3 +58,35 @@ Use the Tampermonkey script menu for:
 - Agent OS: Clear queued captures
 
 Credentials stay in per-browser Tampermonkey storage and are never committed to Git.
+
+
+## Local bridge
+
+The userscript now supports continuous local sync to Personal Agent OS instead of requiring the browser to retain its complete high-volume history.
+
+Start the local bridge:
+
+    agent-os browser-bridge
+
+Then in the Tampermonkey userscript menu choose:
+
+    Agent OS: Configure local bridge
+
+The default batch endpoint is:
+
+    http://127.0.0.1:8766/api/v1/browser/batch
+
+Paste the token printed by `agent-os browser-bridge`. The same token can be shown later with:
+
+    agent-os browser-bridge-token
+
+Useful diagnostics:
+
+    agent-os browser-bridge-status
+    agent-os browser-bridge-pending --limit 100
+
+The userscript sends Browser Journal events in small batches from any page. Discord messages are included whenever a Discord Web tab is open. It compacts browser-side data only after the bridge returns a durable acknowledgement.
+
+Bridge implementation and protocol documentation:
+
+    docs/browser-bridge.md
