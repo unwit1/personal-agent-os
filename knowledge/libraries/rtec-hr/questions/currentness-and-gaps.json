@@ -85,15 +85,16 @@
     {
       "priority": "high",
       "domain": "affirmative_action_plan",
-      "question": "What AAP/EEO plan superseded the June 30, 2022 snapshot, and what were the exact effective/submission dates for this plan and its successor?",
+      "question": "For historical completeness, locate the January 2024-cycle EEO/AAP submission and any KYTC/OTD approval/response corresponding to the plan updated through June 30, 2024. Separately, obtain current KYTC/OTD instructions after FTA withdrew Circular 4704.1A effective June 5, 2026; do not assume the old recurring federal submission cycle remains current.",
       "status": "partially_answered",
-      "resolution_note": "The compliance archive establishes an EEO/AAP plan lineage through June 30, 2024, including a full 2018-2024 plan family updated June 30, 2024. The 2018 state approval set the next plan due 2022-01-01; a 2020 state approval superseded that schedule and set 2024-01-30. Still unresolved: the approval/submission correspondence for the 2024 cycle and the approved plan governing after 2024-06-30."
+      "resolution_note": "The archive contains a full plan updated June 30, 2024 but no corresponding 2024 approval/response letter. FTA withdrew Circular 4704.1A effective 2026-06-05 and says the withdrawal eliminates the Circular-based EEO Program plan/document submission and FTA review burden while preserving underlying nondiscrimination obligations. KYTC's current transit resources still require EEO compliance, but the latest located State Management Plan (2024) still contains pre-withdrawal Circular language; current Kentucky pass-through documentation expectations remain unresolved."
     },
     {
       "priority": "high",
       "domain": "affirmative_action_plan",
-      "question": "Are the 2010 Census labor-market source, recruitment areas, internal/external placement weights, and job-group methodology still used in later RTEC AAP plans?",
-      "status": "open"
+      "question": "Treat historical labor-market/recruitment-area/internal-external weights/job-group/placement-goal methodology as historical until current KYTC/OTD guidance establishes whether RTEC must still maintain an abbreviated/full EEO Program artifact after the 2026 FTA Circular withdrawal. If a current program remains required, then validate which historical methodology elements survive.",
+      "status": "partially_answered",
+      "resolution_note": "FTA withdrew Circular 4704.1A in June 2026, so historical utilization/goals methodology is no longer presumed to be part of a current federal recurring submission. Methodology remains important for historical auditability and may still matter if KYTC/OTD requires a current state/pass-through program."
     },
     {
       "priority": "high",
