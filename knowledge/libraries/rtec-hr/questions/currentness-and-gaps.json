@@ -63,7 +63,8 @@
       "priority": "medium",
       "domain": "benefits_medicare",
       "question": "Determine whether the April 2026 Medicare draft became an approved employee communication or workflow and locate the final version if one exists.",
-      "status": "open"
+      "status": "partially_answered",
+      "resolution_note": "Current Drive evidence from May 2026 shows Medicare-versus-employer-plan comparison work continued and an RTEC-specific Plan Cost Comparison includes Medicare plan analysis. This does not prove the April 2026 Medicare draft became an approved employee communication. Final approved notice/communication status remains open."
     },
     {
       "priority": "medium",
@@ -206,6 +207,27 @@
       "domain": "benefits_wellness",
       "question": "Does RTEC still coordinate on-site preventive vaccination events, and what current insurer, vendor, eligibility and employee-communication process governs them?",
       "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "eeo_certification_renewal_2026",
+      "question": "Locate and validate the renewal/submission replacing the Kentucky EEO certification that expires September 30, 2026, including submission date, approval date, new expiration date, packet contents and current owner.",
+      "status": "open",
+      "resolution_note": "The latest observed approval is dated 2025-09-24 and expires 2026-09-30. Historical evidence establishes this as an annual certification cycle distinct from the four-year AAP cycle. Current EEO Officer authority is established by the signed 2026-08-26 policy."
+    },
+    {
+      "priority": "high",
+      "domain": "fmla_tracker_authority",
+      "question": "Designate the authoritative live FMLA tracker between the legacy .xls and native Google Sheets copy, and document ownership, backup/retention, structured status fields, access controls and integration with attendance/time.",
+      "status": "partially_answered",
+      "resolution_note": "Drive contains both an FMLA TRACKER.xls and native FMLA Tracker modified/created 2026-05-15; the native workbook has annual tabs through Active 2026 and a Term Employees archive. Which copy is authoritative is not yet established."
+    },
+    {
+      "priority": "high",
+      "domain": "attendance_tracker_authority",
+      "question": "Validate the current Attendance Tracker formulas and Blacklist/exclusion logic against the December 15, 2025 handbook and designate which fields are authoritative versus derived from ADP.",
+      "status": "partially_answered",
+      "resolution_note": "A current Attendance Tracker exists, created May 5, 2026. Its INPUT identifies an ADP Employee Daily Totals Report, and the workbook derives attendance/reserve/FMLA/points-related fields."
     }
   ]
 }
