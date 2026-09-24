@@ -1,0 +1,180 @@
+{
+  "ledger_version": 1,
+  "generated_at": "2026-09-24",
+  "batch_id": "rtec-hr-correspondence-2026-09-23",
+  "purpose": "Machine-readable proof that every one of the 95 supplied artifacts has an explicit safe/restricted disposition and at least one knowledge destination.",
+  "privacy": "No employee names, restricted filenames, case narratives, medical facts or row-level personnel values are stored here. Restricted artifact identity remains hash-based in restricted-evidence/correspondence-2026-09-23.json.",
+  "coverage": {
+    "source_artifacts": 95,
+    "safe_artifacts": 9,
+    "restricted_artifacts": 86,
+    "artifacts_with_explicit_disposition": 95,
+    "artifacts_needing_review": 0
+  },
+  "safe_dispositions": [
+    {
+      "class": "safe_blank_form",
+      "count": 1,
+      "source_family": "rtec-hr-employee-evaluation-template-legacy",
+      "derived": [
+        "forms/employee-evaluation-template-legacy.json"
+      ]
+    },
+    {
+      "class": "safe_procedure_reference",
+      "count": 1,
+      "source_family": "rtec-hr-disciplinary-examples-undated",
+      "derived": [
+        "policies/disciplinary-point-framework-legacy.json"
+      ]
+    },
+    {
+      "class": "safe_procedure_matrix",
+      "count": 1,
+      "source_family": "rtec-hr-disciplinary-steps-undated",
+      "derived": [
+        "policies/disciplinary-point-framework-legacy.json",
+        "processes/hstd-csr-trip-eligibility-denial-candidate.json"
+      ]
+    },
+    {
+      "class": "safe_procedure_correspondence",
+      "count": 3,
+      "source_families": [
+        "rtec-hr-admin-timesheet-attendance-memo-2016-01-07",
+        "rtec-hr-csr-do-not-call-state-memo-2015-06-02",
+        "rtec-hr-rotation-schedule-absence-memo-2021-06-08"
+      ],
+      "derived": [
+        "processes/admin-timesheet-leave-approval-2016.json",
+        "processes/csr-client-assistance-escalation-2015.json",
+        "policies/rotation-schedule-absence-point-rule-2021.json"
+      ]
+    },
+    {
+      "class": "safe_benefits_wellness_posting",
+      "count": 1,
+      "source_family": "rtec-hr-preventive-vaccine-posting-2021-10-01",
+      "derived": [
+        "processes/employee-preventive-vaccination-event-2021.json"
+      ]
+    },
+    {
+      "class": "safe_employee_guidance_correspondence",
+      "count": 2,
+      "source_family": "rtec-hr-unemployment-fraud-alert-2021-04-07",
+      "note": "editable and signed/rendered variants",
+      "derived": [
+        "processes/unemployment-identity-fraud-response-2021.json"
+      ]
+    }
+  ],
+  "restricted_dispositions": [
+    {
+      "class": "disciplinary_log_fiscal_year",
+      "count": 17,
+      "source_hashes_in": "restricted-evidence/correspondence-2026-09-23.json",
+      "derived": [
+        "processes/disciplinary-logging-aap-history.json",
+        "automation/disciplinary-register-normalization.json",
+        "restricted-evidence/disciplinary-register-aggregate-2008-2026.json"
+      ]
+    },
+    {
+      "class": "disciplinary_log_aap_sorted",
+      "count": 11,
+      "source_hashes_in": "restricted-evidence/correspondence-2026-09-23.json",
+      "derived": [
+        "processes/aap-disciplinary-derivative-integrity.json",
+        "processes/disciplinary-logging-aap-history.json",
+        "automation/disciplinary-register-normalization.json"
+      ]
+    },
+    {
+      "class": "disciplinary_verbal_warning_log",
+      "count": 1,
+      "source_hashes_in": "restricted-evidence/correspondence-2026-09-23.json",
+      "derived": [
+        "processes/verbal-warning-register-2015-2016.json",
+        "processes/discipline-documentation-history.json"
+      ]
+    },
+    {
+      "class": "employee_specific_disciplinary_case",
+      "count": 33,
+      "source_hashes_in": "restricted-evidence/correspondence-2026-09-23.json",
+      "derived": [
+        "processes/discipline-documentation-history.json",
+        "policies/dress-code-enforcement-history-2011-2016.json",
+        "policies/attendance-fmla-history-2012-2017.json",
+        "processes/transit-operations-control-history.json",
+        "processes/driver-client-boundaries-history-2013.json",
+        "processes/separation-property-return-history.json",
+        "processes/workplace-communication-escalation-history.json",
+        "processes/employee-relations-investigation-history.json",
+        "processes/driver-paperwork-submission-history-2013.json"
+      ],
+      "note": "Individual cases map to the applicable subset; all remain case-only at the employee level."
+    },
+    {
+      "class": "employee_specific_incident_record",
+      "count": 1,
+      "source_hashes_in": "restricted-evidence/correspondence-2026-09-23.json",
+      "derived": [
+        "processes/incident-video-review-history.json",
+        "processes/employee-relations-investigation-history.json"
+      ]
+    },
+    {
+      "class": "employee_specific_medical_attendance_record",
+      "count": 19,
+      "source_hashes_in": "restricted-evidence/correspondence-2026-09-23.json",
+      "derived": [
+        "forms/attendance-calendar-2023-2024.json",
+        "processes/medical-attendance-evidence-handling-history.json",
+        "policies/attendance-fmla-history-2012-2017.json"
+      ]
+    },
+    {
+      "class": "employee_schedule_roster",
+      "count": 1,
+      "source_hashes_in": "restricted-evidence/correspondence-2026-09-23.json",
+      "derived": [
+        "processes/covid-red-status-staff-scheduling-2021.json"
+      ]
+    },
+    {
+      "class": "employee_event_participant_list",
+      "count": 1,
+      "source_hashes_in": "restricted-evidence/correspondence-2026-09-23.json",
+      "derived": [
+        "processes/staff-holiday-events-history-2021-2022.json",
+        "automation/content-first-document-classification.json"
+      ]
+    },
+    {
+      "class": "employee_event_correspondence_with_named_staff",
+      "count": 1,
+      "source_hashes_in": "restricted-evidence/correspondence-2026-09-23.json",
+      "derived": [
+        "processes/staff-holiday-events-history-2021-2022.json"
+      ]
+    },
+    {
+      "class": "employee_specific_leave_case_correspondence",
+      "count": 1,
+      "source_hashes_in": "restricted-evidence/correspondence-2026-09-23.json",
+      "derived": [
+        "policies/personal-sick-leave-vacation-boundary-2015.json",
+        "policies/attendance-fmla-history-2012-2017.json"
+      ]
+    }
+  ],
+  "validation": [
+    "Restricted class counts sum to 86.",
+    "Safe artifact counts sum to 9.",
+    "Safe + restricted counts sum to the 95-artifact archive inventory.",
+    "Every class has a non-empty disposition and knowledge destination.",
+    "Restricted employee-level content remains outside GitHub generalized knowledge."
+  ]
+}
