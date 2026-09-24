@@ -89,5 +89,11 @@
     "unwit1/job-applicant-dashboard",
     "Personal Agent OS / RTEC HR process model",
     "RTEC HR scanner"
-  ]
+  ],
+  "identity_contract": {
+    "agent_ref": "Opaque random app-<uuid> generated/stored by the Dashboard and exposed to Agent OS. Stable across Agent sessions and intentionally independent of display name/filename/provider row number.",
+    "source_key": "Dashboard-local import provenance, normally fillout-submission:<Submission ID> when available; not exposed by ordinary Agent applicant tools.",
+    "applicant_key": "Legacy/internal Dashboard primary key historically based on PDF filename. Remains internal and must not be exposed as the Agent identifier.",
+    "sheet_row_number": "Never a durable identity; Fillout Sheet reconnections/reorders make it unstable."
+  }
 }
