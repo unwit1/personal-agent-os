@@ -1,0 +1,159 @@
+{
+  "schema": "rtec-hr-source-coverage-ledger/v1",
+  "batch_id": "rtec-hr-downloads-spreadsheets-2026-09-24",
+  "generated_at": "2026-09-24",
+  "artifacts": [
+    {
+      "filename": "2k00.xls",
+      "sha256": "5b63198bbbd80ba6bbc5560fc42e6f28799210b36392ef8ceb19b37e160019ae",
+      "family_id": "census-2000-dp2-dp4",
+      "privacy": "safe_aggregate_reference",
+      "disposition": "cataloged_reference",
+      "duplicate_status": "distinct",
+      "knowledge_destination": "sources/reference-data/downloads-reference-data-2026-09-24.json"
+    },
+    {
+      "filename": "Account Balance Detail Report (1).xls",
+      "sha256": "8ddf064abd36802d6ecfa2251425f8d21bd3ea09f1e1b0c0ffddcef2cfe3e822",
+      "family_id": "fsa-account-balance-detail-py2016",
+      "privacy": "restricted_multi_employee",
+      "disposition": "restricted_metadata_plus_generalized_report_logic",
+      "duplicate_status": "distinct",
+      "knowledge_destination": "restricted-evidence/downloads-spreadsheets-2026-09-24.json"
+    },
+    {
+      "filename": "DDKY_712290_4001_ConsolidatedBillingReport_01-01-2024_12262023_1243.xls",
+      "sha256": "18cccc81b63c9f5e4ca3ac4e02adde2753862b5e1fe0614189fa66c40185b807",
+      "family_id": "delta-dental-consolidated-billing-2024-01",
+      "privacy": "restricted_multi_employee",
+      "disposition": "restricted_metadata_plus_generalized_report_schema",
+      "duplicate_status": "semantic_duplicate_representative",
+      "knowledge_destination": "restricted-evidence/downloads-spreadsheets-2026-09-24.json"
+    },
+    {
+      "filename": "DDKY_712290_4001_ConsolidatedBillingReport_01-01-2024_12262023_1243 (1).xls",
+      "sha256": "cb81c016431a1def0fe86b274eaf16fb36c009578fbeffd3cedd4c3e94bc5eae",
+      "family_id": "delta-dental-consolidated-billing-2024-01",
+      "privacy": "restricted_multi_employee",
+      "disposition": "duplicate_variant_accounted_for",
+      "duplicate_status": "semantic_duplicate",
+      "knowledge_destination": "restricted-evidence/downloads-spreadsheets-2026-09-24.json"
+    },
+    {
+      "filename": "DDKY_712290_4001_ConsolidatedBillingReport_01-01-2024_12262023_1243 (2).xls",
+      "sha256": "41125ca5b133aec46ec0a3c79ea659bddad3e66f51fd5ecd802b4a6b3204f751",
+      "family_id": "delta-dental-consolidated-billing-2024-01",
+      "privacy": "restricted_multi_employee",
+      "disposition": "duplicate_variant_accounted_for",
+      "duplicate_status": "semantic_duplicate_saved_with_extra_workbook_style_metadata",
+      "knowledge_destination": "restricted-evidence/downloads-spreadsheets-2026-09-24.json"
+    },
+    {
+      "filename": "DDKY_712290_4001_ConsolidatedBillingReport_02-01-2021_01202021_095751.46.xls",
+      "sha256": "032bd06a405effa2add94afacae94a78ca31d0c83cafe3d343d4736c9b36e406",
+      "family_id": "delta-dental-consolidated-billing-2021-02",
+      "privacy": "restricted_multi_employee",
+      "disposition": "restricted_metadata_plus_historical_period_evidence",
+      "duplicate_status": "distinct_period",
+      "knowledge_destination": "restricted-evidence/downloads-spreadsheets-2026-09-24.json"
+    },
+    {
+      "filename": "DDKY_712290_4001_ConsolidatedBillingReport_07-01-2020_06192020_094144.586.xls",
+      "sha256": "4e72c550e965d797993a6fda137ef387b4d6ed0340ecfe79940e6cf2d131d1fa",
+      "family_id": "delta-dental-consolidated-billing-2020-07",
+      "privacy": "restricted_multi_employee",
+      "disposition": "restricted_metadata_plus_historical_period_evidence",
+      "duplicate_status": "distinct_period",
+      "knowledge_destination": "restricted-evidence/downloads-spreadsheets-2026-09-24.json"
+    },
+    {
+      "filename": "DDKY_712290_4001_ConsolidatedBillingReport_12-01-2020_11172020_140130.419.xls",
+      "sha256": "6711e000df3b24ec96be577f46161f232032c3d9e27cdd45ac0dbf244afa45a9",
+      "family_id": "delta-dental-consolidated-billing-2020-12",
+      "privacy": "restricted_multi_employee",
+      "disposition": "restricted_metadata_plus_historical_period_evidence",
+      "duplicate_status": "distinct_period",
+      "knowledge_destination": "restricted-evidence/downloads-spreadsheets-2026-09-24.json"
+    },
+    {
+      "filename": "Demographic Spreadsheet – Used for all Account Types.xls..xls",
+      "sha256": "bc7d2bbab8045ff165751673e44e6aecf819de843ce5ed2d7c15bdfc88ac6912",
+      "family_id": "benefits-demographic-import-template-2018",
+      "privacy": "safe_blank_template",
+      "disposition": "reference_form_plus_structured_field_contract",
+      "duplicate_status": "distinct",
+      "knowledge_destination": "forms/historical-benefits-import-field-contracts-2018.json"
+    },
+    {
+      "filename": "Health FSA-Dependent Care FSA-Transit-Parking-HSA Enrollment Spreadsheet.xls..xls",
+      "sha256": "3d1c1bb3403c1bc0246a513f5c38a3ac36065b7900d65778474434fa69c991a3",
+      "family_id": "infinisource-benefits-enrollment-import-template-2018",
+      "privacy": "safe_blank_template",
+      "disposition": "reference_form_plus_structured_field_contract",
+      "duplicate_status": "semantic_duplicate_representative",
+      "knowledge_destination": "forms/historical-benefits-import-field-contracts-2018.json"
+    },
+    {
+      "filename": "Health FSA-Dependent Care FSA-Transit-Parking-HSA Enrollment Spreadsheet.xls. (1).xls",
+      "sha256": "d36db9b96321e91fc003d17be50ff5d1d7db41973154f0ea8006c40e852e3185",
+      "family_id": "infinisource-benefits-enrollment-import-template-2018",
+      "privacy": "safe_blank_template",
+      "disposition": "duplicate_variant_accounted_for",
+      "duplicate_status": "semantic_duplicate",
+      "knowledge_destination": "forms/historical-benefits-import-field-contracts-2018.json"
+    },
+    {
+      "filename": "Health FSA-Dependent Care FSA-Transit-Parking-HSA Enrollment Spreadsheet.xls. (2).xls",
+      "sha256": "6521167227beb93572c9134b2167dc716619f43d0ec2edf6084aa5cb20f3254e",
+      "family_id": "infinisource-benefits-enrollment-import-template-2018",
+      "privacy": "safe_blank_template",
+      "disposition": "duplicate_variant_accounted_for",
+      "duplicate_status": "semantic_duplicate",
+      "knowledge_destination": "forms/historical-benefits-import-field-contracts-2018.json"
+    },
+    {
+      "filename": "Health FSA-Dependent Care FSA-Transit-Parking-HSA Enrollment Spreadsheet.xls. (3).xls",
+      "sha256": "84a96c0e838f6ac8cb69c2c671e66df92dd81c28e731d37c61a4649d9a5ca634",
+      "family_id": "infinisource-benefits-enrollment-import-template-2018",
+      "privacy": "safe_blank_template",
+      "disposition": "duplicate_variant_accounted_for",
+      "duplicate_status": "semantic_duplicate",
+      "knowledge_destination": "forms/historical-benefits-import-field-contracts-2018.json"
+    },
+    {
+      "filename": "MWBE Certified Listing 7.xls",
+      "sha256": "8bb6d1f875257c73cce84e699ede4e078663babafee8dabee151b4d5a51e8932",
+      "family_id": "kentucky-mwbe-certified-listing-2020",
+      "privacy": "safe_external_reference",
+      "disposition": "cataloged_reference",
+      "duplicate_status": "distinct",
+      "knowledge_destination": "sources/reference-data/downloads-reference-data-2026-09-24.json"
+    },
+    {
+      "filename": "cqt_stco_popchange.xls",
+      "sha256": "78c664cb18733ff14086afa69a87d1ed323970daccdf7fc5795cb860c8170245",
+      "family_id": "kentucky-county-population-change-2000-2010",
+      "privacy": "safe_aggregate_reference",
+      "disposition": "cataloged_reference",
+      "duplicate_status": "distinct",
+      "knowledge_destination": "sources/reference-data/downloads-reference-data-2026-09-24.json"
+    },
+    {
+      "filename": "export.xls",
+      "sha256": "8fb873ff1fb7210d775abd0c78cb633988c73b0fa7b8d547565747f7f65e72e9",
+      "family_id": "delta-dental-dependent-termination-export",
+      "privacy": "restricted_multi_employee",
+      "disposition": "restricted_metadata_plus_document_schema",
+      "duplicate_status": "distinct",
+      "knowledge_destination": "restricted-evidence/downloads-spreadsheets-2026-09-24.json"
+    }
+  ],
+  "coverage": {
+    "total": 16,
+    "accounted_for": 16,
+    "unreviewed": 0,
+    "semantic_duplicate_artifacts": 6,
+    "distinct_or_representative_artifacts": 10
+  },
+  "deletion_note": "This ledger proves analysis/integration coverage, not binary archival. The original XLS bytes are not stored in GitHub; retain an original locally if exact historical workbook recovery may be needed later."
+}
