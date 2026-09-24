@@ -58,7 +58,8 @@
       "priority": "medium",
       "domain": "applicant_communications",
       "question": "Identify the process/script and approved wording behind the 2026 Rejection Emails workbook and the human-review/send steps.",
-      "status": "open"
+      "status": "partially_answered",
+      "resolution_note": "The current canonical workflow is in unwit1/job-applicant-dashboard. Email templates are plain editable files under Templates/Email; the Dashboard prepares drafts for human review and tracks draft/send-confirmation state. Remaining work is to reconcile the exact approved wording/version of each live template and any 2026 Rejection Emails workbook against the canonical template files."
     },
     {
       "priority": "medium",
@@ -275,6 +276,41 @@
       "domain": "employee_relations_investigations",
       "question": "What is the current standardized employee-relations investigation checklist, case-status model, interim-action authority and approval chain, including how employee response, later evidence and final findings are documented?",
       "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "applicant_agent_os_integration",
+      "question": "Complete and live-validate the Agent OS RTEC applicant adapter on the work PC: pull current Dashboard and Agent OS commits, run privacy/outbox tests, verify dashboard.db and Fillout sync-health discovery, then change connector registration from desired/unknown only after a successful restricted read smoke test.",
+      "status": "in_progress",
+      "resolution_note": "Architecture, Dashboard event outbox, privacy-safe Fillout sync health, Agent OS read-only adapter, MCP schemas, desired connector registry entry and synthetic tests are committed. A live work-PC smoke test has not yet been performed."
+    },
+    {
+      "priority": "critical",
+      "domain": "public_website_credential_exposure",
+      "question": "Confirm exposed Transview kiosk-exit credentials have been rotated/revoked, removed from public ridertec.org content, and purged from cached/indexed copies where practical; audit for additional public secrets without storing their values.",
+      "status": "open",
+      "resolution_note": "A current public instruction page exposed live-looking kiosk-exit credentials. The secret values were deliberately not persisted to Agent OS/GitHub."
+    },
+    {
+      "priority": "high",
+      "domain": "public_website_currentness",
+      "question": "Reconcile and correct RTEC public-site drift across English and localized pages: EEO contact/role, driver starting pay, service-area county count, job-board/application links, unrelated demo jobs, benefits/401(k) timing, bid opportunities and compliance-document versions.",
+      "status": "open",
+      "resolution_note": "Current public surfaces disagree on multiple facts and some localized pages retain historical content. Internal current policy/role sources should drive the correction."
+    },
+    {
+      "priority": "high",
+      "domain": "public_title_vi_documents",
+      "question": "Replace or explicitly archive superseded public Title VI notices/forms and validate every Required Documents link against the January 2026 Title VI/LEP plan, with visible revision/effective dates and locale parity.",
+      "status": "open",
+      "resolution_note": "The live Required Documents page still advertises an October 2016 revised Title VI notice while the canonical internal archive contains a January 2026 Title VI/LEP plan."
+    },
+    {
+      "priority": "high",
+      "domain": "applicant_source_health",
+      "question": "After the work-PC Dashboard updates, verify the production Fillout bridge reports persistent healthy/degraded/unavailable sync metadata and alerts on stale/disconnected source integration without exposing applicant rows.",
+      "status": "in_progress",
+      "resolution_note": "Privacy-safe sync-health persistence and synthetic tests are committed to job-applicant-dashboard, but live production validation remains pending."
     }
   ]
 }
