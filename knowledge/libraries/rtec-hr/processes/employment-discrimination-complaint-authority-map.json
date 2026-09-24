@@ -1,0 +1,74 @@
+{
+  "id": "rtec-eeo-employment-discrimination-complaint-authority-map",
+  "record_type": "process_authority_map",
+  "title": "RTEC employment-discrimination / historical Title VII complaint authority map",
+  "status": "validated_current_policy_plus_historical_forms",
+  "temporal_status": "current_with_historical_context",
+  "current_authority": {
+    "record_id": "rtec-policy-eeo-2026",
+    "effective_from": "2026-08-26",
+    "rules": [
+      "Applicants and employees have the right to file complaints alleging discrimination.",
+      "Retaliation for filing a charge/complaint, participating in an employment-discrimination proceeding, or otherwise engaging in protected activity is prohibited.",
+      "The current EEO Officer is assigned day-to-day EEO program management, monitoring and complaint investigation and reports directly to the Executive Director."
+    ]
+  },
+  "historical_form_family": {
+    "title": "TITLE VII COMPLAINT FORM",
+    "known_hashes": [
+      "a0e83229e04f82f4c7ccef395db47cf599bbd4261d64e906617322f390ac4a1e",
+      "1016193c640958358cc0ab2fa4de1d7f1cd7078e41d22feebf3b22a0ad78bec2"
+    ],
+    "canonical_historical_cell_map": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/title-vii-complaint-form.md",
+    "fields": [
+      "complainant contact information and accessible-format needs",
+      "self/third-party filing and permission",
+      "claimed basis selections",
+      "date/description of alleged discrimination",
+      "persons involved and witnesses",
+      "prior RTEC complaint history",
+      "other agency/court filings",
+      "attachments/materials",
+      "signature/date"
+    ],
+    "currentness": "unconfirmed"
+  },
+  "historical_investigation_log_family": {
+    "title": "Title VII Investigations Form",
+    "known_hashes": [
+      "b68e42314b2268436b99b28051236b337388d4f24ff0eb3f568d991983f69f25",
+      "7b93b8004e55f4138aea5ed73e73f528e589e9ada0ac4320437dd2f264214278",
+      "fe0361c96ebdcb31c32a4edbf8c276a60a3984d0e79c02079eb47f9cb12233e3"
+    ],
+    "observed_2022_status": "The June 30, 2022 AAP package reports no investigations, lawsuits or complaints in the historical log.",
+    "privacy_rule": "A blank/aggregate log is safe; any populated complaint/investigation log becomes restricted case evidence."
+  },
+  "historical_procedure_context": [
+    "Historical AAP text assigns tracking/investigation of complaints to the Executive Director or designee and provides internal management review/corrective-action steps.",
+    "Historical employee grievance language routes an employee first to the supervisor and then to the Executive Director if unresolved.",
+    "Historical forms/procedures should be preserved for chronology but do not supersede the current 2026 signed EEO policy or any later current complaint SOP."
+  ],
+  "terminology_quality_warning": {
+    "finding": "Some historical RTEC sources label a broad complaint procedure 'Title VII' while describing program/service discrimination concepts and bases that overlap multiple nondiscrimination authorities.",
+    "handling": "Preserve the historical label exactly for provenance, but classify current cases by the governing current policy/process instead of assuming the old label accurately determines jurisdiction."
+  },
+  "current_process_model": [
+    "Receive an applicant/employee discrimination complaint through the current EEO reporting channel.",
+    "Store allegation, identity, witness and investigative details only in restricted case storage.",
+    "Confirm the governing complaint type/process and current investigating authority.",
+    "Acknowledge/intake the complaint under the current applicable procedure.",
+    "Gather relevant documents and interview appropriate parties/witnesses.",
+    "Document findings, corrective action or closure under the authorized current process.",
+    "Apply anti-retaliation protections and follow-up throughout the case lifecycle.",
+    "Maintain only non-identifying aggregate complaint metrics in generalized compliance reporting."
+  ],
+  "gaps": [
+    "The current signed EEO policy does not itself supply a detailed complaint form, intake deadline, investigation target, appeal path or retention schedule.",
+    "No newer current RTEC-specific employment-discrimination complaint form/SOP has yet been established from the ingested corpus.",
+    "Historical Title VII forms should not be auto-published or used operationally until current adoption is confirmed."
+  ],
+  "related_records": [
+    "rtec-policy-eeo-2026",
+    "rtec-sexual-harassment-reporting-investigation-authority-map"
+  ]
+}
