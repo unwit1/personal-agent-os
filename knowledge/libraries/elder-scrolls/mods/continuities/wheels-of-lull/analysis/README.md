@@ -15,7 +15,7 @@ Completed products:
 - 7 canon/tension handling records;
 - machine-readable retrieval index with 76 analysis entries, including all 14 topic dossiers;
 - deterministic normalization and SHA-256 fingerprints for all 33 BOOK records;
-- BOOK provenance passes 01-03 plus a search audit and KINMUNE variant pass;
+- BOOK provenance passes 01-05 plus a search audit and KINMUNE variant pass;
 - central-source links for verified KINMUNE, Tatterdemalion, and Xal-Gosleigh reuse;
 - full physical audit of all 36,824 plugin records;
 - separate 370-record implementation-evidence layer for omitted player-facing/structural evidence, plus 16 field augmentations.
@@ -63,4 +63,4 @@ No ambiguous line is silently assigned to a speaker. No Wheels of Lull claim is 
 
 Provenance pass 04 located dated pre-Wheels Trainwiz package witnesses for **Aethernautics** and **Sotha Sil Expanded**. The archive pages, filenames, byte sizes, dates, upload attribution, and published MD5 hashes are now persisted in `book-provenance-pass-04-archive-witnesses.md` and its JSON companion.
 
-This narrows the remaining historical-source blocker: the packages are located, but their RAR binaries could not be materialized by the current retrieval environment. No BOOK relation was promoted without exact text inspection. Resume provenance work at archive materialization and deterministic text comparison; do not repeat generic title searches or package rediscovery.
+This narrows the remaining historical-source blocker: the packages are located, but their RAR binaries could not be materialized by the current retrieval environment. No BOOK relation was promoted without exact text inspection.\n\nPass 05 re-tested the live download handoff and confirmed that the remaining obstacle is binary materialization rather than package discovery. It also deepened the already-known September 2012 Aethernautics Weaponry Tweaks witness by preserving its exact chronology and previously unrecorded third-party plans involving \"Cronographers\" and a Sotha Sil fortress. Those plans are classified as community-adjacent development history, not Trainwiz-authored source lore. A separate 2015 Trainwiz post explicitly states that Aethernautics and Wheels of Lull take place in the same canon; this is retained as a shared-continuity witness, not prior-text provenance. See `book-provenance-pass-05-retrieval-path-audit.md`.\n\nResume provenance work at archive materialization and deterministic text comparison; if archive bytes remain inaccessible, use a genuinely new historical record-level dump, translation table, xEdit export, or plugin-derived BOOK inventory. Do not repeat generic title searches, package rediscovery, or pass-05 metadata extraction.
