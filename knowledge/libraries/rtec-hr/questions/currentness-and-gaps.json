@@ -1,6 +1,6 @@
 {
   "queue_id": "rtec-hr-currentness-and-gap-queue",
-  "updated_at": "2026-09-23",
+  "updated_at": "2026-09-24",
   "purpose": "Questions that future sources should answer automatically when possible before asking the user.",
   "questions": [
     {
@@ -214,9 +214,9 @@
     {
       "priority": "high",
       "domain": "eeo_certification_renewal_2026",
-      "question": "Locate and validate the renewal/submission replacing the Kentucky EEO certification that expires September 30, 2026, including submission date, approval date, new expiration date, packet contents and current owner.",
-      "status": "open",
-      "resolution_note": "The latest observed approval is dated 2025-09-24 and expires 2026-09-30. Historical evidence establishes this as an annual certification cycle distinct from the four-year AAP cycle. Current EEO Officer authority is established by the signed 2026-08-26 policy."
+      "question": "Determine whether RTEC currently has a covered Kentucky state procurement/contract event or contracting-agency request that requires a new EEO Contract Compliance approval after the current approval expires September 30, 2026. If triggered, capture the agency request, electronic submission/packet, approval date, new expiration date and current owner.",
+      "status": "partially_answered",
+      "resolution_note": "Current Kentucky Finance guidance says apparent low bidders provide EEO information through the contracting agency and approved vendors receive one-year approval. Current KYTC response instructions say Finance does not pre-approve vendors and unsolicited submissions are not processed. Therefore the 2026-09-30 expiration should not by itself generate an unsolicited annual filing task. Internal evidence still does not show a successor approval or whether RTEC currently has a covered procurement/agency request."
     },
     {
       "priority": "high",
