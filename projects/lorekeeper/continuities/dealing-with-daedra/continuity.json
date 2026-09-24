@@ -75,7 +75,9 @@
     "evidence_locator_records": 14,
     "papyrus_claim_evidence_refs": 18,
     "papyrus_claim_evidence_unique_scripts": 13,
-    "script_only_claims_requiring_archive_revalidation": 1
+    "script_only_claims_requiring_archive_revalidation": 1,
+    "central_work_records_assigned": 2,
+    "central_source_records_pending": 0
   },
   "structured_layers": {
     "plugin_record_inventory": "complete",
@@ -111,7 +113,7 @@
     "institutional_leader_dossiers": "regalt_aslfur_keeper_harorn_complete_initial_pass",
     "gatekeeper_economy": "dust_rings_tattoos_recruitment_portal_supply_complete_initial_pass",
     "bulletin_board_semantic_audit": "all_41_dealsinfonote_records_classified",
-    "source_deduplication": "machine_readable_book_source_relations_cover_2_verified_reused_work_identities_and_2_exact_local_duplicate_groups; central_work_records_for_the_2_reused_works_still_pending",
+    "source_deduplication": "machine_readable_book_source_relations_cover_2_verified_reused_work_identities_routed_to_stable_central_work_records_plus_2_exact_local_duplicate_groups",
     "scene_semantic_audit": "3_scene_records_have_no_independent_extracted_prose; associated dialogue_scripts_are_covered_elsewhere",
     "compiled_only_script_audit": "2_pex_only_scripts_preserved_printable_strings_contain_boilerplate_only_no_additional_lore_text",
     "semantic_source_exhaustion": "complete_for_high_value_longform_operational_and_lore_bearing_text; remaining_short_records_are_retained_as_raw_provenance_and_can_support_future_micro_queries",
@@ -119,15 +121,16 @@
     "claim_index": "complete_359_records_no_duplicate_ids_no_missing_numeric_ids",
     "claim_seed_recovery": "9_claims_recovered_from_historical_commits_after_pass_13_filename_reuse_overwrite",
     "claim_relation_normalization": "21_structured_relations_covering_7_conflicts_7_uncertainty_boundaries_and_7_specialized_relations; 46_claim_records_wired_with_relation_context; zero_cross_role_claim_overlaps_after_qc",
-    "book_source_relations": "gallus_encoded_journal_verified_as_whitespace_normalized_exact_skyrim_reuse; fundaments_of_alchemy_verified_as_established_work_with_near_exact_eso_variant_and_arcadia_wrapper",
+    "book_source_relations": "gallus_encoded_journal_routes_to_tes.work.gallus-encoded-journal_with_exact_normalized_Skyrim_reuse; fundaments_of_alchemy_routes_to_tes.work.fundaments-of-alchemy_with_near_exact_ESO_variant_and_Arcadia_wrapper",
     "specialized_claim_normalization": "three_semantic_alias_groups_normalized_including_Eraamion_Vampire_Master_plan_and_Jurger_Forsworn_offerings; book_of_curses_scope_boundaries_and_Drelas_placement_corroboration_preserved",
     "claim_seed_integrity": "359_of_359_indexed_claim_records_reconciled_exactly_to_69_provenance_seed_files_for_core_claim_fields_and_evidence",
     "relation_qc": "toruld_temporal_reversal_normalized_so_transition_claim_dwd_108_is_not_reused_on_both_relation_sides",
     "contradiction_index_sync": "7_of_7_structured_conflicts_present_in_machine_and_human_readable_indexes",
-    "central_source_routing": "2_high_value_work_identities_verified_external; 0_stable_central_work_ids_assigned_until_vanilla_official_book_corpus_is_normalized",
+    "central_source_routing": "2_high_value_reused_work_identities_now_have_stable_central_work_records; witness_specific_text_and_overlay_metadata_remain_source_scoped; no_single_canonical_text_elected",
     "refinement_pass_14": "claim_seed_integrity_relation_overlap_and_contradiction_index_sync_complete",
     "refinement_pass_15": "gallus_and_fundaments_reused_book_identity_and_variant_verification_complete",
     "evidence_locator_qc": "14_locator_records_cover_13_Papyrus_script_filenames_and_1_recovered_message_locator; script_bodies_not_persisted_so_18_script_evidence_refs_remain_filename_level; dwd_078_is_the_only_script_only_claim",
-    "refinement_pass_16": "evidence_locator_audit_semantic_duplicate_normalization_and_claim_epistemic_field_documentation_complete"
+    "refinement_pass_16": "evidence_locator_audit_semantic_duplicate_normalization_and_claim_epistemic_field_documentation_complete",
+    "refinement_pass_17": "central_work_records_created_for_Gallus_Encoded_Journal_and_Fundaments_of_Alchemy_and_DWD_witnesses_routed"
   }
 }
