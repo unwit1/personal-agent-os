@@ -127,10 +127,57 @@ class RTECApplicantAdapterTests(unittest.TestCase):
             return_value={"id": "job-applicant-dashboard", "path": str(self.root)},
         )
         self.project_patch.start()
+        self._old_audit_path = ra._AUDIT_PATH
+        ra._AUDIT_PATH = self.root / ".agent-local" / "rtec-applicant-access.jsonl"
 
     def tearDown(self):
+        ra._AUDIT_PATH = self._old_audit_path
         self.project_patch.stop()
         self.tmp.cleanup()
+
+    def _audit_entries(self):
+        if not ra._AUDIT_PATH.exists():
+            return []
+        return [
+            json.loads(line)
+            for line in ra._AUDIT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
+
+    def test_access_audit_excludes_search_text_and_applicant_pii(self):
+        ra.search_applicants("Synthetic Applicant")
+        entries = self._audit_entries()
+        self.assertEqual(len(entries), 1)
+        entry = entries[0]
+        self.assertEqual(entry["action"], "applicant.search")
+        self.assertEqual(entry["metadata"]["query_present"], True)
+        self.assertEqual(entry["metadata"]["query_length"], len("Synthetic Applicant"))
+        encoded = json.dumps(entry)
+        self.assertNotIn("Synthetic Applicant", encoded)
+        self.assertNotIn("synthetic@example.invalid", encoded)
+        self.assertNotIn("private/application.pdf", encoded)
+        self.assertNotIn("fillout-submission:synthetic-source", encoded)
+
+    def test_audit_helper_drops_unapproved_metadata_keys(self):
+        ra._audit_access(
+            "synthetic.audit",
+            applicant_ref="app-syntheticref",
+            metadata={
+                "found": True,
+                "unsafe_name": "Synthetic Applicant",
+                "unsafe_query": "private search text",
+            },
+        )
+        entry = self._audit_entries()[0]
+        self.assertEqual(entry["metadata"], {"found": True})
+        encoded = json.dumps(entry)
+        self.assertNotIn("Synthetic Applicant", encoded)
+        self.assertNotIn("private search text", encoded)
+
+    def test_applicant_read_fails_closed_if_audit_cannot_be_written(self):
+        with patch.object(ra, "_audit_access", side_effect=RuntimeError("audit unavailable")):
+            with self.assertRaisesRegex(RuntimeError, "audit unavailable"):
+                ra.list_applicants()
 
     def test_list_is_chronological_admin_projection(self):
         result = ra.list_applicants()
