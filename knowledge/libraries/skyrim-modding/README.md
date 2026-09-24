@@ -19,7 +19,7 @@ It is intentionally separate from Elder Scrolls lore. Technical implementation k
 
 ## Current corpus
 
-As of 2026-09-24, the live terminology directory contains **123 specialist terminology/reference modules**, plus authoring guides, playbooks, troubleshooting routers/catalogs, source provenance, research/frontier documents and extraction tooling.
+As of 2026-09-24, the live terminology directory contains **161 specialist terminology/reference modules**, plus authoring guides, playbooks, troubleshooting routers/catalogs, source provenance, research/frontier documents and extraction tooling.
 
 The old manually maintained heading total has been retired from this README. Exact module/heading counts are generated from a checkout by:
 
@@ -35,7 +35,7 @@ The corpus now covers, at minimum:
 - xEdit conflict analysis, record schemas, cleaning, Wrye Bash, Mator Smash, Mutagen and Synthesis;
 - Creation Kit records, worldspaces, landscape, navmesh, Room Bounds/Portals, weather, lighting and authoring;
 - Papyrus language semantics, API/event maps, performance, persistence, fragments, registration and migration;
-- PapyrusUtil, JContainers, MCM Helper and external/save-local settings models;
+- PapyrusUtil, JContainers, MCM Helper, powerofthree Papyrus Extender and external/save-local settings models;
 - SKSE/CommonLib plugin lifecycle, interfaces, events, serialization, relocations, hooks, trampolines and inter-plugin APIs;
 - actors, processing levels, AI/packages/detection, followers, relationships, crime, merchants, encounters and transformations;
 - quests, aliases, Story Manager, dialogue, scenes, voice and localization;
