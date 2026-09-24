@@ -48,7 +48,7 @@
       "domain": "retirement_plan",
       "question": "Locate the current RTEC 401-K Summary Plan Description/plan booklet and recordkeeper, then document the current eligibility/entry rules, enrollment/change method, HR-finance-payroll ownership, remittance/feed, notices and retention. Resolve the public website's 'after 30 days' claim against that governing plan document.",
       "status": "partially_answered",
-      "resolution_note": "Current handbook confirms a 401-K Employee Savings Plan with pretax payroll deduction and employer match for full-time active employees but explicitly defers additional service/eligibility requirements to the plan booklet. Current public job pages say retirement begins after 30 days. Targeted Drive searches did not surface a current SPD/plan booklet or recordkeeper, so the public waiting period remains unvalidated."
+      "resolution_note": "Current handbook confirms a 401-K Employee Savings Plan with pretax payroll deduction and employer match for full-time active employees but explicitly defers detailed service/eligibility requirements to the plan booklet. The current RTEC public job board advertises 401-K eligibility after 30 days. Public Form-5500-derived history corroborates RTEC 401(K) PLAN, plan 001, through a filing period dated 2024-07-01, while historical public data associates Hartford only with a 2014 filing. Targeted Drive, Library, GitHub, connected-Outlook and public-authority searches still did not surface the current SPD/plan booklet or current recordkeeper. Therefore current plan existence is corroborated but the public 30-day rule, current recordkeeper and operative enrollment/feed workflow remain unvalidated."
     },
     {
       "priority": "medium",
