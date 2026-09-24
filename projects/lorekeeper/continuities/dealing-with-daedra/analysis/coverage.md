@@ -54,3 +54,12 @@ Authoritative closeout references:
 - Two semantic duplicate pairs were normalized without deleting historical IDs: `dwd-091` / `dwd-223`, and `dwd-118` / `dwd-173`.
 - Relation layer now contains 21 records: 7 conflicts, 7 uncertainty boundaries, and 7 specialized relations, with zero cross-role overlap after QC.
 - No new named-speaker promotions were made; the remaining 171 context-routed INFO records remain intentionally conservative.
+
+
+## Refinement pass 17
+
+- The two verified reused works now have stable central normalized work records:
+  - `tes.work.gallus-encoded-journal`
+  - `tes.work.fundaments-of-alchemy`
+- DWD `normalized/book-source-relations.json` routes both local BOOK witnesses to those work IDs while preserving local presentation, wrapper, placement, and variant metadata.
+- Central work identity is now resolved for both high-value candidates; no single canonical normalized text has been elected because first-party game corpora are not yet normalized broadly enough.
