@@ -33,9 +33,18 @@ def valid_registry() -> dict:
 
 
 class ConnectorRegistryTests(unittest.TestCase):
-    def test_loads_empty_canonical_registry(self) -> None:
+    def test_loads_canonical_registry_with_desired_rtec_applicant_connector(self) -> None:
         registry = load_connector_registry(ROOT / "connectors" / "registry.json")
-        self.assertEqual(registry, {"schema": REGISTRY_SCHEMA, "version": 1, "connectors": []})
+        self.assertEqual(registry["schema"], REGISTRY_SCHEMA)
+        self.assertEqual(registry["version"], 1)
+        connector = next(item for item in registry["connectors"] if item["id"] == "rtec-applicants")
+        self.assertEqual(connector["health"], {"status": "unknown", "checked_at": None})
+        self.assertEqual(
+            connector["registrations"],
+            [{"surface_id": "agent-os-mcp", "state": "desired"}],
+        )
+        self.assertIsNone(connector["secret_ref"])
+        self.assertIn("applicant.sync_status", connector["capabilities"])
 
     def test_accepts_provider_scopes_health_registrations_and_secret_reference(self) -> None:
         validate_connector_registry(valid_registry())
