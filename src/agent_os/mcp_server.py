@@ -66,6 +66,7 @@ from .profile import compact_profile as profile_retrieve, profile_status
 from .registry import get_project, git_status, identify_project, load_state, projects
 from .rtec_applicants import (
     acknowledge_event as applicant_acknowledge_event,
+    audit_status as applicant_audit_status,
     get_document_metadata as applicant_get_document_metadata,
     get_status as applicant_get_status,
     get_summary as applicant_get_summary,
@@ -407,11 +408,11 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "inputSchema": {"type": "object", "properties": {}},
     },
     "applicant.get_status": {
-        "description": "Get the human-controlled workflow status and communication state for one RTEC applicant.",
+        "description": "Get the human-controlled workflow status and communication state for one RTEC applicant using the opaque Agent OS reference.",
         "inputSchema": {
             "type": "object",
-            "properties": {"applicant_key": {"type": "string"}},
-            "required": ["applicant_key"],
+            "properties": {"applicant_ref": {"type": "string"}},
+            "required": ["applicant_ref"],
         },
     },
     "applicant.pending_actions": {
@@ -435,6 +436,10 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
                 "limit": {"type": "integer", "minimum": 1, "maximum": 200, "default": 100}
             },
         },
+    },
+    "applicant.audit_status": {
+        "description": "Read privacy-safe local applicant-access audit health and aggregate action counts. No applicant references or audit records are returned.",
+        "inputSchema": {"type": "object", "properties": {}},
     },
     "applicant.event_ack": {
         "description": "Acknowledge one Applicant Dashboard integration event. This changes only event bookkeeping, never applicant workflow status.",
@@ -516,6 +521,7 @@ def methods() -> dict[str, Callable[..., Any]]:
         "applicant.pending_actions": applicant_pending_actions,
         "applicant.sync_status": applicant_sync_status,
         "applicant.events": applicant_pending_events,
+        "applicant.audit_status": applicant_audit_status,
         "applicant.event_ack": applicant_acknowledge_event,
     }
     # These aliases are deliberately small: regular-chat clients should normally
