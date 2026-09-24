@@ -404,6 +404,144 @@
       ],
       "trust": "E/F",
       "url": "https://www.flickr.com/groups/custom_minifig/"
+    },
+    {
+      "id": "leyilebrick",
+      "name": "LeYiLe Brick",
+      "class": "maker_primary",
+      "roles": [
+        "premium_custom_figures",
+        "custom_parts",
+        "Manga_Brick",
+        "BrickTroops",
+        "full_custom_bodies"
+      ],
+      "trust": "A",
+      "url": "https://leyilebrick.com/"
+    },
+    {
+      "id": "lab9",
+      "name": "Lab9minifigs",
+      "class": "authorized_reseller_catalog",
+      "roles": [
+        "premium_customs",
+        "Leyile_authorized_reseller",
+        "UV_and_pad_printed_figures",
+        "material_provenance_claims"
+      ],
+      "trust": "D",
+      "url": "https://www.lab9minifigs.com/"
+    },
+    {
+      "id": "tracyminifigs",
+      "name": "TracyMinifigs",
+      "class": "reseller_catalog",
+      "roles": [
+        "asian_premium_customs",
+        "preorders",
+        "collaborations",
+        "maker_discovery"
+      ],
+      "trust": "D",
+      "url": "https://www.tracyminifigs.com/"
+    },
+    {
+      "id": "outsidebrick",
+      "name": "OutsideBrick",
+      "class": "reseller_catalog",
+      "roles": [
+        "asian_premium_customs",
+        "maker_index",
+        "historical_availability",
+        "price_observations"
+      ],
+      "trust": "D",
+      "url": "https://www.outsidebrick.com/"
+    },
+    {
+      "id": "legendcmoc",
+      "name": "Legend C MOC",
+      "class": "reseller_catalog",
+      "roles": [
+        "limited_premium_customs",
+        "maker_discovery",
+        "price_observations",
+        "social_channel_pointers"
+      ],
+      "trust": "D",
+      "url": "https://www.legendcmoc.com/"
+    },
+    {
+      "id": "engineerio",
+      "name": "Engineerio",
+      "class": "maker_primary",
+      "roles": [
+        "UV_custom_figures",
+        "small_batches",
+        "restocks"
+      ],
+      "trust": "A",
+      "url": "https://www.engineerio.com/"
+    },
+    {
+      "id": "penzora",
+      "name": "Penzora",
+      "class": "maker_primary",
+      "roles": [
+        "machine_printed_customs",
+        "genuine_LEGO_parts",
+        "bespoke_printing"
+      ],
+      "trust": "A",
+      "url": "https://penzora.co.uk/"
+    },
+    {
+      "id": "calypsocustoms",
+      "name": "Calypso Customs",
+      "class": "maker_primary",
+      "roles": [
+        "UV_custom_figures",
+        "PCC_series",
+        "molded_accessories"
+      ],
+      "trust": "A",
+      "url": "https://calypsocustoms.com/"
+    },
+    {
+      "id": "crazyfigs",
+      "name": "CrazyFigs",
+      "class": "maker_primary",
+      "roles": [
+        "adult_collectible_customs",
+        "genuine_LEGO_bases",
+        "injection_molded_accessories"
+      ],
+      "trust": "A",
+      "url": "https://crazyfigs.com/"
+    },
+    {
+      "id": "crazyminifigs",
+      "name": "CrazyMinifigs",
+      "class": "maker_reseller_hub",
+      "roles": [
+        "premium_customs",
+        "collaborations",
+        "UG_Minifigures",
+        "Asian_maker_discovery"
+      ],
+      "trust": "D",
+      "url": "https://crazyminifigs.com/"
+    },
+    {
+      "id": "brickranker",
+      "name": "Brick Ranker",
+      "class": "market_catalog",
+      "roles": [
+        "official_minifigure_price_discovery",
+        "theme_catalog"
+      ],
+      "trust": "C",
+      "url": "https://brickranker.com/"
     }
   ],
   "maker_candidates_to_seed_from_herobloks": [
@@ -459,5 +597,42 @@
     "resellers": "Use for availability, seller aliases and price observations; maker attribution requires corroboration.",
     "community": "Use for sightings, compatibility and quality observations with explicit confidence; never silently canonicalize anecdotes.",
     "social": "Capture announcement permalink, timestamp and snapshot/hash because posts can disappear."
-  }
+  },
+  "maker_candidates_asian_premium": [
+    "LeYiLe Brick",
+    "Manga Brick",
+    "Minifigs.Factory",
+    "UG Minifigures",
+    "Dragon Brick",
+    "Outside Brick",
+    "ACE BURNING BRICK",
+    "Lab 9",
+    "Liberty",
+    "Top Mountain",
+    "Rainbow Brick",
+    "Saturday Brick",
+    "Baggles Studio",
+    "Nova-Figures",
+    "MAFgiure",
+    "SXBH Brick",
+    "CrazyFire",
+    "Soul Ghost Rose",
+    "Ripley",
+    "Feelings",
+    "Color Silk Road",
+    "Leaf",
+    "Dazzle Brick",
+    "80s Toyshop",
+    "Krakoan Brick",
+    "LatoFigs",
+    "MH",
+    "Mr J Brick",
+    "Earthly Brick",
+    "Day Dreams",
+    "Excelsior custom minifigures",
+    "Black Star",
+    "Toycat",
+    "Lifebrick",
+    "Richbrick"
+  ]
 }
