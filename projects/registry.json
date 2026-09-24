@@ -102,11 +102,11 @@
       "id": "job-applicant-dashboard",
       "name": "Job Applicant Dashboard",
       "directory": "Job Applicant Dashboard",
-      "repository": null,
+      "repository": "unwit1/job-applicant-dashboard",
       "classification": "active",
       "state_file": "projects/job-applicant-dashboard/state.json",
       "canonical_owner": "project_directory",
-      "privacy": "Never read or index applicant records, spreadsheets, databases, resumes, drafts, email archives, backups, caches, credentials, or local configuration.",
+      "privacy": "Never generically read, index, summarize, commit, or inject live applicant spreadsheets, databases, resumes, PDFs, drafts, backups, caches, credentials, local configuration, or restricted self-ID data. Applicant access is allowed only through the explicit RTEC applicant connector's whitelisted local administrative DTOs/events for authorized HR tasks. Ordinary Agent OS context/search/profile ingestion must continue to exclude applicant-specific records.",
       "routing_terms": [
         "applicant",
         "applicant dashboard",
