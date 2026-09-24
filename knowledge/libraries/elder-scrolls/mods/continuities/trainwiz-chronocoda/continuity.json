@@ -42,5 +42,21 @@
     "status": "inactive_optional_cold_backlog",
     "required_for_current_goal": false
   },
-  "active_next_stage": "Semantic synthesis across the complete current snapshots: character/faction/place/artifact/technology dossiers, quest branches, internal tensions, metaphysics, and cross-continuity concept relationships."
+  "active_next_stage": "Expand current-snapshot semantic synthesis into source-scoped character, faction, place, artifact/technology, quest-branch, and metaphysics dossiers; use the direct source layer for evidence backfill.",
+  "semantic_synthesis": {
+    "status": "pass_01_complete",
+    "overview": "analysis/current-snapshot-semantic-synthesis-01.md",
+    "concept_graph": "analysis/concept-graph.json",
+    "branch_and_tensions": "analysis/branch-and-tension-registry.json",
+    "focus": [
+      "Chronographer formation/operations",
+      "Gestalt and Clockwork City branches",
+      "Armour of Oscillating Quartz",
+      "Imperfections/temporal integrity",
+      "pneuma/Rewound",
+      "aethership and lunar technology",
+      "engineered worlds",
+      "power/infrastructure metaphysics"
+    ]
+  }
 }

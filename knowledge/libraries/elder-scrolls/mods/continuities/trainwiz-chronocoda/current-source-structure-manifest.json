@@ -64,8 +64,11 @@
       "description": "Lore-selected raw source records plus combined record/script indexes for reproducible retrieval and future semantic passes."
     },
     "cross_continuity": {
-      "status": "active",
-      "shared_work_relations": "analysis/shared-work-relations.json"
+      "status": "semantic_pass_01_complete",
+      "shared_work_relations": "analysis/shared-work-relations.json",
+      "concept_graph": "analysis/concept-graph.json",
+      "branch_and_tension_registry": "analysis/branch-and-tension-registry.json",
+      "synthesis": "analysis/current-snapshot-semantic-synthesis-01.md"
     }
   },
   "verification_commits": [
@@ -84,5 +87,5 @@
     "required": false,
     "status": "optional_cold_backlog"
   },
-  "next_stage": "Semantic synthesis and dossier/graph enrichment over the complete current-source structure."
+  "next_stage": "Expand dossiers/semantic graph over the complete current-source corpus; historical edition archaeology remains optional."
 }
