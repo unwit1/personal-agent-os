@@ -1,6 +1,6 @@
 {
   "schema": "rtec-hr-reference-form-catalog/v1",
-  "generated_at": "2026-09-23",
+  "generated_at": "2026-09-24",
   "purpose": "Cross-project inventory of reusable blank/reference forms and templates available to the RTEC HR Process Model.",
   "authority_rules": [
     "Reference-form presence does not establish a current HR policy or rule.",
@@ -26,16 +26,16 @@
     {
       "project": "rtec-hr-process-model",
       "repository": "unwit1/personal-agent-os",
-      "entries": 4,
+      "entries": 6,
       "note": "Forms already fully ingested into the RTEC HR knowledge corpus, including a visually checked Guardian enrollment reference found in the work mailbox."
     }
   ],
   "stats": {
-    "total_reference_records": 79,
+    "total_reference_records": 81,
     "hr_gui_manifest_records": 72,
     "applicant_dashboard_records": 3,
-    "already_ingested_hr_corpus_records": 4,
-    "unique_identity_keys": 74,
+    "already_ingested_hr_corpus_records": 6,
+    "unique_identity_keys": 76,
     "duplicate_or_multi_source_identity_keys": 4,
     "pending_identity_review_records": 0
   },
@@ -1969,6 +1969,56 @@
         "hrgui-reference-008"
       ],
       "policy_authority": "none_by_form_presence"
+    },
+    {
+      "id": "rtec-hr-downloads-reference-001",
+      "title": "Demographic Spreadsheet – Used for all Account Types",
+      "category": "Benefits",
+      "source_project": "rtec-hr-process-model",
+      "source_repository": "unwit1/personal-agent-os",
+      "source_path": "sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24.json#benefits-demographic-import-template-2018",
+      "source_inventory_path": "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24.json",
+      "source_kind": "blank_or_reference_form",
+      "mapping_status": "safe_semantic_map",
+      "canonical_form_type": "Employee Demographic Data Import Template",
+      "proposed_name_if_unmapped": null,
+      "extension": ".xls",
+      "pages_extracted": 1,
+      "extracted_text_chars": null,
+      "temporal_status": "historical",
+      "validation_state": "validated_reference_identity",
+      "full_source_status": "Original blank legacy XLS was supplied in chat; privacy-safe structured semantics and SHA-256 provenance are canonicalized in the RTEC HR knowledge library, but the binary is not committed.",
+      "policy_authority": "none_by_form_presence",
+      "notes": [
+        "Historical blank import template last saved in 2018.",
+        "Use for form identity, field names, validation rules and workflow context; do not assume the import path remains current.",
+        "Completed demographic exports/rosters are a different restricted document class."
+      ]
+    },
+    {
+      "id": "rtec-hr-downloads-reference-002",
+      "title": "Health FSA-Dependent Care FSA-Transit-Parking-HSA Enrollment Spreadsheet",
+      "category": "Benefits",
+      "source_project": "rtec-hr-process-model",
+      "source_repository": "unwit1/personal-agent-os",
+      "source_path": "sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24.json#infinisource-benefits-enrollment-import-template-2018",
+      "source_inventory_path": "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24.json",
+      "source_kind": "blank_or_reference_form",
+      "mapping_status": "safe_semantic_map",
+      "canonical_form_type": "Benefits Enrollment Data Import Template",
+      "proposed_name_if_unmapped": null,
+      "extension": ".xls",
+      "pages_extracted": 1,
+      "extracted_text_chars": null,
+      "temporal_status": "historical",
+      "validation_state": "validated_reference_identity",
+      "full_source_status": "Four binary copies/variants were supplied; normalized human-readable content is identical. Structured semantics and all four hashes are canonicalized; binaries are not committed.",
+      "policy_authority": "none_by_form_presence",
+      "notes": [
+        "Template explicitly contains the Infinisource name and Employer Portal import instructions.",
+        "Use for historical field/validation semantics and document recognition, not as evidence that Infinisource or this import format is still current.",
+        "Completed enrollment exports containing employee elections are restricted records and are not represented by this blank-template entry."
+      ]
     }
   ]
 }
