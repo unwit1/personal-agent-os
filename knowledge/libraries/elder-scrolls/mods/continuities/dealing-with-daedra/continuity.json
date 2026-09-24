@@ -60,9 +60,12 @@
     "claim_records_total": 359,
     "specialized_named_claims": 18,
     "recovered_overwritten_claims": 9,
-    "claim_relation_records": 14,
+    "claim_relation_records": 19,
     "exact_duplicate_semantic_groups": 2,
-    "central_source_candidate_external_witnesses": 1
+    "central_source_candidate_external_witnesses": 1,
+    "specialized_semantic_aliases": 1,
+    "specialized_scope_relations": 3,
+    "independent_specialized_corroborations": 1
   },
   "structured_layers": {
     "plugin_record_inventory": "complete",
@@ -106,6 +109,7 @@
     "claim_index": "complete_359_records_no_duplicate_ids_no_missing_numeric_ids",
     "claim_seed_recovery": "9_claims_recovered_from_historical_commits_after_pass_13_filename_reuse_overwrite",
     "claim_relation_normalization": "14_structured_relations_covering_7_conflicts_and_7_uncertainty_boundaries; 26_claims_wired_with_relation_context",
-    "book_source_relations": "normalized_high_value_relations_added_for_2_centralization_candidates_and_2_exact_local_duplicate_groups"
+    "book_source_relations": "normalized_high_value_relations_added_for_2_centralization_candidates_and_2_exact_local_duplicate_groups",
+    "specialized_claim_normalization": "eraamion_semantic_alias_deduplicated; book_of_curses_page_details_scope_boundaries_and_drelas_placement_corroboration_materialized"
   }
 }
