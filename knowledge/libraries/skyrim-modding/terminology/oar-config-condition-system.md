@@ -308,3 +308,14 @@ Run child functions only for a specific replacement animation filename.
 ## Dated snapshot
 
 OAR v3.2.1 was observed as current on 2026-09-24, updated 2026-08-31, with support for Skyrim runtime 1.7.99+ and current UI API additions. Preserve this as dated compatibility metadata.
+
+
+## Exact source-derived companion catalogs
+
+For OAR 3.2.1, prefer these when exact version/API semantics matter:
+
+- `oar-3.2.1-condition-catalog.md` — all 123 built-in condition names with minimum OAR version and source descriptions.
+- `oar-state-priority-variants.md` — source defaults, config provenance, priority, state scopes, variants, loop/echo and synchronized evaluation.
+- `../sources/oar-3.2.1-source-manifest.md` — pinned source files/SHAs.
+
+This broad terminology file remains the conceptual overview; the source-derived companions are authoritative for 3.2.1-specific finite tables.
