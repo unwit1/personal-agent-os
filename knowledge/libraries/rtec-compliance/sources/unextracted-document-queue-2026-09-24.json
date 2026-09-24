@@ -133,7 +133,9 @@
       "paths": [
         "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2009/Job Group Analysis as of June 30 2009.xls"
       ],
-      "status": "pending_coverage_audit"
+      "status": "uncovered_needs_analysis",
+      "modeled_paths": [],
+      "audited_at": "2026-09-24"
     },
     {
       "index": 12,
@@ -143,7 +145,9 @@
       "paths": [
         "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2009/New Hire Summary July 08 - June 09.xls"
       ],
-      "status": "pending_coverage_audit"
+      "status": "uncovered_needs_analysis",
+      "modeled_paths": [],
+      "audited_at": "2026-09-24"
     },
     {
       "index": 13,
@@ -153,7 +157,9 @@
       "paths": [
         "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2009/Personnel Activity Data as of 6 30 09.xls"
       ],
-      "status": "pending_coverage_audit"
+      "status": "uncovered_needs_analysis",
+      "modeled_paths": [],
+      "audited_at": "2026-09-24"
     },
     {
       "index": 14,
@@ -163,7 +169,9 @@
       "paths": [
         "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2009/Termination SUMMARY July 08 - June 09.xls"
       ],
-      "status": "pending_coverage_audit"
+      "status": "uncovered_needs_analysis",
+      "modeled_paths": [],
+      "audited_at": "2026-09-24"
     },
     {
       "index": 15,
@@ -173,7 +181,9 @@
       "paths": [
         "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2009/Workforce Analysis Form as of 6 30 09.xls"
       ],
-      "status": "pending_coverage_audit"
+      "status": "uncovered_needs_analysis",
+      "modeled_paths": [],
+      "audited_at": "2026-09-24"
     },
     {
       "index": 16,
@@ -183,7 +193,9 @@
       "paths": [
         "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2010/2010 AAP PLAN.pdf"
       ],
-      "status": "pending_coverage_audit"
+      "status": "uncovered_needs_analysis",
+      "modeled_paths": [],
+      "audited_at": "2026-09-24"
     },
     {
       "index": 17,
@@ -193,7 +205,9 @@
       "paths": [
         "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2010/Determining Availability FY 2010.xls"
       ],
-      "status": "pending_coverage_audit"
+      "status": "uncovered_needs_analysis",
+      "modeled_paths": [],
+      "audited_at": "2026-09-24"
     },
     {
       "index": 18,
@@ -203,7 +217,9 @@
       "paths": [
         "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2010/Incumbency Analysis as of June 30, 2010.xls"
       ],
-      "status": "pending_coverage_audit"
+      "status": "uncovered_needs_analysis",
+      "modeled_paths": [],
+      "audited_at": "2026-09-24"
     },
     {
       "index": 19,
@@ -213,7 +229,9 @@
       "paths": [
         "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2010/Incumbency to Availability as of 6 30 10.xls"
       ],
-      "status": "pending_coverage_audit"
+      "status": "uncovered_needs_analysis",
+      "modeled_paths": [],
+      "audited_at": "2026-09-24"
     },
     {
       "index": 20,
@@ -223,7 +241,9 @@
       "paths": [
         "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2010/Job Group Analysis as of June 30 2010.xls"
       ],
-      "status": "pending_coverage_audit"
+      "status": "uncovered_needs_analysis",
+      "modeled_paths": [],
+      "audited_at": "2026-09-24"
     },
     {
       "index": 21,
