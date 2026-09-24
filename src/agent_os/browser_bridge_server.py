@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import secrets
@@ -99,12 +100,29 @@ def make_handler(store: BridgeStore, token: str, allowed_hosts: set[str]):
                     result = store.ingest(events)
                 elif path == "/api/v1/browser/capture":
                     capture = body
-                    event_id = "capture:" + secrets.token_hex(16)
+                    source_key = str(
+                        capture.get("source_id")
+                        or capture.get("canonical_url")
+                        or capture.get("url")
+                        or ""
+                    )
+                    identity = json.dumps(
+                        [
+                            capture.get("site"),
+                            capture.get("content_type"),
+                            source_key,
+                        ],
+                        ensure_ascii=False,
+                        separators=(",", ":"),
+                    )
+                    event_id = "capture:" + hashlib.sha256(identity.encode("utf-8")).hexdigest()
                     result = store.ingest([{
                         "event_id": event_id,
                         "source": "browser-capture",
                         "event_type": str(capture.get("content_type") or "web_page"),
+                        "source_key": source_key,
                         "occurred_at": capture.get("captured_at"),
+                        "device": capture.get("device"),
                         "payload": capture,
                     }])
                     result["event_id"] = event_id
