@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "personal-agent/checkpoint/v1",
+  "type": "object",
+  "required": ["schema_version", "checkpoint_id", "run_id", "project_id", "workflow_id", "repository", "working_tree_fingerprint", "completed_stages", "next_action"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "checkpoint_id": {"type": "string"},
+    "run_id": {"type": "string"},
+    "project_id": {"type": "string"},
+    "workflow_id": {"type": "string"},
+    "current_stage": {"type": ["string", "null"]},
+    "repository": {"type": "object", "required": ["repository_id"]},
+    "working_tree_fingerprint": {"type": "object", "required": ["algorithm", "value", "inventory"]},
+    "completed_stages": {"type": "array", "items": {"type": "string"}},
+    "next_action": {"type": "string", "maxLength": 4000},
+    "recommended_capability_class": {"type": "string"}
+  },
+  "not": {"anyOf": [
+    {"required": ["transcript"]}, {"required": ["messages"]},
+    {"required": ["history"]}, {"required": ["conversation"]}
+  ]}
+}

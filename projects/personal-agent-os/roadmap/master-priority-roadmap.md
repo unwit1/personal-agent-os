@@ -402,6 +402,14 @@ Detailed design:
 - `projects/personal-agent-os/roadmap/usage-intelligence-adaptive-routing.md` — shared document intelligence, HR-GUI optimization, scanner learning loop.
 
 ### P0.4 — Resumable/checkpointed ingestion everywhere
+Status: implemented in the P0.4 recovery foundation (`agent_os.recovery`), with
+local compact checkpoints, Git fingerprints, cross-agent continuation, and a
+generic incremental ledger. Ledger failure records now discard caller-supplied
+error text to keep imported content, paths, and credentials out of runtime
+metadata. Recovery checkpoints keep only validator pass/fail state, not raw
+validator detail. Working-tree fingerprints hash symlink targets without
+following them, so external file contents are not read. See
+`docs/restart-recovery.md`.
 
 Long-running imports and crawls must not lose progress or rescan completed material.
 
@@ -504,6 +512,9 @@ Success signal:
 
 
 ### P0.6 — Skill/Economy Regression Test Suite
+Status: implemented with a deterministic, privacy-safe fixed corpus, context
+budget safeguards, workflow-route regression coverage, and synthetic A/B
+comparison. See `docs/economy-regressions.md`.
 
 Build an automated test/evaluation harness that proves the usage-saving skill layer actually saves context/usage and does not create its own bloat.
 

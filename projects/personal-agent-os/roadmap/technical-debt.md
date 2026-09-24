@@ -164,3 +164,20 @@ The cache is deliberately workstation-local and must never sync. That is
 correct for privacy, and it means a second machine starts cold with no way to
 share the work. Accepted, not solved.
 
+
+## From P0.4 — Restart-safe recovery
+
+### Checkpoints remain intentionally workstation-local
+
+Recovery records can contain private relative paths and source/item fingerprints,
+so they are gitignored instead of synced. A future secure transfer or sanitized
+handoff exporter could make intentional cross-machine continuation smoother.
+
+## From P0.6 — Economy regression suite
+
+### Economy benchmarks do not measure live provider spend
+
+The regression corpus and A/B comparison are intentionally deterministic and
+privacy-safe. They exercise policy, routing, and reported measurements without
+making provider calls; optional sanitized live usage/latency telemetry remains
+future work.
