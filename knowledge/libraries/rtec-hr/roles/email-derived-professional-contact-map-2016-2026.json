@@ -452,6 +452,52 @@
         "000124"
       ],
       "note": "Vendor guidance does not prove RTEC enabled every Employee Self-Service feature."
+    },
+    {
+      "name": "Steven Farmer",
+      "organization": "Humana",
+      "role_history": [
+        "Sales Executive (2018 Humana installation kickoff deck)"
+      ],
+      "work_context": [
+        "Humana medical implementation kickoff for RTEC",
+        "implementation team introduction"
+      ],
+      "confidence": "high",
+      "currentness": "historical contact",
+      "evidence_ids": [
+        "000054"
+      ]
+    },
+    {
+      "name": "Lisa Clark",
+      "organization": "Humana",
+      "role_history": [
+        "Client Executive (2018 Humana installation kickoff deck)"
+      ],
+      "work_context": [
+        "Humana medical implementation team for RTEC"
+      ],
+      "confidence": "high",
+      "currentness": "historical contact",
+      "evidence_ids": [
+        "000054"
+      ]
+    },
+    {
+      "name": "Emily Fackler",
+      "organization": "Humana",
+      "role_history": [
+        "Telesales Executive (2018 Humana installation kickoff deck)"
+      ],
+      "work_context": [
+        "Humana medical implementation team for RTEC"
+      ],
+      "confidence": "high",
+      "currentness": "historical contact",
+      "evidence_ids": [
+        "000054"
+      ]
     }
   ],
   "not_promoted": "The exhaustive raw contact/header index remains outside GitHub because it includes one-off correspondents and may contain personal or case-linked identities. Additional people are promoted only when repeated professional context can be separated safely from case facts."
