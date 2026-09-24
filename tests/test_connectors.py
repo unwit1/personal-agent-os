@@ -44,7 +44,25 @@ class ConnectorRegistryTests(unittest.TestCase):
             [{"surface_id": "agent-os-mcp", "state": "desired"}],
         )
         self.assertIsNone(connector["secret_ref"])
-        self.assertIn("applicant.sync_status", connector["capabilities"])
+        expected_capabilities = {
+            "applicant.list",
+            "applicant.search",
+            "applicant.get_summary",
+            "applicant.get_status",
+            "applicant.get_document_metadata",
+            "applicant.get_timeline",
+            "applicant.openings",
+            "applicant.pending_actions",
+            "applicant.sync_status",
+            "applicant.events",
+            "applicant.event_ack",
+            "applicant.audit_status",
+        }
+        self.assertTrue(expected_capabilities.issubset(set(connector["capabilities"])))
+        self.assertIn("applicants.audit-health.read", connector["scopes"])
+        self.assertIn("applicants.documents.metadata.read", connector["scopes"])
+        self.assertIn("applicants.timeline.read", connector["scopes"])
+        self.assertIn("applicants.openings.read", connector["scopes"])
 
     def test_accepts_provider_scopes_health_registrations_and_secret_reference(self) -> None:
         validate_connector_registry(valid_registry())
