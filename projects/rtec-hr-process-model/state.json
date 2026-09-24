@@ -131,9 +131,9 @@
     "correspondence_last_deepening_date": "2026-09-24",
     "downloads_spreadsheet_batch_status": "complete",
     "downloads_spreadsheet_artifacts": 16,
-    "downloads_spreadsheet_logical_families": 10,
-    "downloads_spreadsheet_restricted_artifacts": 9,
-    "downloads_spreadsheet_safe_artifacts": 7
+    "downloads_spreadsheet_logical_families": 11,
+    "downloads_spreadsheet_restricted_artifacts": 8,
+    "downloads_spreadsheet_safe_artifacts": 8
   },
   "reference_form_context": {
     "catalog_path": "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json",
@@ -191,9 +191,9 @@
     "batch_id": "rtec-hr-downloads-spreadsheets-2026-09-24",
     "status": "complete",
     "source_artifacts": 16,
-    "logical_source_families": 10,
-    "safe_artifacts": 7,
-    "restricted_artifacts": 9,
+    "logical_source_families": 11,
+    "safe_artifacts": 8,
+    "restricted_artifacts": 8,
     "semantic_duplicate_groups": 2,
     "new_reference_form_types": [
       "Employee Demographic Data Import Template",
