@@ -89,3 +89,10 @@ Agent OS should diagnose Skyrim issues by layer rather than by symptom name alon
 This repository is designed to become more accurate through use. When a troubleshooting, authoring, reverse-engineering, or compatibility task produces a durable finding, Agent OS should stage it with its source, game/runtime/tool versions, reproduction evidence, confidence, and affected subsystem. Only validated findings should be promoted into canonical knowledge; forum/Discord/Reddit claims remain evidence candidates until corroborated.
 
 The corpus should never claim permanent exhaustiveness because Skyrim modding tooling and reverse engineering continue to evolve. The operational goal is exhaustive coverage of known high-value domains plus explicit, searchable uncertainty and automatic research-on-demand for uncovered edge cases.
+
+
+## Ongoing research model
+
+Broad foundational coverage is now established. Because Skyrim modding is an evolving reverse-engineered ecosystem, permanent exhaustiveness is not a realistic state. Remaining high-value gaps and the evidence-promotion model are tracked in `research/frontier.md`. New project questions should trigger targeted deeper ingestion into the relevant domain, with current version/runtime provenance preserved.
+
+Use `troubleshooting/diagnostic-router.md` as the first retrieval surface for symptom-driven support.
