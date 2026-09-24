@@ -5,9 +5,9 @@
   "source_artifact_count": 16,
   "status": "analysis_complete",
   "privacy_rule": "Employee/subscriber/dependent-level rows are not committed. Restricted files are represented only by safe metadata, hashes, document-type evidence, and generalized process findings.",
-  "safe_artifacts": 7,
-  "restricted_artifacts": 9,
-  "logical_source_families": 10,
+  "safe_artifacts": 8,
+  "restricted_artifacts": 8,
+  "logical_source_families": 11,
   "exact_or_semantic_duplicate_groups": [
     {
       "family_id": "infinisource-benefits-enrollment-import-template-2018",
