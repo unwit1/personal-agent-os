@@ -29,7 +29,10 @@
   "import_identity": {
     "preferred": "stable Fillout Submission ID when present",
     "fallback": "normalized applicant name plus submission timestamp for legacy rows",
-    "prohibited": "Google Sheet row number as durable identity"
+    "prohibited": "Google Sheet row number or filename/name as the Agent OS external identifier.",
+    "agent_ref": "Random opaque Dashboard-stored app-<uuid> is the Agent OS/public adapter reference.",
+    "source_key": "Fillout submission identity/import provenance is stored separately from agent_ref.",
+    "internal_applicant_key": "Legacy Dashboard primary key may derive from PDF filename and stays internal."
   },
   "processing_ledger": {
     "artifact": "download_log.csv",
@@ -98,6 +101,8 @@
     "Expose document metadata separately from document content.",
     "Audit applicant-record reads and prepared actions locally.",
     "Do not expose raw Google credentials or direct source rows through Agent OS.",
-    "Preserve Dashboard usability when Agent OS is unavailable."
+    "Preserve Dashboard usability when Agent OS is unavailable.",
+    "Expose only agent_ref as the cross-Agent applicant identifier.",
+    "Never return applicant_key/source_key through ordinary applicant MCP DTOs."
   ]
 }
