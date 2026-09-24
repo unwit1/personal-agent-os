@@ -204,6 +204,107 @@ Retrieve:
 
 Trace which input changed and rerun only downstream outputs in the regeneration dependency graph.
 
+
+## Established-save value ignores a plugin update
+
+Retrieve:
+- `terminology/ess-changeforms-savegame-internals.md`;
+- `terminology/papyrus-language-semantics-states-properties-fragments.md`;
+- `terminology/papyrusutil-jcontainers-persistent-data.md`;
+- `terminology/mcm-helper-settings-persistence.md`;
+- `terminology/papyrus-persistence-advanced.md`.
+
+Identify where the value actually lives: ChangeForm, Papyrus instance, SKSE co-save, StorageUtil/JContainers, external JSON/INI, or current plugin record.
+
+## Native DLL loads but feature still does not work
+
+Retrieve:
+- `terminology/skse-plugin-lifecycle-loading.md`;
+- `terminology/native-hooking-relocations-trampolines.md`;
+- `terminology/commonlib-skse-api-system-map.md`;
+- `terminology/skse-plugin-interop-api-design.md`.
+
+Check plugin log for lifecycle stage, relocation/API version, hook installation, dependency readiness, and whether the feature initializes at PostLoad/PostPostLoad/DataLoaded rather than merely DLL load.
+
+## One actor behaves differently only when distant/unloaded
+
+Retrieve:
+- `terminology/actor-process-levels-simulation.md`;
+- `terminology/object-reference-lifecycle-interactions.md`;
+- AI/package modules.
+
+Distinguish High/Middle/Low process, 3D-loaded state, persistence, simplified package catch-up and visual/node systems that only work when actor 3D exists.
+
+## Interior objects/lights disappear at doorways
+
+Retrieve:
+- `terminology/interior-optimization-portals-roombounds.md`;
+- `terminology/plugin-record-schema-world-environment.md`;
+- rendering/lighting modules.
+
+Inspect Room Bounds, Portals, reference membership, bounds and light/FX origins before changing meshes or textures.
+
+## Water seam at cell boundary
+
+Retrieve:
+- `terminology/water-flow-materials-seams.md`;
+- `terminology/plugin-record-schema-world-environment.md`;
+- water/rendering modules.
+
+Compare CELL water type, SE flow data, water height and WRLD/distant-water values. Oldrim-ported CELL overrides are a specific high-risk source of lost SE flow data.
+
+## Visual effect works but looks wrong
+
+Retrieve:
+- `terminology/visual-effects-artobjects-particles.md`;
+- `terminology/nif-shader-block-texture-slot-catalog.md`;
+- `terminology/community-shaders-render-pipeline-internals.md`.
+
+Trace MGEF -> ARTO/EFSH -> NIF/DDS -> renderer. Avoid changing gameplay archetype fields to solve a material problem.
+
+## Wrong footsteps/impact sounds on one mesh
+
+Retrieve:
+- `terminology/footsteps-surfaces-materials.md`;
+- `terminology/havok-collision-rigidbody-authoring.md`.
+
+Inspect the collision Havok material/chunk rather than only SNDR/FootstepSet records.
+
+## VR hand/body/physical interaction problem
+
+Retrieve:
+- `terminology/vr-interaction-higgs-planck-vrik.md`;
+- `terminology/vr-linux-proton-cross-platform.md`;
+- skeleton/physics/native API modules.
+
+Separate VRIK IK/body, HIGGS hand/object interaction, PLANCK actor physics, SKSEVR runtime and skeleton-node compatibility.
+
+## External config keeps returning after new game/reinstall
+
+Retrieve:
+- `terminology/papyrusutil-jcontainers-persistent-data.md`;
+- `terminology/mcm-helper-settings-persistence.md`;
+- `terminology/runtime-platform-config-files.md`.
+
+Check external JSON/INI paths, MO2 profile isolation and whether the configuration is deliberately cross-save.
+
+## Tool reports an error/warning
+
+Start with:
+- `troubleshooting/tool-error-catalog.md`.
+
+Then retrieve the specialist module for that tool/subsystem. Preserve exact message and full log; diagnose the first causal error rather than downstream cascades.
+
+## Need to design a compatibility patch
+
+Start with:
+- `troubleshooting/compatibility-patterns.md`;
+- the appropriate `plugin-record-schema-*.md` module;
+- `terminology/records-patching-load-order.md`.
+
+Identify intended source for each field/system and whether final state is static, asset-level, runtime-patched or save-persisted.
+
+
 ## Evidence policy
 
 For every diagnosis:
