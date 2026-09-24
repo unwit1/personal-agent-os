@@ -64,7 +64,18 @@
     "books": 49,
     "journal_topics": 44,
     "raw_full_text_persisted_in_repo": false,
-    "raw_full_text_note": "Deterministic extraction was completed from the verified uploaded package in the analysis session. Compact canonical manifests/claims are persisted; the source archive itself is not committed."
+    "raw_full_text_note": "Deterministic extraction was completed from the verified uploaded package in the analysis session. Compact canonical manifests/claims are persisted; the source archive itself is not committed.",
+    "exhaustive_current_lore_structure_persisted": true,
+    "full_structure_storage": "../trainwiz-chronocoda/corpus/manifest.json",
+    "full_structure_virtual_artifacts": "../trainwiz-chronocoda/full-structure-ingestion.json",
+    "dialogue_responses": 1147,
+    "dialogue_topics": 250,
+    "npcs": 344,
+    "cells": 460,
+    "factions": 7,
+    "scripts_scanned": 543,
+    "named_implementation_objects": 1291,
+    "script_source_reference_edges": 1441
   },
   "included_readme_boundary": "The included readme states the mod does not change Tribunal's ending: Sotha Sil remains dead, while the expansion explores additional Clockwork City material.",
   "analysis_paths": [
@@ -74,7 +85,13 @@
     "analysis/quest-catalog.json",
     "analysis/shared-work-relations.json",
     "analysis/source-reliability.json",
-    "analysis/unique-book-findings.md"
+    "analysis/unique-book-findings.md",
+    "analysis/script-lore-findings.md",
+    "analysis/script-lore-findings.json",
+    "../trainwiz-chronocoda/FULL_STRUCTURE.md"
   ],
-  "resume_boundary": "Current 3.1 structural/book/quest/core-lore analysis is complete. Do not re-ingest this package for historical precedence; seek older dated Sotha Sil Expanded editions instead."
+  "resume_boundary": "Current 3.1 source verification and exhaustive current-snapshot lore structure are complete: books, dialogue, journals, NPCs/speakers, cells, factions, named objects, script lore strings, script/source edges, concepts, relationships, and reliability layers are persisted. Resume with higher-level semantic synthesis, not historical-version hunting.",
+  "current_snapshot_structural_ingestion": "complete",
+  "historical_version_diffing_required": false,
+  "historical_edition_archaeology": "optional_cold_backlog"
 }
