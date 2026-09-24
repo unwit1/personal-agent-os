@@ -302,6 +302,7 @@ def sync_status() -> dict[str, Any]:
                 "status",
                 "last_check_at",
                 "last_success_at",
+                "last_transition_at",
                 "processed_count",
                 "warning_count",
                 "error_class",
