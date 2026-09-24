@@ -1,0 +1,70 @@
+{
+  "record_id": "kentucky-eeo-contract-compliance-current-process-2026",
+  "updated_at": "2026-09-24",
+  "status": "validated_current_external_process_internal_trigger_unresolved",
+  "domain": "Kentucky EEO Contract Compliance",
+  "authority": {
+    "organization": "Kentucky Finance and Administration Cabinet, Office of Equal Employment Opportunity and Contract Compliance",
+    "program": "Contract Compliance Program",
+    "official_sources": [
+      {
+        "title": "Office of Equal Employment Opportunity and Contract Compliance",
+        "url": "https://finance.ky.gov/office-of-the-secretary/office-of-equal-employment-opportunity-contract-compliance/Pages/default.aspx",
+        "retrieved": "2026-09-24"
+      },
+      {
+        "title": "KYTC Electronic Response Instructions",
+        "url": "https://transportation.ky.gov/ProfessionalServices/Documents/Electronic%20Response%20Instructions.pdf",
+        "version_note": "Updated October 2025",
+        "retrieved": "2026-09-24"
+      }
+    ]
+  },
+  "current_process": [
+    {
+      "step": 1,
+      "actor": "contracting/procuring agency",
+      "action": "A covered procurement identifies an apparent low bidder/selected consultant or other contractor requiring Kentucky EEO Contract Compliance review."
+    },
+    {
+      "step": 2,
+      "actor": "vendor/contractor",
+      "action": "Provide the required EEO information through the contracting agency using the current Finance-developed process/forms. Current Finance guidance identifies intent to comply, workforce breakdown and subcontractor information among required information."
+    },
+    {
+      "step": 3,
+      "actor": "contracting agency",
+      "action": "Transmit the EEO information to the Office of EEO and Contract Compliance."
+    },
+    {
+      "step": 4,
+      "actor": "Office of EEO and Contract Compliance",
+      "action": "Review the information, currently described as within ten days of receipt, and determine whether more information is needed or the contractor/vendor should be approved."
+    },
+    {
+      "step": 5,
+      "actor": "approved contractor/vendor",
+      "action": "Approval qualifies the vendor to bid on covered Kentucky EEO Act contracts without filing additional data for one year."
+    }
+  ],
+  "safeguards": [
+    "Do not treat the expiration date alone as authorization to send an unsolicited recertification packet.",
+    "Current KYTC instructions state Finance does not pre-approve vendors and unsolicited submissions are not processed or returned.",
+    "Use only current Finance-developed forms/processes supplied through the contracting context; do not reuse historical forms solely because they were accepted in prior years.",
+    "Keep this Contract Compliance approval separate from RTEC's FTA/KYTC EEO/Affirmative Action Plan lifecycle."
+  ],
+  "rtec_current_state": {
+    "latest_internal_approval_date": "2025-09-24",
+    "latest_internal_expiration_date": "2026-09-30",
+    "successor_approval_found": false,
+    "current_procurement_trigger_found": null,
+    "interpretation": "The current approval expires soon, but the evidence set does not establish that RTEC presently has a covered procurement or agency request requiring a new submission. This remains a trigger-based currentness question rather than an automatic annual filing task."
+  },
+  "agent_behavior": {
+    "should_surface_before_expiration": true,
+    "recommended_prompt": "Check whether RTEC has a current Kentucky state bid/contract, apparent-low-bidder status, selected-consultant notice, or direct Contract Compliance request that triggers a new EEO approval workflow.",
+    "do_not_auto_submit": true,
+    "consequential_action": "Any external EEO compliance submission remains human-approved."
+  },
+  "privacy": "Organization-level compliance process only; no employee-level workforce breakdown or signatory PII is stored in this record."
+}
