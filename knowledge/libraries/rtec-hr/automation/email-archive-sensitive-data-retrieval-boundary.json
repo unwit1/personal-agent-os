@@ -12,7 +12,9 @@
     "historical account/filing credential material",
     "employee/applicant PII and restricted case data",
     "medical/leave/workers-comp documents and narratives",
-    "payroll/tax/benefit identifiers in source mail or attachments"
+    "payroll/tax/benefit identifiers in source mail or attachments",
+    "calendar/ICS meeting join links and meeting passcodes",
+    "embedded conferencing/reschedule URLs with access parameters"
   ],
   "controls": [
     "Do not commit raw mailbox text to GitHub.",
@@ -22,7 +24,9 @@
     "Keep employee/applicant/case text in restricted local storage and retrieve only narrowly scoped snippets when authorized.",
     "Maintain a local provenance link from sanitized derived claims to message IDs without copying sensitive text into canonical knowledge.",
     "Use deterministic rules plus secret/PII scanners before any raw message becomes agent-visible.",
-    "Logs and debugging output must redact secrets as well."
+    "Logs and debugging output must redact secrets as well.",
+    "Sanitize ICS/calendar attachments before indexing: retain organizer, subject, dates/status and business relationship when useful, but redact meeting passcodes and access-bearing join/reschedule URLs.",
+    "Treat attachment payloads as subject to the same secret/PII boundary as message bodies; extraction must pass sensitivity classification before semantic indexing."
   ],
   "retrieval_policy": {
     "default": "sanitized_metadata_and_process_knowledge",
