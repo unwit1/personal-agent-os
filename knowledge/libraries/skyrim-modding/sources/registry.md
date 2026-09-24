@@ -390,3 +390,118 @@ Next source-registration passes should prioritize areas not yet covered deeply:
 - URL: https://dyndolod.info/
 - Scope: current authoritative specialist documentation for TexGen, DynDOLOD, xLODGen relationships, LOD, grass, seasons, large refs and occlusion.
 - Authority: very high for DynDOLOD workflows and Skyrim LOD behavior addressed by the tool.
+
+
+## Deep-ingestion source families added through 2026-09-24
+
+### RaceMenu / SKEE
+- Upstream: https://github.com/expired6978/SKSE64Plugins
+- Use for: BodyMorph, BodyGen, NiOverride/SKEE native behavior, morph serialization and native APIs.
+- Authority: very high for implementation details in that source revision; runtime/release compatibility remains version-specific.
+
+### Faster HDT-SMP / FSMP
+- Current project family: https://github.com/TwistedModding/hdtSMP64
+- Use for: SMP physics terminology, XML/config, diagnostics and implementation.
+- Authority: high for framework behavior; exact XML/runtime behavior must match installed release.
+
+### Community Shaders
+- Upstream: https://github.com/community-shaders/skyrim-community-shaders
+- Releases: https://github.com/community-shaders/skyrim-community-shaders/releases
+- Use for: modern Skyrim rendering framework/features and current runtime support.
+- Snapshot: v1.9.1 observed released 2026-09-24.
+- Authority: very high for Community Shaders itself; not a general engine rendering specification.
+
+### Cathedral Assets Optimizer
+- Upstream: https://github.com/Guekka/cathedral-assets-optimizer
+- Use for: LE/SE asset conversion, BSA processing, texture/mesh optimization.
+- Caveat: upstream README explicitly notes development documentation can lag actual tool behavior.
+
+### SSE NIF Optimizer
+- Upstream: https://github.com/ousnius/SSE-NIF-Optimizer
+- Use for: LE/SE NIF conversion and texture-compatibility checking.
+- Authority: high for tool behavior; retain original assets before destructive conversion.
+
+### Wrye Bash
+- Upstream: https://github.com/wrye-bash/wrye-bash
+- Use for: Bashed Patch, Bash Tags, mod-management/patch lineage.
+- Caveat: historical practices need current-context validation in ESL/runtime-patcher-heavy lists.
+
+### Mator Smash
+- Upstream: https://github.com/matortheeternal/smash
+- Use for: Smashed Patch and automated conflict-resolution concepts.
+- Important: generated output should be verified in xEdit.
+
+### SkyPatcher
+- Current user documentation: https://www.nexusmods.com/skyrimspecialedition/mods/106659
+- Use for: runtime form patching and config-driven compatibility.
+- Caveat: grammar/targets/runtime builds evolve rapidly.
+
+### Behavior Data Injector
+- User documentation: https://www.nexusmods.com/skyrimspecialedition/mods/78146
+- Universal-support lineage: https://www.nexusmods.com/skyrimspecialedition/mods/78159
+- Use for: runtime graph-variable/animation-event injection.
+- Caveat: distinguish original runtime support from current universal forks/builds.
+
+### Payload Interpreter
+- Upstream: https://github.com/D7ry/PayloadInterpreter
+- Use for: animation annotation payload execution.
+
+### Animation Motion Revolution
+- Upstream: https://github.com/alexsylex/AnimationMotionRevolution
+- Use for: animation-driven/root-motion terminology.
+
+### Precision
+- Upstream: https://github.com/ersh1/Precision
+- Use for: melee collision/hitbox framework and native API.
+- Authority: very high for Precision API; not a general replacement for vanilla combat documentation.
+
+### powerofthree Tweaks / Papyrus Extender
+- Tweaks: https://github.com/powerof3/po3-Tweaks
+- Papyrus Extender: https://github.com/powerof3/PapyrusExtenderSSE
+- Use for: native fixes/tweaks and extended Papyrus API/events.
+
+### Crash Logger SSE AE VR
+- Upstream: https://github.com/alandtse/CrashLoggerSSE
+- User release: https://www.nexusmods.com/skyrimspecialedition/mods/59818
+- Use for: native exception, stack/register/object/PDB diagnostic concepts.
+- Snapshot: Nexus 1.25.0 observed 2026-09-24, updated 2026-08-23.
+
+### Trainwreck / Tullius CTD Logger
+- Trainwreck: https://www.nexusmods.com/skyrimspecialedition/mods/106440
+- Tullius CTD Logger: https://www.nexusmods.com/skyrimspecialedition/mods/172272
+- Use for: comparative crash/hang/dump collection.
+- Caveat: logs are evidence streams, not automatic root-cause verdicts.
+
+### FallrimTools / ReSaver
+- Upstream: https://github.com/mdfairch/FallrimTools
+- Use for: reverse-engineered ESS/ChangeForm/Papyrus save structures and targeted repair capabilities.
+- Authority: high for structures parsed by the tool; not an official Bethesda save-format specification.
+
+### Creation Kit Platform Extended
+- Upstream: https://github.com/Perchik71/Creation-Kit-Platform-Extended
+- Use for: current CK fixes/extensions and editor-version compatibility.
+- Caveat: editor binary patches are CK-version-specific.
+
+### Mutagen / Synthesis
+- Mutagen: https://github.com/Mutagen-Modding/Mutagen
+- Synthesis: https://github.com/Mutagen-Modding/Synthesis
+- Docs: https://mutagen-modding.github.io/Synthesis/
+- Use for: typed plugin manipulation, FormKey/ModKey/LinkCache, generated patch pipelines.
+
+### Linux / Proton / Steam Deck
+- Valve Proton: https://github.com/ValveSoftware/Proton
+- MO2 Linux installer: https://github.com/Furglitch/modorganizer2-linux-installer
+- Proton MO2 installer: https://github.com/ralgar/proton-mo2-installer
+- Use for: Wine/Proton prefixes, path/injector/toolchain behavior and reproducible Linux setup.
+- Caveat: compatibility is highly version-dependent; issue reports are dated evidence, not universal support statements.
+
+### VR Address Library
+- Upstream: https://github.com/alandtse/skyrim_vr_address_library
+- Use for: SSE-to-VR address mapping and mapping-confidence concepts.
+- Authority: community reverse-engineering; preserve mapping status/confidence.
+
+### Low-level plugin format references
+- xEdit remains primary practical authority.
+- Supplemental reverse-engineered format documentation: https://github.com/BadDogSkyrim/BethesdaLibrary
+- Use for: binary record/subrecord/localized-string structure where corroborated.
+- Caveat: do not perform automated binary mutation from one third-party schema without xEdit/source/test validation.
