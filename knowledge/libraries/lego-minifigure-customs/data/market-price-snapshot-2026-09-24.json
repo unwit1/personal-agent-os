@@ -298,6 +298,179 @@
         }
       ],
       "notes": "Reseller asking-price snapshot, not manufacturer MSRP; representative WM/XINH/Koruit/KDL-adjacent catalog."
+    },
+    {
+      "source": "LeYiLe Brick / Manga Brick",
+      "market_class": "asian_premium_custom_and_full_custom_body",
+      "currency": "USD",
+      "examples": [
+        {
+          "item": "custom parts/accessories",
+          "range": [
+            1,
+            13.5
+          ]
+        },
+        {
+          "item": "regular/full custom body figures",
+          "range": [
+            20,
+            98
+          ]
+        }
+      ],
+      "notes": "Direct maker ecosystem includes custom parts, regular minifigure-size figures and full custom giant bodies; prices vary sharply by complexity."
+    },
+    {
+      "source": "Lab9minifigs",
+      "market_class": "premium_import_reseller",
+      "currency": "USD",
+      "examples": [
+        {
+          "item": "Manga Brick Valentine/Bunny figures",
+          "price": 62
+        },
+        {
+          "item": "Minifigs.Factory Naruto",
+          "price": 55
+        },
+        {
+          "item": "Minifigs.Factory Final Fantasy/Warhammer/StarCraft",
+          "range": [
+            70,
+            80
+          ]
+        },
+        {
+          "item": "LeYiLe Song Dynasty",
+          "price": 92
+        }
+      ],
+      "notes": "Authorized LeYiLe North American reseller; product pages identify UV printing and custom molded accessories. Seller provenance wording should be captured verbatim per listing."
+    },
+    {
+      "source": "TracyMinifigs",
+      "market_class": "asian_premium_reseller",
+      "currency": "HKD",
+      "examples": [
+        {
+          "item": "Manga Brick whole custom molded figures",
+          "range": [
+            155,
+            375
+          ]
+        },
+        {
+          "item": "Minifigs.Factory premium figures",
+          "range": [
+            315,
+            615
+          ]
+        },
+        {
+          "item": "high-end limited makers",
+          "range": [
+            395,
+            2995
+          ]
+        }
+      ],
+      "notes": "Broad reseller snapshot spanning many makers; do not treat these as maker-direct MSRPs."
+    },
+    {
+      "source": "CrazyMinifigs / UG Minifigures",
+      "market_class": "asian_premium_reseller_collaboration",
+      "currency": "HKD",
+      "examples": [
+        {
+          "item": "UG Minifigures common premium figures",
+          "range": [
+            480,
+            898
+          ]
+        },
+        {
+          "item": "rare/high-end listed figure",
+          "price": 1850
+        }
+      ],
+      "notes": "Current catalog demonstrates a premium Asian collector segment distinct from mass-market compatible minifigures."
+    },
+    {
+      "source": "Calypso Customs",
+      "market_class": "UV_custom",
+      "currency": "USD",
+      "examples": [
+        {
+          "item": "PCC-series custom figures",
+          "price": 25
+        },
+        {
+          "item": "optional display case add-on",
+          "price": 5
+        }
+      ],
+      "notes": "Direct maker snapshot; individual features can include 360 leg printing and custom accessories."
+    },
+    {
+      "source": "Engineerio",
+      "market_class": "small_batch_UV_custom",
+      "currency": "USD",
+      "examples": [
+        {
+          "item": "current custom figures",
+          "range": [
+            20,
+            36
+          ]
+        },
+        {
+          "item": "small standalone/less complex item",
+          "price": 9
+        }
+      ],
+      "notes": "Direct maker updated September 2026; small batches and restocks."
+    },
+    {
+      "source": "Penzora",
+      "market_class": "machine_printed_genuine_LEGO_custom",
+      "currency": "GBP",
+      "examples": [
+        {
+          "item": "custom figures",
+          "range": [
+            6.99,
+            13.99
+          ]
+        },
+        {
+          "item": "multi-figure set",
+          "range": [
+            14.99,
+            39.99
+          ]
+        }
+      ],
+      "notes": "Direct maker snapshot; store currently states no shipping to EU or USA."
+    },
+    {
+      "source": "CrazyFigs",
+      "market_class": "adult_collector_custom",
+      "currency": "EUR",
+      "examples": [
+        {
+          "item": "current figures",
+          "range": [
+            14.99,
+            29.99
+          ]
+        },
+        {
+          "item": "heads",
+          "price": 2.29
+        }
+      ],
+      "notes": "Direct maker states original LEGO bases with occasional specially manufactured injection-molded accessories."
     }
   ],
   "interpretation": [
