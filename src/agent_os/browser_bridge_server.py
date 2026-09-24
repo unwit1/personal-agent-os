@@ -138,17 +138,23 @@ def make_handler(store: BridgeStore, token: str, allowed_hosts: set[str]):
     return Handler
 
 
-def build_server(host: str = DEFAULT_HOST, port: int = DEFAULT_PORT):
+def build_server(
+    host: str = DEFAULT_HOST,
+    port: int = DEFAULT_PORT,
+    *,
+    store: BridgeStore | None = None,
+    token: str | None = None,
+):
     if host not in {"127.0.0.1", "localhost", "::1"}:
         raise ValueError("browser bridge only binds to loopback")
-    store = BridgeStore()
-    token = load_or_create_token()
-    server = ThreadingHTTPServer((host, port), make_handler(store, token, set()))
+    bridge_store = store or BridgeStore()
+    bridge_token = token or load_or_create_token()
+    server = ThreadingHTTPServer((host, port), make_handler(bridge_store, bridge_token, set()))
     actual = server.server_address[1]
     allowed = {f"{name}:{actual}".casefold() for name in ("127.0.0.1", "localhost", "[::1]")}
-    server.RequestHandlerClass = make_handler(store, token, allowed)
+    server.RequestHandlerClass = make_handler(bridge_store, bridge_token, allowed)
     server.daemon_threads = True
-    return server, token, store
+    return server, bridge_token, bridge_store
 
 
 def serve(host: str = DEFAULT_HOST, port: int = DEFAULT_PORT) -> int:
