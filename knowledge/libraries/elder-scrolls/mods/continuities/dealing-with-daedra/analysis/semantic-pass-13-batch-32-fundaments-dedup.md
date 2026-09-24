@@ -1,5 +1,7 @@
 # Semantic pass 13 — batch 32: Fundaments of Alchemy provenance/deduplication
 
+> **Current-status note (2026-09-24):** Refinement pass 15 verified *Fundaments of Alchemy* as the established Alyandon Mathierry work (Oblivion Form ID `00024567`). Against the stored ESO witness, the DWD embedded primer is a near-exact variant: excluding the DWD-added summary line, the normalized word sequence differs only at `magickal`/`magical`. A stable central work record is still pending. See `refinement-pass-15-book-provenance-verification.md`.
+
 Source: BOOK 05815E32, editor ID dealsalchemistprimer.
 
 ## Layered source
