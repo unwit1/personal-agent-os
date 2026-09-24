@@ -1,0 +1,45 @@
+{
+  "id": "rtec-hr-gui-current-workflow-evidence-2026-09-24",
+  "record_type": "current_system_evidence",
+  "title": "HR-GUI current workflow evidence - termination, FMLA, workers compensation",
+  "observed_at": "2026-09-24",
+  "source_repository": "unwit1/HR-GUI",
+  "findings": [
+    {
+      "domain": "terminations",
+      "implementation_state": "implemented_review_gated_case_workflow",
+      "facts": [
+        "The Terminations module ingests routed documents, termination reports and possible resignation/notice emails into reviewable local cases.",
+        "Employee identity and termination date must be resolved/verified before generation.",
+        "Default rules expect a general termination form matching 'Term Employment Form' or 'Termination of Employment' and track employee, supervisor and HR signature evidence; local rules can override defaults.",
+        "Generated messages are saved as .eml drafts and are never sent automatically.",
+        "The module explicitly states that the established termination writer remains authoritative for the active-roster move until equivalent safeguards are incorporated."
+      ],
+      "authority_note": "This is current implementation evidence, not proof that every default signature/form rule is approved HR policy."
+    },
+    {
+      "domain": "fmla",
+      "implementation_state": "stub_only",
+      "facts": [
+        "The FMLA module is currently a RoutedInboxModule stub with a planned case schema.",
+        "Its planned text currently includes 'Hours used vs 480 (12 wk rolling)' and 5-business-day/15-calendar-day reminders."
+      ],
+      "conflict": "Canonical RTEC process knowledge says the organization's FMLA 12-month measurement method is unresolved and source materials conflict among occurrence/first-day, calendar-year and rolling approaches. The stub's rolling-language must not be promoted into production logic until authority is resolved.",
+      "action": "Treat the planned rolling method as an implementation candidate requiring validation, not current policy."
+    },
+    {
+      "domain": "workers_compensation",
+      "implementation_state": "stub_only",
+      "facts": [
+        "The WorkersComp module is currently a RoutedInboxModule stub.",
+        "Its planned schema includes injury/report dates, witnesses, FROI date, claim number, carrier, lost/restricted time, wage statement, RTW status and OSHA 300 recordability."
+      ],
+      "authority_note": "The stub does not identify or validate the current RTEC carrier/TPA, portal, owner or claim workflow."
+    }
+  ],
+  "controls": [
+    "Do not infer policy authority from software defaults.",
+    "Block FMLA balance/year-method automation until the authoritative RTEC measurement method is documented.",
+    "Keep consequential termination processing review-gated and preserve the established authoritative roster writer until a tested replacement is explicitly approved."
+  ]
+}
