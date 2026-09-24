@@ -13,6 +13,11 @@ CONNECTOR_REGISTRY_SCHEMA = "personal-agent/connector-registry/v1"
 CONNECTOR_REGISTRY_PATH = ROOT / "connectors" / "registry.json"
 _SECRET_KEY = re.compile(r"(?:^|[_-])(credential|password|passwd|secret|token|api[_-]?key|private[_-]?key)(?:$|[_-])", re.I)
 _BEARER = re.compile(r"\bBearer\s+\S+", re.I)
+_SECRET_VALUE = re.compile(
+    r"(?:\bAKIA[0-9A-Z]{16}\b|\bgh[pousr]_[A-Za-z0-9]{20,}\b|"
+    r"\bgithub_pat_[A-Za-z0-9_]{20,}\b|\bxox[baprs]-[A-Za-z0-9-]{10,}\b|"
+    r"\bsk-[A-Za-z0-9_-]{20,}\b|\beyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\b)"
+)
 
 
 class ConnectorRegistryError(ValueError):
@@ -23,14 +28,16 @@ def _reject_secrets(value: Any, path: str = "registry") -> None:
     if isinstance(value, dict):
         for key, child in value.items():
             key_text = str(key)
-            if _SECRET_KEY.search(key_text):
+            # secret_ref is the one permitted secret-related field; it stores
+            # only a pointer into an approved local secret store.
+            if key_text != "secret_ref" and _SECRET_KEY.search(key_text):
                 raise ConnectorRegistryError(f"{path}.{key_text}: secret-bearing fields are forbidden; use secret_ref")
             _reject_secrets(child, f"{path}.{key_text}")
     elif isinstance(value, list):
         for index, child in enumerate(value):
             _reject_secrets(child, f"{path}[{index}]")
-    elif isinstance(value, str) and _BEARER.search(value):
-        raise ConnectorRegistryError(f"{path}: bearer credential values are forbidden")
+    elif isinstance(value, str) and (_BEARER.search(value) or _SECRET_VALUE.search(value)):
+        raise ConnectorRegistryError(f"{path}: credential values are forbidden; use secret_ref")
 
 
 def _validate_connector(item: Any, index: int) -> None:
@@ -47,7 +54,7 @@ def _validate_connector(item: Any, index: int) -> None:
         values = item[field]
         if not isinstance(values, list) or any(not isinstance(v, str) or not v.strip() for v in values) or len(values) != len(set(values)):
             raise ConnectorRegistryError(f"{label}.{field}: expected unique non-empty strings")
-    if item["health"] not in {"unknown", "healthy", "degraded", "unhealthy"}:
+    if not isinstance(item["health"], str) or item["health"] not in {"unknown", "healthy", "degraded", "unhealthy"}:
         raise ConnectorRegistryError(f"{label}.health: unsupported health state")
     if not isinstance(item["privacy_domain"], str) or not item["privacy_domain"].strip():
         raise ConnectorRegistryError(f"{label}.privacy_domain: expected a non-empty string")
@@ -63,7 +70,7 @@ def validate_connector_registry(data: Any) -> dict[str, Any]:
     _reject_secrets(data)
     if not isinstance(data, dict) or set(data) != {"schema", "version", "connectors"}:
         raise ConnectorRegistryError("registry: expected schema, version, and connectors")
-    if data["schema"] != CONNECTOR_REGISTRY_SCHEMA or data["version"] != 1:
+    if data["schema"] != CONNECTOR_REGISTRY_SCHEMA or type(data["version"]) is not int or data["version"] != 1:
         raise ConnectorRegistryError("registry: unsupported connector registry schema/version")
     if not isinstance(data["connectors"], list):
         raise ConnectorRegistryError("registry.connectors: expected an array")
