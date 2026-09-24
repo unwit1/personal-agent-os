@@ -229,6 +229,24 @@ class RoutingTests(unittest.TestCase):
         choice = select(registry, capability_class="balanced", effort="low", role="implementer", availability={"alpha": False})
         self.assertEqual(choice["provider"], "beta")
 
+    def test_cross_provider_cost_prefers_cheaper_fast_model_and_ties_use_registry_order(self) -> None:
+        claude = provider(
+            "claude", adapter="claude-code",
+            models={"fast": "claude-haiku-4-5", "balanced": "claude-sonnet-5"},
+            costs={"fast": 2, "balanced": 3},
+        )
+        codex = provider(
+            "codex", adapter="codex-cli",
+            models={"fast": "gpt-6-luna", "balanced": "gpt-6-terra"},
+            costs={"fast": 1, "balanced": 3},
+        )
+        registry = self.registry(claude, codex)
+        fast = select(registry, capability_class="fast", effort="low", role="implementer")
+        self.assertEqual((fast["provider"], fast["model"]), ("codex", "gpt-6-luna"))
+
+        balanced = select(registry, capability_class="balanced", effort="low", role="implementer")
+        self.assertEqual((balanced["provider"], balanced["model"]), ("claude", "claude-sonnet-5"))
+
     def test_missing_class_uses_nearest_stronger_class(self) -> None:
         entry = provider("alpha")
         del entry["models"]["balanced"]
