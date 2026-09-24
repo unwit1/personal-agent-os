@@ -118,6 +118,20 @@ SKSE `Form.psc` documents these values for `RegisterForActorAction` / `OnActorAc
 
 | ID | Action |
 |---:|---|
+| 0 | Weapon Swing (Melee weapons that are swung, also barehand) |
+| 1 | Spell Cast (Spells and staves) |
+| 2 | Spell Fire (Spells and staves) |
+| 3 | Voice Cast |
+| 4 | Voice Fire |
+| 5 | Bow Draw |
+| 6 | Bow Release |
+| 7 | Unsheathe Begin |
+| 8 | Unsheathe End |
+| 9 | Sheathe Begin |
+| 10 | Sheathe End |
+| 0 | Left Hand |
+| 1 | Right Hand |
+| 2 | Voice |
 
 ### Actor Action slots
 
