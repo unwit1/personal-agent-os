@@ -1,6 +1,6 @@
 # RTEC Applicant Pipeline / Agent OS Integration
 
-Status: **implementation-ready / high priority**  
+Status: **foundation implemented / live work-PC validation pending**  
 Updated: 2026-09-23  
 Related application: `unwit1/job-applicant-dashboard`
 
@@ -221,30 +221,72 @@ Fillout submission
 The webhook is not authoritative applicant storage and must not create an
 applicant independently of the canonical importer.
 
+## Implemented as of 2026-09-24
+
+Dashboard repository:
+
+- fail-closed restricted self-ID source-header guard;
+- privacy-safe Fillout source-health snapshot;
+- bounded metadata-only health transition history;
+- opaque `agent_ref` migration;
+- provider/import `source_key` separation;
+- append-only `agent_events` outbox;
+- `submission_processed` and `status_changed` events;
+- synthetic privacy/outbox/migration tests;
+- current privacy-safe integration/setup/handoff docs.
+
+Personal Agent OS:
+
+- portable Dashboard checkout discovery;
+- read-only ordinary applicant DB access;
+- `applicant.list`;
+- `applicant.search`;
+- `applicant.get_summary`;
+- `applicant.get_status`;
+- `applicant.get_document_metadata`;
+- `applicant.get_timeline`;
+- `applicant.pending_actions`;
+- `applicant.openings`;
+- `applicant.sync_status`;
+- `applicant.events`;
+- `applicant.event_ack`;
+- desired `rtec-applicants` connector registration, deliberately still
+  `health=unknown` until a live work-PC smoke test succeeds.
+
+Ordinary tools expose opaque `applicant_ref`, never the filename-derived
+internal key or Fillout/source provenance key.
+
 ## Implementation stages
 
-### Stage A — read-only local adapter
+### Stage A — read-only local adapter — IMPLEMENTED, LIVE VALIDATION PENDING
 
-- define stable applicant ID independent of display name;
-- wrap Dashboard DB reads in a small module;
-- return privacy-filtered DTOs;
-- add sync-health read;
-- add document metadata without reading files by default;
-- add synthetic tests.
+- stable opaque applicant identity implemented;
+- Dashboard DB reads wrapped in a small privacy-filtered module;
+- whitelisted DTOs implemented;
+- sync-health read implemented;
+- path-free document metadata implemented;
+- organization-level openings read implemented;
+- synthetic tests committed.
 
-### Stage B — outbox/event seam
+### Stage B — outbox/event seam — FOUNDATION IMPLEMENTED
 
-- add append-only event table;
-- instrument import/status/flag/opening transitions;
-- add idempotent acknowledgment;
-- route through Agent OS ingestion ledger.
+- append-only event table implemented;
+- new normalized applicants emit `submission_processed`;
+- human workflow status transitions emit `status_changed`;
+- idempotent acknowledgment implemented;
+- applicant timeline read implemented;
+- remaining event families and higher-level ingestion-ledger automation are
+  future expansion.
 
-### Stage C — Agent OS connector adapter
+### Stage C — Agent OS connector adapter — FOUNDATION IMPLEMENTED
 
-- expose provider-neutral tools through Agent OS MCP;
-- register desired connector metadata only after adapter code exists;
-- resolve local path/config without hard-coded machine paths;
-- prove EEO firewall in tests.
+- provider-neutral applicant tools exposed through Agent OS MCP;
+- desired connector metadata registered;
+- project resolution supports friendly work-PC folder and default Git clone
+  directory names;
+- restricted self-ID firewall represented in DTO/test contracts;
+- live work-PC read smoke test still required before connector health may become
+  registered/healthy.
 
 ### Stage D — prepared actions
 
