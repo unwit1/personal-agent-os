@@ -2,17 +2,18 @@
 
 Updated: 2026-09-24
 Status: active
-Terminology modules: 121
+Terminology modules: 123
 
-The previous hand-maintained heading count was retired because the corpus grew faster than the index. The canonical generator is `tools/knowledge/rebuild_skyrim_terminology_index.py`, which calculates both module and `###` heading counts directly from a working tree.
+Exact `###` heading totals are generated from a checkout by `tools/knowledge/rebuild_skyrim_terminology_index.py`. This checked-in index keeps the live module inventory synchronized even when a remote connector cannot execute the checkout-local counter.
 
 ## Retrieval strategy
 
-Start with `../troubleshooting/diagnostic-router.md` for symptom-driven work. Retrieve only the specialist modules relevant to the suspected subsystem instead of loading the entire corpus.
+Start with `../troubleshooting/diagnostic-router.md` for symptom-driven work. Retrieve only the relevant specialist modules.
 
 ## Modules
 
 - [actor-process-levels-simulation.md](../terminology/actor-process-levels-simulation.md)
+- [actorvalue-catalog-xedit.md](../terminology/actorvalue-catalog-xedit.md)
 - [ai-dialogue-llm-frameworks.md](../terminology/ai-dialogue-llm-frameworks.md)
 - [alchemy-enchanting-smithing-crafting.md](../terminology/alchemy-enchanting-smithing-crafting.md)
 - [animation-assets-bodyslide-ui.md](../terminology/animation-assets-bodyslide-ui.md)
@@ -30,6 +31,7 @@ Start with `../troubleshooting/diagnostic-router.md` for symptom-driven work. Re
 - [combat-ai-movesets.md](../terminology/combat-ai-movesets.md)
 - [commonlib-skse-api-system-map.md](../terminology/commonlib-skse-api-system-map.md)
 - [community-shaders-render-pipeline-internals.md](../terminology/community-shaders-render-pipeline-internals.md)
+- [condition-function-catalog-xedit.md](../terminology/condition-function-catalog-xedit.md)
 - [conditions-detection-ai-procedures.md](../terminology/conditions-detection-ai-procedures.md)
 - [container-distribution-activation-frameworks.md](../terminology/container-distribution-activation-frameworks.md)
 - [core-data-primitives-globals-formlists-defaultobjects.md](../terminology/core-data-primitives-globals-formlists-defaultobjects.md)
@@ -136,11 +138,12 @@ Start with `../troubleshooting/diagnostic-router.md` for symptom-driven work. Re
 
 ## Additional retrieval surfaces
 
-- `../troubleshooting/compatibility-patterns.md` — recurring cross-mod patch structures.
-- `../troubleshooting/tool-error-catalog.md` — tool warning/error routing.
-- `../research/version-provenance-model.md` — version-scoped evidence policy.
-- `../research/frontier.md` — remaining open research areas.
+- `../troubleshooting/compatibility-patterns.md`
+- `../troubleshooting/tool-error-catalog.md`
+- `../research/version-provenance-model.md`
+- `../research/current-version-matrix.md`
+- `../research/frontier.md`
 
 ## Maintenance
 
-Run `python tools/knowledge/rebuild_skyrim_terminology_index.py` in a working tree after terminology changes. It regenerates this file with exact per-module and total heading counts.
+Run `python tools/knowledge/rebuild_skyrim_terminology_index.py` in a checkout for exact per-module heading counts. Structural CI verifies that every live module remains indexed.
