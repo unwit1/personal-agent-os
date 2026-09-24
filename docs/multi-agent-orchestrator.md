@@ -106,6 +106,14 @@ Plans are chosen in this order, cheapest first:
    to default each task to `fast`, keeping `reasoning` for small design tasks
    whose output `fast` tasks then implement. Up to `max_planned_tasks` (16).
 
+At dispatch time, `router.py`'s `select` treats every enabled, available
+provider covering the requested class as interchangeable, choosing the lowest
+relative cost for that class first (see the **Precedence** list at the top of
+`router.py`). With both a claude-code and codex-cli provider configured, `fast`
+work therefore goes automatically to whichever currently has the cheaper
+fast-tier model, such as codex's `gpt-6-luna` family or claude's haiku, without
+either adapter needing to know about the other.
+
 A planner is a model, so its proposals are checked:
 
 - A proposed **validator** or **deterministic step** is kept only if the
