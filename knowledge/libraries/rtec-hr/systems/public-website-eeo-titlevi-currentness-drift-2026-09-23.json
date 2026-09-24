@@ -32,5 +32,14 @@
     "Validate whether rtec@kih.net remains the intended public civil-rights/Title VI mailbox; if yes, document ownership/forwarding and keep it role-managed.",
     "Add website-currentness checks to the HR/document publishing workflow and Agent OS."
   ],
-  "source_priority_rule": "Signed current internal policy and effective-dated role records outrank stale public translations for internal role determination; public pages remain authoritative evidence of what the public currently sees."
+  "source_priority_rule": "Signed current internal policy and effective-dated role records outrank stale public translations for internal role determination; public pages remain authoritative evidence of what the public currently sees.",
+  "localized_drift_observed": [
+    "German",
+    "French",
+    "Spanish",
+    "Italian",
+    "Chinese",
+    "Japanese"
+  ],
+  "localized_drift_note": "Current indexed variants in these languages still identify the historical EEO manager by name while current English content is generic and the signed 2026 internal policy establishes a later role assignment."
 }
