@@ -1,0 +1,301 @@
+{
+  "continuity_id": "tes.mod.sotha-sil-expanded",
+  "status": "complete_49_of_49",
+  "normalization_version": "chronocoda-book-normalize-v1",
+  "books": [
+    {
+      "record_id": "bk_AlchemistsFormulary",
+      "editor_id": "bk_AlchemistsFormulary",
+      "title": "The Alchemists Formulary",
+      "comparison_text_sha256": "1e1708ec699eec15aa02b7ef84fce6cf06cc690b838551d0672dee3d9dbf6add"
+    },
+    {
+      "record_id": "sotha_lighthousejournal",
+      "editor_id": "sotha_lighthousejournal",
+      "title": "Last Words of the Keepers",
+      "comparison_text_sha256": "142cf75be2add64186c9f6254213f08c87c264a79cb3d108774d5670150400a8"
+    },
+    {
+      "record_id": "sotha_stoptime",
+      "editor_id": "sotha_stoptime",
+      "title": "Sotha Sil's Notes",
+      "comparison_text_sha256": "d5d82e0b1700189d55784d5108726cdccc151a835a359f554c382ce098ba3a97"
+    },
+    {
+      "record_id": "sotha_scroll_shock",
+      "editor_id": "sotha_scroll_shock",
+      "title": "Sotha Sil's Notes",
+      "comparison_text_sha256": "ff672bbeac71cf67e0d1df01621fd698b2cd3cd31466403ad06e956dcb38addf"
+    },
+    {
+      "record_id": "sotha_scroll_hide",
+      "editor_id": "sotha_scroll_hide",
+      "title": "Sotha Sil's Notes",
+      "comparison_text_sha256": "ff672bbeac71cf67e0d1df01621fd698b2cd3cd31466403ad06e956dcb38addf"
+    },
+    {
+      "record_id": "sotha_scroll_reflect",
+      "editor_id": "sotha_scroll_reflect",
+      "title": "Sotha Sil's Notes",
+      "comparison_text_sha256": "ff672bbeac71cf67e0d1df01621fd698b2cd3cd31466403ad06e956dcb38addf"
+    },
+    {
+      "record_id": "sotha_scroll_absorb",
+      "editor_id": "sotha_scroll_absorb",
+      "title": "Sotha Sil's Notes",
+      "comparison_text_sha256": "ff672bbeac71cf67e0d1df01621fd698b2cd3cd31466403ad06e956dcb38addf"
+    },
+    {
+      "record_id": "sotha_scrollbook",
+      "editor_id": "sotha_scrollbook",
+      "title": "Transmeta Interivatives ",
+      "comparison_text_sha256": "70c54b6f6582b2f129a4e2e384bd5373e54e5e44d459b536e1f5d34e6fc3d3bd"
+    },
+    {
+      "record_id": "sotha_bookmoon",
+      "editor_id": "sotha_bookmoon",
+      "title": "How Two Moon",
+      "comparison_text_sha256": "18d923d8ff4c4582ec4a0612dd6b72f83d25b531e9d8497de26337da8107ceff"
+    },
+    {
+      "record_id": "sotha_vivec_poemboutdicks",
+      "editor_id": "sotha_vivec_poemboutdicks",
+      "title": "Vehk's First Poem",
+      "comparison_text_sha256": "3c699c3054e33499aefd2f6cc58cf5e33d22f5410226edf388bd99f777f1f8a1"
+    },
+    {
+      "record_id": "sotha_foremerNotes",
+      "editor_id": "sotha_foremerNotes",
+      "title": "Notes",
+      "comparison_text_sha256": "d4a06eaa6260017e7a182ce240f1ec78bb845c745d98ecacc82dcf7d5153304c"
+    },
+    {
+      "record_id": "sotha_powerbook",
+      "editor_id": "sotha_powerbook",
+      "title": "Musings on Power",
+      "comparison_text_sha256": "62f766c5e4a3d7ee5d70e1fdbbceff0607bc9a59d9982160df71d8cb106257c1"
+    },
+    {
+      "record_id": "sotha_note",
+      "editor_id": "sotha_note",
+      "title": "Letter from Sehlan",
+      "comparison_text_sha256": "c946a8bb07c75bd64d52afbbb5b2075069cb0725745defd3bb0a844214995f5b"
+    },
+    {
+      "record_id": "sotha_pamphlet0",
+      "editor_id": "sotha_pamphlet0",
+      "title": "Call to Arms",
+      "comparison_text_sha256": "0548d2cd79e80bdf3292931dfecd1daf36ff661f42a1533b6ec947481f078870"
+    },
+    {
+      "record_id": "sotha_pamphlet1",
+      "editor_id": "sotha_pamphlet1",
+      "title": "Call to Arms",
+      "comparison_text_sha256": "a2af2d386cea24bbe0ab319b518856d66e9cb78423b596a9b0f7efc1a1e85949"
+    },
+    {
+      "record_id": "sotha_pamphlet2",
+      "editor_id": "sotha_pamphlet2",
+      "title": "Call to Arms",
+      "comparison_text_sha256": "0b67f2c4362db02601c9a67a4bb2ac773876d05013b923103c39bb62893ab979"
+    },
+    {
+      "record_id": "sotha_mimicbook",
+      "editor_id": "sotha_mimicbook",
+      "title": "De Rerum Mutabilitatis",
+      "comparison_text_sha256": "20af3ae4ba37f327acc1caf5839906f71fbdb420c67fc4bfa8c179c93ec40310"
+    },
+    {
+      "record_id": "sotha_headlessnote",
+      "editor_id": "sotha_headlessnote",
+      "title": "Note",
+      "comparison_text_sha256": "ab46c76a48d0750a533f0266c23586510e6660c718c3b65aa537fc46d676916d"
+    },
+    {
+      "record_id": "sotha_clocktowernote",
+      "editor_id": "sotha_clocktowernote",
+      "title": "Notes on the Clocktower",
+      "comparison_text_sha256": "af58c5cad7138747be5a5c7a49ba85ce226fdeb776c7523afcd9784637d7eb06"
+    },
+    {
+      "record_id": "sotha_pevlarad",
+      "editor_id": "sotha_pevlarad",
+      "title": "A Fabulous New Invention!",
+      "comparison_text_sha256": "35f4e7a938170306fb75e11580b7b2fd79942e8f760319417a4d61578d090a7a"
+    },
+    {
+      "record_id": "sotha_elder_scroll",
+      "editor_id": "sotha_elder_scroll",
+      "title": "Elder Scroll",
+      "comparison_text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "record_id": "sotha_farmernote2",
+      "editor_id": "sotha_farmernote2",
+      "title": "Confession Note",
+      "comparison_text_sha256": "7c0f15c8b76d7e84c88a0e53f7761abaff4bfd0f5ecaa7076ea8d79ca70b6cd9"
+    },
+    {
+      "record_id": "sotha_farmernote1",
+      "editor_id": "sotha_farmernote1",
+      "title": "Confession Note",
+      "comparison_text_sha256": "5c37425afe0800be62f936da1485b9c2b15072829ccd051908c27bcb2ab54b1f"
+    },
+    {
+      "record_id": "sotha_murdernote",
+      "editor_id": "sotha_murdernote",
+      "title": "Favthali's Ad",
+      "comparison_text_sha256": "549857c079a94ff30625338da944773e0ea3e4a31a882ffaf131a9c0e2f094e3"
+    },
+    {
+      "record_id": "sotha_labnotes1",
+      "editor_id": "sotha_labnotes1",
+      "title": "Notes on Syrabane's Ward",
+      "comparison_text_sha256": "e9194d51c0fcc140ba7597b9d4cc50a307fd9b8272a0879ba4d38340c6add607"
+    },
+    {
+      "record_id": "sotha_labnotes2",
+      "editor_id": "sotha_labnotes2",
+      "title": "Notes on The Book of Time",
+      "comparison_text_sha256": "840488e407e0754315557edfd42e0092ca3e82cf3cb8cee41bb6e499bb6943f3"
+    },
+    {
+      "record_id": "sotha_labnotes3",
+      "editor_id": "sotha_labnotes3",
+      "title": "Notes on the Deadlands Hammer",
+      "comparison_text_sha256": "ed45ad27c516b29a97a07c7d028dbedcf52cfcc27d4f54e7333efa5b5354dec5"
+    },
+    {
+      "record_id": "sotha_labnotes4",
+      "editor_id": "sotha_labnotes4",
+      "title": "Notes on Sunna'rah",
+      "comparison_text_sha256": "66f1b64be1634914239c5e9053e933d04ecd11822892ae482269aaf1181b98cb"
+    },
+    {
+      "record_id": "sotha_enchantablescroll",
+      "editor_id": "sotha_enchantablescroll",
+      "title": "Blank Spell Scroll",
+      "comparison_text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "record_id": "_sotha_guarbook",
+      "editor_id": "_sotha_guarbook",
+      "title": "A Child's Book of Guar Secrets",
+      "comparison_text_sha256": "469d0e4d17fbad306b0a3764c34f35b250c0b00c105073afe60132f7e1f673a5"
+    },
+    {
+      "record_id": "_sotha_rewoundbook",
+      "editor_id": "_sotha_rewoundbook",
+      "title": "Wind Up and Wound Down",
+      "comparison_text_sha256": "09eaba22a4398ab6ad403d798d8b0c88389d8fa3ebf855e6f4573b7063d223a2"
+    },
+    {
+      "record_id": "_sotha_kinmune",
+      "editor_id": "_sotha_kinmune",
+      "title": "KINMUNE",
+      "comparison_text_sha256": "724cc301ad44a1a758303ce4053a3c143f4157b4b85f6f9410bda470424e9bbc"
+    },
+    {
+      "record_id": "_sotha_gunbook",
+      "editor_id": "_sotha_gunbook",
+      "title": "Harquebuses",
+      "comparison_text_sha256": "613c3186854b464d51ac355b2f61080a7b9eb249ca86920702da4793740c11ca"
+    },
+    {
+      "record_id": "_sotha_mooncolony",
+      "editor_id": "_sotha_mooncolony",
+      "title": "Tatterdemalion",
+      "comparison_text_sha256": "c758a87bd808efae4167f7f709e12d368d9c72b8259d387e3a25f98f10521dee"
+    },
+    {
+      "record_id": "_sotha_music",
+      "editor_id": "_sotha_music",
+      "title": "The Cacophony",
+      "comparison_text_sha256": "0c7d590e1af3fb3f908ef804634d07f37b6ea77371be9b83eaa8506b06fee4ad"
+    },
+    {
+      "record_id": "_sotha_lastwords",
+      "editor_id": "_sotha_lastwords",
+      "title": "Sotha Sil's Last Words",
+      "comparison_text_sha256": "3c18c8cfc23c00ccb29a5d877b84e76d31d67e40523b457b183b1e5a9f25321c"
+    },
+    {
+      "record_id": "_sotha_zero",
+      "editor_id": "_sotha_zero",
+      "title": "A Type of Zero",
+      "comparison_text_sha256": "2eeaaf7eabb5fc728990bb98a0beffa71f52ae903bf85aa7f2e74eb76be58286"
+    },
+    {
+      "record_id": "_sotha_truth",
+      "editor_id": "_sotha_truth",
+      "title": "Book of Inevitable Truths",
+      "comparison_text_sha256": "eedabba59580d232b8a0274a7281c59fcf15c74898ec482a378af6930fa266b5"
+    },
+    {
+      "record_id": "_cot_book1",
+      "editor_id": "_cot_book1",
+      "title": "The Null Manifesto",
+      "comparison_text_sha256": "8d8290b6ef9426e90563c2d3a565793a8dc9be2b3f22d7ecb963b60757daf0ed"
+    },
+    {
+      "record_id": "_cot_book2",
+      "editor_id": "_cot_book2",
+      "title": "King Oktug’s Last Birthday",
+      "comparison_text_sha256": "90d530898e27678bc9e9458e98dfa60cabe3d5cd8856a535a4ce3aecafaf4caf"
+    },
+    {
+      "record_id": "_cot_book3",
+      "editor_id": "_cot_book3",
+      "title": "A Traditional Sload Tale",
+      "comparison_text_sha256": "41537bc7c092998c20994c4e0c7906805a96b40101f78fbced9943f3f2bff959"
+    },
+    {
+      "record_id": "_cot_book4",
+      "editor_id": "_cot_book4",
+      "title": "An Exploration of the Hist",
+      "comparison_text_sha256": "72f60170d7222dbddc6deeed97dc5cfc4f1a9eb5512dde9d61ec494a8b8456ad"
+    },
+    {
+      "record_id": "_cot_book5",
+      "editor_id": "_cot_book5",
+      "title": "Orc Creation Story",
+      "comparison_text_sha256": "f7432a1d42de545b170e2918e2573bb9615cd24e269e95f27ff1c8978b4bf519"
+    },
+    {
+      "record_id": "sotha_foremerNotes2",
+      "editor_id": "sotha_foremerNotes2",
+      "title": "Parental Note",
+      "comparison_text_sha256": "b64e0a75ea59147f820ba45bd5bd905f76ebea832da6b3b8dbc3e0e6fbf13e17"
+    },
+    {
+      "record_id": "sotha_elder_scroll2",
+      "editor_id": "sotha_elder_scroll2",
+      "title": "Elder Scroll",
+      "comparison_text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "record_id": "sotha_bookoftime",
+      "editor_id": "sotha_bookoftime",
+      "title": "The Book of Time",
+      "comparison_text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "record_id": "sotha_slumspass",
+      "editor_id": "sotha_slumspass",
+      "title": "Archanon's Pass",
+      "comparison_text_sha256": "3700b19eaea7ea6c1faac23cdd03b7a965e0004bc23c85c278a6abdf8f281298"
+    },
+    {
+      "record_id": "sotha_generalNotesSewer",
+      "editor_id": "sotha_generalNotesSewer",
+      "title": "Notes on Clockwork Sewers",
+      "comparison_text_sha256": "c81e2e2c7ef77a43235ef8fe8ecf146d5638a3c31e88033205a45fbecd5e7634"
+    },
+    {
+      "record_id": "sotha_generalNotesError",
+      "editor_id": "sotha_generalNotesError",
+      "title": "Notes On Your Exodus",
+      "comparison_text_sha256": "b32d8cb8788f041561af94c1d9b7ff07ecc2e3099b6dd064fb11ee45b02f838e"
+    }
+  ]
+}
