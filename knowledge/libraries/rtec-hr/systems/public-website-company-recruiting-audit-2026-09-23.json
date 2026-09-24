@@ -1,0 +1,76 @@
+{
+  "record_id": "rtec-public-website-company-recruiting-audit-2026-09-23",
+  "updated_at": "2026-09-23",
+  "status": "current_public_surface_audit",
+  "observed_surfaces": [
+    {
+      "surface": "English homepage",
+      "observations": [
+        "States RTEC serves 15 Kentucky counties.",
+        "Advertises current Transit Driver openings and $17.00/hour starting rate.",
+        "Says applications are kept on file for one year."
+      ]
+    },
+    {
+      "surface": "Who We Are",
+      "observations": [
+        "Says service began in July 1990 but also says RTEC is celebrating 29 years in public transit, indicating stale marketing copy.",
+        "Refers to a 13-county service area, inconsistent with the current homepage's 15-county statement."
+      ]
+    },
+    {
+      "surface": "Public Notice",
+      "observations": [
+        "Lists a 13-county public-transportation service area, differing from the homepage's 15 counties."
+      ]
+    },
+    {
+      "surface": "Job Board",
+      "observations": [
+        "States full-time health/life/dental after 60 days.",
+        "States 401-K retirement after 30 days.",
+        "Current 2025 handbook instead defers 401-K participation to additional service requirements in the governing Plan/booklet, so the 30-day website statement needs plan-level validation.",
+        "Rendered page currently exposes a Job Requirements link but no visible online Application link in the parsed link set."
+      ]
+    },
+    {
+      "surface": "/jobs",
+      "observations": [
+        "Indexed with unrelated San Francisco technology roles, apparently template/demo content rather than RTEC transit vacancies."
+      ]
+    },
+    {
+      "surface": "localized pages",
+      "observations": [
+        "At least one localized current page still shows a $16.00/hour driver starting rate while the English homepage shows $17.00/hour.",
+        "Some localized civil-rights/Title VI pages still name a historical EEO manager."
+      ]
+    },
+    {
+      "surface": "Job Requirements PDF linked from current job board",
+      "observations": [
+        "Currently served six-page driver qualification/training/conduct document.",
+        "Includes DOT physical, Kentucky and national criminal-record cycles, annual driving history, pre-employment drug testing, pre-driving safety training and additional training within 90 days.",
+        "No clear current revision/effective date was established from the retrieved document; current publication proves availability, not revision date."
+      ]
+    }
+  ],
+  "company_profile_implications": [
+    "Do not choose 13 versus 15 counties from website copy alone; establish the canonical current service-area roster from operations/grant/service authority.",
+    "Public marketing copy contains stale and divergent facts, so it is not a safe sole source for current company profiles.",
+    "Job/pay/benefit/contact information should be fed from canonical HR/ATS/plan/role sources into all locales.",
+    "Current-publicly-linked documents should carry revision/effective metadata."
+  ],
+  "durable_controls": [
+    "Add automated website checks comparing English and localized versions for open roles, pay, service area, named contacts, benefit timing and application links.",
+    "Detect placeholder/demo job content on production pages.",
+    "Validate public retirement eligibility text against the current 401-K plan booklet before treating 30 days as authoritative.",
+    "Use role-based EEO contact information sourced from the effective-dated role registry.",
+    "Add document-version metadata for downloadable recruiting/qualification PDFs."
+  ],
+  "related_records": [
+    "knowledge/libraries/rtec-hr/systems/public-website-eeo-titlevi-currentness-drift-2026-09-23.json",
+    "knowledge/libraries/rtec-hr/systems/public-recruiting-website-currentness-drift-2026-09-23.json",
+    "knowledge/libraries/rtec-hr/forms/drive-employment-application-template-currentness-2026.json"
+  ]
+}
