@@ -198,7 +198,7 @@ The open current-authority queue remains
 
 ## Downloads spreadsheet cleanup — September 24, 2026
 
-A loose set of **16 legacy XLS artifacts** from the user's Downloads folder was classified and integrated under `sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24.json`. The set resolves to ten logical source families after semantic duplicate handling.
+A loose set of **16 legacy XLS artifacts** from the user's Downloads folder was classified and integrated under `sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24.json`. The set resolves to eleven logical source families after semantic duplicate handling.
 
 Two blank historical benefits-administration import templates were added to the reusable reference-form catalog: an employee demographic import template and an Infinisource FSA/HSA/transit/parking enrollment import template. Their field/validation semantics are preserved as historical system evidence, not current authority.
 
