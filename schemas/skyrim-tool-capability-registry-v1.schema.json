@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-tool-capability-registry-v1.schema.json",
+  "title": "Skyrim Tool Capability Registry v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "snapshot_date",
+    "adapters"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-tool-capability-registry-v1"
+    },
+    "snapshot_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "adapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "adapter_id",
+          "role",
+          "priority",
+          "capabilities",
+          "validation_role"
+        ],
+        "properties": {
+          "adapter_id": {
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "static-data",
+              "runtime-test",
+              "plugin-source",
+              "schema-oracle",
+              "papyrus",
+              "native-build",
+              "asset-3d",
+              "voice-audio",
+              "generator",
+              "mod-manager",
+              "diagnostics",
+              "packaging",
+              "research"
+            ]
+          },
+          "priority": {
+            "enum": [
+              "preferred",
+              "secondary",
+              "fallback",
+              "experimental",
+              "reference-only"
+            ]
+          },
+          "capabilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "validation_role": {
+            "enum": [
+              "author",
+              "primary-validator",
+              "independent-validator",
+              "runtime-observer",
+              "none"
+            ]
+          },
+          "can_mutate": {
+            "type": "boolean"
+          },
+          "requires_running_game": {
+            "type": "boolean"
+          },
+          "version_scope": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "known_gaps": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "adapter_manifest": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
