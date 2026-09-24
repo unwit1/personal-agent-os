@@ -54,7 +54,11 @@ def set_engine(value: Orchestrator | None) -> None:
 
 
 def _refresh_models_in_background() -> None:
-    if os.environ.get("AGENT_OS_DISABLE_MODEL_REFRESH") == "1":
+    """Keep the model catalog, prices and routing costs current.
+
+    Only for the machine's default engine: an embedded engine (tests, custom
+    hosts) must never reach the network or rewrite the real provider registry."""
+    if not _ENGINE_IS_DEFAULT or os.environ.get("AGENT_OS_DISABLE_MODEL_REFRESH") == "1":
         return
     from . import models
 
@@ -187,8 +191,8 @@ def create(
     driver keeps it moving after this call returns.
     """
     _reject_worker_control()
-    _refresh_models_in_background()
     orchestrator = engine()
+    _refresh_models_in_background()
     summary = orchestrator.create_run(
         goal, repository=repository, project=project, tasks=tasks, policy=policy, overrides=overrides, run_id=run_id
     )
