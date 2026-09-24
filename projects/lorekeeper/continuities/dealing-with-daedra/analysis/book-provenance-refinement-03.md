@@ -1,5 +1,7 @@
 # Dealing with Daedra book provenance refinement — pass 03
 
+> **Historical-state note (2026-09-24):** This pass predates refinement pass 15. The Gallus and *Fundaments of Alchemy* work identities have since been externally verified; only stable central Personal Agent OS work/source records remain pending. See `refinement-pass-15-book-provenance-verification.md` and `../normalized/book-source-relations.json` for current status.
+
 This pass converts the existing provenance and deduplication notes into a machine-readable routing layer.
 
 ## Central-source candidates
