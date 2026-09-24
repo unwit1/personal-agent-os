@@ -1,0 +1,157 @@
+{
+  "schema": "rtec-hr-document-type-catalog/v1",
+  "generated_at": "2026-09-24",
+  "source_batch": "rtec-hr-downloads-spreadsheets-2026-09-24",
+  "document_types": [
+    {
+      "id": "employee-demographic-data-import-template",
+      "canonical_name": "Employee Demographic Data Import Template",
+      "observed_title": "Demographic Spreadsheet – Used for all Account Types",
+      "category": "benefits_admin_import_template",
+      "privacy": "blank_reference_safe",
+      "recognition_anchors": [
+        "EmployeeIdentifier",
+        "LastName",
+        "FirstName",
+        "DateOfBirth",
+        "EmploymentStatus",
+        "PayrollEffectiveDate",
+        "HireDate",
+        "Import Data From File",
+        "Employer Portal"
+      ],
+      "routing": "contextual_reference_library",
+      "employee_file_scanner": false,
+      "notes": [
+        "Blank vendor/system import template; form identity is useful, but presence does not establish current workflow authority.",
+        "Do not confuse with a completed demographic roster/export."
+      ]
+    },
+    {
+      "id": "benefits-enrollment-data-import-template",
+      "canonical_name": "Benefits Enrollment Data Import Template",
+      "observed_title": "Health FSA-Dependent Care FSA-Transit-Parking-HSA Enrollment Spreadsheet",
+      "category": "benefits_admin_import_template",
+      "privacy": "blank_reference_safe",
+      "recognition_anchors": [
+        "EmployeeIdentifier",
+        "ElectionAmount",
+        "PlanName",
+        "EnrollmentEffectiveDate",
+        "EmployerContribution",
+        "PrimaryReimbursement",
+        "ElectionAmountIndicator",
+        "HDHPCoverageLevel",
+        "HSATermsFlag",
+        "Infinisource"
+      ],
+      "routing": "contextual_reference_library",
+      "employee_file_scanner": false
+    },
+    {
+      "id": "benefits-consolidated-billing-report",
+      "canonical_name": "Benefits Consolidated Billing Report",
+      "category": "benefits_admin_report",
+      "privacy": "restricted_multi_employee",
+      "recognition_anchors": [
+        "Consolidated Billing Report",
+        "Subscriber Listing",
+        "COBRA",
+        "Retro Update",
+        "Current Period Changes",
+        "BILLING_PERIOD_DATE",
+        "PREVIOUS_BILLING",
+        "CURRENT_BILLING",
+        "COVERAGE TYPE",
+        "TOTAL DUE"
+      ],
+      "routing": "restricted_benefits_admin_context",
+      "employee_file_scanner": false,
+      "block_individual_auto_filing": true
+    },
+    {
+      "id": "benefits-account-balance-detail-report",
+      "canonical_name": "Benefits Account Balance Detail Report",
+      "category": "benefits_admin_report",
+      "privacy": "restricted_multi_employee",
+      "recognition_anchors": [
+        "Account Balance Detail Report",
+        "Cash Balance Summary",
+        "Cash Balance Detail",
+        "Available Balance",
+        "Plan Year Balance",
+        "Consumer Deposits",
+        "Employer Deposits"
+      ],
+      "routing": "restricted_benefits_admin_context",
+      "employee_file_scanner": false,
+      "block_individual_auto_filing": true
+    },
+    {
+      "id": "dependent-coverage-termination-export",
+      "canonical_name": "Dependent Coverage Termination Export",
+      "category": "benefits_admin_export",
+      "privacy": "restricted_multi_employee",
+      "recognition_anchors": [
+        "Subscriber SSN",
+        "Subscriber First Name",
+        "Subscriber Last Name",
+        "Dependent First Name",
+        "Dependent Last Name",
+        "Dependent DOB",
+        "Dependent Termination Date"
+      ],
+      "routing": "restricted_benefits_admin_context",
+      "employee_file_scanner": false,
+      "block_individual_auto_filing": true
+    },
+    {
+      "id": "mwbe-certified-vendor-listing",
+      "canonical_name": "MWBE Certified Vendor Listing",
+      "category": "external_reference_dataset",
+      "privacy": "safe_external_reference",
+      "recognition_anchors": [
+        "MWBE Certified Listing",
+        "Product or Service",
+        "MBE - Minority Business Enterprise",
+        "WBE - Women Business Enterprise",
+        "Commonwealth of Kentucky Minority and Women Business Enterprise Certification Program"
+      ],
+      "routing": "contextual_reference_library",
+      "employee_file_scanner": false
+    },
+    {
+      "id": "county-population-change-reference",
+      "canonical_name": "County Population Change and Rank Reference",
+      "category": "external_reference_dataset",
+      "privacy": "safe_aggregate_reference",
+      "recognition_anchors": [
+        "Population Change and Ranks 2000-2010",
+        "Census Population",
+        "Rank (Change)",
+        "Rank (Population)",
+        "Kentucky"
+      ],
+      "routing": "contextual_reference_library",
+      "employee_file_scanner": false
+    },
+    {
+      "id": "census-demographic-profile-reference",
+      "canonical_name": "Census Demographic Profile Reference",
+      "category": "external_reference_dataset",
+      "privacy": "safe_aggregate_reference",
+      "recognition_anchors": [
+        "U.S. Census Bureau",
+        "Census 2000",
+        "Table DP-2",
+        "Table DP-3",
+        "Table DP-4",
+        "Profile of Selected Social Characteristics",
+        "Profile of Selected Economic Characteristics",
+        "Profile of Selected Housing Characteristics"
+      ],
+      "routing": "contextual_reference_library",
+      "employee_file_scanner": false
+    }
+  ]
+}
