@@ -26,6 +26,8 @@ class RTECApplicantAdapterTests(unittest.TestCase):
             """
             CREATE TABLE applicants (
                 applicant_key TEXT PRIMARY KEY,
+                agent_ref TEXT,
+                source_key TEXT,
                 name TEXT,
                 position TEXT,
                 submitted TEXT,
@@ -50,6 +52,8 @@ class RTECApplicantAdapterTests(unittest.TestCase):
             """
             INSERT INTO applicants VALUES (
                 'synthetic-key',
+                'app-syntheticref',
+                'fillout-submission:synthetic-source',
                 'Synthetic Applicant',
                 'Transit Driver',
                 '2026-09-23 10:00',
@@ -136,11 +140,14 @@ class RTECApplicantAdapterTests(unittest.TestCase):
         self.assertNotIn("flagged", row)
         self.assertNotIn("flag_reasons", row)
         self.assertNotIn("pdf_path", row)
+        self.assertNotIn("applicant_key", row)
+        self.assertEqual(row["agent_ref"], "app-syntheticref")
         self.assertNotIn("aa_pdf_path", row)
 
     def test_summary_reduces_paths_to_presence_booleans(self):
-        summary = ra.get_summary("synthetic-key")
+        summary = ra.get_summary("app-syntheticref")
         self.assertIsNotNone(summary)
+        self.assertEqual(summary["applicant_ref"], "app-syntheticref")
         self.assertEqual(summary["status"], "Interview Requested")
         self.assertTrue(summary["documents"]["application_present"])
         self.assertTrue(summary["documents"]["resume_present"])
@@ -178,6 +185,8 @@ class RTECApplicantAdapterTests(unittest.TestCase):
     def test_event_ack_is_bookkeeping_only(self):
         before = ra.pending_events()
         self.assertEqual(before["count"], 1)
+        self.assertEqual(before["results"][0]["applicant_ref"], "app-syntheticref")
+        self.assertNotIn("applicant_key", before["results"][0])
         self.assertTrue(ra.acknowledge_event("evt-1")["acknowledged"])
         self.assertEqual(ra.pending_events()["count"], 0)
 
