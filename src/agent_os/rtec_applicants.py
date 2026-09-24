@@ -17,6 +17,26 @@ _PATHS_RELATIVE = Path("Config") / "paths_settings.json"
 _DB_NAME = "dashboard.db"
 _AUDIT_PATH = ROOT / ".agent-local" / "rtec-applicant-access.jsonl"
 _AUDIT_MAX_ROWS = 10000
+_AUDIT_METADATA_KEYS = {
+    "result_count",
+    "status_filter",
+    "limit",
+    "offset",
+    "found",
+    "query_present",
+    "query_length",
+    "event_count",
+    "schema_ready",
+    "configured",
+    "transit_group_count",
+    "office_position_count",
+    "status",
+    "database_present",
+    "agent_ref_schema_ready",
+    "pending_event_count",
+    "acknowledged",
+    "reason",
+}
 
 # Explicit allowlists.  Never replace these with SELECT *: dashboard.db also
 # contains local file paths, restricted-form references, free-text notes and
@@ -76,7 +96,7 @@ def _audit_access(action: str, *, applicant_ref: str | None = None,
 
     safe_metadata: dict[str, Any] = {}
     for key, value in (metadata or {}).items():
-        if not isinstance(key, str):
+        if not isinstance(key, str) or key not in _AUDIT_METADATA_KEYS:
             continue
         if value is None or isinstance(value, (str, int, float, bool)):
             safe_metadata[key] = value
@@ -240,6 +260,15 @@ def list_applicants(status: str | None = None, limit: int = 50, offset: int = 0)
         _require_agent_ref_schema(conn)
         columns = _existing_columns(conn, _LIST_COLUMNS)
         if not columns:
+            _audit_access(
+                "applicant.list",
+                metadata={
+                    "result_count": 0,
+                    "status_filter": status,
+                    "limit": limit,
+                    "offset": offset,
+                },
+            )
             return {"count": 0, "results": [], "status_filter": status}
         select = ", ".join(columns)
         if status:
@@ -297,6 +326,16 @@ def search_applicants(query: str, status: str | None = None, limit: int = 50) ->
             if column in present
         ]
         if not columns or not searchable:
+            _audit_access(
+                "applicant.search",
+                metadata={
+                    "result_count": 0,
+                    "status_filter": status,
+                    "query_present": True,
+                    "query_length": len(query),
+                    "limit": limit,
+                },
+            )
             return {"count": 0, "results": [], "query": query, "status_filter": status}
         where = "(" + " OR ".join(f"COALESCE({column}, '') LIKE ?" for column in searchable) + ")"
         params: list[Any] = [f"%{query}%"] * len(searchable)
