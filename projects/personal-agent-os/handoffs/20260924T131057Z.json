@@ -16,13 +16,13 @@
     "Preserve desired-only connector metadata. Never copy credentials; only strict local secret-store references may be tracked."
   ],
   "remaining": [
-    "Restore or rebase the missing baseline project context, state, privacy-ignore, registry, and schema files on this older branch so agent.py validate can pass cleanly.",
+    "Run repository-wide agent.py validate from an approved non-sparse checkout; this worktree intentionally omits tracked context, state, and schema files.",
     "Restart the MCP server from its owning host and run the exact-model gpt-6-luna routing smoke in an authorized orchestrator-storage environment.",
     "Continue connector credential resolution, surface adapters, reconciliation, live provider health, and cross-surface verification."
   ],
   "validation": [
     "python -m py_compile src/agent_os/validation.py src/agent_os/connectors.py passed.",
-    "python agent.py validate ran and exercised connector registry loading; overall validation failed on pre-existing missing project context/state/schema files and adapter files on this older worktree, with no connector-registry error.",
+    "python agent.py validate ran and exercised connector registry loading; the overall validation failed because this sparse worktree omits tracked project context/state/schema/adapter files, with no connector-registry error.",
     "git diff --check passed; test suite not run under current session instruction."
   ],
   "candidate_memories": [],
