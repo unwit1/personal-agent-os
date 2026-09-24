@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Agent OS Universal Capture
 // @namespace    agent-os
-// @version      3.4.1
+// @version      3.5.1
 // @description  Save useful pages and passively index rendered Discord Web channel and search-result messages into Agent OS.
 // @homepageURL   https://github.com/unwit1/universal-capture-plugin
 // @updateURL     https://raw.githubusercontent.com/unwit1/universal-capture-plugin/main/agent-os-universal-capture.user.js
@@ -24,7 +24,7 @@
 (function () {
     "use strict";
 
-    var VERSION = "3.4.1";
+    var VERSION = "3.5.1";
     var SETTINGS_KEY = "agent_os_capture_settings_v1";
     var QUEUE_KEY = "agent_os_capture_queue_v1";
     var MAX_QUEUE = 500;
@@ -301,13 +301,16 @@
     // -- Discord passive indexing ---------------------------------------------
 
     var DISCORD_DB_NAME = "agent_os_discord_index_v1";
-    var DISCORD_DB_VERSION = 1;
+    var DISCORD_DB_VERSION = 2;
     var DISCORD_STORE = "messages";
+    var DISCORD_SEEN_STORE = "seen";
     var discordDbPromise = null;
     var discordSeenFingerprints = new Map();
     var discordSessionNew = 0;
     var discordLastScanAt = 0;
     var discordScanTimer = null;
+    var discordPendingRoots = new Set();
+    var discordLastObservedUrl = location.href;
 
     function isDiscordWeb() {
         return hostname() === "discord.com" || hostname() === "www.discord.com";
@@ -373,6 +376,14 @@
                 }
                 if (!store.indexNames.contains("captured_at")) {
                     store.createIndex("captured_at", "captured_at", { unique: false });
+                }
+
+                var seenStore;
+                if (!db.objectStoreNames.contains(DISCORD_SEEN_STORE)) {
+                    seenStore = db.createObjectStore(DISCORD_SEEN_STORE, { keyPath: "key" });
+                    seenStore.createIndex("channel_key", "channel_key", { unique: false });
+                    seenStore.createIndex("timestamp", "timestamp", { unique: false });
+                    seenStore.createIndex("archived_at", "archived_at", { unique: false });
                 }
             };
             request.onsuccess = function () { resolve(request.result); };
@@ -572,6 +583,44 @@
         };
     }
 
+    async function discordSeenRecord(key) {
+        var db = await openDiscordDb();
+        return new Promise(function (resolve, reject) {
+            var tx = db.transaction(DISCORD_SEEN_STORE, "readonly");
+            var request = tx.objectStore(DISCORD_SEEN_STORE).get(key);
+            request.onsuccess = function () { resolve(request.result || null); };
+            request.onerror = function () { reject(request.error); };
+        });
+    }
+
+    function discordRecordTime(record) {
+        var raw = record && (record.timestamp || record.captured_at || record.last_captured_at);
+        var value = raw ? new Date(raw).getTime() : NaN;
+        return Number.isFinite(value) ? value : null;
+    }
+
+    function discordDateRangeBounds(fromDate, toDate) {
+        var start = null;
+        var end = null;
+        if (fromDate) {
+            var startDate = new Date(fromDate + "T00:00:00");
+            if (!Number.isNaN(startDate.getTime())) start = startDate.getTime();
+        }
+        if (toDate) {
+            var endDate = new Date(toDate + "T23:59:59.999");
+            if (!Number.isNaN(endDate.getTime())) end = endDate.getTime();
+        }
+        return { start: start, end: end };
+    }
+
+    function discordRecordInRange(record, bounds) {
+        var value = discordRecordTime(record);
+        if (value == null) return false;
+        if (bounds.start != null && value < bounds.start) return false;
+        if (bounds.end != null && value > bounds.end) return false;
+        return true;
+    }
+
     function discordFingerprint(record) {
         return JSON.stringify([
             record.author,
@@ -587,6 +636,15 @@
     async function putDiscordRecord(record) {
         var fingerprint = discordFingerprint(record);
         if (discordSeenFingerprints.get(record.key) === fingerprint) return false;
+
+        // Archived messages keep only a tiny "seen" tombstone. If Discord
+        // renders one again later, skip rebuilding the full record.
+        var archived = await discordSeenRecord(record.key);
+        if (archived) {
+            discordSeenFingerprints.set(record.key, fingerprint);
+            return false;
+        }
+
         discordSeenFingerprints.set(record.key, fingerprint);
 
         var db = await openDiscordDb();
@@ -616,46 +674,9 @@
         });
     }
 
-    function discordRenderedMessageNodes() {
-        var out = [];
-        var seen = new Set();
-
-        function add(node) {
-            if (!node || node.nodeType !== Node.ELEMENT_NODE || seen.has(node)) return;
-            seen.add(node);
-            out.push(node);
-        }
-
-        document.querySelectorAll(
-            '[id^="chat-messages-"], [data-list-item-id^="chat-messages___"]'
-        ).forEach(add);
-
-        // Discord search results are rendered outside the normal channel
-        // message list. Starting from message-content IDs makes this resilient
-        // to most wrapper/class-name changes and captures only rendered results.
-        document.querySelectorAll('[id^="message-content-"]').forEach(function (content) {
-            var container = content.closest(
-                '[id^="chat-messages-"], [data-list-item-id^="chat-messages___"], ' +
-                '[class*="searchResult"], [class*="search-result"], [role="listitem"]'
-            );
-            if (!container) {
-                container = content.parentElement && content.parentElement.parentElement
-                    ? content.parentElement.parentElement
-                    : content;
-            }
-            add(container);
-        });
-
-        return out;
-    }
-
-    async function scanDiscordMessages() {
+    async function processDiscordMessageNodes(nodes) {
         if (!isDiscordWeb() || !loadSettings().discordPassiveIndexing) return;
-        var context = discordContext();
-        if (!context) return;
-
-        var nodes = discordRenderedMessageNodes();
-        if (!nodes.length) return;
+        if (!nodes || !nodes.length) return;
 
         var fallbackAuthor = "";
         var writes = [];
@@ -675,11 +696,100 @@
         updateDiscordStatus();
     }
 
-    function scheduleDiscordScan(delay) {
+    async function scanDiscordMessages() {
+        if (!isDiscordWeb() || !loadSettings().discordPassiveIndexing) return;
+        var nodes = discordRenderedMessageNodes();
+        if (!nodes.length) return;
+        await processDiscordMessageNodes(nodes);
+    }
+
+    function discordCollectMessageNodesFromRoot(root) {
+        var out = [];
+        var seen = new Set();
+
+        function add(node) {
+            if (!node || node.nodeType !== Node.ELEMENT_NODE || seen.has(node)) return;
+            seen.add(node);
+            out.push(node);
+        }
+
+        if (!root || root.nodeType !== Node.ELEMENT_NODE) return out;
+
+        if (root.matches(
+            '[id^="chat-messages-"], [data-list-item-id^="chat-messages___"], ' +
+            '[class*="searchResult"], [class*="search-result"], [role="listitem"]'
+        )) {
+            var directContent = root.matches('[id^="message-content-"]')
+                ? root
+                : root.querySelector('[id^="message-content-"]');
+            if (directContent) add(root);
+        }
+
+        if (root.matches('[id^="message-content-"]')) {
+            var directContainer = root.closest(
+                '[id^="chat-messages-"], [data-list-item-id^="chat-messages___"], ' +
+                '[class*="searchResult"], [class*="search-result"], [role="listitem"]'
+            );
+            add(directContainer || root);
+        }
+
+        root.querySelectorAll(
+            '[id^="chat-messages-"], [data-list-item-id^="chat-messages___"]'
+        ).forEach(add);
+
+        root.querySelectorAll('[id^="message-content-"]').forEach(function (content) {
+            var container = content.closest(
+                '[id^="chat-messages-"], [data-list-item-id^="chat-messages___"], ' +
+                '[class*="searchResult"], [class*="search-result"], [role="listitem"]'
+            );
+            add(container || content);
+        });
+
+        return out;
+    }
+
+    function queueDiscordMutationRoot(root) {
+        if (!root || root.nodeType !== Node.ELEMENT_NODE) return;
+        discordPendingRoots.add(root);
+    }
+
+    function flushDiscordMutationRoots() {
+        if (!isDiscordWeb() || !loadSettings().discordPassiveIndexing) {
+            discordPendingRoots.clear();
+            return;
+        }
+
+        var nodes = [];
+        var seen = new Set();
+        discordPendingRoots.forEach(function (root) {
+            discordCollectMessageNodesFromRoot(root).forEach(function (node) {
+                if (!seen.has(node)) {
+                    seen.add(node);
+                    nodes.push(node);
+                }
+            });
+        });
+        discordPendingRoots.clear();
+
+        if (nodes.length) {
+            processDiscordMessageNodes(nodes).catch(function (error) {
+                console.warn("[Agent OS] Discord incremental scan failed", error);
+            });
+        }
+    }
+
+    function scheduleDiscordMutationFlush(delay) {
         if (!isDiscordWeb() || !loadSettings().discordPassiveIndexing) return;
         if (discordScanTimer) window.clearTimeout(discordScanTimer);
         discordScanTimer = window.setTimeout(function () {
             discordScanTimer = null;
+            flushDiscordMutationRoots();
+        }, typeof delay === "number" ? delay : 120);
+    }
+
+    function scheduleDiscordScan(delay) {
+        if (!isDiscordWeb() || !loadSettings().discordPassiveIndexing) return;
+        window.setTimeout(function () {
             scanDiscordMessages().catch(function (error) {
                 console.warn("[Agent OS] Discord passive scan failed", error);
             });
@@ -689,13 +799,17 @@
     async function discordIndexStats() {
         var db = await openDiscordDb();
         return new Promise(function (resolve, reject) {
-            var tx = db.transaction(DISCORD_STORE, "readonly");
-            var store = tx.objectStore(DISCORD_STORE);
-            var countRequest = store.count();
-            countRequest.onsuccess = function () {
-                resolve({ total: countRequest.result || 0, session_new: discordSessionNew });
+            var tx = db.transaction([DISCORD_STORE, DISCORD_SEEN_STORE], "readonly");
+            var activeRequest = tx.objectStore(DISCORD_STORE).count();
+            var archivedRequest = tx.objectStore(DISCORD_SEEN_STORE).count();
+            tx.oncomplete = function () {
+                resolve({
+                    total: activeRequest.result || 0,
+                    archived: archivedRequest.result || 0,
+                    session_new: discordSessionNew
+                });
             };
-            countRequest.onerror = function () { reject(countRequest.error); };
+            tx.onerror = function () { reject(tx.error); };
         });
     }
 
@@ -736,11 +850,96 @@
         try {
             var stats = await discordIndexStats();
             var on = loadSettings().discordPassiveIndexing;
-            pill.textContent = (on ? "Discord Index ● " : "Discord Index ○ ") + stats.total;
+            pill.textContent = (on ? "Discord Index ● " : "Discord Index ○ ") +
+                stats.total + (stats.archived ? " · " + stats.archived + " archived" : "");
             pill.style.opacity = on ? "1" : ".65";
         } catch (error) {
             pill.textContent = "Discord Index !";
         }
+    }
+
+    async function discordRecordsInDateRange(fromDate, toDate) {
+        var bounds = discordDateRangeBounds(fromDate, toDate);
+        var rows = await allDiscordRecords(false);
+        return rows.filter(function (row) {
+            return discordRecordInRange(row, bounds);
+        });
+    }
+
+    function downloadDiscordJson(filename, payload) {
+        var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.setTimeout(function () { URL.revokeObjectURL(url); }, 5000);
+    }
+
+    async function exportDiscordDateRange(fromDate, toDate) {
+        var rows = await discordRecordsInDateRange(fromDate, toDate);
+        var stamp = new Date().toISOString().replace(/[:.]/g, "-");
+        var rangeLabel = (fromDate || "start") + "_to_" + (toDate || "end");
+        var filename = "agent-os-discord-archive-" + rangeLabel + "-" + stamp + ".json";
+        downloadDiscordJson(filename, {
+            schema_version: "discord-archive-export-v1",
+            exported_at: new Date().toISOString(),
+            from_date: fromDate || null,
+            to_date: toDate || null,
+            count: rows.length,
+            messages: rows
+        });
+        return { count: rows.length, filename: filename };
+    }
+
+    async function compactDiscordDateRange(fromDate, toDate) {
+        var rows = await discordRecordsInDateRange(fromDate, toDate);
+        if (!rows.length) return 0;
+
+        var db = await openDiscordDb();
+        await new Promise(function (resolve, reject) {
+            var tx = db.transaction([DISCORD_STORE, DISCORD_SEEN_STORE], "readwrite");
+            var messages = tx.objectStore(DISCORD_STORE);
+            var seen = tx.objectStore(DISCORD_SEEN_STORE);
+            var archivedAt = new Date().toISOString();
+
+            rows.forEach(function (row) {
+                seen.put({
+                    key: row.key,
+                    channel_key: row.channel_key,
+                    guild_id: row.guild_id || "",
+                    channel_id: row.channel_id || "",
+                    message_id: row.message_id || "",
+                    timestamp: row.timestamp || row.captured_at || "",
+                    archived_at: archivedAt
+                });
+                messages.delete(row.key);
+                discordSeenFingerprints.delete(row.key);
+            });
+
+            tx.oncomplete = resolve;
+            tx.onerror = function () { reject(tx.error || new Error("Discord compaction failed")); };
+        });
+
+        updateDiscordStatus();
+        return rows.length;
+    }
+
+    async function clearDiscordArchiveMarkers() {
+        if (!window.confirm(
+            "Clear all Discord archive markers? Previously compacted messages can be indexed again if Discord renders them."
+        )) return;
+
+        var db = await openDiscordDb();
+        await new Promise(function (resolve, reject) {
+            var tx = db.transaction(DISCORD_SEEN_STORE, "readwrite");
+            tx.objectStore(DISCORD_SEEN_STORE).clear();
+            tx.oncomplete = resolve;
+            tx.onerror = function () { reject(tx.error); };
+        });
+        updateDiscordStatus();
     }
 
     function closeDiscordIndexBrowser() {
@@ -795,7 +994,7 @@
             '<div style="opacity:.72;margin-top:3px">Browser IndexedDB → ' +
             escapeDiscordIndexHtml(DISCORD_DB_NAME) + ' → ' +
             escapeDiscordIndexHtml(DISCORD_STORE) +
-            ' · ' + rows.length + ' indexed messages · passive indexing ' +
+            ' · ' + rows.length + ' active messages · passive indexing ' +
             (settings.discordPassiveIndexing ? "ON" : "OFF") +
             '</div></div>' +
             '<button id="agent-os-discord-index-close" style="padding:8px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#20242b;color:#fff;cursor:pointer">Close</button>' +
@@ -812,7 +1011,11 @@
             '<input id="agent-os-discord-index-filter" placeholder="Filter author, channel, message text…" ' +
             'style="flex:1;min-width:260px;padding:9px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:#181b22;color:#fff">' +
             '<button id="agent-os-discord-export-channel" style="padding:8px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#20242b;color:#fff;cursor:pointer">Export current channel</button>' +
-            '<button id="agent-os-discord-export-all" style="padding:8px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#20242b;color:#fff;cursor:pointer">Export all JSON</button>';
+            '<button id="agent-os-discord-export-all" style="padding:8px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#20242b;color:#fff;cursor:pointer">Export all JSON</button>' +
+            '<input id="agent-os-discord-archive-from" type="date" title="Archive from date" style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:#181b22;color:#fff">' +
+            '<input id="agent-os-discord-archive-to" type="date" title="Archive through date" style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:#181b22;color:#fff">' +
+            '<button id="agent-os-discord-export-range" style="padding:8px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#20242b;color:#fff;cursor:pointer">Export date range</button>' +
+            '<button id="agent-os-discord-compact-range" style="padding:8px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#5b2a2a;color:#fff;cursor:pointer">Compact exported range</button>';
 
         var body = document.createElement("div");
         body.id = "agent-os-discord-index-list";
@@ -880,6 +1083,36 @@
         document.getElementById("agent-os-discord-export-all").addEventListener("click", function () {
             exportDiscordIndex(false);
         });
+        document.getElementById("agent-os-discord-export-range").addEventListener("click", async function () {
+            var fromDate = document.getElementById("agent-os-discord-archive-from").value;
+            var toDate = document.getElementById("agent-os-discord-archive-to").value;
+            if (!fromDate && !toDate) {
+                window.alert("Choose at least a From or Through date for the archive range.");
+                return;
+            }
+            var result = await exportDiscordDateRange(fromDate, toDate);
+            window.alert(
+                "Started download of " + result.count + " indexed Discord messages.\n\n" +
+                result.filename + "\n\n" +
+                "After you verify the JSON file exists in Downloads, use Compact exported range to remove full message bodies from IndexedDB while keeping tiny seen markers."
+            );
+        });
+        document.getElementById("agent-os-discord-compact-range").addEventListener("click", async function () {
+            var fromDate = document.getElementById("agent-os-discord-archive-from").value;
+            var toDate = document.getElementById("agent-os-discord-archive-to").value;
+            if (!fromDate && !toDate) {
+                window.alert("Choose the same exported From/Through date range before compacting.");
+                return;
+            }
+            if (!window.confirm(
+                "Only compact this range after you verified its JSON export exists.\n\n" +
+                "Compaction deletes full local message bodies for this range and keeps only tiny IDs/timestamps so they will not be indexed again. Continue?"
+            )) return;
+            var count = await compactDiscordDateRange(fromDate, toDate);
+            window.alert("Compacted " + count + " Discord messages. Their seen markers remain so they will not be re-indexed.");
+            closeDiscordIndexBrowser();
+            openDiscordIndexBrowser();
+        });
         overlay.addEventListener("click", function (event) {
             if (event.target === overlay) closeDiscordIndexBrowser();
         });
@@ -933,11 +1166,12 @@
     }
 
     async function clearDiscordIndex() {
-        if (!window.confirm("Clear the entire local Agent OS Discord message index on this browser?")) return;
+        if (!window.confirm("Clear the entire local Agent OS Discord message index and archive markers on this browser?")) return;
         var db = await openDiscordDb();
         await new Promise(function (resolve, reject) {
-            var tx = db.transaction(DISCORD_STORE, "readwrite");
+            var tx = db.transaction([DISCORD_STORE, DISCORD_SEEN_STORE], "readwrite");
             tx.objectStore(DISCORD_STORE).clear();
+            tx.objectStore(DISCORD_SEEN_STORE).clear();
             tx.oncomplete = resolve;
             tx.onerror = function () { reject(tx.error); };
         });
@@ -1239,6 +1473,7 @@
         GM_registerMenuCommand("Agent OS: Discord export current channel", function () { exportDiscordIndex(true); });
         GM_registerMenuCommand("Agent OS: Discord export full local index", function () { exportDiscordIndex(false); });
         GM_registerMenuCommand("Agent OS: Discord clear local index", clearDiscordIndex);
+        GM_registerMenuCommand("Agent OS: Discord clear archive markers", clearDiscordArchiveMarkers);
     }
 
     ensureDiscordIndexingDefault();
@@ -1251,17 +1486,34 @@
     }
 
     var scheduled = false;
-    var observer = new MutationObserver(function () {
+    var observer = new MutationObserver(function (mutations) {
+        var discordActive = isDiscordWeb() && loadSettings().discordPassiveIndexing;
+
+        if (discordActive) {
+            mutations.forEach(function (mutation) {
+                mutation.addedNodes.forEach(function (node) {
+                    if (node && node.nodeType === Node.ELEMENT_NODE) {
+                        queueDiscordMutationRoot(node);
+                    }
+                });
+            });
+            scheduleDiscordMutationFlush(100);
+
+            // Discord is a single-page app. On route changes do one bounded
+            // full scan so already-rendered nodes on the new view are not missed.
+            if (location.href !== discordLastObservedUrl) {
+                discordLastObservedUrl = location.href;
+                scheduleDiscordScan(150);
+            }
+        }
+
         if (scheduled) return;
         scheduled = true;
         window.setTimeout(function () {
             scheduled = false;
             addFloatingButton();
             addNexusCardButtons();
-            if (isDiscordWeb()) {
-                ensureDiscordStatus();
-                scheduleDiscordScan(100);
-            }
+            if (isDiscordWeb()) ensureDiscordStatus();
         }, 300);
     });
 
