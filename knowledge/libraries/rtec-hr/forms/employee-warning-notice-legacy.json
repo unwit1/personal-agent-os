@@ -4,7 +4,7 @@
   "title": "Employee Warning Notice - legacy standardized disciplinary form",
   "status": "candidate",
   "temporal_status": "historical",
-  "summary": "Seven restricted disciplinary case documents in the correspondence archive use the same standardized Employee Warning Notice form. The reusable template structure can be modeled safely without retaining employee-specific case facts.",
+  "summary": "Seven restricted disciplinary case documents in the correspondence archive use the same standardized Employee Warning Notice form. The reusable template structure can be modeled safely without retaining employee-specific case facts. This form identity is independently corroborated by the HR-GUI reference library entry hrgui-reference-011.",
   "claims": [
     {
       "claim": "The standardized form contains Employee Information fields for employee name, employee ID, date, job title, manager and department.",
@@ -117,7 +117,9 @@
   "controls": [
     "Do not infer selected offense categories from blank template choices.",
     "Employee-specific warning content remains restricted.",
-    "Current form/version and approval roles require validation before operational use."
+    "Current form/version and approval roles require validation before operational use.",
+    "Cross-reference scanner/reference identity hrgui-reference-011 (Employee Warning Notice) when classifying this form.",
+    "The reference-library identity corroborates the form name but does not by itself establish current policy or currentness."
   ],
   "unresolved_questions": [
     "What form currently replaces or succeeds this legacy Employee Warning Notice?",
@@ -144,6 +146,22 @@
       "temporal_status": "historical",
       "full_source_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json",
       "searchable_text_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json"
+    },
+    {
+      "source_id": "hrgui-reference-011",
+      "safe_source_type": "cross_project_reference_form_identity",
+      "source_date_or_version": null,
+      "content_sha256": null,
+      "page_or_section": "reference-form catalog entry",
+      "ingested_at": "2026-09-24",
+      "notes": "HR-GUI reference library independently contains Employee Warning Notice under Disciplinary; original reference artifact is represented by scanner metadata/fingerprints.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "unknown",
+      "full_source_path": null,
+      "searchable_text_path": "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json"
     }
   ]
 }
