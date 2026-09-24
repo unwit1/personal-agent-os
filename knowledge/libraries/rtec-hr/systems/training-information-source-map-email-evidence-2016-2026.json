@@ -77,6 +77,23 @@
         "000569"
       ],
       "authority_caution": "Program/vendor resource; exact contracted RTEC scope should be confirmed."
+    },
+    {
+      "source": "UnitedHealthcare wellness resources",
+      "observed": "2026",
+      "context": [
+        "employee wellness communications",
+        "men's health questionnaire/training material",
+        "English and Spanish versions"
+      ],
+      "evidence_ids": [
+        "000485"
+      ],
+      "attachment_evidence": [
+        "Men’s Health Questionnaire — English",
+        "Men’s Health Questionnaire — Spanish"
+      ],
+      "authority_caution": "Wellness/training content, not RTEC policy or medical guidance authority."
     }
   ],
   "work_profile_implication": "Historical and current HR work includes ongoing external information gathering and professional-development intake in addition to transactional administration.",
