@@ -1,0 +1,78 @@
+{
+  "id": "rtec-sexual-harassment-reporting-investigation-authority-map",
+  "record_type": "process_authority_map",
+  "title": "RTEC sexual-harassment reporting, complaint form and investigation authority map",
+  "status": "validated_current_policy_plus_historical_form",
+  "temporal_status": "current_with_historical_support",
+  "current_policy": {
+    "record_id": "rtec-policy-attendance-solicitation-harassment-2025",
+    "effective_from": "2025-12-15",
+    "rules": [
+      "Sexual harassment is unacceptable and harassing conduct is subject to discipline.",
+      "The handbook describes both quid-pro-quo-type conduct and hostile/intimidating/offensive-environment conduct.",
+      "An employee experiencing sexual harassment is encouraged to report/discuss it with a supervisor, Human Resource Manager, or Executive Director."
+    ],
+    "authority_level": "current_RTEC_handbook"
+  },
+  "historical_form": {
+    "source_id": "rtec-hr-sexual-harassment-complaint-form-2017",
+    "temporal_status": "historical_currentness_unconfirmed",
+    "canonical_text_path": "knowledge/libraries/rtec-hr/sources/aap-2022-06-30/sexual-harassment-complaint-form.md",
+    "fields": [
+      "complainant identifying/job information",
+      "time period",
+      "alleged harasser names/job titles/departments",
+      "dates and nature of alleged conduct",
+      "witnesses/others with knowledge",
+      "supporting documents",
+      "physical evidence",
+      "missed work",
+      "unreimbursed medical expenses",
+      "prior complaint/date/resolution",
+      "requested remedy",
+      "truth/correctness acknowledgement",
+      "cooperation acknowledgement"
+    ],
+    "investigation_statement": [
+      "The form states that investigation requires interviewing the complainant, alleged harasser(s), and witnesses with knowledge of allegations or defenses.",
+      "The form states that persons involved will be told the investigation is confidential and that unauthorized disclosure could lead to discipline up to discharge."
+    ]
+  },
+  "historical_aap_context": [
+    "The 2015-2018 AAP says employees experiencing sexual harassment are encouraged to discuss the situation with their supervisor, EEO Manager, Human Resource Manager or Executive Director.",
+    "The historical AAP states that a Sexual Harassment Complaint Form is available from the EEO Manager.",
+    "The AAP prohibits threats, intimidation and retaliation against a person for reporting sexual harassment or helping another person bring a complaint."
+  ],
+  "current_process_model": [
+    "Receive a report through any current handbook-authorized reporting channel.",
+    "Move case-specific allegations, identities, evidence, medical expense information and interview notes into restricted case storage immediately; do not place those facts in generalized GitHub knowledge.",
+    "Confirm the person responsible for investigating under current RTEC authority and identify any conflicts of interest before assignment.",
+    "Preserve relevant documents/evidence and identify the complainant, accused person(s), witnesses and relevant time period.",
+    "Conduct fact-finding interviews and document allegations, responses and supporting evidence.",
+    "Determine findings and necessary corrective/disciplinary action through the current authorized decision path.",
+    "Communicate the result/next-step information appropriate under current RTEC policy and retain the restricted case record.",
+    "Apply the current anti-retaliation requirement throughout and after the investigation."
+  ],
+  "authority_conflicts_and_gaps": [
+    "The current 2025 handbook provides reporting routes but does not, in the ingested text, expressly adopt the 2017 complaint form or its detailed investigation language.",
+    "The 2017 form must therefore remain a historical template until a newer/current form or explicit adoption is found.",
+    "Historical AAP references to named EEO managers are superseded by later officer/role assignments and must not control current routing.",
+    "A current RTEC-specific investigation SOP, decision authority, target timelines, appeal/review process and retention schedule have not yet been established from the ingested current sources."
+  ],
+  "privacy_controls": [
+    "Harassment complaints are restricted employee-relations case records.",
+    "Do not persist complainant, accused, witness, medical, evidence or outcome details in generalized process knowledge.",
+    "Generalized records may store blank form structure, workflow, policy authority, non-identifying aggregate statistics and provenance."
+  ],
+  "automation_candidates": [
+    "Restricted harassment/employee-relations case intake with role-based access.",
+    "Evidence/interview checklist and anti-retaliation follow-up reminders.",
+    "Current-form version control so historical complaint forms cannot be accidentally reused as current.",
+    "Aggregate case metrics that exclude identities and allegations."
+  ],
+  "related_records": [
+    "rtec-policy-attendance-solicitation-harassment-2025",
+    "rtec-policy-eeo-2026",
+    "rtec-training-eeo-managers-supervisors-historical"
+  ]
+}
