@@ -46,8 +46,9 @@
     {
       "priority": "medium",
       "domain": "retirement_plan",
-      "question": "Document current retirement-plan enrollment/change workflow, provider, payroll implementation, deadlines and retention.",
-      "status": "open"
+      "question": "Locate the current RTEC 401-K Summary Plan Description/plan booklet and recordkeeper, then document the current eligibility/entry rules, enrollment/change method, HR-finance-payroll ownership, remittance/feed, notices and retention. Resolve the public website's 'after 30 days' claim against that governing plan document.",
+      "status": "partially_answered",
+      "resolution_note": "Current handbook confirms a 401-K Employee Savings Plan with pretax payroll deduction and employer match for full-time active employees but explicitly defers additional service/eligibility requirements to the plan booklet. Current public job pages say retirement begins after 30 days. Targeted Drive searches did not surface a current SPD/plan booklet or recordkeeper, so the public waiting period remains unvalidated."
     },
     {
       "priority": "medium",
