@@ -1,0 +1,90 @@
+{
+  "continuity_id": "tes.mod.aethernautics",
+  "source_file": "Aethernautics.esp",
+  "source_sha256": "18e21d0bbb08440bc6c42f049d2b8a24353dd9a24d84fc185c7e6d1b700fe720",
+  "package_sha256": "1cd1c58f5c73bb2a647294c096128ce2a89856521493e566ad1ebc1793705e40",
+  "package_filename": "Aethernautics Special Edition 436 3.1 2026-08-01T20-40Z hfH9s6otT.7z",
+  "verified_release": {
+    "nexus_mod_id": 436,
+    "version": "3.1",
+    "official_last_updated": "2026-08-01T20:40:00Z",
+    "created_by": [
+      "Trainwiz",
+      "DarthVitrial"
+    ],
+    "uploaded_by": "trainwiz",
+    "status": "verified_current_main_release"
+  },
+  "archive_validation": {
+    "members": [
+      {
+        "name": "Aethernautics - Textures.bsa",
+        "size_bytes": 9182520,
+        "crc32": "da6c646a"
+      },
+      {
+        "name": "Aethernautics.bsa",
+        "size_bytes": 2945254,
+        "crc32": "894fd93b"
+      },
+      {
+        "name": "Aethernautics.esp",
+        "size_bytes": 974145,
+        "crc32": "65acf5e5"
+      }
+    ],
+    "all_member_crcs_verified": true
+  },
+  "plugin_header": {
+    "format": "TES4/Skyrim Special Edition",
+    "header_version": 1.71,
+    "author": "Trainwiz",
+    "description": "Adds space travel.",
+    "flags": "0x00000001",
+    "esm_flagged": true,
+    "masters": [
+      "Skyrim.esm",
+      "Update.esm",
+      "Dawnguard.esm",
+      "HearthFires.esm",
+      "Dragonborn.esm"
+    ],
+    "declared_records_and_groups": 10368
+  },
+  "physical_record_audit": {
+    "records_excluding_groups": 10242,
+    "group_headers": 126,
+    "structural_total": 10368,
+    "consistent_with_header": true
+  },
+  "record_counts": {
+    "REFR": 9930,
+    "ACHR": 42,
+    "ACTI": 38,
+    "NAVM": 33,
+    "BOOK": 22,
+    "CELL": 21,
+    "MESG": 20,
+    "STAT": 14,
+    "ARMO": 9,
+    "SNDR": 9,
+    "NPC_": 8,
+    "GLOB": 7,
+    "MGEF": 7,
+    "SPEL": 7,
+    "LCTN": 7,
+    "SOUN": 5,
+    "CONT": 5,
+    "MISC": 5,
+    "WEAP": 5,
+    "COBJ": 5,
+    "QUST": 1
+  },
+  "extracted_analysis": {
+    "core_source_records": 79,
+    "implementation_supplement_records": 90,
+    "books": 22,
+    "raw_full_text_persisted_in_repo": false,
+    "raw_full_text_note": "Deterministic extraction was completed from the verified uploaded package in the analysis session. Compact canonical manifests/claims are persisted; the source archive itself is not committed."
+  }
+}
