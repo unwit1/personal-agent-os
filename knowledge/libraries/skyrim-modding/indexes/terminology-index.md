@@ -2,8 +2,8 @@
 
 Updated: 2026-09-24
 Status: active
-Terminology modules: 43
-Indexed terminology headings: 3267
+Terminology modules: 44
+Indexed terminology headings: 3325
 
 This index inventories the canonical Skyrim technical terminology corpus. Counts include intentional cross-module repetitions where a concept has different diagnostic implications; 3267 is therefore an indexed-heading count rather than a unique-concept count.
 
@@ -57,11 +57,12 @@ Do not load every module for every question. Start with `../troubleshooting/diag
 | [textures-nif-asset-optimization.md](../terminology/textures-nif-asset-optimization.md) | 80 |
 | [ui-skyui-mcm-scaleform.md](../terminology/ui-skyui-mcm-scaleform.md) | 79 |
 | [worldspace-navmesh-saves-persistence.md](../terminology/worldspace-navmesh-saves-persistence.md) | 73 |
+| [vr-linux-proton-cross-platform.md](../terminology/vr-linux-proton-cross-platform.md) | 58 |
 | [xedit-plugin-format-advanced.md](../terminology/xedit-plugin-format-advanced.md) | 77 |
 
 ## Broad domain coverage
 
-The corpus now covers plugin/xEdit internals, Creation Kit record types and worldbuilding, Papyrus APIs/performance/persistence, quests/dialogue/scenes/Story Manager, gameplay/magic/combat/crafting, SKSE/CommonLib/native development, crash diagnostics, engine fixes and utilities, runtime distributors/patchers, MO2/Vortex/Wabbajack, automated patching, animation/behavior systems, NIF/textures/BodySlide, NPC appearance/RaceMenu, physics, UI/MCM/Scaleform, audio/localization/BSA resources, rendering/ENB/Community Shaders, LOD/grass/seasons/occlusion, platform/runtime config, performance/engine limits, porting and development toolchains.
+The corpus now covers plugin/xEdit internals, Creation Kit record types and worldbuilding, Papyrus APIs/performance/persistence, quests/dialogue/scenes/Story Manager, gameplay/magic/combat/crafting, SKSE/CommonLib/native development, crash diagnostics, engine fixes and utilities, runtime distributors/patchers, MO2/Vortex/Wabbajack, automated patching, animation/behavior systems, NIF/textures/BodySlide, NPC appearance/RaceMenu, physics, UI/MCM/Scaleform, audio/localization/BSA resources, rendering/ENB/Community Shaders, LOD/grass/seasons/occlusion, platform/runtime config, performance/engine limits, porting, development toolchains, Skyrim VR, and Linux/Proton/Steam Deck environments.
 
 ## Deduplication note
 
