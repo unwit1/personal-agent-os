@@ -72,5 +72,12 @@
     "knowledge/libraries/rtec-hr/systems/public-website-eeo-titlevi-currentness-drift-2026-09-23.json",
     "knowledge/libraries/rtec-hr/systems/public-recruiting-website-currentness-drift-2026-09-23.json",
     "knowledge/libraries/rtec-hr/forms/drive-employment-application-template-currentness-2026.json"
+  ],
+  "additional_findings": [
+    "Current localized recruiting pages show stale $16/hour pay while English shows $17/hour.",
+    "Current localized civil-rights pages in several languages preserve a historical named EEO manager.",
+    "Spanish bid-opportunities localization still surfaces a 2021 office-phone-system solicitation, unlike the current English bid surface.",
+    "Current Required Documents page still lists a revised October 2016 Title VI notice despite a 2026 internal Title VI/LEP plan.",
+    "A public Transview instruction page exposes kiosk-exit credentials; the secret values are deliberately not stored."
   ]
 }
