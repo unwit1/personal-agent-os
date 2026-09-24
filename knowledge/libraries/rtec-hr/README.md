@@ -118,3 +118,19 @@ Email-derived historical practices remain version-aware evidence and must not ov
 The consolidated discovery index for the sanitized email-derived knowledge is `sources/email-archive-derived-index-2026-09-23.json`. It links the domain-specific benefits, payroll/time/tax, leave/FMLA, workers' compensation, EEO/AAP, recruiting, retirement, unemployment, Kentucky new-hire, system/vendor, account-continuity, training/reference, company, role, professional-contact, handoff, mailbox-transition, automation-candidate, and validation-question records.
 
 Every one of the 576 unique messages received a structural classification pass, and the initial low-signal bucket received a separate review. Semantic records remain currentness-gated and privacy-safe; raw employee/applicant/case email content is not canonicalized in GitHub.
+
+
+## Correspondence archive — exhaustive analysis checkpoint
+
+The September 23, 2026 correspondence archive has completed an exhaustive source-level analysis. All 95 supplied artifacts have an explicit disposition: 9 safe artifacts consolidated into 8 reusable source families and 86 restricted artifacts covered through privacy-safe metadata, aggregate analysis and generalized process/policy records. All 33 individual warning/counseling files map to at least one generalized knowledge theme.
+
+The disciplinary corpus contains 1,193 populated fiscal event rows. From 2016-2017 onward the historical “disciplinary” register also functions as a vehicle-incident ledger. AAP-sorted workbooks are treated as separate derived versions because cross-year reconciliation found omitted/extra occurrences, hard-coded subtotal rows and classification changes; notably, one 2016-2017 derivative systematically recodes many EEO categories. No formulas were detected in the 29 disciplinary/AAP/verbal-warning workbooks.
+
+Legacy import must preserve stable source-row identity, raw values and schema/version provenance. Employee+date and employee+date+reason are not safe deduplication keys because legitimate same-date multi-record groups exist. Current-state gaps are tracked in `questions/currentness-and-gaps.json`; rereading this archive is not expected to resolve those gaps without newer authoritative sources.
+
+See:
+- `sources/batches/rtec-hr-correspondence-2026-09-23.json`
+- `restricted-evidence/correspondence-2026-09-23.json`
+- `restricted-evidence/disciplinary-register-aggregate-2008-2026.json`
+- `processes/aap-disciplinary-derivative-integrity.json`
+- `automation/disciplinary-register-normalization.json`
