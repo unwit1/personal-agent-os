@@ -1,0 +1,37 @@
+{
+  "id": "rtec-fta-title-vi-circular-4702-1b-reference",
+  "record_type": "external_reference_authority_map",
+  "title": "FTA Circular 4702.1B — Title VI reference authority",
+  "status": "validated_external_reference",
+  "temporal_status": "historical_reference_currentness_not_web_verified",
+  "source_sha256": "21dfaa2b0e937e2f548c150590a5116a99a200e81ccc6a2aec353090e657ae04",
+  "source_path": "TITLE VI LEP PLAN/FTA_Title_VI_FINAL.pdf",
+  "pages": 130,
+  "source_role": "Federal Transit Administration Title VI guidance/reference stored in the RTEC Title VI archive.",
+  "reference_domains": [
+    "general Title VI program requirements for FTA recipients/subrecipients",
+    "public participation and LEP access",
+    "program submission content",
+    "monitoring/subrecipient oversight",
+    "service standards/policies and demographic monitoring",
+    "fare/service-change equity analysis for applicable transit providers",
+    "disparate-impact and disproportionate-burden policy concepts",
+    "facility/site equity analysis and documentation"
+  ],
+  "authority_relationship": [
+    "The circular is external regulatory/program guidance, not an RTEC Board-adopted plan.",
+    "RTEC-specific procedures should be sourced from the applicable adopted RTEC Title VI/LEP plan, with this circular retained as upstream authority/reference.",
+    "Template/sample language in the RTEC archive should be checked against this upstream guidance and the adopted RTEC plan before operational use."
+  ],
+  "currentness_boundary": [
+    "This record reflects the archived FTA Circular 4702.1B source only.",
+    "No web verification was performed in this ingestion pass to determine whether later federal guidance supersedes or modifies any part of the circular.",
+    "For a current compliance decision, verify the current FTA authority separately before relying on a historical archive copy."
+  ],
+  "ingestion_rule": "Do not copy the full circular into RTEC process records. Store section-level links/provenance and retrieve only the relevant federal guidance when a current or historical interpretation needs it.",
+  "related_records": [
+    "rtec-process-title-vi-lep-program",
+    "rtec-process-title-vi-public-participation-2026",
+    "rtec-title-vi-sample-reference-classification"
+  ]
+}
