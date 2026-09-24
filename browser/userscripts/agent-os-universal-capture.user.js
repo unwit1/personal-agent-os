@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Agent OS Universal Capture
 // @namespace    agent-os
-// @version      3.9.2
+// @version      3.10.3
 // @description  Save useful pages and passively index rendered Discord Web channel and search-result messages into Agent OS.
 // @homepageURL   https://github.com/unwit1/universal-capture-plugin
 // @updateURL     https://raw.githubusercontent.com/unwit1/universal-capture-plugin/main/agent-os-universal-capture.user.js
@@ -26,7 +26,7 @@
 (function () {
     "use strict";
 
-    var VERSION = "3.9.2";
+    var VERSION = "3.10.3";
     var SETTINGS_KEY = "agent_os_capture_settings_v1";
     var QUEUE_KEY = "agent_os_capture_queue_v1";
     var MAX_QUEUE = 500;
@@ -39,7 +39,13 @@
         showFloatingButton: true,
         discordPassiveIndexing: true,
         browserJournalEnabled: true,
-        browserJournalExcludedDomains: []
+        browserJournalExcludedDomains: [],
+        bridgeEnabled: true,
+        bridgeEndpoint: "http://127.0.0.1:8766/api/v1/browser/batch",
+        bridgeCaptureEndpoint: "http://127.0.0.1:8766/api/v1/browser/capture",
+        bridgeToken: "",
+        bridgeAutoCompact: true,
+        bridgeSyncSeconds: 30
     };
 
     function loadSettings() {
@@ -311,6 +317,7 @@
     var journalSessionId = Date.now().toString(36) + "-" +
         Math.random().toString(36).slice(2, 10);
     var journalChunkSeq = 0;
+    var journalEventSeq = 0;
     var journalLastSavedValues = new WeakMap();
     var journalCurrentRoute = location.href;
     var journalCurrentPage = null;
@@ -392,6 +399,10 @@
 
     function journalAppendRow(row) {
         if (!journalEnabled()) return false;
+        if (!row[7]) {
+            journalEventSeq += 1;
+            row[7] = "journal:" + journalSessionId + ":" + journalEventSeq + ":" + String(row[0] || Date.now());
+        }
         var key = journalChunkKey();
         var chunk = GM_getValue(key, []);
         if (!Array.isArray(chunk)) chunk = [];
@@ -402,6 +413,7 @@
         }
         chunk.push(row);
         GM_setValue(key, chunk);
+        bridgeScheduleSoon(1500);
         return true;
     }
 
@@ -2040,6 +2052,408 @@
     }
 
 
+    // -- Durable local Agent OS bridge ----------------------------------------
+
+    var BRIDGE_BATCH_MAX = 100;
+    var bridgeSyncTimer = null;
+    var bridgeSyncInterval = null;
+    var bridgeSyncInFlight = false;
+    var bridgeLastStatus = {
+        state: "idle",
+        at: null,
+        acknowledged: 0,
+        error: ""
+    };
+
+    function bridgeConfigured() {
+        var settings = loadSettings();
+        return Boolean(
+            settings.bridgeEnabled &&
+            settings.bridgeEndpoint &&
+            settings.bridgeToken
+        );
+    }
+
+    function bridgeStableHash(value) {
+        var text = String(value || "");
+        var h1 = 0x811c9dc5;
+        var h2 = 0x9e3779b9;
+        for (var i = 0; i < text.length; i += 1) {
+            var code = text.charCodeAt(i);
+            h1 = Math.imul(h1 ^ code, 0x01000193);
+            h2 = Math.imul(h2 ^ code, 0x85ebca6b);
+        }
+        return (h1 >>> 0).toString(16).padStart(8, "0") +
+            (h2 >>> 0).toString(16).padStart(8, "0");
+    }
+
+    function journalRowEventId(row) {
+        if (row && row[7]) return String(row[7]);
+        return "journal:legacy:" + bridgeStableHash(JSON.stringify((row || []).slice(0, 7)));
+    }
+
+    function bridgeJournalEvent(row) {
+        var typeIndex = Number(row && row[1] || 0);
+        var timestamp = Number(row && row[0] || 0);
+        return {
+            event_id: journalRowEventId(row),
+            source: "browser-journal",
+            event_type: JOURNAL_EVENT_TYPES[typeIndex] || "event",
+            source_key: String(row && row[2] || ""),
+            occurred_at: timestamp ? new Date(timestamp).toISOString() : "",
+            device: loadSettings().device || "",
+            payload: {
+                timestamp_ms: timestamp || null,
+                event_type: JOURNAL_EVENT_TYPES[typeIndex] || "event",
+                url: row && row[2] || "",
+                title: row && row[3] || null,
+                context: row && row[4] || null,
+                text: row && row[5] == null ? null : row[5],
+                extra: row && row[6] == null ? null : row[6]
+            }
+        };
+    }
+
+    function bridgeDiscordEvent(record) {
+        return {
+            event_id: "discord:" + String(record.key || ""),
+            source: "discord",
+            event_type: "message",
+            source_key: String(record.key || ""),
+            occurred_at: record.timestamp || record.captured_at || "",
+            device: loadSettings().device || "",
+            payload: record
+        };
+    }
+
+    function removeAcknowledgedJournalRows(acknowledged) {
+        if (!acknowledged || !acknowledged.size) return 0;
+        var removed = 0;
+        journalChunkKeys().forEach(function (key) {
+            var chunk = GM_getValue(key, []);
+            if (!Array.isArray(chunk)) return;
+            var kept = chunk.filter(function (row) {
+                var remove = acknowledged.has(journalRowEventId(row));
+                if (remove) removed += 1;
+                return !remove;
+            });
+            if (!kept.length) GM_deleteValue(key);
+            else if (kept.length !== chunk.length) GM_setValue(key, kept);
+        });
+        updateJournalStatus();
+        return removed;
+    }
+
+    async function discordBridgeRecords(limit) {
+        if (!isDiscordWeb()) return [];
+        var db = await openDiscordDb();
+        return new Promise(function (resolve, reject) {
+            var tx = db.transaction(DISCORD_STORE, "readonly");
+            var store = tx.objectStore(DISCORD_STORE);
+            var index = store.index("captured_at");
+            var request = index.openCursor();
+            var rows = [];
+            request.onsuccess = function () {
+                var cursor = request.result;
+                if (!cursor || rows.length >= limit) {
+                    resolve(rows);
+                    return;
+                }
+                rows.push(cursor.value);
+                cursor.continue();
+            };
+            request.onerror = function () {
+                reject(request.error || new Error("Could not read Discord bridge batch"));
+            };
+        });
+    }
+
+    async function compactAcknowledgedDiscord(acknowledged, sentFingerprints) {
+        if (!isDiscordWeb() || !acknowledged || !acknowledged.size) return 0;
+        var keys = [];
+        acknowledged.forEach(function (eventId) {
+            if (String(eventId).indexOf("discord:") === 0) {
+                keys.push(String(eventId).slice("discord:".length));
+            }
+        });
+        if (!keys.length) return 0;
+
+        var db = await openDiscordDb();
+        return new Promise(function (resolve, reject) {
+            var tx = db.transaction([DISCORD_STORE, DISCORD_SEEN_STORE], "readwrite");
+            var messages = tx.objectStore(DISCORD_STORE);
+            var seen = tx.objectStore(DISCORD_SEEN_STORE);
+            var compacted = 0;
+
+            keys.forEach(function (key) {
+                var get = messages.get(key);
+                get.onsuccess = function () {
+                    var current = get.result;
+                    if (!current) return;
+                    var eventId = "discord:" + key;
+                    var sentFingerprint = sentFingerprints.get(eventId);
+                    if (sentFingerprint && discordFingerprint(current) !== sentFingerprint) {
+                        return;
+                    }
+                    seen.put({ key: key });
+                    messages.delete(key);
+                    discordSeenFingerprints.delete(key);
+                    compacted += 1;
+                };
+            });
+
+            tx.oncomplete = function () {
+                updateDiscordStatus();
+                resolve(compacted);
+            };
+            tx.onerror = function () {
+                reject(tx.error || new Error("Could not compact bridge-acknowledged Discord messages"));
+            };
+        });
+    }
+
+    function bridgeScheduleSoon(delay) {
+        if (!bridgeConfigured()) return;
+        if (bridgeSyncTimer) window.clearTimeout(bridgeSyncTimer);
+        bridgeSyncTimer = window.setTimeout(function () {
+            bridgeSyncTimer = null;
+            bridgeSyncNow(false);
+        }, typeof delay === "number" ? delay : 2000);
+    }
+
+    async function bridgeBuildBatch() {
+        var journalRows = journalAllRows().slice(0, Math.floor(BRIDGE_BATCH_MAX / 2));
+        var discordRows = isDiscordWeb()
+            ? await discordBridgeRecords(BRIDGE_BATCH_MAX - journalRows.length)
+            : [];
+
+        // Give Discord a fair share even when the journal backlog is large.
+        if (isDiscordWeb() && journalRows.length >= BRIDGE_BATCH_MAX / 2 &&
+                discordRows.length < BRIDGE_BATCH_MAX / 2) {
+            journalRows = journalRows.slice(
+                0,
+                BRIDGE_BATCH_MAX - discordRows.length
+            );
+        }
+
+        var events = journalRows.map(bridgeJournalEvent);
+        var sentFingerprints = new Map();
+        discordRows.forEach(function (record) {
+            var event = bridgeDiscordEvent(record);
+            events.push(event);
+            sentFingerprints.set(event.event_id, discordFingerprint(record));
+        });
+
+        return {
+            events: events.slice(0, BRIDGE_BATCH_MAX),
+            sentFingerprints: sentFingerprints
+        };
+    }
+
+    function bridgeRequest(body) {
+        var settings = loadSettings();
+        return new Promise(function (resolve, reject) {
+            GM_xmlhttpRequest({
+                method: "POST",
+                url: settings.bridgeEndpoint,
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Agent-OS-Token": settings.bridgeToken
+                },
+                data: JSON.stringify(body),
+                timeout: 15000,
+                onload: function (response) {
+                    if (!(response.status >= 200 && response.status < 300)) {
+                        reject(new Error("HTTP " + response.status));
+                        return;
+                    }
+                    try {
+                        resolve(JSON.parse(response.responseText || "{}"));
+                    } catch (error) {
+                        reject(new Error("Bridge returned invalid JSON"));
+                    }
+                },
+                onerror: function () { reject(new Error("Bridge unavailable")); },
+                ontimeout: function () { reject(new Error("Bridge timeout")); }
+            });
+        });
+    }
+
+    async function bridgeSyncNow(showResult) {
+        if (!bridgeConfigured()) {
+            if (showResult) {
+                window.alert(
+                    "Local Agent OS bridge is not configured.\n\n" +
+                    "Start it with: agent-os browser-bridge\n" +
+                    "Then use the Tampermonkey menu: Agent OS: Configure local bridge."
+                );
+            }
+            return { acknowledged: 0 };
+        }
+        if (bridgeSyncInFlight) {
+            if (showResult) window.alert("A bridge sync is already running.");
+            return { acknowledged: 0 };
+        }
+
+        bridgeSyncInFlight = true;
+        bridgeLastStatus = {
+            state: "syncing",
+            at: new Date().toISOString(),
+            acknowledged: 0,
+            error: ""
+        };
+        try {
+            var batch = await bridgeBuildBatch();
+            if (!batch.events.length) {
+                bridgeLastStatus = {
+                    state: "idle",
+                    at: new Date().toISOString(),
+                    acknowledged: 0,
+                    error: ""
+                };
+                if (showResult) window.alert("Bridge is connected. Nothing is waiting to sync.");
+                return { acknowledged: 0 };
+            }
+
+            var settings = loadSettings();
+            var response = await bridgeRequest({
+                schema: "agent-os/browser-bridge-batch/v1",
+                batch_id: "browser-" + Date.now().toString(36) + "-" +
+                    Math.random().toString(36).slice(2, 8),
+                device: settings.device || "",
+                events: batch.events
+            });
+            if (!response || response.durable !== true || !Array.isArray(response.acknowledged)) {
+                throw new Error("Bridge did not return a durable acknowledgement");
+            }
+
+            var acknowledged = new Set(response.acknowledged.map(String));
+            var journalAcknowledged = new Set(
+                Array.from(acknowledged).filter(function (id) {
+                    return id.indexOf("journal:") === 0;
+                })
+            );
+            var journalRemoved = removeAcknowledgedJournalRows(journalAcknowledged);
+            var discordCompacted = 0;
+            if (settings.bridgeAutoCompact) {
+                discordCompacted = await compactAcknowledgedDiscord(
+                    acknowledged,
+                    batch.sentFingerprints
+                );
+            }
+
+            bridgeLastStatus = {
+                state: "ok",
+                at: new Date().toISOString(),
+                acknowledged: acknowledged.size,
+                journal_removed: journalRemoved,
+                discord_compacted: discordCompacted,
+                error: ""
+            };
+
+            if (showResult) {
+                window.alert(
+                    "Agent OS bridge sync complete.\n\n" +
+                    "Durably acknowledged: " + acknowledged.size + "\n" +
+                    "Browser journal compacted: " + journalRemoved + "\n" +
+                    "Discord messages compacted: " + discordCompacted
+                );
+            }
+
+            if (journalEventCount() > 0 || (isDiscordWeb() && discordCompacted > 0)) {
+                bridgeScheduleSoon(2000);
+            }
+            return bridgeLastStatus;
+        } catch (error) {
+            bridgeLastStatus = {
+                state: "error",
+                at: new Date().toISOString(),
+                acknowledged: 0,
+                error: String(error && error.message || error)
+            };
+            if (showResult) {
+                window.alert(
+                    "Agent OS bridge sync failed. Browser data was kept locally.\n\n" +
+                    bridgeLastStatus.error
+                );
+            }
+            return bridgeLastStatus;
+        } finally {
+            bridgeSyncInFlight = false;
+        }
+    }
+
+    function configureLocalBridge() {
+        var settings = loadSettings();
+        var endpoint = window.prompt(
+            "Agent OS local bridge batch endpoint:",
+            settings.bridgeEndpoint || "http://127.0.0.1:8766/api/v1/browser/batch"
+        );
+        if (endpoint === null) return;
+        endpoint = endpoint.trim();
+
+        var token = window.prompt(
+            "Agent OS local bridge token.\n\n" +
+            "Run 'agent-os browser-bridge-token' or start 'agent-os browser-bridge' to display it.",
+            settings.bridgeToken || ""
+        );
+        if (token === null) return;
+
+        settings.bridgeEndpoint = endpoint;
+        settings.bridgeCaptureEndpoint = endpoint.replace(/\/batch(?:\?.*)?$/, "/capture");
+        settings.bridgeToken = token.trim();
+        settings.bridgeEnabled = Boolean(endpoint && settings.bridgeToken);
+        saveSettings(settings);
+        initializeBridgeSync();
+        bridgeScheduleSoon(200);
+        window.alert(
+            settings.bridgeEnabled
+                ? "Local Agent OS bridge configured. Automatic durable sync is ON."
+                : "Bridge configuration is incomplete; automatic sync is OFF."
+        );
+    }
+
+    function toggleLocalBridge() {
+        var settings = loadSettings();
+        settings.bridgeEnabled = !settings.bridgeEnabled;
+        saveSettings(settings);
+        initializeBridgeSync();
+        if (settings.bridgeEnabled) bridgeScheduleSoon(200);
+        window.alert("Local Agent OS bridge is now " + (settings.bridgeEnabled ? "ON." : "OFF."));
+    }
+
+    function showBridgeStatus() {
+        var settings = loadSettings();
+        window.alert(
+            "Agent OS Local Bridge\n\n" +
+            "Enabled: " + (settings.bridgeEnabled ? "YES" : "NO") + "\n" +
+            "Configured: " + (bridgeConfigured() ? "YES" : "NO") + "\n" +
+            "Endpoint: " + (settings.bridgeEndpoint || "(none)") + "\n" +
+            "Last state: " + bridgeLastStatus.state + "\n" +
+            "Last sync: " + (bridgeLastStatus.at || "(none)") + "\n" +
+            "Last acknowledged: " + (bridgeLastStatus.acknowledged || 0) +
+            (bridgeLastStatus.error ? "\nError: " + bridgeLastStatus.error : "") +
+            "\n\nBuffered browser events: " + journalEventCount() +
+            (isDiscordWeb()
+                ? "\nDiscord records can sync from this tab."
+                : "\nDiscord records sync whenever a Discord tab is open.")
+        );
+    }
+
+    function initializeBridgeSync() {
+        if (bridgeSyncInterval) {
+            window.clearInterval(bridgeSyncInterval);
+            bridgeSyncInterval = null;
+        }
+        if (!bridgeConfigured()) return;
+        var seconds = Math.max(10, Number(loadSettings().bridgeSyncSeconds || 30));
+        bridgeSyncInterval = window.setInterval(function () {
+            bridgeSyncNow(false);
+        }, seconds * 1000);
+        bridgeScheduleSoon(2500);
+    }
+
+
     function buildCapture() {
         var base = genericCapture();
         var adapters = [redditAdapter, amazonAdapter, youtubeAdapter, nexusAdapter, xenforoAdapter];
@@ -2079,7 +2493,19 @@
 
     function sendCapture(capture, button) {
         var settings = loadSettings();
-        if (!settings.endpoint) {
+        var endpoint = settings.endpoint || "";
+        var token = settings.token || "";
+
+        // Once the local bridge is configured, it is the default durable
+        // destination for manual captures unless the user explicitly set a
+        // different capture endpoint.
+        if (!endpoint && settings.bridgeEnabled && settings.bridgeToken) {
+            endpoint = settings.bridgeCaptureEndpoint ||
+                String(settings.bridgeEndpoint || "").replace(/\/batch(?:\?.*)?$/, "/capture");
+            token = settings.bridgeToken;
+        }
+
+        if (!endpoint) {
             var count = queueCapture(capture, "endpoint-not-configured");
             setButtonState(button, "✓ Queued (" + count + ")", "ok");
             window.setTimeout(function () { setButtonState(button, "+ Agent OS", ""); }, 1600);
@@ -2088,11 +2514,11 @@
 
         setButtonState(button, "Saving…", "busy");
         var headers = { "Content-Type": "application/json" };
-        if (settings.token) headers["X-Agent-OS-Token"] = settings.token;
+        if (token) headers["X-Agent-OS-Token"] = token;
 
         GM_xmlhttpRequest({
             method: "POST",
-            url: settings.endpoint,
+            url: endpoint,
             headers: headers,
             data: JSON.stringify(capture),
             timeout: 15000,
@@ -2642,6 +3068,10 @@
         GM_registerMenuCommand("Agent OS: Retry queued captures", retryQueue);
         GM_registerMenuCommand("Agent OS: Copy queued captures as JSON", exportQueue);
         GM_registerMenuCommand("Agent OS: Clear queued captures", clearQueue);
+        GM_registerMenuCommand("Agent OS: Configure local bridge", configureLocalBridge);
+        GM_registerMenuCommand("Agent OS: Local bridge ON/OFF", toggleLocalBridge);
+        GM_registerMenuCommand("Agent OS: Sync local bridge now", function () { bridgeSyncNow(true); });
+        GM_registerMenuCommand("Agent OS: Local bridge status", showBridgeStatus);
         GM_registerMenuCommand("Agent OS: Browser Journal ON/OFF", toggleBrowserJournal);
         GM_registerMenuCommand("Agent OS: Browser Journal include/exclude this domain", toggleJournalCurrentDomainExclusion);
         GM_registerMenuCommand("Agent OS: Browser Journal export range", function () { exportBrowserJournalPrompt(); });
@@ -2661,6 +3091,7 @@
     registerMenus();
     addFloatingButton();
     initializeBrowserJournal();
+    initializeBridgeSync();
     addNexusCardButtons();
     addXenforoThreadButtons();
     addRedditPostButtons();
@@ -2713,6 +3144,8 @@
         queued: (GM_getValue(QUEUE_KEY, []) || []).length,
         discord_passive_indexing: isDiscordWeb() ? loadSettings().discordPassiveIndexing : undefined,
         browser_journal: loadSettings().browserJournalEnabled,
-        browser_journal_domain_excluded: journalDomainExcluded(hostname())
+        browser_journal_domain_excluded: journalDomainExcluded(hostname()),
+        bridge_enabled: loadSettings().bridgeEnabled,
+        bridge_configured: bridgeConfigured()
     });
 })();
