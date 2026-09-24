@@ -1,0 +1,101 @@
+{
+  "record_id": "rtec-handbook-policy-evolution-2017-to-2025",
+  "updated_at": "2026-09-23",
+  "status": "cross_version_comparison",
+  "sources": [
+    "rtec-hr-employee-handbook-2017-02-06-email-attachment",
+    "rtec-hr-employee-handbook-2025-12-15",
+    "signed 2026 EEO policy where applicable"
+  ],
+  "findings": [
+    {
+      "domain": "direct_deposit",
+      "relationship": "STABLE",
+      "historical_2017": "Required staff to establish direct deposit within the first two weeks of employment.",
+      "current_2025": "Current handbook independently retains the first-two-weeks direct-deposit requirement.",
+      "implication": "Historical blank Direct Deposit Form is still relevant as a form lineage source, but current form/version must control."
+    },
+    {
+      "domain": "medical_benefit_eligibility",
+      "relationship": "STABLE_CORE_RULE_WITH_VENDOR_CHANGE",
+      "historical_2017": "Eligible active full-time employees were generally eligible on the first day of the month after 60 days, subject to timely enrollment and employee contribution.",
+      "current_2025": "Current handbook-derived benefits record retains first-of-month-after-60-days eligibility.",
+      "implication": "Eligibility cadence appears stable; carrier/broker/admin systems changed substantially."
+    },
+    {
+      "domain": "personal_sick_leave",
+      "relationship": "STABLE_CORE_ACCRUAL",
+      "historical_2017": "Two hours per pay period, max six days per year, eligible after 30 days, stated max accrual 60 days.",
+      "current_2025": "Current handbook-derived leave policy preserves the same core accrual structure.",
+      "implication": "This is strong longitudinal evidence for the basic accrual rule, but current exceptions/administration remain governed by 2025 policy."
+    },
+    {
+      "domain": "annual_leave",
+      "relationship": "PARTIALLY_STABLE_REQUIRES_CURRENT_POLICY",
+      "historical_2017": "Historical tenure-based vacation schedule and two-week advance request requirement.",
+      "current_2025": "Current handbook remains the controlling source; historical tiers/approval details must not be assumed without matching current text.",
+      "implication": "Keep 2017 schedule as historical version evidence only."
+    },
+    {
+      "domain": "workers_comp_fmla_concurrency",
+      "relationship": "STABLE_CORE_RULE",
+      "historical_2017": "FMLA and workers compensation ran concurrently; immediate injury reporting to supervisor/person in charge/HR was required.",
+      "current_2025": "Current handbook independently preserves immediate injury reporting and FMLA concurrency.",
+      "implication": "Workflow skeleton is strongly corroborated across versions, though current carrier/forms and statutory details still need current validation."
+    },
+    {
+      "domain": "attendance_points",
+      "relationship": "SUPERSEDED",
+      "historical_2017": "Legacy attendance policy used a 10-point termination threshold.",
+      "current_2025": "Current handbook uses partial-day point values and termination at 6 points, with current warning/suspension thresholds.",
+      "implication": "Never use the 2017 10-point framework for current attendance decisions. Scanner/Agent OS should label legacy attendance documents by effective period."
+    },
+    {
+      "domain": "progressive_discipline",
+      "relationship": "SUPERSEDED_OR_RESTRUCTURED",
+      "historical_2017": "Grouped A-D infraction framework with escalating counseling/suspension/discharge patterns.",
+      "current_2025": "Later handbook/policy records contain a different current framework and separate attendance-point logic.",
+      "implication": "2017 disciplinary groups are historical classification evidence only and should not drive current discipline."
+    },
+    {
+      "domain": "eeo_program_owner",
+      "relationship": "SUPERSEDED_EFFECTIVE_DATED_ROLE",
+      "historical_2017": "EEO Program implementation assigned to Sheila Stallsworth.",
+      "current_2026": "Later sources establish an effective-dated EEO Officer history and the signed 2026 policy assigns the current role-holder.",
+      "implication": "Named-role assignments must be effective-dated; never answer current EEO-owner questions from old handbooks."
+    },
+    {
+      "domain": "benefit_carriers_and_administration",
+      "relationship": "SUPERSEDED_PROVIDER_STACK",
+      "historical_2017": "Handbook referenced the benefit structure of its era; 2016-2018 email attachments show older carrier/broker implementations.",
+      "current_2026": "Current evidence shows Guardian, UnitedHealthcare, ComPsych, iSolved/Infinisource and ADP-linked processes.",
+      "implication": "Policy concepts may persist while provider/system instructions are versioned and time-sensitive."
+    },
+    {
+      "domain": "complaint_and_employee_relations_process",
+      "relationship": "HISTORICAL_BASELINE",
+      "historical_2017": "General work-related grievance path began with supervisor and escalated to Executive Director.",
+      "current_2025_2026": "Current harassment/EEO sources explicitly include HR/EEO roles and later signed EEO authority.",
+      "implication": "Use current complaint/EEO/harassment sources rather than the historical general grievance route when scopes overlap."
+    },
+    {
+      "domain": "cell_phone_and_communications",
+      "relationship": "HISTORICAL_RULE_SET_REQUIRES_CURRENTNESS",
+      "historical_2017": "Broad restrictions on personal cell-phone use, camera/video use and transmission of company information.",
+      "current_2025": "Currentness of the exact 2017 wording has not been independently established in this pass.",
+      "implication": "Do not enforce historical camera/device language without checking current policy."
+    },
+    {
+      "domain": "nepotism_fraternization",
+      "relationship": "HISTORICAL_RULE_SET_REQUIRES_CURRENTNESS",
+      "historical_2017": "Broad restriction on employment of defined relatives and reassignment/separation path for conflicts.",
+      "current_2025": "Exact current rule not established by the attachment analysis.",
+      "implication": "Preserve as historical evidence; verify current handbook before use."
+    }
+  ],
+  "design_rules": [
+    "Policy-version comparisons should distinguish stable principles from stable operational details.",
+    "Named people, thresholds, vendors, forms and system instructions are especially likely to change and must be effective-dated.",
+    "When a later source conflicts with an older handbook, the older version remains historical evidence rather than being deleted."
+  ]
+}
