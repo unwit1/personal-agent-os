@@ -154,5 +154,54 @@
     }
   ],
   "closure_rule": "Do not reopen the same PST corpus merely to answer these remaining gaps. Reopen only if a new PST/export, missing attachment store, newer work-mail source, current controlled HR document, live system access or explicit operational-owner confirmation becomes available.",
-  "privacy": "No raw employee/applicant/case bodies, medical details, credentials, meeting passcodes or restricted self-ID values are persisted in this audit."
+  "privacy": "No raw employee/applicant/case bodies, medical details, credentials, meeting passcodes or restricted self-ID values are persisted in this audit.",
+  "peripheral_information_reaudit": {
+    "method": "Corpus-wide second sweep of weak/generic-label messages after primary topic passes, including attachment-bearing weak-label items and special Outlook classes.",
+    "disposition": [
+      {
+        "bucket": "already_modeled",
+        "examples": [
+          "Infinisource setup meeting",
+          "Humana implementation kickoff",
+          "AssuredPartners introduction",
+          "Indeed recruiting outreach",
+          "Focus/Talent job-order lifecycle",
+          "Google account appeal/recovery"
+        ],
+        "action": "Retained under existing system/vendor, benefits, recruiting or infrastructure records; no duplicate records created."
+      },
+      {
+        "bucket": "ephemeral_historical_context",
+        "examples": [
+          "Rockcastle Healthy Community Coalition meeting notices",
+          "temporary I-75 closure affecting Rockcastle County",
+          "one-off wage benchmarking mention",
+          "one-off W-9 routing note",
+          "unsolicited transit-software outreach"
+        ],
+        "action": "Not promoted to current workflow authority because the messages establish only one-time/historical context and no reusable current rule."
+      },
+      {
+        "bucket": "restricted_case_or_person_data",
+        "examples": [
+          "employment verification",
+          "employee legal correspondence",
+          "sick/medical communication",
+          "driver roster/distribution-list context"
+        ],
+        "action": "Kept outside durable generalized knowledge except for safe workflow structure already derived elsewhere."
+      },
+      {
+        "bucket": "security_sensitive",
+        "examples": [
+          "meeting join URLs/passcodes",
+          "document access codes",
+          "account recovery/security details"
+        ],
+        "action": "Deliberately excluded from durable knowledge."
+      }
+    ],
+    "result": "No additional safe, reusable, previously unmodeled HR process or current system authority was discovered."
+  },
+  "historical_workers_comp_note": "Sanitized historical workflow evidence names KACo as a historical workers-compensation channel. This is not sufficient to identify the current carrier/TPA and remains explicitly version-gated."
 }
