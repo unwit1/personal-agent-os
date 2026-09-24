@@ -230,3 +230,163 @@ Next source-registration passes should prioritize areas not yet covered deeply:
 - SKSE co-save structure, serialization versioning, and migration practices;
 - Trainwreck and other crash-loggers as comparative diagnostic sources;
 - current Creation Kit Platform Extended / CK extension tooling where relevant.
+
+
+## Encyclopedia-pass registered sources — 2026-09-24
+
+### XEDIT-UPSTREAM
+- URL: https://github.com/TES5Edit/TES5Edit
+- Scope: current xEdit implementation, game modes, schemas, cleaning changes, ONAM and Partial Form behavior.
+- Authority: very high for xEdit behavior; high specialist evidence for plugin-format interpretation.
+- Current caution: modern xEdit release notes warn that older xEdit versions could write incorrect ONAM for ESM-flagged modules overriding temporary records, and describe Partial Form support as still requiring care.
+
+### LOOT-DOCS
+- URL: https://loot.github.io/docs/help/introduction-to-load-orders/
+- Scope: plugin ordering, dependencies, metadata, groups and messages.
+- Authority: very high for LOOT behavior; not a semantic record-conflict resolver.
+
+### VORTEX-UPSTREAM
+- URL: https://github.com/Nexus-Mods/Vortex
+- Scope: Nexus Mod Manager successor, profiles, deployment, file conflict rules, plugin-management integration.
+- Authority: upstream.
+
+### WABBAJACK-UPSTREAM
+- URL: https://github.com/wabbajack-tools/wabbajack
+- Scope: modlist compilation/installation, source archive reconstruction, hashes, manifests and list healing.
+- Authority: upstream.
+
+### RACEMENU-NEXUS
+- URL: https://www.nexusmods.com/skyrimspecialedition/mods/19080
+- Scope: RaceMenu user features/runtime support including sculpt, overlays, BodyMorph, BodyGen and skee configuration.
+- Authority: mod-author distribution page; version-sensitive.
+
+### FSMP-UPSTREAM
+- URL: https://github.com/DaymareOn/hdtSMP64
+- Scope: Faster HDT-SMP code, physics configuration, XML validation, runtime commands/APIs.
+- Authority: upstream.
+
+### MUTAGEN-UPSTREAM
+- URL: https://github.com/Mutagen-Modding/Mutagen
+- Scope: strongly typed Bethesda plugin read/write/query APIs.
+- Authority: upstream.
+
+### SYNTHESIS-UPSTREAM
+- URL: https://github.com/Mutagen-Modding/Synthesis
+- Scope: code-based patcher pipelines and generated plugin output.
+- Authority: upstream.
+
+### SPRIGGIT-UPSTREAM
+- URL: https://github.com/Mutagen-Modding/Spriggit
+- Scope: plugin-to-text/text-to-plugin version-control serialization.
+- Authority: upstream.
+
+### SKYPATCHER-UPSTREAM
+- URL: https://github.com/Zzyxz/SkyPatcher
+- Scope: runtime INI-driven record patching implementation.
+- Authority: upstream source.
+
+### SKYPATCHER-NEXUS
+- URL: https://www.nexusmods.com/skyrimspecialedition/mods/106659
+- Scope: current user-facing SkyPatcher release/runtime/version details.
+- Snapshot: version 7.0.3 observed 2026-09-24.
+
+### COMMUNITY-SHADERS-UPSTREAM
+- URL: https://github.com/community-shaders/skyrim-community-shaders
+- Scope: current Community Shaders renderer architecture, build requirements and feature source.
+- Authority: upstream; rapidly evolving.
+
+### COMMUNITY-SHADERS-NEXUS
+- URL: https://www.nexusmods.com/skyrimspecialedition/mods/86492
+- Scope: current releases/changelogs/user requirements.
+- Snapshot: version 1.9.0 observed 2026-09-24; Nexus reports update 2026-09-23.
+
+### DISPLAY-TWEAKS
+- URL: https://github.com/SlavicPotato/SSEDisplayTweaks
+- Scope: presentation, timing, high-FPS physics/display behavior.
+- Authority: upstream.
+
+### ENGINE-FIXES-NEXUS
+- URL: https://www.nexusmods.com/skyrimspecialedition/mods/17230
+- Scope: current SSE Engine Fixes release/runtime requirements and configuration.
+- Snapshot: 7.x line current in 2026; specific runtime/preloader requirements vary by file.
+
+### PAPYRUS-EXTENDER
+- URL: https://github.com/powerof3/PapyrusExtenderSSE
+- Scope: native Papyrus extension functions/events/types.
+- Snapshot: upstream README observed 2026-09-24 describes 374 functions, 37 events and 4 script objects.
+
+### PO3-TWEAKS
+- URL: https://github.com/powerof3/po3-Tweaks
+- Scope: engine bug fixes/tweaks and runtime dependencies.
+- Authority: upstream.
+
+### PAPYRUSUTIL
+- URL: https://github.com/eeveelo/PapyrusUtil
+- Scope: Papyrus utilities, storage/JSON/array functionality.
+- Authority: upstream/source evidence.
+
+### JCONTAINERS
+- URL: https://github.com/ryobg/JContainers
+- Scope: serializable structured data containers and JSON access for Papyrus.
+- Authority: upstream.
+
+### MCM-HELPER
+- URL: https://github.com/Exit-9B/MCM-Helper
+- Scope: SkyUI MCM helper, config/settings layout, native persistence/APIs.
+- Authority: upstream.
+
+### SKYUI
+- URL: https://github.com/schlangster/skyui
+- Scope: SkyUI UI framework and public MCM Papyrus APIs.
+- Authority: upstream/source.
+
+### CATHEDRAL-ASSETS-OPTIMIZER
+- URL: https://github.com/Guekka/Cathedral-Assets-Optimizer
+- Scope: LE/SE asset conversion, meshes, textures and archive optimization.
+- Authority: upstream; repository warns development documentation can be outdated.
+
+### NIFSKOPE
+- URL: https://github.com/niftools/nifskope
+- Scope: NIF structure, blocks, shader properties, scene graph and inspection/editing.
+- Authority: upstream format-tool evidence.
+
+### XTRANSLATOR
+- URL: https://github.com/MGuffin/xTranslator
+- Scope: localization/STRINGS/DLSTRINGS/ILSTRINGS and translation workflow.
+- Authority: upstream.
+
+### FALLRIMTOOLS
+- URL: https://github.com/mdfairch/FallrimTools
+- Scope: Skyrim ESS parsing, ChangeForms, FormID arrays, Papyrus state and targeted ReSaver repairs.
+- Authority: strong reverse-engineering/tool evidence; not an official Bethesda save-format specification.
+
+### CRASHLOGGER
+- URL: https://github.com/alandtse/CrashLoggerSSE
+- User release: https://www.nexusmods.com/skyrimspecialedition/mods/59818
+- Scope: native exception logs, object introspection, PDB support, minidumps/thread dumps.
+- Snapshot: Nexus version 1.25.0 observed 2026-09-24, updated 2026-08-23 and supporting AE 1.7.99.
+
+### TRAINWRECK
+- URL: https://www.nexusmods.com/skyrimspecialedition/mods/106440
+- Scope: broad-runtime crash logging and module/hash diagnostics.
+- Snapshot: version 1.4.0 page observed 2026-09-24.
+
+### CKPE
+- URL: https://github.com/Perchik71/Creation-Kit-Platform-Extended
+- Scope: Creation Kit fixes, extensions and reverse-engineered editor support.
+- Authority: upstream; CK executable compatibility is version-sensitive.
+
+### AUDIO-YAKITORI
+- URL: https://www.nexusmods.com/skyrimspecialedition/mods/17765
+- Scope: FUZ/XWM/WAV/LIP conversion and archive-aware audio processing.
+- Authority: specialist tool documentation.
+
+### RUNALIP
+- URL: https://www.nexusmods.com/skyrimspecialedition/mods/98931
+- Scope: LIP/FUZ generation workflow.
+- Authority: specialist tool documentation.
+
+### DYNDOLOD-CURRENT
+- URL: https://dyndolod.info/
+- Scope: current authoritative specialist documentation for TexGen, DynDOLOD, xLODGen relationships, LOD, grass, seasons, large refs and occlusion.
+- Authority: very high for DynDOLOD workflows and Skyrim LOD behavior addressed by the tool.
