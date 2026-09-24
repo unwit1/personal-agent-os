@@ -18,7 +18,7 @@
     {
       "priority": "high",
       "domain": "drug_alcohol",
-      "question": "Reconcile the supplied SFY25 Drug and Alcohol Policy, 2024 collection-site list, collection-request packet, OTC/prescription policy and drug-free guide into a controlled current D&A source chain. Resolve any filename/effective-date mismatch before operational use.",
+      "question": "Reconcile the supplied SFY25 Drug and Alcohol Policy (cover effective 5/4/2018, adopted 5/21/2018, last revised 5/4/2018; page 12 bears a handwritten governing-board approval dated 19 February 2024), the 2024 collection-site list, collection-request packet, OTC/prescription policy and drug-free guide into a controlled current D&A source chain. Confirm what the SFY25 filename denotes and resolve the effective-date/version mismatch before operational use.",
       "status": "open"
     },
     {

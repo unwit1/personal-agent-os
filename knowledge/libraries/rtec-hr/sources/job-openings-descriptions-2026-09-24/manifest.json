@@ -1132,13 +1132,15 @@
       "disposition": "safe_searchable_source",
       "domain": "drug_alcohol",
       "extraction_method": "ocr_from_rendered_scan",
-      "searchable_text_chars": 32796,
+      "searchable_text_chars": 32797,
       "temporal_status": "unknown",
       "date_candidates": [
         "5/4/2018",
         "05/21/2018",
-        "5/4/2018"
-      ]
+        "5/4/2018",
+        "2024-02-19 (handwritten governing-board approval, page 12; visually verified against source scan)"
+      ],
+      "date_note": "Cover states effective as of 5/4/2018 and adopted 05/21/2018; page 2 says last revised 5/4/2018. Page 12 bears a handwritten governing-board approval dated 19 February 2024, visually verified against the source scan. The supplied filename labels the PDF SFY25. Current authority remains unconfirmed."
     },
     {
       "source_id": "rtec-hr-job-openings-my-hr-forms-rtec-employee-portal-employee-files-employee-files-sexual-harrasment-prevention-trainee-booklette-pdf",

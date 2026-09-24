@@ -296,8 +296,7 @@ be trained in Reasonable Suspicion):
 v Matthew Getsi
 FTA Drug and Alcohol Policy ~ Kentucky Section 5309/53 11/5339 Sub-recipient
 POLICY APPROVAL BY THE GOVERNING BOARD
-Final Governing Board Approval for the Drug & Alcohol Policy is made this_19_ day of
-Yelyuory 2024.
+Final Governing Board Approval for the Drug & Alcohol Policy is made this 19th day of February 2024.
 Mike Kincer, Chairman
 Rural Transit Enterprises Coordinated, Inc., d/b/a RTEC
 FTA Drug and Alcohol Policy ~ Kentucky Section 5309/5311 1/5339 Sub-recipient

@@ -27,5 +27,16 @@
     "current vendor/system",
     "current legal timing",
     "current approval owner"
+  ],
+  "source_id": "rtec-hr-job-openings-my-hr-forms-applicant-check-off-sheet-copy-doc",
+  "source_sha256": "fea2bcf5e13a7e0ca022d7e34d2b4ad823d6d680d650bc379428a472471e07a2",
+  "observed_timing_fields": [
+    "application receipt / background-check start",
+    "return to HR",
+    "approval to hire",
+    "return to HR for pre-test scheduling",
+    "pre-test completion",
+    "scheduled start date",
+    "reason for delay"
   ]
 }
