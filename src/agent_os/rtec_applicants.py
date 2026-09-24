@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -72,7 +73,8 @@ def _connect_readonly() -> sqlite3.Connection:
     path = _db_path()
     if not path.is_file():
         raise FileNotFoundError(f"Applicant Dashboard database not found: {path}")
-    conn = sqlite3.connect(f"file:{path.as_posix()}?mode=ro", uri=True)
+    uri = path.resolve().as_uri() + "?mode=ro"
+    conn = sqlite3.connect(uri, uri=True)
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -401,16 +403,22 @@ def acknowledge_event(event_id: str) -> dict[str, Any]:
     # This one integration bookkeeping operation requires a writable connection.
     conn = sqlite3.connect(path)
     try:
+        table = conn.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='agent_events'"
+        ).fetchone()
+        if not table:
+            return {"acknowledged": False, "reason": "outbox_schema_unavailable"}
         exists = conn.execute(
             "SELECT 1 FROM agent_events WHERE event_id = ?", (event_id,)
         ).fetchone()
         if not exists:
             return {"acknowledged": False, "reason": "event_not_found"}
+        acknowledged_at = datetime.now().astimezone().isoformat(timespec="seconds")
         conn.execute(
             "UPDATE agent_events SET acknowledged_at = "
-            "CASE WHEN acknowledged_at = '' THEN datetime('now') ELSE acknowledged_at END "
+            "CASE WHEN acknowledged_at = '' THEN ? ELSE acknowledged_at END "
             "WHERE event_id = ?",
-            (event_id,),
+            (acknowledged_at, event_id),
         )
         conn.commit()
         return {"acknowledged": True, "event_id": event_id}
