@@ -1,0 +1,25 @@
+{
+  "continuity_id": "tes.mod.sotha-sil-expanded",
+  "name": "Sotha Sil Expanded",
+  "universe": "The Elder Scrolls",
+  "kind": "mod_continuity_overlay",
+  "parent_series": "tes.mod.trainwiz-chronocoda",
+  "status": "verified_current_3_1_core_lore_ingested",
+  "canon_policy": {
+    "default_claim_scope": "tes.mod.sotha-sil-expanded",
+    "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
+    "cross_mod_identity": "explicit_relations_preserve_editions"
+  },
+  "source_manifest": "source-manifest.json",
+  "relationships": [
+    {
+      "to": "tes.mod.wheels-of-lull",
+      "relation": "predecessor_sequel",
+      "evidence": "Current Wheels/ChronoC0da project metadata"
+    },
+    {
+      "to": "tes.mod.aethernautics",
+      "relation": "shared_chronocoda_lineage"
+    }
+  ]
+}
