@@ -6,7 +6,7 @@
   "source_count": 9,
   "sources": [
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-2018-upload-eeo1-comp-2-csv",
+      "source_id": "rtec-hr-job-openings-restricted-1a37dc9c9413ca11",
       "sanitized_source_label": "restricted-source-01",
       "generalized_class": "restricted personnel reporting",
       "sha256": "1a37dc9c9413ca114f8bab7ff3fa828d0417902f479c42bf26067bad66d91c5c",
@@ -19,7 +19,7 @@
       "raw_content_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-2024-salaries-xlsx",
+      "source_id": "rtec-hr-job-openings-restricted-68b8ca27ae051b15",
       "sanitized_source_label": "restricted-source-02",
       "generalized_class": "restricted personnel reporting",
       "sha256": "68b8ca27ae051b15c6a1fa760dc80ce9dc62b6990c042826f9205faec0ce2686",
@@ -32,7 +32,7 @@
       "raw_content_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-backup-current-employee-breakdown-by-county-xls",
+      "source_id": "rtec-hr-job-openings-restricted-919cc511bdce0e18",
       "sanitized_source_label": "restricted-source-03",
       "generalized_class": "restricted personnel reporting",
       "sha256": "919cc511bdce0e187fecdb8e36f7caa1f6b8077d15b2202a187aef4ecbe088b9",
@@ -45,7 +45,7 @@
       "raw_content_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-empinsded-jan-2024-dec-2024-empinsded-01-31-2024-xls",
+      "source_id": "rtec-hr-job-openings-restricted-4901d9b810236d5d",
       "sanitized_source_label": "restricted-source-04",
       "generalized_class": "restricted personnel reporting",
       "sha256": "4901d9b810236d5d65ced5737c2b752cbd96f8f920eeea613cfc56f13dca1312",
@@ -58,7 +58,7 @@
       "raw_content_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-copy-of-current-employee-census-data-new-2024-xls",
+      "source_id": "rtec-hr-job-openings-restricted-013b01db704a0a56",
       "sanitized_source_label": "restricted-source-05",
       "generalized_class": "restricted personnel reporting",
       "sha256": "013b01db704a0a568d8836cc0064ab1511284b1d8691a0b143b06a1dc144c755",
@@ -71,7 +71,7 @@
       "raw_content_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-current-employee-breakdown-by-county-autosaved-xls",
+      "source_id": "rtec-hr-job-openings-restricted-71365577836207e6",
       "sanitized_source_label": "restricted-source-06",
       "generalized_class": "restricted personnel reporting",
       "sha256": "71365577836207e630cd3f4d2dc3b0457d413692e9bf67cd82706d543a77c586",
@@ -84,7 +84,7 @@
       "raw_content_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-eeo1-2022-ce48195-ce48195-1-pdf",
+      "source_id": "rtec-hr-job-openings-restricted-0da647e4f108a325",
       "sanitized_source_label": "restricted-source-07",
       "generalized_class": "other",
       "sha256": "0da647e4f108a3251723862308b56170d55174d958af49cbb4e9a075334b657c",
@@ -97,7 +97,7 @@
       "raw_content_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-awards-xlsx",
+      "source_id": "rtec-hr-job-openings-restricted-5ea52459c2529b73",
       "sanitized_source_label": "restricted-source-08",
       "generalized_class": "restricted personnel reporting",
       "sha256": "5ea52459c2529b73cc4abd5c8f9d0b2490f1c791939381f6b852f4ac1b2b946d",
@@ -110,7 +110,7 @@
       "raw_content_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-united-health-care-code-docx",
+      "source_id": "rtec-hr-job-openings-restricted-a25f1eb3d10a7fb0",
       "sanitized_source_label": "restricted-source-09",
       "generalized_class": "other",
       "sha256": "a25f1eb3d10a7fb0ab171a5dc020dfdc8ddcd64380cec5c5f0eb2e7ffb10eda8",
