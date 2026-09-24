@@ -1,0 +1,28 @@
+{"record_type": "CELL", "form_id": "050BEAD3", "editor_id": "anaethershipengineering", "full_name": "Nzhavananear, Engineering Core", "source_offset": 106935}
+{"record_type": "CELL", "form_id": "05030855", "editor_id": "anrthamaz2", "full_name": "Rthamaz Launchpad", "source_offset": 136257}
+{"record_type": "CELL", "form_id": "050BEAD4", "editor_id": "anaethershipquarters", "full_name": "Nzhavananear, Captain's Quarters", "source_offset": 195615}
+{"record_type": "CELL", "form_id": "05030856", "editor_id": "anaethershipground", "full_name": "Nzhavananear, Engineering Core", "source_offset": 213391}
+{"record_type": "CELL", "form_id": "050BEAD5", "editor_id": "anaethershippipes", "full_name": "Nzhavananear, Maintainence Shafts", "source_offset": 243123}
+{"record_type": "CELL", "form_id": "05030857", "editor_id": "anaethership", "full_name": "Nzhavananear", "source_offset": 297814}
+{"record_type": "CELL", "form_id": "050748DC", "editor_id": "anaethershipcrewquarters", "full_name": "Nzhavananear, Crew Quarters", "source_offset": 315766}
+{"record_type": "CELL", "form_id": "050BEAD6", "editor_id": "anaethershipbay", "full_name": "Nzhavananear, Docking Bay", "source_offset": 329322}
+{"record_type": "CELL", "form_id": "05030858", "editor_id": "anclockworkcity", "full_name": "Sotha Sil, Exterior Face", "source_offset": 345655}
+{"record_type": "CELL", "form_id": "050AAB80", "editor_id": "anmasser", "full_name": "Masser, Reman Era Moon Colony", "source_offset": 413628}
+{"record_type": "CELL", "form_id": "05005900", "editor_id": "twRthamazStation", "full_name": "Rthamaz Station", "source_offset": 446944}
+{"record_type": "CELL", "form_id": "050BEAD7", "editor_id": "anaethershipweapons", "full_name": "Nzhavananear, Weapon Systems", "source_offset": 466115}
+{"record_type": "CELL", "form_id": "0500A682", "editor_id": "anrthamaz1", "full_name": "Rthamaz", "source_offset": 486398}
+{"record_type": "CELL", "form_id": "050B227E", "editor_id": "anaethershipbridge", "full_name": "Nzhavananear, Bridge", "source_offset": 752596}
+{"record_type": "CELL", "form_id": "05080440", "editor_id": "anrthamazEX", "full_name": "Rthamaz Mountains", "source_offset": 797350}
+{"record_type": "CELL", "form_id": "050472C7", "editor_id": "anrthamaz3", "full_name": "Rthamaz Aetherion Station", "source_offset": 833598}
+{"record_type": "CELL", "form_id": "0508CBB5", "editor_id": "anaethershipground2", "full_name": "Nzhavananear, Bridge", "source_offset": 850799}
+{"record_type": "CELL", "form_id": "00000D74", "editor_id": null, "full_name": null, "source_offset": 941164}
+{"record_type": "CELL", "form_id": "00009CE6", "editor_id": "RthamazExterior", "full_name": null, "source_offset": 942794}
+{"record_type": "CELL", "form_id": "00009CC5", "editor_id": "HalldirsCairnExterior", "full_name": null, "source_offset": 943882}
+{"record_type": "CELL", "form_id": "040142EC", "editor_id": null, "full_name": null, "source_offset": 960414}
+{"record_type": "LCTN", "form_id": "050DFB90", "editor_id": "SpaceLocation", "full_name": "Aetherius", "source_offset": 966142}
+{"record_type": "LCTN", "form_id": "050F415F", "editor_id": "AethershipExteriorLocation", "full_name": "Outside the Aethership", "source_offset": 966202}
+{"record_type": "LCTN", "form_id": "0512C8D2", "editor_id": "AethershipLocation", "full_name": "Nzhavananear", "source_offset": 966418}
+{"record_type": "LCTN", "form_id": "0512C8D3", "editor_id": "RthamazLocation", "full_name": "Rthamaz", "source_offset": 966838}
+{"record_type": "LCTN", "form_id": "0512C8D4", "editor_id": "MasserLocation", "full_name": "Masser", "source_offset": 967156}
+{"record_type": "LCTN", "form_id": "0512C8D5", "editor_id": "ClockworkCityLocation", "full_name": "The Clockwork CIty", "source_offset": 967224}
+{"record_type": "LCTN", "form_id": "0513635A", "editor_id": "AethershipLocationPreLaunch", "full_name": "Nzhavananear Grounded", "source_offset": 967311}

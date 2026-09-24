@@ -1,0 +1,366 @@
+{
+  "continuity_id": "tes.mod.trainwiz-chronocoda",
+  "generated_at": "2026-09-24",
+  "status": "semantic_synthesis_pass_01",
+  "policy": [
+    "Edges preserve source scope and evidence class.",
+    "Compatible stages across mods may form an arc without asserting undocumented exact chronology.",
+    "Mutually exclusive quest branches remain separate.",
+    "In-universe scholarship/speculation is not promoted to omniscient fact.",
+    "Shared text identity is modeled separately from historical edition provenance."
+  ],
+  "nodes": [
+    {
+      "id": "sotha-sil",
+      "type": "character/concept"
+    },
+    {
+      "id": "gestalt",
+      "type": "copied_mind/entity"
+    },
+    {
+      "id": "clockwork-city",
+      "type": "place/system"
+    },
+    {
+      "id": "fabricants",
+      "type": "people"
+    },
+    {
+      "id": "chronographers",
+      "type": "organization/people"
+    },
+    {
+      "id": "armour-oscillating-quartz",
+      "type": "historical_group/artifact-class"
+    },
+    {
+      "id": "imperfections",
+      "type": "temporal_intervention_tool_or_practice"
+    },
+    {
+      "id": "pneuma",
+      "type": "soul_component"
+    },
+    {
+      "id": "rewound",
+      "type": "fabricant_state"
+    },
+    {
+      "id": "lull-mor",
+      "type": "settlement"
+    },
+    {
+      "id": "rthamaz",
+      "type": "place"
+    },
+    {
+      "id": "nzhavananear",
+      "type": "aethership"
+    },
+    {
+      "id": "aetherions",
+      "type": "constructs"
+    },
+    {
+      "id": "aetherium-starmetal",
+      "type": "power_source"
+    },
+    {
+      "id": "masser-reman-colony",
+      "type": "lunar_site"
+    },
+    {
+      "id": "wheels-of-lull",
+      "type": "world_mechanism"
+    },
+    {
+      "id": "towers",
+      "type": "world_stability_system"
+    },
+    {
+      "id": "how-two-moon-proposal",
+      "type": "speculative_creation_program"
+    },
+    {
+      "id": "sybandis",
+      "type": "prototype_world_claim"
+    },
+    {
+      "id": "power-infrastructure-metaphysics",
+      "type": "in_universe_theory"
+    }
+  ],
+  "edges": [
+    {
+      "subject": "sotha-sil",
+      "predicate": "source_mind_for_copy",
+      "object": "gestalt",
+      "scope": "tes.mod.sotha-sil-expanded",
+      "evidence": [
+        "Sotha_endgame dialogue/journal"
+      ],
+      "confidence": "high"
+    },
+    {
+      "subject": "gestalt",
+      "predicate": "operates_or_embodies",
+      "object": "clockwork-city",
+      "scope": "tes.mod.sotha-sil-expanded",
+      "branch": "save_outcome",
+      "evidence": [
+        "Sotha_endgame journal/dialogue"
+      ],
+      "confidence": "high"
+    },
+    {
+      "subject": "clockwork-city",
+      "predicate": "can_be_destroyed_with",
+      "object": "gestalt",
+      "scope": "tes.mod.sotha-sil-expanded",
+      "branch": "destroy_outcome",
+      "evidence": [
+        "Sotha_endgame journal"
+      ],
+      "confidence": "high"
+    },
+    {
+      "subject": "fabricants",
+      "predicate": "become_or_form",
+      "object": "chronographers",
+      "scope": "tes.mod.sotha-sil-expanded",
+      "evidence": [
+        "Sotha_endgame/SSE Chronographer dialogue and journal"
+      ],
+      "confidence": "high"
+    },
+    {
+      "subject": "chronographers",
+      "predicate": "travel_through",
+      "object": "time_and_space",
+      "scope": "tes.mod.sotha-sil-expanded",
+      "evidence": [
+        "Sotha_endgame/SSE Chronographer dialogue and journal"
+      ],
+      "confidence": "high"
+    },
+    {
+      "subject": "chronographers",
+      "predicate": "distribute",
+      "object": "imperfections",
+      "scope": "tes.mod.sotha-sil-expanded",
+      "evidence": [
+        "Sotha_endgame/SSE Chronographer dialogue and journal"
+      ],
+      "confidence": "high"
+    },
+    {
+      "subject": "armour-oscillating-quartz",
+      "predicate": "influences_origin_of",
+      "object": "chronographers",
+      "scope": [
+        "tes.mod.aethernautics",
+        "tes.mod.wheels-of-lull"
+      ],
+      "evidence": [
+        "Aether BOOK 05002FA9",
+        "Wheels BOOK 05376715"
+      ],
+      "confidence": "medium_high",
+      "qualification": "reported/believed in in-universe Chronography"
+    },
+    {
+      "subject": "chronographers",
+      "predicate": "preserve_temporal_integrity_using",
+      "object": "imperfections",
+      "scope": [
+        "tes.mod.aethernautics",
+        "tes.mod.wheels-of-lull"
+      ],
+      "evidence": [
+        "Aether BOOK 05002FA8",
+        "Wheels BOOK 05376714"
+      ],
+      "confidence": "high",
+      "qualification": "scholarly interpretation of purpose"
+    },
+    {
+      "subject": "chronographers",
+      "predicate": "operate_from_or_in",
+      "object": "lull-mor",
+      "scope": "tes.mod.wheels-of-lull",
+      "evidence": [
+        "Wheels LCTN/CELL corpus",
+        "INFO 0500FC52"
+      ],
+      "confidence": "high"
+    },
+    {
+      "subject": "chronographers",
+      "predicate": "repair_and_maintain",
+      "object": "wheels-of-lull",
+      "scope": "tes.mod.wheels-of-lull",
+      "evidence": [
+        "INFO 0500FC52",
+        "INFO 050433F1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "subject": "chronographers",
+      "predicate": "respond_to_threats_to",
+      "object": "towers",
+      "scope": "tes.mod.wheels-of-lull",
+      "evidence": [
+        "INFO 0500FC52"
+      ],
+      "confidence": "high"
+    },
+    {
+      "subject": "chronographers",
+      "predicate": "conduct_expedition_to",
+      "object": "rthamaz",
+      "scope": "tes.mod.aethernautics",
+      "evidence": [
+        "BOOK 05002FA0",
+        "BOOK 05002FA1",
+        "BOOK 05002FA2",
+        "BOOK 05002FA3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "subject": "rthamaz",
+      "predicate": "contains_or_defends",
+      "object": "aetherions",
+      "scope": "tes.mod.aethernautics",
+      "evidence": [
+        "Aether expedition reports/engineering notes"
+      ],
+      "confidence": "high"
+    },
+    {
+      "subject": "rthamaz",
+      "predicate": "contains",
+      "object": "nzhavananear",
+      "scope": "tes.mod.aethernautics",
+      "evidence": [
+        "Aether expedition reports/quest structure"
+      ],
+      "confidence": "high"
+    },
+    {
+      "subject": "nzhavananear",
+      "predicate": "uses_power_source",
+      "object": "aetherium-starmetal",
+      "scope": "tes.mod.aethernautics",
+      "evidence": [
+        "BOOK 05002FAA",
+        "BOOK 05002FAC",
+        "MESG 05088EEF"
+      ],
+      "confidence": "high"
+    },
+    {
+      "subject": "nzhavananear",
+      "predicate": "can_travel_to",
+      "object": "masser-reman-colony",
+      "scope": "tes.mod.aethernautics",
+      "evidence": [
+        "MESG 0508E041",
+        "CELL 050AAB80",
+        "LCTN 0512C8D4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "subject": "pneuma",
+      "predicate": "functions_as",
+      "object": "fabricant_soul_battery",
+      "scope": "tes.mod.sotha-sil-expanded",
+      "evidence": [
+        "pneuma dialogue"
+      ],
+      "confidence": "high"
+    },
+    {
+      "subject": "rewound",
+      "predicate": "results_from_restart_after_loss_of",
+      "object": "pneuma",
+      "scope": [
+        "tes.mod.sotha-sil-expanded",
+        "tes.mod.wheels-of-lull"
+      ],
+      "evidence": [
+        "Sotha BOOK _sotha_rewoundbook",
+        "Wheels BOOK 05371591"
+      ],
+      "confidence": "high",
+      "qualification": "technical in-universe treatise; Wheels dialogue also corroborates pneuma mechanics"
+    },
+    {
+      "subject": "how-two-moon-proposal",
+      "predicate": "aims_to_create",
+      "object": "clockwork_world_in_oblivion",
+      "scope": [
+        "tes.mod.sotha-sil-expanded",
+        "tes.mod.wheels-of-lull"
+      ],
+      "evidence": [
+        "Sotha BOOK sotha_bookmoon",
+        "Wheels BOOK 05371594"
+      ],
+      "confidence": "high",
+      "qualification": "speculative proposal, not demonstrated event"
+    },
+    {
+      "subject": "how-two-moon-proposal",
+      "predicate": "thematically_resonates_with",
+      "object": "sybandis",
+      "scope": "tes.mod.wheels-of-lull",
+      "evidence": [
+        "Wheels topics/how-two-moon-clockwork-creation.md",
+        "Wheels topics/sybandis.md"
+      ],
+      "confidence": "interpretive",
+      "qualification": "No source states that the proposed world is Sybandis."
+    },
+    {
+      "subject": "power-infrastructure-metaphysics",
+      "predicate": "provides_interpretive_model_for",
+      "object": "wheels-of-lull",
+      "scope": [
+        "tes.mod.sotha-sil-expanded",
+        "tes.mod.wheels-of-lull"
+      ],
+      "evidence": [
+        "Sotha BOOK sotha_powerbook",
+        "Wheels BOOK 05371592",
+        "Wheels topics/power-energy-metaphysics.md"
+      ],
+      "confidence": "interpretive",
+      "qualification": "Shared theory explains system-maintenance themes but the book does not explicitly name the Wheels."
+    }
+  ],
+  "cross_source_arc": {
+    "label": "chronographer formation_and_operational_arc",
+    "evidence_strength": "strong_but_not_a_single_omniscient_timeline",
+    "stages": [
+      {
+        "stage": "formation/departure",
+        "scope": "tes.mod.sotha-sil-expanded",
+        "summary": "Fabricants form/become Chronographers, leave the Clockwork City, travel through time and space, and distribute Imperfections."
+      },
+      {
+        "stage": "expeditionary activity",
+        "scope": "tes.mod.aethernautics",
+        "summary": "Chronographers under Century Adgran conduct the Rthamaz expedition and recover/operate Nzhavananear."
+      },
+      {
+        "stage": "world-maintenance organization",
+        "scope": "tes.mod.wheels-of-lull",
+        "summary": "Lull-Mor Chronographers maintain world mechanisms, respond to Tower threats, repair problems, and move on."
+      }
+    ]
+  }
+}

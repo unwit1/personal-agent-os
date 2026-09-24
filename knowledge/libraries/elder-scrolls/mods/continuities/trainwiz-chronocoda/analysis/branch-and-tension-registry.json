@@ -1,0 +1,84 @@
+{
+  "continuity_id": "tes.mod.trainwiz-chronocoda",
+  "generated_at": "2026-09-24",
+  "status": "semantic_synthesis_pass_01",
+  "records": [
+    {
+      "id": "chronocoda:tension:gestalt-ending",
+      "topic": "Gestalt / Clockwork City end state",
+      "type": "mutually_exclusive_branch",
+      "positions": [
+        {
+          "scope": "tes.mod.sotha-sil-expanded",
+          "branch": "save",
+          "claim": "Gestalt continues operating/embodying the Clockwork City and may be becoming 'Seht'."
+        },
+        {
+          "scope": "tes.mod.sotha-sil-expanded",
+          "branch": "destroy",
+          "claim": "The player destroys Gestalt and effectively kills the Clockwork City, though some machinery remains."
+        }
+      ],
+      "resolution": "retain_both_no_canonical_branch_selected"
+    },
+    {
+      "id": "chronocoda:tension:wheels-clockwork-city-died",
+      "topic": "Relationship between Sotha endgame and Wheels participant history",
+      "type": "cross_continuity_ambiguity",
+      "evidence": [
+        "Wheels Numinar says that after the Clockwork City died he was shipped out with the other Chronographers.",
+        "Sotha Sil Expanded permits both a destroy-City branch and a save-Gestalt/City branch."
+      ],
+      "interpretation": "The Wheels statement is more naturally compatible with a destroyed/failed City state, but it is insufficient to canonize the Sotha destroy branch. 'Died' may also reflect the loss of original Sotha Sil or a broader institutional collapse.",
+      "resolution": "unresolved_do_not_flatten"
+    },
+    {
+      "id": "chronocoda:tension:chronographer-origin-accounts",
+      "topic": "Chronographer origin",
+      "type": "perspective_difference_potentially_compatible",
+      "evidence": [
+        "Sotha direct quest/dialogue depicts departing fabricants becoming/forming the Chronographers.",
+        "Chronography says the Armour of Oscillating Quartz influenced fabricants who became the Chronographers."
+      ],
+      "interpretation": "These accounts can describe the same formation event from direct participant vs later scholarly perspectives; they do not require contradiction.",
+      "resolution": "retain_both_with_evidence_class"
+    },
+    {
+      "id": "chronocoda:tension:armour-origin",
+      "topic": "Armour of Oscillating Quartz origin",
+      "type": "qualified_historical_claim",
+      "evidence": [
+        "Chronography III says it is believed Sotha Sil reforged 1,200 fallen followers after the Battle of Mournhold into crystal automatons."
+      ],
+      "resolution": "store_as_reported_history_not_unqualified_fact"
+    },
+    {
+      "id": "chronocoda:tension:gestalt-identity",
+      "topic": "Whether surviving Gestalt is Sotha Sil/Seht",
+      "type": "identity_uncertainty",
+      "evidence": [
+        "Gestalt is explicitly a copy/partial upload; Archcanon dialogue permits language of becoming 'Seht' while retaining uncertainty; project readme says original Sotha Sil remains dead."
+      ],
+      "resolution": "Gestalt_is_not_original_Sotha_Sil; possible successor identity remains source-qualified"
+    },
+    {
+      "id": "chronocoda:tension:how-two-moon-sybandis",
+      "topic": "Artificial world proposal vs Sybandis",
+      "type": "interpretive_similarity_not_identity",
+      "evidence": [
+        "How Two Moon proposes manufacturing a perfect clockwork world in Oblivion.",
+        "Wheels books describe Sybandis as a prototype/stillborn world."
+      ],
+      "resolution": "do_not_equate_without_explicit_source"
+    },
+    {
+      "id": "chronocoda:tension:literary-sectarian-texts",
+      "topic": "Reliability of Sotha-only obscure books",
+      "type": "source_reliability",
+      "evidence": [
+        "source-reliability.json classifications"
+      ],
+      "resolution": "Temple Zero doctrine, Dwemer rhyme, Sload tale, Orc myth, Hist field account, attributed last words, and gag texts retain their individual reliability classes and cannot be promoted as objective setting facts."
+    }
+  ]
+}

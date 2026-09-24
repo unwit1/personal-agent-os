@@ -38,7 +38,8 @@
   "known_gaps": [
     "Dialogue speaker attribution is not fully normalized; INFO conditions are retained for later resolution.",
     "Two compiled Papyrus scripts do not have matching source files; their printable strings are retained, but no full decompilation was attempted.",
-    "Meshes, textures, audio, and other non-text assets were intentionally not copied into the lore continuity."
+    "Meshes, textures, audio, and other non-text assets were intentionally not copied into the lore continuity.",
+    "Papyrus source files were scanned during ingestion, but complete source bodies and per-file archive member paths/hashes were not persisted in this continuity; promoted script evidence is therefore filename-level until the original archive or a persisted source copy is available for byte/line revalidation."
   ],
   "canonical_import_format": {
     "source_records": "29 gzip-compressed UTF-8 JSONL shards under source-records/ containing every decoded non-EDID text-bearing plugin record; EDID retained as record identity.",
@@ -57,6 +58,7 @@
       "SNAM"
     ],
     "indexes": "Books, dialogue topics, quests, actors, factions, cells, worlds, and scenes.",
-    "papyrus": "Full extracted source string-literal inventory plus printable strings from the two compiled-only PEX files."
+    "papyrus": "Extracted Papyrus source string-literal inventory plus printable strings from the two compiled-only PEX files. Full PSC bodies were scanned during ingestion but are not currently persisted in this continuity.",
+    "evidence_locator_index": "indexes/evidence-locator-index.jsonl tracks promoted script/message evidence locator precision, source-container provenance, and revalidation status."
   }
 }

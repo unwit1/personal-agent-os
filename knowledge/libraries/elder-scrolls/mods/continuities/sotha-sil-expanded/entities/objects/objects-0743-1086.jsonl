@@ -1,0 +1,344 @@
+{"record_type": "ACTI", "editor_id": "_tree_plantmonitor", "full_name": "Strenuous Plant Monitor", "script": "_tree_inspect", "source_offset": 723973}
+{"record_type": "ACTI", "editor_id": "_tree_module2", "full_name": "Tracking Fabricant Module", "script": "_tree_trackcant", "source_offset": 724106}
+{"record_type": "ACTI", "editor_id": "_quest_panel9", "full_name": "Speak to the Tree", "script": "sotha_treespeak", "source_offset": 724227}
+{"record_type": "ACTI", "editor_id": "_tree_platform", "full_name": "", "script": "_tree_enable", "source_offset": 724351}
+{"record_type": "ACTI", "editor_id": "_tree_platform2", "full_name": "", "script": "_tree_enable", "source_offset": 724452}
+{"record_type": "ACTI", "editor_id": "_tree_lever1b", "full_name": "Rusted Lever", "script": "_tree_lever1", "source_offset": 724560}
+{"record_type": "ACTI", "editor_id": "_quest_panel10", "full_name": "Power Core Monitor", "script": "sotha_powerfound", "source_offset": 724670}
+{"record_type": "ACTI", "editor_id": "_power_explosion1", "full_name": "", "script": "_power_explode1", "source_offset": 724797}
+{"record_type": "ACTI", "editor_id": "_power_explosion2", "full_name": "", "script": "_power_explode2", "source_offset": 724905}
+{"record_type": "ACTI", "editor_id": "_power_explosion_quest1", "full_name": "", "script": "_power_questexplode1", "source_offset": 725013}
+{"record_type": "ACTI", "editor_id": "_power_explosion_quest2", "full_name": "", "script": "_power_questexplode2", "source_offset": 725132}
+{"record_type": "ACTI", "editor_id": "_power_explosion_quest3", "full_name": "", "script": "_power_questexplode3", "source_offset": 725251}
+{"record_type": "ACTI", "editor_id": "_power_rod", "full_name": "Shock Conduit Rod", "script": "_power_deactivate_watchman", "source_offset": 725370}
+{"record_type": "ACTI", "editor_id": "_power_radioactivity", "full_name": "Radioactive", "script": "_power_radiation", "source_offset": 725497}
+{"record_type": "ACTI", "editor_id": "_war_knockout", "full_name": "", "script": "_war_getknockedout", "source_offset": 725612}
+{"record_type": "ACTI", "editor_id": "_war_vendingchasm", "full_name": "", "script": "_war_machine", "source_offset": 725711}
+{"record_type": "ACTI", "editor_id": "war_elevator", "full_name": "", "script": "_war_light", "source_offset": 725808}
+{"record_type": "ACTI", "editor_id": "act_sotha_warlever", "full_name": "Rusted lever", "script": "_war_Lift2", "source_offset": 725909}
+{"record_type": "ACTI", "editor_id": "act_Sotha_Music9", "full_name": "Sotha Ambient", "script": "Sotha_music9", "source_offset": 726022}
+{"record_type": "ACTI", "editor_id": "_catacombModule", "full_name": "Main catacomb module", "script": "_catacombmodule", "source_offset": 726131}
+{"record_type": "ACTI", "editor_id": "ex_gondola_01_NF", "full_name": "", "source_offset": 726249}
+{"record_type": "ACTI", "editor_id": "_fyr_panel", "full_name": "Speak to Server", "script": "fyr_speak2", "source_offset": 726327}
+{"record_type": "ACTI", "editor_id": "sotha_crashed cart", "full_name": "Crashed Cart", "script": "sotha_cart2", "source_offset": 726441}
+{"record_type": "ACTI", "editor_id": "sotha_crashed debris", "full_name": "", "script": "sotha_cart1", "source_offset": 726559}
+{"record_type": "ACTI", "editor_id": "act_sotha_catalever1", "full_name": "Rusted Lever", "script": "SothaCataLever1", "source_offset": 726671}
+{"record_type": "ACTI", "editor_id": "act_sotha_catalever2", "full_name": "Rusted Lever", "script": "SothaCataLever2", "source_offset": 726791}
+{"record_type": "ACTI", "editor_id": "act_sotha_catalever3", "full_name": "Rusted Lever", "script": "SothaCataLever3", "source_offset": 726911}
+{"record_type": "ACTI", "editor_id": "act_sotha_catalever4", "full_name": "Rusted Lever", "script": "SothaCataLever4", "source_offset": 727031}
+{"record_type": "ACTI", "editor_id": "act_sotha_clockshrine", "full_name": "Gear Shrine", "script": "sotha_shrinescript", "source_offset": 727151}
+{"record_type": "ACTI", "editor_id": "act_sotha_knockoutman", "full_name": "Green Platform", "script": "sotha_knockWatchman", "source_offset": 727273}
+{"record_type": "ACTI", "editor_id": "act_sotha_becomewatch", "full_name": "", "script": "sotha_becomewatchman", "source_offset": 727406}
+{"record_type": "ACTI", "editor_id": "sotha_watchbeginprocess", "full_name": "Begin Watchman Process", "script": "Sotha_watchprocess", "source_offset": 727526}
+{"record_type": "ACTI", "editor_id": "sotha_minecrystal1", "full_name": "Quartz", "script": "Sotha_minequartz", "source_offset": 727668}
+{"record_type": "ACTI", "editor_id": "sotha_hangedtalk", "full_name": "Hanged Man", "script": "sotha_hangspeak", "source_offset": 727781}
+{"record_type": "ACTI", "editor_id": "act_sotha_secretdoor", "full_name": "Door", "script": "Sotha_secretdooropen", "source_offset": 727899}
+{"record_type": "ACTI", "editor_id": "act_sotha_secretlever1", "full_name": "Rusted Lever", "script": "sotha_secretlevelscript1", "source_offset": 728015}
+{"record_type": "ACTI", "editor_id": "act_sotha_secretlever2", "full_name": "Rusted Lever", "script": "sotha_secretlevelscript2", "source_offset": 728146}
+{"record_type": "ACTI", "editor_id": "act_sotha_secretlever3", "full_name": "Rusted Lever", "script": "sotha_secretlevelscript3", "source_offset": 728277}
+{"record_type": "ACTI", "editor_id": "_quest_panel11", "full_name": "Release Fabricants", "script": "sotha_openfabdoors", "source_offset": 728408}
+{"record_type": "ACTI", "editor_id": "act_sotha_fabdooraway", "full_name": "", "script": "sotha_fightdoordisable", "source_offset": 728537}
+{"record_type": "ACTI", "editor_id": "_quest_panel12", "full_name": "Speak to the Judge", "script": "sotha_judgespeak", "source_offset": 728652}
+{"record_type": "ACTI", "editor_id": "sotha_containmentpanel1", "full_name": "Containment Panel", "script": "sotha_containmentdeactivate1", "source_offset": 728779}
+{"record_type": "ACTI", "editor_id": "sotha_containmentpanel2", "full_name": "Containment Panel", "script": "sotha_containmentdeactivate2", "source_offset": 728926}
+{"record_type": "ACTI", "editor_id": "sotha_containmentpanel3", "full_name": "Containment Panel", "script": "sotha_containmentdeactivate3", "source_offset": 729073}
+{"record_type": "ACTI", "editor_id": "sotha_containmentpanel4", "full_name": "Containment Panel", "script": "sotha_containmentdeactivate4", "source_offset": 729220}
+{"record_type": "ACTI", "editor_id": "sotha_containmentpanel5", "full_name": "Containment Panel", "script": "sotha_containmentdeactivate5", "source_offset": 729367}
+{"record_type": "ACTI", "editor_id": "sotha_containmentfield2", "full_name": "Grate", "source_offset": 729514}
+{"record_type": "ACTI", "editor_id": "sotha_containmentfield5", "full_name": "Grate", "source_offset": 729610}
+{"record_type": "ACTI", "editor_id": "sotha_containmentfield4", "full_name": "Grate", "source_offset": 729706}
+{"record_type": "ACTI", "editor_id": "sotha_containmentfield3", "full_name": "Grate", "source_offset": 729802}
+{"record_type": "ACTI", "editor_id": "__sotha_displaywindow1", "full_name": "", "script": "sotha_displaydisable1", "source_offset": 729898}
+{"record_type": "ACTI", "editor_id": "__sotha_displaywindow2", "full_name": "", "script": "sotha_displaydisable2", "source_offset": 730016}
+{"record_type": "ACTI", "editor_id": "__sotha_displaywindow3", "full_name": "", "script": "sotha_displaydisable3", "source_offset": 730134}
+{"record_type": "ACTI", "editor_id": "__sotha_displaywindow4", "full_name": "", "script": "sotha_displaydisable4", "source_offset": 730252}
+{"record_type": "ACTI", "editor_id": "_fyr_panel2", "full_name": "Speak to Server", "script": "fyr_speak1", "source_offset": 730370}
+{"record_type": "ACTI", "editor_id": "fyr_repairpanel", "full_name": "Operate Repair Mechanism", "script": "fyr_repairspeak", "source_offset": 730485}
+{"record_type": "ACTI", "editor_id": "fyr_fablabpanel", "full_name": "Operate Pneuma Deconstructor", "script": "fyr_fabpseak", "source_offset": 730618}
+{"record_type": "ACTI", "editor_id": "fyr_enchanterpanel", "full_name": "Operate Enchanting Panel", "script": "fyr_enchantspeak", "source_offset": 730752}
+{"record_type": "ACTI", "editor_id": "__hoa1_dagothur1", "full_name": "Freed the Heart", "script": "_1hoa_dagoth", "source_offset": 730889}
+{"record_type": "ACTI", "editor_id": "__hoa1_dagothur2", "full_name": "", "script": "_1hoa_dagoth", "source_offset": 731004}
+{"record_type": "ACTI", "editor_id": "__hoa1_dagothur3", "full_name": "", "script": "_1hoa_dagoth", "source_offset": 731102}
+{"record_type": "ACTI", "editor_id": "__hoa1_dagothur4", "full_name": "", "script": "_1hoa_dagoth", "source_offset": 731201}
+{"record_type": "ACTI", "editor_id": "__hoa1_dagothur5", "full_name": "", "script": "_1hoa_dagoth", "source_offset": 731308}
+{"record_type": "ACTI", "editor_id": "__hoa1_dagothur6", "full_name": "", "script": "_1hoa_dagoth", "source_offset": 731413}
+{"record_type": "ACTI", "editor_id": "__hoa1_dagothur7", "full_name": "", "script": "_1hoa_dagoth", "source_offset": 731517}
+{"record_type": "ACTI", "editor_id": "__hoa1_dagothur8", "full_name": "", "script": "_1hoa_dagoth", "source_offset": 731623}
+{"record_type": "ACTI", "editor_id": "__hoa1_sothasil1", "full_name": "", "script": "_1hoa_sothasil", "source_offset": 731731}
+{"record_type": "ACTI", "editor_id": "__hoa1_sothasil2", "full_name": "", "script": "_1hoa_sothasil", "source_offset": 731844}
+{"record_type": "ACTI", "editor_id": "__hoa1_sothasil3", "full_name": "", "script": "_1hoa_sothasil", "source_offset": 731957}
+{"record_type": "ACTI", "editor_id": "__hoa1_sothasil4", "full_name": "", "script": "_1hoa_sothasil", "source_offset": 732061}
+{"record_type": "ACTI", "editor_id": "__hoa1_sothasil5", "full_name": "Saviour of Two Cities", "script": "_1hoa_sothasil", "source_offset": 732165}
+{"record_type": "ACTI", "editor_id": "__hoa1_sothasil6", "full_name": "", "script": "_1hoa_sothasil", "source_offset": 732296}
+{"record_type": "ACTI", "editor_id": "__hoa1_sothasil7", "full_name": "", "script": "_1hoa_sothasil", "source_offset": 732400}
+{"record_type": "ACTI", "editor_id": "__hoa1_sothasil8", "full_name": "", "script": "_1hoa_sothasil", "source_offset": 732503}
+{"record_type": "ACTI", "editor_id": "__hoa1_hircine1", "full_name": "", "script": "_1hoa_hircine", "source_offset": 732609}
+{"record_type": "ACTI", "editor_id": "__hoa1_hircine2", "full_name": "", "script": "_1hoa_hircine", "source_offset": 732710}
+{"record_type": "ACTI", "editor_id": "__hoa1_hircine3", "full_name": "Hunted", "script": "_1hoa_hircine", "source_offset": 732806}
+{"record_type": "ACTI", "editor_id": "__hoa1_daedra1", "full_name": "Daedric Servant", "script": "_1hoa_daedric", "source_offset": 732914}
+{"record_type": "ACTI", "editor_id": "__hoa1_daedra2", "full_name": "", "script": "_1hoa_daedric", "source_offset": 733028}
+{"record_type": "ACTI", "editor_id": "__hoa1_daedra3", "full_name": "", "script": "_1hoa_daedric", "source_offset": 733129}
+{"record_type": "ACTI", "editor_id": "__hoa1_daedra4", "full_name": "", "script": "_1hoa_daedric", "source_offset": 733236}
+{"record_type": "ACTI", "editor_id": "__hoa1_daedra5", "full_name": "", "script": "_1hoa_daedric", "source_offset": 733340}
+{"record_type": "ACTI", "editor_id": "__hoa1_daedra6", "full_name": "", "script": "_1hoa_daedric", "source_offset": 733442}
+{"record_type": "ACTI", "editor_id": "__hoa1_daedra7", "full_name": "", "script": "_1hoa_daedric", "source_offset": 733546}
+{"record_type": "ACTI", "editor_id": "fyr_atronacharenapanel", "full_name": "Operate Atronach Arena Panel", "script": "fyr_spawnatronach", "source_offset": 733650}
+{"record_type": "ACTI", "editor_id": "__hoa1_gold1", "full_name": "", "script": "_1hoa_gold", "source_offset": 733796}
+{"record_type": "ACTI", "editor_id": "__hoa1_gold2", "full_name": "Incredibly Rich", "script": "_1hoa_gold", "source_offset": 733884}
+{"record_type": "ACTI", "editor_id": "__hoa1_fighters1", "full_name": "Fighter's Guild Master", "script": "_1hoa_fighters", "source_offset": 733998}
+{"record_type": "ACTI", "editor_id": "__hoa1_mages1", "full_name": "", "script": "_1hoa_mages", "source_offset": 734120}
+{"record_type": "ACTI", "editor_id": "__hoa1_thieves1", "full_name": "Master Thief", "script": "_1hoa_thieves", "source_offset": 734217}
+{"record_type": "ACTI", "editor_id": "__hoa1_fighters2", "full_name": "", "script": "_1hoa_fighters", "source_offset": 734334}
+{"record_type": "ACTI", "editor_id": "__hoa1_fighters3", "full_name": "", "script": "_1hoa_fighters", "source_offset": 734443}
+{"record_type": "ACTI", "editor_id": "__hoa1_fighters4", "full_name": "", "script": "_1hoa_fighters", "source_offset": 734547}
+{"record_type": "ACTI", "editor_id": "__hoa1_fighters5", "full_name": "", "script": "_1hoa_fighters", "source_offset": 734653}
+{"record_type": "ACTI", "editor_id": "__hoa1_fighters6", "full_name": "", "script": "_1hoa_fighters", "source_offset": 734752}
+{"record_type": "ACTI", "editor_id": "__hoa1_fighters7", "full_name": "", "script": "_1hoa_fighters", "source_offset": 734858}
+{"record_type": "ACTI", "editor_id": "__hoa1_mages2", "full_name": "", "script": "_1hoa_mages", "source_offset": 734963}
+{"record_type": "ACTI", "editor_id": "__hoa1_mages3", "full_name": "", "script": "_1hoa_mages", "source_offset": 735063}
+{"record_type": "ACTI", "editor_id": "__hoa1_mages4", "full_name": "Mage's Guild Master", "script": "_1hoa_mages", "source_offset": 735158}
+{"record_type": "ACTI", "editor_id": "__hoa1_mages5", "full_name": "", "script": "_1hoa_mages", "source_offset": 735270}
+{"record_type": "ACTI", "editor_id": "__hoa1_thieves2", "full_name": "", "script": "_1hoa_thieves", "source_offset": 735368}
+{"record_type": "ACTI", "editor_id": "__hoa1_thieves3", "full_name": "", "script": "_1hoa_thieves", "source_offset": 735466}
+{"record_type": "ACTI", "editor_id": "__hoa1_thieves4", "full_name": "", "script": "_1hoa_thieves", "source_offset": 735566}
+{"record_type": "ACTI", "editor_id": "__hoa1_temple1", "full_name": "Patriarch", "script": "_1hoa_temple", "source_offset": 735660}
+{"record_type": "ACTI", "editor_id": "__hoa1_temple2", "full_name": "", "script": "_1hoa_temple", "source_offset": 735774}
+{"record_type": "ACTI", "editor_id": "__hoa1_temple3", "full_name": "", "script": "_1hoa_temple", "source_offset": 735879}
+{"record_type": "ACTI", "editor_id": "__hoa1_temple4", "full_name": "", "script": "_1hoa_temple", "source_offset": 735977}
+{"record_type": "ACTI", "editor_id": "__hoa1_legion1", "full_name": "", "script": "_1hoa_legion", "source_offset": 736083}
+{"record_type": "ACTI", "editor_id": "__hoa1_legion2", "full_name": "", "script": "_1hoa_legion", "source_offset": 736187}
+{"record_type": "ACTI", "editor_id": "__hoa1_legion3", "full_name": "Imperial Knight", "script": "_1hoa_legion", "source_offset": 736290}
+{"record_type": "ACTI", "editor_id": "__hoa1_legion4", "full_name": "", "script": "_1hoa_legion", "source_offset": 736403}
+{"record_type": "ACTI", "editor_id": "__hoa1_tong1", "full_name": "Master Assassin", "script": "_1hoa_tong", "source_offset": 736510}
+{"record_type": "ACTI", "editor_id": "__hoa1_tong2", "full_name": "", "script": "_1hoa_tong", "source_offset": 736626}
+{"record_type": "ACTI", "editor_id": "__hoa1_tong3", "full_name": "", "script": "_1hoa_tong", "source_offset": 736725}
+{"record_type": "ACTI", "editor_id": "__hoa1_tong4", "full_name": "", "script": "_1hoa_tong", "source_offset": 736821}
+{"record_type": "ACTI", "editor_id": "__hoa1_tong5", "full_name": "", "script": "_1hoa_tong", "source_offset": 736917}
+{"record_type": "ACTI", "editor_id": "__hoa1_tong6", "full_name": "", "script": "_1hoa_tong", "source_offset": 737017}
+{"record_type": "ACTI", "editor_id": "__hoa1_company1", "full_name": "", "script": "_1hoa_company", "source_offset": 737115}
+{"record_type": "ACTI", "editor_id": "__hoa1_company2", "full_name": "", "script": "_1hoa_company", "source_offset": 737218}
+{"record_type": "ACTI", "editor_id": "__hoa1_company3", "full_name": "Raven Rock Factor", "script": "_1hoa_company", "source_offset": 737325}
+{"record_type": "ACTI", "editor_id": "__hoa1_company4", "full_name": "", "script": "_1hoa_company", "source_offset": 737448}
+{"record_type": "ACTI", "editor_id": "__hoa1_house_t1", "full_name": "", "script": "_1hoa_house_T", "source_offset": 737553}
+{"record_type": "ACTI", "editor_id": "__hoa1_house_t2", "full_name": "Telvanni Archmagister", "script": "_1hoa_house_T", "source_offset": 737657}
+{"record_type": "ACTI", "editor_id": "__hoa1_house_r1", "full_name": "Redoran Archmaster", "script": "_1hoa_house_r", "source_offset": 737789}
+{"record_type": "ACTI", "editor_id": "__hoa1_house_r2", "full_name": "", "script": "_1hoa_house_r", "source_offset": 737913}
+{"record_type": "ACTI", "editor_id": "__hoa1_house_h1", "full_name": "Hlaalu Grandmaster", "script": "_1hoa_house_h", "source_offset": 738019}
+{"record_type": "ACTI", "editor_id": "__hoa1_house_h2", "full_name": "", "script": "_1hoa_house_h", "source_offset": 738145}
+{"record_type": "ACTI", "editor_id": "__hoa1_fame1", "full_name": "Famous", "script": "_1hoa_fame", "source_offset": 738252}
+{"record_type": "ACTI", "editor_id": "__hoa1_fame2", "full_name": "", "script": "_1hoa_fame", "source_offset": 738360}
+{"record_type": "ACTI", "editor_id": "__hoa1_fame3", "full_name": "", "script": "_1hoa_fame", "source_offset": 738457}
+{"record_type": "ACTI", "editor_id": "__hoa1_fame4", "full_name": "", "script": "_1hoa_fame", "source_offset": 738556}
+{"record_type": "ACTI", "editor_id": "__hoa1_fame5", "full_name": "", "script": "_1hoa_fame", "source_offset": 738655}
+{"record_type": "ACTI", "editor_id": "__hoa1_fame6", "full_name": "", "script": "_1hoa_fame", "source_offset": 738743}
+{"record_type": "ACTI", "editor_id": "__hoa1_fame7", "full_name": "", "script": "_1hoa_fame", "source_offset": 738840}
+{"record_type": "ACTI", "editor_id": "__hoa1_fame8", "full_name": "", "script": "_1hoa_fame", "source_offset": 738938}
+{"record_type": "ACTI", "editor_id": "__hoa1_fame9", "full_name": "", "script": "_1hoa_fame", "source_offset": 739033}
+{"record_type": "ACTI", "editor_id": "sotha_underrods", "full_name": "", "script": "sotha_underdoorscript", "source_offset": 739134}
+{"record_type": "ACTI", "editor_id": "fyr_portallever", "full_name": "Portal Control", "script": "fyr_portalscript", "source_offset": 739244}
+{"record_type": "ACTI", "editor_id": "_prisonscript", "full_name": "", "script": "sotha_jailscript", "source_offset": 739369}
+{"record_type": "ACTI", "editor_id": "_CS_balloon", "full_name": "", "script": "sotha_chronolaunchscript", "source_offset": 739466}
+{"record_type": "ACTI", "editor_id": "_CS_gondola", "full_name": "", "script": "sotha_chronolaunchscript", "source_offset": 739582}
+{"record_type": "ACTI", "editor_id": "_CS_prop", "full_name": "", "script": "sotha_chronolaunchscript", "source_offset": 739697}
+{"record_type": "ACTI", "editor_id": "_CS_house", "full_name": "", "script": "sotha_chronolaunchscript", "source_offset": 739808}
+{"record_type": "ACTI", "editor_id": "_CS_sun", "full_name": "", "script": "sotha_chronolaunchscript", "source_offset": 739919}
+{"record_type": "ACTI", "editor_id": "_CS_wing", "full_name": "", "script": "sotha_chronolaunchscript", "source_offset": 740017}
+{"record_type": "ACTI", "editor_id": "_CS_rod", "full_name": "", "script": "sotha_chronolaunchscript", "source_offset": 740128}
+{"record_type": "ACTI", "editor_id": "_CS_tower", "full_name": "", "script": "sotha_chronolaunchscript", "source_offset": 740233}
+{"record_type": "ACTI", "editor_id": "_CS_resist", "full_name": "", "script": "sotha_chronolaunchscript", "source_offset": 740344}
+{"record_type": "ACTI", "editor_id": "_CS_turbine", "full_name": "", "script": "sotha_chronolaunchscript", "source_offset": 740455}
+{"record_type": "ACTI", "editor_id": "_CS_wingtube", "full_name": "", "script": "sotha_chronolaunchscript", "source_offset": 740568}
+{"record_type": "ACTI", "editor_id": "_CS_cube", "full_name": "", "script": "sotha_chronolaunchscript", "source_offset": 740687}
+{"record_type": "ACTI", "editor_id": "_CS_gear", "full_name": "", "script": "sotha_chronolaunchscript", "source_offset": 740794}
+{"record_type": "ACTI", "editor_id": "_arbor_module", "full_name": "", "script": "Sotha_jumpcontrol", "source_offset": 740902}
+{"record_type": "ACTI", "editor_id": "DisableLevitation", "full_name": "DisableLevitation", "script": "DisableLevitating", "source_offset": 741000}
+{"record_type": "ACTI", "editor_id": "power_exploderQuest", "full_name": "", "script": "_powerSurgeExploderQuest", "source_offset": 741119}
+{"record_type": "ACTI", "editor_id": "power_exploderNorm", "full_name": "", "script": "_powerSurgeExploder1", "source_offset": 741240}
+{"record_type": "DOOR", "editor_id": "KRS_Ex_TL_door_1", "full_name": "Wood and Iron Door", "source_offset": 828399}
+{"record_type": "DOOR", "editor_id": "KRS_Ex_TL_door_2", "full_name": "Glass and Iron Door", "source_offset": 828547}
+{"record_type": "DOOR", "editor_id": "KRS_In_TL_house_door_load", "full_name": "Small Round Door", "source_offset": 828696}
+{"record_type": "DOOR", "editor_id": "KRS_In_TL_house_door_Large", "full_name": "Large Round Door", "source_offset": 828860}
+{"record_type": "DOOR", "editor_id": "KRS_In_TL_house_door_Small", "full_name": "Wooden Door", "source_offset": 829022}
+{"record_type": "DOOR", "editor_id": "KRS_Ex_TL_door_slavepod", "full_name": "Slave Door", "source_offset": 829179}
+{"record_type": "DOOR", "editor_id": "KRS_Ex_TL_door_stone_large", "full_name": "Stone Door", "source_offset": 829330}
+{"record_type": "DOOR", "editor_id": "KRS_In_TL_door_small_load", "full_name": "Door", "source_offset": 829484}
+{"record_type": "DOOR", "editor_id": "KRS_In_TL_door_small", "full_name": "Wooden Door", "source_offset": 829636}
+{"record_type": "DOOR", "editor_id": "DNGDR_drwr_wall", "full_name": "Secret Door", "source_offset": 829787}
+{"record_type": "DOOR", "editor_id": "DNGDR_ladder_Up", "full_name": "Ladder Up", "script": "DNO_Ladder_Script", "source_offset": 829929}
+{"record_type": "DOOR", "editor_id": "DNGDR_ladder_Down", "full_name": "Ladder Down", "script": "DNO_Ladder_dn_Script", "source_offset": 830044}
+{"record_type": "DOOR", "editor_id": "DNGDR_dwrv_door", "full_name": "Metal Door", "source_offset": 830166}
+{"record_type": "DOOR", "editor_id": "DNGDR_ladder_rope_Dn", "full_name": "Ladder Down", "script": "DNO_Ladder_dn_Script", "source_offset": 830309}
+{"record_type": "DOOR", "editor_id": "DNGDR_ladder_rope_up", "full_name": "Ladder Up", "script": "DNO_Ladder_Script", "source_offset": 830441}
+{"record_type": "DOOR", "editor_id": "DNGDR_ladder_rope_up_hook", "full_name": "Ladder Up", "script": "DNO_Ladder_Script", "source_offset": 830568}
+{"record_type": "DOOR", "editor_id": "DNGDR_tubecorridor05_door", "full_name": "?", "source_offset": 830700}
+{"record_type": "DOOR", "editor_id": "DNGDR_wood_gate", "full_name": "Gate", "source_offset": 830846}
+{"record_type": "DOOR", "editor_id": "DNGDR_crypt_door", "full_name": "Crypt Door", "source_offset": 830985}
+{"record_type": "DOOR", "editor_id": "DNGDR_Gate", "full_name": " Gate", "source_offset": 831131}
+{"record_type": "DOOR", "editor_id": "DNGDR_drwr_wall2", "full_name": "Secret Door", "source_offset": 831261}
+{"record_type": "DOOR", "editor_id": "shan_sothhouseDoor", "full_name": "Metal Door", "source_offset": 831403}
+{"record_type": "DOOR", "editor_id": "door_sotha_vista", "full_name": "Heavy metal door", "script": "sotha_workshopscene2", "source_offset": 831547}
+{"record_type": "DOOR", "editor_id": "door_sotha_fuckinghuge", "full_name": "Hole", "script": "sotha_collidedoor", "source_offset": 831725}
+{"record_type": "DOOR", "editor_id": "door_sotha_hole", "full_name": "Dark hole", "source_offset": 831845}
+{"record_type": "DOOR", "editor_id": "door_sotha_udok_mach", "full_name": "Metal Door", "script": "Magnus_Doorlock", "source_offset": 831967}
+{"record_type": "DOOR", "editor_id": "shan_sothhouseDoor2", "full_name": "Metal Door", "script": "deactivation", "source_offset": 832138}
+{"record_type": "DOOR", "editor_id": "door_sotha_dagoth", "full_name": "Heavy metal door", "script": "SothaDagothDoor", "source_offset": 832304}
+{"record_type": "DOOR", "editor_id": "door_sotha_hlaalu", "full_name": "Metal Door", "source_offset": 832474}
+{"record_type": "DOOR", "editor_id": "door_sotha_hole2", "full_name": "Dark hole", "script": "sotha_collidedoor", "source_offset": 832573}
+{"record_type": "DOOR", "editor_id": "sotha_outersewerdoor", "full_name": "Metal Door", "script": "Sotha_SewerDoorLock", "source_offset": 832722}
+{"record_type": "DOOR", "editor_id": "door_sotha_fuckinghugewh", "full_name": "Hole", "script": "sotha_collidedoorwhirlpool", "source_offset": 832896}
+{"record_type": "DOOR", "editor_id": "door_sotha_holewhirl", "full_name": "Dark hole", "script": "sotha_collidedoor", "source_offset": 833027}
+{"record_type": "DOOR", "editor_id": "door_sotha_pre_load_innerwa", "full_name": "Heavy metal door", "script": "Sotha_InnerDoorPuzzleLock", "source_offset": 833180}
+{"record_type": "DOOR", "editor_id": "door_sotha_load_garbage", "full_name": "Heavy metal door", "script": "Sotha_TrashPuzzle3", "source_offset": 833374}
+{"record_type": "DOOR", "editor_id": "door_magnus_alt1", "full_name": "Heavy metal door", "script": "Magnus_SpellRemove1", "source_offset": 833553}
+{"record_type": "DOOR", "editor_id": "door_magnus_alt2", "full_name": "Heavy metal door", "script": "Magnus_SpellRemove1", "source_offset": 833726}
+{"record_type": "DOOR", "editor_id": "door_magnus_conjur", "full_name": "Metal Door", "script": "Magnus_SpellAdd2", "source_offset": 833899}
+{"record_type": "DOOR", "editor_id": "door_magnus_restor", "full_name": "Metal Door", "script": "Magnus_SpellAdd6", "source_offset": 834069}
+{"record_type": "DOOR", "editor_id": "door_magnus_alter", "full_name": "Metal Door", "script": "Magnus_SpellAdd1", "source_offset": 834239}
+{"record_type": "DOOR", "editor_id": "door_magnus_destruc", "full_name": "Metal Door", "script": "Magnus_SpellAdd3", "source_offset": 834408}
+{"record_type": "DOOR", "editor_id": "door_magnus_illusion", "full_name": "Metal Door", "script": "Magnus_SpellAdd4", "source_offset": 834579}
+{"record_type": "DOOR", "editor_id": "door_magnus_mystici", "full_name": "Metal Door", "script": "Magnus_SpellAdd5", "source_offset": 834751}
+{"record_type": "DOOR", "editor_id": "door_magnus_conjur2", "full_name": "Metal Door", "script": "Magnus_SpellRemove2", "source_offset": 834922}
+{"record_type": "DOOR", "editor_id": "door_magnus_destruct2", "full_name": "Metal Door", "script": "Magnus_SpellRemove3", "source_offset": 835096}
+{"record_type": "DOOR", "editor_id": "door_magnus_illusion2", "full_name": "Heavy metal door", "script": "Magnus_SpellRemove4", "source_offset": 835272}
+{"record_type": "DOOR", "editor_id": "door_magnus_mysti2", "full_name": "Metal Door", "script": "Magnus_SpellRemove5", "source_offset": 835450}
+{"record_type": "DOOR", "editor_id": "door_magnus_restore2", "full_name": "Metal Door", "script": "Magnus_SpellRemove6", "source_offset": 835623}
+{"record_type": "DOOR", "editor_id": "door_sotha_udokcollide", "full_name": "Hole", "script": "sotha_collidedoorudok", "source_offset": 835798}
+{"record_type": "DOOR", "editor_id": "door_sotha_akatosh1", "full_name": "Heavy metal door", "script": "Sotha_Time_G1", "source_offset": 835922}
+{"record_type": "DOOR", "editor_id": "door_sotha_akatosh2", "full_name": "Heavy metal door", "script": "Sotha_Time_G2", "source_offset": 836092}
+{"record_type": "DOOR", "editor_id": "door_sotha_akatosh3", "full_name": "Heavy metal door", "script": "Sotha_Time_G3", "source_offset": 836262}
+{"record_type": "DOOR", "editor_id": "door_sotha_akatosh4", "full_name": "Heavy metal door", "script": "Sotha_Time_G4", "source_offset": 836432}
+{"record_type": "DOOR", "editor_id": "door_sotha_clockworkcity", "full_name": "Travel ", "script": "sotha_passagescript", "source_offset": 836602}
+{"record_type": "DOOR", "editor_id": "door_sotha_portal", "full_name": "A Mystical Gate", "source_offset": 836767}
+{"record_type": "DOOR", "editor_id": "_imp_stairs", "full_name": "Stairs", "source_offset": 836914}
+{"record_type": "DOOR", "editor_id": "door_sotha_mach_door_no", "full_name": "Large Steel Doors", "script": "noPickUp", "source_offset": 837001}
+{"record_type": "DOOR", "editor_id": "door_sotha_load_lab", "full_name": "Heavy metal door", "script": "Sotha_LabRestrict", "source_offset": 837175}
+{"record_type": "DOOR", "editor_id": "door_sotha_load_alma", "full_name": "Heavy metal door", "script": "SothaAlmaDoor", "source_offset": 837349}
+{"record_type": "DOOR", "editor_id": "_sotha_gate", "full_name": "Forcefield", "script": "noPickUp", "source_offset": 837520}
+{"record_type": "DOOR", "editor_id": "door_sotha_catacombs", "full_name": "Teleporter", "source_offset": 837673}
+{"record_type": "DOOR", "editor_id": "shan_sothhouseDoor_slums", "full_name": "Metal Door", "script": "sotha_slumdoor", "source_offset": 837796}
+{"record_type": "DOOR", "editor_id": "_power_sothhouseDoor1", "full_name": "Metal Door", "script": "_power_door", "source_offset": 837969}
+{"record_type": "DOOR", "editor_id": "_power_sothhouseDoor2", "full_name": "Metal Door", "script": "_power_door", "source_offset": 838136}
+{"record_type": "DOOR", "editor_id": "_power_sothhouseDoor3", "full_name": "Metal Door", "script": "_power_door", "source_offset": 838303}
+{"record_type": "DOOR", "editor_id": "power_sothhouseDoor", "full_name": "Metal Door", "script": "_power_watchmandoor", "source_offset": 838470}
+{"record_type": "DOOR", "editor_id": "_fyrdoor1", "full_name": "Heavy metal door", "script": "_fyr_door1", "source_offset": 838643}
+{"record_type": "DOOR", "editor_id": "_fyrdoor2", "full_name": "Heavy metal door", "script": "_fyr_door2", "source_offset": 838800}
+{"record_type": "DOOR", "editor_id": "_fyrdoor3", "full_name": "Heavy metal door", "script": "_fyr_door3", "source_offset": 838957}
+{"record_type": "DOOR", "editor_id": "_fyrdoor4", "full_name": "Heavy metal door", "script": "_fyr_door4", "source_offset": 839114}
+{"record_type": "DOOR", "editor_id": "_fyrdoor5", "full_name": "Heavy metal door", "script": "_fyr_door5", "source_offset": 839271}
+{"record_type": "DOOR", "editor_id": "_fyrdoor6", "full_name": "Heavy metal door", "script": "_fyr_door6", "source_offset": 839428}
+{"record_type": "DOOR", "editor_id": "_fyrdoor7", "full_name": "Heavy metal door", "script": "_fyr_door7", "source_offset": 839585}
+{"record_type": "DOOR", "editor_id": "_fyrdoor8", "full_name": "Heavy metal door", "script": "_fyr_door8", "source_offset": 839742}
+{"record_type": "DOOR", "editor_id": "_fyrdoor9", "full_name": "Heavy metal door", "script": "_fyr_door9", "source_offset": 839899}
+{"record_type": "DOOR", "editor_id": "_fyrdoor10", "full_name": "Heavy metal door", "script": "_fyr_door10", "source_offset": 840056}
+{"record_type": "DOOR", "editor_id": "_fyrdoor11", "full_name": "Heavy metal door", "script": "_fyr_door11", "source_offset": 840215}
+{"record_type": "DOOR", "editor_id": "_fyrdoor12", "full_name": "Heavy metal door", "script": "_fyr_door12", "source_offset": 840374}
+{"record_type": "DOOR", "editor_id": "_fyrdoor13", "full_name": "Heavy metal door", "script": "_fyr_door13", "source_offset": 840533}
+{"record_type": "DOOR", "editor_id": "_fyrdoor14", "full_name": "Heavy metal door", "script": "_fyr_door14", "source_offset": 840692}
+{"record_type": "DOOR", "editor_id": "sotha_clocktowerteleportdoor", "full_name": "Teleport", "script": "sotha_clocktowerteleport", "source_offset": 840851}
+{"record_type": "DOOR", "editor_id": "sotha_watchdoor", "full_name": "Gateway", "script": "sotha_watchgate", "source_offset": 840984}
+{"record_type": "DOOR", "editor_id": "sotha_gatedeactivate", "full_name": "A Mystical Gate", "script": "deactivation", "source_offset": 841145}
+{"record_type": "DOOR", "editor_id": "sotha_watchdoor2", "full_name": "Passage", "source_offset": 841316}
+{"record_type": "DOOR", "editor_id": "fyr_portal1", "full_name": "A Mystical Gate", "script": "Sotha_portalactivate", "source_offset": 841437}
+{"record_type": "DOOR", "editor_id": "sotha_underdoor", "full_name": "Portal", "script": "sotha_underdoorscript", "source_offset": 841607}
+{"record_type": "DOOR", "editor_id": "fyr_teleportal1", "full_name": "A Mystical Gate", "script": "fyr_portalscript1", "source_offset": 841771}
+{"record_type": "DOOR", "editor_id": "fyr_teleportal2", "full_name": "A Mystical Gate", "script": "fyr_portalscript2", "source_offset": 841942}
+{"record_type": "DOOR", "editor_id": "sotha_clocktowerteleportdoor2", "full_name": "Teleport", "script": "sotha_clocktowerteleport2", "source_offset": 842113}
+{"record_type": "DOOR", "editor_id": "sotha_clocktowerteleportdoor3", "full_name": "Teleport", "source_offset": 842248}
+{"record_type": "CREA", "editor_id": "sotha_vivec", "full_name": "Vivec", "source_offset": 849387}
+{"record_type": "CREA", "editor_id": "sotha_almalexia", "full_name": "Almalexia", "source_offset": 849744}
+{"record_type": "CREA", "editor_id": "sotha_dagoth", "full_name": "Dagoth Ur", "source_offset": 850410}
+{"record_type": "CREA", "editor_id": "sotha_skeleton", "full_name": "Skeleton", "source_offset": 850757}
+{"record_type": "CREA", "editor_id": "sotha_imperfect", "full_name": "Imperfect", "source_offset": 851132}
+{"record_type": "CREA", "editor_id": "sotha_vivec2", "full_name": "Vivec", "script": "Sotha_forcegreet", "source_offset": 851776}
+{"record_type": "CREA", "editor_id": "sotha_almalexia2", "full_name": "Almalexia", "script": "Sotha_forcegreet", "source_offset": 852157}
+{"record_type": "CREA", "editor_id": "sotha_dagoth2", "full_name": "Dagoth Ur", "script": "Sotha_forcegreet", "source_offset": 852893}
+{"record_type": "CREA", "editor_id": "fabricant_hulking_fall", "full_name": "Hulking Fabricant", "script": "NI_looping_creature", "source_offset": 853266}
+{"record_type": "CREA", "editor_id": "fabricant_verminous_fal", "full_name": "Verminous Fabricant", "script": "NI_looping_creature", "source_offset": 853823}
+{"record_type": "CREA", "editor_id": "sotha_slaughterfish", "full_name": "Fabricant Slaughterfish", "source_offset": 854379}
+{"record_type": "CREA", "editor_id": "magnus_verminous1", "full_name": "Verminous Fabricant", "script": "Magnus_FabricantDeath", "source_offset": 854690}
+{"record_type": "CREA", "editor_id": "magnus_verminous2", "full_name": "Verminous Fabricant", "script": "Magnus_Restorationfabricant", "source_offset": 855122}
+{"record_type": "CREA", "editor_id": "magnus_atronach_flame", "full_name": "Flame Atronach", "script": "Magnus_getLight", "source_offset": 855520}
+{"record_type": "CREA", "editor_id": "fabricant_hulking_invi", "full_name": "Hulking Fabricant", "source_offset": 855861}
+{"record_type": "CREA", "editor_id": "fabricant_verminous_inv", "full_name": "Verminous Fabricant", "source_offset": 856412}
+{"record_type": "CREA", "editor_id": "fabricant_grotesque", "full_name": "Grotesque Fabricant", "source_offset": 856962}
+{"record_type": "CREA", "editor_id": "sotha_gardener", "full_name": "The Gardener", "source_offset": 857486}
+{"record_type": "CREA", "editor_id": "SothaSil", "full_name": "Sotha Motherfucking Sil", "script": "SothaSilScript", "source_offset": 857712}
+{"record_type": "CREA", "editor_id": "Imperfect2", "full_name": "Imperfect", "script": "_imp_deathcounter", "source_offset": 857985}
+{"record_type": "CREA", "editor_id": "Almalexia_warrior2", "full_name": "Almalexia", "script": "Sotha_Alma2", "source_offset": 858660}
+{"record_type": "CREA", "editor_id": "alm_verminous", "full_name": "Verminous Fabricant", "source_offset": 859379}
+{"record_type": "CREA", "editor_id": "fabricant_verminous_NON", "full_name": "Verminous Fabricant", "source_offset": 859831}
+{"record_type": "CREA", "editor_id": "fabricant_hulking_NON", "full_name": "Hulking Fabricant", "source_offset": 860381}
+{"record_type": "CREA", "editor_id": "sotha_vendingmachine", "full_name": "Counterfeint", "script": "sotha_vendingmachinescript", "source_offset": 860931}
+{"record_type": "CREA", "editor_id": "sotha_cabal", "full_name": "Pocket Cabal", "script": "pocket_cabalscript", "source_offset": 861522}
+{"record_type": "CREA", "editor_id": "sotha_tree1", "full_name": "Mysterious Presence", "script": "_tree_controlmodule", "source_offset": 861908}
+{"record_type": "CREA", "editor_id": "sotha_tree2", "full_name": "The Tree", "source_offset": 862166}
+{"record_type": "CREA", "editor_id": "sotha_oldfabricant", "full_name": "Pungent Fabricant", "source_offset": 862385}
+{"record_type": "CREA", "editor_id": "sotha_bonewelder", "full_name": "Bone Welder", "script": "sotha_bonestoker", "source_offset": 862840}
+{"record_type": "CREA", "editor_id": "sotha_bonestoker", "full_name": "Bone Stoker", "script": "sotha_bonewelder", "source_offset": 863349}
+{"record_type": "CREA", "editor_id": "sotha_rewound", "full_name": "Rewound", "script": "sotha_rewound", "source_offset": 863811}
+{"record_type": "CREA", "editor_id": "sotha_scarab", "full_name": "Scarab", "source_offset": 864565}
+{"record_type": "CREA", "editor_id": "sotha_boneskeleton", "full_name": "Skeleton", "script": "sotha_boneton", "source_offset": 865074}
+{"record_type": "CREA", "editor_id": "sotha_bonespider", "full_name": "Bonespider", "script": "sotha_bonespider", "source_offset": 865646}
+{"record_type": "CREA", "editor_id": "sotha_rewound_UN1", "full_name": "Tho Llodan", "script": "sotha_rewound_unique", "source_offset": 866139}
+{"record_type": "CREA", "editor_id": "sotha_rewound_UN2", "full_name": "Tho Chronullueri", "script": "sotha_rewound_unique", "source_offset": 866743}
+{"record_type": "CREA", "editor_id": "sotha_rewound_UN3", "full_name": "Tho Haidashah", "script": "sotha_rewound_unique", "source_offset": 867353}
+{"record_type": "CREA", "editor_id": "sotha_rewound_UN4", "full_name": "Tho Covros", "script": "sotha_rewound_unique2", "source_offset": 867960}
+{"record_type": "CREA", "editor_id": "sotha_rewound_UN5", "full_name": "Tho Rhodan", "script": "sotha_rewound_unique2", "source_offset": 868543}
+{"record_type": "CREA", "editor_id": "sotha_ghost", "full_name": "Kthardz Hrk-zet", "source_offset": 869126}
+{"record_type": "CREA", "editor_id": "sotha_server", "full_name": "Server", "script": "fyr_speak3", "source_offset": 869639}
+{"record_type": "CREA", "editor_id": "sotha_rewound_indus", "full_name": "Tho Favthali", "source_offset": 869876}
+{"record_type": "CREA", "editor_id": "sotha_centurion", "full_name": "Steam Centurion", "script": "____sotha_slumsNPCtemplate", "source_offset": 870455}
+{"record_type": "CREA", "editor_id": "sotha_slaughterfish2", "full_name": "Fabricant Slaughterfish", "source_offset": 870947}
+{"record_type": "CREA", "editor_id": "sotha_murderskeleton", "full_name": "Skeleton", "script": "Sotha_skeleattack", "source_offset": 871259}
+{"record_type": "CREA", "editor_id": "sotha_bonespider_UNI", "full_name": "Bonespider", "script": "sotha_bonespider", "source_offset": 871710}
+{"record_type": "CREA", "editor_id": "fabricant_verminous_fig", "full_name": "Verminous Fabricant", "script": "sotha_fightdoorenable", "source_offset": 872251}
+{"record_type": "CREA", "editor_id": "fabricant_hulking_fight", "full_name": "Hulking Fabricant", "script": "sotha_fightdoorenable", "source_offset": 872831}
+{"record_type": "CREA", "editor_id": "sotha_judge", "full_name": "The Judge", "source_offset": 873413}
+{"record_type": "CREA", "editor_id": "sotha_server2", "full_name": "Server", "script": "Fyr_servercode", "source_offset": 873633}
+{"record_type": "CREA", "editor_id": "fyr_enchanter", "full_name": "Enchanter", "source_offset": 873875}
+{"record_type": "CREA", "editor_id": "fyr_repair", "full_name": "Repair", "source_offset": 874097}
+{"record_type": "CREA", "editor_id": "fyr_fablab", "full_name": "Pneuma Deconstructor", "source_offset": 874313}
+{"record_type": "CREA", "editor_id": "sotha_genericfabricant", "full_name": "Fabricant", "source_offset": 874543}
+{"record_type": "CREA", "editor_id": "sotha_flameatronach", "full_name": "Flame Atronach", "source_offset": 874775}
+{"record_type": "CREA", "editor_id": "sotha_frostatronach", "full_name": "Frost  Atronach", "source_offset": 875272}
+{"record_type": "CREA", "editor_id": "sotha_stormatronach", "full_name": "Storm Atronach", "source_offset": 875771}
+{"record_type": "CREA", "editor_id": "sotha_labmodule", "full_name": "Lab Notes", "source_offset": 876309}
+{"record_type": "CREA", "editor_id": "sotha_genericfabricant2", "full_name": "Greater Fabricant", "source_offset": 876533}
+{"record_type": "CREA", "editor_id": "netch_betty_ranched_SOT", "full_name": "Betty Netch", "source_offset": 876774}
+{"record_type": "CREA", "editor_id": "fyr_portal", "full_name": "Portal Control", "source_offset": 877068}
+{"record_type": "CREA", "editor_id": "sotha_rewound_BOSS", "full_name": "Old Tho Casjedlik", "script": "sotha_rewound", "source_offset": 877292}
+{"record_type": "CREA", "editor_id": "sotha_skeleton2", "full_name": "Skeleton", "script": "sotha_undead", "source_offset": 878117}
+{"record_type": "CREA", "editor_id": "sotha_skeleton3", "full_name": "Skeleton", "script": "sotha_undead2", "source_offset": 878575}
+{"record_type": "CLOT", "editor_id": "sotha_fabricantpants1", "full_name": "Fabricant Piece", "source_offset": 878973}
+{"record_type": "CLOT", "editor_id": "sotha_fabricantpants1_2", "full_name": "Fabricant Piece", "source_offset": 879210}
+{"record_type": "CLOT", "editor_id": "sotha_fab_hand_left", "full_name": "Fabricant Piece", "source_offset": 879381}
+{"record_type": "CLOT", "editor_id": "sotha_fabricantlegs1", "full_name": "Fabricant Piece", "source_offset": 879634}
+{"record_type": "CLOT", "editor_id": "sotha_fab_hand_right", "full_name": "Fabricant Piece", "source_offset": 880208}
+{"record_type": "CLOT", "editor_id": "sotha_ayem", "full_name": "Ayem's Locket", "source_offset": 880462}
+{"record_type": "CLOT", "editor_id": "sotha_fabricantlegs2", "full_name": "Fabricant Piece", "source_offset": 880608}
+{"record_type": "CLOT", "editor_id": "sotha_fab_hand_left_old", "full_name": "Fabricant Piece", "source_offset": 881182}
+{"record_type": "CLOT", "editor_id": "sotha_fab_hand_right_old", "full_name": "Fabricant Piece", "source_offset": 881435}
+{"record_type": "CLOT", "editor_id": "sotha_lowshirt1", "full_name": "Fabricant Shirt", "source_offset": 881689}
+{"record_type": "CLOT", "editor_id": "sotha_lowshirt2", "full_name": "Fabricant Shirt", "source_offset": 881891}
+{"record_type": "CLOT", "editor_id": "sotha_lowshirt3", "full_name": "Fabricant Shirt", "source_offset": 882093}
+{"record_type": "CLOT", "editor_id": "sotha_midshirt1", "full_name": "Fabricant Shirt", "source_offset": 882295}
+{"record_type": "CLOT", "editor_id": "sotha_midshirt2", "full_name": "Fabricant Shirt", "source_offset": 882497}
+{"record_type": "CLOT", "editor_id": "sotha_midshirt3", "full_name": "Fabricant Shirt", "source_offset": 882699}
+{"record_type": "CLOT", "editor_id": "sotha_blacksmith1", "full_name": "Fabricant Blacksmith Clothes", "source_offset": 882901}
+{"record_type": "CLOT", "editor_id": "sotha_blacksmith2", "full_name": "Fabricant Blacksmith Clothes", "source_offset": 883168}
+{"record_type": "CLOT", "editor_id": "sotha_blackshirt1", "full_name": "Fabricant Shirt", "source_offset": 883435}
+{"record_type": "CLOT", "editor_id": "sotha_blackshirt2", "full_name": "Fabricant Shirt", "source_offset": 883653}
+{"record_type": "CLOT", "editor_id": "sotha_highrobes1", "full_name": "Fabricant Robes", "source_offset": 883871}
+{"record_type": "CLOT", "editor_id": "sotha_highrobes2", "full_name": "Fabricant Robes", "source_offset": 884094}
+{"record_type": "CLOT", "editor_id": "sotha_relamusrobes", "full_name": "Fabricant Robes", "source_offset": 884289}
+{"record_type": "CLOT", "editor_id": "sotha_relamusshoes", "full_name": "Fabricant Shoes", "source_offset": 884487}
+{"record_type": "CLOT", "editor_id": "sotha_fabricantpants_for", "full_name": "Fabricant Piece", "source_offset": 884711}
+{"record_type": "CLOT", "editor_id": "_armless", "full_name": "Armless", "source_offset": 884949}
+{"record_type": "CLOT", "editor_id": "_headless", "full_name": "Headless", "source_offset": 885094}
+{"record_type": "CLOT", "editor_id": "_armless2", "full_name": "Armless", "source_offset": 885205}
+{"record_type": "CLOT", "editor_id": "_legless", "full_name": "Legless", "source_offset": 885333}
+{"record_type": "CLOT", "editor_id": "_legless2", "full_name": "Legless", "source_offset": 885478}
+{"record_type": "CLOT", "editor_id": "mazed_band_end2", "full_name": "Barilzar's Mazed Band", "script": "_2_mazedbandEnd_Script", "source_offset": 885588}
+{"record_type": "CLOT", "editor_id": "shan_mysteryamulet", "full_name": "Mysterious Amulet", "source_offset": 885799}
+{"record_type": "CLOT", "editor_id": "sotha_unwindring", "full_name": "Ring of Unwinding", "source_offset": 885986}
+{"record_type": "INGR", "editor_id": "magnus_daedras_heart_01", "full_name": "Daedra's Heart", "script": "Magnus_ConjurItem", "source_offset": 886162}

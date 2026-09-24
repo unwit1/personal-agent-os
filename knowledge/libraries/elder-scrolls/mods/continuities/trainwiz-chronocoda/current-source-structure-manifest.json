@@ -1,0 +1,91 @@
+{
+  "objective": "current_snapshot_full_lore_structure",
+  "generated_at": "2026-09-24",
+  "authority_policy": "Use the verified current Aethernautics 3.1 and Sotha Sil Expanded 3.1 packages as the authoritative structural snapshots for their mod continuities. Preserve source scope/reliability; historical edition reconstruction is optional and inactive.",
+  "source_snapshots": {
+    "tes.mod.aethernautics": {
+      "version": "3.1",
+      "package_sha256": "1cd1c58f5c73bb2a647294c096128ce2a89856521493e566ad1ebc1793705e40",
+      "plugin_sha256": "18e21d0bbb08440bc6c42f049d2b8a24353dd9a24d84fc185c7e6d1b700fe720",
+      "source_records": {
+        "core": 79,
+        "implementation": 90,
+        "combined_index": 169
+      },
+      "semantic": {
+        "books": 22,
+        "messages": 20,
+        "npcs": 8,
+        "places": 28,
+        "quests": 1,
+        "implementation_objects": 90
+      }
+    },
+    "tes.mod.sotha-sil-expanded": {
+      "version": "3.1",
+      "package_sha256": "4ab7d79b123f1803f866222b5a5feb3c9176c4aef509034a2c784f06cbe9a20f",
+      "plugin_sha256": "d8af26f23fe5d1c0fe7119e82762e4515de2eee6a9c6ffadd697d1524ed24b85",
+      "source_records": {
+        "core": 2250,
+        "implementation": 1841,
+        "combined_index": 4091,
+        "scripts_indexed": 543
+      },
+      "semantic": {
+        "books": 49,
+        "dialogue_topics": 250,
+        "dialogue_responses": 1147,
+        "npcs": 344,
+        "speakers": 144,
+        "cells": 460,
+        "quest_journal_topics": 44,
+        "factions": 7,
+        "implementation_objects": 1291,
+        "script_reference_edges": 1441,
+        "script_lore_strings": 221
+      }
+    },
+    "tes.mod.wheels-of-lull": {
+      "status": "existing mature corpus linked into current ChronoC0da graph",
+      "plugin_sha256": "230b102cd1ec13f2d104da8803d32c19227ef519eaca766a00b076c322aa78bb",
+      "structured_source_records": 1090,
+      "implementation_evidence_records": 370
+    }
+  },
+  "layers": {
+    "semantic_retrieval": {
+      "status": "complete",
+      "generated_files": 53,
+      "manifest": "full-structure-ingestion.json"
+    },
+    "deterministic_source": {
+      "status": "complete",
+      "generated_files": 45,
+      "description": "Lore-selected raw source records plus combined record/script indexes for reproducible retrieval and future semantic passes."
+    },
+    "cross_continuity": {
+      "status": "semantic_pass_01_complete",
+      "shared_work_relations": "analysis/shared-work-relations.json",
+      "concept_graph": "analysis/concept-graph.json",
+      "branch_and_tension_registry": "analysis/branch-and-tension-registry.json",
+      "synthesis": "analysis/current-snapshot-semantic-synthesis-01.md"
+    }
+  },
+  "verification_commits": [
+    "52d944f88e9cc8099913a6383cb2a74022f6add2",
+    "e3ac9097fcde9bb6a595f0136237ee7e51ae225d",
+    "3a5dba3a956696c0953638e6a4ad7a3ccfcca305",
+    "88e34ab6caff22edbf1869a1427d9ee977a222c6",
+    "be7c16f235983fc62b89aafac3cd6a98c63466a6",
+    "b27a234e836049b8c2b049c92f1ba51cfc36b66b",
+    "f8a099cfe4caabf0e2d9758cea711dc878250dbc",
+    "ea061713cd4eb850bef3809f4df4c4c16a7ff909",
+    "93c087202ea31ce17b0b030e265d81e9e2e3bd1f"
+  ],
+  "source_archive_policy": "Original binary archives/assets are not committed; source manifests retain verified package/plugin hashes.",
+  "historical_edition_archaeology": {
+    "required": false,
+    "status": "optional_cold_backlog"
+  },
+  "next_stage": "Expand dossiers/semantic graph over the complete current-source corpus; historical edition archaeology remains optional."
+}

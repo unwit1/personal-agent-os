@@ -84,11 +84,16 @@
     "core_source_records": 79,
     "implementation_supplement_records": 90,
     "books": 22,
-    "raw_full_text_persisted_in_repo": false,
-    "raw_full_text_note": "Deterministic extraction was completed from the verified uploaded package in the analysis session. Compact canonical manifests/claims are persisted; the source archive itself is not committed.",
+    "raw_full_text_persisted_in_repo": true,
+    "raw_full_text_note": "The deterministic lore-selected current-source records are persisted directly in GitHub alongside the semantic/retrieval layer; the original archive/BSA binaries are not committed.",
     "exhaustive_current_lore_structure_persisted": true,
-    "full_structure_storage": "../trainwiz-chronocoda/corpus/manifest.json",
-    "full_structure_virtual_artifacts": "../trainwiz-chronocoda/full-structure-ingestion.json"
+    "full_structure_storage": "../trainwiz-chronocoda/current-source-structure-manifest.json",
+    "full_structure_virtual_artifacts": "../trainwiz-chronocoda/full-structure-ingestion.json",
+    "raw_source_paths": [
+      "raw/core/source-records-0001-0079.jsonl",
+      "raw/implementation/source-records-0001-0090.jsonl",
+      "indexes/record-index/records-0001-0169.jsonl"
+    ]
   },
   "analysis_paths": [
     "analysis/source-summary.md",

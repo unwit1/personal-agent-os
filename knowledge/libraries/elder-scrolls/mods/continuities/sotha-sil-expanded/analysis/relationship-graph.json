@@ -1,0 +1,88 @@
+{
+  "continuity_id": "tes.mod.sotha-sil-expanded",
+  "edges": [
+    {
+      "subject": "Sotha Sil",
+      "predicate": "is_original_source_for_copy",
+      "object": "Gestalt",
+      "evidence": [
+        "Sotha_endgame dialogue/journal"
+      ],
+      "qualification": "Gestalt is described as a copy/partial upload; original Sotha Sil remains dead per project continuity boundary."
+    },
+    {
+      "subject": "Gestalt",
+      "predicate": "operates_or_embodies",
+      "object": "Clockwork City",
+      "evidence": [
+        "Sotha_endgame journal/dialogue"
+      ],
+      "branch": "save_outcome"
+    },
+    {
+      "subject": "Player",
+      "predicate": "can_destroy",
+      "object": "Gestalt/Clockwork City",
+      "evidence": [
+        "Sotha_endgame journal"
+      ],
+      "branch": "destroy_outcome"
+    },
+    {
+      "subject": "Archcanon and departing fabricants",
+      "predicate": "become_or_form",
+      "object": "Chronographers",
+      "evidence": [
+        "Sotha_endgame/SSE Chronographer dialogue and journal"
+      ]
+    },
+    {
+      "subject": "Chronographers",
+      "predicate": "travel_through",
+      "object": "time and space",
+      "evidence": [
+        "Sotha_endgame/SSE Chronographer dialogue and journal"
+      ]
+    },
+    {
+      "subject": "Chronographers",
+      "predicate": "distribute",
+      "object": "Imperfections",
+      "evidence": [
+        "Sotha_endgame/SSE Chronographer dialogue and journal"
+      ]
+    },
+    {
+      "subject": "pneuma",
+      "predicate": "functions_as",
+      "object": "fabricant soul-battery",
+      "evidence": [
+        "pneuma dialogue"
+      ]
+    },
+    {
+      "subject": "Rewound",
+      "predicate": "are",
+      "object": "fabricant bodies restarted after pneuma loss",
+      "evidence": [
+        "BOOK _sotha_rewoundbook"
+      ]
+    },
+    {
+      "subject": "Clockwork City",
+      "predicate": "contains",
+      "object": "fabricant social districts and factions",
+      "evidence": [
+        "CELL/NPC/FACT records and quest dialogue"
+      ]
+    },
+    {
+      "subject": "How Two Moon proposal",
+      "predicate": "aims_to_create",
+      "object": "perfect clockwork world in Oblivion",
+      "evidence": [
+        "BOOK sotha_bookmoon"
+      ]
+    }
+  ]
+}

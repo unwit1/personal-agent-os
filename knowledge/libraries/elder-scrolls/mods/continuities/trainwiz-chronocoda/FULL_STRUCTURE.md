@@ -1,19 +1,21 @@
 # Current-snapshot full lore structure
 
-The Trainwiz / ChronoC0da library now treats the verified **Aethernautics 3.1** and **Sotha Sil Expanded 3.1** packages as the authoritative current-source snapshots for structural lore retrieval. Historical edition archaeology is not an active requirement.
+This continuity now preserves both the **searchable semantic/retrieval layer** and the **deterministic current-source layer** for the verified Aethernautics 3.1 and Sotha Sil Expanded 3.1 packages. Historical edition archaeology is not an active requirement.
 
-## What is preserved
+## Persisted structure
 
-The exhaustive layer preserves the complete extracted lore-bearing structure rather than only summaries: all book text, Aethernautics messages/quest/entities, all Sotha Sil Expanded dialogue responses and topics, all quest-journal entries, NPC/speaker/place/faction/named-object records, script-carried user-facing/lore strings, script-to-source reference edges, concept-evidence maps, and evidence-scoped relationship graphs.
+Aethernautics preserves 79 selected core source records, 90 implementation records, a 169-record master index, all 22 books, messages, characters, places, its quest, named implementation objects, concepts, and relationship evidence.
 
-Coverage is **22 Aethernautics books, 20 messages, 8 NPCs, 28 locations/cells, 1 quest and 90 implementation objects**, plus **49 Sotha books, 250 dialogue topics, 1,147 dialogue responses, 344 NPCs, 144 explicit speakers, 460 cells, 44 journal topics, 7 factions, 543 scripts scanned, 1,291 named implementation objects and 1,441 script/source reference edges**.
+Sotha Sil Expanded preserves 2,250 selected core source records, 1,841 implementation records, a 4,091-record master index, all 49 books, 250 dialogue topics, 1,147 dialogue responses, 344 NPC records, 144 speaker records, 460 cells/places, 44 quest journals, 7 factions, 1,291 named implementation objects, all 543 script indexes, 1,441 script/source reference edges, and 221 extracted script-lore strings.
 
-## Storage
+Wheels of Lull remains its own mature provenance scope and is linked through explicit shared-work and continuity relationships.
 
-The complete generated structure is stored in 13 deterministic `corpus/full-structure-XX-of-13.jsonl.gz.b64` segments. `corpus/manifest.json` records the SHA-256 and virtual-file membership of every segment. `technical/unpack-full-structure.py --check` verifies the gzip bytes and every reconstructed virtual file; without `--check` it reconstructs all **53** retrieval artifacts. This packaging is transport/storage only: the reconstructed virtual paths define the logical corpus.
+## Modeling policy
 
-## Modeling boundaries
+Each mod remains a separate source scope. Cross-mod concepts and shared works are linked rather than flattened, branch-specific outcomes remain separate, and reliability labels remain attached to literary, sectarian, uncertain, or comedic sources.
 
-Aethernautics, Sotha Sil Expanded, and Wheels of Lull remain independent provenance scopes connected by the `tes.mod.trainwiz-chronocoda` graph. Shared concepts and books may be linked, but mod claims do not overwrite Bethesda/base-continuity claims. Current 3.1 text is sufficient for this project's structural goal; historical 2012-2014 wording/version comparison is optional archival research only.
+The current verified packages are structurally authoritative for this library goal. Older-version archaeology is optional archival work only.
 
-Binary-only/visual semantics are not exhaustively decoded. In particular, *Transmeta Interivatives* points to the vanilla `DivineMetaphysics_text1.tga` / `DivineMetaphysics_text2.tga` assets and remains marked image-dependent rather than treated as missing custom prose.
+The original archive/BSA binaries are not stored in GitHub; verified package/plugin hashes are retained in each source manifest.
+
+Machine-readable entry point: `current-source-structure-manifest.json`.

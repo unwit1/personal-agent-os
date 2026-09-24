@@ -1,0 +1,274 @@
+{
+  "continuity_id": "tes.mod.aethernautics",
+  "concepts": {
+    "chronographers": {
+      "terms": [
+        "chronographer",
+        "chronography",
+        "imperfection",
+        "temporal integrity"
+      ],
+      "record_hits": [
+        {
+          "record_type": "BOOK",
+          "form_id": "05002F9A",
+          "editor_id": "_an_firstletter",
+          "source_offset": 25602
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FA0",
+          "editor_id": "_an_report4",
+          "source_offset": 32691
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FA7",
+          "editor_id": "_an_chrono1",
+          "source_offset": 40380
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FA8",
+          "editor_id": "_an_chrono2",
+          "source_offset": 43339
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FA9",
+          "editor_id": "_an_chrono3",
+          "source_offset": 46655
+        },
+        {
+          "record_type": "QUST",
+          "form_id": "0504730A",
+          "editor_id": "_an_reactivate",
+          "source_offset": 960620
+        }
+      ],
+      "hit_count": 6
+    },
+    "rthamaz": {
+      "terms": [
+        "rthamaz"
+      ],
+      "record_hits": [
+        {
+          "record_type": "BOOK",
+          "form_id": "05002F9A",
+          "editor_id": "_an_firstletter",
+          "source_offset": 25602
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FA1",
+          "editor_id": "_an_report3",
+          "source_offset": 35092
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FA2",
+          "editor_id": "_an_report2",
+          "source_offset": 35910
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FA3",
+          "editor_id": "_an_report1",
+          "source_offset": 37000
+        },
+        {
+          "record_type": "QUST",
+          "form_id": "0504730A",
+          "editor_id": "_an_reactivate",
+          "source_offset": 960620
+        }
+      ],
+      "hit_count": 5
+    },
+    "nzhavananear": {
+      "terms": [
+        "nzhavananear",
+        "aethership"
+      ],
+      "record_hits": [
+        {
+          "record_type": "BOOK",
+          "form_id": "05002F9D",
+          "editor_id": "_an_enginenote1",
+          "source_offset": 28235
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FA0",
+          "editor_id": "_an_report4",
+          "source_offset": 32691
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FA3",
+          "editor_id": "_an_report1",
+          "source_offset": 37000
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FA4",
+          "editor_id": "_an_response1",
+          "source_offset": 38320
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FA5",
+          "editor_id": "_an_response2",
+          "source_offset": 39063
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FA6",
+          "editor_id": "_an_journal",
+          "source_offset": 39748
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FAB",
+          "editor_id": "_an_adgrannote2",
+          "source_offset": 48614
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FAD",
+          "editor_id": "_an_guns",
+          "source_offset": 50330
+        },
+        {
+          "record_type": "QUST",
+          "form_id": "0504730A",
+          "editor_id": "_an_reactivate",
+          "source_offset": 960620
+        }
+      ],
+      "hit_count": 9
+    },
+    "aetherium_and_aetherions": {
+      "terms": [
+        "aetherium",
+        "starmetal",
+        "aetherion"
+      ],
+      "record_hits": [
+        {
+          "record_type": "BOOK",
+          "form_id": "05002F9D",
+          "editor_id": "_an_enginenote1",
+          "source_offset": 28235
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FAB",
+          "editor_id": "_an_adgrannote2",
+          "source_offset": 48614
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FAC",
+          "editor_id": "_an_journal1",
+          "source_offset": 49680
+        },
+        {
+          "record_type": "MESG",
+          "form_id": "05088EEE",
+          "editor_id": "notEnough",
+          "source_offset": 968705
+        },
+        {
+          "record_type": "MESG",
+          "form_id": "05088EEF",
+          "editor_id": "fullFuel",
+          "source_offset": 968894
+        },
+        {
+          "record_type": "MESG",
+          "form_id": "0509319E",
+          "editor_id": "lootalert",
+          "source_offset": 970480
+        }
+      ],
+      "hit_count": 6
+    },
+    "sotha_sil_clockwork_city": {
+      "terms": [
+        "sotha sil",
+        "clockwork city"
+      ],
+      "record_hits": [
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FA7",
+          "editor_id": "_an_chrono1",
+          "source_offset": 40380
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FA9",
+          "editor_id": "_an_chrono3",
+          "source_offset": 46655
+        },
+        {
+          "record_type": "MESG",
+          "form_id": "0508E040",
+          "editor_id": "SothaDestination",
+          "source_offset": 970050
+        }
+      ],
+      "hit_count": 3
+    },
+    "masser_lunar_colony": {
+      "terms": [
+        "masser",
+        "moon colony",
+        "lunar"
+      ],
+      "record_hits": [
+        {
+          "record_type": "MESG",
+          "form_id": "0508E041",
+          "editor_id": "MasserDestination",
+          "source_offset": 970193
+        }
+      ],
+      "hit_count": 1
+    },
+    "harquebuses": {
+      "terms": [
+        "harquebus"
+      ],
+      "record_hits": [
+        {
+          "record_type": "BOOK",
+          "form_id": "05002F9F",
+          "editor_id": "_an_enginenote3",
+          "source_offset": 31911
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FA3",
+          "editor_id": "_an_report1",
+          "source_offset": 37000
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FA8",
+          "editor_id": "_an_chrono2",
+          "source_offset": 43339
+        },
+        {
+          "record_type": "BOOK",
+          "form_id": "05002FAD",
+          "editor_id": "_an_guns",
+          "source_offset": 50330
+        }
+      ],
+      "hit_count": 4
+    }
+  }
+}

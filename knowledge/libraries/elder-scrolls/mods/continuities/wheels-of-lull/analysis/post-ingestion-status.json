@@ -36,7 +36,8 @@
     "verified_current_aethernautics_3_1_source_ingestion": true,
     "verified_current_sotha_sil_expanded_3_1_source_ingestion": true,
     "current_chronocoda_full_structure_integration": true,
-    "historical_edition_archaeology_required": false
+    "historical_edition_archaeology_required": false,
+    "current_chronocoda_semantic_synthesis_pass_01": true
   },
   "metrics": {
     "structured_source_records": 1090,
@@ -76,13 +77,13 @@
   },
   "only_remaining_raw_repair": [],
   "repair_blocker": null,
-  "next_stage_after_repair": "No source-ingestion blocker remains. Current Aethernautics 3.1, Sotha Sil Expanded 3.1, and Wheels sources are structurally sufficient for the library goal. Continue cross-continuity semantic synthesis and retrieval improvements.",
+  "next_stage_after_repair": "No source-ingestion blocker remains. Current source structure and first cross-continuity semantic synthesis are complete; continue dossier-level semantic enrichment.",
   "provenance_progress": "Pass 06 added verified current Aethernautics 3.1 and Sotha Sil Expanded 3.1 source scopes and deterministic cross-continuity BOOK comparison. Eleven Wheels BOOK records now have current witnesses; seven of the ten historically unresolved named works have current shared-work counterparts. Historical pre-Wheels origin classifications remain unchanged because the verified packages are 2025/2026 editions.",
   "provenance_current_source_blockers": [],
   "next_high_value_inputs": [
-    "Current-snapshot semantic synthesis over Sotha script/dialogue/quest structure and its relationship to Wheels/Aethernautics.",
-    "Character, faction, place, artifact/technology, metaphysics, branch, and tension dossiers derived from the complete current-source corpus.",
-    "Cross-continuity concept/entity graph and retrieval routes that preserve source scope and reliability."
+    "Source-scoped character dossiers for Sotha/ChronoC0da entities, beginning with Gestalt, Archcanon, Century Adgran, and cross-source Chronographer participants.",
+    "Faction/place/artifact dossiers for Chronographers, Armour of Oscillating Quartz, Clockwork City, Rthamaz, Nzhavananear, Imperfections, pneuma, and related systems.",
+    "Quest-branch and metaphysics synthesis using the persisted dialogue/script/source layer."
   ],
   "repeat_work_guard": "Do not repeat source verification, passes 03-06, current book comparison, full current-source structural extraction, or historical package hunting. Historical edition archaeology is optional only. Resume with semantic synthesis over the persisted current snapshots.",
   "semantic_followup": "Added source-scoped analysis for Musings On Power, De Rerum Mutabilitatis, and How Two Moon; promoted six new book-backed claims without changing provenance status.",
@@ -150,8 +151,10 @@
   "current_snapshot_structure": {
     "status": "complete",
     "umbrella": "../trainwiz-chronocoda",
-    "manifest": "../trainwiz-chronocoda/corpus/manifest.json",
-    "virtual_artifacts": 53,
+    "manifest": "../trainwiz-chronocoda/current-source-structure-manifest.json",
+    "ingestion_manifest": "../trainwiz-chronocoda/full-structure-ingestion.json",
+    "semantic_artifacts": 53,
+    "deterministic_source_layer_files": 45,
     "historical_diffing_required": false
   }
 }

@@ -1,7 +1,7 @@
 {
   "continuity_id": "tes.mod.dealing-with-daedra",
   "source_sha256": "c278b1a9ccaa7080579a6421a0c21d6b0513a2ad8263048c3c96208bd6a19133",
-  "status": "high_value_book_provenance_identity_verified_central_records_pending",
+  "status": "high_value_book_provenance_routed_to_central_work_records",
   "policy": {
     "centralization": "Central work identity does not erase Dealing-with-Daedra placement, wrappers, annotations, or variant text.",
     "unresolved": "A candidate witness or narrative match is not promoted to a stable canonical work ID without source verification.",
@@ -15,10 +15,10 @@
       "continuity_id": "tes.mod.dealing-with-daedra",
       "local_embedding": true,
       "origin_status": "verified_base_game_text_reuse",
-      "relation": "embedded_base_game_story_text_candidate",
-      "central_work_state": "external_identity_and_text_verified_central_record_pending",
+      "relation": "embedded_official_work_exact_after_presentation_normalization",
+      "central_work_state": "central_work_record_created",
       "exact_text_identity": "verified_after_removing_falmer_font_markup_and_normalizing_whitespace",
-      "overlay_policy": "retain local title, placement/context, and Falmer-font wrapper; route the reused journal text to a future central Skyrim work record",
+      "overlay_policy": "retain local title, placement/context, and Falmer-font wrapper while routing shared work identity to tes.work.gallus-encoded-journal",
       "work_identity": "Gallus's Encoded Journal",
       "author": "Gallus Desidenius",
       "local_title_variant": "Encoded Dossier",
@@ -47,7 +47,9 @@
           "url": "https://elderscrolls.fandom.com/wiki/Gallus%27s_Journal",
           "scope": "author, translated-journal relationship, translated FormID"
         }
-      ]
+      ],
+      "central_work_id": "tes.work.gallus-encoded-journal",
+      "central_work_path": "knowledge/libraries/elder-scrolls/books/works/tes.work.gallus-encoded-journal.json"
     },
     {
       "form_id": "05815E32",
@@ -59,7 +61,7 @@
       "origin_status": "verified_established_work_reuse_with_mod_specific_wrapper",
       "work_identity": "Fundaments of Alchemy",
       "relation": "embedded_work_plus_continuity_overlay",
-      "central_work_state": "external_work_identity_verified_central_record_pending",
+      "central_work_state": "central_work_record_created",
       "candidate_external_witness": {
         "path": "knowledge/libraries/elder-scrolls/sources/bf-books-eso/batches/books-1151-1200.jsonl",
         "form_id": "01012E04",
@@ -98,7 +100,9 @@
           "url": "https://elderscrolls.fandom.com/wiki/Fundaments_of_Alchemy",
           "scope": "work identity, author, Oblivion FormID, Oblivion/ESO appearances"
         }
-      ]
+      ],
+      "central_work_id": "tes.work.fundaments-of-alchemy",
+      "central_work_path": "knowledge/libraries/elder-scrolls/books/works/tes.work.fundaments-of-alchemy.json"
     }
   ],
   "exact_local_duplicate_groups": [

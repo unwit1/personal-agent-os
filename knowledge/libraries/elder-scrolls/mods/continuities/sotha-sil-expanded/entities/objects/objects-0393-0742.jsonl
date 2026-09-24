@@ -1,0 +1,350 @@
+{"record_type": "ACTI", "editor_id": "act_sotha_sewer7", "full_name": "Rusted lever", "script": "SothaSewerLever7", "source_offset": 686372}
+{"record_type": "ACTI", "editor_id": "act_sotha_sewerdoor7", "full_name": "", "script": "LocalState", "source_offset": 686497}
+{"record_type": "ACTI", "editor_id": "act_sotha_smasher", "full_name": "", "script": "Sotha_Smash1", "source_offset": 686603}
+{"record_type": "ACTI", "editor_id": "act_sotha_clockworksmash", "full_name": "", "script": "Sotha_Smash1", "source_offset": 686705}
+{"record_type": "ACTI", "editor_id": "act_sotha_panelraise", "full_name": "", "script": "Sotha_PanelRaiseScript1", "source_offset": 686818}
+{"record_type": "ACTI", "editor_id": "act_sotha_pressureplate", "full_name": "", "script": "SothaPressureActivate", "source_offset": 686937}
+{"record_type": "ACTI", "editor_id": "act_sotha_wires", "full_name": "", "source_offset": 687062}
+{"record_type": "ACTI", "editor_id": "act_sotha_grate_enter1", "full_name": "Grate", "source_offset": 687140}
+{"record_type": "ACTI", "editor_id": "act_sotha_spinpipe", "full_name": "", "script": "Sotha_pipespin2", "source_offset": 687235}
+{"record_type": "ACTI", "editor_id": "act_sotha_spinpipe2", "full_name": "", "script": "Sotha_pipespin1", "source_offset": 687348}
+{"record_type": "ACTI", "editor_id": "act_sotha_panel02", "full_name": "", "script": "Sotha_panelmove1", "source_offset": 687462}
+{"record_type": "ACTI", "editor_id": "act_sotha_panelrod02", "full_name": "", "script": "Sotha_panelmove2", "source_offset": 687576}
+{"record_type": "ACTI", "editor_id": "act_sotha_bigwall", "full_name": "", "source_offset": 687687}
+{"record_type": "ACTI", "editor_id": "act_sotha_waterfountain", "full_name": "", "source_offset": 687772}
+{"record_type": "ACTI", "editor_id": "act_sotha_vista1", "full_name": "", "script": "sotha_workshopscene2", "source_offset": 687865}
+{"record_type": "ACTI", "editor_id": "act_sotha_vista2", "full_name": "", "script": "sotha_workshopscene2", "source_offset": 687979}
+{"record_type": "ACTI", "editor_id": "act_sotha_vista3", "full_name": "", "script": "sotha_workshopscene2", "source_offset": 688089}
+{"record_type": "ACTI", "editor_id": "act_sotha_vista_en", "full_name": "", "script": "sotha_workshopscene1", "source_offset": 688202}
+{"record_type": "ACTI", "editor_id": "act_sotha_pipefall", "full_name": "", "script": "sotha_pipefall", "source_offset": 688321}
+{"record_type": "ACTI", "editor_id": "Sound_Sotha_Static", "full_name": "Sound_Sotha_Staic", "script": "Sound_SothaStatic", "source_offset": 688429}
+{"record_type": "ACTI", "editor_id": "act_sotha_flooraway", "full_name": "", "script": "sotha_idiotfall", "source_offset": 688549}
+{"record_type": "ACTI", "editor_id": "_111_Waterfallmist01", "full_name": "", "source_offset": 688659}
+{"record_type": "ACTI", "editor_id": "_111Waterfallblood_01", "full_name": "", "source_offset": 688750}
+{"record_type": "ACTI", "editor_id": "_111Waterfallblood_02", "full_name": "", "source_offset": 688843}
+{"record_type": "ACTI", "editor_id": "_111Waterfallblood_03", "full_name": "", "source_offset": 688936}
+{"record_type": "ACTI", "editor_id": "in_sotha_oilfall", "full_name": "", "source_offset": 689029}
+{"record_type": "ACTI", "editor_id": "in_sotha_oilfall2", "full_name": "", "source_offset": 689114}
+{"record_type": "ACTI", "editor_id": "in_sotha_oilfall3", "full_name": "", "source_offset": 689201}
+{"record_type": "ACTI", "editor_id": "in_sotha_wall1", "full_name": "", "script": "Sotha_AntiWall1", "source_offset": 689288}
+{"record_type": "ACTI", "editor_id": "in_sotha_wall2", "full_name": "", "script": "Sotha_AntiWall2", "source_offset": 689395}
+{"record_type": "ACTI", "editor_id": "act_sotha_conveyorbelt", "full_name": "", "script": "NI_looping_landscape", "source_offset": 689502}
+{"record_type": "ACTI", "editor_id": "act_sotha_watchup", "full_name": "", "script": "sprigganeffect", "source_offset": 689625}
+{"record_type": "ACTI", "editor_id": "act_sotha_ersat", "full_name": "Ersatidium", "source_offset": 689729}
+{"record_type": "ACTI", "editor_id": "act_sotha_elevatorlever", "full_name": "Lift Control", "script": "Sotha_Lift1", "source_offset": 689817}
+{"record_type": "ACTI", "editor_id": "act_sotha_vivecdead", "full_name": "", "script": "sotha_vivecdeathscript", "source_offset": 689936}
+{"record_type": "ACTI", "editor_id": "act_Sotha_Music", "full_name": "Sotha Ambient", "script": "Sotha_music", "source_offset": 690056}
+{"record_type": "ACTI", "editor_id": "act_sotha_wall", "full_name": "", "source_offset": 690163}
+{"record_type": "ACTI", "editor_id": "act_sotha_almawall", "full_name": "", "script": "Sotha_Almadeathscript", "source_offset": 690249}
+{"record_type": "ACTI", "editor_id": "act_sotha_rotatingwall1", "full_name": "", "script": "sotha_walltate1", "source_offset": 690369}
+{"record_type": "ACTI", "editor_id": "act_sotha_rotatingwall2", "full_name": "", "script": "sotha_walltate2", "source_offset": 690488}
+{"record_type": "ACTI", "editor_id": "act_sotha_conveyorbelt2", "full_name": "", "script": "NI_looping_landscape2", "source_offset": 690607}
+{"record_type": "ACTI", "editor_id": "act_sotha_oraculever", "full_name": "Rusted lever", "script": "Sotha_Lift2", "source_offset": 690732}
+{"record_type": "ACTI", "editor_id": "act_sotha_conveyorbelt3", "full_name": "", "script": "NI_looping_landscape3", "source_offset": 690848}
+{"record_type": "ACTI", "editor_id": "act_sotha_factorycrush", "full_name": "Factory Crusher", "script": "Sotha_Smash2", "source_offset": 690973}
+{"record_type": "ACTI", "editor_id": "act_sotha_smasher_ns", "full_name": "", "script": "Sotha_Smash1_ns", "source_offset": 691103}
+{"record_type": "ACTI", "editor_id": "act_sotha_smasher_ns2", "full_name": "", "script": "Sotha_Smash3", "source_offset": 691211}
+{"record_type": "ACTI", "editor_id": "Sound_Sotha_Fact1", "full_name": "", "script": "Sound_SothaFactory1", "source_offset": 691317}
+{"record_type": "ACTI", "editor_id": "Sound_Sotha_Fact2", "full_name": "", "script": "Sound_SothaFactory2", "source_offset": 691421}
+{"record_type": "ACTI", "editor_id": "Sound_Sotha_Fact3", "full_name": "", "script": "Sound_SothaFactory3", "source_offset": 691525}
+{"record_type": "ACTI", "editor_id": "act_sotha_bigeditor", "full_name": "", "source_offset": 691629}
+{"record_type": "ACTI", "editor_id": "act_hot_oil_1024", "full_name": "", "script": "lava", "source_offset": 691716}
+{"record_type": "ACTI", "editor_id": "Sound_Sotha_Fact4", "full_name": "", "script": "Sound_SothaFactory4", "source_offset": 691814}
+{"record_type": "ACTI", "editor_id": "Sound_Sotha_Fact5", "full_name": "", "script": "Sound_SothaFactory5", "source_offset": 691918}
+{"record_type": "ACTI", "editor_id": "Sound_Sotha_Fact6", "full_name": "", "script": "Sound_SothaFactory6", "source_offset": 692022}
+{"record_type": "ACTI", "editor_id": "act_sotha_conveyorbelt5", "full_name": "", "script": "NI_looping_landscape4", "source_offset": 692126}
+{"record_type": "ACTI", "editor_id": "act_sotha_elevator1", "full_name": "Elevator", "script": "Sotha_PlantLift1", "source_offset": 692251}
+{"record_type": "ACTI", "editor_id": "act_sotha_clockdoors", "full_name": "Heavy Metal Door", "script": "Sotha_ClockDoorActScript", "source_offset": 692370}
+{"record_type": "ACTI", "editor_id": "LightningBoltNS", "full_name": "", "source_offset": 692502}
+{"record_type": "ACTI", "editor_id": "act_sotha_plantred", "full_name": "", "script": "Sotha_Fab_R_Light1", "source_offset": 692585}
+{"record_type": "ACTI", "editor_id": "act_sotha_plantgreen", "full_name": "", "script": "Sotha_Fab_G_Light1", "source_offset": 692696}
+{"record_type": "ACTI", "editor_id": "act_sotha_forefield", "full_name": "", "source_offset": 692811}
+{"record_type": "ACTI", "editor_id": "act_sotha_harverster", "full_name": "Life Harvester", "source_offset": 692895}
+{"record_type": "ACTI", "editor_id": "act_sotha_dwelever", "full_name": "Lever of Akatosh", "script": "Sotha_Time_L1", "source_offset": 692998}
+{"record_type": "ACTI", "editor_id": "act_sotha_timegreen1", "full_name": "", "script": "Sotha_Time_G1", "source_offset": 693118}
+{"record_type": "ACTI", "editor_id": "act_sotha_deathgear", "full_name": "", "script": "Collide_damage_kill", "source_offset": 693228}
+{"record_type": "ACTI", "editor_id": "act_sotha_conveyorbelt4", "full_name": "", "script": "NI_looping_landscape5", "source_offset": 693340}
+{"record_type": "ACTI", "editor_id": "act_sotha_rotatingwall3", "full_name": "", "script": "sotha_walltate3", "source_offset": 693465}
+{"record_type": "ACTI", "editor_id": "act_sotha_leverhouse", "full_name": "Rusted lever", "script": "Sotha_Opengate1", "source_offset": 693584}
+{"record_type": "ACTI", "editor_id": "act_sotha_fyrgate1", "full_name": "Gate", "script": "sotha_fyrgatescript", "source_offset": 693704}
+{"record_type": "ACTI", "editor_id": "act_sotha_fyrgate2", "full_name": "Gate", "script": "sotha_fyrgatescript", "source_offset": 693822}
+{"record_type": "ACTI", "editor_id": "act_sotha_outersewerlever", "full_name": "Rusted Lever", "script": "Sotha_Puzzle1", "source_offset": 693940}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzlelever1", "full_name": "Rusted Lever", "script": "Sotha_Puzzle_part1", "source_offset": 694063}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzlelever2", "full_name": "Rusted Lever", "script": "Sotha_Puzzle_part2", "source_offset": 694188}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzlelever3", "full_name": "Rusted Lever", "script": "Sotha_Puzzle_part3", "source_offset": 694313}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzlelever4", "full_name": "Rusted Lever", "script": "Sotha_Puzzle_part4", "source_offset": 694438}
+{"record_type": "ACTI", "editor_id": "act_sotha_blue", "full_name": "", "source_offset": 694563}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzleblue1", "full_name": "", "script": "Sotha_Puzzle_Blue1", "source_offset": 694644}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzlegreen1", "full_name": "", "script": "Sotha_Puzzle_Green1", "source_offset": 694759}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzlered1", "full_name": "", "script": "Sotha_Puzzle_Red1", "source_offset": 694877}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzlegreen2", "full_name": "", "script": "Sotha_Puzzle_Green2", "source_offset": 694989}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzlegreen3", "full_name": "", "script": "Sotha_Puzzle_Green3", "source_offset": 695107}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzlegreen4", "full_name": "", "script": "Sotha_Puzzle_Green4", "source_offset": 695225}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzleblue2", "full_name": "", "script": "Sotha_Puzzle_Blue2", "source_offset": 695343}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzleblue3", "full_name": "", "script": "Sotha_Puzzle_Blue3", "source_offset": 695458}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzleblue4", "full_name": "", "script": "Sotha_Puzzle_Blue4", "source_offset": 695573}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzlered2", "full_name": "", "script": "Sotha_Puzzle_Red2", "source_offset": 695688}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzlered3", "full_name": "", "script": "Sotha_Puzzle_Red3", "source_offset": 695800}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzlered4", "full_name": "", "script": "Sotha_Puzzle_Red4", "source_offset": 695912}
+{"record_type": "ACTI", "editor_id": "act_sotha_green", "full_name": "", "source_offset": 696024}
+{"record_type": "ACTI", "editor_id": "act_sotha_red", "full_name": "", "source_offset": 696107}
+{"record_type": "ACTI", "editor_id": "act_sotha_bigeditorkill", "full_name": "", "script": "Collide_damage_kill2", "source_offset": 696186}
+{"record_type": "ACTI", "editor_id": "act_sotha_slipnslide", "full_name": "", "script": "NI_looping_landscapewhirl", "source_offset": 696306}
+{"record_type": "ACTI", "editor_id": "act_sotha_innerpuzzledoor1", "full_name": "", "script": "LocalState", "source_offset": 696426}
+{"record_type": "ACTI", "editor_id": "act_sotha_innerpuzzledoor2", "full_name": "", "script": "LocalState", "source_offset": 696538}
+{"record_type": "ACTI", "editor_id": "act_sotha_innerpuzzledoor3", "full_name": "", "script": "LocalState", "source_offset": 696650}
+{"record_type": "ACTI", "editor_id": "act_sotha_innerpuzzledoor4", "full_name": "", "script": "LocalState", "source_offset": 696762}
+{"record_type": "ACTI", "editor_id": "act_sotha_innerpuzzledoor5", "full_name": "", "script": "LocalState", "source_offset": 696874}
+{"record_type": "ACTI", "editor_id": "act_sotha_innerpuzzledoor6", "full_name": "", "script": "LocalState", "source_offset": 696986}
+{"record_type": "ACTI", "editor_id": "act_sotha_innerpuzzledoor7", "full_name": "", "script": "LocalState", "source_offset": 697098}
+{"record_type": "ACTI", "editor_id": "act_sotha_innerpuzzledoor8", "full_name": "", "script": "LocalState", "source_offset": 697210}
+{"record_type": "ACTI", "editor_id": "act_sotha_innerpuzzlelever1", "full_name": "Rusted lever", "script": "SothaInnerPuzzleLever1", "source_offset": 697322}
+{"record_type": "ACTI", "editor_id": "act_sotha_innerpuzzlelever2", "full_name": "Rusted lever", "script": "SothaInnerPuzzleLever2", "source_offset": 697456}
+{"record_type": "ACTI", "editor_id": "act_sotha_innerpuzzlelever3", "full_name": "Rusted lever", "script": "SothaInnerPuzzleLever3", "source_offset": 697590}
+{"record_type": "ACTI", "editor_id": "act_sotha_innerpuzzlelever4", "full_name": "Rusted lever", "script": "SothaInnerPuzzleLever4", "source_offset": 697724}
+{"record_type": "ACTI", "editor_id": "act_sotha_innerpuzzlelever5", "full_name": "Rusted lever", "script": "SothaInnerPuzzleLever5", "source_offset": 697858}
+{"record_type": "ACTI", "editor_id": "act_sotha_innerpuzzlelever6", "full_name": "Rusted lever", "script": "SothaInnerPuzzleLever6", "source_offset": 697992}
+{"record_type": "ACTI", "editor_id": "act_sotha_innerpuzzlelever7", "full_name": "Rusted lever", "script": "SothaInnerPuzzleLever7", "source_offset": 698126}
+{"record_type": "ACTI", "editor_id": "act_sotha_innerpuzzlelever8", "full_name": "Rusted lever", "script": "SothaInnerPuzzleLever8", "source_offset": 698260}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzlewaterfall1", "full_name": "", "script": "Sotha_InnerPuzzleWater4", "source_offset": 698394}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzlewaterfall2", "full_name": "", "script": "Sotha_InnerPuzzleWater3", "source_offset": 698522}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzlewaterfall3", "full_name": "", "script": "Sotha_InnerPuzzleWater2", "source_offset": 698650}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzlewaterfall4", "full_name": "", "script": "Sotha_InnerPuzzleWater1", "source_offset": 698778}
+{"record_type": "ACTI", "editor_id": "act_sotha_breakablewindow1", "full_name": "Fragile Window", "script": "Sotha_breakglass1", "source_offset": 698906}
+{"record_type": "ACTI", "editor_id": "act_sotha_breakablewindow2", "full_name": "Fragile Window", "script": "Sotha_breakglass2", "source_offset": 699038}
+{"record_type": "ACTI", "editor_id": "act_sotha_vista4", "full_name": "", "script": "sotha_workshopscene2", "source_offset": 699170}
+{"record_type": "ACTI", "editor_id": "act_sotha_workshopload", "full_name": "Dark crevice", "source_offset": 699287}
+{"record_type": "ACTI", "editor_id": "act_sotha_tenderizer_nd1", "full_name": "", "source_offset": 699389}
+{"record_type": "ACTI", "editor_id": "act_sotha_tenderizer_nd2", "full_name": "", "source_offset": 699482}
+{"record_type": "ACTI", "editor_id": "act_sotha_workshopmarker", "full_name": "", "script": "Sotha_InnerCity_Teleport", "source_offset": 699575}
+{"record_type": "ACTI", "editor_id": "act_sotha_garbagepile", "full_name": "Pile of Garbage", "script": "Sotha_TrashPuzzle1", "source_offset": 699691}
+{"record_type": "ACTI", "editor_id": "act_sotha_garbageweight", "full_name": "Weighted Lock", "script": "Sotha_TrashPuzzle2", "source_offset": 699821}
+{"record_type": "ACTI", "editor_id": "act_sotha_garbagescene1", "full_name": "", "script": "Sotha_TrashScene", "source_offset": 699948}
+{"record_type": "ACTI", "editor_id": "act_sotha_garbagescene2", "full_name": "", "script": "Sotha_TrashScene", "source_offset": 700060}
+{"record_type": "ACTI", "editor_id": "act_sotha_garbagescene3", "full_name": "", "script": "Sotha_TrashScene", "source_offset": 700173}
+{"record_type": "ACTI", "editor_id": "Sotha_Line1", "full_name": "SothaLine1", "script": "SothaLine1", "source_offset": 700293}
+{"record_type": "ACTI", "editor_id": "act_sotha_forcefield", "full_name": "", "source_offset": 700392}
+{"record_type": "ACTI", "editor_id": "act_sotha_deliriumlift", "full_name": "Lift", "script": "Sotha_DelirimLift", "source_offset": 700483}
+{"record_type": "ACTI", "editor_id": "act_sothatrapplat", "full_name": "", "script": "sotha_idiotfall2", "source_offset": 700599}
+{"record_type": "ACTI", "editor_id": "act_sotha_trappart1", "full_name": "", "script": "Sotha_TrapScript2", "source_offset": 700713}
+{"record_type": "ACTI", "editor_id": "act_sotha_trappart2", "full_name": "", "source_offset": 700822}
+{"record_type": "ACTI", "editor_id": "act_sotha_trappart3", "full_name": "", "script": "Sotha_TrapScript2", "source_offset": 700905}
+{"record_type": "ACTI", "editor_id": "act_sotha_bladetrap", "full_name": "", "script": "Sotha_TrapBladeScript", "source_offset": 701014}
+{"record_type": "ACTI", "editor_id": "act_sotha_trapstairs", "full_name": "", "script": "sotha_idiotfall3", "source_offset": 701130}
+{"record_type": "ACTI", "editor_id": "Sotha_Line2", "full_name": "SothaLine2", "script": "SothaLine2", "source_offset": 701245}
+{"record_type": "ACTI", "editor_id": "Sotha_Line3", "full_name": "SothaLine3", "script": "SothaLine3", "source_offset": 701344}
+{"record_type": "ACTI", "editor_id": "Sotha_Line4", "full_name": "SothaLine4", "script": "SothaLine4", "source_offset": 701443}
+{"record_type": "ACTI", "editor_id": "Sotha_Line5", "full_name": "SothaLine5", "script": "SothaLine5", "source_offset": 701542}
+{"record_type": "ACTI", "editor_id": "act_magnus_illplat", "full_name": "", "script": "Magnus_LightPlatform", "source_offset": 701641}
+{"record_type": "ACTI", "editor_id": "act_magnus_lgihtningrod", "full_name": "Rod", "script": "Magnus_getLight", "source_offset": 701760}
+{"record_type": "ACTI", "editor_id": "magnus_lever", "full_name": "Vault of Magnus Lever", "script": "MagnusLever", "source_offset": 701875}
+{"record_type": "ACTI", "editor_id": "magnus_door1", "full_name": "", "script": "LocalState", "source_offset": 701992}
+{"record_type": "ACTI", "editor_id": "magnus_door2", "full_name": "", "script": "LocalState", "source_offset": 702086}
+{"record_type": "ACTI", "editor_id": "magnus_door3", "full_name": "", "script": "LocalState", "source_offset": 702180}
+{"record_type": "ACTI", "editor_id": "magnus_mysti_lever1", "full_name": "Rusted lever", "script": "Magnus_MystiLever1", "source_offset": 702274}
+{"record_type": "ACTI", "editor_id": "magnus_mysti_lever2", "full_name": "Rusted lever", "script": "Magnus_MystiLever2", "source_offset": 702396}
+{"record_type": "ACTI", "editor_id": "magnus_laser", "full_name": "", "source_offset": 702518}
+{"record_type": "ACTI", "editor_id": "magnus_laser_firer", "full_name": "", "script": "magnus_laser", "source_offset": 702595}
+{"record_type": "ACTI", "editor_id": "magnus_lever_destr", "full_name": "Begin Destruction Test", "script": "MagnusLever_destry", "source_offset": 702702}
+{"record_type": "ACTI", "editor_id": "magnus_lever_restor", "full_name": "Begin Restoration Test", "script": "MagnusLever_restore", "source_offset": 702833}
+{"record_type": "ACTI", "editor_id": "magnus_laser_firer2", "full_name": "", "script": "magnus_laser2", "source_offset": 702966}
+{"record_type": "ACTI", "editor_id": "magnus_summonplatform1", "full_name": "", "script": "Magnus_Summon1", "source_offset": 703075}
+{"record_type": "ACTI", "editor_id": "magnus_summonplatform2", "full_name": "", "script": "Magnus_Summon2", "source_offset": 703190}
+{"record_type": "ACTI", "editor_id": "magnus_summonplatform3", "full_name": "", "script": "Magnus_Summon3", "source_offset": 703305}
+{"record_type": "ACTI", "editor_id": "magnus_summonplatform4", "full_name": "", "script": "Magnus_Summon4", "source_offset": 703420}
+{"record_type": "ACTI", "editor_id": "Sotha_Line6", "full_name": "SothaLine6", "script": "SothaLine6", "source_offset": 703535}
+{"record_type": "ACTI", "editor_id": "Sotha_Line7", "full_name": "SothaLine7", "script": "SothaLine7", "source_offset": 703634}
+{"record_type": "ACTI", "editor_id": "Sotha_Line8", "full_name": "SothaLine8", "script": "SothaLine8", "source_offset": 703733}
+{"record_type": "ACTI", "editor_id": "act_sotha_antifloor", "full_name": "", "script": "Sotha_AntiWall3", "source_offset": 703832}
+{"record_type": "ACTI", "editor_id": "act_sotha_conveyorbelt4_m", "full_name": "", "script": "NI_looping_landscape5_m", "source_offset": 703942}
+{"record_type": "ACTI", "editor_id": "act_sotha_rotatingwall3_m", "full_name": "", "script": "sotha_walltate3_m", "source_offset": 704071}
+{"record_type": "ACTI", "editor_id": "act_sotha_machine_1", "full_name": "Aetherial Spawning Core Control", "script": "Sotha_MachineReset_Core", "source_offset": 704194}
+{"record_type": "ACTI", "editor_id": "act_sotha_machine_2", "full_name": "Birthing Gears Control", "script": "Sotha_MachineReset_Gears", "source_offset": 704346}
+{"record_type": "ACTI", "editor_id": "act_sotha_machine_3", "full_name": "Welding Pillars Control", "script": "Sotha_MachineReset_Welding", "source_offset": 704490}
+{"record_type": "ACTI", "editor_id": "act_sotha_machine_4", "full_name": "Main Spawning Control", "script": "Sotha_MachineReset_Main", "source_offset": 704637}
+{"record_type": "ACTI", "editor_id": "act_sotha_machine_5", "full_name": "Aetherial Spawning Core Switch", "script": "Sotha_MachineReset_switch", "source_offset": 704779}
+{"record_type": "ACTI", "editor_id": "act_sotha_green_m1", "full_name": "", "script": "Sotha_M_G_Light1", "source_offset": 704932}
+{"record_type": "ACTI", "editor_id": "act_sotha_green_m2", "full_name": "", "script": "Sotha_M_G_Light2", "source_offset": 705043}
+{"record_type": "ACTI", "editor_id": "act_sotha_green_m3", "full_name": "", "script": "Sotha_M_G_Light3", "source_offset": 705154}
+{"record_type": "ACTI", "editor_id": "act_sotha_red_m1", "full_name": "", "script": "Sotha_M_R_Light1", "source_offset": 705265}
+{"record_type": "ACTI", "editor_id": "act_sotha_red_m2", "full_name": "", "script": "Sotha_M_R_Light2", "source_offset": 705372}
+{"record_type": "ACTI", "editor_id": "act_sotha_red_m3", "full_name": "", "script": "Sotha_M_R_Light3", "source_offset": 705479}
+{"record_type": "ACTI", "editor_id": "Sotha_MachineMonitor", "full_name": "Machine Monitor", "script": "Sotha_MachineCurer", "source_offset": 705586}
+{"record_type": "ACTI", "editor_id": "act_sotha_green_plant1", "full_name": "", "source_offset": 705707}
+{"record_type": "ACTI", "editor_id": "act_sotha_green_plant2", "full_name": "", "source_offset": 705797}
+{"record_type": "ACTI", "editor_id": "act_sotha_red_plant1", "full_name": "", "source_offset": 705887}
+{"record_type": "ACTI", "editor_id": "act_sotha_red_plant2", "full_name": "", "source_offset": 705973}
+{"record_type": "ACTI", "editor_id": "act_sotha_plantred2", "full_name": "", "script": "Sotha_Fab_R_Light2", "source_offset": 706059}
+{"record_type": "ACTI", "editor_id": "act_sotha_plantgreen2", "full_name": "", "script": "Sotha_Fab_G_Light2", "source_offset": 706171}
+{"record_type": "ACTI", "editor_id": "act_sotha_dwelever2", "full_name": "Lever of Akatosh", "script": "Sotha_Time_L2", "source_offset": 706287}
+{"record_type": "ACTI", "editor_id": "act_sotha_timered2", "full_name": "", "script": "Sotha_Time_R2", "source_offset": 706408}
+{"record_type": "ACTI", "editor_id": "act_sotha_timered1", "full_name": "", "script": "Sotha_Time_R1", "source_offset": 706514}
+{"record_type": "ACTI", "editor_id": "act_sotha_timered3", "full_name": "", "script": "Sotha_Time_R3", "source_offset": 706620}
+{"record_type": "ACTI", "editor_id": "act_sotha_timered4", "full_name": "", "script": "Sotha_Time_R4", "source_offset": 706726}
+{"record_type": "ACTI", "editor_id": "act_sotha_timegreen2", "full_name": "", "script": "Sotha_Time_G2", "source_offset": 706832}
+{"record_type": "ACTI", "editor_id": "act_sotha_timegreen3", "full_name": "", "script": "Sotha_Time_G3", "source_offset": 706942}
+{"record_type": "ACTI", "editor_id": "act_sotha_timegreen4", "full_name": "", "script": "Sotha_Time_G4", "source_offset": 707052}
+{"record_type": "ACTI", "editor_id": "Garden_C_1", "full_name": "Corrupted Seedling", "script": "Garden_Plant1", "source_offset": 707162}
+{"record_type": "ACTI", "editor_id": "Garden_C_2", "full_name": "Corrupted Sprout", "script": "Garden_Plant2", "source_offset": 707280}
+{"record_type": "ACTI", "editor_id": "Garden_C_3", "full_name": "Corrupted Tree", "script": "Garden_Plant3", "source_offset": 707393}
+{"record_type": "ACTI", "editor_id": "Garden_C_4", "full_name": "Corrupted Overgrown Tree", "script": "Garden_Plant4", "source_offset": 707504}
+{"record_type": "ACTI", "editor_id": "garden_lever", "full_name": "Seed Resetting Mechanism", "script": "Garden_Resurrect", "source_offset": 707625}
+{"record_type": "ACTI", "editor_id": "Garden_P_1", "full_name": "Pure Sprout", "script": "Garden_Sprout1", "source_offset": 707750}
+{"record_type": "ACTI", "editor_id": "Garden_P_2", "full_name": "Pure Tree", "script": "Garden_Tree1", "source_offset": 707859}
+{"record_type": "ACTI", "editor_id": "Garden_P_3", "full_name": "Pure Overgrown Tree", "script": "Garden_Tree2", "source_offset": 707964}
+{"record_type": "ACTI", "editor_id": "Garden_P_4", "full_name": "Pure Seedling", "script": "Garden_Seed1", "source_offset": 708079}
+{"record_type": "ACTI", "editor_id": "Garden_P_4_2", "full_name": "Pure Seedling", "script": "Garden_Seed2", "source_offset": 708191}
+{"record_type": "ACTI", "editor_id": "Garden_P_1_2", "full_name": "Pure Sprout", "script": "Garden_Sprout2", "source_offset": 708305}
+{"record_type": "ACTI", "editor_id": "Garden_S_1", "full_name": "Cleared Soil", "script": "Garden_Soil1", "source_offset": 708416}
+{"record_type": "ACTI", "editor_id": "Garden_talk", "full_name": "Speak to the Gardner", "script": "Garden_speak", "source_offset": 708523}
+{"record_type": "ACTI", "editor_id": "garden_finishcheck", "full_name": "", "script": "Garden_Finish", "source_offset": 708645}
+{"record_type": "ACTI", "editor_id": "Garden_talk2", "full_name": "", "source_offset": 708744}
+{"record_type": "ACTI", "editor_id": "garden_overgrown_spawn", "full_name": "", "script": "garden_overgrown1", "source_offset": 708826}
+{"record_type": "ACTI", "editor_id": "zsun1", "full_name": "", "script": "Sotha_planetscript2", "source_offset": 708933}
+{"record_type": "ACTI", "editor_id": "zsun2transp", "full_name": "", "script": "Sotha_planetscript1", "source_offset": 709027}
+{"record_type": "ACTI", "editor_id": "zmoon", "full_name": "", "script": "Sotha_planetscript3", "source_offset": 709130}
+{"record_type": "ACTI", "editor_id": "zmoon2", "full_name": "", "script": "Sotha_planetscript3", "source_offset": 709221}
+{"record_type": "ACTI", "editor_id": "act_sotha_door_factory", "full_name": "", "script": "LocalState", "source_offset": 709314}
+{"record_type": "ACTI", "editor_id": "act_sotha_lever_factory", "full_name": "Main Manufactory Switch", "script": "Sotha_FactoryFix", "source_offset": 709418}
+{"record_type": "ACTI", "editor_id": "Sotha_Line9_1", "full_name": "SothaLine9", "script": "SothaLine9_1", "source_offset": 709553}
+{"record_type": "ACTI", "editor_id": "Sotha_Line10", "full_name": "SothaLine10", "script": "SothaLine10", "source_offset": 709656}
+{"record_type": "ACTI", "editor_id": "Sotha_Line11", "full_name": "SothaLine11", "script": "SothaLine11", "source_offset": 709758}
+{"record_type": "ACTI", "editor_id": "Sotha_Line12", "full_name": "SothaLine12", "script": "SothaLine12", "source_offset": 709860}
+{"record_type": "ACTI", "editor_id": "Sotha_Line13", "full_name": "SothaLine13", "script": "SothaLine13", "source_offset": 709962}
+{"record_type": "ACTI", "editor_id": "Magnus_Line1", "full_name": "Illusion", "script": "MagnusLine1", "source_offset": 710064}
+{"record_type": "ACTI", "editor_id": "Magnus_Line2", "full_name": "Destruction", "script": "MagnusLine2", "source_offset": 710163}
+{"record_type": "ACTI", "editor_id": "Magnus_Line3", "full_name": "Conjuration", "script": "MagnusLine3", "source_offset": 710265}
+{"record_type": "ACTI", "editor_id": "Magnus_Line4", "full_name": "Alteration", "script": "MagnusLine4", "source_offset": 710367}
+{"record_type": "ACTI", "editor_id": "Magnus_Line5", "full_name": "Restoration", "script": "MagnusLine5", "source_offset": 710468}
+{"record_type": "ACTI", "editor_id": "Magnus_Line6", "full_name": "Mysticism", "script": "MagnusLine6", "source_offset": 710570}
+{"record_type": "ACTI", "editor_id": "Sotha_Line14", "full_name": "SothaLine14", "script": "SothaLine14", "source_offset": 710670}
+{"record_type": "ACTI", "editor_id": "Sotha_Line15", "full_name": "SothaLine15", "script": "SothaLine15", "source_offset": 710772}
+{"record_type": "ACTI", "editor_id": "Sotha_Line16", "full_name": "SothaLine16", "script": "SothaLine17", "source_offset": 710874}
+{"record_type": "ACTI", "editor_id": "Sotha_Line17", "full_name": "SothaLine17", "script": "SothaLine17", "source_offset": 710976}
+{"record_type": "ACTI", "editor_id": "act_sotha_bigwaterfall", "full_name": "", "source_offset": 711078}
+{"record_type": "ACTI", "editor_id": "LightningBoltBig", "full_name": "", "source_offset": 711170}
+{"record_type": "ACTI", "editor_id": "Sotha_Line9_2", "full_name": "SothaLine9", "script": "SothaLine9_2", "source_offset": 711255}
+{"record_type": "ACTI", "editor_id": "Sotha_Line9_3", "full_name": "SothaLine9", "script": "SothaLine9_3", "source_offset": 711358}
+{"record_type": "ACTI", "editor_id": "act_Sotha_Music2", "full_name": "Sotha Ambient", "script": "Sotha_music2", "source_offset": 711461}
+{"record_type": "ACTI", "editor_id": "act_Sotha_Music3", "full_name": "Sotha Ambient", "script": "Sotha_music3", "source_offset": 711570}
+{"record_type": "ACTI", "editor_id": "act_Sotha_Music4", "full_name": "Sotha Ambient", "script": "Sotha_music4", "source_offset": 711679}
+{"record_type": "ACTI", "editor_id": "act_sotha_underlever", "full_name": "Rusted lever", "script": "Sotha_Lift3", "source_offset": 711788}
+{"record_type": "ACTI", "editor_id": "act_Sotha_Music5", "full_name": "Sotha Ambient", "script": "Sotha_music5", "source_offset": 711904}
+{"record_type": "ACTI", "editor_id": "DisableJumping", "full_name": "DisableJumping", "script": "DisableJumping", "source_offset": 712013}
+{"record_type": "ACTI", "editor_id": "act_sotha_nomoveclockwork", "full_name": "", "script": "Sound_SothaGears", "source_offset": 712123}
+{"record_type": "ACTI", "editor_id": "sotha_anvil", "full_name": "Anvil of Mithas", "script": "sotha_mithasanvil", "source_offset": 712241}
+{"record_type": "ACTI", "editor_id": "_imp_rotateoil1", "full_name": "", "script": "_impoil_rotate1", "source_offset": 712358}
+{"record_type": "ACTI", "editor_id": "_imp_rotateoil2", "full_name": "", "script": "_impoil_rotate2", "source_offset": 712463}
+{"record_type": "ACTI", "editor_id": "_imp_rotateoil3", "full_name": "", "script": "_impoil_rotate3", "source_offset": 712568}
+{"record_type": "ACTI", "editor_id": "_imp_rotateoil4", "full_name": "", "script": "_impoil_rotate4", "source_offset": 712673}
+{"record_type": "ACTI", "editor_id": "_imp_vaultdoor1", "full_name": "", "script": "_Imp_VaultOpen1", "source_offset": 712778}
+{"record_type": "ACTI", "editor_id": "_imp_vaultdoor2", "full_name": "", "script": "_Imp_VaultOpen2", "source_offset": 712891}
+{"record_type": "ACTI", "editor_id": "_imp_flesh1", "full_name": "", "source_offset": 713004}
+{"record_type": "ACTI", "editor_id": "_imp_flesh2", "full_name": "", "source_offset": 713078}
+{"record_type": "ACTI", "editor_id": "_imp_flesh3", "full_name": "", "source_offset": 713152}
+{"record_type": "ACTI", "editor_id": "_imp_flesh4", "full_name": "", "source_offset": 713226}
+{"record_type": "ACTI", "editor_id": "_imp_head", "full_name": "", "script": "_imp_shockbolt", "source_offset": 713300}
+{"record_type": "ACTI", "editor_id": "_imp_head2", "full_name": "", "source_offset": 713393}
+{"record_type": "ACTI", "editor_id": "_imp_head3", "full_name": "", "script": "_imp_fall3", "source_offset": 713464}
+{"record_type": "ACTI", "editor_id": "_imp_sotha_cell", "full_name": "", "source_offset": 713554}
+{"record_type": "ACTI", "editor_id": "_imp_sotha_cell2", "full_name": "", "source_offset": 713642}
+{"record_type": "ACTI", "editor_id": "_imp_gun", "full_name": "Containment Field Projector", "script": "_imp_gunsout", "source_offset": 713731}
+{"record_type": "ACTI", "editor_id": "_imp_gestaltarms", "full_name": "", "script": "_imp_gunsout2", "source_offset": 713847}
+{"record_type": "ACTI", "editor_id": "_imp_bosscontrol", "full_name": "Boss Control Module", "script": "_imp_bossmainscript", "source_offset": 713949}
+{"record_type": "ACTI", "editor_id": "_imp_nocollidehouse", "full_name": "", "source_offset": 714071}
+{"record_type": "ACTI", "editor_id": "_imp_bossspawn", "full_name": "Boss Spawner", "script": "_imp_boss_spawn", "source_offset": 714161}
+{"record_type": "ACTI", "editor_id": "_imp_crusher", "full_name": "Corrupted Crusher", "script": "_imp_smasher", "source_offset": 714270}
+{"record_type": "ACTI", "editor_id": "_imp_crusherarms", "full_name": "", "script": "_imp_smasher", "source_offset": 714394}
+{"record_type": "ACTI", "editor_id": "_imp_laser1", "full_name": "", "script": "_imp_laser", "source_offset": 714495}
+{"record_type": "ACTI", "editor_id": "_imp_laserplat", "full_name": "", "script": "_imp_laser", "source_offset": 714583}
+{"record_type": "ACTI", "editor_id": "_imp_force", "full_name": "", "script": "_imp_laser", "source_offset": 714682}
+{"record_type": "ACTI", "editor_id": "_imp_force2", "full_name": "", "script": "_imp_laser", "source_offset": 714777}
+{"record_type": "ACTI", "editor_id": "act_Sotha_Music6", "full_name": "Sotha Ambient", "script": "Sotha_music6", "source_offset": 714879}
+{"record_type": "ACTI", "editor_id": "_imp_sothaplatform", "full_name": "", "source_offset": 714988}
+{"record_type": "ACTI", "editor_id": "_imp_sothaplatform2", "full_name": "", "source_offset": 715080}
+{"record_type": "ACTI", "editor_id": "_imp_laser2", "full_name": "", "script": "_imp_containlaser2", "source_offset": 715173}
+{"record_type": "ACTI", "editor_id": "_imp_shield1", "full_name": "", "script": "_imp_shield3", "source_offset": 715269}
+{"record_type": "ACTI", "editor_id": "_imp_shield2", "full_name": "", "script": "_imp_shield1", "source_offset": 715367}
+{"record_type": "ACTI", "editor_id": "_imp_shield3", "full_name": "", "script": "_imp_shield2", "source_offset": 715465}
+{"record_type": "ACTI", "editor_id": "_imp_killtheFUCKoutofit", "full_name": "Emergency Shutdown Unit", "script": "_imp_destroy", "source_offset": 715563}
+{"record_type": "ACTI", "editor_id": "_imp_laser3", "full_name": "", "source_offset": 715700}
+{"record_type": "ACTI", "editor_id": "_imp_gearfall1", "full_name": "", "script": "_imp_fall1", "source_offset": 715769}
+{"record_type": "ACTI", "editor_id": "_imp_gearfall2", "full_name": "", "script": "_imp_fall2", "source_offset": 715867}
+{"record_type": "ACTI", "editor_id": "_imp_explosion1", "full_name": "", "script": "_imp_explode", "source_offset": 715965}
+{"record_type": "ACTI", "editor_id": "_imp_explosion2", "full_name": "", "script": "_imp_explode2", "source_offset": 716067}
+{"record_type": "ACTI", "editor_id": "_imp_explosion3", "full_name": "", "script": "_imp_explode3", "source_offset": 716170}
+{"record_type": "ACTI", "editor_id": "_imp_explosion4", "full_name": "", "script": "_imp_explode4", "source_offset": 716273}
+{"record_type": "ACTI", "editor_id": "_imp_explosion5", "full_name": "", "script": "_imp_explode5", "source_offset": 716376}
+{"record_type": "ACTI", "editor_id": "_imp_explosion6", "full_name": "", "script": "_imp_explode6", "source_offset": 716479}
+{"record_type": "ACTI", "editor_id": "_imp_explosion7", "full_name": "", "script": "_imp_explode3", "source_offset": 716582}
+{"record_type": "ACTI", "editor_id": "_imp_explosion8", "full_name": "", "script": "_imp_explode3", "source_offset": 716685}
+{"record_type": "ACTI", "editor_id": "_imp_line", "full_name": "impline", "script": "_imp_marker", "source_offset": 716788}
+{"record_type": "ACTI", "editor_id": "_scene_house", "full_name": "", "script": "_scene_move", "source_offset": 716883}
+{"record_type": "ACTI", "editor_id": "_scene_head", "full_name": "", "script": "_scene_move", "source_offset": 716986}
+{"record_type": "ACTI", "editor_id": "_scene_flesh", "full_name": "", "script": "_scene_move", "source_offset": 717078}
+{"record_type": "ACTI", "editor_id": "_imp_platform", "full_name": "", "script": "_imp_teleports", "source_offset": 717173}
+{"record_type": "ACTI", "editor_id": "_imp_platform2", "full_name": "", "source_offset": 717279}
+{"record_type": "ACTI", "editor_id": "in_sotha_sil10", "full_name": "Sotha Sil", "script": "SSE_SothaSil", "source_offset": 717363}
+{"record_type": "ACTI", "editor_id": "act_Sotha_Music7", "full_name": "Sotha Ambient", "script": "Sotha_music7", "source_offset": 717470}
+{"record_type": "ACTI", "editor_id": "Sotha Alma Appear Effect2", "full_name": "", "source_offset": 717579}
+{"record_type": "ACTI", "editor_id": "_alma_explosion1", "full_name": "", "script": "_almalightning", "source_offset": 717666}
+{"record_type": "ACTI", "editor_id": "_alma_endingmodule", "full_name": "If you are reading this I am de", "script": "Sotha_EndScript", "source_offset": 717774}
+{"record_type": "ACTI", "editor_id": "LightningBoltBig2", "full_name": "", "script": "_alma_deathlight2", "source_offset": 717906}
+{"record_type": "ACTI", "editor_id": "_lab_panel1", "full_name": "Display Lock", "script": "Sotha_unlockdisplay1", "source_offset": 718018}
+{"record_type": "ACTI", "editor_id": "_lab_panel2", "full_name": "Display Lock", "script": "Sotha_unlockdisplay2", "source_offset": 718140}
+{"record_type": "ACTI", "editor_id": "_lab_panel3", "full_name": "Display Lock", "script": "Sotha_unlockdisplay3", "source_offset": 718262}
+{"record_type": "ACTI", "editor_id": "_lab_panel4", "full_name": "Display Lock", "script": "Sotha_unlockdisplay4", "source_offset": 718384}
+{"record_type": "ACTI", "editor_id": "_lab_panel5", "full_name": "Control Panel", "script": "sotha_labspeak", "source_offset": 718506}
+{"record_type": "ACTI", "editor_id": "zsun2", "full_name": "", "source_offset": 718623}
+{"record_type": "ACTI", "editor_id": "_alma_explosion2", "full_name": "", "script": "_almalightning2", "source_offset": 718686}
+{"record_type": "ACTI", "editor_id": "_alma_explosion3", "full_name": "", "script": "_almalightning2", "source_offset": 718795}
+{"record_type": "ACTI", "editor_id": "act_sotha_tubes1", "full_name": "", "source_offset": 718897}
+{"record_type": "ACTI", "editor_id": "act_sotha_watchwall", "full_name": "", "source_offset": 718982}
+{"record_type": "ACTI", "editor_id": "_act_sotha_grate", "full_name": "", "source_offset": 719066}
+{"record_type": "ACTI", "editor_id": "act_sotha_puzzlewaterfallX", "full_name": "", "source_offset": 719150}
+{"record_type": "ACTI", "editor_id": "Ex_Vivec_waterfall_X", "full_name": "", "source_offset": 719246}
+{"record_type": "ACTI", "editor_id": "Ex_Vivec_waterfall_X2", "full_name": "", "source_offset": 719336}
+{"record_type": "ACTI", "editor_id": "Ex_Vivec_waterfall_X3", "full_name": "", "source_offset": 719427}
+{"record_type": "ACTI", "editor_id": "Ex_Vivec_waterfall_X4", "full_name": "", "source_offset": 719518}
+{"record_type": "ACTI", "editor_id": "Ex_Vivec_waterfall_X5", "full_name": "", "source_offset": 719609}
+{"record_type": "ACTI", "editor_id": "Ex_Vivec_waterfall_X6", "full_name": "", "source_offset": 719700}
+{"record_type": "ACTI", "editor_id": "Ex_Vivec_waterfall_X7", "full_name": "", "source_offset": 719791}
+{"record_type": "ACTI", "editor_id": "Ex_Vivec_waterfall_X8", "full_name": "", "source_offset": 719882}
+{"record_type": "ACTI", "editor_id": "Ex_Vivec_waterfall_X9", "full_name": "", "source_offset": 719973}
+{"record_type": "ACTI", "editor_id": "Ex_Vivec_waterfall_X10", "full_name": "", "source_offset": 720064}
+{"record_type": "ACTI", "editor_id": "Ex_Vivec_waterfall_X11", "full_name": "", "source_offset": 720156}
+{"record_type": "ACTI", "editor_id": "Ex_Vivec_waterfall_X12", "full_name": "", "source_offset": 720248}
+{"record_type": "ACTI", "editor_id": "Ex_Vivec_waterfall_X13", "full_name": "", "source_offset": 720340}
+{"record_type": "ACTI", "editor_id": "Ex_Vivec_waterfall_X14", "full_name": "", "source_offset": 720432}
+{"record_type": "ACTI", "editor_id": "Ex_Vivec_waterfall_X15", "full_name": "", "source_offset": 720524}
+{"record_type": "ACTI", "editor_id": "Ex_Vivec_waterfall_X17", "full_name": "", "source_offset": 720616}
+{"record_type": "ACTI", "editor_id": "_GEAR_p1", "full_name": "Pure Sprout", "source_offset": 720708}
+{"record_type": "ACTI", "editor_id": "_Gear_PSX", "full_name": "Pure Sprout", "source_offset": 720792}
+{"record_type": "ACTI", "editor_id": "act_sotha_green_id", "full_name": "", "source_offset": 720877}
+{"record_type": "ACTI", "editor_id": "act_sotha_red_id", "full_name": "", "source_offset": 720963}
+{"record_type": "ACTI", "editor_id": "zsun_4_move", "full_name": "", "script": "NI_looping_sunscape", "source_offset": 721045}
+{"record_type": "ACTI", "editor_id": "act_sotha_catadoor1", "full_name": "", "script": "LocalState", "source_offset": 721142}
+{"record_type": "ACTI", "editor_id": "act_sotha_catadoor2", "full_name": "", "script": "LocalState", "source_offset": 721243}
+{"record_type": "ACTI", "editor_id": "act_sotha_catadoor3", "full_name": "", "script": "LocalState", "source_offset": 721344}
+{"record_type": "ACTI", "editor_id": "act_sotha_catadoor4", "full_name": "", "script": "SothaCatadoor", "source_offset": 721445}
+{"record_type": "ACTI", "editor_id": "_pocket_floater", "full_name": "", "script": "pocket_Float", "source_offset": 721549}
+{"record_type": "ACTI", "editor_id": "_quest_panel1", "full_name": "Speak to the Archcanon", "script": "sotha_archspeak", "source_offset": 721650}
+{"record_type": "ACTI", "editor_id": "_quest_left4dead", "full_name": "Slums Control Module", "script": "sotha_left4dead", "source_offset": 721779}
+{"record_type": "ACTI", "editor_id": "_quest_beginstairs", "full_name": "", "script": "sotha_slumsbegin", "source_offset": 721898}
+{"record_type": "ACTI", "editor_id": "_quest_panel2", "full_name": "Containment Panel", "script": "sotha_SCP1", "source_offset": 722011}
+{"record_type": "ACTI", "editor_id": "_quest_panel3", "full_name": "Containment Panel", "script": "sotha_SCP2", "source_offset": 722130}
+{"record_type": "ACTI", "editor_id": "_quest_panel4", "full_name": "Containment Panel", "script": "sotha_SCP3", "source_offset": 722249}
+{"record_type": "ACTI", "editor_id": "_quest_panel5", "full_name": "Containment Panel", "script": "sotha_SCP4", "source_offset": 722368}
+{"record_type": "ACTI", "editor_id": "_quest_panel6", "full_name": "Containment Panel", "script": "sotha_SCP5", "source_offset": 722487}
+{"record_type": "ACTI", "editor_id": "_quest_panel7", "full_name": "Containment Panel", "script": "sotha_SCP6", "source_offset": 722606}
+{"record_type": "ACTI", "editor_id": "_quest_panel8", "full_name": "Containment Panel", "script": "sotha_SCP7", "source_offset": 722725}
+{"record_type": "ACTI", "editor_id": "_pocket_module", "full_name": "Pocket Cabal Module", "script": "_pocket_linecontrol", "source_offset": 722844}
+{"record_type": "ACTI", "editor_id": "_pocket_chair1", "full_name": "Chair", "script": "_pocket_chair1", "source_offset": 722964}
+{"record_type": "ACTI", "editor_id": "_pocket_chair2", "full_name": "Chair", "script": "_pocket_chair2", "source_offset": 723071}
+{"record_type": "ACTI", "editor_id": "_pocket_shelf2", "full_name": "Shelf", "script": "_pocket_chair4", "source_offset": 723178}
+{"record_type": "ACTI", "editor_id": "_pocket_shelf1", "full_name": "Shelf", "script": "_pocket_chair3", "source_offset": 723289}
+{"record_type": "ACTI", "editor_id": "_pocket_table", "full_name": "Table", "script": "_pocket_chair5", "source_offset": 723400}
+{"record_type": "ACTI", "editor_id": "_pocket_module2", "full_name": "Pocket Cabal Fight Module", "script": "_pocket_fightmodule", "source_offset": 723506}
+{"record_type": "ACTI", "editor_id": "act_Sotha_Music8", "full_name": "Sotha Ambient", "script": "Sotha_music8", "source_offset": 723633}
+{"record_type": "ACTI", "editor_id": "_pocket_explosion", "full_name": "", "script": "_pocket_explode", "source_offset": 723742}
+{"record_type": "ACTI", "editor_id": "_tree_flowcontrol", "full_name": "Flow Control", "script": "_tree_flowblock", "source_offset": 723850}

@@ -73,3 +73,14 @@ Status: **external work identity verified; central record pending**.
 ## Candidate 001 — Gallus's Encoded Journal
 
 Candidate 001 has also been upgraded: the Dealing-with-Daedra payload is a whitespace-normalized exact match to the Skyrim encoded journal. See `central-source-candidates-01.md`.
+
+
+## Resolution — refinement pass 17
+
+Central routing is now complete at the work-identity level.
+
+- work ID: `tes.work.fundaments-of-alchemy`
+- central work path: `knowledge/libraries/elder-scrolls/books/works/tes.work.fundaments-of-alchemy.json`
+- the Oblivion identity, ESO compilation witness, and DWD variant are retained as separate witnesses.
+
+The DWD Arcadia wrapper and the `magickal` / `magical` spelling difference remain witness-level metadata; no single canonical normalized text has been elected.

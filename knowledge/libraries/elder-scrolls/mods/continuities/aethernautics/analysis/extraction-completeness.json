@@ -1,0 +1,41 @@
+{
+  "continuity_id": "tes.mod.aethernautics",
+  "source_sha256": "18e21d0bbb08440bc6c42f049d2b8a24353dd9a24d84fc185c7e6d1b700fe720",
+  "status": "complete_current_snapshot_structural_ingestion",
+  "raw_core_records": 79,
+  "raw_implementation_records": 90,
+  "persisted_records": 169,
+  "record_type_counts": {
+    "ACTI": 38,
+    "ARMO": 9,
+    "BOOK": 22,
+    "CELL": 21,
+    "CONT": 5,
+    "DOOR": 3,
+    "FACT": 2,
+    "KEYM": 2,
+    "LCTN": 7,
+    "MESG": 20,
+    "MGEF": 7,
+    "MISC": 5,
+    "NPC_": 8,
+    "QUST": 1,
+    "RACE": 1,
+    "REGN": 1,
+    "SHOU": 3,
+    "SPEL": 7,
+    "WEAP": 5,
+    "WRLD": 2
+  },
+  "raw_core_shards": [
+    "aethernautics/raw/core/source-records-0001-0079.jsonl"
+  ],
+  "raw_implementation_shards": [
+    "aethernautics/raw/implementation/source-records-0001-0090.jsonl"
+  ],
+  "record_index_shards": [
+    "aethernautics/indexes/record-index/records-0001-0169.jsonl"
+  ],
+  "scope_note": "This completeness statement covers all records selected by the deterministic lore/implementation extractor from the verified current plugin. It does not claim every binary field or every asset is semantically decoded.",
+  "historical_version_diffing_required": false
+}
