@@ -56,7 +56,7 @@ Completed:
 - 14 topic dossiers plus theme/reliability synthesis;
 - compact routing/retrieval derivatives with 76 analysis entries;
 - deterministic fingerprints for all 33 BOOK records;
-- BOOK provenance passes 01-05;
+- BOOK provenance passes 01-06;
 - machine-readable BOOK-to-central-source relations;
 - full source-integrity repair and full-plugin exhaustiveness audit.
 
@@ -85,6 +85,20 @@ A separate external-metadata analysis now models the published **Trainwiz Chrono
 See:
 - `analysis/trainwiz-chronocoda-lineage.md`
 - `analysis/trainwiz-chronocoda-lineage.json`
+
+## Verified ChronoC0da source ingestion — 2026-09-24
+
+Current official **Aethernautics 3.1** and **Sotha Sil Expanded 3.1** packages are now verified and represented as separate provenance-scoped continuities under the `trainwiz-chronocoda` umbrella.
+
+Deterministic comparison gives **11 Wheels BOOK records** a current cross-continuity witness. Seven of the ten previously unresolved named works now have a current counterpart, while *Trademarks*, *Sybandis*, and *Journeys Through Sybandis* remain unmatched in these two packages.
+
+This does **not** change historical pre-Wheels provenance counts: the verified comparison packages were released in 2025/2026. They prove current shared-work identity and edition relationships, not that the corresponding text was already present in a 2012/2014 build.
+
+See:
+- `analysis/book-provenance-pass-06-current-chronocoda-comparison.md`
+- `../aethernautics/`
+- `../sotha-sil-expanded/`
+- `../trainwiz-chronocoda/`
 
 ## Retrieval state
 
