@@ -21,7 +21,8 @@
     "data/customizer-source-registry.json",
     "data/market-price-snapshot-2026-09-24.json",
     "data/compatible-brand-code-crosswalk-seed.json",
-    "data/customizer-landscape-2026-09-24.json"
+    "data/customizer-landscape-2026-09-24.json",
+    "data/source-coverage-matrix-2026-09-24.json"
   ],
   "updated_files": [
     "README.md",
@@ -56,7 +57,14 @@
     "Penzora",
     "Calypso Customs",
     "CrazyMinifigs",
-    "ChipChipCustom"
+    "ChipChipCustom",
+    "LeYiLe Brick",
+    "Manga Brick",
+    "Minifigs.Factory",
+    "Lab9minifigs",
+    "TracyMinifigs",
+    "OutsideBrick",
+    "Legend C MOC"
   ],
   "unresolved": [
     "Programmatic long-tail extraction of every HeroBloks brand and product-code family",
