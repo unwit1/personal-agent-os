@@ -480,5 +480,108 @@
       }
     }
   ],
-  "aap_integrity_privacy_note": "Counts identify field discrepancy types only. Employee identities and the underlying protected-class values are not stored in this aggregate."
+  "aap_integrity_privacy_note": "Counts identify field discrepancy types only. Employee identities and the underlying protected-class values are not stored in this aggregate.",
+  "incident_tracking_evolution": [
+    {
+      "period": "2008-2009",
+      "events": 76,
+      "incident_type_rows": 0,
+      "vehicle_accident_reason_rows": 0
+    },
+    {
+      "period": "2009-2010",
+      "events": 78,
+      "incident_type_rows": 0,
+      "vehicle_accident_reason_rows": 0
+    },
+    {
+      "period": "2010-2011",
+      "events": 55,
+      "incident_type_rows": 0,
+      "vehicle_accident_reason_rows": 0
+    },
+    {
+      "period": "2011-2012",
+      "events": 92,
+      "incident_type_rows": 0,
+      "vehicle_accident_reason_rows": 1
+    },
+    {
+      "period": "2012-2013",
+      "events": 77,
+      "incident_type_rows": 0,
+      "vehicle_accident_reason_rows": 0
+    },
+    {
+      "period": "2013-2014",
+      "events": 53,
+      "incident_type_rows": 0,
+      "vehicle_accident_reason_rows": 0
+    },
+    {
+      "period": "2014-2015",
+      "events": 73,
+      "incident_type_rows": 0,
+      "vehicle_accident_reason_rows": 4
+    },
+    {
+      "period": "2015-2016",
+      "events": 123,
+      "incident_type_rows": 0,
+      "vehicle_accident_reason_rows": 16
+    },
+    {
+      "period": "2016-2017",
+      "events": 127,
+      "incident_type_rows": 25,
+      "vehicle_accident_reason_rows": 25
+    },
+    {
+      "period": "2017-2018",
+      "events": 96,
+      "incident_type_rows": 24,
+      "vehicle_accident_reason_rows": 24
+    },
+    {
+      "period": "2018-2019",
+      "events": 85,
+      "incident_type_rows": 22,
+      "vehicle_accident_reason_rows": 22
+    },
+    {
+      "period": "2019-2020",
+      "events": 95,
+      "incident_type_rows": 18,
+      "vehicle_accident_reason_rows": 18
+    },
+    {
+      "period": "2020-2021",
+      "events": 54,
+      "incident_type_rows": 8,
+      "vehicle_accident_reason_rows": 8
+    },
+    {
+      "period": "2021-2022",
+      "events": 44,
+      "incident_type_rows": 16,
+      "vehicle_accident_reason_rows": 16
+    },
+    {
+      "period": "2022-2023",
+      "events": 47,
+      "incident_type_rows": 10,
+      "vehicle_accident_reason_rows": 10
+    },
+    {
+      "period": "2023-2024_partial",
+      "events": 18,
+      "incident_type_rows": 4,
+      "vehicle_accident_reason_rows": 4
+    }
+  ],
+  "incident_tracking_findings": [
+    "Vehicle accident/incident reasons appear before the explicit Incident type, but from 2016-2017 onward the Incident type count exactly matches the vehicle-accident/incident reason count in every supplied fiscal register.",
+    "From 2016-2017 onward the file named as a disciplinary-action register is therefore a mixed event ledger containing both corrective-action records and vehicle incident records.",
+    "AAP-sorted derivatives that preserve the full source population can consequently include vehicle-incident rows even when those incidents are not themselves disciplinary actions."
+  ]
 }
