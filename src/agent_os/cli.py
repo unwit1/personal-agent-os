@@ -107,6 +107,16 @@ def parser() -> argparse.ArgumentParser:
         "browser-bridge-token",
         help="show the local browser bridge token for one-time userscript setup",
     )
+    bridge_pending = commands.add_parser(
+        "browser-bridge-pending",
+        help="read durable browser events waiting for Knowledge Engine ingestion",
+    )
+    bridge_pending.add_argument("--limit", type=int, default=100)
+    bridge_mark = commands.add_parser(
+        "browser-bridge-mark-ingested",
+        help="mark bridge events as consumed after downstream durable ingestion",
+    )
+    bridge_mark.add_argument("--event-id", action="append", default=[], required=True)
     commands.add_parser("install-routing")
     commands.add_parser("routing-status")
     integration = commands.add_parser("integration-health")
@@ -387,6 +397,10 @@ def main(argv: list[str] | None = None) -> int:
                 "token": browser_bridge_token(),
                 "path": str(BROWSER_BRIDGE_TOKEN_PATH),
             })
+        elif args.command == "browser-bridge-pending":
+            _print({"events": BridgeStore().pending(args.limit)})
+        elif args.command == "browser-bridge-mark-ingested":
+            _print({"marked": BridgeStore().mark_ingested(args.event_id)})
         elif args.command == "install-routing":
             result = install_routing()
             _print(result)
