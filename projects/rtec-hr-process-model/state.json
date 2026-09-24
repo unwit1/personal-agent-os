@@ -2,7 +2,7 @@
   "schema_version": 1,
   "project": "rtec-hr-process-model",
   "status": "active",
-  "updated_at": "2026-09-23",
+  "updated_at": "2026-09-24",
   "summary": "Provenance-backed, privacy-safe, version-aware model and searchable source corpus for roughly 20 years of RTEC HR process documentation.",
   "repository": "https://github.com/unwit1/personal-agent-os.git",
   "current_priorities": [
@@ -40,7 +40,10 @@
     "knowledge/libraries/rtec-hr/processes/aap-disciplinary-derivative-integrity.json",
     "knowledge/libraries/rtec-hr/automation/disciplinary-register-normalization.json",
     "knowledge/libraries/rtec-hr/processes/discipline-documentation-history.json",
-    "knowledge/libraries/rtec-hr/processes/medical-attendance-evidence-handling-history.json"
+    "knowledge/libraries/rtec-hr/processes/medical-attendance-evidence-handling-history.json",
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-correspondence-2026-09-23-coverage-ledger.json",
+    "knowledge/libraries/rtec-hr/forms/employee-warning-notice-legacy.json",
+    "knowledge/libraries/rtec-hr/processes/hstd-csr-trip-eligibility-denial-candidate.json"
   ],
   "context_files": [
     "projects/rtec-hr-process-model/README.md",
@@ -55,7 +58,10 @@
     "knowledge/libraries/rtec-hr/compliance/archive-index/README.md",
     "knowledge/libraries/rtec-hr/processes/fy2017-transit-grant-application-workflow.json",
     "projects/rtec-hr-process-model/checkpoints/fy2017-grants-compliance.json",
-    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-correspondence-2026-09-23.json"
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-correspondence-2026-09-23.json",
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-correspondence-2026-09-23-coverage-ledger.json",
+    "knowledge/libraries/rtec-hr/forms/employee-warning-notice-legacy.json",
+    "knowledge/libraries/rtec-hr/processes/hstd-csr-trip-eligibility-denial-candidate.json"
   ],
   "skill_roots": [],
   "validation_commands": [],
@@ -84,7 +90,7 @@
     "latest_batch_restricted_employee_rosters": 2,
     "latest_batch_exact_duplicates": 1,
     "plan_packages_ingested": 1,
-    "open_currentness_or_gap_questions": 39,
+    "open_currentness_or_gap_questions": 47,
     "latest_batch_restricted_case_sources": 4,
     "latest_batch_searchable_source_groups": 14,
     "fy2017_grant_pdf_count": 3,
@@ -107,7 +113,10 @@
     "correspondence_fiscal_event_rows_analyzed": 1193,
     "correspondence_disciplinary_workbooks_parsed": 29,
     "correspondence_restricted_coverage": "86/86 explicit disposition",
-    "correspondence_schema_validation": "23 checks, 0 errors"
+    "correspondence_schema_validation": "23 checks, 0 errors",
+    "correspondence_exhaustive_analysis_status": "complete_for_supplied_95_artifacts",
+    "correspondence_coverage_ledger": "95/95 explicit dispositions; 0 unreviewed",
+    "correspondence_last_deepening_date": "2026-09-24"
   },
   "reference_form_context": {
     "catalog_path": "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json",
@@ -155,6 +164,10 @@
     "analysis_status": "exhaustive_complete",
     "disciplinary_aggregate_path": "knowledge/libraries/rtec-hr/restricted-evidence/disciplinary-register-aggregate-2008-2026.json",
     "fiscal_event_rows_analyzed": 1193,
-    "completion_boundary": "No supplied artifact remains without an explicit analysis disposition. Further progress on unresolved current-state questions requires newer/authoritative sources rather than rereading this archive."
+    "completion_boundary": "No supplied artifact remains without an explicit analysis disposition. Further progress on unresolved current-state questions requires newer/authoritative sources rather than rereading this archive.",
+    "coverage_ledger_path": "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-correspondence-2026-09-23-coverage-ledger.json",
+    "warning_form_model": "knowledge/libraries/rtec-hr/forms/employee-warning-notice-legacy.json",
+    "hstd_trip_workflow_candidate": "knowledge/libraries/rtec-hr/processes/hstd-csr-trip-eligibility-denial-candidate.json",
+    "exhaustion_boundary": "All 95 supplied artifacts have been structurally/content-analyzed to the privacy-safe boundary and mapped to durable knowledge. Remaining open questions require newer or more authoritative sources rather than further rereading of this archive."
   }
 }
