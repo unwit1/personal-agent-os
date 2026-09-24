@@ -1,6 +1,6 @@
 {
   "record_id": "rtec-fillout-applicant-dashboard-agent-os-integration",
-  "updated_at": "2026-09-23",
+  "updated_at": "2026-09-24",
   "status": "canonical_architecture_requirement",
   "user_decision": "Fillout feeds the Applicant Dashboard and should be connected to the Agent OS.",
   "current_pipeline": {
@@ -29,17 +29,14 @@
   ],
   "required_agent_capabilities": [
     "applicant.list and applicant.search over normalized dashboard records",
-    "applicant.get_summary with minimum-necessary hiring information",
-    "applicant.get_status and applicant.get_pending_actions",
-    "applicant.get_document_metadata and authorized local document retrieval",
-    "applicant.openings/current_match context",
-    "applicant.flag_summary with provenance and human-reviewable reasons",
-    "applicant.timeline/history for status and human/agent actions",
-    "applicant.sync_status for Fillout/Google bridge health and last successful pull",
-    "applicant.new_submission event/candidate notification",
-    "applicant.prepare_action for interview/clarification/denial/offer/area-manager handoff",
-    "applicant.apply_status_change only under explicit autonomy/approval policy",
-    "applicant.audit_events for all reads/writes of applicant records"
+    "applicant.get_summary with minimum-necessary administrative recruiting information",
+    "applicant.get_status and applicant.pending_actions for human-controlled workflow follow-up",
+    "applicant.get_document_metadata with path-free hiring-document presence/size/type metadata and presence-only restricted-form metadata",
+    "applicant.openings for organization-level current openings configuration only; no candidate ranking or fit score",
+    "applicant.get_timeline for metadata-only workflow events recorded since the outbox migration",
+    "applicant.sync_status for Fillout/Google bridge health, Dashboard schema readiness and event-outbox state",
+    "applicant.events and applicant.event_ack for idempotent restricted local event consumption",
+    "future prepared-action tools may assemble user-directed drafts after the human selects the action, but may not choose the employment outcome"
   ],
   "privacy_boundaries": {
     "hiring_view": "Application/resume/work-history/role-fit information needed for recruiting.",
@@ -48,19 +45,12 @@
     "durable_agent_memory": "Only generalized recruiting/process knowledge, schemas, system state and non-person-specific insights may be promoted."
   },
   "event_model": [
-    "submission_received",
     "submission_processed",
-    "resume_linked_or_missing",
-    "clarification_needed",
-    "application_record_updated",
-    "opening_match_changed",
     "status_changed",
-    "interview_requested",
-    "offer_prepared_or_sent",
-    "denied_or_disqualified",
-    "hired",
-    "archived_or_inactive",
-    "sync_failure_or_staleness"
+    "future: resume_linked_or_missing",
+    "future: clarification_requested_or_resolved",
+    "future: interview_or_offer administrative milestones",
+    "future: sync_failure_or_staleness"
   ],
   "implementation_preference": {
     "primary": "Expose a small authenticated provider-neutral local API/MCP adapter over dashboard.db and existing dashboard/process_applications business logic.",
@@ -70,10 +60,11 @@
   },
   "approval_policy": [
     "Agent may automatically read/summarize normalized applicant records within authorized HR scope for administrative purposes.",
-    "Agent may track missing documents, deadlines, status, scheduling needs, and user-created follow-up commitments.",
+    "Agent may track missing documents, deadlines, status, scheduling needs, current openings and user-created follow-up commitments.",
     "Agent may prepare interview, clarification, offer, rejection, or other correspondence only after the user supplies or confirms the underlying employment decision/action.",
-    "The Agent must not rank applicants, recommend who should be hired or rejected, or make employment decisions.",
-    "Restricted self-identification information remains outside ordinary recruiting tools and must not be used for employment decisions."
+    "The Agent must not rank applicants, score candidate quality, recommend who should be hired or rejected, or make employment decisions.",
+    "Restricted self-identification information remains outside ordinary recruiting tools and must not be used for employment decisions.",
+    "Ordinary Agent OS applicant tools expose only opaque agent_ref, never applicant_key, source_key, filename-derived identity or raw Fillout row identity."
   ],
   "health_checks": [
     "last successful Fillout/Google bridge pull",
@@ -95,5 +86,34 @@
     "source_key": "Dashboard-local import provenance, normally fillout-submission:<Submission ID> when available; not exposed by ordinary Agent applicant tools.",
     "applicant_key": "Legacy/internal Dashboard primary key historically based on PDF filename. Remains internal and must not be exposed as the Agent identifier.",
     "sheet_row_number": "Never a durable identity; Fillout Sheet reconnections/reorders make it unstable."
+  },
+  "implementation_state": {
+    "dashboard_foundation": "implemented; live work-PC validation pending",
+    "agent_os_read_adapter": "implemented; live work-PC validation pending",
+    "connector_registry": "desired / health unknown until smoke test",
+    "implemented_tools": [
+      "applicant.list",
+      "applicant.search",
+      "applicant.get_summary",
+      "applicant.get_status",
+      "applicant.get_document_metadata",
+      "applicant.get_timeline",
+      "applicant.pending_actions",
+      "applicant.openings",
+      "applicant.sync_status",
+      "applicant.events",
+      "applicant.event_ack"
+    ],
+    "intentionally_not_exposed": [
+      "candidate ranking/scoring",
+      "candidate fit recommendation",
+      "screening-flag recommendation surface",
+      "automatic hiring/denial decision",
+      "automatic consequential status mutation",
+      "raw Fillout row access",
+      "restricted self-ID content/path",
+      "filename-derived applicant_key",
+      "provider source_key"
+    ]
   }
 }
