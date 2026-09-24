@@ -48,6 +48,18 @@
     },
     {
       "archive_location": "AAP INFO FY 2020",
+      "filename": "AAP PLAN as of June 30, 2020.doc",
+      "sha256": "29f2616c11caa1f9498f3612eee613b24a581c708eedc8f7c7b61bf8da752a60",
+      "extracted_chars": 57115,
+      "printed_plan_years": [
+        "2019-2020"
+      ],
+      "cover_update": "UPDATED JUNE 30, 2020",
+      "internal_update_marker": "updated: 6/30/20",
+      "note": "Point-in-time FY2020 snapshot; same extracted character count as FY2019 snapshot but different dated content."
+    },
+    {
+      "archive_location": "AAP INFO FY 2020",
       "filename": "AAP PLAN July 2018 - June 2022.doc",
       "sha256": "35466702a71efd12a07dafb4016a854def81b0bc6bdd09e14207271a0e679f4d",
       "extracted_chars": 57244,
