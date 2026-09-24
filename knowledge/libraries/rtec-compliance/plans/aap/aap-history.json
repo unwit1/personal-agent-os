@@ -8,17 +8,17 @@
     {
       "period": "2009-07-01/2010-06-30",
       "source": "AAP PLAN July 2009 - June 2010.doc",
-      "sha256": "c4be88e929ff3c04d16cf09b4fbcd111f505ccb4255891619fe5668c9a97f44b"
+      "sha256": "c4be88e929ff3c043d5984ce2d2d95f6d7b3f4ffd1885e1033d746179f6ed682"
     },
     {
       "period": "2010-07-01/2011-06-30",
       "source": "AAP PLAN July 2010 - June 2011.doc",
-      "sha256": "2c86e353ba1e2209cf5c23ef99d3bcc6e616e8aec8790d63986b1c225e3b3456"
+      "sha256": "2c86e353ba1e220958fb68b2add564129e9be8d454983ab0e23b594e3ffeca3b"
     },
     {
       "period": "2013-07-01/2014-06-30",
       "source": "AAP PLAN July 2013 - June 2014.doc",
-      "sha256": "fb0c2dc4334121bfc565b2799253b3e01ea0c9430791de154b7b2777833fa544"
+      "sha256": "fb0c2dc4334121bf734f0918ab081d327002f1b67dc8ddd13059787a383b999f"
     },
     {
       "period": "2015-07 through 2018-06",
@@ -27,15 +27,29 @@
       "canonical_fulltext_path": "knowledge/libraries/rtec-hr/compliance/sources/aap-2015-2018/"
     },
     {
+      "period": "2015-07 through 2018-06",
+      "source": "AAP PLAN July 2015 - June 2018.doc",
+      "sha256": "bb1d05a9ad301db39386164bf7fb2348221449ce831de9fd9f361618465432e6",
+      "archive_location": "AAP INFO FY 2018",
+      "note": "Distinct later binary variant of the same named 2015-2018 plan; preserve separately from the FY2017-folder source."
+    },
+    {
       "period": "2018-07-01/2019-06-30",
       "source": "AAP PLAN as of June 30, 2019.doc",
-      "sha256": "612cf3bdc4756fd9dfd14bf625071c783493fe65fcfc7ee1fe2abe3d639c38c6"
+      "sha256": "612cf3bdc4756fd928e6aed3b90a4ac0156b6c34643540203deb67355693dd86"
+    },
+    {
+      "period": "2018-07 through 2022-06 (FY2019-folder variant)",
+      "source": "AAP PLAN July 2018 - June 2022.doc",
+      "sha256": "a35531d961c911d84116fe235de0795b3eb2d640daa7d54542f1e175ecb20f41",
+      "archive_location": "AAP INFO FY 2019",
+      "note": "Distinct archive binary sharing the same filename with the FY2020-folder variant."
     },
     {
       "period": "2018-07 through 2022-06",
       "source": "AAP PLAN July 2018 - June 2022.doc",
-      "sha256": "35466702a71efd12e858df37779ef30dd13df6ea037764451b88a413b519f546",
-      "note": "Archive also contains a differently named/edited source with SHA a35531d961c911d8 whose printed plan years extend through 2022-2023; treat as a separate historical variant."
+      "sha256": "35466702a71efd12a07dafb4016a854def81b0bc6bdd09e14207271a0e679f4d",
+      "note": "FY2020-folder binary. Archive also contains a distinct FY2019-folder variant with SHA a35531d961c911d84116fe235de0795b3eb2d640daa7d54542f1e175ecb20f41; retain both as historical variants rather than collapsing by filename."
     },
     {
       "period": "2018-07 through 2024-06",
@@ -115,6 +129,7 @@
   ],
   "analysis_notes": [
     "The archive contains near-duplicate and stale-filename plan variants. SHA-256 and printed plan-year/update text are authoritative for source identity; filenames are not.",
-    "State EEO/AAP plan approval and Kentucky EEO contractor certification are separate compliance histories."
+    "State EEO/AAP plan approval and Kentucky EEO contractor certification are separate compliance histories.",
+    "2026-09-24 provenance audit corrected stale SHA-256 values for the 2009-2010, 2010-2011, 2013-2014, 2019 snapshot and FY2020-folder 2018-2022 sources against the deterministic extracted-safe-source catalog; added same-name archive variants explicitly."
   ]
 }
