@@ -1,0 +1,67 @@
+{
+  "schema": "rtec-hr-restricted-evidence/v1",
+  "batch_id": "rtec-hr-downloads-spreadsheets-2026-09-24",
+  "ingested_at": "2026-09-24",
+  "raw_rows_committed": false,
+  "records": [
+    {
+      "source_id": "fsa-account-balance-detail-py2016",
+      "document_type": "Benefits Account Balance Detail Report",
+      "privacy_reason": "Contains consumer-level FSA account/election/balance data.",
+      "sha256": "8ddf064abd36802d6ecfa2251425f8d21bd3ea09f1e1b0c0ffddcef2cfe3e822",
+      "safe_findings": [
+        "Plan Year PY 2016",
+        "FSA Health Care",
+        "Report defines plan-year, available-balance and cash-balance calculation components."
+      ]
+    },
+    {
+      "source_id": "delta-dental-consolidated-billing-2024-01",
+      "document_type": "Benefits Consolidated Billing Report",
+      "privacy_reason": "Contains subscriber names/IDs, coverage and billed amounts.",
+      "artifact_sha256": [
+        "18cccc81b63c9f5e4ca3ac4e02adde2753862b5e1fe0614189fa66c40185b807",
+        "cb81c016431a1def0fe86b274eaf16fb36c009578fbeffd3cedd4c3e94bc5eae",
+        "41125ca5b133aec46ec0a3c79ea659bddad3e66f51fd5ecd802b4a6b3204f751"
+      ],
+      "safe_findings": [
+        "Billing period January 2024",
+        "Sections include Overview, Subscriber Listing, COBRA, Retro Update, Current Period Changes and Claims Tax.",
+        "Products include Delta Dental PPO plus Premier and RTEC Vision."
+      ]
+    },
+    {
+      "source_id": "delta-dental-consolidated-billing-2021-02",
+      "document_type": "Benefits Consolidated Billing Report",
+      "privacy_reason": "Contains subscriber-level benefits billing data.",
+      "sha256": "032bd06a405effa2add94afacae94a78ca31d0c83cafe3d343d4736c9b36e406"
+    },
+    {
+      "source_id": "delta-dental-consolidated-billing-2020-07",
+      "document_type": "Benefits Consolidated Billing Report",
+      "privacy_reason": "Contains subscriber-level benefits billing data.",
+      "sha256": "4e72c550e965d797993a6fda137ef387b4d6ed0340ecfe79940e6cf2d131d1fa"
+    },
+    {
+      "source_id": "delta-dental-consolidated-billing-2020-12",
+      "document_type": "Benefits Consolidated Billing Report",
+      "privacy_reason": "Contains subscriber-level benefits billing data.",
+      "sha256": "6711e000df3b24ec96be577f46161f232032c3d9e27cdd45ac0dbf244afa45a9"
+    },
+    {
+      "source_id": "delta-dental-dependent-termination-export",
+      "document_type": "Dependent Coverage Termination Export",
+      "privacy_reason": "Contains subscriber SSN/name plus dependent name, DOB and termination date.",
+      "sha256": "8fb873ff1fb7210d775abd0c78cb633988c73b0fa7b8d547565747f7f65e72e9",
+      "safe_findings": [
+        "Columns include plan/client/subclient, subscriber SSN/name, dependent name/DOB, and dependent termination date.",
+        "Plan marker DDKY is present."
+      ]
+    }
+  ],
+  "controls": [
+    "Never promote subscriber, dependent or consumer rows to reusable HR knowledge.",
+    "Do not use names, SSNs, subscriber IDs, dates of birth, balances or individual coverage amounts as document fingerprints.",
+    "These document types should route to restricted administrative/benefits context rather than ordinary employee-file auto-filing."
+  ]
+}
