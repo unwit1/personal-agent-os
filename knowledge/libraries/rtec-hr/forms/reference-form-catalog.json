@@ -37,7 +37,7 @@
     "already_ingested_hr_corpus_records": 4,
     "unique_identity_keys": 74,
     "duplicate_or_multi_source_identity_keys": 4,
-    "pending_identity_review_records": 1
+    "pending_identity_review_records": 0
   },
   "entries": [
     {
@@ -299,20 +299,22 @@
       "source_path": "Disciplinary/Employee Warning Notice.docx",
       "source_inventory_path": "assets/reference_fingerprint_manifest.csv",
       "source_kind": "blank_or_reference_form",
-      "mapping_status": "unmapped",
-      "canonical_form_type": null,
-      "proposed_name_if_unmapped": "Employee Warning Notice",
+      "mapping_status": "verified_label",
+      "canonical_form_type": "Employee Warning Notice",
+      "proposed_name_if_unmapped": null,
       "extension": ".docx",
       "pages_extracted": null,
       "extracted_text_chars": null,
       "temporal_status": "unknown",
-      "validation_state": "unmapped_candidate",
+      "validation_state": "validated_reference_identity",
       "full_source_status": "source artifact represented by HR-GUI reference library metadata/fingerprints; original reference file is not committed in the HR-GUI repository",
       "policy_authority": "none_by_form_presence",
       "notes": [
         "Imported for RTEC HR process context and form/template recognition.",
         "A blank/reference form can evidence fields, structure, terminology, and likely workflow touchpoints; it does not by itself establish current policy.",
-        "Currentness/effective period must be established separately."
+        "Currentness/effective period must be established separately.",
+        "Correspondence archive repeated-form analysis independently confirms the Employee Warning Notice identity and reusable field structure.",
+        "Semantic form model: knowledge/libraries/rtec-hr/forms/employee-warning-notice-legacy.json"
       ]
     },
     {
@@ -1963,7 +1965,9 @@
       "temporal_status": "unknown",
       "validation_state": "validated_reference_identity_possible_duplicate",
       "full_source_status": "blank original PDF and searchable page outline preserved under knowledge/libraries/rtec-hr/sources/rtec-hr-guardian-enrollment-packet-2026-07-31/; compare with HR-GUI Guardian packet before deduplicating",
-      "related_catalog_entry_ids": ["hrgui-reference-008"],
+      "related_catalog_entry_ids": [
+        "hrgui-reference-008"
+      ],
       "policy_authority": "none_by_form_presence"
     }
   ]
