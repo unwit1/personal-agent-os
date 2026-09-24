@@ -1,98 +1,149 @@
 # Skyrim Modding Knowledge Repository
 
-Status: active foundation
+Status: active deep-ingestion corpus
 Created: 2026-09-24
 Canonical home: `knowledge/libraries/skyrim-modding/`
 
 ## Purpose
 
-This library is the technical Skyrim-modding knowledge base for Agent OS. It is intended to support:
+This library is Agent OS's technical Skyrim-modding knowledge base for:
 
 - troubleshooting and root-cause analysis;
-- mod design and implementation brainstorming;
-- compatibility and conflict analysis;
-- patch planning;
-- Creation Kit, xEdit, Papyrus, SKSE, CommonLibSSE-NG, asset, animation, LOD, and tool reference;
-- source-backed explanations of modding terminology;
-- version-aware reasoning across Skyrim LE, SE, AE, GOG, and VR;
-- reusable findings from the user's own modding projects.
+- mod design and implementation;
+- compatibility/conflict analysis and patch planning;
+- Creation Kit, xEdit, Papyrus, SKSE/CommonLib, assets, animation, rendering, LOD, UI, physics and tooling reference;
+- version-aware reasoning across Skyrim LE, SE/AE, GOG, VR and Linux/Proton environments;
+- reusable findings from the user's own Skyrim projects.
 
-It is intentionally separate from the Elder Scrolls lore library. Lore projects may link to this library for technical implementation knowledge without duplicating it.
+It is intentionally separate from Elder Scrolls lore. Technical implementation knowledge lives here; lore repositories may link to it.
+
+## Current corpus
+
+As of 2026-09-24, the live terminology directory contains **121 specialist terminology/reference modules**, plus authoring guides, playbooks, troubleshooting routers/catalogs, source provenance, research/frontier documents and extraction tooling.
+
+The old manually maintained heading total has been retired from this README. Exact module/heading counts are generated from a checkout by:
+
+`python tools/knowledge/rebuild_skyrim_terminology_index.py`
+
+The generated/maintained index lives at `indexes/terminology-index.md`.
+
+## Major coverage
+
+The corpus now covers, at minimum:
+
+- plugin binary structure, ESM/ESL/FormIDs, header 1.71/BEES, localization and BSA resources;
+- xEdit conflict analysis, record schemas, cleaning, Wrye Bash, Mator Smash, Mutagen and Synthesis;
+- Creation Kit records, worldspaces, landscape, navmesh, Room Bounds/Portals, weather, lighting and authoring;
+- Papyrus language semantics, API/event maps, performance, persistence, fragments, registration and migration;
+- PapyrusUtil, JContainers, MCM Helper and external/save-local settings models;
+- SKSE/CommonLib plugin lifecycle, interfaces, events, serialization, relocations, hooks, trampolines and inter-plugin APIs;
+- actors, processing levels, AI/packages/detection, followers, relationships, crime, merchants, encounters and transformations;
+- quests, aliases, Story Manager, dialogue, scenes, voice and localization;
+- perks/Entry Points, MagicEffect archetypes, spells, crafting, alchemy, enchanting, progression and custom skills;
+- NIF blocks, shaders, texture slots, collision, Blender/PyNifly, BodySlide and asset conversion;
+- skeletons, RaceMenu, BodyMorph/BodyGen/OBody, NPC FaceGen/EasyNPC and physics;
+- OAR, Pandora, BDI, Payload Interpreter, AMR, Precision, SCAR/MCO and animation-object systems;
+- SPID, KID, BOS, FLM, SkyPatcher, CID/CDF, IPM, SRD, DSD, MTD and other runtime mutation frameworks;
+- Community Shaders render-pipeline internals, ReShade, HDR/display, parallax/PBR and water;
+- xLODGen/TexGen/DynDOLOD, grass, seasons, occlusion and distant rendering;
+- SkyUI/MCM/Scaleform, I4/COCKS, QuickLoot/Wheeler, native menus and PrismaUI;
+- MO2, Vortex, Wabbajack, LOOT, Nexus Collections and reproducible release/source-control workflows;
+- Skyrim VR, HIGGS, PLANCK, VRIK, VR Address Library and Linux/Proton/Steam Deck;
+- crash/save/tool diagnostics, exact-error routing and recurring compatibility patterns;
+- AI-NPC/LLM frameworks, Skyrim Platform and multiplayer architecture.
+
+## Directory map
+
+- `terminology/` — specialist technical concepts and field-level schema maps.
+- `authoring/` — authoring/release workflows.
+- `troubleshooting/` — symptom router, error catalog and compatibility patterns.
+- `playbooks/` — operational diagnostic/release procedures.
+- `indexes/` — generated/manual retrieval indexes and aliases.
+- `sources/` — source registry and provenance/coverage material.
+- `research/` — frontier, version/provenance policy and current-version snapshots.
+
+## Primary retrieval surfaces
+
+Start here instead of loading the entire corpus:
+
+- `troubleshooting/diagnostic-router.md` — symptom → likely subsystems.
+- `troubleshooting/tool-error-catalog.md` — tool warning/error → diagnostic path.
+- `troubleshooting/compatibility-patterns.md` — recurring cross-mod patch designs.
+- `indexes/terminology-index.md` — module inventory.
+- `sources/registry.md` — source authority and provenance.
+- `research/frontier.md` — remaining open research.
+- `research/version-provenance-model.md` — how version-sensitive facts are stored.
+- `research/current-version-matrix.md` — dated verified version snapshots.
 
 ## Knowledge model
 
-Entries should distinguish:
+Entries distinguish:
 
-1. **Documented fact** — directly supported by authoritative tool/project documentation or game/editor documentation.
-2. **Well-established technical convention** — broadly used terminology or workflow with strong community/tool support.
-3. **Reverse-engineered behavior** — supported by source code, runtime inspection, controlled testing, or multiple technical sources.
-4. **Project-specific finding** — observed in a particular mod, plugin, runtime, load order, or test environment.
-5. **Unverified community claim** — useful lead, but not safe to treat as canonical until corroborated.
+1. **Documented fact** — authoritative documentation/source.
+2. **Established technical convention** — widely used and strongly corroborated.
+3. **Reverse-engineered behavior** — source/runtime/test evidence.
+4. **Project-specific finding** — validated for one mod/runtime/load order.
+5. **Unverified lead** — useful evidence candidate, not canonical fact.
 
-Every durable entry should retain provenance and, where relevant, game/runtime/tool version applicability.
+Every durable version-sensitive entry should preserve provenance.
 
 ## Source priority
 
-Prefer, in roughly this order:
+Prefer:
 
-- Bethesda/Creation Kit documentation and game data;
-- current upstream source code and documentation for the tool/framework being described;
-- xEdit/Tome of xEdit documentation for plugin-record behavior;
-- SKSE and CommonLibSSE-NG upstream documentation/source;
-- maintained specialist technical documentation such as DynDOLOD;
-- reproducible testing and inspected plugin/source data;
-- high-quality community guides, forum posts, Reddit, Discord, and mod pages as secondary evidence.
+1. Bethesda/Creation Kit documentation and game data;
+2. current upstream source/documentation for the relevant framework/tool;
+3. xEdit/Tome of xEdit for plugin-record behavior;
+4. SKSE/CommonLib source;
+5. maintained specialist references such as DynDOLOD;
+6. reproducible tests and inspected plugin/source data;
+7. high-quality community technical material as secondary evidence.
 
-Community material is valuable, but contradictory or version-sensitive claims should remain explicitly qualified.
+Old advice stays historical until applicability to current versions is demonstrated.
 
-## Initial sections
+## Ingestion and promotion
 
-- `terminology/` — normalized glossary with aliases and cross-links.
-- `sources/` — source registry and provenance notes.
-- Future sections should cover plugin architecture, records, Creation Kit, xEdit, Papyrus, SKSE/native plugins, assets, animations, worldspaces/navmesh, quests/dialogue, LOD, mod managers, crash analysis, compatibility/patching, distribution, and testing.
+The pipeline is:
 
-## Ingestion rules
+source acquisition → extraction → normalization → provenance/version tagging → deduplication/contradiction detection → validation → canonical promotion
 
-- Do not copy large copyrighted guides or mod pages wholesale.
-- Store concise definitions, structured facts, compatibility notes, claims, and source links.
-- Preserve important disagreements instead of flattening them into one unsupported answer.
-- Record version scope where behavior differs across Skyrim/runtime/tool versions.
-- Treat exact mod-specific findings as overlays linked to the relevant project or mod record.
-- Prefer normalized terminology with aliases so searches for common shorthand resolve to the same concept.
+High-volume generated indexes should live in local/index storage unless a reviewed durable snapshot belongs in Git.
 
-## Current ingestion
+Extraction scaffolding lives in `tools/knowledge/` and currently includes:
 
-The first terminology pass is stored in `terminology/core-glossary.md` and is sourced from the Creation Kit Wiki archive/mirror, Tome of xEdit, the official SKSE site, DynDOLOD documentation, Mod Organizer 2 source/documentation, and Open Animation Replacer upstream documentation.
+- terminology-index rebuilding;
+- Papyrus PSC API extraction;
+- CommonLib Doxygen symbol extraction;
+- xEdit schema candidate extraction.
 
+## Troubleshooting principle
 
-## Current terminology corpus
+Diagnose by layer rather than by symptom name alone. A visible problem may involve:
 
-As of 2026-09-24, the library contains **2,374 indexed headings across 28 terminology/reference modules**, plus dedicated operational playbooks, a 76-entry canonical alias map, a troubleshooting routing matrix, an expanded source registry, a research coverage manifest, and an explicit research frontier.
+- static plugin records;
+- loose/BSA assets;
+- runtime patchers;
+- Papyrus/quest state;
+- native DLL hooks/APIs;
+- animation behavior;
+- skeleton/morph/physics;
+- UI;
+- world/navmesh/portal data;
+- save ChangeForms/co-saves/external JSON;
+- generated patches/LOD.
 
-Major covered domains include plugin formats/xEdit/FormIDs; Creation Kit/worldbuilding/navmesh; Papyrus/quests/Story Manager/save persistence; SKSE/CommonLib/native plugins/crash diagnosis; engine fixes and extension frameworks; SPID/KID/BOS/FLM/SkyPatcher; Mutagen/Synthesis/Spriggit; MO2/Vortex/Wabbajack; animation/OAR/Pandora; NIF/textures/BodySlide; RaceMenu/FaceGen; FSMP physics; SkyUI/Scaleform/MCM; audio/localization/archives; gameplay records; renderer/shader systems; performance/engine limits; and the full xLODGen/TexGen/DynDOLOD/grass/seasons/occlusion stack.
+Retrieve evidence from every plausible layer before proposing destructive changes.
 
-Navigation:
-- `indexes/terminology-index.md` — module inventory and counts.
-- `indexes/aliases.json` — canonical acronym/synonym routing.
-- `indexes/troubleshooting-routing.md` — symptom/task → relevant subsystem mapping.
-- `sources/registry.md` — source authority/provenance.
-- `sources/coverage-manifest.md` — current research coverage.
-- `sources/research-frontier.md` — deliberately unresolved/evolving areas.
-- `playbooks/` — operational diagnostic/release procedures.
+## Exhaustiveness model
 
-## Troubleshooting retrieval principle
+The goal is not to pretend a continuously evolving reverse-engineered ecosystem can be permanently complete. The operational target is:
 
-Agent OS should diagnose Skyrim issues by layer rather than by symptom name alone. For each issue, identify which of these layers may be involved: plugin records/load order; physical or virtual assets; Papyrus/quest state; native SKSE runtime; runtime distributor/config frameworks; animation behavior; mesh/skeleton/morph data; UI; worldspace/navmesh; save-persisted state; and LOD/distance systems. Retrieve evidence from every plausible layer before proposing destructive changes or declaring a culprit.
+- every major subsystem has a canonical home;
+- important finite engine schemas are cataloged deeply;
+- source/version provenance is preserved;
+- unknowns are explicit;
+- new frameworks can be classified into the existing taxonomy;
+- source extractors can deepen schemas systematically;
+- troubleshooting can trigger targeted research into remaining gaps.
 
-## Continuous ingestion principle
-
-This repository is designed to become more accurate through use. When a troubleshooting, authoring, reverse-engineering, or compatibility task produces a durable finding, Agent OS should stage it with its source, game/runtime/tool versions, reproduction evidence, confidence, and affected subsystem. Only validated findings should be promoted into canonical knowledge; forum/Discord/Reddit claims remain evidence candidates until corroborated.
-
-The corpus should never claim permanent exhaustiveness because Skyrim modding tooling and reverse engineering continue to evolve. The operational goal is exhaustive coverage of known high-value domains plus explicit, searchable uncertainty and automatic research-on-demand for uncovered edge cases.
-
-
-## Ongoing research model
-
-Broad foundational coverage is now established. Because Skyrim modding is an evolving reverse-engineered ecosystem, permanent exhaustiveness is not a realistic state. Remaining high-value gaps and the evidence-promotion model are tracked in `research/frontier.md`. New project questions should trigger targeted deeper ingestion into the relevant domain, with current version/runtime provenance preserved.
-
-Use `troubleshooting/diagnostic-router.md` as the first retrieval surface for symptom-driven support.
+Remaining work is tracked in `research/frontier.md`.
