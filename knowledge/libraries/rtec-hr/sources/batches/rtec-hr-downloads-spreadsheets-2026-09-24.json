@@ -129,6 +129,7 @@
   "derived_records": [
     "knowledge/libraries/rtec-hr/forms/downloads-spreadsheet-document-types-2026-09-24.json",
     "knowledge/libraries/rtec-hr/systems/historical-benefits-data-import-contracts-2018.json",
+    "knowledge/libraries/rtec-hr/forms/historical-benefits-import-field-contracts-2018.json",
     "knowledge/libraries/rtec-hr/processes/historical-benefits-billing-reconciliation.json",
     "knowledge/libraries/rtec-hr/sources/reference-data/downloads-reference-data-2026-09-24.json",
     "knowledge/libraries/rtec-hr/restricted-evidence/downloads-spreadsheets-2026-09-24.json",
