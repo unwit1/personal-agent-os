@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "updated_at": "2026-09-24",
-  "status": "source import in progress; one source checkpointed",
+  "status": "source import in progress; two sources checkpointed",
   "purpose": "Inventory local PST source files for the Searchable PST Archive continuation. This checkpoint contains filesystem provenance and import coverage only; no message bodies or attachment contents were opened.",
   "privacy": "Original paths, mailbox names, subjects, message bodies, and attachment contents are intentionally omitted. Pending sources are identified by SHA-256 and byte length for local re-discovery.",
   "existing_import_ledger": {
@@ -61,11 +61,6 @@
     ],
     "pending_distinct_sources": [
       {
-        "source_id": "pst-pending-f491b56f735aa302",
-        "bytes": 64775168,
-        "sha256": "F491B56F735AA302CA7ECF7EDC73840F20B1A8471D4F95B59E2F480E57B89CE0"
-      },
-      {
         "source_id": "pst-pending-0e8e8eae6a3e66f7",
         "bytes": 2596168704,
         "sha256": "0E8E8EAE6A3E66F721969BDEE14AEF51AC95B0A20FB8F0A07751FE23C0EDECAD"
@@ -98,9 +93,20 @@
         "already_imported": 0,
         "unreadable": 0,
         "attachments_skipped": 0
+      },
+      {
+        "source_id": "pst-sha256-f491b56f735aa302ca7ecf7e",
+        "bytes": 64775168,
+        "sha256": "F491B56F735AA302CA7ECF7EDC73840F20B1A8471D4F95B59E2F480E57B89CE0",
+        "messages_seen": 576,
+        "indexed_new": 198,
+        "deduplicated": 374,
+        "already_imported": 0,
+        "unreadable": 4,
+        "attachments_skipped": 0
       }
     ],
-    "remaining_distinct_sources": 5
+    "remaining_distinct_sources": 4
   },
   "search_coverage": {
     "scanned": [
