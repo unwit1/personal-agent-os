@@ -19,7 +19,7 @@ Verified closeout coverage includes:
 - artifacts, locations, chronology, relationships, recruitment/coercion/economy layers, contradictions, and source-reliability notes;
 - all **3** SCEN records, which contain no independent extracted phase prose beyond dialogue already represented in INFO/DIAL evidence;
 - both compiled-only scripts, `TIF__056051EE.pex` and `TIF__0572C7F4.pex`, whose retained printable strings contain boilerplate/function metadata rather than additional lore prose;
-- provenance and deduplication candidates, including the Gallus/Mercer encoded journal and `Fundaments of Alchemy`.
+- provenance and deduplication refinement, including verified work identity for the Gallus encoded journal and `Fundaments of Alchemy`; Gallus is a whitespace-normalized exact Skyrim text reuse, while `Fundaments of Alchemy` is a near-exact established-work variant inside an Arcadia-specific wrapper.
 
 No remaining gap requires re-reading the entire ESP to make this continuity usable by Lorekeeper.
 
@@ -28,7 +28,8 @@ No remaining gap requires re-reading the entire ESP to make this continuity usab
 - The remaining **171** INFO records are not a backlog of unanalyzed lore. They use faction, generic-role, state, race/location, multi-actor, or other contextual routing that does not safely identify one individual speaker.
 - **47** of the remaining INFO records have positive Subject faction conditions and are represented in `indexes/contextual-speaker-role-index.md`.
 - Multi-actor/state variants are retained at narrative-entity or role-group level where the plugin deliberately permits multiple speakers.
-- **7** identity questions remain explicitly unresolved rather than being promoted from inference to fact.
+- **7** character/faction/source identity questions remain explicitly unresolved rather than being promoted from inference to fact.
+- The two high-value reused-book identities are no longer unresolved: their work identities are verified, but stable central Personal Agent OS work/source records are still pending.
 - Papyrus binaries were not generally decompiled; source exists for essentially all compiled scripts except the two audited compiled-only PEX files above.
 - Meshes, textures, audio, facegen, and other non-text assets are intentionally excluded from the lore repository.
 - Short raw records remain preserved for future targeted micro-queries even when they did not warrant standalone dossiers or claims during the semantic pass.
@@ -40,3 +41,6 @@ Authoritative closeout references:
 - `../indexes/contextual-speaker-role-index.md`
 - `../indexes/multi-actor-speaker-groups.md`
 - `../claims/unresolved-identity-index.jsonl`
+- `refinement-pass-14-claim-integrity-qc.md`
+- `refinement-pass-15-book-provenance-verification.md`
+- `../normalized/book-source-relations.json`
