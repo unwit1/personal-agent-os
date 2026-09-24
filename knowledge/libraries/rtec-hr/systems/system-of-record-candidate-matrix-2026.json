@@ -8,6 +8,7 @@
       "domain": "applicant_pipeline",
       "observed_current_systems": [
         "ADP ATS",
+        "RTEC County Openings planning sheet",
         "internal Applicant Dashboard tooling"
       ],
       "historical_systems": [
@@ -20,6 +21,7 @@
       "downstream": [
         "interviews",
         "new-hire conversion",
+        "county openings planning",
         "AAP applicant aggregates",
         "rejection communication"
       ],
@@ -112,6 +114,7 @@
         "Guardian",
         "UnitedHealthcare",
         "ComPsych",
+        "RTEC Plan Cost Comparison",
         "iSolved/Infinisource",
         "ADP deductions"
       ],
@@ -125,6 +128,7 @@
       "likely_authoritative_source": "plan-specific carrier/admin system for coverage plus ADP for payroll deductions; exact enrollment hub unresolved",
       "downstream": [
         "payroll deductions",
+        "plan-cost comparison/renewal planning",
         "COBRA/FSA",
         "employee notices",
         "invoices",
@@ -166,16 +170,17 @@
     {
       "domain": "FMLA_leave_cases",
       "observed_current_systems": [
-        "2026 blank/reference forms",
-        "current 2025 handbook",
-        "possible ADP/time integration"
+        "FMLA Tracker in Google Drive with Active 2026 tab",
+        "2026 FMLA blank/reference forms",
+        "2025 handbook",
+        "ADP/time data as related source"
       ],
       "historical_systems": [
         "email reminders",
         "paper packets",
         "manual tracking"
       ],
-      "likely_authoritative_source": "restricted HR case ledger linked to current forms/time data unless a live case module is identified",
+      "likely_authoritative_source": "Current restricted FMLA Tracker appears to be the operational case ledger as of 2026, subject to confirming whether the native Google Sheet or legacy .xls is authoritative.",
       "downstream": [
         "attendance exclusion",
         "payroll/benefit premium handling",
@@ -184,23 +189,25 @@
       "read_automation": "medium_high_restricted",
       "write_automation": "case_action_requires_review",
       "unresolved": [
-        "current case tracker",
-        "recertification rules",
-        "medical-file storage",
-        "premium billing workflow"
+        "Designate authoritative live copy between .xls and native Sheet",
+        "formalize structured case status/deadline fields",
+        "medical note separation/access",
+        "link to attendance/time without duplicating case facts"
       ]
     },
     {
       "domain": "attendance_points",
       "observed_current_systems": [
-        "current handbook rules; system source unresolved"
+        "Attendance Tracker Google Sheet",
+        "ADP Employee Daily Totals upstream report",
+        "2025 handbook"
       ],
       "historical_systems": [
         "Attendance Calendar",
         "Absentee Report",
         "personal-time lists"
       ],
-      "likely_authoritative_source": "controlled restricted attendance event ledger or live time system with HR rule engine",
+      "likely_authoritative_source": "ADP for time totals; Attendance Tracker currently acts as derived HR attendance/points/reserve/FMLA view. Source-of-truth for point events should be explicitly designated.",
       "downstream": [
         "discipline",
         "leave/FMLA protection checks",
@@ -209,9 +216,10 @@
       "read_automation": "high_once_source_mapped",
       "write_automation": "human_review_for_consequences",
       "unresolved": [
-        "current tracker",
-        "protected-absence coding",
-        "point adjustment approval"
+        "validate formulas against 2025 handbook",
+        "document Blacklist/exclusion rule",
+        "define source-of-truth for manual point adjustments",
+        "avoid duplicating FMLA case facts from FMLA Tracker"
       ]
     },
     {
