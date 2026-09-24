@@ -1,0 +1,174 @@
+{
+  "continuity_id": "tes.mod.wheels-of-lull",
+  "audit_date": "2026-09-24",
+  "pass": "book_provenance_06_verified_current_chronocoda_sources",
+  "status": "complete_current_package_cross_continuity_comparison",
+  "verified_source_packages": [
+    {
+      "continuity": "tes.mod.aethernautics",
+      "version": "3.1",
+      "release_date": "2026-08-01",
+      "plugin_sha256": "18e21d0bbb08440bc6c42f049d2b8a24353dd9a24d84fc185c7e6d1b700fe720",
+      "book_records": 22
+    },
+    {
+      "continuity": "tes.mod.sotha-sil-expanded",
+      "version": "3.1",
+      "release_date": "2025-07-22",
+      "plugin_sha256": "d8af26f23fe5d1c0fe7119e82762e4515de2eee6a9c6ffadd697d1524ed24b85",
+      "book_records": 49
+    }
+  ],
+  "historical_precedence_boundary": "Both verified comparison packages postdate the 2014 Wheels release. Exact/near-exact current text identity proves shared-work/edition relationships, not historical precedence. Pre-Wheels origin remains unresolved unless supported by older dated witnesses.",
+  "wheels_records_with_current_cross_continuity_witnesses": [
+    {
+      "form_id": "0537158D",
+      "title": "Harquebuses",
+      "witnesses": [
+        {
+          "continuity": "tes.mod.aethernautics",
+          "record": "05002FAD",
+          "relation": "same_body_byline_variant"
+        },
+        {
+          "continuity": "tes.mod.sotha-sil-expanded",
+          "record": "_sotha_gunbook",
+          "relation": "semantic_text_exact"
+        }
+      ]
+    },
+    {
+      "form_id": "0537158E",
+      "title": "KINMUNE",
+      "witnesses": [
+        {
+          "continuity": "tes.mod.sotha-sil-expanded",
+          "record": "_sotha_kinmune",
+          "relation": "semantic_text_exact"
+        }
+      ]
+    },
+    {
+      "form_id": "0537158F",
+      "title": "Tatterdemalion",
+      "witnesses": [
+        {
+          "continuity": "tes.mod.sotha-sil-expanded",
+          "record": "_sotha_mooncolony",
+          "relation": "semantic_text_exact"
+        }
+      ]
+    },
+    {
+      "form_id": "05371590",
+      "title": "The Cacophany",
+      "witnesses": [
+        {
+          "continuity": "tes.mod.sotha-sil-expanded",
+          "record": "_sotha_music",
+          "relation": "semantic_text_same_after_encoding_repair"
+        }
+      ]
+    },
+    {
+      "form_id": "05371591",
+      "title": "Wind Up and Wound Down",
+      "witnesses": [
+        {
+          "continuity": "tes.mod.sotha-sil-expanded",
+          "record": "_sotha_rewoundbook",
+          "relation": "punctuation_only_variant"
+        }
+      ]
+    },
+    {
+      "form_id": "05371592",
+      "title": "Musings On Power",
+      "witnesses": [
+        {
+          "continuity": "tes.mod.sotha-sil-expanded",
+          "record": "sotha_powerbook",
+          "relation": "semantic_text_exact"
+        }
+      ]
+    },
+    {
+      "form_id": "05371593",
+      "title": "De Rerum Mutabilitatis",
+      "witnesses": [
+        {
+          "continuity": "tes.mod.sotha-sil-expanded",
+          "record": "sotha_mimicbook",
+          "relation": "single_typo_variant"
+        }
+      ]
+    },
+    {
+      "form_id": "05371594",
+      "title": "How To Moon",
+      "witnesses": [
+        {
+          "continuity": "tes.mod.sotha-sil-expanded",
+          "record": "sotha_bookmoon",
+          "relation": "semantic_text_exact",
+          "note": "Embedded Wheels heading says How Two Moon."
+        }
+      ]
+    },
+    {
+      "form_id": "05371595",
+      "title": "Chronography, Volume I",
+      "witnesses": [
+        {
+          "continuity": "tes.mod.aethernautics",
+          "record": "05002FA7",
+          "relation": "semantic_text_exact"
+        }
+      ]
+    },
+    {
+      "form_id": "05376714",
+      "title": "Chronography, Volume II",
+      "witnesses": [
+        {
+          "continuity": "tes.mod.aethernautics",
+          "record": "05002FA8",
+          "relation": "minor_text_variant"
+        }
+      ]
+    },
+    {
+      "form_id": "05376715",
+      "title": "Chronography, Volume III",
+      "witnesses": [
+        {
+          "continuity": "tes.mod.aethernautics",
+          "record": "05002FA9",
+          "relation": "semantic_text_exact"
+        }
+      ]
+    }
+  ],
+  "previously_unresolved_named_works_with_current_witnesses": [
+    "Wind Up and Wound Down",
+    "Musings On Power",
+    "De Rerum Mutabilitatis",
+    "How Two Moon",
+    "Chronography, Volume I",
+    "Chronography, Volume II",
+    "Chronography, Volume III"
+  ],
+  "named_works_without_current_aethernautics_or_sotha_witness": [
+    "Trademarks",
+    "Sybandis",
+    "Journeys Through Sybandis"
+  ],
+  "historical_provenance_counts_unchanged": {
+    "books": 33,
+    "verified_prior_external_reuse": 3,
+    "strong_indirect_legacy_candidates": 1,
+    "origin_unresolved": 29,
+    "named_work_origin_unresolved": 10
+  },
+  "retrieval_effect": "Current cross-continuity witnesses may now route retrieval and edition comparison, but must not overwrite historical_origin or pre-Wheels provenance fields."
+}
