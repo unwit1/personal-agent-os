@@ -52,6 +52,10 @@
     {
       "path": "knowledge/libraries/rtec-hr/processes/retirement-401k-currentness-public-evidence-2026-09-24.json",
       "kind": "public_retirement_currentness_evidence"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/systems/hr-gui-current-workflow-evidence-2026-09-24.json",
+      "kind": "current_HR_GUI_workflow_evidence"
     }
   ],
   "applicant_pipeline": [
@@ -199,7 +203,8 @@
     "explicit operational designation of the authoritative FMLA tracker copy",
     "Attendance Tracker business-rule authority for Reserve Hours, 24-hour anniversary reset, eight-hour assumption, SupervisorBlacklist and manual point reconciliation",
     "public website security/content remediation and ownership confirmation",
-    "live work-PC validation of the RTEC applicant Agent OS connector, dashboard.db discovery and Fillout sync health"
+    "live work-PC validation of the RTEC applicant Agent OS connector, dashboard.db discovery and Fillout sync health",
+    "authoritative RTEC FMLA 12-month measurement method before implementing HR-GUI balance/year-method automation"
   ],
   "source_exhaustion": {
     "status": "pst_source_exhausted",
