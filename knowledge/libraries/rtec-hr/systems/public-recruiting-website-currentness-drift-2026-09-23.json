@@ -34,5 +34,15 @@
     "Add locale/version regression checks for pay, open roles, benefits, contact details and application URLs.",
     "Use current job-description versions separately from application templates."
   ],
-  "source_priority_rule": "ATS/requisition records, current job descriptions, current plan documents and current handbook outrank website marketing copy when they conflict. Public pages remain authoritative evidence of what applicants currently see."
+  "source_priority_rule": "ATS/requisition records, current job descriptions, current plan documents and current handbook outrank website marketing copy when they conflict. Public pages remain authoritative evidence of what applicants currently see.",
+  "localized_pay_drift_observed": [
+    "Spanish",
+    "Hindi",
+    "Arabic"
+  ],
+  "localized_pay_drift_note": "Current indexed localized homepages show a $16.00/hour driver starting rate while the current English homepage shows $17.00/hour.",
+  "additional_drift": [
+    "A translated bid-opportunities page still exposes a 2021 office-phone-system solicitation while the current English bid page has no active opportunities.",
+    "The generic /jobs page exposes unrelated San Francisco technology jobs, apparently production template/demo content."
+  ]
 }
