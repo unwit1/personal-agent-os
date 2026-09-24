@@ -100,7 +100,12 @@ def _resolve_document_path(value: Any, kind: str) -> Path | None:
     return root / path
 
 
-def _file_metadata(value: Any, kind: str, include_type: bool = True) -> dict[str, Any]:
+def _file_metadata(
+    value: Any,
+    kind: str,
+    include_type: bool = True,
+    presence_only: bool = False,
+) -> dict[str, Any]:
     path = _resolve_document_path(value, kind)
     present = bool(str(value or "").strip())
     result: dict[str, Any] = {"recorded": present, "exists": False}
@@ -111,7 +116,7 @@ def _file_metadata(value: Any, kind: str, include_type: bool = True) -> dict[str
     except OSError:
         return result
     result["exists"] = path.is_file()
-    if not result["exists"]:
+    if not result["exists"] or presence_only:
         return result
     result["size_bytes"] = int(stat.st_size)
     result["modified_at"] = datetime.fromtimestamp(
@@ -325,7 +330,10 @@ def get_document_metadata(applicant_ref: str) -> dict[str, Any] | None:
         # tools may know a compliance artifact exists but do not need its
         # filename, extension, path, size, or content.
         "restricted_compliance_form": _file_metadata(
-            raw.get("aa_pdf_path"), "restricted_compliance", include_type=False
+            raw.get("aa_pdf_path"),
+            "restricted_compliance",
+            include_type=False,
+            presence_only=True,
         ),
     }
 
