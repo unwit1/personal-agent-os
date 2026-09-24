@@ -1,46 +1,19 @@
 {
   "record_id": "rtec-workers-comp-return-to-work-email-evidence-2018-2021",
-  "updated_at": "2026-09-23",
-  "status": "validated_historical_pattern_current_process_unresolved",
+  "updated_at": "2026-09-24",
+  "status": "historical_rtec_evidence_plus_current_kentucky_employer_baseline",
   "privacy": "All employee names, diagnoses, injury narratives, claim identifiers and medical details are excluded.",
   "workflow_skeleton": [
-    {
-      "step": "injury_intake",
-      "evidence": "Historical messages reference a First Report of Injury as an early process artifact.",
-      "evidence_ids": [
-        "000063"
-      ]
-    },
-    {
-      "step": "claim_or_carrier_tracking",
-      "evidence": "Subsequent correspondence uses workers-comp claim references and follow-up with the compensation channel.",
-      "evidence_ids": [
-        "000066",
-        "000114",
-        "000125",
-        "000233",
-        "000269"
-      ]
-    },
-    {
-      "step": "medical_or_work_status_followup",
-      "evidence": "HR repeatedly tracked whether an employee had returned or was cleared to return to work.",
-      "evidence_ids": [
-        "000108",
-        "000194",
-        "000222",
-        "000234",
-        "000240"
-      ]
-    },
-    {
-      "step": "carrier_notification",
-      "evidence": "Self-reminders explicitly directed HR to notify KACo when return-to-work status changed.",
-      "evidence_ids": [
-        "000108",
-        "000194"
-      ]
-    }
+    "employee/supervisor incident notification",
+    "immediate emergency/safety response as needed",
+    "record the reported/alleged work-related injury in the restricted case workflow",
+    "notify RTEC's current workers' compensation carrier/claims administrator within three working days of employer notification",
+    "separately evaluate current Kentucky OSH serious-incident reporting deadlines; fatality 8 hours and covered hospitalization/amputation/loss-of-eye 24 hours",
+    "carrier/administrator investigates and handles required FROI/SROI reporting to Kentucky",
+    "collect medical/work-status information through approved restricted channels",
+    "track lost time, restrictions and return-to-work status",
+    "coordinate payroll/leave/operations only on the minimum necessary work-status facts",
+    "close/reconcile claim and retention requirements"
   ],
   "historical_participants": [
     "HR role",
@@ -53,20 +26,46 @@
     "Return-to-work status was a recurring unresolved-commitment type suitable for structured tracking."
   ],
   "unresolved": [
-    "Current workers-comp carrier/administrator and contact path.",
-    "Current injury-report forms and statutory/internal deadlines.",
-    "Supervisor notification requirements.",
-    "OSHA recordability decision ownership.",
-    "Medical-document separation and restricted storage rules.",
-    "Return-to-work/light-duty approval and documentation sequence.",
-    "Closure criteria and audit trail."
+    "Identify RTEC's current workers' compensation insurer, third-party administrator/claim administrator, policy/posting and reporting contact/portal",
+    "Identify current internal first-notification owner and backup owner",
+    "Confirm the RTEC internal incident/First Report form and whether IA-1 or a carrier-specific intake is used operationally",
+    "Document RTEC's current emergency, supervisor, safety, operations and HR escalation chain",
+    "Document current restricted medical/work-status storage and access controls",
+    "Document current lost-time/light-duty/return-to-work approval process",
+    "Document who makes Kentucky OSH serious-incident reports and how completion is evidenced",
+    "Document claim closure, OSHA log/reporting reconciliation and retention"
   ],
   "automation_candidates": [
-    "restricted injury-case checklist with deadline tracking",
-    "carrier-notification follow-up task",
-    "return-to-work status gate",
-    "missing-document detection",
-    "case closure checklist"
+    "restricted incident intake checklist",
+    "three-working-day carrier notification deadline",
+    "serious-incident OSHA 8-hour/24-hour decision gate",
+    "carrier/administrator submission confirmation tracking",
+    "restricted medical/work-status follow-up",
+    "return-to-work/restriction gate",
+    "claim closure and retention checklist"
   ],
-  "guardrail": "No historical case outcome or employee-specific fact is promoted as policy."
+  "guardrail": "No historical case outcome or employee-specific fact is promoted as policy.",
+  "current_kentucky_baseline": {
+    "observed_at": "2026-09-24",
+    "employer_obligations": [
+      "Keep a record of workplace injuries received by employees.",
+      "Report any work-related injury, disease, or alleged work-related injury/disease to the workers' compensation carrier or party responsible for benefits within three working days of employer notification.",
+      "For an injury/disease causing more than one day away from work, the carrier/claims administrator is responsible for the First Report of Injury to the Department of Workers' Claims within one week after notification.",
+      "Maintain required workers' compensation coverage/posting; the current Kentucky employer guidance says the posting identifies the insurance company, policy information and how injured employees access medical care."
+    ],
+    "state_claim_data_flow": "Kentucky Department of Workers' Claims receives FROI/SROI electronically from carriers and third-party administrators through approved EDI vendors.",
+    "kentucky_osh_serious_incident_reporting": {
+      "fatality": "within 8 hours of employer awareness, subject to the current event/time-limitation rules",
+      "hospitalization": "within 24 hours",
+      "amputation": "within 24 hours",
+      "loss_of_eye": "within 24 hours",
+      "caution": "Older Kentucky materials used a 72-hour rule for hospitalization/amputation/eye loss. Current Kentucky OSH guidance and 2025 update materials state 24 hours effective after the 2025 change."
+    },
+    "official_sources": [
+      "https://elc.ky.gov/Workers-Compensation/Pages/Employer-Responsibilities.aspx",
+      "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=32380",
+      "https://elc.ky.gov/Workers-Compensation/Pages/Electronic%20Data%20Interchange%20%28EDI%29_Proof%20of%20Coverage_Claims.aspx",
+      "https://elc.ky.gov/workplace-standards/Pages/report-accident-fatality.aspx"
+    ]
+  }
 }
