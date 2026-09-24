@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0",
+  "updated_at": "2026-09-24",
+  "status": "inventory checkpoint; content processing pending",
+  "purpose": "Inventory local PST source files for the Searchable PST Archive continuation. This checkpoint contains filesystem provenance and import coverage only; no message bodies or attachment contents were opened.",
+  "privacy": "Original paths, mailbox names, subjects, message bodies, and attachment contents are intentionally omitted. Pending sources are identified by SHA-256 and byte length for local re-discovery.",
+  "existing_import_ledger": {
+    "ledger_rows": 1,
+    "latest_import_at": "2026-09-23T20:23:23.181159+00:00",
+    "source_entries_including_ost": 12,
+    "messages_seen": 35386,
+    "indexed_new": 13468,
+    "deduplicated": 18882,
+    "already_imported": 2966,
+    "unreadable": 70,
+    "attachments_skipped": 122
+  },
+  "inventory": {
+    "user_profile_pst_path_instances": 17,
+    "distinct_unindexed_pst_candidates": 6,
+    "exact_duplicate_copies_confirmed": [
+      {
+        "group": "small archive copy",
+        "paths": 2,
+        "sha256": "895836D32C0880BC565E62FAE94E50CC1BF30ECAEA1E163146BF1E1464C3AB52",
+        "matches_imported_source_id": "pst-archive"
+      },
+      {
+        "group": "small archive revision copy",
+        "paths": 2,
+        "sha256": "5C893F47398D2DDAAA91A5E7E9783AC5BFF130CECEFAC803997DF3934BE67268",
+        "matches_imported_source_id": "pst-archive1"
+      },
+      {
+        "group": "large outlook backup copy",
+        "paths": 2,
+        "bytes": 5483602944,
+        "sha256": "D81D59301777F677923D298F92710A97E941C8ED51A514CC10DD3ED59A509404",
+        "matches_imported_source_id": "pst-outlook"
+      }
+    ],
+    "same_size_but_distinct_content": [
+      {
+        "group": "large mailbox backups",
+        "bytes": 5483602944,
+        "sha256": [
+          "D81D59301777F677923D298F92710A97E941C8ED51A514CC10DD3ED59A509404",
+          "EA60E32B986615331358C1A0FC837E98FB6D8263FC43101177CA8D6F2F710C73"
+        ],
+        "note": "Equal byte length does not imply duplicate content."
+      },
+      {
+        "group": "mailbox snapshot variants",
+        "bytes": 1182671872,
+        "sha256": [
+          "8BD8173BAC4E02B1C38DED95ABABFD985BFA4A407268B103C284F9D1C8257727",
+          "8AC7456B76635E3543A829A6DE28CCF9A7C2FB06930B1F6E44AADFFDE032ABEF"
+        ],
+        "note": "Two different source files; import-time message-level deduplication may still find overlap."
+      }
+    ],
+    "pending_distinct_sources": [
+      {
+        "source_id": "pst-pending-9da62b945ceec372",
+        "bytes": 271360,
+        "sha256": "9DA62B945CEEC37291EA3DB0D0CD603310EAE14CE7861411789440CA2D401A6D"
+      },
+      {
+        "source_id": "pst-pending-f491b56f735aa302",
+        "bytes": 64775168,
+        "sha256": "F491B56F735AA302CA7ECF7EDC73840F20B1A8471D4F95B59E2F480E57B89CE0"
+      },
+      {
+        "source_id": "pst-pending-0e8e8eae6a3e66f7",
+        "bytes": 2596168704,
+        "sha256": "0E8E8EAE6A3E66F721969BDEE14AEF51AC95B0A20FB8F0A07751FE23C0EDECAD"
+      },
+      {
+        "source_id": "pst-pending-8bd8173bac4e02b1",
+        "bytes": 1182671872,
+        "sha256": "8BD8173BAC4E02B1C38DED95ABABFD985BFA4A407268B103C284F9D1C8257727"
+      },
+      {
+        "source_id": "pst-pending-8ac7456b76635e35",
+        "bytes": 1182671872,
+        "sha256": "8AC7456B76635E3543A829A6DE28CCF9A7C2FB06930B1F6E44AADFFDE032ABEF"
+      },
+      {
+        "source_id": "pst-pending-08bf74126da42b2b",
+        "bytes": 10741933056,
+        "sha256": "08BF74126DA42B2BA38932E2E93DD3EECED2132F0A8891615609C92CA2FF4E17"
+      }
+    ]
+  },
+  "search_coverage": {
+    "scanned": [
+      "user profile PST filenames in documents, desktop, downloads, OneDrive, Outlook-profile, GitHub, and Projects locations",
+      "temporary folder PST filenames: zero found; one inaccessible subfolder reported by the operating system",
+      "mapped RTEC share HR folder PST filenames: zero found; zero scan errors"
+    ],
+    "not_scanned": [
+      "the full mapped RTEC share was not recursively searched because it contains unrelated employee-named folders and case materials; only its HR folder was checked",
+      "four already-imported PST entries were not rehashed in this pass"
+    ]
+  },
+  "next_actions": [
+    "Coordinate with active email-review claim WC-5eaa0d9599 before writing to the shared local work-mail index.",
+    "Import each of the six pending distinct PSTs one at a time after the current read pass, recording message-level deduplication and unreadable-item counts.",
+    "Review safe, position-level reference attachments only; keep case records and raw mailbox content out of the tracked knowledge repository.",
+    "Reconcile the import ledger after each source and update the project coverage checkpoint."
+  ],
+  "provenance_note": "Hash and size are from full-file SHA-256 of the listed candidates. Imported-source IDs are from .agent-local/mail/work/pst-imports.jsonl. No message content was read during this inventory."
+}
