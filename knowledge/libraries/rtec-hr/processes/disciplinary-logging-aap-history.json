@@ -174,6 +174,83 @@
           "note": null
         }
       ]
+    },
+    {
+      "claim": "The annual disciplinary register is present for fiscal years 2008-2009 through 2023-2024, is missing from this archive for 2024-2025, and has a blank 2025-2026 template with the mature 11-column schema.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "disciplinary_log_fiscal_year inventory plus workbook structure review",
+          "evidence_type": "repeated_observation",
+          "note": "Only aggregate coverage/schema facts are generalized."
+        }
+      ]
+    },
+    {
+      "claim": "The annual register schema changed over time: 2008-2009 used Department, Employee Name, Job Title, Gender, Origin, Type, Date, Reason and EEO-1; 2009-2010 through 2013-2014 used Department, Employee Name, Job Title, EEO-1, Gender, Race, Type, Reason and Date; from 2014-2015 onward the register added Veteran and IWD fields, producing the stable 11-column schema Department, Employee Name, Job Title, EEO-1, Gender, Race, VET, IWD, Type, Reason and Date.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "17 fiscal-year workbook schemas",
+          "evidence_type": "repeated_observation",
+          "note": "Employee row values were not promoted."
+        }
+      ]
+    },
+    {
+      "claim": "The annual registers contain both disciplinary action types and non-disciplinary Incident entries, including vehicle accident/incident records in later years; therefore the historical workbook functioned as a mixed disciplinary/incident register rather than a pure discipline-only dataset.",
+      "claim_kind": "interpretation",
+      "confidence": 0.99,
+      "relationship": "EXTENDS",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "annual register Type/Reason fields across later fiscal years",
+          "evidence_type": "repeated_observation",
+          "note": "The Type value 'Incident' and reason family 'Vehicle Accident/Incident' recur in later workbooks."
+        }
+      ]
+    },
+    {
+      "claim": "A separate Verbal Warnings workbook uses a lighter four-field structure: Employee Name, Date, Problem Addressed and Addressed By, showing that at least some verbal counseling was tracked outside the annual master register.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-form-employee-warning-notice-legacy"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "disciplinary_verbal_warning_log structure",
+          "evidence_type": "structural",
+          "note": "Employee-specific entries are excluded."
+        }
+      ]
+    },
+    {
+      "claim": "AAP-sorted disciplinary workbooks are not consistent copies of the annual register: some preserve the full 11-column row, while others omit Type/Reason/Date or even Job Title/Department; row counts also differ in several years. They should be treated as historical reporting derivatives, not authoritative substitutes for the annual register.",
+      "claim_kind": "interpretation",
+      "confidence": 0.99,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "11 AAP-sorted workbook schemas compared with annual source workbooks",
+          "evidence_type": "structural",
+          "note": "Examples include reduced 7-9 column AAP extracts and differing record counts."
+        }
+      ]
     }
   ],
   "trigger": "Disciplinary action or verbal warning is documented; AAP reporting may require a historical disciplinary-data extract.",
@@ -220,13 +297,19 @@
     "Preserve raw historical type/reason values while maintaining normalized derived categories separately.",
     "AAP parsers must be schema-aware and must identify subtotal/count rows before treating a row as an employee/event record.",
     "Current discipline decisions must use the current handbook/process, not historical WW labels.",
-    "Separate non-disciplinary vehicle incident records from corrective-action events during migration and reporting."
+    "Separate non-disciplinary vehicle incident records from corrective-action events during migration and reporting.",
+    "Treat the annual fiscal-year register as the stronger historical source than an AAP-sorted derivative when the two differ.",
+    "Do not interpret an Incident row as discipline solely because it appears in a disciplinary-action workbook.",
+    "AAP derivatives containing protected demographic fields require restricted access and should be generated from an authoritative source rather than maintained as uncontrolled copies."
   ],
   "unresolved_questions": [
     "Was disciplinary activity after September 22, 2023 moved to another system/file, and where is the authoritative 2024-2025/current register?",
     "What exactly did historical WW1-WW9/WWI-WWIV labels mean in each era, and were they local warning sequence labels or policy-defined levels?",
     "Why are there two distinct 2016-2017 AAP-sorted derivatives, and which was used for the final AAP analysis?",
-    "What current AAP discipline-analysis requirement, if any, supersedes the manual sorted-workbook practice?"
+    "What current AAP discipline-analysis requirement, if any, supersedes the manual sorted-workbook practice?",
+    "Why do several AAP-sorted extracts contain more rows than the corresponding annual register, and which rows are additions, duplicates, or historical corrections?",
+    "What caused the 2014-2015 introduction of VET and IWD fields in the disciplinary register, and was that specifically tied to AAP reporting requirements?",
+    "Why is no 2024-2025 fiscal-year disciplinary register present while a blank 2025-2026 template exists?"
   ],
   "automation_candidates": [
     "Maintain one authoritative restricted disciplinary-event register and generate fiscal-year/AAP views on demand.",
@@ -234,7 +317,10 @@
     "Schema-detect annual/AAP workbook variants and classify each row as detail/header/subtotal before import.",
     "Automatically flag partial/missing fiscal-year coverage and empty-template years before AAP/audit reporting.",
     "Generate privacy-safe aggregate AAP analyses without duplicating employee-level rosters.",
-    "Split imported rows into explicit case/event types (discipline, vehicle incident, counseling, etc.) instead of preserving one overloaded register."
+    "Split imported rows into explicit case/event types (discipline, vehicle incident, counseling, etc.) instead of preserving one overloaded register.",
+    "Generate AAP disciplinary extracts reproducibly from one restricted authoritative register, with an explicit schema/version and row-count reconciliation report.",
+    "Separate incident/accident tracking from disciplinary action in future systems while preserving links when an incident leads to discipline.",
+    "Normalize legacy warning-level aliases such as WWI/WW1, WW2, Counsel/Counseling, Verbal, Final and Suspension during migration without changing source values."
   ],
   "provenance": [
     {
