@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-24T12:58:20.013363+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## fix/planner-malformed-escalation...origin/fix/planner-malformed-escalation\n M projects/personal-agent-os/roadmap/master-priority-roadmap.md\n M src/agent_os/documents.py",
+    "error": ""
+  },
+  "completed": [
+    "Added count-only field-region request, OCR, and cache-hit counters to document telemetry.",
+    "Documented the targeted OCR counters in the P0.3 roadmap."
+  ],
+  "decisions": [
+    "Template matching will reuse forms.best_form_match rather than duplicate it with the lower-information OCR structural anchors; the canonical registry is currently empty."
+  ],
+  "remaining": [
+    "Add and run focused synthetic coverage for region validation, cache invalidation/warm hits, and scanner zone behavior; review and merge both branches.",
+    "Implement document-page template matching/reuse by integrating the existing sanitized fingerprint matcher with scanner classification.",
+    "P0.0A G1 still requires restart from the owning MCP host and exact-model smoke."
+  ],
+  "validation": [
+    "py_compile src/agent_os/documents.py passed.",
+    "python agent.py validate passed (404 checks; two existing local routing-adapter mismatch warnings).",
+    "git diff --check passed; tests not run under current session instruction."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

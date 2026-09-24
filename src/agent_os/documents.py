@@ -295,6 +295,9 @@ class Telemetry:
     blank_skips: int = 0
     embedded_text_pages: int = 0
     ocr_pages: int = 0
+    field_region_pages: int = 0
+    field_region_ocr_pages: int = 0
+    field_region_cache_hits: int = 0
     cache_writes: int = 0
     cache_errors: int = 0
     seconds_saved: float = 0.0
@@ -308,6 +311,9 @@ class Telemetry:
             "blank_skips": self.blank_skips,
             "embedded_text_pages": self.embedded_text_pages,
             "ocr_pages": self.ocr_pages,
+            "field_region_pages": self.field_region_pages,
+            "field_region_ocr_pages": self.field_region_ocr_pages,
+            "field_region_cache_hits": self.field_region_cache_hits,
             "cache_writes": self.cache_writes,
             "cache_errors": self.cache_errors,
             "seconds_saved": round(self.seconds_saved, 3),
@@ -582,7 +588,14 @@ def extract_field_region(
         field_image = crop_region(page_image, region)
         return ocr(field_image)
 
-    return extract_page(cache_key, embedded_text=None, ocr=read_region, cache=cache)
+    store = cache if cache is not None else DocumentCache()
+    result = extract_page(cache_key, embedded_text=None, ocr=read_region, cache=store)
+    store.telemetry.field_region_pages += 1
+    if result.get("cached"):
+        store.telemetry.field_region_cache_hits += 1
+    elif result.get("route") == "ocr":
+        store.telemetry.field_region_ocr_pages += 1
+    return {**result, "extraction_kind": "field_region"}
 
 
 @dataclass(frozen=True)

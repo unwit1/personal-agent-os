@@ -231,8 +231,9 @@ Delivered:
 3. person-independent structural signatures — **done**; matching and reuse are
    still pending;
 4. targeted field-region OCR — shared `FieldRegion` validation and cached
-   `extract_field_region` API are implemented; project-specific zone storage,
-   selection, caller wiring, and focused regression coverage remain;
+   `extract_field_region` API are implemented, with count-only telemetry for
+   region requests, OCR calls, and cache hits; focused regression coverage
+   remains;
 5. bounded concurrency — **not started**, and correctly gated behind measuring
    the earlier steps.
 
