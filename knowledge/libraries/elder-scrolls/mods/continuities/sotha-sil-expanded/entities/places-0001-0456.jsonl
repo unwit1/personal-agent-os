@@ -1,0 +1,456 @@
+{"cell_name": "Corprusarium Bowels", "region": null, "source_offset": 939919}
+{"cell_name": "Sotha Sil,", "region": null, "source_offset": 940579}
+{"cell_name": "Sotha Sil, Central Gearworks", "region": null, "source_offset": 940670}
+{"cell_name": "Sotha Sil, Chamber of Sohleh", "region": null, "source_offset": 940995}
+{"cell_name": "Sotha Sil, Dome of Kasia", "region": null, "source_offset": 1048441}
+{"cell_name": "Sotha Sil, Dome of Serlyn", "region": null, "source_offset": 1048692}
+{"cell_name": "Sotha Sil, Dome of Sotha Sil", "region": null, "source_offset": 1049621}
+{"cell_name": "Sotha Sil, Dome of the Imperfect", "region": null, "source_offset": 1303844}
+{"cell_name": "Sotha Sil, Dome of Udok", "region": null, "source_offset": 1304246}
+{"cell_name": "Sotha Sil, Hall of Delirium", "region": null, "source_offset": 1304630}
+{"cell_name": "Sotha Sil, Hall of Mileitho", "region": null, "source_offset": 1391432}
+{"cell_name": "Sotha Sil, Hall of Sallaemu", "region": null, "source_offset": 1458144}
+{"cell_name": "Sotha Sil, Hall of Theuda", "region": null, "source_offset": 1466679}
+{"cell_name": "Sotha Sil, Inner Flooded Halls", "region": null, "source_offset": 1545515}
+{"cell_name": "Sotha Sil, Outer Flooded Halls", "region": null, "source_offset": 1570130}
+{"cell_name": "Sotha Sil, Imperfect Maintenance Complex", "region": null, "source_offset": 1678333}
+{"cell_name": "Sotha Sil, Cells of Kasia", "region": null, "source_offset": 1771468}
+{"cell_name": "Sotha Sil, Sanctum of Serlyn", "region": null, "source_offset": 1822821}
+{"cell_name": "Sotha Sil, Valley of Udok", "region": null, "source_offset": 1861567}
+{"cell_name": "Sotha Sil, Sewers", "region": null, "source_offset": 1910127}
+{"cell_name": "Sotha Sil, Clockwork City, Residential District", "region": null, "source_offset": 1945020}
+{"cell_name": "Sotha Sil, Outer Flooded Sewers", "region": null, "source_offset": 2007826}
+{"cell_name": "Sotha Sil, The City of Clockwork", "region": null, "source_offset": 2048415}
+{"cell_name": "Sotha Sil, Flooded Entrance Hall", "region": null, "source_offset": 2291066}
+{"cell_name": "Sotha Sil, Hall of Glass", "region": null, "source_offset": 2347836}
+{"cell_name": "Sotha Sil, Basin of Glass", "region": null, "source_offset": 2418986}
+{"cell_name": "Sotha Sil, Inner Workshop Entrance", "region": null, "source_offset": 2464138}
+{"cell_name": "Sotha Sil, Deep Sewers", "region": null, "source_offset": 2548217}
+{"cell_name": "Sotha Sil, Inner Flooded Corridors", "region": null, "source_offset": 2609129}
+{"cell_name": "Sotha Sil, Deep Flooded Halls", "region": null, "source_offset": 2642058}
+{"cell_name": "Sotha Sil, Flooded Halls", "region": null, "source_offset": 2658914}
+{"cell_name": "Sotha Sil, Disposal Area", "region": null, "source_offset": 2689399}
+{"cell_name": "Sotha Sil, Othran Ancestral Tomb", "region": null, "source_offset": 2717501}
+{"cell_name": "Sotha Sil, Arendu Ancestral Tomb", "region": null, "source_offset": 2737919}
+{"cell_name": "Sotha Sil, Mileitho's Guard", "region": null, "source_offset": 2749713}
+{"cell_name": "Sotha Sil, Vault of Magnus", "region": null, "source_offset": 2756393}
+{"cell_name": "Vault of Magnus, Corridors of Conjuration", "region": null, "source_offset": 2790200}
+{"cell_name": "Vault of Magnus, Antechamber of Alteration", "region": null, "source_offset": 2797318}
+{"cell_name": "Vault of Magnus, Maze of Mysticism", "region": null, "source_offset": 2828430}
+{"cell_name": "Vault of Magnus, Dungeons of Destruction", "region": null, "source_offset": 2837328}
+{"cell_name": "Vault of Magnus, Interiors of Illusion", "region": null, "source_offset": 2840617}
+{"cell_name": "Sotha TestHole", "region": null, "source_offset": 2859662}
+{"cell_name": "Sotha Sil, Lantern of Udok", "region": null, "source_offset": 2928493}
+{"cell_name": "Sotha Sil, Bones of Udok", "region": null, "source_offset": 2939276}
+{"cell_name": "Sotha Sil, Udok's Oasis", "region": null, "source_offset": 2972501}
+{"cell_name": "Sotha Sil, Auxiliary Gearworks", "region": null, "source_offset": 2987939}
+{"cell_name": "Sotha Sil, Hall of Antikythera", "region": null, "source_offset": 3012066}
+{"cell_name": "Sotha Sil, Chamber of Fortuity", "region": null, "source_offset": 3047263}
+{"cell_name": "Sotha Sil, Halls of Mmicity", "region": null, "source_offset": 3101633}
+{"cell_name": "Sotha Sil, Vestibule of Prime", "region": null, "source_offset": 3134269}
+{"cell_name": "Sotha Sil, Maelstrom of Andronicus", "region": null, "source_offset": 3196110}
+{"cell_name": "Sotha Sil, Eye of Andronicus", "region": null, "source_offset": 3216611}
+{"cell_name": "Sotha Sil, Streets of Cartoph", "region": null, "source_offset": 3231557}
+{"cell_name": "Sotha Sil, Citadel of Cartoph", "region": null, "source_offset": 3255813}
+{"cell_name": "Sotha Sil, Slopes of Ersatidium", "region": null, "source_offset": 3266626}
+{"cell_name": "Sotha Sil, Anteroom of Ersatidium", "region": null, "source_offset": 3357450}
+{"cell_name": "Sotha Sil, Forge of Oracula", "region": null, "source_offset": 3364756}
+{"cell_name": "Sotha Sil, Elevator of Oracula", "region": null, "source_offset": 3404518}
+{"cell_name": "Sotha Sil, Canton of Prime", "region": null, "source_offset": 3410397}
+{"cell_name": "Sotha Sil, Fabricant Plant", "region": null, "source_offset": 3411825}
+{"cell_name": "Sotha Sil, Hall of Fabrication", "region": null, "source_offset": 3533133}
+{"cell_name": "Sotha Sil, Hall of Agon", "region": null, "source_offset": 3627586}
+{"cell_name": "Sotha Sil, Hall of Umor", "region": null, "source_offset": 3666052}
+{"cell_name": "Sotha Sil, Garden of Akatosh", "region": null, "source_offset": 3719905}
+{"cell_name": "Sotha Sil, Seht's Foundry", "region": null, "source_offset": 3732403}
+{"cell_name": "Sotha Sil, Gears of Birthing", "region": null, "source_offset": 3811603}
+{"cell_name": "Sotha Sil, Pillars of Welding", "region": null, "source_offset": 3845601}
+{"cell_name": "Sotha Sil, Corridor of Life", "region": null, "source_offset": 3881853}
+{"cell_name": "Sotha Sil, Corridor of Machine", "region": null, "source_offset": 3897955}
+{"cell_name": "Sotha Sil, Machine Creation Core", "region": null, "source_offset": 3918962}
+{"cell_name": "Sotha Sil, Anteroom of Akatosh", "region": null, "source_offset": 3952492}
+{"cell_name": "Sotha Sil, Clockwork City, Temple District", "region": null, "source_offset": 3963034}
+{"cell_name": "Sotha Sil, Clockwork City, Industrial District", "region": null, "source_offset": 4024893}
+{"cell_name": "Sotha Sil, Clockwork City, Slums", "region": null, "source_offset": 4104620}
+{"cell_name": "Sotha Sil, Clockwork City, Hub District", "region": null, "source_offset": 4171226}
+{"cell_name": "Sotha Sil, Clockwork City, The Arboretum", "region": null, "source_offset": 4258641}
+{"cell_name": "Vault of Magnus, Rooms of Restoration", "region": null, "source_offset": 4348941}
+{"cell_name": "Sotha Sil, Passages of Udok", "region": null, "source_offset": 4356978}
+{"cell_name": "Sotha TestHole2", "region": null, "source_offset": 4404026}
+{"cell_name": "Garden of Akatosh, The Past", "region": null, "source_offset": 4404872}
+{"cell_name": "Garden of Akatosh, The Far Past", "region": null, "source_offset": 4413273}
+{"cell_name": "Garden of Akatosh, The Future", "region": null, "source_offset": 4421543}
+{"cell_name": "Sotha Sil, The Underconstruction", "region": null, "source_offset": 4430665}
+{"cell_name": "Sotha Sil, Hall of Sotha Sil", "region": null, "source_offset": 4474799}
+{"cell_name": "Sotha Sil, Corridor of the Clockwork God", "region": null, "source_offset": 4526725}
+{"cell_name": "Sotha Sil, Sotha Sil's Lab", "region": null, "source_offset": 4589002}
+{"cell_name": "Sotha Sil, Hub District, Clocktower", "region": null, "source_offset": 4657721}
+{"cell_name": "Sotha Sil, Ancient Containment Tower", "region": null, "source_offset": 4686943}
+{"cell_name": "Sotha Sil, The Imperfect Destroyed", "region": null, "source_offset": 4698324}
+{"cell_name": "Sotha Sil, Temple", "region": null, "source_offset": 4729212}
+{"cell_name": "Sotha Sil, Offices of the High Foremer", "region": null, "source_offset": 4760391}
+{"cell_name": "Sotha Sil, Hub District, Golamus' House", "region": null, "source_offset": 4815019}
+{"cell_name": "Sotha HouseTemp", "region": null, "source_offset": 4830386}
+{"cell_name": "Sotha Sil, Hub District, Old Greenhouse", "region": null, "source_offset": 4831338}
+{"cell_name": "Sotha Sil, Hub District, Dun-Ilu's House", "region": null, "source_offset": 4837491}
+{"cell_name": "Sotha Sil, Hub District, Arboretum Guard Tower", "region": null, "source_offset": 4846518}
+{"cell_name": "Sotha Sil, Hub District, Quartz Monument", "region": null, "source_offset": 4849428}
+{"cell_name": "Sotha Sil, Hub District, Sili's Conservatory", "region": null, "source_offset": 4853292}
+{"cell_name": "Sotha Sil, Hub District, Fefan's House", "region": null, "source_offset": 4857630}
+{"cell_name": "Sotha Sil, Hub District, Grass Pillars", "region": null, "source_offset": 4863625}
+{"cell_name": "Sotha Sil, Hub District, Silflower Grower's House", "region": null, "source_offset": 4868203}
+{"cell_name": "Sotha Sil, Hub District, Storeroom", "region": null, "source_offset": 4873441}
+{"cell_name": "Sotha Sil, Hub District, Overgrown Old House", "region": null, "source_offset": 4878412}
+{"cell_name": "Sotha Sil, Hub District, Alcolan's House", "region": null, "source_offset": 4881083}
+{"cell_name": "Sotha Sil, Hub District, Brewery Storage", "region": null, "source_offset": 4898446}
+{"cell_name": "Sotha Sil, Hub District, Clocktower Mechanism Control", "region": null, "source_offset": 4900394}
+{"cell_name": "Sotha Sil, Hub District, Shrine of the Clockmaker", "region": null, "source_offset": 4906507}
+{"cell_name": "Sotha Sil, Hub District, Fyr Manor Storage", "region": null, "source_offset": 4908407}
+{"cell_name": "Sotha Sil, Hub District, Garena's House", "region": null, "source_offset": 4911838}
+{"cell_name": "Sotha Sil, Hub District, Indala's House", "region": null, "source_offset": 4918625}
+{"cell_name": "Sotha Sil, Hub District, Council of Sparklers", "region": null, "source_offset": 4934028}
+{"cell_name": "Sotha Sil, Hub District, Vabdas' House", "region": null, "source_offset": 4939889}
+{"cell_name": "Sotha Sil, Hub District, Govath's Old House", "region": null, "source_offset": 4945629}
+{"cell_name": "Sotha Sil, Hub District, Storage Space", "region": null, "source_offset": 4952444}
+{"cell_name": "Sotha Sil, Hub District, Jensi's House", "region": null, "source_offset": 4957751}
+{"cell_name": "Sotha Sil, Hub District, Small Gearworks", "region": null, "source_offset": 4962739}
+{"cell_name": "Sotha Sil, Hub District, Folger's House", "region": null, "source_offset": 4963891}
+{"cell_name": "Sotha Sil, Hub District, Column of Gears", "region": null, "source_offset": 4970072}
+{"cell_name": "Sotha Sil, Hub District, Neldammu's House", "region": null, "source_offset": 4975730}
+{"cell_name": "Sotha Sil, Hub District, Shrine of the Footed", "region": null, "source_offset": 4981601}
+{"cell_name": "Sotha Sil, Hub District, Roganz' House", "region": null, "source_offset": 4984861}
+{"cell_name": "Sotha Sil, Hub District, Slums Control Station", "region": null, "source_offset": 4994128}
+{"cell_name": "Sotha Sil, Vacant House", "region": null, "source_offset": 5000994}
+{"cell_name": "Sotha Sil, Hub District, Gear Storage", "region": null, "source_offset": 5001873}
+{"cell_name": "Sotha Sil, Hub District, Haunted House", "region": null, "source_offset": 5006122}
+{"cell_name": "Sotha Sil, Residential Guard House 1", "region": null, "source_offset": 5007675}
+{"cell_name": "Sotha Sil, Residential Guard House 2", "region": null, "source_offset": 5009712}
+{"cell_name": "Sotha Sil, Hub District, Storage Attic", "region": null, "source_offset": 5011494}
+{"cell_name": "Sotha Sil, Hub District, Innuo's House", "region": null, "source_offset": 5014641}
+{"cell_name": "Sotha Sil, Hub District, Slums Guard Tower 2", "region": null, "source_offset": 5020610}
+{"cell_name": "Sotha Sil, Hub District, Slums Guard Tower 1", "region": null, "source_offset": 5022481}
+{"cell_name": "Sotha Sil, Hub District, Rundown House", "region": null, "source_offset": 5024010}
+{"cell_name": "Sotha Sil, Hub District, Clothing Storage", "region": null, "source_offset": 5027573}
+{"cell_name": "Sotha Sil, Hub District, Falheti's House", "region": null, "source_offset": 5034071}
+{"cell_name": "Sotha Sil, Hub District, Chair House", "region": null, "source_offset": 5042255}
+{"cell_name": "Sotha Sil, Hub District, Shrine", "region": null, "source_offset": 5043434}
+{"cell_name": "Sotha Sil, Hub District, Anasou's House", "region": null, "source_offset": 5046529}
+{"cell_name": "Sotha Sil, Hub District, House of Pillars", "region": null, "source_offset": 5053423}
+{"cell_name": "Sotha Sil, Hub District, Cronhi's House", "region": null, "source_offset": 5056561}
+{"cell_name": "Sotha Sil, Hub District, Secondary Storage Space", "region": null, "source_offset": 5067294}
+{"cell_name": "Sotha Sil, Hub District, Hall of the Overclockers", "region": null, "source_offset": 5070467}
+{"cell_name": "Sotha Sil, Hub District, Togan's Tap", "region": null, "source_offset": 5078635}
+{"cell_name": "Sotha Sil, Residential District, Swing of the Clock Room 1", "region": null, "source_offset": 5098442}
+{"cell_name": "Sotha Sil, Residential District, Swing of the Clock Room 2", "region": null, "source_offset": 5101124}
+{"cell_name": "Sotha Sil, Residential District, Swing of the Clock Room 3", "region": null, "source_offset": 5103806}
+{"cell_name": "Sotha Sil, Residential District, Swing of the Clock Room 4", "region": null, "source_offset": 5106488}
+{"cell_name": "Sotha Sil, Residential District, Swing of the Clock Room 5", "region": null, "source_offset": 5109097}
+{"cell_name": "Sotha Sil, Residential District, Swing of the Clock Room 6", "region": null, "source_offset": 5111779}
+{"cell_name": "Sotha Sil, Residential District, Irim's House", "region": null, "source_offset": 5114461}
+{"cell_name": "Sotha Sil, Residential District, Damaran's House", "region": null, "source_offset": 5118004}
+{"cell_name": "Sotha Sil, Residential District, Ineriab's House", "region": null, "source_offset": 5124097}
+{"cell_name": "Sotha Sil, Residential District, Haunted House", "region": null, "source_offset": 5133677}
+{"cell_name": "Sotha Sil, Residential District, Munbeb's House", "region": null, "source_offset": 5136265}
+{"cell_name": "Sotha Sil, Residential District, Gadave's House", "region": null, "source_offset": 5138560}
+{"cell_name": "Sotha Sil, Residential District, Upside-down House", "region": null, "source_offset": 5140561}
+{"cell_name": "Sotha Sil, Residential District, Pipe Garden", "region": null, "source_offset": 5142537}
+{"cell_name": "Sotha Sil, Residential District, Abandoned House", "region": null, "source_offset": 5148733}
+{"cell_name": "Sotha Sil, Residential District, Gearmaster's House", "region": null, "source_offset": 5150818}
+{"cell_name": "Sotha Sil, Residential District, Crushed House", "region": null, "source_offset": 5155769}
+{"cell_name": "Sotha Sil, Residential District, Augmentation Farmer's House", "region": null, "source_offset": 5158134}
+{"cell_name": "Sotha Sil, Residential District, Cube Obsessed Man's House ", "region": null, "source_offset": 5162387}
+{"cell_name": "Sotha Sil, Residential District, Selthei's House", "region": null, "source_offset": 5169897}
+{"cell_name": "Sotha Sil, Residential District, Venluen's House", "region": null, "source_offset": 5177438}
+{"cell_name": "Sotha Sil, Residential District, Sehlan's House", "region": null, "source_offset": 5184516}
+{"cell_name": "Sotha Sil, Residential District, Aquarium", "region": null, "source_offset": 5198930}
+{"cell_name": "Sotha Sil, Residential District, Kokorahn's House", "region": null, "source_offset": 5207533}
+{"cell_name": "Sotha Sil, Residential District, Decrepit House", "region": null, "source_offset": 5213899}
+{"cell_name": "Sotha Sil, Residential District, Water-drinker's Club", "region": null, "source_offset": 5216834}
+{"cell_name": "Sotha Sil, Residential District, Subori's House", "region": null, "source_offset": 5229795}
+{"cell_name": "Sotha Sil, Residential District, Naturalist Farmer's House", "region": null, "source_offset": 5235491}
+{"cell_name": "Sotha Sil, Residential District, Summoner's Club", "region": null, "source_offset": 5245462}
+{"cell_name": "Sotha Sil, Residential District, Caved-in Home", "region": null, "source_offset": 5251925}
+{"cell_name": "Sotha Sil, Residential District, Old Training Hall", "region": null, "source_offset": 5254474}
+{"cell_name": "Sotha Sil, Residential District, Old Abstemious Hall", "region": null, "source_offset": 5260150}
+{"cell_name": "Sotha Sil, Residential District, Monan's Meeting Hall", "region": null, "source_offset": 5263687}
+{"cell_name": "Sotha Sil, Residential District, Guard House 1", "region": null, "source_offset": 5266268}
+{"cell_name": "Sotha Sil, Residential District, Inoperative Guard House", "region": null, "source_offset": 5268825}
+{"cell_name": "Sotha Sil, Residential District, Unused House", "region": null, "source_offset": 5271385}
+{"cell_name": "Sotha Sil, Residential District, Guard House 2", "region": null, "source_offset": 5277026}
+{"cell_name": "Sotha Sil, Residential District, The Swing of the Clock: Lobby ", "region": null, "source_offset": 5280514}
+{"cell_name": "Sotha Sil, Residential District, Gentlefabricant's Club", "region": null, "source_offset": 5286688}
+{"cell_name": "Sotha Sil, Residential District, Waystation", "region": null, "source_offset": 5294723}
+{"cell_name": "Sotha Sil, Residential District, Monan's Inn", "region": null, "source_offset": 5297076}
+{"cell_name": "Sotha Sil, Residential District, Aroban's Sehtly Wonders", "region": null, "source_offset": 5300486}
+{"cell_name": "Sotha Sil, Residential District, Chamber of Upward", "region": null, "source_offset": 5314042}
+{"cell_name": "Sotha Sil, Residential District, Kummuuuu's Emporium", "region": null, "source_offset": 5315334}
+{"cell_name": "Sotha Sil, Residential District, Monan's Spa", "region": null, "source_offset": 5328167}
+{"cell_name": "Sotha Sil, Residential District, From Rags to Riches", "region": null, "source_offset": 5336408}
+{"cell_name": "Sotha Sil, Residential District, From Riches to Rags", "region": null, "source_offset": 5339041}
+{"cell_name": "Sotha Sil, Residential District, Hall of the Abstemious ", "region": null, "source_offset": 5341674}
+{"cell_name": "Sotha Sil, Residential District, Relamus' Mansion", "region": null, "source_offset": 5365467}
+{"cell_name": "Sotha Sil, Slums, Addunidi's House", "region": null, "source_offset": 5393324}
+{"cell_name": "Sotha Sil, Slums, Tavern", "region": null, "source_offset": 5397421}
+{"cell_name": "Sotha Sil, Slums, Pillow Storage", "region": null, "source_offset": 5414047}
+{"cell_name": "Sotha Sil, Slums, Urusai's House", "region": null, "source_offset": 5422371}
+{"cell_name": "Sotha Sil, Slums, Alchemy Lab", "region": null, "source_offset": 5426703}
+{"cell_name": "Sotha Sil, Slums, Nibarr's House", "region": null, "source_offset": 5433179}
+{"cell_name": "Sotha Sil, Slums, Dralval's House", "region": null, "source_offset": 5437021}
+{"cell_name": "SothaSlumsHouseTemplate", "region": null, "source_offset": 5442585}
+{"cell_name": "Sotha Sil, Slums, Hloval's House", "region": null, "source_offset": 5445755}
+{"cell_name": "Sotha Sil, Slums, Alchemist", "region": null, "source_offset": 5449036}
+{"cell_name": "Sotha Sil, Slums, Decrepit House", "region": null, "source_offset": 5468104}
+{"cell_name": "Sotha Sil, Slums, Monan's House", "region": null, "source_offset": 5470604}
+{"cell_name": "Sotha Sil, Slums, Goren's House", "region": null, "source_offset": 5474649}
+{"cell_name": "Sotha Sil, Slums, Manos' House", "region": null, "source_offset": 5477117}
+{"cell_name": "Sotha Sil, Slums, Sendal's House", "region": null, "source_offset": 5481196}
+{"cell_name": "Sotha Sil, Slums, Maelasi's House", "region": null, "source_offset": 5484373}
+{"cell_name": "Sotha Sil, Slums, Emptied House", "region": null, "source_offset": 5491706}
+{"cell_name": "Sotha Sil, Slums, Badali's House", "region": null, "source_offset": 5494156}
+{"cell_name": "Sotha Sil, Slums, Empty House", "region": null, "source_offset": 5498330}
+{"cell_name": "Sotha Sil, Slums, Arelvam's House", "region": null, "source_offset": 5504026}
+{"cell_name": "Sotha Sil, Slums, Remian's House", "region": null, "source_offset": 5508307}
+{"cell_name": "Sotha Sil, Slums, Old Training Building", "region": null, "source_offset": 5512808}
+{"cell_name": "Sotha Sil, Slums, Broken House", "region": null, "source_offset": 5518599}
+{"cell_name": "Sotha Sil, Slums, Govo's House", "region": null, "source_offset": 5522543}
+{"cell_name": "Sotha Sil, Slums, Sothani's House", "region": null, "source_offset": 5527136}
+{"cell_name": "Sotha Sil, Slums, Wrecked House", "region": null, "source_offset": 5531708}
+{"cell_name": "Sotha Sil, Slums, Bongond's House", "region": null, "source_offset": 5536348}
+{"cell_name": "Sotha Sil, Slums, Cylben's House", "region": null, "source_offset": 5542314}
+{"cell_name": "Sotha Sil, Slums, Ransacked House", "region": null, "source_offset": 5546227}
+{"cell_name": "Sotha Sil, Slums, Brarayni's House", "region": null, "source_offset": 5553791}
+{"cell_name": "Sotha Sil, Slums, Mirshamammu's House", "region": null, "source_offset": 5558398}
+{"cell_name": "Sotha Sil, Slums, Tovas' House", "region": null, "source_offset": 5562710}
+{"cell_name": "Sotha Sil, Slums, Pssh's House", "region": null, "source_offset": 5568307}
+{"cell_name": "Sotha Sil, Slums, Ilvel's House", "region": null, "source_offset": 5571579}
+{"cell_name": "Sotha Sil, Slums, Obo's House", "region": null, "source_offset": 5584937}
+{"cell_name": "Sotha Sil, Slums, Vera's House", "region": null, "source_offset": 5591081}
+{"cell_name": "Sotha Sil, Slums, Sathgeli's House", "region": null, "source_offset": 5596359}
+{"cell_name": "Sotha Sil, Slums, Gopan's House", "region": null, "source_offset": 5601102}
+{"cell_name": "Sotha Sil, Slums, Rothalnim's House", "region": null, "source_offset": 5605265}
+{"cell_name": "Sotha Sil, Slums, Steliar's House", "region": null, "source_offset": 5610155}
+{"cell_name": "Sotha Sil, Slums, Roganz' House", "region": null, "source_offset": 5615569}
+{"cell_name": "Sotha Sil, Slums, Raram's House", "region": null, "source_offset": 5620821}
+{"cell_name": "Sotha Sil, Slums, Sodoan's House", "region": null, "source_offset": 5625725}
+{"cell_name": "Sotha Sil, Slums, Subenemu's House", "region": null, "source_offset": 5631480}
+{"cell_name": "Sotha Sil, Slums, Thovum's House", "region": null, "source_offset": 5635814}
+{"cell_name": "Sotha Sil, Slums, Old Storage Space", "region": null, "source_offset": 5640959}
+{"cell_name": "Sotha Sil, Slums, Eno's House", "region": null, "source_offset": 5645307}
+{"cell_name": "Sotha Sil, Slums, Linked House", "region": null, "source_offset": 5656295}
+{"cell_name": "Sotha Sil, Slums, Hlevui's House", "region": null, "source_offset": 5665247}
+{"cell_name": "Sotha Sil, Slums, Llaala's House", "region": null, "source_offset": 5670445}
+{"cell_name": "Sotha Sil, Slums, Llaram's House", "region": null, "source_offset": 5677313}
+{"cell_name": "Sotha Sil, Slums, Destroyed House", "region": null, "source_offset": 5683895}
+{"cell_name": "Sotha Sil, Slums, Tadave's House", "region": null, "source_offset": 5691983}
+{"cell_name": "Sotha Sil, Slums, Robbed House", "region": null, "source_offset": 5699412}
+{"cell_name": "Sotha Sil, Slums, Netch Cultist's House", "region": null, "source_offset": 5704274}
+{"cell_name": "Sotha Sil, Slums, Midnav's House", "region": null, "source_offset": 5708968}
+{"cell_name": "Sotha Sil, Slums, Scrapped House", "region": null, "source_offset": 5716251}
+{"cell_name": "Sotha Sil, Slums, Gthan's House", "region": null, "source_offset": 5720265}
+{"cell_name": "Sotha Sil, Slums, Boltanu's House", "region": null, "source_offset": 5725716}
+{"cell_name": "Sotha Sil, Slums, Telbari's House", "region": null, "source_offset": 5732840}
+{"cell_name": "Sotha Sil, Slums, Vervyn's House", "region": null, "source_offset": 5739507}
+{"cell_name": "Sotha Sil, Slums, Arendu's House", "region": null, "source_offset": 5745730}
+{"cell_name": "Sotha Sil, Slums, Bonesi's House", "region": null, "source_offset": 5752263}
+{"cell_name": "Sotha Sil, Slums, Zababa's House", "region": null, "source_offset": 5760918}
+{"cell_name": "Sotha Sil, Slums, Otheri's House", "region": null, "source_offset": 5768468}
+{"cell_name": "Sotha Sil, Slums, Ulanov's House", "region": null, "source_offset": 5778641}
+{"cell_name": "Sotha Sil, Slums, Silenia's House", "region": null, "source_offset": 5786420}
+{"cell_name": "Sotha Sil, Slums, Garena's House", "region": null, "source_offset": 5798661}
+{"cell_name": "Sotha Sil, Slums, The Obsessed Clockmaker's House", "region": null, "source_offset": 5805496}
+{"cell_name": "Sotha Sil, Slums, Nobak's House", "region": null, "source_offset": 5812043}
+{"cell_name": "Sotha Sil, Slums, Quozan's House", "region": null, "source_offset": 5818334}
+{"cell_name": "Sotha Sil, Slums, Dalam's House", "region": null, "source_offset": 5823391}
+{"cell_name": "Sotha Sil, Slums, Ana's House", "region": null, "source_offset": 5831903}
+{"cell_name": "Sotha Sil, Slums, Gothren's House", "region": null, "source_offset": 5838802}
+{"cell_name": "Sotha Sil, Slums, Onan's Old House", "region": null, "source_offset": 5845149}
+{"cell_name": "Sotha Sil, Slums, Yabin's House", "region": null, "source_offset": 5854260}
+{"cell_name": "Sotha Sil, Slums, Terila's House", "region": null, "source_offset": 5864866}
+{"cell_name": "Sotha Sil, Slums, Odds and Ends", "region": null, "source_offset": 5871105}
+{"cell_name": "Sotha Sil, Slums, Pawnbroker", "region": null, "source_offset": 5891913}
+{"cell_name": "Sotha Sil, Slums, Shand's House", "region": null, "source_offset": 5908873}
+{"cell_name": "Sotha Sil, Slums, Yokeuran's House", "region": null, "source_offset": 5916847}
+{"cell_name": "Sotha Sil, Slums, Suleri's House", "region": null, "source_offset": 5922546}
+{"cell_name": "Sotha Sil, Industrial District, Club of the Columns", "region": null, "source_offset": 5931317}
+{"cell_name": "Sotha Sil, Industrial District, Pevlar's Second Corner", "region": null, "source_offset": 5937311}
+{"cell_name": "Sotha Sil, Industrial District, Pevlar's Third Corner", "region": null, "source_offset": 5939039}
+{"cell_name": "Sotha Sil, Industrial District, Pevlar's Fourth Corner", "region": null, "source_offset": 5940767}
+{"cell_name": "Sotha Sil, Industrial District, Nagalan's Offsite Research Lab", "region": null, "source_offset": 5942495}
+{"cell_name": "Sotha Sil, Industrial District, Shrine of the Anvil", "region": null, "source_offset": 5946269}
+{"cell_name": "Sotha Sil, Industrial District, Centurion Brawling Arena", "region": null, "source_offset": 5950485}
+{"cell_name": "Sotha Sil, Industrial District, Tho Favthali's House", "region": null, "source_offset": 5952709}
+{"cell_name": "Sotha Sil, Industrial District, Piston Machinery Oversights", "region": null, "source_offset": 5957253}
+{"cell_name": "Sotha Sil, Industrial District, Addamar's Home", "region": null, "source_offset": 5961642}
+{"cell_name": "Sotha Sil, Industrial District, Oil Filled House", "region": null, "source_offset": 5970218}
+{"cell_name": "Sotha Sil, Industrial District, Old Overclocker Meeting Hall", "region": null, "source_offset": 5971849}
+{"cell_name": "Sotha Sil, Industrial District, Innocent House", "region": null, "source_offset": 5974010}
+{"cell_name": "Sotha Sil, Industrial District, Loban's House", "region": null, "source_offset": 5980037}
+{"cell_name": "Sotha Sil, Industrial District, Pevlar's First Corner", "region": null, "source_offset": 5983548}
+{"cell_name": "Sotha Sil, Catacombs", "region": null, "source_offset": 5985341}
+{"cell_name": "Sotha Sil, Vault of the Pocket Cabal", "region": null, "source_offset": 6169602}
+{"cell_name": "Sotha Sil, Archcanon's Quarters", "region": null, "source_offset": 6184271}
+{"cell_name": "Sotha Sil, Grand Powerworks", "region": null, "source_offset": 6195569}
+{"cell_name": "Sotha Sil, Industrial District, Smith", "region": null, "source_offset": 6293200}
+{"cell_name": "Sotha Sil, Industrial District, Clothier", "region": null, "source_offset": 6308204}
+{"cell_name": "Sotha Sil, Industrial District, Foundry of Kitmhez", "region": null, "source_offset": 6322111}
+{"cell_name": "Sotha Sil, Industrial District, Apothecary", "region": null, "source_offset": 6330423}
+{"cell_name": "Sotha Sil, Industrial District, Mechanism of Mechanics", "region": null, "source_offset": 6343483}
+{"cell_name": "Sotha Sil, Industrial District, The Gear and Sprocket", "region": null, "source_offset": 6349145}
+{"cell_name": "Sotha Sil, Industrial District, Hall of the Overclockers", "region": null, "source_offset": 6356694}
+{"cell_name": "Sotha Sil, Industrial District, Overclocker Improvement Citadel", "region": null, "source_offset": 6379741}
+{"cell_name": "Sotha Sil, Industrial District, Foundry of Duamo", "region": null, "source_offset": 6389794}
+{"cell_name": "Sotha Sil, Industrial District, Gear Dump", "region": null, "source_offset": 6396081}
+{"cell_name": "Sotha Sil, Industrial District, Little Village", "region": null, "source_offset": 6399761}
+{"cell_name": "Sotha Sil, Industrial District, Gear Wall", "region": null, "source_offset": 6403937}
+{"cell_name": "Sotha Sil, Industrial District, Foundry of Loave", "region": null, "source_offset": 6405393}
+{"cell_name": "Sotha Sil, Industrial District, Observatory", "region": null, "source_offset": 6411316}
+{"cell_name": "Sotha Sil, Industrial District, Loading Bay", "region": null, "source_offset": 6416436}
+{"cell_name": "Sotha Sil, Industrial District, Abahman's Ocean", "region": null, "source_offset": 6420513}
+{"cell_name": "Sotha Sil, Industrial District, Old Warehouse", "region": null, "source_offset": 6423665}
+{"cell_name": "Sotha Sil, Industrial District, Foundry of Latz-Anam", "region": null, "source_offset": 6430539}
+{"cell_name": "Sotha Sil, Industrial District, Defunct Watchmen Storage", "region": null, "source_offset": 6439969}
+{"cell_name": "Sotha Sil, Industrial District, Cult of the Netch", "region": null, "source_offset": 6444695}
+{"cell_name": "Sotha Sil, Industrial District, Overclocker Training House", "region": null, "source_offset": 6451529}
+{"cell_name": "Sotha Sil, Industrial District, Seht's Gate", "region": null, "source_offset": 6454680}
+{"cell_name": "Sotha Sil, Industrial District, Nagalan's House", "region": null, "source_offset": 6458375}
+{"cell_name": "Sotha Sil, Industrial District, Brewery", "region": null, "source_offset": 6464939}
+{"cell_name": "Sotha Sil, Industrial District, Incinerator", "region": null, "source_offset": 6472242}
+{"cell_name": "Sotha Sil, Industrial District, Numinar's House", "region": null, "source_offset": 6476039}
+{"cell_name": "Sotha Sil, Industrial District, Generator Research", "region": null, "source_offset": 6482992}
+{"cell_name": "Sotha Sil, Industrial District, An Old Machine", "region": null, "source_offset": 6485260}
+{"cell_name": "Sotha Sil, Industrial District, Lunar Research Lab", "region": null, "source_offset": 6487037}
+{"cell_name": "Sotha Sil, Industrial District, Aether Laser Lab", "region": null, "source_offset": 6490271}
+{"cell_name": "Sotha Sil, Industrial District, Sparkler Lab", "region": null, "source_offset": 6493243}
+{"cell_name": "Sotha Sil, Industrial District, Gear Shrine", "region": null, "source_offset": 6495969}
+{"cell_name": "Sotha Sil, Industrial District, Suleri Printing", "region": null, "source_offset": 6497804}
+{"cell_name": "Sotha Sil, Industrial District, Power Pumping Building", "region": null, "source_offset": 6502444}
+{"cell_name": "Sotha Sil, Industrial District, Damaged Warehouse", "region": null, "source_offset": 6504495}
+{"cell_name": "Sotha Sil, Industrial District, Punishment Center", "region": null, "source_offset": 6507905}
+{"cell_name": "Sotha Sil, Industrial District, Higher Dimension Labs", "region": null, "source_offset": 6510068}
+{"cell_name": "Sotha Sil, Industrial District, Onan's House", "region": null, "source_offset": 6511943}
+{"cell_name": "Sotha Sil, Industrial District, Quartz Research Lab", "region": null, "source_offset": 6519667}
+{"cell_name": "Sotha Sil, Industrial District, Generator Oversight Station", "region": null, "source_offset": 6521923}
+{"cell_name": "Sotha Sil, Industrial District, Shrine to Power", "region": null, "source_offset": 6524365}
+{"cell_name": "Sotha Sil, Industrial District, Conversion Utility", "region": null, "source_offset": 6526669}
+{"cell_name": "Sotha Sil, Industrial District, Stacked Warehouse", "region": null, "source_offset": 6532524}
+{"cell_name": "Sotha Sil, Industrial District, Hanged House", "region": null, "source_offset": 6537495}
+{"cell_name": "Sotha Sil, Industrial District, Warehouse", "region": null, "source_offset": 6539759}
+{"cell_name": "Sotha Sil, The Arboretum, Tilenu's Lab", "region": null, "source_offset": 6543457}
+{"cell_name": "Sotha Sil, The Arboretum, Floral Development Lab", "region": null, "source_offset": 6549426}
+{"cell_name": "Sotha Sil, The Arboretum, Bahan's Shop", "region": null, "source_offset": 6560672}
+{"cell_name": "Sotha Sil, The Arboretum, The Old Man's Shop", "region": null, "source_offset": 6570815}
+{"cell_name": "Sotha Sil, The Arboretum, Ullazali's Lab", "region": null, "source_offset": 6583936}
+{"cell_name": "Sotha Sil, The Arboretum, Central Control", "region": null, "source_offset": 6590864}
+{"cell_name": "Sotha Sil, The Arboretum, Terreran's House", "region": null, "source_offset": 6632083}
+{"cell_name": "Sotha Sil, The Arboretum, Sayli the Pious' House", "region": null, "source_offset": 6643611}
+{"cell_name": "Sotha Sil, The Arboretum, Roots Gone Wrong", "region": null, "source_offset": 6647275}
+{"cell_name": "Sotha Sil, The Arboretum, Water and Oil Conservatory", "region": null, "source_offset": 6656688}
+{"cell_name": "Sotha Sil, The Arboretum, The Lower Level", "region": null, "source_offset": 6672073}
+{"cell_name": "Sotha Sil, The Arboretum, Underflow Control", "region": null, "source_offset": 6698188}
+{"cell_name": "Sotha Sil, The Arboretum, Room of Crystal Fathoming", "region": null, "source_offset": 6717220}
+{"cell_name": "Sotha Sil, The Arboretum, Root Overcontrol", "region": null, "source_offset": 6736800}
+{"cell_name": "Sotha Sil, The Arboretum, Biznoan's House", "region": null, "source_offset": 6746647}
+{"cell_name": "Sotha Sil, The Arboretum, Ruined Indoor Fabricant Farm", "region": null, "source_offset": 6750845}
+{"cell_name": "Sotha Sil, The Arboretum, Lower Level Entrance", "region": null, "source_offset": 6752745}
+{"cell_name": "Sotha Sil, The Arboretum, Aquatic Plant Control", "region": null, "source_offset": 6765010}
+{"cell_name": "Sotha Sil, The Arboretum, Pumping Chamber", "region": null, "source_offset": 6793477}
+{"cell_name": "Sotha Sil, The Arboretum, Floral Vault", "region": null, "source_offset": 6817999}
+{"cell_name": "Sotha Sil, The Arboretum, Intensive Care", "region": null, "source_offset": 6834127}
+{"cell_name": "Sotha Sil, The Arboretum, Indoor Growing Farm ", "region": null, "source_offset": 6898673}
+{"cell_name": "Sotha Sil, The Arboretum, Passage of Vod", "region": null, "source_offset": 6912767}
+{"cell_name": "Sotha Sil, Grand Maintenance Shaft", "region": null, "source_offset": 6939143}
+{"cell_name": "Sotha Sil, Catacombs, Halls of the Dead", "region": null, "source_offset": 6989529}
+{"cell_name": "Sotha Sil, Catacombs, Cryomagic Labs", "region": null, "source_offset": 7024097}
+{"cell_name": "Sotha Sil, Catacombs, Rooms of Silence", "region": null, "source_offset": 7065698}
+{"cell_name": "Fyr Manor, ", "region": null, "source_offset": 7078595}
+{"cell_name": "Fyr Manor, Foyer", "region": null, "source_offset": 7080051}
+{"cell_name": "Fyr Manor, Bedroom", "region": null, "source_offset": 7100280}
+{"cell_name": "Fyr Manor, Fabricant lab", "region": null, "source_offset": 7104396}
+{"cell_name": "Fyr Manor, Portal Room", "region": null, "source_offset": 7119596}
+{"cell_name": "Fyr Manor, Alchemy Lab", "region": null, "source_offset": 7130190}
+{"cell_name": "Fyr Manor, Enchanting Lab", "region": null, "source_offset": 7152414}
+{"cell_name": "Fyr Manor, Armory", "region": null, "source_offset": 7161489}
+{"cell_name": "Fyr Manor, Atronach Arena", "region": null, "source_offset": 7172067}
+{"cell_name": "Fyr Manor, Throne Room", "region": null, "source_offset": 7182794}
+{"cell_name": "Fyr Manor, Observation Balcony", "region": null, "source_offset": 7186970}
+{"cell_name": "Fyr Manor, Shrine", "region": null, "source_offset": 7226968}
+{"cell_name": "Fyr Manor, Library", "region": null, "source_offset": 7238589}
+{"cell_name": "Fyr Manor, Power Core", "region": null, "source_offset": 7260466}
+{"cell_name": "Fyr Manor, Server's Room", "region": null, "source_offset": 7264395}
+{"cell_name": "Fyr Manor, Hall of Achievement", "region": null, "source_offset": 7272870}
+{"cell_name": "Sotha Sil, Chasm", "region": null, "source_offset": 7288832}
+{"cell_name": "Sotha Sil, Catacombs, Ancient Tomb", "region": null, "source_offset": 7306490}
+{"cell_name": "Sotha Sil, Arboretum Secondary Control", "region": null, "source_offset": 7319845}
+{"cell_name": "Sotha Sil, Arboretum Core", "region": null, "source_offset": 7325767}
+{"cell_name": "Sotha Sil, Grand Voidyard", "region": null, "source_offset": 7346398}
+{"cell_name": "Sotha Sil, Oily Maze", "region": null, "source_offset": 7386158}
+{"cell_name": "Sotha Sil, Secret Fight Club", "region": null, "source_offset": 7405234}
+{"cell_name": "Sotha Sil, Residential District, Secret Passage", "region": null, "source_offset": 7428165}
+{"cell_name": "Sotha Sil, Hub District, Watchmen's Headquarters Entrance", "region": null, "source_offset": 7433672}
+{"cell_name": "Sotha Sil, Hub District, Watchmen's Headquarters", "region": null, "source_offset": 7435824}
+{"cell_name": "Sotha Sil, Prison", "region": null, "source_offset": 7516216}
+{"cell_name": "Sotha Sil, Slums", "region": null, "source_offset": 7517815}
+{"cell_name": "Sotha Sil, Temple District, Vabdas' House", "region": null, "source_offset": 7517912}
+{"cell_name": "Sotha Sil, Temple District, Temple of the Watch", "region": null, "source_offset": 7525809}
+{"cell_name": "Sotha Sil, Temple District, End of the World Armory", "region": null, "source_offset": 7535464}
+{"cell_name": "Sotha Sil, Temple District, Azromo's House", "region": null, "source_offset": 7546061}
+{"cell_name": "Sotha Sil, Temple District, Azromo's Ascension", "region": null, "source_offset": 7553895}
+{"cell_name": "Sotha Sil, Temple District, Temple of the Tear Down, Midway", "region": null, "source_offset": 7558084}
+{"cell_name": "Sotha Sil, Temple District, Watching House", "region": null, "source_offset": 7561032}
+{"cell_name": "Sotha Sil, Temple District, Pillar of Unwinding", "region": null, "source_offset": 7568364}
+{"cell_name": "Sotha Sil, Temple District, Shrine to Seht", "region": null, "source_offset": 7577287}
+{"cell_name": "Sotha Sil, Temple District, Altar Storage", "region": null, "source_offset": 7586132}
+{"cell_name": "Sotha Sil, Temple District, Listening for God", "region": null, "source_offset": 7588705}
+{"cell_name": "Sotha Sil, Temple District, Ancestral Maze", "region": null, "source_offset": 7596898}
+{"cell_name": "Sotha Sil, Temple District, Shrine of Creation", "region": null, "source_offset": 7600989}
+{"cell_name": "Sotha Sil, Temple District, Catacombs Entrance", "region": null, "source_offset": 7603812}
+{"cell_name": "Sotha Sil, Temple District, Shrine of the Gearballs", "region": null, "source_offset": 7615717}
+{"cell_name": "Sotha Sil, Temple District, Shrine of Happy Sparkles", "region": null, "source_offset": 7619703}
+{"cell_name": "Sotha Sil, Temple District, Bazneian's House", "region": null, "source_offset": 7622935}
+{"cell_name": "Sotha Sil, Temple District, Sidnai's House", "region": null, "source_offset": 7630956}
+{"cell_name": "Sotha Sil, Temple District, Ulevz's House", "region": null, "source_offset": 7636430}
+{"cell_name": "Sotha Sil, Temple District, Terli and Irtel's House", "region": null, "source_offset": 7657951}
+{"cell_name": "Sotha Sil, Temple District, Nostran's House", "region": null, "source_offset": 7665039}
+{"cell_name": "Sotha Sil, Temple District, Shrine of Other Dimensions", "region": null, "source_offset": 7674271}
+{"cell_name": "Sotha Sil, Temple District, Fabricant Shop", "region": null, "source_offset": 7682499}
+{"cell_name": "Sotha Sil, Temple District, Teleporation Labs", "region": null, "source_offset": 7705899}
+{"cell_name": "Sotha Sil, Temple District, Ralgof's House", "region": null, "source_offset": 7715453}
+{"cell_name": "Sotha Sil, Temple District, Tedril's House", "region": null, "source_offset": 7749116}
+{"cell_name": "Sotha Sil, Temple District, The Gamemaster's House", "region": null, "source_offset": 7758932}
+{"cell_name": "Sotha Sil, Temple District, Shrine to Wealth", "region": null, "source_offset": 7770653}
+{"cell_name": "Sotha Sil, Temple District, Teleporan's House", "region": null, "source_offset": 7844643}
+{"cell_name": "Sotha Sil, Temple District, Ligemei's House", "region": null, "source_offset": 7852997}
+{"cell_name": "Sotha Sil, Temple District, Anasour's House", "region": null, "source_offset": 7868354}
+{"cell_name": "Sotha Sil, Temple District, Goveri's House", "region": null, "source_offset": 7877316}
+{"cell_name": "Sotha Sil, Temple District, Balam's House", "region": null, "source_offset": 7886780}
+{"cell_name": "Sotha Sil, Temple District, The Paperwriter", "region": null, "source_offset": 7896072}
+{"cell_name": "Sotha Sil, Temple District, Gadave's House", "region": null, "source_offset": 7903449}
+{"cell_name": "Sotha Sil, Temple District, Loubsaran's House", "region": null, "source_offset": 7917282}
+{"cell_name": "Sotha Sil, Temple District, Dedave Diamondbreaker's House", "region": null, "source_offset": 7922673}
+{"cell_name": "Sotha Sil, Temple District, The Kneeling Piston", "region": null, "source_offset": 7937899}
+{"cell_name": "Sotha Sil, Temple District, Pawn Shop", "region": null, "source_offset": 7962137}
+{"cell_name": "Sotha Sil, Temple District, Tubiba's House", "region": null, "source_offset": 7973958}
+{"cell_name": "Sotha Sil, Temple District, Geared House", "region": null, "source_offset": 7991488}
+{"cell_name": "Sotha Sil, Temple District, Ulenusu's House", "region": null, "source_offset": 7998356}
+{"cell_name": "Sotha Sil, Temple District, Temple of the Others", "region": null, "source_offset": 8005940}
+{"cell_name": "Sotha Sil, Temple District, Hastily Abandoned House", "region": null, "source_offset": 8013384}
+{"cell_name": "Sotha Sil, Temple District, Temple of the Watch, Housing", "region": null, "source_offset": 8015576}
+{"cell_name": "Sotha Sil, Temple District, Shrine of the Unwilling", "region": null, "source_offset": 8019694}
+{"cell_name": "Sotha Sil, Temple District, Lleuvzan's House", "region": null, "source_offset": 8027301}
+{"cell_name": "Sotha Sil, Temple District, Alchezervatory", "region": null, "source_offset": 8032938}
+{"cell_name": "Sotha Sil, Temple District, Alcolan's House", "region": null, "source_offset": 8044735}
+{"cell_name": "Sotha Sil, Temple District, The Creeping Grapevine", "region": null, "source_offset": 8049201}
+{"cell_name": "Sotha Sil, Temple District, Temple of the Tear Down, Mess Hall", "region": null, "source_offset": 8062878}
+{"cell_name": "Sotha Sil, Temple District, Temple of the Tear Down, Training", "region": null, "source_offset": 8074039}
+{"cell_name": "Sotha Sil, Temple District, Tomb of the Watch", "region": null, "source_offset": 8081146}
+{"cell_name": "Sotha Sil, Temple District, Temple of the Build", "region": null, "source_offset": 8086201}
+{"cell_name": "Sotha Sil, Temple District, Temple of the Tear Down, Control", "region": null, "source_offset": 8100056}
+{"cell_name": "Sotha Sil, Temple District, Temple of the Wonder", "region": null, "source_offset": 8105312}
+{"cell_name": "Sotha Sil, Temple District, Wonderous Conservatory", "region": null, "source_offset": 8121029}
+{"cell_name": "Sotha Sil, Temple District, Temple of the Tear Down, Storage", "region": null, "source_offset": 8127107}
+{"cell_name": "Sotha Sil, Temple District, Temple of the Tear, Engine Room", "region": null, "source_offset": 8140913}
+{"cell_name": "Sotha Sil, Temple District, Temple of the Tear Down, Labs", "region": null, "source_offset": 8144837}
+{"cell_name": "Sotha Sil, Temple District, Hall of the Melted", "region": null, "source_offset": 8152048}
+{"cell_name": "SothaTest1", "region": null, "source_offset": 8157278}
+{"cell_name": "SothaTest2", "region": null, "source_offset": 8208806}
+{"cell_name": "SothaTest3", "region": null, "source_offset": 8244220}

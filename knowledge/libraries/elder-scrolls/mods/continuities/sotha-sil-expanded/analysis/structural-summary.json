@@ -1,0 +1,15 @@
+{
+  "continuity_id": "tes.mod.sotha-sil-expanded",
+  "books": 49,
+  "dialogue_topics": 250,
+  "dialogue_responses": 1147,
+  "explicit_speaker_ids": 144,
+  "resolved_speaker_ids_to_npc": 96,
+  "npcs": 344,
+  "cells": 460,
+  "journal_topics": 44,
+  "factions": 7,
+  "scripts": 543,
+  "implementation_objects": 1291,
+  "note": "All extracted current-package lore-bearing text is persisted in raw shards. Dialogue/script/quest/entity indexes are retrieval projections and preserve source offsets."
+}
