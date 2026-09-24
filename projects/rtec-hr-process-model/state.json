@@ -35,7 +35,12 @@
     "knowledge/libraries/rtec-hr/compliance/sources/title-vi-lep-2016/plan-core-and-complaints.md",
     "projects/rtec-hr-process-model/checkpoints/fy2017-grants-compliance.json",
     "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-correspondence-2026-09-23.json",
-    "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json"
+    "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json",
+    "knowledge/libraries/rtec-hr/restricted-evidence/disciplinary-register-aggregate-2008-2026.json",
+    "knowledge/libraries/rtec-hr/processes/aap-disciplinary-derivative-integrity.json",
+    "knowledge/libraries/rtec-hr/automation/disciplinary-register-normalization.json",
+    "knowledge/libraries/rtec-hr/processes/discipline-documentation-history.json",
+    "knowledge/libraries/rtec-hr/processes/medical-attendance-evidence-handling-history.json"
   ],
   "context_files": [
     "projects/rtec-hr-process-model/README.md",
@@ -79,7 +84,7 @@
     "latest_batch_restricted_employee_rosters": 2,
     "latest_batch_exact_duplicates": 1,
     "plan_packages_ingested": 1,
-    "open_currentness_or_gap_questions": 33,
+    "open_currentness_or_gap_questions": 39,
     "latest_batch_restricted_case_sources": 4,
     "latest_batch_searchable_source_groups": 14,
     "fy2017_grant_pdf_count": 3,
@@ -95,8 +100,14 @@
     "correspondence_safe_artifacts": 9,
     "correspondence_safe_source_families": 8,
     "correspondence_restricted_artifacts": 86,
-    "correspondence_derived_records": 10,
-    "correspondence_integrity_status": "28 committed batch files verified blob-for-blob against the validated staging branch"
+    "correspondence_derived_records": 27,
+    "correspondence_integrity_status": "28 committed batch files verified blob-for-blob against the validated staging branch",
+    "correspondence_archive_analysis_status": "exhaustive_complete",
+    "correspondence_source_artifacts": 95,
+    "correspondence_fiscal_event_rows_analyzed": 1193,
+    "correspondence_disciplinary_workbooks_parsed": 29,
+    "correspondence_restricted_coverage": "86/86 explicit disposition",
+    "correspondence_schema_validation": "23 checks, 0 errors"
   },
   "reference_form_context": {
     "catalog_path": "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json",
@@ -131,12 +142,19 @@
     "safe_position_level_artifacts": 9,
     "safe_source_families": 8,
     "restricted_artifacts": 86,
-    "derived_records": 10,
-    "privacy_rule": "Employee-level disciplinary, medical, incident, schedule, leave-case, and participant-list content is metadata-only in GitHub; generalized process claims must remain separately evidenced and version-aware.",
+    "derived_records": 27,
+    "privacy_rule": "Employee-level disciplinary, medical, incident, schedule, leave-case, and participant-list content remains restricted. Exhaustive analysis promotes only reusable structure, policy/process evidence, aggregate data-quality findings and unresolved questions.",
     "notable_findings": [
-      "Legacy Disciplinary steps workbook is a blank violation matrix with no embedded 1st/2nd/3rd-offense point values.",
-      "Historical disciplinary tracking used fiscal-year workbooks and AAP-sorted derivatives; current authoritative tracking remains unresolved.",
-      "Filename-derived document type/date is unreliable and must be reconciled against content-derived evidence."
-    ]
+      "Historical discipline registers became mixed discipline-plus-vehicle-incident ledgers from 2016-2017 onward.",
+      "AAP derivatives are versioned transformations, not reliable identical copies; one 2016-2017 variant systematically recodes EEO categories.",
+      "Fiscal register migration requires schema detection, alias normalization and stable source-row identities; person/date/reason is not a safe dedupe key.",
+      "Old 9/10-point attendance thresholds are superseded by the current 2025 six-point system.",
+      "Historical medical/attendance evidence handling supports restricted evidence separation from ordinary attendance records.",
+      "All 33 individual warning/counseling files have been mapped to generalized knowledge themes."
+    ],
+    "analysis_status": "exhaustive_complete",
+    "disciplinary_aggregate_path": "knowledge/libraries/rtec-hr/restricted-evidence/disciplinary-register-aggregate-2008-2026.json",
+    "fiscal_event_rows_analyzed": 1193,
+    "completion_boundary": "No supplied artifact remains without an explicit analysis disposition. Further progress on unresolved current-state questions requires newer/authoritative sources rather than rereading this archive."
   }
 }
