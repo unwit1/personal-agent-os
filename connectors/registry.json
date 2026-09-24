@@ -16,13 +16,19 @@
         "applicant.pending_actions",
         "applicant.sync_status",
         "applicant.events",
-        "applicant.event_ack"
+        "applicant.event_ack",
+        "applicant.get_document_metadata",
+        "applicant.get_timeline",
+        "applicant.openings"
       ],
       "scopes": [
         "applicants.admin.read",
         "applicants.events.read",
         "applicants.events.ack",
-        "applicants.sync-health.read"
+        "applicants.sync-health.read",
+        "applicants.documents.metadata.read",
+        "applicants.timeline.read",
+        "applicants.openings.read"
       ],
       "health": {
         "status": "unknown",
