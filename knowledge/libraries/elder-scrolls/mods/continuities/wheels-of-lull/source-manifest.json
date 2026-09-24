@@ -125,7 +125,9 @@
       "topics/power-energy-metaphysics.md",
       "topics/mimics-and-mutability.md",
       "topics/how-two-moon-clockwork-creation.md"
-    ]
+    ],
+    "external_continuity_lineage": "analysis/trainwiz-chronocoda-lineage.json",
+    "semantic_gap_check": "complete_no_new_topic_dossiers_needed_2026_09_24"
   },
   "book_provenance": {
     "status": "passes_01_05_complete_archive_witnesses_located_materialization_pending",
