@@ -221,6 +221,79 @@ def readiness() -> dict[str, Any]:
     return result
 
 
+def smoke_test() -> dict[str, Any]:
+    """Run a PII-free end-to-end adapter smoke test on this machine.
+
+    The probe may internally read one normalized applicant to verify that the
+    restricted adapter path works, but it deliberately returns no applicant
+    fields, refs, document metadata, search text, notes, or source identifiers.
+    """
+    ready = readiness()
+    checks: dict[str, bool] = {
+        "runtime_ready": bool(ready.get("ready_for_restricted_reads")),
+        "list_read": False,
+        "summary_read": False,
+        "document_metadata_read": False,
+        "timeline_read": False,
+        "event_read": False,
+        "audit_recorded": False,
+    }
+    sampled_record_present = False
+
+    if checks["runtime_ready"]:
+        listed = list_applicants(limit=1)
+        checks["list_read"] = True
+        if listed.get("results"):
+            sampled_record_present = True
+            ref = listed["results"][0].get("agent_ref")
+            if ref:
+                get_summary(ref)
+                checks["summary_read"] = True
+                get_document_metadata(ref)
+                checks["document_metadata_read"] = True
+                get_timeline(ref, limit=5)
+                checks["timeline_read"] = True
+
+        # Reading the event queue validates the outbox adapter even when empty.
+        pending_events(limit=1)
+        checks["event_read"] = True
+
+        try:
+            _audit_access(
+                "applicant.smoke_test",
+                metadata={
+                    "status": "passed",
+                    "found": sampled_record_present,
+                },
+            )
+            checks["audit_recorded"] = True
+        except RuntimeError:
+            checks["audit_recorded"] = False
+
+    ok = (
+        checks["runtime_ready"]
+        and checks["list_read"]
+        and checks["event_read"]
+        and checks["audit_recorded"]
+        and (
+            not sampled_record_present
+            or (
+                checks["summary_read"]
+                and checks["document_metadata_read"]
+                and checks["timeline_read"]
+            )
+        )
+    )
+
+    return {
+        "ok": ok,
+        "runtime_status": ready.get("status"),
+        "sampled_record_present": sampled_record_present,
+        "checks": checks,
+        "checked_at": datetime.now().astimezone().isoformat(timespec="seconds"),
+    }
+
+
 def audit_status() -> dict[str, Any]:
     """Return privacy-safe health for the local applicant-access audit log.
 
