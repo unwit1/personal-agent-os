@@ -1,7 +1,7 @@
 {
   "record_id": "rtec-unemployment-administration-email-evidence-2021-2026",
-  "updated_at": "2026-09-23",
-  "status": "historical_case_process_plus_current_portal_transition_evidence",
+  "updated_at": "2026-09-24",
+  "status": "historical_case_process_plus_current_kuip_production_model",
   "privacy": "No claimant identity, separation reason, wage data, claim number or hearing merits are retained.",
   "evidence": [
     {
@@ -22,6 +22,16 @@
         "000570"
       ],
       "caution": "This is a dated planned-launch statement from June 2026, not independent verification of current post-launch status."
+    },
+    {
+      "finding": "Post-launch verification on 2026-09-24 confirms the KUIP Employer and TPA portals are live. The June 2026 August 17 launch notice is therefore superseded as a future-planning statement.",
+      "evidence_type": "current_official_Kentucky_web",
+      "observed_at": "2026-09-24"
+    },
+    {
+      "finding": "Current Kentucky guidance places employer tax/account maintenance, wage reporting, payments and charge-statement viewing in KUIP, while fact finding, claims correspondence and appeals filing remain in legacy systems during the Benefits & Appeals bridging period.",
+      "evidence_type": "current_official_Kentucky_web",
+      "observed_at": "2026-09-24"
     }
   ],
   "workflow_skeleton": [
@@ -33,17 +43,58 @@
     "record outcome/follow-up in restricted case context"
   ],
   "unresolved": [
-    "Verify the current KUIP production status and login/role model",
-    "Identify current internal owner/backup owner",
-    "Document evidence-gathering and approval requirements",
+    "Identify current RTEC internal owner and backup owner for KUIP employer access",
+    "Verify RTEC's new 9-digit KEIN/activation/account ownership is documented in an approved secure credential inventory without placing the credentials themselves in Agent OS",
+    "Document RTEC's exact boundary between KUIP tax/account functions and legacy claim/fact-finding/appeal functions",
+    "Document evidence-gathering and authorized review requirements for claimant-specific responses",
     "Document deadline tracking and outcome/appeal workflow",
     "Identify current retention location for restricted unemployment case records"
   ],
   "automation_candidates": [
+    "KUIP/legacy-system routing by unemployment task type",
     "agency-notice deadline extraction",
-    "restricted hearing checklist",
+    "restricted hearing/fact-finding checklist",
     "evidence-request queue",
-    "portal transition/currentness alert",
-    "post-hearing follow-up tracking"
-  ]
+    "KUIP account-health/currentness check without storing activation credentials",
+    "post-hearing/appeal follow-up tracking"
+  ],
+  "current_external_state": {
+    "observed_at": "2026-09-24",
+    "status": "KUIP employer and TPA portals live",
+    "tax_functions_in_kuip": [
+      "employer account maintenance",
+      "quarterly employment/wage reporting",
+      "unemployment tax payments",
+      "viewing charge statements"
+    ],
+    "identifier_change": "Current Kentucky guidance uses a new 9-digit KEIN in KUIP; existing employers receive a new KEIN and activation code for account activation.",
+    "bridging_period": {
+      "tax": "KUIP",
+      "benefits_and_appeals_legacy_functions": [
+        "fact finding",
+        "claims-related correspondence",
+        "appeals filing"
+      ],
+      "note": "Kentucky describes a bridging period after Tax go-live while Benefits and Appeals modernization continues."
+    },
+    "reporting_requirement": "Current Kentucky UI guidance states employers must file quarterly wage and tax reports electronically through KUIP.",
+    "official_sources": [
+      {
+        "title": "Kentucky Unemployment Insurance Self-Service",
+        "url": "https://ui.ky.gov/",
+        "retrieved": "2026-09-24"
+      },
+      {
+        "title": "KUIP Employer and TPA Resources",
+        "url": "https://kcc.ky.gov/career/resources/Pages/KUIP-Employer-TPA-Resources.aspx",
+        "retrieved": "2026-09-24"
+      },
+      {
+        "title": "Electronic Wage and Tax Reporting Specifications and Instructions",
+        "url": "https://ui.ky.gov/Redesign/ResourcePages/ElectronicWageReporting.aspx",
+        "updated": "2026-08-03",
+        "retrieved": "2026-09-24"
+      }
+    ]
+  }
 }
