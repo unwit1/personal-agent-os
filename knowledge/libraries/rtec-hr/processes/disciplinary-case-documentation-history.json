@@ -1,0 +1,153 @@
+{
+  "id": "rtec-process-disciplinary-case-documentation-history",
+  "record_type": "process",
+  "title": "Historical disciplinary counseling and case-documentation workflow",
+  "status": "candidate",
+  "temporal_status": "historical",
+  "effective_from": null,
+  "effective_to": null,
+  "summary": "Repeated structure across 33 restricted individual-warning artifacts shows two dominant historical documentation paths: free-form personnel-file counseling memos and a standardized Employee Warning Notice. Only aggregate/reusable workflow structure is modeled; employee-specific facts remain restricted.",
+  "claims": [
+    {
+      "claim": "Of 33 individual-warning artifacts reviewed, 24 use a free-form 'To: Personnel File' memo pattern, 7 use the standardized Employee Warning Notice, and 2 use other narrative formats.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-form-employee-warning-notice-legacy"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "33 individual-warning artifacts, format classification",
+          "evidence_type": "repeated_observation",
+          "note": "Counts describe document formats only; no employee-level facts are generalized."
+        }
+      ]
+    },
+    {
+      "claim": "Human Resources/EEO-role participation or authorship is visible in 25 of the 33 individual-warning artifacts, indicating HR commonly participated in or documented historical corrective-action meetings.",
+      "claim_kind": "interpretation",
+      "confidence": 0.99,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "33 individual-warning artifacts, role-presence review",
+          "evidence_type": "repeated_observation",
+          "note": "Role-level participation only; employee identities excluded."
+        }
+      ]
+    },
+    {
+      "claim": "Free-form personnel-file memos commonly record the date/time, people present, issue discussed, management/HR explanation, employee response or understanding, and the HR/manager author or signer.",
+      "claim_kind": "interpretation",
+      "confidence": 0.98,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "24 personnel-file memo artifacts",
+          "evidence_type": "repeated_observation",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The historical corpus shows counseling/cautioning could precede or coexist with formal numbered warnings, suspension, final warning and termination references; documentation style was not limited to a single standardized form.",
+      "claim_kind": "interpretation",
+      "confidence": 0.98,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-policy-progressive-discipline-2023",
+        "rtec-form-employee-warning-notice-legacy"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "individual-warning corpus structure",
+          "evidence_type": "repeated_observation",
+          "note": "This describes the range of documentation mechanisms, not the appropriate action for any case."
+        }
+      ]
+    }
+  ],
+  "trigger": "Performance, conduct, attendance or other employee issue is discussed/documented.",
+  "prerequisites": [
+    "Facts of the issue are available.",
+    "Applicable policy/version is identified where possible."
+  ],
+  "actors": [
+    "Employee",
+    "Supervisor/Department Manager",
+    "Human Resources",
+    "Operations/Executive Management when applicable"
+  ],
+  "systems": [
+    "Personnel file",
+    "Historical Word documents/forms"
+  ],
+  "forms": [
+    "Employee Warning Notice",
+    "Personnel-file counseling memo"
+  ],
+  "steps": [
+    "Document the date/time and issue prompting counseling or corrective action.",
+    "Record relevant management/HR participants.",
+    "Discuss the concern, expectations and applicable policy/procedure with the employee.",
+    "Record employee response/understanding when relevant.",
+    "Document corrective expectations or escalation consequences when applicable.",
+    "Use the standardized warning form when the formal-warning workflow requires it; otherwise historical practice sometimes used a personnel-file memo.",
+    "File the resulting disciplinary/counseling record in the appropriate restricted personnel record."
+  ],
+  "decisions": [
+    "Whether informal counseling/memo documentation or a formal warning form is appropriate.",
+    "Whether escalation to a higher warning/suspension/termination review is warranted.",
+    "Which management/HR approvals or signatures are required."
+  ],
+  "deadlines": [],
+  "outputs": [
+    "Restricted counseling/disciplinary case record",
+    "Potential Employee Warning Notice",
+    "Personnel-file memo"
+  ],
+  "exceptions": [
+    "Historical documents show multiple formats; a free-form memo does not by itself indicate a lower or higher disciplinary level."
+  ],
+  "controls": [
+    "Do not generalize one employee case into a universal policy.",
+    "Preserve participant/date/action provenance for each restricted case.",
+    "Keep disciplinary narratives and employee identities outside the generalized knowledge corpus.",
+    "Current approval/signature requirements must be validated before automating action decisions."
+  ],
+  "unresolved_questions": [
+    "What current criteria determine whether HR documents an issue as informal counseling, a personnel-file memo, a formal warning, a performance plan, suspension or termination action?",
+    "Which disciplinary records belong in the personnel file versus a separate investigation/incident file?",
+    "What current signature/acknowledgment and employee-response procedures apply?"
+  ],
+  "automation_candidates": [
+    "Generate a structured restricted disciplinary case record from either a warning form or counseling memo while preserving the original source.",
+    "Detect repeated issues/prior related actions for reviewer context without automatically choosing discipline.",
+    "Require explicit human approval before any suspension, termination or other consequential action is generated."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+      "safe_source_type": "restricted_corpus_structural_analysis",
+      "source_date_or_version": "historical archive",
+      "content_sha256": null,
+      "page_or_section": "33 individual-warning artifacts",
+      "ingested_at": "2026-09-24",
+      "notes": "Only aggregate document structure and workflow patterns were generalized.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "full_source_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json"
+    }
+  ]
+}
