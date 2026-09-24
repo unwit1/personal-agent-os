@@ -1,0 +1,29 @@
+{
+  "continuity_id": "tes.mod.trainwiz-chronocoda",
+  "name": "Trainwiz ChronoC0da",
+  "kind": "mod_continuity_series",
+  "status": "active_with_verified_current_sources",
+  "members": [
+    {
+      "continuity_id": "tes.mod.sotha-sil-expanded",
+      "role": "root_predecessor/current_source_ingested",
+      "path": "../sotha-sil-expanded"
+    },
+    {
+      "continuity_id": "tes.mod.aethernautics",
+      "role": "earlier_skyrim_work/current_source_ingested",
+      "path": "../aethernautics"
+    },
+    {
+      "continuity_id": "tes.mod.wheels-of-lull",
+      "role": "later_convergence/sequel/source_ingested",
+      "path": "../wheels-of-lull"
+    }
+  ],
+  "modeling_policy": [
+    "Keep each plugin/package as a separate provenance scope.",
+    "Represent same-canon and sequel relationships with explicit edges.",
+    "Centralize verified shared works without discarding local editions.",
+    "Current-package identity does not establish historical precedence."
+  ]
+}
