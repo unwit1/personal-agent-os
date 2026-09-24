@@ -1,0 +1,58 @@
+{
+  "record_id": "rtec-historical-blank-form-attachment-variants",
+  "updated_at": "2026-09-23",
+  "status": "linked_to_existing_reference_catalog",
+  "variants": [
+    {
+      "archive_id": "000146",
+      "attachment": "Direct Deposit Form (revised).doc",
+      "sha256": "db44d2532b46ed9b77b63202cd22032176e14d25f801f18f9c1ea5305f208781",
+      "mapped_reference_id": "hrgui-reference-037",
+      "mapped_reference_title": "Direct Deposit Form",
+      "attachment_fields": [
+        "bank name",
+        "bank address",
+        "bank phone",
+        "routing number",
+        "account number",
+        "checking/savings",
+        "employee name",
+        "employee signature",
+        "voided check/deposit slip"
+      ],
+      "temporal_relation": "Historical attachment predates the HR-GUI reference path 'Direct Deposit Form (Rev 03-24).doc'; treat as historical variant rather than duplicate-current authority.",
+      "sensitivity": "Blank form is safe reference material; completed copies contain high-sensitivity banking data."
+    },
+    {
+      "archive_id": "000143",
+      "attachment": "Term notice to payroll.doc",
+      "sha256": "1d4e1c0751ce67f4c21cf7ad41cc1845e0140d2af9a1fc7f94547ca211fbc9dd",
+      "mapped_reference_id": "hrgui-reference-061",
+      "mapped_reference_title": "Termination of Employment - Notice to Payroll form",
+      "attachment_fields": [
+        "employee identity",
+        "today date",
+        "effective date",
+        "direct deposit",
+        "term life",
+        "health premium",
+        "dental premium",
+        "vision premium",
+        "Abacus life",
+        "Abacus disability",
+        "401(k) contribution",
+        "comments",
+        "Benefits Manager prepared/date",
+        "Executive Director approved/date"
+      ],
+      "temporal_relation": "Attachment provides historical field semantics for the currently unmapped reference-catalog entry. Exact binary equivalence to the HR-GUI source artifact cannot be proven from repository metadata alone.",
+      "sensitivity": "Blank form safe; completed copies are restricted personnel/payroll/benefits records."
+    }
+  ],
+  "scanner_implications": [
+    "Link historical variants to canonical form families rather than creating duplicate canonical types.",
+    "Use bank-account/routing fields as a high-sensitivity routing signal for completed direct-deposit forms.",
+    "Termination-to-payroll form should classify as termination/payroll/benefits coordination and remain separate from a termination letter.",
+    "Provider-specific historical fields such as Abacus must not be assumed current."
+  ]
+}
