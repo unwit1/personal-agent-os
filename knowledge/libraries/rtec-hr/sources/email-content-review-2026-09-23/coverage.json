@@ -102,6 +102,58 @@
         "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-archive-reference-documents-2016-2019.json"
       ],
       "excluded_content": "No raw email body, contact names, personal timeline, employee/applicant case facts, or person-level dossier retained."
+    },
+    {
+      "reviewed_at": "2026-09-24",
+      "source_type": "2016 company-level benefits document alignment correspondence",
+      "message_ids": [
+        "msg_5f8b6bdc3d072c6077f4687c"
+      ],
+      "safe_process_summary": "A 2016 internal discussion says the personnel policy then limited benefits to full-time employees and that the 401(k) document should be aligned to that policy; it explicitly did not describe extending 401(k) to part-time employees at that time. No current eligibility rule is inferred.",
+      "authority_note": "Pre-April-2026 organizational history. The correspondence also contains an individual employment-document and schedule matter; that content is excluded.",
+      "persisted_sources": [],
+      "excluded_content": "No employee name, employment transaction, work schedule, raw email body, or person-level dossier retained."
+    },
+    {
+      "reviewed_at": "2026-09-24",
+      "source_type": "2016 time-and-attendance implementation follow-up",
+      "message_ids": [
+        "msg_045a1c6af7a960132c7d8c01"
+      ],
+      "safe_process_summary": "A November 2016 HR message asked an ADP contact for a start-timeframe for the Time and Attendance module implementation. Separate 2016 correspondence records approval to proceed; the retrieved follow-up does not establish go-live or current system configuration.",
+      "authority_note": "Historical system implementation correspondence, not evidence of the user's personal work history. Current platform status remains unresolved.",
+      "persisted_sources": [
+        "knowledge/libraries/rtec-hr/questions/currentness-and-gaps.json"
+      ],
+      "excluded_content": "No raw email body or vendor contact details retained."
+    },
+    {
+      "reviewed_at": "2026-09-24",
+      "source_type": "2017 distribution note for ADA and Title VI forms",
+      "message_ids": [
+        "msg_42a87a95ce1b9746f53d4056"
+      ],
+      "safe_process_summary": "A 2017 HR message described three attached ADA/Title VI forms as the forms then in use. The indexed message provides attachment count but not retrievable attachment content; no identity match or currentness claim is made. Related historical ADA complaint and Title VI/LEP sources already exist in the compliance archive and require source-level comparison before any duplicate is added.",
+      "authority_note": "The email predates April 2026 and documents historical company practice. The word current applies only to the sender's 2017 statement.",
+      "persisted_sources": [
+        "knowledge/libraries/rtec-hr/compliance/sources/ada-complaint-process/",
+        "knowledge/libraries/rtec-hr/compliance/sources/title-vi-lep-2016/",
+        "knowledge/libraries/rtec-hr/compliance/sources/title-vi-lep-2019/"
+      ],
+      "excluded_content": "No raw email body, staff identities, attached case records, or unverified form copies retained."
+    },
+    {
+      "reviewed_at": "2026-09-24",
+      "source_type": "2022 driver handbook confidentiality-section review correspondence",
+      "message_ids": [
+        "msg_15234ae890bd8fc12cf6e7f7"
+      ],
+      "safe_process_summary": "A 2022 exchange reviewed proposed driver-handbook language reminding Drivers, Dispatchers, and Customer Service Representatives to protect radio communications, passenger manifests, and schedules. HR responded positively, but the message alone does not prove approval or publication; confidentiality language also appears in the preserved 2017 and 2019 driver-handbook copies.",
+      "authority_note": "Pre-April-2026 company process history. Compare against approved current policy and driver handbook before operational use.",
+      "persisted_sources": [
+        "knowledge/libraries/rtec-hr/sources/archive-reference-documents-2016-2019/"
+      ],
+      "excluded_content": "No raw email body, signatures/contact details, or person-level dossier retained."
     }
   ],
   "method_notes": [
@@ -115,6 +167,7 @@
     "Review full message bodies in bounded, deduplicated batches and capture only corroborated process knowledge or durable user context.",
     "Inspect work attachments selectively; do not run the all-attachments exporter. One visually verified blank Guardian reference packet is preserved in the RTEC source library.",
     "Use position-level sources to validate historical claims and preserve only safe reference documents.",
-    "Review complete driver-handbook clauses in bounded sections, and prioritize safe position-level attachment candidates while excluding person-level case records."
+    "Review complete driver-handbook clauses in bounded sections, and prioritize safe position-level attachment candidates while excluding person-level case records.",
+    "Compare the historical 2017 ADA/Title VI form set against preserved compliance sources; resolve whether the attachments are duplicates and whether any later approved forms supersede them."
   ]
 }
