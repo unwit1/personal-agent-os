@@ -21,6 +21,7 @@
         "applicant.pending_actions",
         "applicant.readiness",
         "applicant.search",
+        "applicant.smoke_test",
         "applicant.sync_status"
       ],
       "scopes": [
@@ -31,6 +32,7 @@
         "applicants.events.read",
         "applicants.openings.read",
         "applicants.runtime-health.read",
+        "applicants.smoke-test.execute",
         "applicants.sync-health.read",
         "applicants.timeline.read"
       ],
