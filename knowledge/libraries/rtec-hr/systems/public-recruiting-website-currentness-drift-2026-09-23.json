@@ -1,0 +1,38 @@
+{
+  "record_id": "rtec-public-recruiting-website-currentness-drift-2026-09-23",
+  "updated_at": "2026-09-23",
+  "status": "current_public_surface_inconsistency",
+  "sources": [
+    "https://www.ridertec.org/",
+    "https://www.ridertec.org/job-board",
+    "https://www.ridertec.org/jobs",
+    "https://www.ridertec.org/about-us/job-opportunities",
+    "localized ridertec.org variants"
+  ],
+  "observed_current_public_state": [
+    "English homepage currently advertises Transit Drivers at $17.00/hour and states applications are kept on file one year.",
+    "At least one current localized homepage still advertises drivers at $16.00/hour, creating compensation-message drift.",
+    "The /jobs surface is indexed with unrelated San Francisco technology roles such as VP Product, Product Manager and HR Representative, inconsistent with RTEC's actual transit recruiting.",
+    "The dedicated RTEC job board says full-time medical/life/dental after 60 days and 401-K retirement after 30 days, plus historical-style leave/vacation benefit bullets.",
+    "Current 2025 handbook confirms medical eligibility generally after 60 days but states 401-K eligibility depends on additional service requirements described in the Plan; therefore the website's 30-day retirement statement should be validated against the current plan booklet rather than treated as plan authority.",
+    "The live rendered job-board page exposes a Job Requirements link but no visible Application link, even though indexed/search text says applicants can apply online/download an application."
+  ],
+  "relationship": "CURRENT_PUBLIC_CONTENT_REQUIRES_RECONCILIATION",
+  "risks": [
+    "Applicants can receive different starting-pay information depending on language/page.",
+    "Unrelated template/demo jobs can appear to be official RTEC vacancies.",
+    "Benefit eligibility statements can outlive the governing plan documents.",
+    "Missing or stale application links can push applicants toward old PDF/email/in-person workflows.",
+    "Search engines and agents may ingest stale public copy as current HR policy."
+  ],
+  "remediation_candidates": [
+    "Define ADP ATS/current recruiting source as canonical for open requisitions and pay ranges where technically possible.",
+    "Drive homepage/job-board/localized job listings from one canonical openings feed.",
+    "Remove or disable Wix/demo /jobs content that is not an RTEC vacancy source.",
+    "Validate current 401-K eligibility against the plan booklet/provider before keeping the 30-day website claim.",
+    "Verify the online Application link and printable-application link on the rendered job-board page.",
+    "Add locale/version regression checks for pay, open roles, benefits, contact details and application URLs.",
+    "Use current job-description versions separately from application templates."
+  ],
+  "source_priority_rule": "ATS/requisition records, current job descriptions, current plan documents and current handbook outrank website marketing copy when they conflict. Public pages remain authoritative evidence of what applicants currently see."
+}
