@@ -155,6 +155,61 @@ def _audit_health(action: str, metadata: dict[str, Any] | None = None) -> None:
         pass
 
 
+def audit_status() -> dict[str, Any]:
+    """Return privacy-safe health for the local applicant-access audit log.
+
+    No applicant refs or raw audit entries are returned.
+    """
+    result: dict[str, Any] = {
+        "configured": True,
+        "present": _AUDIT_PATH.is_file(),
+        "record_count": 0,
+        "latest_at": None,
+        "recent_action_counts": {},
+    }
+    if not _AUDIT_PATH.is_file():
+        return result
+
+    counts: dict[str, int] = {}
+    latest_at = None
+    total = 0
+    try:
+        with _AUDIT_PATH.open("r", encoding="utf-8") as handle:
+            for line in handle:
+                if not line.strip():
+                    continue
+                total += 1
+                try:
+                    item = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                action = item.get("action")
+                created = item.get("created_at")
+                if isinstance(action, str):
+                    counts[action] = counts.get(action, 0) + 1
+                if isinstance(created, str) and (latest_at is None or created > latest_at):
+                    latest_at = created
+        result["record_count"] = total
+        result["latest_at"] = latest_at
+        result["recent_action_counts"] = dict(
+            sorted(counts.items(), key=lambda pair: (-pair[1], pair[0]))[:25]
+        )
+        try:
+            result["size_bytes"] = _AUDIT_PATH.stat().st_size
+        except OSError:
+            pass
+        return result
+    except (OSError, UnicodeError):
+        return {
+            "configured": True,
+            "present": True,
+            "record_count": 0,
+            "latest_at": None,
+            "recent_action_counts": {},
+            "read_error": True,
+        }
+
+
 def _project_root() -> Path:
     return Path(get_project(_PROJECT_ID)["path"])
 
