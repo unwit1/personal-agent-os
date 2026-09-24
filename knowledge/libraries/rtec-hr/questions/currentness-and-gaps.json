@@ -314,6 +314,12 @@
       "question": "After the work-PC Dashboard updates, verify the production Fillout bridge reports persistent healthy/degraded/unavailable sync metadata and alerts on stale/disconnected source integration without exposing applicant rows.",
       "status": "in_progress",
       "resolution_note": "Privacy-safe sync-health persistence and synthetic tests are committed to job-applicant-dashboard, but live production validation remains pending."
+    },
+    {
+      "priority": "high",
+      "domain": "hstd_csr_trip_processing",
+      "question": "Validate the historical HSTD/CSR trip-processing workflow exposed by the legacy disciplinary matrix: define 'flip trips' and 'pencil notes'; identify forms 500/501 and their update deadline; determine the current eligibility, prior-authorization, supporting-document, denial-tracking, confirmation, denial-notification/cancellation and appeal workflow; and identify what replaced the historical Denial Requests Tracking database/HSTD server rules, if anything.",
+      "status": "open"
     }
   ]
 }
