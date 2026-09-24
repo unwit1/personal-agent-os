@@ -1,0 +1,187 @@
+{
+  "id": "rtec-process-hstd-csr-trip-eligibility-denial-candidate",
+  "record_type": "process",
+  "title": "Historical HSTD/CSR trip eligibility, authorization and denial workflow candidate",
+  "status": "candidate",
+  "temporal_status": "unknown",
+  "effective_from": null,
+  "effective_to": null,
+  "summary": "The undated legacy Disciplinary steps matrix contains a concentrated set of CSR/HSTD failure labels that collectively reveal parts of the historical trip-booking, eligibility, authorization, denial and documentation workflow. Because the source is a discipline matrix rather than a procedure manual, each step remains a workflow candidate pending corroboration.",
+  "claims": [
+    {
+      "claim": "Historical CSR/HSTD work included checking client eligibility information in KY HealthNet before proceeding with covered-service trip handling.",
+      "claim_kind": "rule_candidate",
+      "confidence": 0.96,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-steps-undated",
+          "page_or_section": "violation label: failure to check eligibility information in KY HealthNet",
+          "evidence_type": "explicit_text",
+          "note": "Derived from a failure label; workflow ordering/currentness are not established."
+        }
+      ]
+    },
+    {
+      "claim": "Historical workflow included checking a Denial Requests Tracking database and using denial/referral documentation.",
+      "claim_kind": "rule_candidate",
+      "confidence": 0.96,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-steps-undated",
+          "page_or_section": "denial-tracking/referral violation labels",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Historical trip handling included a prior-authorization (PA) process and supporting statements such as doctor, mechanic, work-schedule or urgent-care statements in some cases.",
+      "claim_kind": "rule_candidate",
+      "confidence": 0.95,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-steps-undated",
+          "page_or_section": "PA/supporting-statement violation labels",
+          "evidence_type": "explicit_text",
+          "note": "Exact trigger for each supporting statement is unknown."
+        }
+      ]
+    },
+    {
+      "claim": "Historical CSR workflow included adding escorts when required, 'flipping' trips, recording required information in pencil notes, giving clients confirmation numbers, informing clients of denials and cancelling denied trips.",
+      "claim_kind": "rule_candidate",
+      "confidence": 0.94,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-steps-undated",
+          "page_or_section": "escort/trip/pencil-note/confirmation/denial violation labels",
+          "evidence_type": "explicit_text",
+          "note": "Meaning of 'flip trips' and 'pencil notes' requires validation."
+        }
+      ]
+    },
+    {
+      "claim": "Historical staff were expected to consult HSTD rules on the server and avoid booking non-covered services.",
+      "claim_kind": "rule_candidate",
+      "confidence": 0.97,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-steps-undated",
+          "page_or_section": "HSTD rules/non-covered-service violation label",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Historical workflow required timely updates to 500/501 forms.",
+      "claim_kind": "rule_candidate",
+      "confidence": 0.96,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-steps-undated",
+          "page_or_section": "500/501 form violation label",
+          "evidence_type": "explicit_text",
+          "note": "The source does not define the forms or deadline."
+        }
+      ]
+    }
+  ],
+  "trigger": "CSR/HSTD staff receives or processes a client transportation request.",
+  "prerequisites": [
+    "Client/service information is available.",
+    "Applicable HSTD rules and eligibility/authorization systems are accessible."
+  ],
+  "actors": [
+    "Customer Service Representative",
+    "HSTD/eligibility staff",
+    "Supervisor/Area Manager"
+  ],
+  "systems": [
+    "KY HealthNet",
+    "Denial Requests Tracking database",
+    "HSTD rules on server"
+  ],
+  "forms": [
+    "500/501 forms",
+    "Prior-authorization records",
+    "Referral/denial documentation",
+    "Supporting statements"
+  ],
+  "steps": [
+    "Check client eligibility in KY HealthNet.",
+    "Consult HSTD rules for covered-service requirements.",
+    "Check denial-request tracking where applicable.",
+    "Complete prior-authorization steps where required.",
+    "Obtain required supporting documentation where applicable.",
+    "Add an escort when required.",
+    "Handle trip-processing steps, including any historical 'flip trip' action and required notes.",
+    "Provide the client a confirmation number when a trip is accepted.",
+    "If denied, inform the client and cancel the trip as required.",
+    "Update 500/501 forms timely."
+  ],
+  "decisions": [
+    "Is the client/service eligible and covered?",
+    "Is prior authorization or supporting documentation required?",
+    "Is an escort required?",
+    "Should the trip be accepted, modified, denied or cancelled?"
+  ],
+  "deadlines": [
+    "500/501 forms were expected to be updated timely; exact deadline is not established."
+  ],
+  "outputs": [
+    "Accepted/confirmed trip",
+    "Denied/cancelled trip",
+    "Updated 500/501 forms",
+    "Authorization/denial documentation"
+  ],
+  "exceptions": [],
+  "controls": [
+    "Every step in this record is a historical candidate inferred from an undated discipline matrix and must be corroborated before current operational use.",
+    "Do not invent the meanings of 'flip trip,' 'pencil notes,' 500/501 forms or exact denial/authorization criteria.",
+    "Use later/current HSTD manuals, system instructions and forms to validate terminology and sequence."
+  ],
+  "unresolved_questions": [
+    "What do 'flip trips' and 'pencil notes' mean in RTEC's historical/current HSTD workflow?",
+    "What are forms 500 and 501, who completes them, and what is the required update deadline?",
+    "What specific events require doctor, mechanic, work-schedule or urgent-care statements?",
+    "What replaced the Denial Requests Tracking database, if anything?",
+    "Where are the current HSTD rules stored and who owns updates?",
+    "What are the current client notification, appeal and trip-cancellation rules after denial?"
+  ],
+  "automation_candidates": [
+    "CSR decision-support checklist that requires eligibility, coverage, authorization and denial checks before confirming a trip.",
+    "Automatic completeness validation for required supporting documents and 500/501 updates.",
+    "Denied-trip workflow that records notification, cancellation and appeal/reference information with an auditable timestamp."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-disciplinary-steps-undated",
+      "safe_source_type": "procedure_matrix",
+      "source_date_or_version": null,
+      "content_sha256": "228be0d1afd69a0d816e0562935f6815cf9a4fdccb230d98bfa8e6e3e5b57516",
+      "page_or_section": "violation-label matrix",
+      "ingested_at": "2026-09-24",
+      "notes": "Workflow candidates are inferred from explicit failure labels in a safe position-level source; no employee case data used.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "unknown",
+      "full_source_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-disciplinary-steps-undated/fulltext.md",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-disciplinary-steps-undated/fulltext.md"
+    }
+  ]
+}
