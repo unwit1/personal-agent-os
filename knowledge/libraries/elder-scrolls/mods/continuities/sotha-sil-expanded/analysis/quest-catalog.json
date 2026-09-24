@@ -1,0 +1,336 @@
+{
+  "continuity_id": "tes.mod.sotha-sil-expanded",
+  "journal_topics": 44,
+  "quests": [
+    {
+      "quest_id": "Sotha_imperfections",
+      "titles": [],
+      "journal_entry_count": 1,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "sotha_pilgrimage",
+      "titles": [
+        "Gear Pilgrimage"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_clocktower",
+      "titles": [
+        "Clocktower Crazy"
+      ],
+      "journal_entry_count": 3,
+      "completion_count": 2
+    },
+    {
+      "quest_id": "Sotha_centurion",
+      "titles": [
+        "I, Centurion"
+      ],
+      "journal_entry_count": 3,
+      "completion_count": 2
+    },
+    {
+      "quest_id": "Sotha_bodyparts",
+      "titles": [
+        "Reconstruction"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "sotha_plantsave",
+      "titles": [],
+      "journal_entry_count": 2,
+      "completion_count": 2
+    },
+    {
+      "quest_id": "Sotha_fightring",
+      "titles": [
+        "Fight Club"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_lostmind",
+      "titles": [
+        "Lost My Mind"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "sotha_measurer",
+      "titles": [
+        "Scaling New Heights"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_assassin",
+      "titles": [
+        "Kill the Overclocker and Abstemious Leaders"
+      ],
+      "journal_entry_count": 3,
+      "completion_count": 2
+    },
+    {
+      "quest_id": "sotha_headless",
+      "titles": [
+        "Getting Ahead"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_newguard",
+      "titles": [
+        "The New Guard"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "SSE_catacombs",
+      "titles": [
+        "Dead Hour"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_husband",
+      "titles": [
+        "A Watery Affair"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_breakin",
+      "titles": [
+        "The Heist"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "sotha_farmer1",
+      "titles": [
+        "A Tale of Two Farmers: The Naturalist"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "sotha_farmer2",
+      "titles": [
+        "A Tale of Two Farmers: The Mechanist"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "sotha_farmer3",
+      "titles": [],
+      "journal_entry_count": 1,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_romance",
+      "titles": [
+        "A Show To Remember"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_murders",
+      "titles": [
+        "Murders in the Residential District"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_endgame",
+      "titles": [
+        "The Chronographers"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "sotha_penance",
+      "titles": [
+        "Slagtown Redemption"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_pevlar",
+      "titles": [
+        "Advertising"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "sotha_quartz",
+      "titles": [
+        "Finding Quartz"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_normal",
+      "titles": [
+        "When in Sotha Sil, do as the Sotha Silians do"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "SSE_openPath",
+      "titles": [],
+      "journal_entry_count": 1,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_Memory",
+      "titles": [],
+      "journal_entry_count": 1,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "TR_SothaSil",
+      "titles": [],
+      "journal_entry_count": 1,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "SSE_Endgame",
+      "titles": [],
+      "journal_entry_count": 2,
+      "completion_count": 2
+    },
+    {
+      "quest_id": "Sotha_Manor",
+      "titles": [
+        "Rebuilding Fyr Manor"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_train",
+      "titles": [
+        "Flying Trains"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_baby2",
+      "titles": [],
+      "journal_entry_count": 1,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_baby3",
+      "titles": [],
+      "journal_entry_count": 1,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_baby4",
+      "titles": [],
+      "journal_entry_count": 1,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_baby",
+      "titles": [
+        "Role Call"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_lich",
+      "titles": [
+        "Licherous Intentions"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_fish",
+      "titles": [
+        "Aquatic Pest Control"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_maze",
+      "titles": [
+        "A Lab Rat"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "Sotha_legs",
+      "titles": [
+        "The Legs of Seht"
+      ],
+      "journal_entry_count": 3,
+      "completion_count": 2
+    },
+    {
+      "quest_id": "sotha_home",
+      "titles": [],
+      "journal_entry_count": 1,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "SSE_slums",
+      "titles": [
+        "District of the Undead"
+      ],
+      "journal_entry_count": 3,
+      "completion_count": 2
+    },
+    {
+      "quest_id": "SSE_trees",
+      "titles": [
+        "The Roots That Go Deep"
+      ],
+      "journal_entry_count": 3,
+      "completion_count": 2
+    },
+    {
+      "quest_id": "SSE_power",
+      "titles": [
+        "Power Corrupts"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    },
+    {
+      "quest_id": "SSE_war",
+      "titles": [
+        "Class Warfare"
+      ],
+      "journal_entry_count": 2,
+      "completion_count": 1
+    }
+  ]
+}
