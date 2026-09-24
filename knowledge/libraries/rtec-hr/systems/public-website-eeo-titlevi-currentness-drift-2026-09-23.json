@@ -1,0 +1,36 @@
+{
+  "record_id": "rtec-public-website-eeo-titlevi-currentness-drift-2026-09-23",
+  "updated_at": "2026-09-23",
+  "status": "current_public_surface_inconsistency",
+  "source_urls": [
+    "https://www.ridertec.org/title6",
+    "https://www.ridertec.org/",
+    "https://www.ridertec.org/de",
+    "https://www.ridertec.org/fr"
+  ],
+  "observed_current_public_state": [
+    "Current English Title VI/home content identifies the contact generically as EEO Manager / Equal Employment Opportunity rather than naming the historical role-holder.",
+    "Current indexed German and French language versions still name Sheila Stallsworth as EEO manager.",
+    "English Title VI/home content still displays rtec@kih.net as the public contact email.",
+    "The signed 2026-08-26 EEO policy in the internal canonical library establishes a later current EEO role assignment than the translated website pages."
+  ],
+  "relationship": "CONFLICTS_WITH_CURRENT_INTERNAL_ROLE_AUTHORITY",
+  "interpretation": [
+    "The multilingual public surface appears to contain role-holder/version drift.",
+    "The presence of rtec@kih.net is not by itself classified as wrong because it may intentionally remain a public/general mailbox.",
+    "Translated pages should not be allowed to preserve obsolete named staff after the English/current canonical policy changes.",
+    "Public website content should be versioned and validated against canonical policy/role records rather than edited independently by locale."
+  ],
+  "risks": [
+    "Public complaints or civil-rights inquiries may be routed using stale named-role information.",
+    "Different languages may give materially different contact instructions.",
+    "Agents scraping the public site could reintroduce superseded people into current organizational profiles."
+  ],
+  "remediation_candidates": [
+    "Audit all ridertec.org language/localized variants for named HR/EEO contacts and contact channels.",
+    "Replace person names with role-based contact labels where appropriate, or drive all locales from one canonical source.",
+    "Validate whether rtec@kih.net remains the intended public civil-rights/Title VI mailbox; if yes, document ownership/forwarding and keep it role-managed.",
+    "Add website-currentness checks to the HR/document publishing workflow and Agent OS."
+  ],
+  "source_priority_rule": "Signed current internal policy and effective-dated role records outrank stale public translations for internal role determination; public pages remain authoritative evidence of what the public currently sees."
+}
