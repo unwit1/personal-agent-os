@@ -1,0 +1,54 @@
+{
+  "record_id": "rtec-drive-employment-application-template-currentness-2026",
+  "updated_at": "2026-09-23",
+  "status": "current_accessible_template_with_embedded_historical_reference",
+  "sources": [
+    {
+      "title": "402ec4_36ad01ef9148477aa3fd0261d3bc6354.pdf",
+      "modified": "2026-04-30",
+      "kind": "blank employment application + applicant data record + embedded historical Transit Driver job description",
+      "source_role": "Drive-accessible reference/source file, not automatically current policy"
+    },
+    {
+      "title": "RTEC Job Application Template - Digital Version",
+      "modified": "2026-04-30",
+      "kind": "digitalized application template with Transit Driver job-description reference section",
+      "source_role": "current-accessible application template derived from/reference-linked older material"
+    }
+  ],
+  "application_schema_safe": [
+    "position applied for",
+    "date of application",
+    "referral source",
+    "applicant contact details",
+    "employment eligibility/background questions",
+    "availability",
+    "travel/driver-license questions where relevant",
+    "essential-function-with-accommodation question",
+    "skills/activities",
+    "references",
+    "employment history",
+    "education",
+    "certification/disclaimer/signature",
+    "separate applicant-data/affirmative-action survey in historical source"
+  ],
+  "currentness_hazards": [
+    "The PDF embeds a Transit Driver job description dated 2011.",
+    "The historical embedded job description contains benefit/eligibility statements that conflict with later handbook evidence, including older medical and 401(k) timing.",
+    "The historical application directs completed forms to an old rtec@kih.net email address.",
+    "A file modification/upload date in 2026 does not make embedded 2011 job-description, benefit, contact, or qualification text current."
+  ],
+  "scanner_and_agent_rules": [
+    "Classify application pages separately from embedded job-description/reference pages.",
+    "Use current canonical job descriptions for qualifications and essential duties; never inherit job-description currentness from the application packet.",
+    "Use current handbook/plan sources for benefits; ignore embedded legacy benefit bullets for current decisions.",
+    "Treat applicant-data/affirmative-action survey pages as restricted demographic applicant records when completed.",
+    "Current application channel/contact instructions must come from current ATS/recruiting configuration, not the historical rtec@kih.net instruction.",
+    "Preserve the 2011 Transit Driver reference text as historical provenance only."
+  ],
+  "automation_implications": [
+    "Applicant Dashboard packet generation should compose the current application template and current job-description version as separate versioned components.",
+    "Scanner should split mixed packets by document class/page sequence so an application can be current while an appended job-description page is historical.",
+    "Version/effective-date checks should block legacy embedded benefit text from becoming a current knowledge claim."
+  ]
+}
