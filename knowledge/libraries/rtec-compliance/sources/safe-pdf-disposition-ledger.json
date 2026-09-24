@@ -7,8 +7,8 @@
     "covered_derived": 18,
     "pending_scan_unique": 8,
     "covered_by_textual_plan_family": 4,
-    "pending_scan_detail": 32,
-    "covered_full_or_substantive": 1,
+    "pending_scan_detail": 20,
+    "covered_by_filled_textual_renewal_plus_scan_hash": 13,
     "covered_with_hash_discrepancy": 1,
     "external_reference_only": 5,
     "external_reference_exact_duplicate": 4,
@@ -398,12 +398,13 @@
       "sha256": "9fc6c7f87eff6bae1d3868258c028cd483da42cfb1eada7347d6eeb040c12d8f",
       "size_bytes": 789573,
       "source_id": "safe-9fc6c7f87eff6bae1d38",
-      "status": "pending_scan_detail",
+      "status": "covered_by_filled_textual_renewal_plus_scan_hash",
       "family": "Kentucky EEO signed renewal",
       "coverage": [
+        "knowledge/libraries/rtec-compliance/plans/eeo-certification-renewal-data-history.json",
         "knowledge/libraries/rtec-compliance/plans/eeo-certification-history.json"
       ],
-      "note": "Annual cycle is modeled, but scan-specific filled values/signature/date details are not yet individually transcribed."
+      "note": "Filled annual renewal values are preserved from the corresponding Word source; signed PDF hash remains archival signature evidence. Separate OCR is not needed for substantive process/workforce fields unless handwritten annotations beyond the textual form must be recovered."
     },
     {
       "archive_path": "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2012.pdf",
@@ -413,12 +414,13 @@
       "sha256": "8f4875ee96363d3b319eea25b7ccc65d25dfa67063bde4be226c30073a28ca67",
       "size_bytes": 779579,
       "source_id": "safe-8f4875ee96363d3b319e",
-      "status": "pending_scan_detail",
+      "status": "covered_by_filled_textual_renewal_plus_scan_hash",
       "family": "Kentucky EEO signed renewal",
       "coverage": [
+        "knowledge/libraries/rtec-compliance/plans/eeo-certification-renewal-data-history.json",
         "knowledge/libraries/rtec-compliance/plans/eeo-certification-history.json"
       ],
-      "note": "Annual cycle is modeled, but scan-specific filled values/signature/date details are not yet individually transcribed."
+      "note": "Filled annual renewal values are preserved from the corresponding Word source; signed PDF hash remains archival signature evidence. Separate OCR is not needed for substantive process/workforce fields unless handwritten annotations beyond the textual form must be recovered."
     },
     {
       "archive_path": "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2013.pdf",
@@ -428,12 +430,13 @@
       "sha256": "25e27afa322a9276f0fcb91774b788d76a99e69d4f6ad0931e17537a46e9a39e",
       "size_bytes": 749648,
       "source_id": "safe-25e27afa322a9276f0fc",
-      "status": "pending_scan_detail",
+      "status": "covered_by_filled_textual_renewal_plus_scan_hash",
       "family": "Kentucky EEO signed renewal",
       "coverage": [
+        "knowledge/libraries/rtec-compliance/plans/eeo-certification-renewal-data-history.json",
         "knowledge/libraries/rtec-compliance/plans/eeo-certification-history.json"
       ],
-      "note": "Annual cycle is modeled, but scan-specific filled values/signature/date details are not yet individually transcribed."
+      "note": "Filled annual renewal values are preserved from the corresponding Word source; signed PDF hash remains archival signature evidence. Separate OCR is not needed for substantive process/workforce fields unless handwritten annotations beyond the textual form must be recovered."
     },
     {
       "archive_path": "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2014.pdf",
@@ -443,12 +446,13 @@
       "sha256": "555742f0b9acb206f750ecaef435d8870e5a16ba9dc48b41a13b25079c018edf",
       "size_bytes": 763499,
       "source_id": "safe-555742f0b9acb206f750",
-      "status": "pending_scan_detail",
+      "status": "covered_by_filled_textual_renewal_plus_scan_hash",
       "family": "Kentucky EEO signed renewal",
       "coverage": [
+        "knowledge/libraries/rtec-compliance/plans/eeo-certification-renewal-data-history.json",
         "knowledge/libraries/rtec-compliance/plans/eeo-certification-history.json"
       ],
-      "note": "Annual cycle is modeled, but scan-specific filled values/signature/date details are not yet individually transcribed."
+      "note": "Filled annual renewal values are preserved from the corresponding Word source; signed PDF hash remains archival signature evidence. Separate OCR is not needed for substantive process/workforce fields unless handwritten annotations beyond the textual form must be recovered."
     },
     {
       "archive_path": "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2015.pdf",
@@ -458,12 +462,13 @@
       "sha256": "096ac487e2b53bf7a6fcbe591c67e9936ef14304a82dff8d1a84fadcf549f140",
       "size_bytes": 749781,
       "source_id": "safe-096ac487e2b53bf7a6fc",
-      "status": "pending_scan_detail",
+      "status": "covered_by_filled_textual_renewal_plus_scan_hash",
       "family": "Kentucky EEO signed renewal",
       "coverage": [
+        "knowledge/libraries/rtec-compliance/plans/eeo-certification-renewal-data-history.json",
         "knowledge/libraries/rtec-compliance/plans/eeo-certification-history.json"
       ],
-      "note": "Annual cycle is modeled, but scan-specific filled values/signature/date details are not yet individually transcribed."
+      "note": "Filled annual renewal values are preserved from the corresponding Word source; signed PDF hash remains archival signature evidence. Separate OCR is not needed for substantive process/workforce fields unless handwritten annotations beyond the textual form must be recovered."
     },
     {
       "archive_path": "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2016.pdf",
@@ -473,11 +478,13 @@
       "sha256": "9001ab24ddb3db737ef5d1a765dc195ec596fbc85a642ac1be15c7378d815fec",
       "size_bytes": 950779,
       "source_id": "safe-9001ab24ddb3db737ef5",
-      "status": "covered_full_or_substantive",
+      "status": "covered_by_filled_textual_renewal_plus_scan_hash",
       "family": "Kentucky EEO signed renewal",
       "coverage": [
+        "knowledge/libraries/rtec-compliance/plans/eeo-certification-renewal-data-history.json",
         "knowledge/libraries/rtec-hr/compliance/sources/eeo-certification-2016/certification-renewal.md"
-      ]
+      ],
+      "note": "Filled annual renewal values are preserved from the corresponding Word source; signed PDF hash remains archival signature evidence. Separate OCR is not needed for substantive process/workforce fields unless handwritten annotations beyond the textual form must be recovered."
     },
     {
       "archive_path": "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2017.pdf",
@@ -487,12 +494,13 @@
       "sha256": "3ca143536b4f4cd70c75e9363593b459cd77d1c8e5cab50aaddc9019eb822917",
       "size_bytes": 778900,
       "source_id": "safe-3ca143536b4f4cd70c75",
-      "status": "pending_scan_detail",
+      "status": "covered_by_filled_textual_renewal_plus_scan_hash",
       "family": "Kentucky EEO signed renewal",
       "coverage": [
+        "knowledge/libraries/rtec-compliance/plans/eeo-certification-renewal-data-history.json",
         "knowledge/libraries/rtec-compliance/plans/eeo-certification-history.json"
       ],
-      "note": "Annual cycle is modeled, but scan-specific filled values/signature/date details are not yet individually transcribed."
+      "note": "Filled annual renewal values are preserved from the corresponding Word source; signed PDF hash remains archival signature evidence. Separate OCR is not needed for substantive process/workforce fields unless handwritten annotations beyond the textual form must be recovered."
     },
     {
       "archive_path": "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2018.pdf",
@@ -502,12 +510,13 @@
       "sha256": "aab572f1c88d6f6c4c2dd3847d2c60b60851846640b73969abfb9a8bcb32fc7d",
       "size_bytes": 772656,
       "source_id": "safe-aab572f1c88d6f6c4c2d",
-      "status": "pending_scan_detail",
+      "status": "covered_by_filled_textual_renewal_plus_scan_hash",
       "family": "Kentucky EEO signed renewal",
       "coverage": [
+        "knowledge/libraries/rtec-compliance/plans/eeo-certification-renewal-data-history.json",
         "knowledge/libraries/rtec-compliance/plans/eeo-certification-history.json"
       ],
-      "note": "Annual cycle is modeled, but scan-specific filled values/signature/date details are not yet individually transcribed."
+      "note": "Filled annual renewal values are preserved from the corresponding Word source; signed PDF hash remains archival signature evidence. Separate OCR is not needed for substantive process/workforce fields unless handwritten annotations beyond the textual form must be recovered."
     },
     {
       "archive_path": "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2019.pdf",
@@ -517,12 +526,13 @@
       "sha256": "5cb6102aa4d2747bdd7f72b4f9590206734666e300a0a25b29591e4f13938be0",
       "size_bytes": 808927,
       "source_id": "safe-5cb6102aa4d2747bdd7f",
-      "status": "pending_scan_detail",
+      "status": "covered_by_filled_textual_renewal_plus_scan_hash",
       "family": "Kentucky EEO signed renewal",
       "coverage": [
+        "knowledge/libraries/rtec-compliance/plans/eeo-certification-renewal-data-history.json",
         "knowledge/libraries/rtec-compliance/plans/eeo-certification-history.json"
       ],
-      "note": "Annual cycle is modeled, but scan-specific filled values/signature/date details are not yet individually transcribed."
+      "note": "Filled annual renewal values are preserved from the corresponding Word source; signed PDF hash remains archival signature evidence. Separate OCR is not needed for substantive process/workforce fields unless handwritten annotations beyond the textual form must be recovered."
     },
     {
       "archive_path": "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2020.pdf",
@@ -532,12 +542,13 @@
       "sha256": "44eafe2f4ab706b60732c2700fcbde61f10a28064f4a0dae39ed12a11aaee252",
       "size_bytes": 778348,
       "source_id": "safe-44eafe2f4ab706b60732",
-      "status": "pending_scan_detail",
+      "status": "covered_by_filled_textual_renewal_plus_scan_hash",
       "family": "Kentucky EEO signed renewal",
       "coverage": [
+        "knowledge/libraries/rtec-compliance/plans/eeo-certification-renewal-data-history.json",
         "knowledge/libraries/rtec-compliance/plans/eeo-certification-history.json"
       ],
-      "note": "Annual cycle is modeled, but scan-specific filled values/signature/date details are not yet individually transcribed."
+      "note": "Filled annual renewal values are preserved from the corresponding Word source; signed PDF hash remains archival signature evidence. Separate OCR is not needed for substantive process/workforce fields unless handwritten annotations beyond the textual form must be recovered."
     },
     {
       "archive_path": "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2021.pdf",
@@ -547,12 +558,13 @@
       "sha256": "6b0abed09aafec2536677c703a8b5cef77b02a030da68e5f632580fc31a7fb8c",
       "size_bytes": 1042294,
       "source_id": "safe-6b0abed09aafec253667",
-      "status": "pending_scan_detail",
+      "status": "covered_by_filled_textual_renewal_plus_scan_hash",
       "family": "Kentucky EEO signed renewal",
       "coverage": [
+        "knowledge/libraries/rtec-compliance/plans/eeo-certification-renewal-data-history.json",
         "knowledge/libraries/rtec-compliance/plans/eeo-certification-history.json"
       ],
-      "note": "Annual cycle is modeled, but scan-specific filled values/signature/date details are not yet individually transcribed."
+      "note": "Filled annual renewal values are preserved from the corresponding Word source; signed PDF hash remains archival signature evidence. Separate OCR is not needed for substantive process/workforce fields unless handwritten annotations beyond the textual form must be recovered."
     },
     {
       "archive_path": "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2022.pdf",
@@ -562,12 +574,13 @@
       "sha256": "ce0e4677f13038ad7433db6965a4cf753139b0de34190c5e0459a6c89d3051fa",
       "size_bytes": 1066639,
       "source_id": "safe-ce0e4677f13038ad7433",
-      "status": "pending_scan_detail",
+      "status": "covered_by_filled_textual_renewal_plus_scan_hash",
       "family": "Kentucky EEO signed renewal",
       "coverage": [
+        "knowledge/libraries/rtec-compliance/plans/eeo-certification-renewal-data-history.json",
         "knowledge/libraries/rtec-compliance/plans/eeo-certification-history.json"
       ],
-      "note": "Annual cycle is modeled, but scan-specific filled values/signature/date details are not yet individually transcribed."
+      "note": "Filled annual renewal values are preserved from the corresponding Word source; signed PDF hash remains archival signature evidence. Separate OCR is not needed for substantive process/workforce fields unless handwritten annotations beyond the textual form must be recovered."
     },
     {
       "archive_path": "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2023.pdf",
@@ -577,12 +590,13 @@
       "sha256": "a5e93573e47b08b055abea67d696032368803a754ea96498197846a3b33e429b",
       "size_bytes": 1076924,
       "source_id": "safe-a5e93573e47b08b055ab",
-      "status": "pending_scan_detail",
+      "status": "covered_by_filled_textual_renewal_plus_scan_hash",
       "family": "Kentucky EEO signed renewal",
       "coverage": [
+        "knowledge/libraries/rtec-compliance/plans/eeo-certification-renewal-data-history.json",
         "knowledge/libraries/rtec-compliance/plans/eeo-certification-history.json"
       ],
-      "note": "Annual cycle is modeled, but scan-specific filled values/signature/date details are not yet individually transcribed."
+      "note": "Filled annual renewal values are preserved from the corresponding Word source; signed PDF hash remains archival signature evidence. Separate OCR is not needed for substantive process/workforce fields unless handwritten annotations beyond the textual form must be recovered."
     },
     {
       "archive_path": "EEO/Certification Renewal Forms/Completed AAP goals and timetables form.pdf",
@@ -1120,5 +1134,6 @@
       ],
       "note": "Plan version history exists, but state approval-letter wording/dates need separate scan-level preservation."
     }
-  ]
+  ],
+  "updated_at": "2026-09-24"
 }
