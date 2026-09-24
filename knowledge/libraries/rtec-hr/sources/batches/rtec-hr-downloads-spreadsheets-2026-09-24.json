@@ -1,0 +1,142 @@
+{
+  "batch_id": "rtec-hr-downloads-spreadsheets-2026-09-24",
+  "ingested_at": "2026-09-24",
+  "source_context": "Loose legacy .xls files supplied while clearing the user's Downloads folder",
+  "source_artifact_count": 16,
+  "status": "analysis_complete",
+  "privacy_rule": "Employee/subscriber/dependent-level rows are not committed. Restricted files are represented only by safe metadata, hashes, document-type evidence, and generalized process findings.",
+  "safe_artifacts": 7,
+  "restricted_artifacts": 9,
+  "logical_source_families": 10,
+  "exact_or_semantic_duplicate_groups": [
+    {
+      "family_id": "infinisource-benefits-enrollment-import-template-2018",
+      "artifact_count": 4,
+      "disposition": "One logical blank/reference template; four binary variants have identical normalized human-readable content.",
+      "sha256": [
+        "d36db9b96321e91fc003d17be50ff5d1d7db41973154f0ea8006c40e852e3185",
+        "6521167227beb93572c9134b2167dc716619f43d0ec2edf6084aa5cb20f3254e",
+        "84a96c0e838f6ac8cb69c2c671e66df92dd81c28e731d37c61a4649d9a5ca634",
+        "3d1c1bb3403c1bc0246a513f5c38a3ac36065b7900d65778474434fa69c991a3"
+      ]
+    },
+    {
+      "family_id": "delta-dental-consolidated-billing-2024-01",
+      "artifact_count": 3,
+      "disposition": "Same January 2024 billing content saved as multiple binary variants; base and (1) have essentially identical recovered semantic text and (2) adds workbook/style metadata without new business content.",
+      "sha256": [
+        "18cccc81b63c9f5e4ca3ac4e02adde2753862b5e1fe0614189fa66c40185b807",
+        "cb81c016431a1def0fe86b274eaf16fb36c009578fbeffd3cedd4c3e94bc5eae",
+        "41125ca5b133aec46ec0a3c79ea659bddad3e66f51fd5ecd802b4a6b3204f751"
+      ]
+    }
+  ],
+  "source_families": [
+    {
+      "id": "census-2000-dp2-dp4",
+      "privacy": "safe_reference",
+      "artifacts": 1,
+      "sha256": [
+        "5b63198bbbd80ba6bbc5560fc42e6f28799210b36392ef8ceb19b37e160019ae"
+      ],
+      "summary": "U.S. Census Bureau Census 2000 DP-2 social, DP-3 economic, and DP-4 housing profile workbook; aggregate/reference only."
+    },
+    {
+      "id": "fsa-account-balance-detail-py2016",
+      "privacy": "restricted_multi_employee",
+      "artifacts": 1,
+      "sha256": [
+        "8ddf064abd36802d6ecfa2251425f8d21bd3ea09f1e1b0c0ffddcef2cfe3e822"
+      ],
+      "summary": "Historical FSA Health Care account balance detail report for plan year 2016; contains consumer-level benefit balances."
+    },
+    {
+      "id": "delta-dental-consolidated-billing-2024-01",
+      "privacy": "restricted_multi_employee",
+      "artifacts": 3,
+      "summary": "January 2024 Delta Dental/vision consolidated billing report with subscriber-level identifiers, coverage and amounts."
+    },
+    {
+      "id": "delta-dental-consolidated-billing-2021-02",
+      "privacy": "restricted_multi_employee",
+      "artifacts": 1,
+      "sha256": [
+        "032bd06a405effa2add94afacae94a78ca31d0c83cafe3d343d4736c9b36e406"
+      ],
+      "summary": "February 2021 consolidated dental/vision billing report."
+    },
+    {
+      "id": "delta-dental-consolidated-billing-2020-07",
+      "privacy": "restricted_multi_employee",
+      "artifacts": 1,
+      "sha256": [
+        "4e72c550e965d797993a6fda137ef387b4d6ed0340ecfe79940e6cf2d131d1fa"
+      ],
+      "summary": "July 2020 consolidated dental/vision billing report."
+    },
+    {
+      "id": "delta-dental-consolidated-billing-2020-12",
+      "privacy": "restricted_multi_employee",
+      "artifacts": 1,
+      "sha256": [
+        "6711e000df3b24ec96be577f46161f232032c3d9e27cdd45ac0dbf244afa45a9"
+      ],
+      "summary": "December 2020 consolidated dental/vision billing report."
+    },
+    {
+      "id": "infinisource-benefits-enrollment-import-template-2018",
+      "privacy": "safe_blank_template",
+      "artifacts": 4,
+      "summary": "Blank Health FSA / Dependent Care FSA / Transit / Parking / HSA enrollment import spreadsheet with field-level import instructions."
+    },
+    {
+      "id": "benefits-demographic-import-template-2018",
+      "privacy": "safe_blank_template",
+      "artifacts": 1,
+      "sha256": [
+        "bc7d2bbab8045ff165751673e44e6aecf819de843ce5ed2d7c15bdfc88ac6912"
+      ],
+      "summary": "Blank demographic import spreadsheet for all account types with employee/import field requirements and valid-value rules."
+    },
+    {
+      "id": "kentucky-mwbe-certified-listing-2020",
+      "privacy": "safe_external_reference",
+      "artifacts": 1,
+      "sha256": [
+        "8bb6d1f875257c73cce84e699ede4e078663babafee8dabee151b4d5a51e8932"
+      ],
+      "summary": "Commonwealth of Kentucky Minority and Women Business Enterprise certified vendor listing, marked as of January 16, 2020."
+    },
+    {
+      "id": "kentucky-county-population-change-2000-2010",
+      "privacy": "safe_aggregate_reference",
+      "artifacts": 1,
+      "sha256": [
+        "78c664cb18733ff14086afa69a87d1ed323970daccdf7fc5795cb860c8170245"
+      ],
+      "summary": "Kentucky county population change and rank dataset comparing 2000 and 2010 Census population."
+    },
+    {
+      "id": "delta-dental-dependent-termination-export",
+      "privacy": "restricted_multi_employee",
+      "artifacts": 1,
+      "sha256": [
+        "8fb873ff1fb7210d775abd0c78cb633988c73b0fa7b8d547565747f7f65e72e9"
+      ],
+      "summary": "Dental plan export keyed by subscriber SSN/name and dependent name/DOB/termination date."
+    }
+  ],
+  "derived_records": [
+    "knowledge/libraries/rtec-hr/forms/downloads-spreadsheet-document-types-2026-09-24.json",
+    "knowledge/libraries/rtec-hr/systems/historical-benefits-data-import-contracts-2018.json",
+    "knowledge/libraries/rtec-hr/processes/historical-benefits-billing-reconciliation.json",
+    "knowledge/libraries/rtec-hr/sources/reference-data/downloads-reference-data-2026-09-24.json",
+    "knowledge/libraries/rtec-hr/restricted-evidence/downloads-spreadsheets-2026-09-24.json",
+    "knowledge/libraries/rtec-hr/questions/downloads-spreadsheets-currentness-2026-09-24.json"
+  ],
+  "scanner_routing_summary": [
+    "Do not auto-file multi-subscriber or multi-consumer benefits reports into an individual personnel folder.",
+    "Treat blank import templates as contextual reference/forms, not completed employee records.",
+    "Treat census/MWBE/population workbooks as external reference datasets, not personnel documents."
+  ]
+}
