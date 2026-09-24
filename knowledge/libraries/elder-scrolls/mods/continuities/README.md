@@ -11,4 +11,6 @@ Verified current-source scopes:
 - `wheels-of-lull/` — The Wheels of Lull, previously exhaustively ingested and now cross-linked to the verified current predecessor sources.
 - `trainwiz-chronocoda/` — umbrella continuity graph and shared-work relationships.
 
-These remain separate provenance scopes. Shared works are linked across continuities; current edition identity never substitutes for historical release-date evidence.
+These remain separate provenance scopes. Shared works are linked across continuities and do not overwrite Bethesda/base-continuity claims.
+
+The Trainwiz/ChronoC0da branch now has a **complete current-snapshot structural corpus** for the verified Aethernautics 3.1 and Sotha Sil Expanded 3.1 sources, with Wheels already exhaustively ingested. Historical edition comparison is optional archival research rather than a prerequisite for lore-library completeness.
