@@ -192,13 +192,19 @@
     "vendor/newsletter/reference material"
   ],
   "unresolved_high_value": [
-    "current retirement recordkeeper and governing plan booklet",
-    "current workers compensation administrator/carrier and portal",
-    "approved AAP/EEO plan governing after 2024-06-30",
-    "whether a current Kentucky procurement/contracting-agency trigger requires new EEO Contract Compliance approval after 2026-09-30",
-    "authoritative FMLA tracker copy",
-    "Attendance Tracker formula/exclusion validation",
-    "public website security/content cleanup",
-    "live work-PC validation of RTEC applicant Agent OS connector and promotion from desired/unknown only after successful smoke test"
-  ]
+    "current 401(k) Summary Plan Description/plan booklet, recordkeeper and authoritative eligibility/enrollment/feed workflow",
+    "current RTEC workers-compensation carrier/TPA, portal/intake method, internal owners, return-to-work/light-duty and closure workflow",
+    "historical 2024 AAP/EEO submission/approval correspondence plus current KYTC/OTD documentation expectations after FTA withdrew Circular 4704.1A effective 2026-06-05",
+    "whether a current Kentucky procurement/contracting-agency trigger requires a new EEO Contract Compliance approval after the 2026-09-30 expiration",
+    "explicit operational designation of the authoritative FMLA tracker copy",
+    "Attendance Tracker business-rule authority for Reserve Hours, 24-hour anniversary reset, eight-hour assumption, SupervisorBlacklist and manual point reconciliation",
+    "public website security/content remediation and ownership confirmation",
+    "live work-PC validation of the RTEC applicant Agent OS connector, dashboard.db discovery and Fillout sync health"
+  ],
+  "source_exhaustion": {
+    "status": "pst_source_exhausted",
+    "audit": "knowledge/libraries/rtec-hr/sources/pst-source-exhaustion-audit-2026-09-24.json",
+    "checkpoint": "projects/rtec-hr-process-model/docs/PST_SOURCE_EXHAUSTION_PASS_007_2026-09-24.md",
+    "rule": "Do not reopen the same PST corpus for unresolved currentness questions unless new source material appears."
+  }
 }
