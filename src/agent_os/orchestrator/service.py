@@ -53,6 +53,12 @@ def set_engine(value: Orchestrator | None) -> None:
         _ENGINE_IS_DEFAULT = False
 
 
+def _refresh_models_in_background() -> None:
+    from . import models
+
+    threading.Thread(target=models.refresh_if_stale, name="agent-os-model-refresh", daemon=True).start()
+
+
 # ---------------------------------------------------------------------------
 # Background driver
 # ---------------------------------------------------------------------------
@@ -179,6 +185,7 @@ def create(
     driver keeps it moving after this call returns.
     """
     _reject_worker_control()
+    _refresh_models_in_background()
     orchestrator = engine()
     summary = orchestrator.create_run(
         goal, repository=repository, project=project, tasks=tasks, policy=policy, overrides=overrides, run_id=run_id
