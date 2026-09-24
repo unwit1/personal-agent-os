@@ -168,10 +168,35 @@ def score_fingerprint(fingerprint: dict[str, Any], entry: dict[str, Any]) -> flo
     return round(0.65 * overlap + 0.15 * page_score + 0.20 * signature_score, 4)
 
 
-def best_form_match(fingerprint: dict[str, Any], registry: dict[str, Any] | None = None) -> tuple[float, dict[str, Any] | None]:
-    registry = registry or load_form_registry_incremental()["registry"]
+def best_form_match(
+    fingerprint: dict[str, Any],
+    registry: dict[str, Any] | None = None,
+    *,
+    ambiguity_margin: float = 0.05,
+) -> tuple[float, dict[str, Any] | None]:
+    """Return a confident best form, abstaining when leading scores are close.
+
+    A near tie is not a known-form match: registry order must never decide
+    which employee form receives a high-confidence route. Preserve the best
+    score for review while returning no selected entry when the leading
+    candidates are ambiguous.
+    """
+    if not 0.0 <= ambiguity_margin <= 1.0:
+        raise ValueError("ambiguity_margin must be between 0 and 1")
+    if registry is None:
+        registry = load_form_registry_incremental()["registry"]
     scored = [(score_fingerprint(fingerprint, entry), entry) for entry in registry.get("forms", [])]
-    return max(scored, default=(0.0, None), key=lambda item: item[0])
+    scored.sort(key=lambda item: (-item[0], str(item[1].get("id", ""))))
+    if not scored:
+        return 0.0, None
+    best_score, best_entry = scored[0]
+    if (
+        len(scored) > 1
+        and best_score >= 0.80
+        and best_score - scored[1][0] < ambiguity_margin
+    ):
+        return best_score, None
+    return best_score, best_entry
 
 
 def route_form(candidate: dict[str, Any], persist: bool = False, queue_dir: str | None = None) -> dict[str, Any]:
@@ -182,7 +207,11 @@ def route_form(candidate: dict[str, Any], persist: bool = False, queue_dir: str 
     score, match = best_form_match(safe["fingerprint"])
     if match and score >= 0.95:
         return {"classification": "known", "score": score, "form_id": match["id"], "skill_path": match["skill_path"], "persisted": False}
-    safe["match"] = {"known_form_id": match["id"] if match else None, "similarity": score}
+    safe["match"] = {
+        "known_form_id": match["id"] if match else None,
+        "similarity": score,
+        "ambiguous": match is None and score >= 0.80,
+    }
     safe["candidate_action"] = "new_variant" if match and score >= 0.80 else "new_form"
     path = enqueue_form_candidate(safe, queue_dir) if persist else None
     return {"classification": "candidate", "score": score, "candidate": safe, "persisted": bool(path), "path": str(path) if path else None}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-24T13:02:24.187516+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## fix/planner-malformed-escalation...origin/fix/planner-malformed-escalation\n M schemas/form-intake-v1.schema.json",
+    "error": ""
+  },
+  "completed": [
+    "Extended form-intake v1 schema to represent the new optional ambiguity flag and validate match ids/scores.",
+    "Schema JSON syntax, agent.py validate (406 checks), and git diff --check passed."
+  ],
+  "decisions": [
+    "Ambiguous form matches remain candidates with known_form_id null; schema carries an explicit boolean ambiguity signal."
+  ],
+  "remaining": [
+    "Add focused synthetic tests for exact, tied, near-tied, and empty-registry matching; review and merge both OCR branches.",
+    "Connect scanner classification to reviewed sanitized form registry and implement page-level template reuse.",
+    "P0.0A G1 still needs MCP-host restart and exact-model smoke."
+  ],
+  "validation": [
+    "python -m json.tool schemas/form-intake-v1.schema.json passed.",
+    "python agent.py validate passed with 2 existing local routing-adapter mismatch warnings.",
+    "Unit tests not run under current session instruction."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}

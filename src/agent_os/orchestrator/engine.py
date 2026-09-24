@@ -889,7 +889,13 @@ class Orchestrator:
 
     def _validation_failed(self, record: dict[str, Any], node: dict[str, Any], validation: dict[str, Any], reason: str = "its tests failed") -> None:
         detail = _evidence_line(validation)
-        _push_failure(node, "validator_failed", (node.get("selection") or {}).get("provider"), detail)
+        _push_failure(
+            node,
+            "validator_failed",
+            (node.get("selection") or {}).get("provider"),
+            detail,
+            node.get("capability_class"),
+        )
         policy = record["policy"]
         if self._fallback_to_model(record, node, "validator_failed", detail):
             return
@@ -1031,7 +1037,7 @@ class Orchestrator:
 
     def _fail(self, record: dict[str, Any], node: dict[str, Any], kind: str, detail: str, *, allow_fallback: bool = False) -> None:
         provider = (node.get("selection") or {}).get("provider")
-        _push_failure(node, kind, provider, detail)
+        _push_failure(node, kind, provider, detail, node.get("capability_class"))
         if provider and kind == "quota":
             # Remember the quota for every node and run on this machine, so
             # later nodes route elsewhere instead of each failing on it first.
@@ -1062,7 +1068,13 @@ class Orchestrator:
                     self.store.append_event(record["run_id"], "provider.class_failover", node["id"], f"{provider}/{capability} excluded after invalid_model")
                     self.ledger.emit(record["run_id"], "fallback", node["id"], from_provider=provider, reason=kind, capability_class=capability)
         elif provider and policy["provider_failover"]:
-            same_kind = [item for item in node["failures"] if item["provider"] == provider and item["kind"] in {"process_error", "timeout", "interrupted", "malformed"}]
+            same_kind = [
+                item
+                for item in node["failures"]
+                if item["provider"] == provider
+                and item["kind"] in {"process_error", "timeout", "interrupted", "malformed"}
+                and item.get("capability_class", node["capability_class"]) == node["capability_class"]
+            ]
             if kind in PROVIDER_FAILURES or len(same_kind) >= 2:
                 if provider not in node["excluded_providers"]:
                     node["excluded_providers"].append(provider)
@@ -1070,6 +1082,35 @@ class Orchestrator:
                     self.ledger.emit(record["run_id"], "fallback", node["id"], from_provider=provider, reason=kind)
         node["retries"] += 1
         if node["retries"] > policy["max_stage_retries"]:
+            selection = node.get("selection") or {}
+            if (
+                kind == "malformed"
+                and node["role"] == "planner"
+                and not selection.get("overridden")
+                and node["escalations"] < policy["max_escalations"]
+            ):
+                rung = _next_rung(node)
+                if rung:
+                    previous_class = node["capability_class"]
+                    for failure in node["failures"]:
+                        failure.setdefault("capability_class", previous_class)
+                    before = f"{node['capability_class']}/{node['effort']}"
+                    node["capability_class"] = rung["capability_class"]
+                    node["effort"] = rung["effort"]
+                    node["escalations"] += 1
+                    node["retries"] = 0
+                    node["excluded_providers"] = []
+                    node["state"] = "FAILED_RETRYABLE"
+                    node["selection"] = None
+                    label = f"{rung['capability_class']}/{rung['effort']}"
+                    node["wait_reason"] = f"planner response malformed; escalated to {label}"
+                    self.store.append_event(
+                        record["run_id"],
+                        "node.escalated",
+                        node["id"],
+                        f"{before} -> {label} after malformed planner output",
+                    )
+                    return
             node["state"] = "FAILED_FINAL"
             node["wait_reason"] = f"{kind} after {node['retries'] - 1} retr(ies): {redact(detail, 200)}"
             self.ledger.emit(record["run_id"], "loop_guard", node["id"], guard="retry_limit", reason=f"stopped retrying after {node['retries'] - 1} retr(ies) ({kind})")
@@ -1607,7 +1648,13 @@ class Orchestrator:
             node["integration"] = None
             node["review"]["rounds"] = 0
             node["validation"] = None
-            _push_failure(node, "merge_conflict", (node.get("selection") or {}).get("provider"), gate["reason"])
+            _push_failure(
+                node,
+                "merge_conflict",
+                (node.get("selection") or {}).get("provider"),
+                gate["reason"],
+                node.get("capability_class"),
+            )
             node["state"] = "FAILED_RETRYABLE"
             node["selection"] = None
             node["retries"] = 0
@@ -2041,8 +2088,18 @@ def _insert_after(order: list[str], anchor: str, node_id: str) -> None:
     order.insert(index + 1, node_id)
 
 
-def _push_failure(node: dict[str, Any], kind: str, provider: str | None, detail: str) -> None:
-    node["failures"].append({"kind": kind, "provider": provider, "detail": redact(detail, 300), "at": now()})
+def _push_failure(
+    node: dict[str, Any], kind: str, provider: str | None, detail: str, capability_class: str | None = None
+) -> None:
+    node["failures"].append(
+        {
+            "kind": kind,
+            "provider": provider,
+            "capability_class": capability_class,
+            "detail": redact(detail, 300),
+            "at": now(),
+        }
+    )
     del node["failures"][:-MAX_FAILURES_KEPT]
 
 
