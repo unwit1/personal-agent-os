@@ -155,6 +155,72 @@ def _audit_health(action: str, metadata: dict[str, Any] | None = None) -> None:
         pass
 
 
+def readiness() -> dict[str, Any]:
+    """Compute machine-local connector readiness without applicant rows.
+
+    Canonical connector metadata stays desired/unknown in Git because another
+    machine may not have the Dashboard checkout, database, or local credentials.
+    This runtime probe is the authoritative per-machine health view.
+    """
+    project = get_project(_PROJECT_ID)
+    path_source = str(project.get("path_source") or "unknown")
+    root = Path(project["path"])
+
+    result: dict[str, Any] = {
+        "connector_id": "rtec-applicants",
+        "runtime_scope": "this_machine",
+        "project_path_resolved": path_source != "unresolved",
+        "project_path_source": path_source,
+        "dashboard_database_present": (root / _DB_NAME).is_file(),
+        "source_health": "unknown",
+        "agent_ref_schema_ready": False,
+        "outbox_schema_ready": False,
+        "audit_write_ready": False,
+        "status": "unknown",
+        "checked_at": datetime.now().astimezone().isoformat(timespec="seconds"),
+    }
+
+    # Sync status is metadata-only and reports DB/schema/source state.
+    health = sync_status()
+    result["source_health"] = str(health.get("status") or "unknown")
+    result["health_file_present"] = bool(health.get("health_file_present"))
+    result["source_modified_at"] = health.get("source_modified_at")
+    result["last_source_check_at"] = health.get("last_check_at")
+    result["last_source_success_at"] = health.get("last_success_at")
+    result["agent_ref_schema_ready"] = bool(health.get("agent_ref_schema_ready"))
+    result["outbox_schema_ready"] = bool((health.get("outbox") or {}).get("schema_present", True))
+    if "schema_present" not in (health.get("outbox") or {}):
+        # Current schema exists when sync_status returned normal outbox counts.
+        result["outbox_schema_ready"] = bool(
+            result["dashboard_database_present"] and "outbox" in health
+        )
+
+    try:
+        _audit_access("applicant.readiness", metadata={"status": "probe"})
+        result["audit_write_ready"] = True
+    except RuntimeError:
+        result["audit_write_ready"] = False
+
+    if not result["project_path_resolved"] or not result["dashboard_database_present"]:
+        result["status"] = "unavailable"
+    elif result["source_health"] == "unavailable":
+        result["status"] = "unavailable"
+    elif (
+        result["source_health"] == "healthy"
+        and result["agent_ref_schema_ready"]
+        and result["outbox_schema_ready"]
+        and result["audit_write_ready"]
+    ):
+        result["status"] = "healthy"
+    else:
+        result["status"] = "degraded"
+
+    result["ready_for_restricted_reads"] = (
+        result["status"] == "healthy"
+    )
+    return result
+
+
 def audit_status() -> dict[str, Any]:
     """Return privacy-safe health for the local applicant-access audit log.
 
