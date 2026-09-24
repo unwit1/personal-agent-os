@@ -228,6 +228,27 @@
       "question": "Validate the current Attendance Tracker formulas and Blacklist/exclusion logic against the December 15, 2025 handbook and designate which fields are authoritative versus derived from ADP.",
       "status": "partially_answered",
       "resolution_note": "A current Attendance Tracker exists, created May 5, 2026. Its INPUT identifies an ADP Employee Daily Totals Report, and the workbook derives attendance/reserve/FMLA/points-related fields."
+    },
+    {
+      "priority": "medium",
+      "domain": "termination_offboarding_form",
+      "question": "What is the current approved termination/offboarding control form and approval chain, and does it supersede the historical Termination of Employment - Notice to Payroll form recovered from the 2020 email attachment?",
+      "status": "partially_answered",
+      "resolution_note": "A blank 2020 Notice to Payroll attachment confirms the historical form bundled direct-deposit, benefit and 401(k) shutdown with Benefits Manager preparation and Executive Director approval. HR-GUI also contains a reference artifact with the same title, but its current effective period and current approval workflow are not established."
+    },
+    {
+      "priority": "medium",
+      "domain": "direct_deposit_form_version",
+      "question": "Confirm whether HR-GUI's Direct Deposit Form Rev 03-24 is the current RTEC onboarding form and document its approved storage/routing workflow.",
+      "status": "partially_answered",
+      "resolution_note": "The email archive contains a blank 2020 predecessor form. The HR-GUI reference manifest contains a newer Rev 03-24 reference. Current handbook still requires direct deposit within the first two weeks, but current form approval/storage routing remains unresolved."
+    },
+    {
+      "priority": "medium",
+      "domain": "benefit_contribution_history",
+      "question": "Safely convert and review the organization-level 2020-2021 Anthem and UHC/Delta Dental employee-benefit contribution workbooks if a supported legacy-XLS conversion path becomes available.",
+      "status": "open",
+      "resolution_note": "The two .xls attachments are hashed and provenance-linked, but the approved spreadsheet path could not parse legacy BIFF in this run. No cell-level rate claims have been promoted."
     }
   ]
 }
