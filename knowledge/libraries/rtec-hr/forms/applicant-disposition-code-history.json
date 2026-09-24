@@ -1,0 +1,53 @@
+{
+  "id": "rtec-applicant-disposition-code-history",
+  "record_type": "reference_taxonomy",
+  "title": "Historical RTEC applicant 'Reason Not Hired' code set",
+  "status": "validated_historical",
+  "temporal_status": "historical",
+  "source_sha256": "7cc4ee88bae45032432974cd6532da91c6fa867be84f5067c17a6fdccebce1de",
+  "source_path": "Affirmative Action Plan (AAP)/AA Applicant Log by Fiscal Year/Reason Not Hired Codes that go with applicant log.doc",
+  "codes": [
+    {
+      "code": 1,
+      "label": "Declined full employment processing"
+    },
+    {
+      "code": 2,
+      "label": "Did not meet job requirements"
+    },
+    {
+      "code": 3,
+      "label": "Unsatisfactory references"
+    },
+    {
+      "code": 4,
+      "label": "Position sought unavailable"
+    },
+    {
+      "code": 5,
+      "label": "Rejected job offer"
+    },
+    {
+      "code": 6,
+      "label": "Unsatisfactory interview"
+    },
+    {
+      "code": 7,
+      "label": "No openings"
+    },
+    {
+      "code": 8,
+      "label": "Other - specify"
+    }
+  ],
+  "usage_interpretation": [
+    "This source is a coding key for historical applicant logs; it does not itself contain applicant identities.",
+    "Because historical applicant logs are restricted, generalized reporting should use only aggregate counts by disposition code when needed.",
+    "Code labels are historical wording and should not be assumed to match the current ATS or current approved disposition reasons."
+  ],
+  "currentness_questions": [
+    "What disposition codes/reasons are currently used in ADP or the current applicant workflow?",
+    "Which current reasons map cleanly to these historical codes and which require a new taxonomy?",
+    "Are any current adverse-decision reasons governed by a separate background-check/adverse-action process?"
+  ]
+}
