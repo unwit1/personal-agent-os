@@ -1,0 +1,36 @@
+{
+  "id": "rtec-retirement-401k-currentness-public-evidence-2026-09-24",
+  "record_type": "currentness_evidence",
+  "title": "RTEC 401(k) public currentness evidence - 2026-09-24",
+  "updated_at": "2026-09-24",
+  "status": "partial_currentness_only",
+  "findings": [
+    {
+      "fact": "A public Form-5500-derived plan history identifies RTEC 401(K) PLAN, plan number 001, and includes a filing period dated 2024-07-01.",
+      "interpretation": "Corroborates continued plan existence into the 2024 filing history; does not identify a 2026 recordkeeper or establish current entry/eligibility terms.",
+      "source_url": "https://www.401k-lookup.com/Company401k/401k_plan_view.php/CompanyID/611167841/PlanID/001",
+      "authority": "secondary derivative of Form 5500 data"
+    },
+    {
+      "fact": "Historical public insurer data associates Hartford Life Insurance Company with the RTEC 401(K) PLAN for 2014-07-01.",
+      "interpretation": "Historical vendor evidence only; must not be treated as the current recordkeeper/provider.",
+      "source_url": "https://401k-lookup.com/Company401k/insurer_overview.php/CompanyID/060194148/CompanyName/HARTFORD%2BLIFE%2BINSURANCE%2BCOMPANY",
+      "authority": "secondary historical filing derivative"
+    },
+    {
+      "fact": "The current RTEC public job board advertises '401-K Retirement Plan after 30 days of employment.'",
+      "interpretation": "Current public recruiting copy, not governing plan authority. Current handbook defers detailed eligibility/service requirements to the retirement plan booklet, which has not been located.",
+      "source_url": "https://www.ridertec.org/job-board",
+      "authority": "current public company marketing/recruiting surface"
+    }
+  ],
+  "unresolved": [
+    "current recordkeeper/provider",
+    "current Summary Plan Description or governing plan booklet",
+    "authoritative eligibility and plan-entry rules",
+    "current enrollment/change method",
+    "current HR/finance/payroll ownership and remittance/feed"
+  ],
+  "control": "Do not automate or present the public 30-day statement as governing eligibility until reconciled to the current plan document.",
+  "privacy": "Organization-level public evidence only."
+}
