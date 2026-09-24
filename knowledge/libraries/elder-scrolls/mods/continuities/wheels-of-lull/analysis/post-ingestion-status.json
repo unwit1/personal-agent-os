@@ -1,7 +1,7 @@
 {
   "continuity_id": "tes.mod.wheels-of-lull",
   "stage": "post_ingestion_analysis",
-  "status": "source_ingestion_exhausted_for_supplied_esp_external_book_provenance_followup_only",
+  "status": "source_ingestion_exhausted_current_chronocoda_structure_integrated_semantic_followup_only",
   "completed": {
     "structured_source_ingestion": true,
     "speaker_resolution_for_all_readable_info": true,
@@ -34,7 +34,9 @@
     "trainwiz_chronocoda_lineage_analysis": true,
     "book_provenance_pass_06_current_chronocoda_comparison": true,
     "verified_current_aethernautics_3_1_source_ingestion": true,
-    "verified_current_sotha_sil_expanded_3_1_source_ingestion": true
+    "verified_current_sotha_sil_expanded_3_1_source_ingestion": true,
+    "current_chronocoda_full_structure_integration": true,
+    "historical_edition_archaeology_required": false
   },
   "metrics": {
     "structured_source_records": 1090,
@@ -74,21 +76,15 @@
   },
   "only_remaining_raw_repair": [],
   "repair_blocker": null,
-  "next_stage_after_repair": "No remaining WheelsOfLull.esp ingestion blocker. A fresh deterministic retrieval materialization is unblocked; remaining source work is external historical BOOK provenance/edition research.",
+  "next_stage_after_repair": "No source-ingestion blocker remains. Current Aethernautics 3.1, Sotha Sil Expanded 3.1, and Wheels sources are structurally sufficient for the library goal. Continue cross-continuity semantic synthesis and retrieval improvements.",
   "provenance_progress": "Pass 06 added verified current Aethernautics 3.1 and Sotha Sil Expanded 3.1 source scopes and deterministic cross-continuity BOOK comparison. Eleven Wheels BOOK records now have current witnesses; seven of the ten historically unresolved named works have current shared-work counterparts. Historical pre-Wheels origin classifications remain unchanged because the verified packages are 2025/2026 editions.",
-  "provenance_current_source_blockers": [
-    "Full local source witness for Tatterdemalion is not yet ingested for deterministic variant diffing.",
-    "Full local Day of the Power/Knowledge Xal letter witness is not yet ingested for deterministic variant diffing.",
-    "Original pre-Wheels Aethernautics and Sotha Sil Expanded packages are located with dated archive metadata and published hashes, but their RAR bytes could not be materialized in the current retrieval environment for exact plugin/text comparison.",
-    "No verified pre-Wheels text witness has yet been established for the ten unresolved named Wheels works."
-  ],
+  "provenance_current_source_blockers": [],
   "next_high_value_inputs": [
-    "Materialized Aethernautics.rar matching published MD5 ea6e4206bd1485571ba54de32ba902a3.",
-    "Materialized SothaSilExpanded.rar or SothaSilExpanded2_0.rar matching published MD5 38ae4da28fc17168b5258789ae8ec6a5 or b8bda83b188e9e89603345eb01964a53.",
-    "Durable local full-text witness for Tatterdemalion.",
-    "Durable local full-text witness for Xal's Day of the Power/Knowledge letter."
+    "Current-snapshot semantic synthesis over Sotha script/dialogue/quest structure and its relationship to Wheels/Aethernautics.",
+    "Character, faction, place, artifact/technology, metaphysics, branch, and tension dossiers derived from the complete current-source corpus.",
+    "Cross-continuity concept/entity graph and retrieval routes that preserve source scope and reliability."
   ],
-  "repeat_work_guard": "Do not repeat passes 03-06. Current Aethernautics 3.1 and Sotha Sil Expanded 3.1 have been verified, structurally audited, cataloged, and compared. Historical provenance next requires older dated binaries/record dumps, not re-analysis of the current releases.",
+  "repeat_work_guard": "Do not repeat source verification, passes 03-06, current book comparison, full current-source structural extraction, or historical package hunting. Historical edition archaeology is optional only. Resume with semantic synthesis over the persisted current snapshots.",
   "semantic_followup": "Added source-scoped analysis for Musings On Power, De Rerum Mutabilitatis, and How Two Moon; promoted six new book-backed claims without changing provenance status.",
   "source_exhaustion": {
     "supplied_esp": "complete",
@@ -103,11 +99,11 @@
     "deep_text_audit": "analysis/exhaustiveness-audit.md"
   },
   "external_provenance": {
-    "status": "archive_witnesses_located_materialization_pending",
+    "status": "historical_archive_research_optional_inactive",
     "audit": "analysis/book-provenance-pass-04-archive-witnesses.md",
     "located_package_families": 2,
     "materialized_package_families": 0,
-    "blocker": "temporary archive mirror binaries are not materializable in the current retrieval environment",
+    "blocker": "none_for_current_library_goal",
     "followup_audit": "analysis/book-provenance-pass-05-retrieval-path-audit.md",
     "shared_continuity_witness": {
       "related_work": "Aethernautics",
@@ -133,7 +129,8 @@
       },
       "pass_06": "analysis/book-provenance-pass-06-current-chronocoda-comparison.json",
       "umbrella_continuity": "../trainwiz-chronocoda"
-    }
+    },
+    "historical_materialization_note": "Older archive material remains useful only for optional edition-history research; it is not required for current lore structure."
   },
   "semantic_gap_check_2026_09_24": {
     "result": "no_new_topic_dossiers_needed",
@@ -143,5 +140,18 @@
       "Trademarks -> topics/trademarks-and-the-ocean.md and artifact dossier",
       "Sybandis/Journeys Through Sybandis -> topics/sybandis.md"
     ]
+  },
+  "historical_provenance_optional_backlog": [
+    "Full local source witness for Tatterdemalion is not yet ingested for deterministic variant diffing.",
+    "Full local Day of the Power/Knowledge Xal letter witness is not yet ingested for deterministic variant diffing.",
+    "Original pre-Wheels Aethernautics and Sotha Sil Expanded packages are located with dated archive metadata and published hashes, but their RAR bytes could not be materialized in the current retrieval environment for exact plugin/text comparison.",
+    "No verified pre-Wheels text witness has yet been established for the ten unresolved named Wheels works."
+  ],
+  "current_snapshot_structure": {
+    "status": "complete",
+    "umbrella": "../trainwiz-chronocoda",
+    "manifest": "../trainwiz-chronocoda/corpus/manifest.json",
+    "virtual_artifacts": 53,
+    "historical_diffing_required": false
   }
 }
