@@ -94,6 +94,21 @@
         "Men’s Health Questionnaire — Spanish"
       ],
       "authority_caution": "Wellness/training content, not RTEC policy or medical guidance authority."
+    },
+    {
+      "source": "Apprisen / Budgeting Basics",
+      "observed": "2021",
+      "context": [
+        "employee financial-wellness education",
+        "Budgeting Basics virtual session"
+      ],
+      "evidence_ids": [
+        "nid-00201984"
+      ],
+      "attachment_evidence": [
+        "calendar invitation for a 2021-03-17 Budgeting Basics Zoom session"
+      ],
+      "authority_caution": "Employee education/resource event, not RTEC financial policy."
     }
   ],
   "work_profile_implication": "Historical and current HR work includes ongoing external information gathering and professional-development intake in addition to transactional administration.",
