@@ -1,0 +1,25 @@
+{
+  "record_id": "rtec-public-website-compliance-document-drift-2026-09-23",
+  "updated_at": "2026-09-23",
+  "status": "current_public_surface_requires_reconciliation",
+  "findings": [
+    {
+      "source": "https://www.ridertec.org/required-documents",
+      "observation": "Current Required Documents page lists a 'Revised OCT 2016 TITLE VI NOTICE TO PUBLIC' alongside complaint forms/procedures.",
+      "internal_current_context": "Canonical compliance library contains a January 2026 Title VI/LEP plan/version chain.",
+      "relationship": "PUBLICATION_VERSION_DRIFT",
+      "action": "Audit every public Title VI/ADA form/notice/procedure against the current approved plan and republish only validated current versions with visible revision/effective dates."
+    },
+    {
+      "source": "current Title VI/home/localized pages",
+      "observation": "English current pages use generic EEO Manager wording while some localized versions still name a historical EEO role-holder.",
+      "internal_current_context": "Signed 2026 EEO policy establishes the current effective-dated EEO role assignment.",
+      "relationship": "ROLE_CONTACT_DRIFT"
+    }
+  ],
+  "controls": [
+    "Maintain a public-document manifest with canonical source ID, version/effective date, public URL and superseded URL state.",
+    "When a compliance document is superseded, update all locale/page links and remove or clearly archive older public copies.",
+    "Run automated public-site checks for stale dates, old named staff and superseded forms."
+  ]
+}
