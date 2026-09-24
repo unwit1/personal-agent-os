@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "project": "personal-agent-os",
+  "created_at": "2026-09-24T12:56:22.154407+00:00",
+  "git": {
+    "available": true,
+    "returncode": 0,
+    "output": "## fix/planner-malformed-escalation...origin/fix/planner-malformed-escalation\n M projects/personal-agent-os/roadmap/master-priority-roadmap.md",
+    "error": ""
+  },
+  "completed": [
+    "Implemented provider-neutral FieldRegion and extract_field_region cached OCR seam in PAO commit 103f0b52, pushed on fix/planner-malformed-escalation.",
+    "Integrated HR-GUI zone_text with the optional shared field-region cache and preserved the local OCR fallback in HR-GUI commit 91a1baf, pushed on fix/cache-source-change.",
+    "Updated the P0.3 roadmap with branch and merge dependencies."
+  ],
+  "decisions": [
+    "Keep zones and OCR text workstation-local; shared cache receives content-addressed keys and local callbacks only."
+  ],
+  "remaining": [
+    "Run focused synthetic tests for region validation, cache invalidation/warm hits, and scanner zone behavior; review and merge both branches.",
+    "Implement person-independent template matching/reuse; bounded concurrency remains measurement-gated.",
+    "P0.0A G1 still requires restart from the owning MCP host and an exact-model smoke run."
+  ],
+  "validation": [
+    "PAO: py_compile, agent.py validate (403 checks), and git diff --check passed; two existing local adapter mismatch warnings.",
+    "HR-GUI: py_compile, repository safety (194 tracked files), and git diff --check passed; unit tests not run under current session instruction."
+  ],
+  "candidate_memories": [],
+  "candidate_skills": []
+}
