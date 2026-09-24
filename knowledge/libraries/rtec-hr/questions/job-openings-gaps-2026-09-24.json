@@ -1,0 +1,55 @@
+{
+  "queue_id": "rtec-hr-job-openings-gaps-2026-09-24",
+  "updated_at": "2026-09-24",
+  "source_archive": "Job Openings Descriptions.zip",
+  "questions": [
+    {
+      "priority": "high",
+      "domain": "preemployment_checklist",
+      "question": "Is the supplied Applicant Check Off Sheet still the current approved pre-employment checklist? Confirm position-specific applicability, current screening vendors/systems, Operations/HR/Executive Director approval chain, and timing.",
+      "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "driver_handbook",
+      "question": "Which provisions of the 2024 Driver Handbook (rev. 7/12/24) remain current, and which are superseded by the December 15, 2025 Employee Handbook or newer operations/drug-and-alcohol authority?",
+      "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "drug_alcohol",
+      "question": "Reconcile the supplied SFY25 Drug and Alcohol Policy, 2024 collection-site list, collection-request packet, OTC/prescription policy and drug-free guide into a controlled current D&A source chain. Resolve any filename/effective-date mismatch before operational use.",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "benefits",
+      "question": "Reconcile the 2021 medical SBCs, 2023 election form, Guardian plan/enrollment materials and dental/vision summaries against the currently offered 2026 benefit plans and current eligibility/effective-date rules.",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "safety_training",
+      "question": "Identify the current approved revisions and completion-record requirements for the 2021 reservations/operations/CSR/dispatcher manual, 2022 vehicle-maintenance manual, 2023 passenger-assistance training, 2024 safety/hazard plans and related training packets.",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "civil_rights_service",
+      "question": "Reconcile the historical portal copies of ADA complaint, appeal, reasonable-modification, no-show and Title VI materials against current 2026 compliance authority before reusing deadlines, contacts, forms or appeal steps.",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "legacy_hr_storage",
+      "question": "Determine which legacy shortcut-backed folders (401k, census/EEO, insurance deductions, applicant logs, new hires, terminations and benefits references) still exist or have current systems of record, and document migrations/retention rather than treating shortcuts as authority.",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "legacy_xls_conversion",
+      "question": "Use an approved legacy-BIFF conversion path for the remaining .xls personnel/census/insurance files if record-level migration is ever needed. Current ingestion intentionally retained metadata only and did not parse employee-level rows.",
+      "status": "open"
+    }
+  ]
+}
