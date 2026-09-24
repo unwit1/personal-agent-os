@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Agent OS Universal Capture
 // @namespace    agent-os
-// @version      3.11.2
+// @version      3.12.2
 // @description  Save useful pages and passively index rendered Discord Web channel and search-result messages into Agent OS.
 // @homepageURL   https://github.com/unwit1/universal-capture-plugin
 // @updateURL     https://raw.githubusercontent.com/unwit1/universal-capture-plugin/main/agent-os-universal-capture.user.js
@@ -26,7 +26,7 @@
 (function () {
     "use strict";
 
-    var VERSION = "3.11.2";
+    var VERSION = "3.12.2";
     var SETTINGS_KEY = "agent_os_capture_settings_v1";
     var QUEUE_KEY = "agent_os_capture_queue_v1";
     var MAX_QUEUE = 500;
@@ -2612,8 +2612,12 @@
         return isFanfictionSite() || isAo3Site() || isFictionLiveSite();
     }
 
+    function isAmazonSite() {
+        return hostname().indexOf("amazon.") !== -1;
+    }
+
     function shouldShowFloatingButton() {
-        if (isRedditSite() || isXenforoCaptureSite() || isStoryCaptureSite()) return false;
+        if (isRedditSite() || isXenforoCaptureSite() || isStoryCaptureSite() || isAmazonSite()) return false;
         return true;
     }
 
@@ -2932,6 +2936,346 @@
             host.appendChild(button);
         });
     }
+
+    // -- Amazon per-item capture and cart import -------------------------------
+
+    function amazonInfoFromUrl(urlText, fallbackAsin) {
+        try {
+            var u = new URL(urlText || location.href, location.href);
+            if (String(u.hostname || "").toLowerCase().indexOf("amazon.") === -1) return null;
+            var match = u.pathname.match(/\/(?:dp|gp\/product|gp\/aw\/d)\/([A-Z0-9]{10})(?:[/?]|$)/i);
+            var asin = match ? match[1].toUpperCase() : cleanText(fallbackAsin).toUpperCase();
+            if (!/^[A-Z0-9]{10}$/.test(asin)) return null;
+            return {
+                asin: asin,
+                url: u.origin + "/dp/" + asin,
+                marketplace: String(u.hostname || "").toLowerCase()
+            };
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function amazonNativeButton(label) {
+        var button = inlineEntityButton(label || "+ Agent OS");
+        button.classList.add("agent-os-amazon-button");
+        button.style.background = "#ffffff";
+        button.style.color = "#0f1111";
+        button.style.border = "1px solid #d5d9d9";
+        button.style.borderRadius = "8px";
+        button.style.boxShadow = "0 2px 5px rgba(15,17,17,.15)";
+        button.style.fontWeight = "500";
+        button.style.padding = "5px 9px";
+        button.style.margin = "5px 6px";
+        return button;
+    }
+
+    function amazonFindProductLink(container) {
+        if (!container || !container.querySelectorAll) return null;
+        var links = container.querySelectorAll(
+            "h2 a[href*='/dp/'], a.a-link-normal[href*='/dp/'], " +
+            "a[href*='/gp/product/'], a[href*='/gp/aw/d/']"
+        );
+        for (var i = 0; i < links.length; i += 1) {
+            var info = amazonInfoFromUrl(links[i].href, container.getAttribute && container.getAttribute("data-asin"));
+            if (info) return links[i];
+        }
+        return null;
+    }
+
+    function amazonCardDetails(container, link) {
+        var fallbackAsin = container && container.getAttribute
+            ? container.getAttribute("data-asin")
+            : "";
+        var info = amazonInfoFromUrl(link && link.href, fallbackAsin);
+        if (!info) return null;
+
+        var titleNode = container && container.querySelector && container.querySelector(
+            "h2 span, h2 a, .sc-product-title, .a-truncate-full, " +
+            "[data-csa-c-type='item'] h2, [class*='product-title']"
+        );
+        var priceNode = container && container.querySelector && container.querySelector(
+            ".a-price .a-offscreen, .sc-price, .a-color-price, [data-a-color='price'] .a-offscreen"
+        );
+        var imageNode = container && container.querySelector && container.querySelector(
+            "img.s-image, img.sc-product-image, img"
+        );
+        var ratingNode = container && container.querySelector && container.querySelector(
+            ".a-icon-alt, [aria-label*='out of 5 stars']"
+        );
+        var sellerNode = container && container.querySelector && container.querySelector(
+            ".sc-product-seller, [class*='seller'], [data-csa-c-content-id*='seller']"
+        );
+        var availabilityNode = container && container.querySelector && container.querySelector(
+            ".sc-product-availability, .a-color-success, [class*='availability']"
+        );
+        var variationNodes = container && container.querySelectorAll
+            ? container.querySelectorAll(".sc-product-variation, .a-size-small.a-color-secondary")
+            : [];
+        var variations = [];
+        Array.from(variationNodes || []).forEach(function (node) {
+            var value = cleanText(node.textContent);
+            if (value && variations.indexOf(value) === -1) variations.push(value);
+        });
+
+        var quantity = "";
+        var quantityNode = container && container.querySelector && container.querySelector(
+            "select[name*='quantity'], select.a-native-dropdown, input[name*='quantity']"
+        );
+        if (quantityNode) {
+            quantity = cleanText(quantityNode.value);
+            if (!quantity && quantityNode.options && quantityNode.selectedIndex >= 0) {
+                quantity = cleanText(quantityNode.options[quantityNode.selectedIndex].textContent);
+            }
+        }
+        if (!quantity) {
+            var quantityLabel = container && container.querySelector && container.querySelector(
+                ".a-dropdown-prompt, [data-a-class='quantity']"
+            );
+            quantity = cleanText(quantityLabel && quantityLabel.textContent);
+        }
+
+        var section = "product";
+        if (container && container.closest) {
+            if (container.closest("#sc-saved-cart, [data-name='Saved Items']")) section = "saved_for_later";
+            else if (container.closest("#sc-active-cart, [data-name='Active Items']")) section = "cart";
+        }
+
+        return {
+            info: info,
+            title: cleanText((titleNode && titleNode.textContent) || (link && link.textContent) || ""),
+            price: cleanText(priceNode && priceNode.textContent),
+            image: cleanText(imageNode && (imageNode.currentSrc || imageNode.src)),
+            rating: cleanText(
+                (ratingNode && (ratingNode.getAttribute("aria-label") || ratingNode.textContent)) || ""
+            ),
+            seller: cleanText(sellerNode && sellerNode.textContent),
+            availability: cleanText(availabilityNode && availabilityNode.textContent),
+            variations: variations.slice(0, 12),
+            quantity: quantity || (section === "cart" ? "1" : ""),
+            section: section,
+            prime: Boolean(container && container.querySelector && container.querySelector(
+                ".a-icon-prime, [aria-label*='Prime']"
+            ))
+        };
+    }
+
+    function captureAmazonProduct(container, link, button, sourceView) {
+        var details = amazonCardDetails(container, link);
+        if (!details) return;
+
+        var capture = genericCapture();
+        capture.site = "amazon";
+        capture.content_type = "product";
+        capture.source_id = "amazon:" + details.info.asin;
+        capture.title = details.title || capture.title;
+        capture.url = details.info.url;
+        capture.canonical_url = details.info.url;
+        capture.image = details.image || capture.image;
+        capture.metadata = Object.assign({}, capture.metadata, {
+            adapter: "amazon-item",
+            asin: details.info.asin,
+            marketplace: details.info.marketplace,
+            price_observed: details.price,
+            seller_observed: details.seller,
+            availability: details.availability,
+            rating_observed: details.rating,
+            prime_observed: details.prime,
+            quantity_observed: details.quantity,
+            variations: details.variations,
+            cart_section: details.section,
+            source_view: sourceView || "listing"
+        });
+        sendCapture(capture, button);
+    }
+
+    function amazonProductContainers() {
+        var selectors = [
+            "div[data-component-type='s-search-result'][data-asin]",
+            ".s-result-item[data-asin]",
+            ".sc-list-item[data-asin]",
+            "[data-name='Active Items'] [data-asin]",
+            "[data-name='Saved Items'] [data-asin]",
+            "li[data-asin]",
+            "div[data-asin][data-csa-c-type='item']"
+        ];
+        var out = [];
+        var seen = new Set();
+        document.querySelectorAll(selectors.join(",")).forEach(function (node) {
+            var asin = cleanText(node.getAttribute("data-asin")).toUpperCase();
+            if (!/^[A-Z0-9]{10}$/.test(asin)) return;
+            var key = asin + ":" + (node.id || node.getAttribute("data-item-index") || out.length);
+            if (seen.has(key)) return;
+            seen.add(key);
+            out.push(node);
+        });
+        return out;
+    }
+
+    function amazonButtonHost(container, link) {
+        if (!container) return null;
+        var host = container.querySelector && (
+            container.querySelector(".a-row.a-size-base.a-color-secondary") ||
+            container.querySelector(".sc-list-item-content") ||
+            container.querySelector(".a-section.a-spacing-small") ||
+            container.querySelector("h2")
+        );
+        return host || (link && link.parentElement) || container;
+    }
+
+    function addAmazonItemButtons() {
+        if (!isAmazonSite() || !document.body) return;
+
+        amazonProductContainers().forEach(function (container) {
+            if (container.querySelector(".agent-os-amazon-item-save")) return;
+            var link = amazonFindProductLink(container);
+            if (!link) return;
+
+            var host = amazonButtonHost(container, link);
+            if (!host) return;
+
+            var button = amazonNativeButton("+ Agent OS");
+            button.classList.add("agent-os-amazon-item-save");
+            button.title = "Save this Amazon item to Agent OS";
+            button.style.float = "right";
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var sourceView = container.closest && container.closest("#sc-active-cart, #sc-saved-cart")
+                    ? "cart"
+                    : "listing";
+                captureAmazonProduct(container, link, button, sourceView);
+            });
+            host.appendChild(button);
+        });
+
+        // Individual product page.
+        var productInfo = amazonInfoFromUrl(location.href, cleanText(document.querySelector("#ASIN") && document.querySelector("#ASIN").value));
+        if (productInfo) {
+            var titleHost = document.querySelector("#title, #productTitle");
+            if (titleHost && !document.querySelector(".agent-os-amazon-product-save")) {
+                var button = amazonNativeButton("+ Agent OS");
+                button.classList.add("agent-os-amazon-product-save");
+                button.title = "Save this Amazon product to Agent OS";
+                button.style.float = "none";
+                button.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    var link = document.createElement("a");
+                    link.href = productInfo.url;
+                    link.textContent = cleanText(document.querySelector("#productTitle") && document.querySelector("#productTitle").textContent);
+                    captureAmazonProduct(document.body, link, button, "product");
+                });
+                titleHost.appendChild(button);
+            }
+        }
+    }
+
+    function amazonCartItems() {
+        if (!isAmazonSite()) return [];
+        var items = [];
+        var seen = new Set();
+        document.querySelectorAll(
+            "#sc-active-cart .sc-list-item[data-asin], " +
+            "[data-name='Active Items'] .sc-list-item[data-asin], " +
+            "[data-name='Active Items'] [data-asin]"
+        ).forEach(function (container) {
+            var link = amazonFindProductLink(container);
+            var details = amazonCardDetails(container, link);
+            if (!details || seen.has(details.info.asin + ":" + (details.quantity || "1"))) return;
+            seen.add(details.info.asin + ":" + (details.quantity || "1"));
+            items.push({
+                asin: details.info.asin,
+                title: details.title,
+                quantity: details.quantity || "1",
+                price_observed: details.price,
+                seller_observed: details.seller,
+                availability: details.availability,
+                variations: details.variations,
+                prime_observed: details.prime,
+                image: details.image,
+                url: details.info.url
+            });
+        });
+        return items;
+    }
+
+    function amazonCartSubtotal() {
+        var node = document.querySelector(
+            "#sc-subtotal-amount-activecart .sc-price, " +
+            "#sc-subtotal-amount-buybox .sc-price, " +
+            "#sc-subtotal-amount-activecart, .sc-subtotal .sc-price"
+        );
+        return cleanText(node && node.textContent);
+    }
+
+    function importAmazonCart(button) {
+        if (!isAmazonSite()) {
+            window.alert("Open your Amazon cart before importing it.");
+            return;
+        }
+        var items = amazonCartItems();
+        if (!items.length) {
+            window.alert("No active Amazon cart items were detected on this page.");
+            return;
+        }
+
+        var capture = genericCapture();
+        capture.site = "amazon";
+        capture.content_type = "shopping_cart";
+        capture.source_id = "amazon:cart:" + hostname();
+        capture.title = "Amazon cart";
+        capture.url = journalSafeUrl(location.href);
+        capture.canonical_url = capture.url;
+        capture.description = items.length + " cart item" + (items.length === 1 ? "" : "s");
+        capture.metadata = Object.assign({}, capture.metadata, {
+            adapter: "amazon-cart",
+            marketplace: hostname(),
+            item_count: items.length,
+            subtotal_observed: amazonCartSubtotal(),
+            imported_at: new Date().toISOString(),
+            items: items
+        });
+        sendCapture(capture, button);
+    }
+
+    function addAmazonCartImportButton() {
+        if (!isAmazonSite() || !document.body) return;
+        if (!/\/(?:gp\/cart|cart)(?:\/|$|\?)/i.test(location.pathname)) return;
+        if (document.getElementById("agent-os-amazon-cart-import")) return;
+
+        var heading = document.querySelector("#sc-active-cart h1, .sc-cart-header h1, #sc-active-cart .sc-cart-header");
+        var host = heading && heading.parentElement
+            ? heading.parentElement
+            : document.querySelector("#sc-active-cart, #activeCartViewForm");
+        if (!host) return;
+
+        var button = amazonNativeButton("Import Cart to Agent OS");
+        button.id = "agent-os-amazon-cart-import";
+        button.title = "Import the currently rendered Amazon cart into Agent OS";
+        button.style.float = "right";
+        button.style.fontWeight = "600";
+        button.style.marginTop = "0";
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            importAmazonCart(button);
+        });
+        if (heading && heading.nextSibling) {
+            host.insertBefore(button, heading.nextSibling);
+        } else if (heading) {
+            host.appendChild(button);
+        } else {
+            host.insertBefore(button, host.firstChild);
+        }
+    }
+
+    function addAmazonControls() {
+        if (!isAmazonSite()) return;
+        addAmazonItemButtons();
+        addAmazonCartImportButton();
+    }
+
 
     // -- Fiction / story-site capture ----------------------------------------
 
@@ -3481,6 +3825,7 @@
         GM_registerMenuCommand("Agent OS: Retry queued captures", retryQueue);
         GM_registerMenuCommand("Agent OS: Copy queued captures as JSON", exportQueue);
         GM_registerMenuCommand("Agent OS: Clear queued captures", clearQueue);
+        GM_registerMenuCommand("Agent OS: Import Amazon cart", function () { importAmazonCart(null); });
         GM_registerMenuCommand("Agent OS: Configure local bridge", configureLocalBridge);
         GM_registerMenuCommand("Agent OS: Local bridge ON/OFF", toggleLocalBridge);
         GM_registerMenuCommand("Agent OS: Sync local bridge now", function () { bridgeSyncNow(true); });
@@ -3509,6 +3854,7 @@
     addXenforoThreadButtons();
     addRedditPostButtons();
     addStorySiteButtons();
+    addAmazonControls();
     if (isDiscordWeb()) {
         ensureDiscordStatus();
         scheduleDiscordScan(0);
@@ -3545,6 +3891,7 @@
             addXenforoThreadButtons();
             addRedditPostButtons();
             addStorySiteButtons();
+            addAmazonControls();
             ensureJournalStatus();
             if (isDiscordWeb()) ensureDiscordStatus();
         }, 300);
