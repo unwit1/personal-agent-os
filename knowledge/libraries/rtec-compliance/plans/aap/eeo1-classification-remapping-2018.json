@@ -1,0 +1,50 @@
+{
+  "id": "rtec-eeo1-job-category-mapping-change-2018",
+  "record_type": "classification_change",
+  "title": "RTEC EEO-1 job classification remapping documented November 1, 2018",
+  "status": "validated_historical",
+  "temporal_status": "historical",
+  "source_sha256": "bc5e6d62c8404cc179596648eafd229448464983b7e366d6ab4be238d3c3bef7",
+  "source_date": "2018-11-01",
+  "changes": [
+    {
+      "population": "Drivers",
+      "from": "Service Workers",
+      "to": "Operatives"
+    },
+    {
+      "population": "Garage staff",
+      "from": "Operatives",
+      "to": "Laborers/Helpers"
+    },
+    {
+      "population": "Custodian",
+      "from": "Operatives",
+      "to": "Service Workers"
+    }
+  ],
+  "source_rationale": "The source states the change was made to align more closely with the EEO-1 Job Classification Guide 2010, effective with the 2014 EEO-1 survey.",
+  "analytical_consequences": [
+    "Do not compare Service Workers or Operatives headcounts across the remapping boundary as if the categories were compositionally identical.",
+    "The apparent shift of the large driver workforce from Service Workers to Operatives is primarily a classification change, not evidence of a mass transfer or staffing collapse.",
+    "Garage and custodian trend analysis must also normalize for this remapping.",
+    "AAP narrative-history records before and after the change should be interpreted through this crosswalk."
+  ],
+  "normalized_role_crosswalk": [
+    {
+      "role_family": "driver",
+      "pre_change_eeo1": "Service Workers",
+      "post_change_eeo1": "Operatives"
+    },
+    {
+      "role_family": "garage_staff",
+      "pre_change_eeo1": "Operatives",
+      "post_change_eeo1": "Laborers/Helpers"
+    },
+    {
+      "role_family": "custodian",
+      "pre_change_eeo1": "Operatives",
+      "post_change_eeo1": "Service Workers"
+    }
+  ]
+}
