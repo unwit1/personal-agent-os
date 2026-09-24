@@ -26,13 +26,15 @@ This file records versions that were directly verified from authoritative upstre
 | CommonLibSSE-NG | v9.1.0 | Current multi-runtime library release; source changelog includes 1.7.x/VR work and breaking v9 API naming changes | https://github.com/alandtse/CommonLibSSE-NG/releases |
 | Open Animation Replacer | 3.2.1 | Current Nexus release observed; updated 2026-08-31 | https://www.nexusmods.com/skyrimspecialedition/mods/92109 |
 | Pandora Behaviour Engine+ | v4.4.0-beta | Current GitHub release observed; beta channel | https://github.com/Monitor221hz/Pandora-Behaviour-Engine-Plus/releases |
+| Papyrus Extender | 6.5.2 | Current GitHub release, published 2026-09-05; README advertises 374 functions, 37 events and 4 script objects; SSE/AE requires Address Library and VR uses VR Address Library | https://github.com/powerof3/PapyrusExtenderSSE/releases/tag/v6.5.2 |
 | PapyrusUtil SE/AE | 4.8 | SKSE 2.3.1 / Skyrim 1.7.104 / Address Library AE for current main file | https://www.nexusmods.com/skyrimspecialedition/mods/13048 |
 | PapyrusUtil GOG | 4.6 | SKSE 2.2.6 / Skyrim GOG 1.6.1179 | https://www.nexusmods.com/skyrimspecialedition/mods/13048 |
 | PapyrusUtil legacy SE | 3.9 | SKSE 2.0.20 / Skyrim 1.5.97 | https://www.nexusmods.com/skyrimspecialedition/mods/13048 |
 | JContainers SE/AE | 4.3.2 page version | Current main file targets SKSE 2.3.1 / Skyrim 1.7.104 | https://www.nexusmods.com/skyrimspecialedition/mods/16495 |
 | JContainers GOG | 4.3.2 page version | Current GOG file targets SKSE 2.2.6 / Skyrim 1.6.1179 | https://www.nexusmods.com/skyrimspecialedition/mods/16495 |
 | JContainers VR | 4.3.2 page version | Current VR file targets Skyrim VR 1.4.15 / SKSEVR 2.0.12 | https://www.nexusmods.com/skyrimspecialedition/mods/16495 |
-| MCM Helper | 1.6.3 | Current file description supports Steam Skyrim 1.7.99+ and Skyrim VR 1.4.15.1; separate legacy 1.5.97 backport remains available | https://www.nexusmods.com/skyrimspecialedition/mods/53000 |
+| RaceMenu | 0.4.20.0 page version | Current Nexus page version observed. Public GitHub SKEE source snapshot is behind at resource version 0.4.19.17 and targets Steam 1.7.99 / GOG 1.6.1179, so do not equate source master with the current distributed binary | https://www.nexusmods.com/skyrimspecialedition/mods/19080 |
+| MCM Helper | 1.6.3 | Current source main declares project 1.6.3 / release code 15 and current Nexus changelog adds SkyrimSE 1.7.99 / Address Library 12 support. GitHub latest formal release tag remains v1.6.2, so source/Nexus release identity is tracked separately | https://www.nexusmods.com/skyrimspecialedition/mods/53000 |
 | SSE Engine Fixes main | 7.0.20 | Main page version; file description supports SE 1.5.97 and AE 1.6.1170+ with preloader/Address Library requirements | https://www.nexusmods.com/skyrimspecialedition/mods/17230 |
 | SSE Engine Fixes 1.7.99 beta | 7.0.21 | Separate beta file specifically for 1.7.99; page says preloader not required on 1.7.99 | https://www.nexusmods.com/skyrimspecialedition/mods/17230 |
 
@@ -45,6 +47,8 @@ This file records versions that were directly verified from authoritative upstre
 - Pandora's current release is explicitly beta; do not flatten its status into a stable-release claim.
 - Engine Fixes currently exposes different files/runtime requirements rather than one universal "latest DLL" rule.
 - Current PapyrusUtil/JContainers main files target 1.7.104, while legacy/GOG variants remain separate compatibility tracks.
+- MCM Helper's current source identifies as 1.6.3 even though GitHub's latest formal release endpoint remains v1.6.2; treat source commit, Nexus file and GitHub release tag as separate provenance fields.
+- RaceMenu's public GitHub SKEE source currently identifies as 0.4.19.17 while the Nexus page is 0.4.20.0; use the source snapshot for architecture/API evidence but not as proof of the latest binary's runtime support.
 
 ## Compatibility dimensions to track separately
 
