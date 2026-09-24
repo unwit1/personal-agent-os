@@ -109,9 +109,11 @@
       "message_ids": [
         "msg_5f8b6bdc3d072c6077f4687c"
       ],
-      "safe_process_summary": "A 2016 internal discussion says the personnel policy then limited benefits to full-time employees and that the 401(k) document should be aligned to that policy; it explicitly did not describe extending 401(k) to part-time employees at that time. No current eligibility rule is inferred.",
+      "safe_process_summary": "A 2016 internal discussion says the personnel policy then limited benefits to full-time employees and that the 401(k) document should be aligned to that policy; it explicitly did not describe extending 401(k) to part-time employees at that time. The 2025 handbook separately describes a 401(k) plan with employer match for full-time active employees, subject to additional service requirements in the plan booklet. This corroborates the full-time framing across versions but does not establish current plan terms or eligibility.",
       "authority_note": "Pre-April-2026 organizational history. The correspondence also contains an individual employment-document and schedule matter; that content is excluded.",
-      "persisted_sources": [],
+      "persisted_sources": [
+        "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2025-12-15/"
+      ],
       "excluded_content": "No employee name, employment transaction, work schedule, raw email body, or person-level dossier retained."
     },
     {
