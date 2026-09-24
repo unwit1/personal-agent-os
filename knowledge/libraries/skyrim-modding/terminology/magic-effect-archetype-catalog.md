@@ -205,3 +205,170 @@ Archetype behavior and these visual/audio/script layers should be diagnosed sepa
 Primary: Creation Kit Wiki Magic Effect page: https://ck.uesp.net/wiki/Magic_Effect
 
 The CK Wiki is historical/community-maintained. Archetype names/behavior above are treated as documented Skyrim behavior where explicitly described; poorly documented cases remain flagged for source/runtime testing rather than filled with folklore.
+
+
+## Native archetype ID table — CommonLibSSE-NG
+
+Source: `alandtse/CommonLibSSE-NG/include/RE/E/EffectArchetypes.h` blob `ec299b8d2ebe615e13ba1cb4f46217aca0409b45`.
+
+| Native enum | Value |
+|---|---:|
+| `kNone` | `static_cast<std::underlying_type_t<ArchetypeID>>(-1)` |
+| `kValueModifier` | `0` |
+| `kScript` | `1` |
+| `kDispel` | `2` |
+| `kCureDisease` | `3` |
+| `kAbsorb` | `4` |
+| `kDualValueModifier` | `5` |
+| `kCalm` | `6` |
+| `kDemoralize` | `7` |
+| `kFrenzy` | `8` |
+| `kDisarm` | `9` |
+| `kCommandSummoned` | `10` |
+| `kInvisibility` | `11` |
+| `kLight` | `12` |
+| `kDarkness` | `13` |
+| `kNightEye` | `14` |
+| `kLock` | `15` |
+| `kOpen` | `16` |
+| `kBoundWeapon` | `17` |
+| `kSummonCreature` | `18` |
+| `kDetectLife` | `19` |
+| `kTelekinesis` | `20` |
+| `kParalysis` | `21` |
+| `kReanimate` | `22` |
+| `kSoulTrap` | `23` |
+| `kTurnUndead` | `24` |
+| `kGuide` | `25` |
+| `kWerewolfFeed` | `26` |
+| `kCureParalysis` | `27` |
+| `kCureAddiction` | `28` |
+| `kCurePoison` | `29` |
+| `kConcussion` | `30` |
+| `kValueAndParts` | `31` |
+| `kAccumulateMagnitude` | `32` |
+| `kStagger` | `33` |
+| `kPeakValueModifier` | `34` |
+| `kCloak` | `35` |
+| `kWerewolf` | `36` |
+| `kSlowTime` | `37` |
+| `kRally` | `38` |
+| `kEnhanceWeapon` | `39` |
+| `kSpawnHazard` | `40` |
+| `kEtherealize` | `41` |
+| `kBanish` | `42` |
+| `kSpawnScriptedRef` | `43` |
+| `kDisguise` | `44` |
+| `kGrabActor` | `45` |
+| `kVampireLord` | `46` |
+
+This source exposes **47 numbered archetypes (0–46)** plus `None = -1`. It confirms native identities for behaviors that are only partially documented in the historical Creation Kit wiki, including Calm, Demoralize, Frenzy, Disarm, CommandSummoned, Darkness, NightEye, DetectLife, CureDisease/Paralysis/Addiction/Poison, Concussion, Cloak, EnhanceWeapon, Etherealize, Disguise, GrabActor and VampireLord.
+
+### Archetype definition flags
+
+CommonLib's native archetype metadata exposes:
+
+| Flag | Bit |
+|---|---|
+| `kNone` | `0` |
+| `kHiddenInEditor` | `1 << 0` |
+| `kIsActorValueUsed` | `1 << 1` |
+| `kIsFormUsed` | `1 << 2` |
+| `kUnk3` | `1 << 3` |
+| `kAllowStacking` | `1 << 4` |
+| `kCannotMultiCast` | `1 << 5` |
+| `kCreatesRef` | `1 << 6` |
+| `kCustomSkillUse` | `1 << 7` |
+| `kRewardsSkillUseWithoutTarget` | `1 << 8` |
+| `kAddsEffectToCaster` | `1 << 9` |
+
+These flags describe **the archetype definition itself**, such as whether:
+- an ActorValue is used;
+- an associated Form is used;
+- stacking is allowed;
+- multicasting is forbidden;
+- the archetype creates a reference;
+- skill use is custom;
+- an effect is added to the caster.
+
+They are distinct from per-MGEF DATA flags.
+
+## Exact MGEF DATA flags — CommonLibSSE-NG
+
+Source: `alandtse/CommonLibSSE-NG/include/RE/E/EffectSetting.h` blob `54392d1f425912ccab4cd8c2934bee9fb7cce443`.
+
+| MGEF flag | Bit |
+|---|---|
+| `kNone` | `0` |
+| `kHostile` | `1 << 0` |
+| `kRecover` | `1 << 1` |
+| `kDetrimental` | `1 << 2` |
+| `kSnapToNavMesh` | `1 << 3` |
+| `kNoHitEvent` | `1 << 4` |
+| `kDispelWithKeywords` | `1 << 8` |
+| `kNoDuration` | `1 << 9` |
+| `kNoMagnitude` | `1 << 10` |
+| `kNoArea` | `1 << 11` |
+| `kFXPersist` | `1 << 12` |
+| `kGoryVisuals` | `1 << 14` |
+| `kHideInUI` | `1 << 15` |
+| `kNoRecast` | `1 << 17` |
+| `kPowerAffectsMagnitude` | `1 << 21` |
+| `kPowerAffectsDuration` | `1 << 22` |
+| `kPainless` | `1 << 26` |
+| `kNoHitEffect` | `1 << 27` |
+| `kNoDeathDispel` | `1 << 28` |
+
+Notable native flags beyond the older shorthand in this module include:
+- SnapToNavMesh;
+- NoHitEvent;
+- DispelWithKeywords;
+- FXPersist;
+- GoryVisuals;
+- HideInUI;
+- NoRecast;
+- PowerAffectsMagnitude;
+- PowerAffectsDuration;
+- Painless;
+- NoHitEffect;
+- NoDeathDispel.
+
+### Native MGEF data layout
+
+Current CommonLib resolves these fields directly in `EffectSettingData`:
+- flags;
+- base cost;
+- associated form;
+- associated skill;
+- resistance ActorValue;
+- counter-effect count;
+- light;
+- taper weight/curve/duration;
+- effect/enchant shaders;
+- minimum skill;
+- second ActorValue weight;
+- archetype;
+- primary/secondary ActorValues;
+- projectile;
+- explosion;
+- casting type;
+- delivery;
+- casting/hit/enchant art;
+- ImpactDataSet;
+- skill-use multiplier;
+- dual-cast data/scale;
+- hit/enchant visuals;
+- equip ability;
+- ImageSpaceModifier;
+- perk;
+- casting sound level;
+- AI score/delay.
+
+This is the native counterpart to the xEdit/CK MGEF schema and provides a source-backed map for runtime plugins.
+
+## Source reconciliation
+
+The historical CK descriptions explain intended behavior; CommonLib provides the current reverse-engineered numeric identities and structure. Where the two differ in naming/detail:
+1. preserve both;
+2. treat numeric IDs/layout as CommonLib-version-scoped;
+3. treat gameplay semantics as validated only where documentation/source/runtime evidence agrees.
