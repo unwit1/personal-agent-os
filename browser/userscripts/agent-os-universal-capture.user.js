@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Agent OS Universal Capture
 // @namespace    agent-os
-// @version      3.6.1
+// @version      3.7.2
 // @description  Save useful pages and passively index rendered Discord Web channel and search-result messages into Agent OS.
 // @homepageURL   https://github.com/unwit1/universal-capture-plugin
 // @updateURL     https://raw.githubusercontent.com/unwit1/universal-capture-plugin/main/agent-os-universal-capture.user.js
@@ -12,6 +12,8 @@
 // @run-at       document-idle
 // @grant        GM_getValue
 // @grant        GM_setValue
+// @grant        GM_listValues
+// @grant        GM_deleteValue
 // @grant        GM_registerMenuCommand
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
@@ -24,7 +26,7 @@
 (function () {
     "use strict";
 
-    var VERSION = "3.6.1";
+    var VERSION = "3.7.2";
     var SETTINGS_KEY = "agent_os_capture_settings_v1";
     var QUEUE_KEY = "agent_os_capture_queue_v1";
     var MAX_QUEUE = 500;
@@ -35,7 +37,9 @@
         device: "",
         defaultIntent: "save",
         showFloatingButton: true,
-        discordPassiveIndexing: true
+        discordPassiveIndexing: true,
+        browserJournalEnabled: true,
+        browserJournalExcludedDomains: []
     };
 
     function loadSettings() {
@@ -295,6 +299,723 @@
             page: new URL(location.href).searchParams.get("page") || ""
         });
         return base;
+    }
+
+
+    // -- Browser interaction journal ------------------------------------------
+
+    var JOURNAL_CHUNK_PREFIX = "agent_os_browser_journal_chunk_v1:";
+    var JOURNAL_CHUNK_MAX_EVENTS = 200;
+    var JOURNAL_MAX_TEXT = 20000;
+    var JOURNAL_EVENT_TYPES = ["view", "session", "text", "copy", "link"];
+    var journalSessionId = Date.now().toString(36) + "-" +
+        Math.random().toString(36).slice(2, 10);
+    var journalChunkSeq = 0;
+    var journalLastSavedValues = new WeakMap();
+    var journalCurrentRoute = location.href;
+    var journalCurrentPage = null;
+    var journalPageStartedAt = Date.now();
+    var journalActiveStartedAt = document.visibilityState === "visible" ? Date.now() : null;
+    var journalActiveMs = 0;
+    var journalSessionClosed = false;
+    var journalRouteTimer = null;
+
+    function journalEnabled() {
+        var settings = loadSettings();
+        return Boolean(settings.browserJournalEnabled) && !journalDomainExcluded(hostname());
+    }
+
+    function journalDomainExcluded(host) {
+        var settings = loadSettings();
+        var exclusions = Array.isArray(settings.browserJournalExcludedDomains)
+            ? settings.browserJournalExcludedDomains
+            : [];
+        host = String(host || "").toLowerCase();
+        return exclusions.some(function (entry) {
+            var wanted = String(entry || "").toLowerCase().replace(/^\.+/, "");
+            return wanted && (host === wanted || host.endsWith("." + wanted));
+        });
+    }
+
+    function journalSafeUrl(urlText) {
+        try {
+            var u = new URL(urlText, location.href);
+            if (u.protocol !== "http:" && u.protocol !== "https:") return "";
+            return u.origin + u.pathname;
+        } catch (error) {
+            return "";
+        }
+    }
+
+    function journalSearchQuery(urlText) {
+        if (journalSensitivePage()) return "";
+        try {
+            var u = new URL(urlText, location.href);
+            var keys = ["q", "query", "search", "search_query", "keyword", "keywords", "k", "term"];
+            for (var i = 0; i < keys.length; i += 1) {
+                var value = u.searchParams.get(keys[i]);
+                if (value) {
+                    value = String(value).trim().slice(0, 2000);
+                    return journalLooksSecret(value, "search query") ? "" : value;
+                }
+            }
+        } catch (error) {
+            // Ignore malformed URLs.
+        }
+        return "";
+    }
+
+    function journalPageSnapshot() {
+        return {
+            raw_url: location.href,
+            url: journalSafeUrl(location.href),
+            title: cleanText(document.title).slice(0, 500),
+            search_query: journalSearchQuery(location.href),
+            referrer: journalSafeUrl(document.referrer)
+        };
+    }
+
+    function journalChunkKey() {
+        return JOURNAL_CHUNK_PREFIX + journalSessionId + ":" + journalChunkSeq;
+    }
+
+    function journalChunkKeys() {
+        try {
+            return GM_listValues().filter(function (key) {
+                return String(key).indexOf(JOURNAL_CHUNK_PREFIX) === 0;
+            });
+        } catch (error) {
+            console.warn("[Agent OS] Could not enumerate browser journal chunks", error);
+            return [];
+        }
+    }
+
+    function journalAppendRow(row) {
+        if (!journalEnabled()) return false;
+        var key = journalChunkKey();
+        var chunk = GM_getValue(key, []);
+        if (!Array.isArray(chunk)) chunk = [];
+        if (chunk.length >= JOURNAL_CHUNK_MAX_EVENTS) {
+            journalChunkSeq += 1;
+            key = journalChunkKey();
+            chunk = [];
+        }
+        chunk.push(row);
+        GM_setValue(key, chunk);
+        return true;
+    }
+
+    function journalAllRows() {
+        var rows = [];
+        journalChunkKeys().forEach(function (key) {
+            var chunk = GM_getValue(key, []);
+            if (Array.isArray(chunk)) rows = rows.concat(chunk);
+        });
+        rows.sort(function (a, b) { return Number(a[0] || 0) - Number(b[0] || 0); });
+        return rows;
+    }
+
+    function journalRowsInDateRange(fromDate, toDate) {
+        var bounds = discordDateRangeBounds(fromDate, toDate);
+        return journalAllRows().filter(function (row) {
+            var ts = Number(row && row[0] || 0);
+            if (!ts) return false;
+            if (bounds.start != null && ts < bounds.start) return false;
+            if (bounds.end != null && ts > bounds.end) return false;
+            return true;
+        });
+    }
+
+    function journalEventCount() {
+        var count = 0;
+        journalChunkKeys().forEach(function (key) {
+            var chunk = GM_getValue(key, []);
+            if (Array.isArray(chunk)) count += chunk.length;
+        });
+        return count;
+    }
+
+    function journalSensitiveContext(text) {
+        return /(password|passwd|passcode|\bpin\b|otp|one.?time|2fa|mfa|security.?code|verification.?code|cvv|cvc|card.?number|credit.?card|debit.?card|routing.?number|bank.?account|account.?number|social.?security|\bssn\b|tax.?id|api.?key|private.?key|secret|auth.?token|access.?token|refresh.?token)/i.test(String(text || ""));
+    }
+
+    function journalLooksSecret(value, context) {
+        var text = String(value || "");
+        if (!text) return false;
+        if (/-----BEGIN [A-Z ]*PRIVATE KEY-----/.test(text)) return true;
+        if (/\b(?:github_pat_|gh[pousr]_|sk-[A-Za-z0-9_-]{16,}|AKIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{20,})/.test(text)) return true;
+        if (/\beyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\b/.test(text)) return true;
+        if (journalSensitiveContext(context)) return true;
+        return false;
+    }
+
+    function journalSensitivePage() {
+        var path = String(location.pathname || "");
+        var host = hostname();
+        return /(login|log-in|signin|sign-in|oauth|authorize|checkout|payment|billing|security|two-factor|2fa|mfa)/i.test(path) ||
+            /^(accounts\.|login\.|auth\.)/.test(host);
+    }
+
+    function journalFieldContext(element) {
+        if (!element || element.nodeType !== Node.ELEMENT_NODE) return "";
+        var parts = [];
+        var id = element.id || "";
+        if (id) {
+            try {
+                var label = document.querySelector('label[for="' + CSS.escape(id) + '"]');
+                if (label && cleanText(label.textContent)) parts.push(cleanText(label.textContent));
+            } catch (error) {
+                // Ignore invalid/generated IDs.
+            }
+        }
+        var wrappingLabel = element.closest && element.closest("label");
+        if (wrappingLabel && cleanText(wrappingLabel.textContent)) parts.push(cleanText(wrappingLabel.textContent));
+        [
+            element.getAttribute && element.getAttribute("aria-label"),
+            element.getAttribute && element.getAttribute("placeholder"),
+            element.getAttribute && element.getAttribute("name"),
+            id
+        ].forEach(function (value) {
+            value = cleanText(value);
+            if (value && parts.indexOf(value) === -1) parts.push(value);
+        });
+        return cleanText(parts.join(" · ")).slice(0, 300);
+    }
+
+    function journalIsSensitiveField(element) {
+        if (!element || element.nodeType !== Node.ELEMENT_NODE) return true;
+        var tag = String(element.tagName || "").toLowerCase();
+        var type = String(element.getAttribute && element.getAttribute("type") || "").toLowerCase();
+        var autocomplete = String(element.getAttribute && element.getAttribute("autocomplete") || "").toLowerCase();
+        var context = journalFieldContext(element);
+
+        if (tag === "input" && ["password", "hidden"].indexOf(type) !== -1) return true;
+        if (/(current-password|new-password|one-time-code|webauthn|cc-|transaction-)/i.test(autocomplete)) return true;
+        if (journalSensitiveContext(context)) return true;
+        return false;
+    }
+
+    function journalEligibleTextField(element) {
+        if (!element || element.nodeType !== Node.ELEMENT_NODE) return false;
+        if (journalIsSensitiveField(element)) return false;
+        if (journalSensitivePage()) return false;
+        if (element.isContentEditable) return true;
+
+        var tag = String(element.tagName || "").toLowerCase();
+        if (tag === "textarea") return true;
+        if (tag !== "input") return false;
+
+        var type = String(element.getAttribute("type") || "text").toLowerCase();
+        return ["text", "search", "url", "tel", "email"].indexOf(type) !== -1;
+    }
+
+    function journalFieldValue(element) {
+        if (!journalEligibleTextField(element)) return "";
+        var value = element.isContentEditable
+            ? String(element.innerText || element.textContent || "")
+            : String(element.value || "");
+        value = value.replace(/\r\n/g, "\n").trim();
+        if (value.length > JOURNAL_MAX_TEXT) value = value.slice(0, JOURNAL_MAX_TEXT);
+        return value;
+    }
+
+    function journalRecordPageView(snapshot) {
+        if (!journalEnabled()) return;
+        snapshot = snapshot || journalPageSnapshot();
+        if (!snapshot.url) return;
+        journalAppendRow([
+            Date.now(),
+            0,
+            snapshot.url,
+            snapshot.title || null,
+            null,
+            null,
+            [snapshot.search_query || null, snapshot.referrer || null]
+        ]);
+    }
+
+    function journalFinalizeField(element, reason) {
+        if (!journalEnabled() || !journalEligibleTextField(element)) return;
+        var value = journalFieldValue(element);
+        if (!value) return;
+
+        var context = journalFieldContext(element);
+        if (journalLooksSecret(value, context)) return;
+
+        var previous = journalLastSavedValues.get(element);
+        if (previous === value) return;
+        journalLastSavedValues.set(element, value);
+
+        var type = element.isContentEditable
+            ? "contenteditable"
+            : String(element.getAttribute("type") || element.tagName || "text").toLowerCase();
+
+        journalAppendRow([
+            Date.now(),
+            2,
+            journalSafeUrl(location.href),
+            null,
+            context || null,
+            value,
+            [type, reason || "finalized"]
+        ]);
+    }
+
+    function journalRecordCopy() {
+        if (!journalEnabled() || journalSensitivePage()) return;
+        var text = selectedText();
+        if (!text || text.length < 2) return;
+        text = text.slice(0, JOURNAL_MAX_TEXT);
+        if (journalLooksSecret(text, "copied text")) return;
+
+        journalAppendRow([
+            Date.now(),
+            3,
+            journalSafeUrl(location.href),
+            null,
+            null,
+            text,
+            null
+        ]);
+    }
+
+    function journalRecordLinkClick(event) {
+        if (!journalEnabled()) return;
+        var target = event.target && event.target.closest ? event.target.closest("a[href]") : null;
+        if (!target) return;
+        var href = journalSafeUrl(target.href);
+        if (!href) return;
+
+        journalAppendRow([
+            Date.now(),
+            4,
+            journalSafeUrl(location.href),
+            null,
+            null,
+            cleanText(target.textContent || target.getAttribute("aria-label") || "").slice(0, 500) || null,
+            href
+        ]);
+    }
+
+    function journalFlushActiveSegment() {
+        if (journalActiveStartedAt != null) {
+            journalActiveMs += Math.max(0, Date.now() - journalActiveStartedAt);
+            journalActiveStartedAt = null;
+        }
+    }
+
+    function journalClosePageSession(reason) {
+        if (journalSessionClosed || !journalCurrentPage) return;
+        journalFlushActiveSegment();
+        journalSessionClosed = true;
+        if (journalEnabled() && journalActiveMs >= 1000) {
+            journalAppendRow([
+                Date.now(),
+                1,
+                journalCurrentPage.url,
+                null,
+                null,
+                null,
+                [Math.round(journalActiveMs), reason || "closed"]
+            ]);
+        }
+    }
+
+    function journalStartPageSession() {
+        journalCurrentPage = journalPageSnapshot();
+        journalCurrentRoute = location.href;
+        journalPageStartedAt = Date.now();
+        journalActiveMs = 0;
+        journalActiveStartedAt = document.visibilityState === "visible" ? Date.now() : null;
+        journalSessionClosed = false;
+        journalRecordPageView(journalCurrentPage);
+        updateJournalStatus();
+    }
+
+    function journalHandleRouteChange() {
+        if (location.href === journalCurrentRoute) return;
+        journalFinalizeField(document.activeElement, "route-change");
+        journalClosePageSession("route-change");
+        journalStartPageSession();
+    }
+
+    function toggleBrowserJournal() {
+        var settings = loadSettings();
+        settings.browserJournalEnabled = !settings.browserJournalEnabled;
+        saveSettings(settings);
+        if (settings.browserJournalEnabled) journalStartPageSession();
+        updateJournalStatus();
+        window.alert("Browser journal is now " + (settings.browserJournalEnabled ? "ON." : "OFF."));
+    }
+
+    function toggleJournalCurrentDomainExclusion() {
+        var settings = loadSettings();
+        var exclusions = Array.isArray(settings.browserJournalExcludedDomains)
+            ? settings.browserJournalExcludedDomains.slice()
+            : [];
+        var host = hostname();
+        var index = exclusions.findIndex(function (item) {
+            return String(item || "").toLowerCase() === host;
+        });
+        if (index >= 0) {
+            exclusions.splice(index, 1);
+        } else {
+            exclusions.push(host);
+        }
+        settings.browserJournalExcludedDomains = exclusions;
+        saveSettings(settings);
+        updateJournalStatus();
+        window.alert(
+            host + (index >= 0
+                ? " is now included in Browser Journal."
+                : " is now excluded from Browser Journal.")
+        );
+    }
+
+    function ensureJournalStatus() {
+        if (!document.body) return null;
+        var pill = document.getElementById("agent-os-browser-journal-status");
+        if (pill) return pill;
+
+        pill = document.createElement("button");
+        pill.id = "agent-os-browser-journal-status";
+        pill.type = "button";
+        pill.style.position = "fixed";
+        pill.style.top = isDiscordWeb() ? "176px" : "134px";
+        pill.style.right = "20px";
+        pill.style.zIndex = "2147483646";
+        pill.style.border = "1px solid rgba(255,255,255,.22)";
+        pill.style.borderRadius = "8px";
+        pill.style.background = "#20242b";
+        pill.style.color = "#fff";
+        pill.style.font = "600 12px/1.2 system-ui, -apple-system, Segoe UI, sans-serif";
+        pill.style.padding = "7px 10px";
+        pill.style.cursor = "pointer";
+        pill.title = "Browser Journal status";
+        pill.addEventListener("click", function () {
+            var settings = loadSettings();
+            var excluded = journalDomainExcluded(hostname());
+            window.alert(
+                "Agent OS Browser Journal\n\n" +
+                "Journal: " + (settings.browserJournalEnabled ? "ON" : "OFF") + "\n" +
+                "Current domain: " + (excluded ? "EXCLUDED" : "included") + "\n" +
+                "Buffered events: " + journalEventCount() + "\n\n" +
+                "Text is saved only when finalized (blur/change/submit), not key-by-key. " +
+                "Password/payment/security-code fields and secret-like values are excluded."
+            );
+        });
+        document.body.appendChild(pill);
+        return pill;
+    }
+
+    function updateJournalStatus() {
+        var pill = ensureJournalStatus();
+        if (!pill) return;
+        var settings = loadSettings();
+        var excluded = journalDomainExcluded(hostname());
+        var on = settings.browserJournalEnabled && !excluded;
+        pill.textContent = on ? "Journal ●" : "Journal ○";
+        pill.style.opacity = on ? "1" : ".6";
+        pill.title = excluded
+            ? "Browser Journal: current domain excluded"
+            : "Browser Journal: " + (settings.browserJournalEnabled ? "ON" : "OFF");
+    }
+
+    function journalPromptDateRange(label) {
+        var fromDate = window.prompt(
+            label + "\n\nFrom date (YYYY-MM-DD). Leave blank for earliest buffered event:",
+            ""
+        );
+        if (fromDate === null) return null;
+        var toDate = window.prompt(
+            "Through date (YYYY-MM-DD). Leave blank for latest buffered event:",
+            ""
+        );
+        if (toDate === null) return null;
+
+        fromDate = String(fromDate || "").trim();
+        toDate = String(toDate || "").trim();
+        var valid = /^\d{4}-\d{2}-\d{2}$/;
+        if ((fromDate && !valid.test(fromDate)) || (toDate && !valid.test(toDate))) {
+            window.alert("Use YYYY-MM-DD date format.");
+            return null;
+        }
+        return { from: fromDate, to: toDate };
+    }
+
+    function journalArchiveCompactRows(rows, metadata) {
+        var pages = [];
+        var pageIndex = new Map();
+        var contexts = [];
+        var contextIndex = new Map();
+
+        function pageId(url, title) {
+            var key = String(url || "");
+            if (!key) return -1;
+            if (pageIndex.has(key)) {
+                var existing = pages[pageIndex.get(key)];
+                if (title && !existing[1]) existing[1] = title;
+                return pageIndex.get(key);
+            }
+            var index = pages.length;
+            pages.push([key, title || ""]);
+            pageIndex.set(key, index);
+            return index;
+        }
+
+        function contextId(value) {
+            value = String(value || "");
+            if (!value) return -1;
+            if (contextIndex.has(value)) return contextIndex.get(value);
+            var index = contexts.length;
+            contexts.push(value);
+            contextIndex.set(value, index);
+            return index;
+        }
+
+        rows.forEach(function (row) {
+            pageId(row[2], row[3]);
+            if (row[1] === 4 && row[6]) pageId(row[6], "");
+            if (row[1] === 0 && Array.isArray(row[6]) && row[6][1]) pageId(row[6][1], "");
+            if (row[4]) contextId(row[4]);
+        });
+
+        var header = {
+            v: 1,
+            k: "agent-os-browser-journal",
+            e: Math.floor(Date.now() / 1000),
+            n: rows.length,
+            types: JOURNAL_EVENT_TYPES,
+            cols: ["t", "e", "p", "c", "x", "z"],
+            p: pages,
+            c: contexts
+        };
+        if (metadata && metadata.from_date) header.from = metadata.from_date;
+        if (metadata && metadata.to_date) header.to = metadata.to_date;
+        if (metadata && metadata.scope) header.scope = metadata.scope;
+
+        var parts = [JSON.stringify(header), "\n"];
+        rows.forEach(function (row) {
+            var type = Number(row[1] || 0);
+            var extra = row[6];
+            if (type === 0 && Array.isArray(extra)) {
+                extra = [extra[0] || null, extra[1] ? pageId(extra[1], "") : -1];
+            } else if (type === 4 && extra) {
+                extra = pageId(extra, "");
+            }
+            parts.push(JSON.stringify([
+                Math.floor(Number(row[0] || 0) / 1000),
+                type,
+                pageId(row[2], row[3]),
+                contextId(row[4]),
+                row[5] == null ? null : row[5],
+                extra == null ? null : extra
+            ]), "\n");
+        });
+
+        return new Blob(parts, { type: "application/x-ndjson;charset=utf-8" });
+    }
+
+    async function exportBrowserJournalRange(fromDate, toDate) {
+        var rows = journalRowsInDateRange(fromDate, toDate);
+        var source = journalArchiveCompactRows(rows, {
+            from_date: fromDate || null,
+            to_date: toDate || null,
+            scope: "browser_journal"
+        });
+        var encoded = await discordGzipBlob(source);
+        var stamp = new Date().toISOString().replace(/[:.]/g, "-");
+        var rangeLabel = (fromDate || "start") + "_to_" + (toDate || "end");
+        var filename = "agent-os-browser-journal-" + rangeLabel + "-" + stamp + encoded.extension;
+        downloadDiscordBlob(filename, encoded.blob);
+        return {
+            count: rows.length,
+            filename: filename,
+            compressed: encoded.compressed,
+            raw_bytes: source.size,
+            archive_bytes: encoded.blob.size
+        };
+    }
+
+    async function compactBrowserJournalRange(fromDate, toDate) {
+        var bounds = discordDateRangeBounds(fromDate, toDate);
+        var removed = 0;
+
+        journalChunkKeys().forEach(function (key) {
+            var chunk = GM_getValue(key, []);
+            if (!Array.isArray(chunk)) return;
+            var kept = chunk.filter(function (row) {
+                var ts = Number(row && row[0] || 0);
+                var inRange = ts &&
+                    (bounds.start == null || ts >= bounds.start) &&
+                    (bounds.end == null || ts <= bounds.end);
+                if (inRange) removed += 1;
+                return !inRange;
+            });
+            if (!kept.length) GM_deleteValue(key);
+            else if (kept.length !== chunk.length) GM_setValue(key, kept);
+        });
+
+        updateJournalStatus();
+        return removed;
+    }
+
+    async function exportBrowserJournalPrompt() {
+        var range = journalPromptDateRange("Export Agent OS Browser Journal");
+        if (!range) return;
+        var result = await exportBrowserJournalRange(range.from, range.to);
+        var savings = result.raw_bytes > 0
+            ? Math.max(0, Math.round((1 - (result.archive_bytes / result.raw_bytes)) * 100))
+            : 0;
+        window.alert(
+            "Started browser-journal export of " + result.count + " events.\n\n" +
+            result.filename + "\n" +
+            "Uncompressed JSONL: " + discordHumanBytes(result.raw_bytes) + "\n" +
+            "Archive: " + discordHumanBytes(result.archive_bytes) +
+            (result.compressed ? " (" + savings + "% smaller)" : " (gzip unavailable)")
+        );
+    }
+
+    async function compactBrowserJournalPrompt() {
+        var range = journalPromptDateRange("Compact an already-exported Browser Journal range");
+        if (!range) return;
+        if (!window.confirm(
+            "Only compact this range after verifying its archive file exists.\n\n" +
+            "This removes buffered browser-journal events in the selected range. Continue?"
+        )) return;
+        var count = await compactBrowserJournalRange(range.from, range.to);
+        window.alert("Removed " + count + " archived browser-journal events from local Tampermonkey storage.");
+    }
+
+    async function exportCombinedActivityArchivePrompt() {
+        if (!isDiscordWeb()) {
+            window.alert(
+                "Open Discord Web before making a combined archive so this page can access the Discord IndexedDB. " +
+                "Browser Journal exports can be made from any website."
+            );
+            return;
+        }
+
+        var range = journalPromptDateRange("Export combined Discord + Browser Journal archive");
+        if (!range) return;
+
+        var discordRows = await discordRecordsInDateRange(range.from, range.to);
+        var browserRows = journalRowsInDateRange(range.from, range.to);
+        var discordBlob = discordArchiveCompactRows(discordRows, {
+            from_date: range.from || null,
+            to_date: range.to || null,
+            scope: "combined_bundle"
+        });
+        var browserBlob = journalArchiveCompactRows(browserRows, {
+            from_date: range.from || null,
+            to_date: range.to || null,
+            scope: "combined_bundle"
+        });
+
+        var bundleHeader = {
+            v: 1,
+            k: "agent-os-activity-bundle",
+            e: Math.floor(Date.now() / 1000),
+            from: range.from || null,
+            to: range.to || null,
+            discord_messages: discordRows.length,
+            browser_events: browserRows.length
+        };
+        var source = new Blob([
+            JSON.stringify(bundleHeader), "\n",
+            JSON.stringify({ stream: "discord", format: "agent-os-discord-archive-v1" }), "\n",
+            discordBlob,
+            JSON.stringify({ stream: "browser", format: "agent-os-browser-journal-v1" }), "\n",
+            browserBlob
+        ], { type: "application/x-ndjson;charset=utf-8" });
+
+        var encoded = await discordGzipBlob(source);
+        var stamp = new Date().toISOString().replace(/[:.]/g, "-");
+        var rangeLabel = (range.from || "start") + "_to_" + (range.to || "end");
+        var filename = "agent-os-activity-" + rangeLabel + "-" + stamp + encoded.extension;
+        downloadDiscordBlob(filename, encoded.blob);
+
+        var savings = source.size > 0
+            ? Math.max(0, Math.round((1 - (encoded.blob.size / source.size)) * 100))
+            : 0;
+        window.alert(
+            "Started combined archive download.\n\n" +
+            "Discord messages: " + discordRows.length + "\n" +
+            "Browser events: " + browserRows.length + "\n" +
+            filename + "\n" +
+            "Uncompressed JSONL: " + discordHumanBytes(source.size) + "\n" +
+            "Archive: " + discordHumanBytes(encoded.blob.size) +
+            (encoded.compressed ? " (" + savings + "% smaller)" : " (gzip unavailable)") +
+            "\n\nVerify the file before compacting either source."
+        );
+    }
+
+    async function compactCombinedActivityPrompt() {
+        if (!isDiscordWeb()) {
+            window.alert("Open Discord Web before compacting a combined Discord + browser range.");
+            return;
+        }
+        var range = journalPromptDateRange("Compact an already-exported combined activity range");
+        if (!range) return;
+        if (!window.confirm(
+            "Verify the combined archive exists before continuing.\n\n" +
+            "This will compact Discord messages to seen markers and remove browser-journal events in the selected range. Continue?"
+        )) return;
+
+        var discordCount = await compactDiscordDateRange(range.from, range.to);
+        var browserCount = await compactBrowserJournalRange(range.from, range.to);
+        window.alert(
+            "Combined compaction complete.\n\n" +
+            "Discord messages compacted: " + discordCount + "\n" +
+            "Browser events removed from active buffer: " + browserCount
+        );
+    }
+
+    function clearBrowserJournal() {
+        var keys = journalChunkKeys();
+        if (!keys.length) {
+            window.alert("Browser Journal is already empty.");
+            return;
+        }
+        if (!window.confirm("Clear " + journalEventCount() + " buffered Browser Journal events? This cannot be undone.")) return;
+        keys.forEach(function (key) { GM_deleteValue(key); });
+        updateJournalStatus();
+    }
+
+    function initializeBrowserJournal() {
+        ensureJournalStatus();
+        journalStartPageSession();
+
+        document.addEventListener("focusout", function (event) {
+            journalFinalizeField(event.target, "blur");
+        }, true);
+        document.addEventListener("change", function (event) {
+            journalFinalizeField(event.target, "change");
+        }, true);
+        document.addEventListener("submit", function (event) {
+            var form = event.target;
+            if (!form || !form.querySelectorAll) return;
+            form.querySelectorAll("input, textarea, [contenteditable='true']").forEach(function (element) {
+                journalFinalizeField(element, "submit");
+            });
+        }, true);
+        document.addEventListener("copy", journalRecordCopy, true);
+        document.addEventListener("click", journalRecordLinkClick, true);
+
+        document.addEventListener("visibilitychange", function () {
+            if (document.visibilityState === "hidden") {
+                journalFlushActiveSegment();
+            } else if (!journalSessionClosed && journalActiveStartedAt == null) {
+                journalActiveStartedAt = Date.now();
+            }
+        }, true);
+
+        window.addEventListener("pagehide", function () {
+            journalFinalizeField(document.activeElement, "pagehide");
+            journalClosePageSession("pagehide");
+        }, true);
+
+        journalRouteTimer = window.setInterval(journalHandleRouteChange, 1000);
     }
 
 
@@ -1597,6 +2318,13 @@
         GM_registerMenuCommand("Agent OS: Retry queued captures", retryQueue);
         GM_registerMenuCommand("Agent OS: Copy queued captures as JSON", exportQueue);
         GM_registerMenuCommand("Agent OS: Clear queued captures", clearQueue);
+        GM_registerMenuCommand("Agent OS: Browser Journal ON/OFF", toggleBrowserJournal);
+        GM_registerMenuCommand("Agent OS: Browser Journal include/exclude this domain", toggleJournalCurrentDomainExclusion);
+        GM_registerMenuCommand("Agent OS: Browser Journal export range", function () { exportBrowserJournalPrompt(); });
+        GM_registerMenuCommand("Agent OS: Browser Journal compact exported range", function () { compactBrowserJournalPrompt(); });
+        GM_registerMenuCommand("Agent OS: Export combined Discord + Browser archive", function () { exportCombinedActivityArchivePrompt(); });
+        GM_registerMenuCommand("Agent OS: Compact combined exported range", function () { compactCombinedActivityPrompt(); });
+        GM_registerMenuCommand("Agent OS: Browser Journal clear local buffer", clearBrowserJournal);
         GM_registerMenuCommand("Agent OS: Discord passive indexing ON/OFF", toggleDiscordPassiveIndexing);
         GM_registerMenuCommand("Agent OS: Discord open local index", function () { openDiscordIndexBrowser(); });
         GM_registerMenuCommand("Agent OS: Discord export current channel", function () { exportDiscordIndex(true); });
@@ -1608,6 +2336,7 @@
     ensureDiscordIndexingDefault();
     registerMenus();
     addFloatingButton();
+    initializeBrowserJournal();
     addNexusCardButtons();
     if (isDiscordWeb()) {
         ensureDiscordStatus();
@@ -1642,6 +2371,7 @@
             scheduled = false;
             addFloatingButton();
             addNexusCardButtons();
+            ensureJournalStatus();
             if (isDiscordWeb()) ensureDiscordStatus();
         }, 300);
     });
@@ -1653,6 +2383,8 @@
     console.info("[Agent OS] Universal Capture v" + VERSION + " loaded", {
         adapter: buildCapture().metadata.adapter,
         queued: (GM_getValue(QUEUE_KEY, []) || []).length,
-        discord_passive_indexing: isDiscordWeb() ? loadSettings().discordPassiveIndexing : undefined
+        discord_passive_indexing: isDiscordWeb() ? loadSettings().discordPassiveIndexing : undefined,
+        browser_journal: loadSettings().browserJournalEnabled,
+        browser_journal_domain_excluded: journalDomainExcluded(hostname())
     });
 })();
