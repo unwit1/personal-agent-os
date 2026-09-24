@@ -29,7 +29,8 @@
     "implementation_text_supplement": true,
     "deep_embedded_text_audit": true,
     "nonstandard_text_field_closure": true,
-    "book_provenance_pass_04_archive_witness_location": true
+    "book_provenance_pass_04_archive_witness_location": true,
+    "book_provenance_pass_05_retrieval_path_historical_metadata": true
   },
   "metrics": {
     "structured_source_records": 1090,
@@ -67,7 +68,7 @@
   "only_remaining_raw_repair": [],
   "repair_blocker": null,
   "next_stage_after_repair": "No remaining WheelsOfLull.esp ingestion blocker. A fresh deterministic retrieval materialization is unblocked; remaining source work is external historical BOOK provenance/edition research.",
-  "provenance_progress": "All 33 BOOK records are fingerprinted and source-routed. Three verified reused works are centrally linked; KINMUNE has a deterministic edition comparison. Generic provenance searches are exhausted. Pass 04 located original pre-Wheels Aethernautics and Sotha Sil Expanded package witnesses; exact text comparison remains blocked only on binary archive materialization.",
+  "provenance_progress": "All 33 BOOK records are fingerprinted and source-routed. Three verified reused works are centrally linked; KINMUNE has a deterministic edition comparison. Generic provenance searches are exhausted. Pass 04 located original pre-Wheels Aethernautics and Sotha Sil Expanded package witnesses. Pass 05 re-tested binary acquisition, preserved exact September 2012 Aethernautics Weaponry Tweaks chronology, classified its previously unrecorded third-party Cronographer/Sotha Sil development-history detail, and recorded Trainwiz's 2015 statement that Aethernautics and Wheels share a canon. Exact text comparison remains blocked only on binary archive materialization.",
   "provenance_current_source_blockers": [
     "Full local source witness for Tatterdemalion is not yet ingested for deterministic variant diffing.",
     "Full local Day of the Power/Knowledge Xal letter witness is not yet ingested for deterministic variant diffing.",
@@ -80,7 +81,7 @@
     "Durable local full-text witness for Tatterdemalion.",
     "Durable local full-text witness for Xal's Day of the Power/Knowledge letter."
   ],
-  "repeat_work_guard": "Do not repeat generic exact-title web searches documented in analysis/book-provenance-pass-03-search-audit.* or re-discover the ModDB Aethernautics/Sotha Sil Expanded package metadata documented in analysis/book-provenance-pass-04-archive-witnesses.md. Resume at binary materialization or a genuinely new archive/source corpus.",
+  "repeat_work_guard": "Do not repeat generic exact-title searches from pass 03, ModDB package rediscovery from pass 04, or the pass-05 Aethernautics Weaponry Tweaks chronology/Cronographer extraction and Trainwiz same-canon witness. Resume at binary materialization or a genuinely new record-level source corpus.",
   "semantic_followup": "Added source-scoped analysis for Musings On Power, De Rerum Mutabilitatis, and How Two Moon; promoted six new book-backed claims without changing provenance status.",
   "source_exhaustion": {
     "supplied_esp": "complete",
@@ -99,6 +100,13 @@
     "audit": "analysis/book-provenance-pass-04-archive-witnesses.md",
     "located_package_families": 2,
     "materialized_package_families": 0,
-    "blocker": "temporary archive mirror binaries are not materializable in the current retrieval environment"
+    "blocker": "temporary archive mirror binaries are not materializable in the current retrieval environment",
+    "followup_audit": "analysis/book-provenance-pass-05-retrieval-path-audit.md",
+    "shared_continuity_witness": {
+      "related_work": "Aethernautics",
+      "status": "author_confirmed_same_canon_post_wheels",
+      "witness_date": "2015-04-17",
+      "provenance_role": "continuity_relationship_not_prior_text_provenance"
+    }
   }
 }
