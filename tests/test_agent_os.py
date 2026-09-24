@@ -17,6 +17,7 @@ from agent_os.chat import resolve_project
 from agent_os.cli import parser
 from agent_os.index import rebuild, search
 from agent_os.mcp_server import _handle_mcp, methods
+from agent_os.machine import resolve_path
 from agent_os.inventory import scan
 from agent_os.registry import get_project, identify_project, load_state, projects
 from agent_os.review import assess
@@ -39,6 +40,38 @@ class AgentOSTests(unittest.TestCase):
         self.assertEqual(inventory["unregistered"], [])
         dashboard = next(item for item in inventory["projects"] if item["registered_as"] == "job-applicant-dashboard")
         self.assertIn("dashboard.db", dashboard["sensitive_markers"])
+
+    def test_machine_resolution_uses_repository_clone_name_fallback(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            clone = root / "job-applicant-dashboard"
+            clone.mkdir()
+            project = {
+                "id": "job-applicant-dashboard",
+                "directory": "Job Applicant Dashboard",
+                "repository": "unwit1/job-applicant-dashboard",
+                "canonical_owner": "project_directory",
+            }
+            resolved, source = resolve_path(project, [root])
+            self.assertEqual(resolved, clone)
+            self.assertEqual(source, "discovered_repository")
+
+    def test_machine_resolution_prefers_registered_directory_name(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            friendly = root / "Job Applicant Dashboard"
+            clone = root / "job-applicant-dashboard"
+            friendly.mkdir()
+            clone.mkdir()
+            project = {
+                "id": "job-applicant-dashboard",
+                "directory": "Job Applicant Dashboard",
+                "repository": "unwit1/job-applicant-dashboard",
+                "canonical_owner": "project_directory",
+            }
+            resolved, source = resolve_path(project, [root])
+            self.assertEqual(resolved, friendly)
+            self.assertEqual(source, "discovered")
 
     def test_scan_projects_command_parses(self) -> None:
         args = parser().parse_args(["scan-projects"])
