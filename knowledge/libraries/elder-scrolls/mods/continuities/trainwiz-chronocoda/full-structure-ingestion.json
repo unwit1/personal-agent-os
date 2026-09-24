@@ -130,14 +130,5 @@
     "Binary-only fields and visual assets are not exhaustively semantically decoded.",
     "Transmeta Interivatives references vanilla DivineMetaphysics image assets rather than unique embedded text; it remains marked image-dependent.",
     "Current package source scope does not overwrite base Elder Scrolls canon."
-  ],
-  "status": "current_snapshot_extraction_complete",
-  "virtual_artifact_count": 53,
-  "storage": {
-    "format": "13 deterministic base64-text gzip bundle segments",
-    "manifest": "corpus/manifest.json",
-    "unpacker": "technical/unpack-full-structure.py"
-  },
-  "historical_edition_archaeology": "optional_cold_backlog_not_required_for_structure",
-  "next_stage": "semantic_synthesis_over_current_snapshot: scripts, characters, factions, places, artifacts/technology, quest branches, tensions/contradictions, and cross-continuity concept graph"
+  ]
 }
