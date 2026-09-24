@@ -387,6 +387,98 @@
       "Flickr Custom LEGO Minifigs",
       "Flickr LEGO Minifig Customization",
       "Reddit r/lepin"
+    ],
+    "asian_premium_and_limited_ecosystem": [
+      {
+        "name": "LeYiLe Brick",
+        "status": "primary_current",
+        "notes": "Direct ecosystem includes custom minifigs, custom parts, BrickTroops weapon line and Manga Brick; new products advertised weekly."
+      },
+      {
+        "name": "Manga Brick",
+        "status": "primary_via_leyile_and_resellers",
+        "notes": "Figures, optional parts and full custom giant bodies; heavy anime/game/fantasy coverage."
+      },
+      {
+        "name": "Minifigs.Factory",
+        "status": "reseller_current",
+        "notes": "UV printed premium figures, many custom molded accessory pieces, broad anime/game/history/fantasy coverage."
+      },
+      {
+        "name": "UG Minifigures",
+        "status": "reseller_current",
+        "notes": "Premium figures and collaborations visible through CrazyMinifigs."
+      },
+      {
+        "name": "ACE BURNING BRICK",
+        "status": "secondary_current_or_recent",
+        "notes": "Premium printed releases with custom molded accessories; historic numbered /100 products documented."
+      },
+      {
+        "name": "Dragon Brick",
+        "status": "historical_secondary",
+        "notes": "Pad-printed superhero customs and collaborations documented historically; refresh primary status."
+      },
+      {
+        "name": "Liberty",
+        "status": "reseller_current",
+        "notes": "Frequently collaborates with Manga Brick/Minifigs.Factory."
+      },
+      {
+        "name": "Top Mountain",
+        "status": "reseller_current"
+      },
+      {
+        "name": "CrazyFire",
+        "status": "reseller_current"
+      },
+      {
+        "name": "Dazzle Brick",
+        "status": "reseller_current"
+      },
+      {
+        "name": "Feelings",
+        "status": "reseller_current",
+        "notes": "Some current reseller asks reach very high collector prices; asking price is not completed-sale value."
+      },
+      {
+        "name": "Lifebrick",
+        "status": "reseller_current"
+      },
+      {
+        "name": "Excelsior custom minifigures",
+        "status": "reseller_current"
+      },
+      {
+        "name": "Saturday Brick",
+        "status": "reseller_current"
+      },
+      {
+        "name": "Baggles Studio",
+        "status": "reseller_current_collaboration"
+      }
+    ],
+    "asian_premium_reseller_hubs": [
+      {
+        "name": "Lab9minifigs",
+        "notes": "North American reseller; states it is authorized for LeYiLe and that figures are generally authentic parts custom printed by UV/pad unless product says otherwise."
+      },
+      {
+        "name": "TracyMinifigs",
+        "notes": "Large current premium maker/preorder/collaboration catalog in HKD."
+      },
+      {
+        "name": "CrazyMinifigs",
+        "notes": "Current catalog exposes UG Minifigures, Minifigs Factory, Manga Brick and many smaller labels."
+      },
+      {
+        "name": "OutsideBrick",
+        "notes": "Large maker-indexed premium custom reseller in TWD."
+      },
+      {
+        "name": "Legend C MOC",
+        "notes": "Limited premium customs; recommends maker Instagram channels for newest updates."
+      }
     ]
   },
   "next_resolution_rules": [
