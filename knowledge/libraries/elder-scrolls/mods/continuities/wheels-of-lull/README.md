@@ -56,7 +56,7 @@ Completed:
 - 14 topic dossiers plus theme/reliability synthesis;
 - compact routing/retrieval derivatives with 76 analysis entries;
 - deterministic fingerprints for all 33 BOOK records;
-- BOOK provenance passes 01-04;
+- BOOK provenance passes 01-05;
 - machine-readable BOOK-to-central-source relations;
 - full source-integrity repair and full-plugin exhaustiveness audit.
 
@@ -72,7 +72,7 @@ Current provenance state:
 
 Those unresolved items now represent **external historical provenance work**, not unprocessed material in `WheelsOfLull.esp`.
 
-Pass 04 located original pre-Wheels Trainwiz archive packages for **Aethernautics** (2012) and **Sotha Sil Expanded** (2012/2014) and persisted their filenames, dates, byte sizes, source URLs, and published MD5 hashes. Their binary RAR contents could not be materialized in the current retrieval environment, so the exact-text classifications remain unchanged. Future work should resume at archive-byte acquisition and deterministic text comparison, not generic title searching or package rediscovery.
+Pass 04 located original pre-Wheels Trainwiz archive packages for **Aethernautics** (2012) and **Sotha Sil Expanded** (2012/2014) and persisted their filenames, dates, byte sizes, source URLs, and published MD5 hashes. Their binary RAR contents could not be materialized in the current retrieval environment, so the exact-text classifications remain unchanged.\n\nPass 05 re-tested the archive download route and confirmed that the blocker remains binary acquisition only. It also preserved deeper historical context from the already-known September 2012 Aethernautics Weaponry Tweaks page: multiple Aethernautics harquebus variants are documented before Wheels, while a third-party planned \"Cronographer\" / Sotha Sil expansion is retained only as development-history evidence. A 2015 Trainwiz post explicitly states that Aethernautics and Wheels share a canon; that relationship is recorded without treating the post as evidence that any Wheels BOOK text predates Wheels.\n\nFuture work should resume at archive-byte acquisition and deterministic text comparison. If that remains blocked, the next useful source class is a historical record-level dump, translation string table, xEdit export, or plugin-derived BOOK inventory—not another generic title/package search.
 
 ## Retrieval state
 
