@@ -1,0 +1,70 @@
+{
+  "work_id": "tes.work.fundaments-of-alchemy",
+  "title": "Fundaments of Alchemy",
+  "aliases": [],
+  "author": "Alyandon Mathierry",
+  "universe": "The Elder Scrolls",
+  "work_type": "book",
+  "authority_class": "official_game_work",
+  "work_identity_status": "verified",
+  "edition_model": "work identity is central; Oblivion, ESO-compilation, and mod-continuity witnesses remain separate records with variant metadata",
+  "canonical_text_status": "not_elected",
+  "witnesses": [
+    {
+      "witness_id": "oblivion.00024567",
+      "source_type": "official_game_record_identity",
+      "game": "The Elder Scrolls IV: Oblivion",
+      "form_id": "00024567",
+      "title": "Fundaments of Alchemy",
+      "author": "Alyandon Mathierry",
+      "local_corpus_path": null,
+      "text_status": "external_work_identity_verified_first_party_record_not_yet_ingested"
+    },
+    {
+      "witness_id": "bf-books-eso.01012E04",
+      "source_type": "local_compilation_witness",
+      "source_corpus": "bf-books-eso",
+      "path": "knowledge/libraries/elder-scrolls/sources/bf-books-eso/batches/books-1151-1200.jsonl",
+      "form_id": "01012E04",
+      "editor_id": "ZOSaBookDUPLICATE2798",
+      "title": "Fundaments of Alchemy",
+      "text_sha256": "a0943982753526977655531c591e902239731c3890ebbe0c899b6a6eacf82e8f",
+      "provenance_status": "ESO-derived compilation record; work identity cross-checked externally"
+    },
+    {
+      "witness_id": "dwd.05815E32",
+      "source_type": "mod_continuity_embedding",
+      "continuity_id": "tes.mod.dealing-with-daedra",
+      "form_id": "05815E32",
+      "editor_id": "dealsalchemistprimer",
+      "title": "Fundaments of Alchemy",
+      "relation": "near_exact_variant_plus_continuity_wrapper",
+      "local_desc_sha256": "219c71fa48d53a20855ea733efac8087a8427580284f217c36c22cac6e88060a",
+      "comparison_normalized_sha256": "693c5630ef622172bbe56ef7720977c089f13cc4629a92461b2c6e1fa74414c4",
+      "variant_summary": "After excluding the DWD wrapper and added summary line, the stored DWD primer differs from the ESO compilation witness only by magickal/magical.",
+      "overlay_material": [
+        "Arcadia-specific used/annotated-copy framing",
+        "physical deterioration",
+        "added summary of diagrams and recipes",
+        "Cyrodilic-ingredient framing",
+        "gameplay/read-effect context"
+      ]
+    }
+  ],
+  "provenance": [
+    {
+      "type": "internal_analysis",
+      "path": "knowledge/libraries/elder-scrolls/mods/continuities/dealing-with-daedra/analysis/refinement-pass-15-book-provenance-verification.md"
+    },
+    {
+      "type": "internal_witness",
+      "path": "knowledge/libraries/elder-scrolls/sources/bf-books-eso/batches/books-1151-1200.jsonl",
+      "form_id": "01012E04"
+    },
+    {
+      "type": "external_reference",
+      "url": "https://elderscrolls.fandom.com/wiki/Fundaments_of_Alchemy",
+      "scope": "work identity, author, Oblivion FormID, Oblivion/ESO appearances"
+    }
+  ]
+}
