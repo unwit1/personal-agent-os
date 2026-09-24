@@ -27,20 +27,20 @@
     "Current-package identity does not establish historical precedence.",
     "Current 3.1 snapshots are structurally authoritative for this library goal; historical wording/edition reconstruction is optional."
   ],
-  "full_structure_status": "complete_verified_current_snapshots",
+  "full_structure_status": "complete_verified_current_snapshots_direct_repo_storage",
   "current_snapshot_policy": "Verified Aethernautics 3.1 and Sotha Sil Expanded 3.1 are sufficient authoritative source snapshots for this continuity-library goal.",
   "full_structure": {
-    "manifest": "corpus/manifest.json",
+    "manifest": "current-source-structure-manifest.json",
     "documentation": "FULL_STRUCTURE.md",
     "ingestion_manifest": "full-structure-ingestion.json",
-    "unpacker": "technical/unpack-full-structure.py",
-    "segments": 13,
-    "virtual_artifacts": 53,
-    "storage_integrity": "all_13_repository_segment_payloads_match_staged_generated_payloads"
+    "semantic_artifacts": 53,
+    "deterministic_source_layer_files": 45,
+    "storage_mode": "direct_repo_files",
+    "storage_integrity": "semantic and deterministic source layers committed as direct Git blobs; current snapshot counts and paths validated"
   },
   "historical_edition_archaeology": {
     "status": "inactive_optional_cold_backlog",
     "required_for_current_goal": false
   },
-  "active_next_stage": "Semantic synthesis across current snapshots: character/faction/place/artifact/technology dossiers, quest branches, internal tensions, metaphysics, and cross-continuity concept relationships."
+  "active_next_stage": "Semantic synthesis across the complete current snapshots: character/faction/place/artifact/technology dossiers, quest branches, internal tensions, metaphysics, and cross-continuity concept relationships."
 }

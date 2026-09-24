@@ -63,10 +63,10 @@
     "implementation_supplement_records": 1841,
     "books": 49,
     "journal_topics": 44,
-    "raw_full_text_persisted_in_repo": false,
-    "raw_full_text_note": "Deterministic extraction was completed from the verified uploaded package in the analysis session. Compact canonical manifests/claims are persisted; the source archive itself is not committed.",
+    "raw_full_text_persisted_in_repo": true,
+    "raw_full_text_note": "The deterministic lore-selected current-source and implementation records are persisted directly in GitHub alongside dialogue/entity/quest/script retrieval layers; the original mod archive binaries are not committed.",
     "exhaustive_current_lore_structure_persisted": true,
-    "full_structure_storage": "../trainwiz-chronocoda/corpus/manifest.json",
+    "full_structure_storage": "../trainwiz-chronocoda/current-source-structure-manifest.json",
     "full_structure_virtual_artifacts": "../trainwiz-chronocoda/full-structure-ingestion.json",
     "dialogue_responses": 1147,
     "dialogue_topics": 250,
@@ -75,7 +75,13 @@
     "factions": 7,
     "scripts_scanned": 543,
     "named_implementation_objects": 1291,
-    "script_source_reference_edges": 1441
+    "script_source_reference_edges": 1441,
+    "raw_source_paths": {
+      "core": "raw/core/source-records-0001-0200.jsonl through raw/core/source-records-2201-2250.jsonl (12 shards)",
+      "implementation": "raw/implementation/source-records-0001-0200.jsonl through raw/implementation/source-records-1801-1841.jsonl (10 shards)",
+      "record_index": "indexes/record-index/records-0001-0300.jsonl through indexes/record-index/records-3901-4091.jsonl (14 shards)",
+      "scripts": "indexes/scripts/scripts-0001-0100.jsonl through indexes/scripts/scripts-0501-0543.jsonl (6 shards)"
+    }
   },
   "included_readme_boundary": "The included readme states the mod does not change Tribunal's ending: Sotha Sil remains dead, while the expansion explores additional Clockwork City material.",
   "analysis_paths": [

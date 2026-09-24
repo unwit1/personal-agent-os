@@ -150,8 +150,10 @@
   "current_snapshot_structure": {
     "status": "complete",
     "umbrella": "../trainwiz-chronocoda",
-    "manifest": "../trainwiz-chronocoda/corpus/manifest.json",
-    "virtual_artifacts": 53,
+    "manifest": "../trainwiz-chronocoda/current-source-structure-manifest.json",
+    "ingestion_manifest": "../trainwiz-chronocoda/full-structure-ingestion.json",
+    "semantic_artifacts": 53,
+    "deterministic_source_layer_files": 45,
     "historical_diffing_required": false
   }
 }

@@ -144,7 +144,7 @@
         "path": "../trainwiz-chronocoda"
       }
     ],
-    "current_snapshot_full_structure": "../trainwiz-chronocoda/full-structure-ingestion.json"
+    "current_snapshot_full_structure": "../trainwiz-chronocoda/current-source-structure-manifest.json"
   },
   "book_provenance": {
     "status": "passes_01_06_complete_current_structure_sufficient_historical_precedence_optional",
@@ -223,5 +223,11 @@
     "binary_retrieval_retested": "2026-09-24",
     "next_new_source_class": "None required for current lore-structure completeness; older record-level evidence is archival-only.",
     "required_for_current_library_goal": false
+  },
+  "current_chronocoda_structure": {
+    "status": "complete_current_snapshots",
+    "manifest": "../trainwiz-chronocoda/current-source-structure-manifest.json",
+    "ingestion_manifest": "../trainwiz-chronocoda/full-structure-ingestion.json",
+    "historical_edition_archaeology_required": false
   }
 }

@@ -130,5 +130,40 @@
     "Binary-only fields and visual assets are not exhaustively semantically decoded.",
     "Transmeta Interivatives references vanilla DivineMetaphysics image assets rather than unique embedded text; it remains marked image-dependent.",
     "Current package source scope does not overwrite base Elder Scrolls canon."
-  ]
+  ],
+  "storage_mode": "direct_repo_files",
+  "semantic_artifacts": 53,
+  "deterministic_source_layer_files": 45,
+  "total_generated_structure_files": 98,
+  "source_layer": {
+    "tes.mod.aethernautics": {
+      "selected_core_records": 79,
+      "implementation_records": 90,
+      "combined_record_index": 169,
+      "paths": {
+        "core": [
+          "../aethernautics/raw/core/source-records-0001-0079.jsonl"
+        ],
+        "implementation": [
+          "../aethernautics/raw/implementation/source-records-0001-0090.jsonl"
+        ],
+        "record_index": [
+          "../aethernautics/indexes/record-index/records-0001-0169.jsonl"
+        ]
+      }
+    },
+    "tes.mod.sotha-sil-expanded": {
+      "selected_core_records": 2250,
+      "implementation_records": 1841,
+      "combined_record_index": 4091,
+      "scripts_indexed": 543,
+      "paths": {
+        "core": "../sotha-sil-expanded/raw/core/ (12 JSONL shards, records 0001-2250)",
+        "implementation": "../sotha-sil-expanded/raw/implementation/ (10 JSONL shards, records 0001-1841)",
+        "record_index": "../sotha-sil-expanded/indexes/record-index/ (14 JSONL shards, records 0001-4091)",
+        "scripts": "../sotha-sil-expanded/indexes/scripts/ (6 JSONL shards, scripts 0001-0543)"
+      }
+    }
+  },
+  "binary_source_policy": "Original mod archives/BSA assets are not committed. Package/plugin SHA-256 values in each source manifest identify the verified source snapshot."
 }
