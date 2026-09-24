@@ -116,5 +116,27 @@
     "Classify incoming guidance as authority, vendor instruction, training/reference, or marketing before surfacing it.",
     "Prefer primary law/regulator/current RTEC policy over newsletters when answering compliance questions.",
     "Extract genuinely actionable deadlines or required system changes from trusted vendor/regulator messages while suppressing repetitive promotional content."
+  ],
+  "attachment_resources": [
+    {
+      "archive_id": "nid-00201984",
+      "period": "2021",
+      "source": "Apprisen / Budgeting Basics invitation",
+      "classification": "financial-wellness/training resource",
+      "authority": "educational resource only",
+      "privacy_note": "Meeting access credentials and join URLs are security-sensitive and excluded."
+    },
+    {
+      "archive_id": "000485",
+      "period": "2026-06",
+      "source": "UnitedHealthcare June Health & Resources Update",
+      "classification": "wellness/training resource",
+      "artifacts": [
+        "Men's Health quiz/answers - English",
+        "Men's Health quiz/answers - Spanish",
+        "supporting wellness graphics"
+      ],
+      "authority": "vendor educational resource; not RTEC policy or independent medical authority"
+    }
   ]
 }
