@@ -159,6 +159,68 @@ class RTECApplicantAdapterTests(unittest.TestCase):
         self.assertNotIn("PRIVATE NOTE", encoded)
         self.assertNotIn("PRIVATE SCREENING", encoded)
 
+    def test_document_metadata_hides_paths_and_restricted_details(self):
+        # Synthetic files live under a fake configured applications/AAP tree.
+        apps = self.root / "Applications"
+        aap = self.root / "AAP"
+        apps.mkdir()
+        aap.mkdir()
+        (apps / "application.pdf").write_bytes(b"synthetic application")
+        (apps / "resume.pdf").write_bytes(b"synthetic resume")
+        (aap / "restricted-aa.pdf").write_bytes(b"synthetic restricted")
+        (self.root / "Config" / "paths_settings.json").write_text(
+            json.dumps({
+                "applications_dir": str(apps),
+                "aap_forms_dir": str(aap),
+            }),
+            encoding="utf-8",
+        )
+
+        conn = sqlite3.connect(self.db)
+        conn.execute(
+            "UPDATE applicants SET pdf_path=?, resume_path=?, aa_pdf_path=? "
+            "WHERE agent_ref='app-syntheticref'",
+            ("application.pdf", "resume.pdf", str(aap / "restricted-aa.pdf")),
+        )
+        conn.commit()
+        conn.close()
+
+        result = ra.get_document_metadata("app-syntheticref")
+        self.assertTrue(result["application"]["exists"])
+        self.assertTrue(result["resume"]["exists"])
+        self.assertEqual(result["application"]["extension"], ".pdf")
+        self.assertNotIn("extension", result["restricted_compliance_form"])
+        encoded = json.dumps(result)
+        self.assertNotIn(str(apps), encoded)
+        self.assertNotIn(str(aap), encoded)
+        self.assertNotIn("restricted-aa.pdf", encoded)
+
+    def test_timeline_uses_opaque_ref_and_metadata_only(self):
+        result = ra.get_timeline("app-syntheticref")
+        self.assertEqual(result["applicant_ref"], "app-syntheticref")
+        self.assertEqual(result["count"], 1)
+        self.assertEqual(result["events"][0]["event_type"], "submission_processed")
+        encoded = json.dumps(result)
+        self.assertNotIn("synthetic-key", encoded)
+        self.assertNotIn("PRIVATE NOTE", encoded)
+
+    def test_openings_reads_organization_config_only(self):
+        (self.root / "Config" / "openings_settings.json").write_text(
+            json.dumps({
+                "transit_driver_groups": ["Pulaski", "Bell", "Pulaski"],
+                "office_positions": {"Dispatcher": True, "CSR": False},
+                "max_drive_minutes": 30,
+                "nearby_offer_minutes": 25,
+                "unexpected_private_field": "must not leak",
+            }),
+            encoding="utf-8",
+        )
+        result = ra.openings_status()
+        self.assertEqual(result["transit_driver_groups"], ["Bell", "Pulaski"])
+        self.assertEqual(result["office_positions"], {"Dispatcher": True, "CSR": False})
+        self.assertEqual(result["max_drive_minutes"], 30)
+        self.assertNotIn("unexpected_private_field", json.dumps(result))
+
     def test_search_does_not_rank_or_search_private_notes(self):
         visible = ra.search_applicants("Pulaski")
         self.assertEqual(visible["count"], 1)
@@ -237,6 +299,9 @@ class RTECApplicantAdapterTests(unittest.TestCase):
             "applicant.search",
             "applicant.get_summary",
             "applicant.get_status",
+            "applicant.get_document_metadata",
+            "applicant.get_timeline",
+            "applicant.openings",
             "applicant.pending_actions",
             "applicant.sync_status",
             "applicant.events",
