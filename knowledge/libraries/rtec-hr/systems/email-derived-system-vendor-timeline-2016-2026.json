@@ -39,14 +39,16 @@
     },
     {
       "name": "UnitedHealthcare",
-      "observed": "2026",
-      "relationship": "health-plan carrier/account-management relationship",
-      "currentness": "A June 2026 survey explicitly references a recent UnitedHealthcare implementation for RTEC, and named Kentucky account-management contacts send ongoing wellness/resources. Exact product/plan scope is not inferred.",
+      "observed": "2020-2021 and 2026",
+      "relationship": "Historical 2020-2021 benefits renewal/plan documents and current 2026 Kentucky account/implementation evidence.",
+      "currentness": "Current 2026 relationship is strong. 2021 UHC plan summaries prove UHC involvement predates 2026; 'recent implementation' in 2026 should not be interpreted as first-ever adoption.",
       "evidence_ids": [
         "000347",
         "000349",
         "000485",
-        "000512"
+        "000512",
+        "000139",
+        "000249"
       ]
     },
     {
@@ -203,7 +205,7 @@
     {
       "name": "Humana",
       "observed": "2016-2018",
-      "relationship": "historical dental/vision provider in 2016 benefits setup and formal Humana installation kickoff in 2018",
+      "relationship": "Historical benefits carrier with 2016 dental/vision context and a formal 2018 medical installation kickoff; medical effective date documented as 2018-06-01.",
       "currentness": "historical; 2026 UnitedHealthcare implementation indicates a later medical-plan/carrier change, but exact supersession path is not fully reconstructed",
       "evidence_ids": [
         "000004",
@@ -234,5 +236,5 @@
     }
   ],
   "architectural_observation": "The email record supports a layered HR technology environment with payroll/tax, benefits/carrier, state reporting, communications and recruiting functions split across different services. Current authoritative ownership by data domain must be mapped before automation writes to any external system.",
-  "transition_observation": "May-June 2026 messages show movement toward a shared HR identity while the historical individual HR mailbox remained operational in several systems. Treat mailbox/account migration and recovery ownership as an explicit transition to validate rather than assuming it is complete. Earlier benefits-carrier history now includes Baptist Health Plan, Humana, The Abacus Group and a 2018 Humana installation kickoff; this should be treated as historical version context rather than current provider authority."
+  "transition_observation": "May-June 2026 messages show movement toward a shared HR identity while the historical individual HR mailbox remained operational in several systems. Treat mailbox/account migration and recovery ownership as an explicit transition to validate rather than assuming it is complete. Earlier benefits-carrier history now includes Baptist Health Plan, Humana, The Abacus Group and a 2018 Humana installation kickoff; this should be treated as historical version context rather than current provider authority. Attachment evidence proves UnitedHealthcare plan involvement by 2021, so the 2026 'recent implementation' language may represent a new plan/configuration/account transition rather than first-time UHC adoption."
 }
