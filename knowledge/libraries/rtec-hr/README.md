@@ -216,3 +216,12 @@ See:
 - `processes/historical-benefits-billing-reconciliation.json`
 - `sources/reference-data/downloads-reference-data-2026-09-24.json`
 - `questions/downloads-spreadsheets-currentness-2026-09-24.json`
+
+
+## Job Openings Descriptions archive — September 24, 2026
+
+The supplied `Job Openings Descriptions.zip` archive is indexed at `sources/batches/rtec-hr-job-openings-descriptions-2026-09-24.json` and `sources/job-openings-descriptions-2026-09-24/`.
+
+The batch contains **85 observed artifacts**: **55 safe searchable sources**, **9 restricted metadata-only sources**, and **21 non-content shortcut/desktop metadata artifacts**. Safe material includes additional role/job-opening variants, a blank applicant check-off form, handbooks, benefit-plan reference material, drug/alcohol documents, civil-rights/service policies, safety notices, training manuals and operations references. Restricted salary, awards, census/insurance-deduction, protected-class/compensation reporting and credential-sensitive material is represented only by privacy-safe metadata; raw employee rows and credential values are not stored in the generalized knowledge layer.
+
+Nine top-level role/recruiting artifacts were source-hash checked against the September 23 job-description corpus and were not exact source-hash duplicates, so they are preserved as additional version evidence rather than overwriting prior descriptions. Older handbook, benefits, D&A, safety, training and civil-rights materials remain version-aware evidence until reconciled against newer authority. See `roles/job-opening-role-variants-2026-09-24.json`, `processes/preemployment-applicant-checkoff-historical-2026-09-24.json`, `systems/legacy-local-storage-taxonomy-2026-09-24.json`, and `questions/job-openings-gaps-2026-09-24.json`.
