@@ -77,6 +77,7 @@ from .rtec_applicants import (
     pending_events as applicant_pending_events,
     readiness as applicant_readiness,
     search_applicants as applicant_search,
+    smoke_test as applicant_smoke_test,
     sync_status as applicant_sync_status,
 )
 from .skills import discover, match, metadata
@@ -438,6 +439,10 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
             },
         },
     },
+    "applicant.smoke_test": {
+        "description": "Run a PII-free end-to-end RTEC applicant adapter smoke test on this machine. It may internally sample one normalized record but returns only readiness/check booleans and timestamps.",
+        "inputSchema": {"type": "object", "properties": {}},
+    },
     "applicant.readiness": {
         "description": "Compute machine-local RTEC applicant connector readiness from the actual Dashboard checkout, database/schema, Fillout health metadata, outbox, and local access-audit writeability. No applicant rows are returned.",
         "inputSchema": {"type": "object", "properties": {}},
@@ -526,6 +531,7 @@ def methods() -> dict[str, Callable[..., Any]]:
         "applicant.pending_actions": applicant_pending_actions,
         "applicant.sync_status": applicant_sync_status,
         "applicant.events": applicant_pending_events,
+        "applicant.smoke_test": applicant_smoke_test,
         "applicant.readiness": applicant_readiness,
         "applicant.audit_status": applicant_audit_status,
         "applicant.event_ack": applicant_acknowledge_event,
