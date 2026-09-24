@@ -1,0 +1,186 @@
+{
+  "analysis_version": "rtec-disciplinary-register-aggregate-v1",
+  "generated_at": "2026-09-24",
+  "privacy": "No employee names, IDs, raw row-level demographic values, or case narratives are retained. Counts are aggregate historical evidence only.",
+  "totals": {
+    "annual_register_files": 17,
+    "annual_register_rows": 1193,
+    "aap_derivative_files": 11,
+    "standardized_warning_forms_reviewed": 7,
+    "individual_warning_artifacts_reviewed": 33
+  },
+  "schema_timeline": [
+    {
+      "period": "2008-2009",
+      "schema": "DEPT, EMPLOYEE NAME, JOB TITLE, GENDER, ORIGIN, TYPE, DATE, REASON, EEO-1"
+    },
+    {
+      "period": "2009-2010 through 2013-2014",
+      "schema": "DEPT, EMPLOYEE NAME, JOB TITLE, EEO-1, GENDER, RACE, TYPE, REASON, DATE"
+    },
+    {
+      "period": "2014-2015 onward",
+      "schema": "DEPT, EMPLOYEE NAME, JOB TITLE, EEO-1, GENDER, RACE, VET, IWD, TYPE, REASON, DATE"
+    }
+  ],
+  "annual_record_counts": {
+    "2008-2009": 76,
+    "2009-2010": 78,
+    "2010-2011": 55,
+    "2011-2012": 92,
+    "2012-2013": 77,
+    "2013-2014": 53,
+    "2014-2015": 73,
+    "2015-2016": 123,
+    "2016-2017": 127,
+    "2017-2018": 96,
+    "2018-2019": 85,
+    "2019-2020": 95,
+    "2020-2021": 54,
+    "2021-2022": 44,
+    "2022-2023": 47,
+    "2023-2024": 18,
+    "2025-2026": 0
+  },
+  "annual_date_coverage_notes": {
+    "2008-2009": "contains at least one record dated before the nominal July 2008 fiscal-year start",
+    "2023-2024": "supplied workbook contains records only through 2023-09-22 despite the filename spanning through June 2024",
+    "2024-2025": "no annual workbook supplied in this archive",
+    "2025-2026": "template exists but contains no data rows"
+  },
+  "aggregate_action_type_labels": {
+    "Final": 9,
+    "Verbal": 225,
+    "verbal": 47,
+    "WWI": 27,
+    "WWI1": 1,
+    "WWII": 16,
+    "WWIII": 16,
+    "WWIV": 8,
+    "W": 7,
+    "WW1": 227,
+    "WW2": 151,
+    "WW3": 92,
+    "WW4": 67,
+    "WW5": 27,
+    "WW6": 15,
+    "WW7": 6,
+    "WW8": 3,
+    "WW9": 3,
+    "Caution": 1,
+    "Counsel": 64,
+    "Counseling": 4,
+    "Susp": 1,
+    "Suspension": 2,
+    "Warning": 21,
+    "Incident": 127,
+    "Infraction": 11,
+    "WW1-4": 1,
+    "WW": 1
+  },
+  "aggregate_broad_reason_tag_counts": {
+    "work_performance_process_error": 445,
+    "policy_rule_violation": 427,
+    "attendance_absence": 326,
+    "safety_accident_incident": 289,
+    "conduct_customer_coworker": 60,
+    "other": 42,
+    "cash_deposit": 21,
+    "tardiness_leaving_early": 12,
+    "dress_code": 8,
+    "cell_phone": 6
+  },
+  "counting_note": "Broad reason tags can overlap because a single historical reason may reference more than one category; these are tag counts, not mutually exclusive event totals.",
+  "verbal_warning_log": {
+    "fields": [
+      "EMPLOYEE NAME",
+      "DATE",
+      "PROBLEM ADDRESSED",
+      "ADDRESSED BY"
+    ],
+    "dated_entries": 11,
+    "date_min": "2015-03-05",
+    "date_max": "2016-11-03",
+    "broad_problem_buckets": {
+      "cell_phone": 8,
+      "client_service_or_complaint": 1,
+      "dress_code": 1,
+      "phone_etiquette": 1
+    }
+  },
+  "aap_derivative_summary": [
+    {
+      "period": "2013-2014",
+      "rows": 53,
+      "columns": 9,
+      "note": "full-style derivative matching the annual schema shape"
+    },
+    {
+      "period": "2014-2015",
+      "rows": 71,
+      "columns": 7,
+      "note": "reduced demographic/reporting extract"
+    },
+    {
+      "period": "2015-2016",
+      "rows": 136,
+      "columns": 11,
+      "note": "contains a header subset emphasizing employee/job/EEO/gender/race/VET/IWD; row count exceeds annual register"
+    },
+    {
+      "period": "2016-2017",
+      "variants": 2,
+      "rows": [
+        127,
+        139
+      ],
+      "columns": [
+        9,
+        9
+      ],
+      "note": "two distinct AAP-sorted artifacts; at least one omits Type/Reason while retaining Date; row counts differ"
+    },
+    {
+      "period": "2017-2018",
+      "rows": 104,
+      "columns": 12,
+      "note": "full-style derivative; row count exceeds annual register"
+    },
+    {
+      "period": "2018-2019",
+      "rows": 92,
+      "columns": 7,
+      "note": "reduced demographic/reporting extract; row count exceeds annual register"
+    },
+    {
+      "period": "2019-2020",
+      "rows": 102,
+      "columns": 7,
+      "note": "reduced demographic/reporting extract; row count exceeds annual register"
+    },
+    {
+      "period": "2020-2021",
+      "rows": 64,
+      "columns": 8,
+      "note": "reduced extract including department/job and demographic fields; row count exceeds annual register"
+    },
+    {
+      "period": "2021-2022",
+      "rows": 50,
+      "columns": 9,
+      "note": "reduced extract retaining Type but omitting Reason/Date; row count exceeds annual register"
+    },
+    {
+      "period": "2022-2023",
+      "rows": 54,
+      "columns": 7,
+      "note": "reduced demographic/reporting extract; row count exceeds annual register"
+    }
+  ],
+  "interpretation": [
+    "The annual fiscal-year register is the stronger historical source than AAP-sorted derivatives when counts or schemas differ.",
+    "The historical register mixes discipline and incident rows; Incident must not be treated as discipline merely because it appears in the disciplinary workbook.",
+    "Legacy action labels require normalization for analysis but source labels must be preserved.",
+    "AAP derivatives appear to have been manually transformed and sometimes expanded; they require reconciliation before reuse."
+  ]
+}
