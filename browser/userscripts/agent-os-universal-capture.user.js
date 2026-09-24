@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Agent OS Universal Capture
 // @namespace    agent-os
-// @version      3.10.4
+// @version      3.11.2
 // @description  Save useful pages and passively index rendered Discord Web channel and search-result messages into Agent OS.
 // @homepageURL   https://github.com/unwit1/universal-capture-plugin
 // @updateURL     https://raw.githubusercontent.com/unwit1/universal-capture-plugin/main/agent-os-universal-capture.user.js
@@ -26,7 +26,7 @@
 (function () {
     "use strict";
 
-    var VERSION = "3.10.4";
+    var VERSION = "3.11.2";
     var SETTINGS_KEY = "agent_os_capture_settings_v1";
     var QUEUE_KEY = "agent_os_capture_queue_v1";
     var MAX_QUEUE = 500;
@@ -2456,7 +2456,7 @@
 
     function buildCapture() {
         var base = genericCapture();
-        var adapters = [redditAdapter, amazonAdapter, youtubeAdapter, nexusAdapter, xenforoAdapter];
+        var adapters = [storyPageAdapter, redditAdapter, amazonAdapter, youtubeAdapter, nexusAdapter, xenforoAdapter];
         for (var i = 0; i < adapters.length; i += 1) {
             try {
                 var adapted = adapters[i](base);
@@ -2593,8 +2593,27 @@
             /\/threads\/[^/]*\.\d+(?:\/|$)/i.test(location.pathname);
     }
 
+    function isFanfictionSite() {
+        var host = hostname();
+        return host === "fanfiction.net" || host.endsWith(".fanfiction.net");
+    }
+
+    function isAo3Site() {
+        var host = hostname();
+        return host === "archiveofourown.org" || host.endsWith(".archiveofourown.org");
+    }
+
+    function isFictionLiveSite() {
+        var host = hostname();
+        return host === "fiction.live" || host.endsWith(".fiction.live");
+    }
+
+    function isStoryCaptureSite() {
+        return isFanfictionSite() || isAo3Site() || isFictionLiveSite();
+    }
+
     function shouldShowFloatingButton() {
-        if (isRedditSite() || isXenforoCaptureSite()) return false;
+        if (isRedditSite() || isXenforoCaptureSite() || isStoryCaptureSite()) return false;
         return true;
     }
 
@@ -2914,6 +2933,384 @@
         });
     }
 
+    // -- Fiction / story-site capture ----------------------------------------
+
+    function storyInfoFromUrl(urlText) {
+        try {
+            var u = new URL(urlText, location.href);
+            var host = String(u.hostname || "").toLowerCase();
+
+            if (host === "fanfiction.net" || host.endsWith(".fanfiction.net")) {
+                var ff = u.pathname.match(/^\/s\/(\d+)(?:\/(\d+))?(?:\/([^/?#]+))?/i);
+                if (!ff) return null;
+                var ffCanonical = u.origin + "/s/" + ff[1] + "/1" +
+                    (ff[3] ? "/" + ff[3] : "");
+                return {
+                    site: "fanfiction",
+                    story_id: ff[1],
+                    chapter_id: ff[2] || "",
+                    url: u.origin + u.pathname,
+                    canonical_url: ffCanonical
+                };
+            }
+
+            if (host === "archiveofourown.org" || host.endsWith(".archiveofourown.org")) {
+                var ao3 = u.pathname.match(/^\/works\/(\d+)(?:\/chapters\/(\d+))?/i);
+                if (!ao3) return null;
+                return {
+                    site: "ao3",
+                    story_id: ao3[1],
+                    chapter_id: ao3[2] || "",
+                    url: u.origin + u.pathname,
+                    canonical_url: u.origin + "/works/" + ao3[1]
+                };
+            }
+
+            if (host === "fiction.live" || host.endsWith(".fiction.live")) {
+                var live = u.pathname.match(/^\/stories\/([^/]+)\/([^/]+)(?:\/.*)?$/i);
+                if (!live) return null;
+                return {
+                    site: "fiction-live",
+                    story_id: live[2],
+                    slug: live[1],
+                    chapter_id: "",
+                    url: u.origin + u.pathname,
+                    canonical_url: u.origin + "/stories/" + live[1] + "/" + live[2]
+                };
+            }
+        } catch (error) {
+            return null;
+        }
+        return null;
+    }
+
+    function currentStoryInfo() {
+        return storyInfoFromUrl(location.href);
+    }
+
+    function storyNativeButton(site) {
+        var button = inlineEntityButton("+ Agent OS");
+        button.classList.add("agent-os-story-save");
+        button.style.float = "none";
+        button.style.boxShadow = "none";
+        button.style.padding = "3px 7px";
+        button.style.margin = "0 0 0 8px";
+        button.style.fontSize = "11px";
+        button.style.fontWeight = "600";
+        button.style.verticalAlign = "middle";
+        button.style.background = "transparent";
+        button.style.border = "1px solid currentColor";
+        button.style.color = "inherit";
+        button.style.opacity = "0.82";
+
+        if (site === "ao3") {
+            button.style.borderRadius = "3px";
+        } else if (site === "fanfiction") {
+            button.style.borderRadius = "3px";
+        } else {
+            button.style.borderRadius = "4px";
+        }
+        return button;
+    }
+
+    function storyTextList(container, selector, limit) {
+        if (!container || !container.querySelectorAll) return [];
+        var out = [];
+        container.querySelectorAll(selector).forEach(function (node) {
+            var value = cleanText(node.textContent || node.getAttribute("title") || "");
+            if (value && out.indexOf(value) === -1) out.push(value);
+        });
+        return out.slice(0, limit || 50);
+    }
+
+    function storyCaptureDetails(site, container, link, info) {
+        var title = cleanText(link && link.textContent);
+        var author = "";
+        var summary = "";
+        var fandoms = [];
+        var tags = [];
+        var stats = "";
+
+        if (site === "fanfiction") {
+            var ffTitle = container && container.querySelector &&
+                container.querySelector("a.stitle, #profile_top b.xcontrast_txt, b.xcontrast_txt");
+            var ffAuthor = container && container.querySelector &&
+                container.querySelector('a[href*="/u/"]');
+            var ffSummary = container && container.querySelector &&
+                container.querySelector(".z-padtop2.xgray, .z-indent.z-padtop, #profile_top .xcontrast_txt");
+            var ffStats = container && container.querySelector &&
+                container.querySelector(".z-padtop2.xgray + div, .xgray");
+            title = cleanText((ffTitle && ffTitle.textContent) || title);
+            author = cleanText(ffAuthor && ffAuthor.textContent);
+            summary = cleanText(ffSummary && ffSummary.textContent);
+            stats = cleanText(ffStats && ffStats.textContent);
+            fandoms = storyTextList(container, 'a[href*="/book/"], a[href*="/anime/"], a[href*="/cartoon/"], a[href*="/movie/"], a[href*="/game/"], a[href*="/tv/"], a[href*="/comic/"]', 10);
+        } else if (site === "ao3") {
+            var ao3Title = container && container.querySelector &&
+                container.querySelector("h4.heading a[href*='/works/'], h2.title, h2.title.heading");
+            var ao3Author = container && container.querySelector &&
+                container.querySelector("a[rel='author']");
+            var ao3Summary = container && container.querySelector &&
+                container.querySelector(".summary blockquote, .summary");
+            var ao3Stats = container && container.querySelector &&
+                container.querySelector(".stats");
+            title = cleanText((ao3Title && ao3Title.textContent) || title);
+            author = cleanText(ao3Author && ao3Author.textContent);
+            summary = cleanText(ao3Summary && ao3Summary.textContent);
+            stats = cleanText(ao3Stats && ao3Stats.textContent);
+            fandoms = storyTextList(container, ".fandoms a.tag, h5.fandoms a", 20);
+            tags = storyTextList(container, "ul.tags a.tag, .tags a.tag", 60);
+        } else if (site === "fiction-live") {
+            var liveTitle = container && container.querySelector &&
+                container.querySelector("h1, h2, h3, h4, [class*='title']");
+            var liveAuthor = container && container.querySelector &&
+                container.querySelector('a[href*="/user/"], [class*="author"] a, [class*="author"]');
+            var liveSummary = container && container.querySelector &&
+                container.querySelector("[class*='synopsis'], [class*='summary'], [class*='description'], p");
+            title = cleanText((liveTitle && liveTitle.textContent) || title);
+            author = cleanText(liveAuthor && liveAuthor.textContent);
+            summary = cleanText(liveSummary && liveSummary.textContent);
+            tags = storyTextList(container, "a[href*='/tag'], a[href*='/tags/'], [class*='tag']", 60);
+        }
+
+        return {
+            title: title,
+            author: author,
+            summary: summary,
+            fandoms: fandoms,
+            tags: tags,
+            stats: stats
+        };
+    }
+
+    function captureStoryEntity(container, link, button) {
+        var info = storyInfoFromUrl(link && link.href ? link.href : location.href);
+        if (!info) return;
+
+        var details = storyCaptureDetails(info.site, container, link, info);
+        var capture = genericCapture();
+        capture.site = info.site;
+        capture.content_type = "fiction_story";
+        capture.source_id = info.site + ":story:" + info.story_id;
+        capture.title = details.title || capture.title;
+        capture.author = details.author || capture.author;
+        capture.description = details.summary || capture.description;
+        capture.url = info.url;
+        capture.canonical_url = info.canonical_url;
+        capture.metadata = Object.assign({}, capture.metadata, {
+            adapter: info.site + "-story",
+            story_id: info.story_id,
+            chapter_id: info.chapter_id || "",
+            story_slug: info.slug || "",
+            fandoms: details.fandoms,
+            tags: details.tags,
+            stats_text: details.stats,
+            source_view: currentStoryInfo() ? "story" : "story-list"
+        });
+        sendCapture(capture, button);
+    }
+
+    function primaryStoryLink(container, site) {
+        if (!container || !container.querySelectorAll) return null;
+        var selectors;
+        if (site === "fanfiction") {
+            selectors = ["a.stitle[href*='/s/']", "a[href*='/s/']"];
+        } else if (site === "ao3") {
+            selectors = ["h4.heading a[href*='/works/']", "a[href*='/works/']"];
+        } else {
+            selectors = ["a[href*='/stories/']"];
+        }
+
+        for (var i = 0; i < selectors.length; i += 1) {
+            var links = container.querySelectorAll(selectors[i]);
+            for (var j = 0; j < links.length; j += 1) {
+                if (storyInfoFromUrl(links[j].href)) return links[j];
+            }
+        }
+        return null;
+    }
+
+    function addFanfictionStoryButtons() {
+        if (!isFanfictionSite() || !document.body) return;
+
+        document.querySelectorAll(".z-list, .z-list.zhover, [class*='z-list']").forEach(function (card) {
+            if (card.querySelector(".agent-os-story-save")) return;
+            var link = primaryStoryLink(card, "fanfiction");
+            if (!link) return;
+
+            var host = card.querySelector(".stitle") && card.querySelector(".stitle").parentElement;
+            host = host || card;
+            var button = storyNativeButton("fanfiction");
+            button.style.float = "right";
+            button.title = "Save this FanFiction story to Agent OS";
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                captureStoryEntity(card, link, button);
+            });
+            host.appendChild(button);
+        });
+
+        var current = currentStoryInfo();
+        if (current && current.site === "fanfiction") {
+            var profile = document.querySelector("#profile_top") || document.querySelector("#content_wrapper_inner");
+            var titleHost = profile && (
+                profile.querySelector("b.xcontrast_txt") ||
+                profile.querySelector("h1, h2")
+            );
+            if (profile && titleHost && !profile.querySelector(".agent-os-story-save")) {
+                var currentLink = document.createElement("a");
+                currentLink.href = current.canonical_url;
+                currentLink.textContent = cleanText(titleHost.textContent);
+                var button = storyNativeButton("fanfiction");
+                button.title = "Save this FanFiction story to Agent OS";
+                button.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    captureStoryEntity(profile, currentLink, button);
+                });
+                titleHost.appendChild(button);
+            }
+        }
+    }
+
+    function addAo3StoryButtons() {
+        if (!isAo3Site() || !document.body) return;
+
+        document.querySelectorAll("li.work.blurb, li.work, .work.blurb").forEach(function (card) {
+            if (card.querySelector(".agent-os-story-save")) return;
+            var link = primaryStoryLink(card, "ao3");
+            if (!link) return;
+
+            var host = card.querySelector("h4.heading") || card;
+            var button = storyNativeButton("ao3");
+            button.style.float = "right";
+            button.title = "Save this AO3 work to Agent OS";
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                captureStoryEntity(card, link, button);
+            });
+            host.appendChild(button);
+        });
+
+        var current = currentStoryInfo();
+        if (current && current.site === "ao3") {
+            var work = document.querySelector("#workskin") || document.querySelector("#main");
+            var titleHost = work && work.querySelector("h2.title.heading, h2.title, .preface h2.title");
+            if (work && titleHost && !work.querySelector(".agent-os-story-save")) {
+                var currentLink = document.createElement("a");
+                currentLink.href = current.canonical_url;
+                currentLink.textContent = cleanText(titleHost.textContent);
+                var button = storyNativeButton("ao3");
+                button.title = "Save this AO3 work to Agent OS";
+                button.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    captureStoryEntity(work, currentLink, button);
+                });
+                titleHost.appendChild(button);
+            }
+        }
+    }
+
+    function fictionLiveStoryContainer(link) {
+        if (!link || !link.closest) return null;
+        return link.closest(
+            "article, li, [class*='story-card'], [class*='storyCard'], " +
+            "[class*='story-list'], [class*='storyList'], [class*='card'], [class*='result']"
+        ) || link.parentElement;
+    }
+
+    function addFictionLiveStoryButtons() {
+        if (!isFictionLiveSite() || !document.body) return;
+
+        var seen = new Set();
+        document.querySelectorAll("a[href*='/stories/']").forEach(function (link) {
+            var info = storyInfoFromUrl(link.href);
+            if (!info || seen.has(info.story_id)) return;
+
+            var card = fictionLiveStoryContainer(link);
+            if (!card || card.querySelector(".agent-os-story-save")) return;
+            seen.add(info.story_id);
+
+            var host = card.querySelector("h1, h2, h3, h4, [class*='title']") || card;
+            var button = storyNativeButton("fiction-live");
+            button.style.float = "right";
+            button.title = "Save this Fiction.live story to Agent OS";
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                captureStoryEntity(card, link, button);
+            });
+            host.appendChild(button);
+        });
+
+        var current = currentStoryInfo();
+        if (current && current.site === "fiction-live") {
+            var main = document.querySelector("main") || document.body;
+            var titleHost = main.querySelector("h1");
+            if (titleHost && !titleHost.querySelector(".agent-os-story-save")) {
+                var currentLink = document.createElement("a");
+                currentLink.href = current.canonical_url;
+                currentLink.textContent = cleanText(titleHost.textContent);
+                var button = storyNativeButton("fiction-live");
+                button.title = "Save this Fiction.live story to Agent OS";
+                button.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    captureStoryEntity(main, currentLink, button);
+                });
+                titleHost.appendChild(button);
+            }
+        }
+    }
+
+    function addStorySiteButtons() {
+        if (isFanfictionSite()) addFanfictionStoryButtons();
+        else if (isAo3Site()) addAo3StoryButtons();
+        else if (isFictionLiveSite()) addFictionLiveStoryButtons();
+    }
+
+    function storyPageAdapter(base) {
+        var info = currentStoryInfo();
+        if (!info) return null;
+
+        var root;
+        if (info.site === "fanfiction") {
+            root = document.querySelector("#profile_top") || document.body;
+        } else if (info.site === "ao3") {
+            root = document.querySelector("#workskin") || document.querySelector("#main") || document.body;
+        } else {
+            root = document.querySelector("main") || document.body;
+        }
+
+        var link = document.createElement("a");
+        link.href = info.canonical_url;
+        var heading = root.querySelector && root.querySelector("h1, h2.title.heading, h2.title, b.xcontrast_txt");
+        link.textContent = cleanText(heading && heading.textContent);
+
+        var details = storyCaptureDetails(info.site, root, link, info);
+        base.site = info.site;
+        base.content_type = "fiction_story";
+        base.source_id = info.site + ":story:" + info.story_id;
+        base.title = details.title || base.title;
+        base.author = details.author || base.author;
+        base.description = details.summary || base.description;
+        base.url = info.url;
+        base.canonical_url = info.canonical_url;
+        base.metadata = Object.assign({}, base.metadata, {
+            adapter: info.site + "-story-page",
+            story_id: info.story_id,
+            chapter_id: info.chapter_id || "",
+            story_slug: info.slug || "",
+            fandoms: details.fandoms,
+            tags: details.tags,
+            stats_text: details.stats
+        });
+        return base;
+    }
+
     function captureNexusCard(card, link, button) {
         var info = nexusInfoFromUrl(link.href);
         if (!info) return;
@@ -3111,6 +3508,7 @@
     addNexusCardButtons();
     addXenforoThreadButtons();
     addRedditPostButtons();
+    addStorySiteButtons();
     if (isDiscordWeb()) {
         ensureDiscordStatus();
         scheduleDiscordScan(0);
@@ -3146,6 +3544,7 @@
             addNexusCardButtons();
             addXenforoThreadButtons();
             addRedditPostButtons();
+            addStorySiteButtons();
             ensureJournalStatus();
             if (isDiscordWeb()) ensureDiscordStatus();
         }, 300);
