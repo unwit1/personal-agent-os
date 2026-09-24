@@ -331,6 +331,79 @@
       ],
       "trust": "E/F",
       "url": "https://www.reddit.com/r/lepin/"
+    },
+    {
+      "id": "downtheblocks",
+      "name": "Down The Blocks",
+      "class": "review_compatible_archive",
+      "roles": [
+        "compatible_brand_databases",
+        "product_code_history",
+        "release_previews",
+        "comparative_reviews"
+      ],
+      "trust": "D/E",
+      "url": "https://downtheblocks.com/"
+    },
+    {
+      "id": "brickscan",
+      "name": "BrickScan",
+      "class": "identification_service",
+      "roles": [
+        "photo_identification",
+        "collection_workflow",
+        "official_id_export"
+      ],
+      "trust": "C",
+      "url": "https://brickscan.com/"
+    },
+    {
+      "id": "minifigures_com",
+      "name": "Minifigures.com",
+      "class": "maker_primary",
+      "roles": [
+        "custom_figures",
+        "personalized_figures",
+        "film_tv_gaming_music_horror_catalog"
+      ],
+      "trust": "A",
+      "url": "https://minifigures.com/"
+    },
+    {
+      "id": "arealight",
+      "name": "Arealight Custom Works",
+      "class": "accessory_maker_primary",
+      "roles": [
+        "injection_molded_accessories",
+        "pad_printed_accessories",
+        "soft_plastic_parts"
+      ],
+      "trust": "A",
+      "url": "https://www.arealightcustoms.com/"
+    },
+    {
+      "id": "flickr_customfigs",
+      "name": "Flickr Custom LEGO Minifigs group",
+      "class": "historical_community_archive",
+      "roles": [
+        "customizer_history",
+        "decals",
+        "finished_figures",
+        "visual_provenance_leads"
+      ],
+      "trust": "E/F",
+      "url": "https://www.flickr.com/groups/customfigs/"
+    },
+    {
+      "id": "flickr_customization_fc",
+      "name": "Flickr LEGO Minifig Customization (FC)",
+      "class": "historical_community_archive",
+      "roles": [
+        "customizer_history",
+        "visual_provenance_leads"
+      ],
+      "trust": "E/F",
+      "url": "https://www.flickr.com/groups/custom_minifig/"
     }
   ],
   "maker_candidates_to_seed_from_herobloks": [
@@ -373,7 +446,12 @@
     "Bela",
     "Sheng Yuan",
     "SY",
-    "Lele"
+    "Lele",
+    "World Minifigures",
+    "TV",
+    "TP",
+    "G (2)",
+    "GH-brand"
   ],
   "ingestion_policy": {
     "primary_sources": "Prefer maker/manufacturer pages for product name, code, claimed materials/process, release and retail price.",
