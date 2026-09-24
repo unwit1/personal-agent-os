@@ -1,0 +1,313 @@
+{
+  "schema_version": "skyrim-tool-adapter-registry-v1",
+  "snapshot_date": "2026-09-24",
+  "adapters": [
+    {
+      "adapter_id": "mo2.cli",
+      "tool": "Mod Organizer 2",
+      "capabilities": [
+        "profile-select",
+        "vfs-launch",
+        "configured-executable-run"
+      ],
+      "invocation": {
+        "mode": "cli",
+        "executable": "ModOrganizer.exe",
+        "arguments_template": [
+          "--instance",
+          "{instance}",
+          "--profile",
+          "{profile}",
+          "run",
+          "-e",
+          "{executable}",
+          "-a",
+          "{arguments}"
+        ]
+      },
+      "outputs": [],
+      "logs": [
+        "MO2 logs"
+      ],
+      "retry": {
+        "safe": false,
+        "max_attempts": 1,
+        "cleanup_outputs_first": false
+      },
+      "human_checks": [],
+      "evidence": {
+        "source_url": "https://github.com/ModOrganizer2/modorganizer/blob/master/src/commandline.cpp",
+        "verified_date": "2026-09-24",
+        "notes": "Do not run concurrent MO2 processes against same managed game instance."
+      }
+    },
+    {
+      "adapter_id": "loot.auto-sort",
+      "tool": "LOOT",
+      "capabilities": [
+        "sort-load-order",
+        "metadata-warnings"
+      ],
+      "invocation": {
+        "mode": "cli",
+        "executable": "LOOT.exe",
+        "arguments_template": [
+          "--game={game}",
+          "--game-path={game_path}",
+          "--auto-sort"
+        ]
+      },
+      "outputs": [
+        "plugins/load-order state"
+      ],
+      "logs": [
+        "LOOT data/logs"
+      ],
+      "retry": {
+        "safe": true,
+        "max_attempts": 1,
+        "cleanup_outputs_first": false
+      },
+      "human_checks": [
+        "semantic compatibility remains separate from ordering"
+      ],
+      "evidence": {
+        "source_url": "https://github.com/loot/loot/blob/master/docs/app/usage/initialisation.rst",
+        "verified_date": "2026-09-24",
+        "notes": "--auto-sort requires --game."
+      }
+    },
+    {
+      "adapter_id": "pandora.generate",
+      "tool": "Pandora Behaviour Engine+",
+      "capabilities": [
+        "behavior-generate",
+        "debug-xml"
+      ],
+      "invocation": {
+        "mode": "cli",
+        "executable": "Pandora Behaviour Engine+.exe",
+        "arguments_template": [
+          "--auto_run",
+          "--auto_close",
+          "--output",
+          "{output}",
+          "--tesv",
+          "{game_root}"
+        ]
+      },
+      "outputs": [
+        "behavior HKX output"
+      ],
+      "logs": [
+        "Engine.log"
+      ],
+      "retry": {
+        "safe": true,
+        "max_attempts": 2,
+        "cleanup_outputs_first": true
+      },
+      "human_checks": [
+        "in-game animation behavior/contact"
+      ],
+      "evidence": {
+        "source_url": "https://github.com/Monitor221hz/Pandora-Behaviour-Engine-Plus",
+        "verified_date": "2026-09-24",
+        "notes": "Current upstream documents auto-run/close/output/game-root arguments."
+      }
+    },
+    {
+      "adapter_id": "synthesis.patcher-contract",
+      "tool": "Synthesis-compatible patcher",
+      "capabilities": [
+        "load-order-patch"
+      ],
+      "invocation": {
+        "mode": "cli",
+        "executable": "{patcher}",
+        "arguments_template": [
+          "--OutputPath",
+          "{output}",
+          "--GameRelease",
+          "SkyrimSE",
+          "--DataFolderPath",
+          "{data}",
+          "--LoadOrderFilePath",
+          "{plugins_txt}"
+        ]
+      },
+      "outputs": [
+        "generated plugin"
+      ],
+      "logs": [
+        "patcher stdout/stderr"
+      ],
+      "retry": {
+        "safe": true,
+        "max_attempts": 1,
+        "cleanup_outputs_first": true
+      },
+      "human_checks": [
+        "patch intent for contested fields"
+      ],
+      "evidence": {
+        "source_url": "https://mutagen-modding.github.io/Synthesis/devs/Patcher-CLI/",
+        "verified_date": "2026-09-24",
+        "notes": "Contract is for patchers run by Synthesis; SourcePath may also be supplied."
+      }
+    },
+    {
+      "adapter_id": "dyndolod.paths",
+      "tool": "DynDOLOD/TexGen",
+      "capabilities": [
+        "lod-generate",
+        "explicit-paths"
+      ],
+      "invocation": {
+        "mode": "hybrid",
+        "executable": "{tool}.exe",
+        "arguments_template": [
+          "-sse",
+          "-o:\"{output}\\\\\"",
+          "-m:\"{ini_dir}\\\\\"",
+          "-p:\"{plugins_txt}\"",
+          "-d:\"{data_dir}\\\\\"",
+          "-t:\"{temp_dir}\\\\\""
+        ]
+      },
+      "outputs": [
+        "LOD output"
+      ],
+      "logs": [
+        "DynDOLOD/TexGen logs"
+      ],
+      "retry": {
+        "safe": true,
+        "max_attempts": 1,
+        "cleanup_outputs_first": true
+      },
+      "human_checks": [
+        "visual LOD review"
+      ],
+      "evidence": {
+        "source_url": "https://dyndolod.info/Help/Command-Line-Argument",
+        "verified_date": "2026-09-24",
+        "notes": "Generation UI/settings may still be involved; command arguments make environment deterministic."
+      }
+    },
+    {
+      "adapter_id": "xedit.schema",
+      "tool": "xEdit/xDump",
+      "capabilities": [
+        "schema-export",
+        "plugin-dump",
+        "error-check"
+      ],
+      "invocation": {
+        "mode": "cli",
+        "executable": "xDump.exe",
+        "arguments_template": [
+          "-Export",
+          "-SSE",
+          "RAW"
+        ]
+      },
+      "outputs": [
+        "schema dump"
+      ],
+      "logs": [
+        "stdout/stderr"
+      ],
+      "retry": {
+        "safe": true,
+        "max_attempts": 1,
+        "cleanup_outputs_first": true
+      },
+      "human_checks": [
+        "interpret semantic conflicts"
+      ],
+      "evidence": {
+        "source_url": "https://github.com/TES5Edit/TES5Edit/blob/dev-4.1.6/xDump.dpr",
+        "verified_date": "2026-09-24",
+        "notes": "Repository also contains capture_xedit_schema.py wrapper."
+      }
+    },
+    {
+      "adapter_id": "caprica.compile",
+      "tool": "Caprica",
+      "capabilities": [
+        "papyrus-compile"
+      ],
+      "invocation": {
+        "mode": "cli",
+        "executable": "Caprica.exe",
+        "arguments_template": [
+          "--game",
+          "skyrim",
+          "--import",
+          "{imports}",
+          "--output",
+          "{output}",
+          "--parallel-compile",
+          "{source}"
+        ]
+      },
+      "outputs": [
+        "PEX"
+      ],
+      "logs": [
+        "compiler stdout/stderr"
+      ],
+      "retry": {
+        "safe": true,
+        "max_attempts": 1,
+        "cleanup_outputs_first": true
+      },
+      "human_checks": [],
+      "evidence": {
+        "source_url": "https://github.com/Orvid/Caprica",
+        "verified_date": "2026-09-24",
+        "notes": "Cross-check release-sensitive scripts with official compiler where warranted."
+      }
+    },
+    {
+      "adapter_id": "pynifly.api",
+      "tool": "PyNifly",
+      "capabilities": [
+        "nif-read",
+        "nif-write",
+        "tri",
+        "skinning",
+        "shader",
+        "collision",
+        "hkx"
+      ],
+      "invocation": {
+        "mode": "library",
+        "executable": "python",
+        "arguments_template": [
+          "{script}"
+        ]
+      },
+      "outputs": [
+        "NIF/TRI/HKX"
+      ],
+      "logs": [
+        "script/test output"
+      ],
+      "retry": {
+        "safe": true,
+        "max_attempts": 1,
+        "cleanup_outputs_first": false
+      },
+      "human_checks": [
+        "visual mesh/weight/material quality"
+      ],
+      "evidence": {
+        "source_url": "https://github.com/BadDogSkyrim/PyNifly",
+        "verified_date": "2026-09-24",
+        "notes": "Python layer supports standalone scripted NIF manipulation."
+      }
+    }
+  ]
+}
