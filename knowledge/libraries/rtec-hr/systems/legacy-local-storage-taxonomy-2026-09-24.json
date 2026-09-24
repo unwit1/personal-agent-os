@@ -20,7 +20,7 @@
   ],
   "artifacts": [
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-backup-commonly-used-401k-by-calendar-year-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-d4252ec470966ffd",
       "sanitized_source_label": "pointer-or-metadata-01",
       "sha256": "d4252ec470966ffd283e3ac4630df0be0eb3fba7a7f06c6278dc7bbd37a0adde",
       "size_bytes": 1575,
@@ -29,7 +29,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-backup-commonly-used-current-employee-census-data-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-60e90330e7606d77",
       "sanitized_source_label": "pointer-or-metadata-02",
       "sha256": "60e90330e7606d771cfb346930eb11a0bb9ae374d42e00742a51658fbf59a669",
       "size_bytes": 1641,
@@ -38,7 +38,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-backup-commonly-used-current-eeo-employee-list-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-9155cee7b3560ee0",
       "sanitized_source_label": "pointer-or-metadata-03",
       "sha256": "9155cee7b3560ee039b9fcde86ec3c826cfe6ca105aae86b7bdda0bc301ce80a",
       "size_bytes": 1526,
@@ -47,7 +47,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-backup-commonly-used-current-employee-breakdown-by-county-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-ed10eb77dcbd4f26",
       "sanitized_source_label": "pointer-or-metadata-04",
       "sha256": "ed10eb77dcbd4f26d0c6197923e35cbf89827415e3bda5af5f18a98952e67900",
       "size_bytes": 1417,
@@ -56,7 +56,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-backup-commonly-used-eeo-employee-list-by-fiscal-year-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-dd2fdb5eeccea03e",
       "sanitized_source_label": "pointer-or-metadata-05",
       "sha256": "dd2fdb5eeccea03e1ebe68cf79a1005a912c021ab828236db3a11ee21945b193",
       "size_bytes": 1337,
@@ -65,7 +65,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-backup-commonly-used-empinsded-by-year-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-bd27b73bd45f34f0",
       "sanitized_source_label": "pointer-or-metadata-06",
       "sha256": "bd27b73bd45f34f075ed5eb904a49d57bda9a5b5ec760d14d1782dd527aed75c",
       "size_bytes": 1364,
@@ -74,7 +74,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-backup-commonly-used-employee-insurance-deductions-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-3009d863767d9062",
       "sanitized_source_label": "pointer-or-metadata-07",
       "sha256": "3009d863767d9062a830e0c0d8871510cfe36459fb28b0b1ba692c7492180a57",
       "size_bytes": 1130,
@@ -83,7 +83,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-backup-commonly-used-terminations-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-eb285826c5b23a5e",
       "sanitized_source_label": "pointer-or-metadata-08",
       "sha256": "eb285826c5b23a5e40f1b84720a3b109325a53dd5eac2c98ccbdffccab8f833d",
       "size_bytes": 977,
@@ -92,7 +92,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-401k-by-calendar-year-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-d4252ec470966ffd",
       "sanitized_source_label": "pointer-or-metadata-09",
       "sha256": "d4252ec470966ffd283e3ac4630df0be0eb3fba7a7f06c6278dc7bbd37a0adde",
       "size_bytes": 1575,
@@ -101,7 +101,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-applicant-logs-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-6c555c063d9c9a66",
       "sanitized_source_label": "pointer-or-metadata-10",
       "sha256": "6c555c063d9c9a6641c1907cb6d23939422d7cdcd941632ae471ab1e0b7750fc",
       "size_bytes": 995,
@@ -110,7 +110,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-current-employee-census-data-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-60e90330e7606d77",
       "sanitized_source_label": "pointer-or-metadata-11",
       "sha256": "60e90330e7606d771cfb346930eb11a0bb9ae374d42e00742a51658fbf59a669",
       "size_bytes": 1641,
@@ -119,7 +119,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-current-eeo-employee-list-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-9155cee7b3560ee0",
       "sanitized_source_label": "pointer-or-metadata-12",
       "sha256": "9155cee7b3560ee039b9fcde86ec3c826cfe6ca105aae86b7bdda0bc301ce80a",
       "size_bytes": 1526,
@@ -128,7 +128,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-current-employee-breakdown-by-county-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-ed10eb77dcbd4f26",
       "sanitized_source_label": "pointer-or-metadata-13",
       "sha256": "ed10eb77dcbd4f26d0c6197923e35cbf89827415e3bda5af5f18a98952e67900",
       "size_bytes": 1417,
@@ -137,7 +137,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-eeo-employee-list-by-fiscal-year-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-dd2fdb5eeccea03e",
       "sanitized_source_label": "pointer-or-metadata-14",
       "sha256": "dd2fdb5eeccea03e1ebe68cf79a1005a912c021ab828236db3a11ee21945b193",
       "size_bytes": 1337,
@@ -146,7 +146,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-empinsded-by-year-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-bd27b73bd45f34f0",
       "sanitized_source_label": "pointer-or-metadata-15",
       "sha256": "bd27b73bd45f34f075ed5eb904a49d57bda9a5b5ec760d14d1782dd527aed75c",
       "size_bytes": 1364,
@@ -155,7 +155,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-employee-insurance-deductions-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-3009d863767d9062",
       "sanitized_source_label": "pointer-or-metadata-16",
       "sha256": "3009d863767d9062a830e0c0d8871510cfe36459fb28b0b1ba692c7492180a57",
       "size_bytes": 1130,
@@ -164,7 +164,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-new-hires-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-aa6b4005aa645f75",
       "sanitized_source_label": "pointer-or-metadata-17",
       "sha256": "aa6b4005aa645f758a122da83837f59295931609ed19f86ad20ee09dfb8b35cb",
       "size_bytes": 950,
@@ -173,7 +173,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-terminations-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-eb285826c5b23a5e",
       "sanitized_source_label": "pointer-or-metadata-18",
       "sha256": "eb285826c5b23a5e40f1b84720a3b109325a53dd5eac2c98ccbdffccab8f833d",
       "size_bytes": 977,
@@ -182,7 +182,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-commonly-used-shiela-stallworth-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-f6374253eb83ed97",
       "sanitized_source_label": "pointer-or-metadata-19",
       "sha256": "f6374253eb83ed97c689a1f86a2da82f97bd3deea27500d555578f8770197229",
       "size_bytes": 895,
@@ -191,7 +191,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-my-hr-forms-employee-benefit-contact-sheet-shortcut-lnk",
+      "source_id": "rtec-hr-job-openings-pointer-4010fd29f0a0056c",
       "sanitized_source_label": "pointer-or-metadata-20",
       "sha256": "4010fd29f0a0056cc6eee14cf98eebfff129e9c09cdd495aa3aed1ab921074f8",
       "size_bytes": 3791,
@@ -200,7 +200,7 @@
       "raw_target_path_preserved": false
     },
     {
-      "source_id": "rtec-hr-job-openings-desktop-ini",
+      "source_id": "rtec-hr-job-openings-pointer-00c735050e241c3f",
       "sanitized_source_label": "pointer-or-metadata-21",
       "sha256": "00c735050e241c3fd7d07dee6493c78863a3d4130834a30e45559d275363acb0",
       "size_bytes": 78,
