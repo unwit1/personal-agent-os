@@ -31,7 +31,10 @@
     "nonstandard_text_field_closure": true,
     "book_provenance_pass_04_archive_witness_location": true,
     "book_provenance_pass_05_retrieval_path_historical_metadata": true,
-    "trainwiz_chronocoda_lineage_analysis": true
+    "trainwiz_chronocoda_lineage_analysis": true,
+    "book_provenance_pass_06_current_chronocoda_comparison": true,
+    "verified_current_aethernautics_3_1_source_ingestion": true,
+    "verified_current_sotha_sil_expanded_3_1_source_ingestion": true
   },
   "metrics": {
     "structured_source_records": 1090,
@@ -64,12 +67,15 @@
     "field_augmentations": 16,
     "natural_language_vmad_payloads_found": 0,
     "archived_pre_wheels_trainwiz_package_families_located": 2,
-    "archived_pre_wheels_trainwiz_package_families_materialized": 0
+    "archived_pre_wheels_trainwiz_package_families_materialized": 0,
+    "current_cross_continuity_book_witness_records": 11,
+    "current_witnessed_previously_unresolved_named_works": 7,
+    "named_works_without_current_aethernautics_or_sotha_witness": 3
   },
   "only_remaining_raw_repair": [],
   "repair_blocker": null,
   "next_stage_after_repair": "No remaining WheelsOfLull.esp ingestion blocker. A fresh deterministic retrieval materialization is unblocked; remaining source work is external historical BOOK provenance/edition research.",
-  "provenance_progress": "All 33 BOOK records are fingerprinted and source-routed. Three verified reused works are centrally linked; KINMUNE has a deterministic edition comparison. Generic provenance searches are exhausted. Pass 04 located original pre-Wheels Aethernautics and Sotha Sil Expanded package witnesses. Pass 05 re-tested binary acquisition, preserved exact September 2012 Aethernautics Weaponry Tweaks chronology, classified its previously unrecorded third-party Cronographer/Sotha Sil development-history detail, and recorded Trainwiz's 2015 statement that Aethernautics and Wheels share a canon. Exact text comparison remains blocked only on binary archive materialization.",
+  "provenance_progress": "Pass 06 added verified current Aethernautics 3.1 and Sotha Sil Expanded 3.1 source scopes and deterministic cross-continuity BOOK comparison. Eleven Wheels BOOK records now have current witnesses; seven of the ten historically unresolved named works have current shared-work counterparts. Historical pre-Wheels origin classifications remain unchanged because the verified packages are 2025/2026 editions.",
   "provenance_current_source_blockers": [
     "Full local source witness for Tatterdemalion is not yet ingested for deterministic variant diffing.",
     "Full local Day of the Power/Knowledge Xal letter witness is not yet ingested for deterministic variant diffing.",
@@ -82,7 +88,7 @@
     "Durable local full-text witness for Tatterdemalion.",
     "Durable local full-text witness for Xal's Day of the Power/Knowledge letter."
   ],
-  "repeat_work_guard": "Do not repeat generic exact-title searches from pass 03, ModDB package rediscovery from pass 04, or the pass-05 Aethernautics Weaponry Tweaks chronology/Cronographer extraction and Trainwiz same-canon witness. Resume at binary materialization or a genuinely new record-level source corpus.",
+  "repeat_work_guard": "Do not repeat passes 03-06. Current Aethernautics 3.1 and Sotha Sil Expanded 3.1 have been verified, structurally audited, cataloged, and compared. Historical provenance next requires older dated binaries/record dumps, not re-analysis of the current releases.",
   "semantic_followup": "Added source-scoped analysis for Musings On Power, De Rerum Mutabilitatis, and How Two Moon; promoted six new book-backed claims without changing provenance status.",
   "source_exhaustion": {
     "supplied_esp": "complete",
@@ -113,6 +119,20 @@
       "human_readable": "analysis/trainwiz-chronocoda-lineage.md",
       "machine_readable": "analysis/trainwiz-chronocoda-lineage.json",
       "modeling": "separate_continuities_linked_by_explicit_relationships_no_raw_record_merge"
+    },
+    "current_chronocoda_sources": {
+      "aethernautics": {
+        "continuity_id": "tes.mod.aethernautics",
+        "version": "3.1",
+        "plugin_sha256": "18e21d0bbb08440bc6c42f049d2b8a24353dd9a24d84fc185c7e6d1b700fe720"
+      },
+      "sotha_sil_expanded": {
+        "continuity_id": "tes.mod.sotha-sil-expanded",
+        "version": "3.1",
+        "plugin_sha256": "d8af26f23fe5d1c0fe7119e82762e4515de2eee6a9c6ffadd697d1524ed24b85"
+      },
+      "pass_06": "analysis/book-provenance-pass-06-current-chronocoda-comparison.json",
+      "umbrella_continuity": "../trainwiz-chronocoda"
     }
   },
   "semantic_gap_check_2026_09_24": {
