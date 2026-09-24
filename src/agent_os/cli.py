@@ -6,6 +6,14 @@ import sys
 from pathlib import Path
 
 from .adapters import sync_adapters
+from .browser_bridge import BridgeStore
+from .browser_bridge_server import (
+    DEFAULT_HOST as BROWSER_BRIDGE_HOST,
+    DEFAULT_PORT as BROWSER_BRIDGE_PORT,
+    TOKEN_PATH as BROWSER_BRIDGE_TOKEN_PATH,
+    load_or_create_token as browser_bridge_token,
+    serve as serve_browser_bridge,
+)
 from .candidates import candidate_status, curate_candidates, stage_candidates
 from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, update_change
 from .compiler import compile_context
@@ -85,6 +93,20 @@ def parser() -> argparse.ArgumentParser:
     commands.add_parser("index")
     commands.add_parser("init")
     commands.add_parser("sync-adapters")
+    browser_bridge = commands.add_parser(
+        "browser-bridge",
+        help="run the durable loopback bridge used by the browser capture userscript",
+    )
+    browser_bridge.add_argument("--host", default=BROWSER_BRIDGE_HOST)
+    browser_bridge.add_argument("--port", type=int, default=BROWSER_BRIDGE_PORT)
+    commands.add_parser(
+        "browser-bridge-status",
+        help="show local browser bridge database counts",
+    )
+    commands.add_parser(
+        "browser-bridge-token",
+        help="show the local browser bridge token for one-time userscript setup",
+    )
     commands.add_parser("install-routing")
     commands.add_parser("routing-status")
     integration = commands.add_parser("integration-health")
@@ -356,6 +378,15 @@ def main(argv: list[str] | None = None) -> int:
             return 0 if validation_result["ok"] else 1
         elif args.command == "sync-adapters":
             _print({"written": sync_adapters()})
+        elif args.command == "browser-bridge":
+            return serve_browser_bridge(args.host, args.port)
+        elif args.command == "browser-bridge-status":
+            _print(BridgeStore().stats())
+        elif args.command == "browser-bridge-token":
+            _print({
+                "token": browser_bridge_token(),
+                "path": str(BROWSER_BRIDGE_TOKEN_PATH),
+            })
         elif args.command == "install-routing":
             result = install_routing()
             _print(result)
