@@ -211,7 +211,7 @@ Document routing learned from this batch is explicit: multi-person benefits repo
 See:
 - `sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24.json`
 - `restricted-evidence/downloads-spreadsheets-2026-09-24.json`
-- `forms/downloads-spreadsheet-document-types-2026-09-24.json`
+- `forms/downloads-spreadsheet-document-types-2026-09-24.json`\n- `forms/historical-benefits-import-field-contracts-2018.json`
 - `systems/historical-benefits-data-import-contracts-2018.json`
 - `processes/historical-benefits-billing-reconciliation.json`
 - `sources/reference-data/downloads-reference-data-2026-09-24.json`
