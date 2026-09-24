@@ -1,0 +1,172 @@
+{
+  "format": "chronocoda-virtual-jsonl-gzip-v1",
+  "generated": "2026-09-24",
+  "segment_count": 13,
+  "segments": [
+    {
+      "segment": "full-structure-01-of-13.jsonl.gz",
+      "sha256": "f257a06a3b78fa958b45f76fb4db4de26322ed6f4f2316609cc16907c2278e5e",
+      "size_bytes": 21515,
+      "virtual_files": [
+        "aethernautics/analysis/extraction-completeness.json",
+        "aethernautics/analysis/relationship-graph.json",
+        "aethernautics/analysis/structural-summary.json",
+        "aethernautics/corpus/books-0001-0019.jsonl",
+        "aethernautics/corpus/books-0020-0022.jsonl",
+        "aethernautics/corpus/characters-0001-0008.jsonl",
+        "aethernautics/corpus/messages-0001-0020.jsonl",
+        "aethernautics/corpus/objects-0001-0090.jsonl",
+        "aethernautics/corpus/places-0001-0028.jsonl",
+        "aethernautics/corpus/quests-0001-0001.jsonl",
+        "aethernautics/indexes/concept-evidence-map.json",
+        "sotha-sil-expanded/analysis/extraction-completeness.json",
+        "sotha-sil-expanded/analysis/relationship-graph.json",
+        "sotha-sil-expanded/analysis/structural-summary.json"
+      ],
+      "storage_file": "full-structure-01-of-13.jsonl.gz.b64"
+    },
+    {
+      "segment": "full-structure-02-of-13.jsonl.gz",
+      "sha256": "645360f5bb67888c3924648e18f869907bebda73254d15ee52ac45418c6ebc32",
+      "size_bytes": 20770,
+      "virtual_files": [
+        "sotha-sil-expanded/corpus/books/books-0001-0029.jsonl",
+        "sotha-sil-expanded/corpus/books/books-0030-0039.jsonl"
+      ],
+      "storage_file": "full-structure-02-of-13.jsonl.gz.b64"
+    },
+    {
+      "segment": "full-structure-03-of-13.jsonl.gz",
+      "sha256": "dcdb42648377d5dc6504d6b5c392e2d153f161e1c96186d28ebabca002924675",
+      "size_bytes": 20529,
+      "virtual_files": [
+        "sotha-sil-expanded/corpus/books/books-0040-0041.jsonl",
+        "sotha-sil-expanded/corpus/books/books-0042-0047.jsonl",
+        "sotha-sil-expanded/corpus/books/books-0048-0049.jsonl"
+      ],
+      "storage_file": "full-structure-03-of-13.jsonl.gz.b64"
+    },
+    {
+      "segment": "full-structure-04-of-13.jsonl.gz",
+      "sha256": "aee2e370d2259d079aa223f354a4d7ed858067afe0256dce071755d5b803b8ab",
+      "size_bytes": 19300,
+      "virtual_files": [
+        "sotha-sil-expanded/corpus/dialogue/responses-0001-0118.jsonl",
+        "sotha-sil-expanded/corpus/dialogue/responses-0119-0218.jsonl"
+      ],
+      "storage_file": "full-structure-04-of-13.jsonl.gz.b64"
+    },
+    {
+      "segment": "full-structure-05-of-13.jsonl.gz",
+      "sha256": "41d66c1b1dc7f7656dda11951e7cc5c0bab4c77f0c1d2753e8a8d52a95e57cbc",
+      "size_bytes": 21590,
+      "virtual_files": [
+        "sotha-sil-expanded/corpus/dialogue/responses-0219-0308.jsonl",
+        "sotha-sil-expanded/corpus/dialogue/responses-0309-0419.jsonl"
+      ],
+      "storage_file": "full-structure-05-of-13.jsonl.gz.b64"
+    },
+    {
+      "segment": "full-structure-06-of-13.jsonl.gz",
+      "sha256": "88bef3519e3c04044c5083357e8d7566fc6a5286f3261ac9cbd6be0dd978dad8",
+      "size_bytes": 22152,
+      "virtual_files": [
+        "sotha-sil-expanded/corpus/dialogue/responses-0420-0513.jsonl",
+        "sotha-sil-expanded/corpus/dialogue/responses-0514-0608.jsonl"
+      ],
+      "storage_file": "full-structure-06-of-13.jsonl.gz.b64"
+    },
+    {
+      "segment": "full-structure-07-of-13.jsonl.gz",
+      "sha256": "96fde001c7f01bea536f94b89e7d58dad724071fb5cf0de51b01f7b24b311e31",
+      "size_bytes": 20914,
+      "virtual_files": [
+        "sotha-sil-expanded/corpus/dialogue/responses-0609-0716.jsonl",
+        "sotha-sil-expanded/corpus/dialogue/responses-0717-0827.jsonl"
+      ],
+      "storage_file": "full-structure-07-of-13.jsonl.gz.b64"
+    },
+    {
+      "segment": "full-structure-08-of-13.jsonl.gz",
+      "sha256": "c46ba7fec429cbe2ad1665c1875ac335225359fbac1f1eb6e32d84c1e080ea65",
+      "size_bytes": 23491,
+      "virtual_files": [
+        "sotha-sil-expanded/corpus/dialogue/responses-0828-0918.jsonl",
+        "sotha-sil-expanded/corpus/dialogue/responses-0919-1012.jsonl"
+      ],
+      "storage_file": "full-structure-08-of-13.jsonl.gz.b64"
+    },
+    {
+      "segment": "full-structure-09-of-13.jsonl.gz",
+      "sha256": "8bbfbe4fe8918417c6d6a4b2c24644803b40ab1d3f83a5962f7ba826e804f499",
+      "size_bytes": 26119,
+      "virtual_files": [
+        "sotha-sil-expanded/corpus/dialogue/responses-1013-1107.jsonl",
+        "sotha-sil-expanded/corpus/dialogue/responses-1108-1147.jsonl",
+        "sotha-sil-expanded/corpus/dialogue/topics-0001-0137.jsonl"
+      ],
+      "storage_file": "full-structure-09-of-13.jsonl.gz.b64"
+    },
+    {
+      "segment": "full-structure-10-of-13.jsonl.gz",
+      "sha256": "00ad8475bc78d34532d1ba1e93aa089e838680710dd2bfe855b0b85097476d27",
+      "size_bytes": 24629,
+      "virtual_files": [
+        "sotha-sil-expanded/corpus/dialogue/topics-0138-0250.jsonl",
+        "sotha-sil-expanded/corpus/quests/quest-journals-0001-0044.jsonl",
+        "sotha-sil-expanded/entities/characters-0001-0172.jsonl"
+      ],
+      "storage_file": "full-structure-10-of-13.jsonl.gz.b64"
+    },
+    {
+      "segment": "full-structure-11-of-13.jsonl.gz",
+      "sha256": "7bac3075ca1560e9408026fb2f9c8717874fc3eadb4417d9b5161aaa81544554",
+      "size_bytes": 26260,
+      "virtual_files": [
+        "sotha-sil-expanded/entities/characters-0173-0344.jsonl",
+        "sotha-sil-expanded/entities/factions-0001-0007.jsonl",
+        "sotha-sil-expanded/entities/objects/objects-0001-0392.jsonl",
+        "sotha-sil-expanded/entities/objects/objects-0393-0742.jsonl",
+        "sotha-sil-expanded/entities/objects/objects-0743-1086.jsonl",
+        "sotha-sil-expanded/entities/objects/objects-1087-1291.jsonl"
+      ],
+      "storage_file": "full-structure-11-of-13.jsonl.gz.b64"
+    },
+    {
+      "segment": "full-structure-12-of-13.jsonl.gz",
+      "sha256": "9e8034e074bdb1cbd1d1a109c44fc962912b32d6302c2d4562562cd2b85fd82e",
+      "size_bytes": 24887,
+      "virtual_files": [
+        "sotha-sil-expanded/entities/places-0001-0456.jsonl",
+        "sotha-sil-expanded/entities/places-0457-0460.jsonl",
+        "sotha-sil-expanded/entities/speakers-0001-0144.jsonl",
+        "sotha-sil-expanded/implementation/script-lore-strings-0001-0173.jsonl",
+        "sotha-sil-expanded/implementation/script-lore-strings-0174-0221.jsonl"
+      ],
+      "storage_file": "full-structure-12-of-13.jsonl.gz.b64"
+    },
+    {
+      "segment": "full-structure-13-of-13.jsonl.gz",
+      "sha256": "8772747dfb53a49ae42131ee2e035c5b747ea8097068e435d883b39438e0fd8b",
+      "size_bytes": 23162,
+      "virtual_files": [
+        "sotha-sil-expanded/implementation/script-reference-edges-0001-0717.jsonl",
+        "sotha-sil-expanded/implementation/script-reference-edges-0718-1409.jsonl",
+        "sotha-sil-expanded/implementation/script-reference-edges-1410-1441.jsonl",
+        "sotha-sil-expanded/indexes/concept-evidence-0001-0005.jsonl",
+        "sotha-sil-expanded/indexes/concept-evidence-0006-0012.jsonl",
+        "trainwiz-chronocoda/FULL_STRUCTURE.md",
+        "trainwiz-chronocoda/full-structure-ingestion.json"
+      ],
+      "storage_file": "full-structure-13-of-13.jsonl.gz.b64"
+    }
+  ],
+  "storage_encoding": "base64-text-of-gzip",
+  "repository_root": "knowledge/libraries/elder-scrolls/mods/continuities/trainwiz-chronocoda/corpus",
+  "virtual_artifact_count": 53,
+  "validation_policy": {
+    "segment_sha256": "SHA-256 is computed over decoded gzip bytes.",
+    "virtual_file_sha256": "Each bundle JSONL row includes SHA-256 of the UTF-8 virtual file content; unpacker validates it before write.",
+    "duplicate_policy": "Refuse conflicting duplicate virtual paths; identical duplicate content may be skipped."
+  }
+}
