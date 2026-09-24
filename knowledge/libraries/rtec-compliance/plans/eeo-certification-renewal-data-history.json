@@ -1,0 +1,177 @@
+{
+  "id": "rtec-kentucky-eeo-renewal-data-history",
+  "record_type": "historical_compliance_series",
+  "title": "RTEC Kentucky EEO certification renewal workforce-data history, 2010-2023",
+  "status": "validated_from_filled_textual_renewal_forms",
+  "temporal_status": "historical",
+  "authority": "Commonwealth of Kentucky Finance and Administration Cabinet, Office of Equal Employment Opportunity/Contract Compliance",
+  "source_family": "EEO certification renewal forms",
+  "interpretation": [
+    "These are organization-level aggregate workforce figures submitted on annual certification renewal forms.",
+    "Each preserved source reports the same values for company-wide workforce and Kentucky workforce, consistent with the source forms identifying one Kentucky location.",
+    "The renewal forms require employment data not more than 90 days old and record the data-collection timeframe used.",
+    "The signed PDF scans are archival signature versions of the same annual renewal family; substantive values are recoverable from the preserved filled Word forms."
+  ],
+  "years": [
+    {
+      "renewal_year": 2010,
+      "plan_year": "July 2009-June 2010",
+      "employees": 196,
+      "ethnic_minority_employees": 12,
+      "female_employees": 87,
+      "data_collection": "7/19/10 to 7/30/10",
+      "contact_title": "EEO Manager",
+      "text_sha256": "c621433d09bb814b48dd1d4923d684483df9f7c36cb8d5edfa575de3e9b28d7b"
+    },
+    {
+      "renewal_year": 2011,
+      "plan_year": "July 2010-June 2011",
+      "employees": 182,
+      "ethnic_minority_employees": 10,
+      "female_employees": 78,
+      "data_collection": "7/18/11 to 7/30/11",
+      "contact_title": "EEO Manager",
+      "text_sha256": "02f49718addcf15865049f1dee5ba2b25b13b68a6be550123de9c9e388816a46"
+    },
+    {
+      "renewal_year": 2012,
+      "plan_year": "July 2011-June 2012",
+      "employees": 189,
+      "ethnic_minority_employees": 10,
+      "female_employees": 81,
+      "data_collection": "7/16/12 to 7/28/12",
+      "contact_title": "EEO Manager",
+      "text_sha256": "124176986f8ba35833a8e4d0e1662a1ede2116f98a9dbe2a32a0823cb418c414"
+    },
+    {
+      "renewal_year": 2013,
+      "plan_year": "July 2012-June 2013",
+      "employees": 195,
+      "ethnic_minority_employees": 10,
+      "female_employees": 87,
+      "data_collection": "7/15/13 to 7/26/13",
+      "contact_title": "EEO Manager",
+      "text_sha256": "e08071ce573c77ee1b54cd3fd700c5209c2fc82253403303897b0fb46dc49556"
+    },
+    {
+      "renewal_year": 2014,
+      "plan_year": "July 2013-June 2014",
+      "employees": 198,
+      "ethnic_minority_employees": 11,
+      "female_employees": 88,
+      "data_collection": "7/14/14 to 7/26/14",
+      "contact_title": "EEO Manager",
+      "text_sha256": "546cf02ede56ee7c292f7be81630e8ece08639af870cf6301fc62fdcba602170"
+    },
+    {
+      "renewal_year": 2015,
+      "plan_year": "July 2014-June 2015",
+      "employees": 200,
+      "ethnic_minority_employees": 14,
+      "female_employees": 87,
+      "data_collection": "7/27/15 to 8/08/15",
+      "contact_title": "EEO Manager",
+      "text_sha256": "2beb593115268fe47ba8eac23c736e36dccf3c300639897a89eae6ee2d2b0253"
+    },
+    {
+      "renewal_year": 2016,
+      "plan_year": "July 2015-June 2016",
+      "employees": 190,
+      "ethnic_minority_employees": 15,
+      "female_employees": 77,
+      "data_collection": "07/25/16 to 08/06/16",
+      "contact_title": "EEO Manager",
+      "text_sha256": "150d7e5167efcfeab793fefa561630230e326886c61ae9153e4fd3b142dea67b",
+      "signed_scan_sha256": "9001ab24ddb3db737ef5d1a765dc195ec596fbc85a642ac1be15c7378d815fec"
+    },
+    {
+      "renewal_year": 2017,
+      "plan_year": "July 2016-June 2017",
+      "employees": 208,
+      "ethnic_minority_employees": 13,
+      "female_employees": 86,
+      "data_collection": "07/23/17 to 08/05/17",
+      "contact_title": "EEO Manager",
+      "text_sha256": "1db8117f6958790dc49e434d0ffa53acce120cabd108868d02d664772c268fae"
+    },
+    {
+      "renewal_year": 2018,
+      "plan_year": "July 2017-June 2018",
+      "employees": 203,
+      "ethnic_minority_employees": 12,
+      "female_employees": 80,
+      "data_collection": "07/22/18 to 08/04/18",
+      "contact_title": "EEO Manager",
+      "text_sha256": "9c6bee1d1f44fe762e5dca88740ea799af5cf1e8474ee14a253e48f4917f8839"
+    },
+    {
+      "renewal_year": 2019,
+      "plan_year": "July 2019-June 2020",
+      "employees": 197,
+      "ethnic_minority_employees": 12,
+      "female_employees": 82,
+      "data_collection": "07/22/19 to 08/03/19",
+      "contact_title": "EEO Manager",
+      "text_sha256": "d95c6aa6a8e6aba579a98a029bee80ccbb274d8533f59c3ff8a3d9e469418f6e",
+      "note": "Source form explicitly states July 2019-June 2020; do not silently infer a July 2018-June 2019 plan year."
+    },
+    {
+      "renewal_year": 2020,
+      "plan_year": "July 2020-June 2021",
+      "employees": 189,
+      "ethnic_minority_employees": 11,
+      "female_employees": 76,
+      "data_collection": "07/05/20 to 07/18/20",
+      "contact_title": "EEO Manager",
+      "text_sha256": "87ce3b3ef351a12831fe3ff133395a3b57a259768005b0377ee0949f84ae78ba"
+    },
+    {
+      "renewal_year": 2021,
+      "plan_year": "July 2021-June 2022",
+      "employees": 161,
+      "ethnic_minority_employees": 6,
+      "female_employees": 66,
+      "data_collection": "07/04/2021 to 07/17/2021",
+      "contact_title": "EEO Manager",
+      "text_sha256": "0a5be79ef193bb6065aeec100c4e67e129f5a18229945f1fdf14428397f24804"
+    },
+    {
+      "renewal_year": 2022,
+      "plan_year": "July 2022-June 2023",
+      "employees": 157,
+      "ethnic_minority_employees": 8,
+      "female_employees": 67,
+      "data_collection": "07/31/2022 to 08/13/2022",
+      "contact_title": "EEO Manager/HR Manager",
+      "text_sha256": "9676b6c8ff5a4ec8a517d494ba7150dcef8fb9b8503478faeb4d2b25e7101f5b"
+    },
+    {
+      "renewal_year": 2023,
+      "plan_year": "July 2023-June 2024",
+      "employees": 167,
+      "ethnic_minority_employees": 9,
+      "female_employees": 71,
+      "data_collection": "07/30/2023 to 08/12/2023",
+      "contact_title": "EEO Manager/HR Manager",
+      "text_sha256": "0c686f81402be77024bb7445056111e76b877e6dacb3c9d0dfc31eeea0d1e86c"
+    }
+  ],
+  "derived_observations": [
+    "Employee count peaks at 208 in the 2017 renewal and falls to 157 by the 2022 renewal before rising to 167 in 2023.",
+    "The source contact title changes from EEO Manager to EEO Manager/HR Manager in the 2022 and 2023 textual renewal forms.",
+    "The certification-renewal workforce figures are distinct from later AAP snapshot figures and should not be substituted for one another without matching dates/methodology."
+  ],
+  "controls": [
+    "Do not promote annual aggregate counts to person-level facts.",
+    "Do not infer current workforce composition from historical renewal figures.",
+    "Retain signed scan hashes separately from textual filled-form hashes; they are related source variants, not identical binaries."
+  ],
+  "provenance": {
+    "corpus_chunks": [
+      "knowledge/libraries/rtec-hr/compliance/archive-corpus/chunks/corpus-032.txt",
+      "knowledge/libraries/rtec-hr/compliance/archive-corpus/chunks/corpus-033.txt",
+      "knowledge/libraries/rtec-hr/compliance/archive-corpus/chunks/corpus-034.txt"
+    ],
+    "source_catalog": "knowledge/libraries/rtec-compliance/sources/extracted-safe-source-catalog.md"
+  }
+}
