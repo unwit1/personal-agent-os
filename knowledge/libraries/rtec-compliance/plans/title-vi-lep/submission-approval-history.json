@@ -1,0 +1,66 @@
+{
+  "id": "rtec-title-vi-submission-approval-artifact-history",
+  "record_type": "historical_compliance_submission_series",
+  "title": "RTEC Title VI/LEP submission and state approval artifact history",
+  "status": "validated_existence_partial_text",
+  "temporal_status": "historical_series",
+  "artifacts": [
+    {
+      "artifact_type": "state_approval_letter",
+      "source_label": "Title VI Approval Letter 2014.pdf",
+      "source_sha256": "edc1894cb4e1823fa94674d4b0d470319671c41a5626fc0cb191da84e3a29ca7",
+      "evidence_level": "scan_exists_filename_date_only",
+      "exact_contents_status": "pending_scan_extraction",
+      "inferred_date_from_filename": "2014"
+    },
+    {
+      "artifact_type": "state_approval_letter",
+      "source_label": "Title VI Approval Letter 2017 dated 12 6 2019.pdf",
+      "source_sha256": "d2411e7000ccd8b494c2958718878200f4198149fcbdbe113f5a0ca9d5065b57",
+      "evidence_level": "scan_exists_filename_date_only",
+      "exact_contents_status": "pending_scan_extraction",
+      "inferred_date_from_filename": "2019-12-06",
+      "note": "Filename also contains 2017; do not infer what that year means until the letter is read."
+    },
+    {
+      "artifact_type": "state_approval_letter",
+      "source_label": "Title VI Approval Letter dated 4 23 2020.pdf",
+      "source_sha256": "c0ac9b828f5283c8572833fba08c13934f355a200dc746fa97e2498fb44f6ab9",
+      "evidence_level": "scan_exists_filename_date_only",
+      "exact_contents_status": "pending_scan_extraction",
+      "inferred_date_from_filename": "2020-04-23"
+    },
+    {
+      "artifact_type": "submission_cover_letter",
+      "source_label": "2020 Cover letter for submission to state.pdf",
+      "source_sha256": "3e803ba96ffc66164d53c5a8ce42a7e620ed044a6bb799ae917f6077754e80e4",
+      "evidence_level": "scan_exists",
+      "exact_contents_status": "pending_scan_extraction"
+    },
+    {
+      "artifact_type": "submission_cover_letter",
+      "source_label": "2023 Cover Letter for Title VI LEP submission to state.doc",
+      "source_sha256": "8f6cc88e5c142f5399c4f98fb059a13c30d0baafa36e5adbdbbe8b513e42cefb",
+      "evidence_level": "full_text_preserved",
+      "exact_contents_status": "covered_in_safe_text_corpus"
+    },
+    {
+      "artifact_type": "submission_cover_letter",
+      "source_label": "2026 Cover Letter for Title VI LEP submission to state.doc",
+      "source_sha256": "23f176a66eefeb243a5dd22ab3fcb0901c61f856bd34e5c3b153bff0c43ec6e3",
+      "evidence_level": "full_text_preserved",
+      "exact_contents_status": "covered_in_safe_text_corpus"
+    }
+  ],
+  "plan_relationships": [
+    "The existence of a submission or approval artifact does not by itself prove the exact effective period of a plan unless the document states it.",
+    "The Title VI/LEP plan version history remains the canonical chronology for plan text: 2013, 2014, 2016, 2019, 2022/2023, and January 2026.",
+    "State approval letters should be linked to the plan version they explicitly approve only after their contents are read."
+  ],
+  "pending_scan_work": [
+    "Extract the exact 2014 approval letter contents.",
+    "Extract the exact letter labeled '2017 dated 12 6 2019' and resolve the two year references.",
+    "Extract the exact 2020 approval letter contents.",
+    "Extract the 2020 submission cover letter contents."
+  ]
+}
