@@ -222,9 +222,9 @@
     {
       "priority": "high",
       "domain": "fmla_tracker_authority",
-      "question": "Designate the authoritative live FMLA tracker between the legacy .xls and native Google Sheets copy, and document ownership, backup/retention, structured status fields, access controls and integration with attendance/time.",
+      "question": "Confirm which FMLA tracker HR actually edits/relies on in current operations and designate it authoritative. Drive metadata now suggests the native Google Sheet was created as a conversion/derivative of the legacy XLS on May 15, 2026, but timestamps alone do not prove operational authority. Document owner, access controls, backup/retention and integration with Attendance/ADP.",
       "status": "partially_answered",
-      "resolution_note": "Drive contains both an FMLA TRACKER.xls and native FMLA Tracker modified/created 2026-05-15; the native workbook has annual tabs through Active 2026 and a Term Employees archive. Which copy is authoritative is not yet established."
+      "resolution_note": "The legacy XLS shows stored modification 2026-05-15 18:17:32Z. The native Google Sheet's first revision is 18:17:58Z with a second revision at 18:18:51Z, consistent with near-immediate conversion/import. No later revision history was observed in either copy. This narrows the duplication question but does not establish which file HR currently treats as authoritative."
     },
     {
       "priority": "high",
