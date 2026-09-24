@@ -2,13 +2,13 @@
 
 Updated: 2026-09-24
 Status: active
-Terminology modules: 161
+Terminology modules: 164
 
 Exact `###` heading totals are generated from a checkout by `tools/knowledge/rebuild_skyrim_terminology_index.py`. This checked-in index keeps the live module inventory synchronized even when a remote connector cannot execute the checkout-local counter.
 
 ## Retrieval strategy
 
-Start with `../troubleshooting/diagnostic-router.md` for symptom-driven work. Retrieve only the relevant specialist modules.
+Start with `../troubleshooting/diagnostic-router.md` for symptom-driven work. For implementation work, start with `../automation/README.md`. Retrieve only the specialist modules relevant to the suspected subsystem or selected architecture.
 
 ## Modules
 
@@ -108,7 +108,10 @@ Start with `../troubleshooting/diagnostic-router.md` for symptom-driven work. Re
 - [nexus-mods-metadata-collections.md](../terminology/nexus-mods-metadata-collections.md)
 - [nif-shader-block-texture-slot-catalog.md](../terminology/nif-shader-block-texture-slot-catalog.md)
 - [npc-appearance-facegen-racemenu.md](../terminology/npc-appearance-facegen-racemenu.md)
+- [oar-3.2.1-condition-catalog.md](../terminology/oar-3.2.1-condition-catalog.md)
+- [oar-3.2.1-function-catalog.md](../terminology/oar-3.2.1-function-catalog.md)
 - [oar-config-condition-system.md](../terminology/oar-config-condition-system.md)
+- [oar-state-priority-variants.md](../terminology/oar-state-priority-variants.md)
 - [object-reference-lifecycle-interactions.md](../terminology/object-reference-lifecycle-interactions.md)
 - [papyrus-api-event-catalog.md](../terminology/papyrus-api-event-catalog.md)
 - [papyrus-core-api-map.md](../terminology/papyrus-core-api-map.md)
@@ -176,6 +179,9 @@ Start with `../troubleshooting/diagnostic-router.md` for symptom-driven work. Re
 
 ## Additional retrieval surfaces
 
+- `../automation/README.md` — Mod Factory implementation entry point.
+- `../automation/implementation-question-preemption.md` — pre-implementation question resolver.
+- `../automation/validation-gates.md` — G00–G23 validation system.
 - `../troubleshooting/compatibility-patterns.md`
 - `../troubleshooting/tool-error-catalog.md`
 - `../research/version-provenance-model.md`
