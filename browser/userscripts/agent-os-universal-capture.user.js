@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Agent OS Universal Capture
 // @namespace    agent-os
-// @version      3.5.1
+// @version      3.6.1
 // @description  Save useful pages and passively index rendered Discord Web channel and search-result messages into Agent OS.
 // @homepageURL   https://github.com/unwit1/universal-capture-plugin
 // @updateURL     https://raw.githubusercontent.com/unwit1/universal-capture-plugin/main/agent-os-universal-capture.user.js
@@ -24,7 +24,7 @@
 (function () {
     "use strict";
 
-    var VERSION = "3.5.1";
+    var VERSION = "3.6.1";
     var SETTINGS_KEY = "agent_os_capture_settings_v1";
     var QUEUE_KEY = "agent_os_capture_queue_v1";
     var MAX_QUEUE = 500;
@@ -301,7 +301,7 @@
     // -- Discord passive indexing ---------------------------------------------
 
     var DISCORD_DB_NAME = "agent_os_discord_index_v1";
-    var DISCORD_DB_VERSION = 2;
+    var DISCORD_DB_VERSION = 3;
     var DISCORD_STORE = "messages";
     var DISCORD_SEEN_STORE = "seen";
     var discordDbPromise = null;
@@ -360,7 +360,7 @@
         if (discordDbPromise) return discordDbPromise;
         discordDbPromise = new Promise(function (resolve, reject) {
             var request = indexedDB.open(DISCORD_DB_NAME, DISCORD_DB_VERSION);
-            request.onupgradeneeded = function () {
+            request.onupgradeneeded = function (event) {
                 var db = request.result;
                 var store;
                 if (!db.objectStoreNames.contains(DISCORD_STORE)) {
@@ -381,9 +381,25 @@
                 var seenStore;
                 if (!db.objectStoreNames.contains(DISCORD_SEEN_STORE)) {
                     seenStore = db.createObjectStore(DISCORD_SEEN_STORE, { keyPath: "key" });
-                    seenStore.createIndex("channel_key", "channel_key", { unique: false });
-                    seenStore.createIndex("timestamp", "timestamp", { unique: false });
-                    seenStore.createIndex("archived_at", "archived_at", { unique: false });
+                } else {
+                    seenStore = request.transaction.objectStore(DISCORD_SEEN_STORE);
+                }
+
+                // v3 makes archive markers intentionally tiny. The only fact
+                // needed to suppress re-indexing is that this canonical key was
+                // already archived. Remove obsolete secondary indexes and
+                // rewrite older verbose markers to {key} during the upgrade.
+                Array.from(seenStore.indexNames).forEach(function (indexName) {
+                    seenStore.deleteIndex(indexName);
+                });
+                if (event.oldVersion < 3) {
+                    var cursorRequest = seenStore.openCursor();
+                    cursorRequest.onsuccess = function () {
+                        var cursor = cursorRequest.result;
+                        if (!cursor) return;
+                        cursor.update({ key: String(cursor.primaryKey) });
+                        cursor.continue();
+                    };
                 }
             };
             request.onsuccess = function () { resolve(request.result); };
@@ -866,8 +882,102 @@
         });
     }
 
-    function downloadDiscordJson(filename, payload) {
-        var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    function discordArchiveTimestampSeconds(value) {
+        var ms = value ? new Date(value).getTime() : NaN;
+        return Number.isFinite(ms) ? Math.floor(ms / 1000) : 0;
+    }
+
+    function discordArchiveCompactRows(rows, metadata) {
+        var guilds = {};
+        var channels = {};
+        var authors = [];
+        var authorIndex = new Map();
+
+        function authorId(name) {
+            var value = String(name || "");
+            if (authorIndex.has(value)) return authorIndex.get(value);
+            var index = authors.length;
+            authors.push(value);
+            authorIndex.set(value, index);
+            return index;
+        }
+
+        rows.forEach(function (row) {
+            if (row.guild_id && !Object.prototype.hasOwnProperty.call(guilds, row.guild_id)) {
+                guilds[row.guild_id] = row.guild_name || "";
+            }
+            if (row.channel_id && !Object.prototype.hasOwnProperty.call(channels, row.channel_id)) {
+                channels[row.channel_id] = [row.guild_id || "", row.channel_name || ""];
+            }
+            authorId(row.author || "");
+        });
+
+        var header = {
+            v: 1,
+            k: "agent-os-discord-archive",
+            e: Math.floor(Date.now() / 1000),
+            n: rows.length,
+            cols: ["m", "c", "a", "t", "x", "r", "u", "f", "s"],
+            g: guilds,
+            c: channels,
+            a: authors
+        };
+        if (metadata && metadata.from_date) header.from = metadata.from_date;
+        if (metadata && metadata.to_date) header.to = metadata.to_date;
+        if (metadata && metadata.scope) header.scope = metadata.scope;
+
+        var parts = [JSON.stringify(header), "\n"];
+        rows.forEach(function (row) {
+            var attachmentUrls = new Set((row.attachments || []).map(function (item) {
+                return String(item && item.url || "");
+            }));
+            var selfUrl = String(row.message_url || "");
+            var urls = (row.urls || []).filter(function (url) {
+                var value = String(url || "");
+                return value && value !== selfUrl && !attachmentUrls.has(value);
+            });
+            var attachments = (row.attachments || []).map(function (item) {
+                return [String(item && item.url || ""), String(item && item.label || "")];
+            });
+
+            // Row arrays avoid repeating JSON property names millions of times.
+            // The header's cols array documents the stable field order.
+            var compact = [
+                String(row.message_id || ""),
+                String(row.channel_id || ""),
+                authorId(row.author || ""),
+                discordArchiveTimestampSeconds(row.timestamp || row.captured_at),
+                String(row.text || ""),
+                row.reply_to_message_id ? String(row.reply_to_message_id) : null,
+                urls.length ? urls : null,
+                attachments.length ? attachments : null,
+                row.source_surface === "search_results" ? 1 : 0
+            ];
+            parts.push(JSON.stringify(compact), "\n");
+        });
+
+        return new Blob(parts, { type: "application/x-ndjson;charset=utf-8" });
+    }
+
+    async function discordGzipBlob(sourceBlob) {
+        if (typeof CompressionStream !== "function") {
+            return {
+                blob: sourceBlob,
+                compressed: false,
+                extension: ".jsonl"
+            };
+        }
+
+        var stream = sourceBlob.stream().pipeThrough(new CompressionStream("gzip"));
+        var compressed = await new Response(stream).blob();
+        return {
+            blob: compressed,
+            compressed: true,
+            extension: ".jsonl.gz"
+        };
+    }
+
+    function downloadDiscordBlob(filename, blob) {
         var url = URL.createObjectURL(blob);
         var link = document.createElement("a");
         link.href = url;
@@ -878,20 +988,41 @@
         window.setTimeout(function () { URL.revokeObjectURL(url); }, 5000);
     }
 
+    async function downloadDiscordCompactArchive(rows, baseName, metadata) {
+        var source = discordArchiveCompactRows(rows, metadata || {});
+        var encoded = await discordGzipBlob(source);
+        var filename = baseName + encoded.extension;
+        downloadDiscordBlob(filename, encoded.blob);
+        return {
+            count: rows.length,
+            filename: filename,
+            compressed: encoded.compressed,
+            raw_bytes: source.size,
+            archive_bytes: encoded.blob.size
+        };
+    }
+
+    function discordHumanBytes(bytes) {
+        var value = Number(bytes || 0);
+        if (value < 1024) return value + " B";
+        if (value < 1024 * 1024) return (value / 1024).toFixed(1) + " KB";
+        if (value < 1024 * 1024 * 1024) return (value / (1024 * 1024)).toFixed(1) + " MB";
+        return (value / (1024 * 1024 * 1024)).toFixed(2) + " GB";
+    }
+
     async function exportDiscordDateRange(fromDate, toDate) {
         var rows = await discordRecordsInDateRange(fromDate, toDate);
         var stamp = new Date().toISOString().replace(/[:.]/g, "-");
         var rangeLabel = (fromDate || "start") + "_to_" + (toDate || "end");
-        var filename = "agent-os-discord-archive-" + rangeLabel + "-" + stamp + ".json";
-        downloadDiscordJson(filename, {
-            schema_version: "discord-archive-export-v1",
-            exported_at: new Date().toISOString(),
-            from_date: fromDate || null,
-            to_date: toDate || null,
-            count: rows.length,
-            messages: rows
-        });
-        return { count: rows.length, filename: filename };
+        return downloadDiscordCompactArchive(
+            rows,
+            "agent-os-discord-archive-" + rangeLabel + "-" + stamp,
+            {
+                from_date: fromDate || null,
+                to_date: toDate || null,
+                scope: "date_range"
+            }
+        );
     }
 
     async function compactDiscordDateRange(fromDate, toDate) {
@@ -903,18 +1034,8 @@
             var tx = db.transaction([DISCORD_STORE, DISCORD_SEEN_STORE], "readwrite");
             var messages = tx.objectStore(DISCORD_STORE);
             var seen = tx.objectStore(DISCORD_SEEN_STORE);
-            var archivedAt = new Date().toISOString();
-
             rows.forEach(function (row) {
-                seen.put({
-                    key: row.key,
-                    channel_key: row.channel_key,
-                    guild_id: row.guild_id || "",
-                    channel_id: row.channel_id || "",
-                    message_id: row.message_id || "",
-                    timestamp: row.timestamp || row.captured_at || "",
-                    archived_at: archivedAt
-                });
+                seen.put({ key: row.key });
                 messages.delete(row.key);
                 discordSeenFingerprints.delete(row.key);
             });
@@ -1010,11 +1131,11 @@
         controls.innerHTML =
             '<input id="agent-os-discord-index-filter" placeholder="Filter author, channel, message text…" ' +
             'style="flex:1;min-width:260px;padding:9px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:#181b22;color:#fff">' +
-            '<button id="agent-os-discord-export-channel" style="padding:8px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#20242b;color:#fff;cursor:pointer">Export current channel</button>' +
-            '<button id="agent-os-discord-export-all" style="padding:8px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#20242b;color:#fff;cursor:pointer">Export all JSON</button>' +
+            '<button id="agent-os-discord-export-channel" style="padding:8px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#20242b;color:#fff;cursor:pointer">Export current channel (.jsonl.gz)</button>' +
+            '<button id="agent-os-discord-export-all" style="padding:8px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#20242b;color:#fff;cursor:pointer">Export all (.jsonl.gz)</button>' +
             '<input id="agent-os-discord-archive-from" type="date" title="Archive from date" style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:#181b22;color:#fff">' +
             '<input id="agent-os-discord-archive-to" type="date" title="Archive through date" style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:#181b22;color:#fff">' +
-            '<button id="agent-os-discord-export-range" style="padding:8px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#20242b;color:#fff;cursor:pointer">Export date range</button>' +
+            '<button id="agent-os-discord-export-range" style="padding:8px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#20242b;color:#fff;cursor:pointer">Export range (.jsonl.gz)</button>' +
             '<button id="agent-os-discord-compact-range" style="padding:8px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#5b2a2a;color:#fff;cursor:pointer">Compact exported range</button>';
 
         var body = document.createElement("div");
@@ -1091,10 +1212,16 @@
                 return;
             }
             var result = await exportDiscordDateRange(fromDate, toDate);
+            var savings = result.raw_bytes > 0
+                ? Math.max(0, Math.round((1 - (result.archive_bytes / result.raw_bytes)) * 100))
+                : 0;
             window.alert(
-                "Started download of " + result.count + " indexed Discord messages.\n\n" +
-                result.filename + "\n\n" +
-                "After you verify the JSON file exists in Downloads, use Compact exported range to remove full message bodies from IndexedDB while keeping tiny seen markers."
+                "Started archive download of " + result.count + " indexed Discord messages.\n\n" +
+                result.filename + "\n" +
+                "Uncompressed JSONL: " + discordHumanBytes(result.raw_bytes) + "\n" +
+                "Archive: " + discordHumanBytes(result.archive_bytes) +
+                (result.compressed ? " (" + savings + "% smaller)" : " (gzip unavailable; plain JSONL fallback)") +
+                "\n\nAfter you verify the archive exists in Downloads, use Compact exported range to remove full message bodies from IndexedDB while keeping tiny seen markers."
             );
         });
         document.getElementById("agent-os-discord-compact-range").addEventListener("click", async function () {
@@ -1106,10 +1233,10 @@
             }
             if (!window.confirm(
                 "Only compact this range after you verified its JSON export exists.\n\n" +
-                "Compaction deletes full local message bodies for this range and keeps only tiny IDs/timestamps so they will not be indexed again. Continue?"
+                "Compaction deletes full local message bodies for this range and keeps only tiny message-key markers so they will not be indexed again. Continue?"
             )) return;
             var count = await compactDiscordDateRange(fromDate, toDate);
-            window.alert("Compacted " + count + " Discord messages. Their seen markers remain so they will not be re-indexed.");
+            window.alert("Compacted " + count + " Discord messages. Minimal seen markers remain so they will not be re-indexed.");
             closeDiscordIndexBrowser();
             openDiscordIndexBrowser();
         });
@@ -1149,20 +1276,22 @@
         var rows = await allDiscordRecords(Boolean(currentChannelOnly));
         var context = discordContext();
         var suffix = currentChannelOnly && context ? "-" + context.channel_id : "-all";
-        var blob = new Blob([JSON.stringify({
-            schema_version: "discord-index-export-v1",
-            exported_at: new Date().toISOString(),
-            current_channel_only: Boolean(currentChannelOnly),
-            messages: rows
-        }, null, 2)], { type: "application/json" });
-        var url = URL.createObjectURL(blob);
-        var link = document.createElement("a");
-        link.href = url;
-        link.download = "agent-os-discord-index" + suffix + ".json";
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        window.setTimeout(function () { URL.revokeObjectURL(url); }, 5000);
+        var stamp = new Date().toISOString().replace(/[:.]/g, "-");
+        var result = await downloadDiscordCompactArchive(
+            rows,
+            "agent-os-discord-index" + suffix + "-" + stamp,
+            { scope: currentChannelOnly ? "current_channel" : "all_active" }
+        );
+        var savings = result.raw_bytes > 0
+            ? Math.max(0, Math.round((1 - (result.archive_bytes / result.raw_bytes)) * 100))
+            : 0;
+        window.alert(
+            "Started export of " + result.count + " messages.\n\n" +
+            result.filename + "\n" +
+            "Uncompressed JSONL: " + discordHumanBytes(result.raw_bytes) + "\n" +
+            "Archive: " + discordHumanBytes(result.archive_bytes) +
+            (result.compressed ? " (" + savings + "% smaller)" : " (gzip unavailable; plain JSONL fallback)")
+        );
     }
 
     async function clearDiscordIndex() {
