@@ -119,9 +119,9 @@ reviewed provider, capability, scope, privacy-domain, and local secret-reference
 metadata to a currently discovered candidate. The flow requires separate
 `reviewed` and `confirm_write` flags, never copies client configuration or
 credential values, and records only desired registrations until an adapter
-verifies them. The connected Agent OS MCP tool inventory still lacks the
-connector tools, so its running server needs a host-side restart before this
-surface can be verified through MCP. Credential resolution, surface adapters,
+verifies them. The Agent OS MCP server now re-imports edited code on the next
+tool call (2026-09-24), so new connector tools become available without a
+host-side restart. Credential resolution, surface adapters,
 reconciliation, live provider health checks, and cross-surface verification
 remain open. `agent.py validate` now loads the v1 connector registry as part of
 its deterministic checks; this sparse worktree omits tracked project context,

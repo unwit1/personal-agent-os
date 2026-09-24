@@ -255,6 +255,11 @@ def _fit(packet: dict[str, Any], token_budget: int) -> tuple[dict[str, Any], int
             policy.pop("selection", None)
     if len(json.dumps(packet, default=str, ensure_ascii=False)) > limit:
         packet["summary"] = ""
+    # Empty sections carry no context and can still push the diagnostic shell
+    # over a very small budget. Remove them before trimming the user's task.
+    for key in ("state", "latest_agent_os_handoff", "matched_skills", "search_matches", "development_context"):
+        if not packet.get(key) and len(json.dumps(packet, default=str, ensure_ascii=False)) > limit:
+            packet.pop(key, None)
     if len(json.dumps(packet, default=str, ensure_ascii=False)) > limit:
         packet["task"] = packet["task"][: max(80, limit // 8)]
     return packet, limit
