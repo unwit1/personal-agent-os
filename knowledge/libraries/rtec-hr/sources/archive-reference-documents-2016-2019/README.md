@@ -1,4 +1,4 @@
-# RTEC Driver Handbooks and Historical Leave Excerpt (2016?2019)
+# RTEC Driver Handbooks and Historical Leave Excerpt (2016-2019)
 
 This source group preserves two complete RTEC driver-handbook DOCX copies and one one-page handbook excerpt. Original files are unchanged; searchable mirrors are under `fulltext/`.
 
