@@ -173,5 +173,44 @@
     "SBC/document publishing/version check",
     "invoice/deduction reconciliation with human approval",
     "secure-message follow-up queue"
+  ],
+  "attachment_evidence": [
+    {
+      "source": "000054 Humana Installation Guide attachment",
+      "findings": [
+        "Medical effective 2018-06-01.",
+        "Initial enrollment by enrollment spreadsheet.",
+        "Ongoing enrollment changes via Humana HRBA.",
+        "Pay-as-billed model with employer-portal eBilling.",
+        "Implementation calendar and wrap-up/transition meeting were part of the rollout."
+      ]
+    },
+    {
+      "source": "000139 2020-2021 contribution-analysis workbooks",
+      "findings": [
+        "RTEC compared multiple employer-contribution percentages and carrier scenarios.",
+        "Analysis considered Anthem versus UHC/Delta combinations, FSA employer contribution and Guardian life/disability continuity.",
+        "Annual employer cost and employee-share consequences were explicitly modeled."
+      ]
+    },
+    {
+      "source": "000249 June 2021 UHC plan-summary attachments",
+      "findings": [
+        "UnitedHealthcare relationship is proven by 2021, predating 2026 current-account evidence.",
+        "RTEC used at least Base and Buy Up plan-summary variants in website/employee-benefit publishing workflow.",
+        "Plan summaries themselves defer to formal coverage documents when conflicts exist."
+      ]
+    },
+    {
+      "source": "000143 historical Termination Notice to Payroll attachment",
+      "findings": [
+        "Historical termination workflow coordinated direct deposit, life, health, dental, vision, disability and 401(k) handling and included executive approval."
+      ]
+    }
+  ],
+  "interpretation": [
+    "The 2026 UnitedHealthcare 'recent implementation' language does not establish first-time UHC adoption because 2021 UHC plan summaries are present.",
+    "Benefits administration historically included both plan-selection/renewal modeling and post-enrollment billing/reconciliation, not just employee enrollment transactions.",
+    "Carrier/provider instructions must be effective-dated independently from stable handbook eligibility concepts."
   ]
 }
