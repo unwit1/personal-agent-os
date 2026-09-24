@@ -1,0 +1,193 @@
+{
+  "schema": "rtec-hr-source-manifest/v1",
+  "source_id": "rtec-hr-archive-reference-documents-2016-2019",
+  "title": "RTEC Driver Handbook versions and historical personal/sick leave handbook excerpt",
+  "source_type": "position_level_handbook_and_policy_archive",
+  "source_scope": "RTEC work-mail attachment archive",
+  "temporal_status": "historical_or_unknown_by_source",
+  "effective_date": null,
+  "sources": [
+    {
+      "key": "driver-2017",
+      "source_id": "rtec-hr-driver-handbook-2017-archive-copy",
+      "message_id": null,
+      "source_date": "2016-12-30",
+      "source_date_basis": "Local read-only attachment archive filename date; source message ID was not returned by the indexed search.",
+      "document_date": "2017",
+      "printed_revision_mark": "Cover shows 2017 and revision history through 2016.",
+      "artifact_path": "knowledge/libraries/rtec-hr/sources/archive-reference-documents-2016-2019/source/Employee-Driver-Handbook-2017-Revised-Through-2016.docx",
+      "sha256": "6eeeca5d6c4b29702beeb728f3a550f3ddc0a5b3d532653995d9361296821f1d",
+      "size_bytes": 308954,
+      "paragraphs": 911,
+      "main_xml_text_nodes": 2107,
+      "tracked_insertions": 0,
+      "tracked_deletions": 0,
+      "textboxes": 0,
+      "comments_part_present": false,
+      "blank_handbook_receipt_evidence": "Text extraction contains an unfilled driver signature/date line and handbook receipt with unfilled name/signature/date lines. Visual check pending.",
+      "fulltext_path": "knowledge/libraries/rtec-hr/sources/archive-reference-documents-2016-2019/fulltext/fulltext-driver-2017.md"
+    },
+    {
+      "key": "driver-2019",
+      "source_id": "rtec-hr-driver-handbook-2019-draft1",
+      "message_id": null,
+      "source_date": "2019-10-11",
+      "source_date_basis": "Local read-only attachment archive filename date; source message ID was not returned by the indexed search.",
+      "document_date": "2019",
+      "printed_revision_mark": "Cover shows 2019 and revision history through 2019; archive filename labels it draft1.",
+      "artifact_path": "knowledge/libraries/rtec-hr/sources/archive-reference-documents-2016-2019/source/RTEC-Driver-Handbook-2019-Draft1.docx",
+      "sha256": "73cd3c9463e90fc9c23ba5935afc1e9dbd74f68c1af3de04bdf971d2e846100b",
+      "size_bytes": 355649,
+      "paragraphs": 998,
+      "main_xml_text_nodes": 2341,
+      "tracked_insertions": 0,
+      "tracked_deletions": 0,
+      "textboxes": 0,
+      "comments_part_present": false,
+      "blank_handbook_receipt_evidence": "Text extraction contains an unfilled driver signature/date line and handbook receipt with unfilled name/signature/date lines. Visual check pending.",
+      "fulltext_path": "knowledge/libraries/rtec-hr/sources/archive-reference-documents-2016-2019/fulltext/fulltext-driver-2019.md"
+    },
+    {
+      "source_id": "rtec-hr-personal-sick-leave-handbook-excerpt-2016",
+      "message_id": "msg_250fa8d7684846fcb23f2442",
+      "source_date": "2016-10-12",
+      "document_date": null,
+      "visible_header_date": "10/11 (ambiguous; not treated as an effective date)",
+      "artifact_path": "knowledge/libraries/rtec-hr/sources/archive-reference-documents-2016-2019/source/RTEC-Personal-Sick-Leave-Handbook-Excerpt-Printed-Page-13.pdf",
+      "sha256": "6544e1e3e08b8801eeb0aac9738dbe32b2c8414fff1ee148b9c8d77f57af4d82",
+      "size_bytes": 431846,
+      "pages": 1,
+      "printed_page_number": 13,
+      "extractable_text_pages": 0,
+      "visual_transcription_path": "knowledge/libraries/rtec-hr/sources/archive-reference-documents-2016-2019/fulltext/fulltext-personal-sick-leave-excerpt-2016.md",
+      "review_status": "visually read and transcribed; source is one page only and annual-leave text continues beyond it",
+      "context": "A historical HR email states this handbook policy page was provided in connection with discussion of a time-and-attendance module. The company-level implementation statement is summarized in the mailbox coverage file; raw email body is not included."
+    }
+  ],
+  "version_comparison": {
+    "driver_handbook_2017_to_2019_text_comparison": "Mechanical paragraph-level comparison of full text. Both share the same major operational sections. Difference hotspots are summarized in driver-handbook-differences.md; 2019 file is marked draft1 and no approved/effective status is established.",
+    "diff_sections": {
+      "(opening/contents or unstyled section) -> (opening/contents or unstyled section)": {
+        "old_paragraphs": 101,
+        "new_paragraphs": 110
+      },
+      "Cash-Fare Rates -> Cash-Fare Rates": {
+        "old_paragraphs": 7,
+        "new_paragraphs": 1
+      },
+      "Child or Children -> Child or Children": {
+        "old_paragraphs": 2,
+        "new_paragraphs": 2
+      },
+      "Service Animals -> Service Animals": {
+        "old_paragraphs": 1,
+        "new_paragraphs": 1
+      },
+      "Required Training -> Required Training": {
+        "old_paragraphs": 2,
+        "new_paragraphs": 2
+      },
+      "Defensive Driving -> Cell Phone Use": {
+        "old_paragraphs": 0,
+        "new_paragraphs": 12
+      },
+      "Defensive Driving -> Defensive Driving": {
+        "old_paragraphs": 2,
+        "new_paragraphs": 8
+      },
+      "Emergency Breakdown Procedure -> Universal Precautions": {
+        "old_paragraphs": 0,
+        "new_paragraphs": 29
+      },
+      "Safety Equipment and Written Material -> Safety Equipment and Written Material": {
+        "old_paragraphs": 1,
+        "new_paragraphs": 1
+      },
+      "Safety Equipment Policy -> Vehicle Security: 10 Codes": {
+        "old_paragraphs": 0,
+        "new_paragraphs": 30
+      },
+      "Preventable Accidents -> Preventable Accidents": {
+        "old_paragraphs": 1,
+        "new_paragraphs": 1
+      },
+      "Passenger Assistance Training -> Passenger Assistance Safety and Sensitivity Training": {
+        "old_paragraphs": 2,
+        "new_paragraphs": 4
+      },
+      "Passenger Assistance Training -> Communicating With Customers With Disabilities": {
+        "old_paragraphs": 1,
+        "new_paragraphs": 0
+      },
+      "Passenger Carry-on Rules -> Passenger Carry-on Rules": {
+        "old_paragraphs": 1,
+        "new_paragraphs": 1
+      },
+      "Reasonable Assistance -> Reasonable Assistance": {
+        "old_paragraphs": 1,
+        "new_paragraphs": 3
+      },
+      "Wheelchairs and Mobility Devices -> Lift Operation": {
+        "old_paragraphs": 0,
+        "new_paragraphs": 2
+      },
+      "Wheelchairs and Mobility Devices -> Wheelchairs and Mobility Devices": {
+        "old_paragraphs": 5,
+        "new_paragraphs": 4
+      },
+      "SPECIFIC SYSTEM POLICIES -> CONFIDENTIALITY AND PROFESSIONAL COMMUNICATION": {
+        "old_paragraphs": 0,
+        "new_paragraphs": 5
+      },
+      "PERSONNEL -> PERSONNEL": {
+        "old_paragraphs": 3,
+        "new_paragraphs": 1
+      },
+      "CONFIRMATION OF RECEIPT OF DRIVER HANDBOOK -> CONFIRMATION OF RECEIPT OF DRIVER HANDBOOK": {
+        "old_paragraphs": 1,
+        "new_paragraphs": 1
+      }
+    },
+    "limitations": [
+      "The 2017 cover carries a 2017 label and revisions through 2016; archive filename date is 2016-12-30.",
+      "The 2019 cover carries a 2019 label and revisions through 2019; archive filename identifies draft1.",
+      "The single-page leave excerpt carries ambiguous header 10/11 and page number 13. It states 90-day eligibility, while later handbook sources say 30 days. Preserve as historical difference, not current rule."
+    ]
+  },
+  "content_overview": [
+    "Driver guides cover RTEC services, rider/customer interaction, dispatch coordination, driver responsibilities, safety, training, testing, vehicle use, confidentiality, conduct, and job-description material.",
+    "The two driver manuals contain blank driver-handbook receipt acknowledgments with unfilled name/signature/date lines.",
+    "The one-page handbook excerpt covers personal/sick leave and the beginning of annual-leave policy."
+  ],
+  "relationships": [
+    {
+      "relationship": "LATER_ARCHIVE_VERSION",
+      "source_ids": [
+        "rtec-hr-driver-handbook-2017-archive-copy",
+        "rtec-hr-driver-handbook-2019-draft1"
+      ],
+      "note": "The 2019 document is a later text variant but labelled draft1; approval/effective status unknown."
+    },
+    {
+      "relationship": "CONFLICTS_WITH",
+      "source_id": "rtec-hr-employee-handbook-2019-archive-copy-2020-01-03",
+      "note": "The 2016 email carries a one-page handbook excerpt whose ambiguous header is 10/11; it states personal/sick leave eligibility after 90 days. Later 2019 handbook text states eligibility after 30 days. Effective-date relation not established."
+    },
+    {
+      "relationship": "CONFLICTS_WITH",
+      "source_id": "rtec-policy-leave-time-off-2025",
+      "note": "The historical one-page excerpt states a 90-day eligibility threshold; the later 2025 handbook states 30 days. The excerpt is incomplete and does not establish current authority."
+    }
+  ],
+  "review": {
+    "content_extraction_complete": true,
+    "full_source_files_preserved": true,
+    "content_reviewed": false,
+    "clause_by_clause_review_complete": false,
+    "driver_handbook_full_texts_extracted": true,
+    "driver_receipt_fields_text_extracted_blank_visual_check_pending": true,
+    "scanned_leave_excerpt_visually_reviewed": true,
+    "privacy_boundary": "Only exact identified organizational manuals and a position-level handbook page are included. External-sample handbooks, resumes/applications, employee-specific correspondence, and other person-level records are excluded."
+  },
+  "ingested_at": "2026-09-23"
+}

@@ -1,0 +1,91 @@
+{
+  "source_id": "rtec-hr-employee-handbook-2023-03-01-complete-revised",
+  "title": "RTEC Employee Handbook, March 1, 2023 (complete revised archive copy)",
+  "source_type": "employee_handbook",
+  "source_scope": "RTEC work-mail archive",
+  "source_date": "2023-03-20",
+  "document_date": "2023-03-01",
+  "effective_date": null,
+  "temporal_status": "historical",
+  "revision_evidence": "The March 20, 2023 email carrying the PDF calls it a revised version after further changes and asks that it continue to be posted as the 2023 Employee Handbook. No effective date is established.",
+  "email_sources": [
+    {
+      "message_id": "msg_346de0d91c8d3296d74a9113",
+      "date": "2023-03-20T19:53:14+00:00",
+      "attachment": "2023 Employee handbook (2).pdf",
+      "artifact_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2023-03-01/source/RTEC-Employee-Handbook-2023-03-01-revised.pdf",
+      "sha256": "6bcaadd01f18e70dca573f500fa79ea419bfbab60448e0cf7d4f8fb8bc51b5a0",
+      "size_bytes": 1033922,
+      "pages": 48,
+      "version_note": "Later archived copy; email explicitly describes it as revised."
+    },
+    {
+      "message_id": "msg_0c4270a04a4f9172ccd202ea",
+      "date": "2023-03-20T18:11:31+00:00",
+      "attachment": "2023 Employee handbook (2).docx",
+      "artifact_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2023-03-01/source/RTEC-Employee-Handbook-2023-03-01-DOCX-variant.docx",
+      "sha256": "0d266aad88351e79555337a878ca961611e30a76e2427ccc7cbbfab28c2aa72e",
+      "size_bytes": 99188,
+      "paragraphs": 690,
+      "version_note": "Earlier same-day archived DOCX with the same printed handbook date; content equivalence with the later PDF is not assumed."
+    }
+  ],
+  "searchable_representations": [
+    {
+      "path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2023-03-01/fulltext/fulltext-pdf.md",
+      "method": "Native PDF text extraction with explicit page markers",
+      "coverage": "48 of 48 pages"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2023-03-01/fulltext/fulltext-docx.md",
+      "method": "Ordered extraction of all text nodes from the main document XML, including floating/textbox content, with header/footer text separately included",
+      "coverage": "1509 main-document text nodes across 579 nonempty paragraph/textbox blocks, plus header/footer text; original DOCX remains authoritative for layout and automatic list numbering"
+    }
+  ],
+  "review": {
+    "content_reviewed": true,
+    "pdf_pages_visually_reviewed": 48,
+    "pdf_pages_with_extractable_text": 48,
+    "docx_sections": 5,
+    "docx_tracked_insertions": 0,
+    "docx_tracked_deletions": 0,
+    "docx_comments_part_present": false,
+    "blank_acknowledgment_on_page": 48,
+    "blank_acknowledgment_fields": ["Issued To", "Signed", "Date Received"],
+    "format_relationship": "The PDF and DOCX have distinct SHA-256 hashes and extraction/pagination differences. Word-token comparison shows substantial shared content but does not prove equivalence; both originals are preserved unchanged and the later PDF is treated as the revised archive copy based on its email context."
+  },
+  "content_overview": [
+    "Employment status, complaint routing, equal opportunity, and affirmative action",
+    "Workweek, time, overtime, pay, and incentives",
+    "Medical, dental, vision, life, retirement, workers' compensation, and other benefits",
+    "Sick/personal leave, vacation, holidays, unemployment, jury, funeral, military, and FMLA leave",
+    "Solicitation, smoking/tobacco, attendance, harassment, dress, orientation, work rules, and safety by role",
+    "Confidentiality, progressive discipline, disciplinary guideline groups, communications systems, nepotism/fraternization, and audio/video surveillance",
+    "Employee handbook receipt certificate on page 48"
+  ],
+  "relationships": [
+    {
+      "relationship": "COMPLETE_SOURCE_FOR",
+      "source_id": "rtec-hr-employee-handbook-selected-2023-03-01",
+      "note": "The earlier corpus item contains only eight selected pages from a 48-page handbook. This archived copy provides a complete 48-page text source for the same printed handbook date."
+    },
+    {
+      "relationship": "SUPERSEDED_IN_OVERLAPPING_POLICY",
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "note": "The complete December 15, 2025 handbook is later and is the currentest complete handbook in the corpus; later standalone policies may control individual sections."
+    },
+    {
+      "relationship": "EEO_SECTION_SUPERSEDED_IN_PART",
+      "source_id": "rtec-hr-eeo-policy-2026-08-26",
+      "note": "The 2023 handbook records an EEO Officer assignment; the later signed 2026 EEO source is the later evidence for that role assignment."
+    }
+  ],
+  "authority_and_cautions": [
+    "This is historical handbook evidence, not current operational guidance.",
+    "Do not generalize 2023 benefit, leave, attendance, discipline, or legal statements as current without checking later authoritative sources.",
+    "Text extraction includes line-wrap and character-recognition artifacts; use the unchanged source artifact for exact wording and layout.",
+    "The employee-note page and page-48 receipt are blank. Official names/signatures in this position-level policy source are retained under the corpus full-source rule; no employee/applicant case records are included."
+  ],
+  "full_source_directory": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2023-03-01/source/",
+  "ingested_at": "2026-09-23"
+}

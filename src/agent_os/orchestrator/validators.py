@@ -38,14 +38,18 @@ def run_validator(validator: dict[str, Any], cwd: Path | str, timeout: int = 900
         except (OSError, subprocess.TimeoutExpired) as error:
             return {"name": label, "kind": "command", "passed": False, "returncode": None, "detail": redact(f"validator could not run: {error}", 400)}
         tail = (completed.stdout or "").strip().splitlines()[-3:] + (completed.stderr or "").strip().splitlines()[-2:]
-        return {
+        output = (completed.stdout or "") + chr(10) + (completed.stderr or "")
+        result = {
             "name": label,
             "kind": "command",
             "passed": completed.returncode == 0,
             "returncode": completed.returncode,
             "detail": redact(" | ".join(tail), 400) or None,
-            **test_counts((completed.stdout or "") + chr(10) + (completed.stderr or "")),
+            **test_counts(output),
         }
+        if completed.returncode != 0:
+            result["failed_tests"] = failed_tests(output)
+        return result
     if kind == "outputs_present":
         missing = [item for item in validator.get("outputs", []) if not (Path(cwd) / item).exists()]
         return {"name": label, "kind": kind, "passed": not missing, "detail": None if not missing else "missing: " + ", ".join(missing)}
@@ -77,6 +81,17 @@ def test_counts(output: str) -> dict[str, int]:
         passed = counts.get("passed", 0)
         return {"tests_run": passed + failed, "tests_failed": failed, "tests_passed": passed}
     return {}
+
+
+_UNITTEST_FAILURE = re.compile(r"^(?:FAIL|ERROR): (\S+) \(([^)\s]+)\)", re.MULTILINE)
+_PYTEST_FAILURE = re.compile(r"^(?:FAILED|ERROR) (\S+::\S+)", re.MULTILINE)
+
+
+def failed_tests(output: str) -> list[str]:
+    """Sorted identities of failing tests (unittest or pytest); empty when none parse."""
+    names = {match.group(2).split(".", 1)[-1] if match.group(2).startswith("tests.") else match.group(2) for match in _UNITTEST_FAILURE.finditer(output)}
+    names.update(match.group(1) for match in _PYTEST_FAILURE.finditer(output))
+    return sorted(names)
 
 
 def scope_check(changed: list[str], scope: list[str]) -> dict[str, Any]:

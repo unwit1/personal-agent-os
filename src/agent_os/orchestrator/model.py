@@ -123,7 +123,9 @@ DEFAULT_POLICY: dict[str, Any] = {
     "preference": "balanced",
     "planning": "auto",
     "max_planned_tasks": 16,
-    "planner_capability_class": "balanced",
+    # Planning is design work: the strongest-benchmark (reasoning) tier plans,
+    # and its tasks are written so `fast` models can implement them.
+    "planner_capability_class": "reasoning",
     # Measured (docs/simple-mode.md, "Planner context"): medium effort with the
     # repository map halves planner tokens with equally complete plans.
     "planner_effort": "medium",

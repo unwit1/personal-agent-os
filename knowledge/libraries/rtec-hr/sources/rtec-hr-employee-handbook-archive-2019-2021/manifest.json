@@ -1,0 +1,204 @@
+{
+  "schema": "rtec-hr-source-manifest/v1",
+  "source_id": "rtec-hr-employee-handbook-archive-2019-2021",
+  "title": "RTEC Employee Handbook archive copies printed July 15, 2019 and July 19, 2021",
+  "source_type": "employee_handbook_archive",
+  "source_scope": "RTEC work-mail archive",
+  "temporal_status": "historical",
+  "effective_date": null,
+  "sources": [
+    {
+      "key": "2019-01-02",
+      "message_id": "msg_05d17b50d2e0c892303d23a7",
+      "email_date": "2020-01-02",
+      "document_date": "2019-07-15",
+      "artifact_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/source/Employee-Handbook-2019-archive-copy-2020-01-02.docx",
+      "sha256": "d11afe27f61cdbcd54eba63a1d408b7b5babae33b8210d47ffb486d9be09ea97",
+      "size_bytes": 97608,
+      "paragraphs_nonempty": 575,
+      "main_xml_text_nodes_including_deletions": 1404,
+      "tracked_insertions": 0,
+      "tracked_deletions": 0,
+      "comment_range_starts": 0,
+      "textbox_content_nodes": 0,
+      "comments_part_present": false,
+      "revision_authors_and_dates": {},
+      "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/fulltext/fulltext-2019-01-02.md",
+      "sections": 5,
+      "title_and_printed_date": [
+        "Rural Transit Enterprises Coordinated, Inc. (RTEC)",
+        "EMPLOYEE HANDBOOK",
+        "July 15, 2019"
+      ],
+      "printed_date": "2019-07-15",
+      "archive_context": "Archived attachment on 2020-01-02; corresponding message body contained no substantive content.",
+      "source_id": "rtec-hr-employee-handbook-2019-archive-copy-2020-01-02"
+    },
+    {
+      "key": "2019-01-03",
+      "message_id": "msg_0d0386ba508647f4c0b08f46",
+      "email_date": "2020-01-03",
+      "document_date": "2019-07-15",
+      "artifact_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/source/Employee-Handbook-2019-archive-copy-2020-01-03.docx",
+      "sha256": "604800bd6633c9964ad97f51b762016f4cbeba8558775f563de822847959d0fc",
+      "size_bytes": 98349,
+      "paragraphs_nonempty": 576,
+      "main_xml_text_nodes_including_deletions": 1422,
+      "tracked_insertions": 0,
+      "tracked_deletions": 0,
+      "comment_range_starts": 0,
+      "textbox_content_nodes": 0,
+      "comments_part_present": false,
+      "revision_authors_and_dates": {},
+      "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/fulltext/fulltext-2019-01-03.md",
+      "sections": 5,
+      "title_and_printed_date": [
+        "Rural Transit Enterprises Coordinated, Inc. (RTEC)",
+        "EMPLOYEE HANDBOOK",
+        "July 15, 2019"
+      ],
+      "printed_date": "2019-07-15",
+      "archive_context": "Archived attachment on 2020-01-03; corresponding position-level email says ?Please post on website.? This documents a posting request, not proof of completion.",
+      "source_id": "rtec-hr-employee-handbook-2019-archive-copy-2020-01-03"
+    },
+    {
+      "key": "2021-10-01",
+      "message_id": "msg_a34c4864d9d9a0839bef31aa",
+      "email_date": "2021-10-01",
+      "document_date": "2021-07-19",
+      "artifact_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/source/Employee-Handbook-2021-revised-with-tracked-changes.docx",
+      "sha256": "cede6d95ecf337e09dc963caf4cb474db53e4fc1146e40f20e4359f07b754331",
+      "size_bytes": 105677,
+      "paragraphs_nonempty": 694,
+      "main_xml_text_nodes_including_deletions": 1788,
+      "tracked_insertions": 66,
+      "tracked_deletions": 303,
+      "comment_range_starts": 0,
+      "textbox_content_nodes": 0,
+      "comments_part_present": false,
+      "revision_authors_and_dates": {
+        "Sheila Stallworth | 2021-09-29T16:04:00Z": 55,
+        "Sheila Stallworth | 2021-09-29T16:02:00Z": 1,
+        "Sheila Stallworth | 2021-09-29T16:03:00Z": 3,
+        "Sheila Stallworth | 2021-09-24T16:07:00Z": 2,
+        "Sheila Stallworth | 2021-09-24T16:12:00Z": 1,
+        "Sheila Stallworth | 2021-09-24T16:01:00Z": 7,
+        "Sheila Stallworth | 2021-09-29T16:15:00Z": 2,
+        "Sheila Stallworth | 2021-09-29T16:16:00Z": 4,
+        "Sheila Stallworth | 2021-10-01T15:12:00Z": 1,
+        "Sheila Stallworth | 2021-09-24T16:06:00Z": 55,
+        "(blank author) | 2021-07-22T15:43:00Z": 118,
+        "(blank author) | 2021-07-22T15:41:00Z": 118,
+        "Sheila Stallworth | 2021-09-24T15:55:00Z": 1,
+        "Sheila Stallworth | 2021-09-24T16:08:00Z": 1
+      },
+      "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/fulltext/fulltext-2021-10-01.md",
+      "sections": 5,
+      "title_and_printed_date": [
+        "Rural Transit Enterprises Coordinated, Inc. (RTEC)",
+        "EMPLOYEE HANDBOOK",
+        "July 19, 2021"
+      ],
+      "printed_date": "2021-07-19",
+      "archive_context": "Archived attachment on 2021-10-01; corresponding position-level email says the revised handbook should replace the website copy. This documents a replacement instruction, not proof of completion.",
+      "source_id": "rtec-hr-employee-handbook-2021-revised-archive-copy"
+    },
+    {
+      "key": "2021-07-19-pdf-web-copy",
+      "source_id": "rtec-hr-employee-handbook-2021-website-copy-2022-09-19",
+      "message_id": "msg_0de1ec147e109bab7fac52e5",
+      "email_date": "2022-09-19",
+      "document_date": "2021-07-19",
+      "printed_date": "2021-07-19",
+      "pdf_creation_date": "2021-07-22",
+      "artifact_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/source/Employee-Handbook-2021-web-copy-emailed-2022-09-19.pdf",
+      "sha256": "ee661c8145555ab81d92ddb08295cc0f66a8268b15d3cf8db24d95383979a671",
+      "size_bytes": 320724,
+      "pages": 48,
+      "pages_with_extractable_text": 48,
+      "total_extracted_characters": 89357,
+      "fulltext_path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/fulltext/fulltext-2021-web-pdf.md",
+      "archive_context": "Position-level email dated 2022-09-19 says this is the correct employee handbook for the RTEC website. The same message contains an unrelated website vacancy update that is not retained as people knowledge.",
+      "visual_review": {
+        "all_pages_contact_sheet_reviewed": true,
+        "full_page_pages_reviewed": [
+          15,
+          24,
+          25,
+          48
+        ],
+        "receipt_fields_blank_on_page": 48
+      },
+      "revision_context": "PDF metadata records creation on 2021-07-22, before tracked revisions in the separate revised DOCX dated 2021-10-01 (with tracked authoring dates 2021-09-24 through 2021-10-01). The PDF page 15 and page 24 keep the two-consecutive-day physician-note wording and the no-fault attendance language; page 25 visually strikes older point values 10 and 90 and displays 6 and 60, while other attendance wording remains mixed. The 2022 email labels this PDF the correct website copy but does not explain this relationship. Preserve both as conflicting historical evidence."
+    }
+  ],
+  "review": {
+    "content_reviewed": false,
+    "all_main_document_paragraphs_extracted": true,
+    "tracked_changes_preserved_inline": true,
+    "two_2019_copies_compared_paragraph_by_paragraph": true,
+    "unresolved_revision_state": "The 2021 source is labelled revised in its email context but retains unaccepted Word tracked revisions. Its redline is preserved as-is; no accepted/rejected view is asserted as authoritative.",
+    "2021_policy_change_topics_observed": [
+      "personal/sick leave statement regarding a physician note after the third consecutive day",
+      "attendance description and doctor-note discretion",
+      "attendance point thresholds/removal/expiration and unpaid no-point days",
+      "a 2021-10-01 attendance policy revision marker"
+    ],
+    "fulltext_cautions": [
+      "The DOCX is authoritative for layout and automatic numbering.",
+      "Tracked changes in the 2021 DOCX must be reviewed in Word before treating any individual clause as adopted.",
+      "No effective date has been established.",
+      "These pre-April-2026 documents are RTEC organizational history, not the user?s personal work history."
+    ],
+    "excluded_content": "No raw email body, employee/applicant case record, personal timeline detail, or person-level dossier was stored.",
+    "content_review_status": "Full text extracted for all three DOCX sources and the 2021 PDF; structural/version differences reviewed. Clause-by-clause review of all handbook provisions remains in progress.",
+    "2019_copy_differences_observed": [
+      "The Jan 3 copy changes several table-of-contents page references.",
+      "It changes funeral leave wording from the scheduled day of the funeral to the scheduled weekday of the funeral.",
+      "It adds work-related accident as an excused-absence category in the attendance policy.",
+      "It changes cafeteria guidance from exposed food to food and adds a food-handler-card requirement.",
+      "It adds conduct on or off the job that reflects unfavorably on RTEC to work rules.",
+      "It corrects recording/audio-tape wording in the vehicle/property notice and moves the employee-notes page after the receipt certificate."
+    ],
+    "2021_tracked_policy_edits_observed": [
+      "Personal/sick leave: changes the physician-statement trigger wording to ?on the 3rd day of consecutive absence.?",
+      "Attendance: removes a no-fault characterization while retaining the attendance definition; updates physician-statement timing; revises point threshold from 10 to 6, point removal after 90 to 60 consecutive days, and partial-day threshold from 4 hours or less to less than 4 hours; adds three unpaid days with no points.",
+      "The extracted redline also contains small wording edits around the offense/point table. These edits are not treated as adopted policy because tracked changes remain unresolved."
+    ],
+    "published_2021_pdf_review": "The 48-page PDF is a separate historical website copy identified by HR correspondence as correct for the website in September 2022. Its file creation date predates the later DOCX tracked edits; visual inspection shows mixed/struck attendance values. It does not cleanly resolve which 2021 revisions were adopted.",
+    "content_extraction_complete": true,
+    "version_difference_review_complete": true,
+    "clause_by_clause_review_complete": false
+  },
+  "relationships": [
+    {
+      "relationship": "SAME_PRINTED_DATE_DISTINCT_ARCHIVE_COPIES",
+      "source_ids": [
+        "rtec-hr-employee-handbook-2019-archive-copy-2020-01-02",
+        "rtec-hr-employee-handbook-2019-archive-copy-2020-01-03"
+      ],
+      "note": "Both display July 15, 2019, but have distinct hashes and content. The Jan 3 copy has specific text differences documented in README and paragraph diff."
+    },
+    {
+      "relationship": "LATER_ARCHIVE_VERSION",
+      "source_id": "rtec-hr-employee-handbook-2021-revised-archive-copy",
+      "note": "The 2021 document is printed July 19, 2021; position-level correspondence says it should replace the website copy. Tracked changes remain unresolved, so no accepted final version is asserted."
+    },
+    {
+      "relationship": "LATER_ARCHIVE_VERSION",
+      "source_id": "rtec-hr-employee-handbook-2023-03-01-complete-revised",
+      "note": "A later complete March 2023 handbook archive is preserved separately."
+    },
+    {
+      "relationship": "LATER_ARCHIVE_VERSION",
+      "source_id": "rtec-hr-employee-handbook-2025-12-15",
+      "note": "A complete December 2025 handbook archive is preserved separately. Later source does not establish section-specific effective dates."
+    },
+    {
+      "relationship": "CONFLICTS_WITH",
+      "source_id": "rtec-hr-employee-handbook-2021-revised-archive-copy",
+      "note": "The July 2021 PDF identified as the correct website copy in September 2022 has different/mixed leave and attendance wording compared with the separate October 2021 DOCX carrying unresolved tracked revisions. Preserve both; no effective-date or accepted-revision conclusion is established."
+    }
+  ],
+  "ingested_at": "2026-09-23"
+}

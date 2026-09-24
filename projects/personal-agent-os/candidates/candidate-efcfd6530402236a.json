@@ -1,0 +1,17 @@
+{
+  "id": "candidate-efcfd6530402236a",
+  "kind": "project_state_candidate",
+  "project": "personal-agent-os",
+  "statement": "Mail Phase 1 remaining: SQLite-backed ledger for very large mailboxes, QRESYNC, PDF/Office attachment text via the document layer, a PST parser feeding sync_archive_records, and the separate approval-gated send design. No real account has been configured on this machine yet.",
+  "evidence": [
+    "docs/integrations/mail.md Known limits"
+  ],
+  "confidence": 0.9,
+  "source_agent": "claude-opus-5.5",
+  "source_session": null,
+  "task_summary": "Mail bootstrap (EarthLink + iCloud, read-only, multi-account) implemented on branch mail-multi-account (34f72aa5, 1076523a). 53 mail/ingestion tests pass; full suite only fails the 3 known worktree-path tests plus a pre-existing upstream project-count test.",
+  "status": "candidate",
+  "created_at": "2026-09-23T18:58:33.931424+00:00",
+  "resolved_at": null,
+  "fingerprint": "efcfd6530402236ac82181c01417696691f89767ff58568afa8ae2913045750a"
+}

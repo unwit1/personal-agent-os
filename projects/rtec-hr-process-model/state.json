@@ -6,13 +6,17 @@
   "summary": "Provenance-backed, privacy-safe, version-aware model and searchable source corpus for roughly 20 years of RTEC HR process documentation.",
   "repository": "https://github.com/unwit1/personal-agent-os.git",
   "current_priorities": [
+    "Import the six distinct unindexed local PST candidates recorded in projects/rtec-hr-process-model/checkpoints/pst-archive-source-inventory.json after coordinating with the active read-only email-review pass; deduplicate at message level and preserve restricted content only in the local mail index.",
     "Continue the FY2017 grant scan ingestion in bounded, restart-safe section batches; do not attempt monolithic OCR of all 1,021 pages.",
     "Use grant checklists as the section map and deduplicate repeated assurances/certifications against the !Compliance archive before transcribing copies.",
     "Promote the FY2017-era 2015–2018 AAP, September 2016 Title VI/LEP plan, 2016 EEO certification material, ADA complaint process and related forms as canonical historical compliance sources.",
     "Build version chains from the FY2017-era compliance sources through later/current AAP, EEO and Title VI/LEP versions.",
     "Continue ingesting the broader historical RTEC HR document base in small committed batches.",
     "Preserve safe manuals, policies, procedures, templates, training/reference sources, grant binders and organizational materials in full searchable form while keeping restricted person-level case data out of GitHub.",
-    "Use the correspondence archive to reconcile current discipline, attendance/leave, administrative approval, CSR escalation, employee-evaluation and employee-guidance workflows against newer authoritative sources."
+    "Use the correspondence archive to reconcile current discipline, attendance/leave, administrative approval, CSR escalation, employee-evaluation and employee-guidance workflows against newer authoritative sources.",
+    "Continue clause-level review of the preserved 2017 and draft1 2019 driver handbooks; confirm blank receipt layouts and determine whether either version was approved or superseded.",
+    "Locate and evaluate the July 2021 proposed attendance-policy memo; resolve adoption date and treatment of existing points against the distinct July PDF and tracked-change DOCX handbook copies.",
+    "Resolve the current FMLA administrator and leave workflow; the 2018 archive only records a vendor inquiry."
   ],
   "important_paths": [
     "projects/rtec-hr-process-model/README.md",
@@ -52,7 +56,12 @@
     "knowledge/libraries/rtec-hr/sources/reference-data/downloads-reference-data-2026-09-24.json",
     "knowledge/libraries/rtec-hr/questions/downloads-spreadsheets-currentness-2026-09-24.json",
     "knowledge/libraries/rtec-hr/forms/historical-benefits-import-field-contracts-2018.json",
-    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24-coverage-ledger.json"
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24-coverage-ledger.json",
+    "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/README.md",
+    "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/manifest.json",
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-employee-handbook-archive-2019-2021.json",
+    "knowledge/libraries/rtec-hr/sources/email-content-review-2026-09-23/coverage.json",
+    "projects/rtec-hr-process-model/checkpoints/pst-archive-source-inventory.json"
   ],
   "context_files": [
     "projects/rtec-hr-process-model/README.md",
@@ -77,7 +86,12 @@
     "knowledge/libraries/rtec-hr/systems/historical-benefits-data-import-contracts-2018.json",
     "knowledge/libraries/rtec-hr/processes/historical-benefits-billing-reconciliation.json",
     "knowledge/libraries/rtec-hr/forms/historical-benefits-import-field-contracts-2018.json",
-    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24-coverage-ledger.json"
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24-coverage-ledger.json",
+    "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/README.md",
+    "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/manifest.json",
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-employee-handbook-archive-2019-2021.json",
+    "knowledge/libraries/rtec-hr/sources/email-content-review-2026-09-23/coverage.json",
+    "projects/rtec-hr-process-model/checkpoints/pst-archive-source-inventory.json"
   ],
   "skill_roots": [],
   "validation_commands": [],
@@ -106,7 +120,7 @@
     "latest_batch_restricted_employee_rosters": 2,
     "latest_batch_exact_duplicates": 1,
     "plan_packages_ingested": 1,
-    "open_currentness_or_gap_questions": 47,
+    "open_currentness_or_gap_questions": 50,
     "latest_batch_restricted_case_sources": 4,
     "latest_batch_searchable_source_groups": 14,
     "fy2017_grant_pdf_count": 3,
@@ -137,7 +151,19 @@
     "downloads_spreadsheet_artifacts": 16,
     "downloads_spreadsheet_logical_families": 11,
     "downloads_spreadsheet_restricted_artifacts": 8,
-    "downloads_spreadsheet_safe_artifacts": 8
+    "downloads_spreadsheet_safe_artifacts": 8,
+    "work_email_messages_indexed": 22671,
+    "work_email_messages_with_indexed_body": 21057,
+    "work_email_messages_without_indexed_body": 1614,
+    "work_email_attachment_rows": 12702,
+    "work_email_attachment_text_extractions": 308,
+    "work_email_review_records": 12,
+    "work_email_review_message_ids": 18,
+    "work_email_semantic_review_status": "in_progress; most indexed bodies and attachment content still require review",
+    "pst_archive_source_inventory_checkpoint": "projects/rtec-hr-process-model/checkpoints/pst-archive-source-inventory.json",
+    "pst_archive_unindexed_distinct_candidates": 6,
+    "pst_archive_source_inventory_status": "Six distinct local PSTs hashed; import pending coordination with the active email-review pass.",
+    "pst_archive_scope_checked": "User-profile PST locations, temporary-folder PST filenames, and the mapped RTEC HR folder; one inaccessible temporary subfolder remains."
   },
   "reference_form_context": {
     "catalog_path": "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json",
@@ -146,10 +172,11 @@
       "unwit1/job-applicant-dashboard",
       "unwit1/personal-agent-os"
     ],
-    "total_reference_records": 81,
+    "total_reference_records": 92,
     "unique_identity_keys": 76,
     "full_source_rule": "When a safe original reference artifact is available, preserve it in full or by a lossless repository-safe representation and link it to the existing catalog entry.",
-    "authority_rule": "Form presence is contextual evidence, not automatic current policy authority."
+    "authority_rule": "Form presence is contextual evidence, not automatic current policy authority.",
+    "already_ingested_hr_corpus_records": 15
   },
   "job_description_context": {
     "source_set": "rtec-hr-job-description-library-2026-09-23",

@@ -1,0 +1,18 @@
+{
+  "id": "candidate-dc11b6607a554310",
+  "kind": "decision_candidate",
+  "project": "personal-agent-os",
+  "statement": "Planner defaults: planner_effort medium, planner_repo_map on (local map with companion files + 8-file exploration budget), Claude read_only_mode tools (Read/Glob/Grep, dontAsk). Measured on a real goal: mean planner input 507k -> 253k tokens, list cost $0.54 -> $0.26, time ~206s -> ~102s, plans equally complete. The map alone at high effort did not reduce tokens; medium effort without companion files missed the schema file in 2/3 plans.",
+  "evidence": [
+    "docs/simple-mode.md 'Planner context (P2.3)'",
+    "commit 9563ec63"
+  ],
+  "confidence": 0.8,
+  "source_agent": "claude-opus-5.5",
+  "source_session": null,
+  "task_summary": "P2.3 planner context optimization on branch p1.2d-cli-overhead (commit 9563ec63), not pushed/merged. 505 tests: only the 3 known worktree-path failures.",
+  "status": "candidate",
+  "created_at": "2026-09-23T18:01:21.079987+00:00",
+  "resolved_at": null,
+  "fingerprint": "dc11b6607a554310fea54b5a927eb2cf247b0520a60a57d16c1c2ded398f43a5"
+}

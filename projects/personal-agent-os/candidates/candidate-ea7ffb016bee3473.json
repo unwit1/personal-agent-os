@@ -1,0 +1,18 @@
+{
+  "id": "candidate-ea7ffb016bee3473",
+  "kind": "project_state_candidate",
+  "project": "personal-agent-os",
+  "statement": "P1.2C implemented on branch p1.2c-simple-mode (not pushed/merged): Simple Mode GUI default, Continue Roadmap/campaigns, per-run telemetry.jsonl + transcript.log, usage normalization (fixes Claude cache tokens being dropped: 1,725,628-token call recorded as 38), test-result reuse, loop guards, `agent-os orchestrate benchmark [--live]`.",
+  "evidence": [
+    "commits d2f92f7d, 34ffba95",
+    "484 tests OK"
+  ],
+  "confidence": 0.95,
+  "source_agent": "claude-opus-5.5",
+  "source_session": null,
+  "task_summary": "P1.2C: Simple Mode GUI, Continue Roadmap + campaigns, per-run efficiency telemetry, benchmark. Branch p1.2c-simple-mode (commits d2f92f7d, 34ffba95), not pushed, not merged. 484 tests OK, agent.py validate ok.",
+  "status": "candidate",
+  "created_at": "2026-09-22T23:30:53.354894+00:00",
+  "resolved_at": null,
+  "fingerprint": "ea7ffb016bee3473fda8c1d1f2afb38554986029713069f140d568d3ee9b8954"
+}

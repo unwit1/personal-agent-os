@@ -1,0 +1,18 @@
+{
+  "id": "candidate-05a25837e101d150",
+  "kind": "lesson_candidate",
+  "project": "personal-agent-os",
+  "statement": "Orchestrator worktrees live inside the repository folder, and planners sometimes read the enclosing main checkout by absolute path instead of their worktree. In Claude dontAsk mode those reads are denied (planner returns no plan); in plan mode they silently read possibly different code. Every worker prompt now states its working directory.",
+  "evidence": [
+    ".agent-local/orchestrator/planner-bench/20260923T140653Z-8755 permission_denials",
+    "src/agent_os/orchestrator/prompts.py"
+  ],
+  "confidence": 0.85,
+  "source_agent": "claude-opus-5.5",
+  "source_session": null,
+  "task_summary": "P2.3 planner context optimization on branch p1.2d-cli-overhead (commit 9563ec63), not pushed/merged. 505 tests: only the 3 known worktree-path failures.",
+  "status": "candidate",
+  "created_at": "2026-09-23T18:01:21.079987+00:00",
+  "resolved_at": null,
+  "fingerprint": "05a25837e101d150f88d6f7d49062aeb44f29f40b694fbd9737cec3f6c05d5b7"
+}

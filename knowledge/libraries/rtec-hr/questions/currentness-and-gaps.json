@@ -173,7 +173,7 @@
     {
       "priority": "high",
       "domain": "attendance_leave",
-      "question": "Does current RTEC policy still prohibit using personal/sick leave immediately before or after scheduled vacation to extend the vacation, and what exceptions or approval rules apply?",
+      "question": "Was the July 2021 proposed attendance-policy change memo approved, what effective date was selected, and how were existing points handled? Compare the memo with the unresolved October 2021 handbook DOCX edits and the July 2021 website PDF.",
       "status": "resolved",
       "resolution_note": "Yes. The December 15, 2025 handbook explicitly states that Personal/Sick Leave cannot extend annual vacation, independently corroborating the historical 2015 memo. Current exceptions beyond the handbook language were not identified."
     },
@@ -327,6 +327,18 @@
       "question": "Resolve RTEC's authoritative FMLA 12-month measurement method before implementing HR-GUI's planned FMLA balance logic. The current stub says '480 (12 wk rolling)' while authoritative/candidate source materials conflict among first-day/occurrence, calendar-year and rolling methods.",
       "status": "open_blocker",
       "resolution_note": "Current HR-GUI FMLA module is only a stub. The rolling-language is an unvalidated implementation assumption and must not become production policy until RTEC designates the legally permitted method it actually uses."
+    },
+    {
+      "priority": "medium",
+      "domain": "driver_handbooks",
+      "question": "Was the 2019 driver handbook marked draft1 approved or distributed, what version superseded it, and are its receipt acknowledgment and operating guidance still used? Compare the preserved 2017 and 2019 receipt layouts before deduplicating their form identity.",
+      "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "fmla",
+      "question": "Who currently administers FMLA leave at RTEC, and what approved forms, owner/routing steps, timelines, and medical-record separation rules apply? A March 2018 email explored a third-party administrator but did not document a decision.",
+      "status": "open"
     }
   ]
 }

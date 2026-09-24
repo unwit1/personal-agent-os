@@ -1,0 +1,18 @@
+{
+  "id": "candidate-5b205e3b5d1fe3b1",
+  "kind": "lesson_candidate",
+  "project": "personal-agent-os",
+  "statement": "IngestionLedger per-call saves make long imports quadratic: mail sync_records measured 8.4 -> 11.2 -> 19.4 ms/message at 500/1,000/2,000 messages. deferred_saves() batches (commit outputs first, then complete + one save) keep it flat at about 1.5 ms/message. Other long importers should batch the same way.",
+  "evidence": [
+    "docs/integrations/mail.md Benchmark",
+    "commit 34f72aa5"
+  ],
+  "confidence": 0.9,
+  "source_agent": "claude-opus-5.5",
+  "source_session": null,
+  "task_summary": "Mail bootstrap (EarthLink + iCloud, read-only, multi-account) implemented on branch mail-multi-account (34f72aa5, 1076523a). 53 mail/ingestion tests pass; full suite only fails the 3 known worktree-path tests plus a pre-existing upstream project-count test.",
+  "status": "candidate",
+  "created_at": "2026-09-23T18:58:33.931424+00:00",
+  "resolved_at": null,
+  "fingerprint": "5b205e3b5d1fe3b175cf4cbec690aa3bedd346cb99151ecbbd196c791e339c1e"
+}

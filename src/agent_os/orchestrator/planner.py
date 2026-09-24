@@ -23,7 +23,7 @@ import re
 import shlex
 from typing import Any
 
-from .model import EDITING_ROLES, PlanError, new_node
+from .model import EDITING_ROLES, PlanError, new_node, path_in_scope
 
 
 PLANNER_ID = "plan"
@@ -175,6 +175,28 @@ def _planned_validators(task: dict[str, Any], patterns: list[str], project_comma
     return validators
 
 
+_TEST_TARGET = re.compile(r"^(tests(?:[./][A-Za-z_]\w*)+?)(?:\.py)?(?:::.*|\.[A-Z]\w*(?:\.\w+)?)?$")
+
+
+def _scope_validator_tests(task: dict[str, Any]) -> None:
+    """Let a task edit the test file its own validator runs.
+
+    A planner that scoped a task to ``src`` but validated it with
+    ``python -m unittest tests.test_new`` left the worker unable to create the
+    test without asking a person to widen its scope."""
+    scope = task.get("scope")
+    if not isinstance(scope, list) or not scope:
+        return
+    for validator in task.get("validators") or []:
+        for token in validator.get("command") or []:
+            match = _TEST_TARGET.match(str(token).replace("\\", "/"))
+            if not match:
+                continue
+            path = match.group(1).replace(".", "/") + ".py"
+            if not path_in_scope(path, scope):
+                scope.append(path)
+
+
 def expand(
     nodes: dict[str, dict[str, Any]],
     planner_id: str,
@@ -207,6 +229,7 @@ def expand(
             if path_key in task and not isinstance(task[path_key], list):
                 raise PlanError(f"planner task {task.get('id')}: {path_key} must be a list")
         task["validators"] = _planned_validators(task, patterns, project, notes)
+        _scope_validator_tests(task)
         deterministic_available = task.get("execution_path") == "deterministic" or "deterministic" in (task.get("available_execution_paths") or [])
         if deterministic_available:
             argv = approved_argv(task.get("command"), patterns, project)

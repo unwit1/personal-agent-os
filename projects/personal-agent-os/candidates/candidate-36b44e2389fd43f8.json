@@ -1,0 +1,17 @@
+{
+  "id": "candidate-36b44e2389fd43f8",
+  "kind": "decision_candidate",
+  "project": "personal-agent-os",
+  "statement": "Next economy stage: measure and reduce per-call agent CLI overhead (fixed system prompt/tool cost per Claude/Codex call; restrict tools/turns only via flags verified from --help), then cross-run usage reports (P1.1) and P2.3.",
+  "evidence": [
+    "docs/simple-mode.md measured finding"
+  ],
+  "confidence": 0.7,
+  "source_agent": "claude-opus-5.5",
+  "source_session": null,
+  "task_summary": "P1.2C: Simple Mode GUI, Continue Roadmap + campaigns, per-run efficiency telemetry, benchmark. Branch p1.2c-simple-mode (commits d2f92f7d, 34ffba95), not pushed, not merged. 484 tests OK, agent.py validate ok.",
+  "status": "candidate",
+  "created_at": "2026-09-22T23:30:53.354894+00:00",
+  "resolved_at": null,
+  "fingerprint": "36b44e2389fd43f828b6cf5e05062bb920f907cadf0c2be9081a37dd15d8988c"
+}

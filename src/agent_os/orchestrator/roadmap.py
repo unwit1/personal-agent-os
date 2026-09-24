@@ -284,13 +284,21 @@ def build_goal(project: str | None, stage: dict[str, Any], roadmap_rel: str, han
 def relevant_items(stage: dict[str, Any], items: list[Any]) -> list[str]:
     """Handoff items that concern this stage: they name it, or share at least
     three distinctive terms with its section. A project-wide handoff otherwise
-    puts unrelated work in front of the planner."""
+    puts unrelated work in front of the planner. Host-level chores (restarting
+    the MCP server, a host smoke run) are dropped: a sandboxed worker cannot do
+    them, and planning them only produced approval gates that asked again."""
+    import re
+
+    from .engine import _host_action
     from .repomap import terms
 
     stage_terms = set(terms(stage["title"] + "\n" + stage["excerpt"], limit=40))
     kept = []
     for item in items:
-        text = str(item)
+        sentences = re.split(r"(?<=[.;])\s+", str(item))
+        text = " ".join(sentence for sentence in sentences if not _host_action(sentence)).strip()
+        if not text:
+            continue
         if stage["id"].casefold() in text.casefold() or len(stage_terms.intersection(terms(text, limit=40))) >= 3:
             kept.append(text[:200])
     return kept
