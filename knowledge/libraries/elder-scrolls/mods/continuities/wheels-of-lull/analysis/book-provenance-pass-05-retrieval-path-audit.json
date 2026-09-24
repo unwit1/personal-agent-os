@@ -2,8 +2,18 @@
   "continuity_id": "tes.mod.wheels-of-lull",
   "audit_date": "2026-09-24",
   "pass": "book_provenance_05_retrieval_path_historical_metadata",
-  "status": "new_historical_metadata_witnesses_found_binary_materialization_still_pending",
+  "status": "additional_historical_detail_extracted_binary_materialization_still_pending",
   "promotion_changes": [],
+  "prior_work_boundary": {
+    "pass_03_already_knew_nexus_23569_as_harquebus_witness": true,
+    "pass_05_new_value": [
+      "Exact upload/update chronology preserved.",
+      "Independent machine-readable NMDB snapshot recorded.",
+      "Previously unrecorded third-party planned Cronographer/Sotha Sil expansion detail classified.",
+      "Post-Wheels Trainwiz same-canon statement separately classified.",
+      "Archive binary acquisition path re-tested."
+    ]
+  },
   "archive_retrieval": {
     "package_families_located": 2,
     "package_families_materialized": 0,
@@ -35,24 +45,29 @@
     "exact_archive_or_plugin_hit": false,
     "interpretation": "negative search state for currently accessible library only; not proof of global absence"
   },
-  "new_historical_witnesses": [
+  "historical_witness_details": [
     {
-      "source": "metherul/NMDB",
-      "repository_path": "skyrim/23569 - Aethernautics Weaponry Tweaks.json",
-      "snapshot_commit": "b13b73f739202271ef763febb1b0420b3f65922c",
-      "evidence_class": "third_party_contemporaneous_nexus_metadata_archive",
+      "source": "Nexus Aethernautics Weaponry Tweaks",
+      "url": "https://www.nexusmods.com/skyrim/mods/23569",
+      "evidence_class": "third_party_contemporaneous_nexus_page",
       "nexus_mod_id": 23569,
       "author": "pickel5857",
-      "created_utc": "2012-09-03T08:07:05Z",
-      "updated_utc": "2012-09-06T04:48:20Z",
-      "referenced_original_mod_id": 23260,
+      "created_utc": "2012-09-03T08:07:00Z",
+      "updated_utc": "2012-09-06T04:48:00Z",
       "referenced_original_author": "Trainwiz",
       "findings": [
         "Explicitly describes harquebuses as coming from Trainwiz's Aethernautics.",
         "Documents basic/Heavy/Ohmic/Magmatic harquebus variants in the Aethernautics ecosystem.",
-        "Contains a third-party planned expansion mentioning Cronographers and a Cronographer fortress on Sotha Sil."
+        "Contains third-party future plans mentioning Cronographers and a Cronographer fortress on Sotha Sil."
       ],
-      "evidence_boundary": "Harquebus concept/variant history is a pre-Wheels witness. The planned Cronographer/Sotha Sil material is third-party development-history evidence only and is not attributed to Trainwiz or imported as in-universe lore."
+      "evidence_boundary": "The harquebus witness was already known in pass 03. Pass 05 adds chronology and development-history detail. Planned Cronographer/Sotha Sil material is third-party development-history evidence only."
+    },
+    {
+      "source": "metherul/NMDB",
+      "repository_path": "skyrim/23569 - Aethernautics Weaponry Tweaks.json",
+      "snapshot_commit": "b13b73f739202271ef763febb1b0420b3f65922c",
+      "evidence_class": "independent_machine_readable_mirror_of_nexus_metadata",
+      "role": "durable corroborating metadata corpus_not_new_primary_witness"
     },
     {
       "source": "Nexus Oldrim Aethernautics posts",
@@ -89,5 +104,5 @@
     "unresolved_named_works": 10
   },
   "next_high_value_input": "Binary-capable acquisition of an already-located original archive, or a genuinely new record-level dump/translation/xEdit export/plugin-derived BOOK inventory for the historical packages.",
-  "repeat_work_guard": "Do not repeat generic title searches, ModDB package rediscovery, or the September-2012 Aethernautics Weaponry Tweaks metadata discovery."
+  "repeat_work_guard": "Do not repeat generic title searches, ModDB package rediscovery, the basic September-2012 Aethernautics Weaponry Tweaks harquebus finding from pass 03, or the pass-05 deeper extraction."
 }
