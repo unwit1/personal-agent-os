@@ -63,3 +63,22 @@ Community material is valuable, but contradictory or version-sensitive claims sh
 ## Current ingestion
 
 The first terminology pass is stored in `terminology/core-glossary.md` and is sourced from the Creation Kit Wiki archive/mirror, Tome of xEdit, the official SKSE site, DynDOLOD documentation, Mod Organizer 2 source/documentation, and Open Animation Replacer upstream documentation.
+
+
+## Current terminology corpus
+
+As of 2026-09-24, the terminology index contains 569 indexed headings across seven modules:
+
+- core terminology and foundational distinctions;
+- records, patching, xEdit, LOOT, FormIDs, and load-order semantics;
+- Papyrus, quests, aliases, dialogue, scenes, AI packages, conditions, and magic;
+- SKSE, CommonLibSSE-NG, Address Library/relocation, native plugins, ABI, and crash diagnostics;
+- SPID, KID, BOS, FLM, OCF, and runtime-distribution design patterns;
+- animation behavior generation, OAR, NIFs, skeletons, BodySlide/Outfit Studio, SkyUI, and MCM;
+- worldspaces, cells, navmesh concepts, save ChangeForms/Papyrus persistence, ReSaver/FallrimTools, large references, and dynamic LOD.
+
+Navigation is maintained in `indexes/terminology-index.md`. Source provenance and authority notes are maintained in `sources/registry.md`.
+
+## Troubleshooting retrieval principle
+
+Agent OS should diagnose Skyrim issues by layer rather than by symptom name alone. For each issue, identify which of these layers may be involved: plugin records/load order; physical or virtual assets; Papyrus/quest state; native SKSE runtime; runtime distributor/config frameworks; animation behavior; mesh/skeleton/morph data; UI; worldspace/navmesh; save-persisted state; and LOD/distance systems. Retrieve evidence from every plausible layer before proposing destructive changes or declaring a culprit.
