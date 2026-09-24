@@ -1,0 +1,68 @@
+{
+  "work_id": "tes.work.gallus-encoded-journal",
+  "title": "Gallus's Encoded Journal",
+  "aliases": [
+    "Gallus' Encoded Journal"
+  ],
+  "author": "Gallus Desidenius",
+  "universe": "The Elder Scrolls",
+  "work_type": "journal",
+  "authority_class": "official_game_work",
+  "work_identity_status": "verified",
+  "edition_model": "work identity is central; game/mod records remain provenance-specific witnesses and may preserve presentation or textual variants",
+  "canonical_text_status": "not_elected",
+  "witnesses": [
+    {
+      "witness_id": "skyrim.000CEDA6",
+      "source_type": "official_game_record_identity",
+      "game": "The Elder Scrolls V: Skyrim",
+      "form_id": "000CEDA6",
+      "editor_id": "TG05GallusJournalPre",
+      "title": "Gallus's Encoded Journal",
+      "local_corpus_path": null,
+      "text_status": "external_identity_and_full_text_match_verified_but_first_party_record_not_yet_ingested"
+    },
+    {
+      "witness_id": "dwd.054467AA",
+      "source_type": "mod_continuity_embedding",
+      "continuity_id": "tes.mod.dealing-with-daedra",
+      "form_id": "054467AA",
+      "editor_id": "dealsencodedjournal",
+      "title": "Encoded Dossier",
+      "relation": "exact_text_after_removing_falmer_font_markup_and_normalizing_whitespace",
+      "local_desc_sha256": "4f6698017b5e99ac14281559586b2501ffc247a38487ed35c73c4b6127b64617",
+      "comparison_normalized_sha256": "f10bf3dd333a2db65030e273c5b778b68052744aa4b7f98ac3146ae792ebea3b",
+      "comparison_word_count": 471,
+      "overlay_material": [
+        "local title Encoded Dossier",
+        "local placement/context",
+        "Falmer-font presentation"
+      ]
+    }
+  ],
+  "related_records": [
+    {
+      "game": "The Elder Scrolls V: Skyrim",
+      "form_id": "0001BB6D",
+      "editor_id": "TG05GallusJournal",
+      "title": "Gallus's Journal",
+      "relation": "translated_or_decoded_related_journal"
+    }
+  ],
+  "provenance": [
+    {
+      "type": "internal_analysis",
+      "path": "knowledge/libraries/elder-scrolls/mods/continuities/dealing-with-daedra/analysis/refinement-pass-15-book-provenance-verification.md"
+    },
+    {
+      "type": "external_reference",
+      "url": "https://gs11.ru/the-elder-scrolls-5-skyrim/knigi/zashifrovannyj-dnevnik-galla",
+      "scope": "Skyrim encoded-journal identity and full transcription"
+    },
+    {
+      "type": "external_reference",
+      "url": "https://elderscrolls.fandom.com/wiki/Gallus%27s_Journal",
+      "scope": "author and translated-journal relationship"
+    }
+  ]
+}
