@@ -46,7 +46,10 @@
     "knowledge/libraries/rtec-hr/processes/workplace-communication-escalation-history.json",
     "knowledge/libraries/rtec-hr/processes/aap-disciplinary-derivative-integrity.json",
     "knowledge/libraries/rtec-hr/automation/disciplinary-register-normalization.json",
-    "knowledge/libraries/rtec-hr/processes/driver-paperwork-submission-history-2013.json"
+    "knowledge/libraries/rtec-hr/processes/driver-paperwork-submission-history-2013.json",
+    "knowledge/libraries/rtec-hr/forms/employee-warning-notice-legacy.json",
+    "knowledge/libraries/rtec-hr/processes/hstd-csr-trip-eligibility-denial-candidate.json",
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-correspondence-2026-09-23-coverage-ledger.json"
   ],
   "privacy_summary": {
     "disciplinary_log_fiscal_year": 17,
@@ -77,14 +80,17 @@
     "Historical warning/counseling practice used informal personnel-file notes, counseling records and formal multi-signature Employee Warning Notices with improvement plans, consequences, acknowledgement and employee-comment fields.",
     "The old 9/10-point attendance system is superseded by the current December 15, 2025 six-point attendance policy; the historical vacation-adjacent personal/sick-leave restriction is independently corroborated by the current handbook.",
     "The medical/attendance packet demonstrates a restricted evidence-handling pattern combining an attendance calendar with informal communications, provider-document images and contextual evidence; medical content remains excluded from generalized knowledge.",
-    "Filename-derived type/date is demonstrably unreliable and content-first classification/date validation remains required."
+    "Filename-derived type/date is demonstrably unreliable and content-first classification/date validation remains required.",
+    "The undated Disciplinary steps matrix encodes historical HSTD/CSR workflow fragments including KY HealthNet eligibility checks, denial tracking, prior authorization, supporting statements, escorts, trip processing, client confirmation/denial communication, HSTD rule lookup and timely 500/501 updates; these are preserved as candidates pending procedural corroboration.",
+    "Seven restricted disciplinary artifacts use the same standardized Employee Warning Notice structure, including warning/offense grids, infraction/improvement/consequence sections, management/HR approval, employee comments and acknowledgement language that receipt/understanding does not necessarily mean agreement.",
+    "A separate machine-readable coverage ledger now proves all 95 archive artifacts have an explicit disposition and knowledge destination, with zero artifacts left in an unreviewed state."
   ],
   "notes": [
     "Restricted personnel, medical, disciplinary, incident, schedule, and participant-list content was not committed to GitHub.",
     "The fraud-alert DOCX and signed PDF are preserved as two artifact variants of one source family.",
     "Historical external links, vendor arrangements, benefit coverage statements, point rules, routing chains, and role-specific instructions require current verification before operational use."
   ],
-  "exhaustive_analysis_completed_at": "2026-09-23",
+  "exhaustive_analysis_completed_at": "2026-09-24",
   "analysis_metrics": {
     "source_artifacts": 95,
     "native_text_or_sheet_structure_extracted": 76,
@@ -102,7 +108,9 @@
     "same_person_same_date_distinct_record_groups": 24,
     "unique_free_text_reason_strings": 276,
     "schema_validation_checks_run": 23,
-    "schema_validation_errors": 0
+    "schema_validation_errors": 0,
+    "coverage_ledger_artifacts_accounted_for": 95,
+    "coverage_ledger_unreviewed_artifacts": 0
   },
   "extended_existing_records": [
     "knowledge/libraries/rtec-hr/processes/vehicle-accident-document-handling-candidate.json",
