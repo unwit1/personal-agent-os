@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "project": "agentos-ambient-capture",
+  "status": "active",
+  "updated_at": "2026-09-24",
+  "summary": "Standalone Windows service that continuously captures microphone audio, segments speech with Silero VAD, transcribes with CPU faster-whisper, diarizes with pyannote community-1, and exports schema-versioned JSON/Markdown for future Agent OS ingestion.",
+  "repository": "https://github.com/unwit1/agentos-ambient-capture.git",
+  "default_branch": "main",
+  "current_priorities": [
+    "Observe a long-duration soak run and launch at Windows sign-in.",
+    "Verify restart during live speech recovers cleanly.",
+    "Optional: add a global pause/resume hotkey.",
+    "Design Agent OS ingestion of ingestion/ready exports."
+  ],
+  "important_paths": [
+    "README.md",
+    "BOOTSTRAP.md",
+    "docs/",
+    "src/agentos_ambient_capture/",
+    "schemas/",
+    "tests/"
+  ],
+  "context_files": [
+    "README.md",
+    "docs/IMPLEMENTATION_STATUS.md",
+    "docs/OPERATIONS.md",
+    "docs/INTEGRATION.md"
+  ],
+  "skill_roots": [],
+  "validation_commands": [
+    ".venv\\Scripts\\python.exe -m pytest -q",
+    ".venv\\Scripts\\ruff.exe check ."
+  ],
+  "constraints": [
+    "Python 3.11 venv; pyannote.audio installed with CPU-only torch.",
+    "pyannote path decoding needs FFmpeg (torchcodec); diarize() passes in-memory waveforms instead.",
+    "Hugging Face token lives only in ~/.cache/huggingface/token, never in the repo.",
+    "Runtime data stays under %LOCALAPPDATA%\\AgentOSAmbientCapture."
+  ]
+}

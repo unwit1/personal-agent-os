@@ -155,6 +155,33 @@
       "canonical_owner": "project_directory",
       "privacy": "Treat future scanned documents and extracted text as private local data unless the user explicitly defines a safe boundary.",
       "redirect_to": "hr-gui"
+    },
+    {
+      "id": "agentos-ambient-capture",
+      "name": "Agent OS Ambient Capture",
+      "directory": "agentos-ambient-capture",
+      "repository": "https://github.com/unwit1/agentos-ambient-capture.git",
+      "classification": "active",
+      "state_file": "projects/agentos-ambient-capture/state.json",
+      "canonical_owner": "project_repository",
+      "privacy": "Captured audio, transcripts, exports, and the local SQLite database are private local data under %LOCALAPPDATA%\\AgentOSAmbientCapture; never commit, upload, or summarize them outside the machine. Never store Hugging Face tokens in the repository.",
+      "aliases": [
+        "ambient capture",
+        "ambient audio",
+        "ambient transcription",
+        "audio transcription service"
+      ],
+      "routing_terms": [
+        "ambient",
+        "microphone capture",
+        "transcription",
+        "whisper",
+        "faster-whisper",
+        "diarization",
+        "pyannote",
+        "speaker diarization",
+        "silero vad"
+      ]
     }
   ],
   "path_resolution": "Canonical entries are machine independent. Effective checkout locations are resolved locally from .agent-local/machine.json, ~/.agent-os/config.json, repository identity, or discovery across registered search roots."
