@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Agent OS Universal Capture
 // @namespace    agent-os
-// @version      3.3.1
-// @description  Save useful pages and passively index rendered Discord Web messages into Agent OS.
+// @version      3.4.1
+// @description  Save useful pages and passively index rendered Discord Web channel and search-result messages into Agent OS.
 // @homepageURL   https://github.com/unwit1/universal-capture-plugin
 // @updateURL     https://raw.githubusercontent.com/unwit1/universal-capture-plugin/main/agent-os-universal-capture.user.js
 // @downloadURL   https://raw.githubusercontent.com/unwit1/universal-capture-plugin/main/agent-os-universal-capture.user.js
@@ -24,7 +24,7 @@
 (function () {
     "use strict";
 
-    var VERSION = "3.3.1";
+    var VERSION = "3.4.1";
     var SETTINGS_KEY = "agent_os_capture_settings_v1";
     var QUEUE_KEY = "agent_os_capture_queue_v1";
     var MAX_QUEUE = 500;
@@ -313,6 +313,17 @@
         return hostname() === "discord.com" || hostname() === "www.discord.com";
     }
 
+    function ensureDiscordIndexingDefault() {
+        if (!isDiscordWeb()) return;
+        var saved = GM_getValue(SETTINGS_KEY, {});
+        if (!saved || typeof saved !== "object" ||
+                !Object.prototype.hasOwnProperty.call(saved, "discordPassiveIndexing")) {
+            var settings = loadSettings();
+            settings.discordPassiveIndexing = true;
+            saveSettings(settings);
+        }
+    }
+
     function discordContext() {
         var match = location.pathname.match(/^\/channels\/([^/]+)\/([^/]+)/);
         if (!match) return null;
@@ -370,22 +381,57 @@
         return discordDbPromise;
     }
 
+    function discordPermalinkIds(node, expectedMessageId) {
+        if (!node || node.nodeType !== Node.ELEMENT_NODE) return null;
+        var links = node.querySelectorAll('a[href*="/channels/"]');
+        for (var i = 0; i < links.length; i += 1) {
+            var href = String(links[i].getAttribute("href") || links[i].href || "");
+            var match = href.match(/\/channels\/([^/]+)\/([^/]+)\/(\d+)/);
+            if (!match) continue;
+            if (expectedMessageId && match[3] !== expectedMessageId) continue;
+            return {
+                guild_id: match[1],
+                channel_id: match[2],
+                message_id: match[3]
+            };
+        }
+        return null;
+    }
+
     function discordMessageIds(node) {
         if (!node || node.nodeType !== Node.ELEMENT_NODE) return null;
+
+        var content = node.matches && node.matches('[id^="message-content-"]')
+            ? node
+            : node.querySelector('[id^="message-content-"]');
+        var contentMatch = content && String(content.id || "").match(/message-content-(\d+)/);
+        var messageId = contentMatch ? contentMatch[1] : "";
+
+        var permalink = discordPermalinkIds(node, messageId || null);
+        if (permalink) return permalink;
+
         var raw = String(
             node.id ||
             node.getAttribute("data-list-item-id") ||
             ""
         );
         var match = raw.match(/chat-messages(?:___|-)(\d+)-(\d+)/);
-        if (!match) {
-            var content = node.querySelector('[id^="message-content-"]');
-            var messageMatch = content && String(content.id || "").match(/message-content-(\d+)/);
-            var context = discordContext();
-            if (!messageMatch || !context) return null;
-            return { channel_id: context.channel_id, message_id: messageMatch[1] };
+        var context = discordContext();
+
+        if (match) {
+            return {
+                guild_id: context ? context.guild_id : "",
+                channel_id: match[1],
+                message_id: match[2]
+            };
         }
-        return { channel_id: match[1], message_id: match[2] };
+
+        if (!messageId || !context) return null;
+        return {
+            guild_id: context.guild_id,
+            channel_id: context.channel_id,
+            message_id: messageId
+        };
     }
 
     function discordAuthor(node, messageId) {
@@ -403,8 +449,12 @@
     }
 
     function discordMessageText(node, messageId) {
-        var content = node.querySelector('#message-content-' + CSS.escape(messageId)) ||
-            node.querySelector('[id^="message-content-"]');
+        var content = node.matches && node.matches('#message-content-' + CSS.escape(messageId))
+            ? node
+            : node.querySelector('#message-content-' + CSS.escape(messageId));
+        content = content || (node.matches && node.matches('[id^="message-content-"]')
+            ? node
+            : node.querySelector('[id^="message-content-"]'));
         return cleanText(content && content.textContent);
     }
 
@@ -437,19 +487,52 @@
         return out.slice(0, 25);
     }
 
-    function discordReplyTarget(node) {
-        var link = node.querySelector('a[href*="/channels/"]');
-        if (!link) return "";
-        var match = String(link.href || "").match(/\/channels\/[^/]+\/[^/]+\/(\d+)/);
-        return match ? match[1] : "";
+    function discordReplyTarget(node, messageId) {
+        var links = node.querySelectorAll('a[href*="/channels/"]');
+        for (var i = 0; i < links.length; i += 1) {
+            var match = String(links[i].href || "").match(/\/channels\/[^/]+\/[^/]+\/(\d+)/);
+            if (match && match[1] !== messageId) return match[1];
+        }
+        return "";
+    }
+
+    function discordNodeSurface(node, ids, context) {
+        var classText = String(node.className || "");
+        var searchish = /search/i.test(classText) ||
+            Boolean(node.closest && node.closest(
+                '[class*="searchResult"], [class*="search-result"], [data-list-item-id*="search"]'
+            ));
+        if (!searchish && context && ids && ids.channel_id &&
+                ids.channel_id !== context.channel_id) {
+            searchish = true;
+        }
+        return searchish ? "search_results" : "channel";
+    }
+
+    function discordNodeChannelName(node, context, surface) {
+        if (surface === "channel") return context ? context.channel_name : "";
+        var candidate = node.querySelector(
+            '[class*="channelName"], [class*="channel-name"], ' +
+            '[aria-label*="channel"], a[href*="/channels/"]'
+        );
+        var label = cleanText(candidate && (
+            candidate.getAttribute("aria-label") ||
+            candidate.getAttribute("title") ||
+            candidate.textContent
+        ));
+        return label || (context ? context.channel_name : "");
     }
 
     function discordRecord(node, fallbackAuthor) {
         var context = discordContext();
         var ids = discordMessageIds(node);
-        if (!context || !ids || ids.channel_id !== context.channel_id) return null;
+        if (!ids) return null;
 
         var messageId = ids.message_id;
+        var guildId = ids.guild_id || (context && context.guild_id) || "";
+        var channelId = ids.channel_id || (context && context.channel_id) || "";
+        if (!guildId || !channelId || !messageId) return null;
+
         var author = discordAuthor(node, messageId) || fallbackAuthor || "";
         var timeNode = node.querySelector("time[datetime]");
         var timestamp = String(timeNode && timeNode.getAttribute("datetime") || "");
@@ -457,12 +540,9 @@
         var urls = discordUrls(node);
         var attachments = discordAttachments(node);
 
-        // Discord can render structural/message placeholders. Skip nodes that
-        // carry no useful message evidence at all.
         if (!text && !attachments.length && !urls.length) return null;
 
-        var guildId = context.guild_id;
-        var channelId = context.channel_id;
+        var surface = discordNodeSurface(node, ids, context);
         var messageUrl = "https://discord.com/channels/" +
             encodeURIComponent(guildId) + "/" +
             encodeURIComponent(channelId) + "/" +
@@ -473,19 +553,20 @@
             channel_key: guildId + ":" + channelId,
             schema_version: "discord-message-v1",
             source: "discord-web-rendered",
+            source_surface: surface,
             guild_id: guildId,
-            guild_name: context.guild_name,
+            guild_name: context ? context.guild_name : "",
             channel_id: channelId,
-            channel_name: context.channel_name,
+            channel_name: discordNodeChannelName(node, context, surface),
             message_id: messageId,
             author: author,
             timestamp: timestamp,
             text: text,
             urls: urls,
             attachments: attachments,
-            reply_to_message_id: discordReplyTarget(node),
+            reply_to_message_id: discordReplyTarget(node, messageId),
             message_url: messageUrl,
-            page_title: context.page_title,
+            page_title: context ? context.page_title : cleanText(document.title),
             captured_at: new Date().toISOString(),
             device: loadSettings().device || ""
         };
@@ -498,7 +579,8 @@
             record.text,
             record.urls,
             record.attachments,
-            record.reply_to_message_id
+            record.reply_to_message_id,
+            record.source_surface
         ]);
     }
 
@@ -534,14 +616,45 @@
         });
     }
 
+    function discordRenderedMessageNodes() {
+        var out = [];
+        var seen = new Set();
+
+        function add(node) {
+            if (!node || node.nodeType !== Node.ELEMENT_NODE || seen.has(node)) return;
+            seen.add(node);
+            out.push(node);
+        }
+
+        document.querySelectorAll(
+            '[id^="chat-messages-"], [data-list-item-id^="chat-messages___"]'
+        ).forEach(add);
+
+        // Discord search results are rendered outside the normal channel
+        // message list. Starting from message-content IDs makes this resilient
+        // to most wrapper/class-name changes and captures only rendered results.
+        document.querySelectorAll('[id^="message-content-"]').forEach(function (content) {
+            var container = content.closest(
+                '[id^="chat-messages-"], [data-list-item-id^="chat-messages___"], ' +
+                '[class*="searchResult"], [class*="search-result"], [role="listitem"]'
+            );
+            if (!container) {
+                container = content.parentElement && content.parentElement.parentElement
+                    ? content.parentElement.parentElement
+                    : content;
+            }
+            add(container);
+        });
+
+        return out;
+    }
+
     async function scanDiscordMessages() {
         if (!isDiscordWeb() || !loadSettings().discordPassiveIndexing) return;
         var context = discordContext();
         if (!context) return;
 
-        var nodes = Array.from(document.querySelectorAll(
-            '[id^="chat-messages-"], [data-list-item-id^="chat-messages___"]'
-        ));
+        var nodes = discordRenderedMessageNodes();
         if (!nodes.length) return;
 
         var fallbackAuthor = "";
@@ -605,17 +718,12 @@
         pill.style.font = "600 12px/1.2 system-ui, -apple-system, Segoe UI, sans-serif";
         pill.style.padding = "7px 10px";
         pill.style.cursor = "pointer";
-        pill.title = "Agent OS passive Discord message index";
-        pill.addEventListener("click", async function () {
-            var stats = await discordIndexStats();
-            var settings = loadSettings();
-            window.alert(
-                "Agent OS Discord index\n\n" +
-                "Passive indexing: " + (settings.discordPassiveIndexing ? "ON" : "OFF") + "\n" +
-                "Indexed messages: " + stats.total + "\n" +
-                "New this page session: " + stats.session_new + "\n\n" +
-                "Only messages rendered in Discord Web are indexed."
-            );
+        pill.title = "Open the local Agent OS Discord index";
+        pill.addEventListener("click", function () {
+            openDiscordIndexBrowser().catch(function (error) {
+                console.warn("[Agent OS] Could not open Discord index browser", error);
+                window.alert("Could not open the local Discord index: " + error);
+            });
         });
         document.body.appendChild(pill);
         return pill;
@@ -633,6 +741,148 @@
         } catch (error) {
             pill.textContent = "Discord Index !";
         }
+    }
+
+    function closeDiscordIndexBrowser() {
+        var existing = document.getElementById("agent-os-discord-index-browser");
+        if (existing) existing.remove();
+    }
+
+    function escapeDiscordIndexHtml(value) {
+        return String(value == null ? "" : value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+    }
+
+    async function openDiscordIndexBrowser() {
+        closeDiscordIndexBrowser();
+
+        var rows = await allDiscordRecords(false);
+        var settings = loadSettings();
+        var overlay = document.createElement("div");
+        overlay.id = "agent-os-discord-index-browser";
+        overlay.style.position = "fixed";
+        overlay.style.inset = "0";
+        overlay.style.zIndex = "2147483647";
+        overlay.style.background = "rgba(0,0,0,.72)";
+        overlay.style.display = "flex";
+        overlay.style.alignItems = "center";
+        overlay.style.justifyContent = "center";
+        overlay.style.padding = "24px";
+
+        var panel = document.createElement("div");
+        panel.style.width = "min(1100px, 96vw)";
+        panel.style.height = "min(780px, 92vh)";
+        panel.style.background = "#111318";
+        panel.style.color = "#f5f5f5";
+        panel.style.border = "1px solid rgba(255,255,255,.18)";
+        panel.style.borderRadius = "12px";
+        panel.style.boxShadow = "0 24px 80px rgba(0,0,0,.55)";
+        panel.style.display = "flex";
+        panel.style.flexDirection = "column";
+        panel.style.font = "13px/1.45 system-ui, -apple-system, Segoe UI, sans-serif";
+        panel.style.overflow = "hidden";
+
+        var header = document.createElement("div");
+        header.style.padding = "16px";
+        header.style.borderBottom = "1px solid rgba(255,255,255,.12)";
+        header.innerHTML =
+            '<div style="display:flex;justify-content:space-between;gap:16px;align-items:center">' +
+            '<div><div style="font-size:18px;font-weight:800">Agent OS Discord Index</div>' +
+            '<div style="opacity:.72;margin-top:3px">Browser IndexedDB → ' +
+            escapeDiscordIndexHtml(DISCORD_DB_NAME) + ' → ' +
+            escapeDiscordIndexHtml(DISCORD_STORE) +
+            ' · ' + rows.length + ' indexed messages · passive indexing ' +
+            (settings.discordPassiveIndexing ? "ON" : "OFF") +
+            '</div></div>' +
+            '<button id="agent-os-discord-index-close" style="padding:8px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#20242b;color:#fff;cursor:pointer">Close</button>' +
+            '</div>' +
+            '<div style="margin-top:10px;opacity:.7">IndexedDB is browser-managed storage, not a normal filesystem folder. This viewer is the direct browser for those local records.</div>';
+
+        var controls = document.createElement("div");
+        controls.style.padding = "12px 16px";
+        controls.style.display = "flex";
+        controls.style.gap = "8px";
+        controls.style.flexWrap = "wrap";
+        controls.style.borderBottom = "1px solid rgba(255,255,255,.1)";
+        controls.innerHTML =
+            '<input id="agent-os-discord-index-filter" placeholder="Filter author, channel, message text…" ' +
+            'style="flex:1;min-width:260px;padding:9px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:#181b22;color:#fff">' +
+            '<button id="agent-os-discord-export-channel" style="padding:8px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#20242b;color:#fff;cursor:pointer">Export current channel</button>' +
+            '<button id="agent-os-discord-export-all" style="padding:8px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:#20242b;color:#fff;cursor:pointer">Export all JSON</button>';
+
+        var body = document.createElement("div");
+        body.id = "agent-os-discord-index-list";
+        body.style.flex = "1";
+        body.style.overflow = "auto";
+        body.style.padding = "10px 16px 20px";
+
+        panel.appendChild(header);
+        panel.appendChild(controls);
+        panel.appendChild(body);
+        overlay.appendChild(panel);
+        document.body.appendChild(overlay);
+
+        var ordered = rows.slice().sort(function (a, b) {
+            return String(b.timestamp || b.captured_at).localeCompare(String(a.timestamp || a.captured_at));
+        });
+
+        function render(filterText) {
+            var needle = cleanText(filterText).toLowerCase();
+            var matching = ordered.filter(function (row) {
+                if (!needle) return true;
+                return [
+                    row.author,
+                    row.channel_name,
+                    row.channel_id,
+                    row.guild_name,
+                    row.text,
+                    row.source_surface
+                ].some(function (value) {
+                    return String(value || "").toLowerCase().indexOf(needle) !== -1;
+                });
+            });
+            var visible = matching.slice(0, 300);
+            body.innerHTML =
+                '<div style="opacity:.65;margin:4px 0 10px">Showing ' +
+                visible.length + ' of ' + matching.length +
+                ' matching records (newest first; viewer caps rendering at 300).</div>' +
+                visible.map(function (row) {
+                    var when = row.timestamp || row.captured_at || "";
+                    var channel = row.channel_name || row.channel_id || "unknown channel";
+                    var surface = row.source_surface === "search_results" ? " · SEARCH" : "";
+                    return '<div style="padding:10px 0;border-top:1px solid rgba(255,255,255,.08)">' +
+                        '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:baseline">' +
+                        '<strong>' + escapeDiscordIndexHtml(row.author || "Unknown author") + '</strong>' +
+                        '<span style="opacity:.65">#' + escapeDiscordIndexHtml(channel) +
+                        escapeDiscordIndexHtml(surface) + '</span>' +
+                        '<span style="opacity:.5;margin-left:auto">' + escapeDiscordIndexHtml(when) + '</span>' +
+                        '</div>' +
+                        '<div style="white-space:pre-wrap;margin-top:5px">' + escapeDiscordIndexHtml(row.text || "") + '</div>' +
+                        '<div style="margin-top:5px"><a href="' + escapeDiscordIndexHtml(row.message_url || "#") +
+                        '" target="_blank" rel="noreferrer" style="color:#7ab7ff">Open message</a></div>' +
+                        '</div>';
+                }).join("");
+        }
+
+        render("");
+
+        document.getElementById("agent-os-discord-index-close").addEventListener("click", closeDiscordIndexBrowser);
+        document.getElementById("agent-os-discord-index-filter").addEventListener("input", function (event) {
+            render(event.target.value);
+        });
+        document.getElementById("agent-os-discord-export-channel").addEventListener("click", function () {
+            exportDiscordIndex(true);
+        });
+        document.getElementById("agent-os-discord-export-all").addEventListener("click", function () {
+            exportDiscordIndex(false);
+        });
+        overlay.addEventListener("click", function (event) {
+            if (event.target === overlay) closeDiscordIndexBrowser();
+        });
     }
 
     async function allDiscordRecords(currentChannelOnly) {
@@ -985,11 +1235,13 @@
         GM_registerMenuCommand("Agent OS: Copy queued captures as JSON", exportQueue);
         GM_registerMenuCommand("Agent OS: Clear queued captures", clearQueue);
         GM_registerMenuCommand("Agent OS: Discord passive indexing ON/OFF", toggleDiscordPassiveIndexing);
+        GM_registerMenuCommand("Agent OS: Discord open local index", function () { openDiscordIndexBrowser(); });
         GM_registerMenuCommand("Agent OS: Discord export current channel", function () { exportDiscordIndex(true); });
         GM_registerMenuCommand("Agent OS: Discord export full local index", function () { exportDiscordIndex(false); });
         GM_registerMenuCommand("Agent OS: Discord clear local index", clearDiscordIndex);
     }
 
+    ensureDiscordIndexingDefault();
     registerMenus();
     addFloatingButton();
     addNexusCardButtons();
