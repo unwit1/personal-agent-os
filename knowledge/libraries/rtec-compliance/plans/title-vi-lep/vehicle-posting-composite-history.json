@@ -1,0 +1,41 @@
+{
+  "id": "rtec-vehicle-posting-composite-history",
+  "record_type": "historical_public_posting",
+  "title": "Historical RTEC combined vehicle safety / Title VI notice",
+  "status": "validated_historical",
+  "temporal_status": "historical_not_for_republication",
+  "source_sha256": "bc50077829589573afbd0d7999eeb969bce85cf14ba99f50e12d425b1f17b511",
+  "source_path": "TITLE VI LEP PLAN/NOTICES THAT MUST BE POSTED/OLD TITLE VI NOTICE TO PUBIC FROM STATE/ALL PASSENGERS MUST WEAR SEATBELTS.docx",
+  "combined_topics": [
+    "seatbelt requirement",
+    "child-restraint statement",
+    "no eating/drinking",
+    "no tobacco products",
+    "no firearms/weapons",
+    "no alcohol/illegal drugs",
+    "lost-item disclaimer",
+    "emergency contact",
+    "RTEC/state-program contact information",
+    "Title VI nondiscrimination notice and complaint filing language",
+    "language-access statement for LEP complainants",
+    "child/adult abuse and neglect reporting hotline"
+  ],
+  "title_vi_history": [
+    "The posting uses a 180-day local Title VI complaint filing period.",
+    "It names Sheila Stallsworth as the historical EEO/Title VI contact.",
+    "It uses the historical rtec@kih.net contact address."
+  ],
+  "quality_and_currentness_risks": [
+    "The archive path explicitly marks this notice family as OLD.",
+    "The extracted text contains duplicated/garbled layout tokens from the graphical notice, so the text extraction is useful for content inventory but not print reproduction.",
+    "Passenger-safety rules, child-restraint wording, weapons/substance rules, contact details and complaint instructions may have changed and must be validated independently before reuse.",
+    "A combined vehicle poster creates cross-domain version risk: a safety-policy change can leave Title VI text stale, or a Title VI update can leave safety content stale."
+  ],
+  "publication_rule": "Preserve this file as historical evidence only. Current vehicle notices should be generated from separately versioned canonical policy/compliance content so safety, rider rules, emergency contacts, Title VI language and translated text can be updated without copy-forward drift.",
+  "automation_candidate": "Build modular vehicle-notice generation from canonical rider-policy, safety, contact, Title VI and language-assistance records; validate every rendered module's effective date before publishing.",
+  "related_records": [
+    "rtec-title-vi-public-notice-history",
+    "rtec-process-lep-language-assistance-2026",
+    "rtec-title-vi-binder-attachment-assembly"
+  ]
+}
