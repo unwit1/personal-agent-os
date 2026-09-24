@@ -123,3 +123,85 @@ For this project, “exhausted” should mean:
 - no claim is made that the evolving Skyrim modding ecosystem is permanently complete.
 
 That threshold has now been reached for the broad foundation. Further ingestion should become **targeted and evidence-driven**, while periodic crawls can continue to expand source-specific detail.
+
+
+## 2026-09-24 deep-ingestion progress
+
+The following frontier areas have now moved substantially beyond foundational coverage:
+
+### Record-schema encyclopedia — PARTIALLY CLOSED
+Added field-level schema maps for:
+- actors/AI;
+- quests/dialogue/scenes;
+- worldspace/cell/landscape/navmesh/environment;
+- items/magic/crafting/leveled data.
+
+Remaining work is primarily exhaustive subrecord-by-subrecord extraction from current xEdit definitions and automated generation.
+
+### CommonLib/SKSE API graph — PARTIALLY CLOSED
+Added:
+- subsystem/singleton map;
+- actor processing tiers;
+- plugin lifecycle/loading;
+- inter-plugin API design;
+- hooks/relocations/trampolines;
+- serialization;
+- event source/sink architecture.
+
+Remaining work is symbol-level automated indexing with exact class/member/version provenance.
+
+### Papyrus API encyclopedia — PARTIALLY CLOSED
+Added:
+- core host-type API map;
+- event registration/messaging;
+- language semantics/states/properties/fragments;
+- performance/persistence;
+- po3/PapyrusUtil/JContainers framework coverage.
+
+Remaining work is machine-generated method-by-method signatures/caveats for every vanilla/SKSE/po3 framework script.
+
+### INI/GMST catalog — PARTIALLY CLOSED
+Added a core typed catalog plus environment/testing modules. Remaining work is exhaustive extraction with defaults/runtime ownership and reproducible benchmark evidence.
+
+### Exact save-format model — SUBSTANTIALLY DEEPENED
+Added dedicated ESS/ChangeForm/Papyrus/co-save internals and save-persistence modules. Remaining work is field-complete binary schema extraction and validated repair-case corpus.
+
+### Behavior/Havok internals — SUBSTANTIALLY DEEPENED
+Added Pandora behavior-graph authoring, BDI/OAR/AMR/Payload/SCAR/Precision and Havok collision/rigid-body authoring. Remaining work is graph-node/type-level schema automation.
+
+### NIF/shader encyclopedia — SUBSTANTIALLY DEEPENED
+Added block, geometry, shader, texture-slot, skinning and collision catalogs. Remaining work is exhaustive flag/block schema generation from NifTools/nifly.
+
+### Rendering internals — SUBSTANTIALLY DEEPENED
+Added Community Shaders deferred/G-buffer/pass architecture, ReShade/display/HDR and material/ParallaxGen layers. Remaining work is per-feature shader/resource graph and performance evidence.
+
+### Creation Kit authoring handbook — BROADLY COVERED
+Dedicated modules now cover worldbuilding/navmesh, portals/Room Bounds, weather/climate, crafting, quests/dialogue, Story Manager, encounters, Hearthfire, maps, races, furniture/traps and release packaging. Remaining work is tutorial-level step-by-step recipes and current CK/CKPE UI screenshots/behavior.
+
+### VR — SUBSTANTIALLY DEEPENED
+Added HIGGS/PLANCK/VRIK, VR Address Library, input/body/physics and cross-platform architecture. Remaining work is detailed VR UI/input bindings and per-framework compatibility matrices.
+
+### Proton/Linux — FOUNDATION PRESENT
+Architecture and MO2/Proton/DXVK path issues are covered. Remaining work is maintained current-version compatibility testing.
+
+### Tool errors — FOUNDATION ADDED
+A central tool error catalog now covers xEdit, LOOT, MO2, Vortex, CK, Papyrus Compiler, SKSE, Pandora, BodySlide, DynDOLOD/TexGen, xLODGen, ParallaxGen, Synthesis and CAO. Remaining work is exact message-by-message ingestion tied to versions.
+
+### Compatibility patterns — FOUNDATION ADDED
+A cross-mod pattern corpus now covers NPC appearance, cities/navmesh/lighting, landscape, water, leveled lists, magic/perks, animation stacks, runtime patchers, generated output, saves, VR and rendering.
+
+### Tool/version provenance — FOUNDATION ADDED
+A canonical version/provenance model now prevents old runtime/tool claims from being flattened into timeless advice.
+
+## Highest-value remaining research
+
+1. Generate record/subrecord schemas directly from current xEdit definitions.
+2. Generate Papyrus method/event catalogs from source PSC/index data.
+3. Generate CommonLib symbol graphs from headers/Doxygen.
+4. Build a versioned exact-error corpus from real tool logs.
+5. Build a validated crash-signature corpus from reproducible cases.
+6. Maintain current tool/runtime/Creation update compatibility matrices.
+7. Recover high-value historical technical knowledge with date/version tagging.
+8. Build mod-specific profiles for important user projects and dependencies.
+9. Add automated contradiction detection between old/new source snapshots.
+10. Add CI jobs that rebuild indexes and flag stale source/version facts.
