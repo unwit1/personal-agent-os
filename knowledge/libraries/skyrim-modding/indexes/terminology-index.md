@@ -2,74 +2,145 @@
 
 Updated: 2026-09-24
 Status: active
-Terminology modules: 44
-Indexed terminology headings: 3325
+Terminology modules: 121
 
-This index inventories the canonical Skyrim technical terminology corpus. Counts include intentional cross-module repetitions where a concept has different diagnostic implications; 3267 is therefore an indexed-heading count rather than a unique-concept count.
+The previous hand-maintained heading count was retired because the corpus grew faster than the index. The canonical generator is `tools/knowledge/rebuild_skyrim_terminology_index.py`, which calculates both module and `###` heading counts directly from a working tree.
 
 ## Retrieval strategy
 
-Do not load every module for every question. Start with `../troubleshooting/diagnostic-router.md`, then retrieve only the modules relevant to the suspected layers. The core glossary is the general fallback.
+Start with `../troubleshooting/diagnostic-router.md` for symptom-driven work. Retrieve only the specialist modules relevant to the suspected subsystem instead of loading the entire corpus.
 
 ## Modules
 
-| Module | Indexed headings |
-|---|---:|
-| [animation-assets-bodyslide-ui.md](../terminology/animation-assets-bodyslide-ui.md) | 93 |
-| [asset-conversion-porting.md](../terminology/asset-conversion-porting.md) | 48 |
-| [audio-localization-archives.md](../terminology/audio-localization-archives.md) | 92 |
-| [automated-patchers-mutagen-synthesis.md](../terminology/automated-patchers-mutagen-synthesis.md) | 75 |
-| [core-glossary.md](../terminology/core-glossary.md) | 85 |
-| [crash-log-patterns.md](../terminology/crash-log-patterns.md) | 47 |
-| [creation-kit-record-type-catalog.md](../terminology/creation-kit-record-type-catalog.md) | 108 |
-| [creation-kit-worldbuilding-navmesh.md](../terminology/creation-kit-worldbuilding-navmesh.md) | 121 |
-| [data-frameworks-audio-engine-fixes.md](../terminology/data-frameworks-audio-engine-fixes.md) | 48 |
-| [development-toolchains.md](../terminology/development-toolchains.md) | 72 |
-| [engine-fixes-runtime-frameworks.md](../terminology/engine-fixes-runtime-frameworks.md) | 66 |
-| [environment-projectiles-impacts.md](../terminology/environment-projectiles-impacts.md) | 76 |
-| [gameplay-record-systems.md](../terminology/gameplay-record-systems.md) | 81 |
-| [gameplay-records-combat-magic-crafting.md](../terminology/gameplay-records-combat-magic-crafting.md) | 106 |
-| [graphics-shaders-rendering.md](../terminology/graphics-shaders-rendering.md) | 85 |
-| [ini-console-testing-environment.md](../terminology/ini-console-testing-environment.md) | 60 |
-| [lod-grass-occlusion-world-rendering.md](../terminology/lod-grass-occlusion-world-rendering.md) | 53 |
-| [lod-grass-seasons-occlusion.md](../terminology/lod-grass-seasons-occlusion.md) | 94 |
-| [mod-managers-modlists-deployment.md](../terminology/mod-managers-modlists-deployment.md) | 83 |
-| [mod-managers-wabbajack-patching-pipelines.md](../terminology/mod-managers-wabbajack-patching-pipelines.md) | 72 |
-| [modern-runtime-frameworks.md](../terminology/modern-runtime-frameworks.md) | 53 |
-| [npc-appearance-facegen-racemenu.md](../terminology/npc-appearance-facegen-racemenu.md) | 92 |
-| [papyrus-api-event-catalog.md](../terminology/papyrus-api-event-catalog.md) | 159 |
-| [papyrus-performance-native-serialization.md](../terminology/papyrus-performance-native-serialization.md) | 65 |
-| [papyrus-persistence-advanced.md](../terminology/papyrus-persistence-advanced.md) | 85 |
-| [papyrus-quests-dialogue-ai-magic.md](../terminology/papyrus-quests-dialogue-ai-magic.md) | 104 |
-| [patching-tool-lineage.md](../terminology/patching-tool-lineage.md) | 39 |
-| [performance-engine-limits.md](../terminology/performance-engine-limits.md) | 73 |
-| [physics-hdt-smp-collision.md](../terminology/physics-hdt-smp-collision.md) | 76 |
-| [plugin-format-localization-archives.md](../terminology/plugin-format-localization-archives.md) | 53 |
-| [racemenu-facegen-bodymorph-physics.md](../terminology/racemenu-facegen-bodymorph-physics.md) | 56 |
-| [records-patching-load-order.md](../terminology/records-patching-load-order.md) | 61 |
-| [rendering-shaders-lighting.md](../terminology/rendering-shaders-lighting.md) | 91 |
-| [runtime-distribution-frameworks.md](../terminology/runtime-distribution-frameworks.md) | 81 |
-| [runtime-platform-config-files.md](../terminology/runtime-platform-config-files.md) | 55 |
-| [skse-commonlib-native-crash.md](../terminology/skse-commonlib-native-crash.md) | 72 |
-| [skypatcher-runtime-record-patching.md](../terminology/skypatcher-runtime-record-patching.md) | 31 |
-| [story-manager-locations-events.md](../terminology/story-manager-locations-events.md) | 49 |
-| [story-manager-quests-dialogue-scenes.md](../terminology/story-manager-quests-dialogue-scenes.md) | 98 |
-| [textures-nif-asset-optimization.md](../terminology/textures-nif-asset-optimization.md) | 80 |
-| [ui-skyui-mcm-scaleform.md](../terminology/ui-skyui-mcm-scaleform.md) | 79 |
-| [worldspace-navmesh-saves-persistence.md](../terminology/worldspace-navmesh-saves-persistence.md) | 73 |
-| [vr-linux-proton-cross-platform.md](../terminology/vr-linux-proton-cross-platform.md) | 58 |
-| [xedit-plugin-format-advanced.md](../terminology/xedit-plugin-format-advanced.md) | 77 |
+- [actor-process-levels-simulation.md](../terminology/actor-process-levels-simulation.md)
+- [ai-dialogue-llm-frameworks.md](../terminology/ai-dialogue-llm-frameworks.md)
+- [alchemy-enchanting-smithing-crafting.md](../terminology/alchemy-enchanting-smithing-crafting.md)
+- [animation-assets-bodyslide-ui.md](../terminology/animation-assets-bodyslide-ui.md)
+- [animobject-swapper.md](../terminology/animobject-swapper.md)
+- [asset-conversion-porting.md](../terminology/asset-conversion-porting.md)
+- [audio-localization-archives.md](../terminology/audio-localization-archives.md)
+- [automated-patchers-mutagen-synthesis.md](../terminology/automated-patchers-mutagen-synthesis.md)
+- [behavior-graphs-pandora-authoring.md](../terminology/behavior-graphs-pandora-authoring.md)
+- [bethesda-creations-platform.md](../terminology/bethesda-creations-platform.md)
+- [blender-nif-animation-authoring.md](../terminology/blender-nif-animation-authoring.md)
+- [body-skeleton-morph-ecosystems.md](../terminology/body-skeleton-morph-ecosystems.md)
+- [books-notes-read-state.md](../terminology/books-notes-read-state.md)
+- [camera-input-hud-equipment-display.md](../terminology/camera-input-hud-equipment-display.md)
+- [comap-map-marker-framework.md](../terminology/comap-map-marker-framework.md)
+- [combat-ai-movesets.md](../terminology/combat-ai-movesets.md)
+- [commonlib-skse-api-system-map.md](../terminology/commonlib-skse-api-system-map.md)
+- [community-shaders-render-pipeline-internals.md](../terminology/community-shaders-render-pipeline-internals.md)
+- [conditions-detection-ai-procedures.md](../terminology/conditions-detection-ai-procedures.md)
+- [container-distribution-activation-frameworks.md](../terminology/container-distribution-activation-frameworks.md)
+- [core-data-primitives-globals-formlists-defaultobjects.md](../terminology/core-data-primitives-globals-formlists-defaultobjects.md)
+- [core-glossary.md](../terminology/core-glossary.md)
+- [crash-log-patterns.md](../terminology/crash-log-patterns.md)
+- [creation-kit-record-type-catalog.md](../terminology/creation-kit-record-type-catalog.md)
+- [creation-kit-worldbuilding-navmesh.md](../terminology/creation-kit-worldbuilding-navmesh.md)
+- [crime-ownership-merchants-economy.md](../terminology/crime-ownership-merchants-economy.md)
+- [custom-skills-progression-frameworks.md](../terminology/custom-skills-progression-frameworks.md)
+- [data-frameworks-audio-engine-fixes.md](../terminology/data-frameworks-audio-engine-fixes.md)
+- [death-bleedout-ragdoll-corpse.md](../terminology/death-bleedout-ragdoll-corpse.md)
+- [development-toolchains.md](../terminology/development-toolchains.md)
+- [easynpc-npc-replacer-synthesis.md](../terminology/easynpc-npc-replacer-synthesis.md)
+- [encounters-spawning-respawn.md](../terminology/encounters-spawning-respawn.md)
+- [engine-fixes-runtime-frameworks.md](../terminology/engine-fixes-runtime-frameworks.md)
+- [environment-projectiles-impacts.md](../terminology/environment-projectiles-impacts.md)
+- [ess-changeforms-savegame-internals.md](../terminology/ess-changeforms-savegame-internals.md)
+- [flora-harvest-planting.md](../terminology/flora-harvest-planting.md)
+- [followers-relationships-favor.md](../terminology/followers-relationships-favor.md)
+- [footsteps-surfaces-materials.md](../terminology/footsteps-surfaces-materials.md)
+- [foundational-skse-utilities-fixes.md](../terminology/foundational-skse-utilities-fixes.md)
+- [gameplay-record-systems.md](../terminology/gameplay-record-systems.md)
+- [gameplay-records-combat-magic-crafting.md](../terminology/gameplay-records-combat-magic-crafting.md)
+- [graphics-shaders-rendering.md](../terminology/graphics-shaders-rendering.md)
+- [havok-collision-rigidbody-authoring.md](../terminology/havok-collision-rigidbody-authoring.md)
+- [hearthfire-building-workshop.md](../terminology/hearthfire-building-workshop.md)
+- [ini-console-testing-environment.md](../terminology/ini-console-testing-environment.md)
+- [ini-gmst-core-catalog.md](../terminology/ini-gmst-core-catalog.md)
+- [interior-optimization-portals-roombounds.md](../terminology/interior-optimization-portals-roombounds.md)
+- [kreate-weather-lighting-live-editor.md](../terminology/kreate-weather-lighting-live-editor.md)
+- [locks-traps-destructibles-furniture.md](../terminology/locks-traps-destructibles-furniture.md)
+- [lod-grass-occlusion-world-rendering.md](../terminology/lod-grass-occlusion-world-rendering.md)
+- [lod-grass-seasons-occlusion.md](../terminology/lod-grass-seasons-occlusion.md)
+- [loot-masterlist-metadata.md](../terminology/loot-masterlist-metadata.md)
+- [magic-effect-archetype-catalog.md](../terminology/magic-effect-archetype-catalog.md)
+- [maps-markers-fast-travel.md](../terminology/maps-markers-fast-travel.md)
+- [mcm-helper-settings-persistence.md](../terminology/mcm-helper-settings-persistence.md)
+- [merge-mapping-editorid-runtime-identity.md](../terminology/merge-mapping-editorid-runtime-identity.md)
+- [mod-managers-modlists-deployment.md](../terminology/mod-managers-modlists-deployment.md)
+- [mod-managers-wabbajack-patching-pipelines.md](../terminology/mod-managers-wabbajack-patching-pipelines.md)
+- [modern-esl-header-compatibility.md](../terminology/modern-esl-header-compatibility.md)
+- [modern-runtime-frameworks.md](../terminology/modern-runtime-frameworks.md)
+- [modern-ui-information-injection.md](../terminology/modern-ui-information-injection.md)
+- [mounts-horses-dragons.md](../terminology/mounts-horses-dragons.md)
+- [multiplayer-networking.md](../terminology/multiplayer-networking.md)
+- [music-acoustics-reverb.md](../terminology/music-acoustics-reverb.md)
+- [native-debug-profiling-tools.md](../terminology/native-debug-profiling-tools.md)
+- [native-hooking-relocations-trampolines.md](../terminology/native-hooking-relocations-trampolines.md)
+- [native-menu-frameworks.md](../terminology/native-menu-frameworks.md)
+- [nexus-mods-metadata-collections.md](../terminology/nexus-mods-metadata-collections.md)
+- [nif-shader-block-texture-slot-catalog.md](../terminology/nif-shader-block-texture-slot-catalog.md)
+- [npc-appearance-facegen-racemenu.md](../terminology/npc-appearance-facegen-racemenu.md)
+- [oar-config-condition-system.md](../terminology/oar-config-condition-system.md)
+- [object-reference-lifecycle-interactions.md](../terminology/object-reference-lifecycle-interactions.md)
+- [papyrus-api-event-catalog.md](../terminology/papyrus-api-event-catalog.md)
+- [papyrus-core-api-map.md](../terminology/papyrus-core-api-map.md)
+- [papyrus-engine-fix-frameworks.md](../terminology/papyrus-engine-fix-frameworks.md)
+- [papyrus-event-registration-messaging.md](../terminology/papyrus-event-registration-messaging.md)
+- [papyrus-language-semantics-states-properties-fragments.md](../terminology/papyrus-language-semantics-states-properties-fragments.md)
+- [papyrus-performance-native-serialization.md](../terminology/papyrus-performance-native-serialization.md)
+- [papyrus-persistence-advanced.md](../terminology/papyrus-persistence-advanced.md)
+- [papyrus-quests-dialogue-ai-magic.md](../terminology/papyrus-quests-dialogue-ai-magic.md)
+- [papyrusutil-jcontainers-persistent-data.md](../terminology/papyrusutil-jcontainers-persistent-data.md)
+- [parallaxgen-material-patching.md](../terminology/parallaxgen-material-patching.md)
+- [patching-tool-lineage.md](../terminology/patching-tool-lineage.md)
+- [performance-engine-limits.md](../terminology/performance-engine-limits.md)
+- [perk-entry-point-catalog.md](../terminology/perk-entry-point-catalog.md)
+- [physics-hdt-smp-collision.md](../terminology/physics-hdt-smp-collision.md)
+- [plugin-format-localization-archives.md](../terminology/plugin-format-localization-archives.md)
+- [plugin-record-schema-actors-ai.md](../terminology/plugin-record-schema-actors-ai.md)
+- [plugin-record-schema-items-magic.md](../terminology/plugin-record-schema-items-magic.md)
+- [plugin-record-schema-quests-dialogue.md](../terminology/plugin-record-schema-quests-dialogue.md)
+- [plugin-record-schema-world-environment.md](../terminology/plugin-record-schema-world-environment.md)
+- [prismaui-html-ui-framework.md](../terminology/prismaui-html-ui-framework.md)
+- [progression-experience-uncapper.md](../terminology/progression-experience-uncapper.md)
+- [quickloot-wheeler-inventory-ui.md](../terminology/quickloot-wheeler-inventory-ui.md)
+- [racemenu-facegen-bodymorph-physics.md](../terminology/racemenu-facegen-bodymorph-physics.md)
+- [races-transformations-vampire-werewolf.md](../terminology/races-transformations-vampire-werewolf.md)
+- [records-patching-load-order.md](../terminology/records-patching-load-order.md)
+- [rendering-shaders-lighting.md](../terminology/rendering-shaders-lighting.md)
+- [reshade-postprocessing-display.md](../terminology/reshade-postprocessing-display.md)
+- [runtime-distribution-frameworks.md](../terminology/runtime-distribution-frameworks.md)
+- [runtime-platform-config-files.md](../terminology/runtime-platform-config-files.md)
+- [runtime-property-sound-string-injection.md](../terminology/runtime-property-sound-string-injection.md)
+- [seasons-dynamic-world-swapping.md](../terminology/seasons-dynamic-world-swapping.md)
+- [skse-commonlib-native-crash.md](../terminology/skse-commonlib-native-crash.md)
+- [skse-plugin-interop-api-design.md](../terminology/skse-plugin-interop-api-design.md)
+- [skse-plugin-lifecycle-loading.md](../terminology/skse-plugin-lifecycle-loading.md)
+- [skypatcher-runtime-record-patching.md](../terminology/skypatcher-runtime-record-patching.md)
+- [skyrim-platform-typescript.md](../terminology/skyrim-platform-typescript.md)
+- [spriggit-source-control-reproducibility.md](../terminology/spriggit-source-control-reproducibility.md)
+- [story-manager-locations-events.md](../terminology/story-manager-locations-events.md)
+- [story-manager-quests-dialogue-scenes.md](../terminology/story-manager-quests-dialogue-scenes.md)
+- [survival-camping-needs-frameworks.md](../terminology/survival-camping-needs-frameworks.md)
+- [textures-nif-asset-optimization.md](../terminology/textures-nif-asset-optimization.md)
+- [ui-skyui-mcm-scaleform.md](../terminology/ui-skyui-mcm-scaleform.md)
+- [visual-effects-artobjects-particles.md](../terminology/visual-effects-artobjects-particles.md)
+- [vr-interaction-higgs-planck-vrik.md](../terminology/vr-interaction-higgs-planck-vrik.md)
+- [vr-linux-proton-cross-platform.md](../terminology/vr-linux-proton-cross-platform.md)
+- [water-flow-materials-seams.md](../terminology/water-flow-materials-seams.md)
+- [weather-climate-imagespace-lighting-data.md](../terminology/weather-climate-imagespace-lighting-data.md)
+- [worldspace-navmesh-saves-persistence.md](../terminology/worldspace-navmesh-saves-persistence.md)
+- [xedit-plugin-format-advanced.md](../terminology/xedit-plugin-format-advanced.md)
 
-## Broad domain coverage
+## Additional retrieval surfaces
 
-The corpus now covers plugin/xEdit internals, Creation Kit record types and worldbuilding, Papyrus APIs/performance/persistence, quests/dialogue/scenes/Story Manager, gameplay/magic/combat/crafting, SKSE/CommonLib/native development, crash diagnostics, engine fixes and utilities, runtime distributors/patchers, MO2/Vortex/Wabbajack, automated patching, animation/behavior systems, NIF/textures/BodySlide, NPC appearance/RaceMenu, physics, UI/MCM/Scaleform, audio/localization/BSA resources, rendering/ENB/Community Shaders, LOD/grass/seasons/occlusion, platform/runtime config, performance/engine limits, porting, development toolchains, Skyrim VR, and Linux/Proton/Steam Deck environments.
+- `../troubleshooting/compatibility-patterns.md` — recurring cross-mod patch structures.
+- `../troubleshooting/tool-error-catalog.md` — tool warning/error routing.
+- `../research/version-provenance-model.md` — version-scoped evidence policy.
+- `../research/frontier.md` — remaining open research areas.
 
-## Deduplication note
+## Maintenance
 
-Several specialist modules overlap intentionally. Examples:
-- `graphics-shaders-rendering.md` and `rendering-shaders-lighting.md`;
-- `racemenu-facegen-bodymorph-physics.md` and `npc-appearance-facegen-racemenu.md`;
-- `mod-managers-wabbajack-patching-pipelines.md` and `mod-managers-modlists-deployment.md`;
-- `lod-grass-occlusion-world-rendering.md` and `lod-grass-seasons-occlusion.md`.
-
-Future normalization should map aliases/duplicates to stable concept IDs while retaining specialist context rather than deleting useful domain-specific explanations.
+Run `python tools/knowledge/rebuild_skyrim_terminology_index.py` in a working tree after terminology changes. It regenerates this file with exact per-module and total heading counts.
