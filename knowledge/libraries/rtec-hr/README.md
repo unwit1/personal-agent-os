@@ -209,7 +209,7 @@ Three aggregate/external reference datasets were cataloged separately: a Commonw
 Document routing learned from this batch is explicit: multi-person benefits reports belong in restricted benefits-administration context and must not be auto-filed to one employee; blank import spreadsheets are contextual reference forms; census/MWBE/population workbooks are external reference datasets.
 
 See:
-- `sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24.json`
+- `sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24.json`\n- `sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24-coverage-ledger.json`
 - `restricted-evidence/downloads-spreadsheets-2026-09-24.json`
 - `forms/downloads-spreadsheet-document-types-2026-09-24.json`\n- `forms/historical-benefits-import-field-contracts-2018.json`
 - `systems/historical-benefits-data-import-contracts-2018.json`
