@@ -39,7 +39,7 @@ from .capabilities import (
 from .compiler import compile_context
 from .execution import cache_lookup_problems, lookup_document_page
 from .paths import ROOT
-from .registry import get_project
+from .registry import get_project, identify_project
 from .storage import load_json, write_json
 from .telemetry import LocalTelemetryStore, TelemetryEvent
 from .timestamps import utc_now_iso as _now
@@ -661,9 +661,18 @@ def run_stage(
         }
 
     if execution_path == "cache":
-        # Cache entries belong to the workflow's project checkout, not the
-        # Agent OS control-plane repository.
-        project_root = Path(get_project(manifest["project"])["path"]).resolve()
+        # Cache entries belong to the workflow's project checkout. When this
+        # process's own ROOT already *is* that project (the common case: the
+        # Agent OS control plane running its own workflows, or a test that
+        # points ROOT at an isolated fixture directory) keep using ROOT
+        # rather than a second, registry-resolved path to the same project.
+        project_root = ROOT
+        owning_project = get_project(manifest["project"])
+        current_owner = identify_project(ROOT)
+        if current_owner is None or current_owner["id"] != owning_project["id"]:
+            candidate = Path(owning_project["path"]).resolve()
+            if candidate.is_dir():
+                project_root = candidate
         lookup = lookup_document_page(stage["cache_lookup"], project_root)
         if lookup.hit:
             return _complete_from_cache(manifest, record, target, stage, lookup.reason)
