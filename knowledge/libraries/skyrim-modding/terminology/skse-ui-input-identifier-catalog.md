@@ -129,9 +129,6 @@ SKSE `Form.psc` documents these values for `RegisterForActorAction` / `OnActorAc
 | 8 | Unsheathe End |
 | 9 | Sheathe Begin |
 | 10 | Sheathe End |
-| 0 | Left Hand |
-| 1 | Right Hand |
-| 2 | Voice |
 
 ### Actor Action slots
 
