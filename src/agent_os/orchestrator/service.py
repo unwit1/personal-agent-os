@@ -54,6 +54,8 @@ def set_engine(value: Orchestrator | None) -> None:
 
 
 def _refresh_models_in_background() -> None:
+    if os.environ.get("AGENT_OS_DISABLE_MODEL_REFRESH") == "1":
+        return
     from . import models
 
     threading.Thread(target=models.refresh_if_stale, name="agent-os-model-refresh", daemon=True).start()
