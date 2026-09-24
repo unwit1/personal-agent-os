@@ -1,0 +1,75 @@
+{
+  "id": "rtec-process-aap-annual-audit-goal-cycle",
+  "record_type": "process",
+  "title": "Historical RTEC AAP annual audit, reporting and goal-setting cycle",
+  "status": "validated_historical",
+  "temporal_status": "historical",
+  "strongest_source": "RTEC AAP 2018-2024 as updated June 30, 2024",
+  "ownership": [
+    "EEO Manager develops and prepares formal AAP documents and is responsible for effective implementation.",
+    "Department managers and supervisors share responsibility for implementation and reporting problem areas.",
+    "Executive Director receives status reporting, discusses significant issues with the EEO Manager and remains the senior accountability point.",
+    "Historical AAP administration language also calls for at least semiannual EEO reporting to the Executive Director on departmental progress and contractor/vendor compliance."
+  ],
+  "audit_purposes": [
+    "Measure effectiveness of the AAP/EEO program.",
+    "Document personnel activities.",
+    "Identify problem areas requiring remedial action.",
+    "Determine the extent to which goals and objectives were achieved."
+  ],
+  "annual_review_domains": [
+    "recruitment, selection, advertising and job-application procedures",
+    "hiring, promotion, transfers, layoffs and termination",
+    "pay and other compensation/fringe benefits",
+    "job assignments, classifications, job descriptions and seniority lists",
+    "sick leave, leaves of absence and other leave",
+    "training, apprenticeships, professional meetings and conferences",
+    "other terms, conditions and privileges of employment"
+  ],
+  "issue_escalation": [
+    "Managers/supervisors are asked to report current or foreseeable EEO problem areas and propose solutions.",
+    "Problem areas are to be reported immediately to the EEO Manager.",
+    "The EEO Manager discusses issues such as significant rejection ratios and EEO charges with the Executive Director.",
+    "The EEO Manager reports goal/objective status and recommends remedial actions."
+  ],
+  "utilization_and_goal_method": [
+    "Annually identify job areas in which women/minorities are underutilized.",
+    "Compare actual workforce representation with availability in the relevant/applicable labor market.",
+    "The 2018-2024 source describes an underutilization test based on the difference between availability and workforce percentage multiplied by job-group headcount, with .5-or-greater rounding.",
+    "Establish annual good-faith goals based on the identified gaps and expected openings/turnover.",
+    "Document annual incumbency, availability, personnel activity and narrative/good-faith efforts.",
+    "Review the next period against prior goals, including gross additions and turnover losses."
+  ],
+  "recurring_outputs": [
+    "workforce analysis",
+    "job-group analysis",
+    "personnel-activity summary",
+    "incumbency analysis",
+    "availability analysis",
+    "incumbency-to-availability comparison",
+    "placement goals",
+    "annual narrative/good-faith-effort analysis",
+    "complaint/investigation aggregate evidence",
+    "state/federal submission binder/approval correspondence"
+  ],
+  "currentness_boundary": [
+    "This is a historical AAP process model derived from plans through June 2024; it is not proof of the current post-2024 AAP methodology.",
+    "Historical hiring-screening and self-identification language embedded in the AAP must not be reused automatically as current forms or criteria.",
+    "Historical percentage/formula anomalies documented in the 2022 AAP must be resolved before automating availability/goal calculations."
+  ],
+  "automation_candidates": [
+    "Versioned annual AAP compiler pulling from restricted HR data into privacy-safe aggregate tables.",
+    "Deterministic formula validation and count/percentage consistency checks before goals are approved.",
+    "Year-over-year normalized job-group comparison that applies known EEO-1 remapping.",
+    "Automated variance report: prior goals vs hires/terminations/transfers/net representation.",
+    "Semiannual compliance dashboard for management with evidence links and exception flags.",
+    "Document-generation pipeline that separates restricted source rows from safe AAP aggregate outputs."
+  ],
+  "related_records": [
+    "rtec-aap-history",
+    "rtec-aap-good-faith-narrative-history-2009-2014",
+    "rtec-aap-good-faith-narrative-history-2015-2017",
+    "rtec-aap-good-faith-narrative-history-2018-2022",
+    "rtec-eeo1-job-category-mapping-change-2018"
+  ]
+}
