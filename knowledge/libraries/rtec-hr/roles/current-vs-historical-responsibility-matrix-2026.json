@@ -163,15 +163,18 @@
     {
       "domain": "recruiting/applicant intake",
       "state": "confirmed_current_assigned",
-      "current_authority": "Current role/project context establishes recruiting/interview responsibility and ADP ATS use. A current RTEC County Openings sheet, updated 2026-08-12, tracks county/openings/notes for service-area recruiting planning.",
+      "current_authority": "Current recruiting workflow is now explicitly modeled as Fillout -> Google Sheets/Drive bridge -> process_applications.py -> RTEC Applicant Dashboard/dashboard.db. Current role/project context establishes recruiting/interview responsibility; RTEC County Openings supplies current planning context.",
       "systems_or_artifacts": [
-        "ADP ATS",
+        "Fillout",
+        "Google Sheets/Drive bridge",
+        "RTEC Applicant Dashboard",
+        "dashboard.db",
+        "download_log.csv",
         "RTEC County Openings planning sheet",
-        "Applicant Dashboard/internal tools",
-        "external recruiting channels as applicable"
+        "separate AAP/EEO form store"
       ],
       "historical_context": "ridertec.org form intake, Focus/Talent job orders, Job Shop staffing and 2021 Indeed outreach are historical channels.",
-      "automation_readiness": "high for openings reconciliation, intake/triage/document preparation; hiring decisions and external submissions remain human-controlled."
+      "automation_readiness": "high for Agent OS read/summarize/queue/draft preparation through the Dashboard adapter; hiring/denial/offer/send and other consequential actions remain approval-gated."
     },
     {
       "domain": "website HR content and job-posting maintenance",
