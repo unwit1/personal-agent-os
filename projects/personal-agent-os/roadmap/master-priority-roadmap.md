@@ -213,6 +213,12 @@ Success signal:
   "connect this service separately to Claude, ChatGPT, Codex, and every future
   client."
 
+Concrete high-priority provider adapter:
+- [RTEC Applicant Pipeline / Agent OS Integration](rtec-applicant-pipeline.md) —
+  Fillout remains upstream through the existing Google bridge; Agent OS attaches
+  to the Applicant Dashboard's normalized/restricted workflow layer, with an
+  EEO/self-ID firewall and approval-gated consequential actions.
+
 ### P0.1 — Staged Workflow Orchestrator + next-prompt/model handoffs
 
 Status: **complete** (2026-09-21). Manifest schema, stage lifecycle, persisted
