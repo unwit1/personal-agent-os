@@ -1,0 +1,125 @@
+{
+  "id": "rtec-process-driver-paperwork-submission-history-2013",
+  "record_type": "process",
+  "title": "Driver paperwork submission / deadline handling - historical 2013 evidence",
+  "status": "candidate",
+  "temporal_status": "historical",
+  "effective_from": "2013-08-02",
+  "effective_to": "2013-08-02",
+  "summary": "A restricted 2013 driver/vehicle-safety case contains a separate operational dispute about driver paperwork. It shows that paperwork had a deadline and designated drop point and that faxing had been disallowed for that employee/process. No current authoritative driver-paperwork procedure was located in the existing corpus.",
+  "claims": [
+    {
+      "claim": "The 2013 case records management concern about receiving required driver paperwork by a deadline and references a designated drop location for submission.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-process-driver-hiring-orientation-training-2018"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted 2013 driver case - generalized paperwork-routing statements",
+          "evidence_type": "explicit_text",
+          "note": "Employee identity and case facts excluded."
+        }
+      ]
+    },
+    {
+      "claim": "The same historical case states the employee had been told not to fax the paperwork anymore, demonstrating that submission-channel rules could be specifically controlled rather than allowing any available channel.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "restricted 2013 driver case - generalized submission-channel instruction",
+          "evidence_type": "explicit_text",
+          "note": "No current ban on faxing is inferred."
+        }
+      ]
+    },
+    {
+      "claim": "No current driver paperwork/drop-point/fax rule was found in the presently indexed driver training, job-description or handbook sources, so these 2013 details remain historical workflow evidence only.",
+      "claim_kind": "interpretation",
+      "confidence": 0.99,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+          "page_or_section": "2013 case",
+          "evidence_type": "explicit_text",
+          "note": "Current-corpus search did not locate a superseding procedure."
+        }
+      ]
+    }
+  ],
+  "trigger": "Driver must submit operational paperwork/manifests/forms to management.",
+  "prerequisites": [
+    "Identify current required form, deadline and approved submission channel."
+  ],
+  "actors": [
+    "Driver",
+    "Area/Operations Management",
+    "Human Resources where corrective action is involved"
+  ],
+  "systems": [
+    "Historical physical drop point / fax channel - exact system unknown"
+  ],
+  "forms": [
+    "Driver operational paperwork - exact form set unresolved"
+  ],
+  "steps": [
+    "Complete required operational paperwork.",
+    "Submit it through the approved channel/location by the required deadline.",
+    "Escalate inability to meet the deadline before it becomes overdue.",
+    "Document repeated submission failures under the current coaching/discipline process if warranted."
+  ],
+  "decisions": [
+    "Whether submission is complete/timely.",
+    "Whether the submission channel is approved.",
+    "Whether an exception is authorized."
+  ],
+  "deadlines": [
+    "Historical source references a deadline but does not provide a reusable universal cutoff."
+  ],
+  "outputs": [
+    "Submitted driver paperwork",
+    "Exception/corrective-action record where required"
+  ],
+  "exceptions": [],
+  "controls": [
+    "Do not treat fax prohibition from one historical case as current universal policy.",
+    "Use a validated current channel/deadline before automating enforcement."
+  ],
+  "unresolved_questions": [
+    "What driver paperwork/forms are currently required daily/weekly, who receives them, and what are the deadlines?",
+    "What submission channels are currently approved (paper drop, scan, email, system upload, mobile app)?",
+    "Which paperwork can be submitted electronically and what original-retention requirements apply?"
+  ],
+  "automation_candidates": [
+    "Driver paperwork intake checklist with required-document, deadline and channel validation.",
+    "Missing/late paperwork queue that alerts the responsible supervisor before deadline failure.",
+    "Replace informal drop/fax instructions with a versioned, role-specific submission SOP."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+      "safe_source_type": "restricted_case_rule_evidence",
+      "source_date_or_version": "2013-08-02",
+      "content_sha256": null,
+      "page_or_section": "generalized paperwork-routing statements only",
+      "ingested_at": "2026-09-23",
+      "notes": "No employee identity or case allegation stored.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": "2013-08-02",
+      "source_effective_to": "2013-08-02",
+      "temporal_status": "historical",
+      "full_source_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json"
+    }
+  ]
+}
