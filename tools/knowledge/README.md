@@ -29,6 +29,9 @@ Output:
 
 This is intended to become the native API/symbol graph.
 
+### capture_xedit_schema.py
+Preferred xEdit schema acquisition path. Invokes xEdit's own xDump/xExport definition exporter in RAW or UESPWIKI mode and records executable hash, exact command and upstream provenance.
+
 ### extract_xedit_schema.py
 Input: exact xEdit/TES5Edit source checkout.
 
@@ -53,3 +56,8 @@ Generated high-volume output should normally be stored in local/index storage un
 source checkout -> extractor -> candidate JSON/Markdown -> dedup/version comparison -> validation -> reviewed canonical knowledge
 
 Do not skip the validation stage merely because the source is authoritative: the extractor itself can misparse or omit semantics.
+
+
+## xEdit schema strategy
+
+Prefer xEdit-native export via `capture_xedit_schema.py`. The lexical `extract_xedit_schema.py` remains a fallback/cross-check, not the authoritative schema parser. See `knowledge/libraries/skyrim-modding/research/xedit-native-schema-extraction.md`.
