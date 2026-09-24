@@ -7,6 +7,13 @@
   "versions": [
     {
       "label": "ORIENTATION OF DRIVERS rev by Dale (7).doc",
+      "archive_period": "FY2014 AAP folder",
+      "sha256": "71dfa0ba019fa573f1538c7656d56833412122dcc9f74411ca6e85e5ba424dbd",
+      "extracted_text_chars": 12705,
+      "relationship": "text_identical_predecessor_copy_of_FY2018_rev7"
+    },
+    {
+      "label": "ORIENTATION OF DRIVERS rev by Dale (7).doc",
       "archive_period": "FY2018 AAP folder",
       "sha256": "65fd7dc8dd04eb027284ced60968758c8ebe2e388f43500c8d1e1fdd2cfa5d75",
       "extracted_text_chars": 12705,
@@ -29,6 +36,7 @@
     }
   ],
   "deduplication_findings": [
+    "The FY2014 rev-by-Dale (7) source and FY2018 rev-by-Dale (7) source have different SHA-256 hashes but identical deterministic extracted text (12,705 characters). Preserve both binary identities while using one searchable text representation for that revision.",
     "The FY2018 'rev by Dale (8) 2018' binary and the later canonical binary have different SHA-256 hashes, but their deterministic extracted text is identical at 12,814 characters. Treat them as text-identical document variants, likely differing in binary/metadata or non-text representation.",
     "The earlier '(7)' source is materially different from the '(8)' text and should remain a distinct predecessor version.",
     "The later canonical SHA appears repeatedly in FY2019/FY2020/FY2021 AAP folders and was also byte-for-byte identical to the driver-orientation source supplied with the June 2022 AAP package. Those copies should reference one canonical source rather than be reproduced."
