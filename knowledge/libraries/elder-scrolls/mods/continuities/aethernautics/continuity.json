@@ -1,0 +1,25 @@
+{
+  "continuity_id": "tes.mod.aethernautics",
+  "name": "Aethernautics: A Space Travel Mod",
+  "universe": "The Elder Scrolls",
+  "kind": "mod_continuity_overlay",
+  "parent_series": "tes.mod.trainwiz-chronocoda",
+  "status": "verified_current_3_1_core_lore_ingested",
+  "canon_policy": {
+    "default_claim_scope": "tes.mod.aethernautics",
+    "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
+    "cross_mod_identity": "explicit_relations_preserve_editions"
+  },
+  "source_manifest": "source-manifest.json",
+  "relationships": [
+    {
+      "to": "tes.mod.wheels-of-lull",
+      "relation": "same_canon_earlier_work",
+      "evidence": "Trainwiz Nexus post dated 2015-04-17"
+    },
+    {
+      "to": "tes.mod.sotha-sil-expanded",
+      "relation": "shared_chronocoda_lineage"
+    }
+  ]
+}
