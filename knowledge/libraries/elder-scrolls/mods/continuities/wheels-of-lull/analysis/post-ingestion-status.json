@@ -30,7 +30,8 @@
     "deep_embedded_text_audit": true,
     "nonstandard_text_field_closure": true,
     "book_provenance_pass_04_archive_witness_location": true,
-    "book_provenance_pass_05_retrieval_path_historical_metadata": true
+    "book_provenance_pass_05_retrieval_path_historical_metadata": true,
+    "trainwiz_chronocoda_lineage_analysis": true
   },
   "metrics": {
     "structured_source_records": 1090,
@@ -107,6 +108,20 @@
       "status": "author_confirmed_same_canon_post_wheels",
       "witness_date": "2015-04-17",
       "provenance_role": "continuity_relationship_not_prior_text_provenance"
+    },
+    "chronocoda_lineage": {
+      "human_readable": "analysis/trainwiz-chronocoda-lineage.md",
+      "machine_readable": "analysis/trainwiz-chronocoda-lineage.json",
+      "modeling": "separate_continuities_linked_by_explicit_relationships_no_raw_record_merge"
     }
+  },
+  "semantic_gap_check_2026_09_24": {
+    "result": "no_new_topic_dossiers_needed",
+    "verified_existing_analysis": [
+      "Wind Up and Wound Down -> topics/fabricants-pneuma-rewound.md and rewound/fabricant dossiers",
+      "Chronography I-III -> topics/chronography.md and Armour of Oscillating Quartz dossier",
+      "Trademarks -> topics/trademarks-and-the-ocean.md and artifact dossier",
+      "Sybandis/Journeys Through Sybandis -> topics/sybandis.md"
+    ]
   }
 }
