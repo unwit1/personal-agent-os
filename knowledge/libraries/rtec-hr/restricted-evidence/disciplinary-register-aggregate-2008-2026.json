@@ -583,5 +583,68 @@
     "Vehicle accident/incident reasons appear before the explicit Incident type, but from 2016-2017 onward the Incident type count exactly matches the vehicle-accident/incident reason count in every supplied fiscal register.",
     "From 2016-2017 onward the file named as a disciplinary-action register is therefore a mixed event ledger containing both corrective-action records and vehicle incident records.",
     "AAP-sorted derivatives that preserve the full source population can consequently include vehicle-incident rows even when those incidents are not themselves disciplinary actions."
-  ]
+  ],
+  "normalization_analysis": {
+    "total_populated_event_rows": 1193,
+    "fiscal_header_layouts": 4,
+    "blank_type_rows": 13,
+    "unique_free_text_reason_strings": 276,
+    "exact_duplicate_row_groups": 0,
+    "same_person_same_date_distinct_record_groups": 24,
+    "same_person_same_date_same_reason_distinct_record_groups": 13,
+    "same_date_group_multiplicity": {
+      "2_records_distinct": 19,
+      "3_records_distinct": 5
+    },
+    "department_label_counts": {
+      "Operations": 252,
+      "Opr": 140,
+      "Opr.": 655,
+      "Adm": 47,
+      "Adm.": 86,
+      "Café": 10,
+      "Café'": 1,
+      "Maintenance": 1,
+      "<blank>": 1
+    },
+    "common_job_title_label_counts": {
+      "Driver": 946,
+      "CSR": 82,
+      "Dispatcher": 44,
+      "Area Manager": 20,
+      "DE/Reserv": 19,
+      "PT Driver": 14,
+      "Custodian": 12,
+      "Café Assistant": 9,
+      "Data Entry/Res": 8,
+      "Garage Attendent": 5,
+      "Area Mgr": 4,
+      "Garage Attendant": 4,
+      "Adm. Support": 4,
+      "P.T. Driver": 2,
+      "Mechanic": 2,
+      "Temp. Driver": 2,
+      "IT": 2,
+      "Food Service Mgr": 2,
+      "Accts Rec": 1,
+      "Café' Ass't": 1,
+      "Acct's Rec.": 1,
+      "Receptionist": 1,
+      "HR Manager": 1,
+      "Food Serv. Mgr": 1,
+      "Job Shop Driver": 1,
+      "CSR/Sub": 1,
+      "Café Ass't": 1,
+      "Garage Att.": 1,
+      "Clerical/Recep": 1,
+      "<blank>": 1
+    },
+    "header_layout_notes": [
+      "2008-2009 uses DEPT/EMPLOYEE NAME/JOB TITLE/GENDER/ORIGIN/TYPE/DATE/REASON/EEO-1.",
+      "2009-2014 uses DEPT/EMPLOYEE NAME/JOB TITLE/EE0-1/GENDER/RACE/TYPE/REASON/DATE.",
+      "2014-forward adds VET and IWD before TYPE/REASON/DATE.",
+      "Some later workbooks contain a trailing blank header column."
+    ],
+    "import_key_finding": "No exact duplicate source rows were found, but same-person/same-date and even same-person/same-date/same-reason groups can contain multiple distinct records. Source-row identity must therefore be preserved."
+  }
 }
