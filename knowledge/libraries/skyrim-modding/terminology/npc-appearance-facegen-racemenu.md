@@ -311,3 +311,52 @@ Asset-priority conflict changes the mesh used by a HeadPart without changing its
 - Creation Kit Wiki HeadPart Script: https://ck.uesp.net/wiki/HeadPart_Script
 - Creation Kit Wiki Dark Face Bug: https://ck.uesp.net/wiki/Dark_Face_Bug
 - BodySlide/Outfit Studio: https://github.com/ousnius/BodySlide-and-Outfit-Studio
+## Native sex and HeadPart enums — CommonLibSSE-NG
+
+Sources:
+- `include/RE/S/Sexes.h` blob `d9a2cef91a97668725b4cdde565977a6d541079f`
+- `include/RE/B/BGSHeadPart.h` blob `f7db3c9f23de9bc6b7dd7b47718a6040dce864f6`
+
+### Sex
+
+| Value | Native enum |
+|---:|---|
+| -1 | `None` |
+| 0 | `Male` |
+| 1 | `Female` |
+
+The native enum's total is 2. Treat this as the engine sex enum represented by current CommonLib, not as a general statement about gender identity.
+
+### HeadPart type
+
+| ID | Type |
+|---:|---|
+| 0 | Misc |
+| 1 | Face |
+| 2 | Eyes |
+| 3 | Hair |
+| 4 | Facial Hair |
+| 5 | Scar |
+| 6 | Eyebrows |
+
+### HeadPart flags
+
+- `Playable = 1 << 0`
+- `Male = 1 << 1`
+- `Female = 1 << 2`
+- `IsExtraPart = 1 << 3`
+- `UseSolidTint = 1 << 4`
+
+### HeadPart morph indices
+
+- `RaceMorph = 0`
+- `DefaultMorph = 1`
+- `ChargenMorph = 2`
+
+### Diagnostic implications
+
+1. A HeadPart's **type**, sex flags, valid-races list, extra-part relationships and TRI assets are separate compatibility dimensions.
+2. A hair/eye/brow HeadPart can exist and load correctly while being excluded from a race or sex by record data.
+3. `IsExtraPart` represents a dependent/additional head-part relationship; it is not equivalent to a separate RaceMenu overlay.
+4. FaceGen consistency still requires the final NPC_ record and generated FaceGeom/FaceTint to agree after HeadPart changes.
+
