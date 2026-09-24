@@ -1,0 +1,309 @@
+{
+  "snapshot_id": "minifigure-market-2026-09-24",
+  "observed_at": "2026-09-24",
+  "purpose": "Representative price observations used to calibrate market classes. These are not valuations and must not replace per-item live checks.",
+  "observations": [
+    {
+      "source": "LEGO",
+      "market_class": "official_collectible_minifigure",
+      "currency": "USD",
+      "examples": [
+        {
+          "item": "Series 29",
+          "price": 4.99
+        }
+      ],
+      "notes": "Official US retail; stock state can change."
+    },
+    {
+      "source": "Citizen Brick",
+      "market_class": "premium_custom",
+      "currency": "USD",
+      "examples": [
+        {
+          "item": "Botany Enthusiast",
+          "price": 25
+        },
+        {
+          "item": "Borbie",
+          "price": 35
+        },
+        {
+          "item": "Workplace Safety Zombie",
+          "price": 30
+        }
+      ],
+      "notes": "Direct maker retail snapshot."
+    },
+    {
+      "source": "FireStar Toys",
+      "market_class": "premium_custom",
+      "currency": "GBP",
+      "examples": [
+        {
+          "item": "custom design singles",
+          "range": [
+            17.95,
+            27.95
+          ]
+        },
+        {
+          "item": "Triumvirate pack",
+          "price": 74.95
+        }
+      ],
+      "notes": "Direct maker retail; FireStar states custom printed figures use genuine LEGO."
+    },
+    {
+      "source": "JONAK Toys",
+      "market_class": "uv_custom",
+      "currency": "USD",
+      "examples": [
+        {
+          "item": "many UV printed figures",
+          "range": [
+            14,
+            22
+          ]
+        }
+      ],
+      "notes": "Representative current catalog observations; some configurations use third-party helmets."
+    },
+    {
+      "source": "Grandpa Clone Customs",
+      "market_class": "pad_custom",
+      "currency": "USD",
+      "examples": [
+        {
+          "item": "Senate Guard",
+          "price": 20
+        },
+        {
+          "item": "Mustard Commander official helm",
+          "price": 32
+        },
+        {
+          "item": "Camo Brother Duo Pack V3 replica helm",
+          "price": 56
+        }
+      ],
+      "notes": "Product names explicitly distinguish official/replica helmet configurations."
+    },
+    {
+      "source": "Orbital Minifigs",
+      "market_class": "pad_custom",
+      "currency": "USD",
+      "examples": [
+        {
+          "item": "Royal Forces Commander",
+          "price": 35.93
+        },
+        {
+          "item": "Regal Master",
+          "price": 39.45
+        },
+        {
+          "item": "The Commissioner",
+          "price": 42.27
+        }
+      ],
+      "notes": "Observed storefront display; currency/localization should be retained with raw page evidence."
+    },
+    {
+      "source": "Minifigs4u",
+      "market_class": "pad_custom_hybrid",
+      "currency": "USD",
+      "examples": [
+        {
+          "item": "Imperial Commando",
+          "price": 25
+        },
+        {
+          "item": "Delta Squad",
+          "price": 99
+        },
+        {
+          "item": "501st Captain Upgrade Kit",
+          "price": 5.5
+        },
+        {
+          "item": "501st Upgrade Pack",
+          "price": 17.95
+        }
+      ],
+      "notes": "Some figures combine genuine LEGO with CAC/BrickArms/CapeMadness components."
+    },
+    {
+      "source": "BigKidBrix",
+      "market_class": "premium_custom_hybrid",
+      "currency": "USD",
+      "examples": [
+        {
+          "item": "custom printed singles",
+          "range": [
+            26,
+            35
+          ]
+        },
+        {
+          "item": "weapon/cloth packs",
+          "range": [
+            9.99,
+            17.99
+          ]
+        }
+      ],
+      "notes": "Representative storefront observations."
+    },
+    {
+      "source": "BrickTactical",
+      "market_class": "uv_custom_hybrid",
+      "currency": "USD",
+      "examples": [
+        {
+          "item": "many UV printed figures",
+          "price": 25
+        },
+        {
+          "item": "Core Four sale pack",
+          "price": 60
+        },
+        {
+          "item": "WW2 Weapon Pack",
+          "price": 16
+        }
+      ],
+      "notes": "Maker states real LEGO parts for figures and injection-molded ABS accessories."
+    },
+    {
+      "source": "United Bricks",
+      "market_class": "historical_custom",
+      "currency": "GBP",
+      "examples": [
+        {
+          "item": "single figures excluding VAT",
+          "range": [
+            12.49,
+            15.41
+          ]
+        },
+        {
+          "item": "WW1 British Lewis Gun Team",
+          "price": 29.16
+        },
+        {
+          "item": "BrickArms accessories",
+          "range": [
+            0.75,
+            1.25
+          ]
+        }
+      ],
+      "notes": "Direct storefront snapshot; displayed prices exclude VAT."
+    },
+    {
+      "source": "The Minifig Co.",
+      "market_class": "premium_custom_and_parts",
+      "currency": "USD",
+      "examples": [
+        {
+          "item": "figures",
+          "range": [
+            16,
+            60
+          ]
+        },
+        {
+          "item": "printed/custom weapons",
+          "range": [
+            1.95,
+            7.95
+          ]
+        },
+        {
+          "item": "Balaclava 360 Head",
+          "price": 6
+        }
+      ],
+      "notes": "Broad range includes figures and standalone parts."
+    },
+    {
+      "source": "AV Figures",
+      "market_class": "waterslide_decal",
+      "currency": "USD",
+      "examples": [
+        {
+          "item": "Echo decals",
+          "price": 2.97
+        },
+        {
+          "item": "Generic Jedi decals",
+          "price": 3.57
+        }
+      ],
+      "notes": "Decal product price only; base figure/helmet/weapons may be excluded."
+    },
+    {
+      "source": "BrickForge",
+      "market_class": "injection_molded_accessory",
+      "currency": "USD",
+      "examples": [
+        {
+          "item": "loose accessories",
+          "range": [
+            0.25,
+            1.75
+          ]
+        },
+        {
+          "item": "Full Leg Assembly",
+          "price": 1.5
+        }
+      ],
+      "notes": "Representative direct prices; sales may lower prices."
+    },
+    {
+      "source": "BrickWarriors",
+      "market_class": "injection_molded_accessory",
+      "currency": "USD",
+      "examples": [
+        {
+          "item": "individual accessories",
+          "range": [
+            2,
+            6
+          ]
+        },
+        {
+          "item": "themed accessory packs",
+          "range": [
+            11.99,
+            19.99
+          ]
+        }
+      ],
+      "notes": "Current catalog includes overmolded and standard ABS products."
+    },
+    {
+      "source": "Brixtoy",
+      "market_class": "mass_market_compatible",
+      "currency": "USD",
+      "examples": [
+        {
+          "item": "current compatible minifigures",
+          "range": [
+            0.9,
+            5
+          ]
+        }
+      ],
+      "notes": "Reseller asking-price snapshot, not manufacturer MSRP; representative WM/XINH/Koruit/KDL-adjacent catalog."
+    }
+  ],
+  "interpretation": [
+    "Price is not a quality tier.",
+    "Maker-direct retail, reseller asking price and completed-sale evidence must remain separate.",
+    "Bundles, edition size, accessories, genuine-part content, condition and shipping/tax can dominate price differences.",
+    "Use BrickLink sold history for official catalogued LEGO transaction evidence and append every observation instead of overwriting."
+  ]
+}
