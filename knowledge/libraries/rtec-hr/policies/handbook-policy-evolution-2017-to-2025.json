@@ -52,10 +52,10 @@
     },
     {
       "domain": "progressive_discipline",
-      "relationship": "SUPERSEDED_OR_RESTRUCTURED",
+      "relationship": "STABLE_FRAMEWORK_WITH_CURRENT_REVISION",
       "historical_2017": "Grouped A-D infraction framework with escalating counseling/suspension/discharge patterns.",
-      "current_2025": "Later handbook/policy records contain a different current framework and separate attendance-point logic.",
-      "implication": "2017 disciplinary groups are historical classification evidence only and should not drive current discipline."
+      "current_2025": "The 2025 handbook still uses progressive discipline and a Group A-D guideline matrix, while expressly allowing management to skip steps and preserving at-will status.",
+      "implication": "Do not discard the 2017 framework as obsolete wholesale. Treat 2025 as the controlling revision and compare specific infraction examples/thresholds by version."
     },
     {
       "domain": "eeo_program_owner",
@@ -80,17 +80,24 @@
     },
     {
       "domain": "cell_phone_and_communications",
-      "relationship": "HISTORICAL_RULE_SET_REQUIRES_CURRENTNESS",
+      "relationship": "STABLE_CORE_POLICY_WITH_EXPANDED_CURRENT_CONTEXT",
       "historical_2017": "Broad restrictions on personal cell-phone use, camera/video use and transmission of company information.",
-      "current_2025": "Currentness of the exact 2017 wording has not been independently established in this pass.",
-      "implication": "Do not enforce historical camera/device language without checking current policy."
+      "current_2025": "The current handbook retains an all-employee cell-phone/communication-device policy, limits personal communication use, and adds/links broader telephone/video surveillance and communication-system rules.",
+      "implication": "Core distraction/security restrictions persist, but use the 2025 wording and current communications/surveillance policies."
     },
     {
       "domain": "nepotism_fraternization",
-      "relationship": "HISTORICAL_RULE_SET_REQUIRES_CURRENTNESS",
+      "relationship": "STABLE_CORE_RULE",
       "historical_2017": "Broad restriction on employment of defined relatives and reassignment/separation path for conflicts.",
-      "current_2025": "Exact current rule not established by the attachment analysis.",
-      "implication": "Preserve as historical evidence; verify current handbook before use."
+      "current_2025": "The 2025 handbook still prohibits employment of defined relatives of current employees/Board Members, distinguishes relationships arising between existing employees, attempts reassignment, and states a 90-day employment consequence if reassignment is unavailable.",
+      "implication": "The framework is longitudinally stable, but the 2025 version controls definitions and application."
+    },
+    {
+      "domain": "confidentiality",
+      "relationship": "STABLE_CORE_RULE",
+      "historical_2017": "RTEC/client/business information and company materials were treated as confidential/company property, with disclosure restrictions and return obligations.",
+      "current_2025": "The current handbook retains confidentiality, ownership of RTEC materials/records, disclosure restrictions and separation return obligations.",
+      "implication": "Core confidentiality expectations are stable; current computer-use, communications and privacy rules provide additional current detail."
     }
   ],
   "design_rules": [
