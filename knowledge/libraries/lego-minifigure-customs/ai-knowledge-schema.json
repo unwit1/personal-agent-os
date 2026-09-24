@@ -1,0 +1,60 @@
+{
+  "schema_version": "0.1",
+  "generation_request": {
+    "target_type": ["concept_render","catalog_render","print_art","head_wrap","arm_art","resin_part_concept","resin_part_render"],
+    "canonical_parts": [],
+    "colors": [],
+    "pose": {},
+    "camera": {},
+    "lighting": {},
+    "character_spec": {},
+    "style_profile": "",
+    "geometry_constraints": [],
+    "creative_freedom": [],
+    "production_process": "uv",
+    "output_layers": ["rgb","white_underbase","primer","varnish","mask","depth","normal","part_id"]
+  },
+  "digital_twin": {
+    "part_id": "",
+    "external_ids": {},
+    "coordinate_system": "",
+    "mesh_sources": [],
+    "physical_measurements": [],
+    "connectors": [],
+    "print_surfaces": [],
+    "keep_out_regions": [],
+    "uv_maps": [],
+    "render_presets": [],
+    "jigs": []
+  },
+  "uv_profile": {
+    "printer": "",
+    "rip": "",
+    "resolution": "",
+    "pass_mode": "",
+    "ink_set": "",
+    "substrate": "",
+    "cleaning": "",
+    "primer": {},
+    "white": {},
+    "cmyk": {},
+    "varnish": {},
+    "icc_profile": "",
+    "z_height": "",
+    "jig_revision": "",
+    "adhesion_result": "",
+    "color_corrections": {}
+  },
+  "resin_profile": {
+    "printer": "",
+    "resin": "",
+    "layer_height": "",
+    "exposure": {},
+    "orientation": {},
+    "wash": {},
+    "cure": {},
+    "dimensional_compensation": {},
+    "fit_coupon_revision": "",
+    "measured_results": []
+  }
+}
