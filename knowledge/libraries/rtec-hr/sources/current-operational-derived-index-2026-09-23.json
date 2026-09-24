@@ -121,6 +121,10 @@
     {
       "path": "knowledge/libraries/rtec-hr/policies/handbook-policy-evolution-2017-to-2025.json",
       "kind": "policy_evolution"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/compliance/kentucky-eeo-contract-compliance-current-process-2026.json",
+      "kind": "current_state_contract_compliance_process"
     }
   ],
   "current_questions": [
@@ -163,7 +167,7 @@
     "current retirement recordkeeper and governing plan booklet",
     "current workers compensation administrator/carrier and portal",
     "approved AAP/EEO plan governing after 2024-06-30",
-    "Kentucky EEO certification renewal after 2026-09-30",
+    "whether a current Kentucky procurement/contracting-agency trigger requires new EEO Contract Compliance approval after 2026-09-30",
     "authoritative FMLA tracker copy",
     "Attendance Tracker formula/exclusion validation",
     "public website security/content cleanup",
