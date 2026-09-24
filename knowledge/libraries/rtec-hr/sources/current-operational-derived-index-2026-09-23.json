@@ -36,6 +36,18 @@
     {
       "path": "knowledge/libraries/rtec-hr/roles/current-vs-historical-responsibility-matrix-2026.json",
       "kind": "role_currentness_matrix"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/systems/attendance-tracker-formula-audit-2026.json",
+      "kind": "restricted_tracker_formula_audit"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/processes/unemployment-administration-email-evidence-2021-2026.json",
+      "kind": "current_KUIP_plus_historical_unemployment_process"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/processes/workers-comp-return-to-work-email-evidence-2018-2021.json",
+      "kind": "current_Kentucky_baseline_plus_historical_RTEC_process"
     }
   ],
   "applicant_pipeline": [
