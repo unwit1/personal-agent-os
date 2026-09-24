@@ -65,7 +65,10 @@
     "central_source_candidate_external_witnesses": 1,
     "specialized_semantic_aliases": 1,
     "specialized_scope_relations": 3,
-    "independent_specialized_corroborations": 1
+    "independent_specialized_corroborations": 1,
+    "claim_seed_files": 69,
+    "claim_seed_reconciliation_mismatches": 0,
+    "claim_relation_cross_role_overlaps": 0
   },
   "structured_layers": {
     "plugin_record_inventory": "complete",
@@ -108,8 +111,11 @@
     "speaker_attribution_closeout": "source_limited_residuals_classified_not_a_bulk_semantic_analysis_backlog",
     "claim_index": "complete_359_records_no_duplicate_ids_no_missing_numeric_ids",
     "claim_seed_recovery": "9_claims_recovered_from_historical_commits_after_pass_13_filename_reuse_overwrite",
-    "claim_relation_normalization": "14_structured_relations_covering_7_conflicts_and_7_uncertainty_boundaries; 26_claims_wired_with_relation_context",
+    "claim_relation_normalization": "19_structured_relations_covering_7_conflicts_7_uncertainty_boundaries_and_5_specialized_relations; 42_claim_records_wired_with_relation_context; zero_cross_role_claim_overlaps_after_qc",
     "book_source_relations": "normalized_high_value_relations_added_for_2_centralization_candidates_and_2_exact_local_duplicate_groups",
-    "specialized_claim_normalization": "eraamion_semantic_alias_deduplicated; book_of_curses_page_details_scope_boundaries_and_drelas_placement_corroboration_materialized"
+    "specialized_claim_normalization": "eraamion_semantic_alias_deduplicated; book_of_curses_page_details_scope_boundaries_and_drelas_placement_corroboration_materialized",
+    "claim_seed_integrity": "359_of_359_indexed_claim_records_reconciled_exactly_to_69_provenance_seed_files_for_core_claim_fields_and_evidence",
+    "relation_qc": "toruld_temporal_reversal_normalized_so_transition_claim_dwd_108_is_not_reused_on_both_relation_sides",
+    "contradiction_index_sync": "7_of_7_structured_conflicts_present_in_machine_and_human_readable_indexes"
   }
 }
