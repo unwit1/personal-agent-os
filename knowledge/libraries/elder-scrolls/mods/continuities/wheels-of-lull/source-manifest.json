@@ -127,10 +127,26 @@
       "topics/how-two-moon-clockwork-creation.md"
     ],
     "external_continuity_lineage": "analysis/trainwiz-chronocoda-lineage.json",
-    "semantic_gap_check": "complete_no_new_topic_dossiers_needed_2026_09_24"
+    "semantic_gap_check": "complete_no_new_topic_dossiers_needed_2026_09_24",
+    "related_verified_sources": [
+      {
+        "continuity_id": "tes.mod.aethernautics",
+        "path": "../aethernautics",
+        "version": "3.1"
+      },
+      {
+        "continuity_id": "tes.mod.sotha-sil-expanded",
+        "path": "../sotha-sil-expanded",
+        "version": "3.1"
+      },
+      {
+        "continuity_id": "tes.mod.trainwiz-chronocoda",
+        "path": "../trainwiz-chronocoda"
+      }
+    ]
   },
   "book_provenance": {
-    "status": "passes_01_05_complete_archive_witnesses_located_materialization_pending",
+    "status": "passes_01_06_complete_current_chronocoda_sources_verified_historical_precedence_pending",
     "normalization_index": "analysis/book-normalization-index.json",
     "normalization_builder": "technical/build-book-normalization-index.py",
     "source_relations": "normalized/book-source-relations.json",
@@ -142,7 +158,10 @@
     "pre_wheels_package_families_located": 2,
     "package_families_materialized": 0,
     "retrieval_path_followup_audit": "analysis/book-provenance-pass-05-retrieval-path-audit.json",
-    "shared_continuity_witness": "Trainwiz 2015-04-17: Aethernautics and Wheels of Lull take place in the same canon; classified as continuity relationship, not prior-text provenance."
+    "shared_continuity_witness": "Trainwiz 2015-04-17: Aethernautics and Wheels of Lull take place in the same canon; classified as continuity relationship, not prior-text provenance.",
+    "current_cross_continuity_comparison": "analysis/book-provenance-pass-06-current-chronocoda-comparison.json",
+    "current_cross_continuity_witness_record_count": 11,
+    "current_witnessed_previously_unresolved_named_works": 7
   },
   "retrieval_rebuild": {
     "status": "unblocked_after_raw_shard_repair",
@@ -152,7 +171,8 @@
     "note": "A fresh checkout/materialization can now read all canonical core raw shards. The 328-record implementation-text supplement is a separate evidence corpus and is not counted in the 1,090-document core retrieval baseline unless explicitly opted in."
   },
   "next_actions": [
-    "Materialize an already-located pre-Wheels Aethernautics or Sotha Sil Expanded archive in a binary-capable environment, verify its published MD5, and perform deterministic book/text comparison against all 33 Wheels BOOK fingerprints.",
+    "Seek historically dated pre-Wheels Aethernautics/Sotha Sil Expanded binaries or record-level dumps to establish publication precedence for the now-verified shared works.",
+    "Research the three Wheels named works with no current Aethernautics/Sotha counterpart: Trademarks, Sybandis, and Journeys Through Sybandis.",
     "Run a fresh deterministic 1,090-document retrieval materialization on checkout as a verification step; raw-shard blockers are closed.",
     "Optionally index the 370-record implementation-evidence layer as a secondary retrieval collection without mixing it into narrative canon claims.",
     "Continue Tatterdemalion and Xal-Gosleigh edition comparison only when durable full-text witnesses are available."
