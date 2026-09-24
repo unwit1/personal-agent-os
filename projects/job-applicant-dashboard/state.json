@@ -2,23 +2,55 @@
   "schema_version": 1,
   "project": "job-applicant-dashboard",
   "status": "active",
-  "updated_at": "2026-09-18",
-  "summary": "Offline-first Tkinter application for applicant intake, triage, status tracking, and human-reviewed email drafting.",
-  "repository": null,
+  "updated_at": "2026-09-23",
+  "summary": "Offline-first RTEC applicant intake/workflow application. Fillout feeds the Dashboard through the existing Google Sheets/Drive bridge; the Dashboard is now the canonical restricted normalization layer for a planned/live-validated Personal Agent OS connector.",
+  "repository": "unwit1/job-applicant-dashboard",
   "current_priorities": [
-    "Preserve the separation between hiring materials and voluntary EEO/Affirmative Action data.",
-    "Add synthetic tests around business logic before substantial changes.",
-    "Keep all outbound emails as human-reviewed drafts."
+    "Preserve the separation between ordinary hiring materials and restricted self-identification/Affirmative Action data, failing closed on source-schema drift.",
+    "Live-validate the new privacy-safe Fillout sync-health telemetry and append-only Agent OS event outbox on the work PC.",
+    "Expose only whitelisted administrative applicant DTOs through Personal Agent OS; never create a competing raw-Fillout applicant pipeline.",
+    "Keep Agent OS administrative/supportive: no applicant ranking, employment-outcome recommendations, or autonomous hiring/rejection decisions.",
+    "Keep all outbound applicant communications human-reviewed/user-directed.",
+    "Continue synthetic privacy/integration tests before substantial changes."
   ],
-  "important_paths": ["README.md", "CLAUDE.md", "process_applications.py", "dashboard_core.py", "rtec_dashboard.py", "screening_rules.py"],
-  "context_files": [],
-  "skill_roots": [".claude/skills"],
-  "validation_commands": ["python -m py_compile process_applications.py dashboard_core.py rtec_dashboard.py screening_rules.py"],
+  "important_paths": [
+    "README.md",
+    "CLAUDE.md",
+    "docs/AGENT_OS_INTEGRATION.md",
+    "process_applications.py",
+    "dashboard_core.py",
+    "rtec_dashboard.py",
+    "screening_rules.py",
+    "tests/test_privacy_boundaries.py",
+    "tests/test_agent_event_outbox.py"
+  ],
+  "context_files": [
+    "docs/AGENT_OS_INTEGRATION.md"
+  ],
+  "skill_roots": [
+    ".claude/skills"
+  ],
+  "validation_commands": [
+    "python -m py_compile process_applications.py dashboard_core.py rtec_dashboard.py screening_rules.py",
+    "python -m unittest discover -s tests -v"
+  ],
   "constraints": [
     "Use synthetic data only for development and tests.",
-    "Never read applicant spreadsheets, PDFs, resumes, database rows, caches, drafts, sent email, backups, or credentials.",
+    "Never generically read/index applicant spreadsheets, PDFs, resumes, database rows, caches, drafts, sent email, backups, credentials, or restricted self-ID data.",
+    "Authorized applicant access is only through the explicit whitelisted local Agent OS adapter.",
+    "Never expose restricted self-ID data to ordinary recruiting tools or employment decisions.",
+    "Agent integrations may organize/summarize/status-track/schedule and prepare user-directed administrative drafts, but must not rank applicants or make employment decisions.",
     "Never send applicant communications automatically.",
-    "README.md is current for runtime behavior; historical setup documents are secondary references."
+    "README.md and docs/AGENT_OS_INTEGRATION.md are current for runtime/integration behavior; historical setup documents are secondary references."
   ],
-  "provenance": {"source_files": ["README.md", "CLAUDE.md"], "observed_at": "2026-09-18"}
+  "provenance": {
+    "source_files": [
+      "README.md",
+      "CLAUDE.md",
+      "docs/AGENT_OS_INTEGRATION.md",
+      "process_applications.py",
+      "dashboard_core.py"
+    ],
+    "observed_at": "2026-09-23"
+  }
 }
