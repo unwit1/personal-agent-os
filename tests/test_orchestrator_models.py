@@ -15,7 +15,11 @@ from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
+from agent_os.orchestrator import adapters  # noqa: E402
 from agent_os.orchestrator import models  # noqa: E402
+from agent_os.orchestrator.adapters.base import ProviderStatus  # noqa: E402
+from agent_os.orchestrator.adapters.claude_code import ClaudeCodeAdapter  # noqa: E402
+from agent_os.orchestrator.adapters.codex_cli import CodexCliAdapter  # noqa: E402
 from agent_os.orchestrator.ledger import Ledger  # noqa: E402
 from agent_os.orchestrator.router import ProviderRegistry  # noqa: E402
 from agent_os.orchestrator.usage import normalized  # noqa: E402
@@ -189,6 +193,24 @@ class CatalogTests(unittest.TestCase):
         catalog["refreshed_at"] = "2020-01-01T00:00:00+00:00"
         models._save(catalog)
         self.assertTrue(models.is_stale())
+
+
+class SuggestedRegistryTests(unittest.TestCase):
+    def test_suggested_registry_combines_both_adapters(self) -> None:
+        def fake_probe(self):
+            return ProviderStatus(self.provider["id"], True, executable="/usr/bin/x", version="1.0")
+
+        with mock.patch.object(ClaudeCodeAdapter, "probe", fake_probe), \
+                mock.patch.object(CodexCliAdapter, "probe", fake_probe):
+            result = adapters.suggested_registry()
+
+        providers = result["providers"]
+        claude_entries = [p for p in providers if p["adapter"] == ClaudeCodeAdapter.adapter_id]
+        codex_entries = [p for p in providers if p["adapter"] == CodexCliAdapter.adapter_id]
+        self.assertEqual(len(claude_entries), 1)
+        self.assertEqual(len(codex_entries), 1)
+        self.assertTrue(claude_entries[0]["enabled"])
+        self.assertTrue(codex_entries[0]["enabled"])
 
 
 if __name__ == "__main__":
