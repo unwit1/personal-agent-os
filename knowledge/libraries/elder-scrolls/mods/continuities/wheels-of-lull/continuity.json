@@ -3,7 +3,7 @@
   "name": "The Wheels of Lull",
   "universe": "The Elder Scrolls",
   "kind": "mod_continuity_overlay",
-  "status": "source_ingestion_and_core_analysis_complete_supplied_esp_exhausted_external_provenance_followup_only",
+  "status": "source_ingestion_and_core_analysis_complete_current_chronocoda_structure_integrated",
   "canon_policy": {
     "base_canon_promotion": "forbidden_without_explicit_evidence_and_review",
     "default_claim_scope": "tes.mod.wheels-of-lull",
@@ -59,7 +59,7 @@
     "claim_analysis": "complete_31_core_7_tension_records_continuity_scoped",
     "interpretive_analysis": "complete_14_topics_plus_core_dossiers_reliability_themes",
     "book_text_fingerprinting": "complete_33_of_33",
-    "book_provenance": "passes_01_06_complete_current_cross_continuity_witnesses_verified_historical_precedence_pending",
+    "book_provenance": "passes_01_06_complete_current_witnesses_integrated_historical_precedence_optional",
     "book_source_relations": "complete_33_of_33",
     "retrieval_materialization": "unblocked_for_fresh_1090_document_core_rebuild",
     "raw_source_integrity": "complete_verified_after_two_deterministic_shard_repairs",
@@ -68,7 +68,7 @@
     "deep_embedded_text_audit": "complete_no_natural_language_vmad_payloads_source_not_localized"
   },
   "post_ingestion_analysis": {
-    "status": "core_complete_source_integrity_complete_supplied_esp_exhausted",
+    "status": "core_complete_current_chronocoda_full_structure_integrated",
     "speaker_resolution": {
       "total_info": 410,
       "processed": 410,
@@ -150,13 +150,14 @@
       },
       "chronocoda_umbrella": {
         "path": "../trainwiz-chronocoda",
-        "status": "canonical_series_graph_added"
+        "status": "current_snapshot_full_structure_complete",
+        "full_structure": "../trainwiz-chronocoda/full-structure-ingestion.json"
       }
     }
   },
   "next_stage": {
     "blocked_branch": null,
-    "active_branch": "Historical edition archaeology only: obtain older dated Aethernautics/Sotha Sil Expanded binaries or record-level exports to establish which shared texts predate Wheels. Current 3.1 sources are already verified and ingested. Separately research Trademarks, Sybandis, and Journeys Through Sybandis.",
-    "do_not_repeat": "Passes 03-06, current-release verification, current book comparison, or source package structural audits."
+    "active_branch": "Cross-continuity semantic synthesis over the complete current snapshots: character/faction/place/artifact/technology dossiers, quest branches, metaphysics, internal tensions, and concept relationships. Historical edition archaeology is not required.",
+    "do_not_repeat": "Source verification, provenance passes 03-06, current book comparison, full current-source structural extraction, or old-version archive hunting unless explicitly requested."
   }
 }
