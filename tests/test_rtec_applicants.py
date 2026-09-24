@@ -188,6 +188,17 @@ class RTECApplicantAdapterTests(unittest.TestCase):
         conn.close()
         self.assertEqual(status, "Interview Requested")
 
+    def test_acknowledge_handles_legacy_db_without_outbox(self):
+        conn = sqlite3.connect(self.db)
+        conn.execute("DROP TABLE agent_events")
+        conn.commit()
+        conn.close()
+        self.assertEqual(
+            ra.acknowledge_event("evt-1"),
+            {"acknowledged": False, "reason": "outbox_schema_unavailable"},
+        )
+        self.assertEqual(ra.pending_events(), {"count": 0, "results": []})
+
     def test_mcp_surface_exposes_only_admin_adapter_tools(self):
         available = methods()
         for name in (
