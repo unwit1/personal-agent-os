@@ -244,3 +244,35 @@ Furniture/idle target discovered by Sandbox procedure.
 - Creation Kit Wiki TalkingActivator: https://ck.uesp.net/wiki/TalkingActivator
 - Creation Kit Wiki Creating a Mannequin: https://ck.uesp.net/wiki/Creating_a_Mannequin
 - Creation Kit Wiki Furniture marker notes: https://ck.uesp.net/wiki/GetFurnitureMarkerID
+## Native lock representation — CommonLibSSE-NG
+
+Source: `include/RE/E/ExtraLock.h` blob `c3f8eaff91728cbc697a357f3a5d556f8ba22026`.
+
+### Lock level
+
+| Native value | Lock level |
+|---:|---|
+| -1 | Unlocked |
+| 0 | Very Easy |
+| 1 | Easy |
+| 2 | Average |
+| 3 | Hard |
+| 4 | Very Hard |
+| 5 | Requires Key |
+
+These are native engine enum labels. The player-facing Novice/Apprentice/Adept/Expert/Master terminology is a gameplay/UI convention layered over this lock representation.
+
+### REFR_LOCK flags
+
+- `Locked = 1 << 0`
+- `Leveled = 1 << 2`
+
+Current `REFR_LOCK` also stores a base level, optional `TESKey*`, flags, number of tries, and additional reverse-engineered state. `ExtraLock` attaches that structure to an individual reference.
+
+### Diagnostic implications
+
+1. A Door/Container base form does not uniquely determine live lock state; the placed reference's ExtraLock matters.
+2. `RequiresKey` is a lock-level enum value while the actual key is a separate TESKey reference.
+3. A leveled lock can derive effective difficulty dynamically rather than behaving as one fixed literal level.
+4. Established-save/reference state can preserve changed lock data independently of later base-form edits.
+
