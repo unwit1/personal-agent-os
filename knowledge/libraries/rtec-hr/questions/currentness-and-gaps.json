@@ -229,9 +229,9 @@
     {
       "priority": "high",
       "domain": "attendance_tracker_authority",
-      "question": "Validate the current Attendance Tracker formulas and Blacklist/exclusion logic against the December 15, 2025 handbook and designate which fields are authoritative versus derived from ADP.",
+      "question": "Validate the remaining Attendance Tracker business-rule assumptions and designate ownership: whether Reserve Hours are the handbook's three additional unpaid attendance days, whether the 24-hour balance resets on hire-date anniversary, which employees legitimately use an 8-hour day assumption, who owns SupervisorBlacklist, and how manual Points tracker entries reconcile to the current six-point/60-day/365-day handbook rules.",
       "status": "partially_answered",
-      "resolution_note": "A current Attendance Tracker exists, created May 5, 2026. Its INPUT identifies an ADP Employee Daily Totals Report, and the workbook derives attendance/reserve/FMLA/points-related fields."
+      "resolution_note": "Formula-only audit completed without reading employee rows. Attendance has three formulas: ADP normalization/daily aggregation with SupervisorBlacklist exclusion, 8-hours-minus-total shortfall, and a reserve running balance that resets to 24 hours after hire-date anniversary. Points tracker, Blacklist and Previous Months have no formulas in the inspected ranges and are manually maintained state. The current handbook validates the six-point attendance framework and three additional unpaid days, but does not explicitly validate the spreadsheet's 24-hour anniversary reset or universal 8-hour-day assumption."
     },
     {
       "priority": "medium",
