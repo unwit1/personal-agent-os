@@ -125,7 +125,11 @@ class RTECApplicantAdapterTests(unittest.TestCase):
         self.project_patch = patch.object(
             ra,
             "get_project",
-            return_value={"id": "job-applicant-dashboard", "path": str(self.root)},
+            return_value={
+                "id": "job-applicant-dashboard",
+                "path": str(self.root),
+                "path_source": "discovered",
+            },
         )
         self.project_patch.start()
         self._old_audit_path = ra._AUDIT_PATH
@@ -344,6 +348,46 @@ class RTECApplicantAdapterTests(unittest.TestCase):
             {"count": 0, "results": [], "schema_ready": False},
         )
 
+    def test_runtime_readiness_healthy_only_when_all_local_gates_pass(self):
+        result = ra.readiness()
+        self.assertEqual(result["status"], "healthy")
+        self.assertTrue(result["ready_for_restricted_reads"])
+        self.assertTrue(result["project_path_resolved"])
+        self.assertTrue(result["dashboard_database_present"])
+        self.assertTrue(result["agent_ref_schema_ready"])
+        self.assertTrue(result["outbox_schema_ready"])
+        self.assertTrue(result["audit_write_ready"])
+        self.assertEqual(result["source_health"], "healthy")
+        encoded = json.dumps(result)
+        self.assertNotIn("Synthetic Applicant", encoded)
+        self.assertNotIn("synthetic@example.invalid", encoded)
+
+    def test_runtime_readiness_degrades_before_opaque_ref_migration(self):
+        conn = sqlite3.connect(self.db)
+        conn.execute("ALTER TABLE applicants RENAME TO applicants_new")
+        conn.execute(
+            "CREATE TABLE applicants (applicant_key TEXT PRIMARY KEY, name TEXT, status TEXT)"
+        )
+        conn.execute(
+            "INSERT INTO applicants VALUES ('legacy-name.pdf','Synthetic','New')"
+        )
+        conn.execute("DROP TABLE applicants_new")
+        conn.commit()
+        conn.close()
+
+        result = ra.readiness()
+        self.assertEqual(result["status"], "degraded")
+        self.assertFalse(result["ready_for_restricted_reads"])
+        self.assertFalse(result["agent_ref_schema_ready"])
+        self.assertTrue(result["outbox_schema_ready"])
+
+    def test_runtime_readiness_unavailable_without_dashboard_database(self):
+        self.db.unlink()
+        result = ra.readiness()
+        self.assertEqual(result["status"], "unavailable")
+        self.assertFalse(result["ready_for_restricted_reads"])
+        self.assertFalse(result["dashboard_database_present"])
+
     def test_audit_status_returns_aggregate_health_only(self):
         ra.search_applicants("Synthetic Applicant")
         ra.get_summary("app-syntheticref")
@@ -370,6 +414,7 @@ class RTECApplicantAdapterTests(unittest.TestCase):
             "applicant.pending_actions",
             "applicant.sync_status",
             "applicant.events",
+            "applicant.readiness",
             "applicant.audit_status",
             "applicant.event_ack",
         ):
