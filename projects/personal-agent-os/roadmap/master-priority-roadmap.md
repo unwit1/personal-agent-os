@@ -372,10 +372,10 @@ HR-GUI is a separate repository. Its shared-cache adapter is on
 are on the pushed `fix/cache-source-change` branch (`4118188`, `06ef9f5`) and
 still need focused synthetic regression review before merge. Its local zone
 OCR now calls the shared field-region API on that branch (`91a1baf`), with the
-existing local render/crop/OCR path as fallback. The shared API is on
-`fix/planner-malformed-escalation` (`103f0b52`); both branches need synthetic
-regression review and merge before this integration is available on the normal
-checkout. Zone definitions and OCR text remain local. Remaining debt is
+existing local render/crop/OCR path as fallback. The shared API (`103f0b52`)
+is merged into Agent OS `main` (2026-09-24); the HR-GUI branch still needs
+synthetic regression review and merge before this integration is available on
+the normal HR-GUI checkout. Zone definitions and OCR text remain local. Remaining debt is
 recorded in
 `projects/personal-agent-os/roadmap/technical-debt.md`.
 
