@@ -1,7 +1,7 @@
 {
   "record_id": "rtec-benefits-administration-email-evidence-2016-2026",
-  "updated_at": "2026-09-23",
-  "status": "historical_workflow_with_current_2026_signals",
+  "updated_at": "2026-09-24",
+  "status": "historical_workflow_with_current_2026_plan_line_and_vendor_role_mapping",
   "scope": "Sanitized process model; employee/member-level facts and identifiers are excluded.",
   "phases": [
     {
@@ -160,11 +160,14 @@
     "wellness/EAP communication materials"
   ],
   "unresolved": [
-    "Identify the current benefits broker/advisor and authoritative enrollment workflow.",
-    "Map exactly which benefits are administered in Guardian, UHC, iSolved/benefit services, ADP or another system.",
-    "Confirm current COBRA/FSA administration ownership.",
-    "Confirm who owns required Medicare/CMS notices and the annual calendar.",
-    "Identify the current employee-facing location/version owner for SBCs and benefit documents."
+    "Identify the current benefits broker/advisor, if any, and document whether the broker or HR owns renewal negotiation and carrier escalation.",
+    "Identify the authoritative current employee enrollment/election hub; do not infer it from iSolved POP service alone.",
+    "Confirm exact current Guardian product lines from current plan/carrier documents.",
+    "Confirm current COBRA administrator and workflow.",
+    "Confirm current FSA/HSA administrator and workflow; historical FSA/Benny Card evidence does not establish current ownership.",
+    "Confirm who owns Medicare/CMS creditable-coverage notices and the annual calendar.",
+    "Identify current employee-facing location/version owner for SBCs, certificates and benefit documents.",
+    "Locate final approved 2026-27 UHC plan documents/SBCs and reconcile them against the May 2026 planning workbook."
   ],
   "automation_candidates": [
     "benefit-event checklist for enroll/change/terminate",
@@ -212,5 +215,69 @@
     "The 2026 UnitedHealthcare 'recent implementation' language does not establish first-time UHC adoption because 2021 UHC plan summaries are present.",
     "Benefits administration historically included both plan-selection/renewal modeling and post-enrollment billing/reconciliation, not just employee enrollment transactions.",
     "Carrier/provider instructions must be effective-dated independently from stable handbook eligibility concepts."
-  ]
+  ],
+  "current_2026_system_split": {
+    "medical_plan_carrier": {
+      "system": "UnitedHealthcare",
+      "confidence": "high",
+      "evidence": [
+        "2026 UHC account/implementation correspondence",
+        "May 2026 RTEC Plan Cost Comparison explicitly labels UHC Health and UHC Buyup PPO options for the 2025-26 plan year with proposed 2026-27 comparison columns"
+      ],
+      "boundary": "The planning workbook proves UHC medical-plan involvement and renewal/design work; it is not itself a final plan contract, SBC or evidence that proposed 2026-27 changes were adopted."
+    },
+    "guardian": {
+      "system": "Guardian",
+      "confidence": "high_active_relationship_medium_current_product_scope",
+      "evidence": [
+        "2026 security/account-email transition",
+        "2026 plan-administration submission confirmation",
+        "historical life/disability continuity evidence",
+        "ComPsych ResourceCenter access delivered through Guardian-related support"
+      ],
+      "boundary": "Active benefit-plan administration is proven. Exact current Guardian product lines (for example life, disability, dental or other coverage) are not assigned without a current plan/carrier document."
+    },
+    "employee_assistance_resources": {
+      "system": "ComPsych ResourceCenter",
+      "confidence": "high_active_resource_access",
+      "evidence": "2026 welcome/access evidence for utilization reports, training requests, program information and communication materials",
+      "boundary": "Exact contracted EAP/program scope remains to be confirmed."
+    },
+    "section_125_premium_only_plan": {
+      "system": "iSolved / Infinisource Benefit Services",
+      "confidence": "high",
+      "evidence": [
+        "2026 invoice for Premium Only Plans Core Service covering 2026-06-01 through 2027-05-31",
+        "2026 People Cloud registration/account evidence",
+        "Current iSolved provider documentation describes POP as Section 125 administration for pre-tax eligible insurance premiums with plan documents/compliance/election/payroll-deduction support"
+      ],
+      "boundary": "The RTEC invoice establishes POP service, not that iSolved is the authoritative source for all benefit elections, COBRA, FSA, HSA, medical coverage, or payroll."
+    },
+    "payroll_deductions": {
+      "system": "ADP Workforce Now / current payroll stack",
+      "confidence": "high_for_payroll_deductions",
+      "evidence": "Current ADP payroll relationship plus historical/current benefits-deduction workflow evidence",
+      "boundary": "ADP is treated as payroll/deduction execution, not automatically as the coverage/election source of truth."
+    },
+    "plan_design_and_renewal_workpaper": {
+      "system": "RTEC Plan Cost Comparison",
+      "confidence": "high_as_current_planning_artifact",
+      "evidence": "Drive workbook modified May 18, 2026",
+      "safe_findings": [
+        "UHC Health/Base and UHC Buyup PPO options are compared for 2025-26 against proposed 2026-27 columns.",
+        "The workbook includes aggregate current-enrollee counts and employer/employee cost planning.",
+        "A separate Medicare comparison tab compares Medicare A+B, Anthem/Humana Medigap and Humana Part D options."
+      ],
+      "boundary": "Planning/reference artifact only. It does not establish final 2026-27 plan adoption, employee eligibility, or an approved Medicare communication."
+    }
+  },
+  "current_external_product_context": {
+    "observed_at": "2026-09-24",
+    "isolved_pop": "Current iSolved materials describe Premium Only Plan service as Section 125/cafeteria-plan administration enabling eligible insurance premiums to be paid pre-tax, with compliance/plan-document and payroll/election support.",
+    "caution": "Provider capability descriptions explain the service category but do not prove which optional related services RTEC purchased.",
+    "sources": [
+      "https://www.isolvedhcm.com/benefits/compliance/premium-only-plans",
+      "https://www.isolvedbenefitservices.com/contact/quote"
+    ]
+  }
 }
