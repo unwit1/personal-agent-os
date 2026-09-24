@@ -134,3 +134,63 @@ See:
 - `restricted-evidence/disciplinary-register-aggregate-2008-2026.json`
 - `processes/aap-disciplinary-derivative-integrity.json`
 - `automation/disciplinary-register-normalization.json`
+
+
+## Current operational discovery index — September 23, 2026
+
+The historical email/PST source is now exhausted at the structural, attachment,
+deduplication and major-domain semantic level. Current operations should enter
+through `sources/current-operational-derived-index-2026-09-23.json`, not by
+assuming the email archive remains the best current source.
+
+Current/live evidence now includes:
+
+- active 2026 FMLA and Attendance trackers;
+- ADP-derived attendance input;
+- current benefits-plan comparison work;
+- current county/openings planning;
+- the 2025 Kentucky EEO certification expiring September 30, 2026;
+- the canonical Fillout -> Google bridge -> Applicant Dashboard recruiting pipeline;
+- the restricted Applicant Dashboard -> Personal Agent OS adapter contract;
+- current public ridertec.org content/security/version-drift findings.
+
+### Applicant pipeline
+
+The canonical current recruiting data path is:
+
+```text
+Fillout
+-> Google Sheet/Drive transport
+-> process_applications.py
+-> application/resume + separate restricted self-ID artifact
+-> download_log.csv
+-> dashboard.db
+-> restricted Agent OS applicant adapter
+```
+
+Agent OS must not independently ingest raw Fillout applicant rows. It uses
+whitelisted administrative projections from the Dashboard layer. Restricted
+self-ID remains outside ordinary recruiting tools. The agent may help organize,
+summarize, track documents/status/scheduling and prepare user-directed
+administrative drafts, but it does not rank applicants or make employment
+decisions.
+
+### Public website currentness
+
+Current public pages have material version drift across English/localized
+surfaces, recruiting content, service-area facts, compliance documents and
+named-role information. A current public instruction page also exposed
+credential-like kiosk values; those values are not stored here and should be
+treated as compromised until rotated/removed.
+
+See:
+
+- `systems/public-website-eeo-titlevi-currentness-drift-2026-09-23.json`
+- `systems/public-recruiting-website-currentness-drift-2026-09-23.json`
+- `systems/public-website-company-recruiting-audit-2026-09-23.json`
+- `compliance/public-website-compliance-document-drift-2026-09-23.json`
+- `security/public-website-security-sensitive-exposure-audit-2026-09-23.json`
+- `automation/public-website-currentness-monitor-candidate.json`
+
+The open current-authority queue remains
+`questions/currentness-and-gaps.json`.
