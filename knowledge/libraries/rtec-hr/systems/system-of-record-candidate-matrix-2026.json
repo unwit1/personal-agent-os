@@ -7,9 +7,12 @@
     {
       "domain": "applicant_pipeline",
       "observed_current_systems": [
-        "ADP ATS",
-        "RTEC County Openings planning sheet",
-        "internal Applicant Dashboard tooling"
+        "Fillout submission form (upstream intake)",
+        "Google Sheets/Drive Fillout bridge",
+        "RTEC Applicant Dashboard (unwit1/job-applicant-dashboard)",
+        "Applicant Dashboard dashboard.db",
+        "Applicant Dashboard download_log.csv",
+        "RTEC County Openings planning sheet"
       ],
       "historical_systems": [
         "ridertec.org web application",
@@ -17,19 +20,25 @@
         "email-forwarded applications",
         "The Job Shop"
       ],
-      "likely_authoritative_source": "ADP ATS for current applicant/requisition status, subject to live validation",
+      "likely_authoritative_source": "Fillout is the source submission system; process_applications.py is the canonical normalizer/importer; dashboard.db is the current recruiting workflow state. Agent OS should consume the normalized Dashboard layer rather than create a second raw-Fillout store.",
       "downstream": [
+        "application/resume packet",
+        "separate AAP/EEO self-ID artifact",
         "interviews",
         "new-hire conversion",
         "county openings planning",
         "AAP applicant aggregates",
-        "rejection communication"
+        "rejection/clarification/offer drafts",
+        "Agent OS recruiting queue"
       ],
-      "read_automation": "high",
-      "write_automation": "approval_required",
+      "read_automation": "high_through_dashboard_adapter",
+      "write_automation": "prepared_actions_high; consequential_actions_approval_required",
       "unresolved": [
-        "external job-board synchronization",
-        "which internal dashboard fields are mirrors vs source of truth"
+        "Implement local Dashboard -> Agent OS adapter and event/outbox seam",
+        "Add sync-health detection for disconnected/stale Fillout-to-Google integration",
+        "Define stable internal applicant ID/event IDs for cross-system references",
+        "Confirm current production source Sheet/resume-folder settings from local config without committing credentials",
+        "Keep EEO/self-ID data inaccessible to ordinary hiring tools"
       ]
     },
     {
