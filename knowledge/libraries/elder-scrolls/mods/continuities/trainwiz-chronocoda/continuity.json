@@ -2,7 +2,7 @@
   "continuity_id": "tes.mod.trainwiz-chronocoda",
   "name": "Trainwiz ChronoC0da",
   "kind": "mod_continuity_series",
-  "status": "active_with_verified_current_sources",
+  "status": "current_snapshot_full_structure_complete_semantic_synthesis_active",
   "members": [
     {
       "continuity_id": "tes.mod.sotha-sil-expanded",
@@ -24,6 +24,23 @@
     "Keep each plugin/package as a separate provenance scope.",
     "Represent same-canon and sequel relationships with explicit edges.",
     "Centralize verified shared works without discarding local editions.",
-    "Current-package identity does not establish historical precedence."
-  ]
+    "Current-package identity does not establish historical precedence.",
+    "Current 3.1 snapshots are structurally authoritative for this library goal; historical wording/edition reconstruction is optional."
+  ],
+  "full_structure_status": "complete_verified_current_snapshots",
+  "current_snapshot_policy": "Verified Aethernautics 3.1 and Sotha Sil Expanded 3.1 are sufficient authoritative source snapshots for this continuity-library goal.",
+  "full_structure": {
+    "manifest": "corpus/manifest.json",
+    "documentation": "FULL_STRUCTURE.md",
+    "ingestion_manifest": "full-structure-ingestion.json",
+    "unpacker": "technical/unpack-full-structure.py",
+    "segments": 13,
+    "virtual_artifacts": 53,
+    "storage_integrity": "all_13_repository_segment_payloads_match_staged_generated_payloads"
+  },
+  "historical_edition_archaeology": {
+    "status": "inactive_optional_cold_backlog",
+    "required_for_current_goal": false
+  },
+  "active_next_stage": "Semantic synthesis across current snapshots: character/faction/place/artifact/technology dossiers, quest branches, internal tensions, metaphysics, and cross-continuity concept relationships."
 }
