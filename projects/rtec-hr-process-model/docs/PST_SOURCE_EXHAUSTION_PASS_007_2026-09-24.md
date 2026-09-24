@@ -98,3 +98,15 @@ The most consequential unresolved items now require one of the following rather 
 Do **not** reread/reclassify the same 576-message PST corpus to answer those questions. Resume only when a genuinely new source appears: a newer PST/export, missing source store, verified RTEC mailbox, current controlled HR document, live system state, or explicit operational-owner confirmation.
 
 Raw employee/applicant/case content, medical details, credentials, restricted self-ID and meeting/access secrets remain outside durable GitHub knowledge.
+
+## Peripheral / weak-label final sweep
+
+A second corpus-wide sweep targeted messages that were unclassified or carried only generic labels. No missing durable HR process family was found.
+
+- Already-modeled material included Infinisource setup, Humana implementation, AssuredPartners, Indeed, Focus/Talent and Google account-recovery lifecycle evidence.
+- Historical/ephemeral context included RHCC meeting notices, a temporary Rockcastle County I-75 closure, a wage-benchmarking mention, a one-off W-9 routing note and unsolicited transit-software sales outreach. These do not establish current reusable policy or workflow.
+- Employment-verification, employee legal, sickness/medical and roster/distribution-list material remains restricted/person-specific.
+- Meeting links/passcodes, document access codes and account-recovery secrets remain intentionally excluded.
+- Sanitized workers-comp evidence names KACo as a **historical** channel only; it does not establish the current carrier/TPA.
+
+**Result:** no additional safe, reusable, previously unmodeled HR process or current-system authority was discovered in the residual corpus.
