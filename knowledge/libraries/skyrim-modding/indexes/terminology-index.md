@@ -2,22 +2,23 @@
 
 Updated: 2026-09-24
 Status: active
-Indexed headings: 496
+Indexed headings: 569
 
-This index is the navigation layer for the Skyrim Modding Knowledge Repository terminology corpus. The same concept may intentionally appear in more than one specialist module when it has different diagnostic implications; therefore the heading count is an index count, not a claim of 496 unique concepts.
+This index is the navigation layer for the Skyrim Modding Knowledge Repository terminology corpus. The same concept may intentionally appear in more than one specialist module when it has different diagnostic implications; therefore the heading count is an index count, not a claim of 569 unique concepts.
 
 ## Retrieval guidance
 
 - Start with **Core glossary** for general terminology and basic distinctions.
 - Use **Records, patching, and load order** for plugin structure, xEdit, LOOT, FormIDs, conflicts, and patch design.
-- Use **Papyrus, quests, dialogue, AI, and magic** for scripts, save-baked state, aliases, scenes, packages, conditions, and gameplay logic.
+- Use **Papyrus, quests, dialogue, AI, and magic** for scripts, aliases, scenes, packages, conditions, and gameplay logic.
 - Use **SKSE, CommonLibSSE-NG, native plugins, and crash diagnostics** for DLL/runtime compatibility, relocation, hooks, ABI, and native crashes.
 - Use **Runtime distribution frameworks** when deciding between static patches and SPID/KID/BOS/FLM-style configuration.
 - Use **Animation, assets, BodySlide, and UI** for behavior generation, OAR, NIFs, skeletons, meshes, morphs, BodySlide, SkyUI, and MCM issues.
+- Use **Worldspaces, navmesh, saves, persistence, and LOD state** when bugs survive plugin changes, differ between new and existing saves, involve pathing/cell resets, or change with viewing distance.
 
 ## Diagnostic lookup rule
 
-When troubleshooting, retrieve terms from more than one module when the symptom crosses layers. For example, an armor problem may require ARMO/ARMA records, NIF partitions, BodySlide output, skeleton/bone data, and asset overwrite order; an animation problem may require behavior-generator output, OAR conditions, animation assets, and plugin/runtime compatibility.
+When troubleshooting, retrieve terms from more than one module when the symptom crosses layers. For example, an armor problem may require ARMO/ARMA records, NIF partitions, BodySlide output, skeleton/bone data, and asset overwrite order; an established-save-only problem may require current overrides plus ChangeForms, Papyrus/native serialization, quests, aliases, cell state, and migration logic.
 
 ## Core glossary
 
@@ -550,6 +551,85 @@ Entries: 93
 - UI asset conflict
 - Interface folder
 - MCM settings persistence
+
+## Worldspaces, navmesh, saves, persistence, and LOD state
+
+Source: `knowledge/libraries/skyrim-modding/terminology/worldspace-navmesh-saves-persistence.md`  
+Entries: 73
+
+- Cell
+- Interior cell
+- Exterior cell
+- Cell coordinates
+- Worldspace / WRLD
+- Persistent reference
+- Persist location
+- Temporary reference
+- Initially Disabled
+- Enable state
+- Cell reset
+- Cleared cell
+- Respawn interval
+- OnReset
+- OnCellLoad
+- PCB
+- COC
+- COW
+- Reference state
+- Navmesh
+- Navmesh triangle
+- Navmesh edge
+- Navmesh island
+- Navmesh portal/connection
+- Finalized navmesh
+- Deleted navmesh
+- Navmesh override
+- Pathfinding
+- Navmesh conflict
+- Preferred pathing
+- Navmesh diagnostic principle
+- ESS
+- Save header
+- Plugin table
+- FormID array
+- ChangeForm
+- Change flag
+- ChangeForm table
+- Created form
+- Papyrus save section
+- Script instance
+- Active script / stack
+- Suspended stack
+- Orphaned script instance
+- Unattached instance
+- Undefined element
+- Missing plugin in save analysis
+- Save-baked state
+- Clean save
+- New-game test
+- Existing-save test
+- Save migration
+- Serialization version
+- SKSE co-save
+- ReSaver
+- FallrimTools
+- Save repair
+- Truncated save
+- Broken Papyrus section
+- Nonexistent created form
+- Null FormList entry
+- Havok ChangeForm state
+- Active exterior cells
+- uGridsToLoad
+- Large reference
+- Large-reference grid
+- Large-reference list
+- Large-reference bug
+- Dynamic LOD
+- NearGrid
+- FarGrid
+- Full model vs LOD model
+- LOD transition
 
 ## Planned index extensions
 
