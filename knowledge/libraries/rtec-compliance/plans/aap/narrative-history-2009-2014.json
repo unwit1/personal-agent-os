@@ -1,0 +1,220 @@
+{
+  "id": "rtec-aap-good-faith-narrative-history-2009-2014",
+  "record_type": "historical_analysis_series",
+  "title": "RTEC AAP narrative / good-faith-effort history — June 2009 through June 2014",
+  "status": "validated_from_annual_narratives",
+  "temporal_status": "historical",
+  "sources": [
+    {
+      "as_of": "2009-06-30",
+      "sha256": "8b4a8d17966c110ed519d8e205cb28bae7701eb427ade3b8cedc313790efae22"
+    },
+    {
+      "as_of": "2010-06-30",
+      "sha256": "4fb7b168f67789375fbf52d094105ea8b3c49e6f6c186c7fde9eb53807764c28"
+    },
+    {
+      "as_of": "2011-06-30",
+      "sha256": "57a510fa5ca40017cad4fedd0016a6a7282c3040617ec23af781b3ec86465d83"
+    },
+    {
+      "as_of": "2012-06-30",
+      "sha256": "632073bfa60c56ec1960e644f7b4f447ec2496b4027f537d1584a02520ec9f06"
+    },
+    {
+      "as_of": "2013-06-30",
+      "sha256": "687d32caf9ceaee1947beacc88ae6ce357a8f36dd36a5c65544ebf10190d57f2"
+    },
+    {
+      "as_of": "2014-06-30",
+      "sha256": "f1f8dcb9fef76a1ba1dbcd136687197944e138e5f9295549a8ab249b6b0c8f79"
+    }
+  ],
+  "recurring_method": [
+    "Narratives are organized by EEO-1 job group and state current incumbency, anticipated openings, good-faith hiring intent, and selected promotion/placement/applicant statistics.",
+    "Office/Clerical repeatedly receives a minority-recruitment focus because the sources report high female incumbency but low or zero minority incumbency.",
+    "The largest operating workforce is reported under Service Workers during this period, and its narrative repeatedly ties goals to driver hiring/attrition.",
+    "The narratives compare annual female/minority placements and applicant bases with prior-year goals and explain whether the goal was met or why net representation changed."
+  ],
+  "historical_trends": {
+    "first_mid_level_officials_managers": [
+      {
+        "as_of": "2009-06-30",
+        "total": 7,
+        "female": 4,
+        "minority": 0,
+        "internal_promotion_pct": 86
+      },
+      {
+        "as_of": "2010-06-30",
+        "total": 8,
+        "female": 5,
+        "minority": 0,
+        "internal_promotion_pct": 88
+      },
+      {
+        "as_of": "2011-06-30",
+        "total": 9,
+        "female": 7,
+        "minority": 0,
+        "internal_promotion_pct": 88
+      },
+      {
+        "as_of": "2012-06-30",
+        "total": 8,
+        "female": 6,
+        "minority": 0,
+        "internal_promotion_pct": 78
+      },
+      {
+        "as_of": "2013-06-30",
+        "total": 9,
+        "female": 6,
+        "minority": 0,
+        "internal_promotion_pct": 78
+      },
+      {
+        "as_of": "2014-06-30",
+        "total": 9,
+        "female": 5,
+        "minority": 0,
+        "veteran": 1,
+        "iwd": 2,
+        "internal_promotion_pct": 89
+      }
+    ],
+    "office_clerical": [
+      {
+        "as_of": "2009-06-30",
+        "total": 26,
+        "female": 24,
+        "minority": 0
+      },
+      {
+        "as_of": "2010-06-30",
+        "total": 23,
+        "female": 18,
+        "minority": 0,
+        "female_placement_pct": 83,
+        "minority_availability_source": "1.5%",
+        "minority_applicants": 0
+      },
+      {
+        "as_of": "2011-06-30",
+        "total": 23,
+        "female": 19,
+        "minority": 0,
+        "female_placement_pct": 50,
+        "minority_availability_source": "0.019900%",
+        "minority_applicants": 2
+      },
+      {
+        "as_of": "2012-06-30",
+        "total": 22,
+        "female": 20,
+        "minority": 0,
+        "female_placement_pct": 100,
+        "minority_availability_source": "0.021900%",
+        "minority_applicants": 1
+      },
+      {
+        "as_of": "2013-06-30",
+        "total": 21,
+        "female": 18,
+        "minority": 0,
+        "female_placement_pct": 75,
+        "minority_availability_source": "0.02200%",
+        "minority_applicants": 0
+      },
+      {
+        "as_of": "2014-06-30",
+        "total": 24,
+        "female": 20,
+        "minority": 1,
+        "iwd": 2,
+        "female_placement_pct": 81,
+        "minority_availability_source": "0.02300%",
+        "minority_applicants": 1,
+        "minority_hires": 1
+      }
+    ],
+    "service_workers": [
+      {
+        "as_of": "2009-06-30",
+        "total": 144,
+        "female": 71,
+        "minority": 8,
+        "planned_driver_hires": "26 part-time drivers"
+      },
+      {
+        "as_of": "2010-06-30",
+        "total": 150,
+        "female": 59,
+        "minority": 11,
+        "female_placement_pct": 27,
+        "female_applicant_base_pct": 17,
+        "minority_placement_pct": 8,
+        "minority_applicant_base_pct": 3,
+        "prior_goal": "add 2-3 minorities",
+        "result": "5 minorities added"
+      },
+      {
+        "as_of": "2011-06-30",
+        "total": 142,
+        "female": 51,
+        "minority": 9,
+        "female_placement_pct": 29,
+        "female_applicant_base_pct": 24,
+        "minority_placement_pct": 0,
+        "minority_applicant_base_source": "0.07% (less than 1%)",
+        "prior_goal": "add 2-3 minorities and/or females",
+        "result": "0 minorities and 11 females added"
+      },
+      {
+        "as_of": "2012-06-30",
+        "total": 145,
+        "female": 48,
+        "minority": 9,
+        "female_placement_pct": 28,
+        "female_applicant_base_pct": 23,
+        "minority_placement_pct": 3.6,
+        "minority_applicant_base_source": "0.17%",
+        "prior_goal": "add 2-3 minorities and/or females",
+        "result": "3 minorities and 22 females added"
+      },
+      {
+        "as_of": "2013-06-30",
+        "total": 151,
+        "female": 60,
+        "minority": 10,
+        "female_placement_pct": 40,
+        "female_applicant_base_pct": 23,
+        "minority_placement_pct": 8,
+        "minority_applicant_base_source": "0.03191%",
+        "result": "5 minorities and 25 females added; 4 minority employees lost to turnover"
+      },
+      {
+        "as_of": "2014-06-30",
+        "total": 151,
+        "female": 59,
+        "minority": 10,
+        "veteran": 15,
+        "iwd": 17,
+        "female_placement_pct": 35,
+        "female_applicant_base_pct": 38,
+        "minority_placement_pct": 1.5,
+        "minority_applicant_base_source": "0.04347%",
+        "result": "1 minority and 23 females added; source says prior goal not met"
+      }
+    ]
+  },
+  "change_points": [
+    "2010 narrative begins giving explicit placement-rate/applicant-base comparisons and prior-goal results for major job groups.",
+    "2013 narrative explicitly explains an Operatives increase as transfers/demotions from job group 9, showing that job-group movement could reflect reclassification/transfer rather than external hiring.",
+    "2014 narrative expands the narrative to veterans and individuals with disabilities and sets an explicit Service Workers/driver headcount growth objective from 151 to 161."
+  ],
+  "data_quality_boundary": [
+    "All percentages are preserved exactly as printed. Several historical minority-availability/applicant-base percentages use very small percentage values and should not be silently rescaled.",
+    "These narratives are annual historical interpretations, not current workforce facts or current placement goals."
+  ]
+}
