@@ -1,0 +1,53 @@
+{
+  "id": "rtec-title-vi-sample-reference-classification",
+  "record_type": "source_authority_classification",
+  "title": "Title VI / LEP sample and reference source authority map",
+  "status": "validated_from_source_text",
+  "temporal_status": "reference_and_historical",
+  "sources": [
+    {
+      "sha256": "1f877004f9d9a8425d306595fd0aa8eef136d72a4c15c7462721565b54b5c696",
+      "source": "Facility contruction statement (sample).doc",
+      "classification": "RTEC-adapted sample/reference",
+      "useful_content": "Facility-siting equity-analysis workflow before preferred-site selection, outreach to potentially affected persons, alternative-site comparison, cumulative-impact review and documentation of disparate-impact justification.",
+      "caution": "The source explicitly instructs the user to choose/complete a statement fitting the agency. Treat it as drafting/reference material unless the same language appears in an adopted RTEC plan."
+    },
+    {
+      "sha256": "5763c8e48af6dfaccc774f23c9cb28df7399bfd1318aada13e975100384ac23c",
+      "source": "Old Public Participation Plan.doc",
+      "classification": "historical RTEC public-participation reference",
+      "useful_content": "Inclusive outreach to minority, low-income and LEP populations; early/continuous participation; accessible locations/times; alternatives to written-only participation; community partnerships and tailored media/outreach.",
+      "caution": "Marked 'Old' in archive and superseded by later Title VI plans for current authority."
+    },
+    {
+      "sha256": "eb50ec0447cd2f21b7a501fa063f2d436beefd7d9279d2993daf4d2e5eeebbf2",
+      "source": "SAFE HARBOR PROVISION (sample).doc",
+      "classification": "RTEC-adapted sample/reference",
+      "useful_content": "Historical four-factor conclusion, Spanish brochures/bus advertising/website material, notice of free oral interpretation, and distinction between written-translation safe harbor and oral meaningful access.",
+      "caution": "The demographic conclusion and language-service implementation are historical and must be compared with the current 2026 plan."
+    },
+    {
+      "sha256": "67d54ef9f43d33cb2d9586d85628f9f19b9132ef00b647dc43b1085666ec6659",
+      "source": "TITLE VI COMPLAINT PROCEDURE (sample).doc",
+      "classification": "sample/historical procedure",
+      "useful_content": "Complaint intake, jurisdiction review, acknowledgement, investigation, information requests, administrative closure and closure/LOF outcomes.",
+      "caution": "Its deadlines (30-day investigation, 60-business-day requested-information window, 7-day appeal) conflict with later adopted RTEC plan versions. It must never override the current January 2026 plan."
+    },
+    {
+      "sha256": "e300bfd0d414e29497bc13f41bafda4613ca5817d6e4769437e2cd937962a64b",
+      "source": "Title VI Florida Dept. of Transportation.doc",
+      "classification": "external FDOT template/reference",
+      "useful_content": "Comprehensive template structure for small/rural transit agencies under FTA Circular 4702.1B, including instructions distinguishing actual requirements from optional/template language.",
+      "caution": "The preface explicitly says it is an FDOT template, must be customized, is not required to be adopted, and optional language must fit the agency. It is not RTEC policy merely because it is stored in the RTEC archive."
+    }
+  ],
+  "authority_order": [
+    "Current Board-approved RTEC Title VI/LEP plan and later signed/approved RTEC-specific sources.",
+    "Earlier adopted RTEC Title VI/LEP plans for historical periods.",
+    "RTEC-specific historical procedures/notices where no adopted-plan conflict exists.",
+    "RTEC-adapted samples and drafting aids.",
+    "External agency/template/reference material."
+  ],
+  "promotion_rule": "A rule found only in a sample/template/reference source remains reference knowledge until corroborated by an adopted RTEC plan, RTEC policy, actual RTEC procedure evidence or explicit user confirmation.",
+  "deduplication_rule": "Do not duplicate sample/template language into multiple canonical RTEC process records. Link adopted RTEC provisions back to the reference source only when provenance is useful."
+}
