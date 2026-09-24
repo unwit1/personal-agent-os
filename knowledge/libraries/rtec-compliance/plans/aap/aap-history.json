@@ -2,8 +2,8 @@
   "id": "rtec-aap-history",
   "record_type": "plan_version_history",
   "title": "RTEC Affirmative Action / EEO Plan history",
-  "status": "validated_archive_version_history_with_known_gaps",
-  "temporal_status": "historical_series",
+  "status": "validated_historical_version_history_current_reporting_transition",
+  "temporal_status": "historical_series_with_2026_reporting_transition",
   "observed_plan_versions": [
     {
       "period": "2009-07-01/2010-06-30",
@@ -111,13 +111,14 @@
   "related_snapshot": "knowledge/libraries/rtec-hr/plans/aap-2022-06-30/",
   "newest_full_plan_observed_end_date": "2024-06-30",
   "unresolved_questions": [
-    "What approved EEO/Affirmative Action Plan governs after June 30, 2024?",
-    "Was a plan submitted by the January 30, 2024 date stated in Kentucky's 2020 approval letter, and where is its approval correspondence?",
-    "What exact effective date did EEO program responsibility move from Sheila Stallsworth to Tracy Champion?",
-    "How did the AAP methodology change across plan versions, especially labor availability, job groups and placement-goal calculations?",
-    "Resolve stale/misleading plan filenames against printed plan-year/update text rather than relying on filenames alone."
+    "For historical completeness, was an EEO/AAP plan formally submitted by the January 30, 2024 due date stated in Kentucky's 2020 approval letter, and where is its approval/response correspondence?",
+    "What KYTC/OTD instructions now govern subrecipient EEO documentation after FTA withdrew Circular 4704.1A effective June 5, 2026?",
+    "Does KYTC currently require RTEC to maintain or submit any abbreviated/full EEO Program artifact beyond the current signed EEO policy and ordinary nondiscrimination compliance?",
+    "What exact effective date did EEO program responsibility move among historical/current role holders?",
+    "How did historical AAP methodology change across plan versions, especially labor availability, job groups and placement-goal calculations?",
+    "Resolve stale/misleading historical plan filenames against printed plan-year/update text rather than relying on filenames alone."
   ],
-  "preservation_rule": "Keep every historical plan and state approval letter as a versioned source. Never overwrite old goals, named role holders, screening practices or workforce analyses with newer values.",
+  "preservation_rule": "Keep every historical plan and approval letter as versioned evidence. The 2026 FTA reporting change does not erase historical obligations or prior plan records. Never automatically convert the former quadrennial Circular cycle into a current submission deadline without current KYTC/OTD instruction.",
   "observed_role_history": [
     {
       "through_period": "at least 2009-2010 through the 2018-era plan family",
@@ -138,5 +139,19 @@
     "The archive contains near-duplicate and stale-filename plan variants. SHA-256 and printed plan-year/update text are authoritative for source identity; filenames are not.",
     "State EEO/AAP plan approval and Kentucky EEO contractor certification are separate compliance histories.",
     "2026-09-24 provenance audit corrected stale SHA-256 values for the 2009-2010, 2010-2011, 2013-2014, 2019 snapshot and FY2020-folder 2018-2022 sources against the deterministic extracted-safe-source catalog; added same-name archive variants explicitly."
-  ]
+  ],
+  "updated_at": "2026-09-24",
+  "current_2026_transition": {
+    "effective_date": "2026-06-05",
+    "federal_change": "FTA withdrew Circular 4704.1A guidance. FTA states the withdrawal eliminates the Circular-based EEO program plan/document submission and FTA review/oversight burden while leaving underlying federal nondiscrimination obligations intact.",
+    "kentucky_state_context": "KYTC's current Transportation Delivery resources page continues to state that Kentucky and its transit agencies must comply with EEO and maintain nondiscrimination/affirmative-action/policy-posting practices. The latest located FTA-approved Kentucky State Management Plan (approved 2024, modified 2024) still contains pre-withdrawal Circular 4704.1A EEO Program threshold/submission language.",
+    "current_interpretation": "Do not assume a recurring federal Circular 4704.1A EEO Program submission is currently required after 2026-06-05. Also do not assume Kentucky has abandoned all pass-through EEO documentation requirements: the current public state resources have not yet been found to reconcile the federal withdrawal with the older State Management Plan. Current KYTC/OTD instructions should be obtained before any new plan submission.",
+    "current_internal_rtec_policy": "RTEC has a signed current EEO policy/program statement dated 2026-08-26. That is current internal EEO policy evidence, but it is not automatically equivalent to a historical full utilization/goals/timetables program package.",
+    "official_sources": [
+      "https://www.transit.dot.gov/regulations-and-guidance/civil-rights-ada/eeo-circular",
+      "https://www.transit.dot.gov/regulations/federal-register-documents/2026-10103",
+      "https://transportation.ky.gov/TransportationDelivery/Pages/Resouces.aspx",
+      "https://transportation.ky.gov/TransportationDelivery/Documents/KY%20State%20Management%20Plan%20-%20FTA%20Approved%204-26-2024%20with%20Minor%20Modification%209-23-2024.pdf"
+    ]
+  }
 }
