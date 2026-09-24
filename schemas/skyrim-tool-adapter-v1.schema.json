@@ -57,7 +57,12 @@
             "cli",
             "library",
             "gui-supervised",
-            "hybrid"
+            "hybrid",
+            "mcp-stdio",
+            "mcp-http",
+            "rest",
+            "named-pipe",
+            "in-process-api"
           ]
         },
         "executable": {
@@ -81,6 +86,23 @@
         "timeout_seconds": {
           "type": "integer",
           "minimum": 1
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "transport": {
+          "type": "string"
+        },
+        "health_probe": {
+          "type": "string"
+        },
+        "requires_running_game": {
+          "type": "boolean",
+          "default": false
+        },
+        "requires_mo2_context": {
+          "type": "boolean",
+          "default": false
         }
       }
     },
@@ -176,6 +198,113 @@
           "format": "date"
         },
         "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "record_types": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "api_entries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tools": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "description": {
+          "type": "string"
+        },
+        "known_gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "denominator_probe": {
+          "type": "string"
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mutation_default": {
+          "enum": [
+            "read-only",
+            "dry-run",
+            "new-output",
+            "in-place",
+            "runtime-only",
+            "mixed"
+          ]
+        },
+        "supports_dry_run": {
+          "type": "boolean"
+        },
+        "supports_readback": {
+          "type": "boolean"
+        },
+        "supports_undo": {
+          "type": "boolean"
+        },
+        "requires_confirmation_for": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sandbox_or_scope": {
+          "type": "string"
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "independent_validators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "version_probe": {
+          "type": "string"
+        },
+        "output_readback": {
+          "type": "string"
+        },
+        "mutation_test_fixture": {
+          "type": "string"
+        }
+      }
+    },
+    "ai": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "typed_tooling": {
+          "type": "boolean"
+        },
+        "schema_discovery": {
+          "type": "boolean"
+        },
+        "provider_neutral": {
+          "type": "boolean"
+        },
+        "tool_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "context_cost_notes": {
           "type": "string"
         }
       }
