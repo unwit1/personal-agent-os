@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent OS connector registry v1",
+  "type": "object",
+  "required": ["schema", "version", "connectors"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {"const": "personal-agent/connector-registry/v1"},
+    "version": {"const": 1},
+    "connectors": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/connector"}
+    }
+  },
+  "$defs": {
+    "connector": {
+      "type": "object",
+      "required": ["id", "provider", "capabilities", "scopes", "health", "privacy_domain", "registration_state", "secret_ref"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string", "minLength": 1, "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]*$"},
+        "provider": {
+          "type": "object", "required": ["id", "name"], "additionalProperties": false,
+          "properties": {"id": {"type": "string", "minLength": 1}, "name": {"type": "string", "minLength": 1}}
+        },
+        "capabilities": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "scopes": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "health": {"type": "string", "enum": ["unknown", "healthy", "degraded", "unhealthy"]},
+        "privacy_domain": {"type": "string", "minLength": 1},
+        "registration_state": {"type": "string", "enum": ["desired", "registered", "disabled", "revoked", "error"]},
+        "secret_ref": {
+          "type": "object", "required": ["store", "key"], "additionalProperties": false,
+          "properties": {
+            "store": {"type": "string", "minLength": 1},
+            "key": {"type": "string", "minLength": 1}
+          }
+        }
+      }
+    }
+  }
+}
