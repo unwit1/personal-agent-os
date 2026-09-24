@@ -1,0 +1,24 @@
+{
+  "record_id": "rtec-email-attachment-dedup-and-visual-audit",
+  "updated_at": "2026-09-23",
+  "status": "complete_for_recovered_payloads",
+  "counts": {
+    "attachment_occurrences": 132,
+    "unique_sha256": 104,
+    "duplicate_groups": 19,
+    "duplicate_occurrence_excess": 28
+  },
+  "duplicate_character": "Most repeated hashes are Outlook/vendor branding, signature graphics, repeated ADP marketing assets, duplicate tiny attachment stubs, or repeat inline images across related messages.",
+  "visual_audit": {
+    "image_unique_objects_reviewed": true,
+    "findings": [
+      "Most generic image00x attachments are logos, social-network icons, vendor branding, email-signature graphics or decorative resource imagery.",
+      "Several photos/screenshots/receipts/credentials are person-level or case-level evidence and remain restricted.",
+      "Social/non-work photographs were not promoted into work/company/person profiles.",
+      "No previously hidden blank HR form, policy, compliance workbook or major process artifact was found solely in the generic image layer.",
+      "2026 UHC wellness imagery accompanies already-modeled wellness resources and adds no separate policy authority."
+    ]
+  },
+  "dedup_rule": "SHA-256 exact duplicates should be analyzed once and linked to every message occurrence. Different completed documents must never be collapsed merely because they share a template/form type.",
+  "privacy_rule": "Hashes and sanitized classification are durable; restricted image/payload content remains local."
+}
