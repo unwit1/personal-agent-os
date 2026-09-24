@@ -1,0 +1,239 @@
+{
+  "id": "rtec-process-aap-disciplinary-derivative-integrity",
+  "record_type": "process",
+  "title": "AAP disciplinary derivative integrity and schema-version controls",
+  "status": "validated",
+  "temporal_status": "historical",
+  "effective_from": "2013-07-01",
+  "effective_to": "2023-06-30",
+  "summary": "Year-by-year comparison of restricted fiscal disciplinary registers to their AAP-sorted derivatives shows that some AAP copies are exact reorderings, while others omit/add rows, change EEO/job-group classifications, alter protected-field values, or insert hard-coded subtotal rows. AAP copies therefore must be treated as derived/reporting artifacts with their own version/provenance rather than authoritative duplicates.",
+  "claims": [
+    {
+      "claim": "The 2013-2014 AAP-sorted file is an exact multiset match to all 53 fiscal-register events across the retained department/name/title/EEO/gender/race/type/reason/date fields, differing only in ordering.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-process-disciplinary-logging-aap-history"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "AAP derivative integrity comparison",
+          "evidence_type": "structural",
+          "note": "Employee identities remain restricted; comparison result is aggregate only."
+        }
+      ]
+    },
+    {
+      "claim": "The 2014-2015 AAP derivative contains 71 detail rows versus 73 fiscal events, omitting two source events; among matched records it changes EEO classification on 59 rows, including 58 transitions from category 7 to category 9 and one from category 5 to category 9.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-process-disciplinary-logging-aap-history"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "AAP derivative integrity comparison - 2014-2015",
+          "evidence_type": "structural",
+          "note": "No employee names/protected-class values stored."
+        }
+      ]
+    },
+    {
+      "claim": "The 2015-2016 AAP derivative preserves 123 detail rows plus 12 hard-coded subtotal rows; comparison finds one source-name occurrence missing and one extra, plus a small number of EEO/race/veteran field discrepancies.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-process-disciplinary-logging-aap-history"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "AAP derivative integrity comparison - 2015-2016",
+          "evidence_type": "structural",
+          "note": "Protected-field discrepancy counts are retained without the underlying values."
+        }
+      ]
+    },
+    {
+      "claim": "Two materially different 2016-2017 AAP derivatives exist. The date-retaining variant has 127 detail rows and systematically recodes EEO classifications on 99 rows, including 96 category-7 to category-9 transitions; the subtotal variant also has 127 detail rows plus 12 hard-coded subtotal rows and differs from the fiscal register in only a small number of demographic/department/EEO fields.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-process-disciplinary-logging-aap-history"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "AAP derivative integrity comparison - 2016-2017 variants",
+          "evidence_type": "structural",
+          "note": "This establishes distinct transformations; it does not determine which version was final/official."
+        }
+      ]
+    },
+    {
+      "claim": "The 2017-2018 derivative preserves all 96 detail-event occurrences plus eight subtotal rows but has three event-level field discrepancies; 2018-2019 preserves all 85 detail occurrences plus seven subtotal rows with one IWD discrepancy.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-process-disciplinary-logging-aap-history"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "AAP derivative integrity comparison - 2017-2019",
+          "evidence_type": "structural",
+          "note": "Discrepancy counts only."
+        }
+      ]
+    },
+    {
+      "claim": "The 2019-2020 derivative has 94 detail rows versus 95 fiscal events, with two fiscal name-occurrences missing and one extra; the 2020-2021 derivative has 55 detail rows versus 54 fiscal events, adding one extra occurrence.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-process-disciplinary-logging-aap-history"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "AAP derivative integrity comparison - 2019-2021",
+          "evidence_type": "structural",
+          "note": "Aggregate row-difference counts only."
+        }
+      ]
+    },
+    {
+      "claim": "The 2021-2022 AAP derivative is a complete 44-event occurrence match on retained fields plus six subtotal rows; the 2022-2023 derivative preserves all 47 name occurrences plus seven subtotal rows with one veteran-field discrepancy.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-process-disciplinary-logging-aap-history"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "AAP derivative integrity comparison - 2021-2023",
+          "evidence_type": "structural",
+          "note": "Protected-field discrepancy value not stored."
+        }
+      ]
+    },
+    {
+      "claim": "No formulas were detected in any of the 29 supplied disciplinary/AAP/verbal-warning workbooks after deterministic conversion; observed AAP subtotal/count rows are hard-coded values rather than formula-derived calculations.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-process-disciplinary-logging-aap-history"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "workbook formula scan",
+          "evidence_type": "structural",
+          "note": "29 workbooks checked."
+        }
+      ]
+    },
+    {
+      "claim": "Because AAP derivatives can alter classification values and event population, the fiscal/source register and AAP derivative must each retain their own hash, schema version, transformation provenance and reconciliation report; a filename containing 'sorted' is insufficient evidence of equivalence.",
+      "claim_kind": "rule_candidate",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-automation-content-first-document-classification"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "cross-year comparison",
+          "evidence_type": "repeated_observation",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "trigger": "Historical disciplinary data is imported, reconciled or transformed for AAP/EEO analysis.",
+  "prerequisites": [
+    "Keep person-level disciplinary/protected-class data restricted.",
+    "Identify source fiscal register and derivative version by hash."
+  ],
+  "actors": [
+    "Human Resources",
+    "EEO/AAP analyst",
+    "Data import/validation process"
+  ],
+  "systems": [
+    "Historical Excel disciplinary registers",
+    "AAP reporting/analysis layer"
+  ],
+  "forms": [
+    "Fiscal disciplinary register",
+    "AAP-sorted derivative",
+    "Reconciliation report"
+  ],
+  "steps": [
+    "Parse the source register with a year/schema-specific adapter.",
+    "Classify AAP rows as detail/header/subtotal.",
+    "Compare derivative detail rows to the source as a multiset using only the fields retained by that derivative.",
+    "Record missing/extra occurrences and changed fields without silently overwriting source values.",
+    "Preserve the derivative's transformation/version separately from the authoritative source register.",
+    "Require review of unexplained classification/population changes before AAP analysis."
+  ],
+  "decisions": [
+    "Whether a derivative is an exact reordering, intentional recoding, incomplete subset, augmented copy or unexplained divergent version.",
+    "Which source/version is authoritative for each field and reporting period."
+  ],
+  "deadlines": [],
+  "outputs": [
+    "Schema/version record",
+    "Privacy-safe reconciliation report",
+    "Validated AAP reporting dataset"
+  ],
+  "exceptions": [],
+  "controls": [
+    "Never treat sorted/AAP workbooks as byte- or record-equivalent copies without reconciliation.",
+    "Do not collapse distinct 2016-2017 variants.",
+    "Subtotal rows must never be ingested as employee/event rows.",
+    "Hard-coded subtotal counts should be recalculated from validated detail rows rather than trusted blindly.",
+    "Protected-field discrepancies require controlled review without exposing values in generalized knowledge."
+  ],
+  "unresolved_questions": [
+    "What documented AAP/EEO methodology explains the systematic category-7 to category-9 recoding in the 2014-2015 and one 2016-2017 derivative?",
+    "Which 2016-2017 AAP derivative was the final/official reporting input?",
+    "What explains the missing/extra event occurrences in 2014-2015, 2015-2016, 2019-2020 and 2020-2021 derivatives?"
+  ],
+  "automation_candidates": [
+    "Generate AAP views from one authoritative event register rather than maintaining manual sorted copies.",
+    "Create deterministic reconciliation tests that fail if source/derivative event populations differ without an approved transformation note.",
+    "Recalculate subgroup totals from detail records and compare with historical hard-coded subtotal rows.",
+    "Version EEO/job-group mapping tables by plan year so recoding is explicit and reproducible."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+      "safe_source_type": "privacy_safe_restricted_aggregate",
+      "source_date_or_version": "2008-2026 archive analysis",
+      "content_sha256": null,
+      "page_or_section": "AAP derivative integrity comparison / formula scan",
+      "ingested_at": "2026-09-23",
+      "notes": "Comparisons performed locally against restricted workbooks; only privacy-safe aggregate differences were promoted.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "full_source_path": "knowledge/libraries/rtec-hr/restricted-evidence/disciplinary-register-aggregate-2008-2026.json",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/restricted-evidence/disciplinary-register-aggregate-2008-2026.json"
+    }
+  ]
+}
