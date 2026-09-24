@@ -159,6 +159,21 @@
           "note": "The later/refined status of either version is not assumed without authority metadata."
         }
       ]
+    },
+    {
+      "claim": "Beginning in 2016-2017, the historical fiscal 'disciplinary action' register explicitly uses Incident as an event type, and in each supplied year through the partial 2023-2024 file the Incident count exactly matches the vehicle-accident/incident reason count. The register therefore became a mixed discipline-and-vehicle-incident ledger rather than a pure corrective-action log.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "incident_tracking_evolution",
+          "evidence_type": "repeated_observation",
+          "note": null
+        }
+      ]
     }
   ],
   "trigger": "Disciplinary action or verbal warning is documented; AAP reporting may require a historical disciplinary-data extract.",
@@ -204,7 +219,8 @@
     "Never treat a missing fiscal-year file or an empty template as proof of zero disciplinary events.",
     "Preserve raw historical type/reason values while maintaining normalized derived categories separately.",
     "AAP parsers must be schema-aware and must identify subtotal/count rows before treating a row as an employee/event record.",
-    "Current discipline decisions must use the current handbook/process, not historical WW labels."
+    "Current discipline decisions must use the current handbook/process, not historical WW labels.",
+    "Separate non-disciplinary vehicle incident records from corrective-action events during migration and reporting."
   ],
   "unresolved_questions": [
     "Was disciplinary activity after September 22, 2023 moved to another system/file, and where is the authoritative 2024-2025/current register?",
@@ -217,7 +233,8 @@
     "Normalize historical warning-stage labels with an explicit source-to-normalized mapping and confidence rather than string replacement.",
     "Schema-detect annual/AAP workbook variants and classify each row as detail/header/subtotal before import.",
     "Automatically flag partial/missing fiscal-year coverage and empty-template years before AAP/audit reporting.",
-    "Generate privacy-safe aggregate AAP analyses without duplicating employee-level rosters."
+    "Generate privacy-safe aggregate AAP analyses without duplicating employee-level rosters.",
+    "Split imported rows into explicit case/event types (discipline, vehicle incident, counseling, etc.) instead of preserving one overloaded register."
   ],
   "provenance": [
     {
