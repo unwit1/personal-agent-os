@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from .registry import get_project
+from .paths import ROOT
 
 
 _PROJECT_ID = "job-applicant-dashboard"
@@ -14,6 +15,8 @@ _HEALTH_RELATIVE = Path("Config") / "fillout_sync_health.json"
 _OPENINGS_RELATIVE = Path("Config") / "openings_settings.json"
 _PATHS_RELATIVE = Path("Config") / "paths_settings.json"
 _DB_NAME = "dashboard.db"
+_AUDIT_PATH = ROOT / ".agent-local" / "rtec-applicant-access.jsonl"
+_AUDIT_MAX_ROWS = 10000
 
 # Explicit allowlists.  Never replace these with SELECT *: dashboard.db also
 # contains local file paths, restricted-form references, free-text notes and
@@ -57,6 +60,62 @@ _ALLOWED_STATUSES = {
     "Hired",
     "Inactive",
 }
+
+
+def _audit_access(action: str, *, applicant_ref: str | None = None,
+                  metadata: dict[str, Any] | None = None) -> None:
+    """Persist a privacy-safe local audit entry or fail closed.
+
+    Applicant-bearing adapter reads depend on this succeeding. The record may
+    contain the opaque agent_ref and coarse operational metadata, but never
+    names, email addresses, search text, notes, filenames/paths, source keys,
+    document content, or restricted self-ID data.
+    """
+    import os
+    import uuid
+
+    safe_metadata: dict[str, Any] = {}
+    for key, value in (metadata or {}).items():
+        if not isinstance(key, str):
+            continue
+        if value is None or isinstance(value, (str, int, float, bool)):
+            safe_metadata[key] = value
+
+    entry = {
+        "schema_version": 1,
+        "audit_id": "audit-" + uuid.uuid4().hex,
+        "created_at": datetime.now().astimezone().isoformat(timespec="seconds"),
+        "action": str(action),
+        "applicant_ref": applicant_ref or None,
+        "metadata": safe_metadata,
+    }
+
+    try:
+        _AUDIT_PATH.parent.mkdir(parents=True, exist_ok=True)
+        existing: list[str] = []
+        if _AUDIT_PATH.exists():
+            with _AUDIT_PATH.open("r", encoding="utf-8") as handle:
+                existing = [line for line in handle if line.strip()]
+        existing.append(json.dumps(entry, sort_keys=True, separators=(",", ":")) + "\n")
+        existing = existing[-_AUDIT_MAX_ROWS:]
+        tmp = _AUDIT_PATH.with_suffix(_AUDIT_PATH.suffix + ".tmp")
+        with tmp.open("w", encoding="utf-8", newline="\n") as handle:
+            handle.writelines(existing)
+        os.replace(tmp, _AUDIT_PATH)
+    except Exception as exc:
+        raise RuntimeError(
+            "Applicant access audit could not be recorded; access denied."
+        ) from exc
+
+
+def _audit_health(action: str, metadata: dict[str, Any] | None = None) -> None:
+    """Best-effort audit for non-applicant health/configuration reads."""
+    try:
+        _audit_access(action, metadata=metadata)
+    except RuntimeError:
+        # Health/readiness checks contain no applicant rows; they remain useful
+        # for diagnosing the audit subsystem itself.
+        pass
 
 
 def _project_root() -> Path:
@@ -195,13 +254,23 @@ def list_applicants(status: str | None = None, limit: int = 50, offset: int = 0)
                 "ORDER BY submitted DESC LIMIT ? OFFSET ?",
                 (limit, offset),
             ).fetchall()
-        return {
+        result = {
             "count": len(rows),
             "results": [_row_projection(row) for row in rows],
             "status_filter": status,
             "limit": limit,
             "offset": offset,
         }
+        _audit_access(
+            "applicant.list",
+            metadata={
+                "result_count": len(rows),
+                "status_filter": status,
+                "limit": limit,
+                "offset": offset,
+            },
+        )
+        return result
     finally:
         conn.close()
 
@@ -240,12 +309,23 @@ def search_applicants(query: str, status: str | None = None, limit: int = 50) ->
             "ORDER BY submitted DESC LIMIT ?",
             params,
         ).fetchall()
-        return {
+        result = {
             "count": len(rows),
             "results": [_row_projection(row) for row in rows],
             "query": query,
             "status_filter": status,
         }
+        _audit_access(
+            "applicant.search",
+            metadata={
+                "result_count": len(rows),
+                "status_filter": status,
+                "query_present": True,
+                "query_length": len(query),
+                "limit": limit,
+            },
+        )
+        return result
     finally:
         conn.close()
 
@@ -269,11 +349,21 @@ def get_summary(applicant_ref: str) -> dict[str, Any] | None:
             (ref,),
         ).fetchone()
         if row is None:
+            _audit_access(
+                "applicant.get_summary",
+                applicant_ref=ref,
+                metadata={"found": False},
+            )
             return None
         raw = _row_projection(row)
     finally:
         conn.close()
 
+    _audit_access(
+        "applicant.get_summary",
+        applicant_ref=ref,
+        metadata={"found": True},
+    )
     return {
         "applicant_ref": raw.get("agent_ref", ref),
         "name": raw.get("name", ""),
@@ -317,11 +407,21 @@ def get_document_metadata(applicant_ref: str) -> dict[str, Any] | None:
             (ref,),
         ).fetchone()
         if row is None:
+            _audit_access(
+                "applicant.get_document_metadata",
+                applicant_ref=ref,
+                metadata={"found": False},
+            )
             return None
         raw = dict(row)
     finally:
         conn.close()
 
+    _audit_access(
+        "applicant.get_document_metadata",
+        applicant_ref=ref,
+        metadata={"found": True},
+    )
     return {
         "applicant_ref": ref,
         "application": _file_metadata(raw.get("pdf_path"), "application"),
@@ -361,8 +461,18 @@ def get_timeline(applicant_ref: str, limit: int = 100) -> dict[str, Any] | None:
             "SELECT applicant_key FROM applicants WHERE agent_ref = ?", (ref,)
         ).fetchone()
         if applicant is None:
+            _audit_access(
+                "applicant.get_timeline",
+                applicant_ref=ref,
+                metadata={"found": False},
+            )
             return None
         if "agent_events" not in tables:
+            _audit_access(
+                "applicant.get_timeline",
+                applicant_ref=ref,
+                metadata={"found": True, "event_count": 0, "schema_ready": False},
+            )
             return {
                 "applicant_ref": ref,
                 "count": 0,
@@ -399,6 +509,11 @@ def get_timeline(applicant_ref: str, limit: int = 100) -> dict[str, Any] | None:
                 "acknowledged_at": row["acknowledged_at"] or None,
             }
         )
+    _audit_access(
+        "applicant.get_timeline",
+        applicant_ref=ref,
+        metadata={"found": True, "event_count": len(events), "schema_ready": True},
+    )
     return {
         "applicant_ref": ref,
         "count": len(events),
@@ -412,6 +527,7 @@ def openings_status() -> dict[str, Any]:
     path = _project_root() / _OPENINGS_RELATIVE
     data = _load_local_json(path)
     if not data:
+        _audit_health("applicant.openings", {"configured": False})
         return {
             "source": "dashboard_local_config",
             "configured": False,
@@ -449,13 +565,31 @@ def openings_status() -> dict[str, Any]:
         ).astimezone().isoformat(timespec="seconds")
     except OSError:
         pass
+    _audit_health(
+        "applicant.openings",
+        {
+            "configured": True,
+            "transit_group_count": len(result["transit_driver_groups"]),
+            "office_position_count": len(result["office_positions"]),
+        },
+    )
     return result
 
 
 def get_status(applicant_ref: str) -> dict[str, Any] | None:
     summary = get_summary(applicant_ref)
     if summary is None:
+        _audit_access(
+            "applicant.get_status",
+            applicant_ref=applicant_ref,
+            metadata={"found": False},
+        )
         return None
+    _audit_access(
+        "applicant.get_status",
+        applicant_ref=applicant_ref,
+        metadata={"found": True},
+    )
     return {
         "applicant_ref": summary["applicant_ref"],
         "status": summary["status"],
@@ -492,6 +626,10 @@ def pending_actions(limit: int = 100) -> dict[str, Any]:
                     "administrative_action": action,
                 }
             )
+    _audit_access(
+        "applicant.pending_actions",
+        metadata={"result_count": len(results), "limit": _bounded_limit(limit)},
+    )
     return {"count": len(results), "results": results}
 
 
@@ -533,7 +671,17 @@ def sync_status() -> dict[str, Any]:
     if not db_path.is_file():
         health["status"] = "unavailable"
         health["outbox"] = {"pending_count": 0, "oldest_pending_at": None, "newest_pending_at": None}
-        return health
+        _audit_health("applicant.sync_status", {"status": health["status"]})
+        _audit_health(
+        "applicant.sync_status",
+        {
+            "status": health.get("status"),
+            "database_present": bool(health.get("database_present")),
+            "agent_ref_schema_ready": bool(health.get("agent_ref_schema_ready")),
+            "pending_event_count": int((health.get("outbox") or {}).get("pending_count") or 0),
+        },
+    )
+    return health
 
     try:
         conn = _connect_readonly()
@@ -593,6 +741,10 @@ def pending_events(limit: int = 100) -> dict[str, Any]:
             for row in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")
         }
         if "agent_events" not in tables:
+            _audit_access(
+                "applicant.events",
+                metadata={"result_count": 0, "schema_ready": False, "limit": limit},
+            )
             return {"count": 0, "results": [], "schema_ready": False}
         _require_agent_ref_schema(conn)
         rows = conn.execute(
@@ -628,6 +780,10 @@ def pending_events(limit: int = 100) -> dict[str, Any]:
                     "sensitivity": row["sensitivity"],
                 }
             )
+        _audit_access(
+            "applicant.events",
+            metadata={"result_count": len(results), "schema_ready": True, "limit": limit},
+        )
         return {"count": len(results), "results": results, "schema_ready": True}
     finally:
         conn.close()
@@ -639,6 +795,10 @@ def acknowledge_event(event_id: str) -> dict[str, Any]:
         raise ValueError("event_id is required")
     path = _db_path()
     if not path.is_file():
+        _audit_access(
+            "applicant.event_ack",
+            metadata={"acknowledged": False, "reason": "database_unavailable"},
+        )
         return {"acknowledged": False, "reason": "database_unavailable"}
 
     # This one integration bookkeeping operation requires a writable connection.
@@ -648,11 +808,19 @@ def acknowledge_event(event_id: str) -> dict[str, Any]:
             "SELECT 1 FROM sqlite_master WHERE type='table' AND name='agent_events'"
         ).fetchone()
         if not table:
+            _audit_access(
+                "applicant.event_ack",
+                metadata={"acknowledged": False, "reason": "outbox_schema_unavailable"},
+            )
             return {"acknowledged": False, "reason": "outbox_schema_unavailable"}
         exists = conn.execute(
             "SELECT 1 FROM agent_events WHERE event_id = ?", (event_id,)
         ).fetchone()
         if not exists:
+            _audit_access(
+                "applicant.event_ack",
+                metadata={"acknowledged": False, "reason": "event_not_found"},
+            )
             return {"acknowledged": False, "reason": "event_not_found"}
         acknowledged_at = datetime.now().astimezone().isoformat(timespec="seconds")
         conn.execute(
@@ -662,6 +830,10 @@ def acknowledge_event(event_id: str) -> dict[str, Any]:
             (acknowledged_at, event_id),
         )
         conn.commit()
+        _audit_access(
+            "applicant.event_ack",
+            metadata={"acknowledged": True},
+        )
         return {"acknowledged": True, "event_id": event_id}
     finally:
         conn.close()
