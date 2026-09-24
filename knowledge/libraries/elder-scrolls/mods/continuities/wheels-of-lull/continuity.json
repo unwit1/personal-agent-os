@@ -125,6 +125,12 @@
         "evidence": "Trainwiz Nexus post dated 2015-04-17",
         "evidence_class": "author_post_post_wheels",
         "provenance_boundary": "does_not_establish_prior_text_reuse"
+      },
+      "chronocoda_lineage": {
+        "human_readable": "analysis/trainwiz-chronocoda-lineage.md",
+        "machine_readable": "analysis/trainwiz-chronocoda-lineage.json",
+        "root_predecessor": "Sotha Sil Expanded",
+        "policy": "separate_continuities_explicit_edges_preserve_variants"
       }
     }
   },
