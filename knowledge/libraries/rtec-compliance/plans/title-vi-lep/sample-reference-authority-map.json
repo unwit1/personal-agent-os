@@ -39,6 +39,13 @@
       "classification": "external FDOT template/reference",
       "useful_content": "Comprehensive template structure for small/rural transit agencies under FTA Circular 4702.1B, including instructions distinguishing actual requirements from optional/template language.",
       "caution": "The preface explicitly says it is an FDOT template, must be customized, is not required to be adopted, and optional language must fit the agency. It is not RTEC policy merely because it is stored in the RTEC archive."
+    },
+    {
+      "sha256": "64873e13e0bbeaae80dbb2c73b947befd8e8486706fa444566a26fd71ce087ab",
+      "source": "RTEC Title VI plan (samples).doc",
+      "classification": "RTEC-adapted drafting sample / incomplete template",
+      "useful_content": "Historical sample structure covering policy statement, public information dissemination, subcontract/vendor nondiscrimination, record keeping, complaint procedures and public participation.",
+      "caution": "The file contains drafting-placeholder language such as 'This should include...' in the Public Participation section, historical coordinator/domain information, and a seven-day appeal period. It is not an adopted current plan and must not override the January 2026 Board-approved Title VI/LEP plan."
     }
   ],
   "authority_order": [
