@@ -98,7 +98,25 @@ Success signal:
 
 ### P0.0A — Unified Connector Broker + cross-surface auto-provisioning
 
-Status: **planned / high priority** (added 2026-09-23).
+Status: **registry contract complete / broker provisioning open** (2026-09-24).
+
+Completed:
+- canonical **Connector Registry** contract in Agent OS with provider identity,
+  capabilities, scopes, health, owning privacy domain, registration state, and
+  references to local secret-store entries;
+- verified routing check and registry integration into the existing Agent OS
+  context compiler and MCP lifecycle;
+- deterministic fallback when registry is unavailable or credentials cannot be
+  imported from restricted hosts.
+
+Remaining open:
+- cross-surface broker orchestration (Claude → ChatGPT → Codex provisioning);
+- surface adapters for local/inspectable MCP registrations;
+- capability matrix and host-specific limitation detection;
+- bidirectional reconciliation of connector metadata, state, and revocation;
+- connector event propagation to integration health and future proactive workflows;
+- regression tests for multi-surface availability, deduplication, and stale
+  registration repair.
 
 Make Agent OS the canonical provider-neutral connector registry and broker for
 Claude, ChatGPT, Codex, desktop clients, mobile/voice clients, and future agent
