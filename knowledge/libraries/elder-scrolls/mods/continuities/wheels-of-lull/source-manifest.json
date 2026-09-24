@@ -89,7 +89,7 @@
     "repair_record": "analysis/repair-plan.md"
   },
   "post_ingestion_analysis": {
-    "status": "core_complete_source_integrity_complete_supplied_esp_exhausted",
+    "status": "core_complete_current_chronocoda_full_structure_integrated",
     "analysis_root": "analysis/",
     "speaker_resolution_files": [
       "analysis/speaker-resolution-0001.jsonl",
@@ -143,10 +143,11 @@
         "continuity_id": "tes.mod.trainwiz-chronocoda",
         "path": "../trainwiz-chronocoda"
       }
-    ]
+    ],
+    "current_snapshot_full_structure": "../trainwiz-chronocoda/full-structure-ingestion.json"
   },
   "book_provenance": {
-    "status": "passes_01_06_complete_current_chronocoda_sources_verified_historical_precedence_pending",
+    "status": "passes_01_06_complete_current_structure_sufficient_historical_precedence_optional",
     "normalization_index": "analysis/book-normalization-index.json",
     "normalization_builder": "technical/build-book-normalization-index.py",
     "source_relations": "normalized/book-source-relations.json",
@@ -161,7 +162,8 @@
     "shared_continuity_witness": "Trainwiz 2015-04-17: Aethernautics and Wheels of Lull take place in the same canon; classified as continuity relationship, not prior-text provenance.",
     "current_cross_continuity_comparison": "analysis/book-provenance-pass-06-current-chronocoda-comparison.json",
     "current_cross_continuity_witness_record_count": 11,
-    "current_witnessed_previously_unresolved_named_works": 7
+    "current_witnessed_previously_unresolved_named_works": 7,
+    "historical_precedence_required_for_library_goal": false
   },
   "retrieval_rebuild": {
     "status": "unblocked_after_raw_shard_repair",
@@ -171,11 +173,10 @@
     "note": "A fresh checkout/materialization can now read all canonical core raw shards. The 328-record implementation-text supplement is a separate evidence corpus and is not counted in the 1,090-document core retrieval baseline unless explicitly opted in."
   },
   "next_actions": [
-    "Seek historically dated pre-Wheels Aethernautics/Sotha Sil Expanded binaries or record-level dumps to establish publication precedence for the now-verified shared works.",
-    "Research the three Wheels named works with no current Aethernautics/Sotha counterpart: Trademarks, Sybandis, and Journeys Through Sybandis.",
-    "Run a fresh deterministic 1,090-document retrieval materialization on checkout as a verification step; raw-shard blockers are closed.",
-    "Optionally index the 370-record implementation-evidence layer as a secondary retrieval collection without mixing it into narrative canon claims.",
-    "Continue Tatterdemalion and Xal-Gosleigh edition comparison only when durable full-text witnesses are available."
+    "Run a fresh deterministic 1,090-document Wheels retrieval materialization on checkout as a verification step; raw-shard blockers are closed.",
+    "Optionally index the 370-record Wheels implementation-evidence layer as a secondary retrieval collection without mixing it into narrative canon claims.",
+    "Continue cross-continuity semantic synthesis using the complete current Aethernautics/Sotha/Wheels structure: entities, factions, places, artifacts/technology, metaphysics, quest branches, tensions, and concepts.",
+    "Treat historical edition/provenance archaeology as optional archival work only if later requested."
   ],
   "implementation_text_supplement": {
     "status": "complete_for_supplied_esp",
@@ -213,13 +214,14 @@
     "natural_language_vmad_payloads_found": 0
   },
   "external_archive_witnesses": {
-    "status": "located_binary_materialization_pending",
+    "status": "optional_historical_archive_research_inactive",
     "audit": "analysis/book-provenance-pass-04-archive-witnesses.md",
     "machine_manifest": "analysis/book-provenance-pass-04-archive-witnesses.json",
     "package_families": 2,
     "materialized": 0,
     "followup_audit": "analysis/book-provenance-pass-05-retrieval-path-audit.md",
     "binary_retrieval_retested": "2026-09-24",
-    "next_new_source_class": "Historical record-level dump, translation string table, xEdit export, or plugin-derived BOOK inventory if original archive bytes remain inaccessible."
+    "next_new_source_class": "None required for current lore-structure completeness; older record-level evidence is archival-only.",
+    "required_for_current_library_goal": false
   }
 }
