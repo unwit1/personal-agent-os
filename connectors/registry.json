@@ -19,6 +19,7 @@
         "applicant.list",
         "applicant.openings",
         "applicant.pending_actions",
+        "applicant.readiness",
         "applicant.search",
         "applicant.sync_status"
       ],
@@ -29,6 +30,7 @@
         "applicants.events.ack",
         "applicants.events.read",
         "applicants.openings.read",
+        "applicants.runtime-health.read",
         "applicants.sync-health.read",
         "applicants.timeline.read"
       ],
