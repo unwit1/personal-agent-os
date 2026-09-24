@@ -1,0 +1,47 @@
+{
+  "id": "rtec-eeo-certification-submission-support-history",
+  "record_type": "submission_workflow_history",
+  "title": "RTEC EEO certification / AAP submission supporting correspondence",
+  "status": "validated_historical_with_source_contamination",
+  "temporal_status": "historical",
+  "sources": [
+    {
+      "sha256": "b118d5a5f93d29adfd8c66bedd9d5ef5e85925daa8954b562ef45afac73d0689",
+      "label": "RTEC COVER PAGE",
+      "content": "Binder/divider identifying Federal EEO-1 Reports and State Certification Renewal Forms."
+    },
+    {
+      "sha256": "7b644c311e4d5cd0373edfb902ff56f6d20e5d39ad10f703fefd3b30b3e1c96c",
+      "printed_date": "2018-09-24",
+      "content": "RTEC transmittal of an updated AAP to the Kentucky Office of EEO and Contract Compliance, noting the AAP was submitted to Office of Transportation Delivery on a four-year cycle, with the next OTD submission due in November 2018; Affidavit of Effort to Comply enclosed."
+    },
+    {
+      "sha256": "a566fa102eac19aa901390a42b748e0cb039a7bcd16e125c1e3fba385aa9dc3f",
+      "printed_date": "2020-12-17",
+      "content": "RTEC transmittal of the AAP updated/reviewed at fiscal year end June 30, 2020, plus signed Affidavit of Effort to Comply; source also notes COVID-19-related employee-count reduction and anticipated staffing recovery."
+    },
+    {
+      "sha256": "7f460819fddcb3b8da42dfdc9bf5537e8a0eba3e5741b082c6c05542c386c49c",
+      "printed_date": "2010-09-08/09",
+      "content": "Kentucky recertification notice stating certification expiration September 30, 2010 and directing return of an originally signed Certification Renewal Form before expiration to avoid a lapse.",
+      "additional_historical_condition": "The notice says an employer no longer holding a state contract valued over $500,000 need not complete the renewal form but must notify the office before expiration.",
+      "contamination": "The same Word source unexpectedly contains an unrelated November 19, 2004 Finance and Administration Cabinet memorandum about Educational Achievement Awards. That appended memo is not RTEC process evidence and must not be promoted into RTEC knowledge."
+    }
+  ],
+  "process_relationships": [
+    "Kentucky contractor EEO certification renewal and OTD EEO/AAP plan submission are related but distinct compliance streams.",
+    "The archive's EEO binder intentionally stores Federal EEO-1 reporting material alongside State certification renewal material.",
+    "AAP transmittal may include an Affidavit of Effort to Comply in addition to the plan itself.",
+    "Certification renewal is deadline-driven by the expiration stated in the state notice/approval cycle."
+  ],
+  "data_quality_controls": [
+    "Treat document body boundaries as meaningful: archive Word files can contain accidentally appended unrelated material.",
+    "Do not promote an appended memo merely because it is present in the same binary source.",
+    "Use printed dates, addressee, subject and source SHA to establish submission chronology."
+  ],
+  "related_records": [
+    "rtec-kentucky-eeo-certification-renewal-process",
+    "rtec-eeo-certification-history",
+    "rtec-aap-history"
+  ]
+}
