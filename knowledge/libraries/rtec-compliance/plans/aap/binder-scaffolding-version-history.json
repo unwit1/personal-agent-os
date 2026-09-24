@@ -1,0 +1,65 @@
+{
+  "id": "rtec-aap-binder-scaffolding-version-history",
+  "record_type": "document_template_version_history",
+  "title": "RTEC AAP binder cover, tabs and section-divider history",
+  "status": "validated_from_safe_archive_sources",
+  "temporal_status": "historical",
+  "components": [
+    {
+      "type": "binder_cover",
+      "fy2022_sha256": "c36706465e8fdcda8ad983bb0aa042c95270fe3cac8baff08cb417780319a87e",
+      "generic_forms_sha256": "2be100259551812efdf7e397b5a4ee2d07e4173486ee8ed1f73a8a6f99865441",
+      "finding": "The two cover binaries are SHA-distinct but extracted text is effectively the same plan-year list spanning July 2018-June 2023; punctuation/dash representation differs.",
+      "role": "presentation/period cover, not substantive policy authority"
+    },
+    {
+      "type": "index_tabs",
+      "sha256": "8b3f624d0197129794246360a90bf5f1e6627b4fc2366897b5eb4d18554b0045",
+      "aliases": [
+        "FY2022 AAP INDEX TABS.doc",
+        "Forms/Binder/AAP INDEX TABS.doc"
+      ],
+      "finding": "The FY2022 and generic binder index are byte-identical and should resolve to one canonical template."
+    },
+    {
+      "type": "section_dividers",
+      "fy2022_sha256": "b66783e9170e993c7b7a5d507db4307cc5b2d494ba1a5e90faf3dae24a5f7004",
+      "forms_template_sha256": "e36619cf67c9c40a527e80c8b7902e5cde6ad0946dad55749065a1202af080f3",
+      "finding": "The FY2022 divider set is dated June 30, 2022; the Forms/Binder variant is updated to June 30, 2023 and adds a Commonwealth of Kentucky Certifications divider in the extracted ordering."
+    }
+  ],
+  "canonical_section_order": [
+    "Employment Practices",
+    "Workforce Analysis",
+    "Job Group Analysis",
+    "Personnel Activity Data",
+    "Placement of Incumbents in Job Groups",
+    "Comparing Incumbency to Availability",
+    "Determining Availability",
+    "Narrative Descriptions / Good Faith Efforts",
+    "Title VII Investigations",
+    "Sample Ads and Brochures",
+    "Commonwealth of Kentucky Certifications"
+  ],
+  "year_specific_sections": [
+    "Determining Availability — as of reporting date",
+    "Workforce Analysis — as of reporting date",
+    "Personnel Activity Data — as of reporting date",
+    "Goals and Timetables from Previous Program Submission",
+    "Job Group Analysis — as of reporting date",
+    "Placement of Incumbents — as of reporting date",
+    "Comparing Incumbency to Availability and Annual Placement Goals — as of reporting date",
+    "Narrative Descriptions / Good Faith Efforts / Goals and Timetables — as of reporting date"
+  ],
+  "deduplication_rules": [
+    "Index tabs are reusable scaffolding and should have one canonical source when hashes are identical.",
+    "Covers/dividers with different reporting dates are versions, not duplicates, even when layout is nearly identical.",
+    "Binder presentation files should link to substantive analysis sources rather than duplicate their content.",
+    "A stale cover year must never be used to infer the effective period of the underlying analyses; use the analysis source dates."
+  ],
+  "automation_candidate": "Generate AAP cover, index tabs and dividers from a plan manifest/reporting date so stale years and missing sections cannot survive copy-forward.",
+  "related_records": [
+    "rtec-process-aap-annual-audit-goal-cycle",
+    "rtec-process-aap-compilation-2022"
+  ]
+}
