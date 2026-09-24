@@ -1,0 +1,31 @@
+{
+  "schema": "rtec-hr-question-set/v1",
+  "generated_at": "2026-09-24",
+  "source_batch": "rtec-hr-downloads-spreadsheets-2026-09-24",
+  "questions": [
+    {
+      "id": "downloads-2026-09-24-q1",
+      "question": "Are the 2018 Employer Portal/Infinisource-style demographic and FSA/HSA spreadsheet imports still used, or have they been superseded by a current benefits platform/import path?",
+      "priority": "medium",
+      "why_it_matters": "Determines whether these field rules should remain historical-only or be promoted into current operational guidance."
+    },
+    {
+      "id": "downloads-2026-09-24-q2",
+      "question": "What current system/carrier produces RTEC's dental/vision billing and retro/Cobra change reports after the January 2024 Delta Dental workbook?",
+      "priority": "medium",
+      "why_it_matters": "Would link the historical billing schema to a current reconciliation workflow."
+    },
+    {
+      "id": "downloads-2026-09-24-q3",
+      "question": "Is the PY2016 FSA account-balance report calculation still authoritative for any current account administrator or plan?",
+      "priority": "low",
+      "why_it_matters": "The formulas are useful historical system semantics but should not be used operationally without verification."
+    },
+    {
+      "id": "downloads-2026-09-24-q4",
+      "question": "Were the 2020 Kentucky MWBE listing and 2000/2010 Census reference workbooks used for a specific RTEC AAP, grant, procurement or service-planning workflow?",
+      "priority": "low",
+      "why_it_matters": "Would determine the correct project linkage; until then they remain external historical reference data."
+    }
+  ]
+}
