@@ -1,8 +1,8 @@
 # Agent OS Universal Capture userscript
 
-This directory contains the first universal browser capture client for Personal Agent OS.
+This directory contains the universal browser capture client for Personal Agent OS.
 
-## What v3.0.0 supports
+## Supported sites
 
 The self-contained userscript currently has adapters for:
 
@@ -17,22 +17,50 @@ The self-contained userscript currently has adapters for:
 
 SpaceBattles and Questionable Questing share the XenForo adapter.
 
-Every capture uses the normalized browser-capture-v1 envelope and includes the current URL, canonical URL, title, description, selected text, capture time, optional device label, source-specific IDs, and adapter metadata when available.
+Every capture uses the normalized `browser-capture-v1` envelope and includes the current URL, canonical URL, title, description, selected text, capture time, optional device label, source-specific IDs, and adapter metadata when available.
 
-## Install in Tampermonkey
+## Automatic Tampermonkey updates
 
-Because the canonical Personal Agent OS repository is private, do not put a GitHub personal access token into the userscript merely to make private raw-file updates work.
+The source userscript declares:
 
-For the first test:
+    @updateURL   https://unwit1.github.io/personal-agent-os/agent-os-universal-capture.user.js
+    @downloadURL https://unwit1.github.io/personal-agent-os/agent-os-universal-capture.user.js
 
-1. Open browser/userscripts/agent-os-universal-capture.user.js in the private GitHub repository.
-2. Copy the complete file contents.
-3. Open Tampermonkey -> Create a new script.
-4. Replace the generated template with the copied file.
-5. Save it.
-6. Visit a supported page and use the floating + Agent OS button.
+The private repository is never exposed as the update source. A GitHub Pages workflow publishes only the non-secret built userscript.
 
-If an Agent OS endpoint has not been configured, the capture is safely queued inside Tampermonkey storage so extraction can be tested immediately.
+The publishing workflow automatically appends the GitHub Actions run number to the source version. For example, source version `3.1.0` may be published as `3.1.0.42`. This means ordinary userscript changes do not require a human to remember to bump the Tampermonkey version.
+
+### One-time GitHub Pages setup
+
+GitHub Pages must use **GitHub Actions** as its source:
+
+1. Open this repository on GitHub.
+2. Go to **Settings -> Pages**.
+3. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+4. Open **Actions -> Publish Agent OS userscript**.
+5. Run the workflow once if it did not automatically redeploy after Pages was enabled.
+
+The expected public installation/update URL is:
+
+    https://unwit1.github.io/personal-agent-os/agent-os-universal-capture.user.js
+
+Only the built userscript, a tiny installation page, and a version marker are deployed. No private Agent OS data, source tree, credentials, or knowledge files are included in the Pages artifact.
+
+> GitHub account note: Pages from a private repository requires a GitHub plan that supports private-repository Pages. If GitHub does not offer Pages for this private repo, use a dedicated public distribution repository instead; do not make the Agent OS repository public.
+
+## Install or replace the Tampermonkey copy
+
+After the Pages workflow has deployed successfully:
+
+1. Open `https://unwit1.github.io/personal-agent-os/agent-os-universal-capture.user.js`.
+2. Tampermonkey should open its install/update screen.
+3. If your existing script is recognized as the same `@name` + `@namespace`, choose **Update** or **Reinstall**. If Tampermonkey creates a second copy, disable/delete the old `Agent OS Universal Capture` copy after installing the Pages-hosted one.
+4. In Tampermonkey Dashboard, confirm the script shows an update URL pointing to `unwit1.github.io`.
+5. From that point forward, normal updates are automatic. To force one immediately, use Tampermonkey's **Check for userscript updates** command.
+
+## Endpoint configuration
+
+If an Agent OS endpoint has not been configured, captures are safely queued inside Tampermonkey storage so extraction can be tested immediately.
 
 Use the Tampermonkey script menu for:
 
@@ -43,53 +71,16 @@ Use the Tampermonkey script menu for:
 - Agent OS: Copy queued captures as JSON
 - Agent OS: Clear queued captures
 
-## Endpoint contract
-
-Configure an endpoint that accepts an HTTP POST with Content-Type application/json.
+Configure an endpoint that accepts an HTTP POST with `Content-Type: application/json`.
 
 When a device token is configured, the client sends:
 
     X-Agent-OS-Token: <device token>
 
-A successful endpoint should return any 2xx response. A JSON response may optionally contain relationship/status values such as NEW or DUPLICATE so the browser can show Already Saved.
+A successful endpoint should return any 2xx response. A JSON response may optionally contain relationship/status values such as `NEW` or `DUPLICATE`.
 
 The intended long-term endpoint is:
 
     POST /api/v1/browser/capture
 
 Do not commit endpoint credentials or device tokens. They live in Tampermonkey GM storage per browser/device.
-
-## Normalized capture shape
-
-Typical fields:
-
-    schema_version
-    source
-    site
-    content_type
-    source_id
-    title
-    author
-    url
-    canonical_url
-    description
-    selected_text
-    image
-    captured_at
-    intent
-    device
-    metadata
-
-## Private-repo auto-update limitation
-
-Tampermonkey auto-update URLs work best with a URL that can be fetched without interactive GitHub authentication. The canonical repo is private, so a raw.githubusercontent.com URL is not a reliable cross-device update channel by itself.
-
-Do not make the main Agent OS repository public and do not embed a long-lived GitHub token in the script.
-
-The intended distribution follow-up is to publish only the built, non-secret .user.js artifact through a dedicated update channel while continuing to keep source/canonical Agent OS state private. The userscript can then add @updateURL and @downloadURL without changing its capture API or adapter architecture.
-
-## Adapter design
-
-The test build intentionally keeps adapters in one file. That avoids @require/authentication problems while the repository is private.
-
-Once the browser companion has a stable distribution channel, the internal adapter registry can be split into source modules without changing the normalized capture contract.
