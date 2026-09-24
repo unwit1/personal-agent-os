@@ -1,0 +1,2711 @@
+{
+  "queue_id": "rtec-compliance-safe-unextracted-document-queue",
+  "created_at": "2026-09-24",
+  "source_archive": "!Compliance.zip",
+  "extracted_safe_text_sources_excluded": 96,
+  "unique_documents": 270,
+  "items": [
+    {
+      "index": 1,
+      "sha256": "7cb91a533175feacedea77cd80d5246de7d083b96aee1fc389a27c4ccfd70211",
+      "extension": ".pdf",
+      "size_bytes": 554965,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP - State Approval Letters/Approval letter dated 01 03 2012.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 2,
+      "sha256": "7c0b64fad53328ffe034afbc442d582d7bc8f4fab8b908c1f4c318f2051ef6c1",
+      "extension": ".pdf",
+      "size_bytes": 529769,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP - State Approval Letters/Approval letter dated 11 10 2009.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 3,
+      "sha256": "303ac000919866eb280f850e6dc4a0753e203cebb4120e0c2365f9ae280f7ed6",
+      "extension": ".pdf",
+      "size_bytes": 275238,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP - State Approval Letters/Approval letter dated 11 15 2014.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 4,
+      "sha256": "c57b15dc60d9b4243f4e14e2e0afd309273da6a19e49de1e86b6c6cf89d4e3d6",
+      "extension": ".pdf",
+      "size_bytes": 286468,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP - State Approval Letters/Approval letter dated 12 27 2018.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 5,
+      "sha256": "6f5848d20235d31e7b7ba5f0851983fbefc50c7d574a312874a03d29ef7565e7",
+      "extension": ".pdf",
+      "size_bytes": 320786,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP - State Approval Letters/Approval letter dated 12 30 2020.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 6,
+      "sha256": "fdcf3214ab651bdc127094af638101faeab6dd7cfe98e6d8f4d1fce1ab1d05af",
+      "extension": ".pdf",
+      "size_bytes": 35257056,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2008/AAP PLAN 2008.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 7,
+      "sha256": "8b5ab4f526f7ce0a0cb5977d21563b296f3070cd05bff6563262f407b6d30c05",
+      "extension": ".pdf",
+      "size_bytes": 30560857,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2009/2009 AAP PLAN.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 8,
+      "sha256": "f511b70209aae826c6411cb65eed4bf7549cf5e874743f33bcaeb1695df060fc",
+      "extension": ".xls",
+      "size_bytes": 41472,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2009/Determining Availability FY 2009.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 9,
+      "sha256": "d421416b87b0b8efa306d0befc6dd495f17110d300acb063e06340b3465fc4cc",
+      "extension": ".xls",
+      "size_bytes": 16896,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2009/Incumbency Analysis as of June 30, 2009.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 10,
+      "sha256": "aa3987c4b751a0af1da342037f8ef377e33577f06fe83549db620100362d7320",
+      "extension": ".xls",
+      "size_bytes": 24064,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2009/Incumbency to Availability as of 6 30 09.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 11,
+      "sha256": "d7aaf7440879e161b39990c8f3b5b31272627283c85bcd46639877ecb0f74112",
+      "extension": ".xls",
+      "size_bytes": 15872,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2009/Job Group Analysis as of June 30 2009.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 12,
+      "sha256": "72912d1ebd317fe068151c313b5c917cb88b195ab0ec2bad2e80f61bfccbdb07",
+      "extension": ".xls",
+      "size_bytes": 28672,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2009/New Hire Summary July 08 - June 09.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 13,
+      "sha256": "62b4d91664e69c5af479917e662effe618065bcc625e857cb88898dbe8840a04",
+      "extension": ".xls",
+      "size_bytes": 39424,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2009/Personnel Activity Data as of 6 30 09.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 14,
+      "sha256": "e00d585a77b230fa06691b27c8d8ea7a098b1acf1f85d628b448c55f05a9a745",
+      "extension": ".xls",
+      "size_bytes": 21504,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2009/Termination SUMMARY July 08 - June 09.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 15,
+      "sha256": "0c703bf948b3031687cc0a7dc010f1a23c953b223990c4c1132fd686976534e9",
+      "extension": ".xls",
+      "size_bytes": 34304,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2009/Workforce Analysis Form as of 6 30 09.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 16,
+      "sha256": "3b0eb3861d5835283e0bfbc05e3e0b0825d9e0b7ff94dc0a22002b60c02f6275",
+      "extension": ".pdf",
+      "size_bytes": 18733049,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2010/2010 AAP PLAN.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 17,
+      "sha256": "44db8330c00c32ce7ef59eea1b65298a9ff143181d92b8ba0dd603e143818629",
+      "extension": ".xls",
+      "size_bytes": 41984,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2010/Determining Availability FY 2010.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 18,
+      "sha256": "8d60749672894a509c1af812d1f3380eb09e1fe36d802ab4224188ec022c194c",
+      "extension": ".xls",
+      "size_bytes": 16896,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2010/Incumbency Analysis as of June 30, 2010.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 19,
+      "sha256": "6e11eb94c2ee97464db04cb59df8008650d9ea5ae8069fcd9eeb7f9435589188",
+      "extension": ".xls",
+      "size_bytes": 24576,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2010/Incumbency to Availability as of 6 30 10.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 20,
+      "sha256": "f700b024e69bc914e877c1f34611a46dafb81dc18176b9d44f980bc72683e06b",
+      "extension": ".xls",
+      "size_bytes": 22528,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2010/Job Group Analysis as of June 30 2010.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 21,
+      "sha256": "e38121852ff4b68af1c7eeefe385b1982689e670fa128b7ba1e4e0aa71e10cce",
+      "extension": ".xls",
+      "size_bytes": 25600,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2010/Labor Statistics 7 20 10.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 22,
+      "sha256": "e0d58a95965551abd5bec5bb711f12d4160df2867f770abd4ebf2b609abb1f62",
+      "extension": ".xls",
+      "size_bytes": 22016,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2010/New Hire Summary July 09 - June 10.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 23,
+      "sha256": "bb2db7ce2c05197cae388bab19b75def7f4d3519d554925e95ff386d44ba1a8c",
+      "extension": ".xls",
+      "size_bytes": 39424,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2010/Personnel Activity Data as of 6 30 10.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 24,
+      "sha256": "421d30967813cb0db11ebcfac7c389295cb8bac1a7df7ba0a515f10636f32f03",
+      "extension": ".xls",
+      "size_bytes": 22016,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2010/Termination SUMMARY July 09 - June 10.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 25,
+      "sha256": "d0617ba714579845224de8792c7c594af91e20b868a46482803c3ac7de1f4b09",
+      "extension": ".xls",
+      "size_bytes": 32768,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2010/Workforce Analysis Form as of 6 30 10.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 26,
+      "sha256": "9339584c19ce55391becbc4b4145fa10d13c373403184a904cb8049461ae9419",
+      "extension": ".xls",
+      "size_bytes": 41984,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2011/Determining Availability FY 2011.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 27,
+      "sha256": "bcb1bef1140a2cfa5683ac16c4d63b4c51e8a55a595d7e997a5def849a4b10d7",
+      "extension": ".xls",
+      "size_bytes": 23552,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2011/Incumbency Analysis as of June 30, 2011.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 28,
+      "sha256": "132a53bfba03d53c0c853df4042f0c6c93aacad4d9004db9936157069b9db9d1",
+      "extension": ".xls",
+      "size_bytes": 24576,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2011/Incumbency to Availability as of 6 30 11.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 29,
+      "sha256": "ada6c9a3322a16d25c76232cbd55a9e2f51d23b8f27d386a6376f4fc3a80861c",
+      "extension": ".xls",
+      "size_bytes": 22528,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2011/Job Group Analysis as of June 30 2011.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 30,
+      "sha256": "3c898a6c95b8cdccfa4b361454a976716abbc223ecf17b538607b148b2d466d9",
+      "extension": ".xls",
+      "size_bytes": 25600,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2011/Labor Statistics 7 20 11.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 31,
+      "sha256": "e310c000e74b04e9a24014da4e57bf5847e58ca8cc9d970aa4d95519717b4ba9",
+      "extension": ".xls",
+      "size_bytes": 28160,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2011/New Hire Summary July 10 - June 11.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 32,
+      "sha256": "b2a7359e008d1440c4173c34c6b639ba528d9f4280c11f2c3696a2b8f281d03f",
+      "extension": ".pdf",
+      "size_bytes": 36244832,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2011/PDF of  EEO Affirmative Action Plan 2009 thru 2011.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 33,
+      "sha256": "f6ca5c0c70ff4d668588c95b4c5ba688b1200c2e586ed0c278c9d5d80139c5da",
+      "extension": ".xls",
+      "size_bytes": 45568,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2011/Personnel Activity Data as of 6 30 11.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 34,
+      "sha256": "b6ad1f3ba297d3894ae025c100c3dd47485cfdbe70f589badc1a1a257ab38f4c",
+      "extension": ".xls",
+      "size_bytes": 28672,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2011/Termination SUMMARY July 10 - June 11.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 35,
+      "sha256": "bed8d275b2090af67c75ffeaeaceea52b1f925fe2050d4ce8a5f43733598d3ba",
+      "extension": ".xls",
+      "size_bytes": 39424,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2011/Workforce Analysis Form as of 6 30 11.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 36,
+      "sha256": "828a6139e51296aadec61259d2a27da233030e3246bc53ef11ad7b2e78fc4711",
+      "extension": ".xls",
+      "size_bytes": 32768,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2012/Determining Availability As of June 30, 2012.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 37,
+      "sha256": "d3d626a6df0cecf256ee35caf22876405b45f8bf9d5d0148bd92f1f14d503034",
+      "extension": ".xls",
+      "size_bytes": 23552,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2012/Incumbency Analysis As of June 30, 2012.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 38,
+      "sha256": "f62b02dd976cf0cb57501c4a343f78a3ef6e2b312ce0e2d17f9842f9c2d0652a",
+      "extension": ".xls",
+      "size_bytes": 24576,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2012/Incumbency to Availability As of June 30 2012.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 39,
+      "sha256": "28040f69a1c65788fcb6da985ef5ce495384cfa32b81c9b79e3b0438a95230f3",
+      "extension": ".xls",
+      "size_bytes": 22528,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2012/Job Group Analysis As of June 30, 2012.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 40,
+      "sha256": "e84c83690a4215c56a972c913a9d7b74b5d5726dfbe118584849d6cbac307f3b",
+      "extension": ".xls",
+      "size_bytes": 25600,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2012/Labor Statistics 7 31 2012.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 41,
+      "sha256": "6b522020dae3b2f1c3161b2241ca77f33f48f9acfa950a058e614b0dea5433b6",
+      "extension": ".xls",
+      "size_bytes": 28160,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2012/New Hire Summary As of June 30, 2012.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 42,
+      "sha256": "eca2fde3e96291611e71d983115c08ec75da35519f89c72d2eb4a978691948ef",
+      "extension": ".xls",
+      "size_bytes": 46080,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2012/Personnel Activity Data Sheet As of June 30, 2012.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 43,
+      "sha256": "d8e91f9be5a4c59842263b30276cd9cab7beffa40497b79bb43da8eff66be793",
+      "extension": ".xls",
+      "size_bytes": 28672,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2012/Termination SUMMARY As of June 30, 2012.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 44,
+      "sha256": "ccc4a7f32ce41de5608a4000f79883e6caf20c150f48604ffad7afdbf2102e10",
+      "extension": ".xls",
+      "size_bytes": 43520,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2012/Workforce Analysis Form As of June 30, 2012.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 45,
+      "sha256": "570d72ee560d2ba3b8bd0d7f6888ad24bd147f08092abc1539256d965ef5604d",
+      "extension": ".xls",
+      "size_bytes": 32768,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2013/Determining Availability as of June 30, 2013.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 46,
+      "sha256": "673115ad67db456df6b8cfca7011bd7f6dc3ac95f70f47743bf2980eaae8f265",
+      "extension": ".xls",
+      "size_bytes": 23552,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2013/Incumbency Analysis as of June 30, 2013.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 47,
+      "sha256": "7b34e7ba7babe1f2144f3b46652ef9d9891c7eba525b8dd29a37aaa379453b06",
+      "extension": ".xls",
+      "size_bytes": 24576,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2013/Incumbency to Availability as of June 30, 2013.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 48,
+      "sha256": "ecf59589946694860a53b4fd68a66e458d17b35bb0624efba0e142688289a394",
+      "extension": ".xls",
+      "size_bytes": 23040,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2013/Job Group Analysis as of June 30, 2013.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 49,
+      "sha256": "8a3828c2edbe6117e938ac3b5992c57dcdcdc3ef98bc3c6cc8b09b32ea49f714",
+      "extension": ".xls",
+      "size_bytes": 25600,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2013/Labor Statistics 6 30 2013.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 50,
+      "sha256": "c1869781b80344c0c153858c605a8c91325139fd3984cb909561c339221bd854",
+      "extension": ".xls",
+      "size_bytes": 28160,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2013/New Hire Summary as of June 30, 2013.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 51,
+      "sha256": "576f929716316aea030b64f84756f65e7f32c5252bc4714026f407e142efc82c",
+      "extension": ".xls",
+      "size_bytes": 46080,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2013/Personnel Activity Data Sheet as of June 30, 2013.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 52,
+      "sha256": "ae4644b70343249b3db81c23814d4dee64eaa4e7857ed68645f21601fb5e1165",
+      "extension": ".xls",
+      "size_bytes": 28160,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2013/Termination SUMMARY as of June 30, 2013.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 53,
+      "sha256": "568041c073b9ef6b6ffc089f742227c9ec16aec860faf234ba510061619a3b70",
+      "extension": ".xls",
+      "size_bytes": 44032,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2013/Workforce Analysis Form as of June 30, 2013.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 54,
+      "sha256": "9915795fcf5dbac2bac1dae48391b296224983d1ea4a5e115aac287472019b09",
+      "extension": ".xls",
+      "size_bytes": 32768,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2014/Determining Availability as of June 30 2014.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 55,
+      "sha256": "1640e9ccc1a9dcb5bd45150593d17d9a15657c5a2c2b3aca0a8e18299a957865",
+      "extension": ".xls",
+      "size_bytes": 32256,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2014/Determining Availability for IWD's as of June 30 2014.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 56,
+      "sha256": "87849b547467d9894cc91120ae03fcdc85f8205669f9d4c59c016949aad8f892",
+      "extension": ".xls",
+      "size_bytes": 31232,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2014/Determining Availability for Veterans as of June 30 2014.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 57,
+      "sha256": "dee4a12011fef20c940d1162d411a3c5df9a84c545f6ad66682ef391ff9cf1c1",
+      "extension": ".xls",
+      "size_bytes": 24576,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2014/Incumbency Analysis as of June 30 2014.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 58,
+      "sha256": "0d27d6652edeaaeee7b95d6fbb8e5874fa1829fb3ed35b044682e492980f1c32",
+      "extension": ".xls",
+      "size_bytes": 28160,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2014/Incumbency to Availability as of June 30 2014.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 59,
+      "sha256": "caa025eefec4096a9745db119f14b7280a7aea111168f4b25a4fdafa716b02fa",
+      "extension": ".xls",
+      "size_bytes": 23040,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2014/Job Group Analysis as of June 30 2014.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 60,
+      "sha256": "49cbdb255e15bedad6005a215bea97c92d22e9d5312fb88e9d6ff6e02327c6bf",
+      "extension": ".xls",
+      "size_bytes": 26112,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2014/Labor Statistics 6 30 2014.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 61,
+      "sha256": "e84eef3d2c142f00fd4391dca2805db8d9ffc38564c9f8c26248f2c9b9978fb0",
+      "extension": ".xls",
+      "size_bytes": 30208,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2014/New Hire Summary as of June 30 2014.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 62,
+      "sha256": "b4324a7add9113a81064bbc5995ce02568ac748aceb55ff80a1017087046e094",
+      "extension": ".pdf",
+      "size_bytes": 47036006,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2014/PDF of current EEO Affirmative Action Plan 2012 thru 2014.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 63,
+      "sha256": "67e97cd790e671caccf89f1c3bc58428f118969ee1755ddbebe462f04d01faf2",
+      "extension": ".xls",
+      "size_bytes": 49152,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2014/Personnel Activity Data Sheet as of June 30 2014.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 64,
+      "sha256": "831880c18530ef7f29cedafd3eeec10ecca2a3dc8503be6074d542953e02c0bd",
+      "extension": ".xls",
+      "size_bytes": 29184,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2014/Termination SUMMARY as of June 30 2014.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 65,
+      "sha256": "12d9df1ee75e772673fade27da82acce5fcfc09bdc4991611af961a1602204af",
+      "extension": ".xls",
+      "size_bytes": 74752,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2014/Workforce Analysis Form as of June 30 2014.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 66,
+      "sha256": "76c7b9a0fde712567df06a48b562551e4648fca65d1dc8dfda9dd01b662689f2",
+      "extension": ".xls",
+      "size_bytes": 41472,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2015/Determining Availability as of June 30, 2015.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 67,
+      "sha256": "b18c50ab7997dd8a6ce2d5a725555cb01e9823e1625e76317571a09169e138c5",
+      "extension": ".xls",
+      "size_bytes": 40448,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2015/Determining Availability for IWD's as of June 30 2015.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 68,
+      "sha256": "d8a2455627d14509ab5327880f14e6e5e7f98c7a204e2a6d957bc198a8663485",
+      "extension": ".xls",
+      "size_bytes": 41472,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2015/Determining Availability for Veterans as of June 30, 2015.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 69,
+      "sha256": "58088bb0afbfb5de977a64cfbc0727733d9504785daa3ed390f7ed0e81475fd5",
+      "extension": ".xls",
+      "size_bytes": 32768,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2015/Incumbency Analysis as June 30 2015.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 70,
+      "sha256": "3b65d169a023e1721de487f8b026503ec2ab9af4070b1617e039aa7656ef8b83",
+      "extension": ".xls",
+      "size_bytes": 36352,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2015/Incumbency to Availability as of June 30, 2015.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 71,
+      "sha256": "c64c63c1f39269b3620dbddc25f4cff9c5ffd217569ab57059447bbb395ab27d",
+      "extension": ".xls",
+      "size_bytes": 31744,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2015/Job Group Analysis as of June 30, 2015.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 72,
+      "sha256": "de9ab68d90d165205cb46660332f58b8bce372d8052eb231dd208e332fa0948d",
+      "extension": ".xls",
+      "size_bytes": 28672,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2015/Labor Statistics 6 30 2015.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 73,
+      "sha256": "453b7a2bc30e52976a09f7ac54d4d8e825ac1a0c64caf1de7bf0862ec252c195",
+      "extension": ".xls",
+      "size_bytes": 47104,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2015/New Hire Summary as of June 30, 2015.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 74,
+      "sha256": "7607044d21848f79bb4dfc02801c1a4242046b6b5932eba17469332f9fdd7b6d",
+      "extension": ".xls",
+      "size_bytes": 57344,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2015/Personnel Activity Data Sheet as June 30 2015.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 75,
+      "sha256": "6e05964e8de739fff8e088f1327a11e510ba068a45d514c83398113642ee61e0",
+      "extension": ".xls",
+      "size_bytes": 37888,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2015/Termination SUMMARY as of June 30, 2015.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 76,
+      "sha256": "09d2f341c2bdf673e1a81770607db864b888f7befed8c98e5ce9f5fe88e7a96f",
+      "extension": ".xls",
+      "size_bytes": 83968,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2015/Workforce Analysis Form as of June 30, 2015.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 77,
+      "sha256": "aeaa49b2dae5639ea29f675cc943728c5411440d1a33ef4f0d5bd34068c92f82",
+      "extension": ".xls",
+      "size_bytes": 41472,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2016/Determining Availability as of June 30 2016.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 78,
+      "sha256": "8b4ec7aefe78a26b61e9a4dc27d2be2d304c356273294e0f12b0ef55428fc64c",
+      "extension": ".xls",
+      "size_bytes": 40448,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2016/Determining Availability for IWD's as of June 30 2016.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 79,
+      "sha256": "4068df8cf76ecfbfa620151ed9861be6e6b04e0d344a095e50f04680e497ee7d",
+      "extension": ".xls",
+      "size_bytes": 40960,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2016/Determining Availability for Veterans as of June 30 2016.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 80,
+      "sha256": "5e546a18368174898d7bd611a1f2a7f30bc7a43e1bc8a078e62d4f9e1d1e99b4",
+      "extension": ".xls",
+      "size_bytes": 32768,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2016/Incumbency Analysis as of June 30 2016.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 81,
+      "sha256": "3f83c2e20f78a73b9077da227726979c60c91fc227e9f5f6e1979e5b74153665",
+      "extension": ".xls",
+      "size_bytes": 36352,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2016/Incumbency to Availability as of June 30 2016.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 82,
+      "sha256": "589b16f8571c3a4bcef88090da4546e6ecaa416d43ae17e607f1f2e1961ef432",
+      "extension": ".xls",
+      "size_bytes": 31744,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2016/Job Group Analysis as of June 30 2016.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 83,
+      "sha256": "d9620ce482fa977114c42367aad2f23c62b415ffef029fa043be1fc5480c2a0f",
+      "extension": ".xls",
+      "size_bytes": 22016,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2016/Labor Statistics 6 30 2016.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 84,
+      "sha256": "964e27237e325369cd35102b9d33ef0ebebf49fb3f52c7b5836a39371b8abeb6",
+      "extension": ".xls",
+      "size_bytes": 46592,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2016/New Hire Summary as of June 30 2016.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 85,
+      "sha256": "934a3df5f69b17d0492456513e248b166d745fead97fcc2590591ec87ddf2148",
+      "extension": ".xls",
+      "size_bytes": 57856,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2016/Personnel Activity Data Sheet as of June 30 2016.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 86,
+      "sha256": "08247fbb585834d3119e3d70eaeb60ffdae10cc65b73604350318f23acab0ee4",
+      "extension": ".xls",
+      "size_bytes": 38400,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2016/Termination SUMMARY as of June 30 2016.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 87,
+      "sha256": "3cddc0a127eb3deb19c6b06e0a110a8552224dd59127776b1bb3afe1b96f36ed",
+      "extension": ".xls",
+      "size_bytes": 83456,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2016/Workforce Analysis Form as of June 30 2016.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 88,
+      "sha256": "b86da720a36b4acc5dc3b101c59915000f9f6ff386c14054102291d584390969",
+      "extension": ".xls",
+      "size_bytes": 41472,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2017/Determining Availability 6 30 2017.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 89,
+      "sha256": "6d8e1aa8b7dc2b44780d3523cc9fe317349dcb967c93a9583113b99aa26820cd",
+      "extension": ".xls",
+      "size_bytes": 40448,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2017/Determining Availability for IWD's 6 30 2017.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 90,
+      "sha256": "07123ffe9e592e3274ed042acc0006c9cdff4bf0827e52e430cca8ec5fc60027",
+      "extension": ".xls",
+      "size_bytes": 41472,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2017/Determining Availability for Veterans 6 30 2017.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 91,
+      "sha256": "77bc9dbf349187fa256f5511e16167586b864ba802ac20dd555688ef2860bbad",
+      "extension": ".xls",
+      "size_bytes": 32768,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2017/Incumbency Analysis 6 30 2017.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 92,
+      "sha256": "3da53010f6a00387321493653a197f95ab253dc2a976b04b33cd3e6a6e12bafe",
+      "extension": ".xls",
+      "size_bytes": 36352,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2017/Incumbency to Availability as of June 30 2017.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 93,
+      "sha256": "f72544f933b95fc10de1c0ece449367360b7a8073a4160e610ebd5e5a88e73f9",
+      "extension": ".xls",
+      "size_bytes": 31744,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2017/Job Group Analysis - 6 30 2017.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 94,
+      "sha256": "2cb0999a724fc88ba7582459fdd75a6a9fe6a77d78667bb12904425342e1c3ca",
+      "extension": ".xls",
+      "size_bytes": 35840,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2017/Labor Statistics 6 30 2017.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 95,
+      "sha256": "0033cda45810f0773186d8a813c2847273f09cd9de42e890790b94b7213b3ab4",
+      "extension": ".xls",
+      "size_bytes": 46592,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2017/New Hire Summary 6 30 2017.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 96,
+      "sha256": "1ed8f11746d5bf0dcd07975b2c598524fad3b9355bf0863d982b63eac9ef1ab0",
+      "extension": ".xls",
+      "size_bytes": 57344,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2017/Personnel Activity Data Sheet 6 30 2017.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 97,
+      "sha256": "b6db365adad9bd19a5e68ec934b00d7d7056018bd5b6726a48b4ab5e8d490f98",
+      "extension": ".xls",
+      "size_bytes": 37888,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2017/Termination Summary 6 30 2017.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 98,
+      "sha256": "87ece3138a0c1a007ee4d9c887797e606b81399aaed8c5f32953210bc0af57eb",
+      "extension": ".xls",
+      "size_bytes": 83968,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2017/Workforce Analysis Form as of June 30 2017.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 99,
+      "sha256": "198fd856f8897f151def6bc83a53ee99827d4097cdd481d78ba1b551527f2715",
+      "extension": ".xls",
+      "size_bytes": 40960,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2018/Determining Availability as of June 30 2018.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 100,
+      "sha256": "a4a572b8c703ac409575f60e225be684bef58bd4e88203d64331b7e290ea5d8a",
+      "extension": ".xls",
+      "size_bytes": 40448,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2018/Determining Availability for IWD's as of June 30 2018.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 101,
+      "sha256": "aac2b4cd3bc64f46f6dec180b71201c5a0fd6f5f4955f3e804ed6dce212e6e11",
+      "extension": ".xls",
+      "size_bytes": 41472,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2018/Determining Availability for Veterans as of June 30 2018.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 102,
+      "sha256": "c6c560f7b3a72e2557e936ce494f1d9ee80928e716341ea35436dd7ded754247",
+      "extension": ".xls",
+      "size_bytes": 32768,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2018/Incumbency Analysis as of June 30 2018.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 103,
+      "sha256": "e093cd0128b828706003aad6d1f48eadc988c71983db405678b34865bc6a90bf",
+      "extension": ".xls",
+      "size_bytes": 36352,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2018/Incumbency to Availability as of June 30 2018.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 104,
+      "sha256": "476f3314a3de92f4846684b4717ee77d02f5555b56a3cc2b39cee0e9b73be733",
+      "extension": ".xls",
+      "size_bytes": 31744,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2018/Job Group Analysis as of 6 30 2018.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 105,
+      "sha256": "eb8c89b0dff2daaa21888988595e3297690b2d88de8ec2c9db8658dec668883b",
+      "extension": ".xls",
+      "size_bytes": 22016,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2018/Labor Statistics 6 30 2018.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 106,
+      "sha256": "2b349a820eb43657cbd21e2efc661842eedead537397871e8ca79b8dbd06f29d",
+      "extension": ".xls",
+      "size_bytes": 47104,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2018/New Hire Summary as of June 30 2018.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 107,
+      "sha256": "35d64ce0aae8f64ed84ac6afb91a1e77936653861e7feeb97abed84e9a9a4c8b",
+      "extension": ".xls",
+      "size_bytes": 57344,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2018/Personnel Activity Data Sheet as of June 30 2018.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 108,
+      "sha256": "d325f2cc8d3113c18b9895e4d53bae79fae83cf39b6b401acb6fdad61481bec5",
+      "extension": ".pdf",
+      "size_bytes": 288874,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2018/State Approval Letter for AAP 2018.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 109,
+      "sha256": "0c33d4a14bdbd2f9d9f88f6d45c0fea2684675132c08efc86e490b502d46f50b",
+      "extension": ".xls",
+      "size_bytes": 37888,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2018/Termination SUMMARY as of June 30 2018.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 110,
+      "sha256": "663053401589df6228025eb522076db12f75945d1233a1bc806a922c1f426e12",
+      "extension": ".xls",
+      "size_bytes": 83456,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2018/Workforce Analysis Form as of June 30 2018.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 111,
+      "sha256": "2ee8be6727c415392345a5461bedfa5a76ae23a8d169093cd07af3935de834b8",
+      "extension": ".xls",
+      "size_bytes": 41472,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2019/Determining Availability as of 6 30 2019.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 112,
+      "sha256": "6f2138bd8dcab83e17866f015ef9f8922423822d0038e0da97252ac2aff4eb5d",
+      "extension": ".xls",
+      "size_bytes": 40448,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2019/Determining Availability for IWD's as of 6 30 2019.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 113,
+      "sha256": "80ec7a6ae6e86a09287bfd6359ffa709632dfbdf2e34935a4c80266af301ea2d",
+      "extension": ".xls",
+      "size_bytes": 41472,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2019/Determining Availability for Veterans as of 6 30 2019.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 114,
+      "sha256": "8185afa6b70cb00224d55575f8a054cb79052d39f798275cc87f91ad676f4521",
+      "extension": ".xls",
+      "size_bytes": 33280,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2019/Incumbency Analysis as of 6 30 2019.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 115,
+      "sha256": "375ceebafbcb7f76faeb0bff18989ec0f5d78560e1167b8c97590e53aa7a54ea",
+      "extension": ".xls",
+      "size_bytes": 36352,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2019/Incumbency to Availability as of 6 30 2019.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 116,
+      "sha256": "09afe3f498af48762555b7b7224a97890f22f7dd0f893a7ac5d2ae5f04de7ab2",
+      "extension": ".xls",
+      "size_bytes": 32256,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2019/Job Group Analysis as of June 30 2019.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 117,
+      "sha256": "494e7c88445c58905af71ce7d3bbb2ed512671ca5a2662818a63bbb01db21427",
+      "extension": ".xls",
+      "size_bytes": 34816,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2019/Labor Statistics 6 30 2019.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 118,
+      "sha256": "0300874ae14886fbd588a62f7e2086b58320608740aa9938d343e3616911e10f",
+      "extension": ".xls",
+      "size_bytes": 46592,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2019/New Hire Summary as of June 30 2019.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 119,
+      "sha256": "c0ed5ae02575192e50a4806635e21a64351109f731ba414fff642a900b42395d",
+      "extension": ".xls",
+      "size_bytes": 57344,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2019/Personnel Activity Data Sheet as of 6 30 2019.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 120,
+      "sha256": "c9ff050de97159cbd50e86fec46b68a3270f401ea0f8da3a7d8459eb7e226994",
+      "extension": ".xls",
+      "size_bytes": 37888,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2019/Termination SUMMARY as of 6 30 2019.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 121,
+      "sha256": "64abe89c8fba5e13cb7be5bb312df4eed6d1aa0eb87fff355b4367c03eeea554",
+      "extension": ".xls",
+      "size_bytes": 83456,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2019/Workforce Analysis Form as of 6 30 2019.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 122,
+      "sha256": "72b04d10b1981073975f5521de2d0cf10ec519dfd3f1786717896ac346821002",
+      "extension": ".xls",
+      "size_bytes": 41472,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2020/AAP INFO FY 2020/Determining Availability as of 6 30 2020.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 123,
+      "sha256": "845d13a43569c844d8a66b67a656353b97c26d7c966dfd93d3cc2ce7f30bd472",
+      "extension": ".xls",
+      "size_bytes": 40448,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2020/AAP INFO FY 2020/Determining Availability for IWD's as of 6 30 2020.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 124,
+      "sha256": "f56ba5af40878eb5c8b90c57792f59d909a6372a94d81ea4b0b7da9f47f402ce",
+      "extension": ".xls",
+      "size_bytes": 41472,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2020/AAP INFO FY 2020/Determining Availability for Veterans as of 6 30 2020.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 125,
+      "sha256": "2b645fccf3206f063556f348fbc707f2ff95a261ccfebf62f3237a96ec18f730",
+      "extension": ".xls",
+      "size_bytes": 33280,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2020/AAP INFO FY 2020/Incumbency Analysis as of 6 30 2020.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 126,
+      "sha256": "f3705ae9a339740dc5838f9342ae25af6127a2d988abc51d38fb475db18b5c52",
+      "extension": ".xls",
+      "size_bytes": 36352,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2020/AAP INFO FY 2020/Incumbency to Availability as of 6 30 2020.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 127,
+      "sha256": "8a512de2a761d77c29be7adf4040693cf766d2c7e6dcb4fb7206d1db9124a8f6",
+      "extension": ".xls",
+      "size_bytes": 32256,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2020/AAP INFO FY 2020/Job Group Analysis as of June 30 2020.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 128,
+      "sha256": "b924448c83ea02808818d4f3f3890cbbf6360ba24341e9d6ea26c7cb5936de89",
+      "extension": ".xls",
+      "size_bytes": 34816,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2020/AAP INFO FY 2020/Labor Statistics 6 30 2020.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 129,
+      "sha256": "b171496bf614b8c777c06ce0c3d3785276026d9574987add35431f6f8e6d0405",
+      "extension": ".xls",
+      "size_bytes": 46592,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2020/AAP INFO FY 2020/New Hire Summary as of June 30 2020.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 130,
+      "sha256": "4abaa7b62c7a6fa650139c38a988c97d347d2ef56f81dfb96e15e2041411563c",
+      "extension": ".xls",
+      "size_bytes": 57344,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2020/AAP INFO FY 2020/Personnel Activity Data Sheet as of 6 30 2020.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 131,
+      "sha256": "7c89ea2dc44406bcb266f43db6fafa3a606aac34da06088dcbf9d09b60c88bf4",
+      "extension": ".xls",
+      "size_bytes": 37888,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2020/AAP INFO FY 2020/Termination SUMMARY as of 6 30 2020.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 132,
+      "sha256": "d87e4ec115e760422748c6bd0e5bd802e54cb0ac8621ed34db0ca2db89067de1",
+      "extension": ".xls",
+      "size_bytes": 83968,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2020/AAP INFO FY 2020/Workforce Analysis Form as of 6 30 2020.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 133,
+      "sha256": "3b60dd0744ed6da399c3a0a6722e22b4a4608329aa28ceb76eba5235ce06bb11",
+      "extension": ".pdf",
+      "size_bytes": 158445,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2020/Rural Transit Enterprises Coordinated Inc. 2020 EEO Plan Approval Letter.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 134,
+      "sha256": "ac13f0889d686173811b9250d3e1b13f06a7f8a5e2643d017baa0923f0572241",
+      "extension": ".xls",
+      "size_bytes": 40448,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2021/Determining Availability as of 06 30 2021.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 135,
+      "sha256": "0eb018c2d33462025bcf23e8604de07c6ca548c6906eda10305d11a7a62624b8",
+      "extension": ".xls",
+      "size_bytes": 40448,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2021/Determining Availability for IWD's 06 30 2021.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 136,
+      "sha256": "e0851d76ef989ec522ebc8dcc8d7aab82535caf856d9175680e43325bac3f1fb",
+      "extension": ".xls",
+      "size_bytes": 40448,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2021/Determining Availability for Veterans as of 06 30 2021.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 137,
+      "sha256": "d1fcfa58e0689cd8f4e669d3da9c20367013a9ec5b4d4d99ea6d8c68cf73e6ba",
+      "extension": ".xls",
+      "size_bytes": 33280,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2021/Incumbency Analysis as of 06 30 2021.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 138,
+      "sha256": "cf427c6de4c45112781a12f576feeba01171240a2eae0183e3eccaff3fad684c",
+      "extension": ".xls",
+      "size_bytes": 36352,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2021/Incumbency to Availability as of 06 30 2021.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 139,
+      "sha256": "036a68ff34cc0c341209498556dfa50b60bd6595833fed7f6e0b6cc149da9c30",
+      "extension": ".xls",
+      "size_bytes": 32256,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2021/Job Group Analysis as of June 30 2021.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 140,
+      "sha256": "e407c910fc9013ee5f45401d473fa1828d44b22b2ab86a23b1742fb790e6e837",
+      "extension": ".xls",
+      "size_bytes": 34816,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2021/Labor Statistics 6 30 2020.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 141,
+      "sha256": "dc15252a539e1ba472a5c6f8f28858ef62f7845642fa9808fa3016ed0ee8cb22",
+      "extension": ".xls",
+      "size_bytes": 46592,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2021/New Hire Summary 06 30 2021.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 142,
+      "sha256": "add878ab2718463941d80cc4097829c48358d395e43c5e6b08fad6efd8fa4cc7",
+      "extension": ".xls",
+      "size_bytes": 57344,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2021/Personnel Activity Data Sheet as of 06 30 2021.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 143,
+      "sha256": "546589e891b4525f930a209fdc2d09fb43c973f2c78fed5745855ee26e49f175",
+      "extension": ".xls",
+      "size_bytes": 37888,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2021/Termination Summary as of 06 30 2021.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 144,
+      "sha256": "a0e83229e04f82f4c7ccef395db47cf599bbd4261d64e906617322f390ac4a1e",
+      "extension": ".xls",
+      "size_bytes": 27648,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2021/TITLE VII COMPLAINT FORM.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 145,
+      "sha256": "b68e42314b2268436b99b28051236b337388d4f24ff0eb3f568d991983f69f25",
+      "extension": ".xls",
+      "size_bytes": 34304,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2021/Title VII Investigations Form.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 146,
+      "sha256": "cbc83cdd83ab570cbd6a21b3fea845e6f2595a5899066a12d25d94355ba3a4ed",
+      "extension": ".xls",
+      "size_bytes": 84480,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2021/Workforce Analysis Form as of 06 30 2021.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 147,
+      "sha256": "9420e6a0b571a9e1391429ff705ed9c96a3269d5d6363cbda41f0a5086bc5bf0",
+      "extension": ".xls",
+      "size_bytes": 40960,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2022/Determining Availability 06 30 2022.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 148,
+      "sha256": "6fb01ee84dac9ebb468ee5747bd2a07ed76bc2a9797dc002c761e310f73ebed6",
+      "extension": ".xls",
+      "size_bytes": 40448,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2022/Determining Availability for IWD's 06 30 2022.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 149,
+      "sha256": "a18cf3643e16112050eb13893c124b8905fc84113a081cf2e121b5a35769c815",
+      "extension": ".xls",
+      "size_bytes": 40960,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2022/Determining Availability for Veterans 06 30 2022.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 150,
+      "sha256": "0ace45c2abf05e0dd16416686533e253482870eb45c4d9917ee526ee7a12058b",
+      "extension": ".xls",
+      "size_bytes": 33280,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2022/Incumbency Analysis 06 30 2022.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 151,
+      "sha256": "ee7e61c4f6eedaf1f42e9911eacb78e195388a213d8b33efbdc1bfbd978aea57",
+      "extension": ".xls",
+      "size_bytes": 36352,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2022/Incumbency to Availability 06 30 2022.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 152,
+      "sha256": "28e076d6d2261e575d07fea5feca578066a51de693bed0b1cd518ddfcb6d12b4",
+      "extension": ".xls",
+      "size_bytes": 31744,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2022/Job Group Analysis 06 30 2022.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 153,
+      "sha256": "616f2dbebbc129256a21b655c221c3e7f181517fae59fe634d1a40e8fb605731",
+      "extension": ".xls",
+      "size_bytes": 35328,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2022/Labor Statistics 6 30 2022.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 154,
+      "sha256": "6b4bfa9342aa059c0c69220621a57450810c7643e7e6fbe42dbb7f9f391a71c7",
+      "extension": ".xls",
+      "size_bytes": 46592,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2022/New Hire Summary 06 30 2022.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 155,
+      "sha256": "d081289e341cf3cbcefd431ef4b6ea2234a820dbac3f51cb62e2d1f64c4bb378",
+      "extension": ".xls",
+      "size_bytes": 57344,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2022/Personnel Activity Data Sheet 06 30 2022.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 156,
+      "sha256": "91daf529a60cc6c978422ce7ca2c928554f095f716c6dbc3b8efebfd1f57f7c4",
+      "extension": ".xls",
+      "size_bytes": 37888,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2022/Termination SUMMARY 06 30 2022.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 157,
+      "sha256": "268358b8c71857b8b4cc15e1d2726b15930ce50a8e0805ea0816d1b992b72cce",
+      "extension": ".xls",
+      "size_bytes": 27648,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2022/TITLE VII COMPLAINT FORM.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 158,
+      "sha256": "7b93b8004e55f4138aea5ed73e73f528e589e9ada0ac4320437dd2f264214278",
+      "extension": ".xls",
+      "size_bytes": 34304,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2022/Title VII Investigations Form.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 159,
+      "sha256": "aa0eda171dba2d4644563a9aefc33854ea5a0582aaeb0a42006ba71fddb22542",
+      "extension": ".xls",
+      "size_bytes": 83968,
+      "paths": [
+        "Affirmative Action Plan (AAP)/AAP Plans (Old)/AAP INFO FY 2022/Workforce Analysis Form 06 30 2022.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 160,
+      "sha256": "865c4e5817670a5099cb7a30fab6bfe3c02c15e1510cdce614ddbd19bf44b27a",
+      "extension": ".xls",
+      "size_bytes": 40960,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Demographics/2023/Determining Availability 06 30 2023.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 161,
+      "sha256": "01cd9745bf45a506331673a68b23f9cd8bc4eec98c967706a75862042f070caa",
+      "extension": ".xls",
+      "size_bytes": 39936,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Demographics/2023/Determining Availability for IWD's 06 30 2023.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 162,
+      "sha256": "65b1dc8bb6e047e12aa06138b81af64615f58a7e219638668f6e530a09b2df8c",
+      "extension": ".xls",
+      "size_bytes": 40960,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Demographics/2023/Determining Availability for Veterans 06 30 2023.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 163,
+      "sha256": "3fde9c7c76b6a20c1cdc47a74c2c08a23a39788ff379cfd188695c9e58bcf44e",
+      "extension": ".xls",
+      "size_bytes": 32768,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Demographics/2023/Incumbency Analysis 06 30 2023.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 164,
+      "sha256": "dc907273064bbe25760e1f0898f9ff0827b308ce50015114fa03c24cb57caea0",
+      "extension": ".xls",
+      "size_bytes": 36352,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Demographics/2023/Incumbency to Availability 06 30 2023.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 165,
+      "sha256": "72d4f7a04868e58f11c14e2c1c38f79d71794bb229fb07b570a60316c95b02eb",
+      "extension": ".xls",
+      "size_bytes": 34816,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Demographics/2023/Labor Statistics 6 30 2023.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 166,
+      "sha256": "8d683ed46cfe14546f85787912108b3e52b56112ce9b07eed09627588aa9ebe6",
+      "extension": ".xls",
+      "size_bytes": 47104,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Demographics/2023/New Hire Summary 06 30 2023.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 167,
+      "sha256": "135f5220b367f3d1f8d112506f20fffff0d680c3d7e0df370787988572487ff2",
+      "extension": ".xls",
+      "size_bytes": 37376,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Demographics/2023/Termination SUMMARY 06 30 2023.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 168,
+      "sha256": "9f2c9005cada528fa87129951d577ba64a8cda1ecd48aca05b8c0b3602d4220c",
+      "extension": ".xls",
+      "size_bytes": 40960,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Demographics/2024/Determining Availability 06 30 2024.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 169,
+      "sha256": "e36ac14b2476fceb60c2d24255c5c87e00e2e43d8e7d38e45b9da7feb1f816da",
+      "extension": ".xls",
+      "size_bytes": 39936,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Demographics/2024/Determining Availability for IWD's 06 30 2024.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 170,
+      "sha256": "f121b3fc0527e2e8cd743278392aab67ffc791fdc750ad275213500c35821293",
+      "extension": ".xls",
+      "size_bytes": 40960,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Demographics/2024/Determining Availability for Veterans 06 30 2024.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 171,
+      "sha256": "b04a49af06e03cdfc619ced0495128c0e02ffd18c0b5b3e4ed532e1574ee07bf",
+      "extension": ".xls",
+      "size_bytes": 32768,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Demographics/2024/Incumbency Analysis 06 30 2024.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 172,
+      "sha256": "b90b34dc57c1b71ac34951a7d7280abab74a1f45e7f3a61d8e14e34c8f0ccaf8",
+      "extension": ".xls",
+      "size_bytes": 36352,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Demographics/2024/Incumbency to Availability 06 30 2024.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 173,
+      "sha256": "d297f856b2d9925e8ef1c56529eb74cf83bf94c4c9f0b707a579aa7381590844",
+      "extension": ".xls",
+      "size_bytes": 31744,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Demographics/2024/Job Group Analysis 06 30 2024.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 174,
+      "sha256": "418a615063f6dd3af4b2523af79cf7b45e5a92c64b2b24bdbf883f1a4ea02c66",
+      "extension": ".xls",
+      "size_bytes": 34304,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Forms/Application Forms/Applicant Affirmative Action Data Record No Birthdate.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 175,
+      "sha256": "0e9368bc68fe6698ff75122190f85c28702529fd82781abdf5a5a673760e7f10",
+      "extension": ".xls",
+      "size_bytes": 34304,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Forms/Application Forms/Applicant Affirmative Action Data Record.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 176,
+      "sha256": "3c87030f6ac68bf91e660288764eefaefaed3464c19b49b31483a6af9ba211a0",
+      "extension": ".doc",
+      "size_bytes": 212992,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Plan Documents/AAP PLAN July 2018 - June 2023.doc"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 177,
+      "sha256": "abc8ff6b30fcf02b0152274ba4a0b584ab4cc7cc6a437396a84b67e19cae01fb",
+      "extension": ".doc",
+      "size_bytes": 212992,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Plan Documents/AAP PLAN July 2018 - June 2024.doc"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 178,
+      "sha256": "70f55b4b392c1e2929999781f5e835c68f0550084c596c44bef49132bd7033ac",
+      "extension": ".xls",
+      "size_bytes": 82944,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Plan Documents/Workforce Analysis Form 06 30 2023.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 179,
+      "sha256": "80b93e1488b864b3e7c24cdae15a9f64b72ff6bff922c706872002fbfc36bdf4",
+      "extension": ".xls",
+      "size_bytes": 29696,
+      "paths": [
+        "Affirmative Action Plan (AAP)/Title VII Investigations Tracker.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 180,
+      "sha256": "3507a6bc8505a8f72e81f7c4f9803e66a17c3670b68552c4d3d6f204eddd7808",
+      "extension": ".xls",
+      "size_bytes": 34304,
+      "paths": [
+        "EEO/Active Miniority Employees for EEO Reporting.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 181,
+      "sha256": "76e3a28b508deed7d43f8db7e6677ce7213047e7cd4a69a9aef97caca7312f28",
+      "extension": ".docx",
+      "size_bytes": 14854,
+      "paths": [
+        "EEO/Breakdown of EEO Job Categories.docx"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 182,
+      "sha256": "eba2220598fd2a87ae9199717f41c47e251372c99ab209c4189d5e126cc8d016",
+      "extension": ".pdf",
+      "size_bytes": 333306,
+      "paths": [
+        "EEO/Certification Renewal Forms/2023 Affidavit of effort to Comply.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 183,
+      "sha256": "6edd3199b69044ef4479fbecda4ceec23703f0ff0eeb5c88f1a1a3bb804e0964",
+      "extension": ".pdf",
+      "size_bytes": 152866,
+      "paths": [
+        "EEO/Certification Renewal Forms/2025 2501974_Approved_RURAL TRANSIT ENTERPRISE - EEO expires 09-30-2026.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 184,
+      "sha256": "cc0d3224fc9b9d4c4cc7fcc0e965c954d871b68d692db3f730aff77e784b9a95",
+      "extension": ".pdf",
+      "size_bytes": 503443,
+      "paths": [
+        "EEO/Certification Renewal Forms/AAP Goals and Timetables Form and Instructions.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 185,
+      "sha256": "c70d598ebf8af773a4e1f3f76d52e6a09e5f38f293306ad2749f212db3a661bb",
+      "extension": ".pdf",
+      "size_bytes": 258781,
+      "paths": [
+        "EEO/Certification Renewal Forms/Affidavit of effort to comply.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 186,
+      "sha256": "805ad6bdc0a94888874a44fefd66566d682dcbee4b030a18fcb531608527c5a3",
+      "extension": ".pdf",
+      "size_bytes": 290655,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Notice Approvals/2013 Certification Notice Approval.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 187,
+      "sha256": "83d82730d940303ef835ff5318f066f36e60e1ca279d74927201a10faba4e300",
+      "extension": ".pdf",
+      "size_bytes": 289886,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Notice Approvals/2014 Certification Notice Approval.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 188,
+      "sha256": "3cabcecc8d379269f4d70b8d94ca3f03675a18b8d9a6ac2e9d31769ae4469ca4",
+      "extension": ".pdf",
+      "size_bytes": 32345,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Notice Approvals/2015 Certification Notice Approval.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 189,
+      "sha256": "c5705d50d820967129392837d3c2df6449bced0279c7aced0d52b60024ada3a1",
+      "extension": ".pdf",
+      "size_bytes": 23122,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Notice Approvals/2016 Certification Notice Approval.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 190,
+      "sha256": "5f3e241340dee80fb39c7367b10d3f17b2b40e17a4ea40c7b9dd94ebebc6ace1",
+      "extension": ".pdf",
+      "size_bytes": 23718,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Notice Approvals/2017 Certification Notice Approval.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 191,
+      "sha256": "424ec1e6c4bb0b1ad0d5a5d070187e5ed9a1f31c12b661832bd342d4f8678583",
+      "extension": ".pdf",
+      "size_bytes": 24359,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Notice Approvals/2018 Certification Notice Approval.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 192,
+      "sha256": "18bf25d17971610c5d147d0df853f756def0d5d2b9828be97f79366b728e7b03",
+      "extension": ".pdf",
+      "size_bytes": 101720,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Notice Approvals/2019 Certification Notice Approval.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 193,
+      "sha256": "5d4c6bc53ddebe0ae94cefff92d2c27421a5a5b807c299e1c737d7b7eb651010",
+      "extension": ".pdf",
+      "size_bytes": 114516,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Notice Approvals/2020 Certification Notice Approval.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 194,
+      "sha256": "b0bcc00041abdfb367fde9bfef198e4ac58212359b6d25b7cc664638ef0aa866",
+      "extension": ".pdf",
+      "size_bytes": 150705,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Notice Approvals/2021 Certification Notice Approval.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 195,
+      "sha256": "6672059e4a5ad52a98e4f8bc99555ca48a739a8b075d11fa8304ff68016db791",
+      "extension": ".pdf",
+      "size_bytes": 231176,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Notice Approvals/2022 Certification Notice Approval.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 196,
+      "sha256": "9fc6c7f87eff6bae1d3868258c028cd483da42cfb1eada7347d6eeb040c12d8f",
+      "extension": ".pdf",
+      "size_bytes": 789573,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2011.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 197,
+      "sha256": "8f4875ee96363d3b319eea25b7ccc65d25dfa67063bde4be226c30073a28ca67",
+      "extension": ".pdf",
+      "size_bytes": 779579,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2012.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 198,
+      "sha256": "25e27afa322a9276f0fcb91774b788d76a99e69d4f6ad0931e17537a46e9a39e",
+      "extension": ".pdf",
+      "size_bytes": 749648,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2013.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 199,
+      "sha256": "555742f0b9acb206f750ecaef435d8870e5a16ba9dc48b41a13b25079c018edf",
+      "extension": ".pdf",
+      "size_bytes": 763499,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2014.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 200,
+      "sha256": "096ac487e2b53bf7a6fcbe591c67e9936ef14304a82dff8d1a84fadcf549f140",
+      "extension": ".pdf",
+      "size_bytes": 749781,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2015.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 201,
+      "sha256": "9001ab24ddb3db737ef5d1a765dc195ec596fbc85a642ac1be15c7378d815fec",
+      "extension": ".pdf",
+      "size_bytes": 950779,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2016.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 202,
+      "sha256": "3ca143536b4f4cd70c75e9363593b459cd77d1c8e5cab50aaddc9019eb822917",
+      "extension": ".pdf",
+      "size_bytes": 778900,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2017.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 203,
+      "sha256": "aab572f1c88d6f6c4c2dd3847d2c60b60851846640b73969abfb9a8bcb32fc7d",
+      "extension": ".pdf",
+      "size_bytes": 772656,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2018.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 204,
+      "sha256": "5cb6102aa4d2747bdd7f72b4f9590206734666e300a0a25b29591e4f13938be0",
+      "extension": ".pdf",
+      "size_bytes": 808927,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2019.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 205,
+      "sha256": "44eafe2f4ab706b60732c2700fcbde61f10a28064f4a0dae39ed12a11aaee252",
+      "extension": ".pdf",
+      "size_bytes": 778348,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2020.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 206,
+      "sha256": "6b0abed09aafec2536677c703a8b5cef77b02a030da68e5f632580fc31a7fb8c",
+      "extension": ".pdf",
+      "size_bytes": 1042294,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2021.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 207,
+      "sha256": "ce0e4677f13038ad7433db6965a4cf753139b0de34190c5e0459a6c89d3051fa",
+      "extension": ".pdf",
+      "size_bytes": 1066639,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2022.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 208,
+      "sha256": "a5e93573e47b08b055abea67d696032368803a754ea96498197846a3b33e429b",
+      "extension": ".pdf",
+      "size_bytes": 1076924,
+      "paths": [
+        "EEO/Certification Renewal Forms/Certification Renewal Forms/Signed Certification Renewal Forms/Signed Certification Renewal September 2023.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 209,
+      "sha256": "cb95bd89505ca810066c7a9461fbae868791936a2a4899291bfed36103ef8d01",
+      "extension": ".pdf",
+      "size_bytes": 413164,
+      "paths": [
+        "EEO/Certification Renewal Forms/Completed AAP goals and timetables form.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 210,
+      "sha256": "e71dcb85e2c9189d3e5c6af6f87dc4b4db47ac4c470698ccb48643abc8fb13c7",
+      "extension": ".pdf",
+      "size_bytes": 288557,
+      "paths": [
+        "EEO/Certification Renewal Forms/RECERTIFICATION NOTICE/Recertification notice 08 14 2009.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 211,
+      "sha256": "04dfcbda241f8111510cffbb320cf4e55c4fcdad3b6a3f70bb10166a8254d47e",
+      "extension": ".pdf",
+      "size_bytes": 344642,
+      "paths": [
+        "EEO/Certification Renewal Forms/RECERTIFICATION NOTICE/Recertification notice 08 17 2015.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 212,
+      "sha256": "6e839158af1373078c68893e5f1c19522747dcfdcd7984ad9ef18ad552c6aa81",
+      "extension": ".pdf",
+      "size_bytes": 50653,
+      "paths": [
+        "EEO/Certification Renewal Forms/Rural Transit Enterprises Coordinated Inc. (Underutilization).pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 213,
+      "sha256": "54f00588a371205934d952f489b667c10dc7c423c286e1f9d760dba87645d3c6",
+      "extension": ".pdf",
+      "size_bytes": 281452,
+      "paths": [
+        "EEO/Certification Renewal Forms/Signed Affidavit of effort to comply.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 214,
+      "sha256": "f2169e5ea2040efdc1a4bda9f634a19b6635b67806c5743ecdb9f912fdb90ba4",
+      "extension": ".csv",
+      "size_bytes": 4802,
+      "paths": [
+        "EEO/EEO COMPONENT 2/UploadFile201719341343 (4).csv"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 215,
+      "sha256": "2d984d10ead2a8218d35a305bf9be0764bc7e6fb00df9c9c1825e4052c52860c",
+      "extension": ".csv",
+      "size_bytes": 5547,
+      "paths": [
+        "EEO/EEO COMPONENT 2/UploadFile201719341343.csv"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 216,
+      "sha256": "1a37dc9c9413ca114f8bab7ff3fa828d0417902f479c42bf26067bad66d91c5c",
+      "extension": ".csv",
+      "size_bytes": 5548,
+      "paths": [
+        "EEO/EEO COMPONENT 2/UploadFile201819341343 (4).csv"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 217,
+      "sha256": "2d6bc87da36494301964e0fc3a80779ffb169d2de1f430e95f5a01745626dd4d",
+      "extension": ".xls",
+      "size_bytes": 64512,
+      "paths": [
+        "EEO/EEO EMP LISTS JUNE 2010 - DEC 2011/EEO-1 Emp. Data sheet 7 30 09.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 218,
+      "sha256": "633be2678f0a2a09b7a0d0722ad1f998e5cc705a3477481e3c55684460bed713",
+      "extension": ".xls",
+      "size_bytes": 59904,
+      "paths": [
+        "EEO/EEO EMP LISTS JUNE 2010 - DEC 2011/EEO-1 Emp. Data sheet 7 30 10.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 219,
+      "sha256": "8e4e8a25da2a41ce27ea1ed5d7009fb15737c42719e7c877577fdddc1edfd125",
+      "extension": ".ppt",
+      "size_bytes": 2423296,
+      "paths": [
+        "EEO/EEO Process powerpoint training.ppt"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 220,
+      "sha256": "6bc7a16dc8fecad6161e1a9ee1183106890d2078d3695b03a1094fcc785564d5",
+      "extension": ".xls",
+      "size_bytes": 418816,
+      "paths": [
+        "EEO/EEO-1 REPORT INFO/EEO-1 12 9 18 12 22 18.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 221,
+      "sha256": "55fb2f068b4190b8b1863b6f81e868f25008363028d353ee0d9992463ac03e9c",
+      "extension": ".xls",
+      "size_bytes": 63488,
+      "paths": [
+        "EEO/EEO-1 REPORT INFO/Emp. Data sheet 7 30 11 EEO.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 222,
+      "sha256": "62474799651429df21f93f2f19125f5709d97b2f5eb4443710fa876be54c7212",
+      "extension": ".pdf",
+      "size_bytes": 80229,
+      "paths": [
+        "EEO/EEO-1 REPORT INFO/Federal EEO1 Reports/2012 Federal EEO1 Report Online Version.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 223,
+      "sha256": "348820d68a8b553d7a4b36f5625ef1e517d6d4efd64e7449435cb15a0db9a607",
+      "extension": ".pdf",
+      "size_bytes": 84027,
+      "paths": [
+        "EEO/EEO-1 REPORT INFO/Federal EEO1 Reports/2013 Federal EEO1 Report Online Version.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 224,
+      "sha256": "ba377a6e65f86b5f9f4fd61356068d7bd050dee57a46ee2fceabb6cd3fb6ba0d",
+      "extension": ".pdf",
+      "size_bytes": 84034,
+      "paths": [
+        "EEO/EEO-1 REPORT INFO/Federal EEO1 Reports/2014 Federal EEO Report Online Version.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 225,
+      "sha256": "d006a27cab25a953f70b0bfee96355f8c6a86d53c0ade685dd6d611f71a24411",
+      "extension": ".pdf",
+      "size_bytes": 80244,
+      "paths": [
+        "EEO/EEO-1 REPORT INFO/Federal EEO1 Reports/2015 Federal EEO Report Online Version.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 226,
+      "sha256": "fa619b0a3ca730f01b9725fa3e9c068560554076e1535baf0ff36a502e364a76",
+      "extension": ".pdf",
+      "size_bytes": 874148,
+      "paths": [
+        "EEO/EEO-1 REPORT INFO/Federal EEO1 Reports/2016 Federal EEO Report Online Version.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 227,
+      "sha256": "84c39f564538f5da028f4dc21e2d3774bda504f7278c97e44b7c82e41dc6efb6",
+      "extension": ".pdf",
+      "size_bytes": 80370,
+      "paths": [
+        "EEO/EEO-1 REPORT INFO/Federal EEO1 Reports/2017 Federal EEO Report Online Version.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 228,
+      "sha256": "4b308cf9a7d7a38d663f2b319a3e1baf7ab92ce69a20ab34dec13697b7c5126c",
+      "extension": ".pdf",
+      "size_bytes": 80242,
+      "paths": [
+        "EEO/EEO-1 REPORT INFO/Federal EEO1 Reports/2018 Federal EEO Report Online Version.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 229,
+      "sha256": "edb159f5b69ac009748db06ef447c1332c01f3319204c3e64bfdcce62a07195b",
+      "extension": ".pdf",
+      "size_bytes": 82206,
+      "paths": [
+        "EEO/EEO1_2022_CE48195_CE48195 (1).pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 230,
+      "sha256": "38345c34596cbd88203dacceab3d8ceb2251217bcffc3f262f655e9069595fce",
+      "extension": ".pdf",
+      "size_bytes": 82232,
+      "paths": [
+        "EEO/EEO1_2023_CE48195_CE48195_Draft.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 231,
+      "sha256": "581052ba23072e20a827473708c87c1bd89e3ae3d72a904152b3b1cfb086b09c",
+      "extension": ".xls",
+      "size_bytes": 19456,
+      "paths": [
+        "EEO/Reasonable Accommodation/Request for Reasonable Accomodations.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 232,
+      "sha256": "a10d7e375d04aaa20a2978b2e5487665d5724effd52d6aacd59157443ba71408",
+      "extension": ".xls",
+      "size_bytes": 50688,
+      "paths": [
+        "EEO/Veteran/veteran employees.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 233,
+      "sha256": "e6a90f0c6a81d3209667d621cdb19acefab695f46ed91b8e832a32157193a4d3",
+      "extension": ".pdf",
+      "size_bytes": 176387,
+      "paths": [
+        "EEO/Veteran/VETS-100.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 234,
+      "sha256": "c3e01871aaf445d49a2a2ca9e047f9e4241036617eb95657c2184f124eca564c",
+      "extension": ".pdf",
+      "size_bytes": 1791515,
+      "paths": [
+        "Equal Employment Opportunity Plan (EEO)/2022_EEO_1_Component_1_Data_File_Upload_Specifications.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 235,
+      "sha256": "7fed06d031d7214eb0fc7089bd6203071e0f648ed93cbb5be23154b6f9a6851d",
+      "extension": ".pdf",
+      "size_bytes": 1609656,
+      "paths": [
+        "Equal Employment Opportunity Plan (EEO)/2022_EEO_1_Component_1_Instruction_Booklet.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 236,
+      "sha256": "1016193c640958358cc0ab2fa4de1d7f1cd7078e41d22feebf3b22a0ad78bec2",
+      "extension": ".xls",
+      "size_bytes": 27648,
+      "paths": [
+        "Equal Employment Opportunity Plan (EEO)/Title VII - Emp Discrimination/TITLE VII COMPLAINT FORM.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 237,
+      "sha256": "fe0361c96ebdcb31c32a4edbf8c276a60a3984d0e79c02079eb47f9cb12233e3",
+      "extension": ".xls",
+      "size_bytes": 29696,
+      "paths": [
+        "Equal Employment Opportunity Plan (EEO)/Title VII - Emp Discrimination/Title VII Investigations Form.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 238,
+      "sha256": "45780c2dd8383bd0089f989f11d68c8988e4be7c5ae30a9873c03e0eaef47f5f",
+      "extension": ".pdf",
+      "size_bytes": 1964662,
+      "paths": [
+        "TITLE VI LEP PLAN/2026 Title VI and LEP Plan for Rural Transit Enterprises Coordinated Inc....pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 239,
+      "sha256": "3fb3f0029a8c1330df2673852871f23937250bb8dd394c4898cf4995001bc689",
+      "extension": ".xls",
+      "size_bytes": 35840,
+      "paths": [
+        "TITLE VI LEP PLAN/ADA/RTEC ADA Complaint Form 2.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 240,
+      "sha256": "f9556ffdc5df97b92cf02bc7d4feca966604751bcff80caa0c7146060ad5ab53",
+      "extension": ".xls",
+      "size_bytes": 36352,
+      "paths": [
+        "TITLE VI LEP PLAN/Complaint Forms and Letters/Title VI Complaint Form revised 10 5 2022 in spanish.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 241,
+      "sha256": "27d92370f4be061f9fbf9fa2d47721fcb17d3f2087a2fbda1f109d1f0ee6c458",
+      "extension": ".xls",
+      "size_bytes": 35840,
+      "paths": [
+        "TITLE VI LEP PLAN/Complaint Forms and Letters/Title VI Complaint Form revised 10 5 2022.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 242,
+      "sha256": "93a466788c0c4d9a70aafa1441615a80e54fa4dfc872f7881ecd8f1c569590c8",
+      "extension": ".xls",
+      "size_bytes": 35840,
+      "paths": [
+        "TITLE VI LEP PLAN/Complaint Forms and Letters/Title VI Complaint Form.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 243,
+      "sha256": "7f375435bfc13967411e46462e4575fc3f2765f956041baa407f181059ae6941",
+      "extension": ".xls",
+      "size_bytes": 29696,
+      "paths": [
+        "TITLE VI LEP PLAN/Complaint Forms and Letters/Title VI Investigations Form.xls"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 244,
+      "sha256": "3e803ba96ffc66164d53c5a8ce42a7e620ed044a6bb799ae917f6077754e80e4",
+      "extension": ".pdf",
+      "size_bytes": 199208,
+      "paths": [
+        "TITLE VI LEP PLAN/Cover letters for Title VI LEP submission to state/2020 Cover letter for submission to state.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 245,
+      "sha256": "715f355cccfab54693eca99d68efc1c1749f68a4e2d5d9bcc54190479627a658",
+      "extension": ".doc",
+      "size_bytes": 24576,
+      "paths": [
+        "TITLE VI LEP PLAN/Employee Acknowledgment of Receipt of Title VI Plan.doc"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 246,
+      "sha256": "21dfaa2b0e937e2f548c150590a5116a99a200e81ccc6a2aec353090e657ae04",
+      "extension": ".pdf",
+      "size_bytes": 1279941,
+      "paths": [
+        "TITLE VI LEP PLAN/FTA_Title_VI_FINAL.pdf",
+        "TITLE VI LEP PLAN/Title VI 2025 Prepared for 2026 deadline/FTA_Title_VI_FINAL.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 247,
+      "sha256": "32aa43d6200eca0a3dc0624429b71609d4253dec4048a4b367c116dda3b726ca",
+      "extension": ".pdf",
+      "size_bytes": 1873781,
+      "paths": [
+        "TITLE VI LEP PLAN/Guidelines of Limited English Proficient (LEP) for Public Transportation Providers.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 248,
+      "sha256": "bd21985c5e957c79532b09b7964a226e348c9641f5327c0d417c3ca89b9b7f8e",
+      "extension": ".pdf",
+      "size_bytes": 3300321,
+      "paths": [
+        "TITLE VI LEP PLAN/kentucky-population-growth report 12 13 2011.pdf",
+        "TITLE VI LEP PLAN/kentucky-population-growth.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 249,
+      "sha256": "c1bae5137415fcd5a37e215a328922764e99e3ab60d675b5e9e31655959552fc",
+      "extension": ".docx",
+      "size_bytes": 220713,
+      "paths": [
+        "TITLE VI LEP PLAN/Language Assistance Measures examples.docx"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 250,
+      "sha256": "9e0ab3e432f4639470f0b9b3ec6dec904997b93bb2f10e8d13a6acc73800deea",
+      "extension": ".xlsx",
+      "size_bytes": 27573,
+      "paths": [
+        "TITLE VI LEP PLAN/Language spoken at home by ability to speak english.xlsx"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 251,
+      "sha256": "6ab5ceeea05847cb3eca5b18156aaa73ee3ef4297f0227aad37ea4eee4041941",
+      "extension": ".pdf",
+      "size_bytes": 754131,
+      "paths": [
+        "TITLE VI LEP PLAN/Lextran-Title-VI-Complaint-Form_SPANISH.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 252,
+      "sha256": "0162fda12cdfd315e1e49898c8cfee6b8816f1916176010bc43b918e64e662ab",
+      "extension": ".pdf",
+      "size_bytes": 1582091,
+      "paths": [
+        "TITLE VI LEP PLAN/Miscellaneous emails from state.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 253,
+      "sha256": "837151d743a1dd0302d07a234bd1e49cbc55b5d81abd477b769145e119686783",
+      "extension": ".pdf",
+      "size_bytes": 695595,
+      "paths": [
+        "TITLE VI LEP PLAN/Notice from state with FTA Circular 4702.1B.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 254,
+      "sha256": "302e5f7abba330f324960bf91fb892f25185e20d0095b3609fdc06f0f9c756be",
+      "extension": ".pdf",
+      "size_bytes": 409275,
+      "paths": [
+        "TITLE VI LEP PLAN/NOTICES THAT MUST BE POSTED/OLD TITLE VI NOTICE TO PUBIC FROM STATE/Notice that is in Bus.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 255,
+      "sha256": "18f3aab35bf3abd03ee895b96c3275b72048d201c32d487a1b75d398c6d35fbb",
+      "extension": ".pdf",
+      "size_bytes": 110074,
+      "paths": [
+        "TITLE VI LEP PLAN/NOTICES THAT MUST BE POSTED/Revised OCT 2016 TITLE VI NOTICE TO PUBLIC.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 256,
+      "sha256": "2f57fb0d763d7d20c7b2cb6d7bc4f157e24dd36478a317b8371c89e8117b513c",
+      "extension": ".pdf",
+      "size_bytes": 161425,
+      "paths": [
+        "TITLE VI LEP PLAN/OLD Title VI and LEP Plans/R12 spanish brochure RESPONSABILIDADES DEL PASAJERO2.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 257,
+      "sha256": "576fc14c65d872ad41ab7ea2ebfbe08aeb058d227f08c6ac51f524813a57ed08",
+      "extension": ".pdf",
+      "size_bytes": 13746342,
+      "paths": [
+        "TITLE VI LEP PLAN/OLD Title VI and LEP Plans/Scanned LEP Plan with attachments 2016 2019.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 258,
+      "sha256": "2c10092f6de2dbc39372c9928cd7f8c6a9c5d6c24b5b35e136d697408af56ad9",
+      "extension": ".pdf",
+      "size_bytes": 13882914,
+      "paths": [
+        "TITLE VI LEP PLAN/OLD Title VI and LEP Plans/Title VI updated Scan copy with attachments.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 259,
+      "sha256": "e2fdb8674f78ac401fb2c1d1da6bf9393877338fd0c57db88324d6852d5d6cdd",
+      "extension": ".pdf",
+      "size_bytes": 448402,
+      "paths": [
+        "TITLE VI LEP PLAN/RTEC Brochure Spanish Rev 8-30-18.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 260,
+      "sha256": "e898ab571b981491994424aeb9ee1d4140596eecded5a4f88eaa30d2eb16c0b3",
+      "extension": ".pptx",
+      "size_bytes": 207516983,
+      "paths": [
+        "TITLE VI LEP PLAN/Title VI - Training Powerpoint.pptx"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 261,
+      "sha256": "9c76fcbb021a3817b9c44c51d9f0c825e9bcc6794d96cc668e706907d15727e5",
+      "extension": ".pdf",
+      "size_bytes": 16281410,
+      "paths": [
+        "TITLE VI LEP PLAN/Title VI 2025 Prepared for 2026 deadline/2025-kentucky-annual-economic-report.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 262,
+      "sha256": "e40e97525c86dfa116443de4a1d8f8a520c74e24c993443d6af2502023087870",
+      "extension": ".pdf",
+      "size_bytes": 232430,
+      "paths": [
+        "TITLE VI LEP PLAN/Title VI 2025 Prepared for 2026 deadline/2026 Spreadsheets.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 263,
+      "sha256": "8662b5c6698539ebe2f0832f705d69bfa875405b83c683abde9f1427e5cfccf5",
+      "extension": ".xlsx",
+      "size_bytes": 15474,
+      "paths": [
+        "TITLE VI LEP PLAN/Title VI 2025 Prepared for 2026 deadline/2026 Spreadsheets.xlsx"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 264,
+      "sha256": "b5dd43809bf66436eed750b9de156c92afdeaaee6e771b55f0b901d491216677",
+      "extension": ".pdf",
+      "size_bytes": 232416,
+      "paths": [
+        "TITLE VI LEP PLAN/Title VI 2025 Prepared for 2026 deadline/Book2.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 265,
+      "sha256": "d7acbe4fa2276af7bf9510f3db9d9539dd3820a76aff66bec4f2c7e1a3e8e939",
+      "extension": ".msg",
+      "size_bytes": 3176448,
+      "paths": [
+        "TITLE VI LEP PLAN/TITLE VI Approval Letters from State/FW Title VI Approval Letter August 2023.msg"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 266,
+      "sha256": "edc1894cb4e1823fa94674d4b0d470319671c41a5626fc0cb191da84e3a29ca7",
+      "extension": ".pdf",
+      "size_bytes": 324344,
+      "paths": [
+        "TITLE VI LEP PLAN/TITLE VI Approval Letters from State/Title VI Approval Letter 2014.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 267,
+      "sha256": "d2411e7000ccd8b494c2958718878200f4198149fcbdbe113f5a0ca9d5065b57",
+      "extension": ".pdf",
+      "size_bytes": 300296,
+      "paths": [
+        "TITLE VI LEP PLAN/TITLE VI Approval Letters from State/Title VI Approval Letter 2017 dated 12 6 2019.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 268,
+      "sha256": "c0ac9b828f5283c8572833fba08c13934f355a200dc746fa97e2498fb44f6ab9",
+      "extension": ".pdf",
+      "size_bytes": 293149,
+      "paths": [
+        "TITLE VI LEP PLAN/TITLE VI Approval Letters from State/Title VI Approval Letter dated 4 23 2020.pdf"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 269,
+      "sha256": "1e7262e8fbebe3069717d83f0609f6a6cd0bcc96dd74572c247be3e8f532457f",
+      "extension": ".doc",
+      "size_bytes": 31232,
+      "paths": [
+        "TITLE VI LEP PLAN/Title VI Complaint Procedures.doc"
+      ],
+      "status": "pending_coverage_audit"
+    },
+    {
+      "index": 270,
+      "sha256": "8e5acaa78f7f973d70d07b61e761042a652a735777b2cdc9b74b5c6ced5c91c8",
+      "extension": ".doc",
+      "size_bytes": 199168,
+      "paths": [
+        "TITLE VI LEP PLAN/Updated Current Title VI and Limited English Proficient Plan due 01 30 2023.doc"
+      ],
+      "status": "pending_coverage_audit"
+    }
+  ]
+}
