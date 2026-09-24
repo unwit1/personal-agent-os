@@ -60,7 +60,9 @@
     "claim_records_total": 359,
     "specialized_named_claims": 18,
     "recovered_overwritten_claims": 9,
-    "claim_relation_records": 14
+    "claim_relation_records": 14,
+    "exact_duplicate_semantic_groups": 2,
+    "central_source_candidate_external_witnesses": 1
   },
   "structured_layers": {
     "plugin_record_inventory": "complete",
@@ -96,13 +98,14 @@
     "institutional_leader_dossiers": "regalt_aslfur_keeper_harorn_complete_initial_pass",
     "gatekeeper_economy": "dust_rings_tattoos_recruitment_portal_supply_complete_initial_pass",
     "bulletin_board_semantic_audit": "all_41_dealsinfonote_records_classified",
-    "source_deduplication": "encoded_journal_fundaments_and_exact_duplicate_text_groups_flagged",
+    "source_deduplication": "machine_readable_book_source_relations_cover_gallus_mercer_candidate_fundaments_candidate_and_two_exact_duplicate_groups",
     "scene_semantic_audit": "3_scene_records_have_no_independent_extracted_prose; associated dialogue_scripts_are_covered_elsewhere",
     "compiled_only_script_audit": "2_pex_only_scripts_preserved_printable_strings_contain_boilerplate_only_no_additional_lore_text",
     "semantic_source_exhaustion": "complete_for_high_value_longform_operational_and_lore_bearing_text; remaining_short_records_are_retained_as_raw_provenance_and_can_support_future_micro_queries",
     "speaker_attribution_closeout": "source_limited_residuals_classified_not_a_bulk_semantic_analysis_backlog",
     "claim_index": "complete_359_records_no_duplicate_ids_no_missing_numeric_ids",
     "claim_seed_recovery": "9_claims_recovered_from_historical_commits_after_pass_13_filename_reuse_overwrite",
-    "claim_relation_normalization": "14_structured_relations_covering_7_conflicts_and_7_uncertainty_boundaries; 26_claims_wired_with_relation_context"
+    "claim_relation_normalization": "14_structured_relations_covering_7_conflicts_and_7_uncertainty_boundaries; 26_claims_wired_with_relation_context",
+    "book_source_relations": "normalized_high_value_relations_added_for_2_centralization_candidates_and_2_exact_local_duplicate_groups"
   }
 }

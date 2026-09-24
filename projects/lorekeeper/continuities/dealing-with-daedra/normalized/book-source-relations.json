@@ -1,0 +1,97 @@
+{
+  "continuity_id": "tes.mod.dealing-with-daedra",
+  "source_sha256": "c278b1a9ccaa7080579a6421a0c21d6b0513a2ad8263048c3c96208bd6a19133",
+  "status": "partial_high_value_book_provenance_normalization_complete",
+  "policy": {
+    "centralization": "Central work identity does not erase Dealing-with-Daedra placement, wrappers, annotations, or variant text.",
+    "unresolved": "A candidate witness or narrative match is not promoted to a stable canonical work ID without source verification.",
+    "duplicates": "Exact duplicate local text hashes count as one semantic text instance with multiple record/placement variants unless metadata materially changes interpretation."
+  },
+  "records": [
+    {
+      "form_id": "054467AA",
+      "editor_id": "dealsencodedjournal",
+      "title": "Encoded Journal",
+      "continuity_id": "tes.mod.dealing-with-daedra",
+      "local_embedding": true,
+      "origin_status": "strong_base_game_reuse_candidate",
+      "work_identity_candidate": "Gallus/Mercer encoded journal from the Skyrim Thieves Guild storyline",
+      "relation": "embedded_base_game_story_text_candidate",
+      "central_work_state": "not_yet_located_in_personal_agent_os",
+      "exact_text_identity": "pending_canonical_witness",
+      "overlay_policy": "retain_mod_specific_placement_encoding_and_derivative_use_only_after_central_identity_is_verified"
+    },
+    {
+      "form_id": "05815E32",
+      "editor_id": "dealsalchemistprimer",
+      "title": "Fundaments of Alchemy",
+      "author": "Alyandon Mathierry",
+      "continuity_id": "tes.mod.dealing-with-daedra",
+      "local_embedding": true,
+      "origin_status": "established_work_reuse_with_mod_specific_wrapper",
+      "work_identity": "Fundaments of Alchemy",
+      "relation": "embedded_work_plus_continuity_overlay",
+      "central_work_state": "candidate_external_witness_available_but_not_stable_canonical_id",
+      "candidate_external_witness": {
+        "path": "knowledge/libraries/elder-scrolls/sources/bf-books-eso/batches/books-1151-1200.jsonl",
+        "form_id": "01012E04",
+        "text_sha256": "a0943982753526977655531c591e902239731c3890ebbe0c899b6a6eacf82e8f",
+        "provenance_status": "official_eso_text_via_compilation_plugin_unverified_per_record"
+      },
+      "exact_text_identity": "pending_variant_diff",
+      "overlay_material": [
+        "Arcadia's heavily used and marginally annotated copy",
+        "physical deterioration",
+        "mod-added summary of later diagrams and recipes",
+        "Cyrodilic-ingredient framing",
+        "gameplay/read-effect context"
+      ]
+    }
+  ],
+  "exact_local_duplicate_groups": [
+    {
+      "group_id": "dwd-book-duplicate-deep-bible",
+      "text_sha256": "3881fda148c8642b83bfb5524d9d08d4e16e902b51ea14f10b454c7651ff2265",
+      "relation": "exact_local_semantic_duplicate",
+      "records": [
+        {
+          "form_id": "0520D504",
+          "editor_id": "dealsdeepbible"
+        },
+        {
+          "form_id": "0537195F",
+          "editor_id": "dealsdeepbibletransl"
+        }
+      ],
+      "interpretation": "One opaque/constructed-language text with two records. The transl editor suffix is not evidence of a distinct English translation."
+    },
+    {
+      "group_id": "dwd-book-duplicate-school-ciphertext",
+      "text_sha256": "f80c3ea2f3d060ac36272c892f2243ca860a598bdd1cf79c12ec0caadd12c15c",
+      "relation": "exact_local_semantic_duplicate",
+      "records": [
+        {
+          "form_id": "053E63DA",
+          "editor_id": "dealsrestorationreference"
+        },
+        {
+          "form_id": "053E63DB",
+          "editor_id": "dealsalterationreference"
+        },
+        {
+          "form_id": "053E63DC",
+          "editor_id": "dealsdestructionreference"
+        },
+        {
+          "form_id": "053E63DD",
+          "editor_id": "dealsillusionreference"
+        },
+        {
+          "form_id": "053E63DE",
+          "editor_id": "dealsconjurationreference"
+        }
+      ],
+      "interpretation": "One ciphertext payload reused across five school-labeled records; school-specific meaning must come from metadata/placement/scripts rather than distinct prose."
+    }
+  ]
+}
