@@ -1,0 +1,41 @@
+{
+  "id": "rtec-eeo1-external-reference-2022",
+  "record_type": "external_reference_authority_map",
+  "title": "2022 EEO-1 Component 1 instruction and upload-specification references",
+  "status": "validated_external_reference",
+  "temporal_status": "historical_2022_reference",
+  "sources": [
+    {
+      "sha256": "7fed06d031d7214eb0fc7089bd6203071e0f648ed93cbb5be23154b6f9a6851d",
+      "source": "2022_EEO_1_Component_1_Instruction_Booklet.pdf",
+      "pages": 57,
+      "classification": "external EEOC filing instruction reference"
+    },
+    {
+      "sha256": "c3e01871aaf445d49a2a2ca9e047f9e4241036617eb95657c2184f124eca564c",
+      "source": "2022_EEO_1_Component_1_Data_File_Upload_Specifications.pdf",
+      "pages": 42,
+      "classification": "external EEOC electronic-file specification reference"
+    }
+  ],
+  "useful_reference_domains": [
+    "EEO-1 Component 1 establishment/report filing structure",
+    "job-category and demographic reporting definitions",
+    "report validation and filing instructions",
+    "electronic data-file schema and upload formatting"
+  ],
+  "authority_rule": [
+    "These PDFs are federal reporting instructions/specifications, not RTEC policies.",
+    "Use them to interpret the corresponding 2022 EEO-1 reporting cycle or historical data files only.",
+    "Do not assume their deadlines, schemas, categories or technical upload requirements remain current for a later filing year without a current external-source check."
+  ],
+  "privacy_boundary": [
+    "The external specifications themselves are public/reference material.",
+    "Any RTEC source rows used to build an EEO-1 report remain restricted if they contain employee identities or demographic attributes.",
+    "Generalized knowledge may store approved aggregate report outputs and schema definitions."
+  ],
+  "related_records": [
+    "rtec-eeo1-reporting-reference-2010-2011",
+    "rtec-process-aap-annual-audit-goal-cycle"
+  ]
+}
