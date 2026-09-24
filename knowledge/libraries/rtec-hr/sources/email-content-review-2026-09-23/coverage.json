@@ -154,6 +154,19 @@
         "knowledge/libraries/rtec-hr/sources/archive-reference-documents-2016-2019/"
       ],
       "excluded_content": "No raw email body, signatures/contact details, or person-level dossier retained."
+    },
+    {
+      "reviewed_at": "2026-09-24",
+      "source_type": "2021 proposed attendance-policy memo correspondence",
+      "message_ids": [
+        "msg_a61076f12a786b3c686ad140"
+      ],
+      "safe_process_summary": "A July 2021 HR email transmitted an attendance-policy change memo for review and noted that the start date and treatment of existing points had not yet been discussed. The attached memo was not retrievable through the indexed message view, so proposed changes and adoption are unverified.",
+      "authority_note": "Historical correspondence before the user's April 2026 start. This is evidence of a proposal and unresolved implementation questions, not proof of an approved or implemented policy.",
+      "persisted_sources": [
+        "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/"
+      ],
+      "excluded_content": "No raw email body, employee-specific points, staff identities, or unreviewed attachment content retained."
     }
   ],
   "method_notes": [
@@ -168,6 +181,7 @@
     "Inspect work attachments selectively; do not run the all-attachments exporter. One visually verified blank Guardian reference packet is preserved in the RTEC source library.",
     "Use position-level sources to validate historical claims and preserve only safe reference documents.",
     "Review complete driver-handbook clauses in bounded sections, and prioritize safe position-level attachment candidates while excluding person-level case records.",
-    "Compare the historical 2017 ADA/Title VI form set against preserved compliance sources; resolve whether the attachments are duplicates and whether any later approved forms supersede them."
+    "Compare the historical 2017 ADA/Title VI form set against preserved compliance sources; resolve whether the attachments are duplicates and whether any later approved forms supersede them.",
+    "Locate the 2021 attendance-policy memo attachment and determine whether it was adopted, its effective date, and how existing points were handled; compare it with both 2021 handbook versions."
   ]
 }

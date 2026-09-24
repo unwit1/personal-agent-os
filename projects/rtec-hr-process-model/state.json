@@ -2,7 +2,7 @@
   "schema_version": 1,
   "project": "rtec-hr-process-model",
   "status": "active",
-  "updated_at": "2026-09-23",
+  "updated_at": "2026-09-24",
   "summary": "Provenance-backed, privacy-safe, version-aware model and searchable source corpus for roughly 20 years of RTEC HR process documentation.",
   "repository": "https://github.com/unwit1/personal-agent-os.git",
   "current_priorities": [
@@ -13,7 +13,8 @@
     "Continue ingesting the broader historical RTEC HR document base in small committed batches.",
     "Preserve safe manuals, policies, procedures, templates, training/reference sources, grant binders and organizational materials in full searchable form while keeping restricted person-level case data out of GitHub.",
     "Use the correspondence archive to reconcile current discipline, attendance/leave, administrative approval, CSR escalation, employee-evaluation and employee-guidance workflows against newer authoritative sources.",
-    "Continue clause-level review of the preserved 2017 and draft1 2019 driver handbooks; confirm blank receipt layouts and determine whether either version was approved or superseded."
+    "Continue clause-level review of the preserved 2017 and draft1 2019 driver handbooks; confirm blank receipt layouts and determine whether either version was approved or superseded.",
+    "Locate and evaluate the July 2021 proposed attendance-policy memo; resolve adoption date and treatment of existing points against the distinct July PDF and tracked-change DOCX handbook copies."
   ],
   "important_paths": [
     "projects/rtec-hr-process-model/README.md",

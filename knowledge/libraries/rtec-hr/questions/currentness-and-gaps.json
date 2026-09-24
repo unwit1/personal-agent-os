@@ -213,6 +213,12 @@
       "domain": "attendance_leave",
       "question": "What date and approved source established the change from the historical 90-day personal/sick-leave eligibility threshold on the ambiguous 2016 handbook page to the 30-day threshold in later handbooks?",
       "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "attendance_leave",
+      "question": "Was the July 2021 proposed attendance-policy change memo approved, what effective date was selected, and how were existing points handled? Compare the memo with the unresolved October 2021 handbook DOCX edits and the July 2021 website PDF.",
+      "status": "open"
     }
   ]
 }
