@@ -160,6 +160,23 @@
           "note": null
         }
       ]
+    },
+    {
+      "claim": "Because fiscal registers from 2016-2017 onward include vehicle Incident rows alongside discipline, an AAP derivative that simply carries the full source population may include non-disciplinary vehicle incidents. AAP analysis must define whether such incidents belong in the disciplinary population rather than assuming every source row represents corrective action.",
+      "claim_kind": "rule_candidate",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-process-disciplinary-logging-aap-history"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "incident_tracking_evolution / AAP integrity comparison",
+          "evidence_type": "structural",
+          "note": null
+        }
+      ]
     }
   ],
   "trigger": "Historical disciplinary data is imported, reconciled or transformed for AAP/EEO analysis.",
@@ -205,12 +222,14 @@
     "Do not collapse distinct 2016-2017 variants.",
     "Subtotal rows must never be ingested as employee/event rows.",
     "Hard-coded subtotal counts should be recalculated from validated detail rows rather than trusted blindly.",
-    "Protected-field discrepancies require controlled review without exposing values in generalized knowledge."
+    "Protected-field discrepancies require controlled review without exposing values in generalized knowledge.",
+    "Define and test the reporting population explicitly; do not count vehicle Incident rows as discipline unless the governing AAP methodology requires it."
   ],
   "unresolved_questions": [
     "What documented AAP/EEO methodology explains the systematic category-7 to category-9 recoding in the 2014-2015 and one 2016-2017 derivative?",
     "Which 2016-2017 AAP derivative was the final/official reporting input?",
-    "What explains the missing/extra event occurrences in 2014-2015, 2015-2016, 2019-2020 and 2020-2021 derivatives?"
+    "What explains the missing/extra event occurrences in 2014-2015, 2015-2016, 2019-2020 and 2020-2021 derivatives?",
+    "Did historical AAP discipline analyses intentionally include vehicle Incident rows, and what current AAP methodology defines the disciplinary reporting population?"
   ],
   "automation_candidates": [
     "Generate AAP views from one authoritative event register rather than maintaining manual sorted copies.",
