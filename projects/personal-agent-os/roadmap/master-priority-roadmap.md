@@ -228,8 +228,10 @@ Delivered:
 1. persistent exact-page cache keyed by content hash — **done**;
 2. dependency/version-aware invalidation, so interpretation changes reuse
    OCR — **done**, and asserted structurally by test;
-3. person-independent structural signatures — **done**; matching and reuse are
-   still pending;
+3. person-independent structural signatures — **done**. The sanitized form
+   matcher now abstains when top registry scores are within 0.05; approved
+   registry content, scanner integration, and page-level template reuse remain
+   pending (the current registry is empty);
 4. targeted field-region OCR — shared `FieldRegion` validation and cached
    `extract_field_region` API are implemented, with count-only telemetry for
    region requests, OCR calls, and cache hits; focused regression coverage
