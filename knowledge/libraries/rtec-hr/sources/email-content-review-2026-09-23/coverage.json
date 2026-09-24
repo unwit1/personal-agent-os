@@ -181,6 +181,19 @@
       "authority_note": "Historical inquiry only. It does not establish RTEC's actual or current FMLA workflow.",
       "persisted_sources": [],
       "excluded_content": "No names, contact details, employee leave cases, raw email bodies, or person-level dossier retained."
+    },
+    {
+      "reviewed_at": "2026-09-24",
+      "source_type": "2018 handbook-distribution and attendance-addendum chronology",
+      "message_ids": [
+        "msg_287217e8e78d2a3618c961b1"
+      ],
+      "safe_process_summary": "A September 2018 HR email stated that the 2011 employee handbook was the latest policy distributed, that a January 31, 2012 point-system addendum was also distributed and used as an orientation handout, and that an updated handbook was being prepared. Later 2019 handbook copies are preserved separately, but their effective/distribution status is not established by this email.",
+      "authority_note": "Pre-April-2026 company history. The statement describes distribution status as of September 2018 and is not a current policy determination.",
+      "persisted_sources": [
+        "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/"
+      ],
+      "excluded_content": "No raw email body, staff identities, employee case facts, or person-level dossier retained."
     }
   ],
   "method_notes": [
