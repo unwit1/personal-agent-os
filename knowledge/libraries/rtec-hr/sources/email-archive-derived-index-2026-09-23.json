@@ -11,7 +11,9 @@
     "self_task_reminders": 122,
     "attachment_occurrences": 132,
     "unique_attachment_sha256": 104,
-    "attachment_bearing_messages": 69
+    "attachment_bearing_messages": 69,
+    "attachment_payloads": 132,
+    "unique_attachment_hashes": 104
   },
   "privacy": "Raw email bodies and employee/applicant/case facts remain outside GitHub. This index points only to sanitized derived knowledge.",
   "records": [
@@ -234,7 +236,47 @@
       "path": "projects/rtec-hr-process-model/docs/EMAIL_ARCHIVE_ATTACHMENT_EXHAUSTION_PASS_004_2026-09-23.md",
       "kind": "checkpoint_doc",
       "status": "complete"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-email-attachments-2016-2026-2026-09-23.json",
+      "kind": "attachment_batch_manifest",
+      "status": "complete_sanitized"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/sources/email-attachment-dedup-review-2016-2026.json",
+      "kind": "attachment_dedup_review",
+      "status": "complete"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-2017-02-06/manifest.json",
+      "kind": "historical_safe_source_manifest",
+      "status": "ingested"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/forms/email-attachment-form-lineage-2020.json",
+      "kind": "form_version_lineage",
+      "status": "historical_versions"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/systems/benefit-plan-implementation-attachment-history-2018-2026.json",
+      "kind": "benefits_version_history",
+      "status": "versioned"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/processes/recruiting-ad-attachment-2021.json",
+      "kind": "recruiting_history",
+      "status": "historical"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/questions/legacy-email-spreadsheet-conversion-gap.json",
+      "kind": "conversion_gap",
+      "status": "open_supported_path_needed"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/automation/email-attachment-routing-policy-2026.json",
+      "kind": "attachment_routing_control",
+      "status": "validated"
     }
   ],
-  "coverage_note": "All 576 messages are structurally covered and semantically modeled by major domain. The recovered PST attachment layer is also exhausted at payload/classification level: 132 attachment occurrences, 104 unique SHA-256 objects, 19 duplicate-content groups, zero attachment parser errors, safe content analyzed, restricted content classified/local-only, and generic images visually audited."
+  "coverage_note": "All 576 unique messages received structural classification; low-signal mail received a separate review; recurring domains were semantically modeled; Pass 003 added cross-source cadence/form/thread/security analysis; the attachment layer was subsequently extracted with 132 payloads, 104 unique hashes and zero parser errors, then deduplicated and privacy-routed. Safe reusable attachment sources were ingested, restricted case/personnel payloads remain local."
 }
