@@ -66,5 +66,15 @@
     "raw_full_text_persisted_in_repo": false,
     "raw_full_text_note": "Deterministic extraction was completed from the verified uploaded package in the analysis session. Compact canonical manifests/claims are persisted; the source archive itself is not committed."
   },
-  "included_readme_boundary": "The included readme states the mod does not change Tribunal's ending: Sotha Sil remains dead, while the expansion explores additional Clockwork City material."
+  "included_readme_boundary": "The included readme states the mod does not change Tribunal's ending: Sotha Sil remains dead, while the expansion explores additional Clockwork City material.",
+  "analysis_paths": [
+    "analysis/source-summary.md",
+    "analysis/core-claims.jsonl",
+    "analysis/book-catalog.json",
+    "analysis/quest-catalog.json",
+    "analysis/shared-work-relations.json",
+    "analysis/source-reliability.json",
+    "analysis/unique-book-findings.md"
+  ],
+  "resume_boundary": "Current 3.1 structural/book/quest/core-lore analysis is complete. Do not re-ingest this package for historical precedence; seek older dated Sotha Sil Expanded editions instead."
 }
