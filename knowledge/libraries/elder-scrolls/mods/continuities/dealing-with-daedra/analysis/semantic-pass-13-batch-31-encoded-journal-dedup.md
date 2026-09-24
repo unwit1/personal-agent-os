@@ -1,5 +1,7 @@
 # Semantic pass 13 — batch 31: encoded journal provenance/deduplication
 
+> **Current-status note (2026-09-24):** Refinement pass 15 verified this record as the Skyrim *Gallus's Encoded Journal* text (Form ID `000CEDA6`) after removing the local Falmer-font wrapper and normalizing whitespace. The central Personal Agent OS vanilla-Skyrim work record is still pending. See `refinement-pass-15-book-provenance-verification.md`.
+
 Source: BOOK 054467AA, editor ID dealsencodedjournal.
 
 ## Content
