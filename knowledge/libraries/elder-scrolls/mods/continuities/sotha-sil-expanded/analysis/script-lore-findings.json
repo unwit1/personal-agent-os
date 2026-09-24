@@ -1,0 +1,127 @@
+{
+  "continuity_id": "tes.mod.sotha-sil-expanded",
+  "analysis_date": "2026-09-24",
+  "status": "script_semantic_pass_01",
+  "findings": [
+    {
+      "id": "sse:script:sotha-end-upload",
+      "source": [
+        "SCPT Sotha_EndScript @216440"
+      ],
+      "claim": "A direct endgame script voice identifying itself as Sotha Sil says Almalexia destroyed his corporeal shell but that he remains alive within the walls, gears and circuits of the city after a hasty, imperfect transfer; it offers completion of the upload/merge or severing the lifeline.",
+      "evidence_mode": "direct_scripted_endgame_text",
+      "reliability": "high_for_this_source_layer",
+      "qualification": "This conflicts/tensions with the included readme continuity boundary and later Gestalt copy/partial-upload framing. Preserve both layers; do not collapse them into a single resolved identity claim."
+    },
+    {
+      "id": "sse:script:magic-schools",
+      "source": [
+        "SCPT MagnusLine1",
+        "SCPT MagnusLine2",
+        "SCPT MagnusLine3",
+        "SCPT MagnusLine4",
+        "SCPT MagnusLine5",
+        "SCPT MagnusLine6"
+      ],
+      "claim": "A six-part scripted magic-school discourse distinguishes Illusion as perception, Alteration as ontic change, warns that Destruction begets destruction, treats Daedric Conjuration as dangerous because immortal beings remember and resist binding, states Restoration cannot revive the dead, and describes Mysticism as paradoxical, solitary, and a Psijic way of life.",
+      "evidence_mode": "scripted_philosophical_instruction",
+      "reliability": "medium_high_in_universe"
+    },
+    {
+      "id": "sse:script:pocket-cabal",
+      "source": [
+        "SCPT _pocket_linecontrol",
+        "SCPT pocket_cabalscript"
+      ],
+      "claim": "The Pocket Cabal presents itself as a sentient magical/spell-twisting entity tied to Vehk, sanity theft, thought-books of the extreme east, and a prior containment that weakened when Sotha Sil fell into ruin.",
+      "evidence_mode": "self_report_by_hostile_entity_plus_quest_script",
+      "reliability": "medium",
+      "qualification": "Hostile/self-aggrandizing speaker; factual particulars need corroboration."
+    },
+    {
+      "id": "sse:script:elder-scroll-experience",
+      "source": [
+        "SCPT sotha_elderscrollscript @214959"
+      ],
+      "claim": "Reading the Elder Scroll is scripted as an overwhelming temporal/knowledge experience in which time is simultaneously nothing and everything and fragmentary knowledge remains afterward.",
+      "evidence_mode": "direct_player_experience_script",
+      "reliability": "high_for_depicted_experience"
+    },
+    {
+      "id": "sse:script:trans-aetherial-portals",
+      "source": [
+        "SCPT fyr_portalscript",
+        "SCPT fyr_portalscript1",
+        "SCPT fyr_portalscript2"
+      ],
+      "claim": "Fyr-related portal machinery explicitly references a missing trans-aetherial component and scripted destinations including Tel Fyr, Gnisis, Sadrith Mora, Ald Sotha, Vivec and Mournhold.",
+      "evidence_mode": "direct_implementation_text",
+      "reliability": "high"
+    },
+    {
+      "id": "sse:script:powerworks-emission",
+      "source": [
+        "SCPT _power_radiation @78514"
+      ],
+      "claim": "The Grand Powerworks core emits an unidentified harmful wave/field that weakens the player, functionally modeled as a hazardous energy emission without asserting a modern physical radiation mechanism.",
+      "evidence_mode": "direct_player_experience_script",
+      "reliability": "high"
+    },
+    {
+      "id": "sse:script:life-creation-mechanism",
+      "source": [
+        "SCPT Garden_Finish @114015"
+      ],
+      "claim": "A Life Creation Mechanism can detect restoration and announce restoration of all life systems, giving direct implementation evidence for Clockwork City life-support/life-production machinery.",
+      "evidence_mode": "direct_system_message",
+      "reliability": "high"
+    },
+    {
+      "id": "sse:script:watch-enforcement",
+      "source": [
+        "SCPT Sotha_clockworkwalk @202532",
+        "SCPT sotha_slumdoor"
+      ],
+      "claim": "Clockwork City Watchmen enforce district access and can physically detain an exhausted player and take them to prison.",
+      "evidence_mode": "direct_implementation_text",
+      "reliability": "high"
+    },
+    {
+      "id": "sse:script:pneuma-loot",
+      "source": [
+        "multiple fabricant template/death scripts",
+        "SCPT fyr_fabpseak"
+      ],
+      "claim": "Numerous death/loot scripts treat pneuma as a recoverable component from fabricants, and a Fyr-related interaction explicitly offers to deconstruct pneuma.",
+      "evidence_mode": "repeated_direct_implementation",
+      "reliability": "high"
+    },
+    {
+      "id": "sse:script:cube-flower",
+      "source": [
+        "SCPT Sotha_CubeFlower @210612"
+      ],
+      "claim": "Consuming the Cube Flower teaches Recycle Magicka, Purge Body, Transfer Rust, and Sonic Boom, linking a Clockwork botanical/construct item to direct spell acquisition.",
+      "evidence_mode": "direct_implementation_text",
+      "reliability": "high"
+    }
+  ],
+  "primary_tension": {
+    "id": "sse:tension:sotha-identity-after-tribunal",
+    "accounts": [
+      {
+        "source_layer": "Sotha_EndScript",
+        "position": "The voice says the original Sotha Sil died corporeally but personally remains alive in the city after an imperfect transfer."
+      },
+      {
+        "source_layer": "included_readme/project_boundary",
+        "position": "Tribunal ending is preserved; Sotha Sil remains dead."
+      },
+      {
+        "source_layer": "later_endgame/dialogue_and_Gestalt_framing",
+        "position": "Gestalt is treated as a copy/partial upload or regent with identity uncertainty, potentially becoming Seht."
+      }
+    ],
+    "modeling_rule": "Store as an unresolved internal source/edition/branch tension. Retrieval should surface the competing accounts with provenance instead of asserting one harmonization."
+  }
+}
