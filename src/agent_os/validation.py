@@ -9,6 +9,7 @@ from typing import Any
 from .adapters import ADAPTER
 from .candidates import KINDS, STATUSES
 from .changes import CHANGE_TYPES, STATUSES as CHANGE_STATUSES
+from .connectors import REGISTRY_PATH as CONNECTOR_REGISTRY_PATH, load_connector_registry
 from .documents import CACHE_DIR
 from .improvements import CATEGORIES, PRIORITIES, STATUSES as IMPROVEMENT_STATUSES
 from .paths import ROOT
@@ -195,6 +196,12 @@ def validate() -> dict[str, Any]:
         if registry.get("schema") != "personal-agent/form-registry/v1":
             errors.append("form registry: unsupported schema")
 
+    checked += 1
+    try:
+        load_connector_registry(CONNECTOR_REGISTRY_PATH)
+    except (OSError, ValueError) as exc:
+        errors.append(f"connector registry: {exc}")
+
     surface_ids: set[str] = set()
     checked += 1
     if not SURFACE_REGISTRY_PATH.exists():
@@ -220,6 +227,23 @@ def validate() -> dict[str, Any]:
                     errors.append(f"{label}: unsupported instruction kind")
                 if surface.get("capture", {}).get("kind") not in {"mcp_tools", "cli_bridge", "none"}:
                     errors.append(f"{label}: unsupported capture kind")
+                capabilities = surface.get("connector_capabilities")
+                capability_names = {
+                    "inspect_local_config", "mutate_local_config",
+                    "transfer_credentials", "agent_os_bridge",
+                }
+                if capabilities is not None and (not isinstance(capabilities, dict) or set(capabilities) != capability_names):
+                    errors.append(f"{label}: connector capability matrix is incomplete")
+                elif capabilities is not None:
+                    for capability_name, detail in capabilities.items():
+                        if not isinstance(detail, dict) or set(detail) != {"available", "reason"}:
+                            errors.append(f"{label}: invalid connector capability {capability_name}")
+                            continue
+                        available = detail["available"]
+                        if available is not None and type(available) is not bool:
+                            errors.append(f"{label}: connector capability {capability_name} must be true, false, or unknown")
+                        if not isinstance(detail["reason"], str) or not detail["reason"].strip():
+                            errors.append(f"{label}: connector capability {capability_name} needs a reason")
                 for location in surface.get("instruction", {}).get("locations", []):
                     if str(location).casefold().startswith("repo/") and not (ROOT / str(location)[5:]).exists():
                         errors.append(f"{label}: missing bridge document {location}")
@@ -267,7 +291,7 @@ def validate() -> dict[str, Any]:
         if unknown:
             errors.append(f"{label}: run records stages absent from the manifest: {', '.join(sorted(unknown))}")
 
-    required_schemas = {"change-packet.schema.json", "google-safe-projection.schema.json", "improvement.schema.json", "form-fingerprint-v1.schema.json", "form-intake-v1.schema.json", "form-registry-v1.schema.json", "surface-registry-v1.schema.json", "workflow-manifest-v1.schema.json"}
+    required_schemas = {"change-packet.schema.json", "connector-registry-v1.schema.json", "google-safe-projection.schema.json", "improvement.schema.json", "form-fingerprint-v1.schema.json", "form-intake-v1.schema.json", "form-registry-v1.schema.json", "surface-registry-v1.schema.json", "workflow-manifest-v1.schema.json"}
     for schema_name in required_schemas:
         checked += 1
         if not (ROOT / "schemas" / schema_name).exists():

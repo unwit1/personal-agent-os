@@ -114,11 +114,23 @@ per-surface readiness reasons in a separate `connector_providers` section. Its
 blocked, naming reachability, registration, and provider-health gaps. A surface
 filter narrows the readiness checks while retaining all configured connectors.
 This reads declared status only and does not probe provider APIs or claim live
-invocation. The connected Agent OS MCP tool inventory still lacks
-`connector.list` and `connector.import_candidates`, so its running server needs
-a host-side restart before these tools can be verified through MCP.
-Connector import, credential resolution, surface adapters, reconciliation,
-live provider health checks, and cross-surface verification remain open.
+invocation. `connector.import` and `connector-import` now attach explicitly
+reviewed provider, capability, scope, privacy-domain, and local secret-reference
+metadata to a currently discovered candidate. The flow requires separate
+`reviewed` and `confirm_write` flags, never copies client configuration or
+credential values, and records only desired registrations until an adapter
+verifies them. The connected Agent OS MCP tool inventory still lacks the
+connector tools, so its running server needs a host-side restart before this
+surface can be verified through MCP. Credential resolution, surface adapters,
+reconciliation, live provider health checks, and cross-surface verification
+remain open. `agent.py validate` now loads the v1 connector registry as part of
+its deterministic checks; this sparse worktree omits tracked project context,
+state files, and schemas, so the overall command reports them missing. The
+surface registry and `integration-health` now expose a
+per-client connector capability matrix for local configuration inspection and
+changes, credential transfer, and Agent OS bridge availability. Hosted-client
+settings are marked inaccessible to local inspection or mutation, while bridge
+status remains explicitly unknown when the local checkout cannot inspect it.
 
 Make Agent OS the canonical provider-neutral connector registry and broker for
 Claude, ChatGPT, Codex, desktop clients, mobile/voice clients, and future agent
@@ -491,8 +503,9 @@ Current bounded implementation (2026-09-22): manifests may declare
 `available_execution_paths`; the orchestrator deterministically selects and
 persists the cheapest candidate in the economy order, while preserving the
 backward-compatible single `preferred_execution_path` form. A bounded local
-cache adapter now executes content-addressed document-page cache hits and
-persists deterministic fallback to the next declared route on misses; skill
+cache adapter now executes content-addressed document-page cache hits from the
+workflow project's registered checkout and persists deterministic fallback to
+the next declared route on misses; skill
 execution remains caller-owned because the repository's approved skills are
 instruction-only `SKILL.md` files without a reviewed deterministic invocation
 interface. The staged orchestrator also supports an explicit deterministic to

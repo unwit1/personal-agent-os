@@ -52,6 +52,17 @@ def surfaces() -> list[dict[str, Any]]:
     return registry["surfaces"]
 
 
+def _connector_capabilities(surface: dict[str, Any]) -> dict[str, Any]:
+    declared = surface.get("connector_capabilities")
+    if isinstance(declared, dict):
+        return declared
+    reason = "connector capability has not been declared for this surface"
+    return {
+        name: {"available": None, "reason": reason}
+        for name in ("inspect_local_config", "mutate_local_config", "transfer_credentials", "agent_os_bridge")
+    }
+
+
 def _canonical_checkout() -> Path:
     return Path(get_project("personal-agent-os")["path"]).resolve()
 
@@ -320,6 +331,7 @@ def health(surface_id: str | None = None) -> dict[str, Any]:
                 "vendor": surface["vendor"],
                 "mechanism": surface["mechanism"],
                 "summary": surface["summary"],
+                "connector_capabilities": _connector_capabilities(surface),
                 "registered": invocation["registered"],
                 "reachable": invocation["reachable"],
                 "tier": tier,
@@ -347,7 +359,13 @@ def health(surface_id: str | None = None) -> dict[str, Any]:
             state = registration_states.get(surface["id"].casefold())
             reasons = []
             if not surface["reachable"]:
-                reasons.append("client cannot reach Agent OS")
+                bridge_available = _connector_capabilities(surface)["agent_os_bridge"]["available"]
+                if bridge_available is None:
+                    reasons.append("hosted Agent OS bridge status is unknown from the local checkout")
+                elif not bridge_available:
+                    reasons.append("Agent OS bridge is unavailable for this surface")
+                else:
+                    reasons.append("client cannot reach Agent OS")
             if state is None:
                 reasons.append("no connector registration is declared for this client")
             elif state != "registered":
@@ -361,6 +379,7 @@ def health(surface_id: str | None = None) -> dict[str, Any]:
                     "surface_id": surface["id"],
                     "surface_reachable": surface["reachable"],
                     "registration_state": state or "not_registered",
+                    "connector_capabilities": _connector_capabilities(surface),
                     "registry_ready": registry_ready,
                     "status": "declared_ready_unverified" if registry_ready else "blocked",
                     "reasons": reasons or ["registry checks pass; provider invocation has not been verified"],
