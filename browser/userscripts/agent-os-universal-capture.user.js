@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Agent OS Universal Capture
 // @namespace    agent-os
-// @version      3.10.3
+// @version      3.10.4
 // @description  Save useful pages and passively index rendered Discord Web channel and search-result messages into Agent OS.
 // @homepageURL   https://github.com/unwit1/universal-capture-plugin
 // @updateURL     https://raw.githubusercontent.com/unwit1/universal-capture-plugin/main/agent-os-universal-capture.user.js
@@ -26,7 +26,7 @@
 (function () {
     "use strict";
 
-    var VERSION = "3.10.3";
+    var VERSION = "3.10.4";
     var SETTINGS_KEY = "agent_os_capture_settings_v1";
     var QUEUE_KEY = "agent_os_capture_queue_v1";
     var MAX_QUEUE = 500;
@@ -3006,40 +3006,56 @@
             window.alert("The Agent OS capture queue is empty.");
             return;
         }
-        if (!settings.endpoint) {
-            window.alert("Configure an Agent OS endpoint before retrying the queue.");
+
+        var endpoint = settings.endpoint || "";
+        var token = settings.token || "";
+        if (!endpoint && settings.bridgeEnabled && settings.bridgeToken) {
+            endpoint = settings.bridgeCaptureEndpoint ||
+                String(settings.bridgeEndpoint || "").replace(/\/batch(?:\?.*)?$/, "/capture");
+            token = settings.bridgeToken;
+        }
+        if (!endpoint) {
+            window.alert("Configure the local Agent OS bridge or a capture endpoint before retrying the queue.");
             return;
         }
 
         var items = queue.slice();
         GM_setValue(QUEUE_KEY, []);
         var index = 0;
+        var failed = 0;
 
         function next() {
             if (index >= items.length) {
-                window.alert("Queued captures were submitted. Any failures were placed back in the queue.");
+                window.alert(
+                    "Queued captures retry complete.\n\n" +
+                    "Submitted: " + (items.length - failed) + "\n" +
+                    "Still queued: " + failed
+                );
                 return;
             }
             var item = items[index++];
             var headers = { "Content-Type": "application/json" };
-            if (settings.token) headers["X-Agent-OS-Token"] = settings.token;
+            if (token) headers["X-Agent-OS-Token"] = token;
             GM_xmlhttpRequest({
                 method: "POST",
-                url: settings.endpoint,
+                url: endpoint,
                 headers: headers,
                 data: JSON.stringify(item.capture),
                 timeout: 15000,
                 onload: function (response) {
                     if (!(response.status >= 200 && response.status < 300)) {
+                        failed += 1;
                         queueCapture(item.capture, "retry-http-" + response.status);
                     }
                     next();
                 },
                 onerror: function () {
+                    failed += 1;
                     queueCapture(item.capture, "retry-network-error");
                     next();
                 },
                 ontimeout: function () {
+                    failed += 1;
                     queueCapture(item.capture, "retry-timeout");
                     next();
                 }
