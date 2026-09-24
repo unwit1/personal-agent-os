@@ -1,0 +1,384 @@
+{
+  "schema_version": "skyrim-analyzer-rule-registry-v1",
+  "snapshot_date": "2026-09-24",
+  "rules": [
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-UNRESOLVED-FORMID",
+      "title": "Unresolved FormID/reference",
+      "scope": [
+        "plugin"
+      ],
+      "severity": "BLOCKER",
+      "version_scope": [
+        "Skyrim SE/AE/VR plugin formats"
+      ],
+      "preconditions": [
+        "Plugin or generated patch contains a FormID/FormKey reference"
+      ],
+      "bad_pattern": "A reference cannot be resolved through the plugin master list/load order.",
+      "why": "The record points to a missing/incorrect form or master; xEdit documents unresolved reference errors as serious authoring defects.",
+      "detection": {
+        "kind": "plugin",
+        "algorithm": "Open with xEdit Check for Errors and independently resolve FormLinks through Mutagen LinkCache. Fail on unresolved targets.",
+        "required_data": [
+          "plugin",
+          "masters",
+          "load order"
+        ],
+        "false_positive_exclusions": []
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Identify intended source form/master, correct FormKey or master provenance, regenerate downstream output.",
+        "postconditions": [
+          "xEdit error check clean for reference",
+          "Mutagen LinkCache resolves target"
+        ]
+      },
+      "fixture_id": "F06",
+      "evidence": [
+        {
+          "source": "https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html",
+          "type": "upstream-doc",
+          "notes": "xEdit describes unresolved references as serious errors."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-DELETED-NAVMESH",
+      "title": "Deleted navmesh",
+      "scope": [
+        "plugin",
+        "navmesh"
+      ],
+      "severity": "BLOCKER",
+      "preconditions": [
+        "Plugin overrides/deletes NAVM records"
+      ],
+      "bad_pattern": "A NAVM is marked deleted instead of being repaired/replaced with a safe navmesh workflow.",
+      "why": "Deleted navmeshes are a high-risk Skyrim compatibility/pathing condition and require specialized handling.",
+      "detection": {
+        "kind": "plugin",
+        "algorithm": "Scan NAVM overrides for Deleted record flag and report source/override chain.",
+        "required_data": [
+          "plugin override chain"
+        ],
+        "false_positive_exclusions": []
+      },
+      "fix_policy": {
+        "mode": "manual",
+        "algorithm": "Re-author/repair navmesh in CK-compatible workflow; do not generic undelete-and-disable NAVM.",
+        "postconditions": [
+          "no unintended deleted NAVM",
+          "door/finalization/pathing tests pass"
+        ]
+      },
+      "fixture_id": "F21",
+      "evidence": [
+        {
+          "source": "knowledge/libraries/skyrim-modding/troubleshooting/tool-error-catalog.md",
+          "type": "user-validated",
+          "notes": "Repository rule based on xEdit/CK practice."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-NPC-FACEGEN-MISMATCH",
+      "title": "NPC appearance record does not match FaceGen",
+      "scope": [
+        "NPC_",
+        "FaceGen",
+        "asset"
+      ],
+      "severity": "ERROR",
+      "preconditions": [
+        "NPC appearance fields are changed",
+        "NPC uses generated FaceGeom/FaceTint"
+      ],
+      "bad_pattern": "Winning NPC_ appearance/race/weight/headpart data is inconsistent with the FaceGen assets supplied for that NPC.",
+      "why": "A record/FaceGen mismatch is a classic cause of dark-face/incorrect NPC appearance.",
+      "detection": {
+        "kind": "cross-layer",
+        "algorithm": "Compare winning NPC_ appearance fingerprint with chosen FaceGen provenance; verify expected mesh/tint paths exist and were generated from compatible source fields.",
+        "required_data": [
+          "winning NPC_",
+          "FaceGeom",
+          "FaceTint",
+          "appearance source"
+        ],
+        "false_positive_exclusions": [
+          "NPC intentionally uses runtime appearance system that replaces FaceGen"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Choose authoritative visual source, forward nonvisual fields separately, regenerate/copy matching FaceGen.",
+        "postconditions": [
+          "appearance fingerprint matches FaceGen source",
+          "assets present"
+        ]
+      },
+      "fixture_id": "F10",
+      "evidence": [
+        {
+          "source": "https://github.com/focustense/easymod/blob/master/Focus.Apps.EasyNpc/README.md",
+          "type": "upstream-doc",
+          "notes": "EasyNPC explicitly reconciles behavior attributes with chosen face records/assets."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-ARMO-ARMA-PARTITION-MISMATCH",
+      "title": "Armor slots and mesh partitions disagree",
+      "scope": [
+        "ARMO",
+        "ARMA",
+        "NIF"
+      ],
+      "severity": "ERROR",
+      "preconditions": [
+        "Armor has wearable Biped slots",
+        "NIF is partitioned/skinned"
+      ],
+      "bad_pattern": "ARMO/ARMA slot masks and NIF skin partitions do not represent the intended body coverage consistently.",
+      "why": "Inconsistent slots/partitions can cause invisible geometry, exposed body parts, or equipment conflicts.",
+      "detection": {
+        "kind": "cross-layer",
+        "algorithm": "Compare ARMO Biped mask, each ARMA mask/race model, and NIF partition IDs using PyNifly/Nifly.",
+        "required_data": [
+          "ARMO",
+          "ARMA",
+          "NIF"
+        ],
+        "false_positive_exclusions": [
+          "documented intentional partition/slot divergence"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Align intended numeric Biped slots and mesh partitions; regenerate affected BodySlide/NIF outputs.",
+        "postconditions": [
+          "slot/partition invariant passes",
+          "in-game equip fixture passes"
+        ]
+      },
+      "fixture_id": "F11",
+      "evidence": [
+        {
+          "source": "https://github.com/BadDogSkyrim/PyNifly",
+          "type": "upstream-doc",
+          "notes": "PyNifly exposes Skyrim partitions/skinning for validation."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-MISSING-ASSET",
+      "title": "Referenced required asset is missing",
+      "scope": [
+        "plugin",
+        "NIF",
+        "config",
+        "UI",
+        "voice"
+      ],
+      "severity": "ERROR",
+      "preconditions": [
+        "A required path is referenced"
+      ],
+      "bad_pattern": "Resolved VFS/package contains no file at the required path.",
+      "why": "Missing models/textures/scripts/voice/UI files cause visible failure or runtime errors.",
+      "detection": {
+        "kind": "asset",
+        "algorithm": "Build path-closure graph from plugin/NIF/config/UI references and resolve against actual deployed/VFS winners.",
+        "required_data": [
+          "referenced paths",
+          "VFS file index"
+        ],
+        "false_positive_exclusions": [
+          "engine-generated optional path",
+          "conditional installer branch not selected"
+        ]
+      },
+      "fix_policy": {
+        "mode": "automatic",
+        "algorithm": "If missing file is a declared generated output, regenerate it; otherwise block and identify missing source/dependency.",
+        "postconditions": [
+          "all required paths resolve"
+        ]
+      },
+      "fixture_id": "F12",
+      "evidence": [
+        {
+          "source": "knowledge/libraries/skyrim-modding/automation/validation-gates.md",
+          "type": "user-validated"
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-STALE-GENERATED-OUTPUT",
+      "title": "Generated artifact is stale relative to inputs",
+      "scope": [
+        "generated-output"
+      ],
+      "severity": "ERROR",
+      "preconditions": [
+        "Artifact records input hashes/provenance"
+      ],
+      "bad_pattern": "One or more dependency hashes/settings/load-order inputs differ from those used to build the artifact.",
+      "why": "Behavior, patch, BodySlide, parallax, grass or LOD output can silently reflect an old load order or source state.",
+      "detection": {
+        "kind": "generated-output",
+        "algorithm": "Compare current dependency graph hashes/settings against build manifest for generated artifact.",
+        "required_data": [
+          "artifact build metadata",
+          "current input hashes"
+        ],
+        "false_positive_exclusions": []
+      },
+      "fix_policy": {
+        "mode": "automatic",
+        "algorithm": "Delete only derived output staging and rerun its generator plus downstream gates.",
+        "postconditions": [
+          "artifact provenance matches current inputs"
+        ]
+      },
+      "fixture_id": "F28",
+      "evidence": [
+        {
+          "source": "knowledge/libraries/skyrim-modding/automation/mod-factory-architecture.md",
+          "type": "user-validated"
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-NATIVE-RUNTIME-MISMATCH",
+      "title": "Native plugin runtime support mismatch",
+      "scope": [
+        "SKSE",
+        "DLL",
+        "runtime"
+      ],
+      "severity": "BLOCKER",
+      "preconditions": [
+        "Project ships an SKSE native DLL"
+      ],
+      "bad_pattern": "Installed/declared DLL does not support the active Skyrim executable/ABI/dependency combination.",
+      "why": "Native plugins operate against runtime-specific layouts/hooks and can refuse load or crash when ABI assumptions are wrong.",
+      "detection": {
+        "kind": "native",
+        "algorithm": "Compare executable version/store/VR state, SKSE, Address Library, plugin metadata and build target; inspect load log.",
+        "required_data": [
+          "runtime version",
+          "SKSE version",
+          "Address Library",
+          "DLL metadata/log"
+        ],
+        "false_positive_exclusions": [
+          "verified universal multi-runtime build covering exact runtime"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Install/build correct runtime target or update compatibility layer; never spoof support metadata.",
+        "postconditions": [
+          "plugin loads and initializes required hooks/APIs on exact runtime"
+        ]
+      },
+      "fixture_id": "F17",
+      "evidence": [
+        {
+          "source": "https://github.com/alandtse/CommonLibSSE-NG",
+          "type": "upstream-doc",
+          "notes": "CommonLibSSE-NG documents multi-runtime abstractions and runtime targeting."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-CTDA-SEMANTIC-LOSS",
+      "title": "Condition patch loses CTDA semantics",
+      "scope": [
+        "CTDA",
+        "condition"
+      ],
+      "severity": "ERROR",
+      "preconditions": [
+        "A patcher copies/merges condition entries"
+      ],
+      "bad_pattern": "Function/value is forwarded without preserving comparison flags, parameter interpretation, Run On, reference, parameter 3, or ordering/OR semantics.",
+      "why": "CTDA behavior depends on the entire encoded predicate, not just visible function name.",
+      "detection": {
+        "kind": "plugin",
+        "algorithm": "Normalize and compare full CTDA tuples using xEdit schema; flag partial field copies and changed OR ordering.",
+        "required_data": [
+          "source CTDA",
+          "output CTDA"
+        ],
+        "false_positive_exclusions": [
+          "explicit intentional condition rewrite"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Copy/rebuild the entire intended predicate or regenerate from typed condition model.",
+        "postconditions": [
+          "normalized CTDA equals intended predicate"
+        ]
+      },
+      "fixture_id": "F20",
+      "evidence": [
+        {
+          "source": "knowledge/libraries/skyrim-modding/terminology/ctda-condition-encoding-xedit.md",
+          "type": "user-validated"
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-OAR-OVERLAP",
+      "title": "Multiple OAR candidates match unexpectedly",
+      "scope": [
+        "OAR",
+        "animation"
+      ],
+      "severity": "WARNING",
+      "preconditions": [
+        "More than one submod can match same animation context"
+      ],
+      "bad_pattern": "Final selection depends on priority/order not declared as intentional by the project.",
+      "why": "Animation can appear inconsistent when overlapping conditions are not understood.",
+      "detection": {
+        "kind": "config",
+        "algorithm": "Evaluate project OAR condition models against fixture actors/states; list all matching candidates and priority winner.",
+        "required_data": [
+          "OAR configs",
+          "fixture state"
+        ],
+        "false_positive_exclusions": [
+          "declared fallback/override relationship"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Refine conditions or document priority relationship.",
+        "postconditions": [
+          "fixture resolves to declared winner"
+        ]
+      },
+      "fixture_id": "F15",
+      "evidence": [
+        {
+          "source": "https://github.com/ersh1/OpenAnimationReplacer",
+          "type": "upstream-doc"
+        }
+      ]
+    }
+  ]
+}
