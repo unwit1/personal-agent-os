@@ -341,5 +341,144 @@
     "Two distinct 2016-2017 AAP derivatives exist with materially different layouts and retained fields.",
     "A fixed-column parser would silently misclassify some subtotal rows as employee records unless it detects row type and schema version."
   ],
-  "privacy_control": "Raw disciplinary registers and AAP-sorted derivatives remain restricted. This aggregate intentionally excludes names, direct identifiers, individual event narratives, and protected-class counts."
+  "privacy_control": "Raw disciplinary registers and AAP-sorted derivatives remain restricted. This aggregate intentionally excludes names, direct identifiers, individual event narratives, and protected-class counts.",
+  "workbook_formula_scan": {
+    "workbooks_checked": 29,
+    "formulas_detected": 0,
+    "note": "All disciplinary fiscal registers, AAP-sorted derivatives and Verbal Warnings workbook were checked after deterministic XLS-to-XLSX conversion."
+  },
+  "aap_integrity_comparison": [
+    {
+      "period": "2013-2014",
+      "fiscal_events": 53,
+      "aap_detail_rows": 53,
+      "subtotal_rows": 0,
+      "name_occurrences_missing": 0,
+      "name_occurrences_extra": 0,
+      "field_discrepancies": {},
+      "classification_note": "Exact multiset match on all retained fields; reordered only."
+    },
+    {
+      "period": "2014-2015",
+      "fiscal_events": 73,
+      "aap_detail_rows": 71,
+      "subtotal_rows": 0,
+      "name_occurrences_missing": 2,
+      "name_occurrences_extra": 0,
+      "field_discrepancies": {
+        "eeo": 59
+      },
+      "eeo_transition_counts": {
+        "7_to_9": 58,
+        "5_to_9": 1
+      }
+    },
+    {
+      "period": "2015-2016",
+      "fiscal_events": 123,
+      "aap_detail_rows": 123,
+      "subtotal_rows": 12,
+      "name_occurrences_missing": 1,
+      "name_occurrences_extra": 1,
+      "field_discrepancies": {
+        "eeo": 1,
+        "race": 1,
+        "veteran": 2
+      }
+    },
+    {
+      "period": "2016-2017_date_retained_variant",
+      "fiscal_events": 127,
+      "aap_detail_rows": 127,
+      "subtotal_rows": 0,
+      "name_occurrences_missing": 0,
+      "name_occurrences_extra": 0,
+      "field_discrepancies": {
+        "eeo": 99,
+        "iwd": 2
+      },
+      "eeo_transition_counts": {
+        "7_to_9": 96,
+        "5_to_9": 1,
+        "9_to_7": 2
+      }
+    },
+    {
+      "period": "2016-2017_subtotal_variant",
+      "fiscal_events": 127,
+      "aap_detail_rows": 127,
+      "subtotal_rows": 12,
+      "name_occurrences_missing": 0,
+      "name_occurrences_extra": 0,
+      "field_discrepancies": {
+        "iwd": 2,
+        "race": 1,
+        "department": 1,
+        "eeo": 1,
+        "gender": 2
+      }
+    },
+    {
+      "period": "2017-2018",
+      "fiscal_events": 96,
+      "aap_detail_rows": 96,
+      "subtotal_rows": 8,
+      "name_occurrences_missing": 0,
+      "name_occurrences_extra": 0,
+      "field_discrepancies": {
+        "veteran": 2,
+        "gender": 1
+      }
+    },
+    {
+      "period": "2018-2019",
+      "fiscal_events": 85,
+      "aap_detail_rows": 85,
+      "subtotal_rows": 7,
+      "name_occurrences_missing": 0,
+      "name_occurrences_extra": 0,
+      "field_discrepancies": {
+        "iwd": 1
+      }
+    },
+    {
+      "period": "2019-2020",
+      "fiscal_events": 95,
+      "aap_detail_rows": 94,
+      "subtotal_rows": 8,
+      "name_occurrences_missing": 2,
+      "name_occurrences_extra": 1,
+      "field_discrepancies": {}
+    },
+    {
+      "period": "2020-2021",
+      "fiscal_events": 54,
+      "aap_detail_rows": 55,
+      "subtotal_rows": 9,
+      "name_occurrences_missing": 0,
+      "name_occurrences_extra": 1,
+      "field_discrepancies": {}
+    },
+    {
+      "period": "2021-2022",
+      "fiscal_events": 44,
+      "aap_detail_rows": 44,
+      "subtotal_rows": 6,
+      "name_occurrences_missing": 0,
+      "name_occurrences_extra": 0,
+      "field_discrepancies": {}
+    },
+    {
+      "period": "2022-2023",
+      "fiscal_events": 47,
+      "aap_detail_rows": 47,
+      "subtotal_rows": 7,
+      "name_occurrences_missing": 0,
+      "name_occurrences_extra": 0,
+      "field_discrepancies": {
+        "veteran": 1
+      }
+    }
+  ],
+  "aap_integrity_privacy_note": "Counts identify field discrepancy types only. Employee identities and the underlying protected-class values are not stored in this aggregate."
 }
