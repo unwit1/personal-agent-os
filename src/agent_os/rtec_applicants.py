@@ -695,6 +695,7 @@ def sync_status() -> dict[str, Any]:
                 "warning_count",
                 "error_class",
                 "source_row_count",
+                "source_modified_at",
                 "header_column_count",
                 "header_sha256",
                 "source_config_sha256",
