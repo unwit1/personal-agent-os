@@ -126,6 +126,12 @@ def make_handler(store: BridgeStore, token: str, allowed_hosts: set[str]):
                         "payload": capture,
                     }])
                     result["event_id"] = event_id
+                    if event_id in result.get("duplicates", []):
+                        result["status"] = "duplicate"
+                    elif event_id in result.get("updated", []):
+                        result["status"] = "updated"
+                    else:
+                        result["status"] = "stored"
                 else:
                     self._send(HTTPStatus.NOT_FOUND, {"error": "not found"})
                     return
