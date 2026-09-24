@@ -39,6 +39,13 @@
       "sha256": "612cf3bdc4756fd928e6aed3b90a4ac0156b6c34643540203deb67355693dd86"
     },
     {
+      "period": "2019-07-01/2020-06-30",
+      "source": "AAP PLAN as of June 30, 2020.doc",
+      "sha256": "29f2616c11caa1f9498f3612eee613b24a581c708eedc8f7c7b61bf8da752a60",
+      "archive_location": "AAP INFO FY 2020",
+      "note": "Point-in-time plan snapshot printed UPDATED JUNE 30, 2020."
+    },
+    {
       "period": "2018-07 through 2022-06 (FY2019-folder variant)",
       "source": "AAP PLAN July 2018 - June 2022.doc",
       "sha256": "a35531d961c911d84116fe235de0795b3eb2d640daa7d54542f1e175ecb20f41",
