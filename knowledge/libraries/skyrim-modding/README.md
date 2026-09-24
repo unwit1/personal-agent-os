@@ -19,7 +19,7 @@ It is intentionally separate from Elder Scrolls lore. Technical implementation k
 
 ## Current corpus
 
-As of 2026-09-24, the live terminology directory contains **121 specialist terminology/reference modules**, plus authoring guides, playbooks, troubleshooting routers/catalogs, source provenance, research/frontier documents and extraction tooling.
+As of 2026-09-24, the live terminology directory contains **123 specialist terminology/reference modules**, plus authoring guides, playbooks, troubleshooting routers/catalogs, source provenance, research/frontier documents and extraction tooling.
 
 The old manually maintained heading total has been retired from this README. Exact module/heading counts are generated from a checkout by:
 
