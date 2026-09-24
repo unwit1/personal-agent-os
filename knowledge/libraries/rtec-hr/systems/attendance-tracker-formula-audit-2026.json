@@ -1,0 +1,92 @@
+{
+  "record_id": "rtec-attendance-tracker-formula-audit-2026",
+  "updated_at": "2026-09-24",
+  "status": "formula_structure_validated_business_rules_partially_unvalidated",
+  "privacy": "Formula/header structure only. No employee names, IDs, supervisors, dates, balances, point values, or other row-level records are retained.",
+  "source": {
+    "title": "Attendance Tracker",
+    "source_kind": "Google Sheets",
+    "created": "2026-05-05",
+    "observed_tabs": [
+      "INPUT",
+      "Attendance",
+      "Previous Months",
+      "Points tracker",
+      "Blacklist"
+    ]
+  },
+  "formula_inventory": {
+    "attendance_formula_count_observed": 3,
+    "points_tracker_formula_count_observed": 0,
+    "blacklist_formula_count_observed": 0,
+    "previous_months_formula_count_observed": 0,
+    "implications": [
+      "Attendance is a derived view over the INPUT/ADP export plus manually maintained prior-state and exclusion inputs.",
+      "Points tracker is not formula-derived in the inspected workbook and should be treated as manual/restricted state unless another automation writes it externally.",
+      "Blacklist is a manual configuration/input rather than a calculated result.",
+      "Previous Months is manual carry-forward/reference state rather than a formula output."
+    ]
+  },
+  "attendance_formula_model": [
+    {
+      "component": "ADP normalization and daily aggregation",
+      "behavior": [
+        "Finds the populated extent of INPUT.",
+        "Carries employee and supervisor identity down through the ADP export structure.",
+        "Parses dates and hours.",
+        "Classifies hours into regular, sick, vacation and overtime using text matching.",
+        "Groups by employee/supervisor/date.",
+        "Excludes supervisors present in the named SupervisorBlacklist range.",
+        "Returns rows when regular hours are below 8 or sick/vacation hours are present."
+      ],
+      "authority_status": "deterministic workbook behavior, not policy authority"
+    },
+    {
+      "component": "Reserve Hours Used",
+      "behavior": "If derived Total Hours for a returned day are below 8, calculates 8 minus Total Hours; otherwise blank.",
+      "authority_status": "workbook behavior"
+    },
+    {
+      "component": "Reserve Hours Left",
+      "behavior": [
+        "Looks up date of hire and prior reserve balance from Previous Months.",
+        "Builds a hire-date anniversary for the current row year.",
+        "After the anniversary, uses a base of 24 hours and subtracts reserve hours used after the anniversary.",
+        "Otherwise uses the prior carried reserve balance and subtracts cumulative reserve hours used."
+      ],
+      "authority_status": "derived business rule requiring validation"
+    }
+  ],
+  "handbook_comparison": {
+    "validated_current_policy": [
+      "December 15, 2025 handbook uses a six-point attendance system.",
+      "Point consequences include 2 points written warning, 4 points three-day suspension without pay, and 6 points termination.",
+      "Absence duration examples are 4 hours or less = 1/4 point, 4-6 hours = 1/2 point, 7 hours or more = 1 point.",
+      "A point may be removed after 60 consecutive days without accumulating a point; points expire after 365 days.",
+      "Documented FMLA, workers' compensation, funeral leave and jury duty are listed as point-exempt under the current attendance policy.",
+      "The handbook states RTEC provides an additional 3 days unpaid for promoting good attendance."
+    ],
+    "not_validated_by_handbook_text": [
+      "That the handbook's additional 3 unpaid days are exactly the same concept as the spreadsheet's Reserve Hours.",
+      "That the 3-day/24-hour reserve resets specifically on each employee's hire-date anniversary.",
+      "That an 8-hour standard-day assumption applies to every employee/schedule represented in the tracker.",
+      "That the SupervisorBlacklist exclusion is a current approved business rule.",
+      "That Points tracker manual entries are fully reconciled to the handbook's 60-day reduction and 365-day expiration rules."
+    ]
+  },
+  "risks": [
+    "The workbook mixes authoritative ADP source data with manually maintained carry-forward state and exclusions.",
+    "The 8-hour shortfall formula can be wrong for non-8-hour schedules unless the input population is intentionally limited.",
+    "A 24-hour anniversary reset is operationally significant but not explicitly supported by the current handbook text reviewed.",
+    "Manual point tracking can drift from the six-point policy unless reconciled deterministically.",
+    "SupervisorBlacklist can suppress records from the derived Attendance view and needs an explicit owner/rationale."
+  ],
+  "recommended_controls": [
+    "Document the business meaning and authority for Reserve Hours, including the 24-hour base and anniversary reset.",
+    "Document which employee populations are expected to work an 8-hour day before using 8-Hours-minus-Total as a universal rule.",
+    "Assign an owner and documented reason for each SupervisorBlacklist entry; keep identities restricted.",
+    "Build a deterministic policy-validation layer for point accrual, 60-day point reduction, 365-day expiration and protected exclusions instead of relying solely on manual Points tracker state.",
+    "Preserve ADP as upstream source data and retain import period/timestamp metadata for each refresh.",
+    "Keep FMLA case details in the restricted FMLA source and pass only the minimum protected-status indicator needed to prevent attendance consequences."
+  ]
+}
