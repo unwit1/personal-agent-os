@@ -67,18 +67,25 @@ The first terminology pass is stored in `terminology/core-glossary.md` and is so
 
 ## Current terminology corpus
 
-As of 2026-09-24, the terminology index contains 569 indexed headings across seven modules:
+As of 2026-09-24, the library contains **2,374 indexed headings across 28 terminology/reference modules**, plus dedicated operational playbooks, a 76-entry canonical alias map, a troubleshooting routing matrix, an expanded source registry, a research coverage manifest, and an explicit research frontier.
 
-- core terminology and foundational distinctions;
-- records, patching, xEdit, LOOT, FormIDs, and load-order semantics;
-- Papyrus, quests, aliases, dialogue, scenes, AI packages, conditions, and magic;
-- SKSE, CommonLibSSE-NG, Address Library/relocation, native plugins, ABI, and crash diagnostics;
-- SPID, KID, BOS, FLM, OCF, and runtime-distribution design patterns;
-- animation behavior generation, OAR, NIFs, skeletons, BodySlide/Outfit Studio, SkyUI, and MCM;
-- worldspaces, cells, navmesh concepts, save ChangeForms/Papyrus persistence, ReSaver/FallrimTools, large references, and dynamic LOD.
+Major covered domains include plugin formats/xEdit/FormIDs; Creation Kit/worldbuilding/navmesh; Papyrus/quests/Story Manager/save persistence; SKSE/CommonLib/native plugins/crash diagnosis; engine fixes and extension frameworks; SPID/KID/BOS/FLM/SkyPatcher; Mutagen/Synthesis/Spriggit; MO2/Vortex/Wabbajack; animation/OAR/Pandora; NIF/textures/BodySlide; RaceMenu/FaceGen; FSMP physics; SkyUI/Scaleform/MCM; audio/localization/archives; gameplay records; renderer/shader systems; performance/engine limits; and the full xLODGen/TexGen/DynDOLOD/grass/seasons/occlusion stack.
 
-Navigation is maintained in `indexes/terminology-index.md`. Source provenance and authority notes are maintained in `sources/registry.md`.
+Navigation:
+- `indexes/terminology-index.md` — module inventory and counts.
+- `indexes/aliases.json` — canonical acronym/synonym routing.
+- `indexes/troubleshooting-routing.md` — symptom/task → relevant subsystem mapping.
+- `sources/registry.md` — source authority/provenance.
+- `sources/coverage-manifest.md` — current research coverage.
+- `sources/research-frontier.md` — deliberately unresolved/evolving areas.
+- `playbooks/` — operational diagnostic/release procedures.
 
 ## Troubleshooting retrieval principle
 
 Agent OS should diagnose Skyrim issues by layer rather than by symptom name alone. For each issue, identify which of these layers may be involved: plugin records/load order; physical or virtual assets; Papyrus/quest state; native SKSE runtime; runtime distributor/config frameworks; animation behavior; mesh/skeleton/morph data; UI; worldspace/navmesh; save-persisted state; and LOD/distance systems. Retrieve evidence from every plausible layer before proposing destructive changes or declaring a culprit.
+
+## Continuous ingestion principle
+
+This repository is designed to become more accurate through use. When a troubleshooting, authoring, reverse-engineering, or compatibility task produces a durable finding, Agent OS should stage it with its source, game/runtime/tool versions, reproduction evidence, confidence, and affected subsystem. Only validated findings should be promoted into canonical knowledge; forum/Discord/Reddit claims remain evidence candidates until corroborated.
+
+The corpus should never claim permanent exhaustiveness because Skyrim modding tooling and reverse engineering continue to evolve. The operational goal is exhaustive coverage of known high-value domains plus explicit, searchable uncertainty and automatic research-on-demand for uncovered edge cases.
