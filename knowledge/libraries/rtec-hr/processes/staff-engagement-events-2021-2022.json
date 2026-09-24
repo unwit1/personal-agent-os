@@ -1,0 +1,143 @@
+{
+  "id": "rtec-process-staff-engagement-events-2021-2022",
+  "record_type": "process",
+  "title": "Historical staff holiday and engagement-event coordination - 2021 to 2022",
+  "status": "candidate",
+  "temporal_status": "historical",
+  "effective_from": "2021-12-08",
+  "effective_to": "2022-12-15",
+  "summary": "Two restricted staff-event documents show how RTEC historically coordinated optional holiday/engagement activities, including COVID-driven event changes, an ornament exchange, an ugly-sweater contest, a group photo, a café holiday meal and a later snack-day participant list.",
+  "claims": [
+    {
+      "claim": "A December 2021 staff memorandum states that a recurring seven-days-of-snacks activity was not held because of COVID-19, while an ornament exchange and ugly-sweater contest were retained.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-staff-event-memo-aab4768d6d9a",
+          "page_or_section": "sanitized event-schedule statements",
+          "evidence_type": "explicit_text",
+          "note": "Named staff coordinators are excluded."
+        }
+      ]
+    },
+    {
+      "claim": "The ornament exchange was voluntary, used a stated $7 limit, and required participants to submit ornaments to designated coordinators before the exchange.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-staff-event-memo-aab4768d6d9a",
+          "page_or_section": "sanitized ornament-exchange instructions",
+          "evidence_type": "explicit_text",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The 2021 holiday schedule also included a café Christmas dinner with an employee entrée discount, an ugly-sweater contest with a set judging time, a scheduled group photo with requested attire, and a timed ornament exchange in the café break area.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-staff-event-memo-aab4768d6d9a",
+          "page_or_section": "sanitized December event schedule",
+          "evidence_type": "explicit_text",
+          "note": "Event-specific dates/times are historical."
+        }
+      ]
+    },
+    {
+      "claim": "A separate main-office Snack Day participant list is internally dated December 15, 2022 even though its filename begins with 2017-12-15; Word metadata shows the file was created and modified in December 2022.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-automation-content-first-document-classification"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-restricted-staff-event-list-a9bffcd32f3a",
+          "page_or_section": "document heading and Word metadata",
+          "evidence_type": "structural",
+          "note": "Participant names are excluded."
+        }
+      ]
+    }
+  ],
+  "trigger": "HR/management organizes a staff holiday or engagement event.",
+  "prerequisites": [
+    "Event scope/date/location are approved.",
+    "Participation and any cost limits are defined."
+  ],
+  "actors": [
+    "Management",
+    "Human Resources",
+    "Employees",
+    "Café/event vendor or external photographer when applicable"
+  ],
+  "systems": [
+    "Staff memorandum",
+    "Participant list"
+  ],
+  "forms": [
+    "Staff event memo",
+    "Participant/volunteer list"
+  ],
+  "steps": [
+    "Decide which events will occur and whether public-health conditions require changes.",
+    "Communicate dates, times, locations, participation rules, attire or cost limits.",
+    "Collect participant items or sign-ups where needed.",
+    "Maintain a participant list only when operationally necessary."
+  ],
+  "decisions": [
+    "Whether an event proceeds, changes or is cancelled.",
+    "Whether participation is optional and whether a spending cap applies."
+  ],
+  "deadlines": [
+    "Event-specific dates and collection deadlines."
+  ],
+  "outputs": [
+    "Staff event schedule/memo",
+    "Restricted participant list when needed"
+  ],
+  "exceptions": [
+    "COVID-19 conditions caused cancellation of at least one recurring activity in 2021."
+  ],
+  "controls": [
+    "Do not rely on filename dates when internal document dates/metadata conflict.",
+    "Participant names belong in restricted operational records, not generalized knowledge."
+  ],
+  "unresolved_questions": [
+    "Are recurring staff-event traditions still active, and who currently owns them?",
+    "Is there a standard approval/budget process for employee engagement events?"
+  ],
+  "automation_candidates": [
+    "Reusable event-memo template with validated date/location/cost/participation fields.",
+    "Content-date check that flags filename/document-date conflicts before filing."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-correspondence-2026-09-23-restricted-index",
+      "safe_source_type": "restricted_staff_event_correspondence_structural_analysis",
+      "source_date_or_version": "2021-2022",
+      "content_sha256": null,
+      "page_or_section": "two staff-event artifacts",
+      "ingested_at": "2026-09-24",
+      "notes": "Named participants/coordinators are excluded from generalized knowledge.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": "2021-12-08",
+      "source_effective_to": "2022-12-15",
+      "temporal_status": "historical",
+      "full_source_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/restricted-evidence/correspondence-2026-09-23.json"
+    }
+  ]
+}
