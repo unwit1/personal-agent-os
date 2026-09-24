@@ -194,3 +194,25 @@ See:
 
 The open current-authority queue remains
 `questions/currentness-and-gaps.json`.
+
+
+## Downloads spreadsheet cleanup — September 24, 2026
+
+A loose set of **16 legacy XLS artifacts** from the user's Downloads folder was classified and integrated under `sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24.json`. The set resolves to ten logical source families after semantic duplicate handling.
+
+Two blank historical benefits-administration import templates were added to the reusable reference-form catalog: an employee demographic import template and an Infinisource FSA/HSA/transit/parking enrollment import template. Their field/validation semantics are preserved as historical system evidence, not current authority.
+
+Nine employee/subscriber-level benefits artifacts are restricted: FSA account-balance detail, Delta Dental/vision consolidated billing workbooks from 2020–2024, and a dependent-termination export. Only safe report structure, calculation definitions, hashes, dates and document-type evidence were promoted; no names, SSNs, subscriber IDs, dates of birth, individual balances or individual billed amounts were retained.
+
+Three aggregate/external reference datasets were cataloged separately: a Commonwealth of Kentucky MWBE certified-vendor listing marked as of January 16, 2020; Kentucky county population change/ranks for 2000–2010; and U.S. Census 2000 DP-2/DP-3/DP-4 social, economic and housing profiles. These are historical reference data and do not establish current HR policy.
+
+Document routing learned from this batch is explicit: multi-person benefits reports belong in restricted benefits-administration context and must not be auto-filed to one employee; blank import spreadsheets are contextual reference forms; census/MWBE/population workbooks are external reference datasets.
+
+See:
+- `sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24.json`
+- `restricted-evidence/downloads-spreadsheets-2026-09-24.json`
+- `forms/downloads-spreadsheet-document-types-2026-09-24.json`
+- `systems/historical-benefits-data-import-contracts-2018.json`
+- `processes/historical-benefits-billing-reconciliation.json`
+- `sources/reference-data/downloads-reference-data-2026-09-24.json`
+- `questions/downloads-spreadsheets-currentness-2026-09-24.json`
