@@ -8,7 +8,10 @@
       "2016-04-28",
       "2026-06-26"
     ],
-    "self_task_reminders": 122
+    "self_task_reminders": 122,
+    "attachment_occurrences": 132,
+    "unique_attachment_sha256": 104,
+    "attachment_bearing_messages": 69
   },
   "privacy": "Raw email bodies and employee/applicant/case facts remain outside GitHub. This index points only to sanitized derived knowledge.",
   "records": [
@@ -166,7 +169,72 @@
       "path": "projects/rtec-hr-process-model/docs/EMAIL_ARCHIVE_DEEPENING_PASS_003_2026-09-23.md",
       "kind": "checkpoint_doc",
       "status": "complete"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/roles/current-vs-historical-responsibility-matrix-2026.json",
+      "kind": "currentness_matrix",
+      "status": "cross_source"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/systems/system-of-record-candidate-matrix-2026.json",
+      "kind": "system_of_record_matrix",
+      "status": "requires_live_validation"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/systems/report-tracker-artifact-inventory-email-role-evidence.json",
+      "kind": "report_tracker_inventory",
+      "status": "cross_source"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/systems/report-schema-crosswalk-email-aap-evidence.json",
+      "kind": "report_schema_crosswalk",
+      "status": "cross_source"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/systems/current-restricted-tracker-schemas-2026.json",
+      "kind": "current_tracker_schema",
+      "status": "restricted_rows_excluded"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/systems/current-drive-hr-artifact-evidence-2026.json",
+      "kind": "current_drive_artifact_evidence",
+      "status": "currentness_gated"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/automation/email-derived-scanner-classification-gap-analysis.json",
+      "kind": "scanner_gap_analysis",
+      "status": "cross_project"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/policies/handbook-policy-evolution-2017-to-2025.json",
+      "kind": "policy_evolution",
+      "status": "effective_dated"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/sources/email-attachment-ingestion-2016-2026.json",
+      "kind": "attachment_manifest",
+      "status": "complete_recovered_payloads"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/sources/email-attachment-safe-findings-2017-2026.json",
+      "kind": "attachment_safe_findings",
+      "status": "sanitized"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/sources/email-attachment-dedup-visual-audit-2016-2026.json",
+      "kind": "attachment_dedup_visual_audit",
+      "status": "complete"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/forms/email-attachment-historical-blank-form-variants.json",
+      "kind": "form_variant_provenance",
+      "status": "historical"
+    },
+    {
+      "path": "projects/rtec-hr-process-model/docs/EMAIL_ARCHIVE_ATTACHMENT_EXHAUSTION_PASS_004_2026-09-23.md",
+      "kind": "checkpoint_doc",
+      "status": "complete"
     }
   ],
-  "coverage_note": "All 576 messages received structural classification, the low-signal bucket received a second-pass review, major recurring domains have dedicated semantic models, and Pass 003 added cross-source cadence, form-alias, thread-lifecycle, AAP chronology, relationship, security and work-profile synthesis."
+  "coverage_note": "All 576 messages are structurally covered and semantically modeled by major domain. The recovered PST attachment layer is also exhausted at payload/classification level: 132 attachment occurrences, 104 unique SHA-256 objects, 19 duplicate-content groups, zero attachment parser errors, safe content analyzed, restricted content classified/local-only, and generic images visually audited."
 }
