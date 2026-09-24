@@ -113,6 +113,7 @@ class RTECApplicantAdapterTests(unittest.TestCase):
                     "warning_count": 0,
                     "error_class": None,
                     "source_row_count": 20,
+                    "source_modified_at": "2026-09-24T12:34:56.000Z",
                     "header_column_count": 154,
                     "header_sha256": "a" * 64,
                     "source_config_sha256": "b" * 64,
@@ -287,6 +288,7 @@ class RTECApplicantAdapterTests(unittest.TestCase):
         self.assertEqual(result["status"], "healthy")
         self.assertEqual(result["header_column_count"], 154)
         self.assertEqual(result["last_transition_at"], "2026-09-23T11:55:00-04:00")
+        self.assertEqual(result["source_modified_at"], "2026-09-24T12:34:56.000Z")
         self.assertEqual(result["applicant_record_count"], 1)
         self.assertEqual(result["outbox"]["pending_count"], 1)
         encoded = json.dumps(result)
@@ -337,7 +339,23 @@ class RTECApplicantAdapterTests(unittest.TestCase):
             ra.acknowledge_event("evt-1"),
             {"acknowledged": False, "reason": "outbox_schema_unavailable"},
         )
-        self.assertEqual(ra.pending_events(), {"count": 0, "results": []})
+        self.assertEqual(
+            ra.pending_events(),
+            {"count": 0, "results": [], "schema_ready": False},
+        )
+
+    def test_audit_status_returns_aggregate_health_only(self):
+        ra.search_applicants("Synthetic Applicant")
+        ra.get_summary("app-syntheticref")
+        status = ra.audit_status()
+        self.assertTrue(status["present"])
+        self.assertEqual(status["record_count"], 2)
+        self.assertEqual(status["recent_action_counts"]["applicant.search"], 1)
+        self.assertEqual(status["recent_action_counts"]["applicant.get_summary"], 1)
+        encoded = json.dumps(status)
+        self.assertNotIn("app-syntheticref", encoded)
+        self.assertNotIn("Synthetic Applicant", encoded)
+        self.assertNotIn("synthetic@example.invalid", encoded)
 
     def test_mcp_surface_exposes_only_admin_adapter_tools(self):
         available = methods()
@@ -352,10 +370,19 @@ class RTECApplicantAdapterTests(unittest.TestCase):
             "applicant.pending_actions",
             "applicant.sync_status",
             "applicant.events",
+            "applicant.audit_status",
             "applicant.event_ack",
         ):
             self.assertIn(name, TOOL_SCHEMAS)
             self.assertIn(name, available)
+        self.assertEqual(
+            TOOL_SCHEMAS["applicant.get_status"]["inputSchema"]["required"],
+            ["applicant_ref"],
+        )
+        self.assertIn(
+            "applicant_ref",
+            TOOL_SCHEMAS["applicant.get_status"]["inputSchema"]["properties"],
+        )
         self.assertNotIn("applicant.rank", TOOL_SCHEMAS)
         self.assertNotIn("applicant.recommend", TOOL_SCHEMAS)
 
