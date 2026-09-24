@@ -1,0 +1,65 @@
+{
+  "continuity_id": "tes.mod.wheels-of-lull",
+  "analysis_date": "2026-09-24",
+  "record_type": "external_continuity_lineage",
+  "label": "Trainwiz ChronoC0da",
+  "evidence_scope": "external_project_metadata_not_supplied_esp",
+  "root_predecessor": {
+    "work": "Sotha Sil Expanded",
+    "relationship_to_wheels": "sequel_predecessor",
+    "basis": "Current Wheels page describes Wheels as a sequel to Sotha Sil Expanded; current Aethernautics and Wheels pages say the overarching series begins with Sotha Sil Expanded for Morrowind."
+  },
+  "ordered_skyrim_sequence": [
+    "Blackreach Railroad",
+    "Brhuce Hammar: Legacy",
+    "Aethernautics: A Space Travel Mod",
+    "The Lost Wonders of Mzark",
+    "Fyr Manor",
+    "Dwemer Spectres",
+    "The Wheels of Lull"
+  ],
+  "relationships": [
+    {
+      "from": "Aethernautics: A Space Travel Mod",
+      "to": "The Wheels of Lull",
+      "relation": "same_canon_earlier_work",
+      "evidence_class": "author_attributed_post",
+      "witness_date": "2015-04-17",
+      "note": "Trainwiz explicitly states that Aethernautics and Wheels of Lull take place in the same canon."
+    },
+    {
+      "from": "Sotha Sil Expanded",
+      "to": "The Wheels of Lull",
+      "relation": "predecessor_sequel",
+      "evidence_class": "current_official_mod_page_metadata"
+    },
+    {
+      "from": "Earlier Skyrim quest mods in published ChronoC0da sequence",
+      "to": "The Wheels of Lull",
+      "relation": "convergence_ties_together",
+      "evidence_class": "current_official_mod_page_metadata"
+    }
+  ],
+  "source_witnesses": [
+    {
+      "url": "https://www.nexusmods.com/skyrimspecialedition/mods/436",
+      "role": "current Aethernautics ChronoC0da sequence"
+    },
+    {
+      "url": "https://www.nexusmods.com/skyrimspecialedition/mods/748",
+      "role": "current Wheels sequel/convergence and ChronoC0da sequence"
+    },
+    {
+      "url": "https://www.nexusmods.com/skyrim/mods/41754?tab=posts",
+      "role": "Trainwiz same-canon statement dated 2015-04-17"
+    }
+  ],
+  "modeling_policy": [
+    "Keep each mod as a separate continuity/source package.",
+    "Represent lineage with explicit relationships rather than raw-record merging.",
+    "Preserve edition/variant differences.",
+    "Do not use current project chronology as proof of prior exact-text publication.",
+    "Do not promote Trainwiz continuity material into Bethesda canon."
+  ],
+  "effects_on_book_provenance_counts": "none"
+}
