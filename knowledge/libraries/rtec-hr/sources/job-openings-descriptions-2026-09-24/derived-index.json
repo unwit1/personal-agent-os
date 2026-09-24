@@ -1,0 +1,73 @@
+{
+  "index_id": "rtec-hr-job-openings-derived-index-2026-09-24",
+  "ingested_at": "2026-09-24",
+  "source_archive": "Job Openings Descriptions.zip",
+  "safe_searchable_source_count": 55,
+  "domains": {
+    "job_descriptions": 10,
+    "restricted_personnel_reporting": 7,
+    "benefits": 6,
+    "recruiting_form": 1,
+    "legacy_storage_pointer": 19,
+    "other": 7,
+    "fmla_forms": 2,
+    "handbooks": 2,
+    "drug_alcohol": 5,
+    "civil_rights_service_policies": 5,
+    "safety_notices": 12,
+    "safety_compliance": 3,
+    "operations_reference": 2,
+    "training_operations": 4
+  },
+  "key_source_families": {
+    "job_descriptions_and_recruiting": [
+      "CSR",
+      "Dispatcher",
+      "Transit Driver",
+      "Garage Attendant",
+      "Receptionist",
+      "Human Resources Manager"
+    ],
+    "handbooks": [
+      "2023 Employee Handbook",
+      "2024 Driver Handbook rev 7/12/24"
+    ],
+    "benefits": [
+      "2023 election form",
+      "Guardian kit/plan document",
+      "2021 base/buy-up SBCs",
+      "dental and vision summaries"
+    ],
+    "drug_alcohol": [
+      "2024 OTC/prescription policy",
+      "collection request forms",
+      "employee drug-free guide",
+      "SFY25 policy",
+      "collection-site list"
+    ],
+    "civil_rights_service": [
+      "ADA complaint process",
+      "appeal procedures",
+      "reasonable modification",
+      "no-show policy",
+      "historical Title VI notice"
+    ],
+    "safety_training": [
+      "2022-2025 safety notices",
+      "bloodborne/TB",
+      "hazard communication",
+      "Transit Agency Safety Plan 2024",
+      "vehicle maintenance manual",
+      "wheelchair securement",
+      "passenger assistance",
+      "sexual-harassment prevention",
+      "compassion training"
+    ],
+    "operations_reference": [
+      "cash fares",
+      "reservations/operations/CSR/dispatcher training manual"
+    ]
+  },
+  "currentness_rule": "Filename/date recency is evidence only. The 2025-12-15 Employee Handbook and January 2026 Title VI/LEP plan already modeled elsewhere remain newer authority than older overlapping sources in this archive unless a more specific current policy controls.",
+  "privacy_boundary": "Restricted personnel/compensation/protected-class records and credential-sensitive content are represented only by sanitized metadata."
+}
