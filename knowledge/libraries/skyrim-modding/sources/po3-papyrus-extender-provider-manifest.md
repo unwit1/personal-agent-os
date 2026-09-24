@@ -35,3 +35,14 @@ The main callable API surface is `PO3_SKSEFunctions.psc`. Event registration/cal
 ## Promotion rule
 
 Use exact declaration/provider/version provenance. Do not describe a po3 function as vanilla SKSE or vanilla Papyrus merely because its signature resembles an engine API.
+
+## Source-count reconciliation
+
+At the 2026-09-24 master snapshot:
+- upstream README blob `297a3129f6a4903ee4e2843dcc02a19d3e411c95` states **374 functions, 37 events, and 4 script objects**;
+- `PO3_SKSEFunctions.psc` blob `87fcdd7c399801c92449c59ddb46090b2cc93214` contains **379 unique function declarations**;
+- all 379 are declared `global native`;
+- no duplicate function names were found;
+- the three event receiver scripts expose 111 callback declarations = 37 logical event names × three receiver families.
+
+Treat the README's 374 as a documentation-summary value that lags or uses a different counting scope unless the upstream project clarifies otherwise. The source declaration count is canonical for this exact blob snapshot.
