@@ -121,11 +121,28 @@ def resolve_path(project: dict[str, Any], roots: list[Path] | None = None) -> tu
     if canonical and Path(canonical).expanduser().is_dir():
         return Path(canonical).expanduser(), "registry_path"
     directory = str(project.get("directory") or "") or (Path(canonical).name if canonical else project_id)
-    if directory:
-        found = _discover(directory, roots if roots is not None else search_roots([canonical] if canonical else []))
+    repository = str(project.get("repository") or "")
+    repository_directory = repository.rsplit("/", 1)[-1] if "/" in repository else repository
+
+    # Friendly project folders and default Git clone folders do not always
+    # share the same spelling/casing (for example "Job Applicant Dashboard"
+    # vs "job-applicant-dashboard"). Try both portable identities before
+    # declaring the project unresolved.
+    discovery_names = []
+    for candidate in (directory, repository_directory):
+        candidate = candidate.strip()
+        if candidate and candidate.casefold() not in {item.casefold() for item in discovery_names}:
+            discovery_names.append(candidate)
+
+    discovery_roots = roots if roots is not None else search_roots([canonical] if canonical else [])
+    for candidate in discovery_names:
+        found = _discover(candidate, discovery_roots)
         if found:
-            return found, "discovered"
-    return Path(canonical or ROOT / directory), "unresolved"
+            source = "discovered" if candidate.casefold() == directory.casefold() else "discovered_repository"
+            return found, source
+
+    fallback_name = directory or repository_directory or project_id
+    return Path(canonical or ROOT / fallback_name), "unresolved"
 
 
 def describe() -> dict[str, Any]:
