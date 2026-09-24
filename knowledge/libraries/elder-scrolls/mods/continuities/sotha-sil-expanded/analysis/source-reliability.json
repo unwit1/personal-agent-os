@@ -1,0 +1,77 @@
+{
+  "continuity_id": "tes.mod.sotha-sil-expanded",
+  "generated_at": "2026-09-24",
+  "purpose": "Prevent literary, sectarian, comedic, or attributed documents from being retrieved as unqualified objective lore.",
+  "records": [
+    {
+      "record_id": "_sotha_lastwords",
+      "title": "Sotha Sil's Last Words",
+      "class": "attributed_correspondence_compilation",
+      "reliability": "medium",
+      "use": "Evidence for how this continuity characterizes Sotha Sil/Fyr and Tribunal metaphysics; do not assume authentic canonical final words outside this continuity."
+    },
+    {
+      "record_id": "_sotha_zero",
+      "title": "A Type of Zero",
+      "class": "traditional_dwemeri_childrens_rhyme",
+      "reliability": "low_for_literal_history_medium_for_themes",
+      "use": "Useful for Dwemer epistemic/metaphysical motifs, not literal factual narration."
+    },
+    {
+      "record_id": "_cot_book1",
+      "title": "The Null Manifesto",
+      "class": "sectarian_manifesto_temple_zero",
+      "reliability": "high_for_group_beliefs_low_for_external_metaphysical_fact",
+      "use": "Treat claims about Convention, Truth, masks, and Marukh as Temple Zero doctrine."
+    },
+    {
+      "record_id": "_cot_book2",
+      "title": "King Oktug’s Last Birthday",
+      "class": "mytho_historical_narrative",
+      "reliability": "medium_low",
+      "use": "Preserve as a ChronoC0da historical/mythic text; verify names/events against independent sources before external promotion."
+    },
+    {
+      "record_id": "_cot_book3",
+      "title": "A Traditional Sload Tale",
+      "class": "cultural_literary_tale",
+      "reliability": "medium_for_cultural_self_portrayal_low_for_literal_history",
+      "use": "Useful for the source's Sload voice, values, soul-trade/necromantic motifs, and Thras imagery; not objective history."
+    },
+    {
+      "record_id": "_cot_book4",
+      "title": "An Exploration of the Hist",
+      "class": "scholarly_field_account_explicitly_uncertain",
+      "reliability": "medium",
+      "use": "The narrator explicitly reports failed/ambiguous translation. Preserve competing interpretations rather than selecting one."
+    },
+    {
+      "record_id": "_cot_book5",
+      "title": "Orc Creation Story",
+      "class": "sectarian_creation_myth",
+      "reliability": "high_for_afterdark_society_beliefs_low_for_literal_cosmology",
+      "use": "Treat the Scarab/Trinimac/Malak narrative as a sectarian Orsimer mythic retelling."
+    },
+    {
+      "record_id": "_sotha_guarbook",
+      "title": "A Child's Book of Guar Secrets",
+      "class": "explicit_comedy_unreliable",
+      "reliability": "very_low",
+      "use": "Exclude from factual creature/lore claims; the narrator explicitly says they know nothing about guars."
+    },
+    {
+      "record_id": "_sotha_truth",
+      "title": "Book of Inevitable Truths",
+      "class": "gag_text",
+      "reliability": "none",
+      "use": "Do not use as lore evidence."
+    },
+    {
+      "record_id": "sotha_scrollbook",
+      "title": "Transmeta Interivatives",
+      "class": "image_only_or_near_image_only_book",
+      "reliability": "requires_visual_source_review",
+      "use": "Text extraction is insufficient because the content is carried by embedded images; do not infer missing substance from OCR-free text."
+    }
+  ]
+}
