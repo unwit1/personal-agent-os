@@ -337,6 +337,12 @@ def sync_status() -> dict[str, Any]:
                 health["agent_ref_schema_ready"] = (
                     "agent_ref" in _table_columns(conn, "applicants")
                 )
+                if not health["agent_ref_schema_ready"] and health.get("status") != "unavailable":
+                    health["status"] = "degraded"
+            else:
+                health["agent_ref_schema_ready"] = False
+                if health.get("status") != "unavailable":
+                    health["status"] = "degraded"
             if "agent_events" in tables:
                 row = conn.execute(
                     "SELECT COUNT(*) AS pending_count, MIN(created_at) AS oldest_pending_at, "
@@ -355,6 +361,8 @@ def sync_status() -> dict[str, Any]:
                     "newest_pending_at": None,
                     "schema_present": False,
                 }
+                if health.get("status") != "unavailable":
+                    health["status"] = "degraded"
         finally:
             conn.close()
     except sqlite3.Error:
