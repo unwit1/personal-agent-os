@@ -64,6 +64,16 @@ from .mail import account_status as mail_account_status, get_message as mail_get
 from .improvements import capture_improvement, get_improvement, issue_payload, list_improvements, search_improvements, update_improvement
 from .profile import compact_profile as profile_retrieve, profile_status
 from .registry import get_project, git_status, identify_project, load_state, projects
+from .rtec_applicants import (
+    acknowledge_event as applicant_acknowledge_event,
+    get_status as applicant_get_status,
+    get_summary as applicant_get_summary,
+    list_applicants as applicant_list,
+    pending_actions as applicant_pending_actions,
+    pending_events as applicant_pending_events,
+    search_applicants as applicant_search,
+    sync_status as applicant_sync_status,
+)
 from .skills import discover, match, metadata
 from .workflows import (
     complete_stage as workflow_complete_stage,
@@ -339,6 +349,75 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "description": "List staged workflow runs recorded for a project.",
         "inputSchema": {"type": "object", "properties": {"project_id": {"type": "string"}}, "required": ["project_id"]},
     },
+    "applicant.list": {
+        "description": "List normalized RTEC Applicant Dashboard records for administrative HR workflow. This is not a ranking or employment-decision tool.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "status": {"type": ["string", "null"]},
+                "limit": {"type": "integer", "minimum": 1, "maximum": 200, "default": 50},
+                "offset": {"type": "integer", "minimum": 0, "default": 0},
+            },
+        },
+    },
+    "applicant.search": {
+        "description": "Search basic normalized RTEC applicant administrative fields. Results are chronological, not ranked by candidate quality.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "query": {"type": "string"},
+                "status": {"type": ["string", "null"]},
+                "limit": {"type": "integer", "minimum": 1, "maximum": 200, "default": 50},
+            },
+            "required": ["query"],
+        },
+    },
+    "applicant.get_summary": {
+        "description": "Get a minimum-necessary RTEC applicant administrative summary. Restricted self-ID, notes, screening flags, document paths, and document content are excluded.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {"applicant_key": {"type": "string"}},
+            "required": ["applicant_key"],
+        },
+    },
+    "applicant.get_status": {
+        "description": "Get the human-controlled workflow status and communication state for one RTEC applicant.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {"applicant_key": {"type": "string"}},
+            "required": ["applicant_key"],
+        },
+    },
+    "applicant.pending_actions": {
+        "description": "List administrative follow-up states from the RTEC Applicant Dashboard. This does not recommend employment outcomes.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "limit": {"type": "integer", "minimum": 1, "maximum": 200, "default": 100}
+            },
+        },
+    },
+    "applicant.sync_status": {
+        "description": "Read privacy-safe Fillout/Google/Dashboard sync and event-outbox health without applicant rows.",
+        "inputSchema": {"type": "object", "properties": {}},
+    },
+    "applicant.events": {
+        "description": "Read pending restricted local Applicant Dashboard integration events. Event metadata does not include documents, notes, or self-ID data.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "limit": {"type": "integer", "minimum": 1, "maximum": 200, "default": 100}
+            },
+        },
+    },
+    "applicant.event_ack": {
+        "description": "Acknowledge one Applicant Dashboard integration event. This changes only event bookkeeping, never applicant workflow status.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {"event_id": {"type": "string"}},
+            "required": ["event_id"],
+        },
+    },
     "form.route": {
         "description": "Route a sanitized work-form fingerprint; persistence is local-only and explicit.",
         "inputSchema": {"type": "object", "properties": {"candidate": {"type": "object"}, "persist": {"type": "boolean", "default": False}, "queue_dir": {"type": ["string", "null"]}}, "required": ["candidate"]},
@@ -401,6 +480,14 @@ def methods() -> dict[str, Callable[..., Any]]:
         "workflow.runs": workflow_list_runs,
         "form.route": route_form,
         "form.issue_payload": form_issue_payload,
+        "applicant.list": applicant_list,
+        "applicant.search": applicant_search,
+        "applicant.get_summary": applicant_get_summary,
+        "applicant.get_status": applicant_get_status,
+        "applicant.pending_actions": applicant_pending_actions,
+        "applicant.sync_status": applicant_sync_status,
+        "applicant.events": applicant_pending_events,
+        "applicant.event_ack": applicant_acknowledge_event,
     }
     # These aliases are deliberately small: regular-chat clients should normally
     # need only agent.context and agent.capture_candidates.
