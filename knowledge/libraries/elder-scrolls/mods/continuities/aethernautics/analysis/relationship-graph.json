@@ -1,0 +1,76 @@
+{
+  "continuity_id": "tes.mod.aethernautics",
+  "edges": [
+    {
+      "subject": "Century Adgran",
+      "predicate": "leads_expedition_to",
+      "object": "Rthamaz",
+      "evidence": [
+        "BOOK 05002FA0",
+        "BOOK 05002FA1",
+        "BOOK 05002FA2",
+        "BOOK 05002FA3"
+      ]
+    },
+    {
+      "subject": "Chronographers",
+      "predicate": "use_or_issue",
+      "object": "Imperfections",
+      "evidence": [
+        "BOOK 05002FA8"
+      ]
+    },
+    {
+      "subject": "Chronographers",
+      "predicate": "associated_origin",
+      "object": "Armour of Oscillating Quartz",
+      "evidence": [
+        "BOOK 05002FA9"
+      ],
+      "qualification": "reported in-universe history"
+    },
+    {
+      "subject": "Nzhavananear",
+      "predicate": "has_destination",
+      "object": "Sotha Sil",
+      "evidence": [
+        "MESG 0508E040"
+      ]
+    },
+    {
+      "subject": "Nzhavananear",
+      "predicate": "has_destination",
+      "object": "Masser",
+      "evidence": [
+        "MESG 0508E041"
+      ]
+    },
+    {
+      "subject": "Nzhavananear",
+      "predicate": "has_destination",
+      "object": "Tamriel",
+      "evidence": [
+        "MESG 0508E042"
+      ]
+    },
+    {
+      "subject": "Masser",
+      "predicate": "contains",
+      "object": "Reman Era Moon Colony",
+      "evidence": [
+        "CELL 050AAB80",
+        "LCTN 0512C8D4"
+      ]
+    },
+    {
+      "subject": "Rthamaz technology",
+      "predicate": "uses_power_source",
+      "object": "Aetherium/starmetal",
+      "evidence": [
+        "BOOK 05002FAA",
+        "BOOK 05002FAC",
+        "MESG 05088EEF"
+      ]
+    }
+  ]
+}

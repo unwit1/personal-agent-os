@@ -1,0 +1,10 @@
+{
+  "continuity_id": "tes.mod.aethernautics",
+  "books": 22,
+  "characters": 8,
+  "places": 28,
+  "messages": 20,
+  "quests": 1,
+  "implementation_objects": 90,
+  "note": "All extracted current-package lore-bearing text is persisted in raw shards; indexes are retrieval projections, not replacements."
+}
