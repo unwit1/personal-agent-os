@@ -26,18 +26,18 @@
     {
       "project": "rtec-hr-process-model",
       "repository": "unwit1/personal-agent-os",
-      "entries": 13,
-      "note": "Blank/reference forms preserved or embedded in the RTEC HR knowledge corpus, including orientation and pre-employment references plus handbook receipt certificates from 2019, 2021, and 2023."
+      "entries": 15,
+      "note": "Blank/reference forms preserved or embedded in the RTEC HR knowledge corpus, including orientation and pre-employment references, employee handbook receipt certificates, and two driver handbook receipt acknowledgments from 2017 and 2019."
     }
   ],
   "stats": {
-    "total_reference_records": 88,
+    "total_reference_records": 90,
     "hr_gui_manifest_records": 72,
     "applicant_dashboard_records": 3,
-    "already_ingested_hr_corpus_records": 13,
+    "already_ingested_hr_corpus_records": 15,
     "unique_identity_keys": 74,
     "duplicate_or_multi_source_identity_keys": 4,
-    "pending_identity_review_records": 10
+    "pending_identity_review_records": 12
   },
   "entries": [
     {
@@ -2182,6 +2182,56 @@
       ],
       "related_source_artifact_paths": [
         "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/source/Employee-Handbook-2021-web-copy-emailed-2022-09-19.pdf"
+      ]
+    },
+    {
+      "id": "rtec-form-driver-handbook-receipt-2017",
+      "title": "Driver Handbook Receipt Acknowledgment, 2017 handbook copy",
+      "category": "Driver Training / Handbook Acknowledgment",
+      "source_project": "rtec-hr-process-model",
+      "source_repository": "unwit1/personal-agent-os",
+      "source_path": "knowledge/libraries/rtec-hr/sources/archive-reference-documents-2016-2019/source/Employee-Driver-Handbook-2017-Revised-Through-2016.docx",
+      "source_location": "Confirmation of Receipt of Driver Handbook section",
+      "source_kind": "blank_reference_form_embedded_in_handbook",
+      "mapping_status": "candidate_possible_related_source",
+      "canonical_form_type": "Driver Handbook Receipt Acknowledgment",
+      "temporal_status": "historical; approval/effective status unknown",
+      "validation_state": "text_extracted_blank_fields_visual_check_pending",
+      "full_source_status": "Embedded in preserved complete handbook source; searchable full text mirrored at knowledge/libraries/rtec-hr/sources/archive-reference-documents-2016-2019/fulltext/fulltext-driver-2017.md",
+      "related_catalog_entry_ids": [
+        "rtec-form-employee-handbook-receipt-certificate-2019-archive",
+        "rtec-form-employee-handbook-receipt-certificate-2023"
+      ],
+      "policy_authority": "none_by_form_presence",
+      "notes": [
+        "Extracted text shows blank recipient/name, signature, and date fields; visual layout has not been checked.",
+        "Possible relationship to employee-handbook receipt certificates is unconfirmed; retain as a distinct source record pending layout/content comparison.",
+        "The 2019 handbook is labeled draft1; approval and use are unknown."
+      ]
+    },
+    {
+      "id": "rtec-form-driver-handbook-receipt-2019-draft",
+      "title": "Driver Handbook Receipt Acknowledgment, 2019 draft1",
+      "category": "Driver Training / Handbook Acknowledgment",
+      "source_project": "rtec-hr-process-model",
+      "source_repository": "unwit1/personal-agent-os",
+      "source_path": "knowledge/libraries/rtec-hr/sources/archive-reference-documents-2016-2019/source/RTEC-Driver-Handbook-2019-Draft1.docx",
+      "source_location": "Confirmation of Receipt of Driver Handbook section",
+      "source_kind": "blank_reference_form_embedded_in_handbook",
+      "mapping_status": "candidate_possible_related_source",
+      "canonical_form_type": "Driver Handbook Receipt Acknowledgment",
+      "temporal_status": "historical; approval/effective status unknown",
+      "validation_state": "text_extracted_blank_fields_visual_check_pending",
+      "full_source_status": "Embedded in preserved complete handbook source; searchable full text mirrored at knowledge/libraries/rtec-hr/sources/archive-reference-documents-2016-2019/fulltext/fulltext-driver-2019.md",
+      "related_catalog_entry_ids": [
+        "rtec-form-employee-handbook-receipt-certificate-2019-archive",
+        "rtec-form-employee-handbook-receipt-certificate-2023"
+      ],
+      "policy_authority": "none_by_form_presence",
+      "notes": [
+        "Extracted text shows blank recipient/name, signature, and date fields; visual layout has not been checked.",
+        "Possible relationship to employee-handbook receipt certificates is unconfirmed; retain as a distinct source record pending layout/content comparison.",
+        "The 2019 handbook is labeled draft1; approval and use are unknown."
       ]
     }
   ]

@@ -94,3 +94,5 @@ Notable ingestion findings: the supplied `Disciplinary steps` workbook is a blan
 ## Employee handbook archive versions
 
 Historical complete or alternate employee-handbook copies are preserved as separate versioned sources rather than overwritten: 2019 and 2021 archives at `sources/rtec-hr-employee-handbook-archive-2019-2021/`, March 2023 variants at `sources/rtec-hr-employee-handbook-2023-03-01/`, and the December 2025 handbook at `sources/rtec-hr-employee-handbook-2025-12-15/`. The 2019/2021 archive batch is indexed at `sources/batches/rtec-hr-employee-handbook-archive-2019-2021.json`. All are historical evidence until section-specific authority is established; the 2021 DOCX contains unresolved tracked revisions and conflicts with a separately archived July 2021 PDF copy identified as correct for the website in September 2022.
+
+Historical employee and driver handbook sources are preserved under sources/rtec-hr-employee-handbook-archive-2019-2021/ and sources/archive-reference-documents-2016-2019/. The latter includes 2017 and 2019 driver handbook copies and a scanned 2016 leave-policy excerpt; currentness questions remain open.

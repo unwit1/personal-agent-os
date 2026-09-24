@@ -12,7 +12,8 @@
     "Build version chains from the FY2017-era compliance sources through later/current AAP, EEO and Title VI/LEP versions.",
     "Continue ingesting the broader historical RTEC HR document base in small committed batches.",
     "Preserve safe manuals, policies, procedures, templates, training/reference sources, grant binders and organizational materials in full searchable form while keeping restricted person-level case data out of GitHub.",
-    "Use the correspondence archive to reconcile current discipline, attendance/leave, administrative approval, CSR escalation, employee-evaluation and employee-guidance workflows against newer authoritative sources."
+    "Use the correspondence archive to reconcile current discipline, attendance/leave, administrative approval, CSR escalation, employee-evaluation and employee-guidance workflows against newer authoritative sources.",
+    "Continue clause-level review of the preserved 2017 and draft1 2019 driver handbooks; confirm blank receipt layouts and determine whether either version was approved or superseded."
   ],
   "important_paths": [
     "projects/rtec-hr-process-model/README.md",
@@ -113,11 +114,11 @@
       "unwit1/job-applicant-dashboard",
       "unwit1/personal-agent-os"
     ],
-    "total_reference_records": 88,
+    "total_reference_records": 90,
     "unique_identity_keys": 74,
     "full_source_rule": "When a safe original reference artifact is available, preserve it in full or by a lossless repository-safe representation and link it to the existing catalog entry.",
     "authority_rule": "Form presence is contextual evidence, not automatic current policy authority.",
-    "already_ingested_hr_corpus_records": 13
+    "already_ingested_hr_corpus_records": 15
   },
   "job_description_context": {
     "source_set": "rtec-hr-job-description-library-2026-09-23",

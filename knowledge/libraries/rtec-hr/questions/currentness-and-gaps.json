@@ -1,6 +1,6 @@
 {
   "queue_id": "rtec-hr-currentness-and-gap-queue",
-  "updated_at": "2026-09-23",
+  "updated_at": "2026-09-24",
   "purpose": "Questions that future sources should answer automatically when possible before asking the user.",
   "questions": [
     {
@@ -200,6 +200,18 @@
       "priority": "low",
       "domain": "benefits_wellness",
       "question": "Does RTEC still coordinate on-site preventive vaccination events, and what current insurer, vendor, eligibility and employee-communication process governs them?",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "driver_handbooks",
+      "question": "Was the 2019 driver handbook marked draft1 approved or distributed, what version superseded it, and are its receipt acknowledgment and operating guidance still used? Compare the preserved 2017 and 2019 receipt layouts before deduplicating their form identity.",
+      "status": "open"
+    },
+    {
+      "priority": "medium",
+      "domain": "attendance_leave",
+      "question": "What date and approved source established the change from the historical 90-day personal/sick-leave eligibility threshold on the ambiguous 2016 handbook page to the 30-day threshold in later handbooks?",
       "status": "open"
     }
   ]
