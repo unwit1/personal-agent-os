@@ -1,0 +1,763 @@
+{
+  "schema_version": 1,
+  "updated": "2026-09-24",
+  "purpose": "Normalize common Skyrim modding shorthand to canonical concepts and preferred knowledge modules.",
+  "aliases": [
+    {
+      "canonical": "Creation Kit",
+      "aliases": [
+        "CK"
+      ],
+      "modules": [
+        "creation-kit-worldbuilding-navmesh.md",
+        "story-manager-quests-dialogue-scenes.md",
+        "creation-kit-record-type-catalog.md"
+      ]
+    },
+    {
+      "canonical": "xEdit",
+      "aliases": [
+        "SSEEdit",
+        "TES5Edit",
+        "TES5VREdit"
+      ],
+      "modules": [
+        "records-patching-load-order.md",
+        "xedit-plugin-format-advanced.md"
+      ]
+    },
+    {
+      "canonical": "Mod Organizer 2",
+      "aliases": [
+        "MO2",
+        "Mod Organizer"
+      ],
+      "modules": [
+        "mod-managers-modlists-deployment.md"
+      ]
+    },
+    {
+      "canonical": "virtual file system",
+      "aliases": [
+        "VFS",
+        "USVFS"
+      ],
+      "modules": [
+        "mod-managers-modlists-deployment.md"
+      ]
+    },
+    {
+      "canonical": "Skyrim Script Extender",
+      "aliases": [
+        "SKSE",
+        "SKSE64"
+      ],
+      "modules": [
+        "skse-commonlib-native-crash.md",
+        "development-toolchains.md"
+      ]
+    },
+    {
+      "canonical": "CommonLibSSE-NG",
+      "aliases": [
+        "CommonLib NG",
+        "CLib-NG",
+        "CommonLibSSE NG"
+      ],
+      "modules": [
+        "skse-commonlib-native-crash.md",
+        "development-toolchains.md"
+      ]
+    },
+    {
+      "canonical": "Address Library for SKSE Plugins",
+      "aliases": [
+        "Address Library",
+        "AL"
+      ],
+      "modules": [
+        "skse-commonlib-native-crash.md"
+      ]
+    },
+    {
+      "canonical": "ESP-FE",
+      "aliases": [
+        "ESL-flagged ESP",
+        "light ESP",
+        "ESPFE"
+      ],
+      "modules": [
+        "core-glossary.md",
+        "records-patching-load-order.md",
+        "xedit-plugin-format-advanced.md"
+      ]
+    },
+    {
+      "canonical": "light plugin",
+      "aliases": [
+        "ESL plugin",
+        "light master"
+      ],
+      "modules": [
+        "core-glossary.md",
+        "records-patching-load-order.md"
+      ]
+    },
+    {
+      "canonical": "FormID",
+      "aliases": [
+        "form id",
+        "formid"
+      ],
+      "modules": [
+        "xedit-plugin-format-advanced.md",
+        "records-patching-load-order.md"
+      ]
+    },
+    {
+      "canonical": "EditorID",
+      "aliases": [
+        "EDID",
+        "editor id"
+      ],
+      "modules": [
+        "xedit-plugin-format-advanced.md"
+      ]
+    },
+    {
+      "canonical": "Identical To Master",
+      "aliases": [
+        "ITM"
+      ],
+      "modules": [
+        "records-patching-load-order.md",
+        "xedit-plugin-format-advanced.md"
+      ]
+    },
+    {
+      "canonical": "Quick Auto Clean",
+      "aliases": [
+        "QAC",
+        "QuickAutoClean"
+      ],
+      "modules": [
+        "records-patching-load-order.md",
+        "xedit-plugin-format-advanced.md"
+      ]
+    },
+    {
+      "canonical": "Undelete and Disable References",
+      "aliases": [
+        "UDR",
+        "undelete disable"
+      ],
+      "modules": [
+        "records-patching-load-order.md"
+      ]
+    },
+    {
+      "canonical": "Spell Perk Item Distributor",
+      "aliases": [
+        "SPID"
+      ],
+      "modules": [
+        "runtime-distribution-frameworks.md"
+      ]
+    },
+    {
+      "canonical": "Keyword Item Distributor",
+      "aliases": [
+        "KID"
+      ],
+      "modules": [
+        "runtime-distribution-frameworks.md"
+      ]
+    },
+    {
+      "canonical": "Base Object Swapper",
+      "aliases": [
+        "BOS"
+      ],
+      "modules": [
+        "runtime-distribution-frameworks.md"
+      ]
+    },
+    {
+      "canonical": "FormList Manipulator",
+      "aliases": [
+        "FLM"
+      ],
+      "modules": [
+        "runtime-distribution-frameworks.md"
+      ]
+    },
+    {
+      "canonical": "SkyPatcher",
+      "aliases": [
+        "Sky Patcher"
+      ],
+      "modules": [
+        "skypatcher-runtime-record-patching.md"
+      ]
+    },
+    {
+      "canonical": "Open Animation Replacer",
+      "aliases": [
+        "OAR"
+      ],
+      "modules": [
+        "animation-assets-bodyslide-ui.md"
+      ]
+    },
+    {
+      "canonical": "Dynamic Animation Replacer",
+      "aliases": [
+        "DAR"
+      ],
+      "modules": [
+        "animation-assets-bodyslide-ui.md"
+      ]
+    },
+    {
+      "canonical": "Pandora Behaviour Engine",
+      "aliases": [
+        "Pandora",
+        "PBE"
+      ],
+      "modules": [
+        "animation-assets-bodyslide-ui.md"
+      ]
+    },
+    {
+      "canonical": "Fore's New Idles in Skyrim",
+      "aliases": [
+        "FNIS"
+      ],
+      "modules": [
+        "animation-assets-bodyslide-ui.md"
+      ]
+    },
+    {
+      "canonical": "Faster HDT-SMP",
+      "aliases": [
+        "FSMP",
+        "HDT-SMP",
+        "SMP"
+      ],
+      "modules": [
+        "physics-hdt-smp-collision.md"
+      ]
+    },
+    {
+      "canonical": "XP32 Maximum Skeleton Special Extended",
+      "aliases": [
+        "XPMSSE",
+        "XPMSE"
+      ],
+      "modules": [
+        "physics-hdt-smp-collision.md",
+        "animation-assets-bodyslide-ui.md"
+      ]
+    },
+    {
+      "canonical": "BodySlide",
+      "aliases": [
+        "Body Slide"
+      ],
+      "modules": [
+        "animation-assets-bodyslide-ui.md",
+        "npc-appearance-facegen-racemenu.md"
+      ]
+    },
+    {
+      "canonical": "Outfit Studio",
+      "aliases": [
+        "OS"
+      ],
+      "modules": [
+        "animation-assets-bodyslide-ui.md"
+      ]
+    },
+    {
+      "canonical": "RaceMenu",
+      "aliases": [
+        "RM",
+        "skee",
+        "skee64"
+      ],
+      "modules": [
+        "npc-appearance-facegen-racemenu.md"
+      ]
+    },
+    {
+      "canonical": "BodyMorph",
+      "aliases": [
+        "Body Morph"
+      ],
+      "modules": [
+        "npc-appearance-facegen-racemenu.md"
+      ]
+    },
+    {
+      "canonical": "FaceGen",
+      "aliases": [
+        "Face Gen",
+        "FaceGeom",
+        "FaceTint"
+      ],
+      "modules": [
+        "npc-appearance-facegen-racemenu.md"
+      ]
+    },
+    {
+      "canonical": "dark face bug",
+      "aliases": [
+        "black face bug",
+        "grey face bug",
+        "gray face bug"
+      ],
+      "modules": [
+        "npc-appearance-facegen-racemenu.md"
+      ]
+    },
+    {
+      "canonical": "DynDOLOD",
+      "aliases": [
+        "Dyndolod",
+        "Dynamic Distant Objects LOD"
+      ],
+      "modules": [
+        "lod-grass-seasons-occlusion.md",
+        "worldspace-navmesh-saves-persistence.md"
+      ]
+    },
+    {
+      "canonical": "TexGen",
+      "aliases": [
+        "Tex Gen"
+      ],
+      "modules": [
+        "lod-grass-seasons-occlusion.md"
+      ]
+    },
+    {
+      "canonical": "xLODGen",
+      "aliases": [
+        "LODGen terrain",
+        "SSELODGen"
+      ],
+      "modules": [
+        "lod-grass-seasons-occlusion.md"
+      ]
+    },
+    {
+      "canonical": "level of detail",
+      "aliases": [
+        "LOD"
+      ],
+      "modules": [
+        "lod-grass-seasons-occlusion.md"
+      ]
+    },
+    {
+      "canonical": "object LOD",
+      "aliases": [
+        "ObjectLOD"
+      ],
+      "modules": [
+        "lod-grass-seasons-occlusion.md"
+      ]
+    },
+    {
+      "canonical": "tree LOD",
+      "aliases": [
+        "TreeLOD"
+      ],
+      "modules": [
+        "lod-grass-seasons-occlusion.md"
+      ]
+    },
+    {
+      "canonical": "terrain LOD",
+      "aliases": [
+        "TerrainLOD"
+      ],
+      "modules": [
+        "lod-grass-seasons-occlusion.md"
+      ]
+    },
+    {
+      "canonical": "grass LOD",
+      "aliases": [
+        "GrassLOD"
+      ],
+      "modules": [
+        "lod-grass-seasons-occlusion.md"
+      ]
+    },
+    {
+      "canonical": "Mod Configuration Menu",
+      "aliases": [
+        "MCM"
+      ],
+      "modules": [
+        "ui-skyui-mcm-scaleform.md"
+      ]
+    },
+    {
+      "canonical": "MCM Helper",
+      "aliases": [
+        "MCMHelper"
+      ],
+      "modules": [
+        "ui-skyui-mcm-scaleform.md"
+      ]
+    },
+    {
+      "canonical": "SkyUI",
+      "aliases": [
+        "Sky UI"
+      ],
+      "modules": [
+        "ui-skyui-mcm-scaleform.md"
+      ]
+    },
+    {
+      "canonical": "Community Shaders",
+      "aliases": [
+        "CS"
+      ],
+      "modules": [
+        "rendering-shaders-lighting.md"
+      ]
+    },
+    {
+      "canonical": "ENBSeries",
+      "aliases": [
+        "ENB"
+      ],
+      "modules": [
+        "rendering-shaders-lighting.md"
+      ]
+    },
+    {
+      "canonical": "SSE Display Tweaks",
+      "aliases": [
+        "Display Tweaks",
+        "SSEDT"
+      ],
+      "modules": [
+        "rendering-shaders-lighting.md",
+        "performance-engine-limits.md"
+      ]
+    },
+    {
+      "canonical": "Crash Logger SSE AE VR",
+      "aliases": [
+        "Crash Logger",
+        "CrashLogger"
+      ],
+      "modules": [
+        "crash-log-patterns.md",
+        "skse-commonlib-native-crash.md"
+      ]
+    },
+    {
+      "canonical": "ReSaver",
+      "aliases": [
+        "FallrimTools",
+        "Fallrim Tools"
+      ],
+      "modules": [
+        "papyrus-persistence-advanced.md",
+        "worldspace-navmesh-saves-persistence.md"
+      ]
+    },
+    {
+      "canonical": "Papyrus",
+      "aliases": [
+        "Papyrus VM"
+      ],
+      "modules": [
+        "papyrus-quests-dialogue-ai-magic.md",
+        "papyrus-persistence-advanced.md",
+        "papyrus-api-event-catalog.md"
+      ]
+    },
+    {
+      "canonical": "compiled Papyrus script",
+      "aliases": [
+        "PEX",
+        ".pex"
+      ],
+      "modules": [
+        "papyrus-quests-dialogue-ai-magic.md",
+        "development-toolchains.md"
+      ]
+    },
+    {
+      "canonical": "Papyrus source",
+      "aliases": [
+        "PSC",
+        ".psc"
+      ],
+      "modules": [
+        "papyrus-quests-dialogue-ai-magic.md",
+        "development-toolchains.md"
+      ]
+    },
+    {
+      "canonical": "Bethesda Softworks Archive",
+      "aliases": [
+        "BSA"
+      ],
+      "modules": [
+        "audio-localization-archives.md",
+        "mod-managers-modlists-deployment.md"
+      ]
+    },
+    {
+      "canonical": "DirectDraw Surface",
+      "aliases": [
+        "DDS"
+      ],
+      "modules": [
+        "textures-nif-asset-optimization.md"
+      ]
+    },
+    {
+      "canonical": "NetImmerse File",
+      "aliases": [
+        "NIF"
+      ],
+      "modules": [
+        "textures-nif-asset-optimization.md",
+        "animation-assets-bodyslide-ui.md"
+      ]
+    },
+    {
+      "canonical": "FUZ voice container",
+      "aliases": [
+        "FUZ",
+        ".fuz"
+      ],
+      "modules": [
+        "audio-localization-archives.md"
+      ]
+    },
+    {
+      "canonical": "XWM audio",
+      "aliases": [
+        "XWM",
+        ".xwm"
+      ],
+      "modules": [
+        "audio-localization-archives.md"
+      ]
+    },
+    {
+      "canonical": "lip synchronization data",
+      "aliases": [
+        "LIP",
+        ".lip"
+      ],
+      "modules": [
+        "audio-localization-archives.md"
+      ]
+    },
+    {
+      "canonical": "Synthesis",
+      "aliases": [
+        "Synthesis Patcher"
+      ],
+      "modules": [
+        "automated-patchers-mutagen-synthesis.md"
+      ]
+    },
+    {
+      "canonical": "Mutagen",
+      "aliases": [
+        "Mutagen.Bethesda"
+      ],
+      "modules": [
+        "automated-patchers-mutagen-synthesis.md"
+      ]
+    },
+    {
+      "canonical": "Wabbajack",
+      "aliases": [
+        "WJ"
+      ],
+      "modules": [
+        "mod-managers-modlists-deployment.md"
+      ]
+    },
+    {
+      "canonical": "Cathedral Assets Optimizer",
+      "aliases": [
+        "CAO"
+      ],
+      "modules": [
+        "textures-nif-asset-optimization.md"
+      ]
+    },
+    {
+      "canonical": "Creation Kit Platform Extended",
+      "aliases": [
+        "CKPE"
+      ],
+      "modules": [
+        "creation-kit-worldbuilding-navmesh.md"
+      ]
+    },
+    {
+      "canonical": "SSE Engine Fixes",
+      "aliases": [
+        "Engine Fixes",
+        "SSEEF"
+      ],
+      "modules": [
+        "engine-fixes-runtime-frameworks.md",
+        "performance-engine-limits.md"
+      ]
+    },
+    {
+      "canonical": "powerofthree's Papyrus Extender",
+      "aliases": [
+        "Papyrus Extender",
+        "PO3 Papyrus Extender"
+      ],
+      "modules": [
+        "engine-fixes-runtime-frameworks.md"
+      ]
+    },
+    {
+      "canonical": "powerofthree's Tweaks",
+      "aliases": [
+        "po3 Tweaks",
+        "PO3 Tweaks"
+      ],
+      "modules": [
+        "engine-fixes-runtime-frameworks.md"
+      ]
+    },
+    {
+      "canonical": "JContainers",
+      "aliases": [
+        "JC"
+      ],
+      "modules": [
+        "engine-fixes-runtime-frameworks.md",
+        "papyrus-persistence-advanced.md"
+      ]
+    },
+    {
+      "canonical": "PapyrusUtil",
+      "aliases": [
+        "Papyrus Util"
+      ],
+      "modules": [
+        "engine-fixes-runtime-frameworks.md",
+        "papyrus-persistence-advanced.md"
+      ]
+    },
+    {
+      "canonical": "FormList",
+      "aliases": [
+        "FLST"
+      ],
+      "modules": [
+        "creation-kit-record-type-catalog.md",
+        "gameplay-records-combat-magic-crafting.md"
+      ]
+    },
+    {
+      "canonical": "MagicEffect",
+      "aliases": [
+        "MGEF"
+      ],
+      "modules": [
+        "gameplay-records-combat-magic-crafting.md"
+      ]
+    },
+    {
+      "canonical": "ArmorAddon",
+      "aliases": [
+        "ARMA"
+      ],
+      "modules": [
+        "gameplay-records-combat-magic-crafting.md",
+        "npc-appearance-facegen-racemenu.md"
+      ]
+    },
+    {
+      "canonical": "Armor",
+      "aliases": [
+        "ARMO"
+      ],
+      "modules": [
+        "gameplay-records-combat-magic-crafting.md"
+      ]
+    },
+    {
+      "canonical": "Worldspace",
+      "aliases": [
+        "WRLD"
+      ],
+      "modules": [
+        "creation-kit-worldbuilding-navmesh.md",
+        "worldspace-navmesh-saves-persistence.md"
+      ]
+    },
+    {
+      "canonical": "NavMesh",
+      "aliases": [
+        "NAVM",
+        "navmesh"
+      ],
+      "modules": [
+        "creation-kit-worldbuilding-navmesh.md"
+      ]
+    },
+    {
+      "canonical": "ObjectReference",
+      "aliases": [
+        "REFR",
+        "reference",
+        "ref"
+      ],
+      "modules": [
+        "creation-kit-record-type-catalog.md",
+        "worldspace-navmesh-saves-persistence.md"
+      ]
+    },
+    {
+      "canonical": "Quest",
+      "aliases": [
+        "QUST"
+      ],
+      "modules": [
+        "story-manager-quests-dialogue-scenes.md",
+        "papyrus-quests-dialogue-ai-magic.md"
+      ]
+    },
+    {
+      "canonical": "TopicInfo",
+      "aliases": [
+        "INFO"
+      ],
+      "modules": [
+        "story-manager-quests-dialogue-scenes.md"
+      ]
+    },
+    {
+      "canonical": "Topic",
+      "aliases": [
+        "DIAL"
+      ],
+      "modules": [
+        "story-manager-quests-dialogue-scenes.md"
+      ]
+    }
+  ]
+}
