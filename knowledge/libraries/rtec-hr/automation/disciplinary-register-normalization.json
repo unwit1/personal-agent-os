@@ -1,0 +1,214 @@
+{
+  "id": "rtec-automation-disciplinary-register-normalization",
+  "record_type": "automation_candidate",
+  "title": "Historical disciplinary-register normalization and safe import contract",
+  "status": "validated",
+  "temporal_status": "current",
+  "summary": "Deterministic analysis of the 17 supplied fiscal disciplinary workbooks establishes the normalization rules needed for safe migration: 1,193 populated event rows, four header layouts, inconsistent department/job-title/type/reason vocabularies, no exact duplicate rows, and legitimate multi-record same-person/same-date groups.",
+  "claims": [
+    {
+      "claim": "The supplied fiscal registers contain 1,193 populated event rows across the historical coverage analyzed; the 2025-2026 workbook contributes zero events because it is an empty template.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-process-disciplinary-logging-aap-history"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "coverage / normalization analysis",
+          "evidence_type": "structural",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Four distinct fiscal-register header layouts occur: the 2008-2009 ORIGIN/EEO-1 layout; a 2009-2014 RACE/EE0-1 layout; a 2014-forward layout adding VET and IWD; and a trailing-blank-column variant. The source frequently spells the EEO field as EE0-1 with a zero.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "schema_history / normalization analysis",
+          "evidence_type": "structural",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "Department values are not normalized: Operations, Opr and Opr. all occur; Adm and Adm. both occur; Café has spelling/punctuation variants; Maintenance occurs separately; one event has no department value.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "normalization analysis - department labels",
+          "evidence_type": "structural",
+          "note": "Aggregate label inventory only."
+        }
+      ]
+    },
+    {
+      "claim": "Job-title values contain meaningful and cosmetic variants, including Driver/PT Driver/P.T. Driver/Temp. Driver/Job Shop Driver; Area Manager/Area Mgr; Data Entry/Res/DE/Reserv; Garage Attendant misspellings/abbreviations; Café Assistant variants; Accounts Receivable variants; Receptionist/Clerical-Recep and other role labels.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-role-job-description-history"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "normalization analysis - job titles",
+          "evidence_type": "structural",
+          "note": "Alias examples only; do not collapse semantically distinct roles without role-history validation."
+        }
+      ]
+    },
+    {
+      "claim": "Thirteen populated fiscal rows have a blank TYPE value, while historical type labels also vary by spelling/roman-vs-arabic numerals and include non-disciplinary labels such as Incident.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "EXTENDS",
+      "related_record_ids": [
+        "rtec-process-disciplinary-logging-aap-history"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "historical_type_vocabulary_counts / normalization analysis",
+          "evidence_type": "structural",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "The fiscal registers contain 276 distinct free-text REASON strings, confirming that reason is a narrative/compound field rather than a controlled single-value taxonomy.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "normalization analysis - reason vocabulary",
+          "evidence_type": "structural",
+          "note": null
+        }
+      ]
+    },
+    {
+      "claim": "No exact duplicate event rows were found across the fiscal registers, but 24 same-person/same-date groups contain two or three distinct records; 13 of those groups also share the same reason text. Therefore employee+date and employee+date+reason are not safe unique keys.",
+      "claim_kind": "observed_fact",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "normalization analysis - duplicate/key test",
+          "evidence_type": "structural",
+          "note": "Aggregate duplicate-key result only; employee identities excluded."
+        }
+      ]
+    },
+    {
+      "claim": "The safe migration design should preserve every source row with a stable source-row identity and store normalized aliases/categories alongside—not instead of—the raw source values.",
+      "claim_kind": "rule_candidate",
+      "confidence": 1,
+      "relationship": "NEW",
+      "related_record_ids": [
+        "rtec-automation-content-first-document-classification"
+      ],
+      "evidence": [
+        {
+          "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+          "page_or_section": "cross-workbook normalization analysis",
+          "evidence_type": "repeated_observation",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "trigger": "Legacy disciplinary/AAP spreadsheets are imported or migrated.",
+  "prerequisites": [
+    "Restricted processing environment for employee/protected-class data.",
+    "Source workbook hash and schema/year identified."
+  ],
+  "actors": [
+    "HR data migration process",
+    "Human Resources",
+    "EEO/AAP analyst"
+  ],
+  "systems": [
+    "Legacy Excel workbooks",
+    "Authoritative disciplinary/incident store"
+  ],
+  "forms": [
+    "Fiscal disciplinary register"
+  ],
+  "steps": [
+    "Assign each source workbook a hash/version and each populated source row a stable source-row ID.",
+    "Detect the workbook schema/header variant instead of assuming fixed column positions.",
+    "Normalize department/job-title/type/reason into separate derived fields while preserving raw values.",
+    "Classify event type explicitly, including discipline versus vehicle incident.",
+    "Do not deduplicate on person/date/reason; only exact-row/hash evidence may support duplicate treatment, and even exact repeats require provenance review.",
+    "Validate blank/unknown fields and report them rather than silently defaulting.",
+    "Retain source-to-normalized mappings and confidence for audit/replay."
+  ],
+  "decisions": [
+    "Alias versus genuinely distinct role/value.",
+    "Blank/unknown versus inferable value.",
+    "Exact duplicate versus multiple legitimate records on the same date.",
+    "Disciplinary event versus incident/counseling/other event."
+  ],
+  "deadlines": [],
+  "outputs": [
+    "Normalized restricted event store",
+    "Source-row provenance map",
+    "Import exceptions report",
+    "Alias/mapping table"
+  ],
+  "exceptions": [],
+  "controls": [
+    "Never overwrite raw historical values with normalized values.",
+    "Never use employee+date or employee+date+reason as the primary key.",
+    "Header spelling and position must be schema-detected.",
+    "Free-text reasons may map to multiple derived categories.",
+    "Role/title normalization must respect effective-dated job history."
+  ],
+  "unresolved_questions": [
+    "What stable event ID should be used for historical records that lack a native identifier?",
+    "Which job-title aliases should map to one canonical role versus remain distinct historical positions?",
+    "How should WW1-WW9/roman-numeral warning labels be normalized once their historical semantics are validated?"
+  ],
+  "automation_candidates": [
+    "Build year/schema adapters with regression fixtures from every header layout.",
+    "Generate stable event IDs from source hash + sheet + source row number.",
+    "Maintain alias tables for department/title/type with effective dates and human-review status.",
+    "Add import tests proving same-date multi-record events survive normalization unchanged."
+  ],
+  "provenance": [
+    {
+      "source_id": "rtec-hr-disciplinary-register-aggregate-2008-2026",
+      "safe_source_type": "privacy_safe_restricted_aggregate",
+      "source_date_or_version": "2008-2026 archive analysis",
+      "content_sha256": null,
+      "page_or_section": "normalization analysis",
+      "ingested_at": "2026-09-23",
+      "notes": "All row-level processing occurred locally; identities/protected values excluded from durable generalized knowledge.",
+      "source_created_date": null,
+      "source_revision_date": null,
+      "source_effective_from": null,
+      "source_effective_to": null,
+      "temporal_status": "historical",
+      "full_source_path": "knowledge/libraries/rtec-hr/restricted-evidence/disciplinary-register-aggregate-2008-2026.json",
+      "searchable_text_path": "knowledge/libraries/rtec-hr/restricted-evidence/disciplinary-register-aggregate-2008-2026.json"
+    }
+  ]
+}
