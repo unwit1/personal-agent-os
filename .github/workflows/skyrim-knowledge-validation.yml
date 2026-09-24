@@ -1,0 +1,29 @@
+name: Skyrim Knowledge Validation
+
+on:
+  push:
+    paths:
+      - "knowledge/libraries/skyrim-modding/**"
+      - "tools/knowledge/**"
+      - ".github/workflows/skyrim-knowledge-validation.yml"
+  pull_request:
+    paths:
+      - "knowledge/libraries/skyrim-modding/**"
+      - "tools/knowledge/**"
+      - ".github/workflows/skyrim-knowledge-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate Skyrim knowledge structure
+        run: python tools/knowledge/validate_skyrim_knowledge.py
