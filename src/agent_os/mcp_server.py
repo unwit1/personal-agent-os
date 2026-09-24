@@ -376,8 +376,8 @@ TOOL_SCHEMAS: dict[str, dict[str, Any]] = {
         "description": "Get a minimum-necessary RTEC applicant administrative summary. Restricted self-ID, notes, screening flags, document paths, and document content are excluded.",
         "inputSchema": {
             "type": "object",
-            "properties": {"applicant_key": {"type": "string"}},
-            "required": ["applicant_key"],
+            "properties": {"applicant_ref": {"type": "string"}},
+            "required": ["applicant_ref"],
         },
     },
     "applicant.get_status": {
