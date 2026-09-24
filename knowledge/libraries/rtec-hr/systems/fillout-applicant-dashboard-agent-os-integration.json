@@ -19,7 +19,7 @@
     "workflow_store": "Applicant Dashboard dashboard.db",
     "current_polling": "Dashboard invokes process_applications.py in-process approximately every 5 minutes when enabled"
   },
-  "canonical_integration_boundary": "Agent OS should integrate with the Applicant Dashboard's normalized application/workflow layer, not create an independent competing raw-Fillout ingestion pipeline.",
+  "canonical_integration_boundary": "Agent OS should integrate with the Applicant Dashboard's normalized administrative/workflow layer, not create an independent competing raw-Fillout ingestion or applicant-decision pipeline.",
   "rationale": [
     "The dashboard already owns duplicate detection/processed-row semantics.",
     "The dashboard already keeps Affirmative Action/EEO self-ID material separate from hiring-facing application material.",
@@ -52,7 +52,7 @@
     "submission_processed",
     "resume_linked_or_missing",
     "clarification_needed",
-    "screening_flag_changed",
+    "application_record_updated",
     "opening_match_changed",
     "status_changed",
     "interview_requested",
@@ -69,10 +69,11 @@
     "fallback": "Agent OS can call the dashboard's existing 'check Fillout now' sync function through the adapter when event delivery is unavailable."
   },
   "approval_policy": [
-    "Agent may automatically read/summarize normalized applicant records within authorized HR scope.",
-    "Agent may prepare drafts, interview packets, missing-information requests and recommendations.",
-    "Sending applicant communications, making hiring/denial decisions, changing consequential applicant status, extending offers, or submitting external records stays approval-gated unless the user explicitly configures narrower safe autonomy.",
-    "EEO/self-ID attributes must never be used to rank, screen or recommend applicants."
+    "Agent may automatically read/summarize normalized applicant records within authorized HR scope for administrative purposes.",
+    "Agent may track missing documents, deadlines, status, scheduling needs, and user-created follow-up commitments.",
+    "Agent may prepare interview, clarification, offer, rejection, or other correspondence only after the user supplies or confirms the underlying employment decision/action.",
+    "The Agent must not rank applicants, recommend who should be hired or rejected, or make employment decisions.",
+    "Restricted self-identification information remains outside ordinary recruiting tools and must not be used for employment decisions."
   ],
   "health_checks": [
     "last successful Fillout/Google bridge pull",
