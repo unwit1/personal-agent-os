@@ -1,6 +1,6 @@
 {
   "record_id": "rtec-hr-system-of-record-candidate-matrix-2026",
-  "updated_at": "2026-09-23",
+  "updated_at": "2026-09-24",
   "status": "candidate_architecture_requires_live_validation",
   "purpose": "Map each HR data domain to observed 2026 systems, historical systems, likely authoritative source, downstream consumers, and safe automation boundaries.",
   "domains": [
@@ -120,12 +120,12 @@
     {
       "domain": "benefit_enrollment_and_coverage",
       "observed_current_systems": [
-        "Guardian",
-        "UnitedHealthcare",
-        "ComPsych",
-        "RTEC Plan Cost Comparison",
-        "iSolved/Infinisource",
-        "ADP deductions"
+        "UnitedHealthcare medical plans",
+        "Guardian active benefit-plan administration",
+        "ComPsych ResourceCenter via Guardian-related support",
+        "iSolved/Infinisource Premium Only Plans Core Service (Section 125 POP)",
+        "ADP payroll benefit deductions",
+        "RTEC Plan Cost Comparison renewal/design workpaper"
       ],
       "historical_systems": [
         "CVIM",
@@ -134,7 +134,7 @@
         "The Abacus Group",
         "paper/email forms"
       ],
-      "likely_authoritative_source": "plan-specific carrier/admin system for coverage plus ADP for payroll deductions; exact enrollment hub unresolved",
+      "likely_authoritative_source": "Coverage authority is plan-line specific: carrier/admin systems and final plan documents govern coverage; UHC is strongly evidenced for current medical plans; Guardian is active but current product lines still need final-plan corroboration; iSolved/Infinisource is specifically evidenced for Section 125 Premium Only Plan service; ADP executes payroll deductions. The authoritative employee election hub and current COBRA/FSA administrator remain unresolved.",
       "downstream": [
         "payroll deductions",
         "plan-cost comparison/renewal planning",
@@ -146,10 +146,13 @@
       "read_automation": "medium_high",
       "write_automation": "approval_required",
       "unresolved": [
-        "which system is authoritative for elections",
-        "current broker",
-        "COBRA/FSA administrator",
-        "plan-by-plan ownership"
+        "authoritative employee enrollment/election hub",
+        "current benefits broker/advisor and renewal ownership",
+        "exact current Guardian product lines",
+        "COBRA administrator",
+        "FSA/HSA administrator",
+        "final 2026-27 UHC plan/SBC adoption",
+        "employee-facing benefits document/version owner"
       ]
     },
     {
