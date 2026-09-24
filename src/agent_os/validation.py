@@ -9,6 +9,7 @@ from typing import Any
 from .adapters import ADAPTER
 from .candidates import KINDS, STATUSES
 from .changes import CHANGE_TYPES, STATUSES as CHANGE_STATUSES
+from .connectors import REGISTRY_PATH as CONNECTOR_REGISTRY_PATH, load_connector_registry
 from .documents import CACHE_DIR
 from .improvements import CATEGORIES, PRIORITIES, STATUSES as IMPROVEMENT_STATUSES
 from .paths import ROOT
@@ -195,6 +196,12 @@ def validate() -> dict[str, Any]:
         if registry.get("schema") != "personal-agent/form-registry/v1":
             errors.append("form registry: unsupported schema")
 
+    checked += 1
+    try:
+        load_connector_registry(CONNECTOR_REGISTRY_PATH)
+    except (OSError, ValueError) as exc:
+        errors.append(f"connector registry: {exc}")
+
     surface_ids: set[str] = set()
     checked += 1
     if not SURFACE_REGISTRY_PATH.exists():
@@ -284,7 +291,7 @@ def validate() -> dict[str, Any]:
         if unknown:
             errors.append(f"{label}: run records stages absent from the manifest: {', '.join(sorted(unknown))}")
 
-    required_schemas = {"change-packet.schema.json", "google-safe-projection.schema.json", "improvement.schema.json", "form-fingerprint-v1.schema.json", "form-intake-v1.schema.json", "form-registry-v1.schema.json", "surface-registry-v1.schema.json", "workflow-manifest-v1.schema.json"}
+    required_schemas = {"change-packet.schema.json", "connector-registry-v1.schema.json", "google-safe-projection.schema.json", "improvement.schema.json", "form-fingerprint-v1.schema.json", "form-intake-v1.schema.json", "form-registry-v1.schema.json", "surface-registry-v1.schema.json", "workflow-manifest-v1.schema.json"}
     for schema_name in required_schemas:
         checked += 1
         if not (ROOT / "schemas" / schema_name).exists():

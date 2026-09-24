@@ -123,7 +123,10 @@ verifies them. The connected Agent OS MCP tool inventory still lacks the
 connector tools, so its running server needs a host-side restart before this
 surface can be verified through MCP. Credential resolution, surface adapters,
 reconciliation, live provider health checks, and cross-surface verification
-remain open. The surface registry and `integration-health` now expose a
+remain open. `agent.py validate` now loads the v1 connector registry as part of
+its deterministic checks; on this older worktree the overall command still
+reports unrelated missing project context, state files, and schemas. The
+surface registry and `integration-health` now expose a
 per-client connector capability matrix for local configuration inspection and
 changes, credential transfer, and Agent OS bridge availability. Hosted-client
 settings are marked inaccessible to local inspection or mutation, while bridge
