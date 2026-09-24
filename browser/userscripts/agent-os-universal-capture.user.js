@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Agent OS Universal Capture
 // @namespace    agent-os
-// @version      3.7.2
+// @version      3.9.2
 // @description  Save useful pages and passively index rendered Discord Web channel and search-result messages into Agent OS.
 // @homepageURL   https://github.com/unwit1/universal-capture-plugin
 // @updateURL     https://raw.githubusercontent.com/unwit1/universal-capture-plugin/main/agent-os-universal-capture.user.js
@@ -26,7 +26,7 @@
 (function () {
     "use strict";
 
-    var VERSION = "3.7.2";
+    var VERSION = "3.9.2";
     var SETTINGS_KEY = "agent_os_capture_settings_v1";
     var QUEUE_KEY = "agent_os_capture_queue_v1";
     var MAX_QUEUE = 500;
@@ -2143,9 +2143,47 @@
         button.style.zIndex = "2147483646";
     }
 
+    function isRedditSite() {
+        return hostname() === "reddit.com" ||
+            hostname() === "www.reddit.com" ||
+            hostname() === "old.reddit.com" ||
+            hostname() === "new.reddit.com";
+    }
+
+    function isRedditIndividualPost() {
+        return isRedditSite() && /\/comments\/[^/]+/i.test(location.pathname);
+    }
+
+    function isXenforoCaptureSite() {
+        var host = hostname();
+        return host === "spacebattles.com" ||
+            host.endsWith(".spacebattles.com") ||
+            host === "questionablequesting.com" ||
+            host.endsWith(".questionablequesting.com");
+    }
+
+    function isXenforoIndividualThread() {
+        return isXenforoCaptureSite() &&
+            /\/threads\/[^/]*\.\d+(?:\/|$)/i.test(location.pathname);
+    }
+
+    function shouldShowFloatingButton() {
+        if (isRedditSite() || isXenforoCaptureSite()) return false;
+        return true;
+    }
+
     function addFloatingButton() {
-        if (!loadSettings().showFloatingButton) return;
-        if (document.getElementById("agent-os-universal-save")) return;
+        var existing = document.getElementById("agent-os-universal-save");
+
+        // Reddit, SpaceBattles, and Questionable Questing use inline
+        // entity buttons attached to individual posts/threads instead
+        // of one page-wide floating save button.
+        if (!loadSettings().showFloatingButton || !shouldShowFloatingButton()) {
+            if (existing) existing.remove();
+            return;
+        }
+
+        if (existing) return;
         if (!document.body) return;
 
         var button = document.createElement("button");
@@ -2162,6 +2200,292 @@
             saveCurrent(button);
         });
         document.body.appendChild(button);
+    }
+
+    function xenforoThreadInfoFromUrl(urlText) {
+        try {
+            var u = new URL(urlText, location.href);
+            var host = String(u.hostname || "").toLowerCase();
+            var isSB = host === "spacebattles.com" || host.endsWith(".spacebattles.com");
+            var isQQ = host === "questionablequesting.com" || host.endsWith(".questionablequesting.com");
+            if (!isSB && !isQQ) return null;
+            var match = u.pathname.match(/\/threads\/[^/]*\.(\d+)(?:\/|$)/i);
+            if (!match) return null;
+            return {
+                site: isSB ? "spacebattles" : "questionablequesting",
+                thread_id: match[1],
+                url: u.origin + u.pathname
+            };
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function inlineEntityButton(label) {
+        var button = document.createElement("button");
+        button.type = "button";
+        button.textContent = label || "+ Agent OS";
+        button.className = "agent-os-inline-save";
+        buttonCss(button);
+        button.style.position = "relative";
+        button.style.top = "auto";
+        button.style.right = "auto";
+        button.style.display = "inline-flex";
+        button.style.alignItems = "center";
+        button.style.justifyContent = "center";
+        button.style.padding = "6px 9px";
+        button.style.margin = "0 4px 0 8px";
+        button.style.whiteSpace = "nowrap";
+        button.style.fontSize = "12px";
+        button.style.lineHeight = "1.1";
+        button.style.boxShadow = "0 2px 8px rgba(0,0,0,.18)";
+        return button;
+    }
+
+    function captureXenforoThreadRow(row, link, button) {
+        var info = xenforoThreadInfoFromUrl(link.href);
+        if (!info) return;
+
+        var title = cleanText(link.textContent);
+        var authorNode = row && row.querySelector
+            ? row.querySelector(".username, [data-user-id], .structItem-minor a")
+            : null;
+        var capture = genericCapture();
+        capture.site = info.site;
+        capture.content_type = "xenforo_thread";
+        capture.source_id = info.site + ":thread:" + info.thread_id;
+        capture.title = title || capture.title;
+        capture.author = cleanText(authorNode && authorNode.textContent);
+        capture.url = info.url;
+        capture.canonical_url = info.url;
+        capture.metadata = Object.assign({}, capture.metadata, {
+            adapter: "xenforo-thread-row",
+            forum: info.site,
+            thread_id: info.thread_id,
+            source_view: isXenforoIndividualThread() ? "thread" : "thread-list"
+        });
+        sendCapture(capture, button);
+    }
+
+    function xenforoPrimaryThreadLink(row) {
+        if (!row || !row.querySelector) return null;
+        var selectors = [
+            ".structItem-title a[href*='/threads/']",
+            ".p-title-value a[href*='/threads/']",
+            "a[data-tp-primary='on'][href*='/threads/']",
+            "a[href*='/threads/']"
+        ];
+        for (var i = 0; i < selectors.length; i += 1) {
+            var links = row.querySelectorAll(selectors[i]);
+            for (var j = 0; j < links.length; j += 1) {
+                if (xenforoThreadInfoFromUrl(links[j].href)) return links[j];
+            }
+        }
+        return null;
+    }
+
+    function xenforoButtonHost(row, link) {
+        if (!row) return null;
+
+        // XenForo thread-list rows normally expose a meta cell at the right.
+        // Prefer that so the button sits beside the thread rather than
+        // floating over the whole forum page.
+        var meta = row.querySelector &&
+            row.querySelector(".structItem-cell--meta, .structItem-cell.structItem-cell--meta");
+        if (meta) return meta;
+
+        var titleContainer = link && link.closest
+            ? link.closest(".structItem-title, .p-title-value, h1, h2, h3")
+            : null;
+        return titleContainer || row;
+    }
+
+    function addXenforoThreadButtons() {
+        if (!isXenforoCaptureSite() || !document.body) return;
+
+        var handled = new Set();
+
+        // Forum/category/search/list views.
+        document.querySelectorAll(
+            ".structItem--thread, .structItem[data-author], .structItem"
+        ).forEach(function (row) {
+            var link = xenforoPrimaryThreadLink(row);
+            if (!link) return;
+            var info = xenforoThreadInfoFromUrl(link.href);
+            if (!info || handled.has(info.thread_id)) return;
+            handled.add(info.thread_id);
+
+            if (row.querySelector(".agent-os-xenforo-thread-save")) return;
+            var host = xenforoButtonHost(row, link);
+            if (!host) return;
+
+            var button = inlineEntityButton("+ Agent OS");
+            button.classList.add("agent-os-xenforo-thread-save");
+            button.setAttribute("aria-label", "Save thread " + cleanText(link.textContent) + " to Agent OS");
+            button.title = "Save this thread to Agent OS";
+            button.style.float = "right";
+            button.style.marginTop = "4px";
+            button.style.marginBottom = "4px";
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                captureXenforoThreadRow(row, link, button);
+            });
+            host.appendChild(button);
+        });
+
+        // Individual thread page: put the same entity-scoped control next to
+        // the thread title instead of showing the global floating button.
+        if (isXenforoIndividualThread()) {
+            var currentInfo = xenforoThreadInfoFromUrl(location.href);
+            var titleHost = document.querySelector(".p-title-value, h1.p-title-value, .p-title h1");
+            if (currentInfo && titleHost &&
+                    !titleHost.querySelector(".agent-os-xenforo-thread-save")) {
+                var titleLink = document.createElement("a");
+                titleLink.href = currentInfo.url;
+                titleLink.textContent = cleanText(titleHost.childNodes[0] && titleHost.childNodes[0].textContent) ||
+                    cleanText(titleHost.textContent) || "Current thread";
+
+                var titleButton = inlineEntityButton("+ Agent OS");
+                titleButton.classList.add("agent-os-xenforo-thread-save");
+                titleButton.title = "Save this thread to Agent OS";
+                titleButton.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    captureXenforoThreadRow(titleHost, titleLink, titleButton);
+                });
+                titleHost.appendChild(titleButton);
+            }
+        }
+    }
+
+    function redditPostInfoFromUrl(urlText) {
+        try {
+            var u = new URL(urlText, location.href);
+            var host = String(u.hostname || "").toLowerCase();
+            if (["reddit.com", "www.reddit.com", "old.reddit.com", "new.reddit.com"].indexOf(host) === -1) {
+                return null;
+            }
+            var match = u.pathname.match(/\/r\/([^/]+)\/comments\/([^/]+)/i) ||
+                u.pathname.match(/\/comments\/([^/]+)/i);
+            if (!match) return null;
+            return {
+                subreddit: match.length > 2 ? match[1] : "",
+                post_id: match.length > 2 ? match[2] : match[1],
+                url: u.origin + u.pathname
+            };
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function redditCardLink(card) {
+        if (!card || !card.querySelector) return null;
+        var candidates = card.querySelectorAll("a[href*='/comments/']");
+        for (var i = 0; i < candidates.length; i += 1) {
+            if (redditPostInfoFromUrl(candidates[i].href)) return candidates[i];
+        }
+        return null;
+    }
+
+    function captureRedditCard(card, link, button) {
+        var info = redditPostInfoFromUrl(link.href);
+        if (!info) return;
+
+        var shreddit = card.matches && card.matches("shreddit-post")
+            ? card
+            : card.querySelector && card.querySelector("shreddit-post");
+        var title = cleanText(
+            (shreddit && shreddit.getAttribute("post-title")) ||
+            (card.querySelector && card.querySelector("h1, h2, h3, [slot='title']") &&
+             card.querySelector("h1, h2, h3, [slot='title']").textContent) ||
+            link.textContent
+        );
+        var author = cleanText(
+            (shreddit && shreddit.getAttribute("author")) ||
+            (card.querySelector && card.querySelector("[data-testid='post_author_link'], a[href*='/user/']") &&
+             card.querySelector("[data-testid='post_author_link'], a[href*='/user/']").textContent)
+        );
+
+        var capture = genericCapture();
+        capture.site = "reddit";
+        capture.content_type = "reddit_post";
+        capture.source_id = "reddit:" + info.post_id;
+        capture.title = title || capture.title;
+        capture.author = author;
+        capture.url = info.url;
+        capture.canonical_url = info.url;
+        capture.metadata = Object.assign({}, capture.metadata, {
+            adapter: "reddit-post-card",
+            subreddit: info.subreddit,
+            reddit_post_id: info.post_id,
+            source_view: isRedditIndividualPost() ? "post" : "post-list"
+        });
+        sendCapture(capture, button);
+    }
+
+    function addRedditPostButtons() {
+        if (!isRedditSite() || !document.body) return;
+
+        var seen = new Set();
+        var cards = Array.from(document.querySelectorAll(
+            "shreddit-post, article, [data-testid='post-container'], .thing.link"
+        ));
+
+        // Individual post pages may have a narrower post container.
+        if (isRedditIndividualPost() && !cards.length) {
+            var main = document.querySelector("main");
+            if (main) cards.push(main);
+        }
+
+        cards.forEach(function (card) {
+            var link = null;
+            if (card.matches && card.matches("shreddit-post")) {
+                var permalink = card.getAttribute("permalink") || card.getAttribute("content-href") || "";
+                if (permalink) {
+                    var synthetic = document.createElement("a");
+                    synthetic.href = permalink;
+                    synthetic.textContent = card.getAttribute("post-title") || "";
+                    if (redditPostInfoFromUrl(synthetic.href)) link = synthetic;
+                }
+            }
+            link = link || redditCardLink(card);
+            if (!link && isRedditIndividualPost()) {
+                var info = redditPostInfoFromUrl(location.href);
+                if (info) {
+                    link = document.createElement("a");
+                    link.href = info.url;
+                    link.textContent = cleanText(document.querySelector("h1") && document.querySelector("h1").textContent);
+                }
+            }
+            if (!link) return;
+
+            var info = redditPostInfoFromUrl(link.href);
+            if (!info || seen.has(info.post_id)) return;
+            seen.add(info.post_id);
+
+            if (card.querySelector && card.querySelector(".agent-os-reddit-post-save")) return;
+
+            var host = card.querySelector && (
+                card.querySelector("[slot='action-row']") ||
+                card.querySelector("[data-post-click-location='post-media-content']") ||
+                card.querySelector(".flat-list.buttons")
+            );
+            host = host || card;
+
+            var button = inlineEntityButton("+ Agent OS");
+            button.classList.add("agent-os-reddit-post-save");
+            button.title = "Save this Reddit post to Agent OS";
+            button.style.float = "right";
+            button.style.marginTop = "6px";
+            button.style.marginBottom = "6px";
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                captureRedditCard(card, link, button);
+            });
+            host.appendChild(button);
+        });
     }
 
     function captureNexusCard(card, link, button) {
@@ -2338,6 +2662,8 @@
     addFloatingButton();
     initializeBrowserJournal();
     addNexusCardButtons();
+    addXenforoThreadButtons();
+    addRedditPostButtons();
     if (isDiscordWeb()) {
         ensureDiscordStatus();
         scheduleDiscordScan(0);
@@ -2371,6 +2697,8 @@
             scheduled = false;
             addFloatingButton();
             addNexusCardButtons();
+            addXenforoThreadButtons();
+            addRedditPostButtons();
             ensureJournalStatus();
             if (isDiscordWeb()) ensureDiscordStatus();
         }, 300);
