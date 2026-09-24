@@ -221,6 +221,38 @@ def refresh(*, online: bool = True, registry: Any = None, opener=None, codex_cac
         proposals = propose(catalog, registry)
         known = {item["id"] for item in catalog["proposals"] if item.get("status") in {"applied", "dismissed"}}
         catalog["proposals"] = [item for item in catalog["proposals"] if item.get("status") in {"applied", "dismissed"}] + [item for item in proposals if item["id"] not in known]
+        if online:
+            from . import model_prices, model_value
+            from ..capabilities import registry_path
+
+            priced = model_prices.fetch_prices(opener=opener)
+            checks.extend({**check, "at": stamp} for check in priced["checks"])
+            for model_id, item in priced["prices"].items():
+                model_value.record_evidence(
+                    model_id, provider=item.get("provider"),
+                    price={key: item[key] for key in ("input", "cached_input", "output")},
+                    source=item.get("source"),
+                )
+            value = model_value.tier_costs(registry.providers, model_value.load_evidence())
+            catalog["value"] = value["tiers"]
+            changed = False
+            for provider in registry.providers:
+                for tier, cost in value["costs"].get(provider["id"], {}).items():
+                    if (provider.get("costs") or {}).get(tier) != cost:
+                        changed = True
+            if changed:
+                path = Path(registry_path())
+                raw = json.loads(path.read_text(encoding="utf-8-sig"))
+                backup = path.with_name(path.name + ".bak-value")
+                import shutil
+                shutil.copy2(path, backup)
+                by_id = {item.get("id"): item for item in raw.get("providers", []) if isinstance(item, dict)}
+                for provider_id, costs in value["costs"].items():
+                    target = by_id.get(provider_id)
+                    if target is not None:
+                        target.setdefault("costs", {}).update(costs)
+                path.write_text(json.dumps(raw, indent=2), encoding="utf-8")
+                notices.append({"kind": "routing_costs_updated", "text": "Model routing costs updated from price and benchmark evidence", "at": stamp})
         catalog["checks"] = (catalog["checks"] + checks)[-60:]
         catalog["notices"] = (catalog["notices"] + notices)[-50:]
         catalog["refreshed_at"] = stamp
@@ -385,6 +417,7 @@ def view(catalog: dict[str, Any] | None = None, registry: Any = None) -> dict[st
         "tiers": tiers,
         "notices": catalog.get("notices", [])[-10:],
         "proposals": [item for item in catalog.get("proposals", []) if item.get("status") == "open"],
+        "value": catalog.get("value", {}),
         "trials": catalog.get("trials", [])[-10:],
         "known_models": len(catalog.get("models") or {}),
     }
