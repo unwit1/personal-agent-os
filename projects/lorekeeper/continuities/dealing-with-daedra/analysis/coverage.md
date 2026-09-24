@@ -44,3 +44,13 @@ Authoritative closeout references:
 - `refinement-pass-14-claim-integrity-qc.md`
 - `refinement-pass-15-book-provenance-verification.md`
 - `../normalized/book-source-relations.json`
+
+
+## Refinement pass 16
+
+- Evidence-locator QC added `indexes/evidence-locator-index.jsonl` with 14 locator records: 13 Papyrus script filenames and the recovered corrupt-signet MESG locator.
+- Papyrus claim evidence totals 18 references across 13 unique script names; full PSC bodies are not currently persisted, so byte/line revalidation remains archive-dependent.
+- `dwd-078` is the only indexed claim whose listed evidence is entirely Papyrus-based.
+- Two semantic duplicate pairs were normalized without deleting historical IDs: `dwd-091` / `dwd-223`, and `dwd-118` / `dwd-173`.
+- Relation layer now contains 21 records: 7 conflicts, 7 uncertainty boundaries, and 7 specialized relations, with zero cross-role overlap after QC.
+- No new named-speaker promotions were made; the remaining 171 context-routed INFO records remain intentionally conservative.
