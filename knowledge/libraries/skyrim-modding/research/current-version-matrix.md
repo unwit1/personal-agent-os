@@ -50,6 +50,20 @@ This file records versions that were directly verified from authoritative upstre
 - MCM Helper's current source identifies as 1.6.3 even though GitHub's latest formal release endpoint remains v1.6.2; treat source commit, Nexus file and GitHub release tag as separate provenance fields.
 - RaceMenu's public GitHub SKEE source currently identifies as 0.4.19.17 while the Nexus page is 0.4.20.0; use the source snapshot for architecture/API evidence but not as proof of the latest binary's runtime support.
 
+## Verified authoring/serialization stack
+
+| Component | Verified version | Snapshot notes | Source |
+|---|---|---|---|
+| Mutagen / Mutagen.Bethesda.Skyrim | 0.54.4 | Current GitHub release observed 2026-09-24; released 2026-08-08. Includes Skyrim definition fixes plus split-mod/FormKey improvements. | https://github.com/Mutagen-Modding/Mutagen/releases |
+| Spriggit | 0.41.0 | Current GitHub release observed 2026-09-24; supersedes earlier 0.40.1 snapshot. 0.41.0 includes library/Mutagen-definition updates and FO3 support. | https://github.com/Mutagen-Modding/Spriggit/releases |
+
+### Serialization/version-control interpretation
+
+- Pin the exact Mutagen version used by generators and semantic validators.
+- Pin the Spriggit translation package/version recorded by serialized plugin text.
+- A Spriggit or Mutagen definition upgrade can produce schema/serialization churn even when the mod's creative intent did not change; isolate those upgrades from feature commits.
+- The earlier 0.40.1 Spriggit observation is historical as of this refresh; 0.41.0 is the current release observed on 2026-09-24.
+
 ## Compatibility dimensions to track separately
 
 A single version string is not enough for Skyrim compatibility. For every native/tool entry, preserve where relevant:
