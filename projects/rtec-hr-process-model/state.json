@@ -107,7 +107,15 @@
     "correspondence_safe_source_families": 8,
     "correspondence_restricted_artifacts": 86,
     "correspondence_derived_records": 10,
-    "correspondence_integrity_status": "28 committed batch files verified blob-for-blob against the validated staging branch"
+    "correspondence_integrity_status": "28 committed batch files verified blob-for-blob against the validated staging branch",
+    "work_email_messages_indexed": 22671,
+    "work_email_messages_with_indexed_body": 21057,
+    "work_email_messages_without_indexed_body": 1614,
+    "work_email_attachment_rows": 12702,
+    "work_email_attachment_text_extractions": 308,
+    "work_email_review_records": 12,
+    "work_email_review_message_ids": 18,
+    "work_email_semantic_review_status": "in_progress; most indexed bodies and attachment content still require review"
   },
   "reference_form_context": {
     "catalog_path": "knowledge/libraries/rtec-hr/forms/reference-form-catalog.json",

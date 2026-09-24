@@ -211,5 +211,33 @@
     "Compare the historical 2017 ADA/Title VI form set against preserved compliance sources; resolve whether the attachments are duplicates and whether any later approved forms supersede them.",
     "Locate the 2021 attendance-policy memo attachment and determine whether it was adopted, its effective date, and how existing points were handled; compare it with both 2021 handbook versions.",
     "Determine the current FMLA administrator, owner, routing, forms, and medical-record separation; the 2018 email only records an inquiry."
-  ]
+  ],
+  "review_metrics": {
+    "inventory_as_of": "2026-09-23",
+    "work_mailboxes": {
+      "read_only_accounts_authenticated_and_caught_up": 4,
+      "indexed_messages": 22671,
+      "source_observations": 43230,
+      "thread_count": 17617,
+      "date_range": "2015-2026",
+      "messages_without_indexed_body": 1614
+    },
+    "attachment_inventory": {
+      "messages_with_attachments": 7284,
+      "attachment_rows": 12702,
+      "extracted_text_attachments": 308,
+      "filename_based_document_leads": 834,
+      "messages_with_filename_based_document_leads": 759,
+      "local_attachment_files": 5160,
+      "local_attachment_bytes_approx": 4420000000
+    },
+    "review_progress": {
+      "incremental_review_records": 12,
+      "distinct_message_ids_referenced_in_review_records": 18,
+      "all_indexed_message_bodies_semantically_reviewed": false,
+      "all_attachments_reviewed": false,
+      "unreviewed_content_remains": true
+    },
+    "method_note": "Inventory and lexical discovery counts are not equivalent to human content review. The 2016-2019 source batch contains 3 safe artifacts; the manuals are full-text preserved but clause-by-clause review remains open. Personal mailbox counts and user-specific context are maintained separately."
+  }
 }
