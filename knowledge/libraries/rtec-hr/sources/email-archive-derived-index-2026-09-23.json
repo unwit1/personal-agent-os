@@ -1,6 +1,6 @@
 {
   "index_id": "rtec-hr-email-archive-derived-knowledge-index-2026-09-23",
-  "updated_at": "2026-09-23",
+  "updated_at": "2026-09-24",
   "source_batch": "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-email-archive-2016-2026-2026-09-23.json",
   "corpus": {
     "unique_messages": 576,
@@ -276,7 +276,17 @@
       "path": "knowledge/libraries/rtec-hr/automation/email-attachment-routing-policy-2026.json",
       "kind": "attachment_routing_control",
       "status": "validated"
+    },
+    {
+      "path": "knowledge/libraries/rtec-hr/sources/pst-source-exhaustion-audit-2026-09-24.json",
+      "kind": "source_exhaustion_audit",
+      "status": "complete"
+    },
+    {
+      "path": "projects/rtec-hr-process-model/docs/PST_SOURCE_EXHAUSTION_PASS_007_2026-09-24.md",
+      "kind": "checkpoint_doc",
+      "status": "complete"
     }
   ],
-  "coverage_note": "All 576 unique messages received structural classification; low-signal mail received a separate review; recurring domains were semantically modeled; Pass 003 added cross-source cadence/form/thread/security analysis; the attachment layer was subsequently extracted with 132 payloads, 104 unique hashes and zero parser errors, then deduplicated and privacy-routed. Safe reusable attachment sources were ingested, restricted case/personnel payloads remain local."
+  "coverage_note": "All 576 unique messages received structural classification; the initial low-signal bucket received a separate review; recurring domains were semantically modeled; Pass 003 added cross-source cadence/form/thread/security analysis; Pass 004 exhausted the attachment layer with 132 payloads, 104 unique hashes and zero parser errors; Passes 005-006 reconciled current systems and authority; Pass 007 independently re-audited all observed Outlook item classes and current connected/public sources. Remaining gaps are new-source/live-authority gaps, not known unread PST content."
 }
