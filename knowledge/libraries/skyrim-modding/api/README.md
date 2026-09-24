@@ -2,15 +2,26 @@
 
 Updated: 2026-09-24
 
+## Source-level coverage summary
+
+| Provider | Source representation | Coverage |
+|---|---|---:|
+| SKSE64 | modified PSC source | 62 scripts / 1,161 declarations |
+| powerofthree's Papyrus Extender | PSC source | 8 scripts / 703 declarations |
+| PapyrusUtil | PSC source | 6 scripts / 538 declarations |
+| JContainers | current C++ Papyrus registration metadata | 189 registration statements |
+
+These catalogs are provider/version scoped. They are evidence of the source API surface at the recorded snapshot, not proof that a user's installed runtime has loaded every native function successfully.
+
 ## SKSE64 modified Papyrus source
 
-Coverage: **62 PSC scripts / 1161 extracted declarations**.
+Coverage: **62 PSC scripts / 1,161 extracted declarations**.
 
 Source: https://github.com/ianpatt/skse64 · `scripts/modified/*.psc` at the 2026-09-24 ingestion snapshot.
 
-Each shard records the exact **blob SHA for every PSC**, which is the canonical source provenance even if the upstream `master` branch later moves.
+Each shard records the exact **blob SHA for every PSC**, which is the canonical source provenance even if upstream `master` later moves.
 
-> These are the full modified PSC surfaces, not an “SKSE additions only” diff. They include vanilla declarations retained in SKSE's modified source plus SKSE extensions.
+> These are full modified PSC surfaces, not an “SKSE additions only” diff. They include vanilla declarations retained in SKSE's modified source plus SKSE extensions.
 
 | Shard | Scripts | Declarations | Script types |
 |---|---:|---:|---|
@@ -23,27 +34,75 @@ Each shard records the exact **blob SHA for every PSC**, which is the canonical 
 | [skse-papyrus-07.md](skse-papyrus-07.md) | 8 | 52 | SoulGem, Sound, SoundDescriptor, SpawnerTask, Spell, StringUtil, TextureSet, TreeObject |
 | [skse-papyrus-08.md](skse-papyrus-08.md) | 6 | 122 | UI, UICallback, Utility, Weapon, Weather, WornObject |
 
-## How to retrieve
+## powerofthree's Papyrus Extender
 
-For a Papyrus function question:
-1. identify the host script type (for example Actor, Game, ObjectReference, Form, UI);
-2. use the table above to open only that shard;
-3. retrieve the exact declaration and source blob/line;
-4. distinguish Native, Global, instance and inherited behavior;
-5. cross-check runtime support against SKSE/game version when the function is SKSE-provided.
+[po3-papyrus-extender.md](po3-papyrus-extender.md)
+
+Coverage: **8 PSC scripts / 703 declarations**, including the large `PO3_SKSEFunctions` global-native surface and Form/Alias/ActiveMagicEffect event APIs.
+
+The catalog retains exact source PSC blob SHAs and declaration lines.
+
+## PapyrusUtil
+
+[papyrusutil-api.md](papyrusutil-api.md)
+
+Coverage: **6 PSC scripts / 538 declarations** across:
+
+- StorageUtil;
+- JsonUtil;
+- ActorUtil;
+- ObjectUtil;
+- MiscUtil;
+- PapyrusUtil.
+
+This is the canonical source-level companion to the persistence/architecture module in `../terminology/papyrusutil-jcontainers-persistent-data.md`.
+
+## JContainers
+
+Current upstream source generates/binds much of its Papyrus API from C++ reflection metadata rather than storing the public J* PSC files as the canonical source surface.
+
+- [jcontainers-collections-databases.md](jcontainers-collections-databases.md) — **149** registration statements across JValue, JArray, JMap, JFormMap, JIntMap, JDB, and JFormDB.
+- [jcontainers-utilities.md](jcontainers-utilities.md) — **40** registration statements across JContainers, JLua, JString, and JAtomic.
+
+Total current registration surface cataloged: **189 statements**.
+
+The catalogs preserve source header blob SHAs and exact registration expressions. They intentionally do not invent generated Papyrus return/parameter types when the C++ reflection metadata was not fully resolved.
+
+## Retrieval strategy
+
+For a Papyrus/API question:
+
+1. identify the provider and host class/script;
+2. retrieve only the corresponding catalog/shard;
+3. use the exact declaration or registration metadata;
+4. preserve source blob/commit provenance;
+5. distinguish compile-time declaration from runtime registration;
+6. cross-check game/SKSE/framework compatibility;
+7. consult the relevant terminology module for lifecycle/persistence/semantic caveats.
+
+## API provenance rules
+
+- A **PSC declaration** proves the compile-time script API surface for that source snapshot.
+- A **Native PSC function** still depends on a compatible native plugin registering it at runtime.
+- A **C++ registration entry** proves a native binding is generated/registered by that source path, but an exact generated PSC signature should not be fabricated if the reflection type mapping has not been resolved.
+- A repository `master`/branch name is not immutable; each source file's blob SHA is retained.
+- Historical distributed PSCs remain historical evidence when current upstream generation metadata has superseded them.
 
 ## Current API frontier
 
-Completed source-level catalog:
-- SKSE64 `scripts/modified` — complete.
+Completed or substantially closed:
+- SKSE64 modified PSC catalog — complete for the upstream modified-source tree.
+- powerofthree Papyrus Extender PSC catalog — complete for the current upstream PSC tree.
+- PapyrusUtil PSC catalog — complete for the current upstream PSC tree.
+- JContainers Papyrus registration surface — complete for the current `src/api_3` registration classes.
 
-Next source-level catalogs:
-- po3 Papyrus Extender;
-- PapyrusUtil;
-- JContainers;
-- framework-specific PSC APIs where they expose meaningful public contracts;
-- matching vanilla PSC baseline so SKSE-added declarations can be diffed automatically.
+Remaining:
+- matching vanilla PSC baseline and automated SKSE-added diff;
+- exact generated JContainers PSC type signatures from the reflection type mapper;
+- public PSC/native API surfaces for other major frameworks where source contracts are available;
+- version-to-version automated API diffs;
+- CommonLib class/member graph generation from pinned Doxygen/source snapshots.
 
 ## Generated-data policy
 
-API signature catalogs are safe, compact technical metadata. Full upstream source bodies are not mirrored here. The catalog stores signatures, source identity and line provenance rather than copying entire implementations.
+API signature/registration catalogs are compact technical metadata. Full upstream implementations are not mirrored here. Store signatures, registration statements, source identity and line/blob provenance rather than wholesale source bodies.
