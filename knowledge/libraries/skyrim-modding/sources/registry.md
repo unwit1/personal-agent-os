@@ -121,21 +121,112 @@ This registry records source classes used by the Skyrim Modding Knowledge Reposi
 - URL: https://github.com/ersh1/OpenAnimationReplacer/blob/main/README.md
 - Scope: OAR role, conditions-based animation replacement, native-plugin requirements.
 
+
+### COMMONLIB-NG
+- URL: https://github.com/alandtse/CommonLibSSE-NG
+- Scope: current multi-runtime CommonLibSSE-NG architecture, runtime targeting, RE/REL/SKSE abstractions, build integration, reverse-engineered engine types.
+- Notes: active upstream/fork ecosystem; record exact branch/release because ABI support and APIs evolve.
+
+### SKSE-PLUGIN-API
+- URL: https://github.com/ianpatt/skse64/blob/master/skse64/PluginAPI.h
+- Scope: SKSE native plugin interfaces, messaging, serialization, task/trampoline/Papyrus integration concepts.
+- Notes: historical source remains useful for API lineage; current CommonLib wrappers may be the better implementation reference.
+
+### ADDRESS-LIBRARY
+- URL: https://www.nexusmods.com/skyrimspecialedition/mods/32444
+- Scope: stable ID to runtime-specific address/offset mapping for native SKSE plugins.
+- Notes: time-sensitive runtime coverage; exact database/version must match supported executables.
+
+### CRASHLOGGER-SSE
+- URL: https://github.com/alandtse/CrashLoggerSSE
+- Scope: native crash logging, PDB/symbol usage, module/stack/register evidence.
+- Notes: a stack/module mention is evidence of involvement, not automatic proof of root cause.
+
+### LOOT-LOAD-ORDER
+- URL: https://loot.github.io/docs/help/introduction-to-load-orders/
+- Scope: plugin load-order concepts, override ordering, dependency constraints, LOOT metadata.
+- Notes: LOOT solves ordering/metadata problems; use xEdit for semantic record conflict analysis.
+
+### SPID-UPSTREAM
+- URL: https://github.com/powerof3/Spell-Perk-Item-Distributor
+- Scope: runtime distribution of spells, perks, items, shouts, packages, outfits, keywords, factions, and related NPC data.
+- Notes: pair implementation/source with current user-facing Nexus documentation for config grammar.
+
+### SPID-NEXUS
+- URL: https://www.nexusmods.com/skyrimspecialedition/mods/36869
+- Scope: current SPID user configuration syntax, filters, supported distributions, changelog/runtime support.
+- Snapshot note: observed version 7.3.3 on 2026-09-24, updated 2026-08-26. Treat as a dated snapshot.
+
+### KID-UPSTREAM
+- URL: https://github.com/powerof3/Keyword-Item-Distributor
+- Scope: runtime keyword distribution implementation and build/runtime dependencies.
+
+### KID-NEXUS
+- URL: https://www.nexusmods.com/skyrimspecialedition/mods/55728
+- Scope: current KID filter grammar, target form types, traits, dynamically generated keywords, chance behavior.
+- Snapshot note: observed version 4.1.0 on 2026-09-24, updated 2026-08-25. Treat as a dated snapshot.
+
+### BOS-UPSTREAM
+- URL: https://github.com/powerof3/BaseObjectSwapper
+- Scope: runtime base-form swapping implementation and supported runtime families.
+
+### BOS-NEXUS
+- URL: https://www.nexusmods.com/skyrimspecialedition/mods/60805
+- Scope: current BOS swap syntax, reference/form/location filters, transform overrides, chance modes, config conflicts.
+- Snapshot note: current documentation observed on 2026-09-24 includes 3.5.0-era Skyrim 1.7.99+ support notes.
+
+### FLM-UPSTREAM
+- URL: https://github.com/MaskedRPGFan/FormList-Manipulator
+- Scope: runtime FormList mutation, aliases, groups, collections, filters, mod-event updates, processing order.
+- Notes: distinguish original framework semantics from runtime-port/build compatibility.
+
+### FLM-NEXUS
+- URL: https://www.nexusmods.com/skyrimspecialedition/mods/74037
+- Scope: current user-facing FormList Manipulator configuration and compatibility documentation.
+
+### OCF-UPSTREAM
+- URL: https://github.com/GroundAura/Object-Categorization-Framework
+- Scope: ecosystem example of semantic categorization using shared keywords/FormLists and runtime distributors.
+- Notes: use primarily as an integration/design-pattern source, not as an engine specification.
+
+### PANDORA-UPSTREAM
+- URL: https://github.com/Monitor221hz/Pandora-Behaviour-Engine-Plus
+- Scope: modern Havok behavior patching/generation, Nemesis/FNIS-compatible patch formats, graph processing.
+- Notes: active project; capabilities and patch grammar can change quickly.
+
+### NIFSKOPE-UPSTREAM
+- URL: https://github.com/niftools/nifskope
+- Scope: NIF block/scene-graph inspection and editing, NIF structure terminology.
+- Notes: NifSkope is a format/editor authority, not by itself proof of game-runtime semantics.
+
+### BODYSLIDE-UPSTREAM
+- URL: https://github.com/ousnius/BodySlide-and-Outfit-Studio
+- Scope: BodySlide/Outfit Studio project, slider, morph, weight, conversion, and generated-mesh terminology.
+- Notes: pair with project wiki for authoring workflows.
+
+### SKYUI-UPSTREAM
+- URL: https://github.com/schlangster/skyui
+- Scope: SkyUI and MCM architecture/history, Skyrim Scaleform/UI integration.
+- Notes: repository history is valuable, but current compatibility may depend on maintained forks/builds and runtime environment.
+
+### MCM-HELPER
+- URL: https://github.com/Exit-9B/MCM-Helper
+- Scope: configuration-driven MCM creation/settings persistence and current helper framework concepts.
+- Notes: framework-specific persistence behavior should not be generalized to every MCM.
+
 ## Planned source expansion
 
-Next source-registration passes should include upstream/current references for:
+Next source-registration passes should prioritize areas not yet covered deeply:
 
-- CommonLibSSE-NG and Address Library;
-- SKSE source and plugin API;
-- Creation Kit quest, dialogue, scene, package, navmesh, condition, worldspace, leveled-list, and Papyrus reference pages;
-- NifSkope/NIF format documentation;
-- BodySlide/Outfit Studio;
-- RaceMenu/NetImmerse Override where relevant;
-- SkyUI/MCM and Scaleform;
-- Behavior/animation tooling including OAR, Nemesis, Pandora, hkxcmd-equivalent/current tools where applicable;
-- SPID, KID, BOS, FLM;
-- LOOT;
-- Crash Logger SSE AE VR / Trainwreck and interpreting native crash logs;
+- Creation Kit navmesh, worldspace, landscape, cell, dialogue/scene/package, condition, leveled-list, and save/persistence references;
+- RaceMenu/NetImmerse Override, TRI/BodyMorph, head-part and FaceGen internals;
+- animation graph/behavior internals beyond tool-level documentation, including animation events and graph variables;
 - Community Shaders and ENB;
-- xLODGen/DynDOLOD detailed error references;
-- Wabbajack and mod-list packaging concepts.
+- xLODGen/DynDOLOD detailed error references, large references, occlusion, grass cache/grass LOD;
+- Vortex deployment model in addition to MO2/USVFS;
+- Wabbajack and mod-list packaging concepts;
+- save-game structure, ReSaver/FallrimTools, changeforms, orphaned script instances, and persistence diagnostics;
+- audio/voice formats and dialogue generation assets such as FUZ/LIP/XWM;
+- SKSE co-save structure, serialization versioning, and migration practices;
+- Trainwreck and other crash-loggers as comparative diagnostic sources;
+- current Creation Kit Platform Extended / CK extension tooling where relevant.
