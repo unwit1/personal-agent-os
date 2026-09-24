@@ -108,6 +108,7 @@ class RTECApplicantAdapterTests(unittest.TestCase):
                     "status": "healthy",
                     "last_check_at": "2026-09-23T12:00:00-04:00",
                     "last_success_at": "2026-09-23T12:00:00-04:00",
+                    "last_transition_at": "2026-09-23T11:55:00-04:00",
                     "processed_count": 1,
                     "warning_count": 0,
                     "error_class": None,
@@ -176,6 +177,7 @@ class RTECApplicantAdapterTests(unittest.TestCase):
         result = ra.sync_status()
         self.assertEqual(result["status"], "healthy")
         self.assertEqual(result["header_column_count"], 154)
+        self.assertEqual(result["last_transition_at"], "2026-09-23T11:55:00-04:00")
         self.assertEqual(result["applicant_record_count"], 1)
         self.assertEqual(result["outbox"]["pending_count"], 1)
         encoded = json.dumps(result)
