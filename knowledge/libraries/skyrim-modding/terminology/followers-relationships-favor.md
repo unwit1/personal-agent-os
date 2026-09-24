@@ -231,3 +231,30 @@ Alias/reference remains valid but actor pathing/cell state leaves them far away;
 - Creation Kit Wiki DefaultObjectManager — DialogueFollower/PotentialFollower references: https://ck.uesp.net/wiki/DefaultObjectManager_Script
 - Creation Kit Wiki Creating Custom Couriers for alias/package patterns: https://ck.uesp.net/wiki/Creating_Custom_Couriers
 - Creation Kit Wiki scripting category for relationship/teammate/favor APIs: https://ck.uesp.net/wiki/Category:Scripting
+## Native relationship-level enum — CommonLibSSE-NG
+
+Source: `include/RE/B/BGSRelationship.h` blob `c75028ab4dafc2f08147b85fc79f1ed40f631959`.
+
+| Native value | Relationship level |
+|---:|---|
+| 0 | Lover |
+| 1 | Ally |
+| 2 | Confidant |
+| 3 | Friend |
+| 4 | Acquaintance |
+| 5 | Rival |
+| 6 | Foe |
+| 7 | Enemy |
+| 8 | Archnemesis |
+
+Current CommonLib also exposes relationship `Secret = 1 << 7`, save ChangeFlag `RelationshipData = 1 << 1`, and record flags `Deleted = 1 << 5`, `Secret = 1 << 6`, `Ignored = 1 << 12`.
+
+### Static relationship vs saved runtime state
+
+A `RELA` form links two NPC_ bases, an AssociationType, and a relationship level. Runtime APIs such as `SetRelationshipRank` can alter relationship state in an established save. Therefore:
+
+1. the static RELA record is not necessarily the final relationship observed in a save;
+2. relationship level is separate from faction reaction (`Neutral/Enemy/Ally/Friend`);
+3. relationship rank is separate from follower alias/faction/teammate state;
+4. patching RELA does not automatically clear a saved relationship override.
+
