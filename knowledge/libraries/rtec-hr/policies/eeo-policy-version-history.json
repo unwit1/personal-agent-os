@@ -1,0 +1,96 @@
+{
+  "id": "rtec-eeo-policy-statement-version-history",
+  "record_type": "policy_version_history",
+  "title": "RTEC Equal Employment Opportunity / Affirmative Action policy statement lineage",
+  "status": "validated_from_policy_and_AAP_sources",
+  "temporal_status": "historical_series_with_current_policy",
+  "versions": [
+    {
+      "period_marker": "FY2009 archive",
+      "sha256": "fb2f7ec86116542fdc9ff7f1f3f64cae360a7e1fa822bac1ecd47109b80ba1df",
+      "features": [
+        "Nondiscrimination in employment/personnel actions.",
+        "Affirmative-action goals/timetables and management accountability.",
+        "Applicant/employee complaint rights.",
+        "EEO implementation assigned to Sheila Stallsworth."
+      ],
+      "temporal_status": "historical"
+    },
+    {
+      "period_marker": "FY2011 revised statement",
+      "sha256": "2a31ac8dd7993734c41b808d05a74da708577dbf79689bb49d36de0d9f1b2d51",
+      "features": [
+        "Condensed/revised EEO/AA policy statement.",
+        "Retains goals/timetables, shared management responsibility, complaint rights and Sheila Stallsworth assignment."
+      ],
+      "temporal_status": "historical"
+    },
+    {
+      "period_marker": "legacy EEO miscellaneous copy",
+      "sha256": "246431cc698b2f75d21b7e2c7aaa294fa781d085dfbd4051778294cf6541b12a",
+      "features": [
+        "Near-lineage historical EEO/AA language retained outside annual AAP folders.",
+        "Contains genetic-information protection in its EEO/AA section and Sheila Stallsworth assignment."
+      ],
+      "temporal_status": "historical"
+    },
+    {
+      "period_marker": "2015-2018 AAP family",
+      "source_id": "rtec-compliance-aap-2015-2018",
+      "features": [
+        "Broader protected-class wording including sex with gender identity, sexual orientation and pregnancy.",
+        "Explicit anti-retaliation statement.",
+        "Explicit disability/religious reasonable-accommodation commitment absent undue hardship.",
+        "Executive Director overall accountability plus designated EEO Officer/Manager."
+      ],
+      "historical_eeo_officer": "Sheila Stallsworth",
+      "temporal_status": "historical"
+    },
+    {
+      "period_marker": "2018-2024 AAP family as updated June 2024",
+      "sha256": "abc8ff6b30fcf02b0152274ba4a0b584ab4cc7cc6a437396a84b67e19cae01fb",
+      "historical_eeo_officer": "Tracy Champion",
+      "temporal_status": "historical"
+    },
+    {
+      "period_marker": "2025-12-15 Employee Handbook",
+      "record_id": "rtec-policy-eeo-handbook-2025",
+      "historical_eeo_officer": "Clarissa Hodge",
+      "temporal_status": "superseded_2026-08-26"
+    },
+    {
+      "period_marker": "2026-08-26 signed EEO statement",
+      "record_id": "rtec-policy-eeo-2026",
+      "current_eeo_officer": "Jacob Salsman",
+      "features": [
+        "Current signed nondiscrimination statement.",
+        "Current anti-retaliation language.",
+        "Current disability/religious reasonable-accommodation commitment.",
+        "Current direct-reporting and complaint-investigation assignment for the EEO Officer.",
+        "Shared implementation responsibility for executives, management and supervisors."
+      ],
+      "temporal_status": "current"
+    }
+  ],
+  "durable_structure": [
+    "Executive Director retains overall accountability for EEO.",
+    "A designated EEO role manages implementation/monitoring/complaint investigation.",
+    "Management and supervisors share implementation responsibility.",
+    "Employment actions are covered by nondiscrimination policy.",
+    "Applicant/employee complaint rights are recurring across the policy lineage.",
+    "Affirmative-action/EEO program materials are retained for inspection/reporting and workforce-goal analysis."
+  ],
+  "changes_over_time": [
+    "Protected-class wording becomes more explicit/broader in later policy generations.",
+    "Later sources add explicit anti-retaliation and reasonable-accommodation statements.",
+    "Named EEO role holders change across the historical series and must always be resolved by effective date rather than copied forward from an older AAP.",
+    "The newest signed 2026 source supersedes the 2025 handbook's officer assignment while preserving substantially similar core nondiscrimination language."
+  ],
+  "source_quality_note": "Historical policy sources contain references to federal/state authorities and terminology as printed. Preserve those statements as historical policy text; do not silently update statutory/regulatory references in the archived source.",
+  "related_records": [
+    "rtec-role-eeo-officer-history",
+    "rtec-policy-eeo-2026",
+    "rtec-policy-eeo-handbook-2025",
+    "rtec-aap-history"
+  ]
+}
