@@ -1,0 +1,139 @@
+{
+  "continuity_id": "tes.mod.aethernautics",
+  "status": "complete_22_of_22",
+  "normalization_version": "chronocoda-book-normalize-v1",
+  "books": [
+    {
+      "record_id": "05002F9A",
+      "editor_id": "_an_firstletter",
+      "title": "Scrap of Paper",
+      "comparison_text_sha256": "7aa614016b34ca69056cd90f16d735102e6f4b87e31b91c201119e4036e8a696"
+    },
+    {
+      "record_id": "05002F9B",
+      "editor_id": "_an_thadasnote",
+      "title": "Note to Thadas",
+      "comparison_text_sha256": "468841ed9d22d0efb7409ec4ab3448e19763e420a0cd01f2e02ecff9cd8d25a5"
+    },
+    {
+      "record_id": "05002F9C",
+      "editor_id": "_an_thadasnote2",
+      "title": "Another Note To Thadas",
+      "comparison_text_sha256": "ab0e808094b59447de9ec95448d4dd1cc95b1f9a6eabf76026687f6dc081d740"
+    },
+    {
+      "record_id": "05002F9D",
+      "editor_id": "_an_enginenote1",
+      "title": "Engineer's Notes",
+      "comparison_text_sha256": "2d5c5caa87ee7761a213102e2e738384dee930db68cb86c5a760b9aa5c281185"
+    },
+    {
+      "record_id": "05002F9E",
+      "editor_id": "_an_enginenote2",
+      "title": "Engineer's Notes",
+      "comparison_text_sha256": "f881971da279f1ad5330642970200f14a99369bbd3aa9af516fcc2ba47aa5b69"
+    },
+    {
+      "record_id": "05002F9F",
+      "editor_id": "_an_enginenote3",
+      "title": "Engineer's Notes",
+      "comparison_text_sha256": "4fcf2fb14de7148f994e8fdb42fbe6094fe713f9b71d8a90ca69bc60787d952c"
+    },
+    {
+      "record_id": "05002FA0",
+      "editor_id": "_an_report4",
+      "title": "Adgrand's Report",
+      "comparison_text_sha256": "b06bf729fefe1cfc2bfe908235996d6fafea3b52c2bd4f028905124bbb6c03c4"
+    },
+    {
+      "record_id": "05002FA1",
+      "editor_id": "_an_report3",
+      "title": "Adgrand's Report",
+      "comparison_text_sha256": "17da070946d2dc21c40a77569eb5695d07846f151ae3558a33f966101fd158d0"
+    },
+    {
+      "record_id": "05002FA2",
+      "editor_id": "_an_report2",
+      "title": "Adgrand's Report",
+      "comparison_text_sha256": "d2baf240fd42dfe9eeef0e4092e6b9d281541c476b29a321941aeb58afaa9237"
+    },
+    {
+      "record_id": "05002FA3",
+      "editor_id": "_an_report1",
+      "title": "Adgrand's Report",
+      "comparison_text_sha256": "5c7e227db200ba2f5d56e2ea9bb7b9a3ff462a06997cc5bed99fc615254b0534"
+    },
+    {
+      "record_id": "05002FA4",
+      "editor_id": "_an_response1",
+      "title": "Adgrand's Response",
+      "comparison_text_sha256": "66f7e0f56db67e7417a898fbd317c61ce7de3957f7f1c49f05515093d80f5629"
+    },
+    {
+      "record_id": "05002FA5",
+      "editor_id": "_an_response2",
+      "title": "Adgrand's Response",
+      "comparison_text_sha256": "e2b23b8497a5ec0877107a129a84c70580303a372a8be74c26cc55912dec5bcf"
+    },
+    {
+      "record_id": "05002FA6",
+      "editor_id": "_an_journal",
+      "title": "Adgrand's Journal",
+      "comparison_text_sha256": "66b8f1a4cf0ec1f7b330457d1d709f384da787ed8edb9c8d7d733489a1ca54dc"
+    },
+    {
+      "record_id": "05002FA7",
+      "editor_id": "_an_chrono1",
+      "title": "Chronography, Volume 1",
+      "comparison_text_sha256": "5b1e2203a48cb8584ac75490ae8d05a5fef651e416b63813b1691790c5386e0a"
+    },
+    {
+      "record_id": "05002FA8",
+      "editor_id": "_an_chrono2",
+      "title": "Chronography, Volume 2",
+      "comparison_text_sha256": "8990bd250504df6eaa6c36fe07ad88a4f436eb2ed0f4d5581ac001f19990e0dc"
+    },
+    {
+      "record_id": "05002FA9",
+      "editor_id": "_an_chrono3",
+      "title": "Chronography, Volume 3",
+      "comparison_text_sha256": "25ec14a0ef071c77fb71c9591a8629e268eaf7874dbcea82d04d76945b2b153b"
+    },
+    {
+      "record_id": "05002FAA",
+      "editor_id": "_an_adgrannote1",
+      "title": "Adgran's Notes",
+      "comparison_text_sha256": "42d2a292cdf9803518d35a07585a50abed9eab9ad98c2551bc332988c9d75a57"
+    },
+    {
+      "record_id": "05002FAB",
+      "editor_id": "_an_adgrannote2",
+      "title": "Adgran's Notes",
+      "comparison_text_sha256": "c2d6b529d30b6ad27ec196ee88d6b764ef83d52659d21c5fc67cba340c4332f5"
+    },
+    {
+      "record_id": "05002FAC",
+      "editor_id": "_an_journal1",
+      "title": "Minute Masecun's Journal",
+      "comparison_text_sha256": "2d9d5091dd958d158f7b39f1876a9dc464a8bb5883f5eff8c14990217fd4a7d1"
+    },
+    {
+      "record_id": "05002FAD",
+      "editor_id": "_an_guns",
+      "title": "Harquebuses",
+      "comparison_text_sha256": "bcde8f0a623ce0570901a1852f280b12245110f4592ed78eb6cfd19e5b99d139"
+    },
+    {
+      "record_id": "0512702C",
+      "editor_id": "_an_enginenote4",
+      "title": "Engineer's Notes",
+      "comparison_text_sha256": "83daa0a7649abc2c46e39b6bc59874ab65f27bc59684a3b04937a1ac5d35bf21"
+    },
+    {
+      "record_id": "0517B732",
+      "editor_id": "_an_enginenote5",
+      "title": "Engineer's Notes",
+      "comparison_text_sha256": "00204bd41284b237e9a07ca4daf1f9d4227eb7497ae8bdd47359e2fff9bb4b38"
+    }
+  ]
+}
