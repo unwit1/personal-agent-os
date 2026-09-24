@@ -1,6 +1,6 @@
 {
   "record_id": "rtec-public-recruiting-website-currentness-drift-2026-09-23",
-  "updated_at": "2026-09-23",
+  "updated_at": "2026-09-24",
   "status": "current_public_surface_inconsistency",
   "sources": [
     "https://www.ridertec.org/",
@@ -15,7 +15,9 @@
     "The /jobs surface is indexed with unrelated San Francisco technology roles such as VP Product, Product Manager and HR Representative, inconsistent with RTEC's actual transit recruiting.",
     "The dedicated RTEC job board says full-time medical/life/dental after 60 days and 401-K retirement after 30 days, plus historical-style leave/vacation benefit bullets.",
     "Current 2025 handbook confirms medical eligibility generally after 60 days but states 401-K eligibility depends on additional service requirements described in the Plan; therefore the website's 30-day retirement statement should be validated against the current plan booklet rather than treated as plan authority.",
-    "The live rendered job-board page exposes a Job Requirements link but no visible Application link, even though indexed/search text says applicants can apply online/download an application."
+    "The live rendered job-board page exposes a Job Requirements link but no visible Application link, even though indexed/search text says applicants can apply online/download an application.",
+    "Current public job pages say the 401-K Retirement Plan begins after 30 days of employment, while the December 15, 2025 handbook only states that additional service requirements in the governing retirement plan booklet control eligibility. No current SPD/plan booklet was found in the Drive search, so the public 30-day statement remains unvalidated.",
+    "Current public job pages say Sick/Personal Leave is earned at two hours per pay period but parenthetically describe six days per year after the first year; the December 15, 2025 handbook says full-time employees become eligible for Personal/Sick Leave after 30 days. This is a direct public-policy currentness conflict."
   ],
   "relationship": "CURRENT_PUBLIC_CONTENT_REQUIRES_RECONCILIATION",
   "risks": [
@@ -23,7 +25,9 @@
     "Unrelated template/demo jobs can appear to be official RTEC vacancies.",
     "Benefit eligibility statements can outlive the governing plan documents.",
     "Missing or stale application links can push applicants toward old PDF/email/in-person workflows.",
-    "Search engines and agents may ingest stale public copy as current HR policy."
+    "Search engines and agents may ingest stale public copy as current HR policy.",
+    "Public benefit eligibility copy currently conflicts with the current handbook on Personal/Sick Leave timing.",
+    "The 401-K 30-day public claim is more specific than the current handbook and cannot be validated without the governing plan document."
   ],
   "remediation_candidates": [
     "Define ADP ATS/current recruiting source as canonical for open requisitions and pay ranges where technically possible.",
@@ -32,7 +36,9 @@
     "Validate current 401-K eligibility against the plan booklet/provider before keeping the 30-day website claim.",
     "Verify the online Application link and printable-application link on the rendered job-board page.",
     "Add locale/version regression checks for pay, open roles, benefits, contact details and application URLs.",
-    "Use current job-description versions separately from application templates."
+    "Use current job-description versions separately from application templates.",
+    "Reconcile public Sick/Personal Leave eligibility language to the December 15, 2025 handbook.",
+    "Locate the current retirement SPD/plan booklet/recordkeeper evidence before publishing a specific 401-K eligibility waiting period."
   ],
   "source_priority_rule": "ATS/requisition records, current job descriptions, current plan documents and current handbook outrank website marketing copy when they conflict. Public pages remain authoritative evidence of what applicants currently see.",
   "localized_pay_drift_observed": [
