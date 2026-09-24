@@ -18,7 +18,10 @@
     "collector-market-and-customizer-ecosystem.md",
     "theme-and-reference-taxonomy.md",
     "data/minifigure-market-schema.json",
-    "data/customizer-source-registry.json"
+    "data/customizer-source-registry.json",
+    "data/market-price-snapshot-2026-09-24.json",
+    "data/compatible-brand-code-crosswalk-seed.json",
+    "data/customizer-landscape-2026-09-24.json"
   ],
   "updated_files": [
     "README.md",
@@ -44,7 +47,16 @@
     "Grandpa Clone Customs",
     "Clone Army Customs",
     "BrickForge",
-    "CustomMinifig.co.uk"
+    "CustomMinifig.co.uk",
+    "Down The Blocks",
+    "BrickScan",
+    "Minifigures.com",
+    "Arealight Custom Works",
+    "Engineerio",
+    "Penzora",
+    "Calypso Customs",
+    "CrazyMinifigs",
+    "ChipChipCustom"
   ],
   "unresolved": [
     "Programmatic long-tail extraction of every HeroBloks brand and product-code family",
@@ -53,5 +65,9 @@
     "Per-release collection reconciliation against Bootlego MASTER and franchise trackers",
     "Time-series pricing ingestion for user-priority figures and accessories",
     "Physical compatibility/QC testing for high-priority compatible brands"
+  ],
+  "notes": [
+    "Expanded after initial commit with market price snapshot, compatible-brand code seed and customizer landscape.",
+    "Living maker status requires dated evidence; reseller-only identities remain candidates until primary corroboration."
   ]
 }
