@@ -51,7 +51,8 @@
     "knowledge/libraries/rtec-hr/processes/historical-benefits-billing-reconciliation.json",
     "knowledge/libraries/rtec-hr/sources/reference-data/downloads-reference-data-2026-09-24.json",
     "knowledge/libraries/rtec-hr/questions/downloads-spreadsheets-currentness-2026-09-24.json",
-    "knowledge/libraries/rtec-hr/forms/historical-benefits-import-field-contracts-2018.json"
+    "knowledge/libraries/rtec-hr/forms/historical-benefits-import-field-contracts-2018.json",
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24-coverage-ledger.json"
   ],
   "context_files": [
     "projects/rtec-hr-process-model/README.md",
@@ -75,7 +76,8 @@
     "knowledge/libraries/rtec-hr/forms/downloads-spreadsheet-document-types-2026-09-24.json",
     "knowledge/libraries/rtec-hr/systems/historical-benefits-data-import-contracts-2018.json",
     "knowledge/libraries/rtec-hr/processes/historical-benefits-billing-reconciliation.json",
-    "knowledge/libraries/rtec-hr/forms/historical-benefits-import-field-contracts-2018.json"
+    "knowledge/libraries/rtec-hr/forms/historical-benefits-import-field-contracts-2018.json",
+    "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24-coverage-ledger.json"
   ],
   "skill_roots": [],
   "validation_commands": [],
@@ -213,6 +215,8 @@
     ],
     "scanner_rule": "Multi-person administrative reports and external reference datasets are not individual employee-file forms. Route multi-person benefits artifacts to restricted benefits administration context; keep blank import templates as contextual references.",
     "currentness_rule": "All operational semantics from this batch are historical unless independently revalidated against current systems, carriers or procedures.",
-    "field_contract_path": "knowledge/libraries/rtec-hr/forms/historical-benefits-import-field-contracts-2018.json"
+    "field_contract_path": "knowledge/libraries/rtec-hr/forms/historical-benefits-import-field-contracts-2018.json",
+    "coverage_ledger_path": "knowledge/libraries/rtec-hr/sources/batches/rtec-hr-downloads-spreadsheets-2026-09-24-coverage-ledger.json",
+    "coverage": "16/16 artifacts accounted for; 0 unreviewed"
   }
 }
