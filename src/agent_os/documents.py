@@ -39,7 +39,7 @@ import os
 import re
 import shutil
 import time
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
@@ -161,6 +161,38 @@ class PageKey:
             "extractor": self.extractor,
             "ocr_engine": self.ocr_engine,
             "preprocess": self.preprocess,
+        }
+
+
+@dataclass(frozen=True)
+class FieldRegion:
+    """A normalized rectangle selecting a field from a rendered page.
+
+    Coordinates are fractions of page width and height, with the origin at
+    the top left. Keeping geometry independent of a PDF or image library lets
+    each project render and crop locally while this layer handles routing and
+    caching. Region data and extracted text remain inside the private local
+    document cache.
+    """
+
+    left: float
+    top: float
+    right: float
+    bottom: float
+
+    def __post_init__(self) -> None:
+        values = (self.left, self.top, self.right, self.bottom)
+        if any(not 0.0 <= value <= 1.0 for value in values):
+            raise ValueError("field-region coordinates must be between 0 and 1")
+        if self.left >= self.right or self.top >= self.bottom:
+            raise ValueError("field region must have positive width and height")
+
+    def as_dict(self) -> dict[str, float]:
+        return {
+            "left": self.left,
+            "top": self.top,
+            "right": self.right,
+            "bottom": self.bottom,
         }
 
 
@@ -504,6 +536,53 @@ def extract_page(
     }
     store.put(key, payload)
     return {**payload, "cached": False}
+
+
+def extract_field_region(
+    key: PageKey,
+    region: FieldRegion,
+    *,
+    render_page: Callable[[int, int], Any],
+    crop_region: Callable[[Any, FieldRegion], Any],
+    ocr: Callable[[Any], str | None],
+    dpi: int = 400,
+    rotation: int = 0,
+    cache: DocumentCache | None = None,
+) -> dict[str, Any]:
+    """OCR and cache one caller-selected field region of a page.
+
+    The caller owns local rendering, cropping, and OCR. The cache key includes
+    page identity, renderer/extraction versions, region geometry, DPI, and
+    rotation, so changing a taught zone or image transform cannot reuse stale
+    field text. A warm hit skips rendering and OCR altogether.
+
+    Callers should invoke this only after their own form/template logic has
+    selected a trusted region. The shared layer does not infer form types,
+    field meanings, or employee associations.
+    """
+    if dpi <= 0:
+        raise ValueError("field-region OCR DPI must be positive")
+
+    cache_key = replace(
+        key,
+        dpi=dpi,
+        rotation=rotation,
+        extractor=f"{key.extractor}+field-region@1",
+        preprocess=preprocess_signature(
+            {
+                "base": key.preprocess,
+                "field_region": region.as_dict(),
+                "field_region_schema": 1,
+            }
+        ),
+    )
+
+    def read_region() -> str | None:
+        page_image = render_page(dpi, rotation)
+        field_image = crop_region(page_image, region)
+        return ocr(field_image)
+
+    return extract_page(cache_key, embedded_text=None, ocr=read_region, cache=cache)
 
 
 @dataclass(frozen=True)

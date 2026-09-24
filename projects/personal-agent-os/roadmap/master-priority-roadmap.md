@@ -218,16 +218,21 @@ Detailed design:
 
 ### P0.3 — Shared document intelligence + local persistent extraction/OCR cache
 
-Status: **foundation complete** (2026-09-21) — steps 1-3 of the five-step path.
-Implemented in `src/agent_os/documents.py`, exposed through CLI and MCP,
-enforced by `agent.py validate`, and covered by 40 regression tests.
+Status: **foundation complete; field-region OCR seam started** (2026-09-24).
+The cache/extraction foundation is implemented in `src/agent_os/documents.py`,
+exposed through CLI and MCP, enforced by `agent.py validate`, and covered by 40
+regression tests. The new field-region seam is a library API awaiting project
+integration and focused regression coverage.
 
 Delivered:
 1. persistent exact-page cache keyed by content hash — **done**;
 2. dependency/version-aware invalidation, so interpretation changes reuse
    OCR — **done**, and asserted structurally by test;
-3. template-level structural signatures that are person-independent — **done**;
-4. targeted field-zone OCR — **not started**;
+3. person-independent structural signatures — **done**; matching and reuse are
+   still pending;
+4. targeted field-region OCR — shared `FieldRegion` validation and cached
+   `extract_field_region` API are implemented; project-specific zone storage,
+   selection, caller wiring, and focused regression coverage remain;
 5. bounded concurrency — **not started**, and correctly gated behind measuring
    the earlier steps.
 
@@ -235,8 +240,13 @@ Measured (40 pages, simulated OCR at 20ms/page): cold 0.65s, warm 0.14s
 (4.5x repeat-run speedup, 78% avoided), classifier change 0.00s of OCR, OCR
 engine upgrade correctly re-extracts.
 
-HR-GUI is a separate repository and was not modified; wiring its scanner to
-this layer is the next concrete step. Remaining debt is recorded in
+HR-GUI is a separate repository. Its shared-cache adapter is on
+`origin/main` (`cffccbb`); source-change invalidation and OCR-rotation fixes
+are on the pushed `fix/cache-source-change` branch (`4118188`, `06ef9f5`) and
+still need focused synthetic regression review before merge. The next concrete
+step is to validate those fixes, then wire the scanner's local zone definitions
+to the shared field-region API without moving zone data or document text into
+Agent OS state. Remaining debt is recorded in
 `projects/personal-agent-os/roadmap/technical-debt.md`.
 
 Prioritize the reusable document-intelligence layer and HR-GUI scan optimization work.
