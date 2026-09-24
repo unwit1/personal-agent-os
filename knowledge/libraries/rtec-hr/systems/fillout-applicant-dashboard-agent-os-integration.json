@@ -1,0 +1,92 @@
+{
+  "record_id": "rtec-fillout-applicant-dashboard-agent-os-integration",
+  "updated_at": "2026-09-23",
+  "status": "canonical_architecture_requirement",
+  "user_decision": "Fillout feeds the Applicant Dashboard and should be connected to the Agent OS.",
+  "current_pipeline": {
+    "source": "Fillout",
+    "transport": [
+      "Google Sheet submission bridge",
+      "Google Drive resume folder / direct resume URL"
+    ],
+    "processor": "unwit1/job-applicant-dashboard/process_applications.py",
+    "normalized_outputs": [
+      "application PDF",
+      "resume merged/linked to application packet",
+      "separate Affirmative Action/EEO self-ID PDF",
+      "download_log.csv processing ledger"
+    ],
+    "workflow_store": "Applicant Dashboard dashboard.db",
+    "current_polling": "Dashboard invokes process_applications.py in-process approximately every 5 minutes when enabled"
+  },
+  "canonical_integration_boundary": "Agent OS should integrate with the Applicant Dashboard's normalized application/workflow layer, not create an independent competing raw-Fillout ingestion pipeline.",
+  "rationale": [
+    "The dashboard already owns duplicate detection/processed-row semantics.",
+    "The dashboard already keeps Affirmative Action/EEO self-ID material separate from hiring-facing application material.",
+    "The dashboard already resolves resumes, generates PDFs and tracks applicant statuses/notes/actions.",
+    "The dashboard already implements RTEC-specific screening/opening/location logic.",
+    "A second direct raw-Fillout pipeline would risk duplicate applicant records, inconsistent field mapping, broken EEO separation and divergent workflow state."
+  ],
+  "required_agent_capabilities": [
+    "applicant.list and applicant.search over normalized dashboard records",
+    "applicant.get_summary with minimum-necessary hiring information",
+    "applicant.get_status and applicant.get_pending_actions",
+    "applicant.get_document_metadata and authorized local document retrieval",
+    "applicant.openings/current_match context",
+    "applicant.flag_summary with provenance and human-reviewable reasons",
+    "applicant.timeline/history for status and human/agent actions",
+    "applicant.sync_status for Fillout/Google bridge health and last successful pull",
+    "applicant.new_submission event/candidate notification",
+    "applicant.prepare_action for interview/clarification/denial/offer/area-manager handoff",
+    "applicant.apply_status_change only under explicit autonomy/approval policy",
+    "applicant.audit_events for all reads/writes of applicant records"
+  ],
+  "privacy_boundaries": {
+    "hiring_view": "Application/resume/work-history/role-fit information needed for recruiting.",
+    "eeo_view": "Affirmative Action/EEO self-ID data remains logically and access-control separated and is never exposed to ordinary candidate evaluation tools.",
+    "restricted_data": "Applicant PII, references, employment history and uploaded files remain outside GitHub and general durable memory.",
+    "durable_agent_memory": "Only generalized recruiting/process knowledge, schemas, system state and non-person-specific insights may be promoted."
+  },
+  "event_model": [
+    "submission_received",
+    "submission_processed",
+    "resume_linked_or_missing",
+    "clarification_needed",
+    "screening_flag_changed",
+    "opening_match_changed",
+    "status_changed",
+    "interview_requested",
+    "offer_prepared_or_sent",
+    "denied_or_disqualified",
+    "hired",
+    "archived_or_inactive",
+    "sync_failure_or_staleness"
+  ],
+  "implementation_preference": {
+    "primary": "Expose a small authenticated provider-neutral local API/MCP adapter over dashboard.db and existing dashboard/process_applications business logic.",
+    "event_delivery": "Write an append-only local event/outbox table and let Agent OS consume/acknowledge events; avoid scraping GUI state.",
+    "optional_fillout_acceleration": "Fillout supports REST webhooks on submission, so a webhook can later be used as a low-latency wake-up signal, but the dashboard processor should remain the canonical normalizer/idempotent importer.",
+    "fallback": "Agent OS can call the dashboard's existing 'check Fillout now' sync function through the adapter when event delivery is unavailable."
+  },
+  "approval_policy": [
+    "Agent may automatically read/summarize normalized applicant records within authorized HR scope.",
+    "Agent may prepare drafts, interview packets, missing-information requests and recommendations.",
+    "Sending applicant communications, making hiring/denial decisions, changing consequential applicant status, extending offers, or submitting external records stays approval-gated unless the user explicitly configures narrower safe autonomy.",
+    "EEO/self-ID attributes must never be used to rank, screen or recommend applicants."
+  ],
+  "health_checks": [
+    "last successful Fillout/Google bridge pull",
+    "latest source row timestamp versus dashboard ingestion timestamp",
+    "unprocessed source rows",
+    "missing resume/download errors",
+    "schema/header drift",
+    "Google credential/permission failure",
+    "Fillout integration disconnect or stale source sheet",
+    "dashboard event-outbox backlog"
+  ],
+  "related_projects": [
+    "unwit1/job-applicant-dashboard",
+    "Personal Agent OS / RTEC HR process model",
+    "RTEC HR scanner"
+  ]
+}
