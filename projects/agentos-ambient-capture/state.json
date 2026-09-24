@@ -3,10 +3,12 @@
   "project": "agentos-ambient-capture",
   "status": "active",
   "updated_at": "2026-09-24",
-  "summary": "Standalone Windows service that continuously captures microphone audio, segments speech with Silero VAD, transcribes with CPU faster-whisper, diarizes with pyannote community-1, and exports schema-versioned JSON/Markdown for future Agent OS ingestion.",
+  "summary": "Standalone Windows service that continuously captures microphone audio, segments speech with Silero VAD, transcribes with CPU faster-whisper, diarizes with pyannote community-1, and exports schema-versioned JSON/Markdown for future Agent OS ingestion. Identifies speakers against enrolled voice profiles and writes per-person logs.",
   "repository": "https://github.com/unwit1/agentos-ambient-capture.git",
   "default_branch": "main",
   "current_priorities": [
+    "Triage the unassigned speaker queue with the user (assign-speakers skill).",
+    "Tune voices.match_threshold after real enrollments.",
     "Observe a long-duration soak run and launch at Windows sign-in.",
     "Verify restart during live speech recovers cleanly.",
     "Optional: add a global pause/resume hotkey.",
@@ -26,7 +28,9 @@
     "docs/OPERATIONS.md",
     "docs/INTEGRATION.md"
   ],
-  "skill_roots": [],
+  "skill_roots": [
+    ".agents/skills"
+  ],
   "validation_commands": [
     ".venv\\Scripts\\python.exe -m pytest -q",
     ".venv\\Scripts\\ruff.exe check ."
