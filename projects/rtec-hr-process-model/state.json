@@ -14,7 +14,8 @@
     "Preserve safe manuals, policies, procedures, templates, training/reference sources, grant binders and organizational materials in full searchable form while keeping restricted person-level case data out of GitHub.",
     "Use the correspondence archive to reconcile current discipline, attendance/leave, administrative approval, CSR escalation, employee-evaluation and employee-guidance workflows against newer authoritative sources.",
     "Continue clause-level review of the preserved 2017 and draft1 2019 driver handbooks; confirm blank receipt layouts and determine whether either version was approved or superseded.",
-    "Locate and evaluate the July 2021 proposed attendance-policy memo; resolve adoption date and treatment of existing points against the distinct July PDF and tracked-change DOCX handbook copies."
+    "Locate and evaluate the July 2021 proposed attendance-policy memo; resolve adoption date and treatment of existing points against the distinct July PDF and tracked-change DOCX handbook copies.",
+    "Resolve the current FMLA administrator and leave workflow; the 2018 archive only records a vendor inquiry."
   ],
   "important_paths": [
     "projects/rtec-hr-process-model/README.md",
@@ -89,7 +90,7 @@
     "latest_batch_restricted_employee_rosters": 2,
     "latest_batch_exact_duplicates": 1,
     "plan_packages_ingested": 1,
-    "open_currentness_or_gap_questions": 36,
+    "open_currentness_or_gap_questions": 37,
     "latest_batch_restricted_case_sources": 4,
     "latest_batch_searchable_source_groups": 14,
     "fy2017_grant_pdf_count": 3,

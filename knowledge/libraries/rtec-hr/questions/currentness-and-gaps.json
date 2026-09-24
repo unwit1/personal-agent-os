@@ -219,6 +219,12 @@
       "domain": "attendance_leave",
       "question": "Was the July 2021 proposed attendance-policy change memo approved, what effective date was selected, and how were existing points handled? Compare the memo with the unresolved October 2021 handbook DOCX edits and the July 2021 website PDF.",
       "status": "open"
+    },
+    {
+      "priority": "high",
+      "domain": "fmla",
+      "question": "Who currently administers FMLA leave at RTEC, and what approved forms, owner/routing steps, timelines, and medical-record separation rules apply? A March 2018 email explored a third-party administrator but did not document a decision.",
+      "status": "open"
     }
   ]
 }

@@ -169,6 +169,18 @@
         "knowledge/libraries/rtec-hr/sources/rtec-hr-employee-handbook-archive-2019-2021/"
       ],
       "excluded_content": "No raw email body, employee-specific points, staff identities, or unreviewed attachment content retained."
+    },
+    {
+      "reviewed_at": "2026-09-24",
+      "source_type": "2018 inquiry about third-party FMLA administration",
+      "message_ids": [
+        "msg_1997d175e50aa1ea025da02f",
+        "msg_18bec62ece6bd4bc8e355613"
+      ],
+      "safe_process_summary": "In March 2018, HR asked whether a third-party administrator could handle FMLA. The response reported that one existing vendor did not offer FMLA administration and that other employers consulted handled it in-house; no RTEC decision, vendor engagement, or ongoing arrangement was documented in the exchange.",
+      "authority_note": "Historical inquiry only. It does not establish RTEC's actual or current FMLA workflow.",
+      "persisted_sources": [],
+      "excluded_content": "No names, contact details, employee leave cases, raw email bodies, or person-level dossier retained."
     }
   ],
   "method_notes": [
@@ -184,6 +196,7 @@
     "Use position-level sources to validate historical claims and preserve only safe reference documents.",
     "Review complete driver-handbook clauses in bounded sections, and prioritize safe position-level attachment candidates while excluding person-level case records.",
     "Compare the historical 2017 ADA/Title VI form set against preserved compliance sources; resolve whether the attachments are duplicates and whether any later approved forms supersede them.",
-    "Locate the 2021 attendance-policy memo attachment and determine whether it was adopted, its effective date, and how existing points were handled; compare it with both 2021 handbook versions."
+    "Locate the 2021 attendance-policy memo attachment and determine whether it was adopted, its effective date, and how existing points were handled; compare it with both 2021 handbook versions.",
+    "Determine the current FMLA administrator, owner, routing, forms, and medical-record separation; the 2018 email only records an inquiry."
   ]
 }
