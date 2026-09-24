@@ -17,7 +17,7 @@ _DB_NAME = "dashboard.db"
 # contains local file paths, restricted-form references, free-text notes and
 # other fields that ordinary Agent OS applicant tools do not need.
 _LIST_COLUMNS = (
-    "applicant_key",
+    "agent_ref",
     "name",
     "position",
     "submitted",
@@ -27,7 +27,7 @@ _LIST_COLUMNS = (
     "county_preference",
 )
 _SUMMARY_COLUMNS = (
-    "applicant_key",
+    "agent_ref",
     "name",
     "position",
     "submitted",
@@ -88,6 +88,15 @@ def _existing_columns(conn: sqlite3.Connection, desired: tuple[str, ...]) -> tup
     return tuple(column for column in desired if column in present)
 
 
+def _require_agent_ref_schema(conn: sqlite3.Connection) -> None:
+    """Fail closed until the Dashboard has migrated opaque Agent references."""
+    if "agent_ref" not in _table_columns(conn, "applicants"):
+        raise RuntimeError(
+            "Applicant Dashboard schema is not ready for Agent OS access. "
+            "Launch/update the Dashboard once so the opaque agent_ref migration runs."
+        )
+
+
 def _bounded_limit(limit: int) -> int:
     return max(1, min(int(limit), 200))
 
@@ -111,6 +120,7 @@ def list_applicants(status: str | None = None, limit: int = 50, offset: int = 0)
     offset = max(0, int(offset))
     conn = _connect_readonly()
     try:
+        _require_agent_ref_schema(conn)
         columns = _existing_columns(conn, _LIST_COLUMNS)
         if not columns:
             return {"count": 0, "results": [], "status_filter": status}
@@ -151,6 +161,7 @@ def search_applicants(query: str, status: str | None = None, limit: int = 50) ->
     limit = _bounded_limit(limit)
     conn = _connect_readonly()
     try:
+        _require_agent_ref_schema(conn)
         columns = _existing_columns(conn, _LIST_COLUMNS)
         present = _table_columns(conn, "applicants")
         searchable = [
@@ -181,22 +192,23 @@ def search_applicants(query: str, status: str | None = None, limit: int = 50) ->
         conn.close()
 
 
-def get_summary(applicant_key: str) -> dict[str, Any] | None:
+def get_summary(applicant_ref: str) -> dict[str, Any] | None:
     """Return one minimum-necessary administrative applicant summary.
 
     Local file paths and restricted-form locations are reduced to presence
     booleans. Free-text notes, denial/disqualification reasons, screening
     flags and restricted self-identification data are deliberately excluded.
     """
-    key = str(applicant_key or "").strip()
-    if not key:
-        raise ValueError("applicant_key is required")
+    ref = str(applicant_ref or "").strip()
+    if not ref:
+        raise ValueError("applicant_ref is required")
     conn = _connect_readonly()
     try:
+        _require_agent_ref_schema(conn)
         columns = _existing_columns(conn, _SUMMARY_COLUMNS)
         row = conn.execute(
-            f"SELECT {', '.join(columns)} FROM applicants WHERE applicant_key = ?",
-            (key,),
+            f"SELECT {', '.join(columns)} FROM applicants WHERE agent_ref = ?",
+            (ref,),
         ).fetchone()
         if row is None:
             return None
@@ -205,7 +217,7 @@ def get_summary(applicant_key: str) -> dict[str, Any] | None:
         conn.close()
 
     return {
-        "applicant_key": raw.get("applicant_key", key),
+        "applicant_ref": raw.get("agent_ref", ref),
         "name": raw.get("name", ""),
         "position": raw.get("position", ""),
         "submitted": raw.get("submitted", ""),
@@ -229,12 +241,12 @@ def get_summary(applicant_key: str) -> dict[str, Any] | None:
     }
 
 
-def get_status(applicant_key: str) -> dict[str, Any] | None:
-    summary = get_summary(applicant_key)
+def get_status(applicant_ref: str) -> dict[str, Any] | None:
+    summary = get_summary(applicant_ref)
     if summary is None:
         return None
     return {
-        "applicant_key": summary["applicant_key"],
+        "applicant_ref": summary["applicant_ref"],
         "status": summary["status"],
         "updated_at": summary["updated_at"],
         "communication_state": summary["communication_state"],
@@ -261,7 +273,7 @@ def pending_actions(limit: int = 100) -> dict[str, Any]:
         if action:
             results.append(
                 {
-                    "applicant_key": row.get("applicant_key"),
+                    "applicant_ref": row.get("agent_ref"),
                     "name": row.get("name"),
                     "position": row.get("position"),
                     "submitted": row.get("submitted"),
@@ -322,6 +334,9 @@ def sync_status() -> dict[str, Any]:
                 health["applicant_record_count"] = int(
                     conn.execute("SELECT COUNT(*) FROM applicants").fetchone()[0]
                 )
+                health["agent_ref_schema_ready"] = (
+                    "agent_ref" in _table_columns(conn, "applicants")
+                )
             if "agent_events" in tables:
                 row = conn.execute(
                     "SELECT COUNT(*) AS pending_count, MIN(created_at) AS oldest_pending_at, "
@@ -349,7 +364,7 @@ def sync_status() -> dict[str, Any]:
 
 
 def pending_events(limit: int = 100) -> dict[str, Any]:
-    """Read restricted local outbox metadata; no applicant details are joined."""
+    """Read pending outbox metadata using opaque applicant references only."""
     limit = _bounded_limit(limit)
     conn = _connect_readonly()
     try:
@@ -358,16 +373,23 @@ def pending_events(limit: int = 100) -> dict[str, Any]:
             for row in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")
         }
         if "agent_events" not in tables:
-            return {"count": 0, "results": []}
+            return {"count": 0, "results": [], "schema_ready": False}
+        _require_agent_ref_schema(conn)
         rows = conn.execute(
-            "SELECT event_id, applicant_key, event_type, source_component, "
-            "created_at, payload_json, sensitivity "
-            "FROM agent_events WHERE acknowledged_at = '' "
-            "ORDER BY created_at, event_id LIMIT ?",
+            "SELECT e.event_id, a.agent_ref, e.event_type, e.source_component, "
+            "e.created_at, e.payload_json, e.sensitivity "
+            "FROM agent_events e LEFT JOIN applicants a "
+            "ON a.applicant_key = e.applicant_key "
+            "WHERE e.acknowledged_at = '' "
+            "ORDER BY e.created_at, e.event_id LIMIT ?",
             (limit,),
         ).fetchall()
         results = []
         for row in rows:
+            # If an event cannot resolve to an opaque ref, do not leak the
+            # internal/filename-derived applicant_key as a fallback.
+            if not row["agent_ref"]:
+                continue
             payload: dict[str, Any] = {}
             try:
                 parsed = json.loads(row["payload_json"] or "{}")
@@ -378,7 +400,7 @@ def pending_events(limit: int = 100) -> dict[str, Any]:
             results.append(
                 {
                     "event_id": row["event_id"],
-                    "applicant_key": row["applicant_key"],
+                    "applicant_ref": row["agent_ref"],
                     "event_type": row["event_type"],
                     "source_component": row["source_component"],
                     "created_at": row["created_at"],
@@ -386,10 +408,9 @@ def pending_events(limit: int = 100) -> dict[str, Any]:
                     "sensitivity": row["sensitivity"],
                 }
             )
-        return {"count": len(results), "results": results}
+        return {"count": len(results), "results": results, "schema_ready": True}
     finally:
         conn.close()
-
 
 def acknowledge_event(event_id: str) -> dict[str, Any]:
     """Acknowledge an integration event without changing applicant workflow state."""
