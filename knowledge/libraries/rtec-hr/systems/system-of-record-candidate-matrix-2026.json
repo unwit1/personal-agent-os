@@ -311,25 +311,28 @@
     {
       "domain": "AAP_EEO_workforce_reporting",
       "observed_current_systems": [
-        "ADP EEO data/reports historically",
-        "GitHub compliance knowledge archive",
-        "restricted employee/applicant source data"
+        "current signed RTEC EEO policy (2026-08-26)",
+        "historical AAP/EEO plan archive through June 30, 2024",
+        "ADP/employee-master data for any required aggregate EEO analysis",
+        "restricted applicant/employee source data",
+        "GitHub compliance knowledge archive"
       ],
       "historical_systems": [
         "annual/fiscal-year Excel workbook ecosystem"
       ],
-      "likely_authoritative_source": "derived reproducible aggregates from employee master, ATS, restricted event ledgers and validated labor-market sources",
+      "likely_authoritative_source": "Current internal EEO policy is the signed 2026 RTEC policy. Historical plan packages remain authoritative historical records. FTA withdrew Circular 4704.1A effective 2026-06-05, so a current recurring federal program-submission cycle is not presumed. If KYTC/OTD still requires subrecipient program documentation, current state instructions—not historical cadence—must define the artifact and reporting obligation.",
       "downstream": [
         "AAP plan",
         "state approval",
         "EEO analysis"
       ],
-      "read_automation": "high",
-      "write_automation": "generation_high_submission_approval_required",
+      "read_automation": "high_for_historical_audit_and_current_policy; conditional_for_new_program_generation",
+      "write_automation": "generate_only_when_current_requirement_is_validated; external_submission_requires_approval",
       "unresolved": [
-        "post-2024 plan",
-        "current labor-market methodology",
-        "current filing schedule/applicability"
+        "2024 plan submission/approval response for historical completeness",
+        "current KYTC/OTD post-2026 EEO documentation requirement",
+        "current complaint intake/case-status system",
+        "whether any current utilization/goals analysis remains required by the state/pass-through context"
       ]
     },
     {
