@@ -2,69 +2,73 @@
 
 Updated: 2026-09-24
 Status: active
-Terminology/reference modules: 28
-Indexed headings: 2374
-Canonical alias mappings: 76
+Terminology modules: 43
+Indexed terminology headings: 3267
 
-This index is the navigation layer for the technical Skyrim Modding Knowledge Repository. The heading total is an index count rather than a claim that every heading is a unique semantic entity: important concepts intentionally recur across subsystem modules when the diagnostic context differs.
+This index inventories the canonical Skyrim technical terminology corpus. Counts include intentional cross-module repetitions where a concept has different diagnostic implications; 3267 is therefore an indexed-heading count rather than a unique-concept count.
 
-## Module index
+## Retrieval strategy
+
+Do not load every module for every question. Start with `../troubleshooting/diagnostic-router.md`, then retrieve only the modules relevant to the suspected layers. The core glossary is the general fallback.
+
+## Modules
 
 | Module | Indexed headings |
 |---|---:|
-| `animation-assets-bodyslide-ui.md` | 93 |
-| `audio-localization-archives.md` | 92 |
-| `automated-patchers-mutagen-synthesis.md` | 75 |
-| `core-glossary.md` | 85 |
-| `crash-log-patterns.md` | 47 |
-| `creation-kit-record-type-catalog.md` | 108 |
-| `creation-kit-worldbuilding-navmesh.md` | 121 |
-| `development-toolchains.md` | 72 |
-| `engine-fixes-runtime-frameworks.md` | 66 |
-| `gameplay-records-combat-magic-crafting.md` | 106 |
-| `lod-grass-seasons-occlusion.md` | 94 |
-| `mod-managers-modlists-deployment.md` | 83 |
-| `npc-appearance-facegen-racemenu.md` | 92 |
-| `papyrus-api-event-catalog.md` | 159 |
-| `papyrus-persistence-advanced.md` | 85 |
-| `papyrus-quests-dialogue-ai-magic.md` | 104 |
-| `performance-engine-limits.md` | 73 |
-| `physics-hdt-smp-collision.md` | 76 |
-| `records-patching-load-order.md` | 61 |
-| `rendering-shaders-lighting.md` | 91 |
-| `runtime-distribution-frameworks.md` | 81 |
-| `skse-commonlib-native-crash.md` | 72 |
-| `skypatcher-runtime-record-patching.md` | 31 |
-| `story-manager-quests-dialogue-scenes.md` | 98 |
-| `textures-nif-asset-optimization.md` | 80 |
-| `ui-skyui-mcm-scaleform.md` | 79 |
-| `worldspace-navmesh-saves-persistence.md` | 73 |
-| `xedit-plugin-format-advanced.md` | 77 |
+| [animation-assets-bodyslide-ui.md](../terminology/animation-assets-bodyslide-ui.md) | 93 |
+| [asset-conversion-porting.md](../terminology/asset-conversion-porting.md) | 48 |
+| [audio-localization-archives.md](../terminology/audio-localization-archives.md) | 92 |
+| [automated-patchers-mutagen-synthesis.md](../terminology/automated-patchers-mutagen-synthesis.md) | 75 |
+| [core-glossary.md](../terminology/core-glossary.md) | 85 |
+| [crash-log-patterns.md](../terminology/crash-log-patterns.md) | 47 |
+| [creation-kit-record-type-catalog.md](../terminology/creation-kit-record-type-catalog.md) | 108 |
+| [creation-kit-worldbuilding-navmesh.md](../terminology/creation-kit-worldbuilding-navmesh.md) | 121 |
+| [data-frameworks-audio-engine-fixes.md](../terminology/data-frameworks-audio-engine-fixes.md) | 48 |
+| [development-toolchains.md](../terminology/development-toolchains.md) | 72 |
+| [engine-fixes-runtime-frameworks.md](../terminology/engine-fixes-runtime-frameworks.md) | 66 |
+| [environment-projectiles-impacts.md](../terminology/environment-projectiles-impacts.md) | 76 |
+| [gameplay-record-systems.md](../terminology/gameplay-record-systems.md) | 81 |
+| [gameplay-records-combat-magic-crafting.md](../terminology/gameplay-records-combat-magic-crafting.md) | 106 |
+| [graphics-shaders-rendering.md](../terminology/graphics-shaders-rendering.md) | 85 |
+| [ini-console-testing-environment.md](../terminology/ini-console-testing-environment.md) | 60 |
+| [lod-grass-occlusion-world-rendering.md](../terminology/lod-grass-occlusion-world-rendering.md) | 53 |
+| [lod-grass-seasons-occlusion.md](../terminology/lod-grass-seasons-occlusion.md) | 94 |
+| [mod-managers-modlists-deployment.md](../terminology/mod-managers-modlists-deployment.md) | 83 |
+| [mod-managers-wabbajack-patching-pipelines.md](../terminology/mod-managers-wabbajack-patching-pipelines.md) | 72 |
+| [modern-runtime-frameworks.md](../terminology/modern-runtime-frameworks.md) | 53 |
+| [npc-appearance-facegen-racemenu.md](../terminology/npc-appearance-facegen-racemenu.md) | 92 |
+| [papyrus-api-event-catalog.md](../terminology/papyrus-api-event-catalog.md) | 159 |
+| [papyrus-performance-native-serialization.md](../terminology/papyrus-performance-native-serialization.md) | 65 |
+| [papyrus-persistence-advanced.md](../terminology/papyrus-persistence-advanced.md) | 85 |
+| [papyrus-quests-dialogue-ai-magic.md](../terminology/papyrus-quests-dialogue-ai-magic.md) | 104 |
+| [patching-tool-lineage.md](../terminology/patching-tool-lineage.md) | 39 |
+| [performance-engine-limits.md](../terminology/performance-engine-limits.md) | 73 |
+| [physics-hdt-smp-collision.md](../terminology/physics-hdt-smp-collision.md) | 76 |
+| [plugin-format-localization-archives.md](../terminology/plugin-format-localization-archives.md) | 53 |
+| [racemenu-facegen-bodymorph-physics.md](../terminology/racemenu-facegen-bodymorph-physics.md) | 56 |
+| [records-patching-load-order.md](../terminology/records-patching-load-order.md) | 61 |
+| [rendering-shaders-lighting.md](../terminology/rendering-shaders-lighting.md) | 91 |
+| [runtime-distribution-frameworks.md](../terminology/runtime-distribution-frameworks.md) | 81 |
+| [runtime-platform-config-files.md](../terminology/runtime-platform-config-files.md) | 55 |
+| [skse-commonlib-native-crash.md](../terminology/skse-commonlib-native-crash.md) | 72 |
+| [skypatcher-runtime-record-patching.md](../terminology/skypatcher-runtime-record-patching.md) | 31 |
+| [story-manager-locations-events.md](../terminology/story-manager-locations-events.md) | 49 |
+| [story-manager-quests-dialogue-scenes.md](../terminology/story-manager-quests-dialogue-scenes.md) | 98 |
+| [textures-nif-asset-optimization.md](../terminology/textures-nif-asset-optimization.md) | 80 |
+| [ui-skyui-mcm-scaleform.md](../terminology/ui-skyui-mcm-scaleform.md) | 79 |
+| [worldspace-navmesh-saves-persistence.md](../terminology/worldspace-navmesh-saves-persistence.md) | 73 |
+| [xedit-plugin-format-advanced.md](../terminology/xedit-plugin-format-advanced.md) | 77 |
 
-## Retrieval
+## Broad domain coverage
 
-Use `aliases.json` to normalize acronyms and shorthand, then use `troubleshooting-routing.md` to choose subsystem modules. Do not answer cross-layer troubleshooting from one matching definition.
+The corpus now covers plugin/xEdit internals, Creation Kit record types and worldbuilding, Papyrus APIs/performance/persistence, quests/dialogue/scenes/Story Manager, gameplay/magic/combat/crafting, SKSE/CommonLib/native development, crash diagnostics, engine fixes and utilities, runtime distributors/patchers, MO2/Vortex/Wabbajack, automated patching, animation/behavior systems, NIF/textures/BodySlide, NPC appearance/RaceMenu, physics, UI/MCM/Scaleform, audio/localization/BSA resources, rendering/ENB/Community Shaders, LOD/grass/seasons/occlusion, platform/runtime config, performance/engine limits, porting and development toolchains.
 
-### Primary routing layers
+## Deduplication note
 
-- plugin format, records, xEdit, FormIDs and load order;
-- mod-manager deployment, archives and asset priority;
-- Papyrus, quests, Story Manager and save persistence;
-- SKSE/CommonLib/native code, engine fixes and crash logs;
-- runtime distribution/config patchers and generated patches;
-- animations, skeletons, physics, BodySlide, RaceMenu and FaceGen;
-- UI/Scaleform/SkyUI/MCM/input;
-- worldspaces, cells, navmesh and encounter/location systems;
-- textures, NIF materials, rendering and shaders;
-- LOD, grass, seasons, large references and occlusion;
-- gameplay records including actor values, perks, magic, combat, equipment and crafting;
-- development/build/testing/release workflows.
+Several specialist modules overlap intentionally. Examples:
+- `graphics-shaders-rendering.md` and `rendering-shaders-lighting.md`;
+- `racemenu-facegen-bodymorph-physics.md` and `npc-appearance-facegen-racemenu.md`;
+- `mod-managers-wabbajack-patching-pipelines.md` and `mod-managers-modlists-deployment.md`;
+- `lod-grass-occlusion-world-rendering.md` and `lod-grass-seasons-occlusion.md`.
 
-## Maintenance rules
-
-1. Regenerate counts when modules are added or headings materially change.
-2. Add common synonyms/acronyms to `aliases.json`.
-3. Add new symptom routes to `troubleshooting-routing.md`.
-4. Version-scope volatile tool/runtime facts.
-5. Preserve conflicting evidence until resolved rather than silently overwriting it.
-6. Prefer source-backed diagnostic relationships over isolated definitions.
+Future normalization should map aliases/duplicates to stable concept IDs while retaining specialist context rather than deleting useful domain-specific explanations.
