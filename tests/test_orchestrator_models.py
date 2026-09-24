@@ -55,18 +55,24 @@ def codex_cache(path: Path, extra: list[dict] | None = None) -> Path:
     return path
 
 
+PROVIDERS = [
+    {"id": "claude-code", "adapter": "claude_code", "models": {"fast": "haiku", "balanced": "sonnet", "reasoning": "opus", "frontier": "fable"}},
+    {"id": "codex", "adapter": "codex_cli", "models": {"fast": "gpt-6-luna", "balanced": "gpt-5.6-terra", "reasoning": "gpt-6-sol", "frontier": "gpt-6-astra"}},
+]
+
+
 def registry() -> ProviderRegistry:
-    return ProviderRegistry(providers=[
-        {"id": "claude-code", "adapter": "claude_code", "models": {"fast": "haiku", "balanced": "sonnet", "reasoning": "opus", "frontier": "fable"}},
-        {"id": "codex", "adapter": "codex_cli", "models": {"fast": "gpt-6-luna", "balanced": "gpt-5.6-terra", "reasoning": "gpt-6-sol", "frontier": "gpt-6-astra"}},
-    ], discover=False)
+    return ProviderRegistry(providers=json.loads(json.dumps(PROVIDERS)), discover=False)
 
 
 class CatalogTests(unittest.TestCase):
     def setUp(self) -> None:
         self.tmp = Path(tempfile.mkdtemp(prefix="agent-os-models-"))
         self.addCleanup(shutil.rmtree, self.tmp, True)
-        patcher = mock.patch.dict(os.environ, {"AGENT_OS_ORCHESTRATOR_HOME": str(self.tmp / "home")})
+        # An online refresh may write routing costs to the registry file: keep it here.
+        providers = self.tmp / "registry.json"
+        providers.write_text(json.dumps({"providers": PROVIDERS}), encoding="utf-8")
+        patcher = mock.patch.dict(os.environ, {"AGENT_OS_ORCHESTRATOR_HOME": str(self.tmp / "home"), "AGENT_OS_PROVIDERS": str(providers)})
         patcher.start()
         self.addCleanup(patcher.stop)
         self.cache = codex_cache(self.tmp / "models_cache.json")
@@ -96,7 +102,7 @@ class CatalogTests(unittest.TestCase):
         self.assertIn("claude-sonnet-5", catalog["models"])
         self.assertEqual(sorted(catalog["models"]["gpt-6-sol"]["sources"]), ["codex-cli-catalog", "openai-api-models", "openai-codex-models"])
         self.assertTrue(catalog["models"]["gpt-5.6-terra"]["outdated"])
-        self.assertEqual([check["ok"] for check in view["checks"]], [True, True, True, True])
+        self.assertEqual([check["ok"] for check in view["checks"] if check.get("source")], [True, True, True, True])
         self.assertEqual(view["new_notices"], [], "the first refresh is a baseline, not news")
         proposal = next(item for item in view["proposals"] if item["tier"] == "balanced")
         self.assertEqual(proposal["candidate"], "gpt-6-sol", "never the costlier frontier model for balanced work")
@@ -151,7 +157,7 @@ class CatalogTests(unittest.TestCase):
     def test_failing_source_is_recorded_not_fatal(self) -> None:
         self.pages[models.MODEL_SOURCES[1]["url"]] = OSError("offline")
         view = self.refresh()
-        failed = [check for check in view["checks"] if not check["ok"]]
+        failed = [check for check in view["checks"] if check.get("source") and not check["ok"]]
         self.assertEqual(len(failed), 1)
         self.assertIn("offline", failed[0]["error"])
         self.assertIn("gpt-6-sol", models.load()["models"])
