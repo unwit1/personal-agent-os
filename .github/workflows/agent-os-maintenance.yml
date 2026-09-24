@@ -17,3 +17,5 @@ jobs:
           python-version: "3.11"
       - name: Rebuild derived index and report candidate reviews
         run: python agent.py maintenance --event scheduled
+      - name: Run Agent OS tests
+        run: python -m unittest discover -s tests -v
