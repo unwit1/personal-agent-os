@@ -1,0 +1,82 @@
+{
+  "id": "rtec-process-title-vi-public-participation-2026",
+  "record_type": "process",
+  "title": "RTEC Title VI public participation and outreach workflow — January 2026 plan",
+  "status": "validated_from_board_approved_2026_plan",
+  "temporal_status": "current",
+  "governing_source": "rtec-compliance-title-vi-lep-2026",
+  "board_approval_date": "2026-01-19",
+  "purpose": "Provide meaningful opportunities for the public, including low-income, minority, LEP and other traditionally underserved communities, to receive information and comment before relevant transportation/service decisions are implemented.",
+  "goals": [
+    "Inclusion and diversity through proactive outreach.",
+    "Physical, geographic, temporal, linguistic and cultural accessibility.",
+    "Clear and relevant explanation of proposed fare/service decisions.",
+    "Responsiveness to appropriate public comments.",
+    "Methods tailored to local/cultural preferences.",
+    "Flexible participation options that can change over time."
+  ],
+  "stakeholders": [
+    "passengers",
+    "general public",
+    "low-income populations",
+    "minority populations",
+    "LEP populations",
+    "other traditionally underserved communities",
+    "community-based organizations",
+    "major employers",
+    "advisory committees",
+    "other government units",
+    "elected officials"
+  ],
+  "methods": [
+    "Community meetings and listening sessions.",
+    "Telephone feedback recorded and passed to management.",
+    "Periodic formal customer surveys.",
+    "Meetings designed as appropriate for information sharing, questions, priority setting, consensus-building or public comment before service changes.",
+    "Accessible meeting facilities, preferably served by public transit; use varied locations when a series of meetings makes that appropriate.",
+    "In-vehicle advertisements.",
+    "Transit-center posters/flyers.",
+    "Website postings.",
+    "Press releases/media briefings.",
+    "Multilingual flyers through community organizations, especially organizations serving LEP populations.",
+    "Distribution through libraries and civic locations.",
+    "Communications to relevant elected officials.",
+    "Other methods required by law or agreement."
+  ],
+  "language_access": [
+    "Materials about proposed and actual service adjustments are to be provided in English and any other language meeting the plan's safe-harbor criteria.",
+    "The plan records outreach practices including Spanish brochures, Spanish website service information, public-hearing notices offering disability/LEP accommodation, Spanish telephone-message portions and bilingual service resources."
+  ],
+  "feedback_handling": [
+    "Phone feedback is recorded and passed to RTEC management.",
+    "Comments collected through participation methods are responded to as appropriate.",
+    "Public input is to be considered before implementing relevant proposed service adjustments."
+  ],
+  "hearing_history_in_2026_plan": [
+    "The plan points to a FY2021 public-hearing letter/advertisement.",
+    "It states no public hearing was held for FY2023, FY2024 or FY2025 because there were no changes."
+  ],
+  "controls": [
+    "Public-meeting format should match the purpose of the engagement.",
+    "Meeting sites must satisfy accessibility requirements.",
+    "Language accessibility is integrated into outreach rather than handled only after a complaint.",
+    "Outreach evidence should be retained with the plan/grant record so later submissions can show actual participation efforts."
+  ],
+  "currentness_and_data_quality": [
+    "Historical outreach examples in the 2026 plan are evidence of prior practice; they are not proof that every channel is still active today.",
+    "Individual bilingual employees mentioned in the source should not be promoted to generalized knowledge; use role/capability data and maintain any live roster separately.",
+    "Public-facing English and translated content should be versioned together because the website audit found locale/document drift."
+  ],
+  "related_records": [
+    "rtec-process-lep-language-assistance-2026",
+    "rtec-process-title-vi-lep-program",
+    "rtec-public-website-compliance-document-drift-2026-09-23",
+    "rtec-process-grant-compliance-crosswalk-fy2017"
+  ],
+  "automation_candidates": [
+    "Public-outreach evidence log linking each service/fare change to notices, meetings, comments, accommodations, translations and management response.",
+    "Automatic checklist for accessible venue, language needs, notice channels and required hearing/coordination evidence.",
+    "Version-sync checks for multilingual web/printed notices.",
+    "Grant-package generator that can pull current public-participation evidence without duplicating old attachments."
+  ]
+}
