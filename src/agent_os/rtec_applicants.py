@@ -11,6 +11,8 @@ from .registry import get_project
 
 _PROJECT_ID = "job-applicant-dashboard"
 _HEALTH_RELATIVE = Path("Config") / "fillout_sync_health.json"
+_OPENINGS_RELATIVE = Path("Config") / "openings_settings.json"
+_PATHS_RELATIVE = Path("Config") / "paths_settings.json"
 _DB_NAME = "dashboard.db"
 
 # Explicit allowlists.  Never replace these with SELECT *: dashboard.db also
@@ -67,6 +69,57 @@ def _db_path() -> Path:
 
 def _health_path() -> Path:
     return _project_root() / _HEALTH_RELATIVE
+
+
+def _load_local_json(path: Path) -> dict[str, Any]:
+    try:
+        value = json.loads(path.read_text(encoding="utf-8-sig"))
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        return {}
+    return value if isinstance(value, dict) else {}
+
+
+def _resolve_document_path(value: Any, kind: str) -> Path | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    path = Path(text)
+    if path.is_absolute():
+        return path
+
+    root = _project_root()
+    paths = _load_local_json(root / _PATHS_RELATIVE)
+    if kind in {"application", "resume"}:
+        base = str(paths.get("applications_dir") or "").strip()
+        if base:
+            return Path(base) / path
+    if kind == "restricted_compliance":
+        base = str(paths.get("aap_forms_dir") or "").strip()
+        if base:
+            return Path(base) / path
+    return root / path
+
+
+def _file_metadata(value: Any, kind: str, include_type: bool = True) -> dict[str, Any]:
+    path = _resolve_document_path(value, kind)
+    present = bool(str(value or "").strip())
+    result: dict[str, Any] = {"recorded": present, "exists": False}
+    if path is None:
+        return result
+    try:
+        stat = path.stat()
+    except OSError:
+        return result
+    result["exists"] = path.is_file()
+    if not result["exists"]:
+        return result
+    result["size_bytes"] = int(stat.st_size)
+    result["modified_at"] = datetime.fromtimestamp(
+        stat.st_mtime
+    ).astimezone().isoformat(timespec="seconds")
+    if include_type:
+        result["extension"] = path.suffix.lower()
+    return result
 
 
 def _connect_readonly() -> sqlite3.Connection:
@@ -239,6 +292,156 @@ def get_summary(applicant_ref: str) -> dict[str, Any] | None:
         },
         "updated_at": raw.get("updated_at", ""),
     }
+
+
+def get_document_metadata(applicant_ref: str) -> dict[str, Any] | None:
+    """Return document presence/file metadata without paths or content."""
+    ref = str(applicant_ref or "").strip()
+    if not ref:
+        raise ValueError("applicant_ref is required")
+    conn = _connect_readonly()
+    try:
+        _require_agent_ref_schema(conn)
+        present = _table_columns(conn, "applicants")
+        desired = [
+            column for column in ("agent_ref", "pdf_path", "resume_path", "aa_pdf_path")
+            if column in present
+        ]
+        row = conn.execute(
+            f"SELECT {', '.join(desired)} FROM applicants WHERE agent_ref = ?",
+            (ref,),
+        ).fetchone()
+        if row is None:
+            return None
+        raw = dict(row)
+    finally:
+        conn.close()
+
+    return {
+        "applicant_ref": ref,
+        "application": _file_metadata(raw.get("pdf_path"), "application"),
+        "resume": _file_metadata(raw.get("resume_path"), "resume"),
+        # Restricted form metadata is deliberately coarser: ordinary Agent
+        # tools may know a compliance artifact exists but do not need its
+        # filename, extension, path, size, or content.
+        "restricted_compliance_form": _file_metadata(
+            raw.get("aa_pdf_path"), "restricted_compliance", include_type=False
+        ),
+    }
+
+
+def get_timeline(applicant_ref: str, limit: int = 100) -> dict[str, Any] | None:
+    """Return metadata-only Dashboard events for one opaque applicant ref.
+
+    Coverage begins when the local event-outbox migration was introduced; this
+    is not a reconstruction of all earlier applicant history.
+    """
+    ref = str(applicant_ref or "").strip()
+    if not ref:
+        raise ValueError("applicant_ref is required")
+    limit = _bounded_limit(limit)
+    conn = _connect_readonly()
+    try:
+        tables = {
+            str(row["name"])
+            for row in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        }
+        if "applicants" not in tables:
+            return None
+        _require_agent_ref_schema(conn)
+        applicant = conn.execute(
+            "SELECT applicant_key FROM applicants WHERE agent_ref = ?", (ref,)
+        ).fetchone()
+        if applicant is None:
+            return None
+        if "agent_events" not in tables:
+            return {
+                "applicant_ref": ref,
+                "count": 0,
+                "events": [],
+                "coverage": "outbox_schema_not_yet_available",
+            }
+        rows = conn.execute(
+            "SELECT event_id, event_type, source_component, created_at, "
+            "payload_json, sensitivity, acknowledged_at "
+            "FROM agent_events WHERE applicant_key = ? "
+            "ORDER BY created_at DESC, event_id DESC LIMIT ?",
+            (applicant["applicant_key"], limit),
+        ).fetchall()
+    finally:
+        conn.close()
+
+    events = []
+    for row in reversed(rows):
+        payload: dict[str, Any] = {}
+        try:
+            parsed = json.loads(row["payload_json"] or "{}")
+            if isinstance(parsed, dict):
+                payload = parsed
+        except json.JSONDecodeError:
+            pass
+        events.append(
+            {
+                "event_id": row["event_id"],
+                "event_type": row["event_type"],
+                "source_component": row["source_component"],
+                "created_at": row["created_at"],
+                "payload": payload,
+                "sensitivity": row["sensitivity"],
+                "acknowledged_at": row["acknowledged_at"] or None,
+            }
+        )
+    return {
+        "applicant_ref": ref,
+        "count": len(events),
+        "events": events,
+        "coverage": "events_recorded_since_outbox_migration_only",
+    }
+
+
+def openings_status() -> dict[str, Any]:
+    """Return organization-level openings configuration, never candidate fit."""
+    path = _project_root() / _OPENINGS_RELATIVE
+    data = _load_local_json(path)
+    if not data:
+        return {
+            "source": "dashboard_local_config",
+            "configured": False,
+            "transit_driver_groups": [],
+            "office_positions": {},
+        }
+
+    groups = data.get("transit_driver_groups")
+    if not isinstance(groups, list):
+        groups = []
+    groups = [str(item).strip() for item in groups if str(item).strip()]
+
+    office = data.get("office_positions")
+    if not isinstance(office, dict):
+        office = {}
+    office_safe = {
+        str(key): bool(value)
+        for key, value in office.items()
+        if isinstance(key, str)
+    }
+
+    result: dict[str, Any] = {
+        "source": "dashboard_local_config",
+        "configured": True,
+        "transit_driver_groups": sorted(set(groups), key=str.casefold),
+        "office_positions": office_safe,
+    }
+    for key in ("max_drive_minutes", "nearby_offer_minutes"):
+        value = data.get(key)
+        if isinstance(value, (int, float)) and not isinstance(value, bool):
+            result[key] = value
+    try:
+        result["config_modified_at"] = datetime.fromtimestamp(
+            path.stat().st_mtime
+        ).astimezone().isoformat(timespec="seconds")
+    except OSError:
+        pass
+    return result
 
 
 def get_status(applicant_ref: str) -> dict[str, Any] | None:
