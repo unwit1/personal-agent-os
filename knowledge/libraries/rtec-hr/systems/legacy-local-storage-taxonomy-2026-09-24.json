@@ -1,0 +1,213 @@
+{
+  "record_id": "rtec-hr-legacy-local-storage-taxonomy-2026-09-24",
+  "ingested_at": "2026-09-24",
+  "source_archive": "Job Openings Descriptions.zip",
+  "status": "contextual_historical_evidence",
+  "policy": "Shortcut targets are modeled only as generalized workflow/storage categories. User-profile names and absolute local paths are not persisted.",
+  "source_count": 21,
+  "observed_storage_categories": [
+    "401k records folder",
+    "EEO reporting folder/workbook",
+    "applicant logs folder",
+    "employee benefit contact sheet",
+    "employee census workbook",
+    "employee insurance deduction records",
+    "filesystem metadata",
+    "legacy local file/folder",
+    "legacy user-profile folder",
+    "new-hire records folder",
+    "termination records folder"
+  ],
+  "artifacts": [
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-backup-commonly-used-401k-by-calendar-year-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-01",
+      "sha256": "d4252ec470966ffd283e3ac4630df0be0eb3fba7a7f06c6278dc7bbd37a0adde",
+      "size_bytes": 1575,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "401k records folder",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-backup-commonly-used-current-employee-census-data-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-02",
+      "sha256": "60e90330e7606d771cfb346930eb11a0bb9ae374d42e00742a51658fbf59a669",
+      "size_bytes": 1641,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "employee census workbook",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-backup-commonly-used-current-eeo-employee-list-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-03",
+      "sha256": "9155cee7b3560ee039b9fcde86ec3c826cfe6ca105aae86b7bdda0bc301ce80a",
+      "size_bytes": 1526,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "EEO reporting folder/workbook",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-backup-commonly-used-current-employee-breakdown-by-county-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-04",
+      "sha256": "ed10eb77dcbd4f26d0c6197923e35cbf89827415e3bda5af5f18a98952e67900",
+      "size_bytes": 1417,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "legacy local file/folder",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-backup-commonly-used-eeo-employee-list-by-fiscal-year-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-05",
+      "sha256": "dd2fdb5eeccea03e1ebe68cf79a1005a912c021ab828236db3a11ee21945b193",
+      "size_bytes": 1337,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "EEO reporting folder/workbook",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-backup-commonly-used-empinsded-by-year-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-06",
+      "sha256": "bd27b73bd45f34f075ed5eb904a49d57bda9a5b5ec760d14d1782dd527aed75c",
+      "size_bytes": 1364,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "employee insurance deduction records",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-backup-commonly-used-employee-insurance-deductions-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-07",
+      "sha256": "3009d863767d9062a830e0c0d8871510cfe36459fb28b0b1ba692c7492180a57",
+      "size_bytes": 1130,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "employee insurance deduction records",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-backup-commonly-used-terminations-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-08",
+      "sha256": "eb285826c5b23a5e40f1b84720a3b109325a53dd5eac2c98ccbdffccab8f833d",
+      "size_bytes": 977,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "termination records folder",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-401k-by-calendar-year-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-09",
+      "sha256": "d4252ec470966ffd283e3ac4630df0be0eb3fba7a7f06c6278dc7bbd37a0adde",
+      "size_bytes": 1575,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "401k records folder",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-applicant-logs-lnk",
+      "sanitized_source_label": "pointer-or-metadata-10",
+      "sha256": "6c555c063d9c9a6641c1907cb6d23939422d7cdcd941632ae471ab1e0b7750fc",
+      "size_bytes": 995,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "applicant logs folder",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-current-employee-census-data-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-11",
+      "sha256": "60e90330e7606d771cfb346930eb11a0bb9ae374d42e00742a51658fbf59a669",
+      "size_bytes": 1641,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "employee census workbook",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-current-eeo-employee-list-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-12",
+      "sha256": "9155cee7b3560ee039b9fcde86ec3c826cfe6ca105aae86b7bdda0bc301ce80a",
+      "size_bytes": 1526,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "EEO reporting folder/workbook",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-current-employee-breakdown-by-county-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-13",
+      "sha256": "ed10eb77dcbd4f26d0c6197923e35cbf89827415e3bda5af5f18a98952e67900",
+      "size_bytes": 1417,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "legacy local file/folder",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-eeo-employee-list-by-fiscal-year-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-14",
+      "sha256": "dd2fdb5eeccea03e1ebe68cf79a1005a912c021ab828236db3a11ee21945b193",
+      "size_bytes": 1337,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "EEO reporting folder/workbook",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-empinsded-by-year-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-15",
+      "sha256": "bd27b73bd45f34f075ed5eb904a49d57bda9a5b5ec760d14d1782dd527aed75c",
+      "size_bytes": 1364,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "employee insurance deduction records",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-employee-insurance-deductions-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-16",
+      "sha256": "3009d863767d9062a830e0c0d8871510cfe36459fb28b0b1ba692c7492180a57",
+      "size_bytes": 1130,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "employee insurance deduction records",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-new-hires-lnk",
+      "sanitized_source_label": "pointer-or-metadata-17",
+      "sha256": "aa6b4005aa645f758a122da83837f59295931609ed19f86ad20ee09dfb8b35cb",
+      "size_bytes": 950,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "new-hire records folder",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-common-folder-terminations-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-18",
+      "sha256": "eb285826c5b23a5e40f1b84720a3b109325a53dd5eac2c98ccbdffccab8f833d",
+      "size_bytes": 977,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "termination records folder",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-commonly-used-shiela-stallworth-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-19",
+      "sha256": "f6374253eb83ed97c689a1f86a2da82f97bd3deea27500d555578f8770197229",
+      "size_bytes": 895,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "legacy user-profile folder",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-my-hr-forms-employee-benefit-contact-sheet-shortcut-lnk",
+      "sanitized_source_label": "pointer-or-metadata-20",
+      "sha256": "4010fd29f0a0056cc6eee14cf98eebfff129e9c09cdd495aa3aed1ab921074f8",
+      "size_bytes": 3791,
+      "artifact_type": "non_content_pointer",
+      "generalized_target_class": "employee benefit contact sheet",
+      "raw_target_path_preserved": false
+    },
+    {
+      "source_id": "rtec-hr-job-openings-desktop-ini",
+      "sanitized_source_label": "pointer-or-metadata-21",
+      "sha256": "00c735050e241c3fd7d07dee6493c78863a3d4130834a30e45559d275363acb0",
+      "size_bytes": 78,
+      "artifact_type": "non_content_metadata",
+      "generalized_target_class": "filesystem metadata",
+      "raw_target_path_preserved": false
+    }
+  ],
+  "derived_finding": "The legacy HR workspace used local/common-folder shortcuts as an informal navigation layer for recurring HR record families including 401(k), census/EEO reporting, insurance deductions, applicant logs, new hires, terminations and benefits references. This is historical storage evidence, not a current system-of-record designation."
+}
