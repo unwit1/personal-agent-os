@@ -5,7 +5,8 @@
     "analysis/book-normalization-index.json",
     "analysis/book-provenance-pass-02.json",
     "analysis/book-provenance-pass-03-search-audit.json",
-    "analysis/book-variant-pass-01.json"
+    "analysis/book-variant-pass-01.json",
+    "analysis/book-provenance-pass-06-current-chronocoda-comparison.json"
   ],
   "status": "complete_33_of_33",
   "policy": {
@@ -217,7 +218,21 @@
       "relation": "possible_legacy_text_reuse",
       "concept_preexists_wheels": true,
       "exact_prior_text_witness": false,
-      "promotion_blocker": "Exact pre-Wheels treatise witness not found."
+      "promotion_blocker": "Exact pre-Wheels treatise witness not found.",
+      "current_cross_continuity_witnesses": [
+        {
+          "continuity_id": "tes.mod.aethernautics",
+          "record_id": "05002FAD",
+          "relation": "same_body_byline_variant"
+        },
+        {
+          "continuity_id": "tes.mod.sotha-sil-expanded",
+          "record_id": "_sotha_gunbook",
+          "relation": "semantic_text_exact"
+        }
+      ],
+      "current_witness_audit": "analysis/book-provenance-pass-06-current-chronocoda-comparison.json",
+      "historical_origin_unchanged_by_current_witness": true
     },
     {
       "form_id": "0537158E",
@@ -231,7 +246,16 @@
       "relation": "embedded_abridged_edited_variant",
       "central_source_path": "knowledge/libraries/elder-scrolls/sources/apocryphal-library/books/040008F1-anon-anu-anui-el.txt",
       "exact_text_identity": false,
-      "variant_analysis": "analysis/book-variant-pass-01.json"
+      "variant_analysis": "analysis/book-variant-pass-01.json",
+      "current_cross_continuity_witnesses": [
+        {
+          "continuity_id": "tes.mod.sotha-sil-expanded",
+          "record_id": "_sotha_kinmune",
+          "relation": "semantic_text_exact"
+        }
+      ],
+      "current_witness_audit": "analysis/book-provenance-pass-06-current-chronocoda-comparison.json",
+      "historical_origin_unchanged_by_current_witness": true
     },
     {
       "form_id": "0537158F",
@@ -244,7 +268,16 @@
       "work_identity": "Tatterdemalion: The Lunar Province of Secunda",
       "relation": "embedded_copy_or_variant",
       "central_source_path": "knowledge/libraries/elder-scrolls/sources/imperial-library/catalog/tatterdemalion-the-lunar-province-of-secunda.md",
-      "exact_text_identity": "pending_full_witness_diff"
+      "exact_text_identity": "pending_full_witness_diff",
+      "current_cross_continuity_witnesses": [
+        {
+          "continuity_id": "tes.mod.sotha-sil-expanded",
+          "record_id": "_sotha_mooncolony",
+          "relation": "semantic_text_exact"
+        }
+      ],
+      "current_witness_audit": "analysis/book-provenance-pass-06-current-chronocoda-comparison.json",
+      "historical_origin_unchanged_by_current_witness": true
     },
     {
       "form_id": "05371590",
@@ -258,7 +291,16 @@
       "relation": "embedded_excerpt",
       "central_source_path": "knowledge/libraries/elder-scrolls/sources/imperial-library/catalog/the-xal-gosleigh-letters.md",
       "central_section": "Xal's letter - Day of the Power/Knowledge",
-      "exact_text_identity": "pending_full_witness_diff"
+      "exact_text_identity": "pending_full_witness_diff",
+      "current_cross_continuity_witnesses": [
+        {
+          "continuity_id": "tes.mod.sotha-sil-expanded",
+          "record_id": "_sotha_music",
+          "relation": "semantic_text_same_after_encoding_repair"
+        }
+      ],
+      "current_witness_audit": "analysis/book-provenance-pass-06-current-chronocoda-comparison.json",
+      "historical_origin_unchanged_by_current_witness": true
     },
     {
       "form_id": "05371591",
@@ -271,7 +313,16 @@
       "functional_class": "named_lore_work",
       "historical_origin": "unresolved",
       "search_state": "no_verified_pre_wheels_witness_found",
-      "relation": "continuity_local_embedding"
+      "relation": "continuity_local_embedding",
+      "current_cross_continuity_witnesses": [
+        {
+          "continuity_id": "tes.mod.sotha-sil-expanded",
+          "record_id": "_sotha_rewoundbook",
+          "relation": "punctuation_only_variant"
+        }
+      ],
+      "current_witness_audit": "analysis/book-provenance-pass-06-current-chronocoda-comparison.json",
+      "historical_origin_unchanged_by_current_witness": true
     },
     {
       "form_id": "05371592",
@@ -284,7 +335,16 @@
       "functional_class": "named_lore_work",
       "historical_origin": "unresolved",
       "search_state": "no_verified_pre_wheels_witness_found",
-      "relation": "continuity_local_embedding"
+      "relation": "continuity_local_embedding",
+      "current_cross_continuity_witnesses": [
+        {
+          "continuity_id": "tes.mod.sotha-sil-expanded",
+          "record_id": "sotha_powerbook",
+          "relation": "semantic_text_exact"
+        }
+      ],
+      "current_witness_audit": "analysis/book-provenance-pass-06-current-chronocoda-comparison.json",
+      "historical_origin_unchanged_by_current_witness": true
     },
     {
       "form_id": "05371593",
@@ -297,7 +357,16 @@
       "functional_class": "named_lore_work",
       "historical_origin": "unresolved",
       "search_state": "no_verified_pre_wheels_witness_found",
-      "relation": "continuity_local_embedding"
+      "relation": "continuity_local_embedding",
+      "current_cross_continuity_witnesses": [
+        {
+          "continuity_id": "tes.mod.sotha-sil-expanded",
+          "record_id": "sotha_mimicbook",
+          "relation": "single_typo_variant"
+        }
+      ],
+      "current_witness_audit": "analysis/book-provenance-pass-06-current-chronocoda-comparison.json",
+      "historical_origin_unchanged_by_current_witness": true
     },
     {
       "form_id": "05371594",
@@ -310,7 +379,16 @@
       "functional_class": "named_lore_work",
       "historical_origin": "unresolved",
       "search_state": "no_verified_pre_wheels_witness_found",
-      "relation": "continuity_local_embedding"
+      "relation": "continuity_local_embedding",
+      "current_cross_continuity_witnesses": [
+        {
+          "continuity_id": "tes.mod.sotha-sil-expanded",
+          "record_id": "sotha_bookmoon",
+          "relation": "semantic_text_exact"
+        }
+      ],
+      "current_witness_audit": "analysis/book-provenance-pass-06-current-chronocoda-comparison.json",
+      "historical_origin_unchanged_by_current_witness": true
     },
     {
       "form_id": "05371595",
@@ -323,7 +401,16 @@
       "functional_class": "named_lore_work",
       "historical_origin": "unresolved",
       "search_state": "no_verified_pre_wheels_witness_found",
-      "relation": "continuity_local_embedding"
+      "relation": "continuity_local_embedding",
+      "current_cross_continuity_witnesses": [
+        {
+          "continuity_id": "tes.mod.aethernautics",
+          "record_id": "05002FA7",
+          "relation": "semantic_text_exact"
+        }
+      ],
+      "current_witness_audit": "analysis/book-provenance-pass-06-current-chronocoda-comparison.json",
+      "historical_origin_unchanged_by_current_witness": true
     },
     {
       "form_id": "05376714",
@@ -336,7 +423,16 @@
       "functional_class": "named_lore_work",
       "historical_origin": "unresolved",
       "search_state": "no_verified_pre_wheels_witness_found",
-      "relation": "continuity_local_embedding"
+      "relation": "continuity_local_embedding",
+      "current_cross_continuity_witnesses": [
+        {
+          "continuity_id": "tes.mod.aethernautics",
+          "record_id": "05002FA8",
+          "relation": "minor_text_variant"
+        }
+      ],
+      "current_witness_audit": "analysis/book-provenance-pass-06-current-chronocoda-comparison.json",
+      "historical_origin_unchanged_by_current_witness": true
     },
     {
       "form_id": "05376715",
@@ -349,7 +445,16 @@
       "functional_class": "named_lore_work",
       "historical_origin": "unresolved",
       "search_state": "no_verified_pre_wheels_witness_found",
-      "relation": "continuity_local_embedding"
+      "relation": "continuity_local_embedding",
+      "current_cross_continuity_witnesses": [
+        {
+          "continuity_id": "tes.mod.aethernautics",
+          "record_id": "05002FA9",
+          "relation": "semantic_text_exact"
+        }
+      ],
+      "current_witness_audit": "analysis/book-provenance-pass-06-current-chronocoda-comparison.json",
+      "historical_origin_unchanged_by_current_witness": true
     },
     {
       "form_id": "0543D471",
@@ -426,5 +531,7 @@
       "historical_origin": "unresolved",
       "relation": "continuity_local_embedding"
     }
-  ]
+  ],
+  "current_cross_continuity_witness_record_count": 11,
+  "historical_precedence_policy": "Current 2025/2026 source identity does not establish pre-2014 publication."
 }
