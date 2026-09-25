@@ -287,5 +287,63 @@ class DevBenchRuntimeObserverTests(unittest.TestCase):
         self.assertEqual(raw[1]["name"],"beta")
 
 
+    def test_gate_scoped_save_migration_assertion_emits_g21(self):
+        value=runtime_test()
+        value["fixture"]={
+            "kind":"save",
+            "save_path":"Fixture.ess",
+            "destructive_copy_only":True,
+        }
+        value["assertions"].append({
+            "id":"schema-upgraded",
+            "kind":"value",
+            "expected":2,
+            "operator":"eq",
+            "severity":"BLOCKER",
+            "gates":["G21","G26"],
+            "probe":{
+                "adapter":"devbench",
+                "tool":"inspect",
+                "arguments":{"kind":"fixture.persistence"},
+                "json_path":"schemaVersion",
+            },
+        })
+        sess=session()
+        sess["assertions"].append({
+            "id":"schema-upgraded",
+            "status":"needs-review",
+            "severity":"BLOCKER",
+            "expected":2,
+            "observed":None,
+            "issues":[],
+        })
+        sess["gates"][2]={
+            "gate":"G21","status":"needs-review","evidence":[],"issues":[]
+        }
+
+        def fake_post(base,name,args,timeout_seconds=30.0):
+            if name=="scenario":
+                return {
+                    "ok":True,
+                    "results":[
+                        {"index":0,"ok":True},
+                        {"index":1,"satisfied":True},
+                        {"index":2,"satisfied":True},
+                    ],
+                }
+            if args.get("kind")=="state":
+                return {"playerLoaded":True}
+            return {"schemaVersion":2}
+
+        with patch.object(MOD,"wait_for_health",return_value=dict(HEALTH)), \
+             patch.object(MOD,"health",return_value=dict(HEALTH)), \
+             patch.object(MOD,"post_tool",side_effect=fake_post):
+            obs=MOD.run_observer(value,sess)
+
+        gates={x["gate"]:x for x in obs["gates"]}
+        self.assertEqual(gates["G21"]["status"],"pass")
+        self.assertIn("schema-upgraded: pass",gates["G21"]["evidence"])
+
+
 if __name__=="__main__":
     unittest.main()
