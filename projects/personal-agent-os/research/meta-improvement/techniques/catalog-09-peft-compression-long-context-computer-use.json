@@ -17,7 +17,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0209.",
+        "summary": "Evidence basis: SRC-AI-0238.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -44,7 +44,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0209"
+        "SRC-AI-0238"
       ],
       "keywords": [
         "prefix_tuning",
@@ -66,7 +66,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0210.",
+        "summary": "Evidence basis: SRC-AI-0239.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -91,7 +91,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0210"
+        "SRC-AI-0239"
       ],
       "keywords": [
         "prompt_tuning",
@@ -112,7 +112,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0211.",
+        "summary": "Evidence basis: SRC-AI-0240.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -137,7 +137,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0211"
+        "SRC-AI-0240"
       ],
       "keywords": [
         "IA3"
@@ -157,7 +157,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium",
-        "summary": "Evidence basis: SRC-AI-0212.",
+        "summary": "Evidence basis: SRC-AI-0337.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -179,7 +179,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0212"
+        "SRC-AI-0337"
       ],
       "keywords": [
         "Compacter",
@@ -200,7 +200,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0213.",
+        "summary": "Evidence basis: SRC-AI-0338.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -222,7 +222,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0213"
+        "SRC-AI-0338"
       ],
       "keywords": [
         "DoRA",
@@ -243,7 +243,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium",
-        "summary": "Evidence basis: SRC-AI-0214.",
+        "summary": "Evidence basis: SRC-AI-0339.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -266,7 +266,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0214"
+        "SRC-AI-0339"
       ],
       "keywords": [
         "VeRA"
@@ -286,7 +286,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium",
-        "summary": "Evidence basis: SRC-AI-0215.",
+        "summary": "Evidence basis: SRC-AI-0340.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -312,7 +312,7 @@
       "complexity": "low",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0215"
+        "SRC-AI-0340"
       ],
       "keywords": [
         "NEFTune",
@@ -334,7 +334,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0216.",
+        "summary": "Evidence basis: SRC-AI-0242.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -358,7 +358,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0216"
+        "SRC-AI-0242"
       ],
       "keywords": [
         "model_soup",
@@ -380,7 +380,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium",
-        "summary": "Evidence basis: SRC-AI-0217.",
+        "summary": "Evidence basis: SRC-AI-0341.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -404,7 +404,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0217"
+        "SRC-AI-0341"
       ],
       "keywords": [
         "task_vector"
@@ -425,7 +425,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0218.",
+        "summary": "Evidence basis: SRC-AI-0243.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -448,7 +448,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0218"
+        "SRC-AI-0243"
       ],
       "keywords": [
         "TIES",
@@ -470,7 +470,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium",
-        "summary": "Evidence basis: SRC-AI-0219.",
+        "summary": "Evidence basis: SRC-AI-0342.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -494,7 +494,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0219"
+        "SRC-AI-0342"
       ],
       "keywords": [
         "DARE",
@@ -516,7 +516,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0220.",
+        "summary": "Evidence basis: SRC-AI-0233.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -541,7 +541,7 @@
       "complexity": "very_high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0220"
+        "SRC-AI-0233"
       ],
       "keywords": [
         "SparseGPT",
@@ -563,7 +563,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0221.",
+        "summary": "Evidence basis: SRC-AI-0234.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -585,7 +585,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0221"
+        "SRC-AI-0234"
       ],
       "keywords": [
         "Wanda",
@@ -607,7 +607,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0222.",
+        "summary": "Evidence basis: SRC-AI-0343.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -631,7 +631,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0222"
+        "SRC-AI-0343"
       ],
       "keywords": [
         "layer_pruning",
@@ -654,7 +654,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0223.",
+        "summary": "Evidence basis: SRC-AI-0344.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -679,7 +679,7 @@
       "complexity": "very_high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0223"
+        "SRC-AI-0344"
       ],
       "keywords": [
         "Minitron",
@@ -702,7 +702,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0224.",
+        "summary": "Evidence basis: SRC-AI-0345.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -726,7 +726,7 @@
       "complexity": "very_high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0224"
+        "SRC-AI-0345"
       ],
       "keywords": [
         "Mixture_of_Depths"
@@ -747,7 +747,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0225.",
+        "summary": "Evidence basis: SRC-AI-0346.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -771,7 +771,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0225"
+        "SRC-AI-0346"
       ],
       "keywords": [
         "H2O",
@@ -793,7 +793,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium",
-        "summary": "Evidence basis: SRC-AI-0226.",
+        "summary": "Evidence basis: SRC-AI-0347.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -815,7 +815,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0226"
+        "SRC-AI-0347"
       ],
       "keywords": [
         "Scissorhands",
@@ -837,7 +837,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0227.",
+        "summary": "Evidence basis: SRC-AI-0348.",
         "limitations": []
       },
       "agent_os_fit": "conditional",
@@ -860,7 +860,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0227"
+        "SRC-AI-0348"
       ],
       "keywords": [
         "StreamingLLM",
@@ -882,7 +882,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0231.",
+        "summary": "Evidence basis: SRC-AI-0349.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -905,7 +905,7 @@
       "complexity": "very_high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0231"
+        "SRC-AI-0349"
       ],
       "keywords": [
         "LongLoRA"
@@ -927,7 +927,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0232.",
+        "summary": "Evidence basis: SRC-AI-0350.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -952,7 +952,7 @@
       "complexity": "very_high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0232"
+        "SRC-AI-0350"
       ],
       "keywords": [
         "RingAttention"
@@ -974,7 +974,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium",
-        "summary": "Evidence basis: SRC-AI-0233.",
+        "summary": "Evidence basis: SRC-AI-0351.",
         "limitations": []
       },
       "agent_os_fit": "research_only",
@@ -998,7 +998,7 @@
       "complexity": "very_high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0233"
+        "SRC-AI-0351"
       ],
       "keywords": [
         "LandmarkAttention"
@@ -1020,7 +1020,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0234.",
+        "summary": "Evidence basis: SRC-AI-0352.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -1044,7 +1044,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0234"
+        "SRC-AI-0352"
       ],
       "keywords": [
         "WebArena",
@@ -1067,7 +1067,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0235.",
+        "summary": "Evidence basis: SRC-AI-0353.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -1092,7 +1092,7 @@
       "complexity": "very_high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0235"
+        "SRC-AI-0353"
       ],
       "keywords": [
         "OSWorld",
@@ -1115,7 +1115,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0236.",
+        "summary": "Evidence basis: SRC-AI-0354.",
         "limitations": []
       },
       "agent_os_fit": "high",
@@ -1140,7 +1140,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0236"
+        "SRC-AI-0354"
       ],
       "keywords": [
         "AssistantBench"
@@ -1161,7 +1161,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "medium",
-        "summary": "Evidence basis: SRC-AI-0237.",
+        "summary": "Evidence basis: SRC-AI-0355.",
         "limitations": []
       },
       "agent_os_fit": "conditional",
@@ -1183,7 +1183,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0237"
+        "SRC-AI-0355"
       ],
       "keywords": [
         "AgentBench"
@@ -1205,7 +1205,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0238.",
+        "summary": "Evidence basis: SRC-AI-0301.",
         "limitations": []
       },
       "agent_os_fit": "high",
@@ -1231,7 +1231,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0238"
+        "SRC-AI-0301"
       ],
       "keywords": [
         "PDDL",
@@ -1254,7 +1254,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0239.",
+        "summary": "Evidence basis: SRC-AI-0356.",
         "limitations": []
       },
       "agent_os_fit": "high",
@@ -1276,7 +1276,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0239"
+        "SRC-AI-0356"
       ],
       "keywords": [
         "ProgPrompt",
@@ -1299,7 +1299,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0240.",
+        "summary": "Evidence basis: SRC-AI-0357.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -1323,7 +1323,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0240"
+        "SRC-AI-0357"
       ],
       "keywords": [
         "closed_loop",
@@ -1346,7 +1346,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0241, SRC-AI-0085.",
+        "summary": "Evidence basis: SRC-AI-0210, SRC-AI-0085.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -1371,7 +1371,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0241",
+        "SRC-AI-0210",
         "SRC-AI-0085"
       ],
       "keywords": [
