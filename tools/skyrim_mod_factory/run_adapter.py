@@ -75,6 +75,80 @@ def build_invocation(adapter:dict[str,Any], variables:dict[str,str])->dict[str,A
         "timeout":inv.get("timeout_seconds"),
     }
 
+def regex_matches(pattern:str,text:str)->bool:
+    try:
+        return re.search(pattern,text,re.MULTILINE|re.IGNORECASE) is not None
+    except re.error:
+        return pattern.lower() in text.lower()
+
+def evaluate_process_result(
+    adapter:dict[str,Any],
+    *,
+    returncode:int,
+    stdout:str,
+    stderr:str,
+    outputs_after:list[dict[str,Any]],
+)->dict[str,Any]:
+    success=adapter.get("success") or {}
+    allowed=success.get("exit_codes",[0])
+    issues=[]
+    issue_codes=[]
+    analyzer_rule_ids=[]
+    diagnostic_matches=[]
+    fail=False
+
+    if returncode not in allowed:
+        fail=True
+        issue_codes.append("TOOL_EXIT_CODE")
+        issues.append(f"unexpected exit code {returncode}; allowed={allowed}")
+
+    combined=stdout+"\n"+stderr
+    for pattern in success.get("forbidden_log_patterns") or []:
+        if regex_matches(str(pattern),combined):
+            fail=True
+            if "FORBIDDEN_LOG_PATTERN" not in issue_codes:
+                issue_codes.append("FORBIDDEN_LOG_PATTERN")
+            issues.append(f"forbidden log pattern matched: {pattern}")
+
+    streams={"stdout":stdout,"stderr":stderr,"combined":combined}
+    for diag in adapter.get("diagnostics") or []:
+        stream=diag.get("stream","combined")
+        text=streams.get(stream,combined)
+        pattern=str(diag.get("pattern",""))
+        if not pattern or not regex_matches(pattern,text):
+            continue
+        code=str(diag["issue_code"])
+        severity=diag.get("severity","ERROR")
+        rule_id=diag.get("analyzer_rule_id")
+        if code not in issue_codes:
+            issue_codes.append(code)
+        if rule_id and rule_id not in analyzer_rule_ids:
+            analyzer_rule_ids.append(rule_id)
+        diagnostic_matches.append({
+            "issue_code":code,
+            "severity":severity,
+            "pattern":pattern,
+            "stream":stream,
+            **({"analyzer_rule_id":rule_id} if rule_id else {}),
+        })
+        issues.append(f"{severity} diagnostic {code} matched {stream}: {pattern}")
+        if severity in {"BLOCKER","ERROR"}:
+            fail=True
+
+    missing=[x.get("path") for x in outputs_after if not x.get("exists")]
+    if missing:
+        fail=True
+        issue_codes.append("DECLARED_OUTPUT_MISSING")
+        issues.append("declared outputs missing: "+", ".join(str(x) for x in missing))
+
+    return {
+        "status":"failed" if fail else "passed",
+        "issues":issues,
+        "issue_codes":list(dict.fromkeys(issue_codes)),
+        "analyzer_rule_ids":list(dict.fromkeys(analyzer_rule_ids)),
+        "diagnostic_matches":diagnostic_matches,
+    }
+
 def run_adapter(
     adapter:dict[str,Any],
     *,
@@ -111,7 +185,9 @@ def run_adapter(
       "dry_run":not execute,
       "inputs":[file_fact(x) for x in inputs],
       "outputs_before":[file_fact(x) for x in outputs],
-      "evidence":adapter.get("evidence",{})
+      "evidence":dict(adapter.get("evidence",{})),
+      "issue_codes":[],
+      "analyzer_rule_ids":[]
     }
 
     log_dir.mkdir(parents=True,exist_ok=True)
@@ -128,7 +204,9 @@ def run_adapter(
           "stdout_path":str(stdout_path),
           "stderr_path":str(stderr_path),
           "outputs_after":[file_fact(x) for x in outputs],
-          "issues":["dry-run: command was not executed"]
+          "issues":["dry-run: command was not executed"],
+          "issue_codes":[],
+          "analyzer_rule_ids":[]
         })
         return record
 
@@ -140,16 +218,25 @@ def run_adapter(
         )
         stdout_path.write_text(proc.stdout,encoding="utf-8")
         stderr_path.write_text(proc.stderr,encoding="utf-8")
-        allowed=(adapter.get("success") or {}).get("exit_codes",[0])
-        status="passed" if proc.returncode in allowed else "failed"
+        outputs_after=[file_fact(x) for x in outputs]
+        verdict=evaluate_process_result(
+            adapter,
+            returncode=proc.returncode,
+            stdout=proc.stdout,
+            stderr=proc.stderr,
+            outputs_after=outputs_after,
+        )
+        record["evidence"]["diagnostic_matches"]=verdict["diagnostic_matches"]
         record.update({
-          "status":status,
+          "status":verdict["status"],
           "finished_at":utcnow(),
           "exit_code":proc.returncode,
           "stdout_path":str(stdout_path),
           "stderr_path":str(stderr_path),
-          "outputs_after":[file_fact(x) for x in outputs],
-          "issues":[]
+          "outputs_after":outputs_after,
+          "issues":verdict["issues"],
+          "issue_codes":verdict["issue_codes"],
+          "analyzer_rule_ids":verdict["analyzer_rule_ids"]
         })
     except subprocess.TimeoutExpired as ex:
         stdout_path.write_text((ex.stdout or "") if isinstance(ex.stdout,str) else "",encoding="utf-8")
@@ -158,14 +245,18 @@ def run_adapter(
           "status":"failed","finished_at":utcnow(),"exit_code":None,
           "stdout_path":str(stdout_path),"stderr_path":str(stderr_path),
           "outputs_after":[file_fact(x) for x in outputs],
-          "issues":[f"timeout after {effective_timeout} seconds"]
+          "issues":[f"timeout after {effective_timeout} seconds"],
+          "issue_codes":["TOOL_TIMEOUT"],
+          "analyzer_rule_ids":[]
         })
     except OSError as ex:
         record.update({
           "status":"failed","finished_at":utcnow(),"exit_code":None,
           "stdout_path":str(stdout_path),"stderr_path":str(stderr_path),
           "outputs_after":[file_fact(x) for x in outputs],
-          "issues":[f"process launch failed: {ex}"]
+          "issues":[f"process launch failed: {ex}"],
+          "issue_codes":["TOOL_LAUNCH_FAILED"],
+          "analyzer_rule_ids":[]
         })
     return record
 
