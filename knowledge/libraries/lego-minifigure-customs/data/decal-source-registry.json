@@ -1,0 +1,149 @@
+{
+  "schema_version": "0.1",
+  "researched_at": "2026-09-24",
+  "sources": [
+    {
+      "id": "brickjournal_2006_burks_decal_design",
+      "name": "Minifig Customization 101: Minifig Decal Design",
+      "creator": "Jared Burks",
+      "source": "https://lego.brandls.info/bj/brickjournal04.pdf",
+      "year": 2006,
+      "authority": "historical_customizer_methodology",
+      "useful_data": {
+        "torso_cm": [
+          1.422,
+          1.201
+        ],
+        "legs_cm": [
+          1.4,
+          1.1
+        ],
+        "belt_cm": [
+          1.4,
+          0.2
+        ],
+        "fine_line_floor_pt_about": 0.3,
+        "suggested_detail_range_pt": [
+          0.5,
+          1
+        ]
+      },
+      "lessons": [
+        "vector-first artwork",
+        "recognizability-first design",
+        "substrate color as design layer",
+        "printer-dependent minimum line width",
+        "test prints"
+      ],
+      "rights_status": "published_article_reference_only_unless_separately_licensed"
+    },
+    {
+      "id": "bobs_customs_flickr_decals",
+      "name": "Bob's Customs free decals",
+      "source": "https://bobscustoms.co.uk/",
+      "observed_scale": "over 300 linked Flickr decals",
+      "authority": "maker_primary",
+      "role": [
+        "decal layout",
+        "custom source translation",
+        "historical/current custom style"
+      ],
+      "rights_status": "site explicitly permits printing/sending to third-party printer; ML/redistribution rights unresolved"
+    },
+    {
+      "id": "minifig_svg_repository",
+      "name": "Minifig SVG Decals / Minifig-Decal-Repository",
+      "source": "https://github.com/jpgerdeman/minifig-svg-decals",
+      "authority": "community_vector",
+      "license": "CC BY-NC-SA 3.0",
+      "role": [
+        "SVG templates",
+        "reusable clothing/belts/logos/faces",
+        "completed custom figures"
+      ],
+      "rights_status": "research/noncommercial extension corpus; not business-production training without permission"
+    },
+    {
+      "id": "saber_scorpion",
+      "name": "Saber-Scorpion's Lair",
+      "source": "https://www.saber-scorpion.com/news_archive.php",
+      "authority": "maker_primary_historical",
+      "role": [
+        "early custom decal history",
+        "genre character adaptations",
+        "product/decal chronology"
+      ],
+      "rights_status": "reference_only_pending_creator_permission"
+    },
+    {
+      "id": "fine_clonier",
+      "name": "Kaminoan's Fine Clonier",
+      "authority": "maker_primary_historical",
+      "role": [
+        "waterslide production",
+        "clone/scifi custom design",
+        "historical LEGO-like line/detail practice"
+      ],
+      "discovery_sources": [
+        "BrickJournal",
+        "Wired interview",
+        "archived maker material"
+      ],
+      "rights_status": "reference_only_pending_archive_and_rights_recovery"
+    },
+    {
+      "id": "brickshelf_historical_customs",
+      "name": "Brickshelf",
+      "source": "https://www.brickshelf.com/",
+      "observed_scale": "hundreds of thousands of hosted files",
+      "authority": "user_gallery_archive",
+      "role": [
+        "historical decals",
+        "templates",
+        "scans",
+        "customizer provenance"
+      ],
+      "rights_status": "per-uploader; site states gallery copyrights belong to owners"
+    },
+    {
+      "id": "eurobricks_customization_indexes",
+      "name": "Eurobricks Minifig Customisation Workshop",
+      "source": "https://www.eurobricks.com/",
+      "authority": "community_forum_index",
+      "role": [
+        "template/decal indexes",
+        "reviews",
+        "creator discovery",
+        "application methods"
+      ],
+      "rights_status": "per-post/per-creator"
+    },
+    {
+      "id": "flickr_custom_lego_minifigs",
+      "name": "Custom LEGO Minifigs Flickr group",
+      "source": "https://www.flickr.com/groups/customfigs/",
+      "observed_scale": "~66.9K photos at research snapshot",
+      "authority": "community_gallery",
+      "role": [
+        "historical customs",
+        "finished figure/decal comparison",
+        "negative and extension examples"
+      ],
+      "rights_status": "per-photo license"
+    },
+    {
+      "id": "flickr_lego_minifig_customization",
+      "name": "LEGO Minifig Customization (FC) Flickr group",
+      "source": "https://www.flickr.com/",
+      "observed_scale": "~29.9K photos at research snapshot",
+      "authority": "community_gallery",
+      "role": [
+        "customization history",
+        "maker discovery",
+        "finished outputs"
+      ],
+      "rights_status": "per-photo license"
+    }
+  ],
+  "admission_rule": "Custom/decal sources teach layout, technique and optional style extensions only after comparison against the official profile. They never define the official baseline."
+}
