@@ -18,7 +18,11 @@ from .candidates import candidate_status, curate_candidates, stage_candidates
 from .changes import capture_change, get_change, google_safe_projection, list_changes, promote_change, update_change
 from .compiler import compile_context
 from .connectors import connector_import_candidates, import_connector_candidate, register_connector
-from .creator_profiles import list_profiles as creator_list_profiles, pending_discovery as creator_pending_discovery
+from .creator_profiles import (
+    list_profiles as creator_list_profiles,
+    pending_discovery as creator_pending_discovery,
+    record_discovery as creator_record_discovery,
+)
 from .coordination import (
     check as check_claims,
     claim as make_claim,
@@ -230,6 +234,12 @@ def parser() -> argparse.ArgumentParser:
         "creator-discovery-pending",
         help="list creator profiles waiting for cross-provider identity discovery",
     )
+    creator_record = commands.add_parser(
+        "creator-discovery-record",
+        help="merge provenance-bearing cross-provider findings into a creator profile",
+    )
+    creator_record.add_argument("creator_id")
+    creator_record.add_argument("findings_file")
     commands.add_parser("validate")
     telemetry_report = commands.add_parser("telemetry-report")
     telemetry_report.add_argument("--path")
@@ -495,6 +505,8 @@ def main(argv: list[str] | None = None) -> int:
             _print({"creators": creator_list_profiles(status=args.status)})
         elif args.command == "creator-discovery-pending":
             _print({"creators": creator_pending_discovery()})
+        elif args.command == "creator-discovery-record":
+            _print(creator_record_discovery(args.creator_id, _load_object(args.findings_file)))
         elif args.command == "validate":
             result = validate()
             _print(result)
