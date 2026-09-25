@@ -1251,7 +1251,7 @@
       "maturity": "production_pattern",
       "evidence": {
         "strength": "medium",
-        "summary": "Evidence basis: SRC-AI-0325.",
+        "summary": "Evidence basis: SRC-AI-0274.",
         "limitations": []
       },
       "agent_os_fit": "high",
@@ -1276,7 +1276,7 @@
       "complexity": "low",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0325"
+        "SRC-AI-0274"
       ],
       "keywords": [
         "premortem",
