@@ -183,6 +183,18 @@
       ]
     },
     {
+      "id": "reference_sets",
+      "prerequisites": [
+        "normalized DerivedAssets with sample IDs, views and quality metadata"
+      ],
+      "command": "python tools/knowledge/build_minifigure_reference_sets.py --input <derived_assets.jsonl> --output .agent-local/lego-minifigure-corpus/indexes/reference_sets.jsonl",
+      "success_metrics": [
+        "one ReferenceSet per resolved OfficialVisualSample",
+        "missing views remain explicit",
+        "ranked alternates preserved"
+      ]
+    },
+    {
       "id": "feature_extraction",
       "prerequisites": [
         "normalized DerivedAssets"
@@ -238,6 +250,11 @@
         "no same OutfitDesign leakage across train/eval",
         "coverage report published",
         "rollback/version manifest saved"
+      ],
+      "followups": [
+        "Generate normal outfit-grouped split with tools/knowledge/build_minifigure_training_splits.py.",
+        "Generate separate character/theme/mask-family hard benchmark splits.",
+        "Verify source occurrences and crops of a group never cross split boundaries."
       ]
     }
   ],
