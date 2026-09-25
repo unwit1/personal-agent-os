@@ -74,6 +74,97 @@ def schema_errors(instance:dict[str,Any], schema_name:str)->list[str]:
         out.append(f"{loc}: {err.message}")
     return out
 
+def canonical_json_sha256(value:Any)->str:
+    payload=json.dumps(
+        value,
+        sort_keys=True,
+        separators=(",",":"),
+        ensure_ascii=False,
+    ).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+def path_fingerprint(path_text:str)->dict[str,Any]:
+    """Return a deterministic content fingerprint for a file, directory, or missing path."""
+    path=Path(path_text)
+    base={"path":str(path),"exists":path.exists()}
+    if not path.exists():
+        return {**base,"kind":"missing"}
+
+    if path.is_file():
+        stat=path.stat()
+        return {
+            **base,
+            "kind":"file",
+            "size":stat.st_size,
+            "sha256":sha256(path),
+        }
+
+    if path.is_dir():
+        rows=[]
+        total_size=0
+        file_count=0
+        for child in sorted(path.rglob("*"),key=lambda p:p.relative_to(path).as_posix()):
+            rel=child.relative_to(path).as_posix()
+            if child.is_dir():
+                rows.append({"path":rel,"kind":"directory"})
+                continue
+            if child.is_file():
+                stat=child.stat()
+                digest=sha256(child)
+                total_size+=stat.st_size
+                file_count+=1
+                rows.append({
+                    "path":rel,
+                    "kind":"file",
+                    "size":stat.st_size,
+                    "sha256":digest,
+                })
+        return {
+            **base,
+            "kind":"directory",
+            "file_count":file_count,
+            "size":total_size,
+            "sha256":canonical_json_sha256(rows),
+        }
+
+    return {**base,"kind":"missing","exists":False}
+
+def atomic_write_json(path:Path,value:dict[str,Any])->None:
+    path.parent.mkdir(parents=True,exist_ok=True)
+    tmp=path.with_name(f".{path.name}.{uuid.uuid4().hex}.tmp")
+    tmp.write_text(json.dumps(value,indent=2)+"\n",encoding="utf-8")
+    tmp.replace(path)
+
+def new_execution_state(project_id:str,build_id:str|None=None)->dict[str,Any]:
+    return {
+        "schema_version":"skyrim-execution-state-v1",
+        "project_id":project_id,
+        "build_id":build_id or str(uuid.uuid4()),
+        "updated_at":now(),
+        "nodes":{},
+    }
+
+def load_execution_state(path:Path,project_id:str)->dict[str,Any]:
+    if not path.exists():
+        return new_execution_state(project_id)
+    state=load_json(path)
+    errs=schema_errors(state,"skyrim-execution-state-v1.schema.json")
+    if errs:
+        raise ValueError("invalid execution state: "+"; ".join(errs))
+    if state.get("project_id")!=project_id:
+        raise ValueError(
+            f"execution state project_id {state.get('project_id')!r} does not match {project_id!r}"
+        )
+    return state
+
+def save_execution_state(path:Path,state:dict[str,Any])->None:
+    state=copy.deepcopy(state)
+    state["updated_at"]=now()
+    errs=schema_errors(state,"skyrim-execution-state-v1.schema.json")
+    if errs:
+        raise ValueError("execution state failed schema validation: "+"; ".join(errs))
+    atomic_write_json(path,state)
+
 def topological_order(dag:dict[str,Any])->list[dict[str,Any]]:
     nodes={n["id"]:n for n in dag.get("nodes",[])}
     indegree={nid:0 for nid in nodes}
