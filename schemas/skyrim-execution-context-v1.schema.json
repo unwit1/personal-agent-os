@@ -88,6 +88,51 @@
               "type": "string"
             },
             "uniqueItems": true
+          },
+          "artifact_contracts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "path",
+                "validator"
+              ],
+              "properties": {
+                "path": {
+                  "type": "string"
+                },
+                "validator": {
+                  "enum": [
+                    "json-schema"
+                  ]
+                },
+                "schema": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9._-]+\\.schema\\.json$"
+                },
+                "required": {
+                  "type": "boolean",
+                  "default": true
+                }
+              },
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "validator": {
+                        "const": "json-schema"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "schema"
+                    ]
+                  }
+                }
+              ]
+            }
           }
         }
       }
