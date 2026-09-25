@@ -1,0 +1,58 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "xeditlib",
+  "tool": "xeditlib",
+  "source": "https://github.com/WingedGuardian/xeditlib",
+  "targets": [
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "xeditlib-ffi",
+    "plugin-read",
+    "plugin-query",
+    "plugin-diff",
+    "plugin-write",
+    "record-traversal"
+  ],
+  "invocation": {
+    "mode": "library",
+    "transport": "Node.js FFI to XEditLib.dll",
+    "requires_running_game": false
+  },
+  "coverage": {
+    "description": "Node wrapper for XEditLib enabling direct programmatic access to xEdit engine functions.",
+    "known_gaps": [
+      "FFI/native library version matching is fragile",
+      "use xEdit application/xDump as independent authority"
+    ],
+    "denominator_probe": "Report loaded files/records and underlying xEditLib version."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_readback": true,
+    "requires_confirmation_for": [
+      "in-place third-party plugin writes"
+    ],
+    "sandbox_or_scope": "Use staged/new plugins by default."
+  },
+  "verification": {
+    "independent_validators": [
+      "xedit-application",
+      "mutagen",
+      "spriggit-roundtrip"
+    ],
+    "version_probe": "wrapper + XEditLib version/hash",
+    "output_readback": "Reload with separate parser."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Lower-level escape hatch when houseCARL does not expose a needed xEditLib operation."
+  },
+  "evidence": {
+    "source_url": "https://github.com/WingedGuardian/xeditlib",
+    "verified_date": "2026-09-24",
+    "notes": "MIT wrapper; pushed 2026-06-27."
+  }
+}
