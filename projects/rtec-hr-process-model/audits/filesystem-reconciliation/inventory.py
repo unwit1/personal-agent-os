@@ -111,6 +111,10 @@ def connect(path: Path) -> sqlite3.Connection:
       classification_confidence REAL NOT NULL, review_required INTEGER NOT NULL DEFAULT 1,
       detail_code TEXT, extracted_at TEXT NOT NULL);
     CREATE INDEX IF NOT EXISTS idx_file_extractions_class ON file_extractions(classification, extraction_status);
+    CREATE VIEW IF NOT EXISTS normalized_duplicate_groups AS
+      SELECT normalized_text_sha256 AS normalized_hash,COUNT(*) AS member_count
+      FROM file_extractions WHERE normalized_text_sha256 IS NOT NULL
+      GROUP BY normalized_text_sha256 HAVING COUNT(*)>1;
     CREATE TABLE IF NOT EXISTS file_ocr(
       path TEXT PRIMARY KEY REFERENCES files(path), file_sha256 TEXT NOT NULL,
       processor_version TEXT NOT NULL, engine TEXT NOT NULL, status TEXT NOT NULL,
@@ -661,6 +665,10 @@ def checkpoint(db: sqlite3.Connection, phase: str, note: str = "") -> dict:
         "review_queue_items": count("SELECT COUNT(*) FROM review_queue"),
         "employee_registry_entries": count("SELECT COUNT(*) FROM employee_documents"),
         "files_extracted": count("SELECT COUNT(*) FROM file_extractions"),
+        "normalized_hash_files": count("SELECT COUNT(*) FROM file_extractions WHERE normalized_text_sha256 IS NOT NULL"),
+        "normalized_duplicate_groups": count("SELECT COUNT(*) FROM normalized_duplicate_groups"),
+        "normalized_duplicate_members": count("SELECT COALESCE(SUM(member_count),0) FROM normalized_duplicate_groups"),
+        "normalized_duplicate_extra_copies": count("SELECT COALESCE(SUM(member_count-1),0) FROM normalized_duplicate_groups"),
         "safe_organizational_candidates": count("SELECT COUNT(*) FROM file_extractions WHERE classification='SAFE_ORGANIZATIONAL_CANDIDATE'"),
         "restricted_content_classifications": count("SELECT COUNT(*) FROM file_extractions WHERE classification='EMPLOYEE_SPECIFIC_RESTRICTED'"),
         "mixed_or_uncertain_classifications": count("SELECT COUNT(*) FROM file_extractions WHERE classification='MIXED_OR_UNCERTAIN'"),

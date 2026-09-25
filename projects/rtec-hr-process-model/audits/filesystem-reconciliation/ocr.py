@@ -18,6 +18,7 @@ OCR_PROCESSOR_VERSION = "rtec-easyocr-offline@1"
 MODEL_DIR = Path.home() / ".EasyOCR" / "model"
 REQUIRED_MODELS = ("craft_mlt_25k.pth", "english_g2.pth")
 _reader = None
+MAX_IMAGE_EDGE = 2600
 
 
 def get_reader():
@@ -27,8 +28,16 @@ def get_reader():
         missing = [name for name in REQUIRED_MODELS if not (MODEL_DIR / name).is_file()]
         if missing:
             raise RuntimeError("cached_easyocr_model_missing")
+        import torch
         import easyocr
 
+        # EasyOCR's CPU defaults can create many concurrent workers; keep the
+        # workstation responsive during a resumable local scan.
+        torch.set_num_threads(min(torch.get_num_threads(), 4))
+        try:
+            torch.set_num_interop_threads(2)
+        except RuntimeError:
+            pass
         _reader = easyocr.Reader(
             ["en"], gpu=False, model_storage_directory=str(MODEL_DIR),
             user_network_directory=str(MODEL_DIR), download_enabled=False,
@@ -38,7 +47,10 @@ def get_reader():
 
 
 def _page_text(reader, image: Image.Image) -> str:
-    results = reader.readtext(np.asarray(image.convert("RGB")), detail=1, paragraph=True)
+    image = image.convert("RGB")
+    if max(image.size) > MAX_IMAGE_EDGE:
+        image.thumbnail((MAX_IMAGE_EDGE, MAX_IMAGE_EDGE), Image.Resampling.LANCZOS)
+    results = reader.readtext(np.asarray(image), detail=1, paragraph=True)
     return "\n".join(str(item[1]) for item in results if len(item) > 1 and item[1])
 
 

@@ -1,6 +1,6 @@
 # RTEC HR filesystem reconciliation
 
-Status: architecture, metadata inventory, exact-hash reconciliation, and first-pass deterministic extraction are complete for configured roots. Cache-only OCR is operational with 12 files complete, 1 restricted sample, and 6,396 files still queued; review/reconciliation remain outstanding.
+Status: architecture, metadata inventory, exact-hash reconciliation, and first-pass deterministic extraction are complete for configured roots. Cache-only OCR is operational with 12 files complete, 5 restricted samples, and 6,392 files still queued; image-size/thread limits keep local processing bounded. Review/reconciliation remain outstanding.
 
 ## Canonical locations and existing capabilities
 
@@ -38,6 +38,8 @@ workstation work roots
 ```
 
 Exact hash equality can establish `ALREADY_INGESTED_EXACT` only when the comparable Knowledge Engine value is a raw-source SHA-256. Normalized-text hashes, semantic families, duplicate notes, and source IDs are kept distinct and never asserted as exact binary matches. Filename similarity or mtime alone cannot establish equivalence, authority, currentness, or employee identity.
+
+The local `normalized_duplicate_groups` view groups identical normalized text from parsed files without merging records. The current corpus exposes source/binary hashes, not a comparable normalized-text fingerprint, so cross-corpus normalized equivalence is not asserted.
 
 ## Initial gaps and decisions
 

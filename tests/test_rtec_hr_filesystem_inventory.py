@@ -112,16 +112,19 @@ class RtecHrFilesystemInventoryTests(unittest.TestCase):
     def test_ocr_routes_signal_codes_without_returning_raw_text(self) -> None:
         class FakeReader:
             def readtext(self, _image, detail=1, paragraph=True):
+                self.image_shape = _image.shape
                 return [([[(0, 0), (1, 0), (1, 1), (0, 1)]], "Employee ID 123456", 0.99)]
 
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "Synthetic Scan.png"
             from PIL import Image
 
-            Image.new("RGB", (20, 20), "white").save(path)
-            result = ocr.extract_page(path, 0, FakeReader())
+            Image.new("RGB", (3000, 3000), "white").save(path)
+            fake = FakeReader()
+            result = ocr.extract_page(path, 0, fake)
 
         self.assertIn("employee_record_content_term", result["signal_codes"])
+        self.assertLessEqual(max(fake.image_shape[:2]), ocr.MAX_IMAGE_EDGE)
         self.assertNotIn("text", result)
         self.assertNotIn("123456", repr(result))
         self.assertEqual(
@@ -181,6 +184,27 @@ class RtecHrFilesystemInventoryTests(unittest.TestCase):
                 else:
                     sys.modules["ocr"] = previous
                 db.close()
+
+    def test_normalized_duplicate_view_keeps_text_groups_separate(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            db = inventory.connect(root / "audit.sqlite3")
+            for name in ("copy-a.txt", "copy-b.txt"):
+                path = root / name
+                db.execute("""INSERT INTO files(path,root,filename,extension,size,mtime_ns,likely_hr,
+                  sensitivity_route,sha256,hash_state,discovered_at,updated_at)
+                  VALUES(?,?,?,?,?,?,?,?,?,?,?,?)""",
+                           (str(path), str(root), name, ".txt", 10, 1, 1,
+                            "organizational_candidate_or_mixed_review", "a" * 64, "complete", "now", "now"))
+                db.execute("""INSERT INTO file_extractions(path,file_sha256,processor_version,extraction_status,
+                  normalized_text_sha256,classification,classification_confidence,extracted_at)
+                  VALUES(?,?,?,?,?,?,?,?)""",
+                           (str(path), "a" * 64, extractor.PROCESSOR_VERSION, "parsed", "same-normalized-text",
+                            "SAFE_ORGANIZATIONAL_CANDIDATE", 0.7, "now"))
+            db.commit()
+            group = db.execute("SELECT member_count FROM normalized_duplicate_groups").fetchone()
+            self.assertEqual(group[0], 2)
+            db.close()
 
 
 if __name__ == "__main__":

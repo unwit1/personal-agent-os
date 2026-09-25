@@ -1,6 +1,6 @@
 # RTEC HR PC reconciliation — checkpoint report
 
-**Checkpoint:** 2026-09-25. Metadata discovery, SHA-256 exact-source reconciliation, and first-pass deterministic extraction are complete for eight configured local roots (15,441 of 15,441 candidates). Cache-only OCR is operational; pilot status is 12 complete, 1 restricted sample, 0 failures, and 6,396 pending. Content/version reconciliation, classification review, and any new Knowledge Engine ingestion remain outstanding. No new source has been ingested into the Knowledge Engine.
+**Checkpoint:** 2026-09-25. Metadata discovery, SHA-256 exact-source reconciliation, and first-pass deterministic extraction are complete for eight configured local roots (15,441 of 15,441 candidates). Cache-only OCR is operational; status is 12 complete, 5 restricted samples, 0 failures, and 6,392 pending. A larger batch was interrupted after memory reached about 1.1 GB; completed files remained checkpointed. OCR images are now downsampled to a 2,600-pixel maximum edge before processing. Content/version reconciliation, classification review, and any new Knowledge Engine ingestion remain outstanding. No new source has been ingested into the Knowledge Engine.
 
 ## What Agent OS already knew
 
@@ -33,11 +33,13 @@ The inventory covered eight configured roots: Desktop, Documents, Downloads, loc
 - 25,147 office-type file entries were recorded locally; 15,441 matched the HR path/filename relevance heuristic and were hashed.
 - 497 file hashes match a SHA-256 value in safe RTEC corpus JSON. This is exact binary-hash evidence only. It does not imply that an unmatched file adds knowledge or that a matching document is current.
 - 4,043 local SHA-256 duplicate groups contain 8,833 files, or 4,790 extra copies beyond one per group. Originals remain untouched. These counts describe exact-byte duplicates, not semantic/document-version identity.
+- 7,497 parsed files have normalized-text hashes. They form 2,525 exact normalized-text duplicate candidate groups with 5,768 members (3,243 extra copies). These are text-equivalence candidates: images, formatting, formulas, metadata, or other non-text structure can differ. They are not merged or treated as the same authoritative document.
+- Existing Knowledge Engine source hashes represent source/binary fingerprints; no normalized-text source-hash convention is available for a safe apples-to-apples comparison. The audit therefore does not label a normalized-text match as already represented without a compatible provenance fingerprint.
 - The safe corpus hash index currently contains 301 source-hash references across 198 distinct values. Thirty-three of the 497 file matches lack a populated source ID in the indexed record; their knowledge path is retained locally for review.
 - By filename/path heuristic, 7,324 candidates route to employee-restricted review and 8,117 to organizational-or-mixed review. These initial routes are not confirmed classifications.
 - First-pass extraction is complete for all 15,441 candidates. Results: 1,636 safe-organizational candidates; 3,072 employee-restricted classifications; 654 mixed/uncertain; 2,158 parsed but unknown; 6,409 OCR-required; 1,394 unsupported formats; 69 empty-text; 37 parse failures; 12 corrupt; and 21 archive-review. Every classification remains review-required. None has been promoted to generalized knowledge.
-- The local employee-document registry contains 3,051 rows. All have unknown document type and null employee key; records retain minimum-necessary path/hash/provenance and signal codes only. Raw document text and detected values are not stored in the audit database or log.
-- 41 filesystem stat/access failures remain visible: 3 permission-denied and 38 stat-failed events. The 6,409 OCR-required files are mostly scanned PDFs and images. A cache-only EasyOCR pilot has completed 12 files and sampled 1 restricted file; no OCR failures were recorded and 6,396 files remain in the resumable OCR queue. The worker has network downloads disabled and keeps text in memory only. The 1,394 unsupported files are predominantly legacy `.doc` files; `.ppt` and `.msg` are also present. No silent-empty assumption is made.
+- The local employee-document registry contains 3,055 rows. All have unknown document type and null employee key; records retain minimum-necessary path/hash/provenance and signal codes only. Raw document text and detected values are not stored in the audit database or log.
+- 41 filesystem stat/access failures remain visible: 3 permission-denied and 38 stat-failed events. The 6,409 OCR-required files are mostly scanned PDFs and images. The cached EasyOCR worker has processed 12 files completely and sampled 5 restricted documents; no OCR failures were recorded and 6,392 files remain in the resumable OCR queue. Network downloads are disabled and text stays in memory only. The worker downsamples input images to limit memory. The 1,394 unsupported files are predominantly legacy `.doc` files; `.ppt` and `.msg` are also present. No silent-empty assumption is made.
 - Format counts among the HR-path candidates include PDF 8,199; XLS 3,642; DOC 1,370; DOCX 936; JPG 485; XLSX 368; PNG 101; plus CSV, PPT/PPTX, RTF, HTML, ZIP, and message formats. Legacy spreadsheet parsing is a major next-stage requirement.
 - By metadata route, 7,324 candidates match employee-restricted path/filename terms and 8,117 match organizational-or-mixed terms. The routing is heuristic only; contents were not inspected.
 - Total bytes hashed in the local HR candidate set: 28,696,604,168. Unchanged files can reuse their cached size/mtime fingerprint on future runs.
@@ -54,7 +56,7 @@ The file paths, hashes, sheet headers, and employee registry remain local-only. 
 
 ### Duplicates and versions
 
-Exact-hash duplicate groups are available in the local `duplicate_groups` view. Similar filenames, normalized text, version labels, effective dates, and authority were not evaluated. No originals were moved, renamed, or deleted.
+Exact-hash duplicate groups are available in the local `duplicate_groups` view; exact normalized-text groups are in `normalized_duplicate_groups`. Similar filenames, version labels, effective dates, and authority have not been reconciled. No originals were moved, renamed, or deleted.
 
 ### Files not processed or requiring review
 
@@ -84,8 +86,8 @@ The existing 50-question currentness/gap queue remains canonical. High-value ope
 
 ## Scanner, GUI, and automation opportunities
 
-1. Continue safe, cache-only OCR for the 6,396 remaining files in bounded batches. Restricted-route documents are sampled for at most two pages; OCR results remain review-required and local-only.
-2. Review spreadsheet structural metadata for every sheet, including hidden sheets, headers, formulas, named ranges, and schema drift; keep person-level rows restricted.
+1. Continue safe, cache-only OCR for the 6,392 remaining files in bounded batches. Restricted-route documents are sampled for at most two pages; OCR results remain review-required and local-only.
+2. Review normalized-text duplicate groups and spreadsheet structural metadata for every sheet, including hidden sheets, headers, formulas, named ranges, and schema drift; keep person-level rows restricted.
 3. Add `.doc`/`.ppt` local conversion support only if a trusted converter is already installed; otherwise leave those files in the explicit unsupported-format queue.
 4. Review safe-organizational candidates against exact source hashes, normalized text fingerprints, titles, effective dates, and existing source records before any Knowledge Engine write.
 5. Build HR GUI document lists from stable local IDs, with type/date, hash/duplicate group, current/historical state, sensitivity, and review flag. Do not show Missing/Expired until requirements are validated.
