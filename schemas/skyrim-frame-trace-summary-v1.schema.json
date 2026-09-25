@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-frame-trace-summary-v1.schema.json",
+  "title": "Skyrim Frame Trace Summary v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "provider",
+    "source_csv",
+    "process_id",
+    "status",
+    "frame_count",
+    "columns",
+    "metrics",
+    "issues"
+  ],
+  "properties": {
+    "schema_version": {"const": "skyrim-frame-trace-summary-v1"},
+    "provider": {"const": "presentmon"},
+    "source_csv": {"type": "string"},
+    "process_id": {"type": "integer", "minimum": 1},
+    "status": {"enum": ["pass", "needs-review", "fail"]},
+    "frame_count": {"type": "integer", "minimum": 0},
+    "columns": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["count", "mean", "p50", "p95", "p99", "max"],
+        "properties": {
+          "count": {"type": "integer", "minimum": 1},
+          "mean": {"type": "number"},
+          "p50": {"type": "number"},
+          "p95": {"type": "number"},
+          "p99": {"type": "number"},
+          "max": {"type": "number"}
+        }
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  }
+}
