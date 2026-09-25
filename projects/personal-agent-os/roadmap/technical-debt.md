@@ -122,11 +122,17 @@ Every fact inherits its source file's `updated_at` and provenance statuses, so
 seeded months ago in the same file. Per-fact capture dates would make the
 supersede rule meaningfully sharper.
 
-### No profile-specific promotion rule
+### Profile-specific promotion rule — partially resolved 2026-09-25
 
-Candidate profile updates flow through the generic candidate pipeline. There is
-no rule yet for when a conversational observation may become a durable profile
-fact, which EXEC-0.5 asks for.
+Profile, relationship, and identity-link candidates now require an explicit
+source-actor classification. Evidence attributed to another account user, a
+third party, a mixed organizational archive, automation, or an unknown actor is
+blocked from direct personal-profile promotion unless the user explicitly
+confirms it. These candidates also remain material-review items.
+
+Remaining debt is richer contradiction/supersession reconciliation across
+multiple evidence records and provider-specific actor resolution; the basic
+account-owner != actor safety boundary is now implemented.
 
 ## From P0.3 — Shared document intelligence
 
