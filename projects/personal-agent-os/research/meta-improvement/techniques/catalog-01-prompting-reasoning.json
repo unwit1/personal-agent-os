@@ -1,0 +1,1404 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-24",
+  "domain": "prompting_reasoning",
+  "techniques": [
+    {
+      "id": "AIT-0001",
+      "name": "Direct goal + explicit success criteria",
+      "aliases": [],
+      "category": "prompt_design",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Improve instruction following with minimal prompt overhead",
+      "mechanism": "State the objective, hard constraints, definition of done, and output contract directly rather than prescribing unnecessary internal reasoning.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0065, SRC-AI-0066.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Default prompt skeleton for Agent OS stages.",
+      "use_when": [
+        "Most Agent OS tasks",
+        "Reasoning-capable models"
+      ],
+      "avoid_when": [
+        "When a domain needs worked examples or specialized procedure"
+      ],
+      "required_evals": [
+        "task success",
+        "constraint adherence",
+        "token cost"
+      ],
+      "risks": [
+        "Under-specification if success criteria are incomplete"
+      ],
+      "cost_profile": "very low; often reduces tokens",
+      "complexity": "very_low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0065",
+        "SRC-AI-0066"
+      ],
+      "keywords": [
+        "goal",
+        "constraints",
+        "definition_of_done"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0002",
+      "name": "Zero-shot first, few-shot only when needed",
+      "aliases": [],
+      "category": "prompt_design",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Avoid unnecessary examples/context",
+      "mechanism": "Try clear instructions without demonstrations first; add examples only for behaviors that fail or formats that need anchoring.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0065.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Router can escalate prompt complexity before model tier.",
+      "use_when": [
+        "Modern reasoning models",
+        "Low-ambiguity tasks"
+      ],
+      "avoid_when": [
+        "When rare edge behavior is hard to express declaratively"
+      ],
+      "required_evals": [
+        "zero-vs-few-shot A/B",
+        "prompt tokens",
+        "success"
+      ],
+      "risks": [
+        "Removing examples can expose ambiguous instructions"
+      ],
+      "cost_profile": "low",
+      "complexity": "very_low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0065"
+      ],
+      "keywords": [
+        "zero_shot",
+        "few_shot"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0003",
+      "name": "Few-shot demonstrations",
+      "aliases": [],
+      "category": "in_context_learning",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Teach behavior or output pattern without weight updates",
+      "mechanism": "Provide representative input-output examples in context.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0066.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Store examples as versioned eval-backed prompt assets.",
+      "use_when": [
+        "Format-sensitive extraction",
+        "Novel label mappings",
+        "Style/edge behavior"
+      ],
+      "avoid_when": [
+        "Examples are weak/mismatched or consume scarce context"
+      ],
+      "required_evals": [
+        "example ablation",
+        "held-out generalization",
+        "order robustness"
+      ],
+      "risks": [
+        "Overfitting examples",
+        "copying mistakes",
+        "context cost"
+      ],
+      "cost_profile": "input-token cost",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0066"
+      ],
+      "keywords": [
+        "few_shot",
+        "demonstrations"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0004",
+      "name": "Semantic demonstration retrieval",
+      "aliases": [],
+      "category": "in_context_learning",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Select examples relevant to the current query",
+      "mechanism": "Retrieve demonstrations by semantic/task similarity instead of fixed or random examples.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0114.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Reuse Knowledge Engine retrieval primitives for prompt examples.",
+      "use_when": [
+        "Large demonstration library",
+        "Heterogeneous task families"
+      ],
+      "avoid_when": [
+        "Tiny stable task with one proven prompt"
+      ],
+      "required_evals": [
+        "retrieved vs fixed vs random demos",
+        "latency",
+        "failure clusters"
+      ],
+      "risks": [
+        "Similarity can select misleading surface matches",
+        "retrieval overhead"
+      ],
+      "cost_profile": "embedding/retrieval + prompt tokens",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0114"
+      ],
+      "keywords": [
+        "example_selection",
+        "retrieval"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0005",
+      "name": "Example-order randomization test",
+      "aliases": [],
+      "category": "prompt_robustness",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Detect fragile in-context learning",
+      "mechanism": "Shuffle few-shot order during eval; retain/order examples only if behavior is robust or use ensemble/order-invariant design.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0099.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Promotion gate for few-shot prompt changes.",
+      "use_when": [
+        "Any few-shot prompt promoted to production"
+      ],
+      "avoid_when": [
+        "No examples"
+      ],
+      "required_evals": [
+        "multiple random orders",
+        "variance",
+        "worst-case success"
+      ],
+      "risks": [
+        "Extra eval cost"
+      ],
+      "cost_profile": "offline only",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0099"
+      ],
+      "keywords": [
+        "example_order",
+        "robustness"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0006",
+      "name": "Role/persona instruction",
+      "aliases": [],
+      "category": "prompt_design",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Bias style, perspective, or expertise framing",
+      "mechanism": "Assign a role or operating perspective where it changes relevant behavior.",
+      "maturity": "mixed_evidence",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0066.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Keep roles thin; retrieve actual domain rules separately.",
+      "use_when": [
+        "Style/perspective tasks",
+        "Domain framing that evals show helps"
+      ],
+      "avoid_when": [
+        "Using persona as substitute for real knowledge/tools"
+      ],
+      "required_evals": [
+        "role/no-role A/B",
+        "factuality",
+        "style adherence"
+      ],
+      "risks": [
+        "False authority",
+        "stereotyping",
+        "extra tokens"
+      ],
+      "cost_profile": "very low",
+      "complexity": "very_low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0066"
+      ],
+      "keywords": [
+        "role",
+        "persona"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0007",
+      "name": "Delimit instruction, context, and data",
+      "aliases": [],
+      "category": "prompt_design",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Reduce parsing ambiguity and instruction/data confusion",
+      "mechanism": "Use clear section headers/XML/Markdown delimiters to separate policy, task, evidence, examples, and untrusted content.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0065, SRC-AI-0138.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Standardized prompt packet schema.",
+      "use_when": [
+        "Complex prompts",
+        "RAG",
+        "tool outputs"
+      ],
+      "avoid_when": [
+        "Delimiter does not substitute for deterministic injection defenses"
+      ],
+      "required_evals": [
+        "instruction adherence",
+        "injection tests"
+      ],
+      "risks": [
+        "Model may still follow malicious data"
+      ],
+      "cost_profile": "negligible",
+      "complexity": "very_low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0065",
+        "SRC-AI-0138"
+      ],
+      "keywords": [
+        "delimiters",
+        "instruction_hierarchy"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0008",
+      "name": "Stable-prefix prompt layout",
+      "aliases": [],
+      "category": "prompt_runtime",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Reduce cached-input cost and latency",
+      "mechanism": "Place stable instructions/tool schemas/common context first and dynamic data later to maximize prefix cache reuse.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0067, SRC-AI-0129.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Compiler should canonicalize stable prompt segments.",
+      "use_when": [
+        "Repeated workflows",
+        "Long common system/tool prefixes"
+      ],
+      "avoid_when": [
+        "Provider without prefix caching"
+      ],
+      "required_evals": [
+        "cache hit rate",
+        "latency",
+        "cost/success"
+      ],
+      "risks": [
+        "Reordering can affect model behavior"
+      ],
+      "cost_profile": "usually saves cost/latency",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0067",
+        "SRC-AI-0129"
+      ],
+      "keywords": [
+        "prompt_cache",
+        "prefix"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0009",
+      "name": "Canonical prompt serialization",
+      "aliases": [],
+      "category": "prompt_runtime",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Increase cache hits and reproducibility",
+      "mechanism": "Normalize whitespace, field order, tool ordering, schema serialization and stable metadata so logically identical prompts are byte/prefix stable.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0067.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Hash prompt components and track canonical form.",
+      "use_when": [
+        "Cached repetitive calls",
+        "Reproducible evals"
+      ],
+      "avoid_when": [
+        "When model benefits from intentionally randomized ordering"
+      ],
+      "required_evals": [
+        "cache hit rate",
+        "behavior equivalence"
+      ],
+      "risks": [
+        "Serialization changes can alter positional behavior"
+      ],
+      "cost_profile": "low implementation; recurring savings",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0067"
+      ],
+      "keywords": [
+        "canonicalization",
+        "caching"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0010",
+      "name": "Prompt version control",
+      "aliases": [],
+      "category": "prompt_management",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Make behavioral changes auditable and reversible",
+      "mechanism": "Treat prompts as code with IDs, Git history, tests, diffs, feature flags and rollback.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0066.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Link prompt versions to EVR and REL records.",
+      "use_when": [
+        "All production prompts"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "regression suite",
+        "rollback drill"
+      ],
+      "risks": [
+        "Version sprawl without ownership"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0066"
+      ],
+      "keywords": [
+        "prompt_versioning",
+        "git"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0011",
+      "name": "Chain-of-thought demonstrations",
+      "aliases": [],
+      "category": "reasoning_scaffold",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Improve multi-step reasoning on some non-reasoning or older model regimes",
+      "mechanism": "Show worked intermediate reasoning before answers.",
+      "maturity": "historical",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0047, SRC-AI-0065.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Never global-default; capability registry stores per-model result.",
+      "use_when": [
+        "Models/tasks where eval proves benefit"
+      ],
+      "avoid_when": [
+        "Modern reasoning models where explicit CoT hurts or wastes tokens",
+        "Sensitive contexts where rationale exposure is undesirable"
+      ],
+      "required_evals": [
+        "task-specific A/B",
+        "token/latency",
+        "robustness"
+      ],
+      "risks": [
+        "Higher cost",
+        "faithful-looking but wrong rationales",
+        "model-generation drift"
+      ],
+      "cost_profile": "medium-high output/input",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0047",
+        "SRC-AI-0065"
+      ],
+      "keywords": [
+        "cot",
+        "reasoning"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0012",
+      "name": "Zero-shot chain-of-thought cue",
+      "aliases": [],
+      "category": "reasoning_scaffold",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Elicit extra reasoning from older/general models",
+      "mechanism": "Append a phrase such as asking to reason step-by-step.",
+      "maturity": "historical",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0065.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Catalog as historical technique, not default.",
+      "use_when": [
+        "Legacy/non-reasoning models if measured useful"
+      ],
+      "avoid_when": [
+        "Current reasoning models"
+      ],
+      "required_evals": [
+        "A/B per model/task"
+      ],
+      "risks": [
+        "Can degrade current reasoning models",
+        "extra output"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "very_low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0065"
+      ],
+      "keywords": [
+        "zero_shot_cot"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0013",
+      "name": "Self-consistency / majority vote",
+      "aliases": [],
+      "category": "test_time_compute",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Improve answer reliability through diverse reasoning samples",
+      "mechanism": "Sample multiple independent solutions and aggregate final answers/votes.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0048.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Adaptive N based on difficulty/uncertainty.",
+      "use_when": [
+        "High-value problems with cheaply verifiable/aggregatable answers"
+      ],
+      "avoid_when": [
+        "Open-ended outputs without good aggregator",
+        "Low-value high-volume tasks"
+      ],
+      "required_evals": [
+        "accuracy vs N",
+        "cost/success",
+        "diversity"
+      ],
+      "risks": [
+        "Linear token cost",
+        "correlated errors",
+        "majority can be confidently wrong"
+      ],
+      "cost_profile": "N× inference",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0048"
+      ],
+      "keywords": [
+        "self_consistency",
+        "ensemble"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0014",
+      "name": "Best-of-N generation with verifier",
+      "aliases": [],
+      "category": "test_time_compute",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Trade inference compute for higher success",
+      "mechanism": "Generate N candidates and choose using deterministic tests, reward/verifier, or judge.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0097, SRC-AI-0095.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Prefer deterministic verifier; stop early after passing candidate.",
+      "use_when": [
+        "Coding/tests",
+        "Search/research with objective checks",
+        "High-value outputs"
+      ],
+      "avoid_when": [
+        "No reliable verifier",
+        "Cost-sensitive simple task"
+      ],
+      "required_evals": [
+        "pass@N",
+        "selected success",
+        "cost/success"
+      ],
+      "risks": [
+        "Selection bottleneck",
+        "judge gaming"
+      ],
+      "cost_profile": "N× generation + selection",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0097",
+        "SRC-AI-0095"
+      ],
+      "keywords": [
+        "best_of_n",
+        "verifier"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0015",
+      "name": "Adaptive test-time compute",
+      "aliases": [],
+      "category": "test_time_compute",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Spend more inference only on hard/uncertain tasks",
+      "mechanism": "Estimate difficulty or failed validation and dynamically allocate samples/reasoning/stronger model.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0099.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Natural extension of existing validator-driven escalation.",
+      "use_when": [
+        "Mixed task difficulty",
+        "Validator-rich Agent OS workflows"
+      ],
+      "avoid_when": [
+        "Difficulty signal is unreliable"
+      ],
+      "required_evals": [
+        "quality-cost frontier",
+        "escalation precision"
+      ],
+      "risks": [
+        "Hardness estimator can misroute",
+        "tail latency"
+      ],
+      "cost_profile": "adaptive",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0099"
+      ],
+      "keywords": [
+        "adaptive_compute",
+        "difficulty"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0016",
+      "name": "Tree of Thoughts search",
+      "aliases": [],
+      "category": "reasoning_search",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Explore and backtrack among intermediate solution states",
+      "mechanism": "Generate candidate partial states, evaluate, branch, prune and backtrack.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0049.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Implement only as an optional search strategy behind a budget.",
+      "use_when": [
+        "Puzzles/planning/search where local states are scoreable"
+      ],
+      "avoid_when": [
+        "Ordinary writing/retrieval",
+        "Large branching factor without verifier"
+      ],
+      "required_evals": [
+        "success vs token budget",
+        "search efficiency"
+      ],
+      "risks": [
+        "Explosive cost",
+        "weak state evaluator"
+      ],
+      "cost_profile": "high",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0049"
+      ],
+      "keywords": [
+        "tree_of_thoughts",
+        "search"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0017",
+      "name": "Graph of Thoughts",
+      "aliases": [],
+      "category": "reasoning_search",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Reuse/merge multiple reasoning paths instead of a tree",
+      "mechanism": "Represent intermediate thoughts as graph nodes with transformations/aggregation.",
+      "maturity": "early_research",
+      "evidence": {
+        "strength": "low_medium",
+        "summary": "Evidence basis: SRC-AI-0049.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Research registry only until a concrete Agent OS workload warrants it.",
+      "use_when": [
+        "Problems where partial results can be merged/reused"
+      ],
+      "avoid_when": [
+        "Most routine tasks"
+      ],
+      "required_evals": [
+        "task-specific benchmark",
+        "graph overhead"
+      ],
+      "risks": [
+        "Architecture complexity",
+        "difficult provenance"
+      ],
+      "cost_profile": "high",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0049"
+      ],
+      "keywords": [
+        "graph_of_thoughts"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0018",
+      "name": "Least-to-Most decomposition",
+      "aliases": [],
+      "category": "decomposition",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Solve compositional tasks via simpler dependent subproblems",
+      "mechanism": "Generate subproblem sequence, solve easiest-to-hardest, feed results forward.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0050.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Use validator/checkpoint between subproblems.",
+      "use_when": [
+        "Compositional tasks with natural dependency chain"
+      ],
+      "avoid_when": [
+        "Tasks where initial decomposition is unreliable"
+      ],
+      "required_evals": [
+        "whole-task accuracy",
+        "error propagation"
+      ],
+      "risks": [
+        "Early wrong subproblem poisons later steps"
+      ],
+      "cost_profile": "medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0050"
+      ],
+      "keywords": [
+        "least_to_most",
+        "decomposition"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0019",
+      "name": "Plan-and-Solve",
+      "aliases": [],
+      "category": "planning",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Reduce missing-step and calculation errors",
+      "mechanism": "Produce a compact plan before execution, then execute/check the plan.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0051.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Agent OS workflow manifests already approximate this; keep plans compact.",
+      "use_when": [
+        "Multi-stage work",
+        "Tasks needing explicit resumability"
+      ],
+      "avoid_when": [
+        "Simple one-step queries"
+      ],
+      "required_evals": [
+        "completion rate",
+        "plan usefulness",
+        "plan overhead"
+      ],
+      "risks": [
+        "Overplanning",
+        "plan anchoring"
+      ],
+      "cost_profile": "small-medium",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0051"
+      ],
+      "keywords": [
+        "plan_and_solve"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0020",
+      "name": "Skeleton-of-Thought parallel expansion",
+      "aliases": [],
+      "category": "latency_optimization",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Reduce response latency for decomposable long outputs",
+      "mechanism": "Create answer skeleton then expand independent sections concurrently.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0068.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Orchestrator can fan out only independent skeleton nodes.",
+      "use_when": [
+        "Long reports/docs with independent sections"
+      ],
+      "avoid_when": [
+        "Tightly coupled argument/code"
+      ],
+      "required_evals": [
+        "wall time",
+        "coherence",
+        "duplicate content"
+      ],
+      "risks": [
+        "Cross-section inconsistency",
+        "merge cost"
+      ],
+      "cost_profile": "parallel model calls",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0068"
+      ],
+      "keywords": [
+        "parallel_expansion",
+        "skeleton"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0021",
+      "name": "Program-Aided Language Models",
+      "aliases": [],
+      "category": "neuro_symbolic",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Improve deterministic computation correctness",
+      "mechanism": "Model writes code/expression; trusted interpreter executes calculation.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0052.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Prefer deterministic utility directly when task pattern is known.",
+      "use_when": [
+        "Math",
+        "data transforms",
+        "constraint checking"
+      ],
+      "avoid_when": [
+        "Unsafe unrestricted execution",
+        "Natural-language-only subjective tasks"
+      ],
+      "required_evals": [
+        "answer correctness",
+        "sandbox violations",
+        "tool overhead"
+      ],
+      "risks": [
+        "Generated code bugs",
+        "sandbox escape if unsafe"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0052"
+      ],
+      "keywords": [
+        "PAL",
+        "interpreter"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0022",
+      "name": "Program of Thoughts",
+      "aliases": [],
+      "category": "neuro_symbolic",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Separate semantic reasoning from computation",
+      "mechanism": "Use natural-language reasoning to formulate calculations and interpreter for execution.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0053.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Require sanity checks/units/ranges after execution.",
+      "use_when": [
+        "Mixed qualitative + numerical tasks"
+      ],
+      "avoid_when": [
+        "No need for computation"
+      ],
+      "required_evals": [
+        "numeric correctness",
+        "tool calls"
+      ],
+      "risks": [
+        "Incorrect formulation still yields precise wrong result"
+      ],
+      "cost_profile": "medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0053"
+      ],
+      "keywords": [
+        "PoT",
+        "computation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0023",
+      "name": "ReAct reasoning-action-observation loop",
+      "aliases": [],
+      "category": "agent_loop",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Ground reasoning in external observations",
+      "mechanism": "Alternate model decisions with tool actions and observed results.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0054, SRC-AI-0137.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Bound iterations and keep untrusted observations typed/tainted.",
+      "use_when": [
+        "Dynamic research",
+        "Tool-using tasks"
+      ],
+      "avoid_when": [
+        "Deterministic known workflow"
+      ],
+      "required_evals": [
+        "task success",
+        "tool accuracy",
+        "loop length",
+        "unnecessary actions"
+      ],
+      "risks": [
+        "Looping",
+        "prompt injection via observations",
+        "token growth"
+      ],
+      "cost_profile": "potentially high",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0054",
+        "SRC-AI-0137"
+      ],
+      "keywords": [
+        "ReAct",
+        "tool_loop"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0024",
+      "name": "Plan-then-execute tool loop",
+      "aliases": [],
+      "category": "agent_loop",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Reduce repeated replanning/token use",
+      "mechanism": "Generate an explicit bounded action plan, execute deterministic/tool stages, replan only on evidence.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0093, SRC-AI-0145.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Default for known Agent OS workflows; event-triggered replanning.",
+      "use_when": [
+        "Stable multi-step workflows"
+      ],
+      "avoid_when": [
+        "Environment changes after each action"
+      ],
+      "required_evals": [
+        "replan rate",
+        "success",
+        "tokens"
+      ],
+      "risks": [
+        "Plan becomes stale"
+      ],
+      "cost_profile": "usually lower than ReAct",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0093",
+        "SRC-AI-0145"
+      ],
+      "keywords": [
+        "plan_execute"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0025",
+      "name": "ReWOO-style reasoning without observation every step",
+      "aliases": [],
+      "category": "agent_loop",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Reduce token/tool-loop overhead",
+      "mechanism": "Plan tool dependencies with placeholders, execute tools, then synthesize from results.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0093.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Useful option in orchestrator workflow optimizer.",
+      "use_when": [
+        "Tasks whose tool dependencies can be predicted"
+      ],
+      "avoid_when": [
+        "Interactive tasks where observations alter next action"
+      ],
+      "required_evals": [
+        "token savings",
+        "plan failure",
+        "task success"
+      ],
+      "risks": [
+        "Brittle preplan"
+      ],
+      "cost_profile": "lower model turns",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0093"
+      ],
+      "keywords": [
+        "ReWOO",
+        "tool_planning"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0026",
+      "name": "Self-Refine iterative critique",
+      "aliases": [],
+      "category": "reflection",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Improve drafts without external tools",
+      "mechanism": "Generate critique of draft and revise iteratively.",
+      "maturity": "mixed_evidence",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0056, SRC-AI-0058.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Maximum iterations; compare against original and allow no-change.",
+      "use_when": [
+        "Writing/style tasks",
+        "Objective rubric supplied"
+      ],
+      "avoid_when": [
+        "Factual/reasoning task without external verifier"
+      ],
+      "required_evals": [
+        "quality per iteration",
+        "regression rate",
+        "stop criterion"
+      ],
+      "risks": [
+        "Self-confirmation",
+        "cost",
+        "endless polishing"
+      ],
+      "cost_profile": "multiple calls/turns",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0056",
+        "SRC-AI-0058"
+      ],
+      "keywords": [
+        "self_refine",
+        "critique"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0027",
+      "name": "Reflexion with external feedback",
+      "aliases": [],
+      "category": "reflection",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Learn from failed attempts inside a task/session",
+      "mechanism": "Convert evaluator/tool/test feedback into concise episodic lessons for retry.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0055, SRC-AI-0058.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Store failed-attempt lesson as candidate evidence, not permanent rule.",
+      "use_when": [
+        "Coding tests",
+        "Tool failures",
+        "Games/planning with feedback"
+      ],
+      "avoid_when": [
+        "No trustworthy feedback signal"
+      ],
+      "required_evals": [
+        "retry success",
+        "lesson reuse",
+        "lesson accuracy"
+      ],
+      "risks": [
+        "Bad feedback creates bad reflection",
+        "memory pollution"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0055",
+        "SRC-AI-0058"
+      ],
+      "keywords": [
+        "reflexion",
+        "external_feedback"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0028",
+      "name": "Independent verifier / critic model",
+      "aliases": [],
+      "category": "verification",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Catch errors generator misses",
+      "mechanism": "Use separate model/config/provider or deterministic checker to evaluate proposed output/change.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0098, SRC-AI-0100.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Prefer distinct evidence source, not merely same-model reflection.",
+      "use_when": [
+        "High-impact work without full deterministic verifier"
+      ],
+      "avoid_when": [
+        "Trivial tasks",
+        "Correlated judge offers no incremental signal"
+      ],
+      "required_evals": [
+        "judge-human agreement",
+        "catch rate",
+        "false positives"
+      ],
+      "risks": [
+        "Correlated blind spots",
+        "bias",
+        "added cost"
+      ],
+      "cost_profile": "one or more extra calls",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0098",
+        "SRC-AI-0100"
+      ],
+      "keywords": [
+        "critic",
+        "verifier"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0029",
+      "name": "Critique-before-revision with original retained",
+      "aliases": [],
+      "category": "verification",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Prevent revision from silently worsening a good answer",
+      "mechanism": "Generate critique, propose revision, then compare revised vs original under a verifier before replacing.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0058, SRC-AI-0099.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Every auto-repair must preserve original candidate until verifier chooses.",
+      "use_when": [
+        "Automatic prompt/output repair"
+      ],
+      "avoid_when": [
+        "When deterministic correction exists"
+      ],
+      "required_evals": [
+        "revision win rate",
+        "regression rate"
+      ],
+      "risks": [
+        "Extra judge bias/cost"
+      ],
+      "cost_profile": "2-3 calls",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0058",
+        "SRC-AI-0099"
+      ],
+      "keywords": [
+        "revision_gate"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0030",
+      "name": "Abstain / escalate on unresolved uncertainty",
+      "aliases": [],
+      "category": "uncertainty",
+      "layer": [
+        "prompt",
+        "reasoning"
+      ],
+      "goal": "Prevent confident guesses when evidence is insufficient",
+      "mechanism": "Define explicit insufficient-evidence state and route to retrieval, stronger model, human review, or no action.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0099, SRC-AI-0082.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Structured output requires evidence status and next escalation reason.",
+      "use_when": [
+        "High-impact or evidence-grounded work",
+        "Unknown/missing context"
+      ],
+      "avoid_when": [
+        "Tasks where harmless approximation is acceptable and labeled"
+      ],
+      "required_evals": [
+        "abstention precision/recall",
+        "false-confidence rate"
+      ],
+      "risks": [
+        "Over-abstention",
+        "unnecessary escalations"
+      ],
+      "cost_profile": "usually savings vs bad retries",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0099",
+        "SRC-AI-0082"
+      ],
+      "keywords": [
+        "abstention",
+        "uncertainty"
+      ],
+      "notes": ""
+    }
+  ]
+}
