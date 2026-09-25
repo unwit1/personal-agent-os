@@ -484,5 +484,102 @@ class ExecuteBuildDagTests(unittest.TestCase):
             )
 
 
+    def test_safe_retry_checkpoints_unchanged_failed_attempt_then_succeeds(self):
+        import sys
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            adapter_dir=root/"adapters"
+            adapter_dir.mkdir()
+            counter=root/"counter.txt"
+            out=root/"out.txt"
+            script=(
+                "from pathlib import Path; import sys; "
+                "c=Path(r'{counter_path}'); "
+                "n=int(c.read_text()) if c.exists() else 0; "
+                "c.write_text(str(n+1)); "
+                "sys.exit(1) if n==0 else Path(r'{output_path}').write_text('ok', encoding='utf-8')"
+            )
+            (adapter_dir/"fixture.json").write_text(json.dumps({
+                "schema_version":"skyrim-tool-adapter-v1",
+                "adapter_id":"fixture",
+                "tool":"Fixture",
+                "invocation":{
+                    "mode":"cli",
+                    "executable":sys.executable,
+                    "arguments_template":["-c",script],
+                },
+                "success":{"exit_codes":[0]},
+                "retry":{"safe":True,"max_attempts":2,"cleanup_outputs_first":False},
+            }),encoding="utf-8")
+            node={
+                "id":"generate.fixture","phase":"generate","action":"fixture",
+                "depends_on":[],"adapters":["fixture"],"gates":[],
+                "invalidated_by":[],"outputs":[str(out)],
+            }
+            record=MOD.execute_adapter_node(
+                node,
+                capability_map={},
+                adapter_dir=adapter_dir,
+                lock={},
+                context={
+                    "variables":{"counter_path":str(counter)},
+                    "policy":{"allow_safe_retry":True},
+                },
+                log_dir=root/"logs",
+                execute=True,
+            )
+            self.assertEqual(record["status"],"passed")
+            self.assertEqual(counter.read_text(encoding="utf-8"),"2")
+            attempts=record["evidence"]["attempts"]
+            self.assertEqual([x["decision"] for x in attempts],["retry","return"])
+            self.assertTrue(all(Path(x["checkpoint"]).exists() for x in attempts))
+
+    def test_safe_retry_stops_when_failed_attempt_mutates_output(self):
+        import sys
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            adapter_dir=root/"adapters"
+            adapter_dir.mkdir()
+            out=root/"out.txt"
+            script=(
+                "from pathlib import Path; import sys; "
+                "Path(r'{output_path}').write_text('partial', encoding='utf-8'); "
+                "sys.exit(1)"
+            )
+            (adapter_dir/"fixture.json").write_text(json.dumps({
+                "schema_version":"skyrim-tool-adapter-v1",
+                "adapter_id":"fixture",
+                "tool":"Fixture",
+                "invocation":{
+                    "mode":"cli",
+                    "executable":sys.executable,
+                    "arguments_template":["-c",script],
+                },
+                "success":{"exit_codes":[0]},
+                "retry":{"safe":True,"max_attempts":2,"cleanup_outputs_first":False},
+            }),encoding="utf-8")
+            node={
+                "id":"generate.fixture","phase":"generate","action":"fixture",
+                "depends_on":[],"adapters":["fixture"],"gates":[],
+                "invalidated_by":[],"outputs":[str(out)],
+            }
+            record=MOD.execute_adapter_node(
+                node,
+                capability_map={},
+                adapter_dir=adapter_dir,
+                lock={},
+                context={"policy":{"allow_safe_retry":True}},
+                log_dir=root/"logs",
+                execute=True,
+            )
+            self.assertEqual(record["status"],"failed")
+            self.assertEqual(len(record["evidence"]["attempts"]),1)
+            attempt=record["evidence"]["attempts"][0]
+            self.assertTrue(attempt["output_mutated"])
+            self.assertEqual(attempt["decision"],"stop-for-rollback")
+            self.assertTrue(Path(attempt["checkpoint"]).exists())
+            self.assertIn("rollback checkpoint",record["issues"][-1])
+
+
 if __name__=="__main__":
     unittest.main()
