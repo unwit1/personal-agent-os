@@ -50,9 +50,9 @@ OUTPUT_GATES={
 }
 
 LAYER_ADAPTERS={
- "records":(["housecarl","mutagen","spriggit","xedit"],["synthesis","mutagen-analyzers"]),
- "runtime-patching":(["xedit","housecarl"],["devbench","skylink-ai"]),
- "papyrus":(["papyrus-vscode","caprica","champollion"],["lilac","bind","devbench","skylink-ai"]),
+ "records":(["housecarl","mutagen","spriggit","xdump","xedit"],["synthesis","mutagen-analyzers"]),
+ "runtime-patching":(["xdump","xedit","housecarl"],["devbench","skylink-ai"]),
+ "papyrus":(["papyrus-vscode","papyrus-utility","official-papyruscompiler","caprica","champollion"],["lilac","bind","devbench","skylink-ai"]),
  "native":(["devbench","skylink-ai","crash-logger"],["tracy","renderdoc"]),
  "ui":(["devbench","skylink-ai"],["autotest"]),
  "animation":(["pandora","devbench"],["autotest"]),
@@ -67,13 +67,13 @@ LAYER_ADAPTERS={
  "lod":(["xlodgen","dyndolod"],["pgpatcher","autotest"]),
  "installer":(["cathedral-assets-optimizer"],["mo2"]),
  "save-persistence":(["fallrimtools","resaver-cli","devbench"],["skylink-ai"]),
- "compatibility":(["xedit","loot","mutagen-analyzers"],["housecarl","synthesis"])
+ "compatibility":(["libloot","xdump","xedit","loot","mutagen-analyzers"],["housecarl","synthesis"])
 }
 
 STATIC={
- "records":["reload output with independent plugin parsers","resolve every master/FormLink","compare declared touch-set to actual changed fields"],
+ "records":["reload output with independent plugin parsers","resolve every master/FormLink","compare declared touch-set to actual changed fields","export/dump touched record schemas through pinned xDump oracle"],
  "runtime-patching":["parse framework grammar with pinned version","resolve every target form/plugin","detect overlapping/duplicate runtime mutations"],
- "papyrus":["compile all PSC","verify provider/native declarations","verify PEX freshness","verify VMAD/property bindings"],
+ "papyrus":["format/check PSC","compile all PSC with release compiler","cross-check high-risk scripts with an independent compiler","verify provider/native declarations","verify PEX freshness","verify VMAD/property bindings","inspect PEX metadata for generated scripts"],
  "native":["build every target runtime","scan imports/relocations/API versions","verify SKSE declaration and serialization version"],
  "ui":["validate exact menu/control identifiers","validate text-entry and input-focus handling"],
  "animation":["resolve HKX paths and skeleton nodes","validate OAR/animation conditions and priorities"],
