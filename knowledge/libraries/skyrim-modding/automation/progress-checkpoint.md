@@ -133,6 +133,24 @@ Operational CI note (2026-09-24): GitHub Actions workflow files are configured a
 
 Continue from the remaining P1 runtime harness, deterministic generator, and asset-validator gaps below. The static/schema-oracle baseline is complete; extend record-specific semantic coverage only when a generator/bug requires it.
 
+### P1A — Static structural/differential oracle tranche — IMPLEMENTED BASELINE
+
+Implemented after P0:
+
+1. typed xEdit Check for Errors report schema;
+2. fail-closed xEdit/SSEEdit log parser using the real completion summary as the trust boundary;
+3. xEdit CheckForErrors tool-mode wrapper using documented `-checkforerrors`, `-quickedit`, `-autoload`, `-R:` and `-autoexit` switches;
+4. executable xEdit adapter registration;
+5. xDump text → `skyrim-semantic-plugin-v1` normalizer with explicit omissions/coverage;
+6. typed full/light load-order FormID map and canonical conversion to Mutagen-compatible `localID:ModKey` FormKeys;
+7. typed semantic-diff report with fail-closed identity comparability;
+8. semantic-field intersection logic so producer-private evidence does not create false cross-oracle diffs;
+9. pinned .NET 8 / Mutagen 0.52.0 semantic oracle emitting canonical FormKeys, signatures, EditorIDs and listed asset links;
+10. Python wrapper + unit tests for the Mutagen oracle;
+11. Mod Factory CI now restores/builds the pinned Mutagen oracle in addition to Python/schema tests.
+
+Remaining static-oracle depth: expand the shared semantic field intersection beyond EditorID + listed asset paths into record flags, VMAD/scripts/properties, localized string identity, and selected high-value record-family fields. Do not compare fields a producer has not explicitly declared.
+
 ### P1 — Runtime harness
 
 Build the Windows-first MO2 test worker that can:
