@@ -340,6 +340,166 @@ def adapter_candidates(node:dict[str,Any],context:dict[str,Any])->list[str]:
     override=((context.get("nodes") or {}).get(node["id"],{}) or {}).get("adapter_order")
     return list(override or node.get("adapters") or [])
 
+def node_external_facts(
+    node:dict[str,Any],
+    *,
+    manifest:dict[str,Any],
+    quality:dict[str,Any],
+    lock:dict[str,Any],
+    context:dict[str,Any],
+    capability_map:dict[str,dict[str,Any]],
+    adapter_dir:Path,
+    gate_registry:dict[str,Any],
+)->dict[str,Any]:
+    """Return only external/config facts that can change this node's result."""
+    facts:dict[str,Any]={}
+    nid=node["id"]
+
+    if nid=="preflight.manifest":
+        facts["manifest"]=manifest
+    if nid=="preflight.quality":
+        facts["quality"]=quality
+    if nid=="preflight.toolchain":
+        facts["toolchain_lock"]=lock
+    if nid=="integrate.gates":
+        facts["gate_registry"]=gate_registry
+        facts["quality"]=quality
+
+    if nid=="preflight.dependencies" and manifest.get("dependency_lock"):
+        p=Path(str(manifest["dependency_lock"]))
+        if not p.is_absolute():
+            p=(Path(context.get("manifest_dir") or ".")/p).resolve()
+        facts["dependency_lock"]=path_fingerprint(str(p))
+
+    if nid=="source.lock":
+        facts["source_paths"]=[
+            path_fingerprint(str(x)) for x in context.get("source_paths") or []
+        ]
+
+    ncfg=(context.get("nodes") or {}).get(nid,{}) or {}
+    facts["node_context"]=ncfg
+
+    input_paths=[]
+    input_paths.extend(str(x) for x in ncfg.get("inputs") or [])
+    locks=lock_map(lock)
+    adapter_facts={}
+    for aid in adapter_candidates(node,context):
+        acfg=((context.get("adapters") or {}).get(aid,{}) or {})
+        input_paths.extend(str(x) for x in acfg.get("inputs") or [])
+        manifest_data,source=load_adapter_manifest(aid,capability_map,adapter_dir)
+        lock_entry=locks.get(aid)
+        afact:dict[str,Any]={
+            "context":acfg,
+            "lock":lock_entry,
+            "manifest_source":source or None,
+        }
+        if source:
+            afact["manifest_file"]=path_fingerprint(source)
+        executable=(lock_entry or {}).get("executable")
+        if executable:
+            afact["executable"]=path_fingerprint(str(executable))
+        adapter_facts[aid]=afact
+    if adapter_facts:
+        facts["adapters"]=adapter_facts
+
+    if input_paths:
+        facts["inputs"]=[
+            path_fingerprint(x) for x in sorted(set(input_paths))
+        ]
+    return facts
+
+def compute_node_fingerprint(
+    node:dict[str,Any],
+    *,
+    manifest:dict[str,Any],
+    quality:dict[str,Any],
+    lock:dict[str,Any],
+    context:dict[str,Any],
+    capability_map:dict[str,dict[str,Any]],
+    adapter_dir:Path,
+    gate_registry:dict[str,Any],
+    dependency_fingerprints:dict[str,str],
+)->str:
+    payload={
+        "node":node,
+        "dependencies":{
+            dep:dependency_fingerprints.get(dep)
+            for dep in node.get("depends_on",[])
+        },
+        "external":node_external_facts(
+            node,
+            manifest=manifest,
+            quality=quality,
+            lock=lock,
+            context=context,
+            capability_map=capability_map,
+            adapter_dir=adapter_dir,
+            gate_registry=gate_registry,
+        ),
+    }
+    return canonical_json_sha256(payload)
+
+def current_output_fingerprints(
+    node:dict[str,Any],
+    context:dict[str,Any],
+    adapter_id:str|None=None,
+)->list[dict[str,Any]]:
+    _,outputs,_=node_io(node,context,adapter_id)
+    return [path_fingerprint(str(x)) for x in outputs]
+
+def output_fingerprints_match(saved:list[dict[str,Any]])->bool:
+    for expected in saved:
+        path=expected.get("path")
+        if not path:
+            return False
+        if path_fingerprint(str(path))!=expected:
+            return False
+    return True
+
+def reusable_prior_step(
+    node:dict[str,Any],
+    fingerprint:str,
+    state:dict[str,Any],
+)->dict[str,Any]|None:
+    prior=(state.get("nodes") or {}).get(node["id"])
+    if not prior or prior.get("status")!="passed":
+        return None
+    if prior.get("fingerprint")!=fingerprint:
+        return None
+    if not output_fingerprints_match(prior.get("output_fingerprints") or []):
+        return None
+
+    step=copy.deepcopy(prior.get("step_record") or {})
+    if not step:
+        return None
+    step["id"]=node["id"]
+    step["status"]="passed"
+    step.setdefault("evidence",{})
+    step["evidence"]["resumed_from_state"]=True
+    step["evidence"]["resume_fingerprint"]=fingerprint
+    step["evidence"]["resumed_at"]=now()
+    return step
+
+def checkpoint_node(
+    state:dict[str,Any],
+    *,
+    node:dict[str,Any],
+    fingerprint:str,
+    step:dict[str,Any],
+    context:dict[str,Any],
+)->None:
+    outputs=current_output_fingerprints(node,context,step.get("adapter_id"))
+    entry={
+        "fingerprint":fingerprint,
+        "status":step.get("status","skipped"),
+        "updated_at":now(),
+        "step_record":copy.deepcopy(step),
+        "output_fingerprints":outputs,
+    }
+    if step.get("adapter_id"):
+        entry["adapter_id"]=step["adapter_id"]
+    state.setdefault("nodes",{})[node["id"]]=entry
+
 def execute_adapter_node(
     node:dict[str,Any],
     *,
