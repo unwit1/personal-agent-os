@@ -1,0 +1,81 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "directxtex",
+  "tool": "DirectXTex texconv/texdiag/texassemble",
+  "source": "https://github.com/microsoft/DirectXTex",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "dds-convert",
+    "dds-compress",
+    "mipmap-generate",
+    "texture-resize",
+    "normal-map-generate",
+    "texture-diagnostics",
+    "cubemap-assemble"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "texconv.exe",
+    "transport": "CLI",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "DDS/PNG/TGA/HDR/WIC images"
+  ],
+  "outputs": [
+    "DDS/converted images",
+    "diagnostic output"
+  ],
+  "logs": [
+    "stdout",
+    "stderr"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 1,
+    "cleanup_outputs_first": true
+  },
+  "coverage": {
+    "description": "Microsoft DirectX texture-processing library and CLI tools for conversion, mipmaps, BC compression, analysis and cubemap/array construction.",
+    "known_gaps": [
+      "format choice remains Skyrim material-semantic responsibility",
+      "successful decode/compression does not prove NIF shader-slot correctness"
+    ],
+    "denominator_probe": "input files vs output files plus texdiag metadata."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Write converted textures to staging and retain source images."
+  },
+  "verification": {
+    "independent_validators": [
+      "image-decode",
+      "nif-material-closure",
+      "in-game-render"
+    ],
+    "version_probe": "texconv executable version/source release",
+    "output_readback": "texdiag metadata plus decode and hash."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Preferred deterministic DDS conversion/diagnostic plane."
+  },
+  "evidence": {
+    "source_url": "https://github.com/microsoft/DirectXTex",
+    "verified_date": "2026-09-24",
+    "notes": "Current texconv docs cover resize, mipmap generation, BC compression, normal-map creation; texdiag is intended for image diagnostics."
+  }
+}
