@@ -1,0 +1,269 @@
+#!/usr/bin/env python3
+"""Execute only registered automatic Skyrim Mod Factory repair handlers.
+
+Initial supported handler:
+  generated-output.invalidate-and-regenerate
+
+It never edits source artifacts. It checkpoints execution state, invalidates the
+owning generator node and its downstream cached nodes, then relies on the normal
+DAG executor to regenerate and revalidate those nodes.
+"""
+from __future__ import annotations
+
+import argparse
+import copy
+import datetime as dt
+import importlib.util
+import json
+import re
+from pathlib import Path
+from typing import Any
+
+from jsonschema import Draft202012Validator
+
+HERE=Path(__file__).resolve().parent
+REPO=HERE.parents[1]
+SCHEMAS=REPO/"schemas"
+DEFAULT_HANDLERS=REPO/"knowledge/libraries/skyrim-modding/automation/repair-handler-registry.json"
+
+def load_module(name:str,path:Path):
+    spec=importlib.util.spec_from_file_location(name,path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Could not load {path}")
+    mod=importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+EXEC=load_module("execute_build_dag",HERE/"execute_build_dag.py")
+
+def now()->str:
+    return dt.datetime.now(dt.timezone.utc).isoformat()
+
+def load(path:Path)->dict[str,Any]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+def schema_errors(value:dict[str,Any],name:str)->list[str]:
+    schema=load(SCHEMAS/name)
+    validator=Draft202012Validator(schema)
+    out=[]
+    for err in sorted(validator.iter_errors(value),key=lambda e:list(e.absolute_path)):
+        loc=".".join(str(x) for x in err.absolute_path) or "<root>"
+        out.append(f"{loc}: {err.message}")
+    return out
+
+def handler_map(registry:dict[str,Any])->dict[str,dict[str,Any]]:
+    return {
+        h["handler_id"]:h for h in registry.get("handlers",[])
+        if isinstance(h,dict) and h.get("handler_id")
+    }
+
+def node_map(dag:dict[str,Any])->dict[str,dict[str,Any]]:
+    return {n["id"]:n for n in dag.get("nodes",[])}
+
+def downstream_closure(dag:dict[str,Any],root_id:str)->list[str]:
+    nodes=node_map(dag)
+    if root_id not in nodes:
+        raise ValueError(f"repair target is not a DAG node: {root_id}")
+    children={nid:[] for nid in nodes}
+    for nid,node in nodes.items():
+        for dep in node.get("depends_on",[]):
+            if dep in children:
+                children[dep].append(nid)
+    seen=set()
+    queue=[root_id]
+    while queue:
+        nid=queue.pop(0)
+        if nid in seen:
+            continue
+        seen.add(nid)
+        queue.extend(sorted(children.get(nid,[])))
+    return [n["id"] for n in EXEC.topological_order(dag) if n["id"] in seen]
+
+def validate_automatic_plan(
+    plan:dict[str,Any],
+    registry:dict[str,Any],
+)->list[dict[str,Any]]:
+    errors=schema_errors(plan,"skyrim-repair-plan-v1.schema.json")
+    if errors:
+        raise ValueError("invalid repair plan: "+"; ".join(errors))
+    policy=plan.get("policy") or {}
+    if policy.get("mode")!="automatic":
+        raise ValueError(f"repair policy is {policy.get('mode')!r}, not automatic")
+    if policy.get("reversible") is not True:
+        raise ValueError("automatic repair must be reversible")
+    if policy.get("postconditions_provable") is not True:
+        raise ValueError("automatic repair must have provable postconditions")
+    if (plan.get("rollback") or {}).get("checkpoint_required") is not True:
+        raise ValueError("automatic repair must require a rollback checkpoint")
+
+    handlers=handler_map(registry)
+    resolved=[]
+    actions=(plan.get("repair") or {}).get("actions") or []
+    if not actions:
+        raise ValueError("automatic repair plan has no actions")
+    for action in actions:
+        hid=action.get("handler_id")
+        if not hid:
+            raise ValueError(f"automatic repair action {action.get('id')} has no handler_id")
+        handler=handlers.get(hid)
+        if not handler:
+            raise ValueError(f"repair handler is not registered: {hid}")
+        if handler.get("automatic") is not True:
+            raise ValueError(f"repair handler is not authorized for automatic use: {hid}")
+        if handler.get("reversible") is not True or handler.get("checkpoint_required") is not True:
+            raise ValueError(f"repair handler is not reversible/checkpointed: {hid}")
+        resolved.append(handler)
+    return resolved
+
+def make_checkpoint(
+    plan:dict[str,Any],
+    state_path:Path,
+    state:dict[str,Any],
+    invalidated:list[str],
+)->dict[str,Any]:
+    return {
+        "schema_version":"skyrim-repair-checkpoint-v1",
+        "repair_id":plan["repair_id"],
+        "project_id":plan["project_id"],
+        "build_id":state.get("build_id"),
+        "created_at":now(),
+        "execution_state_path":str(state_path),
+        "invalidated_nodes":invalidated,
+        "prior_nodes":{
+            nid:copy.deepcopy(state.get("nodes",{}).get(nid))
+            for nid in invalidated
+            if nid in state.get("nodes",{})
+        },
+    }
+
+def apply_invalidate_and_regenerate(
+    plan:dict[str,Any],
+    dag:dict[str,Any],
+    state:dict[str,Any],
+)->list[str]:
+    target=(plan.get("failure") or {}).get("failing_task")
+    if not target:
+        raise ValueError("repair plan does not identify failure.failing_task")
+    nodes=node_map(dag)
+    node=nodes.get(target)
+    if not node:
+        raise ValueError(f"repair target is not a DAG node: {target}")
+    if node.get("phase")!="generate":
+        raise ValueError(
+            f"generated-output repair target must be a generate-phase node, got "
+            f"{target} phase={node.get('phase')!r}"
+        )
+    invalidated=downstream_closure(dag,target)
+    for nid in invalidated:
+        state.setdefault("nodes",{}).pop(nid,None)
+    return invalidated
+
+def execute(
+    plan:dict[str,Any],
+    dag:dict[str,Any],
+    state:dict[str,Any],
+    registry:dict[str,Any],
+    *,
+    state_path:Path,
+    checkpoint_dir:Path,
+    execute_mutation:bool,
+)->tuple[dict[str,Any],dict[str,Any]|None]:
+    handlers=validate_automatic_plan(plan,registry)
+    entrypoints={h["implementation"]["entrypoint"] for h in handlers}
+    if entrypoints!={"invalidate_and_regenerate_generated_node"}:
+        raise ValueError(
+            "this executor version only supports invalidate_and_regenerate_generated_node; got "
+            + ", ".join(sorted(entrypoints))
+        )
+
+    preview=copy.deepcopy(state)
+    invalidated=apply_invalidate_and_regenerate(plan,dag,preview)
+    result=copy.deepcopy(plan)
+    result.setdefault("result",{})
+    result["result"]["attempts"]=int(result["result"].get("attempts",0))+1
+    result["result"].setdefault("evidence",[])
+    result["result"].setdefault("new_issue_codes",[])
+    result["result"].setdefault("regression_promoted",False)
+
+    checkpoint=None
+    if not execute_mutation:
+        result["result"]["status"]="planned"
+        result["result"]["evidence"].append(
+            "dry-run: would invalidate cached nodes: "+", ".join(invalidated)
+        )
+        return result,None
+
+    checkpoint=make_checkpoint(plan,state_path,state,invalidated)
+    cp_errors=schema_errors(checkpoint,"skyrim-repair-checkpoint-v1.schema.json")
+    if cp_errors:
+        raise ValueError("repair checkpoint failed schema validation: "+"; ".join(cp_errors))
+
+    checkpoint_dir.mkdir(parents=True,exist_ok=True)
+    safe=re.sub(r"[^A-Za-z0-9_.-]+","_",plan["repair_id"])
+    stamp=dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    checkpoint_path=checkpoint_dir/f"{stamp}-{safe}.json"
+    EXEC.atomic_write_json(checkpoint_path,checkpoint)
+
+    state.clear()
+    state.update(preview)
+    EXEC.save_execution_state(state_path,state)
+
+    result.setdefault("rollback",{})["checkpoint"]=str(checkpoint_path)
+    result["result"]["status"]="testing"
+    result["result"]["evidence"].extend([
+        f"repair checkpoint: {checkpoint_path}",
+        "invalidated cached nodes: "+", ".join(invalidated),
+        "next action: rerun the normal DAG executor and prove repair postconditions",
+    ])
+    out_errors=schema_errors(result,"skyrim-repair-plan-v1.schema.json")
+    if out_errors:
+        raise ValueError("updated repair plan failed schema validation: "+"; ".join(out_errors))
+    return result,checkpoint
+
+def main()->None:
+    ap=argparse.ArgumentParser()
+    ap.add_argument("repair_plan",type=Path)
+    ap.add_argument("build_dag",type=Path)
+    ap.add_argument("execution_state",type=Path)
+    ap.add_argument("--handler-registry",type=Path,default=DEFAULT_HANDLERS)
+    ap.add_argument("--checkpoint-dir",type=Path)
+    ap.add_argument("--output",type=Path,required=True)
+    ap.add_argument("--execute",action="store_true")
+    args=ap.parse_args()
+
+    plan=load(args.repair_plan)
+    dag=load(args.build_dag)
+    state=load(args.execution_state)
+    state_errors=schema_errors(state,"skyrim-execution-state-v1.schema.json")
+    if state_errors:
+        raise SystemExit("Invalid execution state:\n- "+"\n- ".join(state_errors))
+    if dag.get("schema_version")!="skyrim-build-dag-v1":
+        raise SystemExit("Expected skyrim-build-dag-v1")
+    if dag.get("project_id")!=plan.get("project_id") or state.get("project_id")!=plan.get("project_id"):
+        raise SystemExit("repair plan, DAG and execution state project_id values do not match")
+
+    checkpoint_dir=args.checkpoint_dir or (args.execution_state.parent/"repair-checkpoints")
+    try:
+        updated,_=execute(
+            plan,
+            dag,
+            state,
+            load(args.handler_registry),
+            state_path=args.execution_state,
+            checkpoint_dir=checkpoint_dir,
+            execute_mutation=args.execute,
+        )
+    except ValueError as exc:
+        raise SystemExit(str(exc))
+
+    EXEC.atomic_write_json(args.output,updated)
+    print(json.dumps({
+        "repair_id":updated["repair_id"],
+        "status":updated.get("result",{}).get("status"),
+        "checkpoint":updated.get("rollback",{}).get("checkpoint") or None,
+        "output":str(args.output),
+        "executed":args.execute,
+    },indent=2))
+
+if __name__=="__main__":
+    main()
