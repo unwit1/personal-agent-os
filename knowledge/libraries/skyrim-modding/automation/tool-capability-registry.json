@@ -296,6 +296,18 @@
       "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/housecarl.json"
     },
     {
+      "adapter_id": "flm",
+      "capabilities": [
+        "flm-config-generate",
+        "flm-intent-validate",
+        "formlist-runtime-injection",
+        "flm-filter-config",
+        "flm-collection-config",
+        "flm-modevent-config"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/flm.json"
+    },
+    {
       "adapter_id": "kid",
       "capabilities": [
         "kid-config-generate",
