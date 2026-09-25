@@ -12,6 +12,7 @@
     "comparable",
     "comparability_reasons",
     "identity",
+    "coverage",
     "summary",
     "plugin_changes",
     "records_added",
@@ -166,6 +167,42 @@
             "items": {
               "type": "object"
             }
+          }
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "compared_fields",
+        "before_only_fields",
+        "after_only_fields"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "declared-intersection",
+            "legacy-full-record"
+          ]
+        },
+        "compared_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "before_only_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "after_only_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         }
       }
