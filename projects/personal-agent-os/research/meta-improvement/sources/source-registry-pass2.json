@@ -3618,6 +3618,61 @@
       "evidence_notes": "Clusters sampled answers by semantic meaning and estimates entropy over meanings; reported stronger detection of confabulations than several baselines across tasks/models.",
       "limits": "Requires multiple samples/semantic clustering and only targets uncertainty-driven confabulation, not systematic confidently wrong answers.",
       "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0320",
+      "title": "A Tutorial on Thompson Sampling",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1707.02038",
+      "topics": [
+        "bandits",
+        "online_learning",
+        "exploration"
+      ],
+      "evidence_notes": "Broad treatment of posterior-sampling approaches to sequential exploration/exploitation across recommendation, active learning, shortest paths and RL.",
+      "limits": "Online exploration can be inappropriate when interventions have meaningful user/safety cost.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0321",
+      "title": "Learning from Time-Changing Data with Adaptive Windowing (ADWIN)",
+      "type": "research",
+      "url": "https://doi.org/10.1137/1.9781611972771.42",
+      "topics": [
+        "concept_drift",
+        "streaming",
+        "monitoring"
+      ],
+      "evidence_notes": "Adaptive window size responds to detected change with statistical false-positive/negative guarantees under assumptions.",
+      "limits": "Scalar/stream statistics and assumptions may not capture high-dimensional semantic drift directly.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0322",
+      "title": "NIST SP 800-226: Guidelines for Evaluating Differential Privacy Guarantees",
+      "type": "standard_guidance",
+      "url": "https://csrc.nist.gov/pubs/sp/800/226/final",
+      "topics": [
+        "differential_privacy",
+        "privacy"
+      ],
+      "evidence_notes": "2025 final NIST guidance for evaluating DP claims, utility/bias tradeoffs and implementation hazards, including ML applications.",
+      "limits": "DP protects participation/privacy under a specified mechanism; it does not make raw sensitive processing or outputs inherently safe.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0323",
+      "title": "Thompson Sampling for Contextual Bandit Problems with Auxiliary Safety Constraints",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1911.00638",
+      "topics": [
+        "bandits",
+        "safe_exploration",
+        "constraints"
+      ],
+      "evidence_notes": "Contextual Thompson sampling variant incorporates multiple outcome/safety constraints relative to policy objectives.",
+      "limits": "Empirical/theoretical setting does not automatically translate to human-notification or personal-assistant harms.",
+      "status": "verified_or_primary_lead"
     }
   ]
 }
