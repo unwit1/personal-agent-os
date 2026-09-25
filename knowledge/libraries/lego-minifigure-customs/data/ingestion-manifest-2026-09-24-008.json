@@ -39,13 +39,17 @@
     "tools/knowledge/extract_minifigure_visual_features.py",
     "tools/knowledge/embed_minifigure_reference_images.py",
     "tools/knowledge/build_minifigure_reference_sets.py",
-    "tools/knowledge/build_minifigure_training_splits.py"
+    "tools/knowledge/build_minifigure_training_splits.py",
+    "chatgpt-image-control-group.md",
+    "data/chatgpt-control-generation-schema.json"
   ],
   "updated_files": [
     "data-model.json",
     "README.md",
     "../../tools/knowledge/README.md",
-    "tools/knowledge/ingest_lego_minifigure_references.py"
+    "tools/knowledge/ingest_lego_minifigure_references.py",
+    "ai-knowledge-schema.json",
+    "owned-reference-accuracy-and-local-generation.md"
   ],
   "key_findings": [
     "Physical catalog coverage is approximately 19.2k catalog records, not unique characters.",
@@ -66,7 +70,8 @@
     "Official-reference processing now has a complete downstream architecture: normalization, canonical ReferenceSets, auditable deterministic features, DINOv3 visual embeddings, SigLIP2 multimodal embeddings, and leakage-safe grouped splits.",
     "The recommended model strategy is retrieval-first, then structured source-to-LEGO decision learning, then constrained flat-template generation; a single monolithic image fine-tune is explicitly discouraged.",
     "Training/evaluation splits must be grouped by OutfitDesign (and harder character/theme/mask-family benchmarks) so duplicate renders, crops, and variants cannot leak across train and test.",
-    "ReferenceSets select the best available front/rear/side/component evidence by authority and quality while preserving alternates and explicit missing views."
+    "ReferenceSets select the best available front/rear/side/component evidence by authority and quality while preserving alternates and explicit missing views.",
+    "ChatGPT image generation is now a standardized hosted control arm: every research generation should compile the same structured reference/identity/style/mask/constraint packet, log failures, and version prompt revisions instead of using ad-hoc prompting."
   ],
   "next_steps": [
     "Run the manual GitHub Actions physical census or the importer locally against current Rebrickable daily CSVs and record actual coverage counts.",
