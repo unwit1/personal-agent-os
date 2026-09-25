@@ -14,11 +14,14 @@ edit -> build -> launch fixture -> agent drives/observes scenario -> assert -> r
 ## Runtime adapter candidates
 
 Agent OS should abstract over:
-- SkyLink AI;
 - DevBench;
+- SkyLink AI;
 - SkyrimNet MCP for SkyrimNet-dependent projects;
+- **skytest** as an experimental isolated Linux/gamescope A/B/replay harness;
 - console/Papyrus bridges;
 - future native Agent OS test plugin.
+
+Adapter selection is project/toolchain driven; do not require a Linux-only or dependency-specific harness for every project.
 
 ## Test profile
 
@@ -251,3 +254,24 @@ Long term, build a small native `AgentOSTestBridge.dll` exposing a strictly test
 - capture structured assertions.
 
 Keep it **development-profile only** and separate from release artifacts.
+
+## Experimental Skytest integration policy
+
+The current third-party Skytest implementation is useful enough to prototype against because it already supplies profile isolation, vanilla A/B control, headless/visible gamescope sessions, input injection, screenshots, replay scripts and a structured SKSE probe.
+
+It is **not release-authoritative by default**.
+
+Before Agent OS enables it for autonomous release gating, run a harness qualification suite that deliberately tests:
+
+1. a stale probe trace must **not** satisfy a new-session assertion;
+2. a second Skyrim process must be detected/rejected;
+3. runtime/SKSE mismatch must fail before a test is accepted;
+4. the test profile must be provably restored on stop/recovery;
+5. vanilla A/B must differ only by the under-test payload;
+6. a deliberately failing state gate must fail;
+7. a deliberately missing plugin/DLL must fail;
+8. an owned plugin error written after the trigger must fail the scenario;
+9. screenshots must belong to the current session;
+10. synthetic held-input limitations must be flagged for real-hardware follow-up.
+
+Only after these mutation/self-tests pass should Skytest count as a G26/G27 runtime observer on that machine.
