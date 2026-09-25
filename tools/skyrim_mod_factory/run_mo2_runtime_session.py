@@ -73,6 +73,15 @@ def is_within(path:Path,roots:Iterable[Path])->bool:
             pass
     return False
 
+def sha256_json(value:Any)->str:
+    payload=json.dumps(
+        value,
+        sort_keys=True,
+        separators=(",",":"),
+        ensure_ascii=False,
+    ).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
 def sha256_file(path:Path)->str:
     h=hashlib.sha256()
     with path.open("rb") as f:
@@ -329,6 +338,16 @@ def prepare_session(
         raise ValueError(f"session evidence directory is outside allowed roots: {session_dir}")
     session_dir.mkdir(parents=True,exist_ok=False)
 
+    prepared_at=now()
+    session_token=sha256_json({
+        "run_id":run_id,
+        "test_id":test["test_id"],
+        "project_id":test["project_id"],
+        "worker_id":config["worker_id"],
+        "profile_name":profile_name,
+        "profile_manifest":before_manifest,
+        "prepared_at":prepared_at,
+    })
     result={
         "schema_version":"skyrim-runtime-session-result-v1",
         "run_id":run_id,
@@ -336,8 +355,9 @@ def prepare_session(
         "project_id":test["project_id"],
         "worker_id":config["worker_id"],
         "build_id":build_id,
+        "session_token":session_token,
         "status":"prepared",
-        "prepared_at":now(),
+        "prepared_at":prepared_at,
         "started_at":None,
         "finished_at":None,
         "profile":{
