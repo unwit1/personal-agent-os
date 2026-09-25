@@ -1,0 +1,56 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "spriggit",
+  "tool": "Spriggit",
+  "source": "https://github.com/Mutagen-Modding/Spriggit",
+  "targets": [
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "plugin-serialize-yaml",
+    "plugin-serialize-json",
+    "plugin-deserialize",
+    "git-friendly-record-source",
+    "translation-version-pin",
+    "semantic-diff-source"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "transport": "CLI/.NET",
+    "requires_running_game": false
+  },
+  "coverage": {
+    "description": "Mutagen-based plugin-to-text translation with versioned translation packages.",
+    "known_gaps": [
+      "text representation depends on translation package coverage/version",
+      "binary validity still needs independent validation"
+    ],
+    "denominator_probe": "Compare serialized record/file count to binary source and round-trip output."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Git provides source history; deserialize into staging then promote."
+  },
+  "verification": {
+    "independent_validators": [
+      "xedit",
+      "mutagen-reload"
+    ],
+    "version_probe": "translation package/version stamped in serialized project",
+    "output_readback": "Serialize regenerated binary and compare normalized text."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Excellent AI-editable source surface because records become ordinary YAML/JSON files."
+  },
+  "evidence": {
+    "source_url": "https://github.com/Mutagen-Modding/Spriggit",
+    "verified_date": "2026-09-24",
+    "notes": "Preferred Git-friendly source representation for authored plugin data where suitable."
+  }
+}
