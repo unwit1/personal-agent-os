@@ -1,0 +1,60 @@
+name: Stage TES knowledge migration
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/stage-tes-migration.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  stage:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build migration archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf migration-staging
+          mkdir -p migration-staging
+          SOURCE_COMMIT="$(git rev-parse HEAD)"
+          tar -czf /tmp/tes-library.tar.gz -C knowledge/libraries elder-scrolls
+          ARCHIVE_SHA="$(sha256sum /tmp/tes-library.tar.gz | awk '{print $1}')"
+          ARCHIVE_BYTES="$(stat -c %s /tmp/tes-library.tar.gz)"
+          FILE_COUNT="$(find knowledge/libraries/elder-scrolls -type f | wc -l | tr -d ' ')"
+          base64 -w 0 /tmp/tes-library.tar.gz | split -b 750k -d -a 3 - migration-staging/tes-library.tar.gz.b64.part-
+          export SOURCE_COMMIT ARCHIVE_SHA ARCHIVE_BYTES FILE_COUNT
+          python - <<'PY'
+          from pathlib import Path
+          import json, os
+          parts = sorted(p.name for p in Path('migration-staging').glob('tes-library.tar.gz.b64.part-*'))
+          payload = {
+              'source_repository': 'unwit1/personal-agent-os',
+              'source_commit': os.environ['SOURCE_COMMIT'],
+              'source_root': 'knowledge/libraries/elder-scrolls',
+              'archive_sha256': os.environ['ARCHIVE_SHA'],
+              'archive_bytes': int(os.environ['ARCHIVE_BYTES']),
+              'source_file_count': int(os.environ['FILE_COUNT']),
+              'encoding': 'tar.gz+base64-split',
+              'parts': parts,
+              'deletion_performed': False
+          }
+          Path('migration-staging/manifest.json').write_text(json.dumps(payload, indent=2) + '\n', encoding='utf-8')
+          PY
+
+      - name: Commit staging chunks
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f migration-staging
+          git commit -m "Stage TES migration archive [skip ci]"
+          git push origin HEAD:main
