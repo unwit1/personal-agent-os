@@ -250,6 +250,7 @@ def parse_xdump(
             "records_emitted":len(records),
             "field_lines_preserved":field_lines,
             "unassigned_nonempty_lines":unassigned_nonempty,
+            "semantic_fields":["editor_id","asset_paths"],
             "omissions":omissions,
         },
         "raw_xdump_sha256":sha256_bytes(text.encode("utf-8")),
