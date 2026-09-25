@@ -1,14 +1,46 @@
 #!/usr/bin/env python3
-"""Validate structural integrity of the Skyrim modding knowledge repository."""
+"""Validate structural and schema integrity of the Skyrim modding knowledge repository."""
 from pathlib import Path
-import re, sys
+import json
+import re
+import sys
+
+from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[2]
 LIB = ROOT / "knowledge" / "libraries" / "skyrim-modding"
 TERMS = LIB / "terminology"
 INDEX = LIB / "indexes" / "terminology-index.md"
+SCHEMAS = ROOT / "schemas"
 
-errors = []
+errors: list[str] = []
+
+def load_json(path: Path):
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        errors.append(f"invalid JSON {path.relative_to(ROOT)}: {exc}")
+        return None
+
+def schema(name: str):
+    path = SCHEMAS / name
+    data = load_json(path)
+    if data is not None:
+        try:
+            Draft202012Validator.check_schema(data)
+        except Exception as exc:
+            errors.append(f"invalid JSON Schema {path.relative_to(ROOT)}: {exc}")
+    return data
+
+def validate(instance, schema_data, label: str):
+    if instance is None or schema_data is None:
+        return
+    validator = Draft202012Validator(schema_data)
+    for err in sorted(validator.iter_errors(instance), key=lambda e: list(e.absolute_path)):
+        loc = ".".join(str(x) for x in err.absolute_path) or "<root>"
+        errors.append(f"{label} at {loc}: {err.message}")
+
+# Markdown/index integrity.
 modules = sorted(p.name for p in TERMS.glob("*.md"))
 if not INDEX.exists():
     errors.append("terminology-index.md is missing")
@@ -37,15 +69,121 @@ required = [
     LIB / "sources" / "registry.md",
     LIB / "research" / "frontier.md",
     LIB / "research" / "version-provenance-model.md",
+    LIB / "automation" / "tool-capability-registry.json",
+    LIB / "automation" / "implementation-patterns-core.json",
+    LIB / "automation" / "analyzer-rule-pack-core.json",
 ]
-for p in required:
-    if not p.exists():
-        errors.append(f"required retrieval surface missing: {p.relative_to(ROOT)}")
+for path in required:
+    if not path.exists():
+        errors.append(f"required retrieval surface missing: {path.relative_to(ROOT)}")
+
+# Validate every schema definition itself.
+for path in sorted(SCHEMAS.glob("skyrim-*.schema.json")):
+    data = load_json(path)
+    if data is None:
+        continue
+    try:
+        Draft202012Validator.check_schema(data)
+    except Exception as exc:
+        errors.append(f"invalid JSON Schema {path.relative_to(ROOT)}: {exc}")
+
+adapter_schema = schema("skyrim-tool-adapter-v1.schema.json")
+registry_schema = schema("skyrim-tool-capability-registry-v1.schema.json")
+rule_schema = schema("skyrim-analyzer-rule-v1.schema.json")
+pattern_schema = schema("skyrim-implementation-pattern-v1.schema.json")
+runtime_test_schema = schema("skyrim-runtime-test-v1.schema.json")
+project_schema = schema("skyrim-mod-project-v1.schema.json")
+build_report_schema = schema("skyrim-mod-build-report-v1.schema.json")
+
+# Adapter manifests.
+adapter_dir = LIB / "automation" / "adapters"
+adapter_ids: set[str] = set()
+if adapter_dir.exists():
+    for path in sorted(adapter_dir.glob("*.json")):
+        data = load_json(path)
+        validate(data, adapter_schema, str(path.relative_to(ROOT)))
+        if isinstance(data, dict) and data.get("adapter_id"):
+            adapter_id = data["adapter_id"]
+            if adapter_id in adapter_ids:
+                errors.append(f"duplicate adapter_id: {adapter_id}")
+            adapter_ids.add(adapter_id)
+
+# Capability registry.
+registry_path = LIB / "automation" / "tool-capability-registry.json"
+registry = load_json(registry_path) if registry_path.exists() else None
+validate(registry, registry_schema, str(registry_path.relative_to(ROOT)))
+if isinstance(registry, dict):
+    reg_ids = [x.get("adapter_id") for x in registry.get("adapters", []) if isinstance(x, dict)]
+    if len(reg_ids) != len(set(reg_ids)):
+        errors.append("tool capability registry contains duplicate adapter_id values")
+    for entry in registry.get("adapters", []):
+        if not isinstance(entry, dict):
+            continue
+        manifest = entry.get("adapter_manifest")
+        if manifest:
+            manifest_path = ROOT / manifest
+            if not manifest_path.exists():
+                errors.append(f"registry adapter manifest missing: {manifest}")
+            else:
+                mdata = load_json(manifest_path)
+                if isinstance(mdata, dict) and mdata.get("adapter_id") != entry.get("adapter_id"):
+                    errors.append(
+                        f"registry/manifest adapter_id mismatch: {entry.get('adapter_id')} -> {manifest}"
+                    )
+
+# Analyzer rule pack: validate wrapper fields directly, then every embedded rule.
+rule_pack_path = LIB / "automation" / "analyzer-rule-pack-core.json"
+rule_pack = load_json(rule_pack_path) if rule_pack_path.exists() else None
+if isinstance(rule_pack, dict):
+    if rule_pack.get("schema_version") != "skyrim-analyzer-rule-pack-v1":
+        errors.append("analyzer rule pack has wrong schema_version")
+    rule_ids: set[str] = set()
+    for idx, rule in enumerate(rule_pack.get("rules", [])):
+        validate(rule, rule_schema, f"{rule_pack_path.relative_to(ROOT)} rules[{idx}]")
+        if isinstance(rule, dict) and rule.get("rule_id"):
+            rid = rule["rule_id"]
+            if rid in rule_ids:
+                errors.append(f"duplicate analyzer rule_id: {rid}")
+            rule_ids.add(rid)
+else:
+    errors.append("analyzer rule pack is missing or invalid")
+
+# Implementation pattern pack.
+pattern_pack_path = LIB / "automation" / "implementation-patterns-core.json"
+pattern_pack = load_json(pattern_pack_path) if pattern_pack_path.exists() else None
+if isinstance(pattern_pack, dict):
+    if pattern_pack.get("schema_version") != "skyrim-implementation-pattern-pack-v1":
+        errors.append("implementation pattern pack has wrong schema_version")
+    pattern_ids: set[str] = set()
+    for idx, pattern in enumerate(pattern_pack.get("patterns", [])):
+        validate(pattern, pattern_schema, f"{pattern_pack_path.relative_to(ROOT)} patterns[{idx}]")
+        if isinstance(pattern, dict) and pattern.get("pattern_id"):
+            pid = pattern["pattern_id"]
+            if pid in pattern_ids:
+                errors.append(f"duplicate implementation pattern_id: {pid}")
+            pattern_ids.add(pid)
+else:
+    errors.append("implementation pattern pack is missing or invalid")
+
+# The schemas below may not yet have checked-in instances, but checking/loading them
+# here makes CI fail immediately if future edits make them invalid.
+for name, value in [
+    ("runtime test", runtime_test_schema),
+    ("project manifest", project_schema),
+    ("build report", build_report_schema),
+]:
+    if value is None:
+        errors.append(f"{name} schema could not be loaded")
 
 if errors:
     print("Skyrim knowledge validation FAILED:")
-    for e in errors:
-        print(f"- {e}")
+    for error in errors:
+        print(f"- {error}")
     sys.exit(1)
 
-print(f"Skyrim knowledge validation passed: {len(modules)} terminology modules indexed.")
+print(
+    "Skyrim knowledge validation passed: "
+    f"{len(modules)} terminology modules, {len(adapter_ids)} adapter manifests, "
+    f"{len(rule_pack.get('rules', [])) if isinstance(rule_pack, dict) else 0} analyzer rules, "
+    f"{len(pattern_pack.get('patterns', [])) if isinstance(pattern_pack, dict) else 0} implementation patterns."
+)
