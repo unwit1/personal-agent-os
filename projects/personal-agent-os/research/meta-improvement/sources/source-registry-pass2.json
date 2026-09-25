@@ -3398,6 +3398,158 @@
       "evidence_notes": "LLM translates language into PDDL, deterministic planner finds feasible/optimal plan, LLM translates back; dramatically stronger than direct LLM planning on studied domains.",
       "limits": "Translation to PDDL can misrepresent intent/state/action semantics.",
       "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0302",
+      "title": "ConU: Conformal Uncertainty in Large Language Models with Correctness Coverage Guarantees",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2407.00499",
+      "topics": [
+        "uncertainty",
+        "conformal_prediction",
+        "coverage"
+      ],
+      "evidence_notes": "Applies conformal prediction to black-box LLM free-form generation and reports calibrated prediction sets with target correctness coverage across multiple models/datasets.",
+      "limits": "Guarantees rely on exchangeability/calibration assumptions and the chosen nonconformity/correctness definition; not universal semantic truth guarantees.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0303",
+      "title": "SelectiveNet: A Deep Neural Network with an Integrated Reject Option",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1901.09192",
+      "topics": [
+        "selective_prediction",
+        "abstention"
+      ],
+      "evidence_notes": "Jointly trains prediction and reject/coverage behavior to improve risk-coverage tradeoff.",
+      "limits": "Classical supervised setting; LLM application needs adapted uncertainty features and calibration.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0304",
+      "title": "DeepXplore: Automated Whitebox Testing of Deep Learning Systems",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1705.06640",
+      "topics": [
+        "differential_testing",
+        "coverage",
+        "neural_testing"
+      ],
+      "evidence_notes": "Uses neuron coverage plus differential behavior across models to discover corner-case failures without manual labels.",
+      "limits": "Neuron coverage is an imperfect adequacy proxy and modern LLM behavior differs from image/classification DNNs.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0305",
+      "title": "DeepTest: Automated Testing of Deep-Neural-Network-driven Autonomous Cars",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1708.08559",
+      "topics": [
+        "metamorphic_testing",
+        "robustness"
+      ],
+      "evidence_notes": "Applies realistic semantics-preserving transformations such as weather/lighting changes to uncover model failures without a full test oracle.",
+      "limits": "Autonomous-driving domain; metamorphic relation validity is domain-specific.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0306",
+      "title": "Bidirectional Empowerment of Metamorphic Testing and Large Language Models: A Systematic Survey",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2605.13898",
+      "topics": [
+        "metamorphic_testing",
+        "LLM_testing",
+        "survey"
+      ],
+      "evidence_notes": "2026 survey of 93 primary studies covering metamorphic testing for hallucination, fairness, robustness, RAG, dialogue, code and agents, plus LLM-assisted metamorphic-test generation.",
+      "limits": "Survey synthesizes heterogeneous methods; relation quality remains the key oracle.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0307",
+      "title": "Validating LLM-Generated Programs with Metamorphic Prompt Testing",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2406.06864",
+      "topics": [
+        "metamorphic_testing",
+        "code_generation",
+        "prompt_robustness"
+      ],
+      "evidence_notes": "Paraphrases programming prompts and cross-validates generated implementations; reported detection of 75% of erroneous GPT-4 programs at 8.6% false positive on HumanEval.",
+      "limits": "HumanEval and paraphrase relations do not cover all program semantics.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0308",
+      "title": "DiffSpec: Differential Testing with LLMs using Natural Language Specifications and Code Artifacts",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2410.04249",
+      "topics": [
+        "differential_testing",
+        "LLM_testing",
+        "software"
+      ],
+      "evidence_notes": "LLM-guided test generation compares multiple conforming implementations and found confirmed eBPF/Wasm bugs.",
+      "limits": "Needs multiple independent implementations/spec artifacts and careful adjudication of intended differences.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0309",
+      "title": "Atheris: Coverage-Guided Python Fuzzing",
+      "type": "open_source",
+      "url": "https://github.com/google/atheris",
+      "topics": [
+        "fuzzing",
+        "python",
+        "coverage"
+      ],
+      "evidence_notes": "Coverage-guided mutation fuzzer for Python/native extensions, with instrumentation, structure-aware custom mutators and regression-corpus workflows.",
+      "limits": "Coverage-guided byte mutation is inefficient for highly structured inputs without structure-aware mutators.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0310",
+      "title": "LLVM libFuzzer",
+      "type": "official",
+      "url": "https://llvm.org/docs/LibFuzzer.html",
+      "topics": [
+        "fuzzing",
+        "coverage",
+        "software_testing"
+      ],
+      "evidence_notes": "In-process coverage-guided evolutionary fuzzing with corpus minimization, sanitizer integration, dictionaries and custom mutators.",
+      "limits": "Original authors no longer add major features; narrow deterministic fast targets are important for efficiency.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0312",
+      "title": "Uncertainty Quantification and Confidence Calibration in Large Language Models: A Survey",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2503.15850",
+      "topics": [
+        "uncertainty",
+        "calibration",
+        "survey"
+      ],
+      "evidence_notes": "Surveys LLM uncertainty across input, reasoning, parameter and prediction dimensions and discusses efficiency/applicability tradeoffs.",
+      "limits": "Survey results span heterogeneous tasks/models and do not imply one universal metric.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0313",
+      "title": "Uncertainty of Thoughts: Uncertainty-Aware Planning Enhances Information Seeking in Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2402.03271",
+      "topics": [
+        "uncertainty",
+        "active_information_gathering",
+        "planning"
+      ],
+      "evidence_notes": "Uses scenario simulation and information-gain-style uncertainty rewards to choose follow-up questions; reported higher task success and question efficiency across multiple interactive tasks/models.",
+      "limits": "Simulation quality and uncertainty estimate can be wrong; medical examples do not justify clinical use.",
+      "status": "verified_or_primary_lead"
     }
   ]
 }
