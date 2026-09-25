@@ -36,7 +36,7 @@ from jsonschema import Draft202012Validator
 HERE=Path(__file__).resolve().parent
 REPO=HERE.parents[1]
 DEFAULT_CAPABILITIES=REPO/"knowledge/libraries/skyrim-modding/automation/tool-capability-registry.json"
-DEFAULT_ADAPTER_DIR=REPO/"knowledge/libraries/skyrim-modding/automation/adapters"
+DEFAULT_ADAPTER_DIR=REPO/"knowledge/libraries/skyrim-modding/automation/adapters"\nDEFAULT_GATE_REGISTRY=REPO/"knowledge/libraries/skyrim-modding/automation/validation-gate-registry.json"
 SCHEMAS=REPO/"schemas"
 
 def load_module(name:str, path:Path):
@@ -48,7 +48,7 @@ def load_module(name:str, path:Path):
     return mod
 
 RUN=load_module("run_adapter",HERE/"run_adapter.py")
-DOCTOR=load_module("doctor_toolchain",HERE/"doctor_toolchain.py")
+DOCTOR=load_module("doctor_toolchain",HERE/"doctor_toolchain.py")\nGATES=load_module("evaluate_gates",HERE/"evaluate_gates.py")
 
 def now()->str:
     return dt.datetime.now(dt.timezone.utc).isoformat()
@@ -325,6 +325,37 @@ def execute_adapter_node(
         reasons or ["node declares no executable adapter"],
     )
 
+def gate_evaluation_step(
+    node:dict[str,Any],
+    *,
+    gate_registry:dict[str,Any],
+    quality:dict[str,Any],
+    dag:dict[str,Any],
+    completed_steps:list[dict[str,Any]],
+)->dict[str,Any]:
+    partial_report={
+        "schema_version":"skyrim-mod-build-report-v1",
+        "project_id":dag.get("project_id"),
+        "build_id":"partial",
+        "started_at":now(),
+        "status":"running",
+        "steps":completed_steps,
+        "gates":[],
+    }
+    result=GATES.evaluate(
+        gate_registry,quality,dag,partial_report,through_phase="integrate"
+    )
+    status={
+        "passed":"passed",
+        "failed":"failed",
+        "needs-review":"needs-review",
+    }[result["status"]]
+    return simple_step(
+        node,status,
+        list(result.get("blockers") or []),
+        evidence={"gate_evaluation":result},
+    )
+
 def blocked_by_dependencies(node:dict[str,Any],steps:dict[str,dict[str,Any]],continue_review:bool)->list[str]:
     blocked=[]
     for dep in node.get("depends_on",[]):
@@ -346,7 +377,7 @@ def main()->None:
     ap.add_argument("--toolchain-lock",type=Path)
     ap.add_argument("--context",type=Path)
     ap.add_argument("--capabilities",type=Path,default=DEFAULT_CAPABILITIES)
-    ap.add_argument("--adapter-dir",type=Path,default=DEFAULT_ADAPTER_DIR)
+    ap.add_argument("--adapter-dir",type=Path,default=DEFAULT_ADAPTER_DIR)\n    ap.add_argument("--gate-registry",type=Path,default=DEFAULT_GATE_REGISTRY)
     ap.add_argument("--run-dir",type=Path,required=True)
     ap.add_argument("--report",type=Path)
     ap.add_argument("--git-commit")
@@ -379,7 +410,7 @@ def main()->None:
     log_dir.mkdir(parents=True,exist_ok=True)
     report_path=args.report or (args.run_dir/"build-report.json")
 
-    capability_map=load_capability_map(args.capabilities)
+    capability_map=load_capability_map(args.capabilities)\n    gate_registry=load_json(args.gate_registry)
     ordered=topological_order(dag)
     policy=context.get("policy") or {}
     stop_on_failure=policy.get("stop_on_failure",True)
@@ -402,7 +433,15 @@ def main()->None:
                     node,manifest=manifest,quality=quality,lock=lock,context=context
                 )
                 if step is None:
-                    if node.get("adapters"):
+                    if node.get("id")=="integrate.gates":
+                        step=gate_evaluation_step(
+                            node,
+                            gate_registry=gate_registry,
+                            quality=quality,
+                            dag=dag,
+                            completed_steps=[steps_by_id[n["id"]] for n in ordered if n["id"] in steps_by_id],
+                        )
+                    elif node.get("adapters"):
                         step=execute_adapter_node(
                             node,
                             capability_map=capability_map,
@@ -436,12 +475,6 @@ def main()->None:
 
     steps=[steps_by_id[n["id"]] for n in ordered]
     statuses=[s.get("status") for s in steps]
-    if "failed" in statuses:
-        final="failed"
-    elif "needs-review" in statuses or not args.execute:
-        final="needs-review"
-    else:
-        final="passed"
 
     report={
         "schema_version":"skyrim-mod-build-report-v1",
@@ -451,7 +484,7 @@ def main()->None:
         "manifest_sha256":sha256(args.manifest),
         "started_at":started,
         "finished_at":now(),
-        "status":final,
+        "status":"running",
         "runtime_context":{
             k:v for k,v in (lock.get("runtime") or {}).items()
             if isinstance(v,(str,int,float,bool)) or v is None
@@ -466,6 +499,19 @@ def main()->None:
         "human_checks_remaining":list(quality.get("human_checks") or []),
         "agent_actions":agent_actions,
     }
+    # Evaluate the final authoritative gate state after all available phases.
+    gate_result=GATES.evaluate(
+        gate_registry,quality,dag,report,through_phase="release"
+    )
+    report["gates"]=gate_result["gates"]
+    if "failed" in statuses or gate_result["status"]=="failed":
+        final="failed"
+    elif "needs-review" in statuses or not args.execute or gate_result["status"]=="needs-review":
+        final="needs-review"
+    else:
+        final="passed"
+    report["status"]=final
+
     # Remove optional null forbidden-by-schema fields.
     if report.get("git_commit") is None:
         report.pop("git_commit",None)
