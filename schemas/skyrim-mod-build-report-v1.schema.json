@@ -124,6 +124,48 @@
             "items": {
               "type": "string"
             }
+          },
+          "tool": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "tool_version": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "cwd": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "outputs_before": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "outputs_after": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "stdout_path": {
+            "type": "string"
+          },
+          "stderr_path": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "object"
           }
         }
       }
