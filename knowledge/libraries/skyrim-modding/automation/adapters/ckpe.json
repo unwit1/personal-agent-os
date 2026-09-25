@@ -1,0 +1,59 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "ckpe",
+  "tool": "Creation Kit Platform Extended",
+  "source": "https://github.com/Perchik71/Creation-Kit-Platform-Extended",
+  "targets": [
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "creation-kit-fixes",
+    "editor-platform",
+    "plugin-api",
+    "reverse-engineered-ck-resources",
+    "ck-stability",
+    "editor-extension"
+  ],
+  "invocation": {
+    "mode": "gui-supervised",
+    "transport": "CK loader/plugin platform",
+    "requires_running_game": false
+  },
+  "coverage": {
+    "description": "Creation Kit enhancement/platform with PluginAPI and reverse-engineered editor resources.",
+    "known_gaps": [
+      "Creation Kit remains heavily GUI/editor-state driven",
+      "Agent OS needs a narrow allowlisted CK plugin/worker before unattended mutation"
+    ],
+    "denominator_probe": "Log every requested editor operation and reopen output in xEdit."
+  },
+  "safety": {
+    "mutation_default": "mixed",
+    "supports_readback": true,
+    "supports_undo": false,
+    "requires_confirmation_for": [
+      "automated navmesh/quest/world edits until dedicated worker is validated"
+    ],
+    "sandbox_or_scope": "Work on project copy/test plugin; post-validate every CK save."
+  },
+  "verification": {
+    "independent_validators": [
+      "xedit",
+      "mutagen",
+      "runtime-test"
+    ],
+    "version_probe": "CK + CKPE exact version",
+    "output_readback": "Reload saved plugin and generated assets."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Best future path is an Agent OS CKPE plugin exposing narrowly typed editor operations, not coordinate automation."
+  },
+  "evidence": {
+    "source_url": "https://github.com/Perchik71/Creation-Kit-Platform-Extended",
+    "verified_date": "2026-09-24",
+    "notes": "LGPL-3.0 current project; pushed 2026-09-20."
+  }
+}
