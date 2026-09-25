@@ -37,11 +37,12 @@ from .storage import load_json, write_json
 
 PREFERENCES_PATH = ROOT / "profile" / "preferences.json"
 USER_CONTEXT_PATH = ROOT / "profile" / "user-context.json"
+RELATIONSHIP_CONTEXT_PATH = ROOT / "profile" / "relationship-context.json"
 
 # `profile/drive-derived-context.json` is deliberately absent. It is a large
 # derived index, not durable curated context, and loading it would reintroduce
 # exactly the bulk injection this module exists to prevent.
-CANONICAL_SOURCES = (PREFERENCES_PATH, USER_CONTEXT_PATH)
+CANONICAL_SOURCES = (PREFERENCES_PATH, USER_CONTEXT_PATH, RELATIONSHIP_CONTEXT_PATH)
 PROFILE_LOCAL_DIR = ROOT / ".agent-local" / "profile"
 PROFILE_LEDGER_PATH = PROFILE_LOCAL_DIR / "ingestion.json"
 PROFILE_CACHE_PATH = PROFILE_LOCAL_DIR / "facts.json"
@@ -51,7 +52,7 @@ PROFILE_PROCESSOR_VERSION = "profile-index@1"
 # Sections that describe the privacy regime itself, or that exist only as
 # bookkeeping, are never retrievable context.
 STRUCTURAL_KEYS = {"schema_version", "updated_at", "provenance", "context_indexes", "purpose"}
-RESTRICTED_DOMAINS = {"privacy"}
+RESTRICTED_DOMAINS = {"privacy", "quarantined_or_unresolved", "unresolved_identity_candidates"}
 
 # Confidence ranks a record's standing. An explicit statement outranks a seed,
 # which outranks something inferred from a scan.
@@ -75,6 +76,10 @@ DOMAIN_TERMS: dict[str, tuple[str, ...]] = {
     "leisure_interests": ("leisure", "hobby", "hobbies", "game", "gaming", "reading", "music", "film"),
     "research_and_learning_context": ("research", "learning", "study", "academic", "course"),
     "digital_usage_observations": ("email", "gmail", "spreadsheet", "ebook", "browser", "app usage"),
+    "family_and_relationship_context": ("family", "sibling", "siblings", "partner", "girlfriend", "relationship", "olivia"),
+    "source_attribution_rules": ("source", "actor", "authorship", "account", "attribution", "archive", "contamination"),
+    "durable_relationship_context": ("family", "partner", "girlfriend", "relationship", "household", "olivia"),
+    "source_attribution_policy": ("source", "actor", "authorship", "account", "attribution", "archive"),
 }
 
 _TOKEN = re.compile(r"[a-z0-9]+")
