@@ -204,7 +204,9 @@
       ],
       "properties": {
         "kind": {
-          "type": "string"
+          "type": "string",
+          "pattern": "^Generic[A-Za-z0-9._-]*$",
+          "description": "Reserved future/untyped entry kind. Specialized SPID/KID/BOS entries must use their dedicated schemas."
         },
         "semantic_action": {
           "type": "string"
