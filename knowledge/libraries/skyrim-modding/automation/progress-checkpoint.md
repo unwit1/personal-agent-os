@@ -11,15 +11,15 @@ The broad knowledge-ingestion phase is already mature. Resume from the executabl
 
 ## Current measured repository state
 
-- Skyrim terminology/reference modules: **164**
+- Skyrim terminology/reference modules: **165**
 - Tool/framework capability entries: **54**
 - Implementation patterns: **46**
 - Analyzer rules: **20**
 - Validation gates: **30** (G00–G29)
-- Skyrim-specific JSON Schemas: **28**
-- Mod Factory Python tools: **27**
-- Mod Factory unit-test modules: **18**
-- Dedicated adapter manifests: 40+ plus capability-only/manual/framework entries
+- Skyrim-specific JSON Schemas: **33**
+- Mod Factory Python tools: **30**
+- Mod Factory unit-test modules: **23**
+- Dedicated adapter manifests: **47** plus capability-only/manual/framework entries
 
 These are repository counts, not estimates of ecosystem completeness.
 
@@ -42,8 +42,8 @@ These are repository counts, not estimates of ecosystem completeness.
 | Tool/framework discovery registry | M4 | 54 capability entries with adapter manifests, gaps, safety and provenance. |
 | Toolchain preflight / version pinning | M4 | Toolchain doctor, dependency lock model, current-version research surfaces. |
 | Build DAG planning | M4 | Incremental DAG compiler with invalidation triggers and layer-specific generate/validate nodes. |
-| Generic adapter execution | **M4 in progress** | Reusable dry-run-safe adapter primitive plus initial DAG executor and tests added 2026-09-24. |
-| Validation gates | **M3→M4** | G00–G29 documented; machine-readable gate registry + evidence-aware evaluator now implemented. |
+| Generic adapter execution | **M4** | DAG executor now has end-to-end fake-toolchain coverage, typed artifact contracts, per-node checkpoint/resume, content-hash invalidation and mutation-aware retry checkpoints. |
+| Validation gates | **M4** | G00–G29 are machine-readable and evidence-aware; required blocking warnings prevent a final PASS. |
 | Schema triangulation | M3 | xEdit/Mutagen/CK/runtime strategy, validation quorum model and semantic plugin comparisons. |
 | Runtime patch config generation | M4 partial | Typed intent plus deterministic SPID/KID/BOS renderers; FLM/SkyPatcher/OAR and more still need typed renderers. |
 | Static plugin generation | M3 | Mutagen/houseCARL/Synthesis/Spriggit architecture and adapters exist; generic semantic record generator is not yet universal. |
@@ -56,9 +56,9 @@ These are repository counts, not estimates of ecosystem completeness.
 | Runtime testing | M2/M3 | devbench/SkyTest/SkyLink/SkyrimNet/AutoTest research/adapters; local Windows/MO2 closed-loop harness still not production-ready. |
 | Crash/log diagnosis | M2/M3 | Error catalog/analyzer rules exist; generic parser + signature clustering by build ID remains incomplete. |
 | Save migration validation | M2/M3 | ESS/Fallrim knowledge, schemas and gate policy exist; automated migration fixture runner needs integration. |
-| Auto repair planning | M3 | Evidence-first repair planner with reversible/proposal-only safety policy. |
-| Auto repair execution | **M2/M3** | Not yet a full closed loop; executor must apply only approved safe repairs, rebuild invalidated DAG nodes, and re-prove gates. |
-| Bug → regression learning | M3/M4 | Promotion tool/schema exists; needs automatic hook from successful repair runs. |
+| Auto repair planning | **M4** | Evidence-first planner is typed/tested and selects automatic mutation only when a registered reversible handler and provable postconditions exist. |
+| Auto repair execution | **M4 baseline** | Bounded loop can classify a failed step, select a registered automatic handler, checkpoint outputs/state, invalidate only the downstream closure, rerun via the normal executor, compare postconditions, roll back regressions and escalate unproven results. `--auto-repair` connects this loop to the executor. Current executable mutation coverage is intentionally narrow: generated-output invalidation/regeneration is the registered automatic handler. |
+| Bug → regression learning | **M4** | Regression candidates are typed and successful repairs automatically promote only when explicit root-cause + reproduction evidence already exists. |
 | Packaging/FOMOD | M2 | Gate and architecture exist; deterministic typed FOMOD generator + option-matrix simulator still needed. |
 | Release audit/reproducibility | M3 | Build report/provenance/audit schemas exist; final executor integration remains incomplete. |
 | Dependency/license audit | M3 | Policies/validators exist; needs stronger automatic source/license resolution. |
@@ -80,7 +80,18 @@ Small frequent commits now exist for:
 9. executable validation-gate registry;
 10. evidence-aware gate evaluator + tests;
 11. CI structural validation for the gate registry;
-12. phase-aware gate integration into the DAG executor.
+12. phase-aware gate integration into the DAG executor;
+13. two-node fake-toolchain end-to-end executor integration coverage;
+14. typed intermediate-artifact contracts with executor enforcement;
+15. typed retry checkpoints plus mutation-aware retry fail-closed behavior;
+16. deterministic repair-checkpoint restore, including deletion of outputs absent before repair;
+17. post-repair assessment that distinguishes repaired, unproven/escalated and failed/worse outcomes;
+18. automatic rollback when a repair rerun regresses;
+19. typed regression-candidate schema and callable promotion primitive;
+20. automatic regression-candidate hook for eligible validated repairs;
+21. bounded `run_repair_loop.py` orchestration preserving original failure evidence;
+22. executor `--auto-repair` bridge with nested-run recursion prevention;
+23. explicit `jsonschema` installation in the Mod Factory CI workflow.
 
 ## Current resume point
 
@@ -88,23 +99,27 @@ Small frequent commits now exist for:
 
 Continue from:
 
-### P0 — Make the executor genuinely closed-loop
+### P0 — Closed-loop executor baseline — COMPLETE
 
-1. Finish executor integration tests end-to-end with a fake adapter/toolchain.
-2. Add schema validation for every intermediate artifact produced during execution.
-3. Add per-node checkpoint/resume so an interrupted run never repeats passed deterministic nodes unnecessarily.
-4. Add content-hash invalidation: rerun only nodes downstream of changed inputs/tools/manifests.
-5. Add safe retry/rollback checkpoint records.
-6. Integrate repair planner so a failed node can:
-   - classify issue;
-   - select only an automatic-safe repair;
-   - checkpoint;
-   - mutate;
-   - rerun the minimal downstream subgraph;
-   - compare postconditions;
-   - rollback if worse;
-   - promote validated bug to regression candidate.
-7. Make final release status impossible to PASS while a required gate is warning/needs-review.
+The original P0 baseline is now implemented:
+
+1. ✅ end-to-end fake adapter/toolchain integration coverage;
+2. ✅ declared intermediate-artifact JSON-schema contracts and fail-closed enforcement;
+3. ✅ per-node persisted checkpoint/resume;
+4. ✅ content-hash invalidation with downstream dependency fingerprints;
+5. ✅ mutation-aware safe-retry checkpoint records;
+6. ✅ bounded automatic repair path: classify → policy/handler selection → checkpoint → invalidate/mutate → minimal rerun → postcondition compare → rollback if worse → eligible regression promotion;
+7. ✅ final required blocking gate warnings/needs-review prevent PASS.
+
+Important scope boundary: **P0 completion does not mean the entire Mod Factory is M5.** Automatic mutation remains deliberately limited to registered reversible handlers, and the runtime/visual/CK parts below still need executable harnesses and validators.
+
+Operational CI note (2026-09-24): GitHub Actions workflow files are configured and the Mod Factory workflow now installs `jsonschema`, but current Actions jobs are ending without an assigned runner/steps (`runner_id=0`). Do not treat those no-runner failures as test evidence. Re-run the suite once runner availability is restored.
+
+## Current resume point
+
+**Do not restart at P0 or broad terminology research.**
+
+Continue from the P1 executable validation/generation gaps below. Prefer the smallest deterministic oracle/generator first, then checkpoint and commit.
 
 ### P1 — Runtime harness
 
