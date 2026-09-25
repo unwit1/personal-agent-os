@@ -1,0 +1,652 @@
+{
+  "schema": "personal-agent-os/ai-micro-optimizations/v1",
+  "as_of": "2026-09-24",
+  "domain": "runtime_reliability",
+  "items": [
+    {
+      "id": "MIC-0046",
+      "layer": "runtime",
+      "optimization": "Parallelize only calls with no data dependency",
+      "mechanism": "Reduce wall-clock time without introducing races",
+      "expected_effect": [
+        "lower latency"
+      ],
+      "test": "Dependency-DAG replay vs serial baseline",
+      "failure_mode": "Hidden dependency yields inconsistent results",
+      "prerequisites": [
+        "dependency graph or explicit planner"
+      ],
+      "source_refs": [
+        "SRC-AI-0068"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0047",
+      "layer": "runtime",
+      "optimization": "Keep dependent calls sequential or await prerequisite explicitly",
+      "mechanism": "Prevent speculative use of unavailable/stale outputs",
+      "expected_effect": [
+        "correctness"
+      ],
+      "test": "Race-injection tests",
+      "failure_mode": "Longer latency than unsafe parallelism",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0068"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0048",
+      "layer": "runtime",
+      "optimization": "Bound concurrency per provider/tool",
+      "mechanism": "Avoid rate-limit storms and resource saturation",
+      "expected_effect": [
+        "reliability",
+        "stable latency"
+      ],
+      "test": "Load test across concurrency levels",
+      "failure_mode": "Underutilization if bound too low",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0128"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0049",
+      "layer": "runtime",
+      "optimization": "Use per-provider concurrency pools",
+      "mechanism": "Prevent one slow/limited provider from starving unrelated work",
+      "expected_effect": [
+        "throughput",
+        "fault isolation"
+      ],
+      "test": "Provider outage/load simulation",
+      "failure_mode": "More scheduler state",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0128"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0050",
+      "layer": "runtime",
+      "optimization": "Use deadlines, not independent nested timeouts",
+      "mechanism": "Propagate remaining task budget across calls",
+      "expected_effect": "predictable total latency",
+      "test": "Timeout-tree fault test",
+      "failure_mode": "Tight deadline can cancel useful recovery",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0144"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0051",
+      "layer": "runtime",
+      "optimization": "Honor Retry-After when available",
+      "mechanism": "Coordinate retries with service backpressure",
+      "expected_effect": "fewer repeated 429s",
+      "test": "Rate-limit simulation",
+      "failure_mode": "Server hint may be overly conservative",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0128"
+      ],
+      "adoption_tier": "provider_specific"
+    },
+    {
+      "id": "MIC-0052",
+      "layer": "runtime",
+      "optimization": "Use bounded exponential backoff with jitter for transient errors",
+      "mechanism": "Reduce synchronized retry storms",
+      "expected_effect": "higher recovery",
+      "test": "429/503 burst simulation",
+      "failure_mode": "Adds tail latency",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0128"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0053",
+      "layer": "runtime",
+      "optimization": "Do not retry non-transient validation/auth errors",
+      "mechanism": "Avoid wasting calls on deterministic failures",
+      "expected_effect": "lower cost/latency",
+      "test": "Error-classification suite",
+      "failure_mode": "Misclassified transient error may fail early",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0128"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0054",
+      "layer": "runtime",
+      "optimization": "Avoid nested retry loops at multiple layers",
+      "mechanism": "Prevent multiplicative retry explosions",
+      "expected_effect": "bounded cost",
+      "test": "Inject one transient fault and count attempts",
+      "failure_mode": "Removing inner retry can reduce local resilience",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0128"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0055",
+      "layer": "runtime",
+      "optimization": "Use circuit breaker after repeated provider/tool failures",
+      "mechanism": "Stop hammering a degraded dependency and route/fail clearly",
+      "expected_effect": "lower cascading failure",
+      "test": "Provider outage chaos test",
+      "failure_mode": "Breaker can remain open too long",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0128"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0056",
+      "layer": "runtime",
+      "optimization": "Track retry reason separately from task-quality failure",
+      "mechanism": "Do not penalize models for infrastructure incidents",
+      "expected_effect": "better routing evidence",
+      "test": "Telemetry reconciliation",
+      "failure_mode": "Ambiguous failures can be misclassified",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0102"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0057",
+      "layer": "runtime",
+      "optimization": "Use idempotency key for every retryable write",
+      "mechanism": "Prevent duplicate side effects",
+      "expected_effect": "safety",
+      "test": "Crash between send/ack test",
+      "failure_mode": "External service must support or local dedupe must wrap it",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0144"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0058",
+      "layer": "runtime",
+      "optimization": "Persist intended write identity before executing external side effect",
+      "mechanism": "Enable recovery to know whether an operation may already have happened",
+      "expected_effect": "safe resume",
+      "test": "Kill process before/after write",
+      "failure_mode": "Audit store itself must be durable",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0144"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0059",
+      "layer": "runtime",
+      "optimization": "Read back consequential writes",
+      "mechanism": "Detect acknowledged-but-wrong or partial external state",
+      "expected_effect": "correctness",
+      "test": "Fault-injected write mismatch test",
+      "failure_mode": "Extra latency/API call",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0141"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0060",
+      "layer": "runtime",
+      "optimization": "Separate prepare and commit phases",
+      "mechanism": "Allow validation/approval before irreversible side effects",
+      "expected_effect": "safety",
+      "test": "Approval/abort integration tests",
+      "failure_mode": "Two-phase state can become stale",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0132"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0061",
+      "layer": "runtime",
+      "optimization": "Make cancellation cooperative at stage boundaries",
+      "mechanism": "Stop long tasks without corrupting state",
+      "expected_effect": "better control",
+      "test": "Cancel at each stage and resume",
+      "failure_mode": "Some external calls cannot cancel mid-flight",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0187"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0062",
+      "layer": "runtime",
+      "optimization": "Persist stream cursor/sequence where provider supports resumable streaming",
+      "mechanism": "Resume UI/output after disconnect without restarting expensive work",
+      "expected_effect": "lower duplicate work",
+      "test": "Drop network mid-stream",
+      "failure_mode": "Provider-specific retention window",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0187"
+      ],
+      "adoption_tier": "provider_specific"
+    },
+    {
+      "id": "MIC-0063",
+      "layer": "runtime",
+      "optimization": "Use background/asynchronous execution only for genuinely long non-blocking tasks",
+      "mechanism": "Avoid tying interactive connection lifetime to long reasoning",
+      "expected_effect": "reliability",
+      "test": "Foreground vs background latency/recovery",
+      "failure_mode": "Background may have worse TTFT/retention semantics",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0187"
+      ],
+      "adoption_tier": "provider_specific"
+    },
+    {
+      "id": "MIC-0064",
+      "layer": "runtime",
+      "optimization": "Keep interactive short path separate from batch/background path",
+      "mechanism": "Optimize latency and reliability objectives independently",
+      "expected_effect": "better UX/cost",
+      "test": "Task-class routing benchmark",
+      "failure_mode": "More route/config complexity",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0068",
+        "SRC-AI-0187"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0065",
+      "layer": "runtime",
+      "optimization": "Batch noninteractive independent requests when provider pricing/throughput supports it",
+      "mechanism": "Lower unit overhead/cost",
+      "expected_effect": "lower cost/item",
+      "test": "Batch vs online benchmark",
+      "failure_mode": "Delayed error visibility",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0068"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0066",
+      "layer": "runtime",
+      "optimization": "Cache deterministic tool/model-independent transforms by content hash",
+      "mechanism": "Never recompute identical parsing/hash/normalization work",
+      "expected_effect": "lower CPU/latency",
+      "test": "Repeated corpus run",
+      "failure_mode": "Cache storage/invalidation bugs",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0141"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0067",
+      "layer": "runtime",
+      "optimization": "Include processor version in cache key",
+      "mechanism": "Invalidate when transformation semantics change",
+      "expected_effect": "correctness",
+      "test": "Processor-upgrade regression",
+      "failure_mode": "Over-invalidation if version too coarse",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0141"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0068",
+      "layer": "runtime",
+      "optimization": "Include only true dependencies in cache key",
+      "mechanism": "Avoid invalidating expensive upstream work because unrelated downstream logic changed",
+      "expected_effect": "higher hit rate",
+      "test": "Dependency mutation matrix",
+      "failure_mode": "Missed dependency returns stale result",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0144"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0069",
+      "layer": "runtime",
+      "optimization": "Cache provider-independent expensive retrieval/embedding results separately from generated synthesis",
+      "mechanism": "Reuse stable evidence even when model/prompt changes",
+      "expected_effect": "lower repeated work",
+      "test": "Prompt/model swap replay",
+      "failure_mode": "Retriever/index update may stale cache",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0072"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0070",
+      "layer": "runtime",
+      "optimization": "Record cache provenance and freshness",
+      "mechanism": "Make stale reuse inspectable",
+      "expected_effect": "auditability",
+      "test": "TTL/invalidation tests",
+      "failure_mode": "Metadata overhead",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0133"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0071",
+      "layer": "runtime",
+      "optimization": "Treat cache miss as normal, not correctness failure",
+      "mechanism": "Ensure system remains functional after cache deletion",
+      "expected_effect": "resilience",
+      "test": "Cold-cache full regression",
+      "failure_mode": "Cold path may be much slower",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0144"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0072",
+      "layer": "runtime",
+      "optimization": "Use TTL only when source volatility justifies time invalidation",
+      "mechanism": "Avoid arbitrary expiry of immutable content-addressed results",
+      "expected_effect": "higher useful hit rate",
+      "test": "Compare source-change invalidation vs TTL",
+      "failure_mode": "No TTL can retain obsolete mutable metadata",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0133"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0073",
+      "layer": "runtime",
+      "optimization": "Deduplicate identical in-flight requests",
+      "mechanism": "Coalesce concurrent requests for same expensive resource",
+      "expected_effect": "lower duplicate calls",
+      "test": "Concurrency load test",
+      "failure_mode": "Different consumers may need different deadlines/options",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0144"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0074",
+      "layer": "runtime",
+      "optimization": "Use request coalescing for refresh-on-expiry",
+      "mechanism": "Prevent cache stampede",
+      "expected_effect": "stable load",
+      "test": "Expire hot key under load",
+      "failure_mode": "One failed leader can delay followers",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0144"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0075",
+      "layer": "runtime",
+      "optimization": "Precompute stable indexes/artifacts during idle or ingest time",
+      "mechanism": "Move repeated online work offline",
+      "expected_effect": "lower interactive latency",
+      "test": "Before/after online latency",
+      "failure_mode": "Precomputation can waste work for unused data",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0072"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0076",
+      "layer": "runtime",
+      "optimization": "Lazy-build expensive derived artifact only after first demand",
+      "mechanism": "Avoid preprocessing data never queried",
+      "expected_effect": "lower total work",
+      "test": "Usage-driven build stats",
+      "failure_mode": "First-use latency spike",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0143"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0077",
+      "layer": "runtime",
+      "optimization": "Store derived indexes outside canonical Git when rebuildable",
+      "mechanism": "Avoid repository bloat and merge conflicts",
+      "expected_effect": "maintainability",
+      "test": "Fresh-clone rebuild test",
+      "failure_mode": "Rebuild can be expensive without cache",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0133"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0078",
+      "layer": "runtime",
+      "optimization": "Append immutable telemetry events instead of rewriting large run record repeatedly",
+      "mechanism": "Reduce corruption/race risk and enable replay",
+      "expected_effect": "durability",
+      "test": "Crash/write concurrency test",
+      "failure_mode": "Event history grows",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0102",
+        "SRC-AI-0144"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0079",
+      "layer": "runtime",
+      "optimization": "Materialize compact current state from event log for fast reads",
+      "mechanism": "Avoid replaying full event history for every UI/status query",
+      "expected_effect": "lower read latency",
+      "test": "State/event reconciliation test",
+      "failure_mode": "Projection can drift if reducer bug",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0144"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0080",
+      "layer": "runtime",
+      "optimization": "Checkpoint after expensive validated boundaries, not after every tiny action",
+      "mechanism": "Balance resume granularity against checkpoint overhead",
+      "expected_effect": "lower repeated work without I/O noise",
+      "test": "Crash-at-random benchmark",
+      "failure_mode": "Too-coarse checkpoints repeat work",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0144"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0081",
+      "layer": "runtime",
+      "optimization": "Persist exact input/version hash with checkpoint",
+      "mechanism": "Know whether resumed work is still valid",
+      "expected_effect": "correct resume",
+      "test": "Modify source between pause/resume",
+      "failure_mode": "Hash misses semantic external-state changes",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0144"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0082",
+      "layer": "runtime",
+      "optimization": "Invalidate only downstream stages affected by changed input",
+      "mechanism": "Avoid full workflow restart",
+      "expected_effect": "lower repeated work",
+      "test": "Dependency-change matrix",
+      "failure_mode": "Incorrect dependency graph can reuse invalid work",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0144"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0083",
+      "layer": "runtime",
+      "optimization": "Early-stop workflow immediately after objective validator passes",
+      "mechanism": "Avoid polishing/retries after success",
+      "expected_effect": "lower calls/tokens",
+      "test": "Successful-stage continuation count",
+      "failure_mode": "Validator may be too weak",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0098"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0084",
+      "layer": "runtime",
+      "optimization": "Stop review/repair ping-pong after bounded rounds and escalate",
+      "mechanism": "Prevent unproductive agent loops",
+      "expected_effect": "bounded cost",
+      "test": "Adversarial reviewer disagreement fixture",
+      "failure_mode": "Escalation may require human/strong model",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0098"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0085",
+      "layer": "runtime",
+      "optimization": "Skip reviewer call when deterministic no-change state proves nothing changed",
+      "mechanism": "Avoid zero-value model call",
+      "expected_effect": "lower cost",
+      "test": "No-change workflow regression",
+      "failure_mode": "Worker may falsely claim no change while external effect occurred",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0098"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0086",
+      "layer": "runtime",
+      "optimization": "Reuse validator result when code/tree + validator version are identical",
+      "mechanism": "Avoid rerunning expensive tests against unchanged artifact",
+      "expected_effect": "lower test time",
+      "test": "Tree/hash cache correctness",
+      "failure_mode": "External environment could have changed",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0144"
+      ],
+      "adoption_tier": "measure_first"
+    },
+    {
+      "id": "MIC-0087",
+      "layer": "runtime",
+      "optimization": "Separate deterministic local stages from model stages in workflow plan",
+      "mechanism": "Do cheap exact work without invoking a model",
+      "expected_effect": "lower model calls",
+      "test": "Model-call avoidance count",
+      "failure_mode": "Local rule may become stale",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0143"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0088",
+      "layer": "runtime",
+      "optimization": "Use smallest eligible model before larger one when quality gate can detect failure",
+      "mechanism": "Reduce cost while retaining escalation path",
+      "expected_effect": "lower cost/success",
+      "test": "Historical replay by tier",
+      "failure_mode": "Weak validator can let bad cheap output pass",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0188",
+        "SRC-AI-0189"
+      ],
+      "adoption_tier": "default_candidate"
+    },
+    {
+      "id": "MIC-0089",
+      "layer": "runtime",
+      "optimization": "Route reasoning effort independently from model family",
+      "mechanism": "Avoid paying high internal reasoning for simple tasks or using weak effort on difficult ones",
+      "expected_effect": "better cost-quality frontier",
+      "test": "Task-family effort sweep",
+      "failure_mode": "Effort knobs are provider/model-specific",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0189"
+      ],
+      "adoption_tier": "provider_specific"
+    },
+    {
+      "id": "MIC-0090",
+      "layer": "runtime",
+      "optimization": "Record resolved concrete model/version, not alias only",
+      "mechanism": "Make outcomes reproducible when aliases move",
+      "expected_effect": "better evidence",
+      "test": "Alias-update test",
+      "failure_mode": "Provider may hide exact version",
+      "prerequisites": [],
+      "source_refs": [
+        "SRC-AI-0192"
+      ],
+      "adoption_tier": "default_candidate"
+    }
+  ]
+}
