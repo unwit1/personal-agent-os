@@ -308,6 +308,170 @@
         "verified_date": "2026-09-24",
         "notes": "Python layer supports standalone scripted NIF manipulation."
       }
+    },
+    {
+      "adapter_id": "pyro.build",
+      "tool": "Pyro",
+      "capabilities": [
+        "papyrus-project-build",
+        "papyrus-incremental-build",
+        "papyrus-parallel-compile",
+        "bsa-package",
+        "distribution-zip"
+      ],
+      "invocation": {
+        "mode": "cli",
+        "executable": "python",
+        "arguments_template": [
+          "-m",
+          "pyro",
+          "{project}",
+          "--game-type",
+          "sse",
+          "--compiler-path",
+          "{compiler}",
+          "--output-path",
+          "{output}",
+          "--package-path",
+          "{package_output}",
+          "--zip-output-path",
+          "{zip_output}"
+        ]
+      },
+      "outputs": [
+        "PEX/build/package output"
+      ],
+      "logs": [
+        "stdout/stderr"
+      ],
+      "retry": {
+        "safe": true,
+        "max_attempts": 1,
+        "cleanup_outputs_first": false
+      },
+      "human_checks": [],
+      "evidence": {
+        "source_url": "https://github.com/fireundubh/pyro/blob/master/pyro/__main__.py",
+        "verified_date": "2026-09-24",
+        "notes": "Current source exposes project input, SSE game mode, compiler/output/package/zip paths plus incremental and parallel controls."
+      }
+    },
+    {
+      "adapter_id": "commonlib.configure",
+      "tool": "CMake / CommonLibSSE-NG project",
+      "capabilities": [
+        "native-project-configure",
+        "compile-database-generate"
+      ],
+      "invocation": {
+        "mode": "cli",
+        "executable": "cmake",
+        "arguments_template": [
+          "-S",
+          "{source_dir}",
+          "-B",
+          "{build_dir}",
+          "-DCMAKE_BUILD_TYPE={config}"
+        ]
+      },
+      "outputs": [
+        "configured build tree"
+      ],
+      "logs": [
+        "CMake configure stdout/stderr"
+      ],
+      "retry": {
+        "safe": true,
+        "max_attempts": 1,
+        "cleanup_outputs_first": false
+      },
+      "human_checks": [],
+      "evidence": {
+        "source_url": "https://github.com/alandtse/CommonLibSSE-NG",
+        "verified_date": "2026-09-24",
+        "notes": "Generic CMake configure adapter; project-specific presets/toolchain arguments can override this node."
+      }
+    },
+    {
+      "adapter_id": "commonlib.build",
+      "tool": "CMake / CommonLibSSE-NG project",
+      "capabilities": [
+        "native-build",
+        "skse-dll-build",
+        "debug-symbol-build"
+      ],
+      "invocation": {
+        "mode": "cli",
+        "executable": "cmake",
+        "arguments_template": [
+          "--build",
+          "{build_dir}",
+          "--config",
+          "{config}",
+          "--parallel"
+        ]
+      },
+      "outputs": [
+        "native build outputs"
+      ],
+      "logs": [
+        "compiler/linker stdout/stderr"
+      ],
+      "retry": {
+        "safe": true,
+        "max_attempts": 1,
+        "cleanup_outputs_first": false
+      },
+      "human_checks": [],
+      "evidence": {
+        "source_url": "https://github.com/alandtse/CommonLibSSE-NG",
+        "verified_date": "2026-09-24",
+        "notes": "Run once for every declared target/preset; successful compilation is not a runtime assertion."
+      }
+    },
+    {
+      "adapter_id": "skytest.replay",
+      "tool": "skytest",
+      "capabilities": [
+        "isolated-runtime-test",
+        "replay-runtime-steps",
+        "runtime-state-gates",
+        "screenshots",
+        "input-injection"
+      ],
+      "invocation": {
+        "mode": "cli",
+        "executable": "skytest",
+        "arguments_template": [
+          "replay",
+          "{mod}",
+          "{steps}",
+          "--headless"
+        ]
+      },
+      "outputs": [
+        "runtime test evidence",
+        "replay screenshots",
+        "probe traces"
+      ],
+      "logs": [
+        "skytest stdout/stderr",
+        "SkytestProbe trace",
+        "SKSE/plugin logs"
+      ],
+      "retry": {
+        "safe": true,
+        "max_attempts": 1,
+        "cleanup_outputs_first": false
+      },
+      "human_checks": [
+        "synthetic held-input behavior requires real-hardware confirmation when the feature depends on genuine held-state semantics"
+      ],
+      "evidence": {
+        "source_url": "https://github.com/myaiexp/skyrim-headless-mods/tree/master/skytest",
+        "verified_date": "2026-09-24",
+        "notes": "Experimental external harness. Must pass local G27 self-tests before becoming release-authoritative."
+      }
     }
   ]
 }
