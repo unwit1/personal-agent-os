@@ -1,0 +1,196 @@
+{
+  "schema_version": "skyrim-tool-watchlist-v1",
+  "snapshot_date": "2026-09-24",
+  "projects": [
+    {
+      "repository": "Avick3110/houseCARL",
+      "category": "ai-static-data",
+      "priority": "high"
+    },
+    {
+      "repository": "alandtse/devbench",
+      "category": "ai-runtime-testing",
+      "priority": "high"
+    },
+    {
+      "repository": "jarvann/SkryimMCM",
+      "category": "ai-runtime-testing",
+      "priority": "high"
+    },
+    {
+      "repository": "MinLL/SkyrimNet-GamePlugin",
+      "category": "ai-npc-runtime",
+      "priority": "high"
+    },
+    {
+      "repository": "SpookyPirate/spookys-automod-toolkit",
+      "category": "ai-authoring-cli",
+      "priority": "high"
+    },
+    {
+      "repository": "WingedGuardian/skyrimvr-claude-toolkit",
+      "category": "ai-workflow-reference",
+      "priority": "high"
+    },
+    {
+      "repository": "ShugokiFable/Ultimate-AI-Starter-Bundle",
+      "category": "ai-tool-bundle",
+      "priority": "medium"
+    },
+    {
+      "repository": "Mutagen-Modding/Mutagen",
+      "category": "plugin-library",
+      "priority": "high"
+    },
+    {
+      "repository": "Mutagen-Modding/Synthesis",
+      "category": "patching",
+      "priority": "high"
+    },
+    {
+      "repository": "Mutagen-Modding/Spriggit",
+      "category": "source-control",
+      "priority": "high"
+    },
+    {
+      "repository": "Mutagen-Modding/Mutagen.Bethesda.Analyzers",
+      "category": "diagnostics",
+      "priority": "high"
+    },
+    {
+      "repository": "TES5Edit/TES5Edit",
+      "category": "schema-oracle",
+      "priority": "high"
+    },
+    {
+      "repository": "ModOrganizer2/modorganizer",
+      "category": "mod-manager",
+      "priority": "high"
+    },
+    {
+      "repository": "loot/loot",
+      "category": "load-order",
+      "priority": "high"
+    },
+    {
+      "repository": "alandtse/CommonLibSSE-NG",
+      "category": "native-api",
+      "priority": "high"
+    },
+    {
+      "repository": "ianpatt/skse64",
+      "category": "native-runtime",
+      "priority": "high"
+    },
+    {
+      "repository": "powerof3/PapyrusExtenderSSE",
+      "category": "papyrus-api",
+      "priority": "high"
+    },
+    {
+      "repository": "powerof3/Spell-Perk-Item-Distributor",
+      "category": "runtime-patching",
+      "priority": "high"
+    },
+    {
+      "repository": "powerof3/Keyword-Item-Distributor",
+      "category": "runtime-patching",
+      "priority": "high"
+    },
+    {
+      "repository": "powerof3/BaseObjectSwapper",
+      "category": "runtime-patching",
+      "priority": "high"
+    },
+    {
+      "repository": "ersh1/OpenAnimationReplacer",
+      "category": "animation",
+      "priority": "high"
+    },
+    {
+      "repository": "Monitor221hz/Pandora-Behaviour-Engine-Plus",
+      "category": "behavior",
+      "priority": "high"
+    },
+    {
+      "repository": "BadDogSkyrim/PyNifly",
+      "category": "assets",
+      "priority": "high"
+    },
+    {
+      "repository": "ousnius/nifly",
+      "category": "assets",
+      "priority": "high"
+    },
+    {
+      "repository": "niftools/nifskope",
+      "category": "assets",
+      "priority": "high"
+    },
+    {
+      "repository": "Tzeentchnet/NifBlend",
+      "category": "assets-experimental",
+      "priority": "medium"
+    },
+    {
+      "repository": "teamipc/blender-mcp",
+      "category": "ai-assets",
+      "priority": "high"
+    },
+    {
+      "repository": "MrTrilB/PapyrusVSCode",
+      "category": "ai-papyrus",
+      "priority": "medium"
+    },
+    {
+      "repository": "joelday/papyrus-lang",
+      "category": "papyrus-tooling",
+      "priority": "high"
+    },
+    {
+      "repository": "BellCubeDev/papyrus-index",
+      "category": "papyrus-api",
+      "priority": "high"
+    },
+    {
+      "repository": "chesko256/Lilac",
+      "category": "testing",
+      "priority": "medium"
+    },
+    {
+      "repository": "Muriel-Salvan/AutoTest",
+      "category": "testing",
+      "priority": "medium"
+    },
+    {
+      "repository": "ARoese/VOSpeaker",
+      "category": "ai-voice",
+      "priority": "medium"
+    },
+    {
+      "repository": "DanRuta/xVA-Synth",
+      "category": "ai-voice",
+      "priority": "medium"
+    },
+    {
+      "repository": "art-from-the-machine/Mantella",
+      "category": "ai-npc-runtime",
+      "priority": "medium"
+    },
+    {
+      "repository": "Perchik71/Creation-Kit-Platform-Extended",
+      "category": "creation-kit",
+      "priority": "high"
+    },
+    {
+      "repository": "OpenFaceFX/OpenFaceFX",
+      "category": "voice-experimental",
+      "priority": "medium"
+    },
+    {
+      "repository": "community-shaders/skyrim-community-shaders",
+      "category": "rendering",
+      "priority": "high"
+    }
+  ]
+}
