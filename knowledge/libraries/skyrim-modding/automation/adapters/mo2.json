@@ -1,0 +1,110 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "mo2",
+  "tool": "Mod Organizer 2 runtime session worker",
+  "source": "https://github.com/ModOrganizer2/modorganizer",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15",
+    "skyrim-le"
+  ],
+  "capabilities": [
+    "profiles",
+    "vfs",
+    "run-executable",
+    "asset-priority",
+    "disposable-runtime-profile",
+    "save-fixture-copy",
+    "runtime-evidence-capture",
+    "runtime-session-boundary"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "{python_executable}",
+    "arguments_template": [
+      "{repo_root}/tools/skyrim_mod_factory/run_mo2_runtime_session.py",
+      "{runtime_test}",
+      "{runtime_worker_config}",
+      "--run-id",
+      "{runtime_run_id}",
+      "--output",
+      "{runtime_result}",
+      "--execute"
+    ],
+    "transport": "Agent OS Python host worker -> MO2 documented command line -> configured executable",
+    "requires_running_game": false,
+    "timeout_seconds": 1800
+  },
+  "inputs": [
+    "skyrim-runtime-test-v1",
+    "skyrim-runtime-worker-config-v1",
+    "pinned MO2 instance/profile template"
+  ],
+  "outputs": [
+    "skyrim-runtime-session-result-v1"
+  ],
+  "logs": [
+    "MO2/runtime stdout",
+    "MO2/runtime stderr",
+    "configured runtime log deltas",
+    "configured crash-log deltas"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ],
+    "required_output_patterns": [
+      "skyrim-runtime-session-result-v1"
+    ]
+  },
+  "retry": {
+    "safe": false,
+    "max_attempts": 1,
+    "cleanup_outputs_first": false
+  },
+  "auto_fixable_issue_codes": [],
+  "destructive_actions": [
+    "creates and deletes only disposable profiles inside explicitly allowed mutation roots",
+    "may copy a save fixture into a disposable profile",
+    "never mutates the template profile intentionally"
+  ],
+  "human_checks": [
+    "runtime PASS still requires typed in-game observer evidence; an MO2/game process exit code is not sufficient"
+  ],
+  "coverage": {
+    "description": "Windows-first deterministic session boundary: fresh profile copy, fixture copy, MO2 launch, process exclusivity, filesystem evidence delta, and cleanup/retention policy.",
+    "known_gaps": [
+      "in-game actions and assertions require a typed runtime observer/driver adapter",
+      "screenshot/frame-time capture depends on configured external producers",
+      "runtime execution is Windows-only"
+    ],
+    "denominator_probe": "template profile hash manifest, disposable profile manifest, fixture SHA-256, process preflight, launch result, evidence delta, cleanup result."
+  },
+  "safety": {
+    "mutation_default": "disposable-profile-only",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "All writable runtime/profile/evidence paths must be descendants of worker-config allowed_mutation_roots; template-profile mutation is detected as cleanup failure."
+  },
+  "verification": {
+    "independent_validators": [
+      "runtime observer adapter",
+      "crash/log analyzer",
+      "profile manifest comparison"
+    ],
+    "version_probe": "Pin ModOrganizer.exe path/version/hash and configured executable in the project toolchain lock.",
+    "output_readback": "Validate skyrim-runtime-session-result-v1 and refuse G19/G20/G21/G26 PASS when typed observer evidence is missing."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Use the normalized runtime-session result and evidence deltas; load raw logs only for diagnosis."
+  },
+  "evidence": {
+    "source_url": "https://github.com/ModOrganizer2/modorganizer/blob/master/src/commandline.cpp",
+    "verified_date": "2026-09-25",
+    "notes": "MO2 upstream source documents global --instance/-i and --profile/-p plus run --executable NAME with optional arguments/cwd. Upstream also warns against simultaneous MO processes managing the same game instance; the worker therefore fails closed on configured conflicting processes."
+  }
+}
