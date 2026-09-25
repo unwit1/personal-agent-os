@@ -89,6 +89,51 @@ class ExecuteBuildDagTests(unittest.TestCase):
             self.assertTrue(record["dry_run"])
             self.assertIn("adapter_manifest",record["evidence"])
 
+    def test_execute_adapter_node_real_process_and_output_readback(self):
+        import sys
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            adapter_dir=root/"adapters"
+            adapter_dir.mkdir()
+            out=root/"generated.txt"
+            script="from pathlib import Path; Path(r'{output_path}').write_text('ok', encoding='utf-8')"
+            (adapter_dir/"fixture.json").write_text(json.dumps({
+                "schema_version":"skyrim-tool-adapter-v1",
+                "adapter_id":"fixture",
+                "tool":"Fixture",
+                "invocation":{
+                    "mode":"cli",
+                    "executable":sys.executable,
+                    "arguments_template":["-c",script],
+                },
+                "success":{"exit_codes":[0]},
+                "retry":{"safe":True,"max_attempts":1,"cleanup_outputs_first":False},
+            }),encoding="utf-8")
+            node={
+                "id":"generate.fixture",
+                "phase":"generate",
+                "action":"fixture",
+                "depends_on":[],
+                "adapters":["fixture"],
+                "gates":[],
+                "invalidated_by":[],
+                "outputs":[str(out)],
+            }
+            record=MOD.execute_adapter_node(
+                node,
+                capability_map={},
+                adapter_dir=adapter_dir,
+                lock={},
+                context={},
+                log_dir=root/"logs",
+                execute=True,
+            )
+            self.assertEqual(record["status"],"passed")
+            self.assertTrue(out.exists())
+            self.assertEqual(out.read_text(encoding="utf-8"),"ok")
+            self.assertTrue(record["outputs_after"][0]["exists"])
+            self.assertIn("sha256",record["outputs_after"][0])
+
     def test_unresolved_adapter_requires_review(self):
         node={
             "id":"validate.unknown",
