@@ -48,6 +48,14 @@ def main():
     for g in gates:
         if not re.fullmatch(r"G\d{2}",str(g)): err(errors,f"invalid gate id: {g}")
 
+    dep_lock=data.get("dependency_lock")
+    if dep_lock:
+        dep_path=(args.manifest.parent/dep_lock).resolve()
+        if not dep_path.exists():
+            err(errors,f"dependency_lock does not exist: {dep_lock}")
+    elif data.get("frameworks") or "native" in layers or "runtime-patching" in layers:
+        warnings.append("project has frameworks/native/runtime patching but no dependency_lock")
+
     policy=data.get("plugin_policy") or {}
     kind=policy.get("kind")
     if kind in {"esl","esp-fe"} and policy.get("allow_formid_compaction") is None:
