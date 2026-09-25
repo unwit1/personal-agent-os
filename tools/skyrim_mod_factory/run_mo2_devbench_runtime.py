@@ -414,6 +414,8 @@ def run_session(
                 "devbench did not produce a typed runtime observation"
             )
 
+    apply_presentmon_gate(result,test,performance_summary)
+
     result["_template_before"]=private_template_before
     MO2.finalize_cleanup(
         result,
