@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent OS AI Improvement Technique Catalog",
+  "type": "object",
+  "required": [
+    "schema",
+    "as_of",
+    "techniques"
+  ],
+  "properties": {
+    "schema": {
+      "const": "personal-agent-os/ai-improvement-technique-catalog/v1"
+    },
+    "as_of": {
+      "type": "string"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "techniques": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "category",
+          "layer",
+          "goal",
+          "mechanism",
+          "maturity",
+          "evidence",
+          "agent_os_fit",
+          "use_when",
+          "avoid_when",
+          "required_evals",
+          "risks",
+          "sources",
+          "keywords"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^AIT-[0-9]{4}$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "category": {
+            "type": "string"
+          },
+          "layer": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "goal": {
+            "type": "string"
+          },
+          "mechanism": {
+            "type": "string"
+          },
+          "maturity": {
+            "enum": [
+              "foundational",
+              "production_pattern",
+              "replicated_research",
+              "promising_research",
+              "early_research",
+              "mixed_evidence",
+              "negative_result",
+              "historical"
+            ]
+          },
+          "evidence": {
+            "type": "object",
+            "required": [
+              "strength",
+              "summary"
+            ],
+            "properties": {
+              "strength": {
+                "enum": [
+                  "high",
+                  "medium_high",
+                  "medium",
+                  "low_medium",
+                  "low"
+                ]
+              },
+              "summary": {
+                "type": "string"
+              },
+              "limitations": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "agent_os_fit": {
+            "enum": [
+              "core",
+              "high",
+              "conditional",
+              "research_only",
+              "unlikely"
+            ]
+          },
+          "agent_os_pattern": {
+            "type": "string"
+          },
+          "use_when": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "avoid_when": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "required_evals": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "risks": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cost_profile": {
+            "type": "string"
+          },
+          "complexity": {
+            "enum": [
+              "very_low",
+              "low",
+              "medium",
+              "high",
+              "very_high"
+            ]
+          },
+          "dependencies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
