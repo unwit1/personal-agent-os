@@ -1,0 +1,382 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-runtime-session-result-v1.schema.json",
+  "title": "Skyrim Runtime Session Result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "test_id",
+    "project_id",
+    "worker_id",
+    "status",
+    "prepared_at",
+    "profile",
+    "launch",
+    "steps",
+    "assertions",
+    "evidence",
+    "cleanup",
+    "gates"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-runtime-session-result-v1"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._-]+$"
+    },
+    "test_id": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "worker_id": {
+      "type": "string"
+    },
+    "build_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "passed",
+        "failed",
+        "needs-review",
+        "prepared",
+        "aborted"
+      ]
+    },
+    "prepared_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "started_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "finished_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "template_dir",
+        "disposable_dir",
+        "profile_name",
+        "before_manifest",
+        "restored",
+        "fresh_copy"
+      ],
+      "properties": {
+        "template_dir": {
+          "type": "string"
+        },
+        "disposable_dir": {
+          "type": "string"
+        },
+        "profile_name": {
+          "type": "string"
+        },
+        "before_manifest": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "after_manifest": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "restored": {
+          "type": "boolean"
+        },
+        "fresh_copy": {
+          "type": "boolean"
+        },
+        "retained": {
+          "type": "boolean"
+        }
+      }
+    },
+    "fixture": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string"
+        },
+        "source": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "destination": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "launch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "command",
+        "attempted",
+        "exit_code",
+        "timed_out"
+      ],
+      "properties": {
+        "command": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attempted": {
+          "type": "boolean"
+        },
+        "exit_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "timed_out": {
+          "type": "boolean"
+        },
+        "stdout_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stderr_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "id",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "passed",
+              "failed",
+              "needs-review",
+              "skipped"
+            ]
+          },
+          "issues": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "assertions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "id",
+          "status",
+          "severity"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "needs-review",
+              "not-applicable"
+            ]
+          },
+          "severity": {
+            "enum": [
+              "BLOCKER",
+              "ERROR",
+              "WARNING",
+              "INFO"
+            ]
+          },
+          "observed": {},
+          "expected": {},
+          "issues": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "session_dir",
+        "artifacts"
+      ],
+      "properties": {
+        "session_dir": {
+          "type": "string"
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "log_delta": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "crash_delta": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "screenshots": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "frame_traces": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "cleanup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attempted",
+        "status",
+        "issues"
+      ],
+      "properties": {
+        "attempted": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "passed",
+            "failed",
+            "needs-review",
+            "skipped"
+          ]
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "gate",
+          "status",
+          "evidence"
+        ],
+        "properties": {
+          "gate": {
+            "enum": [
+              "G19",
+              "G20",
+              "G21",
+              "G26"
+            ]
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "warning",
+              "needs-review",
+              "not-applicable"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "issues": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
