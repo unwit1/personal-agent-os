@@ -220,6 +220,10 @@ def _find_profile(
                 return profile, "source_id"
             if canonical and canonical == str(account.get("canonical_url") or ""):
                 return profile, "account_url"
+        if canonical:
+            for link in profile.get("links") or []:
+                if canonical == str(link.get("canonical_url") or ""):
+                    return profile, "profile_link"
 
     if high_aliases:
         matches = []
