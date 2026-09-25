@@ -264,6 +264,18 @@
         },
         "patch_strategy": {
           "type": "string"
+        },
+        "expected_runtime_state": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "static_runtime_disagreements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -296,6 +308,25 @@
           "items": {
             "type": "string"
           }
+        },
+        "runtime_test_manifests": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "minimum_schema_confidence": {
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "default": "C"
+        },
+        "require_validator_mutation_tests": {
+          "type": "boolean",
+          "default": true
         }
       }
     },
@@ -315,6 +346,54 @@
           "default": false
         },
         "debug_symbols": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "automation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "preferred_adapters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "static_data_plane": {
+          "type": "string"
+        },
+        "schema_oracles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "runtime_test_plane": {
+          "type": "string"
+        },
+        "asset_ai_plane": {
+          "type": "string"
+        },
+        "voice_ai_plane": {
+          "type": "string"
+        },
+        "require_dry_run_for_mutation": {
+          "type": "boolean",
+          "default": true
+        },
+        "require_readback": {
+          "type": "boolean",
+          "default": true
+        },
+        "require_independent_validation": {
+          "type": "boolean",
+          "default": true
+        },
+        "allow_in_place_third_party_edits": {
           "type": "boolean",
           "default": false
         }
