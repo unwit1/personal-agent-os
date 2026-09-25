@@ -129,10 +129,26 @@ def compile_dag(manifest, quality):
       "depends_on":validators,"adapters":["xedit"],"gates":["G11","G18","G24"],"invalidated_by":["any validated layer output","load order","asset priority"],"layers":layers,"outputs":[]})
     add(nodes,{"id":"integrate.gates","phase":"integrate","action":"Evaluate all required quality gates and mutation-test validators",
       "depends_on":["integrate.cross-layer"],"adapters":[],"gates":quality.get("gates",[]),"invalidated_by":["quality plan","validation evidence"],"layers":layers,"outputs":[]})
-    runtime_capable={"devbench","skytest","skylink-ai","skyrimnet","autotest"}
-    chosen_runtime=[x for x in quality.get("adapters",{}).get("preferred",[])+quality.get("adapters",{}).get("supporting",[]) if x in runtime_capable]
-    smoke_adapters=uniq(chosen_runtime) or ["devbench","skylink-ai"]
-    regression_adapters=uniq(chosen_runtime) or ["devbench"]
+    runtime_capable={
+      "mo2-devbench-runtime","devbench","skytest","skylink-ai","skyrimnet","autotest"
+    }
+    declared_runtime=[
+      x
+      for x in (
+        quality.get("adapters",{}).get("preferred",[])
+        +quality.get("adapters",{}).get("supporting",[])
+      )
+      if x in runtime_capable
+    ]
+    # devbench is the in-game observer. For normal DAG execution, wrap it in the
+    # composite MO2 harness so profile/process isolation and evidence cleanup are
+    # part of the same executable node rather than an assumed external precondition.
+    chosen_runtime=uniq([
+      "mo2-devbench-runtime" if x=="devbench" else x
+      for x in declared_runtime
+    ])
+    smoke_adapters=chosen_runtime or ["mo2-devbench-runtime"]
+    regression_adapters=chosen_runtime or ["mo2-devbench-runtime"]
     add(nodes,{"id":"runtime.smoke","phase":"runtime","action":"Run isolated smoke scenarios with log/state readback",
       "depends_on":["integrate.gates"],"adapters":smoke_adapters,"gates":["G19","G26"],"invalidated_by":["runtime-affecting output","test fixture"],"layers":layers,"outputs":[]})
     add(nodes,{"id":"runtime.regression","phase":"runtime","action":"Run layer-derived regression, negative and migration scenarios",
