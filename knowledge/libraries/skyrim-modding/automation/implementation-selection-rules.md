@@ -50,14 +50,29 @@ Choose the narrowest framework:
 - timing is not frame-critical;
 - persistence can be managed safely.
 
-Avoid polling if an event exists.
+Before writing a custom native DLL:
+1. search vanilla/SKSE Papyrus APIs;
+2. search the pinned powerofthree Papyrus Extender catalog for an existing function or event;
+3. prefer an event over polling;
+4. verify whether the call mutates a base form, one reference, one inventory instance, or loaded 3D;
+5. escalate to native code only if the required engine surface/timing still is not available.
+
+For repeatable project builds, prefer Pyro as the build orchestrator around the pinned release compiler, then independently inspect/cross-check PEX output.
 
 ## Prefer native CommonLib/SKSE when
 
-- engine hook/state is unavailable to Papyrus;
+- engine hook/state is unavailable through records, runtime patchers, vanilla/SKSE Papyrus, and existing Papyrus Extender APIs;
 - per-frame or high-volume operation requires native performance;
 - custom serialization is needed;
 - deep UI/render/input/physics access is required.
+
+Build policy:
+- configure through the pinned CommonLib/CMake toolchain;
+- build every declared target;
+- preserve DLL/PDB hashes;
+- scan imports/plugin metadata;
+- verify load **and feature initialization** on the exact runtime;
+- fail closed on unsupported runtimes/APIs.
 
 Native code raises runtime, ABI and licensing obligations; do not use it merely because it is powerful.
 
@@ -107,3 +122,24 @@ Examples:
 - generated FOMOD archive.
 
 Fix source -> regenerate -> validate.
+
+## Prefer text/source interchange for Git-owned plugin authoring when
+
+- a plugin is maintained as code/reviewable source;
+- record changes need ordinary Git diffs/reviews;
+- a supported Spriggit translation package covers the records involved.
+
+Policy:
+binary -> Spriggit source -> regenerated binary is accepted only after Mutagen/xEdit reload, semantic round-trip comparison, and touch-set validation. Spriggit source is not allowed to become a single-validator trust boundary.
+
+## Runtime-test adapter selection
+
+Prefer a runtime adapter that can prove the actual requested postcondition.
+
+- **DevBench / dedicated Agent OS bridge** — preferred general typed runtime query/action/event surface when available.
+- **SkyLink AI** — useful current runtime bridge where its supported runtime and operations fit.
+- **SkyrimNet** — preferred when the project itself already depends on SkyrimNet.
+- **Skytest** — experimental Linux/gamescope isolated A/B/replay harness. Use only after local self-tests prove session freshness, profile restoration, probe isolation, and known input limitations.
+- **AutoTest** — specialized fallback for its supported screenshot/cell/NPC workflows.
+
+A transport success is never a gameplay assertion. Always use read -> act -> wait -> read plus fresh-session evidence.
