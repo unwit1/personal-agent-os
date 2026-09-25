@@ -1,0 +1,102 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "xedit",
+  "tool": "xEdit",
+  "tool_version": "4.1.5f",
+  "source": "https://github.com/TES5Edit/TES5Edit",
+  "targets": [
+    "skyrim-le",
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "plugin-schema",
+    "error-check",
+    "check-for-errors-log",
+    "conflict-analysis",
+    "cleaning",
+    "definition-export"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "arguments_template": [
+      "-{game_mode}",
+      "-checkforerrors",
+      "-quickedit:{plugin}",
+      "-autoload",
+      "-R:{log_path}",
+      "-autoexit"
+    ],
+    "transport": "xEdit CheckForErrors tool mode",
+    "requires_running_game": false,
+    "timeout_seconds": 900
+  },
+  "inputs": [
+    "target plugin name",
+    "xEdit game mode",
+    "resolved Data/VFS environment"
+  ],
+  "outputs": [
+    "xEdit Check for Errors log"
+  ],
+  "logs": [
+    "xEdit requested -R log",
+    "stdout",
+    "stderr"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ],
+    "required_output_patterns": [
+      "Done: Checking for Errors"
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 1,
+    "cleanup_outputs_first": true
+  },
+  "auto_fixable_issue_codes": [],
+  "destructive_actions": [
+    "cleaning and plugin mutation are separate xEdit modes and are not enabled by this adapter invocation"
+  ],
+  "human_checks": [
+    "xEdit definition false positives or version-specific definition defects require corroboration before changing plugin semantics"
+  ],
+  "coverage": {
+    "description": "Read-only xEdit structural oracle using the built-in CheckForErrors tool mode, with the resulting session parsed by parse_xedit_check_errors.py.",
+    "known_gaps": [
+      "xEdit definitions can contain version-specific false positives",
+      "a structurally clean plugin can still be semantically or runtime incorrect",
+      "the Windows/MO2 host must expose the same VFS/load-order environment used by the tested project"
+    ],
+    "denominator_probe": "completion summary Processed Records and Errors found counts plus parser finding/count reconciliation"
+  },
+  "safety": {
+    "mutation_default": "read-only",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Run against a disposable MO2/test profile when VFS resolution matters; CheckForErrors itself does not save plugin mutations."
+  },
+  "verification": {
+    "independent_validators": [
+      "mutagen",
+      "xdump"
+    ],
+    "version_probe": "Pin xEdit release and executable SHA-256 in the toolchain lock.",
+    "output_readback": "Require a fresh -R log containing a completed Check for Errors session, then parse it into skyrim-xedit-error-report-v1."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Feed the normalized JSON report to gates/analyzers instead of entire xEdit logs unless raw evidence is needed."
+  },
+  "evidence": {
+    "source_url": "https://github.com/TES5Edit/TES5Edit",
+    "verified_date": "2026-09-24",
+    "notes": "Current upstream source exposes checkforerrors as a tool mode; xEdit docs/source document game-mode switches, quickedit/autoload selection and -R log-path handling. Parser remains fail-closed on incomplete sessions."
+  }
+}
