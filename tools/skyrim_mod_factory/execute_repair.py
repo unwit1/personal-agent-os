@@ -228,6 +228,89 @@ def apply_invalidate_and_regenerate(
         state.setdefault("nodes",{}).pop(nid,None)
     return invalidated
 
+def checkpoint_expected_outputs(checkpoint:dict[str,Any])->dict[str,dict[str,Any]]:
+    expected={}
+    for entry in (checkpoint.get("prior_nodes") or {}).values():
+        if not isinstance(entry,dict):
+            continue
+        for fact in entry.get("output_fingerprints") or []:
+            if isinstance(fact,dict) and fact.get("path"):
+                expected[str(fact["path"])]=copy.deepcopy(fact)
+    return expected
+
+def remove_output_path(path:Path)->None:
+    if path.is_symlink() or path.is_file():
+        path.unlink(missing_ok=True)
+    elif path.is_dir():
+        shutil.rmtree(path)
+
+def restore_checkpoint(
+    checkpoint:dict[str,Any],
+    *,
+    state_path:Path,
+    allowed_output_roots:list[Path]|None=None,
+)->dict[str,Any]:
+    errors=schema_errors(checkpoint,"skyrim-repair-checkpoint-v1.schema.json")
+    if errors:
+        raise ValueError("invalid repair checkpoint: "+"; ".join(errors))
+    allowed=list(allowed_output_roots or [])
+    expected=checkpoint_expected_outputs(checkpoint)
+    backups={
+        str(x["path"]):x for x in checkpoint.get("output_backups") or []
+        if isinstance(x,dict) and x.get("path")
+    }
+    if expected and not allowed:
+        raise ValueError("rollback requires at least one allowed output root")
+
+    restored_outputs=[]
+    for raw,fact in expected.items():
+        path=Path(raw)
+        if not is_within(path,allowed):
+            raise ValueError(f"refusing to restore output outside allowed roots: {path}")
+        existed=bool(fact.get("exists"))
+        backup=backups.get(raw)
+        if existed and not backup:
+            raise ValueError(f"checkpoint has no backup for previously existing output: {path}")
+        remove_output_path(path)
+        if existed:
+            source=Path(str(backup["backup_path"]))
+            if not source.exists():
+                raise ValueError(f"repair backup is missing: {source}")
+            path.parent.mkdir(parents=True,exist_ok=True)
+            if backup.get("kind")=="file":
+                shutil.copy2(source,path)
+            elif backup.get("kind")=="directory":
+                shutil.copytree(source,path,symlinks=True)
+            else:
+                raise ValueError(f"unsupported backup kind for {path}: {backup.get('kind')}")
+            restored=EXEC.path_fingerprint(str(path))
+            if restored!=fact:
+                raise ValueError(f"restored output fingerprint does not match checkpoint: {path}")
+            restored_outputs.append({"path":str(path),"action":"restored"})
+        else:
+            restored_outputs.append({"path":str(path),"action":"removed"})
+
+    state=load(state_path)
+    if state.get("project_id")!=checkpoint.get("project_id"):
+        raise ValueError("rollback checkpoint project_id does not match execution state")
+    if checkpoint.get("build_id") and state.get("build_id")!=checkpoint.get("build_id"):
+        raise ValueError("rollback checkpoint build_id does not match execution state")
+
+    for nid in checkpoint.get("invalidated_nodes") or []:
+        state.setdefault("nodes",{}).pop(nid,None)
+    for nid,entry in (checkpoint.get("prior_nodes") or {}).items():
+        state.setdefault("nodes",{})[nid]=copy.deepcopy(entry)
+    EXEC.save_execution_state(state_path,state)
+    return {
+        "schema_version":"skyrim-repair-rollback-result-v1",
+        "repair_id":checkpoint["repair_id"],
+        "project_id":checkpoint["project_id"],
+        "build_id":checkpoint.get("build_id"),
+        "restored_at":now(),
+        "restored_nodes":list(checkpoint.get("prior_nodes") or {}),
+        "restored_outputs":restored_outputs,
+    }
+
 def execute(
     plan:dict[str,Any],
     dag:dict[str,Any],
