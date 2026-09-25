@@ -3261,6 +3261,143 @@
       "evidence_notes": "Formal treatment of valid time and transaction time semantics for changing facts.",
       "limits": "Older relational-database framing; core temporal semantics remain useful.",
       "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0292",
+      "title": "Faithful Chain-of-Thought Reasoning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2301.13379",
+      "topics": [
+        "symbolic_reasoning",
+        "faithfulness"
+      ],
+      "evidence_notes": "Translates natural language into a symbolic reasoning program and executes it deterministically; reported gains across math, planning, multi-hop QA and relational inference.",
+      "limits": "Solver correctness is only with respect to the parsed specification; semantic translation can still be wrong.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0293",
+      "title": "Logic-LM: Empowering Large Language Models with Symbolic Solvers",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.12295",
+      "topics": [
+        "symbolic_reasoning",
+        "solvers"
+      ],
+      "evidence_notes": "LLM formalizes logic problem, solver derives answer, and solver errors guide re-formalization; reported substantial gains over direct/CoT baselines.",
+      "limits": "Formalization errors remain central; self-refinement should be solver-grounded.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0294",
+      "title": "SatLM: Satisfiability-Aided Language Models Using Declarative Prompting",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.09656",
+      "topics": [
+        "SAT",
+        "SMT",
+        "declarative_reasoning"
+      ],
+      "evidence_notes": "LLM emits declarative constraints while an automated theorem/SAT solver performs search; outperformed program-aided imperative approaches on studied tasks.",
+      "limits": "Guarantee applies to generated specification, not original intent.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0295",
+      "title": "Large Language Models for Supply Chain Optimization / OptiGuide",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2307.03875",
+      "topics": [
+        "operations_research",
+        "optimization",
+        "decision_support"
+      ],
+      "evidence_notes": "LLM interfaces with an existing optimization model for natural-language what-if analysis while keeping proprietary model data out of the LLM context.",
+      "limits": "Requires a validated optimization model and safe code/solver interface.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0296",
+      "title": "LLMOPT: Learning to Define and Solve General Optimization Problems from Scratch",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2410.13213",
+      "topics": [
+        "optimization",
+        "formalization",
+        "solver_code"
+      ],
+      "evidence_notes": "Five-element formulation, multi-instruction tuning and solver-code generation improved optimization generalization across varied problem types.",
+      "limits": "Specialized training and exact solver verification remain necessary.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0297",
+      "title": "ORLM: Training Large Models for Automated Optimization Modeling",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2405.17743",
+      "topics": [
+        "operations_research",
+        "synthetic_data",
+        "solver_code"
+      ],
+      "evidence_notes": "OR-Instruct synthetic data and 7B specialist models improved natural-language optimization modeling and solver code on multiple benchmarks.",
+      "limits": "Domain-specialist approach; benchmark and generated-code validation matter.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0298",
+      "title": "NL4Opt Competition",
+      "type": "benchmark",
+      "url": "https://proceedings.mlr.press/v220/ramamonjison23a.html",
+      "topics": [
+        "optimization",
+        "semantic_parsing",
+        "benchmark"
+      ],
+      "evidence_notes": "Benchmarks extraction of optimization entities and generation of a logical representation convertible to solver form.",
+      "limits": "Primarily LP modeling rather than all optimization classes.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0299",
+      "title": "Preble: Efficient Distributed Prompt Scheduling for LLM Serving",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2407.00023",
+      "topics": [
+        "serving",
+        "prefix_cache",
+        "scheduling"
+      ],
+      "evidence_notes": "Routes requests across distributed replicas to exploit shared prompt-prefix KV cache while balancing load; reported substantial average/tail-latency gains.",
+      "limits": "Requires self-hosted distributed inference and workload prefix locality.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0300",
+      "title": "Gorilla: Large Language Model Connected with Massive APIs",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.15334",
+      "topics": [
+        "tool_use",
+        "API_retrieval"
+      ],
+      "evidence_notes": "Fine-tuned API calling plus retriever over API docs reduced hallucinated calls and adapted to changing documentation in original APIBench evaluation.",
+      "limits": "Older benchmark/model generation; current tool schemas may make training unnecessary for many cases.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0301",
+      "title": "LLM+P: Empowering Large Language Models with Optimal Planning Proficiency",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2304.11477",
+      "topics": [
+        "planning",
+        "PDDL",
+        "classical_planning"
+      ],
+      "evidence_notes": "LLM translates language into PDDL, deterministic planner finds feasible/optimal plan, LLM translates back; dramatically stronger than direct LLM planning on studied domains.",
+      "limits": "Translation to PDDL can misrepresent intent/state/action semantics.",
+      "status": "verified_or_primary_lead"
     }
   ]
 }
