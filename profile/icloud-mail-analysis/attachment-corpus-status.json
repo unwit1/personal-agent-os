@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-23",
+  "updated_at": "2026-09-25",
   "purpose": "Privacy-safe inventory of the attachment corpus referenced by the iCloud mail index. This records only aggregate metadata and recovery needs; it does not pretend metadata-only attachments were read.",
   "totals": {
     "attachment_records": 232,
@@ -70,5 +70,17 @@
     "Run sensitivity detection before any model or Git promotion.",
     "Promote only sanitized durable conclusions, never raw private documents."
   ],
-  "current_boundary": "The attachment corpus is not exhausted. Only the indexed email-message text is currently complete."
+  "current_boundary": "Indexed message text is exhausted. Attachment recovery/analysis is implemented but the 231 metadata-only attachment bodies remain pending until the local machine re-fetches them from the configured iCloud account.",
+  "recovery_pipeline": {
+    "status": "implemented_pending_local_execution",
+    "command": "agent-os mail analyze-attachments --scope personal --recover",
+    "behavior": [
+      "Re-fetches attachment-bearing indexed iCloud messages over read-only IMAP.",
+      "Preserves duplicate occurrence provenance.",
+      "Extracts text from text/PDF/DOCX/XLSX/EPUB with format-native parsers.",
+      "Uses OCR only when explicitly requested and locally available.",
+      "Links each local result through source_id, message_id, and attachment_id.",
+      "Updates only the local mail index; no attachment body is automatically promoted to Git-backed profile state."
+    ]
+  }
 }
