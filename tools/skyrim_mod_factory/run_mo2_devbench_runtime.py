@@ -416,6 +416,7 @@ def run_session(
             )
 
     apply_presentmon_gate(result,test,performance_summary)
+    result["status"]=MERGE.overall_status(result)
 
     result["_template_before"]=private_template_before
     MO2.finalize_cleanup(
