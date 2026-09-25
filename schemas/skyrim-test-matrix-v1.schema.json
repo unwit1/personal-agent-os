@@ -1,0 +1,245 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-test-matrix-v1.schema.json",
+  "title": "Skyrim Mod Factory Test Matrix v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project_id",
+    "cases",
+    "coverage"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-test-matrix-v1"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "feature_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "generated_from": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "test_id",
+          "category",
+          "priority",
+          "description",
+          "layers",
+          "fixture",
+          "actions",
+          "assertions",
+          "adapters",
+          "automation",
+          "rationale"
+        ],
+        "properties": {
+          "test_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._-]*$"
+          },
+          "category": {
+            "enum": [
+              "smoke",
+              "positive",
+              "negative",
+              "boundary",
+              "idempotency",
+              "persistence",
+              "migration",
+              "dependency",
+              "compatibility",
+              "performance",
+              "visual",
+              "packaging",
+              "recovery",
+              "stress"
+            ]
+          },
+          "priority": {
+            "enum": [
+              "blocker",
+              "high",
+              "medium",
+              "low"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "layers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "targets": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "fixture": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+              "kind"
+            ],
+            "properties": {
+              "kind": {
+                "enum": [
+                  "new-game",
+                  "save",
+                  "location",
+                  "combat",
+                  "quest",
+                  "asset",
+                  "load-order",
+                  "dependency",
+                  "package",
+                  "custom"
+                ]
+              },
+              "fresh_copy": {
+                "type": "boolean"
+              },
+              "profile": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              }
+            }
+          },
+          "preconditions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "assertions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "negative_assertions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "adapters": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "automation": {
+            "enum": [
+              "fully-automated",
+              "automated-with-supervised-evidence",
+              "human-subjective"
+            ]
+          },
+          "timeout_seconds": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "cleanup": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "invalidates_on": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "acceptance_criteria": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "rationale": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "categories",
+        "layers",
+        "acceptance_criteria_total",
+        "acceptance_criteria_mapped",
+        "gaps"
+      ],
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "layers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "acceptance_criteria_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "acceptance_criteria_mapped": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
