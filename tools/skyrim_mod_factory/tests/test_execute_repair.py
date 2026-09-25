@@ -232,5 +232,76 @@ class ExecuteRepairTests(unittest.TestCase):
                 )
             self.assertEqual(before,set(state["nodes"]))
 
+    def test_restore_checkpoint_restores_state_and_existing_output(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            generated=root/"generated"
+            generated.mkdir()
+            artifact=generated/"patch.esp"
+            artifact.write_text("old",encoding="utf-8")
+
+            state=make_state()
+            state["nodes"]["generate.records"]["output_fingerprints"]=[
+                REPAIR.EXEC.path_fingerprint(str(artifact))
+            ]
+            state_path=root/"state.json"
+            REPAIR.EXEC.save_execution_state(state_path,state)
+            _,checkpoint=REPAIR.execute(
+                make_plan(),DAG,state,HANDLER,
+                state_path=state_path,
+                checkpoint_dir=root/"checkpoints",
+                execute_mutation=True,
+                allowed_output_roots=[generated],
+            )
+            artifact.write_text("bad-repair",encoding="utf-8")
+            mutated=REPAIR.load(state_path)
+            mutated["nodes"]["generate.records"]=node_state("generate.records")
+            REPAIR.EXEC.save_execution_state(state_path,mutated)
+
+            result=REPAIR.restore_checkpoint(
+                checkpoint,
+                state_path=state_path,
+                allowed_output_roots=[generated],
+            )
+            self.assertEqual(artifact.read_text(encoding="utf-8"),"old")
+            restored=REPAIR.load(state_path)
+            self.assertEqual(
+                set(restored["nodes"]),
+                {"preflight.manifest","generate.records","validate.records","package.staging"},
+            )
+            self.assertEqual(result["restored_outputs"][0]["action"],"restored")
+
+    def test_restore_checkpoint_removes_output_that_was_absent_before_repair(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            generated=root/"generated"
+            generated.mkdir()
+            artifact=generated/"new.esp"
+
+            state=make_state()
+            state["nodes"]["generate.records"]["output_fingerprints"]=[
+                REPAIR.EXEC.path_fingerprint(str(artifact))
+            ]
+            state_path=root/"state.json"
+            REPAIR.EXEC.save_execution_state(state_path,state)
+            _,checkpoint=REPAIR.execute(
+                make_plan(),DAG,state,HANDLER,
+                state_path=state_path,
+                checkpoint_dir=root/"checkpoints",
+                execute_mutation=True,
+                allowed_output_roots=[generated],
+            )
+            artifact.write_text("bad-new-output",encoding="utf-8")
+            self.assertTrue(artifact.exists())
+
+            result=REPAIR.restore_checkpoint(
+                checkpoint,
+                state_path=state_path,
+                allowed_output_roots=[generated],
+            )
+            self.assertFalse(artifact.exists())
+            self.assertEqual(result["restored_outputs"][0]["action"],"removed")
+
+
 if __name__=="__main__":
     unittest.main()
