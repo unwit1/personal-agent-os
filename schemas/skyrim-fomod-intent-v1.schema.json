@@ -203,7 +203,33 @@
             "$ref": "#/$defs/flag"
           }
         }
-      }
+      },
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "required": [
+                "files"
+              ],
+              "properties": {
+                "files": {
+                  "minItems": 1
+                }
+              }
+            },
+            {
+              "required": [
+                "flags"
+              ],
+              "properties": {
+                "flags": {
+                  "minItems": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
     },
     "group": {
       "type": "object",
