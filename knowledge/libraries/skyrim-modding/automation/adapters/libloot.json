@@ -1,0 +1,93 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "libloot",
+  "tool": "libloot",
+  "tool_version": "0.29.6",
+  "source": "https://github.com/loot/libloot",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "load-order-graph",
+    "metadata-api",
+    "plugin-metadata-query",
+    "sorting-api",
+    "condition-evaluation",
+    "cycle-detection",
+    "masterlist-analysis"
+  ],
+  "invocation": {
+    "mode": "library",
+    "transport": "libloot API",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "plugins/load order",
+    "masterlist metadata",
+    "user metadata",
+    "game path"
+  ],
+  "outputs": [
+    "sorted order",
+    "metadata messages",
+    "graph/cycle diagnostics"
+  ],
+  "logs": [
+    "application-owned structured log"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 1,
+    "cleanup_outputs_first": false
+  },
+  "destructive_actions": [
+    "applying a sorted order to the user's main profile without test-profile policy"
+  ],
+  "human_checks": [
+    "semantic compatibility where ordering cannot merge conflicting intent"
+  ],
+  "coverage": {
+    "description": "Programmatic LOOT metadata/sorting surface for Agent OS without GUI automation.",
+    "known_gaps": [
+      "masterlist metadata cannot know unpublished/private mod semantics automatically",
+      "a valid topological order is not proof that record or asset conflicts are desirable"
+    ],
+    "denominator_probe": "plugins discovered vs graph nodes/metadata evaluated; unsatisfied requirements/cycles"
+  },
+  "safety": {
+    "mutation_default": "read-only",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "requires_confirmation_for": [
+      "persisting order changes outside a test profile"
+    ],
+    "sandbox_or_scope": "Prefer analysis-only invocation; write order only through scoped MO2 test profile."
+  },
+  "verification": {
+    "independent_validators": [
+      "loot",
+      "plugin-master-graph",
+      "xedit-conflict-analysis"
+    ],
+    "version_probe": "libloot library/package version",
+    "output_readback": "Re-read applied order and verify all master-before-dependent constraints."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Prefer libloot for headless graph/metadata work; LOOT GUI remains useful for manual metadata editing."
+  },
+  "evidence": {
+    "source_url": "https://github.com/loot/libloot/releases",
+    "verified_date": "2026-09-24",
+    "notes": "Latest release observed: libloot v0.29.6."
+  }
+}
