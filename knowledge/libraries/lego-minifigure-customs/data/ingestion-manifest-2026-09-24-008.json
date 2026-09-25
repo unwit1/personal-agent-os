@@ -19,7 +19,8 @@
     "data/reference-acquisition-status-2026-09-24.json",
     "data/reference-acquisition-job-spec.json",
     "tools/knowledge/materialize_lego_reference_images.py",
-    "tools/knowledge/dedupe_lego_reference_images.py"
+    "tools/knowledge/dedupe_lego_reference_images.py",
+    "data/game-asset-extraction-strategy-registry.json"
   ],
   "updated_files": [
     "data-model.json",
@@ -35,7 +36,8 @@
     "LDraw patterned minifigure parts provide licensed community reconstructions useful for linework/geometry analysis.",
     "Source-to-LEGO TranslationPair records are the highest-value supervision for learning faithful official-style character translation.",
     "Rebrickable documents minifigures as special Set-like records with their own part inventories, so physical ingestion now resolves component-level image candidates where the bulk tables provide them.",
-    "Official film acquisition needs a verified title registry plus local high-information frame sampling; theatrical anchors are primary-verified while direct-to-video candidates remain staged until verified."
+    "Official film acquisition needs a verified title registry plus local high-information frame sampling; theatrical anchors are primary-verified while direct-to-video candidates remain staged until verified.",
+    "Legacy games have recoverable native assets: LEGO Island SI/WDB, LEGO Racers JAM/GDB, Rock Raiders LWO plus per-surface minifigure textures, LEGO Universe client formats, and broad TT archive/model/texture tooling."
   ],
   "next_steps": [
     "Execute the physical Rebrickable v2 importer on current local bulk data, then materialize reviewed image hosts and publish actual coverage counts.",
