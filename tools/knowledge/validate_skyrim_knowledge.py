@@ -155,6 +155,20 @@ if isinstance(rule_pack, dict):
 else:
     errors.append("analyzer rule pack is missing or invalid")
 
+# Legacy analyzer mirror must exactly follow the canonical pack.
+legacy_rule_path = LIB / "automation" / "analyzers" / "core-rules.json"
+if legacy_rule_path.exists() and isinstance(rule_pack, dict):
+    legacy_rules = load_json(legacy_rule_path)
+    if not isinstance(legacy_rules, dict):
+        errors.append("legacy analyzer mirror is invalid")
+    else:
+        if legacy_rules.get("generated_from") != "knowledge/libraries/skyrim-modding/automation/analyzer-rule-pack-core.json":
+            errors.append("legacy analyzer mirror does not identify canonical generated_from path")
+        canonical_ids = [x.get("rule_id") for x in rule_pack.get("rules", []) if isinstance(x, dict)]
+        legacy_ids = [x.get("rule_id") for x in legacy_rules.get("rules", []) if isinstance(x, dict)]
+        if canonical_ids != legacy_ids:
+            errors.append("legacy analyzer mirror diverges from canonical analyzer-rule-pack-core.json")
+
 # Implementation pattern pack.
 pattern_pack_path = LIB / "automation" / "implementation-patterns-core.json"
 pattern_pack = load_json(pattern_pack_path) if pattern_pack_path.exists() else None
