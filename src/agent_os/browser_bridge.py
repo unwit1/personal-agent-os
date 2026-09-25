@@ -12,6 +12,7 @@ import hashlib
 import json
 import re
 import sqlite3
+import uuid
 from pathlib import Path
 from typing import Any
 
@@ -65,6 +66,37 @@ class BridgeStore:
                     ON browser_events(source, received_at);
                 CREATE INDEX IF NOT EXISTS browser_events_occurred_idx
                     ON browser_events(occurred_at);
+
+                CREATE TABLE IF NOT EXISTS browser_sessions (
+                    session_id TEXT PRIMARY KEY,
+                    url TEXT,
+                    title TEXT,
+                    site TEXT,
+                    visibility TEXT,
+                    focused INTEGER NOT NULL DEFAULT 0,
+                    user_agent TEXT,
+                    capabilities_json TEXT NOT NULL DEFAULT '{}',
+                    registered_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    last_seen TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+                );
+                CREATE INDEX IF NOT EXISTS browser_sessions_seen_idx
+                    ON browser_sessions(last_seen);
+
+                CREATE TABLE IF NOT EXISTS browser_commands (
+                    command_id TEXT PRIMARY KEY,
+                    session_id TEXT NOT NULL,
+                    actions_json TEXT NOT NULL,
+                    issued_by TEXT,
+                    approved_consequential INTEGER NOT NULL DEFAULT 0,
+                    state TEXT NOT NULL DEFAULT 'queued',
+                    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    claimed_at TEXT,
+                    completed_at TEXT,
+                    result_json TEXT,
+                    error TEXT
+                );
+                CREATE INDEX IF NOT EXISTS browser_commands_session_idx
+                    ON browser_commands(session_id, state, created_at);
                 """
             )
             columns = {
@@ -301,6 +333,264 @@ class BridgeStore:
             grouped.values(),
             key=lambda item: (-int(item.get("message_count") or 0), str(item.get("author") or "").casefold()),
         )[: max(1, min(int(limit), 100))]
+
+    @staticmethod
+    def _validate_session(session: Any) -> dict[str, Any]:
+        if not isinstance(session, dict):
+            raise ValueError("browser session must be an object")
+        session_id = str(session.get("session_id") or "").strip()
+        if not session_id or len(session_id) > 200:
+            raise ValueError("session_id must be 1-200 characters")
+        capabilities = session.get("capabilities") or {}
+        if not isinstance(capabilities, dict):
+            raise ValueError("capabilities must be an object")
+        return {
+            "session_id": session_id,
+            "url": str(session.get("url") or "")[:4000],
+            "title": str(session.get("title") or "")[:1000],
+            "site": str(session.get("site") or "")[:300],
+            "visibility": str(session.get("visibility") or "")[:40],
+            "focused": 1 if session.get("focused") else 0,
+            "user_agent": str(session.get("user_agent") or "")[:1000],
+            "capabilities": capabilities,
+        }
+
+    def register_session(self, session: dict[str, Any]) -> dict[str, Any]:
+        item = self._validate_session(session)
+        capabilities_json = _canonical_json(item["capabilities"])
+        with self._connect() as connection:
+            connection.execute(
+                """
+                INSERT INTO browser_sessions(
+                    session_id, url, title, site, visibility, focused,
+                    user_agent, capabilities_json, registered_at, last_seen
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+                ON CONFLICT(session_id) DO UPDATE SET
+                    url=excluded.url,
+                    title=excluded.title,
+                    site=excluded.site,
+                    visibility=excluded.visibility,
+                    focused=excluded.focused,
+                    user_agent=excluded.user_agent,
+                    capabilities_json=excluded.capabilities_json,
+                    last_seen=CURRENT_TIMESTAMP
+                """,
+                (
+                    item["session_id"],
+                    item["url"],
+                    item["title"],
+                    item["site"],
+                    item["visibility"],
+                    item["focused"],
+                    item["user_agent"],
+                    capabilities_json,
+                ),
+            )
+        return {"ok": True, "session_id": item["session_id"]}
+
+    def list_sessions(self, active_within_seconds: int = 90) -> list[dict[str, Any]]:
+        active_within_seconds = max(5, min(int(active_within_seconds), 86400))
+        with self._connect() as connection:
+            rows = connection.execute(
+                """
+                SELECT session_id, url, title, site, visibility, focused,
+                       user_agent, capabilities_json, registered_at, last_seen,
+                       MAX(
+                           0,
+                           CAST(strftime('%s','now') - strftime('%s', last_seen) AS INTEGER)
+                       ) AS age_seconds
+                FROM browser_sessions
+                ORDER BY focused DESC, last_seen DESC, session_id
+                """
+            ).fetchall()
+        result: list[dict[str, Any]] = []
+        for row in rows:
+            item = dict(row)
+            try:
+                item["capabilities"] = json.loads(item.pop("capabilities_json"))
+            except (TypeError, ValueError):
+                item["capabilities"] = {}
+                item.pop("capabilities_json", None)
+            item["focused"] = bool(item["focused"])
+            item["active"] = int(item.get("age_seconds") or 0) <= active_within_seconds
+            result.append(item)
+        return result
+
+    @staticmethod
+    def _validate_actions(actions: Any) -> list[dict[str, Any]]:
+        if not isinstance(actions, list) or not actions or len(actions) > 25:
+            raise ValueError("actions must be a non-empty list of at most 25 items")
+        allowed = {
+            "inspect", "extract", "wait", "click", "type", "scroll",
+            "navigate", "back", "forward", "reload", "open_tab",
+        }
+        normalized: list[dict[str, Any]] = []
+        for raw in actions:
+            if not isinstance(raw, dict):
+                raise ValueError("each browser action must be an object")
+            action = dict(raw)
+            op = str(action.get("op") or "").strip()
+            if op not in allowed:
+                raise ValueError(f"unsupported browser action: {op}")
+            action["op"] = op
+            if "selector" in action:
+                action["selector"] = str(action["selector"])[:2000]
+            if "text" in action:
+                action["text"] = str(action["text"])[:50000]
+            if "url" in action:
+                url = str(action["url"]).strip()
+                if not re.match(r"^https?://", url, re.I):
+                    raise ValueError("browser navigation/open_tab URLs must use http or https")
+                action["url"] = url[:4000]
+            if "timeout_ms" in action:
+                action["timeout_ms"] = max(0, min(int(action["timeout_ms"]), 15000))
+            normalized.append(action)
+        return normalized
+
+    def enqueue_command(
+        self,
+        session_id: str,
+        actions: list[dict[str, Any]],
+        *,
+        issued_by: str = "agent-os",
+        approved_consequential: bool = False,
+    ) -> dict[str, Any]:
+        session_id = str(session_id or "").strip()
+        if not session_id:
+            raise ValueError("session_id is required")
+        normalized = self._validate_actions(actions)
+        with self._connect() as connection:
+            session = connection.execute(
+                "SELECT session_id FROM browser_sessions WHERE session_id=?",
+                (session_id,),
+            ).fetchone()
+            if session is None:
+                raise KeyError(f"unknown browser session: {session_id}")
+            command_id = "bcmd-" + uuid.uuid4().hex[:20]
+            connection.execute(
+                """
+                INSERT INTO browser_commands(
+                    command_id, session_id, actions_json, issued_by,
+                    approved_consequential, state
+                ) VALUES (?, ?, ?, ?, ?, 'queued')
+                """,
+                (
+                    command_id,
+                    session_id,
+                    _canonical_json(normalized),
+                    str(issued_by or "agent-os")[:200],
+                    1 if approved_consequential else 0,
+                ),
+            )
+        return {
+            "command_id": command_id,
+            "session_id": session_id,
+            "state": "queued",
+            "actions": normalized,
+            "approved_consequential": bool(approved_consequential),
+        }
+
+    def claim_commands(self, session_id: str, limit: int = 3) -> list[dict[str, Any]]:
+        session_id = str(session_id or "").strip()
+        limit = max(1, min(int(limit), 10))
+        connection = self._connect()
+        try:
+            connection.execute("BEGIN IMMEDIATE")
+            rows = connection.execute(
+                """
+                SELECT command_id, session_id, actions_json, issued_by,
+                       approved_consequential, state, created_at
+                FROM browser_commands
+                WHERE session_id=? AND state='queued'
+                ORDER BY created_at, command_id
+                LIMIT ?
+                """,
+                (session_id, limit),
+            ).fetchall()
+            commands: list[dict[str, Any]] = []
+            for row in rows:
+                connection.execute(
+                    """
+                    UPDATE browser_commands
+                    SET state='running', claimed_at=CURRENT_TIMESTAMP
+                    WHERE command_id=? AND state='queued'
+                    """,
+                    (row["command_id"],),
+                )
+                item = dict(row)
+                item["actions"] = json.loads(item.pop("actions_json"))
+                item["approved_consequential"] = bool(item["approved_consequential"])
+                item["state"] = "running"
+                commands.append(item)
+            connection.commit()
+            return commands
+        except Exception:
+            connection.rollback()
+            raise
+        finally:
+            connection.close()
+
+    def complete_command(
+        self,
+        command_id: str,
+        *,
+        state: str,
+        result: Any = None,
+        error: str | None = None,
+    ) -> dict[str, Any]:
+        if state not in {"completed", "failed", "approval_required", "cancelled"}:
+            raise ValueError("invalid browser command completion state")
+        command_id = str(command_id or "").strip()
+        with self._connect() as connection:
+            current = connection.execute(
+                "SELECT command_id FROM browser_commands WHERE command_id=?",
+                (command_id,),
+            ).fetchone()
+            if current is None:
+                raise KeyError(f"unknown browser command: {command_id}")
+            connection.execute(
+                """
+                UPDATE browser_commands
+                SET state=?, completed_at=CURRENT_TIMESTAMP, result_json=?, error=?
+                WHERE command_id=?
+                """,
+                (
+                    state,
+                    _canonical_json(result) if result is not None else None,
+                    str(error or "")[:4000] or None,
+                    command_id,
+                ),
+            )
+        return self.command_status(command_id)
+
+    def command_status(self, command_id: str) -> dict[str, Any]:
+        command_id = str(command_id or "").strip()
+        with self._connect() as connection:
+            row = connection.execute(
+                """
+                SELECT command_id, session_id, actions_json, issued_by,
+                       approved_consequential, state, created_at, claimed_at,
+                       completed_at, result_json, error
+                FROM browser_commands
+                WHERE command_id=?
+                """,
+                (command_id,),
+            ).fetchone()
+        if row is None:
+            raise KeyError(f"unknown browser command: {command_id}")
+        item = dict(row)
+        item["actions"] = json.loads(item.pop("actions_json"))
+        item["approved_consequential"] = bool(item["approved_consequential"])
+        if item.get("result_json"):
+            try:
+                item["result"] = json.loads(item.pop("result_json"))
+            except (TypeError, ValueError):
+                item["result"] = None
+                item.pop("result_json", None)
+        else:
+            item["result"] = None
+            item.pop("result_json", None)
+        return item
 
     def mark_ingested(self, event_ids: list[str]) -> int:
         ids = [str(value) for value in dict.fromkeys(event_ids) if str(value)]
