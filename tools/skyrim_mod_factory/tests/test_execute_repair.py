@@ -303,5 +303,74 @@ class ExecuteRepairTests(unittest.TestCase):
             self.assertEqual(result["restored_outputs"][0]["action"],"removed")
 
 
+    def test_finalize_repair_marks_clean_rerun_repaired(self):
+        plan=make_plan()
+        report={
+            "status":"passed",
+            "steps":[{"id":"generate.records","status":"passed","issue_codes":[]}],
+            "gates":[],
+        }
+        finalized=REPAIR.finalize_repair(plan,report,execute_rollback=False)
+        self.assertEqual(finalized["result"]["status"],"repaired")
+        self.assertEqual(finalized["result"]["new_issue_codes"],[])
+
+    def test_finalize_repair_rolls_back_failed_rerun(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            generated=root/"generated"
+            generated.mkdir()
+            artifact=generated/"patch.esp"
+            artifact.write_text("old",encoding="utf-8")
+            state=make_state()
+            state["nodes"]["generate.records"]["output_fingerprints"]=[
+                REPAIR.EXEC.path_fingerprint(str(artifact))
+            ]
+            state_path=root/"state.json"
+            REPAIR.EXEC.save_execution_state(state_path,state)
+            active,checkpoint=REPAIR.execute(
+                make_plan(),DAG,state,HANDLER,
+                state_path=state_path,
+                checkpoint_dir=root/"checkpoints",
+                execute_mutation=True,
+                allowed_output_roots=[generated],
+            )
+            artifact.write_text("bad-repair",encoding="utf-8")
+            failed_report={
+                "status":"failed",
+                "steps":[{
+                    "id":"generate.records",
+                    "status":"failed",
+                    "issue_codes":["SKYRIM-NEW-FAILURE"],
+                }],
+                "gates":[],
+            }
+            finalized=REPAIR.finalize_repair(
+                active,
+                failed_report,
+                checkpoint=checkpoint,
+                state_path=state_path,
+                allowed_output_roots=[generated],
+                execute_rollback=True,
+            )
+            self.assertEqual(finalized["result"]["status"],"rolled-back")
+            self.assertEqual(
+                finalized["result"]["new_issue_codes"],
+                ["SKYRIM-NEW-FAILURE"],
+            )
+            self.assertEqual(artifact.read_text(encoding="utf-8"),"old")
+            restored=REPAIR.load(state_path)
+            self.assertIn("generate.records",restored["nodes"])
+
+    def test_finalize_repair_escalates_unproven_warning(self):
+        plan=make_plan()
+        report={
+            "status":"needs-review",
+            "steps":[{"id":"generate.records","status":"passed","issue_codes":[]}],
+            "gates":[{"gate":"G19","status":"warning"}],
+        }
+        finalized=REPAIR.finalize_repair(plan,report,execute_rollback=False)
+        self.assertEqual(finalized["result"]["status"],"escalated")
+
+
 if __name__=="__main__":
     unittest.main()
