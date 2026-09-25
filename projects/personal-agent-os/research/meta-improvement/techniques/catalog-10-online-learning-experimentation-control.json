@@ -1,0 +1,1140 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-24",
+  "domain": "online_learning_experimentation_control",
+  "techniques": [
+    {
+      "id": "AIT-0266",
+      "name": "Random search",
+      "aliases": [],
+      "category": "black_box_optimization",
+      "layer": [
+        "experimentation",
+        "optimization"
+      ],
+      "goal": "Find useful configurations without assuming smooth structure",
+      "mechanism": "Sample independent configurations from defined parameter distributions and evaluate them against objective/constraints.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0227.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Baseline optimizer: more complex methods must beat it on Agent OS task suites.",
+      "use_when": [
+        "Few-to-moderate knobs",
+        "Good parallelism",
+        "Unknown response surface"
+      ],
+      "avoid_when": [
+        "Every evaluation is very expensive and strong prior exists"
+      ],
+      "required_evals": [
+        "best score vs evaluations",
+        "coverage"
+      ],
+      "risks": [
+        "Wastes trials in obviously poor regions"
+      ],
+      "cost_profile": "parallel experiment cost",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0227"
+      ],
+      "keywords": [
+        "random_search"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0267",
+      "name": "Grid search",
+      "aliases": [],
+      "category": "black_box_optimization",
+      "layer": [
+        "experimentation",
+        "optimization"
+      ],
+      "goal": "Systematically characterize a very small discrete parameter space",
+      "mechanism": "Evaluate Cartesian product of candidate values.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0225.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Useful for reasoning-effort/verbosity/top-k sweeps with tiny spaces.",
+      "use_when": [
+        "1-3 knobs with few values",
+        "Need response map"
+      ],
+      "avoid_when": [
+        "Moderate/high dimensions"
+      ],
+      "required_evals": [
+        "coverage",
+        "best configuration"
+      ],
+      "risks": [
+        "Combinatorial explosion",
+        "wasted evaluations"
+      ],
+      "cost_profile": "rapidly grows",
+      "complexity": "very_low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0225"
+      ],
+      "keywords": [
+        "grid_search"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0268",
+      "name": "Bayesian optimization",
+      "aliases": [],
+      "category": "black_box_optimization",
+      "layer": [
+        "experimentation",
+        "optimization"
+      ],
+      "goal": "Choose informative configurations for expensive noisy objectives",
+      "mechanism": "Fit probabilistic surrogate to observed performance and use acquisition function to balance exploration/exploitation.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0225.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Good candidate for thresholds/weights after robust eval metric exists.",
+      "use_when": [
+        "Prompt/routing threshold tuning",
+        "Few expensive continuous/categorical knobs"
+      ],
+      "avoid_when": [
+        "Very high-dimensional irregular search",
+        "Objective changes rapidly"
+      ],
+      "required_evals": [
+        "best score vs trials",
+        "surrogate calibration"
+      ],
+      "risks": [
+        "Optimizer exploits noisy metric",
+        "model assumptions"
+      ],
+      "cost_profile": "fewer expensive trials, more optimizer logic",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0225"
+      ],
+      "keywords": [
+        "bayesian_optimization",
+        "acquisition"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0269",
+      "name": "Multi-fidelity Bayesian optimization",
+      "aliases": [],
+      "category": "black_box_optimization",
+      "layer": [
+        "experimentation",
+        "optimization"
+      ],
+      "goal": "Use cheap approximate evaluations to screen candidates before full expensive evaluation",
+      "mechanism": "Model fidelity level alongside configuration and allocate expensive high-fidelity trials selectively.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0225.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Use smoke suite → medium suite → protected full suite.",
+      "use_when": [
+        "Large eval suite",
+        "Can use subset/smaller model/short run as proxy"
+      ],
+      "avoid_when": [
+        "Cheap proxy poorly predicts full result"
+      ],
+      "required_evals": [
+        "ranking correlation across fidelities",
+        "cost to best candidate"
+      ],
+      "risks": [
+        "Proxy optimization selects wrong candidate"
+      ],
+      "cost_profile": "can greatly reduce eval cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0225"
+      ],
+      "keywords": [
+        "multi_fidelity",
+        "BO"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0270",
+      "name": "Successive halving",
+      "aliases": [],
+      "category": "resource_allocation",
+      "layer": [
+        "experimentation",
+        "optimization"
+      ],
+      "goal": "Stop weak candidates early and allocate more budget to promising ones",
+      "mechanism": "Evaluate many configurations with small resource; repeatedly keep top fraction and increase resource.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0226.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Candidate prompt/tool/model tournament with staged eval suites.",
+      "use_when": [
+        "Prompt/model candidates where early subset predicts full suite"
+      ],
+      "avoid_when": [
+        "Learning curves/nonstationary candidates where early result misleads"
+      ],
+      "required_evals": [
+        "best candidate per compute",
+        "early/full correlation"
+      ],
+      "risks": [
+        "Prematurely kills slow-starting winner"
+      ],
+      "cost_profile": "efficient resource allocation",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0226"
+      ],
+      "keywords": [
+        "successive_halving"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0271",
+      "name": "Hyperband",
+      "aliases": [],
+      "category": "resource_allocation",
+      "layer": [
+        "experimentation",
+        "optimization"
+      ],
+      "goal": "Hedge uncertainty about how aggressively to early-stop candidate configurations",
+      "mechanism": "Run multiple successive-halving brackets with different initial candidate counts/resources.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0226.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Potential prompt/tool optimizer scheduler, not needed until catalog-driven experiments scale.",
+      "use_when": [
+        "Large candidate search with tunable eval budget"
+      ],
+      "avoid_when": [
+        "Very small search space"
+      ],
+      "required_evals": [
+        "quality per eval cost"
+      ],
+      "risks": [
+        "More orchestration complexity"
+      ],
+      "cost_profile": "efficient",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0226"
+      ],
+      "keywords": [
+        "Hyperband"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0272",
+      "name": "Population Based Training / exploit-explore schedules",
+      "aliases": [],
+      "category": "online_optimization",
+      "layer": [
+        "training",
+        "optimization"
+      ],
+      "goal": "Adapt hyperparameters over a run rather than choosing one static setting",
+      "mechanism": "Train population in parallel; periodically copy stronger state to weak workers and mutate hyperparameters.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0227.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Conceptually useful for self-improving search but too heavy for application defaults.",
+      "use_when": [
+        "Future local model training",
+        "Long adaptive optimization where state can be cloned"
+      ],
+      "avoid_when": [
+        "Ordinary prompt/runtime configuration"
+      ],
+      "required_evals": [
+        "training stability",
+        "final quality",
+        "compute"
+      ],
+      "risks": [
+        "Fitness overfit",
+        "population compute"
+      ],
+      "cost_profile": "high parallel compute",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0227"
+      ],
+      "keywords": [
+        "PBT",
+        "exploit_explore"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0273",
+      "name": "Thompson sampling",
+      "aliases": [],
+      "category": "bandit",
+      "layer": [
+        "online_learning",
+        "proactivity",
+        "routing"
+      ],
+      "goal": "Balance learning and exploitation in repeated uncertain decisions",
+      "mechanism": "Maintain posterior belief for each action's reward; sample from posteriors and choose action with highest sampled value.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0223.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Only within policy-safe action set; no exploration of unsafe actions.",
+      "use_when": [
+        "Low-risk repeated model/notification strategy choices",
+        "Reversible experiments"
+      ],
+      "avoid_when": [
+        "Safety-critical or irreversible actions",
+        "Rewards delayed/poorly defined"
+      ],
+      "required_evals": [
+        "cumulative reward/regret",
+        "exploration harm"
+      ],
+      "risks": [
+        "Exploration intentionally chooses uncertain actions",
+        "nonstationarity"
+      ],
+      "cost_profile": "low online compute",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0223"
+      ],
+      "keywords": [
+        "Thompson_sampling",
+        "bandit"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0274",
+      "name": "Upper Confidence Bound (UCB) bandit",
+      "aliases": [],
+      "category": "bandit",
+      "layer": [
+        "online_learning",
+        "routing"
+      ],
+      "goal": "Explore uncertain options optimistically while exploiting high performers",
+      "mechanism": "Choose action maximizing estimated reward plus uncertainty bonus.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0223.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Useful conceptual baseline against Thompson sampling.",
+      "use_when": [
+        "Repeated safe route choices"
+      ],
+      "avoid_when": [
+        "Context strongly changes outcomes unless contextual variant used"
+      ],
+      "required_evals": [
+        "regret",
+        "exploration rate"
+      ],
+      "risks": [
+        "Poor uncertainty estimate"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0223"
+      ],
+      "keywords": [
+        "UCB",
+        "bandit"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0275",
+      "name": "Contextual bandits / LinUCB",
+      "aliases": [],
+      "category": "bandit",
+      "layer": [
+        "online_learning",
+        "personalization",
+        "routing"
+      ],
+      "goal": "Learn which action works best conditional on task/user context",
+      "mechanism": "Estimate action payoff from context features while adding uncertainty/exploration bonus.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0224.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Long-term candidate for low-risk proactivity after deterministic policy and offline replay exist.",
+      "use_when": [
+        "Proactivity channel/timing",
+        "Model routing",
+        "Recommendation-like choices"
+      ],
+      "avoid_when": [
+        "Sparse high-stakes events",
+        "Feature/reward governance weak"
+      ],
+      "required_evals": [
+        "offline replay",
+        "regret",
+        "subgroup outcomes"
+      ],
+      "risks": [
+        "Feedback loops",
+        "personalization bias",
+        "unsafe exploration"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0224"
+      ],
+      "keywords": [
+        "contextual_bandit",
+        "LinUCB"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0276",
+      "name": "Safe constrained bandits",
+      "aliases": [],
+      "category": "bandit",
+      "layer": [
+        "online_learning",
+        "security"
+      ],
+      "goal": "Optimize among choices while respecting hard risk/cost constraints",
+      "mechanism": "Apply bandit only after deterministic eligibility filter; constrain exploration to options satisfying safety/privacy/budget bounds.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0223, SRC-AI-0135.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Authorization policy defines feasible action set before learner sees it.",
+      "use_when": [
+        "Any future online learning in Agent OS"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "constraint violations",
+        "reward",
+        "exploration rate"
+      ],
+      "risks": [
+        "Constraint model incompleteness"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0223",
+        "SRC-AI-0135"
+      ],
+      "keywords": [
+        "safe_bandit",
+        "constraints"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0277",
+      "name": "Offline policy evaluation before online learning",
+      "aliases": [],
+      "category": "bandit",
+      "layer": [
+        "evaluation",
+        "online_learning"
+      ],
+      "goal": "Estimate candidate routing/proactivity policy from logged historical interactions before exposing users",
+      "mechanism": "Replay logged contexts/actions/rewards using direct modeling and, when logging propensities support it, counterfactual estimators.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0224.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Prefer shadow replay first; never deploy bandit because simulator likes it.",
+      "use_when": [
+        "Routing/proactivity with historical telemetry"
+      ],
+      "avoid_when": [
+        "Logs lack action propensities/coverage or reward is badly confounded"
+      ],
+      "required_evals": [
+        "offline-online correlation",
+        "coverage"
+      ],
+      "risks": [
+        "Counterfactual bias",
+        "selection bias"
+      ],
+      "cost_profile": "offline compute",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0224"
+      ],
+      "keywords": [
+        "offline_policy_eval"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0278",
+      "name": "A/B randomized controlled experiment",
+      "aliases": [],
+      "category": "experimentation",
+      "layer": [
+        "evaluation",
+        "deployment"
+      ],
+      "goal": "Estimate causal effect of one system change",
+      "mechanism": "Randomly assign eligible comparable tasks/users/runs to control or treatment and compare predefined metrics.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0230, SRC-AI-0231.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Use task-stratified experiments where ordinary user-randomization is not meaningful.",
+      "use_when": [
+        "Prompt/UI/proactivity/routing changes with enough repeated traffic"
+      ],
+      "avoid_when": [
+        "Small sample/highly heterogeneous one-off tasks",
+        "Security gates"
+      ],
+      "required_evals": [
+        "effect size",
+        "confidence interval",
+        "guardrails"
+      ],
+      "risks": [
+        "Interference",
+        "sample imbalance",
+        "metric gaming"
+      ],
+      "cost_profile": "requires traffic/time",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0230",
+        "SRC-AI-0231"
+      ],
+      "keywords": [
+        "AB_test",
+        "RCT"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0279",
+      "name": "A/A test",
+      "aliases": [],
+      "category": "experimentation",
+      "layer": [
+        "evaluation"
+      ],
+      "goal": "Validate instrumentation/randomization and false-positive behavior before trusting A/B system",
+      "mechanism": "Run identical treatment/control configurations and inspect sample ratio, metric differences and alert rates.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0231.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Required before using live proactivity/routing experiments for causal claims.",
+      "use_when": [
+        "New experimentation infrastructure",
+        "Changed assignment logic"
+      ],
+      "avoid_when": [
+        "No experiment system"
+      ],
+      "required_evals": [
+        "false positive rate",
+        "sample-ratio mismatch"
+      ],
+      "risks": [
+        "Consumes traffic/eval budget"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0231"
+      ],
+      "keywords": [
+        "AA_test"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0280",
+      "name": "CUPED variance reduction",
+      "aliases": [],
+      "category": "experimentation",
+      "layer": [
+        "evaluation",
+        "statistics"
+      ],
+      "goal": "Detect smaller treatment effects with same sample size using pre-experiment correlated data",
+      "mechanism": "Regress outcome on pre-period covariates and compare variance-reduced adjusted metrics.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0230, SRC-AI-0231.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Could help future high-volume proactivity experiments; not useful for tiny offline benchmark sets.",
+      "use_when": [
+        "Repeated user/task units with stable pre-period behavior"
+      ],
+      "avoid_when": [
+        "No stable matched pre-period",
+        "Covariate unrelated to outcome"
+      ],
+      "required_evals": [
+        "variance reduction",
+        "coverage",
+        "bias"
+      ],
+      "risks": [
+        "Bad covariates/data leakage",
+        "unit instability"
+      ],
+      "cost_profile": "analysis complexity",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0230",
+        "SRC-AI-0231"
+      ],
+      "keywords": [
+        "CUPED",
+        "variance_reduction"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0281",
+      "name": "Factorial experiment design",
+      "aliases": [],
+      "category": "design_of_experiments",
+      "layer": [
+        "experimentation",
+        "optimization"
+      ],
+      "goal": "Estimate main effects and interactions among several knobs more efficiently than one-factor-at-a-time",
+      "mechanism": "Vary multiple factors systematically across combinations and analyze effects/interactions.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0232.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Better than changing several knobs in one unstructured 'improved prompt'.",
+      "use_when": [
+        "Prompt/routing/context knobs where interactions likely"
+      ],
+      "avoid_when": [
+        "Too many factors/levels for available eval budget"
+      ],
+      "required_evals": [
+        "main/interaction effects",
+        "replicate variance"
+      ],
+      "risks": [
+        "Complex interpretation",
+        "higher-order interactions"
+      ],
+      "cost_profile": "more efficient than exhaustive naive testing",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0232"
+      ],
+      "keywords": [
+        "factorial",
+        "DOE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0282",
+      "name": "Fractional factorial screening",
+      "aliases": [],
+      "category": "design_of_experiments",
+      "layer": [
+        "experimentation",
+        "optimization"
+      ],
+      "goal": "Identify high-impact knobs from many candidates using fewer combinations",
+      "mechanism": "Evaluate carefully chosen fraction of full factorial under assumptions about negligible higher-order interactions.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0232.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Useful for hundreds of MIC knobs after grouping by subsystem.",
+      "use_when": [
+        "Many potential micro-optimization knobs"
+      ],
+      "avoid_when": [
+        "Strong unknown high-order interactions likely"
+      ],
+      "required_evals": [
+        "effect recovery",
+        "follow-up confirmation"
+      ],
+      "risks": [
+        "Aliasing confounds effects"
+      ],
+      "cost_profile": "reduced experiment count",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0232"
+      ],
+      "keywords": [
+        "fractional_factorial",
+        "screening"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0283",
+      "name": "Response surface optimization",
+      "aliases": [],
+      "category": "design_of_experiments",
+      "layer": [
+        "experimentation",
+        "optimization"
+      ],
+      "goal": "Refine continuous settings near a promising region",
+      "mechanism": "Fit local response model from designed experiments and search for optimum/tradeoff region.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0232.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Candidate for retrieval thresholds and alert scoring, with holdout confirmation.",
+      "use_when": [
+        "Thresholds/weights/k-values after screening"
+      ],
+      "avoid_when": [
+        "Highly discontinuous categorical system"
+      ],
+      "required_evals": [
+        "prediction error",
+        "optimum confirmation"
+      ],
+      "risks": [
+        "Local model extrapolation error"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0232"
+      ],
+      "keywords": [
+        "response_surface"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0284",
+      "name": "Shewhart control chart",
+      "aliases": [],
+      "category": "statistical_process_control",
+      "layer": [
+        "monitoring",
+        "evaluation"
+      ],
+      "goal": "Detect large unexpected shifts away from a stable baseline",
+      "mechanism": "Plot quality metric with empirically/statistically derived center/control limits and investigate special-cause violations.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0228, SRC-AI-0232.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Monitor by task/model/version rather than one global quality stream.",
+      "use_when": [
+        "Stable repeated task-family metrics",
+        "Latency/error rate"
+      ],
+      "avoid_when": [
+        "Strongly nonstationary mixture without stratification"
+      ],
+      "required_evals": [
+        "false alarm/detection rate"
+      ],
+      "risks": [
+        "Distribution/autocorrelation assumptions",
+        "changing task mix"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0228",
+        "SRC-AI-0232"
+      ],
+      "keywords": [
+        "Shewhart",
+        "control_chart"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0285",
+      "name": "CUSUM drift detection",
+      "aliases": [],
+      "category": "statistical_process_control",
+      "layer": [
+        "monitoring",
+        "evaluation"
+      ],
+      "goal": "Detect persistent small shifts sooner than ordinary point thresholds",
+      "mechanism": "Accumulate signed deviations from target and signal when cumulative statistic crosses threshold.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0228.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Useful research-radar trigger for silent provider/model regressions.",
+      "use_when": [
+        "Slow model/provider/retrieval quality degradation"
+      ],
+      "avoid_when": [
+        "Metric baseline not stable"
+      ],
+      "required_evals": [
+        "average run length",
+        "false alerts"
+      ],
+      "risks": [
+        "Parameter tuning",
+        "autocorrelation"
+      ],
+      "cost_profile": "very low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0228"
+      ],
+      "keywords": [
+        "CUSUM",
+        "drift"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0286",
+      "name": "EWMA drift detection",
+      "aliases": [],
+      "category": "statistical_process_control",
+      "layer": [
+        "monitoring",
+        "evaluation"
+      ],
+      "goal": "Detect gradual small shifts while smoothing noisy observations",
+      "mechanism": "Maintain exponentially weighted mean emphasizing recent data and compare to control limits.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0229.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Store baseline/version boundaries so model upgrades don't appear as unexplained drift.",
+      "use_when": [
+        "Correction rate",
+        "latency",
+        "proactive acceptance",
+        "retrieval recall samples"
+      ],
+      "avoid_when": [
+        "Sparse events with no stable sampling cadence"
+      ],
+      "required_evals": [
+        "shift detection delay",
+        "false alarms"
+      ],
+      "risks": [
+        "Smoothing parameter sensitivity"
+      ],
+      "cost_profile": "very low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0229"
+      ],
+      "keywords": [
+        "EWMA",
+        "drift"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0287",
+      "name": "Pareto analysis of failure causes",
+      "aliases": [],
+      "category": "quality_improvement",
+      "layer": [
+        "monitoring",
+        "failure_learning"
+      ],
+      "goal": "Focus improvement effort on the few failure classes causing most harm",
+      "mechanism": "Aggregate classified defects by frequency×impact, sort descending and target dominant contributors first.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0228.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Run both frequency Pareto and impact-weighted Pareto.",
+      "use_when": [
+        "Failure registry",
+        "Correction logs",
+        "Tool errors"
+      ],
+      "avoid_when": [
+        "Rare catastrophic failures require separate treatment"
+      ],
+      "required_evals": [
+        "share of failures eliminated"
+      ],
+      "risks": [
+        "Frequency can overshadow severity"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0228"
+      ],
+      "keywords": [
+        "Pareto",
+        "failure_prioritization"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0288",
+      "name": "Statistical drift alarm followed by diagnosis, not automatic mutation",
+      "aliases": [],
+      "category": "control_system",
+      "layer": [
+        "monitoring",
+        "meta_improvement"
+      ],
+      "goal": "Separate 'something changed' from 'we know how to fix it'",
+      "mechanism": "Monitoring raises observation; diagnosis/research identifies cause; experiments test candidate changes before rollout.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0228.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Core safety rule: anomaly detector creates evidence, never self-authorizes code/prompt changes.",
+      "use_when": [
+        "All adaptive Agent OS systems"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "false remediation rate",
+        "time to diagnosis"
+      ],
+      "risks": [
+        "Slower than automatic feedback controller"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0228"
+      ],
+      "keywords": [
+        "drift",
+        "diagnosis"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0289",
+      "name": "Exploration budget",
+      "aliases": [],
+      "category": "online_learning",
+      "layer": [
+        "control",
+        "online_learning"
+      ],
+      "goal": "Bound how much user utility/cost may be sacrificed to learn better policies",
+      "mechanism": "Allocate explicit fraction/absolute budget for safe challenger traffic; suspend exploration when reliability budget is low.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0223, SRC-AI-0142.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Tie exploration to error/reliability budget and user-facing risk.",
+      "use_when": [
+        "Model routing",
+        "Low-risk proactivity experiments"
+      ],
+      "avoid_when": [
+        "Consequential decisions"
+      ],
+      "required_evals": [
+        "exploration spend",
+        "regret",
+        "learning gain"
+      ],
+      "risks": [
+        "Budget choice itself may be arbitrary"
+      ],
+      "cost_profile": "bounded opportunity cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0223",
+        "SRC-AI-0142"
+      ],
+      "keywords": [
+        "exploration_budget"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0290",
+      "name": "Change-freeze on out-of-control quality",
+      "aliases": [],
+      "category": "control_system",
+      "layer": [
+        "monitoring",
+        "governance"
+      ],
+      "goal": "Stop stacking behavior changes when the system is already unstable",
+      "mechanism": "If SLO/error budget or control-chart signal indicates significant degradation, pause nonessential adaptive changes until baseline is restored/understood.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0142, SRC-AI-0228.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Security fixes remain exempt; experimentation can continue in isolated offline environments.",
+      "use_when": [
+        "Mature Agent OS subsystems"
+      ],
+      "avoid_when": [
+        "Initial prototyping before stable baseline exists"
+      ],
+      "required_evals": [
+        "time to recovery",
+        "regressions during incident"
+      ],
+      "risks": [
+        "Can slow feature progress due noisy alert"
+      ],
+      "cost_profile": "opportunity cost but reduces compounding failure",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0142",
+        "SRC-AI-0228"
+      ],
+      "keywords": [
+        "change_freeze",
+        "stability"
+      ],
+      "notes": ""
+    }
+  ]
+}
