@@ -68,15 +68,32 @@ Validate:
 - plugin's supported runtime declarations.
 
 ### powerofthree's Papyrus Extender
-Use when Papyrus needs operations/events not offered by vanilla/SKSE. Current upstream describes hundreds of functions/events.
+Search this provider **before creating a new native DLL** when Papyrus needs operations/events not offered by vanilla/SKSE.
+
+Current inspected upstream source snapshot contains 379 global function declarations, 37 event names and four extra Form-derived script object classes; the repository stores the exact source-derived catalog.
 
 Automate:
 - PSC provider ingestion;
 - dependency declaration;
 - compile-root generation;
-- API availability checks.
+- exact function/event lookup;
+- base-form vs reference vs instance vs loaded-3D mutation classification;
+- compile-provider/runtime-provider cross-check;
+- native-binding smoke tests.
 
 ## Papyrus toolchain
+
+### Pyro
+Use as the repeatable project-level build orchestrator when a mod has multiple Papyrus sources, incremental rebuild needs, or packaged BSA/ZIP outputs.
+
+Automate:
+- incremental/parallel compile;
+- pinned PapyrusCompiler path;
+- build/output/package paths;
+- archive/distribution production;
+- input/output denominator checks.
+
+Validate Pyro's output independently with the compiler/provider map, PEX inspection/decompilation, and archive extract/hash checks.
 
 ### Official PapyrusCompiler
 Reference compiler for shipped language/runtime expectations.
@@ -270,3 +287,24 @@ Every adapter must expose:
 - Crash Logger: https://github.com/alandtse/CrashLoggerSSE
 - Caprica: https://github.com/Orvid/Caprica
 - FOMOD docs/validator ecosystem: https://github.com/dh-nunes/fomod-docs
+
+## Experimental isolated runtime automation
+
+### skytest
+
+Third-party Linux/gamescope test harness currently capable of:
+- vanilla+one-mod isolated profiles;
+- a vanilla A/B control;
+- detached visible/headless game sessions;
+- replayable step scripts;
+- screenshot capture;
+- libei input injection;
+- structured SkytestProbe state/trace data;
+- state gates and save isolation.
+
+Policy:
+- **experimental until Agent OS validates it locally**;
+- must pass G27 validator/self-tests;
+- every assertion is session/freshness scoped;
+- do not trust synthetic held-input testing for mechanics whose correctness depends on real hardware held-state behavior;
+- initial profile-management mutation requires explicit setup approval.
