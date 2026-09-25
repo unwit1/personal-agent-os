@@ -1,0 +1,72 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "kid",
+  "tool": "KID typed-config renderer",
+  "source": "https://github.com/powerof3/Keyword-Item-Distributor",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "kid-config-generate",
+    "kid-intent-validate",
+    "keyword-distribution-config"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "python",
+    "arguments_template": [
+      "tools/skyrim_mod_factory/render_kid.py",
+      "{intent}",
+      "--output",
+      "{output}"
+    ],
+    "transport": "local deterministic renderer + KID runtime parser",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "skyrim-runtime-patch-intent-v1 framework=kid"
+  ],
+  "outputs": [
+    "_KID.ini"
+  ],
+  "logs": [
+    "renderer stderr",
+    "KID runtime log"
+  ],
+  "coverage": {
+    "description": "Typed renderer for supported KID keyword-distribution grammar.",
+    "known_gaps": [
+      "only schema-modeled target types/filters are generated",
+      "new grammar features require schema update"
+    ],
+    "denominator_probe": "intent entries vs rendered rules vs KID accepted/rejected rules."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Canonical source is typed intent JSON."
+  },
+  "verification": {
+    "independent_validators": [
+      "kid-runtime-parser",
+      "form-resolution",
+      "runtime-keyword-query"
+    ],
+    "version_probe": "grammar_source snapshot + installed KID version",
+    "output_readback": "Compare runtime keyword state for positive/negative fixtures."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Deterministic semantic KID config generation."
+  },
+  "evidence": {
+    "source_url": "https://github.com/powerof3/Keyword-Item-Distributor",
+    "verified_date": "2026-09-24",
+    "notes": "Local renderer exists at render_kid.py."
+  }
+}
