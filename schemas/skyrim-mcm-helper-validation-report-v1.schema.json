@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-mcm-helper-validation-report-v1.schema.json",
+  "title": "Skyrim MCM Helper Validation Report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "mod_name",
+    "controls",
+    "settings",
+    "issues",
+    "coverage"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-mcm-helper-validation-report-v1"
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "fail",
+        "needs-review"
+      ]
+    },
+    "mod_name": {
+      "type": "string"
+    },
+    "controls": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "settings": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "severity",
+          "code",
+          "message"
+        ],
+        "properties": {
+          "severity": {
+            "enum": [
+              "ERROR",
+              "WARNING"
+            ]
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "location": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pages",
+        "controls",
+        "mod_setting_controls",
+        "settings_defaults",
+        "group_conditions"
+      ],
+      "properties": {
+        "pages": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "controls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mod_setting_controls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "settings_defaults": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "group_conditions": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}
