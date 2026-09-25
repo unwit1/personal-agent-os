@@ -1,5 +1,5 @@
 {
-  "schema_version": "0.3",
+  "schema_version": "0.4",
   "entities": {
     "color": [
       "local_id",
@@ -232,14 +232,33 @@
     ],
     "reference_asset": [
       "reference_asset_id",
-      "reference_type",
-      "creator_publisher",
-      "source_work",
-      "issue_episode_version",
-      "date",
-      "url",
-      "rights_usage_notes",
-      "hash",
+      "sample_id",
+      "medium",
+      "authority",
+      "source_url",
+      "local_source_id",
+      "source_title",
+      "game_or_film_title",
+      "version_or_release",
+      "internal_asset_path",
+      "timestamp_or_frame",
+      "view",
+      "crop_bbox",
+      "character_id",
+      "appearance_id",
+      "outfit_design_id",
+      "component_ids",
+      "expression",
+      "mask_headgear_state",
+      "physical_correspondence",
+      "sha256",
+      "perceptual_hash",
+      "width",
+      "height",
+      "transparency",
+      "materialized_locally",
+      "storage_policy",
+      "retrieved_at",
       "confidence"
     ],
     "artwork": [
@@ -325,6 +344,29 @@
       "qc_standard",
       "packaging",
       "status"
+    ],
+    "translation_pair": [
+      "translation_pair_id",
+      "source_appearance_id",
+      "source_reference_asset_ids",
+      "lego_sample_ids",
+      "target_medium",
+      "exactness",
+      "source_features",
+      "lego_translation",
+      "decisions",
+      "confidence",
+      "reviewer_status",
+      "provenance"
+    ],
+    "derived_reference_asset": [
+      "derived_asset_id",
+      "source_reference_asset_id",
+      "transform_type",
+      "transform_parameters",
+      "sha256",
+      "local_path",
+      "storage_policy"
     ]
   },
   "provenance_class": [
