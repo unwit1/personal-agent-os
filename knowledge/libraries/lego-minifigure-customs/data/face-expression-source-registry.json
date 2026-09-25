@@ -11,7 +11,9 @@
         "initially_shown_heads": 628,
         "valid_analyzed_faces": 627,
         "participants": 264,
-        "different_raters_per_face": 30
+        "different_raters_per_face": 30,
+        "photographed_official_minifigures": 3655,
+        "unique_heads": 628
       },
       "label_space": {
         "emotions": [
@@ -31,11 +33,15 @@
         ]
       },
       "findings": [
-        "Many faces were ambiguous rather than mapping to one emotion only.",
-        "Dominant emotion was selected from rating frequency, with mean intensity as tie-break.",
-        "Facial-expression diversity expanded significantly around the Pirates era."
+        "Many faces are ambiguous rather than mapping to one emotion only.",
+        "Dominant emotion used rating frequency, with mean intensity as tie-break.",
+        "Expression variety increased dramatically beginning around the 1989 Pirates era.",
+        "Context significantly influenced perceived anger, disgust, sadness and surprise.",
+        "Skin-color variation did not significantly change perceived emotional expression.",
+        "Cluster analysis identified disdain, confidence, concern, fear, happiness and anger."
       ],
-      "raw_stimulus_status": "not located as a separately licensed dataset in current search"
+      "raw_stimulus_status": "not located as a separately licensed dataset in current search",
+      "figshare_doi": "10.6084/m9.figshare.5154778"
     },
     {
       "id": "bartneck_lego_pictorial_scales",
@@ -94,6 +100,49 @@
         "physical release"
       ],
       "use": "primary geometry/style corpus"
+    },
+    {
+      "id": "lego_pirates_1989_expression_transition",
+      "authority": "lego_primary_history",
+      "year": 1989,
+      "url": "https://www.lego.com/en-us/history/articles/g-lego-pirates",
+      "supervision": [
+        "historical expression-design transition",
+        "character credibility as reason for face change",
+        "eyepatch/beard/moustache/lipstick differentiation",
+        "hook/peg-leg geometry as identity cues"
+      ],
+      "explicit_design_evidence": "Designer Jens Nygaard Knudsen says altering the minifigure expression was necessary to develop credible pirates.",
+      "use": "causal label linking expression variety and distinctive mould/accessory cues to character storytelling"
+    },
+    {
+      "id": "moltchanova_bartneck_2017",
+      "authority": "peer_reviewed_research",
+      "year": 2017,
+      "url": "https://ir.canterbury.ac.nz/bitstream/handle/10092/16684/moltchanovaBartneckInterationStudies2017.pdf?sequence=2",
+      "doi": "10.1075/is.18.2.01mol",
+      "sample": {
+        "faces": 94,
+        "source_pool": 722,
+        "participants": 60,
+        "responses_expected": 5640,
+        "missing_responses": 2
+      },
+      "labels": [
+        "anger",
+        "disgust",
+        "fear",
+        "sadness",
+        "happiness",
+        "surprise",
+        "1-5 intensity"
+      ],
+      "findings": [
+        "Individual differences in observers were more important than emotional category for parts of perception.",
+        "44 of 92 analyzed figures received all six emotion labels at least once; another 31 received five of six.",
+        "Perceived expression labels are therefore probabilistic/distributed rather than objectively singular."
+      ],
+      "use": "train/evaluate probabilistic expression distributions and reviewer-variance-aware scoring"
     }
   ],
   "proposed_annotation_layers": [
@@ -106,7 +155,10 @@
     "scars_freckles_wrinkles",
     "dual_sided_pair",
     "era_theme",
-    "head_base_color"
+    "head_base_color",
+    "emotion_probability_distribution",
+    "rater_disagreement",
+    "context_conditioned_expression"
   ],
   "missing_data": [
     "machine-readable Bartneck raw 627/722 stimulus-to-rating table",
