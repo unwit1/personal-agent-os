@@ -492,7 +492,7 @@ def record_discovery(
         })
 
     incoming_accounts: list[dict[str, Any]] = []
-    possible_matches = list(profile.get("possible_matches") or [])
+    incoming_candidates: list[dict[str, Any]] = []
     for value in findings.get("accounts") or []:
         if not isinstance(value, dict):
             continue
@@ -516,7 +516,7 @@ def record_discovery(
         if value.get("confirmed") is True:
             incoming_accounts.append(account)
         else:
-            possible_matches.append(account)
+            incoming_candidates.append(account)
 
     profile["links"] = _merge_dict_list(
         list(profile.get("links") or []),
@@ -534,8 +534,8 @@ def record_discovery(
         lambda item: str(item.get("source_id") or "") or str(item.get("canonical_url") or ""),
     )
     profile["possible_matches"] = _merge_dict_list(
-        possible_matches,
-        [],
+        list(profile.get("possible_matches") or []),
+        incoming_candidates,
         lambda item: str(item.get("source_id") or "") or str(item.get("canonical_url") or ""),
     )
 
@@ -552,7 +552,7 @@ def record_discovery(
     discovery = dict(profile.get("discovery") or {})
     requested_status = str(findings.get("status") or "").strip()
     if requested_status not in {"queued", "in_progress", "needs_review", "complete", "needs_refresh"}:
-        requested_status = "needs_review" if possible_matches else "complete"
+        requested_status = "needs_review" if profile.get("possible_matches") else "complete"
     discovery.update({
         "status": requested_status,
         "last_enriched_at": now,
