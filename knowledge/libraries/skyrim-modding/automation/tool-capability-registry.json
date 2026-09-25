@@ -494,6 +494,16 @@
       ]
     },
     {
+      "adapter_id": "oar",
+      "capabilities": [
+        "oar-config-generate",
+        "oar-intent-validate",
+        "animation-replacement-config",
+        "oar-condition-pass-through"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/oar.json"
+    },
+    {
       "adapter_id": "pandora",
       "role": "generator",
       "priority": "preferred",
