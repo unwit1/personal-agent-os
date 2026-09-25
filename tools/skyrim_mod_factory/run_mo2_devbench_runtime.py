@@ -32,7 +32,8 @@ def load_module(name:str,path:Path):
 
 MO2=load_module("run_mo2_runtime_session",HERE/"run_mo2_runtime_session.py")
 DB=load_module("run_devbench_runtime_observer",HERE/"run_devbench_runtime_observer.py")
-MERGE=load_module("apply_runtime_observation",HERE/"apply_runtime_observation.py")\nPM=load_module("run_presentmon_capture",HERE/"run_presentmon_capture.py")
+MERGE=load_module("apply_runtime_observation",HERE/"apply_runtime_observation.py")
+PM=load_module("run_presentmon_capture",HERE/"run_presentmon_capture.py")
 
 def add_file_artifact(result:dict[str,Any],path:Path,kind:str)->None:
     if path.is_file():
