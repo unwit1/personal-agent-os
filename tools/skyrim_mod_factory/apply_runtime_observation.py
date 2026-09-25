@@ -198,9 +198,28 @@ def merge_observation(
     gates["G26"]=assertion_gate(merged["assertions"])
     merged["gates"]=[gates[g] for g in ("G19","G20","G21","G26")]
 
-    merged["evidence"]["artifacts"].extend(
-        copy.deepcopy(observation.get("artifacts") or [])
-    )
+    observation_artifacts=copy.deepcopy(observation.get("artifacts") or [])
+    merged["evidence"]["artifacts"].extend(observation_artifacts)
+    screenshot_paths=[
+        str(row["path"])
+        for row in observation_artifacts
+        if isinstance(row,dict)
+        and row.get("kind")=="screenshot"
+        and row.get("path")
+    ]
+    for path in screenshot_paths:
+        if path not in merged["evidence"]["screenshots"]:
+            merged["evidence"]["screenshots"].append(path)
+    frame_paths=[
+        str(row["path"])
+        for row in observation_artifacts
+        if isinstance(row,dict)
+        and row.get("kind") in {"frame-trace","performance-trace"}
+        and row.get("path")
+    ]
+    for path in frame_paths:
+        if path not in merged["evidence"]["frame_traces"]:
+            merged["evidence"]["frame_traces"].append(path)
     merged["evidence"]["artifacts"].append({
         "kind":"runtime-observation",
         "observer_id":observation["observer_id"],
