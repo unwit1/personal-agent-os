@@ -20,3 +20,42 @@ Each target records a stable identity, type, canonical URL, source/provider meta
 8. Notify only according to the target's notification policy.
 
 The browser userscript is a capture surface. It should keep emitting provider-neutral `follow_target` records; Agent OS owns scheduling, reconciliation, knowledge promotion, and notifications.
+
+
+## Creator identity layer
+
+Creator follows are reconciled through a provider-neutral profile graph under
+`knowledge/personal/creators/index.json`. A creator profile can accumulate
+confirmed provider accounts, aliases/handles, observed profile links, watch IDs,
+cross-provider discovery queries, provenance, and candidate Discord identities.
+
+Automatic association is conservative. Exact provider IDs, exact canonical
+account URLs, exact profile links already observed on a confirmed creator page,
+and a unique high-confidence handle/alias may identify the same creator across
+providers. Display-name-only evidence does not silently merge identities.
+
+When a creator follow arrives through the local browser bridge, Agent OS now:
+
+1. promotes the capture into the proactive watch graph;
+2. creates or updates the canonical creator profile;
+3. links the watch target back to that creator profile;
+4. records aliases and external/profile links already visible on the source page;
+5. checks the locally imported Discord message archive for matching author aliases
+   and stores those as identity candidates rather than confirmed matches;
+6. queues cross-provider discovery for likely official websites, Nexus Mods,
+   GitHub, YouTube, Discord, Patreon, Reddit, and direct feeds.
+
+The bridge exposes `POST /api/v1/browser/follow/status` so supported browser
+surfaces can resolve an account to an existing creator profile. The userscript
+uses that response to show `✓ Following` on another supported site when Agent OS
+already knows that account belongs to a followed creator.
+
+Use `agent-os creator-list` to inspect canonical creator profiles and
+`agent-os creator-discovery-pending` to see identities waiting for deeper
+cross-provider enrichment.
+
+Creator identity and monitoring are intentionally separate. A creator profile is
+the canonical person/brand identity; provider-specific watch targets are the
+sources polled for releases, uploads, repositories, mods, posts, feeds, and other
+activity. The planned worker pipeline below remains responsible for actually
+refreshing those sources and notifying on meaningful changes.
