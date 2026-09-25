@@ -1,0 +1,528 @@
+{
+  "schema": "personal-agent-os/ai-technique-interactions/v1",
+  "as_of": "2026-09-24",
+  "interactions": [
+    {
+      "id": "INT-0001",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0008",
+        "AIT-0154",
+        "MIC-0001"
+      ],
+      "rationale": "Stable prompt prefixes amplify provider/model KV/prompt caching gains.",
+      "evaluation": "Measure cache-read tokens and TTFT."
+    },
+    {
+      "id": "INT-0002",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0061",
+        "AIT-0062",
+        "AIT-0063",
+        "AIT-0090"
+      ],
+      "rationale": "Agent-friendly tool interfaces combine narrow task tools, clear naming, high-signal outputs and ACI design.",
+      "evaluation": "Evaluate whole tool interface, then ablate individual changes."
+    },
+    {
+      "id": "INT-0003",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0065",
+        "AIT-0066",
+        "AIT-0112"
+      ],
+      "rationale": "Strict schemas plus semantic preconditions plus default-deny authorization close different failure classes.",
+      "evaluation": "Security/semantic invalid-call adversarial suite."
+    },
+    {
+      "id": "INT-0004",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0068",
+        "AIT-0078",
+        "AIT-0079"
+      ],
+      "rationale": "Idempotency plus checkpoints/event history enables safe retry/resume.",
+      "evaluation": "Kill process around every side-effect boundary."
+    },
+    {
+      "id": "INT-0005",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0033",
+        "AIT-0034",
+        "AIT-0042"
+      ],
+      "rationale": "Hybrid retrieval improves candidate recall; metadata filters and reranking recover precision.",
+      "evaluation": "Ablate sparse/dense/hybrid/filter/rerank components."
+    },
+    {
+      "id": "INT-0006",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0043",
+        "AIT-0044",
+        "AIT-0045"
+      ],
+      "rationale": "Temporal, provenance and contradiction-aware retrieval improves evidence applicability rather than only semantic similarity.",
+      "evaluation": "Temporal/conflict QA suite."
+    },
+    {
+      "id": "INT-0007",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0053",
+        "AIT-0051",
+        "AIT-0054"
+      ],
+      "rationale": "Just-in-time retrieval + extractive selection + context-usage telemetry enables progressively smaller prompts.",
+      "evaluation": "Counterfactual context ablation."
+    },
+    {
+      "id": "INT-0008",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0057",
+        "AIT-0058",
+        "AIT-0060"
+      ],
+      "rationale": "Staged memory promotion plus consolidation plus provenance-preserving reconsolidation supports learning without destructive overwrite.",
+      "evaluation": "Memory update/contradiction/rollback suite."
+    },
+    {
+      "id": "INT-0009",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0014",
+        "AIT-0094",
+        "AIT-0081"
+      ],
+      "rationale": "Best-of-N becomes far more useful when a deterministic verifier can stop selection early and drive escalation.",
+      "evaluation": "Accuracy/cost curve vs N."
+    },
+    {
+      "id": "INT-0010",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0013",
+        "AIT-0028"
+      ],
+      "rationale": "Self-consistency benefits from an independent verifier when majority vote is unreliable.",
+      "evaluation": "Compare vote vs verifier selection on correlated-error cases."
+    },
+    {
+      "id": "INT-0011",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0023",
+        "AIT-0115",
+        "AIT-0116"
+      ],
+      "rationale": "ReAct/tool loops require untrusted-data separation and taint metadata to constrain prompt-injection paths.",
+      "evaluation": "AgentDojo-style tests."
+    },
+    {
+      "id": "INT-0012",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0024",
+        "AIT-0078",
+        "AIT-0081"
+      ],
+      "rationale": "Plan-then-execute works well with checkpointed stages and validator-triggered replanning/escalation.",
+      "evaluation": "Workflow recovery and replan-rate benchmark."
+    },
+    {
+      "id": "INT-0013",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0146",
+        "AIT-0148",
+        "AIT-0081"
+      ],
+      "rationale": "Model routing plus reasoning-effort routing plus validators supports cheapest-safe escalation.",
+      "evaluation": "Cost/success frontier by task family."
+    },
+    {
+      "id": "INT-0014",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0147",
+        "AIT-0107",
+        "AIT-0108"
+      ],
+      "rationale": "Champion/challenger model evaluation naturally uses shadow then canary rollout.",
+      "evaluation": "Noninferiority + rollback drill."
+    },
+    {
+      "id": "INT-0015",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0020",
+        "AIT-0075"
+      ],
+      "rationale": "Skeleton decomposition can reduce wall time only where expansions are truly independent and parallelized.",
+      "evaluation": "Coherence and wall-time benchmark."
+    },
+    {
+      "id": "INT-0016",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0021",
+        "AIT-0070"
+      ],
+      "rationale": "Program-aided reasoning should collapse into deterministic substitution when the same computation pattern repeats.",
+      "evaluation": "Trace mining for repeated generated-program shapes."
+    },
+    {
+      "id": "INT-0017",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0091",
+        "AIT-0092",
+        "AIT-0103"
+      ],
+      "rationale": "Golden corpus + historical replay + dynamic frontier cases balances regression stability with current relevance.",
+      "evaluation": "Track frozen vs rolling suite trends."
+    },
+    {
+      "id": "INT-0018",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0098",
+        "AIT-0099",
+        "AIT-0101"
+      ],
+      "rationale": "Calibrated LLM judges need swap-order tests and preserved disagreement.",
+      "evaluation": "Human-label calibration set."
+    },
+    {
+      "id": "INT-0019",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0107",
+        "AIT-0109"
+      ],
+      "rationale": "Shadow deployments become cheap/reversible when candidate behavior is feature-flagged.",
+      "evaluation": "Flag rollback and shadow divergence tests."
+    },
+    {
+      "id": "INT-0020",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0110",
+        "AIT-0175"
+      ],
+      "rationale": "SLO/error budgets plus meta-overhead budget stop self-improvement work when reliability/value falls.",
+      "evaluation": "Simulate policy on historical runs."
+    },
+    {
+      "id": "INT-0021",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0121",
+        "AIT-0122",
+        "AIT-0128"
+      ],
+      "rationale": "Dedup + quality filtering + real-data anchoring makes synthetic/curated training safer and denser.",
+      "evaluation": "Coverage and tail-retention evaluation."
+    },
+    {
+      "id": "INT-0022",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0132",
+        "AIT-0133"
+      ],
+      "rationale": "QLoRA combines low-bit base representation with LoRA adapters to reduce fine-tuning memory.",
+      "evaluation": "Full/LoRA/QLoRA head-to-head on exact local model."
+    },
+    {
+      "id": "INT-0023",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0134",
+        "AIT-0146"
+      ],
+      "rationale": "Distillation can turn a frequently selected expensive model route into a specialized cheap local student.",
+      "evaluation": "Student must meet route threshold on protected holdout."
+    },
+    {
+      "id": "INT-0024",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0149",
+        "AIT-0203"
+      ],
+      "rationale": "Quantization methods such as GPTQ/AWQ are complementary alternatives for local serving; exact deployment should pick one through benchmarking.",
+      "evaluation": "Quality/tokens-per-second/power comparison."
+    },
+    {
+      "id": "INT-0025",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0150",
+        "AIT-0151"
+      ],
+      "rationale": "Efficient attention kernels and paged KV serving attack different GPU bottlenecks and can combine.",
+      "evaluation": "End-to-end serving profile."
+    },
+    {
+      "id": "INT-0026",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0152",
+        "AIT-0204"
+      ],
+      "rationale": "Classic speculative decoding and tree speculation are alternative points on draft/verification parallelism spectrum.",
+      "evaluation": "Benchmark workload before choosing complexity."
+    },
+    {
+      "id": "INT-0027",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0157",
+        "AIT-0158",
+        "AIT-0159"
+      ],
+      "rationale": "Proactivity benefits from escalating intervention class: quiet capture → candidate queue → digest → interrupt.",
+      "evaluation": "Precision/recall and interruption-cost measurement."
+    },
+    {
+      "id": "INT-0028",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0161",
+        "AIT-0162",
+        "AIT-0170"
+      ],
+      "rationale": "Undo + structured correction + low-friction feedback turns automation mistakes into recoverable learning evidence.",
+      "evaluation": "Repeat-error and correction-effort metrics."
+    },
+    {
+      "id": "INT-0029",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0211",
+        "AIT-0201"
+      ],
+      "rationale": "Self-Ask decomposition becomes safer when each follow-up question is answered by retrieval/RAG rather than closed-book self-answer.",
+      "evaluation": "Multi-hop grounded QA."
+    },
+    {
+      "id": "INT-0030",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0217",
+        "AIT-0218",
+        "AIT-0201"
+      ],
+      "rationale": "Chain-of-Verification is stronger when atomic checks are independent and grounded in external evidence.",
+      "evaluation": "Hallucination and correction precision."
+    },
+    {
+      "id": "INT-0031",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0225",
+        "AIT-0042",
+        "AIT-0044"
+      ],
+      "rationale": "Heterogeneous Chain-of-Knowledge requires scope filtering and provenance-aware retrieval to remain auditable.",
+      "evaluation": "Source-routing and factuality suite."
+    },
+    {
+      "id": "INT-0032",
+      "type": "synergy",
+      "techniques": [
+        "AIT-0228",
+        "AIT-0070"
+      ],
+      "rationale": "Compact symbolic planning should graduate to deterministic/state-machine code when representation becomes stable.",
+      "evaluation": "Token reduction plus state correctness."
+    },
+    {
+      "id": "INT-0033",
+      "type": "conflict",
+      "techniques": [
+        "AIT-0011",
+        "AIT-0001"
+      ],
+      "rationale": "Verbose explicit CoT can conflict with simple/direct prompting on modern reasoning models.",
+      "evaluation": "Per-model A/B; no universal winner."
+    },
+    {
+      "id": "INT-0034",
+      "type": "conflict",
+      "techniques": [
+        "AIT-0026",
+        "AIT-0028"
+      ],
+      "rationale": "Same-model iterative self-critique can add cost while an independent verifier provides stronger evidence.",
+      "evaluation": "Compare catch/regression rate per dollar."
+    },
+    {
+      "id": "INT-0035",
+      "type": "conflict",
+      "techniques": [
+        "AIT-0049",
+        "AIT-0033"
+      ],
+      "rationale": "GraphRAG can duplicate hybrid retrieval infrastructure when global graph questions are rare.",
+      "evaluation": "Query-class usage audit before adoption."
+    },
+    {
+      "id": "INT-0036",
+      "type": "conflict",
+      "techniques": [
+        "AIT-0050",
+        "AIT-0051"
+      ],
+      "rationale": "Learned/freeform compression can be riskier than extractive selection for binding requirements.",
+      "evaluation": "Constraint-loss suite determines route."
+    },
+    {
+      "id": "INT-0037",
+      "type": "conflict",
+      "techniques": [
+        "AIT-0082",
+        "AIT-0075"
+      ],
+      "rationale": "Multi-agent fan-out plus unconstrained parallelism can overload providers and duplicate work.",
+      "evaluation": "Concurrency/fan-out budgets and objective dedupe."
+    },
+    {
+      "id": "INT-0038",
+      "type": "conflict",
+      "techniques": [
+        "AIT-0085",
+        "AIT-0101"
+      ],
+      "rationale": "Debate can encourage forced convergence/persuasion whereas good evaluation often needs preserved disagreement.",
+      "evaluation": "Measure truth/human agreement, not consensus rate."
+    },
+    {
+      "id": "INT-0039",
+      "type": "conflict",
+      "techniques": [
+        "AIT-0098",
+        "AIT-0028"
+      ],
+      "rationale": "Using the same model/config as author and judge increases correlated blind spots.",
+      "evaluation": "Distinct evidence/model/provider or deterministic checks for material reviews."
+    },
+    {
+      "id": "INT-0040",
+      "type": "conflict",
+      "techniques": [
+        "AIT-0126",
+        "AIT-0128"
+      ],
+      "rationale": "Synthetic generation without real-data anchors raises model-collapse/distribution-tail risk.",
+      "evaluation": "Synthetic/real mix ablation."
+    },
+    {
+      "id": "INT-0041",
+      "type": "conflict",
+      "techniques": [
+        "AIT-0131",
+        "AIT-0210"
+      ],
+      "rationale": "Fine-tuning mutable knowledge into weights conflicts with Agent OS's need for reversible, current, provenance-rich knowledge.",
+      "evaluation": "Default to external memory; training only stable behavior."
+    },
+    {
+      "id": "INT-0042",
+      "type": "conflict",
+      "techniques": [
+        "AIT-0194",
+        "AIT-0195",
+        "AIT-0210"
+      ],
+      "rationale": "Weight editing for personal/current facts conflicts with auditable external knowledge and accumulates forgetting risk.",
+      "evaluation": "Require compelling offline appliance use case."
+    },
+    {
+      "id": "INT-0043",
+      "type": "conflict",
+      "techniques": [
+        "AIT-0197",
+        "AIT-0053"
+      ],
+      "rationale": "Extending context windows can tempt all-context prompting, while JIT retrieval often remains cheaper and more reliable.",
+      "evaluation": "Compare full-long-context vs retrieval on actual tasks."
+    },
+    {
+      "id": "INT-0044",
+      "type": "conflict",
+      "techniques": [
+        "AIT-0221",
+        "AIT-0001"
+      ],
+      "rationale": "Emotion/stakes language can alter behavior unpredictably and conflicts with clean direct production instructions.",
+      "evaluation": "Keep only as controlled research condition."
+    },
+    {
+      "id": "INT-0045",
+      "type": "conflict",
+      "techniques": [
+        "AIT-0229",
+        "AIT-0201"
+      ],
+      "rationale": "Recitation competes with retrieval for factual tasks; retrieval has stronger provenance/freshness.",
+      "evaluation": "Use recitation only closed-book research."
+    },
+    {
+      "id": "INT-0046",
+      "type": "dependency",
+      "techniques": [
+        "AIT-0068",
+        "AIT-0078"
+      ],
+      "rationale": "Checkpointed retryable workflows require idempotent side effects; resumability alone can make duplication worse.",
+      "evaluation": "Exactly-once/idempotency fault tests."
+    },
+    {
+      "id": "INT-0047",
+      "type": "dependency",
+      "techniques": [
+        "AIT-0020",
+        "AIT-0075"
+      ],
+      "rationale": "Parallel section generation needs explicit merge/coherence checks; independence is an assumption to validate.",
+      "evaluation": "Cross-section contradiction test."
+    },
+    {
+      "id": "INT-0048",
+      "type": "dependency",
+      "techniques": [
+        "AIT-0058",
+        "AIT-0133"
+      ],
+      "rationale": "Memory consolidation depends on provenance and promotion gates; compression without them can make errors durable.",
+      "evaluation": "Source recovery and candidate-promotion tests."
+    },
+    {
+      "id": "INT-0049",
+      "type": "dependency",
+      "techniques": [
+        "AIT-0020",
+        "AIT-0110"
+      ],
+      "rationale": "Aggressive optimization/fan-out should be constrained by reliability/error budgets when production quality degrades.",
+      "evaluation": "Budget policy test."
+    },
+    {
+      "id": "INT-0050",
+      "type": "dependency",
+      "techniques": [
+        "AIT-0059",
+        "AIT-0102"
+      ],
+      "rationale": "Forgetting/retention tuning needs protected memory holdouts or it will optimize toward current queries and erase rare future-use information.",
+      "evaluation": "Long-horizon retained-needed cases."
+    }
+  ]
+}
