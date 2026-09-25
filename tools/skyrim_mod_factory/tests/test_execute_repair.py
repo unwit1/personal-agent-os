@@ -372,5 +372,44 @@ class ExecuteRepairTests(unittest.TestCase):
         self.assertEqual(finalized["result"]["status"],"escalated")
 
 
+    def test_finalize_repair_promotes_eligible_validated_bug(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            bug={
+                "schema_version":"skyrim-bug-regression-v1",
+                "bug_id":"BUG-STALE",
+                "project_id":"fixture",
+                "build_id":"build-1",
+                "status":"root-caused",
+                "symptom":"stale generated output",
+                "environment":{},
+                "reproduction":[{"step":"change source input"}],
+                "evidence":["SKYRIM-GENERATED-OUTPUT-STALE"],
+                "root_cause":"cached generated artifact survived input change",
+                "layer":"generated-output",
+                "regression":{"analyzer_rule_id":RULE_ID},
+                "failing_task":"generate.records",
+            }
+            report={
+                "status":"passed",
+                "steps":[{"id":"generate.records","status":"passed","issue_codes":[]}],
+                "gates":[],
+            }
+            finalized=REPAIR.finalize_repair(
+                make_plan(),
+                report,
+                state_path=root/"execution-state.json",
+                execute_rollback=False,
+                bug=bug,
+            )
+            self.assertEqual(finalized["result"]["status"],"repaired")
+            self.assertTrue(finalized["result"]["regression_promoted"])
+            candidate=root/"regression-candidates"/"BUG-STALE.json"
+            self.assertTrue(candidate.exists())
+            packet=REPAIR.load(candidate)
+            self.assertEqual(packet["schema_version"],"skyrim-regression-candidate-v1")
+            self.assertEqual(packet["bug_id"],"BUG-STALE")
+
+
 if __name__=="__main__":
     unittest.main()
