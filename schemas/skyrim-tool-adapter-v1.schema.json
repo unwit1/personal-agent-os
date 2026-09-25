@@ -273,6 +273,47 @@
           "type": "string"
         }
       }
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "issue_code",
+          "pattern"
+        ],
+        "properties": {
+          "issue_code": {
+            "type": "string",
+            "pattern": "^[A-Z0-9][A-Z0-9._-]*$"
+          },
+          "pattern": {
+            "type": "string"
+          },
+          "stream": {
+            "enum": [
+              "stdout",
+              "stderr",
+              "combined"
+            ],
+            "default": "combined"
+          },
+          "severity": {
+            "enum": [
+              "BLOCKER",
+              "ERROR",
+              "WARNING",
+              "INFO"
+            ],
+            "default": "ERROR"
+          },
+          "analyzer_rule_id": {
+            "type": "string",
+            "pattern": "^SKYRIM-[A-Z0-9-]+$"
+          }
+        }
+      }
     }
   }
 }
