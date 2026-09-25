@@ -216,7 +216,7 @@ def test_creator_follow_builds_profile_correlates_discord_and_matches_alias(
             status = json.loads(response.read().decode("utf-8"))
 
         assert status["followed"] is True
-        assert status["matched_by"] == "high_confidence_alias"
+        assert status["matched_by"] == "profile_link"
         assert status["creator_id"] == creator["creator_id"]
     finally:
         server.shutdown()
