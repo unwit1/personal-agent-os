@@ -130,3 +130,52 @@ Generated `*_DISTR.ini`, `*_KID.ini`, etc. should contain a header indicating:
 - generator commit.
 
 Manual edits to generated files should be detected as drift and either imported back into semantic intent or overwritten on rebuild.
+
+## KID v1 renderer
+
+Implemented:
+- `tools/skyrim_mod_factory/render_kid.py`.
+
+Current parser evidence:
+- `powerof3/Keyword-Item-Distributor/src/LookupConfigs.cpp`;
+- `include/LookupConfigs.h`;
+- `include/Data/EnumDefs.h`.
+
+The current parser splits each value into:
+1. keyword form;
+2. target type;
+3. filters;
+4. traits;
+5. chance.
+
+The source currently enumerates 19 target categories:
+Armor, Weapon, Ammo, Magic Effect, Potion, Scroll, Location, Ingredient, Book, Misc Item, Key, Soul Gem, Spell, Activator, Flora, Furniture, Race, Talking Activator and Enchantment.
+
+The renderer intentionally retains filter/trait expressions as source-grammar strings until their underlying distribution-library grammar is modeled as an AST.
+
+## BOS v1 base-form renderer
+
+Implemented:
+- `tools/skyrim_mod_factory/render_bos.py`.
+
+Current parser evidence:
+- `powerof3/BaseObjectSwapper/src/Manager.cpp`;
+- `src/SwapData.cpp`;
+- `src/ConditionalData.cpp`;
+- `src/Util.cpp`.
+
+Supported by this first renderer:
+- `[Forms]` swaps;
+- conditional `[Forms|condition,...]`;
+- comma-separated base sets;
+- comma-separated swap sets;
+- source-verified `FormID~Plugin` and EditorID identities;
+- raw properties/chance tail fields.
+
+Not generated yet:
+- reference-specific swap sections;
+- `Transforms`;
+- `Properties`;
+- typed transform/property/chance subgrammars.
+
+Those remain explicit future work rather than being inferred from examples.
