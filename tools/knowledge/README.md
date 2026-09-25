@@ -4,60 +4,11 @@ These scripts convert authoritative or high-value source material into **candida
 
 They deliberately do not auto-promote generated facts into canonical knowledge. Generated data must retain exact source provenance and pass validation/reconciliation first.
 
-## LEGO Minifigure Reference Corpus
+## LEGO / Brickmen integration
 
-### ingest_lego_minifigure_references.py
+LEGO customs and custom-minifigure knowledge extraction tooling is canonical in `unwit1/brickmen`.
 
-Input: current Rebrickable bulk CSV directory.
-
-Core output:
-- physical figure census;
-- component-level minifigure inventories where bulk part tables are present;
-- figure and component image URL manifests;
-- set/theme relationships;
-- SQLite research index;
-- source-file hashes and coverage report.
-
-This is the bulk physical-reference spine. Raw images are not mirrored by this importer.
-
-### materialize_lego_reference_images.py
-
-Input: JSONL reference manifest containing exact source image URLs.
-
-Behavior:
-- exact URLs only;
-- no crawling;
-- explicit `--allow-host` source review;
-- rate-limited requests;
-- SHA-256 content-addressed storage;
-- keeps all source occurrences while deduplicating exact bytes.
-
-### dedupe_lego_reference_images.py
-
-Adds deterministic perceptual dHash values to local image records for near-duplicate review. Requires Pillow. It never deletes or merges records automatically.
-
-### index_ldraw_minifig_patterns.py
-
-Indexes patterned minifigure components in a local LDraw Parts Library, preserves LDraw author/license headers, and can optionally render local previews with LDView.
-
-LDraw is a community reconstruction source; LDraw `Official` does not mean LEGO-authored or LEGO-approved.
-
-### index_ttgames_minifigure_assets.py
-
-Indexes already-extracted files from a legally obtained local TT Games LEGO installation. It hashes/ranks texture, model and metadata candidates for later character resolution and canonical-view rendering.
-
-It does not bypass DRM or extract proprietary archives itself.
-
-### extract_lego_film_reference_frames.py
-
-Requires ffmpeg/ffprobe and a legally obtained local film/video.
-
-Extracts:
-- fixed-interval coverage frames;
-- scene-change frames;
-- source/frame SHA provenance.
-
-Raw frames remain local. Character detection, crops, perceptual dedupe, costume/expression clustering and physical counterpart resolution are later stages.
+Agent OS should route LEGO/custom-minifigure ingestion and research jobs to Brickmen rather than maintaining duplicate local tool copies or canonical LEGO datasets here. Cross-project orchestration may reference Brickmen outputs through stable repository paths/provenance.
 
 ## Skyrim Knowledge Extraction
 
@@ -111,32 +62,3 @@ Generated high-volume output should normally live in local/index storage unless 
 source -> extractor/indexer -> candidate JSON/SQLite/Markdown -> dedupe/version comparison -> validation -> reviewed canonical knowledge
 
 Do not skip validation merely because the source is authoritative: the extractor itself can misparse or omit semantics.
-
-## LEGO visual corpus post-processing
-
-### build_minifigure_reference_sets.py
-Ranks normalized assets by authority/quality and builds one canonical ReferenceSet per official visual sample, with preferred evidence plus alternates and explicit missing views.
-
-### extract_minifigure_visual_features.py
-Pillow/NumPy baseline for auditable palette, edge-density, symmetry, coverage, blur and downsample-survivability features.
-
-### embed_minifigure_reference_images.py
-Builds a versioned embedding matrix for local DerivedAssets using a pinned Transformers image backbone such as DINOv3 or SigLIP2. Keep different embedding models in separate indexes.
-
-### build_minifigure_training_splits.py
-Creates stable hash-based grouped train/validation/test assignments. Use OutfitDesign for normal evaluation and separate character/theme/mask-family groupings for harder benchmarks.
-
-### discover_flashpoint_lego_webgames.py
-Read-only search of a local Flashpoint database for LEGO-related preserved browser-game candidates. Archive presence is discovery evidence, not proof of LEGO provenance.
-
-### index_lego_webgame_assets.py
-Hashes a locally preserved/unpacked browser game and routes SWF, Director/Shockwave, Unity, Java/JAR, HTML5, image, texture and model files toward appropriate extractors.
-
-### enrich_bricklink_minifigure_references.py
-Optional OAuth-backed BrickLink enrichment for minifigure catalog images, subsets/components and color-specific part images. Credentials are read from environment variables only.
-
-### discover_lego_instruction_references.py
-Finds official LEGO building-instruction PDF URLs for sets containing minifigures without downloading the PDFs.
-
-### discover_lego_page_media.py
-Non-crawling media discovery for explicit LEGO.com pages, suitable for press assets, game/film pages, designer interviews and curated product pages.
