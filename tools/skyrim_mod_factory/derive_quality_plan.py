@@ -52,8 +52,8 @@ OUTPUT_GATES={
 LAYER_ADAPTERS={
  "records":(["housecarl","mutagen","spriggit","xdump","xedit"],["synthesis","mutagen-analyzers"]),
  "runtime-patching":(["xdump","xedit","housecarl"],["devbench","skylink-ai"]),
- "papyrus":(["papyrus-vscode","papyrus-utility","official-papyruscompiler","caprica","champollion"],["lilac","bind","devbench","skylink-ai"]),
- "native":(["devbench","skylink-ai","crash-logger"],["tracy","renderdoc"]),
+ "papyrus":(["pyro","papyrus-vscode","official-papyruscompiler","caprica","champollion"],["papyrus-utility","lilac","bind","devbench","skylink-ai"]),
+ "native":(["commonlib-cmake-configure","commonlib-cmake-build","crash-logger"],["devbench","skylink-ai","tracy","renderdoc"]),
  "ui":(["devbench","skylink-ai"],["autotest"]),
  "animation":(["pandora","devbench"],["autotest"]),
  "behavior":(["pandora","devbench"],["skylink-ai"]),
@@ -211,6 +211,20 @@ def derive(manifest):
         gates.add("G04"); add_reason(reasons,"G04",f"plugin_policy:{pp.get('kind')}")
     if pp.get("localized"):
         static.append("validate STRINGS/DLSTRINGS/ILSTRINGS closure and localization keys")
+
+    framework_ids={str(x.get("id","")).lower() for x in manifest.get("frameworks",[]) if isinstance(x,dict)}
+    if framework_ids & {"papyrus-extender","po3-papyrus-extender","powerofthree-papyrus-extender"}:
+        supporting.append("papyrus-extender")
+        static.extend([
+            "verify Papyrus Extender provider PSC/PEX generation matches the pinned API snapshot",
+            "verify every used native declaration maps to an installed runtime provider"
+        ])
+        runtime.extend([
+            "verify Papyrus Extender DLL loads and registers required natives",
+            "read back at least one project-used Papyrus Extender operation on a disposable fixture"
+        ])
+        mutations.append("Papyrus Extender PSC present but native provider missing/incompatible")
+        invalid.append("Papyrus Extender version/runtime/provider API changes")
 
     persistence=manifest.get("persistence") or {}
     if any(persistence.get(k) for k in ("uses_save_state","uses_skse_cosave","uses_external_state")):
