@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-build-dag-v1.schema.json",
+  "title": "Skyrim Mod Factory Build DAG v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project_id",
+    "nodes"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-build-dag-v1"
+    },
+    "project_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "phase",
+          "action",
+          "depends_on",
+          "adapters",
+          "gates",
+          "invalidated_by"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._-]*$"
+          },
+          "phase": {
+            "enum": [
+              "preflight",
+              "source",
+              "generate",
+              "validate",
+              "integrate",
+              "runtime",
+              "package",
+              "release"
+            ]
+          },
+          "action": {
+            "type": "string"
+          },
+          "layers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "depends_on": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "adapters": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "gates": {
+            "type": "array",
+            "items": {
+              "pattern": "^G[0-9]{2}$"
+            },
+            "uniqueItems": true
+          },
+          "invalidated_by": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "parallel_group": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
