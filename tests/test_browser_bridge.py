@@ -222,3 +222,133 @@ def test_creator_follow_builds_profile_correlates_discord_and_matches_alias(
         server.shutdown()
         server.server_close()
         thread.join(timeout=5)
+
+
+
+def test_browser_control_session_and_command_round_trip(tmp_path: Path) -> None:
+    store = BridgeStore(tmp_path / "bridge.sqlite")
+    session = {
+        "session_id": "browser-test-session",
+        "url": "https://example.com/start",
+        "title": "Example",
+        "site": "example.com",
+        "visibility": "visible",
+        "focused": True,
+        "user_agent": "pytest",
+        "capabilities": {
+            "protocol": "agent-os/browser-control/v1",
+            "ops": ["inspect", "click", "type"],
+        },
+    }
+
+    registered = store.register_session(session)
+    assert registered == {"ok": True, "session_id": "browser-test-session"}
+
+    sessions = store.list_sessions(active_within_seconds=90)
+    assert sessions[0]["session_id"] == "browser-test-session"
+    assert sessions[0]["active"] is True
+    assert sessions[0]["focused"] is True
+    assert sessions[0]["capabilities"]["protocol"] == "agent-os/browser-control/v1"
+
+    queued = store.enqueue_command(
+        "browser-test-session",
+        [
+            {"op": "type", "selector": "input[name=q]", "text": "skyrim mods"},
+            {"op": "click", "selector": "button[type=submit]"},
+        ],
+        issued_by="pytest",
+    )
+    assert queued["state"] == "queued"
+
+    claimed = store.claim_commands("browser-test-session")
+    assert len(claimed) == 1
+    assert claimed[0]["command_id"] == queued["command_id"]
+    assert claimed[0]["state"] == "running"
+    assert store.claim_commands("browser-test-session") == []
+
+    completed = store.complete_command(
+        queued["command_id"],
+        state="completed",
+        result={"actions": [{"typed": True}, {"clicked": True}]},
+    )
+    assert completed["state"] == "completed"
+    assert completed["result"]["actions"][0]["typed"] is True
+
+
+def test_browser_control_http_poll_and_result(tmp_path: Path) -> None:
+    store = BridgeStore(tmp_path / "bridge.sqlite")
+    server, token, _ = build_server(
+        "127.0.0.1",
+        0,
+        store=store,
+        token="browser-control-test-token",
+    )
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    port = server.server_address[1]
+
+    try:
+        session_url = f"http://127.0.0.1:{port}/api/v1/browser/session"
+        session_body = json.dumps({
+            "session_id": "browser-http-session",
+            "url": "https://example.com/",
+            "title": "Example",
+            "site": "example.com",
+            "visibility": "visible",
+            "focused": True,
+            "capabilities": {"ops": ["inspect"]},
+        }).encode("utf-8")
+        request = urllib.request.Request(
+            session_url,
+            data=session_body,
+            headers={
+                "Content-Type": "application/json",
+                "X-Agent-OS-Token": token,
+            },
+            method="POST",
+        )
+        with urllib.request.urlopen(request, timeout=5) as response:
+            assert json.loads(response.read().decode("utf-8"))["ok"] is True
+
+        queued = store.enqueue_command(
+            "browser-http-session",
+            [{"op": "inspect"}],
+            issued_by="pytest",
+        )
+        poll_url = (
+            f"http://127.0.0.1:{port}/api/v1/browser/commands"
+            "?session_id=browser-http-session"
+        )
+        poll_request = urllib.request.Request(
+            poll_url,
+            headers={"X-Agent-OS-Token": token},
+            method="GET",
+        )
+        with urllib.request.urlopen(poll_request, timeout=5) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+        assert payload["commands"][0]["command_id"] == queued["command_id"]
+
+        result_url = f"http://127.0.0.1:{port}/api/v1/browser/command-result"
+        result_request = urllib.request.Request(
+            result_url,
+            data=json.dumps({
+                "command_id": queued["command_id"],
+                "state": "approval_required",
+                "result": {"risk": "purchase"},
+                "error": "approval required before clicking: purchase",
+            }).encode("utf-8"),
+            headers={
+                "Content-Type": "application/json",
+                "X-Agent-OS-Token": token,
+            },
+            method="POST",
+        )
+        with urllib.request.urlopen(result_request, timeout=5) as response:
+            result = json.loads(response.read().decode("utf-8"))
+
+        assert result["state"] == "approval_required"
+        assert result["result"]["risk"] == "purchase"
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=5)
