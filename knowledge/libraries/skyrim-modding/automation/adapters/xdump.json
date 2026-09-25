@@ -1,0 +1,97 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "xdump",
+  "tool": "xEdit xDump/xExport",
+  "tool_version": "4.1.5f",
+  "source": "https://github.com/TES5Edit/TES5Edit",
+  "targets": [
+    "skyrim-le",
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "plugin-definition-export",
+    "raw-schema-export",
+    "uespwiki-schema-export",
+    "record-dump",
+    "official-master-decode",
+    "schema-oracle",
+    "record-filtered-dump"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "arguments_template": [
+      "-Export",
+      "-{game_mode}",
+      "RAW"
+    ],
+    "transport": "xEdit xDump CLI",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "xEdit game mode",
+    "optional plugin/master file",
+    "record filter"
+  ],
+  "outputs": [
+    "plugin-definition dump",
+    "decoded record dump",
+    "stdout/stderr",
+    "capture metadata"
+  ],
+  "logs": [
+    "stdout",
+    "stderr"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 1,
+    "cleanup_outputs_first": true
+  },
+  "auto_fixable_issue_codes": [
+    "SCHEMA_SNAPSHOT_STALE"
+  ],
+  "destructive_actions": [],
+  "human_checks": [
+    "interpretation of game semantics after structural schema validation"
+  ],
+  "coverage": {
+    "description": "Independent xEdit-native schema/record oracle. Export mode dumps xEdit's own resolved plugin definition; Dump mode decodes selected records.",
+    "known_gaps": [
+      "RAW/UESPWIKI export describes schema, not gameplay intent",
+      "current xEdit schema itself can contain version-specific gaps and must be pinned"
+    ],
+    "denominator_probe": "requested record signatures vs dumped definitions/records; selected plugins vs successfully loaded plugins"
+  },
+  "safety": {
+    "mutation_default": "read-only",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Read-only oracle; decoded official-master dumps remain local/high-volume and are not committed wholesale."
+  },
+  "verification": {
+    "independent_validators": [
+      "mutagen",
+      "spriggit"
+    ],
+    "version_probe": "xEdit release/tag and executable SHA-256",
+    "output_readback": "Capture command, executable hash, source tag and dump output hash."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Use as independent schema oracle rather than primary mutation backend."
+  },
+  "evidence": {
+    "source_url": "https://github.com/TES5Edit/TES5Edit/releases",
+    "verified_date": "2026-09-24",
+    "notes": "xEdit 4.1.5f is current stable release observed; repository already contains capture_xedit_schema.py and capture_skyrim_master_records.py wrappers."
+  }
+}
