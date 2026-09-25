@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-tool-adapter-registry-v1.schema.json",
+  "title": "Skyrim Executable Tool Adapter Registry v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "snapshot_date",
+    "adapters"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-tool-adapter-registry-v1"
+    },
+    "snapshot_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "adapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "adapter_id",
+          "tool",
+          "capabilities",
+          "invocation",
+          "evidence"
+        ],
+        "properties": {
+          "adapter_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._-]*$"
+          },
+          "tool": {
+            "type": "string",
+            "minLength": 1
+          },
+          "capabilities": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "invocation": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "executable"
+            ],
+            "properties": {
+              "mode": {
+                "enum": [
+                  "cli",
+                  "hybrid"
+                ]
+              },
+              "executable": {
+                "type": "string",
+                "minLength": 1
+              },
+              "arguments_template": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "logs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "retry": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "safe": {
+                "type": "boolean"
+              },
+              "max_attempts": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "cleanup_outputs_first": {
+                "type": "boolean"
+              }
+            }
+          },
+          "human_checks": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "source_url",
+              "verified_date"
+            ],
+            "properties": {
+              "source_url": {
+                "type": "string",
+                "minLength": 1
+              },
+              "verified_date": {
+                "type": "string",
+                "format": "date"
+              },
+              "notes": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
