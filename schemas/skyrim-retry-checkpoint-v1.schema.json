@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-retry-checkpoint-v1.schema.json",
+  "title": "Skyrim Mod Factory Retry Checkpoint v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "node_id",
+    "adapter_id",
+    "attempt",
+    "created_at",
+    "status",
+    "outputs_before",
+    "outputs_after",
+    "output_mutated",
+    "decision"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-retry-checkpoint-v1"
+    },
+    "node_id": {
+      "type": "string"
+    },
+    "adapter_id": {
+      "type": "string"
+    },
+    "attempt": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "enum": [
+        "failed",
+        "passed",
+        "skipped",
+        "needs-review"
+      ]
+    },
+    "outputs_before": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "outputs_after": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "output_mutated": {
+      "type": "boolean"
+    },
+    "decision": {
+      "enum": [
+        "return",
+        "retry",
+        "stop-for-rollback"
+      ]
+    }
+  }
+}
