@@ -1,0 +1,72 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "bos",
+  "tool": "Base Object Swapper typed-config renderer",
+  "source": "https://github.com/powerof3/BaseObjectSwapper",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "bos-config-generate",
+    "bos-intent-validate",
+    "base-object-swap-config"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "python",
+    "arguments_template": [
+      "tools/skyrim_mod_factory/render_bos.py",
+      "{intent}",
+      "--output",
+      "{output}"
+    ],
+    "transport": "local deterministic renderer + BOS runtime parser",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "skyrim-runtime-patch-intent-v1 framework=bos"
+  ],
+  "outputs": [
+    "_SWAP.ini"
+  ],
+  "logs": [
+    "renderer stderr",
+    "BOS runtime log"
+  ],
+  "coverage": {
+    "description": "Typed renderer for BOS form-swap sections/conditions modeled by current schema.",
+    "known_gaps": [
+      "reference/property-only BOS sections are intentionally not generated yet",
+      "raw BOS property/chance fields still require upstream grammar validation"
+    ],
+    "denominator_probe": "intent entries vs rendered swaps vs BOS runtime accepted/rejected rules."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Canonical source is typed intent JSON."
+  },
+  "verification": {
+    "independent_validators": [
+      "bos-runtime-parser",
+      "form-resolution",
+      "runtime-reference-base-query"
+    ],
+    "version_probe": "grammar_source snapshot + installed BOS version",
+    "output_readback": "Verify positive/negative placed-reference swaps."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Deterministic semantic BOS config generation."
+  },
+  "evidence": {
+    "source_url": "https://github.com/powerof3/BaseObjectSwapper",
+    "verified_date": "2026-09-24",
+    "notes": "Local renderer exists at render_bos.py; deliberately partial BOS coverage."
+  }
+}
