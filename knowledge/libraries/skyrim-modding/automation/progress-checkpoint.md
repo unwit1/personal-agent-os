@@ -12,14 +12,14 @@ The broad knowledge-ingestion phase is already mature. Resume from the executabl
 ## Current measured repository state
 
 - Skyrim terminology/reference modules: **165**
-- Tool/framework capability entries: **54**
+- Tool/framework capability entries: **57**
 - Implementation patterns: **46**
 - Analyzer rules: **24**
 - Validation gates: **30** (G00–G29)
 - Skyrim-specific JSON Schemas: **41**
-- Mod Factory Python tools: **39**
-- Mod Factory unit-test modules: **33**
-- Dedicated adapter manifests: **50** plus capability-only/manual/framework entries
+- Mod Factory Python tools: **42**
+- Mod Factory unit-test modules: **36**
+- Dedicated adapter manifests: **53** plus capability-only/manual/framework entries
 
 These are repository counts, not estimates of ecosystem completeness.
 
@@ -45,15 +45,15 @@ These are repository counts, not estimates of ecosystem completeness.
 | Generic adapter execution | **M4** | DAG executor now has end-to-end fake-toolchain coverage, typed artifact contracts, per-node checkpoint/resume, content-hash invalidation and mutation-aware retry checkpoints. |
 | Validation gates | **M4** | G00–G29 are machine-readable and evidence-aware; required blocking warnings prevent a final PASS. |
 | Schema triangulation | **M4 static baseline** | xEdit Check-for-Errors parser/wrapper, xDump semantic producer, pinned Mutagen semantic producer, canonical FormKey reconciliation, coverage-aware cross-oracle comparison and reusable FormID/master/ESL/CTDA/VMAD analyzers are implemented/tested. CK/runtime quorum remains P1 runtime work. |
-| Runtime patch config generation | M4 partial | Typed intent plus deterministic SPID/KID/BOS renderers; FLM/SkyPatcher/OAR and more still need typed renderers. |
+| Runtime patch config generation | M4 partial | Typed intent plus deterministic SPID/KID/BOS/FLM/OAR renderers. SkyPatcher and deeper provider-specific condition/combination typing remain. |
 | Static plugin generation | M3 | Mutagen/houseCARL/Synthesis/Spriggit architecture and adapters exist; generic semantic record generator is not yet universal. |
 | Papyrus build automation | M4 static | Pyro/compiler/tooling adapters plus PSC property extraction, typed symbol inventories and inheritance-aware VMAD binding validation; runtime binding behavior still needs the game harness. |
 | Native SKSE build automation | M3/M4 | CommonLib/CMake configure/build adapters; runtime hook assertion still requires game harness. |
 | Mesh/NIF/TRI automation | M2/M3 | PyNifly/Blender/NifSkope/CAO adapters and invariants documented; universal validator/repair pass still incomplete. |
-| Texture/material automation | M2/M3 | DirectXTex/ParallaxGen/renderer knowledge exists; asset-generation + visual validation loop remains incomplete. |
+| Texture/material automation | M3/M4 static | DirectXTex/ParallaxGen/renderer knowledge plus deterministic DDS header/DXGI/mipmap/block-payload validator. Pixel/channel semantics and visual validation loop remain incomplete. |
 | Animation/behavior automation | M3 | Pandora/OAR ecosystem mapped; behavior generation runnable; runtime movement/contact validation remains necessary. |
 | Creation Kit world/navmesh/quest automation | M2 | CK/CKPE bridge design and adapters exist, but reliable headless authoring worker is not complete. |
-| Runtime testing | M2/M3 | devbench/SkyTest/SkyLink/SkyrimNet/AutoTest research/adapters; local Windows/MO2 closed-loop harness still not production-ready. |
+| Runtime testing | **M4 harness baseline** | Typed MO2 disposable-session manager, DevBench observer, composite MO2+DevBench runner, runtime observation merge, evidence snapshots/deltas, G19 source coverage, scoped G20/G21/G26 assertions, screenshots/artifacts and cleanup/force-kill paths have regression tests. Real user-machine MO2/game qualification and broader observers remain pending. |
 | Crash/log diagnosis | M2/M3 | Error catalog/analyzer rules exist; generic parser + signature clustering by build ID remains incomplete. |
 | Save migration validation | M2/M3 | ESS/Fallrim knowledge, schemas and gate policy exist; automated migration fixture runner needs integration. |
 | Auto repair planning | **M4** | Evidence-first planner is typed/tested and selects automatic mutation only when a registered reversible handler and provable postconditions exist. |
@@ -103,7 +103,10 @@ Small frequent commits now exist for:
 32. CTDA full-predicate schema/analyzer + mutation tests;
 33. VMAD/Papyrus symbol schemas + inheritance-aware binding analyzer/tests;
 34. PSC property extraction + schema-valid Papyrus symbol inventory output;
-35. project-plugin xDump semantic export wrapper + adapter.
+35. project-plugin xDump semantic export wrapper + adapter;
+36. typed FLM intent/schema coverage, deterministic *_FLM.ini renderer, tests and adapter registration;
+37. typed OAR root/submod author-config baseline, safe config-tree renderer, tests and adapter registration;
+38. deterministic DDS structural validator with DX10/DXGI identity, mip policy, block-payload truncation checks, LE BC7 policy, tests and adapter registration.
 
 ## Current resume point
 
@@ -125,7 +128,7 @@ The original P0 baseline is now implemented:
 
 Important scope boundary: **P0 completion does not mean the entire Mod Factory is M5.** Automatic mutation remains deliberately limited to registered reversible handlers, and the runtime/visual/CK parts below still need executable harnesses and validators.
 
-Operational CI note (2026-09-24): GitHub Actions workflow files are configured and the Mod Factory workflow now installs `jsonschema`, but current Actions jobs are ending without an assigned runner/steps (`runner_id=0`). Do not treat those no-runner failures as test evidence. Re-run the suite once runner availability is restored.
+Operational CI note (rechecked 2026-09-25): GitHub Actions workflow files are configured, but current Actions jobs are still ending without an assigned runner/steps (`runner_id=0`). Do not treat those no-runner failures as test evidence. Re-run the suite once runner availability is restored.
 
 ## Current resume point
 
@@ -145,24 +148,30 @@ Implemented after P0:
 6. typed full/light load-order FormID map and canonical conversion to Mutagen-compatible `localID:ModKey` FormKeys;
 7. typed semantic-diff report with fail-closed identity comparability;
 8. semantic-field intersection logic so producer-private evidence does not create false cross-oracle diffs;
-9. pinned .NET 8 / Mutagen 0.52.0 semantic oracle emitting canonical FormKeys, signatures, EditorIDs and listed asset links;
+9. pinned .NET 8 / Mutagen 0.54.4 semantic oracle emitting canonical FormKeys, signatures, EditorIDs and listed asset links;
 10. Python wrapper + unit tests for the Mutagen oracle;
 11. Mod Factory CI now restores/builds the pinned Mutagen oracle in addition to Python/schema tests.
 
 Remaining static-oracle depth: expand the shared semantic field intersection beyond EditorID + listed asset paths into record flags, VMAD/scripts/properties, localized string identity, and selected high-value record-family fields. Do not compare fields a producer has not explicitly declared.
 
-### P1 — Runtime harness
+### P1 — Runtime harness — EXECUTABLE BASELINE IMPLEMENTED
 
-Build the Windows-first MO2 test worker that can:
-- launch a dedicated disposable profile;
-- select test save/new-game fixture;
-- run scripted actions;
-- wait for state/events;
-- query forms/quests/actors/logs;
-- take screenshots;
-- capture crash logs and frame-time traces;
-- restore fixture/profile state;
-- feed typed runtime assertions to G19/G20/G21/G26.
+Implemented:
+- ✅ disposable MO2 profile/session preparation with fixture copying and process exclusivity;
+- ✅ typed session-result and runtime-observation contracts;
+- ✅ evidence snapshots/deltas and G19 source-coverage checks;
+- ✅ DevBench scenario compilation, health/identity checks, typed assertions and artifact capture;
+- ✅ composite MO2 + DevBench runner with screenshot/evidence collection;
+- ✅ scoped G20/G21/G26 assertion-to-gate merge;
+- ✅ cleanup plus bounded force-kill recovery paths;
+- ✅ regression tests around the harness components.
+
+Remaining runtime depth:
+- qualify the harness on the user's actual Windows/MO2/Skyrim installation;
+- add first-class PresentMon/frame-trace lifecycle integration rather than treating traces only as collected artifacts;
+- add more observer backends where DevBench is not available;
+- expand save/new-game migration fixtures and crash-signature ingestion;
+- prove end-to-end release gates against real game runs before calling runtime testing M5.
 
 ### P1 — Static/schema oracles — BASELINE COMPLETE
 
@@ -182,9 +191,9 @@ Static-oracle scope boundary: current cross-producer semantic intersection is in
 ### P1 — High-value deterministic generators
 
 Complete typed renderers/generators for:
-- FLM;
+- ✅ FLM baseline (source-pinned typed renderer + adapter);
 - SkyPatcher;
-- OAR;
+- ✅ OAR author-config baseline (source-pinned root/submod config generator + adapter; condition-specific schemas remain);
 - ✅ FOMOD baseline (typed renderer + XSD validation + option-matrix simulator);
 - common xEdit/Mutagen static patch patterns;
 - ✅ MCM Helper config/settings baseline;
@@ -198,7 +207,7 @@ Add deterministic validation for:
 - NIF blocks/shaders/texture closure;
 - TRI vertex/topology consistency;
 - skin partitions/weights/skeleton bones;
-- DDS format/mipmap/channel semantics;
+- ✅ DDS header/DXGI/mipmap/block-payload structural baseline; decoded channel/role semantics remain;
 - animation skeleton/behavior/event dependencies.
 
 ### P2 — Continuous improvement
