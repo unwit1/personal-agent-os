@@ -19,7 +19,7 @@ def load_module(name, filename):
 
 QUALITY=load_module("quality","derive_quality_plan.py")
 DAG=load_module("dag","compile_build_dag.py")
-DOCTOR=load_module("doctor","doctor_toolchain.py")
+DOCTOR=load_module("doctor","doctor_toolchain.py")\nREADINESS=load_module("readiness","resolve_implementation_readiness.py")
 
 def uniq(xs):
     out=[]; seen=set()
@@ -212,7 +212,7 @@ def main():
       "ready_for_execution":supervised_ready,
       "ready_for_autonomous_execution":autonomous_ready,
       "requires_supervised_provider":supervised_ready and not autonomous_ready,
-      "artifacts":{"quality_plan":str(qpath),"build_dag":str(dpath)}
+      "artifacts":{"quality_plan":str(qpath),"build_dag":str(dpath),"implementation_readiness":str(ipath)}
     }
     rpath.write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(report,indent=2))
