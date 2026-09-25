@@ -276,6 +276,72 @@ def node_io(
         variables.setdefault("output_path",outputs[0])
     return inputs,outputs,variables
 
+def validate_artifact_contracts(
+    node:dict[str,Any],
+    context:dict[str,Any],
+)->list[dict[str,Any]]:
+    """Validate declared intermediate artifacts after a successful node."""
+    ncfg=(context.get("nodes") or {}).get(node["id"],{}) or {}
+    rows=[]
+    for contract in ncfg.get("artifact_contracts") or []:
+        path=Path(str(contract["path"]))
+        required=contract.get("required",True)
+        row={
+            "artifact":str(path),
+            "validator":contract["validator"],
+            "status":"pass",
+            "issues":[],
+        }
+        if not path.exists():
+            row["status"]="fail" if required else "not-applicable"
+            if required:
+                row["issues"].append("required artifact does not exist")
+            rows.append(row)
+            continue
+        if contract["validator"]=="json-schema":
+            schema_name=contract.get("schema")
+            schema_path=SCHEMAS/str(schema_name)
+            if not schema_name or not schema_path.is_file():
+                row["status"]="fail"
+                row["issues"].append(f"schema is unavailable: {schema_name}")
+                rows.append(row)
+                continue
+            try:
+                value=json.loads(path.read_text(encoding="utf-8"))
+            except (OSError,UnicodeError,json.JSONDecodeError) as exc:
+                row["status"]="fail"
+                row["issues"].append(f"artifact is not valid UTF-8 JSON: {exc}")
+                rows.append(row)
+                continue
+            row["issues"].extend(schema_errors(value,str(schema_name)))
+            if row["issues"]:
+                row["status"]="fail"
+        rows.append(row)
+    return rows
+
+def enforce_artifact_contracts(
+    step:dict[str,Any],
+    node:dict[str,Any],
+    context:dict[str,Any],
+)->dict[str,Any]:
+    if step.get("status")!="passed":
+        return step
+    checks=validate_artifact_contracts(node,context)
+    if not checks:
+        return step
+    step=copy.deepcopy(step)
+    step.setdefault("evidence",{})["artifact_contracts"]=checks
+    failures=[x for x in checks if x["status"]=="fail"]
+    if failures:
+        step["status"]="failed"
+        issues=step.setdefault("issues",[])
+        for row in failures:
+            detail="; ".join(row.get("issues") or ["validation failed"])
+            issues.append(
+                f"artifact contract failed for {row['artifact']} via {row['validator']}: {detail}"
+            )
+    return step
+
 def simple_step(node:dict[str,Any],status:str,issues:list[str]|None=None,**extra)->dict[str,Any]:
     row={
         "id":node["id"],
@@ -741,6 +807,7 @@ def main()->None:
                             "needs-review",
                             ["no built-in handler or executable adapter is defined for this node"],
                         )
+            step=enforce_artifact_contracts(step,node,context)
             if step.get("status")=="failed" and stop_on_failure:
                 hard_stop=True
 
