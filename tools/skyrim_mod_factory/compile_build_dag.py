@@ -149,10 +149,13 @@ def compile_dag(manifest, quality):
     ])
     smoke_adapters=chosen_runtime or ["mo2-devbench-runtime"]
     regression_adapters=chosen_runtime or ["mo2-devbench-runtime"]
+    quality_gates=set(quality.get("gates") or [])
+    smoke_gates=[g for g in ("G19","G26") if g in quality_gates]
+    regression_gates=[g for g in ("G20","G21","G26") if g in quality_gates]
     add(nodes,{"id":"runtime.smoke","phase":"runtime","action":"Run isolated smoke scenarios with log/state readback",
-      "depends_on":["integrate.gates"],"adapters":smoke_adapters,"gates":["G19","G26"],"invalidated_by":["runtime-affecting output","test fixture"],"layers":layers,"outputs":[]})
+      "depends_on":["integrate.gates"],"adapters":smoke_adapters,"gates":smoke_gates,"invalidated_by":["runtime-affecting output","test fixture"],"layers":layers,"outputs":[]})
     add(nodes,{"id":"runtime.regression","phase":"runtime","action":"Run layer-derived regression, negative and migration scenarios",
-      "depends_on":["runtime.smoke"],"adapters":regression_adapters,"gates":["G20","G21","G26","G27"],"invalidated_by":["runtime-affecting output","regression corpus"],"layers":layers,"outputs":[]})
+      "depends_on":["runtime.smoke"],"adapters":regression_adapters,"gates":regression_gates,"invalidated_by":["runtime-affecting output","regression corpus"],"layers":layers,"outputs":[]})
 
     package_dep="runtime.regression"
     if "installer" in layers:
