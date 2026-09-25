@@ -1407,6 +1407,400 @@
       "evidence_notes": "Iterative self-play contrasts model-generated outputs with human demonstrations to improve the policy without additional human labels.",
       "limits": "Self-generated training loops can amplify bias or narrow distributions without external anchors.",
       "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0154",
+      "title": "Let's Verify Step by Step",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.20050",
+      "topics": [
+        "process_supervision",
+        "reasoning",
+        "reward_models"
+      ],
+      "evidence_notes": "Process supervision outperformed outcome supervision on a MATH subset; released PRM800K with step-level labels and reported active-learning gains.",
+      "limits": "Math/reasoning setting; human step-label cost and transfer to open-ended agent tasks are unresolved.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0155",
+      "title": "DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2402.03300",
+      "topics": [
+        "GRPO",
+        "reasoning",
+        "RL"
+      ],
+      "evidence_notes": "Introduced GRPO and combined targeted math pretraining with RL; self-consistency and training improved mathematical reasoning.",
+      "limits": "Math-specialized setting; later RL methods may supersede parts of GRPO.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0156",
+      "title": "Group Sequence Policy Optimization",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2507.18071",
+      "topics": [
+        "GSPO",
+        "RL",
+        "alignment"
+      ],
+      "evidence_notes": "Sequence-level policy optimization reported more stable/efficient training than GRPO, especially for MoE RL.",
+      "limits": "Recent 2025 research and model-family dependence.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0157",
+      "title": "ORPO: Monolithic Preference Optimization without Reference Model",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2403.07691",
+      "topics": [
+        "preference_optimization",
+        "alignment"
+      ],
+      "evidence_notes": "Combines favored-style SFT with odds-ratio penalty for disfavored generations without a separate reference model/alignment phase.",
+      "limits": "Results depend on preference dataset and evaluation methodology.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0158",
+      "title": "SLiC-HF: Sequence Likelihood Calibration with Human Feedback",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.10425",
+      "topics": [
+        "preference_optimization",
+        "alignment"
+      ],
+      "evidence_notes": "Simpler likelihood-calibration approach using preference data, reported competitive TL;DR results versus PPO-based RLHF.",
+      "limits": "Task/domain limited and preference-loss landscape continues evolving.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0159",
+      "title": "RRHF: Rank Responses to Align Language Models with Human Feedback without tears",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2304.05302",
+      "topics": [
+        "preference_optimization",
+        "ranking"
+      ],
+      "evidence_notes": "Ranks sampled responses and aligns model likelihood ordering; simpler than PPO and highly dependent on candidate sampling quality.",
+      "limits": "Sampling quality is a major dependency; reward/human evaluation limitations remain.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0160",
+      "title": "Making Large Language Models Better Reasoners with Step-Aware Verifier",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2206.02336",
+      "topics": [
+        "verifier",
+        "reasoning",
+        "process_evaluation"
+      ],
+      "evidence_notes": "DIVERSE uses diverse reasoning paths plus step-aware verification and weighted voting; reported gains across reasoning benchmarks.",
+      "limits": "Older model regime and expensive multi-path inference.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0161",
+      "title": "Monte Carlo Tree Search Boosts Reasoning via Iterative Preference Learning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2405.00451",
+      "topics": [
+        "MCTS",
+        "reasoning",
+        "preference_learning"
+      ],
+      "evidence_notes": "Uses MCTS to derive step-level preference signals and DPO for iterative reasoning improvement.",
+      "limits": "High search/training cost; arithmetic/commonsense focus.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0162",
+      "title": "Contrastive Decoding: Open-ended Text Generation as Optimization",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2210.15097",
+      "topics": [
+        "decoding",
+        "generation"
+      ],
+      "evidence_notes": "Contrasts expert and amateur model likelihoods under plausibility constraint; reported higher human/automatic open-ended generation quality.",
+      "limits": "Requires compatible amateur model; newer instruction/reasoning models need re-evaluation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0163",
+      "title": "DoLa: Decoding by Contrasting Layers Improves Factuality",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2309.03883",
+      "topics": [
+        "decoding",
+        "factuality"
+      ],
+      "evidence_notes": "Contrasts later vs earlier layer logits at decoding time and reported truthfulness/factuality gains without retrieval or fine-tuning.",
+      "limits": "Requires internal logits/layer access and results are model/task dependent.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0164",
+      "title": "The Curious Case of Neural Text Degeneration",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1904.09751",
+      "topics": [
+        "decoding",
+        "nucleus_sampling"
+      ],
+      "evidence_notes": "Demonstrated degeneration from likelihood-maximizing decoding and introduced nucleus/top-p sampling for open-ended text.",
+      "limits": "Predates instruction-tuned frontier models; task-dependent decoding behavior.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0165",
+      "title": "Locally Typical Sampling",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2202.00666",
+      "topics": [
+        "decoding",
+        "sampling"
+      ],
+      "evidence_notes": "Information-theoretic typicality filter reported competitive quality and reduced repetition versus top-k/nucleus on studied tasks.",
+      "limits": "Open-ended generation focus; not necessarily appropriate for deterministic agent outputs.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0166",
+      "title": "Contrastive Search Is What You Need For Neural Text Generation",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2210.14140",
+      "topics": [
+        "decoding",
+        "contrastive_search"
+      ],
+      "evidence_notes": "Evaluated contrastive search across languages/tasks and reported strong open-ended generation without extra training for many models.",
+      "limits": "Open-ended generation focus; representation assumptions vary by model.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0167",
+      "title": "Representation Engineering: A Top-Down Approach to AI Transparency",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.01405",
+      "topics": [
+        "interpretability",
+        "activation_steering"
+      ],
+      "evidence_notes": "Frames population-level representation monitoring/manipulation for high-level behaviors and safety-relevant concepts.",
+      "limits": "Interpretability/steering evidence does not establish robust production control.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0168",
+      "title": "Steering Llama 2 via Contrastive Activation Addition",
+      "type": "research",
+      "url": "https://aclanthology.org/2024.acl-long.828/",
+      "topics": [
+        "activation_steering",
+        "behavior"
+      ],
+      "evidence_notes": "CAA derives behavior steering vectors from contrastive activations and reported strong behavioral shifts with limited capability loss on studied Llama 2 settings.",
+      "limits": "Requires weight/activation access; steering may have unintended off-target effects.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0169",
+      "title": "Locating and Editing Factual Associations in GPT (ROME)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2202.05262",
+      "topics": [
+        "knowledge_editing",
+        "mechanistic_interpretability"
+      ],
+      "evidence_notes": "Causal tracing identified factual association computations and ROME directly edited selected facts while testing specificity/generalization.",
+      "limits": "Editing many facts can degrade models; architecture-specific assumptions.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0170",
+      "title": "Mass Editing Memory in a Transformer (MEMIT)",
+      "type": "research",
+      "url": "https://memit.baulab.info/",
+      "topics": [
+        "knowledge_editing"
+      ],
+      "evidence_notes": "Extends direct model editing to many factual associations.",
+      "limits": "Sequential/mass editing can cause forgetting and editing degradation; precomputation cost exists.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0171",
+      "title": "Model Editing at Scale leads to Gradual and Catastrophic Forgetting",
+      "type": "research",
+      "url": "https://aclanthology.org/2024.findings-acl.902/",
+      "topics": [
+        "knowledge_editing",
+        "negative_result"
+      ],
+      "evidence_notes": "Large numbers of sequential ROME/MEMIT edits caused reduced editability, forgotten prior edits, and downstream performance degradation.",
+      "limits": "Specific methods/models; newer editors may differ.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0172",
+      "title": "Extending Context Window via Position Interpolation",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2306.15595",
+      "topics": [
+        "long_context",
+        "RoPE"
+      ],
+      "evidence_notes": "Position interpolation extends RoPE context by rescaling positions into trained range with limited fine-tuning and reported long-context gains.",
+      "limits": "Model architecture/fine-tuning specific; nominal context length does not guarantee useful retrieval/reasoning.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0173",
+      "title": "YaRN: Efficient Context Window Extension of Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2309.00071",
+      "topics": [
+        "long_context",
+        "RoPE"
+      ],
+      "evidence_notes": "RoPE scaling/fine-tuning method for efficient context extension with reduced training tokens/steps in original results.",
+      "limits": "Self-hosted model modification; useful context still requires behavioral evaluation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0174",
+      "title": "Mamba: Linear-Time Sequence Modeling with Selective State Spaces",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2312.00752",
+      "topics": [
+        "model_architecture",
+        "state_space"
+      ],
+      "evidence_notes": "Selective state-space architecture reported linear sequence scaling and strong throughput/performance at studied scales.",
+      "limits": "Architecture research; Transformer ecosystem and later hybrids may dominate specific tasks.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0175",
+      "title": "Improving language models by retrieving from trillions of tokens (RETRO)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2112.04426",
+      "topics": [
+        "retrieval_augmented_model",
+        "pretraining"
+      ],
+      "evidence_notes": "Retrieval-enhanced transformer used massive external datastore and matched much larger dense models on studied language-modeling settings.",
+      "limits": "Model-training architecture; large retrieval infrastructure.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0176",
+      "title": "Generalization through Memorization: Nearest Neighbor Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1911.00172",
+      "topics": [
+        "retrieval_augmented_model",
+        "kNN"
+      ],
+      "evidence_notes": "Interpolating LM predictions with nearest-neighbor datastore improved perplexity and enabled domain adaptation without retraining.",
+      "limits": "Older LM setting; datastore latency/memory.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0177",
+      "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "topics": [
+        "RAG",
+        "retrieval"
+      ],
+      "evidence_notes": "Foundational neural retriever + generator architecture for knowledge-intensive tasks.",
+      "limits": "Early RAG architecture; modern application RAG differs substantially.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0178",
+      "title": "AWQ: Activation-aware Weight Quantization",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2306.00978",
+      "topics": [
+        "quantization",
+        "local_inference"
+      ],
+      "evidence_notes": "Activation-aware low-bit weight quantization protects salient channels and reported strong quality plus >3x TinyChat speedups on studied hardware.",
+      "limits": "Hardware/kernel/model dependent.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0179",
+      "title": "SpecInfer",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.09781",
+      "topics": [
+        "speculative_inference",
+        "serving"
+      ],
+      "evidence_notes": "Tree-based speculative inference and parallel verification reported 1.5–3.5x serving speedups while preserving target-model distribution/performance.",
+      "limits": "Serving-stack complexity and acceptance depend on model/hardware.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0180",
+      "title": "Weak-to-Strong Generalization",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2312.09390",
+      "topics": [
+        "scalable_oversight",
+        "alignment"
+      ],
+      "evidence_notes": "Studied strong models trained from weak-model supervision; strong models exceeded weak supervisors but did not recover full capability; auxiliary losses helped.",
+      "limits": "Analogy to superhuman oversight is imperfect and results are early.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0181",
+      "title": "Scalable AI Safety via Doubly-Efficient Debate",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2311.14125",
+      "topics": [
+        "debate",
+        "scalable_oversight"
+      ],
+      "evidence_notes": "Theoretical debate protocols aimed at verifying harder computations with weaker verifiers and efficient honest strategies.",
+      "limits": "Primarily theoretical; production LLM debate can amplify biases.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0182",
+      "title": "Efficient Knowledge Editing via Minimal Precomputation",
+      "type": "research",
+      "url": "https://aclanthology.org/2025.acl-short.65/",
+      "topics": [
+        "knowledge_editing",
+        "efficiency"
+      ],
+      "evidence_notes": "Shows MEMIT/related editing precomputation can be reduced substantially from original large hidden-vector precomputation.",
+      "limits": "Still inherits core knowledge-editing reliability concerns.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0183",
+      "title": "OpenAI PRM800K",
+      "type": "dataset",
+      "url": "https://github.com/openai/prm800k",
+      "topics": [
+        "process_supervision",
+        "dataset"
+      ],
+      "evidence_notes": "800k human step-level correctness labels accompanying Let's Verify Step by Step; repository archived May 29, 2026 but remains a useful historical dataset.",
+      "limits": "Math-only labels and archived project.",
+      "status": "verified_or_primary_lead"
     }
   ]
 }
