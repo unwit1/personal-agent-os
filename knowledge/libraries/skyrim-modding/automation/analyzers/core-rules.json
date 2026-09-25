@@ -452,6 +452,39 @@
     },
     {
       "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-PLUGIN-DUPLICATE-FORMKEY",
+      "title": "Duplicate record identity in semantic plugin view",
+      "scope": [
+        "plugin",
+        "formkey",
+        "records"
+      ],
+      "severity": "BLOCKER",
+      "detection": {
+        "kind": "plugin",
+        "algorithm": "Within one semantic plugin view require each signature/FormKey pair to be unique.",
+        "required_data": [
+          "record signature",
+          "canonical FormKey"
+        ],
+        "false_positive_exclusions": []
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Identify producer duplication or conflicting generated records and regenerate without duplicate identity.",
+        "postconditions": [
+          "signature/FormKey identities are unique"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "https://github.com/Mutagen-Modding/Mutagen/blob/master/Mutagen.Bethesda.Core/Plugins/FormKey.cs",
+          "type": "upstream-source"
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
       "rule_id": "SKYRIM-PLUGIN-INVALID-ESL-RANGE",
       "title": "Invalid light-plugin FormID range",
       "scope": [
@@ -486,6 +519,112 @@
           "source": "https://github.com/Nukem9/skyrimse-backported-esl-support",
           "type": "upstream-source",
           "notes": "Validated for inclusion in the core Agent OS prevention pack on 2026-09-24."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-PLUGIN-LOW-REGULAR-FORMID",
+      "title": "New regular-plugin record uses low reserved-style local ID",
+      "scope": [
+        "plugin",
+        "formid"
+      ],
+      "severity": "WARNING",
+      "detection": {
+        "kind": "plugin",
+        "algorithm": "For non-light output plugins other than Skyrim.esm, flag newly owned local IDs below 0x800 for review.",
+        "required_data": [
+          "canonical record FormKeys",
+          "plugin kind"
+        ],
+        "false_positive_exclusions": [
+          "validated intentional conversion or legacy fixture"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Regenerate with normal new-record allocation unless the low ID is intentionally preserved and independently validated.",
+        "postconditions": [
+          "new regular-plugin IDs satisfy project allocation policy"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "https://github.com/BadDogSkyrim/BethesdaLibrary/blob/main/docs/file-formats/plugins.md",
+          "type": "upstream-doc",
+          "notes": "Documents conventional 0x800 floor for regular plugin local IDs."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-PLUGIN-MISSING-MASTER",
+      "title": "Override origin is not declared as a master",
+      "scope": [
+        "plugin",
+        "masters",
+        "formkey"
+      ],
+      "severity": "BLOCKER",
+      "detection": {
+        "kind": "plugin",
+        "algorithm": "For every record whose canonical FormKey origin differs from the output plugin, require that origin ModKey in the declared master set.",
+        "required_data": [
+          "plugin ModKey",
+          "master list",
+          "canonical record FormKeys"
+        ],
+        "false_positive_exclusions": []
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Add only the actually required master or remove the unintended override/reference.",
+        "postconditions": [
+          "all external record origins resolve through declared masters",
+          "xEdit reports no unresolved references"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "https://tes5edit.github.io/docs/",
+          "type": "upstream-doc"
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-PLUGIN-NONCANONICAL-FORMKEY",
+      "title": "Semantic plugin record identity is not canonical",
+      "scope": [
+        "plugin",
+        "formkey",
+        "semantic-oracle"
+      ],
+      "severity": "ERROR",
+      "detection": {
+        "kind": "plugin",
+        "algorithm": "Require six-hex-digit local ID plus origin ModKey identity before cross-load-order or cross-oracle comparison.",
+        "required_data": [
+          "semantic plugin records",
+          "producer provenance"
+        ],
+        "false_positive_exclusions": [
+          "explicit load-order-scoped diagnostic artifacts that are not used for canonical comparison"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Resolve displayed FormIDs through the pinned load-order/master map or re-emit through a canonical FormKey-aware parser.",
+        "postconditions": [
+          "every compared record has canonical FormKey identity"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "https://github.com/Mutagen-Modding/Mutagen/blob/master/Mutagen.Bethesda.Core/Plugins/FormKey.cs",
+          "type": "upstream-source",
+          "notes": "Mutagen FormKey is load-order-independent and serializes as six hex digits plus origin ModKey."
         }
       ]
     },
