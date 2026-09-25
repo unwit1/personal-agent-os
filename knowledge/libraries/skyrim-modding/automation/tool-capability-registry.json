@@ -564,6 +564,115 @@
       "known_gaps": [
         "mutating real saves requires explicit approval and backup"
       ]
+    },
+    {
+      "adapter_id": "caprica",
+      "capabilities": [
+        "papyrus-compile",
+        "papyrus-cross-compiler",
+        "compile-diagnostics"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/caprica.json"
+    },
+    {
+      "adapter_id": "champollion",
+      "capabilities": [
+        "pex-decompile",
+        "pex-assembly",
+        "pex-inspect"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/champollion.json"
+    },
+    {
+      "adapter_id": "lilac",
+      "capabilities": [
+        "papyrus-unit-test",
+        "papyrus-assertions",
+        "quest-driven-test-runner"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/lilac.json"
+    },
+    {
+      "adapter_id": "bind",
+      "capabilities": [
+        "papyrus-dev-binding",
+        "script-oninit-test",
+        "generated-test-binding"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/bind.json"
+    },
+    {
+      "adapter_id": "ck-cmd",
+      "capabilities": [
+        "fbx-to-nif",
+        "asset-conversion",
+        "vertex-color-transfer",
+        "material-split"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/ck-cmd.json"
+    },
+    {
+      "adapter_id": "cathedral-assets-optimizer",
+      "capabilities": [
+        "asset-porting",
+        "nif-optimization",
+        "dds-processing",
+        "bsa-pack",
+        "batch-assets"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/cathedral-assets-optimizer.json"
+    },
+    {
+      "adapter_id": "directxtex",
+      "capabilities": [
+        "dds-convert",
+        "dds-compress",
+        "mipmap-generate",
+        "texture-diagnostics",
+        "cubemap-assemble"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/directxtex.json"
+    },
+    {
+      "adapter_id": "loot",
+      "capabilities": [
+        "load-order-sort",
+        "metadata-evaluate",
+        "cycle-detect",
+        "dirty-plugin-metadata"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/loot.json"
+    },
+    {
+      "adapter_id": "xlodgen",
+      "capabilities": [
+        "terrain-lod",
+        "terrain-texture-lod",
+        "terrain-heightmap",
+        "worldspace-lod"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/xlodgen.json"
+    },
+    {
+      "adapter_id": "pgpatcher",
+      "capabilities": [
+        "nif-dynamic-patch",
+        "parallax",
+        "pbr",
+        "complex-material",
+        "plugin-patch"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/pgpatcher.json"
+    },
+    {
+      "adapter_id": "mutagen-analyzers",
+      "capabilities": [
+        "mod-health-research",
+        "load-order-analysis",
+        "known-bug-catalog",
+        "cli-analysis"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/mutagen-analyzers.json"
     }
   ]
 }
