@@ -28,6 +28,42 @@ def sessions(
     return [row for row in rows if row.get("active")] if active_only else rows
 
 
+def inspect(
+    session_id: str,
+    actions: list[dict[str, Any]] | None = None,
+    *,
+    issued_by: str = "agent-os",
+    wait_seconds: float = DEFAULT_WAIT_SECONDS,
+    store: BridgeStore | None = None,
+) -> dict[str, Any]:
+    """Run read-only browser actions.
+
+    This intentionally permits only inspect/extract/wait so clients with
+    read-only MCP permissions can use browser context without acquiring a
+    general interaction capability.
+    """
+    requested = actions or [{"op": "inspect"}]
+    if not isinstance(requested, list) or not requested:
+        raise ValueError("actions must be a non-empty list")
+    allowed = {"inspect", "extract", "wait"}
+    for action in requested:
+        if not isinstance(action, dict):
+            raise ValueError("each browser action must be an object")
+        op = str(action.get("op") or "").strip()
+        if op not in allowed:
+            raise ValueError(
+                "browser.inspect accepts only read-only ops: inspect, extract, wait"
+            )
+    return execute(
+        session_id,
+        requested,
+        issued_by=issued_by,
+        approved_consequential=False,
+        wait_seconds=wait_seconds,
+        store=store,
+    )
+
+
 def execute(
     session_id: str,
     actions: list[dict[str, Any]],
