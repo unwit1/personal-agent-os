@@ -1,0 +1,70 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "bind",
+  "tool": "SkyrimScripting Bind",
+  "source": "https://github.com/SkyrimScripting/BIND",
+  "targets": [
+    "se-1.5.97",
+    "ae-steam",
+    "ae-gog",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "papyrus-dev-binding",
+    "script-oninit-test",
+    "generated-quest-binding",
+    "generated-object-binding",
+    "player-actor-binding"
+  ],
+  "invocation": {
+    "mode": "hybrid",
+    "transport": "SKSE DLL + binding declarations",
+    "requires_running_game": true
+  },
+  "inputs": [
+    "PSC/PEX",
+    "binding marker/list"
+  ],
+  "outputs": [
+    "runtime-bound test script instances",
+    "Papyrus/log evidence"
+  ],
+  "logs": [
+    "SKSE plugin log",
+    "Papyrus log"
+  ],
+  "coverage": {
+    "description": "Developer tool that binds Papyrus scripts to generated Quest/ObjectReference or Player actor on game load to shorten test setup.",
+    "known_gaps": [
+      "development/testing utility, not a substitute for final VMAD/alias/plugin binding validation",
+      "runtime behavior still needs clean-session/save-state control"
+    ],
+    "denominator_probe": "requested bindings vs successfully instantiated scripts and OnInit markers."
+  },
+  "safety": {
+    "mutation_default": "development-profile-only",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Never ship by default; isolate in test profile."
+  },
+  "verification": {
+    "independent_validators": [
+      "final-vmad-binding-check",
+      "runtime-assertion"
+    ],
+    "version_probe": "SKSE plugin version/source commit",
+    "output_readback": "Confirm script instance and expected OnInit marker/event."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Very useful for rapid generated Papyrus experiments before committing full plugin bindings."
+  },
+  "evidence": {
+    "source_url": "https://github.com/SkyrimScripting/BIND",
+    "verified_date": "2026-09-24",
+    "notes": "Current upstream describes SE/AE/GOG/VR developer testing and automatic binding based on script inheritance."
+  }
+}
