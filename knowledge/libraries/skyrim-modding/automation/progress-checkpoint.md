@@ -169,7 +169,7 @@ Complete typed renderers/generators for:
 - OAR;
 - ✅ FOMOD baseline (typed renderer + XSD validation + option-matrix simulator);
 - common xEdit/Mutagen static patch patterns;
-- MCM Helper config;
+- ✅ MCM Helper config/settings baseline;
 - common SPID/KID/BOS combinations;
 - common perk/spell/COBJ/leveled-list patterns.
 
