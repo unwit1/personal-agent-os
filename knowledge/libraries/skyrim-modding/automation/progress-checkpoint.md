@@ -1,6 +1,6 @@
 # Skyrim Mod Factory — Progress Checkpoint and Resume Point
 
-Updated: 2026-09-24
+Updated: 2026-09-25
 Status: canonical resume checkpoint
 
 ## Why this exists
@@ -14,12 +14,12 @@ The broad knowledge-ingestion phase is already mature. Resume from the executabl
 - Skyrim terminology/reference modules: **165**
 - Tool/framework capability entries: **54**
 - Implementation patterns: **46**
-- Analyzer rules: **20**
+- Analyzer rules: **24**
 - Validation gates: **30** (G00–G29)
-- Skyrim-specific JSON Schemas: **33**
-- Mod Factory Python tools: **30**
-- Mod Factory unit-test modules: **23**
-- Dedicated adapter manifests: **47** plus capability-only/manual/framework entries
+- Skyrim-specific JSON Schemas: **41**
+- Mod Factory Python tools: **39**
+- Mod Factory unit-test modules: **33**
+- Dedicated adapter manifests: **50** plus capability-only/manual/framework entries
 
 These are repository counts, not estimates of ecosystem completeness.
 
@@ -44,10 +44,10 @@ These are repository counts, not estimates of ecosystem completeness.
 | Build DAG planning | M4 | Incremental DAG compiler with invalidation triggers and layer-specific generate/validate nodes. |
 | Generic adapter execution | **M4** | DAG executor now has end-to-end fake-toolchain coverage, typed artifact contracts, per-node checkpoint/resume, content-hash invalidation and mutation-aware retry checkpoints. |
 | Validation gates | **M4** | G00–G29 are machine-readable and evidence-aware; required blocking warnings prevent a final PASS. |
-| Schema triangulation | M3 | xEdit/Mutagen/CK/runtime strategy, validation quorum model and semantic plugin comparisons. |
+| Schema triangulation | **M4 static baseline** | xEdit Check-for-Errors parser/wrapper, xDump semantic producer, pinned Mutagen semantic producer, canonical FormKey reconciliation, coverage-aware cross-oracle comparison and reusable FormID/master/ESL/CTDA/VMAD analyzers are implemented/tested. CK/runtime quorum remains P1 runtime work. |
 | Runtime patch config generation | M4 partial | Typed intent plus deterministic SPID/KID/BOS renderers; FLM/SkyPatcher/OAR and more still need typed renderers. |
 | Static plugin generation | M3 | Mutagen/houseCARL/Synthesis/Spriggit architecture and adapters exist; generic semantic record generator is not yet universal. |
-| Papyrus build automation | M3/M4 | Pyro, official compiler, Caprica, VS Code/Papyrus tooling adapters; API/provider knowledge is deep. |
+| Papyrus build automation | M4 static | Pyro/compiler/tooling adapters plus PSC property extraction, typed symbol inventories and inheritance-aware VMAD binding validation; runtime binding behavior still needs the game harness. |
 | Native SKSE build automation | M3/M4 | CommonLib/CMake configure/build adapters; runtime hook assertion still requires game harness. |
 | Mesh/NIF/TRI automation | M2/M3 | PyNifly/Blender/NifSkope/CAO adapters and invariants documented; universal validator/repair pass still incomplete. |
 | Texture/material automation | M2/M3 | DirectXTex/ParallaxGen/renderer knowledge exists; asset-generation + visual validation loop remains incomplete. |
@@ -91,7 +91,19 @@ Small frequent commits now exist for:
 20. automatic regression-candidate hook for eligible validated repairs;
 21. bounded `run_repair_loop.py` orchestration preserving original failure evidence;
 22. executor `--auto-repair` bridge with nested-run recursion prevention;
-23. explicit `jsonschema` installation in the Mod Factory CI workflow.
+23. explicit `jsonschema` installation in the Mod Factory CI workflow;
+24. typed xEdit Check-for-Errors report schema, parser, wrapper and adapter;
+25. conservative xDump semantic normalizer with raw evidence retention;
+26. canonical load-order FormID → Mutagen FormKey mapping for full/light records;
+27. pinned Mutagen.Bethesda 0.54.4 semantic exporter + schema-validating harness/adapter;
+28. typed semantic diff reports with fail-closed identity comparability;
+29. coverage-aware Mutagen/xDump differential oracle;
+30. typed static invariant report model;
+31. runtime-aware FormKey/master/ESL invariant analyzer + tests;
+32. CTDA full-predicate schema/analyzer + mutation tests;
+33. VMAD/Papyrus symbol schemas + inheritance-aware binding analyzer/tests;
+34. PSC property extraction + schema-valid Papyrus symbol inventory output;
+35. project-plugin xDump semantic export wrapper + adapter.
 
 ## Current resume point
 
@@ -119,7 +131,7 @@ Operational CI note (2026-09-24): GitHub Actions workflow files are configured a
 
 **Do not restart at P0 or broad terminology research.**
 
-Continue from the P1 executable validation/generation gaps below. Prefer the smallest deterministic oracle/generator first, then checkpoint and commit.
+Continue from the remaining P1 runtime harness, deterministic generator, and asset-validator gaps below. The static/schema-oracle baseline is complete; extend record-specific semantic coverage only when a generator/bug requires it.
 
 ### P1 — Runtime harness
 
@@ -134,13 +146,20 @@ Build the Windows-first MO2 test worker that can:
 - restore fixture/profile state;
 - feed typed runtime assertions to G19/G20/G21/G26.
 
-### P1 — Static/schema oracles
+### P1 — Static/schema oracles — BASELINE COMPLETE
 
-Implement:
-- xEdit Check-for-Errors wrapper + structured parser;
-- xDump semantic export normalization;
-- Mutagen vs xEdit differential field comparison;
-- FormID/master/ESL/CTDA/VMAD schema invariants as reusable analyzers.
+Implemented:
+- ✅ xEdit Check-for-Errors wrapper + structured parser with completion/count reconciliation;
+- ✅ xDump project-plugin semantic export + conservative normalization;
+- ✅ load-order-aware canonical FormID → FormKey conversion for regular and light records;
+- ✅ pinned Mutagen semantic producer with canonical FormKeys and asset-link enumeration;
+- ✅ coverage-aware Mutagen vs xEdit/xDump differential comparison;
+- ✅ FormID/master/ESL reusable analyzer with runtime/BEES/header-version policy;
+- ✅ full CTDA predicate preservation/invariant analyzer;
+- ✅ PSC property extraction → Papyrus symbol inventory → inheritance-aware VMAD binding analyzer.
+
+Static-oracle scope boundary: current cross-producer semantic intersection is intentionally narrow (`editor_id` + listed asset paths) until record-specific typed emitters are added. Producer-private raw evidence is retained for audit but does not create false semantic diffs.
+
 
 ### P1 — High-value deterministic generators
 
