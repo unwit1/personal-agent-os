@@ -88,6 +88,7 @@ for path in sorted(SCHEMAS.glob("skyrim-*.schema.json")):
         errors.append(f"invalid JSON Schema {path.relative_to(ROOT)}: {exc}")
 
 adapter_schema = schema("skyrim-tool-adapter-v1.schema.json")
+execution_registry_schema = schema("skyrim-tool-adapter-registry-v1.schema.json")
 registry_schema = schema("skyrim-tool-capability-registry-v1.schema.json")
 rule_schema = schema("skyrim-analyzer-rule-v1.schema.json")
 pattern_schema = schema("skyrim-implementation-pattern-v1.schema.json")
@@ -103,10 +104,11 @@ if adapter_dir.exists():
     for path in sorted(adapter_dir.glob("*.json")):
         data = load_json(path)
         if isinstance(data, dict) and isinstance(data.get("adapters"), list):
-            # Aggregate execution registries (for example core-adapters.json) are
-            # intentionally not one skyrim-tool-adapter-v1 manifest. The dedicated
-            # adapter validator handles this same distinction.
             aggregate_adapter_registries += 1
+            validate(data, execution_registry_schema, str(path.relative_to(ROOT)))
+            aggregate_ids=[x.get("adapter_id") for x in data.get("adapters",[]) if isinstance(x,dict)]
+            if len(aggregate_ids) != len(set(aggregate_ids)):
+                errors.append(f"aggregate adapter registry contains duplicate adapter_id values: {path.relative_to(ROOT)}")
             continue
         validate(data, adapter_schema, str(path.relative_to(ROOT)))
         if isinstance(data, dict) and data.get("adapter_id"):
