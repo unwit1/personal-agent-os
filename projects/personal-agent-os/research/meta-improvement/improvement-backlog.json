@@ -1,0 +1,1012 @@
+{
+  "schema": "personal-agent-os/meta-improvement-backlog/v1",
+  "research_id": "MIR-2026-09-24-FOUNDATION-01",
+  "items": [
+    {
+      "id": "MIE-0001",
+      "title": "Unify improvement evidence chain",
+      "category": "Architecture",
+      "problem": "Current candidate/improvement records do not explicitly connect trace evidence, findings, hypotheses, experiments, eval runs, decisions, deployments, and post-deployment outcomes.",
+      "triggering_evidence": [
+        "Existing improvement.schema.json is intentionally compact",
+        "Foundational research pass 2026-09-24"
+      ],
+      "affected_workflows": [
+        "all Agent OS improvement workflows"
+      ],
+      "impact": "very_high",
+      "recurrence": "systemic",
+      "severity": "high",
+      "confidence": "high",
+      "proposed_change": "Add a provider-neutral research/improvement object model with stable IDs and typed edges; keep current improvement records as the user-facing/actionable projection.",
+      "alternatives": [
+        "Expand only improvement.schema.json",
+        "Adopt W3C PROV directly"
+      ],
+      "expected_benefit": "Future models can reconstruct why a change exists and whether it actually improved anything.",
+      "complexity": "medium",
+      "dependencies": [
+        "existing candidate/improvement stores",
+        "Git canonical state"
+      ],
+      "security": "No raw private traces in Git; references must point to local/private evidence where required.",
+      "privacy": "Preserve current local/private raw data boundary.",
+      "cost_impact": "small storage increase; model cost should decrease through reuse",
+      "latency_impact": "negligible",
+      "evaluation": "Trace five real improvements end-to-end and verify complete provenance/replayability.",
+      "baseline": "Current IMP records + handoffs",
+      "success_criteria": [
+        "Every promoted improvement links to evidence, eval, decision, and rollback",
+        "No private raw content enters canonical Git"
+      ],
+      "rollback": "Keep v1 improvement schema reader and generate v1 projection.",
+      "status": "candidate",
+      "next_action": "Design schema and migration map only; do not implement runtime mutation yet.",
+      "provenance": [
+        "repo:schemas/improvement.schema.json",
+        "research:MIR-2026-09-24-FOUNDATION-01"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0002",
+      "title": "Provider-neutral evaluation registry and task corpus",
+      "category": "Correctness",
+      "problem": "Agent OS has tests/benchmarks but no unified registry of eval cases, suites, versions, datasets, graders, contamination status, and historical outcomes.",
+      "triggering_evidence": [
+        "OpenAI Evals platform scheduled for shutdown 2026-11-30",
+        "Existing orchestrator benchmark is narrower than whole-Agent-OS quality"
+      ],
+      "affected_workflows": [
+        "routing",
+        "retrieval",
+        "proactivity",
+        "orchestration",
+        "skills",
+        "prompts"
+      ],
+      "impact": "very_high",
+      "recurrence": "systemic",
+      "severity": "high",
+      "confidence": "high",
+      "proposed_change": "Create local/provider-neutral eval manifests and canonical sanitized suite metadata; support deterministic, human, and model graders.",
+      "alternatives": [
+        "Use a vendor eval platform",
+        "Use tests only"
+      ],
+      "expected_benefit": "Every major change can be tested reproducibly across providers and future models.",
+      "complexity": "medium",
+      "dependencies": [
+        "telemetry",
+        "task replay"
+      ],
+      "security": "Eval fixtures must be sanitized or local-only according to domain.",
+      "privacy": "Private historical cases stay local; canonical suite may contain synthetic/redacted fixtures.",
+      "cost_impact": "Adds eval cost but reduces regressions/wasted production calls.",
+      "latency_impact": "Offline by default.",
+      "evaluation": "Reproduce same eval run on two providers and from a fresh clone.",
+      "baseline": "Existing unit tests + orchestrator benchmark",
+      "success_criteria": [
+        "Versioned eval suites",
+        "Reproducible runs",
+        "Clear grader provenance",
+        "No vendor lock-in"
+      ],
+      "rollback": "Registry is additive; existing tests remain canonical.",
+      "status": "candidate",
+      "next_action": "Define eval manifest v1 and eval hierarchy.",
+      "provenance": [
+        "source:OpenAI deprecations",
+        "repo:docs/simple-mode.md"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0003",
+      "title": "Improvement schema v2",
+      "category": "Maintainability",
+      "problem": "Current improvement schema omits requested fields such as recurrence, confidence, affected workflows, alternatives, dependencies, expected benefit/cost/latency, evaluation method, baseline, success criteria, rollback, and last-reviewed time.",
+      "triggering_evidence": [
+        "Direct schema inspection"
+      ],
+      "affected_workflows": [
+        "improvement backlog",
+        "roadmap triage"
+      ],
+      "impact": "high",
+      "recurrence": "systemic",
+      "severity": "medium",
+      "confidence": "high",
+      "proposed_change": "Version improvement records with richer evidence/evaluation fields while retaining a compact index/projection.",
+      "alternatives": [
+        "Store details in notes",
+        "Create a separate research record only"
+      ],
+      "expected_benefit": "Improvement selection becomes evidence-driven and future-model-readable.",
+      "complexity": "low_medium",
+      "dependencies": [
+        "MIE-0001"
+      ],
+      "security": "Validate/sanitize all new fields.",
+      "privacy": "Same private-safe gate.",
+      "cost_impact": "negligible",
+      "latency_impact": "negligible",
+      "evaluation": "Schema migration round-trip on all existing IMP records.",
+      "baseline": "improvement.schema.json v1",
+      "success_criteria": [
+        "No loss of existing data",
+        "Old clients can read projection",
+        "All requested backlog fields representable"
+      ],
+      "rollback": "Retain v1 conversion/export.",
+      "status": "candidate",
+      "next_action": "Draft v2 schema after object-model decision.",
+      "provenance": [
+        "repo:schemas/improvement.schema.json"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0004",
+      "title": "Failure and success registries with clustering",
+      "category": "Reliability",
+      "problem": "Run telemetry captures failures, but there is no durable cross-run taxonomy that clusters recurring failures and exceptional successes into reusable lessons/evals.",
+      "triggering_evidence": [
+        "Orchestrator telemetry exists",
+        "User directive: never waste a failure"
+      ],
+      "affected_workflows": [
+        "orchestrator",
+        "scanner",
+        "browser ingestion",
+        "future automations"
+      ],
+      "impact": "very_high",
+      "recurrence": "frequent",
+      "severity": "high",
+      "confidence": "high",
+      "proposed_change": "Normalize redacted failure/success observations, cluster by signature, attach recurrence/evidence, and promote recurring patterns to regression/skill/architecture candidates.",
+      "alternatives": [
+        "Only create GitHub issues",
+        "Manual postmortems"
+      ],
+      "expected_benefit": "Repeated symptoms become systemic fixes instead of repeated debugging.",
+      "complexity": "medium",
+      "dependencies": [
+        "MIE-0001",
+        "telemetry"
+      ],
+      "security": "Do not canonicalize secrets/private payloads.",
+      "privacy": "Local raw failure artifacts; canonical redacted patterns.",
+      "cost_impact": "Moderate local analysis; likely net savings.",
+      "latency_impact": "Post-flight/asynchronous where available.",
+      "evaluation": "Inject repeated synthetic failures and verify clustering/dedupe/escalation.",
+      "baseline": "Current telemetry + handoff narrative",
+      "success_criteria": [
+        "Same failure not rediscovered independently",
+        "Verified fix creates regression",
+        "Success patterns can create skill candidates"
+      ],
+      "rollback": "Disable clustering; retain raw local telemetry.",
+      "status": "candidate",
+      "next_action": "Define taxonomy and signatures.",
+      "provenance": [
+        "repo:orchestrator telemetry docs",
+        "research:failure literature"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0005",
+      "title": "Experiment, rollout, and rollback registry",
+      "category": "Reliability",
+      "problem": "There is no single object tracking hypothesis, baseline, treatment, eval, shadow/canary status, promotion decision, monitoring window, and rollback outcome.",
+      "triggering_evidence": [
+        "Evaluation-first directive",
+        "SRE/error-budget patterns"
+      ],
+      "affected_workflows": [
+        "all adaptive/self-improvement flows"
+      ],
+      "impact": "very_high",
+      "recurrence": "systemic",
+      "severity": "high",
+      "confidence": "high",
+      "proposed_change": "Add experiment and release records linked to improvement candidates and code/config/prompt versions.",
+      "alternatives": [
+        "Use Git commits only"
+      ],
+      "expected_benefit": "Prevents subjective self-improvement and supports causal attribution.",
+      "complexity": "medium",
+      "dependencies": [
+        "MIE-0001",
+        "MIE-0002"
+      ],
+      "security": "High-risk experiments sandboxed and capability-limited.",
+      "privacy": "Use redacted aggregate metrics when canonical.",
+      "cost_impact": "Adds experiment overhead but avoids bad rollouts.",
+      "latency_impact": "None to normal execution unless canary sampling enabled.",
+      "evaluation": "Run a safe prompt/context experiment through full lifecycle.",
+      "baseline": "Git history + tests + ad hoc benchmark",
+      "success_criteria": [
+        "Every promoted adaptive change has an experiment record and rollback",
+        "Post-deploy metrics checked"
+      ],
+      "rollback": "Registry is additive.",
+      "status": "candidate",
+      "next_action": "Define EXP/REL schemas.",
+      "provenance": [
+        "source:Google SRE",
+        "source:OpenFeature concept",
+        "research:MIR-2026-09-24-FOUNDATION-01"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0006",
+      "title": "Deterministic authorization policy engine",
+      "category": "Security",
+      "problem": "Privacy gates exist, but recursive improvement needs a general deterministic boundary deciding whether an agent/user/delegated worker may perform an action on a resource in context.",
+      "triggering_evidence": [
+        "Cedar/OPA authorization models",
+        "OWASP agentic risks",
+        "CaMeL capability design"
+      ],
+      "affected_workflows": [
+        "tools",
+        "MCP",
+        "browser",
+        "email",
+        "calendar",
+        "finance",
+        "code",
+        "voice"
+      ],
+      "impact": "very_high",
+      "recurrence": "every consequential action",
+      "severity": "critical",
+      "confidence": "high",
+      "proposed_change": "Introduce provider-neutral authorization requests (principal, delegated_user, action, resource, context, risk, budget) evaluated by deterministic default-deny policy; model output can never grant permission.",
+      "alternatives": [
+        "Hard-coded permission checks",
+        "OPA",
+        "Cedar"
+      ],
+      "expected_benefit": "No agent can expand its own privilege or bypass approval by prompt manipulation.",
+      "complexity": "medium_high",
+      "dependencies": [
+        "capability registry",
+        "identity/delegation model"
+      ],
+      "security": "Core security boundary.",
+      "privacy": "Policy queries should avoid unnecessary content.",
+      "cost_impact": "small local compute",
+      "latency_impact": "milliseconds",
+      "evaluation": "Property tests, deny-by-default tests, privilege-escalation adversarial suite.",
+      "baseline": "Current per-feature privacy/approval checks",
+      "success_criteria": [
+        "No tool call bypasses policy",
+        "Model text cannot alter authorization",
+        "Explicit delegation/audit"
+      ],
+      "rollback": "Keep current gates behind compatibility adapter until parity proven.",
+      "status": "candidate",
+      "next_action": "Threat-model and choose minimal policy representation before engine selection.",
+      "provenance": [
+        "source:Cedar",
+        "source:OPA",
+        "source:CaMeL",
+        "source:OWASP"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0007",
+      "title": "Untrusted-data taint and control/data-flow separation",
+      "category": "Security",
+      "problem": "Retrieved web/email/document/tool content can contain instructions; prompt-only defenses are not a deterministic security boundary.",
+      "triggering_evidence": [
+        "AgentDojo",
+        "CaMeL",
+        "OWASP"
+      ],
+      "affected_workflows": [
+        "RAG",
+        "web",
+        "email",
+        "browser capture",
+        "documents",
+        "MCP"
+      ],
+      "impact": "very_high",
+      "recurrence": "continuous",
+      "severity": "critical",
+      "confidence": "high",
+      "proposed_change": "Track provenance/taint on data objects; restrict untrusted content from modifying plans/policies/tool authority; enforce data-flow constraints at tool boundaries.",
+      "alternatives": [
+        "Injection classifier only",
+        "Prompt delimiters only"
+      ],
+      "expected_benefit": "Substantially reduces indirect prompt-injection blast radius.",
+      "complexity": "high",
+      "dependencies": [
+        "MIE-0001",
+        "MIE-0006"
+      ],
+      "security": "Core.",
+      "privacy": "Taint metadata can be canonical; raw content may remain local.",
+      "cost_impact": "some engineering/runtime checks",
+      "latency_impact": "low",
+      "evaluation": "AgentDojo-inspired adversarial replay plus benign-utility measurement.",
+      "baseline": "Current model/prompt compliance + per-tool gates",
+      "success_criteria": [
+        "Untrusted text cannot authorize new flow",
+        "Exfiltration tests fail closed",
+        "Benign utility preserved to defined threshold"
+      ],
+      "rollback": "Feature-flag per data path.",
+      "status": "candidate",
+      "next_action": "Design threat model and minimal taint labels.",
+      "provenance": [
+        "source:AgentDojo",
+        "source:CaMeL"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0008",
+      "title": "Task-specific model and tool capability registry",
+      "category": "Models",
+      "problem": "Current evidence design relies partly on generic benchmark/intelligence scores; task-specific reliability, latency, tool behavior, modality, policy, context, and cost are not first-class comparable evidence.",
+      "triggering_evidence": [
+        "RouteLLM/FrugalGPT",
+        "existing model-value-routing design"
+      ],
+      "affected_workflows": [
+        "routing",
+        "orchestration",
+        "research",
+        "document analysis"
+      ],
+      "impact": "very_high",
+      "recurrence": "every model/tool choice",
+      "severity": "high",
+      "confidence": "high",
+      "proposed_change": "Version capabilities and measured task-family distributions per model/tool/provider; separate vendor claims from Agent OS measurements; maintain champion/challenger status.",
+      "alternatives": [
+        "Global intelligence index",
+        "Static tier mapping"
+      ],
+      "expected_benefit": "Cheapest/fastest option that actually meets quality/risk thresholds on the user's workloads.",
+      "complexity": "medium",
+      "dependencies": [
+        "MIE-0002"
+      ],
+      "security": "Include data-policy/tool-permission compatibility in eligibility.",
+      "privacy": "No raw private eval data required in canonical registry.",
+      "cost_impact": "reduces routing cost over time",
+      "latency_impact": "reduces expected latency",
+      "evaluation": "Backtest routing decisions on historical task corpus.",
+      "baseline": "docs/design/model-value-routing.md",
+      "success_criteria": [
+        "Task-specific confidence intervals",
+        "Policy constraints respected",
+        "Router beats static tiers on cost at non-inferior quality"
+      ],
+      "rollback": "Fallback to static capability classes.",
+      "status": "candidate",
+      "next_action": "Define capability dimensions and evidence hierarchy.",
+      "provenance": [
+        "repo:docs/design/model-value-routing.md",
+        "source:RouteLLM",
+        "source:FrugalGPT"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0009",
+      "title": "Context utility and retrieval telemetry",
+      "category": "Context",
+      "problem": "Agent OS measures selected-vs-candidate context and provider tokens, but not which retrieved context materially contributed to output or decisions.",
+      "triggering_evidence": [
+        "Existing context-budget telemetry",
+        "context engineering research"
+      ],
+      "affected_workflows": [
+        "agent.context",
+        "profile retrieval",
+        "knowledge retrieval",
+        "tool result handling"
+      ],
+      "impact": "high",
+      "recurrence": "every substantive task",
+      "severity": "medium",
+      "confidence": "high",
+      "proposed_change": "Track retrieval candidate, selected, referenced/used, stale/conflict flags, and downstream outcome; use counterfactual/shadow ablations on sampled tasks.",
+      "alternatives": [
+        "Token counts only"
+      ],
+      "expected_benefit": "Reduce unused/stale context and detect summaries that lose important information.",
+      "complexity": "medium",
+      "dependencies": [
+        "MIE-0002"
+      ],
+      "security": "Do not log raw private content by default.",
+      "privacy": "Store IDs/hashes/features locally; canonicalize aggregates.",
+      "cost_impact": "Expected savings",
+      "latency_impact": "Expected improvement after tuning",
+      "evaluation": "Ablation suite comparing success/cost with and without context slices.",
+      "baseline": "Current prompt-size/context-reduction metric",
+      "success_criteria": [
+        "Identify unused retrieval",
+        "No quality loss from pruning",
+        "Conflict/staleness surfaced"
+      ],
+      "rollback": "Telemetry can be disabled.",
+      "status": "candidate",
+      "next_action": "Define 'used' proxies and sampled causal eval.",
+      "provenance": [
+        "repo:README context budgeting",
+        "source:context engineering"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0010",
+      "title": "Retrieval and memory eval suite",
+      "category": "Memory",
+      "problem": "Long-term memory needs explicit tests for extraction, temporal reasoning, updates, abstention, conflicts, provenance, and privacy boundaries.",
+      "triggering_evidence": [
+        "LongMemEval",
+        "MemBench",
+        "current selective profile retrieval"
+      ],
+      "affected_workflows": [
+        "profile",
+        "knowledge engine",
+        "people dossiers",
+        "project memory"
+      ],
+      "impact": "very_high",
+      "recurrence": "systemic",
+      "severity": "high",
+      "confidence": "high",
+      "proposed_change": "Create Agent-OS-specific memory/retrieval benchmark with synthetic + sanitized historical cases, including stale/superseded/contradictory facts.",
+      "alternatives": [
+        "Use only LongMemEval"
+      ],
+      "expected_benefit": "Prevents memory pollution and retrieval regressions as stores grow.",
+      "complexity": "medium",
+      "dependencies": [
+        "MIE-0002"
+      ],
+      "security": "Include sensitive-data exclusion cases.",
+      "privacy": "Private cases remain local.",
+      "cost_impact": "eval overhead",
+      "latency_impact": "offline",
+      "evaluation": "Suite itself.",
+      "baseline": "Existing profile retrieval tests",
+      "success_criteria": [
+        "Covers temporal update/abstention/conflict/privacy",
+        "Measured retrieval+answer metrics"
+      ],
+      "rollback": "Additive.",
+      "status": "candidate",
+      "next_action": "Draft case taxonomy.",
+      "provenance": [
+        "source:LongMemEval",
+        "source:MemBench",
+        "repo:selective-profile-retrieval"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0011",
+      "title": "Simplification and deletion engine",
+      "category": "Simplification",
+      "problem": "Agent OS can identify improvements but lacks a first-class lifecycle for identifying redundant components and proving they can be merged/deleted.",
+      "triggering_evidence": [
+        "SRE simplicity/toil",
+        "user directive"
+      ],
+      "affected_workflows": [
+        "architecture",
+        "tools",
+        "prompts",
+        "indexes",
+        "integrations"
+      ],
+      "impact": "high",
+      "recurrence": "ongoing",
+      "severity": "medium",
+      "confidence": "high",
+      "proposed_change": "Maintain component/capability/dependency graph + usage telemetry; generate merge/delete candidates; use shadow-disable/delete tests before removal.",
+      "alternatives": [
+        "Periodic manual cleanup"
+      ],
+      "expected_benefit": "Actively resists architecture entropy.",
+      "complexity": "medium",
+      "dependencies": [
+        "observability",
+        "component manifests"
+      ],
+      "security": "Deletion must preserve audit evidence and rollback.",
+      "privacy": "May reduce retained data.",
+      "cost_impact": "Expected savings",
+      "latency_impact": "Often positive",
+      "evaluation": "Quarterly equivalent 'from scratch today?' audit and shadow disable tests.",
+      "baseline": "No unified simplification lifecycle",
+      "success_criteria": [
+        "Redundant components identified with evidence",
+        "Removals prove non-regression",
+        "Deprecated state has sunset dates"
+      ],
+      "rollback": "Git/version rollback.",
+      "status": "candidate",
+      "next_action": "Define component manifest and complexity signals.",
+      "provenance": [
+        "source:Google SRE",
+        "research:MIR-2026-09-24-FOUNDATION-01"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0012",
+      "title": "Constructive challenge trigger policy",
+      "category": "Proactivity",
+      "problem": "Running adversarial critique on every turn would waste tokens and annoy the user; having none misses flawed assumptions.",
+      "triggering_evidence": [
+        "User directive to challenge",
+        "proactive HCI/interruption research"
+      ],
+      "affected_workflows": [
+        "planning",
+        "architecture",
+        "personal workflows",
+        "purchases",
+        "projects"
+      ],
+      "impact": "high",
+      "recurrence": "frequent",
+      "severity": "medium",
+      "confidence": "high",
+      "proposed_change": "Trigger challenge at high-impact/repeated/costly/irreversible decision points; rank challenge candidates by expected value minus interruption/cognitive cost; dedupe/suppress repeated challenges.",
+      "alternatives": [
+        "Always-on critic agent",
+        "Manual challenge only"
+      ],
+      "expected_benefit": "High-value disagreement without contrarian noise.",
+      "complexity": "medium",
+      "dependencies": [
+        "MIE-0013",
+        "proactivity feedback"
+      ],
+      "security": "Challenges cannot bypass user authority.",
+      "privacy": "Use only relevant permitted context.",
+      "cost_impact": "Bounded by challenge budget",
+      "latency_impact": "Only on trigger",
+      "evaluation": "Measure accepted/useful/ignored/rejected challenges and downstream outcomes.",
+      "baseline": "Ad hoc critique",
+      "success_criteria": [
+        "Low interruption false-positive rate",
+        "Repeated bad assumptions surfaced",
+        "No duplicate nagging"
+      ],
+      "rollback": "Disable trigger class.",
+      "status": "candidate",
+      "next_action": "Define trigger and suppression schema.",
+      "provenance": [
+        "source:attention-sensitive alerting",
+        "source:CHI proactive assistants",
+        "user directive"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0013",
+      "title": "Unified proactivity decision engine",
+      "category": "Proactivity",
+      "problem": "Future proactive modules need one policy for quiet action, candidate capture, digest, immediate interruption, question, scheduled recheck, or no action.",
+      "triggering_evidence": [
+        "Existing proactive roadmap",
+        "attention/interruption literature"
+      ],
+      "affected_workflows": [
+        "Personal Executive",
+        "research radar",
+        "commitments",
+        "shopping",
+        "browser",
+        "voice"
+      ],
+      "impact": "very_high",
+      "recurrence": "continuous",
+      "severity": "high",
+      "confidence": "high",
+      "proposed_change": "Rank opportunities by expected utility, urgency, confidence, reversibility, risk, novelty, interruption cost, and user-state/context; learn thresholds from outcomes.",
+      "alternatives": [
+        "Per-feature notification logic"
+      ],
+      "expected_benefit": "Prevents alert fatigue and duplicated proactive policies.",
+      "complexity": "high",
+      "dependencies": [
+        "telemetry",
+        "feedback events",
+        "authorization"
+      ],
+      "security": "Consequential actions always pass authorization/approval regardless of proactive score.",
+      "privacy": "Local sensitive context allowed only within domain policy.",
+      "cost_impact": "Reduces noisy model calls/notifications",
+      "latency_impact": "not critical",
+      "evaluation": "Precision/recall on useful interventions, dismissal/rejection rate, time-to-action, missed-opportunity review.",
+      "baseline": "Feature-specific or planned logic",
+      "success_criteria": [
+        "One shared intervention taxonomy",
+        "Measured notification noise",
+        "Context-sensitive timing"
+      ],
+      "rollback": "Fallback to candidate-only mode.",
+      "status": "candidate",
+      "next_action": "Define intervention classes and utility model.",
+      "provenance": [
+        "source:Microsoft attention-sensitive alerting",
+        "source:Human-AI guidelines"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0014",
+      "title": "Research Radar with impact filter",
+      "category": "New Capabilities",
+      "problem": "Agent OS lacks a durable monitored registry for models, protocols, security guidance, frameworks, hardware, retrieval/eval techniques, and deprecations.",
+      "triggering_evidence": [
+        "Rapid 2026 MCP/OpenAI/Microsoft changes"
+      ],
+      "affected_workflows": [
+        "architecture",
+        "routing",
+        "security",
+        "integrations"
+      ],
+      "impact": "high",
+      "recurrence": "weekly_monthly",
+      "severity": "medium",
+      "confidence": "high",
+      "proposed_change": "Maintain source watchlist + normalized radar items; ask whether each item replaces complexity, improves an existing task, or enables a valuable missing capability before escalation.",
+      "alternatives": [
+        "Ad hoc web research"
+      ],
+      "expected_benefit": "Avoids stale assumptions without chasing novelty.",
+      "complexity": "medium",
+      "dependencies": [
+        "MIE-0001",
+        "scheduler/automation"
+      ],
+      "security": "External announcements are untrusted evidence, never executable instructions.",
+      "privacy": "Public data only for ecosystem radar.",
+      "cost_impact": "bounded recurring search cost",
+      "latency_impact": "none",
+      "evaluation": "Track radar items that led to accepted improvements vs noise.",
+      "baseline": "Manual research",
+      "success_criteria": [
+        "Deprecations caught before breakage",
+        "High-value changes surfaced",
+        "Noise bounded"
+      ],
+      "rollback": "Reduce cadence/sources.",
+      "status": "candidate",
+      "next_action": "Define source classes, cadence, and impact gate.",
+      "provenance": [
+        "source:MCP 2026 release",
+        "source:OpenAI deprecations",
+        "source:Microsoft Agent Framework"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0015",
+      "title": "Future-model handoff bundle",
+      "category": "Documentation",
+      "problem": "A future model still needs to infer scattered architecture, active experiments, evidence quality, and next research work.",
+      "triggering_evidence": [
+        "User long-term inheritance objective",
+        "existing handoffs/docs"
+      ],
+      "affected_workflows": [
+        "all development/research continuation"
+      ],
+      "impact": "very_high",
+      "recurrence": "every model/provider transition",
+      "severity": "high",
+      "confidence": "high",
+      "proposed_change": "Generate a compact machine-readable inheritance manifest linking architecture map, capabilities, active hypotheses/experiments, eval baselines, ADRs, backlog, open questions, migrations, and current weakest links.",
+      "alternatives": [
+        "Rely on README + roadmap"
+      ],
+      "expected_benefit": "New models can resume with less re-reading/reverse engineering.",
+      "complexity": "low_medium",
+      "dependencies": [
+        "Living Documentation Hub",
+        "MIE-0001"
+      ],
+      "security": "No secrets/private raw traces.",
+      "privacy": "References private stores without copying them.",
+      "cost_impact": "reduces future context cost",
+      "latency_impact": "reduces startup time",
+      "evaluation": "Cold-start a fresh model/session using only the handoff bundle and measure recovery completeness.",
+      "baseline": "README + roadmap + handoffs",
+      "success_criteria": [
+        "Fresh model identifies architecture/current work correctly",
+        "Links resolve",
+        "Generated facts trace to canonical sources"
+      ],
+      "rollback": "Additive.",
+      "status": "candidate",
+      "next_action": "Design inheritance manifest after registries stabilize.",
+      "provenance": [
+        "repo:README",
+        "user directive"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0016",
+      "title": "Durability abstraction with replay/branching threshold",
+      "category": "Orchestration",
+      "problem": "Agent OS has resumable ledgers/workflows but lacks generalized event-history replay and experiment branching; adopting a full workflow platform now may also be needless complexity.",
+      "triggering_evidence": [
+        "Existing ledgers/workflows",
+        "Temporal durable execution research"
+      ],
+      "affected_workflows": [
+        "long research",
+        "large imports",
+        "orchestration"
+      ],
+      "impact": "high",
+      "recurrence": "growing",
+      "severity": "medium",
+      "confidence": "medium_high",
+      "proposed_change": "Define a durability interface and explicit adoption threshold; first strengthen existing event/checkpoint semantics, then benchmark Temporal/Dapr only when multi-hour side-effecting workflows exceed homegrown reliability/iteration targets.",
+      "alternatives": [
+        "Adopt Temporal now",
+        "Keep ad hoc checkpoints indefinitely"
+      ],
+      "expected_benefit": "Gets durable-execution benefits without premature infrastructure burden.",
+      "complexity": "medium",
+      "dependencies": [
+        "telemetry",
+        "workflow manifests"
+      ],
+      "security": "Event history must redact/partition sensitive data.",
+      "privacy": "Local history for private workflows.",
+      "cost_impact": "Avoids premature service cost; later can reduce replay cost.",
+      "latency_impact": "neutral",
+      "evaluation": "Crash/restart/idempotency/replay benchmarks and experiment-branch cost.",
+      "baseline": "Current staged workflows/IngestionLedger",
+      "success_criteria": [
+        "No repeated committed side effects on resume",
+        "Known adoption threshold",
+        "Replay semantics testable"
+      ],
+      "rollback": "Existing workflow engine remains implementation.",
+      "status": "candidate",
+      "next_action": "Audit current durability guarantees and side-effect semantics.",
+      "provenance": [
+        "repo:staged workflows",
+        "source:Temporal"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0017",
+      "title": "OpenTelemetry-compatible trace schema",
+      "category": "Observability",
+      "problem": "Agent OS has good bespoke telemetry but no standard export mapping, making future tools harder to adopt.",
+      "triggering_evidence": [
+        "Existing telemetry ledger",
+        "OpenTelemetry GenAI conventions"
+      ],
+      "affected_workflows": [
+        "orchestrator",
+        "future agents",
+        "research"
+      ],
+      "impact": "medium_high",
+      "recurrence": "continuous",
+      "severity": "medium",
+      "confidence": "high",
+      "proposed_change": "Keep compact internal events but define lossless/near-lossless mapping to OTel GenAI spans/metrics; sensitive content remains opt-in/local.",
+      "alternatives": [
+        "Replace telemetry with OTel",
+        "Stay bespoke"
+      ],
+      "expected_benefit": "Interoperability without rewriting internal semantics.",
+      "complexity": "low_medium",
+      "dependencies": [
+        "current ledger"
+      ],
+      "security": "Content capture off by default.",
+      "privacy": "Only metadata/aggregates exported unless explicit policy permits content.",
+      "cost_impact": "small",
+      "latency_impact": "small",
+      "evaluation": "Round-trip mapping tests and trace visualization.",
+      "baseline": "telemetry.jsonl",
+      "success_criteria": [
+        "Standard tool can display run graph/tokens/tools",
+        "No private content by default"
+      ],
+      "rollback": "Disable exporter.",
+      "status": "candidate",
+      "next_action": "Map existing event types to OTel concepts.",
+      "provenance": [
+        "repo:orchestrator telemetry",
+        "source:OpenTelemetry"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0018",
+      "title": "Quality/reliability and complexity budgets",
+      "category": "Simplification",
+      "problem": "Optimization can increase change velocity and architecture surface faster than reliability can absorb.",
+      "triggering_evidence": [
+        "SRE error budgets",
+        "user simplicity directive"
+      ],
+      "affected_workflows": [
+        "roadmap prioritization",
+        "release gates"
+      ],
+      "impact": "high",
+      "recurrence": "continuous",
+      "severity": "medium",
+      "confidence": "medium_high",
+      "proposed_change": "Define a small set of SLOs plus change-freeze/reliability-focus rules; separately track complexity growth and require new components to justify replacement/incremental value.",
+      "alternatives": [
+        "Priority scores only"
+      ],
+      "expected_benefit": "Prevents self-improvement from recursively destabilizing the system.",
+      "complexity": "low_medium",
+      "dependencies": [
+        "MIE-0002",
+        "MIE-0011"
+      ],
+      "security": "Security regressions can trigger unconditional stop regardless of budget.",
+      "privacy": "none",
+      "cost_impact": "may defer features to reduce long-term cost",
+      "latency_impact": "none",
+      "evaluation": "Simulate policy on historical failures/changes.",
+      "baseline": "No explicit error/complexity budget",
+      "success_criteria": [
+        "Objective pause/escalation thresholds",
+        "Complexity-producing changes require justification"
+      ],
+      "rollback": "Advisory-only mode.",
+      "status": "candidate",
+      "next_action": "Choose 3-5 initial SLOs; avoid metric sprawl.",
+      "provenance": [
+        "source:Google SRE"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0019",
+      "title": "Dynamic/private benchmark refresh and contamination controls",
+      "category": "Evaluation",
+      "problem": "Static public benchmarks can be contaminated or overfit and can cease representing real Agent OS workloads.",
+      "triggering_evidence": [
+        "2025 contamination research",
+        "rapid model turnover"
+      ],
+      "affected_workflows": [
+        "model routing",
+        "prompt/tool optimization"
+      ],
+      "impact": "high",
+      "recurrence": "periodic",
+      "severity": "medium",
+      "confidence": "high",
+      "proposed_change": "Maintain private holdouts, dynamic generated cases with invariant checks, time-sliced cases, and benchmark lineage; quarantine training/optimization examples from holdouts.",
+      "alternatives": [
+        "Use public leaderboards only"
+      ],
+      "expected_benefit": "More trustworthy model/prompt decisions.",
+      "complexity": "medium",
+      "dependencies": [
+        "MIE-0002"
+      ],
+      "security": "Holdouts protected from optimization agents.",
+      "privacy": "Private user-derived holdouts local only.",
+      "cost_impact": "moderate eval cost",
+      "latency_impact": "offline",
+      "evaluation": "Contamination checks and split-integrity tests.",
+      "baseline": "Public/provider benchmarks + current local benchmark",
+      "success_criteria": [
+        "Holdout isolation",
+        "Versioned benchmark lineage",
+        "Routing decisions supported by private workload evidence"
+      ],
+      "rollback": "Use static suite with warnings.",
+      "status": "candidate",
+      "next_action": "Design train/dev/holdout governance.",
+      "provenance": [
+        "source:EMNLP contamination survey",
+        "source:ICML contamination studies"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    },
+    {
+      "id": "MIE-0020",
+      "title": "Eval-gated prompt and workflow optimizer",
+      "category": "Performance",
+      "problem": "Prompt/reflection optimization can overfit or degrade behavior if the model critiques itself without reliable feedback.",
+      "triggering_evidence": [
+        "DSPy/OPRO promise",
+        "self-correction limitations"
+      ],
+      "affected_workflows": [
+        "prompts",
+        "tool descriptions",
+        "retrieval queries",
+        "workflow policy"
+      ],
+      "impact": "high",
+      "recurrence": "ongoing",
+      "severity": "medium",
+      "confidence": "high",
+      "proposed_change": "Allow models/optimizers to propose prompt/tool-schema/workflow variants only against versioned train/dev suites; promotion requires independent holdout and regression checks.",
+      "alternatives": [
+        "Manual prompt editing",
+        "Unconstrained self-reflection"
+      ],
+      "expected_benefit": "Captures automated optimization without trusting self-assessment.",
+      "complexity": "medium",
+      "dependencies": [
+        "MIE-0002",
+        "MIE-0005",
+        "MIE-0019"
+      ],
+      "security": "Prompts cannot change authorization policy.",
+      "privacy": "Optimization data respects domain boundary.",
+      "cost_impact": "offline search cost; production savings possible",
+      "latency_impact": "none after promotion",
+      "evaluation": "Blind holdout improvement + non-regression across safety/cost.",
+      "baseline": "Manual prompting",
+      "success_criteria": [
+        "Measured gain survives holdout",
+        "No security/permission regression",
+        "Versioned prompt provenance"
+      ],
+      "rollback": "Revert prompt/config version.",
+      "status": "candidate",
+      "next_action": "Prototype on one low-risk prompt after eval registry exists.",
+      "provenance": [
+        "source:DSPy",
+        "source:OPRO",
+        "source:TACL self-correction survey"
+      ],
+      "discovered": "2026-09-24",
+      "last_reviewed": "2026-09-24"
+    }
+  ]
+}
