@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-regression-candidate-v1.schema.json",
+  "title": "Skyrim Regression Candidate v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "bug_id",
+    "project_id",
+    "symptom",
+    "root_cause",
+    "reproduction",
+    "validated_fix",
+    "validation_evidence",
+    "evidence",
+    "requested_outputs",
+    "rule_authoring_constraints"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-regression-candidate-v1"
+    },
+    "bug_id": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "symptom": {
+      "type": "string"
+    },
+    "expected": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "layer": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "root_cause": {
+      "type": "string",
+      "minLength": 1
+    },
+    "first_causal_error": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reproduction": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object"
+      }
+    },
+    "validated_fix": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "validation_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "requested_outputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fixture_id",
+        "test_id",
+        "analyzer_rule_id",
+        "mutation_test"
+      ],
+      "properties": {
+        "fixture_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "test_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "analyzer_rule_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "mutation_test": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "rule_authoring_constraints": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
