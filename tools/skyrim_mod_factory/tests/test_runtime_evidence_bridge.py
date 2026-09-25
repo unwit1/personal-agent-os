@@ -87,6 +87,22 @@ REGISTRY={
     ]
 }
 
+def dag(*,smoke_gates=("G19","G26"),regression_gates=("G26",)):
+    return {
+        "nodes":[
+            {
+                "id":"runtime.smoke",
+                "phase":"runtime",
+                "gates":list(smoke_gates),
+            },
+            {
+                "id":"runtime.regression",
+                "phase":"runtime",
+                "gates":list(regression_gates),
+            },
+        ]
+    }
+
 class RuntimeEvidenceBridgeTests(unittest.TestCase):
     def test_runtime_session_summary_is_build_report_compatible(self):
         with tempfile.TemporaryDirectory() as td:
@@ -100,11 +116,6 @@ class RuntimeEvidenceBridgeTests(unittest.TestCase):
             self.assertEqual(summary["adapter"],"mo2-devbench-runtime")
 
     def test_runtime_gate_failure_dominates_later_pass(self):
-        fail_summary={
-            **MOD.runtime_session_summary_from_value_for_test(session(
-                test_id="first",g26="fail",status="failed"
-            ))
-        } if hasattr(MOD,"runtime_session_summary_from_value_for_test") else None
         with tempfile.TemporaryDirectory() as td:
             root=Path(td)
             first=root/"first.json"
@@ -116,11 +127,12 @@ class RuntimeEvidenceBridgeTests(unittest.TestCase):
                 test_id="second",g26="pass",status="passed"
             )),encoding="utf-8")
             rows=MOD.combine_runtime_gate_rows(
-                [
-                    MOD.runtime_session_summary(first),
-                    MOD.runtime_session_summary(second),
-                ],
+                {
+                    "runtime.smoke":[MOD.runtime_session_summary(first)],
+                    "runtime.regression":[MOD.runtime_session_summary(second)],
+                },
                 REGISTRY,
+                dag(),
             )
             gates={x["gate"]:x for x in rows}
             self.assertEqual(gates["G26"]["status"],"fail")
@@ -138,28 +150,84 @@ class RuntimeEvidenceBridgeTests(unittest.TestCase):
             path=Path(td)/"runtime.json"
             path.write_text(json.dumps(value),encoding="utf-8")
             rows=MOD.combine_runtime_gate_rows(
-                [MOD.runtime_session_summary(path)],
+                {"runtime.smoke":[MOD.runtime_session_summary(path)]},
                 REGISTRY,
+                dag(regression_gates=()),
             )
             gates={x["gate"]:x for x in rows}
             self.assertEqual(gates["G19"]["status"],"warning")
             self.assertIn("smoke: coverage incomplete",gates["G19"]["issues"])
 
-    def test_collect_runtime_report_evidence_reads_step_summaries(self):
+    def test_missing_required_runtime_node_evidence_blocks_gate(self):
         with tempfile.TemporaryDirectory() as td:
             path=Path(td)/"runtime.json"
             path.write_text(json.dumps(session()),encoding="utf-8")
-            summary=MOD.runtime_session_summary(path)
-            tests,gates=MOD.collect_runtime_report_evidence(
-                [{
-                    "id":"runtime.smoke",
-                    "status":"passed",
-                    "evidence":{"runtime_sessions":[summary]},
-                }],
+            rows=MOD.combine_runtime_gate_rows(
+                {"runtime.smoke":[MOD.runtime_session_summary(path)]},
                 REGISTRY,
+                dag(),
             )
-            self.assertEqual(tests[0]["test_id"],"smoke")
-            self.assertEqual(tests[0]["status"],"pass")
+            gates={x["gate"]:x for x in rows}
+            self.assertEqual(gates["G26"]["status"],"warning")
+            self.assertTrue(any(
+                "runtime.regression produced no typed runtime session evidence" in x
+                for x in gates["G26"]["issues"]
+            ))
+
+    def test_not_applicable_cannot_discharge_assigned_runtime_gate(self):
+        with tempfile.TemporaryDirectory() as td:
+            path=Path(td)/"runtime.json"
+            value=session()
+            value["gates"][1]={
+                "gate":"G20",
+                "status":"not-applicable",
+                "evidence":[],
+                "issues":[],
+            }
+            path.write_text(json.dumps(value),encoding="utf-8")
+            rows=MOD.combine_runtime_gate_rows(
+                {"runtime.smoke":[MOD.runtime_session_summary(path)]},
+                REGISTRY,
+                dag(smoke_gates=("G20",),regression_gates=()),
+            )
+            gate={x["gate"]:x for x in rows}["G20"]
+            self.assertEqual(gate["status"],"warning")
+            self.assertTrue(any(
+                "not-applicable evidence cannot discharge" in x
+                for x in gate["issues"]
+            ))
+
+    def test_collect_runtime_report_evidence_reads_step_summaries(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            smoke=root/"smoke.json"
+            regression=root/"regression.json"
+            smoke.write_text(json.dumps(session(test_id="smoke")),encoding="utf-8")
+            regression.write_text(
+                json.dumps(session(test_id="regression")),
+                encoding="utf-8",
+            )
+            tests,gates=MOD.collect_runtime_report_evidence(
+                [
+                    {
+                        "id":"runtime.smoke",
+                        "status":"passed",
+                        "evidence":{
+                            "runtime_sessions":[MOD.runtime_session_summary(smoke)]
+                        },
+                    },
+                    {
+                        "id":"runtime.regression",
+                        "status":"passed",
+                        "evidence":{
+                            "runtime_sessions":[MOD.runtime_session_summary(regression)]
+                        },
+                    },
+                ],
+                REGISTRY,
+                dag(),
+            )
+            self.assertEqual([x["test_id"] for x in tests],["smoke","regression"])
             self.assertEqual(
                 {x["gate"]:x["status"] for x in gates}["G26"],
                 "pass",
