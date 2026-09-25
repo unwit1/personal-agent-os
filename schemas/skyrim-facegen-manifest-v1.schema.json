@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-facegen-manifest-v1.schema.json",
+  "title": "Skyrim FaceGen Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "asset_root", "npcs"],
+  "properties": {
+    "schema_version": {"const": "skyrim-facegen-manifest-v1"},
+    "asset_root": {"type": "string", "minLength": 1},
+    "complete_for_origin_mods": {"type": "boolean", "default": false},
+    "npcs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["form_key"],
+        "properties": {
+          "form_key": {
+            "type": "string",
+            "pattern": "^[0-9A-Fa-f]{6}:[^:]+\\.(?:esm|esp|esl)$"
+          },
+          "editor_id": {"type": ["string", "null"]},
+          "nif_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "dds_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    }
+  }
+}
