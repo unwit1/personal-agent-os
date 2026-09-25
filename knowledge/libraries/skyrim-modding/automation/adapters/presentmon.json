@@ -3,7 +3,10 @@
   "adapter_id": "presentmon",
   "tool": "PresentMon process-scoped frame capture",
   "source": "https://github.com/GameTechDev/PresentMon",
-  "targets": ["skyrim-se-ae", "vr-1.4.15"],
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
   "capabilities": [
     "frame-time",
     "cpu-frame",
@@ -17,10 +20,14 @@
     "executable": "python",
     "arguments_template": [
       "tools/skyrim_mod_factory/run_presentmon_capture.py",
-      "--presentmon", "{presentmon_executable}",
-      "--process-id", "{process_id}",
-      "--output-csv", "{trace_csv}",
-      "--summary", "{summary_json}",
+      "--presentmon",
+      "{presentmon_executable}",
+      "--process-id",
+      "{process_id}",
+      "--output-csv",
+      "{trace_csv}",
+      "--summary",
+      "{summary_json}",
       "--execute"
     ],
     "transport": "local PresentMon console application",
@@ -34,13 +41,15 @@
     "PresentMon CSV",
     "skyrim-frame-trace-summary-v1"
   ],
-  "logs": ["PresentMon stderr"],
+  "logs": [
+    "PresentMon stderr"
+  ],
   "coverage": {
     "description": "Process-scoped PresentMon capture using current documented CLI switches with deterministic per-PID CSV summarization.",
     "known_gaps": [
-      "wrapper does not yet own the MO2 runtime lifecycle; composite harness integration is the next step",
-      "frame summaries are evidence, not automatic performance budgets",
-      "hardware telemetry requires PresentMon/platform support beyond the baseline"
+      "frame summaries are evidence, not automatic performance budgets unless the runtime test declares performance assertions",
+      "hardware telemetry requires PresentMon/platform support beyond the baseline",
+      "real Windows/MO2 qualification is still required before release-gate trust"
     ],
     "denominator_probe": "target-process frames captured and summarized from the produced CSV."
   },
@@ -58,7 +67,7 @@
       "performance assertion thresholds"
     ],
     "version_probe": "PresentMon --help/version plus source-pinned CLI grammar",
-    "output_readback": "Require target PID rows and a usable frame-time metric before treating the trace as complete."
+    "output_readback": "Composite MO2+DevBench sessions can launch PresentMon against the fresh DevBench-reported game PID; require target-PID rows and a usable frame-time metric before G20 evidence can pass."
   },
   "ai": {
     "typed_tooling": true,
