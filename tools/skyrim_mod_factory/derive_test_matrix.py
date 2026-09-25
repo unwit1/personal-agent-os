@@ -367,7 +367,7 @@ def derive(manifest: dict[str, Any], feature: dict[str, Any] | None = None) -> d
             "description": ac["statement"],
             "layers": layers,
             "targets": targets,
-            "fixture": {"kind": ac.get("fixture_hint") or "custom", "fresh_copy": True},
+            "fixture": {"kind": ("custom" if ac.get("fixture_hint") else ("package" if kind=="packaging" else "custom")), "fresh_copy": True, "notes": ac.get("fixture_hint","")},
             "preconditions": [],
             "actions": ["Construct the smallest fixture that exercises this acceptance criterion.", "Trigger the behavior and capture evidence."],
             "assertions": [ac["statement"]],
