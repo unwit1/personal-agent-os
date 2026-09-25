@@ -1,7 +1,7 @@
 # Skyrim Mod Factory — Typed Runtime-Patch Intent
 
 Created: 2026-09-24
-Status: implementation in progress; SPID/KID/BOS/FLM renderers available
+Status: implementation in progress; SPID/KID/BOS/FLM/OAR renderers available
 
 ## Why an intermediate representation
 
@@ -196,3 +196,20 @@ The renderer covers the documented flat `*_FLM.ini` grammar for filters, aliases
 Form identities use documented EditorID or `FormID~Plugin` references. FormList-content expansion is typed separately from direct forms, and group/collection/alias references are explicit in the IR instead of encoded as magic string prefixes.
 
 FLM filter expressions are still preserved as source-grammar strings. The next deeper step is a provider-neutral boolean filter AST plus runtime-log/readback validation against `FormListManipulator.log` and a typed in-game FormList query.
+
+
+## OAR v1 author-config renderer
+
+Implemented:
+- `tools/skyrim_mod_factory/render_oar.py`;
+- typed root OAR metadata and `OARSubmod` entries in `skyrim-runtime-patch-intent-v1`;
+- adapter manifest `automation/adapters/oar.json`.
+
+Pinned parser/serializer evidence:
+- `ersh1/OpenAnimationReplacer` snapshot `f4e7688b065175aff70aa523073857911e15aca3`;
+- `src/Parsing.cpp` for required mod/submod names, required submod priority, conditions and optional settings;
+- `src/ReplacerMods.cpp` for author serialization field names.
+
+The baseline emits a root `config.json` and one author `config.json` per declared submod. It rejects absolute/path-traversal submod directories and case-insensitive duplicate output paths. It does not write `user.json`, because user overrides are installed-state data rather than canonical author intent.
+
+OAR condition objects require a `condition` discriminator but retain condition-specific payload fields in upstream JSON shape for now. This is deliberate: the next OAR depth step is to derive typed schemas for individual condition families from OAR's condition implementations, then add provider-neutral condition AST conversion and runtime animation-log fixtures. Variants, condition presets, functions and HKX asset generation remain separate incremental work.
