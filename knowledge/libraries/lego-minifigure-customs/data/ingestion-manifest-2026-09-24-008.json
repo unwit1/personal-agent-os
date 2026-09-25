@@ -28,7 +28,8 @@
     "tools/knowledge/discover_lego_instruction_references.py",
     "tools/knowledge/discover_lego_page_media.py",
     "tools/knowledge/enrich_bricklink_minifigure_references.py",
-    "data/commercial-game-candidate-census-2026-09-24.json"
+    "data/commercial-game-candidate-census-2026-09-24.json",
+    "../../.github/workflows/lego-minifigure-reference-census.yml"
   ],
   "updated_files": [
     "data-model.json",
@@ -50,7 +51,8 @@
     "Flashpoint can serve as a preservation/local-file locator, while JPEXS, ProjectorRays and UnityPy provide technology-specific asset extraction; archive presence alone does not prove official LEGO provenance.",
     "BrickLink API can independently enrich minifigure and color-specific component image references after the Rebrickable bulk census.",
     "LEGO building-instruction pages can provide official PDF references per set without blindly mirroring the entire instruction archive.",
-    "The commercial/dedicated game queue has been over-inclusive from 1995–2026 so PC, console, handheld and mobile releases cannot silently disappear; each candidate carries a standard-minifigure/separate-form/unknown classification and verification state."
+    "The commercial/dedicated game queue has been over-inclusive from 1995–2026 so PC, console, handheld and mobile releases cannot silently disappear; each candidate carries a standard-minifigure/separate-form/unknown classification and verification state.",
+    "A manual GitHub Actions workflow can now fetch Rebrickable's current daily bulk catalog and produce a validated compact physical-corpus census without storing the raw media/catalog outputs in Git."
   ],
   "next_steps": [
     "Execute the physical Rebrickable v2 importer on current local bulk data, then materialize reviewed image hosts and publish actual coverage counts.",
