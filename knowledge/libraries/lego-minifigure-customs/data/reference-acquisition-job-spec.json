@@ -104,6 +104,37 @@
       ]
     },
     {
+      "id": "web_game_census",
+      "prerequisites": [
+        "Optional local Flashpoint installation for preserved-title cross-check"
+      ],
+      "action": "Reconcile LEGO official/current sources, Research Realm historical list, Brickipedia discovery candidates and local Flashpoint metadata; verify LEGO provenance before promotion.",
+      "optional_command": "python tools/knowledge/discover_flashpoint_lego_webgames.py --flashpoint-root <Flashpoint-root> --output .agent-local/lego-minifigure-corpus/games/web/flashpoint_candidates.jsonl",
+      "success_metrics": [
+        "every candidate has technology and verification state",
+        "preserved local-data availability recorded"
+      ]
+    },
+    {
+      "id": "web_game_local_assets",
+      "prerequisites": [
+        "verified LEGO web-game candidate",
+        "locally preserved/unpacked game files"
+      ],
+      "command": "python tools/knowledge/index_lego_webgame_assets.py --game-id <slug> --title <title> --source-root <unpacked-game-dir> --output .agent-local/lego-minifigure-corpus/games/web/<slug>/assets.jsonl",
+      "success_metrics": [
+        "all local files hashed",
+        "format-specific extraction route assigned"
+      ],
+      "followups": [
+        "JPEXS for SWF",
+        "ProjectorRays for DCR/DXR",
+        "UnityPy for Unity",
+        "extract JAR/resources",
+        "resolve minifigure characters/assets"
+      ]
+    },
+    {
       "id": "film_title_census",
       "prerequisites": [],
       "action": "Verify every minifigure-form theatrical/direct-to-video LEGO film and classify standard minifigure/minidoll/non-minifigure scope.",
@@ -162,5 +193,6 @@
     "Preserve LDraw contributor license/attribution metadata.",
     "Do not conflate community reconstruction with LEGO-authored artwork."
   ],
-  "game_strategy_registry": "data/game-asset-extraction-strategy-registry.json"
+  "game_strategy_registry": "data/game-asset-extraction-strategy-registry.json",
+  "web_game_registry": "data/web-game-preservation-source-registry.json"
 }
