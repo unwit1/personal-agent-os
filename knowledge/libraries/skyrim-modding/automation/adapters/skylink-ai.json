@@ -1,0 +1,75 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "skylink-ai",
+  "tool": "SkyLink AI",
+  "source": "https://github.com/jarvann/SkryimMCM",
+  "targets": [
+    "skyrim-se-ae-1.6.1130+"
+  ],
+  "capabilities": [
+    "runtime-query",
+    "runtime-mutation",
+    "player-query",
+    "inventory-query",
+    "quest-query",
+    "npc-query",
+    "world-query",
+    "combat-query",
+    "economy-query",
+    "magic-query",
+    "event-stream",
+    "console-with-output",
+    "papyrus-vm-call",
+    "papyrus-catalog",
+    "load-order-query",
+    "skse-plugin-scan",
+    "game-safety-check"
+  ],
+  "invocation": {
+    "mode": "mcp-stdio",
+    "transport": "MCP stdio to C# server; named pipe to in-game SKSE plugin",
+    "requires_running_game": true
+  },
+  "coverage": {
+    "api_entries": 3389,
+    "tools": 74,
+    "description": "Live runtime control/query plane described by project README.",
+    "known_gaps": [
+      "current README runtime floor is 1.6.1130+",
+      "not a static binary schema validator"
+    ],
+    "denominator_probe": "Query server tool catalog and project-reported function catalog."
+  },
+  "safety": {
+    "mutation_default": "runtime-only",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": false,
+    "requires_confirmation_for": [
+      "save/load destructive test actions outside fixture",
+      "quest stage mutation",
+      "kill/delete/non-fixture world mutation"
+    ],
+    "sandbox_or_scope": "Use dedicated development profile and disposable fixture save."
+  },
+  "verification": {
+    "independent_validators": [
+      "housecarl-or-xedit-static-query",
+      "runtime-readback"
+    ],
+    "version_probe": "plugin/server version metadata",
+    "output_readback": "Re-query the affected runtime state."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "tool_count": 74,
+    "context_cost_notes": "Prefer scenario-specific subsets; do not expose every mutator when read-only diagnostics suffice."
+  },
+  "evidence": {
+    "source_url": "https://github.com/jarvann/SkryimMCM",
+    "verified_date": "2026-09-24",
+    "notes": "Strong runtime assertion/control option; project README identifies it as SkyLink AI."
+  }
+}
