@@ -397,7 +397,10 @@
         "typed-plugin-read",
         "typed-plugin-write",
         "formlink",
-        "load-order"
+        "load-order",
+        "semantic-plugin-oracle",
+        "canonical-formkey-export",
+        "asset-link-enumeration"
       ],
       "validation_role": "author",
       "can_mutate": true,
