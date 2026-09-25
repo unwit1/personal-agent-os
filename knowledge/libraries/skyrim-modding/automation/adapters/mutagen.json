@@ -2,7 +2,7 @@
   "schema_version": "skyrim-tool-adapter-v1",
   "adapter_id": "mutagen",
   "tool": "Mutagen.Bethesda",
-  "tool_version": "0.54.4",
+  "tool_version": "0.52.0",
   "source": "https://github.com/Mutagen-Modding/Mutagen",
   "targets": [
     "skyrim-se-ae",
@@ -19,12 +19,27 @@
     "plugin-synthesis",
     "plugin-splitting",
     "semantic-diff",
-    "master-analysis"
+    "master-analysis",
+    "semantic-plugin-oracle",
+    "canonical-formkey-export",
+    "asset-link-enumeration"
   ],
   "invocation": {
-    "mode": "library",
-    "transport": ".NET library / generated typed APIs",
-    "requires_running_game": false
+    "mode": "cli",
+    "arguments_template": [
+      "run",
+      "--project",
+      "tools/skyrim_mod_factory/mutagen_semantic_oracle/MutagenSemanticOracle.csproj",
+      "--configuration",
+      "Release",
+      "--",
+      "{plugin_path}",
+      "{semantic_output}",
+      "{skyrim_release}"
+    ],
+    "transport": "dotnet CLI invoking pinned MutagenSemanticOracle project",
+    "requires_running_game": false,
+    "timeout_seconds": 900
   },
   "inputs": [
     "plugin files",
@@ -35,7 +50,8 @@
   "outputs": [
     "ESP/ESM/ESL-compatible plugin output",
     "typed record graph",
-    "diagnostics"
+    "diagnostics",
+    "skyrim-semantic-plugin-v1 JSON"
   ],
   "logs": [
     "application-owned structured log"
@@ -64,10 +80,12 @@
     "game-semantic intent where multiple valid field winners exist"
   ],
   "coverage": {
-    "description": "Primary typed authoring/readback library for deterministic plugin work. Release 0.54.4 includes split-mod improvements and master/index edge-case fixes.",
+    "description": "Pinned Mutagen binary parser/oracle. Current semantic producer exports canonical FormKey identity, record signature, EditorID, and listed asset links into skyrim-semantic-plugin-v1; richer generic field/VMAD/flag semantics remain explicit gaps.",
     "known_gaps": [
       "typed schema acceptance does not prove xEdit/game semantic correctness",
-      "editor-owned CK semantics such as navmesh finalization and scene authoring still need independent validation"
+      "editor-owned CK semantics such as navmesh finalization and scene authoring still need independent validation",
+      "semantic oracle currently declares only editor_id and asset_paths as comparable fields",
+      "generic VMAD/flags/field-tree export remains pending"
     ],
     "denominator_probe": "plugins/records selected vs plugins/records parsed and written"
   },
@@ -90,7 +108,7 @@
       "runtime-test"
     ],
     "version_probe": "NuGet/package/release version",
-    "output_readback": "Reload complete output with Mutagen LinkCache and xEdit/xDump."
+    "output_readback": "Validate emitted skyrim-semantic-plugin-v1 JSON, require canonical mutagen-formkey-string identity, and compare only the declared semantic-field intersection against another oracle."
   },
   "ai": {
     "typed_tooling": true,
@@ -100,7 +118,7 @@
   },
   "evidence": {
     "source_url": "https://github.com/Mutagen-Modding/Mutagen/releases",
-    "verified_date": "2026-09-24",
-    "notes": "Latest release observed: 0.54.4, released 2026-08-08."
+    "verified_date": "2026-09-25",
+    "notes": "Latest release observed: 0.54.4, released 2026-08-08. Mutagen source confirms SkyrimMod.CreateFromBinaryOverlay, EnumerateMajorRecords, AssociatedRecordTypesAttribute, RecordType.ToString(), FormKey.ToString(), and EnumerateAssetLinks APIs used by the semantic oracle."
   }
 }
