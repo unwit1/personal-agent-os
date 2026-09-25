@@ -297,5 +297,102 @@ class MO2DevBenchRuntimeTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,"not in allowed"):
                 MOD.validate_session_health_for_termination(bad,config)
 
+    def test_presentmon_pass_can_satisfy_requested_performance_evidence(self):
+        test=runtime_test()
+        test["evidence"]={"performance":True}
+        result={"gates":MOD.MO2.default_gate_rows(test)}
+        summary={
+            "schema_version":"skyrim-frame-trace-summary-v1",
+            "provider":"presentmon",
+            "source_csv":"trace.csv",
+            "process_id":4242,
+            "status":"pass",
+            "frame_count":120,
+            "columns":["ProcessID","FrameTime"],
+            "metrics":{"FrameTime":{"count":120,"mean":10.0,"p50":10.0,"p95":12.0,"p99":14.0,"max":16.0}},
+            "issues":[],
+        }
+        MOD.apply_presentmon_gate(result,test,summary)
+        gate=next(x for x in result["gates"] if x["gate"]=="G20")
+        self.assertEqual(gate["status"],"pass")
+        self.assertTrue(any("PresentMon frames=120" in x for x in gate["evidence"]))
+
+    def test_presentmon_failure_cannot_be_hidden_by_passing_performance_assertion(self):
+        test=runtime_test()
+        test["assertions"].append({
+            "id":"frame-budget",
+            "kind":"performance",
+            "expected":16.7,
+            "operator":"lte",
+            "severity":"ERROR",
+        })
+        result={"gates":MOD.MO2.default_gate_rows(test)}
+        g20=next(x for x in result["gates"] if x["gate"]=="G20")
+        g20["status"]="pass"
+        g20["issues"]=[]
+        summary={
+            "schema_version":"skyrim-frame-trace-summary-v1",
+            "provider":"presentmon",
+            "source_csv":"trace.csv",
+            "process_id":4242,
+            "status":"fail",
+            "frame_count":0,
+            "columns":["ProcessID","FrameTime"],
+            "metrics":{},
+            "issues":["no frames"],
+        }
+        MOD.apply_presentmon_gate(result,test,summary)
+        self.assertEqual(g20["status"],"fail")
+
+    def test_composite_session_starts_process_scoped_presentmon_when_requested(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            template=self.make_template(root)
+            config=worker_config(root,template,retain_on_failure=False)
+            config["performance_capture"]={
+                "provider":"presentmon",
+                "executable":"C:/Tools/PresentMon.exe",
+                "timed_seconds":None,
+                "required_when_requested":True,
+            }
+            test=runtime_test()
+            test["evidence"]={"performance":True}
+            game=FakeProcess()
+            capture=FakeProcess()
+            summary={
+                "schema_version":"skyrim-frame-trace-summary-v1",
+                "provider":"presentmon",
+                "source_csv":str(root/"trace.csv"),
+                "process_id":HEALTH["pid"],
+                "status":"pass",
+                "frame_count":60,
+                "columns":["ProcessID","FrameTime"],
+                "metrics":{"FrameTime":{"count":60,"mean":10.0,"p50":10.0,"p95":11.0,"p99":12.0,"max":13.0}},
+                "issues":[],
+            }
+
+            def fake_observer(test,session,**kwargs):
+                return observation(session)
+
+            with patch.object(MOD.os,"name","nt"), \
+                 patch.object(MOD.MO2,"assert_process_exclusivity"), \
+                 patch.object(MOD.subprocess,"Popen",side_effect=[game,capture]) as popen, \
+                 patch.object(MOD.DB,"wait_for_health",return_value=dict(HEALTH)), \
+                 patch.object(MOD.DB,"run_observer",side_effect=fake_observer), \
+                 patch.object(MOD.DB,"post_tool",return_value={"queued":True}), \
+                 patch.object(MOD.PM,"summarize_csv",return_value=summary):
+                result=MOD.run_session(test,config,run_id="run-perf",execute=True)
+
+            self.assertEqual(popen.call_count,2)
+            presentmon_cmd=popen.call_args_list[1].args[0]
+            self.assertIn("--process_id",presentmon_cmd)
+            self.assertIn(str(HEALTH["pid"]),presentmon_cmd)
+            gate=next(x for x in result["gates"] if x["gate"]=="G20")
+            self.assertEqual(gate["status"],"pass")
+            self.assertTrue(any(
+                x.get("kind")=="presentmon-summary"
+                for x in result["evidence"]["artifacts"]
+            ))
+
 if __name__=="__main__":
     unittest.main()
