@@ -7,6 +7,9 @@ from pathlib import Path
 
 from .adapters import sync_adapters
 from .browser_bridge import BridgeStore
+from .browser_control import command_status as browser_command_status
+from .browser_control import execute as browser_execute
+from .browser_control import sessions as browser_sessions
 from .browser_bridge_server import (
     DEFAULT_HOST as BROWSER_BRIDGE_HOST,
     DEFAULT_PORT as BROWSER_BRIDGE_PORT,
@@ -113,6 +116,26 @@ def parser() -> argparse.ArgumentParser:
         "browser-bridge-token",
         help="show the local browser bridge token for one-time userscript setup",
     )
+    browser_sessions_p = commands.add_parser(
+        "browser-sessions",
+        help="list Firefox/Tampermonkey sessions registered with Agent OS",
+    )
+    browser_sessions_p.add_argument("--all", action="store_true")
+    browser_sessions_p.add_argument("--active-within-seconds", type=int, default=90)
+    browser_execute_p = commands.add_parser(
+        "browser-execute",
+        help="queue bounded browser actions for one registered session",
+    )
+    browser_execute_p.add_argument("session_id")
+    browser_execute_p.add_argument("actions_json")
+    browser_execute_p.add_argument("--issued-by", default="cli")
+    browser_execute_p.add_argument("--approved-consequential", action="store_true")
+    browser_execute_p.add_argument("--wait-seconds", type=float, default=12.0)
+    browser_status_p = commands.add_parser(
+        "browser-command-status",
+        help="read a previously queued browser command result",
+    )
+    browser_status_p.add_argument("command_id")
     bridge_pending = commands.add_parser(
         "browser-bridge-pending",
         help="read durable browser events waiting for Knowledge Engine ingestion",
@@ -421,6 +444,26 @@ def main(argv: list[str] | None = None) -> int:
                 "token": browser_bridge_token(),
                 "path": str(BROWSER_BRIDGE_TOKEN_PATH),
             })
+        elif args.command == "browser-sessions":
+            _print({
+                "sessions": browser_sessions(
+                    active_only=not args.all,
+                    active_within_seconds=args.active_within_seconds,
+                )
+            })
+        elif args.command == "browser-execute":
+            actions = json.loads(args.actions_json)
+            if not isinstance(actions, list):
+                raise ValueError("actions_json must decode to a list")
+            _print(browser_execute(
+                args.session_id,
+                actions,
+                issued_by=args.issued_by,
+                approved_consequential=args.approved_consequential,
+                wait_seconds=args.wait_seconds,
+            ))
+        elif args.command == "browser-command-status":
+            _print(browser_command_status(args.command_id))
         elif args.command == "browser-bridge-pending":
             _print({"events": BridgeStore().pending(args.limit)})
         elif args.command == "browser-bridge-mark-ingested":
