@@ -982,6 +982,24 @@
       ],
       "maturity": "regression-tested",
       "notes": "Bounded exhaustive simulator for installer branches and conditional installation."
+    },
+    {
+      "adapter_id": "mcm-helper-config-generator",
+      "tool": "Agent OS MCM Helper config generator",
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/mcm-helper-config-generator.json",
+      "category": "ui-config-generator",
+      "targets": [
+        "skyrim-se-ae",
+        "vr-1.4.15"
+      ],
+      "capabilities": [
+        "mcm-helper-config-render",
+        "mcm-helper-settings-render",
+        "mod-setting-cross-validation",
+        "group-condition-validation"
+      ],
+      "maturity": "regression-tested",
+      "notes": "Pinned upstream schema plus deterministic settings.ini and semantic cross-validation."
     }
   ]
 }
