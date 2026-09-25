@@ -2389,6 +2389,398 @@
       "evidence_notes": "Studies tunable proactive recommendation agents and the tradeoff between proactive behavior and user preference.",
       "limits": "Recommendation setting; transfer to general personal assistant needs local HCI evaluation.",
       "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0227",
+      "title": "Detecting hallucinations in large language models using semantic entropy",
+      "type": "research",
+      "url": "https://www.nature.com/articles/s41586-024-07421-0",
+      "topics": [
+        "uncertainty",
+        "semantic_entropy",
+        "hallucination"
+      ],
+      "evidence_notes": "Clusters sampled generations by meaning and measures entropy over semantic classes; predicts confabulations and improves selective QA via abstention.",
+      "limits": "Detects an important subset of hallucinations, not all factual/logical failure; multi-sample cost and entailment clustering required.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0228",
+      "title": "Language Models (Mostly) Know What They Know",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2207.05221",
+      "topics": [
+        "self_evaluation",
+        "calibration",
+        "P_True"
+      ],
+      "evidence_notes": "Studies P(True)/P(IK) self-evaluation and reports useful calibration/scaling under studied formats.",
+      "limits": "Calibration is prompt/task/model dependent and P(IK) generalization degrades on new tasks.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0229",
+      "title": "On Calibration of Modern Neural Networks",
+      "type": "research",
+      "url": "https://proceedings.mlr.press/v70/guo17a",
+      "topics": [
+        "calibration",
+        "temperature_scaling"
+      ],
+      "evidence_notes": "Found modern neural classifiers overconfident and showed post-hoc temperature scaling as a strong simple calibration baseline.",
+      "limits": "Classification-era result; free-form LLM uncertainty needs additional methods.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0230",
+      "title": "Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles",
+      "type": "research",
+      "url": "https://papers.nips.cc/paper/2017/hash/9ef2ed4b7fd2c810847ffa5fa85bce38-Abstract.html",
+      "topics": [
+        "uncertainty",
+        "ensembles"
+      ],
+      "evidence_notes": "Independent ensembles provide strong predictive uncertainty and OOD signals in supervised settings.",
+      "limits": "Multiple full models are costly; LLM-agent errors can be strongly correlated.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0231",
+      "title": "The engineering challenges of scaling interpretability",
+      "type": "engineering_report",
+      "url": "https://www.anthropic.com/research/engineering-challenges-interpretability",
+      "topics": [
+        "interpretability",
+        "sparse_autoencoders"
+      ],
+      "evidence_notes": "Anthropic reports scaling sparse-autoencoder feature dictionaries to much larger models and highlights engineering/infrastructure constraints.",
+      "limits": "Features/probes are partial representations and not guaranteed causal or complete.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0232",
+      "title": "Open-sourcing circuit-tracing tools",
+      "type": "engineering_report",
+      "url": "https://www.anthropic.com/research/open-source-circuit-tracing",
+      "topics": [
+        "interpretability",
+        "attribution_graphs"
+      ],
+      "evidence_notes": "Open-sources attribution-graph/circuit-tracing method for selected open-weight models to inspect internal computation pathways.",
+      "limits": "Partial reconstruction; interpretability does not by itself guarantee control or correctness.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0233",
+      "title": "SparseGPT: Massive Language Models Can Be Accurately Pruned in One-Shot",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2301.00774",
+      "topics": [
+        "pruning",
+        "compression"
+      ],
+      "evidence_notes": "One-shot second-order-inspired pruning reached high sparsity on large models with minimal perplexity loss in reported settings.",
+      "limits": "Actual speedup requires sparse kernel/hardware support; downstream task quality must be checked.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0234",
+      "title": "A Simple and Effective Pruning Approach for Large Language Models (Wanda)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2306.11695",
+      "topics": [
+        "pruning",
+        "compression"
+      ],
+      "evidence_notes": "Activation-aware weight pruning without retraining performed competitively on LLaMA-family models.",
+      "limits": "Sparsity does not automatically translate into wall-clock speedup.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0235",
+      "title": "Movement Pruning: Adaptive Sparsity by Fine-Tuning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2005.07683",
+      "topics": [
+        "pruning",
+        "finetuning"
+      ],
+      "evidence_notes": "First-order movement-based pruning adapts sparsity during fine-tuning and reported good high-sparsity transfer performance.",
+      "limits": "Older BERT-era transfer setting; requires training.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0236",
+      "title": "The Lottery Ticket Hypothesis",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1803.03635",
+      "topics": [
+        "pruning",
+        "sparse_networks"
+      ],
+      "evidence_notes": "Shows dense networks can contain sparse subnetworks that train effectively in studied vision architectures.",
+      "limits": "Foundational sparsity concept; direct large-language-model application is not guaranteed.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0237",
+      "title": "Parameter-Efficient Transfer Learning for NLP (Adapters)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1902.00751",
+      "topics": [
+        "PEFT",
+        "adapters"
+      ],
+      "evidence_notes": "Task-specific adapter modules approach full fine-tuning quality while adding a small parameter fraction.",
+      "limits": "Older encoder setting; adapter placement/serving overhead varies in modern LLMs.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0238",
+      "title": "Prefix-Tuning: Optimizing Continuous Prompts for Generation",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2101.00190",
+      "topics": [
+        "PEFT",
+        "prefix_tuning"
+      ],
+      "evidence_notes": "Learns small continuous prefixes while freezing model weights; reported competitive low-data generation performance.",
+      "limits": "Requires model/training access and prefix support; not comparable to ordinary text prompt editing.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0239",
+      "title": "The Power of Scale for Parameter-Efficient Prompt Tuning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2104.08691",
+      "topics": [
+        "PEFT",
+        "prompt_tuning"
+      ],
+      "evidence_notes": "Learns soft prompts for frozen models and found competitiveness improves with model scale.",
+      "limits": "Model-family/training-specific; hosted APIs rarely expose this.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0240",
+      "title": "Few-Shot Parameter-Efficient Fine-Tuning is Better and Cheaper than In-Context Learning (IA3/T-Few)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2205.05638",
+      "topics": [
+        "PEFT",
+        "IA3"
+      ],
+      "evidence_notes": "Introduces IA3 activation scaling and reports strong few-shot PEFT with lower repeated inference cost than ICL.",
+      "limits": "Training access required; tasks/data distribution matter.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0241",
+      "title": "BitFit: Simple Parameter-efficient Fine-tuning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2106.10199",
+      "topics": [
+        "PEFT",
+        "bias_tuning"
+      ],
+      "evidence_notes": "Fine-tunes only bias terms and reports competitive performance for small/medium data on BERT-family tasks.",
+      "limits": "Older encoder models; may underfit modern generative tasks.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0242",
+      "title": "Model soups",
+      "type": "research",
+      "url": "https://proceedings.mlr.press/v162/wortsman22a.html",
+      "topics": [
+        "model_merging",
+        "robustness"
+      ],
+      "evidence_notes": "Averaging compatible fine-tuned model weights improved accuracy/robustness without inference-time ensemble cost in studied settings.",
+      "limits": "Only works when weight solutions are compatible/in same basin; careless merging can destroy capability.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0243",
+      "title": "TIES-Merging: Resolving Interference When Merging Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2306.01708",
+      "topics": [
+        "model_merging",
+        "interference"
+      ],
+      "evidence_notes": "Trims small changes, resolves sign conflicts and merges aligned parameter updates to reduce task interference.",
+      "limits": "Merged-model behavior still needs comprehensive downstream/safety evaluation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0244",
+      "title": "Training Deep Nets with Sublinear Memory Cost",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1604.06174",
+      "topics": [
+        "training_systems",
+        "activation_checkpointing"
+      ],
+      "evidence_notes": "Activation/gradient checkpointing trades recomputation for much lower training memory.",
+      "limits": "Extra compute and communication; modern frameworks implement variants with different tradeoffs.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0245",
+      "title": "ZeRO: Memory Optimizations Toward Training Trillion Parameter Models",
+      "type": "research",
+      "url": "https://www.microsoft.com/en-us/research/publication/zero-memory-optimization-towards-training-a-trillion-parameter-models/",
+      "topics": [
+        "training_systems",
+        "sharding"
+      ],
+      "evidence_notes": "Partitions optimizer state, gradients and parameters across data-parallel workers to reduce per-device memory while preserving scaling.",
+      "limits": "Distributed training engineering complexity and communication constraints.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0246",
+      "title": "PyTorch Fully Sharded Data Parallel (FSDP2)",
+      "type": "official",
+      "url": "https://docs.pytorch.org/docs/main/distributed.fsdp.fully_shard.html",
+      "topics": [
+        "training_systems",
+        "sharding"
+      ],
+      "evidence_notes": "Current PyTorch fully_shard uses per-parameter DTensor sharding and all-gather/free hooks to reduce replicated model state.",
+      "limits": "Training infrastructure concern, not application-layer Agent OS.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0247",
+      "title": "Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1909.08053",
+      "topics": [
+        "training_systems",
+        "tensor_parallel"
+      ],
+      "evidence_notes": "Intra-layer tensor/model parallelism enabled multi-billion-parameter training with good scaling in original experiments.",
+      "limits": "Communication/hardware topology sensitive; newer Megatron implementations extend it substantially.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0248",
+      "title": "DeepSpeed Ulysses",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2309.14509",
+      "topics": [
+        "training_systems",
+        "sequence_parallel"
+      ],
+      "evidence_notes": "Partitions sequence dimension with all-to-all attention communication for efficient very-long-sequence training.",
+      "limits": "Large distributed training only.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0249",
+      "title": "FlashAttention-2",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2307.08691",
+      "topics": [
+        "training_systems",
+        "attention_kernels"
+      ],
+      "evidence_notes": "Improves FlashAttention work partitioning and reports near-GEMM efficiency plus end-to-end training speedups.",
+      "limits": "GPU/kernel-specific and continually superseded by newer implementations.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0250",
+      "title": "Mirostat: A Neural Text Decoding Algorithm that Directly Controls Perplexity",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2007.14966",
+      "topics": [
+        "decoding",
+        "adaptive_sampling"
+      ],
+      "evidence_notes": "Feedback-based decoder adapts sampling to target perplexity and avoid repetition/incoherence traps in open-ended generation.",
+      "limits": "Older open-ended generation setting; not appropriate for tool/structured outputs.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0251",
+      "title": "Efficient Guided Generation for Large Language Models (Outlines)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2307.09702",
+      "topics": [
+        "structured_generation",
+        "constrained_decoding"
+      ],
+      "evidence_notes": "Finite-state-machine indexing enables regex/CFG-constrained generation with low overhead and structural guarantees.",
+      "limits": "Structural correctness does not guarantee semantic correctness.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0252",
+      "title": "XGrammar: Flexible and Efficient Structured Generation Engine for Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2411.15100",
+      "topics": [
+        "structured_generation",
+        "constrained_decoding"
+      ],
+      "evidence_notes": "Optimized CFG execution and co-designed inference integration reported near-zero-overhead structured generation in studied systems.",
+      "limits": "Self-hosted inference concern; grammar complexity and semantic validation remain.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0253",
+      "title": "XGrammar 2",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2601.04426",
+      "topics": [
+        "structured_generation",
+        "agentic_tools"
+      ],
+      "evidence_notes": "2026 engine adds dynamic dispatch, JIT compilation, cross-grammar caching and richer parsing for agentic structured outputs.",
+      "limits": "Recent system paper; integration-specific performance.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0254",
+      "title": "Sentence-BERT",
+      "type": "research",
+      "url": "https://aclanthology.org/D19-1410/",
+      "topics": [
+        "embeddings",
+        "semantic_search"
+      ],
+      "evidence_notes": "Siamese/triplet sentence representations made semantic similarity search practical compared with pairwise cross-encoding.",
+      "limits": "Modern embedding models substantially supersede BERT-era quality; concept remains foundational.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0255",
+      "title": "Matryoshka Representation Learning",
+      "type": "research",
+      "url": "https://papers.nips.cc/paper_files/paper/2022/hash/c32319f4868da7613d78af9993100e42-Abstract-Conference.html",
+      "topics": [
+        "embeddings",
+        "efficiency"
+      ],
+      "evidence_notes": "Trains embeddings whose prefixes retain useful coarse-to-fine information, enabling adaptive dimension/storage/retrieval tradeoffs.",
+      "limits": "Embedding model must be trained for Matryoshka structure; arbitrary truncation is unsafe.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0256",
+      "title": "Distilling the Knowledge in a Neural Network",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1503.02531",
+      "topics": [
+        "distillation",
+        "ensembles"
+      ],
+      "evidence_notes": "Foundational teacher/student distillation and specialist-model concepts for compressing ensemble knowledge.",
+      "limits": "Modern generative distillation has additional sequence/alignment concerns.",
+      "status": "verified_or_primary_lead"
     }
   ]
 }
