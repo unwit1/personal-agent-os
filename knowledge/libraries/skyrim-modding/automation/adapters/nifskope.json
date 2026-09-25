@@ -1,0 +1,72 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "nifskope",
+  "tool": "NifSkope",
+  "source": "https://github.com/niftools/nifskope",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "nif-inspect",
+    "nif-edit",
+    "block-tree",
+    "shader-inspect",
+    "texture-path-inspect",
+    "collision-inspect"
+  ],
+  "invocation": {
+    "mode": "gui-supervised",
+    "executable": "NifSkope.exe",
+    "transport": "desktop GUI",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "NIF"
+  ],
+  "outputs": [
+    "NIF",
+    "visual/block inspection evidence"
+  ],
+  "logs": [
+    "application diagnostics"
+  ],
+  "coverage": {
+    "description": "Independent NIF visual/block inspector useful as a second implementation alongside Nifly/PyNifly.",
+    "known_gaps": [
+      "GUI-centric and not ideal as sole headless validator",
+      "successful open does not prove in-game rendering/physics correctness"
+    ],
+    "denominator_probe": "NIF files requested vs opened/inspected and parse errors."
+  },
+  "safety": {
+    "mutation_default": "read-only-by-default",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "requires_confirmation_for": [
+      "batch mutation of source NIFs"
+    ],
+    "sandbox_or_scope": "Inspect source; save edits to staging/copy."
+  },
+  "verification": {
+    "independent_validators": [
+      "pynifly",
+      "blender",
+      "in-game-render"
+    ],
+    "version_probe": "NifSkope build/version",
+    "output_readback": "Reopen saved NIF and compare critical blocks/paths."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Best as independent visual/schema oracle; automation should prefer Nifly/PyNifly."
+  },
+  "evidence": {
+    "source_url": "https://github.com/niftools/nifskope",
+    "verified_date": "2026-09-24",
+    "notes": "NifTools upstream."
+  }
+}
