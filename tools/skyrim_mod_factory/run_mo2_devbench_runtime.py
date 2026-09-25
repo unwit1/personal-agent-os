@@ -376,7 +376,11 @@ def run_session(
     if pm_stderr_handle is not None:
         pm_stderr_handle.close()
         add_file_artifact(result,pm_stderr_path,"presentmon-stderr")
-    if performance_requested(test) and session_health is not None:
+    if (
+        performance_requested(test)
+        and session_health is not None
+        and (pm_proc is not None or pm_trace_path.is_file())
+    ):
         performance_summary=PM.summarize_csv(
             pm_trace_path,
             int(session_health["pid"]),
