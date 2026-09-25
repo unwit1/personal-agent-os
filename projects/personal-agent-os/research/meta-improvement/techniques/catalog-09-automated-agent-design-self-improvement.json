@@ -1,0 +1,1217 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-24",
+  "domain": "automated_agent_design_self_improvement",
+  "techniques": [
+    {
+      "id": "AIT-0231",
+      "name": "Automatic curriculum generation",
+      "aliases": [],
+      "category": "lifelong_agent",
+      "layer": [
+        "agents",
+        "learning",
+        "planning"
+      ],
+      "goal": "Select progressively useful tasks without a human-authored curriculum",
+      "mechanism": "Generate next objectives from current capabilities/state to maximize novelty/progress, then validate outcomes and update capability state.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0210.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Use user-value/roadmap constraints around automatic curriculum; never let novelty outrank user priorities.",
+      "use_when": [
+        "Skill acquisition",
+        "Backlog exploration",
+        "Sandbox learning"
+      ],
+      "avoid_when": [
+        "Production work where user priority controls task order"
+      ],
+      "required_evals": [
+        "coverage gained",
+        "task utility",
+        "wasted exploration"
+      ],
+      "risks": [
+        "Novelty chasing",
+        "misaligned priorities",
+        "self-generated busywork"
+      ],
+      "cost_profile": "potentially high exploration",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0210"
+      ],
+      "keywords": [
+        "Voyager",
+        "curriculum"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0232",
+      "name": "Executable skill library from successful trajectories",
+      "aliases": [],
+      "category": "lifelong_agent",
+      "layer": [
+        "agents",
+        "memory",
+        "skills"
+      ],
+      "goal": "Compound capabilities by converting successful behavior into reusable procedures",
+      "mechanism": "Store validated executable code/workflows with descriptions, preconditions and retrieval metadata; retrieve/combine on later tasks.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0210.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Directly supports Agent OS Skill Miner; require replay eval and versioned dependencies.",
+      "use_when": [
+        "Repeated Agent OS workflows",
+        "Tool sequences",
+        "Code utilities"
+      ],
+      "avoid_when": [
+        "One-off brittle hacks"
+      ],
+      "required_evals": [
+        "replay success",
+        "reuse rate",
+        "cost saved",
+        "staleness"
+      ],
+      "risks": [
+        "Skill drift",
+        "over-specific code",
+        "unsafe execution"
+      ],
+      "cost_profile": "offline mining + lower future cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0210"
+      ],
+      "keywords": [
+        "skill_library",
+        "lifelong_learning"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0233",
+      "name": "Environment-feedback iterative program repair",
+      "aliases": [],
+      "category": "lifelong_agent",
+      "layer": [
+        "agents",
+        "coding",
+        "verification"
+      ],
+      "goal": "Improve generated code by incorporating runtime errors and task-state feedback",
+      "mechanism": "Execute candidate in sandbox, feed structured errors/results back, patch, and repeat until validator passes or budget expires.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0210.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Already compatible with Orchestrator reviewer/repair loop; add failure-to-regression capture.",
+      "use_when": [
+        "Coding",
+        "Automation scripts",
+        "Tool adapters"
+      ],
+      "avoid_when": [
+        "No safe executable environment",
+        "Validator too weak"
+      ],
+      "required_evals": [
+        "repair success",
+        "iterations",
+        "regressions"
+      ],
+      "risks": [
+        "Looping",
+        "overfitting to one test",
+        "sandbox escape"
+      ],
+      "cost_profile": "multiple execute/revise rounds",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0210"
+      ],
+      "keywords": [
+        "program_repair",
+        "feedback"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0234",
+      "name": "Evolutionary reward-function design",
+      "aliases": [],
+      "category": "reward_design",
+      "layer": [
+        "agents",
+        "RL",
+        "search"
+      ],
+      "goal": "Automate objective/reward code discovery where performance can be simulated",
+      "mechanism": "LLM proposes executable reward code; environment trains/evaluates policy; scores and textual feedback seed next reward variants.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0211.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Useful conceptual pattern: generate objective candidates, but validate against independent user-value metrics.",
+      "use_when": [
+        "Simulation",
+        "Optimization with explicit measurable outcome"
+      ],
+      "avoid_when": [
+        "Personal Agent OS objective with incomplete proxy",
+        "High-stakes social behavior"
+      ],
+      "required_evals": [
+        "true task outcome",
+        "reward robustness",
+        "transfer"
+      ],
+      "risks": [
+        "Reward hacking",
+        "simulator gap",
+        "Goodhart"
+      ],
+      "cost_profile": "very high simulation/RL compute",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0211"
+      ],
+      "keywords": [
+        "Eureka",
+        "reward_evolution"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0235",
+      "name": "Evolutionary program search with LLM mutation",
+      "aliases": [],
+      "category": "program_search",
+      "layer": [
+        "agents",
+        "coding",
+        "search"
+      ],
+      "goal": "Discover algorithms beyond one-shot model generation",
+      "mechanism": "Maintain population of executable programs; sample strong/diverse parents; LLM mutates; objective evaluator accepts/scores offspring; repeat.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0212, SRC-AI-0213.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Potential Meta Engine optimizer only for bounded code/config functions with sandbox + protected holdout.",
+      "use_when": [
+        "Algorithms with deterministic fast evaluator",
+        "Performance tuning"
+      ],
+      "avoid_when": [
+        "Subjective behavior with no strong evaluator"
+      ],
+      "required_evals": [
+        "best score vs compute",
+        "generalization",
+        "complexity"
+      ],
+      "risks": [
+        "Evaluator gaming",
+        "huge sample cost",
+        "unsafe generated code"
+      ],
+      "cost_profile": "potentially enormous",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0212",
+        "SRC-AI-0213"
+      ],
+      "keywords": [
+        "FunSearch",
+        "AlphaEvolve",
+        "evolution"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0236",
+      "name": "Best-shot prompting from elite candidates",
+      "aliases": [],
+      "category": "program_search",
+      "layer": [
+        "prompt",
+        "search"
+      ],
+      "goal": "Bias mutation toward proven high-performing structures",
+      "mechanism": "Include several high-scoring programs/solutions in prompt as exemplars and ask model to improve/combine them.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0212.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Use with diversity islands and holdout, not as standalone proof of quality.",
+      "use_when": [
+        "Evolutionary prompt/program search"
+      ],
+      "avoid_when": [
+        "Diversity has collapsed",
+        "Elite examples contain benchmark hacks"
+      ],
+      "required_evals": [
+        "offspring score",
+        "diversity",
+        "novelty"
+      ],
+      "risks": [
+        "Premature convergence",
+        "copying artifacts"
+      ],
+      "cost_profile": "prompt tokens + search",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0212"
+      ],
+      "keywords": [
+        "best_shot",
+        "elite_sampling"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0237",
+      "name": "Skeletonized search / evolve only critical function",
+      "aliases": [],
+      "category": "program_search",
+      "layer": [
+        "coding",
+        "search"
+      ],
+      "goal": "Shrink search space and preserve known-correct infrastructure",
+      "mechanism": "Keep boilerplate/control/safety fixed and expose only a bounded function/config region to evolutionary modification.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0212.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Strong fit: Meta Engine should prefer bounded mutable surfaces over repository-wide self-editing.",
+      "use_when": [
+        "Performance heuristics",
+        "Scoring/ranking functions",
+        "Safe policy tuning"
+      ],
+      "avoid_when": [
+        "Whole architecture truly needs redesign"
+      ],
+      "required_evals": [
+        "search efficiency",
+        "safety invariants",
+        "generalization"
+      ],
+      "risks": [
+        "Fixed skeleton can prevent better architecture"
+      ],
+      "cost_profile": "far lower than whole-code search",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0212"
+      ],
+      "keywords": [
+        "skeleton",
+        "bounded_search"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0238",
+      "name": "Island-based quality-diversity search",
+      "aliases": [],
+      "category": "program_search",
+      "layer": [
+        "search",
+        "evolution"
+      ],
+      "goal": "Avoid premature convergence while preserving multiple high-quality niches",
+      "mechanism": "Maintain separate subpopulations/islands, occasionally migrate/reseed, and optimize quality while retaining diversity.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0212, SRC-AI-0217.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "If used, cap archive/search budget and value diversity only when it improves holdout outcomes.",
+      "use_when": [
+        "Large automated search budget",
+        "Multiple plausible strategies"
+      ],
+      "avoid_when": [
+        "Small search space/task"
+      ],
+      "required_evals": [
+        "best score",
+        "diversity",
+        "novelty",
+        "compute"
+      ],
+      "risks": [
+        "Compute explosion",
+        "difficult stopping rule"
+      ],
+      "cost_profile": "high",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0212",
+        "SRC-AI-0217"
+      ],
+      "keywords": [
+        "islands",
+        "quality_diversity"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0239",
+      "name": "Fast/strong model ensemble for evolutionary proposal generation",
+      "aliases": [],
+      "category": "program_search",
+      "layer": [
+        "models",
+        "search",
+        "routing"
+      ],
+      "goal": "Use cheap models for breadth and expensive models for depth in candidate generation",
+      "mechanism": "Generate many mutations with fast model; selectively invoke strongest model for difficult/elite improvements.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0213.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Natural extension of Agent OS model router under experiment budget.",
+      "use_when": [
+        "Large candidate search"
+      ],
+      "avoid_when": [
+        "Search budget tiny",
+        "Cheap model candidates consistently unusable"
+      ],
+      "required_evals": [
+        "best score per dollar",
+        "candidate acceptance",
+        "diversity"
+      ],
+      "risks": [
+        "Cheap-model noise",
+        "complex routing"
+      ],
+      "cost_profile": "adaptive",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0213"
+      ],
+      "keywords": [
+        "AlphaEvolve",
+        "breadth_depth"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0240",
+      "name": "Automated evaluator-driven algorithm discovery",
+      "aliases": [],
+      "category": "program_search",
+      "layer": [
+        "evaluation",
+        "coding",
+        "search"
+      ],
+      "goal": "Let objective evaluators substitute for subjective model judgment",
+      "mechanism": "Candidate code is executed/scored by deterministic domain metrics; search feedback comes from measured result.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0212, SRC-AI-0213.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Central safe self-improvement motif: machine creativity + hard external oracle.",
+      "use_when": [
+        "Performance/algorithm problems with trusted metric"
+      ],
+      "avoid_when": [
+        "User-value proxy is incomplete"
+      ],
+      "required_evals": [
+        "holdout performance",
+        "evaluator exploit tests"
+      ],
+      "risks": [
+        "Goodhart/evaluator exploit",
+        "benchmark overfit"
+      ],
+      "cost_profile": "evaluation-heavy",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0212",
+        "SRC-AI-0213"
+      ],
+      "keywords": [
+        "automated_evaluator",
+        "algorithm_discovery"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0241",
+      "name": "Full agent code search (ADAS / Meta Agent Search)",
+      "aliases": [],
+      "category": "agent_design_search",
+      "layer": [
+        "agents",
+        "coding",
+        "search"
+      ],
+      "goal": "Discover agent architectures beyond human-authored templates",
+      "mechanism": "Represent complete agent system in code; meta-agent proposes new agent code using archive of prior designs; evaluate and retain stronger variants.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0216.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Never allow candidate to modify authorization, audit, holdout or promotion gates; generated code is untrusted.",
+      "use_when": [
+        "Sandbox research branch with strong evals"
+      ],
+      "avoid_when": [
+        "Live production policy/security components",
+        "No representative benchmark"
+      ],
+      "required_evals": [
+        "holdout task success",
+        "security",
+        "complexity",
+        "transfer"
+      ],
+      "risks": [
+        "Self-editing attack surface",
+        "benchmark overfit",
+        "untrusted code"
+      ],
+      "cost_profile": "very high",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0216"
+      ],
+      "keywords": [
+        "ADAS",
+        "meta_agent_search"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0242",
+      "name": "Open-ended self-modification archive (Darwin Gödel Machine)",
+      "aliases": [],
+      "category": "agent_design_search",
+      "layer": [
+        "agents",
+        "coding",
+        "self_improvement"
+      ],
+      "goal": "Explore divergent self-improvement paths rather than greedily replacing one incumbent",
+      "mechanism": "Sample existing agent from growing archive, let it modify its own implementation, evaluate offspring and retain diverse successful variants.",
+      "maturity": "early_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0217.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Agent OS may borrow archive/champion-challenger ideas, not unrestricted self-modification.",
+      "use_when": [
+        "Isolated agent-architecture research"
+      ],
+      "avoid_when": [
+        "Personal production Agent OS control plane"
+      ],
+      "required_evals": [
+        "holdout transfer",
+        "archive diversity",
+        "safety",
+        "complexity"
+      ],
+      "risks": [
+        "Privilege/security drift",
+        "metric overfit",
+        "unbounded compute"
+      ],
+      "cost_profile": "extreme",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0217"
+      ],
+      "keywords": [
+        "DGM",
+        "open_ended"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0243",
+      "name": "Minimal persistent policy repair from abstracted failures",
+      "aliases": [],
+      "category": "agent_learning",
+      "layer": [
+        "agents",
+        "policy",
+        "memory"
+      ],
+      "goal": "Turn repeated failures into small reusable policy changes rather than long reflections",
+      "mechanism": "Abstract failure into concise strategy, make minimal patch to policy/code, test on unseen cases and retain if beneficial.",
+      "maturity": "early_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0218.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Strong research fit if patches target versioned prompt/workflow assets under eval gates.",
+      "use_when": [
+        "Small/local specialist agents",
+        "Prompt/policy repair experiments"
+      ],
+      "avoid_when": [
+        "Core security policy",
+        "No protected unseen cases"
+      ],
+      "required_evals": [
+        "unseen-case improvement",
+        "patch size",
+        "regressions"
+      ],
+      "risks": [
+        "Bad abstraction becomes durable",
+        "policy bloat"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0218"
+      ],
+      "keywords": [
+        "Polaris",
+        "policy_repair"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0244",
+      "name": "Modular agent design-space search",
+      "aliases": [],
+      "category": "agent_design_search",
+      "layer": [
+        "agents",
+        "search"
+      ],
+      "goal": "Search combinations of planning/reasoning/tool/memory modules instead of unconstrained code",
+      "mechanism": "Define uniform module interfaces, evolve/recombine module variants and evaluate whole-agent configurations.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0219.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Matches technique-interaction registry; search over curated safe modules before full code search.",
+      "use_when": [
+        "Meta Engine architecture experiments",
+        "Inference stack search"
+      ],
+      "avoid_when": [
+        "Module taxonomy is immature or constraining"
+      ],
+      "required_evals": [
+        "task success",
+        "cost",
+        "module interactions",
+        "transfer"
+      ],
+      "risks": [
+        "Search-space bias",
+        "combinatorial cost"
+      ],
+      "cost_profile": "high",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0219"
+      ],
+      "keywords": [
+        "AgentSquare",
+        "modular_search"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0245",
+      "name": "Surrogate performance predictor for agent search",
+      "aliases": [],
+      "category": "agent_design_search",
+      "layer": [
+        "search",
+        "evaluation"
+      ],
+      "goal": "Avoid evaluating obviously weak candidate architectures",
+      "mechanism": "Train/use predictor from prior evaluated designs to estimate performance and skip low-potential candidates.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0219.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Require random exploration quota to detect predictor blind spots.",
+      "use_when": [
+        "Expensive agent architecture search with many evaluations"
+      ],
+      "avoid_when": [
+        "Search distribution shifts",
+        "Predictor data sparse"
+      ],
+      "required_evals": [
+        "saved eval cost",
+        "false-negative discard rate"
+      ],
+      "risks": [
+        "Predictor suppresses novel breakthroughs",
+        "feedback bias"
+      ],
+      "cost_profile": "lower evaluation cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0219"
+      ],
+      "keywords": [
+        "surrogate",
+        "performance_predictor"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0246",
+      "name": "Inference-time architecture search",
+      "aliases": [],
+      "category": "agent_design_search",
+      "layer": [
+        "agents",
+        "test_time_compute",
+        "search"
+      ],
+      "goal": "Automatically choose combinations of sampling, ranking, critique, fusion, verification and models under a budget",
+      "mechanism": "Search modular inference pipelines against target evals/cost limits and select Pareto-optimal architectures.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0220.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "One of strongest direct inspirations for future Meta Engine; search only pre-approved techniques and validate on private holdout.",
+      "use_when": [
+        "Agent OS task-family optimizer"
+      ],
+      "avoid_when": [
+        "No protected holdout",
+        "Tiny stable task with obvious route"
+      ],
+      "required_evals": [
+        "quality/token Pareto frontier",
+        "transfer",
+        "latency"
+      ],
+      "risks": [
+        "Benchmark overfit",
+        "inference explosion"
+      ],
+      "cost_profile": "high offline search; variable production",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0220"
+      ],
+      "keywords": [
+        "Archon",
+        "inference_search"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0247",
+      "name": "Policy-level trajectory reflection",
+      "aliases": [],
+      "category": "agent_learning",
+      "layer": [
+        "agents",
+        "policy",
+        "reflection"
+      ],
+      "goal": "Improve long-horizon behavior by updating beliefs/policy from full trajectories rather than single mistakes",
+      "mechanism": "Summarize outcomes and strategic errors across trajectories, modify persistent policy, and search refinements.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0222.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Use failure clusters + experiments rather than accepting model-generated causal explanation.",
+      "use_when": [
+        "Interactive agents with repeated environment"
+      ],
+      "avoid_when": [
+        "One-off tasks",
+        "No objective payoff"
+      ],
+      "required_evals": [
+        "future trajectory payoff",
+        "policy bloat",
+        "generalization"
+      ],
+      "risks": [
+        "False causal story",
+        "game-specific overfit"
+      ],
+      "cost_profile": "moderate-high",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0222"
+      ],
+      "keywords": [
+        "Agent_Pro",
+        "policy_reflection"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0248",
+      "name": "MCTS agent search over actions/reasoning",
+      "aliases": [],
+      "category": "agent_search",
+      "layer": [
+        "agents",
+        "planning",
+        "search"
+      ],
+      "goal": "Trade substantial test-time compute for better interactive decisions",
+      "mechanism": "Build search tree over actions/reasoning; use environment feedback, value estimates and reflection to select branches.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0221.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Only simulate/search over reversible/sandbox actions; real action remains outside tree until selected/authorized.",
+      "use_when": [
+        "High-value bounded search environments"
+      ],
+      "avoid_when": [
+        "Ordinary work tasks",
+        "Actions have real irreversible side effects"
+      ],
+      "required_evals": [
+        "success vs node budget",
+        "value accuracy",
+        "latency"
+      ],
+      "risks": [
+        "Compute explosion",
+        "value-model error",
+        "side effects"
+      ],
+      "cost_profile": "very high",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0221"
+      ],
+      "keywords": [
+        "LATS",
+        "MCTS_agent"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0249",
+      "name": "Automated process supervision for agents",
+      "aliases": [],
+      "category": "agent_learning",
+      "layer": [
+        "agents",
+        "evaluation",
+        "training"
+      ],
+      "goal": "Detect bad intermediate decisions before they propagate",
+      "mechanism": "Use search to generate step labels, train process reward model, and rejection-sample away from low-quality paths.",
+      "maturity": "early_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0223.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Application-level analogue is deterministic stage validation; far simpler and more auditable.",
+      "use_when": [
+        "Specialized local agent model training"
+      ],
+      "avoid_when": [
+        "Hosted Agent OS orchestration can directly validate steps"
+      ],
+      "required_evals": [
+        "task success",
+        "process grader calibration",
+        "compute"
+      ],
+      "risks": [
+        "Synthetic labels inherit search/value errors"
+      ],
+      "cost_profile": "high",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0223"
+      ],
+      "keywords": [
+        "AgentPro",
+        "process_reward"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0250",
+      "name": "Layered Mixture-of-Agents",
+      "aliases": [],
+      "category": "multi_agent",
+      "layer": [
+        "agents",
+        "ensemble"
+      ],
+      "goal": "Aggregate diverse LLM outputs through multiple synthesis layers",
+      "mechanism": "Run several models/agents in parallel; subsequent agents read prior layer outputs as auxiliary evidence; repeat.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0224.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Prefer one strong synthesizer over evidence artifacts; compare to cheaper best-of-N/independent review.",
+      "use_when": [
+        "Very high-value subjective synthesis experiment"
+      ],
+      "avoid_when": [
+        "Routine Agent OS tasks",
+        "Correlated model pool",
+        "Cost-sensitive workflows"
+      ],
+      "required_evals": [
+        "quality vs calls/tokens",
+        "diversity",
+        "bias"
+      ],
+      "risks": [
+        "Huge inference cost",
+        "correlated hallucinations",
+        "context explosion"
+      ],
+      "cost_profile": "very high",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0224"
+      ],
+      "keywords": [
+        "MoA",
+        "layered_ensemble"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0251",
+      "name": "Proactive information-gap elicitation",
+      "aliases": [],
+      "category": "proactivity_training",
+      "layer": [
+        "human_system",
+        "agents",
+        "training"
+      ],
+      "goal": "Ask targeted questions only when hidden user knowledge materially affects solution quality",
+      "mechanism": "Detect missing task information and choose questions expected to elicit novel actionable user context rather than generic clarification.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0225.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Agent OS should retrieve existing personal/project context before questioning; question only for material unresolved gaps.",
+      "use_when": [
+        "Ambiguous high-impact plans",
+        "Requirements discovery"
+      ],
+      "avoid_when": [
+        "Current conversation/context already contains answer",
+        "Question delays low-stakes task unnecessarily"
+      ],
+      "required_evals": [
+        "information gain",
+        "question burden",
+        "final task success"
+      ],
+      "risks": [
+        "Over-questioning",
+        "asking sensitive/unnecessary context"
+      ],
+      "cost_profile": "human attention cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0225"
+      ],
+      "keywords": [
+        "proactive_clarification",
+        "information_gap"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0252",
+      "name": "Tunable proactivity threshold",
+      "aliases": [],
+      "category": "proactivity",
+      "layer": [
+        "human_system",
+        "agents"
+      ],
+      "goal": "Adapt how aggressively the system recommends/interrupts",
+      "mechanism": "Expose or learn a threshold balancing intervention benefit, confidence and user interruption preference.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0226.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Maintain per-channel/domain thresholds plus hard urgency/security overrides.",
+      "use_when": [
+        "Recommendations",
+        "Research radar",
+        "Personal Executive"
+      ],
+      "avoid_when": [
+        "Safety-critical alert whose policy threshold is fixed"
+      ],
+      "required_evals": [
+        "accept/dismiss rate",
+        "missed opportunity",
+        "fatigue"
+      ],
+      "risks": [
+        "Feedback loops can overfit to short-term dismissal"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0226"
+      ],
+      "keywords": [
+        "proactivity_threshold"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0253",
+      "name": "Quality-diversity archive rather than single incumbent",
+      "aliases": [],
+      "category": "search_strategy",
+      "layer": [
+        "search",
+        "meta_improvement"
+      ],
+      "goal": "Preserve alternative solutions that may become useful under new tasks/models/constraints",
+      "mechanism": "Retain diverse Pareto/niche variants instead of replacing everything with current top scorer.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0212, SRC-AI-0217.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Keep small champion + challengers + historically distinct approaches; archive terminal variants compactly.",
+      "use_when": [
+        "Prompts",
+        "Workflows",
+        "Models",
+        "Algorithms"
+      ],
+      "avoid_when": [
+        "Storage/search overhead outweighs future value"
+      ],
+      "required_evals": [
+        "future transfer",
+        "diversity",
+        "archive size"
+      ],
+      "risks": [
+        "Archive bloat",
+        "selection complexity"
+      ],
+      "cost_profile": "moderate storage/eval",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0212",
+        "SRC-AI-0217"
+      ],
+      "keywords": [
+        "archive",
+        "quality_diversity"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0254",
+      "name": "Evaluator-immutable self-improvement sandbox",
+      "aliases": [],
+      "category": "self_improvement_control",
+      "layer": [
+        "security",
+        "evaluation",
+        "meta_improvement"
+      ],
+      "goal": "Allow aggressive candidate self-improvement without letting candidates weaken the test that judges them",
+      "mechanism": "Run candidate changes in isolated branch/sandbox; evaluator, holdout, authorization, audit and budget policies are mounted read-only/outside candidate modification scope.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0216, SRC-AI-0217, SRC-AI-0212.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Non-negotiable boundary for future Meta Engine architecture search.",
+      "use_when": [
+        "Any automated agent/prompt/code optimizer"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "escape tests",
+        "holdout integrity",
+        "promotion correctness"
+      ],
+      "risks": [
+        "Evaluator still may be incomplete",
+        "sandbox boundary complexity"
+      ],
+      "cost_profile": "moderate infrastructure",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0216",
+        "SRC-AI-0217",
+        "SRC-AI-0212"
+      ],
+      "keywords": [
+        "immutable_evaluator",
+        "sandbox"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0255",
+      "name": "Self-improvement search budget + stopping rule",
+      "aliases": [],
+      "category": "self_improvement_control",
+      "layer": [
+        "search",
+        "control",
+        "meta_improvement"
+      ],
+      "goal": "Prevent open-ended optimization from consuming unlimited compute for diminishing gains",
+      "mechanism": "Cap evaluations/tokens/time/candidate archive; stop on no-improvement, confidence, value-of-information or error-budget condition.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0212, SRC-AI-0220.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Meta-overhead budget is part of every automated optimizer contract.",
+      "use_when": [
+        "Evolutionary/architecture/prompt search"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "gain per evaluation",
+        "stagnation",
+        "meta-overhead"
+      ],
+      "risks": [
+        "Can stop before rare breakthrough"
+      ],
+      "cost_profile": "saves unbounded search cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0212",
+        "SRC-AI-0220"
+      ],
+      "keywords": [
+        "search_budget",
+        "stopping"
+      ],
+      "notes": ""
+    }
+  ]
+}
