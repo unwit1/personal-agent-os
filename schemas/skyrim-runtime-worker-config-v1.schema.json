@@ -246,6 +246,34 @@
           "minimum": 1
         }
       }
+    },
+    "performance_capture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "executable"
+      ],
+      "properties": {
+        "provider": {
+          "const": "presentmon"
+        },
+        "executable": {
+          "type": "string",
+          "minLength": 1
+        },
+        "timed_seconds": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "required_when_requested": {
+          "type": "boolean",
+          "default": true
+        }
+      }
     }
   }
 }
