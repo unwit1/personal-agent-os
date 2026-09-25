@@ -1,0 +1,77 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "creation-kit",
+  "tool": "Skyrim Special Edition Creation Kit",
+  "source": "https://ck.uesp.net/",
+  "targets": [
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "quest-authoring",
+    "dialogue-authoring",
+    "scene-authoring",
+    "world-cell-authoring",
+    "navmesh-authoring",
+    "facegen-export",
+    "lip-generation",
+    "papyrus-compile"
+  ],
+  "invocation": {
+    "mode": "gui-supervised",
+    "executable": "CreationKit.exe",
+    "transport": "desktop editor",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "plugins/masters",
+    "PSC source",
+    "game assets"
+  ],
+  "outputs": [
+    "plugin",
+    "FaceGen",
+    "PEX",
+    "LIP/voice authoring outputs"
+  ],
+  "logs": [
+    "CreationKit logs/warnings"
+  ],
+  "coverage": {
+    "description": "Bethesda editor remains authoritative for editor-owned semantics such as navmesh, dialogue/scene authoring and FaceGen.",
+    "known_gaps": [
+      "heavily GUI/state driven",
+      "unattended automation should use CKPE typed bridge rather than screen-coordinate automation"
+    ],
+    "denominator_probe": "requested editor operations vs saved records/generated assets plus xEdit readback."
+  },
+  "safety": {
+    "mutation_default": "project-copy-only",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": false,
+    "requires_confirmation_for": [
+      "unvalidated autonomous navmesh/world/quest mutation"
+    ],
+    "sandbox_or_scope": "Dedicated project plugin/profile; post-save xEdit validation mandatory."
+  },
+  "verification": {
+    "independent_validators": [
+      "xedit",
+      "mutagen",
+      "runtime-test"
+    ],
+    "version_probe": "CreationKit.exe file/product version",
+    "output_readback": "Reload plugin/generated assets and compare requested touch set."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Use CKPE Agent OS bridge for narrow typed operations; avoid coordinate automation."
+  },
+  "evidence": {
+    "source_url": "https://ck.uesp.net/",
+    "verified_date": "2026-09-24",
+    "notes": "Editor-owned workflows remain a supervised boundary until a validated CKPE bridge exists."
+  }
+}
