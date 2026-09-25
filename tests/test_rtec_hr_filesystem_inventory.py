@@ -229,6 +229,16 @@ class RtecHrFilesystemInventoryTests(unittest.TestCase):
             self.assertEqual(states["ambiguous.pdf"], "HASH_MATCH_UNVERIFIED")
             db.close()
 
+    def test_employee_document_type_hint_uses_known_form_label_only(self) -> None:
+        rules = [
+            {"match": ["FMLA", "FMLA Medical Cert"], "modules": ["fmla"]},
+            {"match": ["Warning Notice"], "modules": ["disciplinary"]},
+        ]
+        hint = inventory.document_type_hint("Synthetic Person FMLA Medical Cert.pdf", rules)
+        self.assertEqual(hint, ("fmla", "FMLA Medical Cert", 0.8, ["fmla"]))
+        self.assertNotIn("Synthetic Person", repr(hint))
+        self.assertIsNone(inventory.document_type_hint("Synthetic Person Notice.pdf", rules))
+
 
 if __name__ == "__main__":
     unittest.main()

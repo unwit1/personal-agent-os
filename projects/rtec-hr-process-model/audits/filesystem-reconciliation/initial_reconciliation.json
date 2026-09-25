@@ -81,6 +81,15 @@
     "inventory_failures": 41,
     "review_queue_items": 15441,
     "employee_document_registry_entries": 3055,
+    "employee_document_type_counts": {
+      "attendance": 2,
+      "disciplinary": 2,
+      "fmla": 29,
+      "newhires": 81,
+      "terminations": 19,
+      "unknown": 2882,
+      "workers_comp": 40
+    },
     "interpretation": "Filesystem discovery, exact-hash reconciliation, and first-pass extraction are complete for the configured roots. Only explicit source_sha256/file_sha256 fields are treated as exact; 30 files match those, and 467 generic sha256/content_sha256 matches remain unverified. Cache-only OCR is operational with 12 files complete, 5 restricted samples, and 6,392 pending. All classifications remain review-required; content/version reconciliation is outstanding. No files have been ingested into the Knowledge Engine. Unmatched does not mean new organizational knowledge, and duplicate hashes do not establish semantic equivalence."
   },
   "privacy_and_temporal_rules": [
@@ -104,6 +113,15 @@
     "candidate_extractions_completed": 15441,
     "permission_or_stat_failures": 41,
     "employee_documents_indexed_locally": 3055,
+    "employee_document_type_counts": {
+      "attendance": 2,
+      "disciplinary": 2,
+      "fmla": 29,
+      "newhires": 81,
+      "terminations": 19,
+      "unknown": 2882,
+      "workers_comp": 40
+    },
     "normalized_hash_files": 7497,
     "normalized_duplicate_candidate_groups": 2525,
     "ocr_files_complete": 12,

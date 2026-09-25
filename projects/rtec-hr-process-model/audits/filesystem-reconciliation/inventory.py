@@ -23,6 +23,7 @@ from typing import Iterable
 REPO = Path(__file__).resolve().parents[4]
 DEFAULT_DB = REPO / ".agent-local" / "rtec-hr-reconciliation" / "audit.sqlite3"
 DEFAULT_LOG = REPO / ".agent-local" / "rtec-hr-reconciliation" / "audit.log"
+DEFAULT_HR_GUI_ROUTING = Path.home() / "Projects" / "HR GUI" / "config" / "routing.json"
 SCHEMA_VERSION = 1
 DOC_EXTENSIONS = {
     ".txt", ".csv", ".tsv", ".pdf", ".doc", ".docx", ".xls", ".xlsx",
@@ -656,6 +657,69 @@ def ocr_batch(db: sqlite3.Connection, limit: int, pages_per_file: int) -> int:
     return processed
 
 
+def document_type_hint(filename: str, rules: list[dict]) -> tuple[str, str, float, list[str]] | None:
+    """Map a basename to a known HR GUI form label; never infer an employee."""
+    def normalize(value: str) -> str:
+        return " ".join(re.sub(r"[^a-z0-9]+", " ", value.casefold()).split())
+
+    normalized_name = normalize(filename)
+    hits = []
+    for rule in rules:
+        modules = sorted(set(rule.get("modules", [])))
+        for pattern in rule.get("match", []):
+            normalized_pattern = normalize(str(pattern))
+            if normalized_pattern and normalized_pattern in normalized_name:
+                hits.append((len(normalized_pattern), str(pattern), modules))
+    if not hits:
+        return None
+    longest = max(hit[0] for hit in hits)
+    best = [hit for hit in hits if hit[0] == longest]
+    labels = {hit[1] for hit in best}
+    modules = sorted({module for hit in best for module in hit[2]})
+    if len(labels) != 1 or not modules:
+        return None
+    document_type = modules[0] if len(modules) == 1 else "form"
+    subtype = next(iter(labels))
+    return document_type, subtype, 0.8, modules
+
+
+def classify_employee_document_types(db: sqlite3.Connection, routing_path: Path) -> tuple[int, dict[str, int]]:
+    """Apply existing HR GUI form-name rules to local employee-file basenames."""
+    raw = routing_path.read_bytes()
+    config_hash = hashlib.sha256(raw).hexdigest()
+    config = json.loads(raw.decode("utf-8-sig"))
+    rules = config.get("rules", [])
+    rows = db.execute("""SELECT e.file_path,e.provenance_json,f.filename,e.document_type
+      FROM employee_documents e JOIN files f ON f.path=e.file_path""").fetchall()
+    counts: dict[str, int] = {}
+    updated = 0
+    for row in rows:
+        hint = document_type_hint(row["filename"], rules)
+        if hint is None:
+            continue
+        document_type, subtype, confidence, modules = hint
+        provenance = json.loads(row["provenance_json"] or "{}")
+        current = provenance.get("filename_type_rule", {})
+        if row["document_type"] != "unknown" and current.get("routing_sha256") == config_hash:
+            continue
+        provenance["filename_type_rule"] = {
+            "routing_sha256": config_hash,
+            "matched_form_label": subtype,
+            "hr_gui_modules": modules,
+            "method": "local_basename_substring",
+            "review_required": True,
+        }
+        db.execute("""UPDATE employee_documents SET document_type=?,document_subtype=?,
+          classification_confidence=MIN(classification_confidence,?),provenance_json=?,
+          review_required=1,updated_at=? WHERE file_path=?""",
+                   (document_type, subtype, confidence, json.dumps(provenance, ensure_ascii=False),
+                    now(), row["file_path"]))
+        updated += 1
+        counts[document_type] = counts.get(document_type, 0) + 1
+    db.commit()
+    return updated, counts
+
+
 def checkpoint(db: sqlite3.Connection, phase: str, note: str = "") -> dict:
     def count(query):
         return db.execute(query).fetchone()[0]
@@ -675,6 +739,7 @@ def checkpoint(db: sqlite3.Connection, phase: str, note: str = "") -> dict:
         "distinct_known_source_hashes": count("SELECT COUNT(DISTINCT sha256) FROM source_hashes"),
         "review_queue_items": count("SELECT COUNT(*) FROM review_queue"),
         "employee_registry_entries": count("SELECT COUNT(*) FROM employee_documents"),
+        "employee_document_type_counts": dict(db.execute("SELECT document_type,COUNT(*) FROM employee_documents GROUP BY document_type").fetchall()),
         "files_extracted": count("SELECT COUNT(*) FROM file_extractions"),
         "normalized_hash_files": count("SELECT COUNT(*) FROM file_extractions WHERE normalized_text_sha256 IS NOT NULL"),
         "normalized_duplicate_groups": count("SELECT COUNT(*) FROM normalized_duplicate_groups"),
@@ -719,12 +784,14 @@ def main(argv=None) -> int:
     parser.add_argument("--reconcile", action="store_true", help="Index safe Knowledge Engine source hashes and reconcile exact file hashes")
     parser.add_argument("--extract", action="store_true", help="Run local deterministic extraction and conservative privacy routing on a bounded batch")
     parser.add_argument("--ocr", action="store_true", help="Run cached-model-only local OCR on a bounded batch")
+    parser.add_argument("--classify-employee-docs", action="store_true", help="Apply local filename-only HR GUI form routing rules to restricted-document metadata")
     parser.add_argument("--max-dirs", type=int, default=40)
     parser.add_argument("--max-files", type=int, default=500)
     parser.add_argument("--hash-limit", type=int, default=150)
     parser.add_argument("--extract-limit", type=int, default=25)
     parser.add_argument("--ocr-limit", type=int, default=5)
     parser.add_argument("--ocr-pages-per-file", type=int, default=10)
+    parser.add_argument("--hr-gui-routing", type=Path, default=DEFAULT_HR_GUI_ROUTING)
     args = parser.parse_args(argv)
     db = connect(args.db)
     roots = default_roots() + [Path(item) for item in args.root]
@@ -748,6 +815,9 @@ def main(argv=None) -> int:
     if args.ocr:
         count = ocr_batch(db, args.ocr_limit, args.ocr_pages_per_file)
         phases.append(f"OCR: {count} files processed in this local batch")
+    if args.classify_employee_docs:
+        count, type_counts = classify_employee_document_types(db, args.hr_gui_routing)
+        phases.append(f"employee-document filename classification: {count} updated across {type_counts}")
     phase = "+".join(x.split(":",1)[0] for x in phases) or "status"
     stats = checkpoint(db, phase, "; ".join(phases))
     note = "resume --discover until directories_queued is 0; then --hash until files_pending_hash is 0; then --reconcile" if stats["directories_queued"] or stats["files_pending_hash"] else "resume --ocr in bounded local batches; all results remain review-required and local-only"
