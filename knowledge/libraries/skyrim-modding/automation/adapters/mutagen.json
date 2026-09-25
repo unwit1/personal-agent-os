@@ -1,0 +1,106 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "mutagen",
+  "tool": "Mutagen.Bethesda",
+  "tool_version": "0.54.4",
+  "source": "https://github.com/Mutagen-Modding/Mutagen",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "typed-plugin-read",
+    "typed-plugin-write",
+    "load-order-import",
+    "link-cache",
+    "formkey-resolution",
+    "override-iteration",
+    "winning-override-query",
+    "plugin-synthesis",
+    "plugin-splitting",
+    "semantic-diff",
+    "master-analysis"
+  ],
+  "invocation": {
+    "mode": "library",
+    "transport": ".NET library / generated typed APIs",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "plugin files",
+    "load order",
+    "Data/VFS-resolved paths",
+    "typed mutation intent"
+  ],
+  "outputs": [
+    "ESP/ESM/ESL-compatible plugin output",
+    "typed record graph",
+    "diagnostics"
+  ],
+  "logs": [
+    "application-owned structured log"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 1,
+    "cleanup_outputs_first": true
+  },
+  "auto_fixable_issue_codes": [
+    "STALE_GENERATED_PATCH",
+    "OUTPUT_PATH_STALE",
+    "DERIVED_MASTER_LIST_MISSING"
+  ],
+  "destructive_actions": [
+    "writing over an existing source plugin",
+    "FormID compaction/renumbering",
+    "master removal"
+  ],
+  "human_checks": [
+    "game-semantic intent where multiple valid field winners exist"
+  ],
+  "coverage": {
+    "description": "Primary typed authoring/readback library for deterministic plugin work. Release 0.54.4 includes split-mod improvements and master/index edge-case fixes.",
+    "known_gaps": [
+      "typed schema acceptance does not prove xEdit/game semantic correctness",
+      "editor-owned CK semantics such as navmesh finalization and scene authoring still need independent validation"
+    ],
+    "denominator_probe": "plugins/records selected vs plugins/records parsed and written"
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "requires_confirmation_for": [
+      "in-place third-party plugin edits",
+      "FormID compaction",
+      "master removal"
+    ],
+    "sandbox_or_scope": "Write to isolated generated plugin path/worktree; reload with Mutagen and xEdit."
+  },
+  "verification": {
+    "independent_validators": [
+      "xedit",
+      "spriggit",
+      "runtime-test"
+    ],
+    "version_probe": "NuGet/package/release version",
+    "output_readback": "Reload complete output with Mutagen LinkCache and xEdit/xDump."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Best default static data plane for generation; pair with xEdit as independent schema oracle."
+  },
+  "evidence": {
+    "source_url": "https://github.com/Mutagen-Modding/Mutagen/releases",
+    "verified_date": "2026-09-24",
+    "notes": "Latest release observed: 0.54.4, released 2026-08-08."
+  }
+}
