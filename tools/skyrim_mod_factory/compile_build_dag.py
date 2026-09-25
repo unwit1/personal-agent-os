@@ -107,7 +107,7 @@ def compile_dag(manifest, quality):
         preferred=quality.get("adapters",{}).get("preferred",[])
         gadapters=[x for x in defaults if x in preferred] or defaults
         add(nodes,{"id":gid,"phase":"generate","action":action,"layers":[layer],
-          "depends_on":["source.lock"],"adapters:gadapters,"gates":[],"invalidated_by":invalid,
+          "depends_on":["source.lock"],"adapters":gadapters,"gates":[],"invalidated_by":invalid,
           "outputs":output_by_layer.get(layer,[]),"parallel_group":"layer-generate"})
         vid,vdefaults=VALIDATE[layer]
         vadapters=[x for x in vdefaults if x in preferred or x in quality.get("adapters",{}).get("supporting",[])] or vdefaults
