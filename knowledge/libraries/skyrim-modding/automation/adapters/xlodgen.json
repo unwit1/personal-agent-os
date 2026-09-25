@@ -1,0 +1,78 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "xlodgen",
+  "tool": "xLODGen",
+  "source": "https://github.com/sheson/xLODGen",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "terrain-lod",
+    "terrain-texture-lod",
+    "terrain-heightmap",
+    "lod-settings",
+    "worldspace-lod"
+  ],
+  "invocation": {
+    "mode": "hybrid",
+    "executable": "xLODGenx64.exe",
+    "arguments_template": [
+      "-sse",
+      "-o:{output_dir}"
+    ],
+    "transport": "xEdit tool mode / CLI paths + saved LOD options",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "final plugin load order",
+    "Data/VFS assets",
+    "LOD settings"
+  ],
+  "outputs": [
+    "terrain LOD",
+    "LOD settings",
+    "logs"
+  ],
+  "logs": [
+    "xLODGen logs"
+  ],
+  "coverage": {
+    "description": "xEdit tool mode for terrain and related LOD generation. Upstream strongly recommends x64 and explicit output outside game/mod-manager VFS.",
+    "known_gaps": [
+      "LOD option selection is project/worldspace specific",
+      "output correctness remains dependent on final input load order/assets and visual testing"
+    ],
+    "denominator_probe": "selected worldspaces/cells vs generated output/log completion."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "requires_confirmation_for": [
+      "output path inside game or active mod-manager VFS"
+    ],
+    "sandbox_or_scope": "Mandatory dedicated output directory installed later as a generated mod."
+  },
+  "verification": {
+    "independent_validators": [
+      "output-manifest",
+      "terrain-lod-visual-test",
+      "dyndolod-downstream-freshness"
+    ],
+    "version_probe": "xLODGen build/version",
+    "output_readback": "Hash/list generated LOD and parse logs."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Automate launch/output/freshness; visual LOD settings still need project-specific policy."
+  },
+  "evidence": {
+    "source_url": "https://github.com/sheson/xLODGen",
+    "verified_date": "2026-09-24",
+    "notes": "Upstream documents -sse game mode and mandatory -o output-path pattern to avoid overwriting game/VFS files."
+  }
+}
