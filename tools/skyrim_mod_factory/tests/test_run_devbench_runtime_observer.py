@@ -345,5 +345,150 @@ class DevBenchRuntimeObserverTests(unittest.TestCase):
         self.assertIn("schema-upgraded: pass",gates["G21"]["evidence"])
 
 
+    def test_provider_visual_ssim_pass_can_be_deterministic(self):
+        assertion={
+            "id":"visual-checkpoint",
+            "kind":"screenshot",
+            "expected":True,
+            "operator":"eq",
+            "severity":"ERROR",
+            "probe":{
+                "adapter":"devbench",
+                "tool":"capture",
+                "arguments":{
+                    "kind":"d3d11",
+                    "checkpointId":"main-menu",
+                    "golden":"Data/AgentOS/goldens/main-menu.png",
+                    "threshold":0.98,
+                },
+                "json_path":"passed",
+            },
+        }
+        raw={
+            "ok":True,
+            "provider":"d3d11",
+            "kind":"screenshot",
+            "path":"Data/SKSE/Plugins/devbench/captures/main-menu.png",
+            "checkpointId":"main-menu",
+            "inconclusive":False,
+            "ssim":0.991,
+            "threshold":0.98,
+            "passed":True,
+        }
+        with patch.object(MOD,"post_tool",return_value=raw):
+            row,result=MOD.assertion_observation(
+                assertion,
+                base_url="http://127.0.0.1:8920",
+                timeout_seconds=1.0,
+            )
+        self.assertEqual(row["status"],"pass")
+        artifact=MOD.capture_artifact(assertion,result)
+        self.assertEqual(artifact["kind"],"screenshot")
+        self.assertEqual(artifact["ssim"],0.991)
+        self.assertFalse(artifact["inconclusive"])
+
+    def test_inconclusive_capture_cannot_pass_even_when_ssim_passed(self):
+        assertion={
+            "id":"visual-checkpoint",
+            "kind":"screenshot",
+            "expected":True,
+            "operator":"eq",
+            "severity":"ERROR",
+            "probe":{
+                "adapter":"devbench",
+                "tool":"capture",
+                "arguments":{
+                    "kind":"native",
+                    "checkpointId":"main-menu",
+                    "golden":"Data/AgentOS/goldens/main-menu.png",
+                },
+                "json_path":"passed",
+            },
+        }
+        raw={
+            "ok":True,
+            "provider":"native",
+            "kind":"screenshot",
+            "path":"Data/SKSE/Plugins/devbench/captures/main-menu.bmp",
+            "checkpointId":"main-menu",
+            "inconclusive":True,
+            "inconclusiveReason":"captured via the low-fidelity native fallback",
+            "ssim":0.999,
+            "threshold":0.98,
+            "passed":True,
+        }
+        with patch.object(MOD,"post_tool",return_value=raw):
+            row,_=MOD.assertion_observation(
+                assertion,
+                base_url="http://127.0.0.1:8920",
+                timeout_seconds=1.0,
+            )
+        self.assertEqual(row["status"],"needs-review")
+        self.assertTrue(any("inconclusive" in x for x in row["issues"]))
+
+    def test_scene_mismatch_capture_cannot_pass(self):
+        assertion={
+            "id":"visual-checkpoint",
+            "kind":"screenshot",
+            "expected":True,
+            "operator":"eq",
+            "severity":"ERROR",
+            "probe":{
+                "adapter":"devbench",
+                "tool":"capture",
+                "arguments":{
+                    "checkpointId":"main-menu",
+                    "golden":"Data/AgentOS/goldens/main-menu.png",
+                },
+                "json_path":"passed",
+            },
+        }
+        raw={
+            "ok":True,
+            "provider":"d3d11",
+            "path":"capture.png",
+            "inconclusive":True,
+            "inconclusiveReason":"sceneMismatch",
+            "passed":True,
+        }
+        with patch.object(MOD,"post_tool",return_value=raw):
+            row,_=MOD.assertion_observation(
+                assertion,
+                base_url="http://127.0.0.1:8920",
+                timeout_seconds=1.0,
+            )
+        self.assertEqual(row["status"],"needs-review")
+
+    def test_capture_golden_error_requires_review(self):
+        assertion={
+            "id":"visual-checkpoint",
+            "kind":"screenshot",
+            "expected":True,
+            "operator":"eq",
+            "severity":"ERROR",
+            "probe":{
+                "adapter":"devbench",
+                "tool":"capture",
+                "arguments":{"checkpointId":"main-menu","golden":"missing.png"},
+                "json_path":"passed",
+            },
+        }
+        raw={
+            "ok":True,
+            "provider":"d3d11",
+            "path":"capture.png",
+            "inconclusive":False,
+            "goldenError":"could not decode golden",
+        }
+        with patch.object(MOD,"post_tool",return_value=raw):
+            row,_=MOD.assertion_observation(
+                assertion,
+                base_url="http://127.0.0.1:8920",
+                timeout_seconds=1.0,
+            )
+        self.assertEqual(row["status"],"needs-review")
+        self.assertTrue(any("golden comparison failed" in x for x in row["issues"]))
+
+
 if __name__=="__main__":
     unittest.main()
