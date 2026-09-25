@@ -566,6 +566,40 @@ def checkpoint_node(
         entry["adapter_id"]=step["adapter_id"]
     state.setdefault("nodes",{})[node["id"]]=entry
 
+def write_retry_checkpoint(
+    *,
+    node_id:str,
+    adapter_id:str,
+    attempt:int,
+    record:dict[str,Any],
+    decision:str,
+    log_dir:Path,
+)->str:
+    before=list(record.get("outputs_before") or [])
+    after=list(record.get("outputs_after") or [])
+    checkpoint={
+        "schema_version":"skyrim-retry-checkpoint-v1",
+        "node_id":node_id,
+        "adapter_id":adapter_id,
+        "attempt":attempt,
+        "created_at":now(),
+        "status":record.get("status","failed"),
+        "outputs_before":before,
+        "outputs_after":after,
+        "output_mutated":before!=after,
+        "decision":decision,
+    }
+    errs=schema_errors(checkpoint,"skyrim-retry-checkpoint-v1.schema.json")
+    if errs:
+        raise ValueError("retry checkpoint failed schema validation: "+"; ".join(errs))
+    safe_node=re.sub(r"[^A-Za-z0-9_.-]+","_",node_id)
+    safe_adapter=re.sub(r"[^A-Za-z0-9_.-]+","_",adapter_id)
+    path=log_dir.parent/"retry-checkpoints"/(
+        f"{safe_node}--{safe_adapter}--attempt-{attempt:02d}.json"
+    )
+    atomic_write_json(path,checkpoint)
+    return str(path)
+
 def execute_adapter_node(
     node:dict[str,Any],
     *,
@@ -621,14 +655,46 @@ def execute_adapter_node(
                 execute=execute,
                 record_id=node["id"],
             )
+            output_mutated=(
+                list(record.get("outputs_before") or [])
+                != list(record.get("outputs_after") or [])
+            )
+            if record.get("status")!="failed":
+                decision="return"
+            elif attempt>=max_attempts:
+                decision="return"
+            elif output_mutated:
+                decision="stop-for-rollback"
+            else:
+                decision="retry"
+            checkpoint_path=write_retry_checkpoint(
+                node_id=node["id"],
+                adapter_id=aid,
+                attempt=attempt,
+                record=record,
+                decision=decision,
+                log_dir=log_dir,
+            )
             attempts.append({
                 "attempt":attempt,
                 "status":record.get("status"),
                 "stdout_path":record.get("stdout_path"),
                 "stderr_path":record.get("stderr_path"),
                 "exit_code":record.get("exit_code"),
+                "output_mutated":output_mutated,
+                "decision":decision,
+                "checkpoint":checkpoint_path,
             })
             if record.get("status")!="failed":
+                record.setdefault("evidence",{})
+                record["evidence"]["adapter_manifest"]=source
+                record["evidence"]["attempts"]=attempts
+                return record
+            if decision=="stop-for-rollback":
+                record.setdefault("issues",[]).append(
+                    "automatic retry stopped because the failed attempt mutated outputs; "
+                    "restore from a repair/rollback checkpoint before another attempt"
+                )
                 record.setdefault("evidence",{})
                 record["evidence"]["adapter_manifest"]=source
                 record["evidence"]["attempts"]=attempts
