@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-23",
+  "updated_at": "2026-09-25",
   "purpose": "Durable, non-secret personal context for selective Agent OS retrieval. Do not preload wholesale.",
   "goals": {
     "one_to_three_years": [
@@ -132,8 +132,9 @@
       "Has used Gmail as a transport/archive for e-books and research material."
     ],
     "education_history": [
-      "Studied at Berea College and described self as a recent graduate by September 2023; exact degree/major was not recovered confidently from indexed mail.",
-      "Completed an ISA Irish Studies Summer School / study-abroad program in Galway, Ireland in summer 2022."
+      "Completed a bachelor's degree at Berea College; the exact major remains unresolved because prior resume/profile material uses conflicting wording.",
+      "Completed an ISA Irish Studies Summer School / study-abroad program in Galway, Ireland in summer 2022.",
+      "Historically enrolled in the University of Kentucky Strategic Human Resource Management and Analytics graduate program; left the program when leaving UK, so this is historical enrollment rather than a completed credential."
     ],
     "paid_research_interest": "Repeated mail supports an ongoing interest in paid focus groups and user-research studies as a flexible side-income/research-participation channel; invitations alone are not treated as completed studies.",
     "historical_creativity_signal": "A 2018 self-authored scholarship message described creativity as a personal strength and expressed a desire for future education/work to make meaningful use of it. Treat this as historical supporting evidence rather than a fixed personality label."
@@ -200,6 +201,12 @@
       "captured_at": "2026-09-23",
       "status": "derived_context_full_index_scan_with_cross_corpus_synthesis",
       "note": "Message-level synthesis covered the full indexed 10,577-message corpus, all 203 Sent Messages, career/education, communication/work style, relationships/organizations, interests/digital life, commitments/automation, and false-positive controls. Raw sensitive content was excluded; 231 attachment bodies remain unavailable because the index contains metadata only."
+    },
+    {
+      "source": "cross_source_relationship_reconciliation",
+      "captured_at": "2026-09-25",
+      "status": "user_stated_and_derived_reconciled",
+      "note": "Reconciled canonical profile against iCloud/Drive analyses, prior conversation context, mixed organizational archives, and source-actor contamination risks. Added explicit account-owner/actor boundaries and relationship context; uncertain third-party identity links remain candidates."
     }
   ],
   "context_indexes": [
@@ -217,6 +224,33 @@
     "profile/icloud-mail-analysis/index.json",
     "profile/icloud-mail-analysis/household-and-routines.json",
     "profile/icloud-mail-analysis/temporal-and-freshness-model.json",
-    "profile/icloud-mail-analysis/attachment-corpus-status.json"
-  ]
+    "profile/icloud-mail-analysis/attachment-corpus-status.json",
+    "profile/relationship-context.json"
+  ],
+  "family_and_relationship_context": {
+    "partner": {
+      "name": "Olivia",
+      "current_label": "girlfriend",
+      "role": "Long-term romantic partner and primary shared-household planning relationship.",
+      "planning_relevance": [
+        "Meal and grocery planning commonly concerns both people.",
+        "Housing and some household spending decisions should be treated as shared decisions when relevant.",
+        "A historical September 2025 email used the label 'fiancée'; retain it only as dated history and let newer direct user wording control current state."
+      ],
+      "caution": "Do not infer Olivia's individual preferences from household purchases unless directly supported."
+    },
+    "family_structure": {
+      "summary": "The user is the oldest of five siblings.",
+      "privacy_rule": "Keep names, contact details, and private family dynamics out of general Git-backed profile state unless explicitly needed and approved."
+    }
+  },
+  "source_attribution_rules": {
+    "account_owner_is_not_actor": "A message, chat, mailbox, or account belonging to the user does not prove that every statement in it was authored by or describes the user.",
+    "shared_chat_account_boundary": "A family member has used the user's ChatGPT account. Conversation-derived biographical claims that conflict with stronger evidence must remain quarantined until actor attribution is resolved.",
+    "mixed_organization_archive_boundary": "Shared organizational archives such as the RTEC mailbox/PST corpus contain predecessors, applicants, employees, vendors, and the user. Message-level actor/subject attribution is required before any fact is eligible for the user's personal profile.",
+    "quarantine_examples": [
+      "The historical Regent University / IT-adjacent narrative is not canonical user history unless independently re-confirmed as the user's.",
+      "The historical Audio Engineering master's claim is not a current credential and remains quarantined pending actor/source confirmation."
+    ]
+  }
 }
