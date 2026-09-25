@@ -51,6 +51,14 @@
                 "$ref": "#/$defs/localizedString"
               }
             ]
+          },
+          "cursorFillMode": {
+            "description": "Direction to fill the menu (left-to-right or top-to-bottom)",
+            "enum": [
+              "leftToRight",
+              "topToBottom"
+            ],
+            "default": "leftToRight"
           }
         },
         "required": [
@@ -672,5 +680,5 @@
       }
     }
   },
-  "$comment": "Agent OS compatibility-normalized derivative of the upstream MCM Helper schema. Upstream original is preserved beside this file. Changes: bool->boolean; malformed text sourceType type/enum nesting corrected; legacy boolean exclusiveMaximum converted to numeric Draft 2020-12 form."
+  "$comment": "Agent OS compatibility-normalized derivative of the upstream MCM Helper schema. Upstream original is preserved beside this file. Changes: bool->boolean; malformed text sourceType type/enum nesting corrected; legacy boolean exclusiveMaximum converted to numeric Draft 2020-12 form. Also adds pages[].cursorFillMode because upstream parser and shipped SkyUI config support it while the published page schema omitted it."
 }
