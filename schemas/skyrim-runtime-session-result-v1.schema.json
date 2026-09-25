@@ -10,6 +10,7 @@
     "test_id",
     "project_id",
     "worker_id",
+    "session_token",
     "status",
     "prepared_at",
     "profile",
@@ -377,6 +378,10 @@
       "items": {
         "type": "string"
       }
+    },
+    "session_token": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
     }
   }
 }
