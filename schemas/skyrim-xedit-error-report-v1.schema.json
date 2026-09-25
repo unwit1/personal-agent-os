@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-xedit-error-report-v1.schema.json",
+  "title": "Skyrim xEdit Check for Errors Report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source_log",
+    "parser_version",
+    "status",
+    "completion_detected",
+    "processed_records",
+    "declared_errors",
+    "findings",
+    "coverage"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-xedit-error-report-v1"
+    },
+    "source_log": {
+      "type": "string"
+    },
+    "parser_version": {
+      "type": "string"
+    },
+    "tool": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tool_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "game_mode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "target": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "fail",
+        "needs-review"
+      ]
+    },
+    "completion_detected": {
+      "type": "boolean"
+    },
+    "processed_records": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "declared_errors": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "elapsed_time": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "line_number",
+          "severity",
+          "category",
+          "message",
+          "raw"
+        ],
+        "properties": {
+          "line_number": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "severity": {
+            "enum": [
+              "error",
+              "warning",
+              "unknown"
+            ]
+          },
+          "category": {
+            "enum": [
+              "unresolved-reference",
+              "null-reference",
+              "reference-type-mismatch",
+              "invalid-light-objectid",
+              "missing-data",
+              "deleted-record-content",
+              "xedit-warning",
+              "xedit-error",
+              "unclassified"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "raw": {
+            "type": "string"
+          },
+          "record_context": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "field_path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "plugin": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "form_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[0-9A-Fa-f]{8}$"
+          },
+          "signature": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[A-Z0-9_]{4}$"
+          }
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total_lines",
+        "session_lines",
+        "finding_lines",
+        "suspicious_unparsed_lines"
+      ],
+      "properties": {
+        "total_lines": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "session_lines": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "finding_lines": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "suspicious_unparsed_lines": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
