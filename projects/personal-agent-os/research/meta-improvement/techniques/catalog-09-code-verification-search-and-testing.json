@@ -1,0 +1,1395 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-24",
+  "domain": "code_verification_search_and_testing",
+  "techniques": [
+    {
+      "id": "AIT-0236",
+      "name": "Compiler/interpreter feedback loop",
+      "aliases": [],
+      "category": "code_verification",
+      "layer": [
+        "code",
+        "tools",
+        "evaluation"
+      ],
+      "goal": "Turn syntax/runtime failures into objective repair evidence",
+      "mechanism": "Compile or execute generated code in sandbox, feed exact error plus relevant local context back for bounded repair.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0211, SRC-AI-0210.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Prefer exact machine error over model self-critique; cap rounds.",
+      "use_when": [
+        "Generated code",
+        "Config/DSL with parser"
+      ],
+      "avoid_when": [
+        "Unsafe code cannot be sandboxed",
+        "No executable environment"
+      ],
+      "required_evals": [
+        "pass rate by repair round",
+        "cost",
+        "regressions"
+      ],
+      "risks": [
+        "Model may patch symptom",
+        "execution side effects"
+      ],
+      "cost_profile": "1-2 extra repair calls commonly",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0211",
+        "SRC-AI-0210"
+      ],
+      "keywords": [
+        "compiler_feedback",
+        "self_repair"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0237",
+      "name": "Unit-test feedback loop",
+      "aliases": [],
+      "category": "code_verification",
+      "layer": [
+        "code",
+        "testing",
+        "agents"
+      ],
+      "goal": "Use executable behavioral oracle to guide code repair",
+      "mechanism": "Run focused tests, feed failed assertions/traceback and expected behavior to repairer, rerun until pass or budget exhausted.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0211, SRC-AI-0212.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "After visible tests pass, run broader/hidden/regression checks.",
+      "use_when": [
+        "Coding agents",
+        "Refactors"
+      ],
+      "avoid_when": [
+        "Tests are absent/known weak"
+      ],
+      "required_evals": [
+        "tests passed",
+        "hidden tests",
+        "repair rounds"
+      ],
+      "risks": [
+        "Overfitting visible tests",
+        "weak tests permit wrong code"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0211",
+        "SRC-AI-0212"
+      ],
+      "keywords": [
+        "unit_tests",
+        "repair"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0238",
+      "name": "Generate-many + execution rerank",
+      "aliases": [],
+      "category": "code_search",
+      "layer": [
+        "code",
+        "test_time_compute"
+      ],
+      "goal": "Increase functional success by sampling multiple candidate programs and selecting with execution",
+      "mechanism": "Generate N variants, compile/test each, choose passing/highest-scoring candidate.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0209, SRC-AI-0215.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Adaptive N; stop on first candidate satisfying strong oracle.",
+      "use_when": [
+        "Small functions",
+        "Algorithm candidates",
+        "Clear tests"
+      ],
+      "avoid_when": [
+        "Large repo edits where N branches are expensive"
+      ],
+      "required_evals": [
+        "pass@N",
+        "selected pass rate",
+        "cost/success"
+      ],
+      "risks": [
+        "Tests may be incomplete",
+        "linear candidate cost"
+      ],
+      "cost_profile": "N× generation+execution",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0209",
+        "SRC-AI-0215"
+      ],
+      "keywords": [
+        "sample_and_select",
+        "execution"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0239",
+      "name": "Learned execution verifier",
+      "aliases": [],
+      "category": "code_verification",
+      "layer": [
+        "code",
+        "evaluation",
+        "model"
+      ],
+      "goal": "Rank code when tests are sparse or execution outputs need semantic interpretation",
+      "mechanism": "Train/evaluate verifier on prompt, program and execution result, combine score with generator probability.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0209.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Use deterministic tests first; learned verifier can triage/augment.",
+      "use_when": [
+        "High-volume narrow code task",
+        "Sparse explicit tests"
+      ],
+      "avoid_when": [
+        "No labeled verifier data",
+        "Deterministic test oracle exists"
+      ],
+      "required_evals": [
+        "verifier calibration",
+        "reranking gains",
+        "false accepts"
+      ],
+      "risks": [
+        "Verifier becomes new failure bottleneck"
+      ],
+      "cost_profile": "training + cheap online scorer",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0209"
+      ],
+      "keywords": [
+        "LEVER",
+        "verifier"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0240",
+      "name": "External-feedback self-repair",
+      "aliases": [],
+      "category": "code_repair",
+      "layer": [
+        "code",
+        "agents"
+      ],
+      "goal": "Improve repair reliability over same-model introspection",
+      "mechanism": "Provide compiler/test/static-analysis/human feedback rather than asking the model to inspect itself without evidence.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0210, SRC-AI-0211.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Failure registry should record repairability by error class.",
+      "use_when": [
+        "Any repairable code failure"
+      ],
+      "avoid_when": [
+        "No external signal exists"
+      ],
+      "required_evals": [
+        "repair delta",
+        "feedback-source ablation"
+      ],
+      "risks": [
+        "Bad external feedback misleads repair"
+      ],
+      "cost_profile": "one or more retries",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0210",
+        "SRC-AI-0211"
+      ],
+      "keywords": [
+        "self_repair",
+        "external_feedback"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0241",
+      "name": "Repair-vs-resample routing",
+      "aliases": [],
+      "category": "code_repair",
+      "layer": [
+        "code",
+        "routing"
+      ],
+      "goal": "Choose whether to fix failed candidate or generate a fresh one",
+      "mechanism": "Classify failure type and expected repair probability; repair local/simple errors, resample when design/logical path appears fundamentally wrong.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0211, SRC-AI-0210.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Learn from Agent OS historical error/repair outcomes.",
+      "use_when": [
+        "Code generation with failure telemetry"
+      ],
+      "avoid_when": [
+        "No historical repair evidence yet"
+      ],
+      "required_evals": [
+        "success/cost by failure class"
+      ],
+      "risks": [
+        "Classifier can anchor on bad candidate"
+      ],
+      "cost_profile": "adaptive",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0211",
+        "SRC-AI-0210"
+      ],
+      "keywords": [
+        "repair_vs_resample"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0242",
+      "name": "Static linting as deterministic preflight",
+      "aliases": [],
+      "category": "static_analysis",
+      "layer": [
+        "code",
+        "evaluation"
+      ],
+      "goal": "Catch cheap style, syntax-adjacent and known bug patterns before model review",
+      "mechanism": "Run fast linter/type/style rules and autofixes where safe before expensive model reviewer.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0222.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Order validators cheapest-to-most-expensive.",
+      "use_when": [
+        "Python and supported languages"
+      ],
+      "avoid_when": [
+        "Generated domain where linter has no rules"
+      ],
+      "required_evals": [
+        "issues caught",
+        "reviewer calls avoided",
+        "false positives"
+      ],
+      "risks": [
+        "Autofix can alter semantics in rare cases"
+      ],
+      "cost_profile": "very low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0222"
+      ],
+      "keywords": [
+        "lint",
+        "Ruff"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0243",
+      "name": "Type checking",
+      "aliases": [],
+      "category": "static_analysis",
+      "layer": [
+        "code",
+        "evaluation"
+      ],
+      "goal": "Detect incompatible interfaces/data assumptions before runtime",
+      "mechanism": "Run static type checker/compiler type system; feed precise failures to repairer.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0141.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Schemas + generated typed bindings reduce model guessing.",
+      "use_when": [
+        "Typed codebases",
+        "Schema-heavy Agent OS"
+      ],
+      "avoid_when": [
+        "Dynamic reflection makes type info weak"
+      ],
+      "required_evals": [
+        "type errors",
+        "runtime bug correlation"
+      ],
+      "risks": [
+        "False security from clean types"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0141"
+      ],
+      "keywords": [
+        "types",
+        "static_check"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0244",
+      "name": "Static taint/security analysis",
+      "aliases": [],
+      "category": "static_analysis",
+      "layer": [
+        "code",
+        "security"
+      ],
+      "goal": "Catch dangerous data flows deterministically",
+      "mechanism": "Apply source→propagator→sink rules and vulnerability patterns to generated diffs.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0221.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Mandatory independent gate for relevant code changes.",
+      "use_when": [
+        "Security-sensitive changes",
+        "Web/integration code"
+      ],
+      "avoid_when": [
+        "Unsupported language/framework without rules"
+      ],
+      "required_evals": [
+        "true/false positive",
+        "security regressions"
+      ],
+      "risks": [
+        "Rule gaps",
+        "alert noise"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0221"
+      ],
+      "keywords": [
+        "Semgrep",
+        "taint"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0245",
+      "name": "Property-based testing",
+      "aliases": [],
+      "category": "testing",
+      "layer": [
+        "code",
+        "evaluation"
+      ],
+      "goal": "Explore many inputs from invariants rather than a handful of examples",
+      "mechanism": "Generate structured inputs satisfying strategies/preconditions, check invariant, shrink failure to minimal counterexample and replay it.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0216.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "LLM can propose properties, but human/deterministic review validates them.",
+      "use_when": [
+        "Parsers",
+        "Transforms",
+        "State machines",
+        "Schemas"
+      ],
+      "avoid_when": [
+        "Behavior cannot be expressed as invariant"
+      ],
+      "required_evals": [
+        "failures found",
+        "coverage",
+        "shrink quality"
+      ],
+      "risks": [
+        "Incorrect property becomes false oracle"
+      ],
+      "cost_profile": "medium CPU",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0216"
+      ],
+      "keywords": [
+        "property_based",
+        "Hypothesis"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0246",
+      "name": "Metamorphic testing",
+      "aliases": [],
+      "category": "testing",
+      "layer": [
+        "evaluation",
+        "AI_behavior"
+      ],
+      "goal": "Test systems without known exact output oracle",
+      "mechanism": "Define transformations whose outputs should remain invariant or change predictably; compare original/transformed cases.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0218.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Excellent for prompt/model regression: paraphrase, order, irrelevant-context, format transformations.",
+      "use_when": [
+        "LLM outputs",
+        "Retrieval",
+        "Classification",
+        "Data transforms"
+      ],
+      "avoid_when": [
+        "No valid metamorphic relation"
+      ],
+      "required_evals": [
+        "violation rate",
+        "relation validity"
+      ],
+      "risks": [
+        "False relation creates false failures"
+      ],
+      "cost_profile": "many cheap test calls",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0218"
+      ],
+      "keywords": [
+        "metamorphic_testing"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0247",
+      "name": "Mutation testing",
+      "aliases": [],
+      "category": "testing",
+      "layer": [
+        "code",
+        "evaluation"
+      ],
+      "goal": "Measure whether tests actually detect plausible code defects",
+      "mechanism": "Systematically mutate operators/conditions/constants; tests should fail for non-equivalent mutants.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0217.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Use to evaluate AI-generated tests before trusting them as self-improvement oracle.",
+      "use_when": [
+        "Critical Agent OS validators",
+        "Generated test suites"
+      ],
+      "avoid_when": [
+        "Large slow codebase without selective mutation"
+      ],
+      "required_evals": [
+        "mutation score",
+        "surviving mutants"
+      ],
+      "risks": [
+        "Equivalent mutants",
+        "high test cost"
+      ],
+      "cost_profile": "medium-high offline",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0217"
+      ],
+      "keywords": [
+        "mutation_testing"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0248",
+      "name": "Coverage-guided fuzzing",
+      "aliases": [],
+      "category": "testing",
+      "layer": [
+        "code",
+        "security",
+        "evaluation"
+      ],
+      "goal": "Discover crashes/security states beyond hand-written tests",
+      "mechanism": "Instrument control flow, mutate inputs, retain cases reaching new coverage and minimize crashing inputs.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0220.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Particularly valuable for browser bridge/importers/document parsers.",
+      "use_when": [
+        "Parsers",
+        "Bridges",
+        "File formats",
+        "Network/API adapters"
+      ],
+      "avoid_when": [
+        "Pure model-output quality without executable harness"
+      ],
+      "required_evals": [
+        "edge coverage",
+        "unique crashes",
+        "time-to-crash"
+      ],
+      "risks": [
+        "Resource intensive",
+        "coverage ≠ correctness"
+      ],
+      "cost_profile": "high CPU offline",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0220"
+      ],
+      "keywords": [
+        "fuzzing",
+        "AFL++"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0249",
+      "name": "LLM-seeded fuzz corpus",
+      "aliases": [],
+      "category": "testing",
+      "layer": [
+        "code",
+        "security"
+      ],
+      "goal": "Give fuzzer semantically rich starting cases and grammar hints",
+      "mechanism": "Use model to generate diverse valid/near-valid seeds, then let deterministic coverage-guided fuzzer mutate/explore.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0220.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Deduplicate/minimize seeds by coverage before campaign.",
+      "use_when": [
+        "Complex structured inputs"
+      ],
+      "avoid_when": [
+        "Model-generated corpus replaces coverage guidance"
+      ],
+      "required_evals": [
+        "coverage gain",
+        "unique failures vs baseline seeds"
+      ],
+      "risks": [
+        "Generated seeds may be redundant"
+      ],
+      "cost_profile": "model seed cost + fuzz CPU",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0220"
+      ],
+      "keywords": [
+        "fuzz_seed",
+        "LLM"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0250",
+      "name": "Differential testing",
+      "aliases": [],
+      "category": "testing",
+      "layer": [
+        "code",
+        "evaluation"
+      ],
+      "goal": "Find defects when two independent implementations should agree",
+      "mechanism": "Run same inputs through old/new, provider A/B, parser variants, model routes or optimized/reference implementation and compare invariant-relevant outputs.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0099.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Foundation for champion/challenger migrations.",
+      "use_when": [
+        "Migrations",
+        "Refactors",
+        "Model/provider replacement"
+      ],
+      "avoid_when": [
+        "Both implementations share same bug",
+        "Legitimate behavior is nondeterministic"
+      ],
+      "required_evals": [
+        "disagreement rate",
+        "triage outcome"
+      ],
+      "risks": [
+        "Difference may not identify which is correct"
+      ],
+      "cost_profile": "double execution",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0099"
+      ],
+      "keywords": [
+        "differential_testing"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0251",
+      "name": "Golden-master / snapshot testing",
+      "aliases": [],
+      "category": "testing",
+      "layer": [
+        "code",
+        "evaluation"
+      ],
+      "goal": "Detect broad output changes cheaply",
+      "mechanism": "Capture reviewed structured output/artifact snapshot and compare future runs, requiring explicit review of diffs.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0099.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Normalize timestamps/order/random IDs before diff.",
+      "use_when": [
+        "Generated docs/config/UI",
+        "Stable serialized state"
+      ],
+      "avoid_when": [
+        "Output naturally varies or snapshot includes noisy fields"
+      ],
+      "required_evals": [
+        "unexpected diff rate"
+      ],
+      "risks": [
+        "Brittle snapshots",
+        "review fatigue"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0099"
+      ],
+      "keywords": [
+        "snapshot",
+        "golden_master"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0252",
+      "name": "Hidden tests",
+      "aliases": [],
+      "category": "testing",
+      "layer": [
+        "code",
+        "evaluation"
+      ],
+      "goal": "Reduce overfitting visible unit tests during automated repair",
+      "mechanism": "Keep evaluator cases inaccessible to generator/repairer until final evaluation.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0102, SRC-AI-0095.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Separate repair feedback suite from protected regression suite.",
+      "use_when": [
+        "Prompt/code optimizers",
+        "Coding agents"
+      ],
+      "avoid_when": [
+        "Debugging where developer legitimately needs failing case"
+      ],
+      "required_evals": [
+        "visible-hidden gap",
+        "generalization"
+      ],
+      "risks": [
+        "Hidden failures are harder to debug"
+      ],
+      "cost_profile": "offline",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0102",
+        "SRC-AI-0095"
+      ],
+      "keywords": [
+        "hidden_tests"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0253",
+      "name": "Adversarial test generation",
+      "aliases": [],
+      "category": "testing",
+      "layer": [
+        "code",
+        "security",
+        "AI_behavior"
+      ],
+      "goal": "Search for inputs likely to break current implementation/model behavior",
+      "mechanism": "Use model, fuzzing or optimizer to generate cases maximizing validator failure/disagreement, then human/deterministic validation promotes real failures.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0137, SRC-AI-0220.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Adversary cannot edit target's security gate or oracle.",
+      "use_when": [
+        "Prompt injection",
+        "Parsers",
+        "Retrieval",
+        "Classifiers"
+      ],
+      "avoid_when": [
+        "Generated adversarial cases lack a valid oracle"
+      ],
+      "required_evals": [
+        "novel real failures",
+        "false adversarial cases"
+      ],
+      "risks": [
+        "Test generator can exploit metric artifacts"
+      ],
+      "cost_profile": "offline variable",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0137",
+        "SRC-AI-0220"
+      ],
+      "keywords": [
+        "adversarial_testing"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0254",
+      "name": "Counterexample minimization",
+      "aliases": [],
+      "category": "testing",
+      "layer": [
+        "code",
+        "evaluation"
+      ],
+      "goal": "Turn complex failure into smallest reproducible case",
+      "mechanism": "Shrink failing generated/fuzz/metamorphic input while preserving failure predicate.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0216, SRC-AI-0220.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Store minimal regression fixture plus link to original evidence.",
+      "use_when": [
+        "Property/fuzz failures",
+        "Prompt injection reproductions"
+      ],
+      "avoid_when": [
+        "Failure depends on distributed timing/global state"
+      ],
+      "required_evals": [
+        "reproduction size",
+        "debug time"
+      ],
+      "risks": [
+        "Shrink can accidentally alter underlying cause"
+      ],
+      "cost_profile": "offline CPU",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0216",
+        "SRC-AI-0220"
+      ],
+      "keywords": [
+        "shrinking",
+        "delta_debugging"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0255",
+      "name": "Delta debugging / automated bisection",
+      "aliases": [],
+      "category": "debugging",
+      "layer": [
+        "code",
+        "evaluation"
+      ],
+      "goal": "Identify minimal change set that introduces failure",
+      "mechanism": "Systematically remove input/change subsets or binary-search commits/config changes while re-running failure predicate.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0141.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Meta Engine should invoke before speculative root-cause model calls when predicate is deterministic.",
+      "use_when": [
+        "Regression after multi-file/model/prompt changes"
+      ],
+      "avoid_when": [
+        "Failure is flaky/non-deterministic"
+      ],
+      "required_evals": [
+        "culprit localization time"
+      ],
+      "risks": [
+        "Interactions between multiple required changes complicate search"
+      ],
+      "cost_profile": "repeated deterministic tests",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0141"
+      ],
+      "keywords": [
+        "bisect",
+        "delta_debugging"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0256",
+      "name": "Fault localization before repair",
+      "aliases": [],
+      "category": "debugging",
+      "layer": [
+        "code",
+        "evaluation"
+      ],
+      "goal": "Limit model context/edit surface to likely causal regions",
+      "mechanism": "Use stack traces, coverage, failing assertions, changed-file graph, static analysis and git history to rank relevant code before asking model to patch.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0096.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Compiler/test evidence drives selective context.",
+      "use_when": [
+        "Repository debugging"
+      ],
+      "avoid_when": [
+        "Systemic architecture flaw not localized"
+      ],
+      "required_evals": [
+        "files/tokens inspected",
+        "repair success"
+      ],
+      "risks": [
+        "Localization misses distant dependency"
+      ],
+      "cost_profile": "low-medium; large token savings",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0096"
+      ],
+      "keywords": [
+        "fault_localization"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0257",
+      "name": "SMT/constraint solver verification",
+      "aliases": [],
+      "category": "formal_methods",
+      "layer": [
+        "code",
+        "verification"
+      ],
+      "goal": "Prove/check logical constraints beyond sampled tests",
+      "mechanism": "Translate invariants/constraints into SAT/SMT formulas and ask solver for satisfiable models/counterexamples.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0219.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "LLM may draft model; deterministic solver provides answer; formalization itself reviewed/tested.",
+      "use_when": [
+        "Scheduling",
+        "Policy rules",
+        "State invariants",
+        "Constraint-heavy algorithms"
+      ],
+      "avoid_when": [
+        "Informal requirements cannot be modeled reliably"
+      ],
+      "required_evals": [
+        "solver proof/counterexample",
+        "modeling validation"
+      ],
+      "risks": [
+        "Wrong formalization proves wrong thing"
+      ],
+      "cost_profile": "low-to-high depending problem",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0219"
+      ],
+      "keywords": [
+        "Z3",
+        "SMT"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0258",
+      "name": "Proof-assistant verification",
+      "aliases": [],
+      "category": "formal_methods",
+      "layer": [
+        "code",
+        "mathematics",
+        "verification"
+      ],
+      "goal": "Require machine-checkable proof for critical formal claim",
+      "mechanism": "Generate/search Lean/Coq/Isabelle proof terms checked by trusted kernel.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0213.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Use selectively for security-critical invariants, not as blanket requirement.",
+      "use_when": [
+        "Formal algorithms/protocol invariants",
+        "Future critical components"
+      ],
+      "avoid_when": [
+        "Most ordinary business logic where proof cost dwarfs benefit"
+      ],
+      "required_evals": [
+        "proof checks",
+        "formalization correctness",
+        "effort"
+      ],
+      "risks": [
+        "Natural-language-to-formal translation can be wrong"
+      ],
+      "cost_profile": "very high engineering/search",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0213"
+      ],
+      "keywords": [
+        "Lean",
+        "proof_assistant"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0259",
+      "name": "Neuro-symbolic proposal + formal checker",
+      "aliases": [],
+      "category": "formal_methods",
+      "layer": [
+        "AI",
+        "verification"
+      ],
+      "goal": "Combine model creativity with exact symbolic correctness",
+      "mechanism": "LLM proposes candidate program/proof/constraint solution; formal/executable checker accepts or supplies counterexample; search iterates.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0213, SRC-AI-0214.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "One of the strongest general patterns: creative proposer + hard verifier.",
+      "use_when": [
+        "Algorithms",
+        "Scheduling",
+        "Schemas",
+        "Formalizable subproblems"
+      ],
+      "avoid_when": [
+        "No exact checker"
+      ],
+      "required_evals": [
+        "candidate throughput",
+        "verified success",
+        "compute"
+      ],
+      "risks": [
+        "Search cost can explode",
+        "formal spec can be wrong"
+      ],
+      "cost_profile": "potentially high",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0213",
+        "SRC-AI-0214"
+      ],
+      "keywords": [
+        "neuro_symbolic",
+        "checker"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0260",
+      "name": "Evolutionary program search with automated evaluator",
+      "aliases": [],
+      "category": "program_search",
+      "layer": [
+        "code",
+        "search",
+        "evaluation"
+      ],
+      "goal": "Discover improvements beyond one-shot coding through iterative variation/selection",
+      "mechanism": "Maintain candidate program population, sample high-performing/diverse parents, ask models for mutations, execute objective evaluator, retain strong/diverse offspring.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0214, SRC-AI-0215.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Meta Engine can use this only inside tightly sandboxed benchmarkable code regions.",
+      "use_when": [
+        "Performance optimization",
+        "Algorithms",
+        "Heuristics with clear score"
+      ],
+      "avoid_when": [
+        "Subjective software architecture with weak evaluator"
+      ],
+      "required_evals": [
+        "best score vs compute",
+        "generalization",
+        "diversity"
+      ],
+      "risks": [
+        "Evaluator gaming",
+        "huge sample cost"
+      ],
+      "cost_profile": "high to extreme",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0214",
+        "SRC-AI-0215"
+      ],
+      "keywords": [
+        "AlphaEvolve",
+        "FunSearch",
+        "evolution"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0261",
+      "name": "Skeleton-constrained evolutionary search",
+      "aliases": [],
+      "category": "program_search",
+      "layer": [
+        "code",
+        "search"
+      ],
+      "goal": "Focus AI search on the uncertain/high-leverage part of a known-good program",
+      "mechanism": "Freeze boilerplate/invariants and evolve only a function/parameter/rule inside a validated skeleton.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0215.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Excellent simplification principle: don't ask model to recreate solved structure.",
+      "use_when": [
+        "Optimization hotspots",
+        "Known framework/invariants"
+      ],
+      "avoid_when": [
+        "Architecture itself is the unknown"
+      ],
+      "required_evals": [
+        "score improvement",
+        "invalid candidate rate"
+      ],
+      "risks": [
+        "Skeleton may exclude better architecture"
+      ],
+      "cost_profile": "lower than whole-code evolution",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0215"
+      ],
+      "keywords": [
+        "program_skeleton",
+        "evolution"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0262",
+      "name": "Diversity-preserving island search",
+      "aliases": [],
+      "category": "program_search",
+      "layer": [
+        "code",
+        "search"
+      ],
+      "goal": "Avoid converging on one local optimum during large candidate search",
+      "mechanism": "Maintain semi-isolated populations/islands with periodic reseeding/migration, favoring both fitness and diversity.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0215.",
+        "limitations": []
+      },
+      "agent_os_fit": "research_only",
+      "agent_os_pattern": "Future research technique, not ordinary Orchestrator pattern.",
+      "use_when": [
+        "Large evaluator-driven algorithm search"
+      ],
+      "avoid_when": [
+        "Small optimization budget"
+      ],
+      "required_evals": [
+        "best score",
+        "diversity",
+        "stagnation"
+      ],
+      "risks": [
+        "Very high compute and population management"
+      ],
+      "cost_profile": "extreme",
+      "complexity": "very_high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0215"
+      ],
+      "keywords": [
+        "island_model",
+        "diversity"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0263",
+      "name": "Performance profiling before optimization",
+      "aliases": [],
+      "category": "optimization",
+      "layer": [
+        "code",
+        "observability"
+      ],
+      "goal": "Spend optimization effort on measured bottleneck rather than intuition",
+      "mechanism": "Instrument wall time, CPU, I/O, allocations, model/tool latency and call counts; rank hotspots before changing implementation.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0143.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "No performance improvement candidate should lack baseline profile when measurable.",
+      "use_when": [
+        "All performance work"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "profile coverage",
+        "speedup attributed to hotspot"
+      ],
+      "risks": [
+        "Profiler overhead",
+        "benchmark nonrepresentativeness"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0143"
+      ],
+      "keywords": [
+        "profiling",
+        "hotspot"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0264",
+      "name": "Benchmark-guided code optimization",
+      "aliases": [],
+      "category": "optimization",
+      "layer": [
+        "code",
+        "evaluation"
+      ],
+      "goal": "Accept optimization only if representative benchmark improves without correctness regression",
+      "mechanism": "Run reproducible benchmark + correctness suite on candidate change, including warm/cold and representative workload distributions.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0214.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Store machine/environment/version so numbers remain interpretable.",
+      "use_when": [
+        "Scanner",
+        "Knowledge Engine",
+        "Orchestrator"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "p50/p95 throughput",
+        "correctness",
+        "resource use"
+      ],
+      "risks": [
+        "Microbenchmark can optimize wrong workload"
+      ],
+      "cost_profile": "offline benchmark",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0214"
+      ],
+      "keywords": [
+        "benchmark",
+        "optimization"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0265",
+      "name": "Test-generation quality measured by mutation score",
+      "aliases": [],
+      "category": "testing",
+      "layer": [
+        "code",
+        "evaluation",
+        "AI"
+      ],
+      "goal": "Evaluate AI-generated tests by whether they detect plausible faults rather than whether they merely pass",
+      "mechanism": "Generate tests, ensure baseline passes, run mutation testing and retain tests that kill meaningful mutants/cover new behavior.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0217.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Generated tests are candidates until they prove incremental defect-detection value.",
+      "use_when": [
+        "Automated regression generation from failures"
+      ],
+      "avoid_when": [
+        "Mutation operators do not model target defects well"
+      ],
+      "required_evals": [
+        "mutation score",
+        "real bug correlation",
+        "test cost"
+      ],
+      "risks": [
+        "Optimizer can game mutation operator set"
+      ],
+      "cost_profile": "high offline",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0217"
+      ],
+      "keywords": [
+        "AI_test_generation",
+        "mutation_score"
+      ],
+      "notes": ""
+    }
+  ]
+}
