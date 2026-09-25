@@ -1,0 +1,93 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "mcm-helper-config-generator",
+  "tool": "Agent OS MCM Helper config generator",
+  "tool_version": "1.0",
+  "source": "tools/skyrim_mod_factory/render_mcm_helper.py",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "mcm-helper-config-render",
+    "mcm-helper-settings-render",
+    "mod-setting-cross-validation",
+    "group-condition-validation"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "{python_executable}",
+    "arguments_template": [
+      "{repo_root}/tools/skyrim_mod_factory/render_mcm_helper.py",
+      "{mcm_helper_intent}",
+      "--data-root",
+      "{generated_data_root}",
+      "--report",
+      "{mcm_helper_report}"
+    ],
+    "transport": "typed intent -> upstream-schema-validated config.json + deterministic settings.ini",
+    "requires_running_game": false,
+    "timeout_seconds": 120
+  },
+  "inputs": [
+    "skyrim-mcm-helper-intent-v1 JSON"
+  ],
+  "outputs": [
+    "MCM/Config/<modName>/config.json",
+    "MCM/Config/<modName>/settings.ini",
+    "skyrim-mcm-helper-validation-report-v1 JSON"
+  ],
+  "logs": [
+    "stdout",
+    "stderr"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 1,
+    "cleanup_outputs_first": true
+  },
+  "auto_fixable_issue_codes": [],
+  "destructive_actions": [],
+  "human_checks": [
+    "localized wording and UI layout density remain human-facing presentation checks"
+  ],
+  "coverage": {
+    "description": "Validates MCM Helper JSON against a compatibility-normalized pinned upstream schema, then cross-checks ModSetting IDs/defaults, type prefixes, group controls and common numeric option invariants.",
+    "known_gaps": [
+      "runtime Papyrus actions and property-backed values still require script/runtime validation",
+      "localization string-table completeness is validated separately"
+    ],
+    "denominator_probe": "report counts all pages, controls, ModSetting-backed controls, settings defaults and group-condition references"
+  },
+  "safety": {
+    "mutation_default": "generated-output",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Writes only under generated Data/MCM/Config/<modName> plus an optional report."
+  },
+  "verification": {
+    "independent_validators": [
+      "papyrus-vscode",
+      "devbench"
+    ],
+    "version_probe": "Pinned upstream MCM Helper config schema and MIT license under third_party/mcm-helper",
+    "output_readback": "Generated JSON/INI derive from the same validated intent and report all resolved ModSetting IDs."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Models author compact typed intent; renderer owns schema quirks and INI synchronization."
+  },
+  "evidence": {
+    "source_url": "https://github.com/Exit-9B/MCM-Helper",
+    "verified_date": "2026-09-25",
+    "notes": "Upstream SettingStore confirms defaults live in Data/MCM/Config/<modName>/settings.ini and setting IDs are key:section; CommonLib Setting type derives from leading setting-name character."
+  }
+}
