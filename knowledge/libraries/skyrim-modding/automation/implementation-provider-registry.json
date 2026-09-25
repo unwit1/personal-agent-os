@@ -1,0 +1,561 @@
+{
+  "schema_version": "skyrim-implementation-provider-registry-v1",
+  "providers": [
+    {
+      "provider_id": "skypatcher",
+      "kind": "framework",
+      "validation_adapters": [
+        "xedit",
+        "devbench"
+      ],
+      "notes": "Runtime record patcher; needs typed renderer/parser adapter for full autonomous config generation.",
+      "source": "https://www.nexusmods.com/skyrimspecialedition/mods/106659"
+    },
+    {
+      "provider_id": "static patch",
+      "kind": "strategy",
+      "validation_adapters": [
+        "xedit",
+        "mutagen"
+      ],
+      "notes": "Generate a dedicated plugin patch rather than mutate source plugins."
+    },
+    {
+      "provider_id": "static plugin",
+      "kind": "strategy",
+      "validation_adapters": [
+        "xedit",
+        "mutagen"
+      ],
+      "notes": "Static plugin implementation strategy."
+    },
+    {
+      "provider_id": "static REFR patch",
+      "kind": "strategy",
+      "validation_adapters": [
+        "xedit",
+        "mutagen"
+      ],
+      "notes": "Placed-reference plugin patch strategy."
+    },
+    {
+      "provider_id": "flm",
+      "kind": "framework",
+      "validation_adapters": [
+        "xedit",
+        "devbench"
+      ],
+      "notes": "FormList Manipulator runtime dependency; typed intent schema exists but renderer is not yet implemented.",
+      "source": "https://github.com/MaskedRPGFan/FormList-Manipulator"
+    },
+    {
+      "provider_id": "static FLST patch",
+      "kind": "strategy",
+      "validation_adapters": [
+        "xedit",
+        "mutagen"
+      ],
+      "notes": "Static FormList override/patch strategy."
+    },
+    {
+      "provider_id": "ipm",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Item Property Manipulator runtime dependency.",
+      "source": "https://www.nexusmods.com/skyrimspecialedition/mods/95795"
+    },
+    {
+      "provider_id": "oar",
+      "kind": "framework",
+      "validation_adapters": [
+        "pandora",
+        "devbench"
+      ],
+      "notes": "Open Animation Replacer runtime dependency and condition engine.",
+      "source": "https://github.com/ersh1/OpenAnimationReplacer"
+    },
+    {
+      "provider_id": "dar",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Historical Dynamic Animation Replacer compatibility target; prefer OAR for new work."
+    },
+    {
+      "provider_id": "native graph injection",
+      "kind": "strategy",
+      "validation_adapters": [
+        "pandora",
+        "devbench"
+      ],
+      "notes": "Native/behavior graph injection strategy."
+    },
+    {
+      "provider_id": "behavior-data-injector",
+      "kind": "framework",
+      "validation_adapters": [
+        "pandora",
+        "devbench"
+      ],
+      "notes": "Behavior Data Injector framework dependency."
+    },
+    {
+      "provider_id": "po3-papyrus-extender",
+      "kind": "framework",
+      "validation_adapters": [
+        "official-papyruscompiler",
+        "caprica",
+        "devbench"
+      ],
+      "notes": "Papyrus API provider dependency.",
+      "source": "https://github.com/powerof3/PapyrusExtenderSSE"
+    },
+    {
+      "provider_id": "commonlibsse-ng",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench",
+        "crash-logger"
+      ],
+      "notes": "Native C++ compile-time/runtime abstraction dependency.",
+      "source": "https://github.com/alandtse/CommonLibSSE-NG"
+    },
+    {
+      "provider_id": "papyrus",
+      "kind": "pattern",
+      "validation_adapters": [
+        "official-papyruscompiler",
+        "caprica"
+      ],
+      "notes": "Resolve to the papyrus-gameplay-feature implementation pattern.",
+      "pattern_id": "papyrus-gameplay-feature"
+    },
+    {
+      "provider_id": "mcm-helper",
+      "kind": "framework",
+      "validation_adapters": [
+        "papyrus-vscode",
+        "devbench"
+      ],
+      "notes": "Settings/UI framework.",
+      "source": "https://github.com/Exit-9B/MCM-Helper"
+    },
+    {
+      "provider_id": "skyui-mcm",
+      "kind": "framework",
+      "validation_adapters": [
+        "papyrus-vscode",
+        "devbench"
+      ],
+      "notes": "SkyUI MCM framework/API."
+    },
+    {
+      "provider_id": "native-menu",
+      "kind": "strategy",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Generic native menu strategy; concrete framework should be selected."
+    },
+    {
+      "provider_id": "skse-menu-framework",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Native SKSE menu framework dependency."
+    },
+    {
+      "provider_id": "dmenu",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "dMenu framework dependency."
+    },
+    {
+      "provider_id": "prismaui",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "HTML/CSS/JS-style in-game UI framework."
+    },
+    {
+      "provider_id": "obody",
+      "kind": "framework",
+      "validation_adapters": [
+        "bodyslide-outfit-studio",
+        "devbench"
+      ],
+      "notes": "Runtime body preset/morph assignment framework."
+    },
+    {
+      "provider_id": "xedit-inspection",
+      "kind": "alias",
+      "validation_adapters": [
+        "xedit"
+      ],
+      "notes": "Alias for the xEdit adapter.",
+      "adapter_id": "xedit"
+    },
+    {
+      "provider_id": "texgen",
+      "kind": "alias",
+      "validation_adapters": [
+        "dyndolod"
+      ],
+      "notes": "TexGen is part of the DynDOLOD toolchain.",
+      "adapter_id": "dyndolod"
+    },
+    {
+      "provider_id": "parallaxgen",
+      "kind": "alias",
+      "validation_adapters": [
+        "pgpatcher"
+      ],
+      "notes": "Current ParallaxGen/PGPatcher implementation surface.",
+      "source": "https://github.com/hakasapl/PGPatcher",
+      "adapter_id": "pgpatcher"
+    },
+    {
+      "provider_id": "mantella",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "AI-NPC conversation runtime/framework; no dedicated Mod Factory adapter yet."
+    },
+    {
+      "provider_id": "skse-serialization",
+      "kind": "strategy",
+      "validation_adapters": [
+        "devbench",
+        "fallrimtools"
+      ],
+      "notes": "Native SKSE co-save serialization strategy."
+    },
+    {
+      "provider_id": "storageutil",
+      "kind": "framework",
+      "validation_adapters": [
+        "papyrus-vscode",
+        "devbench"
+      ],
+      "notes": "PapyrusUtil StorageUtil persistence API.",
+      "source": "https://github.com/eeveelo/PapyrusUtil"
+    },
+    {
+      "provider_id": "jcontainers",
+      "kind": "framework",
+      "validation_adapters": [
+        "papyrus-vscode",
+        "devbench"
+      ],
+      "notes": "JContainers runtime/API dependency.",
+      "source": "https://github.com/SilverIce/JContainers"
+    },
+    {
+      "provider_id": "typed-fomod-generator",
+      "kind": "strategy",
+      "validation_adapters": [],
+      "notes": "Planned deterministic FOMOD XML generator; not yet implemented."
+    },
+    {
+      "provider_id": "skyrimforge-reference",
+      "kind": "reference",
+      "validation_adapters": [],
+      "notes": "Reference/documentation source, not an executable provider."
+    },
+    {
+      "provider_id": "papyrus-triage",
+      "kind": "strategy",
+      "validation_adapters": [
+        "champollion",
+        "papyrus-vscode",
+        "fallrimtools"
+      ],
+      "notes": "Papyrus diagnostic workflow."
+    },
+    {
+      "provider_id": "cocks",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Constructible Object Custom Keyword System UI/crafting dependency."
+    },
+    {
+      "provider_id": "cid",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Container Item Distributor runtime dependency."
+    },
+    {
+      "provider_id": "cdf",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Container Distribution Framework runtime dependency."
+    },
+    {
+      "provider_id": "native-skse-feature",
+      "kind": "pattern",
+      "validation_adapters": [
+        "devbench",
+        "crash-logger"
+      ],
+      "notes": "Resolve to native-skse-feature implementation pattern.",
+      "pattern_id": "native-skse-feature"
+    },
+    {
+      "provider_id": "campfire",
+      "kind": "framework",
+      "validation_adapters": [
+        "papyrus-vscode",
+        "devbench"
+      ],
+      "notes": "Campfire camping/survival framework dependency.",
+      "source": "https://github.com/chesko256/Campfire"
+    },
+    {
+      "provider_id": "frostfall",
+      "kind": "framework",
+      "validation_adapters": [
+        "papyrus-vscode",
+        "devbench"
+      ],
+      "notes": "Frostfall compatibility/runtime framework lineage.",
+      "source": "https://github.com/chesko256/Campfire"
+    },
+    {
+      "provider_id": "custom-skills-framework",
+      "kind": "framework",
+      "validation_adapters": [
+        "papyrus-vscode",
+        "devbench"
+      ],
+      "notes": "Custom Skills Framework dependency.",
+      "source": "https://github.com/Exit-9B/CustomSkills"
+    },
+    {
+      "provider_id": "experience",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Experience leveling framework dependency."
+    },
+    {
+      "provider_id": "skill-uncapper",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Skyrim Skill Uncapper native dependency."
+    },
+    {
+      "provider_id": "static-record-edit",
+      "kind": "pattern",
+      "validation_adapters": [
+        "mutagen",
+        "xedit"
+      ],
+      "notes": "Resolve to static-record-edit pattern.",
+      "pattern_id": "static-record-edit"
+    },
+    {
+      "provider_id": "i4",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Inventory Interface Information Injector dependency."
+    },
+    {
+      "provider_id": "description-framework",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Description Framework dependency.",
+      "source": "https://github.com/Nightfallstorm/DescriptionFramework"
+    },
+    {
+      "provider_id": "dynamic-inventory-icon-injector",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Dynamic status-icon framework dependency."
+    },
+    {
+      "provider_id": "kreate",
+      "kind": "unadapted-tool",
+      "validation_adapters": [
+        "xedit",
+        "devbench"
+      ],
+      "notes": "Live weather/lighting editor; currently no typed Mod Factory adapter."
+    },
+    {
+      "provider_id": "community-shaders",
+      "kind": "framework",
+      "validation_adapters": [
+        "renderdoc",
+        "devbench"
+      ],
+      "notes": "Renderer/framework dependency.",
+      "source": "https://github.com/community-shaders/skyrim-community-shaders"
+    },
+    {
+      "provider_id": "water-seams-fix",
+      "kind": "framework",
+      "validation_adapters": [
+        "synthesis",
+        "xedit"
+      ],
+      "notes": "Synthesis patcher family used for water-field forwarding."
+    },
+    {
+      "provider_id": "music-type-distributor",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Music Type Distributor runtime dependency."
+    },
+    {
+      "provider_id": "sound-record-distributor",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Sound Record Distributor runtime dependency."
+    },
+    {
+      "provider_id": "comap",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Common Marker Addon Project framework dependency."
+    },
+    {
+      "provider_id": "acheron",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Death/defeat framework dependency."
+    },
+    {
+      "provider_id": "camera-framework",
+      "kind": "strategy",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Generic camera framework strategy; concrete native dependency should be selected."
+    },
+    {
+      "provider_id": "higgs",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Skyrim VR HIGGS dependency.",
+      "source": "https://github.com/adamhynek/higgs"
+    },
+    {
+      "provider_id": "planck",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Skyrim VR PLANCK dependency.",
+      "source": "https://github.com/adamhynek/activeragdoll"
+    },
+    {
+      "provider_id": "vrik",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "VRIK VR body/IK dependency."
+    },
+    {
+      "provider_id": "skyrim-vr-tools",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Skyrim VR Tools dependency."
+    },
+    {
+      "provider_id": "commonlibvr",
+      "kind": "framework",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "VR-native CommonLib compatibility layer."
+    },
+    {
+      "provider_id": "bodygen",
+      "kind": "framework",
+      "validation_adapters": [
+        "bodyslide-outfit-studio",
+        "devbench"
+      ],
+      "notes": "RaceMenu BodyGen distribution framework."
+    },
+    {
+      "provider_id": "easynpc",
+      "kind": "unadapted-tool",
+      "validation_adapters": [
+        "xedit"
+      ],
+      "notes": "NPC replacer synthesis tool; GUI workflow not yet adapted."
+    },
+    {
+      "provider_id": "synthebd",
+      "kind": "unadapted-tool",
+      "validation_adapters": [
+        "synthesis",
+        "xedit"
+      ],
+      "notes": "NPC body/appearance distribution patcher; dedicated adapter still needed.",
+      "source": "https://github.com/Synthesis-Collective/SynthEBD"
+    },
+    {
+      "provider_id": "xvasynth",
+      "kind": "unadapted-tool",
+      "validation_adapters": [
+        "vospeaker"
+      ],
+      "notes": "Voice synthesis backend; VOSpeaker is the preferred adapted voice plane."
+    },
+    {
+      "provider_id": "mcm-helper-settings-loader",
+      "kind": "strategy",
+      "validation_adapters": [
+        "papyrus-vscode"
+      ],
+      "notes": "MCM Helper settings façade strategy."
+    },
+    {
+      "provider_id": "prismai",
+      "kind": "alias",
+      "adapter_id": "prismaui",
+      "validation_adapters": [
+        "devbench"
+      ],
+      "notes": "Legacy typo/alias in early pattern data; normalize to prismaui."
+    }
+  ]
+}
