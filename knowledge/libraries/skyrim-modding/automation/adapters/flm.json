@@ -1,0 +1,77 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "flm",
+  "tool": "FormList Manipulator typed-config renderer",
+  "source": "https://github.com/MaskedRPGFan/FormList-Manipulator",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "flm-config-generate",
+    "flm-intent-validate",
+    "formlist-runtime-injection",
+    "flm-filter-config",
+    "flm-collection-config",
+    "flm-modevent-config"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "python",
+    "arguments_template": [
+      "tools/skyrim_mod_factory/render_flm.py",
+      "{intent}",
+      "--output",
+      "{output}"
+    ],
+    "transport": "local deterministic renderer + FLM runtime parser",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "skyrim-runtime-patch-intent-v1 framework=flm"
+  ],
+  "outputs": [
+    "*_FLM.ini"
+  ],
+  "logs": [
+    "renderer stderr",
+    "FormListManipulator.log"
+  ],
+  "coverage": {
+    "description": "Typed renderer for the upstream FLM README grammar: filters, aliases, groups, collections, FormList injection, ModEvent injection, Plant, BToys, GToys, HairColors, Atronach Forge and Dragonborn Spider Crafting.",
+    "known_gaps": [
+      "filter conditions remain source-grammar strings rather than a deeper boolean AST",
+      "runtime acceptance/application still requires FormListManipulator.log and positive/negative fixture readback"
+    ],
+    "denominator_probe": "intent entries vs rendered records vs FLM valid/invalid/filtered runtime log counts."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Canonical source is typed intent JSON; generated *_FLM.ini is replaceable output."
+  },
+  "verification": {
+    "independent_validators": [
+      "skyrim-runtime-patch-intent-v1",
+      "form-resolution",
+      "FormListManipulator.log",
+      "devbench-runtime-formlist-query"
+    ],
+    "version_probe": "grammar_source snapshot + installed FormList Manipulator version/log",
+    "output_readback": "Require FLM log acceptance and query expected FormList membership for positive/negative fixtures."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Deterministic semantic FormList injection generation; avoids hand-authored runtime config drift."
+  },
+  "evidence": {
+    "source_url": "https://github.com/MaskedRPGFan/FormList-Manipulator",
+    "source_snapshot": "82a694e5d33194ae223f23846b1f180ee394cdee",
+    "verified_date": "2026-09-25",
+    "notes": "Upstream README documents *_FLM.ini naming, flat key/value grammar, filters, aliases, groups, collections, ModEvents and simplified recipes."
+  }
+}
