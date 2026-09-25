@@ -201,6 +201,26 @@
       "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/creation-kit.json"
     },
     {
+      "adapter_id": "dds-structural-validator",
+      "role": "asset-validator",
+      "priority": "preferred",
+      "capabilities": [
+        "dds-header-validate",
+        "dds-format-identify",
+        "dds-mipmap-validate",
+        "dds-block-payload-size-validate",
+        "dds-game-format-policy"
+      ],
+      "validation_role": "independent-validator",
+      "can_mutate": false,
+      "requires_running_game": false,
+      "known_gaps": [
+        "no pixel/channel decode",
+        "uncompressed and Texture3D payload sizing incomplete"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/dds-structural-validator.json"
+    },
+    {
       "adapter_id": "devbench",
       "role": "runtime-test",
       "priority": "preferred",
