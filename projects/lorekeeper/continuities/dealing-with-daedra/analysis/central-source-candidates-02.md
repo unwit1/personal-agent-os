@@ -24,7 +24,7 @@ External reference:
 
 The current central source library also contains an ESO compilation witness:
 
-`knowledge/libraries/elder-scrolls/sources/bf-books-eso/batches/books-1151-1200.jsonl`
+`https://github.com/unwit1/knowledge-tes/blob/main/sources/bf-books-eso/batches/books-1151-1200.jsonl`
 - Form ID: `01012E04`
 - title: *Fundaments of Alchemy*
 - author: Alyandon Mathierry
@@ -80,7 +80,7 @@ Candidate 001 has also been upgraded: the Dealing-with-Daedra payload is a white
 Central routing is now complete at the work-identity level.
 
 - work ID: `tes.work.fundaments-of-alchemy`
-- central work path: `knowledge/libraries/elder-scrolls/books/works/tes.work.fundaments-of-alchemy.json`
+- central work path: `https://github.com/unwit1/knowledge-tes/blob/main/books/works/tes.work.fundaments-of-alchemy.json`
 - the Oblivion identity, ESO compilation witness, and DWD variant are retained as separate witnesses.
 
 The DWD Arcadia wrapper and the `magickal` / `magical` spelling difference remain witness-level metadata; no single canonical normalized text has been elected.

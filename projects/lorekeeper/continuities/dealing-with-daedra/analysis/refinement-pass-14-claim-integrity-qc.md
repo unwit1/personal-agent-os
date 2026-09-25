@@ -46,7 +46,7 @@ The human and machine contradiction summaries therefore cover the same seven tra
 
 ## Mirror integrity
 
-Before this pass, the top-level `knowledge/libraries/elder-scrolls/mods/continuities/dealing-with-daedra/` and `projects/lorekeeper/continuities/dealing-with-daedra/` trees had matching entries and object hashes.
+Before this pass, the top-level `https://github.com/unwit1/knowledge-tes/blob/main/mods/continuities/dealing-with-daedra/` and `projects/lorekeeper/continuities/dealing-with-daedra/` trees had matching entries and object hashes.
 
 Every file changed in this pass is mirrored in both locations. A post-write parity check should remain part of closeout for future refinement passes.
 

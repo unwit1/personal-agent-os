@@ -5,7 +5,7 @@
 **Source SHA-256:** `7d3ca2d72297fbc5afda8f1b8bb217fa1fd6d9d7414360acdf1a922d848949ba`  
 **Boundary:** mod continuity; do not treat VIGILANT additions as base Elder Scrolls canon unless separately supported by base-canon evidence.
 
-Canonical library path: `knowledge/libraries/elder-scrolls/mods/continuities/vigilant/`.
+Canonical library path: `https://github.com/unwit1/knowledge-tes/blob/main/mods/continuities/vigilant/`.
 
 ## Initial extraction
 

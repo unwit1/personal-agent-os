@@ -49,7 +49,7 @@
         }
       ],
       "central_work_id": "tes.work.gallus-encoded-journal",
-      "central_work_path": "knowledge/libraries/elder-scrolls/books/works/tes.work.gallus-encoded-journal.json"
+      "central_work_path": "https://github.com/unwit1/knowledge-tes/blob/main/books/works/tes.work.gallus-encoded-journal.json"
     },
     {
       "form_id": "05815E32",
@@ -63,7 +63,7 @@
       "relation": "embedded_work_plus_continuity_overlay",
       "central_work_state": "central_work_record_created",
       "candidate_external_witness": {
-        "path": "knowledge/libraries/elder-scrolls/sources/bf-books-eso/batches/books-1151-1200.jsonl",
+        "path": "https://github.com/unwit1/knowledge-tes/blob/main/sources/bf-books-eso/batches/books-1151-1200.jsonl",
         "form_id": "01012E04",
         "text_sha256": "a0943982753526977655531c591e902239731c3890ebbe0c899b6a6eacf82e8f",
         "provenance_status": "official_eso_text_via_compilation_plugin_cross_checked_against_external_work_identity"
@@ -102,7 +102,7 @@
         }
       ],
       "central_work_id": "tes.work.fundaments-of-alchemy",
-      "central_work_path": "knowledge/libraries/elder-scrolls/books/works/tes.work.fundaments-of-alchemy.json"
+      "central_work_path": "https://github.com/unwit1/knowledge-tes/blob/main/books/works/tes.work.fundaments-of-alchemy.json"
     }
   ],
   "exact_local_duplicate_groups": [

@@ -48,7 +48,7 @@ Status: **external identity and text verified; central repository record pending
 Central routing is now complete at the work-identity level.
 
 - work ID: `tes.work.gallus-encoded-journal`
-- central work path: `knowledge/libraries/elder-scrolls/books/works/tes.work.gallus-encoded-journal.json`
+- central work path: `https://github.com/unwit1/knowledge-tes/blob/main/books/works/tes.work.gallus-encoded-journal.json`
 - DWD witness remains BOOK `054467AA` with local title/presentation/placement preserved as overlay metadata.
 
 A single canonical normalized text has not been elected; the work record intentionally keeps witness identity separate from text-edition identity.

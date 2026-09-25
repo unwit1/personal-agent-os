@@ -53,7 +53,7 @@ External work identity:
 - also appears in ESO.
 
 Current internal ESO witness:
-`knowledge/libraries/elder-scrolls/sources/bf-books-eso/batches/books-1151-1200.jsonl`
+`https://github.com/unwit1/knowledge-tes/blob/main/sources/bf-books-eso/batches/books-1151-1200.jsonl`
 - Form ID `01012E04`
 - text SHA-256 `a0943982753526977655531c591e902239731c3890ebbe0c899b6a6eacf82e8f`
 

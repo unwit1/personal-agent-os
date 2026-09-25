@@ -24,7 +24,7 @@ The main primer is an established Elder Scrolls work attributed to Alyandon Math
 
 A second witness exists in the current source library:
 
-`knowledge/libraries/elder-scrolls/sources/bf-books-eso/batches/books-1151-1200.jsonl`
+`https://github.com/unwit1/knowledge-tes/blob/main/sources/bf-books-eso/batches/books-1151-1200.jsonl`
 - Form ID: `01012E04`
 - title: *Fundaments of Alchemy*
 - author: Alyandon Mathierry

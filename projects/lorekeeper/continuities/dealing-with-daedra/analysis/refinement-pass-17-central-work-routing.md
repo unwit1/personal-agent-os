@@ -11,7 +11,7 @@ This pass closes the remaining central-work routing gap for the two high-value r
 
 Central work:
 - work ID: `tes.work.gallus-encoded-journal`
-- path: `knowledge/libraries/elder-scrolls/books/works/tes.work.gallus-encoded-journal.json`
+- path: `https://github.com/unwit1/knowledge-tes/blob/main/books/works/tes.work.gallus-encoded-journal.json`
 
 Dealing with Daedra witness:
 - BOOK `054467AA`
@@ -31,7 +31,7 @@ The related translated Skyrim journal `0001BB6D` / `TG05GallusJournal` is record
 
 Central work:
 - work ID: `tes.work.fundaments-of-alchemy`
-- path: `knowledge/libraries/elder-scrolls/books/works/tes.work.fundaments-of-alchemy.json`
+- path: `https://github.com/unwit1/knowledge-tes/blob/main/books/works/tes.work.fundaments-of-alchemy.json`
 
 The work record keeps separate witnesses for:
 - Oblivion FormID `00024567` identity;
@@ -42,7 +42,7 @@ The DWD witness remains a near-exact variant plus continuity wrapper. Its Arcadi
 
 ## Work/witness policy
 
-The central `knowledge/libraries/elder-scrolls/books/` layer now explicitly separates:
+The central `books/` layer in knowledge-tes now explicitly separates:
 - **work identity** — stable cross-source identity;
 - **witness identity** — game/source/mod-specific record;
 - **variant/overlay metadata** — spelling, wrapper, annotation, placement, presentation, and other source-specific changes.
