@@ -111,3 +111,32 @@ Generated high-volume output should normally live in local/index storage unless 
 source -> extractor/indexer -> candidate JSON/SQLite/Markdown -> dedupe/version comparison -> validation -> reviewed canonical knowledge
 
 Do not skip validation merely because the source is authoritative: the extractor itself can misparse or omit semantics.
+
+## LEGO visual corpus post-processing
+
+### build_minifigure_reference_sets.py
+Ranks normalized assets by authority/quality and builds one canonical ReferenceSet per official visual sample, with preferred evidence plus alternates and explicit missing views.
+
+### extract_minifigure_visual_features.py
+Pillow/NumPy baseline for auditable palette, edge-density, symmetry, coverage, blur and downsample-survivability features.
+
+### embed_minifigure_reference_images.py
+Builds a versioned embedding matrix for local DerivedAssets using a pinned Transformers image backbone such as DINOv3 or SigLIP2. Keep different embedding models in separate indexes.
+
+### build_minifigure_training_splits.py
+Creates stable hash-based grouped train/validation/test assignments. Use OutfitDesign for normal evaluation and separate character/theme/mask-family groupings for harder benchmarks.
+
+### discover_flashpoint_lego_webgames.py
+Read-only search of a local Flashpoint database for LEGO-related preserved browser-game candidates. Archive presence is discovery evidence, not proof of LEGO provenance.
+
+### index_lego_webgame_assets.py
+Hashes a locally preserved/unpacked browser game and routes SWF, Director/Shockwave, Unity, Java/JAR, HTML5, image, texture and model files toward appropriate extractors.
+
+### enrich_bricklink_minifigure_references.py
+Optional OAuth-backed BrickLink enrichment for minifigure catalog images, subsets/components and color-specific part images. Credentials are read from environment variables only.
+
+### discover_lego_instruction_references.py
+Finds official LEGO building-instruction PDF URLs for sets containing minifigures without downloading the PDFs.
+
+### discover_lego_page_media.py
+Non-crawling media discovery for explicit LEGO.com pages, suitable for press assets, game/film pages, designer interviews and curated product pages.
