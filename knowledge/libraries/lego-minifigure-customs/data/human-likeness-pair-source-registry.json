@@ -191,19 +191,132 @@
       "primary": "https://www.lego.com/en-us/product/jurassic-park-t-rex-rampage-75936",
       "supervision_strength": "high",
       "special_value": "same characters appear in multiple official LEGO releases across years"
+    },
+    {
+      "id": "ghostbusters_2016_75828",
+      "set_id": "75828",
+      "year": 2016,
+      "kind": "live_action_character",
+      "count": 5,
+      "source_work": "Ghostbusters (2016)",
+      "primary": "https://www.lego.com/en-us/product/ecto-1-2-75828",
+      "supervision_strength": "high",
+      "special_value": "Five figures explicitly tied by LEGO to the 2016 film; useful ensemble and uniform/costume benchmark."
+    },
+    {
+      "id": "back_to_future_10300",
+      "set_id": "10300",
+      "year": 2022,
+      "kind": "live_action_character",
+      "count": 2,
+      "names": [
+        "Dr. Emmett 'Doc' Brown",
+        "Marty McFly"
+      ],
+      "source_work": "Back to the Future trilogy",
+      "primary": "https://www.lego.com/en-us/product/back-to-the-future-time-machine-10300",
+      "supervision_strength": "very_high",
+      "special_value": "Two iconic human characters plus versioned film accessories/costume context; LEGO explicitly describes them as incarnated as minifigures."
+    },
+    {
+      "id": "indiana_jones_77015",
+      "set_id": "77015",
+      "year": 2023,
+      "kind": "live_action_character",
+      "count": 4,
+      "names": [
+        "Indiana Jones",
+        "Satipo",
+        "Belloq",
+        "Hovitos Warrior"
+      ],
+      "source_work": "Raiders of the Lost Ark opening scene",
+      "primary": "https://www.lego.com/en-us/product/temple-of-the-golden-idol-77015",
+      "supervision_strength": "highest",
+      "special_value": "Exact source scene is identified by LEGO, enabling frame-level source->LEGO pairing."
+    },
+    {
+      "id": "batman_1989_76139",
+      "set_id": "76139",
+      "year": 2019,
+      "kind": "live_action_character",
+      "count": 3,
+      "names": [
+        "Batman",
+        "The Joker",
+        "Vicki Vale"
+      ],
+      "source_work": "Batman (1989)",
+      "primary": "https://www.lego.com/en-us/product/1989-batmobile-76139",
+      "supervision_strength": "highest",
+      "explicit_design_evidence": "LEGO identifies new Batman torso decoration, Joker face/torso decoration, Vicki Vale torso/legs, and a cape matching Batman's 1989 movie outfit.",
+      "special_value": "Exact film + explicit changed decoration regions + accessory/cape evidence."
+    },
+    {
+      "id": "stranger_things_75810",
+      "set_id": "75810",
+      "year": 2019,
+      "kind": "live_action_character",
+      "count": 8,
+      "source_work": "Stranger Things season 1",
+      "primary": "https://www.lego.com/en-us/aboutus/news/2019/may/something-strange-is-going-on-as-the-town-of-hawkins-indiana-arrives-in-lego-brick-form",
+      "supervision_strength": "very_high",
+      "special_value": "LEGO states eight Stranger Things characters were recreated in minifigure form; ordinary humans plus Demogorgon provide mixed face/costume/creature translation."
+    },
+    {
+      "id": "harry_potter_diagon_alley_75978",
+      "set_id": "75978",
+      "year": 2020,
+      "kind": "live_action_character",
+      "count": 14,
+      "source_work": "Harry Potter films / Diagon Alley",
+      "primary": "https://www.lego.com/en-us/product/diagon-alley-75978",
+      "supervision_strength": "very_high",
+      "special_value": "14-film-character ensemble, four then-new exclusive faces/characters, strong ordinary-human/fantasy clothing and hair supervision."
+    },
+    {
+      "id": "harry_potter_hogwarts_express_76405",
+      "set_id": "76405",
+      "year": 2022,
+      "kind": "live_action_character",
+      "count": 20,
+      "source_work": "Four specific Harry Potter movie/time-period scenes",
+      "primary": "https://www.lego.com/en-us/product/hogwarts-express-collectors-edition-76405",
+      "supervision_strength": "highest",
+      "special_value": "Twenty figures explicitly arranged around four classic movie scenes, including recurring characters at different ages/outfits; unusually strong temporal identity benchmark."
+    },
+    {
+      "id": "marvel_avengers_tower_76269",
+      "set_id": "76269",
+      "year": 2023,
+      "kind": "live_action_character_and_real_person",
+      "count": 31,
+      "source_work": "Marvel Cinematic Universe / Infinity Saga",
+      "primary": "https://www.lego.com/en-us/product/avengers-tower-76269",
+      "supervision_strength": "highest",
+      "special_value": "31 figures tied to recognizable MCU scenes plus Kevin Feige as a real-person minifigure; broad exposed-face, armor and mask routing examples."
+    },
+    {
+      "id": "lotr_rivendell_10316",
+      "set_id": "10316",
+      "year": 2023,
+      "kind": "live_action_character",
+      "count": 15,
+      "source_work": "The Lord of the Rings film trilogy / Rivendell",
+      "primary": "https://www.lego.com/en-us/product/the-lord-of-the-rings-rivendell-10316",
+      "supervision_strength": "highest",
+      "special_value": "15 film characters with scene-specific context; includes alternate angry Bilbo expression and strong hair/beard/ear/armor/clothing/accessory translation."
     }
   ],
   "expansion_candidates": [
-    "Ghostbusters live-action figures",
-    "Back to the Future",
-    "Indiana Jones",
-    "Stranger Things",
-    "other Jurassic Park/World releases",
-    "Marvel Cinematic Universe exposed-face characters",
-    "DC live-action exposed-face characters",
-    "Harry Potter live-action characters",
-    "The Lord of the Rings live-action characters",
     "sports/celebrity promotional minifigures",
+    "historical/scientist LEGO Ideas figures",
+    "additional MCU scene-specific sets with exposed faces",
+    "additional DC live-action films beyond Batman 1989",
+    "additional Harry Potter sets that pin exact scenes/ages",
+    "additional LOTR scene-specific releases",
+    "licensed sitcom/movie ensembles with repeat characters across releases",
+    "music/sports/celebrity promotional minifigures",
     "historical/scientist LEGO Ideas figures"
   ],
   "annotation_rule": "Separate real-person identity from live-action fictional-character identity. Keep performer/source-scene metadata only when needed to establish an exact visual pair."
