@@ -55,5 +55,25 @@ class DagTests(unittest.TestCase):
         self.assertIn("skytest",by["runtime.smoke"]["adapters"])
         self.assertIn("skytest",by["runtime.regression"]["adapters"])
 
+    def test_devbench_runtime_is_wrapped_by_mo2_closed_loop_harness(self):
+        m,q=fixture(["records"])
+        d=MOD.compile_dag(m,q)
+        by={n["id"]:n for n in d["nodes"]}
+        self.assertIn("mo2-devbench-runtime",by["runtime.smoke"]["adapters"])
+        self.assertIn("mo2-devbench-runtime",by["runtime.regression"]["adapters"])
+        self.assertNotIn("devbench",by["runtime.smoke"]["adapters"])
+        self.assertNotIn("devbench",by["runtime.regression"]["adapters"])
+
+    def test_explicit_composite_runtime_adapter_is_not_duplicated(self):
+        m,q=fixture(["records"])
+        q["adapters"]["preferred"].append("mo2-devbench-runtime")
+        d=MOD.compile_dag(m,q)
+        by={n["id"]:n for n in d["nodes"]}
+        self.assertEqual(
+            by["runtime.smoke"]["adapters"].count("mo2-devbench-runtime"),
+            1,
+        )
+
+
 if __name__=="__main__":
     unittest.main()
