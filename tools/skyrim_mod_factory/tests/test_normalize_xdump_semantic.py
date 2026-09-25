@@ -79,5 +79,56 @@ Second Record [MISC:01005678]
                 plugin="Fixture.esp",
             )
 
+    def load_map(self):
+        return {
+            "schema_version":"skyrim-load-order-formid-map-v1",
+            "full":{"00":"Skyrim.esm","01":"Fixture.esp"},
+            "light":{"001":"LightFixture.esl"},
+        }
+
+    def test_full_formid_can_be_canonicalized_to_mutagen_formkey(self):
+        doc=MOD.parse_xdump(
+            "Iron Sword [WEAP:00012EB7]\n  EDID - Editor ID: IronSword",
+            plugin="Fixture.esp",
+            load_order_map=self.load_map(),
+            created_at="2026-09-24T00:00:00+00:00",
+        )
+        self.assertEqual(doc["records"][0]["form_key"],"012EB7:Skyrim.esm")
+        self.assertTrue(
+            doc["provenance"]["canonical_cross_load_order_form_keys"]
+        )
+        self.assertEqual(
+            doc["provenance"]["form_key_mode"],
+            "mutagen-formkey-string",
+        )
+
+    def test_light_formid_can_be_canonicalized_to_mutagen_formkey(self):
+        doc=MOD.parse_xdump(
+            "Light Record [MISC:FE001ABC]\n  EDID - Editor ID: LightRecord",
+            plugin="Fixture.esp",
+            load_order_map=self.load_map(),
+            created_at="2026-09-24T00:00:00+00:00",
+        )
+        self.assertEqual(
+            doc["records"][0]["form_key"],
+            "000ABC:LightFixture.esl",
+        )
+
+    def test_missing_load_order_index_fails_closed(self):
+        with self.assertRaises(ValueError):
+            MOD.parse_xdump(
+                "Unknown [MISC:02000001]",
+                plugin="Fixture.esp",
+                load_order_map=self.load_map(),
+            )
+
+    def test_dynamic_formid_cannot_be_canonicalized(self):
+        with self.assertRaises(ValueError):
+            MOD.displayed_formid_to_formkey(
+                "FF001234",
+                self.load_map(),
+            )
+
+
 if __name__=="__main__":
     unittest.main()
