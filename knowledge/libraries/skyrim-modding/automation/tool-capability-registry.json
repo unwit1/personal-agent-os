@@ -388,6 +388,182 @@
       "known_gaps": [
         "correlation is not causation"
       ]
+    },
+    {
+      "adapter_id": "mcp-blender-rich",
+      "role": "asset-3d",
+      "priority": "secondary",
+      "capabilities": [
+        "218-typed-blender-tools",
+        "mesh",
+        "materials",
+        "rigging",
+        "animation",
+        "render",
+        "baking",
+        "geometry-nodes",
+        "physics",
+        "vision-refinement",
+        "ai-3d-backends"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "version_scope": [
+        "Blender"
+      ],
+      "known_gaps": [
+        "AGPL-3.0 upstream",
+        "not Skyrim NIF authoritative",
+        "AI generated assets need provenance and cleanup"
+      ]
+    },
+    {
+      "adapter_id": "presentmon",
+      "role": "diagnostics",
+      "priority": "preferred",
+      "capabilities": [
+        "frame-time",
+        "cpu-frame",
+        "gpu-frame",
+        "display-latency",
+        "csv-capture",
+        "hardware-telemetry"
+      ],
+      "validation_role": "runtime-observer",
+      "can_mutate": false,
+      "requires_running_game": true,
+      "version_scope": [
+        "Windows"
+      ],
+      "known_gaps": [
+        "measures presentation/performance, not gameplay correctness"
+      ]
+    },
+    {
+      "adapter_id": "tracy",
+      "role": "diagnostics",
+      "priority": "preferred",
+      "capabilities": [
+        "instrumented-cpu-profiling",
+        "gpu-profiling",
+        "zones",
+        "frame-analysis"
+      ],
+      "validation_role": "runtime-observer",
+      "can_mutate": false,
+      "requires_running_game": true,
+      "version_scope": [
+        "instrumented native builds"
+      ],
+      "known_gaps": [
+        "requires code instrumentation/integration"
+      ]
+    },
+    {
+      "adapter_id": "renderdoc",
+      "role": "diagnostics",
+      "priority": "preferred",
+      "capabilities": [
+        "graphics-frame-capture",
+        "draw-call-inspection",
+        "resource-inspection",
+        "shader-debugging",
+        "render-target-analysis"
+      ],
+      "validation_role": "runtime-observer",
+      "can_mutate": false,
+      "requires_running_game": true,
+      "version_scope": [
+        "graphics development builds"
+      ],
+      "known_gaps": [
+        "capture setup and anti-overlay interactions can vary"
+      ]
+    },
+    {
+      "adapter_id": "fallrimtools",
+      "role": "diagnostics",
+      "priority": "secondary",
+      "capabilities": [
+        "ess-parse",
+        "papyrus-save-analysis",
+        "changeform-analysis",
+        "save-structure-report",
+        "targeted-repair"
+      ],
+      "validation_role": "independent-validator",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "version_scope": [
+        "Skyrim SE saves"
+      ],
+      "known_gaps": [
+        "save surgery is consequential",
+        "not a routine optimizer"
+      ]
+    },
+    {
+      "adapter_id": "bodyslide-outfit-studio",
+      "role": "asset-3d",
+      "priority": "preferred",
+      "capabilities": [
+        "body-outfit-authoring",
+        "slider-projects",
+        "batch-build",
+        "weights",
+        "partitions",
+        "morphs"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "version_scope": [
+        "Bethesda body/outfit workflows"
+      ],
+      "known_gaps": [
+        "visual clipping/weight quality needs human/game review"
+      ]
+    },
+    {
+      "adapter_id": "openfacefx",
+      "role": "voice-audio",
+      "priority": "experimental",
+      "capabilities": [
+        "audio-transcript-visemes",
+        "lip-generation-experimental",
+        "facefxwrapper-compatible-shim",
+        "batch-qa"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "version_scope": [
+        "Skyrim LIP path experimental"
+      ],
+      "known_gaps": [
+        "upstream explicitly says Skyrim .lip writer not yet verified in-game"
+      ]
+    },
+    {
+      "adapter_id": "resaver-cli",
+      "role": "diagnostics",
+      "priority": "secondary",
+      "capabilities": [
+        "headless-save-parse",
+        "cross-reference",
+        "changeform-diagnostics",
+        "cosave-related-analysis"
+      ],
+      "validation_role": "independent-validator",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "version_scope": [
+        "FallrimTools-compatible saves"
+      ],
+      "known_gaps": [
+        "mutating real saves requires explicit approval and backup"
+      ]
     }
   ]
 }
