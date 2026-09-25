@@ -2781,6 +2781,277 @@
       "evidence_notes": "Foundational teacher/student distillation and specialist-model concepts for compressing ensemble knowledge.",
       "limits": "Modern generative distillation has additional sequence/alignment concerns.",
       "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0257",
+      "title": "Specifying and Verifying Systems With TLA+",
+      "type": "research",
+      "url": "https://lamport.azurewebsites.net/pubs/spec-and-verifying.pdf",
+      "topics": [
+        "formal_methods",
+        "model_checking"
+      ],
+      "evidence_notes": "Formal state-machine specifications and model checking expose concurrency/protocol design errors before implementation.",
+      "limits": "Specification is an additional artifact that can itself be wrong; best for critical state machines/protocols, not every function.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0258",
+      "title": "QuickCheck: A Lightweight Tool for Random Testing of Haskell Programs",
+      "type": "research",
+      "url": "https://research.chalmers.se/en/publication/237427",
+      "topics": [
+        "property_testing",
+        "testing"
+      ],
+      "evidence_notes": "Properties plus generated random inputs find edge cases beyond hand-authored examples; shrinking patterns inspired modern property-based testing.",
+      "limits": "Quality depends on useful invariants and generators; random testing is not proof.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0259",
+      "title": "Z3: An Efficient SMT Solver",
+      "type": "research",
+      "url": "https://www.microsoft.com/en-us/research/project/z3-3/publications/",
+      "topics": [
+        "formal_methods",
+        "SMT",
+        "constraints"
+      ],
+      "evidence_notes": "SMT solving supports exact reasoning over arithmetic, bitvectors, arrays and uninterpreted functions and is widely used in program verification.",
+      "limits": "Requires formalizable constraints; solver complexity can explode.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0260",
+      "title": "Practical Bayesian Optimization of Machine Learning Algorithms",
+      "type": "research",
+      "url": "https://papers.nips.cc/paper/2012/hash/05311655a15b75fab86956663e1819cd-Abstract.html",
+      "topics": [
+        "optimization",
+        "bayesian_optimization"
+      ],
+      "evidence_notes": "Models expensive black-box objective and selects new trials by acquisition function, including variable experiment cost and parallelism.",
+      "limits": "Surrogate assumptions and dimensionality matter; less useful for cheap/discrete irregular search spaces.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0261",
+      "title": "Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization",
+      "type": "research",
+      "url": "https://www.jmlr.org/papers/v18/16-558.html",
+      "topics": [
+        "optimization",
+        "early_stopping",
+        "bandits"
+      ],
+      "evidence_notes": "Allocates progressively more resource to promising random configurations and aggressively stops poor ones; reported large speedups over competitors.",
+      "limits": "Requires a meaningful partial-resource performance signal.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0262",
+      "title": "Population Based Training of Neural Networks",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1711.09846",
+      "topics": [
+        "optimization",
+        "population_search",
+        "training"
+      ],
+      "evidence_notes": "Asynchronously exploits strong runs and explores hyperparameter mutations during training, discovering schedules rather than fixed values.",
+      "limits": "Training-specific and compute-intensive; can collapse diversity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0263",
+      "title": "Optuna: A Next-generation Hyperparameter Optimization Framework",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1907.10902",
+      "topics": [
+        "optimization",
+        "HPO",
+        "pruning"
+      ],
+      "evidence_notes": "Define-by-run search spaces and pluggable sampling/pruning provide practical distributed hyperparameter optimization.",
+      "limits": "Framework is implementation tooling; optimization validity depends on objective/splits.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0264",
+      "title": "Overcoming catastrophic forgetting in neural networks",
+      "type": "research",
+      "url": "https://www.pnas.org/doi/10.1073/pnas.1611835114",
+      "topics": [
+        "continual_learning",
+        "EWC"
+      ],
+      "evidence_notes": "Elastic Weight Consolidation penalizes changes to parameters estimated important for previous tasks to reduce forgetting.",
+      "limits": "Importance approximation/task boundaries can fail; large task sequences still accumulate constraints.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0265",
+      "title": "Gradient Episodic Memory for Continual Learning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1706.08840",
+      "topics": [
+        "continual_learning",
+        "replay"
+      ],
+      "evidence_notes": "Stores episodic exemplars and constrains updates so new learning does not increase loss on prior memories, while measuring backward/forward transfer.",
+      "limits": "Memory scales with exemplars; original benchmarks are small vision tasks.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0266",
+      "title": "Learning without Forgetting",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1606.09282",
+      "topics": [
+        "continual_learning",
+        "distillation"
+      ],
+      "evidence_notes": "Uses predictions on new-task data as distillation targets to preserve old capabilities when old data is unavailable.",
+      "limits": "Old-task data distribution is not directly replayed; vision-era evidence.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0267",
+      "title": "Deep Learning with Differential Privacy",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1607.00133",
+      "topics": [
+        "privacy",
+        "DP_SGD",
+        "training"
+      ],
+      "evidence_notes": "DP-SGD clips per-example gradients and adds calibrated noise with privacy accounting to bound training-data leakage.",
+      "limits": "Privacy-utility-compute tradeoff can be severe; privacy parameters require careful interpretation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0268",
+      "title": "The Algorithmic Foundations of Differential Privacy",
+      "type": "research",
+      "url": "https://www.microsoft.com/en-us/research/publication/algorithmic-foundations-differential-privacy/",
+      "topics": [
+        "privacy",
+        "differential_privacy"
+      ],
+      "evidence_notes": "Foundational framework for formally bounded privacy loss under arbitrary auxiliary information and composed analyses.",
+      "limits": "Aggregate statistical privacy does not solve authorization, raw-data access or all memorization risks by itself.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0269",
+      "title": "Communication-Efficient Learning of Deep Networks from Decentralized Data",
+      "type": "research",
+      "url": "https://proceedings.mlr.press/v54/mcmahan17a.html",
+      "topics": [
+        "privacy",
+        "federated_learning"
+      ],
+      "evidence_notes": "FedAvg trains shared models from local client updates without centralizing raw data and reduces communication rounds relative to synchronized SGD.",
+      "limits": "Model updates can still leak information; non-IID clients and trust/aggregation remain issues.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0270",
+      "title": "Practical Secure Aggregation for Privacy-Preserving Machine Learning",
+      "type": "research",
+      "url": "https://research.google/pubs/practical-secure-aggregation-for-privacy-preserving-machine-learning/",
+      "topics": [
+        "privacy",
+        "secure_aggregation",
+        "federated_learning"
+      ],
+      "evidence_notes": "Cryptographic protocol lets server recover aggregate updates without learning individual user contributions, robust to client dropout.",
+      "limits": "Protects aggregation contents, not malicious model behavior or all metadata.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0271",
+      "title": "A Comprehensive Study of Convergent and Commutative Replicated Data Types",
+      "type": "research",
+      "url": "https://hal.science/inria-00555588",
+      "topics": [
+        "distributed_systems",
+        "CRDT",
+        "local_first"
+      ],
+      "evidence_notes": "CRDT mathematical conditions support convergence of replicated state without synchronous coordination, useful for disconnected/multi-device systems.",
+      "limits": "Business invariants may require stronger consistency than convergence alone.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0272",
+      "title": "A Contextual-Bandit Approach to Personalized News Article Recommendation",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1003.0146",
+      "topics": [
+        "bandits",
+        "personalization",
+        "online_learning"
+      ],
+      "evidence_notes": "Contextual bandit learns action policy from contextual feedback while balancing exploration/exploitation and introduced offline replay evaluation on logged randomized traffic.",
+      "limits": "Naive online exploration can annoy or harm users; logged-policy evaluation requires propensities/coverage.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0273",
+      "title": "Generalization in Adaptive Data Analysis and Holdout Reuse",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1506.02629",
+      "topics": [
+        "evaluation",
+        "adaptive_overfitting",
+        "holdout"
+      ],
+      "evidence_notes": "Shows repeatedly adapting hypotheses to the same holdout can overfit it and develops mechanisms for reusable validation under adaptive analysis.",
+      "limits": "Formal guarantees rely on specific statistical assumptions/mechanisms; practical private holdouts remain important.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0274",
+      "title": "Hidden Technical Debt in Machine Learning Systems",
+      "type": "research",
+      "url": "https://papers.nips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html",
+      "topics": [
+        "ML_systems",
+        "technical_debt",
+        "maintenance"
+      ],
+      "evidence_notes": "Identifies entanglement, hidden feedback loops, undeclared consumers, data dependencies, configuration debt and changing external world as systemic ML risks.",
+      "limits": "Qualitative engineering analysis, but highly relevant to long-lived adaptive systems.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0275",
+      "title": "Rules of Machine Learning: Best Practices for ML Engineering",
+      "type": "engineering_guidance",
+      "url": "https://developers.google.com/machine-learning/guides/rules-of-ml",
+      "topics": [
+        "ML_systems",
+        "simplicity",
+        "production"
+      ],
+      "evidence_notes": "Advocates simple baselines, trustworthy pipelines, measurable product goals, training-serving consistency and adding complexity only after simple gains are exhausted.",
+      "limits": "Heuristic engineering guidance, not a controlled experiment.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0276",
+      "title": "Machine Learning: The High Interest Credit Card of Technical Debt",
+      "type": "engineering_report",
+      "url": "https://research.google/pubs/machine-learning-the-high-interest-credit-card-of-technical-debt/",
+      "topics": [
+        "ML_systems",
+        "technical_debt"
+      ],
+      "evidence_notes": "Earlier production-systems warning that ML's quick wins create hidden system maintenance burdens and feedback dependencies.",
+      "limits": "Broad qualitative patterns; architecture specifics have evolved.",
+      "status": "verified_or_primary_lead"
     }
   ]
 }
