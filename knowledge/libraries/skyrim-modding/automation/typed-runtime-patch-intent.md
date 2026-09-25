@@ -1,7 +1,7 @@
 # Skyrim Mod Factory — Typed Runtime-Patch Intent
 
 Created: 2026-09-24
-Status: implementation in progress; SPID renderer available
+Status: implementation in progress; SPID/KID/BOS/FLM renderers available
 
 ## Why an intermediate representation
 
@@ -179,3 +179,20 @@ Not generated yet:
 - typed transform/property/chance subgrammars.
 
 Those remain explicit future work rather than being inferred from examples.
+
+
+## FLM v1 renderer
+
+Implemented:
+- `tools/skyrim_mod_factory/render_flm.py`;
+- typed FLM entries inside `skyrim-runtime-patch-intent-v1`;
+- adapter manifest `automation/adapters/flm.json`.
+
+Pinned grammar evidence:
+- `MaskedRPGFan/FormList-Manipulator` README snapshot `82a694e5d33194ae223f23846b1f180ee394cdee`.
+
+The renderer covers the documented flat `*_FLM.ini` grammar for filters, aliases, groups, collections, FormList injection, ModEvents, Plant, BToys, GToys, HairColors, Atronach Forge, Atronach Forge with Sigil Stone, and Dragonborn Spider Crafting. It emits definitions before operations and deliberately emits no invented INI section header.
+
+Form identities use documented EditorID or `FormID~Plugin` references. FormList-content expansion is typed separately from direct forms, and group/collection/alias references are explicit in the IR instead of encoded as magic string prefixes.
+
+FLM filter expressions are still preserved as source-grammar strings. The next deeper step is a provider-neutral boolean filter AST plus runtime-log/readback validation against `FormListManipulator.log` and a typed in-game FormList query.
