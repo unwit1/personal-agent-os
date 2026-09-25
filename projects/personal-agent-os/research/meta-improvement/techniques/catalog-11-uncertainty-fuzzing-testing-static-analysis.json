@@ -65,7 +65,7 @@
       "maturity": "replicated_research",
       "evidence": {
         "strength": "medium_high",
-        "summary": "Evidence basis: SRC-AI-0319.",
+        "summary": "Evidence basis: SRC-AI-0228.",
         "limitations": []
       },
       "agent_os_fit": "conditional",
@@ -91,7 +91,7 @@
       "complexity": "low",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0319"
+        "SRC-AI-0228"
       ],
       "keywords": [
         "PTrue",
@@ -113,7 +113,7 @@
       "maturity": "promising_research",
       "evidence": {
         "strength": "medium",
-        "summary": "Evidence basis: SRC-AI-0319.",
+        "summary": "Evidence basis: SRC-AI-0228.",
         "limitations": []
       },
       "agent_os_fit": "conditional",
@@ -136,7 +136,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0319"
+        "SRC-AI-0228"
       ],
       "keywords": [
         "PIK",
@@ -157,7 +157,7 @@
       "maturity": "foundational",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0311.",
+        "summary": "Evidence basis: SRC-AI-0229.",
         "limitations": []
       },
       "agent_os_fit": "conditional",
@@ -181,7 +181,7 @@
       "complexity": "low",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0311"
+        "SRC-AI-0229"
       ],
       "keywords": [
         "temperature_scaling",
@@ -202,7 +202,7 @@
       "maturity": "foundational",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0311, SRC-AI-0312.",
+        "summary": "Evidence basis: SRC-AI-0229, SRC-AI-0312.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -224,7 +224,7 @@
       "complexity": "low",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0311",
+        "SRC-AI-0229",
         "SRC-AI-0312"
       ],
       "keywords": [
