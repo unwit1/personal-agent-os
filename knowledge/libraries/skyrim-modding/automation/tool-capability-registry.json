@@ -673,6 +673,66 @@
         "cli-analysis"
       ],
       "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/mutagen-analyzers.json"
+    },
+    {
+      "adapter_id": "creation-kit",
+      "capabilities": [
+        "quest-authoring",
+        "dialogue-authoring",
+        "scene-authoring",
+        "world-cell-authoring",
+        "navmesh-authoring",
+        "facegen-export",
+        "lip-generation",
+        "papyrus-compile"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/creation-kit.json"
+    },
+    {
+      "adapter_id": "official-papyruscompiler",
+      "capabilities": [
+        "papyrus-compile",
+        "ppj-project-compile",
+        "official-compiler-oracle"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/official-papyruscompiler.json"
+    },
+    {
+      "adapter_id": "nifskope",
+      "capabilities": [
+        "nif-inspect",
+        "nif-edit",
+        "shader-inspect",
+        "collision-inspect"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/nifskope.json"
+    },
+    {
+      "adapter_id": "spid",
+      "capabilities": [
+        "spid-config-generate",
+        "actor-distribution-config",
+        "spid-intent-validate"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/spid.json"
+    },
+    {
+      "adapter_id": "kid",
+      "capabilities": [
+        "kid-config-generate",
+        "keyword-distribution-config",
+        "kid-intent-validate"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/kid.json"
+    },
+    {
+      "adapter_id": "bos",
+      "capabilities": [
+        "bos-config-generate",
+        "base-object-swap-config",
+        "bos-intent-validate"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/bos.json"
     }
   ]
 }
