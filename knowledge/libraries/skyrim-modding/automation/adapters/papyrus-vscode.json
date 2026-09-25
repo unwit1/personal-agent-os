@@ -1,0 +1,59 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "papyrus-vscode",
+  "tool": "Papyrus Tools for VS Code",
+  "source": "https://github.com/MrTrilB/PapyrusVSCode",
+  "targets": [
+    "skyrim-se-ae",
+    "fallout",
+    "starfield"
+  ],
+  "capabilities": [
+    "papyrus-language-intelligence",
+    "papyrus-index-integration",
+    "diagnostics",
+    "compile-workflow",
+    "workspace-profile",
+    "copilot-chat",
+    "optional-mcp"
+  ],
+  "invocation": {
+    "mode": "hybrid",
+    "transport": "VS Code extension + optional MCP",
+    "requires_running_game": false
+  },
+  "coverage": {
+    "description": "Modern Papyrus authoring environment with provider index and project automation.",
+    "known_gaps": [
+      "editor integration is not an independent runtime validator",
+      "exact MCP surface must be version-probed"
+    ],
+    "denominator_probe": "Index scripts/providers and diagnostic count over workspace."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Source-controlled PSC workspace."
+  },
+  "verification": {
+    "independent_validators": [
+      "official-papyruscompiler",
+      "caprica",
+      "vmad-binding-check"
+    ],
+    "version_probe": "VS Code extension/repo version",
+    "output_readback": "Compiler output and diagnostics refresh."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": false,
+    "context_cost_notes": "Useful interactive AI editor bridge; canonical knowledge remains provider-neutral."
+  },
+  "evidence": {
+    "source_url": "https://github.com/MrTrilB/PapyrusVSCode",
+    "verified_date": "2026-09-24",
+    "notes": "MIT; optional MCP advertised by current project."
+  }
+}
