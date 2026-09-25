@@ -31,11 +31,11 @@ local work folders -> local-only resumable inventory -> safe-source hash reconci
 The inventory covered eight configured roots: Desktop, Documents, Downloads, local HR GUI data, the canonical Personal Agent OS checkout, two HR GUI checkouts, and an existing OneDrive root. No other mapped filesystem drives were reported by the local shell. R: was not inspected and remains excluded at the user's direction.
 
 - 25,147 office-type file entries were recorded locally; 15,441 matched the HR path/filename relevance heuristic and were hashed.
-- 497 file hashes match a SHA-256 value in safe RTEC corpus JSON. This is exact binary-hash evidence only. It does not imply that an unmatched file adds knowledge or that a matching document is current.
+- 30 file hashes match corpus fields explicitly named `source_sha256` or `file_sha256`; these are the confirmed exact source/file matches. Another 467 hashes match generic `sha256` or `content_sha256` fields whose binary-versus-text semantics are unspecified. Those remain `HASH_MATCH_UNVERIFIED`, not exact-ingestion matches.
 - 4,043 local SHA-256 duplicate groups contain 8,833 files, or 4,790 extra copies beyond one per group. Originals remain untouched. These counts describe exact-byte duplicates, not semantic/document-version identity.
 - 7,497 parsed files have normalized-text hashes. They form 2,525 exact normalized-text duplicate candidate groups with 5,768 members (3,243 extra copies). These are text-equivalence candidates: images, formatting, formulas, metadata, or other non-text structure can differ. They are not merged or treated as the same authoritative document.
 - Existing Knowledge Engine source hashes represent source/binary fingerprints; no normalized-text source-hash convention is available for a safe apples-to-apples comparison. The audit therefore does not label a normalized-text match as already represented without a compatible provenance fingerprint.
-- The safe corpus hash index currently contains 301 source-hash references across 198 distinct values. Thirty-three of the 497 file matches lack a populated source ID in the indexed record; their knowledge path is retained locally for review.
+- The safe corpus hash index contains 301 hash references across 198 distinct values. Twenty-three of the 30 confirmed exact matches lack a populated source ID; nine of the unverified matches also lack one. Their knowledge paths remain local for review.
 - By filename/path heuristic, 7,324 candidates route to employee-restricted review and 8,117 to organizational-or-mixed review. These initial routes are not confirmed classifications.
 - First-pass extraction is complete for all 15,441 candidates. Results: 1,636 safe-organizational candidates; 3,072 employee-restricted classifications; 654 mixed/uncertain; 2,158 parsed but unknown; 6,409 OCR-required; 1,394 unsupported formats; 69 empty-text; 37 parse failures; 12 corrupt; and 21 archive-review. Every classification remains review-required. None has been promoted to generalized knowledge.
 - The local employee-document registry contains 3,055 rows. All have unknown document type and null employee key; records retain minimum-necessary path/hash/provenance and signal codes only. Raw document text and detected values are not stored in the audit database or log.
@@ -48,7 +48,7 @@ The inventory covered eight configured roots: Desktop, Documents, Downloads, loc
 
 ### New organizational knowledge
 
-No new organizational knowledge has been promoted or ingested. The 14,944 files without a matching safe source hash are only unmatched candidates. Of the 3,885 extracted files, 600 are provisional safe-organizational candidates and still require human/provenance/currentness review. They may be duplicates with different binaries, old versions, irrelevant files, or genuinely new sources.
+No new organizational knowledge has been promoted or ingested. The 14,944 files without a matching safe corpus hash remain unmatched candidates. Of the 15,441 extracted files, 1,636 are provisional safe-organizational candidates and still require human/provenance/currentness review. They may be duplicates with different binaries, old versions, irrelevant files, or genuinely new sources.
 
 ### Employee-specific material
 

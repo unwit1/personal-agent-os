@@ -455,10 +455,20 @@ def walk_hash_fields(value, inherited_source):
 def reconcile_hashes(db: sqlite3.Connection) -> tuple[int, int]:
     db.execute("UPDATE files SET source_match=NULL,matched_source_id=NULL,matched_knowledge_path=NULL,duplicate_group=NULL")
     db.execute("""UPDATE files SET source_match='ALREADY_INGESTED_EXACT',matched_source_id=(
-      SELECT source_id FROM source_hashes WHERE source_hashes.sha256=files.sha256 AND source_id IS NOT NULL ORDER BY knowledge_path LIMIT 1),
-      matched_knowledge_path=(SELECT knowledge_path FROM source_hashes WHERE source_hashes.sha256=files.sha256 ORDER BY knowledge_path LIMIT 1)
-      WHERE sha256 IN (SELECT sha256 FROM source_hashes)""")
+      SELECT source_id FROM source_hashes WHERE source_hashes.sha256=files.sha256
+        AND hash_kind IN ('source_sha256','file_sha256') AND source_id IS NOT NULL ORDER BY knowledge_path LIMIT 1),
+      matched_knowledge_path=(SELECT knowledge_path FROM source_hashes WHERE source_hashes.sha256=files.sha256
+        AND hash_kind IN ('source_sha256','file_sha256') ORDER BY knowledge_path LIMIT 1)
+      WHERE EXISTS (SELECT 1 FROM source_hashes WHERE source_hashes.sha256=files.sha256
+        AND hash_kind IN ('source_sha256','file_sha256'))""")
     matched = db.execute("SELECT changes()").fetchone()[0]
+    db.execute("""UPDATE files SET source_match='HASH_MATCH_UNVERIFIED',matched_source_id=(
+      SELECT source_id FROM source_hashes WHERE source_hashes.sha256=files.sha256
+        AND hash_kind NOT IN ('source_sha256','file_sha256') AND source_id IS NOT NULL ORDER BY knowledge_path LIMIT 1),
+      matched_knowledge_path=(SELECT knowledge_path FROM source_hashes WHERE source_hashes.sha256=files.sha256
+        AND hash_kind NOT IN ('source_sha256','file_sha256') ORDER BY knowledge_path LIMIT 1)
+      WHERE source_match IS NULL AND EXISTS (SELECT 1 FROM source_hashes WHERE source_hashes.sha256=files.sha256
+        AND hash_kind NOT IN ('source_sha256','file_sha256'))""")
     db.execute("""UPDATE files SET source_match='NEW_OR_UNMATCHED',matched_source_id=NULL
       WHERE sha256 IS NOT NULL AND source_match IS NULL""")
     db.execute("""UPDATE files SET duplicate_group='sha256:'||sha256 WHERE sha256 IN
@@ -657,6 +667,7 @@ def checkpoint(db: sqlite3.Connection, phase: str, note: str = "") -> dict:
         "files_hashed": count("SELECT COUNT(*) FROM files WHERE sha256 IS NOT NULL"),
         "files_pending_hash": count("SELECT COUNT(*) FROM files WHERE hash_state='pending' AND likely_hr=1 AND sensitivity_route!='restricted_applicant_excluded_from_content'"),
         "exact_matches": count("SELECT COUNT(*) FROM files WHERE source_match='ALREADY_INGESTED_EXACT'"),
+        "unverified_source_hash_matches": count("SELECT COUNT(*) FROM files WHERE source_match='HASH_MATCH_UNVERIFIED'"),
         "duplicates": count("SELECT COUNT(*) FROM files WHERE duplicate_group IS NOT NULL"),
         "duplicate_groups": count("SELECT COUNT(*) FROM duplicate_groups"),
         "duplicate_extra_copies": db.execute("SELECT COALESCE(SUM(member_count-1),0) FROM duplicate_groups").fetchone()[0],

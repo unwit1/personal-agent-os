@@ -37,7 +37,7 @@ workstation work roots
   -> sanitized context-completeness report and GUI integration recommendation
 ```
 
-Exact hash equality can establish `ALREADY_INGESTED_EXACT` only when the comparable Knowledge Engine value is a raw-source SHA-256. Normalized-text hashes, semantic families, duplicate notes, and source IDs are kept distinct and never asserted as exact binary matches. Filename similarity or mtime alone cannot establish equivalence, authority, currentness, or employee identity.
+Exact hash equality establishes `ALREADY_INGESTED_EXACT` only for corpus fields explicitly named `source_sha256` or `file_sha256`. Generic `sha256` and `content_sha256` values remain `HASH_MATCH_UNVERIFIED` until their byte/text semantics are documented. The audit currently has 30 confirmed exact matches and 467 unverified hash-kind matches. Normalized-text hashes, semantic families, duplicate notes, and source IDs stay distinct. Filename similarity or mtime alone cannot establish equivalence, authority, currentness, or employee identity.
 
 The local `normalized_duplicate_groups` view groups identical normalized text from parsed files without merging records. The current corpus exposes source/binary hashes, not a comparable normalized-text fingerprint, so cross-corpus normalized equivalence is not asserted.
 

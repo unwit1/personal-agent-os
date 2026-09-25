@@ -206,6 +206,29 @@ class RtecHrFilesystemInventoryTests(unittest.TestCase):
             self.assertEqual(group[0], 2)
             db.close()
 
+    def test_hash_reconciliation_does_not_promote_ambiguous_hash_kinds(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            db = inventory.connect(root / "audit.sqlite3")
+            for name, digest in (("explicit.pdf", "a" * 64), ("ambiguous.pdf", "b" * 64)):
+                db.execute("""INSERT INTO files(path,root,filename,extension,size,mtime_ns,likely_hr,
+                  sensitivity_route,sha256,hash_state,discovered_at,updated_at)
+                  VALUES(?,?,?,?,?,?,?,?,?,?,?,?)""",
+                           (str(root / name), str(root), name, ".pdf", 10, 1, 1,
+                            "organizational_candidate_or_mixed_review", digest, "complete", "now", "now"))
+            db.execute("INSERT INTO source_hashes(sha256,source_id,knowledge_path,hash_kind) VALUES(?,?,?,?)",
+                       ("a" * 64, "source-1", "knowledge/source.json", "source_sha256"))
+            db.execute("INSERT INTO source_hashes(sha256,source_id,knowledge_path,hash_kind) VALUES(?,?,?,?)",
+                       ("b" * 64, "source-2", "knowledge/source.json", "content_sha256"))
+            db.commit()
+            matched, _ = inventory.reconcile_hashes(db)
+            self.assertEqual(matched, 1)
+            states = {Path(row["path"]).name: row["source_match"] for row in
+                      db.execute("SELECT path,source_match FROM files").fetchall()}
+            self.assertEqual(states["explicit.pdf"], "ALREADY_INGESTED_EXACT")
+            self.assertEqual(states["ambiguous.pdf"], "HASH_MATCH_UNVERIFIED")
+            db.close()
+
 
 if __name__ == "__main__":
     unittest.main()

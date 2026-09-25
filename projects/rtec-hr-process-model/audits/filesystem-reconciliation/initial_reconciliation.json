@@ -61,8 +61,10 @@
     "ocr_required_pending": 6392,
     "filesystem_office_documents_in_inventory": 25147,
     "hr_relevant_metadata_candidates_hashed": 15441,
-    "exact_filesystem_hash_matches": 497,
-    "exact_matches_without_source_id": 33,
+    "exact_filesystem_hash_matches": 30,
+    "unverified_source_hash_matches": 467,
+    "exact_matches_without_source_id": 23,
+    "unverified_hash_matches_without_source_id": 9,
     "exact_duplicate_groups": 4043,
     "exact_duplicate_group_members": 8833,
     "extra_duplicate_copies": 4790,
@@ -79,7 +81,7 @@
     "inventory_failures": 41,
     "review_queue_items": 15441,
     "employee_document_registry_entries": 3055,
-    "interpretation": "Filesystem discovery, exact-hash reconciliation, and first-pass extraction are complete for the configured roots. Cache-only OCR is operational with 12 files complete, 1 restricted sample, and 6,396 pending. All classifications remain review-required; content/version reconciliation is outstanding. No files have been ingested into the Knowledge Engine. Unmatched does not mean new organizational knowledge, and duplicate hashes do not establish semantic equivalence."
+    "interpretation": "Filesystem discovery, exact-hash reconciliation, and first-pass extraction are complete for the configured roots. Only explicit source_sha256/file_sha256 fields are treated as exact; 30 files match those, and 467 generic sha256/content_sha256 matches remain unverified. Cache-only OCR is operational with 12 files complete, 5 restricted samples, and 6,392 pending. All classifications remain review-required; content/version reconciliation is outstanding. No files have been ingested into the Knowledge Engine. Unmatched does not mean new organizational knowledge, and duplicate hashes do not establish semantic equivalence."
   },
   "privacy_and_temporal_rules": [
     "Only safe, reusable organizational facts may enter the generalized RTEC HR Knowledge Engine.",
