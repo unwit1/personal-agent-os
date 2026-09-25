@@ -297,6 +297,15 @@ class MO2DevBenchRuntimeTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,"not in allowed"):
                 MOD.validate_session_health_for_termination(bad,config)
 
+    def test_missing_presentmon_evidence_stays_needs_review(self):
+        test=runtime_test()
+        test["evidence"]={"performance":True}
+        result={"gates":MOD.MO2.default_gate_rows(test)}
+        MOD.apply_presentmon_gate(result,test,None)
+        gate=next(x for x in result["gates"] if x["gate"]=="G20")
+        self.assertEqual(gate["status"],"needs-review")
+        self.assertTrue(any("unavailable" in x for x in gate["issues"]))
+
     def test_presentmon_pass_can_satisfy_requested_performance_evidence(self):
         test=runtime_test()
         test["evidence"]={"performance":True}
