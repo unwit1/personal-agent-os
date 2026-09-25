@@ -22,6 +22,25 @@
       ]
     },
     {
+      "id": "bricklink_enrichment",
+      "prerequisites": [
+        "physical_samples.jsonl",
+        "BrickLink API credentials configured in environment",
+        "registered endpoint IP"
+      ],
+      "command": "python tools/knowledge/enrich_bricklink_minifigure_references.py --samples <physical_samples.jsonl> --output-dir .agent-local/lego-minifigure-corpus/catalog/bricklink",
+      "success_metrics": [
+        "minifigure catalog images cached as URLs",
+        "subset/component records emitted",
+        "color-specific part image URLs emitted"
+      ],
+      "followups": [
+        "merge source occurrences with Rebrickable references",
+        "materialize reviewed BrickLink image hosts",
+        "deduplicate exact/near-identical media"
+      ]
+    },
+    {
       "id": "physical_images",
       "prerequisites": [
         "physical_bulk reference_manifest.jsonl",
