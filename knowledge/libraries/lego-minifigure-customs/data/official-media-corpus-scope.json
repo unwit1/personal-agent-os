@@ -54,7 +54,47 @@
       "LEGO Party!",
       "LEGO Voyagers"
     ],
-    "note": "Title seed is an acquisition queue, not a claim that each game uses standard minifigure-form characters or has unique visual designs. Each must be classified."
+    "note": "Title seed is an acquisition queue, not a claim that each game uses standard minifigure-form characters or has unique visual designs. Each must be classified.",
+    "official_global_fact": {
+      "source": "https://www.lego.com/en-es/aboutus/news/2025/december/game-on-30-years-of-lego-video-games",
+      "statement": "LEGO says it has produced over 200 game titles since its first digital title in 1995.",
+      "implication": "The TT Games seed is only one major subset; corpus discovery must include pre-TT, mobile, handheld, web/online and partner-developed titles."
+    },
+    "legacy_non_tt_priority": [
+      "LEGO Fun to Build",
+      "LEGO Island",
+      "LEGO Loco",
+      "LEGO Chess",
+      "LEGO Creator",
+      "LEGO Friends (1999)",
+      "LEGO Racers",
+      "LEGO Rock Raiders",
+      "LEGOLAND",
+      "LEGO Alpha Team",
+      "LEGO Creator: Knights' Kingdom",
+      "LEGO Stunt Rally",
+      "LEGO Creator: Harry Potter",
+      "LEGO Island 2: The Brickster's Revenge",
+      "LEGO Racers 2",
+      "Creator: Harry Potter and the Chamber of Secrets",
+      "Drome Racers",
+      "Football Mania",
+      "Island Xtreme Stunts",
+      "LEGO Universe",
+      "LEGO Minifigures Online"
+    ],
+    "secondary_discovery_sources": [
+      {
+        "source": "https://en.wikipedia.org/wiki/List_of_Lego_video_games",
+        "authority": "secondary_discovery",
+        "use": "Seed historical/mobile/handheld candidates absent from current official catalogs; verify before promotion."
+      },
+      {
+        "source": "https://brickipedia.fandom.com/wiki/Category:Video_game_only_minifigures",
+        "authority": "secondary_discovery_unverified",
+        "use": "Potential game-only character discovery only. Do not treat as canonical identity/source without verification."
+      }
+    ]
   },
   "film_scope": {
     "theatrical_primary": [
