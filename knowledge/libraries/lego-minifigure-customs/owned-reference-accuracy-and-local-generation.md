@@ -392,3 +392,28 @@ Choose the model with:
 - provenance and human review.
 
 That gives more control **and** a cleaner business compliance story.
+
+
+## ChatGPT control arm
+
+ChatGPT image generation is the hosted control group for this research.
+
+Every project-related ChatGPT image generation should use `chatgpt-image-control-group.md` and `data/chatgpt-control-generation-schema.json`.
+
+The control arm receives the same:
+- authorized reference package;
+- semantic reference roles;
+- exact target identity;
+- P0/P1 feature priorities;
+- transformation target;
+- structural locks;
+- official style profile;
+- mask/headgear route;
+- allowed/forbidden changes;
+- evaluation rubric
+
+used by local-model experiments.
+
+Because ChatGPT may not expose seed or exact image-model revision, record those fields as unavailable rather than guessing. Repeat important benchmark conditions and evaluate variance/failure rate instead of selecting only the best result.
+
+Prompt optimization is versioned. Each revision should change the smallest set of schema fields necessary to address a measured failure, so improvement can be attributed to a concrete prompt/schema hypothesis.
