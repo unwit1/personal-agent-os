@@ -756,6 +756,155 @@ def blocked_by_dependencies(node:dict[str,Any],steps:dict[str,dict[str,Any]],con
 def validate_report(report:dict[str,Any])->list[str]:
     return schema_errors(report,"skyrim-mod-build-report-v1.schema.json")
 
+RUNTIME_RESULT_SCHEMA="skyrim-runtime-session-result-v1.schema.json"
+
+def runtime_session_summary(path:Path)->dict[str,Any]:
+    try:
+        session=json.loads(path.read_text(encoding="utf-8"))
+    except (OSError,UnicodeError,json.JSONDecodeError) as exc:
+        raise ValueError(f"could not read runtime session result {path}: {exc}") from exc
+    errors=schema_errors(session,RUNTIME_RESULT_SCHEMA)
+    if errors:
+        raise ValueError(
+            f"runtime session result {path} failed schema validation: "
+            +"; ".join(errors)
+        )
+    assertions=list(session.get("assertions") or [])
+    status_map={
+        "passed":"pass",
+        "failed":"fail",
+        "needs-review":"warning",
+        "aborted":"warning",
+        "prepared":"warning",
+    }
+    evidence=[
+        str(path),
+        f"session-token:{session.get('session_token')}",
+    ]
+    evidence.extend(
+        str(x.get("path"))
+        for x in (session.get("evidence") or {}).get("artifacts") or []
+        if isinstance(x,dict) and x.get("path")
+    )
+    return {
+        "path":str(path),
+        "test_id":session["test_id"],
+        "adapter":"mo2-devbench-runtime",
+        "status":status_map[session["status"]],
+        "assertions_total":len(assertions),
+        "assertions_passed":sum(x.get("status")=="pass" for x in assertions),
+        "assertions_failed":sum(x.get("status")=="fail" for x in assertions),
+        "evidence":list(dict.fromkeys(evidence)),
+        "gates":copy.deepcopy(session.get("gates") or []),
+    }
+
+def attach_runtime_session_evidence(
+    step:dict[str,Any],
+    node:dict[str,Any],
+)->dict[str,Any]:
+    if node.get("phase")!="runtime":
+        return step
+    candidates=[
+        Path(str(x["path"]))
+        for x in step.get("outputs_after") or []
+        if isinstance(x,dict) and x.get("exists") and x.get("kind")=="file" and x.get("path")
+    ]
+    summaries=[]
+    issues=[]
+    for path in candidates:
+        if path.suffix.lower()!=".json":
+            continue
+        try:
+            value=json.loads(path.read_text(encoding="utf-8"))
+        except (OSError,UnicodeError,json.JSONDecodeError):
+            continue
+        if value.get("schema_version")!="skyrim-runtime-session-result-v1":
+            continue
+        try:
+            summaries.append(runtime_session_summary(path))
+        except ValueError as exc:
+            issues.append(str(exc))
+    if not summaries and not issues:
+        return step
+    step=copy.deepcopy(step)
+    if summaries:
+        step.setdefault("evidence",{})["runtime_sessions"]=summaries
+    if issues:
+        step.setdefault("issues",[]).extend(issues)
+        step["status"]="failed"
+    return step
+
+def combine_runtime_gate_rows(
+    summaries:list[dict[str,Any]],
+    gate_registry:dict[str,Any],
+)->list[dict[str,Any]]:
+    policies={
+        row["gate"]:row
+        for row in gate_registry.get("gates") or []
+        if isinstance(row,dict) and row.get("gate")
+    }
+    grouped:dict[str,list[dict[str,Any]]]={}
+    for summary in summaries:
+        for row in summary.get("gates") or []:
+            if isinstance(row,dict) and row.get("gate"):
+                grouped.setdefault(row["gate"],[]).append({
+                    **copy.deepcopy(row),
+                    "_test_id":summary.get("test_id"),
+                    "_path":summary.get("path"),
+                })
+    rank={"fail":4,"needs-review":3,"warning":3,"pass":2,"not-applicable":1}
+    result=[]
+    for gate,rows in sorted(grouped.items(),key=lambda kv:int(kv[0][1:])):
+        policy=policies.get(gate) or {"severity":"BLOCKER"}
+        worst=max(rows,key=lambda row:rank.get(row.get("status"),3))
+        statuses=[row.get("status") for row in rows]
+        if "fail" in statuses:
+            status="fail"
+        elif any(x in {"warning","needs-review"} for x in statuses):
+            status="warning"
+        elif "pass" in statuses:
+            status="pass"
+        else:
+            status="not-applicable"
+        evidence=[]
+        issues=[]
+        for row in rows:
+            prefix=f"{row.get('_test_id')}: "
+            evidence.extend(prefix+str(x) for x in row.get("evidence") or [])
+            evidence.append(prefix+f"runtime-session:{row.get('_path')}")
+            issues.extend(prefix+str(x) for x in row.get("issues") or [])
+        result.append({
+            "gate":gate,
+            "status":status,
+            "severity":policy.get("severity","BLOCKER"),
+            "tool":"mo2-devbench-runtime",
+            "evidence":list(dict.fromkeys(evidence)),
+            "issues":list(dict.fromkeys(issues)),
+        })
+    return result
+
+def collect_runtime_report_evidence(
+    steps:list[dict[str,Any]],
+    gate_registry:dict[str,Any],
+)->tuple[list[dict[str,Any]],list[dict[str,Any]]]:
+    summaries=[
+        summary
+        for step in steps
+        for summary in ((step.get("evidence") or {}).get("runtime_sessions") or [])
+    ]
+    runtime_tests=[
+        {
+            k:copy.deepcopy(summary[k])
+            for k in (
+                "test_id","adapter","status","assertions_total",
+                "assertions_passed","assertions_failed","evidence"
+            )
+        }
+        for summary in summaries
+    ]
+    gates=combine_runtime_gate_rows(summaries,gate_registry)
+    return runtime_tests,gates
+
 def run_automatic_repair(
     args:argparse.Namespace,
     *,
@@ -918,6 +1067,7 @@ def main()->None:
                             ["no built-in handler or executable adapter is defined for this node"],
                         )
             step=enforce_artifact_contracts(step,node,context)
+            step=attach_runtime_session_evidence(step,node)
             if step.get("status")=="failed" and stop_on_failure:
                 hard_stop=True
 
@@ -945,6 +1095,10 @@ def main()->None:
     steps=[steps_by_id[n["id"]] for n in ordered]
     statuses=[s.get("status") for s in steps]
 
+    runtime_tests,runtime_gates=collect_runtime_report_evidence(
+        steps,gate_registry
+    )
+
     report={
         "schema_version":"skyrim-mod-build-report-v1",
         "project_id":manifest.get("project_id"),
@@ -959,7 +1113,8 @@ def main()->None:
             if isinstance(v,(str,int,float,bool)) or v is None
         },
         "steps":steps,
-        "gates":[],
+        "gates":runtime_gates,
+        "runtime_tests":runtime_tests,
         "artifacts":[],
         "known_issues":[
             issue for step in steps for issue in step.get("issues",[])
