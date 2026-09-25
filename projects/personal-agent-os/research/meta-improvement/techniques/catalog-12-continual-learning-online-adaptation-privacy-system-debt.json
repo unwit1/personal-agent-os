@@ -340,7 +340,7 @@
       "maturity": "engineering_pattern",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0324, SRC-AI-0325.",
+        "summary": "Evidence basis: SRC-AI-0275, SRC-AI-0274.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -362,8 +362,8 @@
       "complexity": "low",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0324",
-        "SRC-AI-0325"
+        "SRC-AI-0275",
+        "SRC-AI-0274"
       ],
       "keywords": [
         "performance_drift",
@@ -385,7 +385,7 @@
       "maturity": "foundational",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0324.",
+        "summary": "Evidence basis: SRC-AI-0275.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -405,7 +405,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0324"
+        "SRC-AI-0275"
       ],
       "keywords": [
         "training_serving_skew"
@@ -426,7 +426,7 @@
       "maturity": "foundational",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0324.",
+        "summary": "Evidence basis: SRC-AI-0275.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -449,7 +449,7 @@
       "complexity": "low",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0324"
+        "SRC-AI-0275"
       ],
       "keywords": [
         "baseline",
@@ -750,7 +750,7 @@
       "maturity": "foundational",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0325.",
+        "summary": "Evidence basis: SRC-AI-0274.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -774,7 +774,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0325"
+        "SRC-AI-0274"
       ],
       "keywords": [
         "feedback_loop",
@@ -1076,7 +1076,7 @@
       "maturity": "foundational",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0325.",
+        "summary": "Evidence basis: SRC-AI-0274.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -1096,7 +1096,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0325"
+        "SRC-AI-0274"
       ],
       "keywords": [
         "data_dependency",
@@ -1118,7 +1118,7 @@
       "maturity": "engineering_pattern",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0325.",
+        "summary": "Evidence basis: SRC-AI-0274.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -1138,7 +1138,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0325"
+        "SRC-AI-0274"
       ],
       "keywords": [
         "consumer",
@@ -1160,7 +1160,7 @@
       "maturity": "foundational",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0325.",
+        "summary": "Evidence basis: SRC-AI-0274.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -1185,7 +1185,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0325"
+        "SRC-AI-0274"
       ],
       "keywords": [
         "config_debt",
@@ -1207,7 +1207,7 @@
       "maturity": "foundational",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0325.",
+        "summary": "Evidence basis: SRC-AI-0274.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -1228,7 +1228,7 @@
       "complexity": "high",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0325"
+        "SRC-AI-0274"
       ],
       "keywords": [
         "entanglement",
@@ -1250,7 +1250,7 @@
       "maturity": "foundational",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0324.",
+        "summary": "Evidence basis: SRC-AI-0275.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -1273,7 +1273,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0324"
+        "SRC-AI-0275"
       ],
       "keywords": [
         "Goodhart",
@@ -1295,7 +1295,7 @@
       "maturity": "engineering_pattern",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0325, SRC-AI-0324.",
+        "summary": "Evidence basis: SRC-AI-0274, SRC-AI-0275.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -1315,8 +1315,8 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0325",
-        "SRC-AI-0324"
+        "SRC-AI-0274",
+        "SRC-AI-0275"
       ],
       "keywords": [
         "technical_debt",
@@ -1338,7 +1338,7 @@
       "maturity": "engineering_pattern",
       "evidence": {
         "strength": "high",
-        "summary": "Evidence basis: SRC-AI-0324, SRC-AI-0321.",
+        "summary": "Evidence basis: SRC-AI-0275, SRC-AI-0321.",
         "limitations": []
       },
       "agent_os_fit": "core",
@@ -1361,7 +1361,7 @@
       "complexity": "medium",
       "dependencies": [],
       "sources": [
-        "SRC-AI-0324",
+        "SRC-AI-0275",
         "SRC-AI-0321"
       ],
       "keywords": [
