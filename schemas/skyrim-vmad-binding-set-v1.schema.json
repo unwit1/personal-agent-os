@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-vmad-binding-set-v1.schema.json",
+  "title": "Skyrim VMAD Binding Set v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record",
+    "scripts"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-vmad-binding-set-v1"
+    },
+    "record": {
+      "type": "string"
+    },
+    "scripts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "properties"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "name",
+                "type",
+                "value"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "type": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "value": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object"
+    }
+  }
+}
