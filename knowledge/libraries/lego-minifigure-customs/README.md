@@ -1,3 +1,5 @@
+> **Repository migration notice (2026-09-25):** This directory is no longer the canonical home for LEGO customs / custom-minifigure knowledge. Canonical content and new ingestion belong in `unwit1/brickmen`. The remaining files here are temporary migration copies pending hash/reference audit and cleanup. Agent OS should reference/orchestrate Brickmen rather than extending this local corpus.
+
 # LEGO Minifigure Customs Knowledge Repository
 
 Purpose: a provenance-aware working knowledge base for collecting, identifying, comparing, designing, prototyping, sourcing, producing, cataloging, pricing, and eventually commercializing original custom minifigure work.
