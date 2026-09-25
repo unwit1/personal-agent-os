@@ -1,0 +1,70 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "cathedral-assets-optimizer",
+  "tool": "Cathedral Assets Optimizer",
+  "source": "https://github.com/Guekka/cathedral-assets-optimizer",
+  "targets": [
+    "skyrim-se-ae",
+    "other"
+  ],
+  "capabilities": [
+    "asset-porting",
+    "nif-optimization",
+    "dds-processing",
+    "bsa-pack",
+    "batch-assets"
+  ],
+  "invocation": {
+    "mode": "gui-supervised",
+    "transport": "desktop GUI / batch profiles",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "mod staging tree"
+  ],
+  "outputs": [
+    "optimized asset tree",
+    "BSA archives"
+  ],
+  "logs": [
+    "application log"
+  ],
+  "coverage": {
+    "description": "All-in-one Bethesda asset conversion/optimization tool using libraries including nifly, DirectXTex and libbsarch.",
+    "known_gaps": [
+      "current GitHub branch describes itself as in-development/experimental with potentially outdated docs",
+      "GUI/profile state reduces deterministic automation unless a stable command/profile interface is wrapped"
+    ],
+    "denominator_probe": "input asset manifest vs output manifest and per-file processing log."
+  },
+  "safety": {
+    "mutation_default": "copy/staging-only",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "requires_confirmation_for": [
+      "in-place batch optimization of original source assets"
+    ],
+    "sandbox_or_scope": "Operate on disposable staging copy only."
+  },
+  "verification": {
+    "independent_validators": [
+      "pynifly",
+      "directxtex-texdiag",
+      "archive-roundtrip"
+    ],
+    "version_probe": "binary/source build version",
+    "output_readback": "Hash/list/extract archive and independently parse converted assets."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Broad batch fallback; deterministic specialized tools are preferable for reproducible per-format transforms."
+  },
+  "evidence": {
+    "source_url": "https://github.com/Guekka/cathedral-assets-optimizer",
+    "verified_date": "2026-09-24",
+    "notes": "Upstream describes Skyrim LE/SE conversion, archive creation, texture compression and mesh optimization."
+  }
+}
