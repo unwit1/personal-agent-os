@@ -402,6 +402,42 @@
     "dependency_lock": {
       "type": "string",
       "description": "Path to a skyrim-dependency-lock-v1 document."
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "feature_id",
+          "intent"
+        ],
+        "properties": {
+          "feature_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._-]*$"
+          },
+          "intent": {
+            "type": "string"
+          },
+          "pattern_id": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "idea",
+              "planned",
+              "implementing",
+              "testing",
+              "complete",
+              "blocked"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
     }
   }
 }
