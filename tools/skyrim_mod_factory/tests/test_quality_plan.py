@@ -50,5 +50,24 @@ class QualityPlanTests(unittest.TestCase):
         self.assertIn("G26",p["gates"])
         self.assertTrue(any("path traversal" in x for x in p["runtime_scenarios"]))
 
+    def test_papyrus_prefers_pyro_build(self):
+        p=MOD.derive(base(["papyrus"],["pex"]))
+        self.assertIn("pyro",p["adapters"]["preferred"])
+        self.assertIn("official-papyruscompiler",p["adapters"]["preferred"])
+
+    def test_papyrus_extender_framework_adds_provider_checks(self):
+        p=MOD.derive(base(
+            ["papyrus"],["pex"],
+            frameworks=[{"id":"papyrus-extender","required":True}]
+        ))
+        self.assertIn("papyrus-extender",p["adapters"]["supporting"])
+        self.assertTrue(any("provider" in x.lower() for x in p["static_checks"]))
+        self.assertTrue(any("Papyrus Extender" in x for x in p["runtime_scenarios"]))
+
+    def test_native_prefers_commonlib_build_pipeline(self):
+        p=MOD.derive(base(["native"],["dll"]))
+        self.assertIn("commonlib-cmake-configure",p["adapters"]["preferred"])
+        self.assertIn("commonlib-cmake-build",p["adapters"]["preferred"])
+
 if __name__=="__main__":
     unittest.main()
