@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-pattern-selection-v1.schema.json",
+  "title": "Skyrim Implementation Pattern Selection v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "feature_id",
+    "status",
+    "candidates"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-pattern-selection-v1"
+    },
+    "feature_id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "selected",
+        "research-required",
+        "no-match"
+      ]
+    },
+    "selected_pattern": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "unknown"
+      ]
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "pattern_id",
+          "score",
+          "reasons"
+        ],
+        "properties": {
+          "pattern_id": {
+            "type": "string"
+          },
+          "score": {
+            "type": "number"
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "preferred_layers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "preferred_providers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "avoid_by_default": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "next_action": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
