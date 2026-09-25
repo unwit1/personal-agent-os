@@ -1,0 +1,68 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "official-papyruscompiler",
+  "tool": "Bethesda PapyrusCompiler",
+  "source": "https://ck.uesp.net/wiki/Papyrus_Compiler_Reference",
+  "targets": [
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "papyrus-compile",
+    "ppj-project-compile",
+    "official-compiler-oracle",
+    "compiler-diagnostics"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "PapyrusCompiler.exe",
+    "transport": "CLI / Creation Kit compiler",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "PSC source",
+    "import roots",
+    "TESV_Papyrus_Flags.flg",
+    "PPJ/project settings"
+  ],
+  "outputs": [
+    "PEX"
+  ],
+  "logs": [
+    "stdout/stderr or compiler log"
+  ],
+  "coverage": {
+    "description": "Bethesda compiler is the primary compatibility oracle for Skyrim Papyrus bytecode/source semantics.",
+    "known_gaps": [
+      "compile success cannot validate missing runtime native DLL providers",
+      "tool/version follows installed Creation Kit and must be pinned"
+    ],
+    "denominator_probe": "PSC files requested vs PEX outputs/errors."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Compile to isolated build directory."
+  },
+  "verification": {
+    "independent_validators": [
+      "caprica",
+      "champollion",
+      "vmad-binding-check"
+    ],
+    "version_probe": "PapyrusCompiler.exe hash/file version",
+    "output_readback": "PEX existence/header plus optional decompile/recompile fixture."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Use together with provider-signature corpus; never infer a native implementation from compile success."
+  },
+  "evidence": {
+    "source_url": "https://ck.uesp.net/wiki/Papyrus_Compiler_Reference",
+    "verified_date": "2026-09-24",
+    "notes": "Primary official compiler surface; Caprica remains independent secondary compiler."
+  }
+}
