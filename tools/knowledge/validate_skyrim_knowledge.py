@@ -94,7 +94,7 @@ rule_schema = schema("skyrim-analyzer-rule-v1.schema.json")
 pattern_schema = schema("skyrim-implementation-pattern-v1.schema.json")
 runtime_test_schema = schema("skyrim-runtime-test-v1.schema.json")
 project_schema = schema("skyrim-mod-project-v1.schema.json")
-build_report_schema = schema("skyrim-mod-build-report-v1.schema.json")
+build_report_schema = schema("skyrim-mod-build-report-v1.schema.json")\nvalidation_gate_registry_schema = schema("skyrim-validation-gate-registry-v1.schema.json")
 
 # Adapter manifests.
 adapter_dir = LIB / "automation" / "adapters"
@@ -139,6 +139,22 @@ if isinstance(registry, dict):
                     errors.append(
                         f"registry/manifest adapter_id mismatch: {entry.get('adapter_id')} -> {manifest}"
                     )
+
+# Validation gate registry.
+gate_registry_path = LIB / "automation" / "validation-gate-registry.json"
+gate_registry = load_json(gate_registry_path) if gate_registry_path.exists() else None
+validate(gate_registry, validation_gate_registry_schema, str(gate_registry_path.relative_to(ROOT)))
+if isinstance(gate_registry, dict):
+    gate_ids = [x.get("gate") for x in gate_registry.get("gates", []) if isinstance(x, dict)]
+    if len(gate_ids) != len(set(gate_ids)):
+        errors.append("validation gate registry contains duplicate gate ids")
+    expected = {f"G{i:02d}" for i in range(30)}
+    missing = sorted(expected - set(gate_ids))
+    extra = sorted(set(gate_ids) - expected)
+    if missing:
+        errors.append("validation gate registry missing: " + ", ".join(missing))
+    if extra:
+        errors.append("validation gate registry has unexpected gates: " + ", ".join(extra))
 
 # Analyzer rule pack: validate wrapper fields directly, then every embedded rule.
 rule_pack_path = LIB / "automation" / "analyzer-rule-pack-core.json"
@@ -208,6 +224,6 @@ print(
     "Skyrim knowledge validation passed: "
     f"{len(modules)} terminology modules, {len(adapter_ids)} adapter manifests, "
     f"{aggregate_adapter_registries} aggregate adapter registries, "
-    f"{len(rule_pack.get('rules', [])) if isinstance(rule_pack, dict) else 0} analyzer rules, "
+    f"{len(gate_registry.get('gates', [])) if isinstance(gate_registry, dict) else 0} validation gates, "\n    f"{len(rule_pack.get('rules', [])) if isinstance(rule_pack, dict) else 0} analyzer rules, "
     f"{len(pattern_pack.get('patterns', [])) if isinstance(pattern_pack, dict) else 0} implementation patterns."
 )
