@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-validation-gate-registry-v1.schema.json",
+  "title": "Skyrim Validation Gate Registry v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "gates"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-validation-gate-registry-v1"
+    },
+    "gates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "gate",
+          "name",
+          "severity",
+          "blocking",
+          "evidence_mode",
+          "earliest_phase",
+          "final_phase",
+          "default_on_missing"
+        ],
+        "properties": {
+          "gate": {
+            "type": "string",
+            "pattern": "^G[0-9]{2}$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "severity": {
+            "enum": [
+              "BLOCKER",
+              "ERROR",
+              "WARNING",
+              "INFO"
+            ]
+          },
+          "blocking": {
+            "type": "boolean"
+          },
+          "evidence_mode": {
+            "enum": [
+              "automatic",
+              "adapter-evidence",
+              "quorum",
+              "runtime",
+              "mutation-test",
+              "provenance",
+              "human",
+              "mixed"
+            ]
+          },
+          "earliest_phase": {
+            "enum": [
+              "preflight",
+              "source",
+              "generate",
+              "validate",
+              "integrate",
+              "runtime",
+              "package",
+              "release"
+            ]
+          },
+          "final_phase": {
+            "enum": [
+              "preflight",
+              "source",
+              "generate",
+              "validate",
+              "integrate",
+              "runtime",
+              "package",
+              "release"
+            ]
+          },
+          "default_on_missing": {
+            "enum": [
+              "fail",
+              "warning",
+              "needs-review",
+              "not-applicable"
+            ]
+          },
+          "independent_validation": {
+            "type": "boolean"
+          },
+          "runtime_required": {
+            "type": "boolean"
+          },
+          "human_required": {
+            "type": "boolean"
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
