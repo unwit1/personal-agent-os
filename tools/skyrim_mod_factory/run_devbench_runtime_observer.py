@@ -275,6 +275,55 @@ def evaluate_operator(
         return None
     return None
 
+def capture_trust_issue(
+    assertion:dict[str,Any],
+    raw:Any,
+)->str|None:
+    if assertion.get("kind")!="screenshot":
+        return None
+    probe=assertion.get("probe") or {}
+    if probe.get("tool")!="capture" or not isinstance(raw,dict):
+        return "screenshot assertion did not return a structured DevBench capture result"
+    if raw.get("inconclusive") is True:
+        return (
+            "DevBench capture is inconclusive: "
+            +str(raw.get("inconclusiveReason") or "unspecified reason")
+        )
+    if raw.get("goldenError"):
+        return "DevBench golden comparison failed: "+str(raw["goldenError"])
+    if raw.get("provider")=="native":
+        return "native fallback screenshots are not trusted for deterministic visual PASS"
+    return None
+
+def capture_artifact(
+    assertion:dict[str,Any],
+    raw:Any,
+)->dict[str,Any]|None:
+    if assertion.get("kind")!="screenshot":
+        return None
+    probe=assertion.get("probe") or {}
+    if probe.get("tool")!="capture" or not isinstance(raw,dict):
+        return None
+    raw_path=raw.get("path")
+    if not isinstance(raw_path,str) or not raw_path:
+        return None
+    artifact={
+        "kind":"screenshot",
+        "path":raw_path,
+        "checkpoint_id":raw.get("checkpointId"),
+        "provider":raw.get("provider"),
+        "inconclusive":bool(raw.get("inconclusive",False)),
+        "ssim":raw.get("ssim"),
+        "threshold":raw.get("threshold"),
+        "passed":raw.get("passed"),
+    }
+    local=Path(raw_path)
+    if local.is_file():
+        artifact["sha256"]=sha256_file(local)
+    else:
+        artifact["sha256"]=None
+    return artifact
+
 def assertion_observation(
     assertion:dict[str,Any],
     *,
@@ -306,13 +355,17 @@ def assertion_observation(
             "evidence":[],
         },None
     observed=get_json_path(raw,probe.get("json_path"))
+    trust_issue=capture_trust_issue(assertion,raw)
     outcome=evaluate_operator(
         observed,
         assertion.get("expected"),
         assertion.get("operator","eq"),
         assertion.get("tolerance"),
     )
-    if outcome is True:
+    if trust_issue is not None:
+        status="needs-review"
+        issues=[trust_issue]
+    elif outcome is True:
         status="pass"
         issues=[]
     elif outcome is False:
@@ -463,6 +516,9 @@ def run_observer(
             )
             if artifact:
                 artifacts.append(artifact)
+            screenshot=capture_artifact(assertion,raw)
+            if screenshot:
+                artifacts.append(screenshot)
 
     after=health(base_url,min(request_timeout_seconds,5.0))
     artifact=write_artifact(
