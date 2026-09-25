@@ -47,5 +47,31 @@ class PrepTests(unittest.TestCase):
         out=MOD.enrich_quality({"features":[{"feature_id":"x","pattern_id":"nope"}]},qbase(),{}, {}, {"xedit"})
         self.assertTrue(out["pattern_issues"])
 
+    def test_effective_manifest_adds_selected_pattern_without_mutating_source(self):
+        source={
+          "project_id":"demo",
+          "layers":["records"],
+          "features":[{"feature_id":"f","intent":"Do a thing"}]
+        }
+        original_layers=list(source["layers"])
+        feature={"feature_id":"f","summary":"Conditional animation","implementation":{"selected_layers":["animation"]}}
+        selection={"status":"selected","selected_pattern":"conditional-animation-replacement"}
+        patterns={"conditional-animation-replacement":{
+          "preferred_layers":["animation"],"pattern_id":"conditional-animation-replacement"
+        }}
+        effective,deductions=MOD.make_effective_manifest(source,feature,selection,patterns)
+        self.assertEqual(source["layers"],original_layers)
+        self.assertNotIn("animation",source["layers"])
+        self.assertIn("animation",effective["layers"])
+        self.assertEqual(effective["features"][0]["pattern_id"],"conditional-animation-replacement")
+        self.assertTrue(deductions)
+
+    def test_unresolved_pattern_does_not_invent_pattern_id(self):
+        source={"project_id":"demo","layers":["records"],"features":[{"feature_id":"f","intent":"Unknown"}]}
+        feature={"feature_id":"f","summary":"Unknown","implementation":{}}
+        selection={"status":"research-required","selected_pattern":None}
+        effective,_=MOD.make_effective_manifest(source,feature,selection,{})
+        self.assertNotIn("pattern_id",effective["features"][0])
+
 if __name__=="__main__":
     unittest.main()
