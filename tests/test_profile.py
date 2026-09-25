@@ -32,7 +32,7 @@ IMPERSONAL_TASKS = (
 class IndexTests(unittest.TestCase):
     def test_only_curated_sources_are_indexed(self) -> None:
         names = {path.name for path in profile.CANONICAL_SOURCES}
-        self.assertEqual(names, {"preferences.json", "user-context.json"})
+        self.assertEqual(names, {"preferences.json", "user-context.json", "relationship-context.json"})
 
     def test_the_large_derived_context_is_never_loaded(self) -> None:
         """The derived Drive index is bulk, and bulk is what this module prevents."""
@@ -173,6 +173,8 @@ class PrivacyTests(unittest.TestCase):
     def test_the_privacy_section_is_never_retrievable(self) -> None:
         domains = {fact["domain"] for fact in profile.retrievable_facts()}
         self.assertNotIn("privacy", domains)
+        self.assertNotIn("unresolved_identity_candidates", domains)
+        self.assertNotIn("quarantined_or_unresolved", domains)
 
     def test_restricted_facts_are_excluded_from_retrieval(self) -> None:
         indexed = profile.index_facts()
