@@ -1,0 +1,94 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "papyrus-extender",
+  "tool": "powerofthree's Papyrus Extender",
+  "source": "https://github.com/powerof3/PapyrusExtenderSSE",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "papyrus-api-provider",
+    "papyrus-event-provider",
+    "actor-query-mutation",
+    "form-query-mutation",
+    "objectreference-query-mutation",
+    "magic-effect-query-mutation",
+    "weather-environment-query",
+    "projectile-query-mutation",
+    "loaded-3d-node-material-operations",
+    "quest-scene-query-mutation"
+  ],
+  "invocation": {
+    "mode": "in-process-api",
+    "transport": "SKSE native Papyrus provider",
+    "requires_running_game": true
+  },
+  "inputs": [
+    "PO3_SKSEFunctions.pex/psc provider API",
+    "PO3_Events_* provider APIs",
+    "Papyrus Extender native DLL",
+    "runtime relocation dependencies"
+  ],
+  "outputs": [
+    "registered Papyrus native functions",
+    "runtime events",
+    "runtime state mutations"
+  ],
+  "logs": [
+    "Papyrus Extender SKSE log",
+    "Papyrus log when native binding fails"
+  ],
+  "retry": {
+    "safe": false,
+    "max_attempts": 1,
+    "cleanup_outputs_first": false
+  },
+  "destructive_actions": [
+    "mutating shared base forms at runtime",
+    "changing reference/base object relationships",
+    "changing spell/potion/scroll effect items"
+  ],
+  "human_checks": [],
+  "coverage": {
+    "description": "Current upstream PSC snapshot inspected by Agent OS exposes 379 declarations in PO3_SKSEFunctions plus 37 event names and four additional Form-derived script object types.",
+    "known_gaps": [
+      "compile-time PSC availability does not prove the native DLL loaded or registered that API",
+      "functions touching loaded 3D require appropriate loaded-state lifecycle",
+      "base-form mutations can affect every reference sharing the form",
+      "runtime support must be checked against the exact installed Papyrus Extender build and Skyrim runtime"
+    ],
+    "denominator_probe": "Expected provider PSC/API declarations vs installed PSC/PEX/native registration and runtime smoke calls."
+  },
+  "safety": {
+    "mutation_default": "read-only-unless-explicit",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": false,
+    "requires_confirmation_for": [
+      "destructive or save-persistent mutations not already declared by project intent"
+    ],
+    "sandbox_or_scope": "Use only within declared feature/test scope; test runtime mutations on disposable fixture saves."
+  },
+  "verification": {
+    "independent_validators": [
+      "papyrus-provider-index",
+      "papyrus-compiler",
+      "runtime-native-binding-test",
+      "runtime-readback"
+    ],
+    "version_probe": "GetPapyrusExtenderVersion + installed DLL/source/release metadata",
+    "output_readback": "Read mutated value/state back through independent query where available."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Search this provider before escalating a gameplay feature from Papyrus to a new custom SKSE DLL."
+  },
+  "evidence": {
+    "source_url": "https://github.com/powerof3/PapyrusExtenderSSE",
+    "verified_date": "2026-09-24",
+    "notes": "Source-derived catalog stored at terminology/papyrus-extender-po3-api-catalog.md. Current inspected master has 379 PO3_SKSEFunctions declarations and 37 event names."
+  }
+}
