@@ -168,11 +168,12 @@
       "provider_id": "flm",
       "kind": "framework",
       "validation_adapters": [
-        "xedit",
+        "flm",
         "devbench"
       ],
-      "notes": "FormList Manipulator runtime dependency; typed intent schema exists but renderer is not yet implemented.",
-      "source": "https://github.com/MaskedRPGFan/FormList-Manipulator"
+      "notes": "FormList Manipulator runtime dependency with source-pinned typed intent and deterministic *_FLM.ini renderer; runtime log/application remains the final parser oracle.",
+      "source": "https://github.com/MaskedRPGFan/FormList-Manipulator",
+      "adapter_id": "flm"
     },
     {
       "provider_id": "frostfall",
