@@ -1,0 +1,1188 @@
+{
+  "schema": "personal-agent-os/ai-improvement-technique-catalog/v1",
+  "as_of": "2026-09-24",
+  "domain": "cognitive_offloading_task_resumption_pim",
+  "techniques": [
+    {
+      "id": "AIT-0316",
+      "name": "Strategic cognitive offloading",
+      "aliases": [],
+      "category": "human_memory",
+      "layer": [
+        "human_system",
+        "memory",
+        "proactivity"
+      ],
+      "goal": "Reduce internal memory burden by externalizing information/intended actions when benefit exceeds cost",
+      "mechanism": "Use lists, reminders, notes, external state and automation selectively based on memory load, distraction likelihood and consequence.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0239, SRC-AI-0242, SRC-AI-0247.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Personal Executive should offload fragile commitments but not turn every thought into an alert.",
+      "use_when": [
+        "Commitments",
+        "Shopping",
+        "Project state",
+        "Recurring obligations"
+      ],
+      "avoid_when": [
+        "When unaided learning/recall is itself the goal",
+        "Trivial habits where reminder overhead exceeds value"
+      ],
+      "required_evals": [
+        "completion rate",
+        "reminder burden",
+        "unaided recall where relevant"
+      ],
+      "risks": [
+        "Over-offloading",
+        "dependency",
+        "notification clutter"
+      ],
+      "cost_profile": "small external-state overhead",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0239",
+        "SRC-AI-0242",
+        "SRC-AI-0247"
+      ],
+      "keywords": [
+        "cognitive_offloading",
+        "external_memory"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0317",
+      "name": "Cost-benefit reminder decision",
+      "aliases": [],
+      "category": "prospective_memory",
+      "layer": [
+        "human_system",
+        "proactivity"
+      ],
+      "goal": "Use reminders when expected forgetting cost exceeds reminder-setting/interruption cost",
+      "mechanism": "Estimate consequence, memory load, distraction, recurrence, reminder friction and reliability before creating/surfacing a reminder.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0243, SRC-AI-0244, SRC-AI-0247.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Maps naturally to proactivity expected-utility engine.",
+      "use_when": [
+        "Prospective tasks",
+        "Appointments",
+        "Follow-ups"
+      ],
+      "avoid_when": [
+        "Routine actions with near-certain spontaneous completion"
+      ],
+      "required_evals": [
+        "completion",
+        "ignored reminders",
+        "reminders per completed obligation"
+      ],
+      "risks": [
+        "Model estimates of forgetting may be poorly calibrated"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0243",
+        "SRC-AI-0244",
+        "SRC-AI-0247"
+      ],
+      "keywords": [
+        "reminder_policy",
+        "cost_benefit"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0318",
+      "name": "Low-friction reminder capture",
+      "aliases": [],
+      "category": "prospective_memory",
+      "layer": [
+        "human_system",
+        "ux"
+      ],
+      "goal": "Make externalization cheap enough that important intentions are not lost",
+      "mechanism": "Minimize steps/typing to capture a future intention; infer context/time/project but preserve easy correction.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0257, SRC-AI-0244.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Fast capture first; organization/dedupe can happen later.",
+      "use_when": [
+        "Voice capture",
+        "Browser capture",
+        "Quick task entry"
+      ],
+      "avoid_when": [
+        "Inference would make consequential scheduling silently wrong"
+      ],
+      "required_evals": [
+        "capture completion",
+        "capture time",
+        "corrections"
+      ],
+      "risks": [
+        "Low friction can increase junk/duplicate reminders"
+      ],
+      "cost_profile": "small UX engineering",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0257",
+        "SRC-AI-0244"
+      ],
+      "keywords": [
+        "capture_friction",
+        "reminders"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0319",
+      "name": "Reminder reliability awareness",
+      "aliases": [],
+      "category": "prospective_memory",
+      "layer": [
+        "human_system",
+        "reliability"
+      ],
+      "goal": "Avoid cognitive dependence on an external system that may silently fail",
+      "mechanism": "Track whether reminder channel/device/scheduler is healthy; for critical commitments use deterministic delivery verification/redundancy and surface degraded state.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0245, SRC-AI-0246.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Critical offloaded intentions must not have a single silent failure point.",
+      "use_when": [
+        "Critical reminders",
+        "External integrations"
+      ],
+      "avoid_when": [
+        "Low-consequence suggestions"
+      ],
+      "required_evals": [
+        "delivery success",
+        "missed critical reminder",
+        "fallback activation"
+      ],
+      "risks": [
+        "Redundant reminders can become annoying"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0245",
+        "SRC-AI-0246"
+      ],
+      "keywords": [
+        "reminder_reliability",
+        "graceful_degradation"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0320",
+      "name": "Graceful degradation of external memory",
+      "aliases": [],
+      "category": "human_memory",
+      "layer": [
+        "human_system",
+        "reliability"
+      ],
+      "goal": "Protect users when Agent OS/reminder infrastructure is unavailable",
+      "mechanism": "Maintain exportable/current task lists, visible critical commitments and recovery paths so externalized state remains accessible outside the primary agent path.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0245, SRC-AI-0246.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Run periodic low-risk recovery drills; critical state never exists only in a transient model context.",
+      "use_when": [
+        "Personal Executive",
+        "Calendar/reminders",
+        "Project handoffs"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "recovery drill",
+        "offline access",
+        "missed obligations during outage"
+      ],
+      "risks": [
+        "Redundant systems add maintenance"
+      ],
+      "cost_profile": "moderate",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0245",
+        "SRC-AI-0246"
+      ],
+      "keywords": [
+        "graceful_degradation",
+        "external_memory"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0321",
+      "name": "Metacognitive prediction + feedback for offloading calibration",
+      "aliases": [],
+      "category": "metacognition",
+      "layer": [
+        "human_system",
+        "learning"
+      ],
+      "goal": "Improve decisions about when external support is actually useful",
+      "mechanism": "Have user/system predict likely recall/task success, then compare with outcomes and update reminder/offloading policy; feedback matters more than prediction alone in the cited 2026 experiments.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0241.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Agent OS can infer predicted probability internally and learn from completion; explicit user calibration exercises optional.",
+      "use_when": [
+        "Repeated task/reminder decisions",
+        "Proactivity threshold learning"
+      ],
+      "avoid_when": [
+        "User should not be burdened with explicit prediction questions routinely"
+      ],
+      "required_evals": [
+        "calibration error",
+        "completion/reminder tradeoff"
+      ],
+      "risks": [
+        "Measurement overhead",
+        "behavior changes when measured"
+      ],
+      "cost_profile": "offline learning + sparse feedback",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0241"
+      ],
+      "keywords": [
+        "metacognition",
+        "calibration"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0322",
+      "name": "Implementation intentions / if-then plans",
+      "aliases": [],
+      "category": "prospective_memory",
+      "layer": [
+        "human_system",
+        "planning"
+      ],
+      "goal": "Improve prospective goal execution by binding a concrete cue to an action",
+      "mechanism": "Represent intention as 'when/if cue X occurs, do Y' rather than only a vague goal.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0248, SRC-AI-0249.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Translate natural commitments into explicit triggers when appropriate; keep original goal alongside trigger.",
+      "use_when": [
+        "Event-triggered tasks",
+        "Habits",
+        "Contextual follow-ups"
+      ],
+      "avoid_when": [
+        "Cue cannot be observed reliably",
+        "Action still requires major deliberation"
+      ],
+      "required_evals": [
+        "completion vs ordinary reminder",
+        "false triggers"
+      ],
+      "risks": [
+        "Over-specific cue misses alternate opportunity",
+        "monitoring can have small ongoing-task cost"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0248",
+        "SRC-AI-0249"
+      ],
+      "keywords": [
+        "implementation_intention",
+        "if_then"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0323",
+      "name": "Event-based over clock-based trigger when natural cue exists",
+      "aliases": [],
+      "category": "prospective_memory",
+      "layer": [
+        "human_system",
+        "automation"
+      ],
+      "goal": "Surface an intention at the moment it becomes actionable",
+      "mechanism": "Bind reminders/workflows to meaningful event/context change instead of arbitrary time if the event can be detected reliably.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0249.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Pair critical event triggers with deadline/backstop time when needed.",
+      "use_when": [
+        "Reply when email arrives",
+        "Do X when at store",
+        "Resume when dependency finishes"
+      ],
+      "avoid_when": [
+        "Event detection unreliable",
+        "Hard deadline needs time fallback"
+      ],
+      "required_evals": [
+        "action timeliness",
+        "missed trigger"
+      ],
+      "risks": [
+        "Sensor/integration failure",
+        "false event match"
+      ],
+      "cost_profile": "potentially less notification noise",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0249"
+      ],
+      "keywords": [
+        "event_trigger",
+        "contextual_reminder"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0324",
+      "name": "Deadline backstop for event-triggered intention",
+      "aliases": [],
+      "category": "prospective_memory",
+      "layer": [
+        "human_system",
+        "reliability"
+      ],
+      "goal": "Prevent an event-triggered task from disappearing if the expected cue never occurs",
+      "mechanism": "Schedule a latest-action/review deadline in addition to event watch.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0247.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Dependency resolution automatically cancels/updates backstop.",
+      "use_when": [
+        "Waiting on replies",
+        "Approvals",
+        "Deliveries",
+        "Applications"
+      ],
+      "avoid_when": [
+        "No meaningful deadline/review horizon"
+      ],
+      "required_evals": [
+        "stale dependency rate",
+        "backstop interventions"
+      ],
+      "risks": [
+        "Extra reminders if dependency resolves but state is not reconciled"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0247"
+      ],
+      "keywords": [
+        "backstop",
+        "dependency_watch"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0325",
+      "name": "Pre-interruption task-state capture",
+      "aliases": [],
+      "category": "task_resumption",
+      "layer": [
+        "human_system",
+        "memory",
+        "workflow"
+      ],
+      "goal": "Reduce resumption cost after switching away",
+      "mechanism": "Before planned interruption/context switch, capture current goal, exact next step, open artifacts, blockers and unresolved decisions.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0250, SRC-AI-0251.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Agent OS automatically creates a tiny handoff on inactivity/project switch/explicit pause.",
+      "use_when": [
+        "Project switching",
+        "End of workday",
+        "Long agent/user task"
+      ],
+      "avoid_when": [
+        "Microtask already complete"
+      ],
+      "required_evals": [
+        "resumption time",
+        "wrong-next-step rate"
+      ],
+      "risks": [
+        "Capture friction can itself discourage switching"
+      ],
+      "cost_profile": "very low if automatic",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0250",
+        "SRC-AI-0251"
+      ],
+      "keywords": [
+        "resumption",
+        "task_snapshot"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0326",
+      "name": "Salient resumption cue",
+      "aliases": [],
+      "category": "task_resumption",
+      "layer": [
+        "human_system",
+        "ux"
+      ],
+      "goal": "Reactivate suspended task goal quickly",
+      "mechanism": "Show a clear cue tied to last meaningful action/next action—not a generic project title—when work resumes.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0252, SRC-AI-0253.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Prominent 'You were here / next: X' with evidence timestamp.",
+      "use_when": [
+        "Project dashboard",
+        "Coding/modding/HR workflows"
+      ],
+      "avoid_when": [
+        "No prior state"
+      ],
+      "required_evals": [
+        "time-to-first-correct-action",
+        "resumption success"
+      ],
+      "risks": [
+        "Wrong/stale cue can anchor user"
+      ],
+      "cost_profile": "low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0252",
+        "SRC-AI-0253"
+      ],
+      "keywords": [
+        "resumption_cue",
+        "next_action"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0327",
+      "name": "Chronological activity replay for resumption",
+      "aliases": [],
+      "category": "task_resumption",
+      "layer": [
+        "human_system",
+        "observability"
+      ],
+      "goal": "Restore local context after interruption without rereading everything",
+      "mechanism": "Present recent meaningful actions in order, emphasizing changed artifacts and decisions near the interruption.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0252.",
+        "limitations": []
+      },
+      "agent_os_fit": "high",
+      "agent_os_pattern": "Summarize significant events, then allow drill-down to raw timeline.",
+      "use_when": [
+        "Interrupted technical/project work"
+      ],
+      "avoid_when": [
+        "Activity log is noisy/high volume"
+      ],
+      "required_evals": [
+        "resumption success",
+        "items viewed",
+        "time"
+      ],
+      "risks": [
+        "Too much chronology recreates context overload"
+      ],
+      "cost_profile": "low from existing telemetry",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0252"
+      ],
+      "keywords": [
+        "chronological_cues",
+        "timeline"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0328",
+      "name": "Prospective goal encoding before planned switch",
+      "aliases": [],
+      "category": "task_resumption",
+      "layer": [
+        "human_system",
+        "planning"
+      ],
+      "goal": "Make future resumption easier by explicitly stating what to do next before leaving",
+      "mechanism": "At pause/switch encode a next-action intention and optionally expected trigger for resumption.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0250.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Agent OS asks no question if next action can be inferred from run state; records it automatically.",
+      "use_when": [
+        "Known upcoming interruption",
+        "End-of-day"
+      ],
+      "avoid_when": [
+        "Abrupt interruption with no lag"
+      ],
+      "required_evals": [
+        "resumption latency",
+        "next-step correctness"
+      ],
+      "risks": [
+        "Can become stale if others change state while away"
+      ],
+      "cost_profile": "very low",
+      "complexity": "low",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0250"
+      ],
+      "keywords": [
+        "prospective_goal",
+        "pause"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0329",
+      "name": "Automatic crash/interruption handoff reconstruction",
+      "aliases": [],
+      "category": "task_resumption",
+      "layer": [
+        "human_system",
+        "runtime",
+        "memory"
+      ],
+      "goal": "Recover when no pre-interruption note could be made",
+      "mechanism": "Use recent telemetry, files changed, tool calls, checkpoints and unfinished plans to reconstruct last stable state and likely next action with uncertainty.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0251, SRC-AI-0102.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Distinguish observed last action from inferred next action.",
+      "use_when": [
+        "Stream interruption",
+        "Crash",
+        "Unexpected shutdown"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "reconstruction correctness",
+        "user correction",
+        "resume time"
+      ],
+      "risks": [
+        "Inference can invent a next step"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0251",
+        "SRC-AI-0102"
+      ],
+      "keywords": [
+        "crash_recovery",
+        "handoff"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0330",
+      "name": "Interruption suppression during high-focus state",
+      "aliases": [],
+      "category": "attention_management",
+      "layer": [
+        "human_system",
+        "proactivity"
+      ],
+      "goal": "Reduce cognitive switching cost and stress",
+      "mechanism": "Delay nonurgent notifications while the user/system is in active focused work; batch for boundary or digest.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0254, SRC-AI-0130.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Use task-boundary/interaction signals; immediate alerts require urgency threshold.",
+      "use_when": [
+        "Coding",
+        "Writing",
+        "Deep review"
+      ],
+      "avoid_when": [
+        "Urgent/high-cost delay"
+      ],
+      "required_evals": [
+        "interruptions/hour",
+        "task completion",
+        "dismissal/stress proxy"
+      ],
+      "risks": [
+        "Focus-state inference wrong",
+        "important alert delayed"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0254",
+        "SRC-AI-0130"
+      ],
+      "keywords": [
+        "focus",
+        "interruptions"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0331",
+      "name": "Task-boundary interruption preference",
+      "aliases": [],
+      "category": "attention_management",
+      "layer": [
+        "human_system",
+        "proactivity"
+      ],
+      "goal": "Deliver nonurgent help at lower-cost moments",
+      "mechanism": "Prefer natural boundaries—after save/commit/task completion/meeting end—over middle of an active subtask.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0254, SRC-AI-0130.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Proactivity engine includes 'wait until boundary' action.",
+      "use_when": [
+        "Proactive suggestions",
+        "Review prompts"
+      ],
+      "avoid_when": [
+        "Deadline or safety urgency"
+      ],
+      "required_evals": [
+        "engagement",
+        "task disruption",
+        "time-to-action"
+      ],
+      "risks": [
+        "Boundary detection imperfect"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0254",
+        "SRC-AI-0130"
+      ],
+      "keywords": [
+        "task_boundary",
+        "timing"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0332",
+      "name": "Measure human effort, not just completion time",
+      "aliases": [],
+      "category": "human_factors",
+      "layer": [
+        "evaluation",
+        "human_system"
+      ],
+      "goal": "Prevent optimizations that make users faster by forcing more stress/effort",
+      "mechanism": "Include corrections, interruptions, context switches, clicks, re-reading, frustration proxies and subjective effort when evaluating workflows.",
+      "maturity": "replicated_research",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0254.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "A faster workflow that raises correction/stress cost is not automatically better.",
+      "use_when": [
+        "UI/proactivity/workflow changes"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "effort per successful task",
+        "correction burden"
+      ],
+      "risks": [
+        "Subjective metrics are noisy/intrusive"
+      ],
+      "cost_profile": "measurement overhead",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0254"
+      ],
+      "keywords": [
+        "cognitive_load",
+        "user_effort"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0333",
+      "name": "Project-centric information views",
+      "aliases": [],
+      "category": "personal_information_management",
+      "layer": [
+        "human_system",
+        "knowledge",
+        "projects"
+      ],
+      "goal": "Reduce fragmentation across files/messages/notes/apps by organizing around the activity the information serves",
+      "mechanism": "Resolve items to stable project/domain entities and provide a project view linking canonical artifacts rather than copying them into app silos.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0255.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "One canonical identity + multiple human-friendly views, consistent with existing metadata-driven project architecture.",
+      "use_when": [
+        "Agent OS projects",
+        "Cross-app work"
+      ],
+      "avoid_when": [
+        "Item genuinely belongs to no project/domain"
+      ],
+      "required_evals": [
+        "refinding time",
+        "duplicate records",
+        "context switches"
+      ],
+      "risks": [
+        "Wrong project classification",
+        "over-projectization"
+      ],
+      "cost_profile": "index/metadata cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0255"
+      ],
+      "keywords": [
+        "PIM",
+        "project_context"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0334",
+      "name": "Capture-first, organize-later inbox",
+      "aliases": [],
+      "category": "personal_information_management",
+      "layer": [
+        "human_system",
+        "knowledge"
+      ],
+      "goal": "Avoid losing information because classification is too costly at capture time",
+      "mechanism": "Accept low-friction capture into durable staging, then asynchronously dedupe/classify/link/review.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0255, SRC-AI-0256.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Existing browser bridge durable inbox is the right architectural pattern.",
+      "use_when": [
+        "Browser saves",
+        "Voice notes",
+        "Ideas",
+        "Files"
+      ],
+      "avoid_when": [
+        "Consequential record must be classified before action"
+      ],
+      "required_evals": [
+        "capture loss",
+        "inbox age",
+        "classification accuracy"
+      ],
+      "risks": [
+        "Unprocessed inbox accumulation"
+      ],
+      "cost_profile": "low capture cost; background curation",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0255",
+        "SRC-AI-0256"
+      ],
+      "keywords": [
+        "inbox",
+        "capture"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0335",
+      "name": "Refinding-first design",
+      "aliases": [],
+      "category": "personal_information_management",
+      "layer": [
+        "human_system",
+        "retrieval"
+      ],
+      "goal": "Optimize stored information for future reuse, not merely successful capture",
+      "mechanism": "Store stable source identity, why-it-mattered/context, project/entity links, date, provenance and searchable text/features so future retrieval can reconstruct intent.",
+      "maturity": "foundational",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0255, SRC-AI-0256.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Every capture should preserve the minimum clues future-you/model needs to understand why it was kept.",
+      "use_when": [
+        "Browser capture",
+        "Research sources",
+        "Shopping wants",
+        "Documents"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "successful refinding",
+        "time-to-refind",
+        "duplicate search"
+      ],
+      "risks": [
+        "Metadata capture overhead"
+      ],
+      "cost_profile": "low-medium",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0255",
+        "SRC-AI-0256"
+      ],
+      "keywords": [
+        "refinding",
+        "context"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0336",
+      "name": "Avoid duplicate filing through reference/link views",
+      "aliases": [],
+      "category": "personal_information_management",
+      "layer": [
+        "human_system",
+        "knowledge"
+      ],
+      "goal": "Prevent multiple copies becoming conflicting sources of truth",
+      "mechanism": "Keep one canonical object and expose it through tags/projects/people/views/links instead of copying content into several folders/stores.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0255.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Matches user's stable-ID/metadata-driven repository design.",
+      "use_when": [
+        "Cross-domain project artifacts"
+      ],
+      "avoid_when": [
+        "Privacy boundary requires physically separate copy with explicit derivation"
+      ],
+      "required_evals": [
+        "duplicate count",
+        "conflict rate"
+      ],
+      "risks": [
+        "Canonical object may become unavailable to some domains"
+      ],
+      "cost_profile": "low",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0255"
+      ],
+      "keywords": [
+        "single_source",
+        "views"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0337",
+      "name": "Automatic resurfacing by context",
+      "aliases": [],
+      "category": "personal_information_management",
+      "layer": [
+        "human_system",
+        "retrieval",
+        "proactivity"
+      ],
+      "goal": "Reduce reliance on remembering that stored information exists",
+      "mechanism": "When project/person/place/task becomes active, retrieve a small ranked set of relevant prior items and unfinished commitments.",
+      "maturity": "production_pattern",
+      "evidence": {
+        "strength": "medium_high",
+        "summary": "Evidence basis: SRC-AI-0255.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Prefer quiet side panel/packet over interruption unless actionable/urgent.",
+      "use_when": [
+        "Project resumption",
+        "Meetings",
+        "Shopping"
+      ],
+      "avoid_when": [
+        "Context signal weak; resurfacing would distract"
+      ],
+      "required_evals": [
+        "useful resurfacing precision",
+        "missed relevant items"
+      ],
+      "risks": [
+        "Creepy/noisy resurfacing",
+        "privacy scope errors"
+      ],
+      "cost_profile": "retrieval cost",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0255"
+      ],
+      "keywords": [
+        "resurfacing",
+        "context"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0338",
+      "name": "Forget support intentionally for low-stakes automation training",
+      "aliases": [],
+      "category": "human_memory",
+      "layer": [
+        "human_system",
+        "learning"
+      ],
+      "goal": "Avoid total dependence on external memory for abilities the user wants to retain",
+      "mechanism": "For chosen domains, occasionally encourage unaided recall or keep reminders as backup rather than primary cue, because expected reliable reminders can reduce internal maintenance/encoding.",
+      "maturity": "promising_research",
+      "evidence": {
+        "strength": "medium",
+        "summary": "Evidence basis: SRC-AI-0245, SRC-AI-0246, SRC-AI-0239.",
+        "limitations": []
+      },
+      "agent_os_fit": "conditional",
+      "agent_os_pattern": "Off by default for obligations; opt-in for learning/skill retention.",
+      "use_when": [
+        "Learning",
+        "Knowledge user explicitly wants to remember"
+      ],
+      "avoid_when": [
+        "Bills/deadlines/critical obligations where forgetting has real cost"
+      ],
+      "required_evals": [
+        "unaided recall",
+        "completion",
+        "user preference"
+      ],
+      "risks": [
+        "Patronizing friction",
+        "unnecessary failure"
+      ],
+      "cost_profile": "attention cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0245",
+        "SRC-AI-0246",
+        "SRC-AI-0239"
+      ],
+      "keywords": [
+        "memory_dependency",
+        "learning"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0339",
+      "name": "Critical-intention redundancy",
+      "aliases": [],
+      "category": "prospective_memory",
+      "layer": [
+        "human_system",
+        "reliability"
+      ],
+      "goal": "Prevent one memory/reminder failure from causing high-consequence miss",
+      "mechanism": "Use at least two independent cues/channels or an escalation chain for rare high-impact commitments.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0246, SRC-AI-0300.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Risk-based only; track common-cause dependence between channels.",
+      "use_when": [
+        "Hard deadlines",
+        "Travel",
+        "Critical bills/appointments"
+      ],
+      "avoid_when": [
+        "Low-impact routine task"
+      ],
+      "required_evals": [
+        "missed critical events",
+        "duplicate-notification burden"
+      ],
+      "risks": [
+        "Alert fatigue if overused",
+        "channels may share common cause"
+      ],
+      "cost_profile": "small recurring cost",
+      "complexity": "medium",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0246",
+        "SRC-AI-0300"
+      ],
+      "keywords": [
+        "redundancy",
+        "critical_reminder"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "AIT-0340",
+      "name": "Reminder completion reconciliation",
+      "aliases": [],
+      "category": "prospective_memory",
+      "layer": [
+        "human_system",
+        "automation"
+      ],
+      "goal": "Stop reminders once the underlying obligation is actually resolved",
+      "mechanism": "Link reminder/task to observable completion evidence from calendar/email/file/workflow/user action and cancel/suppress future alerts.",
+      "maturity": "engineering_pattern",
+      "evidence": {
+        "strength": "high",
+        "summary": "Evidence basis: SRC-AI-0247.",
+        "limitations": []
+      },
+      "agent_os_fit": "core",
+      "agent_os_pattern": "Use explicit/evidenced completion; uncertain completion prompts candidate/review rather than cancellation.",
+      "use_when": [
+        "Follow-ups",
+        "Deliveries",
+        "Applications",
+        "Recurring admin"
+      ],
+      "avoid_when": [],
+      "required_evals": [
+        "stale reminder rate",
+        "manual dismissals"
+      ],
+      "risks": [
+        "False completion inference can silence needed reminder"
+      ],
+      "cost_profile": "integration work; reduces noise",
+      "complexity": "high",
+      "dependencies": [],
+      "sources": [
+        "SRC-AI-0247"
+      ],
+      "keywords": [
+        "reconciliation",
+        "reminders"
+      ],
+      "notes": ""
+    }
+  ]
+}
