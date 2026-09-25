@@ -1,0 +1,84 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "champollion",
+  "tool": "Champollion",
+  "source": "https://github.com/Orvid/Champollion",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "pex-decompile",
+    "pex-assembly",
+    "pex-inspect",
+    "batch-decompile",
+    "threaded-decompile"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "Champollion.exe",
+    "arguments_template": [
+      "{input}",
+      "-p",
+      "{output_dir}"
+    ],
+    "transport": "CLI",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "PEX file or directory"
+  ],
+  "outputs": [
+    "PSC approximation",
+    "Papyrus assembly"
+  ],
+  "logs": [
+    "stdout",
+    "stderr"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 1,
+    "cleanup_outputs_first": true
+  },
+  "coverage": {
+    "description": "CLI PEX-to-PSC decompiler intended to produce functionally equivalent source and optional assembly.",
+    "known_gaps": [
+      "decompiled PSC is not guaranteed to reproduce original source formatting/comments/names exactly",
+      "successful decompilation does not prove original source/API intent"
+    ],
+    "denominator_probe": "PEX files discovered vs PSC/assembly outputs."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Decompiler output only; never treat recovered source as canonical without provenance."
+  },
+  "verification": {
+    "independent_validators": [
+      "caprica",
+      "official-papyruscompiler",
+      "pex-header-inspection"
+    ],
+    "version_probe": "binary/release version",
+    "output_readback": "Recompile selected fixtures and compare functional/assembly-level behavior."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Excellent for auditing bundled PEX and stale-source detection."
+  },
+  "evidence": {
+    "source_url": "https://github.com/Orvid/Champollion",
+    "verified_date": "2026-09-24",
+    "notes": "Upstream documents CLI batch/threaded decompilation and optional assembly output."
+  }
+}
