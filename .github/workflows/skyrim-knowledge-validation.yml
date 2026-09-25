@@ -25,5 +25,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Validate Skyrim knowledge structure
+      - name: Install schema validator
+        run: python -m pip install --disable-pip-version-check jsonschema
+      - name: Validate Skyrim knowledge and automation schemas
         run: python tools/knowledge/validate_skyrim_knowledge.py
