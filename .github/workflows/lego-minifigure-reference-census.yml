@@ -8,7 +8,7 @@ on:
       - '.github/workflows/lego-minifigure-reference-census.yml'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   census:
@@ -124,3 +124,22 @@ jobs:
           path: ${{ runner.temp }}/lego-census-report/
           retention-days: 7
           if-no-files-found: error
+
+
+      - name: Commit compact census snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          dest="knowledge/libraries/lego-minifigure-customs/data"
+          mkdir -p "$dest"
+          cp "$RUNNER_TEMP/lego-census-report/census_snapshot.json" "$dest/physical-census-latest.json"
+          cp "$RUNNER_TEMP/rebrickable/source_hashes.sha256" "$dest/physical-census-source-hashes.sha256"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$dest/physical-census-latest.json" "$dest/physical-census-source-hashes.sha256"
+          if git diff --cached --quiet; then
+            echo "No census changes to commit."
+          else
+            git commit -m "knowledge: refresh physical minifigure census snapshot"
+            git push
+          fi
