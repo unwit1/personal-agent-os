@@ -252,5 +252,11 @@
   "web_game_registry": "data/web-game-preservation-source-registry.json",
   "visual_normalization_registry": "data/visual-normalization-tool-registry.json",
   "training_curriculum": "training-and-retrieval-curriculum.md",
-  "visual_feature_schema": "data/visual-feature-schema.json"
+  "visual_feature_schema": "data/visual-feature-schema.json",
+  "github_actions": {
+    "physical_census_workflow": ".github/workflows/lego-minifigure-reference-census.yml",
+    "trigger": "manual workflow_dispatch",
+    "output": "7-day compact report artifact containing counts and source hashes",
+    "note": "No scheduled trigger is enabled to avoid consuming runner quota automatically."
+  }
 }
