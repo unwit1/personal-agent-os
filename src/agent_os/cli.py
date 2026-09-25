@@ -62,6 +62,7 @@ from .telemetry import LocalTelemetryStore
 from .routing import install as install_routing
 from .routing import status as routing_status
 from .validation import validate
+from .watching import add_target as watch_add_target, list_targets as watch_list_targets, remove_target as watch_remove_target
 from .workflows import (
     complete_stage,
     list_runs,
@@ -216,6 +217,12 @@ def parser() -> argparse.ArgumentParser:
     work_review_submit.add_argument("--verdict", choices=("approved", "changes_requested", "blocked"), required=True)
     work_review_submit.add_argument("--validation", required=True)
     work_review_submit.add_argument("--finding", action="append", default=[])
+    watch_add = commands.add_parser("watch-add", help="add or update a proactive watch target from JSON")
+    watch_add.add_argument("target_file")
+    watch_list = commands.add_parser("watch-list", help="list proactive watch targets")
+    watch_list.add_argument("--status")
+    watch_remove = commands.add_parser("watch-remove", help="remove a proactive watch target")
+    watch_remove.add_argument("watch_id")
     commands.add_parser("validate")
     telemetry_report = commands.add_parser("telemetry-report")
     telemetry_report.add_argument("--path")
@@ -471,6 +478,12 @@ def main(argv: list[str] | None = None) -> int:
             _print(list_reviews(args.project, args.status))
         elif args.command == "work-review-submit":
             _print(submit_review(args.review_id, args.agent, args.verdict, args.validation, args.finding))
+        elif args.command == "watch-add":
+            _print(watch_add_target(_load_object(args.target_file)))
+        elif args.command == "watch-list":
+            _print({"targets": watch_list_targets(status=args.status)})
+        elif args.command == "watch-remove":
+            _print({"removed": watch_remove_target(args.watch_id), "watch_id": args.watch_id})
         elif args.command == "validate":
             result = validate()
             _print(result)
