@@ -311,11 +311,13 @@
       "provider_id": "oar",
       "kind": "framework",
       "validation_adapters": [
+        "oar",
         "pandora",
         "devbench"
       ],
-      "notes": "Open Animation Replacer runtime dependency and condition engine.",
-      "source": "https://github.com/ersh1/OpenAnimationReplacer"
+      "notes": "Open Animation Replacer runtime dependency with source-pinned typed author-config generation; condition-specific argument typing and runtime selection proof remain incremental validation work.",
+      "source": "https://github.com/ersh1/OpenAnimationReplacer",
+      "adapter_id": "oar"
     },
     {
       "provider_id": "obody",
