@@ -43,7 +43,35 @@
       }
     },
     "diff": {
-      "$ref": "skyrim-semantic-plugin-diff-v1.schema.json"
+      "type": "object",
+      "required": [
+        "schema_version",
+        "verdict",
+        "comparable",
+        "coverage",
+        "summary"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "skyrim-semantic-plugin-diff-v1"
+        },
+        "verdict": {
+          "enum": [
+            "equivalent",
+            "different",
+            "not-comparable"
+          ]
+        },
+        "comparable": {
+          "type": "boolean"
+        },
+        "coverage": {
+          "type": "object"
+        },
+        "summary": {
+          "type": "object"
+        }
+      }
     },
     "issues": {
       "type": "array",
