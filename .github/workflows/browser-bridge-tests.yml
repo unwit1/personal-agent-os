@@ -6,6 +6,10 @@ on:
     paths:
       - "src/agent_os/browser_bridge.py"
       - "src/agent_os/browser_bridge_server.py"
+      - "src/agent_os/creator_profiles.py"
+      - "src/agent_os/watching.py"
+      - "src/agent_os/creator_profiles.py"
+      - "src/agent_os/watching.py"
       - "src/agent_os/cli.py"
       - "tests/test_browser_bridge.py"
       - ".github/workflows/browser-bridge-tests.yml"
