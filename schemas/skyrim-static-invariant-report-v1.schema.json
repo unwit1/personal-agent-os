@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-static-invariant-report-v1.schema.json",
+  "title": "Skyrim Static Invariant Report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "analyzer",
+    "status",
+    "scope",
+    "findings",
+    "coverage",
+    "issues"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-static-invariant-report-v1"
+    },
+    "analyzer": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "fail",
+        "needs-review"
+      ]
+    },
+    "scope": {
+      "type": "object"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "rule_id",
+          "severity",
+          "message"
+        ],
+        "properties": {
+          "rule_id": {
+            "type": "string"
+          },
+          "severity": {
+            "enum": [
+              "BLOCKER",
+              "ERROR",
+              "WARNING",
+              "INFO"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "record": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "field": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidence": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "coverage": {
+      "type": "object"
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
