@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-toolchain-lock-v1.schema.json",
+  "title": "Skyrim Mod Factory Toolchain Lock v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project_id",
+    "runtime",
+    "adapters"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-toolchain-lock-v1"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "game_runtime": {
+          "type": "string"
+        },
+        "distribution": {
+          "enum": [
+            "steam",
+            "gog",
+            "vr",
+            "other"
+          ]
+        },
+        "skse_version": {
+          "type": "string"
+        },
+        "address_library_version": {
+          "type": "string"
+        },
+        "creation_kit_version": {
+          "type": "string"
+        },
+        "commonlib_version": {
+          "type": "string"
+        },
+        "game_root": {
+          "type": "string"
+        },
+        "data_root": {
+          "type": "string"
+        },
+        "mo2_instance": {
+          "type": "string"
+        },
+        "mo2_profile": {
+          "type": "string"
+        }
+      }
+    },
+    "host": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Pinned host build tools such as python, dotnet, cmake, msvc, ninja."
+    },
+    "adapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "adapter_id"
+        ],
+        "properties": {
+          "adapter_id": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean",
+            "default": false
+          },
+          "kind": {
+            "enum": [
+              "executable",
+              "service",
+              "library",
+              "editor",
+              "manual"
+            ]
+          },
+          "executable": {
+            "type": "string"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[A-Fa-f0-9]{64}$"
+          },
+          "source_ref": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "generated_output_roots": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  }
+}
