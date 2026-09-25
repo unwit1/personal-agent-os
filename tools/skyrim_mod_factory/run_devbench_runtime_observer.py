@@ -38,7 +38,7 @@ MISSING=object()
 def now()->str:
     return dt.datetime.now(dt.timezone.utc).isoformat()
 
-def load(path:Path)->Any:
+def load(path:Path)->dict[str,Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 def schema_errors(value:dict[str,Any],name:str)->list[str]:
@@ -60,7 +60,7 @@ def http_json(
     payload:dict[str,Any]|None=None,
     *,
     timeout_seconds:float=10.0,
-)->dict[str,Any]:
+)->Any:
     data=None
     headers={"Accept":"application/json"}
     if payload is not None:
