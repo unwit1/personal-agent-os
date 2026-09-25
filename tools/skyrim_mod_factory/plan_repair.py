@@ -13,6 +13,10 @@ from pathlib import Path
 from typing import Any
 
 
+HERE = Path(__file__).resolve().parent
+REPO = HERE.parents[1]
+DEFAULT_HANDLER_REGISTRY = REPO / "knowledge/libraries/skyrim-modding/automation/repair-handler-registry.json"
+
 MODE_MAP = {
     "automatic": "automatic",
     "proposal": "proposal",
@@ -39,11 +43,6 @@ LAYER_VALIDATORS = {
     "save": ["fallrimtools", "runtime-test"],
 }
 
-AUTO_REPAIR_ALLOWLIST = {
-    "SKYRIM-GENERATED-OUTPUT-STALE",
-    "SKYRIM-VALIDATOR-COVERAGE-GAP",
-}
-
 
 def load(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -54,6 +53,14 @@ def index_rules(pack: dict[str, Any]) -> dict[str, dict[str, Any]]:
         r["rule_id"]: r
         for r in pack.get("rules", [])
         if isinstance(r, dict) and r.get("rule_id")
+    }
+
+
+def index_handlers(registry: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {
+        h["rule_id"]: h
+        for h in registry.get("handlers", [])
+        if isinstance(h, dict) and h.get("rule_id")
     }
 
 
@@ -74,7 +81,10 @@ def choose_rule_ids(bug: dict[str, Any], explicit: list[str]) -> list[str]:
     return out
 
 
-def derive_mode(rules: list[dict[str, Any]]) -> tuple[str, str, bool, bool]:
+def derive_mode(
+    rules: list[dict[str, Any]],
+    handlers_by_rule: dict[str, dict[str, Any]],
+) -> tuple[str, str, bool, bool]:
     if not rules:
         return (
             "proposal",
@@ -91,18 +101,47 @@ def derive_mode(rules: list[dict[str, Any]]) -> tuple[str, str, bool, bool]:
     if "proposal" in modes:
         return "proposal", "Matched rule policy requires review before mutation.", True, True
 
-    ids = {r["rule_id"] for r in rules}
-    if not ids.issubset(AUTO_REPAIR_ALLOWLIST):
+    missing = [
+        r["rule_id"] for r in rules
+        if not handlers_by_rule.get(r["rule_id"])
+        or not handlers_by_rule[r["rule_id"]].get("automatic", False)
+    ]
+    if missing:
         return (
             "proposal",
-            "Rule marks fix automatic, but the rule is not yet on the Mod Factory automatic-repair allowlist.",
+            "Rule marks fix automatic, but no registered executable automatic repair handler exists for: "
+            + ", ".join(missing),
             True,
             True,
         )
-    has_post = all((r.get("fix_policy") or {}).get("postconditions") for r in rules)
-    if not has_post:
-        return "proposal", "Automatic repair lacks explicit postconditions.", True, False
-    return "automatic", "All matched rules are allowlisted automatic fixes with explicit postconditions.", True, True
+
+    unsafe = [
+        r["rule_id"] for r in rules
+        if not handlers_by_rule[r["rule_id"]].get("reversible", False)
+        or not handlers_by_rule[r["rule_id"]].get("checkpoint_required", False)
+    ]
+    if unsafe:
+        return (
+            "proposal",
+            "Registered repair handler is not both reversible and checkpointed for: "
+            + ", ".join(unsafe),
+            False,
+            False,
+        )
+
+    has_rule_post = all((r.get("fix_policy") or {}).get("postconditions") for r in rules)
+    has_handler_post = all(
+        handlers_by_rule[r["rule_id"]].get("postconditions")
+        for r in rules
+    )
+    if not has_rule_post or not has_handler_post:
+        return "proposal", "Automatic repair lacks explicit rule/handler postconditions.", True, False
+    return (
+        "automatic",
+        "All matched rules have registered reversible automatic handlers with checkpoints and explicit postconditions.",
+        True,
+        True,
+    )
 
 
 def validators_for(rules: list[dict[str, Any]], layer: str | None) -> list[str]:
@@ -128,15 +167,19 @@ def plan(
     pack: dict[str, Any],
     *,
     explicit_rule_ids: list[str] | None = None,
+    handler_registry: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     explicit_rule_ids = explicit_rule_ids or []
+    if handler_registry is None:
+        handler_registry = load(DEFAULT_HANDLER_REGISTRY) if DEFAULT_HANDLER_REGISTRY.exists() else {"handlers": []}
+    handlers_by_rule = index_handlers(handler_registry)
     rules_by_id = index_rules(pack)
     matched_ids = choose_rule_ids(bug, explicit_rule_ids)
     matched = [rules_by_id[rid] for rid in matched_ids if rid in rules_by_id]
     unknown_ids = [rid for rid in matched_ids if rid not in rules_by_id]
 
     layer = bug.get("layer") or (matched[0].get("scope", [None])[0] if matched else "unknown")
-    mode, reason, reversible, provable = derive_mode(matched)
+    mode, reason, reversible, provable = derive_mode(matched, handlers_by_rule)
 
     if unknown_ids:
         mode = "proposal"
@@ -197,17 +240,26 @@ def plan(
 
     repair_actions = []
     if algorithms and mode != "forbidden":
-        for i, algo in enumerate(algorithms, 1):
-            repair_actions.append({
-                "id": f"repair-{i}",
+        action_index = 0
+        for rule in matched:
+            algo = (rule.get("fix_policy") or {}).get("algorithm")
+            if not algo:
+                continue
+            action_index += 1
+            handler = handlers_by_rule.get(rule["rule_id"])
+            action = {
+                "id": f"repair-{action_index}",
                 "action": algo,
                 "adapter": validators_for(matched, layer)[0],
                 "mutates": True,
                 "scope": [layer] if layer else ["unknown"],
-                "depends_on": [] if i == 1 else [f"repair-{i-1}"],
+                "depends_on": [] if action_index == 1 else [f"repair-{action_index-1}"],
                 "safe_retry": mode == "automatic",
                 "expected_outputs": [],
-            })
+            }
+            if handler:
+                action["handler_id"] = handler["handler_id"]
+            repair_actions.append(action)
 
     validators = validators_for(matched, layer)
     regression_tests = []
@@ -300,11 +352,17 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("bug", type=Path)
     ap.add_argument("--rule-pack", type=Path, required=True)
+    ap.add_argument("--handler-registry", type=Path, default=DEFAULT_HANDLER_REGISTRY)
     ap.add_argument("--rule-id", action="append", default=[])
     ap.add_argument("--output", type=Path)
     args = ap.parse_args()
 
-    result = plan(load(args.bug), load(args.rule_pack), explicit_rule_ids=args.rule_id)
+    result = plan(
+        load(args.bug),
+        load(args.rule_pack),
+        explicit_rule_ids=args.rule_id,
+        handler_registry=load(args.handler_registry),
+    )
     rendered = json.dumps(result, indent=2) + "\n"
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
