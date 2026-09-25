@@ -38,4 +38,19 @@ jobs:
           python -m pip install -e .
           python -m pip install pytest
       - name: Run browser bridge tests
-        run: python -m pytest -q tests/test_browser_bridge.py
+        id: pytest
+        shell: bash
+        run: |
+          set +e
+          python -m pytest -q tests/test_browser_bridge.py 2>&1 | tee browser-bridge-test-output.txt
+          status=${PIPESTATUS[0]}
+          echo "exit_code=${status}" >> "$GITHUB_OUTPUT"
+          exit "${status}"
+      - name: Upload browser bridge test output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-bridge-test-output
+          path: browser-bridge-test-output.txt
+          if-no-files-found: ignore
+          retention-days: 7
