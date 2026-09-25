@@ -1,0 +1,69 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "skyrimnet",
+  "tool": "SkyrimNet",
+  "source": "https://github.com/MinLL/SkyrimNet-GamePlugin",
+  "targets": [
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "runtime-mcp",
+    "game-data-query",
+    "ai-npc-actions",
+    "prompt-render",
+    "trigger-validate",
+    "action-validate",
+    "live-reload",
+    "memory-query",
+    "world-knowledge",
+    "item-render-image",
+    "console-execute",
+    "papyrus-api",
+    "native-api"
+  ],
+  "invocation": {
+    "mode": "mcp-http",
+    "endpoint": "http://127.0.0.1:8889",
+    "transport": "MCP/local web service inside SkyrimNet",
+    "requires_running_game": true
+  },
+  "coverage": {
+    "tools": 44,
+    "description": "AI-NPC framework and runtime development API/MCP.",
+    "known_gaps": [
+      "best suited when SkyrimNet is a project dependency or target",
+      "not an independent plugin binary validator"
+    ],
+    "denominator_probe": "MCP tool listing + dashboard/API health."
+  },
+  "safety": {
+    "mutation_default": "runtime-only",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": false,
+    "requires_confirmation_for": [
+      "save-persistent runtime actions outside test fixtures"
+    ],
+    "sandbox_or_scope": "Use project/test profile for development actions."
+  },
+  "verification": {
+    "independent_validators": [
+      "static-data-plane",
+      "runtime-readback"
+    ],
+    "version_probe": "SkyrimNet plugin/API version",
+    "output_readback": "MCP query/dashboard after mutation or reload."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "tool_count": 44,
+    "context_cost_notes": "Use for AI-NPC/trigger/prompt/action work; avoid dependency for unrelated mods."
+  },
+  "evidence": {
+    "source_url": "https://github.com/MinLL/SkyrimNet-GamePlugin",
+    "verified_date": "2026-09-24",
+    "notes": "Strong AI-NPC-specific development and runtime context plane."
+  }
+}
