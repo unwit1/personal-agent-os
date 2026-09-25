@@ -95,6 +95,7 @@ pattern_schema = schema("skyrim-implementation-pattern-v1.schema.json")
 runtime_test_schema = schema("skyrim-runtime-test-v1.schema.json")
 project_schema = schema("skyrim-mod-project-v1.schema.json")
 build_report_schema = schema("skyrim-mod-build-report-v1.schema.json")\nvalidation_gate_registry_schema = schema("skyrim-validation-gate-registry-v1.schema.json")
+repair_handler_registry_schema = schema("skyrim-repair-handler-registry-v1.schema.json")
 
 # Adapter manifests.
 adapter_dir = LIB / "automation" / "adapters"
@@ -156,6 +157,18 @@ if isinstance(gate_registry, dict):
     if extra:
         errors.append("validation gate registry has unexpected gates: " + ", ".join(extra))
 
+# Repair handler registry.
+repair_handler_path = LIB / "automation" / "repair-handler-registry.json"
+repair_handlers = load_json(repair_handler_path) if repair_handler_path.exists() else None
+validate(repair_handlers, repair_handler_registry_schema, str(repair_handler_path.relative_to(ROOT)))
+if isinstance(repair_handlers, dict):
+    handler_ids = [x.get("handler_id") for x in repair_handlers.get("handlers", []) if isinstance(x, dict)]
+    handler_rule_ids = [x.get("rule_id") for x in repair_handlers.get("handlers", []) if isinstance(x, dict)]
+    if len(handler_ids) != len(set(handler_ids)):
+        errors.append("repair handler registry contains duplicate handler_id values")
+    if len(handler_rule_ids) != len(set(handler_rule_ids)):
+        errors.append("repair handler registry contains multiple automatic handlers for one analyzer rule")
+
 # Analyzer rule pack: validate wrapper fields directly, then every embedded rule.
 rule_pack_path = LIB / "automation" / "analyzer-rule-pack-core.json"
 rule_pack = load_json(rule_pack_path) if rule_pack_path.exists() else None
@@ -172,6 +185,21 @@ if isinstance(rule_pack, dict):
             rule_ids.add(rid)
 else:
     errors.append("analyzer rule pack is missing or invalid")
+
+# Repair handlers may only authorize rules present in the canonical analyzer pack.
+if isinstance(repair_handlers, dict) and isinstance(rule_pack, dict):
+    canonical_rule_ids = {
+        x.get("rule_id") for x in rule_pack.get("rules", [])
+        if isinstance(x, dict) and x.get("rule_id")
+    }
+    for handler in repair_handlers.get("handlers", []):
+        if not isinstance(handler, dict):
+            continue
+        if handler.get("rule_id") not in canonical_rule_ids:
+            errors.append(
+                f"repair handler {handler.get('handler_id')} references unregistered analyzer rule "
+                f"{handler.get('rule_id')}"
+            )
 
 # Legacy analyzer mirror must exactly follow the canonical pack.
 legacy_rule_path = LIB / "automation" / "analyzers" / "core-rules.json"
