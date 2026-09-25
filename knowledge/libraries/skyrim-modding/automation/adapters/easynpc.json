@@ -1,0 +1,73 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "easynpc",
+  "tool": "EasyNPC Next",
+  "tool_version": "1.3.0.0",
+  "source": "https://www.nexusmods.com/skyrimspecialedition/mods/187138",
+  "targets": [
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "npc-replacer-select",
+    "npc-face-merge",
+    "facegen-copy",
+    "npc-verification-report",
+    "broken-facegen-detect",
+    "appearance-overwrite-detect"
+  ],
+  "invocation": {
+    "mode": "gui-supervised",
+    "executable": "EasyNPC.exe",
+    "transport": "desktop GUI with saved profile/build output",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "active NPC/load-order data",
+    "appearance mods",
+    "saved EasyNPC profile"
+  ],
+  "outputs": [
+    "merged NPC plugin",
+    "FaceGen assets",
+    "verification report"
+  ],
+  "logs": [
+    "build/verification report"
+  ],
+  "coverage": {
+    "description": "Per-NPC appearance-source selection and consolidated plugin/FaceGen build with current post-build verification.",
+    "known_gaps": [
+      "selection is visually/semantically user/project driven",
+      "no stable typed headless API has been established for Mod Factory",
+      "custom headpart dependencies still require asset/master closure validation"
+    ],
+    "denominator_probe": "NPCs analyzed vs selected/built/verified; broken/overridden face counts."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Dedicated EasyNPC output mod; original appearance mods remain source inputs."
+  },
+  "verification": {
+    "independent_validators": [
+      "xedit",
+      "pynifly",
+      "npc-runtime-screenshot"
+    ],
+    "version_probe": "EasyNPC Next UI/file version",
+    "output_readback": "Post-Build Verify + xEdit NPC record/FaceGen closure."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Agent can precompute candidate source choices and validate output; final face preference remains project/user aesthetic intent."
+  },
+  "evidence": {
+    "source_url": "https://www.nexusmods.com/skyrimspecialedition/mods/187138",
+    "verified_date": "2026-09-24",
+    "notes": "Version 1.3.0.0; current changelog says verification reports overriding merged faces and detects invisible heads/exploding hair."
+  }
+}
