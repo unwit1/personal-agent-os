@@ -9,7 +9,7 @@ import secrets
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 
 from .browser_bridge import BridgeStore
 from .creator_profiles import follow_status as creator_follow_status
@@ -68,7 +68,8 @@ def make_handler(store: BridgeStore, token: str, allowed_hosts: set[str]):
             if not self._host_ok():
                 self._send(HTTPStatus.FORBIDDEN, {"error": "unexpected host"})
                 return
-            path = urlparse(self.path).path
+            parsed = urlparse(self.path)
+            path = parsed.path
             if path == "/health":
                 self._send(HTTPStatus.OK, {"ok": True, "service": "agent-os-browser-bridge"})
                 return
@@ -77,6 +78,30 @@ def make_handler(store: BridgeStore, token: str, allowed_hosts: set[str]):
                 return
             if path == "/api/v1/browser/stats":
                 self._send(HTTPStatus.OK, store.stats())
+                return
+            if path == "/api/v1/browser/sessions":
+                self._send(HTTPStatus.OK, {"sessions": store.list_sessions()})
+                return
+            if path == "/api/v1/browser/commands":
+                query = parse_qs(parsed.query)
+                session_id = str((query.get("session_id") or [""])[0]).strip()
+                if not session_id:
+                    self._send(HTTPStatus.BAD_REQUEST, {"error": "session_id is required"})
+                    return
+                self._send(
+                    HTTPStatus.OK,
+                    {
+                        "schema": "agent-os/browser-command-batch/v1",
+                        "commands": store.claim_commands(session_id),
+                    },
+                )
+                return
+            if path.startswith("/api/v1/browser/commands/"):
+                command_id = path.rsplit("/", 1)[-1]
+                try:
+                    self._send(HTTPStatus.OK, store.command_status(command_id))
+                except KeyError as exc:
+                    self._send(HTTPStatus.NOT_FOUND, {"error": str(exc)})
                 return
             self._send(HTTPStatus.NOT_FOUND, {"error": "not found"})
 
@@ -101,6 +126,17 @@ def make_handler(store: BridgeStore, token: str, allowed_hosts: set[str]):
                     if not isinstance(events, list):
                         raise ValueError("events must be a list")
                     result = store.ingest(events)
+                elif path in {"/api/v1/browser/session", "/api/v1/browser/session/heartbeat"}:
+                    result = store.register_session(body)
+                elif path == "/api/v1/browser/command-result":
+                    command_id = str(body.get("command_id") or "").strip()
+                    state = str(body.get("state") or "").strip()
+                    result = store.complete_command(
+                        command_id,
+                        state=state,
+                        result=body.get("result"),
+                        error=str(body.get("error") or "") or None,
+                    )
                 elif path == "/api/v1/browser/follow/status":
                     result = {
                         "schema": "agent-os/follow-status/v1",
@@ -223,6 +259,9 @@ def serve(host: str = DEFAULT_HOST, port: int = DEFAULT_PORT) -> int:
         "endpoint": f"http://{host}:{actual}/api/v1/browser/batch",
         "capture_endpoint": f"http://{host}:{actual}/api/v1/browser/capture",
         "follow_status_endpoint": f"http://{host}:{actual}/api/v1/browser/follow/status",
+        "session_endpoint": f"http://{host}:{actual}/api/v1/browser/session",
+        "command_endpoint": f"http://{host}:{actual}/api/v1/browser/commands",
+        "command_result_endpoint": f"http://{host}:{actual}/api/v1/browser/command-result",
         "token": token,
         "database": str(store.path),
     }), flush=True)
