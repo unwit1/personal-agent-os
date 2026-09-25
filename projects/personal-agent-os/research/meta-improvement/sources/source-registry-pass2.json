@@ -544,14 +544,14 @@
       "id": "SRC-AI-0088",
       "title": "LightMem",
       "type": "research",
-      "url": "https://aclanthology.org/2026.acl-long.XXXXX/",
+      "url": "https://aclanthology.org/2026.acl-long.588/",
       "topics": [
         "memory",
         "efficiency"
       ],
-      "evidence_notes": "Recent memory architecture separates short/mid/long-term operations and emphasizes offline consolidation/two-stage retrieval.",
-      "limits": "Catalog URL needs verification before citation; retain as research lead only.",
-      "status": "needs_url_verification"
+      "evidence_notes": "LightMem separates STM/MTM/LTM, online retrieval from offline consolidation, and reports efficiency plus LoCoMo gains.",
+      "limits": "Recent 2026 paper; benchmark/model dependence still needs Agent OS replication.",
+      "status": "verified_or_primary_lead"
     },
     {
       "id": "SRC-AI-0089",
@@ -1328,6 +1328,84 @@
       ],
       "evidence_notes": "Stateless/cacheable core direction and extension framework including tasks.",
       "limits": "Protocol evolves rapidly.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0148",
+      "title": "Self-Instruct: Aligning Language Models with Self-Generated Instructions",
+      "type": "research",
+      "url": "https://aclanthology.org/2023.acl-long.754/",
+      "topics": [
+        "synthetic_data",
+        "instruction_tuning"
+      ],
+      "evidence_notes": "Generates, filters, and fine-tunes on synthetic instructions; original work reported substantial novel-task instruction-following gains.",
+      "limits": "Synthetic errors and self-distribution bias require filtering and real/held-out evaluation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0149",
+      "title": "STaR: Self-Taught Reasoner",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2203.14465",
+      "topics": [
+        "reasoning",
+        "self_training"
+      ],
+      "evidence_notes": "Iteratively generates rationales, filters by correct answers, and fine-tunes to bootstrap reasoning.",
+      "limits": "Requires trustworthy answer oracle; generated rationales may be spurious.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0150",
+      "title": "Quiet-STaR",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2403.09629",
+      "topics": [
+        "reasoning",
+        "training"
+      ],
+      "evidence_notes": "Trains internal rationales across arbitrary text and reports improvements on difficult-token prediction and reasoning benchmarks.",
+      "limits": "Foundation-model training research; high compute and limited direct Agent OS applicability.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0151",
+      "title": "Switch Transformers",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2101.03961",
+      "topics": [
+        "mixture_of_experts",
+        "scaling"
+      ],
+      "evidence_notes": "Sparse top-1 expert routing increased parameter capacity with lower active compute and reported training speedups.",
+      "limits": "Model architecture research with communication/training complexity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0152",
+      "title": "Sequence-Level Knowledge Distillation",
+      "type": "research",
+      "url": "https://arxiv.org/abs/1606.07947",
+      "topics": [
+        "distillation",
+        "model_compression"
+      ],
+      "evidence_notes": "Sequence-level teacher outputs train smaller/faster student models; foundational distillation reference for generative models.",
+      "limits": "Original domain was NMT; modern LLM transfer needs task-specific evaluation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0153",
+      "title": "Self-Play Fine-Tuning (SPIN)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2401.01335",
+      "topics": [
+        "self_training",
+        "alignment"
+      ],
+      "evidence_notes": "Iterative self-play contrasts model-generated outputs with human demonstrations to improve the policy without additional human labels.",
+      "limits": "Self-generated training loops can amplify bias or narrow distributions without external anchors.",
       "status": "verified_or_primary_lead"
     }
   ]
