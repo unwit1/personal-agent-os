@@ -46,12 +46,23 @@ class RepairPlanTests(unittest.TestCase):
         self.assertTrue(p["policy"]["postconditions_provable"])
         self.assertEqual(p["repair"]["selected_hypothesis"],"h1")
         self.assertTrue(p["rollback"]["checkpoint_required"])
+        self.assertEqual(
+            p["repair"]["actions"][0]["handler_id"],
+            "generated-output.invalidate-and-regenerate",
+        )
 
     def test_non_allowlisted_automatic_rule_is_downgraded(self):
         rid="SKYRIM-TEST-AUTOMATIC"
         p=MOD.plan(bug(rid),{"rules":[rule(rid,"automatic")]})
         self.assertEqual(p["policy"]["mode"],"proposal")
-        self.assertIn("allowlist",p["policy"]["reason"])
+        self.assertIn("registered executable",p["policy"]["reason"])
+
+    def test_automatic_rule_without_handler_is_proposal_only(self):
+        rid="SKYRIM-VALIDATOR-COVERAGE-GAP"
+        p=MOD.plan(bug(rid),{"rules":[rule(rid,"automatic",scope=["validation"])]})
+        self.assertEqual(p["policy"]["mode"],"proposal")
+        self.assertIn("registered executable",p["policy"]["reason"])
+        self.assertNotIn("handler_id",p["repair"]["actions"][0])
 
     def test_proposal_rule_stays_proposal(self):
         rid="SKYRIM-PLUGIN-UNRESOLVED-FORMLINK"
