@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     env:
-      OUT: ${{ runner.temp }}/lego-training-ingestion
+      OUT: /tmp/lego-training-ingestion
       DEST: knowledge/libraries/lego-minifigure-customs/data/bulk-ingestion
 
     steps:
@@ -141,8 +141,16 @@ jobs:
             git clone --depth 1 "${repos[$id]}" "$src/repo"
             rc=$?
             if [ "$rc" = 0 ]; then
-              python tools/knowledge/inventory_training_source_tree.py                 --source-id "$id" --source-url "${repos[$id]}"                 --root "$src/repo" --output-dir "$src/output"
+              python tools/knowledge/inventory_training_source_tree.py --source-id "$id" --source-url "${repos[$id]}" --root "$src/repo" --output-dir "$src/output"
               rc=$?
+              if [ "$rc" = 0 ] && [ "$id" = "rioforce_lego_textures" ]; then
+                python tools/knowledge/index_rioforce_lego_textures.py --root "$src/repo" --output "$src/output/rioforce_semantic_index.jsonl"
+                rc=$?
+              fi
+              if [ "$rc" = 0 ] && [ "$id" = "minifig_svg_decals" ]; then
+                python tools/knowledge/index_minifig_svg_decals.py --root "$src/repo" --output "$src/output/decal_semantic_index.jsonl"
+                rc=$?
+              fi
             fi
             ID="$id" RC="$rc" SRC="$src" python - <<'PY'
           import json,os
@@ -160,6 +168,9 @@ jobs:
                   "extensions":summary.get("extensions"),"top_level_counts":summary.get("top_level_counts"),
                   "svg_files_profiled":summary.get("svg_files_profiled"),
                   "raster_files_profiled":summary.get("raster_files_profiled")}
+          semantic = src/"output"/("rioforce_semantic_index.jsonl" if id=="rioforce_lego_textures" else "decal_semantic_index.jsonl")
+          if semantic.exists():
+              status["semantic_index_records"]=sum(1 for line in semantic.open(encoding="utf-8") if line.strip())
           Path(os.environ["OUT"],f"status/{id}.json").write_text(json.dumps(status,indent=2))
           Path(os.environ["DEST"],f"{id}-inventory-latest.json").write_text(json.dumps(status,indent=2))
           PY
@@ -294,7 +305,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: lego-training-data-bulk-ingestion
-          path: ${{ runner.temp }}/lego-training-ingestion/
+          path: /tmp/lego-training-ingestion/
           retention-days: 14
           if-no-files-found: error
 
