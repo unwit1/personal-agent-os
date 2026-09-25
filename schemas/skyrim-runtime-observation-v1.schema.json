@@ -1,0 +1,224 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-runtime-observation-v1.schema.json",
+  "title": "Skyrim Runtime Observation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "session_token",
+    "observer_id",
+    "captured_at",
+    "steps",
+    "assertions",
+    "gates",
+    "artifacts"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-runtime-observation-v1"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "session_token": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "observer_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._-]+$"
+    },
+    "observer_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "transport": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "status",
+          "issues"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "passed",
+              "failed",
+              "needs-review",
+              "skipped"
+            ]
+          },
+          "issues": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "assertions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "status",
+          "observed",
+          "issues",
+          "evidence"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "needs-review",
+              "not-applicable"
+            ]
+          },
+          "observed": {},
+          "issues": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "gate",
+          "status",
+          "evidence",
+          "issues"
+        ],
+        "properties": {
+          "gate": {
+            "enum": [
+              "G19",
+              "G20",
+              "G21"
+            ]
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "warning",
+              "needs-review",
+              "not-applicable"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "issues": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "enum": [
+                    "pass",
+                    "fail",
+                    "warning"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "evidence": {
+                  "minItems": 1
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "kind",
+          "path"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
