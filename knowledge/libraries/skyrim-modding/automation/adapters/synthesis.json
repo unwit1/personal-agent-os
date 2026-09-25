@@ -1,0 +1,104 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "synthesis",
+  "tool": "Synthesis",
+  "tool_version": "0.36.6",
+  "source": "https://github.com/Mutagen-Modding/Synthesis",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "patcher-pipeline",
+    "mutagen-patcher-host",
+    "load-order-derived-generation",
+    "cli-run-patcher",
+    "settings-host",
+    "split-output-when-master-limit-exceeded",
+    "pipeline-composition",
+    "mo2-aware-execution"
+  ],
+  "invocation": {
+    "mode": "hybrid",
+    "transport": "Synthesis GUI + Synthesis Bethesda CLI",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "load order",
+    "patcher source/package",
+    "patcher settings",
+    "GameRelease",
+    "optional prior patch output"
+  ],
+  "outputs": [
+    "generated plugin(s)",
+    "patcher logs",
+    "settings/result metadata"
+  ],
+  "logs": [
+    "stdout",
+    "stderr",
+    "Synthesis logs"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 2,
+    "cleanup_outputs_first": true
+  },
+  "auto_fixable_issue_codes": [
+    "STALE_SYNTHESIS_OUTPUT",
+    "PATCHER_CACHE_STALE",
+    "OUTPUT_DIRECTORY_DIRTY"
+  ],
+  "destructive_actions": [
+    "applying generated output directly over a hand-authored source plugin"
+  ],
+  "human_checks": [
+    "semantic conflict policy encoded by a custom patcher"
+  ],
+  "coverage": {
+    "description": "Load-order-derived patcher pipeline. Current source exposes CLI run-patcher support and 0.36.6 includes split-mod improvements.",
+    "known_gaps": [
+      "third-party patchers can contain arbitrary logic and must be pinned/reviewed",
+      "successful patcher execution does not prove semantic compatibility",
+      "very large master sets require split-output validation"
+    ],
+    "denominator_probe": "configured patchers vs executed patchers; source plugins discovered vs processed; output masters vs expected"
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "requires_confirmation_for": [
+      "using an unreviewed third-party patcher in a release build"
+    ],
+    "sandbox_or_scope": "Run against dedicated test profile/load-order snapshot and isolated output path."
+  },
+  "verification": {
+    "independent_validators": [
+      "mutagen",
+      "xedit",
+      "spriggit",
+      "runtime-test"
+    ],
+    "version_probe": "Synthesis release/CLI version",
+    "output_readback": "Reload every generated split/output plugin and validate master closure."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Use when output must depend on the consumer load order; do not use merely because a static plugin could be generated."
+  },
+  "evidence": {
+    "source_url": "https://github.com/Mutagen-Modding/Synthesis/releases",
+    "verified_date": "2026-09-24",
+    "notes": "Latest release observed: 0.36.6; current source exposes run-patcher CLI with OutputPath/GameRelease and split-output parameters."
+  }
+}
