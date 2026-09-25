@@ -622,7 +622,8 @@
         "gpu-frame",
         "display-latency",
         "csv-capture",
-        "hardware-telemetry"
+        "hardware-telemetry",
+        "frame-summary"
       ],
       "validation_role": "runtime-observer",
       "can_mutate": false,
@@ -631,8 +632,10 @@
         "Windows"
       ],
       "known_gaps": [
-        "measures presentation/performance, not gameplay correctness"
-      ]
+        "measures presentation/performance, not gameplay correctness",
+        "composite MO2 lifecycle integration is pending"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/presentmon.json"
     },
     {
       "adapter_id": "pynifly",
