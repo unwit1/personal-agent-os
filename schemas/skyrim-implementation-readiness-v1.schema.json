@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-implementation-readiness-v1.schema.json",
+  "title": "Skyrim Implementation Readiness v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project_id",
+    "status",
+    "questions",
+    "summary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-implementation-readiness-v1"
+    },
+    "project_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "feature_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "ready",
+        "research-required",
+        "test-required",
+        "user-decision-required",
+        "blocked"
+      ]
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total",
+        "auto_resolved",
+        "research_required",
+        "test_required",
+        "user_required",
+        "blocked"
+      ],
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "auto_resolved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "research_required": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "test_required": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "user_required": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "blocked": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "question_id",
+          "topic",
+          "question",
+          "disposition",
+          "blocker",
+          "confidence"
+        ],
+        "properties": {
+          "question_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._-]*$"
+          },
+          "topic": {
+            "enum": [
+              "creative-intent",
+              "runtime",
+              "architecture",
+              "plugin-data",
+              "framework",
+              "papyrus",
+              "native",
+              "ui",
+              "animation",
+              "asset",
+              "world",
+              "quest-dialogue",
+              "audio",
+              "compatibility",
+              "performance",
+              "persistence",
+              "testing",
+              "packaging",
+              "licensing",
+              "toolchain",
+              "unknown"
+            ]
+          },
+          "question": {
+            "type": "string",
+            "minLength": 1
+          },
+          "disposition": {
+            "enum": [
+              "auto-resolved",
+              "research-required",
+              "test-required",
+              "user-required",
+              "blocked"
+            ]
+          },
+          "blocker": {
+            "type": "boolean"
+          },
+          "answer": {
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          },
+          "confidence": {
+            "enum": [
+              "high",
+              "medium",
+              "low",
+              "unknown"
+            ]
+          },
+          "resolution_source": {
+            "enum": [
+              "manifest",
+              "project-policy",
+              "toolchain",
+              "knowledge",
+              "upstream-source",
+              "runtime-test",
+              "static-test",
+              "default-policy",
+              "user",
+              "unknown"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "next_action": {
+            "type": "string"
+          },
+          "adapters": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "safe_default": {
+            "type": "boolean"
+          },
+          "reversible": {
+            "type": "boolean"
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "id",
+          "decision"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "decision": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
