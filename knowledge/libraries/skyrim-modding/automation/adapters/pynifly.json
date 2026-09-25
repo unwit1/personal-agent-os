@@ -1,0 +1,63 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "pynifly",
+  "tool": "PyNifly",
+  "source": "https://github.com/BadDogSkyrim/PyNifly",
+  "targets": [
+    "skyrim-le",
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "nif-import",
+    "nif-export",
+    "tri-import-export",
+    "bodyslide-morphs",
+    "skinning",
+    "partitions",
+    "shader-authoring",
+    "collision",
+    "hkx-animation",
+    "animated-nif",
+    "standalone-python"
+  ],
+  "invocation": {
+    "mode": "library",
+    "transport": "Blender addon + Python API/Nifly DLL",
+    "requires_running_game": false
+  },
+  "coverage": {
+    "description": "Nifly-backed Skyrim mesh/morph/animation authoring path.",
+    "known_gaps": [
+      "Windows only",
+      "visual/game correctness still requires independent checks"
+    ],
+    "denominator_probe": "Enumerate imported/exported shapes, skins, partitions, controllers and unresolved resources."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Operate on source copies and staged exports."
+  },
+  "verification": {
+    "independent_validators": [
+      "nifskope",
+      "blender-render",
+      "nifblend-experimental-crosscheck",
+      "game-test"
+    ],
+    "version_probe": "PyNifly release/repo + Blender version",
+    "output_readback": "Re-import exported NIF/TRI/HKX and compare invariants."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Pair with Blender MCP; use direct Python for deterministic transformations."
+  },
+  "evidence": {
+    "source_url": "https://github.com/BadDogSkyrim/PyNifly",
+    "verified_date": "2026-09-24",
+    "notes": "GPL-3.0; current docs support Blender 4.0+, animations 4.4+."
+  }
+}
