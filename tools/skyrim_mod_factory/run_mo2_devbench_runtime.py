@@ -102,16 +102,22 @@ def capture_runtime_evidence(
     result["evidence"]["artifacts"].extend(captured)
 
     evidence_cfg=config.get("evidence") or {}
-    crash_roots=[str(Path(x)) for x in evidence_cfg.get("crash_paths") or []]
-    frame_roots=[str(Path(x)) for x in evidence_cfg.get("frame_trace_paths") or []]
+    crash_sources=list(evidence_cfg.get("crash_paths") or [])
+    frame_sources=list(evidence_cfg.get("frame_trace_paths") or [])
     result["evidence"]["crash_delta"]=[
         row for row in captured
-        if any(row["path"].startswith(root) for root in crash_roots)
+        if any(
+            MO2.path_matches_source(row["path"],source)
+            for source in crash_sources
+        )
     ]
     result["evidence"]["frame_traces"]=[
         row.get("captured_path") for row in captured
         if row.get("captured_path")
-        and any(row["path"].startswith(root) for root in frame_roots)
+        and any(
+            MO2.path_matches_source(row["path"],source)
+            for source in frame_sources
+        )
     ]
     result["evidence"]["log_delta"]=[
         row for row in captured
