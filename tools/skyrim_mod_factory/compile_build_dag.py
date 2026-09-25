@@ -152,22 +152,27 @@ def compile_dag(manifest, quality):
     quality_gates=set(quality.get("gates") or [])
     smoke_gates=[g for g in ("G19","G26") if g in quality_gates]
     regression_gates=[g for g in ("G20","G21","G26") if g in quality_gates]
-    add(nodes,{"id":"runtime.smoke","phase":"runtime","action":"Run isolated smoke scenarios with log/state readback",
-      "depends_on":["integrate.gates"],"adapters":smoke_adapters,"gates":smoke_gates,"invalidated_by":["runtime-affecting output","test fixture"],"layers":layers,"outputs":[]})
-    add(nodes,{"id":"runtime.regression","phase":"runtime","action":"Run layer-derived regression, negative and migration scenarios",
-      "depends_on":["runtime.smoke"],"adapters":regression_adapters,"gates":regression_gates,"invalidated_by":["runtime-affecting output","regression corpus"],"layers":layers,"outputs":[]})
+    runtime_tail="integrate.gates"
+    if smoke_gates:
+        add(nodes,{"id":"runtime.smoke","phase":"runtime","action":"Run isolated smoke scenarios with log/state readback",
+          "depends_on":[runtime_tail],"adapters":smoke_adapters,"gates":smoke_gates,"invalidated_by":["runtime-affecting output","test fixture"],"layers":layers,"outputs":[]})
+        runtime_tail="runtime.smoke"
+    if regression_gates:
+        add(nodes,{"id":"runtime.regression","phase":"runtime","action":"Run layer-derived regression, negative and migration scenarios",
+          "depends_on":[runtime_tail],"adapters":regression_adapters,"gates":regression_gates,"invalidated_by":["runtime-affecting output","regression corpus"],"layers":layers,"outputs":[]})
+        runtime_tail="runtime.regression"
 
-    package_dep="runtime.regression"
+    package_dep=runtime_tail
     if "installer" in layers:
         package_dep="validate.installer" if any(n["id"]=="validate.installer" for n in nodes) else package_dep
-        # Installer must be rebuilt after runtime-tested payload is accepted.
+        # Installer must be rebuilt after the last required runtime stage is accepted.
         for n in nodes:
-            if n["id"]=="generate.installer": n["depends_on"]=["runtime.regression"]
+            if n["id"]=="generate.installer": n["depends_on"]=[runtime_tail]
             if n["id"]=="validate.installer": n["depends_on"]=["generate.installer"]
         package_dep="validate.installer"
     else:
         add(nodes,{"id":"package.staging","phase":"package","action":"Assemble clean release staging tree",
-          "depends_on":["runtime.regression"],"adapters":[],"gates":["G22"],"invalidated_by":["release payload"],"layers":[],"outputs":[]})
+          "depends_on":[runtime_tail],"adapters":[],"gates":["G22"],"invalidated_by":["release payload"],"layers":[],"outputs":[]})
         package_dep="package.staging"
 
     add(nodes,{"id":"release.audit","phase":"release","action":"Verify reproducibility, provenance, waivers, licenses and final artifact hashes",
