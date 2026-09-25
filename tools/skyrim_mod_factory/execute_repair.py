@@ -311,6 +311,114 @@ def restore_checkpoint(
         "restored_outputs":restored_outputs,
     }
 
+def assess_repair_postconditions(
+    plan:dict[str,Any],
+    report:dict[str,Any],
+)->dict[str,Any]:
+    target=(plan.get("failure") or {}).get("failing_task")
+    steps={
+        x.get("id"):x for x in report.get("steps") or []
+        if isinstance(x,dict) and x.get("id")
+    }
+    target_step=steps.get(target)
+    original_codes=set((plan.get("failure") or {}).get("issue_codes") or [])
+    current_codes={
+        code
+        for step in steps.values()
+        for code in (step.get("issue_codes") or [])
+    }
+    new_codes=sorted(current_codes-original_codes)
+    reasons=[]
+
+    if not target_step:
+        reasons.append(f"rerun report does not contain repaired task: {target}")
+    elif target_step.get("status")!="passed":
+        reasons.append(
+            f"repaired task did not pass: {target}={target_step.get('status')}"
+        )
+
+    if report.get("status")=="failed":
+        reasons.append("rerun build report is failed")
+    failed_gates=[
+        x.get("gate") for x in report.get("gates") or []
+        if isinstance(x,dict) and x.get("status")=="fail"
+    ]
+    if failed_gates:
+        reasons.append("rerun has failed gates: "+", ".join(x for x in failed_gates if x))
+    if new_codes:
+        reasons.append("rerun introduced new issue codes: "+", ".join(new_codes))
+
+    warnings=[
+        x.get("gate") for x in report.get("gates") or []
+        if isinstance(x,dict) and x.get("status")=="warning"
+    ]
+    if reasons:
+        status="failed"
+    elif report.get("status")!="passed" or warnings:
+        status="unproven"
+        if report.get("status")!="passed":
+            reasons.append(f"rerun build report is {report.get('status')}")
+        if warnings:
+            reasons.append("rerun has warning gates: "+", ".join(x for x in warnings if x))
+    else:
+        status="repaired"
+
+    return {
+        "status":status,
+        "target":target,
+        "target_status":target_step.get("status") if target_step else None,
+        "new_issue_codes":new_codes,
+        "reasons":reasons,
+    }
+
+def finalize_repair(
+    plan:dict[str,Any],
+    report:dict[str,Any],
+    *,
+    checkpoint:dict[str,Any]|None=None,
+    state_path:Path|None=None,
+    allowed_output_roots:list[Path]|None=None,
+    execute_rollback:bool=True,
+)->dict[str,Any]:
+    result=copy.deepcopy(plan)
+    assessment=assess_repair_postconditions(result,report)
+    out=result.setdefault("result",{})
+    out.setdefault("evidence",[])
+    out["new_issue_codes"]=assessment["new_issue_codes"]
+    out["evidence"].append(
+        "post-repair assessment: "+assessment["status"]
+        + ("; "+"; ".join(assessment["reasons"]) if assessment["reasons"] else "")
+    )
+
+    if assessment["status"]=="repaired":
+        out["status"]="repaired"
+    elif assessment["status"]=="unproven":
+        out["status"]="escalated"
+    elif (
+        execute_rollback
+        and checkpoint is not None
+        and state_path is not None
+        and (result.get("rollback") or {}).get("bad_fix_rollback_automatic",False)
+    ):
+        rollback_result=restore_checkpoint(
+            checkpoint,
+            state_path=state_path,
+            allowed_output_roots=allowed_output_roots,
+        )
+        out["status"]="rolled-back"
+        out["evidence"].append(
+            "automatic rollback restored checkpoint for "
+            +str(len(rollback_result.get("restored_nodes") or []))
+            +" nodes"
+        )
+    else:
+        out["status"]="failed"
+
+    errors=schema_errors(result,"skyrim-repair-plan-v1.schema.json")
+    if errors:
+        raise ValueError("finalized repair plan failed schema validation: "+"; ".join(errors))
+    return result
+
 def execute(
     plan:dict[str,Any],
     dag:dict[str,Any],
