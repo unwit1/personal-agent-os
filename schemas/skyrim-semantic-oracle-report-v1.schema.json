@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-semantic-oracle-report-v1.schema.json",
+  "title": "Skyrim Semantic Oracle Report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "left_producer",
+    "right_producer",
+    "compared_fields",
+    "diff",
+    "issues"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-semantic-oracle-report-v1"
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "fail",
+        "needs-review"
+      ]
+    },
+    "left_producer": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "right_producer": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "compared_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "diff": {
+      "$ref": "skyrim-semantic-plugin-diff-v1.schema.json"
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
