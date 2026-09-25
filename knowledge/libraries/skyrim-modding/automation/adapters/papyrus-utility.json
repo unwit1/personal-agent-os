@@ -1,0 +1,103 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "papyrus-utility",
+  "tool": "Papyrus Utility (pu)",
+  "source": "https://github.com/RhNu/papyrus-utility",
+  "targets": [
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "papyrus-compile",
+    "papyrus-format",
+    "papyrus-format-check",
+    "pex-metadata-dump",
+    "declaration-package-generation",
+    "builtin-declaration-packages",
+    "project-config",
+    "single-file-compile",
+    "flow-source-generation"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "pu",
+    "transport": "Rust CLI",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "PSC/PSF sources",
+    ".papyrus.toml",
+    "source roots",
+    "declaration packages",
+    "Papyrus flag file"
+  ],
+  "outputs": [
+    "PEX",
+    "formatted source",
+    "declaration packages",
+    "PEX metadata",
+    "diagnostics"
+  ],
+  "logs": [
+    "stdout",
+    "stderr"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 1,
+    "cleanup_outputs_first": false
+  },
+  "auto_fixable_issue_codes": [
+    "PAPYRUS_FORMAT_DRIFT",
+    "DECLARATION_PACKAGE_STALE"
+  ],
+  "destructive_actions": [
+    "format --write on canonical source without diff review"
+  ],
+  "human_checks": [
+    "none for format/metadata operations; release compiler authority remains policy-driven"
+  ],
+  "coverage": {
+    "description": "Modern Rust Papyrus tooling with compile, format, declarations and PEX inspection.",
+    "known_gaps": [
+      "upstream explicitly states Skyrim support is fixture-backed but not yet certified against a committed real source corpus",
+      "should not yet replace official PapyrusCompiler as sole release gate"
+    ],
+    "denominator_probe": "source files discovered vs parsed/compiled; declarations requested vs generated; PEX files dumped vs discovered"
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "requires_confirmation_for": [
+      "using pu as the sole release-authoritative compiler before corpus certification"
+    ],
+    "sandbox_or_scope": "Compile/format in worktree or build directory; use format --check by default."
+  },
+  "verification": {
+    "independent_validators": [
+      "official-papyruscompiler",
+      "caprica",
+      "champollion",
+      "papyrus-provider-index"
+    ],
+    "version_probe": "pu --version / source commit",
+    "output_readback": "pu dump-pex plus independent PEX/decompile inspection."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "High-value development/CI frontend because it can format, compile, emit declarations and inspect PEX; keep compatibility caveat visible."
+  },
+  "evidence": {
+    "source_url": "https://github.com/RhNu/papyrus-utility",
+    "verified_date": "2026-09-24",
+    "notes": "README last updated 2026-05-31; public target skyrim-se; upstream states compatibility is not yet certified against a committed real source corpus."
+  }
+}
