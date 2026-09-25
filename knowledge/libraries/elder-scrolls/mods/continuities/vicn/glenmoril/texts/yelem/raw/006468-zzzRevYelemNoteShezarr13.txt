@@ -1,3 +1,0 @@
-<font face="$HandwrittenBold" size="19"> 
-The cat lives a million lives. This is the essence of Shezarr. 
-</font>

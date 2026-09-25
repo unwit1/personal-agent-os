@@ -1,3 +1,0 @@
-<font face="$HandwrittenBold" size="19">
-Even the Dwemer had to invent a god.
-</font>

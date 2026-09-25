@@ -1,3 +1,0 @@
-<font face="$HandwrittenBold" size="19">
-We are the orphans of the universe.
-</font>
