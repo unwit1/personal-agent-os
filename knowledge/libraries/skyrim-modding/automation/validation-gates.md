@@ -377,3 +377,143 @@ Each result should record:
 - auto-fix applied;
 - output hashes;
 - waiver and rationale.
+
+
+## G24 — Independent schema triangulation
+
+Applies to every AI-generated structured artifact whose failure can break a game, save, build, or release.
+
+### Plugins
+Require:
+- authoring parser succeeds;
+- independent parser/oracle succeeds;
+- all masters/FormLinks resolve;
+- touched-field intent diff is clean;
+- high-risk outputs complete a round-trip when practical.
+
+Default pair:
+- Mutagen/houseCARL/Spriggit on the authoring side;
+- xEdit/xDump as independent oracle.
+
+### Papyrus
+Require:
+- language/provider lookup;
+- compiler success;
+- PEX freshness;
+- VMAD/property binding validation;
+- second compiler/runtime assertion when risk warrants it.
+
+### NIF/assets
+Require:
+- PyNifly/Nifly parse;
+- independent NifSkope/Blender/render validation;
+- game check for release-critical visuals/physics.
+
+**BLOCKER:** two independent validators disagree on a touched structure and the disagreement is not explained by a documented coverage/version gap.
+
+## G25 — AI adapter provenance and coverage
+
+Every AI/MCP/tool adapter used by the build must report:
+- adapter id;
+- tool/version/source;
+- invocation transport;
+- target/runtime scope;
+- advertised capability;
+- known coverage gaps;
+- mutation safety mode;
+- independent validator;
+- a denominator or coverage probe where meaningful.
+
+Examples:
+- records parsed / records selected;
+- MCP tools exposed / expected;
+- scripts indexed / source PSC files;
+- crash logs parsed / logs discovered.
+
+A tool that silently skips unsupported input cannot produce a PASS for that domain.
+
+## G26 — Runtime assertion
+
+Required when static files cannot prove player-visible behavior.
+
+Use a dedicated development profile and a runtime adapter such as devbench, SkyLink AI, SkyrimNet, or a future Agent OS test bridge.
+
+Each runtime test must define:
+- fixture;
+- setup;
+- trigger;
+- event/state wait;
+- observation;
+- expected assertion;
+- timeout;
+- cleanup;
+- log delta.
+
+Mutation success is verified by **read -> act -> wait -> read**.
+
+A transport-level successful tool call is not a runtime assertion.
+
+## G27 — Validator self-test and mutation test
+
+A validator becomes release-authoritative only after fixtures prove that it rejects representative bad input.
+
+Examples:
+- dangling FormLink;
+- invalid ESL range;
+- wrong CTDA parameter context;
+- stale PEX;
+- bad VMAD property;
+- missing texture;
+- invalid skin partition;
+- malformed OAR rule;
+- missing FOMOD payload;
+- unsupported runtime/API version.
+
+Record:
+- mutated fixture;
+- expected issue code;
+- observed result;
+- validator version.
+
+If the deliberately broken fixture passes, the gate implemented by that validator is disabled until repaired.
+
+## G28 — AI-generated asset and voice provenance
+
+Applies to generated:
+- meshes;
+- textures;
+- concept/reference images incorporated into release assets;
+- voice;
+- music;
+- animation;
+- code copied/adapted from model/tool output where license provenance matters.
+
+Check:
+- generator/tool/model;
+- source/reference inputs;
+- usage/redistribution rights;
+- transformation history;
+- final file hashes;
+- human visual/audio QA;
+- Skyrim-format validation.
+
+AI generation is an authoring source, not a format validator or rights determination.
+
+## G29 — Agent execution audit and replayability
+
+For autonomous/agentic builds preserve:
+- model/provider only when useful for audit;
+- prompts/instructions or durable task description;
+- exact tools/adapters called;
+- arguments excluding secrets;
+- source state/git commit;
+- mutations;
+- dry-run evidence;
+- readback evidence;
+- repair attempts;
+- final artifact hashes.
+
+The build should be reproducible from project/source state without requiring the same model to make the same guesses.
+
+If an agent performed an unexplained mutation outside the declared touch-set, release status is **needs-review** or **failed**.
+
