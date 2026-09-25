@@ -198,6 +198,157 @@
       "items": {
         "type": "string"
       }
+    },
+    "schema_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "artifact",
+          "validator",
+          "status"
+        ],
+        "properties": {
+          "artifact": {
+            "type": "string"
+          },
+          "validator": {
+            "type": "string"
+          },
+          "independent": {
+            "type": "boolean"
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "warning",
+              "not-applicable"
+            ]
+          },
+          "coverage": {
+            "type": "object"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "disagreement": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "runtime_tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "test_id",
+          "adapter",
+          "status"
+        ],
+        "properties": {
+          "test_id": {
+            "type": "string"
+          },
+          "adapter": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "warning",
+              "skipped"
+            ]
+          },
+          "assertions_total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "assertions_passed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "assertions_failed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "denominators": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "discovered",
+          "processed"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "discovered": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "processed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skipped": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "agent_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "adapter_id": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          },
+          "dry_run": {
+            "type": "boolean"
+          },
+          "mutated": {
+            "type": "boolean"
+          },
+          "readback_verified": {
+            "type": "boolean"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
     }
   }
 }
