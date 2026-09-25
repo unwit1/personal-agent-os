@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-fomod-matrix-report-v1.schema.json",
+  "title": "Skyrim FOMOD Option Matrix Report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "module_dependencies_met",
+    "environment",
+    "total_cases",
+    "cases",
+    "issues",
+    "coverage"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-fomod-matrix-report-v1"
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "fail",
+        "needs-review"
+      ]
+    },
+    "module_dependencies_met": {
+      "type": "boolean"
+    },
+    "environment": {
+      "type": "object"
+    },
+    "total_cases": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "visible_steps",
+          "selections",
+          "flags",
+          "installed_items",
+          "issues"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "visible_steps": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "selections": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "flags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "installed_items": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "issues": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "steps",
+        "groups",
+        "options",
+        "conditional_patterns",
+        "enumerated_cases",
+        "max_cases"
+      ],
+      "properties": {
+        "steps": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "groups": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "options": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "conditional_patterns": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "enumerated_cases": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_cases": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    }
+  }
+}
