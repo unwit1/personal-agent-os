@@ -429,3 +429,106 @@ The desired user experience is:
 > “I have an idea for a mod that does X.”
 
 Agent OS should be able to respond with a grounded architecture, select the lowest-risk implementation, generate most of the project, run static/tool validation, launch the right test profile, interpret failures, repair deterministic problems, and return only the genuinely human decisions or in-game observations that remain.
+
+
+## AI-native execution planes
+
+The Mod Factory should no longer assume that the agent only edits files and launches CLIs. It can use typed AI-facing tool planes where available.
+
+### Static data plane
+Preferred: houseCARL/Mutagen/Spriggit adapters.
+
+Responsibilities:
+- inspect the actual MO2 load order and VFS;
+- query winners/override chains;
+- perform typed dry-run record mutations;
+- create isolated patch outputs;
+- read output back.
+
+### Schema oracle plane
+Preferred: xEdit/xDump, with independent Mutagen/Spriggit round-trip checks.
+
+Responsibilities:
+- reject structural invalidity;
+- expose definition/coverage gaps;
+- provide a second implementation independent of the authoring tool.
+
+### Runtime test plane
+Preferred: devbench. Secondary: SkyLink AI; project-specific: SkyrimNet; fallback suites: AutoTest.
+
+Responsibilities:
+- drive fixture saves/scenarios;
+- wait on real events;
+- query live game state;
+- read console/Papyrus results;
+- detect stalls;
+- collect runtime evidence;
+- support record/replay and A/B testing where available.
+
+### 3D AI plane
+Blender MCP + PyNifly/Nifly.
+
+Responsibilities:
+- let the agent inspect/edit source geometry;
+- render previews;
+- automate transforms/material/rig/animation work;
+- export to staging.
+
+NIF-specific independent checks remain mandatory.
+
+### Papyrus AI plane
+Papyrus language tooling + pinned provider index + compiler/runtime debugger.
+
+The model must query the provider corpus instead of inventing function signatures.
+
+### Voice AI plane
+VOSpeaker/xVASynth or another approved synthesis backend.
+
+Dialogue identity and packaging are deterministic; voice quality and rights remain explicit gates.
+
+## Agent planning requirement
+
+For every feature, the planner must:
+
+1. search the implementation-pattern registry;
+2. inspect available installed adapters/capabilities;
+3. inspect current project/load-order context;
+4. choose the least invasive implementation;
+5. list independent validators;
+6. generate negative tests;
+7. generate runtime assertions when static evidence is insufficient;
+8. identify only the genuinely creative or product-level unknowns.
+
+The planner should not ask the user:
+- which tool writes a plugin field;
+- how to name a voice path;
+- whether a FormID resolves;
+- which Papyrus API exists;
+- what OAR/SPID/KID syntax is;
+- whether an output is stale;
+- which record wins;
+- whether a generated NIF references a missing texture;
+
+when an installed adapter or knowledge source can answer deterministically.
+
+## Closed-loop build requirement
+
+A feature is not complete until the loop has reached the strongest applicable evidence level:
+
+**source intent -> typed generation -> independent static validation -> generated-output freshness -> runtime assertion -> human subjective check only where necessary**
+
+When runtime testing is possible through devbench/SkyLink/etc., the default should be to execute it instead of returning an untested instruction for the user to reproduce manually.
+
+## Schema confidence
+
+Use the confidence levels from `schema-triangulation-and-self-checks.md`:
+
+- A: generated + one parser;
+- B: two independent parsers;
+- C: two parsers + round-trip + intent diff;
+- D: C + runtime assertion.
+
+Default release target:
+- structured plugin/config output: C;
+- gameplay/native/save-critical behavior: D.
+
