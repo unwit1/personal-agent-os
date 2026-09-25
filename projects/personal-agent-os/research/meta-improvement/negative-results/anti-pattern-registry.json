@@ -259,7 +259,7 @@
         "AIT-0146"
       ],
       "sources": [
-        "SRC-AI-0324"
+        "SRC-AI-0275"
       ],
       "severity": "high",
       "status": "active_warning"
@@ -274,7 +274,7 @@
         "AIT-0354"
       ],
       "sources": [
-        "SRC-AI-0324"
+        "SRC-AI-0275"
       ],
       "severity": "high",
       "status": "active_warning"
@@ -607,7 +607,7 @@
         "AIT-0353"
       ],
       "sources": [
-        "SRC-AI-0324"
+        "SRC-AI-0275"
       ],
       "severity": "high",
       "status": "active_warning"
@@ -708,7 +708,7 @@
         "AIT-0016"
       ],
       "sources": [
-        "SRC-AI-0325"
+        "SRC-AI-0274"
       ],
       "severity": "high",
       "status": "active_warning"
@@ -722,7 +722,7 @@
         "AIT-0011"
       ],
       "sources": [
-        "SRC-AI-0325"
+        "SRC-AI-0274"
       ],
       "severity": "high",
       "status": "active_warning"
@@ -736,7 +736,7 @@
         "AIT-0011"
       ],
       "sources": [
-        "SRC-AI-0325"
+        "SRC-AI-0274"
       ],
       "severity": "high",
       "status": "active_warning"
@@ -1023,7 +1023,7 @@
         "AIT-0174"
       ],
       "sources": [
-        "SRC-AI-0324"
+        "SRC-AI-0275"
       ],
       "severity": "medium_high",
       "status": "active_warning"
@@ -1037,7 +1037,7 @@
         "AIT-0014"
       ],
       "sources": [
-        "SRC-AI-0325"
+        "SRC-AI-0274"
       ],
       "severity": "high",
       "status": "active_warning"
