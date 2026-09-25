@@ -16,7 +16,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-from urllib.parse import parse_qs, urlparse, urlunparse
+from urllib.parse import urlparse, urlunparse
 
 from .paths import ROOT
 
@@ -427,6 +427,141 @@ def upsert_creator_follow(
         "discord_candidates": profile.get("discord_candidates") or [],
         "discovery": profile.get("discovery") or {},
     }
+
+
+def record_discovery(
+    creator_id: str,
+    findings: dict[str, Any],
+) -> dict[str, Any]:
+    """Merge provenance-bearing discovery results into one creator profile.
+
+    Research workers should send only evidence they actually observed. Found
+    accounts remain candidates unless the finding explicitly marks them
+    confirmed; links and aliases retain their confidence/provenance.
+    """
+    if not isinstance(findings, dict):
+        raise ValueError("creator discovery findings must be an object")
+
+    data = _load()
+    profile = next(
+        (item for item in data["profiles"] if item.get("creator_id") == creator_id),
+        None,
+    )
+    if profile is None:
+        raise KeyError(f"unknown creator profile: {creator_id}")
+
+    now = _now()
+    incoming_links: list[dict[str, Any]] = []
+    for value in findings.get("links") or []:
+        if isinstance(value, str):
+            value = {"url": value}
+        if not isinstance(value, dict):
+            continue
+        url = str(value.get("url") or "").strip()
+        canonical = _canonical_url(url)
+        if not canonical:
+            continue
+        incoming_links.append({
+            "url": url,
+            "canonical_url": canonical,
+            "kind": str(value.get("kind") or "profile"),
+            "label": str(value.get("label") or ""),
+            "confidence": str(value.get("confidence") or "candidate"),
+            "source_site": str(value.get("source_site") or "discovery"),
+            "provenance": value.get("provenance") or {},
+            "observed_at": str(value.get("observed_at") or now),
+        })
+
+    incoming_aliases: list[dict[str, Any]] = []
+    for value in findings.get("aliases") or []:
+        if isinstance(value, str):
+            value = {"value": value}
+        if not isinstance(value, dict):
+            continue
+        alias = str(value.get("value") or value.get("alias") or "").strip()
+        normalized = normalize_alias(alias)
+        if not normalized:
+            continue
+        incoming_aliases.append({
+            "value": alias,
+            "normalized": normalized,
+            "confidence": str(value.get("confidence") or "candidate"),
+            "source": str(value.get("source") or "discovery"),
+            "site": str(value.get("site") or ""),
+            "provenance": value.get("provenance") or {},
+        })
+
+    incoming_accounts: list[dict[str, Any]] = []
+    possible_matches = list(profile.get("possible_matches") or [])
+    for value in findings.get("accounts") or []:
+        if not isinstance(value, dict):
+            continue
+        url = str(value.get("url") or "").strip()
+        source_id = str(value.get("source_id") or "").strip()
+        if not url and not source_id:
+            continue
+        account = {
+            "site": str(value.get("site") or "").casefold(),
+            "source_id": source_id,
+            "url": url,
+            "canonical_url": _canonical_url(url),
+            "handle": str(value.get("handle") or ""),
+            "status": "followed" if value.get("confirmed") is True else "candidate",
+            "confidence": str(value.get("confidence") or (
+                "confirmed" if value.get("confirmed") is True else "candidate"
+            )),
+            "observed_at": str(value.get("observed_at") or now),
+            "provenance": value.get("provenance") or {},
+        }
+        if value.get("confirmed") is True:
+            incoming_accounts.append(account)
+        else:
+            possible_matches.append(account)
+
+    profile["links"] = _merge_dict_list(
+        list(profile.get("links") or []),
+        incoming_links,
+        lambda item: str(item.get("canonical_url") or ""),
+    )
+    profile["aliases"] = _merge_dict_list(
+        list(profile.get("aliases") or []),
+        incoming_aliases,
+        lambda item: str(item.get("normalized") or ""),
+    )
+    profile["accounts"] = _merge_dict_list(
+        list(profile.get("accounts") or []),
+        incoming_accounts,
+        lambda item: str(item.get("source_id") or "") or str(item.get("canonical_url") or ""),
+    )
+    profile["possible_matches"] = _merge_dict_list(
+        possible_matches,
+        [],
+        lambda item: str(item.get("source_id") or "") or str(item.get("canonical_url") or ""),
+    )
+
+    notes = findings.get("notes")
+    if notes:
+        profile.setdefault("discovery_notes", [])
+        profile["discovery_notes"].append({
+            "at": now,
+            "text": str(notes)[:5000],
+            "provenance": findings.get("provenance") or {},
+        })
+        profile["discovery_notes"] = profile["discovery_notes"][-50:]
+
+    discovery = dict(profile.get("discovery") or {})
+    requested_status = str(findings.get("status") or "").strip()
+    if requested_status not in {"queued", "in_progress", "needs_review", "complete", "needs_refresh"}:
+        requested_status = "needs_review" if possible_matches else "complete"
+    discovery.update({
+        "status": requested_status,
+        "last_enriched_at": now,
+        "last_provenance": findings.get("provenance") or {},
+    })
+    profile["discovery"] = discovery
+    profile["updated_at"] = now
+    _save(data)
+    return profile
 
 
 def follow_status(target: dict[str, Any]) -> dict[str, Any]:
