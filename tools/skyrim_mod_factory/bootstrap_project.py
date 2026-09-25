@@ -56,11 +56,11 @@ def main():
     outputs=[]
     if args.plugin_kind!="none":
         ext={"esm":".esm","esl":".esl","esp":".esp","esp-fe":".esp","generated":".esp"}[args.plugin_kind]
-        outputs.append({"path":f"generated/{pid}{ext}","type":"plugin","generated":True,"generator":"TBD"})
+        outputs.append({"path":f"generated/{pid}{ext}","type":"plugin","generated":True,"generator":"mutagen"})
     if "papyrus" in args.layer:
-        outputs.append({"path":"generated/Scripts","type":"pex","generated":True,"generator":"Papyrus compiler"})
+        outputs.append({"path":"generated/Scripts","type":"pex","generated":True,"generator":"official-papyruscompiler"})
     if "native" in args.layer:
-        outputs.append({"path":f"generated/SKSE/Plugins/{pid}.dll","type":"dll","generated":True,"generator":"CMake/CommonLib"})
+        outputs.append({"path":f"generated/SKSE/Plugins/{pid}.dll","type":"dll","generated":True,"generator":"cmake-commonlibsse-ng"})
 
     manifest={
       "schema_version":"skyrim-mod-project-v1",
@@ -88,9 +88,9 @@ def main():
         "supports_uninstall":False
       },
       "automation":{
-        "preferred_adapters":["housecarl","xedit","spriggit","devbench"],
+        "preferred_adapters":["housecarl","mutagen","xdump","xedit","spriggit","devbench"],
         "static_data_plane":"housecarl",
-        "schema_oracles":["xedit","mutagen"],
+        "schema_oracles":["xdump","mutagen"],
         "runtime_test_plane":"devbench",
         "asset_ai_plane":"blender-mcp",
         "voice_ai_plane":"vospeaker",
@@ -168,10 +168,10 @@ This project was bootstrapped for the Skyrim Mod Factory.
 Validate:
 `python <agent-os>/tools/skyrim_mod_factory/validate_project.py mod.project.json`
 
-Plan:
-`python <agent-os>/tools/skyrim_mod_factory/plan_project.py mod.project.json`
+Prepare architecture, tests, readiness and build DAG:
+`python <agent-os>/tools/skyrim_mod_factory/prepare_project.py mod.project.json --workspace .mod-factory`
 
-Fill in the project manifest and `dependencies.lock.json` before implementation.
+The preparation pass resolves low-level questions through patterns/tools where possible. Fill in genuine product intent and the generated `dependencies.lock.json` evidence before release implementation.
 """
     (root/"README.md").write_text(readme,encoding="utf-8")
     print(f"Bootstrapped {args.name} at {root}")
