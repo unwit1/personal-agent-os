@@ -10,7 +10,7 @@ This file records versions that were directly verified from authoritative upstre
 | Component | Verified current release | Upstream | Snapshot notes |
 |---|---|---|---|
 | xEdit / SSEEdit | 4.1.5f | https://github.com/TES5Edit/TES5Edit/releases | Latest GitHub release observed. Release includes TES5VR Backported ESL-range fix and TES5/SSE definition updates. |
-| LOOT | 0.29.1 | https://github.com/loot/loot/releases | Latest GitHub release observed. Windows build requires 64-bit Windows 10 1809+ and MSVC 2022 x64 redistributable. |
+| LOOT | 0.29.2 | https://github.com/loot/loot/releases | Latest GitHub release observed on 2026-09-24; released 2026-08-16. Windows build requires 64-bit Windows 10 1809+ and MSVC 2022 x64 redistributable. |
 | Mod Organizer 2 | 2.5.2 | https://github.com/ModOrganizer2/modorganizer/releases | Latest GitHub release observed. Release lists libloot 0.23.0, Qt/PyQt 6.7.1 and Python 3.12.3 among bundled dependencies. |
 | Community Shaders | 1.9.1 | https://github.com/community-shaders/skyrim-community-shaders/releases | Released 2026-09-24. Upstream release commit shown as 265c28f. |
 
@@ -56,6 +56,8 @@ This file records versions that were directly verified from authoritative upstre
 |---|---|---|---|
 | Mutagen / Mutagen.Bethesda.Skyrim | 0.54.4 | Current GitHub release observed 2026-09-24; released 2026-08-08. Includes Skyrim definition fixes plus split-mod/FormKey improvements. | https://github.com/Mutagen-Modding/Mutagen/releases |
 | Spriggit | 0.41.0 | Current GitHub release observed 2026-09-24; supersedes earlier 0.40.1 snapshot. 0.41.0 includes library/Mutagen-definition updates and FO3 support. | https://github.com/Mutagen-Modding/Spriggit/releases |
+| Synthesis | 0.36.6 | Current GitHub release observed 2026-09-24; released 2026-08-08. Synthesis remains the primary Mutagen-oriented load-order patcher pipeline. | https://github.com/Mutagen-Modding/Synthesis/releases |
+| PGPatcher / ParallaxGen | 2.1.1 | Current project changelog records 2.1.1 on 2026-09-17. Treat changelog/Nexus packaging and GitHub release tags as separate provenance surfaces when they differ. | https://github.com/hakasapl/PGPatcher/blob/main/CHANGELOG.md |
 
 ### Serialization/version-control interpretation
 
