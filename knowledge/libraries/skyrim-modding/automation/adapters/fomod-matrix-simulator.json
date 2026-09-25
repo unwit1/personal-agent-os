@@ -1,0 +1,93 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "fomod-matrix-simulator",
+  "tool": "Agent OS FOMOD option-matrix simulator",
+  "tool_version": "1.0",
+  "source": "tools/skyrim_mod_factory/simulate_fomod_matrix.py",
+  "targets": [
+    "skyrim-le",
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "fomod-option-matrix",
+    "dependency-evaluation",
+    "condition-flag-flow",
+    "conditional-install-evaluation",
+    "destination-collision-analysis"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "{python_executable}",
+    "arguments_template": [
+      "{repo_root}/tools/skyrim_mod_factory/simulate_fomod_matrix.py",
+      "{fomod_intent}",
+      "--environment",
+      "{fomod_environment}",
+      "--output",
+      "{fomod_matrix_report}"
+    ],
+    "transport": "typed FOMOD intent -> exhaustive bounded selection-state enumeration",
+    "requires_running_game": false,
+    "timeout_seconds": 120
+  },
+  "inputs": [
+    "skyrim-fomod-intent-v1 JSON",
+    "installer environment JSON"
+  ],
+  "outputs": [
+    "skyrim-fomod-matrix-report-v1 JSON"
+  ],
+  "logs": [
+    "stdout",
+    "stderr"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 1,
+    "cleanup_outputs_first": true
+  },
+  "auto_fixable_issue_codes": [],
+  "destructive_actions": [],
+  "human_checks": [
+    "visual presentation in individual mod managers is outside the headless matrix simulator"
+  ],
+  "coverage": {
+    "description": "Enumerates group selections up to a hard case bound, step visibility, condition flags, always/install-if-usable policies, conditional installs and declared destination collisions.",
+    "known_gaps": [
+      "folder contents are not expanded to file-level collision graphs in v1",
+      "dynamic dependencyType option usability is outside the conservative generator subset"
+    ],
+    "denominator_probe": "report records steps/groups/options/patterns and exact enumerated case count"
+  },
+  "safety": {
+    "mutation_default": "read-only",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Reads typed installer intent/environment and writes only a report."
+  },
+  "verification": {
+    "independent_validators": [
+      "typed-fomod-generator"
+    ],
+    "version_probe": "Simulator behavior is regression-tested against the typed intent schema",
+    "output_readback": "Report validates against skyrim-fomod-matrix-report-v1."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Summarize failing cases instead of feeding every successful matrix row into model context."
+  },
+  "evidence": {
+    "source_url": "https://github.com/dh-nunes/fomod-schema",
+    "verified_date": "2026-09-25",
+    "notes": "Selection group/type semantics follow the maintained FOMOD schema; bounded enumeration is Agent OS validation logic."
+  }
+}
