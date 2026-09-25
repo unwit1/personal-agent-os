@@ -1,177 +1,165 @@
 {
   "schema_version": "skyrim-analyzer-rule-registry-v1",
-  "snapshot_date": "2026-09-24",
+  "generated_from": "knowledge/libraries/skyrim-modding/automation/analyzer-rule-pack-core.json",
+  "note": "Compatibility mirror. The canonical rule pack is analyzer-rule-pack-core.json; regenerate this file rather than editing it directly.",
   "rules": [
     {
       "schema_version": "skyrim-analyzer-rule-v1",
-      "rule_id": "SKYRIM-UNRESOLVED-FORMID",
-      "title": "Unresolved FormID/reference",
+      "rule_id": "SKYRIM-ARMO-ARMA-SLOT-MISMATCH",
+      "title": "Armor, ArmorAddon and NIF slots disagree",
       "scope": [
-        "plugin"
-      ],
-      "severity": "BLOCKER",
-      "version_scope": [
-        "Skyrim SE/AE/VR plugin formats"
-      ],
-      "preconditions": [
-        "Plugin or generated patch contains a FormID/FormKey reference"
-      ],
-      "bad_pattern": "A reference cannot be resolved through the plugin master list/load order.",
-      "why": "The record points to a missing/incorrect form or master; xEdit documents unresolved reference errors as serious authoring defects.",
-      "detection": {
-        "kind": "plugin",
-        "algorithm": "Open with xEdit Check for Errors and independently resolve FormLinks through Mutagen LinkCache. Fail on unresolved targets.",
-        "required_data": [
-          "plugin",
-          "masters",
-          "load order"
-        ],
-        "false_positive_exclusions": []
-      },
-      "fix_policy": {
-        "mode": "proposal",
-        "algorithm": "Identify intended source form/master, correct FormKey or master provenance, regenerate downstream output.",
-        "postconditions": [
-          "xEdit error check clean for reference",
-          "Mutagen LinkCache resolves target"
-        ]
-      },
-      "fixture_id": "F06",
-      "evidence": [
-        {
-          "source": "https://tes5edit.github.io/docs/7-mod-cleaning-and-error-checking.html",
-          "type": "upstream-doc",
-          "notes": "xEdit describes unresolved references as serious errors."
-        }
-      ]
-    },
-    {
-      "schema_version": "skyrim-analyzer-rule-v1",
-      "rule_id": "SKYRIM-DELETED-NAVMESH",
-      "title": "Deleted navmesh",
-      "scope": [
-        "plugin",
-        "navmesh"
-      ],
-      "severity": "BLOCKER",
-      "preconditions": [
-        "Plugin overrides/deletes NAVM records"
-      ],
-      "bad_pattern": "A NAVM is marked deleted instead of being repaired/replaced with a safe navmesh workflow.",
-      "why": "Deleted navmeshes are a high-risk Skyrim compatibility/pathing condition and require specialized handling.",
-      "detection": {
-        "kind": "plugin",
-        "algorithm": "Scan NAVM overrides for Deleted record flag and report source/override chain.",
-        "required_data": [
-          "plugin override chain"
-        ],
-        "false_positive_exclusions": []
-      },
-      "fix_policy": {
-        "mode": "manual",
-        "algorithm": "Re-author/repair navmesh in CK-compatible workflow; do not generic undelete-and-disable NAVM.",
-        "postconditions": [
-          "no unintended deleted NAVM",
-          "door/finalization/pathing tests pass"
-        ]
-      },
-      "fixture_id": "F21",
-      "evidence": [
-        {
-          "source": "knowledge/libraries/skyrim-modding/troubleshooting/tool-error-catalog.md",
-          "type": "user-validated",
-          "notes": "Repository rule based on xEdit/CK practice."
-        }
-      ]
-    },
-    {
-      "schema_version": "skyrim-analyzer-rule-v1",
-      "rule_id": "SKYRIM-NPC-FACEGEN-MISMATCH",
-      "title": "NPC appearance record does not match FaceGen",
-      "scope": [
-        "NPC_",
-        "FaceGen",
-        "asset"
+        "armor",
+        "mesh",
+        "biped"
       ],
       "severity": "ERROR",
-      "preconditions": [
-        "NPC appearance fields are changed",
-        "NPC uses generated FaceGeom/FaceTint"
-      ],
-      "bad_pattern": "Winning NPC_ appearance/race/weight/headpart data is inconsistent with the FaceGen assets supplied for that NPC.",
-      "why": "A record/FaceGen mismatch is a classic cause of dark-face/incorrect NPC appearance.",
       "detection": {
         "kind": "cross-layer",
-        "algorithm": "Compare winning NPC_ appearance fingerprint with chosen FaceGen provenance; verify expected mesh/tint paths exist and were generated from compatible source fields.",
-        "required_data": [
-          "winning NPC_",
-          "FaceGeom",
-          "FaceTint",
-          "appearance source"
-        ],
-        "false_positive_exclusions": [
-          "NPC intentionally uses runtime appearance system that replaces FaceGen"
-        ]
-      },
-      "fix_policy": {
-        "mode": "proposal",
-        "algorithm": "Choose authoritative visual source, forward nonvisual fields separately, regenerate/copy matching FaceGen.",
-        "postconditions": [
-          "appearance fingerprint matches FaceGen source",
-          "assets present"
-        ]
-      },
-      "fixture_id": "F10",
-      "evidence": [
-        {
-          "source": "https://github.com/focustense/easymod/blob/master/Focus.Apps.EasyNpc/README.md",
-          "type": "upstream-doc",
-          "notes": "EasyNPC explicitly reconciles behavior attributes with chosen face records/assets."
-        }
-      ]
-    },
-    {
-      "schema_version": "skyrim-analyzer-rule-v1",
-      "rule_id": "SKYRIM-ARMO-ARMA-PARTITION-MISMATCH",
-      "title": "Armor slots and mesh partitions disagree",
-      "scope": [
-        "ARMO",
-        "ARMA",
-        "NIF"
-      ],
-      "severity": "ERROR",
-      "preconditions": [
-        "Armor has wearable Biped slots",
-        "NIF is partitioned/skinned"
-      ],
-      "bad_pattern": "ARMO/ARMA slot masks and NIF skin partitions do not represent the intended body coverage consistently.",
-      "why": "Inconsistent slots/partitions can cause invisible geometry, exposed body parts, or equipment conflicts.",
-      "detection": {
-        "kind": "cross-layer",
-        "algorithm": "Compare ARMO Biped mask, each ARMA mask/race model, and NIF partition IDs using PyNifly/Nifly.",
+        "algorithm": "Compare ARMO body mask, linked ARMA masks/races, and NIF skin partitions for every generated armor variant.",
         "required_data": [
           "ARMO",
           "ARMA",
-          "NIF"
+          "NIF partitions",
+          "race biped mapping"
         ],
         "false_positive_exclusions": [
-          "documented intentional partition/slot divergence"
+          "explicit intentional hidden-body-slot strategy"
         ]
       },
       "fix_policy": {
         "mode": "proposal",
-        "algorithm": "Align intended numeric Biped slots and mesh partitions; regenerate affected BodySlide/NIF outputs.",
+        "algorithm": "Reconcile the intended numeric slot mask and regenerate affected mesh outputs.",
         "postconditions": [
-          "slot/partition invariant passes",
-          "in-game equip fixture passes"
+          "slot masks satisfy manifest",
+          "NIF validator passes",
+          "visual test passes"
         ]
       },
-      "fixture_id": "F11",
       "evidence": [
         {
           "source": "https://github.com/BadDogSkyrim/PyNifly",
+          "type": "upstream-source",
+          "notes": "Validated for inclusion in the core Agent OS prevention pack on 2026-09-24."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-CTDA-SEMANTIC-LOSS",
+      "title": "Condition patch loses CTDA semantics",
+      "scope": [
+        "CTDA",
+        "condition"
+      ],
+      "severity": "ERROR",
+      "preconditions": [
+        "A patcher copies/merges condition entries"
+      ],
+      "bad_pattern": "Function/value is forwarded without preserving comparison flags, parameter interpretation, Run On, reference, parameter 3, or ordering/OR semantics.",
+      "why": "CTDA behavior depends on the entire encoded predicate, not just visible function name.",
+      "detection": {
+        "kind": "plugin",
+        "algorithm": "Normalize and compare full CTDA tuples using xEdit schema; flag partial field copies and changed OR ordering.",
+        "required_data": [
+          "source CTDA",
+          "output CTDA"
+        ],
+        "false_positive_exclusions": [
+          "explicit intentional condition rewrite"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Copy/rebuild the entire intended predicate or regenerate from typed condition model.",
+        "postconditions": [
+          "normalized CTDA equals intended predicate"
+        ]
+      },
+      "fixture_id": "F20",
+      "evidence": [
+        {
+          "source": "knowledge/libraries/skyrim-modding/terminology/ctda-condition-encoding-xedit.md",
+          "type": "user-validated"
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-DLL-RUNTIME-MISMATCH",
+      "title": "Native SKSE plugin runtime/API mismatch",
+      "scope": [
+        "native",
+        "skse",
+        "runtime"
+      ],
+      "severity": "BLOCKER",
+      "detection": {
+        "kind": "native",
+        "algorithm": "Compare active executable/SKSE/Address Library against DLL metadata, dependencies and startup log.",
+        "required_data": [
+          "runtime",
+          "SKSE",
+          "Address Library",
+          "DLL metadata",
+          "plugin log"
+        ],
+        "false_positive_exclusions": [
+          "optional integration disabled on this runtime"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Install/build the correct runtime binary or narrow the supported runtime matrix.",
+        "postconditions": [
+          "DLL loads",
+          "required hooks/APIs report ready",
+          "runtime smoke test passes"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "https://github.com/alandtse/CommonLibSSE-NG",
+          "type": "upstream-source",
+          "notes": "Validated for inclusion in the core Agent OS prevention pack on 2026-09-24."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-GENERATED-OUTPUT-STALE",
+      "title": "Generated output is stale",
+      "scope": [
+        "generated-output",
+        "build-graph"
+      ],
+      "severity": "ERROR",
+      "detection": {
+        "kind": "generated-output",
+        "algorithm": "Compare recorded input hashes, settings and load-order epoch against current dependency graph.",
+        "required_data": [
+          "generator manifest",
+          "input hashes",
+          "load order",
+          "settings"
+        ],
+        "false_positive_exclusions": [
+          "frozen vendor artifact not generated by this project"
+        ]
+      },
+      "fix_policy": {
+        "mode": "automatic",
+        "algorithm": "Remove only stale generated staging output, rerun its generator, validate, then rebuild downstream dependents.",
+        "postconditions": [
+          "input hashes match",
+          "generator passes",
+          "downstream gates pass"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "https://dyndolod.info/Help/Command-Line-Argument",
           "type": "upstream-doc",
-          "notes": "PyNifly exposes Skyrim partitions/skinning for validation."
+          "notes": "Validated for inclusion in the core Agent OS prevention pack on 2026-09-24."
         }
       ]
     },
@@ -221,122 +209,164 @@
     },
     {
       "schema_version": "skyrim-analyzer-rule-v1",
-      "rule_id": "SKYRIM-STALE-GENERATED-OUTPUT",
-      "title": "Generated artifact is stale relative to inputs",
+      "rule_id": "SKYRIM-NATIVE-TARGET-MATRIX-INCOMPLETE",
+      "title": "Declared native runtime target was not built and verified",
       "scope": [
-        "generated-output"
+        "native",
+        "SKSE",
+        "build"
       ],
-      "severity": "ERROR",
+      "severity": "BLOCKER",
       "preconditions": [
-        "Artifact records input hashes/provenance"
+        "Project manifest declares more than one Skyrim runtime/distribution target for a native DLL"
       ],
-      "bad_pattern": "One or more dependency hashes/settings/load-order inputs differ from those used to build the artifact.",
-      "why": "Behavior, patch, BodySlide, parallax, grass or LOD output can silently reflect an old load order or source state.",
+      "bad_pattern": "Release artifact is promoted after building/testing only a subset of the declared target matrix.",
+      "why": "CommonLib abstractions and one successful binary do not prove every runtime's relocations, ABI, metadata, imports and hooks are valid.",
       "detection": {
-        "kind": "generated-output",
-        "algorithm": "Compare current dependency graph hashes/settings against build manifest for generated artifact.",
+        "kind": "native",
+        "algorithm": "Compare project target matrix against CMake preset/configure/build records, output DLL hashes, metadata/import scans and runtime smoke results. Every declared target must have an explicit pass, supported universal-binary proof, or removal from the support claim.",
         "required_data": [
-          "artifact build metadata",
-          "current input hashes"
+          "project targets",
+          "build reports",
+          "DLL hashes",
+          "runtime compatibility declarations",
+          "runtime test results"
+        ],
+        "false_positive_exclusions": [
+          "single verified universal binary whose exact declared runtime coverage is independently confirmed"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Build and validate missing target(s), narrow the published support matrix, or supply a verified universal binary with exact runtime guards.",
+        "postconditions": [
+          "all published targets have build evidence",
+          "all release-native targets have load/init evidence"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "knowledge/libraries/skyrim-modding/automation/validation-gates.md",
+          "type": "user-validated",
+          "notes": "G09 already requires every declared target build; this rule makes incomplete matrices machine-detectable."
+        },
+        {
+          "source": "https://github.com/alandtse/CommonLibSSE-NG",
+          "type": "upstream-doc"
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-NAVM-DELETED",
+      "title": "Deleted navmesh detected",
+      "scope": [
+        "navmesh",
+        "plugin",
+        "world"
+      ],
+      "severity": "BLOCKER",
+      "detection": {
+        "kind": "plugin",
+        "algorithm": "Scan touched NAVM records for the Deleted record flag and report cell/worldspace plus override chain.",
+        "required_data": [
+          "NAVM records",
+          "record flags",
+          "cell/worldspace"
         ],
         "false_positive_exclusions": []
       },
       "fix_policy": {
-        "mode": "automatic",
-        "algorithm": "Delete only derived output staging and rerun its generator plus downstream gates.",
+        "mode": "manual",
+        "algorithm": "Repair through a navmesh-safe CK/xEdit workflow; do not apply ordinary UDR logic.",
         "postconditions": [
-          "artifact provenance matches current inputs"
+          "no unintended deleted NAVM",
+          "finalization/connectivity passes CK/game checks"
         ]
       },
-      "fixture_id": "F28",
       "evidence": [
         {
-          "source": "knowledge/libraries/skyrim-modding/automation/mod-factory-architecture.md",
-          "type": "user-validated"
-        }
-      ]
-    },
-    {
-      "schema_version": "skyrim-analyzer-rule-v1",
-      "rule_id": "SKYRIM-NATIVE-RUNTIME-MISMATCH",
-      "title": "Native plugin runtime support mismatch",
-      "scope": [
-        "SKSE",
-        "DLL",
-        "runtime"
-      ],
-      "severity": "BLOCKER",
-      "preconditions": [
-        "Project ships an SKSE native DLL"
-      ],
-      "bad_pattern": "Installed/declared DLL does not support the active Skyrim executable/ABI/dependency combination.",
-      "why": "Native plugins operate against runtime-specific layouts/hooks and can refuse load or crash when ABI assumptions are wrong.",
-      "detection": {
-        "kind": "native",
-        "algorithm": "Compare executable version/store/VR state, SKSE, Address Library, plugin metadata and build target; inspect load log.",
-        "required_data": [
-          "runtime version",
-          "SKSE version",
-          "Address Library",
-          "DLL metadata/log"
-        ],
-        "false_positive_exclusions": [
-          "verified universal multi-runtime build covering exact runtime"
-        ]
-      },
-      "fix_policy": {
-        "mode": "proposal",
-        "algorithm": "Install/build correct runtime target or update compatibility layer; never spoof support metadata.",
-        "postconditions": [
-          "plugin loads and initializes required hooks/APIs on exact runtime"
-        ]
-      },
-      "fixture_id": "F17",
-      "evidence": [
-        {
-          "source": "https://github.com/alandtse/CommonLibSSE-NG",
+          "source": "https://tes5edit.github.io/docs/",
           "type": "upstream-doc",
-          "notes": "CommonLibSSE-NG documents multi-runtime abstractions and runtime targeting."
+          "notes": "Validated for inclusion in the core Agent OS prevention pack on 2026-09-24."
         }
       ]
     },
     {
       "schema_version": "skyrim-analyzer-rule-v1",
-      "rule_id": "SKYRIM-CTDA-SEMANTIC-LOSS",
-      "title": "Condition patch loses CTDA semantics",
+      "rule_id": "SKYRIM-NIF-MISSING-TEXTURE",
+      "title": "NIF references missing texture",
       "scope": [
-        "CTDA",
-        "condition"
+        "nif",
+        "texture",
+        "assets"
       ],
       "severity": "ERROR",
-      "preconditions": [
-        "A patcher copies/merges condition entries"
-      ],
-      "bad_pattern": "Function/value is forwarded without preserving comparison flags, parameter interpretation, Run On, reference, parameter 3, or ordering/OR semantics.",
-      "why": "CTDA behavior depends on the entire encoded predicate, not just visible function name.",
       "detection": {
-        "kind": "plugin",
-        "algorithm": "Normalize and compare full CTDA tuples using xEdit schema; flag partial field copies and changed OR ordering.",
+        "kind": "asset",
+        "algorithm": "Parse winning NIF shader paths and resolve every required texture through the effective VFS/BSA asset set.",
         "required_data": [
-          "source CTDA",
-          "output CTDA"
+          "NIF block tree",
+          "VFS asset index",
+          "BSA contents"
         ],
         "false_positive_exclusions": [
-          "explicit intentional condition rewrite"
+          "unused shader slots for the active shader type"
         ]
       },
       "fix_policy": {
         "mode": "proposal",
-        "algorithm": "Copy/rebuild the entire intended predicate or regenerate from typed condition model.",
+        "algorithm": "Correct the path or stage the intended asset.",
         "postconditions": [
-          "normalized CTDA equals intended predicate"
+          "all required resources resolve",
+          "independent NIF parse/render succeeds"
         ]
       },
-      "fixture_id": "F20",
       "evidence": [
         {
-          "source": "knowledge/libraries/skyrim-modding/terminology/ctda-condition-encoding-xedit.md",
-          "type": "user-validated"
+          "source": "https://github.com/BadDogSkyrim/PyNifly",
+          "type": "upstream-source",
+          "notes": "Validated for inclusion in the core Agent OS prevention pack on 2026-09-24."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-NPC-FACEGEN-MISMATCH",
+      "title": "NPC record and FaceGen winners disagree",
+      "scope": [
+        "npc",
+        "facegen",
+        "assets",
+        "vfs"
+      ],
+      "severity": "ERROR",
+      "detection": {
+        "kind": "cross-layer",
+        "algorithm": "Join the winning NPC_ appearance record to winning FaceGeom and FaceTint files in the VFS and compare intended appearance provenance.",
+        "required_data": [
+          "NPC override chain",
+          "FaceGeom winner",
+          "FaceTint winner",
+          "plugin FormID identity"
+        ],
+        "false_positive_exclusions": [
+          "declared runtime face-generation system"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Forward one coherent appearance source and matching FaceGen, or deliberately regenerate from the final NPC record.",
+        "postconditions": [
+          "record and FaceGen provenance agree",
+          "runtime face test passes"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "https://github.com/Avick3110/houseCARL",
+          "type": "upstream-source",
+          "notes": "Validated for inclusion in the core Agent OS prevention pack on 2026-09-24."
         }
       ]
     },
@@ -383,49 +413,206 @@
     {
       "schema_version": "skyrim-analyzer-rule-v1",
       "rule_id": "SKYRIM-PAPYRUS-NATIVE-PROVIDER-MISSING",
-      "title": "Papyrus compiles but required native provider is unavailable at runtime",
+      "title": "Native Papyrus function provider missing",
       "scope": [
         "papyrus",
-        "SKSE",
-        "runtime"
+        "skse",
+        "dependencies"
       ],
       "severity": "BLOCKER",
-      "preconditions": [
-        "A PSC/PEX calls one or more Native functions supplied by SKSE or a third-party native provider"
-      ],
-      "bad_pattern": "Compilation succeeds because a PSC declaration exists, but the runtime DLL/provider does not load or register the declared native function.",
-      "why": "Papyrus compilation validates declarations, not the native implementation that must be registered by SKSE at runtime.",
       "detection": {
         "kind": "cross-layer",
-        "algorithm": "Build a provider map from pinned PSC declarations, identify every Native function used by project scripts, map each to its provider DLL/version, then verify the exact provider loads and a runtime smoke assertion can resolve/call the function. Fail on Papyrus '<Native> is not a valid function' or provider-load errors.",
+        "algorithm": "Map used native declarations to provider DLLs and compare against effective SKSE layer and load logs.",
         "required_data": [
-          "PSC/PEX call graph",
-          "provider source manifest",
-          "installed SKSE DLLs",
-          "runtime/SKSE version",
-          "Papyrus/SKSE logs"
+          "native PSC/PEX calls",
+          "provider registry",
+          "winning DLLs",
+          "SKSE logs"
         ],
-        "false_positive_exclusions": []
+        "false_positive_exclusions": [
+          "optional integrations guarded by provider detection"
+        ]
       },
       "fix_policy": {
         "mode": "proposal",
-        "algorithm": "Install/build the correct provider for the target runtime or remove/replace the unsupported API call; recompile and rerun native-binding smoke tests.",
+        "algorithm": "Install/build the correct provider or remove/guard the optional native call.",
         "postconditions": [
-          "provider DLL loads on exact runtime",
-          "native functions register",
-          "owned Papyrus native-binding errors are zero"
+          "provider loads",
+          "native registration is present",
+          "runtime invocation succeeds"
         ]
       },
       "evidence": [
         {
-          "source": "knowledge/libraries/skyrim-modding/terminology/skse-papyrus-high-impact-api-signatures.md",
-          "type": "user-validated",
-          "notes": "Repository distinguishes PSC declarations from runtime native registration."
+          "source": "https://github.com/Avick3110/houseCARL",
+          "type": "upstream-source",
+          "notes": "Validated for inclusion in the core Agent OS prevention pack on 2026-09-24."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-PLUGIN-INVALID-ESL-RANGE",
+      "title": "Invalid light-plugin FormID range",
+      "scope": [
+        "plugin",
+        "esl",
+        "formid"
+      ],
+      "severity": "BLOCKER",
+      "detection": {
+        "kind": "plugin",
+        "algorithm": "Read TES4 light flag/header and every new-form local ObjectID; validate against the target header/runtime range.",
+        "required_data": [
+          "TES4 header",
+          "new form IDs",
+          "target runtime",
+          "BEES policy"
+        ],
+        "false_positive_exclusions": [
+          "overrides of master-origin forms"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Compact/recreate only when project policy permits; otherwise change plugin kind.",
+        "postconditions": [
+          "all new IDs are valid",
+          "external FormID-dependent artifacts are migrated or proven unaffected"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "https://github.com/Nukem9/skyrimse-backported-esl-support",
+          "type": "upstream-source",
+          "notes": "Validated for inclusion in the core Agent OS prevention pack on 2026-09-24."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-PLUGIN-UNRESOLVED-FORMLINK",
+      "title": "Unresolved plugin FormLink",
+      "scope": [
+        "plugin",
+        "records"
+      ],
+      "severity": "BLOCKER",
+      "detection": {
+        "kind": "plugin",
+        "algorithm": "Load output with xEdit and a typed parser; enumerate unresolved FormLinks and missing masters; report selected and parsed denominators.",
+        "required_data": [
+          "output plugin",
+          "masters",
+          "load order",
+          "xEdit error output"
+        ],
+        "false_positive_exclusions": [
+          "zero/None optional links"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Resolve the intended FormKey/master without renumbering unrelated forms.",
+        "postconditions": [
+          "xEdit reports no unresolved references",
+          "typed parser resolves every non-null FormLink"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "https://tes5edit.github.io/docs/",
+          "type": "upstream-doc",
+          "notes": "Validated for inclusion in the core Agent OS prevention pack on 2026-09-24."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-RUNTIME-HARNESS-STALE-STATE",
+      "title": "Runtime harness assertion may be answering from stale or wrong game state",
+      "scope": [
+        "runtime-test",
+        "SKSE",
+        "test-harness"
+      ],
+      "severity": "BLOCKER",
+      "preconditions": [
+        "Automated runtime harness communicates with a running Skyrim process through files, probe IPC, logs or detached session state"
+      ],
+      "bad_pattern": "A test passes using stale probe/log data, another Skyrim process, an old session, or pre-trigger evidence instead of the test launch being asserted.",
+      "why": "Detached/headless automation can produce false positives if evidence is not session-scoped and freshness-checked.",
+      "detection": {
+        "kind": "cross-layer",
+        "algorithm": "Require unique session/build id, process identity, launch timestamp/marker, runtime/version match, evidence mtime/sequence after trigger, read-act-wait-read state transition, and—where feasible—an A/B vanilla control. Reject pre-launch or already-consumed evidence.",
+        "required_data": [
+          "game PID/session id",
+          "launch marker",
+          "runtime/SKSE pair",
+          "probe/log sequence",
+          "test trigger timestamp",
+          "pre/post state"
+        ],
+        "false_positive_exclusions": []
+      },
+      "fix_policy": {
+        "mode": "automatic",
+        "algorithm": "Reset test/probe IO, stop stale sessions, rebuild isolated test profile, relaunch, and rerun the failed scenario from a clean fixture. Escalate if process/profile ownership is ambiguous.",
+        "postconditions": [
+          "all evidence belongs to current session",
+          "assertion observes a post-trigger state change",
+          "control/test profile identity is recorded"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "https://github.com/myaiexp/skyrim-headless-mods/tree/master/skytest",
+          "type": "upstream-doc",
+          "notes": "Skytest documents stale shared-probe/log and second-running-game failure modes and uses launch markers/session guards."
         },
         {
-          "source": "knowledge/libraries/skyrim-modding/terminology/papyrus-extender-po3-api-catalog.md",
+          "source": "knowledge/libraries/skyrim-modding/automation/agent-runtime-test-harness.md",
           "type": "user-validated",
-          "notes": "po3 provider catalog is explicitly compile-time plus runtime-provider scoped."
+          "notes": "Repository requires read-act-wait-read assertions."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-RUNTIME-STATIC-DIVERGENCE",
+      "title": "Runtime state diverges from static winner",
+      "scope": [
+        "runtime-patching",
+        "save",
+        "records"
+      ],
+      "severity": "INFO",
+      "detection": {
+        "kind": "cross-layer",
+        "algorithm": "Compare static winner with runtime-patcher configs/logs, save/ExtraData state and a live query; construct the final provenance chain.",
+        "required_data": [
+          "static record",
+          "runtime patchers",
+          "save/ExtraData",
+          "live state"
+        ],
+        "false_positive_exclusions": [
+          "expected divergence declared in manifest"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Patch/configure the actual owning layer and document the runtime provenance.",
+        "postconditions": [
+          "runtime provenance recorded",
+          "runtime assertion matches expected value"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "https://github.com/alandtse/devbench",
+          "type": "upstream-source",
+          "notes": "Validated for inclusion in the core Agent OS prevention pack on 2026-09-24."
         }
       ]
     },
@@ -481,100 +668,155 @@
     },
     {
       "schema_version": "skyrim-analyzer-rule-v1",
-      "rule_id": "SKYRIM-NATIVE-TARGET-MATRIX-INCOMPLETE",
-      "title": "Declared native runtime target was not built and verified",
+      "rule_id": "SKYRIM-VALIDATOR-COVERAGE-GAP",
+      "title": "Validator processed less input than expected",
       "scope": [
-        "native",
-        "SKSE",
-        "build"
+        "validation",
+        "automation"
       ],
       "severity": "BLOCKER",
-      "preconditions": [
-        "Project manifest declares more than one Skyrim runtime/distribution target for a native DLL"
-      ],
-      "bad_pattern": "Release artifact is promoted after building/testing only a subset of the declared target matrix.",
-      "why": "CommonLib abstractions and one successful binary do not prove every runtime's relocations, ABI, metadata, imports and hooks are valid.",
       "detection": {
-        "kind": "native",
-        "algorithm": "Compare project target matrix against CMake preset/configure/build records, output DLL hashes, metadata/import scans and runtime smoke results. Every declared target must have an explicit pass, supported universal-binary proof, or removal from the support claim.",
+        "kind": "cross-layer",
+        "algorithm": "Compare independently discovered input count with processed, skipped and errored counts; require every difference to be classified.",
         "required_data": [
-          "project targets",
-          "build reports",
-          "DLL hashes",
-          "runtime compatibility declarations",
-          "runtime test results"
+          "validator counters",
+          "independent discovery count",
+          "skip reasons"
         ],
         "false_positive_exclusions": [
-          "single verified universal binary whose exact declared runtime coverage is independently confirmed"
+          "documented scope filter applied before both denominator and numerator"
         ]
       },
       "fix_policy": {
-        "mode": "proposal",
-        "algorithm": "Build and validate missing target(s), narrow the published support matrix, or supply a verified universal binary with exact runtime guards.",
+        "mode": "automatic",
+        "algorithm": "Invalidate the result, repair discovery/parser coverage or emit explicit unsupported/skipped items, then rerun.",
         "postconditions": [
-          "all published targets have build evidence",
-          "all release-native targets have load/init evidence"
+          "processed plus classified skipped equals discovered",
+          "unknown skip count is zero"
         ]
       },
       "evidence": [
         {
-          "source": "knowledge/libraries/skyrim-modding/automation/validation-gates.md",
-          "type": "user-validated",
-          "notes": "G09 already requires every declared target build; this rule makes incomplete matrices machine-detectable."
-        },
-        {
-          "source": "https://github.com/alandtse/CommonLibSSE-NG",
-          "type": "upstream-doc"
+          "source": "https://github.com/WingedGuardian/skyrimvr-claude-toolkit",
+          "type": "upstream-source",
+          "notes": "Validated for inclusion in the core Agent OS prevention pack on 2026-09-24."
         }
       ]
     },
     {
       "schema_version": "skyrim-analyzer-rule-v1",
-      "rule_id": "SKYRIM-RUNTIME-HARNESS-STALE-STATE",
-      "title": "Runtime harness assertion may be answering from stale or wrong game state",
+      "rule_id": "SKYRIM-VMAD-PROPERTY-MISMATCH",
+      "title": "Papyrus VMAD property binding mismatch",
       "scope": [
-        "runtime-test",
-        "SKSE",
-        "test-harness"
+        "papyrus",
+        "vmad",
+        "plugin"
       ],
-      "severity": "BLOCKER",
-      "preconditions": [
-        "Automated runtime harness communicates with a running Skyrim process through files, probe IPC, logs or detached session state"
-      ],
-      "bad_pattern": "A test passes using stale probe/log data, another Skyrim process, an old session, or pre-trigger evidence instead of the test launch being asserted.",
-      "why": "Detached/headless automation can produce false positives if evidence is not session-scoped and freshness-checked.",
+      "severity": "ERROR",
       "detection": {
         "kind": "cross-layer",
-        "algorithm": "Require unique session/build id, process identity, launch timestamp/marker, runtime/version match, evidence mtime/sequence after trigger, read-act-wait-read state transition, and—where feasible—an A/B vanilla control. Reject pre-launch or already-consumed evidence.",
+        "algorithm": "Compare VMAD script/property metadata with pinned PSC/PEX declarations and inheritance; find stale, incompatible or required-unfilled properties.",
         "required_data": [
-          "game PID/session id",
-          "launch marker",
-          "runtime/SKSE pair",
-          "probe/log sequence",
-          "test trigger timestamp",
-          "pre/post state"
+          "plugin VMAD",
+          "PSC/PEX provider corpus",
+          "inheritance"
         ],
-        "false_positive_exclusions": []
+        "false_positive_exclusions": [
+          "optional properties intentionally left None"
+        ]
       },
       "fix_policy": {
-        "mode": "automatic",
-        "algorithm": "Reset test/probe IO, stop stale sessions, rebuild isolated test profile, relaunch, and rerun the failed scenario from a clean fixture. Escalate if process/profile ownership is ambiguous.",
+        "mode": "proposal",
+        "algorithm": "Update bindings or restore a compatible script schema; handle existing-save migration separately.",
         "postconditions": [
-          "all evidence belongs to current session",
-          "assertion observes a post-trigger state change",
-          "control/test profile identity is recorded"
+          "bindings match current declarations",
+          "compile passes",
+          "new-game binding test passes"
         ]
       },
       "evidence": [
         {
-          "source": "https://github.com/myaiexp/skyrim-headless-mods/tree/master/skytest",
-          "type": "upstream-doc",
-          "notes": "Skytest documents stale shared-probe/log and second-running-game failure modes and uses launch markers/session guards."
-        },
+          "source": "https://github.com/ianpatt/skse64",
+          "type": "upstream-source",
+          "notes": "Validated for inclusion in the core Agent OS prevention pack on 2026-09-24."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-VOICE-PATH-MISMATCH",
+      "title": "Dialogue voice asset identity mismatch",
+      "scope": [
+        "dialogue",
+        "voice",
+        "fuz"
+      ],
+      "severity": "ERROR",
+      "detection": {
+        "kind": "cross-layer",
+        "algorithm": "Derive expected voice asset identity from final INFO/plugin/VoiceType/response and resolve packaged FUZ/XWM/LIP assets.",
+        "required_data": [
+          "INFO",
+          "plugin identity",
+          "VoiceType",
+          "voice assets"
+        ],
+        "false_positive_exclusions": [
+          "intentionally unvoiced response"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Regenerate/package voice output from the final dialogue identity.",
+        "postconditions": [
+          "expected asset resolves",
+          "FUZ validation passes",
+          "runtime dialogue plays voice"
+        ]
+      },
+      "evidence": [
         {
-          "source": "knowledge/libraries/skyrim-modding/automation/agent-runtime-test-harness.md",
-          "type": "user-validated",
-          "notes": "Repository requires read-act-wait-read assertions."
+          "source": "https://github.com/ARoese/VOSpeaker",
+          "type": "upstream-source",
+          "notes": "Validated for inclusion in the core Agent OS prevention pack on 2026-09-24."
+        }
+      ]
+    },
+    {
+      "schema_version": "skyrim-analyzer-rule-v1",
+      "rule_id": "SKYRIM-WATER-FLOW-REVERTED",
+      "title": "Skyrim SE cell water-flow data reverted",
+      "scope": [
+        "cell",
+        "water",
+        "oldrim-port"
+      ],
+      "severity": "WARNING",
+      "detection": {
+        "kind": "cross-layer",
+        "algorithm": "Compare water/flow fields in exterior CELL overrides against Update.esm or the selected water-overhaul truth source while ignoring unrelated fields.",
+        "required_data": [
+          "CELL override chain",
+          "Update.esm",
+          "water truth source"
+        ],
+        "false_positive_exclusions": [
+          "project declares a complete replacement water model"
+        ]
+      },
+      "fix_policy": {
+        "mode": "proposal",
+        "algorithm": "Forward only the intended water/flow fields from the chosen truth source.",
+        "postconditions": [
+          "water fields match truth source",
+          "runtime seam test passes"
+        ]
+      },
+      "evidence": [
+        {
+          "source": "https://www.nexusmods.com/skyrimspecialedition/mods/171509",
+          "type": "community",
+          "notes": "Validated for inclusion in the core Agent OS prevention pack on 2026-09-24."
         }
       ]
     }
