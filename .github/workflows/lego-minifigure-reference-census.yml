@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/lego-minifigure-reference-census.yml'
+      - '.github/lego-census-trigger'
 
 permissions:
   contents: write
