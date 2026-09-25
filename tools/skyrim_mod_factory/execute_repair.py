@@ -16,6 +16,7 @@ import datetime as dt
 import importlib.util
 import json
 import re
+import shutil
 from pathlib import Path
 from typing import Any
 
@@ -115,11 +116,79 @@ def validate_automatic_plan(
         resolved.append(handler)
     return resolved
 
+def is_within(path:Path,roots:list[Path])->bool:
+    resolved=path.resolve(strict=False)
+    for root in roots:
+        r=root.resolve(strict=False)
+        if resolved==r or r in resolved.parents:
+            return True
+    return False
+
+def affected_output_paths(state:dict[str,Any],invalidated:list[str])->list[Path]:
+    out=[]
+    seen=set()
+    for nid in invalidated:
+        entry=(state.get("nodes") or {}).get(nid) or {}
+        for fact in entry.get("output_fingerprints") or []:
+            raw=fact.get("path")
+            if not raw:
+                continue
+            p=Path(str(raw))
+            key=str(p.resolve(strict=False))
+            if key not in seen:
+                seen.add(key)
+                out.append(p)
+    return out
+
+def backup_outputs(
+    state:dict[str,Any],
+    invalidated:list[str],
+    *,
+    backup_dir:Path,
+    allowed_output_roots:list[Path],
+)->list[dict[str,Any]]:
+    paths=affected_output_paths(state,invalidated)
+    if paths and not allowed_output_roots:
+        raise ValueError(
+            "automatic generated-output repair requires at least one allowed output root"
+        )
+    for path in paths:
+        if not is_within(path,allowed_output_roots):
+            raise ValueError(
+                f"refusing to back up/mutate output outside allowed roots: {path}"
+            )
+
+    backups=[]
+    backup_dir.mkdir(parents=True,exist_ok=True)
+    for idx,path in enumerate(paths,1):
+        if not path.exists():
+            continue
+        safe=re.sub(r"[^A-Za-z0-9_.-]+","_",path.name or f"output-{idx}")
+        dest=backup_dir/f"{idx:03d}-{safe}"
+        fact=EXEC.path_fingerprint(str(path))
+        if path.is_file():
+            shutil.copy2(path,dest)
+            kind="file"
+        elif path.is_dir():
+            shutil.copytree(path,dest,symlinks=True)
+            kind="directory"
+        else:
+            raise ValueError(f"unsupported generated output type: {path}")
+        backups.append({
+            "path":str(path),
+            "backup_path":str(dest),
+            "kind":kind,
+            **({"sha256":fact["sha256"]} if fact.get("sha256") else {}),
+            **({"size":fact["size"]} if fact.get("size") is not None else {}),
+        })
+    return backups
+
 def make_checkpoint(
     plan:dict[str,Any],
     state_path:Path,
     state:dict[str,Any],
     invalidated:list[str],
+    output_backups:list[dict[str,Any]]|None=None,
 )->dict[str,Any]:
     return {
         "schema_version":"skyrim-repair-checkpoint-v1",
@@ -134,6 +203,7 @@ def make_checkpoint(
             for nid in invalidated
             if nid in state.get("nodes",{})
         },
+        "output_backups":list(output_backups or []),
     }
 
 def apply_invalidate_and_regenerate(
@@ -167,6 +237,7 @@ def execute(
     state_path:Path,
     checkpoint_dir:Path,
     execute_mutation:bool,
+    allowed_output_roots:list[Path]|None=None,
 )->tuple[dict[str,Any],dict[str,Any]|None]:
     handlers=validate_automatic_plan(plan,registry)
     entrypoints={h["implementation"]["entrypoint"] for h in handlers}
@@ -193,15 +264,23 @@ def execute(
         )
         return result,None
 
-    checkpoint=make_checkpoint(plan,state_path,state,invalidated)
-    cp_errors=schema_errors(checkpoint,"skyrim-repair-checkpoint-v1.schema.json")
-    if cp_errors:
-        raise ValueError("repair checkpoint failed schema validation: "+"; ".join(cp_errors))
-
     checkpoint_dir.mkdir(parents=True,exist_ok=True)
     safe=re.sub(r"[^A-Za-z0-9_.-]+","_",plan["repair_id"])
     stamp=dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     checkpoint_path=checkpoint_dir/f"{stamp}-{safe}.json"
+    backup_dir=checkpoint_dir/f"{stamp}-{safe}.assets"
+    backups=backup_outputs(
+        state,
+        invalidated,
+        backup_dir=backup_dir,
+        allowed_output_roots=list(allowed_output_roots or []),
+    )
+    checkpoint=make_checkpoint(
+        plan,state_path,state,invalidated,output_backups=backups
+    )
+    cp_errors=schema_errors(checkpoint,"skyrim-repair-checkpoint-v1.schema.json")
+    if cp_errors:
+        raise ValueError("repair checkpoint failed schema validation: "+"; ".join(cp_errors))
     EXEC.atomic_write_json(checkpoint_path,checkpoint)
 
     state.clear()
@@ -227,6 +306,7 @@ def main()->None:
     ap.add_argument("execution_state",type=Path)
     ap.add_argument("--handler-registry",type=Path,default=DEFAULT_HANDLERS)
     ap.add_argument("--checkpoint-dir",type=Path)
+    ap.add_argument("--allowed-output-root",type=Path,action="append",default=[])
     ap.add_argument("--output",type=Path,required=True)
     ap.add_argument("--execute",action="store_true")
     args=ap.parse_args()
@@ -252,6 +332,7 @@ def main()->None:
             state_path=args.execution_state,
             checkpoint_dir=checkpoint_dir,
             execute_mutation=args.execute,
+            allowed_output_roots=args.allowed_output_root,
         )
     except ValueError as exc:
         raise SystemExit(str(exc))
