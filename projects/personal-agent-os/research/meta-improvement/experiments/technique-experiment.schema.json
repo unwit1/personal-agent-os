@@ -1,0 +1,442 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent OS Improvement Experiment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "id",
+    "title",
+    "status",
+    "techniques",
+    "hypothesis",
+    "scope",
+    "baseline",
+    "treatment",
+    "primary_metrics",
+    "guardrails",
+    "dataset",
+    "isolation",
+    "promotion",
+    "rollback",
+    "provenance",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "schema": {
+      "const": "personal-agent-os/improvement-experiment/v1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^EXP-[0-9]{4,}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "ready",
+        "running",
+        "analyzing",
+        "accepted",
+        "rejected",
+        "inconclusive",
+        "rolled_back",
+        "superseded"
+      ]
+    },
+    "techniques": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^AIT-[0-9]{4}$"
+      },
+      "minItems": 1
+    },
+    "micro_optimizations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^MIC-[0-9]{4}$"
+      }
+    },
+    "hypothesis": {
+      "type": "object",
+      "required": [
+        "statement",
+        "mechanism",
+        "falsifier"
+      ],
+      "properties": {
+        "statement": {
+          "type": "string"
+        },
+        "mechanism": {
+          "type": "string"
+        },
+        "falsifier": {
+          "type": "string"
+        },
+        "expected_direction": {
+          "type": "string"
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "project",
+        "subsystem",
+        "task_family",
+        "risk_class"
+      ],
+      "properties": {
+        "project": {
+          "type": "string"
+        },
+        "subsystem": {
+          "type": "string"
+        },
+        "task_family": {
+          "type": "string"
+        },
+        "risk_class": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "provider_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "model_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "baseline": {
+      "type": "object",
+      "required": [
+        "version_refs",
+        "description"
+      ],
+      "properties": {
+        "version_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "metrics_snapshot": {
+          "type": "object"
+        }
+      }
+    },
+    "treatment": {
+      "type": "object",
+      "required": [
+        "version_refs",
+        "description",
+        "changed_variables",
+        "held_constant"
+      ],
+      "properties": {
+        "version_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "changed_variables": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "held_constant": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "primary_metrics": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "direction",
+          "success_threshold"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "direction": {
+            "enum": [
+              "increase",
+              "decrease",
+              "noninferior",
+              "target_range"
+            ]
+          },
+          "success_threshold": {
+            "type": "string"
+          },
+          "measurement": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "guardrails": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "constraint"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "constraint": {
+            "type": "string"
+          },
+          "hard_veto": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "dataset": {
+      "type": "object",
+      "required": [
+        "eval_suite_refs",
+        "split_policy"
+      ],
+      "properties": {
+        "eval_suite_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "split_policy": {
+          "type": "string"
+        },
+        "protected_holdout": {
+          "type": "boolean"
+        },
+        "sensitivity": {
+          "type": "string"
+        },
+        "contamination_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "isolation": {
+      "type": "object",
+      "required": [
+        "method",
+        "side_effect_policy"
+      ],
+      "properties": {
+        "method": {
+          "enum": [
+            "offline_replay",
+            "sandbox",
+            "shadow",
+            "canary",
+            "ab_test",
+            "local_private",
+            "other"
+          ]
+        },
+        "side_effect_policy": {
+          "type": "string"
+        },
+        "sample_budget": {
+          "type": "string"
+        },
+        "time_budget": {
+          "type": "string"
+        },
+        "cost_budget": {
+          "type": "string"
+        }
+      }
+    },
+    "randomization": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "unit": {
+          "type": "string"
+        },
+        "seed": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "stratification": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "assignment": {
+          "type": "string"
+        }
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string"
+        },
+        "uncertainty": {
+          "type": "string"
+        },
+        "judge_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "results": {
+          "type": "object"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "promotion": {
+      "type": "object",
+      "required": [
+        "required_evidence",
+        "decision_authority",
+        "rollout_plan"
+      ],
+      "properties": {
+        "required_evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "decision_authority": {
+          "type": "string"
+        },
+        "rollout_plan": {
+          "type": "string"
+        }
+      }
+    },
+    "rollback": {
+      "type": "object",
+      "required": [
+        "trigger",
+        "method"
+      ],
+      "properties": {
+        "trigger": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "verified": {
+          "type": "boolean"
+        }
+      }
+    },
+    "post_deploy": {
+      "type": "object",
+      "properties": {
+        "monitoring_window": {
+          "type": "string"
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "actual_outcome": {
+          "type": "string"
+        },
+        "unexpected_effects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "improvement_refs",
+        "source_refs"
+      ],
+      "properties": {
+        "improvement_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "artifact_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    }
+  }
+}
