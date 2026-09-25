@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-ctda-predicate-set-v1.schema.json",
+  "title": "Skyrim CTDA Predicate Set v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record",
+    "predicates"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-ctda-predicate-set-v1"
+    },
+    "record": {
+      "type": "string"
+    },
+    "predicates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "type_byte",
+          "comparison",
+          "function",
+          "parameter_1",
+          "parameter_2",
+          "run_on",
+          "reference",
+          "parameter_3"
+        ],
+        "properties": {
+          "type_byte": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255
+          },
+          "comparison": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "value"
+            ],
+            "properties": {
+              "kind": {
+                "enum": [
+                  "literal",
+                  "global"
+                ]
+              },
+              "value": {}
+            }
+          },
+          "function": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "parameter_1": {},
+          "parameter_2": {},
+          "run_on": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 7
+          },
+          "reference": {},
+          "parameter_3": {}
+        }
+      }
+    },
+    "intentional_rewrite": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
