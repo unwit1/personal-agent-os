@@ -1,0 +1,68 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "ck-cmd",
+  "tool": "ck-cmd",
+  "source": "https://github.com/aerisarn/ck-cmd",
+  "targets": [
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "fbx-to-nif",
+    "asset-conversion",
+    "vertex-color-transfer",
+    "material-split",
+    "material-path-translation"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "ck-cmd.exe",
+    "transport": "CLI",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "FBX",
+    "textures/material references"
+  ],
+  "outputs": [
+    "NIF"
+  ],
+  "logs": [
+    "stdout",
+    "stderr"
+  ],
+  "coverage": {
+    "description": "Command-line Creation Engine asset helper originally developed for Skywind workflows; useful as a software-agnostic FBX→NIF conversion path.",
+    "known_gaps": [
+      "older/specialist tool; output is described upstream as mostly ready rather than guaranteed release-ready",
+      "does not replace PyNifly/NifSkope/game validation"
+    ],
+    "denominator_probe": "FBX meshes/materials requested vs NIF shapes/material paths produced."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Export to staging; retain source FBX and compare with independent NIF parser."
+  },
+  "verification": {
+    "independent_validators": [
+      "pynifly",
+      "nifskope",
+      "in-game-render"
+    ],
+    "version_probe": "binary/source commit",
+    "output_readback": "Parse NIF shapes, shader paths, collision/skinning and render."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Fallback/headless converter; PyNifly remains preferred for schema-aware NIF automation."
+  },
+  "evidence": {
+    "source_url": "https://github.com/aerisarn/ck-cmd",
+    "verified_date": "2026-09-24",
+    "notes": "Upstream documents command-line FBX→NIF conversion, vertex-color transfer, material splitting and shader-path translation."
+  }
+}
