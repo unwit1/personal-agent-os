@@ -1,0 +1,77 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "dds-structural-validator",
+  "tool": "Agent OS DDS structural validator",
+  "source": "https://learn.microsoft.com/en-us/windows/win32/direct3ddds/dx-graphics-dds-pguide",
+  "targets": [
+    "skyrim-le",
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "dds-header-validate",
+    "dds-format-identify",
+    "dds-mipmap-validate",
+    "dds-block-payload-size-validate",
+    "dds-game-format-policy"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "python",
+    "arguments_template": [
+      "tools/skyrim_mod_factory/validate_dds.py",
+      "{dds_path}",
+      "--game",
+      "{game}",
+      "--output",
+      "{output}"
+    ],
+    "transport": "local deterministic binary header parser",
+    "requires_running_game": false
+  },
+  "inputs": [
+    ".dds"
+  ],
+  "outputs": [
+    "skyrim-static-invariant-report-v1"
+  ],
+  "logs": [
+    "validator report"
+  ],
+  "coverage": {
+    "description": "Validates DDS magic/header sizes, dimensions, legacy/DX10 format identity, DX10 resource metadata, explicit full-mip policy, known block-compressed payload size, and narrow Skyrim generation compatibility policy.",
+    "known_gaps": [
+      "does not decode pixels or inspect actual channel content",
+      "uncompressed and Texture3D payload byte-size validation remain incomplete",
+      "texture-role semantics such as normal/specular/environment masks require a later decoded-channel validator"
+    ],
+    "denominator_probe": "all declared DDS assets vs structurally parsed assets vs payload-size-checked block-compressed assets."
+  },
+  "safety": {
+    "mutation_default": "read-only",
+    "supports_dry_run": true,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Read-only DDS inspection."
+  },
+  "verification": {
+    "independent_validators": [
+      "DirectXTex",
+      "Cathedral Assets Optimizer",
+      "runtime material/render fixture"
+    ],
+    "version_probe": "Microsoft DDS/DXGI definitions plus explicit Skyrim generation policy.",
+    "output_readback": "Validate typed invariant report; triangulate release assets with DirectXTex/CAO and runtime rendering where semantics matter."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Cheap deterministic first-pass DDS oracle before heavier image decode or runtime rendering."
+  },
+  "evidence": {
+    "source_url": "https://learn.microsoft.com/en-us/windows/win32/direct3ddds/dx-graphics-dds-pguide",
+    "verified_date": "2026-09-25",
+    "notes": "Microsoft documents 128-byte base header, 148-byte DX10 header, header-size invariants, block-compressed layout and DXGI format identifiers."
+  }
+}
