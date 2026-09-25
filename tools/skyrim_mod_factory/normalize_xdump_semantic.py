@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 """Normalize xEdit/xDump record text into skyrim-semantic-plugin-v1.
 
-This is a conservative producer. It does not pretend the human-readable xDump tree
-contains every semantic needed for canonical cross-load-order identity. Records are
-keyed by target plugin + displayed load-order FormID unless a future producer supplies
-stronger FormKey normalization. Ordered xDump field evidence is preserved losslessly
-enough for differential comparison and source provenance records the limitation.
+Without a load-order map, displayed FormIDs remain explicitly noncanonical.
+With a validated load-order map, displayed full/light FormIDs are converted to
+Mutagen-compatible six-hex-digit FormKeys (e.g. 012ABC:Skyrim.esm).
 """
 from __future__ import annotations
 
@@ -21,8 +19,10 @@ from jsonschema import Draft202012Validator
 
 HERE=Path(__file__).resolve().parent
 REPO=HERE.parents[1]
-SCHEMA=REPO/"schemas/skyrim-semantic-plugin-v1.schema.json"
-PRODUCER_VERSION="1.0"
+SCHEMAS=REPO/"schemas"
+SEMANTIC_SCHEMA="skyrim-semantic-plugin-v1.schema.json"
+LOAD_MAP_SCHEMA="skyrim-load-order-formid-map-v1.schema.json"
+PRODUCER_VERSION="1.1"
 
 RECORD_RE=re.compile(
     r"\[(?P<signature>[A-Z0-9_]{4}):(?P<form>[0-9A-Fa-f]{8})\]"
@@ -37,15 +37,61 @@ EDID_RE=re.compile(r"(?:^|\\|\s)EDID(?:\s*-\s*Editor ID)?\b",re.I)
 def sha256_bytes(data:bytes)->str:
     return hashlib.sha256(data).hexdigest()
 
-def load_schema()->dict[str,Any]:
-    return json.loads(SCHEMA.read_text(encoding="utf-8"))
+def canonical_json_sha256(value:Any)->str:
+    payload=json.dumps(
+        value,sort_keys=True,separators=(",",":"),ensure_ascii=False
+    ).encode("utf-8")
+    return sha256_bytes(payload)
 
-def schema_errors(value:dict[str,Any])->list[str]:
+def load_schema(name:str)->dict[str,Any]:
+    return json.loads((SCHEMAS/name).read_text(encoding="utf-8"))
+
+def schema_errors(value:dict[str,Any],name:str=SEMANTIC_SCHEMA)->list[str]:
     out=[]
-    for err in Draft202012Validator(load_schema()).iter_errors(value):
+    for err in Draft202012Validator(load_schema(name)).iter_errors(value):
         loc=".".join(str(x) for x in err.absolute_path) or "<root>"
         out.append(f"{loc}: {err.message}")
     return out
+
+def normalize_load_order_map(value:dict[str,Any])->dict[str,Any]:
+    errors=schema_errors(value,LOAD_MAP_SCHEMA)
+    if errors:
+        raise ValueError("invalid load-order FormID map: "+"; ".join(errors))
+    return {
+        "schema_version":"skyrim-load-order-formid-map-v1",
+        "full":{k.upper():v for k,v in value["full"].items()},
+        "light":{k.upper():v for k,v in value["light"].items()},
+    }
+
+def displayed_formid_to_formkey(
+    form_id:str,
+    load_order_map:dict[str,Any],
+)->str:
+    form=form_id.upper()
+    if not re.fullmatch(r"[0-9A-F]{8}",form):
+        raise ValueError(f"invalid displayed FormID: {form_id!r}")
+    mapping=normalize_load_order_map(load_order_map)
+    if form.startswith("FF"):
+        raise ValueError(
+            f"dynamic FormID {form} cannot be converted to a persisted plugin FormKey"
+        )
+    if form.startswith("FE"):
+        index=form[2:5]
+        mod_key=mapping["light"].get(index)
+        if not mod_key:
+            raise ValueError(
+                f"light load-order index {index} for FormID {form} is absent from map"
+            )
+        local_id=form[5:8].rjust(6,"0")
+    else:
+        index=form[:2]
+        mod_key=mapping["full"].get(index)
+        if not mod_key:
+            raise ValueError(
+                f"full load-order index {index} for FormID {form} is absent from map"
+            )
+        local_id=form[2:8]
+    return f"{local_id}:{mod_key}"
 
 def indentation(raw:str)->int:
     expanded=raw.expandtabs(4)
@@ -84,15 +130,20 @@ def parse_xdump(
     producer_version:str=PRODUCER_VERSION,
     source_plugin_sha256:str|None=None,
     load_order_sha256:str|None=None,
+    load_order_map:dict[str,Any]|None=None,
     created_at:str|None=None,
 )->dict[str,Any]:
+    normalized_map=(
+        normalize_load_order_map(load_order_map)
+        if load_order_map is not None else None
+    )
+    map_sha=canonical_json_sha256(normalized_map) if normalized_map else None
     lines=text.splitlines()
     records=[]
     current=None
     stack:list[tuple[int,str]]=[]
     field_lines=0
     unassigned_nonempty=0
-    duplicate_record_keys=0
     seen_keys=set()
 
     def flush()->None:
@@ -117,13 +168,19 @@ def parse_xdump(
             flush()
             form=rec.group("form").upper()
             signature=rec.group("signature")
+            form_key=(
+                displayed_formid_to_formkey(form,normalized_map)
+                if normalized_map is not None
+                else f"{plugin}|{form}"
+            )
             current={
-                "form_key":f"{plugin}|{form}",
+                "form_key":form_key,
                 "signature":signature,
                 "editor_id":None,
                 "fields":{
                     "_xdump":{
                         "record_header":body,
+                        "displayed_form_id":form,
                         "ordered_fields":[],
                     }
                 },
@@ -150,13 +207,10 @@ def parse_xdump(
         current["fields"]["_xdump"]["ordered_fields"].append(row)
         field_lines+=1
 
-        if EDID_RE.search(name):
-            candidate=value
-            if candidate:
-                current["editor_id"]=candidate
+        if EDID_RE.search(name) and value:
+            current["editor_id"]=value
 
-        assets=extract_asset_paths(value or body)
-        for asset in assets:
+        for asset in extract_asset_paths(value or body):
             if asset not in current["asset_paths"]:
                 current["asset_paths"].append(asset)
 
@@ -170,30 +224,42 @@ def parse_xdump(
             "no xEdit-style [SIGNATURE:FORMID] record headers were found in xDump text"
         )
 
+    canonical=normalized_map is not None
+    omissions=[
+        "record flags are not inferred unless a later typed producer decodes them",
+        "localized-string identity is preserved only as displayed text",
+        "unknown serialization bytes not printed by xDump are unavailable",
+    ]
+    if not canonical:
+        omissions.insert(
+            1,
+            "master-relative FormKeys are not reconstructed without a load-order map",
+        )
     provenance={
         "producer":"xedit-xdump-text-normalizer",
         "producer_version":producer_version,
         "schema_source":"xEdit/xDump human-readable record tree",
         "created_at":created_at or dt.datetime.now(dt.timezone.utc).isoformat(),
-        "form_key_mode":"target-plugin-plus-load-order-formid",
-        "canonical_cross_load_order_form_keys":False,
+        "form_key_mode":(
+            "mutagen-formkey-string"
+            if canonical else "target-plugin-plus-load-order-formid"
+        ),
+        "canonical_cross_load_order_form_keys":canonical,
         "coverage":{
             "input_lines":len(lines),
             "records_emitted":len(records),
             "field_lines_preserved":field_lines,
             "unassigned_nonempty_lines":unassigned_nonempty,
-            "omissions":[
-                "record flags are not inferred unless a later typed producer decodes them",
-                "master-relative FormKeys are not reconstructed from displayed load-order FormIDs",
-                "localized-string identity is preserved only as displayed text",
-                "unknown serialization bytes not printed by xDump are unavailable",
-            ],
+            "omissions":omissions,
         },
         "raw_xdump_sha256":sha256_bytes(text.encode("utf-8")),
     }
     if source_plugin_sha256:
         provenance["source_plugin_sha256"]=source_plugin_sha256
-    if load_order_sha256:
+    if canonical:
+        provenance["load_order_map_sha256"]=map_sha
+        provenance["load_order_sha256"]=load_order_sha256 or map_sha
+    elif load_order_sha256:
         provenance["load_order_sha256"]=load_order_sha256
 
     document={
@@ -221,9 +287,14 @@ def main()->None:
     ap.add_argument("--producer-version",default=PRODUCER_VERSION)
     ap.add_argument("--source-plugin-sha256")
     ap.add_argument("--load-order-sha256")
+    ap.add_argument("--load-order-map",type=Path)
     ap.add_argument("--output",type=Path,required=True)
     args=ap.parse_args()
 
+    load_map=(
+        json.loads(args.load_order_map.read_text(encoding="utf-8"))
+        if args.load_order_map else None
+    )
     try:
         document=parse_xdump(
             args.xdump_text.read_text(encoding="utf-8",errors="replace"),
@@ -232,6 +303,7 @@ def main()->None:
             producer_version=args.producer_version,
             source_plugin_sha256=args.source_plugin_sha256,
             load_order_sha256=args.load_order_sha256,
+            load_order_map=load_map,
         )
     except ValueError as exc:
         raise SystemExit(str(exc))
