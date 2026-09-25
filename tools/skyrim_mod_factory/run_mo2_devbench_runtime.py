@@ -174,8 +174,11 @@ def run_session(
 
     proc=None
     observation=None
+    session_health=None
     launch_error=None
-    with stdout_path.open("w",encoding="utf-8") as stdout,          stderr_path.open("w",encoding="utf-8") as stderr:
+    force_kill_result=None
+    with stdout_path.open("w",encoding="utf-8") as stdout, \
+         stderr_path.open("w",encoding="utf-8") as stderr:
         try:
             proc=subprocess.Popen(
                 result["launch"]["command"],
@@ -183,6 +186,20 @@ def run_session(
                 stderr=stderr,
                 text=True,
             )
+            session_health=DB.wait_for_health(
+                base_url,
+                wait_seconds=config["timeouts"]["launch_seconds"],
+                request_timeout_seconds=min(
+                    5.0,
+                    float(config["timeouts"]["launch_seconds"]),
+                ),
+            )
+            health_path=session_dir/"devbench-session-health.json"
+            health_path.write_text(
+                json.dumps(session_health,indent=2)+"\n",
+                encoding="utf-8",
+            )
+            add_file_artifact(result,health_path,"devbench-session-health")
             observation=DB.run_observer(
                 test,
                 result,
@@ -190,29 +207,71 @@ def run_session(
                 health_wait_seconds=config["timeouts"]["launch_seconds"],
                 request_timeout_seconds=config["timeouts"]["scenario_seconds"],
                 evidence_dir=session_dir/"devbench",
+                initial_health=session_health,
             )
-            try:
-                DB.post_tool(
-                    base_url,
-                    "console",
-                    {"action":"exec","command":"qqq"},
-                    timeout_seconds=min(10.0,config["timeouts"]["shutdown_seconds"]),
-                )
-            except ValueError as exc:
-                result["issues"].append(
-                    "devbench shutdown request failed: "+str(exc)
-                )
-            try:
-                result["launch"]["exit_code"]=proc.wait(
-                    timeout=config["timeouts"]["shutdown_seconds"]
-                )
-            except subprocess.TimeoutExpired:
-                result["launch"]["timed_out"]=True
-                result["issues"].append(
-                    "MO2/game process did not exit within shutdown timeout after scenario"
-                )
         except (OSError,ValueError) as exc:
             launch_error=str(exc)
+        finally:
+            if session_health is not None:
+                try:
+                    DB.post_tool(
+                        base_url,
+                        "console",
+                        {"action":"exec","command":"qqq"},
+                        timeout_seconds=min(
+                            10.0,
+                            config["timeouts"]["shutdown_seconds"],
+                        ),
+                    )
+                except ValueError as exc:
+                    result["issues"].append(
+                        "devbench shutdown request failed: "+str(exc)
+                    )
+            if proc is not None:
+                try:
+                    result["launch"]["exit_code"]=proc.wait(
+                        timeout=config["timeouts"]["shutdown_seconds"]
+                    )
+                except subprocess.TimeoutExpired:
+                    result["launch"]["timed_out"]=True
+                    result["issues"].append(
+                        "MO2/game process did not exit within shutdown timeout"
+                    )
+                    if (
+                        session_health is not None
+                        and (config.get("process_policy") or {}).get(
+                            "allow_force_kill_session_game",False
+                        )
+                    ):
+                        try:
+                            force_kill_result=force_kill_session_game(
+                                session_health,
+                                config,
+                            )
+                            result["evidence"]["artifacts"].append({
+                                "kind":"runtime-force-kill",
+                                "pid":force_kill_result["pid"],
+                                "exe":force_kill_result["exe"],
+                                "exit_code":force_kill_result["exit_code"],
+                                "killed":force_kill_result["killed"],
+                            })
+                            if force_kill_result["killed"]:
+                                result["issues"].append(
+                                    "session game required scoped forced termination "
+                                    "after clean shutdown timeout"
+                                )
+                                try:
+                                    result["launch"]["exit_code"]=proc.wait(timeout=5)
+                                except subprocess.TimeoutExpired:
+                                    pass
+                            else:
+                                result["issues"].append(
+                                    "scoped session game force-kill command failed"
+                                )
+                        except ValueError as exc:
+                            result["issues"].append(
+                                "scoped runtime force-kill refused: "+str(exc)
+                            )
 
     result["finished_at"]=MO2.now()
     if proc is not None and result["launch"]["exit_code"] is None and proc.poll() is not None:
