@@ -944,6 +944,44 @@
       ],
       "maturity": "executable-wrapper",
       "notes": "Read-only xDump wrapper; canonical comparison requires a validated load-order FormID map."
+    },
+    {
+      "adapter_id": "typed-fomod-generator",
+      "tool": "Agent OS typed FOMOD generator",
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/typed-fomod-generator.json",
+      "category": "packaging-generator",
+      "targets": [
+        "skyrim-le",
+        "skyrim-se-ae",
+        "vr-1.4.15"
+      ],
+      "capabilities": [
+        "fomod-render",
+        "fomod-xsd-validation",
+        "package-source-validation",
+        "conditional-installs"
+      ],
+      "maturity": "regression-tested",
+      "notes": "Typed JSON intent -> deterministic info.xml/ModuleConfig.xml against pinned MIT XSD."
+    },
+    {
+      "adapter_id": "fomod-matrix-simulator",
+      "tool": "Agent OS FOMOD option-matrix simulator",
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/fomod-matrix-simulator.json",
+      "category": "packaging-validator",
+      "targets": [
+        "skyrim-le",
+        "skyrim-se-ae",
+        "vr-1.4.15"
+      ],
+      "capabilities": [
+        "fomod-option-matrix",
+        "dependency-evaluation",
+        "condition-flag-flow",
+        "destination-collision-analysis"
+      ],
+      "maturity": "regression-tested",
+      "notes": "Bounded exhaustive simulator for installer branches and conditional installation."
     }
   ]
 }
