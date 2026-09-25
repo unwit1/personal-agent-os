@@ -2,10 +2,11 @@
   "schema_version": 1,
   "project": "rtec-hr-process-model",
   "status": "active",
-  "updated_at": "2026-09-24",
+  "updated_at": "2026-09-25",
   "summary": "Provenance-backed, privacy-safe, version-aware model and searchable source corpus for roughly 20 years of RTEC HR process documentation.",
   "repository": "https://github.com/unwit1/personal-agent-os.git",
   "current_priorities": [
+    "Continue the resumable PC filesystem reconciliation in audits/filesystem-reconciliation/RECONCILIATION_STATUS.md; metadata/hash discovery is complete for configured roots, and the next stage is bounded local extraction/classification with restricted routing before any Knowledge Engine ingestion.",
     "Import the six distinct unindexed local PST candidates recorded in projects/rtec-hr-process-model/checkpoints/pst-archive-source-inventory.json after coordinating with the active read-only email-review pass; deduplicate at message level and preserve restricted content only in the local mail index.",
     "Continue the FY2017 grant scan ingestion in bounded, restart-safe section batches; do not attempt monolithic OCR of all 1,021 pages.",
     "Use grant checklists as the section map and deduplicate repeated assurances/certifications against the !Compliance archive before transcribing copies.",
@@ -19,6 +20,9 @@
     "Resolve the current FMLA administrator and leave workflow; the 2018 archive only records a vendor inquiry."
   ],
   "important_paths": [
+    "projects/rtec-hr-process-model/audits/filesystem-reconciliation/ARCHITECTURE.md",
+    "projects/rtec-hr-process-model/audits/filesystem-reconciliation/RECONCILIATION_STATUS.md",
+    "projects/rtec-hr-process-model/audits/filesystem-reconciliation/inventory.py",
     "projects/rtec-hr-process-model/README.md",
     "projects/rtec-hr-process-model/docs/INGESTION_CONTRACT.md",
     "knowledge/libraries/rtec-hr/README.md",
