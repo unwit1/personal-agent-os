@@ -164,6 +164,18 @@
         "reject_existing_mo2_instance": {
           "type": "boolean",
           "default": true
+        },
+        "session_game_executables": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "allow_force_kill_session_game": {
+          "type": "boolean",
+          "default": false
         }
       }
     },
