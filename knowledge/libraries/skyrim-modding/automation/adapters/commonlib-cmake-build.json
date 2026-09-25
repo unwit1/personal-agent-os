@@ -1,0 +1,95 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "commonlib-cmake-build",
+  "tool": "CMake / CommonLibSSE-NG project build",
+  "source": "https://github.com/alandtse/CommonLibSSE-NG",
+  "targets": [
+    "skyrim-se-ae",
+    "vr-1.4.15"
+  ],
+  "capabilities": [
+    "native-build",
+    "skse-dll-build",
+    "multi-config-build",
+    "debug-symbol-build"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "cmake",
+    "arguments_template": [
+      "--build",
+      "{build_dir}",
+      "--config",
+      "{config}",
+      "--parallel"
+    ],
+    "transport": "CMake CLI",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "configured CMake build tree",
+    "native source",
+    "CommonLibSSE-NG dependency"
+  ],
+  "outputs": [
+    "SKSE DLL",
+    "PDB/debug symbols where configured",
+    "build diagnostics"
+  ],
+  "logs": [
+    "stdout",
+    "stderr",
+    "compiler/linker diagnostics"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ],
+    "forbidden_log_patterns": [
+      "error:",
+      "fatal error",
+      "LNK"
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 1,
+    "cleanup_outputs_first": false
+  },
+  "coverage": {
+    "description": "Build one configured native target. A factory matrix must invoke it for every declared target/preset.",
+    "known_gaps": [
+      "one successful target does not prove SE/AE/GOG/VR compatibility",
+      "binary load/runtime hooks still require G09/G10/G26"
+    ],
+    "denominator_probe": "Declared build matrix entries vs completed binaries."
+  },
+  "safety": {
+    "mutation_default": "build-output-only",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Dedicated build directory."
+  },
+  "verification": {
+    "independent_validators": [
+      "pe-import-scan",
+      "skse-plugin-metadata-scan",
+      "runtime-load-log",
+      "runtime-test"
+    ],
+    "version_probe": "compiler + CMake + CommonLib commit/tag + SKSE headers",
+    "output_readback": "Inspect PE imports, version/plugin declaration, PDB availability and hash."
+  },
+  "ai": {
+    "typed_tooling": true,
+    "schema_discovery": true,
+    "provider_neutral": true,
+    "context_cost_notes": "Compile each runtime target independently and fail closed on an unbuilt declared target."
+  },
+  "evidence": {
+    "source_url": "https://github.com/alandtse/CommonLibSSE-NG",
+    "verified_date": "2026-09-24",
+    "notes": "CommonLibSSE-NG is the repository's preferred typed native layer; project toolchains may use MSVC or cross-compilation."
+  }
+}
