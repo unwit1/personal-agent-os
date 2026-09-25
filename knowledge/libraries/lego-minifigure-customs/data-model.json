@@ -1,5 +1,5 @@
 {
-  "schema_version": "0.2",
+  "schema_version": "0.3",
   "entities": {
     "color": [
       "local_id",
@@ -60,6 +60,61 @@
       "label",
       "visual_markers",
       "era",
+      "sources"
+    ],
+    "official_visual_sample": [
+      "sample_id",
+      "medium",
+      "authority",
+      "catalog_ids",
+      "year",
+      "theme",
+      "subtheme",
+      "figure_form",
+      "character_id",
+      "incarnation_id",
+      "appearance_id",
+      "outfit_design_id",
+      "physical_release_id",
+      "digital_title",
+      "digital_correspondence",
+      "source",
+      "components",
+      "base_part_colors",
+      "print_surfaces",
+      "style_profile",
+      "expression",
+      "derived_feature_record",
+      "review_status"
+    ],
+    "style_profile": [
+      "style_profile_id",
+      "medium",
+      "era_range",
+      "themes",
+      "sample_ids",
+      "face_distributions",
+      "torso_distributions",
+      "limb_distributions",
+      "line_class_distributions",
+      "detail_density_distribution",
+      "color_role_distributions",
+      "validation_status",
+      "sources"
+    ],
+    "style_evaluation": [
+      "evaluation_id",
+      "target_id",
+      "target_kind",
+      "style_profile_id",
+      "reference_fidelity",
+      "official_lego_likeness",
+      "production_quality",
+      "subscores",
+      "critical_failures",
+      "admission_class",
+      "reviewer",
+      "reviewed_at",
       "sources"
     ],
     "maker": [
@@ -199,7 +254,11 @@
       "palette",
       "white_underbase",
       "template_version",
-      "rights_status"
+      "rights_status",
+      "source_appearance_id",
+      "official_style_profile",
+      "identity_critical_features",
+      "style_evaluation_id"
     ],
     "template": [
       "template_id",
@@ -277,6 +336,12 @@
     "replica_ko",
     "alternate_figure_system",
     "unknown"
+  ],
+  "style_admission_class": [
+    "official_baseline",
+    "custom_style_extension",
+    "custom_reference_only",
+    "custom_negative_example"
   ],
   "rights_status": [
     "original",
