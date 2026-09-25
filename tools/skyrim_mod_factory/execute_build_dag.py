@@ -36,7 +36,8 @@ from jsonschema import Draft202012Validator
 HERE=Path(__file__).resolve().parent
 REPO=HERE.parents[1]
 DEFAULT_CAPABILITIES=REPO/"knowledge/libraries/skyrim-modding/automation/tool-capability-registry.json"
-DEFAULT_ADAPTER_DIR=REPO/"knowledge/libraries/skyrim-modding/automation/adapters"\nDEFAULT_GATE_REGISTRY=REPO/"knowledge/libraries/skyrim-modding/automation/validation-gate-registry.json"
+DEFAULT_ADAPTER_DIR=REPO/"knowledge/libraries/skyrim-modding/automation/adapters"
+DEFAULT_GATE_REGISTRY=REPO/"knowledge/libraries/skyrim-modding/automation/validation-gate-registry.json"
 SCHEMAS=REPO/"schemas"
 
 def load_module(name:str, path:Path):
@@ -48,7 +49,8 @@ def load_module(name:str, path:Path):
     return mod
 
 RUN=load_module("run_adapter",HERE/"run_adapter.py")
-DOCTOR=load_module("doctor_toolchain",HERE/"doctor_toolchain.py")\nGATES=load_module("evaluate_gates",HERE/"evaluate_gates.py")
+DOCTOR=load_module("doctor_toolchain",HERE/"doctor_toolchain.py")
+GATES=load_module("evaluate_gates",HERE/"evaluate_gates.py")
 
 def now()->str:
     return dt.datetime.now(dt.timezone.utc).isoformat()
@@ -377,7 +379,8 @@ def main()->None:
     ap.add_argument("--toolchain-lock",type=Path)
     ap.add_argument("--context",type=Path)
     ap.add_argument("--capabilities",type=Path,default=DEFAULT_CAPABILITIES)
-    ap.add_argument("--adapter-dir",type=Path,default=DEFAULT_ADAPTER_DIR)\n    ap.add_argument("--gate-registry",type=Path,default=DEFAULT_GATE_REGISTRY)
+    ap.add_argument("--adapter-dir",type=Path,default=DEFAULT_ADAPTER_DIR)
+    ap.add_argument("--gate-registry",type=Path,default=DEFAULT_GATE_REGISTRY)
     ap.add_argument("--run-dir",type=Path,required=True)
     ap.add_argument("--report",type=Path)
     ap.add_argument("--git-commit")
