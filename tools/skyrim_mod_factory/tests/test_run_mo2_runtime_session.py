@@ -250,15 +250,17 @@ class RunMO2RuntimeSessionTests(unittest.TestCase):
             config=worker_config(root,template)
             log=root/"captured.log"
             log.write_text("all good",encoding="utf-8")
+            source=root/"source.log"
+            source.write_text("prior clean log",encoding="utf-8")
             config["evidence"].update({
-                "log_paths":[str(root/"source.log")],
+                "log_paths":[str(source)],
                 "forbidden_log_patterns":["\\b(?:ERROR|FATAL)\\b"],
                 "complete_for_g19":True,
             })
             gate=MOD.evaluate_g19(
                 config,
                 [{
-                    "path":str(root/"source.log"),
+                    "path":str(source),
                     "change":"changed",
                     "captured_path":str(log),
                 }],
@@ -273,15 +275,17 @@ class RunMO2RuntimeSessionTests(unittest.TestCase):
             config=worker_config(root,template)
             log=root/"captured.log"
             log.write_text("ERROR fixture exploded",encoding="utf-8")
+            source=root/"source.log"
+            source.write_text("prior clean log",encoding="utf-8")
             config["evidence"].update({
-                "log_paths":[str(root/"source.log")],
+                "log_paths":[str(source)],
                 "forbidden_log_patterns":["\\bERROR\\b"],
                 "complete_for_g19":True,
             })
             gate=MOD.evaluate_g19(
                 config,
                 [{
-                    "path":str(root/"source.log"),
+                    "path":str(source),
                     "change":"changed",
                     "captured_path":str(log),
                 }],
@@ -315,6 +319,53 @@ class RunMO2RuntimeSessionTests(unittest.TestCase):
             })
             gate=MOD.evaluate_g19(config,[],[])
             self.assertEqual(gate["status"],"needs-review")
+
+
+    def test_g19_complete_claim_with_missing_log_source_needs_review(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            template=self.make_template(root)
+            config=worker_config(root,template)
+            config["evidence"].update({
+                "log_paths":[str(root/"missing.log")],
+                "forbidden_log_patterns":["\\bERROR\\b"],
+                "complete_for_g19":True,
+            })
+            gate=MOD.evaluate_g19(config,[],[])
+            self.assertEqual(gate["status"],"needs-review")
+            self.assertTrue(any("no readable file match" in x for x in gate["issues"]))
+
+    def test_empty_existing_crash_directory_can_be_complete_clean_source(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            template=self.make_template(root)
+            config=worker_config(root,template)
+            crash_dir=root/"crashes"
+            crash_dir.mkdir()
+            config["evidence"].update({
+                "log_paths":[],
+                "crash_paths":[str(crash_dir)],
+                "complete_for_g19":True,
+            })
+            gate=MOD.evaluate_g19(config,[],[])
+            self.assertEqual(gate["status"],"pass")
+
+    def test_path_matcher_handles_glob_and_directory_sources(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            logs=root/"logs"
+            logs.mkdir()
+            path=logs/"Crash-1.log"
+            path.write_text("fixture",encoding="utf-8")
+            self.assertTrue(MOD.path_matches_source(
+                str(path),
+                str(logs/"Crash-*.log"),
+            ))
+            self.assertTrue(MOD.path_matches_source(str(path),str(logs)))
+            self.assertFalse(MOD.path_matches_source(
+                str(path),
+                str(root/"other"/"*.log"),
+            ))
 
 
 if __name__=="__main__":
