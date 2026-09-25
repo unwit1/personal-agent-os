@@ -102,14 +102,20 @@ def file_name(when: datetime | None, sender: str, original: str) -> str:
     return prefix + stem + (f".{extension}" if extension else "")
 
 
-def skip_reason(part: Any, data: bytes, filename: str) -> str | None:
+def skip_reason(part: Any, data: bytes, filename: str, *, analysis_mode: bool = False) -> str | None:
     kind = part.get_content_type()
     extension = os.path.splitext(filename)[1].lower()
-    if kind in SKIP_TYPES or extension in SKIP_EXTENSIONS:
-        return "invite_or_signature"
-    if kind.startswith("image/"):
+    signature_types = {"application/pkcs7-signature", "application/x-pkcs7-signature", "application/ms-tnef"}
+    signature_extensions = {".p7s"}
+    calendar_types = {"text/calendar", "application/ics"}
+    calendar_extensions = {".ics", ".vcs"}
+    if kind in signature_types or extension in signature_extensions:
+        return "signature_blob"
+    if (kind in calendar_types or extension in calendar_extensions) and not analysis_mode:
+        return "calendar_invite"
+    if kind.startswith("image/") and not analysis_mode:
         disposition = (part.get("Content-Disposition") or "").lower()
-        if len(data) < SMALL_IMAGE_BYTES:
+        if len(data) < SMALL_IMAGE_BYTES and not disposition.startswith("attachment"):
             return "small_image"
         if part.get("Content-ID") and not disposition.startswith("attachment"):
             return "inline_image"
@@ -117,9 +123,10 @@ def skip_reason(part: Any, data: bytes, filename: str) -> str | None:
 
 
 class Exporter:
-    def __init__(self, scope: str, root: Path | None = None) -> None:
+    def __init__(self, scope: str, root: Path | None = None, *, analysis_mode: bool = False) -> None:
         self.scope = config.check_scope(scope)
         self.root = Path(root or default_root()) / SCOPE_FOLDERS[scope]
+        self.analysis_mode = bool(analysis_mode)
         manifest = config.scope_dir(scope) / "attachments.sqlite3"
         manifest.parent.mkdir(parents=True, exist_ok=True)
         self.conn = sqlite3.connect(manifest)
@@ -168,7 +175,7 @@ class Exporter:
             except Exception:
                 continue
             filename = str(filename or f"attachment.{part.get_content_subtype()}")
-            if not data or skip_reason(part, data, filename):
+            if not data or skip_reason(part, data, filename, analysis_mode=self.analysis_mode):
                 self.counts["skipped"] += 1
                 continue
             digest = hashlib.sha256(data).hexdigest()
@@ -198,7 +205,7 @@ class Exporter:
 
 
 def export_missing_live(scope: str, *, connect_factory: Any = None, batch: int = 50, root: Path | None = None,
-                        reconcile_occurrences: bool = False) -> dict[str, Any]:
+                        reconcile_occurrences: bool = False, analysis_mode: bool = False) -> dict[str, Any]:
     """Download attachments for indexed live mail.
 
     Normally only sources not already marked done are re-read. With
@@ -212,7 +219,7 @@ def export_missing_live(scope: str, *, connect_factory: Any = None, batch: int =
     from .store import Store
 
     results = []
-    with Exporter(scope, root) as exporter, Store(config.db_for(scope)) as store:
+    with Exporter(scope, root, analysis_mode=analysis_mode) as exporter, Store(config.db_for(scope)) as store:
         for account in accounts_in(scope):
             rows = store.conn.execute(
                 "SELECT s.id, s.mailbox, s.uidvalidity, s.uid FROM mail_sources s JOIN mail_messages m ON m.id=s.message_id "
@@ -245,4 +252,4 @@ def export_missing_live(scope: str, *, connect_factory: Any = None, batch: int =
                     client.logout()
             results.append(summary)
         counts = dict(exporter.counts)
-    return {"scope": scope, "accounts": results, **counts, "reconciled_occurrences": bool(reconcile_occurrences), "folder": str(Path(root or default_root()) / SCOPE_FOLDERS[scope])}
+    return {"scope": scope, "accounts": results, **counts, "reconciled_occurrences": bool(reconcile_occurrences), "analysis_mode": bool(analysis_mode), "folder": str(Path(root or default_root()) / SCOPE_FOLDERS[scope])}
