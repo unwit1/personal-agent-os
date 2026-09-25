@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-os.local/schemas/skyrim-repair-handler-registry-v1.schema.json",
+  "title": "Skyrim Mod Factory Repair Handler Registry v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "handlers"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "skyrim-repair-handler-registry-v1"
+    },
+    "handlers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "handler_id",
+          "rule_id",
+          "automatic",
+          "implementation",
+          "reversible",
+          "checkpoint_required",
+          "mutation_scope",
+          "postconditions"
+        ],
+        "properties": {
+          "handler_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._-]*$"
+          },
+          "rule_id": {
+            "type": "string",
+            "pattern": "^SKYRIM-[A-Z0-9-]+$"
+          },
+          "automatic": {
+            "type": "boolean"
+          },
+          "implementation": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "entrypoint"
+            ],
+            "properties": {
+              "kind": {
+                "enum": [
+                  "executor-native",
+                  "adapter"
+                ]
+              },
+              "entrypoint": {
+                "type": "string"
+              },
+              "adapter_id": {
+                "type": "string"
+              }
+            }
+          },
+          "reversible": {
+            "const": true
+          },
+          "checkpoint_required": {
+            "const": true
+          },
+          "mutation_scope": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "execution-state",
+                "generated-output",
+                "validator-state",
+                "build-metadata"
+              ]
+            }
+          },
+          "postconditions": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
