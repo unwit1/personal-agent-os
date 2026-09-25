@@ -1,0 +1,393 @@
+{
+  "schema_version": "skyrim-tool-capability-registry-v1",
+  "snapshot_date": "2026-09-24",
+  "adapters": [
+    {
+      "adapter_id": "housecarl",
+      "role": "static-data",
+      "priority": "preferred",
+      "capabilities": [
+        "load-order-query",
+        "record-read",
+        "record-write",
+        "vfs-query",
+        "nif-inspect",
+        "papyrus-compile",
+        "bsa",
+        "skypatcher",
+        "skse-audit"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "Mutagen model gaps"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/housecarl.json"
+    },
+    {
+      "adapter_id": "xedit",
+      "role": "schema-oracle",
+      "priority": "preferred",
+      "capabilities": [
+        "plugin-schema",
+        "error-check",
+        "conflict-analysis",
+        "cleaning",
+        "definition-export"
+      ],
+      "validation_role": "independent-validator",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "GUI/CLI semantics vary by mode/version"
+      ]
+    },
+    {
+      "adapter_id": "spriggit",
+      "role": "plugin-source",
+      "priority": "preferred",
+      "capabilities": [
+        "plugin-yaml",
+        "plugin-json",
+        "git-diff",
+        "roundtrip"
+      ],
+      "validation_role": "independent-validator",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "translation package coverage"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/spriggit.json"
+    },
+    {
+      "adapter_id": "devbench",
+      "role": "runtime-test",
+      "priority": "preferred",
+      "capabilities": [
+        "runtime-query",
+        "runtime-action",
+        "scenario",
+        "event-wait",
+        "record-replay",
+        "health",
+        "performance"
+      ],
+      "validation_role": "runtime-observer",
+      "can_mutate": true,
+      "requires_running_game": true,
+      "known_gaps": [
+        "development-only localhost service"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/devbench.json"
+    },
+    {
+      "adapter_id": "skylink-ai",
+      "role": "runtime-test",
+      "priority": "secondary",
+      "capabilities": [
+        "runtime-query",
+        "runtime-action",
+        "papyrus-vm",
+        "events",
+        "console-output"
+      ],
+      "validation_role": "runtime-observer",
+      "can_mutate": true,
+      "requires_running_game": true,
+      "known_gaps": [
+        "runtime floor 1.6.1130+ per current README"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/skylink-ai.json"
+    },
+    {
+      "adapter_id": "skyrimnet",
+      "role": "runtime-test",
+      "priority": "secondary",
+      "capabilities": [
+        "runtime-query",
+        "ai-npc",
+        "prompt",
+        "trigger",
+        "actions",
+        "vision-item-render"
+      ],
+      "validation_role": "runtime-observer",
+      "can_mutate": true,
+      "requires_running_game": true,
+      "known_gaps": [
+        "best when SkyrimNet is target/dependency"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/skyrimnet.json"
+    },
+    {
+      "adapter_id": "spooky-automod",
+      "role": "generator",
+      "priority": "secondary",
+      "capabilities": [
+        "plugin-create",
+        "papyrus",
+        "mcm",
+        "bsa",
+        "nif",
+        "audio",
+        "skse-scaffold"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "convenience coverage not full xEdit schema"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/spooky-automod.json"
+    },
+    {
+      "adapter_id": "pynifly",
+      "role": "asset-3d",
+      "priority": "preferred",
+      "capabilities": [
+        "nif",
+        "tri",
+        "hkx",
+        "skinning",
+        "partition",
+        "shader",
+        "collision"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "Windows only",
+        "requires visual/game validation"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/pynifly.json"
+    },
+    {
+      "adapter_id": "blender-mcp",
+      "role": "asset-3d",
+      "priority": "secondary",
+      "capabilities": [
+        "mesh",
+        "material",
+        "rigging",
+        "animation",
+        "render",
+        "python"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "not Skyrim-format authoritative"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/blender-mcp.json"
+    },
+    {
+      "adapter_id": "nifblend",
+      "role": "asset-3d",
+      "priority": "experimental",
+      "capabilities": [
+        "nif",
+        "kf",
+        "blender"
+      ],
+      "validation_role": "independent-validator",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "pre-alpha"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/nifblend.json"
+    },
+    {
+      "adapter_id": "papyrus-vscode",
+      "role": "papyrus",
+      "priority": "secondary",
+      "capabilities": [
+        "language-server",
+        "diagnostics",
+        "compile-workflow",
+        "optional-mcp"
+      ],
+      "validation_role": "primary-validator",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "editor/runtime validation still separate"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/papyrus-vscode.json"
+    },
+    {
+      "adapter_id": "ckpe",
+      "role": "generator",
+      "priority": "secondary",
+      "capabilities": [
+        "creation-kit-platform",
+        "editor-extension",
+        "plugin-api"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "GUI/editor-state heavy until Agent OS CK worker exists"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/ckpe.json"
+    },
+    {
+      "adapter_id": "autotest",
+      "role": "runtime-test",
+      "priority": "fallback",
+      "capabilities": [
+        "npc-screenshot",
+        "npc-head-screenshot",
+        "cell-test"
+      ],
+      "validation_role": "runtime-observer",
+      "can_mutate": true,
+      "requires_running_game": true,
+      "known_gaps": [
+        "specialized older framework"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/autotest.json"
+    },
+    {
+      "adapter_id": "vospeaker",
+      "role": "voice-audio",
+      "priority": "secondary",
+      "capabilities": [
+        "ai-voice",
+        "xwm",
+        "lip",
+        "fuz",
+        "batch-dialogue"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "quality/rights/human QA"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/vospeaker.json"
+    },
+    {
+      "adapter_id": "xeditlib",
+      "role": "schema-oracle",
+      "priority": "fallback",
+      "capabilities": [
+        "xeditlib-ffi",
+        "record-query",
+        "record-write"
+      ],
+      "validation_role": "primary-validator",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "FFI/version matching"
+      ],
+      "adapter_manifest": "knowledge/libraries/skyrim-modding/automation/adapters/xeditlib.json"
+    },
+    {
+      "adapter_id": "mutagen",
+      "role": "static-data",
+      "priority": "preferred",
+      "capabilities": [
+        "typed-plugin-read",
+        "typed-plugin-write",
+        "formlink",
+        "load-order"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "schema coverage can differ from xEdit"
+      ]
+    },
+    {
+      "adapter_id": "synthesis",
+      "role": "generator",
+      "priority": "preferred",
+      "capabilities": [
+        "load-order-patcher",
+        "regenerable-patch",
+        "mutagen"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "requires deterministic patch logic"
+      ]
+    },
+    {
+      "adapter_id": "mo2",
+      "role": "mod-manager",
+      "priority": "preferred",
+      "capabilities": [
+        "profiles",
+        "vfs",
+        "run-executable",
+        "asset-priority"
+      ],
+      "validation_role": "none",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "not a semantic validator"
+      ]
+    },
+    {
+      "adapter_id": "pandora",
+      "role": "generator",
+      "priority": "preferred",
+      "capabilities": [
+        "behavior-patch",
+        "hkx-output",
+        "animation-graph-generation"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "runtime animation still needs test"
+      ]
+    },
+    {
+      "adapter_id": "dyndolod",
+      "role": "generator",
+      "priority": "preferred",
+      "capabilities": [
+        "texgen",
+        "object-lod",
+        "tree-lod",
+        "grass-lod",
+        "occlusion"
+      ],
+      "validation_role": "author",
+      "can_mutate": true,
+      "requires_running_game": false,
+      "known_gaps": [
+        "generated output tied to exact inputs"
+      ]
+    },
+    {
+      "adapter_id": "crash-logger",
+      "role": "diagnostics",
+      "priority": "preferred",
+      "capabilities": [
+        "native-crash-log",
+        "module-offset",
+        "form-clues"
+      ],
+      "validation_role": "runtime-observer",
+      "can_mutate": false,
+      "requires_running_game": true,
+      "known_gaps": [
+        "correlation is not causation"
+      ]
+    }
+  ]
+}
