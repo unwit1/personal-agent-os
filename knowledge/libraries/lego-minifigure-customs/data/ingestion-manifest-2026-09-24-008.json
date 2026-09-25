@@ -20,7 +20,14 @@
     "data/reference-acquisition-job-spec.json",
     "tools/knowledge/materialize_lego_reference_images.py",
     "tools/knowledge/dedupe_lego_reference_images.py",
-    "data/game-asset-extraction-strategy-registry.json"
+    "data/game-asset-extraction-strategy-registry.json",
+    "data/web-game-preservation-source-registry.json",
+    "tools/knowledge/discover_flashpoint_lego_webgames.py",
+    "tools/knowledge/index_lego_webgame_assets.py",
+    "lego-hosted-reference-media.md",
+    "tools/knowledge/discover_lego_instruction_references.py",
+    "tools/knowledge/discover_lego_page_media.py",
+    "tools/knowledge/enrich_bricklink_minifigure_references.py"
   ],
   "updated_files": [
     "data-model.json",
@@ -37,7 +44,11 @@
     "Source-to-LEGO TranslationPair records are the highest-value supervision for learning faithful official-style character translation.",
     "Rebrickable documents minifigures as special Set-like records with their own part inventories, so physical ingestion now resolves component-level image candidates where the bulk tables provide them.",
     "Official film acquisition needs a verified title registry plus local high-information frame sampling; theatrical anchors are primary-verified while direct-to-video candidates remain staged until verified.",
-    "Legacy games have recoverable native assets: LEGO Island SI/WDB, LEGO Racers JAM/GDB, Rock Raiders LWO plus per-surface minifigure textures, LEGO Universe client formats, and broad TT archive/model/texture tooling."
+    "Legacy games have recoverable native assets: LEGO Island SI/WDB, LEGO Racers JAM/GDB, Rock Raiders LWO plus per-surface minifigure textures, LEGO Universe client formats, and broad TT archive/model/texture tooling.",
+    "A complete digital corpus must include official LEGO web/browser games, not only commercial releases; historical titles span $HTML, Java, Shockwave, Flash, Unity Web Player and HTML5.",
+    "Flashpoint can serve as a preservation/local-file locator, while JPEXS, ProjectorRays and UnityPy provide technology-specific asset extraction; archive presence alone does not prove official LEGO provenance.",
+    "BrickLink API can independently enrich minifigure and color-specific component image references after the Rebrickable bulk census.",
+    "LEGO building-instruction pages can provide official PDF references per set without blindly mirroring the entire instruction archive."
   ],
   "next_steps": [
     "Execute the physical Rebrickable v2 importer on current local bulk data, then materialize reviewed image hosts and publish actual coverage counts.",
