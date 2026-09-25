@@ -1,177 +1,262 @@
 # AI Generation Accuracy for Minifigure Renders and Print Templates
 
-The goal is to stop relying on text prompting alone. High-accuracy output should be constrained by real geometry, catalog metadata and explicit production layers.
+The goal is to constrain AI with real geometry, exact source references and a learned official minifigure grammar rather than rely on free-form prompting.
+
+## Objective function
+
+Optimize three dimensions separately:
+
+1. reference_fidelity — does it match the exact source character/version?
+2. official_lego_likeness — does it obey the relevant official minifigure visual grammar?
+3. production_feasibility — can the intended print/decal process reproduce it?
+
+Do not collapse the first two into one score. The target is simultaneously high fidelity and high official likeness.
 
 ## Best architecture
-Use a deterministic 3D reference model as the geometry authority, then let image models handle appearance and ideation.
+
+Use deterministic 3D/reference geometry as the body authority, official physical visual statistics as the style authority, and the exact source image/work as the identity authority.
 
 Recommended pipeline:
-1. choose exact canonical part IDs,
-2. assemble the figure in Studio/LDraw/Blender,
-3. pose deterministically,
-4. render orthographic/perspective reference passes,
-5. render depth, normal, silhouette, material-ID and UV-space maps,
-6. feed those as controls/reference images to the image model,
-7. generate appearance variants,
-8. project/transfer selected design back to canonical UV/print templates,
-9. manually/vector-clean production art,
-10. generate separate CMYK/white/varnish/primer plates.
+1. identify exact source appearance;
+2. retrieve source-reference package;
+3. choose exact canonical minifigure part IDs;
+4. select official era/theme style profile;
+5. assemble figure in Studio/LDraw/Blender;
+6. render reproducible reference passes;
+7. extract identity-critical source features;
+8. generate flat template artwork from large shapes to detail;
+9. compare against official feature distributions;
+10. score reference fidelity;
+11. score official likeness;
+12. revise weakest axis;
+13. vector-clean production art;
+14. generate CMYK/spot/white/varnish/primer masks;
+15. test at physical scale.
 
-Do not ask a diffusion model to invent exact minifigure geometry when exact geometry already exists.
+Do not ask a diffusion/image model to invent exact minifigure geometry when exact geometry already exists.
 
-## Why structural conditioning matters
-Modern controllable diffusion workflows can condition on edge and depth maps. Hugging Face Diffusers documents ControlNet using canny and depth controls and combining multiple controls; ControlNet documentation also describes normal-map conditioning, which is useful for preserving fine surface geometry.
+## Reference hierarchy
 
-For minifigure work, ideal conditioning set:
-- RGB clay render,
-- depth map,
-- world/camera normal map,
-- silhouette mask,
-- edge/canny map,
-- semantic part mask,
-- optional material/color ID mask.
+Identity weighting:
+exact source image/work > official character reference > official adaptation evidence > high-confidence secondary reference.
+
+Style weighting:
+official physical exact/similar figure > official physical same theme/era > official physical global grammar > official digital/game > approved custom style extension > unscored custom.
+
+Custom artwork can fill an official-data gap only after it passes custom-style-evaluation-framework.md.
+
+## Two-stage character translation
+
+### Stage 1 — Source decomposition
+Extract without applying LEGO style:
+- silhouette
+- hair/headgear shape
+- garment/armor layers
+- major color regions
+- symbols/emblems
+- gloves/boots
+- props/accessories
+- face identity
+- expression
+- materials
+- front/back/side-specific features
+
+### Stage 2 — LEGO abstraction
+Translate:
+- human silhouette -> plausible minifigure mould choices
+- complex costume -> large readable surface regions
+- anatomical face -> minifigure feature grammar
+- fabric/armor texture -> selected graphic cues
+- real-world colors -> LEGO-compatible roles
+- tiny details -> omit unless identity-critical
+- lighting/shadows -> graphic material cues rather than copied illumination
+
+This prevents the model from copying reference realism directly onto a toy-shaped body.
+
+## Structural conditioning
+
+Useful conditioning set:
+- RGB clay render
+- depth map
+- world/camera normal map
+- silhouette mask
+- edge/canny map
+- semantic part mask
+- material/color ID mask
+- physically calibrated print-surface mask
+- source-reference segmentation
 
 ## Canonical views
-For every figure maintain:
-- orthographic front,
-- orthographic back,
-- left,
-- right,
-- front 3/4,
-- rear 3/4,
-- top if headgear/accessory matters,
-- neutral exploded view,
-- production flat art views.
 
-Store exact camera transforms and focal length so views are reproducible.
+Maintain:
+- orthographic front
+- orthographic back
+- left
+- right
+- front 3/4
+- rear 3/4
+- top when headgear matters
+- neutral exploded view
+- production flat-art views
+
+Store exact camera transforms and focal length.
 
 ## Geometry authority
-Use LDraw or Studio/PartDesigner geometry where licensing permits. LDraw uses a right-handed coordinate system and defines 20 LDU per brick width/depth, 24 LDU per brick height, 8 LDU per plate, with approximately 0.4 mm/LDU. LDraw itself warns that real-world approximations should be verified against physical interactions.
+
+Use LDraw or Studio/PartDesigner geometry where licensing permits.
 
 Use geometry for:
-- silhouette,
-- proportions,
-- connection positions,
-- camera blocking,
-- accessory clearance,
-- AI conditioning,
-- render-to-template projection.
+- silhouette
+- proportions
+- connection positions
+- camera blocking
+- accessory clearance
+- conditioning
+- render-to-template projection
 
 Use physical measurement for:
-- final UV print placement,
-- exact jig surfaces,
-- resin fits,
-- tolerances.
+- final print placement
+- jig surfaces
+- resin fits
+- tolerances
 
-## Part semantics
-AI prompts should reference structured semantics, not vague prose. Example:
-- head: standard cylindrical minifigure head
-- torso: classic trapezoidal minifigure torso shell
-- arms: standard left/right arms
-- hands: standard C-grip hands
-- legs: standard articulated hips + left/right legs
-- headgear: exact catalog/design ID
-- accessory: exact catalog/design ID
+## Official style profile
 
-Include part IDs and human-readable names in generation metadata.
+Generation metadata must include:
+- official style profile
+- target era
+- target theme/subtheme
+- closest official analog samples
+- allowed detail density range
+- facial-expression family
+- print-surface expectation
+- mould-vs-print decisions
+- uncertainty
 
-## Style specification
-Build a reusable “minifigure visual grammar”:
-- face feature scale,
-- eye size and separation,
-- mouth line weight,
-- eyebrow line weight,
-- facial hair simplification,
-- torso seam conventions,
-- pocket/buckle simplification,
-- outline weights,
-- highlight convention,
-- shadow convention,
-- print color limits,
-- no-photorealistic-fabric rule when aiming for printed-minifigure aesthetics.
+Profiles:
+- official_physical_classic_simple
+- official_physical_expression_expansion
+- official_physical_licensed_early
+- official_physical_modern
+- official_digital_game
 
-Store examples as feature primitives, not only finished characters.
+## Face generation
+
+Do not prompt "LEGO face" as a sufficient instruction.
+
+Supply:
+- target expression family
+- eye/brow/mouth landmark distributions from relevant official samples
+- hair/facial-hair color role
+- glasses/mask region
+- asymmetry requirement
+- reverse expression if needed
+- headgear occlusion mask
+
+Exact unpublished LEGO internal placement rules must be learned statistically from official samples, not fabricated.
 
 ## Prompt schema
-Prompts should have fields:
-- canonical body configuration,
-- exact part IDs,
-- color IDs,
-- pose,
-- camera,
-- lens/projection,
-- lighting,
-- background,
-- material finish,
-- artwork style,
-- character description,
-- forbidden geometry changes,
-- allowed creative freedom,
-- target output type.
 
-Example target types:
-- concept_render,
-- catalog_render,
-- print_art_front,
-- print_art_back,
-- head_wrap_concept,
-- arm_art,
-- accessory_concept,
-- resin_part_concept.
+Prompts/data should include:
+- source appearance ID
+- source-reference features
+- canonical body configuration
+- exact part IDs
+- color IDs
+- pose
+- camera
+- lighting
+- official style profile
+- closest official analogs
+- character description
+- identity-critical features
+- geometry constraints
+- print-surface constraints
+- allowed creative freedom
+- forbidden alterations
+- target output type
+
+Output types:
+- concept_render
+- catalog_render
+- print_art_front
+- print_art_back
+- head_wrap_concept
+- arm_art
+- leg_art
+- accessory_concept
+- full_decal_sheet
+- resin_part_concept
 
 ## Negative constraints
-Explicitly forbid:
-- extra joints,
-- human fingers,
-- realistic anatomical hands,
-- non-minifigure shoulder geometry,
-- elongated limbs,
-- incorrect head diameter,
-- merged arms/torso,
-- sculpted clothing when print-only artwork is desired,
-- invented studs/connectors,
-- asymmetry unless specified,
-- perspective distortion for template images.
 
-## AI render dataset
-For each canonical part/assembly render:
-- neutral gray clay,
-- white,
-- black,
-- several common LEGO colors,
-- front/back/sides,
-- multiple poses,
-- depth,
-- normals,
-- silhouette,
-- part-ID masks.
+Explicitly forbid unless target evidence requires otherwise:
+- extra joints
+- human fingers
+- realistic anatomical hands
+- human-proportioned shoulders
+- elongated limbs
+- incorrect head diameter
+- merged arms/torso
+- painted cloth texture
+- photographic lighting baked into print
+- random gradients
+- invented studs/connectors
+- excessive microdetail
+- 360-degree printing merely to fill blank space
+- symmetry breaking without source evidence
+- perspective distortion in template images
 
-This synthetic set can train or condition models without contaminating geometry.
+## Official corpus
+
+The official style corpus should eventually cover every structured official minifigure assembly record, with physical visual-feature extraction and resolved character/appearance links.
+
+As of 2026-09-24 BrickLink exposes about 19.25k minifigure catalog items and Brickset about 19.24k. These are assembly records, not unique character counts.
+
+Use official-character-corpus-ingestion.md for the census pipeline.
+
+## Digital/game corpus
+
+Digital designs are useful for official character translations unavailable physically. LEGO's public minifigure guidance discussion says digital versions should preserve the toy's palette, graphic style, dimensions and system scale, with controlled animation exceptions.
+
+Digital-only geometry deformation, animated mouths, shaders and impossible articulation must remain tagged digital.
+
+## Custom extension gate
+
+After the relevant official profile is statistically established:
+- score reference fidelity 0–100;
+- score official likeness 0–100;
+- score production quality 0–100;
+- extract only novel reusable lessons from qualified customs;
+- never relabel custom artwork as official.
+
+See custom-style-evaluation-framework.md.
 
 ## Decal/template generation
-Never treat an AI image as directly print-ready. The AI should propose graphics inside a physically calibrated 2D template. Production cleanup should:
-- vectorize/redraw,
-- remove raster noise,
-- correct symmetry,
-- enforce line minimums,
-- map colors to calibrated swatches,
-- generate white underbase,
-- add choke,
-- clip to safe area,
-- validate at actual size.
+
+AI image output is never directly print-ready.
+
+Cleanup:
+- vectorize/redraw
+- remove raster noise
+- correct symmetry where source requires
+- enforce calibrated minimum features
+- map colors to calibrated swatches
+- generate white underbase
+- add choke
+- clip to safe area
+- validate wrap continuity
+- validate at actual size
 
 ## Multi-view consistency
-If a character has front/back/side designs, maintain one canonical character specification and one seed/reference bundle across views. Whenever possible, derive all views from the same textured 3D asset rather than separately generating each side.
 
-## Sources
-Hugging Face ControlNet documentation:
-https://huggingface.co/docs/diffusers/using-diffusers/controlnet
+Maintain one canonical character specification and reference bundle across every surface. Prefer one textured 3D/digital twin or one unified flat character spec over separately improvising front/back/arms/legs.
 
-ControlNet depth/normal reference:
-https://github.com/lllyasviel/ControlNet
+## Primary research files
 
-BrickLink Studio decorated minifig:
-https://studiohelp.bricklink.com/hc/en-us/articles/5877834417303-Creating-a-decorated-minifig
-
-LDraw coordinate/units:
-https://www.ldraw.org/article/218.html
+- official-minifigure-visual-style.md
+- official-character-corpus-ingestion.md
+- minifigure-decoration-grammar.md
+- artwork-and-templates.md
+- custom-style-evaluation-framework.md
+- data/official-style-schema.json
