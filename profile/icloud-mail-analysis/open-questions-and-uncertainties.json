@@ -1,33 +1,33 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-23",
+  "updated_at": "2026-09-25",
   "purpose": "Unresolved, version-sensitive, or weakly evidenced profile questions exposed by the exhaustive indexed-mail analysis. These are prompts for future evidence collection, not facts to guess.",
   "unresolved_profile_questions": [
     {
-      "id": "education.berea.degree",
-      "question": "What exact Berea College degree/major did the user complete?",
-      "current_evidence": "Attendance and recent-graduate status are well supported, but the indexed email text does not establish the degree/major confidently.",
+      "id": "education.berea.major",
+      "question": "What exact Berea College major should Agent OS use?",
+      "current_evidence": "Bachelor's degree completion is treated as confirmed; prior resume/profile material conflicts on the exact major.",
       "priority": "medium",
       "safe_resolution_paths": [
         "direct user confirmation",
-        "resume/CV",
+        "resume/CV version comparison",
         "diploma/transcript or official school record if the user chooses to provide it"
       ]
     },
     {
       "id": "education.audio_engineering_2025",
       "question": "What became of the master's in Audio Engineering mentioned in a May 2025 user-authored email?",
-      "current_evidence": "Single direct self-report says the user was then working on it; no program/provider or later completion evidence was found.",
+      "current_evidence": "A May 2025 account-authored message mentioned a master's in Audio Engineering, but shared-account contamination is now known and no independent corroboration establishes this as the user's program.",
       "priority": "medium",
-      "status": "historical_claim_only",
-      "rule": "Do not describe this as a current credential or current enrollment without newer evidence."
+      "status": "quarantined_pending_actor_attribution",
+      "rule": "Do not describe this as the user's credential or enrollment unless actor attribution or newer direct evidence confirms it."
     },
     {
-      "id": "relationship.olivia.current_label",
-      "question": "What relationship label should Agent OS use for Olivia now?",
-      "current_evidence": "Historical email used 'fiancée' in September 2025; current direct-user wording in conversation should control.",
+      "id": "relationship.olivia.cohabitation_state",
+      "question": "What is the current co-residence/housing state with Olivia?",
+      "current_evidence": "Olivia is treated as the current girlfriend and shared-household planning partner; historical housing evidence and a September 2026 rental application do not yet establish the current long-term residence state.",
       "priority": "low",
-      "rule": "Never let historical mail silently override the user's current wording."
+      "rule": "Use direct/current housing evidence; do not infer an address or co-residence state from old leases or purchases."
     },
     {
       "id": "housing.2026_application_outcome",
@@ -60,9 +60,18 @@
     {
       "id": "attachments.unread_corpus",
       "question": "What additional profile/project facts are contained in the archived attachment bodies?",
-      "current_evidence": "231 of 232 attachment records expose metadata only; filenames indicate resumes, forms, PDFs, scans, spreadsheets, and other documents but their contents were not available for semantic analysis.",
+      "current_evidence": "231 of 232 original attachment records were metadata-only in the indexed corpus. As of 2026-09-25, Agent OS has a read-only retrospective attachment recovery and local extraction pipeline, but the binaries still must be re-fetched/analyzed on the machine with the configured iCloud account.",
       "priority": "high",
-      "rule": "Treat these attachments as unread evidence. Never infer document contents from filename alone."
+      "rule": "Never infer contents from filenames. After local recovery, retain raw binaries/extracted text locally and promote only sanitized, provenance-backed conclusions.",
+      "status": "recovery_pipeline_implemented_pending_local_run"
+    },
+    {
+      "id": "relationships.unresolved_person_candidates",
+      "question": "Which recurring social/work identities across imported sources refer to the same real people?",
+      "current_evidence": "Several names or recurring person signals appear across sources without enough evidence for safe merges, including Mark Allison, an unidentified recurring male friend, an Olivia in workplace context, Brian Ingle across work contexts, and multiple Regina references.",
+      "priority": "medium",
+      "status": "candidate_identity_links_only",
+      "rule": "Do not merge by first name/name equality or interaction frequency. Require contextual/stable-identifier evidence or user confirmation."
     }
   ],
   "contradictions_and_version_rules": [
