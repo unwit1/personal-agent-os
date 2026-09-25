@@ -1,0 +1,81 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "pgpatcher",
+  "tool": "PGPatcher / ParallaxGen",
+  "tool_version": "2.1.1",
+  "source": "https://github.com/hakasapl/PGPatcher",
+  "targets": [
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "nif-dynamic-patch",
+    "parallax",
+    "complex-material",
+    "pbr",
+    "plugin-patch",
+    "texture-discovery",
+    "mo2-priority",
+    "conflict-report"
+  ],
+  "invocation": {
+    "mode": "hybrid",
+    "transport": "GUI + command-line options",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "final mesh/texture winners",
+    "plugin load order",
+    "MO2 priority",
+    "PBR/parallax configs"
+  ],
+  "outputs": [
+    "patched NIF tree",
+    "ParallaxGen plugin/output",
+    "diff/conflict data",
+    "logs"
+  ],
+  "logs": [
+    "PGPatcher logs"
+  ],
+  "coverage": {
+    "description": "Dynamic mesh and texture patcher for Skyrim with current PBR/Complex Material/parallax workflows.",
+    "known_gaps": [
+      "final material correctness depends on renderer and source asset semantics",
+      "known historical risk around unsafe output deletion makes output-directory scoping mandatory",
+      "GitHub release list can lag project changelog/Nexus packaging"
+    ],
+    "denominator_probe": "candidate meshes discovered vs patched/skipped/failed plus conflict count."
+  },
+  "safety": {
+    "mutation_default": "fresh-dedicated-output",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "requires_confirmation_for": [
+      "output directory not uniquely owned by PGPatcher",
+      "destructive cleanup outside generated-output root"
+    ],
+    "sandbox_or_scope": "Never point output at a generic MO2 mods root; require dedicated empty/owned output directory."
+  },
+  "verification": {
+    "independent_validators": [
+      "pynifly",
+      "nifskope",
+      "plugin-xedit",
+      "community-shaders-runtime-render"
+    ],
+    "version_probe": "PGPatcher log/changelog version",
+    "output_readback": "Compare source/patched NIF invariants and load generated plugin."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Treat as generated output downstream of final mesh/texture priorities; rerun on relevant input change."
+  },
+  "evidence": {
+    "source_url": "https://github.com/hakasapl/PGPatcher",
+    "verified_date": "2026-09-24",
+    "notes": "CHANGELOG documents 2.1.1 on 2026-09-17. Historical issue #57 showed destructive output-path risk, so factory adapter requires an owned output root."
+  }
+}
