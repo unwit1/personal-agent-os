@@ -75,6 +75,7 @@ instead of issuing a duplicate action.
 The Agent OS MCP server exposes:
 
 - `browser.sessions`: read-only live-session discovery;
+- `browser.inspect`: read-only DOM inspection/extraction/waiting;
 - `browser.execute`: bounded DOM/browser actions;
 - `browser.command_status`: read-only result polling.
 
@@ -116,6 +117,34 @@ approves that exact action, the agent may issue a new command with
 
 This is defense in depth. Site-specific adapters and a future Firefox extension
 should add stronger semantic guards for high-impact websites.
+
+## Codex with ChatGPT sign-in
+
+The most immediately usable OpenAI route does not require an OpenAI API key:
+run Codex while signed in with the user's ChatGPT account. OpenAI documents that
+Codex signed in with ChatGPT uses the ChatGPT plan's included usage/billing,
+whereas signing Codex in with an API key uses API pricing.
+
+Prototype flow:
+
+1. Start Codex and choose **Sign in with ChatGPT** in its sign-in flow.
+2. Confirm Agent OS is registered as an MCP server:
+   `codex mcp list`
+3. Start the Agent OS loopback bridge:
+   `agent-os browser-bridge`
+4. Enable **Agent OS: Browser control ON/OFF** in Tampermonkey.
+5. Ask Codex:
+   `List my Agent OS browser sessions and inspect the focused Firefox page.`
+6. Then try a low-risk action:
+   `In that Firefox session, scroll down 700 pixels.`
+
+This consumes the ChatGPT plan's Codex allowance rather than separately metered
+OpenAI API tokens. It is not unlimited usage and does not convert ordinary Chat
+messages into a free API; plan limits and any optional ChatGPT credits still
+apply.
+
+If `codex mcp list` does not show Agent OS, refresh the local Agent OS
+Codex/MCP registration before testing browser control.
 
 ## ChatGPT integration
 
