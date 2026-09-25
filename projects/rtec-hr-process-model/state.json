@@ -6,7 +6,7 @@
   "summary": "Provenance-backed, privacy-safe, version-aware model and searchable source corpus for roughly 20 years of RTEC HR process documentation.",
   "repository": "https://github.com/unwit1/personal-agent-os.git",
   "current_priorities": [
-    "Continue the resumable PC filesystem reconciliation in audits/filesystem-reconciliation/RECONCILIATION_STATUS.md; metadata/hash discovery is complete for configured roots, and the next stage is bounded local extraction/classification with restricted routing before any Knowledge Engine ingestion.",
+    "Continue the resumable PC filesystem reconciliation in audits/filesystem-reconciliation/RECONCILIATION_STATUS.md; metadata/hash discovery and deterministic extraction of all 15,441 candidates are complete. Cache-only OCR pilot is operational (12 complete, 1 restricted sample, 6,396 pending). Next: continue OCR, then exact/normalized-content reconciliation and review before any Knowledge Engine ingestion. R: remains excluded.",
     "Import the six distinct unindexed local PST candidates recorded in projects/rtec-hr-process-model/checkpoints/pst-archive-source-inventory.json after coordinating with the active read-only email-review pass; deduplicate at message level and preserve restricted content only in the local mail index.",
     "Continue the FY2017 grant scan ingestion in bounded, restart-safe section batches; do not attempt monolithic OCR of all 1,021 pages.",
     "Use grant checklists as the section map and deduplicate repeated assurances/certifications against the !Compliance archive before transcribing copies.",

@@ -101,6 +101,25 @@ def connect(path: Path) -> sqlite3.Connection:
       system_of_record_known INTEGER NOT NULL DEFAULT 0, gui_support_known INTEGER NOT NULL DEFAULT 0,
       automation_support_known INTEGER NOT NULL DEFAULT 0, currentness TEXT NOT NULL DEFAULT 'unknown',
       confidence REAL, status TEXT NOT NULL DEFAULT 'open', created_at TEXT NOT NULL, updated_at TEXT NOT NULL);
+    CREATE TABLE IF NOT EXISTS file_extractions(
+      path TEXT PRIMARY KEY REFERENCES files(path), file_sha256 TEXT NOT NULL,
+      processor_version TEXT NOT NULL, extraction_status TEXT NOT NULL, parser TEXT,
+      page_count INTEGER, sheet_count INTEGER, sheet_schemas_json TEXT NOT NULL DEFAULT '[]',
+      normalized_text_sha256 TEXT, text_char_count INTEGER NOT NULL DEFAULT 0,
+      nonempty_cell_count INTEGER, formula_count INTEGER, defined_name_count INTEGER,
+      signal_codes_json TEXT NOT NULL DEFAULT '[]', classification TEXT NOT NULL,
+      classification_confidence REAL NOT NULL, review_required INTEGER NOT NULL DEFAULT 1,
+      detail_code TEXT, extracted_at TEXT NOT NULL);
+    CREATE INDEX IF NOT EXISTS idx_file_extractions_class ON file_extractions(classification, extraction_status);
+    CREATE TABLE IF NOT EXISTS file_ocr(
+      path TEXT PRIMARY KEY REFERENCES files(path), file_sha256 TEXT NOT NULL,
+      processor_version TEXT NOT NULL, engine TEXT NOT NULL, status TEXT NOT NULL,
+      page_count INTEGER NOT NULL DEFAULT 0, pages_processed INTEGER NOT NULL DEFAULT 0,
+      page_hashes_json TEXT NOT NULL DEFAULT '[]', normalized_text_sha256 TEXT,
+      text_char_count INTEGER NOT NULL DEFAULT 0, signal_codes_json TEXT NOT NULL DEFAULT '[]',
+      classification TEXT NOT NULL DEFAULT 'UNKNOWN_REVIEW', classification_confidence REAL NOT NULL DEFAULT 0,
+      detail_code TEXT, updated_at TEXT NOT NULL);
+    CREATE INDEX IF NOT EXISTS idx_file_ocr_status ON file_ocr(status,classification);
     CREATE TABLE IF NOT EXISTS checkpoints(
       id INTEGER PRIMARY KEY AUTOINCREMENT, at TEXT NOT NULL, phase TEXT NOT NULL,
       roots INTEGER NOT NULL, directories_done INTEGER NOT NULL, files_discovered INTEGER NOT NULL,
@@ -241,6 +260,8 @@ def refresh_relevance(db: sqlite3.Connection) -> None:
                           "%\\knowledge\\libraries\\skyrim-modding\\%", "%\\cache2\\%",
                           "%\\.default-release\\%", "%\\.default-esr\\%")
     where = " OR ".join("LOWER(path) LIKE ?" for _ in excluded_patterns)
+    db.execute(f"DELETE FROM file_extractions WHERE path IN (SELECT path FROM files WHERE {where})", excluded_patterns)
+    db.execute(f"DELETE FROM file_ocr WHERE path IN (SELECT path FROM files WHERE {where})", excluded_patterns)
     db.execute(f"DELETE FROM employee_documents WHERE file_path IN (SELECT path FROM files WHERE {where})", excluded_patterns)
     removed_files = db.execute(f"DELETE FROM files WHERE {where}", excluded_patterns).rowcount
     removed_dirs = db.execute(f"DELETE FROM directories WHERE {where}", excluded_patterns).rowcount
@@ -443,6 +464,184 @@ def reconcile_hashes(db: sqlite3.Connection) -> tuple[int, int]:
     return matched, duplicates
 
 
+def extract_batch(db: sqlite3.Connection, limit: int) -> int:
+    from extractor import extract, PROCESSOR_VERSION
+
+    rows = db.execute("""SELECT f.path,f.sha256,f.sensitivity_route,f.size,f.mtime_ns FROM files f
+      LEFT JOIN file_extractions e ON e.path=f.path
+      WHERE f.likely_hr=1 AND f.sha256 IS NOT NULL
+      AND (e.path IS NULL OR e.file_sha256!=f.sha256 OR e.processor_version!=?)
+      ORDER BY f.path LIMIT ?""", (PROCESSOR_VERSION, limit)).fetchall()
+    processed = 0
+    for row in rows:
+        path = Path(row["path"])
+        try:
+            before = path.stat()
+        except OSError as exc:
+            failure(db, row["path"], "extract", "PERMISSION_DENIED" if isinstance(exc, PermissionError) else "SOURCE_MISSING", type(exc).__name__)
+            db.execute("UPDATE files SET classification='UNPARSEABLE',error_code='SOURCE_MISSING',updated_at=? WHERE path=?", (now(), row["path"]))
+            db.commit()
+            processed += 1
+            continue
+        if before.st_size != row["size"] or before.st_mtime_ns != row["mtime_ns"]:
+            failure(db, row["path"], "extract", "CHANGED_DURING_EXTRACTION", "metadata_mismatch_before")
+            db.execute("UPDATE files SET sha256=NULL,hash_state='pending',hash_fingerprint=NULL,source_match=NULL,matched_source_id=NULL,matched_knowledge_path=NULL,classification='UNKNOWN_REVIEW',error_code='CHANGED_DURING_EXTRACTION',updated_at=? WHERE path=?", (now(), row["path"]))
+            db.commit()
+            processed += 1
+            continue
+        result = extract(path, row["sensitivity_route"])
+        try:
+            after = path.stat()
+        except OSError:
+            after = None
+        if after is None or after.st_size != before.st_size or after.st_mtime_ns != before.st_mtime_ns:
+            failure(db, row["path"], "extract", "CHANGED_DURING_EXTRACTION", "metadata_mismatch_after")
+            db.execute("UPDATE files SET sha256=NULL,hash_state='pending',hash_fingerprint=NULL,source_match=NULL,matched_source_id=NULL,matched_knowledge_path=NULL,classification='UNKNOWN_REVIEW',error_code='CHANGED_DURING_EXTRACTION',updated_at=? WHERE path=?", (now(), row["path"]))
+            db.commit()
+            processed += 1
+            continue
+        status = result.get("status", "PARSE_FAILED")
+        code = result.get("detail_code")
+        extracted_at = now()
+        db.execute("""INSERT INTO file_extractions(
+          path,file_sha256,processor_version,extraction_status,parser,page_count,sheet_count,
+          sheet_schemas_json,normalized_text_sha256,text_char_count,nonempty_cell_count,
+          formula_count,defined_name_count,signal_codes_json,classification,
+          classification_confidence,review_required,detail_code,extracted_at)
+          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+          ON CONFLICT(path) DO UPDATE SET file_sha256=excluded.file_sha256,
+          processor_version=excluded.processor_version,extraction_status=excluded.extraction_status,
+          parser=excluded.parser,page_count=excluded.page_count,sheet_count=excluded.sheet_count,
+          sheet_schemas_json=excluded.sheet_schemas_json,normalized_text_sha256=excluded.normalized_text_sha256,
+          text_char_count=excluded.text_char_count,nonempty_cell_count=excluded.nonempty_cell_count,
+          formula_count=excluded.formula_count,defined_name_count=excluded.defined_name_count,
+          signal_codes_json=excluded.signal_codes_json,classification=excluded.classification,
+          classification_confidence=excluded.classification_confidence,
+          review_required=excluded.review_required,detail_code=excluded.detail_code,extracted_at=excluded.extracted_at""",
+            (row["path"], row["sha256"], result.get("processor_version", PROCESSOR_VERSION), status,
+             result.get("method"), result.get("page_count"), result.get("sheet_count"),
+             json.dumps(result.get("sheet_schemas", []), ensure_ascii=False), result.get("normalized_sha256"),
+             int(result.get("text_char_count", 0)), result.get("nonempty_cell_count"), result.get("formula_count"),
+             result.get("defined_name_count"), json.dumps(result.get("signal_codes", [])),
+             result.get("classification", "UNKNOWN_REVIEW"), float(result.get("classification_confidence", 0)),
+             1, code, extracted_at))
+        classification = result.get("classification", "UNKNOWN_REVIEW")
+        db.execute("UPDATE files SET classification=?,review_required=1,error_code=?,updated_at=? WHERE path=?",
+                   (classification, status if status in {"PARSE_FAILED", "PASSWORD_PROTECTED", "CORRUPT", "UNSUPPORTED_FORMAT", "OCR_REQUIRED", "ARCHIVE_REVIEW", "partial"} else None, extracted_at, row["path"]))
+        if classification == "EMPLOYEE_SPECIFIC_RESTRICTED" and float(result.get("classification_confidence", 0)) >= 0.8:
+            doc_id = "empdoc-" + hashlib.sha256((row["path"] + row["sha256"]).encode("utf-8")).hexdigest()[:24]
+            provenance = {"sha256": row["sha256"], "processor_version": PROCESSOR_VERSION, "extraction_status": status, "privacy_routing_reason": result.get("signal_codes", [])}
+            db.execute("""INSERT INTO employee_documents(document_id,file_path,employee_key,employee_display_name,
+              employee_match_confidence,document_type,document_subtype,sensitivity_category,file_sha256,
+              duplicate_group,file_size,modified_at,provenance_json,parser,extraction_status,
+              classification_confidence,review_required,gui_known,created_at,updated_at)
+              SELECT ?,path,NULL,NULL,NULL,'unknown','unknown','restricted',sha256,duplicate_group,size,
+              datetime(mtime_ns/1000000000,'unixepoch'),?, ?, ?, ?,1,0,?,? FROM files WHERE path=?
+              ON CONFLICT(file_path) DO UPDATE SET file_sha256=excluded.file_sha256,
+              duplicate_group=excluded.duplicate_group,file_size=excluded.file_size,
+              modified_at=excluded.modified_at,provenance_json=excluded.provenance_json,
+              parser=excluded.parser,extraction_status=excluded.extraction_status,
+              classification_confidence=excluded.classification_confidence,updated_at=excluded.updated_at""",
+                (doc_id, json.dumps(provenance), result.get("method"), status,
+                 float(result.get("classification_confidence", 0)), extracted_at, extracted_at, row["path"]))
+        if status in {"PARSE_FAILED", "PASSWORD_PROTECTED", "CORRUPT", "UNSUPPORTED_FORMAT", "OCR_REQUIRED", "ARCHIVE_REVIEW", "partial"}:
+            failure(db, row["path"], "extract", status, code or result.get("method", ""))
+        processed += 1
+        db.commit()
+    return processed
+
+
+def ocr_batch(db: sqlite3.Connection, limit: int, pages_per_file: int) -> int:
+    import ocr as local_ocr
+
+    rows = db.execute("""SELECT f.path,f.sha256,f.sensitivity_route,f.size,f.mtime_ns,
+      o.file_sha256 AS o_sha,o.processor_version AS o_processor,o.page_count AS o_total,
+      o.pages_processed AS o_done,o.page_hashes_json,o.text_char_count,o.signal_codes_json
+      FROM files f JOIN file_extractions e ON e.path=f.path
+      LEFT JOIN file_ocr o ON o.path=f.path
+      WHERE e.extraction_status='OCR_REQUIRED' AND f.sha256 IS NOT NULL
+        AND (o.path IS NULL OR o.file_sha256!=f.sha256 OR o.processor_version!=? OR o.status NOT IN ('complete','restricted_sampled'))
+      ORDER BY f.path LIMIT ?""", (local_ocr.OCR_PROCESSOR_VERSION, limit)).fetchall()
+    if not rows:
+        return 0
+    try:
+        reader = local_ocr.get_reader()
+        reader_error = None
+    except Exception as exc:
+        reader = None
+        reader_error = type(exc).__name__
+    processed = 0
+    for row in rows:
+        path = Path(row["path"])
+        try:
+            before = path.stat()
+            if before.st_size != row["size"] or before.st_mtime_ns != row["mtime_ns"]:
+                raise RuntimeError("source_changed_before_ocr")
+            if reader_error:
+                raise RuntimeError("cached_ocr_model_unavailable")
+            same_run = (row["o_sha"] == row["sha256"] and row["o_processor"] == local_ocr.OCR_PROCESSOR_VERSION)
+            total = row["o_total"] if same_run and row["o_total"] is not None else local_ocr.page_count(path)
+            start = int(row["o_done"] or 0) if same_run else 0
+            page_hashes = json.loads(row["page_hashes_json"] or "[]") if same_run else []
+            signals = set(json.loads(row["signal_codes_json"] or "[]")) if same_run else set()
+            text_chars = int(row["text_char_count"] or 0) if same_run else 0
+            page_limit = min(max(1, pages_per_file), 2) if row["sensitivity_route"] == "restricted_employee_metadata_only" else max(1, pages_per_file)
+            stop = min(total, start + page_limit)
+            for page_index in range(start, stop):
+                result = local_ocr.extract_page(path, page_index, reader)
+                page_hashes.append(result["page_text_sha256"])
+                signals.update(result["signal_codes"])
+                text_chars += int(result["text_char_count"])
+            classification, confidence = local_ocr.classify_ocr(sorted(signals), path.stem, row["sensitivity_route"])
+            status = "complete" if stop >= total else "restricted_sampled" if classification == "EMPLOYEE_SPECIFIC_RESTRICTED" else "partial"
+            after = path.stat()
+            if after.st_size != before.st_size or after.st_mtime_ns != before.st_mtime_ns:
+                raise RuntimeError("source_changed_during_ocr")
+            extracted_at = now()
+            db.execute("""INSERT INTO file_ocr(path,file_sha256,processor_version,engine,status,page_count,
+              pages_processed,page_hashes_json,normalized_text_sha256,text_char_count,signal_codes_json,
+              classification,classification_confidence,detail_code,updated_at)
+              VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(path) DO UPDATE SET
+              file_sha256=excluded.file_sha256,processor_version=excluded.processor_version,engine=excluded.engine,
+              status=excluded.status,page_count=excluded.page_count,pages_processed=excluded.pages_processed,
+              page_hashes_json=excluded.page_hashes_json,normalized_text_sha256=excluded.normalized_text_sha256,
+              text_char_count=excluded.text_char_count,signal_codes_json=excluded.signal_codes_json,
+              classification=excluded.classification,classification_confidence=excluded.classification_confidence,
+              detail_code=NULL,updated_at=excluded.updated_at""",
+                (row["path"], row["sha256"], local_ocr.OCR_PROCESSOR_VERSION, "easyocr-local-cache-only", status,
+                 total, stop, json.dumps(page_hashes), local_ocr.aggregate_hash([x for x in page_hashes if x]),
+                 text_chars, json.dumps(sorted(signals)), classification, confidence, None, extracted_at))
+            db.execute("UPDATE files SET classification=?,review_required=1,error_code=NULL,updated_at=? WHERE path=?",
+                       (classification, extracted_at, row["path"]))
+            if classification == "EMPLOYEE_SPECIFIC_RESTRICTED":
+                doc_id = "empdoc-" + hashlib.sha256((row["path"] + row["sha256"]).encode("utf-8")).hexdigest()[:24]
+                provenance = {"sha256": row["sha256"], "processor_version": local_ocr.OCR_PROCESSOR_VERSION,
+                              "extraction_status": status, "privacy_routing_reason": sorted(signals)}
+                db.execute("""INSERT INTO employee_documents(document_id,file_path,employee_key,employee_display_name,
+                  employee_match_confidence,document_type,document_subtype,sensitivity_category,file_sha256,
+                  duplicate_group,file_size,modified_at,provenance_json,parser,extraction_status,
+                  classification_confidence,review_required,gui_known,created_at,updated_at)
+                  SELECT ?,path,NULL,NULL,NULL,'unknown','unknown','restricted',sha256,duplicate_group,size,
+                  datetime(mtime_ns/1000000000,'unixepoch'),?, 'easyocr-local-cache-only', ?, ?,1,0,?,?
+                  FROM files WHERE path=? ON CONFLICT(file_path) DO UPDATE SET file_sha256=excluded.file_sha256,
+                  duplicate_group=excluded.duplicate_group,provenance_json=excluded.provenance_json,
+                  parser=excluded.parser,extraction_status=excluded.extraction_status,
+                  classification_confidence=excluded.classification_confidence,updated_at=excluded.updated_at""",
+                    (doc_id, json.dumps(provenance), status, confidence, extracted_at, extracted_at, row["path"]))
+            db.commit()
+        except Exception as exc:
+            status = "SOURCE_CHANGED" if "source_changed" in str(exc) else "OCR_FAILED"
+            failure(db, row["path"], "ocr", status, type(exc).__name__)
+            db.execute("""INSERT INTO file_ocr(path,file_sha256,processor_version,engine,status,detail_code,updated_at)
+              VALUES(?,?,?,?,?,?,?) ON CONFLICT(path) DO UPDATE SET status=excluded.status,
+              detail_code=excluded.detail_code,updated_at=excluded.updated_at""",
+                       (row["path"], row["sha256"], local_ocr.OCR_PROCESSOR_VERSION,
+                        "easyocr-local-cache-only", status, type(exc).__name__, now()))
+            db.commit()
+        processed += 1
+    return processed
+
+
 def checkpoint(db: sqlite3.Connection, phase: str, note: str = "") -> dict:
     def count(query):
         return db.execute(query).fetchone()[0]
@@ -461,6 +660,16 @@ def checkpoint(db: sqlite3.Connection, phase: str, note: str = "") -> dict:
         "distinct_known_source_hashes": count("SELECT COUNT(DISTINCT sha256) FROM source_hashes"),
         "review_queue_items": count("SELECT COUNT(*) FROM review_queue"),
         "employee_registry_entries": count("SELECT COUNT(*) FROM employee_documents"),
+        "files_extracted": count("SELECT COUNT(*) FROM file_extractions"),
+        "safe_organizational_candidates": count("SELECT COUNT(*) FROM file_extractions WHERE classification='SAFE_ORGANIZATIONAL_CANDIDATE'"),
+        "restricted_content_classifications": count("SELECT COUNT(*) FROM file_extractions WHERE classification='EMPLOYEE_SPECIFIC_RESTRICTED'"),
+        "mixed_or_uncertain_classifications": count("SELECT COUNT(*) FROM file_extractions WHERE classification='MIXED_OR_UNCERTAIN'"),
+        "unparseable_or_review_extractions": count("SELECT COUNT(*) FROM file_extractions WHERE extraction_status NOT IN ('parsed','empty_text')"),
+        "ocr_files_complete": count("SELECT COUNT(*) FROM file_ocr WHERE status='complete'"),
+        "ocr_files_partial": count("SELECT COUNT(*) FROM file_ocr WHERE status='partial'"),
+        "ocr_files_restricted_sampled": count("SELECT COUNT(*) FROM file_ocr WHERE status='restricted_sampled'"),
+        "ocr_files_failed": count("SELECT COUNT(*) FROM file_ocr WHERE status IN ('OCR_FAILED','SOURCE_CHANGED')"),
+        "ocr_required_pending": count("SELECT COUNT(*) FROM file_extractions e LEFT JOIN file_ocr o ON o.path=e.path WHERE e.extraction_status='OCR_REQUIRED' AND (o.path IS NULL OR o.status NOT IN ('complete','restricted_sampled'))"),
         "failures": count("SELECT COUNT(*) FROM failures"),
     }
     current = db.execute("SELECT value FROM audit_meta WHERE key='current_directory'").fetchone()
@@ -489,9 +698,14 @@ def main(argv=None) -> int:
     parser.add_argument("--discover", action="store_true", help="Discover root directories in one bounded pass")
     parser.add_argument("--hash", action="store_true", help="Hash a bounded batch of unchanged candidate files")
     parser.add_argument("--reconcile", action="store_true", help="Index safe Knowledge Engine source hashes and reconcile exact file hashes")
+    parser.add_argument("--extract", action="store_true", help="Run local deterministic extraction and conservative privacy routing on a bounded batch")
+    parser.add_argument("--ocr", action="store_true", help="Run cached-model-only local OCR on a bounded batch")
     parser.add_argument("--max-dirs", type=int, default=40)
     parser.add_argument("--max-files", type=int, default=500)
     parser.add_argument("--hash-limit", type=int, default=150)
+    parser.add_argument("--extract-limit", type=int, default=25)
+    parser.add_argument("--ocr-limit", type=int, default=5)
+    parser.add_argument("--ocr-pages-per-file", type=int, default=10)
     args = parser.parse_args(argv)
     db = connect(args.db)
     roots = default_roots() + [Path(item) for item in args.root]
@@ -509,9 +723,15 @@ def main(argv=None) -> int:
         inserted = collect_hashes(db, REPO / "knowledge" / "libraries" / "rtec-hr")
         matched, duplicates = reconcile_hashes(db)
         phases.append(f"reconciliation: {inserted} safe source hash references indexed; {matched} exact matches; {duplicates} duplicate members")
+    if args.extract:
+        count = extract_batch(db, args.extract_limit)
+        phases.append(f"extraction: {count} files processed in this local batch")
+    if args.ocr:
+        count = ocr_batch(db, args.ocr_limit, args.ocr_pages_per_file)
+        phases.append(f"OCR: {count} files processed in this local batch")
     phase = "+".join(x.split(":",1)[0] for x in phases) or "status"
     stats = checkpoint(db, phase, "; ".join(phases))
-    note = "resume --discover until directories_queued is 0; then --hash until files_pending_hash is 0; then --reconcile" if stats["directories_queued"] or stats["files_pending_hash"] else "review exact matches, local duplicate groups and UNKNOWN_REVIEW records; do not ingest automatically"
+    note = "resume --discover until directories_queued is 0; then --hash until files_pending_hash is 0; then --reconcile" if stats["directories_queued"] or stats["files_pending_hash"] else "resume --ocr in bounded local batches; all results remain review-required and local-only"
     stats["directories_queued"] = stats.pop("directories_queued")
     stats["files_pending_hash"] = stats.pop("files_pending_hash")
     stats["roots_added_this_run"] = added

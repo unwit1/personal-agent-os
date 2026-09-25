@@ -1,6 +1,6 @@
 # RTEC HR filesystem reconciliation
 
-Status: initial architecture recovered; metadata inventory is the next resumable stage.
+Status: architecture, metadata inventory, exact-hash reconciliation, and first-pass deterministic extraction are complete for configured roots. Cache-only OCR is operational with 12 files complete, 1 restricted sample, and 6,396 files still queued; review/reconciliation remain outstanding.
 
 ## Canonical locations and existing capabilities
 
@@ -30,7 +30,7 @@ workstation work roots
   -> resumable local metadata inventory (SQLite; paths, metadata, cached SHA-256)
   -> exact raw hash match against safe RTEC source/provenance records
   -> local duplicate groups and review queue
-  -> deterministic format extraction only after safe/restricted routing
+  -> deterministic format extraction and privacy routing
       -> safe organizational candidates -> existing Knowledge Engine contract
       -> employee-specific/restricted -> local employee-document registry
       -> ambiguous/failed -> local review queue
@@ -45,8 +45,8 @@ Exact hash equality can establish `ALREADY_INGESTED_EXACT` only when the compara
 2. No standalone employee-document registry exists in HR GUI. Existing roster, personnel-folder paths, scanner routing, and form rules are useful integration points, but missing/current/expired status must remain unknown until an explicit requirement model exists.
 3. Scanner intake is centered on PDF/image/Word conversion. XLS/XLSX import schemas exist separately, so the scanner's document conversion and structured spreadsheet ingestion are distinct paths.
 4. Applicant files are explicitly out of scope for generic indexing; use only the approved Applicant Dashboard adapter for a separately authorized administrative workflow.
-5. The first pass records metadata and cached local hashes only. It does not extract document text, run OCR, or write organizational knowledge. Those later actions require per-file classification and explicit review of ambiguous/mixed records.
+5. The audit extracts locally into memory for hashes, structural metadata, and privacy signal codes. Raw text and detected values are not persisted. OCR is cache-only, has network downloads disabled, and saves page hashes/counts/signal codes only. Every extraction result remains review-required; no organizational knowledge has been written.
 
 ## Resumption
 
-Read `.agent-local/rtec-hr-reconciliation/audit.sqlite3` and `audit.log` before continuing. Resume with `inventory.py`; directories and file hashes are idempotent. Never put their path-bearing contents in Git. The live database is intentionally absent from this repository and is not committed.
+Read `RECONCILIATION_STATUS.md`, then `.agent-local/rtec-hr-reconciliation/audit.sqlite3` and `audit.log`. First-pass extractions are complete. Continue with `inventory.py --ocr --ocr-limit 5 --ocr-pages-per-file 10`; pages and files resume from the local OCR ledger. Directories and hashes are cached. Never put path-bearing database/log contents in Git. The live database is intentionally absent from this repository and is not committed.

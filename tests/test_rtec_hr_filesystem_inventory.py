@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
+import json
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+
 
 
 MODULE_PATH = (
@@ -20,6 +23,19 @@ assert SPEC and SPEC.loader
 inventory = importlib.util.module_from_spec(SPEC)
 sys.modules[SPEC.name] = inventory
 SPEC.loader.exec_module(inventory)
+EXTRACTOR_PATH = MODULE_PATH.with_name("extractor.py")
+EXTRACTOR_SPEC = importlib.util.spec_from_file_location("rtec_hr_local_extractor", EXTRACTOR_PATH)
+assert EXTRACTOR_SPEC and EXTRACTOR_SPEC.loader
+extractor = importlib.util.module_from_spec(EXTRACTOR_SPEC)
+sys.modules[EXTRACTOR_SPEC.name] = extractor
+EXTRACTOR_SPEC.loader.exec_module(extractor)
+sys.modules["extractor"] = extractor
+OCR_PATH = MODULE_PATH.with_name("ocr.py")
+OCR_SPEC = importlib.util.spec_from_file_location("rtec_hr_local_ocr", OCR_PATH)
+assert OCR_SPEC and OCR_SPEC.loader
+ocr = importlib.util.module_from_spec(OCR_SPEC)
+sys.modules[OCR_SPEC.name] = ocr
+OCR_SPEC.loader.exec_module(ocr)
 
 
 class RtecHrFilesystemInventoryTests(unittest.TestCase):
@@ -53,6 +69,118 @@ class RtecHrFilesystemInventoryTests(unittest.TestCase):
             self.assertEqual(seen, 3)
             self.assertEqual(db.execute("SELECT COUNT(*) FROM directories WHERE status='done'").fetchone()[0], 1)
             db.close()
+
+    def test_xlsx_extracts_all_sheets_without_returning_cell_values(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            try:
+                from openpyxl import Workbook
+            except ImportError:
+                self.skipTest("openpyxl is optional for local workbook parsing")
+            path = Path(tmp) / "Employee Roster.xlsx"
+            workbook = Workbook()
+            visible = workbook.active
+            visible.title = "Office"
+            visible.append(["Employee ID", "Name", "Email"])
+            visible.append(["0001", "Synthetic Person", "person@example.test"])
+            hidden = workbook.create_sheet("Hidden Data")
+            hidden.sheet_state = "hidden"
+            hidden.append(["SSN", "Date of Birth"])
+            hidden.append(["123-45-6789", "01/02/1980"])
+            workbook.save(path)
+
+            result = extractor.extract(path, "organizational_candidate_or_mixed_review")
+
+            self.assertEqual(result["classification"], "EMPLOYEE_SPECIFIC_RESTRICTED")
+            self.assertEqual(result["sheet_count"], 2)
+            self.assertEqual(result["sheet_schemas"][1]["sheet_state"], "hidden")
+            self.assertIn("ssn_value_pattern", result["signal_codes"])
+            self.assertNotIn("text", result)
+            self.assertNotIn("Synthetic Person", repr(result))
+            self.assertNotIn("123-45-6789", repr(result))
+
+    def test_blank_policy_candidate_is_reviewable_but_not_auto_promoted(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "Leave Policy.txt"
+            path.write_text("Leave policy and procedure. " + "General process instructions. " * 20, encoding="utf-8")
+
+            result = extractor.extract(path, "organizational_candidate_or_mixed_review")
+
+            self.assertEqual(result["classification"], "SAFE_ORGANIZATIONAL_CANDIDATE")
+            self.assertEqual(result["review_required"], 1)
+            self.assertNotIn("text", result)
+
+    def test_ocr_routes_signal_codes_without_returning_raw_text(self) -> None:
+        class FakeReader:
+            def readtext(self, _image, detail=1, paragraph=True):
+                return [([[(0, 0), (1, 0), (1, 1), (0, 1)]], "Employee ID 123456", 0.99)]
+
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "Synthetic Scan.png"
+            from PIL import Image
+
+            Image.new("RGB", (20, 20), "white").save(path)
+            result = ocr.extract_page(path, 0, FakeReader())
+
+        self.assertIn("employee_record_content_term", result["signal_codes"])
+        self.assertNotIn("text", result)
+        self.assertNotIn("123456", repr(result))
+        self.assertEqual(
+            ocr.classify_ocr(result["signal_codes"], "policy", "organizational_candidate_or_mixed_review")[0],
+            "EMPLOYEE_SPECIFIC_RESTRICTED",
+        )
+        self.assertEqual(
+            ocr.classify_ocr([], "leave policy", "organizational_candidate_or_mixed_review")[0],
+            "SAFE_ORGANIZATIONAL_CANDIDATE",
+        )
+
+    def test_ocr_batch_resumes_at_the_next_page_without_storing_text(self) -> None:
+        from types import SimpleNamespace
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            path = root / "Blank Policy.pdf"
+            path.write_bytes(b"synthetic-pdf")
+            stat = path.stat()
+            db = inventory.connect(root / "audit.sqlite3")
+            db.execute("""INSERT INTO files(path,root,filename,extension,size,mtime_ns,likely_hr,
+              sensitivity_route,sha256,hash_state,discovered_at,updated_at)
+              VALUES(?,?,?,?,?,?,?,?,?,?,?,?)""",
+                       (str(path), str(root), path.name, ".pdf", stat.st_size, stat.st_mtime_ns,
+                        1, "organizational_candidate_or_mixed_review", "a" * 64, "complete", "now", "now"))
+            db.execute("""INSERT INTO file_extractions(path,file_sha256,processor_version,extraction_status,
+              classification,classification_confidence,extracted_at)
+              VALUES(?,?,?,?,?,?,?)""",
+                       (str(path), "a" * 64, extractor.PROCESSOR_VERSION, "OCR_REQUIRED", "UNKNOWN_REVIEW", 0.0, "now"))
+            db.commit()
+            fake_ocr = SimpleNamespace(
+                OCR_PROCESSOR_VERSION="fake-ocr@1",
+                get_reader=lambda: object(),
+                page_count=lambda _path: 2,
+                extract_page=lambda _path, index, _reader: {
+                    "page_text_sha256": hashlib.sha256(f"page-{index}".encode()).hexdigest(),
+                    "text_char_count": 12,
+                    "signal_codes": [],
+                },
+                classify_ocr=lambda _signals, _hint, _route: ("SAFE_ORGANIZATIONAL_CANDIDATE", 0.7),
+                aggregate_hash=lambda values: hashlib.sha256("\n".join(values).encode()).hexdigest(),
+            )
+            previous = sys.modules.get("ocr")
+            sys.modules["ocr"] = fake_ocr
+            try:
+                self.assertEqual(inventory.ocr_batch(db, 1, 1), 1)
+                first = db.execute("SELECT status,pages_processed,page_hashes_json FROM file_ocr").fetchone()
+                self.assertEqual((first["status"], first["pages_processed"]), ("partial", 1))
+                self.assertEqual(inventory.ocr_batch(db, 1, 1), 1)
+                second = db.execute("SELECT status,pages_processed,page_hashes_json FROM file_ocr").fetchone()
+                self.assertEqual((second["status"], second["pages_processed"]), ("complete", 2))
+                self.assertEqual(len(json.loads(second["page_hashes_json"])), 2)
+                self.assertNotIn("synthetic-pdf", second["page_hashes_json"])
+            finally:
+                if previous is None:
+                    sys.modules.pop("ocr", None)
+                else:
+                    sys.modules["ocr"] = previous
+                db.close()
 
 
 if __name__ == "__main__":
