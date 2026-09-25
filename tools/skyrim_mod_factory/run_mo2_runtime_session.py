@@ -278,15 +278,41 @@ def copy_changed_evidence(delta:list[dict[str,Any]],session_dir:Path)->list[dict
         out.append(item)
     return out
 
-def default_gate_rows()->list[dict[str,Any]]:
+def default_gate_rows(test:dict[str,Any])->list[dict[str,Any]]:
+    performance_required=bool(
+        (test.get("evidence") or {}).get("performance")
+        or any(x.get("kind")=="performance" for x in test.get("assertions") or [])
+    )
+    save_required=(test.get("fixture") or {}).get("kind")=="save"
     return [
         {
-            "gate":gate,
+            "gate":"G19",
             "status":"needs-review",
             "evidence":[],
-            "issues":["no typed runtime observer evidence was supplied"],
-        }
-        for gate in ("G19","G20","G21","G26")
+            "issues":["crash/log cleanliness has not been proven for this session"],
+        },
+        {
+            "gate":"G20",
+            "status":"needs-review" if performance_required else "not-applicable",
+            "evidence":[] if performance_required else [
+                "runtime test declares no performance assertion or performance evidence"
+            ],
+            "issues":["performance evidence has not been supplied"] if performance_required else [],
+        },
+        {
+            "gate":"G21",
+            "status":"needs-review" if save_required else "not-applicable",
+            "evidence":[] if save_required else [
+                "runtime fixture is not save-based"
+            ],
+            "issues":["save/migration evidence has not been supplied"] if save_required else [],
+        },
+        {
+            "gate":"G26",
+            "status":"needs-review",
+            "evidence":[],
+            "issues":["runtime assertions have not been observed by a typed adapter"],
+        },
     ]
 
 def prepare_session(
@@ -407,7 +433,7 @@ def prepare_session(
             "frame_traces":[],
         },
         "cleanup":{"attempted":False,"status":"skipped","issues":[]},
-        "gates":default_gate_rows(),
+        "gates":default_gate_rows(test),
         "issues":[],
     }
     result["_template_before"]=template_before
