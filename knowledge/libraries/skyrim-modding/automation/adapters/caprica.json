@@ -1,0 +1,86 @@
+{
+  "schema_version": "skyrim-tool-adapter-v1",
+  "adapter_id": "caprica",
+  "tool": "Caprica",
+  "tool_version": "0.3.0",
+  "source": "https://github.com/Orvid/Caprica",
+  "targets": [
+    "skyrim-se-ae"
+  ],
+  "capabilities": [
+    "papyrus-compile",
+    "papyrus-cross-compiler",
+    "directory-compile",
+    "pcompiler-compatibility",
+    "compile-diagnostics"
+  ],
+  "invocation": {
+    "mode": "cli",
+    "executable": "Caprica.exe",
+    "transport": "CLI",
+    "requires_running_game": false
+  },
+  "inputs": [
+    "PSC source",
+    "Papyrus import roots",
+    "flags file",
+    "compiler options"
+  ],
+  "outputs": [
+    "PEX",
+    "compiler diagnostics"
+  ],
+  "logs": [
+    "stdout",
+    "stderr"
+  ],
+  "success": {
+    "exit_codes": [
+      0
+    ],
+    "forbidden_log_patterns": [
+      "error:",
+      "fatal:"
+    ]
+  },
+  "retry": {
+    "safe": true,
+    "max_attempts": 1,
+    "cleanup_outputs_first": false
+  },
+  "coverage": {
+    "description": "Open-source Papyrus compiler useful as an independent compiler and deterministic CI surface.",
+    "known_gaps": [
+      "Caprica deliberately differs from Bethesda compiler in some language behavior",
+      "v0.3.0 notes that PPJ files are not fully supported, so it is not a complete Creation Kit compiler replacement"
+    ],
+    "denominator_probe": "PSC files requested vs PEX outputs and compiler diagnostics."
+  },
+  "safety": {
+    "mutation_default": "new-output",
+    "supports_dry_run": false,
+    "supports_readback": true,
+    "supports_undo": true,
+    "sandbox_or_scope": "Compile into isolated build directory; never overwrite canonical PSC."
+  },
+  "verification": {
+    "independent_validators": [
+      "official-papyruscompiler",
+      "champollion-roundtrip",
+      "papyrus-provider-index"
+    ],
+    "version_probe": "Caprica --version/release tag",
+    "output_readback": "Inspect PEX metadata/decompile selected fixtures."
+  },
+  "ai": {
+    "typed_tooling": false,
+    "schema_discovery": false,
+    "provider_neutral": true,
+    "context_cost_notes": "Best used as a second compiler/oracle, not as proof that runtime native dependencies exist."
+  },
+  "evidence": {
+    "source_url": "https://github.com/Orvid/Caprica",
+    "verified_date": "2026-09-24",
+    "notes": "Current release page observed v0.3.0 with Skyrim support and pcompiler-compatible CLI mode."
+  }
+}
