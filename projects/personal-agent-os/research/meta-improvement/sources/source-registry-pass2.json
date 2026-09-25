@@ -1923,6 +1923,237 @@
       "evidence_notes": "Current model-family guidance and migration considerations; emphasizes task requirements, cost and latency rather than one universal model.",
       "limits": "Vendor guidance and rapid product churn.",
       "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0193",
+      "title": "Measuring and Narrowing the Compositionality Gap in Language Models (Self-Ask)",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2210.03350",
+      "topics": [
+        "prompting",
+        "self_ask",
+        "tool_use"
+      ],
+      "evidence_notes": "Self-Ask explicitly decomposes multi-hop questions into follow-up questions and can route them to search; reported narrower compositionality gaps.",
+      "limits": "Older GPT-3-era evidence; current tool-using models may internalize parts of the behavior.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0194",
+      "title": "Take a Step Back: Evoking Reasoning via Abstraction",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.06117",
+      "topics": [
+        "prompting",
+        "abstraction"
+      ],
+      "evidence_notes": "Step-Back Prompting derives higher-level concepts/principles before solving specific problems; reported gains on STEM, QA and multi-hop reasoning.",
+      "limits": "Prompt-era/model dependent and may add redundant reasoning on current reasoning models.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0195",
+      "title": "Generated Knowledge Prompting for Commonsense Reasoning",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2110.08387",
+      "topics": [
+        "prompting",
+        "generated_knowledge"
+      ],
+      "evidence_notes": "Generate candidate knowledge first, then condition answer on it; reported gains on commonsense benchmarks.",
+      "limits": "Self-generated knowledge can hallucinate; authoritative retrieval is preferable for current facts.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0196",
+      "title": "Large Language Models as Analogical Reasoners",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2310.01714",
+      "topics": [
+        "prompting",
+        "analogical_reasoning"
+      ],
+      "evidence_notes": "Model self-generates relevant examples/knowledge before solving; reported gains over zero-shot/manual few-shot CoT on reasoning and coding tasks.",
+      "limits": "Generated analogies can be wrong and add inference cost.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0197",
+      "title": "Chain-of-Verification Reduces Hallucination in Large Language Models",
+      "type": "research",
+      "url": "https://aclanthology.org/2024.findings-acl.212/",
+      "topics": [
+        "prompting",
+        "verification",
+        "hallucination"
+      ],
+      "evidence_notes": "Draft, generate verification questions, answer them independently, then revise; reported lower hallucination across studied tasks.",
+      "limits": "Closed-book self-verification still lacks authoritative external truth and can share model blind spots.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0198",
+      "title": "Self-Discover: Large Language Models Self-Compose Reasoning Structures",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2402.03620",
+      "topics": [
+        "prompting",
+        "reasoning_scaffold"
+      ],
+      "evidence_notes": "Selects and composes atomic reasoning modules into task-specific reasoning structure; reported strong benchmark gains at lower inference compute than self-consistency.",
+      "limits": "Results on 2024-era models; structure-generation overhead and transfer need local eval.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0199",
+      "title": "Re-Reading Improves Reasoning in Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2309.06275",
+      "topics": [
+        "prompting",
+        "input_processing"
+      ],
+      "evidence_notes": "Re2 repeats/re-reads the question in the input and reported broad reasoning gains across 14 datasets in original experiments.",
+      "limits": "Very simple intervention with likely strong model-version sensitivity; adds duplicated input tokens.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0200",
+      "title": "Large Language Models Understand and Can be Enhanced by Emotional Stimuli",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2307.11760",
+      "topics": [
+        "prompting",
+        "emotion_prompt"
+      ],
+      "evidence_notes": "EmotionPrompt added emotional/stakes stimuli and reported gains on several 2023 models/tasks plus a human study.",
+      "limits": "Mechanism is unclear, susceptible to benchmark/model-era effects, and inappropriate as a production reliability assumption.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0201",
+      "title": "Thread of Thought Unraveling Chaotic Contexts",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2311.08734",
+      "topics": [
+        "prompting",
+        "long_context"
+      ],
+      "evidence_notes": "Segments and analyzes chaotic context while selecting relevant information; reported gains on QA and multi-turn response tasks.",
+      "limits": "May duplicate modern retrieval/context-selection behavior and increase output tokens.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0202",
+      "title": "Chain-of-Table: Evolving Tables in the Reasoning Chain",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2401.04398",
+      "topics": [
+        "prompting",
+        "tables",
+        "structured_reasoning"
+      ],
+      "evidence_notes": "Uses iterative table operations as structured intermediate state; reported strong table QA/fact verification results.",
+      "limits": "Table-specific and current models/tools may perform better with deterministic dataframe/SQL operations.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0203",
+      "title": "Learning to Reason and Memorize with Self-Notes",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.00833",
+      "topics": [
+        "prompting",
+        "memory",
+        "reasoning"
+      ],
+      "evidence_notes": "Allows interleaved self-notes while reading context and reported improvements over CoT/scratchpad on studied tasks.",
+      "limits": "Requires compatible training/prompting; freeform notes can expand context and preserve errors.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0204",
+      "title": "Chain-of-Knowledge: Grounding LLMs via Dynamic Knowledge Adapting",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.13269",
+      "topics": [
+        "prompting",
+        "retrieval",
+        "grounding"
+      ],
+      "evidence_notes": "Prepares rationales, detects disagreement, queries heterogeneous structured/unstructured sources, progressively corrects and consolidates answers.",
+      "limits": "Complex multi-stage pipeline; retrieval and rationale quality can interact badly.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0205",
+      "title": "Boosting Language Models Reasoning with Chain-of-Knowledge Prompting",
+      "type": "research",
+      "url": "https://aclanthology.org/2024.acl-long.271/",
+      "topics": [
+        "prompting",
+        "knowledge_triples",
+        "verification"
+      ],
+      "evidence_notes": "Generates explicit knowledge triples as reasoning evidence and adds factuality/faithfulness verification.",
+      "limits": "Structured triple representation may not suit all reasoning tasks.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0206",
+      "title": "Guiding Large Language Models via Directional Stimulus Prompting",
+      "type": "research",
+      "url": "https://www.microsoft.com/en-us/research/publication/guiding-large-language-models-via-directional-stimulus-prompting/",
+      "topics": [
+        "prompting",
+        "policy_model",
+        "hints"
+      ],
+      "evidence_notes": "Small tunable model generates instance-specific hints/stimuli for a black-box LLM; reported task gains with supervised/RL optimization.",
+      "limits": "Adds a second learned policy and task-specific training complexity.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0207",
+      "title": "Chain-of-Symbol Prompting Elicits Planning in Large Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2305.10276",
+      "topics": [
+        "prompting",
+        "symbolic_representation",
+        "planning"
+      ],
+      "evidence_notes": "Represents planning state with compact symbols rather than verbose natural-language CoT and reported large gains/token reductions on benchmark planning tasks.",
+      "limits": "Synthetic planning benchmarks and handcrafted symbolic representation.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0208",
+      "title": "Recitation-Augmented Language Models",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2210.01296",
+      "topics": [
+        "prompting",
+        "closed_book_qa",
+        "recitation"
+      ],
+      "evidence_notes": "Samples one or more internally recalled passages before answering and reported closed-book QA gains.",
+      "limits": "Recitation can confidently reproduce stale/hallucinated memory; retrieval is safer for authoritative facts.",
+      "status": "verified_or_primary_lead"
+    },
+    {
+      "id": "SRC-AI-0209",
+      "title": "Meta-Prompting: Enhancing Language Models with Task-Agnostic Scaffolding",
+      "type": "research",
+      "url": "https://arxiv.org/abs/2401.12954",
+      "topics": [
+        "prompting",
+        "orchestration",
+        "experts"
+      ],
+      "evidence_notes": "One model orchestrates specialized expert instances/subqueries and aggregates results; reported gains on reasoning/puzzle tasks with tools.",
+      "limits": "High call/coordination cost and overlaps with normal orchestrator-worker systems.",
+      "status": "verified_or_primary_lead"
     }
   ]
 }
